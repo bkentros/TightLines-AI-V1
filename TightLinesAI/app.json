@@ -16,7 +16,8 @@
       "bundleIdentifier": "com.finseekr.tightlinesai",
       "buildNumber": "1",
       "infoPlist": {
-        "ITSAppUsesNonExemptEncryption": false
+        "ITSAppUsesNonExemptEncryption": false,
+        "UIDesignRequiresCompatibility": true
       },
       "usesAppleSignIn": true
     },

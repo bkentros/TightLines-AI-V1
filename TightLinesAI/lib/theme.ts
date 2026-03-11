@@ -8,12 +8,13 @@ export const colors = {
   textMuted: '#94908A',
   textLight: '#FDFBF7',
 
-  sage: '#6B8F71',
-  sageDark: '#4A6B50',
-  sageLight: '#E8F0E9',
+  // Hunter green — primary brand (buttons, tabs, accents)
+  sage: '#2E5C34',
+  sageDark: '#1E4620',
+  sageLight: '#D4E5D6',
 
-  stone: '#7A7668',
-  warmTan: '#B8A98F',
+  stone: '#6B6659',
+  warmTan: '#A8956F',
 
   border: '#DDD7CA',
   borderLight: '#EAE5DC',
@@ -24,16 +25,21 @@ export const colors = {
   disabledBg: '#F0EDE4',
 
   tabBar: '#FDFBF7',
-  tabActive: '#6B8F71',
+  tabActive: '#2E5C34',
   tabInactive: '#94908A',
 
-  tileDark: '#2F3B32',
-  tileDarkPressed: '#384439',
+  tileDark: '#243D28',
+  tileDarkPressed: '#2D4A32',
   tileDarkText: '#F5F0E8',
-  tileDarkSub: '#B0B5A8',
+  tileDarkSub: '#A8B5A0',
 
-  gold: '#C7956D',
-  goldLight: '#C7956D18',
+  // Vibrant gold / amber (badges, highlights)
+  gold: '#C9A227',
+  goldLight: '#C9A22718',
+
+  // Accent blues and yellows (home tab tiles, etc.)
+  waterBlue: '#2E8FC4',
+  plannerYellow: '#E8B82E',
 } as const;
 
 export const fonts = {

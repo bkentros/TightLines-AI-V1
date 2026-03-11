@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { View, Text, StyleSheet, Pressable, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import * as Location from 'expo-location';
 import { colors, fonts, spacing, radius } from '../../lib/theme';
@@ -9,6 +10,7 @@ import { supabase } from '../../lib/supabase';
 import type { UserProfile } from '../../lib/types';
 
 export default function OnboardingStep3() {
+  const router = useRouter();
   const {
     user,
     onboardingPrefs,
@@ -52,7 +54,7 @@ export default function OnboardingStep3() {
         home_city: onboardingPrefs.home_city || null,
         fishing_mode: onboardingPrefs.fishing_mode ?? 'both',
         target_species: onboardingPrefs.target_species ?? [],
-        preferred_units: 'imperial' as const,
+        preferred_units: (onboardingPrefs.preferred_units ?? 'imperial') as 'imperial' | 'metric',
         subscription_tier: 'free' as const,
         onboarding_complete: true,
       };
@@ -111,6 +113,11 @@ export default function OnboardingStep3() {
   return (
     <SafeAreaView style={styles.safe} edges={['top', 'bottom']}>
       <View style={styles.container}>
+        {/* Back */}
+        <Pressable onPress={() => router.back()} style={styles.backBtn} hitSlop={12}>
+          <Ionicons name="chevron-back" size={22} color={colors.text} />
+        </Pressable>
+
         {/* Progress */}
         <View style={styles.progress}>
           {[0, 1, 2].map((i) => (
@@ -257,6 +264,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing.lg,
     paddingBottom: spacing.lg,
     justifyContent: 'space-between',
+  },
+  backBtn: {
+    paddingTop: spacing.md,
+    alignSelf: 'flex-start',
   },
 
   progress: {

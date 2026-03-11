@@ -403,7 +403,7 @@ export default function RecommenderScreen() {
               <View style={styles.hatchHeader}>
                 <Text style={styles.hatchTitle}>What's Hatching Now</Text>
                 <View style={styles.masterBadge}>
-                  <Ionicons name="diamond" size={10} color="#C7956D" />
+                  <Ionicons name="diamond" size={10} color={colors.gold} />
                   <Text style={styles.masterText}>Master Angler</Text>
                 </View>
               </View>
@@ -563,7 +563,7 @@ const styles = StyleSheet.create({
   hatchPanel: {
     backgroundColor: colors.surface, borderRadius: radius.md,
     padding: spacing.md, marginTop: spacing.sm,
-    borderWidth: 1, borderColor: '#C7956D40',
+    borderWidth: 1, borderColor: colors.gold + '40',
   },
   hatchHeader: {
     flexDirection: 'row', justifyContent: 'space-between',
@@ -572,10 +572,10 @@ const styles = StyleSheet.create({
   hatchTitle: { fontFamily: fonts.serif, fontSize: 16, color: colors.text },
   masterBadge: {
     flexDirection: 'row', alignItems: 'center', gap: 4,
-    backgroundColor: '#C7956D18', paddingHorizontal: spacing.sm,
+    backgroundColor: colors.goldLight, paddingHorizontal: spacing.sm,
     paddingVertical: 3, borderRadius: radius.sm,
   },
-  masterText: { fontSize: 10, fontWeight: '600', color: '#C7956D', letterSpacing: 0.3 },
+  masterText: { fontSize: 10, fontWeight: '600', color: colors.gold, letterSpacing: 0.3 },
   hatchCard: {
     backgroundColor: colors.background, borderRadius: radius.sm,
     padding: spacing.md, marginBottom: spacing.sm,

@@ -36,6 +36,65 @@ All tables live in `public` schema with Row Level Security enabled.
 
 ---
 
+## Email verification deep link (required for “Confirm your email” to open the app)
+
+The default Supabase confirmation email uses an `https://` link that opens in the browser, so the app never receives the link. To have “Confirm your email” open the app and then onboarding:
+
+### 1. Redirect URLs
+
+**Authentication** → **URL Configuration** → **Redirect URLs** must include:
+
+- `tightlinesai://**`
+- `https://hsesngprhpgajyfbrwbf.supabase.co/functions/v1/auth-redirect**`
+
+The second URL is used by the email link; when the user taps it, the Edge Function redirects to the app.
+
+### 2. Where to find the Confirm signup template
+
+- Open [Supabase Dashboard](https://supabase.com/dashboard) and select your project (**TightLines AI V1**).
+- **Authentication** → **Emails** → **Templates** → **Confirm sign up**.
+
+### 3. Use Source/HTML mode and this Body
+
+Many email clients do not turn `tightlinesai://` links into clickable hyperlinks. So the email should use an **https** link that redirects to the app:
+
+1. Open the **Confirm sign up** template.
+2. Switch the **Body** editor to **Source** (or **Code** / **HTML**) mode — not Preview. If you paste HTML in a visual/rich-text mode, it can appear as plain text and the link will not be clickable.
+3. Replace the entire Body with this (copy everything between the angle brackets, paste into Body, then Save):
+
+```html
+<html>
+<body>
+<h2>Confirm your signup</h2>
+<p>Thanks for signing up for TightLines AI. Tap the link below to confirm your email and open the app:</p>
+<p><a href="https://hsesngprhpgajyfbrwbf.supabase.co/functions/v1/auth-redirect?token_hash={{ .TokenHash }}&type=email">Confirm your email</a></p>
+</body>
+</html>
+```
+
+4. Click **Save**.
+
+The link is a normal https URL, so it will show as a hyperlink in Gmail, Outlook, Apple Mail, etc. When the user taps it, the browser opens the Edge Function, which immediately redirects to `tightlinesai://auth/confirm?...` and the app opens.
+
+### 4. Reset password (optional but recommended)
+
+- In **Authentication** → **Emails** → **Templates**, open **Reset password**.
+- Use **Source** mode for the Body, then replace the entire Body with:
+
+```html
+<html>
+<body>
+<h2>Reset password</h2>
+<p>You requested a password reset for TightLines AI. Tap the link below to open the app and set a new password:</p>
+<p><a href="https://hsesngprhpgajyfbrwbf.supabase.co/functions/v1/auth-redirect?token_hash={{ .TokenHash }}&type=recovery">Reset password</a></p>
+</body>
+</html>
+```
+
+- Save. Same as confirm: the https link is clickable everywhere; the Edge Function redirects to the app.
+
+---
+
 ## Pre-Launch Checklist (Before App Store Submission)
 
 These items were deferred from the Foundation pass and **must be completed before launch**.
@@ -48,7 +107,7 @@ These items were deferred from the Foundation pass and **must be completed befor
 
 - [ ] **Apple Sign-In nonce testing** — Test the full Apple Sign-In flow on a real device with a real Apple ID. Verify nonce round-trip is correct end-to-end with Supabase.
 
-- [ ] **Supabase email template customization** — Customize the verification email in Supabase Auth → Email Templates to use TightLines branding (logo, brand colors, clear call-to-action).
+- [ ] **Supabase email template customization** — Customize the verification email in Supabase Auth → Email Templates to use TightLines branding (logo, brand colors, clear call-to-action). **Required for “Confirm your email” to open the app:** see “Email verification deep link” below.
 
 - [ ] **Username real-time debounce** — Currently `checkUsername` fires on `onEndEditing`. Add debounced checking on every keystroke with a 400ms delay for better UX (prevents the user from submitting before the check resolves).
 

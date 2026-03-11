@@ -5,11 +5,13 @@ import {
   StyleSheet,
   ScrollView,
   Pressable,
+  Alert,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { colors, fonts, spacing, radius } from '../../lib/theme';
+import { useAuthStore } from '../../store/authStore';
 
 /* ─── Mock Data ─── */
 const LOG_ENTRIES = [
@@ -116,9 +118,28 @@ const HISTORY_GROUPS: HistoryGroup[] = [
 
 export default function LogScreen() {
   const router = useRouter();
+  const { signOut } = useAuthStore();
   const [activeTab, setActiveTab] = useState<'log' | 'history'>('log');
   const [historyFilter, setHistoryFilter] = useState<HistoryType>('all');
   const [expandedDate, setExpandedDate] = useState<string | null>('Today');
+
+  const handleSignOut = () => {
+    Alert.alert(
+      'Sign Out',
+      'Are you sure you want to sign out?',
+      [
+        { text: 'Cancel', style: 'cancel' },
+        {
+          text: 'Sign Out',
+          style: 'destructive',
+          onPress: async () => {
+            await signOut();
+            router.replace('/(auth)/welcome');
+          },
+        },
+      ],
+    );
+  };
 
   const filteredGroups = HISTORY_GROUPS.map((g) => ({
     ...g,
@@ -162,8 +183,8 @@ export default function LogScreen() {
             </View>
           </Pressable>
           <View style={{ width: spacing.md }} />
-          <Pressable hitSlop={8}>
-            <Ionicons name="settings-outline" size={20} color={colors.stone} />
+          <Pressable hitSlop={8} onPress={handleSignOut}>
+            <Ionicons name="log-out-outline" size={22} color={colors.stone} />
           </Pressable>
         </View>
 

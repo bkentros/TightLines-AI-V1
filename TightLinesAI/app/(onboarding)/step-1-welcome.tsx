@@ -1,8 +1,9 @@
-import { View, Text, StyleSheet, Pressable } from 'react-native';
+import { View, Text, StyleSheet, Pressable, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { colors, fonts, spacing, radius } from '../../lib/theme';
+import { useAuthStore } from '../../store/authStore';
 
 const FEATURES = [
   {
@@ -24,10 +25,34 @@ const FEATURES = [
 
 export default function OnboardingStep1() {
   const router = useRouter();
+  const { signOut } = useAuthStore();
+
+  const handleBack = () => {
+    Alert.alert(
+      'Leave setup?',
+      'You\'ll be signed out and can sign in again later.',
+      [
+        { text: 'Stay', style: 'cancel' },
+        {
+          text: 'Sign Out',
+          style: 'destructive',
+          onPress: async () => {
+            await signOut();
+            router.replace('/(auth)/welcome');
+          },
+        },
+      ],
+    );
+  };
 
   return (
     <SafeAreaView style={styles.safe} edges={['top', 'bottom']}>
       <View style={styles.container}>
+        {/* Back */}
+        <Pressable onPress={handleBack} style={styles.backBtn} hitSlop={12}>
+          <Ionicons name="chevron-back" size={22} color={colors.text} />
+        </Pressable>
+
         {/* Progress indicator */}
         <View style={styles.progress}>
           {[0, 1, 2].map((i) => (
@@ -89,6 +114,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing.lg,
     paddingBottom: spacing.lg,
     justifyContent: 'space-between',
+  },
+  backBtn: {
+    paddingTop: spacing.md,
+    alignSelf: 'flex-start',
   },
 
   progress: {

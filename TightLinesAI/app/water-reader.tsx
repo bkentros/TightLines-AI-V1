@@ -343,7 +343,7 @@ const styles = StyleSheet.create({
     alignItems: 'center', justifyContent: 'center',
     backgroundColor: colors.surface, borderRadius: radius.lg,
     padding: spacing.xl, marginBottom: spacing.lg,
-    borderWidth: 1.5, borderColor: '#6B8F7140', borderStyle: 'dashed',
+    borderWidth: 1.5, borderColor: colors.sage + '40', borderStyle: 'dashed',
     minHeight: 150,
   },
   uploadTitle: { fontFamily: fonts.serif, fontSize: 16, color: colors.text, marginTop: spacing.md },
@@ -425,7 +425,7 @@ const styles = StyleSheet.create({
   markers: { flexDirection: 'row', gap: spacing.lg, marginTop: spacing.lg },
   marker: {
     width: 30, height: 30, borderRadius: 15,
-    backgroundColor: '#6B8F7130', borderWidth: 2,
+    backgroundColor: colors.sage + '30', borderWidth: 2,
     borderColor: colors.sage, alignItems: 'center', justifyContent: 'center',
   },
   markerText: { fontSize: 13, fontWeight: '700', color: colors.sage },

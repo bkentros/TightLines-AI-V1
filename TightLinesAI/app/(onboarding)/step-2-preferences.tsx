@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import {
   View,
   Text,
@@ -14,6 +14,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
+import * as Location from 'expo-location';
 import { colors, fonts, spacing, radius } from '../../lib/theme';
 import { useAuthStore } from '../../store/authStore';
 import type { FishingMode } from '../../lib/types';
@@ -28,31 +29,16 @@ const US_STATES = [
 ];
 
 const SPECIES_LIST = [
-  'Largemouth Bass',
-  'Smallmouth Bass',
-  'Striped Bass',
+  'Bass',
+  'Trout',
+  'Salmon',
   'Redfish (Red Drum)',
   'Snook',
-  'Spotted Seatrout',
-  'Flounder',
   'Tarpon',
-  'Permit',
-  'Bonefish',
-  'Cobia',
-  'Mahi-Mahi',
-  'Wahoo',
-  'Tuna (Bluefin/Yellowfin)',
-  'Rainbow Trout',
-  'Brown Trout',
-  'Brook Trout',
-  'Steelhead',
-  'Salmon (King/Coho)',
   'Walleye',
   'Pike / Muskie',
-  'Catfish',
-  'Carp',
-  'Crappie',
-  'Bluegill / Panfish',
+  'Tuna',
+  'Mahi-Mahi',
 ];
 
 const FISHING_MODES: { value: FishingMode; label: string; icon: string }[] = [
@@ -60,6 +46,21 @@ const FISHING_MODES: { value: FishingMode; label: string; icon: string }[] = [
   { value: 'fly', label: 'Fly Fishing', icon: 'leaf-outline' },
   { value: 'both', label: 'Both', icon: 'options-outline' },
 ];
+
+const STATE_NAME_TO_ABBR: Record<string, string> = {
+  Alabama: 'AL', Alaska: 'AK', Arizona: 'AZ', Arkansas: 'AR', California: 'CA',
+  Colorado: 'CO', Connecticut: 'CT', Delaware: 'DE', Florida: 'FL', Georgia: 'GA',
+  Hawaii: 'HI', Idaho: 'ID', Illinois: 'IL', Indiana: 'IN', Iowa: 'IA',
+  Kansas: 'KS', Kentucky: 'KY', Louisiana: 'LA', Maine: 'ME', Maryland: 'MD',
+  Massachusetts: 'MA', Michigan: 'MI', Minnesota: 'MN', Mississippi: 'MS',
+  Missouri: 'MO', Montana: 'MT', Nebraska: 'NE', Nevada: 'NV',
+  'New Hampshire': 'NH', 'New Jersey': 'NJ', 'New Mexico': 'NM', 'New York': 'NY',
+  'North Carolina': 'NC', 'North Dakota': 'ND', Ohio: 'OH', Oklahoma: 'OK',
+  Oregon: 'OR', Pennsylvania: 'PA', 'Rhode Island': 'RI', 'South Carolina': 'SC',
+  'South Dakota': 'SD', Tennessee: 'TN', Texas: 'TX', Utah: 'UT', Vermont: 'VT',
+  Virginia: 'VA', Washington: 'WA', 'West Virginia': 'WV', Wisconsin: 'WI',
+  Wyoming: 'WY',
+};
 
 export default function OnboardingStep2() {
   const router = useRouter();
@@ -75,8 +76,31 @@ export default function OnboardingStep2() {
   const [checkingUsername, setCheckingUsername] = useState(false);
   const [usernameAvailable, setUsernameAvailable] = useState<boolean | null>(null);
   const [loading, setLoading] = useState(false);
+  const [units, setUnits] = useState<'imperial' | 'metric'>('imperial');
+  const [locationLoading, setLocationLoading] = useState(false);
 
-  const checkUsername = useCallback(async (value: string) => {
+  // Pre-fill a username suggestion from the Apple/email display name
+  useEffect(() => {
+    if (!user) return;
+    const name = user.user_metadata?.full_name ?? user.user_metadata?.name ?? '';
+    if (name) {
+      const suggested = name
+        .toLowerCase()
+        .replace(/[^a-z0-9]/g, '_')
+        .replace(/_+/g, '_')
+        .replace(/^_|_$/g, '')
+        .slice(0, 30);
+      if (suggested.length >= 3) {
+        setUsername(suggested);
+        checkUsernameValue(suggested);
+      }
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
+
+  const debounceTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const checkUsernameValue = useCallback(async (value: string) => {
     const trimmed = value.trim().toLowerCase();
     if (trimmed.length < 3) {
       setUsernameAvailable(null);
@@ -95,6 +119,15 @@ export default function OnboardingStep2() {
     }
   }, []);
 
+  const handleUsernameChange = (value: string) => {
+    setUsername(value);
+    setUsernameAvailable(null);
+    if (debounceTimer.current) clearTimeout(debounceTimer.current);
+    debounceTimer.current = setTimeout(() => {
+      checkUsernameValue(value);
+    }, 400);
+  };
+
   const toggleSpecies = (species: string) => {
     setSelectedSpecies((prev) =>
       prev.includes(species)
@@ -109,6 +142,37 @@ export default function OnboardingStep2() {
     }
     if (homeState) return homeState;
     return '';
+  };
+
+  const autoFillLocation = async () => {
+    setLocationLoading(true);
+    try {
+      const { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        Alert.alert(
+          'Location permission needed',
+          'Allow location access to auto-fill your home region, or enter it manually below.',
+        );
+        return;
+      }
+      const loc = await Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Balanced });
+      const [geo] = await Location.reverseGeocodeAsync({
+        latitude: loc.coords.latitude,
+        longitude: loc.coords.longitude,
+      });
+      if (geo) {
+        if (geo.region) {
+          // Try to match full state name to abbreviation
+          const stateAbbr = STATE_NAME_TO_ABBR[geo.region] ?? geo.region;
+          if (US_STATES.includes(stateAbbr)) setHomeState(stateAbbr);
+        }
+        if (geo.city) setHomeCity(geo.city);
+      }
+    } catch {
+      Alert.alert('Could not get location', 'Please enter your home region manually.');
+    } finally {
+      setLocationLoading(false);
+    }
   };
 
   const handleContinue = async () => {
@@ -157,6 +221,7 @@ export default function OnboardingStep2() {
         home_region: buildHomeRegion(),
         home_state: homeState,
         home_city: homeCity.trim(),
+        preferred_units: units,
       });
 
       router.push('/(onboarding)/step-3-location');
@@ -190,6 +255,11 @@ export default function OnboardingStep2() {
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}
         >
+          {/* Back */}
+          <Pressable onPress={() => router.back()} style={styles.backBtn} hitSlop={12}>
+            <Ionicons name="chevron-back" size={22} color={colors.text} />
+          </Pressable>
+
           {/* Progress */}
           <View style={styles.progress}>
             {[0, 1, 2].map((i) => (
@@ -224,11 +294,7 @@ export default function OnboardingStep2() {
                   status === 'available' && styles.inputSuccess,
                 ]}
                 value={username}
-                onChangeText={(v) => {
-                  setUsername(v);
-                  setUsernameAvailable(null);
-                }}
-                onEndEditing={() => checkUsername(username)}
+                onChangeText={handleUsernameChange}
                 placeholder="e.g. redfish_brandon"
                 placeholderTextColor={colors.textMuted}
                 autoCapitalize="none"
@@ -317,7 +383,10 @@ export default function OnboardingStep2() {
           <View style={styles.section}>
             <Text style={styles.sectionLabel}>
               Favorite Target Species{' '}
-              <Text style={styles.optional}>(select all that apply)</Text>
+              <Text style={styles.optional}>(optional)</Text>
+            </Text>
+            <Text style={styles.sectionHint}>
+              Pre-fills your first AI recommendation. Skip if you fish everything.
             </Text>
             <View style={styles.chipGrid}>
               {SPECIES_LIST.map((species) => {
@@ -341,7 +410,27 @@ export default function OnboardingStep2() {
 
           {/* Home Region */}
           <View style={styles.section}>
-            <Text style={styles.sectionLabel}>Home Region</Text>
+            <View style={styles.sectionLabelRow}>
+              <Text style={styles.sectionLabel}>Home Region</Text>
+              <Pressable
+                style={({ pressed }) => [
+                  styles.locationAutoBtn,
+                  pressed && styles.locationAutoBtnPressed,
+                  locationLoading && styles.btnDisabled,
+                ]}
+                onPress={autoFillLocation}
+                disabled={locationLoading}
+              >
+                {locationLoading ? (
+                  <ActivityIndicator size="small" color={colors.sage} />
+                ) : (
+                  <Ionicons name="location-outline" size={14} color={colors.sage} />
+                )}
+                <Text style={styles.locationAutoBtnText}>
+                  {locationLoading ? 'Detecting…' : 'Use My Location'}
+                </Text>
+              </Pressable>
+            </View>
 
             {/* State picker */}
             <Pressable
@@ -409,6 +498,24 @@ export default function OnboardingStep2() {
             />
           </View>
 
+          {/* Units */}
+          <View style={styles.section}>
+            <Text style={styles.sectionLabel}>Preferred Units</Text>
+            <View style={styles.modeRow}>
+              {(['imperial', 'metric'] as const).map((u) => (
+                <Pressable
+                  key={u}
+                  style={[styles.modeBtn, units === u && styles.modeBtnActive]}
+                  onPress={() => setUnits(u)}
+                >
+                  <Text style={[styles.modeBtnText, units === u && styles.modeBtnTextActive]}>
+                    {u === 'imperial' ? 'Imperial (lbs, in, °F)' : 'Metric (kg, cm, °C)'}
+                  </Text>
+                </Pressable>
+              ))}
+            </View>
+          </View>
+
           {/* Continue */}
           <Pressable
             style={({ pressed }) => [
@@ -444,6 +551,11 @@ const styles = StyleSheet.create({
   scroll: {
     paddingHorizontal: spacing.lg,
     paddingBottom: spacing.xxl,
+  },
+  backBtn: {
+    paddingTop: spacing.md,
+    paddingBottom: spacing.sm,
+    alignSelf: 'flex-start',
   },
 
   progress: {
@@ -592,4 +704,28 @@ const styles = StyleSheet.create({
   btnPressed: { backgroundColor: colors.sageDark },
   btnDisabled: { opacity: 0.6 },
   btnText: { fontSize: 16, fontWeight: '600', color: colors.textLight },
+
+  sectionLabelRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: spacing.xs + 2,
+  },
+  locationAutoBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    paddingHorizontal: spacing.sm,
+    paddingVertical: 4,
+    borderRadius: radius.sm,
+    borderWidth: 1,
+    borderColor: colors.sage,
+    backgroundColor: colors.sageLight,
+  },
+  locationAutoBtnPressed: { backgroundColor: colors.sage + '30' },
+  locationAutoBtnText: {
+    fontSize: 12,
+    fontWeight: '600',
+    color: colors.sageDark,
+  },
 });

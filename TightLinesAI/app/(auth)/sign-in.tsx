@@ -169,12 +169,7 @@ export default function SignInScreen() {
 
             <Pressable
               style={styles.forgotLink}
-              onPress={() =>
-                Alert.alert(
-                  'Reset Password',
-                  'Password reset is coming soon. Contact support if needed.',
-                )
-              }
+              onPress={() => router.push('/(auth)/forgot-password')}
             >
               <Text style={styles.forgotText}>Forgot password?</Text>
             </Pressable>

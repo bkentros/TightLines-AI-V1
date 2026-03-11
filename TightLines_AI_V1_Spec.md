@@ -31,7 +31,7 @@ TightLines AI is an AI-powered fishing app for iOS that helps anglers catch more
 **AI:** Claude Sonnet 4.6 via Anthropic Messages API, OpenAI Whisper (voice transcription)
 **External APIs:** Open-Meteo (weather), NOAA CO-OPS (tides), USNO (moon/solunar), Sunrise-Sunset.org
 **Subscriptions:** RevenueCat
-**Analytics:** Mixpanel, Amplitude, or PostHog
+**Analytics:** Mixpanel
 **Target Launch:** ~1 month
 
 ---
@@ -54,29 +54,37 @@ TightLines AI is an AI-powered fishing app for iOS that helps anglers catch more
 - Supabase Auth (email + Apple Sign-In for iOS)
 - User profile: username (public), display name, home region, preferred fishing mode (conventional or fly), preferred units
 - Profile is visible in the community feed
-- **Onboarding flow (3 screens):** First launch walks user through: (1) Welcome + value prop, (2) Preferences — fishing mode (conventional/fly), home region, favorite target species, (3) GPS permission request with clear explanation of why it improves recommendations. This data personalizes the very first AI recommendation. Keep it fast — skippable but encouraged. Preferences are editable later in settings.
+- **Onboarding flow (3 screens):** First launch walks user through: (1) Welcome + value prop, (2) Preferences — fishing mode (conventional/fly/both), home region, favorite target species, (3) GPS permission request with clear explanation of why it improves recommendations. This data personalizes the very first AI recommendation. Keep it fast — skippable but encouraged. Preferences are editable later in settings.
 
 ### Environmental API Integration
 - **Weather:** Current conditions + forecast — temperature, wind speed/direction, barometric pressure, cloud cover, precipitation
   - **Recommended:** Open-Meteo (free, no API key required, generous rate limits, global coverage, includes pressure/wind/cloud/precip) or OpenWeatherMap (free tier: 1,000 calls/day, well-documented, widely used). Visual Crossing is another strong option with a free tier.
-- **Tides:** Tide charts for coastal locations (high/low times, incoming/outgoing)
-  - **Recommended:** NOAA CO-OPS Tides & Currents API (free, no key required, US coastal coverage, high/low predictions + hourly data). For global coverage, StormGlass.io (free tier: 50 requests/day) covers tides worldwide with automatic station selection by coordinates. WorldTides is another option (credit-based, 100 free credits on signup).
+- **Tides:** Tide charts for **coastal locations only** (high/low times, incoming/outgoing). Inland (e.g. Missouri) and non-coastal regions do not receive tide data — omit it and set `tides_available: false`. Great Lakes do not have NOAA tide stations; treat as no tide data in V1. Revisit later (separate water-level source). In the UI, show "Coming soon" for tide/water-level in Great Lakes regions.
+  - **Recommended:** NOAA CO-OPS Tides & Currents API (free, no key required, US coastal coverage, high/low predictions + hourly data). NOAA requires a **station ID** — resolve nearest tide station from the user's coordinates using NOAA's station list or station-lookup endpoint. For global coverage, StormGlass.io (free tier: 50 requests/day) covers tides worldwide with automatic station selection by coordinates. WorldTides is another option (credit-based, 100 free credits on signup).
 - **Moon phase & solunar:** Current lunar phase, major/minor solunar periods
-  - **Recommended:** US Naval Observatory API (free, no key, moon phases + rise/set times, highly accurate). For solunar periods specifically, compute them client-side from moon transit times (solunar theory is based on moon overhead/underfoot positions, which can be derived from the USNO data). Farmsense Moon API is a free alternative for basic moon phase and illumination data.
+  - **Recommended:** US Naval Observatory API (free, no key, moon phases + rise/set times, highly accurate). **Solunar periods:** Compute in the Edge Function from USNO moon transit times (solunar theory uses moon overhead/underfoot positions). Farmsense Moon API is a free alternative for basic moon phase and illumination data.
 - **Sunrise/sunset:** Dawn, dusk, golden hour windows
-  - **Recommended:** Sunrise-Sunset.org API (free, no key, returns sunrise/sunset/twilight times by coordinates). Alternatively, Open-Meteo includes sunrise/sunset in its weather response, so you may get this bundled with weather data in a single call.
-- All pulled via GPS coordinates when user syncs location, or derived from manual location entry
-- Cached locally for offline reference after initial pull
+  - **Preferred:** Open-Meteo (often bundles sunrise/sunset with weather in one call). **Fallback:** Sunrise-Sunset.org API (free, no key) if sun times are needed separately.
+- All env data is **fetched in parallel** in the Edge Function (e.g. Promise.all) so one slow API doesn't add latency.
+- **Partial failure:** Return whatever env data succeeded; include simple flags (e.g. `tides_available: boolean`) so the prompt and UI can adapt (e.g. "Tide data unavailable for this location"). Consider a weather fallback (e.g. OpenWeatherMap) if Open-Meteo fails.
+- **Units:** Convert all env data to the user's preferred units (profile setting) before sending to Claude and to the client.
+- All pulled via GPS coordinates when user syncs location, or derived from manual location entry.
+- Cached locally for offline reference after initial pull.
+- **When to refresh env data:**
+  - **Dashboard / Live Conditions widget:** Refresh at most every **15 minutes** (use cache if last fetch was within 15 min). Keeps the main screen snappy without hammering APIs.
+  - **On AI action confirm:** When the user taps "Recommend", "How's Fishing Right Now?", or submits Water Reader, **pull fresh env data** for that request so the AI gets current conditions. If offline, use cached data. Do not rely only on the dashboard cache for recommendations — the moment they commit to an AI feature, fetch (or accept client-supplied fresh data) for that call.
+- **Scale (1K–5K users):** At ~1K users with 15-min dashboard cache and fresh pull on confirm, env API volume should be manageable. As you approach 3–5K users, consider Edge Function–level caching (e.g. short TTL cache keyed by lat/long bucket) to avoid duplicate fetches for the same area, and monitor external API rate limits.
+- **Water Reader:** Send env data with the request when we have location (synced or manual) so the AI can factor conditions into fish behavior. If the user did not sync location and did not manually enter it, run the analysis with image + any other inputs only — the feature works with whatever it gets; more data improves results, less data still produces useful (if less tailored) output.
 - **API strategy note:** Prioritize APIs that are free with no key (Open-Meteo, NOAA, USNO, Sunrise-Sunset) to minimize external dependencies and cost. StormGlass.io is the best single-source option if you want weather + tides + astronomy in one API, but the free tier is limited (50 req/day) — evaluate whether the convenience justifies the constraint at scale.
 
 ### Shared LLM Pipeline
 All AI features follow the same backend pattern:
-1. Client sends structured input (form data or image + metadata) to a Supabase Edge Function
-2. Edge Function enriches with environmental data (weather, tides, solunar, moon)
-3. Edge Function constructs a domain-specific prompt with structured JSON output instructions
-4. Single Claude API call → structured JSON response
-5. Edge Function logs token usage and cost to the user's billing record
-6. Response returned to client for rendering
+1. Client sends structured input (form data or image + metadata) to a Supabase Edge Function. For paid operations, client may send an **idempotency key** (e.g. UUID) so retries after timeout don't double-count usage or double-charge.
+2. Edge Function enriches with environmental data (weather, tides, solunar, moon). For each request, use **fresh env data** (fetched at confirm time or supplied by client from a just-fetched cache). **Environmental data** may be supplied by the client when recently fetched, or the Edge Function fetches when missing or not provided. If the user provided no location (no sync, no manual entry), run with whatever inputs are present — more data yields better results; partial input still executes.
+3. Edge Function constructs a domain-specific prompt with **structured JSON output instructions** (use Claude's structured output / JSON schema mode to minimize malformed responses).
+4. Single Claude API call → structured JSON response.
+5. Edge Function logs token usage and cost to the user's billing record; **tag the feature** (e.g. `recommender`, `water_reader`, `how_fishing`) for analytics and potential per-feature caps.
+6. Response returned to client for rendering.
 
 Each new feature = a new Edge Function with a new prompt template. The framework is built once.
 
@@ -89,6 +97,7 @@ Each new feature = a new Edge Function with a new prompt template. The framework
 - **AI features (recommender, water reader):** Require connectivity for the LLM call. If offline, user sees a clear message and can queue inputs for later processing
 - **Pending entries:** Show as "draft" status in the log UI until synced and processed
 - **Recommended:** Use expo-sqlite or WatermelonDB for local offline storage with sync capabilities. React Native's AsyncStorage works for simple key-value caching (environmental data), but a local DB is better for queuing structured log entries.
+- **Implementation note:** Design and implement the expo-sqlite (or WatermelonDB) schema when building the Fishing Log feature (Section 4), not during Foundation. AsyncStorage already handles env caching; the local DB is only needed for queuing voice recordings and manual log entries for sync. See Section 4 (Fishing Log) for details.
 
 ### Database Schema Principles
 The schema is designed from day one to capture rich, structured fishing data with future value for conservation organizations, state fishery departments (aggregated, anonymized), auto-generated community reports (V2), trend analysis and species population insights, and personal analytics for users.
@@ -111,7 +120,7 @@ The schema is designed from day one to capture rich, structured fishing data wit
 - **Image handling:** Use Expo ImagePicker for uploads. Compress images client-side before sending to Edge Functions (water reader images don't need full resolution for Claude Vision analysis — 1024px on the long edge is sufficient and saves token cost).
 - **Subscriptions:** RevenueCat for iOS in-app subscription management. Handles receipt validation, subscription status, and integrates with Supabase via webhooks.
 - **State management:** Zustand or React Context for client-side state. Keep it simple — avoid Redux overhead for a V1.
-- **Analytics & event tracking:** Integrate from day one — use Mixpanel, Amplitude, or PostHog (self-hostable). Track key events: feature usage (which AI features get used most), input form drop-off (where users abandon the form), usage cap hits, free-to-paid conversion, voice log vs. manual log ratio, session frequency. Without this, you're flying blind on what's working post-launch.
+- **Analytics & event tracking:** Mixpanel. Integrate with the first AI feature (How's Fishing); add SDK and event calls as each feature ships. Track: feature usage (which AI features get used most), input form drop-off (where users abandon), usage cap hits, free-to-paid conversion, voice log vs. manual log ratio, session frequency. Without this, you're flying blind on what's working post-launch.
 - **Push notifications:** Use Expo Notifications (built into Expo, supports iOS APNs). V1 notifications: approaching usage cap ("You've used 80% of your monthly AI calls"), re-engagement nudges ("You logged a trip Saturday — how'd it go?"), and optionally community feed activity ("Redfish are trending in your region"). Keep notifications minimal and valuable — don't spam.
 
 ---

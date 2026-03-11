@@ -30,4 +30,5 @@ export interface OnboardingPrefs {
   home_region: string;
   home_state: string;
   home_city: string;
+  preferred_units: 'imperial' | 'metric';
 }

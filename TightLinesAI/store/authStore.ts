@@ -11,6 +11,7 @@ interface AuthState {
 
   // Derived status
   isLoading: boolean;
+  isProfileLoading: boolean;
   isOnboarded: boolean;
 
   // Onboarding draft (held in memory between step-2 and step-3)
@@ -31,6 +32,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
   user: null,
   profile: null,
   isLoading: true,
+  isProfileLoading: false,
   isOnboarded: false,
   onboardingPrefs: {},
 
@@ -59,31 +61,38 @@ export const useAuthStore = create<AuthState>((set, get) => ({
   },
 
   fetchProfile: async (userId: string) => {
-    const { data, error } = await supabase
-      .from('profiles')
-      .select('*')
-      .eq('id', userId)
-      .single();
+    set({ isProfileLoading: true });
+    try {
+      const { data, error } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', userId)
+        .single();
 
-    if (error || !data) {
-      // Profile doesn't exist yet (new user, pre-onboarding)
-      set({ profile: null, isOnboarded: false });
-      return;
+      if (error || !data) {
+        set({ profile: null, isOnboarded: false });
+        return;
+      }
+
+      set({
+        profile: data as UserProfile,
+        isOnboarded: (data as UserProfile).onboarding_complete,
+      });
+    } finally {
+      set({ isProfileLoading: false });
     }
-
-    set({
-      profile: data as UserProfile,
-      isOnboarded: (data as UserProfile).onboarding_complete,
-    });
   },
 
   signOut: async () => {
     await supabase.auth.signOut();
+    const { useEnvStore } = await import('./envStore');
+    useEnvStore.getState().clear();
     set({
       session: null,
       user: null,
       profile: null,
       isOnboarded: false,
+      isProfileLoading: false,
       onboardingPrefs: {},
     });
   },

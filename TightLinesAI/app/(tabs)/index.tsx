@@ -1,11 +1,15 @@
+import { useState, useEffect, useCallback } from 'react';
 import { View, Text, StyleSheet, ScrollView, Pressable } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
+import { useFocusEffect } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
+import * as Location from 'expo-location';
 import { colors, fonts, spacing, radius } from '../../lib/theme';
-
-const WATER_BLUE = '#5B8FA8';
-const PLANNER_YELLOW = '#C9A84C';
+import { LiveConditionsWidget } from '../../components/LiveConditionsWidget';
+import { useAuthStore } from '../../store/authStore';
+import { useDevTestingStore } from '../../store/devTestingStore';
+import { useEnvStore } from '../../store/envStore';
 
 /* ─── Brand mark — fish + crosshair ─── */
 const MARK_SIZE = 30;
@@ -91,6 +95,92 @@ const scanStyles = StyleSheet.create({
 
 export default function HomeScreen() {
   const router = useRouter();
+  const { profile } = useAuthStore();
+  const { ignoreGps, overrideLocation, load: loadDevTesting } = useDevTestingStore();
+  const { loadEnv } = useEnvStore();
+  const [gpsCoords, setGpsCoords] = useState<{ lat: number; lon: number } | null>(null);
+  const [gpsLocationLabel, setGpsLocationLabel] = useState<string | null>(null);
+
+  // Reverse-geocode GPS to get "City, State" for the location label
+  useEffect(() => {
+    if (!gpsCoords) {
+      setGpsLocationLabel(null);
+      return;
+    }
+    let cancelled = false;
+    (async () => {
+      try {
+        const [geo] = await Location.reverseGeocodeAsync({
+          latitude: gpsCoords.lat,
+          longitude: gpsCoords.lon,
+        });
+        if (cancelled || !geo) return;
+        const city = geo.city ?? geo.subregion ?? geo.district;
+        const region = geo.region ?? '';
+        const label = city && region ? `${city}, ${region}` : city ?? region ?? null;
+        if (!cancelled) setGpsLocationLabel(label);
+      } catch {
+        if (!cancelled) setGpsLocationLabel(null);
+      }
+    })();
+    return () => { cancelled = true; };
+  }, [gpsCoords?.lat, gpsCoords?.lon]);
+
+  // Auto-sync Live Conditions when returning to Home tab (uses cache; refetches if > 15 min)
+  useFocusEffect(
+    useCallback(() => {
+      const units = profile?.preferred_units ?? 'imperial';
+      const c =
+        __DEV__ && overrideLocation
+          ? { lat: overrideLocation.lat, lon: overrideLocation.lon }
+          : __DEV__ && ignoreGps
+            ? null
+            : gpsCoords;
+      if (c) {
+        loadEnv(c.lat, c.lon, { units });
+      }
+    }, [profile?.preferred_units, overrideLocation, ignoreGps, gpsCoords, loadEnv])
+  );
+
+  // Always use active GPS; dev overrides only affect what we pass to Live Conditions
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      const { status } = await Location.getForegroundPermissionsAsync();
+      if (status !== 'granted' || cancelled) return;
+      try {
+        const loc = await Location.getCurrentPositionAsync({
+          accuracy: Location.Accuracy.Balanced,
+        });
+        if (!cancelled) {
+          setGpsCoords({
+            lat: loc.coords.latitude,
+            lon: loc.coords.longitude,
+          });
+        }
+      } catch {
+        // Silently fail — widget will show "Sync location"
+      }
+    })();
+    return () => { cancelled = true; };
+  }, []);
+
+  useEffect(() => {
+    if (__DEV__) loadDevTesting();
+  }, [loadDevTesting]);
+
+  // Dev overrides: ignore GPS = no location; override = use manual coords
+  const coords =
+    __DEV__ && ignoreGps
+      ? null
+      : __DEV__ && overrideLocation
+        ? { lat: overrideLocation.lat, lon: overrideLocation.lon }
+        : gpsCoords;
+
+  const locationLabel =
+    __DEV__ && overrideLocation
+      ? overrideLocation.label
+      : gpsLocationLabel ?? 'Current location';
 
   const getGreeting = () => {
     const h = new Date().getHours();
@@ -120,59 +210,12 @@ export default function HomeScreen() {
           </Text>
         </View>
 
-        {/* ─── Conditions Widget ─── */}
-        <View style={styles.condCard}>
-          <View style={styles.condHeader}>
-            <View style={styles.condHeaderLeft}>
-              <View style={styles.liveDot} />
-              <Text style={styles.condLabel}>Live Conditions</Text>
-            </View>
-            <View style={styles.condHeaderRight}>
-              <Text style={styles.condLocation}>Tampa Bay, FL</Text>
-              <Pressable hitSlop={8}>
-                <Ionicons
-                  name="refresh-outline"
-                  size={14}
-                  color={colors.textMuted}
-                />
-              </Pressable>
-            </View>
-          </View>
-
-          <View style={styles.condGrid}>
-            <View style={styles.condTile}>
-              <Ionicons name="thermometer-outline" size={15} color={colors.stone} />
-              <Text style={styles.condValue}>72°</Text>
-              <Text style={styles.condCaption}>Temp</Text>
-            </View>
-            <View style={styles.condTile}>
-              <Ionicons name="cloud-outline" size={15} color={colors.stone} />
-              <Text style={styles.condValue}>Overcast</Text>
-              <Text style={styles.condCaption}>Sky</Text>
-            </View>
-            <View style={styles.condTile}>
-              <Ionicons name="flag-outline" size={15} color={colors.stone} />
-              <Text style={styles.condValue}>SE 8</Text>
-              <Text style={styles.condCaption}>Wind</Text>
-            </View>
-            <View style={styles.condTile}>
-              <Ionicons name="trending-down" size={15} color={colors.stone} />
-              <Text style={styles.condValue}>29.8</Text>
-              <Text style={styles.condCaption}>Press.</Text>
-            </View>
-          </View>
-
-          <View style={styles.condFooter}>
-            <View style={styles.condPill}>
-              <Ionicons name="moon-outline" size={11} color={colors.textSecondary} />
-              <Text style={styles.condPillText}>Waxing Crescent</Text>
-            </View>
-            <View style={styles.condPill}>
-              <Ionicons name="water-outline" size={11} color={colors.textSecondary} />
-              <Text style={styles.condPillText}>Tide: Falling</Text>
-            </View>
-          </View>
-        </View>
+        {/* ─── Live Conditions Widget ─── */}
+        <LiveConditionsWidget
+          latitude={coords?.lat}
+          longitude={coords?.lon}
+          locationLabel={locationLabel}
+        />
 
         {/* ─── How's Fishing Right Now? ─── */}
         <Pressable
@@ -199,7 +242,7 @@ export default function HomeScreen() {
             style={({ pressed }) => [
               styles.tile,
               styles.tileSage,
-              pressed && styles.tileDarkPressed,
+              pressed && styles.tileLightPressed,
             ]}
             onPress={() => router.push('/recommender')}
           >
@@ -213,19 +256,19 @@ export default function HomeScreen() {
                 <Ionicons
                   name="chevron-forward"
                   size={20}
-                  color={colors.tileDarkSub}
+                  color={colors.textMuted}
                 />
               </View>
-              <Text style={styles.tileTitleLight}>
+              <Text style={styles.tileTitle}>
                 Lure & Fly Recommender
               </Text>
-              <Text style={styles.tileDescLight}>
+              <Text style={styles.tileDesc}>
                 AI-powered tackle recommendations tailored to real-time
                 conditions, target species, and water.
               </Text>
-              <View style={styles.aiBadgeDark}>
+              <View style={[styles.aiBadgeDark, styles.aiBadgeSage]}>
                 <Ionicons name="sparkles" size={11} color={colors.sage} />
-                <Text style={styles.aiBadgeDarkText}>AI-Powered</Text>
+                <Text style={[styles.aiBadgeDarkText, { color: colors.sage }]}>AI-Powered</Text>
               </View>
             </View>
           </Pressable>
@@ -235,7 +278,7 @@ export default function HomeScreen() {
             style={({ pressed }) => [
               styles.tile,
               styles.tileBlue,
-              pressed && styles.tileDarkPressed,
+              pressed && styles.tileLightPressed,
             ]}
             onPress={() => router.push('/water-reader')}
           >
@@ -243,23 +286,23 @@ export default function HomeScreen() {
               <View style={styles.tileTop}>
                 <ScanIcon
                   icon="scan"
-                  iconColor={WATER_BLUE}
-                  ringColor={WATER_BLUE}
+                  iconColor={colors.waterBlue}
+                  ringColor={colors.waterBlue}
                 />
                 <Ionicons
                   name="chevron-forward"
                   size={20}
-                  color={colors.tileDarkSub}
+                  color={colors.textMuted}
                 />
               </View>
-              <Text style={styles.tileTitleLight}>Water Reader</Text>
-              <Text style={styles.tileDescLight}>
+              <Text style={styles.tileTitle}>Water Reader</Text>
+              <Text style={styles.tileDesc}>
                 Analyze river photos, satellite lake images, and depth charts
                 with AI-powered visual overlays.
               </Text>
-              <View style={styles.aiBadgeDark}>
-                <Ionicons name="sparkles" size={11} color={WATER_BLUE} />
-                <Text style={[styles.aiBadgeDarkText, { color: WATER_BLUE }]}>
+              <View style={[styles.aiBadgeDark, styles.aiBadgeBlue]}>
+                <Ionicons name="sparkles" size={11} color={colors.waterBlue} />
+                <Text style={[styles.aiBadgeDarkText, { color: colors.waterBlue }]}>
                   AI-Powered
                 </Text>
               </View>
@@ -274,7 +317,7 @@ export default function HomeScreen() {
                   <Ionicons
                     name="calendar-outline"
                     size={22}
-                    color={PLANNER_YELLOW}
+                    color={colors.plannerYellow}
                   />
                 </View>
                 <View style={styles.comingSoon}>
@@ -328,68 +371,6 @@ const styles = StyleSheet.create({
   },
   greeting: { fontSize: 16, color: colors.textSecondary },
 
-  /* Conditions Widget */
-  condCard: {
-    backgroundColor: colors.surface,
-    borderRadius: radius.md,
-    padding: spacing.md,
-    marginBottom: spacing.sm,
-    borderWidth: StyleSheet.hairlineWidth,
-    borderColor: colors.border,
-  },
-  condHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: spacing.md,
-  },
-  condHeaderLeft: { flexDirection: 'row', alignItems: 'center', gap: 6 },
-  condHeaderRight: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm },
-  liveDot: {
-    width: 6,
-    height: 6,
-    borderRadius: 3,
-    backgroundColor: colors.sage,
-  },
-  condLabel: {
-    fontSize: 12,
-    fontWeight: '600',
-    color: colors.sage,
-    letterSpacing: 0.3,
-  },
-  condLocation: { fontSize: 12, color: colors.textMuted },
-  condGrid: { flexDirection: 'row', gap: spacing.sm },
-  condTile: {
-    flex: 1,
-    alignItems: 'center',
-    backgroundColor: colors.background,
-    borderRadius: radius.sm,
-    paddingVertical: spacing.sm + 2,
-    gap: 3,
-  },
-  condValue: {
-    fontSize: 15,
-    fontWeight: '600',
-    color: colors.text,
-    fontVariant: ['tabular-nums'],
-  },
-  condCaption: { fontSize: 10, color: colors.textMuted, letterSpacing: 0.3 },
-  condFooter: {
-    flexDirection: 'row',
-    gap: spacing.sm,
-    marginTop: spacing.sm,
-  },
-  condPill: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 4,
-    backgroundColor: colors.background,
-    borderRadius: radius.sm,
-    paddingHorizontal: spacing.sm + 2,
-    paddingVertical: spacing.xs + 1,
-  },
-  condPillText: { fontSize: 11, color: colors.textSecondary },
-
   /* Fishing Button */
   fishingBtn: {
     flexDirection: 'row',
@@ -435,22 +416,22 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
   tileSage: {
-    backgroundColor: colors.tileDark,
-    borderWidth: 3,
+    backgroundColor: colors.surface,
+    borderWidth: 2,
     borderColor: colors.sage,
   },
   tileBlue: {
-    backgroundColor: colors.tileDark,
-    borderWidth: 3,
-    borderColor: WATER_BLUE,
+    backgroundColor: colors.surface,
+    borderWidth: 2,
+    borderColor: colors.waterBlue,
   },
-  tileDarkPressed: {
-    backgroundColor: colors.tileDarkPressed,
+  tileLightPressed: {
+    backgroundColor: colors.surfacePressed,
   },
   tileComingSoon: {
     backgroundColor: colors.surface,
-    borderWidth: 3,
-    borderColor: PLANNER_YELLOW + '60',
+    borderWidth: 2,
+    borderColor: colors.plannerYellow + '99',
     position: 'relative',
   },
   plannerOverlay: {
@@ -464,6 +445,17 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: spacing.sm + 2,
+  },
+  tileTitle: {
+    fontFamily: fonts.serif,
+    fontSize: 18,
+    color: colors.text,
+    marginBottom: spacing.xs,
+  },
+  tileDesc: {
+    fontSize: 13,
+    lineHeight: 19,
+    color: colors.textSecondary,
   },
   tileTitleLight: {
     fontFamily: fonts.serif,
@@ -491,7 +483,7 @@ const styles = StyleSheet.create({
     width: 42,
     height: 42,
     borderRadius: 21,
-    backgroundColor: PLANNER_YELLOW + '18',
+    backgroundColor: colors.plannerYellow + '18',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -501,10 +493,15 @@ const styles = StyleSheet.create({
     gap: 4,
     alignSelf: 'flex-start',
     marginTop: spacing.sm + 2,
-    backgroundColor: '#FFFFFF12',
     paddingHorizontal: spacing.sm,
     paddingVertical: 3,
     borderRadius: radius.sm,
+  },
+  aiBadgeSage: {
+    backgroundColor: colors.sageLight,
+  },
+  aiBadgeBlue: {
+    backgroundColor: colors.waterBlue + '22',
   },
   aiBadgeDarkText: {
     fontSize: 11,
@@ -513,7 +510,7 @@ const styles = StyleSheet.create({
     letterSpacing: 0.2,
   },
   comingSoon: {
-    backgroundColor: PLANNER_YELLOW,
+    backgroundColor: colors.plannerYellow,
     paddingHorizontal: spacing.sm,
     paddingVertical: 3,
     borderRadius: radius.sm,
