@@ -17,6 +17,7 @@ import type {
   LightCondition,
   SeasonalFishBehaviorState,
   FreshwaterSubtype,
+  LatitudeBand,
 } from "./types.ts";
 import {
   hmToMinutes,
@@ -24,6 +25,8 @@ import {
   deriveWaterTempZone,
   estimateFreshwaterTemp,
   getMeteoSeason,
+  computeEffectiveLatitude,
+  getLatitudeBand,
 } from "./derivedVariables.ts";
 import { clamp } from "./scoreEngine.ts";
 
@@ -106,7 +109,9 @@ function getFreshwaterThermalTimingProfile(
 ): FreshwaterThermalTimingProfile | null {
   if (waterType !== "freshwater") return null;
 
-  const estTemp = estimateFreshwaterTemp(env, subtype);
+  const effectiveLat = computeEffectiveLatitude(env.lat, env.altitude_ft);
+  const latBand: LatitudeBand = getLatitudeBand(effectiveLat);
+  const estTemp = estimateFreshwaterTemp(env, subtype, latBand, seasonalState);
   if (estTemp === null) return null;
 
   const zone = deriveWaterTempZone(estTemp, "freshwater");
@@ -641,7 +646,7 @@ function classifyBlock(block: Block): WindowLabel | null {
   const score = Math.round((block.points / block.maxPoints) * 100);
   if (score >= 65) return "PRIME";
   if (score >= 45) return "GOOD";
-  if (score >= 25) return "SECONDARY";
+  if (score >= 25) return "FAIR";
   return null;
 }
 
@@ -698,7 +703,7 @@ export function computeTimeWindows(
   let i = 0;
   while (i < scoredBlocks.length) {
     const b = scoredBlocks[i];
-    if (b.label === null || b.label === "SECONDARY") {
+    if (b.label === null || b.label === "FAIR") {
       i++;
       continue;
     }

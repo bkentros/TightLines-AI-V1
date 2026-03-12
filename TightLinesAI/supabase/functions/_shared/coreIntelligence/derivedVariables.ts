@@ -23,6 +23,8 @@ import type {
   FreshwaterColdContext,
   FreshwaterSubtype,
   SeasonalFishBehaviorState,
+  LatitudeBand,
+  SaltwaterSeasonalState,
 } from "./types.ts";
 
 // ---------------------------------------------------------------------------
@@ -143,31 +145,40 @@ function deriveSolunarState(
     return currentLocalMinutes >= s && currentLocalMinutes <= e;
   };
 
-  const isWithin30MinOf = (start: string, end: string): boolean => {
+  const minutesFromWindow = (start: string, end: string): number | null => {
     const s = hmToMinutes(start);
     const e = hmToMinutes(end);
-    if (s === null || e === null) return false;
-    return (
-      (currentLocalMinutes >= s - 30 && currentLocalMinutes < s) ||
-      (currentLocalMinutes > e && currentLocalMinutes <= e + 30)
-    );
+    if (s === null || e === null) return null;
+    if (currentLocalMinutes >= s && currentLocalMinutes <= e) return 0;
+    const distToStart = Math.abs(currentLocalMinutes - s);
+    const distToEnd = Math.abs(currentLocalMinutes - e);
+    return Math.min(distToStart, distToEnd);
   };
 
+  // Check major periods
   for (const p of env.solunar_major_periods) {
     if (isInside(p.start_local, p.end_local)) return "within_major_window";
   }
-
+  let closestMajor = Infinity;
   for (const p of env.solunar_major_periods) {
-    if (isWithin30MinOf(p.start_local, p.end_local)) return "within_30min_of_major";
+    const dist = minutesFromWindow(p.start_local, p.end_local);
+    if (dist !== null && dist < closestMajor) closestMajor = dist;
   }
+  if (closestMajor <= 30) return "within_30min_of_major";
+  if (closestMajor <= 60) return "within_60min_of_major";
+  if (closestMajor <= 90) return "within_90min_of_major";
 
+  // Check minor periods
   for (const p of env.solunar_minor_periods) {
     if (isInside(p.start_local, p.end_local)) return "within_minor_window";
   }
-
+  let closestMinor = Infinity;
   for (const p of env.solunar_minor_periods) {
-    if (isWithin30MinOf(p.start_local, p.end_local)) return "within_30min_of_minor";
+    const dist = minutesFromWindow(p.start_local, p.end_local);
+    if (dist !== null && dist < closestMinor) closestMinor = dist;
   }
+  if (closestMinor <= 30) return "within_30min_of_minor";
+  if (closestMinor <= 60) return "within_60min_of_minor";
 
   return "outside_all_windows";
 }
@@ -416,14 +427,38 @@ function dailyMean(high: number | null, low: number | null): number | null {
 
 // ---------------------------------------------------------------------------
 // Section 4G — Freshwater Water Temperature Estimate
-// Subtype bias:
-//   - lake / reservoir: default model (slow thermal response; apply correction as-is)
-//   - river_stream: track air temps more closely; halve the lag correction
+// Lake: weighted air model + correction table + 32°F floor + deep-winter clamp
+// River: groundwater blending model + 33°F floor
 // ---------------------------------------------------------------------------
+
+const GROUNDWATER_BASE_TEMP: Record<LatitudeBand, number> = {
+  far_north: 42,
+  north: 47,
+  mid: 52,
+  south: 58,
+  deep_south: 65,
+};
+
+const AIR_INFLUENCE_ALPHA: Record<MeteoSeason, Record<LatitudeBand, number>> = {
+  DJF: { far_north: 0.50, north: 0.55, mid: 0.60, south: 0.65, deep_south: 0.70 },
+  MAM: { far_north: 0.60, north: 0.65, mid: 0.70, south: 0.72, deep_south: 0.75 },
+  JJA: { far_north: 0.78, north: 0.80, mid: 0.82, south: 0.84, deep_south: 0.85 },
+  SON: { far_north: 0.65, north: 0.70, mid: 0.72, south: 0.74, deep_south: 0.75 },
+};
+
+const SNOWMELT_DAMPENING: Record<LatitudeBand, number> = {
+  far_north: -3,
+  north: -2,
+  mid: 0,
+  south: 0,
+  deep_south: 0,
+};
 
 function estimateFreshwaterTemp(
   env: EnvironmentSnapshot,
-  subtype: FreshwaterSubtype | null
+  subtype: FreshwaterSubtype | null,
+  latBand: LatitudeBand,
+  seasonalState: SeasonalFishBehaviorState | null
 ): number | null {
   const highs = env.daily_air_temp_high_f;
   const lows = env.daily_air_temp_low_f;
@@ -435,37 +470,53 @@ function estimateFreshwaterTemp(
     means.push(dailyMean(highs[i], lows[i]));
   }
 
-  // Rivers track air temps more closely — up-weight recent days
   const isRiver = subtype === "river_stream";
-  const weights = isRiver
-    ? [0.40, 0.28, 0.16, 0.08, 0.05, 0.02, 0.01] // heavier on today/yesterday
-    : [0.30, 0.25, 0.20, 0.12, 0.07, 0.04, 0.02]; // default lake/reservoir
+  const month = new Date(env.timestamp_utc).getUTCMonth() + 1;
+  const season = getMeteoSeason(month);
 
-  // means[6]=today, means[5]=yesterday, ... means[0]=6 days ago
-  // weights[0]=today weight, weights[1]=yesterday weight, ...
+  // Compute raw weighted air average (no corrections yet)
+  const weights = isRiver
+    ? [0.40, 0.28, 0.16, 0.08, 0.05, 0.02, 0.01]
+    : [0.30, 0.25, 0.20, 0.12, 0.07, 0.04, 0.02];
 
   let weighted = 0;
   let totalWeight = 0;
   for (let i = 0; i < 7; i++) {
-    const dayIndex = 6 - i; // today=6, yesterday=5, ...
+    const dayIndex = 6 - i;
     if (means[dayIndex] !== null) {
       weighted += (means[dayIndex] as number) * weights[i];
       totalWeight += weights[i];
     }
   }
+  if (totalWeight < 0.5) return null;
+  const rawAirAvg = weighted / totalWeight;
 
-  if (totalWeight < 0.5) return null; // too much missing data
+  if (isRiver) {
+    // ---- RIVER: Groundwater blending model ----
+    const gwBase = GROUNDWATER_BASE_TEMP[latBand];
+    const alpha = AIR_INFLUENCE_ALPHA[season][latBand];
+    const snowmelt = season === "MAM" ? SNOWMELT_DAMPENING[latBand] : 0;
+    const blended = alpha * rawAirAvg + (1 - alpha) * (gwBase + snowmelt);
+    return Math.max(33, Math.round(blended * 10) / 10);
+  }
 
-  const baseEstimate = weighted / totalWeight;
-
-  // Latitude-season correction (Section 4G table)
-  const month = new Date(env.timestamp_utc).getUTCMonth() + 1;
-  const season = getMeteoSeason(month);
+  // ---- LAKE (default): Correction table + floor + deep-winter clamp ----
   const correction = getLatSeasonCorrection(env.lat, season, subtype);
-  const seasonalState = deriveSeasonalFishBehavior(env, "freshwater", subtype);
   const seasonalOffset = getSeasonalStateTempOffset(seasonalState, subtype, month);
+  let estimate = rawAirAvg + correction + seasonalOffset;
 
-  return Math.round((baseEstimate + correction + seasonalOffset) * 10) / 10;
+  // Hard floor: liquid water cannot be below 32°F
+  estimate = Math.max(32, estimate);
+
+  // Deep-winter clamp: northern lakes under ice are 32-35°F
+  if (
+    seasonalState === "deep_winter_survival" &&
+    (latBand === "north" || latBand === "far_north")
+  ) {
+    estimate = Math.max(32, Math.min(35, estimate));
+  }
+
+  return Math.round(estimate * 10) / 10;
 }
 
 type MeteoSeason = "DJF" | "MAM" | "JJA" | "SON";
@@ -475,6 +526,25 @@ function getMeteoSeason(month: number): MeteoSeason {
   if (month <= 5) return "MAM";
   if (month <= 8) return "JJA";
   return "SON";
+}
+
+// ---------------------------------------------------------------------------
+// Altitude Effective Latitude (adjusts seasonal band for elevation)
+// ---------------------------------------------------------------------------
+
+export function computeEffectiveLatitude(lat: number, altitudeFt: number | null): number {
+  if (altitudeFt === null || altitudeFt <= 1500) return lat;
+  const altitudeAboveBaseline = altitudeFt - 1500;
+  const latShift = (altitudeAboveBaseline / 1000) * 1.2;
+  return lat + latShift;
+}
+
+export function getLatitudeBand(effectiveLat: number): LatitudeBand {
+  if (effectiveLat < 30) return "deep_south";
+  if (effectiveLat < 34) return "south";
+  if (effectiveLat < 39) return "mid";
+  if (effectiveLat < 44) return "north";
+  return "far_north";
 }
 
 function getLatSeasonCorrection(
@@ -601,93 +671,199 @@ function deriveWaterTempZone(
 function deriveFreshwaterColdContext(
   env: EnvironmentSnapshot,
   waterType: WaterType,
-  waterTempZone: WaterTempZone | null
+  waterTempZone: WaterTempZone | null,
+  latBand: LatitudeBand
 ): FreshwaterColdContext {
   if (waterType !== "freshwater" || waterTempZone === null) return null;
   if (waterTempZone !== "near_shutdown_cold" && waterTempZone !== "lethargic") return null;
 
   const month = new Date(env.timestamp_utc).getUTCMonth() + 1;
-  const lat = env.lat;
 
-  // Cold season: Jan–Mar, Nov–Dec; or Apr/Oct at northern latitudes (winter extends)
-  const isColdSeason =
-    month <= 3 || month >= 11 || (lat >= 38 && (month === 4 || month === 10));
-  // Warm season: Jun–Aug — cold water here is a shock
-  const isWarmSeason = month >= 6 && month <= 8;
+  // Cold season varies by latitude band
+  const coldSeasonMonths: Record<LatitudeBand, number[]> = {
+    deep_south: [12, 1],
+    south: [12, 1, 2],
+    mid: [12, 1, 2, 3],
+    north: [11, 12, 1, 2, 3, 4],
+    far_north: [10, 11, 12, 1, 2, 3, 4],
+  };
 
-  if (isColdSeason) return "seasonally_expected_cold";
-  if (isWarmSeason) return "cold_shock";
-  // Transition (e.g. May, Sept): northern lat treat as expected, southern as shock
-  return lat >= 38 ? "seasonally_expected_cold" : "cold_shock";
+  const warmSeasonMonths: Record<LatitudeBand, number[]> = {
+    deep_south: [5, 6, 7, 8, 9],
+    south: [6, 7, 8],
+    mid: [6, 7, 8],
+    north: [7, 8],
+    far_north: [7, 8],
+  };
+
+  if (coldSeasonMonths[latBand].includes(month)) return "seasonally_expected_cold";
+  if (warmSeasonMonths[latBand].includes(month)) return "cold_shock";
+
+  // Transition months: northern bands treat as expected, southern as shock
+  return (latBand === "north" || latBand === "far_north")
+    ? "seasonally_expected_cold"
+    : "cold_shock";
 }
 
 // ---------------------------------------------------------------------------
 // Section 4G3 — Deterministic seasonal fish-behavior state
-// Combines latitude band + calendar month + freshwater subtype hint into
-// a plain-English behavioral envelope that the LLM can use to frame narrative.
+// 5-band latitude system with river overrides for spawn timing
 // ---------------------------------------------------------------------------
+
+const FRESHWATER_SEASONAL_MAP: Record<LatitudeBand, Record<number, SeasonalFishBehaviorState>> = {
+  deep_south: {
+    1: "mild_winter_active",
+    2: "pre_spawn_buildup",
+    3: "spawn_period",
+    4: "post_spawn_recovery",
+    5: "summer_peak_activity",
+    6: "summer_heat_suppression",
+    7: "summer_heat_suppression",
+    8: "summer_heat_suppression",
+    9: "fall_feed_buildup",
+    10: "fall_feed_buildup",
+    11: "late_fall_slowdown",
+    12: "mild_winter_active",
+  },
+  south: {
+    1: "deep_winter_survival",
+    2: "pre_spawn_buildup",
+    3: "spawn_period",
+    4: "spawn_period",
+    5: "post_spawn_recovery",
+    6: "summer_heat_suppression",
+    7: "summer_heat_suppression",
+    8: "summer_heat_suppression",
+    9: "fall_feed_buildup",
+    10: "late_fall_slowdown",
+    11: "late_fall_slowdown",
+    12: "deep_winter_survival",
+  },
+  mid: {
+    1: "deep_winter_survival",
+    2: "deep_winter_survival",
+    3: "pre_spawn_buildup",
+    4: "spawn_period",
+    5: "spawn_period",
+    6: "post_spawn_recovery",
+    7: "summer_peak_activity",
+    8: "summer_peak_activity",
+    9: "fall_feed_buildup",
+    10: "fall_feed_buildup",
+    11: "late_fall_slowdown",
+    12: "deep_winter_survival",
+  },
+  north: {
+    1: "deep_winter_survival",
+    2: "deep_winter_survival",
+    3: "deep_winter_survival",
+    4: "pre_spawn_buildup",
+    5: "pre_spawn_buildup",
+    6: "spawn_period",
+    7: "summer_peak_activity",
+    8: "summer_peak_activity",
+    9: "fall_feed_buildup",
+    10: "fall_feed_buildup",
+    11: "late_fall_slowdown",
+    12: "deep_winter_survival",
+  },
+  far_north: {
+    1: "deep_winter_survival",
+    2: "deep_winter_survival",
+    3: "deep_winter_survival",
+    4: "deep_winter_survival",
+    5: "pre_spawn_buildup",
+    6: "pre_spawn_buildup",
+    7: "spawn_period",
+    8: "summer_peak_activity",
+    9: "fall_feed_buildup",
+    10: "late_fall_slowdown",
+    11: "deep_winter_survival",
+    12: "deep_winter_survival",
+  },
+};
+
+// Rivers warm faster than lakes; spawn shifts ~1 month earlier at north/far_north
+const RIVER_SPAWN_OVERRIDES: Partial<Record<LatitudeBand, Record<number, SeasonalFishBehaviorState>>> = {
+  north: {
+    5: "spawn_period",          // lakes: pre_spawn_buildup
+    6: "post_spawn_recovery",   // lakes: spawn_period
+  },
+  far_north: {
+    6: "spawn_period",              // lakes: pre_spawn_buildup
+    7: "summer_peak_activity",      // lakes: spawn_period
+  },
+};
 
 function deriveSeasonalFishBehavior(
   env: EnvironmentSnapshot,
   waterType: WaterType,
-  subtype: FreshwaterSubtype | null
+  subtype: FreshwaterSubtype | null,
+  latBand: LatitudeBand
 ): SeasonalFishBehaviorState | null {
   if (waterType !== "freshwater") return null;
 
-  const month = new Date(env.timestamp_utc).getUTCMonth() + 1; // 1–12
-  const lat = env.lat;
-
-  // Latitude bands:
-  //   south  < 33  (e.g. Florida, Gulf Coast, South Texas)
-  //   mid    33–41 (e.g. Oklahoma, Tennessee, Central CA)
-  //   north  > 41  (e.g. Michigan, Minnesota, New England)
-  const band: "south" | "mid" | "north" =
-    lat < 33 ? "south" : lat <= 41 ? "mid" : "north";
-
-  // -------------------------------------------------------------------
-  // Southern band — mild winters, early/late spawns
-  // -------------------------------------------------------------------
-  if (band === "south") {
-    if (month === 12 || month === 1) return "deep_winter_survival";
-    if (month === 2 || month === 3) return "pre_spawn_buildup";
-    if (month === 4) return "spawn_period";
-    if (month === 5) return "post_spawn_recovery";
-    if (month >= 6 && month <= 8) return "summer_heat_suppression"; // hot Gulf summers
-    if (month === 9 || month === 10) return "fall_feed_buildup";
-    // November
-    return "late_fall_slowdown";
-  }
-
-  // -------------------------------------------------------------------
-  // Mid-latitude band
-  // -------------------------------------------------------------------
-  if (band === "mid") {
-    if (month === 12 || month === 1 || month === 2) return "deep_winter_survival";
-    if (month === 3) return "pre_spawn_buildup";
-    if (month === 4 || month === 5) return "spawn_period";
-    if (month === 6) return "post_spawn_recovery";
-    if (month === 7 || month === 8) return "summer_peak_activity";
-    if (month === 9 || month === 10) return "fall_feed_buildup";
-    // November
-    return "late_fall_slowdown";
-  }
-
-  // -------------------------------------------------------------------
-  // Northern band — longer winters, later spawns
-  // Rivers warm faster than lakes; shift spawn forward slightly.
-  // -------------------------------------------------------------------
+  const month = new Date(env.timestamp_utc).getUTCMonth() + 1;
   const isRiver = subtype === "river_stream";
-  if (month === 12 || month === 1 || month === 2) return "deep_winter_survival";
-  if (month === 3) return "deep_winter_survival"; // still locked in north
-  if (month === 4) return "pre_spawn_buildup";
-  if (month === 5) return isRiver ? "spawn_period" : "pre_spawn_buildup";
-  if (month === 6) return isRiver ? "post_spawn_recovery" : "spawn_period";
-  if (month === 7) return "summer_peak_activity";
-  if (month === 8) return "summer_peak_activity";
-  if (month === 9) return "fall_feed_buildup";
-  if (month === 10) return "fall_feed_buildup";
-  // November
-  return "late_fall_slowdown";
+
+  // Check river overrides first
+  if (isRiver) {
+    const overrides = RIVER_SPAWN_OVERRIDES[latBand];
+    if (overrides && overrides[month]) {
+      return overrides[month]!;
+    }
+  }
+
+  return FRESHWATER_SEASONAL_MAP[latBand]?.[month] ?? "deep_winter_survival";
+}
+
+// ---------------------------------------------------------------------------
+// Saltwater / Brackish Seasonal Thermal Opportunity State
+// ---------------------------------------------------------------------------
+
+type CoastalBand = "north_coast" | "mid_coast" | "south_coast";
+
+function getCoastalBand(lat: number): CoastalBand {
+  if (lat >= 39) return "north_coast";
+  if (lat >= 30) return "mid_coast";
+  return "south_coast";
+}
+
+const SALTWATER_SEASONAL_MAP: Record<CoastalBand, Record<number, SaltwaterSeasonalState>> = {
+  north_coast: {
+    1: "sw_cold_inactive", 2: "sw_cold_inactive",
+    3: "sw_transitional_feed", 4: "sw_transitional_feed",
+    5: "sw_transitional_feed", 6: "sw_summer_peak",
+    7: "sw_summer_peak", 8: "sw_summer_peak",
+    9: "sw_transitional_feed", 10: "sw_transitional_feed",
+    11: "sw_cold_inactive", 12: "sw_cold_inactive",
+  },
+  mid_coast: {
+    1: "sw_cold_mild_active", 2: "sw_cold_mild_active",
+    3: "sw_transitional_feed", 4: "sw_transitional_feed",
+    5: "sw_summer_peak", 6: "sw_summer_heat_stress",
+    7: "sw_summer_heat_stress", 8: "sw_summer_heat_stress",
+    9: "sw_transitional_feed", 10: "sw_transitional_feed",
+    11: "sw_cold_mild_active", 12: "sw_cold_mild_active",
+  },
+  south_coast: {
+    1: "sw_cold_mild_active", 2: "sw_transitional_feed",
+    3: "sw_transitional_feed", 4: "sw_summer_peak",
+    5: "sw_summer_heat_stress", 6: "sw_summer_heat_stress",
+    7: "sw_summer_heat_stress", 8: "sw_summer_heat_stress",
+    9: "sw_summer_heat_stress", 10: "sw_transitional_feed",
+    11: "sw_transitional_feed", 12: "sw_cold_mild_active",
+  },
+};
+
+function deriveSaltwaterSeasonalState(
+  env: EnvironmentSnapshot,
+  waterType: WaterType
+): SaltwaterSeasonalState | null {
+  if (waterType === "freshwater") return null;
+  const month = new Date(env.timestamp_utc).getUTCMonth() + 1;
+  const band = getCoastalBand(env.lat);
+  return SALTWATER_SEASONAL_MAP[band]?.[month] ?? "sw_transitional_feed";
 }
 
 // ---------------------------------------------------------------------------
@@ -799,15 +975,129 @@ function deriveMoonPhase(
 }
 
 // ---------------------------------------------------------------------------
+// Severe Weather Detection — Safety Guard
+// ---------------------------------------------------------------------------
+
+function detectSevereWeather(env: EnvironmentSnapshot): {
+  severe_weather_alert: boolean;
+  severe_weather_reasons: string[];
+} {
+  const reasons: string[] = [];
+
+  // Dangerous sustained wind
+  if (env.wind_speed_mph !== null && env.wind_speed_mph > 30) {
+    reasons.push("Dangerous sustained winds above 30 mph");
+  }
+
+  // Dangerous gusts
+  if (env.gust_speed_mph !== null && env.gust_speed_mph > 45) {
+    reasons.push("Dangerous wind gusts above 45 mph");
+  }
+
+  // Extreme cold
+  if (env.air_temp_f !== null && env.air_temp_f < 0) {
+    reasons.push("Extreme cold: air temperature below 0°F");
+  }
+
+  // Wind chill calculation (NWS formula)
+  if (env.air_temp_f !== null && env.wind_speed_mph !== null &&
+      env.air_temp_f <= 50 && env.wind_speed_mph >= 3) {
+    const t = env.air_temp_f;
+    const v = env.wind_speed_mph;
+    const wc = 35.74 + 0.6215 * t - 35.75 * Math.pow(v, 0.16) + 0.4275 * t * Math.pow(v, 0.16);
+    if (wc < -10) {
+      reasons.push(`Dangerous wind chill of ${Math.round(wc)}°F`);
+    }
+  }
+
+  // Severe precipitation
+  if (env.current_precip_in_hr !== null && env.current_precip_in_hr > 1.0) {
+    reasons.push("Severe precipitation exceeding 1 inch per hour");
+  }
+
+  return {
+    severe_weather_alert: reasons.length > 0,
+    severe_weather_reasons: reasons,
+  };
+}
+
+// ---------------------------------------------------------------------------
 // Wind-Tide Relation (Section 5J)
 // ---------------------------------------------------------------------------
 
+function calculateBearing(
+  lat1: number, lon1: number,
+  lat2: number, lon2: number
+): number {
+  const dLon = (lon2 - lon1) * Math.PI / 180;
+  const lat1Rad = lat1 * Math.PI / 180;
+  const lat2Rad = lat2 * Math.PI / 180;
+  const y = Math.sin(dLon) * Math.cos(lat2Rad);
+  const x = Math.cos(lat1Rad) * Math.sin(lat2Rad) -
+            Math.sin(lat1Rad) * Math.cos(lat2Rad) * Math.cos(dLon);
+  return ((Math.atan2(y, x) * 180 / Math.PI) + 360) % 360;
+}
+
 function deriveWindTideRelation(
   windDirectionDeg: number | null,
-  // V1: tide_flow_deg not available from NOAA data — always neutral per spec
+  tidePhaseState: import("./types.ts").TidePhaseState | null,
+  env: EnvironmentSnapshot
 ): WindTideRelation {
-  if (windDirectionDeg === null) return "neutral_or_unknown_relationship";
-  // tide_flow_deg requires pre-mapped tidal axis dataset not available in V1
+  if (windDirectionDeg === null || tidePhaseState === null) {
+    return "neutral_or_unknown_relationship";
+  }
+
+  // Slack or final hour: no meaningful flow to compare
+  if (tidePhaseState === "slack" || tidePhaseState === "final_hour_before_slack") {
+    return "neutral_or_unknown_relationship";
+  }
+
+  // Need tide station coordinates — approximate from station being "seaward"
+  // If no station, stay neutral
+  if (!env.nearest_tide_station_id || !env.coastal) {
+    return "neutral_or_unknown_relationship";
+  }
+
+  // Simplified V1: Use bearing from the midpoint of the nearest coastline
+  // Since we lack station coordinates, we approximate:
+  // For US East Coast: ocean is to the east (bearing ~90° from shore)
+  // For US West Coast: ocean is to the west (bearing ~270°)
+  // For Gulf Coast: ocean is to the south (bearing ~180°)
+  // Determine rough coast orientation from longitude
+  let oceanBearing: number;
+  if (env.lon > -82 && env.lat > 30) {
+    // East coast (east of Florida panhandle, above Gulf)
+    oceanBearing = 90;
+  } else if (env.lon < -115) {
+    // West coast
+    oceanBearing = 270;
+  } else if (env.lat < 31 && env.lon > -98) {
+    // South Texas / Gulf
+    oceanBearing = 170;
+  } else if (env.lon >= -98 && env.lon <= -82 && env.lat < 31) {
+    // Gulf Coast (LA, MS, AL, FL panhandle)
+    oceanBearing = 180;
+  } else {
+    // Default: assume east
+    oceanBearing = 90;
+  }
+
+  const isIncoming = tidePhaseState === "incoming_first_2_hours" ||
+                     tidePhaseState === "incoming_mid";
+
+  // Incoming: water flows FROM ocean TOWARD land (landward)
+  // Tidal flow direction = opposite of ocean bearing (toward land)
+  const landwardBearing = (oceanBearing + 180) % 360;
+  const tideFlowDeg = isIncoming ? landwardBearing : oceanBearing;
+
+  // Wind "from" direction: wind from N (0°) means air moves S (180°)
+  const windFlowDeg = (windDirectionDeg + 180) % 360;
+
+  const angleDelta = Math.abs(windFlowDeg - tideFlowDeg);
+  const normalized = angleDelta > 180 ? 360 - angleDelta : angleDelta;
+
+  if (normalized <= 45) return "wind_with_tide";
+  if (normalized >= 135) return "wind_against_tide";
   return "neutral_or_unknown_relationship";
 }
 
@@ -818,17 +1108,18 @@ function deriveWindTideRelation(
 function resolveWaterTemp(
   env: EnvironmentSnapshot,
   waterType: WaterType,
-  subtype: FreshwaterSubtype | null
+  subtype: FreshwaterSubtype | null,
+  latBand: LatitudeBand,
+  seasonalState: SeasonalFishBehaviorState | null
 ): { water_temp_f: number | null; water_temp_source: WaterTempSource } {
   if (waterType === "freshwater") {
-    const est = estimateFreshwaterTemp(env, subtype);
+    const est = estimateFreshwaterTemp(env, subtype, latBand, seasonalState);
     if (est !== null) {
       return { water_temp_f: est, water_temp_source: "freshwater_air_model" };
     }
     return { water_temp_f: null, water_temp_source: "unavailable" };
   }
 
-  // Saltwater / brackish — use measured if available
   if (env.measured_water_temp_f !== null && env.measured_water_temp_source !== null) {
     return {
       water_temp_f: env.measured_water_temp_f,
@@ -865,34 +1156,55 @@ export function deriveDerivedVariables(
   const freshwater_subtype: FreshwaterSubtype | null =
     waterType === "freshwater" ? (env.freshwater_subtype_hint ?? "lake") : null;
 
+  // Compute effective latitude (altitude-adjusted) and band
+  const effective_latitude = computeEffectiveLatitude(env.lat, env.altitude_ft);
+  const latitude_band = getLatitudeBand(effective_latitude);
+
   const { pressure_change_rate_mb_hr, pressure_state } = derivePressureTrend(env);
   const light_condition = deriveLightCondition(env, clm);
   const solunar_state = deriveSolunarState(env, clm);
   const tide_phase_state = deriveTidePhase(env, currentUtcMs);
   const { range_strength_pct, tide_strength_state } = deriveTideStrength(env);
   const { temp_trend_direction_f, temp_trend_state } = deriveTempTrend(env);
-  const { water_temp_f, water_temp_source } = resolveWaterTemp(env, waterType, freshwater_subtype);
+
+  // Seasonal behavior BEFORE water temp (water temp model uses it)
+  const seasonal_fish_behavior = deriveSeasonalFishBehavior(
+    env, waterType, freshwater_subtype, latitude_band
+  );
+
+  // Water temp with new params
+  const { water_temp_f, water_temp_source } = resolveWaterTemp(
+    env, waterType, freshwater_subtype, latitude_band, seasonal_fish_behavior
+  );
   const water_temp_zone = deriveWaterTempZone(water_temp_f, waterType);
-  const freshwater_cold_context = deriveFreshwaterColdContext(env, waterType, water_temp_zone);
-  const seasonal_fish_behavior = deriveSeasonalFishBehavior(env, waterType, freshwater_subtype);
+
+  // Cold context with latitude band
+  const freshwater_cold_context = deriveFreshwaterColdContext(
+    env, waterType, water_temp_zone, latitude_band
+  );
+
+  // Saltwater seasonal state (new)
+  const saltwater_seasonal_state = deriveSaltwaterSeasonalState(env, waterType);
+
   const moon_phase = deriveMoonPhase(env.moon_phase_label, env.moon_phase_is_waxing);
   const precip_condition = derivePrecipCondition(
-    env.current_precip_in_hr,
-    env.precip_48hr_inches,
-    waterType
+    env.current_precip_in_hr, env.precip_48hr_inches, waterType
   );
 
   const { alert: cold_stun_alert, status: cold_stun_status } = deriveColdStunAlert(
-    waterType,
-    env.measured_water_temp_f,
-    env.measured_water_temp_72h_ago_f,
-    env.timestamp_utc
+    waterType, env.measured_water_temp_f, env.measured_water_temp_72h_ago_f, env.timestamp_utc
   );
 
   const { alert: salinity_disruption_alert, status: salinity_disruption_status } =
     deriveSalinityDisruptionAlert(waterType, env.precip_48hr_inches);
 
-  const wind_tide_relation = deriveWindTideRelation(env.wind_direction_deg);
+  // Wind-tide with new approximation (pass tide phase and full env)
+  const wind_tide_relation = deriveWindTideRelation(
+    env.wind_direction_deg, tide_phase_state, env
+  );
+
+  // Severe weather detection (new)
+  const { severe_weather_alert, severe_weather_reasons } = detectSevereWeather(env);
 
   return {
     current_local_minutes: clm,
@@ -918,6 +1230,12 @@ export function deriveDerivedVariables(
     salinity_disruption_alert,
     salinity_disruption_status,
     wind_tide_relation,
+    // New fields:
+    saltwater_seasonal_state,
+    latitude_band,
+    effective_latitude,
+    severe_weather_alert,
+    severe_weather_reasons,
   };
 }
 

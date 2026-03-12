@@ -137,6 +137,7 @@ function baseFreshwaterFixture(): EnvironmentSnapshot {
     measured_water_temp_source: null,
     measured_water_temp_72h_ago_f: null,
     freshwater_subtype_hint: null,
+    altitude_ft: null,
   };
 }
 
@@ -1337,7 +1338,7 @@ group("Group 12 — Edge-Case Rules", () => {
   const postFrontBaseWindows = computeTimeWindows(
     postFrontFx,
     "freshwater",
-    postFrontRuleContext.range_strength_pct,
+    postFrontRuleContext.range_strength_pct ?? null,
     postFrontRuleContext.pressure_state,
     postFrontFx.cloud_cover_pct,
     null
@@ -1345,10 +1346,10 @@ group("Group 12 — Edge-Case Rules", () => {
   const postFrontRuledWindows = computeTimeWindows(
     postFrontFx,
     "freshwater",
-    postFrontRuleContext.range_strength_pct,
+    postFrontRuleContext.range_strength_pct ?? null,
     postFrontRuleContext.pressure_state,
     postFrontFx.cloud_cover_pct,
-    postFrontRuleContext
+    postFrontRuleContext as any
   );
   const postFrontBaseGood = postFrontBaseWindows.best_windows.some((w) => w.label === "GOOD");
   const postFrontRuledSuppressed =
@@ -1373,11 +1374,11 @@ group("Group 12 — Edge-Case Rules", () => {
     hourly_pressure_mb: pressureHistory(1010, -2.0),
     cloud_cover_pct: 85,
   });
-  const slackRuleContext = makeRuleContext(swSlackFx, "saltwater");
+  const slackRuleContext = makeRuleContext(swSlackFx, "saltwater")!;
   const slackBaseWindows = computeTimeWindows(
     swSlackFx,
     "saltwater",
-    slackRuleContext.range_strength_pct,
+    slackRuleContext.range_strength_pct ?? null,
     slackRuleContext.pressure_state,
     swSlackFx.cloud_cover_pct,
     null
@@ -1385,7 +1386,7 @@ group("Group 12 — Edge-Case Rules", () => {
   const slackRuledWindows = computeTimeWindows(
     swSlackFx,
     "saltwater",
-    slackRuleContext.range_strength_pct,
+    slackRuleContext.range_strength_pct ?? null,
     slackRuleContext.pressure_state,
     swSlackFx.cloud_cover_pct,
     slackRuleContext

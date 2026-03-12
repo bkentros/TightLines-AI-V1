@@ -63,6 +63,13 @@ function buildEngineEnvironment(
     days_since_front: daysSinceFront,
     freshwater_subtype: dv.freshwater_subtype,
     seasonal_fish_behavior: dv.seasonal_fish_behavior,
+    // New fields (Sweep 1):
+    effective_latitude: dv.effective_latitude,
+    latitude_band: dv.latitude_band,
+    saltwater_seasonal_state: dv.saltwater_seasonal_state,
+    altitude_ft: env.altitude_ft,
+    severe_weather_alert: dv.severe_weather_alert,
+    severe_weather_reasons: dv.severe_weather_reasons,
   };
 }
 
@@ -241,6 +248,8 @@ export function runCoreIntelligence(
       days_since_front: daysSinceFront,
       front_severity: frontSeverity,
       front_label: frontLabel,
+      severe_weather_alert: dv.severe_weather_alert,
+      severe_weather_reasons: dv.severe_weather_reasons,
     },
     time_windows: best_windows,
     worst_windows,

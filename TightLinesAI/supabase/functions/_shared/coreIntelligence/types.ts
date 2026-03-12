@@ -10,6 +10,8 @@
 
 export type WaterType = "freshwater" | "saltwater" | "brackish";
 
+export type LatitudeBand = "deep_south" | "south" | "mid" | "north" | "far_north";
+
 // ---------------------------------------------------------------------------
 // Environment Snapshot
 // This is the normalized input the engine consumes.
@@ -94,6 +96,9 @@ export interface EnvironmentSnapshot {
   // Freshwater subtype hint (optional; defaults to "lake" if null for estimation bias).
   // Populated from the client request when the user selects water body type.
   freshwater_subtype_hint: FreshwaterSubtype | null;
+
+  // Altitude in feet — used for effective latitude calculation (elevation shifts seasonal band)
+  altitude_ft: number | null;
 }
 
 // ---------------------------------------------------------------------------
@@ -120,8 +125,11 @@ export type LightCondition =
 export type SolunarState =
   | "within_major_window"
   | "within_30min_of_major"
+  | "within_60min_of_major"   // NEW
+  | "within_90min_of_major"   // NEW
   | "within_minor_window"
   | "within_30min_of_minor"
+  | "within_60min_of_minor"   // NEW
   | "outside_all_windows";
 
 export type TidePhaseState =
@@ -223,7 +231,15 @@ export type SeasonalFishBehaviorState =
   | "summer_peak_activity"    // warm water, metabolically active, dawn/dusk bite dominant
   | "summer_heat_suppression" // excessively hot water forcing fish to deep cool water
   | "fall_feed_buildup"       // cooling water triggers aggressive pre-winter feed-up
-  | "late_fall_slowdown";     // water rapidly cooling, fish slowing before winter
+  | "late_fall_slowdown"      // water rapidly cooling, fish slowing before winter
+  | "mild_winter_active";     // NEW — mild southern winters; fish remain somewhat active
+
+export type SaltwaterSeasonalState =
+  | "sw_cold_inactive"
+  | "sw_cold_mild_active"
+  | "sw_transitional_feed"
+  | "sw_summer_peak"
+  | "sw_summer_heat_stress";
 
 // ---------------------------------------------------------------------------
 // Component Status (Section 2E)
@@ -397,7 +413,7 @@ export interface DataQuality {
 // Time Window (Section 7)
 // ---------------------------------------------------------------------------
 
-export type WindowLabel = "PRIME" | "GOOD" | "SECONDARY";
+export type WindowLabel = "PRIME" | "GOOD" | "FAIR" | "SLOW";
 
 export interface TimeWindow {
   label: WindowLabel;
@@ -411,6 +427,7 @@ export interface WorstWindow {
   start_local: string;
   end_local: string;
   window_score: number;
+  label?: WindowLabel;  // for FAIR/SLOW classification
 }
 
 // ---------------------------------------------------------------------------
@@ -444,6 +461,9 @@ export interface EngineOutput {
     front_severity: FrontSeverity | null;
     /** Plain-language label for the active front/pressure event, e.g. "Cold front moved through — fishing picks up in 1–2 days" */
     front_label: string | null;
+    // New fields (Sweep 1):
+    severe_weather_alert: boolean;
+    severe_weather_reasons: string[];
   };
   time_windows: TimeWindow[];
   worst_windows: WorstWindow[];
@@ -478,6 +498,14 @@ export interface EngineEnvironmentSnapshot {
   days_since_front: number;
   freshwater_subtype: FreshwaterSubtype | null;
   seasonal_fish_behavior: SeasonalFishBehaviorState | null;
+
+  // New fields (Sweep 1):
+  effective_latitude: number;
+  latitude_band: LatitudeBand;
+  saltwater_seasonal_state: SaltwaterSeasonalState | null;
+  altitude_ft: number | null;
+  severe_weather_alert: boolean;
+  severe_weather_reasons: string[];
 }
 
 // ---------------------------------------------------------------------------
@@ -525,4 +553,11 @@ export interface DerivedVariables {
 
   /** Freshwater only: deterministic seasonal fish-behavior state based on lat + month + subtype. */
   seasonal_fish_behavior: SeasonalFishBehaviorState | null;
+
+  // New fields (Sweep 1):
+  saltwater_seasonal_state: SaltwaterSeasonalState | null;
+  latitude_band: LatitudeBand;
+  effective_latitude: number;
+  severe_weather_alert: boolean;
+  severe_weather_reasons: string[];
 }

@@ -25,6 +25,7 @@ interface WeatherData {
   wind_speed: number;
   wind_direction: number;
   precipitation: number;
+  gust_speed: number | null;
   temp_unit: string;
   wind_speed_unit: string;
   // Pressure trend
@@ -100,6 +101,7 @@ interface EnvironmentData {
   measured_water_temp_72h_ago_f?: number | null;
   coastal?: boolean;
   nearest_tide_station_id?: string | null;
+  altitude_ft?: number | null;
 }
 
 // -----------------------------------------------------------------------------
@@ -107,10 +109,6 @@ interface EnvironmentData {
 // -----------------------------------------------------------------------------
 
 const TIDE_STATION_MAX_MILES = 50;
-/** Major period: ±60 min around transit = 2 hr total window */
-const SOLUNAR_MAJOR_HALF_MINUTES = 60;
-/** Minor period: ±30 min around rise/set = 1 hr total window */
-const SOLUNAR_MINOR_HALF_MINUTES = 30;
 const EARTH_RADIUS_MILES = 3958.8;
 const MM_TO_INCHES = 1 / 25.4;
 
@@ -232,7 +230,7 @@ async function fetchOpenMeteo(
   const params = new URLSearchParams({
     latitude: String(lat),
     longitude: String(lon),
-    current: 'temperature_2m,relative_humidity_2m,cloud_cover,pressure_msl,wind_speed_10m,wind_direction_10m,precipitation',
+    current: 'temperature_2m,relative_humidity_2m,cloud_cover,pressure_msl,wind_speed_10m,wind_direction_10m,precipitation,wind_gusts_10m',
     hourly: 'pressure_msl,temperature_2m',
     daily: 'sunrise,sunset,temperature_2m_max,temperature_2m_min,precipitation_sum',
     temperature_unit: tempUnit,
@@ -266,6 +264,7 @@ async function fetchOpenMeteo(
     wind_speed: Number(current.wind_speed_10m) || 0,
     wind_direction: Number(current.wind_direction_10m) || 0,
     precipitation: Number(current.precipitation) || 0,
+    gust_speed: Number(current.wind_gusts_10m) || null,
     temp_unit: units === 'imperial' ? '°F' : '°C',
     wind_speed_unit: units === 'imperial' ? 'mph' : 'km/h',
   };
@@ -811,12 +810,55 @@ async function fetchUSNO(lat: number, lon: number, tzHours: number): Promise<USN
 }
 
 // -----------------------------------------------------------------------------
+// Open-Meteo — elevation
+// -----------------------------------------------------------------------------
+
+async function fetchElevation(lat: number, lon: number): Promise<number | null> {
+  try {
+    const url = `https://api.open-meteo.com/v1/elevation?latitude=${lat}&longitude=${lon}`;
+    const res = await fetch(url);
+    if (!res.ok) return null;
+    const data = await res.json();
+    // Open-Meteo returns elevation in meters; convert to feet
+    const meters = data?.elevation?.[0] ?? data?.elevation ?? null;
+    if (meters === null || meters === undefined) return null;
+    return Math.round(Number(meters) * 3.28084);
+  } catch {
+    return null;
+  }
+}
+
+// -----------------------------------------------------------------------------
 // Solunar computation — uses HH:mm strings throughout
 // -----------------------------------------------------------------------------
+
+// Phase-modulated solunar window duration
+function getSolunarHalfWindow(
+  moonPhase: string | null,
+  periodType: "major" | "minor"
+): number {
+  const phase = (moonPhase ?? "").toLowerCase();
+  if (phase.includes("new") || phase.includes("full")) {
+    return periodType === "major" ? 75 : 45;
+  }
+  if (phase.includes("gibbous")) {
+    return periodType === "major" ? 65 : 35;
+  }
+  if (phase.includes("quarter")) {
+    return periodType === "major" ? 50 : 28;
+  }
+  if (phase.includes("crescent")) {
+    return periodType === "major" ? 35 : 20;
+  }
+  return periodType === "major" ? 60 : 30;
+}
 
 function computeSolunar(moon: MoonData): SolunarData {
   const major: SolunarPeriod[] = [];
   const minor: SolunarPeriod[] = [];
+
+  const majorHalf = getSolunarHalfWindow(moon.phase, "major");
+  const minorHalf = getSolunarHalfWindow(moon.phase, "minor");
 
   const addPeriod = (
     timeStr: string | null,
@@ -836,10 +878,10 @@ function computeSolunar(moon: MoonData): SolunarData {
     }
   };
 
-  addPeriod(moon.upper_transit, SOLUNAR_MAJOR_HALF_MINUTES, 'overhead');
-  addPeriod(moon.lower_transit, SOLUNAR_MAJOR_HALF_MINUTES, 'underfoot');
-  addPeriod(moon.rise, SOLUNAR_MINOR_HALF_MINUTES);
-  addPeriod(moon.set, SOLUNAR_MINOR_HALF_MINUTES);
+  addPeriod(moon.upper_transit, majorHalf, 'overhead');
+  addPeriod(moon.lower_transit, majorHalf, 'underfoot');
+  addPeriod(moon.rise, minorHalf);
+  addPeriod(moon.set, minorHalf);
 
   return { major_periods: major, minor_periods: minor };
 }
@@ -921,15 +963,17 @@ Deno.serve(async (req: Request) => {
   const fetchedAt = new Date().toISOString();
 
   // Fetch all remaining sources in parallel once the live timezone offset is known.
-  const [twilightResult, noaaResult, usnoResult] = await Promise.allSettled([
+  const [twilightResult, noaaResult, usnoResult, elevationResult] = await Promise.allSettled([
     fetchCivilTwilight(lat, lon, tzHours),
     fetchNOAA(lat, lon, units, tzHours),
     fetchUSNO(lat, lon, tzHours),
+    fetchElevation(lat, lon),
   ]);
 
   const twilight = twilightResult.status === 'fulfilled' ? twilightResult.value : null;
   const noaa = noaaResult.status === 'fulfilled' ? noaaResult.value : null;
   const usno = usnoResult.status === 'fulfilled' ? usnoResult.value : null;
+  const altitude_ft = elevationResult.status === 'fulfilled' ? elevationResult.value : null;
 
   // ─── Tides ─────────────────────────────────────────────────────────────────
   let tides_available = false;
@@ -980,6 +1024,7 @@ Deno.serve(async (req: Request) => {
     measured_water_temp_72h_ago_f: noaa?.measured_water_temp_72h_ago_f ?? null,
     coastal: Boolean(noaa?.tides),
     nearest_tide_station_id: noaa?.stationId ?? null,
+    altitude_ft: altitude_ft,
   };
 
   return new Response(JSON.stringify(response), {
