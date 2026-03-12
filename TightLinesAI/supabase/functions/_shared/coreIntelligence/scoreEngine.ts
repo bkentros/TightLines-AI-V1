@@ -225,23 +225,90 @@ function scoreWaterTempZone(
 
   const zone = dv.water_temp_zone;
 
-  if (zone === "near_shutdown_cold") return 8;
-  if (zone === "thermal_stress_heat") return 28;
+  let pct: number | null = null;
 
-  const bounds = ZONE_BOUNDS[waterType][zone];
-  if (!bounds) return null;
+  // Freshwater cold-season: cold water in winter is expected; score higher than cold_shock
+  const coldContext = dv.freshwater_cold_context;
+  if (waterType === "freshwater" && (zone === "near_shutdown_cold" || zone === "lethargic")) {
+    if (coldContext === "seasonally_expected_cold") {
+      if (zone === "near_shutdown_cold") pct = 35;
+      // lethargic: boost range to 45–62 so winter cold is viable
+      const bounds = ZONE_BOUNDS[waterType][zone];
+      if (bounds) {
+        const [lo, hi] = bounds;
+        const progress = inverseLerp(dv.water_temp_f, lo, hi);
+        pct = Math.round(lerp(45, 62, progress));
+      }
+    }
+    if (coldContext === "cold_shock") {
+      if (zone === "near_shutdown_cold") pct = 8;
+    }
+  }
 
-  const [lo, hi] = bounds;
-  const progress = inverseLerp(dv.water_temp_f, lo, hi);
+  if (pct === null) {
+    if (zone === "near_shutdown_cold") pct = 8;
+    else if (zone === "thermal_stress_heat") pct = 28;
+    else {
+      const bounds = ZONE_BOUNDS[waterType][zone];
+      if (!bounds) return null;
 
-  let pct: number;
-  if (zone === "lethargic") pct = Math.round(lerp(25, 42, progress));
-  else if (zone === "transitional") pct = Math.round(lerp(50, 67, progress));
-  else if (zone === "active_prime") pct = Math.round(lerp(75, 92, progress));
-  else if (zone === "peak_aggression") pct = Math.round(lerp(83, 100, progress));
-  else return null;
+      const [lo, hi] = bounds;
+      const progress = inverseLerp(dv.water_temp_f, lo, hi);
 
-  return pct;
+      if (zone === "lethargic") pct = Math.round(lerp(25, 42, progress));
+      else if (zone === "transitional") pct = Math.round(lerp(50, 67, progress));
+      else if (zone === "active_prime") pct = Math.round(lerp(75, 92, progress));
+      else if (zone === "peak_aggression") pct = Math.round(lerp(83, 100, progress));
+      else return null;
+    }
+  }
+
+  if (waterType !== "freshwater" || dv.seasonal_fish_behavior === null) {
+    return pct;
+  }
+
+  switch (dv.seasonal_fish_behavior) {
+    case "deep_winter_survival":
+      if (zone === "near_shutdown_cold") pct += 12;
+      else if (zone === "lethargic") pct += 10;
+      else if (zone === "transitional") pct -= 6;
+      break;
+    case "pre_spawn_buildup":
+      if (zone === "transitional") pct += 8;
+      else if (zone === "active_prime") pct += 10;
+      else if (zone === "near_shutdown_cold") pct -= 6;
+      break;
+    case "spawn_period":
+      if (zone === "transitional") pct += 6;
+      else if (zone === "active_prime") pct += 8;
+      else if (zone === "peak_aggression") pct -= 4;
+      break;
+    case "post_spawn_recovery":
+      if (zone === "active_prime") pct += 4;
+      else if (zone === "peak_aggression") pct -= 8;
+      break;
+    case "summer_peak_activity":
+      if (zone === "active_prime") pct += 8;
+      else if (zone === "peak_aggression") pct += 6;
+      else if (zone === "thermal_stress_heat") pct -= 8;
+      break;
+    case "summer_heat_suppression":
+      if (zone === "peak_aggression") pct -= 10;
+      else if (zone === "thermal_stress_heat") pct -= 18;
+      break;
+    case "fall_feed_buildup":
+      if (zone === "transitional") pct += 10;
+      else if (zone === "active_prime") pct += 12;
+      else if (zone === "near_shutdown_cold") pct += 4;
+      break;
+    case "late_fall_slowdown":
+      if (zone === "near_shutdown_cold") pct += 10;
+      else if (zone === "lethargic") pct += 8;
+      else if (zone === "transitional") pct += 3;
+      break;
+  }
+
+  return clamp(pct, 0, 100);
 }
 
 // ---------------------------------------------------------------------------
@@ -297,9 +364,61 @@ function scoreTempTrend(dv: DerivedVariables): number | null {
   if (dv.temp_trend_state === null) return null;
   if (dv.cold_stun_alert) return 0;
 
-  const basePct = TEMP_TREND_BASE_PCT[dv.temp_trend_state] ?? 60;
+  let basePct = TEMP_TREND_BASE_PCT[dv.temp_trend_state] ?? 60;
+
+  if (dv.seasonal_fish_behavior !== null) {
+    switch (dv.seasonal_fish_behavior) {
+      case "deep_winter_survival":
+        if (dv.temp_trend_state === "rapid_warming") basePct += 10;
+        else if (dv.temp_trend_state === "warming") basePct += 8;
+        else if (dv.temp_trend_state === "stable") basePct += 4;
+        else if (dv.temp_trend_state === "cooling") basePct -= 12;
+        else if (dv.temp_trend_state === "rapid_cooling") basePct -= 22;
+        break;
+      case "pre_spawn_buildup":
+        if (dv.temp_trend_state === "rapid_warming") basePct += 8;
+        else if (dv.temp_trend_state === "warming") basePct += 6;
+        else if (dv.temp_trend_state === "cooling") basePct -= 6;
+        else if (dv.temp_trend_state === "rapid_cooling") basePct -= 14;
+        break;
+      case "spawn_period":
+        if (dv.temp_trend_state === "stable") basePct += 8;
+        else if (dv.temp_trend_state === "warming") basePct += 4;
+        else if (dv.temp_trend_state === "rapid_warming") basePct -= 4;
+        break;
+      case "post_spawn_recovery":
+        if (dv.temp_trend_state === "stable") basePct += 5;
+        else if (dv.temp_trend_state === "cooling") basePct -= 8;
+        else if (dv.temp_trend_state === "rapid_cooling") basePct -= 12;
+        break;
+      case "summer_peak_activity":
+        if (dv.temp_trend_state === "stable") basePct += 4;
+        else if (dv.temp_trend_state === "cooling") basePct += 5;
+        else if (dv.temp_trend_state === "rapid_warming") basePct -= 6;
+        break;
+      case "summer_heat_suppression":
+        if (dv.temp_trend_state === "cooling") basePct += 10;
+        else if (dv.temp_trend_state === "warming") basePct -= 10;
+        else if (dv.temp_trend_state === "rapid_warming") basePct -= 18;
+        else if (dv.temp_trend_state === "stable") basePct -= 6;
+        break;
+      case "fall_feed_buildup":
+        if (dv.temp_trend_state === "cooling") basePct += 12;
+        else if (dv.temp_trend_state === "rapid_cooling") basePct += 6;
+        else if (dv.temp_trend_state === "stable") basePct += 5;
+        else if (dv.temp_trend_state === "warming") basePct -= 6;
+        break;
+      case "late_fall_slowdown":
+        if (dv.temp_trend_state === "rapid_warming") basePct += 6;
+        else if (dv.temp_trend_state === "warming") basePct += 4;
+        else if (dv.temp_trend_state === "cooling") basePct -= 10;
+        else if (dv.temp_trend_state === "rapid_cooling") basePct -= 18;
+        break;
+    }
+  }
+
   const modifier = getZoneModifier(dv.temp_trend_state, dv.water_temp_zone);
-  return Math.round((basePct / 100) * modifier * 100);
+  return Math.round((clamp(basePct, 0, 100) / 100) * modifier * 100);
 }
 
 // ---------------------------------------------------------------------------

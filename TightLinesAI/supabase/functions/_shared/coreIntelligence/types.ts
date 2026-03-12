@@ -90,6 +90,10 @@ export interface EnvironmentSnapshot {
   // Water temp from ~72 hours ago — used for cold stun drop check (Section 4I)
   // Set to null if no historical observation is available.
   measured_water_temp_72h_ago_f: number | null;
+
+  // Freshwater subtype hint (optional; defaults to "lake" if null for estimation bias).
+  // Populated from the client request when the user selects water body type.
+  freshwater_subtype_hint: FreshwaterSubtype | null;
 }
 
 // ---------------------------------------------------------------------------
@@ -192,6 +196,34 @@ export interface AlertState {
   salinity_disruption_alert: boolean;
   salinity_disruption_status: AlertStatus;
 }
+
+/** Severity of a detected cold front; used for recovery multiplier adjustment. */
+export type FrontSeverity = "mild" | "moderate" | "severe";
+
+/** Freshwater-only: cold water in winter is expected; in summer it is a shock. */
+export type FreshwaterColdContext = "seasonally_expected_cold" | "cold_shock" | null;
+
+/**
+ * Freshwater body subtype — affects water temperature estimation bias.
+ * Lakes are slower to warm/cool than rivers, which track air temps more closely.
+ * Reservoirs behave like lakes but may have thermal stratification effects.
+ */
+export type FreshwaterSubtype = "lake" | "river_stream" | "reservoir";
+
+/**
+ * Deterministic seasonal fish-behavior state derived from latitude band + month + subtype.
+ * Captures the broad behavioral envelope fish are in for the time of year.
+ * Used by the LLM prompt and alert labels to frame narrative accurately.
+ */
+export type SeasonalFishBehaviorState =
+  | "deep_winter_survival"    // fish barely moving, holding deep or in thermal refugia
+  | "pre_spawn_buildup"       // fish starting to move, feeding increasing ahead of spawn
+  | "spawn_period"            // spawning actively underway — erratic behavior, location shifts
+  | "post_spawn_recovery"     // spawn finished, fish scattered and recovering
+  | "summer_peak_activity"    // warm water, metabolically active, dawn/dusk bite dominant
+  | "summer_heat_suppression" // excessively hot water forcing fish to deep cool water
+  | "fall_feed_buildup"       // cooling water triggers aggressive pre-winter feed-up
+  | "late_fall_slowdown";     // water rapidly cooling, fish slowing before winter
 
 // ---------------------------------------------------------------------------
 // Component Status (Section 2E)
@@ -409,6 +441,9 @@ export interface EngineOutput {
     rapid_cooling_alert: boolean;
     recovery_active: boolean;
     days_since_front: number;
+    front_severity: FrontSeverity | null;
+    /** Plain-language label for the active front/pressure event, e.g. "Cold front moved through — fishing picks up in 1–2 days" */
+    front_label: string | null;
   };
   time_windows: TimeWindow[];
   worst_windows: WorstWindow[];
@@ -441,6 +476,8 @@ export interface EngineEnvironmentSnapshot {
   temp_trend_state: TempTrendState | null;
   temp_trend_direction_f: number | null;
   days_since_front: number;
+  freshwater_subtype: FreshwaterSubtype | null;
+  seasonal_fish_behavior: SeasonalFishBehaviorState | null;
 }
 
 // ---------------------------------------------------------------------------
@@ -479,4 +516,13 @@ export interface DerivedVariables {
   salinity_disruption_status: AlertStatus;
 
   wind_tide_relation: WindTideRelation;
+
+  /** Freshwater only: when water is in a cold zone, was it expected for the season? */
+  freshwater_cold_context: FreshwaterColdContext;
+
+  /** Freshwater only: the body-of-water subtype chosen by the user (or defaulting to "lake"). */
+  freshwater_subtype: FreshwaterSubtype | null;
+
+  /** Freshwater only: deterministic seasonal fish-behavior state based on lat + month + subtype. */
+  seasonal_fish_behavior: SeasonalFishBehaviorState | null;
 }

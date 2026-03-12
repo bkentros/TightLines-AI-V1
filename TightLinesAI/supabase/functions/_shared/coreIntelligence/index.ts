@@ -61,7 +61,41 @@ function buildEngineEnvironment(
     temp_trend_state: dv.temp_trend_state,
     temp_trend_direction_f: dv.temp_trend_direction_f,
     days_since_front: daysSinceFront,
+    freshwater_subtype: dv.freshwater_subtype,
+    seasonal_fish_behavior: dv.seasonal_fish_behavior,
   };
+}
+
+// ---------------------------------------------------------------------------
+// Build a plain-English front label — no jargon, no "recovery" framing
+// ---------------------------------------------------------------------------
+
+function buildFrontLabel(
+  recoveryActive: boolean,
+  daysSinceFront: number,
+  frontSeverity: import("./types.ts").FrontSeverity | null
+): string | null {
+  if (!recoveryActive || frontSeverity === null) return null;
+
+  const sevWord =
+    frontSeverity === "mild" ? "mild" : frontSeverity === "severe" ? "strong" : "cold";
+
+  if (daysSinceFront === 0) {
+    return `A ${sevWord} cold front moved through — fish are tight-lipped today. Expect slow action.`;
+  }
+  if (daysSinceFront === 1) {
+    return `Cold front came through yesterday. Fish still reluctant — try slow presentations near structure.`;
+  }
+  if (daysSinceFront === 2) {
+    return `Two days post-front. Fish starting to stir — bite should improve, especially midday.`;
+  }
+  if (daysSinceFront === 3) {
+    return `Three days after the front. Conditions stabilizing — expect a solid bite window today.`;
+  }
+  if (daysSinceFront >= 4) {
+    return `Front has passed. Fish back to normal patterns — fish confidently.`;
+  }
+  return null;
 }
 
 // ---------------------------------------------------------------------------
@@ -126,8 +160,8 @@ export function runCoreIntelligence(
   } = computeRawScore(env, dv, effectiveWaterType);
 
   // Section 6 — Recovery modifier
-  const { daysSinceFront } = detectColdFront(env);
-  const recoveryMultiplier = getRecoveryMultiplier(effectiveWaterType, daysSinceFront);
+  const { daysSinceFront, frontSeverity } = detectColdFront(env);
+  const recoveryMultiplier = getRecoveryMultiplier(effectiveWaterType, daysSinceFront, frontSeverity);
   const adjustedScore = computeAdjustedScore(raw_score, recoveryMultiplier);
 
   // Section 5N — Rating
@@ -144,6 +178,8 @@ export function runCoreIntelligence(
     recovery_active: daysSinceFront >= 0 && daysSinceFront <= 5,
     salinity_disruption_alert: dv.salinity_disruption_alert,
     range_strength_pct: dv.range_strength_pct,
+    seasonal_fish_behavior: dv.seasonal_fish_behavior,
+    freshwater_subtype: dv.freshwater_subtype,
   };
   const { best_windows, worst_windows } = computeTimeWindows(
     env,
@@ -167,6 +203,9 @@ export function runCoreIntelligence(
   // Build final output
   const engineEnv = buildEngineEnvironment(env, dv, daysSinceFront);
   const dataQuality = buildDataQuality(component_status as Record<string, ComponentStatus>, dv);
+
+  const recoveryActive = daysSinceFront >= 0 && daysSinceFront <= 5 && frontSeverity !== null;
+  const frontLabel = buildFrontLabel(recoveryActive, daysSinceFront, frontSeverity);
 
   return {
     engine: "fishing_core_intelligence_v1",
@@ -198,8 +237,10 @@ export function runCoreIntelligence(
       salinity_disruption_alert: dv.salinity_disruption_alert,
       salinity_disruption_status: dv.salinity_disruption_status,
       rapid_cooling_alert: dv.temp_trend_state === "rapid_cooling",
-      recovery_active: daysSinceFront >= 0 && daysSinceFront <= 5,
+      recovery_active: recoveryActive,
       days_since_front: daysSinceFront,
+      front_severity: frontSeverity,
+      front_label: frontLabel,
     },
     time_windows: best_windows,
     worst_windows,

@@ -4,7 +4,7 @@
 // EnvironmentSnapshot format required by the core intelligence engine.
 // =============================================================================
 
-import type { EnvironmentSnapshot, SolunarPeriod, TidePrediction } from "./coreIntelligence/types.ts";
+import type { EnvironmentSnapshot, SolunarPeriod, TidePrediction, FreshwaterSubtype } from "./coreIntelligence/types.ts";
 
 // The EnvironmentData shape from get-environment (reproduced here for isolation)
 interface EnvironmentData {
@@ -84,7 +84,8 @@ export function toEngineSnapshot(
   lat: number,
   lon: number,
   timestampUtc: string,
-  timezone: string
+  timezone: string,
+  freshwaterSubtypeHint?: FreshwaterSubtype | null
 ): EnvironmentSnapshot {
   const tzOffset = env.tz_offset_hours ?? 0;
 
@@ -170,5 +171,6 @@ export function toEngineSnapshot(
     measured_water_temp_f: env.measured_water_temp_f ?? null,
     measured_water_temp_source: (env.measured_water_temp_source as any) ?? null,
     measured_water_temp_72h_ago_f: env.measured_water_temp_72h_ago_f ?? null,
+    freshwater_subtype_hint: freshwaterSubtypeHint ?? null,
   };
 }

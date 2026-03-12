@@ -61,6 +61,8 @@ export interface EngineEnvironment {
   temp_trend_state: string | null;
   temp_trend_direction_f: number | null;
   days_since_front: number;
+  freshwater_subtype?: 'lake' | 'river_stream' | 'reservoir' | null;
+  seasonal_fish_behavior?: string | null;
 }
 
 export interface EngineBehavior {
@@ -82,6 +84,8 @@ export interface EngineAlerts {
   rapid_cooling_alert: boolean;
   recovery_active: boolean;
   days_since_front: number;
+  front_severity?: 'mild' | 'moderate' | 'severe' | null;
+  front_label?: string | null;
 }
 
 export interface DataQuality {
@@ -158,12 +162,20 @@ export interface LLMOutput {
 // Per-report structure (Section 8C)
 // ---------------------------------------------------------------------------
 
+/** Per-water-type token/cost (optional; present when backend includes it for observability). */
+export interface WaterTypeUsage {
+  input_tokens: number;
+  output_tokens: number;
+  token_cost_usd: number;
+}
+
 export interface WaterTypeReport {
   status: 'ok' | 'error';
   water_type: WaterType;
   engine: EngineOutput | null;
   llm: LLMOutput | null;
   error: string | null;
+  usage?: WaterTypeUsage;
 }
 
 // ---------------------------------------------------------------------------
@@ -176,6 +188,7 @@ export interface HowFishingBundle {
   default_tab: WaterType;
   generated_at: string;
   cache_expires_at: string;
+  freshwater_subtype?: 'lake' | 'river_stream' | 'reservoir';
   reports: {
     freshwater?: WaterTypeReport;
     saltwater?: WaterTypeReport;

@@ -40,28 +40,31 @@ const CLAUDE_OUTPUT_COST_PER_M = 5;
 // Verbatim system prompt from hows_fishing_feature_spec.md Section 7A
 // ---------------------------------------------------------------------------
 
-const HOW_FISHING_SYSTEM_PROMPT = `You are a professional fishing guide writing a short, honest fishing-conditions brief from authoritative deterministic engine output.
+const HOW_FISHING_SYSTEM_PROMPT = `You are an experienced fishing guide giving a quick, honest rundown of today's fishing conditions. Write like you're talking to a fellow angler — plain language, no jargon, no science terms.
 
 Rules:
-- The engine is authoritative. Never recalculate or contradict score, alerts, timing windows, or water type.
-- Be concise. Anglers should understand the situation in seconds, not minutes.
-- Be honest. If conditions are poor, say so directly.
-- Explain only the main biological drivers.
-- Never give species-specific advice, lure advice, or made-up tactics.
-- Respect missing-data boundaries. If water temperature is estimated rather than measured, say estimated. If data quality is reduced, say so briefly.
-- Use the exact best and worst windows provided. Never invent windows.
+- The engine numbers are final. Never recalculate or contradict the score, time windows, or alerts.
+- Be direct. Good conditions? Say so. Tough day? Say that clearly too.
+- Explain WHY fish will or won't bite — in fish-behavior terms, not meteorological ones.
+- Keep it tight. Anglers should understand the situation in a few seconds.
+- Never suggest specific lures, species, or tactics.
+- Use exactly the time windows the engine provides. Never invent your own.
+
+Language rules:
+- Do not use these words: "cold-stunned" (freshwater), "peak water temp", "meteorological", "thermocline", "lethargic" (use "sluggish" instead), "suppressed" (use "slow" or "shut down"), "biological".
+- "peak_aggression" zone means fish are in their optimal temperature range — describe it as "fish are comfortable and feeding well" or similar.
+- When talking about temperature trends, refer to air temperature for freshwater/inland. Only say "water temperature" trend for coastal when measured data is available (water_temp_is_estimated: false).
+- Do not tell the user to check conditions themselves, verify anything, or monitor anything. Give them the answer.
+- If water_temp_is_estimated is true, you may mention the water temp is estimated once in the tips — don't dwell on it.
+- Use the seasonal_fish_behavior field to frame fish activity: deep_winter_survival means fish are barely moving and holding deep; pre_spawn_buildup means fish are starting to move and feed aggressively; spawn_period means fish are distracted and location-shifted; post_spawn_recovery means fish are scattered and selective; summer_peak_activity means fish are active on dawn/dusk edges; summer_heat_suppression means fish are pushed deep to cool water; fall_feed_buildup means fish are gorging hard before winter; late_fall_slowdown means fish are slowing down.
 
 Length limits:
-- headline_summary: exactly 1 sentence, max 22 words
-- overall_fishing_rating.summary: 1 sentence, max 26 words
-- best_times_to_fish_today: max 2 items, reasoning max 18 words each
-- worst_times_to_fish_today: max 2 items, reasoning max 18 words each
-- key_factors values: short sentence fragments, max 18 words each
-- tips_for_today: exactly 3 tips, max 14 words each
-
-Water temperature wording:
-- If water_temp_source is freshwater_air_model, call it an estimate from recent air-temperature history.
-- If water_temp_source is noaa_coops, call it a measured coastal water temperature.
+- headline_summary: exactly 1 sentence, max 20 words
+- overall_fishing_rating.summary: 1 sentence, max 24 words
+- best_times_to_fish_today: max 2 items, reasoning max 16 words each
+- worst_times_to_fish_today: max 2 items, reasoning max 16 words each
+- key_factors values: short phrases, max 16 words each
+- tips_for_today: exactly 3 tips, max 12 words each — make them actionable, specific to today
 
 Output valid JSON only matching this schema:
 {
@@ -316,9 +319,16 @@ function buildLLMPayload(
         ? "measured coastal water temperature from NOAA CO-OPS"
         : "unavailable";
 
+  const isFreshwaterEstimated = engineOutput.environment.water_temp_source !== "noaa_coops";
+  const measuredTrendAvailable =
+    engineOutput.water_type !== "freshwater" &&
+    engineOutput.environment.water_temp_source === "noaa_coops";
+
   return {
     feature: "hows_fishing_feature_v1",
     water_type: engineOutput.water_type,
+    freshwater_subtype: engineOutput.environment.freshwater_subtype ?? null,
+    seasonal_fish_behavior: engineOutput.environment.seasonal_fish_behavior ?? null,
     location: engineOutput.location,
     score: {
       adjusted_score: engineOutput.scoring.adjusted_score,
@@ -331,12 +341,15 @@ function buildLLMPayload(
       water_temp_f: engineOutput.environment.water_temp_f,
       water_temp_source: engineOutput.environment.water_temp_source,
       water_temp_note: waterTempNarrative,
+      water_temp_is_estimated: isFreshwaterEstimated,
+      measured_water_temp_trend_available: measuredTrendAvailable,
+      // For inland/freshwater only reference air_temp_trend_direction_f as the trend signal
+      air_temp_trend_direction_f: engineOutput.environment.temp_trend_direction_f,
       water_temp_zone: engineOutput.environment.water_temp_zone,
       pressure_mb: engineOutput.environment.pressure_mb,
       pressure_change_rate_mb_hr: engineOutput.environment.pressure_change_rate_mb_hr,
       pressure_state: engineOutput.environment.pressure_state,
       temp_trend_state: engineOutput.environment.temp_trend_state,
-      temp_trend_direction_f: engineOutput.environment.temp_trend_direction_f,
       light_condition: engineOutput.environment.light_condition,
       tide_phase_state: engineOutput.environment.tide_phase_state,
       tide_strength_state: engineOutput.environment.tide_strength_state,
@@ -350,6 +363,7 @@ function buildLLMPayload(
       precip_7day_inches: engineOutput.environment.precip_7day_inches,
       precip_condition: engineOutput.environment.precip_condition,
       days_since_front: engineOutput.environment.days_since_front,
+      front_label: engineOutput.alerts.front_label ?? null,
     },
     behavior_summary: {
       metabolic_state: engineOutput.behavior.metabolic_state,
@@ -420,7 +434,7 @@ Deno.serve(async (req: Request) => {
   const userId = user.id;
 
   // --- 2. Parse body ---
-  let body: { latitude?: number; longitude?: number; units?: string } = {};
+  let body: { latitude?: number; longitude?: number; units?: string; freshwater_subtype?: string } = {};
   try {
     body = await req.json();
   } catch {
@@ -433,6 +447,13 @@ Deno.serve(async (req: Request) => {
   const lat = Number(body.latitude);
   const lon = Number(body.longitude);
   const units = body.units === "metric" ? "metric" : "imperial";
+  // Validate and normalize freshwater subtype; defaults to "lake" if unrecognized/absent
+  const VALID_SUBTYPES = ["lake", "river_stream", "reservoir"] as const;
+  type FwSubtype = typeof VALID_SUBTYPES[number];
+  const freshwaterSubtype: FwSubtype =
+    VALID_SUBTYPES.includes(body.freshwater_subtype as FwSubtype)
+      ? (body.freshwater_subtype as FwSubtype)
+      : "lake";
   if (isNaN(lat) || lat < -90 || lat > 90) {
     return new Response(JSON.stringify({ error: "Invalid latitude" }), {
       status: 400,
@@ -514,7 +535,8 @@ Deno.serve(async (req: Request) => {
     timestampUtc,
     typeof (envData as { timezone?: unknown }).timezone === "string"
       ? (envData as { timezone: string }).timezone
-      : "UTC"
+      : "UTC",
+    freshwaterSubtype
   );
 
   // --- 6. Determine coastal vs inland ---
@@ -543,6 +565,9 @@ Deno.serve(async (req: Request) => {
     engine: ReturnType<typeof runCoreIntelligence> | null;
     llm: LLMOutput | null;
     error: string | null;
+    input_tokens?: number;
+    output_tokens?: number;
+    token_cost_usd?: number;
   }
 
   async function runReportForWaterType(waterType: WaterType): Promise<ReportEntry> {
@@ -566,6 +591,7 @@ Deno.serve(async (req: Request) => {
     );
     totalInputTokens += inputTokens;
     totalOutputTokens += outputTokens;
+    const tokenCostUsd = computeCallCost(inputTokens, outputTokens);
 
     if (llmError || !llm) {
       return {
@@ -576,10 +602,22 @@ Deno.serve(async (req: Request) => {
         error: llmError === "claude_unavailable" || llmError === "malformed_response"
           ? llmError
           : "claude_unavailable",
+        input_tokens: inputTokens,
+        output_tokens: outputTokens,
+        token_cost_usd: tokenCostUsd,
       };
     }
 
-    return { status: "ok", water_type: waterType, engine: engineOutput, llm, error: null };
+    return {
+      status: "ok",
+      water_type: waterType,
+      engine: engineOutput,
+      llm,
+      error: null,
+      input_tokens: inputTokens,
+      output_tokens: outputTokens,
+      token_cost_usd: tokenCostUsd,
+    };
   }
 
   let reports: Record<string, ReportEntry>;
@@ -616,6 +654,7 @@ Deno.serve(async (req: Request) => {
     default_tab: "freshwater",
     generated_at: timestampUtc,
     cache_expires_at: cacheExpiresAt,
+    freshwater_subtype: freshwaterSubtype,
     reports: Object.fromEntries(
       Object.entries(reports).map(([key, r]) => [
         key,
@@ -635,6 +674,15 @@ Deno.serve(async (req: Request) => {
             : null,
           llm: r.llm,
           error: r.error,
+          ...(r.input_tokens !== undefined && r.output_tokens !== undefined && r.token_cost_usd !== undefined
+            ? {
+                usage: {
+                  input_tokens: r.input_tokens,
+                  output_tokens: r.output_tokens,
+                  token_cost_usd: r.token_cost_usd,
+                },
+              }
+            : {}),
         },
       ])
     ),

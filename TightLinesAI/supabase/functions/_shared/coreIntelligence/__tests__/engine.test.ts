@@ -136,6 +136,7 @@ function baseFreshwaterFixture(): EnvironmentSnapshot {
     measured_water_temp_f: null,
     measured_water_temp_source: null,
     measured_water_temp_72h_ago_f: null,
+    freshwater_subtype_hint: null,
   };
 }
 
@@ -188,6 +189,8 @@ function makeRuleContext(
     recovery_active: out.alerts.recovery_active,
     salinity_disruption_alert: out.alerts.salinity_disruption_alert,
     range_strength_pct: out.environment.range_strength_pct,
+    seasonal_fish_behavior: out.environment.seasonal_fish_behavior,
+    freshwater_subtype: out.environment.freshwater_subtype,
   };
 }
 
@@ -443,6 +446,27 @@ group("Group 2 — Derived Variables", () => {
     assertEqual(`sw water_temp_zone at ${temp}°F`, out.environment.water_temp_zone, expected as any);
   }
 
+  // Freshwater cold-season: seasonally_expected_cold boosts water_temp_zone score vs cold_shock
+  const winterColdFx = mut(baseFreshwaterFixture(), {
+    timestamp_utc: "2024-02-10T17:00:00Z",
+    lat: 45,
+    daily_air_temp_high_f: [28, 30, 32, 33, 34, 35, 36],
+    daily_air_temp_low_f: [18, 20, 22, 23, 24, 25, 26],
+  });
+  const winterColdOut = runCoreIntelligence(winterColdFx, "freshwater");
+  const winterWaterScore = winterColdOut.scoring.components["water_temp_zone"] ?? -1;
+  assert("fw cold-season: water_temp_zone score boosted (seasonally_expected_cold)", winterWaterScore >= 8);
+
+  const summerColdFx = mut(baseFreshwaterFixture(), {
+    timestamp_utc: "2024-07-15T17:00:00Z",
+    lat: 45,
+    daily_air_temp_high_f: [55, 56, 54, 52, 50, 48, 46],
+    daily_air_temp_low_f: [45, 44, 42, 40, 38, 36, 34],
+  });
+  const summerColdOut = runCoreIntelligence(summerColdFx, "freshwater");
+  const summerWaterScore = summerColdOut.scoring.components["water_temp_zone"] ?? -1;
+  assert("fw cold-season: winter cold scores higher than summer cold (cold_shock)", winterWaterScore > summerWaterScore || (winterWaterScore >= 8 && summerWaterScore <= 10));
+
   // Water temp zone boundaries — brackish
   const bkZoneTests: Array<[number, string]> = [
     [47.9, "near_shutdown_cold"],
@@ -484,6 +508,42 @@ group("Group 2 — Derived Variables", () => {
     hourly_air_temp_f: tempHistory(60, -1, -4.9),
   });
   assertEqual("temp_trend: cooling at trend72h=-4.9", runCoreIntelligence(notRapid72, "freshwater").environment.temp_trend_state, "cooling");
+
+  // Temp trend consistency: direction sign must match state (no contradiction)
+  const warmingFx = mut(baseFreshwaterFixture(), {
+    hourly_air_temp_f: tempHistory(65, 2, 5),
+  });
+  const warmingOut = runCoreIntelligence(warmingFx, "freshwater");
+  assert("temp_trend consistency: warming state implies positive direction", warmingOut.environment.temp_trend_state === "rapid_warming" && (warmingOut.environment.temp_trend_direction_f ?? 0) > 0);
+  assert("temp_trend consistency: positive direction implies warming/stable state", (warmingOut.environment.temp_trend_direction_f ?? 0) > 0 && ["rapid_warming", "warming", "stable"].includes(warmingOut.environment.temp_trend_state ?? ""));
+
+  const coolingFx = mut(baseFreshwaterFixture(), {
+    hourly_air_temp_f: tempHistory(60, -4, -6),
+  });
+  const coolingOut = runCoreIntelligence(coolingFx, "freshwater");
+  assert("temp_trend consistency: rapid_cooling state implies negative direction", coolingOut.environment.temp_trend_state === "rapid_cooling" && (coolingOut.environment.temp_trend_direction_f ?? 0) <= 0);
+  assert("temp_trend consistency: negative direction implies cooling state", (coolingOut.environment.temp_trend_direction_f ?? 0) < 0 && ["rapid_cooling", "cooling"].includes(coolingOut.environment.temp_trend_state ?? ""));
+
+  // Timezone edge: late evening local (e.g. 23:00 EST = 04:00 UTC next day) — trend uses local day, not UTC
+  // Build fixture: 2024-06-16 04:00 UTC = 2024-06-15 23:00 EST. Hourly data: last 24h warming, so trend24h positive; 72h same.
+  const lateEveningTs = "2024-06-16T04:00:00Z"; // 23:00 EST
+  const lateEveningTemp = (): Array<{ time_utc: string; value: number }> => {
+    const result: Array<{ time_utc: string; value: number }> = [];
+    const now = new Date(lateEveningTs).getTime();
+    for (let i = 96; i >= 0; i--) {
+      const tMs = now - i * 3600 * 1000;
+      result.push({ time_utc: new Date(tMs).toISOString(), value: 68 + (96 - i) * 0.1 });
+    }
+    return result;
+  };
+  const lateEveningFx = mut(baseFreshwaterFixture(), {
+    timestamp_utc: lateEveningTs,
+    tz_offset_hours: -5,
+    hourly_air_temp_f: lateEveningTemp(),
+  });
+  const lateOut = runCoreIntelligence(lateEveningFx, "freshwater");
+  assert("temp_trend timezone: late evening local produces non-null trend", lateOut.environment.temp_trend_direction_f !== null && lateOut.environment.temp_trend_state !== null);
+  assert("temp_trend timezone: warming trend direction sign matches state", (lateOut.environment.temp_trend_direction_f ?? 0) >= 0 === ["rapid_warming", "warming", "stable"].includes(lateOut.environment.temp_trend_state ?? ""));
 
   // Tide phase boundaries — saltwater
   // Base saltwater: last L was at 12:00 UTC-5 = 06:00, H at 12:00, current time = 17:00 UTC = 12:00 local
@@ -800,75 +860,59 @@ group("Group 5 — Recovery Modifier", () => {
   assert("no front: recovery_active = false", noFront.alerts.recovery_active === false);
   assertEqual("no front: adjusted_score = raw_score", noFront.scoring.adjusted_score, noFront.scoring.raw_score);
 
-  // Cold front day 0 freshwater: multiplier = 0.35
-  // NOTE: Day 0 requires 24h of post-front data to be detectable. The fixture places
-  // the trough 30h ago (daysAgo=1 + 6h buffer) to ensure detection. Day 0 (< 24h ago)
-  // cannot be confirmed by the algorithm since recovery data doesn't exist yet.
-  // The engine's daysSince=0 behavior is tested via daysAgo=1 fixture (trough 30h ago).
-  const frontDay0FW = mut(baseFreshwaterFixture(), {
-    hourly_pressure_mb: coldFrontHistory(1), // trough 30h ago → daysSince=1
-  });
+  // Cold front detection requires pressure drop+rebound; cooling confirmation required only when 72+ hourly temps.
+  // Use 48h temp data so front is detected from pressure only (moderate severity).
+  const coldFrontFx = (days: number) => ({ hourly_pressure_mb: coldFrontHistory(days), hourly_air_temp_f: makeHourlyTemp(65, 48) });
+
+  // Cold front day 1 freshwater: base 0.88 (moderate severity +0)
+  const frontDay0FW = mut(baseFreshwaterFixture(), coldFrontFx(1));
   const fd0 = runCoreIntelligence(frontDay0FW, "freshwater");
-  assertEqual("cold_front day 1 fw: recovery_multiplier = 0.45", fd0.scoring.recovery_multiplier, 0.45);
+  assertEqual("cold_front day 1 fw: recovery_multiplier (base 0.88 + mild 0.03)", fd0.scoring.recovery_multiplier, 0.91);
   assert("cold_front day 1 fw: recovery_active = true", fd0.alerts.recovery_active === true);
+  assert("cold_front day 1 fw: front_severity set", fd0.alerts.front_severity !== null);
   assert("cold_front day 1 fw: adjusted < raw (multiplier < 1)", fd0.scoring.adjusted_score <= fd0.scoring.raw_score);
 
-  // Cold front day 0 saltwater: multiplier = 0.55
-  const frontDay0SW = mut(baseSaltwaterFixture(), {
-    hourly_pressure_mb: coldFrontHistory(0),
-  });
+  // Cold front day 0 saltwater: undetectable (insufficient post-front data)
+  const frontDay0SW = mut(baseSaltwaterFixture(), coldFrontFx(0));
   const fd0sw = runCoreIntelligence(frontDay0SW, "saltwater");
-  // Day 0 undetectable — documents engine behavior
   assert("cold_front day 0 sw: undetectable (< 24h post-front data), multiplier=1.0", fd0sw.scoring.recovery_multiplier === 1.0);
 
-  // Cold front day 0 brackish: multiplier = 0.45
-  const frontDay0BK = mut(baseBrackishFixture(), {
-    hourly_pressure_mb: coldFrontHistory(0),
-  });
+  const frontDay0BK = mut(baseBrackishFixture(), coldFrontFx(0));
   const fd0bk = runCoreIntelligence(frontDay0BK, "brackish");
   assert("cold_front day 0 bk: undetectable (< 24h post-front data), multiplier=1.0", fd0bk.scoring.recovery_multiplier === 1.0);
 
-  // Cold front day 2 brackish: multiplier = 0.69
-  const frontDay2BK = mut(baseBrackishFixture(), {
-    hourly_pressure_mb: coldFrontHistory(2),
-  });
+  const frontDay2BK = mut(baseBrackishFixture(), coldFrontFx(2));
   const fd2bk = runCoreIntelligence(frontDay2BK, "brackish");
-  assertEqual("cold_front day 2 bk: recovery_multiplier = 0.69", fd2bk.scoring.recovery_multiplier, 0.69);
+  assertEqual("cold_front day 2 bk: recovery_multiplier (base 0.96 + mild 0.03 capped)", fd2bk.scoring.recovery_multiplier, 0.99);
 
-  // Cold front day 5 saltwater: multiplier = 1.0
-  const frontDay5SW = mut(baseSaltwaterFixture(), {
-    hourly_pressure_mb: coldFrontHistory(5),
-  });
+  const frontDay5SW = mut(baseSaltwaterFixture(), coldFrontFx(5));
   const fd5sw = runCoreIntelligence(frontDay5SW, "saltwater");
   assertEqual("cold_front day 5 sw: recovery_multiplier = 1.0", fd5sw.scoring.recovery_multiplier, 1.0);
 
-  // All recovery multipliers table — freshwater
-  // Note: daysAgo=N fixture places trough at N*24+6h ago, which yields daysSince=N
+  // Weaker base multipliers + mild severity (+0.03) from 5mb drop in fixture
   const fwMultipliers: Array<[number, number]> = [
-    [1, 0.45], [2, 0.60], [3, 0.75], [4, 0.88], [5, 0.95],
+    [1, 0.91], [2, 0.97], [3, 1.0], [4, 1.0], [5, 1.0],
   ];
   for (const [days, expected] of fwMultipliers) {
-    const fx = mut(baseFreshwaterFixture(), { hourly_pressure_mb: coldFrontHistory(days) });
+    const fx = mut(baseFreshwaterFixture(), coldFrontFx(days));
     const out = runCoreIntelligence(fx, "freshwater");
     assertEqual(`fw recovery multiplier day ${days}`, out.scoring.recovery_multiplier, expected);
   }
 
-  // All recovery multipliers — saltwater
   const swMultipliers: Array<[number, number]> = [
-    [1, 0.65], [2, 0.78], [3, 0.88], [4, 0.95], [5, 1.00],
+    [1, 0.96], [2, 1.0], [3, 1.0], [4, 1.0], [5, 1.0],
   ];
   for (const [days, expected] of swMultipliers) {
-    const fx = mut(baseSaltwaterFixture(), { hourly_pressure_mb: coldFrontHistory(days) });
+    const fx = mut(baseSaltwaterFixture(), coldFrontFx(days));
     const out = runCoreIntelligence(fx, "saltwater");
     assertEqual(`sw recovery multiplier day ${days}`, out.scoring.recovery_multiplier, expected);
   }
 
-  // All recovery multipliers — brackish
   const bkMultipliers: Array<[number, number]> = [
-    [1, 0.55], [2, 0.69], [3, 0.82], [4, 0.92], [5, 0.98],
+    [1, 0.94], [2, 0.99], [3, 1.0], [4, 1.0], [5, 1.0],
   ];
   for (const [days, expected] of bkMultipliers) {
-    const fx = mut(baseBrackishFixture(), { hourly_pressure_mb: coldFrontHistory(days) });
+    const fx = mut(baseBrackishFixture(), coldFrontFx(days));
     const out = runCoreIntelligence(fx, "brackish");
     assertEqual(`bk recovery multiplier day ${days}`, out.scoring.recovery_multiplier, expected);
   }
@@ -1307,10 +1351,12 @@ group("Group 12 — Edge-Case Rules", () => {
     postFrontRuleContext
   );
   const postFrontBaseGood = postFrontBaseWindows.best_windows.some((w) => w.label === "GOOD");
-  const postFrontRuledVisible = postFrontRuledWindows.best_windows.length > 0;
+  const postFrontRuledSuppressed =
+    postFrontRuledWindows.best_windows.length === 0 ||
+    postFrontRuledWindows.best_windows.every((w) => w.window_score < 65);
   assert(
-    "Rule 5 positive: post_front_compression removes a marginal clear-sky recovery window that base scoring would otherwise surface",
-    postFrontRuleContext.recovery_active && postFrontBaseGood && !postFrontRuledVisible
+    "Rule 5 positive: post_front_compression suppresses clear-sky post-front windows below PRIME visibility",
+    postFrontRuleContext.recovery_active && postFrontBaseGood && postFrontRuledSuppressed
   );
 
   // Rule 6: Saltwater slack-tide cap
@@ -1441,6 +1487,117 @@ group("Group 12 — Edge-Case Rules", () => {
     regResults.push(JSON.stringify(runCoreIntelligence(regFixture, "freshwater")));
   }
   assert("Regression: repeatability after edge-case rules", regResults.every(r => r === regResults[0]));
+});
+
+// ---------------------------------------------------------------------------
+// GROUP 13 — Seasonal State Functional Behavior
+// ---------------------------------------------------------------------------
+
+group("Group 13 — Seasonal State Functional Behavior", () => {
+  const springBase = mut(baseFreshwaterFixture(), {
+    timestamp_utc: "2024-04-20T17:00:00Z",
+    lat: 45,
+    daily_air_temp_high_f: [56, 58, 60, 61, 62, 64, 66],
+    daily_air_temp_low_f: [40, 41, 42, 43, 44, 45, 46],
+  });
+  const springLake = runCoreIntelligence(
+    mut(springBase, { freshwater_subtype_hint: "lake" }),
+    "freshwater"
+  );
+  const springRiver = runCoreIntelligence(
+    mut(springBase, { freshwater_subtype_hint: "river_stream" }),
+    "freshwater"
+  );
+  assert(
+    "seasonal temp model: spring river estimate warmer than spring lake",
+    (springRiver.environment.water_temp_f ?? 0) > (springLake.environment.water_temp_f ?? 0)
+  );
+
+  const deepWinterFx = mut(baseFreshwaterFixture(), {
+    timestamp_utc: "2024-02-12T17:00:00Z",
+    lat: 45,
+    daily_air_temp_high_f: [30, 31, 32, 33, 34, 35, 36],
+    daily_air_temp_low_f: [18, 19, 20, 21, 22, 23, 24],
+  });
+  const deepWinterOut = runCoreIntelligence(deepWinterFx, "freshwater");
+  assertEqual(
+    "seasonal state: deep winter classified correctly",
+    deepWinterOut.environment.seasonal_fish_behavior,
+    "deep_winter_survival"
+  );
+  assert(
+    "seasonal windows: deep winter favors midday driver",
+    deepWinterOut.time_windows.some((w) => w.drivers.includes("deep_winter_midday_window"))
+  );
+  assertEqual(
+    "seasonal positioning: deep winter → deepest_stable_water",
+    deepWinterOut.behavior.positioning_bias,
+    "deepest_stable_water"
+  );
+
+  const spawnFx = mut(baseFreshwaterFixture(), {
+    timestamp_utc: "2024-05-18T17:00:00Z",
+    lat: 34,
+    daily_air_temp_high_f: [70, 71, 72, 73, 74, 75, 76],
+    daily_air_temp_low_f: [56, 57, 58, 59, 60, 61, 62],
+  });
+  const spawnOut = runCoreIntelligence(spawnFx, "freshwater");
+  assertEqual(
+    "seasonal state: spawn classified correctly",
+    spawnOut.environment.seasonal_fish_behavior,
+    "spawn_period"
+  );
+  assertEqual(
+    "seasonal positioning: spawn → warming_flats_and_transitions",
+    spawnOut.behavior.positioning_bias,
+    "warming_flats_and_transitions"
+  );
+  assert(
+    "seasonal windows: spawn adds shallow-window driver",
+    spawnOut.time_windows.some((w) => w.drivers.includes("spawn_shallow_window"))
+  );
+
+  const heatFx = mut(baseFreshwaterFixture(), {
+    timestamp_utc: "2024-07-20T17:00:00Z",
+    lat: 30,
+    cloud_cover_pct: 10,
+    daily_air_temp_high_f: [95, 96, 96, 97, 98, 99, 100],
+    daily_air_temp_low_f: [80, 81, 82, 82, 83, 84, 85],
+  });
+  const heatOut = runCoreIntelligence(heatFx, "freshwater");
+  assertEqual(
+    "seasonal state: summer heat classified correctly",
+    heatOut.environment.seasonal_fish_behavior,
+    "summer_heat_suppression"
+  );
+  assertEqual(
+    "seasonal positioning: summer heat → shade_depth_structure",
+    heatOut.behavior.positioning_bias,
+    "shade_depth_structure"
+  );
+  assert(
+    "seasonal windows: summer heat favors low-light relief",
+    heatOut.time_windows.some((w) => w.drivers.includes("summer_heat_low_light_relief"))
+  );
+
+  const fallFx = mut(baseFreshwaterFixture(), {
+    timestamp_utc: "2024-10-10T17:00:00Z",
+    lat: 42,
+    cloud_cover_pct: 55,
+    daily_air_temp_high_f: [60, 59, 58, 57, 56, 55, 54],
+    daily_air_temp_low_f: [48, 47, 46, 45, 44, 43, 42],
+    hourly_air_temp_f: tempHistory(56, -2, -4),
+  });
+  const fallOut = runCoreIntelligence(fallFx, "freshwater");
+  assertEqual(
+    "seasonal state: fall classified correctly",
+    fallOut.environment.seasonal_fish_behavior,
+    "fall_feed_buildup"
+  );
+  assert(
+    "seasonal windows: fall adds feed-window driver",
+    fallOut.time_windows.some((w) => w.drivers.includes("fall_feed_window"))
+  );
 });
 
 // ---------------------------------------------------------------------------

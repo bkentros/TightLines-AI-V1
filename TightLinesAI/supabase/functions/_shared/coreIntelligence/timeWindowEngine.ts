@@ -15,6 +15,8 @@ import type {
   TempTrendState,
   PressureState,
   LightCondition,
+  SeasonalFishBehaviorState,
+  FreshwaterSubtype,
 } from "./types.ts";
 import {
   hmToMinutes,
@@ -47,6 +49,8 @@ export interface TimeWindowRuleContext {
   recovery_active: boolean;
   salinity_disruption_alert: boolean;
   range_strength_pct: number | null;
+  seasonal_fish_behavior?: SeasonalFishBehaviorState | null;
+  freshwater_subtype?: FreshwaterSubtype | null;
 }
 
 // ---------------------------------------------------------------------------
@@ -96,37 +100,78 @@ function computeDawnDusk(env: EnvironmentSnapshot): DawnDusk {
 
 function getFreshwaterThermalTimingProfile(
   env: EnvironmentSnapshot,
-  waterType: WaterType
+  waterType: WaterType,
+  seasonalState: SeasonalFishBehaviorState | null,
+  subtype: FreshwaterSubtype | null
 ): FreshwaterThermalTimingProfile | null {
   if (waterType !== "freshwater") return null;
 
-  const estTemp = estimateFreshwaterTemp(env);
+  const estTemp = estimateFreshwaterTemp(env, subtype);
   if (estTemp === null) return null;
 
   const zone = deriveWaterTempZone(estTemp, "freshwater");
-  const season = getMeteoSeason(new Date(env.timestamp_utc).getUTCMonth() + 1);
-  const isColdSeason = season === "DJF" || season === "MAM";
-  if (!isColdSeason || zone === null) return null;
+  if (zone === null || seasonalState === null) return null;
 
-  if (zone === "near_shutdown_cold" || zone === "lethargic") {
-    return {
-      dawnDuskBonus: 18,
-      middayWarmBonus: 26,
-      middayWarmStart: 11 * 60,
-      middayWarmEnd: 15 * 60,
-    };
+  switch (seasonalState) {
+    case "deep_winter_survival":
+      return {
+        dawnDuskBonus: 10,
+        middayWarmBonus: subtype === "river_stream" ? 30 : 36,
+        middayWarmStart: 11 * 60,
+        middayWarmEnd: 15.5 * 60,
+      };
+    case "pre_spawn_buildup":
+      return {
+        dawnDuskBonus: zone === "transitional" ? 22 : 18,
+        middayWarmBonus: 28,
+        middayWarmStart: 10 * 60,
+        middayWarmEnd: 16 * 60,
+      };
+    case "spawn_period":
+      return {
+        dawnDuskBonus: 20,
+        middayWarmBonus: 18,
+        middayWarmStart: 9.5 * 60,
+        middayWarmEnd: 14 * 60,
+      };
+    case "post_spawn_recovery":
+      return {
+        dawnDuskBonus: 30,
+        middayWarmBonus: 6,
+        middayWarmStart: 11 * 60,
+        middayWarmEnd: 13 * 60,
+      };
+    case "summer_peak_activity":
+      return {
+        dawnDuskBonus: 40,
+        middayWarmBonus: 0,
+        middayWarmStart: 0,
+        middayWarmEnd: 0,
+      };
+    case "summer_heat_suppression":
+      return {
+        dawnDuskBonus: 42,
+        middayWarmBonus: 0,
+        middayWarmStart: 0,
+        middayWarmEnd: 0,
+      };
+    case "fall_feed_buildup":
+      return {
+        dawnDuskBonus: 34,
+        middayWarmBonus: 12,
+        middayWarmStart: 12 * 60,
+        middayWarmEnd: 16 * 60,
+      };
+    case "late_fall_slowdown":
+      return {
+        dawnDuskBonus: 16,
+        middayWarmBonus: 26,
+        middayWarmStart: 10.5 * 60,
+        middayWarmEnd: 15.5 * 60,
+      };
+    default:
+      return null;
   }
-
-  if (zone === "transitional") {
-    return {
-      dawnDuskBonus: 28,
-      middayWarmBonus: 14,
-      middayWarmStart: 11 * 60,
-      middayWarmEnd: 15 * 60,
-    };
-  }
-
-  return null;
 }
 
 interface TideBlockInfo {
@@ -197,12 +242,18 @@ function scoreBlock(
   dawnDusk: DawnDusk,
   rangeStrengthPct: number | null,
   pressureFalling: boolean,
-  cloudCover: number | null
+  cloudCover: number | null,
+  ruleCtx: TimeWindowRuleContext | null
 ): Block {
   let points = 0;
   let maxPoints = 0;
   const drivers: string[] = [];
-  const freshwaterTimingProfile = getFreshwaterThermalTimingProfile(env, waterType);
+  const freshwaterTimingProfile = getFreshwaterThermalTimingProfile(
+    env,
+    waterType,
+    ruleCtx?.seasonal_fish_behavior ?? null,
+    ruleCtx?.freshwater_subtype ?? env.freshwater_subtype_hint
+  );
   const dawnDuskBonus = freshwaterTimingProfile?.dawnDuskBonus ?? 35;
 
   // Dawn window
@@ -230,6 +281,7 @@ function scoreBlock(
   // Cold-season freshwater often improves as shallow water warms into midday.
   if (
     freshwaterTimingProfile &&
+    freshwaterTimingProfile.middayWarmBonus > 0 &&
     blockInRange(
       blockStartMin,
       freshwaterTimingProfile.middayWarmStart,
@@ -392,6 +444,7 @@ function applyEdgeCaseRules(
   const tempTrend = ruleCtx.temp_trend_state;
   const pressureState = ruleCtx.pressure_state;
   const cloudCover = ruleCtx.cloud_cover_pct;
+  const seasonalState = ruleCtx.seasonal_fish_behavior ?? null;
   const season = getMeteoSeason(new Date(env.timestamp_utc).getUTCMonth() + 1);
   const isColdSeason = season === "DJF" || season === "MAM";
 
@@ -422,14 +475,14 @@ function applyEdgeCaseRules(
     if (!drivers.includes("rapid_warming_late_day_bonus")) drivers.push("rapid_warming_late_day_bonus");
   }
 
-  // --- Rule 4: Freshwater Overcast Extension ---
+  // --- Rule 4: Freshwater Overcast Extension (cold-season includes near_shutdown/lethargic) ---
   if (
     waterType === "freshwater" &&
     (cloudCover ?? 0) >= 70 &&
     zone !== null &&
-    zone !== "near_shutdown_cold" &&
     zone !== "thermal_stress_heat" &&
     zone !== "peak_aggression" &&
+    (zone !== "near_shutdown_cold" || isColdSeason) &&
     isMiddayBlock(block.startMin, dawnDusk)
   ) {
     points += 8;
@@ -488,6 +541,80 @@ function applyEdgeCaseRules(
     if (saltwaterProtectedLike && !strongIncoming) {
       points += 10;
       if (!drivers.includes("cold_inshore_midday_warming")) drivers.push("cold_inshore_midday_warming");
+    }
+  }
+
+  // --- Rule 9: Freshwater state-specific seasonal behavior windows ---
+  if (waterType === "freshwater" && seasonalState !== null) {
+    const lightCategory = getBlockLightCategory(block.startMin, dawnDusk, cloudCover);
+
+    if (seasonalState === "deep_winter_survival") {
+      if (lightCategory === "midday") {
+        points += 12;
+        if (!drivers.includes("deep_winter_midday_window")) drivers.push("deep_winter_midday_window");
+      } else if (lightCategory === "dawn" || lightCategory === "dusk") {
+        points -= 8;
+        if (!drivers.includes("deep_winter_low_light_penalty")) drivers.push("deep_winter_low_light_penalty");
+      }
+    }
+
+    if (seasonalState === "pre_spawn_buildup" && isLateMorningToAfternoon(block.startMin)) {
+      points += 8;
+      if (!drivers.includes("pre_spawn_movement_window")) drivers.push("pre_spawn_movement_window");
+    }
+
+    if (seasonalState === "spawn_period") {
+      if (lightCategory === "midday") {
+        points += 10;
+        if (!drivers.includes("spawn_shallow_window")) drivers.push("spawn_shallow_window");
+      }
+    }
+
+    if (seasonalState === "post_spawn_recovery") {
+      if (lightCategory === "dawn" || lightCategory === "dusk") {
+        points += 8;
+        if (!drivers.includes("post_spawn_low_light_window")) drivers.push("post_spawn_low_light_window");
+      } else if (lightCategory === "midday" && (cloudCover ?? 0) < 50) {
+        points -= 6;
+        if (!drivers.includes("post_spawn_midday_penalty")) drivers.push("post_spawn_midday_penalty");
+      }
+    }
+
+    if (seasonalState === "summer_peak_activity") {
+      if (lightCategory === "dawn" || lightCategory === "dusk") {
+        points += 6;
+        if (!drivers.includes("summer_low_light_feed")) drivers.push("summer_low_light_feed");
+      } else if (lightCategory === "midday" && (cloudCover ?? 0) < 70) {
+        points -= 8;
+        if (!drivers.includes("summer_midday_bright_penalty")) drivers.push("summer_midday_bright_penalty");
+      }
+    }
+
+    if (seasonalState === "summer_heat_suppression") {
+      if (lightCategory === "midday") {
+        points -= 12;
+        if (!drivers.includes("summer_heat_midday_penalty")) drivers.push("summer_heat_midday_penalty");
+      } else if (lightCategory === "dawn" || lightCategory === "dusk" || lightCategory === "night") {
+        points += 6;
+        if (!drivers.includes("summer_heat_low_light_relief")) drivers.push("summer_heat_low_light_relief");
+      }
+    }
+
+    if (seasonalState === "fall_feed_buildup" && isLateMorningToAfternoon(block.startMin)) {
+      if (pressureState === "slowly_falling" || pressureState === "rapidly_falling" || (cloudCover ?? 0) >= 40) {
+        points += 10;
+        if (!drivers.includes("fall_feed_window")) drivers.push("fall_feed_window");
+      }
+    }
+
+    if (seasonalState === "late_fall_slowdown") {
+      if (lightCategory === "midday") {
+        points += 10;
+        if (!drivers.includes("late_fall_midday_window")) drivers.push("late_fall_midday_window");
+      } else if (lightCategory === "dawn" || lightCategory === "dusk") {
+        points -= 6;
+        if (!drivers.includes("late_fall_low_light_penalty")) drivers.push("late_fall_low_light_penalty");
+      }
     }
   }
 
@@ -550,7 +677,8 @@ export function computeTimeWindows(
       dawnDusk,
       rangeStrengthPct,
       pressureFalling,
-      cloudCoverPct
+      cloudCoverPct,
+      ruleCtx
     );
     const tideInfo = waterType !== "freshwater" ? getTidePhaseForBlock(startMin, env) : { phaseState: null };
     const adjusted = ruleCtx

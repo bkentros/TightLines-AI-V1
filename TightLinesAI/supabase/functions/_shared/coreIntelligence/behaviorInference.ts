@@ -130,6 +130,7 @@ function derivePositioningBias(
 
   if (waterType === "freshwater") {
     let primary: PositioningBias;
+    const seasonal = dv.seasonal_fish_behavior;
 
     const isDawnDusk =
       dv.light_condition === "dawn_window_clear" ||
@@ -155,6 +156,23 @@ function derivePositioningBias(
       primary = "shade_depth_structure";
     } else if (isLethargyOrShutdown) {
       primary = "deepest_stable_water";
+    } else if (seasonal === "deep_winter_survival") {
+      primary = "deepest_stable_water";
+    } else if (seasonal === "pre_spawn_buildup") {
+      primary = "warming_flats_and_transitions";
+    } else if (seasonal === "spawn_period") {
+      primary = "warming_flats_and_transitions";
+    } else if (seasonal === "post_spawn_recovery") {
+      primary = "first_drop_and_transition_edges";
+    } else if (seasonal === "summer_heat_suppression") {
+      primary = "shade_depth_structure";
+    } else if (seasonal === "fall_feed_buildup") {
+      primary = isDawnDusk ? "shallow_feeding_edges" : "first_drop_and_transition_edges";
+    } else if (seasonal === "late_fall_slowdown") {
+      primary =
+        dv.temp_trend_state === "rapid_warming" || dv.temp_trend_state === "warming"
+          ? "warming_flats_and_transitions"
+          : "deepest_stable_water";
     } else if (dv.temp_trend_state === "rapid_warming") {
       primary = "warming_flats_and_transitions";
     } else if (dv.temp_trend_state === "rapid_cooling" && isActiveMetabolic) {

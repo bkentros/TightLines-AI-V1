@@ -725,6 +725,7 @@ export default function HowFishingScreen() {
   const [reportLoading, setReportLoading] = useState(false);
   const [previewScore, setPreviewScore] = useState<number | undefined>(undefined);
   const [previewRating, setPreviewRating] = useState<string | undefined>(undefined);
+  const [freshwaterSubtype, setFreshwaterSubtype] = useState<'lake' | 'river_stream' | 'reservoir'>('lake');
   const setLastReportEnv = useEnvStore((s) => s.setLastReportEnv);
 
   useEffect(() => {
@@ -760,23 +761,8 @@ export default function HowFishingScreen() {
 
   const handleGetReport = useCallback(async () => {
     if (!hasCoords) return;
-    // Check cache first (new bundle format)
-    const cached = await getCachedHowFishingBundle(lat, lon);
-    if (cached) {
-      // Show preview score from cached freshwater report
-      const fwReport = cached.reports?.freshwater;
-      if (fwReport?.engine?.scoring) {
-        setPreviewScore(fwReport.engine.scoring.adjusted_score);
-        setPreviewRating(fwReport.engine.scoring.overall_rating);
-      }
-      setCurrentHowFishingBundle(lat, lon, cached);
-      setLastReportEnv(env);
-      router.push({
-        pathname: '/how-fishing-results',
-        params: { lat: String(lat), lon: String(lon) },
-      });
-      return;
-    }
+    // Always run a fresh analysis: fetch current environment and call the API.
+    // Do not short-circuit to cached report; cache is for preview/display only.
     setReportLoading(true);
     try {
       const { data: { session } } = await supabase.auth.getSession();
@@ -794,7 +780,7 @@ export default function HowFishingScreen() {
         'how-fishing',
         {
           accessToken: session.access_token,
-          body: { latitude: lat, longitude: lon, units },
+          body: { latitude: lat, longitude: lon, units, freshwater_subtype: freshwaterSubtype },
         }
       );
       const errObj =
@@ -979,6 +965,35 @@ export default function HowFishingScreen() {
             <WaterTemperatureCard env={env} />
             <ScoreCard previewScore={previewScore} previewRating={previewRating} />
           </>
+        )}
+
+        {/* Water body type selector — affects freshwater temp estimation */}
+        {env && !env.tides_available && (
+          <View style={subtypeStyles.container}>
+            <Text style={subtypeStyles.label}>Water Body Type</Text>
+            <Text style={subtypeStyles.hint}>Select your water body for a more accurate temperature estimate</Text>
+            <View style={subtypeStyles.row}>
+              {([
+                { key: 'lake', display: 'Lake / Pond' },
+                { key: 'river_stream', display: 'River / Stream' },
+                { key: 'reservoir', display: 'Reservoir' },
+              ] as const).map(({ key, display }) => (
+                <Pressable
+                  key={key}
+                  style={({ pressed }) => [
+                    subtypeStyles.chip,
+                    freshwaterSubtype === key && subtypeStyles.chipActive,
+                    pressed && subtypeStyles.chipPressed,
+                  ]}
+                  onPress={() => setFreshwaterSubtype(key)}
+                >
+                  <Text style={[subtypeStyles.chipText, freshwaterSubtype === key && subtypeStyles.chipTextActive]}>
+                    {display}
+                  </Text>
+                </Pressable>
+              ))}
+            </View>
+          </View>
         )}
 
         {/* CTA */}
@@ -1418,5 +1433,54 @@ const waterTempStyles = StyleSheet.create({
     color: colors.textMuted,
     lineHeight: 17,
     flex: 1,
+  },
+});
+
+const subtypeStyles = StyleSheet.create({
+  container: {
+    backgroundColor: colors.surface,
+    borderRadius: radius.md,
+    borderWidth: 1,
+    borderColor: colors.border,
+    padding: spacing.md,
+    marginBottom: spacing.md,
+  },
+  label: {
+    fontSize: 13,
+    fontWeight: '700',
+    color: colors.text,
+    marginBottom: 4,
+  },
+  hint: {
+    fontSize: 12,
+    color: colors.textMuted,
+    marginBottom: spacing.sm,
+    lineHeight: 17,
+  },
+  row: {
+    flexDirection: 'row',
+    gap: spacing.sm,
+    flexWrap: 'wrap',
+  },
+  chip: {
+    paddingVertical: 7,
+    paddingHorizontal: spacing.md,
+    borderRadius: radius.md,
+    borderWidth: 1.5,
+    borderColor: colors.border,
+    backgroundColor: colors.background,
+  },
+  chipActive: {
+    borderColor: colors.sage,
+    backgroundColor: colors.sageLight,
+  },
+  chipPressed: { opacity: 0.7 },
+  chipText: {
+    fontSize: 13,
+    fontWeight: '600',
+    color: colors.textMuted,
+  },
+  chipTextActive: {
+    color: colors.sageDark,
   },
 });

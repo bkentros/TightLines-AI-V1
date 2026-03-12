@@ -64,9 +64,9 @@ function reliabilityColor(tier: string): string {
 
 function reliabilityLabel(tier: string): string {
   if (tier === 'high') return 'High confidence';
-  if (tier === 'degraded') return 'Reduced confidence — some data missing';
-  if (tier === 'low_confidence') return 'Low confidence — significant data gaps';
-  return 'Very low confidence — limited data available';
+  if (tier === 'degraded') return 'Reduced confidence — some data unavailable';
+  if (tier === 'low_confidence') return 'Low confidence — missing key data';
+  return 'Very low confidence — limited data';
 }
 
 function formatWaterTempDisplay(tempF: number | null): string {
@@ -94,38 +94,25 @@ function AlertBanner({ title, body, severity }: { title: string; body: string; s
   );
 }
 
-function WaterTemperatureBanner({ engine }: { engine: WaterTypeReport['engine'] }) {
+/** Single line for score card: water temp + source (consolidated; no separate banner). */
+function getWaterTempLine(engine: WaterTypeReport['engine']): string | null {
   if (!engine) return null;
-
   const source = engine.environment.water_temp_source;
   const temp = engine.environment.water_temp_f;
   if (temp === null) return null;
-
   const isMeasured = source === 'noaa_coops';
-  return (
-    <View style={[styles.alertBanner, { backgroundColor: '#F3F8FC', borderColor: '#4A9ECC' }]}>
-      <Ionicons
-        name={isMeasured ? 'water-outline' : 'information-circle-outline'}
-        size={20}
-        color="#4A9ECC"
-        style={styles.alertIcon}
-      />
-      <View style={styles.alertText}>
-        <Text style={[styles.alertTitle, { color: '#4A9ECC' }]}>
-          {isMeasured ? 'Measured Water Temperature' : 'Estimated Water Temperature'}
-        </Text>
-        <Text style={styles.alertBody}>
-          {formatWaterTempDisplay(temp)} ·{' '}
-          {isMeasured
-            ? 'NOAA coastal observation used in analysis.'
-            : 'Estimated from recent air-temperature history.'}
-        </Text>
-      </View>
-    </View>
-  );
+  return `${formatWaterTempDisplay(temp)} ${isMeasured ? '(measured)' : '(estimated from air history)'}`;
 }
 
-function ScoreCard({ scoring, waterType }: { scoring: EngineScoring; waterType: WaterType }) {
+function ScoreCard({
+  scoring,
+  waterType,
+  waterTempLine,
+}: {
+  scoring: EngineScoring;
+  waterType: WaterType;
+  waterTempLine: string | null;
+}) {
   const band = getScoreBand(scoring.adjusted_score);
   const scoreCardStyle =
     band === 'red'
@@ -134,9 +121,11 @@ function ScoreCard({ scoring, waterType }: { scoring: EngineScoring; waterType: 
       ? { bg: '#FFF8E6', border: '#E8A838', text: '#C47B00' }
       : { bg: '#F0F8F0', border: colors.sage, text: colors.sage };
 
-  const recoveryNote = scoring.recovery_multiplier < 1.0
-    ? `Cold front recovery — ${Math.round((1 - scoring.recovery_multiplier) * 100)}% penalty applied`
-    : null;
+  // Plain one-liner when a front reduced the score — no formula math
+  const frontNote =
+    scoring.recovery_multiplier < 1.0
+      ? `Score reduced due to recent cold front activity.`
+      : null;
 
   return (
     <View style={[styles.scoreCard, { backgroundColor: scoreCardStyle.bg, borderColor: scoreCardStyle.border }]}>
@@ -144,15 +133,30 @@ function ScoreCard({ scoring, waterType }: { scoring: EngineScoring; waterType: 
       <Text style={styles.scoreOutOf}>out of 100</Text>
       <Text style={[styles.scoreRating, { color: scoreCardStyle.text }]}>{scoring.overall_rating}</Text>
       <Text style={styles.scoreWaterType}>{waterType.charAt(0).toUpperCase() + waterType.slice(1)}</Text>
-      {recoveryNote && <Text style={styles.recoveryNote}>{recoveryNote}</Text>}
-      {scoring.raw_score !== scoring.adjusted_score && (
-        <Text style={styles.rawScoreNote}>Raw score: {scoring.raw_score} · Recovery multiplier: {scoring.recovery_multiplier.toFixed(2)}×</Text>
-      )}
+      {frontNote && <Text style={styles.recoveryNote}>{frontNote}</Text>}
+      {waterTempLine ? <Text style={styles.waterTempLine}>{waterTempLine}</Text> : null}
     </View>
   );
 }
 
 function ScoreBreakdown({ scoring }: { scoring: EngineScoring }) {
+  return (
+    <View style={styles.breakdownCard}>
+      <Text style={styles.breakdownTitle}>Raw Score Breakdown</Text>
+      <ScoreBreakdownRows scoring={scoring} />
+      <View style={styles.coverageRow}>
+        <Text style={styles.coverageLabel}>
+          Data coverage: {scoring.coverage_pct}% ·{' '}
+          <Text style={{ color: reliabilityColor(scoring.reliability_tier) }}>
+            {reliabilityLabel(scoring.reliability_tier)}
+          </Text>
+        </Text>
+      </View>
+    </View>
+  );
+}
+
+function ScoreBreakdownRows({ scoring }: { scoring: EngineScoring }) {
   const entries = Object.entries(scoring.components)
     .map(([key, score]) => ({
       key,
@@ -163,8 +167,7 @@ function ScoreBreakdown({ scoring }: { scoring: EngineScoring }) {
     .sort((a, b) => b.weight - a.weight);
 
   return (
-    <View style={styles.breakdownCard}>
-      <Text style={styles.breakdownTitle}>Score Breakdown</Text>
+    <>
       {entries.map(({ key, score, weight, status }) => {
         const pct = weight > 0 ? score / weight : 0;
         const label = key.replace(/_/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
@@ -183,20 +186,29 @@ function ScoreBreakdown({ scoring }: { scoring: EngineScoring }) {
           </View>
         );
       })}
-      <View style={styles.coverageRow}>
-        <Text style={styles.coverageLabel}>
-          Data coverage: {scoring.coverage_pct}% ·{' '}
-          <Text style={{ color: reliabilityColor(scoring.reliability_tier) }}>
-            {reliabilityLabel(scoring.reliability_tier)}
-          </Text>
-        </Text>
-      </View>
-    </View>
+    </>
   );
 }
 
-function DataQualityNotice({ quality, tier }: { quality: DataQuality; tier: string }) {
+function DataQualityNotice({
+  quality,
+  tier,
+  hideWaterTempFallbackOnly,
+}: {
+  quality: DataQuality;
+  tier: string;
+  hideWaterTempFallbackOnly?: boolean;
+}) {
   if (tier === 'high' && quality.missing_variables.length === 0 && quality.fallback_variables.length === 0) {
+    return null;
+  }
+  if (
+    hideWaterTempFallbackOnly &&
+    tier === 'high' &&
+    quality.missing_variables.length === 0 &&
+    quality.fallback_variables.length === 1 &&
+    quality.fallback_variables[0] === 'water_temp_zone'
+  ) {
     return null;
   }
   const isSerious = tier === 'low_confidence' || tier === 'very_low_confidence';
@@ -336,49 +348,55 @@ function ReportView({ report }: { report: WaterTypeReport }) {
       {alerts.cold_stun_alert && (
         <AlertBanner
           title="Cold Stun Alert"
-          body="Water temperature has dropped sharply. Fish metabolic activity is severely suppressed."
+          body="Water temps have dropped sharply. Fish are barely moving — extremely slow bite expected."
           severity="critical"
         />
       )}
       {alerts.salinity_disruption_alert && (
         <AlertBanner
           title="Salinity Disruption"
-          body="Heavy recent rainfall may have significantly reduced salinity in brackish zones, displacing fish."
+          body="Recent heavy rain has diluted saltwater in this area. Fish may have moved out to find normal salinity."
           severity="critical"
         />
       )}
       {alerts.rapid_cooling_alert && (
         <AlertBanner
-          title="Rapid Temperature Drop"
-          body="A rapid cooling event may trigger a brief pre-front feed-up window — fish quickly before conditions deteriorate."
+          title="Temperatures Dropping Fast"
+          body="Air temps are falling quickly. Fish may feed aggressively right now before conditions change — get out while you can."
           severity="warning"
         />
       )}
-      {alerts.recovery_active && !alerts.cold_stun_alert && (
+      {alerts.recovery_active && !alerts.cold_stun_alert && alerts.front_label && (
         <AlertBanner
-          title={`Cold Front Recovery — Day ${alerts.days_since_front}`}
-          body="A cold front passed recently. Fish are still recovering. Activity improving but not at full baseline yet."
+          title="Cold Front Notice"
+          body={alerts.front_label}
           severity="info"
         />
       )}
-
-      <WaterTemperatureBanner engine={engine} />
 
       {/* Cold stun transparency note — shown when alert could not be evaluated */}
       {!alerts.cold_stun_alert && alerts.cold_stun_status === 'not_evaluable_missing_inputs' && (
         <View style={styles.coldStunNote}>
           <Ionicons name="information-circle-outline" size={14} color={colors.textMuted} style={{ marginRight: 5 }} />
           <Text style={styles.coldStunNoteText}>
-            Cold stun could not be fully evaluated — historical measured coastal water-temperature history not yet available.
+            Cold stun check skipped — not enough water temperature history yet for this station.
           </Text>
         </View>
       )}
 
-      {/* Score Card */}
-      <ScoreCard scoring={engine.scoring} waterType={report.water_type} />
+      {/* Score Card (includes water temp line when available; no separate confidence/water banner) */}
+      <ScoreCard
+        scoring={engine.scoring}
+        waterType={report.water_type}
+        waterTempLine={getWaterTempLine(engine)}
+      />
 
-      {/* Data Quality Notice */}
-      <DataQualityNotice quality={engine.data_quality} tier={engine.scoring.reliability_tier} />
+      {/* Data Quality: only when reduced confidence or missing vars; water temp source is on score card */}
+      <DataQualityNotice
+        quality={engine.data_quality}
+        tier={engine.scoring.reliability_tier}
+        hideWaterTempFallbackOnly
+      />
 
       {/* Best + Worst Times */}
       <BestTimesSection windows={llm.best_times_to_fish_today} />
@@ -728,6 +746,12 @@ const styles = StyleSheet.create({
     color: colors.textMuted,
     textAlign: 'center',
     marginTop: 2,
+  },
+  waterTempLine: {
+    fontSize: 12,
+    color: colors.textMuted,
+    textAlign: 'center',
+    marginTop: spacing.xs,
   },
 
   qualityNotice: {
