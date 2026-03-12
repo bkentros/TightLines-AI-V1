@@ -26,8 +26,6 @@ export interface EnvironmentData {
   weather_available: boolean;
   /** Whether tide data is present (coastal only) */
   tides_available: boolean;
-  /** True when in Great Lakes region — show "Coming soon" for tides */
-  tides_coming_soon?: boolean;
   /** Whether moon data is present */
   moon_available: boolean;
   /** Whether sunrise/sunset data is present */
@@ -41,6 +39,27 @@ export interface EnvironmentData {
 
   /** ISO timestamp when data was fetched */
   fetched_at: string;
+
+  /** IANA timezone for the requested location, when available */
+  timezone?: string;
+  /** Current UTC offset for the requested location, DST-aware when provider supplies it */
+  tz_offset_hours?: number;
+  /** Hourly pressure history for deterministic engine input */
+  hourly_pressure_mb?: Array<{ time_utc: string; value: number }>;
+  /** Hourly air-temperature history for deterministic engine input */
+  hourly_air_temp_f?: Array<{ time_utc: string; value: number }>;
+  /** 30-day tide range history for deterministic engine input */
+  tide_predictions_30day?: Array<{ date: string; high_ft: number; low_ft: number }>;
+  /** Measured coastal water temperature in °F when available */
+  measured_water_temp_f?: number | null;
+  /** Source label for measured coastal water temperature */
+  measured_water_temp_source?: string | null;
+  /** Measured coastal water temperature from roughly 72 hours ago for cold-stun evaluation */
+  measured_water_temp_72h_ago_f?: number | null;
+  /** Whether the location is treated as coastal for engine routing */
+  coastal?: boolean;
+  /** Nearest NOAA tide station used for coastal routing */
+  nearest_tide_station_id?: string | null;
 }
 
 // =============================================================================
@@ -65,6 +84,32 @@ export interface WeatherData {
   /** Unit labels for display */
   temp_unit: string;
   wind_speed_unit: string;
+
+  // ─── Pressure trend (from 7-day hourly history) ───────────────────────────
+  /** Direction of pressure change over the last 3 hours */
+  pressure_trend?: 'rapidly_falling' | 'slowly_falling' | 'stable' | 'slowly_rising' | 'rapidly_rising';
+  /** Rate of pressure change in mb/hr (negative = falling) */
+  pressure_change_rate_mb_hr?: number;
+  /** Last 48 hourly pressure readings in hPa, oldest first — for sparkline */
+  pressure_48hr?: number[];
+
+  // ─── Temperature trend (from 7-day history) ───────────────────────────────
+  /** 3-day temperature trend classification */
+  temp_trend_3day?: 'rapid_warming' | 'warming' | 'stable' | 'cooling' | 'rapid_cooling';
+  /** Temperature delta over 72 hours in °F (positive = warming) */
+  temp_trend_direction_f?: number;
+  /** Daily high temperatures, 8 entries: index 0 = 7 days ago, index 7 = today */
+  temp_7day_high?: number[];
+  /** Daily low temperatures, same indexing as temp_7day_high */
+  temp_7day_low?: number[];
+
+  // ─── Precipitation history (from 7-day history) ───────────────────────────
+  /** Total precipitation in the last 48 hours (inches) */
+  precip_48hr_inches?: number;
+  /** Total precipitation in the last 7 days (inches) */
+  precip_7day_inches?: number;
+  /** Daily precipitation totals in inches, 8 entries: index 0 = 7 days ago, index 7 = today */
+  precip_7day_daily?: number[];
 }
 
 // =============================================================================

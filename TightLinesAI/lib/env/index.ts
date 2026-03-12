@@ -8,9 +8,9 @@
  * @see docs/ENV_API_IMPLEMENTATION_PLAN.md
  */
 
-import { supabase } from '../supabase';
+import { invokeEdgeFunction, supabase } from '../supabase';
 import type { EnvironmentData, GetEnvironmentRequest } from './types';
-import { getCachedEnv, setCachedEnv } from './cache';
+import { getCachedEnv, getStaleCachedEnv, setCachedEnv } from './cache';
 import {
   ENV_FETCH_TIMEOUT_MS,
   MANUAL_REFRESH_LIMIT,
@@ -19,6 +19,7 @@ import {
 
 export type { EnvironmentData, GetEnvironmentRequest } from './types';
 export type { CachedEnvPayload } from './cache';
+export { getStaleCachedEnv } from './cache';
 
 /** Timestamps of recent manual refreshes (forceRefresh=true) for rate limiting */
 const manualRefreshTimestamps: number[] = [];
@@ -34,7 +35,10 @@ function checkManualRefreshLimit(): void {
     const mins = Math.ceil((nextAt - now) / 60000);
     throw new Error(`Please wait ${mins} min before refreshing again.`);
   }
-  manualRefreshTimestamps.push(now);
+}
+
+function recordManualRefresh(): void {
+  manualRefreshTimestamps.push(Date.now());
 }
 
 /** Guard: only call when coordinates are valid numbers (audit #13) */
@@ -57,13 +61,18 @@ async function invokeGetEnvironment(
   longitude: number,
   units: 'imperial' | 'metric'
 ): Promise<EnvironmentData> {
-  const { data, error } = await supabase.functions.invoke('get-environment', {
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  if (!session?.access_token) {
+    throw new Error('Session expired. Please sign out and sign back in.');
+  }
+
+  const data = await invokeEdgeFunction<EnvironmentData>('get-environment', {
+    accessToken: session.access_token,
     body: { latitude, longitude, units } satisfies GetEnvironmentRequest,
   });
-
-  if (error) {
-    throw new Error(error.message || 'Failed to fetch environment data');
-  }
 
   const parsed = data as EnvironmentData | null;
   if (!parsed || typeof parsed !== 'object') {
@@ -76,6 +85,8 @@ async function invokeGetEnvironment(
 
   return parsed;
 }
+
+const RETRY_DELAY_MS = 2000;
 
 /** Wrap invoke with Promise.race for timeout (prevents endless loading if API hangs) */
 async function invokeWithTimeout(
@@ -94,6 +105,39 @@ async function invokeWithTimeout(
     invokeGetEnvironment(latitude, longitude, units),
     timeoutPromise,
   ]);
+}
+
+/** Attempt env fetch with one retry on timeout or network error */
+async function invokeWithRetry(
+  latitude: number,
+  longitude: number,
+  units: 'imperial' | 'metric'
+): Promise<EnvironmentData> {
+  const attempt = async (isRetry: boolean) => {
+    if (__DEV__ && isRetry) {
+      console.log('[env] Retrying env fetch after timeout/error...');
+    }
+    return invokeWithTimeout(latitude, longitude, units);
+  };
+
+  try {
+    return await attempt(false);
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err);
+    const isTimeout = msg.includes('timed out');
+    const isNetwork =
+      msg.toLowerCase().includes('network') ||
+      msg.toLowerCase().includes('connection') ||
+      msg.toLowerCase().includes('fetch');
+    if (__DEV__) {
+      console.log('[env] First attempt failed:', isTimeout ? 'timeout' : msg);
+    }
+    if (isTimeout || isNetwork) {
+      await new Promise((r) => setTimeout(r, RETRY_DELAY_MS));
+      return attempt(true);
+    }
+    throw err;
+  }
 }
 
 export interface GetEnvironmentParams {
@@ -128,7 +172,10 @@ export async function getEnvironment(params: GetEnvironmentParams): Promise<Envi
     checkManualRefreshLimit();
   }
 
-  const data = await invokeWithTimeout(latitude, longitude, units);
+  const data = await invokeWithRetry(latitude, longitude, units);
+  if (forceRefresh && !skipRateLimit) {
+    recordManualRefresh();
+  }
   await setCachedEnv(latitude, longitude, data);
   return data;
 }

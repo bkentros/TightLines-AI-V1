@@ -8,7 +8,7 @@
 **Installing packages:** Always use `npm install <package> --legacy-peer-deps`. For expo packages use `npx expo install <package> -- --legacy-peer-deps`. There is a peer dependency conflict with react-dom versions that requires this every time.
 **Key packages already installed:** `expo-router`, `expo-dev-client`, `expo-location`, `expo-camera`, `expo-image-picker`, `expo-audio` (NOT expo-av — incompatible with Xcode 26.2), `expo-sqlite`, `expo-notifications`, `@supabase/supabase-js`, `zustand`, `react-dom`
 **Bundle ID:** `com.finseekr.tightlinesai` | **EAS project:** `@tightlinesai/tightlines-ai`
-**Current state:** Bare scaffold — `app/_layout.tsx` and `app/index.tsx` placeholder only. Supabase not yet configured.
+**Current state:** Active implementation in progress. Foundation, environment integration, and `How's Fishing` architecture/spec work are underway. Canonical feature logic now lives in dedicated spec files rather than a single mixed live-conditions document.
 
 ---
 
@@ -16,9 +16,9 @@
 
 TightLines AI is an AI-powered fishing app for iOS that helps anglers catch more fish through intelligent recommendations, visual water analysis, and effortless catch logging. Built by a solo founder (Brandon) under the FinSeekr brand ecosystem, the app targets both conventional and fly fishing anglers across freshwater and saltwater environments.
 
-**What it does:** Three core features share a single architecture pattern — structured user input → automatic environmental data enrichment via weather/tide/moon APIs → single Claude API call with domain-specific prompt → structured JSON response → clean results UI. The features are: (1) a **Lure/Fly Recommender** that synthesizes weather, water conditions, species behavior, and (in fly mode) insect hatch intelligence to deliver ranked tackle recommendations with retrieval instructions; (2) a **Water Reader** that accepts photos, satellite images, or depth charts of any body of water and returns an AI-analyzed visual overlay highlighting where and how to fish; and (3) a **Voice-to-Text Fishing Log** where anglers speak naturally mid-trip and the app (Whisper transcription → Claude parsing) auto-fills structured catch data — species, size, lure, timestamps — with zero manual entry.
+**What it does:** TightLines AI is built around a shared environmental intelligence architecture. The app first enriches requests with live weather/tide/moon/sun data, then runs a **deterministic core intelligence engine** that models fish behavior across freshwater, saltwater, and brackish water, and only then calls Claude for feature-specific explanation or recommendations. The three flagship AI features are: (1) a **How's Fishing Right Now?** feature that turns the engine's outputs into an honest real-time conditions report; (2) a **Lure/Fly Recommender** that uses the same engine as its baseline and layers on species, presentation, clarity, structure, and hatch logic to deliver ranked tackle recommendations; and (3) a **Water Reader** that uses the same engine as its baseline and layers on image-derived structure interpretation to show where fish are most likely positioned. The **Voice-to-Text Fishing Log** uses a related structured pipeline (Whisper transcription → Claude parsing) for logging, but it is not a consumer of the core environmental scoring engine in the same way as the three fishing-intelligence features.
 
-**How it's built:** React Native/Expo on iOS, Supabase for auth/database/edge functions/storage, Claude Sonnet 4.6 for all AI calls via Supabase Edge Functions (API keys never on client), OpenAI Whisper for voice transcription, and free environmental APIs (Open-Meteo, NOAA CO-OPS, USNO, Sunrise-Sunset.org). Monetization is freemium with three tiers (Free, Angler, Master Angler) — all tiers access the same core features (recommender, water reader, logging, community feed, history), differentiated primarily by API usage volume ($0.05 / $0.99 / $2.99). Master Angler exclusively unlocks three premium features: detailed hatch intelligence panel (fly mode), AI trip summary narratives (from voice logs), and catch log export (CSV/PDF). RevenueCat handles iOS subscriptions.
+**How it's built:** React Native/Expo on iOS, Supabase for auth/database/edge functions/storage, Claude via Anthropic Messages API for server-side AI calls (API keys never on client), OpenAI Whisper for voice transcription, and free environmental APIs (Open-Meteo, NOAA CO-OPS, USNO, Sunrise-Sunset.org). Model choice is feature-specific: `How's Fishing Right Now?` uses Claude Haiku 4.5 because the deterministic engine handles the hard reasoning and the LLM is primarily summarizing. Monetization is **paid-only** — zero free usage. All AI features require an active subscription ($9.99 Angler / $14.99 Master Angler). Every feature button prompts unsubscribed users to sign up. Angler gets core features with $1.00 API usage cap/month; Master Angler gets core features plus AI trip summary, catch log export, and $3.00 API usage cap/month. Detailed hatch intelligence panel (fly mode) deferred to Phase 2. RevenueCat handles iOS subscriptions.
 
 **Key design principles:** GPS/location is helpful but never required — the AI works with partial input and deduces environment from whatever data is provided. All fields are optional except date and user ID. The schema is designed from day one to capture rich, structured fishing data valuable to conservation organizations and fishery departments. Offline support caches environmental data, queues voice recordings and manual logs locally, and syncs everything when connectivity returns. Community features (V1) are minimal — an explicit-share regional catch feed with "Near Me" filtering and strict location privacy (no exact coordinates ever shared). The data flywheel is the long game: more users → richer catch data → better AI recommendations → better community reports (V2) → more users.
 
@@ -28,7 +28,7 @@ TightLines AI is an AI-powered fishing app for iOS that helps anglers catch more
 
 **Platform:** iOS (React Native / Expo, EAS Build)
 **Backend:** Supabase (Auth, PostgreSQL + PostGIS, Edge Functions, Storage)
-**AI:** Claude Sonnet 4.6 via Anthropic Messages API, OpenAI Whisper (voice transcription)
+**AI:** Claude via Anthropic Messages API, OpenAI Whisper (voice transcription)
 **External APIs:** Open-Meteo (weather), NOAA CO-OPS (tides), USNO (moon/solunar), Sunrise-Sunset.org
 **Subscriptions:** RevenueCat
 **Analytics:** Mixpanel
@@ -39,7 +39,7 @@ TightLines AI is an AI-powered fishing app for iOS that helps anglers catch more
 ## Build Order
 
 1. **Foundation Layer** — Auth, onboarding, database schema, Supabase Edge Function framework, weather/environmental API integrations, analytics, error handling patterns
-2. **How's Fishing Right Now?** — Weather-only AI analysis, first pipeline validation, tier gating (Angler+)
+2. **How's Fishing Right Now? + Core Intelligence Engine** — Build the deterministic environmental intelligence layer first, then the feature that consumes it; validate the full pipeline and tier gating (Angler+)
 3. **Lure / Fly Recommender** — Core AI feature, form inputs, GPS sync, LLM prompt pipeline, hatch chart reference doc, results UI
 4. **Fishing Log** — Manual + voice-to-text logging, auto-log from recommendations, recommendation feedback loop, offline caching
 5. **Water Reader** — Image upload, Claude Vision analysis, frontend overlay rendering with forgiving zones
@@ -59,7 +59,7 @@ TightLines AI is an AI-powered fishing app for iOS that helps anglers catch more
 ### Environmental API Integration
 - **Weather:** Current conditions + forecast — temperature, wind speed/direction, barometric pressure, cloud cover, precipitation
   - **Recommended:** Open-Meteo (free, no API key required, generous rate limits, global coverage, includes pressure/wind/cloud/precip) or OpenWeatherMap (free tier: 1,000 calls/day, well-documented, widely used). Visual Crossing is another strong option with a free tier.
-- **Tides:** Tide charts for **coastal locations only** (high/low times, incoming/outgoing). Inland (e.g. Missouri) and non-coastal regions do not receive tide data — omit it and set `tides_available: false`. Great Lakes do not have NOAA tide stations; treat as no tide data in V1. Revisit later (separate water-level source). In the UI, show "Coming soon" for tide/water-level in Great Lakes regions.
+- **Tides:** Tide charts for **coastal locations only** (high/low times, incoming/outgoing). Inland and non-coastal regions do not receive tide data — omit it and set `tides_available: false`.
   - **Recommended:** NOAA CO-OPS Tides & Currents API (free, no key required, US coastal coverage, high/low predictions + hourly data). NOAA requires a **station ID** — resolve nearest tide station from the user's coordinates using NOAA's station list or station-lookup endpoint. For global coverage, StormGlass.io (free tier: 50 requests/day) covers tides worldwide with automatic station selection by coordinates. WorldTides is another option (credit-based, 100 free credits on signup).
 - **Moon phase & solunar:** Current lunar phase, major/minor solunar periods
   - **Recommended:** US Naval Observatory API (free, no key, moon phases + rise/set times, highly accurate). **Solunar periods:** Compute in the Edge Function from USNO moon transit times (solunar theory uses moon overhead/underfoot positions). Farmsense Moon API is a free alternative for basic moon phase and illumination data.
@@ -81,12 +81,24 @@ TightLines AI is an AI-powered fishing app for iOS that helps anglers catch more
 All AI features follow the same backend pattern:
 1. Client sends structured input (form data or image + metadata) to a Supabase Edge Function. For paid operations, client may send an **idempotency key** (e.g. UUID) so retries after timeout don't double-count usage or double-charge.
 2. Edge Function enriches with environmental data (weather, tides, solunar, moon). For each request, use **fresh env data** (fetched at confirm time or supplied by client from a just-fetched cache). **Environmental data** may be supplied by the client when recently fetched, or the Edge Function fetches when missing or not provided. If the user provided no location (no sync, no manual entry), run with whatever inputs are present — more data yields better results; partial input still executes.
-3. Edge Function constructs a domain-specific prompt with **structured JSON output instructions** (use Claude's structured output / JSON schema mode to minimize malformed responses).
-4. Single Claude API call → structured JSON response.
-5. Edge Function logs token usage and cost to the user's billing record; **tag the feature** (e.g. `recommender`, `water_reader`, `how_fishing`) for analytics and potential per-feature caps.
-6. Response returned to client for rendering.
+3. For fishing-intelligence features (`how_fishing`, `recommender`, `water_reader`), the backend runs the **deterministic core intelligence engine first**. This engine classifies environmental states, applies water-type-specific scoring, calculates recovery effects, generates time windows, and produces fish-behavior state outputs. The LLM does not perform this work. If one or more environmental variables are unavailable, the engine must continue using deterministic partial-data normalization rules, exclude missing components from score denominators, and return explicit data-quality metadata rather than failing or silently zeroing those variables.
+4. Edge Function constructs a domain-specific prompt using the deterministic engine outputs plus any feature-specific inputs (species, image structure, hatch context, etc.), with **structured JSON output instructions**.
+5. Claude returns structured JSON response.
+6. Edge Function logs token usage and cost to the user's billing record; **tag the feature** (e.g. `recommender`, `water_reader`, `how_fishing`) for analytics and potential per-feature caps.
+7. Response returned to client for rendering.
 
-Each new feature = a new Edge Function with a new prompt template. The framework is built once.
+The framework is built once. Each feature then becomes:
+
+- the shared environment/data enrichment layer
+- the shared deterministic core intelligence layer where applicable
+- a feature-specific Edge Function orchestrator
+- a feature-specific prompt and output contract
+
+**Canonical spec split:**
+
+- Shared deterministic intelligence: `core_intelligence_spec.md`
+- `How's Fishing Right Now?` feature: `hows_fishing_feature_spec.md`
+- Legacy mixed live-conditions spec is archived and no longer the source of truth
 
 **Error & fallback handling:** Every AI call must have graceful failure paths. If the Claude API call fails (timeout, 500, rate limit), retry once then show a user-friendly error with a "Try Again" button. If the response JSON is malformed or missing expected fields, the Edge Function validates the schema before returning to the client — fall back to partial results where possible (e.g., show 3 recommendations instead of 5 if only 3 parsed correctly). Never show a blank screen or crash. Log all failures for debugging.
 
@@ -115,7 +127,7 @@ The schema is designed from day one to capture rich, structured fishing data wit
 ### Key Tech Decisions
 - **React Native / Expo:** Use Expo managed workflow for faster iteration. EAS Build for iOS distribution. Expo Router for navigation.
 - **Supabase Edge Functions:** Written in Deno/TypeScript. Handle all LLM calls, API enrichment, cost tracking. Keep API keys server-side — never in the client.
-- **Claude API:** Use Claude Sonnet 4.6 (`claude-sonnet-4-6`) for all LLM calls. Sonnet balances quality and cost — Opus is unnecessary for structured fishing recommendations. Use the Messages API with JSON mode for reliable structured output.
+- **Claude API:** Select the model by feature complexity. `How's Fishing Right Now?` now uses Claude Haiku 4.5 (`claude-haiku-4-5`) because the deterministic engine handles the hard reasoning and the LLM is primarily summarizing. Reserve stronger Claude models for heavier reasoning or generation tasks where evals prove the quality gain is worth the cost.
 - **Whisper API:** OpenAI Whisper (`whisper-1`) for voice transcription. ~$0.006/minute. Alternatively, evaluate Deepgram for potentially faster turnaround and lower latency.
 - **Image handling:** Use Expo ImagePicker for uploads. Compress images client-side before sending to Edge Functions (water reader images don't need full resolution for Claude Vision analysis — 1024px on the long edge is sufficient and saves token cost).
 - **Subscriptions:** RevenueCat for iOS in-app subscription management. Handles receipt validation, subscription status, and integrates with Supabase via webhooks.
@@ -127,48 +139,51 @@ The schema is designed from day one to capture rich, structured fishing data wit
 
 ## 2. How's Fishing Right Now?
 
-A weather-based AI fishing analysis accessible from the Home Dashboard below the Live Conditions widget. This is the simplest AI feature in the app — it only uses environmental data (no user spot input, no images) — making it an ideal first validation of the Foundation Layer's environmental API integration and LLM pipeline before building the more complex Recommender.
+A real-time fishing conditions feature accessible from the Home Dashboard below the Live Conditions widget. This is the first consumer of the shared deterministic core intelligence engine and the first full validation of the app's environmental intelligence pipeline. It uses environmental data only (no user spot input, no images), making it the ideal first production feature before the more complex Recommender and Water Reader.
 
 ### Access & Tier Gating
-- **Angler and Master Angler only.** Free tier users see the button with a tier badge ("Angler+") and tapping triggers an upgrade prompt.
-- Requires a synced location (GPS) or manually entered location to pull weather data. If no location is set, tapping the button prompts the user to sync or enter a location first.
+- **Subscribers only (Angler or Master Angler).** Unsubscribed users see the button and tapping triggers a subscribe prompt.
+- **GPS only** — no manual location entry for this feature. Requires a synced location to pull weather data. If no location is set, tapping the button prompts the user to sync location via explicit "Enable location" or "Sync location" buttons.
 
 ### How It Works
 1. User taps "How's Fishing Right Now?" on the Home Dashboard
-2. Client sends the user's location (GPS coordinates or manual region) to a Supabase Edge Function
-3. Edge Function pulls current + forecast environmental data: temperature, wind speed/direction, barometric pressure, cloud cover, precipitation, tide phase (if coastal), moon phase, solunar periods, sunrise/sunset
-4. Edge Function constructs a weather-analysis prompt and makes a single Claude API call
-5. Claude returns structured JSON analysis
-6. Client renders the analysis in a full-screen results view
+2. Client opens the Expanded Conditions page using cached environment data when available
+3. When the user confirms the action, the app force-fetches fresh environmental data
+4. Backend runs the deterministic core intelligence engine
+5. If inland: run one `freshwater` engine pass and one Claude call
+6. If coastal: run three engine passes in parallel (`freshwater`, `saltwater`, `brackish`) and three Claude calls in parallel
+7. Claude receives deterministic engine outputs and writes the narrative report; it does not calculate the score
+8. Client renders the analysis in a full-screen results view with one tab inland or three tabs for coastal users
 
 ### LLM Prompt Design
-- System prompt includes fishing-specific weather interpretation: how barometric pressure trends affect bite activity, optimal wind conditions, cloud cover and light penetration effects, tide timing for coastal species, solunar feeding windows, temperature thresholds by species category
-- The prompt does NOT receive any user spot details, target species, or water body info — it works purely from environmental conditions and the user's general region
+- System prompt is feature-specific but engine-first: the prompt receives deterministic score outputs, alerts, windows, and behavior states from the core intelligence engine
+- The prompt does NOT receive user spot details, target species, or lure/fly context
+- The LLM is explicitly prohibited from recalculating or contradicting engine outputs
 - Output: structured JSON
 
 ### Output
-1. **Overall Fishing Rating** — a clear rating (e.g., "Good", "Fair", "Excellent", "Tough") with a 1-2 sentence summary explaining why ("Falling pressure and incoming tide create an aggressive feeding window — get out there")
-2. **Best Times to Fish Today** — ranked time windows (e.g., "6:30 AM – 9:00 AM — Prime", "4:00 PM – 6:30 PM — Good") with reasoning tied to solunar periods, tide timing, and light conditions
-3. **Worst Times to Fish Today** — time windows to avoid with explanations (e.g., "11:00 AM – 2:00 PM — midday sun, high pressure peak, slack tide")
-4. **Key Factors** — breakdown of individual conditions and their impact:
-   - Barometric pressure trend and what it means for fish behavior
-   - Wind assessment (direction, speed, whether it's favorable or unfavorable)
-   - Cloud cover / light conditions
-   - Tide phase and timing (coastal only)
-   - Moon phase and solunar activity
-   - Temperature assessment
-5. **Tips for Today** — 2-3 actionable tips based on the conditions (e.g., "Fish the shade lines — overcast breaks will push bait into structure", "Work moving water on the tide change")
+1. **Overall Fishing Rating** — deterministic adjusted score out of `100`, rating label, and concise biological summary
+2. **Best Times to Fish Today** — ranked deterministic windows with one-sentence reasoning
+3. **Worst Times to Fish Today** — lowest-probability windows with one-sentence explanation
+4. **Key Factors** — narrative explanations for pressure, temperature trend, light, tide/solunar, moon, wind, and precipitation
+5. **Score Breakdown** — deterministic component contribution display; this is mandatory for trust and transparency
+6. **Alerts / Recovery Notes** — rapid cooling, cold-front recovery, cold stun, and salinity disruption when applicable
+7. **Tips for Today** — 2–3 actionable but non-species-specific suggestions
+8. **Water Type Tabs** — inland users see `Freshwater` only; coastal users see `Freshwater`, `Saltwater`, and `Brackish`
 
 ### API Cost
-- Single Claude API call per analysis: ~$0.01-0.015 (text only, no vision)
+- Inland: single Claude API call per analysis: ~$0.01-0.015 (text only)
+- Coastal: three Claude API calls per analysis bundle, one per water type: roughly ~$0.03-0.045 total
 - Environmental API calls: free (Open-Meteo, NOAA, USNO, Sunrise-Sunset.org)
 - Counts toward the user's monthly AI usage cap
 
 ### Implementation Notes
+- **Location is GPS-only for this feature** — manual location entry is not supported.
 - Results are NOT saved to the fishing log (this is a conditions check, not a fishing session)
-- Results could be cached for a configurable window (e.g., 30-60 minutes) to avoid redundant API calls if the user taps repeatedly
-- The analysis is location-specific but NOT species-specific — it's a general "how's fishing" assessment for the region. Species-specific advice comes from the Recommender.
-- Build this feature first after Foundation to validate: (a) environmental API data is flowing correctly, (b) Edge Function → Claude pipeline works end-to-end, (c) tier gating logic works, (d) cost tracking logs correctly
+- Reports must be cached per water type and location for a short TTL (target: 45 minutes)
+- The analysis is location-specific but NOT species-specific — species-specific advice comes from the Recommender
+- This feature must consume `core_intelligence_spec.md` and `hows_fishing_feature_spec.md`; it must not implement its own parallel scoring rules
+- Build this feature first after Foundation to validate: (a) environmental APIs are flowing correctly, (b) the deterministic core engine works end-to-end, (c) Edge Function → Claude pipeline works end-to-end, (d) tier gating works, (e) cost tracking logs correctly
 
 ---
 
@@ -199,8 +214,9 @@ A weather-based AI fishing analysis accessible from the Home Dashboard below the
 **Key design rule:** GPS/location sync is used when available but never required. The AI deduces environment, climate zone, and probable conditions from whatever the user provides. More fields = better accuracy, but the system works with partial input.
 
 ### LLM Prompt Design
-- System prompt includes fishing domain expertise, species behavior patterns, seasonal knowledge
-- Chain-of-thought prompting: model reasons through environment → fish behavior → lure/fly selection before outputting recommendations
+- System prompt includes fishing domain expertise, species behavior patterns, and seasonal knowledge
+- The Recommender must consume the shared deterministic core intelligence engine first, then layer on species behavior, clarity, structure, season, and hatch logic
+- Chain-of-thought prompting: model reasons through engine outputs → species behavior → lure/fly selection before outputting recommendations
 - Output: structured JSON
 
 ### Output — Conventional Mode
@@ -219,7 +235,9 @@ Same structure as conventional, but with fly patterns instead of lures, plus:
 - Specific fly pattern matches with hook sizes
 - Presentation notes (dead drift, swing, skate, etc.)
 
-**Tier gating:** All tiers get fly pattern recommendations in fly mode — the AI uses hatch knowledge internally to pick the right flies regardless. **Master Angler** unlocks a detailed Hatch Intelligence Panel below the recommendations showing: specific insects hatching, current life stages, size ranges, peak hatch timing windows during the day, and a full pattern-matching table (insect → fly pattern → hook size → presentation). Same AI call and same prompt — the detailed hatch data is included in the JSON response but only displayed in the UI for Master Angler users.
+**Hatch Intelligence Panel — deferred to Phase 2.** Complex to build; not required for V1 launch. Fly mode still returns fly pattern recommendations; the detailed Hatch Intelligence Panel (Master Angler) ships in Phase 2.
+
+**Tier gating:** All tiers get fly pattern recommendations in fly mode — the AI uses hatch knowledge internally to pick the right flies regardless. **Master Angler** unlocks a detailed Hatch Intelligence Panel below the recommendations (Phase 2) showing: specific insects hatching, current life stages, size ranges, peak hatch timing windows during the day, and a full pattern-matching table (insect → fly pattern → hook size → presentation). Same AI call and same prompt — the detailed hatch data is included in the JSON response but only displayed in the UI for Master Angler users.
 
 **Hatch data source (V1):** Hybrid approach — a curated reference document (JSON/markdown) covering ~20-30 core insect species across ~15-20 US/Canada geographic zones, loaded into the system prompt as grounding context. The LLM reasons against this reference + its training knowledge. Coverage: US, Canada, Europe where possible. Over time, user log data validates and refines hatch accuracy.
 
@@ -326,12 +344,13 @@ Same environmental inputs as the recommender (GPS sync or manual), plus:
 ### AI Analysis Pipeline
 1. User uploads image + metadata to Edge Function
 2. Edge Function enriches with environmental data
-3. Image + structured context sent to Claude Vision API
-4. **Chain-of-thought prompting:** Model first reasons about the environment from visual cues (water color, vegetation, terrain, structure, current flow, depth indicators) before making recommendations — this handles cases where user provides minimal input
-5. Model returns structured JSON:
+3. Edge Function runs the shared deterministic core intelligence engine when location-based env data is available
+4. Image + structured context + engine outputs sent to Claude Vision API
+5. **Chain-of-thought prompting:** Model first reasons about the environment from visual cues plus engine outputs before making recommendations — this handles cases where user provides minimal input
+6. Model returns structured JSON:
    - Array of target zones, each with: zone description, percentage-based coordinates on the image (bounding box or region descriptor), why this zone is productive, how to fish it (positioning, approach, depth), lure/fly suggestions tied to mode
    - Overall summary of the water and strategy
-6. Frontend renders the overlay on top of the original image
+7. Frontend renders the overlay on top of the original image
 
 ### Frontend Overlay Rendering
 - **Frontend-rendered, not AI-generated images** — Claude returns structured zone data, the app paints overlays using canvas/SVG
@@ -376,19 +395,21 @@ Same environmental inputs as the recommender (GPS sync or manual), plus:
 ## 7. Monetization
 
 ### Tier Structure
-Three tiers: **Free**, **Angler**, and **Master Angler**. All tiers get access to the same core features (Lure/Fly Recommender, Water Reader, Fishing Log, Community Feed, Recommendation History). The primary differentiator is usage volume (actual API cost tracking per user per billing cycle). Master Angler additionally unlocks three exclusive features. Pricing TBD pending real API cost data — the cost allocations below are estimates and subject to change.
+**Paid-only model** — zero free usage. All AI features require an active subscription. Every feature button prompts unsubscribed users to sign up with a generic subscribe prompt.
 
-| | Free | Angler | Master Angler |
-|---|---|---|---|
-| AI Usage (Recommender + Water Reader + How's Fishing) | ~$0.05 worth of API calls (taste only) | ~$0.99 worth of API calls/month | ~$2.99 worth of API calls/month |
-| How's Fishing Right Now? | No | Yes | Yes |
-| Voice-to-Text Logging | No | Yes | Yes |
-| Manual Logging | Unlimited | Unlimited | Unlimited |
-| Recommendation & Water Reader History | Yes | Yes | Yes |
-| Community Feed | View only | Full access (share catches) | Full access (share catches) |
-| **Detailed Hatch Intelligence Panel** | No | No | **Master Angler only** |
-| **AI Trip Summary Narrative** | No | No | **Master Angler only** |
-| **Catch Log Export (CSV/PDF)** | No | No | **Master Angler only** |
+| | Angler ($9.99/mo) | Master Angler ($14.99/mo) |
+|---|---|---|
+| AI Usage cap | $1.00 API cost/month | $3.00 API cost/month |
+| How's Fishing Right Now? | Yes | Yes |
+| Lure/Fly Recommender | Yes | Yes |
+| Water Reader | Yes | Yes |
+| Voice-to-Text Logging | Yes | Yes |
+| Manual Logging | Unlimited | Unlimited |
+| Recommendation & Water Reader History | Yes | Yes |
+| Community Feed | Full access (share catches) | Full access (share catches) |
+| **Detailed Hatch Intelligence Panel** | No | **Phase 2** |
+| **AI Trip Summary Narrative** | No | **Master Angler only** |
+| **Catch Log Export (CSV/PDF)** | No | **Master Angler only** |
 
 **Actual per-call cost estimates:** ~$0.012-0.015 for text recommendations, ~$0.03-0.05 for water reader (vision), ~$0.006/minute for Whisper transcription, ~$0.016 per voice log entry (Whisper + Claude parsing).
 
@@ -416,10 +437,12 @@ Master Angler users can export their full catch log history as CSV or PDF. Imple
 ### Implementation
 - Supabase Edge Functions log token usage and computed cost after every Claude/Whisper API call
 - Cost counter per user per billing cycle stored in a `usage_tracking` table in Supabase (user_id, billing_period, total_cost, call_count)
-- Pre-call check: if user would exceed their tier's cost cap, show upgrade prompt
+- **Usage caps:** $1.00/month (Angler), $3.00/month (Master Angler). Pre-call check against `usage_tracking.total_cost_usd`; if user would exceed tier cap, block request and return usage_cap_exceeded
 - Approaching-limit warning at ~80% usage
 - Feature flags stored on the user profile based on subscription tier — controls UI visibility of the 3 gated features (hatch panel, trip summary, export)
 - RevenueCat for iOS subscription management — handles receipt validation, subscription status, renewal events. Connect to Supabase via RevenueCat webhooks to update user tier status in real-time.
+- **Subscribe screen:** Currently a placeholder ("Angler $9.99/mo and Master Angler $14.99/mo coming soon"). Wire up full RevenueCat paywall UI during the Monetization phase.
+- **80% usage cap warning:** When a user's `usage_tracking.total_cost_usd` crosses 80% of their tier cap, surface a warning in the app (e.g. a banner on Home or an in-app notification: "You've used 80% of your monthly AI calls"). Implement alongside push notification support in the Monetization phase.
 - **CSV export:** Query user's catch log from Supabase, format as CSV server-side in an Edge Function, return as downloadable file
 - **PDF export:** Use a lightweight PDF generation library in the Edge Function (e.g., `jspdf` or generate HTML → PDF) to create a formatted catch report
 

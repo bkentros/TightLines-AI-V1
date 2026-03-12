@@ -40,6 +40,14 @@ export const colors = {
   // Accent blues and yellows (home tab tiles, etc.)
   waterBlue: '#2E8FC4',
   plannerYellow: '#E8B82E',
+
+  // Report score bands (1–4 poor, 5–7 fair, 8–10 great)
+  reportScoreRed: '#B85450',
+  reportScoreRedBg: '#FDEAEA',
+  reportScoreYellow: '#C9A227',
+  reportScoreYellowBg: '#FDF8E8',
+  reportScoreGreen: '#2E5C34',
+  reportScoreGreenBg: '#E8F0E9',
 } as const;
 
 export const fonts = {

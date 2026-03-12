@@ -39,25 +39,51 @@ export function isCacheValid(
   return now - fetchedAt < CACHE_TTL_MS;
 }
 
-/** Get cached env data if valid for this location */
+/** Get cached env data if valid for this location (within TTL) */
 export async function getCachedEnv(
   latitude: number,
   longitude: number
 ): Promise<EnvironmentData | null> {
   try {
-    const raw = await AsyncStorage.getItem(ENV_CACHE_KEY);
-    if (!raw) return null;
-
-    const cached: CachedEnvPayload = JSON.parse(raw);
+    const cached = await getCachedPayload(latitude, longitude);
     if (!cached?.data?.fetched_at) return null;
-
-    if (isCacheValid(cached, latitude, longitude)) {
-      return cached.data;
-    }
+    if (isCacheValid(cached, latitude, longitude)) return cached.data;
   } catch {
     // Parse error or storage error — treat as cache miss
   }
   return null;
+}
+
+/**
+ * Get cached env data for this location even if expired (stale).
+ * Use for stale-while-revalidate: show last-known data immediately when
+ * returning to the app, then refresh in background.
+ */
+export async function getStaleCachedEnv(
+  latitude: number,
+  longitude: number
+): Promise<EnvironmentData | null> {
+  try {
+    const cached = await getCachedPayload(latitude, longitude);
+    return cached?.data?.fetched_at ? cached.data : null;
+  } catch {
+    return null;
+  }
+}
+
+/** Get cache payload for this location if present (ignores TTL). */
+async function getCachedPayload(
+  latitude: number,
+  longitude: number
+): Promise<CachedEnvPayload | null> {
+  const raw = await AsyncStorage.getItem(ENV_CACHE_KEY);
+  if (!raw) return null;
+  const cached: CachedEnvPayload = JSON.parse(raw);
+  if (!cached?.data?.fetched_at) return null;
+  const latMatch = roundCoord(cached.latitude) === roundCoord(latitude);
+  const lonMatch = roundCoord(cached.longitude) === roundCoord(longitude);
+  if (!latMatch || !lonMatch) return null;
+  return cached;
 }
 
 /** Store env data in cache */

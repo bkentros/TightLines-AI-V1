@@ -1,5 +1,5 @@
-import { useState, useEffect, useCallback } from 'react';
-import { View, Text, StyleSheet, ScrollView, Pressable } from 'react-native';
+import { useState, useEffect, useCallback, useRef } from 'react';
+import { AppState, type AppStateStatus, View, Text, StyleSheet, ScrollView, Pressable, ActivityIndicator } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { useFocusEffect } from '@react-navigation/native';
@@ -7,9 +7,11 @@ import { Ionicons } from '@expo/vector-icons';
 import * as Location from 'expo-location';
 import { colors, fonts, spacing, radius } from '../../lib/theme';
 import { LiveConditionsWidget } from '../../components/LiveConditionsWidget';
+import { SubscribePrompt } from '../../components/SubscribePrompt';
 import { useAuthStore } from '../../store/authStore';
 import { useDevTestingStore } from '../../store/devTestingStore';
 import { useEnvStore } from '../../store/envStore';
+import { getEffectiveTier, canUseAIFeatures } from '../../lib/subscription';
 
 /* ─── Brand mark — fish + crosshair ─── */
 const MARK_SIZE = 30;
@@ -96,10 +98,13 @@ const scanStyles = StyleSheet.create({
 export default function HomeScreen() {
   const router = useRouter();
   const { profile } = useAuthStore();
-  const { ignoreGps, overrideLocation, load: loadDevTesting } = useDevTestingStore();
+  const { ignoreGps, overrideLocation, overrideSubscriptionTier, load: loadDevTesting } = useDevTestingStore();
   const { loadEnv } = useEnvStore();
+  const appStateRef = useRef<AppStateStatus>(AppState.currentState);
+  const lastAutoRefreshAtRef = useRef(0);
   const [gpsCoords, setGpsCoords] = useState<{ lat: number; lon: number } | null>(null);
   const [gpsLocationLabel, setGpsLocationLabel] = useState<string | null>(null);
+  const [showSubscribePrompt, setShowSubscribePrompt] = useState(false);
 
   // Reverse-geocode GPS to get "City, State" for the location label
   useEffect(() => {
@@ -125,22 +130,6 @@ export default function HomeScreen() {
     })();
     return () => { cancelled = true; };
   }, [gpsCoords?.lat, gpsCoords?.lon]);
-
-  // Auto-sync Live Conditions when returning to Home tab (uses cache; refetches if > 15 min)
-  useFocusEffect(
-    useCallback(() => {
-      const units = profile?.preferred_units ?? 'imperial';
-      const c =
-        __DEV__ && overrideLocation
-          ? { lat: overrideLocation.lat, lon: overrideLocation.lon }
-          : __DEV__ && ignoreGps
-            ? null
-            : gpsCoords;
-      if (c) {
-        loadEnv(c.lat, c.lon, { units });
-      }
-    }, [profile?.preferred_units, overrideLocation, ignoreGps, gpsCoords, loadEnv])
-  );
 
   // Always use active GPS; dev overrides only affect what we pass to Live Conditions
   useEffect(() => {
@@ -182,6 +171,77 @@ export default function HomeScreen() {
       ? overrideLocation.label
       : gpsLocationLabel ?? 'Current location';
 
+  const refreshLiveConditions = useCallback(() => {
+    const now = Date.now();
+    if (now - lastAutoRefreshAtRef.current < 3000) {
+      return;
+    }
+    lastAutoRefreshAtRef.current = now;
+
+    const units = profile?.preferred_units ?? 'imperial';
+    const currentCoords =
+      __DEV__ && overrideLocation
+        ? { lat: overrideLocation.lat, lon: overrideLocation.lon }
+        : __DEV__ && ignoreGps
+          ? null
+          : gpsCoords;
+
+    if (currentCoords) {
+      loadEnv(currentCoords.lat, currentCoords.lon, { units });
+    }
+  }, [profile?.preferred_units, overrideLocation, ignoreGps, gpsCoords, loadEnv]);
+
+  // Auto-sync Live Conditions when returning to Home tab (uses cache; refetches if > 15 min)
+  useFocusEffect(
+    useCallback(() => {
+      refreshLiveConditions();
+    }, [refreshLiveConditions])
+  );
+
+  // Refresh when the app comes back to foreground so stale cache revalidates automatically.
+  useEffect(() => {
+    const subscription = AppState.addEventListener('change', (nextAppState) => {
+      const wasBackgrounded =
+        appStateRef.current === 'background' || appStateRef.current === 'inactive';
+
+      if (wasBackgrounded && nextAppState === 'active') {
+        refreshLiveConditions();
+      }
+
+      appStateRef.current = nextAppState;
+    });
+
+    return () => subscription.remove();
+  }, [refreshLiveConditions]);
+
+  const effectiveTier = getEffectiveTier(profile, overrideSubscriptionTier ?? null);
+  const hasSubscription = canUseAIFeatures(effectiveTier);
+
+  const handleHowFishingPress = useCallback(() => {
+    if (!hasSubscription) {
+      setShowSubscribePrompt(true);
+      return;
+    }
+    if (!coords) {
+      // Navigate to how-fishing without coords — it will show the Enable Location screen
+      router.push({ pathname: '/how-fishing' });
+      return;
+    }
+    router.push({
+      pathname: '/how-fishing',
+      params: { lat: String(coords.lat), lon: String(coords.lon) },
+    });
+  }, [hasSubscription, coords, router]);
+
+  const handleRequestLocation = useCallback(async () => {
+    const { status } = await Location.requestForegroundPermissionsAsync();
+    if (status !== 'granted') return;
+    const loc = await Location.getCurrentPositionAsync({
+      accuracy: Location.Accuracy.Balanced,
+    });
+    setGpsCoords({ lat: loc.coords.latitude, lon: loc.coords.longitude });
+  }, []);
+
   const getGreeting = () => {
     const h = new Date().getHours();
     if (h < 5) return 'Up early';
@@ -215,6 +275,10 @@ export default function HomeScreen() {
           latitude={coords?.lat}
           longitude={coords?.lon}
           locationLabel={locationLabel}
+          onRequestLocation={
+            __DEV__ && ignoreGps ? undefined : handleRequestLocation
+          }
+          onPress={handleHowFishingPress}
         />
 
         {/* ─── How's Fishing Right Now? ─── */}
@@ -223,6 +287,7 @@ export default function HomeScreen() {
             styles.fishingBtn,
             pressed && styles.fishingBtnPressed,
           ]}
+          onPress={handleHowFishingPress}
         >
           <View style={styles.fishingBtnLeft}>
             <Ionicons name="pulse" size={18} color={colors.sage} />
@@ -234,6 +299,15 @@ export default function HomeScreen() {
             <Text style={styles.tierPillText}>Angler+</Text>
           </View>
         </Pressable>
+
+        <SubscribePrompt
+          visible={showSubscribePrompt}
+          onDismiss={() => setShowSubscribePrompt(false)}
+          onViewPlans={() => {
+            setShowSubscribePrompt(false);
+            router.push('/subscribe');
+          }}
+        />
 
         {/* ─── Feature Tiles ─── */}
         <View style={styles.tiles}>
@@ -385,6 +459,7 @@ const styles = StyleSheet.create({
     borderColor: colors.sage + '40',
   },
   fishingBtnPressed: { backgroundColor: colors.sageLight },
+  fishingBtnDisabled: { opacity: 0.7 },
   fishingBtnLeft: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm },
   fishingBtnText: {
     fontSize: 14,

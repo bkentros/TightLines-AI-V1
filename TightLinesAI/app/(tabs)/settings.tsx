@@ -17,7 +17,7 @@ import { Ionicons } from '@expo/vector-icons';
 import * as Location from 'expo-location';
 import { colors, fonts, spacing, radius } from '../../lib/theme';
 import { useAuthStore } from '../../store/authStore';
-import { useDevTestingStore, LOCATION_PRESETS } from '../../store/devTestingStore';
+import { useDevTestingStore, LOCATION_PRESETS, type DevSubscriptionTier } from '../../store/devTestingStore';
 import type { FishingMode, UserProfile } from '../../lib/types';
 import { supabase } from '../../lib/supabase';
 
@@ -68,9 +68,11 @@ export default function SettingsScreen() {
   const {
     ignoreGps,
     overrideLocation,
+    overrideSubscriptionTier,
     load: loadDevTesting,
     setIgnoreGps,
     setOverrideLocation,
+    setOverrideSubscriptionTier,
     clearOverride,
   } = useDevTestingStore();
 
@@ -371,10 +373,37 @@ export default function SettingsScreen() {
             <View style={styles.testingSection}>
               <Text style={styles.testingTitle}>Testing</Text>
               <Text style={styles.testingHint}>
-                Override location for QA. Live Conditions uses GPS by default.
+                Override location and subscription tier for QA.
               </Text>
 
-              <View style={styles.testingRow}>
+              <Text style={styles.testingLabel}>Override subscription tier</Text>
+              <View style={styles.presetRow}>
+                {(['free', 'angler', 'master_angler', null] as const).map((t) => {
+                  const label = t === null ? 'Use real' : t === 'angler' ? 'Angler' : t === 'master_angler' ? 'Master' : t;
+                  const isActive = overrideSubscriptionTier === t;
+                  return (
+                    <Pressable
+                      key={label}
+                      style={[styles.presetBtn, isActive && styles.presetBtnActive]}
+                      onPress={() => setOverrideSubscriptionTier(t)}
+                    >
+                      <Text
+                        style={[styles.presetBtnText, isActive && styles.presetBtnTextActive]}
+                        numberOfLines={1}
+                      >
+                        {label}
+                      </Text>
+                    </Pressable>
+                  );
+                })}
+              </View>
+              {overrideSubscriptionTier != null && (
+                <Text style={styles.currentOverride}>
+                  Using tier: {overrideSubscriptionTier}
+                </Text>
+              )}
+
+              <View style={[styles.testingRow, { marginTop: spacing.md }]}>
                 <Text style={styles.testingLabel}>Ignore GPS (simulate no location)</Text>
                 <Switch
                   value={ignoreGps}

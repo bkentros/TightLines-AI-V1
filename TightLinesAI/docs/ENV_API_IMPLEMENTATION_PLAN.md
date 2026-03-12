@@ -56,7 +56,6 @@ interface GetEnvironmentRequest {
 interface EnvironmentData {
   weather_available: boolean;
   tides_available: boolean;
-  tides_coming_soon?: boolean;   // true when Great Lakes
   moon_available: boolean;
   sun_available: boolean;
   
@@ -95,11 +94,10 @@ interface SolunarData { ... }    // major_periods[], minor_periods[]
 1. Parse and validate `latitude`, `longitude`, `units`.
 2. **Parallel fetch** (Promise.allSettled so partial failure is OK):
    - `fetchOpenMeteo(lat, lon, units)` → weather + sunrise/sunset
-   - `fetchNOAA(lat, lon, units)` → tides (or null if inland/Great Lakes)
+   - `fetchNOAA(lat, lon, units)` → tides (or null if inland)
    - `fetchUSNO(lat, lon)` → moon rise/set/transit, phase
 3. **Post-process:**
    - Compute solunar periods from USNO moon transit data.
-   - Detect Great Lakes region → set `tides_coming_soon: true`, `tides_available: false`.
    - Convert units per `units` param.
 4. **Assemble response** with flags (`weather_available`, `tides_available`, etc.).
 5. Return JSON.
@@ -109,7 +107,6 @@ interface SolunarData { ... }    // major_periods[], minor_periods[]
 - **Option A:** Fetch NOAA station list once at cold start, cache in memory. Filter by `type` (waterlevels) and find nearest by haversine distance. Station list: `https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations.json?type=waterlevels`
 - **Option B:** Use a pre-bundled JSON file of US tide stations (lat, lon, id) checked into the Edge Function and find nearest. Reduces runtime dependency on NOAA metadata API.
 - **Coastal vs inland:** If nearest station is > ~50 miles away, treat as inland → `tides_available: false`.
-- **Great Lakes:** Define bounding box or state check for Great Lakes (MI, WI, IL, IN, OH, NY, PA, MN near lakes). If in region, `tides_available: false`, `tides_coming_soon: true`.
 
 ### 4.4 Solunar Computation
 
@@ -176,7 +173,7 @@ const { data, error } = await supabase.functions.invoke('get-environment', {
 
 - Call `getEnvironment({ latitude, longitude, units })` (no `forceRefresh`).
 - Cache ensures at most one fetch every 15 minutes per location.
-- Display: weather summary, tides (if available or "Coming soon"), moon phase, sunrise/sunset.
+- Display: weather summary, tides when available, moon phase, sunrise/sunset.
 
 ### 6.2 Recommender, How's Fishing, Water Reader
 
@@ -191,16 +188,7 @@ const { data, error } = await supabase.functions.invoke('get-environment', {
 
 ---
 
-## 7. Great Lakes "Coming Soon"
-
-- Edge Function sets `tides_coming_soon: true` when coordinates are in the Great Lakes region.
-- Client UI: when `tides_coming_soon`, show "Tide / water level — Coming soon" instead of hiding the section entirely.
-
-**Great Lakes detection:** Simple bounding box or state-based check (e.g. within X km of lake centroids, or states: MI, parts of WI, IL, IN, OH, NY, PA, MN).
-
----
-
-## 8. Future Considerations (Not in V1)
+## 7. Future Considerations (Not in V1)
 
 - **Edge Function–level caching:** At 3–5K users, add a short TTL cache (e.g. Redis or in-memory) keyed by `lat_lon` bucket to reduce duplicate fetches.
 - **OpenWeatherMap fallback:** Add optional `OPENWEATHERMAP_API_KEY`; on Open-Meteo failure, retry with OpenWeatherMap.
@@ -208,7 +196,7 @@ const { data, error } = await supabase.functions.invoke('get-environment', {
 
 ---
 
-## 9. Implementation Order
+## 8. Implementation Order
 
 | Step | Task | Est. |
 |------|------|------|
@@ -218,7 +206,7 @@ const { data, error } = await supabase.functions.invoke('get-environment', {
 | 4 | Implement Edge Function: Open-Meteo fetch + unit handling | 45 min |
 | 5 | Implement Edge Function: NOAA station resolution + tide fetch | 1 hr |
 | 6 | Implement Edge Function: USNO fetch + solunar computation | 45 min |
-| 7 | Implement Edge Function: Great Lakes detection, parallel fetch, partial failure | 30 min |
+| 7 | Implement Edge Function: parallel fetch and partial failure handling | 30 min |
 | 8 | Deploy `get-environment` Edge Function | 15 min |
 | 9 | Create `lib/env/index.ts` (getEnvironment, fetchFreshEnvironment) | 45 min |
 | 10 | Optional: `store/envStore.ts` for React integration | 30 min |
@@ -233,7 +221,6 @@ const { data, error } = await supabase.functions.invoke('get-environment', {
 
 - [ ] Coastal location (e.g. Tampa, FL): weather, tides, moon, sun all populated.
 - [ ] Inland location (e.g. Kansas City): tides_available false, no tides.
-- [ ] Great Lakes (e.g. Detroit): tides_coming_soon true, "Coming soon" in UI.
 - [ ] Dashboard: second load within 15 min uses cache (no new network call).
 - [ ] Recommender flow: fresh fetch on "Recommend" tap.
 - [ ] Units: imperial vs metric reflected in all numeric values.
@@ -284,9 +271,8 @@ After implementation, verify and fix the following:
 | # | Bug / Risk | How to catch | Fix |
 |---|------------|--------------|-----|
 | 13 | **No location** — User hasn't granted GPS or entered location; `getEnvironment` called with null/undefined. | Crash or bad request. | Guard: only call when `latitude` and `longitude` are valid numbers. |
-| 14 | **Great Lakes false positive** — Bounding box too large; coastal NJ gets `tides_coming_soon`. | East coast user sees "Coming soon" instead of real tides. | Tighten Great Lakes region (e.g. state + proximity to lake); test with Detroit, Chicago, Cleveland, Buffalo. |
-| 15 | **Edge Function error shape** — Supabase returns `{ error: { message: "..." } }`; client assumes `{ data }`. | Error not surfaced to user. | Check `error` from `supabase.functions.invoke`; show fallback UI or "Unable to load conditions" message. |
-| 16 | **Timezone for display** — Env data has UTC or mixed zones; UI shows wrong local times. | Sunrise shows 3 AM instead of 7 AM. | Store timezone with env data (from request or device); format all times in user's local zone for display. |
+| 14 | **Edge Function error shape** — Supabase returns `{ error: { message: "..." } }`; client assumes `{ data }`. | Error not surfaced to user. | Check `error` from `supabase.functions.invoke`; show fallback UI or "Unable to load conditions" message. |
+| 15 | **Timezone for display** — Env data has UTC or mixed zones; UI shows wrong local times. | Sunrise shows 3 AM instead of 7 AM. | Store timezone with env data (from request or device); format all times in user's local zone for display. |
 
 ### General
 

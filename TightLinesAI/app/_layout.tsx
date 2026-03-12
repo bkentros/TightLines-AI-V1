@@ -22,7 +22,7 @@ function useProtectedRoute() {
 
     const inAuth = segments[0] === '(auth)';
     const inOnboarding = segments[0] === '(onboarding)';
-    const inResetPassword = segments[1] === 'reset-password';
+    const inResetPassword = segments.includes('reset-password');
 
     if (!session) {
       if (!inAuth) router.replace('/(auth)/welcome');
@@ -49,7 +49,19 @@ export default function RootLayout() {
 
   // Hydrate session from AsyncStorage on mount
   useEffect(() => {
-    hydrate();
+    hydrate().then(() => {
+      // After hydration, sync the functions client auth header with whatever
+      // session was restored from AsyncStorage. onAuthStateChange fires
+      // INITIAL_SESSION which also does this, but the explicit sync here
+      // ensures the header is set before any invoke() call can race.
+      supabase.auth.getSession().then(({ data: { session } }) => {
+        if (session?.access_token) {
+          supabase.functions.setAuth(session.access_token);
+        } else {
+          supabase.functions.setAuth('');
+        }
+      });
+    });
   }, [hydrate]);
 
   // Handle deep links — email verification & password reset tokens
@@ -128,6 +140,15 @@ export default function RootLayout() {
           return;
         }
 
+        // Keep the functions client's Authorization header in sync with the
+        // current session. supabase-js does NOT do this automatically —
+        // without this, supabase.functions.invoke() sends no user token.
+        if (session?.access_token) {
+          supabase.functions.setAuth(session.access_token);
+        } else {
+          supabase.functions.setAuth('');
+        }
+
         setSession(session);
 
         if (session?.user) {
@@ -173,6 +194,15 @@ export default function RootLayout() {
         <Stack.Screen
           name="personal-bests"
           options={{ title: 'Personal Bests' }}
+        />
+        <Stack.Screen name="subscribe" options={{ title: 'Subscribe' }} />
+        <Stack.Screen
+          name="how-fishing"
+          options={{ title: "How's Fishing" }}
+        />
+        <Stack.Screen
+          name="how-fishing-results"
+          options={{ title: 'Your Report', headerRight: () => null }}
         />
       </Stack>
     </>

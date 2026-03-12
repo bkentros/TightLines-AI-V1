@@ -7,13 +7,14 @@
  * @see docs/ENV_API_IMPLEMENTATION_PLAN.md
  */
 
-import { useEffect } from 'react';
-import { View, Text, StyleSheet, Pressable, ActivityIndicator } from 'react-native';
+import { useEffect, useState } from 'react';
+import { View, Text, StyleSheet, Pressable, ActivityIndicator, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { colors, fonts, spacing, radius } from '../lib/theme';
 import { useEnvStore } from '../store/envStore';
 import { useAuthStore } from '../store/authStore';
 import type { EnvironmentData } from '../lib/env';
+import { CACHE_TTL_MS } from '../lib/env/constants';
 
 /** Convert wind direction degrees to cardinal (e.g. 170 → "S") */
 function windDirectionLabel(deg: number): string {
@@ -48,6 +49,18 @@ function cloudLabel(pct: number): string {
   return 'Overcast';
 }
 
+/** Short pressure trend label + color for the dashboard tile */
+function pressureTrendInfo(trend: string | undefined): { label: string; color: string } | null {
+  switch (trend) {
+    case 'rapidly_falling': return { label: '↓↓ Rapidly Falling', color: '#2E7D32' };
+    case 'slowly_falling': return { label: '↓ Falling', color: '#388E3C' };
+    case 'stable': return { label: 'Stable', color: colors.textMuted };
+    case 'slowly_rising': return { label: '↑ Rising', color: '#E65100' };
+    case 'rapidly_rising': return { label: '↑↑ Rapidly Rising', color: '#B71C1C' };
+    default: return null;
+  }
+}
+
 export interface LiveConditionsWidgetProps {
   /** Coordinates — when set, loads env data */
   latitude?: number | null;
@@ -56,6 +69,10 @@ export interface LiveConditionsWidgetProps {
   locationLabel?: string;
   /** Called when refresh button is pressed */
   onRefresh?: () => void;
+  /** Called when user taps "Enable location" or "Sync location" — parent should request permission and fetch GPS */
+  onRequestLocation?: () => Promise<void>;
+  /** Called when the user taps the card to open the expanded conditions page */
+  onPress?: () => void;
 }
 
 export function LiveConditionsWidget({
@@ -63,18 +80,44 @@ export function LiveConditionsWidget({
   longitude,
   locationLabel = 'Your location',
   onRefresh,
+  onRequestLocation,
+  onPress,
 }: LiveConditionsWidgetProps) {
   const { envData, isLoading, error, loadEnv } = useEnvStore();
   const { profile } = useAuthStore();
   const units = profile?.preferred_units ?? 'imperial';
 
   const hasCoords = typeof latitude === 'number' && typeof longitude === 'number' && !isNaN(latitude) && !isNaN(longitude);
+  const [locationSyncing, setLocationSyncing] = useState(false);
+  const [nowMs, setNowMs] = useState(() => Date.now());
 
   useEffect(() => {
     if (hasCoords) {
       loadEnv(latitude!, longitude!, { units });
     }
   }, [hasCoords, latitude, longitude, units]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setNowMs(Date.now());
+    }, 60_000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const handleRequestLocation = async () => {
+    if (!onRequestLocation) return;
+    setLocationSyncing(true);
+    try {
+      await onRequestLocation();
+    } catch {
+      Alert.alert(
+        'Could not get location',
+        'Please enable location in Settings or check your connection.'
+      );
+    } finally {
+      setLocationSyncing(false);
+    }
+  };
 
   if (!hasCoords) {
     return (
@@ -90,6 +133,26 @@ export function LiveConditionsWidget({
           <Text style={styles.noLocationText}>
             Sync location to see weather, tides, and moon conditions.
           </Text>
+          {onRequestLocation && (
+            <Pressable
+              style={({ pressed }) => [
+                styles.syncLocationBtn,
+                pressed && styles.syncLocationBtnPressed,
+                locationSyncing && styles.syncLocationBtnDisabled,
+              ]}
+              onPress={handleRequestLocation}
+              disabled={locationSyncing}
+            >
+              {locationSyncing ? (
+                <ActivityIndicator size="small" color={colors.textLight} />
+              ) : (
+                <>
+                  <Ionicons name="location" size={16} color={colors.textLight} />
+                  <Text style={styles.syncLocationBtnText}>Enable location</Text>
+                </>
+              )}
+            </Pressable>
+          )}
         </View>
       </View>
     );
@@ -103,9 +166,11 @@ export function LiveConditionsWidget({
         <View style={styles.condHeader}>
           <View style={styles.condHeaderLeft}>
             <View style={[styles.liveDot, { backgroundColor: colors.stone }]} />
-            <Text style={[styles.condLabel, { color: colors.textMuted }]}>Live Conditions</Text>
+            <View>
+              <Text style={[styles.condLabel, { color: colors.textMuted }]}>Live Conditions</Text>
+              <Text style={styles.condLocation}>{locationLabel}</Text>
+            </View>
           </View>
-          <Text style={styles.condLocation}>{locationLabel}</Text>
         </View>
         <View style={styles.errorBox}>
           <Text style={styles.errorText}>{error}</Text>
@@ -126,9 +191,11 @@ export function LiveConditionsWidget({
         <View style={styles.condHeader}>
           <View style={styles.condHeaderLeft}>
             <View style={styles.liveDot} />
-            <Text style={styles.condLabel}>Live Conditions</Text>
+            <View>
+              <Text style={styles.condLabel}>Live Conditions</Text>
+              <Text style={styles.condLocation}>{locationLabel}</Text>
+            </View>
           </View>
-          <Text style={styles.condLocation}>{locationLabel}</Text>
         </View>
         <View style={styles.loadingBox}>
           <ActivityIndicator size="small" color={colors.sage} />
@@ -143,25 +210,46 @@ export function LiveConditionsWidget({
   const t = env?.tides;
   const moon = env?.moon;
 
-  return (
-    <View style={styles.condCard}>
-      {isRateLimitError && (
-        <View style={styles.rateLimitBanner}>
+  const fetchedAt = env?.fetched_at ? new Date(env.fetched_at).getTime() : 0;
+  const ageMs = fetchedAt ? Math.max(0, nowMs - fetchedAt) : 0;
+  const isStale = ageMs > CACHE_TTL_MS;
+  const staleMinutes = Math.floor(ageMs / 60000);
+  const ageLabel = fetchedAt ? `As of ${staleMinutes} min ago` : null;
+
+  const showErrorBanner = error && (isRateLimitError || env);
+  const pressureTrend = w?.pressure_trend ? pressureTrendInfo(w.pressure_trend) : null;
+
+  const cardContent = (
+    <>
+      {showErrorBanner && (
+        <View style={[styles.rateLimitBanner, !isRateLimitError && styles.errorBanner]}>
           <Text style={styles.rateLimitText}>{error}</Text>
+          {!isRateLimitError && env && (
+            <Pressable
+              style={({ pressed }) => [styles.retryBtn, pressed && styles.retryBtnPressed]}
+              onPress={() => loadEnv(latitude!, longitude!, { units, forceRefresh: true })}
+            >
+              <Text style={styles.retryBtnText}>Try Again</Text>
+            </Pressable>
+          )}
         </View>
       )}
+
+      {/* ── Header row: label + dot on left, refresh icon on right ── */}
       <View style={styles.condHeader}>
         <View style={styles.condHeaderLeft}>
           <View style={styles.liveDot} />
-          <Text style={styles.condLabel}>Live Conditions</Text>
+          <View>
+            <Text style={styles.condLabel}>Live Conditions</Text>
+            <Text style={styles.condLocation}>{locationLabel}</Text>
+          </View>
         </View>
         <View style={styles.condHeaderRight}>
           {isLoading && (
             <Text style={styles.updatingText}>Updating…</Text>
           )}
-          <Text style={styles.condLocation}>{locationLabel}</Text>
           <Pressable
-            hitSlop={16}
+            hitSlop={12}
             style={({ pressed }) => [
               styles.refreshBtn,
               pressed && styles.refreshBtnPressed,
@@ -176,7 +264,7 @@ export function LiveConditionsWidget({
             {isLoading ? (
               <ActivityIndicator size="small" color={colors.sage} />
             ) : (
-              <Ionicons name="refresh-outline" size={22} color={colors.sage} />
+              <Ionicons name="refresh-outline" size={16} color={colors.sage} />
             )}
           </Pressable>
         </View>
@@ -217,7 +305,13 @@ export function LiveConditionsWidget({
               {w ? String(w.pressure) : '—'}
             </Text>
           </View>
-          <Text style={styles.condCaption}>Press.</Text>
+          {pressureTrend ? (
+            <Text style={[styles.condCaption, { color: pressureTrend.color }]} numberOfLines={1}>
+              {pressureTrend.label}
+            </Text>
+          ) : (
+            <Text style={styles.condCaption}>Press.</Text>
+          )}
         </View>
       </View>
 
@@ -231,14 +325,34 @@ export function LiveConditionsWidget({
         <View style={styles.condPill}>
           <Ionicons name="water-outline" size={11} color={colors.textSecondary} />
           <Text style={styles.condPillText}>
-            {env?.tides_coming_soon
-              ? 'Coming soon'
-              : t && t.high_low?.length
-                ? `${t.high_low[0]?.type === 'H' ? 'High' : 'Low'} ${(t.high_low[0]?.time ?? '').split(' ')[1] ?? ''}`
-                : '—'}
+            {t && t.high_low?.length
+              ? `${t.high_low[0]?.type === 'H' ? 'High' : 'Low'} ${(t.high_low[0]?.time ?? '').split(' ')[1] ?? ''}`
+              : '—'}
           </Text>
         </View>
+        {ageLabel && (
+          <Text style={[styles.staleLabel, isStale && styles.staleLabelExpired]}>
+            {ageLabel}
+          </Text>
+        )}
       </View>
+    </>
+  );
+
+  if (onPress) {
+    return (
+      <Pressable
+        style={({ pressed }) => [styles.condCard, pressed && styles.condCardPressed]}
+        onPress={onPress}
+      >
+        {cardContent}
+      </Pressable>
+    );
+  }
+
+  return (
+    <View style={styles.condCard}>
+      {cardContent}
     </View>
   );
 }
@@ -252,25 +366,28 @@ const styles = StyleSheet.create({
     borderWidth: StyleSheet.hairlineWidth,
     borderColor: colors.border,
   },
+  condCardPressed: {
+    backgroundColor: colors.surfacePressed,
+  },
   condHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: spacing.md,
+    marginBottom: spacing.sm + 2,
   },
-  condHeaderLeft: { flexDirection: 'row', alignItems: 'center', gap: 6 },
+  condHeaderLeft: { flexDirection: 'row', alignItems: 'center', gap: 8 },
   condHeaderRight: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm },
   updatingText: { fontSize: 11, color: colors.sage, fontWeight: '500' },
   refreshBtn: {
-    width: 44,
-    height: 44,
-    borderRadius: 22,
+    width: 28,
+    height: 28,
+    borderRadius: 14,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: colors.sageLight,
   },
   refreshBtnPressed: { backgroundColor: colors.sage + '50', opacity: 1 },
-  refreshBtnDisabled: { opacity: 0.8 },
+  refreshBtnDisabled: { opacity: 0.6 },
   liveDot: {
     width: 6,
     height: 6,
@@ -283,7 +400,7 @@ const styles = StyleSheet.create({
     color: colors.sage,
     letterSpacing: 0.3,
   },
-  condLocation: { fontSize: 12, color: colors.textMuted },
+  condLocation: { fontSize: 11, color: colors.textMuted, marginTop: 1 },
   condGrid: { flexDirection: 'row', gap: spacing.sm },
   condTile: {
     flex: 1,
@@ -307,8 +424,18 @@ const styles = StyleSheet.create({
   condCaption: { fontSize: 10, color: colors.textMuted, letterSpacing: 0.3 },
   condFooter: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
+    alignItems: 'center',
     gap: spacing.sm,
     marginTop: spacing.sm,
+  },
+  staleLabel: {
+    fontSize: 10,
+    color: colors.textMuted,
+    marginLeft: 'auto',
+  },
+  staleLabelExpired: {
+    color: colors.textSecondary,
   },
   condPill: {
     flexDirection: 'row',
@@ -329,6 +456,23 @@ const styles = StyleSheet.create({
     fontSize: 13,
     color: colors.textMuted,
     textAlign: 'center',
+  },
+  syncLocationBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    marginTop: spacing.sm,
+    paddingVertical: spacing.sm,
+    paddingHorizontal: spacing.md,
+    backgroundColor: colors.sage,
+    borderRadius: radius.md,
+  },
+  syncLocationBtnPressed: { backgroundColor: colors.sageDark, opacity: 1 },
+  syncLocationBtnDisabled: { opacity: 0.8 },
+  syncLocationBtnText: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: colors.textLight,
   },
   loadingBox: {
     flexDirection: 'row',
@@ -360,6 +504,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing.sm,
     borderRadius: radius.sm,
     marginBottom: spacing.sm,
+  },
+  errorBanner: {
+    backgroundColor: colors.surfacePressed,
+    gap: spacing.xs,
   },
   rateLimitText: {
     fontSize: 12,
