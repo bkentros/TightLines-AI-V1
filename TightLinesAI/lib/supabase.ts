@@ -65,24 +65,44 @@ export async function invokeEdgeFunction<TResponse>(
  * Returns a guaranteed-valid access token, refreshing the session if the
  * token is expired or within 60 seconds of expiry. Throws if not signed in.
  *
- * Always use this instead of `supabase.auth.getSession()` before calling
- * an edge function — getSession() returns the cached (possibly expired) token.
+ * Checks the Zustand auth store FIRST (set synchronously on sign-in),
+ * then falls back to supabase.auth.getSession() (AsyncStorage-backed,
+ * which can lag behind after a fresh sign-in and cause 401s).
  */
 export async function getValidAccessToken(): Promise<string> {
+  const nowSec = Math.floor(Date.now() / 1000);
+
+  // 1. Try the Zustand store first — it's set synchronously after sign-in.
+  //    Lazy import to avoid circular dependency (authStore imports supabase).
+  const { useAuthStore } = require('../store/authStore');
+  const storeSession = useAuthStore.getState().session;
+  if (storeSession?.access_token) {
+    const storeExpiry = storeSession.expires_at ?? 0;
+    if (storeExpiry - nowSec >= 60) {
+      return storeSession.access_token;
+    }
+    // Near-expiry — refresh and update the store
+    const { data: refreshed, error } = await supabase.auth.refreshSession();
+    if (!error && refreshed.session) {
+      useAuthStore.getState().setSession(refreshed.session);
+      return refreshed.session.access_token;
+    }
+  }
+
+  // 2. Fallback to supabase-js internal cache (AsyncStorage-backed)
   const { data: { session } } = await supabase.auth.getSession();
 
   if (!session) {
     throw new Error('Not signed in. Please sign in to continue.');
   }
 
-  // Refresh if expired or within 60 seconds of expiry
   const expiresAt = session.expires_at ?? 0;
-  const nowSec = Math.floor(Date.now() / 1000);
   if (expiresAt - nowSec < 60) {
     const { data: refreshed, error } = await supabase.auth.refreshSession();
     if (error || !refreshed.session) {
       throw new Error('Session expired. Please sign out and sign back in.');
     }
+    useAuthStore.getState().setSession(refreshed.session);
     return refreshed.session.access_token;
   }
 
