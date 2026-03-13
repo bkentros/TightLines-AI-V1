@@ -44,6 +44,7 @@ export interface EngineEnvironment {
   water_temp_zone: string | null;
   wind_speed_mph: number | null;
   wind_direction: string | null;
+  wind_direction_deg?: number | null;          // NEW
   cloud_cover_pct: number | null;
   pressure_mb: number | null;
   pressure_change_rate_mb_hr: number | null;
@@ -63,6 +64,12 @@ export interface EngineEnvironment {
   days_since_front: number;
   freshwater_subtype?: 'lake' | 'river_stream' | 'reservoir' | null;
   seasonal_fish_behavior?: string | null;
+  effective_latitude?: number | null;          // NEW
+  latitude_band?: string | null;               // NEW
+  saltwater_seasonal_state?: string | null;    // NEW
+  altitude_ft?: number | null;                 // NEW
+  severe_weather_alert?: boolean;              // NEW
+  severe_weather_reasons?: string[];           // NEW
 }
 
 export interface EngineBehavior {
@@ -86,6 +93,8 @@ export interface EngineAlerts {
   days_since_front: number;
   front_severity?: 'mild' | 'moderate' | 'severe' | null;
   front_label?: string | null;
+  severe_weather_alert?: boolean;              // NEW
+  severe_weather_reasons?: string[];           // NEW
 }
 
 export interface DataQuality {
@@ -95,7 +104,7 @@ export interface DataQuality {
 }
 
 export interface TimeWindow {
-  label: 'PRIME' | 'GOOD' | 'SECONDARY';
+  label: 'PRIME' | 'GOOD' | 'FAIR' | 'SLOW';
   start_local: string;
   end_local: string;
   window_score: number;
@@ -103,6 +112,7 @@ export interface TimeWindow {
 }
 
 export interface WorstWindow {
+  label?: 'SLOW';
   start_local: string;
   end_local: string;
   window_score: number;
@@ -115,6 +125,7 @@ export interface EngineOutput {
   data_quality: DataQuality;
   alerts: EngineAlerts;
   time_windows: TimeWindow[];
+  fair_windows: TimeWindow[];      // NEW
   worst_windows: WorstWindow[];
 }
 
@@ -129,7 +140,12 @@ export interface LLMRating {
 
 export interface LLMBestTime {
   time_range: string;
-  label: 'PRIME' | 'GOOD';
+  label: 'PRIME' | 'GOOD' | 'FAIR';    // UPDATED — added FAIR
+  reasoning: string;
+}
+
+export interface LLMDecentTime {
+  time_range: string;
   reasoning: string;
 }
 
@@ -153,6 +169,7 @@ export interface LLMOutput {
   headline_summary: string;
   overall_fishing_rating: LLMRating;
   best_times_to_fish_today: LLMBestTime[];
+  decent_times_today?: LLMDecentTime[];        // NEW
   worst_times_to_fish_today: LLMWorstTime[];
   key_factors: LLMKeyFactors;
   tips_for_today: string[];
@@ -184,8 +201,8 @@ export interface WaterTypeReport {
 
 export interface HowFishingBundle {
   feature: 'hows_fishing_feature_v1';
-  mode: 'single' | 'coastal_multi';
-  default_tab: WaterType;
+  mode: 'single' | 'coastal_multi' | 'inland_dual';   // UPDATED
+  default_tab: string;                                   // UPDATED from WaterType to string
   generated_at: string;
   cache_expires_at: string;
   freshwater_subtype?: 'lake' | 'river_stream' | 'reservoir';
@@ -193,6 +210,8 @@ export interface HowFishingBundle {
     freshwater?: WaterTypeReport;
     saltwater?: WaterTypeReport;
     brackish?: WaterTypeReport;
+    freshwater_lake?: WaterTypeReport;                   // NEW
+    freshwater_river?: WaterTypeReport;                  // NEW
   };
   failed_reports: string[];
 }

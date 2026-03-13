@@ -51,18 +51,21 @@ Rules:
 - Use exactly the time windows the engine provides. Never invent your own.
 
 Language rules:
-- Do not use these words: "cold-stunned" (freshwater), "peak water temp", "meteorological", "thermocline", "lethargic" (use "sluggish" instead), "suppressed" (use "slow" or "shut down"), "biological".
+- Do not use these words: "cold-stunned" (freshwater), "peak water temp", "meteorological", "thermocline", "lethargic" (use "sluggish" instead), "suppressed" (use "slow" or "shut down"), "biological", "solunar" (use "feeding window" or "feeding cycle"), "barometric" (use "pressure"), "thermal stress" (use "too hot" or "heat stress").
 - "peak_aggression" zone means fish are in their optimal temperature range — describe it as "fish are comfortable and feeding well" or similar.
 - When talking about temperature trends, refer to air temperature for freshwater/inland. Only say "water temperature" trend for coastal when measured data is available (water_temp_is_estimated: false).
 - Do not tell the user to check conditions themselves, verify anything, or monitor anything. Give them the answer.
 - If water_temp_is_estimated is true, you may mention the water temp is estimated once in the tips — don't dwell on it.
-- Use the seasonal_fish_behavior field to frame fish activity: deep_winter_survival means fish are barely moving and holding deep; pre_spawn_buildup means fish are starting to move and feed aggressively; spawn_period means fish are distracted and location-shifted; post_spawn_recovery means fish are scattered and selective; summer_peak_activity means fish are active on dawn/dusk edges; summer_heat_suppression means fish are pushed deep to cool water; fall_feed_buildup means fish are gorging hard before winter; late_fall_slowdown means fish are slowing down.
+- Use the seasonal_fish_behavior field to frame fish activity: deep_winter_survival means fish are barely moving and holding deep; pre_spawn_buildup means fish are starting to move and feed aggressively; spawn_period means fish are distracted and location-shifted; post_spawn_recovery means fish are scattered and selective; summer_peak_activity means fish are active on dawn/dusk edges; summer_heat_suppression means fish are pushed deep to cool water; fall_feed_buildup means fish are gorging hard before winter; late_fall_slowdown means fish are slowing down; mild_winter_active means fish are comfortable and feeding normally despite winter — treat as a good fishing day, not a survival situation.
+- If saltwater_seasonal_state is present: sw_cold_inactive means fish are sluggish and deep, requiring slow presentations; sw_cold_mild_active means fish are feeding but slower — focus on midday warming periods; sw_transitional_feed means fish are actively transitioning and feeding well; sw_summer_peak means summer prime time — fish are aggressive; sw_summer_heat_stress means fish are avoiding heat — focus on dawn, dusk, and night.
+- If severe_weather_alert is true: START your headline with a weather safety warning. Mention the specific dangers (from severe_weather_reasons). Still provide the fishing score and times, but lead with safety.
 
 Length limits:
 - headline_summary: exactly 1 sentence, max 20 words
 - overall_fishing_rating.summary: 1 sentence, max 24 words
 - best_times_to_fish_today: max 2 items, reasoning max 16 words each
 - worst_times_to_fish_today: max 2 items, reasoning max 16 words each
+- decent_times_today: max 2 items, reasoning max 16 words each
 - key_factors values: short phrases, max 16 words each
 - tips_for_today: exactly 3 tips, max 12 words each — make them actionable, specific to today
 
@@ -77,6 +80,12 @@ Output valid JSON only matching this schema:
     {
       "time_range": "string",
       "label": "PRIME | GOOD",
+      "reasoning": "string"
+    }
+  ],
+  "decent_times_today": [
+    {
+      "time_range": "string",
       "reasoning": "string"
     }
   ],
@@ -102,6 +111,29 @@ Output valid JSON only matching this schema:
 // Helpers
 // ---------------------------------------------------------------------------
 
+/**
+ * Approximate coastal check using latitude/longitude heuristics.
+ * Used as a fallback when NOAA station lookup fails.
+ * Returns true if the location is likely within ~15 miles of a US coast.
+ */
+function isLikelyCoastal(lat: number, lon: number): boolean {
+  // Florida peninsula: anywhere south of 30°N and east of -87.5°W
+  if (lat < 30 && lon > -87.5 && lat > 24) return true;
+  // Florida Keys
+  if (lat < 25.5 && lat > 24 && lon > -82) return true;
+  // US East Coast: within ~0.15° of coast (very rough)
+  if (lat > 30 && lat < 45 && lon > -76 && lon < -74) return true; // NJ/NY/CT
+  if (lat > 25 && lat < 31 && lon > -81.5 && lon < -79.5) return true; // FL/GA/SC east
+  // Gulf Coast
+  if (lat > 28 && lat < 31 && lon > -97 && lon < -88 && lat < 30.5) return true;
+  // Southern California
+  if (lat > 32 && lat < 35 && lon > -120 && lon < -117) return true;
+  // Pacific Northwest coast
+  if (lat > 42 && lat < 49 && lon > -125 && lon < -123.5) return true;
+
+  return false;
+}
+
 function corsHeaders() {
   return {
     "Access-Control-Allow-Origin": "*",
@@ -121,6 +153,131 @@ function computeCallCost(inputTokens: number, outputTokens: number): number {
 }
 
 // ---------------------------------------------------------------------------
+// Deterministic Fallback — generates LLM-shaped output from engine data alone
+// Used when Claude is unavailable or returns malformed responses.
+// ---------------------------------------------------------------------------
+
+function generateDeterministicFallback(
+  engineOutput: ReturnType<typeof runCoreIntelligence>,
+  subtypeOrWaterType: string
+): LLMOutput {
+  const score = engineOutput.scoring.adjusted_score;
+  const rating = engineOutput.scoring.overall_rating;
+  const env = engineOutput.environment;
+  const behavior = engineOutput.behavior;
+  const alerts = engineOutput.alerts;
+
+  // Headline
+  let headline: string;
+  if (alerts.severe_weather_alert) {
+    headline = "Severe weather warning — check conditions before heading out.";
+  } else if (alerts.cold_stun_alert) {
+    headline = "Fish activity near zero — extremely cold water conditions.";
+  } else if (score >= 80) {
+    headline = `${rating} conditions — fish are feeding actively today.`;
+  } else if (score >= 60) {
+    headline = `${rating} conditions — decent opportunities if you time it right.`;
+  } else if (score >= 40) {
+    headline = `${rating} conditions — fish are present but not aggressive.`;
+  } else {
+    headline = `${rating} conditions — tough fishing expected today.`;
+  }
+
+  // Rating summary
+  let ratingSummary: string;
+  if (score >= 80) {
+    ratingSummary = "Strong conditions across the board — multiple factors working in your favor.";
+  } else if (score >= 60) {
+    ratingSummary = "Conditions are favorable with some factors holding things back slightly.";
+  } else if (score >= 40) {
+    ratingSummary = "Mixed conditions — target the best time windows for your best shot.";
+  } else {
+    ratingSummary = "Conditions are working against the bite — patience and finesse will be key.";
+  }
+
+  // Best times from engine windows
+  const bestTimes = engineOutput.time_windows.slice(0, 2).map((w) => ({
+    time_range: `${w.start_local} – ${w.end_local}`,
+    label: w.label as "PRIME" | "GOOD",
+    reasoning: w.drivers.length > 0
+      ? w.drivers.slice(0, 2).join(" + ").replace(/_/g, " ")
+      : "Best available window",
+  }));
+
+  // Worst times
+  const worstTimes = engineOutput.worst_windows.slice(0, 2).map((w) => ({
+    time_range: `${w.start_local} – ${w.end_local}`,
+    reasoning: "Lowest activity period",
+  }));
+
+  // Key factors from engine state
+  const keyFactors: Record<string, string> = {
+    barometric_pressure: env.pressure_state
+      ? env.pressure_state.replace(/_/g, " ")
+      : "Data unavailable",
+    temperature_trend: env.temp_trend_state
+      ? env.temp_trend_state.replace(/_/g, " ")
+      : "Data unavailable",
+    light_conditions: env.light_condition
+      ? env.light_condition.replace(/_/g, " ")
+      : "Data unavailable",
+    tide_or_solunar: env.solunar_state
+      ? env.solunar_state.replace(/_/g, " ")
+      : (env.tide_phase_state ? env.tide_phase_state.replace(/_/g, " ") : "Data unavailable"),
+    moon_phase: env.moon_phase ?? "Data unavailable",
+    wind: env.wind_speed_mph !== null
+      ? `${env.wind_speed_mph} mph ${env.wind_direction ?? ""}`
+      : "Data unavailable",
+    precipitation_recent_rain: env.precip_condition
+      ? env.precip_condition.replace(/_/g, " ")
+      : "Data unavailable",
+  };
+
+  // Tips based on behavior state
+  const tips: string[] = [];
+  if (behavior.metabolic_state === "shutdown" || behavior.metabolic_state === "lethargic") {
+    tips.push("Fish are sluggish — use slow presentations");
+  } else if (behavior.metabolic_state === "aggressive") {
+    tips.push("Fish are aggressive — cover water quickly");
+  } else {
+    tips.push("Match your presentation to fish activity level");
+  }
+
+  if (behavior.positioning_bias) {
+    const pos = behavior.positioning_bias.replace(/_/g, " ");
+    tips.push(`Target ${pos}`);
+  } else {
+    tips.push("Focus on structure and depth transitions");
+  }
+
+  if (alerts.recovery_active && alerts.front_label) {
+    tips.push("Cold front recovery — slow down your approach");
+  } else if (env.pressure_state === "slowly_falling") {
+    tips.push("Falling pressure often triggers feeding activity");
+  } else {
+    tips.push("Fish the prime windows for your best chance");
+  }
+
+  // Truncate tips to 12 words max
+  const truncatedTips = tips.map((t) => {
+    const words = t.split(" ");
+    return words.length > 12 ? words.slice(0, 12).join(" ") : t;
+  });
+
+  return {
+    headline_summary: headline,
+    overall_fishing_rating: {
+      label: rating,
+      summary: ratingSummary,
+    },
+    best_times_to_fish_today: bestTimes,
+    worst_times_to_fish_today: worstTimes,
+    key_factors: keyFactors,
+    tips_for_today: truncatedTips.slice(0, 3),
+  };
+}
+
+// ---------------------------------------------------------------------------
 // Claude call helper
 // ---------------------------------------------------------------------------
 
@@ -128,6 +285,7 @@ interface LLMOutput {
   headline_summary: string;
   overall_fishing_rating: { label: string; summary: string };
   best_times_to_fish_today: Array<{ time_range: string; label: string; reasoning: string }>;
+  decent_times_today?: Array<{ time_range: string; reasoning: string }>;  // NEW
   worst_times_to_fish_today: Array<{ time_range: string; reasoning: string }>;
   key_factors: Record<string, string>;
   tips_for_today: string[];
@@ -205,12 +363,24 @@ function sanitizeWorstTimes(input: unknown): LLMOutput["worst_times_to_fish_toda
     .filter((item) => item.time_range.length > 0 && item.reasoning.length > 0);
 }
 
+function sanitizeDecentTimes(input: unknown): Array<{ time_range: string; reasoning: string }> {
+  if (!Array.isArray(input)) return [];
+  return input
+    .filter((item): item is Record<string, unknown> => Boolean(item) && typeof item === "object")
+    .slice(0, 2)
+    .map((item) => ({
+      time_range: sanitizeTopLevelText(item.time_range, 6),
+      reasoning: sanitizeTopLevelText(item.reasoning, 18),
+    }))
+    .filter((item) => item.time_range.length > 0 && item.reasoning.length > 0);
+}
+
 function sanitizeTips(input: unknown): string[] {
   if (!Array.isArray(input)) return [];
   return input
     .filter((value): value is string => typeof value === "string")
     .slice(0, 3)
-    .map((value) => truncateWords(value, 14))
+    .map((value) => truncateWords(value, 12))
     .filter(Boolean);
 }
 
@@ -272,6 +442,7 @@ async function callClaudeForReport(
           summary: sanitizeTopLevelText(overall.summary, 26),
         },
         best_times_to_fish_today: sanitizeBestTimes(parsed.best_times_to_fish_today),
+        decent_times_today: sanitizeDecentTimes(parsed.decent_times_today),  // NEW
         worst_times_to_fish_today: sanitizeWorstTimes(parsed.worst_times_to_fish_today),
         key_factors: sanitizeKeyFactorMap(parsed.key_factors),
         tips_for_today: sanitizeTips(parsed.tips_for_today),
@@ -329,6 +500,7 @@ function buildLLMPayload(
     water_type: engineOutput.water_type,
     freshwater_subtype: engineOutput.environment.freshwater_subtype ?? null,
     seasonal_fish_behavior: engineOutput.environment.seasonal_fish_behavior ?? null,
+    saltwater_seasonal_state: engineOutput.environment.saltwater_seasonal_state ?? null,  // NEW
     location: engineOutput.location,
     score: {
       adjusted_score: engineOutput.scoring.adjusted_score,
@@ -375,8 +547,13 @@ function buildLLMPayload(
       dominant_negative_drivers: engineOutput.behavior.dominant_negative_drivers,
     },
     data_quality: engineOutput.data_quality,
-    alerts: engineOutput.alerts,
+    alerts: {
+      ...engineOutput.alerts,
+      severe_weather_alert: engineOutput.alerts.severe_weather_alert ?? false,        // NEW
+      severe_weather_reasons: engineOutput.alerts.severe_weather_reasons ?? [],       // NEW
+    },
     best_windows: engineOutput.time_windows.slice(0, 2),
+    fair_windows: (engineOutput.fair_windows ?? []).slice(0, 2),                     // NEW
     worst_windows: engineOutput.worst_windows.slice(0, 2),
     analysis_date_local: analysisDateLocal,
     current_time_local: currentTimeLocal,
@@ -540,7 +717,7 @@ Deno.serve(async (req: Request) => {
   );
 
   // --- 6. Determine coastal vs inland ---
-  const isCoastal = engineSnapshot.coastal;
+  const isCoastal = engineSnapshot.coastal || isLikelyCoastal(lat, lon);
 
   // --- 7. Run core intelligence engine ---
   const anthropicKey = Deno.env.get("ANTHROPIC_API_KEY");
@@ -570,6 +747,10 @@ Deno.serve(async (req: Request) => {
     token_cost_usd?: number;
   }
 
+  let reports: Record<string, ReportEntry>;
+  let mode: "single" | "coastal_multi" | "inland_dual";
+  let failedReports: string[] = [];
+
   async function runReportForWaterType(waterType: WaterType): Promise<ReportEntry> {
     let engineOutput: ReturnType<typeof runCoreIntelligence>;
     try {
@@ -594,14 +775,14 @@ Deno.serve(async (req: Request) => {
     const tokenCostUsd = computeCallCost(inputTokens, outputTokens);
 
     if (llmError || !llm) {
+      // LLM failed — generate deterministic fallback instead of returning error
+      const fallbackLlm = generateDeterministicFallback(engineOutput, waterType);
       return {
-        status: "error",
+        status: "ok",
         water_type: waterType,
         engine: engineOutput,
-        llm: null,
-        error: llmError === "claude_unavailable" || llmError === "malformed_response"
-          ? llmError
-          : "claude_unavailable",
+        llm: fallbackLlm,
+        error: null,
         input_tokens: inputTokens,
         output_tokens: outputTokens,
         token_cost_usd: tokenCostUsd,
@@ -620,13 +801,66 @@ Deno.serve(async (req: Request) => {
     };
   }
 
-  let reports: Record<string, ReportEntry>;
-  let mode: "single" | "coastal_multi";
-  let failedReports: string[] = [];
+  async function runReportForWaterTypeWithSnapshot(
+    snapshot: typeof engineSnapshot,
+    waterType: WaterType,
+    subtypeLabel: string
+  ): Promise<ReportEntry> {
+    let engineOutput: ReturnType<typeof runCoreIntelligence>;
+    try {
+      engineOutput = runCoreIntelligence(snapshot, waterType);
+    } catch (e) {
+      return {
+        status: "error",
+        water_type: waterType,
+        engine: null,
+        llm: null,
+        error: `engine_error: ${String(e)}`,
+      };
+    }
+
+    const llmPayload = buildLLMPayload(engineOutput, analysisDateLocal, currentTimeLocal);
+    // Add subtype label to payload for LLM context
+    (llmPayload as Record<string, unknown>).freshwater_subtype_label = subtypeLabel;
+
+    const { llm, inputTokens, outputTokens, error: llmError } = await callClaudeForReport(
+      anthropicKey,
+      llmPayload
+    );
+    totalInputTokens += inputTokens;
+    totalOutputTokens += outputTokens;
+    const tokenCostUsd = computeCallCost(inputTokens, outputTokens);
+
+    if (llmError || !llm) {
+      // LLM failed — generate deterministic fallback (Change 3.6)
+      const fallbackLlm = generateDeterministicFallback(engineOutput, subtypeLabel);
+      return {
+        status: "ok",
+        water_type: waterType,
+        engine: engineOutput,
+        llm: fallbackLlm,
+        error: null,
+        input_tokens: inputTokens,
+        output_tokens: outputTokens,
+        token_cost_usd: tokenCostUsd,
+      };
+    }
+
+    return {
+      status: "ok",
+      water_type: waterType,
+      engine: engineOutput,
+      llm,
+      error: null,
+      input_tokens: inputTokens,
+      output_tokens: outputTokens,
+      token_cost_usd: tokenCostUsd,
+    };
+  }
 
   if (isCoastal) {
     mode = "coastal_multi";
-    // Section 5B/5C — three parallel runs
+    // Section 5B/5C — three parallel runs for coastal
     const [fwResult, swResult, bkResult] = await Promise.all([
       runReportForWaterType("freshwater"),
       runReportForWaterType("saltwater"),
@@ -637,10 +871,27 @@ Deno.serve(async (req: Request) => {
       if (r.status === "error") failedReports.push(key);
     }
   } else {
-    mode = "single";
-    const fwResult = await runReportForWaterType("freshwater");
-    reports = { freshwater: fwResult };
-    if (fwResult.status === "error") failedReports.push("freshwater");
+    // Inland: run BOTH lake and river_stream in parallel
+    mode = "inland_dual";
+
+    // Create separate snapshots with different freshwater subtype hints
+    const lakeSnapshot = { ...engineSnapshot, freshwater_subtype_hint: "lake" as const };
+    const riverSnapshot = { ...engineSnapshot, freshwater_subtype_hint: "river_stream" as const };
+
+    // Run both in parallel
+    const [lakeResult, riverResult] = await Promise.all([
+      runReportForWaterTypeWithSnapshot(lakeSnapshot, "freshwater", "lake"),
+      runReportForWaterTypeWithSnapshot(riverSnapshot, "freshwater", "river_stream"),
+    ]);
+
+    reports = {
+      freshwater_lake: lakeResult,
+      freshwater_river: riverResult,
+    };
+
+    for (const [key, r] of Object.entries(reports)) {
+      if (r.status === "error") failedReports.push(key);
+    }
   }
 
   // --- 8. Calculate actual cost and log usage ---
@@ -651,7 +902,7 @@ Deno.serve(async (req: Request) => {
   const responseBundle = {
     feature: "hows_fishing_feature_v1",
     mode,
-    default_tab: "freshwater",
+    default_tab: mode === "inland_dual" ? "freshwater_lake" : "freshwater",
     generated_at: timestampUtc,
     cache_expires_at: cacheExpiresAt,
     freshwater_subtype: freshwaterSubtype,
@@ -669,6 +920,7 @@ Deno.serve(async (req: Request) => {
                 data_quality: r.engine.data_quality,
                 alerts: r.engine.alerts,
                 time_windows: r.engine.time_windows,
+                fair_windows: r.engine.fair_windows ?? [],      // NEW
                 worst_windows: r.engine.worst_windows,
               }
             : null,

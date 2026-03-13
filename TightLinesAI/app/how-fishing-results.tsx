@@ -110,7 +110,7 @@ function ScoreCard({
   waterTempLine,
 }: {
   scoring: EngineScoring;
-  waterType: WaterType;
+  waterType: string;
   waterTempLine: string | null;
 }) {
   const band = getScoreBand(scoring.adjusted_score);
@@ -271,6 +271,26 @@ function WorstTimesSection({ windows }: { windows: LLMOutput['worst_times_to_fis
   );
 }
 
+function DecentTimesSection({ windows }: { windows?: Array<{ time_range: string; reasoning: string }> }) {
+  if (!windows || windows.length === 0) return null;
+  return (
+    <View style={styles.section}>
+      <Text style={styles.sectionTitle}>Decent Times</Text>
+      {windows.map((w, i) => (
+        <View key={i} style={styles.timeCardDecent}>
+          <View style={styles.timeCardHeader}>
+            <Text style={styles.timeWindow}>{w.time_range}</Text>
+            <View style={[styles.labelBadge, styles.badgeFair]}>
+              <Text style={styles.labelBadgeText}>FAIR</Text>
+            </View>
+          </View>
+          <Text style={styles.timeReasoningDecent}>{w.reasoning}</Text>
+        </View>
+      ))}
+    </View>
+  );
+}
+
 function KeyFactorsSection({ factors }: { factors: LLMOutput['key_factors'] }) {
   const entries = Object.entries(factors).filter(([, v]) => v && typeof v === 'string');
   if (entries.length === 0) return null;
@@ -344,7 +364,20 @@ function ReportView({ report }: { report: WaterTypeReport }) {
         </View>
       ) : null}
 
-      {/* Alerts */}
+      {/* SEVERE WEATHER ALERT — shown first, above all other alerts */}
+      {alerts.severe_weather_alert && (
+        <AlertBanner
+          title="⚠️ Severe Weather Warning"
+          body={
+            (alerts.severe_weather_reasons ?? []).length > 0
+              ? (alerts.severe_weather_reasons ?? []).join('. ') + '. Use caution before heading out.'
+              : 'Severe weather conditions detected. Use caution before heading out.'
+          }
+          severity="critical"
+        />
+      )}
+
+      {/* Existing alerts continue below */}
       {alerts.cold_stun_alert && (
         <AlertBanner
           title="Cold Stun Alert"
@@ -398,8 +431,21 @@ function ReportView({ report }: { report: WaterTypeReport }) {
         hideWaterTempFallbackOnly
       />
 
-      {/* Best + Worst Times */}
+      {/* Best + Decent + Worst Times */}
       <BestTimesSection windows={llm.best_times_to_fish_today} />
+      {/* Decent times — prefer LLM, fall back to engine fair_windows */}
+      {llm.decent_times_today && llm.decent_times_today.length > 0 ? (
+        <DecentTimesSection windows={llm.decent_times_today} />
+      ) : engine.fair_windows && engine.fair_windows.length > 0 ? (
+        <DecentTimesSection
+          windows={engine.fair_windows.slice(0, 2).map((w) => ({
+            time_range: `${w.start_local} – ${w.end_local}`,
+            reasoning: w.drivers.length > 0
+              ? w.drivers.slice(0, 2).join(', ').replace(/_/g, ' ')
+              : 'Fair conditions',
+          }))}
+        />
+      ) : null}
       <WorstTimesSection windows={llm.worst_times_to_fish_today} />
 
       {/* Key Factors */}
@@ -418,8 +464,10 @@ function ReportView({ report }: { report: WaterTypeReport }) {
 // Water-type tab bar
 // ---------------------------------------------------------------------------
 
-const TAB_LABELS: Record<WaterType, string> = {
+const TAB_LABELS: Record<string, string> = {
   freshwater: 'Freshwater',
+  freshwater_lake: 'Lake',
+  freshwater_river: 'River',
   saltwater: 'Saltwater',
   brackish: 'Brackish',
 };
@@ -430,9 +478,9 @@ function TabBar({
   onPress,
   failed,
 }: {
-  tabs: WaterType[];
-  active: WaterType;
-  onPress: (t: WaterType) => void;
+  tabs: string[];                  // CHANGED from WaterType[]
+  active: string;                  // CHANGED from WaterType
+  onPress: (t: string) => void;   // CHANGED from (t: WaterType) => void
   failed: string[];
 }) {
   return (
@@ -507,12 +555,15 @@ export default function HowFishingResultsScreen() {
   }, [bundle, routeLat, routeLon]);
 
   const isCoastal = bundle?.mode === 'coastal_multi';
-  const availableTabs: WaterType[] = isCoastal
+  const isInlandDual = bundle?.mode === 'inland_dual';
+  const availableTabs: string[] = isCoastal
     ? ['freshwater', 'saltwater', 'brackish']
-    : ['freshwater'];
+    : isInlandDual
+      ? ['freshwater_lake', 'freshwater_river']
+      : ['freshwater'];
 
-  const [activeTab, setActiveTab] = useState<WaterType>(
-    (bundle?.default_tab as WaterType) ?? 'freshwater'
+  const [activeTab, setActiveTab] = useState<string>(
+    bundle?.default_tab ?? 'freshwater'
   );
 
   if (bundleLoading) {
@@ -544,7 +595,7 @@ export default function HowFishingResultsScreen() {
     );
   }
 
-  const activeReport = bundle.reports[activeTab];
+  const activeReport = (bundle.reports as Record<string, WaterTypeReport | undefined>)[activeTab];
 
   const generatedAt = bundle.generated_at
     ? new Date(bundle.generated_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
@@ -573,8 +624,8 @@ export default function HowFishingResultsScreen() {
 
         <Text style={styles.screenTitle}>How's Fishing?</Text>
 
-        {/* Tab Bar — only for coastal */}
-        {isCoastal && (
+        {/* Tab Bar — for coastal and inland dual */}
+        {(isCoastal || isInlandDual) && (
           <TabBar
             tabs={availableTabs}
             active={activeTab}
@@ -591,7 +642,7 @@ export default function HowFishingResultsScreen() {
             <Ionicons name="alert-circle-outline" size={40} color={colors.textMuted} />
             <Text style={styles.errorTitle}>Report unavailable</Text>
             <Text style={styles.errorBody}>
-              The {TAB_LABELS[activeTab].toLowerCase()} report could not be generated. Go back and try again to regenerate all reports.
+              The {(TAB_LABELS[activeTab] ?? activeTab).toLowerCase()} report could not be generated. Go back and try again to regenerate all reports.
             </Text>
           </View>
         )}
@@ -848,6 +899,15 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: colors.border,
   },
+  timeCardDecent: {
+    backgroundColor: '#FFF8E6',
+    borderRadius: radius.md,
+    padding: spacing.md,
+    marginBottom: spacing.sm,
+    borderWidth: 1,
+    borderColor: '#E8A838' + '40',
+  },
+  timeReasoningDecent: { fontSize: 14, color: colors.textSecondary, lineHeight: 20 },
   timeCardHeader: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -864,6 +924,7 @@ const styles = StyleSheet.create({
   },
   badgePrime: { backgroundColor: colors.sage },
   badgeGood: { backgroundColor: '#4A9ECC' },
+  badgeFair: { backgroundColor: '#B8860B' },  // dark goldenrod
   labelBadgeText: { fontSize: 10, fontWeight: '700', color: '#fff', textTransform: 'uppercase' },
 
   tipsCard: {

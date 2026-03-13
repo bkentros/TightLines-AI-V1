@@ -20,6 +20,7 @@ interface EnvironmentData {
     wind_speed: number;
     wind_direction: number;
     precipitation: number;
+    gust_speed?: number | null;    // NEW — wind gusts in same unit as wind_speed
     temp_unit: string;
     wind_speed_unit: string;
     pressure_trend?: string;
@@ -70,6 +71,7 @@ interface EnvironmentData {
   measured_water_temp_72h_ago_f?: number | null;
   coastal?: boolean;
   nearest_tide_station_id?: string | null;
+  altitude_ft?: number | null;
 }
 
 // Wind direction helper
@@ -132,7 +134,7 @@ export function toEngineSnapshot(
     wind_direction_label: env.weather?.wind_direction != null
       ? degreesToCardinal(env.weather.wind_direction)
       : null,
-    gust_speed_mph: null, // not fetched by get-environment currently
+    gust_speed_mph: env.weather?.gust_speed ?? null,
     cloud_cover_pct: env.weather?.cloud_cover ?? null,
     current_precip_in_hr: env.weather?.precipitation != null
       ? env.weather.precipitation * (1 / 25.4) // Open-Meteo returns mm/hr; convert to in/hr
@@ -172,5 +174,6 @@ export function toEngineSnapshot(
     measured_water_temp_source: (env.measured_water_temp_source as any) ?? null,
     measured_water_temp_72h_ago_f: env.measured_water_temp_72h_ago_f ?? null,
     freshwater_subtype_hint: freshwaterSubtypeHint ?? null,
+    altitude_ft: env.altitude_ft ?? null,
   };
 }
