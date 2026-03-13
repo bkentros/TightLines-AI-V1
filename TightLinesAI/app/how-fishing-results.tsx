@@ -245,7 +245,7 @@ function BestTimesSection({ windows }: { windows: LLMOutput['best_times_to_fish_
         <View key={i} style={[styles.timeCard, w.label === 'PRIME' && styles.timeCardPrime]}>
           <View style={styles.timeCardHeader}>
             <Text style={styles.timeWindow}>{w.time_range}</Text>
-            <View style={[styles.labelBadge, w.label === 'PRIME' ? styles.badgePrime : styles.badgeGood]}>
+            <View style={[styles.labelBadge, ({ PRIME: styles.badgePrime, GOOD: styles.badgeGood, FAIR: styles.badgeFair } as Record<string, object>)[w.label ?? 'GOOD'] ?? styles.badgeGood]}>
               <Text style={styles.labelBadgeText}>{w.label}</Text>
             </View>
           </View>
