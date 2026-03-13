@@ -776,7 +776,7 @@ export default function HowFishingScreen() {
         'how-fishing',
         {
           accessToken: accessToken,
-          body: { latitude: lat, longitude: lon, units, freshwater_subtype: freshwaterSubtype },
+          body: { latitude: lat, longitude: lon, units, freshwater_subtype: freshwaterSubtype, env_data: freshEnv },
         }
       );
       const errObj =

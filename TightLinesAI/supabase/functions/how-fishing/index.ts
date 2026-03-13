@@ -613,7 +613,7 @@ Deno.serve(async (req: Request) => {
   const userId = user.id;
 
   // --- 2. Parse body ---
-  let body: { latitude?: number; longitude?: number; units?: string; freshwater_subtype?: string } = {};
+  let body: { latitude?: number; longitude?: number; units?: string; freshwater_subtype?: string; env_data?: Record<string, unknown> } = {};
   try {
     body = await req.json();
   } catch {
@@ -684,26 +684,15 @@ Deno.serve(async (req: Request) => {
     );
   }
 
-  // --- 5. Fetch fresh environment (always forced fresh per spec Section 4D) ---
-  const envUrl = `${supabaseUrl}/functions/v1/get-environment`;
-  const supabaseAnonKey = Deno.env.get("SUPABASE_ANON_KEY")!;
-  const envRes = await fetch(envUrl, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "apikey": supabaseAnonKey,
-      "Authorization": `Bearer ${supabaseServiceKey}`,
-    },
-    body: JSON.stringify({ latitude: lat, longitude: lon, units }),
-  });
-  if (!envRes.ok) {
+  // --- 5. Use env_data from client (client already fetched fresh environment) ---
+  if (!body.env_data || typeof body.env_data !== "object") {
     return new Response(
-      JSON.stringify({ error: "environment_fetch_failed", message: "Failed to fetch environment data" }),
-      { status: 502, headers: { "Content-Type": "application/json", ...corsHeaders() } }
+      JSON.stringify({ error: "missing_env_data", message: "env_data is required in the request body" }),
+      { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders() } }
     );
   }
 
-  const envData = await envRes.json() as Record<string, unknown>;
+  const envData = body.env_data as Record<string, unknown>;
   const timestampUtc = new Date().toISOString();
 
   // Convert to engine snapshot using adapter
