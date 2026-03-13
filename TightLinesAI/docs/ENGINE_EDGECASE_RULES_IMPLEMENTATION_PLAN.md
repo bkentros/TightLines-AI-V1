@@ -1,6 +1,8 @@
 # Core Intelligence Edge-Case Rules — Implementation Plan
 
-**Status:** Ready to implement  
+> **Status: COMPLETED (historical).** All 8 rules implemented in Sweeps 1-2 (timeWindowEngine.ts). Rules 9-10 (mild_winter timing, saltwater seasonal timing) added in Sweep 2. For current rule list, see `CORE_INTELLIGENCE_SPEC.md` Section 6.
+
+**Original status:** Ready to implement  
 **Primary specs:** `core_intelligence_spec.md`, `hows_fishing_feature_spec.md`  
 **Scope:** Add a small set of deterministic biological override rules that improve timing and behavior realism without turning the engine into a pile of ad hoc exceptions.
 

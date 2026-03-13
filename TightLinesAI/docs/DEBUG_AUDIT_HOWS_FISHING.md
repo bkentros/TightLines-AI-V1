@@ -1,5 +1,7 @@
 # Debug Audit — How's Fishing Right Now?
 
+> **Status: COMPLETED (historical).** Pre-sweep audit. Auth pattern has since changed (ES256 migration fix with x-user-token header). how-fishing no longer calls get-environment internally. For current architecture, see `PROJECT_OVERVIEW.md`.
+
 **Date:** Post-implementation  
 **Scope:** Live Conditions timeout, location sync, tier gating, How's Fishing flow, Edge Function
 

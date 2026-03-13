@@ -1,7 +1,9 @@
 # Environmental API Integration — Implementation Plan
 
-**Spec reference:** `TightLines_AI_V1_Spec.md` lines 59–78  
-**Status:** Implemented
+> **Status: COMPLETED (historical).** Implemented and enhanced in Sweep 1 (altitude_ft, gust_speed additions) and Sweep 3 (envAdapter wiring). For current architecture, see `PROJECT_OVERVIEW.md` and `CORE_INTELLIGENCE_SPEC.md`.
+
+**Spec reference:** `TightLines_AI_V1_Spec.md` lines 59–78
+**Original status:** Implemented
 
 ---
 

@@ -1,6 +1,8 @@
 # How's Fishing Right Now? — Implementation Plan
 
-**Status:** Ready to implement  
+> **Status: COMPLETED (historical).** This plan was fully implemented and then significantly enhanced by Engine Refinement Sweeps 1-3. For current architecture, see `PROJECT_OVERVIEW.md` and `CORE_INTELLIGENCE_SPEC.md`.
+
+**Original status:** Ready to implement  
 **Spec reference:** `TightLines_AI_V1_Spec.md` Section 2 (lines 128–172)  
 **Scope:** Feature build + spec updates + foundation fixes + debug audit
 

@@ -1,5 +1,7 @@
 # Foundation Layer — Implementation Plan (Lines 80–124)
 
+> **Status: COMPLETED (historical).** This plan was fully implemented. For current project state, see `PROJECT_OVERVIEW.md` and `CORE_INTELLIGENCE_SPEC.md`.
+
 **Spec reference:** `TightLines_AI_V1_Spec.md` lines 80–124  
 **Scope:** Shared LLM Pipeline, Offline Strategy, Database Schema verification, Key Tech Decisions  
 **Does NOT include:** How's Fishing Right Now? (that's Section 2, next)
