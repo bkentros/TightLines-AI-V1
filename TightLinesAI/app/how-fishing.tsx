@@ -29,7 +29,7 @@ import { Ionicons } from '@expo/vector-icons';
 import * as Location from 'expo-location';
 import { colors, fonts, spacing, radius } from '../lib/theme';
 import { getEnvironment, fetchFreshEnvironment } from '../lib/env';
-import { invokeEdgeFunction, supabase } from '../lib/supabase';
+import { invokeEdgeFunction, getValidAccessToken } from '../lib/supabase';
 import { useAuthStore } from '../store/authStore';
 import {
   getCachedHowFishingBundle,
@@ -765,11 +765,7 @@ export default function HowFishingScreen() {
     // Do not short-circuit to cached report; cache is for preview/display only.
     setReportLoading(true);
     try {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (!session?.access_token) {
-        Alert.alert('Session expired', 'Please sign out and sign back in.');
-        return;
-      }
+      const accessToken = await getValidAccessToken();
       // Force-fetch fresh environment data before the AI call so the engine
       // always gets the most current conditions — not the potentially-stale cached version.
       const freshEnv = await fetchFreshEnvironment({ latitude: lat, longitude: lon, units });
@@ -779,7 +775,7 @@ export default function HowFishingScreen() {
       const data = await invokeEdgeFunction<HowFishingBundle | { error: string; message?: string }>(
         'how-fishing',
         {
-          accessToken: session.access_token,
+          accessToken: accessToken,
           body: { latitude: lat, longitude: lon, units, freshwater_subtype: freshwaterSubtype },
         }
       );

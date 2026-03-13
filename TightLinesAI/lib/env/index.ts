@@ -8,7 +8,7 @@
  * @see docs/ENV_API_IMPLEMENTATION_PLAN.md
  */
 
-import { invokeEdgeFunction, supabase } from '../supabase';
+import { invokeEdgeFunction, getValidAccessToken } from '../supabase';
 import type { EnvironmentData, GetEnvironmentRequest } from './types';
 import { getCachedEnv, getStaleCachedEnv, setCachedEnv } from './cache';
 import {
@@ -61,16 +61,10 @@ async function invokeGetEnvironment(
   longitude: number,
   units: 'imperial' | 'metric'
 ): Promise<EnvironmentData> {
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
-
-  if (!session?.access_token) {
-    throw new Error('Session expired. Please sign out and sign back in.');
-  }
+  const accessToken = await getValidAccessToken();
 
   const data = await invokeEdgeFunction<EnvironmentData>('get-environment', {
-    accessToken: session.access_token,
+    accessToken,
     body: { latitude, longitude, units } satisfies GetEnvironmentRequest,
   });
 

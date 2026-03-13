@@ -61,4 +61,32 @@ export async function invokeEdgeFunction<TResponse>(
   return parsed as TResponse;
 }
 
+/**
+ * Returns a guaranteed-valid access token, refreshing the session if the
+ * token is expired or within 60 seconds of expiry. Throws if not signed in.
+ *
+ * Always use this instead of `supabase.auth.getSession()` before calling
+ * an edge function — getSession() returns the cached (possibly expired) token.
+ */
+export async function getValidAccessToken(): Promise<string> {
+  const { data: { session } } = await supabase.auth.getSession();
+
+  if (!session) {
+    throw new Error('Session expired. Please sign out and sign back in.');
+  }
+
+  // Refresh if expired or within 60 seconds of expiry
+  const expiresAt = session.expires_at ?? 0;
+  const nowSec = Math.floor(Date.now() / 1000);
+  if (expiresAt - nowSec < 60) {
+    const { data: refreshed, error } = await supabase.auth.refreshSession();
+    if (error || !refreshed.session) {
+      throw new Error('Session expired. Please sign out and sign back in.');
+    }
+    return refreshed.session.access_token;
+  }
+
+  return session.access_token;
+}
+
 export type { Session, User } from '@supabase/supabase-js';
