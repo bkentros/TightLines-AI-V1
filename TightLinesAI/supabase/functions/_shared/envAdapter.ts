@@ -72,6 +72,15 @@ interface EnvironmentData {
   coastal?: boolean;
   nearest_tide_station_id?: string | null;
   altitude_ft?: number | null;
+  forecast_daily?: Array<{
+    date: string;
+    high_temp_f: number;
+    low_temp_f: number;
+    precip_chance_pct: number;
+    wind_mph_max: number;
+    sunrise_local: string;
+    sunset_local: string;
+  }>;
 }
 
 // Wind direction helper
@@ -108,9 +117,9 @@ export function toEngineSnapshot(
     end_local: p.end,
   }));
 
-  // Daily high/low arrays: get-environment returns 8 entries (7 past + 1 forecast)
+  // Daily high/low arrays: get-environment returns 14 entries (7 past + 7 forecast)
   // Engine expects index 0=6 days ago, index 6=today (7 entries)
-  // Use last 7 entries of the 8 that come from Open-Meteo
+  // Use entries at indices 1-7 (skip oldest past day, end at today)
   const rawHighs = env.weather?.temp_7day_high ?? [];
   const rawLows = env.weather?.temp_7day_low ?? [];
   const dailyHighs = rawHighs.slice(-7).map((v) => (v !== null && v !== undefined ? Number(v) : null));

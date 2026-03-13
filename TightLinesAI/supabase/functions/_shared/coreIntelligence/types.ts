@@ -414,7 +414,7 @@ export interface DataQuality {
 // Time Window (Section 7)
 // ---------------------------------------------------------------------------
 
-export type WindowLabel = "PRIME" | "GOOD" | "FAIR" | "SLOW";
+export type WindowLabel = "PRIME" | "GOOD" | "FAIR" | "SLOW" | "NOT_RECOMMENDED";
 
 export interface TimeWindow {
   label: WindowLabel;
@@ -462,13 +462,17 @@ export interface EngineOutput {
     front_severity: FrontSeverity | null;
     /** Plain-language label for the active front/pressure event, e.g. "Cold front moved through — fishing picks up in 1–2 days" */
     front_label: string | null;
+    /** True when a pressure drop is in progress but rise not yet confirmed */
+    developing_front: boolean;
     // New fields (Sweep 1):
     severe_weather_alert: boolean;
     severe_weather_reasons: string[];
   };
   time_windows: TimeWindow[];
-  fair_windows: TimeWindow[];  // NEW — Sweep 2
+  fair_windows: TimeWindow[];
   worst_windows: WorstWindow[];
+  daily_outlook: DailyOutlook;
+  all_blocks: BlockResult[];
 }
 
 // The subset of environment fields the engine exposes in its output
@@ -508,6 +512,51 @@ export interface EngineEnvironmentSnapshot {
   altitude_ft: number | null;
   severe_weather_alert: boolean;
   severe_weather_reasons: string[];
+}
+
+// ---------------------------------------------------------------------------
+// Derived Variables Bundle (internal use between engine modules)
+// ---------------------------------------------------------------------------
+
+// ---------------------------------------------------------------------------
+// Daily Outlook (Section 5 — daily composite)
+// ---------------------------------------------------------------------------
+
+export interface DailyOutlook {
+  daily_score: number;           // 0-100 composite of all 48 blocks
+  overall_rating: OverallRating;
+  summary_line: string;          // deterministic 1-liner (no LLM)
+  fishable_hours: Array<{ start: string; end: string }>;
+}
+
+// ---------------------------------------------------------------------------
+// Block Result (individual half-hour block scoring for full-day display)
+// ---------------------------------------------------------------------------
+
+export interface BlockResult {
+  block_index: number;         // 0-47
+  start_local: string;         // "HH:MM"
+  end_local: string;           // "HH:MM"
+  score: number;               // 0-100
+  label: WindowLabel;
+  fishable: boolean;
+  drivers: string[];
+}
+
+// ---------------------------------------------------------------------------
+// Forecast Day (7-day overview entry)
+// ---------------------------------------------------------------------------
+
+export interface ForecastDay {
+  date: string;                  // "YYYY-MM-DD"
+  daily_score: number;
+  overall_rating: OverallRating;
+  summary_line: string;
+  high_temp_f: number;
+  low_temp_f: number;
+  wind_mph_avg: number;
+  precip_chance_pct: number;
+  front_label: string | null;
 }
 
 // ---------------------------------------------------------------------------

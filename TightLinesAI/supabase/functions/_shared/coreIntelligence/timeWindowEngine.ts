@@ -19,6 +19,7 @@ import type {
   FreshwaterSubtype,
   LatitudeBand,
   SaltwaterSeasonalState,
+  BlockResult,
 } from "./types.ts";
 import {
   hmToMinutes,
@@ -30,6 +31,7 @@ import {
   getLatitudeBand,
 } from "./derivedVariables.ts";
 import { clamp } from "./scoreEngine.ts";
+import { isBlockFishable } from "./seasonalProfiles.ts";
 
 // ---------------------------------------------------------------------------
 // Section 7A — Resolution: 48 blocks of 30 minutes (00:00–23:30)
@@ -691,7 +693,8 @@ function minutesToHHMM(minutes: number): string {
   return `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}`;
 }
 
-function classifyBlock(block: Block): WindowLabel {
+function classifyBlock(block: Block, isFishable: boolean = true): WindowLabel {
+  if (!isFishable) return "NOT_RECOMMENDED";
   const score = Math.round((block.points / block.maxPoints) * 100);
   if (score >= 65) return "PRIME";
   if (score >= 45) return "GOOD";
@@ -707,24 +710,60 @@ function getBlockScore(block: Block): number {
 // MAIN EXPORT — computeTimeWindows
 // ---------------------------------------------------------------------------
 
-export function computeTimeWindows(
+/**
+ * Estimate the air temperature at a specific block time using hourly history.
+ * Returns null if insufficient data.
+ */
+function estimateBlockAirTemp(
+  blockIndex: number,
+  env: EnvironmentSnapshot
+): number | null {
+  // Use the hourly air temp closest to this block's time
+  if (env.hourly_air_temp_f.length === 0) return env.air_temp_f;
+
+  const midnightUtcMs = getLocalMidnightUtcMs(env);
+  const blockMidUtcMs = midnightUtcMs + (blockIndex * 30 + 15) * 60 * 1000;
+
+  let closest: { value: number; diff: number } | null = null;
+  for (const h of env.hourly_air_temp_f) {
+    const t = new Date(h.time_utc).getTime();
+    const diff = Math.abs(t - blockMidUtcMs);
+    if (closest === null || diff < closest.diff) {
+      closest = { value: h.value, diff };
+    }
+  }
+  return closest ? closest.value : env.air_temp_f;
+}
+
+/**
+ * Score all 48 blocks and return full BlockResult array.
+ * Used for daily composite and full-day display.
+ */
+export function computeAllBlocks(
   env: EnvironmentSnapshot,
   waterType: WaterType,
   rangeStrengthPct: number | null,
   pressureState: string | null,
   cloudCoverPct: number | null,
+  waterTempZone: WaterTempZone | null,
   ruleContext?: TimeWindowRuleContext | null
-): { best_windows: TimeWindow[]; fair_windows: TimeWindow[]; worst_windows: WorstWindow[] } {
+): BlockResult[] {
   const dawnDusk = computeDawnDusk(env);
   const pressureFalling =
     pressureState === "slowly_falling" || pressureState === "rapidly_falling";
-
   const ruleCtx: TimeWindowRuleContext | null = ruleContext ?? null;
 
-  // Score all 48 blocks
-  let blocks: Block[] = [];
-  for (let startMin = 0; startMin < 24 * 60; startMin += 30) {
-    const base = scoreBlock(
+  const results: BlockResult[] = [];
+
+  for (let blockIdx = 0; blockIdx < 48; blockIdx++) {
+    const startMin = blockIdx * 30;
+
+    // Check fishable hours for this block
+    const blockAirTemp = estimateBlockAirTemp(blockIdx, env);
+    const fishable = isBlockFishable(blockIdx, waterTempZone, blockAirTemp);
+
+    // Score the block (even non-fishable blocks get a score for daily composite)
+    let base = scoreBlock(
       startMin,
       env,
       waterType,
@@ -734,39 +773,85 @@ export function computeTimeWindows(
       cloudCoverPct,
       ruleCtx
     );
-    const tideInfo = waterType !== "freshwater" ? getTidePhaseForBlock(startMin, env) : { phaseState: null };
+
+    // For non-fishable blocks: suppress solunar and reduce other components
+    if (!fishable) {
+      // Zero out solunar-related points (remove from total and rebuild)
+      const suppressedDrivers = base.drivers.filter(
+        (d) => d !== "major_solunar_window" && d !== "minor_solunar_window"
+      );
+      // Estimate solunar contribution and remove it
+      const solunarPointsEstimate =
+        (base.drivers.includes("major_solunar_window") ? (waterType === "saltwater" ? 8 : 20) : 0) +
+        (base.drivers.includes("minor_solunar_window") ? (waterType === "saltwater" ? 4 : 12) : 0);
+      base = {
+        ...base,
+        points: Math.max(0, Math.round((base.points - solunarPointsEstimate) * 0.1)),
+        drivers: [...suppressedDrivers, "outside_fishable_hours"],
+      };
+    }
+
+    const tideInfo = waterType !== "freshwater"
+      ? getTidePhaseForBlock(startMin, env)
+      : { phaseState: null };
     const adjusted = ruleCtx
       ? applyEdgeCaseRules(base, env, waterType, dawnDusk, ruleCtx, tideInfo.phaseState)
       : base;
-    blocks.push(adjusted);
+
+    const score = adjusted.maxPoints > 0
+      ? Math.round((adjusted.points / adjusted.maxPoints) * 100)
+      : 0;
+    const label = classifyBlock(adjusted, fishable);
+
+    results.push({
+      block_index: blockIdx,
+      start_local: minutesToHHMM(startMin),
+      end_local: minutesToHHMM(startMin + 30),
+      score: clamp(score, 0, 100),
+      label,
+      fishable,
+      drivers: adjusted.drivers,
+    });
   }
 
-  // Classify all blocks (every block gets a label now)
-  const scoredBlocks = blocks.map((b) => ({
-    ...b,
-    label: classifyBlock(b),
-    score: getBlockScore(b),
-  }));
+  return results;
+}
+
+export function computeTimeWindows(
+  env: EnvironmentSnapshot,
+  waterType: WaterType,
+  rangeStrengthPct: number | null,
+  pressureState: string | null,
+  cloudCoverPct: number | null,
+  ruleContext?: TimeWindowRuleContext | null,
+  waterTempZone?: WaterTempZone | null
+): { best_windows: TimeWindow[]; fair_windows: TimeWindow[]; worst_windows: WorstWindow[] } {
+  // Get all blocks using the new system
+  const allBlocks = computeAllBlocks(
+    env, waterType, rangeStrengthPct, pressureState, cloudCoverPct,
+    waterTempZone ?? ruleContext?.water_temp_zone ?? null,
+    ruleContext
+  );
 
   // Merge contiguous blocks of same label into windows
   const allWindows: TimeWindow[] = [];
   let i = 0;
-  while (i < scoredBlocks.length) {
-    const b = scoredBlocks[i];
+  while (i < allBlocks.length) {
+    const b = allBlocks[i];
     let j = i + 1;
     const mergedDrivers = new Set(b.drivers);
     let maxScore = b.score;
 
-    while (j < scoredBlocks.length && scoredBlocks[j].label === b.label) {
-      scoredBlocks[j].drivers.forEach((d) => mergedDrivers.add(d));
-      maxScore = Math.max(maxScore, scoredBlocks[j].score);
+    while (j < allBlocks.length && allBlocks[j].label === b.label) {
+      allBlocks[j].drivers.forEach((d: string) => mergedDrivers.add(d));
+      maxScore = Math.max(maxScore, allBlocks[j].score);
       j++;
     }
 
     allWindows.push({
       label: b.label,
-      start_local: minutesToHHMM(b.startMin),
-      end_local: minutesToHHMM(scoredBlocks[j - 1].startMin + 30),
+      start_local: b.start_local,
+      end_local: allBlocks[j - 1].end_local,
       window_score: maxScore,
       drivers: Array.from(mergedDrivers),
     });
@@ -774,13 +859,13 @@ export function computeTimeWindows(
     i = j;
   }
 
-  // Split into best (PRIME + GOOD), fair (FAIR), and worst (SLOW)
+  // Split into best (PRIME + GOOD), fair (FAIR), worst (SLOW), and not_recommended
   const best_windows = allWindows.filter(
     (w) => w.label === "PRIME" || w.label === "GOOD"
   );
   const fair_windows = allWindows.filter((w) => w.label === "FAIR");
   const worst_windows: WorstWindow[] = allWindows
-    .filter((w) => w.label === "SLOW")
+    .filter((w) => w.label === "SLOW" || w.label === "NOT_RECOMMENDED")
     .map((w) => ({
       start_local: w.start_local,
       end_local: w.end_local,

@@ -226,18 +226,20 @@ async function fetchOpenMeteo(
   const tempUnit = units === 'imperial' ? 'fahrenheit' : 'celsius';
   const windUnit = units === 'imperial' ? 'mph' : 'kmh';
 
-  // Single call: current conditions + 7-day hourly pressure+temp + 8-day daily
+  // Single call: current conditions + 7-day history + 7-day forecast
+  // past_days=7 + forecast_days=7 → 15 days of hourly + daily data
+  // Forecast data supports 7-day fishing outlook feature
   const params = new URLSearchParams({
     latitude: String(lat),
     longitude: String(lon),
     current: 'temperature_2m,relative_humidity_2m,cloud_cover,pressure_msl,wind_speed_10m,wind_direction_10m,precipitation,wind_gusts_10m',
-    hourly: 'pressure_msl,temperature_2m',
-    daily: 'sunrise,sunset,temperature_2m_max,temperature_2m_min,precipitation_sum',
+    hourly: 'pressure_msl,temperature_2m,cloud_cover,wind_speed_10m,wind_direction_10m,precipitation',
+    daily: 'sunrise,sunset,temperature_2m_max,temperature_2m_min,precipitation_sum,precipitation_probability_max,wind_speed_10m_max',
     temperature_unit: tempUnit,
     wind_speed_unit: windUnit,
     timezone: 'auto',
     past_days: '7',
-    forecast_days: '1',
+    forecast_days: '7',
   });
 
   const url = `https://api.open-meteo.com/v1/forecast?${params.toString()}`;
@@ -270,7 +272,7 @@ async function fetchOpenMeteo(
   };
 
   // ─── Pressure trend from hourly data ────────────────────────────────────────
-  // hourly has past_days=7 + forecast_days=1 = 8 days × 24 hrs = 192 entries
+  // hourly has past_days=7 + forecast_days=7 = 14 days × 24 hrs = 336 entries
   // current_time from Open-Meteo tells us the exact UTC timestamp of current data
   const currentTimeStr: string = current.time ?? '';
   const hourlyTimes: string[] = Array.isArray(hourly.time) ? hourly.time : [];
@@ -325,7 +327,7 @@ async function fetchOpenMeteo(
   }
 
   // ─── Daily temp highs/lows ───────────────────────────────────────────────────
-  // past_days=7 + forecast_days=1 → 8 daily entries: index 0 = 7 days ago, index 7 = today
+  // past_days=7 + forecast_days=7 → 14 daily entries: index 0 = 7 days ago, index 7 = today, 8-13 = forecast
   const dailyHighs: (number | null)[] = Array.isArray(daily.temperature_2m_max)
     ? daily.temperature_2m_max
     : [];
@@ -352,22 +354,24 @@ async function fetchOpenMeteo(
     );
     weather.precip_7day_daily = dailyPrecipIn;
 
-    // Last 48 hours ≈ last 2 daily entries (yesterday + today)
-    const lastIdx = dailyPrecipIn.length - 1;
-    const yesterdayIn = lastIdx >= 1 ? (dailyPrecipIn[lastIdx - 1] ?? 0) : 0;
-    const todayIn = lastIdx >= 0 ? (dailyPrecipIn[lastIdx] ?? 0) : 0;
+    // Today is at index 7 (past_days=7). Use indices 0-7 for historical precip.
+    const todayPrecipIdx = Math.min(7, dailyPrecipIn.length - 1);
+    const yesterdayIn = todayPrecipIdx >= 1 ? (dailyPrecipIn[todayPrecipIdx - 1] ?? 0) : 0;
+    const todayIn = todayPrecipIdx >= 0 ? (dailyPrecipIn[todayPrecipIdx] ?? 0) : 0;
     weather.precip_48hr_inches = Math.round((yesterdayIn + todayIn) * 1000) / 1000;
+    // Sum only the past 7 days + today (indices 0-7), not forecast days
     weather.precip_7day_inches = Math.round(
-      dailyPrecipIn.reduce((sum, v) => sum + (v ?? 0), 0) * 1000
+      dailyPrecipIn.slice(0, todayPrecipIdx + 1).reduce((sum, v) => sum + (v ?? 0), 0) * 1000
     ) / 1000;
   }
 
   // ─── Sun times ───────────────────────────────────────────────────────────────
-  // daily.sunrise / daily.sunset: past_days=7 + forecast_days=1 → 8 entries
+  // daily.sunrise / daily.sunset: past_days=7 + forecast_days=7 → 14 entries
   // index 0 = 7 days ago, index 7 = today — guard against shorter responses
   const sunriseArr = Array.isArray(daily.sunrise) ? daily.sunrise : [];
   const sunsetArr = Array.isArray(daily.sunset) ? daily.sunset : [];
-  const todayIdx = sunriseArr.length > 0 ? sunriseArr.length - 1 : 7;
+  // past_days=7 means today is at index 7 (indices 0-6 = past days, 7 = today, 8+ = forecast)
+  const todayIdx = Math.min(7, Math.max(0, sunriseArr.length - 1));
   const sunriseRaw = String(sunriseArr[todayIdx] ?? '');
   const sunsetRaw = String(sunsetArr[todayIdx] ?? '');
 
@@ -405,6 +409,45 @@ async function fetchOpenMeteo(
     }
   }
 
+  // ─── Build forecast daily array for 7-day overview ─────────────────────────
+  // Indices 8-13 (or 7-13) in the daily arrays are future days.
+  // "today" is at index 7 (past_days=7 means 0..6 = past, 7 = today).
+  const dailyDates: string[] = Array.isArray(daily.time) ? daily.time : [];
+  const dailyPrecipProb: (number | null)[] = Array.isArray(daily.precipitation_probability_max)
+    ? daily.precipitation_probability_max : [];
+  const dailyWindMax: (number | null)[] = Array.isArray(daily.wind_speed_10m_max)
+    ? daily.wind_speed_10m_max : [];
+
+  interface ForecastDayData {
+    date: string;
+    high_temp_f: number;
+    low_temp_f: number;
+    precip_chance_pct: number;
+    wind_mph_max: number;
+    sunrise_local: string;
+    sunset_local: string;
+  }
+
+  const forecastDaily: ForecastDayData[] = [];
+  // Today is index 7 (past_days=7). Forecast days are 8..13 (or however many exist).
+  // Include today (7) and next 6 days (8-13) = 7 entries total.
+  const todayDailyIdx = 7;
+  for (let d = todayDailyIdx; d < Math.min(todayDailyIdx + 7, dailyDates.length); d++) {
+    const dateStr = String(dailyDates[d] ?? '');
+    if (!dateStr) continue;
+    const sr = String(sunriseArr[d] ?? '').slice(11, 16);
+    const ss = String(sunsetArr[d] ?? '').slice(11, 16);
+    forecastDaily.push({
+      date: dateStr,
+      high_temp_f: Math.round(Number(dailyHighs[d] ?? 0) * 10) / 10,
+      low_temp_f: Math.round(Number(dailyLows[d] ?? 0) * 10) / 10,
+      precip_chance_pct: Math.round(Number(dailyPrecipProb[d] ?? 0)),
+      wind_mph_max: Math.round(Number(dailyWindMax[d] ?? 0) * 10) / 10,
+      sunrise_local: sr,
+      sunset_local: ss,
+    });
+  }
+
   return {
     weather,
     sun,
@@ -412,6 +455,7 @@ async function fetchOpenMeteo(
     hourly_air_temp_f: hourlyAirTempF,
     timezone,
     tz_offset_hours: tzOffsetHours,
+    forecast_daily: forecastDaily,
   };
 }
 
@@ -1034,6 +1078,7 @@ Deno.serve(async (req: Request) => {
     coastal: Boolean(noaa?.tides),
     nearest_tide_station_id: noaa?.stationId ?? null,
     altitude_ft: altitude_ft,
+    forecast_daily: meteo?.forecast_daily ?? [],
   };
 
   return new Response(JSON.stringify(response), {

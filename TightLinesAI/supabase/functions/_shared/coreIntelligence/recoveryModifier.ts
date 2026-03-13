@@ -34,58 +34,82 @@ function meanAirTempInWindow(
 
 export function detectColdFront(
   env: EnvironmentSnapshot
-): { daysSinceFront: number; frontSeverity: FrontSeverity | null } {
+): { daysSinceFront: number; frontSeverity: FrontSeverity | null; developing_front: boolean } {
   const history = env.hourly_pressure_mb;
-  if (history.length < 12) return { daysSinceFront: 6, frontSeverity: null };
+  if (history.length < 12) return { daysSinceFront: 6, frontSeverity: null, developing_front: false };
 
   const sorted = [...history].sort(
     (a, b) => new Date(a.time_utc).getTime() - new Date(b.time_utc).getTime()
   );
 
   const nowMs = new Date(env.timestamp_utc).getTime();
-  let bestFrontMs: number | null = null;
-  let bestSeverity: FrontSeverity = "moderate";
-  let bestDropMb = 0;
+
+  // Track all completed front events, not just the most recent
+  interface FrontEvent {
+    bottomMs: number;
+    dropMb: number;
+    severity: FrontSeverity;
+    riseCompleted: boolean;
+  }
+  const completedFronts: FrontEvent[] = [];
+
+  // Also detect developing fronts (drop confirmed but rise not yet)
+  let developingFront = false;
 
   for (let i = 0; i < sorted.length - 1; i++) {
     const windowStart = sorted[i];
     const startMs = new Date(windowStart.time_utc).getTime();
 
+    // Look for minimum pressure within 12h window
     const target12h = startMs + 12 * 3600 * 1000;
-    let closestIdx12 = -1;
-    let closestDiff12 = Infinity;
+    let minPressureIdx = -1;
+    let minPressure = windowStart.value;
     for (let j = i + 1; j < sorted.length; j++) {
       const t = new Date(sorted[j].time_utc).getTime();
-      const diff = Math.abs(t - target12h);
-      if (diff < closestDiff12) {
-        closestDiff12 = diff;
-        closestIdx12 = j;
+      if (t > target12h + 2 * 3600 * 1000) break;
+      if (sorted[j].value < minPressure) {
+        minPressure = sorted[j].value;
+        minPressureIdx = j;
       }
     }
-    if (closestIdx12 < 0 || closestDiff12 > 2 * 3600 * 1000) continue;
+    if (minPressureIdx < 0) continue;
 
-    const dropValue = windowStart.value - sorted[closestIdx12].value;
+    const dropValue = windowStart.value - minPressure;
     if (dropValue < 4) continue;
 
-    const bottomMs = new Date(sorted[closestIdx12].time_utc).getTime();
+    const bottomMs = new Date(sorted[minPressureIdx].time_utc).getTime();
+
+    // Check if this bottom overlaps with an already-detected front (within 36h)
+    const overlapsExisting = completedFronts.some(
+      (f) => Math.abs(f.bottomMs - bottomMs) < 36 * 3600 * 1000
+    );
+    if (overlapsExisting) continue;
+
+    // Look for rise phase: pressure rises >=4mb within 24h after bottom
     const target24h = bottomMs + 24 * 3600 * 1000;
-    let closestIdx24 = -1;
-    let closestDiff24 = Infinity;
-    for (let j = closestIdx12 + 1; j < sorted.length; j++) {
+    let maxPressureAfterBottom = minPressure;
+    let maxPressureAfterIdx = -1;
+    for (let j = minPressureIdx + 1; j < sorted.length; j++) {
       const t = new Date(sorted[j].time_utc).getTime();
       if (t > target24h + 2 * 3600 * 1000) break;
-      const diff = Math.abs(t - target24h);
-      if (diff < closestDiff24) {
-        closestDiff24 = diff;
-        closestIdx24 = j;
+      if (sorted[j].value > maxPressureAfterBottom) {
+        maxPressureAfterBottom = sorted[j].value;
+        maxPressureAfterIdx = j;
       }
     }
-    if (closestIdx24 < 0 || closestDiff24 > 2 * 3600 * 1000) continue;
 
-    const riseValue = sorted[closestIdx24].value - sorted[closestIdx12].value;
-    if (riseValue < 4) continue;
+    const riseValue = maxPressureAfterBottom - minPressure;
 
-    // Cooling confirmation when we have enough air temp history; otherwise allow pressure-only front
+    // If rise hasn't reached 4mb yet, check if we're still in the rise window
+    if (riseValue < 4) {
+      // Check if the bottom was recent enough that a rise could still happen
+      if (nowMs - bottomMs < 24 * 3600 * 1000 && dropValue >= 4) {
+        developingFront = true;
+      }
+      continue;
+    }
+
+    // Cooling confirmation when we have enough air temp history
     let coolingConfirmed = true;
     if (env.hourly_air_temp_f.length >= 72) {
       const beforeStart = startMs - 24 * 3600 * 1000;
@@ -99,21 +123,31 @@ export function detectColdFront(
     }
     if (!coolingConfirmed) continue;
 
-    if (!bestFrontMs || bottomMs > bestFrontMs) {
-      bestFrontMs = bottomMs;
-      bestDropMb = dropValue;
-      if (dropValue > 10) bestSeverity = "severe";
-      else if (dropValue >= 6) bestSeverity = "moderate";
-      else bestSeverity = "mild";
-    }
+    // Front is confirmed and completed
+    let severity: FrontSeverity;
+    if (dropValue > 10) severity = "severe";
+    else if (dropValue >= 6) severity = "moderate";
+    else severity = "mild";
+
+    completedFronts.push({
+      bottomMs,
+      dropMb: dropValue,
+      severity,
+      riseCompleted: true,
+    });
   }
 
-  if (bestFrontMs === null) return { daysSinceFront: 6, frontSeverity: null };
+  if (completedFronts.length === 0) {
+    return { daysSinceFront: 6, frontSeverity: null, developing_front: developingFront };
+  }
 
-  const daysSince = Math.floor((nowMs - bestFrontMs) / (24 * 3600 * 1000));
+  // Return the most recent completed front
+  const mostRecent = completedFronts.sort((a, b) => b.bottomMs - a.bottomMs)[0];
+  const daysSince = Math.floor((nowMs - mostRecent.bottomMs) / (24 * 3600 * 1000));
   return {
     daysSinceFront: Math.max(0, daysSince),
-    frontSeverity: bestSeverity,
+    frontSeverity: mostRecent.severity,
+    developing_front: developingFront,
   };
 }
 

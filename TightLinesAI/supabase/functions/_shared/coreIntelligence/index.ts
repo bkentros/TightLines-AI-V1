@@ -15,17 +15,21 @@ import type {
   DataQuality,
   ComponentStatus,
   WaterTempSource,
+  DailyOutlook,
+  BlockResult,
+  OverallRating,
 } from "./types.ts";
 
 import { deriveDerivedVariables } from "./derivedVariables.ts";
-import { computeRawScore, getOverallRating } from "./scoreEngine.ts";
+import { computeRawScore, getOverallRating, type SeasonalContext } from "./scoreEngine.ts";
 import {
   detectColdFront,
   getRecoveryMultiplier,
   computeAdjustedScore,
 } from "./recoveryModifier.ts";
-import { computeTimeWindows } from "./timeWindowEngine.ts";
+import { computeTimeWindows, computeAllBlocks } from "./timeWindowEngine.ts";
 import { deriveBehavior } from "./behaviorInference.ts";
+import { getCoastalBand } from "./seasonalProfiles.ts";
 
 // ---------------------------------------------------------------------------
 // Build the environment snapshot that the engine returns in its output
@@ -146,6 +150,112 @@ function buildDataQuality(
 }
 
 // ---------------------------------------------------------------------------
+// Daily Composite Score — weighted average of all 48 blocks
+// Fishable blocks weight 1.0, non-fishable weight 0.1
+// ---------------------------------------------------------------------------
+
+function computeDailyComposite(allBlocks: BlockResult[]): number {
+  let weightedSum = 0;
+  let totalWeight = 0;
+  for (const b of allBlocks) {
+    const w = b.fishable ? 1.0 : 0.1;
+    weightedSum += b.score * w;
+    totalWeight += w;
+  }
+  return totalWeight > 0 ? Math.round(weightedSum / totalWeight) : 0;
+}
+
+// ---------------------------------------------------------------------------
+// Fishable hours extraction — contiguous fishable block ranges as HH:MM pairs
+// ---------------------------------------------------------------------------
+
+function extractFishableHours(allBlocks: BlockResult[]): Array<{ start: string; end: string }> {
+  const ranges: Array<{ start: string; end: string }> = [];
+  let rangeStart: string | null = null;
+  let rangeEnd: string | null = null;
+
+  for (const b of allBlocks) {
+    if (b.fishable) {
+      if (rangeStart === null) rangeStart = b.start_local;
+      rangeEnd = b.end_local;
+    } else {
+      if (rangeStart !== null && rangeEnd !== null) {
+        ranges.push({ start: rangeStart, end: rangeEnd });
+        rangeStart = null;
+        rangeEnd = null;
+      }
+    }
+  }
+  if (rangeStart !== null && rangeEnd !== null) {
+    ranges.push({ start: rangeStart, end: rangeEnd });
+  }
+  return ranges;
+}
+
+// ---------------------------------------------------------------------------
+// Deterministic Summary Line — one-liner from engine state (no LLM)
+// ---------------------------------------------------------------------------
+
+function generateSummaryLine(
+  adjustedScore: number,
+  overallRating: OverallRating,
+  dv: ReturnType<typeof deriveDerivedVariables>,
+  recoveryActive: boolean,
+  daysSinceFront: number,
+  developingFront: boolean
+): string {
+  // Critical alerts first
+  if (dv.cold_stun_alert) {
+    return "Cold stun conditions — fish are immobile. Extremely tough fishing.";
+  }
+  if (dv.severe_weather_alert) {
+    return "Severe weather active. Safety first — fishing not recommended.";
+  }
+  if (dv.salinity_disruption_alert) {
+    return "Heavy freshwater influx disrupting salinity. Fish relocating to deeper, saltier water.";
+  }
+
+  // Recovery state
+  if (recoveryActive && daysSinceFront <= 1) {
+    return "Cold front impact — fish are hunkered down. Slow presentations near structure.";
+  }
+  if (recoveryActive && daysSinceFront === 2) {
+    return "Post-front recovery underway. Bite improving, especially during midday warming.";
+  }
+  if (developingFront) {
+    return "Pressure dropping — front approaching. Fish may feed aggressively before it hits.";
+  }
+
+  // Temperature-driven
+  if (dv.water_temp_zone === "near_shutdown_cold") {
+    return "Near-shutdown cold water. Target the warmest midday window with slow presentations.";
+  }
+  if (dv.water_temp_zone === "thermal_stress_heat") {
+    return "Thermal stress — fish seeking cooler water. Best action at dawn, dusk, and overnight.";
+  }
+
+  // Score-based
+  if (adjustedScore >= 80) {
+    const drivers: string[] = [];
+    if (dv.pressure_state === "slowly_falling" || dv.pressure_state === "rapidly_falling") drivers.push("falling pressure");
+    if (dv.temp_trend_state === "rapid_warming" || dv.temp_trend_state === "warming") drivers.push("warming trend");
+    if (dv.water_temp_zone === "active_prime" || dv.water_temp_zone === "peak_aggression") drivers.push("prime water temps");
+    const driverStr = drivers.length > 0 ? ` — ${drivers.join(", ")}.` : ".";
+    return `Outstanding conditions${driverStr} Fish should be active and aggressive.`;
+  }
+  if (adjustedScore >= 65) {
+    return "Good conditions for an active bite. Multiple factors working in your favor.";
+  }
+  if (adjustedScore >= 50) {
+    return "Decent conditions. Fish are around but may require some patience and finesse.";
+  }
+  if (adjustedScore >= 35) {
+    return "Challenging day. Focus on the best time windows and fish slow presentations.";
+  }
+  return "Tough conditions. If you go, keep expectations low and target structure carefully.";
+}
+
+// ---------------------------------------------------------------------------
 // MAIN EXPORT — runCoreIntelligence
 // ---------------------------------------------------------------------------
 
@@ -158,7 +268,19 @@ export function runCoreIntelligence(
   // Section 4 — Derived variables
   const dv = deriveDerivedVariables(env, effectiveWaterType);
 
-  // Section 5 — Raw score
+  // Build seasonal context from timestamp and derived variables
+  const localDate = new Date(
+    new Date(env.timestamp_utc).getTime() + env.tz_offset_hours * 3600 * 1000
+  );
+  const seasonalCtx: SeasonalContext = {
+    month: localDate.getUTCMonth() + 1,
+    dayOfMonth: localDate.getUTCDate(),
+    year: localDate.getUTCFullYear(),
+    latBand: dv.latitude_band,
+    effectiveLatitude: dv.effective_latitude,
+  };
+
+  // Section 5 — Raw score (now with seasonal context)
   const {
     weights,
     component_status,
@@ -166,10 +288,10 @@ export function runCoreIntelligence(
     coverage_pct,
     reliability_tier,
     raw_score,
-  } = computeRawScore(env, dv, effectiveWaterType);
+  } = computeRawScore(env, dv, effectiveWaterType, seasonalCtx);
 
   // Section 6 — Recovery modifier
-  const { daysSinceFront, frontSeverity } = detectColdFront(env);
+  const { daysSinceFront, frontSeverity, developing_front } = detectColdFront(env);
   const recoveryMultiplier = getRecoveryMultiplier(effectiveWaterType, daysSinceFront, frontSeverity);
   const adjustedScore = computeAdjustedScore(raw_score, recoveryMultiplier);
 
@@ -177,6 +299,7 @@ export function runCoreIntelligence(
   const overallRating = getOverallRating(adjustedScore);
 
   // Section 7 — Time windows (with edge-case rule context)
+  const recoveryActive = daysSinceFront >= 0 && daysSinceFront <= 5 && frontSeverity !== null;
   const ruleContext = {
     waterType: effectiveWaterType,
     water_temp_zone: dv.water_temp_zone,
@@ -184,20 +307,33 @@ export function runCoreIntelligence(
     pressure_state: dv.pressure_state,
     cloud_cover_pct: env.cloud_cover_pct,
     light_condition: dv.light_condition,
-    recovery_active: daysSinceFront >= 0 && daysSinceFront <= 5 && frontSeverity !== null,
+    recovery_active: recoveryActive,
     salinity_disruption_alert: dv.salinity_disruption_alert,
     range_strength_pct: dv.range_strength_pct,
     seasonal_fish_behavior: dv.seasonal_fish_behavior,
     freshwater_subtype: dv.freshwater_subtype,
-    saltwater_seasonal_state: dv.saltwater_seasonal_state,  // NEW
+    saltwater_seasonal_state: dv.saltwater_seasonal_state,
   };
+
+  // Compute all 48 blocks (for daily composite + full-day display)
+  const allBlocks = computeAllBlocks(
+    env,
+    effectiveWaterType,
+    dv.range_strength_pct,
+    dv.pressure_state,
+    env.cloud_cover_pct,
+    dv.water_temp_zone,
+    ruleContext
+  );
+
   const { best_windows, fair_windows, worst_windows } = computeTimeWindows(
     env,
     effectiveWaterType,
     dv.range_strength_pct,
     dv.pressure_state,
     env.cloud_cover_pct,
-    ruleContext
+    ruleContext,
+    dv.water_temp_zone
   );
 
   // Section 8 — Behavior inference
@@ -218,11 +354,25 @@ export function runCoreIntelligence(
     component_detail[key] = { pct, score: score as number, weight };
   }
 
+  // Build daily outlook
+  const dailyScore = computeDailyComposite(allBlocks);
+  const dailyRating = getOverallRating(dailyScore);
+  const summaryLine = generateSummaryLine(
+    adjustedScore, overallRating, dv, recoveryActive, daysSinceFront, developing_front
+  );
+  const fishableHours = extractFishableHours(allBlocks);
+
+  const daily_outlook: DailyOutlook = {
+    daily_score: dailyScore,
+    overall_rating: dailyRating,
+    summary_line: summaryLine,
+    fishable_hours: fishableHours,
+  };
+
   // Build final output
   const engineEnv = buildEngineEnvironment(env, dv, daysSinceFront);
   const dataQuality = buildDataQuality(component_status as Record<string, ComponentStatus>, dv);
 
-  const recoveryActive = daysSinceFront >= 0 && daysSinceFront <= 5 && frontSeverity !== null;
   const frontLabel = buildFrontLabel(recoveryActive, daysSinceFront, frontSeverity);
 
   return {
@@ -260,12 +410,15 @@ export function runCoreIntelligence(
       days_since_front: daysSinceFront,
       front_severity: frontSeverity,
       front_label: frontLabel,
+      developing_front,
       severe_weather_alert: dv.severe_weather_alert,
       severe_weather_reasons: dv.severe_weather_reasons,
     },
     time_windows: best_windows,
-    fair_windows,          // NEW
+    fair_windows,
     worst_windows,
+    daily_outlook,
+    all_blocks: allBlocks,
   };
 }
 

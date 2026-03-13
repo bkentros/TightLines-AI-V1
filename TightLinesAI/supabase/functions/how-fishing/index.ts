@@ -19,7 +19,7 @@ import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import { runCoreIntelligence } from "../_shared/coreIntelligence/index.ts";
 import { toEngineSnapshot } from "../_shared/envAdapter.ts";
-import type { WaterType } from "../_shared/coreIntelligence/types.ts";
+import type { WaterType, OverallRating, ForecastDay } from "../_shared/coreIntelligence/types.ts";
 
 // ---------------------------------------------------------------------------
 // Constants
@@ -68,6 +68,82 @@ Length limits:
 - decent_times_today: max 2 items, reasoning max 16 words each
 - key_factors values: short phrases, max 16 words each
 - tips_for_today: exactly 3 tips, max 12 words each — make them actionable, specific to today
+
+Output valid JSON only matching this schema:
+{
+  "headline_summary": "string",
+  "overall_fishing_rating": {
+    "label": "Exceptional | Excellent | Good | Fair | Poor | Tough",
+    "summary": "string"
+  },
+  "best_times_to_fish_today": [
+    {
+      "time_range": "string",
+      "label": "PRIME | GOOD",
+      "reasoning": "string"
+    }
+  ],
+  "decent_times_today": [
+    {
+      "time_range": "string",
+      "reasoning": "string"
+    }
+  ],
+  "worst_times_to_fish_today": [
+    {
+      "time_range": "string",
+      "reasoning": "string"
+    }
+  ],
+  "key_factors": {
+    "barometric_pressure": "string",
+    "temperature_trend": "string",
+    "light_conditions": "string",
+    "tide_or_solunar": "string",
+    "moon_phase": "string",
+    "wind": "string",
+    "precipitation_recent_rain": "string"
+  },
+  "tips_for_today": ["string", "string", "string"]
+}`;
+
+// ---------------------------------------------------------------------------
+// River-specific system prompt — emphasizes current, structure, presentation
+// ---------------------------------------------------------------------------
+
+const RIVER_SYSTEM_PROMPT = `You are an experienced river fishing guide giving a quick, honest rundown of today's river fishing conditions. Write like you're talking to a fellow angler — plain language, no jargon, no science terms.
+
+Rules:
+- The engine numbers are final. Never recalculate or contradict the score, time windows, or alerts.
+- Be direct. Good conditions? Say so. Tough day? Say that clearly too.
+- Explain WHY fish will or won't bite — in fish-behavior terms, not meteorological ones.
+- Keep it tight. Anglers should understand the situation in a few seconds.
+- Never suggest specific lures, species, or tactics.
+- Use exactly the time windows the engine provides. Never invent your own.
+- RIVER-SPECIFIC: Always frame advice in terms of current flow and river structure:
+  - Where fish hold relative to current (eddies, seams, tailouts, pools, cut banks)
+  - How current speed affects fish positioning (slack water behind structure, inside bends)
+  - Presentation relative to current (upstream, downstream, dead drift, swing)
+  - Depth changes near river structure (bridge pilings, log jams, deep bends)
+  - Water clarity and its effect on fish visibility and feeding
+
+Language rules:
+- Do not use these words: "cold-stunned", "peak water temp", "meteorological", "thermocline", "lethargic" (use "sluggish" instead), "suppressed" (use "slow" or "shut down"), "biological", "solunar" (use "feeding window" or "feeding cycle"), "barometric" (use "pressure"), "thermal stress" (use "too hot" or "heat stress").
+- "peak_aggression" zone means fish are in their optimal temperature range — describe it as "fish are comfortable and feeding well" or similar.
+- When talking about temperature trends, refer to air temperature. Rivers track air temps more closely than lakes.
+- Do not tell the user to check conditions themselves, verify anything, or monitor anything. Give them the answer.
+- If water_temp_is_estimated is true, you may mention the water temp is estimated once — don't dwell on it.
+- Use the seasonal_fish_behavior field to frame fish activity (same rules as standard prompt).
+- If severe_weather_alert is true: START your headline with a weather safety warning.
+
+Length limits:
+- headline_summary: exactly 1 sentence, max 20 words
+- overall_fishing_rating.summary: 1 sentence, max 24 words
+- best_times_to_fish_today: max 2 items, reasoning max 16 words each
+- worst_times_to_fish_today: max 2 items, reasoning max 16 words each
+- decent_times_today: max 2 items, reasoning max 16 words each
+- key_factors values: short phrases, max 16 words each
+- tips_for_today: exactly 3 tips, max 12 words each — make them actionable and RIVER-SPECIFIC
 
 Output valid JSON only matching this schema:
 {
@@ -386,8 +462,10 @@ function sanitizeTips(input: unknown): string[] {
 
 async function callClaudeForReport(
   anthropicKey: string,
-  enginePayload: Record<string, unknown>
+  enginePayload: Record<string, unknown>,
+  systemPrompt?: string
 ): Promise<ClaudeCallResult> {
+  const prompt = systemPrompt ?? HOW_FISHING_SYSTEM_PROMPT;
   const userContent = `Environmental and engine data for this analysis:\n${JSON.stringify(enginePayload, null, 2)}\n\nProduce the fishing conditions analysis JSON.`;
 
   async function attemptCall(): Promise<{ text: string; inputTokens: number; outputTokens: number } | null> {
@@ -401,7 +479,7 @@ async function callClaudeForReport(
       body: JSON.stringify({
         model: CLAUDE_MODEL,
         max_tokens: 900,
-        system: HOW_FISHING_SYSTEM_PROMPT,
+        system: prompt,
         messages: [{ role: "user", content: userContent }],
       }),
     });
@@ -573,6 +651,143 @@ function getLocalDateAndTime(utcIso: string, tzOffsetHours: number): { date: str
 }
 
 // ---------------------------------------------------------------------------
+// Weekly Overview — deterministic 7-day forecast scoring (no LLM)
+// ---------------------------------------------------------------------------
+
+function getOverallRatingFromScore(score: number): OverallRating {
+  if (score >= 88) return "Exceptional";
+  if (score >= 72) return "Excellent";
+  if (score >= 55) return "Good";
+  if (score >= 38) return "Fair";
+  if (score >= 20) return "Poor";
+  return "Tough";
+}
+
+/**
+ * Compute a simplified daily score for a forecast day based on
+ * high/low temps, precip chance, wind, and daylight hours.
+ * Uses today's engine output as a baseline reference.
+ */
+function scoreForecastDay(
+  day: { date: string; high_temp_f: number; low_temp_f: number; precip_chance_pct: number; wind_mph_max: number; sunrise_local: string; sunset_local: string },
+  todayScore: number,
+  waterType: WaterType,
+  lat: number
+): ForecastDay {
+  let score = 50; // Start at neutral baseline
+
+  const avgTemp = (day.high_temp_f + day.low_temp_f) / 2;
+
+  // Temperature scoring — varies by water type
+  if (waterType === "freshwater") {
+    // Optimal avg air temp range: 55-75°F
+    if (avgTemp >= 55 && avgTemp <= 75) score += 15;
+    else if (avgTemp >= 45 && avgTemp <= 85) score += 5;
+    else if (avgTemp < 35) score -= 15;
+    else if (avgTemp > 90) score -= 10;
+    // Warm-up days (high swing) can trigger feeding
+    const swing = day.high_temp_f - day.low_temp_f;
+    if (swing >= 15 && avgTemp < 60) score += 5; // warming swing in cool weather = good
+  } else {
+    // Salt/brackish — wider comfort zone
+    if (avgTemp >= 60 && avgTemp <= 85) score += 12;
+    else if (avgTemp >= 50 && avgTemp <= 90) score += 4;
+    else if (avgTemp < 45) score -= 12;
+    else if (avgTemp > 95) score -= 8;
+  }
+
+  // Precipitation penalty/bonus
+  if (day.precip_chance_pct < 20) score += 5;        // clear day
+  else if (day.precip_chance_pct < 50) score += 8;    // light rain chance = good
+  else if (day.precip_chance_pct < 75) score -= 3;    // moderate rain
+  else score -= 12;                                    // heavy rain likely
+
+  // Wind scoring
+  if (day.wind_mph_max <= 12) score += 8;              // light wind
+  else if (day.wind_mph_max <= 20) score += 2;         // moderate
+  else if (day.wind_mph_max <= 30) score -= 8;         // heavy
+  else score -= 18;                                     // dangerous
+
+  // Daylight hours bonus (more fishing time)
+  const sunriseMin = parseInt(day.sunrise_local.split(":")[0]) * 60 + parseInt(day.sunrise_local.split(":")[1]);
+  const sunsetMin = parseInt(day.sunset_local.split(":")[0]) * 60 + parseInt(day.sunset_local.split(":")[1]);
+  const daylightHours = (sunsetMin - sunriseMin) / 60;
+  if (daylightHours >= 13) score += 4;
+  else if (daylightHours >= 11) score += 2;
+  else if (daylightHours < 9) score -= 3;
+
+  // Clamp to 0-100
+  score = Math.max(0, Math.min(100, score));
+
+  const rating = getOverallRatingFromScore(score);
+
+  // Build summary line
+  let summaryLine: string;
+  if (score >= 72) {
+    summaryLine = `Strong conditions expected — high ${day.high_temp_f}°F, light wind.`;
+  } else if (score >= 55) {
+    summaryLine = `Good day ahead — ${day.precip_chance_pct > 40 ? "some rain possible but" : "conditions"} look favorable.`;
+  } else if (score >= 38) {
+    summaryLine = `Mixed conditions — ${day.wind_mph_max > 20 ? "windy" : day.precip_chance_pct > 60 ? "rain likely" : "average day"}, target best windows.`;
+  } else {
+    summaryLine = `Tough conditions — ${avgTemp < 35 ? "very cold" : day.wind_mph_max > 25 ? "high winds" : "unfavorable"} expected.`;
+  }
+
+  return {
+    date: day.date,
+    daily_score: score,
+    overall_rating: rating,
+    summary_line: summaryLine,
+    high_temp_f: day.high_temp_f,
+    low_temp_f: day.low_temp_f,
+    wind_mph_avg: Math.round(day.wind_mph_max * 0.65), // rough avg from max
+    precip_chance_pct: day.precip_chance_pct,
+    front_label: null, // no front detection for forecast days
+  };
+}
+
+/**
+ * Build the weekly overview response from today's engine output and forecast_daily data.
+ * Returns a complete response bundle for the weekly_overview mode.
+ */
+function buildWeeklyOverviewResponse(
+  todayEngineOutput: ReturnType<typeof runCoreIntelligence>,
+  forecastDaily: Array<{ date: string; high_temp_f: number; low_temp_f: number; precip_chance_pct: number; wind_mph_max: number; sunrise_local: string; sunset_local: string }>,
+  waterType: WaterType,
+  lat: number,
+  timestampUtc: string
+): { forecast_days: ForecastDay[]; today_summary: { daily_score: number; overall_rating: OverallRating; summary_line: string } } {
+  const todayOutlook = todayEngineOutput.daily_outlook;
+
+  // Today entry from full engine
+  const todayForecast: ForecastDay = {
+    date: forecastDaily[0]?.date ?? new Date(timestampUtc).toISOString().slice(0, 10),
+    daily_score: todayOutlook.daily_score,
+    overall_rating: todayOutlook.overall_rating,
+    summary_line: todayOutlook.summary_line,
+    high_temp_f: forecastDaily[0]?.high_temp_f ?? (todayEngineOutput.environment.air_temp_f ?? 70),
+    low_temp_f: forecastDaily[0]?.low_temp_f ?? ((todayEngineOutput.environment.air_temp_f ?? 70) - 15),
+    wind_mph_avg: todayEngineOutput.environment.wind_speed_mph ?? 0,
+    precip_chance_pct: forecastDaily[0]?.precip_chance_pct ?? 0,
+    front_label: todayEngineOutput.alerts.front_label ?? null,
+  };
+
+  // Forecast days 2-7 (indices 1-6)
+  const futureDays: ForecastDay[] = forecastDaily.slice(1, 7).map((day) =>
+    scoreForecastDay(day, todayOutlook.daily_score, waterType, lat)
+  );
+
+  return {
+    forecast_days: [todayForecast, ...futureDays],
+    today_summary: {
+      daily_score: todayOutlook.daily_score,
+      overall_rating: todayOutlook.overall_rating,
+      summary_line: todayOutlook.summary_line,
+    },
+  };
+}
+
+// ---------------------------------------------------------------------------
 // Main handler
 // ---------------------------------------------------------------------------
 
@@ -613,7 +828,7 @@ Deno.serve(async (req: Request) => {
   const userId = user.id;
 
   // --- 2. Parse body ---
-  let body: { latitude?: number; longitude?: number; units?: string; freshwater_subtype?: string; env_data?: Record<string, unknown> } = {};
+  let body: { latitude?: number; longitude?: number; units?: string; freshwater_subtype?: string; env_data?: Record<string, unknown>; mode?: string } = {};
   try {
     body = await req.json();
   } catch {
@@ -633,6 +848,7 @@ Deno.serve(async (req: Request) => {
     VALID_SUBTYPES.includes(body.freshwater_subtype as FwSubtype)
       ? (body.freshwater_subtype as FwSubtype)
       : "lake";
+  const requestMode = body.mode === "weekly_overview" ? "weekly_overview" : "daily_detail";
   if (isNaN(lat) || lat < -90 || lat > 90) {
     return new Response(JSON.stringify({ error: "Invalid latitude" }), {
       status: 400,
@@ -717,6 +933,67 @@ Deno.serve(async (req: Request) => {
       JSON.stringify({ error: "Server configuration error" }),
       { status: 500, headers: { "Content-Type": "application/json", ...corsHeaders() } }
     );
+  }
+
+  // --- 7a. Weekly overview mode — deterministic only, no LLM calls ---
+  if (requestMode === "weekly_overview") {
+    const forecastDaily = Array.isArray((envData as Record<string, unknown>).forecast_daily)
+      ? (envData as Record<string, unknown>).forecast_daily as Array<{ date: string; high_temp_f: number; low_temp_f: number; precip_chance_pct: number; wind_mph_max: number; sunrise_local: string; sunset_local: string }>
+      : [];
+
+    if (forecastDaily.length === 0) {
+      return new Response(
+        JSON.stringify({ error: "missing_forecast_data", message: "forecast_daily is required for weekly_overview mode" }),
+        { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders() } }
+      );
+    }
+
+    // Run engine once for today (use freshwater as default for inland, saltwater for coastal)
+    const todayWaterType: WaterType = isCoastal ? "saltwater" : "freshwater";
+    let todayEngine: ReturnType<typeof runCoreIntelligence>;
+    try {
+      todayEngine = runCoreIntelligence(engineSnapshot, todayWaterType);
+    } catch (e) {
+      return new Response(
+        JSON.stringify({ error: "engine_error", message: String(e) }),
+        { status: 500, headers: { "Content-Type": "application/json", ...corsHeaders() } }
+      );
+    }
+
+    const weeklyResult = buildWeeklyOverviewResponse(
+      todayEngine, forecastDaily, todayWaterType, lat, timestampUtc
+    );
+
+    const weeklyBundle = {
+      feature: "hows_fishing_feature_v1",
+      mode: "weekly_overview" as const,
+      water_type: todayWaterType,
+      generated_at: timestampUtc,
+      is_coastal: isCoastal,
+      forecast_days: weeklyResult.forecast_days,
+      today: {
+        daily_score: weeklyResult.today_summary.daily_score,
+        overall_rating: weeklyResult.today_summary.overall_rating,
+        summary_line: weeklyResult.today_summary.summary_line,
+        environment: todayEngine.environment,
+        alerts: todayEngine.alerts,
+        fishable_hours: todayEngine.daily_outlook.fishable_hours,
+      },
+    };
+
+    // Log usage (zero cost — no LLM)
+    await supabase.from("ai_sessions").insert({
+      user_id: userId,
+      session_type: "fishing_weekly",
+      input_payload: { latitude: lat, longitude: lon, units, mode: "weekly_overview" },
+      response_payload: weeklyBundle,
+      token_cost_usd: 0,
+    });
+
+    return new Response(JSON.stringify(weeklyBundle), {
+      status: 200,
+      headers: { "Content-Type": "application/json", ...corsHeaders() },
+    });
   }
 
   const { date: analysisDateLocal, time: currentTimeLocal } = getLocalDateAndTime(
@@ -814,9 +1091,13 @@ Deno.serve(async (req: Request) => {
     // Add subtype label to payload for LLM context
     (llmPayload as Record<string, unknown>).freshwater_subtype_label = subtypeLabel;
 
+    // Use river-specific prompt for river tabs
+    const systemPrompt = subtypeLabel === "river" ? RIVER_SYSTEM_PROMPT : undefined;
+
     const { llm, inputTokens, outputTokens, error: llmError } = await callClaudeForReport(
       anthropicKey,
-      llmPayload
+      llmPayload,
+      systemPrompt
     );
     totalInputTokens += inputTokens;
     totalOutputTokens += outputTokens;
@@ -911,8 +1192,10 @@ Deno.serve(async (req: Request) => {
                 data_quality: r.engine.data_quality,
                 alerts: r.engine.alerts,
                 time_windows: r.engine.time_windows,
-                fair_windows: r.engine.fair_windows ?? [],      // NEW
+                fair_windows: r.engine.fair_windows ?? [],
                 worst_windows: r.engine.worst_windows,
+                daily_outlook: r.engine.daily_outlook,
+                all_blocks: r.engine.all_blocks,
               }
             : null,
           llm: r.llm,

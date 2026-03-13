@@ -6,6 +6,7 @@
 
 import type {
   WaterType,
+  LatitudeBand,
   ComponentKey,
   ComponentStatus,
   ReliabilityTier,
@@ -13,6 +14,13 @@ import type {
   DerivedVariables,
   EnvironmentSnapshot,
 } from "./types.ts";
+
+import {
+  getSeasonalWeights,
+  getDeviationBonusPct,
+  getCoastalBand,
+  type CoastalBand,
+} from "./seasonalProfiles.ts";
 
 // ---------------------------------------------------------------------------
 // Helper math functions (Section 5B)
@@ -76,10 +84,25 @@ export const BRACKISH_WEIGHTS: Record<string, number> = {
   moon_phase: 2,
 };
 
+/** Legacy fallback — returns static weights when no seasonal context is available. */
 export function getWeights(waterType: WaterType): Record<string, number> {
   if (waterType === "freshwater") return FRESHWATER_WEIGHTS;
   if (waterType === "saltwater") return SALTWATER_WEIGHTS;
   return BRACKISH_WEIGHTS;
+}
+
+/** Seasonal-aware weight lookup with monthly interpolation. */
+export function getSeasonalWeightsForScore(
+  waterType: WaterType,
+  latBand: LatitudeBand,
+  effectiveLatitude: number,
+  month: number,
+  dayOfMonth: number,
+  year?: number
+): Record<string, number> {
+  const band: LatitudeBand | CoastalBand =
+    waterType === "freshwater" ? latBand : getCoastalBand(effectiveLatitude);
+  return getSeasonalWeights(waterType, band, month, dayOfMonth, year);
 }
 
 // ---------------------------------------------------------------------------
@@ -285,10 +308,19 @@ function scoreWaterTempZone(
   const coldContext = dv.freshwater_cold_context;
   if (waterType === "freshwater" && (zone === "near_shutdown_cold" || zone === "lethargic")) {
     if (coldContext === "seasonally_expected_cold") {
-      if (zone === "near_shutdown_cold") pct = 35;
+      if (zone === "near_shutdown_cold") {
+        // Interpolate within near_shutdown_cold: 30% at 32°F → 44% at ~36°F
+        const waterTemp = dv.water_temp_f ?? 33;
+        const minTemp = 32;
+        const maxTemp = 36;
+        const minPct = 30;
+        const maxPct = 44;
+        pct = minPct + ((Math.max(minTemp, Math.min(maxTemp, waterTemp)) - minTemp) / (maxTemp - minTemp)) * (maxPct - minPct);
+        pct = Math.round(pct);
+      }
       // lethargic: boost range to 45–62 so winter cold is viable
       const bounds = ZONE_BOUNDS[waterType][zone];
-      if (bounds) {
+      if (bounds && zone === "lethargic") {
         const [lo, hi] = bounds;
         const progress = inverseLerp(dv.water_temp_f, lo, hi);
         pct = Math.round(lerp(45, 62, progress));
@@ -300,7 +332,11 @@ function scoreWaterTempZone(
   }
 
   if (pct === null) {
-    if (zone === "near_shutdown_cold") pct = 8;
+    if (zone === "near_shutdown_cold") {
+      // Interpolate: 5% at 32°F → 20% at ~36°F (non-seasonal or non-freshwater)
+      const waterTemp = dv.water_temp_f ?? 33;
+      pct = Math.round(5 + ((Math.max(32, Math.min(36, waterTemp)) - 32) / 4) * 15);
+    }
     else if (zone === "thermal_stress_heat") pct = 28;
     else {
       const bounds = ZONE_BOUNDS[waterType][zone];
@@ -655,12 +691,31 @@ export interface ComponentScores {
   raw_score: number;
 }
 
+export interface SeasonalContext {
+  month: number;
+  dayOfMonth: number;
+  year: number;
+  latBand: LatitudeBand;
+  effectiveLatitude: number;
+}
+
 export function computeRawScore(
   env: EnvironmentSnapshot,
   dv: DerivedVariables,
-  waterType: WaterType
+  waterType: WaterType,
+  seasonalCtx?: SeasonalContext
 ): ComponentScores {
-  const weights = getWeights(waterType);
+  // Use seasonal weights when context is available, otherwise fall back to static
+  const weights = seasonalCtx
+    ? getSeasonalWeightsForScore(
+        waterType,
+        seasonalCtx.latBand,
+        seasonalCtx.effectiveLatitude,
+        seasonalCtx.month,
+        seasonalCtx.dayOfMonth,
+        seasonalCtx.year
+      )
+    : getWeights(waterType);
 
   // Compute raw component percentages
   const rawPcts: Record<string, number | null> = {
@@ -678,6 +733,19 @@ export function computeRawScore(
   if (waterType !== "freshwater") {
     rawPcts.tide_phase = scoreTidePhase(dv);
     rawPcts.tide_strength = scoreTideStrength(dv);
+  }
+
+  // Apply water temp deviation bonus when seasonal context is available
+  if (seasonalCtx && rawPcts.water_temp_zone !== null && dv.water_temp_f !== null) {
+    const band = waterType === "freshwater"
+      ? seasonalCtx.latBand
+      : getCoastalBand(seasonalCtx.effectiveLatitude);
+    const deviationPct = getDeviationBonusPct(
+      waterType, band, seasonalCtx.month, dv.water_temp_f
+    );
+    rawPcts.water_temp_zone = clamp(
+      rawPcts.water_temp_zone + deviationPct, 0, 100
+    );
   }
 
   const componentStatus: Record<string, ComponentStatus> = {};
