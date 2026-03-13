@@ -173,6 +173,8 @@ function derivePositioningBias(
         dv.temp_trend_state === "rapid_warming" || dv.temp_trend_state === "warming"
           ? "warming_flats_and_transitions"
           : "deepest_stable_water";
+    } else if (seasonal === "mild_winter_active") {
+      primary = isDawnDusk ? "shallow_feeding_edges" : "warming_flats_and_transitions";
     } else if (dv.temp_trend_state === "rapid_warming") {
       primary = "warming_flats_and_transitions";
     } else if (dv.temp_trend_state === "rapid_cooling" && isActiveMetabolic) {
@@ -195,6 +197,11 @@ function derivePositioningBias(
 
   if (waterType === "saltwater") {
     let primary: PositioningBias;
+    const isDawnDusk =
+      dv.light_condition === "dawn_window_clear" ||
+      dv.light_condition === "dawn_window_overcast" ||
+      dv.light_condition === "dusk_window_clear" ||
+      dv.light_condition === "dusk_window_overcast";
 
     if (dv.cold_stun_alert) {
       primary = "warmest_available_refuge";
@@ -205,6 +212,10 @@ function derivePositioningBias(
       dv.tide_strength_state === "minimal_movement"
     ) {
       primary = "deeper_edges_channels_adjacent_structure";
+    } else if (dv.saltwater_seasonal_state === "sw_cold_inactive") {
+      primary = "deepest_stable_water";
+    } else if (dv.saltwater_seasonal_state === "sw_summer_heat_stress") {
+      primary = isDawnDusk ? "current_breaks_cuts_passes_flats" : "cooler_deeper_current_refuge";
     } else {
       primary = "current_breaks_cuts_passes_flats";
     }

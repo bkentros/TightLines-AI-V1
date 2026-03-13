@@ -84,11 +84,13 @@ function buildFrontLabel(
 ): string | null {
   if (!recoveryActive || frontSeverity === null) return null;
 
-  const sevWord =
-    frontSeverity === "mild" ? "mild" : frontSeverity === "severe" ? "strong" : "cold";
+  const sevDesc =
+    frontSeverity === "mild" ? "A mild" :
+    frontSeverity === "severe" ? "A strong" :
+    "A";
 
   if (daysSinceFront === 0) {
-    return `A ${sevWord} cold front moved through — fish are tight-lipped today. Expect slow action.`;
+    return `${sevDesc} cold front moved through — fish are tight-lipped today. Expect slow action.`;
   }
   if (daysSinceFront === 1) {
     return `Cold front came through yesterday. Fish still reluctant — try slow presentations near structure.`;
@@ -182,13 +184,14 @@ export function runCoreIntelligence(
     pressure_state: dv.pressure_state,
     cloud_cover_pct: env.cloud_cover_pct,
     light_condition: dv.light_condition,
-    recovery_active: daysSinceFront >= 0 && daysSinceFront <= 5,
+    recovery_active: daysSinceFront >= 0 && daysSinceFront <= 5 && frontSeverity !== null,
     salinity_disruption_alert: dv.salinity_disruption_alert,
     range_strength_pct: dv.range_strength_pct,
     seasonal_fish_behavior: dv.seasonal_fish_behavior,
     freshwater_subtype: dv.freshwater_subtype,
+    saltwater_seasonal_state: dv.saltwater_seasonal_state,  // NEW
   };
-  const { best_windows, worst_windows } = computeTimeWindows(
+  const { best_windows, fair_windows, worst_windows } = computeTimeWindows(
     env,
     effectiveWaterType,
     dv.range_strength_pct,
@@ -206,6 +209,14 @@ export function runCoreIntelligence(
     weights,
     env.wind_speed_mph
   );
+
+  // Component debug detail (percentage + score for each component)
+  const component_detail: Record<string, { pct: number; score: number; weight: number }> = {};
+  for (const [key, score] of Object.entries(components)) {
+    const weight = (weights as Record<string, number>)[key] ?? 0;
+    const pct = weight > 0 ? Math.round(((score as number) / weight) * 100) : 0;
+    component_detail[key] = { pct, score: score as number, weight };
+  }
 
   // Build final output
   const engineEnv = buildEngineEnvironment(env, dv, daysSinceFront);
@@ -235,6 +246,7 @@ export function runCoreIntelligence(
       recovery_multiplier: recoveryMultiplier,
       adjusted_score: adjustedScore,
       overall_rating: overallRating,
+      component_detail,  // NEW — debug info for consistency auditing
     },
     behavior,
     data_quality: dataQuality,
@@ -252,6 +264,7 @@ export function runCoreIntelligence(
       severe_weather_reasons: dv.severe_weather_reasons,
     },
     time_windows: best_windows,
+    fair_windows,          // NEW
     worst_windows,
   };
 }

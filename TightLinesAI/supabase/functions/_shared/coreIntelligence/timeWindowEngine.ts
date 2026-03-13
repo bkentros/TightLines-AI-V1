@@ -18,6 +18,7 @@ import type {
   SeasonalFishBehaviorState,
   FreshwaterSubtype,
   LatitudeBand,
+  SaltwaterSeasonalState,
 } from "./types.ts";
 import {
   hmToMinutes,
@@ -54,6 +55,7 @@ export interface TimeWindowRuleContext {
   range_strength_pct: number | null;
   seasonal_fish_behavior?: SeasonalFishBehaviorState | null;
   freshwater_subtype?: FreshwaterSubtype | null;
+  saltwater_seasonal_state?: SaltwaterSeasonalState | null;  // NEW
 }
 
 // ---------------------------------------------------------------------------
@@ -173,6 +175,13 @@ function getFreshwaterThermalTimingProfile(
         middayWarmBonus: 26,
         middayWarmStart: 10.5 * 60,
         middayWarmEnd: 15.5 * 60,
+      };
+    case "mild_winter_active":
+      return {
+        dawnDuskBonus: 24,
+        middayWarmBonus: 18,
+        middayWarmStart: 10 * 60,
+        middayWarmEnd: 16 * 60,
       };
     default:
       return null;
@@ -621,6 +630,46 @@ function applyEdgeCaseRules(
         if (!drivers.includes("late_fall_low_light_penalty")) drivers.push("late_fall_low_light_penalty");
       }
     }
+
+    if (seasonalState === "mild_winter_active") {
+      // Mild winter: all-day viable, slight dawn/dusk preference
+      // Solunar, pressure, and tide become primary differentiators
+      if (lightCategory === "dawn" || lightCategory === "dusk") {
+        points += 4;
+        if (!drivers.includes("mild_winter_low_light_window")) drivers.push("mild_winter_low_light_window");
+      }
+      // No midday penalty — fishing is viable all day
+    }
+  }
+
+  // --- Rule 10: Saltwater seasonal timing adjustments ---
+  if (waterType !== "freshwater" && ruleCtx.saltwater_seasonal_state) {
+    const swState = ruleCtx.saltwater_seasonal_state;
+    const lightCategory = getBlockLightCategory(block.startMin, dawnDusk, cloudCover);
+
+    if (swState === "sw_cold_inactive") {
+      // Winter: midday is better (sun warms shallows)
+      if (lightCategory === "midday") {
+        points += 8;
+        if (!drivers.includes("sw_cold_midday_warming")) drivers.push("sw_cold_midday_warming");
+      } else if (lightCategory === "dawn" || lightCategory === "dusk") {
+        points -= 4;
+      }
+    }
+
+    if (swState === "sw_summer_heat_stress") {
+      // Summer heat: dawn/dusk/night much better
+      if (lightCategory === "dawn" || lightCategory === "dusk") {
+        points += 8;
+        if (!drivers.includes("sw_summer_low_light_feed")) drivers.push("sw_summer_low_light_feed");
+      } else if (lightCategory === "midday" && (cloudCover ?? 0) < 60) {
+        points -= 10;
+        if (!drivers.includes("sw_summer_heat_midday_penalty")) drivers.push("sw_summer_heat_midday_penalty");
+      } else if (lightCategory === "night") {
+        points += 5;
+        if (!drivers.includes("sw_summer_night_feed")) drivers.push("sw_summer_night_feed");
+      }
+    }
   }
 
   points = Math.max(0, points);
@@ -642,12 +691,12 @@ function minutesToHHMM(minutes: number): string {
   return `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}`;
 }
 
-function classifyBlock(block: Block): WindowLabel | null {
+function classifyBlock(block: Block): WindowLabel {
   const score = Math.round((block.points / block.maxPoints) * 100);
   if (score >= 65) return "PRIME";
   if (score >= 45) return "GOOD";
   if (score >= 25) return "FAIR";
-  return null;
+  return "SLOW";
 }
 
 function getBlockScore(block: Block): number {
@@ -665,7 +714,7 @@ export function computeTimeWindows(
   pressureState: string | null,
   cloudCoverPct: number | null,
   ruleContext?: TimeWindowRuleContext | null
-): { best_windows: TimeWindow[]; worst_windows: WorstWindow[] } {
+): { best_windows: TimeWindow[]; fair_windows: TimeWindow[]; worst_windows: WorstWindow[] } {
   const dawnDusk = computeDawnDusk(env);
   const pressureFalling =
     pressureState === "slowly_falling" || pressureState === "rapidly_falling";
@@ -692,37 +741,29 @@ export function computeTimeWindows(
     blocks.push(adjusted);
   }
 
-  // Classify and merge contiguous blocks of same label
-  const bestWindows: TimeWindow[] = [];
+  // Classify all blocks (every block gets a label now)
   const scoredBlocks = blocks.map((b) => ({
     ...b,
     label: classifyBlock(b),
     score: getBlockScore(b),
   }));
 
+  // Merge contiguous blocks of same label into windows
+  const allWindows: TimeWindow[] = [];
   let i = 0;
   while (i < scoredBlocks.length) {
     const b = scoredBlocks[i];
-    if (b.label === null || b.label === "FAIR") {
-      i++;
-      continue;
-    }
-
-    // Merge contiguous blocks with the same label
     let j = i + 1;
     const mergedDrivers = new Set(b.drivers);
     let maxScore = b.score;
 
-    while (
-      j < scoredBlocks.length &&
-      scoredBlocks[j].label === b.label
-    ) {
+    while (j < scoredBlocks.length && scoredBlocks[j].label === b.label) {
       scoredBlocks[j].drivers.forEach((d) => mergedDrivers.add(d));
       maxScore = Math.max(maxScore, scoredBlocks[j].score);
       j++;
     }
 
-    bestWindows.push({
+    allWindows.push({
       label: b.label,
       start_local: minutesToHHMM(b.startMin),
       end_local: minutesToHHMM(scoredBlocks[j - 1].startMin + 30),
@@ -733,40 +774,23 @@ export function computeTimeWindows(
     i = j;
   }
 
-  // Section 7D — Worst Windows: lowest-scoring contiguous blocks
-  // Sort by score ascending and find the worst contiguous run
-  const allScored = scoredBlocks.map((b) => ({ ...b }));
-  allScored.sort((a, b) => a.score - b.score);
+  // Split into best (PRIME + GOOD), fair (FAIR), and worst (SLOW)
+  const best_windows = allWindows.filter(
+    (w) => w.label === "PRIME" || w.label === "GOOD"
+  );
+  const fair_windows = allWindows.filter((w) => w.label === "FAIR");
+  const worst_windows: WorstWindow[] = allWindows
+    .filter((w) => w.label === "SLOW")
+    .map((w) => ({
+      start_local: w.start_local,
+      end_local: w.end_local,
+      window_score: w.window_score,
+      label: w.label,
+    }));
 
-  // Build at least one worst window from lowest-score blocks
-  const worstWindows: WorstWindow[] = [];
-  const worstCandidate = allScored[0];
-
-  // Find the worst contiguous stretch (lowest average)
-  let worstSum = Infinity;
-  let worstStart = 0;
-  let worstEnd = 0;
-
-  for (let start = 0; start < scoredBlocks.length; start++) {
-    let runSum = 0;
-    let runLen = 0;
-    for (let end = start; end < Math.min(start + 4, scoredBlocks.length); end++) {
-      runSum += scoredBlocks[end].score;
-      runLen++;
-    }
-    const avg = runSum / runLen;
-    if (avg < worstSum) {
-      worstSum = avg;
-      worstStart = start;
-      worstEnd = Math.min(start + 3, scoredBlocks.length - 1);
-    }
-  }
-
-  worstWindows.push({
-    start_local: minutesToHHMM(scoredBlocks[worstStart].startMin),
-    end_local: minutesToHHMM(scoredBlocks[worstEnd].startMin + 30),
-    window_score: Math.round(worstSum),
-  });
-
-  return { best_windows: bestWindows, worst_windows: worstWindows };
+  return {
+    best_windows,
+    fair_windows,
+    worst_windows,
+  };
 }

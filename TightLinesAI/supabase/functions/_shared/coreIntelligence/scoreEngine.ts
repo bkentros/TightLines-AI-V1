@@ -86,42 +86,66 @@ export function getWeights(waterType: WaterType): Record<string, number> {
 // Section 5C — Barometric Pressure Scoring
 // ---------------------------------------------------------------------------
 
+function getStablePressureScore(currentMb: number): number {
+  if (currentMb < 1010) {
+    const t = inverseLerp(1010 - currentMb, 0, 10);
+    return Math.round(lerp(50, 69, t));
+  }
+  if (currentMb <= 1018) {
+    const t = inverseLerp(currentMb, 1010, 1018);
+    return Math.round(lerp(60, 48, t));
+  }
+  const t = inverseLerp(currentMb, 1018, 1030);
+  return Math.round(lerp(56, 40, t));
+}
+
 function scorePressure(dv: DerivedVariables, env: EnvironmentSnapshot): number | null {
-  const state = dv.pressure_state;
   const rate = dv.pressure_change_rate_mb_hr;
   const current = env.pressure_mb;
+  if (rate === null || current === null) return null;
 
-  if (state === null || current === null) return null;
-
-  let pct: number;
-
-  if (state === "rapidly_falling" && rate !== null) {
+  // Rapidly falling (rate < -1.5)
+  if (rate < -1.5) {
     const t = inverseLerp(Math.abs(rate), 1.5, 3.0);
-    pct = Math.round(lerp(90, 100, t));
-  } else if (state === "slowly_falling" && rate !== null) {
-    const t = inverseLerp(Math.abs(rate), 0.5, 1.5);
-    pct = Math.round(lerp(70, 89, t));
-  } else if (state === "slowly_rising" && rate !== null) {
-    const t = inverseLerp(rate, 0.5, 1.5);
-    pct = Math.round(lerp(39, 20, t));
-  } else if (state === "rapidly_rising" && rate !== null) {
-    const t = inverseLerp(rate, 1.5, 3.0);
-    pct = Math.round(lerp(19, 0, t));
-  } else {
-    // stable — use absolute pressure
-    if (current < 1010) {
-      const t = inverseLerp(1010 - current, 0, 10);
-      pct = Math.round(lerp(50, 69, t));
-    } else if (current <= 1018) {
-      const t = inverseLerp(current, 1010, 1018);
-      pct = Math.round(lerp(60, 48, t));
-    } else {
-      const t = inverseLerp(current, 1018, 1030);
-      pct = Math.round(lerp(56, 40, t));
-    }
+    return Math.round(lerp(90, 100, t));
   }
 
-  return pct;
+  // Clearly slowly falling (rate < -0.6)
+  if (rate < -0.6) {
+    const t = inverseLerp(Math.abs(rate), 0.6, 1.5);
+    return Math.round(lerp(70, 89, t));
+  }
+
+  // Blend zone: slowly_falling → stable (rate -0.6 to -0.4)
+  if (rate < -0.4) {
+    const fallingScore = 70;
+    const stableScore = getStablePressureScore(current);
+    const t = inverseLerp(rate, -0.6, -0.4);
+    return Math.round(lerp(fallingScore, stableScore, t));
+  }
+
+  // Stable zone (rate -0.4 to +0.4)
+  if (rate <= 0.4) {
+    return getStablePressureScore(current);
+  }
+
+  // Blend zone: stable → slowly_rising (rate +0.4 to +0.6)
+  if (rate <= 0.6) {
+    const stableScore = getStablePressureScore(current);
+    const risingScore = 39;
+    const t = inverseLerp(rate, 0.4, 0.6);
+    return Math.round(lerp(stableScore, risingScore, t));
+  }
+
+  // Clearly slowly rising (rate +0.6 to +1.5)
+  if (rate <= 1.5) {
+    const t = inverseLerp(rate, 0.6, 1.5);
+    return Math.round(lerp(39, 20, t));
+  }
+
+  // Rapidly rising (rate > 1.5)
+  const t = inverseLerp(rate, 1.5, 3.0);
+  return Math.round(lerp(19, 0, t));
 }
 
 // ---------------------------------------------------------------------------
@@ -139,8 +163,35 @@ const LIGHT_SCORE_MAP: Record<string, number> = {
   midday_full_sun: 12,
 };
 
-function scoreLight(dv: DerivedVariables): number | null {
+function scoreLight(dv: DerivedVariables, cloudCoverPct: number | null): number | null {
   if (dv.light_condition === null) return null;
+  const cc = cloudCoverPct ?? 0;
+
+  // Non-midday conditions: use fixed scores (no cloud transitions)
+  if (
+    dv.light_condition === "dawn_window_overcast" ||
+    dv.light_condition === "dusk_window_overcast" ||
+    dv.light_condition === "dawn_window_clear" ||
+    dv.light_condition === "dusk_window_clear" ||
+    dv.light_condition === "night"
+  ) {
+    return LIGHT_SCORE_MAP[dv.light_condition] ?? null;
+  }
+
+  // Midday conditions: interpolate in transition zones
+  // Zone 1: cc 30-40 → blend full_sun (12) and partly_cloudy (40)
+  if (cc >= 30 && cc < 40) {
+    const t = (cc - 30) / 10;
+    return Math.round(lerp(12, 40, t));
+  }
+
+  // Zone 2: cc 65-75 → blend partly_cloudy (40) and overcast (60)
+  if (cc >= 65 && cc < 75) {
+    const t = (cc - 65) / 10;
+    return Math.round(lerp(40, 60, t));
+  }
+
+  // Outside transition zones: use categorical score
   return LIGHT_SCORE_MAP[dv.light_condition] ?? null;
 }
 
@@ -151,8 +202,11 @@ function scoreLight(dv: DerivedVariables): number | null {
 const SOLUNAR_SCORE_MAP: Record<string, number> = {
   within_major_window: 95,
   within_30min_of_major: 75,
+  within_60min_of_major: 40,    // smooth transition
+  within_90min_of_major: 20,    // smooth transition
   within_minor_window: 58,
   within_30min_of_minor: 35,
+  within_60min_of_minor: 18,    // smooth transition
   outside_all_windows: 8,
 };
 
@@ -264,7 +318,36 @@ function scoreWaterTempZone(
   }
 
   if (waterType !== "freshwater" || dv.seasonal_fish_behavior === null) {
-    return pct;
+    // Saltwater/Brackish seasonal scoring
+    if (waterType !== "freshwater" && dv.saltwater_seasonal_state !== null) {
+      switch (dv.saltwater_seasonal_state) {
+        case "sw_cold_inactive":
+          if (zone === "near_shutdown_cold") pct += 10;
+          else if (zone === "lethargic") pct += 8;
+          else if (zone === "transitional") pct -= 4;
+          break;
+        case "sw_cold_mild_active":
+          if (zone === "near_shutdown_cold") pct += 14;
+          else if (zone === "lethargic") pct += 10;
+          else if (zone === "transitional") pct += 6;
+          else if (zone === "active_prime") pct += 4;
+          break;
+        case "sw_transitional_feed":
+          if (zone === "transitional") pct += 10;
+          else if (zone === "active_prime") pct += 12;
+          break;
+        case "sw_summer_peak":
+          if (zone === "active_prime") pct += 8;
+          else if (zone === "peak_aggression") pct += 6;
+          else if (zone === "thermal_stress_heat") pct -= 8;
+          break;
+        case "sw_summer_heat_stress":
+          if (zone === "peak_aggression") pct -= 8;
+          else if (zone === "thermal_stress_heat") pct -= 16;
+          break;
+      }
+    }
+    return clamp(pct, 0, 100);
   }
 
   switch (dv.seasonal_fish_behavior) {
@@ -306,6 +389,12 @@ function scoreWaterTempZone(
       else if (zone === "lethargic") pct += 8;
       else if (zone === "transitional") pct += 3;
       break;
+    case "mild_winter_active":
+      if (zone === "near_shutdown_cold") pct += 15;
+      else if (zone === "lethargic") pct += 12;
+      else if (zone === "transitional") pct += 8;
+      else if (zone === "active_prime") pct += 6;
+      break;
   }
 
   return clamp(pct, 0, 100);
@@ -333,7 +422,7 @@ function getZoneModifier(
     if (zone === "active_prime" || zone === "peak_aggression") return 1.0;
     if (zone === "transitional") return 0.70;
     if (zone === "lethargic") return 0.25;
-    if (zone === "near_shutdown_cold") return 0.0;
+    if (zone === "near_shutdown_cold") return 0.05;
     return 1.0;
   }
 
@@ -413,6 +502,40 @@ function scoreTempTrend(dv: DerivedVariables): number | null {
         else if (dv.temp_trend_state === "warming") basePct += 4;
         else if (dv.temp_trend_state === "cooling") basePct -= 10;
         else if (dv.temp_trend_state === "rapid_cooling") basePct -= 18;
+        break;
+      case "mild_winter_active":
+        if (dv.temp_trend_state === "warming") basePct += 4;
+        else if (dv.temp_trend_state === "rapid_warming") basePct += 2;
+        else if (dv.temp_trend_state === "cooling") basePct -= 4;
+        else if (dv.temp_trend_state === "rapid_cooling") basePct -= 8;
+        break;
+    }
+  }
+
+  // Saltwater seasonal trend modifiers
+  if (dv.saltwater_seasonal_state !== null) {
+    switch (dv.saltwater_seasonal_state) {
+      case "sw_cold_inactive":
+        if (dv.temp_trend_state === "rapid_warming") basePct += 10;
+        else if (dv.temp_trend_state === "warming") basePct += 6;
+        else if (dv.temp_trend_state === "cooling") basePct -= 8;
+        else if (dv.temp_trend_state === "rapid_cooling") basePct -= 14;
+        break;
+      case "sw_cold_mild_active":
+        if (dv.temp_trend_state === "warming") basePct += 4;
+        else if (dv.temp_trend_state === "rapid_cooling") basePct -= 6;
+        break;
+      case "sw_transitional_feed":
+        if (dv.temp_trend_state === "stable") basePct += 4;
+        break;
+      case "sw_summer_peak":
+        if (dv.temp_trend_state === "cooling") basePct += 4;
+        else if (dv.temp_trend_state === "rapid_warming") basePct -= 6;
+        break;
+      case "sw_summer_heat_stress":
+        if (dv.temp_trend_state === "cooling") basePct += 8;
+        else if (dv.temp_trend_state === "warming") basePct -= 8;
+        else if (dv.temp_trend_state === "rapid_warming") basePct -= 14;
         break;
     }
   }
@@ -542,7 +665,7 @@ export function computeRawScore(
   // Compute raw component percentages
   const rawPcts: Record<string, number | null> = {
     pressure: scorePressure(dv, env),
-    light: scoreLight(dv),
+    light: scoreLight(dv, env.cloud_cover_pct),
     solunar: scoreSolunar(dv),
     water_temp_zone: scoreWaterTempZone(dv, waterType),
     temp_trend: scoreTempTrend(dv),

@@ -318,6 +318,7 @@ export interface ScoringOutput {
   recovery_multiplier: number;
   adjusted_score: number;
   overall_rating: OverallRating;
+  component_detail?: Record<string, { pct: number; score: number; weight: number }>;
 }
 
 export type OverallRating =
@@ -466,6 +467,7 @@ export interface EngineOutput {
     severe_weather_reasons: string[];
   };
   time_windows: TimeWindow[];
+  fair_windows: TimeWindow[];  // NEW — Sweep 2
   worst_windows: WorstWindow[];
 }
 

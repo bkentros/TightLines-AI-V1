@@ -55,21 +55,27 @@ function derivePressureTrend(env: EnvironmentSnapshot): {
 
   const now = new Date(env.timestamp_utc).getTime();
   const target = now - 3 * 3600 * 1000;
-  let closest: { value: number; diff: number } | null = null;
+  let closestPoint: { value: number; timeMs: number; diff: number } | null = null;
 
   for (const point of env.hourly_pressure_mb) {
     const t = new Date(point.time_utc).getTime();
     const diff = Math.abs(t - target);
-    if (!closest || diff < closest.diff) {
-      closest = { value: point.value, diff };
+    if (!closestPoint || diff < closestPoint.diff) {
+      closestPoint = { value: point.value, timeMs: t, diff };
     }
   }
 
-  if (!closest || closest.diff > 2 * 3600 * 1000) {
+  if (!closestPoint || closestPoint.diff > 2 * 3600 * 1000) {
     return { pressure_change_rate_mb_hr: null, pressure_state: null };
   }
 
-  const rate = (env.pressure_mb - closest.value) / 3;
+  // Use ACTUAL elapsed hours, not fixed 3
+  const actualHours = (now - closestPoint.timeMs) / (3600 * 1000);
+  if (actualHours < 0.5) {
+    return { pressure_change_rate_mb_hr: null, pressure_state: null };
+  }
+
+  const rate = (env.pressure_mb - closestPoint.value) / actualHours;
 
   let state: PressureState;
   if (rate < -1.5) state = "rapidly_falling";
