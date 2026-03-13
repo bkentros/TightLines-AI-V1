@@ -913,24 +913,31 @@ Deno.serve(async (req: Request) => {
   const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
   const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
-  // Read user token from x-user-token header (ES256), falling back to Authorization (HS256 legacy)
+  // Auth: accept x-user-token (ES256 client), Authorization bearer, or service role key (internal calls)
   const userToken = req.headers.get("x-user-token");
   const authHeader = req.headers.get("Authorization");
-  const token = userToken || (authHeader ? authHeader.replace("Bearer ", "") : null);
-  if (!token) {
-    return new Response(JSON.stringify({ error: "Missing authentication token" }), {
-      status: 401,
-      headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
-    });
-  }
+  const bearerToken = authHeader ? authHeader.replace("Bearer ", "") : null;
+  const isServiceCall = bearerToken === supabaseServiceKey;
 
-  const { data: { user }, error: authError } = await supabase.auth.getUser(token);
-  if (authError || !user) {
-    return new Response(JSON.stringify({ error: "Unauthorized" }), {
-      status: 401,
-      headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
-    });
+  if (!isServiceCall) {
+    // Client call — validate user token
+    const token = userToken || bearerToken;
+    if (!token) {
+      return new Response(JSON.stringify({ error: "Missing authentication token" }), {
+        status: 401,
+        headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
+      });
+    }
+
+    const { data: { user }, error: authError } = await supabase.auth.getUser(token);
+    if (authError || !user) {
+      return new Response(JSON.stringify({ error: "Unauthorized" }), {
+        status: 401,
+        headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
+      });
+    }
   }
+  // Service role calls (from how-fishing) skip user auth — caller already validated the user
 
   let body: { latitude?: number; longitude?: number; units?: string } = {};
   try {

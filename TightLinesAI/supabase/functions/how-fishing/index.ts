@@ -692,8 +692,7 @@ Deno.serve(async (req: Request) => {
     headers: {
       "Content-Type": "application/json",
       "apikey": supabaseAnonKey,
-      "Authorization": `Bearer ${supabaseAnonKey}`,
-      "x-user-token": token,
+      "Authorization": `Bearer ${supabaseServiceKey}`,
     },
     body: JSON.stringify({ latitude: lat, longitude: lon, units }),
   });
