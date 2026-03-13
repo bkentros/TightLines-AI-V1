@@ -72,7 +72,7 @@ export async function getValidAccessToken(): Promise<string> {
   const { data: { session } } = await supabase.auth.getSession();
 
   if (!session) {
-    throw new Error('Session expired. Please sign out and sign back in.');
+    throw new Error('Not signed in. Please sign in to continue.');
   }
 
   // Refresh if expired or within 60 seconds of expiry
