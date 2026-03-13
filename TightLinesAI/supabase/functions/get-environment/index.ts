@@ -897,7 +897,7 @@ Deno.serve(async (req: Request) => {
       headers: {
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Methods': 'POST, OPTIONS',
-        'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization, apikey, x-user-token',
       },
     });
   }
@@ -913,15 +913,17 @@ Deno.serve(async (req: Request) => {
   const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
   const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
+  // Read user token from x-user-token header (ES256), falling back to Authorization (HS256 legacy)
+  const userToken = req.headers.get("x-user-token");
   const authHeader = req.headers.get("Authorization");
-  if (!authHeader) {
-    return new Response(JSON.stringify({ error: "Missing Authorization header" }), {
+  const token = userToken || (authHeader ? authHeader.replace("Bearer ", "") : null);
+  if (!token) {
+    return new Response(JSON.stringify({ error: "Missing authentication token" }), {
       status: 401,
       headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
     });
   }
 
-  const token = authHeader.replace("Bearer ", "");
   const { data: { user }, error: authError } = await supabase.auth.getUser(token);
   if (authError || !user) {
     return new Response(JSON.stringify({ error: "Unauthorized" }), {

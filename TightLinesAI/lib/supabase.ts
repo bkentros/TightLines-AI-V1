@@ -32,7 +32,8 @@ export async function invokeEdgeFunction<TResponse>(
     headers: {
       'Content-Type': 'application/json',
       apikey: supabaseAnonKey,
-      Authorization: `Bearer ${options.accessToken}`,
+      Authorization: `Bearer ${supabaseAnonKey}`,
+      'x-user-token': options.accessToken,
     },
     body: JSON.stringify(options.body),
   });
@@ -46,6 +47,15 @@ export async function invokeEdgeFunction<TResponse>(
   }
 
   if (!response.ok) {
+    if (__DEV__) {
+      console.log(`[invokeEdgeFunction] ${functionName} FAILED`, {
+        status: response.status,
+        responseBody: text?.slice(0, 500),
+        tokenPrefix: options.accessToken?.slice(0, 20),
+        tokenLength: options.accessToken?.length,
+        url: `${supabaseUrl}/functions/v1/${functionName}`,
+      });
+    }
     const message =
       parsed &&
       typeof parsed === 'object' &&
@@ -76,9 +86,22 @@ export async function getValidAccessToken(): Promise<string> {
   //    Lazy import to avoid circular dependency (authStore imports supabase).
   const { useAuthStore } = require('../store/authStore');
   const storeSession = useAuthStore.getState().session;
+
+  if (__DEV__) {
+    console.log('[getValidAccessToken] Zustand session:', {
+      hasSession: !!storeSession,
+      hasToken: !!storeSession?.access_token,
+      tokenPrefix: storeSession?.access_token?.slice(0, 20),
+      expiresAt: storeSession?.expires_at,
+      nowSec,
+      ttl: storeSession?.expires_at ? storeSession.expires_at - nowSec : 'N/A',
+    });
+  }
+
   if (storeSession?.access_token) {
     const storeExpiry = storeSession.expires_at ?? 0;
     if (storeExpiry - nowSec >= 60) {
+      if (__DEV__) console.log('[getValidAccessToken] Using Zustand token (valid)');
       return storeSession.access_token;
     }
     // Near-expiry — refresh and update the store
@@ -90,7 +113,18 @@ export async function getValidAccessToken(): Promise<string> {
   }
 
   // 2. Fallback to supabase-js internal cache (AsyncStorage-backed)
+  if (__DEV__) console.log('[getValidAccessToken] Falling back to supabase.auth.getSession()');
   const { data: { session } } = await supabase.auth.getSession();
+
+  if (__DEV__) {
+    console.log('[getValidAccessToken] supabase.auth.getSession() result:', {
+      hasSession: !!session,
+      hasToken: !!session?.access_token,
+      tokenPrefix: session?.access_token?.slice(0, 20),
+      expiresAt: session?.expires_at,
+      ttl: session?.expires_at ? session.expires_at - nowSec : 'N/A',
+    });
+  }
 
   if (!session) {
     throw new Error('Not signed in. Please sign in to continue.');
