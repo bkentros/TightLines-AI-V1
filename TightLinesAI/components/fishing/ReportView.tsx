@@ -16,6 +16,7 @@ import { BestTimesSection, DecentTimesFromReport, WorstTimesSection } from './Ti
 import { KeyFactorsSection } from './KeyFactors';
 import { ScoreBreakdown } from './ScoreBreakdown';
 import { TipsSection } from './TipsSection';
+import { StrategySection } from './StrategySection';
 
 function cleanSummary(raw: string): string {
   if (!raw || typeof raw !== 'string') return '';
@@ -103,6 +104,9 @@ export function ReportView({ report }: ReportViewProps) {
 
       {/* Score Breakdown */}
       <ScoreBreakdown scoring={engine.scoring} />
+
+      {/* Strategy — Your Game Plan */}
+      {llm.strategy ? <StrategySection strategy={llm.strategy} /> : null}
 
       {/* Tips */}
       <TipsSection tips={llm.tips_for_today} />

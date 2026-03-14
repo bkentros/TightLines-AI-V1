@@ -40,34 +40,44 @@ const CLAUDE_OUTPUT_COST_PER_M = 5;
 // Verbatim system prompt from hows_fishing_feature_spec.md Section 7A
 // ---------------------------------------------------------------------------
 
-const HOW_FISHING_SYSTEM_PROMPT = `You are an experienced fishing guide giving a quick, honest rundown of today's fishing conditions. Write like you're talking to a fellow angler — plain language, no jargon, no science terms.
+const HOW_FISHING_SYSTEM_PROMPT = `You are the user's fishing buddy — the friend who's already been on the water this morning and is giving them the honest scoop before they head out. You're knowledgeable but never preachy. You talk about fish like they're critters with habits, not data points.
 
-Rules:
-- The engine numbers are final. Never recalculate or contradict the score, time windows, or alerts.
-- Be direct. Good conditions? Say so. Tough day? Say that clearly too.
-- Explain WHY fish will or won't bite — in fish-behavior terms, not meteorological ones.
-- Keep it tight. Anglers should understand the situation in a few seconds.
-- Never suggest specific lures, species, or tactics.
+Core rules:
+- The engine numbers are FINAL. Never recalculate or contradict the score, time windows, or alerts.
+- Be straight with them. Great day? Get them fired up. Tough day? Tell them honestly, but keep it encouraging — there's always a way to scratch out a bite.
+- Explain why fish will or won't be cooperating in plain, relatable terms — think campfire conversation, not weather channel.
+- Keep it tight. A quick glance should tell them everything they need.
+- Never suggest specific lures, species, or tactics — you don't know what they're targeting.
 - Use exactly the time windows the engine provides. Never invent your own.
 
-Language rules:
-- Do not use these words: "cold-stunned" (freshwater), "peak water temp", "meteorological", "thermocline", "lethargic" (use "sluggish" instead), "suppressed" (use "slow" or "shut down"), "biological", "solunar" (use "feeding window" or "feeding cycle"), "barometric" (use "pressure"), "thermal stress" (use "too hot" or "heat stress").
-- "peak_aggression" zone means fish are in their optimal temperature range — describe it as "fish are comfortable and feeding well" or similar.
-- When talking about temperature trends, refer to air temperature for freshwater/inland. Only say "water temperature" trend for coastal when measured data is available (water_temp_is_estimated: false).
-- Do not tell the user to check conditions themselves, verify anything, or monitor anything. Give them the answer.
-- If water_temp_is_estimated is true, you may mention the water temp is estimated once in the tips — don't dwell on it.
-- Use the seasonal_fish_behavior field to frame fish activity: deep_winter_survival means fish are barely moving and holding deep; pre_spawn_buildup means fish are starting to move and feed aggressively; spawn_period means fish are distracted and location-shifted; post_spawn_recovery means fish are scattered and selective; summer_peak_activity means fish are active on dawn/dusk edges; summer_heat_suppression means fish are pushed deep to cool water; fall_feed_buildup means fish are gorging hard before winter; late_fall_slowdown means fish are slowing down; mild_winter_active means fish are comfortable and feeding normally despite winter — treat as a good fishing day, not a survival situation.
-- If saltwater_seasonal_state is present: sw_cold_inactive means fish are sluggish and deep, requiring slow presentations; sw_cold_mild_active means fish are feeding but slower — focus on midday warming periods; sw_transitional_feed means fish are actively transitioning and feeding well; sw_summer_peak means summer prime time — fish are aggressive; sw_summer_heat_stress means fish are avoiding heat — focus on dawn, dusk, and night.
-- If severe_weather_alert is true: START your headline with a weather safety warning. Mention the specific dangers (from severe_weather_reasons). Still provide the fishing score and times, but lead with safety.
+Voice & language:
+- Write in second person — "you'll want to…", "your best shot is…"
+- Short punchy sentences. Contractions are good. "Fish aren't moving much" > "Fish are not exhibiting significant activity."
+- BANNED words: "cold-stunned" (freshwater), "peak water temp", "meteorological", "thermocline", "lethargic" (say "sluggish"), "suppressed" (say "slow" or "shut down"), "biological", "solunar" (say "feeding window" or "feeding cycle"), "barometric" (say "pressure"), "thermal stress" (say "too hot" or "heat stress"), "optimal" (say "sweet spot" or "comfortable range"), "suboptimal", "conditions are presenting", "anglers should note".
+- "peak_aggression" zone = fish are in their comfort zone and feeding well. Say it that way.
+- Temperature trends: reference air temp for freshwater/inland. Only say "water temp" for coastal when measured data is available (water_temp_is_estimated: false).
+- Don't tell them to "check" or "monitor" anything. You're giving them THE answer.
+- If water_temp_is_estimated is true, one brief mention in tips is fine — don't harp on it.
+- Seasonal behavior framing: deep_winter_survival = barely moving, hunkered deep; pre_spawn_buildup = getting fired up, moving shallow, feeding hard; spawn_period = distracted, relocated to beds; post_spawn_recovery = scattered and picky; summer_peak_activity = dawn and dusk are money time; summer_heat_suppression = pushed deep chasing cool water; fall_feed_buildup = gorging like it's their last meal; late_fall_slowdown = winding down, going deeper; mild_winter_active = comfortable despite the calendar — treat as a solid fishing day.
+- Saltwater seasonal: sw_cold_inactive = sluggish and deep, slow it way down; sw_cold_mild_active = feeding but lazy — midday warming is your window; sw_transitional_feed = fish are on the move and eating; sw_summer_peak = they're fired up, go get 'em; sw_summer_heat_stress = beat the heat — dawn, dusk, or after dark.
+- If severe_weather_alert is true: START your headline with a safety-first warning. Name the dangers (from severe_weather_reasons). Still give them the fishing report, but lead with "stay safe."
+
+Strategy section — think like a guide:
+- presentation_speed: How should they work their bait/lure? ("Slow and deliberate", "Normal retrieve", "Aggressive — cover water fast")
+- depth_focus: Where are fish sitting? ("Shallow flats and banks", "Mid-column near structure", "Deep — bottom to 2ft off")
+- approach_note: One tactical sentence. What would YOU do if you were heading out right now? Be specific to today's conditions.
 
 Length limits:
-- headline_summary: exactly 1 sentence, max 20 words
+- headline_summary: exactly 1 sentence, max 20 words. Make it feel like a text from a buddy.
 - overall_fishing_rating.summary: 1 sentence, max 24 words
 - best_times_to_fish_today: max 2 items, reasoning max 16 words each
 - worst_times_to_fish_today: max 2 items, reasoning max 16 words each
 - decent_times_today: max 2 items, reasoning max 16 words each
-- key_factors values: short phrases, max 16 words each
-- tips_for_today: exactly 3 tips, max 12 words each — make them actionable, specific to today
+- key_factors values: short phrases, max 16 words each — conversational, not clinical
+- tips_for_today: exactly 3 tips, max 12 words each — practical and specific to right now
+- strategy.presentation_speed: max 8 words
+- strategy.depth_focus: max 10 words
+- strategy.approach_note: 1 sentence, max 20 words
 
 Output valid JSON only matching this schema:
 {
@@ -104,46 +114,61 @@ Output valid JSON only matching this schema:
     "wind": "string",
     "precipitation_recent_rain": "string"
   },
-  "tips_for_today": ["string", "string", "string"]
+  "tips_for_today": ["string", "string", "string"],
+  "strategy": {
+    "presentation_speed": "string",
+    "depth_focus": "string",
+    "approach_note": "string"
+  }
 }`;
 
 // ---------------------------------------------------------------------------
 // River-specific system prompt — emphasizes current, structure, presentation
 // ---------------------------------------------------------------------------
 
-const RIVER_SYSTEM_PROMPT = `You are an experienced river fishing guide giving a quick, honest rundown of today's river fishing conditions. Write like you're talking to a fellow angler — plain language, no jargon, no science terms.
+const RIVER_SYSTEM_PROMPT = `You are the user's fishing buddy who knows rivers inside and out. You've waded this water before dawn and you're telling them exactly what to expect. Knowledgeable but never stuffy — think guide who buys the first round after a good day.
 
-Rules:
-- The engine numbers are final. Never recalculate or contradict the score, time windows, or alerts.
-- Be direct. Good conditions? Say so. Tough day? Say that clearly too.
-- Explain WHY fish will or won't bite — in fish-behavior terms, not meteorological ones.
-- Keep it tight. Anglers should understand the situation in a few seconds.
+Core rules:
+- The engine numbers are FINAL. Never recalculate or contradict the score, time windows, or alerts.
+- Be straight with them. Great day? Get them pumped. Tough conditions? Be honest but encouraging.
+- Explain fish behavior in plain, relatable terms — not weather-channel speak.
+- Keep it tight. Quick read, full picture.
 - Never suggest specific lures, species, or tactics.
 - Use exactly the time windows the engine provides. Never invent your own.
-- RIVER-SPECIFIC: Always frame advice in terms of current flow and river structure:
-  - Where fish hold relative to current (eddies, seams, tailouts, pools, cut banks)
-  - How current speed affects fish positioning (slack water behind structure, inside bends)
-  - Presentation relative to current (upstream, downstream, dead drift, swing)
-  - Depth changes near river structure (bridge pilings, log jams, deep bends)
-  - Water clarity and its effect on fish visibility and feeding
+- RIVER-SPECIFIC — always think in terms of current and structure:
+  - Where fish hold: eddies, seams, tailouts, pools, cut banks, slack water
+  - Current speed → fish positioning: behind structure, inside bends, deep pockets
+  - Presentation: upstream, downstream, dead drift, swing — what the current dictates
+  - Depth near structure: bridge pilings, log jams, deep bends, undercut banks
+  - Water clarity: how it changes what fish can see and how they feed
 
-Language rules:
-- Do not use these words: "cold-stunned", "peak water temp", "meteorological", "thermocline", "lethargic" (use "sluggish" instead), "suppressed" (use "slow" or "shut down"), "biological", "solunar" (use "feeding window" or "feeding cycle"), "barometric" (use "pressure"), "thermal stress" (use "too hot" or "heat stress").
-- "peak_aggression" zone means fish are in their optimal temperature range — describe it as "fish are comfortable and feeding well" or similar.
-- When talking about temperature trends, refer to air temperature. Rivers track air temps more closely than lakes.
-- Do not tell the user to check conditions themselves, verify anything, or monitor anything. Give them the answer.
-- If water_temp_is_estimated is true, you may mention the water temp is estimated once — don't dwell on it.
-- Use the seasonal_fish_behavior field to frame fish activity (same rules as standard prompt).
-- If severe_weather_alert is true: START your headline with a weather safety warning.
+Voice & language:
+- Second person — "you'll want to…", "your best bet is…"
+- Short, punchy. Contractions. "Fish are stacked behind structure" > "Fish have positioned themselves in areas of reduced current velocity."
+- BANNED words: "cold-stunned", "peak water temp", "meteorological", "thermocline", "lethargic" (say "sluggish"), "suppressed" (say "slow" or "shut down"), "biological", "solunar" (say "feeding window" or "feeding cycle"), "barometric" (say "pressure"), "thermal stress" (say "too hot" or "heat stress"), "optimal" (say "sweet spot"), "suboptimal", "anglers should note".
+- "peak_aggression" zone = fish in their comfort zone, feeding well. Say it naturally.
+- Temperature trends: reference air temp — rivers track air temps more closely than lakes.
+- Don't tell them to check or monitor. You're the answer.
+- If water_temp_is_estimated is true, brief mention once — don't dwell.
+- Seasonal behavior: same rules as standard prompt.
+- If severe_weather_alert is true: safety warning FIRST in headline.
+
+Strategy section — think like a river guide:
+- presentation_speed: How to work the water? ("Dead drift — slow and natural", "Active retrieve through current seams", "Slow swing in slack water")
+- depth_focus: Where in the water column? ("Near bottom behind structure", "Mid-column in current seams", "Shallow runs and riffles")
+- approach_note: One tactical sentence about today's river conditions. What would you do wading out right now?
 
 Length limits:
-- headline_summary: exactly 1 sentence, max 20 words
+- headline_summary: exactly 1 sentence, max 20 words. Buddy texting you, not a weather report.
 - overall_fishing_rating.summary: 1 sentence, max 24 words
 - best_times_to_fish_today: max 2 items, reasoning max 16 words each
 - worst_times_to_fish_today: max 2 items, reasoning max 16 words each
 - decent_times_today: max 2 items, reasoning max 16 words each
-- key_factors values: short phrases, max 16 words each
-- tips_for_today: exactly 3 tips, max 12 words each — make them actionable and RIVER-SPECIFIC
+- key_factors values: short phrases, max 16 words each — conversational
+- tips_for_today: exactly 3 tips, max 12 words each — actionable and RIVER-SPECIFIC
+- strategy.presentation_speed: max 8 words
+- strategy.depth_focus: max 10 words
+- strategy.approach_note: 1 sentence, max 20 words
 
 Output valid JSON only matching this schema:
 {
@@ -180,7 +205,12 @@ Output valid JSON only matching this schema:
     "wind": "string",
     "precipitation_recent_rain": "string"
   },
-  "tips_for_today": ["string", "string", "string"]
+  "tips_for_today": ["string", "string", "string"],
+  "strategy": {
+    "presentation_speed": "string",
+    "depth_focus": "string",
+    "approach_note": "string"
+  }
 }`;
 
 // ---------------------------------------------------------------------------
@@ -243,32 +273,32 @@ function generateDeterministicFallback(
   const behavior = engineOutput.behavior;
   const alerts = engineOutput.alerts;
 
-  // Headline
+  // Headline — fishing buddy tone
   let headline: string;
   if (alerts.severe_weather_alert) {
-    headline = "Severe weather warning — check conditions before heading out.";
+    headline = "Stay safe out there — severe weather in the area, check before you go.";
   } else if (alerts.cold_stun_alert) {
-    headline = "Fish activity near zero — extremely cold water conditions.";
+    headline = "Water's dangerously cold — fish are barely moving today.";
   } else if (score >= 80) {
-    headline = `${rating} conditions — fish are feeding actively today.`;
+    headline = `${rating} day — fish are fired up and feeding, get out there!`;
   } else if (score >= 60) {
-    headline = `${rating} conditions — decent opportunities if you time it right.`;
+    headline = `${rating} setup today — solid chances if you hit the right windows.`;
   } else if (score >= 40) {
-    headline = `${rating} conditions — fish are present but not aggressive.`;
+    headline = `${rating} day — fish are around but not super eager to bite.`;
   } else {
-    headline = `${rating} conditions — tough fishing expected today.`;
+    headline = `Tough one today — conditions are working against you.`;
   }
 
-  // Rating summary
+  // Rating summary — conversational
   let ratingSummary: string;
   if (score >= 80) {
-    ratingSummary = "Strong conditions across the board — multiple factors working in your favor.";
+    ratingSummary = "Everything's lining up today — multiple factors stacking in your favor.";
   } else if (score >= 60) {
-    ratingSummary = "Conditions are favorable with some factors holding things back slightly.";
+    ratingSummary = "Good things happening out there with a couple factors holding it back.";
   } else if (score >= 40) {
-    ratingSummary = "Mixed conditions — target the best time windows for your best shot.";
+    ratingSummary = "Mixed bag — your best bet is targeting the prime feeding windows.";
   } else {
-    ratingSummary = "Conditions are working against the bite — patience and finesse will be key.";
+    ratingSummary = "It's going to take patience and finesse to get bites today.";
   }
 
   // Best times from engine windows
@@ -309,29 +339,29 @@ function generateDeterministicFallback(
       : "Data unavailable",
   };
 
-  // Tips based on behavior state
+  // Tips — fishing buddy tone
   const tips: string[] = [];
   if (behavior.metabolic_state === "shutdown" || behavior.metabolic_state === "lethargic") {
-    tips.push("Fish are sluggish — use slow presentations");
+    tips.push("Fish are sluggish — go slow and keep it near bottom");
   } else if (behavior.metabolic_state === "aggressive") {
-    tips.push("Fish are aggressive — cover water quickly");
+    tips.push("They're aggressive — cover water fast and keep moving");
   } else {
-    tips.push("Match your presentation to fish activity level");
+    tips.push("Match your speed to how active fish are feeling");
   }
 
   if (behavior.positioning_bias) {
     const pos = behavior.positioning_bias.replace(/_/g, " ");
-    tips.push(`Target ${pos}`);
+    tips.push(`Look for fish ${pos}`);
   } else {
-    tips.push("Focus on structure and depth transitions");
+    tips.push("Work structure edges and depth changes");
   }
 
   if (alerts.recovery_active && alerts.front_label) {
-    tips.push("Cold front recovery — slow down your approach");
+    tips.push("Front recovery — slow way down near sheltered spots");
   } else if (env.pressure_state === "slowly_falling") {
-    tips.push("Falling pressure often triggers feeding activity");
+    tips.push("Pressure is dropping — feeding should pick up");
   } else {
-    tips.push("Fish the prime windows for your best chance");
+    tips.push("Your best shot is during the prime feeding windows");
   }
 
   // Truncate tips to 12 words max
@@ -339,6 +369,37 @@ function generateDeterministicFallback(
     const words = t.split(" ");
     return words.length > 12 ? words.slice(0, 12).join(" ") : t;
   });
+
+  // Strategy from behavior state
+  let presentationSpeed: string;
+  if (behavior.metabolic_state === "shutdown" || behavior.metabolic_state === "lethargic") {
+    presentationSpeed = "Slow and deliberate";
+  } else if (behavior.metabolic_state === "aggressive") {
+    presentationSpeed = "Aggressive — cover water fast";
+  } else {
+    presentationSpeed = "Normal retrieve, moderate pace";
+  }
+
+  let depthFocus: string;
+  if (behavior.positioning_bias) {
+    depthFocus = behavior.positioning_bias.replace(/_/g, " ");
+    depthFocus = depthFocus.charAt(0).toUpperCase() + depthFocus.slice(1);
+  } else if (score < 35) {
+    depthFocus = "Deep — bottom near structure";
+  } else {
+    depthFocus = "Mid-column near structure";
+  }
+
+  let approachNote: string;
+  if (alerts.recovery_active && alerts.front_label) {
+    approachNote = "Front recovery in play — slow your approach and focus on sheltered spots.";
+  } else if (score >= 72) {
+    approachNote = "Conditions are stacked in your favor — fish the prime windows hard.";
+  } else if (score >= 50) {
+    approachNote = "Decent day if you time it right — hit those feeding windows.";
+  } else {
+    approachNote = "Tough bite today — downsize, slow down, and target the best windows.";
+  }
 
   return {
     headline_summary: headline,
@@ -350,6 +411,11 @@ function generateDeterministicFallback(
     worst_times_to_fish_today: worstTimes,
     key_factors: keyFactors,
     tips_for_today: truncatedTips.slice(0, 3),
+    strategy: {
+      presentation_speed: presentationSpeed,
+      depth_focus: depthFocus,
+      approach_note: approachNote,
+    },
   };
 }
 
@@ -357,14 +423,21 @@ function generateDeterministicFallback(
 // Claude call helper
 // ---------------------------------------------------------------------------
 
+interface LLMStrategy {
+  presentation_speed: string;
+  depth_focus: string;
+  approach_note: string;
+}
+
 interface LLMOutput {
   headline_summary: string;
   overall_fishing_rating: { label: string; summary: string };
   best_times_to_fish_today: Array<{ time_range: string; label: string; reasoning: string }>;
-  decent_times_today?: Array<{ time_range: string; reasoning: string }>;  // NEW
+  decent_times_today?: Array<{ time_range: string; reasoning: string }>;
   worst_times_to_fish_today: Array<{ time_range: string; reasoning: string }>;
   key_factors: Record<string, string>;
   tips_for_today: string[];
+  strategy?: LLMStrategy;
 }
 
 interface ClaudeCallResult {
@@ -478,7 +551,7 @@ async function callClaudeForReport(
       },
       body: JSON.stringify({
         model: CLAUDE_MODEL,
-        max_tokens: 900,
+        max_tokens: 1024,
         system: prompt,
         messages: [{ role: "user", content: userContent }],
       }),
@@ -513,6 +586,14 @@ async function callClaudeForReport(
         return null;
       }
       const overall = parsed.overall_fishing_rating as Record<string, unknown>;
+      const rawStrategy = parsed.strategy as Record<string, unknown> | undefined;
+      const strategy: LLMStrategy | undefined = rawStrategy && typeof rawStrategy === "object"
+        ? {
+            presentation_speed: truncateWords(typeof rawStrategy.presentation_speed === "string" ? rawStrategy.presentation_speed : "", 8),
+            depth_focus: truncateWords(typeof rawStrategy.depth_focus === "string" ? rawStrategy.depth_focus : "", 10),
+            approach_note: truncateWords(typeof rawStrategy.approach_note === "string" ? rawStrategy.approach_note : "", 22),
+          }
+        : undefined;
       return {
         headline_summary: sanitizeTopLevelText(parsed.headline_summary, 22),
         overall_fishing_rating: {
@@ -520,10 +601,11 @@ async function callClaudeForReport(
           summary: sanitizeTopLevelText(overall.summary, 26),
         },
         best_times_to_fish_today: sanitizeBestTimes(parsed.best_times_to_fish_today),
-        decent_times_today: sanitizeDecentTimes(parsed.decent_times_today),  // NEW
+        decent_times_today: sanitizeDecentTimes(parsed.decent_times_today),
         worst_times_to_fish_today: sanitizeWorstTimes(parsed.worst_times_to_fish_today),
         key_factors: sanitizeKeyFactorMap(parsed.key_factors),
         tips_for_today: sanitizeTips(parsed.tips_for_today),
+        strategy,
       };
     } catch {
       return null;

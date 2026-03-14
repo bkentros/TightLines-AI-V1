@@ -165,14 +165,21 @@ export interface LLMKeyFactors {
   [key: string]: string | undefined;
 }
 
+export interface LLMStrategy {
+  presentation_speed: string;
+  depth_focus: string;
+  approach_note: string;
+}
+
 export interface LLMOutput {
   headline_summary: string;
   overall_fishing_rating: LLMRating;
   best_times_to_fish_today: LLMBestTime[];
-  decent_times_today?: LLMDecentTime[];        // NEW
+  decent_times_today?: LLMDecentTime[];
   worst_times_to_fish_today: LLMWorstTime[];
   key_factors: LLMKeyFactors;
   tips_for_today: string[];
+  strategy?: LLMStrategy;
 }
 
 // ---------------------------------------------------------------------------
