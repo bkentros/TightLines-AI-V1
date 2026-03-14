@@ -330,6 +330,98 @@ export function clearCurrentHowFishingBundle(): void {
 }
 
 // ---------------------------------------------------------------------------
+// Weekly Forecast types (mirrors backend ForecastDay + weekly_overview response)
+// ---------------------------------------------------------------------------
+
+export interface ForecastDay {
+  date: string;                  // "YYYY-MM-DD"
+  daily_score: number;
+  overall_rating: OverallRating;
+  summary_line: string;
+  high_temp_f: number;
+  low_temp_f: number;
+  wind_mph_avg: number;
+  precip_chance_pct: number;
+  front_label: string | null;
+}
+
+export interface WeeklyForecastTodaySummary {
+  daily_score: number;
+  overall_rating: OverallRating;
+  summary_line: string;
+  environment: EngineEnvironment;
+  alerts: EngineAlerts;
+  fishable_hours: Array<{ start: string; end: string }>;
+}
+
+export interface WeeklyOverviewBundle {
+  feature: 'hows_fishing_feature_v1';
+  mode: 'weekly_overview';
+  water_type: WaterType;
+  generated_at: string;
+  is_coastal: boolean;
+  forecast_days: ForecastDay[];
+  today: WeeklyForecastTodaySummary;
+}
+
+// ---------------------------------------------------------------------------
+// Weekly Forecast Cache — 2-hour TTL, keyed by location + date
+// ---------------------------------------------------------------------------
+
+const FORECAST_CACHE_TTL_MS = 2 * 60 * 60 * 1000; // 2 hours
+
+interface ForecastCacheEntry {
+  lat: number;
+  lon: number;
+  date: string;
+  fetched_at: string;
+  bundle: WeeklyOverviewBundle;
+}
+
+function forecastCacheKey(lat: number, lon: number): string {
+  return `forecast_weekly_${lat.toFixed(3)}_${lon.toFixed(3)}`;
+}
+
+export async function getCachedWeeklyForecast(
+  latitude: number,
+  longitude: number
+): Promise<WeeklyOverviewBundle | null> {
+  try {
+    const key = forecastCacheKey(latitude, longitude);
+    const raw = await AsyncStorage.getItem(key);
+    if (!raw) return null;
+    const entry = JSON.parse(raw) as ForecastCacheEntry;
+    if (!coordsMatch(entry.lat, entry.lon, latitude, longitude)) return null;
+    if (entry.date !== localDateString()) return null;
+    const age = Date.now() - new Date(entry.fetched_at).getTime();
+    if (age > FORECAST_CACHE_TTL_MS) return null;
+    return entry.bundle;
+  } catch {
+    return null;
+  }
+}
+
+export async function setCachedWeeklyForecast(
+  latitude: number,
+  longitude: number,
+  bundle: WeeklyOverviewBundle
+): Promise<void> {
+  try {
+    const key = forecastCacheKey(latitude, longitude);
+    const entry: ForecastCacheEntry = {
+      lat: latitude,
+      lon: longitude,
+      date: localDateString(),
+      fetched_at: new Date().toISOString(),
+      bundle,
+    };
+    await AsyncStorage.setItem(key, JSON.stringify(entry));
+  } catch {
+    // Non-fatal
+  }
+}
+
+// ---------------------------------------------------------------------------
 // Legacy compat shim — deprecated; use HowFishingBundle instead
 // ---------------------------------------------------------------------------
 

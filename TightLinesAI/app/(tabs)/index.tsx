@@ -11,7 +11,9 @@ import { SubscribePrompt } from '../../components/SubscribePrompt';
 import { useAuthStore } from '../../store/authStore';
 import { useDevTestingStore } from '../../store/devTestingStore';
 import { useEnvStore } from '../../store/envStore';
+import { useForecastStore } from '../../store/forecastStore';
 import { getEffectiveTier, canUseAIFeatures } from '../../lib/subscription';
+import { getScoreBand } from '../../components/fishing/ScoreCard';
 
 /* ─── Brand mark — fish + crosshair ─── */
 const MARK_SIZE = 30;
@@ -216,6 +218,9 @@ export default function HomeScreen() {
 
   const effectiveTier = getEffectiveTier(profile, overrideSubscriptionTier ?? null);
   const hasSubscription = canUseAIFeatures(effectiveTier);
+  const { forecast } = useForecastStore();
+  const todayScore = forecast?.today?.daily_score ?? null;
+  const todayRating = forecast?.today?.overall_rating ?? null;
 
   const handleHowFishingPress = useCallback(() => {
     if (!hasSubscription) {
@@ -294,6 +299,15 @@ export default function HomeScreen() {
             <Text style={styles.fishingBtnText}>
               How's Fishing Right Now?
             </Text>
+            {todayScore !== null && todayRating !== null && (
+              <View style={[
+                styles.scoreBadge,
+                { backgroundColor: getScoreBand(todayScore) === 'green' ? colors.sage
+                  : getScoreBand(todayScore) === 'yellow' ? '#E8A838' : '#E05252' }
+              ]}>
+                <Text style={styles.scoreBadgeText}>{todayScore}</Text>
+              </View>
+            )}
           </View>
           <View style={styles.tierPill}>
             <Text style={styles.tierPillText}>Angler+</Text>
@@ -458,7 +472,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: colors.sage + '40',
   },
-  fishingBtnPressed: { backgroundColor: colors.sageLight },
+  fishingBtnPressed: { backgroundColor: colors.sageLight, transform: [{ scale: 0.98 }] },
   fishingBtnDisabled: { opacity: 0.7 },
   fishingBtnLeft: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm },
   fishingBtnText: {
@@ -478,17 +492,28 @@ const styles = StyleSheet.create({
     color: colors.textLight,
     letterSpacing: 0.3,
   },
+  scoreBadge: {
+    paddingHorizontal: 7,
+    paddingVertical: 2,
+    borderRadius: 10,
+    marginLeft: 4,
+  },
+  scoreBadgeText: {
+    fontSize: 11,
+    fontWeight: '700',
+    color: '#fff',
+  },
 
   /* Tiles */
   tiles: { gap: spacing.md },
   tile: {
     borderRadius: radius.md,
     overflow: 'hidden',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.06,
-    shadowRadius: 10,
-    elevation: 2,
+    shadowColor: '#2D3A2E',
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.08,
+    shadowRadius: 12,
+    elevation: 3,
   },
   tileSage: {
     backgroundColor: colors.surface,
@@ -502,6 +527,7 @@ const styles = StyleSheet.create({
   },
   tileLightPressed: {
     backgroundColor: colors.surfacePressed,
+    transform: [{ scale: 0.98 }],
   },
   tileComingSoon: {
     backgroundColor: colors.surface,
