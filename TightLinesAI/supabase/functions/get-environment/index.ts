@@ -226,8 +226,9 @@ async function fetchOpenMeteo(
   const tempUnit = units === 'imperial' ? 'fahrenheit' : 'celsius';
   const windUnit = units === 'imperial' ? 'mph' : 'kmh';
 
-  // Single call: current conditions + 7-day history + 7-day forecast
-  // past_days=7 + forecast_days=7 → 15 days of hourly + daily data
+  // Single call: current conditions + 14-day history + 7-day forecast
+  // past_days=14 + forecast_days=7 → 22 days of hourly + daily data
+  // 14-day history improves freshwater temperature estimation (thermal inertia)
   // Forecast data supports 7-day fishing outlook feature
   const params = new URLSearchParams({
     latitude: String(lat),
@@ -238,7 +239,7 @@ async function fetchOpenMeteo(
     temperature_unit: tempUnit,
     wind_speed_unit: windUnit,
     timezone: 'auto',
-    past_days: '7',
+    past_days: '14',
     forecast_days: '7',
   });
 
@@ -272,7 +273,7 @@ async function fetchOpenMeteo(
   };
 
   // ─── Pressure trend from hourly data ────────────────────────────────────────
-  // hourly has past_days=7 + forecast_days=7 = 14 days × 24 hrs = 336 entries
+  // hourly has past_days=14 + forecast_days=7 = 21 days × 24 hrs = 504 entries
   // current_time from Open-Meteo tells us the exact UTC timestamp of current data
   const currentTimeStr: string = current.time ?? '';
   const hourlyTimes: string[] = Array.isArray(hourly.time) ? hourly.time : [];
@@ -327,7 +328,7 @@ async function fetchOpenMeteo(
   }
 
   // ─── Daily temp highs/lows ───────────────────────────────────────────────────
-  // past_days=7 + forecast_days=7 → 14 daily entries: index 0 = 7 days ago, index 7 = today, 8-13 = forecast
+  // past_days=14 + forecast_days=7 → 21 daily entries: index 0 = 14 days ago, index 14 = today, 15-20 = forecast
   const dailyHighs: (number | null)[] = Array.isArray(daily.temperature_2m_max)
     ? daily.temperature_2m_max
     : [];
@@ -354,24 +355,25 @@ async function fetchOpenMeteo(
     );
     weather.precip_7day_daily = dailyPrecipIn;
 
-    // Today is at index 7 (past_days=7). Use indices 0-7 for historical precip.
-    const todayPrecipIdx = Math.min(7, dailyPrecipIn.length - 1);
+    // Today is at index 14 (past_days=14). Use indices 0-14 for historical precip.
+    const todayPrecipIdx = Math.min(14, dailyPrecipIn.length - 1);
     const yesterdayIn = todayPrecipIdx >= 1 ? (dailyPrecipIn[todayPrecipIdx - 1] ?? 0) : 0;
     const todayIn = todayPrecipIdx >= 0 ? (dailyPrecipIn[todayPrecipIdx] ?? 0) : 0;
     weather.precip_48hr_inches = Math.round((yesterdayIn + todayIn) * 1000) / 1000;
-    // Sum only the past 7 days + today (indices 0-7), not forecast days
+    // Sum only the past 7 days (indices todayPrecipIdx-6 through todayPrecipIdx), not all 14 days
+    const precip7Start = Math.max(0, todayPrecipIdx - 6);
     weather.precip_7day_inches = Math.round(
-      dailyPrecipIn.slice(0, todayPrecipIdx + 1).reduce((sum, v) => sum + (v ?? 0), 0) * 1000
+      dailyPrecipIn.slice(precip7Start, todayPrecipIdx + 1).reduce((sum, v) => sum + (v ?? 0), 0) * 1000
     ) / 1000;
   }
 
   // ─── Sun times ───────────────────────────────────────────────────────────────
-  // daily.sunrise / daily.sunset: past_days=7 + forecast_days=7 → 14 entries
-  // index 0 = 7 days ago, index 7 = today — guard against shorter responses
+  // daily.sunrise / daily.sunset: past_days=14 + forecast_days=7 → 21 entries
+  // index 0 = 14 days ago, index 14 = today — guard against shorter responses
   const sunriseArr = Array.isArray(daily.sunrise) ? daily.sunrise : [];
   const sunsetArr = Array.isArray(daily.sunset) ? daily.sunset : [];
-  // past_days=7 means today is at index 7 (indices 0-6 = past days, 7 = today, 8+ = forecast)
-  const todayIdx = Math.min(7, Math.max(0, sunriseArr.length - 1));
+  // past_days=14 means today is at index 14 (indices 0-13 = past days, 14 = today, 15+ = forecast)
+  const todayIdx = Math.min(14, Math.max(0, sunriseArr.length - 1));
   const sunriseRaw = String(sunriseArr[todayIdx] ?? '');
   const sunsetRaw = String(sunsetArr[todayIdx] ?? '');
 
@@ -429,9 +431,9 @@ async function fetchOpenMeteo(
   }
 
   const forecastDaily: ForecastDayData[] = [];
-  // Today is index 7 (past_days=7). Forecast days are 8..13 (or however many exist).
-  // Include today (7) and next 6 days (8-13) = 7 entries total.
-  const todayDailyIdx = 7;
+  // Today is index 14 (past_days=14). Forecast days are 15..20 (or however many exist).
+  // Include today (14) and next 6 days (15-20) = 7 entries total.
+  const todayDailyIdx = 14;
   for (let d = todayDailyIdx; d < Math.min(todayDailyIdx + 7, dailyDates.length); d++) {
     const dateStr = String(dailyDates[d] ?? '');
     if (!dateStr) continue;

@@ -17,10 +17,19 @@ import type {
 
 import {
   getSeasonalWeights,
-  getDeviationBonusPct,
   getCoastalBand,
   type CoastalBand,
 } from "./seasonalProfiles.ts";
+import {
+  scoreFromOptimalInterpolated,
+  getWaterTempProfile,
+  getWindProfile,
+  getPressureRateProfile,
+  getCloudCoverProfile,
+  getTempTrendProfile,
+  getTideStrengthProfile,
+  scorePrecipFromBaseline,
+} from "./optimalBaselines.ts";
 
 // ---------------------------------------------------------------------------
 // Helper math functions (Section 5B)
@@ -517,12 +526,14 @@ function scoreTempTrend(dv: DerivedVariables): number | null {
         else if (dv.temp_trend_state === "rapid_cooling") basePct -= 12;
         break;
       case "summer_peak_activity":
-        if (dv.temp_trend_state === "stable") basePct += 4;
+        if (dv.temp_trend_state === "rapid_cooling") basePct += 6;
+        else if (dv.temp_trend_state === "stable") basePct += 4;
         else if (dv.temp_trend_state === "cooling") basePct += 5;
         else if (dv.temp_trend_state === "rapid_warming") basePct -= 6;
         break;
       case "summer_heat_suppression":
-        if (dv.temp_trend_state === "cooling") basePct += 10;
+        if (dv.temp_trend_state === "rapid_cooling") basePct += 10;
+        else if (dv.temp_trend_state === "cooling") basePct += 10;
         else if (dv.temp_trend_state === "warming") basePct -= 10;
         else if (dv.temp_trend_state === "rapid_warming") basePct -= 18;
         else if (dv.temp_trend_state === "stable") basePct -= 6;
@@ -565,11 +576,13 @@ function scoreTempTrend(dv: DerivedVariables): number | null {
         if (dv.temp_trend_state === "stable") basePct += 4;
         break;
       case "sw_summer_peak":
-        if (dv.temp_trend_state === "cooling") basePct += 4;
+        if (dv.temp_trend_state === "rapid_cooling") basePct += 6;
+        else if (dv.temp_trend_state === "cooling") basePct += 4;
         else if (dv.temp_trend_state === "rapid_warming") basePct -= 6;
         break;
       case "sw_summer_heat_stress":
-        if (dv.temp_trend_state === "cooling") basePct += 8;
+        if (dv.temp_trend_state === "rapid_cooling") basePct += 10;
+        else if (dv.temp_trend_state === "cooling") basePct += 8;
         else if (dv.temp_trend_state === "warming") basePct -= 8;
         else if (dv.temp_trend_state === "rapid_warming") basePct -= 14;
         break;
@@ -679,6 +692,81 @@ function scorePrecipitation(
 }
 
 // ---------------------------------------------------------------------------
+// Section 5M-pre — Optimal Baseline Helpers
+// ---------------------------------------------------------------------------
+
+/** Fallback: categorical trend state → approximate °F/72h for Gaussian scoring */
+const TREND_RATE_FALLBACK: Record<string, number> = {
+  rapid_warming: 12,
+  warming: 5,
+  stable: 0,
+  cooling: -5,
+  rapid_cooling: -12,
+};
+
+/**
+ * Apply scaled-down seasonal behavior modifier to the optimal baseline water temp score.
+ * The Gaussian baseline already handles 90% of context awareness. These modifiers
+ * capture behavioral nuances that go beyond temperature alone:
+ * - Spawn fixation (reduced feeding even at optimal temp)
+ * - Post-spawn exhaustion
+ * - Fall urgency (amplified feeding beyond what temp suggests)
+ * - Heat suppression behavioral shutdown
+ */
+function applySeasonalBehaviorModifier(
+  basePct: number,
+  dv: DerivedVariables,
+  waterType: WaterType,
+): number {
+  let pct = basePct;
+
+  // Freshwater behavioral modifiers
+  if (waterType === "freshwater" && dv.seasonal_fish_behavior !== null) {
+    switch (dv.seasonal_fish_behavior) {
+      case "spawn_period":
+        pct -= 5; // Fish focused on spawning, reduced feeding
+        break;
+      case "post_spawn_recovery":
+        pct -= 8; // Exhausted from spawn, reduced aggression
+        break;
+      case "summer_heat_suppression":
+        if (dv.water_temp_zone === "thermal_stress_heat") pct -= 10;
+        else if (dv.water_temp_zone === "peak_aggression") pct -= 5;
+        break;
+      case "fall_feed_buildup":
+        pct += 5; // Pre-winter urgency amplifies feeding
+        break;
+      case "pre_spawn_buildup":
+        pct += 4; // Building energy for spawn
+        break;
+      case "deep_winter_survival":
+        if (dv.water_temp_f !== null && dv.water_temp_f > 34) pct += 3;
+        break;
+      case "mild_winter_active":
+        pct += 3; // Mild enough for continued activity
+        break;
+    }
+  }
+
+  // Saltwater behavioral modifiers
+  if (waterType !== "freshwater" && dv.saltwater_seasonal_state !== null) {
+    switch (dv.saltwater_seasonal_state) {
+      case "sw_summer_heat_stress":
+        if (dv.water_temp_zone === "thermal_stress_heat") pct -= 10;
+        break;
+      case "sw_transitional_feed":
+        pct += 4; // Active transition feeding
+        break;
+      case "sw_cold_mild_active":
+        pct += 3; // Mild enough for activity
+        break;
+    }
+  }
+
+  return pct;
+}
+
+// ---------------------------------------------------------------------------
 // Section 5M — Raw Score Formula
 // ---------------------------------------------------------------------------
 
@@ -689,6 +777,39 @@ export interface ComponentScores {
   coverage_pct: number;
   reliability_tier: ReliabilityTier;
   raw_score: number;
+}
+
+// ---------------------------------------------------------------------------
+// Solunar / Moon Phase — seasonal sensitivity modifier
+// Fish are more metabolically responsive to solunar triggers during
+// transitional months (spring/fall pre-spawn, fall feed) and less responsive
+// during thermal extremes (deep winter, peak summer heat).
+// Returns multiplier 0.85–1.15.
+// ---------------------------------------------------------------------------
+const SOLUNAR_MONTHLY_SENSITIVITY: number[] = [
+  // Jan   Feb   Mar   Apr   May   Jun   Jul   Aug   Sep   Oct   Nov   Dec
+  0.88, 0.90, 1.08, 1.12, 1.10, 1.00, 0.92, 0.92, 1.08, 1.12, 1.00, 0.90,
+];
+
+function getSolunarSeasonalSensitivity(
+  month: number,
+  waterType: WaterType,
+  dv: DerivedVariables
+): number {
+  let mult = SOLUNAR_MONTHLY_SENSITIVITY[Math.max(0, Math.min(11, month - 1))];
+
+  // Further dampen in extreme thermal zones
+  if (dv.water_temp_zone === "near_shutdown_cold") mult *= 0.85;
+  else if (dv.water_temp_zone === "thermal_stress_heat") mult *= 0.88;
+
+  // Freshwater seasonal behavior adjustments
+  if (waterType === "freshwater" && dv.seasonal_fish_behavior !== null) {
+    if (dv.seasonal_fish_behavior === "spawn_period") mult *= 0.90;
+    else if (dv.seasonal_fish_behavior === "fall_feed_buildup") mult *= 1.08;
+    else if (dv.seasonal_fish_behavior === "pre_spawn_buildup") mult *= 1.05;
+  }
+
+  return clamp(mult, 0.85, 1.15);
 }
 
 export interface SeasonalContext {
@@ -717,36 +838,189 @@ export function computeRawScore(
       )
     : getWeights(waterType);
 
-  // Compute raw component percentages
-  const rawPcts: Record<string, number | null> = {
-    pressure: scorePressure(dv, env),
-    light: scoreLight(dv, env.cloud_cover_pct),
-    solunar: scoreSolunar(dv),
-    water_temp_zone: scoreWaterTempZone(dv, waterType),
-    temp_trend: scoreTempTrend(dv),
-    wind: scoreWind(dv, env, waterType),
-    moon_phase: scoreMoonPhase(dv),
-    precipitation: scorePrecipitation(dv, waterType),
-  };
+  // Determine band and month for optimal baseline scoring
+  const band = seasonalCtx
+    ? (waterType === "freshwater"
+        ? seasonalCtx.latBand
+        : getCoastalBand(seasonalCtx.effectiveLatitude))
+    : (waterType === "freshwater" ? "mid" as LatitudeBand : "mid_coast" as CoastalBand);
+  const month = seasonalCtx?.month ?? 6;
+  const dayOfMonth = seasonalCtx?.dayOfMonth ?? 15;
 
-  // Tide components only for salt/brackish
+  // =========================================================================
+  // OPTIMAL BASELINE SCORING
+  // Each variable scored against its per-month × per-region × per-water-type
+  // biological optimal. Score = 100 at optimal, tapering via Gaussian falloff.
+  // No context modifiers needed — direction awareness is baked into the optimal.
+  // =========================================================================
+
+  const rawPcts: Record<string, number | null> = {};
+
+  // --- PRESSURE: Gaussian on rate (70%) + absolute level (30%) ---
+  if (dv.pressure_change_rate_mb_hr !== null || env.pressure_mb !== null) {
+    const rateProfile = getPressureRateProfile(waterType, band);
+    let rateScore = 50;
+    if (dv.pressure_change_rate_mb_hr !== null && rateProfile) {
+      rateScore = scoreFromOptimalInterpolated(
+        dv.pressure_change_rate_mb_hr, rateProfile, month, dayOfMonth
+      );
+    }
+
+    let absScore = 50;
+    if (env.pressure_mb !== null) {
+      // Simple absolute pressure scoring (wide Gaussian, sigma=10 mb)
+      const ABS_OPTIMAL = [1016, 1015, 1013, 1012, 1013, 1014, 1015, 1015, 1013, 1012, 1014, 1016];
+      const absOpt = ABS_OPTIMAL[Math.max(0, Math.min(11, month - 1))];
+      const absDev = env.pressure_mb - absOpt;
+      absScore = Math.round(100 * Math.exp(-0.5 * Math.pow(absDev / 10, 2)));
+    }
+
+    if (dv.pressure_change_rate_mb_hr !== null && env.pressure_mb !== null) {
+      rawPcts.pressure = Math.round(rateScore * 0.7 + absScore * 0.3);
+    } else {
+      rawPcts.pressure = dv.pressure_change_rate_mb_hr !== null ? rateScore : absScore;
+    }
+  } else {
+    rawPcts.pressure = null;
+  }
+
+  // --- LIGHT: dawn/dusk high base, night moderate, midday Gaussian on cloud cover ---
+  if (dv.light_condition !== null) {
+    const isDawnDusk =
+      dv.light_condition === "dawn_window_overcast" ||
+      dv.light_condition === "dawn_window_clear" ||
+      dv.light_condition === "dusk_window_overcast" ||
+      dv.light_condition === "dusk_window_clear";
+
+    if (isDawnDusk) {
+      const overcastBonus =
+        (dv.light_condition === "dawn_window_overcast" ||
+         dv.light_condition === "dusk_window_overcast")
+          ? 5 : 0;
+      rawPcts.light = Math.min(100, 88 + overcastBonus);
+    } else if (dv.light_condition === "night") {
+      rawPcts.light = 45;
+    } else {
+      // Midday: Gaussian optimal cloud cover for this month × region
+      const ccProfile = getCloudCoverProfile(waterType, band);
+      if (ccProfile && env.cloud_cover_pct !== null) {
+        rawPcts.light = scoreFromOptimalInterpolated(
+          env.cloud_cover_pct, ccProfile, month, dayOfMonth
+        );
+      } else {
+        rawPcts.light = 40; // fallback
+      }
+    }
+  } else {
+    rawPcts.light = null;
+  }
+
+  // --- SOLUNAR: categorical + seasonal sensitivity modifier ---
+  rawPcts.solunar = scoreSolunar(dv);
+  if (rawPcts.solunar !== null) {
+    const solunarMult = getSolunarSeasonalSensitivity(month, waterType, dv);
+    rawPcts.solunar = clamp(Math.round(rawPcts.solunar * solunarMult), 0, 100);
+  }
+
+  // --- WATER TEMP: Gaussian optimal + scaled seasonal behavior modifier ---
+  if (dv.water_temp_f !== null) {
+    if (dv.cold_stun_alert) {
+      rawPcts.water_temp_zone = 0;
+    } else {
+      const wtProfile = getWaterTempProfile(waterType, band);
+      let pct = wtProfile
+        ? scoreFromOptimalInterpolated(dv.water_temp_f, wtProfile, month, dayOfMonth)
+        : 50;
+      // Behavioral modifiers (scaled down — baseline handles most context)
+      pct = applySeasonalBehaviorModifier(pct, dv, waterType);
+      rawPcts.water_temp_zone = clamp(pct, 0, 100);
+    }
+  } else {
+    rawPcts.water_temp_zone = null;
+  }
+
+  // --- TEMP TREND: Gaussian on trend direction + zone safety modifier ---
+  if (dv.temp_trend_state !== null) {
+    if (dv.cold_stun_alert) {
+      rawPcts.temp_trend = 0;
+    } else {
+      const trendProfile = getTempTrendProfile(waterType, band);
+      const trendF = dv.temp_trend_direction_f
+        ?? TREND_RATE_FALLBACK[dv.temp_trend_state]
+        ?? 0;
+      let pct = trendProfile
+        ? scoreFromOptimalInterpolated(trendF, trendProfile, month, dayOfMonth)
+        : 50;
+      // Zone safety: rapid cooling in near_shutdown_cold = catastrophic
+      const zoneModifier = getZoneModifier(dv.temp_trend_state, dv.water_temp_zone);
+      pct = Math.round(pct * zoneModifier);
+      rawPcts.temp_trend = clamp(pct, 0, 100);
+    }
+  } else {
+    rawPcts.temp_trend = null;
+  }
+
+  // --- WIND: Gaussian optimal + extreme-wind cap + wind-tide interaction ---
+  if (env.wind_speed_mph !== null) {
+    const windProfile = getWindProfile(waterType, band);
+    let pct = windProfile
+      ? scoreFromOptimalInterpolated(env.wind_speed_mph, windProfile, month, dayOfMonth)
+      : 50;
+
+    // Hard cap for extreme wind (25+ mph): dangerous/unfishable
+    if (env.wind_speed_mph > 25) {
+      pct = Math.min(pct, Math.max(0, 15 - Math.round((env.wind_speed_mph - 25) * 2)));
+    }
+
+    // Saltwater wind-tide interaction
+    if (waterType !== "freshwater" && env.wind_speed_mph >= 5 && env.wind_speed_mph <= 15) {
+      if (dv.wind_tide_relation === "wind_with_tide") pct = Math.min(100, pct + 10);
+      else if (dv.wind_tide_relation === "wind_against_tide") pct = Math.max(0, pct - 12);
+    }
+
+    rawPcts.wind = pct;
+  } else {
+    rawPcts.wind = null;
+  }
+
+  // --- MOON PHASE: categorical + halved seasonal sensitivity ---
+  rawPcts.moon_phase = scoreMoonPhase(dv);
+  if (rawPcts.moon_phase !== null) {
+    const moonMult = 1 + (getSolunarSeasonalSensitivity(month, waterType, dv) - 1) * 0.5;
+    rawPcts.moon_phase = clamp(Math.round(rawPcts.moon_phase * moonMult), 0, 100);
+  }
+
+  // --- PRECIPITATION: context-aware categorical from optimal baselines ---
+  if (dv.precip_condition !== null) {
+    if (dv.salinity_disruption_alert && waterType === "brackish") {
+      rawPcts.precipitation = 0;
+    } else {
+      rawPcts.precipitation = scorePrecipFromBaseline(
+        dv.precip_condition, waterType, band, month
+      );
+    }
+  } else {
+    rawPcts.precipitation = null;
+  }
+
+  // --- TIDES (salt/brackish only) ---
   if (waterType !== "freshwater") {
-    rawPcts.tide_phase = scoreTidePhase(dv);
-    rawPcts.tide_strength = scoreTideStrength(dv);
+    rawPcts.tide_phase = scoreTidePhase(dv); // categorical, unchanged
+    if (dv.range_strength_pct !== null) {
+      const tideProfile = getTideStrengthProfile(waterType, band);
+      rawPcts.tide_strength = tideProfile
+        ? scoreFromOptimalInterpolated(
+            dv.range_strength_pct, tideProfile, month, dayOfMonth
+          )
+        : Math.round(dv.range_strength_pct);
+    } else {
+      rawPcts.tide_strength = null;
+    }
   }
 
-  // Apply water temp deviation bonus when seasonal context is available
-  if (seasonalCtx && rawPcts.water_temp_zone !== null && dv.water_temp_f !== null) {
-    const band = waterType === "freshwater"
-      ? seasonalCtx.latBand
-      : getCoastalBand(seasonalCtx.effectiveLatitude);
-    const deviationPct = getDeviationBonusPct(
-      waterType, band, seasonalCtx.month, dv.water_temp_f
-    );
-    rawPcts.water_temp_zone = clamp(
-      rawPcts.water_temp_zone + deviationPct, 0, 100
-    );
-  }
+  // =========================================================================
+  // WEIGHTED SUM CALCULATION (unchanged)
+  // =========================================================================
 
   const componentStatus: Record<string, ComponentStatus> = {};
   const components: Record<string, number> = {};
@@ -760,14 +1034,12 @@ export function computeRawScore(
 
     if (pct === null || pct === undefined) {
       componentStatus[key] = "unavailable";
-      // Excluded from denominator
     } else {
       availableWeightPoints += weight;
       const score = toComponentScore(pct, weight);
       components[key] = score;
       scoredPoints += score;
 
-      // Determine status
       const isFallback =
         key === "water_temp_zone" &&
         (dv.water_temp_source === "freshwater_air_model" ||

@@ -151,7 +151,7 @@ function buildDataQuality(
 
 // ---------------------------------------------------------------------------
 // Daily Composite Score — weighted average of all 48 blocks
-// Fishable blocks weight 1.0, non-fishable weight 0.1
+// Safe blocks weight 1.0, unsafe blocks (sub-15°F air temp) weight 0.1
 // ---------------------------------------------------------------------------
 
 function computeDailyComposite(allBlocks: BlockResult[]): number {
@@ -315,7 +315,7 @@ export function runCoreIntelligence(
     saltwater_seasonal_state: dv.saltwater_seasonal_state,
   };
 
-  // Compute all 48 blocks (for daily composite + full-day display)
+  // Compute all 48 blocks anchored to daily raw_score (Gaussian baselines)
   const allBlocks = computeAllBlocks(
     env,
     effectiveWaterType,
@@ -323,17 +323,13 @@ export function runCoreIntelligence(
     dv.pressure_state,
     env.cloud_cover_pct,
     dv.water_temp_zone,
-    ruleContext
+    ruleContext,
+    raw_score  // anchor blocks to daily condition quality
   );
 
+  // Merge blocks into contiguous time windows (no re-computation)
   const { best_windows, fair_windows, worst_windows } = computeTimeWindows(
-    env,
-    effectiveWaterType,
-    dv.range_strength_pct,
-    dv.pressure_state,
-    env.cloud_cover_pct,
-    ruleContext,
-    dv.water_temp_zone
+    allBlocks
   );
 
   // Section 8 — Behavior inference

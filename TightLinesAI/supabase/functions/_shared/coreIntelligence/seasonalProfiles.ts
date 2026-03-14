@@ -4,7 +4,7 @@
 // and deviation bonus logic per latitude/coastal band.
 // =============================================================================
 
-import type { WaterType, LatitudeBand, WaterTempZone } from "./types.ts";
+import type { WaterType, LatitudeBand } from "./types.ts";
 
 // ---------------------------------------------------------------------------
 // Coastal band type (saltwater / brackish regional grouping)
@@ -19,14 +19,8 @@ export type CoastalBand = "north_coast" | "mid_coast" | "south_coast";
 export type WeightProfile = Record<string, number>;
 
 // ---------------------------------------------------------------------------
-// Fishable hours config
+// (FishableHoursConfig removed — replaced by condition-based scoring + biology curves)
 // ---------------------------------------------------------------------------
-
-export interface FishableHoursConfig {
-  /** Half-hour block indices that are fishable (0 = 00:00–00:30, 47 = 23:30–00:00) */
-  fishable_blocks: number[];
-  reason: string;
-}
 
 // ---------------------------------------------------------------------------
 // Helper: get number of days in a month (1-indexed)
@@ -42,79 +36,83 @@ function daysInMonth(month: number, year: number): number {
 // All rows sum to 100.
 // ---------------------------------------------------------------------------
 
+// Freshwater water_temp weights reduced ~20% vs original to account for
+// inferred estimation uncertainty. Redistributed to pressure + temp_trend
+// (both directly measured). Reduction is strongest in cold months where
+// air-water correlation is weakest (ice cover, thermal inversion).
 const FW_FAR_NORTH: WeightProfile[] = [
-  { water_temp_zone: 32, pressure: 20, light: 20, temp_trend: 14, solunar: 4, wind: 6, moon_phase: 2, precipitation: 2 },  // Jan
-  { water_temp_zone: 30, pressure: 20, light: 20, temp_trend: 14, solunar: 5, wind: 6, moon_phase: 2, precipitation: 3 },  // Feb
-  { water_temp_zone: 28, pressure: 22, light: 16, temp_trend: 16, solunar: 6, wind: 7, moon_phase: 2, precipitation: 3 },  // Mar
-  { water_temp_zone: 26, pressure: 22, light: 14, temp_trend: 16, solunar: 8, wind: 8, moon_phase: 3, precipitation: 3 },  // Apr
-  { water_temp_zone: 22, pressure: 22, light: 16, temp_trend: 12, solunar: 12, wind: 8, moon_phase: 4, precipitation: 4 }, // May
-  { water_temp_zone: 20, pressure: 22, light: 16, temp_trend: 10, solunar: 14, wind: 8, moon_phase: 4, precipitation: 6 }, // Jun
-  { water_temp_zone: 20, pressure: 22, light: 16, temp_trend: 10, solunar: 14, wind: 8, moon_phase: 4, precipitation: 6 }, // Jul
-  { water_temp_zone: 22, pressure: 22, light: 16, temp_trend: 10, solunar: 13, wind: 8, moon_phase: 4, precipitation: 5 }, // Aug
-  { water_temp_zone: 24, pressure: 22, light: 16, temp_trend: 12, solunar: 11, wind: 7, moon_phase: 4, precipitation: 4 }, // Sep
-  { water_temp_zone: 26, pressure: 22, light: 16, temp_trend: 14, solunar: 8, wind: 7, moon_phase: 3, precipitation: 4 },  // Oct
-  { water_temp_zone: 30, pressure: 20, light: 18, temp_trend: 14, solunar: 6, wind: 7, moon_phase: 2, precipitation: 3 },  // Nov
-  { water_temp_zone: 32, pressure: 20, light: 20, temp_trend: 14, solunar: 4, wind: 6, moon_phase: 2, precipitation: 2 },  // Dec
+  { water_temp_zone: 26, pressure: 23, light: 20, temp_trend: 17, solunar: 4, wind: 6, moon_phase: 2, precipitation: 2 },  // Jan  (-6 wt → +3p +3tt)
+  { water_temp_zone: 24, pressure: 23, light: 20, temp_trend: 17, solunar: 5, wind: 6, moon_phase: 2, precipitation: 3 },  // Feb  (-6 → +3p +3tt)
+  { water_temp_zone: 23, pressure: 24, light: 16, temp_trend: 19, solunar: 6, wind: 7, moon_phase: 2, precipitation: 3 },  // Mar  (-5 → +2p +3tt)
+  { water_temp_zone: 22, pressure: 24, light: 14, temp_trend: 18, solunar: 8, wind: 8, moon_phase: 3, precipitation: 3 },  // Apr  (-4 → +2p +2tt)
+  { water_temp_zone: 20, pressure: 23, light: 16, temp_trend: 13, solunar: 12, wind: 8, moon_phase: 4, precipitation: 4 }, // May  (-2 → +1p +1tt)
+  { water_temp_zone: 18, pressure: 23, light: 16, temp_trend: 11, solunar: 14, wind: 8, moon_phase: 4, precipitation: 6 }, // Jun  (-2 → +1p +1tt)
+  { water_temp_zone: 18, pressure: 23, light: 16, temp_trend: 11, solunar: 14, wind: 8, moon_phase: 4, precipitation: 6 }, // Jul  (-2 → +1p +1tt)
+  { water_temp_zone: 20, pressure: 23, light: 16, temp_trend: 11, solunar: 13, wind: 8, moon_phase: 4, precipitation: 5 }, // Aug  (-2 → +1p +1tt)
+  { water_temp_zone: 21, pressure: 23, light: 16, temp_trend: 14, solunar: 11, wind: 7, moon_phase: 4, precipitation: 4 }, // Sep  (-3 → +1p +2tt)
+  { water_temp_zone: 22, pressure: 24, light: 16, temp_trend: 16, solunar: 8, wind: 7, moon_phase: 3, precipitation: 4 },  // Oct  (-4 → +2p +2tt)
+  { water_temp_zone: 24, pressure: 23, light: 18, temp_trend: 17, solunar: 6, wind: 7, moon_phase: 2, precipitation: 3 },  // Nov  (-6 → +3p +3tt)
+  { water_temp_zone: 26, pressure: 23, light: 20, temp_trend: 17, solunar: 4, wind: 6, moon_phase: 2, precipitation: 2 },  // Dec  (-6 → +3p +3tt)
 ];
 
 const FW_NORTH: WeightProfile[] = [
-  { water_temp_zone: 30, pressure: 22, light: 18, temp_trend: 14, solunar: 5, wind: 6, moon_phase: 2, precipitation: 3 },  // Jan
-  { water_temp_zone: 28, pressure: 22, light: 18, temp_trend: 14, solunar: 6, wind: 6, moon_phase: 3, precipitation: 3 },  // Feb
-  { water_temp_zone: 26, pressure: 22, light: 16, temp_trend: 16, solunar: 7, wind: 7, moon_phase: 3, precipitation: 3 },  // Mar
-  { water_temp_zone: 24, pressure: 22, light: 14, temp_trend: 14, solunar: 10, wind: 8, moon_phase: 4, precipitation: 4 }, // Apr
-  { water_temp_zone: 22, pressure: 22, light: 16, temp_trend: 12, solunar: 12, wind: 8, moon_phase: 4, precipitation: 4 }, // May
-  { water_temp_zone: 20, pressure: 22, light: 16, temp_trend: 10, solunar: 14, wind: 8, moon_phase: 4, precipitation: 6 }, // Jun
-  { water_temp_zone: 20, pressure: 22, light: 16, temp_trend: 10, solunar: 14, wind: 8, moon_phase: 4, precipitation: 6 }, // Jul
-  { water_temp_zone: 22, pressure: 22, light: 16, temp_trend: 10, solunar: 13, wind: 8, moon_phase: 4, precipitation: 5 }, // Aug
-  { water_temp_zone: 24, pressure: 22, light: 16, temp_trend: 12, solunar: 11, wind: 7, moon_phase: 4, precipitation: 4 }, // Sep
-  { water_temp_zone: 26, pressure: 22, light: 16, temp_trend: 14, solunar: 8, wind: 7, moon_phase: 3, precipitation: 4 },  // Oct
-  { water_temp_zone: 28, pressure: 22, light: 18, temp_trend: 14, solunar: 6, wind: 6, moon_phase: 3, precipitation: 3 },  // Nov
-  { water_temp_zone: 30, pressure: 22, light: 18, temp_trend: 14, solunar: 5, wind: 6, moon_phase: 2, precipitation: 3 },  // Dec
+  { water_temp_zone: 24, pressure: 25, light: 18, temp_trend: 17, solunar: 5, wind: 6, moon_phase: 2, precipitation: 3 },  // Jan  (-6 → +3p +3tt)
+  { water_temp_zone: 23, pressure: 24, light: 18, temp_trend: 17, solunar: 6, wind: 6, moon_phase: 3, precipitation: 3 },  // Feb  (-5 → +2p +3tt)
+  { water_temp_zone: 22, pressure: 24, light: 16, temp_trend: 18, solunar: 7, wind: 7, moon_phase: 3, precipitation: 3 },  // Mar  (-4 → +2p +2tt)
+  { water_temp_zone: 21, pressure: 23, light: 14, temp_trend: 16, solunar: 10, wind: 8, moon_phase: 4, precipitation: 4 }, // Apr  (-3 → +1p +2tt)
+  { water_temp_zone: 20, pressure: 23, light: 16, temp_trend: 13, solunar: 12, wind: 8, moon_phase: 4, precipitation: 4 }, // May  (-2 → +1p +1tt)
+  { water_temp_zone: 18, pressure: 23, light: 16, temp_trend: 11, solunar: 14, wind: 8, moon_phase: 4, precipitation: 6 }, // Jun  (-2 → +1p +1tt)
+  { water_temp_zone: 18, pressure: 23, light: 16, temp_trend: 11, solunar: 14, wind: 8, moon_phase: 4, precipitation: 6 }, // Jul  (-2 → +1p +1tt)
+  { water_temp_zone: 20, pressure: 23, light: 16, temp_trend: 11, solunar: 13, wind: 8, moon_phase: 4, precipitation: 5 }, // Aug  (-2 → +1p +1tt)
+  { water_temp_zone: 21, pressure: 23, light: 16, temp_trend: 14, solunar: 11, wind: 7, moon_phase: 4, precipitation: 4 }, // Sep  (-3 → +1p +2tt)
+  { water_temp_zone: 22, pressure: 24, light: 16, temp_trend: 16, solunar: 8, wind: 7, moon_phase: 3, precipitation: 4 },  // Oct  (-4 → +2p +2tt)
+  { water_temp_zone: 23, pressure: 24, light: 18, temp_trend: 17, solunar: 6, wind: 6, moon_phase: 3, precipitation: 3 },  // Nov  (-5 → +2p +3tt)
+  { water_temp_zone: 24, pressure: 25, light: 18, temp_trend: 17, solunar: 5, wind: 6, moon_phase: 2, precipitation: 3 },  // Dec  (-6 → +3p +3tt)
 ];
 
 const FW_MID: WeightProfile[] = [
-  { water_temp_zone: 26, pressure: 22, light: 18, temp_trend: 14, solunar: 7, wind: 7, moon_phase: 3, precipitation: 3 },  // Jan
-  { water_temp_zone: 26, pressure: 22, light: 16, temp_trend: 14, solunar: 8, wind: 7, moon_phase: 3, precipitation: 4 },  // Feb
-  { water_temp_zone: 24, pressure: 22, light: 16, temp_trend: 14, solunar: 9, wind: 8, moon_phase: 3, precipitation: 4 },  // Mar
-  { water_temp_zone: 22, pressure: 22, light: 16, temp_trend: 12, solunar: 12, wind: 8, moon_phase: 4, precipitation: 4 }, // Apr
-  { water_temp_zone: 20, pressure: 22, light: 16, temp_trend: 10, solunar: 14, wind: 8, moon_phase: 4, precipitation: 6 }, // May
-  { water_temp_zone: 22, pressure: 22, light: 16, temp_trend: 10, solunar: 12, wind: 8, moon_phase: 4, precipitation: 6 }, // Jun
-  { water_temp_zone: 24, pressure: 22, light: 16, temp_trend: 10, solunar: 12, wind: 8, moon_phase: 4, precipitation: 4 }, // Jul
-  { water_temp_zone: 24, pressure: 22, light: 16, temp_trend: 10, solunar: 12, wind: 8, moon_phase: 4, precipitation: 4 }, // Aug
-  { water_temp_zone: 22, pressure: 22, light: 16, temp_trend: 12, solunar: 12, wind: 8, moon_phase: 4, precipitation: 4 }, // Sep
-  { water_temp_zone: 24, pressure: 22, light: 16, temp_trend: 14, solunar: 10, wind: 7, moon_phase: 3, precipitation: 4 }, // Oct
-  { water_temp_zone: 26, pressure: 22, light: 16, temp_trend: 14, solunar: 8, wind: 7, moon_phase: 3, precipitation: 4 },  // Nov
-  { water_temp_zone: 26, pressure: 22, light: 18, temp_trend: 14, solunar: 7, wind: 7, moon_phase: 3, precipitation: 3 },  // Dec
+  { water_temp_zone: 22, pressure: 24, light: 18, temp_trend: 16, solunar: 7, wind: 7, moon_phase: 3, precipitation: 3 },  // Jan  (-4 → +2p +2tt)
+  { water_temp_zone: 22, pressure: 24, light: 16, temp_trend: 16, solunar: 8, wind: 7, moon_phase: 3, precipitation: 4 },  // Feb  (-4 → +2p +2tt)
+  { water_temp_zone: 21, pressure: 23, light: 16, temp_trend: 16, solunar: 9, wind: 8, moon_phase: 3, precipitation: 4 },  // Mar  (-3 → +1p +2tt)
+  { water_temp_zone: 20, pressure: 23, light: 16, temp_trend: 13, solunar: 12, wind: 8, moon_phase: 4, precipitation: 4 }, // Apr  (-2 → +1p +1tt)
+  { water_temp_zone: 18, pressure: 23, light: 16, temp_trend: 11, solunar: 14, wind: 8, moon_phase: 4, precipitation: 6 }, // May  (-2 → +1p +1tt)
+  { water_temp_zone: 20, pressure: 23, light: 16, temp_trend: 11, solunar: 12, wind: 8, moon_phase: 4, precipitation: 6 }, // Jun  (-2 → +1p +1tt)
+  { water_temp_zone: 22, pressure: 23, light: 16, temp_trend: 11, solunar: 12, wind: 8, moon_phase: 4, precipitation: 4 }, // Jul  (-2 → +1p +1tt)
+  { water_temp_zone: 22, pressure: 23, light: 16, temp_trend: 11, solunar: 12, wind: 8, moon_phase: 4, precipitation: 4 }, // Aug  (-2 → +1p +1tt)
+  { water_temp_zone: 20, pressure: 23, light: 16, temp_trend: 13, solunar: 12, wind: 8, moon_phase: 4, precipitation: 4 }, // Sep  (-2 → +1p +1tt)
+  { water_temp_zone: 21, pressure: 23, light: 16, temp_trend: 16, solunar: 10, wind: 7, moon_phase: 3, precipitation: 4 }, // Oct  (-3 → +1p +2tt)
+  { water_temp_zone: 22, pressure: 24, light: 16, temp_trend: 16, solunar: 8, wind: 7, moon_phase: 3, precipitation: 4 },  // Nov  (-4 → +2p +2tt)
+  { water_temp_zone: 22, pressure: 24, light: 18, temp_trend: 16, solunar: 7, wind: 7, moon_phase: 3, precipitation: 3 },  // Dec  (-4 → +2p +2tt)
 ];
 
 const FW_SOUTH: WeightProfile[] = [
-  { water_temp_zone: 24, pressure: 22, light: 16, temp_trend: 14, solunar: 9, wind: 7, moon_phase: 4, precipitation: 4 },  // Jan
-  { water_temp_zone: 24, pressure: 22, light: 16, temp_trend: 14, solunar: 9, wind: 7, moon_phase: 4, precipitation: 4 },  // Feb
-  { water_temp_zone: 22, pressure: 22, light: 16, temp_trend: 12, solunar: 12, wind: 8, moon_phase: 4, precipitation: 4 }, // Mar
-  { water_temp_zone: 20, pressure: 22, light: 16, temp_trend: 10, solunar: 14, wind: 8, moon_phase: 4, precipitation: 6 }, // Apr
-  { water_temp_zone: 20, pressure: 22, light: 16, temp_trend: 10, solunar: 14, wind: 8, moon_phase: 4, precipitation: 6 }, // May
-  { water_temp_zone: 24, pressure: 22, light: 16, temp_trend: 10, solunar: 12, wind: 8, moon_phase: 4, precipitation: 4 }, // Jun
-  { water_temp_zone: 26, pressure: 20, light: 18, temp_trend: 10, solunar: 10, wind: 8, moon_phase: 4, precipitation: 4 }, // Jul
-  { water_temp_zone: 26, pressure: 20, light: 18, temp_trend: 10, solunar: 10, wind: 8, moon_phase: 4, precipitation: 4 }, // Aug
-  { water_temp_zone: 22, pressure: 22, light: 16, temp_trend: 12, solunar: 12, wind: 8, moon_phase: 4, precipitation: 4 }, // Sep
-  { water_temp_zone: 22, pressure: 22, light: 16, temp_trend: 14, solunar: 10, wind: 8, moon_phase: 4, precipitation: 4 }, // Oct
-  { water_temp_zone: 24, pressure: 22, light: 16, temp_trend: 14, solunar: 9, wind: 7, moon_phase: 4, precipitation: 4 },  // Nov
-  { water_temp_zone: 24, pressure: 22, light: 16, temp_trend: 14, solunar: 9, wind: 7, moon_phase: 4, precipitation: 4 },  // Dec
+  { water_temp_zone: 21, pressure: 23, light: 16, temp_trend: 16, solunar: 9, wind: 7, moon_phase: 4, precipitation: 4 },  // Jan  (-3 → +1p +2tt)
+  { water_temp_zone: 21, pressure: 23, light: 16, temp_trend: 16, solunar: 9, wind: 7, moon_phase: 4, precipitation: 4 },  // Feb  (-3 → +1p +2tt)
+  { water_temp_zone: 20, pressure: 23, light: 16, temp_trend: 13, solunar: 12, wind: 8, moon_phase: 4, precipitation: 4 }, // Mar  (-2 → +1p +1tt)
+  { water_temp_zone: 18, pressure: 23, light: 16, temp_trend: 11, solunar: 14, wind: 8, moon_phase: 4, precipitation: 6 }, // Apr  (-2 → +1p +1tt)
+  { water_temp_zone: 18, pressure: 23, light: 16, temp_trend: 11, solunar: 14, wind: 8, moon_phase: 4, precipitation: 6 }, // May  (-2 → +1p +1tt)
+  { water_temp_zone: 22, pressure: 23, light: 16, temp_trend: 11, solunar: 12, wind: 8, moon_phase: 4, precipitation: 4 }, // Jun  (-2 → +1p +1tt)
+  { water_temp_zone: 24, pressure: 21, light: 18, temp_trend: 11, solunar: 10, wind: 8, moon_phase: 4, precipitation: 4 }, // Jul  (-2 → +1p +1tt)
+  { water_temp_zone: 24, pressure: 21, light: 18, temp_trend: 11, solunar: 10, wind: 8, moon_phase: 4, precipitation: 4 }, // Aug  (-2 → +1p +1tt)
+  { water_temp_zone: 20, pressure: 23, light: 16, temp_trend: 13, solunar: 12, wind: 8, moon_phase: 4, precipitation: 4 }, // Sep  (-2 → +1p +1tt)
+  { water_temp_zone: 20, pressure: 23, light: 16, temp_trend: 15, solunar: 10, wind: 8, moon_phase: 4, precipitation: 4 }, // Oct  (-2 → +1p +1tt)
+  { water_temp_zone: 21, pressure: 23, light: 16, temp_trend: 16, solunar: 9, wind: 7, moon_phase: 4, precipitation: 4 },  // Nov  (-3 → +1p +2tt)
+  { water_temp_zone: 21, pressure: 23, light: 16, temp_trend: 16, solunar: 9, wind: 7, moon_phase: 4, precipitation: 4 },  // Dec  (-3 → +1p +2tt)
 ];
 
 const FW_DEEP_SOUTH: WeightProfile[] = [
-  { water_temp_zone: 22, pressure: 22, light: 16, temp_trend: 12, solunar: 10, wind: 8, moon_phase: 4, precipitation: 6 }, // Jan
-  { water_temp_zone: 22, pressure: 22, light: 16, temp_trend: 12, solunar: 10, wind: 8, moon_phase: 4, precipitation: 6 }, // Feb
-  { water_temp_zone: 20, pressure: 22, light: 16, temp_trend: 10, solunar: 14, wind: 8, moon_phase: 4, precipitation: 6 }, // Mar
-  { water_temp_zone: 20, pressure: 22, light: 16, temp_trend: 10, solunar: 14, wind: 8, moon_phase: 4, precipitation: 6 }, // Apr
-  { water_temp_zone: 22, pressure: 22, light: 16, temp_trend: 10, solunar: 12, wind: 8, moon_phase: 4, precipitation: 6 }, // May
-  { water_temp_zone: 26, pressure: 20, light: 18, temp_trend: 10, solunar: 10, wind: 8, moon_phase: 4, precipitation: 4 }, // Jun
-  { water_temp_zone: 28, pressure: 20, light: 18, temp_trend: 10, solunar: 8, wind: 8, moon_phase: 4, precipitation: 4 },  // Jul
-  { water_temp_zone: 28, pressure: 20, light: 18, temp_trend: 10, solunar: 8, wind: 8, moon_phase: 4, precipitation: 4 },  // Aug
-  { water_temp_zone: 24, pressure: 22, light: 16, temp_trend: 12, solunar: 10, wind: 8, moon_phase: 4, precipitation: 4 }, // Sep
-  { water_temp_zone: 22, pressure: 22, light: 16, temp_trend: 12, solunar: 10, wind: 8, moon_phase: 4, precipitation: 6 }, // Oct
-  { water_temp_zone: 22, pressure: 22, light: 16, temp_trend: 12, solunar: 10, wind: 8, moon_phase: 4, precipitation: 6 }, // Nov
-  { water_temp_zone: 22, pressure: 22, light: 16, temp_trend: 12, solunar: 10, wind: 8, moon_phase: 4, precipitation: 6 }, // Dec
+  { water_temp_zone: 20, pressure: 23, light: 16, temp_trend: 13, solunar: 10, wind: 8, moon_phase: 4, precipitation: 6 }, // Jan  (-2 → +1p +1tt)
+  { water_temp_zone: 20, pressure: 23, light: 16, temp_trend: 13, solunar: 10, wind: 8, moon_phase: 4, precipitation: 6 }, // Feb  (-2 → +1p +1tt)
+  { water_temp_zone: 18, pressure: 23, light: 16, temp_trend: 11, solunar: 14, wind: 8, moon_phase: 4, precipitation: 6 }, // Mar  (-2 → +1p +1tt)
+  { water_temp_zone: 18, pressure: 23, light: 16, temp_trend: 11, solunar: 14, wind: 8, moon_phase: 4, precipitation: 6 }, // Apr  (-2 → +1p +1tt)
+  { water_temp_zone: 20, pressure: 23, light: 16, temp_trend: 11, solunar: 12, wind: 8, moon_phase: 4, precipitation: 6 }, // May  (-2 → +1p +1tt)
+  { water_temp_zone: 24, pressure: 21, light: 18, temp_trend: 11, solunar: 10, wind: 8, moon_phase: 4, precipitation: 4 }, // Jun  (-2 → +1p +1tt)
+  { water_temp_zone: 26, pressure: 21, light: 18, temp_trend: 11, solunar: 8, wind: 8, moon_phase: 4, precipitation: 4 },  // Jul  (-2 → +1p +1tt)
+  { water_temp_zone: 26, pressure: 21, light: 18, temp_trend: 11, solunar: 8, wind: 8, moon_phase: 4, precipitation: 4 },  // Aug  (-2 → +1p +1tt)
+  { water_temp_zone: 22, pressure: 23, light: 16, temp_trend: 13, solunar: 10, wind: 8, moon_phase: 4, precipitation: 4 }, // Sep  (-2 → +1p +1tt)
+  { water_temp_zone: 20, pressure: 23, light: 16, temp_trend: 13, solunar: 10, wind: 8, moon_phase: 4, precipitation: 6 }, // Oct  (-2 → +1p +1tt)
+  { water_temp_zone: 20, pressure: 23, light: 16, temp_trend: 13, solunar: 10, wind: 8, moon_phase: 4, precipitation: 6 }, // Nov  (-2 → +1p +1tt)
+  { water_temp_zone: 20, pressure: 23, light: 16, temp_trend: 13, solunar: 10, wind: 8, moon_phase: 4, precipitation: 6 }, // Dec  (-2 → +1p +1tt)
 ];
 
 const FRESHWATER_MONTHLY_WEIGHTS: Record<LatitudeBand, WeightProfile[]> = {
@@ -302,57 +300,14 @@ const COMFORTABLE_BONUS_PER_F = 1;        // ±1% per °F beyond threshold
 const MAX_BONUS_PCT = 15;                 // Cap at ±15%
 
 // ---------------------------------------------------------------------------
-// FISHABLE HOURS by water_temp_zone
-// Returns array of half-hour block indices (0-47) that are fishable.
+// FISHABLE HOURS MASK — REMOVED
+// The static time-based fishable hours mask has been removed. Every block is
+// now scored on actual hourly conditions (air temp, wind, precip, cloud cover).
+// Bad blocks score low naturally because conditions are bad, not because of
+// a clock. Only the sub-15°F air temp safety override remains (genuine danger).
+// Fish biology time-of-day preferences are handled by the biological feeding
+// preference curves in fishBiology.ts (a soft multiplier, not a hard gate).
 // ---------------------------------------------------------------------------
-
-function blockRange(startHour: number, startMin: number, endHour: number, endMin: number): number[] {
-  const startBlock = startHour * 2 + (startMin >= 30 ? 1 : 0);
-  const endBlock = endHour * 2 + (endMin >= 30 ? 1 : 0);
-  const blocks: number[] = [];
-  if (endBlock > startBlock) {
-    for (let i = startBlock; i < endBlock; i++) blocks.push(i);
-  } else {
-    // wraps midnight
-    for (let i = startBlock; i < 48; i++) blocks.push(i);
-    for (let i = 0; i < endBlock; i++) blocks.push(i);
-  }
-  return blocks;
-}
-
-const ALL_BLOCKS = Array.from({ length: 48 }, (_, i) => i);
-
-const FISHABLE_HOURS_MAP: Record<WaterTempZone, FishableHoursConfig> = {
-  near_shutdown_cold: {
-    fishable_blocks: blockRange(10, 0, 15, 0),  // 10:00 AM – 3:00 PM
-    reason: "Only the warmest midday window; fish nearly immobile in near-shutdown temperatures.",
-  },
-  lethargic: {
-    fishable_blocks: blockRange(9, 0, 17, 0),   // 9:00 AM – 5:00 PM
-    reason: "Daytime warming needed to activate lethargic fish.",
-  },
-  transitional: {
-    fishable_blocks: blockRange(6, 0, 21, 0),   // 6:00 AM – 9:00 PM
-    reason: "Solid range but still light-dependent for transitional metabolism.",
-  },
-  active_prime: {
-    fishable_blocks: ALL_BLOCKS,                  // All 24 hours
-    reason: "Prime metabolism — night fishing is viable.",
-  },
-  peak_aggression: {
-    fishable_blocks: ALL_BLOCKS,                  // All 24 hours
-    reason: "Maximum metabolism — any time can produce.",
-  },
-  thermal_stress_heat: {
-    // Dawn: 5AM-9AM, Dusk+Night: 6PM-5AM (wraps)
-    fishable_blocks: [
-      ...blockRange(5, 0, 9, 0),    // dawn
-      ...blockRange(18, 0, 24, 0),   // evening
-      ...blockRange(0, 0, 5, 0),     // overnight to dawn
-    ],
-    reason: "Thermal stress suppresses midday. Best action at dawn, dusk, and overnight.",
-  },
-};
 
 // ---------------------------------------------------------------------------
 // PUBLIC API
@@ -493,32 +448,15 @@ export function getDeviationBonusPct(
 }
 
 /**
- * Get fishable hours config for a water temp zone.
+ * Air temperature safety check — the ONLY hard gate remaining.
+ * Sub-15°F air temp is genuinely dangerous (hypothermia risk, ice hazards).
+ * All other time-of-day preferences are handled by biological feeding curves.
  */
-export function getFishableHoursConfig(zone: WaterTempZone | null): FishableHoursConfig {
-  if (zone === null) {
-    // Conservative: use transitional as default
-    return FISHABLE_HOURS_MAP.transitional;
-  }
-  return FISHABLE_HOURS_MAP[zone];
-}
-
-/**
- * Check if a specific half-hour block is within fishable hours.
- * Also applies air temp safety override: if airTempF < 15 at block time, NOT fishable.
- */
-export function isBlockFishable(
-  blockIndex: number,
-  zone: WaterTempZone | null,
-  blockAirTempF: number | null
-): boolean {
-  // Air temp safety override
+export function isBlockSafe(blockAirTempF: number | null): boolean {
   if (blockAirTempF !== null && blockAirTempF < 15) {
     return false;
   }
-
-  const config = getFishableHoursConfig(zone);
-  return config.fishable_blocks.includes(blockIndex);
+  return true;
 }
 
 /**

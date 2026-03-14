@@ -117,14 +117,17 @@ export function toEngineSnapshot(
     end_local: p.end,
   }));
 
-  // Daily high/low arrays: get-environment returns 14 entries (7 past + 7 forecast)
-  // Engine expects index 0=6 days ago, index 6=today (7 entries)
-  // Use entries at indices 1-7 (skip oldest past day, end at today)
+  // Daily high/low arrays: get-environment returns 21 entries (14 past + today + 6 forecast)
+  // Engine uses up to 14 historical days for freshwater temp estimation.
+  // Pass all historical entries (indices 0..14 = 14 past days + today). Skip forecast days.
   const rawHighs = env.weather?.temp_7day_high ?? [];
   const rawLows = env.weather?.temp_7day_low ?? [];
-  const dailyHighs = rawHighs.slice(-7).map((v) => (v !== null && v !== undefined ? Number(v) : null));
-  const dailyLows = rawLows.slice(-7).map((v) => (v !== null && v !== undefined ? Number(v) : null));
-  // Pad to 7 if shorter
+  // With past_days=14, today is index 14. Slice 0..15 to include today but exclude forecast.
+  // Falls back gracefully if fewer entries are available.
+  const todayDailyIdx = rawHighs.length > 0 ? Math.min(14, rawHighs.length - 1) : -1;
+  const dailyHighs = rawHighs.slice(0, todayDailyIdx + 1).map((v) => (v !== null && v !== undefined ? Number(v) : null));
+  const dailyLows = rawLows.slice(0, todayDailyIdx + 1).map((v) => (v !== null && v !== undefined ? Number(v) : null));
+  // Pad to 7 if shorter (minimum for engine)
   while (dailyHighs.length < 7) dailyHighs.unshift(null);
   while (dailyLows.length < 7) dailyLows.unshift(null);
 

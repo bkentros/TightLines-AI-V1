@@ -7,7 +7,8 @@
 
 import { runCoreIntelligence } from "../index.ts";
 import type { EnvironmentSnapshot, WaterType } from "../types.ts";
-import { computeTimeWindows } from "../timeWindowEngine.ts";
+import { computeTimeWindows, computeAllBlocks } from "../timeWindowEngine.ts";
+import type { TimeWindowRuleContext } from "../timeWindowEngine.ts";
 
 // ---------------------------------------------------------------------------
 // Minimal test framework
@@ -178,7 +179,7 @@ function mut(base: EnvironmentSnapshot, overrides: Partial<EnvironmentSnapshot>)
 function makeRuleContext(
   env: EnvironmentSnapshot,
   waterType: WaterType
-): Parameters<typeof computeTimeWindows>[5] {
+): TimeWindowRuleContext {
   const out = runCoreIntelligence(env, waterType);
   return {
     waterType,
@@ -1335,22 +1336,21 @@ group("Group 12 — Edge-Case Rules", () => {
     pressure_state: "slowly_rising" as const,
     recovery_active: true,
   };
-  const postFrontBaseWindows = computeTimeWindows(
-    postFrontFx,
-    "freshwater",
+  const postFrontBaseBlocks = computeAllBlocks(
+    postFrontFx, "freshwater",
     postFrontRuleContext.range_strength_pct ?? null,
     postFrontRuleContext.pressure_state,
-    postFrontFx.cloud_cover_pct,
-    null
+    postFrontFx.cloud_cover_pct, null, null, 60
   );
-  const postFrontRuledWindows = computeTimeWindows(
-    postFrontFx,
-    "freshwater",
+  const postFrontBaseWindows = computeTimeWindows(postFrontBaseBlocks);
+  const postFrontRuledBlocks = computeAllBlocks(
+    postFrontFx, "freshwater",
     postFrontRuleContext.range_strength_pct ?? null,
     postFrontRuleContext.pressure_state,
-    postFrontFx.cloud_cover_pct,
-    postFrontRuleContext as any
+    postFrontFx.cloud_cover_pct, null,
+    postFrontRuleContext as any, 60
   );
+  const postFrontRuledWindows = computeTimeWindows(postFrontRuledBlocks);
   const postFrontBaseGood = postFrontBaseWindows.best_windows.some((w) => w.label === "GOOD");
   const postFrontRuledSuppressed =
     postFrontRuledWindows.best_windows.length === 0 ||
@@ -1375,22 +1375,21 @@ group("Group 12 — Edge-Case Rules", () => {
     cloud_cover_pct: 85,
   });
   const slackRuleContext = makeRuleContext(swSlackFx, "saltwater")!;
-  const slackBaseWindows = computeTimeWindows(
-    swSlackFx,
-    "saltwater",
+  const slackBaseBlocks = computeAllBlocks(
+    swSlackFx, "saltwater",
     slackRuleContext.range_strength_pct ?? null,
     slackRuleContext.pressure_state,
-    swSlackFx.cloud_cover_pct,
-    null
+    swSlackFx.cloud_cover_pct, null, null, 60
   );
-  const slackRuledWindows = computeTimeWindows(
-    swSlackFx,
-    "saltwater",
+  const slackBaseWindows = computeTimeWindows(slackBaseBlocks);
+  const slackRuledBlocks = computeAllBlocks(
+    swSlackFx, "saltwater",
     slackRuleContext.range_strength_pct ?? null,
     slackRuleContext.pressure_state,
-    swSlackFx.cloud_cover_pct,
-    slackRuleContext
+    swSlackFx.cloud_cover_pct, null,
+    slackRuleContext, 60
   );
+  const slackRuledWindows = computeTimeWindows(slackRuledBlocks);
   const slackBaseEarlyPrime = slackBaseWindows.best_windows.some(
     (w) => w.label === "PRIME" && w.start_local < "07:00"
   );

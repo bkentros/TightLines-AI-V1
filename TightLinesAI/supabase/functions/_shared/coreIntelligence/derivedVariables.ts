@@ -375,12 +375,15 @@ function mapTempTrendState(
   trend72h: number,
   trend24h: number | null
 ): TempTrendState {
-  // rapid_cooling can use 24h delta
-  if (trend24h !== null && trend24h <= -4) return "rapid_cooling";
-  if (trend72h <= -5) return "rapid_cooling";
-  if (trend72h >= 4) return "rapid_warming";
-  if (trend72h >= 1) return "warming";
-  if (trend72h <= -1) return "cooling";
+  // Rapid thresholds based on fisheries science — 10°F+ in 24h or 15°F+ in 72h
+  // represents a biologically significant thermal event that alters fish behavior.
+  // Previous 4°F/24h threshold was too sensitive (normal diurnal variation).
+  if (trend24h !== null && trend24h <= -10) return "rapid_cooling";
+  if (trend72h <= -15) return "rapid_cooling";
+  if (trend24h !== null && trend24h >= 10) return "rapid_warming";
+  if (trend72h >= 15) return "rapid_warming";
+  if (trend72h >= 3) return "warming";
+  if (trend72h <= -3) return "cooling";
   return "stable";
 }
 
@@ -460,6 +463,40 @@ const SNOWMELT_DAMPENING: Record<LatitudeBand, number> = {
   deep_south: 0,
 };
 
+// ---------------------------------------------------------------------------
+// Mohseni logistic saturation cap (Mohseni et al. 1998)
+// Evaporative cooling prevents water from tracking air linearly at high temps.
+// Below the inflection point, relationship is ~linear. Above it, water temp
+// asymptotically approaches a per-band max determined by regional climate.
+// ---------------------------------------------------------------------------
+const MAX_WATER_TEMP_BY_BAND: Record<LatitudeBand, number> = {
+  far_north: 78,
+  north: 82,
+  mid: 85,
+  south: 88,
+  deep_south: 90,
+};
+
+function applyLogisticSaturationCap(
+  rawAirAvg: number,
+  latBand: LatitudeBand,
+  isRiver: boolean
+): number {
+  const INFLECTION = 75; // °F — below this, linear relationship holds
+  if (rawAirAvg <= INFLECTION) return rawAirAvg;
+
+  // Rivers cap ~3°F lower due to flow-driven evaporation and mixing
+  const maxTemp = MAX_WATER_TEMP_BY_BAND[latBand] + (isRiver ? -3 : 0);
+  const range = maxTemp - INFLECTION;
+  const excess = rawAirAvg - INFLECTION;
+
+  // Logistic curve: rapid rise near inflection, flattens toward max
+  // At excess=15 → ~73% of range; at excess=25 → ~92%; at excess=35 → ~98%
+  const GAMMA = 0.12;
+  const saturationFraction = 1 / (1 + Math.exp(-GAMMA * (excess - 12)));
+  return INFLECTION + range * saturationFraction;
+}
+
 function estimateFreshwaterTemp(
   env: EnvironmentSnapshot,
   subtype: FreshwaterSubtype | null,
@@ -470,9 +507,10 @@ function estimateFreshwaterTemp(
   const lows = env.daily_air_temp_low_f;
   if (highs.length < 7 || lows.length < 7) return null;
 
-  // Compute daily means for last 7 days (index 0=6 days ago, index 6=today)
+  // Compute daily means — use up to 14 days if available, minimum 7
+  const numDays = Math.min(highs.length, lows.length);
   const means: Array<number | null> = [];
-  for (let i = 0; i < 7; i++) {
+  for (let i = 0; i < numDays; i++) {
     means.push(dailyMean(highs[i], lows[i]));
   }
 
@@ -480,36 +518,43 @@ function estimateFreshwaterTemp(
   const month = new Date(env.timestamp_utc).getUTCMonth() + 1;
   const season = getMeteoSeason(month);
 
-  // Compute raw weighted air average (no corrections yet)
-  const weights = isRiver
-    ? [0.40, 0.28, 0.16, 0.08, 0.05, 0.02, 0.01]
-    : [0.30, 0.25, 0.20, 0.12, 0.07, 0.04, 0.02];
+  // 14-day weighted air average — more thermal inertia = more accurate lake estimates
+  // Rivers respond faster so weight recent days more heavily
+  const weights14 = isRiver
+    ? [0.32, 0.22, 0.15, 0.10, 0.07, 0.05, 0.03, 0.02, 0.01, 0.01, 0.005, 0.005, 0.005, 0.005]
+    : [0.18, 0.15, 0.13, 0.11, 0.09, 0.07, 0.06, 0.05, 0.04, 0.035, 0.03, 0.025, 0.02, 0.015];
 
   let weighted = 0;
   let totalWeight = 0;
-  for (let i = 0; i < 7; i++) {
-    const dayIndex = 6 - i;
+  const useDays = Math.min(numDays, 14);
+  for (let i = 0; i < useDays; i++) {
+    const dayIndex = numDays - 1 - i; // most recent first
     if (means[dayIndex] !== null) {
-      weighted += (means[dayIndex] as number) * weights[i];
-      totalWeight += weights[i];
+      const w = i < weights14.length ? weights14[i] : 0.01;
+      weighted += (means[dayIndex] as number) * w;
+      totalWeight += w;
     }
   }
-  if (totalWeight < 0.5) return null;
+  if (totalWeight < 0.3) return null;
   const rawAirAvg = weighted / totalWeight;
+
+  // Mohseni-style logistic saturation cap — evaporative cooling prevents
+  // water from tracking air 1:1 at high temps (Mohseni et al. 1998)
+  const cappedAirAvg = applyLogisticSaturationCap(rawAirAvg, latBand, isRiver);
 
   if (isRiver) {
     // ---- RIVER: Groundwater blending model ----
     const gwBase = GROUNDWATER_BASE_TEMP[latBand];
     const alpha = AIR_INFLUENCE_ALPHA[season][latBand];
     const snowmelt = season === "MAM" ? SNOWMELT_DAMPENING[latBand] : 0;
-    const blended = alpha * rawAirAvg + (1 - alpha) * (gwBase + snowmelt);
+    const blended = alpha * cappedAirAvg + (1 - alpha) * (gwBase + snowmelt);
     return Math.max(33, Math.round(blended * 10) / 10);
   }
 
   // ---- LAKE (default): Correction table + floor + deep-winter clamp ----
   const correction = getLatSeasonCorrection(env.lat, season, subtype);
   const seasonalOffset = getSeasonalStateTempOffset(seasonalState, subtype, month);
-  let estimate = rawAirAvg + correction + seasonalOffset;
+  let estimate = cappedAirAvg + correction + seasonalOffset;
 
   // Hard floor: liquid water cannot be below 32°F
   estimate = Math.max(32, estimate);
@@ -558,12 +603,18 @@ function getLatSeasonCorrection(
   season: MeteoSeason,
   subtype: FreshwaterSubtype | null
 ): number {
-  // Base correction table: lake/reservoir baseline
+  // Base correction: water lags air temp. Southern shallow lakes have LESS lag
+  // (warmer climate, shallower average depth, more sun exposure). Northern deep
+  // lakes have MORE lag (ice cover, thermal mass, shorter solar exposure).
+  // Previous values were too aggressive for southern latitudes (caused Tampa
+  // freshwater to estimate 58°F when actual was ~70°F).
+  //
+  // Format: [south/deep_south (lat<33), mid (33-40), north (>40)]
   const table: Record<MeteoSeason, [number, number, number]> = {
-    DJF: [-2, -4, -5],
-    MAM: [-3, -5, -6],
-    JJA: [-4, -6, -8],
-    SON: [-3, -5, -7],
+    DJF: [-1, -3, -4],     // Winter: southern lakes barely lag
+    MAM: [-1, -3, -5],     // Spring: northern lakes still under ice
+    JJA: [-2, -4, -6],     // Summer: all lakes lag (water slower to heat)
+    SON: [-1, -3, -5],     // Fall: northern lakes hold heat longer (turnover)
   };
   const row = table[season];
   let base: number;
@@ -571,9 +622,7 @@ function getLatSeasonCorrection(
   else if (lat <= 40) base = row[1];
   else base = row[2];
 
-  // Rivers track air more closely so the correction is roughly halved.
-  // The weighted average already uses more recent data; the correction just
-  // needs to be smaller since less thermal lag exists.
+  // Rivers track air more closely — roughly halved correction
   if (subtype === "river_stream") return Math.round(base * 0.5);
 
   return base;
@@ -617,10 +666,9 @@ function getSeasonalStateTempOffset(
       offset = 0;
   }
 
-  // Shoulder-month lakes and reservoirs usually lag air more strongly.
-  if (!isRiver && (month === 3 || month === 11)) {
-    offset -= 0.5;
-  }
+  // Shoulder-month lag removed — the 14-day weighted average and reduced
+  // latitude corrections already account for thermal lag without needing
+  // an extra arbitrary penalty on March/November.
 
   return offset;
 }
