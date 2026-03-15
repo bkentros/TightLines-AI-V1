@@ -23,7 +23,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/android-icon-foreground.png",
         "backgroundColor": "#0a1628"
       },
       "package": "com.finseekr.tightlinesai"
@@ -60,7 +60,9 @@
       ],
       "expo-notifications",
       "expo-apple-authentication",
-      "expo-local-authentication"
+      "expo-local-authentication",
+      "expo-asset",
+      "expo-font"
     ],
     "scheme": "tightlinesai",
     "extra": {

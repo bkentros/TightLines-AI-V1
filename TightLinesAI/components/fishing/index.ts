@@ -14,3 +14,5 @@ export { WaterTypeTabBar, TAB_LABELS } from './WaterTypeTabBar';
 export { ReportView } from './ReportView';
 export { WeeklyForecastStrip } from './WeeklyForecastStrip';
 export { CondensedLoadingView } from './CondensedLoadingView';
+
+export { ExpandableSection } from './ExpandableSection';

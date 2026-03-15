@@ -1,13 +1,12 @@
 /**
  * ReportView — orchestrator component that composes all report sub-components.
- * Renders the full analysis for a single water type report.
- * Extracted from how-fishing-results.tsx for reuse.
+ * Pass 4: simplified front-of-report with expandable detail sections.
  */
 
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { colors, spacing } from '../../lib/theme';
+import { colors, spacing, radius } from '../../lib/theme';
 import type { WaterTypeReport } from '../../lib/howFishing';
 import { ScoreCard } from './ScoreCard';
 import { AlertBannersFromEngine } from './AlertBanners';
@@ -17,6 +16,7 @@ import { KeyFactorsSection } from './KeyFactors';
 import { ScoreBreakdown } from './ScoreBreakdown';
 import { TipsSection } from './TipsSection';
 import { StrategySection } from './StrategySection';
+import { ExpandableSection } from './ExpandableSection';
 
 function cleanSummary(raw: string): string {
   if (!raw || typeof raw !== 'string') return '';
@@ -27,7 +27,7 @@ function cleanSummary(raw: string): string {
 
 function formatWaterTempDisplay(tempF: number | null): string {
   if (tempF === null || Number.isNaN(tempF)) return 'Unavailable';
-  return `${Math.round(tempF * 10) / 10}\u00B0F`;
+  return `${Math.round(tempF * 10) / 10}°F`;
 }
 
 function getWaterTempLine(engine: WaterTypeReport['engine']): string | null {
@@ -35,8 +35,17 @@ function getWaterTempLine(engine: WaterTypeReport['engine']): string | null {
   const source = engine.environment.water_temp_source;
   const temp = engine.environment.water_temp_f;
   if (temp === null) return null;
+  if (source === 'user_manual') return `${formatWaterTempDisplay(temp)} (manual entry)`;
   const isMeasured = source === 'noaa_coops';
   return `${formatWaterTempDisplay(temp)} ${isMeasured ? '(measured)' : '(estimated from air history)'}`;
+}
+
+function getTopLine(report: WaterTypeReport): string {
+  const summary = cleanSummary(report.llm?.headline_summary ?? '');
+  if (summary) return summary;
+  const rating = report.engine?.scoring?.overall_rating;
+  if (!rating) return 'Conditions are loading into place.';
+  return `${rating} overall fishing conditions today.`;
 }
 
 interface ReportViewProps {
@@ -63,53 +72,80 @@ export function ReportView({ report }: ReportViewProps) {
   }
 
   const { engine, llm } = report;
-  const summary = cleanSummary(llm.headline_summary);
+  const summary = getTopLine(report);
+  const seriousConfidence = engine.scoring.reliability_tier === 'low_confidence' || engine.scoring.reliability_tier === 'very_low_confidence';
+  const hasQualitySignals =
+    engine.data_quality.missing_variables.length > 0 ||
+    engine.data_quality.fallback_variables.length > 0 ||
+    engine.data_quality.notes.length > 0 ||
+    engine.scoring.reliability_tier !== 'high';
 
   return (
     <View>
-      {/* Headline */}
-      {summary ? (
-        <View style={styles.headlineCard}>
-          <Text style={styles.headlineText}>{summary}</Text>
-        </View>
-      ) : null}
+      <View style={styles.headlineCard}>
+        <Text style={styles.kicker}>Today's read</Text>
+        <Text style={styles.headlineText}>{summary}</Text>
+      </View>
 
-      {/* Alert Banners */}
       <AlertBannersFromEngine alerts={engine.alerts} />
 
-      {/* Score Card */}
       <ScoreCard
         scoring={engine.scoring}
         waterType={report.water_type}
         waterTempLine={getWaterTempLine(engine)}
       />
 
-      {/* Data Quality */}
-      <DataQualityNotice
-        quality={engine.data_quality}
-        tier={engine.scoring.reliability_tier}
-        hideWaterTempFallbackOnly
-      />
+      {seriousConfidence ? (
+        <DataQualityNotice
+          quality={engine.data_quality}
+          tier={engine.scoring.reliability_tier}
+          hideWaterTempFallbackOnly
+        />
+      ) : null}
 
-      {/* Time Windows */}
-      <BestTimesSection windows={llm.best_times_to_fish_today} />
-      <DecentTimesFromReport
-        llmDecent={llm.decent_times_today}
-        engineFair={engine.fair_windows}
-      />
-      <WorstTimesSection windows={llm.worst_times_to_fish_today} />
+      <View style={styles.quickSection}>
+        <BestTimesSection windows={llm.best_times_to_fish_today} />
+        <DecentTimesFromReport
+          llmDecent={llm.decent_times_today}
+          engineFair={engine.fair_windows}
+          timezone={engine.location?.timezone}
+        />
+        <WorstTimesSection windows={llm.worst_times_to_fish_today} />
+      </View>
 
-      {/* Key Factors */}
-      <KeyFactorsSection factors={llm.key_factors} />
-
-      {/* Score Breakdown */}
-      <ScoreBreakdown scoring={engine.scoring} />
-
-      {/* Strategy — Your Game Plan */}
       {llm.strategy ? <StrategySection strategy={llm.strategy} /> : null}
-
-      {/* Tips */}
       <TipsSection tips={llm.tips_for_today} />
+
+      <ExpandableSection
+        title="Why today looks this way"
+        subtitle="Top conditions driving the score and the bite windows."
+        defaultExpanded={false}
+      >
+        <KeyFactorsSection factors={llm.key_factors} embedded />
+      </ExpandableSection>
+
+      <ExpandableSection
+        title="Detailed breakdown"
+        subtitle="Variable-by-variable contribution from the deterministic engine."
+        defaultExpanded={false}
+      >
+        <ScoreBreakdown scoring={engine.scoring} embedded />
+      </ExpandableSection>
+
+      {hasQualitySignals ? (
+        <ExpandableSection
+          title="Confidence and data quality"
+          subtitle="See where the report used estimated or missing inputs."
+          defaultExpanded={false}
+        >
+          <DataQualityNotice
+            quality={engine.data_quality}
+            tier={engine.scoring.reliability_tier}
+            hideWaterTempFallbackOnly
+            embedded
+          />
+        </ExpandableSection>
+      ) : null}
     </View>
   );
 }
@@ -117,17 +153,27 @@ export function ReportView({ report }: ReportViewProps) {
 const styles = StyleSheet.create({
   headlineCard: {
     backgroundColor: colors.surface,
-    borderRadius: 10,
+    borderRadius: radius.md,
     padding: spacing.md,
     marginBottom: spacing.md,
     borderWidth: 1,
     borderColor: colors.border,
   },
+  kicker: {
+    fontSize: 11,
+    fontWeight: '700',
+    color: colors.textMuted,
+    letterSpacing: 0.6,
+    textTransform: 'uppercase',
+    marginBottom: 6,
+  },
   headlineText: {
-    fontSize: 15,
-    color: colors.textSecondary,
-    lineHeight: 22,
-    fontStyle: 'italic',
+    fontSize: 16,
+    color: colors.text,
+    lineHeight: 23,
+  },
+  quickSection: {
+    marginBottom: spacing.sm,
   },
   errorState: {
     alignItems: 'center',

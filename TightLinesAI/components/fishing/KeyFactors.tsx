@@ -10,14 +10,15 @@ import type { LLMKeyFactors } from '../../lib/howFishing';
 
 interface KeyFactorsProps {
   factors: LLMKeyFactors;
+  embedded?: boolean;
 }
 
-export function KeyFactorsSection({ factors }: KeyFactorsProps) {
+export function KeyFactorsSection({ factors, embedded = false }: KeyFactorsProps) {
   const entries = Object.entries(factors).filter(([, v]) => v && typeof v === 'string');
   if (entries.length === 0) return null;
   return (
-    <View style={styles.section}>
-      <Text style={styles.sectionTitle}>Key Factors</Text>
+    <View style={embedded ? undefined : styles.section}>
+      {!embedded ? <Text style={styles.sectionTitle}>Key Factors</Text> : null}
       <View style={styles.descCard}>
         {entries.map(([key, val]) => (
           <View key={key} style={styles.whyRow}>

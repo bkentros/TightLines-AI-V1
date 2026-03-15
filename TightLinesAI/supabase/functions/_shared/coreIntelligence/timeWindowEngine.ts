@@ -406,9 +406,9 @@ function computeTimeQualityFactor(
       tideFactor = 0.70;
       drivers.push("mid_tide_movement");
     } else if (phaseState === "final_hour") {
-      tideFactor = 0.40;
+      tideFactor = 0.95;
     } else if (phaseState === "slack") {
-      tideFactor = 0.20;
+      tideFactor = 1.0;
       drivers.push("slack_tide");
     }
 
@@ -480,6 +480,13 @@ function isLateMorningToAfternoon(blockStartMin: number): boolean {
 function isMiddayWarmingWindow(blockStartMin: number): boolean {
   const blockMid = blockStartMin + 15;
   return blockMid >= 11 * 60 && blockMid < 15 * 60;
+}
+
+function getTodayTidalRange(env: EnvironmentSnapshot): number | null {
+  if (env.tide_predictions_today.length < 2) return null;
+  const heights = env.tide_predictions_today.map((p) => p.height_ft).filter((v): v is number => typeof v === "number");
+  if (heights.length < 2) return null;
+  return Math.max(...heights) - Math.min(...heights);
 }
 
 // ---------------------------------------------------------------------------
@@ -599,11 +606,10 @@ function applyEdgeCaseScoreRules(
     (zone === "near_shutdown_cold" || zone === "lethargic") &&
     isMiddayWarmingWindow(blockStartMin)
   ) {
+    const dayTidalRange = getTodayTidalRange(env);
     const saltwaterProtectedLike =
       waterType === "brackish" ||
-      (waterType === "saltwater" &&
-        ruleCtx.range_strength_pct !== null &&
-        ruleCtx.range_strength_pct < 65);
+      (waterType === "saltwater" && dayTidalRange !== null && dayTidalRange <= 2.5);
     const strongIncoming = tidePhaseForBlock === "incoming_first_2h";
     if (saltwaterProtectedLike && !strongIncoming) {
       score += 12;
@@ -860,6 +866,16 @@ export function computeAllBlocks(
     );
     blockScore = Math.round(blockScore * feedingMult);
 
+    // Preserve hard safety/behavioral caps after later multipliers.
+    if (
+      ruleCtx &&
+      waterType === "saltwater" &&
+      (tideInfo.phaseState === "slack" || tideInfo.phaseState === "final_hour") &&
+      blockScore >= 45
+    ) {
+      blockScore = 44;
+    }
+
     // 5. Clamp and classify
     blockScore = clamp(blockScore, 0, 100);
     const label = classifyBlockFromScore(blockScore, safe);
@@ -929,5 +945,6 @@ export function computeTimeWindows(
     best_windows,
     fair_windows,
     worst_windows,
-  };
+    time_windows: [...best_windows, ...fair_windows],
+  } as any;
 }

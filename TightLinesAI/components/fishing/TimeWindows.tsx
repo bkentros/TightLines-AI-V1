@@ -8,6 +8,28 @@ import { View, Text, StyleSheet } from 'react-native';
 import { colors, fonts, spacing, radius } from '../../lib/theme';
 import type { LLMOutput, TimeWindow as EngineTimeWindow } from '../../lib/howFishing';
 
+function formatTime(raw: string): string {
+  const m = raw.trim().match(/^(\d{1,2}):(\d{2})$/);
+  if (!m) return raw.trim();
+  const h24 = Number(m[1]);
+  const suffix = h24 >= 12 ? 'PM' : 'AM';
+  const h12 = h24 % 12 === 0 ? 12 : h24 % 12;
+  return `${h12}:${m[2]} ${suffix}`;
+}
+
+function formatRange(start: string, end: string, timezone?: string): string {
+  const zone = timezone ? (() => {
+    try {
+      return new Intl.DateTimeFormat('en-US', { timeZone: timezone, timeZoneName: 'short', hour: 'numeric' })
+        .formatToParts(new Date())
+        .find((p) => p.type === 'timeZoneName')?.value ?? timezone;
+    } catch {
+      return timezone;
+    }
+  })() : '';
+  return `${formatTime(start)} – ${formatTime(end)}${zone ? ` ${zone}` : ''}`;
+}
+
 // ---------------------------------------------------------------------------
 // Best Times
 // ---------------------------------------------------------------------------
@@ -16,7 +38,7 @@ export function BestTimesSection({ windows }: { windows: LLMOutput['best_times_t
   if (!windows || windows.length === 0) return null;
   return (
     <View style={styles.section}>
-      <Text style={styles.sectionTitle}>Best Times to Fish Today</Text>
+      <Text style={styles.sectionTitle}>Best windows</Text>
       {windows.map((w, i) => (
         <View key={i} style={[styles.timeCard, w.label === 'PRIME' && styles.timeCardPrime]}>
           <View style={styles.timeCardHeader}>
@@ -33,7 +55,7 @@ export function BestTimesSection({ windows }: { windows: LLMOutput['best_times_t
 }
 
 // ---------------------------------------------------------------------------
-// Decent Times
+// Fair windows
 // ---------------------------------------------------------------------------
 
 export function DecentTimesSection({
@@ -44,7 +66,7 @@ export function DecentTimesSection({
   if (!windows || windows.length === 0) return null;
   return (
     <View style={styles.section}>
-      <Text style={styles.sectionTitle}>Decent Times</Text>
+      <Text style={styles.sectionTitle}>Fair windows</Text>
       {windows.map((w, i) => (
         <View key={i} style={styles.timeCardDecent}>
           <View style={styles.timeCardHeader}>
@@ -64,9 +86,11 @@ export function DecentTimesSection({
 export function DecentTimesFromReport({
   llmDecent,
   engineFair,
+  timezone,
 }: {
   llmDecent?: LLMOutput['decent_times_today'];
   engineFair?: EngineTimeWindow[];
+  timezone?: string;
 }) {
   if (llmDecent && llmDecent.length > 0) {
     return <DecentTimesSection windows={llmDecent} />;
@@ -75,7 +99,7 @@ export function DecentTimesFromReport({
     return (
       <DecentTimesSection
         windows={engineFair.slice(0, 2).map((w) => ({
-          time_range: `${w.start_local} \u2013 ${w.end_local}`,
+          time_range: formatRange(w.start_local, w.end_local, timezone),
           reasoning:
             w.drivers.length > 0
               ? w.drivers.slice(0, 2).join(', ').replace(/_/g, ' ')
@@ -95,7 +119,7 @@ export function WorstTimesSection({ windows }: { windows: LLMOutput['worst_times
   if (!windows || windows.length === 0) return null;
   return (
     <View style={styles.section}>
-      <Text style={styles.sectionTitle}>Worst Times Today</Text>
+      <Text style={styles.sectionTitle}>Slow windows</Text>
       {windows.map((w, i) => (
         <View key={i} style={styles.timeCardMuted}>
           <Text style={styles.timeWindow}>{w.time_range}</Text>

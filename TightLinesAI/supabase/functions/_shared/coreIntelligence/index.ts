@@ -45,6 +45,7 @@ function buildEngineEnvironment(
     water_temp_f: dv.water_temp_f,
     water_temp_source: dv.water_temp_source,
     water_temp_zone: dv.water_temp_zone,
+    water_temp_confidence: dv.water_temp_confidence,
     wind_speed_mph: env.wind_speed_mph,
     wind_direction: env.wind_direction_label,
     wind_direction_deg: env.wind_direction_deg,
@@ -130,7 +131,7 @@ function buildDataQuality(
 
   if (dv.water_temp_source === "freshwater_air_model") {
     notes.push(
-      "Freshwater temperature is estimated from recent air-temperature history. No direct measurement available."
+      `Freshwater temperature is estimated from recent air-temperature history. Confidence: ${dv.water_temp_confidence !== null ? Math.round(dv.water_temp_confidence * 100) : "unknown"}%.`
     );
   }
 
@@ -288,6 +289,9 @@ export function runCoreIntelligence(
     coverage_pct,
     reliability_tier,
     raw_score,
+    seasonal_baseline_score,
+    daily_opportunity_score,
+    water_temp_confidence,
   } = computeRawScore(env, dv, effectiveWaterType, seasonalCtx);
 
   // Section 6 — Recovery modifier
@@ -392,6 +396,9 @@ export function runCoreIntelligence(
       recovery_multiplier: recoveryMultiplier,
       adjusted_score: adjustedScore,
       overall_rating: overallRating,
+      seasonal_baseline_score,
+      daily_opportunity_score,
+      water_temp_confidence,
       component_detail,  // NEW — debug info for consistency auditing
     },
     behavior,
@@ -410,7 +417,7 @@ export function runCoreIntelligence(
       severe_weather_alert: dv.severe_weather_alert,
       severe_weather_reasons: dv.severe_weather_reasons,
     },
-    time_windows: best_windows,
+    time_windows: [...best_windows, ...fair_windows],
     fair_windows,
     worst_windows,
     daily_outlook,

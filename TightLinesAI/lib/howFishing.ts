@@ -9,7 +9,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 // Cache config
 // ---------------------------------------------------------------------------
 
-const CACHE_TTL_MS = 45 * 60 * 1000; // 45 minutes per spec Section 10B
+// Stable until the synced location's local midnight via bundle.cache_expires_at
 // ~1km match threshold — realistic for GPS drift on a phone
 const COORD_MATCH_THRESHOLD = 0.01;
 
@@ -35,6 +35,9 @@ export interface EngineScoring {
   recovery_multiplier: number;
   adjusted_score: number;
   overall_rating: OverallRating;
+  seasonal_baseline_score?: number;
+  daily_opportunity_score?: number;
+  water_temp_confidence?: number | null;
 }
 
 export interface EngineEnvironment {
@@ -118,7 +121,16 @@ export interface WorstWindow {
   window_score: number;
 }
 
+export interface EngineLocation {
+  lat: number;
+  lon: number;
+  timezone: string;
+  coastal: boolean;
+  nearest_tide_station_id: string | null;
+}
+
 export interface EngineOutput {
+  location?: EngineLocation;
   environment: EngineEnvironment;
   scoring: EngineScoring;
   behavior: EngineBehavior;
@@ -230,8 +242,10 @@ export interface HowFishingBundle {
 interface BundleCacheEntry {
   lat: number;
   lon: number;
-  date: string;       // "YYYY-MM-DD" local date
-  fetched_at: string; // ISO timestamp
+  date: string;       // retained for backwards compatibility
+  fetched_at: string; // retained for backwards compatibility
+  cache_expires_at?: string;
+  timezone?: string | null;
   bundle: HowFishingBundle;
 }
 
@@ -247,12 +261,39 @@ function cacheKey(lat: number, lon: number): string {
   return `how_fishing_bundle_${lat.toFixed(3)}_${lon.toFixed(3)}`;
 }
 
-function localDateString(): string {
-  const d = new Date();
-  const year = d.getFullYear();
-  const month = String(d.getMonth() + 1).padStart(2, '0');
-  const day = String(d.getDate()).padStart(2, '0');
+function localDateStringForTimezone(timezone?: string | null, fallbackDate = new Date()): string {
+  try {
+    if (timezone) {
+      const formatter = new Intl.DateTimeFormat('en-CA', {
+        timeZone: timezone,
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+      });
+      return formatter.format(fallbackDate);
+    }
+  } catch {
+    // fall through
+  }
+  const year = fallbackDate.getFullYear();
+  const month = String(fallbackDate.getMonth() + 1).padStart(2, '0');
+  const day = String(fallbackDate.getDate()).padStart(2, '0');
   return `${year}-${month}-${day}`;
+}
+
+function bundleTimezone(bundle: HowFishingBundle): string | null {
+  const candidate =
+    bundle.reports.freshwater_lake?.engine?.location?.timezone ??
+    bundle.reports.freshwater?.engine?.location?.timezone ??
+    bundle.reports.saltwater?.engine?.location?.timezone ??
+    bundle.reports.brackish?.engine?.location?.timezone ??
+    bundle.reports.freshwater_river?.engine?.location?.timezone ??
+    null;
+  return candidate;
+}
+
+function currentDeviceLocalDateString(): string {
+  return localDateStringForTimezone(null);
 }
 
 function coordsMatch(a: number, b: number, c: number, d: number): boolean {
@@ -272,12 +313,16 @@ export async function getCachedHowFishingBundle(
     // Coordinate match
     if (!coordsMatch(entry.lat, entry.lon, latitude, longitude)) return null;
 
-    // Date boundary invalidation — a report from yesterday is stale regardless of TTL
-    if (entry.date !== localDateString()) return null;
+    const timezone = entry.timezone ?? bundleTimezone(entry.bundle);
+    const cacheExpiresAt = entry.cache_expires_at ?? entry.bundle.cache_expires_at;
 
-    // TTL check
-    const age = Date.now() - new Date(entry.fetched_at).getTime();
-    if (age > CACHE_TTL_MS) return null;
+    if (cacheExpiresAt) {
+      const expiresMillis = new Date(cacheExpiresAt).getTime();
+      if (Number.isFinite(expiresMillis) && Date.now() >= expiresMillis) return null;
+    } else {
+      // Backwards-compatible fallback for older cached entries
+      if (entry.date !== localDateStringForTimezone(timezone)) return null;
+    }
 
     return entry.bundle;
   } catch {
@@ -292,11 +337,14 @@ export async function setCachedHowFishingBundle(
 ): Promise<void> {
   try {
     const key = cacheKey(latitude, longitude);
+    const timezone = bundleTimezone(bundle);
     const entry: BundleCacheEntry = {
       lat: latitude,
       lon: longitude,
-      date: localDateString(),
+      date: localDateStringForTimezone(timezone),
       fetched_at: new Date().toISOString(),
+      cache_expires_at: bundle.cache_expires_at,
+      timezone,
       bundle,
     };
     await AsyncStorage.setItem(key, JSON.stringify(entry));
@@ -399,7 +447,7 @@ export async function getCachedWeeklyForecast(
     if (!raw) return null;
     const entry = JSON.parse(raw) as ForecastCacheEntry;
     if (!coordsMatch(entry.lat, entry.lon, latitude, longitude)) return null;
-    if (entry.date !== localDateString()) return null;
+    if (entry.date !== currentDeviceLocalDateString()) return null;
     const age = Date.now() - new Date(entry.fetched_at).getTime();
     if (age > FORECAST_CACHE_TTL_MS) return null;
     return entry.bundle;
@@ -418,7 +466,7 @@ export async function setCachedWeeklyForecast(
     const entry: ForecastCacheEntry = {
       lat: latitude,
       lon: longitude,
-      date: localDateString(),
+      date: currentDeviceLocalDateString(),
       fetched_at: new Date().toISOString(),
       bundle,
     };

@@ -72,6 +72,7 @@ interface EnvironmentData {
   coastal?: boolean;
   nearest_tide_station_id?: string | null;
   altitude_ft?: number | null;
+  manual_freshwater_water_temp_f?: number | null;
   forecast_daily?: Array<{
     date: string;
     high_temp_f: number;
@@ -131,6 +132,8 @@ export function toEngineSnapshot(
   while (dailyHighs.length < 7) dailyHighs.unshift(null);
   while (dailyLows.length < 7) dailyLows.unshift(null);
 
+  const manualFreshwaterTemp = typeof env.manual_freshwater_water_temp_f === "number" && !Number.isNaN(env.manual_freshwater_water_temp_f) ? env.manual_freshwater_water_temp_f : null;
+
   return {
     lat,
     lon,
@@ -185,6 +188,7 @@ export function toEngineSnapshot(
     measured_water_temp_f: env.measured_water_temp_f ?? null,
     measured_water_temp_source: (env.measured_water_temp_source as any) ?? null,
     measured_water_temp_72h_ago_f: env.measured_water_temp_72h_ago_f ?? null,
+    manual_freshwater_water_temp_f: manualFreshwaterTemp !== null ? Math.max(32, Math.min(99, manualFreshwaterTemp)) : null,
     freshwater_subtype_hint: freshwaterSubtypeHint ?? null,
     altitude_ft: env.altitude_ft ?? null,
   };

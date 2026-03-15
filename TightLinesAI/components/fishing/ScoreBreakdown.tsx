@@ -6,7 +6,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { colors, spacing, radius } from '../../lib/theme';
-import type { EngineScoring, ReliabilityTier } from '../../lib/howFishing';
+import type { EngineScoring } from '../../lib/howFishing';
 
 function reliabilityColor(tier: string): string {
   if (tier === 'high') return colors.sage;
@@ -16,18 +16,28 @@ function reliabilityColor(tier: string): string {
 
 function reliabilityLabel(tier: string): string {
   if (tier === 'high') return 'High confidence';
-  if (tier === 'degraded') return 'Reduced confidence \u2014 some data unavailable';
-  if (tier === 'low_confidence') return 'Low confidence \u2014 missing key data';
-  return 'Very low confidence \u2014 limited data';
+  if (tier === 'degraded') return 'Reduced confidence — some data unavailable';
+  if (tier === 'low_confidence') return 'Low confidence — missing key data';
+  return 'Very low confidence — limited data';
+}
+
+function humanizeKey(key: string): string {
+  return key
+    .replace(/_/g, ' ')
+    .replace(/\b\w/g, (c) => c.toUpperCase())
+    .replace('Solunar', 'Feeding window')
+    .replace('Water Temp', 'Water temperature')
+    .replace('Temp Trend', 'Temperature trend');
 }
 
 export { reliabilityColor, reliabilityLabel };
 
 interface ScoreBreakdownProps {
   scoring: EngineScoring;
+  embedded?: boolean;
 }
 
-export function ScoreBreakdown({ scoring }: ScoreBreakdownProps) {
+export function ScoreBreakdown({ scoring, embedded = false }: ScoreBreakdownProps) {
   const entries = Object.entries(scoring.components)
     .map(([key, score]) => ({
       key,
@@ -37,19 +47,33 @@ export function ScoreBreakdown({ scoring }: ScoreBreakdownProps) {
     }))
     .sort((a, b) => b.weight - a.weight);
 
+  const hasContext =
+    typeof scoring.seasonal_baseline_score === 'number' ||
+    typeof scoring.daily_opportunity_score === 'number';
+
   return (
-    <View style={styles.breakdownCard}>
-      <Text style={styles.breakdownTitle}>Raw Score Breakdown</Text>
+    <View style={[styles.breakdownCard, embedded && styles.breakdownCardEmbedded]}>
+      {!embedded ? <Text style={styles.breakdownTitle}>Raw Score Breakdown</Text> : null}
+      {hasContext ? (
+        <View style={styles.contextSummaryRow}>
+          {typeof scoring.seasonal_baseline_score === 'number' ? (
+            <Text style={styles.contextSummaryText}>Seasonal base: {scoring.seasonal_baseline_score}</Text>
+          ) : null}
+          {typeof scoring.daily_opportunity_score === 'number' ? (
+            <Text style={styles.contextSummaryText}>Today's opportunity: {scoring.daily_opportunity_score}</Text>
+          ) : null}
+        </View>
+      ) : null}
       {entries.map(({ key, score, weight, status }) => {
         const pct = weight > 0 ? score / weight : 0;
-        const label = key.replace(/_/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
+        const label = humanizeKey(key);
         const barColor = pct >= 0.7 ? colors.sage : pct >= 0.4 ? '#E8A838' : '#E05252';
         const isFallback = status === 'fallback_used';
         return (
           <View key={key} style={styles.breakdownRow}>
             <View style={styles.breakdownLabelRow}>
               <Text style={styles.breakdownLabel}>{label}</Text>
-              {isFallback && <Text style={styles.fallbackBadge}>est.</Text>}
+              {isFallback && <Text style={styles.fallbackBadge}>estimated</Text>}
               <Text style={styles.breakdownScore}>{score}/{weight}</Text>
             </View>
             <View style={styles.breakdownBarBg}>
@@ -60,7 +84,7 @@ export function ScoreBreakdown({ scoring }: ScoreBreakdownProps) {
       })}
       <View style={styles.coverageRow}>
         <Text style={styles.coverageLabel}>
-          Data coverage: {scoring.coverage_pct}% \u00B7{' '}
+          Data coverage: {scoring.coverage_pct}% ·{' '}
           <Text style={{ color: reliabilityColor(scoring.reliability_tier) }}>
             {reliabilityLabel(scoring.reliability_tier)}
           </Text>
@@ -79,6 +103,13 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: colors.border,
   },
+  breakdownCardEmbedded: {
+    marginBottom: 0,
+    borderWidth: 0,
+    paddingHorizontal: 0,
+    paddingBottom: 0,
+    backgroundColor: 'transparent',
+  },
   breakdownTitle: {
     fontSize: 13,
     fontWeight: '700',
@@ -86,6 +117,20 @@ const styles = StyleSheet.create({
     marginBottom: spacing.md,
     textTransform: 'uppercase',
     letterSpacing: 0.5,
+  },
+  contextSummaryRow: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: spacing.sm,
+    marginBottom: spacing.md,
+  },
+  contextSummaryText: {
+    fontSize: 11,
+    color: colors.textMuted,
+    backgroundColor: '#00000008',
+    paddingHorizontal: spacing.sm,
+    paddingVertical: 6,
+    borderRadius: 999,
   },
   breakdownRow: { marginBottom: spacing.sm },
   breakdownLabelRow: {

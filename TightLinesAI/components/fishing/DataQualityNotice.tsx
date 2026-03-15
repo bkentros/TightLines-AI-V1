@@ -14,9 +14,22 @@ interface DataQualityNoticeProps {
   quality: DataQuality;
   tier: string;
   hideWaterTempFallbackOnly?: boolean;
+  embedded?: boolean;
 }
 
-export function DataQualityNotice({ quality, tier, hideWaterTempFallbackOnly }: DataQualityNoticeProps) {
+function prettyVariableName(name: string): string {
+  return name
+    .replace(/_/g, ' ')
+    .replace(/\b\w/g, (c) => c.toUpperCase())
+    .replace('Water Temp Zone', 'Water temperature')
+    .replace('Temp Trend', 'Temperature trend');
+}
+
+function formatVariableList(values: string[]): string {
+  return values.map(prettyVariableName).join(', ');
+}
+
+export function DataQualityNotice({ quality, tier, hideWaterTempFallbackOnly, embedded = false }: DataQualityNoticeProps) {
   if (tier === 'high' && quality.missing_variables.length === 0 && quality.fallback_variables.length === 0) {
     return null;
   }
@@ -31,7 +44,7 @@ export function DataQualityNotice({ quality, tier, hideWaterTempFallbackOnly }: 
   }
   const isSerious = tier === 'low_confidence' || tier === 'very_low_confidence';
   return (
-    <View style={[styles.qualityNotice, isSerious && styles.qualityNoticeSevere]}>
+    <View style={[styles.qualityNotice, isSerious && styles.qualityNoticeSevere, embedded && styles.qualityEmbedded]}>
       <Ionicons
         name="information-circle"
         size={16}
@@ -43,10 +56,10 @@ export function DataQualityNotice({ quality, tier, hideWaterTempFallbackOnly }: 
           {reliabilityLabel(tier)}
         </Text>
         {quality.missing_variables.length > 0 && (
-          <Text style={styles.qualityDetail}>Missing: {quality.missing_variables.join(', ')}</Text>
+          <Text style={styles.qualityDetail}>Missing inputs: {formatVariableList(quality.missing_variables)}</Text>
         )}
         {quality.fallback_variables.length > 0 && (
-          <Text style={styles.qualityDetail}>Estimated: {quality.fallback_variables.join(', ')}</Text>
+          <Text style={styles.qualityDetail}>Estimated inputs: {formatVariableList(quality.fallback_variables)}</Text>
         )}
         {quality.notes.map((n, i) => <Text key={i} style={styles.qualityDetail}>{n}</Text>)}
       </View>
@@ -66,6 +79,7 @@ const styles = StyleSheet.create({
     marginBottom: spacing.md,
   },
   qualityNoticeSevere: { backgroundColor: '#FFF0F0', borderColor: '#E05252' },
+  qualityEmbedded: { marginBottom: 0 },
   qualityTitle: { fontSize: 12, fontWeight: '600', color: '#E8A838', marginBottom: 2 },
   qualityDetail: { fontSize: 11, color: colors.textMuted, lineHeight: 16 },
 });

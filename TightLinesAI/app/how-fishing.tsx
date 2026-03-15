@@ -19,6 +19,7 @@ import {
   Easing,
   RefreshControl,
   Linking,
+  TextInput,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter, useLocalSearchParams } from 'expo-router';
@@ -86,6 +87,8 @@ export default function HowFishingScreen() {
 
   const [activeTab, setActiveTab] = useState<string>('freshwater');
   const [freshwaterSubtype, setFreshwaterSubtype] = useState<'lake' | 'river_stream' | 'reservoir'>('lake');
+  const [manualWaterTempInput, setManualWaterTempInput] = useState('');
+  const [manualWaterTempApplied, setManualWaterTempApplied] = useState<number | null>(null);
 
   const setLastReportEnv = useEnvStore((s) => s.setLastReportEnv);
   const { forecast, isLoading: forecastLoading, loadForecast } = useForecastStore();
@@ -123,7 +126,7 @@ export default function HowFishingScreen() {
       if (!cancelled) setEnvLoading(false);
 
       // 2. Check bundle cache first
-      const cachedBundle = await getCachedHowFishingBundle(lat, lon);
+      const cachedBundle = manualWaterTempApplied === null ? await getCachedHowFishingBundle(lat, lon) : null;
       if (!cancelled && cachedBundle) {
         setBundle(cachedBundle);
         setActiveTab(cachedBundle.default_tab ?? 'freshwater');
@@ -148,13 +151,13 @@ export default function HowFishingScreen() {
     })();
 
     return () => { cancelled = true; };
-  }, [hasCoords, lat, lon]);
+  }, [hasCoords, lat, lon, units, manualWaterTempApplied, fadeAnim, loadForecast]);
 
   // ---------------------------------------------------------------------------
   // Analysis runner
   // ---------------------------------------------------------------------------
 
-  const runAnalysis = useCallback(async (cancelled = false) => {
+  const runAnalysis = useCallback(async (cancelled = false, manualOverride: number | null | undefined = undefined) => {
     if (!hasCoords) return;
     setAnalysisLoading(true);
     setAnalysisError(null);
@@ -167,6 +170,11 @@ export default function HowFishingScreen() {
       if (cancelled) return;
       setEnv(freshEnv);
 
+      const selectedManualTemp = manualOverride === undefined ? manualWaterTempApplied : manualOverride;
+      const envPayload: EnvironmentData = selectedManualTemp !== null
+        ? { ...freshEnv, manual_freshwater_water_temp_f: selectedManualTemp }
+        : freshEnv;
+
       const data = await invokeEdgeFunction<HowFishingBundle | { error: string; message?: string }>(
         'how-fishing',
         {
@@ -176,7 +184,7 @@ export default function HowFishingScreen() {
             longitude: lon,
             units,
             freshwater_subtype: freshwaterSubtype,
-            env_data: freshEnv,
+            env_data: envPayload,
           },
         }
       );
@@ -205,8 +213,10 @@ export default function HowFishingScreen() {
       }
 
       // Cache and display
-      await setCachedHowFishingBundle(lat, lon, result);
-      setCurrentHowFishingBundle(lat, lon, result);
+      if (selectedManualTemp === null) {
+        await setCachedHowFishingBundle(lat, lon, result);
+        setCurrentHowFishingBundle(lat, lon, result);
+      }
       setLastReportEnv(freshEnv);
       setBundle(result);
       setActiveTab(result.default_tab ?? 'freshwater');
@@ -229,7 +239,7 @@ export default function HowFishingScreen() {
     } finally {
       setAnalysisLoading(false);
     }
-  }, [hasCoords, lat, lon, units, freshwaterSubtype, setLastReportEnv, loadForecast, fadeAnim]);
+  }, [hasCoords, lat, lon, units, freshwaterSubtype, manualWaterTempApplied, setLastReportEnv, loadForecast, fadeAnim]);
 
   // ---------------------------------------------------------------------------
   // Pull-to-refresh
@@ -240,7 +250,7 @@ export default function HowFishingScreen() {
     setBundle(null);
     fadeAnim.setValue(0);
     hasAutoRun.current = false;
-    await runAnalysis();
+    await runAnalysis(false, manualWaterTempApplied);
     setRefreshing(false);
   }, [runAnalysis]);
 
@@ -442,10 +452,59 @@ export default function HowFishingScreen() {
       : ['freshwater'];
 
   const activeReport = (bundle.reports as Record<string, WaterTypeReport | undefined>)[activeTab];
+  const activeTimezone = env?.timezone ?? activeReport?.engine?.location?.timezone;
+  const showManualTempCard = activeTab === 'freshwater' || activeTab === 'freshwater_lake' || activeTab === 'freshwater_river';
 
-  const generatedAt = bundle.generated_at
-    ? new Date(bundle.generated_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-    : null;
+  const formatLocalTimeWithZone = (iso: string | null | undefined, timezone?: string) => {
+    if (!iso) return null;
+    try {
+      return new Intl.DateTimeFormat('en-US', {
+        hour: 'numeric',
+        minute: '2-digit',
+        hour12: true,
+        timeZone: timezone,
+        timeZoneName: 'short',
+      }).format(new Date(iso));
+    } catch {
+      return new Date(iso).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+    }
+  };
+
+  const generatedAt = formatLocalTimeWithZone(bundle.generated_at, activeTimezone);
+
+  const applyManualFreshwaterTemp = async () => {
+    const trimmed = manualWaterTempInput.trim();
+    if (!trimmed) {
+      setManualWaterTempApplied(null);
+      await handleRefresh();
+      return;
+    }
+    const parsed = Number(trimmed);
+    if (Number.isNaN(parsed)) {
+      Alert.alert('Invalid water temperature', 'Enter a valid number between 32°F and 99°F.');
+      return;
+    }
+    const clamped = Math.max(32, Math.min(99, parsed));
+    if (clamped !== parsed) {
+      setManualWaterTempInput(String(clamped));
+    }
+    setManualWaterTempApplied(clamped);
+    setRefreshing(true);
+    setBundle(null);
+    fadeAnim.setValue(0);
+    await runAnalysis(false, clamped);
+    setRefreshing(false);
+  };
+
+  const clearManualFreshwaterTemp = async () => {
+    setManualWaterTempInput('');
+    setManualWaterTempApplied(null);
+    setRefreshing(true);
+    setBundle(null);
+    fadeAnim.setValue(0);
+    await runAnalysis(false, null);
+    setRefreshing(false);
+  };
 
   return (
     <SafeAreaView style={styles.safe} edges={['top', 'bottom']}>
@@ -477,6 +536,38 @@ export default function HowFishingScreen() {
           </View>
 
           <Text style={styles.screenTitle}>How's Fishing?</Text>
+
+          {showManualTempCard && (
+            <View style={styles.manualTempCard}>
+              <View style={styles.manualTempHeader}>
+                <View style={{ flex: 1 }}>
+                  <Text style={styles.manualTempTitle}>Freshwater water temp</Text>
+                  <Text style={styles.manualTempSub}>Optional. Use your measured temp if you have it. It overrides the estimate for scoring.</Text>
+                </View>
+                {manualWaterTempApplied !== null ? (
+                  <Text style={styles.manualTempApplied}>Using {manualWaterTempApplied}°F</Text>
+                ) : null}
+              </View>
+              <View style={styles.manualTempRow}>
+                <TextInput
+                  value={manualWaterTempInput}
+                  onChangeText={(value) => setManualWaterTempInput(value.replace(/[^0-9.]/g, '').slice(0, 5))}
+                  placeholder="32–99°F"
+                  keyboardType="decimal-pad"
+                  style={styles.manualTempInput}
+                  placeholderTextColor={colors.textMuted}
+                />
+                <Pressable style={({ pressed }) => [styles.manualTempBtn, pressed && { opacity: 0.8 }]} onPress={applyManualFreshwaterTemp}>
+                  <Text style={styles.manualTempBtnText}>{manualWaterTempApplied !== null ? 'Update' : 'Apply'}</Text>
+                </Pressable>
+                {manualWaterTempApplied !== null ? (
+                  <Pressable style={({ pressed }) => [styles.manualTempClearBtn, pressed && { opacity: 0.8 }]} onPress={clearManualFreshwaterTemp}>
+                    <Text style={styles.manualTempClearBtnText}>Clear</Text>
+                  </Pressable>
+                ) : null}
+              </View>
+            </View>
+          )}
 
           {/* Tab Bar */}
           {(isCoastal || isInlandDual) && (
@@ -605,6 +696,53 @@ const styles = StyleSheet.create({
     color: colors.text,
     marginBottom: spacing.md,
   },
+
+
+  manualTempCard: {
+    backgroundColor: colors.surface,
+    borderRadius: radius.md,
+    padding: spacing.md,
+    marginBottom: spacing.md,
+    borderWidth: 1,
+    borderColor: colors.border,
+  },
+  manualTempHeader: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    justifyContent: 'space-between',
+    gap: spacing.sm,
+    marginBottom: spacing.sm,
+  },
+  manualTempTitle: { fontSize: 15, fontWeight: '700', color: colors.text, marginBottom: 4 },
+  manualTempSub: { fontSize: 13, color: colors.textSecondary, lineHeight: 18 },
+  manualTempApplied: { fontSize: 12, color: colors.sage, fontWeight: '700' },
+  manualTempRow: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm },
+  manualTempInput: {
+    flex: 1,
+    borderWidth: 1,
+    borderColor: colors.border,
+    borderRadius: radius.sm,
+    paddingHorizontal: spacing.md,
+    paddingVertical: 10,
+    color: colors.text,
+    backgroundColor: colors.background,
+  },
+  manualTempBtn: {
+    backgroundColor: colors.sage,
+    borderRadius: radius.sm,
+    paddingHorizontal: spacing.md,
+    paddingVertical: 10,
+  },
+  manualTempBtnText: { color: colors.textLight, fontWeight: '700' },
+  manualTempClearBtn: {
+    borderWidth: 1,
+    borderColor: colors.border,
+    borderRadius: radius.sm,
+    paddingHorizontal: spacing.md,
+    paddingVertical: 10,
+    backgroundColor: colors.background,
+  },
+  manualTempClearBtnText: { color: colors.text, fontWeight: '600' },
 
   recommenderCta: {
     flexDirection: 'row',

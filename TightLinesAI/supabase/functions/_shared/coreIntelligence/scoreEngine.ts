@@ -29,6 +29,7 @@ import {
   getTempTrendProfile,
   getTideStrengthProfile,
   scorePrecipFromBaseline,
+  type OptimalProfile,
 } from "./optimalBaselines.ts";
 
 // ---------------------------------------------------------------------------
@@ -50,6 +51,120 @@ export function inverseLerp(value: number, min: number, max: number): number {
 // component_score = round((component_pct / 100) * component_weight)
 function toComponentScore(componentPct: number, weight: number): number {
   return Math.round((componentPct / 100) * weight);
+}
+
+function getProfileWindow(profile: OptimalProfile, month: number, dayOfMonth: number) {
+  const idx = Math.max(0, Math.min(11, month - 1));
+  const nextIdx = month === 12 ? 0 : idx + 1;
+  const prevIdx = month === 1 ? 11 : idx - 1;
+
+  let opt = profile.optimal[idx];
+  let sigAbove = profile.sigmaAbove[idx];
+  let sigBelow = profile.sigmaBelow[idx];
+
+  if (dayOfMonth <= 10) {
+    const t = dayOfMonth / 10;
+    opt = lerp(profile.optimal[prevIdx], opt, t);
+    sigAbove = lerp(profile.sigmaAbove[prevIdx], sigAbove, t);
+    sigBelow = lerp(profile.sigmaBelow[prevIdx], sigBelow, t);
+  } else if (dayOfMonth >= 21) {
+    const t = (dayOfMonth - 20) / 11;
+    opt = lerp(opt, profile.optimal[nextIdx], t);
+    sigAbove = lerp(sigAbove, profile.sigmaAbove[nextIdx], t);
+    sigBelow = lerp(sigBelow, profile.sigmaBelow[nextIdx], t);
+  }
+
+  return { opt, sigAbove, sigBelow };
+}
+
+function scoreFromSeasonalRange(
+  actual: number,
+  profile: OptimalProfile,
+  month: number,
+  dayOfMonth: number,
+  options?: { favorableWidthMultiplier?: number; stressWidthMultiplier?: number; floor?: number }
+): number {
+  const { opt, sigAbove, sigBelow } = getProfileWindow(profile, month, dayOfMonth);
+  const favorableMult = options?.favorableWidthMultiplier ?? 0.65;
+  const stressMult = options?.stressWidthMultiplier ?? 2.2;
+  const floor = options?.floor ?? 10;
+
+  const favorableHigh = opt + sigAbove * favorableMult;
+  const favorableLow = opt - sigBelow * favorableMult;
+  const stressHigh = opt + sigAbove * stressMult;
+  const stressLow = opt - sigBelow * stressMult;
+
+  if (actual >= favorableLow && actual <= favorableHigh) return 100;
+
+  if (actual > favorableHigh) {
+    if (actual >= stressHigh) return floor;
+    const t = inverseLerp(actual, favorableHigh, stressHigh);
+    return Math.round(lerp(100, floor, t));
+  }
+
+  if (actual <= stressLow) return floor;
+  const t = inverseLerp(actual, stressLow, favorableLow);
+  return Math.round(lerp(floor, 100, t));
+}
+
+function computeWaterTempConfidenceScale(confidence: number | null): number {
+  if (confidence === null) return 1;
+  return clamp(0.55 + confidence * 0.45, 0.6, 1);
+}
+
+function scorePrecipOpportunity(
+  env: EnvironmentSnapshot,
+  waterType: WaterType,
+  month: number,
+  band: LatitudeBand | CoastalBand
+): number | null {
+  const current = env.current_precip_in_hr ?? 0;
+  const p48 = env.precip_48hr_inches ?? 0;
+  const p7 = env.precip_7day_inches ?? 0;
+  if (env.current_precip_in_hr === null && env.precip_48hr_inches === null && env.precip_7day_inches === null) {
+    return null;
+  }
+
+  if (waterType === "saltwater") {
+    let score = 82;
+    if (current >= 0.6) score -= 26;
+    else if (current >= 0.2) score -= 14;
+    else if (current > 0) score -= 6;
+    if (p48 >= 4) score -= 24;
+    else if (p48 >= 2) score -= 12;
+    if (p7 >= 8) score -= 10;
+    return clamp(Math.round(score), 18, 92);
+  }
+
+  if (waterType === "brackish") {
+    let score = 78;
+    if (current >= 0.5) score -= 18;
+    else if (current >= 0.15) score -= 10;
+    if (p48 >= 3) score -= 36;
+    else if (p48 >= 1.5) score -= 20;
+    else if (p48 >= 0.5) score -= 8;
+    if (p7 >= 6) score -= 14;
+    return clamp(Math.round(score), 5, 90);
+  }
+
+  let score = 76;
+  // Summer convection can be fishable unless runoff is sustained.
+  const summerRelief = month >= 6 && month <= 8 ? 4 : 0;
+  if (current >= 0.6) score -= 16;
+  else if (current >= 0.2) score -= 8;
+  else if (current > 0) score -= 2;
+  if (p48 >= 3) score -= 24;
+  else if (p48 >= 1.5) score -= 12;
+  else if (p48 >= 0.4) score += 6 + summerRelief;
+  if (p7 >= 6) score -= 12;
+  else if (p7 >= 1 && p7 <= 3.5) score += 4;
+  return clamp(Math.round(score), 20, 90);
+}
+
+function computeCompositeBandScore(pcts: Array<number | null | undefined>): number | null {
+  const valid = pcts.filter((v): v is number => typeof v === "number");
+  if (valid.length === 0) return null;
+  return Math.round(valid.reduce((a, b) => a + b, 0) / valid.length);
 }
 
 // ---------------------------------------------------------------------------
@@ -777,6 +892,9 @@ export interface ComponentScores {
   coverage_pct: number;
   reliability_tier: ReliabilityTier;
   raw_score: number;
+  seasonal_baseline_score: number;
+  daily_opportunity_score: number;
+  water_temp_confidence: number | null;
 }
 
 // ---------------------------------------------------------------------------
@@ -929,10 +1047,15 @@ export function computeRawScore(
     } else {
       const wtProfile = getWaterTempProfile(waterType, band);
       let pct = wtProfile
-        ? scoreFromOptimalInterpolated(dv.water_temp_f, wtProfile, month, dayOfMonth)
+        ? scoreFromSeasonalRange(dv.water_temp_f, wtProfile, month, dayOfMonth, {
+            favorableWidthMultiplier: 0.75,
+            stressWidthMultiplier: 2.4,
+            floor: waterType === "freshwater" ? 12 : 8,
+          })
         : 50;
       // Behavioral modifiers (scaled down — baseline handles most context)
       pct = applySeasonalBehaviorModifier(pct, dv, waterType);
+      pct = Math.round(pct * computeWaterTempConfidenceScale(dv.water_temp_confidence));
       rawPcts.water_temp_zone = clamp(pct, 0, 100);
     }
   } else {
@@ -995,9 +1118,8 @@ export function computeRawScore(
     if (dv.salinity_disruption_alert && waterType === "brackish") {
       rawPcts.precipitation = 0;
     } else {
-      rawPcts.precipitation = scorePrecipFromBaseline(
-        dv.precip_condition, waterType, band, month
-      );
+      rawPcts.precipitation = scorePrecipOpportunity(env, waterType, month, band)
+        ?? scorePrecipFromBaseline(dv.precip_condition, waterType, band, month);
     }
   } else {
     rawPcts.precipitation = null;
@@ -1057,6 +1179,23 @@ export function computeRawScore(
     rawScore = Math.round((scoredPoints / availableWeightPoints) * 100);
   }
 
+  const seasonalBaselineScore = computeCompositeBandScore(
+    waterType === "freshwater"
+      ? [rawPcts.water_temp_zone, rawPcts.temp_trend, rawPcts.light]
+      : [rawPcts.water_temp_zone, rawPcts.light, rawPcts.tide_strength]
+  ) ?? rawScore;
+
+  const dailyOpportunityScore = computeCompositeBandScore(
+    waterType === "freshwater"
+      ? [rawPcts.pressure, rawPcts.wind, rawPcts.precipitation, rawPcts.solunar, rawPcts.moon_phase]
+      : [rawPcts.pressure, rawPcts.wind, rawPcts.precipitation, rawPcts.tide_phase, rawPcts.solunar, rawPcts.moon_phase]
+  ) ?? rawScore;
+
+  if (waterType === "freshwater" && dv.water_temp_confidence !== null) {
+    const confidenceBlend = clamp(dv.water_temp_confidence, 0.45, 0.86);
+    rawScore = Math.round(rawScore * (0.78 + confidenceBlend * 0.22));
+  }
+
   const coveragePct = Math.round(
     (availableWeightPoints / Math.max(totalPossibleWeightPoints, 1)) * 100
   );
@@ -1075,6 +1214,9 @@ export function computeRawScore(
     coverage_pct: coveragePct,
     reliability_tier: reliabilityTier,
     raw_score: rawScore,
+    seasonal_baseline_score: seasonalBaselineScore,
+    daily_opportunity_score: dailyOpportunityScore,
+    water_temp_confidence: dv.water_temp_confidence,
   };
 }
 

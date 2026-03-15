@@ -92,6 +92,8 @@ export interface EnvironmentSnapshot {
   // Water temp from ~72 hours ago — used for cold stun drop check (Section 4I)
   // Set to null if no historical observation is available.
   measured_water_temp_72h_ago_f: number | null;
+  // Optional user-entered freshwater water temperature override in °F
+  manual_freshwater_water_temp_f: number | null;
 
   // Freshwater subtype hint (optional; defaults to "lake" if null for estimation bias).
   // Populated from the client request when the user selects water body type.
@@ -185,6 +187,7 @@ export type WaterTempSource =
   | "noaa_coops"
   | "noaa_ndbc"
   | "marine_sst"
+  | "user_manual"
   | "unavailable";
 
 export type WindTideRelation =
@@ -318,6 +321,9 @@ export interface ScoringOutput {
   recovery_multiplier: number;
   adjusted_score: number;
   overall_rating: OverallRating;
+  seasonal_baseline_score?: number;
+  daily_opportunity_score?: number;
+  water_temp_confidence?: number;
   component_detail?: Record<string, { pct: number; score: number; weight: number }>;
 }
 
@@ -482,6 +488,7 @@ export interface EngineEnvironmentSnapshot {
   water_temp_f: number | null;
   water_temp_source: WaterTempSource;
   water_temp_zone: WaterTempZone | null;
+  water_temp_confidence: number | null;
   wind_speed_mph: number | null;
   wind_direction: string | null;
   wind_direction_deg: number | null;
@@ -584,6 +591,7 @@ export interface DerivedVariables {
   water_temp_f: number | null;
   water_temp_source: WaterTempSource;
   water_temp_zone: WaterTempZone | null;
+  water_temp_confidence: number | null;
 
   moon_phase: MoonPhaseLabel | null;
 

@@ -320,7 +320,6 @@ function deriveTempTrend(env: EnvironmentSnapshot): {
     const last24 = getRecentHourlyMean(env.hourly_air_temp_f, nowMs, 0, 24);
     const prev24 = getRecentHourlyMean(env.hourly_air_temp_f, nowMs, 24, 48);
 
-    // 72-hour window: compare same local-time window today vs 3 days ago (local day boundaries)
     const nowTzMs = nowMs + env.tz_offset_hours * 3600 * 1000;
     const currentHour = new Date(nowTzMs).getUTCHours();
 
@@ -347,13 +346,11 @@ function deriveTempTrend(env: EnvironmentSnapshot): {
     ) {
       const trend72h = todayMean - threeDaysAgoMean;
       const trend24h = last24 - prev24;
-
-      const state = mapTempTrendState(trend72h, trend24h);
-      return { temp_trend_direction_f: trend72h, temp_trend_state: state };
+      const { state, direction } = classifyTempTrend(trend72h, trend24h);
+      return { temp_trend_direction_f: direction, temp_trend_state: state };
     }
   }
 
-  // Fallback: use daily high/low means
   const highs = env.daily_air_temp_high_f;
   const lows = env.daily_air_temp_low_f;
   if (highs.length >= 4 && lows.length >= 4) {
@@ -361,9 +358,10 @@ function deriveTempTrend(env: EnvironmentSnapshot): {
     const threeDayMean = dailyMean(highs[highs.length - 4], lows[lows.length - 4]);
     if (todayMean !== null && threeDayMean !== null) {
       const trend = todayMean - threeDayMean;
+      const { state, direction } = classifyTempTrend(trend, null);
       return {
-        temp_trend_direction_f: trend,
-        temp_trend_state: mapTempTrendState(trend, null),
+        temp_trend_direction_f: direction,
+        temp_trend_state: state,
       };
     }
   }
@@ -371,20 +369,20 @@ function deriveTempTrend(env: EnvironmentSnapshot): {
   return { temp_trend_direction_f: null, temp_trend_state: null };
 }
 
-function mapTempTrendState(
+function classifyTempTrend(
   trend72h: number,
   trend24h: number | null
-): TempTrendState {
-  // Rapid thresholds based on fisheries science — 10°F+ in 24h or 15°F+ in 72h
-  // represents a biologically significant thermal event that alters fish behavior.
-  // Previous 4°F/24h threshold was too sensitive (normal diurnal variation).
-  if (trend24h !== null && trend24h <= -10) return "rapid_cooling";
-  if (trend72h <= -15) return "rapid_cooling";
-  if (trend24h !== null && trend24h >= 10) return "rapid_warming";
-  if (trend72h >= 15) return "rapid_warming";
-  if (trend72h >= 3) return "warming";
-  if (trend72h <= -3) return "cooling";
-  return "stable";
+): { state: TempTrendState; direction: number } {
+  if (trend24h !== null && trend24h <= -4) return { state: "rapid_cooling", direction: trend24h };
+  if (trend72h <= -5) return { state: "rapid_cooling", direction: trend72h };
+  if (trend24h !== null && trend24h >= 4) return { state: "rapid_warming", direction: trend24h };
+  if (trend72h >= 5) return { state: "rapid_warming", direction: trend72h };
+  if (trend24h !== null && trend24h <= -1.5) return { state: "cooling", direction: trend24h };
+  if (trend72h <= -2.5) return { state: "cooling", direction: trend72h };
+  if (trend24h !== null && trend24h >= 1.5) return { state: "warming", direction: trend24h };
+  if (trend72h >= 2.5) return { state: "warming", direction: trend72h };
+  const direction = trend24h !== null ? trend24h : trend72h;
+  return { state: "stable", direction };
 }
 
 function getRecentHourlyMean(
@@ -482,7 +480,7 @@ function applyLogisticSaturationCap(
   latBand: LatitudeBand,
   isRiver: boolean
 ): number {
-  const INFLECTION = 75; // °F — below this, linear relationship holds
+  const INFLECTION = 90; // °F — keep common summer conditions mostly linear; only cap extreme heat
   if (rawAirAvg <= INFLECTION) return rawAirAvg;
 
   // Rivers cap ~3°F lower due to flow-driven evaporation and mixing
@@ -492,7 +490,7 @@ function applyLogisticSaturationCap(
 
   // Logistic curve: rapid rise near inflection, flattens toward max
   // At excess=15 → ~73% of range; at excess=25 → ~92%; at excess=35 → ~98%
-  const GAMMA = 0.12;
+  const GAMMA = 0.18;
   const saturationFraction = 1 / (1 + Math.exp(-GAMMA * (excess - 12)));
   return INFLECTION + range * saturationFraction;
 }
@@ -613,7 +611,7 @@ function getLatSeasonCorrection(
   const table: Record<MeteoSeason, [number, number, number]> = {
     DJF: [-1, -3, -4],     // Winter: southern lakes barely lag
     MAM: [-1, -3, -5],     // Spring: northern lakes still under ice
-    JJA: [-2, -4, -6],     // Summer: all lakes lag (water slower to heat)
+    JJA: [-3, -5, -7],     // Summer: northern inland water still lags, but not by a full winter-style gap
     SON: [-1, -3, -5],     // Fall: northern lakes hold heat longer (turnover)
   };
   const row = table[season];
@@ -1159,6 +1157,45 @@ function deriveWindTideRelation(
 // Water Temperature Source Routing (Section 2D)
 // ---------------------------------------------------------------------------
 
+function deriveWaterTempConfidence(
+  env: EnvironmentSnapshot,
+  waterType: WaterType,
+  source: WaterTempSource,
+  subtype: FreshwaterSubtype | null,
+  latBand: LatitudeBand
+): number | null {
+  if (source === "unavailable") return null;
+
+  if (waterType !== "freshwater") {
+    if (source === "noaa_coops") return 0.96;
+    if (source === "noaa_ndbc") return 0.9;
+    if (source === "marine_sst") return 0.82;
+    return 0.88;
+  }
+
+  if (source === "user_manual") return 0.98;
+
+  let confidence = 0.68;
+  if (subtype === "river_stream") confidence += 0.08;
+  else if (subtype === "reservoir") confidence -= 0.06;
+
+  const highs = env.daily_air_temp_high_f.filter((v): v is number => v !== null);
+  const lows = env.daily_air_temp_low_f.filter((v): v is number => v !== null);
+  if (highs.length >= 3 && lows.length >= 3) {
+    const recentMeans = highs.slice(-3).map((high, idx) => (high + lows.slice(-3)[idx]) / 2);
+    const mean = recentMeans.reduce((a, b) => a + b, 0) / recentMeans.length;
+    const variance = recentMeans.reduce((acc, value) => acc + Math.pow(value - mean, 2), 0) / recentMeans.length;
+    const stdDev = Math.sqrt(variance);
+    if (stdDev <= 6) confidence += 0.07;
+    else if (stdDev >= 12) confidence -= 0.07;
+  }
+
+  if (env.altitude_ft !== null && env.altitude_ft > 5000) confidence -= 0.05;
+  if (latBand === "far_north" || latBand === "deep_south") confidence -= 0.03;
+
+  return Math.max(0.45, Math.min(0.86, Number(confidence.toFixed(2))));
+}
+
 function resolveWaterTemp(
   env: EnvironmentSnapshot,
   waterType: WaterType,
@@ -1167,6 +1204,12 @@ function resolveWaterTemp(
   seasonalState: SeasonalFishBehaviorState | null
 ): { water_temp_f: number | null; water_temp_source: WaterTempSource } {
   if (waterType === "freshwater") {
+    if (typeof env.manual_freshwater_water_temp_f === "number" && !Number.isNaN(env.manual_freshwater_water_temp_f)) {
+      return {
+        water_temp_f: Math.max(32, Math.min(99, env.manual_freshwater_water_temp_f)),
+        water_temp_source: "user_manual",
+      };
+    }
     const est = estimateFreshwaterTemp(env, subtype, latBand, seasonalState);
     if (est !== null) {
       return { water_temp_f: est, water_temp_source: "freshwater_air_model" };
@@ -1230,6 +1273,9 @@ export function deriveDerivedVariables(
   const { water_temp_f, water_temp_source } = resolveWaterTemp(
     env, waterType, freshwater_subtype, latitude_band, seasonal_fish_behavior
   );
+  const water_temp_confidence = deriveWaterTempConfidence(
+    env, waterType, water_temp_source, freshwater_subtype, latitude_band
+  );
   const water_temp_zone = deriveWaterTempZone(water_temp_f, waterType);
 
   // Cold context with latitude band
@@ -1274,6 +1320,7 @@ export function deriveDerivedVariables(
     water_temp_f,
     water_temp_source,
     water_temp_zone,
+    water_temp_confidence,
     freshwater_cold_context,
     freshwater_subtype,
     seasonal_fish_behavior,

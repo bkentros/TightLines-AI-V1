@@ -36,6 +36,37 @@ const CLAUDE_MODEL = "claude-haiku-4-5";
 const CLAUDE_INPUT_COST_PER_M = 1;
 const CLAUDE_OUTPUT_COST_PER_M = 5;
 
+function locationLocalMidnightIso(timezone: string, now = new Date()): string {
+  const formatter = new Intl.DateTimeFormat("en-US", {
+    timeZone: timezone,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: false,
+  });
+
+  const parts = Object.fromEntries(
+    formatter.formatToParts(now).map((part) => [part.type, part.value])
+  );
+
+  const y = Number(parts.year);
+  const m = Number(parts.month);
+  const d = Number(parts.day);
+  const hh = Number(parts.hour);
+  const mm = Number(parts.minute);
+  const ss = Number(parts.second);
+
+  const localNowUtcMillis = Date.UTC(y, m - 1, d, hh, mm, ss);
+  const actualUtcMillis = now.getTime();
+  const offsetMillis = localNowUtcMillis - actualUtcMillis;
+  const nextLocalMidnightUtcMillis = Date.UTC(y, m - 1, d + 1, 0, 0, 0) - offsetMillis;
+
+  return new Date(nextLocalMidnightUtcMillis).toISOString();
+}
+
 // ---------------------------------------------------------------------------
 // Verbatim system prompt from hows_fishing_feature_spec.md Section 7A
 // ---------------------------------------------------------------------------
@@ -47,6 +78,8 @@ Core rules:
 - Be straight with them. Great day? Get them fired up. Tough day? Tell them honestly, but keep it encouraging — there's always a way to scratch out a bite.
 - Explain why fish will or won't be cooperating in plain, relatable terms — think campfire conversation, not weather channel.
 - Keep it tight. A quick glance should tell them everything they need.
+- Front-load the answer: first tell them how good today is, when to go, and one practical adjustment.
+- Don't repeat the same point across headline, rating summary, and tips. Each field should add something new.
 - Never suggest specific lures, species, or tactics — you don't know what they're targeting.
 - Use exactly the time windows the engine provides. Never invent your own.
 
@@ -73,11 +106,12 @@ Length limits:
 - best_times_to_fish_today: max 2 items, reasoning max 16 words each
 - worst_times_to_fish_today: max 2 items, reasoning max 16 words each
 - decent_times_today: max 2 items, reasoning max 16 words each
-- key_factors values: short phrases, max 16 words each — conversational, not clinical
+- key_factors values: short phrases, max 16 words each — conversational, not clinical. Focus on the top 3-5 drivers only.
 - tips_for_today: exactly 3 tips, max 12 words each — practical and specific to right now
 - strategy.presentation_speed: max 8 words
 - strategy.depth_focus: max 10 words
 - strategy.approach_note: 1 sentence, max 20 words
+- Keep strategy practical. Tell them what to do differently today, not generic fishing advice.
 
 Output valid JSON only matching this schema:
 {
@@ -133,6 +167,8 @@ Core rules:
 - Be straight with them. Great day? Get them pumped. Tough conditions? Be honest but encouraging.
 - Explain fish behavior in plain, relatable terms — not weather-channel speak.
 - Keep it tight. Quick read, full picture.
+- Front-load the answer: first tell them how good today is, when to go, and one practical river adjustment.
+- Don't repeat the same point across headline, rating summary, and tips. Each field should add something new.
 - Never suggest specific lures, species, or tactics.
 - Use exactly the time windows the engine provides. Never invent your own.
 - RIVER-SPECIFIC — always think in terms of current and structure:
@@ -164,11 +200,12 @@ Length limits:
 - best_times_to_fish_today: max 2 items, reasoning max 16 words each
 - worst_times_to_fish_today: max 2 items, reasoning max 16 words each
 - decent_times_today: max 2 items, reasoning max 16 words each
-- key_factors values: short phrases, max 16 words each — conversational
+- key_factors values: short phrases, max 16 words each — conversational. Focus on the top 3-5 drivers only.
 - tips_for_today: exactly 3 tips, max 12 words each — actionable and RIVER-SPECIFIC
 - strategy.presentation_speed: max 8 words
 - strategy.depth_focus: max 10 words
 - strategy.approach_note: 1 sentence, max 20 words
+- Keep strategy practical. Tell them what to do differently today, not generic river advice.
 
 Output valid JSON only matching this schema:
 {
@@ -212,6 +249,28 @@ Output valid JSON only matching this schema:
     "approach_note": "string"
   }
 }`;
+
+const SALTWATER_SYSTEM_PROMPT = `You are the user's saltwater fishing buddy — honest, sharp, and tuned into tides, current, bait movement, and weather. Talk like someone who has already checked the water this morning, not like a textbook.
+
+Saltwater framing rules:
+- Speak to oceans, beaches, passes, open bays, inlets, jetties, flats, and nearshore structure.
+- Tides and current matter more than solunar language. Say "feeding window" or "moving water" instead of "solunar".
+- Favor direct, practical advice: fish moving water, points, drains, tide lines, cleaner water, current seams, protected shorelines.
+- Never mention freshwater cover like lily pads, creek chubs, riffles, or river seams unless the payload clearly supports it.
+- Use 12-hour local time with the provided timezone abbreviation for all time ranges. Never use military time.
+
+Keep the output concise, practical, and saltwater-specific.`;
+
+const BRACKISH_SYSTEM_PROMPT = `You are the user's brackish-water fishing buddy — practical, observant, and focused on how tides, runoff, salinity changes, wind, and moving water shift fish around.
+
+Brackish framing rules:
+- Speak to estuaries, lagoons, mangroves, marsh drains, oyster edges, back bays, tidal creeks, and tidal rivers.
+- Emphasize moving water, bait positioning, salinity disruptions after rain, cleaner water, and protected shorelines.
+- Brackish fish often reposition after heavy rain. Mention higher-salinity zones, passes, drains, or cleaner edges when the engine supports it.
+- Do not narrate like open-ocean surf fishing and do not narrate like inland lakes.
+- Use 12-hour local time with the provided timezone abbreviation for all time ranges. Never use military time.
+
+Keep the output concise, helpful, and clearly estuary/brackish-specific.`;
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -303,7 +362,7 @@ function generateDeterministicFallback(
 
   // Best times from engine windows
   const bestTimes = engineOutput.time_windows.slice(0, 2).map((w) => ({
-    time_range: `${w.start_local} – ${w.end_local}`,
+    time_range: normalizeTimeRange(`${w.start_local} – ${w.end_local}`, engineOutput.location.timezone),
     label: w.label as "PRIME" | "GOOD",
     reasoning: w.drivers.length > 0
       ? w.drivers.slice(0, 2).join(" + ").replace(/_/g, " ")
@@ -312,7 +371,7 @@ function generateDeterministicFallback(
 
   // Worst times
   const worstTimes = engineOutput.worst_windows.slice(0, 2).map((w) => ({
-    time_range: `${w.start_local} – ${w.end_local}`,
+    time_range: normalizeTimeRange(`${w.start_local} – ${w.end_local}`, engineOutput.location.timezone),
     reasoning: "Lowest activity period",
   }));
 
@@ -480,6 +539,41 @@ function sanitizeTopLevelText(value: unknown, maxWords: number): string {
   return typeof value === "string" ? truncateWords(value, maxWords) : "";
 }
 
+function timezoneAbbreviation(timezone: string): string {
+  try {
+    const parts = new Intl.DateTimeFormat("en-US", {
+      timeZone: timezone,
+      timeZoneName: "short",
+      hour: "numeric",
+    }).formatToParts(new Date());
+    return parts.find((part) => part.type === "timeZoneName")?.value ?? timezone;
+  } catch {
+    return timezone;
+  }
+}
+
+function formatTimeForDisplay(raw: string): string {
+  const match = raw.trim().match(/^(\d{1,2}):(\d{2})$/);
+  if (!match) return raw.trim();
+  const hour24 = Number(match[1]);
+  const minute = match[2];
+  const suffix = hour24 >= 12 ? "PM" : "AM";
+  const hour12 = hour24 % 12 === 0 ? 12 : hour24 % 12;
+  return `${hour12}:${minute} ${suffix}`;
+}
+
+function normalizeTimeRange(value: string, timezone: string): string {
+  const trimmed = value.replace(/\s+/g, " ").trim();
+  const rangeMatch = trimmed.match(/(\d{1,2}:\d{2})\s*[–-]\s*(\d{1,2}:\d{2})/);
+  const zone = timezoneAbbreviation(timezone);
+  if (rangeMatch) {
+    return `${formatTimeForDisplay(rangeMatch[1])} – ${formatTimeForDisplay(rangeMatch[2])} ${zone}`;
+  }
+  const singleMatch = trimmed.match(/^(\d{1,2}:\d{2})$/);
+  if (singleMatch) return `${formatTimeForDisplay(singleMatch[1])} ${zone}`;
+  return trimmed;
+}
+
 function sanitizeKeyFactorMap(input: unknown): Record<string, string> {
   const normalized = normalizeKeyFactors(input);
   return Object.fromEntries(
@@ -487,38 +581,38 @@ function sanitizeKeyFactorMap(input: unknown): Record<string, string> {
   );
 }
 
-function sanitizeBestTimes(input: unknown): LLMOutput["best_times_to_fish_today"] {
+function sanitizeBestTimes(input: unknown, timezone: string): LLMOutput["best_times_to_fish_today"] {
   if (!Array.isArray(input)) return [];
   return input
     .filter((item): item is Record<string, unknown> => Boolean(item) && typeof item === "object")
     .slice(0, 2)
     .map((item) => ({
-      time_range: sanitizeTopLevelText(item.time_range, 6),
+      time_range: normalizeTimeRange(sanitizeTopLevelText(item.time_range, 8), timezone),
       label: item.label === "PRIME" ? "PRIME" : "GOOD",
       reasoning: sanitizeTopLevelText(item.reasoning, 18),
     }))
     .filter((item) => item.time_range.length > 0 && item.reasoning.length > 0);
 }
 
-function sanitizeWorstTimes(input: unknown): LLMOutput["worst_times_to_fish_today"] {
+function sanitizeWorstTimes(input: unknown, timezone: string): LLMOutput["worst_times_to_fish_today"] {
   if (!Array.isArray(input)) return [];
   return input
     .filter((item): item is Record<string, unknown> => Boolean(item) && typeof item === "object")
     .slice(0, 2)
     .map((item) => ({
-      time_range: sanitizeTopLevelText(item.time_range, 6),
+      time_range: normalizeTimeRange(sanitizeTopLevelText(item.time_range, 8), timezone),
       reasoning: sanitizeTopLevelText(item.reasoning, 18),
     }))
     .filter((item) => item.time_range.length > 0 && item.reasoning.length > 0);
 }
 
-function sanitizeDecentTimes(input: unknown): Array<{ time_range: string; reasoning: string }> {
+function sanitizeDecentTimes(input: unknown, timezone: string): Array<{ time_range: string; reasoning: string }> {
   if (!Array.isArray(input)) return [];
   return input
     .filter((item): item is Record<string, unknown> => Boolean(item) && typeof item === "object")
     .slice(0, 2)
     .map((item) => ({
-      time_range: sanitizeTopLevelText(item.time_range, 6),
+      time_range: normalizeTimeRange(sanitizeTopLevelText(item.time_range, 8), timezone),
       reasoning: sanitizeTopLevelText(item.reasoning, 18),
     }))
     .filter((item) => item.time_range.length > 0 && item.reasoning.length > 0);
@@ -536,6 +630,7 @@ function sanitizeTips(input: unknown): string[] {
 async function callClaudeForReport(
   anthropicKey: string,
   enginePayload: Record<string, unknown>,
+  timezone: string,
   systemPrompt?: string
 ): Promise<ClaudeCallResult> {
   const prompt = systemPrompt ?? HOW_FISHING_SYSTEM_PROMPT;
@@ -600,9 +695,9 @@ async function callClaudeForReport(
           label: sanitizeTopLevelText(overall.label, 2),
           summary: sanitizeTopLevelText(overall.summary, 26),
         },
-        best_times_to_fish_today: sanitizeBestTimes(parsed.best_times_to_fish_today),
-        decent_times_today: sanitizeDecentTimes(parsed.decent_times_today),
-        worst_times_to_fish_today: sanitizeWorstTimes(parsed.worst_times_to_fish_today),
+        best_times_to_fish_today: sanitizeBestTimes(parsed.best_times_to_fish_today, timezone),
+        decent_times_today: sanitizeDecentTimes(parsed.decent_times_today, timezone),
+        worst_times_to_fish_today: sanitizeWorstTimes(parsed.worst_times_to_fish_today, timezone),
         key_factors: sanitizeKeyFactorMap(parsed.key_factors),
         tips_for_today: sanitizeTips(parsed.tips_for_today),
         strategy,
@@ -724,12 +819,12 @@ function buildLLMPayload(
 // Get local date/time from UTC + offset
 // ---------------------------------------------------------------------------
 
-function getLocalDateAndTime(utcIso: string, tzOffsetHours: number): { date: string; time: string } {
+function getLocalDateAndTime(utcIso: string, tzOffsetHours: number, timezone: string): { date: string; time: string } {
   const ms = new Date(utcIso).getTime() + tzOffsetHours * 3600 * 1000;
   const d = new Date(ms);
   const date = `${d.getUTCFullYear()}-${String(d.getUTCMonth() + 1).padStart(2, "0")}-${String(d.getUTCDate()).padStart(2, "0")}`;
-  const time = `${String(d.getUTCHours()).padStart(2, "0")}:${String(d.getUTCMinutes()).padStart(2, "0")}`;
-  return { date, time };
+  const time24 = `${String(d.getUTCHours()).padStart(2, "0")}:${String(d.getUTCMinutes()).padStart(2, "0")}`;
+  return { date, time: `${formatTimeForDisplay(time24)} ${timezoneAbbreviation(timezone)}` };
 }
 
 // ---------------------------------------------------------------------------
@@ -1080,7 +1175,8 @@ Deno.serve(async (req: Request) => {
 
   const { date: analysisDateLocal, time: currentTimeLocal } = getLocalDateAndTime(
     timestampUtc,
-    engineSnapshot.tz_offset_hours
+    engineSnapshot.tz_offset_hours,
+    engineSnapshot.timezone
   );
 
   let totalInputTokens = 0;
@@ -1116,9 +1212,12 @@ Deno.serve(async (req: Request) => {
     }
 
     const llmPayload = buildLLMPayload(engineOutput, analysisDateLocal, currentTimeLocal);
+    const systemPrompt = waterType === "saltwater" ? SALTWATER_SYSTEM_PROMPT : waterType === "brackish" ? BRACKISH_SYSTEM_PROMPT : undefined;
     const { llm, inputTokens, outputTokens, error: llmError } = await callClaudeForReport(
       anthropicKey,
-      llmPayload
+      llmPayload,
+      engineOutput.location.timezone,
+      systemPrompt
     );
     totalInputTokens += inputTokens;
     totalOutputTokens += outputTokens;
@@ -1174,11 +1273,12 @@ Deno.serve(async (req: Request) => {
     (llmPayload as Record<string, unknown>).freshwater_subtype_label = subtypeLabel;
 
     // Use river-specific prompt for river tabs
-    const systemPrompt = subtypeLabel === "river" ? RIVER_SYSTEM_PROMPT : undefined;
+    const systemPrompt = subtypeLabel === "river" ? RIVER_SYSTEM_PROMPT : waterType === "saltwater" ? SALTWATER_SYSTEM_PROMPT : waterType === "brackish" ? BRACKISH_SYSTEM_PROMPT : undefined;
 
     const { llm, inputTokens, outputTokens, error: llmError } = await callClaudeForReport(
       anthropicKey,
       llmPayload,
+      engineOutput.location.timezone,
       systemPrompt
     );
     totalInputTokens += inputTokens;
@@ -1250,7 +1350,14 @@ Deno.serve(async (req: Request) => {
 
   // --- 8. Calculate actual cost and log usage ---
   const actualCostUsd = computeCallCost(totalInputTokens, totalOutputTokens);
-  const cacheExpiresAt = new Date(Date.now() + 45 * 60 * 1000).toISOString();
+  const primaryTimezone =
+    reports.freshwater_lake?.engine?.location?.timezone ??
+    reports.freshwater?.engine?.location?.timezone ??
+    reports.saltwater?.engine?.location?.timezone ??
+    reports.brackish?.engine?.location?.timezone ??
+    reports.freshwater_river?.engine?.location?.timezone ??
+    engineSnapshot.timezone;
+  const cacheExpiresAt = locationLocalMidnightIso(primaryTimezone);
 
   // Build response bundle (Section 8)
   const responseBundle = {
