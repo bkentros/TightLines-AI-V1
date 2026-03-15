@@ -198,7 +198,7 @@ export default function RootLayout() {
         <Stack.Screen name="subscribe" options={{ title: 'Subscribe' }} />
         <Stack.Screen
           name="how-fishing"
-          options={{ title: "How's Fishing" }}
+          options={{ headerShown: false }}
         />
         <Stack.Screen
           name="how-fishing-results"

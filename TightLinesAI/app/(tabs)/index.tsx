@@ -11,9 +11,7 @@ import { SubscribePrompt } from '../../components/SubscribePrompt';
 import { useAuthStore } from '../../store/authStore';
 import { useDevTestingStore } from '../../store/devTestingStore';
 import { useEnvStore } from '../../store/envStore';
-import { useForecastStore } from '../../store/forecastStore';
 import { getEffectiveTier, canUseAIFeatures } from '../../lib/subscription';
-import { getScoreBand } from '../../components/fishing/ScoreCard';
 
 /* ─── Brand mark — fish + crosshair ─── */
 const MARK_SIZE = 30;
@@ -218,9 +216,6 @@ export default function HomeScreen() {
 
   const effectiveTier = getEffectiveTier(profile, overrideSubscriptionTier ?? null);
   const hasSubscription = canUseAIFeatures(effectiveTier);
-  const { forecast } = useForecastStore();
-  const todayScore = forecast?.today?.daily_score ?? null;
-  const todayRating = forecast?.today?.overall_rating ?? null;
 
   const handleHowFishingPress = useCallback(() => {
     if (!hasSubscription) {
@@ -299,15 +294,7 @@ export default function HomeScreen() {
             <Text style={styles.fishingBtnText}>
               How's Fishing Right Now?
             </Text>
-            {todayScore !== null && todayRating !== null && (
-              <View style={[
-                styles.scoreBadge,
-                { backgroundColor: getScoreBand(todayScore) === 'green' ? colors.sage
-                  : getScoreBand(todayScore) === 'yellow' ? '#E8A838' : '#E05252' }
-              ]}>
-                <Text style={styles.scoreBadgeText}>{todayScore}</Text>
-              </View>
-            )}
+
           </View>
           <View style={styles.tierPill}>
             <Text style={styles.tierPillText}>Angler+</Text>
@@ -491,17 +478,6 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: colors.textLight,
     letterSpacing: 0.3,
-  },
-  scoreBadge: {
-    paddingHorizontal: 7,
-    paddingVertical: 2,
-    borderRadius: 10,
-    marginLeft: 4,
-  },
-  scoreBadgeText: {
-    fontSize: 11,
-    fontWeight: '700',
-    color: '#fff',
   },
 
   /* Tiles */

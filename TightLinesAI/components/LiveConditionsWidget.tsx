@@ -325,9 +325,7 @@ export function LiveConditionsWidget({
         <View style={styles.condPill}>
           <Ionicons name="water-outline" size={11} color={colors.textSecondary} />
           <Text style={styles.condPillText}>
-            {t && t.high_low?.length
-              ? `${t.high_low[0]?.type === 'H' ? 'High' : 'Low'} ${(t.high_low[0]?.time ?? '').split(' ')[1] ?? ''}`
-              : '—'}
+            {w?.humidity != null ? `${Math.round(w.humidity)}% humidity` : 'Humidity —'}
           </Text>
         </View>
         {ageLabel && (

@@ -18,6 +18,7 @@ import type {
 import {
   getSeasonalWeights,
   getCoastalBand,
+  getDeviationBonusPct,
   type CoastalBand,
 } from "./seasonalProfiles.ts";
 import {
@@ -109,7 +110,23 @@ function scoreFromSeasonalRange(
 
 function computeWaterTempConfidenceScale(confidence: number | null): number {
   if (confidence === null) return 1;
-  return clamp(0.55 + confidence * 0.45, 0.6, 1);
+  return clamp(0.35 + confidence * 0.65, 0.45, 1);
+}
+
+function getColdSideWaterTempPenalty(
+  actual: number,
+  profile: OptimalProfile,
+  month: number,
+  dayOfMonth: number,
+  waterType: WaterType,
+): number {
+  if (waterType !== 'freshwater') return 0;
+  const { opt, sigBelow } = getProfileWindow(profile, month, dayOfMonth);
+  if (actual >= opt) return 0;
+  const degreesBelow = opt - actual;
+  const normalized = sigBelow > 0 ? degreesBelow / Math.max(sigBelow, 1) : 0;
+  if (normalized <= 0.4) return 0;
+  return Math.min(18, Math.round((normalized - 0.4) * 10));
 }
 
 function scorePrecipOpportunity(
@@ -1028,6 +1045,8 @@ export function computeRawScore(
       } else {
         rawPcts.light = 40; // fallback
       }
+      if (dv.light_condition === 'midday_overcast') rawPcts.light = Math.max(rawPcts.light ?? 0, 28);
+      else if (dv.light_condition === 'midday_partly_cloudy') rawPcts.light = Math.max(rawPcts.light ?? 0, 18);
     }
   } else {
     rawPcts.light = null;
@@ -1048,13 +1067,16 @@ export function computeRawScore(
       const wtProfile = getWaterTempProfile(waterType, band);
       let pct = wtProfile
         ? scoreFromSeasonalRange(dv.water_temp_f, wtProfile, month, dayOfMonth, {
-            favorableWidthMultiplier: 0.75,
-            stressWidthMultiplier: 2.4,
-            floor: waterType === "freshwater" ? 12 : 8,
+            favorableWidthMultiplier: waterType === "freshwater" ? 0.68 : 0.75,
+            stressWidthMultiplier: waterType === "freshwater" ? 2.1 : 2.4,
+            floor: waterType === "freshwater" ? 10 : 8,
           })
         : 50;
       // Behavioral modifiers (scaled down — baseline handles most context)
       pct = applySeasonalBehaviorModifier(pct, dv, waterType);
+      const deviationBonus = getDeviationBonusPct(waterType, band as any, month, dv.water_temp_f);
+      pct += deviationBonus;
+      if (wtProfile) pct -= getColdSideWaterTempPenalty(dv.water_temp_f, wtProfile, month, dayOfMonth, waterType);
       pct = Math.round(pct * computeWaterTempConfidenceScale(dv.water_temp_confidence));
       rawPcts.water_temp_zone = clamp(pct, 0, 100);
     }

@@ -430,19 +430,23 @@ interface ForecastCacheEntry {
   lon: number;
   date: string;
   fetched_at: string;
+  water_type?: WaterType | 'auto';
+  freshwater_subtype?: 'lake' | 'river_stream' | 'reservoir';
   bundle: WeeklyOverviewBundle;
 }
 
-function forecastCacheKey(lat: number, lon: number): string {
-  return `forecast_weekly_${lat.toFixed(3)}_${lon.toFixed(3)}`;
+function forecastCacheKey(lat: number, lon: number, waterType: WaterType | 'auto' = 'auto', freshwaterSubtype: 'lake' | 'river_stream' | 'reservoir' = 'lake'): string {
+  return `forecast_weekly_${lat.toFixed(3)}_${lon.toFixed(3)}_${waterType}_${freshwaterSubtype}`;
 }
 
 export async function getCachedWeeklyForecast(
   latitude: number,
-  longitude: number
+  longitude: number,
+  waterType: WaterType | 'auto' = 'auto',
+  freshwaterSubtype: 'lake' | 'river_stream' | 'reservoir' = 'lake'
 ): Promise<WeeklyOverviewBundle | null> {
   try {
-    const key = forecastCacheKey(latitude, longitude);
+    const key = forecastCacheKey(latitude, longitude, waterType, freshwaterSubtype);
     const raw = await AsyncStorage.getItem(key);
     if (!raw) return null;
     const entry = JSON.parse(raw) as ForecastCacheEntry;
@@ -459,15 +463,19 @@ export async function getCachedWeeklyForecast(
 export async function setCachedWeeklyForecast(
   latitude: number,
   longitude: number,
-  bundle: WeeklyOverviewBundle
+  bundle: WeeklyOverviewBundle,
+  waterType: WaterType | 'auto' = 'auto',
+  freshwaterSubtype: 'lake' | 'river_stream' | 'reservoir' = 'lake'
 ): Promise<void> {
   try {
-    const key = forecastCacheKey(latitude, longitude);
+    const key = forecastCacheKey(latitude, longitude, waterType, freshwaterSubtype);
     const entry: ForecastCacheEntry = {
       lat: latitude,
       lon: longitude,
       date: currentDeviceLocalDateString(),
       fetched_at: new Date().toISOString(),
+      water_type: waterType,
+      freshwater_subtype: freshwaterSubtype,
       bundle,
     };
     await AsyncStorage.setItem(key, JSON.stringify(entry));

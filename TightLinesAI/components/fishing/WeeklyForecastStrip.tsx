@@ -1,26 +1,12 @@
 /**
- * WeeklyForecastStrip — horizontal scrollable 7-day fishing forecast.
- * Each day card shows: score, rating badge, day label, high/low temp.
- * Today is visually highlighted. Tappable for drill-down.
+ * WeeklyForecastStrip — 7-day forecast with /10 display.
  */
 
 import React from 'react';
-import {
-  View,
-  Text,
-  ScrollView,
-  Pressable,
-  StyleSheet,
-  ActivityIndicator,
-} from 'react-native';
+import { View, Text, ScrollView, Pressable, StyleSheet, ActivityIndicator } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { colors, fonts, spacing, radius } from '../../lib/theme';
-import { getScoreBand } from './ScoreCard';
 import type { ForecastDay, OverallRating } from '../../lib/howFishing';
-
-// ---------------------------------------------------------------------------
-// Rating → strip label mapping
-// ---------------------------------------------------------------------------
 
 function ratingToLabel(rating: OverallRating): string {
   switch (rating) {
@@ -42,22 +28,13 @@ function ratingToLabel(rating: OverallRating): string {
 function ratingBadgeStyle(rating: OverallRating) {
   const label = ratingToLabel(rating);
   switch (label) {
-    case 'PRIME':
-      return { bg: colors.sage, text: '#fff' };
-    case 'GOOD':
-      return { bg: '#4A9ECC', text: '#fff' };
-    case 'FAIR':
-      return { bg: '#B8860B', text: '#fff' };
-    case 'SLOW':
-      return { bg: '#E05252', text: '#fff' };
-    default:
-      return { bg: colors.textMuted, text: '#fff' };
+    case 'PRIME': return { bg: colors.sage, text: '#fff' };
+    case 'GOOD': return { bg: '#4A9ECC', text: '#fff' };
+    case 'FAIR': return { bg: '#B8860B', text: '#fff' };
+    case 'SLOW': return { bg: '#E05252', text: '#fff' };
+    default: return { bg: colors.textMuted, text: '#fff' };
   }
 }
-
-// ---------------------------------------------------------------------------
-// Day label helper
-// ---------------------------------------------------------------------------
 
 function getDayLabel(dateStr: string, index: number): string {
   if (index === 0) return 'Today';
@@ -69,10 +46,6 @@ function getDayLabel(dateStr: string, index: number): string {
   }
 }
 
-// ---------------------------------------------------------------------------
-// Weather icon helper
-// ---------------------------------------------------------------------------
-
 function getWeatherIcon(day: ForecastDay): keyof typeof Ionicons.glyphMap {
   if (day.precip_chance_pct > 60) return 'rainy-outline';
   if (day.wind_mph_avg > 20) return 'flag-outline';
@@ -80,95 +53,52 @@ function getWeatherIcon(day: ForecastDay): keyof typeof Ionicons.glyphMap {
   return 'sunny-outline';
 }
 
-// ---------------------------------------------------------------------------
-// Component
-// ---------------------------------------------------------------------------
+function scoreOutOfTen(score: number): string {
+  const value = Math.round(score) / 10;
+  return Number.isInteger(value) ? value.toFixed(0) : value.toFixed(1);
+}
 
 interface WeeklyForecastStripProps {
   forecastDays: ForecastDay[];
   selectedDate?: string | null;
   onDayPress: (date: string, index: number) => void;
   isLoading?: boolean;
+  todayOverride?: Partial<ForecastDay> | null;
 }
 
-export function WeeklyForecastStrip({
-  forecastDays,
-  selectedDate,
-  onDayPress,
-  isLoading,
-}: WeeklyForecastStripProps) {
+export function WeeklyForecastStrip({ forecastDays, selectedDate, onDayPress, isLoading, todayOverride }: WeeklyForecastStripProps) {
   if (isLoading && forecastDays.length === 0) {
     return (
       <View style={styles.loadingContainer}>
         <ActivityIndicator size="small" color={colors.sage} />
-        <Text style={styles.loadingText}>Loading forecast...</Text>
+        <Text style={styles.loadingText}>Loading forecast…</Text>
       </View>
     );
   }
-
   if (forecastDays.length === 0) return null;
+
+  const days = forecastDays.map((day, idx) => (idx === 0 && todayOverride ? { ...day, ...todayOverride } : day));
 
   return (
     <View style={styles.container}>
       <Text style={styles.sectionTitle}>7-Day Forecast</Text>
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={styles.scrollContent}
-      >
-        {forecastDays.map((day, idx) => {
-          const isToday = idx === 0;
-          const isSelected = day.date === selectedDate;
+      <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
+        {days.map((day, idx) => {
+          const isSelected = selectedDate === day.date || (!selectedDate && idx === 0);
           const badge = ratingBadgeStyle(day.overall_rating);
-          const label = ratingToLabel(day.overall_rating);
-          const band = getScoreBand(day.daily_score);
-
           return (
             <Pressable
-              key={day.date}
+              key={`${day.date}-${idx}`}
+              style={({ pressed }) => [styles.card, isSelected && styles.cardSelected, pressed && { opacity: 0.85 }]}
               onPress={() => onDayPress(day.date, idx)}
-              style={({ pressed }) => [
-                styles.dayCard,
-                isToday && styles.dayCardToday,
-                isSelected && styles.dayCardSelected,
-                pressed && styles.dayCardPressed,
-              ]}
             >
-              {/* Day label */}
-              <Text style={[styles.dayLabel, isToday && styles.dayLabelToday]}>
-                {getDayLabel(day.date, idx)}
-              </Text>
-
-              {/* Score number */}
-              <Text
-                style={[
-                  styles.scoreNumber,
-                  {
-                    color:
-                      band === 'green' ? colors.sage : band === 'yellow' ? '#C47B00' : '#E05252',
-                  },
-                ]}
-              >
-                {day.daily_score}
-              </Text>
-
-              {/* Rating badge */}
-              <View style={[styles.ratingBadge, { backgroundColor: badge.bg }]}>
-                <Text style={[styles.ratingBadgeText, { color: badge.text }]}>{label}</Text>
+              <Text style={styles.dayLabel}>{getDayLabel(day.date, idx).toUpperCase()}</Text>
+              <Text style={[styles.score, { color: badge.bg }]}>{scoreOutOfTen(day.daily_score)}</Text>
+              <View style={[styles.badge, { backgroundColor: badge.bg }]}>
+                <Text style={[styles.badgeText, { color: badge.text }]}>{ratingToLabel(day.overall_rating)}</Text>
               </View>
-
-              {/* Weather icon */}
-              <Ionicons
-                name={getWeatherIcon(day) as any}
-                size={16}
-                color={colors.textMuted}
-                style={styles.weatherIcon}
-              />
-
-              {/* High/Low */}
-              <Text style={styles.tempText}>
-                {Math.round(day.high_temp_f)}/{Math.round(day.low_temp_f)}
-              </Text>
+              <Ionicons name={getWeatherIcon(day)} size={18} color={colors.textMuted} style={styles.icon} />
+              <Text style={styles.temps}>{Math.round(day.high_temp_f)}/{Math.round(day.low_temp_f)}</Text>
             </Pressable>
           );
         })}
@@ -177,95 +107,33 @@ export function WeeklyForecastStrip({
   );
 }
 
-// ---------------------------------------------------------------------------
-// Styles
-// ---------------------------------------------------------------------------
-
-const CARD_WIDTH = 72;
-
 const styles = StyleSheet.create({
-  container: {
-    marginBottom: spacing.lg,
-  },
+  container: { marginBottom: spacing.md },
   sectionTitle: {
     fontFamily: fonts.serif,
-    fontSize: 18,
+    fontSize: 16,
     color: colors.text,
     marginBottom: spacing.sm,
-    fontWeight: '600',
+    fontWeight: '700',
   },
-  scrollContent: {
-    gap: spacing.sm,
-    paddingVertical: spacing.xs,
-  },
-  dayCard: {
-    width: CARD_WIDTH,
-    alignItems: 'center',
+  scrollContent: { gap: spacing.sm, paddingRight: spacing.md },
+  card: {
+    width: 88,
     backgroundColor: colors.surface,
     borderRadius: radius.md,
+    paddingVertical: 10,
+    paddingHorizontal: 8,
     borderWidth: 1,
     borderColor: colors.border,
-    paddingVertical: spacing.sm,
-    paddingHorizontal: spacing.xs,
-  },
-  dayCardToday: {
-    borderColor: colors.sage,
-    borderWidth: 2,
-    backgroundColor: colors.sage + '08',
-  },
-  dayCardSelected: {
-    borderColor: colors.sage,
-    borderWidth: 2,
-    backgroundColor: colors.sageLight,
-  },
-  dayCardPressed: {
-    transform: [{ scale: 0.96 }],
-  },
-  dayLabel: {
-    fontSize: 11,
-    fontWeight: '600',
-    color: colors.textMuted,
-    marginBottom: 4,
-    textTransform: 'uppercase',
-  },
-  dayLabelToday: {
-    color: colors.sage,
-  },
-  scoreNumber: {
-    fontFamily: fonts.serif,
-    fontSize: 24,
-    fontWeight: '700',
-    lineHeight: 28,
-  },
-  ratingBadge: {
-    paddingHorizontal: 6,
-    paddingVertical: 1,
-    borderRadius: 8,
-    marginTop: 3,
-    marginBottom: 4,
-  },
-  ratingBadgeText: {
-    fontSize: 8,
-    fontWeight: '700',
-    textTransform: 'uppercase',
-  },
-  weatherIcon: {
-    marginBottom: 2,
-  },
-  tempText: {
-    fontSize: 10,
-    color: colors.textMuted,
-    fontWeight: '500',
-  },
-  loadingContainer: {
-    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
-    gap: spacing.sm,
-    paddingVertical: spacing.lg,
   },
-  loadingText: {
-    fontSize: 13,
-    color: colors.textMuted,
-  },
+  cardSelected: { borderColor: colors.sage, borderWidth: 2 },
+  dayLabel: { fontSize: 10, fontWeight: '700', color: colors.textMuted, marginBottom: 6, letterSpacing: 0.3 },
+  score: { fontFamily: fonts.serif, fontSize: 24, lineHeight: 28, fontWeight: '700' },
+  badge: { borderRadius: 10, paddingHorizontal: 8, paddingVertical: 2, marginTop: 4 },
+  badgeText: { fontSize: 10, fontWeight: '700', textTransform: 'uppercase' },
+  icon: { marginTop: spacing.sm },
+  temps: { marginTop: 6, fontSize: 12, color: colors.textMuted, fontVariant: ['tabular-nums'] },
+  loadingContainer: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm, marginBottom: spacing.md },
+  loadingText: { fontSize: 13, color: colors.textMuted },
 });

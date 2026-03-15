@@ -1,160 +1,129 @@
 /**
- * ScoreCard — displays the big fishing score (0-100) with rating and water temp.
- * Extracted from how-fishing-results.tsx for reuse across results + forecast drill-down.
+ * ScoreCard — compact top-line score display.
+ * Internal engine stays 0-100; UI presents it as 0-10 for readability.
  */
 
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { colors, fonts, spacing, radius } from '../../lib/theme';
-import type { EngineScoring } from '../../lib/howFishing';
+import type { EngineScoring, WaterType } from '../../lib/howFishing';
 
-export function getScoreBand(score: number): 'red' | 'yellow' | 'green' {
-  if (score <= 37) return 'red';
-  if (score <= 71) return 'yellow';
-  return 'green';
+export function getScoreBand(score: number): 'green' | 'yellow' | 'red' {
+  if (score >= 72) return 'green';
+  if (score >= 45) return 'yellow';
+  return 'red';
 }
 
-const BAND_STYLES = {
-  red: { bg: '#FFF0F0', border: '#E05252', text: '#E05252' },
-  yellow: { bg: '#FFF8E6', border: '#E8A838', text: '#C47B00' },
-  green: { bg: '#F0F8F0', border: colors.sage, text: colors.sage },
-} as const;
+function cardStyles(score: number) {
+  const band = getScoreBand(score);
+  switch (band) {
+    case 'green':
+      return { bg: '#EAF6EE', border: '#4A9A63', text: colors.sageDark };
+    case 'yellow':
+      return { bg: '#FFF7E7', border: '#E0A23A', text: '#C17C00' };
+    default:
+      return { bg: '#FFF0F0', border: '#E06969', text: '#C64545' };
+  }
+}
 
-interface ScoreCardProps {
-  scoring: EngineScoring;
-  waterType: string;
-  waterTempLine: string | null;
+function frontNote(scoring: EngineScoring): string | null {
+  if (!scoring.recovery_multiplier || scoring.recovery_multiplier >= 0.98) return null;
+  return 'Recent front activity is holding the bite back.';
 }
 
 function confidenceLine(scoring: EngineScoring): string | null {
   if (typeof scoring.water_temp_confidence !== 'number') return null;
   const pct = Math.round(scoring.water_temp_confidence * 100);
-  if (pct >= 90) return null;
-  return `Freshwater temperature confidence: ${pct}%`;
+  if (pct >= 95) return null;
+  return `Freshwater temperature confidence ${pct}%`;
+}
+
+function displayScore(score: number): string {
+  const outOfTen = Math.round(score) / 10;
+  if (Number.isInteger(outOfTen)) return `${outOfTen.toFixed(0)}`;
+  return outOfTen.toFixed(1);
+}
+
+interface ScoreCardProps {
+  scoring: EngineScoring;
+  waterType: WaterType;
+  waterTempLine?: string | null;
 }
 
 export function ScoreCard({ scoring, waterType, waterTempLine }: ScoreCardProps) {
-  const band = getScoreBand(scoring.adjusted_score);
-  const style = BAND_STYLES[band];
-
-  const frontNote =
-    scoring.recovery_multiplier < 1.0
-      ? 'Score reduced due to recent cold front activity.'
-      : null;
-
-  const confidenceNote = confidenceLine(scoring);
-  const hasScoreContext =
-    typeof scoring.seasonal_baseline_score === 'number' ||
-    typeof scoring.daily_opportunity_score === 'number';
+  const style = cardStyles(scoring.adjusted_score);
+  const note = frontNote(scoring);
+  const confidence = confidenceLine(scoring);
 
   return (
-    <View style={[styles.scoreCard, { backgroundColor: style.bg, borderColor: style.border }]}>
-      <Text style={[styles.scoreBig, { color: style.text }]}>{scoring.adjusted_score}</Text>
-      <Text style={styles.scoreOutOf}>out of 100</Text>
-      <Text style={[styles.scoreRating, { color: style.text }]}>{scoring.overall_rating}</Text>
-      <Text style={styles.scoreWaterType}>{waterType.charAt(0).toUpperCase() + waterType.slice(1)}</Text>
-      {hasScoreContext ? (
-        <View style={styles.contextRow}>
-          {typeof scoring.seasonal_baseline_score === 'number' ? (
-            <View style={styles.contextPill}>
-              <Text style={styles.contextLabel}>Seasonal base</Text>
-              <Text style={styles.contextValue}>{scoring.seasonal_baseline_score}</Text>
-            </View>
-          ) : null}
-          {typeof scoring.daily_opportunity_score === 'number' ? (
-            <View style={styles.contextPill}>
-              <Text style={styles.contextLabel}>Today's boost</Text>
-              <Text style={styles.contextValue}>{scoring.daily_opportunity_score}</Text>
-            </View>
-          ) : null}
+    <View style={[styles.card, { backgroundColor: style.bg, borderColor: style.border }]}> 
+      <View style={styles.scoreRow}>
+        <View>
+          <Text style={[styles.score, { color: style.text }]}>{displayScore(scoring.adjusted_score)}</Text>
+          <Text style={styles.scoreLabel}>out of 10</Text>
         </View>
-      ) : null}
-      {frontNote && <Text style={styles.recoveryNote}>{frontNote}</Text>}
-      {waterTempLine ? <Text style={styles.waterTempLine}>{waterTempLine}</Text> : null}
-      {confidenceNote ? <Text style={styles.confidenceLine}>{confidenceNote}</Text> : null}
+        <View style={styles.metaWrap}>
+          <Text style={[styles.rating, { color: style.text }]}>{scoring.overall_rating}</Text>
+          <Text style={styles.waterType}>{waterType.charAt(0).toUpperCase() + waterType.slice(1)}</Text>
+        </View>
+      </View>
+
+      {note ? <Text style={styles.note}>{note}</Text> : null}
+      {waterTempLine ? <Text style={styles.subLine}>{waterTempLine}</Text> : null}
+      {confidence ? <Text style={styles.subLine}>{confidence}</Text> : null}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  scoreCard: {
-    borderRadius: radius.lg,
-    padding: spacing.xl,
-    marginBottom: spacing.md,
-    borderWidth: 2,
-    alignItems: 'center',
+  card: {
+    borderRadius: radius.md,
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.sm + 2,
+    marginBottom: spacing.sm,
+    borderWidth: 1.5,
   },
-  scoreBig: {
+  scoreRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-end',
+    gap: spacing.md,
+  },
+  score: {
     fontFamily: fonts.serif,
-    fontSize: 64,
+    fontSize: 38,
     fontWeight: '700',
-    lineHeight: 72,
+    lineHeight: 42,
   },
-  scoreOutOf: {
-    fontSize: 16,
+  scoreLabel: {
+    fontSize: 12,
     color: colors.textSecondary,
-    marginTop: -4,
-    marginBottom: spacing.xs,
+    marginTop: -2,
   },
-  scoreRating: {
+  metaWrap: {
+    alignItems: 'flex-end',
+    paddingBottom: 2,
+  },
+  rating: {
     fontFamily: fonts.serif,
     fontSize: 22,
     fontWeight: '700',
-    marginBottom: 2,
   },
-  scoreWaterType: {
-    fontSize: 14,
+  waterType: {
+    fontSize: 12,
     color: colors.textMuted,
-    marginBottom: spacing.sm,
     textTransform: 'capitalize',
+    marginTop: 2,
   },
-  contextRow: {
-    flexDirection: 'row',
-    gap: spacing.sm,
-    marginBottom: spacing.sm,
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-  },
-  contextPill: {
-    backgroundColor: '#FFFFFFB3',
-    borderWidth: 1,
-    borderColor: '#00000010',
-    borderRadius: 999,
-    paddingHorizontal: spacing.sm,
-    paddingVertical: 6,
-    minWidth: 110,
-    alignItems: 'center',
-  },
-  contextLabel: {
-    fontSize: 10,
-    color: colors.textMuted,
-    textTransform: 'uppercase',
-    letterSpacing: 0.4,
-    marginBottom: 2,
-    fontWeight: '700',
-  },
-  contextValue: {
-    fontSize: 16,
-    fontWeight: '700',
-    color: colors.text,
-  },
-  recoveryNote: {
+  note: {
     fontSize: 12,
-    color: '#E8A838',
-    textAlign: 'center',
-    marginTop: spacing.xs,
-    fontWeight: '500',
+    color: '#C17C00',
+    marginTop: 6,
+    fontWeight: '600',
   },
-  waterTempLine: {
+  subLine: {
     fontSize: 12,
     color: colors.textMuted,
-    textAlign: 'center',
-    marginTop: spacing.xs,
-  },
-  confidenceLine: {
-    fontSize: 12,
-    color: colors.textMuted,
-    textAlign: 'center',
     marginTop: 4,
   },
 });

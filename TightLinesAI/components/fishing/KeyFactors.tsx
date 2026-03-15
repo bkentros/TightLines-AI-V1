@@ -13,8 +13,12 @@ interface KeyFactorsProps {
   embedded?: boolean;
 }
 
+function cleanText(t: string): string {
+  return (t || '').replace(/\\u2192/g, '→').replace(/\s+/g, ' ').trim();
+}
+
 export function KeyFactorsSection({ factors, embedded = false }: KeyFactorsProps) {
-  const entries = Object.entries(factors).filter(([, v]) => v && typeof v === 'string');
+  const entries = Object.entries(factors).filter(([, v]) => v && typeof v === 'string' && cleanText(v));
   if (entries.length === 0) return null;
   return (
     <View style={embedded ? undefined : styles.section}>
@@ -25,7 +29,7 @@ export function KeyFactorsSection({ factors, embedded = false }: KeyFactorsProps
             <Text style={styles.whyFactor}>
               {key.replace(/_/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())}
             </Text>
-            <Text style={styles.whyVal}>{val}</Text>
+            <Text style={styles.whyVal}>{cleanText(val ?? '')}</Text>
           </View>
         ))}
       </View>
@@ -45,7 +49,7 @@ const styles = StyleSheet.create({
   descCard: {
     backgroundColor: colors.surface,
     borderRadius: radius.md,
-    padding: spacing.md,
+    padding: spacing.sm + 2,
     borderWidth: 1,
     borderColor: colors.border,
   },

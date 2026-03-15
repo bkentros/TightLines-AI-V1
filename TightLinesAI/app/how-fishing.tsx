@@ -1,13 +1,4 @@
-/**
- * How's Fishing — Unified Screen (Phase 2 Redesign)
- *
- * Auto-runs analysis on mount. Shows condensed conditions as loading state,
- * then transitions to full results inline. No separate results screen.
- *
- * Flow: Home -> tap button -> this screen (auto-run) -> results inline
- */
-
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import {
   View,
   Text,
@@ -15,11 +6,10 @@ import {
   ScrollView,
   Pressable,
   Alert,
-  Animated,
-  Easing,
-  RefreshControl,
-  Linking,
   TextInput,
+  ActivityIndicator,
+  Modal,
+  RefreshControl,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter, useLocalSearchParams } from 'expo-router';
@@ -33,9 +23,9 @@ import {
   getCachedHowFishingBundle,
   setCachedHowFishingBundle,
   setCurrentHowFishingBundle,
-  getCurrentHowFishingBundle,
   type HowFishingBundle,
   type WaterTypeReport,
+  type ForecastDay,
 } from '../lib/howFishing';
 import { useEnvStore } from '../store/envStore';
 import { useForecastStore } from '../store/forecastStore';
@@ -43,800 +33,500 @@ import type { EnvironmentData } from '../lib/env/types';
 import {
   ReportView,
   WaterTypeTabBar,
-  TAB_LABELS,
   WeeklyForecastStrip,
-  CondensedLoadingView,
 } from '../components/fishing';
+import { CondensedLoadingView } from '../components/fishing/CondensedLoadingView';
 
-// =============================================================================
-// Helpers
-// =============================================================================
-
-function windDirLabel(deg: number): string {
-  const dirs = ['N','NNE','NE','ENE','E','ESE','SE','SSE','S','SSW','SW','WSW','W','WNW','NW','NNW'];
-  const idx = Math.round(((deg % 360) + 360) / 22.5) % 16;
-  return dirs[idx] ?? '';
+function currentLocationDateString(timezone?: string) {
+  try {
+    return new Intl.DateTimeFormat('en-US', {
+      timeZone: timezone,
+      weekday: 'short',
+      month: 'short',
+      day: 'numeric',
+    }).format(new Date());
+  } catch {
+    return new Date().toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+  }
 }
 
-// =============================================================================
-// Main Screen
-// =============================================================================
+
+function currentLocationDateKey(timezone?: string, iso: string = new Date().toISOString()): string {
+  try {
+    return new Intl.DateTimeFormat('en-CA', {
+      timeZone: timezone,
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    }).format(new Date(iso));
+  } catch {
+    return new Date(iso).toISOString().slice(0, 10);
+  }
+}
+
+function formatGeneratedTime(iso: string, timezone?: string): string {
+  try {
+    return new Intl.DateTimeFormat('en-US', {
+      timeZone: timezone,
+      hour: 'numeric',
+      minute: '2-digit',
+      hour12: true,
+      timeZoneName: 'short',
+    }).format(new Date(iso));
+  } catch {
+    return new Date(iso).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+  }
+}
+
+function dayLabel(dateStr: string): string {
+  try {
+    return new Date(dateStr + 'T12:00:00').toLocaleDateString('en-US', {
+      weekday: 'long',
+      month: 'short',
+      day: 'numeric',
+    });
+  } catch {
+    return dateStr;
+  }
+}
+
+
+
+function windDirectionLabel(deg?: number | null): string | null {
+  if (typeof deg !== 'number' || Number.isNaN(deg)) return null;
+  const cards = ['N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW'];
+  const i = Math.round(((deg % 360) + 360) / 22.5) % 16;
+  return cards[i] ?? null;
+}
+
+function isCoastalFromEnv(env: EnvironmentData | null | undefined): boolean {
+  return Boolean(env?.coastal);
+}
+
+function resolveForecastWaterType(isCoastal: boolean, activeTab: string): 'freshwater' | 'saltwater' | 'brackish' | 'auto' {
+  if (!isCoastal) return 'freshwater';
+  if (activeTab === 'brackish') return 'brackish';
+  if (activeTab === 'freshwater') return 'freshwater';
+  if (activeTab === 'saltwater') return 'saltwater';
+  return 'saltwater';
+}
 
 export default function HowFishingScreen() {
   const router = useRouter();
   const params = useLocalSearchParams<{ lat?: string; lon?: string }>();
   const lat = params.lat != null ? parseFloat(params.lat) : NaN;
   const lon = params.lon != null ? parseFloat(params.lon) : NaN;
-  const hasCoords =
-    !isNaN(lat) && lat >= -90 && lat <= 90 && !isNaN(lon) && lon >= -180 && lon <= 180;
+  const hasCoords = !Number.isNaN(lat) && !Number.isNaN(lon);
 
   const { profile } = useAuthStore();
   const units = profile?.preferred_units ?? 'imperial';
-
-  // ---------------------------------------------------------------------------
-  // State
-  // ---------------------------------------------------------------------------
+  const setLastReportEnv = useEnvStore((s) => s.setLastReportEnv);
+  const { forecast, isLoading: forecastLoading, loadForecast } = useForecastStore();
 
   const [env, setEnv] = useState<EnvironmentData | null>(null);
   const [envLoading, setEnvLoading] = useState(true);
-
   const [bundle, setBundle] = useState<HowFishingBundle | null>(null);
   const [analysisLoading, setAnalysisLoading] = useState(false);
   const [analysisError, setAnalysisError] = useState<string | null>(null);
   const [refreshing, setRefreshing] = useState(false);
-
-  const [activeTab, setActiveTab] = useState<string>('freshwater');
-  const [freshwaterSubtype, setFreshwaterSubtype] = useState<'lake' | 'river_stream' | 'reservoir'>('lake');
+  const [activeTab, setActiveTab] = useState<string>('freshwater_lake');
+  const [freshwaterSubtype, setFreshwaterSubtype] = useState<'lake' | 'river_stream'>('lake');
   const [manualWaterTempInput, setManualWaterTempInput] = useState('');
   const [manualWaterTempApplied, setManualWaterTempApplied] = useState<number | null>(null);
-
-  const setLastReportEnv = useEnvStore((s) => s.setLastReportEnv);
-  const { forecast, isLoading: forecastLoading, loadForecast } = useForecastStore();
-
-  // Fade animation for results transition
-  const fadeAnim = useRef(new Animated.Value(0)).current;
-  const hasAutoRun = useRef(false);
-
-  // ---------------------------------------------------------------------------
-  // Phase detection: loading (conditions) vs results
-  // ---------------------------------------------------------------------------
-
-  const showResults = bundle !== null;
-  const showLoading = !showResults && (envLoading || analysisLoading);
-
-  // ---------------------------------------------------------------------------
-  // Auto-run on mount
-  // ---------------------------------------------------------------------------
+  const [locationLabel, setLocationLabel] = useState<string>('Current location');
+  const [reportDateKey, setReportDateKey] = useState<string | null>(null);
+  const [forecastPromptDay, setForecastPromptDay] = useState<{ day: ForecastDay; index: number } | null>(null);
 
   useEffect(() => {
-    if (!hasCoords || hasAutoRun.current) return;
-    hasAutoRun.current = true;
-
+    if (!hasCoords) return;
     let cancelled = false;
-
     (async () => {
-      // 1. Load cached env for quick display
       setEnvLoading(true);
       try {
-        const cachedEnv = await getEnvironment({ latitude: lat, longitude: lon, units });
-        if (!cancelled) setEnv(cachedEnv);
+        const [cachedEnv, geo] = await Promise.all([
+          getEnvironment({ latitude: lat, longitude: lon, units }),
+          Location.reverseGeocodeAsync({ latitude: lat, longitude: lon }).catch(() => []),
+        ]);
+        if (cancelled) return;
+        setEnv(cachedEnv);
+        if (geo?.[0]) {
+          const g = geo[0];
+          const city = g.city ?? g.subregion ?? g.district;
+          const region = g.region ?? '';
+          setLocationLabel(city && region ? `${city}, ${region}` : city ?? region ?? 'Current location');
+        }
+        loadForecast(lat, lon, cachedEnv, { waterType: isCoastalFromEnv(cachedEnv) ? 'saltwater' : 'freshwater', freshwaterSubtype });
       } catch {
-        // Non-fatal — we'll show loading anyway
-      }
-      if (!cancelled) setEnvLoading(false);
-
-      // 2. Check bundle cache first
-      const cachedBundle = manualWaterTempApplied === null ? await getCachedHowFishingBundle(lat, lon) : null;
-      if (!cancelled && cachedBundle) {
-        setBundle(cachedBundle);
-        setActiveTab(cachedBundle.default_tab ?? 'freshwater');
-        // Fade in results
-        Animated.timing(fadeAnim, {
-          toValue: 1,
-          duration: 300,
-          useNativeDriver: true,
-        }).start();
-        // Also load forecast in background
-        try {
-          const envForForecast = await getEnvironment({ latitude: lat, longitude: lon, units });
-          loadForecast(lat, lon, envForForecast);
-        } catch { /* non-fatal */ }
-        return;
-      }
-
-      // 3. No cache — run full analysis
-      if (!cancelled) {
-        await runAnalysis(cancelled);
+        if (!cancelled) setAnalysisError('Unable to load live conditions.');
+      } finally {
+        if (!cancelled) setEnvLoading(false);
       }
     })();
-
     return () => { cancelled = true; };
-  }, [hasCoords, lat, lon, units, manualWaterTempApplied, fadeAnim, loadForecast]);
+  }, [hasCoords, lat, lon, units, loadForecast, freshwaterSubtype]);
 
-  // ---------------------------------------------------------------------------
-  // Analysis runner
-  // ---------------------------------------------------------------------------
+  const isCoastal = env?.coastal ?? false;
+  const showManualTemp = !isCoastal;
+  const availableTabs = useMemo(() => {
+    if (!bundle) return [] as string[];
+    return bundle.mode === 'inland_dual'
+      ? ['freshwater_lake', 'freshwater_river']
+      : ['freshwater', 'saltwater', 'brackish'].filter((k) => (bundle.reports as any)[k]);
+  }, [bundle]);
 
-  const runAnalysis = useCallback(async (cancelled = false, manualOverride: number | null | undefined = undefined) => {
+  const activeReport: WaterTypeReport | null = useMemo(() => {
+    if (!bundle) return null;
+    return (bundle.reports as any)[activeTab] ?? null;
+  }, [bundle, activeTab]);
+
+  useEffect(() => {
+    if (!env || !hasCoords || !bundle) return;
+    loadForecast(lat, lon, manualWaterTempApplied !== null && !isCoastal ? { ...env, manual_freshwater_water_temp_f: manualWaterTempApplied } : env, {
+      waterType: resolveForecastWaterType(isCoastal, activeTab),
+      freshwaterSubtype,
+    });
+  }, [env, hasCoords, bundle, loadForecast, lat, lon, activeTab, freshwaterSubtype, manualWaterTempApplied, isCoastal]);
+
+  const generateReport = useCallback(async (targetDate?: string) => {
     if (!hasCoords) return;
     setAnalysisLoading(true);
     setAnalysisError(null);
 
     try {
       const accessToken = await getValidAccessToken();
-
-      // Force-fetch fresh environment
       const freshEnv = await fetchFreshEnvironment({ latitude: lat, longitude: lon, units });
-      if (cancelled) return;
       setEnv(freshEnv);
-
-      const selectedManualTemp = manualOverride === undefined ? manualWaterTempApplied : manualOverride;
+      const selectedManualTemp = showManualTemp ? manualWaterTempApplied : null;
       const envPayload: EnvironmentData = selectedManualTemp !== null
         ? { ...freshEnv, manual_freshwater_water_temp_f: selectedManualTemp }
         : freshEnv;
 
-      const data = await invokeEdgeFunction<HowFishingBundle | { error: string; message?: string }>(
-        'how-fishing',
-        {
-          accessToken,
-          body: {
-            latitude: lat,
-            longitude: lon,
-            units,
-            freshwater_subtype: freshwaterSubtype,
-            env_data: envPayload,
-          },
+      if (!targetDate && selectedManualTemp === null) {
+        const cached = await getCachedHowFishingBundle(lat, lon);
+        if (cached) {
+          setBundle(cached);
+          setActiveTab((prev) => prev && (cached.reports as any)[prev] ? prev : (cached.default_tab ?? 'freshwater_lake'));
+          setReportDateKey(currentLocationDateKey(bundleTimezoneFromBundle(cached) ?? freshEnv.timezone, cached.generated_at));
+          setLastReportEnv(freshEnv);
+          loadForecast(lat, lon, envPayload, { waterType: resolveForecastWaterType(isCoastal, activeTab), freshwaterSubtype });
+          setAnalysisLoading(false);
+          return;
         }
-      );
-
-      if (cancelled) return;
-
-      // Handle error responses
-      const errObj =
-        data && typeof data === 'object' && 'error' in data
-          ? (data as { error: string; message?: string })
-          : null;
-      if (errObj?.error === 'usage_cap_exceeded') {
-        Alert.alert('Usage limit reached', errObj.message ?? 'Upgrade or wait for next billing period.');
-        setAnalysisLoading(false);
-        return;
-      }
-      if (errObj?.error === 'subscription_required') {
-        Alert.alert('Subscription required', errObj.message ?? 'Subscribe to use this feature.');
-        setAnalysisLoading(false);
-        return;
       }
 
-      const result = data as HowFishingBundle;
-      if (!result || typeof result !== 'object' || result.feature !== 'hows_fishing_feature_v1') {
+      const result = await invokeEdgeFunction<HowFishingBundle | { error: string; message?: string }>('how-fishing', {
+        accessToken,
+        body: {
+          latitude: lat,
+          longitude: lon,
+          units,
+          freshwater_subtype: freshwaterSubtype,
+          env_data: envPayload,
+          target_date: targetDate,
+        },
+      });
+
+      if (result && typeof result === 'object' && 'error' in result) {
+        throw new Error(result.message ?? result.error);
+      }
+
+      const bundleResult = result as HowFishingBundle;
+      if (!bundleResult || bundleResult.feature !== 'hows_fishing_feature_v1') {
         throw new Error('Invalid response format');
       }
 
-      // Cache and display
-      if (selectedManualTemp === null) {
-        await setCachedHowFishingBundle(lat, lon, result);
-        setCurrentHowFishingBundle(lat, lon, result);
+      if (!targetDate && selectedManualTemp === null) {
+        await setCachedHowFishingBundle(lat, lon, bundleResult);
+        setCurrentHowFishingBundle(lat, lon, bundleResult);
       }
+
       setLastReportEnv(freshEnv);
-      setBundle(result);
-      setActiveTab(result.default_tab ?? 'freshwater');
-
-      // Fade in results
-      fadeAnim.setValue(0);
-      Animated.timing(fadeAnim, {
-        toValue: 1,
-        duration: 400,
-        easing: Easing.out(Easing.ease),
-        useNativeDriver: true,
-      }).start();
-
-      // Load forecast in background
-      loadForecast(lat, lon, freshEnv);
+      setBundle(bundleResult);
+      setActiveTab((prev) => prev && (bundleResult.reports as any)[prev] ? prev : (bundleResult.default_tab ?? 'freshwater_lake'));
+      setReportDateKey(targetDate ?? currentLocationDateKey(bundleTimezoneFromBundle(bundleResult) ?? freshEnv.timezone, bundleResult.generated_at));
+      loadForecast(lat, lon, envPayload, { waterType: resolveForecastWaterType(isCoastal, activeTab), freshwaterSubtype });
     } catch (err) {
-      if (cancelled) return;
       const msg = err instanceof Error ? err.message : 'Something went wrong. Try again.';
       setAnalysisError(msg);
+      Alert.alert('Unable to generate report', msg);
     } finally {
       setAnalysisLoading(false);
+      setForecastPromptDay(null);
     }
-  }, [hasCoords, lat, lon, units, freshwaterSubtype, manualWaterTempApplied, setLastReportEnv, loadForecast, fadeAnim]);
-
-  // ---------------------------------------------------------------------------
-  // Pull-to-refresh
-  // ---------------------------------------------------------------------------
+  }, [hasCoords, lat, lon, units, freshwaterSubtype, manualWaterTempApplied, showManualTemp, setLastReportEnv, loadForecast, activeTab, isCoastal]);
 
   const handleRefresh = useCallback(async () => {
     setRefreshing(true);
-    setBundle(null);
-    fadeAnim.setValue(0);
-    hasAutoRun.current = false;
-    await runAnalysis(false, manualWaterTempApplied);
+    await generateReport(reportDateKey && forecast?.forecast_days?.some((d) => d.date === reportDateKey) ? reportDateKey : undefined);
     setRefreshing(false);
-  }, [runAnalysis]);
+  }, [generateReport, reportDateKey, forecast]);
 
-  // ---------------------------------------------------------------------------
-  // Forecast day press handler
-  // ---------------------------------------------------------------------------
-
-  const handleForecastDayPress = useCallback((date: string, index: number) => {
-    if (index === 0) return; // Today is already shown
-    const day = forecast?.forecast_days?.[index];
-    if (!day) return;
-
-    Alert.alert(
-      `${getDayLabel(date, index)} \u2014 Score: ${day.daily_score}`,
-      `${day.summary_line}\n\nHigh: ${Math.round(day.high_temp_f)}\u00B0F  Low: ${Math.round(day.low_temp_f)}\u00B0F\nWind: ${day.wind_mph_avg} mph  Rain: ${day.precip_chance_pct}%`,
-      [
-        { text: 'OK', style: 'cancel' },
-        // Future: "Get Full Analysis" button here
-      ]
-    );
-  }, [forecast]);
-
-  // =========================================================================
-  // No location state
-  // =========================================================================
-
-  if (!hasCoords) {
-    const handleEnableLocation = async () => {
-      const { status: existing } = await Location.getForegroundPermissionsAsync();
-      if (existing === 'granted') {
-        try {
-          const loc = await Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Balanced });
-          router.replace({ pathname: '/how-fishing', params: { lat: String(loc.coords.latitude), lon: String(loc.coords.longitude) } });
-        } catch {
-          Alert.alert('Location error', 'Could not get your location. Please try again.');
-        }
-        return;
-      }
-      const { status } = await Location.requestForegroundPermissionsAsync();
-      if (status === 'granted') {
-        try {
-          const loc = await Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Balanced });
-          router.replace({ pathname: '/how-fishing', params: { lat: String(loc.coords.latitude), lon: String(loc.coords.longitude) } });
-        } catch {
-          Alert.alert('Location error', 'Could not get your location. Please try again.');
-        }
-      } else {
-        Alert.alert(
-          'Location permission denied',
-          'Location is required for this feature. Enable it in Settings \u2192 TightLines AI \u2192 Location.',
-          [
-            { text: 'Open Settings', onPress: () => Linking.openSettings() },
-            { text: 'Cancel', style: 'cancel' },
-          ]
-        );
-      }
-    };
-
-    return (
-      <SafeAreaView style={styles.safe} edges={['top', 'bottom']}>
-        <View style={styles.centered}>
-          <Ionicons name="location-outline" size={52} color={colors.sage} />
-          <Text style={styles.messageText}>Location needed</Text>
-          <Text style={styles.messageSub}>
-            How's Fishing requires your GPS location to pull current conditions.
-          </Text>
-          <Pressable
-            style={({ pressed }) => [styles.enableBtn, pressed && styles.enableBtnPressed]}
-            onPress={handleEnableLocation}
-          >
-            <Ionicons name="locate" size={18} color={colors.textLight} />
-            <Text style={styles.enableBtnText}>Enable Location</Text>
-          </Pressable>
-          <Pressable
-            style={({ pressed }) => [styles.backBtn, pressed && styles.backBtnPressed]}
-            onPress={() => router.back()}
-          >
-            <Text style={styles.backBtnText}>Go back</Text>
-          </Pressable>
-        </View>
-      </SafeAreaView>
-    );
-  }
-
-  // =========================================================================
-  // Loading state — condensed conditions + animation
-  // =========================================================================
-
-  if (showLoading && !showResults) {
-    // Build conditions data from env for the condensed view
-    const conditionsData = env ? {
-      air_temp_f: env.weather?.temperature ?? null,
-      wind_speed_mph: env.weather?.wind_speed ?? null,
-      wind_direction: env.weather?.wind_direction != null
-        ? windDirLabel(env.weather.wind_direction) : null,
-      pressure_mb: env.weather?.pressure ?? null,
-      pressure_state: env.weather?.pressure_trend ?? null,
-      cloud_cover_pct: env.weather?.cloud_cover ?? null,
-      moon_phase: env.moon?.phase ?? null,
-      moon_illumination_pct: env.moon?.illumination != null ? env.moon.illumination * 100 : null,
-      light_condition: null, // derived by engine, not in raw env
-      tide_phase_state: null, // derived by engine
-      solunar_state: null, // derived by engine
-    } : null;
-
-    return (
-      <SafeAreaView style={styles.safe} edges={['top', 'bottom']}>
-        {/* Header */}
-        <View style={styles.topBar}>
-          <Pressable
-            style={({ pressed }) => [styles.navBack, pressed && { opacity: 0.45 }]}
-            onPress={() => router.back()}
-            hitSlop={12}
-          >
-            <Ionicons name="chevron-back" size={22} color={colors.text} />
-          </Pressable>
-          <Text style={styles.heading}>How's Fishing?</Text>
-        </View>
-
-        <CondensedLoadingView
-          conditions={conditionsData}
-          statusText={analysisLoading ? 'Analyzing conditions...' : 'Loading conditions...'}
-        />
-      </SafeAreaView>
-    );
-  }
-
-  // =========================================================================
-  // Error state (analysis failed, no bundle)
-  // =========================================================================
-
-  if (analysisError && !bundle) {
-    return (
-      <SafeAreaView style={styles.safe} edges={['top', 'bottom']}>
-        <View style={styles.topBar}>
-          <Pressable
-            style={({ pressed }) => [styles.navBack, pressed && { opacity: 0.45 }]}
-            onPress={() => router.back()}
-            hitSlop={12}
-          >
-            <Ionicons name="chevron-back" size={22} color={colors.text} />
-          </Pressable>
-          <Text style={styles.heading}>How's Fishing?</Text>
-        </View>
-        <View style={styles.centered}>
-          <Ionicons name="alert-circle-outline" size={48} color={colors.textMuted} />
-          <Text style={styles.errorTitle}>Analysis Failed</Text>
-          <Text style={styles.errorBody}>{analysisError}</Text>
-          <Pressable
-            style={({ pressed }) => [styles.retryBtn, pressed && { opacity: 0.7 }]}
-            onPress={() => {
-              setAnalysisError(null);
-              hasAutoRun.current = false;
-              runAnalysis();
-            }}
-          >
-            <Ionicons name="refresh" size={18} color={colors.textLight} />
-            <Text style={styles.retryBtnText}>Try Again</Text>
-          </Pressable>
-          <Pressable
-            style={({ pressed }) => [styles.backBtn, pressed && styles.backBtnPressed]}
-            onPress={() => router.back()}
-          >
-            <Text style={styles.backBtnText}>Go back</Text>
-          </Pressable>
-        </View>
-      </SafeAreaView>
-    );
-  }
-
-  // =========================================================================
-  // Results state
-  // =========================================================================
-
-  if (!bundle || !bundle.reports) {
-    return (
-      <SafeAreaView style={styles.safe} edges={['top', 'bottom']}>
-        <View style={styles.centered}>
-          <Ionicons name="alert-circle-outline" size={48} color={colors.textMuted} />
-          <Text style={styles.errorTitle}>Report not available</Text>
-          <Text style={styles.errorBody}>Please go back and try again.</Text>
-          <Pressable
-            style={({ pressed }) => [styles.backBtn, pressed && styles.backBtnPressed]}
-            onPress={() => router.back()}
-          >
-            <Text style={styles.backBtnText}>Go back</Text>
-          </Pressable>
-        </View>
-      </SafeAreaView>
-    );
-  }
-
-  const isCoastal = bundle.mode === 'coastal_multi';
-  const isInlandDual = bundle.mode === 'inland_dual';
-  const availableTabs: string[] = isCoastal
-    ? ['freshwater', 'saltwater', 'brackish']
-    : isInlandDual
-      ? ['freshwater_lake', 'freshwater_river']
-      : ['freshwater'];
-
-  const activeReport = (bundle.reports as Record<string, WaterTypeReport | undefined>)[activeTab];
-  const activeTimezone = env?.timezone ?? activeReport?.engine?.location?.timezone;
-  const showManualTempCard = activeTab === 'freshwater' || activeTab === 'freshwater_lake' || activeTab === 'freshwater_river';
-
-  const formatLocalTimeWithZone = (iso: string | null | undefined, timezone?: string) => {
-    if (!iso) return null;
-    try {
-      return new Intl.DateTimeFormat('en-US', {
-        hour: 'numeric',
-        minute: '2-digit',
-        hour12: true,
-        timeZone: timezone,
-        timeZoneName: 'short',
-      }).format(new Date(iso));
-    } catch {
-      return new Date(iso).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
-    }
-  };
-
-  const generatedAt = formatLocalTimeWithZone(bundle.generated_at, activeTimezone);
-
-  const applyManualFreshwaterTemp = async () => {
-    const trimmed = manualWaterTempInput.trim();
-    if (!trimmed) {
+  const applyManualTemp = useCallback(() => {
+    if (!manualWaterTempInput.trim()) {
       setManualWaterTempApplied(null);
-      await handleRefresh();
       return;
     }
-    const parsed = Number(trimmed);
+    const parsed = Number(manualWaterTempInput);
     if (Number.isNaN(parsed)) {
       Alert.alert('Invalid water temperature', 'Enter a valid number between 32°F and 99°F.');
       return;
     }
-    const clamped = Math.max(32, Math.min(99, parsed));
-    if (clamped !== parsed) {
-      setManualWaterTempInput(String(clamped));
-    }
+    const clamped = Math.max(32, Math.min(99, Math.round(parsed * 10) / 10));
+    setManualWaterTempInput(String(clamped));
     setManualWaterTempApplied(clamped);
-    setRefreshing(true);
-    setBundle(null);
-    fadeAnim.setValue(0);
-    await runAnalysis(false, clamped);
-    setRefreshing(false);
-  };
+  }, [manualWaterTempInput]);
 
-  const clearManualFreshwaterTemp = async () => {
+  const clearManualTemp = useCallback(() => {
     setManualWaterTempInput('');
     setManualWaterTempApplied(null);
-    setRefreshing(true);
-    setBundle(null);
-    fadeAnim.setValue(0);
-    await runAnalysis(false, null);
-    setRefreshing(false);
-  };
+  }, []);
 
-  return (
-    <SafeAreaView style={styles.safe} edges={['top', 'bottom']}>
-      <ScrollView
-        style={styles.scroll}
-        contentContainerStyle={styles.content}
-        showsVerticalScrollIndicator={false}
-        refreshControl={
-          <RefreshControl
-            refreshing={refreshing}
-            onRefresh={handleRefresh}
-            tintColor={colors.sage}
-          />
-        }
-      >
-        <Animated.View style={{ opacity: fadeAnim }}>
-          {/* Header */}
-          <View style={styles.headerRow}>
-            <Pressable
-              style={({ pressed }) => [styles.backBtnInline, pressed && { opacity: 0.7 }]}
-              onPress={() => router.back()}
-            >
-              <Ionicons name="arrow-back" size={20} color={colors.sage} />
-              <Text style={styles.backBtnInlineText}>Back</Text>
-            </Pressable>
-            {generatedAt && (
-              <Text style={styles.generatedAt}>Generated {generatedAt}</Text>
-            )}
+  const handleForecastDayPress = useCallback((date: string, index: number) => {
+    const day = forecast?.forecast_days?.[index];
+    if (!day) return;
+    if (index === 0) {
+      void generateReport();
+      return;
+    }
+    setForecastPromptDay({ day, index });
+  }, [forecast, generateReport]);
+
+  const topMeta = activeReport?.engine?.location?.timezone
+    ? `${locationLabel} • ${reportDateKey ? dayLabel(reportDateKey) : currentLocationDateString(activeReport.engine.location.timezone)} • ${formatGeneratedTime(bundle?.generated_at ?? new Date().toISOString(), activeReport.engine.location.timezone)}`
+    : `${locationLabel}`;
+
+  const activeTimezone = activeReport?.engine?.location?.timezone ?? env?.timezone;
+  const localTodayKey = currentLocationDateKey(activeTimezone);
+  const todayOverride = activeReport?.engine && reportDateKey === localTodayKey
+    ? {
+        daily_score: activeReport.engine.scoring.adjusted_score,
+        overall_rating: activeReport.engine.scoring.overall_rating,
+      }
+    : null;
+
+  if (!hasCoords) {
+    return (
+      <SafeAreaView style={styles.safe}>
+        <View style={styles.centered}>
+          <Ionicons name="location-outline" size={36} color={colors.textMuted} />
+          <Text style={styles.messageText}>How's Fishing needs your location</Text>
+          <Text style={styles.messageSub}>Enable location so TightLines can pull live conditions and build your report.</Text>
+          <Pressable style={styles.primaryBtn} onPress={() => router.back()}>
+            <Text style={styles.primaryBtnText}>Go back</Text>
+          </Pressable>
+        </View>
+      </SafeAreaView>
+    );
+  }
+
+  if (!bundle) {
+    return (
+      <SafeAreaView style={styles.safe}>
+        <View style={styles.topBar}>
+          <Pressable style={styles.navBack} onPress={() => router.back()}>
+            <Ionicons name="chevron-back" size={28} color={colors.sage} />
+          </Pressable>
+          <Text style={styles.heading}>How's Fishing</Text>
+          <View style={{ width: 28 }} />
+        </View>
+        <View style={styles.preflightWrap}>
+          <Text style={styles.preflightMeta}>{locationLabel}</Text>
+          <View style={styles.preflightConditionsCard}>
+            <CondensedLoadingView
+              conditions={env ? {
+                air_temp_f: env?.weather?.temperature ?? null,
+                wind_speed_mph: env?.weather?.wind_speed ?? null,
+                wind_direction: windDirectionLabel(env?.weather?.wind_direction),
+                pressure_mb: env?.weather?.pressure ?? null,
+                pressure_state: env?.weather?.pressure_trend ?? null,
+                cloud_cover_pct: env?.weather?.cloud_cover ?? null,
+                moon_phase: env?.moon?.phase ?? null,
+                moon_illumination_pct: env?.moon?.illumination ?? null,
+                tide_phase_state: isCoastal ? env?.tides?.phase ?? null : null,
+                solunar_state: null,
+              } : null}
+              statusText={analysisLoading ? 'Generating your report…' : 'Live conditions are ready.'}
+            />
           </View>
 
-          <Text style={styles.screenTitle}>How's Fishing?</Text>
-
-          {showManualTempCard && (
+          {showManualTemp ? (
             <View style={styles.manualTempCard}>
-              <View style={styles.manualTempHeader}>
-                <View style={{ flex: 1 }}>
-                  <Text style={styles.manualTempTitle}>Freshwater water temp</Text>
-                  <Text style={styles.manualTempSub}>Optional. Use your measured temp if you have it. It overrides the estimate for scoring.</Text>
-                </View>
-                {manualWaterTempApplied !== null ? (
-                  <Text style={styles.manualTempApplied}>Using {manualWaterTempApplied}°F</Text>
-                ) : null}
-              </View>
+              <Text style={styles.manualTempTitle}>Optional freshwater water temp</Text>
+              <Text style={styles.manualTempSub}>Add it before you generate the report if you know it.</Text>
               <View style={styles.manualTempRow}>
                 <TextInput
                   value={manualWaterTempInput}
                   onChangeText={(value) => setManualWaterTempInput(value.replace(/[^0-9.]/g, '').slice(0, 5))}
+                  onBlur={() => {
+                    if (!manualWaterTempInput.trim()) setManualWaterTempApplied(null);
+                  }}
                   placeholder="32–99°F"
+                  placeholderTextColor={colors.textMuted}
                   keyboardType="decimal-pad"
                   style={styles.manualTempInput}
-                  placeholderTextColor={colors.textMuted}
                 />
-                <Pressable style={({ pressed }) => [styles.manualTempBtn, pressed && { opacity: 0.8 }]} onPress={applyManualFreshwaterTemp}>
-                  <Text style={styles.manualTempBtnText}>{manualWaterTempApplied !== null ? 'Update' : 'Apply'}</Text>
+                <Pressable style={styles.smallBtn} onPress={applyManualTemp}>
+                  <Text style={styles.smallBtnText}>{manualWaterTempApplied !== null ? 'Update' : 'Apply'}</Text>
                 </Pressable>
-                {manualWaterTempApplied !== null ? (
-                  <Pressable style={({ pressed }) => [styles.manualTempClearBtn, pressed && { opacity: 0.8 }]} onPress={clearManualFreshwaterTemp}>
-                    <Text style={styles.manualTempClearBtnText}>Clear</Text>
+                {manualWaterTempInput.length > 0 || manualWaterTempApplied !== null ? (
+                  <Pressable style={styles.smallBtnGhost} onPress={clearManualTemp}>
+                    <Text style={styles.smallBtnGhostText}>Clear</Text>
                   </Pressable>
                 ) : null}
               </View>
+              {manualWaterTempApplied !== null ? <Text style={styles.manualApplied}>Using {manualWaterTempApplied}°F for scoring.</Text> : null}
             </View>
-          )}
+          ) : null}
 
-          {/* Tab Bar */}
-          {(isCoastal || isInlandDual) && (
-            <WaterTypeTabBar
-              tabs={availableTabs}
-              active={activeTab}
-              onPress={setActiveTab}
-              failed={bundle.failed_reports ?? []}
-            />
-          )}
-
-          {/* Weekly Forecast Strip */}
-          {forecast?.forecast_days && forecast.forecast_days.length > 0 && (
-            <WeeklyForecastStrip
-              forecastDays={forecast.forecast_days}
-              onDayPress={handleForecastDayPress}
-              isLoading={forecastLoading}
-            />
-          )}
-          {!forecast && forecastLoading && (
-            <WeeklyForecastStrip
-              forecastDays={[]}
-              onDayPress={() => {}}
-              isLoading={true}
-            />
-          )}
-
-          {/* Active Report */}
-          {activeReport ? (
-            <ReportView report={activeReport} />
-          ) : (
-            <View style={styles.errorState}>
-              <Ionicons name="alert-circle-outline" size={40} color={colors.textMuted} />
-              <Text style={styles.errorTitle}>Report unavailable</Text>
-              <Text style={styles.errorBody}>
-                The {(TAB_LABELS[activeTab] ?? activeTab).toLowerCase()} report could not be generated.
-              </Text>
+          {!isCoastal ? (
+            <View style={styles.segmentWrap}>
+              <Pressable style={[styles.segmentBtn, freshwaterSubtype === 'lake' && styles.segmentBtnActive]} onPress={() => setFreshwaterSubtype('lake')}>
+                <Text style={[styles.segmentText, freshwaterSubtype === 'lake' && styles.segmentTextActive]}>Lake</Text>
+              </Pressable>
+              <Pressable style={[styles.segmentBtn, freshwaterSubtype === 'river_stream' && styles.segmentBtnActive]} onPress={() => setFreshwaterSubtype('river_stream')}>
+                <Text style={[styles.segmentText, freshwaterSubtype === 'river_stream' && styles.segmentTextActive]}>River</Text>
+              </Pressable>
             </View>
-          )}
+          ) : null}
 
-          {/* Recommender CTA */}
-          <Pressable
-            style={({ pressed }) => [styles.recommenderCta, pressed && { opacity: 0.75 }]}
-            onPress={() => router.push('/recommender')}
-          >
-            <Ionicons name="fish-outline" size={18} color={colors.sage} />
-            <Text style={styles.recommenderCtaText}>
-              Want species-specific lure recommendations? \u2192 Open Recommender
-            </Text>
-            <Ionicons name="chevron-forward" size={16} color={colors.sage} />
+          <Pressable style={[styles.primaryBtn, analysisLoading && { opacity: 0.8 }]} onPress={() => generateReport()} disabled={analysisLoading || envLoading}>
+            {analysisLoading ? <ActivityIndicator size="small" color={colors.textLight} /> : <Text style={styles.primaryBtnText}>Generate report</Text>}
           </Pressable>
+          {analysisError ? <Text style={styles.errorInline}>{analysisError}</Text> : null}
 
-          {/* Footer */}
-          <Text style={styles.disclaimer}>
-            Pull down to refresh. Powered by live weather, moon phase, solunar windows, and tides.
-          </Text>
-        </Animated.View>
+          {analysisLoading ? (
+            <View style={styles.loadingOverlay}>
+              <View style={styles.loadingOverlayCard}>
+                <ActivityIndicator size="large" color={colors.sage} />
+                <Text style={styles.loadingOverlayTitle}>Building report…</Text>
+                <Text style={styles.loadingOverlaySub}>Using live conditions{manualWaterTempApplied !== null ? ' and your water-temp entry' : ''}.</Text>
+              </View>
+            </View>
+          ) : null}
+        </View>
+      </SafeAreaView>
+    );
+  }
+
+  return (
+    <SafeAreaView style={styles.safe}>
+      <View style={styles.topBar}>
+        <Pressable style={styles.navBack} onPress={() => router.back()}>
+          <Ionicons name="chevron-back" size={28} color={colors.sage} />
+        </Pressable>
+        <Text style={styles.heading}>How's Fishing</Text>
+        <View style={{ width: 28 }} />
+      </View>
+
+      <ScrollView
+        style={styles.scroll}
+        contentContainerStyle={styles.content}
+        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={handleRefresh} tintColor={colors.sage} />}
+        showsVerticalScrollIndicator={false}
+      >
+        <Text style={styles.reportMeta}>{topMeta}</Text>
+
+        {(isCoastal || bundle.mode === 'inland_dual') && (
+          <WaterTypeTabBar tabs={availableTabs} active={activeTab} onPress={setActiveTab} failed={bundle.failed_reports ?? []} />
+        )}
+
+        {forecast?.forecast_days && forecast.forecast_days.length > 0 ? (
+          <WeeklyForecastStrip
+            forecastDays={forecast.forecast_days}
+            selectedDate={forecast?.forecast_days.some((d) => d.date === reportDateKey) ? reportDateKey : forecast.forecast_days[0]?.date}
+            onDayPress={handleForecastDayPress}
+            isLoading={forecastLoading}
+            todayOverride={todayOverride}
+          />
+        ) : null}
+
+        {activeReport ? <ReportView report={activeReport} /> : null}
       </ScrollView>
+
+      <Modal visible={!!forecastPromptDay} transparent animationType="fade" onRequestClose={() => setForecastPromptDay(null)}>
+        <View style={styles.modalScrim}>
+          <View style={styles.modalCard}>
+            <Text style={styles.modalTitle}>{forecastPromptDay ? dayLabel(forecastPromptDay.day.date) : 'Forecast day'}</Text>
+            <Text style={styles.modalBody}>{forecastPromptDay?.day.summary_line}</Text>
+            <Text style={styles.modalSub}>Future-day reports are forecast-based and get more reliable as the date gets closer.</Text>
+            <View style={styles.modalActions}>
+              <Pressable style={styles.smallBtnGhost} onPress={() => setForecastPromptDay(null)}>
+                <Text style={styles.smallBtnGhostText}>Close</Text>
+              </Pressable>
+              <Pressable style={styles.smallBtn} onPress={() => forecastPromptDay && generateReport(forecastPromptDay.day.date)}>
+                <Text style={styles.smallBtnText}>Generate report</Text>
+              </Pressable>
+            </View>
+          </View>
+        </View>
+      </Modal>
     </SafeAreaView>
   );
 }
 
-// =============================================================================
-// Helpers
-// =============================================================================
-
-function getDayLabel(dateStr: string, index: number): string {
-  if (index === 0) return 'Today';
-  try {
-    const date = new Date(dateStr + 'T12:00:00');
-    return date.toLocaleDateString('en-US', { weekday: 'short' });
-  } catch {
-    return `Day ${index + 1}`;
-  }
+function bundleTimezoneFromBundle(bundle: HowFishingBundle): string | null {
+  return bundle.reports.freshwater_lake?.engine?.location?.timezone
+    ?? bundle.reports.freshwater?.engine?.location?.timezone
+    ?? bundle.reports.saltwater?.engine?.location?.timezone
+    ?? bundle.reports.brackish?.engine?.location?.timezone
+    ?? bundle.reports.freshwater_river?.engine?.location?.timezone
+    ?? null;
 }
-
-// =============================================================================
-// Styles
-// =============================================================================
 
 const styles = StyleSheet.create({
   safe: { flex: 1, backgroundColor: colors.background },
   scroll: { flex: 1 },
-  content: { padding: spacing.lg, paddingBottom: spacing.xxl },
-
+  content: { paddingHorizontal: spacing.md, paddingBottom: spacing.xl, paddingTop: spacing.xs },
   topBar: {
-    paddingTop: spacing.xs,
-    paddingBottom: spacing.md,
-    paddingHorizontal: spacing.md,
-    borderBottomWidth: 1,
-    borderBottomColor: colors.divider,
-    backgroundColor: colors.background,
-  },
-  navBack: {
-    alignSelf: 'flex-start',
-    paddingVertical: spacing.xs,
-    marginBottom: spacing.xs,
-  },
-  heading: {
-    fontFamily: fonts.serif,
-    fontSize: 22,
-    fontWeight: '700',
-    color: colors.text,
-    textAlign: 'center',
-    marginBottom: 3,
-  },
-
-  headerRow: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginBottom: spacing.md,
+    paddingHorizontal: spacing.md,
+    paddingTop: 2,
+    paddingBottom: 6,
   },
-  backBtnInline: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 4,
-  },
-  backBtnInlineText: { fontSize: 15, color: colors.sage, fontWeight: '600' },
-  generatedAt: { fontSize: 12, color: colors.textMuted },
-
-  screenTitle: {
-    fontFamily: fonts.serif,
-    fontSize: 26,
-    fontWeight: '700',
-    color: colors.text,
-    marginBottom: spacing.md,
-  },
-
-
+  navBack: { padding: 4 },
+  heading: { fontFamily: fonts.serif, fontSize: 22, fontWeight: '700', color: colors.text, textAlign: 'center', flex: 1 },
+  reportMeta: { fontSize: 12, color: colors.textMuted, marginBottom: spacing.xs, textAlign: 'center' },
+  preflightWrap: { flex: 1, paddingHorizontal: spacing.md, paddingBottom: spacing.md, justifyContent: 'center' },
+  preflightMeta: { fontSize: 13, color: colors.textMuted, textAlign: 'center', marginBottom: spacing.xs },
+  preflightConditionsCard: { backgroundColor: colors.surface, borderRadius: radius.md, borderWidth: 1, borderColor: colors.border, marginBottom: spacing.sm, overflow: 'hidden' },
   manualTempCard: {
     backgroundColor: colors.surface,
     borderRadius: radius.md,
     padding: spacing.md,
-    marginBottom: spacing.md,
+    marginBottom: spacing.sm,
     borderWidth: 1,
     borderColor: colors.border,
-  },
-  manualTempHeader: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    justifyContent: 'space-between',
-    gap: spacing.sm,
-    marginBottom: spacing.sm,
   },
   manualTempTitle: { fontSize: 15, fontWeight: '700', color: colors.text, marginBottom: 4 },
-  manualTempSub: { fontSize: 13, color: colors.textSecondary, lineHeight: 18 },
-  manualTempApplied: { fontSize: 12, color: colors.sage, fontWeight: '700' },
+  manualTempSub: { fontSize: 13, color: colors.textSecondary, lineHeight: 18, marginBottom: spacing.sm },
   manualTempRow: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm },
-  manualTempInput: {
-    flex: 1,
-    borderWidth: 1,
-    borderColor: colors.border,
-    borderRadius: radius.sm,
-    paddingHorizontal: spacing.md,
-    paddingVertical: 10,
-    color: colors.text,
-    backgroundColor: colors.background,
-  },
-  manualTempBtn: {
-    backgroundColor: colors.sage,
-    borderRadius: radius.sm,
-    paddingHorizontal: spacing.md,
-    paddingVertical: 10,
-  },
-  manualTempBtnText: { color: colors.textLight, fontWeight: '700' },
-  manualTempClearBtn: {
-    borderWidth: 1,
-    borderColor: colors.border,
-    borderRadius: radius.sm,
-    paddingHorizontal: spacing.md,
-    paddingVertical: 10,
-    backgroundColor: colors.background,
-  },
-  manualTempClearBtnText: { color: colors.text, fontWeight: '600' },
-
-  recommenderCta: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: spacing.sm,
-    backgroundColor: colors.sageLight,
-    borderRadius: radius.md,
-    padding: spacing.md,
-    marginBottom: spacing.lg,
-    borderWidth: 1,
-    borderColor: colors.sage + '40',
-  },
-  recommenderCtaText: { fontSize: 14, color: colors.text, flex: 1 },
-
-  disclaimer: {
-    fontSize: 12,
-    color: colors.textMuted,
-    textAlign: 'center',
-    lineHeight: 18,
-    paddingHorizontal: spacing.lg,
-  },
-
-  centered: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: spacing.lg,
-    gap: spacing.md,
-  },
-  messageText: {
-    fontSize: 20,
-    fontFamily: fonts.serif,
-    fontWeight: '700',
-    color: colors.text,
-    textAlign: 'center',
-  },
-  messageSub: {
-    fontSize: 14,
-    color: colors.textSecondary,
-    textAlign: 'center',
-    lineHeight: 22,
-    paddingHorizontal: spacing.md,
-  },
-
-  errorState: {
-    alignItems: 'center',
-    padding: spacing.xl,
-    gap: spacing.md,
-  },
-  errorTitle: { fontSize: 18, fontWeight: '600', color: colors.text, textAlign: 'center' },
-  errorBody: { fontSize: 14, color: colors.textSecondary, textAlign: 'center', lineHeight: 20 },
-
-  backBtn: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: spacing.sm,
-    paddingVertical: spacing.sm,
-    paddingHorizontal: spacing.md,
-    backgroundColor: colors.sageLight,
-    borderRadius: radius.md,
-    alignSelf: 'center',
-  },
-  backBtnPressed: { opacity: 0.6 },
-  backBtnText: { fontSize: 15, fontWeight: '600', color: colors.sage },
-
-  retryBtn: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: spacing.sm,
-    paddingVertical: spacing.md,
-    paddingHorizontal: spacing.xl,
-    backgroundColor: colors.sage,
-    borderRadius: radius.lg,
-    minWidth: 180,
-  },
-  retryBtnText: { fontSize: 16, fontWeight: '700', color: colors.textLight },
-
-  enableBtn: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: spacing.sm,
-    paddingVertical: spacing.md,
-    paddingHorizontal: spacing.xl,
-    backgroundColor: colors.sage,
-    borderRadius: radius.lg,
-    minWidth: 220,
-    shadowColor: colors.sageDark,
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.22,
-    shadowRadius: 8,
-    elevation: 4,
-  },
-  enableBtnPressed: { backgroundColor: colors.sageDark, shadowOpacity: 0.1 },
-  enableBtnText: { fontSize: 16, fontWeight: '700', color: colors.textLight },
+  manualTempInput: { flex: 1, borderWidth: 1, borderColor: colors.border, borderRadius: radius.sm, paddingHorizontal: spacing.md, paddingVertical: 10, color: colors.text, backgroundColor: colors.background },
+  manualApplied: { fontSize: 12, color: colors.sage, fontWeight: '700', marginTop: spacing.sm },
+  segmentWrap: { flexDirection: 'row', backgroundColor: colors.surface, borderRadius: radius.md, padding: 4, borderWidth: 1, borderColor: colors.border, marginBottom: spacing.md },
+  segmentBtn: { flex: 1, paddingVertical: 12, borderRadius: radius.sm, alignItems: 'center' },
+  segmentBtnActive: { backgroundColor: colors.sage },
+  segmentText: { fontSize: 15, fontWeight: '700', color: colors.textMuted },
+  segmentTextActive: { color: colors.textLight },
+  primaryBtn: { backgroundColor: colors.sage, borderRadius: radius.md, alignItems: 'center', justifyContent: 'center', minHeight: 48, paddingHorizontal: spacing.lg },
+  primaryBtnText: { color: colors.textLight, fontSize: 15, fontWeight: '700' },
+  smallBtn: { backgroundColor: colors.sage, borderRadius: radius.sm, paddingHorizontal: spacing.md, paddingVertical: 10, alignItems: 'center', justifyContent: 'center' },
+  smallBtnText: { color: colors.textLight, fontWeight: '700' },
+  smallBtnGhost: { backgroundColor: colors.background, borderRadius: radius.sm, borderWidth: 1, borderColor: colors.border, paddingHorizontal: spacing.md, paddingVertical: 10, alignItems: 'center', justifyContent: 'center' },
+  smallBtnGhostText: { color: colors.text, fontWeight: '600' },
+  centered: { flex: 1, alignItems: 'center', justifyContent: 'center', padding: spacing.lg, gap: spacing.md },
+  messageText: { fontSize: 22, fontFamily: fonts.serif, fontWeight: '700', color: colors.text, textAlign: 'center' },
+  messageSub: { fontSize: 14, color: colors.textSecondary, textAlign: 'center', lineHeight: 22 },
+  errorInline: { color: '#C64545', textAlign: 'center', marginTop: spacing.sm },
+  loadingOverlay: { ...StyleSheet.absoluteFillObject, backgroundColor: '#F5F0E8CC', alignItems: 'center', justifyContent: 'center' },
+  loadingOverlayCard: { backgroundColor: colors.surface, borderRadius: radius.lg, borderWidth: 1, borderColor: colors.border, paddingVertical: spacing.lg, paddingHorizontal: spacing.xl, alignItems: 'center', gap: spacing.sm },
+  loadingOverlayTitle: { fontFamily: fonts.serif, fontSize: 22, fontWeight: '700', color: colors.text },
+  loadingOverlaySub: { fontSize: 13, color: colors.textMuted, textAlign: 'center' },
+  modalScrim: { flex: 1, backgroundColor: '#00000066', alignItems: 'center', justifyContent: 'center', padding: spacing.lg },
+  modalCard: { width: '100%', maxWidth: 360, backgroundColor: colors.surface, borderRadius: radius.lg, padding: spacing.lg, borderWidth: 1, borderColor: colors.border },
+  modalTitle: { fontFamily: fonts.serif, fontSize: 22, fontWeight: '700', color: colors.text, marginBottom: spacing.sm, textAlign: 'center' },
+  modalBody: { fontSize: 15, color: colors.text, lineHeight: 22, textAlign: 'center' },
+  modalSub: { fontSize: 12, color: colors.textMuted, lineHeight: 18, textAlign: 'center', marginTop: spacing.sm },
+  modalActions: { flexDirection: 'row', justifyContent: 'center', gap: spacing.sm, marginTop: spacing.md },
 });

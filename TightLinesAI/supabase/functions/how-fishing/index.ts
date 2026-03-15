@@ -82,6 +82,9 @@ Core rules:
 - Don't repeat the same point across headline, rating summary, and tips. Each field should add something new.
 - Never suggest specific lures, species, or tactics — you don't know what they're targeting.
 - Use exactly the time windows the engine provides. Never invent your own.
+- Read the engine window drivers before writing reasons. If a window includes warm_evening_extension or warming_air_window, never say temperatures are crashing.
+- Do not assume sunset automatically hurts the bite. If the engine shows evening warming or a fair evening carry, say that plainly.
+- If a worst window is mainly low-light/overnight, explain that without pretending air temperatures are falling unless the payload supports it.
 
 Voice & language:
 - Write in second person — "you'll want to…", "your best shot is…"
@@ -171,7 +174,11 @@ Core rules:
 - Don't repeat the same point across headline, rating summary, and tips. Each field should add something new.
 - Never suggest specific lures, species, or tactics.
 - Use exactly the time windows the engine provides. Never invent your own.
+- Read the engine window drivers before writing reasons. If a window includes warm_evening_extension or warming_air_window, never say temperatures are crashing.
+- Do not assume sunset automatically hurts the bite. If the engine shows evening warming or a fair evening carry, say that plainly.
+- If a worst window is mainly low-light/overnight, explain that without pretending air temperatures are falling unless the payload supports it.
 - RIVER-SPECIFIC — always think in terms of current and structure:
+- Do not output military time anywhere.
   - Where fish hold: eddies, seams, tailouts, pools, cut banks, slack water
   - Current speed → fish positioning: behind structure, inside bends, deep pockets
   - Presentation: upstream, downstream, dead drift, swing — what the current dictates
@@ -259,7 +266,8 @@ Saltwater framing rules:
 - Never mention freshwater cover like lily pads, creek chubs, riffles, or river seams unless the payload clearly supports it.
 - Use 12-hour local time with the provided timezone abbreviation for all time ranges. Never use military time.
 
-Keep the output concise, practical, and saltwater-specific.`;
+Keep the output concise, practical, and saltwater-specific.
+- Do not output military time anywhere.`;
 
 const BRACKISH_SYSTEM_PROMPT = `You are the user's brackish-water fishing buddy — practical, observant, and focused on how tides, runoff, salinity changes, wind, and moving water shift fish around.
 
@@ -270,7 +278,8 @@ Brackish framing rules:
 - Do not narrate like open-ocean surf fishing and do not narrate like inland lakes.
 - Use 12-hour local time with the provided timezone abbreviation for all time ranges. Never use military time.
 
-Keep the output concise, helpful, and clearly estuary/brackish-specific.`;
+Keep the output concise, helpful, and clearly estuary/brackish-specific.
+- Do not output military time anywhere.`;
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -360,19 +369,32 @@ function generateDeterministicFallback(
     ratingSummary = "It's going to take patience and finesse to get bites today.";
   }
 
+  const describeDrivers = (drivers: string[] | undefined, fallback: string) => {
+    const joined = (drivers ?? []).slice(0, 2).join(', ').replace(/_/g, ' ').trim();
+    if (!joined) return fallback;
+    if (joined.includes('warm evening extension')) return 'Warm evening carry keeps fish moving.';
+    if (joined.includes('warming air window') || joined.includes('midday warming')) return 'Warming window nudges activity higher.';
+    if (joined.includes('overcast extension')) return 'Cloud cover stretches the feeding window.';
+    if (joined.includes('night block')) return 'Low-light lull slows things down.';
+    return truncateWords(joined, 12);
+  };
+
   // Best times from engine windows
   const bestTimes = engineOutput.time_windows.slice(0, 2).map((w) => ({
     time_range: normalizeTimeRange(`${w.start_local} – ${w.end_local}`, engineOutput.location.timezone),
     label: w.label as "PRIME" | "GOOD",
-    reasoning: w.drivers.length > 0
-      ? w.drivers.slice(0, 2).join(" + ").replace(/_/g, " ")
-      : "Best available window",
+    reasoning: describeDrivers(w.drivers, 'Best available window'),
+  }));
+
+  const decentTimes = (engineOutput.fair_windows ?? []).slice(0, 2).map((w) => ({
+    time_range: normalizeTimeRange(`${w.start_local} – ${w.end_local}`, engineOutput.location.timezone),
+    reasoning: describeDrivers(w.drivers, 'Fair conditions with a few things helping.'),
   }));
 
   // Worst times
   const worstTimes = engineOutput.worst_windows.slice(0, 2).map((w) => ({
     time_range: normalizeTimeRange(`${w.start_local} – ${w.end_local}`, engineOutput.location.timezone),
-    reasoning: "Lowest activity period",
+    reasoning: 'Lowest activity stretch of the day.',
   }));
 
   // Key factors from engine state
@@ -423,11 +445,7 @@ function generateDeterministicFallback(
     tips.push("Your best shot is during the prime feeding windows");
   }
 
-  // Truncate tips to 12 words max
-  const truncatedTips = tips.map((t) => {
-    const words = t.split(" ");
-    return words.length > 12 ? words.slice(0, 12).join(" ") : t;
-  });
+  const finalizedTips = tips.slice(0, 3).map((t) => truncateWords(t, 12).replace(/\s+[—-]?$/, ''));
 
   // Strategy from behavior state
   let presentationSpeed: string;
@@ -467,9 +485,10 @@ function generateDeterministicFallback(
       summary: ratingSummary,
     },
     best_times_to_fish_today: bestTimes,
+    decent_times_today: decentTimes,
     worst_times_to_fish_today: worstTimes,
     key_factors: keyFactors,
-    tips_for_today: truncatedTips.slice(0, 3),
+    tips_for_today: finalizedTips,
     strategy: {
       presentation_speed: presentationSpeed,
       depth_focus: depthFocus,
@@ -927,39 +946,117 @@ function scoreForecastDay(
  * Build the weekly overview response from today's engine output and forecast_daily data.
  * Returns a complete response bundle for the weekly_overview mode.
  */
-function buildWeeklyOverviewResponse(
-  todayEngineOutput: ReturnType<typeof runCoreIntelligence>,
-  forecastDaily: Array<{ date: string; high_temp_f: number; low_temp_f: number; precip_chance_pct: number; wind_mph_max: number; sunrise_local: string; sunset_local: string }>,
-  waterType: WaterType,
-  lat: number,
-  timestampUtc: string
-): { forecast_days: ForecastDay[]; today_summary: { daily_score: number; overall_rating: OverallRating; summary_line: string } } {
-  const todayOutlook = todayEngineOutput.daily_outlook;
 
-  // Today entry from full engine
-  const todayForecast: ForecastDay = {
-    date: forecastDaily[0]?.date ?? new Date(timestampUtc).toISOString().slice(0, 10),
-    daily_score: todayOutlook.daily_score,
-    overall_rating: todayOutlook.overall_rating,
-    summary_line: todayOutlook.summary_line,
-    high_temp_f: forecastDaily[0]?.high_temp_f ?? (todayEngineOutput.environment.air_temp_f ?? 70),
-    low_temp_f: forecastDaily[0]?.low_temp_f ?? ((todayEngineOutput.environment.air_temp_f ?? 70) - 15),
-    wind_mph_avg: todayEngineOutput.environment.wind_speed_mph ?? 0,
-    precip_chance_pct: forecastDaily[0]?.precip_chance_pct ?? 0,
-    front_label: todayEngineOutput.alerts.front_label ?? null,
-  };
 
-  // Forecast days 2-7 (indices 1-6)
-  const futureDays: ForecastDay[] = forecastDaily.slice(1, 7).map((day) =>
-    scoreForecastDay(day, todayOutlook.daily_score, waterType, lat)
-  );
+function shiftTimeHm(raw: string | null | undefined, minutes: number): string | null {
+  if (!raw) return null;
+  const m = raw.match(/^(\d{1,2}):(\d{2})$/);
+  if (!m) return raw;
+  const total = ((Number(m[1]) * 60 + Number(m[2]) + minutes) % (24 * 60) + 24 * 60) % (24 * 60);
+  const hh = String(Math.floor(total / 60)).padStart(2, '0');
+  const mm = String(total % 60).padStart(2, '0');
+  return `${hh}:${mm}`;
+}
+
+function localNoonUtcIso(dateStr: string, tzOffsetHours: number): string {
+  const [year, month, day] = dateStr.split('-').map((v) => Number(v));
+  const utcMs = Date.UTC(year, (month || 1) - 1, day || 1, 12 - tzOffsetHours, 0, 0, 0);
+  return new Date(utcMs).toISOString();
+}
+
+function sumWindow(values: Array<number | null>, startIdx: number, endIdx: number): number {
+  let sum = 0;
+  for (let i = Math.max(0, startIdx); i <= Math.min(values.length - 1, endIdx); i++) {
+    sum += values[i] ?? 0;
+  }
+  return Math.round(sum * 1000) / 1000;
+}
+
+function buildForecastSnapshot(
+  baseSnapshot: Parameters<typeof runCoreIntelligence>[0],
+  envData: Record<string, unknown>,
+  targetDate: string,
+  freshwaterSubtype: "lake" | "river_stream" | "reservoir",
+): Parameters<typeof runCoreIntelligence>[0] {
+  const forecastDaily = Array.isArray((envData as { forecast_daily?: unknown[] }).forecast_daily)
+    ? (envData as { forecast_daily: Array<{ date: string; high_temp_f: number; low_temp_f: number; precip_chance_pct: number; wind_mph_max: number; sunrise_local: string; sunset_local: string }> }).forecast_daily
+    : [];
+  const forecastIdx = forecastDaily.findIndex((d) => d.date === targetDate);
+  if (forecastIdx < 0) throw new Error(`forecast_date_unavailable:${targetDate}`);
+  const day = forecastDaily[forecastIdx];
+  const rawHighs = Array.isArray((envData as any).weather?.temp_7day_high) ? (envData as any).weather.temp_7day_high as Array<number | null> : [];
+  const rawLows = Array.isArray((envData as any).weather?.temp_7day_low) ? (envData as any).weather.temp_7day_low as Array<number | null> : [];
+  const rawPrecip = Array.isArray((envData as any).weather?.precip_7day_daily) ? (envData as any).weather.precip_7day_daily as Array<number | null> : [];
+  const absoluteIdx = 14 + forecastIdx;
+  const highs = rawHighs.slice(0, absoluteIdx + 1).map((v) => v != null ? Number(v) : null);
+  const lows = rawLows.slice(0, absoluteIdx + 1).map((v) => v != null ? Number(v) : null);
+  while (highs.length < 7) highs.unshift(null);
+  while (lows.length < 7) lows.unshift(null);
+
+  const middayAir = Math.round((((day.high_temp_f ?? 0) + (day.low_temp_f ?? 0)) / 2) * 10) / 10;
+  const precipChance = day.precip_chance_pct ?? 0;
+  const cloudCover = precipChance >= 70 ? 92 : precipChance >= 45 ? 76 : precipChance >= 20 ? 58 : 34;
+  const currentPrecipInHr = precipChance >= 65 ? 0.03 : precipChance >= 40 ? 0.01 : 0;
 
   return {
-    forecast_days: [todayForecast, ...futureDays],
+    ...baseSnapshot,
+    timestamp_utc: localNoonUtcIso(targetDate, baseSnapshot.tz_offset_hours),
+    air_temp_f: middayAir,
+    wind_speed_mph: Math.round((day.wind_mph_max ?? 0) * 0.65 * 10) / 10,
+    gust_speed_mph: day.wind_mph_max ?? null,
+    cloud_cover_pct: cloudCover,
+    current_precip_in_hr: currentPrecipInHr,
+    daily_air_temp_high_f: highs,
+    daily_air_temp_low_f: lows,
+    precip_48hr_inches: rawPrecip.length ? sumWindow(rawPrecip, absoluteIdx - 1, absoluteIdx) : baseSnapshot.precip_48hr_inches,
+    precip_7day_inches: rawPrecip.length ? sumWindow(rawPrecip, absoluteIdx - 6, absoluteIdx) : baseSnapshot.precip_7day_inches,
+    sunrise_local: day.sunrise_local ?? baseSnapshot.sunrise_local,
+    sunset_local: day.sunset_local ?? baseSnapshot.sunset_local,
+    civil_twilight_begin_local: shiftTimeHm(day.sunrise_local ?? baseSnapshot.sunrise_local, -30),
+    civil_twilight_end_local: shiftTimeHm(day.sunset_local ?? baseSnapshot.sunset_local, 30),
+    freshwater_subtype_hint: freshwaterSubtype,
+    // Forecast day tide timing is not available in env_data yet. Clear day-specific tide timing
+    // so future coastal reports do not pretend to have exact tide windows.
+    tide_predictions_today: targetDate !== forecastDaily[0]?.date ? [] : baseSnapshot.tide_predictions_today,
+  };
+}
+
+function buildWeeklyOverviewResponse(
+  todayEngineOutput: ReturnType<typeof runCoreIntelligence>,
+  baseSnapshot: Parameters<typeof runCoreIntelligence>[0],
+  envData: Record<string, unknown>,
+  forecastDaily: Array<{ date: string; high_temp_f: number; low_temp_f: number; precip_chance_pct: number; wind_mph_max: number; sunrise_local: string; sunset_local: string }>,
+  waterType: WaterType,
+  freshwaterSubtype: "lake" | "river_stream" | "reservoir",
+  timestampUtc: string
+): { forecast_days: ForecastDay[]; today_summary: { daily_score: number; overall_rating: OverallRating; summary_line: string } } {
+  const days: ForecastDay[] = [];
+
+  for (let idx = 0; idx < Math.min(7, forecastDaily.length); idx++) {
+    const day = forecastDaily[idx];
+    const engineOut = idx === 0
+      ? todayEngineOutput
+      : runCoreIntelligence(buildForecastSnapshot(baseSnapshot, envData, day.date, freshwaterSubtype), waterType);
+    const outlook = engineOut.daily_outlook;
+    days.push({
+      date: day.date,
+      daily_score: outlook.daily_score,
+      overall_rating: outlook.overall_rating,
+      summary_line: outlook.summary_line,
+      high_temp_f: day.high_temp_f,
+      low_temp_f: day.low_temp_f,
+      wind_mph_avg: idx === 0 ? (engineOut.environment.wind_speed_mph ?? Math.round(day.wind_mph_max * 0.65)) : Math.round(day.wind_mph_max * 0.65),
+      precip_chance_pct: day.precip_chance_pct,
+      front_label: engineOut.alerts.front_label ?? null,
+    });
+  }
+
+  return {
+    forecast_days: days,
     today_summary: {
-      daily_score: todayOutlook.daily_score,
-      overall_rating: todayOutlook.overall_rating,
-      summary_line: todayOutlook.summary_line,
+      daily_score: todayEngineOutput.daily_outlook.daily_score,
+      overall_rating: todayEngineOutput.daily_outlook.overall_rating,
+      summary_line: todayEngineOutput.daily_outlook.summary_line,
     },
   };
 }
@@ -1005,7 +1102,7 @@ Deno.serve(async (req: Request) => {
   const userId = user.id;
 
   // --- 2. Parse body ---
-  let body: { latitude?: number; longitude?: number; units?: string; freshwater_subtype?: string; env_data?: Record<string, unknown>; mode?: string } = {};
+  let body: { latitude?: number; longitude?: number; units?: string; freshwater_subtype?: string; water_type?: string; env_data?: Record<string, unknown>; mode?: string; target_date?: string } = {};
   try {
     body = await req.json();
   } catch {
@@ -1025,7 +1122,11 @@ Deno.serve(async (req: Request) => {
     VALID_SUBTYPES.includes(body.freshwater_subtype as FwSubtype)
       ? (body.freshwater_subtype as FwSubtype)
       : "lake";
+  const requestedWaterType: WaterType | "auto" = body.water_type === "freshwater" || body.water_type === "saltwater" || body.water_type === "brackish"
+    ? body.water_type
+    : "auto";
   const requestMode = body.mode === "weekly_overview" ? "weekly_overview" : "daily_detail";
+  const targetDate = typeof body.target_date === "string" && /^\d{4}-\d{2}-\d{2}$/.test(body.target_date) ? body.target_date : null;
   if (isNaN(lat) || lat < -90 || lat > 90) {
     return new Response(JSON.stringify({ error: "Invalid latitude" }), {
       status: 400,
@@ -1089,7 +1190,7 @@ Deno.serve(async (req: Request) => {
   const timestampUtc = new Date().toISOString();
 
   // Convert to engine snapshot using adapter
-  const engineSnapshot = toEngineSnapshot(
+  let engineSnapshot = toEngineSnapshot(
     envData as Parameters<typeof toEngineSnapshot>[0],
     lat,
     lon,
@@ -1102,6 +1203,15 @@ Deno.serve(async (req: Request) => {
 
   // --- 6. Determine coastal vs inland ---
   const isCoastal = engineSnapshot.coastal || isLikelyCoastal(lat, lon);
+  const localToday = getLocalDateAndTime(
+    timestampUtc,
+    engineSnapshot.tz_offset_hours,
+    engineSnapshot.timezone,
+  ).date;
+  const isFutureTarget = Boolean(targetDate && targetDate > localToday);
+  if (targetDate && targetDate !== localToday) {
+    engineSnapshot = buildForecastSnapshot(engineSnapshot, envData, targetDate, freshwaterSubtype);
+  }
 
   // --- 7. Run core intelligence engine ---
   const anthropicKey = Deno.env.get("ANTHROPIC_API_KEY");
@@ -1125,8 +1235,12 @@ Deno.serve(async (req: Request) => {
       );
     }
 
-    // Run engine once for today (use freshwater as default for inland, saltwater for coastal)
-    const todayWaterType: WaterType = isCoastal ? "saltwater" : "freshwater";
+    // Run engine once for today using the selected water type when provided.
+    const todayWaterType: WaterType = requestedWaterType !== "auto"
+      ? requestedWaterType
+      : isCoastal
+        ? "saltwater"
+        : "freshwater";
     let todayEngine: ReturnType<typeof runCoreIntelligence>;
     try {
       todayEngine = runCoreIntelligence(engineSnapshot, todayWaterType);
@@ -1138,7 +1252,13 @@ Deno.serve(async (req: Request) => {
     }
 
     const weeklyResult = buildWeeklyOverviewResponse(
-      todayEngine, forecastDaily, todayWaterType, lat, timestampUtc
+      todayEngine,
+      engineSnapshot,
+      envData,
+      forecastDaily,
+      todayWaterType,
+      freshwaterSubtype,
+      timestampUtc,
     );
 
     const weeklyBundle = {
@@ -1162,7 +1282,7 @@ Deno.serve(async (req: Request) => {
     await supabase.from("ai_sessions").insert({
       user_id: userId,
       session_type: "fishing_weekly",
-      input_payload: { latitude: lat, longitude: lon, units, mode: "weekly_overview" },
+      input_payload: { latitude: lat, longitude: lon, units, mode: "weekly_overview", water_type: todayWaterType, freshwater_subtype: freshwaterSubtype },
       response_payload: weeklyBundle,
       token_cost_usd: 0,
     });

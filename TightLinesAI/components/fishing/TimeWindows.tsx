@@ -1,6 +1,6 @@
 /**
- * TimeWindows — Best, decent, and worst fishing time sections with badges.
- * Extracted from how-fishing-results.tsx for reuse.
+ * TimeWindows — best, fair, and slow sections.
+ * Always normalizes displayed ranges to 12-hour local time.
  */
 
 import React from 'react';
@@ -8,7 +8,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { colors, fonts, spacing, radius } from '../../lib/theme';
 import type { LLMOutput, TimeWindow as EngineTimeWindow } from '../../lib/howFishing';
 
-function formatTime(raw: string): string {
+function formatClock(raw: string): string {
   const m = raw.trim().match(/^(\d{1,2}):(\d{2})$/);
   if (!m) return raw.trim();
   const h24 = Number(m[1]);
@@ -17,24 +17,34 @@ function formatTime(raw: string): string {
   return `${h12}:${m[2]} ${suffix}`;
 }
 
-function formatRange(start: string, end: string, timezone?: string): string {
-  const zone = timezone ? (() => {
-    try {
-      return new Intl.DateTimeFormat('en-US', { timeZone: timezone, timeZoneName: 'short', hour: 'numeric' })
-        .formatToParts(new Date())
-        .find((p) => p.type === 'timeZoneName')?.value ?? timezone;
-    } catch {
-      return timezone;
-    }
-  })() : '';
-  return `${formatTime(start)} – ${formatTime(end)}${zone ? ` ${zone}` : ''}`;
+function zoneAbbreviation(timezone?: string): string {
+  if (!timezone) return '';
+  try {
+    return new Intl.DateTimeFormat('en-US', {
+      timeZone: timezone,
+      timeZoneName: 'short',
+      hour: 'numeric',
+    }).formatToParts(new Date()).find((p) => p.type === 'timeZoneName')?.value ?? '';
+  } catch {
+    return '';
+  }
 }
 
-// ---------------------------------------------------------------------------
-// Best Times
-// ---------------------------------------------------------------------------
+function normalizeDisplayRange(value: string, timezone?: string): string {
+  const trimmed = value.replace(/\s+/g, ' ').trim();
+  const rangeMatch = trimmed.match(/(\d{1,2}:\d{2})\s*[–-]\s*(\d{1,2}:\d{2})(?:\s+[A-Z]{2,4})?$/i);
+  if (rangeMatch) {
+    const zone = zoneAbbreviation(timezone);
+    return `${formatClock(rangeMatch[1])} – ${formatClock(rangeMatch[2])}${zone ? ` ${zone}` : ''}`;
+  }
+  return trimmed;
+}
 
-export function BestTimesSection({ windows }: { windows: LLMOutput['best_times_to_fish_today'] }) {
+function Reason({ children, muted = false }: { children: string; muted?: boolean }) {
+  return <Text style={muted ? styles.timeReasoningMuted : styles.timeReasoning}>{children}</Text>;
+}
+
+export function BestTimesSection({ windows, timezone }: { windows: LLMOutput['best_times_to_fish_today']; timezone?: string }) {
   if (!windows || windows.length === 0) return null;
   return (
     <View style={styles.section}>
@@ -42,27 +52,19 @@ export function BestTimesSection({ windows }: { windows: LLMOutput['best_times_t
       {windows.map((w, i) => (
         <View key={i} style={[styles.timeCard, w.label === 'PRIME' && styles.timeCardPrime]}>
           <View style={styles.timeCardHeader}>
-            <Text style={styles.timeWindow}>{w.time_range}</Text>
+            <Text style={styles.timeWindow}>{normalizeDisplayRange(w.time_range, timezone)}</Text>
             <View style={[styles.labelBadge, BADGE_MAP[w.label ?? 'GOOD'] ?? styles.badgeGood]}>
               <Text style={styles.labelBadgeText}>{w.label}</Text>
             </View>
           </View>
-          <Text style={styles.timeReasoning}>{w.reasoning}</Text>
+          <Reason>{w.reasoning}</Reason>
         </View>
       ))}
     </View>
   );
 }
 
-// ---------------------------------------------------------------------------
-// Fair windows
-// ---------------------------------------------------------------------------
-
-export function DecentTimesSection({
-  windows,
-}: {
-  windows?: Array<{ time_range: string; reasoning: string }>;
-}) {
+export function DecentTimesSection({ windows, timezone }: { windows?: Array<{ time_range: string; reasoning: string }>; timezone?: string }) {
   if (!windows || windows.length === 0) return null;
   return (
     <View style={styles.section}>
@@ -70,40 +72,29 @@ export function DecentTimesSection({
       {windows.map((w, i) => (
         <View key={i} style={styles.timeCardDecent}>
           <View style={styles.timeCardHeader}>
-            <Text style={styles.timeWindow}>{w.time_range}</Text>
+            <Text style={styles.timeWindow}>{normalizeDisplayRange(w.time_range, timezone)}</Text>
             <View style={[styles.labelBadge, styles.badgeFair]}>
               <Text style={styles.labelBadgeText}>FAIR</Text>
             </View>
           </View>
-          <Text style={styles.timeReasoningDecent}>{w.reasoning}</Text>
+          <Reason>{w.reasoning}</Reason>
         </View>
       ))}
     </View>
   );
 }
 
-/** Build decent windows from LLM or engine fallback. */
-export function DecentTimesFromReport({
-  llmDecent,
-  engineFair,
-  timezone,
-}: {
-  llmDecent?: LLMOutput['decent_times_today'];
-  engineFair?: EngineTimeWindow[];
-  timezone?: string;
-}) {
+export function DecentTimesFromReport({ llmDecent, engineFair, timezone }: { llmDecent?: LLMOutput['decent_times_today']; engineFair?: EngineTimeWindow[]; timezone?: string; }) {
   if (llmDecent && llmDecent.length > 0) {
-    return <DecentTimesSection windows={llmDecent} />;
+    return <DecentTimesSection windows={llmDecent} timezone={timezone} />;
   }
   if (engineFair && engineFair.length > 0) {
     return (
       <DecentTimesSection
+        timezone={timezone}
         windows={engineFair.slice(0, 2).map((w) => ({
-          time_range: formatRange(w.start_local, w.end_local, timezone),
-          reasoning:
-            w.drivers.length > 0
-              ? w.drivers.slice(0, 2).join(', ').replace(/_/g, ' ')
-              : 'Fair conditions',
+          time_range: `${w.start_local} – ${w.end_local}`,
+          reasoning: w.drivers.length > 0 ? w.drivers.slice(0, 2).join(', ').replace(/_/g, ' ') : 'Fair conditions',
         }))}
       />
     );
@@ -111,28 +102,20 @@ export function DecentTimesFromReport({
   return null;
 }
 
-// ---------------------------------------------------------------------------
-// Worst Times
-// ---------------------------------------------------------------------------
-
-export function WorstTimesSection({ windows }: { windows: LLMOutput['worst_times_to_fish_today'] }) {
+export function WorstTimesSection({ windows, timezone }: { windows: LLMOutput['worst_times_to_fish_today']; timezone?: string }) {
   if (!windows || windows.length === 0) return null;
   return (
     <View style={styles.section}>
       <Text style={styles.sectionTitle}>Slow windows</Text>
       {windows.map((w, i) => (
         <View key={i} style={styles.timeCardMuted}>
-          <Text style={styles.timeWindow}>{w.time_range}</Text>
-          <Text style={styles.timeReasoningMuted}>{w.reasoning}</Text>
+          <Text style={styles.timeWindow}>{normalizeDisplayRange(w.time_range, timezone)}</Text>
+          <Reason muted>{w.reasoning}</Reason>
         </View>
       ))}
     </View>
   );
 }
-
-// ---------------------------------------------------------------------------
-// Badge mapping
-// ---------------------------------------------------------------------------
 
 const BADGE_MAP: Record<string, object> = {
   PRIME: { backgroundColor: colors.sage },
@@ -140,12 +123,8 @@ const BADGE_MAP: Record<string, object> = {
   FAIR: { backgroundColor: '#B8860B' },
 };
 
-// ---------------------------------------------------------------------------
-// Styles
-// ---------------------------------------------------------------------------
-
 const styles = StyleSheet.create({
-  section: { marginBottom: spacing.xl },
+  section: { marginBottom: spacing.md },
   sectionTitle: {
     fontFamily: fonts.serif,
     fontSize: 18,
@@ -156,7 +135,7 @@ const styles = StyleSheet.create({
   timeCard: {
     backgroundColor: colors.sageLight,
     borderRadius: radius.md,
-    padding: spacing.md,
+    padding: spacing.sm + 2,
     marginBottom: spacing.sm,
     borderWidth: 1,
     borderColor: colors.sage + '40',
@@ -168,7 +147,7 @@ const styles = StyleSheet.create({
   timeCardMuted: {
     backgroundColor: colors.surface,
     borderRadius: radius.md,
-    padding: spacing.md,
+    padding: spacing.sm + 2,
     marginBottom: spacing.sm,
     borderWidth: 1,
     borderColor: colors.border,
@@ -176,21 +155,21 @@ const styles = StyleSheet.create({
   timeCardDecent: {
     backgroundColor: '#FFF8E6',
     borderRadius: radius.md,
-    padding: spacing.md,
+    padding: spacing.sm + 2,
     marginBottom: spacing.sm,
     borderWidth: 1,
-    borderColor: '#E8A838' + '40',
+    borderColor: '#E8A83840',
   },
   timeCardHeader: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     marginBottom: 4,
+    gap: spacing.sm,
   },
-  timeWindow: { fontSize: 15, fontWeight: '600', color: colors.text },
+  timeWindow: { fontSize: 15, fontWeight: '700', color: colors.text, flex: 1 },
   timeReasoning: { fontSize: 14, color: colors.textSecondary, lineHeight: 20 },
   timeReasoningMuted: { fontSize: 14, color: colors.textMuted, lineHeight: 20 },
-  timeReasoningDecent: { fontSize: 14, color: colors.textSecondary, lineHeight: 20 },
   labelBadge: {
     paddingHorizontal: 8,
     paddingVertical: 2,

@@ -1,6 +1,5 @@
 /**
- * ReportView — orchestrator component that composes all report sub-components.
- * Pass 4: simplified front-of-report with expandable detail sections.
+ * ReportView — orchestrates the compact report layout.
  */
 
 import React from 'react';
@@ -10,7 +9,6 @@ import { colors, spacing, radius } from '../../lib/theme';
 import type { WaterTypeReport } from '../../lib/howFishing';
 import { ScoreCard } from './ScoreCard';
 import { AlertBannersFromEngine } from './AlertBanners';
-import { DataQualityNotice } from './DataQualityNotice';
 import { BestTimesSection, DecentTimesFromReport, WorstTimesSection } from './TimeWindows';
 import { KeyFactorsSection } from './KeyFactors';
 import { ScoreBreakdown } from './ScoreBreakdown';
@@ -18,9 +16,14 @@ import { TipsSection } from './TipsSection';
 import { StrategySection } from './StrategySection';
 import { ExpandableSection } from './ExpandableSection';
 
+function cleanDisplay(raw: string): string {
+  if (!raw || typeof raw !== 'string') return '';
+  return raw.replace(/\\u2192/g, '→').replace(/\s+/g, ' ').trim();
+}
+
 function cleanSummary(raw: string): string {
   if (!raw || typeof raw !== 'string') return '';
-  const s = raw.trim().replace(/^```(?:json)?\s*/gi, '').replace(/\s*```\s*$/gi, '').trim();
+  const s = cleanDisplay(raw).replace(/^```(?:json)?\s*/gi, '').replace(/\s*```\s*$/gi, '').trim();
   if (s.startsWith('{') && s.endsWith('}')) return '';
   return s;
 }
@@ -64,8 +67,8 @@ export function ReportView({ report }: ReportViewProps) {
           {isEngineError
             ? 'The conditions scoring engine could not run for this water type.'
             : isClaudeError
-            ? 'AI analysis temporarily unavailable. Please go back and try again.'
-            : 'This report could not be generated. Please go back and try again.'}
+            ? 'AI analysis temporarily unavailable. Please try again.'
+            : 'This report could not be generated. Please try again.'}
         </Text>
       </View>
     );
@@ -73,79 +76,35 @@ export function ReportView({ report }: ReportViewProps) {
 
   const { engine, llm } = report;
   const summary = getTopLine(report);
-  const seriousConfidence = engine.scoring.reliability_tier === 'low_confidence' || engine.scoring.reliability_tier === 'very_low_confidence';
-  const hasQualitySignals =
-    engine.data_quality.missing_variables.length > 0 ||
-    engine.data_quality.fallback_variables.length > 0 ||
-    engine.data_quality.notes.length > 0 ||
-    engine.scoring.reliability_tier !== 'high';
 
   return (
     <View>
       <View style={styles.headlineCard}>
         <Text style={styles.kicker}>Today's read</Text>
-        <Text style={styles.headlineText}>{summary}</Text>
+        <Text style={styles.headlineText}>{cleanDisplay(summary)}</Text>
       </View>
 
       <AlertBannersFromEngine alerts={engine.alerts} />
 
-      <ScoreCard
-        scoring={engine.scoring}
-        waterType={report.water_type}
-        waterTempLine={getWaterTempLine(engine)}
-      />
-
-      {seriousConfidence ? (
-        <DataQualityNotice
-          quality={engine.data_quality}
-          tier={engine.scoring.reliability_tier}
-          hideWaterTempFallbackOnly
-        />
-      ) : null}
+      <ScoreCard scoring={engine.scoring} waterType={report.water_type} waterTempLine={getWaterTempLine(engine)} />
 
       <View style={styles.quickSection}>
-        <BestTimesSection windows={llm.best_times_to_fish_today} />
-        <DecentTimesFromReport
-          llmDecent={llm.decent_times_today}
-          engineFair={engine.fair_windows}
-          timezone={engine.location?.timezone}
-        />
-        <WorstTimesSection windows={llm.worst_times_to_fish_today} />
+        <BestTimesSection windows={llm.best_times_to_fish_today} timezone={engine.location?.timezone} />
+        <DecentTimesFromReport llmDecent={llm.decent_times_today} engineFair={engine.fair_windows} timezone={engine.location?.timezone} />
+        <WorstTimesSection windows={llm.worst_times_to_fish_today} timezone={engine.location?.timezone} />
       </View>
 
       {llm.strategy ? <StrategySection strategy={llm.strategy} /> : null}
-      <TipsSection tips={llm.tips_for_today} />
+      <TipsSection tips={(llm.tips_for_today ?? []).map(cleanDisplay).filter(Boolean)} />
 
-      <ExpandableSection
-        title="Why today looks this way"
-        subtitle="Top conditions driving the score and the bite windows."
-        defaultExpanded={false}
-      >
+      <ExpandableSection title="Why today looks this way" subtitle="Top conditions driving the score and the bite windows." defaultExpanded={false}>
         <KeyFactorsSection factors={llm.key_factors} embedded />
       </ExpandableSection>
 
-      <ExpandableSection
-        title="Detailed breakdown"
-        subtitle="Variable-by-variable contribution from the deterministic engine."
-        defaultExpanded={false}
-      >
+      <ExpandableSection title="Detailed breakdown" subtitle="Variable-by-variable contribution from the deterministic engine." defaultExpanded={false}>
         <ScoreBreakdown scoring={engine.scoring} embedded />
       </ExpandableSection>
 
-      {hasQualitySignals ? (
-        <ExpandableSection
-          title="Confidence and data quality"
-          subtitle="See where the report used estimated or missing inputs."
-          defaultExpanded={false}
-        >
-          <DataQualityNotice
-            quality={engine.data_quality}
-            tier={engine.scoring.reliability_tier}
-            hideWaterTempFallbackOnly
-            embedded
-          />
-        </ExpandableSection>
-      ) : null}
     </View>
   );
 }
@@ -154,8 +113,8 @@ const styles = StyleSheet.create({
   headlineCard: {
     backgroundColor: colors.surface,
     borderRadius: radius.md,
-    padding: spacing.md,
-    marginBottom: spacing.md,
+    padding: spacing.sm + 2,
+    marginBottom: spacing.sm,
     borderWidth: 1,
     borderColor: colors.border,
   },
@@ -173,7 +132,7 @@ const styles = StyleSheet.create({
     lineHeight: 23,
   },
   quickSection: {
-    marginBottom: spacing.sm,
+    marginBottom: 0,
   },
   errorState: {
     alignItems: 'center',

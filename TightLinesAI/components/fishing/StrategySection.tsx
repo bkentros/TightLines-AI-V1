@@ -10,6 +10,10 @@ import { Ionicons } from '@expo/vector-icons';
 import { colors, fonts, spacing, radius } from '../../lib/theme';
 import type { LLMStrategy } from '../../lib/howFishing';
 
+function cleanText(t: string): string {
+  return (t || '').replace(/\\u2192/g, '→').replace(/\s+/g, ' ').trim();
+}
+
 interface StrategySectionProps {
   strategy: LLMStrategy;
 }
@@ -51,20 +55,20 @@ export function StrategySection({ strategy }: StrategySectionProps) {
           <StrategyRow
             icon="speedometer-outline"
             label="Presentation"
-            value={strategy.presentation_speed}
+            value={cleanText(strategy.presentation_speed)}
           />
         ) : null}
         {strategy.depth_focus ? (
           <StrategyRow
             icon="arrow-down-outline"
             label="Target Depth"
-            value={strategy.depth_focus}
+            value={cleanText(strategy.depth_focus)}
           />
         ) : null}
         {strategy.approach_note ? (
           <View style={styles.approachWrap}>
             <Ionicons name="compass-outline" size={16} color={colors.sage} style={styles.approachIcon} />
-            <Text style={styles.approachText}>{strategy.approach_note}</Text>
+            <Text style={styles.approachText}>{cleanText(strategy.approach_note)}</Text>
           </View>
         ) : null}
       </View>
@@ -73,7 +77,7 @@ export function StrategySection({ strategy }: StrategySectionProps) {
 }
 
 const styles = StyleSheet.create({
-  section: { marginBottom: spacing.xl },
+  section: { marginBottom: spacing.lg },
   sectionTitle: {
     fontFamily: fonts.serif,
     fontSize: 18,
@@ -84,7 +88,7 @@ const styles = StyleSheet.create({
   card: {
     backgroundColor: colors.surface,
     borderRadius: radius.md,
-    padding: spacing.md,
+    padding: spacing.sm + 2,
     borderWidth: 1,
     borderColor: colors.sage + '25',
     gap: spacing.md,
