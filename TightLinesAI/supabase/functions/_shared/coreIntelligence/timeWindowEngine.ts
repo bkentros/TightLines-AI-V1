@@ -299,11 +299,6 @@ function computeTimeQualityFactor(
   const isDusk = dawnDusk.duskStart !== null && dawnDusk.duskEnd !== null &&
     blockInRange(blockStartMin, dawnDusk.duskStart, dawnDusk.duskEnd);
 
-  const blockIdx = Math.floor(blockStartMin / 30);
-  const blockAir = estimateBlockAirTemp(blockIdx, env);
-  const blockAir4hAgo = estimateBlockAirTemp(Math.max(0, blockIdx - 8), env);
-  const intradayDelta4h = blockAir !== null && blockAir4hAgo !== null ? blockAir - blockAir4hAgo : null;
-
   if (freshwaterTimingProfile) {
     // Freshwater: use the profile's biological ratios to set light factor.
     // The profile encodes seasonal biology — deep winter: midday dominant,
@@ -344,31 +339,6 @@ function computeTimeQualityFactor(
       drivers.push("night_block");
     } else {
       lightFactor = 0.55; // midday base
-    }
-  }
-
-  // Thermal timing correction — prevents static sunset logic from overpowering
-  // real warming/cooling shapes from the hourly forecast.
-  if (
-    waterType === "freshwater" &&
-    intradayDelta4h !== null &&
-    ruleCtx?.seasonal_fish_behavior &&
-    ["deep_winter_survival", "pre_spawn_buildup", "late_fall_slowdown", "mild_winter_active"].includes(ruleCtx.seasonal_fish_behavior)
-  ) {
-    const inEvening = blockStartMin >= 16 * 60 && blockStartMin <= 22 * 60;
-    const inMidday = blockStartMin >= 10 * 60 && blockStartMin <= 16 * 60;
-
-    if (intradayDelta4h >= 4) {
-      if (inMidday) {
-        lightFactor = Math.min(1, lightFactor + 0.12);
-        drivers.push("warming_air_window");
-      } else if (inEvening) {
-        lightFactor = Math.min(0.72, lightFactor + 0.18);
-        drivers.push("warm_evening_extension");
-      }
-    } else if (intradayDelta4h <= -4 && (inMidday || inEvening)) {
-      lightFactor = Math.max(0.12, lightFactor - 0.12);
-      drivers.push("cooling_air_window");
     }
   }
 
@@ -578,22 +548,6 @@ function applyEdgeCaseScoreRules(
   ) {
     score += 15;
     if (!drivers.includes("rapid_warming_late_day_bonus")) drivers.push("rapid_warming_late_day_bonus");
-  }
-
-  // --- Rule 3B: Freshwater Warm Evening Extension in cold-season transition ---
-  if (
-    waterType === "freshwater" &&
-    tempTrend !== null &&
-    (tempTrend === "rapid_warming" || tempTrend === "warming") &&
-    zone !== null &&
-    (zone === "near_shutdown_cold" || zone === "lethargic" || zone === "transitional") &&
-    blockStartMin >= 16 * 60 &&
-    blockStartMin <= 22 * 60 &&
-    (seasonalState === "deep_winter_survival" || seasonalState === "pre_spawn_buildup" || seasonalState === "mild_winter_active")
-  ) {
-    score += 10;
-    if (!drivers.includes("warm_evening_extension")) drivers.push("warm_evening_extension");
-    if (labelCeiling === "SLOW") labelCeiling = "FAIR";
   }
 
   // --- Rule 4: Freshwater Overcast Extension ---
