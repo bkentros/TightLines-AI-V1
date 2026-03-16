@@ -139,6 +139,14 @@ export interface EngineOutput {
   time_windows: TimeWindow[];
   fair_windows: TimeWindow[];      // NEW
   worst_windows: WorstWindow[];
+  // V2 engine-level driver/suppressor lists (from assessments layer)
+  v2_drivers?: string[];
+  v2_suppressors?: string[];
+  v2_score?: number;
+  v2_score_band?: string;
+  v2_confidence?: string;
+  v2_environment_mode?: string;
+  v2_timing_hint?: string | null;
 }
 
 // ---------------------------------------------------------------------------
@@ -219,18 +227,30 @@ export interface WaterTypeReport {
 // ---------------------------------------------------------------------------
 
 export interface HowFishingBundle {
-  feature: 'hows_fishing_feature_v1';
-  mode: 'single' | 'coastal_multi' | 'inland_dual';   // UPDATED
-  default_tab: string;                                   // UPDATED from WaterType to string
+  // V2 backend returns 'hows_fishing_feature_v2'; V1 returns 'hows_fishing_feature_v1'.
+  // Both are accepted by the frontend — the reports shape is compatible.
+  feature: 'hows_fishing_feature_v1' | 'hows_fishing_feature_v2';
+  mode: 'single' | 'coastal_multi' | 'inland_dual';
+  default_tab: string;
   generated_at: string;
   cache_expires_at: string;
-  freshwater_subtype?: 'lake' | 'river_stream' | 'reservoir';
+  freshwater_subtype?: 'lake' | 'river_stream' | 'reservoir' | null;
+  // V2 adds a context block — optional so V1 cached bundles still parse
+  context?: {
+    water_type: WaterType;
+    freshwater_subtype?: 'lake' | 'river_stream' | 'reservoir' | null;
+    environment_mode: string;
+    region?: string;
+    seasonal_state?: string;
+  };
   reports: {
     freshwater?: WaterTypeReport;
     saltwater?: WaterTypeReport;
     brackish?: WaterTypeReport;
-    freshwater_lake?: WaterTypeReport;                   // NEW
-    freshwater_river?: WaterTypeReport;                  // NEW
+    freshwater_lake?: WaterTypeReport;
+    freshwater_river?: WaterTypeReport;
+    // V2 dynamic key — environment_mode keyed entry
+    [key: string]: WaterTypeReport | undefined;
   };
   failed_reports: string[];
 }

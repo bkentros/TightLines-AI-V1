@@ -16,3 +16,4 @@ export { WeeklyForecastStrip } from './WeeklyForecastStrip';
 export { CondensedLoadingView } from './CondensedLoadingView';
 
 export { ExpandableSection } from './ExpandableSection';
+export { EngineDriversPanel } from './EngineDriversPanel';

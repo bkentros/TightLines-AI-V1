@@ -48,12 +48,26 @@ interface ScoreCardProps {
   scoring: EngineScoring;
   waterType: WaterType;
   waterTempLine?: string | null;
+  environmentMode?: string | null;
 }
 
-export function ScoreCard({ scoring, waterType, waterTempLine }: ScoreCardProps) {
+function humanizeEnvironmentMode(mode: string | null | undefined): string {
+  if (!mode) return '';
+  const map: Record<string, string> = {
+    freshwater_lake: 'Lake / Pond',
+    freshwater_river: 'River / Stream',
+    saltwater: 'Saltwater',
+    brackish: 'Brackish',
+  };
+  return map[mode] ?? mode.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+}
+
+export function ScoreCard({ scoring, waterType, waterTempLine, environmentMode }: ScoreCardProps) {
   const style = cardStyles(scoring.adjusted_score);
   const note = frontNote(scoring);
   const confidence = confidenceLine(scoring);
+  const modeLabel = humanizeEnvironmentMode(environmentMode);
+  const contextLabel = modeLabel || (waterType.charAt(0).toUpperCase() + waterType.slice(1));
 
   return (
     <View style={[styles.card, { backgroundColor: style.bg, borderColor: style.border }]}> 
@@ -64,7 +78,7 @@ export function ScoreCard({ scoring, waterType, waterTempLine }: ScoreCardProps)
         </View>
         <View style={styles.metaWrap}>
           <Text style={[styles.rating, { color: style.text }]}>{scoring.overall_rating}</Text>
-          <Text style={styles.waterType}>{waterType.charAt(0).toUpperCase() + waterType.slice(1)}</Text>
+          <Text style={styles.waterType}>{contextLabel}</Text>
         </View>
       </View>
 

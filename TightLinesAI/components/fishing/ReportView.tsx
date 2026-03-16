@@ -15,6 +15,7 @@ import { ScoreBreakdown } from './ScoreBreakdown';
 import { TipsSection } from './TipsSection';
 import { StrategySection } from './StrategySection';
 import { ExpandableSection } from './ExpandableSection';
+import { EngineDriversPanel } from './EngineDriversPanel';
 
 function cleanDisplay(raw: string): string {
   if (!raw || typeof raw !== 'string') return '';
@@ -86,7 +87,7 @@ export function ReportView({ report }: ReportViewProps) {
 
       <AlertBannersFromEngine alerts={engine.alerts} />
 
-      <ScoreCard scoring={engine.scoring} waterType={report.water_type} waterTempLine={getWaterTempLine(engine)} />
+      <ScoreCard scoring={engine.scoring} waterType={report.water_type} waterTempLine={getWaterTempLine(engine)} environmentMode={engine.v2_environment_mode} />
 
       <View style={styles.quickSection}>
         <BestTimesSection windows={llm.best_times_to_fish_today} timezone={engine.location?.timezone} />
@@ -102,7 +103,10 @@ export function ReportView({ report }: ReportViewProps) {
       </ExpandableSection>
 
       <ExpandableSection title="Detailed breakdown" subtitle="Variable-by-variable contribution from the deterministic engine." defaultExpanded={false}>
-        <ScoreBreakdown scoring={engine.scoring} embedded />
+        <EngineDriversPanel engine={engine} />
+        {Object.keys(engine.scoring.components).length > 0 ? (
+          <ScoreBreakdown scoring={engine.scoring} embedded />
+        ) : null}
       </ExpandableSection>
 
     </View>

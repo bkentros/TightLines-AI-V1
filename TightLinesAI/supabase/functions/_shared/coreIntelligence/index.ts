@@ -1,4 +1,10 @@
 // =============================================================================
+// [ARCHIVED — NOT USED IN ACTIVE PATHS]
+// This is the old V1 engine (coreIntelligence). It is fully replaced by engineV2.
+// The active how-fishing edge function imports ONLY from engineV2.
+// These files are retained for reference only and should not be modified or extended.
+// See: TightLinesAI/supabase/functions/_shared/engineV2/
+// =============================================================================
 // CORE INTELLIGENCE ENGINE — PUBLIC ENTRYPOINT
 // runCoreIntelligence(env, waterType) → EngineOutput
 //

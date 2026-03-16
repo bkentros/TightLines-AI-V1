@@ -1,0 +1,979 @@
+{
+  "pack_name": "tightlines_v1_engine_golden_test_scenarios",
+  "version": "1.0.0",
+  "description": "Implementation-ready fixture pack for validating the TightLines AI V1 deterministic engine.",
+  "score_band_ranges": {
+    "poor": [
+      0,
+      34
+    ],
+    "fair": [
+      35,
+      54
+    ],
+    "good": [
+      55,
+      74
+    ],
+    "great": [
+      75,
+      100
+    ]
+  },
+  "global_rules": {
+    "confirmed_context_first": true,
+    "manual_freshwater_temp_overrides_inferred": true,
+    "manual_freshwater_temp_confidence": "very_high",
+    "observed_salt_brackish_temp_confidence": "high",
+    "inferred_freshwater_temp_confidence_depends_on_stability": true,
+    "moon_solunar_role": "mostly_window_shaping_not_primary_final_score_driver",
+    "strong_suppression_can_cap_opportunity": true,
+    "v1_honesty_forbidden_claims": [
+      "exact fish depth",
+      "exact spawning stage",
+      "exact species behavior",
+      "guaranteed catch outcomes",
+      "exact structure/positioning beyond broad context language"
+    ]
+  },
+  "regression_checks": [
+    {
+      "id": "manual_temp_should_raise_confidence",
+      "scenarios": [
+        "scenario_03",
+        "scenario_15"
+      ],
+      "assertion": "manual freshwater temp scenarios should show higher confidence than similar inferred-temp freshwater scenarios"
+    },
+    {
+      "id": "tide_dominates_in_salt_and_brackish",
+      "scenarios": [
+        "scenario_09",
+        "scenario_10",
+        "scenario_11",
+        "scenario_12",
+        "scenario_13",
+        "scenario_17",
+        "scenario_18"
+      ],
+      "assertion": "movement/tide should visibly outrank other drivers more often than in freshwater scenarios"
+    },
+    {
+      "id": "river_and_lake_narration_must_differ",
+      "scenarios": [
+        "scenario_06",
+        "scenario_07",
+        "scenario_08",
+        "scenario_16"
+      ],
+      "assertion": "river scenarios should not sound like stillwater reports; lake scenarios should not sound like current-driven river reports"
+    },
+    {
+      "id": "solunar_cannot_rescue_bad_days",
+      "scenarios": [
+        "scenario_02",
+        "scenario_08",
+        "scenario_17"
+      ],
+      "assertion": "decent or strong solunar should not override major suppression"
+    },
+    {
+      "id": "stable_transition_beats_unstable_front",
+      "scenarios": [
+        "scenario_05",
+        "scenario_02"
+      ],
+      "assertion": "scenario_05 should clearly outscore scenario_02"
+    },
+    {
+      "id": "moving_water_beats_dead_slack_heat",
+      "scenarios": [
+        "scenario_09",
+        "scenario_10"
+      ],
+      "assertion": "scenario_09 should clearly outscore scenario_10"
+    },
+    {
+      "id": "storm_threat_caps_good_tide",
+      "scenarios": [
+        "scenario_17"
+      ],
+      "assertion": "scenario_17 must not rate good/great purely from tide and solunar alignment"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "scenario_01",
+      "slug": "freshwater_lake_upper_midwest_early_spring_warming",
+      "title": "Upper Midwest early-spring lake warming, stable recovery",
+      "purpose": "Validate that the engine recognizes an improving freshwater lake setup in a northern climate without overstating pre-spawn precision.",
+      "input": {
+        "environment_mode": "freshwater_lake",
+        "region": "great_lakes_upper_midwest",
+        "calendar_timing": "early_april",
+        "recent_air_pattern": "5\u20137 days of gradual warming after a colder stretch",
+        "water_temp_source": "inferred",
+        "water_temp_character": "still cool, but trending upward",
+        "pressure_trend": "stable_to_slightly_rising",
+        "wind_speed": "light_to_moderate",
+        "cloud_cover": "partly_cloudy",
+        "precipitation": "none_active",
+        "solunar_support": "moderate",
+        "time_of_day_setup": "best overlap around late morning into early afternoon"
+      },
+      "expected": {
+        "seasonal_state": [
+          "transition_warming"
+        ],
+        "confidence_band": [
+          "moderate"
+        ],
+        "score_band": [
+          "good"
+        ],
+        "expected_window_shape": "one improving main window centered after the cold early morning lag",
+        "primary_drivers": [
+          "warming_trend",
+          "improving_stability",
+          "tolerable_wind",
+          "usable_light_conditions"
+        ],
+        "primary_suppressors": [
+          "still_cool_water",
+          "inferred_temp_uncertainty",
+          "slow_early_day_start"
+        ],
+        "narrative_must_include": [
+          "improving trend language",
+          "fish should be more responsive later than very early",
+          "conditions are better than recent colder days"
+        ],
+        "narrative_must_not_include": [
+          "exact spawn language",
+          "exact depth claims",
+          "guaranteed aggressive bite language"
+        ]
+      }
+    },
+    {
+      "id": "scenario_02",
+      "slug": "freshwater_lake_upper_midwest_post_front_setback",
+      "title": "Upper Midwest early-spring lake post-front setback",
+      "purpose": "Validate that the engine penalizes a sharp post-front spring setback even during a calendar period that might otherwise look promising.",
+      "input": {
+        "environment_mode": "freshwater_lake",
+        "region": "great_lakes_upper_midwest",
+        "calendar_timing": "early_april",
+        "recent_air_pattern": "warm spell broken by sharp cold front in last 24 hours",
+        "water_temp_source": "inferred",
+        "water_temp_character": "unstable / lagging recent air reversal",
+        "pressure_trend": "sharply_rising_after_front",
+        "wind_speed": "moderate_to_strong",
+        "cloud_cover": "clearing_bluebird_conditions",
+        "precipitation": "front_just_passed",
+        "solunar_support": "strong_on_paper"
+      },
+      "expected": {
+        "seasonal_state": [
+          "transition_warming"
+        ],
+        "confidence_band": [
+          "moderate"
+        ],
+        "score_band": [
+          "fair"
+        ],
+        "score_band_note": "leaning low fair",
+        "expected_window_shape": "reduced, patchy windows; no big sustained peak despite solunar support",
+        "primary_drivers": [
+          "some_residual_seasonal_warming_context",
+          "limited_solunar_support"
+        ],
+        "primary_suppressors": [
+          "post_front_pressure_change",
+          "unstable_thermal_context",
+          "tougher_light_wind_combination"
+        ],
+        "narrative_must_include": [
+          "recent front reduced consistency",
+          "timing may still matter, but conditions are less favorable than the prior warming stretch"
+        ],
+        "narrative_must_not_include": [
+          "moon_solunar_overriding_everything",
+          "exact_fish_location_claims"
+        ]
+      }
+    },
+    {
+      "id": "scenario_03",
+      "slug": "freshwater_lake_northeast_stable_summer_manual_temp",
+      "title": "Northeast summer lake, stable comfortable conditions",
+      "purpose": "Validate a broadly favorable freshwater lake case where timing and moon support can refine already-good conditions.",
+      "input": {
+        "environment_mode": "freshwater_lake",
+        "region": "northeast",
+        "calendar_timing": "mid_july",
+        "recent_air_pattern": "stable_for_a_week",
+        "water_temp_source": "manual_user_entry",
+        "manual_water_temp_status": "known_and_comfortable_for_broad_warmwater_activity",
+        "pressure_trend": "stable",
+        "wind_speed": "light",
+        "cloud_cover": "mixed_sun_cloud",
+        "precipitation": "none",
+        "solunar_support": "strong_overlap_with_dawn_and_dusk_windows"
+      },
+      "expected": {
+        "seasonal_state": [
+          "stable_warm"
+        ],
+        "confidence_band": [
+          "very_high"
+        ],
+        "score_band": [
+          "good",
+          "great"
+        ],
+        "expected_window_shape": "clear dawn and dusk strength with daytime still fishable",
+        "primary_drivers": [
+          "stable_warm_season_comfort",
+          "high_confidence_water_temp",
+          "stable_pressure",
+          "favorable_timing_support"
+        ],
+        "primary_suppressors": [
+          "midday_brightness_relative_to_low_light_periods"
+        ],
+        "narrative_must_include": [
+          "stronger timing windows at low-light periods",
+          "stable conditions supporting a generally fishable day"
+        ],
+        "narrative_must_not_include": [
+          "exact_topwater_technique_commands_as_if_species_specific",
+          "guaranteed_nonstop_action_language"
+        ]
+      }
+    },
+    {
+      "id": "scenario_04",
+      "slug": "freshwater_lake_interior_south_peak_heat",
+      "title": "Interior South midsummer reservoir heat stress",
+      "purpose": "Validate that the engine respects heat stress and does not overrate hot-calendar summer just because it is summer.",
+      "input": {
+        "environment_mode": "freshwater_lake",
+        "region": "interior_south_plains",
+        "calendar_timing": "late_july",
+        "recent_air_pattern": "prolonged_heat_for_10_plus_days",
+        "water_temp_source": "inferred",
+        "water_temp_character": "likely_elevated_and_stressful",
+        "pressure_trend": "stable",
+        "wind_speed": "light_to_moderate",
+        "cloud_cover": "mostly_sunny",
+        "precipitation": "none",
+        "solunar_support": "moderate"
+      },
+      "expected": {
+        "seasonal_state": [
+          "peak_heat_stress"
+        ],
+        "confidence_band": [
+          "moderate"
+        ],
+        "score_band": [
+          "fair"
+        ],
+        "expected_window_shape": "narrow low-light opportunity windows; weak midday period",
+        "primary_drivers": [
+          "some_low_light_timing_opportunity",
+          "stable_weather"
+        ],
+        "primary_suppressors": [
+          "likely_thermal_stress",
+          "bright_sunny_exposure",
+          "reduced_midday_comfort"
+        ],
+        "narrative_must_include": [
+          "best odds concentrated early and late",
+          "midday is less favorable",
+          "heat limits overall quality even though weather is stable"
+        ],
+        "narrative_must_not_include": [
+          "all_day_high_activity_language",
+          "exact_depth_statements"
+        ]
+      }
+    },
+    {
+      "id": "scenario_05",
+      "slug": "freshwater_lake_mid_atlantic_fall_cooling",
+      "title": "Mid-Atlantic cooling-fall lake, favorable feed window day",
+      "purpose": "Validate that a cooling transition with stable conditions can produce one of the better broad freshwater days.",
+      "input": {
+        "environment_mode": "freshwater_lake",
+        "region": "mid_atlantic",
+        "calendar_timing": "early_october",
+        "recent_air_pattern": "mild_cooling_over_several_days_not_a_harsh_front",
+        "water_temp_source": "inferred",
+        "water_temp_character": "easing_out_of_summer_stress_into_better_comfort",
+        "pressure_trend": "stable_to_gently_rising",
+        "wind_speed": "light_to_moderate",
+        "cloud_cover": "partly_cloudy_to_overcast_mix",
+        "precipitation": "none_active",
+        "solunar_support": "modest"
+      },
+      "expected": {
+        "seasonal_state": [
+          "cooling_transition"
+        ],
+        "confidence_band": [
+          "moderate"
+        ],
+        "score_band": [
+          "good"
+        ],
+        "expected_window_shape": "broader fishable period than in peak summer, with extra help from low-light and overcast periods",
+        "primary_drivers": [
+          "improving_post_summer_comfort",
+          "stable_trend",
+          "decent_light_conditions"
+        ],
+        "primary_suppressors": [
+          "none_severe_only_normal_midday_softening_if_sky_brightens"
+        ],
+        "narrative_must_include": [
+          "cooling trend improving broad fishability",
+          "more forgiving overall day than hot-summer conditions"
+        ],
+        "narrative_must_not_include": [
+          "exact_seasonal_migration_or_spawn_claims"
+        ]
+      }
+    },
+    {
+      "id": "scenario_06",
+      "slug": "freshwater_river_upper_midwest_cold_runoff",
+      "title": "Freshwater river, Great Lakes tributary cold runoff spike",
+      "purpose": "Validate that river logic differs from lake logic and that unstable runoff-driven conditions reduce confidence and score.",
+      "input": {
+        "environment_mode": "freshwater_river",
+        "region": "great_lakes_upper_midwest",
+        "calendar_timing": "march",
+        "recent_air_pattern": "mixed_thaw_freeze_swings",
+        "water_temp_source": "inferred",
+        "water_temp_character": "unstable_and_difficult_to_trust",
+        "pressure_trend": "variable",
+        "wind_speed": "minor_importance",
+        "cloud_cover": "overcast",
+        "precipitation": "recent_melt_runoff_influence",
+        "flow_current_context": "elevated_flow",
+        "solunar_support": "irrelevant_to_light_support_only"
+      },
+      "expected": {
+        "seasonal_state": [
+          "cold_period",
+          "transition_warming"
+        ],
+        "confidence_band": [
+          "low",
+          "moderate"
+        ],
+        "score_band": [
+          "poor",
+          "fair"
+        ],
+        "score_band_note": "poor to low fair",
+        "expected_window_shape": "inconsistent, no strong sustained peak",
+        "primary_drivers": [
+          "some_overcast_cover",
+          "isolated_timing_opportunity_only"
+        ],
+        "primary_suppressors": [
+          "unstable_cold_context",
+          "elevated_flow_runoff_instability",
+          "low_confidence_thermal_interpretation"
+        ],
+        "narrative_must_include": [
+          "river conditions are unstable",
+          "confidence is reduced because inferred temperature and flow context are noisy"
+        ],
+        "narrative_must_not_include": [
+          "stable_lake_style_narration",
+          "exact_holding_water_claims"
+        ]
+      }
+    },
+    {
+      "id": "scenario_07",
+      "slug": "freshwater_river_southeast_stable_summer_dawn",
+      "title": "Freshwater river, Southeast summer stable flow dawn bite",
+      "purpose": "Validate that river mode can still produce a good timing-focused day under stable warm-season conditions.",
+      "input": {
+        "environment_mode": "freshwater_river",
+        "region": "southeast_atlantic",
+        "calendar_timing": "june",
+        "recent_air_pattern": "stable_warm_week",
+        "water_temp_source": "manual_user_entry",
+        "manual_water_temp_status": "user_entered_and_plausible",
+        "pressure_trend": "stable",
+        "cloud_cover": "mixed_becoming_sunny_later",
+        "precipitation": "none",
+        "flow_current_context": "normal_summer_flow",
+        "solunar_support": "moderate_support_around_dawn"
+      },
+      "expected": {
+        "seasonal_state": [
+          "stable_warm"
+        ],
+        "confidence_band": [
+          "very_high"
+        ],
+        "score_band": [
+          "good"
+        ],
+        "expected_window_shape": "best at dawn / early morning, softer as heat and light increase",
+        "primary_drivers": [
+          "stable_pattern",
+          "high_confidence_water_temp",
+          "normal_river_flow_context",
+          "timing_support"
+        ],
+        "primary_suppressors": [
+          "daytime_heat_brighter_light_later"
+        ],
+        "narrative_must_include": [
+          "river-specific timing and flow-aware language",
+          "early window strongest"
+        ],
+        "narrative_must_not_include": [
+          "stillwater_lake_narration",
+          "exact_seam_or_eddy_prescriptions_beyond_broad_language"
+        ]
+      }
+    },
+    {
+      "id": "scenario_08",
+      "slug": "freshwater_river_interior_south_storm_pulse",
+      "title": "Freshwater river, Interior South storm pulse and muddy push",
+      "purpose": "Validate strong suppression when river conditions become dynamically unstable.",
+      "input": {
+        "environment_mode": "freshwater_river",
+        "region": "interior_south_plains",
+        "calendar_timing": "may",
+        "recent_air_pattern": "seasonally_decent_prior_to_event",
+        "water_temp_source": "inferred",
+        "pressure_trend": "falling_with_storm_pattern",
+        "cloud_cover": "heavy",
+        "precipitation": "active_rain_or_recent_heavy_rain",
+        "flow_current_context": "elevated_and_unstable",
+        "water_clarity_proxy": "likely_reduced_from_runoff_event",
+        "solunar_support": "strong_on_paper"
+      },
+      "expected": {
+        "seasonal_state": [
+          "transition_warming",
+          "stable_warm"
+        ],
+        "confidence_band": [
+          "moderate"
+        ],
+        "score_band": [
+          "poor",
+          "fair"
+        ],
+        "score_band_note": "poor to low fair",
+        "expected_window_shape": "compressed or poor despite theoretical timing positives",
+        "primary_drivers": [
+          "some_storm_edge_timing_possibility"
+        ],
+        "primary_suppressors": [
+          "unstable_flow",
+          "recent_runoff_likely_dirty_water_context",
+          "active_weather_instability"
+        ],
+        "narrative_must_include": [
+          "instability is the main story",
+          "even if fishable moments exist, the day is not broadly reliable"
+        ],
+        "narrative_must_not_include": [
+          "solunar_treated_as_dominant",
+          "exact_river_position_claims"
+        ]
+      }
+    },
+    {
+      "id": "scenario_09",
+      "slug": "brackish_gulf_summer_moving_water",
+      "title": "Brackish Gulf marsh, strong moving-water summer morning",
+      "purpose": "Validate that brackish mode heavily respects movement and does not narrate like freshwater.",
+      "input": {
+        "environment_mode": "brackish",
+        "region": "gulf_florida",
+        "calendar_timing": "june",
+        "water_temp_source": "observed_or_sourced",
+        "water_temp_character": "warm_but_not_extreme_for_context",
+        "tide_current_movement": "strong_moving_water_during_morning_window",
+        "tide_stage": "useful_but_not_extreme_low_or_high_dead_slack",
+        "wind_speed": "manageable",
+        "wind_direction": "not_severely_disruptive",
+        "pressure_trend": "stable",
+        "cloud_cover": "partly_cloudy",
+        "solunar_support": "modest"
+      },
+      "expected": {
+        "seasonal_state": [
+          "stable_warm"
+        ],
+        "confidence_band": [
+          "high"
+        ],
+        "score_band": [
+          "good",
+          "great"
+        ],
+        "expected_window_shape": "strongest around moving-water overlap; visible decay near slack",
+        "primary_drivers": [
+          "movement_tide",
+          "stable_weather",
+          "good_timing_overlap"
+        ],
+        "primary_suppressors": [
+          "heat_building_later_in_day",
+          "any_slack_water_slowdown"
+        ],
+        "narrative_must_include": [
+          "movement is a top driver",
+          "best opportunity clustered around active water movement"
+        ],
+        "narrative_must_not_include": [
+          "freshwater_style_thermal_narration_dominating_the_report",
+          "exact_species_or_marsh_drain_claims"
+        ]
+      }
+    },
+    {
+      "id": "scenario_10",
+      "slug": "brackish_gulf_summer_dead_slack_heat",
+      "title": "Brackish Gulf marsh, dead-slack high heat afternoon",
+      "purpose": "Validate that brackish mode penalizes poor movement and heat even if other weather variables look calm.",
+      "input": {
+        "environment_mode": "brackish",
+        "region": "gulf_florida",
+        "calendar_timing": "august",
+        "water_temp_source": "observed_or_sourced",
+        "water_temp_character": "warm_to_elevated",
+        "tide_current_movement": "minimal_dead_slack_during_main_afternoon_period",
+        "wind_speed": "light",
+        "pressure_trend": "stable",
+        "cloud_cover": "mostly_sunny",
+        "solunar_support": "moderate"
+      },
+      "expected": {
+        "seasonal_state": [
+          "peak_heat_stress"
+        ],
+        "confidence_band": [
+          "high"
+        ],
+        "score_band": [
+          "poor",
+          "fair"
+        ],
+        "score_band_note": "fair or low poor depending on exact thresholds",
+        "expected_window_shape": "weak overall, especially during slack/heat peak",
+        "primary_drivers": [
+          "very_limited_timing_only_support"
+        ],
+        "primary_suppressors": [
+          "poor_movement",
+          "heat_stress",
+          "bright_afternoon_exposure"
+        ],
+        "narrative_must_include": [
+          "lack of water movement is a major limitation",
+          "better conditions would likely come with stronger movement or better timing"
+        ],
+        "narrative_must_not_include": [
+          "calm_weather_automatically_meaning_good_fishing"
+        ]
+      }
+    },
+    {
+      "id": "scenario_11",
+      "slug": "saltwater_southeast_transition_moving_tide",
+      "title": "Saltwater inshore Southeast Atlantic, moving tide and cloud cover",
+      "purpose": "Validate a strong but not exaggerated saltwater inshore case.",
+      "input": {
+        "environment_mode": "saltwater",
+        "region": "southeast_atlantic",
+        "calendar_timing": "april",
+        "water_temp_source": "observed_or_sourced",
+        "water_temp_character": "comfortable_transition_season_conditions",
+        "tide_current_movement": "strong_and_favorable_through_a_key_mid_morning_window",
+        "wind_speed": "moderate_but_manageable",
+        "wind_direction": "workable",
+        "pressure_trend": "stable",
+        "cloud_cover": "some_beneficial_cloud_cover",
+        "solunar_support": "modest"
+      },
+      "expected": {
+        "seasonal_state": [
+          "transition_warming"
+        ],
+        "confidence_band": [
+          "high"
+        ],
+        "score_band": [
+          "good"
+        ],
+        "expected_window_shape": "one clear main movement-driven window with decent shoulder periods",
+        "primary_drivers": [
+          "tide_current_movement",
+          "comfortable_seasonal_context",
+          "manageable_weather"
+        ],
+        "primary_suppressors": [
+          "none_major"
+        ],
+        "narrative_must_include": [
+          "moving water is central",
+          "the day is solid, especially during the movement window"
+        ],
+        "narrative_must_not_include": [
+          "exact_species_movement_routes",
+          "exact_structure_prescriptions"
+        ]
+      }
+    },
+    {
+      "id": "scenario_12",
+      "slug": "saltwater_southeast_wind_disruption",
+      "title": "Saltwater inshore Southeast Atlantic, wind-blown dirty aftermath",
+      "purpose": "Validate that disruptive coastal wind and degraded fishability can knock down otherwise decent saltwater context.",
+      "input": {
+        "environment_mode": "saltwater",
+        "region": "southeast_atlantic",
+        "calendar_timing": "april",
+        "water_temp_source": "observed_or_sourced",
+        "tide_current_movement": "decent_on_paper",
+        "wind_speed": "strong",
+        "wind_direction": "disruptive_to_exposed_inshore_water",
+        "pressure_trend": "mixed",
+        "cloud_cover": "mixed",
+        "precipitation": "none_active_but_recent_rough_weather_influence",
+        "fishability_context": "access_presentation_conditions_degraded"
+      },
+      "expected": {
+        "seasonal_state": [
+          "transition_warming"
+        ],
+        "confidence_band": [
+          "high"
+        ],
+        "score_band": [
+          "fair"
+        ],
+        "expected_window_shape": "movement still matters, but fishability suppresses overall opportunity",
+        "primary_drivers": [
+          "some_moving_water_support"
+        ],
+        "primary_suppressors": [
+          "strong_disruptive_wind",
+          "degraded_inshore_fishability"
+        ],
+        "narrative_must_include": [
+          "movement helps, but wind/fishability keeps the day from rating as a strong one"
+        ],
+        "narrative_must_not_include": [
+          "tide_alone_rescuing_the_score_into_a_great_day"
+        ]
+      }
+    },
+    {
+      "id": "scenario_13",
+      "slug": "saltwater_mid_atlantic_fall_surf_adjacent",
+      "title": "Saltwater surf-adjacent fall cooling, clean moving water",
+      "purpose": "Validate that saltwater mode can support surf-adjacent broad narration without becoming a separate engine mode.",
+      "input": {
+        "environment_mode": "saltwater",
+        "region": "mid_atlantic",
+        "calendar_timing": "october",
+        "water_temp_source": "observed_or_sourced",
+        "water_temp_character": "cooling_into_comfortable_transition_range",
+        "tide_current_movement": "useful_moving_water_around_dawn",
+        "wind_speed": "moderate_and_not_heavily_disruptive",
+        "pressure_trend": "stable",
+        "cloud_cover": "partly_cloudy",
+        "solunar_support": "supportive_but_secondary"
+      },
+      "expected": {
+        "seasonal_state": [
+          "cooling_transition"
+        ],
+        "confidence_band": [
+          "high"
+        ],
+        "score_band": [
+          "good"
+        ],
+        "expected_window_shape": "strongest at dawn / moving water overlap; decent but reduced shoulders later",
+        "primary_drivers": [
+          "moving_water",
+          "cooling_transition",
+          "low_light_timing"
+        ],
+        "primary_suppressors": [
+          "none_severe"
+        ],
+        "narrative_must_include": [
+          "broad_inshore_open_coast_language_is_acceptable",
+          "moving_water_and_timing_matter_most"
+        ],
+        "narrative_must_not_include": [
+          "creating_a_separate_surf_engine_identity",
+          "exact_bar_or_trough_claims"
+        ]
+      }
+    },
+    {
+      "id": "scenario_14",
+      "slug": "freshwater_lake_west_winter_stable",
+      "title": "Southwest reservoir winter stability, low but fishable",
+      "purpose": "Validate that winter does not always mean terrible, but also should not be overrated.",
+      "input": {
+        "environment_mode": "freshwater_lake",
+        "region": "west_southwest",
+        "calendar_timing": "january",
+        "recent_air_pattern": "stable_cool_stretch_not_violently_cold",
+        "water_temp_source": "inferred",
+        "water_temp_character": "cool_but_relatively_stable",
+        "pressure_trend": "stable",
+        "wind_speed": "light",
+        "cloud_cover": "mixed_high_clouds",
+        "precipitation": "none",
+        "solunar_support": "low_to_modest"
+      },
+      "expected": {
+        "seasonal_state": [
+          "cold_period"
+        ],
+        "confidence_band": [
+          "moderate"
+        ],
+        "score_band": [
+          "fair"
+        ],
+        "expected_window_shape": "limited but coherent, with some midday improvement over early morning",
+        "primary_drivers": [
+          "stability",
+          "manageable_weather"
+        ],
+        "primary_suppressors": [
+          "cold_season_lower_activity_baseline"
+        ],
+        "narrative_must_include": [
+          "stable winter conditions can still produce fishable periods",
+          "expectations should remain moderate"
+        ],
+        "narrative_must_not_include": [
+          "all_day_dead_language_if_conditions_are_stable",
+          "aggressive_feed_language"
+        ]
+      }
+    },
+    {
+      "id": "scenario_15",
+      "slug": "freshwater_lake_northeast_manual_temp_volatile_weather",
+      "title": "Northeast lake shoulder-season volatility with manual temp override",
+      "purpose": "Validate that manual freshwater temp can meaningfully improve confidence even when other weather variables are somewhat messy.",
+      "input": {
+        "environment_mode": "freshwater_lake",
+        "region": "northeast",
+        "calendar_timing": "late_may",
+        "recent_air_pattern": "somewhat_volatile_for_the_last_10_days",
+        "water_temp_source": "manual_user_entry",
+        "manual_water_temp_status": "trusted_user_entry",
+        "pressure_trend": "mixed",
+        "wind_speed": "moderate",
+        "cloud_cover": "changing_conditions",
+        "precipitation": "isolated_showers_possible",
+        "solunar_support": "moderate"
+      },
+      "expected": {
+        "seasonal_state": [
+          "transition_warming",
+          "stable_warm"
+        ],
+        "confidence_band": [
+          "high",
+          "very_high"
+        ],
+        "score_band": [
+          "fair",
+          "good"
+        ],
+        "expected_window_shape": "timing and weather windows matter, but the engine should speak more confidently about biological baseline because manual temp is known",
+        "primary_drivers": [
+          "high_confidence_temp_input",
+          "at_least_some_fishable_timing_overlap"
+        ],
+        "primary_suppressors": [
+          "mixed_weather_instability"
+        ],
+        "narrative_must_include": [
+          "confidence is stronger because water temp is user-confirmed",
+          "weather still makes the day somewhat variable"
+        ],
+        "narrative_must_not_include": [
+          "acting_as_if_all_uncertainty_vanished_weather_uncertainty_should_remain_present"
+        ]
+      }
+    },
+    {
+      "id": "scenario_16",
+      "slug": "freshwater_river_mid_atlantic_confirmed_context_only",
+      "title": "Inland freshwater user selects correct context and engine honors it",
+      "purpose": "Validate that context confirmation beats geography assumptions and that the engine obeys the chosen environment mode rather than auto-generating multiple reports.",
+      "input": {
+        "user_location_note": "inland_but_near_mixed_water_access_corridor",
+        "water_type": "freshwater",
+        "freshwater_subtype": "river_stream",
+        "environment_mode": "freshwater_river",
+        "region": "mid_atlantic",
+        "calendar_timing": "september",
+        "remaining_variables": "broadly_moderate_fishable"
+      },
+      "expected": {
+        "seasonal_state": [
+          "stable_warm",
+          "cooling_transition"
+        ],
+        "confidence_band": [
+          "low",
+          "moderate",
+          "high",
+          "very_high"
+        ],
+        "confidence_band_note": "depends on actual underlying variables, not coastal logic",
+        "score_band": [
+          "fair",
+          "good"
+        ],
+        "expected_window_shape": "river-specific",
+        "primary_drivers": [
+          "river_specific_context_drivers"
+        ],
+        "primary_suppressors": [
+          "river_specific_context_suppressors"
+        ],
+        "narrative_must_include": [
+          "river-oriented language only"
+        ],
+        "narrative_must_not_include": [
+          "lake_narration",
+          "parallel_lake_salt_or_brackish_report_generation",
+          "context_uncertainty_merely_because_location_could_support_multiple_types_nearby"
+        ]
+      },
+      "special_assertions": {
+        "engine_must_run_only": [
+          "freshwater_river"
+        ]
+      }
+    },
+    {
+      "id": "scenario_17",
+      "slug": "saltwater_gulf_storm_override",
+      "title": "Saltwater good tide but severe storm threat override",
+      "purpose": "Validate that strong suppression can cap a theoretically strong moving-water setup.",
+      "input": {
+        "environment_mode": "saltwater",
+        "region": "gulf_florida",
+        "calendar_timing": "september",
+        "water_temp_source": "observed_or_sourced",
+        "tide_current_movement": "very_favorable_on_paper",
+        "pressure_trend": "falling_sharply",
+        "cloud_cover": "thickening",
+        "precipitation_or_storm_signal": "active_storm_threat_or_unsafe_conditions",
+        "wind_speed": "building",
+        "solunar_support": "strong"
+      },
+      "expected": {
+        "seasonal_state": [
+          "peak_heat_stress",
+          "stable_warm"
+        ],
+        "seasonal_state_note": "depends on water temp, but secondary to storm suppression",
+        "confidence_band": [
+          "high"
+        ],
+        "score_band": [
+          "poor",
+          "fair"
+        ],
+        "score_band_note": "poor to low fair",
+        "expected_window_shape": "capped or heavily reduced despite otherwise attractive tide timing",
+        "primary_drivers": [
+          "moving_water_on_paper"
+        ],
+        "primary_suppressors": [
+          "storm_risk",
+          "building_wind",
+          "unstable_pressure_weather"
+        ],
+        "narrative_must_include": [
+          "movement alone does not make this a strong day",
+          "unsafe or unstable weather sharply lowers practical opportunity"
+        ],
+        "narrative_must_not_include": [
+          "tide_and_solunar_overriding_storm_suppression"
+        ]
+      }
+    },
+    {
+      "id": "scenario_18",
+      "slug": "brackish_gulf_winter_mild_warming",
+      "title": "Brackish winter mild southern warming pulse",
+      "purpose": "Validate that mild southern winter conditions can still create decent opportunity if movement and temperature context line up.",
+      "input": {
+        "environment_mode": "brackish",
+        "region": "gulf_florida",
+        "calendar_timing": "january",
+        "water_temp_source": "observed_or_sourced",
+        "recent_pattern": "mild_warming_trend_across_several_days",
+        "tide_current_movement": "solid_moving_water_overlap_late_morning",
+        "pressure_trend": "stable",
+        "wind_speed": "light_to_moderate",
+        "cloud_cover": "partly_cloudy",
+        "solunar_support": "low_to_modest"
+      },
+      "expected": {
+        "seasonal_state": [
+          "transition_warming",
+          "cold_period"
+        ],
+        "seasonal_state_note": "mild cold-period with warming bias is acceptable",
+        "confidence_band": [
+          "high"
+        ],
+        "score_band": [
+          "good"
+        ],
+        "expected_window_shape": "one useful late-morning to midday movement-driven opportunity period",
+        "primary_drivers": [
+          "moving_water",
+          "mild_warming_trend",
+          "stable_weather"
+        ],
+        "primary_suppressors": [
+          "winter_baseline_still_keeping_expectations_from_being_extreme"
+        ],
+        "narrative_must_include": [
+          "mild warming helps, but movement remains central",
+          "broad winter opportunity is real but not guaranteed"
+        ],
+        "narrative_must_not_include": [
+          "summer_style_hyperactivity_narration"
+        ]
+      }
+    }
+  ]
+}
