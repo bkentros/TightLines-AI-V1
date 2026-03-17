@@ -294,7 +294,7 @@ export default function HowFishingScreen() {
 
       // Try cache first (only for today's un-modified runs)
       if (!targetDate && resolvedManualTemp === null) {
-        const cached = await getCachedHowFishingBundle(lat, lon);
+        const cached = await getCachedHowFishingBundle(lat, lon, environmentMode);
         if (cached) {
           setBundle(cached);
           // Prefer the tab that matches the confirmed environment mode
@@ -344,7 +344,7 @@ export default function HowFishingScreen() {
       }
 
       if (!targetDate && resolvedManualTemp === null) {
-        await setCachedHowFishingBundle(lat, lon, bundleResult);
+        await setCachedHowFishingBundle(lat, lon, bundleResult, environmentMode);
         setCurrentHowFishingBundle(lat, lon, bundleResult);
       }
 

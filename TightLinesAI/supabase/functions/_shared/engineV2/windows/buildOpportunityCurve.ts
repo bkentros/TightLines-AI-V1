@@ -382,8 +382,12 @@ function computeThermalModifier(
   }
 
   if (thermalLabel === 'cold_stress') {
-    // Cold is persistent through day; midday slightly better for freshwater
-    if (ctx.isFreshwater && (block.id === 'midday_early' || block.id === 'midday_late')) return +5;
+    // In cold stress, dawn/dusk are the COLDEST periods — air temp is at its lowest.
+    // Fish are most lethargic at dawn in cold water. Midday warmth is the only relief.
+    if (block.id === 'dawn' || block.id === 'dusk') return -20;  // dawn/dusk are harshest in cold
+    if (block.id === 'pre_dawn') return -22;                     // pre-dawn even worse
+    if (ctx.isFreshwater && (block.id === 'midday_early' || block.id === 'midday_late')) return +5; // midday warmth helps
+    if (block.id === 'late_afternoon') return -5;                // some warmth lingers
     // Night in cold = extra suppression (temps drop further)
     if (block.id === 'late_night' || block.id === 'night') return -15;
     return -10;

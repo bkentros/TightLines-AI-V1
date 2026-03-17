@@ -277,8 +277,12 @@ interface InMemoryBundleEntry {
 
 let currentBundleEntry: InMemoryBundleEntry | null = null;
 
-function cacheKey(lat: number, lon: number): string {
-  return `how_fishing_bundle_${lat.toFixed(3)}_${lon.toFixed(3)}`;
+function cacheKey(lat: number, lon: number, environmentMode?: string): string {
+  // Each water type / environment mode gets its own cache entry.
+  // Freshwater, saltwater, and brackish are completely separate reports
+  // with different engine outputs, narration, and variables.
+  const modeKey = environmentMode || 'default';
+  return `how_fishing_bundle_${lat.toFixed(3)}_${lon.toFixed(3)}_${modeKey}`;
 }
 
 function localDateStringForTimezone(timezone?: string | null, fallbackDate = new Date()): string {
@@ -322,10 +326,11 @@ function coordsMatch(a: number, b: number, c: number, d: number): boolean {
 
 export async function getCachedHowFishingBundle(
   latitude: number,
-  longitude: number
+  longitude: number,
+  environmentMode?: string
 ): Promise<HowFishingBundle | null> {
   try {
-    const key = cacheKey(latitude, longitude);
+    const key = cacheKey(latitude, longitude, environmentMode);
     const raw = await AsyncStorage.getItem(key);
     if (!raw) return null;
     const entry = JSON.parse(raw) as BundleCacheEntry;
@@ -353,10 +358,11 @@ export async function getCachedHowFishingBundle(
 export async function setCachedHowFishingBundle(
   latitude: number,
   longitude: number,
-  bundle: HowFishingBundle
+  bundle: HowFishingBundle,
+  environmentMode?: string
 ): Promise<void> {
   try {
-    const key = cacheKey(latitude, longitude);
+    const key = cacheKey(latitude, longitude, environmentMode);
     const timezone = bundleTimezone(bundle);
     const entry: BundleCacheEntry = {
       lat: latitude,

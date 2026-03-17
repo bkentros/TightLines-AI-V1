@@ -40,7 +40,7 @@ export function AlertBannersFromEngine({ alerts }: { alerts: EngineAlerts }) {
     <>
       {alerts.severe_weather_alert && (
         <AlertBanner
-          title="\u26A0\uFE0F Severe Weather Warning"
+          title="Severe Conditions Warning"
           body={
             (alerts.severe_weather_reasons ?? []).length > 0
               ? (alerts.severe_weather_reasons ?? []).join('. ') + '. Use caution before heading out.'

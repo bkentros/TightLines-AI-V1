@@ -223,51 +223,89 @@ function buildThermalTags(label: string, source: string): string[] {
 // Uses recent daily high/low history to build a lagged water temp estimate.
 // ---------------------------------------------------------------------------
 
+// ---------------------------------------------------------------------------
+// Regional freshwater temperature baselines (°F) by month.
+// These represent approximate average lake surface temps for each region.
+// Water has massive thermal inertia — it doesn't crash with short cold snaps.
+// The baseline anchors the estimate; air temp history MODIFIES the baseline.
+// ---------------------------------------------------------------------------
+
+type RegionKey = string;
+
+const REGIONAL_LAKE_BASELINES: Record<RegionKey, number[]> = {
+  // Index 0 = Jan, 11 = Dec. Values = approximate avg lake surface temp (°F)
+  // Source: USGS/NOAA historical freshwater surface temp data (simplified)
+  gulf_florida:               [58, 60, 65, 70, 76, 82, 84, 84, 82, 74, 66, 60],
+  southeast_atlantic:         [45, 48, 54, 62, 70, 78, 82, 82, 76, 66, 55, 47],
+  mid_atlantic:               [35, 34, 38, 48, 58, 68, 75, 76, 70, 58, 46, 38],
+  northeast:                  [33, 33, 34, 42, 52, 64, 72, 74, 66, 54, 42, 35],
+  great_lakes_upper_midwest:  [33, 33, 34, 40, 50, 62, 72, 74, 66, 54, 42, 35],
+  interior_south_plains:      [42, 44, 50, 58, 66, 76, 82, 82, 76, 64, 52, 44],
+  west_southwest:             [42, 44, 48, 54, 60, 68, 74, 76, 70, 60, 50, 44],
+};
+
+// River baselines track air more closely (faster turnover, shallower)
+const REGIONAL_RIVER_BASELINES: Record<RegionKey, number[]> = {
+  gulf_florida:               [56, 58, 62, 68, 74, 80, 82, 82, 80, 72, 64, 58],
+  southeast_atlantic:         [42, 45, 50, 58, 66, 74, 78, 78, 72, 62, 52, 44],
+  mid_atlantic:               [34, 33, 36, 44, 54, 64, 70, 72, 66, 54, 44, 36],
+  northeast:                  [33, 33, 33, 38, 48, 58, 66, 68, 62, 50, 40, 34],
+  great_lakes_upper_midwest:  [33, 33, 33, 36, 46, 56, 66, 68, 62, 50, 40, 34],
+  interior_south_plains:      [40, 42, 46, 54, 62, 72, 78, 78, 72, 60, 48, 42],
+  west_southwest:             [38, 40, 44, 50, 56, 64, 70, 72, 66, 56, 46, 40],
+};
+
+function getRegionalBaseline(region: string, month: number, isRiver: boolean): number {
+  const table = isRiver ? REGIONAL_RIVER_BASELINES : REGIONAL_LAKE_BASELINES;
+  const row = table[region] ?? table['interior_south_plains']; // fallback
+  return row[month - 1]; // month is 1-12, index is 0-11
+}
+
 export function inferFreshwaterTemp(env: NormalizedEnvironmentV2, ctx: ResolvedContext): number | null {
   const airTemp = env.current.airTempF;
   if (airTemp == null) return null;
+
+  const isRiver = ctx.environmentMode === 'freshwater_river';
+  const baseline = getRegionalBaseline(ctx.region, ctx.month, isRiver);
 
   const highs = env.histories.dailyAirTempHighF?.filter((v): v is number => v != null) ?? [];
   const lows = env.histories.dailyAirTempLowF?.filter((v): v is number => v != null) ?? [];
 
   if (highs.length < 3 || lows.length < 3) {
-    // Not enough history — use simple conservative lag
-    const conservativeLag = ctx.environmentMode === 'freshwater_river' ? 3 : 6;
-    return Math.max(32, airTemp - conservativeLag);
+    // Not enough history — use regional baseline with small air-temp adjustment
+    const airDeviation = airTemp - baseline;
+    // Air temp moves faster than water — only apply 30% of the deviation
+    const adjustment = airDeviation * 0.30;
+    return Math.max(32, Math.round((baseline + adjustment) * 10) / 10);
   }
 
-  // Use last 5 days of history (most recent = index at end)
-  // Apply recency weighting: most recent days matter more than older data
-  // because water temp tracks multi-day air trends with thermal inertia
-  const recentHighs = highs.slice(-5);
-  const recentLows = lows.slice(-5);
-  const recencyWeights = [0.08, 0.12, 0.20, 0.25, 0.35]; // oldest → newest
-  // Align weights to actual array length (if <5 days, use tail of weights)
-  const wSlice = recencyWeights.slice(recencyWeights.length - recentHighs.length);
-  const wSum = wSlice.reduce((a, b) => a + b, 0);
-  const normalizedW = wSlice.map(w => w / wSum);
+  // Use up to 14 days of history with equal weighting (per calibration spec)
+  // Longer window smooths out short cold/heat spells and reflects thermal inertia
+  const recentHighs = highs.slice(-14);
+  const recentLows = lows.slice(-14);
 
-  const weightedHighAvg = recentHighs.reduce((sum, v, i) => sum + v * normalizedW[i], 0);
-  const weightedLowAvg = recentLows.reduce((sum, v, i) => sum + v * normalizedW[i], 0);
-  const avgRecent = weightedHighAvg * 0.6 + weightedLowAvg * 0.4;
+  // Equal-weighted average of all available days (up to 14)
+  const avgHigh = recentHighs.reduce((a, b) => a + b, 0) / recentHighs.length;
+  const avgLow = recentLows.reduce((a, b) => a + b, 0) / recentLows.length;
+  const airAvg = avgHigh * 0.6 + avgLow * 0.4;
 
-  // Water lags air, and rivers lag less than lakes (faster turnover)
-  // Calibrated lag values — proportionally reduced from V1 to avoid
-  // over-aggressive lag that floors estimates during volatile shoulder seasons.
-  // Lake/pond: ~4–8°F lag in cold months, ~1–3°F in summer
-  // River: ~2–5°F lag (faster exchange with air)
-  const monthBasedLag = (() => {
-    const month = ctx.month; // 1-12
-    if (month <= 2 || month === 12) return ctx.environmentMode === 'freshwater_river' ? 5 : 8;  // Dec/Jan/Feb deep winter
-    if (month === 3 || month === 11) return ctx.environmentMode === 'freshwater_river' ? 3 : 6;  // late fall / early spring shoulder
-    if (month <= 4) return ctx.environmentMode === 'freshwater_river' ? 2 : 4;  // early spring (April)
-    if (month <= 6) return ctx.environmentMode === 'freshwater_river' ? 1 : 3;  // late spring
-    if (month <= 8) return ctx.environmentMode === 'freshwater_river' ? 1 : 1;  // summer (close tracking)
-    if (month <= 9) return ctx.environmentMode === 'freshwater_river' ? 1 : 3;  // early fall
-    return ctx.environmentMode === 'freshwater_river' ? 3 : 5; // mid-late fall (Oct)
-  })();
+  // Blend air-temp-derived estimate with regional baseline.
+  // The baseline provides stability; air history provides responsiveness.
+  // Warmer months = air history matters more (water tracks air better).
+  // Colder months = baseline matters more (water has higher inertia).
+  const month = ctx.month;
+  // Blending weight for air history: higher in summer, lower in winter
+  const airWeight = month >= 5 && month <= 9 ? 0.55 : month >= 4 && month <= 10 ? 0.45 : 0.35;
+  const baselineWeight = 1.0 - airWeight;
 
-  const estimated = Math.max(32, avgRecent - monthBasedLag);
+  // Small lag: water always trails air slightly
+  const lag = isRiver ? 2 : 3;
+  const airDerivedEstimate = airAvg - lag;
+
+  // Blended estimate
+  const blended = (airDerivedEstimate * airWeight) + (baseline * baselineWeight);
+
+  const estimated = Math.max(32, blended);
   return Math.round(estimated * 10) / 10;
 }
 

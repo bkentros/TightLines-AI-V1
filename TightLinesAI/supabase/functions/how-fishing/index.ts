@@ -173,6 +173,8 @@ Core rules:
 - Don't repeat the same point across headline, rating summary, and tips. Each field should add something new.
 - Never suggest specific lures, species, or tactics — you don't know what they're targeting.
 - Use exactly the time windows the engine provides. Never invent your own.
+- NEVER combine separate windows into one span that crosses midnight. Each window is for TODAY only (12:00 AM to 11:59 PM). If the engine gives you two poor windows (e.g., "6:00 PM – 11:45 PM" and "12:00 AM – 5:30 AM"), present them as separate periods — do NOT combine them as "6:00 PM – 5:30 AM".
+- All windows must stay within today's calendar date. Do not reference times for tomorrow.
 
 Using the structured engine payload:
 - The payload includes top_drivers and suppressors — translate these directly into your reasoning.
