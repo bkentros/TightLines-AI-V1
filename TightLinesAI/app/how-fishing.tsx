@@ -36,6 +36,7 @@ import {
   type FreshwaterSubtypeV2,
   environmentModeAllowsManualTemp,
 } from '../lib/howFishingV2';
+import { getAvailableWaterTypes } from '../lib/coastalProximity';
 import {
   ReportView,
   WaterTypeTabBar,
@@ -501,7 +502,7 @@ export default function HowFishingScreen() {
           <View style={styles.setupCard}>
             <Text style={styles.setupCardTitle}>What type of water are you fishing?</Text>
             <View style={styles.segmentWrap}>
-              {(['freshwater', 'saltwater', 'brackish'] as WaterTypeV2[]).map((wt) => (
+              {(getAvailableWaterTypes(lat, lon) as WaterTypeV2[]).map((wt) => (
                 <Pressable
                   key={wt}
                   style={[styles.segmentBtn, selectedWaterType === wt && styles.segmentBtnActive]}

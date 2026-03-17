@@ -72,8 +72,11 @@ function parseTimeMinutes(timeStr: string | null | undefined): number | null {
 
 function minutesToHHMM(minutes: number): string {
   const clamped = ((minutes % 1440) + 1440) % 1440;
-  const h = Math.floor(clamped / 60);
-  const m = clamped % 60;
+  // Round to nearest 15 minutes for clean, professional display
+  const rounded = Math.round(clamped / 15) * 15;
+  const finalMinutes = rounded % 1440;
+  const h = Math.floor(finalMinutes / 60);
+  const m = finalMinutes % 60;
   return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
 }
 
@@ -98,7 +101,19 @@ function buildTimeBlocks(env: NormalizedEnvironmentV2): TimeBlock[] {
   const duskEnd = twilightEndMin;
   const eveningEnd = twilightEndMin + 90;
 
+  // Full 24-hour coverage: midnight-to-midnight (12:01 AM to 11:59 PM)
+  // Night blocks get low base scores but can be boosted by solunar,
+  // warm summer temps, or stable conditions. Night fishing CAN be
+  // productive under the right conditions.
   return [
+    // Late night / early morning darkness (midnight to pre-dawn)
+    {
+      id: 'late_night',
+      label: 'late night',
+      startMinutes: 0,
+      endMinutes: Math.max(0, preDawnStart),
+      baseTodScore: 28,   // low baseline — most nights are not ideal
+    },
     {
       id: 'pre_dawn',
       label: 'pre-dawn',
@@ -154,6 +169,14 @@ function buildTimeBlocks(env: NormalizedEnvironmentV2): TimeBlock[] {
       startMinutes: duskEnd,
       endMinutes: eveningEnd,
       baseTodScore: 50,
+    },
+    // Night block (post-evening to midnight)
+    {
+      id: 'night',
+      label: 'night',
+      startMinutes: eveningEnd,
+      endMinutes: 1439,  // 11:59 PM
+      baseTodScore: 30,   // low baseline — can be boosted
     },
   ];
 }
@@ -268,8 +291,12 @@ function computeSolunarModifier(
   env: NormalizedEnvironmentV2,
   blockScoreBeforeSolunar: number
 ): number {
-  // Don't let solunar rescue suppressed blocks
-  if (blockScoreBeforeSolunar < 50) return 0;
+  // Don't let solunar rescue heavily suppressed blocks
+  // Night blocks get a lower threshold (35) — solunar is one of the few things
+  // that can genuinely make night fishing productive
+  const isNightBlock = block.id === 'late_night' || block.id === 'night';
+  const minThreshold = isNightBlock ? 25 : 50;
+  if (blockScoreBeforeSolunar < minThreshold) return 0;
 
   const major = env.solarLunar.solunarMajorPeriods ?? [];
   const minor = env.solarLunar.solunarMinorPeriods ?? [];
@@ -357,12 +384,21 @@ function computeThermalModifier(
   if (thermalLabel === 'cold_stress') {
     // Cold is persistent through day; midday slightly better for freshwater
     if (ctx.isFreshwater && (block.id === 'midday_early' || block.id === 'midday_late')) return +5;
+    // Night in cold = extra suppression (temps drop further)
+    if (block.id === 'late_night' || block.id === 'night') return -15;
     return -10;
   }
 
   if (thermalLabel === 'peak_comfort') {
-    // All blocks get modest bonus
+    // All blocks get modest bonus; night blocks get extra boost in peak comfort
+    // (warm summer nights can be genuinely productive for fishing)
+    if (block.id === 'late_night' || block.id === 'night') return +8;
     return +5;
+  }
+
+  // Warm-but-not-peak: night still benefits from warmth
+  if (thermalLabel === 'above_peak_still_comfortable' || thermalLabel === 'warming_toward_comfort') {
+    if (block.id === 'late_night' || block.id === 'night') return +4;
   }
 
   // General: thermal score influences linearly
@@ -514,11 +550,11 @@ export function buildOpportunityCurve(
   // Compute severe suppression cap for all blocks
   const severeCap = getSevereCap(assessments);
 
-  // Score each block
+  // Score each block — full 24-hour coverage (midnight to midnight)
   const scoredBlocks: Array<{ block: TimeBlock; score: number; drivers: string[] }> = [];
   for (const block of blocks) {
-    // Skip night block — not enough data for reliable night scoring
-    if (block.startMinutes > 1200 && block.startMinutes !== blocks[0]?.startMinutes) continue;
+    // Skip degenerate blocks where start >= end (can happen near midnight boundaries)
+    if (block.endMinutes <= block.startMinutes) continue;
 
     const { score, drivers } = scoreBlock(block, env, assessments, ctx, severeCap);
     scoredBlocks.push({ block, score, drivers });

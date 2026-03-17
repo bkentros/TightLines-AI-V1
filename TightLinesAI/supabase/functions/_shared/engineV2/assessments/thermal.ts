@@ -237,23 +237,34 @@ export function inferFreshwaterTemp(env: NormalizedEnvironmentV2, ctx: ResolvedC
   }
 
   // Use last 5 days of history (most recent = index at end)
+  // Apply recency weighting: most recent days matter more than older data
+  // because water temp tracks multi-day air trends with thermal inertia
   const recentHighs = highs.slice(-5);
   const recentLows = lows.slice(-5);
-  const avgRecent = recentHighs.reduce((a, b) => a + b, 0) / recentHighs.length * 0.6 +
-                    recentLows.reduce((a, b) => a + b, 0) / recentLows.length * 0.4;
+  const recencyWeights = [0.08, 0.12, 0.20, 0.25, 0.35]; // oldest → newest
+  // Align weights to actual array length (if <5 days, use tail of weights)
+  const wSlice = recencyWeights.slice(recencyWeights.length - recentHighs.length);
+  const wSum = wSlice.reduce((a, b) => a + b, 0);
+  const normalizedW = wSlice.map(w => w / wSum);
+
+  const weightedHighAvg = recentHighs.reduce((sum, v, i) => sum + v * normalizedW[i], 0);
+  const weightedLowAvg = recentLows.reduce((sum, v, i) => sum + v * normalizedW[i], 0);
+  const avgRecent = weightedHighAvg * 0.6 + weightedLowAvg * 0.4;
 
   // Water lags air, and rivers lag less than lakes (faster turnover)
-  // Lake/pond: ~6–10°F lag in spring, closer in summer, more in winter
-  // River: ~3–5°F lag (faster exchange with air)
+  // Calibrated lag values — proportionally reduced from V1 to avoid
+  // over-aggressive lag that floors estimates during volatile shoulder seasons.
+  // Lake/pond: ~4–8°F lag in cold months, ~1–3°F in summer
+  // River: ~2–5°F lag (faster exchange with air)
   const monthBasedLag = (() => {
     const month = ctx.month; // 1-12
-    if (month <= 2 || month === 12) return ctx.environmentMode === 'freshwater_river' ? 8 : 14; // Dec/Jan/Feb deep winter
-    if (month === 3 || month === 11) return ctx.environmentMode === 'freshwater_river' ? 5 : 10; // late fall / early spring shoulder
-    if (month <= 4) return ctx.environmentMode === 'freshwater_river' ? 3 : 7;  // early spring (April)
-    if (month <= 6) return ctx.environmentMode === 'freshwater_river' ? 2 : 4;  // late spring
-    if (month <= 8) return ctx.environmentMode === 'freshwater_river' ? 1 : 2;  // summer (close)
-    if (month <= 9) return ctx.environmentMode === 'freshwater_river' ? 2 : 5;  // early fall
-    return ctx.environmentMode === 'freshwater_river' ? 4 : 8; // mid-late fall (Oct)
+    if (month <= 2 || month === 12) return ctx.environmentMode === 'freshwater_river' ? 5 : 8;  // Dec/Jan/Feb deep winter
+    if (month === 3 || month === 11) return ctx.environmentMode === 'freshwater_river' ? 3 : 6;  // late fall / early spring shoulder
+    if (month <= 4) return ctx.environmentMode === 'freshwater_river' ? 2 : 4;  // early spring (April)
+    if (month <= 6) return ctx.environmentMode === 'freshwater_river' ? 1 : 3;  // late spring
+    if (month <= 8) return ctx.environmentMode === 'freshwater_river' ? 1 : 1;  // summer (close tracking)
+    if (month <= 9) return ctx.environmentMode === 'freshwater_river' ? 1 : 3;  // early fall
+    return ctx.environmentMode === 'freshwater_river' ? 3 : 5; // mid-late fall (Oct)
   })();
 
   const estimated = Math.max(32, avgRecent - monthBasedLag);

@@ -159,7 +159,7 @@ function computeOverallConfidence(
   if (claimGuardActive && criticalDegraded) return 'very_low';
   if (claimGuardActive && severeDegradation) return 'low';
   if (primaryDegraded.length >= 3 || waterTempConfidence < 0.3) return 'low';
-  if (primaryDegraded.length >= 1 || waterTempConfidence < 0.65) return 'moderate';
+  if (primaryDegraded.length >= 1 || waterTempConfidence < 0.70) return 'moderate';
   if (claimGuardActive) return 'moderate'; // claim guard alone → moderate (not low)
   if (waterTempConfidence >= 1.0 && primaryDegraded.length === 0) return 'very_high';
   return 'high';

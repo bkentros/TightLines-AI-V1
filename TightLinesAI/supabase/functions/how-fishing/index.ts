@@ -575,16 +575,50 @@ function generateDeterministicFallbackV2(
   }));
 
   // Key factors — built from approved facts
+  // Context-aware: suppresses irrelevant factors for the environment mode
   const facts = llmPayload.approvedFacts;
+  const mode = llmPayload.environmentMode;
+  const isFreshwaterLake = mode === 'freshwater_lake';
+  const isFreshwaterRiver = mode === 'freshwater_river';
+  const isFreshwater = isFreshwaterLake || isFreshwaterRiver;
+
+  // Light conditions — use engine assessment direction, not generic LLM text
+  const lightDriverTag = engineOutput.topDrivers.find((d) => d.includes("overcast") || d.includes("cloud") || d.includes("light"));
+  const lightSuppressorTag = engineOutput.suppressors.find((d) => d.includes("sun") || d.includes("light"));
+  let lightFactorText = "Check prime windows above for best light";
+  if (lightDriverTag) {
+    lightFactorText = "Overcast reduces light pressure — extends activity windows";
+  } else if (lightSuppressorTag) {
+    lightFactorText = "Bright conditions narrow the best activity windows";
+  }
+
   const keyFactors: Record<string, string> = {
     barometric_pressure: llmPayload.suppressors.find((s) => s.includes("pressure")) ?? "Stable",
     temperature_trend: facts.waterTempIsInferred ? "Air temp trend (water temp estimated)" : "Water temp conditions",
-    light_conditions: "Check prime windows above for best light",
-    tide_or_solunar: llmPayload.bestWindows.length > 0 ? "Feeding windows above" : "No strong windows",
-    moon_phase: facts.moonPhase ?? "Data unavailable",
+    light_conditions: lightFactorText,
     wind: facts.windSpeedMph != null ? `${facts.windSpeedMph} mph` : "Data unavailable",
     precipitation_recent_rain: engineOutput.dataQualityNotes.find((n) => n.includes("precip")) ?? "Check local conditions",
   };
+
+  // Tide / Solunar — context-aware display
+  // Freshwater lake: skip tide entirely, no "Tide Or Solunar" label
+  // Freshwater river: show as "Current" (river flow context)
+  // Salt/brackish: show "Tide Or Solunar" as-is
+  if (isFreshwaterRiver) {
+    const riverFlowTag = engineOutput.suppressors.find((s) => s.includes("flow") || s.includes("river"));
+    keyFactors.current = riverFlowTag ? riverFlowTag.replace(/_/g, " ") : "Normal flow conditions";
+  } else if (!isFreshwater) {
+    // Salt/brackish — tide is relevant
+    keyFactors.tide_or_solunar = llmPayload.bestWindows.length > 0 ? "Feeding windows above" : "No strong windows";
+  }
+  // Freshwater lake: no tide/solunar/current entry at all — intentionally omitted
+
+  // Moon phase and solunar — suppress when conditions are too poor for it to matter
+  // When overall score < 40, solunar has negligible real-world effect
+  if (score >= 40) {
+    keyFactors.moon_phase = facts.moonPhase ?? "Data unavailable";
+  }
+  // If score < 40, moon_phase is omitted entirely — not relevant on a brutal day
 
   // Tips from behavior
   const tips: string[] = [];
