@@ -61,9 +61,7 @@ export type SeasonalState = FreshwaterSeasonalState | CoastalSeasonalState;
 // ---------------------------------------------------------------------------
 
 export type WaterTempSource =
-  | 'manual_user_entered'     // freshwater only; highest priority
   | 'measured_coastal'        // salt/brackish measured source
-  | 'inferred_freshwater'     // air-temp model inference
   | 'fallback_measured'       // secondary measured source
   | 'unavailable';            // no source available; degraded state
 
@@ -75,7 +73,6 @@ export interface ConfirmedFishingContext {
   waterType: WaterType;
   freshwaterSubtype?: FreshwaterSubtype | null;
   environmentMode: EnvironmentMode;
-  manualFreshwaterWaterTempF?: number | null;
 }
 
 // ---------------------------------------------------------------------------
@@ -90,8 +87,6 @@ export interface HowFishingRequestV2 {
   water_type: WaterType;
   freshwater_subtype?: FreshwaterSubtype | null;
   environment_mode: EnvironmentMode;
-
-  manual_freshwater_water_temp_f?: number | null;
 
   target_date?: string | null;
   mode?: 'daily_detail' | 'weekly_overview';
@@ -173,13 +168,10 @@ export interface RawEnvironmentData {
     [key: string]: unknown;
   } | null;
 
-  // Water temperature
+  // Water temperature (coastal measured only — no manual freshwater)
   measured_water_temp_f?: number | null;
   measured_water_temp_source?: string | null;
   measured_water_temp_72h_ago_f?: number | null;
-
-  // Manual freshwater override
-  manual_freshwater_water_temp_f?: number | null;
 
   // Altitude
   altitude_ft?: number | null;
@@ -248,10 +240,6 @@ export interface NormalizedEnvironmentV2 {
     measuredWaterTempF?: number | null;
     measuredWaterTempSource?: string | null;
     measuredWaterTemp72hAgoF?: number | null;
-  };
-
-  userOverrides: {
-    manualFreshwaterWaterTempF?: number | null;
   };
 }
 

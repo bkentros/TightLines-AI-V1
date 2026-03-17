@@ -20,7 +20,7 @@ import { isFreshwaterMode, isCoastalMode } from '../config/environmentModes.ts';
  * Returns an error string if invalid, or null if valid.
  */
 export function validateRequestContext(req: HowFishingRequestV2): string | null {
-  const { water_type, freshwater_subtype, environment_mode, manual_freshwater_water_temp_f } = req;
+  const { water_type, freshwater_subtype, environment_mode } = req;
 
   if (water_type === 'freshwater') {
     if (!freshwater_subtype) {
@@ -47,14 +47,6 @@ export function validateRequestContext(req: HowFishingRequestV2): string | null 
     if (environment_mode !== 'brackish') {
       return 'environment_mode must be brackish for brackish water_type';
     }
-  }
-
-  // Manual freshwater temp is only valid for freshwater modes
-  if (
-    manual_freshwater_water_temp_f != null &&
-    !isFreshwaterMode(environment_mode)
-  ) {
-    return 'manual_freshwater_water_temp_f must be null for non-freshwater environment modes';
   }
 
   return null;

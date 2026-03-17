@@ -38,7 +38,6 @@ export interface ConfirmedFishingContextV2 {
   waterType: WaterTypeV2;
   freshwaterSubtype?: FreshwaterSubtypeV2 | null;
   environmentMode: EnvironmentModeV2;
-  manualFreshwaterWaterTempF?: number | null;
 }
 
 // ---------------------------------------------------------------------------
@@ -198,10 +197,6 @@ export function getValidEnvironmentModes(waterType: WaterTypeV2): EnvironmentMod
     case 'saltwater':
       return ['saltwater'];
   }
-}
-
-export function environmentModeAllowsManualTemp(mode: EnvironmentModeV2): boolean {
-  return mode === 'freshwater_lake' || mode === 'freshwater_river';
 }
 
 export function isFreshwaterEnvironmentMode(mode: EnvironmentModeV2): boolean {

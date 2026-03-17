@@ -72,7 +72,6 @@ interface EnvironmentData {
   coastal?: boolean;
   nearest_tide_station_id?: string | null;
   altitude_ft?: number | null;
-  manual_freshwater_water_temp_f?: number | null;
   forecast_daily?: Array<{
     date: string;
     high_temp_f: number;
@@ -119,20 +118,13 @@ export function toEngineSnapshot(
   }));
 
   // Daily high/low arrays: get-environment returns 21 entries (14 past + today + 6 forecast)
-  // Engine uses up to 14 historical days for freshwater temp estimation.
-  // Pass all historical entries (indices 0..14 = 14 past days + today). Skip forecast days.
   const rawHighs = env.weather?.temp_7day_high ?? [];
   const rawLows = env.weather?.temp_7day_low ?? [];
-  // With past_days=14, today is index 14. Slice 0..15 to include today but exclude forecast.
-  // Falls back gracefully if fewer entries are available.
   const todayDailyIdx = rawHighs.length > 0 ? Math.min(14, rawHighs.length - 1) : -1;
   const dailyHighs = rawHighs.slice(0, todayDailyIdx + 1).map((v) => (v !== null && v !== undefined ? Number(v) : null));
   const dailyLows = rawLows.slice(0, todayDailyIdx + 1).map((v) => (v !== null && v !== undefined ? Number(v) : null));
-  // Pad to 7 if shorter (minimum for engine)
   while (dailyHighs.length < 7) dailyHighs.unshift(null);
   while (dailyLows.length < 7) dailyLows.unshift(null);
-
-  const manualFreshwaterTemp = typeof env.manual_freshwater_water_temp_f === "number" && !Number.isNaN(env.manual_freshwater_water_temp_f) ? env.manual_freshwater_water_temp_f : null;
 
   return {
     lat,
@@ -188,7 +180,7 @@ export function toEngineSnapshot(
     measured_water_temp_f: env.measured_water_temp_f ?? null,
     measured_water_temp_source: (env.measured_water_temp_source as any) ?? null,
     measured_water_temp_72h_ago_f: env.measured_water_temp_72h_ago_f ?? null,
-    manual_freshwater_water_temp_f: manualFreshwaterTemp !== null ? Math.max(32, Math.min(99, manualFreshwaterTemp)) : null,
+    manual_freshwater_water_temp_f: null, // V3: removed from active flow; legacy compat only
     freshwater_subtype_hint: freshwaterSubtypeHint ?? null,
     altitude_ft: env.altitude_ft ?? null,
   };

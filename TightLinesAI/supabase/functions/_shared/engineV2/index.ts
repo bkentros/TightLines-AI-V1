@@ -317,9 +317,6 @@ function extractDriversAndSuppressors(
   if (reliability.claimGuardActive) {
     negative.push('limited_data_confidence');
   }
-  if (reliability.waterTempSource === 'inferred_freshwater') {
-    negative.push('inferred_temp_uncertainty');
-  }
 
   return {
     topDrivers: [...new Set(positive)].slice(0, 5),
@@ -610,7 +607,7 @@ function buildLLMPayload(
       airTempF,
       waterTempF,
       waterTempSource,
-      waterTempIsInferred: waterTempSource === 'inferred_freshwater',
+      waterTempIsInferred: waterTempSource !== 'measured_coastal',
       windSpeedMph,
       pressureStateSummary,
       moonPhase,

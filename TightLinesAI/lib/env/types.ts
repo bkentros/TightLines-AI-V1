@@ -58,8 +58,6 @@ export interface EnvironmentData {
   measured_water_temp_72h_ago_f?: number | null;
   /** Whether the location is treated as coastal for engine routing */
   coastal?: boolean;
-  /** Optional user-entered freshwater water temperature override in °F */
-  manual_freshwater_water_temp_f?: number | null;
   /** Nearest NOAA tide station used for coastal routing */
   nearest_tide_station_id?: string | null;
 }

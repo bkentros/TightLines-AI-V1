@@ -151,10 +151,6 @@ export function normalizeEnvironment(raw: RawEnvironmentData): NormalizedEnviron
       measuredWaterTempSource: raw.measured_water_temp_source ?? null,
       measuredWaterTemp72hAgoF: raw.measured_water_temp_72h_ago_f ?? null,
     },
-
-    userOverrides: {
-      manualFreshwaterWaterTempF: raw.manual_freshwater_water_temp_f ?? null,
-    },
   };
 }
 

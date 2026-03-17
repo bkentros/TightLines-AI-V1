@@ -19,8 +19,6 @@ import type {
   ConfidenceBand,
   DegradedModule,
 } from '../types/contracts.ts';
-import { inferFreshwaterTemp } from '../assessments/thermal.ts';
-
 /**
  * Resolves water temperature source and confidence given context and environment.
  */
@@ -28,25 +26,9 @@ function resolveWaterTempSource(
   env: NormalizedEnvironmentV2,
   ctx: ResolvedContext
 ): { source: WaterTempSource; confidence: number } {
+  // Freshwater: no measured water temp — V3 does not use inferred/manual for scoring
   if (ctx.isFreshwater) {
-    // Manual user entry is highest confidence for freshwater
-    if (env.userOverrides.manualFreshwaterWaterTempF != null) {
-      return { source: 'manual_user_entered', confidence: 1.0 };
-    }
-    // Freshwater temp must be inferred from air temp history
-    const hasGoodAirTempHistory =
-      Array.isArray(env.histories.hourlyAirTempF) &&
-      env.histories.hourlyAirTempF.length >= 24;
-    const airTempVolatility = computeAirTempVolatility(env);
-    const baseConfidence = hasGoodAirTempHistory ? 0.65 : 0.35;
-    // Rivers track air temp more closely but are less stable — reduce inference confidence
-    const modeMultiplier = ctx.environmentMode === 'freshwater_river' ? 0.85 : 1.0;
-    // High volatility reduces confidence
-    const volatilityPenalty = airTempVolatility > 15 ? 0.15 : airTempVolatility > 8 ? 0.08 : 0;
-    return {
-      source: 'inferred_freshwater',
-      confidence: Math.max(0.1, (baseConfidence * modeMultiplier) - volatilityPenalty),
-    };
+    return { source: 'unavailable', confidence: 0 };
   }
 
   // Coastal/brackish: measured source preferred
@@ -59,22 +41,6 @@ function resolveWaterTempSource(
 }
 
 /**
- * Computes approximate 7-day air temperature volatility as range in mean daily temps (°F).
- * Uses daily mean (avg of high+low) to avoid counting normal diurnal range as volatility.
- */
-function computeAirTempVolatility(env: NormalizedEnvironmentV2): number {
-  const highs = env.histories.dailyAirTempHighF?.filter((v): v is number => v != null) ?? [];
-  const lows = env.histories.dailyAirTempLowF?.filter((v): v is number => v != null) ?? [];
-  const len = Math.min(highs.length, lows.length);
-  if (len < 2) return 0;
-  // Use daily mean to measure trend volatility (not raw high-low which captures diurnal range)
-  const dailyMeans = Array.from({ length: len }, (_, i) => (highs[i] + lows[i]) / 2);
-  const maxMean = Math.max(...dailyMeans);
-  const minMean = Math.min(...dailyMeans);
-  return maxMean - minMean;
-}
-
-/**
  * Identifies which engine modules are degraded based on data availability.
  */
 function identifyDegradedModules(
@@ -83,13 +49,9 @@ function identifyDegradedModules(
 ): DegradedModule[] {
   const degraded: DegradedModule[] = [];
 
-  // Water temp degradation
+  // Water temp degradation — freshwater has no measured source; coastal needs measured
   if (ctx.isFreshwater) {
-    const hasManual = env.userOverrides.manualFreshwaterWaterTempF != null;
-    const hasAirTemp = env.current.airTempF != null;
-    if (!hasManual && !hasAirTemp) {
-      degraded.push('water_temp');
-    }
+    degraded.push('water_temp'); // V3: freshwater water temp not used for score
   } else {
     // Coastal: measured water temp required
     if (env.marine.measuredWaterTempF == null) {
@@ -177,20 +139,14 @@ export function buildReliabilitySummary(
   const degradedModules = identifyDegradedModules(env, ctx);
 
   const criticalInferredInputs: string[] = [];
-  if (waterTempSource === 'inferred_freshwater') {
-    criticalInferredInputs.push('Water temperature (inferred from air temperature model)');
-  }
-  if (ctx.isFreshwater && env.userOverrides.manualFreshwaterWaterTempF == null) {
-    criticalInferredInputs.push('Freshwater temperature (user did not provide manual entry)');
+  if (ctx.isFreshwater) {
+    criticalInferredInputs.push('Freshwater water temperature not measured — thermal score uses air-trend context only');
   }
 
-  // Claim guard activates when water temp is unavailable, very low confidence,
-  // OR when temp is inferred with high air temp volatility (unstable inference)
-  const airTempVolatilityHigh = computeAirTempVolatility(env) > 18;
+  // Claim guard activates when water temp is unavailable or very low confidence
   const claimGuardActive =
     waterTempSource === 'unavailable' ||
-    waterTempConfidence < 0.25 ||
-    (waterTempSource === 'inferred_freshwater' && airTempVolatilityHigh);
+    waterTempConfidence < 0.25;
 
   const safeForTacticalSpecificity =
     !claimGuardActive && degradedModules.length <= 2;
@@ -202,9 +158,6 @@ export function buildReliabilitySummary(
   );
 
   const notes: string[] = [];
-  if (waterTempSource === 'inferred_freshwater') {
-    notes.push('Freshwater temperature is estimated from air temperature — actual temp may vary');
-  }
   if (waterTempSource === 'unavailable') {
     notes.push('Water temperature unavailable — water-temp-driven assessments are suppressed');
   }
@@ -236,16 +189,8 @@ export function resolveEffectiveWaterTemp(
   env: NormalizedEnvironmentV2,
   ctx: ResolvedContext
 ): { tempF: number | null; source: WaterTempSource } {
+  // Freshwater: V3 does not use water temp for scoring — no measured source
   if (ctx.isFreshwater) {
-    // Priority 1: manual user entry
-    if (env.userOverrides.manualFreshwaterWaterTempF != null) {
-      return { tempF: env.userOverrides.manualFreshwaterWaterTempF, source: 'manual_user_entered' };
-    }
-    // Priority 2: infer from air temp history using the thermal module's model
-    const inferred = inferFreshwaterTemp(env, ctx);
-    if (inferred != null) {
-      return { tempF: inferred, source: 'inferred_freshwater' };
-    }
     return { tempF: null, source: 'unavailable' };
   }
 

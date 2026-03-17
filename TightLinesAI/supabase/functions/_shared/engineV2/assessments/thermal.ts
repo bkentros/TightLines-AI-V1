@@ -197,7 +197,7 @@ function buildStateLabel(tempF: number, band: ThermalBand): string {
 function buildThermalTags(label: string, source: string): string[] {
   switch (label) {
     case 'peak_comfort':
-      return source === 'manual_user_entered'
+      return source === 'measured_coastal'
         ? ['confirmed_comfortable_water_temp', 'peak_activity_range']
         : ['water_temp_in_comfort_range', 'broad_activity_support'];
     case 'above_peak_still_comfortable':
@@ -319,17 +319,14 @@ export function assessThermal(
   reliability: ReliabilitySummary
 ): SingleAssessment {
   // Get the effective water temperature and its source
+  // V3: Freshwater does not use water temp for scoring — no measured source
   let waterTempF: number | null = null;
   let tempSource: string = 'unavailable';
 
   if (ctx.isFreshwater) {
-    if (env.userOverrides.manualFreshwaterWaterTempF != null) {
-      waterTempF = env.userOverrides.manualFreshwaterWaterTempF;
-      tempSource = 'manual_user_entered';
-    } else {
-      waterTempF = inferFreshwaterTemp(env, ctx);
-      tempSource = waterTempF != null ? 'inferred_freshwater' : 'unavailable';
-    }
+    // Freshwater: no measured water temp; thermal score uses neutral pass-through
+    waterTempF = null;
+    tempSource = 'unavailable';
   } else {
     // Saltwater / brackish: measured source only
     if (env.marine.measuredWaterTempF != null) {
@@ -356,15 +353,6 @@ export function assessThermal(
   const stateLabel = buildStateLabel(waterTempF, band);
   const tags = buildThermalTags(stateLabel, tempSource);
 
-  // Apply confidence penalty for inferred temp
-  let finalScore = rawScore;
-  if (tempSource === 'inferred_freshwater') {
-    // Inferred temps pull toward neutral (50) proportional to uncertainty
-    const confidencePull = 1.0 - reliability.waterTempConfidence;
-    const pullStrength = 0.25 * confidencePull; // max 25% pull toward neutral
-    finalScore = Math.round(rawScore * (1 - pullStrength) + 50 * pullStrength);
-  }
-
   // Clamp to 0–100
   finalScore = Math.max(0, Math.min(100, finalScore));
 
@@ -379,10 +367,7 @@ export function assessThermal(
     stateLabel,
     dominantTags: tags,
     direction: isSevereSuppressor ? 'negative' : direction,
-    confidenceDependency: tempSource === 'manual_user_entered' ? 'high'
-      : tempSource === 'measured_coastal' ? 'high'
-      : tempSource === 'inferred_freshwater' ? 'moderate'
-      : 'very_low',
+    confidenceDependency: tempSource === 'measured_coastal' ? 'high' : 'very_low',
     applicable: true,
   };
 }

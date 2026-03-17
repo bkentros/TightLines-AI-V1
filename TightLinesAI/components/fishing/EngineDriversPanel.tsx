@@ -1,6 +1,6 @@
 /**
- * EngineDriversPanel — displays V2 engine top drivers and suppressors.
- * Replaces the empty ScoreBreakdown bar chart when V2 fields are available.
+ * EngineDriversPanel — displays engine top drivers and suppressors.
+ * Consumes v2_drivers, v2_suppressors, v2_confidence (compatibility field names from V3).
  * Shows driver/suppressor tags, confidence band, and optional timing hint.
  */
 
@@ -18,7 +18,6 @@ function humanizeTag(tag: string): string {
     .replace('Tide ', '')
     .replace('Current ', '')
     .replace('Solunar ', 'Feeding window ')
-    .replace('Inferred Freshwater', 'Estimated water temp')
     .replace('Post Front ', 'Post-front ')
     .replace('Overcast ', 'Overcast — ');
 }

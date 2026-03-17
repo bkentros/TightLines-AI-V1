@@ -1,7 +1,7 @@
 // =============================================================================
 // [ARCHIVED — NOT USED IN ACTIVE PATHS]
-// This is the old V1 engine (coreIntelligence). It is fully replaced by engineV2.
-// The active how-fishing edge function imports ONLY from engineV2.
+// Legacy V1 engine (coreIntelligence). Replaced by engineV3 for the daily path.
+// The active how-fishing edge function imports from engineV3. engineV2 remains for golden-fixtures tests.
 // These files are retained for reference only and should not be modified or extended.
 // See: TightLinesAI/supabase/functions/_shared/engineV2/
 // =============================================================================

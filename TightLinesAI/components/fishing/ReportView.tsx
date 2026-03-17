@@ -39,9 +39,8 @@ function getWaterTempLine(engine: WaterTypeReport['engine']): string | null {
   const source = engine.environment.water_temp_source;
   const temp = engine.environment.water_temp_f;
   if (temp === null) return null;
-  if (source === 'user_manual') return `${formatWaterTempDisplay(temp)} (manual entry)`;
-  const isMeasured = source === 'noaa_coops';
-  return `${formatWaterTempDisplay(temp)} ${isMeasured ? '(measured)' : '(estimated from air history)'}`;
+  const isMeasured = source === 'noaa_coops' || source === 'measured_coastal';
+  return `${formatWaterTempDisplay(temp)} ${isMeasured ? '(measured)' : ''}`.trim();
 }
 
 function getTopLine(report: WaterTypeReport): string {

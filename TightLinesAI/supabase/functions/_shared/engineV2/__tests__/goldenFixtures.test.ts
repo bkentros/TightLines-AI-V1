@@ -69,7 +69,6 @@ interface SyntheticEnvSpec {
   currentTempF: number;
   dailyHighsF: number[];  // last 5 days
   dailyLowsF: number[];   // last 5 days
-  manualWaterTempF?: number | null;
   measuredWaterTempF?: number | null;
   precip48hrInches: number;
   precip7dayInches: number;
@@ -129,8 +128,6 @@ function buildRawEnvFromSpec(spec: SyntheticEnvSpec): RawEnvironmentData {
     })),
     daily_air_temp_high_f: spec.dailyHighsF,
     daily_air_temp_low_f: spec.dailyLowsF,
-    // Manual freshwater override
-    manual_freshwater_water_temp_f: spec.manualWaterTempF ?? null,
     // Measured salt/brackish temp
     measured_water_temp_f: spec.measuredWaterTempF ?? null,
     measured_water_temp_source: spec.measuredWaterTempF != null ? 'noaa_coops' : null,
@@ -236,9 +233,6 @@ function mapFixtureToSpec(f: FixtureScenario): SyntheticEnvSpec & { req: HowFish
   const calendar = (input.calendar_timing as string) ?? 'june';
   const tempContext = buildTempContext(region, calendar, input);
 
-  // Manual water temp
-  const isManualTemp = String(input.water_temp_source ?? '').includes('manual');
-  const manualWaterTempF = isManualTemp ? tempContext.waterTempF : null;
   const measuredWaterTempF = isCoastal ? tempContext.waterTempF : null;
 
   // Precipitation
@@ -276,7 +270,6 @@ function mapFixtureToSpec(f: FixtureScenario): SyntheticEnvSpec & { req: HowFish
     currentTempF: tempContext.airTempF,
     dailyHighsF: tempContext.dailyHighsF,
     dailyLowsF: tempContext.dailyLowsF,
-    manualWaterTempF,
     measuredWaterTempF,
     precip48hrInches: precip48,
     precip7dayInches: precip7day,
@@ -295,9 +288,8 @@ function mapFixtureToSpec(f: FixtureScenario): SyntheticEnvSpec & { req: HowFish
       units: 'imperial' as const,
       water_type: (mode === 'freshwater_lake' || mode === 'freshwater_river' ? 'freshwater' : mode) as 'freshwater' | 'saltwater' | 'brackish',
       environment_mode: mode,
-      freshwater_subtype: mode === 'freshwater_river' ? 'river_stream' : mode === 'freshwater_lake' ? 'lake_pond' : undefined,
+      freshwater_subtype: mode === 'freshwater_river' ? 'river_stream' : mode === 'freshwater_lake' ? 'lake' : undefined,
       target_date: null,
-      manual_freshwater_water_temp_f: isManualTemp ? tempContext.waterTempF : undefined,
     } as HowFishingRequestV2,
   };
 }
@@ -525,11 +517,6 @@ interface RegressionCheck {
 
 const REGRESSION_CHECKS: RegressionCheck[] = [
   {
-    id: 'manual_temp_should_raise_confidence',
-    scenarios: ['scenario_03', 'scenario_15'],
-    assertion: 'manual freshwater temp scenarios should show high/very_high confidence',
-  },
-  {
     id: 'tide_dominates_in_salt_and_brackish',
     scenarios: ['scenario_09', 'scenario_10', 'scenario_11', 'scenario_12', 'scenario_13', 'scenario_17', 'scenario_18'],
     assertion: 'tide/current should be in topDrivers or topSuppressors for coastal scenarios',
@@ -644,11 +631,6 @@ export function runGoldenFixtureTests(fixtureData: Record<string, unknown>): Fix
     const applicableChecks = regressionIndex[fixture.id] ?? [];
     for (const check of applicableChecks) {
       let checkPassed = false;
-
-      if (check.id === 'manual_temp_should_raise_confidence') {
-        checkPassed = actualConfidence === 'high' || actualConfidence === 'very_high';
-        if (!checkPassed) notes.push(`Regression: manual temp should give high confidence, got ${actualConfidence}`);
-      }
 
       if (check.id === 'tide_dominates_in_salt_and_brackish') {
         const tideInDrivers = eng.topDrivers.some(d =>

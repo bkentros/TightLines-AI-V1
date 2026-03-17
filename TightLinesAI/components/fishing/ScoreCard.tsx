@@ -32,10 +32,16 @@ function frontNote(scoring: EngineScoring): string | null {
 }
 
 function confidenceLine(scoring: EngineScoring): string | null {
-  if (typeof scoring.water_temp_confidence !== 'number') return null;
-  const pct = Math.round(scoring.water_temp_confidence * 100);
-  if (pct >= 95) return null;
-  return `Freshwater temperature confidence ${pct}%`;
+  if (typeof scoring.water_temp_confidence === 'number') {
+    const pct = Math.round(scoring.water_temp_confidence * 100);
+    if (pct >= 95) return null;
+    return `Freshwater temperature confidence ${pct}%`;
+  }
+  const tier = scoring.reliability_tier;
+  if (tier === 'high') return null;
+  if (tier === 'degraded') return 'Data coverage: moderate';
+  if (tier === 'low_confidence' || tier === 'very_low_confidence') return 'Limited data — confidence reduced';
+  return null;
 }
 
 function displayScore(score: number): string {

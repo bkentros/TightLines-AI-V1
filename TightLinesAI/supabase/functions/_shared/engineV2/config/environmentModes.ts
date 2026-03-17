@@ -9,7 +9,6 @@ export interface EnvironmentModeConfig {
   mode: EnvironmentMode;
   waterType: WaterType;
   useTideVariables: boolean;
-  allowManualWaterTemp: boolean;
   label: string;
   bodyTypeDescription: string;
 }
@@ -19,7 +18,6 @@ export const ENVIRONMENT_MODE_CONFIGS: Record<EnvironmentMode, EnvironmentModeCo
     mode: 'freshwater_lake',
     waterType: 'freshwater',
     useTideVariables: false,
-    allowManualWaterTemp: true,
     label: 'Freshwater Lake',
     bodyTypeDescription: 'Lakes, ponds, and reservoirs — stillwater freshwater systems',
   },
@@ -27,7 +25,6 @@ export const ENVIRONMENT_MODE_CONFIGS: Record<EnvironmentMode, EnvironmentModeCo
     mode: 'freshwater_river',
     waterType: 'freshwater',
     useTideVariables: false,
-    allowManualWaterTemp: true,
     label: 'Freshwater River',
     bodyTypeDescription: 'Rivers and streams — moving freshwater systems',
   },
@@ -35,7 +32,6 @@ export const ENVIRONMENT_MODE_CONFIGS: Record<EnvironmentMode, EnvironmentModeCo
     mode: 'brackish',
     waterType: 'brackish',
     useTideVariables: true,
-    allowManualWaterTemp: false,
     label: 'Brackish',
     bodyTypeDescription: 'Estuaries, marsh systems, tidal creeks, backwater transition zones',
   },
@@ -43,7 +39,6 @@ export const ENVIRONMENT_MODE_CONFIGS: Record<EnvironmentMode, EnvironmentModeCo
     mode: 'saltwater',
     waterType: 'saltwater',
     useTideVariables: true,
-    allowManualWaterTemp: false,
     label: 'Saltwater',
     bodyTypeDescription: 'Bays, flats, coastal inlets, marsh edges, inshore coastline',
   },

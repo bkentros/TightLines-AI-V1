@@ -1,37 +1,39 @@
 /**
- * how-fishing — Supabase Edge Function V2
+ * how-fishing — Supabase Edge Function
  *
- * Architecture (V2 — single confirmed context):
+ * Daily path (V3):
  *   1. Auth + subscription + usage cap validation
  *   2. Parse and validate confirmed environment_mode from request
  *   3. Accept env_data from client (client pre-fetches environment)
- *   4. Call runEngineV2() exactly once for the confirmed environment mode
- *   5. Build LLM narration payload from V2 engine output only
- *   6. Call Claude once for narrative
- *   7. Return HowFishingResponseV2 (single confirmed context)
- *   8. Log usage and ai_sessions row
+ *   4. Run V3 engine: normalize → geo → score → windows → narration payload
+ *   5. Build Claude payload from V3 narration payload
+ *   6. Call Claude once for narrative (or deterministic fallback if unavailable)
+ *   7. Shape V3 output to frontend EngineOutput contract
+ *   8. Return bundle with reports keyed by environment_mode
  *
  * Weekly overview path:
- *   - Runs a lightweight deterministic-only forecast scoring pass
- *   - Uses environment_mode (or falls back to water_type) for context
- *   - No LLM call — deterministic only
+ *   - Lightweight deterministic forecast scoring only
+ *   - Uses environment_mode for context
+ *   - No LLM call
  *
- * ENGINE STATUS (V2 — production quality):
- *   runEngineV2() runs full deterministic assessments for thermal, pressure,
- *   wind, tide/current, precip/runoff, moon/solunar, light, time-of-day, and
- *   temp trend. All assessments are real, calibrated, and regression-tested.
- *   Windows are deterministic named-block opportunity curves.
- *   The LLM receives a structured approved-facts payload from the engine.
+ * Retained for compatibility (frontend consumes these):
+ *   - feature: 'hows_fishing_feature_v2'
+ *   - reports[environmentMode] shape with engine.v2_drivers, v2_suppressors, etc.
+ *   - context.seasonal_state (null; V3 does not compute it)
  */
 
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
-import { runEngineV2, EngineV2Error } from "../_shared/engineV2/index.ts";
+import {
+  normalizeEnvironmentV3,
+  resolveGeoContextV3,
+  runScoreEngineV3,
+  runWindowEngineV3,
+  buildNarrationPayloadV3,
+  shapeV3ToEngineOutput,
+  type NarrationPayloadV3,
+} from "../_shared/engineV3/index.ts";
 import type {
-  HowFishingRequestV2,
-  RawEnvironmentData,
-  HowFishingEngineOutput,
-  LLMApprovedReportPayload,
   EnvironmentMode,
   WaterType,
   FreshwaterSubtype,
@@ -179,23 +181,23 @@ Core rules:
 Using the structured engine payload:
 - The payload includes top_drivers and suppressors — translate these directly into your reasoning.
 - timing_narration_hint tells you what period to emphasize. Use it.
-- temperature_trend tells you if fish are waking up (warming) or slowing down (cooling/heat). Use it.
 - pressure_state_summary explains the pressure story. Use it — don't just say "pressure is good."
-- If claim_guard_active is true: soften any temperature-driven biological claims. Say "conditions suggest" not "fish are definitely."
-- If water_temp_is_estimated is true: don't state water temp as a known fact. One brief note max.
+- If claim_guard_active is true: follow claim_guard_instructions. Soften biological claims. Say "conditions suggest" not "fish are definitely."
 - If severe_suppression is true: START your headline with a safety-first warning.
+- V3: Freshwater has no measured water temp. Use air temp and conditions only. Never state water temp as fact for freshwater.
 
 Freshwater lake framing:
 - Dawn and dusk windows are your go-to anchors.
-- Temperature trend matters — warming = rising activity potential, cooling from comfort = still good, heat stress = tell them to go early.
+- Air temp and conditions matter — warming trend = rising activity potential, cooling = still good, heat stress = tell them to go early.
 - Stable pressure for a few days = fish have settled into a pattern. Mention it.
 - Post-front = fish are uncomfortable, even if weather looks nice.
+- V3: No measured water temp for freshwater. Use air temp and conditions only.
 
 Voice & language:
 - Write in second person — "you'll want to…", "your best shot is…"
 - Short punchy sentences. Contractions are good. "Fish aren't moving much" > "Fish are not exhibiting significant activity."
 - BANNED words: "cold-stunned" (freshwater), "peak water temp", "meteorological", "thermocline", "lethargic" (say "sluggish"), "suppressed" (say "slow" or "shut down"), "biological", "solunar" (say "feeding window" or "feeding cycle"), "barometric" (say "pressure"), "thermal stress" (say "too hot" or "heat stress"), "optimal" (say "sweet spot" or "comfortable range"), "suboptimal", "conditions are presenting", "anglers should note".
-- Temperature references: use air temp proxy for freshwater/inland. Only say "water temp" if water_temp_is_estimated is false.
+- Temperature references: use air temp for freshwater. Never state water temp as measured for freshwater.
 - Don't tell them to "check" or "monitor" anything. You're giving them THE answer.
 
 Strategy section — think like a guide:
@@ -246,17 +248,17 @@ Core rules:
 
 Using the structured engine payload:
 - timing_narration_hint tells you when flow and light align best. Use it.
-- suppressors may include elevated flow, runoff, or thermal suppression — describe them in river terms.
-- top_drivers may include stable flow, warming trend, dawn window — lead with whichever is strongest.
-- If claim_guard_active is true: soften biological claims. Elevated/unstable flow = poor clarity = reduced confidence.
-- If water_temp_is_estimated is true: don't state water temp as fact; say "based on air conditions."
-- temperature_trend matters in rivers — warming = better; recent cold front = fish uncomfortable.
+- suppressors may include runoff or thermal suppression — describe them in river terms.
+- top_drivers may include warming trend, dawn window — lead with whichever is strongest.
+- If claim_guard_active is true: soften biological claims. Follow claim_guard_instructions.
+- V3: No measured flow or water temp for rivers. Do not imply measured flow — only precipitation effects.
+- Air temp and conditions matter — warming = better; recent cold front = fish uncomfortable.
 
 River framing:
-- Mention flow context when elevated flow or runoff is in suppressors.
+- Mention runoff or recent rain when in suppressors — affects clarity and conditions.
 - Dawn and early-morning windows in rivers are often the safest bite windows — mention if they're best.
 - Heat stress in rivers = fish pushed to deeper pools and cooler tributaries — be honest about midday difficulty.
-- "Moving water" in rivers means flow, not tides — describe it that way.
+- Do not imply measured flow or current — only precipitation/runoff effects when present.
 
 Voice: second person, short punchy sentences. Same banned words as standard prompt.
 
@@ -527,24 +529,92 @@ async function callClaudeForReport(
 }
 
 // ---------------------------------------------------------------------------
-// Deterministic fallback — generates LLM-shaped output from V2 engine data.
-// Called when Claude is unavailable or returns malformed responses.
-// Rewritten against HowFishingEngineOutput (V2 shape).
+// V3 Claude payload — from NarrationPayloadV3 only. No inferred freshwater temp.
 // ---------------------------------------------------------------------------
 
-function generateDeterministicFallbackV2(
-  engineOutput: HowFishingEngineOutput,
-  llmPayload: LLMApprovedReportPayload,
+function buildClaudePayloadFromV3(
+  payload: NarrationPayloadV3,
+  analysisDateLocal: string,
+  currentTimeLocal: string,
+  timezone: string
+): Record<string, unknown> {
+  const facts = payload.approvedFacts;
+  return {
+    environment_mode: payload.environmentMode,
+    region: payload.region,
+    seasonal_state: null,
+
+    score: payload.score,
+    score_band: payload.scoreBand,
+    confidence: payload.confidence,
+
+    best_windows: payload.bestWindows.map((w) => ({
+      time_range: normalizeTimeRange(`${w.startLocal} – ${w.endLocal}`, timezone),
+      score: w.score,
+      drivers: w.reasons,
+    })),
+    fair_windows: payload.fairWindows.map((w) => ({
+      time_range: normalizeTimeRange(`${w.startLocal} – ${w.endLocal}`, timezone),
+      score: w.score,
+    })),
+    poor_windows: payload.poorWindows.map((w) => ({
+      time_range: normalizeTimeRange(`${w.startLocal} – ${w.endLocal}`, timezone),
+    })),
+
+    top_drivers: payload.topDrivers,
+    suppressors: payload.topSuppressors,
+    severe_suppression: payload.severeSuppression,
+    severe_suppression_reasons: payload.severeSuppressionReasons,
+
+    activity_state: null,
+    feeding_readiness: null,
+    broad_positioning_tendency: null,
+    presentation_speed_bias: null,
+
+    claim_guard_active: payload.claimGuardActive,
+    claim_guard_instructions: payload.claimGuardInstructions,
+    data_quality_notes: payload.dataCoverageSummary,
+    water_temp_is_estimated: false,
+
+    air_temp_f: facts.airTempF,
+    water_temp_f: facts.coastalWaterTempF,
+    water_temp_source: facts.waterTempIsMeasured ? "measured_coastal" : "unavailable",
+    wind_speed_mph: facts.windSpeedMph,
+    pressure_state_summary: facts.pressureStateSummary,
+    moon_phase: facts.moonPhase,
+    precip_summary: facts.precipSummary,
+    tide_state_summary: facts.tideStateSummary ?? null,
+    timing_narration_hint: payload.timingNarrationHint ?? null,
+
+    key_reasons_for_best: payload.keyReasonsForBest,
+    key_reasons_for_poor: payload.keyReasonsForPoor,
+    regime_limited: payload.regimeLimited,
+    tide_overlap_major_factor: payload.tideOverlapMajorFactor,
+
+    historical_context_flags: payload.historicalContextFlags,
+    relative_to_normal_notes: payload.relativeToNormalNotes,
+
+    analysis_date_local: analysisDateLocal,
+    current_time_local: currentTimeLocal,
+    timezone,
+  };
+}
+
+// ---------------------------------------------------------------------------
+// Deterministic fallback — generates LLM-shaped output from V3 narration payload.
+// Called when Claude is unavailable or returns malformed responses.
+// ---------------------------------------------------------------------------
+
+function generateDeterministicFallbackV3(
+  payload: NarrationPayloadV3,
   timezone: string
 ): LLMOutput {
-  const score = engineOutput.score;
-  const scoreBand = engineOutput.scoreBand;
-  const behavior = engineOutput.behavior;
+  const score = payload.score;
+  const scoreBand = payload.scoreBand;
 
-  // Headline
   let headline: string;
-  if (engineOutput.severeSuppression) {
-    const reason = engineOutput.severeSuppressionReasons[0] ?? "tough conditions";
+  if (payload.severeSuppression) {
+    const reason = payload.severeSuppressionReasons[0] ?? "tough conditions";
     headline = `Stay safe — ${reason}. Fishing is possible but conditions are difficult.`;
   } else if (score >= 75) {
     headline = `${scoreBand} day — conditions are stacking up nicely, get out there.`;
@@ -556,91 +626,56 @@ function generateDeterministicFallbackV2(
     headline = "Tough one today — conditions are working against you.";
   }
 
-  // Rating summary
   let ratingSummary: string;
   if (score >= 75) ratingSummary = "Multiple factors lining up — this is a day worth getting out for.";
   else if (score >= 55) ratingSummary = "Solid conditions with a few limiting factors. Target the best windows.";
   else if (score >= 35) ratingSummary = "Mixed bag today — patience and timing will make the difference.";
   else ratingSummary = "Difficult conditions — go slow, downsize, and target sheltered structure.";
 
-  // Best windows from V2 opportunity curve
-  const bestTimes = (llmPayload.bestWindows ?? []).slice(0, 2).map((w) => ({
+  const bestTimes = payload.bestWindows.slice(0, 2).map((w) => ({
     time_range: normalizeTimeRange(`${w.startLocal} – ${w.endLocal}`, timezone),
     label: "PRIME" as const,
-    reasoning: w.drivers.length > 0 ? w.drivers.slice(0, 2).join(" + ").replace(/_/g, " ") : "Best available window",
+    reasoning: w.reasons.length > 0 ? w.reasons.slice(0, 2).join(" + ").replace(/_/g, " ") : "Best available window",
   }));
 
-  // Worst windows
-  const worstTimes = (llmPayload.poorWindows ?? []).slice(0, 2).map((w) => ({
+  const worstTimes = payload.poorWindows.slice(0, 2).map((w) => ({
     time_range: normalizeTimeRange(`${w.startLocal} – ${w.endLocal}`, timezone),
     reasoning: "Lowest activity period",
   }));
 
-  // Key factors — built from approved facts
-  // Context-aware: suppresses irrelevant factors for the environment mode
-  const facts = llmPayload.approvedFacts;
-  const mode = llmPayload.environmentMode;
-  const isFreshwaterLake = mode === 'freshwater_lake';
-  const isFreshwaterRiver = mode === 'freshwater_river';
-  const isFreshwater = isFreshwaterLake || isFreshwaterRiver;
+  const decentTimes = payload.fairWindows.slice(0, 2).map((w) => ({
+    time_range: normalizeTimeRange(`${w.startLocal} – ${w.endLocal}`, timezone),
+    reasoning: w.reasons.length > 0 ? w.reasons.slice(0, 2).join(", ").replace(/_/g, " ") : "Fair conditions",
+  }));
 
-  // Light conditions — use engine assessment direction, not generic LLM text
-  const lightDriverTag = engineOutput.topDrivers.find((d) => d.includes("overcast") || d.includes("cloud") || d.includes("light"));
-  const lightSuppressorTag = engineOutput.suppressors.find((d) => d.includes("sun") || d.includes("light"));
-  let lightFactorText = "Check prime windows above for best light";
-  if (lightDriverTag) {
-    lightFactorText = "Overcast reduces light pressure — extends activity windows";
-  } else if (lightSuppressorTag) {
-    lightFactorText = "Bright conditions narrow the best activity windows";
-  }
+  const mode = payload.environmentMode;
+  const isFreshwater = mode === "freshwater_lake" || mode === "freshwater_river";
 
   const keyFactors: Record<string, string> = {
-    barometric_pressure: llmPayload.suppressors.find((s) => s.includes("pressure")) ?? "Stable",
-    temperature_trend: facts.waterTempIsInferred ? "Air temp trend (water temp estimated)" : "Water temp conditions",
-    light_conditions: lightFactorText,
-    wind: facts.windSpeedMph != null ? `${facts.windSpeedMph} mph` : "Data unavailable",
-    precipitation_recent_rain: engineOutput.dataQualityNotes.find((n) => n.includes("precip")) ?? "Check local conditions",
+    barometric_pressure: payload.topSuppressors.find((s) => s.includes("pressure")) ?? "Stable",
+    temperature_trend: isFreshwater ? "Air temp trend (no water temp measured)" : "Water temp conditions",
+    light_conditions: payload.topDrivers.find((d) => d.includes("overcast") || d.includes("cloud"))
+      ? "Overcast extends activity windows"
+      : "Check prime windows above for best light",
+    wind: payload.approvedFacts.windSpeedMph != null ? `${payload.approvedFacts.windSpeedMph} mph` : "Data unavailable",
+    precipitation_recent_rain: payload.approvedFacts.precipSummary ?? "Check local conditions",
   };
 
-  // Tide / Solunar — context-aware display
-  // Freshwater lake: skip tide entirely, no "Tide Or Solunar" label
-  // Freshwater river: show as "Current" (river flow context)
-  // Salt/brackish: show "Tide Or Solunar" as-is
-  if (isFreshwaterRiver) {
-    const riverFlowTag = engineOutput.suppressors.find((s) => s.includes("flow") || s.includes("river"));
-    keyFactors.current = riverFlowTag ? riverFlowTag.replace(/_/g, " ") : "Normal flow conditions";
-  } else if (!isFreshwater) {
-    // Salt/brackish — tide is relevant
-    keyFactors.tide_or_solunar = llmPayload.bestWindows.length > 0 ? "Feeding windows above" : "No strong windows";
+  if (!isFreshwater) {
+    keyFactors.tide_or_solunar = payload.tideOverlapMajorFactor ? "Moving water improves main window" : "Feeding windows above";
   }
-  // Freshwater lake: no tide/solunar/current entry at all — intentionally omitted
-
-  // Moon phase and solunar — suppress when conditions are too poor for it to matter
-  // When overall score < 40, solunar has negligible real-world effect
   if (score >= 40) {
-    keyFactors.moon_phase = facts.moonPhase ?? "Data unavailable";
+    keyFactors.moon_phase = payload.approvedFacts.moonPhase ?? "Data unavailable";
   }
-  // If score < 40, moon_phase is omitted entirely — not relevant on a brutal day
 
-  // Tips from behavior
   const tips: string[] = [];
-  const activity = behavior.activityState;
-  if (activity === "shutdown" || activity === "very_low") {
-    tips.push("Fish are sluggish — go slow and stay near bottom");
-  } else if (activity === "high" || activity === "peak") {
-    tips.push("They're fired up — cover water and keep moving");
-  } else {
-    tips.push("Match your pace to today's moderate activity level");
-  }
+  if (score < 35) tips.push("Fish are sluggish — go slow and stay near bottom");
+  else if (score >= 75) tips.push("They're fired up — cover water and keep moving");
+  else tips.push("Match your pace to today's moderate activity level");
 
-  const positioning = behavior.broadPositioningTendency;
-  if (positioning !== "unknown") {
-    tips.push(`Look for fish: ${positioning.replace(/_/g, " ")}`);
-  } else {
-    tips.push("Work structure edges and depth transitions");
-  }
+  tips.push("Work structure edges and depth transitions");
 
-  if (engineOutput.severeSuppression) {
+  if (payload.severeSuppression) {
     tips.push("Tough conditions — downsize, slow way down, target sheltered spots");
   } else if (score >= 55) {
     tips.push("Your best shot is during the prime feeding windows above");
@@ -648,29 +683,27 @@ function generateDeterministicFallbackV2(
     tips.push("Patience is key today — let the fish come to you");
   }
 
-  const truncatedTips = tips.map((t) => {
+  const truncatedTips = tips.slice(0, 3).map((t) => {
     const words = t.split(" ");
     return words.length > 12 ? words.slice(0, 12).join(" ") : t;
   });
 
-  // Strategy from behavior
   let presentationSpeed: string;
-  if (activity === "shutdown" || activity === "very_low") presentationSpeed = "Slow and deliberate";
-  else if (activity === "high" || activity === "peak") presentationSpeed = "Aggressive — cover water fast";
-  else presentationSpeed = "Normal retrieve, moderate pace";
-
   let depthFocus: string;
-  if (positioning !== "unknown") {
-    depthFocus = positioning.replace(/_/g, " ");
-    depthFocus = depthFocus.charAt(0).toUpperCase() + depthFocus.slice(1);
-  } else if (score < 35) {
+  let approachNote: string;
+
+  if (score < 35) {
+    presentationSpeed = "Slow and deliberate";
     depthFocus = "Deep — bottom near structure";
+  } else if (score >= 75) {
+    presentationSpeed = "Aggressive — cover water fast";
+    depthFocus = "Shallow feeding edges";
   } else {
+    presentationSpeed = "Normal retrieve, moderate pace";
     depthFocus = "Mid-column near structure";
   }
 
-  let approachNote: string;
-  if (engineOutput.severeSuppression) {
+  if (payload.severeSuppression) {
     approachNote = "Severe conditions — stay safe and fish cautiously near sheltered structure.";
   } else if (score >= 75) {
     approachNote = "Conditions are stacked in your favor — fish the prime windows hard.";
@@ -684,89 +717,17 @@ function generateDeterministicFallbackV2(
     headline_summary: headline,
     overall_fishing_rating: { label: scoreBand, summary: ratingSummary },
     best_times_to_fish_today: bestTimes,
+    decent_times_today: decentTimes,
     worst_times_to_fish_today: worstTimes,
     key_factors: keyFactors,
-    tips_for_today: truncatedTips.slice(0, 3),
+    tips_for_today: truncatedTips,
     strategy: { presentation_speed: presentationSpeed, depth_focus: depthFocus, approach_note: approachNote },
   };
 }
 
 // ---------------------------------------------------------------------------
-// Build the payload sent to Claude — from V2 LLMApprovedReportPayload only.
-// The LLM never receives raw weather blob.
-// ---------------------------------------------------------------------------
-
-function buildClaudePayloadFromV2(
-  llmPayload: LLMApprovedReportPayload,
-  analysisDateLocal: string,
-  currentTimeLocal: string,
-  timezone: string
-): Record<string, unknown> {
-  const facts = llmPayload.approvedFacts;
-  return {
-    // Context — tells LLM what kind of fishing this is
-    environment_mode: llmPayload.environmentMode,
-    region: llmPayload.region,
-    seasonal_state: llmPayload.seasonalState,
-
-    // Score and confidence — LLM must not contradict
-    score: llmPayload.score,
-    score_band: llmPayload.scoreBand,
-    confidence: llmPayload.confidence,
-
-    // Windows — LLM must use exactly these, never invent new ones
-    best_windows: llmPayload.bestWindows.map((w) => ({
-      time_range: normalizeTimeRange(`${w.startLocal} – ${w.endLocal}`, timezone),
-      score: w.windowScore,
-      drivers: w.drivers,
-    })),
-    fair_windows: llmPayload.fairWindows.map((w) => ({
-      time_range: normalizeTimeRange(`${w.startLocal} – ${w.endLocal}`, timezone),
-      score: w.windowScore,
-    })),
-    poor_windows: llmPayload.poorWindows.map((w) => ({
-      time_range: normalizeTimeRange(`${w.startLocal} – ${w.endLocal}`, timezone),
-    })),
-
-    // Drivers and suppressors
-    top_drivers: llmPayload.topDrivers,
-    suppressors: llmPayload.suppressors,
-    severe_suppression: llmPayload.severeSuppression,
-    severe_suppression_reasons: llmPayload.severeSuppressionReasons,
-
-    // Behavior — approved outputs only
-    activity_state: llmPayload.activityState,
-    feeding_readiness: llmPayload.feedingReadiness,
-    broad_positioning_tendency: llmPayload.broadPositioningTendency,
-    presentation_speed_bias: llmPayload.presentationSpeedBias,
-
-    // Reliability guardrails — LLM must respect
-    claim_guard_active: llmPayload.claimGuardActive,
-    data_quality_notes: llmPayload.dataQualityNotes,
-    water_temp_is_estimated: facts.waterTempIsInferred,
-
-    // Approved environmental facts — LLM may narrate these
-    air_temp_f: facts.airTempF,
-    water_temp_f: facts.waterTempF,
-    water_temp_source: facts.waterTempSource,
-    wind_speed_mph: facts.windSpeedMph,
-    pressure_state_summary: facts.pressureStateSummary,
-    moon_phase: facts.moonPhase,
-    precip_summary: facts.precipSummary,
-    tide_state_summary: facts.tideStateSummary ?? null,
-    timing_narration_hint: facts.timingNarrationHint ?? null,
-
-    // Temporal context
-    analysis_date_local: analysisDateLocal,
-    current_time_local: currentTimeLocal,
-    timezone,
-  };
-}
-
-// ---------------------------------------------------------------------------
-// Weekly overview — simplified deterministic forecast scoring.
-// V2 transition: kept mostly intact, adapted to use environment_mode.
-// Full V2 weekly forecast rebuild is deferred to a later phase.
+// Weekly overview — lightweight deterministic forecast scoring.
+// Uses environment_mode for context. No V3 engine; no LLM.
 // ---------------------------------------------------------------------------
 
 type OverallRatingLegacy = "Exceptional" | "Excellent" | "Good" | "Fair" | "Poor" | "Tough";
@@ -965,8 +926,6 @@ Deno.serve(async (req: Request) => {
   const requestMode = body.mode === "weekly_overview" ? "weekly_overview" : "daily_detail";
 
   // ── 3. Validate and resolve environment_mode ───────────────────────────────
-  // environment_mode is the PRIMARY routing truth for V2.
-  // water_type and freshwater_subtype are validated for consistency.
 
   const rawMode = body.environment_mode as string | undefined;
   const rawWaterType = body.water_type as string | undefined;
@@ -984,7 +943,7 @@ Deno.serve(async (req: Request) => {
   }
   const environmentMode = rawMode as EnvironmentMode;
 
-  // Derive water_type from mode (authoritative) — fall back to request field if compatible
+  // Derive water_type from mode
   function modeToWaterType(mode: EnvironmentMode): WaterType {
     if (mode === "freshwater_lake" || mode === "freshwater_river") return "freshwater";
     if (mode === "saltwater") return "saltwater";
@@ -1010,14 +969,6 @@ Deno.serve(async (req: Request) => {
       freshwaterSubtype = environmentMode === "freshwater_river" ? "river_stream" : "lake";
     }
   }
-
-  // Manual freshwater temp — only valid for freshwater modes
-  const isFreshwaterMode = waterType === "freshwater";
-  const rawManualTemp = body.manual_freshwater_water_temp_f;
-  const manualFreshwaterTempF: number | null =
-    isFreshwaterMode && typeof rawManualTemp === "number" && rawManualTemp >= 32 && rawManualTemp <= 99
-      ? rawManualTemp
-      : null;
 
   const targetDate = typeof body.target_date === "string" ? body.target_date : null;
 
@@ -1126,7 +1077,7 @@ Deno.serve(async (req: Request) => {
     });
   }
 
-  // ── 8. Build V2 engine request ─────────────────────────────────────────────
+  // ── 8. V3 daily path: normalize → geo → score → windows → narration ───────
   const anthropicKey = Deno.env.get("ANTHROPIC_API_KEY");
   if (!anthropicKey) {
     return new Response(
@@ -1135,43 +1086,26 @@ Deno.serve(async (req: Request) => {
     );
   }
 
-  // Attach manual freshwater temp into env_data so the engine picks it up
-  const envDataForEngine: RawEnvironmentData = {
-    ...(envData as RawEnvironmentData),
-    ...(manualFreshwaterTempF !== null ? { manual_freshwater_water_temp_f: manualFreshwaterTempF } : {}),
-  };
+  const waterTypeV3 = waterType as "freshwater" | "brackish" | "saltwater";
+  const freshwaterSubtypeV3 = freshwaterSubtype as "lake" | "river_stream" | "reservoir" | null;
 
-  const engineReq: HowFishingRequestV2 = {
+  const geoContext = resolveGeoContextV3({
     latitude: lat,
     longitude: lon,
-    units,
-    water_type: waterType,
-    freshwater_subtype: freshwaterSubtype,
-    environment_mode: environmentMode,
-    manual_freshwater_water_temp_f: manualFreshwaterTempF,
-    target_date: targetDate,
-    mode: "daily_detail",
-  };
+    waterType: waterTypeV3,
+    freshwaterSubtype: freshwaterSubtypeV3,
+    environmentMode,
+    targetDate,
+  });
 
-  // ── 9. Run V2 engine exactly once ──────────────────────────────────────────
-  let engineResult: Awaited<ReturnType<typeof runEngineV2>>;
-  try {
-    engineResult = runEngineV2(engineReq, envDataForEngine, targetDate);
-  } catch (e) {
-    const isValidationError = e instanceof EngineV2Error && e.code === "INVALID_CONTEXT";
-    return new Response(
-      JSON.stringify({
-        error: isValidationError ? "invalid_context" : "engine_error",
-        message: e instanceof Error ? e.message : String(e),
-      }),
-      { status: isValidationError ? 400 : 500, headers: { "Content-Type": "application/json", ...corsHeaders() } }
-    );
-  }
+  const rawEnv = { ...envData, lat: (envData as Record<string, unknown>).lat ?? lat, lon: (envData as Record<string, unknown>).lon ?? lon } as Record<string, unknown>;
+  const env = normalizeEnvironmentV3(rawEnv, geoContext);
+  const scoreResult = runScoreEngineV3(env, geoContext);
+  const windowResult = runWindowEngineV3(env, geoContext, scoreResult);
+  const narrationPayload = buildNarrationPayloadV3(env, geoContext, scoreResult, windowResult, timezone);
 
-  const { engineOutput, llmPayload } = engineResult;
-
-  // ── 10. Build Claude payload and call LLM ──────────────────────────────────
-  const claudePayload = buildClaudePayloadFromV2(llmPayload, analysisDateLocal, currentTimeLocal, timezone);
+  // ── 9. Build Claude payload and call LLM ────────────────────────────────────
+  const claudePayload = buildClaudePayloadFromV3(narrationPayload, analysisDateLocal, currentTimeLocal, timezone);
   const systemPrompt = selectSystemPrompt(environmentMode);
 
   let llmOutput: LLMOutput;
@@ -1185,140 +1119,30 @@ Deno.serve(async (req: Request) => {
   if (claudeResult.llm) {
     llmOutput = claudeResult.llm;
   } else {
-    // Deterministic fallback — never return an error to the user for Claude failures
-    llmOutput = generateDeterministicFallbackV2(engineOutput, llmPayload, timezone);
+    llmOutput = generateDeterministicFallbackV3(narrationPayload, timezone);
   }
 
   // ── 11. Compute cost ────────────────────────────────────────────────────────
   const actualCostUsd = computeCallCost(inputTokens, outputTokens);
 
-  // ── 12. Build V2 response ──────────────────────────────────────────────────
+  // ── 12. Shape response ─────────────────────────────────────────────────────
   const cacheExpiresAt = locationLocalMidnightIso(timezone);
 
-  // NOTE: We return feature: 'hows_fishing_feature_v2' for the main path.
-  // The frontend lib/howFishing.ts currently checks for 'hows_fishing_feature_v1'.
-  // A compatibility shim is applied in lib/howFishing.ts (see Phase 3 notes).
-  // The response also includes a 'reports' wrapper in V1 shape so the existing
-  // ReportView component can render without changes until Phase 13.
+  // Compatibility: feature + reports shape for frontend. EngineOutput uses v2_*
+  // field names for ReportView/EngineDriversPanel compatibility.
+  const engineOutput = shapeV3ToEngineOutput(
+    narrationPayload,
+    lat,
+    lon,
+    timezone,
+    environmentMode,
+    freshwaterSubtype
+  );
+
   const reportEntry = {
     status: "ok" as const,
     water_type: waterType,
-    engine: {
-      // V1-compatible engine shape for ReportView component
-      location: {
-        lat,
-        lon,
-        timezone,
-        coastal: waterType !== "freshwater",
-        nearest_tide_station_id: null,
-      },
-      environment: {
-        // Approved facts only — no raw weather blob passed through
-        air_temp_f: llmPayload.approvedFacts.airTempF ?? null,
-        water_temp_f: llmPayload.approvedFacts.waterTempF ?? null,
-        water_temp_source: llmPayload.approvedFacts.waterTempSource,
-        water_temp_zone: null, // Phase 8 will populate
-        wind_speed_mph: llmPayload.approvedFacts.windSpeedMph ?? null,
-        wind_direction: null,
-        wind_direction_deg: null,
-        cloud_cover_pct: null,
-        pressure_mb: null,
-        pressure_change_rate_mb_hr: null,
-        pressure_state: llmPayload.approvedFacts.pressureStateSummary ?? null,
-        precip_48hr_inches: null,
-        precip_7day_inches: null,
-        precip_condition: null,
-        moon_phase: llmPayload.approvedFacts.moonPhase ?? null,
-        moon_illumination_pct: null,
-        solunar_state: null,
-        tide_phase_state: null,
-        tide_strength_state: null,
-        range_strength_pct: null,
-        light_condition: null,
-        temp_trend_state: null,
-        temp_trend_direction_f: null,
-        days_since_front: 0,
-        freshwater_subtype: freshwaterSubtype,
-        seasonal_fish_behavior: engineOutput.resolvedContext.seasonalState,
-        severe_weather_alert: engineOutput.severeSuppression,
-        severe_weather_reasons: engineOutput.severeSuppressionReasons,
-      },
-      scoring: {
-        // V1-compatible scoring shape for ScoreCard/ScoreBreakdown
-        weights: {},
-        component_status: {},
-        components: {},
-        coverage_pct: engineOutput.reliability.waterTempConfidence * 100,
-        reliability_tier: engineOutput.confidence === "high" ? "high"
-          : engineOutput.confidence === "moderate" ? "degraded"
-          : engineOutput.confidence === "low" ? "low_confidence"
-          : "very_low_confidence",
-        raw_score: engineOutput.score,
-        recovery_multiplier: 1,
-        adjusted_score: engineOutput.score,
-        overall_rating: engineOutput.scoreBand === "Great" ? "Excellent"
-          : engineOutput.scoreBand === "Good" ? "Good"
-          : engineOutput.scoreBand === "Fair" ? "Fair"
-          : "Poor",
-        water_temp_confidence: engineOutput.reliability.waterTempConfidence,
-      },
-      behavior: {
-        metabolic_state: engineOutput.behavior.activityState,
-        aggression_state: engineOutput.behavior.feedingReadiness,
-        feeding_timer: "light_solunar",
-        presentation_difficulty: engineOutput.behavior.presentationSpeedBias,
-        positioning_bias: engineOutput.behavior.broadPositioningTendency,
-        secondary_positioning_tags: [],
-        dominant_positive_drivers: engineOutput.behavior.dominantPositiveDrivers,
-        dominant_negative_drivers: engineOutput.behavior.dominantNegativeDrivers,
-      },
-      data_quality: {
-        missing_variables: engineOutput.reliability.degradedModules,
-        fallback_variables: engineOutput.reliability.criticalInferredInputs,
-        notes: engineOutput.dataQualityNotes,
-      },
-      alerts: {
-        cold_stun_alert: false,
-        cold_stun_status: "evaluated",
-        salinity_disruption_alert: false,
-        salinity_disruption_status: "evaluated",
-        rapid_cooling_alert: false,
-        recovery_active: false,
-        days_since_front: 0,
-        front_severity: null,
-        front_label: null,
-        developing_front: false,
-        severe_weather_alert: engineOutput.severeSuppression,
-        severe_weather_reasons: engineOutput.severeSuppressionReasons,
-      },
-      time_windows: llmPayload.bestWindows.map((w) => ({
-        label: "PRIME" as const,
-        start_local: w.startLocal,
-        end_local: w.endLocal,
-        window_score: w.windowScore,
-        drivers: w.drivers,
-      })),
-      fair_windows: llmPayload.fairWindows.map((w) => ({
-        label: "FAIR" as const,
-        start_local: w.startLocal,
-        end_local: w.endLocal,
-        window_score: w.windowScore,
-        drivers: w.drivers,
-      })),
-      worst_windows: llmPayload.poorWindows.map((w) => ({
-        start_local: w.startLocal,
-        end_local: w.endLocal,
-        window_score: w.windowScore,
-      })),
-      // V2 engine-level driver/suppressor arrays for frontend display
-      v2_drivers: engineOutput.topDrivers,
-      v2_suppressors: engineOutput.suppressors,
-      v2_score: engineOutput.score,
-      v2_score_band: engineOutput.scoreBand,
-      v2_confidence: engineOutput.confidence,
-      v2_environment_mode: environmentMode,
-      v2_timing_hint: llmPayload.approvedFacts.timingNarrationHint ?? null,
-    },
+    engine: engineOutput,
     // V1-compatible LLM shape for ReportView component
     llm: {
       headline_summary: llmOutput.headline_summary,
@@ -1336,20 +1160,17 @@ Deno.serve(async (req: Request) => {
 
   const responseBundle = {
     feature: "hows_fishing_feature_v2" as const,
-    // V1 bundle compatibility fields — kept so existing frontend cache/render code works
-    // during the transition period. Will be removed in Phase 13.
     mode: "single" as const,
     default_tab: environmentMode,
     generated_at: timestampUtc,
     cache_expires_at: cacheExpiresAt,
     freshwater_subtype: freshwaterSubtype,
-    // V2 context block — new
     context: {
       water_type: waterType,
       freshwater_subtype: freshwaterSubtype,
       environment_mode: environmentMode,
-      region: engineOutput.resolvedContext.region,
-      seasonal_state: engineOutput.resolvedContext.seasonalState,
+      region: geoContext.region,
+      seasonal_state: null,
     },
     // Reports map — single entry keyed by environment_mode.
     // The frontend availableTabs logic in how-fishing.tsx handles this gracefully.

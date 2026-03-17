@@ -6,7 +6,6 @@ import {
   ScrollView,
   Pressable,
   Alert,
-  TextInput,
   ActivityIndicator,
   Modal,
   RefreshControl,
@@ -34,7 +33,6 @@ import {
   type EnvironmentModeV2,
   type WaterTypeV2,
   type FreshwaterSubtypeV2,
-  environmentModeAllowsManualTemp,
 } from '../lib/howFishingV2';
 import { getAvailableWaterTypes } from '../lib/coastalProximity';
 import {
@@ -172,22 +170,7 @@ export default function HowFishingScreen() {
     selectedWaterType === 'freshwater' ? freshwaterSubtype : null
   );
 
-  const showManualTemp = selectedWaterType === 'freshwater' && environmentModeAllowsManualTemp(environmentMode);
   const contextIsValid = selectedWaterType !== null;
-
-  // ---------------------------------------------------------------------------
-  // Manual water temp
-  // ---------------------------------------------------------------------------
-  const [manualWaterTempInput, setManualWaterTempInput] = useState('');
-  const [manualWaterTempApplied, setManualWaterTempApplied] = useState<number | null>(null);
-
-  // When the user switches away from freshwater, clear manual temp — it must not persist
-  useEffect(() => {
-    if (!showManualTemp) {
-      setManualWaterTempInput('');
-      setManualWaterTempApplied(null);
-    }
-  }, [showManualTemp]);
 
   // ---------------------------------------------------------------------------
   // Report / bundle state
@@ -286,14 +269,10 @@ export default function HowFishingScreen() {
       const freshEnv = await fetchFreshEnvironment({ latitude: lat, longitude: lon, units });
       setEnv(freshEnv);
 
-      // Only attach manual temp when the mode actually allows it.
-      const resolvedManualTemp = showManualTemp ? manualWaterTempApplied : null;
-      const envPayload: EnvironmentData = resolvedManualTemp !== null
-        ? { ...freshEnv, manual_freshwater_water_temp_f: resolvedManualTemp }
-        : freshEnv;
+      const envPayload: EnvironmentData = freshEnv;
 
-      // Try cache first (only for today's un-modified runs)
-      if (!targetDate && resolvedManualTemp === null) {
+      // Try cache first (only for today's runs)
+      if (!targetDate) {
         const cached = await getCachedHowFishingBundle(lat, lon, environmentMode);
         if (cached) {
           setBundle(cached);
@@ -343,7 +322,7 @@ export default function HowFishingScreen() {
         throw new Error('Invalid response format');
       }
 
-      if (!targetDate && resolvedManualTemp === null) {
+      if (!targetDate) {
         await setCachedHowFishingBundle(lat, lon, bundleResult, environmentMode);
         setCurrentHowFishingBundle(lat, lon, bundleResult);
       }
@@ -376,7 +355,6 @@ export default function HowFishingScreen() {
   }, [
     hasCoords, contextIsValid, lat, lon, units,
     selectedWaterType, freshwaterSubtype, environmentMode,
-    manualWaterTempApplied, showManualTemp,
     setLastReportEnv, loadForecast,
   ]);
 
@@ -389,26 +367,6 @@ export default function HowFishingScreen() {
     );
     setRefreshing(false);
   }, [generateReport, reportDateKey, forecast]);
-
-  const applyManualTemp = useCallback(() => {
-    if (!manualWaterTempInput.trim()) {
-      setManualWaterTempApplied(null);
-      return;
-    }
-    const parsed = Number(manualWaterTempInput);
-    if (Number.isNaN(parsed)) {
-      Alert.alert('Invalid water temperature', 'Enter a valid number between 32°F and 99°F.');
-      return;
-    }
-    const clamped = Math.max(32, Math.min(99, Math.round(parsed * 10) / 10));
-    setManualWaterTempInput(String(clamped));
-    setManualWaterTempApplied(clamped);
-  }, [manualWaterTempInput]);
-
-  const clearManualTemp = useCallback(() => {
-    setManualWaterTempInput('');
-    setManualWaterTempApplied(null);
-  }, []);
 
   const handleForecastDayPress = useCallback((date: string, index: number) => {
     const day = forecast?.forecast_days?.[index];
@@ -561,38 +519,6 @@ export default function HowFishingScreen() {
             </View>
           )}
 
-          {/* ── Step 3: Manual water temp (freshwater only) ──────────── */}
-          {showManualTemp && (
-            <View style={styles.setupCard}>
-              <Text style={styles.setupCardTitle}>Water temperature <Text style={styles.optionalLabel}>(optional)</Text></Text>
-              <Text style={styles.setupCardSub}>If you know the water temp, add it — it makes the report more accurate.</Text>
-              <View style={styles.manualTempRow}>
-                <TextInput
-                  value={manualWaterTempInput}
-                  onChangeText={(value) => setManualWaterTempInput(value.replace(/[^0-9.]/g, '').slice(0, 5))}
-                  onBlur={() => {
-                    if (!manualWaterTempInput.trim()) setManualWaterTempApplied(null);
-                  }}
-                  placeholder="32–99°F"
-                  placeholderTextColor={colors.textMuted}
-                  keyboardType="decimal-pad"
-                  style={styles.manualTempInput}
-                />
-                <Pressable style={styles.smallBtn} onPress={applyManualTemp}>
-                  <Text style={styles.smallBtnText}>{manualWaterTempApplied !== null ? 'Update' : 'Apply'}</Text>
-                </Pressable>
-                {(manualWaterTempInput.length > 0 || manualWaterTempApplied !== null) && (
-                  <Pressable style={styles.smallBtnGhost} onPress={clearManualTemp}>
-                    <Text style={styles.smallBtnGhostText}>Clear</Text>
-                  </Pressable>
-                )}
-              </View>
-              {manualWaterTempApplied !== null && (
-                <Text style={styles.manualApplied}>Using {manualWaterTempApplied}°F — treated as confirmed water temp.</Text>
-              )}
-            </View>
-          )}
-
           {/* Saltwater/brackish: explain that water temp is auto-sourced */}
           {(selectedWaterType === 'saltwater' || selectedWaterType === 'brackish') && (
             <View style={styles.infoCard}>
@@ -627,7 +553,7 @@ export default function HowFishingScreen() {
               <ActivityIndicator size="large" color={colors.sage} />
               <Text style={styles.loadingOverlayTitle}>Building report…</Text>
               <Text style={styles.loadingOverlaySub}>
-                Using live conditions{manualWaterTempApplied !== null ? ' and your water-temp entry' : ''}.
+                Using live conditions.
               </Text>
             </View>
           </View>
@@ -767,8 +693,6 @@ const styles = StyleSheet.create({
   setupCardTitle: { fontSize: 15, fontWeight: '700', color: colors.text, marginBottom: spacing.sm },
   setupCardSub: { fontSize: 13, color: colors.textSecondary, lineHeight: 18, marginBottom: spacing.sm },
   setupHint: { fontSize: 12, color: colors.textMuted, lineHeight: 17, marginTop: spacing.xs, fontStyle: 'italic' },
-  optionalLabel: { fontSize: 13, fontWeight: '400', color: colors.textMuted },
-
   // Info card (salt/brackish water temp note)
   infoCard: {
     flexDirection: 'row',
@@ -797,20 +721,6 @@ const styles = StyleSheet.create({
   segmentBtnActive: { backgroundColor: colors.sage },
   segmentText: { fontSize: 14, fontWeight: '600', color: colors.textMuted },
   segmentTextActive: { color: colors.textLight },
-
-  // Manual temp
-  manualTempRow: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm },
-  manualTempInput: {
-    flex: 1,
-    borderWidth: 1,
-    borderColor: colors.border,
-    borderRadius: radius.sm,
-    paddingHorizontal: spacing.md,
-    paddingVertical: 10,
-    color: colors.text,
-    backgroundColor: colors.background,
-  },
-  manualApplied: { fontSize: 12, color: colors.sage, fontWeight: '700', marginTop: spacing.sm },
 
   // Buttons
   primaryBtn: {
