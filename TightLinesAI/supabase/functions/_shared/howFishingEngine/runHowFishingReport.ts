@@ -1,0 +1,88 @@
+import type { HowsFishingReport, SharedEngineRequest } from "./contracts/mod.ts";
+import { DISPLAY_CONTEXT_LABEL } from "./contracts/mod.ts";
+import { buildSharedNormalizedOutput } from "./normalize/buildNormalized.ts";
+import { scoreDay } from "./score/scoreDay.ts";
+import { buildTipAndDaypart } from "./tips/buildTips.ts";
+
+function summaryLine(
+  band: string,
+  score: number,
+  drivers: { label: string }[],
+  suppressors: { label: string }[]
+): string {
+  const d0 = drivers[0]?.label ?? "";
+  const s0 = suppressors[0]?.label ?? "";
+  let core = `Today's full-day outlook is ${band} (${score}/100).`;
+  if (d0) core += ` ${d0}`;
+  if (s0) core += ` ${s0.charAt(0).toUpperCase()}${s0.slice(1)}`;
+  return core.replace(/\s+/g, " ").trim().slice(0, 280);
+}
+
+function reliabilityNote(tier: "high" | "medium" | "low"): string | null {
+  if (tier === "high") return null;
+  if (tier === "medium") {
+    return "Today's outlook is still usable, but one or two inputs were limited.";
+  }
+  return "Today's report is broader than usual because some key inputs were limited.";
+}
+
+export function runHowFishingReport(req: SharedEngineRequest): HowsFishingReport {
+  const norm = buildSharedNormalizedOutput(req);
+  const reliability = norm.reliability;
+
+  const scored = scoreDay(norm);
+  const tipDay = buildTipAndDaypart(
+    req.context,
+    scored.drivers[0],
+    scored.suppressors[0],
+    norm.normalized,
+    reliability,
+    {
+      local_date: req.local_date,
+      solunar_peak_local: req.environment.solunar_peak_local,
+    }
+  );
+
+  const drivers = scored.drivers.map((c) => ({
+    variable: c.key,
+    label: c.label || c.key,
+    effect: "positive" as const,
+  }));
+  const suppressors = scored.suppressors.map((c) => ({
+    variable: c.key,
+    label: c.label || c.key,
+    effect: "negative" as const,
+  }));
+
+  return {
+    context: req.context,
+    display_context_label: DISPLAY_CONTEXT_LABEL[req.context],
+    location: {
+      latitude: req.latitude,
+      longitude: req.longitude,
+      state_code: req.state_code,
+      region_key: req.region_key,
+      timezone: req.local_timezone,
+      local_date: req.local_date,
+    },
+    score: scored.score,
+    band: scored.band,
+    summary_line: summaryLine(scored.band, scored.score, drivers, suppressors),
+    drivers,
+    suppressors,
+    actionable_tip: tipDay.actionable_tip,
+    actionable_tip_tag: tipDay.actionable_tip_tag,
+    daypart_note: tipDay.daypart_note,
+    daypart_preset: tipDay.daypart_preset,
+    reliability,
+    reliability_note: reliabilityNote(reliability),
+    normalized_debug: {
+      available_variables: norm.available_variables,
+      missing_variables: norm.missing_variables,
+      data_gaps: norm.data_gaps.map((g) => ({
+        variable_key: g.variable_key,
+        reason: g.reason,
+      })),
+    },
+  };
+}

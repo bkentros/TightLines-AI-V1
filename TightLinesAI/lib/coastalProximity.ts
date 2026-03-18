@@ -89,3 +89,8 @@ export function getAvailableWaterTypes(lat: number, lon: number): WaterTypeOptio
 export function isCoastalLocation(lat: number, lon: number): boolean {
   return isNearOceanCoast(lat, lon);
 }
+
+/** True when user may select Coastal (ocean-adjacent) engine context. */
+export function isCoastalContextEligible(lat: number, lon: number): boolean {
+  return isNearOceanCoast(lat, lon);
+}

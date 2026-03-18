@@ -4,6 +4,7 @@
  */
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import type { EngineContextKey, HowFishingRebuildBundle } from './howFishingRebuildContracts';
 
 // ---------------------------------------------------------------------------
 // Cache config
@@ -539,4 +540,96 @@ export async function setCachedHowFishing(
   data: HowFishingResponse
 ): Promise<void> {
   // no-op — removed
+}
+
+// ---------------------------------------------------------------------------
+// Rebuild v1 — full-day How's Fishing (canonical contract)
+// ---------------------------------------------------------------------------
+
+export type {
+  EngineContextKey,
+  RebuildScoreBand,
+  RebuildReliability,
+  ActionableTipTag,
+  DaypartNotePreset,
+  HowsFishingReportV1,
+  HowFishingRebuildBundle,
+  RegionKey as RebuildRegionKey,
+} from './howFishingRebuildContracts';
+export { HOWS_FISHING_REBUILD_FEATURE } from './howFishingRebuildContracts';
+
+function rebuildCacheKey(lat: number, lon: number, ctx: EngineContextKey): string {
+  return `how_fishing_rebuild_${lat.toFixed(3)}_${lon.toFixed(3)}_${ctx}`;
+}
+
+interface RebuildCacheEntry {
+  lat: number;
+  lon: number;
+  cache_expires_at: string;
+  timezone: string | null;
+  bundle: HowFishingRebuildBundle;
+}
+
+export async function getCachedHowFishingRebuild(
+  latitude: number,
+  longitude: number,
+  engineContext: EngineContextKey
+): Promise<HowFishingRebuildBundle | null> {
+  try {
+    const key = rebuildCacheKey(latitude, longitude, engineContext);
+    const raw = await AsyncStorage.getItem(key);
+    if (!raw) return null;
+    const entry = JSON.parse(raw) as RebuildCacheEntry;
+    if (!coordsMatch(entry.lat, entry.lon, latitude, longitude)) return null;
+    const expires = new Date(entry.cache_expires_at).getTime();
+    if (Number.isFinite(expires) && Date.now() >= expires) return null;
+    return entry.bundle;
+  } catch {
+    return null;
+  }
+}
+
+export async function setCachedHowFishingRebuild(
+  latitude: number,
+  longitude: number,
+  bundle: HowFishingRebuildBundle
+): Promise<void> {
+  try {
+    const key = rebuildCacheKey(latitude, longitude, bundle.engine_context);
+    const entry: RebuildCacheEntry = {
+      lat: latitude,
+      lon: longitude,
+      cache_expires_at: bundle.cache_expires_at,
+      timezone: bundle.report.location.timezone,
+      bundle,
+    };
+    await AsyncStorage.setItem(key, JSON.stringify(entry));
+  } catch {
+    // non-fatal
+  }
+}
+
+let currentRebuildEntry: { lat: number; lon: number; bundle: HowFishingRebuildBundle } | null = null;
+
+export function setCurrentHowFishingRebuild(
+  latitude: number,
+  longitude: number,
+  bundle: HowFishingRebuildBundle
+): void {
+  currentRebuildEntry = { lat: latitude, lon: longitude, bundle };
+}
+
+export function getCurrentHowFishingRebuild(
+  latitude?: number,
+  longitude?: number
+): HowFishingRebuildBundle | null {
+  if (!currentRebuildEntry) return null;
+  if (
+    typeof latitude === 'number' &&
+    typeof longitude === 'number' &&
+    !coordsMatch(currentRebuildEntry.lat, currentRebuildEntry.lon, latitude, longitude)
+  ) {
+    return null;
+  }
+  return currentRebuildEntry.bundle;
 }
