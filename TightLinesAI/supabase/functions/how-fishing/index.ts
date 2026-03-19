@@ -91,21 +91,103 @@ function localDateInTz(timezone: string, d = new Date()): string {
   }
 }
 
-const REBUILD_LLM_SYSTEM = `You polish How's Fishing copy for a full-day conditions outlook. Rules:
-- Never add hourly time windows, ranked time slots, or prime/good/fair/slow timing language.
-- Never claim species-specific biology, spawn phases, or habitat detail not in the payload.
-- Never mention measured freshwater water temperature or coastal water temperature.
-- Do not invent variables; if reliability is low/medium, keep wording appropriately broad.
-- Preserve: score band, driver/suppressor meanings, tip_tag and daypart_preset intent (broad timing only).
+const REBUILD_LLM_SYSTEM = `You rewrite TightLines How's Fishing reports into premium, practical copy for anglers.
+
+Non-negotiable rules:
 - Output valid JSON only: {"summary_line":"...","actionable_tip":"..."}
-- Max 220 chars per field. Second person. No exclamation spam.`;
+- Keep each field at or under 220 characters.
+- Never invent species behavior, spawning claims, structure, bait, depth, or habitat details not already implied by the payload.
+- Never invent exact time slots, hourly windows, or ranked timing tables.
+- Use broad timing language only when the payload supports it.
+- Treat the engine as the source of truth. Rewrite; do not reinterpret the score or contradict the driver/suppressor logic.
+- Freshwater temperature framing is air-temperature context only. Do not mention measured water temperature or inferred water temperature.
+- Keep lower-confidence reports broader and less absolute.
+- Write directly to the angler in second person.
+- Avoid filler, hype, and generic fishing-app language.`;
+
+function displayScoreOutOfTen(score: number): string {
+  const outOfTen = Math.round(score) / 10;
+  return Number.isInteger(outOfTen) ? outOfTen.toFixed(0) : outOfTen.toFixed(1);
+}
+
+function contextGuide(context: EngineContext): string {
+  if (context === "freshwater_lake_pond") {
+    return [
+      "Write specifically for a freshwater lake or pond.",
+      "Use language about covering water, staying flexible, lower-light periods, wind-protected banks, and broad seasonal positioning.",
+      "Do not sound like a river report and do not mention tides or current windows.",
+    ].join(" ");
+  }
+  if (context === "freshwater_river") {
+    return [
+      "Write specifically for a freshwater river.",
+      "Use language about current seams, reduced flows, slower or clearer water, runoff carryover, and river stability.",
+      "Do not sound like a lake report and do not mention tides.",
+    ].join(" ");
+  }
+  return [
+    "Write specifically for a coastal saltwater or brackish setting.",
+    "Use language about moving water, tide-driven positioning, wind exposure, cleaner water, and broad shoreline or marsh adjustments.",
+    "Do not sound like a lake or river report.",
+  ].join(" ");
+}
+
+function buildNarrationPrompt(narration: ReturnType<typeof buildNarrationPayloadFromReport>): string {
+  const scoreOutOfTen = displayScoreOutOfTen(narration.score);
+  return [
+    "<task>",
+    "Rewrite the deterministic report into two short fields that feel polished, body-of-water-specific, and useful for today's fishing decisions.",
+    "</task>",
+    "<context_guide>",
+    contextGuide(narration.context),
+    "</context_guide>",
+    "<tip_tag_guide>",
+    "temperature_intraday_flex = adjust within the day around warming or cooling.",
+    "runoff_clarity_flow = emphasize reduced flow, slower water, or clearer water in rivers.",
+    "wind_shelter = emphasize protected banks, lee shorelines, or less exposed water.",
+    "coastal_tide_positive = emphasize moving-water periods or stronger tidal movement in coastal settings.",
+    "lean_into_top_driver = build the tip around the top positive driver without sounding robotic.",
+    "general_flexibility = give one broad, practical adjustment without inventing details.",
+    "</tip_tag_guide>",
+    "<daypart_guide>",
+    "no_timing_edge = keep timing broad and avoid forcing a timing angle.",
+    "moving_water_periods = mention moving water broadly, not exact tide windows.",
+    "early_late_low_light = mention early, late, or lower-light periods broadly.",
+    "warmest_part_may_help = mention the warmer part of the day broadly.",
+    "cooler_low_light_better = mention cooler or lower-light periods broadly.",
+    "</daypart_guide>",
+    "<payload>",
+    JSON.stringify({
+      display_context_label: narration.display_context_label,
+      score: narration.score,
+      score_out_of_10: scoreOutOfTen,
+      band: narration.band,
+      summary_line_seed: narration.summary_line_seed,
+      drivers: narration.drivers,
+      suppressors: narration.suppressors,
+      actionable_tip_seed: narration.actionable_tip_seed,
+      actionable_tip_tag: narration.actionable_tip_tag,
+      daypart_note_seed: narration.daypart_note_seed ?? null,
+      daypart_preset: narration.daypart_preset,
+      reliability: narration.reliability,
+      reliability_note_seed: narration.reliability_note_seed ?? null,
+    }, null, 2),
+    "</payload>",
+    "<output_contract>",
+    "summary_line: one concise full-day outlook sentence, tailored to the body of water.",
+    "actionable_tip: one practical adjustment the angler can actually use today.",
+    "Do not repeat the same sentence structure in both fields.",
+    "Do not mention JSON, payload, or scoring math.",
+    "</output_contract>",
+  ].join("\n");
+}
 
 async function polishReportCopy(
   anthropicKey: string,
-  report: HowsFishingReport,
+  _report: HowsFishingReport,
   narration: ReturnType<typeof buildNarrationPayloadFromReport>
 ): Promise<{ summary: string; tip: string; inT: number; outT: number } | null> {
-  const user = JSON.stringify(narration, null, 2);
+  const user = buildNarrationPrompt(narration);
   const res = await fetch("https://api.anthropic.com/v1/messages", {
     method: "POST",
     headers: {

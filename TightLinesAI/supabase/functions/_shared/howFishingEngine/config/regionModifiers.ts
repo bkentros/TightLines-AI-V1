@@ -5,42 +5,42 @@ type RiverR = { t: number; p: number; w: number; l: number; r: number };
 type CoastalR = { ti: number; wi: number; pr: number; l: number; te: number; pi: number };
 
 const LAKE: Record<RegionKey, LakeR> = {
-  northeast: { t: 2, p: 0, w: 0, l: 0, pr: 0 },
+  northeast: { t: 2, p: 0, w: 1, l: 0, pr: 0 },
   southeast_atlantic: { t: 0, p: 0, w: 0, l: 0, pr: 0 },
-  florida: { t: -1, p: 0, w: 0, l: 1, pr: 0 },
-  gulf_coast: { t: -1, p: 0, w: 0, l: 1, pr: 0 },
-  great_lakes_upper_midwest: { t: 3, p: 0, w: 0, l: 0, pr: 0 },
+  florida: { t: -1, p: 0, w: 0, l: 1, pr: -1 },
+  gulf_coast: { t: -1, p: 0, w: 0, l: 1, pr: -1 },
+  great_lakes_upper_midwest: { t: 3, p: 0, w: 1, l: 0, pr: 0 },
   midwest_interior: { t: 2, p: 0, w: 0, l: 0, pr: 0 },
   south_central: { t: 0, p: 0, w: 0, l: 0, pr: 0 },
-  mountain_west: { t: 2, p: 0, w: 0, l: 0, pr: 0 },
-  southwest: { t: 0, p: 0, w: 0, l: 1, pr: 0 },
-  pacific_coast: { t: 0, p: 0, w: 0, l: 0, pr: 0 },
+  mountain_west: { t: 2, p: 0, w: 1, l: 0, pr: 0 },
+  southwest: { t: 0, p: 0, w: 0, l: 1, pr: -1 },
+  pacific_coast: { t: 0, p: 0, w: 1, l: 0, pr: 0 },
 };
 
 const RIVER: Record<RegionKey, RiverR> = {
-  northeast: { t: 1, p: 0, w: 0, l: 0, r: 1 },
+  northeast: { t: 1, p: 0, w: 0, l: 0, r: 2 },
   southeast_atlantic: { t: 0, p: 0, w: 0, l: 0, r: 1 },
-  florida: { t: -1, p: 0, w: 0, l: 0, r: 1 },
-  gulf_coast: { t: -1, p: 0, w: 0, l: 0, r: 2 },
-  great_lakes_upper_midwest: { t: 2, p: 0, w: 0, l: 0, r: 1 },
+  florida: { t: -1, p: 0, w: 0, l: 0, r: 0 },
+  gulf_coast: { t: -1, p: 0, w: 0, l: 0, r: 1 },
+  great_lakes_upper_midwest: { t: 2, p: 0, w: 0, l: 0, r: 2 },
   midwest_interior: { t: 1, p: 0, w: 0, l: 0, r: 2 },
   south_central: { t: 0, p: 0, w: 0, l: 0, r: 1 },
   mountain_west: { t: 1, p: 0, w: 0, l: 0, r: 1 },
-  southwest: { t: 0, p: 0, w: 0, l: 0, r: 1 },
-  pacific_coast: { t: 0, p: 0, w: 0, l: 0, r: 1 },
+  southwest: { t: 0, p: 0, w: 0, l: 0, r: 2 },
+  pacific_coast: { t: 0, p: 0, w: 0, l: 0, r: 2 },
 };
 
 const COAST: Record<RegionKey, CoastalR> = {
   northeast: { ti: 1, wi: 1, pr: 0, l: 0, te: 1, pi: 0 },
-  southeast_atlantic: { ti: 0, wi: 0, pr: 0, l: 0, te: 0, pi: 0 },
-  florida: { ti: 0, wi: 0, pr: 0, l: 0, te: 0, pi: 0 },
-  gulf_coast: { ti: 0, wi: 0, pr: 0, l: 0, te: 0, pi: 1 },
+  southeast_atlantic: { ti: 0, wi: 0, pr: 0, l: 0, te: 0, pi: -1 },
+  florida: { ti: 0, wi: 0, pr: 0, l: 0, te: 0, pi: -1 },
+  gulf_coast: { ti: 0, wi: 0, pr: 0, l: 0, te: 0, pi: 0 },
   great_lakes_upper_midwest: { ti: 0, wi: 0, pr: 0, l: 0, te: 0, pi: 0 },
   midwest_interior: { ti: 0, wi: 0, pr: 0, l: 0, te: 0, pi: 0 },
   south_central: { ti: 0, wi: 0, pr: 0, l: 0, te: 0, pi: 0 },
   mountain_west: { ti: 0, wi: 0, pr: 0, l: 0, te: 0, pi: 0 },
-  southwest: { ti: 0, wi: 0, pr: 0, l: 0, te: 0, pi: 0 },
-  pacific_coast: { ti: 1, wi: 1, pr: 0, l: 0, te: 0, pi: 0 },
+  southwest: { ti: 0, wi: 0, pr: 0, l: 0, te: 0, pi: -1 },
+  pacific_coast: { ti: 1, wi: 1, pr: 0, l: 0, te: 0, pi: -1 },
 };
 
 export function getRegionModifiers(

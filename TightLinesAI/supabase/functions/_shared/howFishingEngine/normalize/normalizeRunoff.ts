@@ -3,39 +3,39 @@ import type { RegionKey, VariableState } from "../contracts/mod.ts";
 type Sens = "low" | "medium" | "high";
 
 const REGION_SENS: Record<RegionKey, Sens> = {
-  mountain_west: "low",
-  northeast: "medium",
+  florida: "low",
   southeast_atlantic: "medium",
-  florida: "medium",
-  great_lakes_upper_midwest: "medium",
+  gulf_coast: "medium",
   south_central: "medium",
-  pacific_coast: "medium",
-  gulf_coast: "high",
+  mountain_west: "medium",
+  northeast: "high",
+  great_lakes_upper_midwest: "high",
   midwest_interior: "high",
   southwest: "high",
+  pacific_coast: "high",
 };
 
 function classify(s: Sens, p24: number, p72: number, p7d: number): VariableState {
   if (s === "low") {
-    if (p24 < 0.3 && p72 < 0.7 && p7d < 1.5) {
+    if (p24 < 0.35 && p72 < 0.85 && p7d < 1.8) {
       return { label: "stable", score: 1 };
     }
-    if (p24 < 0.6 && p72 < 1.2 && p7d < 2.5) {
+    if (p24 < 0.7 && p72 < 1.6 && p7d < 3.0) {
       return { label: "slightly_elevated", score: 0 };
     }
-    if (p24 < 1.0 && p72 < 2.0 && p7d < 4.0) {
+    if (p24 < 1.1 && p72 < 2.6 && p7d < 4.8) {
       return { label: "elevated", score: -1 };
     }
     return { label: "blown_out", score: -2 };
   }
   if (s === "medium") {
-    if (p24 < 0.2 && p72 < 0.5 && p7d < 1.2) {
+    if (p24 < 0.22 && p72 < 0.55 && p7d < 1.25) {
       return { label: "stable", score: 1 };
     }
-    if (p24 < 0.45 && p72 < 1.0 && p7d < 2.2) {
+    if (p24 < 0.5 && p72 < 1.15 && p7d < 2.3) {
       return { label: "slightly_elevated", score: 0 };
     }
-    if (p24 < 0.8 && p72 < 1.75 && p7d < 3.5) {
+    if (p24 < 0.9 && p72 < 2.0 && p7d < 3.9) {
       return { label: "elevated", score: -1 };
     }
     return { label: "blown_out", score: -2 };
@@ -44,7 +44,7 @@ function classify(s: Sens, p24: number, p72: number, p7d: number): VariableState
   if (p24 < 0.35 && p72 < 0.8 && p7d < 1.8) {
     return { label: "slightly_elevated", score: 0 };
   }
-  if (p24 < 0.6 && p72 < 1.4 && p7d < 3.0) {
+  if (p24 < 0.65 && p72 < 1.5 && p7d < 3.1) {
     return { label: "elevated", score: -1 };
   }
   return { label: "blown_out", score: -2 };

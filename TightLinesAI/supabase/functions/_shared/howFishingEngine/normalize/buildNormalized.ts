@@ -117,6 +117,7 @@ export function buildSharedNormalizedOutput(req: SharedEngineRequest): SharedNor
       e.active_precip_now === true
     ) {
       precip = normalizePrecipitationDisruption(
+        req.context,
         e.precip_rate_now_in_per_hr,
         e.precip_24h_in,
         e.precip_72h_in,

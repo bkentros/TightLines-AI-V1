@@ -96,5 +96,5 @@ export function normalizeTideFromStage(tideState: string | null | undefined): Va
   if (/incoming|outgoing|rising|falling/.test(s)) {
     return { label: "moving", score: 1 };
   }
-  return { label: "moving", score: 1 };
+  return null;
 }

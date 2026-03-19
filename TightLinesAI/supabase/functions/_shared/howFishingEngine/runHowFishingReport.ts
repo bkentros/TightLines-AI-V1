@@ -4,17 +4,21 @@ import { buildSharedNormalizedOutput } from "./normalize/buildNormalized.ts";
 import { scoreDay } from "./score/scoreDay.ts";
 import { buildTipAndDaypart } from "./tips/buildTips.ts";
 
+function sentenceCap(s: string): string {
+  if (!s) return s;
+  return s.charAt(0).toUpperCase() + s.slice(1);
+}
+
 function summaryLine(
   band: string,
-  score: number,
   drivers: { label: string }[],
   suppressors: { label: string }[]
 ): string {
   const d0 = drivers[0]?.label ?? "";
   const s0 = suppressors[0]?.label ?? "";
-  let core = `Today's full-day outlook is ${band} (${score}/100).`;
+  let core = `Today's full-day outlook is ${band}.`;
   if (d0) core += ` ${d0}`;
-  if (s0) core += ` ${s0.charAt(0).toUpperCase()}${s0.slice(1)}`;
+  if (s0) core += ` ${sentenceCap(s0)}`;
   return core.replace(/\s+/g, " ").trim().slice(0, 280);
 }
 
@@ -67,7 +71,7 @@ export function runHowFishingReport(req: SharedEngineRequest): HowsFishingReport
     },
     score: scored.score,
     band: scored.band,
-    summary_line: summaryLine(scored.band, scored.score, drivers, suppressors),
+    summary_line: summaryLine(scored.band, drivers, suppressors),
     drivers,
     suppressors,
     actionable_tip: tipDay.actionable_tip,

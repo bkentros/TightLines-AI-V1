@@ -46,5 +46,4 @@ yarn-error.*
 .vscode/
 .idea/
 .cursor/
-deno.lock
 node_modules/.deno/

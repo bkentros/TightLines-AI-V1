@@ -1,6 +1,6 @@
 # Environmental API Integration — Implementation Plan
 
-> **Status: COMPLETED (historical).** Implemented and enhanced in Sweep 1 (altitude_ft, gust_speed additions) and Sweep 3 (envAdapter wiring). For current architecture, see `PROJECT_OVERVIEW.md` and `CORE_INTELLIGENCE_SPEC.md`.
+> **Status: COMPLETED (historical).** The environment API is still active, but the current How's Fishing architecture now flows through `supabase/functions/_shared/howFishingEngine/`. For active guidance, see `docs/tlai_engine_rebuild_docs/`.
 
 **Spec reference:** `TightLines_AI_V1_Spec.md` lines 59–78
 **Original status:** Implemented

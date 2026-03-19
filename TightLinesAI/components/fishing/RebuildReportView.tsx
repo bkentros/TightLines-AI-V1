@@ -14,13 +14,21 @@ const BAND_COLOR: Record<string, string> = {
   Poor: '#9d6b53',
 };
 
+function displayScore(score: number): string {
+  const outOfTen = Math.round(score) / 10;
+  return Number.isInteger(outOfTen) ? outOfTen.toFixed(0) : outOfTen.toFixed(1);
+}
+
 export function RebuildReportView({ report }: { report: HowsFishingReportV1 }) {
   const bandColor = BAND_COLOR[report.band] ?? colors.textMuted;
 
   return (
     <View style={styles.wrap}>
       <View style={[styles.scoreCard, { borderLeftColor: bandColor }]}>
-        <Text style={styles.scoreNum}>{report.score}</Text>
+        <View style={styles.scoreLeft}>
+          <Text style={styles.scoreNum}>{displayScore(report.score)}</Text>
+          <Text style={styles.scoreLabel}>out of 10</Text>
+        </View>
         <View style={styles.scoreRight}>
           <Text style={[styles.band, { color: bandColor }]}>{report.band}</Text>
           <Text style={styles.fullDay}>Today&apos;s full-day outlook</Text>
@@ -81,6 +89,7 @@ const styles = StyleSheet.create({
     borderLeftWidth: 4,
     gap: spacing.md,
   },
+  scoreLeft: { minWidth: 76 },
   scoreNum: {
     fontFamily: fonts.serif,
     fontSize: 44,
@@ -88,6 +97,7 @@ const styles = StyleSheet.create({
     color: colors.text,
     lineHeight: 48,
   },
+  scoreLabel: { fontSize: 12, color: colors.textMuted, marginTop: -2 },
   scoreRight: { flex: 1 },
   band: { fontSize: 18, fontWeight: '800', marginBottom: 4 },
   fullDay: {

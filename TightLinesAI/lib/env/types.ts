@@ -98,7 +98,7 @@ export interface WeatherData {
   temp_trend_3day?: 'rapid_warming' | 'warming' | 'stable' | 'cooling' | 'rapid_cooling';
   /** Temperature delta over 72 hours in °F (positive = warming) */
   temp_trend_direction_f?: number;
-  /** Daily high temperatures, 8 entries: index 0 = 7 days ago, index 7 = today */
+  /** Daily high temperatures, 21 entries: index 0 = 14 days ago, index 14 = today, 15-20 = forecast */
   temp_7day_high?: number[];
   /** Daily low temperatures, same indexing as temp_7day_high */
   temp_7day_low?: number[];
@@ -108,7 +108,7 @@ export interface WeatherData {
   precip_48hr_inches?: number;
   /** Total precipitation in the last 7 days (inches) */
   precip_7day_inches?: number;
-  /** Daily precipitation totals in inches, 8 entries: index 0 = 7 days ago, index 7 = today */
+  /** Daily precipitation totals in inches, 21 entries: index 0 = 14 days ago, index 14 = today, 15-20 = forecast */
   precip_7day_daily?: number[];
 }
 

@@ -76,10 +76,10 @@ Deno.test("light: coastal bright 0 score", () => {
 });
 
 Deno.test("precip: active_disruption then recent_rain precedence", () => {
-  const a = normalizePrecipitationDisruption(0.15, 0, 0, false);
+  const a = normalizePrecipitationDisruption("freshwater_lake_pond", 0.15, 0, 0, false);
   assertEquals(a!.label, "active_disruption");
   assertEquals(a!.score, -2);
-  const r = normalizePrecipitationDisruption(0.05, 0.2, 0.4, false);
+  const r = normalizePrecipitationDisruption("freshwater_lake_pond", 0.05, 0.2, 0.4, false);
   assertEquals(r!.label, "recent_rain");
 });
 
@@ -99,6 +99,25 @@ Deno.test("tide: current knots strong_moving", () => {
 Deno.test("tide: stage incoming -> moving", () => {
   const t = normalizeTideFromStage("incoming");
   assertEquals(t!.score, 1);
+});
+
+Deno.test("tide: unknown stage does not auto-score positive", () => {
+  const t = normalizeTideFromStage("unknown");
+  assertEquals(t, null);
+});
+
+Deno.test("precip: coastal is softer than lake for the same rain totals", () => {
+  const lake = normalizePrecipitationDisruption("freshwater_lake_pond", 0.03, 0.8, 1.6, false);
+  const coast = normalizePrecipitationDisruption("coastal", 0.03, 0.8, 1.6, false);
+  assertEquals(lake!.label, "active_disruption");
+  assertEquals(coast!.label, "recent_rain");
+});
+
+Deno.test("runoff: florida more tolerant than northeast for same totals", () => {
+  const fl = normalizeRunoff("florida", 0.3, 0.7, 1.5);
+  const ne = normalizeRunoff("northeast", 0.3, 0.7, 1.5);
+  assertEquals(fl!.label, "stable");
+  assertEquals(ne!.label, "slightly_elevated");
 });
 
 Deno.test("band mapping exact thresholds", () => {

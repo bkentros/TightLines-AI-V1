@@ -15,7 +15,7 @@ import type { EngineContextKey, HowFishingRebuildBundle } from './howFishingRebu
 const COORD_MATCH_THRESHOLD = 0.01;
 
 // ---------------------------------------------------------------------------
-// Engine output types (mirrors backend _shared/coreIntelligence/types.ts)
+// Legacy client types retained for older app surfaces; active rebuild report types live in lib/howFishingRebuildContracts.ts
 // Client-side types only — no Deno imports.
 // ---------------------------------------------------------------------------
 

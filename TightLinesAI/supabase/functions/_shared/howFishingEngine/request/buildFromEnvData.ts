@@ -12,6 +12,29 @@ function readWeather(env: Record<string, unknown>): Record<string, unknown> | nu
   return w && typeof w === "object" ? (w as Record<string, unknown>) : null;
 }
 
+function readDailyMean(
+  highs: number[] | undefined,
+  lows: number[] | undefined,
+  idx: number | null,
+): number | null {
+  if (idx == null || !highs || !lows) return null;
+  if (highs[idx] == null || lows[idx] == null) return null;
+  return (highs[idx]! + lows[idx]!) / 2;
+}
+
+function currentDailyIndex(values: unknown[] | undefined): number | null {
+  if (!values || values.length === 0) return null;
+  return Math.min(14, values.length - 1);
+}
+
+function sumRecent(values: number[] | undefined, endIdx: number | null, days: number): number | null {
+  if (!values || values.length === 0 || endIdx == null) return null;
+  const start = Math.max(0, endIdx - (days - 1));
+  let total = 0;
+  for (let i = start; i <= endIdx; i++) total += values[i] ?? 0;
+  return total;
+}
+
 /**
  * Maps client get-environment payload into SharedEngineRequest.
  */
@@ -26,37 +49,39 @@ export function buildSharedEngineRequestFromEnvData(
   const { state_code, region_key } = resolveRegionForCoordinates(latitude, longitude);
 
   const w = readWeather(envData);
-  const hourly = envData.hourly_pressure_mb;
+
   let pressure_history_mb: number[] | null = null;
-  if (Array.isArray(hourly)) {
-    pressure_history_mb = hourly
-      .map((h: unknown) => {
-        if (h && typeof h === "object" && "value" in h) return num((h as { value: unknown }).value);
-        return null;
-      })
+  if (w && Array.isArray(w.pressure_48hr)) {
+    pressure_history_mb = (w.pressure_48hr as unknown[])
+      .map((x) => num(x))
       .filter((x): x is number => x != null);
   }
-  if ((!pressure_history_mb || pressure_history_mb.length < 2) && w && Array.isArray(w.pressure_48hr)) {
-    pressure_history_mb = (w.pressure_48hr as unknown[]).map((x) => num(x)).filter((x): x is number => x != null);
+  if (!pressure_history_mb || pressure_history_mb.length < 2) {
+    const hourly = envData.hourly_pressure_mb;
+    if (Array.isArray(hourly)) {
+      const trimmed = hourly.slice(Math.max(0, hourly.length - 48));
+      pressure_history_mb = trimmed
+        .map((h: unknown) => {
+          if (h && typeof h === "object" && "value" in h) return num((h as { value: unknown }).value);
+          return null;
+        })
+        .filter((x): x is number => x != null);
+    }
   }
 
   const th = w?.temp_7day_high as number[] | undefined;
   const tl = w?.temp_7day_low as number[] | undefined;
-  const daily_mean =
-    th?.[7] != null && tl?.[7] != null ? (th[7]! + tl[7]!) / 2 : num(w?.temperature);
-  const prior_mean =
-    th?.[6] != null && tl?.[6] != null ? (th[6]! + tl[6]!) / 2 : null;
-  const d2_mean =
-    th?.[5] != null && tl?.[5] != null ? (th[5]! + tl[5]!) / 2 : null;
+  const tempIdx = currentDailyIndex(th && th.length ? th : tl);
+  const daily_mean = readDailyMean(th, tl, tempIdx) ?? num(w?.temperature);
+  const prior_mean = readDailyMean(th, tl, tempIdx != null ? tempIdx - 1 : null);
+  const d2_mean = readDailyMean(th, tl, tempIdx != null ? tempIdx - 2 : null);
 
   const pd = w?.precip_7day_daily as number[] | undefined;
-  const precip_24h = pd?.[7] ?? (num(w?.precip_48hr_inches) != null ? num(w!.precip_48hr_inches)! / 2 : null);
-  let precip_72h: number | null = null;
-  if (pd && pd.length >= 3) {
-    precip_72h = (pd[5] ?? 0) + (pd[6] ?? 0) + (pd[7] ?? 0);
-  } else if (num(w?.precip_48hr_inches) != null) {
-    precip_72h = num(w!.precip_48hr_inches);
-  }
+  const precipIdx = currentDailyIndex(pd);
+  const precip_24h = precipIdx != null
+    ? (pd?.[precipIdx] ?? null)
+    : (num(w?.precip_48hr_inches) != null ? num(w!.precip_48hr_inches)! / 2 : null);
+  const precip_72h = sumRecent(pd, precipIdx, 3) ?? num(w?.precip_48hr_inches);
 
   const precip_mm = num(w?.precipitation);
   const precip_rate_now = precip_mm != null ? precip_mm / 25.4 : null;
@@ -66,7 +91,9 @@ export function buildSharedEngineRequestFromEnvData(
   const highLow = tides?.high_low as Array<{ time: string; type?: string; value: number }> | undefined;
   const tide_high_low =
     Array.isArray(highLow) && highLow.length >= 2
-      ? highLow.map((x) => ({ time: x.time, value: Number(x.value) }))
+      ? highLow
+          .map((x) => ({ time: x.time, value: Number(x.value) }))
+          .filter((x) => x.time && Number.isFinite(x.value))
       : null;
 
   const currentKts = tides && typeof tides === "object" && "current_speed_knots_max" in tides
@@ -83,8 +110,8 @@ export function buildSharedEngineRequestFromEnvData(
   return {
     latitude,
     longitude,
-    state_code: state_code,
-    region_key: region_key,
+    state_code,
+    region_key,
     local_date: localDate,
     local_timezone: localTimezone,
     context,
