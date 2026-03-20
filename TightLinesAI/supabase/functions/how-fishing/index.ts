@@ -18,10 +18,10 @@ import {
 
 const USAGE_CAP_ANGLER_USD = 1;
 const USAGE_CAP_MASTER_ANGLER_USD = 3;
-const ESTIMATED_COST_PER_CALL_USD = 0.006;
-const CLAUDE_MODEL = "claude-haiku-4-5";
-const CLAUDE_INPUT_COST_PER_M = 1;
-const CLAUDE_OUTPUT_COST_PER_M = 5;
+const ESTIMATED_COST_PER_CALL_USD = 0.003;
+const LLM_MODEL = "gpt-5.4-mini";
+const LLM_INPUT_COST_PER_M = 0.75;
+const LLM_OUTPUT_COST_PER_M = 4.5;
 
 const VALID_CONTEXTS: EngineContext[] = [
   "freshwater_lake_pond",
@@ -44,7 +44,7 @@ function getUsageCapUsd(tier: string): number {
 }
 
 function computeCallCost(inputTokens: number, outputTokens: number): number {
-  return (inputTokens * CLAUDE_INPUT_COST_PER_M + outputTokens * CLAUDE_OUTPUT_COST_PER_M) / 1_000_000;
+  return (inputTokens * LLM_INPUT_COST_PER_M + outputTokens * LLM_OUTPUT_COST_PER_M) / 1_000_000;
 }
 
 function locationLocalMidnightIso(timezone: string, now = new Date()): string {
@@ -216,39 +216,40 @@ function describeSeasonFromDate(iso: string): string {
 }
 
 async function polishReportCopy(
-  anthropicKey: string,
+  openaiKey: string,
   _report: HowsFishingReport,
   narration: ReturnType<typeof buildNarrationPayloadFromReport>,
   locationName?: string | null,
   localDate?: string | null
 ): Promise<{ summary: string; tip: string; inT: number; outT: number } | null> {
   const user = buildNarrationPrompt(narration, locationName, localDate);
-  const res = await fetch("https://api.anthropic.com/v1/messages", {
+  const res = await fetch("https://api.openai.com/v1/chat/completions", {
     method: "POST",
     headers: {
-      "x-api-key": anthropicKey,
-      "anthropic-version": "2023-06-01",
+      "Authorization": `Bearer ${openaiKey}`,
       "content-type": "application/json",
     },
     body: JSON.stringify({
-      model: CLAUDE_MODEL,
+      model: LLM_MODEL,
       max_tokens: 400,
       temperature: 0.85,
-      system: REBUILD_LLM_SYSTEM,
-      messages: [{ role: "user", content: user }],
+      response_format: { type: "json_object" },
+      messages: [
+        { role: "system", content: REBUILD_LLM_SYSTEM },
+        { role: "user", content: user },
+      ],
     }),
   });
   if (!res.ok) return null;
   const json = await res.json() as {
-    content?: { type: string; text?: string }[];
-    usage?: { input_tokens: number; output_tokens: number };
+    choices?: { message?: { content?: string } }[];
+    usage?: { prompt_tokens: number; completion_tokens: number };
   };
-  const text = json.content?.find((c) => c.type === "text")?.text ?? "";
-  const inT = json.usage?.input_tokens ?? 0;
-  const outT = json.usage?.output_tokens ?? 0;
+  const text = json.choices?.[0]?.message?.content ?? "";
+  const inT = json.usage?.prompt_tokens ?? 0;
+  const outT = json.usage?.completion_tokens ?? 0;
   try {
-    const cleaned = text.replace(/^```(?:json)?\s*/i, "").replace(/\s*```\s*$/i, "").trim();
-    const p = JSON.parse(cleaned) as { summary_line?: string; actionable_tip?: string };
+    const p = JSON.parse(text) as { summary_line?: string; actionable_tip?: string };
     const summary = typeof p.summary_line === "string" ? p.summary_line.slice(0, 280) : "";
     const tip = typeof p.actionable_tip === "string" ? p.actionable_tip.slice(0, 280) : "";
     if (summary && tip) return { summary, tip, inT, outT };
@@ -398,12 +399,12 @@ Deno.serve(async (req: Request) => {
   const sharedReq = buildSharedEngineRequestFromEnvData(lat, lon, localDate, timezone, context, envData);
   let report = runHowFishingReport(sharedReq);
 
-  const anthropicKey = Deno.env.get("ANTHROPIC_API_KEY");
+  const openaiKey = Deno.env.get("OPENAI_API_KEY");
   let inputTokens = 0;
   let outputTokens = 0;
-  if (anthropicKey) {
+  if (openaiKey) {
     const narr = buildNarrationPayloadFromReport(report);
-    const polished = await polishReportCopy(anthropicKey, report, narr, locationName, localDate);
+    const polished = await polishReportCopy(openaiKey, report, narr, locationName, localDate);
     if (polished) {
       report = {
         ...report,
