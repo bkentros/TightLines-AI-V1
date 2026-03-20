@@ -45,7 +45,7 @@ export function normalizePressureDetailed(
     let prevSign = 0;
     for (let i = 1; i < series.length; i++) {
       const d = series[i]! - series[i - 1]!;
-      const s = d > 0.05 ? 1 : d < -0.05 ? -1 : 0;
+      const s = d > 0.3 ? 1 : d < -0.3 ? -1 : 0;
       if (s !== 0 && prevSign !== 0 && s !== prevSign) directionChanges++;
       if (s !== 0) prevSign = s;
     }
@@ -53,9 +53,9 @@ export function normalizePressureDetailed(
 
   if (series.length >= 3) {
     if (
-      range24 >= 5.0 ||
-      max3hSwing >= 2.0 ||
-      (directionChanges >= 2 && range24 >= 3.5)
+      range24 >= 8.0 ||
+      max3hSwing >= 3.5 ||
+      (directionChanges >= 4 && range24 >= 5.0)
     ) {
       return {
         quality,

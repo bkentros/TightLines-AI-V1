@@ -91,7 +91,16 @@ function localDateInTz(timezone: string, d = new Date()): string {
   }
 }
 
-const REBUILD_LLM_SYSTEM = `You rewrite TightLines How's Fishing reports into premium, practical copy for anglers.
+const REBUILD_LLM_SYSTEM = `You are the voice of TightLines AI — a confident, knowledgeable fishing guide who speaks with authority and warmth. You sound like a trusted local pro who's been on the water all week and is giving a friend an honest read on the day.
+
+Voice and tone:
+- Confident and direct — never hedge, never say "might want to consider" or "adjust if conditions shift."
+- Warm but concise — you respect the angler's time.
+- Speak like a real guide, not a weather app or a chatbot. Use natural, varied language.
+- Every report should feel like it was written fresh for this specific day, location, and conditions. Never sound templated.
+- Vary your sentence structure, word choice, and phrasing every single time. If you catch yourself falling into a pattern, break it.
+- Reference the location name when provided — make the angler feel like this report was made for their spot.
+- Reference the season or time of year naturally when it adds context.
 
 Non-negotiable rules:
 - Output valid JSON only: {"summary_line":"...","actionable_tip":"..."}
@@ -103,7 +112,8 @@ Non-negotiable rules:
 - Freshwater temperature framing is air-temperature context only. Do not mention measured water temperature or inferred water temperature.
 - Keep lower-confidence reports broader and less absolute.
 - Write directly to the angler in second person.
-- Avoid filler, hype, and generic fishing-app language.`;
+- Never use these phrases: "adjust if conditions shift", "stay flexible", "cover likely holding water", "conditions may", "you might want to", "consider adjusting."
+- Be decisive. If the data says it's good, say it's good. If it's tough, say it's tough. Own the call.`;
 
 function displayScoreOutOfTen(score: number): string {
   const outOfTen = Math.round(score) / 10;
@@ -132,32 +142,46 @@ function contextGuide(context: EngineContext): string {
   ].join(" ");
 }
 
-function buildNarrationPrompt(narration: ReturnType<typeof buildNarrationPayloadFromReport>): string {
+function buildNarrationPrompt(
+  narration: ReturnType<typeof buildNarrationPayloadFromReport>,
+  locationName?: string | null,
+  localDate?: string | null
+): string {
   const scoreOutOfTen = displayScoreOutOfTen(narration.score);
+  const seasonLabel = localDate ? describeSeasonFromDate(localDate) : null;
+  const locationCtx = locationName || null;
+
   return [
     "<task>",
-    "Rewrite the deterministic report into two short fields that feel polished, body-of-water-specific, and useful for today's fishing decisions.",
+    "Write a fresh, confident fishing outlook and one actionable tip for today. Sound like a seasoned local guide giving a friend the honest read — not a weather app spitting out data.",
+    "Every report must feel uniquely written for this day and place. Vary your language, structure, and angle every time.",
     "</task>",
+    locationCtx ? `<location>${locationCtx}</location>` : "",
+    localDate ? `<date>${localDate}</date>` : "",
+    seasonLabel ? `<season>${seasonLabel}</season>` : "",
     "<context_guide>",
     contextGuide(narration.context),
     "</context_guide>",
     "<tip_tag_guide>",
-    "temperature_intraday_flex = adjust within the day around warming or cooling.",
-    "runoff_clarity_flow = emphasize reduced flow, slower water, or clearer water in rivers.",
-    "wind_shelter = emphasize protected banks, lee shorelines, or less exposed water.",
-    "coastal_tide_positive = emphasize moving-water periods or stronger tidal movement in coastal settings.",
-    "lean_into_top_driver = build the tip around the top positive driver without sounding robotic.",
-    "general_flexibility = give one broad, practical adjustment without inventing details.",
+    "temperature_intraday_flex = tell the angler exactly when to lean in based on warming or cooling trends. Be specific about the approach, not vague.",
+    "runoff_clarity_flow = direct the angler toward cleaner, slower water. Say it with authority.",
+    "wind_shelter = tell them where to position — sheltered banks, lee shorelines, wind-blocked coves. Be confident.",
+    "coastal_tide_positive = tell them to be on the water when it's moving. Tidal flow is the play today.",
+    "lean_into_top_driver = build a clear, actionable tip around whatever is working best today. Name it.",
+    "general_flexibility = give one sharp, practical read on how to approach the day. No hedging.",
     "</tip_tag_guide>",
     "<daypart_guide>",
-    "no_timing_edge = keep timing broad and avoid forcing a timing angle.",
-    "moving_water_periods = mention moving water broadly, not exact tide windows.",
-    "early_late_low_light = mention early, late, or lower-light periods broadly.",
-    "warmest_part_may_help = mention the warmer part of the day broadly.",
-    "cooler_low_light_better = mention cooler or lower-light periods broadly.",
+    "no_timing_edge = no obvious timing window stands out — keep the outlook honest about that without sounding negative.",
+    "moving_water_periods = the tidal movement windows are where the action will be. Say it directly.",
+    "early_late_low_light = early morning or late afternoon is the move today. Commit to that call.",
+    "warmest_part_may_help = the afternoon warmth will wake things up. Tell them to plan around it.",
+    "cooler_low_light_better = the heat is a factor — low-light windows and cooler stretches are the play.",
     "</daypart_guide>",
     "<payload>",
     JSON.stringify({
+      location_name: locationCtx,
+      date: localDate,
+      season: seasonLabel,
       display_context_label: narration.display_context_label,
       score: narration.score,
       score_out_of_10: scoreOutOfTen,
@@ -174,20 +198,31 @@ function buildNarrationPrompt(narration: ReturnType<typeof buildNarrationPayload
     }, null, 2),
     "</payload>",
     "<output_contract>",
-    "summary_line: one concise full-day outlook sentence, tailored to the body of water.",
-    "actionable_tip: one practical adjustment the angler can actually use today.",
+    "summary_line: one confident full-day outlook sentence. Reference the location if provided. Make the angler feel informed within seconds.",
+    "actionable_tip: one decisive, practical tip the angler can act on today. No hedging. No \"consider\" or \"might want to.\" Tell them what to do.",
     "Do not repeat the same sentence structure in both fields.",
     "Do not mention JSON, payload, or scoring math.",
+    "Do not reuse phrasing from previous reports. Write this one fresh.",
     "</output_contract>",
-  ].join("\n");
+  ].filter(Boolean).join("\n");
+}
+
+function describeSeasonFromDate(iso: string): string {
+  const month = parseInt(iso.slice(5, 7), 10) || 1;
+  if (month >= 3 && month <= 5) return "spring";
+  if (month >= 6 && month <= 8) return "summer";
+  if (month >= 9 && month <= 11) return "fall";
+  return "winter";
 }
 
 async function polishReportCopy(
   anthropicKey: string,
   _report: HowsFishingReport,
-  narration: ReturnType<typeof buildNarrationPayloadFromReport>
+  narration: ReturnType<typeof buildNarrationPayloadFromReport>,
+  locationName?: string | null,
+  localDate?: string | null
 ): Promise<{ summary: string; tip: string; inT: number; outT: number } | null> {
-  const user = buildNarrationPrompt(narration);
+  const user = buildNarrationPrompt(narration, locationName, localDate);
   const res = await fetch("https://api.anthropic.com/v1/messages", {
     method: "POST",
     headers: {
@@ -198,6 +233,7 @@ async function polishReportCopy(
     body: JSON.stringify({
       model: CLAUDE_MODEL,
       max_tokens: 400,
+      temperature: 0.85,
       system: REBUILD_LLM_SYSTEM,
       messages: [{ role: "user", content: user }],
     }),
@@ -353,6 +389,12 @@ Deno.serve(async (req: Request) => {
   const timezone = extractTimezone(envData);
   const localDate = localDateInTz(timezone);
 
+  const locationName = typeof body.location_name === "string" && body.location_name.length > 0
+    ? body.location_name
+    : typeof body.city === "string" && body.city.length > 0
+      ? body.city
+      : null;
+
   const sharedReq = buildSharedEngineRequestFromEnvData(lat, lon, localDate, timezone, context, envData);
   let report = runHowFishingReport(sharedReq);
 
@@ -361,7 +403,7 @@ Deno.serve(async (req: Request) => {
   let outputTokens = 0;
   if (anthropicKey) {
     const narr = buildNarrationPayloadFromReport(report);
-    const polished = await polishReportCopy(anthropicKey, report, narr);
+    const polished = await polishReportCopy(anthropicKey, report, narr, locationName, localDate);
     if (polished) {
       report = {
         ...report,

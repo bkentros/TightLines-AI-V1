@@ -9,6 +9,16 @@ function sentenceCap(s: string): string {
   return s.charAt(0).toUpperCase() + s.slice(1);
 }
 
+function bandSentence(band: string): string {
+  switch (band) {
+    case "Excellent": return "It's an excellent day to be on the water.";
+    case "Good": return "Conditions are looking good out there today.";
+    case "Fair": return "It's a fair day — fishable, but not all factors are lined up.";
+    case "Poor": return "Tough conditions today — it's going to take patience and persistence.";
+    default: return `Today's outlook: ${band}.`;
+  }
+}
+
 function summaryLine(
   band: string,
   drivers: { label: string }[],
@@ -16,7 +26,7 @@ function summaryLine(
 ): string {
   const d0 = drivers[0]?.label ?? "";
   const s0 = suppressors[0]?.label ?? "";
-  let core = `Today's full-day outlook is ${band}.`;
+  let core = bandSentence(band);
   if (d0) core += ` ${d0}`;
   if (s0) core += ` ${sentenceCap(s0)}`;
   return core.replace(/\s+/g, " ").trim().slice(0, 280);

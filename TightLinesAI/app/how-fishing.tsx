@@ -159,6 +159,7 @@ export default function HowFishingScreen() {
           units,
           engine_context: engineContext,
           env_data: freshEnv,
+          location_name: locationLabel !== 'Current location' ? locationLabel : null,
         },
       });
 

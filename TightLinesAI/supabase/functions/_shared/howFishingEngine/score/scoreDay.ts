@@ -31,6 +31,48 @@ function scoreForKey(
   }
 }
 
+function temperatureDriverLabel(t: SharedNormalizedOutput["normalized"]["temperature"]): string {
+  if (!t) return "";
+  const band = t.band_label;
+  const trend = t.trend_label;
+  const score = t.final_score;
+
+  if (score >= 2) {
+    if (band === "warm") return "Temperatures are running above average — ideal conditions right now.";
+    if (band === "optimal") return "Temperatures are sitting right in the sweet spot for this time of year.";
+    return "Temperature is a strong positive today.";
+  }
+  if (score === 1) {
+    if (band === "warm" || band === "optimal") return "Temperatures are favorable and working in your favor today.";
+    if (band === "cool" && trend === "warming") return "Temps are cool but trending warmer — conditions are improving.";
+    return "Temperature is a moderate positive today.";
+  }
+  if (score === 0) {
+    if (band === "very_warm") return "It's hot — temperatures are well above seasonal norms.";
+    return "Temperature is neutral — not helping or hurting.";
+  }
+  if (score === -1) {
+    if (band === "cool") return "Temperatures are running below average — fish may be sluggish.";
+    if (band === "very_warm") return "Heat is pushing temperatures past the productive range.";
+    return "Temperature is a mild headwind today.";
+  }
+  // score === -2
+  if (band === "very_cold") return "Temperatures are well below normal — tough conditions.";
+  if (band === "very_warm") return "Extreme heat is suppressing activity.";
+  return "Temperature is working against you today.";
+}
+
+function pressureDriverLabel(p: { label: string; score: number } | null | undefined): string {
+  if (!p) return "";
+  switch (p.label) {
+    case "volatile": return "Barometric pressure has been unstable — fish tend to get lockjaw.";
+    case "falling": return "Pressure is dropping — a front is likely moving through.";
+    case "stable_positive": return "Barometric pressure is steady and rising — that's a green light.";
+    case "stable_neutral": return "Pressure is holding steady — no major influence either way.";
+    default: return `Pressure regime: ${p.label.replace(/_/g, " ")}.`;
+  }
+}
+
 function labelForDriver(key: ScoredVariableKey, norm: SharedNormalizedOutput["normalized"]): string {
   const t = norm.temperature;
   const p = norm.pressure_regime;
@@ -42,21 +84,35 @@ function labelForDriver(key: ScoredVariableKey, norm: SharedNormalizedOutput["no
 
   switch (key) {
     case "temperature_condition":
-      return t
-        ? `Air temperature reads ${t.band_label.replace(/_/g, " ")} for this place and season.`
-        : "";
+      return temperatureDriverLabel(t);
     case "pressure_regime":
-      return p ? `Pressure regime: ${p.label.replace(/_/g, " ")}.` : "";
+      return pressureDriverLabel(p);
     case "wind_condition":
-      return w ? `Wind is ${w.label} (${w.detail ?? ""}).`.trim() : "";
+      if (!w) return "";
+      if (w.score >= 1) return "Wind is light and manageable — good for working the water.";
+      if (w.score === 0) return "Wind is moderate — not a major factor today.";
+      if (w.score === -1) return "Wind is picking up — it'll push you around out there.";
+      return "Strong winds are going to be a challenge today.";
     case "light_cloud_condition":
-      return l ? `Light/cloud: ${l.label.replace(/_/g, " ")}.` : "";
+      if (!l) return "";
+      if (l.score >= 1) return "Cloud cover is providing great low-light conditions.";
+      if (l.score === 0) return "Light conditions are average — nothing special.";
+      return "Bright, clear skies may push fish deeper or into cover.";
     case "precipitation_disruption":
-      return pr ? `Precipitation picture: ${pr.label.replace(/_/g, " ")}.` : "";
+      if (!pr) return "";
+      if (pr.score >= 1) return "Precipitation is minimal — clean conditions.";
+      if (pr.score === 0) return "Light precipitation isn't a major factor.";
+      return "Recent rain or active precipitation is muddying the picture.";
     case "runoff_flow_disruption":
-      return r ? `River runoff proxy: ${r.label.replace(/_/g, " ")}.` : "";
+      if (!r) return "";
+      if (r.score >= 1) return "River flows are clean and at fishable levels.";
+      if (r.score === 0) return "Flow conditions are moderate — workable.";
+      return "Elevated runoff or high flows are making it tough.";
     case "tide_current_movement":
-      return ti ? `Tide/current movement: ${ti.label.replace(/_/g, " ")}.` : "";
+      if (!ti) return "";
+      if (ti.score >= 1) return "Strong tidal movement today — that's what drives the bite.";
+      if (ti.score === 0) return "Tidal movement is moderate — decent but not exceptional.";
+      return "Weak tidal movement — the water isn't doing you many favors.";
     default:
       return "";
   }
