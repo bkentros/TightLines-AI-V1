@@ -13,7 +13,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter, useLocalSearchParams } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import * as Location from 'expo-location';
-import { colors, fonts, spacing, radius } from '../lib/theme';
+import { colors, fonts, spacing, radius, shadows } from '../lib/theme';
 import { getEnvironment, fetchFreshEnvironment } from '../lib/env';
 import { invokeEdgeFunction, getValidAccessToken } from '../lib/supabase';
 import { useAuthStore } from '../store/authStore';
@@ -64,10 +64,10 @@ function windDirectionLabel(deg?: number | null): string | null {
   return cards[i] ?? null;
 }
 
-const CONTEXT_OPTIONS: { key: EngineContextKey; label: string }[] = [
-  { key: 'freshwater_lake_pond', label: 'Freshwater Lake/Pond' },
-  { key: 'freshwater_river', label: 'Freshwater River' },
-  { key: 'coastal', label: 'Coastal' },
+const CONTEXT_OPTIONS: { key: EngineContextKey; label: string; icon: string; color: string; description: string }[] = [
+  { key: 'freshwater_lake_pond', label: 'Lake / Pond', icon: 'water', color: colors.contextFreshwater, description: 'Still freshwater' },
+  { key: 'freshwater_river', label: 'River / Stream', icon: 'git-merge-outline', color: colors.contextRiver, description: 'Moving freshwater' },
+  { key: 'coastal', label: 'Coastal', icon: 'boat-outline', color: colors.contextCoastal, description: 'Salt & brackish' },
 ];
 
 export default function HowFishingScreen() {
@@ -128,9 +128,7 @@ export default function HowFishingScreen() {
         if (!cancelled) setEnvLoading(false);
       }
     })();
-    return () => {
-      cancelled = true;
-    };
+    return () => { cancelled = true; };
   }, [hasCoords, lat, lon, units]);
 
   const generateReport = useCallback(async () => {
@@ -194,9 +192,7 @@ export default function HowFishingScreen() {
       await AsyncStorage.removeItem(
         `how_fishing_rebuild_${lat.toFixed(3)}_${lon.toFixed(3)}_${engineContext}`
       );
-    } catch {
-      /* ignore */
-    }
+    } catch { /* ignore */ }
     setRebuildBundle(null);
     await generateReport();
     setRefreshing(false);
@@ -204,17 +200,25 @@ export default function HowFishingScreen() {
 
   const activeTz = rebuildBundle?.report.location.timezone ?? env?.timezone;
   const topMeta = rebuildBundle
-    ? `${locationLabel} • ${currentLocationDateString(activeTz)} • ${formatGeneratedTime(rebuildBundle.generated_at, activeTz)}`
+    ? `${locationLabel}  •  ${currentLocationDateString(activeTz)}  •  ${formatGeneratedTime(rebuildBundle.generated_at, activeTz)}`
     : locationLabel;
 
+  // ─── No coords ───
   if (!hasCoords) {
     return (
       <SafeAreaView style={styles.safe}>
         <View style={styles.centered}>
-          <Ionicons name="location-outline" size={36} color={colors.textMuted} />
-          <Text style={styles.messageText}>How's Fishing needs your location</Text>
-          <Text style={styles.messageSub}>Enable location so TightLines can pull live conditions.</Text>
-          <Pressable style={styles.primaryBtn} onPress={() => router.back()}>
+          <View style={styles.noLocationIcon}>
+            <Ionicons name="location-outline" size={32} color={colors.primary} />
+          </View>
+          <Text style={styles.messageTitle}>Location Required</Text>
+          <Text style={styles.messageSub}>
+            How's Fishing needs your location to pull live conditions and generate your report.
+          </Text>
+          <Pressable
+            style={({ pressed }) => [styles.primaryBtn, pressed && styles.primaryBtnPressed]}
+            onPress={() => router.back()}
+          >
             <Text style={styles.primaryBtnText}>Go back</Text>
           </Pressable>
         </View>
@@ -222,15 +226,16 @@ export default function HowFishingScreen() {
     );
   }
 
+  // ─── Preflight — context selection ───
   if (!rebuildBundle) {
     return (
       <SafeAreaView style={styles.safe}>
         <View style={styles.topBar}>
-          <Pressable style={styles.navBack} onPress={() => router.back()}>
-            <Ionicons name="chevron-back" size={28} color={colors.sage} />
+          <Pressable style={styles.navBack} onPress={() => router.back()} hitSlop={12}>
+            <Ionicons name="chevron-back" size={26} color={colors.primary} />
           </Pressable>
           <Text style={styles.heading}>How's Fishing</Text>
-          <View style={{ width: 28 }} />
+          <View style={{ width: 26 }} />
         </View>
 
         <ScrollView
@@ -238,9 +243,14 @@ export default function HowFishingScreen() {
           contentContainerStyle={styles.preflightContent}
           showsVerticalScrollIndicator={false}
         >
-          <Text style={styles.preflightMeta}>{locationLabel}</Text>
+          {/* Location & Date */}
+          <View style={styles.preflightHeader}>
+            <Ionicons name="location" size={14} color={colors.primary} />
+            <Text style={styles.preflightLocation}>{locationLabel}</Text>
+          </View>
 
-          <View style={styles.preflightConditionsCard}>
+          {/* Live Conditions */}
+          <View style={styles.conditionsCard}>
             <CondensedLoadingView
               conditions={
                 env
@@ -262,48 +272,77 @@ export default function HowFishingScreen() {
             />
           </View>
 
-          <View style={styles.setupCard}>
-            <Text style={styles.setupCardTitle}>Where are you fishing?</Text>
-            <View style={styles.segmentWrap}>
-              {contextChoices.map((o) => (
-                <Pressable
-                  key={o.key}
-                  style={[styles.segmentBtn, engineContext === o.key && styles.segmentBtnActive]}
-                  onPress={() => setEngineContext(o.key)}
-                >
-                  <Text style={[styles.segmentText, engineContext === o.key && styles.segmentTextActive]}>
-                    {o.label}
-                  </Text>
-                </Pressable>
-              ))}
+          {/* Context Selection */}
+          <View style={styles.contextCard}>
+            <Text style={styles.contextCardTitle}>Where are you fishing?</Text>
+            <View style={styles.contextGrid}>
+              {contextChoices.map((o) => {
+                const isActive = engineContext === o.key;
+                return (
+                  <Pressable
+                    key={o.key}
+                    style={[
+                      styles.contextOption,
+                      isActive && styles.contextOptionActive,
+                      isActive && { borderColor: o.color },
+                    ]}
+                    onPress={() => setEngineContext(o.key)}
+                  >
+                    <View style={[
+                      styles.contextIconWrap,
+                      { backgroundColor: isActive ? o.color + '18' : colors.backgroundAlt },
+                    ]}>
+                      <Ionicons
+                        name={o.icon as any}
+                        size={20}
+                        color={isActive ? o.color : colors.textMuted}
+                      />
+                    </View>
+                    <Text style={[
+                      styles.contextLabel,
+                      isActive && { color: o.color, fontWeight: '700' },
+                    ]}>
+                      {o.label}
+                    </Text>
+                    <Text style={styles.contextDesc}>{o.description}</Text>
+                  </Pressable>
+                );
+              })}
             </View>
-            {engineContext === 'coastal' ? (
-              <Text style={styles.setupHint}>
-                Coastal uses air temperature only for conditions — no separate salt/brackish paths.
-              </Text>
-            ) : null}
           </View>
 
+          {/* Generate Button */}
           <Pressable
-            style={[styles.primaryBtn, (!engineContext || analysisLoading || envLoading) && { opacity: 0.6 }]}
+            style={({ pressed }) => [
+              styles.generateBtn,
+              pressed && styles.generateBtnPressed,
+              (!engineContext || analysisLoading || envLoading) && { opacity: 0.5 },
+            ]}
             onPress={() => generateReport()}
             disabled={!engineContext || analysisLoading || envLoading}
           >
             {analysisLoading ? (
-              <ActivityIndicator size="small" color={colors.textLight} />
+              <ActivityIndicator size="small" color={colors.textOnPrimary} />
             ) : (
-              <Text style={styles.primaryBtnText}>Generate today's report</Text>
+              <>
+                <Ionicons name="sparkles" size={16} color={colors.textOnPrimary} />
+                <Text style={styles.generateBtnText}>Generate today's report</Text>
+              </>
             )}
           </Pressable>
 
           {analysisError ? <Text style={styles.errorInline}>{analysisError}</Text> : null}
         </ScrollView>
 
+        {/* Loading Overlay */}
         {analysisLoading && (
           <View style={styles.loadingOverlay}>
-            <View style={styles.loadingOverlayCard}>
-              <ActivityIndicator size="large" color={colors.sage} />
-              <Text style={styles.loadingOverlayTitle}>Building report…</Text>
+            <View style={styles.loadingCard}>
+              <View style={styles.loadingPulse}>
+                <Ionicons name="fish-outline" size={28} color={colors.primary} />
+              </View>
+              <Text style={styles.loadingTitle}>Building your report</Text>
+              <Text style={styles.loadingSub}>Analyzing conditions and generating insights…</Text>
             </View>
           </View>
         )}
@@ -311,26 +350,44 @@ export default function HowFishingScreen() {
     );
   }
 
+  // ─── Report View ───
+  const activeContext = contextChoices.find((o) => o.key === rebuildBundle.engine_context);
+
   return (
     <SafeAreaView style={styles.safe}>
       <View style={styles.topBar}>
-        <Pressable style={styles.navBack} onPress={() => router.back()}>
-          <Ionicons name="chevron-back" size={28} color={colors.sage} />
+        <Pressable style={styles.navBack} onPress={() => router.back()} hitSlop={12}>
+          <Ionicons name="chevron-back" size={26} color={colors.primary} />
         </Pressable>
         <Text style={styles.heading}>How's Fishing</Text>
-        <Pressable onPress={() => setRebuildBundle(null)}>
-          <Text style={styles.newReport}>New</Text>
+        <Pressable
+          style={({ pressed }) => [styles.newReportBtn, pressed && { opacity: 0.7 }]}
+          onPress={() => setRebuildBundle(null)}
+        >
+          <Ionicons name="add-circle-outline" size={16} color={colors.primary} />
+          <Text style={styles.newReportText}>New</Text>
         </Pressable>
       </View>
 
       <ScrollView
         style={styles.scroll}
-        contentContainerStyle={styles.content}
-        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={handleRefresh} tintColor={colors.sage} />}
+        contentContainerStyle={styles.reportContent}
+        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={handleRefresh} tintColor={colors.primary} />}
         showsVerticalScrollIndicator={false}
       >
+        {/* Report Meta */}
         <Text style={styles.reportMeta}>{topMeta}</Text>
-        <Text style={styles.contextPill}>{rebuildBundle.report.display_context_label}</Text>
+
+        {/* Context Pill */}
+        {activeContext && (
+          <View style={[styles.contextPill, { backgroundColor: activeContext.color + '14' }]}>
+            <Ionicons name={activeContext.icon as any} size={13} color={activeContext.color} />
+            <Text style={[styles.contextPillText, { color: activeContext.color }]}>
+              {rebuildBundle.report.display_context_label}
+            </Text>
+          </View>
+        )}
+
         <RebuildReportView report={rebuildBundle.report} />
       </ScrollView>
     </SafeAreaView>
@@ -340,109 +397,235 @@ export default function HowFishingScreen() {
 const styles = StyleSheet.create({
   safe: { flex: 1, backgroundColor: colors.background },
   scroll: { flex: 1 },
-  content: { paddingHorizontal: spacing.md, paddingBottom: spacing.xl, paddingTop: spacing.xs },
-  preflightContent: { paddingHorizontal: spacing.md, paddingBottom: spacing.xl, paddingTop: spacing.xs },
+  preflightContent: { paddingHorizontal: 20, paddingBottom: spacing.xl, paddingTop: spacing.xs },
+  reportContent: { paddingHorizontal: 20, paddingBottom: spacing.xl, paddingTop: spacing.xs },
+
+  /* Top Bar */
   topBar: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingHorizontal: spacing.md,
-    paddingTop: 2,
-    paddingBottom: 6,
+    paddingHorizontal: 20,
+    paddingTop: 4,
+    paddingBottom: 8,
   },
   navBack: { padding: 4 },
   heading: {
     fontFamily: fonts.serif,
-    fontSize: 22,
+    fontSize: 20,
     fontWeight: '700',
     color: colors.text,
     textAlign: 'center',
     flex: 1,
   },
-  newReport: { fontSize: 15, fontWeight: '600', color: colors.sage },
-  reportMeta: { fontSize: 12, color: colors.textMuted, marginBottom: spacing.xs, textAlign: 'center' },
+  newReportBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    paddingVertical: 4,
+    paddingHorizontal: 8,
+  },
+  newReportText: { fontSize: 14, fontWeight: '600', color: colors.primary },
+
+  /* Preflight */
+  preflightHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 4,
+    marginBottom: spacing.md,
+  },
+  preflightLocation: { fontSize: 14, color: colors.textSecondary, fontWeight: '500' },
+
+  conditionsCard: {
+    backgroundColor: colors.surface,
+    borderRadius: radius.md,
+    borderWidth: 1,
+    borderColor: colors.border,
+    marginBottom: spacing.md,
+    overflow: 'hidden',
+    ...shadows.sm,
+  },
+
+  /* Context Selection */
+  contextCard: {
+    backgroundColor: colors.surface,
+    borderRadius: radius.md,
+    padding: spacing.md + 2,
+    marginBottom: spacing.md,
+    borderWidth: 1,
+    borderColor: colors.border,
+    ...shadows.sm,
+  },
+  contextCardTitle: {
+    fontSize: 16,
+    fontWeight: '700',
+    color: colors.text,
+    marginBottom: spacing.md,
+  },
+  contextGrid: {
+    flexDirection: 'row',
+    gap: spacing.sm + 2,
+  },
+  contextOption: {
+    flex: 1,
+    alignItems: 'center',
+    paddingVertical: spacing.md,
+    paddingHorizontal: spacing.sm,
+    borderRadius: radius.md,
+    borderWidth: 2,
+    borderColor: colors.border,
+    backgroundColor: colors.surface,
+    gap: spacing.xs + 2,
+  },
+  contextOptionActive: {
+    backgroundColor: colors.surface,
+    borderWidth: 2,
+    ...shadows.sm,
+  },
+  contextIconWrap: {
+    width: 40,
+    height: 40,
+    borderRadius: 12,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 2,
+  },
+  contextLabel: {
+    fontSize: 13,
+    fontWeight: '600',
+    color: colors.text,
+    textAlign: 'center',
+  },
+  contextDesc: {
+    fontSize: 11,
+    color: colors.textMuted,
+    textAlign: 'center',
+  },
+
+  /* Generate Button */
+  generateBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: spacing.sm,
+    backgroundColor: colors.primary,
+    borderRadius: radius.md,
+    minHeight: 52,
+    ...shadows.md,
+  },
+  generateBtnPressed: { backgroundColor: colors.primaryDark },
+  generateBtnText: {
+    color: colors.textOnPrimary,
+    fontSize: 16,
+    fontWeight: '700',
+  },
+
+  /* Report Meta */
+  reportMeta: {
+    fontSize: 12,
+    color: colors.textMuted,
+    marginBottom: spacing.sm,
+    textAlign: 'center',
+  },
   contextPill: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
     alignSelf: 'center',
+    paddingHorizontal: spacing.sm + 4,
+    paddingVertical: spacing.xs + 1,
+    borderRadius: radius.full,
+    marginBottom: spacing.md,
+  },
+  contextPillText: {
     fontSize: 12,
     fontWeight: '700',
-    color: colors.sage,
-    marginBottom: spacing.sm,
     textTransform: 'uppercase',
     letterSpacing: 0.5,
   },
-  preflightMeta: { fontSize: 13, color: colors.textMuted, textAlign: 'center', marginBottom: spacing.xs },
-  preflightConditionsCard: {
-    backgroundColor: colors.surface,
-    borderRadius: radius.md,
-    borderWidth: 1,
-    borderColor: colors.border,
-    marginBottom: spacing.sm,
-    overflow: 'hidden',
-  },
-  setupCard: {
-    backgroundColor: colors.surface,
-    borderRadius: radius.md,
-    padding: spacing.md,
-    marginBottom: spacing.sm,
-    borderWidth: 1,
-    borderColor: colors.border,
-  },
-  setupCardTitle: { fontSize: 15, fontWeight: '700', color: colors.text, marginBottom: spacing.sm },
-  setupHint: { fontSize: 12, color: colors.textMuted, marginTop: spacing.xs, fontStyle: 'italic' },
-  segmentWrap: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    backgroundColor: colors.background,
-    borderRadius: radius.md,
-    padding: 3,
-    borderWidth: 1,
-    borderColor: colors.border,
-    gap: 3,
-  },
-  segmentBtn: { flexGrow: 1, minWidth: '30%', paddingVertical: 10, borderRadius: radius.sm, alignItems: 'center' },
-  segmentBtnActive: { backgroundColor: colors.sage },
-  segmentText: { fontSize: 14, fontWeight: '600', color: colors.textMuted },
-  segmentTextActive: { color: colors.textLight },
-  primaryBtn: {
-    backgroundColor: colors.sage,
-    borderRadius: radius.md,
-    alignItems: 'center',
-    justifyContent: 'center',
-    minHeight: 48,
-    marginTop: spacing.sm,
-  },
-  primaryBtnText: { color: colors.textLight, fontSize: 15, fontWeight: '700' },
+
+  /* No coords */
   centered: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    padding: spacing.lg,
+    padding: spacing.xl,
     gap: spacing.md,
   },
-  messageText: {
+  noLocationIcon: {
+    width: 64,
+    height: 64,
+    borderRadius: 32,
+    backgroundColor: colors.primaryMist,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: spacing.sm,
+  },
+  messageTitle: {
     fontSize: 22,
     fontFamily: fonts.serif,
     fontWeight: '700',
     color: colors.text,
     textAlign: 'center',
   },
-  messageSub: { fontSize: 14, color: colors.textSecondary, textAlign: 'center', lineHeight: 22 },
+  messageSub: {
+    fontSize: 14,
+    color: colors.textSecondary,
+    textAlign: 'center',
+    lineHeight: 22,
+    paddingHorizontal: spacing.md,
+  },
+  primaryBtn: {
+    backgroundColor: colors.primary,
+    borderRadius: radius.md,
+    alignItems: 'center',
+    justifyContent: 'center',
+    minHeight: 48,
+    paddingHorizontal: spacing.xl,
+    marginTop: spacing.sm,
+  },
+  primaryBtnPressed: { backgroundColor: colors.primaryDark },
+  primaryBtnText: { color: colors.textOnPrimary, fontSize: 15, fontWeight: '700' },
+
   errorInline: { color: '#C64545', textAlign: 'center', marginTop: spacing.sm },
+
+  /* Loading Overlay */
   loadingOverlay: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: '#F5F0E8CC',
+    backgroundColor: colors.background + 'E8',
     alignItems: 'center',
     justifyContent: 'center',
   },
-  loadingOverlayCard: {
+  loadingCard: {
     backgroundColor: colors.surface,
     borderRadius: radius.lg,
-    borderWidth: 1,
-    borderColor: colors.border,
-    paddingVertical: spacing.lg,
+    paddingVertical: spacing.xl,
     paddingHorizontal: spacing.xl,
     alignItems: 'center',
-    gap: spacing.sm,
+    gap: spacing.sm + 2,
+    ...shadows.xl,
   },
-  loadingOverlayTitle: { fontFamily: fonts.serif, fontSize: 22, fontWeight: '700', color: colors.text },
+  loadingPulse: {
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    backgroundColor: colors.primaryMist,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 2,
+    borderColor: colors.primary + '30',
+    marginBottom: spacing.xs,
+  },
+  loadingTitle: {
+    fontFamily: fonts.serif,
+    fontSize: 20,
+    fontWeight: '700',
+    color: colors.text,
+  },
+  loadingSub: {
+    fontSize: 14,
+    color: colors.textSecondary,
+    textAlign: 'center',
+  },
 });

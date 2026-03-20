@@ -1,17 +1,12 @@
 /**
- * CondensedLoadingView — compact conditions display shown during analysis loading.
- * Shows all key environmental data in a 2-row grid with a pulsing loading animation.
- * Replaces the 8 full-bleed condition cards from the old how-fishing screen.
+ * CondensedLoadingView — compact conditions grid for the How's Fishing preflight screen.
+ * Premium, calm design with soft tiles and subtle animations.
  */
 
 import React, { useEffect, useRef } from 'react';
 import { View, Text, StyleSheet, Animated, Easing } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { colors, fonts, spacing, radius } from '../../lib/theme';
-
-// ---------------------------------------------------------------------------
-// Types
-// ---------------------------------------------------------------------------
 
 interface ConditionsData {
   air_temp_f?: number | null;
@@ -33,10 +28,6 @@ interface CondensedLoadingViewProps {
   statusText?: string;
 }
 
-// ---------------------------------------------------------------------------
-// Tile helper
-// ---------------------------------------------------------------------------
-
 interface TileProps {
   icon: string;
   label: string;
@@ -47,17 +38,13 @@ interface TileProps {
 function Tile({ icon, label, value, subValue }: TileProps) {
   return (
     <View style={styles.tile}>
-      <Ionicons name={icon as any} size={18} color={colors.sage} style={styles.tileIcon} />
+      <Ionicons name={icon as any} size={16} color={colors.primary} style={styles.tileIcon} />
       <Text style={styles.tileValue} numberOfLines={1}>{value}</Text>
       <Text style={styles.tileLabel} numberOfLines={1}>{label}</Text>
       {subValue ? <Text style={styles.tileSub} numberOfLines={1}>{subValue}</Text> : null}
     </View>
   );
 }
-
-// ---------------------------------------------------------------------------
-// Formatters
-// ---------------------------------------------------------------------------
 
 function formatTemp(temp: number | null | undefined): string {
   if (temp == null) return '--';
@@ -110,10 +97,6 @@ function formatSolunar(state: string | null | undefined): string {
   return state.replace(/_/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
-// ---------------------------------------------------------------------------
-// Component
-// ---------------------------------------------------------------------------
-
 export function CondensedLoadingView({ conditions, statusText }: CondensedLoadingViewProps) {
   const pulseAnim = useRef(new Animated.Value(1)).current;
 
@@ -121,14 +104,14 @@ export function CondensedLoadingView({ conditions, statusText }: CondensedLoadin
     const animation = Animated.loop(
       Animated.sequence([
         Animated.timing(pulseAnim, {
-          toValue: 1.08,
-          duration: 800,
+          toValue: 1.06,
+          duration: 900,
           easing: Easing.inOut(Easing.ease),
           useNativeDriver: true,
         }),
         Animated.timing(pulseAnim, {
           toValue: 1,
-          duration: 800,
+          duration: 900,
           easing: Easing.inOut(Easing.ease),
           useNativeDriver: true,
         }),
@@ -143,9 +126,13 @@ export function CondensedLoadingView({ conditions, statusText }: CondensedLoadin
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Current Conditions</Text>
+      {/* Status Header */}
+      <View style={styles.statusRow}>
+        <View style={styles.statusDot} />
+        <Text style={styles.statusLabel}>{statusText ?? 'Current Conditions'}</Text>
+      </View>
 
-      {/* Row 1: Temp, Wind, Pressure, Sky */}
+      {/* Row 1 */}
       <View style={styles.row}>
         <Tile icon="thermometer-outline" label="Temp" value={formatTemp(c?.air_temp_f)} />
         <Tile icon="flag-outline" label="Wind" value={formatWind(c?.wind_speed_mph, c?.wind_direction)} />
@@ -153,7 +140,7 @@ export function CondensedLoadingView({ conditions, statusText }: CondensedLoadin
         <Tile icon="cloud-outline" label="Sky" value={formatSky(c?.cloud_cover_pct)} />
       </View>
 
-      {/* Row 2: Moon, Light, Tide/Solunar */}
+      {/* Row 2 */}
       <View style={styles.row}>
         <Tile icon="moon-outline" label="Moon" value={formatMoon(c?.moon_phase, c?.moon_illumination_pct)} />
         <Tile icon="sunny-outline" label="Light" value={formatLight(c?.light_condition)} />
@@ -168,35 +155,34 @@ export function CondensedLoadingView({ conditions, statusText }: CondensedLoadin
           <View style={styles.tile} />
         )}
       </View>
-
-      {/* Loading animation */}
-      <View style={styles.loadingSection}>
-        <Animated.View style={[styles.pulseCircle, { transform: [{ scale: pulseAnim }] }]}>
-          <Ionicons name="fish-outline" size={28} color={colors.sage} />
-        </Animated.View>
-        <Text style={styles.statusText}>{statusText ?? 'Analyzing conditions...'}</Text>
-      </View>
     </View>
   );
 }
-
-// ---------------------------------------------------------------------------
-// Styles
-// ---------------------------------------------------------------------------
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    paddingHorizontal: spacing.lg,
+    padding: spacing.md,
   },
-  title: {
-    fontFamily: fonts.serif,
-    fontSize: 22,
+  statusRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.sm,
+    marginBottom: spacing.md,
+  },
+  statusDot: {
+    width: 6,
+    height: 6,
+    borderRadius: 3,
+    backgroundColor: colors.primary,
+  },
+  statusLabel: {
+    fontSize: 12,
     fontWeight: '700',
-    color: colors.text,
-    textAlign: 'center',
-    marginBottom: spacing.lg,
+    color: colors.primary,
+    textTransform: 'uppercase',
+    letterSpacing: 0.4,
   },
   row: {
     flexDirection: 'row',
@@ -205,17 +191,15 @@ const styles = StyleSheet.create({
   },
   tile: {
     flex: 1,
-    backgroundColor: colors.surface,
-    borderRadius: radius.md,
-    borderWidth: 1,
-    borderColor: colors.border,
+    backgroundColor: colors.background,
+    borderRadius: radius.sm,
     padding: spacing.sm,
     alignItems: 'center',
     minHeight: 72,
     justifyContent: 'center',
   },
   tileIcon: {
-    marginBottom: 2,
+    marginBottom: 3,
   },
   tileValue: {
     fontSize: 12,
@@ -234,25 +218,5 @@ const styles = StyleSheet.create({
     color: colors.textMuted,
     textAlign: 'center',
     fontStyle: 'italic',
-  },
-  loadingSection: {
-    alignItems: 'center',
-    marginTop: spacing.xl,
-    gap: spacing.md,
-  },
-  pulseCircle: {
-    width: 56,
-    height: 56,
-    borderRadius: 28,
-    backgroundColor: colors.sageLight,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: 2,
-    borderColor: colors.sage + '40',
-  },
-  statusText: {
-    fontSize: 14,
-    color: colors.textSecondary,
-    fontWeight: '500',
   },
 });

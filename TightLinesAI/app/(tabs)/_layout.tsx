@@ -1,7 +1,7 @@
 import { Tabs } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
-import { StyleSheet } from 'react-native';
-import { colors } from '../../lib/theme';
+import { StyleSheet, View } from 'react-native';
+import { colors, shadows } from '../../lib/theme';
 
 export default function TabLayout() {
   return (
@@ -12,14 +12,17 @@ export default function TabLayout() {
         tabBarInactiveTintColor: colors.tabInactive,
         tabBarStyle: styles.tabBar,
         tabBarLabelStyle: styles.tabLabel,
+        tabBarItemStyle: styles.tabItem,
       }}
     >
       <Tabs.Screen
         name="index"
         options={{
           title: 'Home',
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="compass-outline" size={size} color={color} />
+          tabBarIcon: ({ color, focused }) => (
+            <View style={focused ? styles.activeIconWrap : undefined}>
+              <Ionicons name={focused ? 'compass' : 'compass-outline'} size={22} color={color} />
+            </View>
           ),
         }}
       />
@@ -27,8 +30,10 @@ export default function TabLayout() {
         name="log"
         options={{
           title: 'My Log',
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="book-outline" size={size} color={color} />
+          tabBarIcon: ({ color, focused }) => (
+            <View style={focused ? styles.activeIconWrap : undefined}>
+              <Ionicons name={focused ? 'book' : 'book-outline'} size={22} color={color} />
+            </View>
           ),
         }}
       />
@@ -36,8 +41,10 @@ export default function TabLayout() {
         name="settings"
         options={{
           title: 'Settings',
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="settings-outline" size={size} color={color} />
+          tabBarIcon: ({ color, focused }) => (
+            <View style={focused ? styles.activeIconWrap : undefined}>
+              <Ionicons name={focused ? 'settings' : 'settings-outline'} size={22} color={color} />
+            </View>
           ),
         }}
       />
@@ -50,10 +57,24 @@ const styles = StyleSheet.create({
     backgroundColor: colors.tabBar,
     borderTopColor: colors.borderLight,
     borderTopWidth: StyleSheet.hairlineWidth,
-    paddingTop: 4,
+    paddingTop: 6,
+    paddingBottom: 2,
+    height: 56,
+    ...shadows.sm,
   },
   tabLabel: {
     fontSize: 11,
-    fontWeight: '500',
+    fontWeight: '600',
+    letterSpacing: 0.2,
+    marginTop: 2,
+  },
+  tabItem: {
+    paddingTop: 2,
+  },
+  activeIconWrap: {
+    backgroundColor: colors.primaryMist,
+    borderRadius: 12,
+    paddingHorizontal: 12,
+    paddingVertical: 4,
   },
 });

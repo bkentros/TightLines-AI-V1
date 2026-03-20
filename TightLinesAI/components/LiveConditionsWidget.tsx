@@ -1,35 +1,22 @@
 /**
- * Live Conditions Widget — Dashboard environmental data display
- *
- * Shows weather, tides, moon, and sun from the get-environment Edge Function.
- * Requires coordinates from parent; displays placeholder or message when no location.
- *
- * @see docs/ENV_API_IMPLEMENTATION_PLAN.md
+ * Live Conditions Widget — Premium environmental data card
  */
 
 import { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Pressable, ActivityIndicator, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { colors, fonts, spacing, radius } from '../lib/theme';
+import { colors, fonts, spacing, radius, shadows } from '../lib/theme';
 import { useEnvStore } from '../store/envStore';
 import { useAuthStore } from '../store/authStore';
 import type { EnvironmentData } from '../lib/env';
 import { CACHE_TTL_MS } from '../lib/env/constants';
 
-/** Convert wind direction degrees to cardinal (e.g. 170 → "S") */
 function windDirectionLabel(deg: number): string {
   const cards = ['N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW'];
   const i = Math.round(((deg % 360) + 360) / 22.5) % 16;
   return cards[i] ?? '—';
 }
 
-/**
- * Derive moon phase from illumination (0-1) when API returns Unknown.
- * Note: USNO can return "Unknown" intermittently; when it does, we fall back to
- * illumination thresholds. A sudden phase change (e.g. New Moon → Waning Gibbous)
- * can occur if the API toggles between returning a phase and "Unknown", or if
- * timezone/date affects which day's data is fetched.
- */
 function moonPhaseLabel(phase: string | undefined, illumination: number | undefined): string {
   if (phase && phase !== 'Unknown') return phase;
   if (illumination == null) return '—';
@@ -41,7 +28,6 @@ function moonPhaseLabel(phase: string | undefined, illumination: number | undefi
   return 'Full Moon';
 }
 
-/** Map cloud cover % to short label — simple words that fit in the box */
 function cloudLabel(pct: number): string {
   if (pct <= 15) return 'Clear';
   if (pct <= 35) return 'Partly';
@@ -49,7 +35,6 @@ function cloudLabel(pct: number): string {
   return 'Overcast';
 }
 
-/** Short pressure trend label + color for the dashboard tile */
 function pressureTrendInfo(trend: string | undefined): { label: string; color: string } | null {
   switch (trend) {
     case 'rapidly_falling': return { label: '↓↓ Rapidly Falling', color: '#2E7D32' };
@@ -62,16 +47,11 @@ function pressureTrendInfo(trend: string | undefined): { label: string; color: s
 }
 
 export interface LiveConditionsWidgetProps {
-  /** Coordinates — when set, loads env data */
   latitude?: number | null;
   longitude?: number | null;
-  /** Location label for display (e.g. "Tampa Bay, FL") */
   locationLabel?: string;
-  /** Called when refresh button is pressed */
   onRefresh?: () => void;
-  /** Called when user taps "Enable location" or "Sync location" — parent should request permission and fetch GPS */
   onRequestLocation?: () => Promise<void>;
-  /** Called when the user taps the card to open the expanded conditions page */
   onPress?: () => void;
 }
 
@@ -98,9 +78,7 @@ export function LiveConditionsWidget({
   }, [hasCoords, latitude, longitude, units]);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setNowMs(Date.now());
-    }, 60_000);
+    const interval = setInterval(() => setNowMs(Date.now()), 60_000);
     return () => clearInterval(interval);
   }, []);
 
@@ -110,10 +88,7 @@ export function LiveConditionsWidget({
     try {
       await onRequestLocation();
     } catch {
-      Alert.alert(
-        'Could not get location',
-        'Please enable location in Settings or check your connection.'
-      );
+      Alert.alert('Could not get location', 'Please enable location in Settings or check your connection.');
     } finally {
       setLocationSyncing(false);
     }
@@ -121,34 +96,36 @@ export function LiveConditionsWidget({
 
   if (!hasCoords) {
     return (
-      <View style={styles.condCard}>
-        <View style={styles.condHeader}>
-          <View style={styles.condHeaderLeft}>
-            <View style={[styles.liveDot, { backgroundColor: colors.stone }]} />
-            <Text style={[styles.condLabel, { color: colors.textMuted }]}>Live Conditions</Text>
+      <View style={styles.card}>
+        <View style={styles.header}>
+          <View style={styles.headerLeft}>
+            <View style={[styles.statusDot, { backgroundColor: colors.stone }]} />
+            <Text style={[styles.headerLabel, { color: colors.textMuted }]}>Live Conditions</Text>
           </View>
         </View>
-        <View style={styles.noLocation}>
-          <Ionicons name="location-outline" size={24} color={colors.textMuted} />
-          <Text style={styles.noLocationText}>
+        <View style={styles.emptyState}>
+          <View style={styles.emptyIconWrap}>
+            <Ionicons name="location-outline" size={22} color={colors.textMuted} />
+          </View>
+          <Text style={styles.emptyText}>
             Sync location to see weather, tides, and moon conditions.
           </Text>
           {onRequestLocation && (
             <Pressable
               style={({ pressed }) => [
-                styles.syncLocationBtn,
-                pressed && styles.syncLocationBtnPressed,
-                locationSyncing && styles.syncLocationBtnDisabled,
+                styles.locationBtn,
+                pressed && styles.locationBtnPressed,
+                locationSyncing && { opacity: 0.7 },
               ]}
               onPress={handleRequestLocation}
               disabled={locationSyncing}
             >
               {locationSyncing ? (
-                <ActivityIndicator size="small" color={colors.textLight} />
+                <ActivityIndicator size="small" color={colors.textOnPrimary} />
               ) : (
                 <>
-                  <Ionicons name="location" size={16} color={colors.textLight} />
-                  <Text style={styles.syncLocationBtnText}>Enable location</Text>
+                  <Ionicons name="location" size={15} color={colors.textOnPrimary} />
+                  <Text style={styles.locationBtnText}>Enable location</Text>
                 </>
               )}
             </Pressable>
@@ -162,20 +139,20 @@ export function LiveConditionsWidget({
 
   if (error && !envData && !isRateLimitError) {
     return (
-      <View style={styles.condCard}>
-        <View style={styles.condHeader}>
-          <View style={styles.condHeaderLeft}>
-            <View style={[styles.liveDot, { backgroundColor: colors.stone }]} />
+      <View style={styles.card}>
+        <View style={styles.header}>
+          <View style={styles.headerLeft}>
+            <View style={[styles.statusDot, { backgroundColor: colors.stone }]} />
             <View>
-              <Text style={[styles.condLabel, { color: colors.textMuted }]}>Live Conditions</Text>
-              <Text style={styles.condLocation}>{locationLabel}</Text>
+              <Text style={[styles.headerLabel, { color: colors.textMuted }]}>Live Conditions</Text>
+              <Text style={styles.locationText}>{locationLabel}</Text>
             </View>
           </View>
         </View>
         <View style={styles.errorBox}>
           <Text style={styles.errorText}>{error}</Text>
           <Pressable
-            style={({ pressed }) => [styles.retryBtn, pressed && styles.retryBtnPressed]}
+            style={({ pressed }) => [styles.retryBtn, pressed && { opacity: 0.7 }]}
             onPress={() => loadEnv(latitude!, longitude!, { units, forceRefresh: true })}
           >
             <Text style={styles.retryBtnText}>Try Again</Text>
@@ -187,18 +164,18 @@ export function LiveConditionsWidget({
 
   if (isLoading && !envData) {
     return (
-      <View style={styles.condCard}>
-        <View style={styles.condHeader}>
-          <View style={styles.condHeaderLeft}>
-            <View style={styles.liveDot} />
+      <View style={styles.card}>
+        <View style={styles.header}>
+          <View style={styles.headerLeft}>
+            <View style={styles.statusDot} />
             <View>
-              <Text style={styles.condLabel}>Live Conditions</Text>
-              <Text style={styles.condLocation}>{locationLabel}</Text>
+              <Text style={styles.headerLabel}>Live Conditions</Text>
+              <Text style={styles.locationText}>{locationLabel}</Text>
             </View>
           </View>
         </View>
         <View style={styles.loadingBox}>
-          <ActivityIndicator size="small" color={colors.sage} />
+          <ActivityIndicator size="small" color={colors.primary} />
           <Text style={styles.loadingText}>Loading conditions…</Text>
         </View>
       </View>
@@ -207,14 +184,13 @@ export function LiveConditionsWidget({
 
   const env = envData as EnvironmentData | null;
   const w = env?.weather;
-  const t = env?.tides;
   const moon = env?.moon;
 
   const fetchedAt = env?.fetched_at ? new Date(env.fetched_at).getTime() : 0;
   const ageMs = fetchedAt ? Math.max(0, nowMs - fetchedAt) : 0;
   const isStale = ageMs > CACHE_TTL_MS;
   const staleMinutes = Math.floor(ageMs / 60000);
-  const ageLabel = fetchedAt ? `As of ${staleMinutes} min ago` : null;
+  const ageLabel = fetchedAt ? `${staleMinutes}m ago` : null;
 
   const showErrorBanner = error && (isRateLimitError || env);
   const pressureTrend = w?.pressure_trend ? pressureTrendInfo(w.pressure_trend) : null;
@@ -222,11 +198,11 @@ export function LiveConditionsWidget({
   const cardContent = (
     <>
       {showErrorBanner && (
-        <View style={[styles.rateLimitBanner, !isRateLimitError && styles.errorBanner]}>
-          <Text style={styles.rateLimitText}>{error}</Text>
+        <View style={[styles.banner, !isRateLimitError && styles.errorBanner]}>
+          <Text style={styles.bannerText}>{error}</Text>
           {!isRateLimitError && env && (
             <Pressable
-              style={({ pressed }) => [styles.retryBtn, pressed && styles.retryBtnPressed]}
+              style={({ pressed }) => [styles.retryBtn, pressed && { opacity: 0.7 }]}
               onPress={() => loadEnv(latitude!, longitude!, { units, forceRefresh: true })}
             >
               <Text style={styles.retryBtnText}>Try Again</Text>
@@ -235,25 +211,25 @@ export function LiveConditionsWidget({
         </View>
       )}
 
-      {/* ── Header row: label + dot on left, refresh icon on right ── */}
-      <View style={styles.condHeader}>
-        <View style={styles.condHeaderLeft}>
-          <View style={styles.liveDot} />
+      <View style={styles.header}>
+        <View style={styles.headerLeft}>
+          <View style={styles.statusDot} />
           <View>
-            <Text style={styles.condLabel}>Live Conditions</Text>
-            <Text style={styles.condLocation}>{locationLabel}</Text>
+            <Text style={styles.headerLabel}>Live Conditions</Text>
+            <Text style={styles.locationText}>{locationLabel}</Text>
           </View>
         </View>
-        <View style={styles.condHeaderRight}>
-          {isLoading && (
-            <Text style={styles.updatingText}>Updating…</Text>
+        <View style={styles.headerRight}>
+          {isLoading && <Text style={styles.updatingText}>Updating…</Text>}
+          {ageLabel && !isLoading && (
+            <Text style={[styles.ageText, isStale && { color: colors.textSecondary }]}>{ageLabel}</Text>
           )}
           <Pressable
             hitSlop={12}
             style={({ pressed }) => [
               styles.refreshBtn,
               pressed && styles.refreshBtnPressed,
-              isLoading && styles.refreshBtnDisabled,
+              isLoading && { opacity: 0.5 },
             ]}
             disabled={isLoading}
             onPress={() => {
@@ -262,77 +238,66 @@ export function LiveConditionsWidget({
             }}
           >
             {isLoading ? (
-              <ActivityIndicator size="small" color={colors.sage} />
+              <ActivityIndicator size="small" color={colors.primary} />
             ) : (
-              <Ionicons name="refresh-outline" size={16} color={colors.sage} />
+              <Ionicons name="refresh-outline" size={15} color={colors.primary} />
             )}
           </Pressable>
         </View>
       </View>
 
-      <View style={styles.condGrid}>
-        <View style={styles.condTile}>
-          <Ionicons name="thermometer-outline" size={15} color={colors.stone} />
-          <View style={styles.condValueBox}>
-            <Text style={styles.condValue} numberOfLines={1}>
-              {w ? `${Math.round(w.temperature)}${w.temp_unit}` : '—'}
-            </Text>
-          </View>
-          <Text style={styles.condCaption}>Temp</Text>
+      {/* Conditions Grid */}
+      <View style={styles.grid}>
+        <View style={styles.gridTile}>
+          <Ionicons name="thermometer-outline" size={16} color={colors.primary} />
+          <Text style={styles.gridValue} numberOfLines={1}>
+            {w ? `${Math.round(w.temperature)}${w.temp_unit}` : '—'}
+          </Text>
+          <Text style={styles.gridLabel}>Temp</Text>
         </View>
-        <View style={styles.condTile}>
-          <Ionicons name="cloud-outline" size={15} color={colors.stone} />
-          <View style={styles.condValueBox}>
-            <Text style={styles.condValue} numberOfLines={1}>
-              {w ? cloudLabel(w.cloud_cover) : '—'}
-            </Text>
-          </View>
-          <Text style={styles.condCaption}>Sky</Text>
+        <View style={styles.gridTile}>
+          <Ionicons name="cloud-outline" size={16} color={colors.primary} />
+          <Text style={styles.gridValue} numberOfLines={1}>
+            {w ? cloudLabel(w.cloud_cover) : '—'}
+          </Text>
+          <Text style={styles.gridLabel}>Sky</Text>
         </View>
-        <View style={styles.condTile}>
-          <Ionicons name="flag-outline" size={15} color={colors.stone} />
-          <View style={styles.condValueBox}>
-            <Text style={styles.condValue} numberOfLines={1}>
-              {w ? `${windDirectionLabel(w.wind_direction)} ${Math.round(w.wind_speed)}` : '—'}
-            </Text>
-          </View>
-          <Text style={styles.condCaption}>Wind</Text>
+        <View style={styles.gridTile}>
+          <Ionicons name="flag-outline" size={16} color={colors.primary} />
+          <Text style={styles.gridValue} numberOfLines={1}>
+            {w ? `${windDirectionLabel(w.wind_direction)} ${Math.round(w.wind_speed)}` : '—'}
+          </Text>
+          <Text style={styles.gridLabel}>Wind</Text>
         </View>
-        <View style={styles.condTile}>
-          <Ionicons name="trending-down" size={15} color={colors.stone} />
-          <View style={styles.condValueBox}>
-            <Text style={styles.condValue} numberOfLines={1}>
-              {w ? String(w.pressure) : '—'}
-            </Text>
-          </View>
+        <View style={styles.gridTile}>
+          <Ionicons name="speedometer-outline" size={16} color={colors.primary} />
+          <Text style={styles.gridValue} numberOfLines={1}>
+            {w ? String(w.pressure) : '—'}
+          </Text>
           {pressureTrend ? (
-            <Text style={[styles.condCaption, { color: pressureTrend.color }]} numberOfLines={1}>
+            <Text style={[styles.gridLabel, { color: pressureTrend.color }]} numberOfLines={1}>
               {pressureTrend.label}
             </Text>
           ) : (
-            <Text style={styles.condCaption}>Press.</Text>
+            <Text style={styles.gridLabel}>Press.</Text>
           )}
         </View>
       </View>
 
-      <View style={styles.condFooter}>
-        <View style={styles.condPill}>
+      {/* Footer Pills */}
+      <View style={styles.footer}>
+        <View style={styles.footerPill}>
           <Ionicons name="moon-outline" size={11} color={colors.textSecondary} />
-          <Text style={styles.condPillText}>
+          <Text style={styles.footerPillText}>
             {moonPhaseLabel(moon?.phase, moon?.illumination)}
           </Text>
         </View>
-        <View style={styles.condPill}>
+        <View style={styles.footerPill}>
           <Ionicons name="water-outline" size={11} color={colors.textSecondary} />
-          <Text style={styles.condPillText}>
-            {w?.humidity != null ? `${Math.round(w.humidity)}% humidity` : 'Humidity —'}
+          <Text style={styles.footerPillText}>
+            {w?.humidity != null ? `${Math.round(w.humidity)}%` : '—'}
           </Text>
         </View>
-        {ageLabel && (
-          <Text style={[styles.staleLabel, isStale && styles.staleLabelExpired]}>
-            {ageLabel}
-          </Text>
-        )}
       </View>
     </>
   );
@@ -340,7 +305,7 @@ export function LiveConditionsWidget({
   if (onPress) {
     return (
       <Pressable
-        style={({ pressed }) => [styles.condCard, pressed && styles.condCardPressed]}
+        style={({ pressed }) => [styles.card, pressed && styles.cardPressed]}
         onPress={onPress}
       >
         {cardContent}
@@ -348,94 +313,90 @@ export function LiveConditionsWidget({
     );
   }
 
-  return (
-    <View style={styles.condCard}>
-      {cardContent}
-    </View>
-  );
+  return <View style={styles.card}>{cardContent}</View>;
 }
 
 const styles = StyleSheet.create({
-  condCard: {
+  card: {
     backgroundColor: colors.surface,
     borderRadius: radius.md,
     padding: spacing.md,
-    marginBottom: spacing.sm,
-    borderWidth: StyleSheet.hairlineWidth,
+    marginBottom: spacing.md,
+    borderWidth: 1,
     borderColor: colors.border,
+    ...shadows.sm,
   },
-  condCardPressed: {
+  cardPressed: {
     backgroundColor: colors.surfacePressed,
   },
-  condHeader: {
+
+  /* Header */
+  header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: spacing.sm + 2,
+    marginBottom: spacing.sm + 4,
   },
-  condHeaderLeft: { flexDirection: 'row', alignItems: 'center', gap: 8 },
-  condHeaderRight: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm },
-  updatingText: { fontSize: 11, color: colors.sage, fontWeight: '500' },
+  headerLeft: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm },
+  headerRight: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm },
+  statusDot: {
+    width: 7,
+    height: 7,
+    borderRadius: 4,
+    backgroundColor: colors.primary,
+  },
+  headerLabel: {
+    fontSize: 12,
+    fontWeight: '700',
+    color: colors.primary,
+    letterSpacing: 0.4,
+    textTransform: 'uppercase',
+  },
+  locationText: { fontSize: 12, color: colors.textMuted, marginTop: 1 },
+  updatingText: { fontSize: 11, color: colors.primary, fontWeight: '500' },
+  ageText: { fontSize: 10, color: colors.textMuted },
+
+  /* Refresh */
   refreshBtn: {
-    width: 28,
-    height: 28,
-    borderRadius: 14,
+    width: 30,
+    height: 30,
+    borderRadius: 15,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: colors.sageLight,
+    backgroundColor: colors.primaryMist,
   },
-  refreshBtnPressed: { backgroundColor: colors.sage + '50', opacity: 1 },
-  refreshBtnDisabled: { opacity: 0.6 },
-  liveDot: {
-    width: 6,
-    height: 6,
-    borderRadius: 3,
-    backgroundColor: colors.sage,
+  refreshBtnPressed: { backgroundColor: colors.primaryLight },
+
+  /* Grid */
+  grid: {
+    flexDirection: 'row',
+    gap: spacing.sm,
   },
-  condLabel: {
-    fontSize: 12,
-    fontWeight: '600',
-    color: colors.sage,
-    letterSpacing: 0.3,
-  },
-  condLocation: { fontSize: 11, color: colors.textMuted, marginTop: 1 },
-  condGrid: { flexDirection: 'row', gap: spacing.sm },
-  condTile: {
+  gridTile: {
     flex: 1,
     alignItems: 'center',
     backgroundColor: colors.background,
     borderRadius: radius.sm,
-    paddingVertical: spacing.sm + 2,
-    gap: 4,
+    paddingVertical: spacing.sm + 4,
+    gap: 3,
   },
-  condValueBox: {
-    minHeight: 22,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  condValue: {
-    fontSize: 15,
-    fontWeight: '600',
+  gridValue: {
+    fontSize: 14,
+    fontWeight: '700',
     color: colors.text,
     fontVariant: ['tabular-nums'],
   },
-  condCaption: { fontSize: 10, color: colors.textMuted, letterSpacing: 0.3 },
-  condFooter: {
+  gridLabel: { fontSize: 10, color: colors.textMuted, letterSpacing: 0.2 },
+
+  /* Footer */
+  footer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     alignItems: 'center',
     gap: spacing.sm,
-    marginTop: spacing.sm,
+    marginTop: spacing.sm + 2,
   },
-  staleLabel: {
-    fontSize: 10,
-    color: colors.textMuted,
-    marginLeft: 'auto',
-  },
-  staleLabelExpired: {
-    color: colors.textSecondary,
-  },
-  condPill: {
+  footerPill: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 4,
@@ -444,34 +405,46 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing.sm + 2,
     paddingVertical: spacing.xs + 1,
   },
-  condPillText: { fontSize: 11, color: colors.textSecondary },
-  noLocation: {
+  footerPillText: { fontSize: 11, color: colors.textSecondary },
+
+  /* Empty / No location */
+  emptyState: {
     alignItems: 'center',
     paddingVertical: spacing.lg,
-    gap: spacing.sm,
+    gap: spacing.sm + 2,
   },
-  noLocationText: {
+  emptyIconWrap: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    backgroundColor: colors.backgroundAlt,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  emptyText: {
     fontSize: 13,
     color: colors.textMuted,
     textAlign: 'center',
+    lineHeight: 19,
   },
-  syncLocationBtn: {
+  locationBtn: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 6,
-    marginTop: spacing.sm,
-    paddingVertical: spacing.sm,
+    marginTop: spacing.xs,
+    paddingVertical: spacing.sm + 2,
     paddingHorizontal: spacing.md,
-    backgroundColor: colors.sage,
+    backgroundColor: colors.primary,
     borderRadius: radius.md,
   },
-  syncLocationBtnPressed: { backgroundColor: colors.sageDark, opacity: 1 },
-  syncLocationBtnDisabled: { opacity: 0.8 },
-  syncLocationBtnText: {
+  locationBtnPressed: { backgroundColor: colors.primaryDark },
+  locationBtnText: {
     fontSize: 14,
     fontWeight: '600',
-    color: colors.textLight,
+    color: colors.textOnPrimary,
   },
+
+  /* Loading */
   loadingBox: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -480,26 +453,31 @@ const styles = StyleSheet.create({
     paddingVertical: spacing.lg,
   },
   loadingText: { fontSize: 13, color: colors.textMuted },
+
+  /* Error */
   errorBox: {
     paddingVertical: spacing.md,
     gap: spacing.sm,
   },
-  errorText: {
-    fontSize: 13,
-    color: colors.textMuted,
-  },
+  errorText: { fontSize: 13, color: colors.textMuted },
   retryBtn: {
     alignSelf: 'flex-start',
-    paddingVertical: spacing.xs,
-    paddingHorizontal: spacing.sm,
-    backgroundColor: colors.sageLight,
+    paddingVertical: spacing.xs + 2,
+    paddingHorizontal: spacing.sm + 2,
+    backgroundColor: colors.primaryMist,
     borderRadius: radius.sm,
   },
-  retryBtnPressed: { backgroundColor: colors.sage + '40' },
-  rateLimitBanner: {
+  retryBtnText: {
+    fontSize: 12,
+    fontWeight: '600',
+    color: colors.primary,
+  },
+
+  /* Banners */
+  banner: {
     backgroundColor: colors.warmTan,
     paddingVertical: spacing.xs + 2,
-    paddingHorizontal: spacing.sm,
+    paddingHorizontal: spacing.sm + 2,
     borderRadius: radius.sm,
     marginBottom: spacing.sm,
   },
@@ -507,14 +485,9 @@ const styles = StyleSheet.create({
     backgroundColor: colors.surfacePressed,
     gap: spacing.xs,
   },
-  rateLimitText: {
+  bannerText: {
     fontSize: 12,
     color: colors.textSecondary,
     textAlign: 'center',
-  },
-  retryBtnText: {
-    fontSize: 12,
-    fontWeight: '600',
-    color: colors.sage,
   },
 });
