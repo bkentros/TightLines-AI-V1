@@ -89,6 +89,7 @@ function labelForDriver(key: ScoredVariableKey, norm: SharedNormalizedOutput["no
       return pressureDriverLabel(p);
     case "wind_condition":
       if (!w) return "";
+      if (w.score >= 1 && w.label === "light") return "Calm conditions — light wind makes for clean presentations and easy fishing.";
       if (w.score >= 1) return "Wind is light and manageable — good for working the water.";
       if (w.score === 0) return "Wind is moderate — not a major factor today.";
       if (w.score === -1) return "Wind is picking up — it'll push you around out there.";
@@ -100,9 +101,10 @@ function labelForDriver(key: ScoredVariableKey, norm: SharedNormalizedOutput["no
       return "Bright, clear skies may push fish deeper or into cover.";
     case "precipitation_disruption":
       if (!pr) return "";
-      if (pr.score >= 1) return "Precipitation is minimal — clean conditions.";
+      if (pr.score >= 1) return "Dry, clean conditions — no precipitation to muddy things up.";
       if (pr.score === 0) return "Light precipitation isn't a major factor.";
-      return "Recent rain or active precipitation is muddying the picture.";
+      if (pr.score === -1) return "Recent rain is affecting water clarity and conditions.";
+      return "Active precipitation is disrupting conditions right now.";
     case "runoff_flow_disruption":
       if (!r) return "";
       if (r.score >= 1) return "River flows are clean and at fishable levels.";

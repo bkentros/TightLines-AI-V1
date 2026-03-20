@@ -30,7 +30,7 @@ export function normalizePrecipitationDisruption(
     ) {
       return { label: "recent_rain", score: -1 };
     }
-    return { label: "dry_stable", score: 0 };
+    return { label: "dry_stable", score: 1 };
   }
 
   if (rate >= 0.1 || r24 >= 0.75 || r72 >= 1.5 || activeNow === true) {
@@ -43,5 +43,5 @@ export function normalizePrecipitationDisruption(
   ) {
     return { label: "recent_rain", score: -1 };
   }
-  return { label: "dry_stable", score: 0 };
+  return { label: "dry_stable", score: 1 };
 }

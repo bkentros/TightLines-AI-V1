@@ -18,7 +18,7 @@ export function normalizeWind(
   const coastal = context === "coastal";
 
   let score: -2 | -1 | 0 | 1 | 2;
-  if (label === "light") score = 0;
+  if (label === "light") score = lake ? 1 : 0;
   else if (label === "moderate") score = lake || coastal ? 1 : 0;
   else if (label === "strong") score = -1;
   else score = -2;
