@@ -13,8 +13,10 @@ const LAKE: Record<RegionKey, LakeR> = {
   midwest_interior: { t: 2, p: 0, w: 0, l: 0, pr: 0 },
   south_central: { t: 0, p: 0, w: 0, l: 0, pr: 0 },
   mountain_west: { t: 2, p: 0, w: 1, l: 0, pr: 0 },
-  southwest: { t: 0, p: 0, w: 0, l: 1, pr: -1 },
-  pacific_coast: { t: 0, p: 0, w: 1, l: 0, pr: 0 },
+  southwest_desert: { t: -1, p: 0, w: 0, l: 1, pr: -1 },
+  southwest_high_desert: { t: 1, p: 0, w: 0, l: 0, pr: 0 },
+  pacific_northwest: { t: 1, p: 0, w: 1, l: 0, pr: 0 },
+  southern_california: { t: 0, p: 0, w: 0, l: 1, pr: -1 },
 };
 
 const RIVER: Record<RegionKey, RiverR> = {
@@ -26,8 +28,10 @@ const RIVER: Record<RegionKey, RiverR> = {
   midwest_interior: { t: 1, p: 0, w: 0, l: 0, r: 2 },
   south_central: { t: 0, p: 0, w: 0, l: 0, r: 1 },
   mountain_west: { t: 1, p: 0, w: 0, l: 0, r: 1 },
-  southwest: { t: 0, p: 0, w: 0, l: 0, r: 2 },
-  pacific_coast: { t: 0, p: 0, w: 0, l: 0, r: 2 },
+  southwest_desert: { t: 0, p: 0, w: 0, l: 0, r: 2 },
+  southwest_high_desert: { t: 0, p: 0, w: 0, l: 0, r: 2 },
+  pacific_northwest: { t: 0, p: 0, w: 0, l: 0, r: 2 },
+  southern_california: { t: 0, p: 0, w: 0, l: 0, r: 2 },
 };
 
 const COAST: Record<RegionKey, CoastalR> = {
@@ -39,8 +43,10 @@ const COAST: Record<RegionKey, CoastalR> = {
   midwest_interior: { ti: 0, wi: 0, pr: 0, l: 0, te: 0, pi: 0 },
   south_central: { ti: 0, wi: 0, pr: 0, l: 0, te: 0, pi: 0 },
   mountain_west: { ti: 0, wi: 0, pr: 0, l: 0, te: 0, pi: 0 },
-  southwest: { ti: 0, wi: 0, pr: 0, l: 0, te: 0, pi: -1 },
-  pacific_coast: { ti: 1, wi: 1, pr: 0, l: 0, te: 0, pi: -1 },
+  southwest_desert: { ti: 0, wi: 0, pr: 0, l: 0, te: 0, pi: -1 },
+  southwest_high_desert: { ti: 0, wi: 0, pr: 0, l: 0, te: 0, pi: -1 },
+  pacific_northwest: { ti: 1, wi: 1, pr: 0, l: 0, te: 0, pi: -1 },
+  southern_california: { ti: 0, wi: 0, pr: 0, l: 0, te: 0, pi: -1 },
 };
 
 export function getRegionModifiers(

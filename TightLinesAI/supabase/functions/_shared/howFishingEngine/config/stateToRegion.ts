@@ -43,12 +43,12 @@ export const STATE_TO_REGION: Record<string, RegionKey> = {
   CO: "mountain_west",
   UT: "mountain_west",
   ID: "mountain_west",
-  AZ: "southwest",
-  NM: "southwest",
-  NV: "southwest",
-  CA: "pacific_coast",
-  OR: "pacific_coast",
-  WA: "pacific_coast",
+  AZ: "southwest_desert",
+  NV: "southwest_desert",
+  NM: "southwest_high_desert",
+  CA: "southern_california",
+  OR: "pacific_northwest",
+  WA: "pacific_northwest",
 };
 
 export function regionKeyFromState(state: string | null): RegionKey | null {
@@ -67,7 +67,9 @@ export function regionKeyFromLatLon(lat: number, lon: number): RegionKey {
   if (lat >= 35 && lat <= 40 && lon >= -95 && lon <= -80) return "midwest_interior";
   if (lat >= 33 && lat <= 37 && lon >= -103 && lon <= -88) return "south_central";
   if (lat >= 37 && lat <= 49 && lon >= -125 && lon <= -104) return "mountain_west";
-  if (lat >= 31 && lat <= 37 && lon >= -115 && lon <= -103) return "southwest";
-  if (lat >= 32 && lat <= 49 && lon >= -125 && lon <= -116) return "pacific_coast";
+  if (lat >= 31 && lat <= 37 && lon >= -115 && lon <= -109) return "southwest_desert";
+  if (lat >= 31 && lat <= 37 && lon >= -109 && lon <= -103) return "southwest_high_desert";
+  if (lat >= 42 && lat <= 49 && lon >= -125 && lon <= -116) return "pacific_northwest";
+  if (lat >= 32 && lat <= 42 && lon >= -125 && lon <= -116) return "southern_california";
   return "midwest_interior";
 }

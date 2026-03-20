@@ -11,8 +11,10 @@ export const CANONICAL_REGION_KEYS = [
   "midwest_interior",
   "south_central",
   "mountain_west",
-  "southwest",
-  "pacific_coast",
+  "southwest_desert",
+  "southwest_high_desert",
+  "pacific_northwest",
+  "southern_california",
 ] as const;
 
 export type RegionKey = (typeof CANONICAL_REGION_KEYS)[number];

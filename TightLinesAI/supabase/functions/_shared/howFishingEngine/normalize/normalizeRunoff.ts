@@ -11,8 +11,10 @@ const REGION_SENS: Record<RegionKey, Sens> = {
   northeast: "high",
   great_lakes_upper_midwest: "high",
   midwest_interior: "high",
-  southwest: "high",
-  pacific_coast: "high",
+  southwest_desert: "high",
+  southwest_high_desert: "high",
+  pacific_northwest: "high",
+  southern_california: "high",
 };
 
 function classify(s: Sens, p24: number, p72: number, p7d: number): VariableState {
