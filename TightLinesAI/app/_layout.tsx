@@ -2,6 +2,18 @@ import { useEffect } from 'react';
 import { Stack, useRouter, useSegments } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import * as Linking from 'expo-linking';
+import { useFonts } from 'expo-font';
+import {
+  BricolageGrotesque_600SemiBold,
+  BricolageGrotesque_700Bold,
+} from '@expo-google-fonts/bricolage-grotesque';
+import {
+  Inter_400Regular,
+  Inter_400Regular_Italic,
+  Inter_500Medium,
+  Inter_600SemiBold,
+  Inter_700Bold,
+} from '@expo-google-fonts/inter';
 import { supabase } from '../lib/supabase';
 import { useAuthStore } from '../store/authStore';
 import { useBiometricLock } from '../hooks/useBiometricLock';
@@ -46,6 +58,16 @@ function useProtectedRoute() {
 export default function RootLayout() {
   const router = useRouter();
   const { hydrate, setSession, setProfile, fetchProfile } = useAuthStore();
+
+  useFonts({
+    BricolageGrotesque_600SemiBold,
+    BricolageGrotesque_700Bold,
+    Inter_400Regular,
+    Inter_400Regular_Italic,
+    Inter_500Medium,
+    Inter_600SemiBold,
+    Inter_700Bold,
+  });
 
   // Hydrate session from AsyncStorage on mount
   useEffect(() => {
@@ -173,7 +195,7 @@ export default function RootLayout() {
       <Stack
         screenOptions={{
           headerStyle: { backgroundColor: colors.background },
-          headerTintColor: colors.sage,
+          headerTintColor: colors.primary,
           headerTitleStyle: {
             fontFamily: fonts.serif,
             fontSize: 17,

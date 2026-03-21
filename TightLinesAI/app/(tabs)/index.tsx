@@ -345,6 +345,7 @@ const styles = StyleSheet.create({
     letterSpacing: 0.3,
   },
   greeting: {
+    fontFamily: fonts.body,
     fontSize: 16,
     color: colors.textSecondary,
     lineHeight: 22,
@@ -383,8 +384,8 @@ const styles = StyleSheet.create({
     marginBottom: spacing.sm + 2,
   },
   heroBadgeText: {
+    fontFamily: fonts.bodySemiBold,
     fontSize: 11,
-    fontWeight: '600',
     color: colors.primary,
     letterSpacing: 0.3,
   },
@@ -396,6 +397,7 @@ const styles = StyleSheet.create({
     marginBottom: spacing.xs + 2,
   },
   heroSubtitle: {
+    fontFamily: fonts.body,
     fontSize: 14,
     color: colors.textSecondary,
     lineHeight: 20,
@@ -430,8 +432,8 @@ const styles = StyleSheet.create({
     borderTopColor: colors.border,
   },
   heroFooterText: {
+    fontFamily: fonts.bodySemiBold,
     fontSize: 14,
-    fontWeight: '600',
     color: colors.primary,
   },
 
@@ -444,11 +446,11 @@ const styles = StyleSheet.create({
     marginBottom: spacing.md,
   },
   sectionTitle: {
-    fontSize: 13,
-    fontWeight: '700',
+    fontFamily: fonts.bodyBold,
+    fontSize: 11,
     color: colors.textMuted,
     textTransform: 'uppercase',
-    letterSpacing: 0.8,
+    letterSpacing: 1.2,
   },
   sectionLine: {
     flex: 1,
@@ -512,11 +514,13 @@ const styles = StyleSheet.create({
     marginBottom: spacing.xs,
   },
   featureDesc: {
+    fontFamily: fonts.body,
     fontSize: 13,
     lineHeight: 19,
     color: colors.textSecondary,
   },
   featureDescDisabled: {
+    fontFamily: fonts.body,
     fontSize: 13,
     lineHeight: 19,
     color: colors.textSecondary,
@@ -532,8 +536,8 @@ const styles = StyleSheet.create({
     borderRadius: radius.sm,
   },
   aiBadgeText: {
+    fontFamily: fonts.bodySemiBold,
     fontSize: 11,
-    fontWeight: '600',
     letterSpacing: 0.2,
   },
   comingSoonPill: {
@@ -543,15 +547,14 @@ const styles = StyleSheet.create({
     borderRadius: radius.sm,
   },
   comingSoonText: {
+    fontFamily: fonts.bodyBold,
     fontSize: 11,
-    fontWeight: '700',
     color: '#FFFFFF',
     letterSpacing: 0.2,
   },
   tagline: {
-    fontFamily: fonts.serif,
+    fontFamily: fonts.bodyItalic,
     fontSize: 14,
-    fontStyle: 'italic',
     color: colors.textMuted,
     textAlign: 'center',
     marginTop: spacing.xxl,
