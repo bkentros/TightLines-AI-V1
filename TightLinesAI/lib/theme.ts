@@ -1,82 +1,90 @@
-// ─── TightLines AI — Premium Design System ───
-// Hunter green primary, natural tones, soft & elevated outdoor intelligence feel
+// ─── TightLines AI — Lush Forest Design System ───
+// Palette: #253D2C (Deep Forest) · #2E6F40 (Forest Green) · #68BA7F (Sage) · #CFFFDC (Mint)
 
 export const colors = {
-  // Backgrounds
-  background: '#F7F5F0',       // warm off-white (softer, less yellow)
-  backgroundAlt: '#EFEAE2',    // slightly deeper for layered sections
-  surface: '#FFFFFF',          // pure white cards for maximum contrast
-  surfacePressed: '#F2EDE5',   // pressed state
-  surfaceElevated: '#FFFFFF',  // elevated cards (with shadow)
+  // ── Backgrounds ──────────────────────────────────────────────────
+  background: '#F2FAF4',        // faint mint-white canvas
+  backgroundAlt: '#E6F5EB',     // slightly richer for layered sections
+  surface: '#FFFFFF',           // pure white cards
+  surfacePressed: '#EBF7EF',    // pressed state
+  surfaceElevated: '#FFFFFF',   // elevated cards
+  surfaceGlass: 'rgba(207,255,220,0.45)', // mint glass card
 
-  // Primary — Hunter Green
-  primary: '#2A5C34',          // hunter green — main brand anchor
-  primaryDark: '#1B4023',      // deep forest — pressed states
-  primaryLight: '#D6E8D9',     // soft sage tint — backgrounds, badges
-  primaryMist: '#EDF4EE',      // barely-there green — subtle backgrounds
+  // ── Brand — Lush Forest ──────────────────────────────────────────
+  primary: '#2E6F40',           // forest green — brand anchor
+  primaryDark: '#253D2C',       // deep forest — CTAs, pressed, strong UI
+  primaryLight: '#68BA7F',      // sage green — secondary accents
+  primaryMist: '#CFFFDC',       // mint — glass tints, subtle backgrounds
+  primaryMistDark: '#B2E8C4',   // slightly deeper mint for borders
 
-  // Legacy aliases
-  sage: '#2A5C34',
-  sageDark: '#1B4023',
-  sageLight: '#D6E8D9',
+  // ── Legacy aliases (keep for existing component compat) ──────────
+  sage: '#2E6F40',
+  sageDark: '#253D2C',
+  sageLight: '#CFFFDC',
 
-  // Text
-  text: '#1A2E1C',             // near-black with green undertone
-  textSecondary: '#4A5D4C',    // muted forest
-  textMuted: '#8B9488',        // soft sage gray
-  textLight: '#FFFFFF',        // on dark backgrounds
-  textOnPrimary: '#FFFFFF',    // on primary-colored backgrounds
+  // ── Text ─────────────────────────────────────────────────────────
+  text: '#253D2C',              // deep forest — primary text
+  textSecondary: '#3B6147',     // forest mid-tone
+  textMuted: '#7BAF8B',         // desaturated sage — captions, labels
+  textLight: '#FFFFFF',
+  textOnPrimary: '#FFFFFF',
 
-  // Neutrals
-  stone: '#6B7066',            // neutral stone
-  warmSand: '#C4B89A',         // warm sand accent
-  fog: '#D5D1C9',              // fog gray
-  charcoal: '#2C3330',         // deep charcoal
+  // ── Neutrals ─────────────────────────────────────────────────────
+  stone: '#6B7C6E',
+  warmSand: '#C4B89A',
+  fog: '#D5D1C9',
+  charcoal: '#253D2C',
 
-  // Legacy
-  warmTan: '#B5A17C',         // warmer, more premium tan
-  tileDark: '#1E3924',
-  tileDarkPressed: '#264730',
-  tileDarkText: '#F7F5F0',
-  tileDarkSub: '#A8B8A4',
+  // ── Legacy ───────────────────────────────────────────────────────
+  warmTan: '#B5A17C',
+  tileDark: '#253D2C',
+  tileDarkPressed: '#2E6F40',
+  tileDarkText: '#F2FAF4',
+  tileDarkSub: '#A0C9AE',
 
-  // Accents
-  gold: '#C29B2A',             // richer gold
+  // ── Accents ──────────────────────────────────────────────────────
+  gold: '#C29B2A',
   goldLight: '#C29B2A18',
-  waterBlue: '#2B7EB5',        // deeper, calmer blue
-  plannerYellow: '#D4A72C',    // warmer amber
+  waterBlue: '#2B7EB5',
+  plannerYellow: '#D4A72C',
 
-  // Borders & dividers
-  border: '#E2DDD4',           // soft warm border
-  borderLight: '#ECE8E0',      // lightest border
-  divider: '#E8E3DA',
+  // ── Borders ──────────────────────────────────────────────────────
+  border: '#D4E8D8',            // soft mint-green border
+  borderLight: '#E4F0E6',       // barely-there border
+  divider: '#D9E9DC',
 
-  // States
-  disabled: '#C8C3BA',
-  disabledText: '#A9A49A',
-  disabledBg: '#F0EDE4',
+  // ── States ───────────────────────────────────────────────────────
+  disabled: '#C2D8C6',
+  disabledText: '#A5BAA7',
+  disabledBg: '#EEF6EF',
 
-  // Tab bar
+  // ── Tab bar ──────────────────────────────────────────────────────
   tabBar: '#FFFFFF',
-  tabActive: '#2A5C34',
-  tabInactive: '#A0A69E',
+  tabActive: '#253D2C',
+  tabInactive: '#8DB99A',
 
-  // Report score bands
-  reportScoreRed: '#B85450',
+  // ── Report score bands ───────────────────────────────────────────
+  reportScoreRed: '#C0504A',
   reportScoreRedBg: '#FDF0EF',
   reportScoreYellow: '#C29B2A',
   reportScoreYellowBg: '#FDF8EC',
-  reportScoreGreen: '#2A5C34',
-  reportScoreGreenBg: '#EDF4EE',
+  reportScoreGreen: '#2E6F40',
+  reportScoreGreenBg: '#E6F5EB',
 
-  // Context accent colors (for water type visual distinction)
-  contextFreshwater: '#2A5C34',        // hunter green
-  contextRiver: '#3A7D5C',            // teal-green
-  contextCoastal: '#2B7EB5',          // ocean blue
+  // ── Context accent colors ─────────────────────────────────────────
+  contextFreshwater: '#2E6F40',
+  contextRiver: '#68BA7F',
+  contextCoastal: '#2B7EB5',
 } as const;
 
 export const fonts = {
-  serif: 'Georgia',
+  serif: 'BricolageGrotesque_600SemiBold',    // headings, display
+  serifBold: 'BricolageGrotesque_700Bold',    // bold headings
+  body: 'Inter_400Regular',                   // body copy
+  bodyItalic: 'Inter_400Regular_Italic',      // italic body
+  bodyMedium: 'Inter_500Medium',              // medium weight body
+  bodySemiBold: 'Inter_600SemiBold',          // semibold labels
+  bodyBold: 'Inter_700Bold',                  // bold labels
 } as const;
 
 export const spacing = {
@@ -91,39 +99,39 @@ export const spacing = {
 export const radius = {
   xs: 4,
   sm: 8,
-  md: 14,
-  lg: 20,
-  xl: 28,
+  md: 16,
+  lg: 22,
+  xl: 30,
   full: 999,
 } as const;
 
 export const shadows = {
   sm: {
-    shadowColor: '#1A2E1C',
+    shadowColor: '#253D2C',
     shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.04,
+    shadowOpacity: 0.05,
     shadowRadius: 4,
     elevation: 1,
   },
   md: {
-    shadowColor: '#1A2E1C',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.06,
-    shadowRadius: 8,
-    elevation: 2,
+    shadowColor: '#253D2C',
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.08,
+    shadowRadius: 10,
+    elevation: 3,
   },
   lg: {
-    shadowColor: '#1A2E1C',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.08,
-    shadowRadius: 16,
-    elevation: 4,
+    shadowColor: '#253D2C',
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.10,
+    shadowRadius: 18,
+    elevation: 5,
   },
   xl: {
-    shadowColor: '#1A2E1C',
-    shadowOffset: { width: 0, height: 6 },
-    shadowOpacity: 0.1,
-    shadowRadius: 24,
-    elevation: 6,
+    shadowColor: '#253D2C',
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.12,
+    shadowRadius: 28,
+    elevation: 8,
   },
 } as const;
