@@ -383,27 +383,7 @@ Deno.serve(async (req: Request) => {
     );
   }
 
-  const rawCtx = body.engine_context ?? body.environment_mode;
-  const ctxStr = typeof rawCtx === "string" ? rawCtx : "";
-  let context: EngineContext;
-  if (ctxStr === "freshwater_lake_pond" || ctxStr === "freshwater_lake") {
-    context = "freshwater_lake_pond";
-  } else if (ctxStr === "freshwater_river") {
-    context = "freshwater_river";
-  } else if (ctxStr === "coastal" || ctxStr === "saltwater" || ctxStr === "brackish") {
-    context = "coastal";
-  } else if (VALID_CONTEXTS.includes(ctxStr as EngineContext)) {
-    context = ctxStr as EngineContext;
-  } else {
-    return new Response(
-      JSON.stringify({
-        error: "invalid_engine_context",
-        message: `engine_context must be one of: ${VALID_CONTEXTS.join(", ")} (legacy saltwater/brackish map to coastal)`,
-      }),
-      { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders() } }
-    );
-  }
-
+  // ─── Shared setup: subscription, usage, env ───
   const { data: profile } = await supabase
     .from("profiles")
     .select("subscription_tier")
@@ -426,15 +406,6 @@ Deno.serve(async (req: Request) => {
     .eq("billing_period", billingPeriod)
     .maybeSingle();
   const currentCost = Number((usageRow as { total_cost_usd?: number } | null)?.total_cost_usd ?? 0);
-  if (currentCost + ESTIMATED_COST_PER_CALL_USD > cap) {
-    return new Response(
-      JSON.stringify({
-        error: "usage_cap_exceeded",
-        message: "You've reached your monthly usage limit.",
-      }),
-      { status: 429, headers: { "Content-Type": "application/json", ...corsHeaders() } }
-    );
-  }
 
   if (!body.env_data || typeof body.env_data !== "object") {
     return new Response(
@@ -445,72 +416,191 @@ Deno.serve(async (req: Request) => {
   const envData = body.env_data as Record<string, unknown>;
   const timezone = extractTimezone(envData);
   const localDate = localDateInTz(timezone);
-
   const locationName = typeof body.location_name === "string" && body.location_name.length > 0
     ? body.location_name
     : typeof body.city === "string" && body.city.length > 0
       ? body.city
       : null;
-
-  const sharedReq = buildSharedEngineRequestFromEnvData(lat, lon, localDate, timezone, context, envData);
-  let report = runHowFishingReport(sharedReq);
-
   const openaiKey = Deno.env.get("OPENAI_API_KEY");
-  let inputTokens = 0;
-  let outputTokens = 0;
-  if (openaiKey) {
-    const narr = buildNarrationPayloadFromReport(report);
-    const polished = await polishReportCopy(openaiKey, report, narr, locationName, localDate, envData);
-    if (polished) {
-      report = {
-        ...report,
-        summary_line: polished.summary,
-        actionable_tip: polished.tip,
-      };
-      inputTokens = polished.inT;
-      outputTokens = polished.outT;
+  const timestampUtc = new Date().toISOString();
+  const cacheExpiresAt = locationLocalMidnightIso(timezone);
+
+  // ─── Helper: generate a single report for a given context ───
+  async function generateSingleReport(ctx: EngineContext): Promise<{
+    report: HowsFishingReport;
+    inT: number;
+    outT: number;
+  }> {
+    const sharedReq = buildSharedEngineRequestFromEnvData(lat, lon, localDate, timezone, ctx, envData);
+    let report = runHowFishingReport(sharedReq);
+    let inT = 0;
+    let outT = 0;
+    if (openaiKey) {
+      const narr = buildNarrationPayloadFromReport(report);
+      const polished = await polishReportCopy(openaiKey, report, narr, locationName, localDate, envData);
+      if (polished) {
+        report = { ...report, summary_line: polished.summary, actionable_tip: polished.tip };
+        inT = polished.inT;
+        outT = polished.outT;
+      }
+    }
+    return { report, inT, outT };
+  }
+
+  // ─── Helper: track usage (insert or update) ───
+  async function trackUsage(actualCostUsd: number, payload: Record<string, unknown>) {
+    await supabase.from("ai_sessions").insert({
+      user_id: userId,
+      session_type: "fishing_now",
+      input_payload: payload,
+      response_payload: null, // stored separately for multi to save space
+      token_cost_usd: actualCostUsd,
+    });
+    if ((usageRow as { id?: string } | null)?.id) {
+      const prevCallCount = Number((usageRow as { call_count?: number } | null)?.call_count ?? 0);
+      await supabase
+        .from("usage_tracking")
+        .update({
+          total_cost_usd: currentCost + actualCostUsd,
+          call_count: prevCallCount + 1,
+          updated_at: new Date().toISOString(),
+        })
+        .eq("id", (usageRow as { id: string }).id);
+    } else {
+      await supabase.from("usage_tracking").insert({
+        user_id: userId,
+        billing_period: billingPeriod,
+        total_cost_usd: actualCostUsd,
+        call_count: 1,
+      });
     }
   }
 
-  const actualCostUsd = computeCallCost(inputTokens, outputTokens);
-  const timestampUtc = new Date().toISOString();
-  const cacheExpiresAt = locationLocalMidnightIso(timezone);
+  // ═══════════════════════════════════════════════════
+  // MULTI MODE — generate reports for multiple contexts
+  // ═══════════════════════════════════════════════════
+  if (body.mode === "multi") {
+    const rawContexts = body.contexts;
+    if (!Array.isArray(rawContexts) || rawContexts.length === 0) {
+      return new Response(
+        JSON.stringify({ error: "invalid_contexts", message: "contexts must be a non-empty array" }),
+        { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders() } }
+      );
+    }
+    const contexts = rawContexts.filter((c: unknown) =>
+      typeof c === "string" && VALID_CONTEXTS.includes(c as EngineContext)
+    ) as EngineContext[];
+    if (contexts.length === 0) {
+      return new Response(
+        JSON.stringify({ error: "invalid_contexts", message: `Each context must be one of: ${VALID_CONTEXTS.join(", ")}` }),
+        { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders() } }
+      );
+    }
+
+    // Usage cap check — estimate cost for all contexts
+    const estimatedCost = ESTIMATED_COST_PER_CALL_USD * contexts.length;
+    if (currentCost + estimatedCost > cap) {
+      return new Response(
+        JSON.stringify({ error: "usage_cap_exceeded", message: "You've reached your monthly usage limit." }),
+        { status: 429, headers: { "Content-Type": "application/json", ...corsHeaders() } }
+      );
+    }
+
+    // Generate reports sequentially (safe for rate limits)
+    const reports: Record<string, {
+      feature: "hows_fishing_rebuild_v1";
+      generated_at: string;
+      cache_expires_at: string;
+      engine_context: EngineContext;
+      report: HowsFishingReport;
+      usage: { input_tokens: number; output_tokens: number; token_cost_usd: number };
+    }> = {};
+    const failedContexts: string[] = [];
+    let totalInT = 0;
+    let totalOutT = 0;
+
+    for (const ctx of contexts) {
+      try {
+        const { report, inT, outT } = await generateSingleReport(ctx);
+        totalInT += inT;
+        totalOutT += outT;
+        reports[ctx] = {
+          feature: "hows_fishing_rebuild_v1",
+          generated_at: timestampUtc,
+          cache_expires_at: cacheExpiresAt,
+          engine_context: ctx,
+          report,
+          usage: { input_tokens: inT, output_tokens: outT, token_cost_usd: computeCallCost(inT, outT) },
+        };
+      } catch {
+        failedContexts.push(ctx);
+      }
+    }
+
+    const totalCost = computeCallCost(totalInT, totalOutT);
+    const multiBundle = {
+      feature: "hows_fishing_rebuild_v1" as const,
+      mode: "multi" as const,
+      generated_at: timestampUtc,
+      cache_expires_at: cacheExpiresAt,
+      contexts,
+      reports,
+      ...(failedContexts.length > 0 ? { failed_contexts: failedContexts } : {}),
+      usage: { input_tokens: totalInT, output_tokens: totalOutT, token_cost_usd: totalCost },
+    };
+
+    await trackUsage(totalCost, { latitude: lat, longitude: lon, mode: "multi", contexts });
+
+    return new Response(JSON.stringify(multiBundle), {
+      status: 200,
+      headers: { "Content-Type": "application/json", ...corsHeaders() },
+    });
+  }
+
+  // ═══════════════════════════════════════════════════
+  // SINGLE MODE — existing single-context path
+  // ═══════════════════════════════════════════════════
+  const rawCtx = body.engine_context ?? body.environment_mode;
+  const ctxStr = typeof rawCtx === "string" ? rawCtx : "";
+  let context: EngineContext;
+  if (ctxStr === "freshwater_lake_pond" || ctxStr === "freshwater_lake") {
+    context = "freshwater_lake_pond";
+  } else if (ctxStr === "freshwater_river") {
+    context = "freshwater_river";
+  } else if (ctxStr === "coastal" || ctxStr === "saltwater" || ctxStr === "brackish") {
+    context = "coastal";
+  } else if (VALID_CONTEXTS.includes(ctxStr as EngineContext)) {
+    context = ctxStr as EngineContext;
+  } else {
+    return new Response(
+      JSON.stringify({
+        error: "invalid_engine_context",
+        message: `engine_context must be one of: ${VALID_CONTEXTS.join(", ")} (legacy saltwater/brackish map to coastal)`,
+      }),
+      { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders() } }
+    );
+  }
+
+  if (currentCost + ESTIMATED_COST_PER_CALL_USD > cap) {
+    return new Response(
+      JSON.stringify({ error: "usage_cap_exceeded", message: "You've reached your monthly usage limit." }),
+      { status: 429, headers: { "Content-Type": "application/json", ...corsHeaders() } }
+    );
+  }
+
+  const { report: singleReport, inT: singleInT, outT: singleOutT } = await generateSingleReport(context);
+  const singleCost = computeCallCost(singleInT, singleOutT);
 
   const responseBundle = {
     feature: "hows_fishing_rebuild_v1" as const,
     generated_at: timestampUtc,
     cache_expires_at: cacheExpiresAt,
     engine_context: context,
-    report,
-    usage: { input_tokens: inputTokens, output_tokens: outputTokens, token_cost_usd: actualCostUsd },
+    report: singleReport,
+    usage: { input_tokens: singleInT, output_tokens: singleOutT, token_cost_usd: singleCost },
   };
 
-  await supabase.from("ai_sessions").insert({
-    user_id: userId,
-    session_type: "fishing_now",
-    input_payload: { latitude: lat, longitude: lon, engine_context: context },
-    response_payload: responseBundle,
-    token_cost_usd: actualCostUsd,
-  });
-
-  if ((usageRow as { id?: string } | null)?.id) {
-    const prevCallCount = Number((usageRow as { call_count?: number } | null)?.call_count ?? 0);
-    await supabase
-      .from("usage_tracking")
-      .update({
-        total_cost_usd: currentCost + actualCostUsd,
-        call_count: prevCallCount + 1,
-        updated_at: new Date().toISOString(),
-      })
-      .eq("id", (usageRow as { id: string }).id);
-  } else {
-    await supabase.from("usage_tracking").insert({
-      user_id: userId,
-      billing_period: billingPeriod,
-      total_cost_usd: actualCostUsd,
-      call_count: 1,
-    });
-  }
+  await trackUsage(singleCost, { latitude: lat, longitude: lon, engine_context: context });
 
   return new Response(JSON.stringify(responseBundle), {
     status: 200,

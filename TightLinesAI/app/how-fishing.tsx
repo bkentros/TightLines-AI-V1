@@ -18,16 +18,16 @@ import { getEnvironment, fetchFreshEnvironment } from '../lib/env';
 import { invokeEdgeFunction, getValidAccessToken } from '../lib/supabase';
 import { useAuthStore } from '../store/authStore';
 import {
-  getCachedHowFishingRebuild,
-  setCachedHowFishingRebuild,
-  setCurrentHowFishingRebuild,
+  getCachedMultiRebuild,
+  setCachedMultiRebuild,
+  setCurrentMultiRebuild,
   type HowFishingRebuildBundle,
+  type HowFishingRebuildMultiBundle,
   type EngineContextKey,
 } from '../lib/howFishing';
 import { useEnvStore } from '../store/envStore';
 import type { EnvironmentData } from '../lib/env/types';
 import { isCoastalContextEligible } from '../lib/coastalProximity';
-import { CondensedLoadingView } from '../components/fishing/CondensedLoadingView';
 import { RebuildReportView } from '../components/fishing/RebuildReportView';
 
 function currentLocationDateString(timezone?: string) {
@@ -57,17 +57,10 @@ function formatGeneratedTime(iso: string, timezone?: string): string {
   }
 }
 
-function windDirectionLabel(deg?: number | null): string | null {
-  if (typeof deg !== 'number' || Number.isNaN(deg)) return null;
-  const cards = ['N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW'];
-  const i = Math.round(((deg % 360) + 360) / 22.5) % 16;
-  return cards[i] ?? null;
-}
-
-const CONTEXT_OPTIONS: { key: EngineContextKey; label: string; icon: string; color: string; description: string }[] = [
-  { key: 'freshwater_lake_pond', label: 'Lake / Pond', icon: 'water', color: colors.contextFreshwater, description: 'Still freshwater' },
-  { key: 'freshwater_river', label: 'River / Stream', icon: 'git-merge-outline', color: colors.contextRiver, description: 'Moving freshwater' },
-  { key: 'coastal', label: 'Coastal', icon: 'boat-outline', color: colors.contextCoastal, description: 'Salt & brackish' },
+const TAB_CONFIG: { key: EngineContextKey; label: string; icon: string; color: string }[] = [
+  { key: 'freshwater_lake_pond', label: 'Lake / Pond', icon: 'water', color: colors.contextFreshwater },
+  { key: 'freshwater_river', label: 'River', icon: 'git-merge-outline', color: colors.contextRiver },
+  { key: 'coastal', label: 'Coastal', icon: 'boat-outline', color: colors.contextCoastal },
 ];
 
 export default function HowFishingScreen() {
@@ -86,24 +79,26 @@ export default function HowFishingScreen() {
   const [locationLabel, setLocationLabel] = useState<string>('Current location');
 
   const coastalEligible = useMemo(() => isCoastalContextEligible(lat, lon), [lat, lon]);
-  const contextChoices = useMemo(
-    () => CONTEXT_OPTIONS.filter((o) => o.key !== 'coastal' || coastalEligible),
-    [coastalEligible]
+  const availableContexts: EngineContextKey[] = useMemo(() => {
+    const ctxs: EngineContextKey[] = ['freshwater_lake_pond', 'freshwater_river'];
+    if (coastalEligible) ctxs.push('coastal');
+    return ctxs;
+  }, [coastalEligible]);
+
+  const availableTabs = useMemo(
+    () => TAB_CONFIG.filter((t) => availableContexts.includes(t.key)),
+    [availableContexts]
   );
 
-  const [engineContext, setEngineContext] = useState<EngineContextKey | null>(null);
-
-  const [rebuildBundle, setRebuildBundle] = useState<HowFishingRebuildBundle | null>(null);
+  // Multi-report state
+  const [multiBundles, setMultiBundles] = useState<Record<EngineContextKey, HowFishingRebuildBundle> | null>(null);
+  const [activeTab, setActiveTab] = useState<EngineContextKey>('freshwater_lake_pond');
   const [analysisLoading, setAnalysisLoading] = useState(false);
   const [analysisError, setAnalysisError] = useState<string | null>(null);
   const [refreshing, setRefreshing] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
 
-  useEffect(() => {
-    if (engineContext === null && contextChoices.length > 0) {
-      setEngineContext(contextChoices[0]!.key);
-    }
-  }, [engineContext, contextChoices]);
-
+  // Load env + geocode on mount
   useEffect(() => {
     if (!hasCoords) return;
     let cancelled = false;
@@ -131,33 +126,43 @@ export default function HowFishingScreen() {
     return () => { cancelled = true; };
   }, [hasCoords, lat, lon, units]);
 
-  const generateReport = useCallback(async () => {
-    if (!hasCoords || !engineContext) return;
+  // Check cache on mount, show confirm if not cached
+  useEffect(() => {
+    if (!hasCoords || envLoading) return;
+    let cancelled = false;
+    (async () => {
+      const cached = await getCachedMultiRebuild(lat, lon, availableContexts);
+      if (cancelled) return;
+      if (cached) {
+        setMultiBundles(cached);
+        setCurrentMultiRebuild(lat, lon, cached);
+      } else {
+        setShowConfirm(true);
+      }
+    })();
+    return () => { cancelled = true; };
+  }, [hasCoords, envLoading, lat, lon, availableContexts]);
+
+  const generateReports = useCallback(async () => {
+    if (!hasCoords) return;
     setAnalysisLoading(true);
     setAnalysisError(null);
+    setShowConfirm(false);
     try {
       const accessToken = await getValidAccessToken();
       const freshEnv = await fetchFreshEnvironment({ latitude: lat, longitude: lon, units });
       setEnv(freshEnv);
 
-      const cached = await getCachedHowFishingRebuild(lat, lon, engineContext);
-      if (cached) {
-        setRebuildBundle(cached);
-        setCurrentHowFishingRebuild(lat, lon, cached);
-        setLastReportEnv(freshEnv);
-        setAnalysisLoading(false);
-        return;
-      }
-
       const result = await invokeEdgeFunction<
-        HowFishingRebuildBundle | { error: string; message?: string }
+        HowFishingRebuildMultiBundle | { error: string; message?: string }
       >('how-fishing', {
         accessToken,
         body: {
           latitude: lat,
           longitude: lon,
           units,
-          engine_context: engineContext,
+          mode: 'multi',
+          contexts: availableContexts,
           env_data: freshEnv,
           location_name: locationLabel !== 'Current location' ? locationLabel : null,
         },
@@ -167,41 +172,42 @@ export default function HowFishingScreen() {
         throw new Error((result as { message?: string }).message ?? (result as { error: string }).error);
       }
 
-      const bundle = result as HowFishingRebuildBundle;
-      if (!bundle || bundle.feature !== 'hows_fishing_rebuild_v1' || !bundle.report) {
+      const multi = result as HowFishingRebuildMultiBundle;
+      if (!multi || multi.feature !== 'hows_fishing_rebuild_v1' || !multi.reports) {
         throw new Error('Invalid response from server');
       }
 
-      await setCachedHowFishingRebuild(lat, lon, bundle);
-      setCurrentHowFishingRebuild(lat, lon, bundle);
+      await setCachedMultiRebuild(lat, lon, multi);
+      const bundles = multi.reports as Record<EngineContextKey, HowFishingRebuildBundle>;
+      setCurrentMultiRebuild(lat, lon, bundles);
       setLastReportEnv(freshEnv);
-      setRebuildBundle(bundle);
+      setMultiBundles(bundles);
     } catch (err) {
       const msg = err instanceof Error ? err.message : 'Something went wrong.';
       setAnalysisError(msg);
-      Alert.alert('Unable to generate report', msg);
+      Alert.alert('Unable to generate reports', msg);
     } finally {
       setAnalysisLoading(false);
     }
-  }, [hasCoords, engineContext, lat, lon, units, setLastReportEnv]);
+  }, [hasCoords, lat, lon, units, availableContexts, locationLabel, setLastReportEnv]);
 
   const handleRefresh = useCallback(async () => {
-    if (!engineContext) return;
     setRefreshing(true);
     try {
       const AsyncStorage = (await import('@react-native-async-storage/async-storage')).default;
-      await AsyncStorage.removeItem(
-        `how_fishing_rebuild_${lat.toFixed(3)}_${lon.toFixed(3)}_${engineContext}`
-      );
+      for (const ctx of availableContexts) {
+        await AsyncStorage.removeItem(`how_fishing_rebuild_${lat.toFixed(3)}_${lon.toFixed(3)}_${ctx}`);
+      }
     } catch { /* ignore */ }
-    setRebuildBundle(null);
-    await generateReport();
+    setMultiBundles(null);
+    await generateReports();
     setRefreshing(false);
-  }, [generateReport, engineContext, lat, lon]);
+  }, [generateReports, availableContexts, lat, lon]);
 
-  const activeTz = rebuildBundle?.report.location.timezone ?? env?.timezone;
-  const topMeta = rebuildBundle
-    ? `${locationLabel}  •  ${currentLocationDateString(activeTz)}  •  ${formatGeneratedTime(rebuildBundle.generated_at, activeTz)}`
+  const activeBundle = multiBundles?.[activeTab] ?? null;
+  const activeTz = activeBundle?.report.location.timezone ?? env?.timezone;
+  const topMeta = activeBundle
+    ? `${locationLabel}  •  ${currentLocationDateString(activeTz)}  •  ${formatGeneratedTime(activeBundle.generated_at, activeTz)}`
     : locationLabel;
 
   // ─── No coords ───
@@ -227,8 +233,8 @@ export default function HowFishingScreen() {
     );
   }
 
-  // ─── Preflight — context selection ───
-  if (!rebuildBundle) {
+  // ─── Confirmation / Generate screen ───
+  if (!multiBundles) {
     return (
       <SafeAreaView style={styles.safe}>
         <View style={styles.topBar}>
@@ -239,120 +245,53 @@ export default function HowFishingScreen() {
           <View style={{ width: 26 }} />
         </View>
 
-        <ScrollView
-          style={styles.scroll}
-          contentContainerStyle={styles.preflightContent}
-          showsVerticalScrollIndicator={false}
-        >
-          {/* Location & Date */}
-          <View style={styles.preflightHeader}>
-            <Ionicons name="location" size={14} color={colors.primary} />
-            <Text style={styles.preflightLocation}>{locationLabel}</Text>
-          </View>
-
-          {/* Live Conditions */}
-          <View style={styles.conditionsCard}>
-            <CondensedLoadingView
-              conditions={
-                env
-                  ? {
-                      air_temp_f: env.weather?.temperature ?? null,
-                      wind_speed_mph: env.weather?.wind_speed ?? null,
-                      wind_direction: windDirectionLabel(env.weather?.wind_direction),
-                      pressure_mb: env.weather?.pressure ?? null,
-                      pressure_state: env.weather?.pressure_trend ?? null,
-                      cloud_cover_pct: env.weather?.cloud_cover ?? null,
-                      moon_phase: env.moon?.phase ?? null,
-                      moon_illumination_pct: env.moon?.illumination ?? null,
-                      tide_phase_state: engineContext === 'coastal' ? (env.tides?.phase ?? null) : null,
-                      solunar_state: null,
-                    }
-                  : null
-              }
-              statusText={analysisLoading ? 'Generating…' : 'Live conditions'}
-            />
-          </View>
-
-          {/* Context Selection */}
-          <View style={styles.contextCard}>
-            <Text style={styles.contextCardTitle}>Where are you fishing?</Text>
-            <View style={styles.contextGrid}>
-              {contextChoices.map((o) => {
-                const isActive = engineContext === o.key;
-                return (
-                  <Pressable
-                    key={o.key}
-                    style={[
-                      styles.contextOption,
-                      isActive && styles.contextOptionActive,
-                      isActive && { borderColor: o.color },
-                    ]}
-                    onPress={() => setEngineContext(o.key)}
-                  >
-                    <View style={[
-                      styles.contextIconWrap,
-                      { backgroundColor: isActive ? o.color + '18' : colors.backgroundAlt },
-                    ]}>
-                      <Ionicons
-                        name={o.icon as any}
-                        size={20}
-                        color={isActive ? o.color : colors.textMuted}
-                      />
-                    </View>
-                    <Text style={[
-                      styles.contextLabel,
-                      isActive && { color: o.color, fontWeight: '700' },
-                    ]}>
-                      {o.label}
-                    </Text>
-                    <Text style={styles.contextDesc}>{o.description}</Text>
-                  </Pressable>
-                );
-              })}
-            </View>
-          </View>
-
-          {/* Generate Button */}
-          <Pressable
-            style={({ pressed }) => [
-              styles.generateBtn,
-              pressed && styles.generateBtnPressed,
-              (!engineContext || analysisLoading || envLoading) && { opacity: 0.5 },
-            ]}
-            onPress={() => generateReport()}
-            disabled={!engineContext || analysisLoading || envLoading}
-          >
-            {analysisLoading ? (
-              <ActivityIndicator size="small" color={colors.textOnPrimary} />
-            ) : (
-              <>
-                <Ionicons name="sparkles" size={16} color={colors.textOnPrimary} />
-                <Text style={styles.generateBtnText}>Generate today's report</Text>
-              </>
-            )}
-          </Pressable>
-
-          {analysisError ? <Text style={styles.errorInline}>{analysisError}</Text> : null}
-        </ScrollView>
-
-        {/* Loading Overlay */}
-        {analysisLoading && (
-          <View style={styles.loadingOverlay}>
+        <View style={styles.confirmContainer}>
+          {analysisLoading ? (
             <View style={styles.loadingCard}>
               <View style={styles.loadingPulse}>
                 <Ionicons name="fish-outline" size={28} color={colors.primary} />
               </View>
-              <Text style={styles.loadingTitle}>Building your report</Text>
-              <Text style={styles.loadingSub}>Analyzing conditions and generating insights…</Text>
+              <Text style={styles.loadingTitle}>Building your reports</Text>
+              <Text style={styles.loadingSub}>
+                Analyzing conditions for {availableContexts.length} water type{availableContexts.length > 1 ? 's' : ''}…
+              </Text>
             </View>
-          </View>
-        )}
+          ) : showConfirm ? (
+            <View style={styles.confirmCard}>
+              <View style={styles.confirmIconWrap}>
+                <Ionicons name="sparkles" size={32} color={colors.primary} />
+              </View>
+              <Text style={styles.confirmTitle}>Ready to generate?</Text>
+              <Text style={styles.confirmSub}>
+                We'll build today's fishing report for{'\n'}
+                <Text style={{ fontWeight: '700' }}>{locationLabel}</Text>
+              </Text>
+              <View style={styles.confirmContextList}>
+                {availableTabs.map((t) => (
+                  <View key={t.key} style={styles.confirmContextRow}>
+                    <Ionicons name={t.icon as any} size={16} color={t.color} />
+                    <Text style={[styles.confirmContextLabel, { color: t.color }]}>{t.label}</Text>
+                  </View>
+                ))}
+              </View>
+              <Pressable
+                style={({ pressed }) => [styles.generateBtn, pressed && styles.generateBtnPressed]}
+                onPress={generateReports}
+                disabled={envLoading}
+              >
+                <Ionicons name="sparkles" size={16} color={colors.textOnPrimary} />
+                <Text style={styles.generateBtnText}>Generate today's reports</Text>
+              </Pressable>
+              {analysisError ? <Text style={styles.errorInline}>{analysisError}</Text> : null}
+            </View>
+          ) : null}
+        </View>
       </SafeAreaView>
     );
   }
 
-  // ─── Report View ───
-  const activeContext = contextChoices.find((o) => o.key === rebuildBundle.engine_context);
+  // ─── Tabbed Report View ───
+  const activeTabConfig = availableTabs.find((t) => t.key === activeTab) ?? availableTabs[0]!;
 
   return (
     <SafeAreaView style={styles.safe}>
@@ -363,11 +302,40 @@ export default function HowFishingScreen() {
         <Text style={styles.heading}>How's Fishing</Text>
         <Pressable
           style={({ pressed }) => [styles.newReportBtn, pressed && { opacity: 0.7 }]}
-          onPress={() => setRebuildBundle(null)}
+          onPress={handleRefresh}
         >
-          <Ionicons name="add-circle-outline" size={16} color={colors.primary} />
-          <Text style={styles.newReportText}>New</Text>
+          <Ionicons name="refresh-outline" size={16} color={colors.primary} />
+          <Text style={styles.newReportText}>Refresh</Text>
         </Pressable>
+      </View>
+
+      {/* Tab Bar */}
+      <View style={styles.tabBar}>
+        {availableTabs.map((t) => {
+          const isActive = activeTab === t.key;
+          const hasReport = !!multiBundles[t.key];
+          return (
+            <Pressable
+              key={t.key}
+              style={[styles.tab, isActive && styles.tabActive, isActive && { borderBottomColor: t.color }]}
+              onPress={() => setActiveTab(t.key)}
+              disabled={!hasReport}
+            >
+              <Ionicons
+                name={t.icon as any}
+                size={16}
+                color={isActive ? t.color : hasReport ? colors.textMuted : colors.border}
+              />
+              <Text style={[
+                styles.tabLabel,
+                isActive && { color: t.color, fontWeight: '700' },
+                !hasReport && { color: colors.border },
+              ]}>
+                {t.label}
+              </Text>
+            </Pressable>
+          );
+        })}
       </View>
 
       <ScrollView
@@ -380,16 +348,20 @@ export default function HowFishingScreen() {
         <Text style={styles.reportMeta}>{topMeta}</Text>
 
         {/* Context Pill */}
-        {activeContext && (
-          <View style={[styles.contextPill, { backgroundColor: activeContext.color + '14' }]}>
-            <Ionicons name={activeContext.icon as any} size={13} color={activeContext.color} />
-            <Text style={[styles.contextPillText, { color: activeContext.color }]}>
-              {rebuildBundle.report.display_context_label}
-            </Text>
+        <View style={[styles.contextPill, { backgroundColor: activeTabConfig.color + '14' }]}>
+          <Ionicons name={activeTabConfig.icon as any} size={13} color={activeTabConfig.color} />
+          <Text style={[styles.contextPillText, { color: activeTabConfig.color }]}>
+            {activeBundle?.report.display_context_label ?? activeTabConfig.label}
+          </Text>
+        </View>
+
+        {activeBundle ? (
+          <RebuildReportView report={activeBundle.report} />
+        ) : (
+          <View style={styles.noReportCard}>
+            <Text style={styles.noReportText}>Report unavailable for this water type.</Text>
           </View>
         )}
-
-        <RebuildReportView report={rebuildBundle.report} />
       </ScrollView>
     </SafeAreaView>
   );
@@ -398,7 +370,6 @@ export default function HowFishingScreen() {
 const styles = StyleSheet.create({
   safe: { flex: 1, backgroundColor: colors.background },
   scroll: { flex: 1 },
-  preflightContent: { paddingHorizontal: 20, paddingBottom: spacing.xl, paddingTop: spacing.xs },
   reportContent: { paddingHorizontal: 20, paddingBottom: spacing.xl, paddingTop: spacing.xs },
 
   /* Top Bar */
@@ -428,80 +399,85 @@ const styles = StyleSheet.create({
   },
   newReportText: { fontSize: 14, fontWeight: '600', color: colors.primary },
 
-  /* Preflight */
-  preflightHeader: {
+  /* Tab Bar */
+  tabBar: {
     flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 4,
-    marginBottom: spacing.md,
+    borderBottomWidth: 1,
+    borderBottomColor: colors.border,
+    marginHorizontal: 20,
+    marginBottom: spacing.sm,
   },
-  preflightLocation: { fontSize: 14, color: colors.textSecondary, fontWeight: '500' },
-
-  conditionsCard: {
-    backgroundColor: colors.surface,
-    borderRadius: radius.md,
-    borderWidth: 1,
-    borderColor: colors.border,
-    marginBottom: spacing.md,
-    overflow: 'hidden',
-    ...shadows.sm,
-  },
-
-  /* Context Selection */
-  contextCard: {
-    backgroundColor: colors.surface,
-    borderRadius: radius.md,
-    padding: spacing.md + 2,
-    marginBottom: spacing.md,
-    borderWidth: 1,
-    borderColor: colors.border,
-    ...shadows.sm,
-  },
-  contextCardTitle: {
-    fontSize: 16,
-    fontWeight: '700',
-    color: colors.text,
-    marginBottom: spacing.md,
-  },
-  contextGrid: {
-    flexDirection: 'row',
-    gap: spacing.sm + 2,
-  },
-  contextOption: {
+  tab: {
     flex: 1,
-    alignItems: 'center',
-    paddingVertical: spacing.md,
-    paddingHorizontal: spacing.sm,
-    borderRadius: radius.md,
-    borderWidth: 2,
-    borderColor: colors.border,
-    backgroundColor: colors.surface,
-    gap: spacing.xs + 2,
-  },
-  contextOptionActive: {
-    backgroundColor: colors.surface,
-    borderWidth: 2,
-    ...shadows.sm,
-  },
-  contextIconWrap: {
-    width: 40,
-    height: 40,
-    borderRadius: 12,
+    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 2,
+    gap: 6,
+    paddingVertical: 10,
+    borderBottomWidth: 3,
+    borderBottomColor: 'transparent',
   },
-  contextLabel: {
+  tabActive: {
+    borderBottomWidth: 3,
+  },
+  tabLabel: {
     fontSize: 13,
     fontWeight: '600',
-    color: colors.text,
-    textAlign: 'center',
-  },
-  contextDesc: {
-    fontSize: 11,
     color: colors.textMuted,
+  },
+
+  /* Confirmation */
+  confirmContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: spacing.xl,
+  },
+  confirmCard: {
+    backgroundColor: colors.surface,
+    borderRadius: radius.lg,
+    padding: spacing.xl,
+    alignItems: 'center',
+    width: '100%',
+    maxWidth: 360,
+    ...shadows.lg,
+  },
+  confirmIconWrap: {
+    width: 64,
+    height: 64,
+    borderRadius: 32,
+    backgroundColor: colors.primaryMist,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: spacing.md,
+  },
+  confirmTitle: {
+    fontFamily: fonts.serif,
+    fontSize: 22,
+    fontWeight: '700',
+    color: colors.text,
+    marginBottom: spacing.sm,
+  },
+  confirmSub: {
+    fontSize: 14,
+    color: colors.textSecondary,
     textAlign: 'center',
+    lineHeight: 22,
+    marginBottom: spacing.md,
+  },
+  confirmContextList: {
+    flexDirection: 'row',
+    gap: spacing.md,
+    marginBottom: spacing.lg,
+  },
+  confirmContextRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
+  },
+  confirmContextLabel: {
+    fontSize: 13,
+    fontWeight: '600',
   },
 
   /* Generate Button */
@@ -513,6 +489,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primary,
     borderRadius: radius.md,
     minHeight: 52,
+    width: '100%',
     ...shadows.md,
   },
   generateBtnPressed: { backgroundColor: colors.primaryDark },
@@ -591,13 +568,7 @@ const styles = StyleSheet.create({
 
   errorInline: { color: '#C64545', textAlign: 'center', marginTop: spacing.sm },
 
-  /* Loading Overlay */
-  loadingOverlay: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: colors.background + 'E8',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+  /* Loading */
   loadingCard: {
     backgroundColor: colors.surface,
     borderRadius: radius.lg,
@@ -627,6 +598,21 @@ const styles = StyleSheet.create({
   loadingSub: {
     fontSize: 14,
     color: colors.textSecondary,
+    textAlign: 'center',
+  },
+
+  /* No report fallback */
+  noReportCard: {
+    backgroundColor: colors.surface,
+    borderRadius: radius.md,
+    padding: spacing.lg,
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: colors.border,
+  },
+  noReportText: {
+    fontSize: 14,
+    color: colors.textMuted,
     textAlign: 'center',
   },
 });

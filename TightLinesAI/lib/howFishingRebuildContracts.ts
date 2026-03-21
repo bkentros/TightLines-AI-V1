@@ -14,6 +14,11 @@ export type RegionKey =
   | 'midwest_interior'
   | 'south_central'
   | 'mountain_west'
+  | 'southwest_desert'
+  | 'southwest_high_desert'
+  | 'pacific_northwest'
+  | 'southern_california'
+  // Legacy aliases (backwards compat with old cached bundles)
   | 'southwest'
   | 'pacific_coast';
 
@@ -77,3 +82,18 @@ export interface HowFishingRebuildBundle {
   report: HowsFishingReportV1;
   usage?: { input_tokens: number; output_tokens: number; token_cost_usd: number };
 }
+
+/** Multi-context response — multiple reports in one API call */
+export interface HowFishingRebuildMultiBundle {
+  feature: typeof HOWS_FISHING_REBUILD_FEATURE;
+  mode: 'multi';
+  generated_at: string;
+  cache_expires_at: string;
+  contexts: EngineContextKey[];
+  reports: Partial<Record<EngineContextKey, HowFishingRebuildBundle>>;
+  failed_contexts?: EngineContextKey[];
+  usage?: { input_tokens: number; output_tokens: number; token_cost_usd: number };
+}
+
+/** Discriminated union — check for `'mode' in r && r.mode === 'multi'` */
+export type HowFishingRebuildResponse = HowFishingRebuildBundle | HowFishingRebuildMultiBundle;

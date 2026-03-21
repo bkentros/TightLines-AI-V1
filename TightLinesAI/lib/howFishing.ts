@@ -554,6 +554,8 @@ export type {
   DaypartNotePreset,
   HowsFishingReportV1,
   HowFishingRebuildBundle,
+  HowFishingRebuildMultiBundle,
+  HowFishingRebuildResponse,
   RegionKey as RebuildRegionKey,
 } from './howFishingRebuildContracts';
 export { HOWS_FISHING_REBUILD_FEATURE } from './howFishingRebuildContracts';
@@ -607,6 +609,68 @@ export async function setCachedHowFishingRebuild(
   } catch {
     // non-fatal
   }
+}
+
+// ---------------------------------------------------------------------------
+// Multi-bundle cache — wraps per-context cache for the multi-report flow
+// ---------------------------------------------------------------------------
+
+import type { HowFishingRebuildMultiBundle } from './howFishingRebuildContracts';
+
+export async function getCachedMultiRebuild(
+  latitude: number,
+  longitude: number,
+  contexts: EngineContextKey[]
+): Promise<Record<EngineContextKey, HowFishingRebuildBundle> | null> {
+  const results: Partial<Record<EngineContextKey, HowFishingRebuildBundle>> = {};
+  for (const ctx of contexts) {
+    const cached = await getCachedHowFishingRebuild(latitude, longitude, ctx);
+    if (!cached) return null; // all-or-nothing
+    results[ctx] = cached;
+  }
+  return results as Record<EngineContextKey, HowFishingRebuildBundle>;
+}
+
+export async function setCachedMultiRebuild(
+  latitude: number,
+  longitude: number,
+  multi: HowFishingRebuildMultiBundle
+): Promise<void> {
+  for (const ctx of multi.contexts) {
+    const bundle = multi.reports[ctx];
+    if (bundle) {
+      await setCachedHowFishingRebuild(latitude, longitude, bundle);
+    }
+  }
+}
+
+let currentMultiRebuildEntry: {
+  lat: number;
+  lon: number;
+  bundles: Record<EngineContextKey, HowFishingRebuildBundle>;
+} | null = null;
+
+export function setCurrentMultiRebuild(
+  latitude: number,
+  longitude: number,
+  bundles: Record<EngineContextKey, HowFishingRebuildBundle>
+): void {
+  currentMultiRebuildEntry = { lat: latitude, lon: longitude, bundles };
+}
+
+export function getCurrentMultiRebuild(
+  latitude?: number,
+  longitude?: number
+): Record<EngineContextKey, HowFishingRebuildBundle> | null {
+  if (!currentMultiRebuildEntry) return null;
+  if (
+    typeof latitude === 'number' &&
+    typeof longitude === 'number' &&
+    !coordsMatch(currentMultiRebuildEntry.lat, currentMultiRebuildEntry.lon, latitude, longitude)
+  ) {
+    return null;
+  }
+  return currentMultiRebuildEntry.bundles;
 }
 
 let currentRebuildEntry: { lat: number; lon: number; bundle: HowFishingRebuildBundle } | null = null;
