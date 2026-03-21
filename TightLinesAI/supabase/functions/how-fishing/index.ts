@@ -180,14 +180,42 @@ const TIP_ANGLES = [
   "Frame the tip around the biggest opportunity the conditions are handing them.",
 ];
 
+/** Build compact weather snapshot from raw env_data for LLM context */
+function buildWeatherSnapshot(envData?: Record<string, unknown> | null): Record<string, unknown> | null {
+  if (!envData) return null;
+  const snap: Record<string, unknown> = {};
+  const temp = envData.daily_mean_air_temp_f ?? envData.current_air_temp_f;
+  if (temp != null) snap.air_temp_f = Math.round(Number(temp));
+  if (envData.wind_speed_mph != null) snap.wind_mph = Math.round(Number(envData.wind_speed_mph));
+  if (envData.cloud_cover_pct != null) snap.cloud_pct = Math.round(Number(envData.cloud_cover_pct));
+  if (envData.precip_24h_in != null) snap.rain_24h_in = Number(Number(envData.precip_24h_in).toFixed(2));
+  if (envData.wind_direction != null) snap.wind_dir = envData.wind_direction;
+  return Object.keys(snap).length > 0 ? snap : null;
+}
+
+/** Convert driver/suppressor objects to short factual descriptors for the LLM */
+function driverToFact(d: { variable: string; effect: string; label: string }): string {
+  // Extract the variable name and the score-aware factual core
+  // We want short facts like "temperature: above average, favorable"
+  // NOT full prose sentences the LLM will echo
+  const varName = d.variable
+    .replace(/_condition|_regime|_disruption|_movement/g, "")
+    .replace(/_/g, " ");
+  // Take just the first clause of the label (before the em-dash) for factual info
+  const factCore = d.label.split("—")[0]?.trim().replace(/\.$/, "") ?? d.label;
+  return `${varName}: ${factCore} (${d.effect})`;
+}
+
 function buildNarrationPrompt(
   narration: ReturnType<typeof buildNarrationPayloadFromReport>,
   locationName?: string | null,
-  localDate?: string | null
+  localDate?: string | null,
+  envData?: Record<string, unknown> | null
 ): string {
   const scoreOutOfTen = displayScoreOutOfTen(narration.score);
   const seasonLabel = localDate ? describeSeasonFromDate(localDate) : null;
   const locationCtx = locationName || null;
+  const weatherSnap = buildWeatherSnapshot(envData);
 
   // Random angle seeds — different every call
   const openerAngle = OPENER_ANGLES[Math.floor(Math.random() * OPENER_ANGLES.length)];
@@ -196,7 +224,7 @@ function buildNarrationPrompt(
   return [
     "<task>",
     "Write a fresh, confident fishing outlook and one actionable tip for today. Sound like a seasoned local guide giving a friend the honest read — not a weather app spitting out data.",
-    "Every report must feel uniquely written for this day and place. Vary your language, structure, and angle every time.",
+    "Every report must feel uniquely written for this day and place.",
     `For this report, try this angle for the summary: ${openerAngle}`,
     `For the tip, try this angle: ${tipAngle}`,
     "</task>",
@@ -206,43 +234,30 @@ function buildNarrationPrompt(
     "<context_guide>",
     contextGuide(narration.context),
     "</context_guide>",
-    "<tip_tag_guide>",
-    "temperature_intraday_flex = tell the angler exactly when to lean in based on warming or cooling trends. Be specific about the approach, not vague.",
-    "runoff_clarity_flow = direct the angler toward cleaner, slower water. Say it with authority.",
-    "wind_shelter = tell them where to position — sheltered banks, lee shorelines, wind-blocked coves. Be confident.",
-    "coastal_tide_positive = tell them to be on the water when it's moving. Tidal flow is the play today.",
-    "lean_into_top_driver = build a clear, actionable tip around whatever is working best today. Name it.",
-    "general_flexibility = give one sharp, practical read on how to approach the day. No hedging.",
-    "</tip_tag_guide>",
-    "<daypart_guide>",
-    "no_timing_edge = no obvious timing window stands out — keep the outlook honest about that without sounding negative.",
-    "moving_water_periods = the tidal movement windows are where the action will be. Say it directly.",
-    "early_late_low_light = early morning or late afternoon is the move today. Commit to that call.",
-    "warmest_part_may_help = the afternoon warmth will wake things up. Tell them to plan around it.",
-    "cooler_low_light_better = the heat is a factor — low-light windows and cooler stretches are the play.",
-    "</daypart_guide>",
+    "<tip_directions>",
+    `tip_type: ${narration.actionable_tip_tag}`,
+    `timing_window: ${narration.daypart_preset}`,
+    "</tip_directions>",
     "<payload>",
     JSON.stringify({
       location_name: locationCtx,
       date: localDate,
       season: seasonLabel,
       water_type: narration.display_context_label,
-      score: narration.score,
       score_out_of_10: scoreOutOfTen,
       band: narration.band,
-      whats_helping: narration.drivers,
-      whats_hurting: narration.suppressors,
-      tip_direction: narration.actionable_tip_tag,
-      timing_direction: narration.daypart_preset,
+      whats_helping: narration.drivers.map(driverToFact),
+      whats_hurting: narration.suppressors.map(driverToFact),
       data_confidence: narration.reliability,
+      ...(weatherSnap ? { conditions: weatherSnap } : {}),
     }, null, 2),
     "</payload>",
     "<output_contract>",
-    "summary_line: one confident full-day outlook sentence (max 220 chars). Reference the location by name. Make the angler feel informed within seconds. Do NOT start with 'It's a [score] day' or 'Conditions are [band].' Find a fresh, natural way in.",
-    "actionable_tip: one decisive, practical tip (max 220 chars). Give them something they can actually DO. No hedging. No 'consider' or 'might want to.' Tell them the move.",
-    "The two fields must feel like different sentences from a conversation — not two versions of the same thought.",
-    "Do not mention JSON, payload, scoring math, or data confidence levels.",
-    "Generate completely original language. Do not fall back on stock phrases.",
+    "summary_line: one confident full-day outlook sentence (max 220 chars). Reference the location by name if provided. You may weave in a specific number from 'conditions' (like temp or wind) when it makes the report feel more real and grounded — but don't list stats. Make the angler feel informed within seconds.",
+    "actionable_tip: one decisive, practical tip (max 220 chars). Give them something they can actually DO on the water today. Be specific to the conditions and water type. No hedging.",
+    "The two fields must sound like different parts of a conversation — not rewordings of each other.",
+    "Do not mention JSON, payload, scoring math, data confidence, or score numbers.",
+    "Generate completely original language every time. No stock phrases. No templates.",
     "</output_contract>",
   ].filter(Boolean).join("\n");
 }
@@ -260,9 +275,10 @@ async function polishReportCopy(
   _report: HowsFishingReport,
   narration: ReturnType<typeof buildNarrationPayloadFromReport>,
   locationName?: string | null,
-  localDate?: string | null
+  localDate?: string | null,
+  envData?: Record<string, unknown> | null
 ): Promise<{ summary: string; tip: string; inT: number; outT: number } | null> {
-  const user = buildNarrationPrompt(narration, locationName, localDate);
+  const user = buildNarrationPrompt(narration, locationName, localDate, envData);
   const res = await fetch("https://api.openai.com/v1/chat/completions", {
     method: "POST",
     headers: {
@@ -444,7 +460,7 @@ Deno.serve(async (req: Request) => {
   let outputTokens = 0;
   if (openaiKey) {
     const narr = buildNarrationPayloadFromReport(report);
-    const polished = await polishReportCopy(openaiKey, report, narr, locationName, localDate);
+    const polished = await polishReportCopy(openaiKey, report, narr, locationName, localDate, envData);
     if (polished) {
       report = {
         ...report,
