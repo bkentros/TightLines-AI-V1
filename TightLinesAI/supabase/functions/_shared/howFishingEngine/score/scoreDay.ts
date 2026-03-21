@@ -65,9 +65,12 @@ function temperatureDriverLabel(t: SharedNormalizedOutput["normalized"]["tempera
 function pressureDriverLabel(p: { label: string; score: number } | null | undefined): string {
   if (!p) return "";
   switch (p.label) {
-    case "volatile": return "Barometric pressure has been unstable — fish tend to get lockjaw.";
-    case "falling": return "Pressure is dropping — a front is likely moving through.";
-    case "stable_positive": return "Barometric pressure is steady and rising — that's a green light.";
+    case "falling_slow": return "Barometric pressure is slowly dropping — that's the sweet spot for feeding activity.";
+    case "falling_moderate": return "Pressure is falling steadily with a front pushing in — fish are likely feeding ahead of it.";
+    case "falling_hard": return "Pressure is crashing fast — a strong front is moving through and fish are likely to shut down.";
+    case "rising_slow": return "Pressure is gradually recovering after a front — conditions are stabilizing and fish are getting active again.";
+    case "rising_fast": return "Pressure jumped up quickly — fish are still adjusting to the change.";
+    case "volatile": return "Barometric pressure has been erratic and unstable — fish tend to shut down when it's bouncing around.";
     case "stable_neutral": return "Pressure is holding steady — no major influence either way.";
     default: return `Pressure regime: ${p.label.replace(/_/g, " ")}.`;
   }

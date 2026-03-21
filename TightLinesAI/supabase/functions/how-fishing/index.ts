@@ -98,9 +98,17 @@ Voice and tone:
 - Warm but concise — you respect the angler's time.
 - Speak like a real guide, not a weather app or a chatbot. Use natural, varied language.
 - Every report should feel like it was written fresh for this specific day, location, and conditions. Never sound templated.
-- Vary your sentence structure, word choice, and phrasing every single time. If you catch yourself falling into a pattern, break it.
 - Reference the location name when provided — make the angler feel like this report was made for their spot.
 - Reference the season or time of year naturally when it adds context.
+
+Mandatory variance rules — these are CRITICAL:
+- The "summary_line_seed" and "actionable_tip_seed" in the payload are rough starting points ONLY. Do NOT echo, rephrase, or closely mirror them. Write something completely original.
+- Never start the summary_line with "It's a [band] day" or "Conditions are [band]." Find a fresh angle every time.
+- Vary openers: sometimes lead with the location, sometimes the top driver, sometimes the season, sometimes the overall vibe. Mix it up.
+- Vary sentence length and rhythm. Some reports should feel punchy and short. Others can flow a bit more.
+- The actionable_tip should feel like specific advice from a guide who fished this spot yesterday. Not a generic weather suggestion.
+- If the payload mentions pressure dropping — that's a POSITIVE for fishing. Frame it as an opportunity, not a concern.
+- If the tip says "afternoon warmth" and the daypart says "warmest stretch" — those agree. Reinforce that window confidently.
 
 Non-negotiable rules:
 - Output valid JSON only: {"summary_line":"...","actionable_tip":"..."}
@@ -112,7 +120,7 @@ Non-negotiable rules:
 - Freshwater temperature framing is air-temperature context only. Do not mention measured water temperature or inferred water temperature.
 - Keep lower-confidence reports broader and less absolute.
 - Write directly to the angler in second person.
-- Never use these phrases: "adjust if conditions shift", "stay flexible", "cover likely holding water", "conditions may", "you might want to", "consider adjusting."
+- Never use these phrases: "adjust if conditions shift", "stay flexible", "cover likely holding water", "conditions may", "you might want to", "consider adjusting", "lockjaw", "get lockjaw", "shut down."
 - Be decisive. If the data says it's good, say it's good. If it's tough, say it's tough. Own the call.`;
 
 function displayScoreOutOfTen(score: number): string {
@@ -142,6 +150,26 @@ function contextGuide(context: EngineContext): string {
   ].join(" ");
 }
 
+const OPENER_ANGLES = [
+  "Lead with the location name and how conditions look there specifically.",
+  "Lead with the strongest driver — what's working best and why.",
+  "Lead with the season and how things are shaping up for this time of year.",
+  "Lead with the overall vibe — is it a go day, a grind-it-out day, or somewhere in between?",
+  "Lead with what the angler should feel walking out the door — confident, cautious, fired up?",
+  "Lead with the single biggest factor that makes today different from yesterday.",
+  "Lead with a direct statement about the score — own it, then back it up.",
+  "Lead with the weather story — what's happening atmospherically and why it matters for fishing.",
+];
+
+const TIP_ANGLES = [
+  "Frame the tip around WHERE to position on the water.",
+  "Frame the tip around WHEN the best window is today.",
+  "Frame the tip around HOW to approach the day — fast, slow, patient?",
+  "Frame the tip around what the conditions are telling you to do differently than a normal day.",
+  "Frame the tip around the one thing that will separate a good day from a tough one.",
+  "Frame the tip around what a guide would tell a client before launching the boat.",
+];
+
 function buildNarrationPrompt(
   narration: ReturnType<typeof buildNarrationPayloadFromReport>,
   locationName?: string | null,
@@ -151,10 +179,16 @@ function buildNarrationPrompt(
   const seasonLabel = localDate ? describeSeasonFromDate(localDate) : null;
   const locationCtx = locationName || null;
 
+  // Random angle seeds — different every call
+  const openerAngle = OPENER_ANGLES[Math.floor(Math.random() * OPENER_ANGLES.length)];
+  const tipAngle = TIP_ANGLES[Math.floor(Math.random() * TIP_ANGLES.length)];
+
   return [
     "<task>",
     "Write a fresh, confident fishing outlook and one actionable tip for today. Sound like a seasoned local guide giving a friend the honest read — not a weather app spitting out data.",
     "Every report must feel uniquely written for this day and place. Vary your language, structure, and angle every time.",
+    `For this report, try this angle for the summary: ${openerAngle}`,
+    `For the tip, try this angle: ${tipAngle}`,
     "</task>",
     locationCtx ? `<location>${locationCtx}</location>` : "",
     localDate ? `<date>${localDate}</date>` : "",

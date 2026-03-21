@@ -51,6 +51,7 @@ export function normalizePressureDetailed(
     }
   }
 
+  // --- Volatile: erratic oscillation (genuinely bad) ---
   if (series.length >= 3) {
     if (
       range24 >= 8.0 ||
@@ -68,16 +69,35 @@ export function normalizePressureDetailed(
     }
   }
 
-  if (delta24 <= -1.8) {
-    return { quality, state: { label: "falling", score: -1 } };
+  const absDelta = Math.abs(delta24);
+
+  // --- Falling pressure: the BEST fishing trigger ---
+  // Slow steady drop signals an approaching front → peak feeding activity.
+  if (delta24 < -0.5) {
+    // Rapid crash (>6 mb/24h) = severe front, genuinely bad
+    if (absDelta > 6.0) {
+      return { quality, state: { label: "falling_hard", score: -1, detail: `${delta24.toFixed(1)} mb/24h` } };
+    }
+    // Strong steady drop (4–6 mb) = front arriving, still positive but fish may slow later
+    if (absDelta > 4.0) {
+      return { quality, state: { label: "falling_moderate", score: 1, detail: `${delta24.toFixed(1)} mb/24h` } };
+    }
+    // Sweet spot: slow steady drop (0.5–4 mb) = prime feeding conditions
+    return { quality, state: { label: "falling_slow", score: 2, detail: `${delta24.toFixed(1)} mb/24h` } };
   }
-  if (delta24 >= 1.2 && range24 < 5.0) {
-    return { quality, state: { label: "stable_positive", score: 1 } };
+
+  // --- Rising pressure: post-front, fish re-adjusting ---
+  if (delta24 > 0.5) {
+    // Slow rise = stable recovery, mildly positive
+    if (delta24 <= 3.0) {
+      return { quality, state: { label: "rising_slow", score: 1, detail: `+${delta24.toFixed(1)} mb/24h` } };
+    }
+    // Rapid rise = quick clearing, neutral (fish still adjusting)
+    return { quality, state: { label: "rising_fast", score: 0, detail: `+${delta24.toFixed(1)} mb/24h` } };
   }
-  if (delta24 >= -1.7 && delta24 <= 1.1) {
-    return { quality, state: { label: "stable_neutral", score: 0 } };
-  }
-  return { quality, state: { label: "stable_neutral", score: 0 } };
+
+  // --- Steady pressure: flat, neutral ---
+  return { quality, state: { label: "stable_neutral", score: 0, detail: `${delta24.toFixed(1)} mb/24h` } };
 }
 
 /** @deprecated use normalizePressureDetailed for quality-aware reliability */

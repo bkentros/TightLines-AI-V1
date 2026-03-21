@@ -71,6 +71,11 @@ export function buildTipAndDaypart(
     actionable_tip_tag = "lean_into_top_driver";
   }
 
+  // --- Daypart logic: must align with the tip above, never contradict ---
+  // If tip already committed to afternoon warmth, daypart must not say "early/late"
+  const tipIsAfternoonWarmth = actionable_tip_tag === "temperature_intraday_flex" &&
+    actionable_tip.toLowerCase().includes("afternoon");
+
   let daypart_preset: DaypartNotePreset;
   let daypart_note: string;
 
@@ -80,20 +85,10 @@ export function buildTipAndDaypart(
   } else if (context === "coastal" && norm.tide_current_movement && norm.tide_current_movement.score >= 1) {
     daypart_preset = "moving_water_periods";
     daypart_note = "Time it around the moving water — that's when the bite turns on.";
-  } else if (norm.light_cloud_condition?.label === "low_light" && norm.light_cloud_condition.score > 0) {
-    daypart_preset = "early_late_low_light";
-    daypart_note = "The low-light windows early and late are your best bet today.";
-  } else if (
-    norm.temperature?.band_label === "very_cold" ||
-    norm.temperature?.band_label === "cool"
-  ) {
-    if (norm.temperature.trend_label === "warming" || norm.temperature.final_score >= 0) {
-      daypart_preset = "warmest_part_may_help";
-      daypart_note = "Afternoon warmth will be the trigger — plan your best push around it.";
-    } else {
-      daypart_preset = "no_timing_edge";
-      daypart_note = "Cold temps all day — no single window stands out over another.";
-    }
+  } else if (tipIsAfternoonWarmth) {
+    // Tip already said "afternoon warmth" — daypart must reinforce, not contradict
+    daypart_preset = "warmest_part_may_help";
+    daypart_note = "The warmest stretch of the day is your prime window — lean into it.";
   } else if (
     norm.temperature?.band_label === "very_warm" ||
     norm.temperature?.band_label === "warm"
@@ -104,6 +99,20 @@ export function buildTipAndDaypart(
     } else {
       daypart_preset = "no_timing_edge";
       daypart_note = "Temps are warm but productive — any part of the day can work.";
+    }
+  } else if (norm.light_cloud_condition?.label === "low_light" && norm.light_cloud_condition.score > 0) {
+    daypart_preset = "early_late_low_light";
+    daypart_note = "Heavy cloud cover is keeping light low all day — you can fish any window.";
+  } else if (
+    norm.temperature?.band_label === "very_cold" ||
+    norm.temperature?.band_label === "cool"
+  ) {
+    if (norm.temperature.trend_label === "warming" || norm.temperature.final_score >= 0) {
+      daypart_preset = "warmest_part_may_help";
+      daypart_note = "Afternoon warmth will be the trigger — plan your best push around it.";
+    } else {
+      daypart_preset = "no_timing_edge";
+      daypart_note = "Cold temps all day — no single window stands out over another.";
     }
   } else if (solunar && reliability !== "low") {
     daypart_preset = "early_late_low_light";
