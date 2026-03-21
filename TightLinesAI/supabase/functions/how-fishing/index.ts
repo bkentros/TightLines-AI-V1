@@ -102,13 +102,15 @@ Voice and tone:
 - Reference the season or time of year naturally when it adds context.
 
 Mandatory variance rules — these are CRITICAL:
-- The "summary_line_seed" and "actionable_tip_seed" in the payload are rough starting points ONLY. Do NOT echo, rephrase, or closely mirror them. Write something completely original.
-- Never start the summary_line with "It's a [band] day" or "Conditions are [band]." Find a fresh angle every time.
-- Vary openers: sometimes lead with the location, sometimes the top driver, sometimes the season, sometimes the overall vibe. Mix it up.
-- Vary sentence length and rhythm. Some reports should feel punchy and short. Others can flow a bit more.
-- The actionable_tip should feel like specific advice from a guide who fished this spot yesterday. Not a generic weather suggestion.
-- If the payload mentions pressure dropping — that's a POSITIVE for fishing. Frame it as an opportunity, not a concern.
-- If the tip says "afternoon warmth" and the daypart says "warmest stretch" — those agree. Reinforce that window confidently.
+- The payload contains structured data ONLY — scores, tags, and driver labels. There are NO pre-written sentences to rephrase. You must generate everything from scratch.
+- Never start the summary_line with "It's a [band] day", "Conditions are [band]", "Today's outlook", or any formulaic opener. Find a natural, unique way in every time.
+- The angle instructions in the <task> block tell you HOW to approach this specific report. Follow them — they change every time.
+- Write like you're texting a fishing buddy, not drafting a weather report. Be conversational, confident, and real.
+- Vary sentence length dramatically. Some reports should be punchy 8-word declarations. Others should paint a quick picture.
+- The actionable_tip should feel like advice from a guide who was on THIS water yesterday. Specific to the conditions. Not a generic suggestion that could apply to any day.
+- If "whats_helping" includes pressure dropping — that's a POSITIVE. Frame it as a feeding trigger, not a weather concern.
+- If tip_direction and timing_direction point to the same window (e.g., both say afternoon/warmth) — reinforce that window with confidence. Don't contradict.
+- Two reports for the same location on similar days should still sound noticeably different in word choice, structure, and personality.
 
 Non-negotiable rules:
 - Output valid JSON only: {"summary_line":"...","actionable_tip":"..."}
@@ -151,23 +153,31 @@ function contextGuide(context: EngineContext): string {
 }
 
 const OPENER_ANGLES = [
-  "Lead with the location name and how conditions look there specifically.",
-  "Lead with the strongest driver — what's working best and why.",
-  "Lead with the season and how things are shaping up for this time of year.",
-  "Lead with the overall vibe — is it a go day, a grind-it-out day, or somewhere in between?",
-  "Lead with what the angler should feel walking out the door — confident, cautious, fired up?",
-  "Lead with the single biggest factor that makes today different from yesterday.",
-  "Lead with a direct statement about the score — own it, then back it up.",
-  "Lead with the weather story — what's happening atmospherically and why it matters for fishing.",
+  "Lead with the location name and how conditions look there specifically today.",
+  "Lead with the strongest driver — name it and say why it matters.",
+  "Lead with the season and what that means for fishing right now.",
+  "Lead with the overall vibe — is this a go day, a patience day, or a grind-it-out day?",
+  "Lead with the angler's emotional read — should they feel fired up, cautiously optimistic, or scrappy?",
+  "Lead with what makes today different from a typical day in this region.",
+  "Lead with a direct, confident statement about the score and back it up with the top driver.",
+  "Lead with the atmospheric story — pressure, wind, or sky — and connect it to the fishing.",
+  "Lead with the water type and what it means for today — lake calm, river flow, tidal push.",
+  "Lead with a contrast — what's working vs what's not — and give the honest balance.",
+  "Paint a quick picture of the day ahead — what the angler is walking into out there.",
+  "Lead with the one thing that jumps off the data — the headline of the day.",
 ];
 
 const TIP_ANGLES = [
-  "Frame the tip around WHERE to position on the water.",
-  "Frame the tip around WHEN the best window is today.",
-  "Frame the tip around HOW to approach the day — fast, slow, patient?",
-  "Frame the tip around what the conditions are telling you to do differently than a normal day.",
-  "Frame the tip around the one thing that will separate a good day from a tough one.",
-  "Frame the tip around what a guide would tell a client before launching the boat.",
+  "Frame the tip around WHERE to position — specific water, structure, or shoreline.",
+  "Frame the tip around WHEN — the best window or timing approach today.",
+  "Frame the tip around PACE — should they fish fast, slow, methodical, or aggressive?",
+  "Frame the tip around what to do differently than they normally would.",
+  "Frame the tip around the one factor that separates a good day from a blank.",
+  "Frame the tip like pre-launch advice from a guide to a client.",
+  "Frame the tip around what NOT to waste time on today, and what to focus on instead.",
+  "Frame the tip around reading the conditions once they're out there — what to watch for.",
+  "Frame the tip around making the most of a short outing — if they only had 2 hours.",
+  "Frame the tip around the biggest opportunity the conditions are handing them.",
 ];
 
 function buildNarrationPrompt(
@@ -216,27 +226,23 @@ function buildNarrationPrompt(
       location_name: locationCtx,
       date: localDate,
       season: seasonLabel,
-      display_context_label: narration.display_context_label,
+      water_type: narration.display_context_label,
       score: narration.score,
       score_out_of_10: scoreOutOfTen,
       band: narration.band,
-      summary_line_seed: narration.summary_line_seed,
-      drivers: narration.drivers,
-      suppressors: narration.suppressors,
-      actionable_tip_seed: narration.actionable_tip_seed,
-      actionable_tip_tag: narration.actionable_tip_tag,
-      daypart_note_seed: narration.daypart_note_seed ?? null,
-      daypart_preset: narration.daypart_preset,
-      reliability: narration.reliability,
-      reliability_note_seed: narration.reliability_note_seed ?? null,
+      whats_helping: narration.drivers,
+      whats_hurting: narration.suppressors,
+      tip_direction: narration.actionable_tip_tag,
+      timing_direction: narration.daypart_preset,
+      data_confidence: narration.reliability,
     }, null, 2),
     "</payload>",
     "<output_contract>",
-    "summary_line: one confident full-day outlook sentence. Reference the location if provided. Make the angler feel informed within seconds.",
-    "actionable_tip: one decisive, practical tip the angler can act on today. No hedging. No \"consider\" or \"might want to.\" Tell them what to do.",
-    "Do not repeat the same sentence structure in both fields.",
-    "Do not mention JSON, payload, or scoring math.",
-    "Do not reuse phrasing from previous reports. Write this one fresh.",
+    "summary_line: one confident full-day outlook sentence (max 220 chars). Reference the location by name. Make the angler feel informed within seconds. Do NOT start with 'It's a [score] day' or 'Conditions are [band].' Find a fresh, natural way in.",
+    "actionable_tip: one decisive, practical tip (max 220 chars). Give them something they can actually DO. No hedging. No 'consider' or 'might want to.' Tell them the move.",
+    "The two fields must feel like different sentences from a conversation — not two versions of the same thought.",
+    "Do not mention JSON, payload, scoring math, or data confidence levels.",
+    "Generate completely original language. Do not fall back on stock phrases.",
     "</output_contract>",
   ].filter(Boolean).join("\n");
 }
@@ -266,7 +272,7 @@ async function polishReportCopy(
     body: JSON.stringify({
       model: LLM_MODEL,
       max_tokens: 400,
-      temperature: 0.85,
+      temperature: 1.0,
       response_format: { type: "json_object" },
       messages: [
         { role: "system", content: REBUILD_LLM_SYSTEM },
