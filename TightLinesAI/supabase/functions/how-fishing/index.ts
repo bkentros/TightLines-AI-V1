@@ -130,6 +130,11 @@ The temperature example: there are hundreds of ways to say temps are favorable. 
 ════ RULE #2 — NO TIMING IN THE TIP ════
 The actionable_tip is NEVER about when to fish. Never. The report has a separate daypart section for timing. The tip must be 100% tactical: retrieval speed and cadence, finesse vs power approach, how fish are likely behaving given the conditions, presentation size or weight, where in the water column to work the offering, stealth of delivery, how aggressive or cautious to be. If any word in your tip points to a time of day, tide window, morning vs afternoon, or when to be on the water — rewrite it as a pure tactical move instead.
 
+════ RULE #3 — TIP STRUCTURE AND CAPITALIZATION ════
+The actionable_tip is ONE complete, well-constructed sentence. Two sentences maximum under any circumstance. Never write fragments. Never stack 4–7 punchy short lines. Write it as a single clear guide directive that a guide would say out loud.
+
+Standard English sentence capitalization is mandatory throughout all output. Capitalize the first word of every sentence and all proper nouns. Do not write uncapitalized sentence starters under any circumstances.
+
 Non-negotiable rules:
 - Output valid JSON only: {"summary_line":"...","actionable_tip":"..."}
 - Keep each field at or under 220 characters.
@@ -368,7 +373,7 @@ function buildNarrationPrompt(
     "</payload>",
     "<output_contract>",
     "summary_line: one confident full-day outlook sentence (max 220 chars). Reference the location by name if provided. Weave in a specific number from 'conditions' (temp or wind) when it makes the report feel grounded — but don't recite stats. Make the angler feel informed in seconds.",
-    "actionable_tip: one decisive tactical tip (max 220 chars). Must be about HOW to fish — retrieve, cadence, finesse, aggression, fish behavior, offering approach. Never about when. Be specific to these conditions, not generic.",
+    "actionable_tip: ONE complete sentence (two max, 220 chars total). Strictly about: retrieve speed/cadence, lure or fly size/profile, finesse vs power vs aggressive approach, or water column position. No timing. No fragments. No stacked one-liners. Proper capitalization — capitalize the first word and all proper nouns.",
     "CRITICAL — engine_verdict.fish_activity_level and engine_verdict.temperature_band are the engine's scored verdicts. Your tip must be consistent with both. If fish_activity_level says 'high' and temperature_band says 'optimal', do NOT write slow-finesse advice. Never contradict these fields.",
     "If engine_verdict.data_gaps is present, keep the report appropriately broad for those variables — don't invent specifics the engine couldn't score.",
     "Uniqueness check before outputting: re-read both fields. If any phrase could appear in another report for different conditions — rewrite it. If it sounds templated or AI-generated, it fails.",
