@@ -356,7 +356,7 @@ export default function HowFishingScreen() {
         </View>
 
         {activeBundle ? (
-          <RebuildReportView report={activeBundle.report} />
+          <RebuildReportView report={activeBundle.report} solunarData={env?.solunar} />
         ) : (
           <View style={styles.noReportCard}>
             <Text style={styles.noReportText}>Report unavailable for this water type.</Text>

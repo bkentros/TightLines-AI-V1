@@ -10,6 +10,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { colors, fonts, spacing, radius, shadows } from '../../lib/theme';
 import type { HowsFishingReportV1 } from '../../lib/howFishing';
 import type { DaypartNotePreset } from '../../lib/howFishingRebuildContracts';
+import type { SolunarData } from '../../lib/env/types';
 
 // ─── Score helpers ────────────────────────────────────────────────────────────
 
@@ -217,9 +218,44 @@ const timingStyles = StyleSheet.create({
   },
 });
 
+// ─── Solunar helpers ──────────────────────────────────────────────────────────
+
+/** Parse a solunar time string (ISO local or "HH:mm") to "9:15am" format */
+function parseSolunarTime(t: string): string {
+  // ISO local: "YYYY-MM-DDTHH:mm:ss" or "YYYY-MM-DDTHH:mm"
+  const isoMatch = t.match(/T(\d{2}):(\d{2})/);
+  if (isoMatch) {
+    const h = parseInt(isoMatch[1]!, 10);
+    const m = parseInt(isoMatch[2]!, 10);
+    const period = h < 12 ? 'am' : 'pm';
+    const dh = h === 0 ? 12 : h > 12 ? h - 12 : h;
+    return `${dh}:${String(m).padStart(2, '0')}${period}`;
+  }
+  // Plain "HH:mm"
+  const hmMatch = t.match(/^(\d{1,2}):(\d{2})/);
+  if (hmMatch) {
+    const h = parseInt(hmMatch[1]!, 10);
+    const m = parseInt(hmMatch[2]!, 10);
+    const period = h < 12 ? 'am' : 'pm';
+    const dh = h === 0 ? 12 : h > 12 ? h - 12 : h;
+    return `${dh}:${String(m).padStart(2, '0')}${period}`;
+  }
+  return t;
+}
+
+function formatSolunarRange(start: string, end: string): string {
+  return `${parseSolunarTime(start)} – ${parseSolunarTime(end)}`;
+}
+
 // ─── Main Component ───────────────────────────────────────────────────────────
 
-export function RebuildReportView({ report }: { report: HowsFishingReportV1 }) {
+export function RebuildReportView({
+  report,
+  solunarData,
+}: {
+  report: HowsFishingReportV1;
+  solunarData?: SolunarData | null;
+}) {
   const config = BAND_CONFIG[report.band] ?? {
     color: colors.textMuted,
     bg: colors.backgroundAlt,
@@ -349,7 +385,63 @@ export function RebuildReportView({ report }: { report: HowsFishingReportV1 }) {
       )}
 
       {/* ══════════════════════════════════════════════════
-          CARD 4 — Tip of the Day
+          CARD 4 — Solunar Windows
+      ══════════════════════════════════════════════════ */}
+      {solunarData && (solunarData.major_periods.length > 0 || solunarData.minor_periods.length > 0) && (
+        <View style={styles.card}>
+          <View style={styles.cardHeader}>
+            <View style={[styles.cardIconBox, { backgroundColor: 'rgba(79,97,163,0.12)' }]}>
+              <Ionicons name="moon" size={14} color="#4F61A3" />
+            </View>
+            <Text style={[styles.cardTitle, { color: '#4F61A3' }]}>Solunar Windows</Text>
+          </View>
+
+          {solunarData.major_periods.length > 0 && (
+            <View style={solunarStyles.section}>
+              <Text style={solunarStyles.sectionLabel}>STRONG PERIODS</Text>
+              {solunarData.major_periods.map((p, i) => (
+                <View key={`maj-${i}`} style={solunarStyles.periodRow}>
+                  <View style={solunarStyles.dotStrong} />
+                  <Text style={solunarStyles.periodTime}>
+                    {formatSolunarRange(p.start, p.end)}
+                  </Text>
+                  {p.type != null && (
+                    <View style={solunarStyles.typePill}>
+                      <Text style={solunarStyles.typeText}>
+                        {p.type === 'overhead' ? 'Overhead' : 'Underfoot'}
+                      </Text>
+                    </View>
+                  )}
+                </View>
+              ))}
+            </View>
+          )}
+
+          {solunarData.minor_periods.length > 0 && (
+            <View style={[solunarStyles.section, solunarData.major_periods.length > 0 && solunarStyles.sectionSpacedTop]}>
+              <Text style={solunarStyles.sectionLabel}>MINOR PERIODS</Text>
+              {solunarData.minor_periods.map((p, i) => (
+                <View key={`min-${i}`} style={solunarStyles.periodRow}>
+                  <View style={solunarStyles.dotMinor} />
+                  <Text style={solunarStyles.periodTimeMinor}>
+                    {formatSolunarRange(p.start, p.end)}
+                  </Text>
+                </View>
+              ))}
+            </View>
+          )}
+
+          <View style={solunarStyles.noteRow}>
+            <Ionicons name="information-circle-outline" size={13} color={colors.textMuted} />
+            <Text style={solunarStyles.noteText}>
+              Fish activity may increase near these windows — strongest around the major (overhead/underfoot) periods.
+            </Text>
+          </View>
+        </View>
+      )}
+
+      {/* ══════════════════════════════════════════════════
+          CARD 5 — Tip of the Day
       ══════════════════════════════════════════════════ */}
       <View style={styles.tipCard}>
         <View style={styles.cardHeader}>
@@ -365,7 +457,7 @@ export function RebuildReportView({ report }: { report: HowsFishingReportV1 }) {
       </View>
 
       {/* ══════════════════════════════════════════════════
-          CARD 5 — Confidence (low/medium only)
+          CARD 6 — Confidence (low/medium only)
       ══════════════════════════════════════════════════ */}
       {report.reliability !== 'high' && report.reliability_note ? (
         <View style={styles.confidenceCard}>
@@ -621,5 +713,83 @@ const styles = StyleSheet.create({
     fontSize: 13,
     color: colors.textMuted,
     lineHeight: 20,
+  },
+});
+
+// ─── Solunar styles ───────────────────────────────────────────────────────────
+
+const solunarStyles = StyleSheet.create({
+  section: {},
+  sectionSpacedTop: { marginTop: spacing.md },
+  sectionLabel: {
+    fontFamily: fonts.bodyBold,
+    fontSize: 9,
+    color: '#4F61A3',
+    letterSpacing: 0.9,
+    textTransform: 'uppercase',
+    marginBottom: spacing.sm,
+    opacity: 0.8,
+  },
+  periodRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.sm,
+    marginBottom: 8,
+  },
+  dotStrong: {
+    width: 7,
+    height: 7,
+    borderRadius: 4,
+    backgroundColor: '#4F61A3',
+    flexShrink: 0,
+  },
+  dotMinor: {
+    width: 7,
+    height: 7,
+    borderRadius: 4,
+    backgroundColor: '#4F61A340',
+    borderWidth: 1.5,
+    borderColor: '#4F61A380',
+    flexShrink: 0,
+  },
+  periodTime: {
+    fontFamily: fonts.bodyMedium,
+    fontSize: 14,
+    color: colors.text,
+    flex: 1,
+  },
+  periodTimeMinor: {
+    fontFamily: fonts.body,
+    fontSize: 14,
+    color: colors.textSecondary,
+    flex: 1,
+  },
+  typePill: {
+    backgroundColor: 'rgba(79,97,163,0.10)',
+    paddingHorizontal: 8,
+    paddingVertical: 2,
+    borderRadius: radius.full,
+  },
+  typeText: {
+    fontFamily: fonts.bodySemiBold,
+    fontSize: 10,
+    color: '#4F61A3',
+    letterSpacing: 0.3,
+  },
+  noteRow: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    gap: 5,
+    marginTop: spacing.md,
+    paddingTop: spacing.sm + 2,
+    borderTopWidth: 1,
+    borderTopColor: colors.borderLight,
+  },
+  noteText: {
+    fontFamily: fonts.body,
+    fontSize: 12,
+    color: colors.textMuted,
+    lineHeight: 18,
+    flex: 1,
   },
 });

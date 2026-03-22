@@ -12,6 +12,8 @@ import { useAuthStore } from '../../store/authStore';
 import { useDevTestingStore } from '../../store/devTestingStore';
 import { useEnvStore } from '../../store/envStore';
 import { getEffectiveTier, canUseAIFeatures } from '../../lib/subscription';
+import { getCurrentMultiRebuild, getCachedMultiRebuild } from '../../lib/howFishing';
+import type { EngineContextKey } from '../../lib/howFishingRebuildContracts';
 
 export default function HomeScreen() {
   const router = useRouter();
@@ -23,6 +25,7 @@ export default function HomeScreen() {
   const [gpsCoords, setGpsCoords] = useState<{ lat: number; lon: number } | null>(null);
   const [gpsLocationLabel, setGpsLocationLabel] = useState<string | null>(null);
   const [showSubscribePrompt, setShowSubscribePrompt] = useState(false);
+  const [cachedScore, setCachedScore] = useState<string | null>(null);
 
   useEffect(() => {
     if (!gpsCoords) {
@@ -74,6 +77,40 @@ export default function HomeScreen() {
     if (__DEV__) loadDevTesting();
   }, [loadDevTesting]);
 
+  // Read the cached fishing score — no API call, purely local cache.
+  // Since the engine is deterministic, the score from the last generated
+  // report is valid for today. Shows the best score across all water types.
+  useEffect(() => {
+    const ALL_CONTEXTS: EngineContextKey[] = ['freshwater_lake_pond', 'freshwater_river', 'coastal'];
+    let cancelled = false;
+
+    async function loadCachedScore() {
+      const lat = coords?.lat;
+      const lon = coords?.lon;
+      if (lat == null || lon == null) return;
+
+      // Try in-memory first (instant, no I/O)
+      const inMemory = getCurrentMultiRebuild(lat, lon);
+      const source = inMemory
+        ?? await getCachedMultiRebuild(lat, lon, ALL_CONTEXTS);
+
+      if (cancelled || !source) return;
+
+      // Take the best score across all available water types
+      const best = Math.max(
+        ...ALL_CONTEXTS.map(ctx => source[ctx]?.report.score ?? -1)
+      );
+      if (best < 0) return;
+
+      const v = Math.round(best) / 10;
+      const display = Number.isInteger(v) ? v.toFixed(0) : v.toFixed(1);
+      if (!cancelled) setCachedScore(display);
+    }
+
+    loadCachedScore();
+    return () => { cancelled = true; };
+  }, [coords?.lat, coords?.lon]);
+
   const coords =
     __DEV__ && ignoreGps
       ? null
@@ -107,7 +144,20 @@ export default function HomeScreen() {
   useFocusEffect(
     useCallback(() => {
       refreshLiveConditions();
-    }, [refreshLiveConditions])
+      // Refresh the cached score when user returns to the home tab,
+      // so a newly-generated report immediately updates the displayed number.
+      if (coords) {
+        const ALL_CONTEXTS: EngineContextKey[] = ['freshwater_lake_pond', 'freshwater_river', 'coastal'];
+        const inMemory = getCurrentMultiRebuild(coords.lat, coords.lon);
+        if (inMemory) {
+          const best = Math.max(...ALL_CONTEXTS.map(ctx => inMemory[ctx]?.report.score ?? -1));
+          if (best >= 0) {
+            const v = Math.round(best) / 10;
+            setCachedScore(Number.isInteger(v) ? v.toFixed(0) : v.toFixed(1));
+          }
+        }
+      }
+    }, [refreshLiveConditions, coords])
   );
 
   useEffect(() => {
@@ -203,6 +253,9 @@ export default function HomeScreen() {
                   <Ionicons name="pulse" size={24} color={colors.primary} />
                 </View>
               </View>
+              {cachedScore !== null && (
+                <Text style={styles.heroScoreNum}>{cachedScore}</Text>
+              )}
             </View>
           </View>
           <View style={styles.heroFooter}>
@@ -422,6 +475,15 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primaryLight,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  heroScoreNum: {
+    fontFamily: fonts.serifBold,
+    fontSize: 17,
+    color: colors.primary,
+    opacity: 0.75,
+    textAlign: 'center',
+    marginTop: 6,
+    letterSpacing: 0.2,
   },
   heroFooter: {
     flexDirection: 'row',
