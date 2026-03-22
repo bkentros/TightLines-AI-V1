@@ -124,8 +124,8 @@ function labelForDriver(key: ScoredVariableKey, norm: SharedNormalizedOutput["no
 }
 
 export function bandFromScore(score0to100: number): ScoreBand {
-  if (score0to100 >= 75) return "Excellent";
-  if (score0to100 >= 58) return "Good";
+  if (score0to100 >= 80) return "Excellent";
+  if (score0to100 >= 60) return "Good";
   if (score0to100 >= 40) return "Fair";
   return "Poor";
 }

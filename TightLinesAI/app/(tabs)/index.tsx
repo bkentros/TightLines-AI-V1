@@ -282,10 +282,9 @@ export default function HomeScreen() {
       ? Math.max(day.freshwater_lake_pond, day.freshwater_river, day.coastal)
       : Math.max(day.freshwater_lake_pond, day.freshwater_river);
 
-  // Mirrors bandFromScore in the engine (scoreDay.ts) exactly.
   const getQualityLabel = (raw: number): string => {
-    if (raw >= 75) return 'EXCELLENT';
-    if (raw >= 58) return 'GOOD';
+    if (raw >= 80) return 'EXCELLENT';
+    if (raw >= 60) return 'GOOD';
     if (raw >= 40) return 'FAIR';
     return 'POOR';
   };
