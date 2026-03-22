@@ -49,21 +49,22 @@ export default function HomeScreen() {
   const [forecastLoading, setForecastLoading] = useState(false);
 
   // ── Active coordinates and label ──────────────────────────────────────────
-  // Priority: DEV override > custom saved location > GPS
+  // Priority: user's explicit custom choice > DEV ignoreGps > DEV override > GPS
+  // Custom always wins over dev overrides so the location picker works in dev builds.
   const coords =
-    __DEV__ && ignoreGps
-      ? null
-      : __DEV__ && overrideLocation
-        ? { lat: overrideLocation.lat, lon: overrideLocation.lon }
-        : useCustom && savedLocation
-          ? { lat: savedLocation.lat, lon: savedLocation.lon }
+    useCustom && savedLocation
+      ? { lat: savedLocation.lat, lon: savedLocation.lon }
+      : __DEV__ && ignoreGps
+        ? null
+        : __DEV__ && overrideLocation
+          ? { lat: overrideLocation.lat, lon: overrideLocation.lon }
           : gpsCoords;
 
   const locationLabel =
-    __DEV__ && overrideLocation
-      ? overrideLocation.label
-      : useCustom && savedLocation
-        ? savedLocation.label
+    useCustom && savedLocation
+      ? savedLocation.label
+      : __DEV__ && overrideLocation
+        ? overrideLocation.label
         : gpsLocationLabel ?? 'Current location';
 
   // GPS label for use in the picker ("you are here" context)
@@ -341,6 +342,7 @@ export default function HomeScreen() {
           visible={showLocationPicker}
           currentLabel={useCustom && savedLocation ? savedLocation.label : gpsLabel}
           isUsingCustom={useCustom && savedLocation != null}
+          savedLocation={useCustom && savedLocation ? savedLocation : null}
           onSelect={handleLocationSelect}
           onUseGPS={handleUseGPS}
           onClose={() => setShowLocationPicker(false)}

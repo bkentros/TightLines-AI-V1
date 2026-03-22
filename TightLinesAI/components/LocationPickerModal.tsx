@@ -45,6 +45,7 @@ interface Props {
   visible: boolean;
   currentLabel: string;
   isUsingCustom: boolean;
+  savedLocation: SavedLocation | null;
   onSelect: (loc: SavedLocation) => void;
   onUseGPS: () => void;
   onClose: () => void;
@@ -170,6 +171,7 @@ export function LocationPickerModal({
   visible,
   currentLabel,
   isUsingCustom,
+  savedLocation,
   onSelect,
   onUseGPS,
   onClose,
@@ -341,17 +343,24 @@ export function LocationPickerModal({
           )}
 
           {/* ── Currently pinned custom location ── */}
-          {showCurrentCustom && (
-            <View style={styles.currentCustomWrap}>
-              <Text style={styles.currentCustomHead}>Pinned Location</Text>
+          {showCurrentCustom && savedLocation && (
+            <Pressable
+              style={({ pressed }) => [
+                styles.currentCustomWrap,
+                pressed && styles.currentCustomWrapPressed,
+              ]}
+              onPress={() => onSelect(savedLocation)}
+            >
+              <Text style={styles.currentCustomHead}>Pinned Location — tap to activate</Text>
               <View style={styles.currentCustomRow}>
                 <Ionicons name="pin" size={16} color={colors.primary} />
                 <Text style={styles.currentCustomLabel}>{currentLabel}</Text>
+                <Ionicons name="chevron-forward" size={14} color={colors.primary} />
               </View>
               <Text style={styles.currentCustomSub}>
                 Search above to pin a different city, or tap "Use my GPS location" to switch back.
               </Text>
-            </View>
+            </Pressable>
           )}
 
           {/* ── Hint when no query ── */}
@@ -571,6 +580,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: colors.primary + '30',
   },
+  currentCustomWrapPressed: {
+    backgroundColor: colors.primaryMist,
+    borderColor: colors.primary + '60',
+  },
   currentCustomHead: {
     fontFamily: fonts.bodyBold,
     fontSize: 10,
@@ -582,6 +595,7 @@ const styles = StyleSheet.create({
   currentCustomRow: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
     gap: 6,
     marginBottom: 8,
   },
@@ -589,6 +603,7 @@ const styles = StyleSheet.create({
     fontFamily: fonts.bodySemiBold,
     fontSize: 16,
     color: colors.text,
+    flex: 1,
   },
   currentCustomSub: {
     fontFamily: fonts.body,
