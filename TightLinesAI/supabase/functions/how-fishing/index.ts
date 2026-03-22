@@ -247,9 +247,14 @@ function buildWeatherSnapshot(envData?: Record<string, unknown> | null): Record<
   const temp = envData.daily_mean_air_temp_f ?? envData.current_air_temp_f;
   if (temp != null) snap.air_temp_f = Math.round(Number(temp));
   if (envData.wind_speed_mph != null) snap.wind_mph = Math.round(Number(envData.wind_speed_mph));
+  if (envData.wind_direction != null) snap.wind_dir = envData.wind_direction;
   if (envData.cloud_cover_pct != null) snap.cloud_pct = Math.round(Number(envData.cloud_cover_pct));
   if (envData.precip_24h_in != null) snap.rain_24h_in = Number(Number(envData.precip_24h_in).toFixed(2));
-  if (envData.wind_direction != null) snap.wind_dir = envData.wind_direction;
+  if (envData.sunrise_local != null) snap.sunrise = envData.sunrise_local;
+  if (envData.sunset_local != null) snap.sunset = envData.sunset_local;
+  if (Array.isArray(envData.solunar_peak_local) && (envData.solunar_peak_local as unknown[]).length > 0) {
+    snap.solunar_peaks = envData.solunar_peak_local;
+  }
   return Object.keys(snap).length > 0 ? snap : null;
 }
 
@@ -283,7 +288,8 @@ function buildNarrationPrompt(
   narration: ReturnType<typeof buildNarrationPayloadFromReport>,
   locationName?: string | null,
   localDate?: string | null,
-  envData?: Record<string, unknown> | null
+  envData?: Record<string, unknown> | null,
+  conditionContext?: HowsFishingReport["condition_context"] | null
 ): string {
   const scoreOutOfTen = displayScoreOutOfTen(narration.score);
   const seasonLabel = localDate ? describeSeasonFromDate(localDate) : null;
@@ -294,6 +300,33 @@ function buildNarrationPrompt(
   const openerAngle = OPENER_ANGLES[Math.floor(Math.random() * OPENER_ANGLES.length)];
   const tipAngle = pickTipAngle(narration.actionable_tip_tag, narration.daypart_preset);
   const voiceMode = VOICE_MODES[Math.floor(Math.random() * VOICE_MODES.length)];
+
+  // Build the engine verdict block from condition_context.
+  // This gives the LLM the engine's scored assessment of every variable
+  // so it never has to guess fish behavior from raw air temp + season alone.
+  const engineVerdict: Record<string, unknown> = {
+    fish_activity_level: deriveActivityLevel(narration.score),
+  };
+  if (conditionContext) {
+    engineVerdict.temperature_band = conditionContext.temperature_band;
+    engineVerdict.temperature_trend = conditionContext.temperature_trend;
+    if (conditionContext.temperature_shock !== "none") {
+      engineVerdict.temperature_shock = conditionContext.temperature_shock;
+    }
+    if (conditionContext.pressure_detail) {
+      engineVerdict.pressure_detail = conditionContext.pressure_detail;
+    }
+    if (conditionContext.wind_detail) {
+      engineVerdict.wind_detail = conditionContext.wind_detail;
+    }
+    if (conditionContext.tide_detail) {
+      engineVerdict.tide_detail = conditionContext.tide_detail;
+    }
+    engineVerdict.region = conditionContext.region_key;
+    if (conditionContext.missing_variables.length > 0) {
+      engineVerdict.data_gaps = conditionContext.missing_variables;
+    }
+  }
 
   return [
     "<task>",
@@ -323,10 +356,10 @@ function buildNarrationPrompt(
       water_type: narration.display_context_label,
       score_out_of_10: scoreOutOfTen,
       band: narration.band,
-      // fish_activity_level = engine's explicit verdict on how fish are behaving.
-      // Use this directly — do NOT re-derive behavior from raw air_temp + season.
-      // 64°F in March does NOT mean cold-water fish; trust this field over seasonal assumptions.
-      fish_activity_level: deriveActivityLevel(narration.score),
+      // engine_verdict = the scored assessment of every normalized variable.
+      // Trust these fields directly. Do NOT re-derive fish behavior from raw
+      // air_temp + season — the engine has already done that work correctly.
+      engine_verdict: engineVerdict,
       whats_helping: narration.drivers.map(driverToFact),
       whats_hurting: narration.suppressors.map(driverToFact),
       data_confidence: narration.reliability,
@@ -336,7 +369,8 @@ function buildNarrationPrompt(
     "<output_contract>",
     "summary_line: one confident full-day outlook sentence (max 220 chars). Reference the location by name if provided. Weave in a specific number from 'conditions' (temp or wind) when it makes the report feel grounded — but don't recite stats. Make the angler feel informed in seconds.",
     "actionable_tip: one decisive tactical tip (max 220 chars). Must be about HOW to fish — retrieve, cadence, finesse, aggression, fish behavior, offering approach. Never about when. Be specific to these conditions, not generic.",
-    "CRITICAL — fish_activity_level is the engine's verdict. Your tip must be consistent with it. If fish_activity_level says 'high', do NOT write slow-finesse advice. If it says 'low', do NOT write aggressive-coverage advice. Never contradict this field.",
+    "CRITICAL — engine_verdict.fish_activity_level and engine_verdict.temperature_band are the engine's scored verdicts. Your tip must be consistent with both. If fish_activity_level says 'high' and temperature_band says 'optimal', do NOT write slow-finesse advice. Never contradict these fields.",
+    "If engine_verdict.data_gaps is present, keep the report appropriately broad for those variables — don't invent specifics the engine couldn't score.",
     "Uniqueness check before outputting: re-read both fields. If any phrase could appear in another report for different conditions — rewrite it. If it sounds templated or AI-generated, it fails.",
     "Do not mention JSON, payload, scoring math, data confidence, or score numbers in output.",
     "</output_contract>",
@@ -353,13 +387,13 @@ function describeSeasonFromDate(iso: string): string {
 
 async function polishReportCopy(
   openaiKey: string,
-  _report: HowsFishingReport,
+  report: HowsFishingReport,
   narration: ReturnType<typeof buildNarrationPayloadFromReport>,
   locationName?: string | null,
   localDate?: string | null,
   envData?: Record<string, unknown> | null
 ): Promise<{ summary: string; tip: string; inT: number; outT: number } | null> {
-  const user = buildNarrationPrompt(narration, locationName, localDate, envData);
+  const user = buildNarrationPrompt(narration, locationName, localDate, envData, report.condition_context);
   const res = await fetch("https://api.openai.com/v1/chat/completions", {
     method: "POST",
     headers: {

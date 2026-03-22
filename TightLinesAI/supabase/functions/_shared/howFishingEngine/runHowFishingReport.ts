@@ -54,6 +54,7 @@ export function runHowFishingReport(req: SharedEngineRequest): HowsFishingReport
     {
       local_date: req.local_date,
       solunar_peak_local: req.environment.solunar_peak_local,
+      tide_high_low: req.environment.tide_high_low,
     }
   );
 
@@ -97,6 +98,19 @@ export function runHowFishingReport(req: SharedEngineRequest): HowsFishingReport
         variable_key: g.variable_key,
         reason: g.reason,
       })),
+    },
+    // Full normalized context forwarded to the LLM so it never has to infer
+    // fish behavior from raw air temp + season alone.
+    condition_context: {
+      temperature_band: norm.normalized.temperature?.band_label ?? "optimal",
+      temperature_trend: norm.normalized.temperature?.trend_label ?? "stable",
+      temperature_shock: norm.normalized.temperature?.shock_label ?? "none",
+      pressure_detail: norm.normalized.pressure_regime?.detail ?? null,
+      wind_detail: norm.normalized.wind_condition?.detail ?? null,
+      tide_detail: norm.normalized.tide_current_movement?.detail ?? null,
+      region_key: norm.location.region_key,
+      available_variables: norm.available_variables,
+      missing_variables: norm.missing_variables,
     },
   };
 }

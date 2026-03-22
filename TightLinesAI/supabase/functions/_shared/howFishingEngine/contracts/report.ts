@@ -4,6 +4,7 @@
 
 import type { ActionableTipTag, DaypartNotePreset } from "./tipsDaypart.ts";
 import type { EngineContext } from "./context.ts";
+import type { TemperatureBandLabel, TrendLabel, ShockLabel } from "./variableState.ts";
 
 export type ScoreBand = "Poor" | "Fair" | "Good" | "Excellent";
 
@@ -49,6 +50,22 @@ export type HowsFishingReport = {
     available_variables: string[];
     missing_variables: string[];
     data_gaps?: Array<{ variable_key: string; reason: string }>;
+  };
+  /**
+   * Rich normalized context forwarded verbatim to the LLM narration layer.
+   * Ensures the model has the engine's full verdict on every variable — not
+   * just raw air temp + season — so it never has to guess fish behavior.
+   */
+  condition_context?: {
+    temperature_band: TemperatureBandLabel;
+    temperature_trend: TrendLabel;
+    temperature_shock: ShockLabel;
+    pressure_detail?: string | null;
+    wind_detail?: string | null;
+    tide_detail?: string | null;
+    region_key: string;
+    available_variables: string[];
+    missing_variables: string[];
   };
 };
 
