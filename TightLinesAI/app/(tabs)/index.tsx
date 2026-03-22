@@ -282,13 +282,12 @@ export default function HomeScreen() {
       ? Math.max(day.freshwater_lake_pond, day.freshwater_river, day.coastal)
       : Math.max(day.freshwater_lake_pond, day.freshwater_river);
 
+  // Mirrors bandFromScore in the engine (scoreDay.ts) exactly.
   const getQualityLabel = (raw: number): string => {
-    if (raw >= 80) return 'PRIME';
-    if (raw >= 65) return 'GREAT';
-    if (raw >= 50) return 'GOOD';
-    if (raw >= 35) return 'FAIR';
-    if (raw >= 20) return 'SLOW';
-    return 'TOUGH';
+    if (raw >= 75) return 'EXCELLENT';
+    if (raw >= 58) return 'GOOD';
+    if (raw >= 40) return 'FAIR';
+    return 'POOR';
   };
 
   // Derive the score for the hero card from the deterministic forecast (no report needed).
