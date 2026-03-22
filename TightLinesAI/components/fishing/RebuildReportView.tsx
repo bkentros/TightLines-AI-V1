@@ -388,54 +388,45 @@ export function RebuildReportView({
           CARD 4 — Solunar Windows
       ══════════════════════════════════════════════════ */}
       {solunarData && (solunarData.major_periods.length > 0 || solunarData.minor_periods.length > 0) && (
-        <View style={styles.card}>
-          <View style={styles.cardHeader}>
-            <View style={[styles.cardIconBox, { backgroundColor: 'rgba(79,97,163,0.12)' }]}>
-              <Ionicons name="moon" size={14} color="#4F61A3" />
-            </View>
-            <Text style={[styles.cardTitle, { color: '#4F61A3' }]}>Solunar Windows</Text>
+        <View style={solunarStyles.card}>
+          <View style={solunarStyles.header}>
+            <Ionicons name="moon" size={12} color="#4F61A3" />
+            <Text style={solunarStyles.cardTitle}>Solunar Windows</Text>
+            <Text style={solunarStyles.cardSubtitle}>Bonus</Text>
           </View>
 
-          {solunarData.major_periods.length > 0 && (
-            <View style={solunarStyles.section}>
-              <Text style={solunarStyles.sectionLabel}>STRONG PERIODS</Text>
-              {solunarData.major_periods.map((p, i) => (
-                <View key={`maj-${i}`} style={solunarStyles.periodRow}>
-                  <View style={solunarStyles.dotStrong} />
-                  <Text style={solunarStyles.periodTime}>
-                    {formatSolunarRange(p.start, p.end)}
-                  </Text>
-                  {p.type != null && (
-                    <View style={solunarStyles.typePill}>
-                      <Text style={solunarStyles.typeText}>
-                        {p.type === 'overhead' ? 'Overhead' : 'Underfoot'}
+          <View style={solunarStyles.periodsRow}>
+            {solunarData.major_periods.length > 0 && (
+              <View style={solunarStyles.periodGroup}>
+                <Text style={solunarStyles.sectionLabel}>STRONG</Text>
+                {solunarData.major_periods.map((p, i) => (
+                  <View key={`maj-${i}`} style={solunarStyles.periodRow}>
+                    <View style={solunarStyles.dotStrong} />
+                    <Text style={solunarStyles.periodTime}>
+                      {formatSolunarRange(p.start, p.end)}
+                    </Text>
+                    {p.type != null && (
+                      <Text style={solunarStyles.typeLabel}>
+                        {p.type === 'overhead' ? '↑' : '↓'}
                       </Text>
-                    </View>
-                  )}
-                </View>
-              ))}
-            </View>
-          )}
-
-          {solunarData.minor_periods.length > 0 && (
-            <View style={[solunarStyles.section, solunarData.major_periods.length > 0 && solunarStyles.sectionSpacedTop]}>
-              <Text style={solunarStyles.sectionLabel}>MINOR PERIODS</Text>
-              {solunarData.minor_periods.map((p, i) => (
-                <View key={`min-${i}`} style={solunarStyles.periodRow}>
-                  <View style={solunarStyles.dotMinor} />
-                  <Text style={solunarStyles.periodTimeMinor}>
-                    {formatSolunarRange(p.start, p.end)}
-                  </Text>
-                </View>
-              ))}
-            </View>
-          )}
-
-          <View style={solunarStyles.noteRow}>
-            <Ionicons name="information-circle-outline" size={13} color={colors.textMuted} />
-            <Text style={solunarStyles.noteText}>
-              Fish activity may increase near these windows — strongest around the major (overhead/underfoot) periods.
-            </Text>
+                    )}
+                  </View>
+                ))}
+              </View>
+            )}
+            {solunarData.minor_periods.length > 0 && (
+              <View style={[solunarStyles.periodGroup, solunarData.major_periods.length > 0 && solunarStyles.periodGroupRight]}>
+                <Text style={solunarStyles.sectionLabel}>MINOR</Text>
+                {solunarData.minor_periods.map((p, i) => (
+                  <View key={`min-${i}`} style={solunarStyles.periodRow}>
+                    <View style={solunarStyles.dotMinor} />
+                    <Text style={solunarStyles.periodTimeMinor}>
+                      {formatSolunarRange(p.start, p.end)}
+                    </Text>
+                  </View>
+                ))}
+              </View>
+            )}
           </View>
         </View>
       )}
@@ -719,77 +710,100 @@ const styles = StyleSheet.create({
 // ─── Solunar styles ───────────────────────────────────────────────────────────
 
 const solunarStyles = StyleSheet.create({
-  section: {},
-  sectionSpacedTop: { marginTop: spacing.md },
+  card: {
+    backgroundColor: colors.surface,
+    borderRadius: radius.md,
+    paddingHorizontal: spacing.md,
+    paddingTop: spacing.sm + 4,
+    paddingBottom: spacing.sm + 4,
+    borderWidth: 1,
+    borderColor: 'rgba(79,97,163,0.15)',
+  },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
+    marginBottom: spacing.sm,
+  },
+  cardTitle: {
+    fontFamily: fonts.bodyBold,
+    fontSize: 11,
+    color: '#4F61A3',
+    textTransform: 'uppercase',
+    letterSpacing: 0.7,
+    flex: 1,
+  },
+  cardSubtitle: {
+    fontFamily: fonts.body,
+    fontSize: 10,
+    color: colors.textMuted,
+    textTransform: 'uppercase',
+    letterSpacing: 0.5,
+    borderWidth: 1,
+    borderColor: colors.border,
+    borderRadius: radius.full,
+    paddingHorizontal: 6,
+    paddingVertical: 1,
+  },
+  periodsRow: {
+    flexDirection: 'row',
+    gap: spacing.md,
+  },
+  periodGroup: {
+    flex: 1,
+  },
+  periodGroupRight: {
+    borderLeftWidth: 1,
+    borderLeftColor: colors.borderLight,
+    paddingLeft: spacing.md,
+  },
   sectionLabel: {
     fontFamily: fonts.bodyBold,
-    fontSize: 9,
+    fontSize: 8,
     color: '#4F61A3',
     letterSpacing: 0.9,
     textTransform: 'uppercase',
-    marginBottom: spacing.sm,
-    opacity: 0.8,
+    marginBottom: 5,
+    opacity: 0.7,
   },
   periodRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: spacing.sm,
-    marginBottom: 8,
+    gap: 5,
+    marginBottom: 4,
   },
   dotStrong: {
-    width: 7,
-    height: 7,
-    borderRadius: 4,
+    width: 5,
+    height: 5,
+    borderRadius: 3,
     backgroundColor: '#4F61A3',
     flexShrink: 0,
   },
   dotMinor: {
-    width: 7,
-    height: 7,
-    borderRadius: 4,
-    backgroundColor: '#4F61A340',
-    borderWidth: 1.5,
+    width: 5,
+    height: 5,
+    borderRadius: 3,
+    backgroundColor: 'transparent',
+    borderWidth: 1,
     borderColor: '#4F61A380',
     flexShrink: 0,
   },
   periodTime: {
     fontFamily: fonts.bodyMedium,
-    fontSize: 14,
+    fontSize: 12,
     color: colors.text,
     flex: 1,
   },
   periodTimeMinor: {
     fontFamily: fonts.body,
-    fontSize: 14,
+    fontSize: 12,
     color: colors.textSecondary,
     flex: 1,
   },
-  typePill: {
-    backgroundColor: 'rgba(79,97,163,0.10)',
-    paddingHorizontal: 8,
-    paddingVertical: 2,
-    borderRadius: radius.full,
-  },
-  typeText: {
-    fontFamily: fonts.bodySemiBold,
+  typeLabel: {
+    fontFamily: fonts.bodyBold,
     fontSize: 10,
     color: '#4F61A3',
-    letterSpacing: 0.3,
-  },
-  noteRow: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    gap: 5,
-    marginTop: spacing.md,
-    paddingTop: spacing.sm + 2,
-    borderTopWidth: 1,
-    borderTopColor: colors.borderLight,
-  },
-  noteText: {
-    fontFamily: fonts.body,
-    fontSize: 12,
-    color: colors.textMuted,
-    lineHeight: 18,
-    flex: 1,
+    opacity: 0.7,
   },
 });
