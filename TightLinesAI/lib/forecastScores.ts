@@ -125,10 +125,19 @@ export async function getForecastScores(
       body: JSON.stringify({ latitude: lat, longitude: lon }),
     });
 
-    if (!res.ok) return null;
+    if (!res.ok) {
+      if (__DEV__) {
+        const text = await res.text().catch(() => '(unreadable)');
+        console.error(`[forecastScores] edge fn returned ${res.status}:`, text);
+      }
+      return null;
+    }
 
     const json = await res.json() as { forecast?: DayForecastScore[]; timezone?: string };
-    if (!Array.isArray(json.forecast) || json.forecast.length === 0) return null;
+    if (!Array.isArray(json.forecast) || json.forecast.length === 0) {
+      if (__DEV__) console.error('[forecastScores] empty or missing forecast array:', json);
+      return null;
+    }
 
     const data: ForecastScoresResult = {
       forecast: json.forecast,
@@ -151,7 +160,8 @@ export async function getForecastScores(
     }
 
     return data;
-  } catch {
+  } catch (err) {
+    if (__DEV__) console.error('[forecastScores] fetch error:', err);
     return null;
   }
 }
