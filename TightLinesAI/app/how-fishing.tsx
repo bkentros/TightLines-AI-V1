@@ -65,10 +65,20 @@ const TAB_CONFIG: { key: EngineContextKey; label: string; icon: string; color: s
 
 export default function HowFishingScreen() {
   const router = useRouter();
-  const params = useLocalSearchParams<{ lat?: string; lon?: string }>();
+  const params = useLocalSearchParams<{
+    lat?: string;
+    lon?: string;
+    day_offset?: string;
+    target_date?: string;
+  }>();
   const lat = params.lat != null ? parseFloat(params.lat) : NaN;
   const lon = params.lon != null ? parseFloat(params.lon) : NaN;
   const hasCoords = !Number.isNaN(lat) && !Number.isNaN(lon);
+
+  // Forecast day support: day_offset > 0 means this is a future-day report
+  const dayOffset = params.day_offset != null ? parseInt(params.day_offset, 10) : 0;
+  const targetDate = params.target_date ?? null;
+  const isForecastDay = dayOffset > 0 && targetDate != null;
 
   const { profile } = useAuthStore();
   const units = profile?.preferred_units ?? 'imperial';
@@ -165,6 +175,7 @@ export default function HowFishingScreen() {
           contexts: availableContexts,
           env_data: freshEnv,
           location_name: locationLabel !== 'Current location' ? locationLabel : null,
+          ...(isForecastDay && { day_offset: dayOffset, target_date: targetDate }),
         },
       });
 
@@ -189,7 +200,7 @@ export default function HowFishingScreen() {
     } finally {
       setAnalysisLoading(false);
     }
-  }, [hasCoords, lat, lon, units, availableContexts, locationLabel, setLastReportEnv]);
+  }, [hasCoords, lat, lon, units, availableContexts, locationLabel, setLastReportEnv, isForecastDay, dayOffset, targetDate]);
 
   const handleRefresh = useCallback(async () => {
     setRefreshing(true);
@@ -206,8 +217,12 @@ export default function HowFishingScreen() {
 
   const activeBundle = multiBundles?.[activeTab] ?? null;
   const activeTz = activeBundle?.report.location.timezone ?? env?.timezone;
+  // For forecast days, show the target date; for today show current date
+  const reportDateLabel = isForecastDay && targetDate
+    ? new Date(targetDate + 'T12:00:00').toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })
+    : currentLocationDateString(activeTz);
   const topMeta = activeBundle
-    ? `${locationLabel}  •  ${currentLocationDateString(activeTz)}  •  ${formatGeneratedTime(activeBundle.generated_at, activeTz)}`
+    ? `${locationLabel}  •  ${reportDateLabel}  •  ${formatGeneratedTime(activeBundle.generated_at, activeTz)}`
     : locationLabel;
 
   // ─── No coords ───
@@ -263,7 +278,10 @@ export default function HowFishingScreen() {
               </View>
               <Text style={styles.confirmTitle}>Ready to generate?</Text>
               <Text style={styles.confirmSub}>
-                We'll build today's fishing report for{'\n'}
+                {isForecastDay && targetDate
+                  ? `We'll build the forecast report for ${reportDateLabel} at`
+                  : `We'll build today's fishing report for`}
+                {'\n'}
                 <Text style={{ fontWeight: '700' }}>{locationLabel}</Text>
               </Text>
               <View style={styles.confirmContextList}>
@@ -280,7 +298,9 @@ export default function HowFishingScreen() {
                 disabled={envLoading}
               >
                 <Ionicons name="sparkles" size={16} color={colors.textOnPrimary} />
-                <Text style={styles.generateBtnText}>Generate today's reports</Text>
+                <Text style={styles.generateBtnText}>
+                  {isForecastDay ? `Generate forecast report` : `Generate today's reports`}
+                </Text>
               </Pressable>
               {analysisError ? <Text style={styles.errorInline}>{analysisError}</Text> : null}
             </View>
@@ -299,7 +319,15 @@ export default function HowFishingScreen() {
         <Pressable style={styles.navBack} onPress={() => router.back()} hitSlop={12}>
           <Ionicons name="chevron-back" size={26} color={colors.primary} />
         </Pressable>
-        <Text style={styles.heading}>How's Fishing</Text>
+        <View style={{ alignItems: 'center' }}>
+          <Text style={styles.heading}>How's Fishing</Text>
+          {isForecastDay && (
+            <View style={styles.forecastBadge}>
+              <Ionicons name="calendar-outline" size={10} color="#4F61A3" />
+              <Text style={styles.forecastBadgeText}>{reportDateLabel}</Text>
+            </View>
+          )}
+        </View>
         <Pressable
           style={({ pressed }) => [styles.newReportBtn, pressed && { opacity: 0.7 }]}
           onPress={handleRefresh}
@@ -398,6 +426,25 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
   },
   newReportText: { fontSize: 14, fontWeight: '600', color: colors.primary },
+
+  /* Forecast Day Badge */
+  forecastBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 3,
+    backgroundColor: '#4F61A3' + '15',
+    paddingHorizontal: 7,
+    paddingVertical: 2,
+    borderRadius: 8,
+    marginTop: 2,
+    alignSelf: 'center',
+  },
+  forecastBadgeText: {
+    fontFamily: fonts.bodySemiBold,
+    fontSize: 10,
+    color: '#4F61A3',
+    letterSpacing: 0.2,
+  },
 
   /* Tab Bar */
   tabBar: {

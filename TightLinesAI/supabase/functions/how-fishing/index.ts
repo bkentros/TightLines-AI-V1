@@ -530,7 +530,17 @@ Deno.serve(async (req: Request) => {
   }
   const envData = body.env_data as Record<string, unknown>;
   const timezone = extractTimezone(envData);
-  const localDate = localDateInTz(timezone);
+
+  // day_offset > 0 means this is a forecast day report, not today's report.
+  // target_date: caller-supplied YYYY-MM-DD for the forecast day.
+  const dayOffset = typeof body.day_offset === "number" && body.day_offset > 0
+    ? Math.min(Math.floor(body.day_offset), 6)
+    : 0;
+  const targetDateStr = dayOffset > 0 && typeof body.target_date === "string" && body.target_date.length === 10
+    ? body.target_date
+    : null;
+  const localDate = targetDateStr ?? localDateInTz(timezone);
+
   const locationName = typeof body.location_name === "string" && body.location_name.length > 0
     ? body.location_name
     : typeof body.city === "string" && body.city.length > 0
@@ -538,6 +548,7 @@ Deno.serve(async (req: Request) => {
       : null;
   const openaiKey = Deno.env.get("OPENAI_API_KEY");
   const timestampUtc = new Date().toISOString();
+  // Forecast reports expire at the target day's midnight; today's expire at local midnight
   const cacheExpiresAt = locationLocalMidnightIso(timezone);
 
   // ─── Helper: generate a single report for a given context ───
@@ -546,7 +557,7 @@ Deno.serve(async (req: Request) => {
     inT: number;
     outT: number;
   }> {
-    const sharedReq = buildSharedEngineRequestFromEnvData(lat, lon, localDate, timezone, ctx, envData);
+    const sharedReq = buildSharedEngineRequestFromEnvData(lat, lon, localDate, timezone, ctx, envData, dayOffset);
     let report = runHowFishingReport(sharedReq);
     let inT = 0;
     let outT = 0;

@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
-import { AppState, type AppStateStatus, View, Text, StyleSheet, ScrollView, Pressable, ActivityIndicator } from 'react-native';
+import { AppState, type AppStateStatus, View, Text, StyleSheet, ScrollView, Pressable, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { useFocusEffect } from '@react-navigation/native';
@@ -14,6 +14,13 @@ import { useEnvStore } from '../../store/envStore';
 import { getEffectiveTier, canUseAIFeatures } from '../../lib/subscription';
 import { getCurrentMultiRebuild, getCachedMultiRebuild } from '../../lib/howFishing';
 import type { EngineContextKey } from '../../lib/howFishingRebuildContracts';
+import {
+  getForecastScores,
+  bestDayScore,
+  formatScoreDisplay,
+  scoreColor,
+  type DayForecastScore,
+} from '../../lib/forecastScores';
 
 export default function HomeScreen() {
   const router = useRouter();
@@ -26,6 +33,21 @@ export default function HomeScreen() {
   const [gpsLocationLabel, setGpsLocationLabel] = useState<string | null>(null);
   const [showSubscribePrompt, setShowSubscribePrompt] = useState(false);
   const [cachedScore, setCachedScore] = useState<string | null>(null);
+  const [forecastDays, setForecastDays] = useState<DayForecastScore[] | null>(null);
+  const [forecastLoading, setForecastLoading] = useState(false);
+
+  // Declare coords early so all effects can reference it without hoisting issues
+  const coords =
+    __DEV__ && ignoreGps
+      ? null
+      : __DEV__ && overrideLocation
+        ? { lat: overrideLocation.lat, lon: overrideLocation.lon }
+        : gpsCoords;
+
+  const locationLabel =
+    __DEV__ && overrideLocation
+      ? overrideLocation.label
+      : gpsLocationLabel ?? 'Current location';
 
   useEffect(() => {
     if (!gpsCoords) {
@@ -111,17 +133,27 @@ export default function HomeScreen() {
     return () => { cancelled = true; };
   }, [coords?.lat, coords?.lon]);
 
-  const coords =
-    __DEV__ && ignoreGps
-      ? null
-      : __DEV__ && overrideLocation
-        ? { lat: overrideLocation.lat, lon: overrideLocation.lon }
-        : gpsCoords;
+  // Load 7-day forecast scores — cached up to 6h, no API call if fresh
+  useEffect(() => {
+    const lat = coords?.lat;
+    const lon = coords?.lon;
+    if (lat == null || lon == null) return;
+    let cancelled = false;
 
-  const locationLabel =
-    __DEV__ && overrideLocation
-      ? overrideLocation.label
-      : gpsLocationLabel ?? 'Current location';
+    (async () => {
+      setForecastLoading(true);
+      try {
+        const result = await getForecastScores(lat, lon);
+        if (!cancelled && result) setForecastDays(result.forecast);
+      } catch {
+        // Silent fail — calendar just won't show
+      } finally {
+        if (!cancelled) setForecastLoading(false);
+      }
+    })();
+
+    return () => { cancelled = true; };
+  }, [coords?.lat, coords?.lon]);
 
   const refreshLiveConditions = useCallback(() => {
     const now = Date.now();
@@ -272,6 +304,108 @@ export default function HomeScreen() {
             router.push('/subscribe');
           }}
         />
+
+        {/* ─── 7-Day Forecast Calendar ─── */}
+        {coords && (forecastLoading || (forecastDays && forecastDays.length > 0)) && (
+          <View style={styles.calendarSection}>
+            <View style={styles.calendarHeader}>
+              <Text style={styles.calendarTitle}>7-Day Outlook</Text>
+              <Text style={styles.calendarHint}>Tap to generate</Text>
+            </View>
+            <ScrollView
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={styles.calendarRow}
+            >
+              {forecastLoading && !forecastDays
+                ? Array.from({ length: 7 }).map((_, i) => (
+                    <View key={i} style={[styles.calendarDay, styles.calendarDaySkeleton]} />
+                  ))
+                : forecastDays?.map((day) => {
+                    const raw = bestDayScore(day);
+                    const display = formatScoreDisplay(raw);
+                    const color = scoreColor(raw);
+                    const isToday = day.day_offset === 0;
+                    return (
+                      <Pressable
+                        key={day.date}
+                        style={({ pressed }) => [
+                          styles.calendarDay,
+                          isToday && styles.calendarDayToday,
+                          pressed && styles.calendarDayPressed,
+                        ]}
+                        onPress={() => {
+                          if (!hasSubscription) {
+                            setShowSubscribePrompt(true);
+                            return;
+                          }
+                          if (!coords) return;
+                          if (day.day_offset === 0) {
+                            // Today — go directly to how-fishing
+                            router.push({
+                              pathname: '/how-fishing',
+                              params: { lat: String(coords.lat), lon: String(coords.lon) },
+                            });
+                            return;
+                          }
+                          // Future day — confirm before generating
+                          const label = day.day_label === 'Tmrw' ? 'Tomorrow' : day.day_label;
+                          Alert.alert(
+                            `Forecast Report — ${label}`,
+                            `Generate a full fishing report for ${day.month_day}?\n\nThis uses AI and counts toward your monthly usage.`,
+                            [
+                              { text: 'Cancel', style: 'cancel' },
+                              {
+                                text: 'Generate',
+                                onPress: () =>
+                                  router.push({
+                                    pathname: '/how-fishing',
+                                    params: {
+                                      lat: String(coords.lat),
+                                      lon: String(coords.lon),
+                                      day_offset: String(day.day_offset),
+                                      target_date: day.date,
+                                    },
+                                  }),
+                              },
+                            ],
+                          );
+                        }}
+                      >
+                        <Text
+                          style={[
+                            styles.calendarDayLabel,
+                            isToday && styles.calendarDayLabelToday,
+                          ]}
+                        >
+                          {day.day_label}
+                        </Text>
+                        <Text
+                          style={[
+                            styles.calendarDateNum,
+                            isToday && styles.calendarDateNumToday,
+                          ]}
+                        >
+                          {day.month_day}
+                        </Text>
+                        <View
+                          style={[
+                            styles.calendarScorePill,
+                            { backgroundColor: color + '22' },
+                          ]}
+                        >
+                          <Text
+                            style={[styles.calendarScoreText, { color }]}
+                          >
+                            {display}
+                          </Text>
+                        </View>
+                      </Pressable>
+                    );
+                  })}
+            </ScrollView>
+          </View>
+        )}
 
         {/* ─── Live Conditions ─── */}
         <LiveConditionsWidget
@@ -497,6 +631,88 @@ const styles = StyleSheet.create({
     fontFamily: fonts.bodySemiBold,
     fontSize: 14,
     color: colors.primary,
+  },
+
+  /* 7-Day Forecast Calendar */
+  calendarSection: {
+    marginBottom: spacing.md,
+  },
+  calendarHeader: {
+    flexDirection: 'row',
+    alignItems: 'baseline',
+    justifyContent: 'space-between',
+    marginBottom: spacing.sm,
+  },
+  calendarTitle: {
+    fontFamily: fonts.bodyBold,
+    fontSize: 11,
+    color: colors.textMuted,
+    textTransform: 'uppercase',
+    letterSpacing: 1.2,
+  },
+  calendarHint: {
+    fontFamily: fonts.body,
+    fontSize: 11,
+    color: colors.textMuted,
+  },
+  calendarRow: {
+    gap: 8,
+    paddingRight: 4,
+  },
+  calendarDay: {
+    width: 64,
+    paddingVertical: 10,
+    paddingHorizontal: 6,
+    backgroundColor: colors.surface,
+    borderRadius: radius.md,
+    borderWidth: 1,
+    borderColor: colors.border,
+    alignItems: 'center',
+    gap: 5,
+  },
+  calendarDayToday: {
+    borderColor: colors.primary + '50',
+    backgroundColor: colors.primaryMist,
+  },
+  calendarDayPressed: {
+    opacity: 0.7,
+    transform: [{ scale: 0.96 }],
+  },
+  calendarDaySkeleton: {
+    backgroundColor: colors.border,
+    opacity: 0.4,
+    height: 88,
+  },
+  calendarDayLabel: {
+    fontFamily: fonts.bodySemiBold,
+    fontSize: 11,
+    color: colors.textMuted,
+    textAlign: 'center',
+  },
+  calendarDayLabelToday: {
+    color: colors.primary,
+  },
+  calendarDateNum: {
+    fontFamily: fonts.body,
+    fontSize: 11,
+    color: colors.textSecondary,
+    textAlign: 'center',
+  },
+  calendarDateNumToday: {
+    color: colors.text,
+    fontFamily: fonts.bodySemiBold,
+  },
+  calendarScorePill: {
+    borderRadius: 8,
+    paddingHorizontal: 6,
+    paddingVertical: 3,
+    minWidth: 32,
+    alignItems: 'center',
+  },
+  calendarScoreText: {
+    fontFamily: fonts.serifBold,
+    fontSize: 14,
+    textAlign: 'center',
   },
 
   /* Section Header */

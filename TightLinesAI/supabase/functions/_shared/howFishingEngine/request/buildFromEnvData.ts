@@ -22,9 +22,10 @@ function readDailyMean(
   return (highs[idx]! + lows[idx]!) / 2;
 }
 
-function currentDailyIndex(values: unknown[] | undefined): number | null {
+function currentDailyIndex(values: unknown[] | undefined, dayOffset = 0): number | null {
   if (!values || values.length === 0) return null;
-  return Math.min(14, values.length - 1);
+  // Base index 14 = today in a past_days=14 array. dayOffset shifts forward for forecast days.
+  return Math.min(14 + dayOffset, values.length - 1);
 }
 
 function sumRecent(values: number[] | undefined, endIdx: number | null, days: number): number | null {
@@ -37,6 +38,9 @@ function sumRecent(values: number[] | undefined, endIdx: number | null, days: nu
 
 /**
  * Maps client get-environment payload into SharedEngineRequest.
+ * @param dayOffset - 0 = today (default), 1 = tomorrow, etc.
+ *   When > 0, shifts all daily array lookups forward and extracts the
+ *   appropriate hourly pressure window for the target forecast day.
  */
 export function buildSharedEngineRequestFromEnvData(
   latitude: number,
@@ -44,22 +48,36 @@ export function buildSharedEngineRequestFromEnvData(
   localDate: string,
   localTimezone: string,
   context: EngineContext,
-  envData: Record<string, unknown>
+  envData: Record<string, unknown>,
+  dayOffset = 0,
 ): SharedEngineRequest {
   const { state_code, region_key } = resolveRegionForCoordinates(latitude, longitude);
 
   const w = readWeather(envData);
 
   let pressure_history_mb: number[] | null = null;
-  if (w && Array.isArray(w.pressure_48hr)) {
+
+  if (dayOffset === 0 && w && Array.isArray(w.pressure_48hr)) {
+    // Today: use the pre-built 48hr pressure array (ends at current hour)
     pressure_history_mb = (w.pressure_48hr as unknown[])
       .map((x) => num(x))
       .filter((x): x is number => x != null);
   }
+
   if (!pressure_history_mb || pressure_history_mb.length < 2) {
     const hourly = envData.hourly_pressure_mb;
     if (Array.isArray(hourly)) {
-      const trimmed = hourly.slice(Math.max(0, hourly.length - 48));
+      let trimmed: unknown[];
+      if (dayOffset > 0) {
+        // For forecast days: extract 48 readings centered on target day's noon.
+        // Open-Meteo hourly array (past_days=14 + forecast_days=7 = 504 entries):
+        //   Index 14*24 = 336 = today midnight, 14*24+12 = 348 = today noon
+        //   Index (14+D)*24+12 = target day noon
+        const targetNoonIdx = (14 + dayOffset) * 24 + 12;
+        trimmed = hourly.slice(Math.max(0, targetNoonIdx - 47), targetNoonIdx + 1);
+      } else {
+        trimmed = hourly.slice(Math.max(0, hourly.length - 48));
+      }
       pressure_history_mb = trimmed
         .map((h: unknown) => {
           if (h && typeof h === "object" && "value" in h) return num((h as { value: unknown }).value);
@@ -71,13 +89,13 @@ export function buildSharedEngineRequestFromEnvData(
 
   const th = w?.temp_7day_high as number[] | undefined;
   const tl = w?.temp_7day_low as number[] | undefined;
-  const tempIdx = currentDailyIndex(th && th.length ? th : tl);
+  const tempIdx = currentDailyIndex(th && th.length ? th : tl, dayOffset);
   const daily_mean = readDailyMean(th, tl, tempIdx) ?? num(w?.temperature);
   const prior_mean = readDailyMean(th, tl, tempIdx != null ? tempIdx - 1 : null);
   const d2_mean = readDailyMean(th, tl, tempIdx != null ? tempIdx - 2 : null);
 
   const pd = w?.precip_7day_daily as number[] | undefined;
-  const precipIdx = currentDailyIndex(pd);
+  const precipIdx = currentDailyIndex(pd, dayOffset);
   const precip_24h = precipIdx != null
     ? (pd?.[precipIdx] ?? null)
     : (num(w?.precip_48hr_inches) != null ? num(w!.precip_48hr_inches)! / 2 : null);
@@ -92,7 +110,11 @@ export function buildSharedEngineRequestFromEnvData(
   const tide_high_low =
     Array.isArray(highLow) && highLow.length >= 2
       ? highLow
-          .map((x) => ({ time: x.time, value: Number(x.value) }))
+          .map((x) => ({
+            time: x.time,
+            value: Number(x.value),
+            ...(typeof x.type === "string" ? { type: x.type } : {}),
+          }))
           .filter((x) => x.time && Number.isFinite(x.value))
       : null;
 
