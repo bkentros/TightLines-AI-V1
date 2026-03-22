@@ -52,12 +52,33 @@ export function normalizePressureDetailed(
   }
 
   // --- Volatile: erratic oscillation (genuinely bad) ---
+  // Thresholds: range >= 8 mb over full window, OR 3h swing >= 4 mb, OR
+  // 4+ direction reversals with >= 5 mb total range (oscillation, not just a front passage).
+  // Note: max3hSwing threshold raised from 3.5 → 4.0 to avoid over-penalizing normal front passages.
   if (series.length >= 3) {
     if (
       range24 >= 8.0 ||
-      max3hSwing >= 3.5 ||
+      max3hSwing >= 4.0 ||
       (directionChanges >= 4 && range24 >= 5.0)
     ) {
+      // --- Recency check: if the last 4+ readings are tightly stable, the worst has passed.
+      // Pressure was swinging earlier but has now settled — fish are adjusting/recovering.
+      // Score softens to -1 ("recently_stabilizing") rather than full -2 penalty.
+      if (series.length >= 6) {
+        const recentSlice = series.slice(-4);
+        const recentRange = Math.max(...recentSlice) - Math.min(...recentSlice);
+        if (recentRange < 1.5) {
+          return {
+            quality,
+            state: {
+              label: "recently_stabilizing",
+              score: -1,
+              detail: `prior range ${range24.toFixed(1)} mb, now settling (recent range ${recentRange.toFixed(1)} mb)`,
+            },
+          };
+        }
+      }
+
       return {
         quality,
         state: {
