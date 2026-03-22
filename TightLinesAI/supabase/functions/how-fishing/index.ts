@@ -253,6 +253,19 @@ function buildWeatherSnapshot(envData?: Record<string, unknown> | null): Record<
   return Object.keys(snap).length > 0 ? snap : null;
 }
 
+/**
+ * Translate the engine score into an explicit fish activity verdict.
+ * The LLM receives this directly so it never has to infer behavior from
+ * raw air temp + season alone — which causes the cold-metabolism-in-spring bug.
+ */
+function deriveActivityLevel(score: number): string {
+  if (score >= 70) return "high — fish are feeding actively and willing to commit";
+  if (score >= 55) return "moderate-high — fish are engaged and responding well to proper presentation";
+  if (score >= 40) return "moderate — fish are selectively willing, need a clean presentation";
+  if (score >= 25) return "low — fish are tentative, require deliberate and precise approach";
+  return "very low — fish are not cooperative, tough conditions across the board";
+}
+
 /** Convert driver/suppressor objects to short factual descriptors for the LLM */
 function driverToFact(d: { variable: string; effect: string; label: string }): string {
   // Extract the variable name and the score-aware factual core
@@ -298,8 +311,8 @@ function buildNarrationPrompt(
     "</context_guide>",
     "<tip_rule>",
     "The actionable_tip is NEVER about when to fish. Not tide windows. Not morning vs afternoon. Not any clock-based call.",
-    "It must be 100% tactical: retrieve speed, cadence, pauses, finesse vs power, fish behavior implied by conditions, offering size, water column position, or stealth of approach.",
-    `tip_type for context: ${narration.actionable_tip_tag}`,
+    "It must be 100% tactical: retrieve speed, cadence, pauses, finesse vs power, fish behavior, offering size, water column position, or stealth of approach.",
+    `tip_type: ${narration.actionable_tip_tag}`,
     `daypart_timing_handled_separately: ${narration.daypart_preset}`,
     "</tip_rule>",
     "<payload>",
@@ -310,6 +323,10 @@ function buildNarrationPrompt(
       water_type: narration.display_context_label,
       score_out_of_10: scoreOutOfTen,
       band: narration.band,
+      // fish_activity_level = engine's explicit verdict on how fish are behaving.
+      // Use this directly — do NOT re-derive behavior from raw air_temp + season.
+      // 64°F in March does NOT mean cold-water fish; trust this field over seasonal assumptions.
+      fish_activity_level: deriveActivityLevel(narration.score),
       whats_helping: narration.drivers.map(driverToFact),
       whats_hurting: narration.suppressors.map(driverToFact),
       data_confidence: narration.reliability,
@@ -319,7 +336,8 @@ function buildNarrationPrompt(
     "<output_contract>",
     "summary_line: one confident full-day outlook sentence (max 220 chars). Reference the location by name if provided. Weave in a specific number from 'conditions' (temp or wind) when it makes the report feel grounded — but don't recite stats. Make the angler feel informed in seconds.",
     "actionable_tip: one decisive tactical tip (max 220 chars). Must be about HOW to fish — retrieve, cadence, finesse, aggression, fish behavior, offering approach. Never about when. Be specific to these conditions, not generic.",
-    "Uniqueness check before outputting: re-read both fields. If any phrase sounds like something that's appeared in another report — rewrite it. The standard is: if it sounds AI-generated or templated, it fails.",
+    "CRITICAL — fish_activity_level is the engine's verdict. Your tip must be consistent with it. If fish_activity_level says 'high', do NOT write slow-finesse advice. If it says 'low', do NOT write aggressive-coverage advice. Never contradict this field.",
+    "Uniqueness check before outputting: re-read both fields. If any phrase could appear in another report for different conditions — rewrite it. If it sounds templated or AI-generated, it fails.",
     "Do not mention JSON, payload, scoring math, data confidence, or score numbers in output.",
     "</output_contract>",
   ].filter(Boolean).join("\n");

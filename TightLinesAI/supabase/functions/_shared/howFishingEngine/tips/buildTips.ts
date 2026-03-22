@@ -24,14 +24,7 @@ function pick<T>(arr: T[]): T {
   return arr[Math.floor(Math.random() * arr.length)]!;
 }
 
-function monthFromDate(iso: string): number {
-  return parseInt(iso.slice(5, 7), 10) || 6;
-}
 
-/** Nov–Mar cold-season air-temp framing for freshwater */
-function isColdSeasonFreshwater(month: number): boolean {
-  return month === 11 || month === 12 || month <= 3;
-}
 
 // ─── Tip pools — purely TACTICAL, zero timing language ──────────────────────
 // These are engine-generated fallbacks. The LLM rewrites them from scratch.
@@ -71,25 +64,29 @@ const RUNOFF_TIPS = [
   "In these conditions, fish are relying on senses other than sight. Prioritize feel and sound over visual appeal.",
 ];
 
-// Cold-season temp → fish metabolism slow, finesse-first tactics
-const TEMP_WARMTH_COLD_SEASON_TIPS = [
-  "Cold slows fish down — match that energy with a slower retrieve and longer pauses. They'll eat, just not quickly.",
-  "Fish metabolism is running low right now. Deliberate, finesse presentations earn more than anything aggressive.",
-  "Cold-water fish are lethargic. Give them time to commit — pauses matter more than any strip or crank you throw at them.",
-  "Slow it way down. Cold conditions mean fish aren't chasing, so give them something easy to eat without much effort.",
-  "In this cold, every pause counts more than every retrieve. Let the offering settle, twitch once, and wait them out.",
-  "Fish are in low-idle mode. Finesse and patience earn bites — anything too aggressive just pushes them off.",
-  "Match the cold. Slow presentation, subtle action, and the willingness to leave the offering in the zone longer than feels right.",
+// Cold band temp → fish metabolism genuinely slow, finesse-first tactics
+// Only fires when temperature IS a suppressor with a cold/very_cold band_label
+const TEMP_COLD_TIPS = [
+  "Cold water means slow fish — match that energy with a slower retrieve and extended pauses. They'll eat, just not on your timeline.",
+  "Fish are running on low-idle right now. Deliberate, finesse presentations out-earn anything aggressive.",
+  "Cold-water fish won't chase. Give them something easy to intercept — keep it slow, give it time.",
+  "Every pause matters more than every strip in these temps. Let the offering settle, twitch once, and hold.",
+  "Cold conditions require patience. Keep the offering in the zone longer than feels right and let the fish make the move.",
+  "Fish are conserving energy. Slow and subtle earns bites — anything too assertive just burns your time.",
+  "Low-idle fish need a presentation that comes to them. Shrink the profile, slow the retrieve, and let pauses close the deal.",
 ];
 
-// Warm / favorable temp → active fish, can fish with confidence
-const TEMP_WARMTH_TIPS = [
-  "Fish metabolism is clicking right now — they can handle a more confident, assertive approach.",
-  "Warm conditions mean willing fish. Cover water with authority and trust that they'll commit to a moving offering.",
-  "Fish are primed to feed in these temps. Don't over-finesse — fish with confidence and let the conditions do the work.",
-  "Active fish in favorable temps respond to a brisker retrieve. Match their energy and keep the offering moving.",
-  "Good temperature window means fish are willing to chase. Move with purpose and cover your water thoroughly.",
-  "Fish are in a cooperative mood right now. More aggressive presentations earn bites — trust the conditions.",
+// Favorable / optimal temp → active fish, confident approach earns bites
+// Fires when temp is a POSITIVE driver — regardless of season
+const TEMP_ACTIVE_TIPS = [
+  "Fish are metabolically primed right now — a confident, assertive retrieve earns bites over timid finesse.",
+  "Favorable temps mean fish are willing to commit. Cover water with purpose and trust they'll respond.",
+  "Don't over-finesse this one. Conditions have fish active and a brisker pace is the right call.",
+  "Fish are in a cooperative metabolic window. Keep the offering moving with confidence and cover your water.",
+  "Active fish in good temps respond to authority. Move with purpose and let them commit.",
+  "These conditions have fish feeding willingly. Trust the data, fish assertively, and don't slow down unless the water tells you to.",
+  "Fish metabolism is on your side. A steady, purposeful retrieve gets bites — dragging it out is leaving fish behind.",
+  "Temps are producing willing fish. Cover water thoroughly at a confident pace — this isn't a finesse day.",
 ];
 
 // Generic fallback — methodical approach, no timing
@@ -271,7 +268,6 @@ export function buildTipAndDaypart(
   reliability: string,
   opts?: TipDaypartOptions
 ): EngineTipDaypartBundle {
-  const month = opts?.local_date ? monthFromDate(opts.local_date) : 6;
   const solunar = opts?.solunar_peak_local?.length
     ? opts.solunar_peak_local
     : null;
@@ -290,16 +286,14 @@ export function buildTipAndDaypart(
   } else if (topSuppressor?.key === "runoff_flow_disruption" && topSuppressor.score < 0) {
     actionable_tip = pick(RUNOFF_TIPS);
     actionable_tip_tag = "runoff_clarity_flow";
-  } else if (
-    topDriver?.key === "temperature_condition" &&
-    topDriver.score > 0 &&
-    (context === "freshwater_river" || context === "freshwater_lake_pond") &&
-    isColdSeasonFreshwater(month)
-  ) {
-    actionable_tip = pick(TEMP_WARMTH_COLD_SEASON_TIPS);
+  } else if (topSuppressor?.key === "temperature_condition" && topSuppressor.score < 0) {
+    // Temperature is actually a suppressor (cold/very_cold band) → slow fish, finesse approach
+    actionable_tip = pick(TEMP_COLD_TIPS);
     actionable_tip_tag = "temperature_intraday_flex";
   } else if (topDriver?.key === "temperature_condition" && topDriver.score > 0) {
-    actionable_tip = pick(TEMP_WARMTH_TIPS);
+    // Temperature is a positive DRIVER — fish are active regardless of calendar month.
+    // The engine already scored this as favorable; don't second-guess it with season logic.
+    actionable_tip = pick(TEMP_ACTIVE_TIPS);
     actionable_tip_tag = "temperature_intraday_flex";
   } else if (topDriver) {
     const driverName = topDriver.key.replace(/_/g, " ");
