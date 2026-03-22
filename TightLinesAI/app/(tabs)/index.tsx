@@ -8,14 +8,17 @@ import * as Location from 'expo-location';
 import { colors, fonts, spacing, radius, shadows } from '../../lib/theme';
 import { LiveConditionsWidget } from '../../components/LiveConditionsWidget';
 import { SubscribePrompt } from '../../components/SubscribePrompt';
+import { LocationPickerModal } from '../../components/LocationPickerModal';
 import { useAuthStore } from '../../store/authStore';
 import { useDevTestingStore } from '../../store/devTestingStore';
 import { useEnvStore } from '../../store/envStore';
+import { useLocationStore } from '../../store/locationStore';
 import { getEffectiveTier, canUseAIFeatures } from '../../lib/subscription';
 import { getCurrentMultiRebuild, getCachedMultiRebuild } from '../../lib/howFishing';
 import type { EngineContextKey } from '../../lib/howFishingRebuildContracts';
 import {
   getForecastScores,
+  invalidateForecastCache,
   bestDayScore,
   formatScoreDisplay,
   scoreColor,
@@ -27,27 +30,44 @@ export default function HomeScreen() {
   const { profile } = useAuthStore();
   const { ignoreGps, overrideLocation, overrideSubscriptionTier, load: loadDevTesting } = useDevTestingStore();
   const { loadEnv } = useEnvStore();
+  const {
+    savedLocation,
+    useCustom,
+    setSavedLocation,
+    clearSavedLocation,
+    setUseCustom,
+    load: loadLocationStore,
+  } = useLocationStore();
   const appStateRef = useRef<AppStateStatus>(AppState.currentState);
   const lastAutoRefreshAtRef = useRef(0);
   const [gpsCoords, setGpsCoords] = useState<{ lat: number; lon: number } | null>(null);
   const [gpsLocationLabel, setGpsLocationLabel] = useState<string | null>(null);
   const [showSubscribePrompt, setShowSubscribePrompt] = useState(false);
+  const [showLocationPicker, setShowLocationPicker] = useState(false);
   const [cachedScore, setCachedScore] = useState<string | null>(null);
   const [forecastDays, setForecastDays] = useState<DayForecastScore[] | null>(null);
   const [forecastLoading, setForecastLoading] = useState(false);
 
-  // Declare coords early so all effects can reference it without hoisting issues
+  // ── Active coordinates and label ──────────────────────────────────────────
+  // Priority: DEV override > custom saved location > GPS
   const coords =
     __DEV__ && ignoreGps
       ? null
       : __DEV__ && overrideLocation
         ? { lat: overrideLocation.lat, lon: overrideLocation.lon }
-        : gpsCoords;
+        : useCustom && savedLocation
+          ? { lat: savedLocation.lat, lon: savedLocation.lon }
+          : gpsCoords;
 
   const locationLabel =
     __DEV__ && overrideLocation
       ? overrideLocation.label
-      : gpsLocationLabel ?? 'Current location';
+      : useCustom && savedLocation
+        ? savedLocation.label
+        : gpsLocationLabel ?? 'Current location';
+
+  // GPS label for use in the picker ("you are here" context)
+  const gpsLabel = gpsLocationLabel ?? 'Current location';
 
   useEffect(() => {
     if (!gpsCoords) {
@@ -98,6 +118,11 @@ export default function HomeScreen() {
   useEffect(() => {
     if (__DEV__) loadDevTesting();
   }, [loadDevTesting]);
+
+  // Load persisted location preference on mount
+  useEffect(() => {
+    loadLocationStore();
+  }, [loadLocationStore]);
 
   // Read the cached fishing score — no API call, purely local cache.
   // Since the engine is deterministic, the score from the last generated
@@ -207,6 +232,26 @@ export default function HomeScreen() {
   const effectiveTier = getEffectiveTier(profile, overrideSubscriptionTier ?? null);
   const hasSubscription = canUseAIFeatures(effectiveTier);
 
+  // ── Location picker handlers ──────────────────────────────────────────────
+
+  const handleLocationSelect = useCallback(async (loc: { lat: number; lon: number; label: string }) => {
+    // Invalidate forecast cache for the OLD location before switching
+    if (coords) invalidateForecastCache(coords.lat, coords.lon);
+    await setSavedLocation(loc);
+    setShowLocationPicker(false);
+    // Clear stale forecast/score data — fresh data will load via useEffect deps
+    setForecastDays(null);
+    setCachedScore(null);
+  }, [coords, setSavedLocation]);
+
+  const handleUseGPS = useCallback(async () => {
+    if (coords && useCustom) invalidateForecastCache(coords.lat, coords.lon);
+    await clearSavedLocation();
+    setShowLocationPicker(false);
+    setForecastDays(null);
+    setCachedScore(null);
+  }, [coords, useCustom, clearSavedLocation]);
+
   const handleHowFishingPress = useCallback(() => {
     if (!hasSubscription) {
       setShowSubscribePrompt(true);
@@ -258,7 +303,45 @@ export default function HomeScreen() {
           <Text style={styles.greeting}>
             {getGreeting()}. What's the plan?
           </Text>
+
+          {/* ── Location Row ── */}
+          <Pressable
+            style={({ pressed }) => [
+              styles.locationRow,
+              pressed && styles.locationRowPressed,
+            ]}
+            onPress={() => setShowLocationPicker(true)}
+          >
+            <Ionicons
+              name={useCustom && savedLocation ? 'pin' : 'locate-outline'}
+              size={13}
+              color={useCustom && savedLocation ? colors.primary : colors.textMuted}
+            />
+            <Text style={styles.locationRowLabel} numberOfLines={1}>
+              {locationLabel}
+            </Text>
+            {useCustom && savedLocation ? (
+              <View style={styles.locationCustomChip}>
+                <Text style={styles.locationCustomChipText}>Custom</Text>
+              </View>
+            ) : (
+              <View style={styles.locationGpsChip}>
+                <Text style={styles.locationGpsChipText}>GPS</Text>
+              </View>
+            )}
+            <Ionicons name="chevron-down" size={11} color={colors.textMuted} />
+          </Pressable>
         </View>
+
+        {/* ─── Location Picker Modal ─── */}
+        <LocationPickerModal
+          visible={showLocationPicker}
+          currentLabel={useCustom && savedLocation ? savedLocation.label : gpsLabel}
+          isUsingCustom={useCustom && savedLocation != null}
+          onSelect={handleLocationSelect}
+          onUseGPS={handleUseGPS}
+          onClose={() => setShowLocationPicker(false)}
+        />
 
         {/* ─── Hero: How's Fishing Right Now? ─── */}
         <Pressable
@@ -536,6 +619,57 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: colors.textSecondary,
     lineHeight: 22,
+    marginBottom: 10,
+  },
+
+  /* Location Row */
+  locationRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    alignSelf: 'flex-start',
+    paddingVertical: 6,
+    paddingHorizontal: 10,
+    backgroundColor: colors.surface,
+    borderRadius: radius.full,
+    borderWidth: 1,
+    borderColor: colors.border,
+  },
+  locationRowPressed: {
+    backgroundColor: colors.primaryMist,
+    borderColor: colors.primary + '40',
+  },
+  locationRowLabel: {
+    fontFamily: fonts.bodySemiBold,
+    fontSize: 13,
+    color: colors.text,
+    maxWidth: 180,
+  },
+  locationCustomChip: {
+    backgroundColor: colors.primary + '18',
+    borderRadius: 5,
+    paddingHorizontal: 5,
+    paddingVertical: 1,
+  },
+  locationCustomChipText: {
+    fontFamily: fonts.bodyBold,
+    fontSize: 9,
+    color: colors.primary,
+    textTransform: 'uppercase',
+    letterSpacing: 0.5,
+  },
+  locationGpsChip: {
+    backgroundColor: colors.backgroundAlt,
+    borderRadius: 5,
+    paddingHorizontal: 5,
+    paddingVertical: 1,
+  },
+  locationGpsChipText: {
+    fontFamily: fonts.bodyBold,
+    fontSize: 9,
+    color: colors.textMuted,
+    textTransform: 'uppercase',
+    letterSpacing: 0.5,
   },
 
   /* Hero Card — How's Fishing */
