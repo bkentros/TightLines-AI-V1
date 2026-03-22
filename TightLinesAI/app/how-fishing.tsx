@@ -136,11 +136,19 @@ export default function HowFishingScreen() {
     return () => { cancelled = true; };
   }, [hasCoords, lat, lon, units]);
 
-  // Check cache on mount, show confirm if not cached
+  // Check cache on mount, show confirm if not cached.
+  // Forecast day reports are NEVER cached — always require generation.
+  // This prevents today's cached report from appearing when the user
+  // taps a future day from the 7-day calendar.
   useEffect(() => {
     if (!hasCoords || envLoading) return;
     let cancelled = false;
     (async () => {
+      if (isForecastDay) {
+        // Always prompt — forecast day reports are not cached
+        if (!cancelled) setShowConfirm(true);
+        return;
+      }
       const cached = await getCachedMultiRebuild(lat, lon, availableContexts);
       if (cancelled) return;
       if (cached) {
@@ -151,7 +159,7 @@ export default function HowFishingScreen() {
       }
     })();
     return () => { cancelled = true; };
-  }, [hasCoords, envLoading, lat, lon, availableContexts]);
+  }, [hasCoords, envLoading, lat, lon, availableContexts, isForecastDay]);
 
   const generateReports = useCallback(async () => {
     if (!hasCoords) return;
@@ -188,9 +196,14 @@ export default function HowFishingScreen() {
         throw new Error('Invalid response from server');
       }
 
-      await setCachedMultiRebuild(lat, lon, multi);
       const bundles = multi.reports as Record<EngineContextKey, HowFishingRebuildBundle>;
-      setCurrentMultiRebuild(lat, lon, bundles);
+      // Only write to the daily cache and in-memory store for TODAY's reports.
+      // Forecast day reports must NOT overwrite today's cached bundle — the user
+      // should still get today's report next time they open How's Fishing normally.
+      if (!isForecastDay) {
+        await setCachedMultiRebuild(lat, lon, multi);
+        setCurrentMultiRebuild(lat, lon, bundles);
+      }
       setLastReportEnv(freshEnv);
       setMultiBundles(bundles);
     } catch (err) {
@@ -205,15 +218,18 @@ export default function HowFishingScreen() {
   const handleRefresh = useCallback(async () => {
     setRefreshing(true);
     try {
-      const AsyncStorage = (await import('@react-native-async-storage/async-storage')).default;
-      for (const ctx of availableContexts) {
-        await AsyncStorage.removeItem(`how_fishing_rebuild_${lat.toFixed(3)}_${lon.toFixed(3)}_${ctx}`);
+      // Only clear the daily cache for today's reports — not forecast days
+      if (!isForecastDay) {
+        const AsyncStorage = (await import('@react-native-async-storage/async-storage')).default;
+        for (const ctx of availableContexts) {
+          await AsyncStorage.removeItem(`how_fishing_rebuild_${lat.toFixed(3)}_${lon.toFixed(3)}_${ctx}`);
+        }
       }
     } catch { /* ignore */ }
     setMultiBundles(null);
     await generateReports();
     setRefreshing(false);
-  }, [generateReports, availableContexts, lat, lon]);
+  }, [generateReports, availableContexts, lat, lon, isForecastDay]);
 
   const activeBundle = multiBundles?.[activeTab] ?? null;
   const activeTz = activeBundle?.report.location.timezone ?? env?.timezone;

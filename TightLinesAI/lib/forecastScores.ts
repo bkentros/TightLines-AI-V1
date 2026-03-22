@@ -2,7 +2,8 @@
  * forecastScores — 7-day deterministic fishing score forecast
  *
  * Calls the forecast-scores edge function (no LLM, no auth required).
- * Results are cached in AsyncStorage for 6 hours to avoid redundant fetches.
+ * Results are cached until midnight local time — consistent with the full
+ * report cache so scores stay fresh and aligned daily.
  */
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -10,8 +11,15 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const SUPABASE_URL = process.env.EXPO_PUBLIC_SUPABASE_URL!;
 const SUPABASE_ANON_KEY = process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY!;
 
-const CACHE_TTL_MS = 6 * 60 * 60 * 1000; // 6 hours
 const CACHE_KEY_PREFIX = 'forecast_scores_v1';
+
+/** Returns the UTC timestamp of the next local midnight (device timezone). */
+function nextLocalMidnightMs(): number {
+  const now = new Date();
+  const midnight = new Date(now);
+  midnight.setHours(24, 0, 0, 0); // next midnight in device local time
+  return midnight.getTime();
+}
 
 // ---------------------------------------------------------------------------
 // Types
@@ -80,7 +88,7 @@ export function scoreColor(raw: number): string {
 
 /**
  * Fetches 7-day forecast scores for the given location.
- * Returns cached data (up to 6h) if available, otherwise fetches fresh.
+ * Returns cached data if it was fetched today (before midnight), otherwise fetches fresh.
  */
 export async function getForecastScores(
   lat: number,
@@ -92,8 +100,12 @@ export async function getForecastScores(
   try {
     const cached = await AsyncStorage.getItem(key);
     if (cached) {
-      const parsed = JSON.parse(cached) as ForecastScoresResult & { _fetched_at: number };
-      if (Date.now() - parsed._fetched_at < CACHE_TTL_MS) {
+      const parsed = JSON.parse(cached) as ForecastScoresResult & {
+        _fetched_at: number;
+        _expires_at: number;
+      };
+      // Valid until the midnight that was computed when the data was fetched
+      if (Date.now() < (parsed._expires_at ?? 0)) {
         return parsed;
       }
     }
@@ -124,9 +136,16 @@ export async function getForecastScores(
       fetched_at: new Date().toISOString(),
     };
 
-    // Persist to cache
+    // Persist to cache — expires at tonight's local midnight
     try {
-      await AsyncStorage.setItem(key, JSON.stringify({ ...data, _fetched_at: Date.now() }));
+      await AsyncStorage.setItem(
+        key,
+        JSON.stringify({
+          ...data,
+          _fetched_at: Date.now(),
+          _expires_at: nextLocalMidnightMs(),
+        }),
+      );
     } catch {
       // Non-fatal
     }
