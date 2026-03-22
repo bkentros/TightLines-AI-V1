@@ -452,7 +452,7 @@ export interface WeeklyOverviewBundle {
 
 const FORECAST_CACHE_TTL_MS = 2 * 60 * 60 * 1000; // 2 hours
 
-interface ForecastCacheEntry {
+interface WeeklyForecastCacheEntry {
   lat: number;
   lon: number;
   date: string;
@@ -462,7 +462,7 @@ interface ForecastCacheEntry {
   bundle: WeeklyOverviewBundle;
 }
 
-function forecastCacheKey(lat: number, lon: number, waterType: WaterType | 'auto' = 'auto', freshwaterSubtype: 'lake' | 'river_stream' | 'reservoir' = 'lake'): string {
+function weeklyForecastCacheKey(lat: number, lon: number, waterType: WaterType | 'auto' = 'auto', freshwaterSubtype: 'lake' | 'river_stream' | 'reservoir' = 'lake'): string {
   return `forecast_weekly_${lat.toFixed(3)}_${lon.toFixed(3)}_${waterType}_${freshwaterSubtype}`;
 }
 
@@ -473,10 +473,10 @@ export async function getCachedWeeklyForecast(
   freshwaterSubtype: 'lake' | 'river_stream' | 'reservoir' = 'lake'
 ): Promise<WeeklyOverviewBundle | null> {
   try {
-    const key = forecastCacheKey(latitude, longitude, waterType, freshwaterSubtype);
+    const key = weeklyForecastCacheKey(latitude, longitude, waterType, freshwaterSubtype);
     const raw = await AsyncStorage.getItem(key);
     if (!raw) return null;
-    const entry = JSON.parse(raw) as ForecastCacheEntry;
+    const entry = JSON.parse(raw) as WeeklyForecastCacheEntry;
     if (!coordsMatch(entry.lat, entry.lon, latitude, longitude)) return null;
     if (entry.date !== currentDeviceLocalDateString()) return null;
     const age = Date.now() - new Date(entry.fetched_at).getTime();
@@ -495,8 +495,8 @@ export async function setCachedWeeklyForecast(
   freshwaterSubtype: 'lake' | 'river_stream' | 'reservoir' = 'lake'
 ): Promise<void> {
   try {
-    const key = forecastCacheKey(latitude, longitude, waterType, freshwaterSubtype);
-    const entry: ForecastCacheEntry = {
+    const key = weeklyForecastCacheKey(latitude, longitude, waterType, freshwaterSubtype);
+    const entry: WeeklyForecastCacheEntry = {
       lat: latitude,
       lon: longitude,
       date: currentDeviceLocalDateString(),
@@ -616,6 +616,85 @@ export async function setCachedHowFishingRebuild(
 // ---------------------------------------------------------------------------
 
 import type { HowFishingRebuildMultiBundle } from './howFishingRebuildContracts';
+
+// ---------------------------------------------------------------------------
+// Forecast-day bundle cache
+//
+// Keyed by (lat, lon, target_date, context) — separate from today's cache so
+// forecast reports never overwrite or collide with the daily report.
+//
+// Expiry rule: uses bundle.cache_expires_at from the server (set to the
+// REPORTING location's midnight).
+//   • Generate Sunday's report on Monday → cached until Monday midnight.
+//   • Try again later Monday           → cache hit (no LLM call).
+//   • Try on Tuesday                   → cache expired, fresh generation.
+// ---------------------------------------------------------------------------
+
+function forecastCacheKey(
+  lat: number,
+  lon: number,
+  targetDate: string,
+  ctx: EngineContextKey,
+): string {
+  return `how_fishing_forecast_${lat.toFixed(3)}_${lon.toFixed(3)}_${targetDate}_${ctx}`;
+}
+
+interface ForecastCacheEntry {
+  lat: number;
+  lon: number;
+  target_date: string;
+  cache_expires_at: string; // ISO — tonight's midnight in location timezone
+  bundle: HowFishingRebuildBundle;
+}
+
+export async function getCachedForecastRebuild(
+  latitude: number,
+  longitude: number,
+  targetDate: string,
+  contexts: EngineContextKey[],
+): Promise<Record<EngineContextKey, HowFishingRebuildBundle> | null> {
+  const results: Partial<Record<EngineContextKey, HowFishingRebuildBundle>> = {};
+  for (const ctx of contexts) {
+    try {
+      const key = forecastCacheKey(latitude, longitude, targetDate, ctx);
+      const raw = await AsyncStorage.getItem(key);
+      if (!raw) return null;
+      const entry = JSON.parse(raw) as ForecastCacheEntry;
+      if (!coordsMatch(entry.lat, entry.lon, latitude, longitude)) return null;
+      const expires = new Date(entry.cache_expires_at).getTime();
+      if (Number.isFinite(expires) && Date.now() >= expires) return null;
+      results[ctx] = entry.bundle;
+    } catch {
+      return null;
+    }
+  }
+  return results as Record<EngineContextKey, HowFishingRebuildBundle>;
+}
+
+export async function setCachedForecastRebuild(
+  latitude: number,
+  longitude: number,
+  targetDate: string,
+  multi: HowFishingRebuildMultiBundle,
+): Promise<void> {
+  for (const ctx of multi.contexts) {
+    const bundle = (multi.reports as Partial<Record<EngineContextKey, HowFishingRebuildBundle>>)[ctx];
+    if (!bundle) continue;
+    const key = forecastCacheKey(latitude, longitude, targetDate, ctx);
+    const entry: ForecastCacheEntry = {
+      lat: latitude,
+      lon: longitude,
+      target_date: targetDate,
+      cache_expires_at: multi.cache_expires_at, // tonight's midnight from server
+      bundle,
+    };
+    try {
+      await AsyncStorage.setItem(key, JSON.stringify(entry));
+    } catch {
+      // non-fatal
+    }
+  }
+}
 
 export async function getCachedMultiRebuild(
   latitude: number,

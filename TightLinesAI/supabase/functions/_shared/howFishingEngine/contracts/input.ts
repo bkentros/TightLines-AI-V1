@@ -36,7 +36,7 @@ export type SharedEngineRequest = {
     /** Hourly tide height (ft) for 3h swing — optional */
     tide_height_hourly_ft?: number[] | null;
     /** CO-OPS high/low events for intra-day movement proxy */
-    tide_high_low?: Array<{ time: string; value: number }> | null;
+    tide_high_low?: Array<{ time: string; value: number; type?: string }> | null;
     sunrise_local?: string | null;
     sunset_local?: string | null;
     solunar_peak_local?: string[] | null;

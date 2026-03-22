@@ -5,7 +5,6 @@ import type {
   TemperatureNormalized,
 } from "../contracts/mod.ts";
 import { freshwaterTempRow } from "../config/tempBandsFreshwater.ts";
-import { coastalTempRow } from "../config/tempBandsCoastal.ts";
 
 function clampScore(n: number): -2 | -1 | 0 | 1 | 2 {
   return Math.max(-2, Math.min(2, Math.round(n))) as -2 | -1 | 0 | 1 | 2;
@@ -41,10 +40,10 @@ export function normalizeTemperature(
 ): TemperatureNormalized | null {
   if (dailyMeanF == null || Number.isNaN(dailyMeanF)) return null;
 
-  const row =
-    context === "coastal"
-      ? coastalTempRow(region, month)
-      : freshwaterTempRow(region, month);
+  // Same mean air temp from one weather feed must score identically for freshwater vs coastal
+  // at the same coordinates; coastal vs lake differences are handled by tide/wind/salinity paths,
+  // not parallel temp band tables (those caused contradictory "sweet spot" vs "below average" copy).
+  const row = freshwaterTempRow(region, month);
   if (!row || row.length < 5) return null;
 
   const vc = Number(row[0]);

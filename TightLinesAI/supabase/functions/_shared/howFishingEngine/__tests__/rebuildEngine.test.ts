@@ -267,7 +267,7 @@ Deno.test("buildTipAndDaypart: cold-season positive temp driver", () => {
     "high",
     { local_date: "2025-02-10" }
   );
-  assert(b.actionable_tip.includes("warmer part of the day"));
+  assert(b.actionable_tip.includes("afternoon warmth"));
 });
 
 Deno.test("temperature: at ±2 band, trend nudge not applied (table dominates)", () => {
