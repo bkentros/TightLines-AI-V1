@@ -186,17 +186,10 @@ export default function HomeScreen() {
     lastAutoRefreshAtRef.current = now;
 
     const units = profile?.preferred_units ?? 'imperial';
-    const currentCoords =
-      __DEV__ && overrideLocation
-        ? { lat: overrideLocation.lat, lon: overrideLocation.lon }
-        : __DEV__ && ignoreGps
-          ? null
-          : gpsCoords;
-
-    if (currentCoords) {
-      loadEnv(currentCoords.lat, currentCoords.lon, { units });
+    if (coords) {
+      loadEnv(coords.lat, coords.lon, { units });
     }
-  }, [profile?.preferred_units, overrideLocation, ignoreGps, gpsCoords, loadEnv]);
+  }, [profile?.preferred_units, coords, loadEnv]);
 
   useFocusEffect(
     useCallback(() => {
@@ -242,7 +235,10 @@ export default function HomeScreen() {
     // Clear stale forecast/score data — fresh data will load via useEffect deps
     setForecastDays(null);
     setCachedScore(null);
-  }, [coords, setSavedLocation]);
+    // Immediately load env for the new location
+    const units = profile?.preferred_units ?? 'imperial';
+    loadEnv(loc.lat, loc.lon, { units });
+  }, [coords, setSavedLocation, profile?.preferred_units, loadEnv]);
 
   const handleUseGPS = useCallback(async () => {
     if (coords && useCustom) invalidateForecastCache(coords.lat, coords.lon);
@@ -275,6 +271,13 @@ export default function HomeScreen() {
     });
     setGpsCoords({ lat: loc.coords.latitude, lon: loc.coords.longitude });
   }, []);
+
+  // Derive the score for the hero card from the deterministic forecast (no report needed).
+  // Falls back to a previously-cached report score when the forecast hasn't loaded yet.
+  const todayForecast = forecastDays?.[0] ?? null;
+  const heroScore = todayForecast
+    ? formatScoreDisplay(bestDayScore(todayForecast))
+    : cachedScore;
 
   const getGreeting = () => {
     const h = new Date().getHours();
@@ -343,57 +346,12 @@ export default function HomeScreen() {
           onClose={() => setShowLocationPicker(false)}
         />
 
-        {/* ─── Hero: How's Fishing Right Now? ─── */}
-        <Pressable
-          style={({ pressed }) => [
-            styles.heroCard,
-            pressed && styles.heroCardPressed,
-          ]}
-          onPress={handleHowFishingPress}
-        >
-          <View style={styles.heroContent}>
-            <View style={styles.heroLeft}>
-              <View style={styles.heroBadge}>
-                <Ionicons name="sparkles" size={10} color={colors.primary} />
-                <Text style={styles.heroBadgeText}>AI-Enhanced</Text>
-              </View>
-              <Text style={styles.heroTitle}>How's Fishing{'\n'}Right Now?</Text>
-              <Text style={styles.heroSubtitle}>
-                Real-time conditions, timing, and strategy
-              </Text>
-            </View>
-            <View style={styles.heroRight}>
-              <View style={styles.heroPulseOuter}>
-                <View style={styles.heroPulseInner}>
-                  <Ionicons name="pulse" size={24} color={colors.primary} />
-                </View>
-              </View>
-              {cachedScore !== null && (
-                <Text style={styles.heroScoreNum}>{cachedScore}</Text>
-              )}
-            </View>
-          </View>
-          <View style={styles.heroFooter}>
-            <Text style={styles.heroFooterText}>View today's report</Text>
-            <Ionicons name="arrow-forward" size={16} color={colors.primary} />
-          </View>
-        </Pressable>
-
-        <SubscribePrompt
-          visible={showSubscribePrompt}
-          onDismiss={() => setShowSubscribePrompt(false)}
-          onViewPlans={() => {
-            setShowSubscribePrompt(false);
-            router.push('/subscribe');
-          }}
-        />
-
         {/* ─── 7-Day Forecast Calendar ─── */}
         {coords && (forecastLoading || (forecastDays && forecastDays.length > 0)) && (
           <View style={styles.calendarSection}>
             <View style={styles.calendarHeader}>
               <Text style={styles.calendarTitle}>7-Day Outlook</Text>
-              <Text style={styles.calendarHint}>Tap to generate</Text>
+              <Text style={styles.calendarHint}>Tap for full report</Text>
             </View>
             <ScrollView
               horizontal
@@ -424,35 +382,22 @@ export default function HomeScreen() {
                           }
                           if (!coords) return;
                           if (day.day_offset === 0) {
-                            // Today — go directly to how-fishing
                             router.push({
                               pathname: '/how-fishing',
                               params: { lat: String(coords.lat), lon: String(coords.lon) },
                             });
                             return;
                           }
-                          // Future day — confirm before generating
-                          const label = day.day_label === 'Tmrw' ? 'Tomorrow' : day.day_label;
-                          Alert.alert(
-                            `Forecast Report — ${label}`,
-                            `Generate a full fishing report for ${day.month_day}?\n\nThis uses AI and counts toward your monthly usage.`,
-                            [
-                              { text: 'Cancel', style: 'cancel' },
-                              {
-                                text: 'Generate',
-                                onPress: () =>
-                                  router.push({
-                                    pathname: '/how-fishing',
-                                    params: {
-                                      lat: String(coords.lat),
-                                      lon: String(coords.lon),
-                                      day_offset: String(day.day_offset),
-                                      target_date: day.date,
-                                    },
-                                  }),
-                              },
-                            ],
-                          );
+                          // Future day — navigate directly; how-fishing screen handles cache check + confirm
+                          router.push({
+                            pathname: '/how-fishing',
+                            params: {
+                              lat: String(coords.lat),
+                              lon: String(coords.lon),
+                              day_offset: String(day.day_offset),
+                              target_date: day.date,
+                            },
+                          });
                         }}
                       >
                         <Text
@@ -477,9 +422,7 @@ export default function HomeScreen() {
                             { backgroundColor: color + '22' },
                           ]}
                         >
-                          <Text
-                            style={[styles.calendarScoreText, { color }]}
-                          >
+                          <Text style={[styles.calendarScoreText, { color }]}>
                             {display}
                           </Text>
                         </View>
@@ -489,6 +432,51 @@ export default function HomeScreen() {
             </ScrollView>
           </View>
         )}
+
+        {/* ─── Hero: How's Fishing Right Now? ─── */}
+        <Pressable
+          style={({ pressed }) => [
+            styles.heroCard,
+            pressed && styles.heroCardPressed,
+          ]}
+          onPress={handleHowFishingPress}
+        >
+          <View style={styles.heroContent}>
+            <View style={styles.heroLeft}>
+              <View style={styles.heroBadge}>
+                <Ionicons name="sparkles" size={10} color={colors.primary} />
+                <Text style={styles.heroBadgeText}>AI-Enhanced</Text>
+              </View>
+              <Text style={styles.heroTitle}>How's Fishing{'\n'}Right Now?</Text>
+              <Text style={styles.heroSubtitle}>
+                Real-time conditions, timing, and strategy
+              </Text>
+            </View>
+            <View style={styles.heroRight}>
+              <View style={styles.heroPulseOuter}>
+                <View style={styles.heroPulseInner}>
+                  <Ionicons name="pulse" size={24} color={colors.primary} />
+                </View>
+              </View>
+              {heroScore !== null && (
+                <Text style={styles.heroScoreNum}>{heroScore}</Text>
+              )}
+            </View>
+          </View>
+          <View style={styles.heroFooter}>
+            <Text style={styles.heroFooterText}>View today's report</Text>
+            <Ionicons name="arrow-forward" size={16} color={colors.primary} />
+          </View>
+        </Pressable>
+
+        <SubscribePrompt
+          visible={showSubscribePrompt}
+          onDismiss={() => setShowSubscribePrompt(false)}
+          onViewPlans={() => {
+            setShowSubscribePrompt(false);
+            router.push('/subscribe');
+          }}
+        />
 
         {/* ─── Live Conditions ─── */}
         <LiveConditionsWidget
@@ -676,7 +664,7 @@ const styles = StyleSheet.create({
   heroCard: {
     backgroundColor: colors.surface,
     borderRadius: radius.lg,
-    padding: 20,
+    padding: 16,
     marginBottom: spacing.md,
     borderWidth: 1,
     borderColor: colors.primary + '20',
@@ -712,9 +700,9 @@ const styles = StyleSheet.create({
   },
   heroTitle: {
     fontFamily: fonts.serif,
-    fontSize: 24,
+    fontSize: 22,
     color: colors.text,
-    lineHeight: 30,
+    lineHeight: 28,
     marginBottom: spacing.xs + 2,
   },
   heroSubtitle: {
@@ -729,17 +717,17 @@ const styles = StyleSheet.create({
     paddingTop: spacing.sm,
   },
   heroPulseOuter: {
-    width: 64,
-    height: 64,
-    borderRadius: 32,
+    width: 56,
+    height: 56,
+    borderRadius: 28,
     backgroundColor: colors.primaryMist,
     alignItems: 'center',
     justifyContent: 'center',
   },
   heroPulseInner: {
-    width: 44,
-    height: 44,
-    borderRadius: 22,
+    width: 38,
+    height: 38,
+    borderRadius: 19,
     backgroundColor: colors.primaryLight,
     alignItems: 'center',
     justifyContent: 'center',
@@ -769,7 +757,7 @@ const styles = StyleSheet.create({
 
   /* 7-Day Forecast Calendar */
   calendarSection: {
-    marginBottom: spacing.md,
+    marginBottom: spacing.sm + 4,
   },
   calendarHeader: {
     flexDirection: 'row',

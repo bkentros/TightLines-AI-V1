@@ -6,7 +6,7 @@ import { colors, shadows } from '../../lib/theme';
 
 export default function TabLayout() {
   const insets = useSafeAreaInsets();
-  const tabBarHeight = 56 + insets.bottom;
+  const tabBarHeight = 52 + insets.bottom;
 
   return (
     <Tabs
@@ -16,7 +16,7 @@ export default function TabLayout() {
         tabBarInactiveTintColor: colors.tabInactive,
         tabBarStyle: [
           styles.tabBar,
-          { height: tabBarHeight, paddingBottom: insets.bottom + 2 },
+          { height: tabBarHeight, paddingBottom: insets.bottom },
         ],
         tabBarLabelStyle: styles.tabLabel,
         tabBarItemStyle: styles.tabItem,
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.tabBar,
     borderTopColor: colors.borderLight,
     borderTopWidth: StyleSheet.hairlineWidth,
-    paddingTop: 6,
+    paddingTop: 4,
     ...shadows.sm,
   },
   tabLabel: {

@@ -102,10 +102,11 @@ async function searchCities(query: string): Promise<PlaceResult[]> {
   const params = new URLSearchParams({
     q: trimmed,
     countrycodes: 'us',
-    format: 'json',
-    limit: '8',
+    format: 'jsonv2',
+    limit: '10',
     addressdetails: '1',
     featuretype: 'settlement',
+    dedupe: '1',
   });
 
   const url = `https://nominatim.openstreetmap.org/search?${params.toString()}`;
@@ -215,7 +216,7 @@ export function LocationPickerModal({
       } finally {
         setLoading(false);
       }
-    }, 350);
+    }, 150);
   }, []);
 
   const handleClear = useCallback(() => {
