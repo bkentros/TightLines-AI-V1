@@ -59,7 +59,7 @@ async function fetchOpenMeteoForecast(
     // Hourly: pressure (48h window per day), cloud cover, precip, wind
     hourly: "pressure_msl,cloud_cover,wind_speed_10m,precipitation",
     // Daily: temp highs/lows, precip totals, max wind, dates
-    daily: "temperature_2m_max,temperature_2m_min,precipitation_sum,wind_speed_10m_max,time",
+    daily: "temperature_2m_max,temperature_2m_min,precipitation_sum,wind_speed_10m_max",
     temperature_unit: "fahrenheit",
     wind_speed_unit: "mph",
     timezone: "auto",
