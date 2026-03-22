@@ -16,10 +16,10 @@ import { useLocationStore } from '../../store/locationStore';
 import { getEffectiveTier, canUseAIFeatures } from '../../lib/subscription';
 import { getCurrentMultiRebuild, getCachedMultiRebuild } from '../../lib/howFishing';
 import type { EngineContextKey } from '../../lib/howFishingRebuildContracts';
+import { isCoastalContextEligible } from '../../lib/coastalProximity';
 import {
   getForecastScores,
   invalidateForecastCache,
-  bestDayScore,
   formatScoreDisplay,
   scoreColor,
   type DayForecastScore,
@@ -273,11 +273,29 @@ export default function HomeScreen() {
     setGpsCoords({ lat: loc.coords.latitude, lon: loc.coords.longitude });
   }, []);
 
+  // Use the same context eligibility as the how-fishing screen so calendar scores
+  // match generated reports (inland locations exclude the coastal context score).
+  const isCoastal = coords ? isCoastalContextEligible(coords.lat, coords.lon) : false;
+
+  const effectiveDayScore = (day: DayForecastScore): number =>
+    isCoastal
+      ? Math.max(day.freshwater_lake_pond, day.freshwater_river, day.coastal)
+      : Math.max(day.freshwater_lake_pond, day.freshwater_river);
+
+  const getQualityLabel = (raw: number): string => {
+    if (raw >= 80) return 'PRIME';
+    if (raw >= 65) return 'GREAT';
+    if (raw >= 50) return 'GOOD';
+    if (raw >= 35) return 'FAIR';
+    if (raw >= 20) return 'SLOW';
+    return 'TOUGH';
+  };
+
   // Derive the score for the hero card from the deterministic forecast (no report needed).
   // Falls back to a previously-cached report score when the forecast hasn't loaded yet.
   const todayForecast = forecastDays?.[0] ?? null;
   const heroScore = todayForecast
-    ? formatScoreDisplay(bestDayScore(todayForecast))
+    ? formatScoreDisplay(effectiveDayScore(todayForecast))
     : cachedScore;
 
   const getGreeting = () => {
@@ -352,8 +370,11 @@ export default function HomeScreen() {
         {coords && (forecastLoading || (forecastDays && forecastDays.length > 0)) && (
           <View style={styles.calendarSection}>
             <View style={styles.calendarHeader}>
-              <Text style={styles.calendarTitle}>7-Day Outlook</Text>
-              <Text style={styles.calendarHint}>Tap for full report</Text>
+              <View style={styles.calendarTitleRow}>
+                <Ionicons name="calendar-outline" size={12} color={colors.primary} />
+                <Text style={styles.calendarTitle}>7-Day Outlook</Text>
+              </View>
+              <Text style={styles.calendarHint}>Tap any day</Text>
             </View>
             <ScrollView
               horizontal
@@ -365,10 +386,11 @@ export default function HomeScreen() {
                     <View key={i} style={[styles.calendarDay, styles.calendarDaySkeleton]} />
                   ))
                 : forecastDays?.map((day) => {
-                    const raw = bestDayScore(day);
+                    const raw = effectiveDayScore(day);
                     const display = formatScoreDisplay(raw);
                     const color = scoreColor(raw);
                     const isToday = day.day_offset === 0;
+                    const quality = getQualityLabel(raw);
                     return (
                       <Pressable
                         key={day.date}
@@ -390,7 +412,6 @@ export default function HomeScreen() {
                             });
                             return;
                           }
-                          // Future day — navigate directly; how-fishing screen handles cache check + confirm
                           router.push({
                             pathname: '/how-fishing',
                             params: {
@@ -402,32 +423,17 @@ export default function HomeScreen() {
                           });
                         }}
                       >
-                        <Text
-                          style={[
-                            styles.calendarDayLabel,
-                            isToday && styles.calendarDayLabelToday,
-                          ]}
-                        >
+                        <Text style={[styles.calendarDayLabel, isToday && styles.calendarDayLabelToday]}>
                           {day.day_label}
                         </Text>
-                        <Text
-                          style={[
-                            styles.calendarDateNum,
-                            isToday && styles.calendarDateNumToday,
-                          ]}
-                        >
+                        <Text style={[styles.calendarDateNum, isToday && styles.calendarDateNumToday]}>
                           {day.month_day}
                         </Text>
-                        <View
-                          style={[
-                            styles.calendarScorePill,
-                            { backgroundColor: color + '22' },
-                          ]}
-                        >
-                          <Text style={[styles.calendarScoreText, { color }]}>
-                            {display}
-                          </Text>
+                        <View style={styles.calendarScoreWrap}>
+                          <Text style={[styles.calendarScore, { color }]}>{display}</Text>
                         </View>
+                        <Text style={[styles.calendarQuality, { color }]}>{quality}</Text>
+                        <View style={[styles.calendarBar, { backgroundColor: color }]} />
                       </Pressable>
                     );
                   })}
@@ -759,13 +765,18 @@ const styles = StyleSheet.create({
 
   /* 7-Day Forecast Calendar */
   calendarSection: {
-    marginBottom: spacing.sm + 4,
+    marginBottom: spacing.md,
   },
   calendarHeader: {
     flexDirection: 'row',
-    alignItems: 'baseline',
+    alignItems: 'center',
     justifyContent: 'space-between',
-    marginBottom: spacing.sm,
+    marginBottom: spacing.sm + 2,
+  },
+  calendarTitleRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
   },
   calendarTitle: {
     fontFamily: fonts.bodyBold,
@@ -784,33 +795,37 @@ const styles = StyleSheet.create({
     paddingRight: 4,
   },
   calendarDay: {
-    width: 64,
-    paddingVertical: 10,
-    paddingHorizontal: 6,
+    width: 76,
+    paddingTop: 12,
+    paddingHorizontal: 8,
+    paddingBottom: 0,
     backgroundColor: colors.surface,
     borderRadius: radius.md,
     borderWidth: 1,
     borderColor: colors.border,
     alignItems: 'center',
-    gap: 5,
+    overflow: 'hidden',
+    ...shadows.sm,
   },
   calendarDayToday: {
-    borderColor: colors.primary + '50',
+    borderColor: colors.primary + '55',
     backgroundColor: colors.primaryMist,
   },
   calendarDayPressed: {
-    opacity: 0.7,
-    transform: [{ scale: 0.96 }],
+    opacity: 0.72,
+    transform: [{ scale: 0.95 }],
   },
   calendarDaySkeleton: {
+    height: 124,
     backgroundColor: colors.border,
-    opacity: 0.4,
-    height: 88,
+    opacity: 0.35,
   },
   calendarDayLabel: {
-    fontFamily: fonts.bodySemiBold,
-    fontSize: 11,
+    fontFamily: fonts.bodyBold,
+    fontSize: 10,
     color: colors.textMuted,
+    textTransform: 'uppercase',
+    letterSpacing: 0.7,
     textAlign: 'center',
   },
   calendarDayLabelToday: {
@@ -821,22 +836,35 @@ const styles = StyleSheet.create({
     fontSize: 11,
     color: colors.textSecondary,
     textAlign: 'center',
+    marginTop: 1,
+    marginBottom: 6,
   },
   calendarDateNumToday: {
     color: colors.text,
     fontFamily: fonts.bodySemiBold,
   },
-  calendarScorePill: {
-    borderRadius: 8,
-    paddingHorizontal: 6,
-    paddingVertical: 3,
-    minWidth: 32,
+  calendarScoreWrap: {
     alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 3,
   },
-  calendarScoreText: {
+  calendarScore: {
     fontFamily: fonts.serifBold,
-    fontSize: 14,
+    fontSize: 26,
+    letterSpacing: -0.5,
     textAlign: 'center',
+  },
+  calendarQuality: {
+    fontFamily: fonts.bodyBold,
+    fontSize: 8,
+    textTransform: 'uppercase',
+    letterSpacing: 0.9,
+    textAlign: 'center',
+    marginBottom: 10,
+  },
+  calendarBar: {
+    width: '100%',
+    height: 4,
   },
 
   /* Section Header */
