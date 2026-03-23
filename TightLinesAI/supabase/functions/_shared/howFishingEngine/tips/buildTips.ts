@@ -46,6 +46,40 @@ const WIND_SHELTER_TIPS = [
   "Protected shorelines and cut banks are holding fish. Once you're there, soften your approach — these fish aren't spooky but they're tucked in tight.",
 ];
 
+// Recent rain or downpour making the day harder (precip as suppressor)
+const PRECIP_RAIN_TIPS = [
+  "Rain has the water stirred up or stained. Slow your retrieve down, pick lures fish can feel or hear (vibration, rattle, or a bigger profile), and fish closer to shore and cover where water is often a bit clearer.",
+  "Wet weather usually means poorer visibility underwater. Make easier targets: slower strips or cranks, pauses so fish can find the bait, and colors that stand out against muddy or tannic water.",
+  "After rain, skip long casts into the middle. Work the bank, points, and anywhere creeks or runoff pour in — predators often sit where fresh, food-filled water meets the main lake.",
+  "If it is still raining hard, safety first — but when you can fish, expect fish tighter to banks and wood. Keep retrieves simple and easy to track.",
+  "Stained water from rain rewards patience. One slow, thorough pass through a good spot beats racing around the lake.",
+];
+
+// Dry, settled weather helping the bite (precip score +1 / +2 — NOT “disruption” in the lay sense)
+const PRECIP_DRY_FAVORABLE_TIPS = [
+  "Weather has been dry and settled, so water is usually clearer than after a big rain. Fish can see farther — use natural-looking colors, avoid loud line slap on the water, and make the first cast count.",
+  "Calm, dry stretches mean fish often use their eyes more. Stealth helps: approach quietly, longer leaders if you use braid, and realistic retrieves rather than burning baits past them.",
+  "Without fresh runoff muddying things, you can fish a bit farther from the bank and still get bit — but keep watching for shade, docks, and grass edges where fish hide from bright sun.",
+  "Dry conditions are a good day to experiment with finesse (lighter line, smaller baits) in clear pockets, and power fishing (chunkier baits) right against cover where fish ambush.",
+];
+
+// Barometer helping the day (slow fall or moderate fall — fish often feed ahead of a front)
+const PRESSURE_FALLING_FAVORABLE_TIPS = [
+  "Air pressure has been dropping slowly — that often gets fish feeding ahead of a weather change. Cover water at a steady pace, try a few retrieve speeds, and don’t give up on a spot after one cast.",
+  "A gentle falling barometer is a classic “go fishing” signal. Make confident casts to likely spots (cover, depth changes, baitfish) and change lure depth or speed before you change locations.",
+];
+
+// Post-front, pressure recovering — fish can be picky
+const PRESSURE_RISING_SLOW_TIPS = [
+  "Pressure is creeping back up after weather moved through — fish sometimes need smaller, slower offerings. Downsize a bit, add pauses, and hit the same good spots more thoroughly.",
+];
+
+// Barometer swinging hard or crashing — tougher bite
+const PRESSURE_TOUGH_TIPS = [
+  "The barometer has been jumpy or dropping fast — bass and other predators often go off feed briefly. Slow way down, downsize baits, and fish the most comfortable-looking water (stable depth, cover, out of heavy current).",
+  "When pressure is unstable, make short, quiet presentations to high-percentage spots instead of burning a whole bank. Pauses and finesse often beat aggressive retrieves.",
+];
+
 // Runoff / dirty water → visibility-adjusted tactics
 const RUNOFF_TIPS = [
   "Low clarity means fish are hunting by feel and lateral line — slower retrieves with vibration or thump help them locate the offering.",
@@ -71,6 +105,23 @@ const TEMP_COLD_TIPS = [
 
 // Favorable / optimal temp → active fish, confident approach earns bites
 // Fires when temp is a POSITIVE driver — regardless of season
+// Cloud / light helping (overcast, low light — fish less spooky, often shallower)
+const LIGHT_LOW_OVERCAST_TIPS = [
+  "Clouds cut glare and fish often roam more freely. You can get away with slightly bolder presentations — try parallel casts along banks and cover without spooking fish as easily as on a bluebird day.",
+  "Low, gray light is a great time to fish shallower than you think. Work visible cover and transitions (grass lines, drop-offs) with steady retrieves and let the fish tell you the speed.",
+];
+
+// Sun / glare challenging day — still might be driver in edge cases; keep practical
+const LIGHT_BRIGHT_TIPS = [
+  "Bright sun pushes many fish to shade, deeper water, or tight to cover. Put the bait where their eyes are protected — docks, trees, ledges — and use steady, predictable retrieves.",
+];
+
+// Light wind or calm helping (already positive score from normalizer)
+const WIND_HELPING_TIPS = [
+  "Wind is light enough to fish comfortably but can hide your presence. Use it to your advantage: cast with the breeze when you can and work edges where a little chop breaks up your silhouette.",
+  "Calm or light air makes boat control and line control easier. Take time to make accurate casts to specific targets instead of fan-casting randomly.",
+];
+
 const TEMP_ACTIVE_TIPS = [
   "Fish are metabolically primed right now — a confident, assertive retrieve earns bites over timid finesse.",
   "Favorable temps mean fish are willing to commit. Cover water with purpose and trust they'll respond.",
@@ -94,15 +145,10 @@ const GENERAL_FLEXIBILITY_TIPS = [
   "Slow down and be thorough. High-percentage spots fished carefully beat covering ground in marginal conditions.",
 ];
 
-// Generic driver-based tip — condition is the lead, tactics follow
-const LEAN_INTO_DRIVER_TEMPLATES: Array<(name: string) => string> = [
-  (name) => `${name} is your biggest advantage today — let it shape how you approach every cast and retrieve.`,
-  (name) => `Lean into ${name}. Fish are responding to it right now and your presentation should reflect that.`,
-  (name) => `${name} is working in your corner today — fish with the conditions rather than against them.`,
-  (name) => `Everything points to ${name} as the key variable. Let that drive your presentation choices.`,
-  (name) => `${name} has fish primed right now — fish with that advantage in mind and don't overthink it.`,
-  (name) => `Key on ${name} today. It's the one variable worth adjusting your whole approach around.`,
-  (name) => `${name} is the signal right now. Read it, match your tactics to it, and stay with what's working.`,
+// Last resort — never use raw engine key names; keep grade-school clear
+const BALANCED_DAY_TIPS = [
+  "Nothing in the data screams one magic pattern — that’s normal. Pick two or three spots you trust, fish them slowly and thoroughly, and change lure depth or speed before you run to a new lake.",
+  "On an “in-between” day, basics win: match something food-sized, fish where fish hide (cover, depth changes), and stay patient. Small adjustments beat constant running around.",
 ];
 
 /**
@@ -120,25 +166,57 @@ export function buildActionableTip(
   let actionable_tip = pick(GENERAL_FLEXIBILITY_TIPS);
   let actionable_tip_tag: ActionableTipTag = "general_flexibility";
 
+  const pr = norm.precipitation_disruption;
+  const pReg = norm.pressure_regime;
+  const lite = norm.light_cloud_condition;
+  const w = norm.wind_condition;
+
   if (context === "coastal" && norm.tide_current_movement?.score === 2) {
     actionable_tip = pick(COASTAL_TIDE_TIPS);
     actionable_tip_tag = "coastal_tide_positive";
   } else if (topSuppressor?.key === "wind_condition" && topSuppressor.score < 0) {
     actionable_tip = pick(WIND_SHELTER_TIPS);
     actionable_tip_tag = "wind_shelter";
+  } else if (topSuppressor?.key === "precipitation_disruption" && topSuppressor.score < 0) {
+    actionable_tip = pick(PRECIP_RAIN_TIPS);
+    actionable_tip_tag = "lean_into_top_driver";
   } else if (topSuppressor?.key === "runoff_flow_disruption" && topSuppressor.score < 0) {
     actionable_tip = pick(RUNOFF_TIPS);
     actionable_tip_tag = "runoff_clarity_flow";
+  } else if (topSuppressor?.key === "pressure_regime" && topSuppressor.score < 0) {
+    actionable_tip = pick(PRESSURE_TOUGH_TIPS);
+    actionable_tip_tag = "lean_into_top_driver";
+  } else if (topSuppressor?.key === "light_cloud_condition" && topSuppressor.score < 0) {
+    actionable_tip = pick(LIGHT_BRIGHT_TIPS);
+    actionable_tip_tag = "lean_into_top_driver";
   } else if (topSuppressor?.key === "temperature_condition" && topSuppressor.score < 0) {
     actionable_tip = pick(TEMP_COLD_TIPS);
     actionable_tip_tag = "temperature_intraday_flex";
   } else if (topDriver?.key === "temperature_condition" && topDriver.score > 0) {
     actionable_tip = pick(TEMP_ACTIVE_TIPS);
     actionable_tip_tag = "temperature_intraday_flex";
-  } else if (topDriver) {
-    const driverName = topDriver.key.replace(/_/g, " ");
-    actionable_tip = pick(LEAN_INTO_DRIVER_TEMPLATES)(driverName);
+  } else if (topDriver?.key === "precipitation_disruption" && topDriver.score > 0 && pr && pr.score > 0) {
+    actionable_tip = pick(PRECIP_DRY_FAVORABLE_TIPS);
     actionable_tip_tag = "lean_into_top_driver";
+  } else if (topDriver?.key === "pressure_regime" && topDriver.score > 0 && pReg) {
+    const lbl = pReg.label;
+    if (lbl === "falling_slow" || lbl === "falling_moderate") {
+      actionable_tip = pick(PRESSURE_FALLING_FAVORABLE_TIPS);
+    } else if (lbl === "rising_slow") {
+      actionable_tip = pick(PRESSURE_RISING_SLOW_TIPS);
+    } else {
+      actionable_tip = pick(PRESSURE_FALLING_FAVORABLE_TIPS);
+    }
+    actionable_tip_tag = "lean_into_top_driver";
+  } else if (topDriver?.key === "light_cloud_condition" && topDriver.score > 0 && lite) {
+    actionable_tip = pick(LIGHT_LOW_OVERCAST_TIPS);
+    actionable_tip_tag = "lean_into_top_driver";
+  } else if (topDriver?.key === "wind_condition" && topDriver.score > 0 && w) {
+    actionable_tip = pick(WIND_HELPING_TIPS);
+    actionable_tip_tag = "lean_into_top_driver";
+  } else if (topDriver) {
+    actionable_tip = pick(BALANCED_DAY_TIPS);
+    actionable_tip_tag = "general_flexibility";
   }
 
   return { actionable_tip, actionable_tip_tag };
