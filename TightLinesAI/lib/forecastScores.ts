@@ -73,13 +73,13 @@ export function formatScoreDisplay(raw: number): string {
 
 /**
  * Returns a color for the given 0–100 score.
- * Green ≥70, Amber ≥50, Orange ≥30, Red <30.
+ * Aligned with bandFromScore: Excellent ≥80, Good ≥60, Fair ≥40, Poor <40.
  */
 export function scoreColor(raw: number): string {
-  if (raw >= 70) return '#2D7D46';
-  if (raw >= 50) return '#B5860A';
-  if (raw >= 30) return '#C4561F';
-  return '#B03A2E';
+  if (raw >= 80) return '#2E6F40'; // Excellent
+  if (raw >= 60) return '#3A8A54'; // Good
+  if (raw >= 40) return '#C29B2A'; // Fair
+  return '#C0504A';                // Poor
 }
 
 // ---------------------------------------------------------------------------

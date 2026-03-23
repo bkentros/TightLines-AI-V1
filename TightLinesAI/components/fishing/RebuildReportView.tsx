@@ -24,19 +24,20 @@ function displayScore(score: number): string {
 }
 
 /** Per-segment color: deep gradient red → amber → forest green */
+// Gauge has 10 segments (idx 0–9). Aligned with band thresholds:
+// Poor <40 → idx 0–3, Fair 40–59 → idx 4–5, Good 60–79 → idx 6–7, Excellent 80+ → idx 8–9
 function segmentColor(idx: number): string {
-  if (idx <= 2) return '#C0504A';
-  if (idx <= 4) return '#D4842A';
-  if (idx <= 6) return '#C29B2A';
-  if (idx <= 8) return '#5EA86A';
-  return '#2E6F40';
+  if (idx <= 3) return '#C0504A'; // Poor
+  if (idx <= 5) return '#C29B2A'; // Fair
+  if (idx <= 7) return '#5EA86A'; // Good
+  return '#2E6F40';               // Excellent
 }
 
+// Score number color — aligned with band thresholds (Poor <40, Fair 40–59, Good/Excellent ≥60)
 function scoreTextColor(score: number): string {
-  const v = scoreOutOf10(score);
-  if (v <= 3) return '#C0504A';
-  if (v <= 6) return '#C29B2A';
-  return '#2E6F40';
+  if (score >= 60) return '#2E6F40'; // Good or Excellent
+  if (score >= 40) return '#C29B2A'; // Fair
+  return '#C0504A';                  // Poor
 }
 
 // ─── Band config ──────────────────────────────────────────────────────────────
