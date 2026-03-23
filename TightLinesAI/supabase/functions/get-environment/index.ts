@@ -163,6 +163,55 @@ function isoUtcToLocalHHMM(isoStr: string, tzHours: number): string {
   return `${String(localH).padStart(2, '0')}:${String(utcM).padStart(2, '0')}`;
 }
 
+/** Unix seconds (UTC instant) from Open-Meteo when timeformat=unixtime. */
+function parseOpenMeteoUnixSeconds(t: unknown): number | null {
+  if (typeof t === 'number' && Number.isFinite(t)) return t;
+  if (typeof t === 'string' && t.length > 0) {
+    const n = Number(t);
+    if (Number.isFinite(n)) return n;
+  }
+  return null;
+}
+
+/** YYYY-MM-DD in IANA timeZone for a UTC instant. */
+function unixSecToLocalDateYmd(unixSec: number, timeZone: string): string {
+  return new Intl.DateTimeFormat('en-CA', {
+    timeZone,
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).format(new Date(unixSec * 1000));
+}
+
+/** Local HH:mm in IANA timeZone for a UTC instant. */
+function unixSecToLocalHHMM(unixSec: number, timeZone: string): string {
+  const d = new Date(unixSec * 1000);
+  const parts = new Intl.DateTimeFormat('en-US', {
+    timeZone,
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false,
+  }).formatToParts(d);
+  const hour = parts.find((p) => p.type === 'hour')?.value ?? '00';
+  const minute = parts.find((p) => p.type === 'minute')?.value ?? '00';
+  return `${hour.padStart(2, '0')}:${minute.padStart(2, '0')}`;
+}
+
+/** Index of the latest hourly row whose start is <= observation time. */
+function findCurrentHourlyIndex(hourlyUnix: number[], observationUnix: number | null): number {
+  if (!hourlyUnix.length) return -1;
+  if (observationUnix == null || !Number.isFinite(observationUnix)) {
+    return hourlyUnix.length - 1;
+  }
+  let found = -1;
+  for (let i = 0; i < hourlyUnix.length; i++) {
+    const t = hourlyUnix[i];
+    if (t != null && t <= observationUnix) found = i;
+    else break;
+  }
+  return found >= 0 ? found : 0;
+}
+
 /**
  * Add minutes to a local "HH:mm" time and return a local "HH:mm" string.
  * Handles wrapping past midnight.
@@ -244,6 +293,8 @@ async function fetchOpenMeteo(
     timezone: 'auto',
     past_days: '14',
     forecast_days: '7',
+    // UTC Unix seconds for every time axis — avoids mis-parsing local ISO strings on the server.
+    timeformat: 'unixtime',
   });
 
   const url = `https://api.open-meteo.com/v1/forecast?${params.toString()}`;
@@ -278,21 +329,15 @@ async function fetchOpenMeteo(
   // ─── Pressure trend from hourly data ────────────────────────────────────────
   // hourly has past_days=14 + forecast_days=7 = 21 days × 24 hrs = 504 entries
   // current_time from Open-Meteo tells us the exact UTC timestamp of current data
-  const currentTimeStr: string = current.time ?? '';
-  const hourlyTimes: string[] = Array.isArray(hourly.time) ? hourly.time : [];
+  const hourlyUnix: number[] = Array.isArray(hourly.time)
+    ? (hourly.time as unknown[]).map((x) => parseOpenMeteoUnixSeconds(x)).filter((x): x is number => x != null)
+    : [];
+  const currentUnix = parseOpenMeteoUnixSeconds(current.time);
   const pressureHourly: number[] = Array.isArray(hourly.pressure_msl)
     ? (hourly.pressure_msl as (number | null)[]).map((v) => Number(v) || 0)
     : [];
 
-  // Find index of current hour in hourly array
-  let currentHourIdx = hourlyTimes.length - 1; // fallback: last entry
-  if (currentTimeStr) {
-    // Open-Meteo current.time is in local timezone (because timezone=auto)
-    // Hourly times are also in local timezone — match by truncating to hour
-    const currentHour = currentTimeStr.slice(0, 13); // "YYYY-MM-DDTHH"
-    const foundIdx = hourlyTimes.findIndex((t) => String(t).startsWith(currentHour));
-    if (foundIdx >= 0) currentHourIdx = foundIdx;
-  }
+  const currentHourIdx = findCurrentHourlyIndex(hourlyUnix, currentUnix);
 
   if (pressureHourly.length > 0 && currentHourIdx >= 0) {
     // 3-hour delta for trend: guard against going below index 0
@@ -380,13 +425,11 @@ async function fetchOpenMeteo(
   const sunsetArr = Array.isArray(daily.sunset) ? daily.sunset : [];
   // past_days=14 means today is at index 14 (indices 0-13 = past days, 14 = today, 15+ = forecast)
   const todayIdx = Math.min(14, Math.max(0, sunriseArr.length - 1));
-  const sunriseRaw = String(sunriseArr[todayIdx] ?? '');
-  const sunsetRaw = String(sunsetArr[todayIdx] ?? '');
-
-  // Open-Meteo returns local datetime strings like "2026-03-11T07:08" (no Z = local)
-  // Extract HH:mm directly — already local time
-  const sunriseHHMM = sunriseRaw.length >= 16 ? sunriseRaw.slice(11, 16) : '';
-  const sunsetHHMM = sunsetRaw.length >= 16 ? sunsetRaw.slice(11, 16) : '';
+  const todaySunriseUnix = parseOpenMeteoUnixSeconds(sunriseArr[todayIdx]);
+  const todaySunsetUnix = parseOpenMeteoUnixSeconds(sunsetArr[todayIdx]);
+  const sunriseHHMM =
+    todaySunriseUnix != null ? unixSecToLocalHHMM(todaySunriseUnix, timezone) : '';
+  const sunsetHHMM = todaySunsetUnix != null ? unixSecToLocalHHMM(todaySunsetUnix, timezone) : '';
 
   const sun: SunData | undefined =
     sunriseHHMM && sunsetHHMM
@@ -399,15 +442,12 @@ async function fetchOpenMeteo(
   const hourlyAirTempF: Array<{ time_utc: string; value: number }> = [];
   const hourlyCloudCoverPct: Array<{ time_utc: string; value: number }> = [];
 
-  if (hourlyTimes.length > 0) {
-    // Open-Meteo returns local datetime strings ("YYYY-MM-DDTHH:MM") for timezone=auto.
-    // Convert each local timestamp back to UTC using the provider's live offset.
-    for (let i = 0; i < hourlyTimes.length; i++) {
-      const localStr = String(hourlyTimes[i] ?? '');
-      if (!localStr) continue;
-      const localMs = new Date(localStr + ':00Z').getTime(); // treat as UTC base
-      const utcMs = localMs - tzOffsetHours * 3600 * 1000;
-      const utcIso = new Date(utcMs).toISOString();
+  if (hourlyUnix.length > 0) {
+    // timeformat=unixtime: each value is seconds since Unix epoch in UTC (Open-Meteo).
+    for (let i = 0; i < hourlyUnix.length; i++) {
+      const sec = hourlyUnix[i];
+      if (sec == null || !Number.isFinite(sec)) continue;
+      const utcIso = new Date(sec * 1000).toISOString();
 
       if (pressureHourly.length > i) {
         hourlyPressureMb.push({ time_utc: utcIso, value: pressureHourly[i] });
@@ -424,7 +464,7 @@ async function fetchOpenMeteo(
   // ─── Build forecast daily array for 7-day overview ─────────────────────────
   // Indices 8-13 (or 7-13) in the daily arrays are future days.
   // "today" is at index 7 (past_days=7 means 0..6 = past, 7 = today).
-  const dailyDates: string[] = Array.isArray(daily.time) ? daily.time : [];
+  const dailyTimeAxis: unknown[] = Array.isArray(daily.time) ? daily.time : [];
   const dailyPrecipProb: (number | null)[] = Array.isArray(daily.precipitation_probability_max)
     ? daily.precipitation_probability_max : [];
   const dailyWindMax: (number | null)[] = Array.isArray(daily.wind_speed_10m_max)
@@ -444,11 +484,14 @@ async function fetchOpenMeteo(
   // Today is index 14 (past_days=14). Forecast days are 15..20 (or however many exist).
   // Include today (14) and next 6 days (15-20) = 7 entries total.
   const todayDailyIdx = 14;
-  for (let d = todayDailyIdx; d < Math.min(todayDailyIdx + 7, dailyDates.length); d++) {
-    const dateStr = String(dailyDates[d] ?? '');
-    if (!dateStr) continue;
-    const sr = String(sunriseArr[d] ?? '').slice(11, 16);
-    const ss = String(sunsetArr[d] ?? '').slice(11, 16);
+  for (let d = todayDailyIdx; d < Math.min(todayDailyIdx + 7, dailyTimeAxis.length); d++) {
+    const dayUnix = parseOpenMeteoUnixSeconds(dailyTimeAxis[d]);
+    if (dayUnix == null) continue;
+    const dateStr = unixSecToLocalDateYmd(dayUnix, timezone);
+    const srU = parseOpenMeteoUnixSeconds(sunriseArr[d]);
+    const ssU = parseOpenMeteoUnixSeconds(sunsetArr[d]);
+    const sr = srU != null ? unixSecToLocalHHMM(srU, timezone) : '';
+    const ss = ssU != null ? unixSecToLocalHHMM(ssU, timezone) : '';
     forecastDaily.push({
       date: dateStr,
       high_temp_f: Math.round(Number(dailyHighs[d] ?? 0) * 10) / 10,
