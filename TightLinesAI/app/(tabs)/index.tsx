@@ -273,14 +273,15 @@ export default function HomeScreen() {
     setGpsCoords({ lat: loc.coords.latitude, lon: loc.coords.longitude });
   }, []);
 
-  // Use the same context eligibility as the how-fishing screen so calendar scores
-  // match generated reports (inland locations exclude the coastal context score).
+  // Match the context a user would actually generate a report in.
+  // Inland → freshwater_lake_pond (most common freshwater report context).
+  // Coastal → coastal context score.
+  // Never take Math.max across contexts — that inflates the calendar score
+  // relative to any single-context report the user generates.
   const isCoastal = coords ? isCoastalContextEligible(coords.lat, coords.lon) : false;
 
   const effectiveDayScore = (day: DayForecastScore): number =>
-    isCoastal
-      ? Math.max(day.freshwater_lake_pond, day.freshwater_river, day.coastal)
-      : Math.max(day.freshwater_lake_pond, day.freshwater_river);
+    isCoastal ? day.coastal : day.freshwater_lake_pond;
 
   const getQualityLabel = (raw: number): string => {
     if (raw >= 80) return 'EXCELLENT';
