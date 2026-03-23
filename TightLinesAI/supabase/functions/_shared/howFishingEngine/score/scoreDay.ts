@@ -92,26 +92,30 @@ function labelForDriver(key: ScoredVariableKey, norm: SharedNormalizedOutput["no
       return pressureDriverLabel(p);
     case "wind_condition":
       if (!w) return "";
-      if (w.score >= 1 && w.label === "light") return "Calm conditions — light wind makes for clean presentations and easy fishing.";
-      if (w.score >= 1) return "Wind is light and manageable — good for working the water.";
+      if (w.score === 2) return "Dead calm — glassy conditions make for quiet, precise presentations.";
+      if (w.score === 1) return "Wind is light and manageable — good for working the water cleanly.";
       if (w.score === 0) return "Wind is moderate — not a major factor today.";
-      if (w.score === -1) return "Wind is picking up — it'll push you around out there.";
-      return "Strong winds are going to be a challenge today.";
+      if (w.score === -1) return "Wind is picking up — it'll affect presentations and positioning.";
+      return "Strong winds are going to be a real challenge out there.";
     case "light_cloud_condition":
       if (!l) return "";
-      if (l.score >= 1) return "Cloud cover is providing great low-light conditions.";
-      if (l.score === 0) return "Light conditions are average — nothing special.";
-      return "Bright, clear skies may push fish deeper or into cover.";
+      if (l.score === 2) return "Heavy overcast — fish are holding shallower and feeding more aggressively in the low light.";
+      if (l.score === 1) return "Cloud cover is creating solid low-light conditions — fish are active.";
+      if (l.score === 0) return "Light conditions are average — no strong influence either way.";
+      if (l.score === -1) return "Sunny skies may push fish deeper or tighter to cover.";
+      return "Harsh glare conditions — fish are likely deep or locked down in shade.";
     case "precipitation_disruption":
       if (!pr) return "";
-      if (pr.score >= 1) return "Dry, clean conditions — no precipitation to muddy things up.";
-      if (pr.score === 0) return "Light precipitation isn't a major factor.";
-      if (pr.score === -1) return "Recent rain is affecting water clarity and conditions.";
-      return "Active precipitation is disrupting conditions right now.";
+      if (pr.score === 2) return "Bone dry — extended clear conditions have the water clean and fish comfortable.";
+      if (pr.score === 1) return "Dry, settled conditions — no precipitation disrupting the water.";
+      if (pr.score === 0) return "Light precipitation — not a major factor but worth noting.";
+      if (pr.score === -1) return "Recent rain is affecting water clarity and fish behavior.";
+      return "Active precipitation is disrupting conditions significantly.";
     case "runoff_flow_disruption":
       if (!r) return "";
-      if (r.score >= 1) return "River flows are clean and at fishable levels.";
-      if (r.score === 0) return "Flow conditions are moderate — workable.";
+      if (r.score === 2) return "Flows are crystal clear and at prime fishable levels — ideal river conditions.";
+      if (r.score === 1) return "River flows are clean and at fishable levels.";
+      if (r.score === 0) return "Flow conditions are moderately elevated — workable.";
       return "Elevated runoff or high flows are making it tough.";
     case "tide_current_movement":
       if (!ti) return "";
@@ -160,7 +164,10 @@ export function scoreDay(norm: SharedNormalizedOutput): {
 
   const rawSum = contributions.reduce((a, c) => a + c.weightedContribution, 0);
   const score = Math.round(((rawSum + 200) / 400) * 100);
-  const clamped = Math.max(0, Math.min(100, score));
+  // Floor at 10 so the display minimum is 1.0/10 — catastrophic conditions still
+  // show a number rather than zero. Ceiling at 100 (10.0/10) is now reachable
+  // since all normalizers can reach +2 under genuinely ideal conditions.
+  const clamped = Math.max(10, Math.min(100, score));
   const band = bandFromScore(clamped);
 
   const pos = contributions

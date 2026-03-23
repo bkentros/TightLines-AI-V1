@@ -1,5 +1,16 @@
 import type { RegionKey, VariableState } from "../contracts/mod.ts";
 
+/**
+ * River runoff / flow disruption normalizer.
+ *
+ * Five tiers covering the full [-2, +2] range.
+ * Previously max was +1 ("stable") — added "perfect_clear" at +2 for
+ * genuinely pristine, bone-dry conditions so an ideal river day can score
+ * all the way to 10.0.
+ *
+ * Region sensitivity controls how much rain it takes to elevate flows —
+ * high-sensitivity rivers (Northeast, Great Lakes, etc.) react faster.
+ */
 type Sens = "low" | "medium" | "high";
 
 const REGION_SENS: Record<RegionKey, Sens> = {
@@ -17,8 +28,17 @@ const REGION_SENS: Record<RegionKey, Sens> = {
   southern_california: "high",
 };
 
-function classify(s: Sens, p24: number, p72: number, p7d: number): VariableState {
+function classify(
+  s: Sens,
+  p24: number,
+  p72: number,
+  p7d: number,
+): VariableState {
   if (s === "low") {
+    // Perfect clear — bone dry, flow pristine
+    if (p24 < 0.12 && p72 < 0.20 && p7d < 0.50) {
+      return { label: "perfect_clear", score: 2 };
+    }
     if (p24 < 0.35 && p72 < 0.85 && p7d < 1.8) {
       return { label: "stable", score: 1 };
     }
@@ -30,7 +50,12 @@ function classify(s: Sens, p24: number, p72: number, p7d: number): VariableState
     }
     return { label: "blown_out", score: -2 };
   }
+
   if (s === "medium") {
+    // Perfect clear
+    if (p24 < 0.08 && p72 < 0.15 && p7d < 0.40) {
+      return { label: "perfect_clear", score: 2 };
+    }
     if (p24 < 0.22 && p72 < 0.55 && p7d < 1.25) {
       return { label: "stable", score: 1 };
     }
@@ -42,7 +67,15 @@ function classify(s: Sens, p24: number, p72: number, p7d: number): VariableState
     }
     return { label: "blown_out", score: -2 };
   }
-  if (p24 < 0.15 && p72 < 0.4 && p7d < 1.0) return { label: "stable", score: 1 };
+
+  // high sensitivity
+  // Perfect clear
+  if (p24 < 0.05 && p72 < 0.10 && p7d < 0.25) {
+    return { label: "perfect_clear", score: 2 };
+  }
+  if (p24 < 0.15 && p72 < 0.4 && p7d < 1.0) {
+    return { label: "stable", score: 1 };
+  }
   if (p24 < 0.35 && p72 < 0.8 && p7d < 1.8) {
     return { label: "slightly_elevated", score: 0 };
   }
@@ -56,7 +89,7 @@ export function normalizeRunoff(
   region: RegionKey,
   p24: number | null | undefined,
   p72: number | null | undefined,
-  p7d: number | null | undefined
+  p7d: number | null | undefined,
 ): VariableState | null {
   if (p24 == null && p72 == null && p7d == null) return null;
   const sens = REGION_SENS[region] ?? "medium";
