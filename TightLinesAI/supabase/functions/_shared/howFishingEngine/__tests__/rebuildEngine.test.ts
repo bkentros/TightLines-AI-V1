@@ -252,6 +252,34 @@ Deno.test("runHowFishingReport: contract fields", () => {
   assert(r.daypart_preset != null);
 });
 
+Deno.test("runHowFishingReport: forwards data_coverage_notes from adapter", () => {
+  const req = {
+    latitude: 44.9,
+    longitude: -93.2,
+    state_code: "MN",
+    region_key: "great_lakes_upper_midwest" as const,
+    local_date: "2025-02-15",
+    local_timezone: "America/Chicago",
+    context: "freshwater_river" as const,
+    environment: {
+      daily_mean_air_temp_f: 44,
+      prior_day_mean_air_temp_f: 38,
+      day_minus_2_mean_air_temp_f: 30,
+      pressure_history_mb: Array.from({ length: 24 }, (_, i) => 1013 + Math.sin(i / 4) * 0.3),
+      wind_speed_mph: 8,
+      cloud_cover_pct: 50,
+      precip_24h_in: 0.05,
+      precip_72h_in: 0.1,
+      precip_7d_in: 0.5,
+    },
+    data_coverage: { source_notes: ["hourly_air_temp_f: 3 valid local hours for 2025-02-15 (need 12)"] },
+  };
+  const r = runHowFishingReport(req);
+  assertEquals(r.data_coverage_notes, [
+    "hourly_air_temp_f: 3 valid local hours for 2025-02-15 (need 12)",
+  ]);
+});
+
 Deno.test("buildNormalized: <3 variables -> low reliability", () => {
   const req = {
     latitude: 40,

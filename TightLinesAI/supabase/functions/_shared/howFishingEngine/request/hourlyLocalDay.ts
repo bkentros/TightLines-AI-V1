@@ -3,7 +3,8 @@
  * Index 0 = local midnight, index 23 = 11pm — matches timing engine convention.
  */
 
-const MIN_VALID_HOURS = 12;
+/** Minimum distinct local hours with samples required to build a 24-slot series. */
+export const MIN_LOCAL_DAY_HOURS = 12;
 
 export function utcIsoToLocalDateHour(iso: string, timeZone: string): { ymd: string; hour: number } | null {
   const d = new Date(iso);
@@ -70,6 +71,26 @@ export function hourlyPointsTo24ArrayForLocalDate(
   for (const x of raw) {
     if (x != null && Number.isFinite(x)) valid++;
   }
-  if (valid < MIN_VALID_HOURS) return null;
+  if (valid < MIN_LOCAL_DAY_HOURS) return null;
   return fillHourGaps(raw);
+}
+
+/** Counts local calendar hours on `localDate` that have at least one finite sample. */
+export function countValidHoursForLocalDate(
+  points: Array<{ time_utc: string; value: number }>,
+  localDate: string,
+  timeZone: string,
+): number {
+  if (!points.length || !localDate || !timeZone) return 0;
+  const raw: (number | null)[] = new Array(24).fill(null);
+  for (const p of points) {
+    const lh = utcIsoToLocalDateHour(p.time_utc, timeZone);
+    if (!lh || lh.ymd !== localDate) continue;
+    if (lh.hour >= 0 && lh.hour < 24 && Number.isFinite(p.value)) raw[lh.hour] = p.value;
+  }
+  let valid = 0;
+  for (const x of raw) {
+    if (x != null && Number.isFinite(x)) valid++;
+  }
+  return valid;
 }

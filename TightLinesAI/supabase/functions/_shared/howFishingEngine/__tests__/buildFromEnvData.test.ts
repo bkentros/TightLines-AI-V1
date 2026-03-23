@@ -1,7 +1,7 @@
 /**
  * Adapter mapping tests for live get-environment payloads.
  */
-import { assertEquals } from "jsr:@std/assert";
+import { assert, assertEquals } from "jsr:@std/assert";
 import { buildSharedEngineRequestFromEnvData } from "../request/buildFromEnvData.ts";
 
 Deno.test("buildFromEnvData: daily temp and precip use current historical index", () => {
@@ -113,4 +113,52 @@ Deno.test("buildFromEnvData: maps hourly temp and cloud to 24 local slots", () =
   assertEquals(req.environment.hourly_air_temp_f?.[23], 73);
   assertEquals(req.environment.hourly_cloud_cover_pct?.length, 24);
   assertEquals(req.environment.hourly_cloud_cover_pct?.[10], 20);
+});
+
+Deno.test("buildFromEnvData: sparse hourly temp adds data_coverage source_note", () => {
+  const iso = new Date("2026-06-15T12:00:00-04:00").toISOString();
+  const req = buildSharedEngineRequestFromEnvData(
+    40.7,
+    -74.0,
+    "2026-06-15",
+    "America/New_York",
+    "freshwater_lake_pond",
+    {
+      timezone: "America/New_York",
+      weather: {
+        temperature: 62,
+        pressure: 1013,
+        wind_speed: 5,
+        cloud_cover: 40,
+      },
+      hourly_air_temp_f: [{ time_utc: iso, value: 60 }],
+      hourly_cloud_cover_pct: [{ time_utc: iso, value: 50 }],
+    },
+  );
+  assertEquals(req.environment.hourly_air_temp_f, null);
+  assertEquals(req.environment.hourly_cloud_cover_pct, null);
+  assert(req.data_coverage.source_notes?.some((s) => s.includes("hourly_air_temp_f")));
+  assert(req.data_coverage.source_notes?.some((s) => s.includes("hourly_cloud_cover_pct")));
+});
+
+Deno.test("buildFromEnvData: env vs request timezone mismatch is noted", () => {
+  const req = buildSharedEngineRequestFromEnvData(
+    40.7,
+    -74.0,
+    "2026-06-15",
+    "America/Los_Angeles",
+    "freshwater_lake_pond",
+    {
+      timezone: "America/New_York",
+      weather: {
+        temperature: 62,
+        pressure: 1013,
+        wind_speed: 5,
+        cloud_cover: 40,
+      },
+    },
+  );
+  assert(
+    req.data_coverage.source_notes?.some((s) => s.includes("hourly_series_timezone_mismatch")),
+  );
 });

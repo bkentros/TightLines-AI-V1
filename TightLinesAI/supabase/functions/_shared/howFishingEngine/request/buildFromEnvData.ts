@@ -1,6 +1,10 @@
 import type { EngineContext, SharedEngineRequest } from "../contracts/mod.ts";
 import { resolveRegionForCoordinates } from "../context/resolveRegion.ts";
-import { hourlyPointsTo24ArrayForLocalDate } from "./hourlyLocalDay.ts";
+import {
+  countValidHoursForLocalDate,
+  hourlyPointsTo24ArrayForLocalDate,
+  MIN_LOCAL_DAY_HOURS,
+} from "./hourlyLocalDay.ts";
 
 function num(x: unknown): number | null {
   if (x == null) return null;
@@ -130,29 +134,45 @@ export function buildSharedEngineRequestFromEnvData(
     solunar?.major_periods?.map((p) => p.start).filter((s) => typeof s === "string" && s.length > 0) ??
     undefined;
 
-  const tzForHourly =
-    typeof envData.timezone === "string" && envData.timezone.length > 0
-      ? envData.timezone
-      : localTimezone;
+  const envTzRaw = typeof envData.timezone === "string" ? envData.timezone.trim() : "";
+  const reqTzRaw = typeof localTimezone === "string" ? localTimezone.trim() : "";
+  const tzForHourly = envTzRaw.length > 0 ? envTzRaw : reqTzRaw;
+
+  const source_notes: string[] = [];
+  if (envTzRaw.length > 0 && reqTzRaw.length > 0 && envTzRaw !== reqTzRaw) {
+    source_notes.push(
+      `hourly_series_timezone_mismatch: env_timezone=${envTzRaw} request_local_timezone=${reqTzRaw} (bucketing uses env_timezone)`,
+    );
+  }
 
   const hourlyAirRaw = envData.hourly_air_temp_f;
   const hourlyCloudRaw = envData.hourly_cloud_cover_pct;
-  const hourlyAirTemp24 =
-    Array.isArray(hourlyAirRaw) && hourlyAirRaw.length > 0
-      ? hourlyPointsTo24ArrayForLocalDate(
-          hourlyAirRaw as Array<{ time_utc: string; value: number }>,
-          localDate,
-          tzForHourly,
-        )
-      : null;
-  const hourlyCloudPct24 =
-    Array.isArray(hourlyCloudRaw) && hourlyCloudRaw.length > 0
-      ? hourlyPointsTo24ArrayForLocalDate(
-          hourlyCloudRaw as Array<{ time_utc: string; value: number }>,
-          localDate,
-          tzForHourly,
-        )
-      : null;
+  const hourlyAirPts = Array.isArray(hourlyAirRaw) && hourlyAirRaw.length > 0
+    ? (hourlyAirRaw as Array<{ time_utc: string; value: number }>)
+    : null;
+  const hourlyCloudPts = Array.isArray(hourlyCloudRaw) && hourlyCloudRaw.length > 0
+    ? (hourlyCloudRaw as Array<{ time_utc: string; value: number }>)
+    : null;
+
+  const hourlyAirTemp24 = hourlyAirPts
+    ? hourlyPointsTo24ArrayForLocalDate(hourlyAirPts, localDate, tzForHourly)
+    : null;
+  if (hourlyAirPts && hourlyAirTemp24 == null) {
+    const n = countValidHoursForLocalDate(hourlyAirPts, localDate, tzForHourly);
+    source_notes.push(
+      `hourly_air_temp_f: ${n} valid local hours for ${localDate} (need ${MIN_LOCAL_DAY_HOURS}); timing uses non-hourly temp`,
+    );
+  }
+
+  const hourlyCloudPct24 = hourlyCloudPts
+    ? hourlyPointsTo24ArrayForLocalDate(hourlyCloudPts, localDate, tzForHourly)
+    : null;
+  if (hourlyCloudPts && hourlyCloudPct24 == null) {
+    const n = countValidHoursForLocalDate(hourlyCloudPts, localDate, tzForHourly);
+    source_notes.push(
+      `hourly_cloud_cover_pct: ${n} valid local hours for ${localDate} (need ${MIN_LOCAL_DAY_HOURS}); timing uses non-hourly cloud`,
+    );
+  }
 
   return {
     latitude,
@@ -187,6 +207,6 @@ export function buildSharedEngineRequestFromEnvData(
       hourly_air_temp_f: hourlyAirTemp24,
       hourly_cloud_cover_pct: hourlyCloudPct24,
     },
-    data_coverage: {},
+    data_coverage: source_notes.length ? { source_notes } : {},
   };
 }

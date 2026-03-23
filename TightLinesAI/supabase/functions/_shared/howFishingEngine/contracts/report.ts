@@ -64,6 +64,8 @@ export type HowsFishingReport = {
   };
   reliability: ReportReliabilityTier;
   reliability_note?: string | null;
+  /** Env adapter notes (e.g. sparse hourly, timezone mismatch) — for QA and scans */
+  data_coverage_notes?: string[];
   normalized_debug?: {
     available_variables: string[];
     missing_variables: string[];

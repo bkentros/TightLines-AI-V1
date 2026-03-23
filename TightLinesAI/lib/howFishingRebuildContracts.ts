@@ -74,6 +74,8 @@ export interface HowsFishingReportV1 {
   highlighted_periods?: [boolean, boolean, boolean, boolean];
   reliability: RebuildReliability;
   reliability_note?: string | null;
+  /** Env adapter notes (sparse hourly, timezone mismatch) for QA */
+  data_coverage_notes?: string[];
   normalized_debug?: {
     available_variables: string[];
     missing_variables: string[];

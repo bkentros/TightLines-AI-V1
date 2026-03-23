@@ -132,6 +132,9 @@ export function runHowFishingReport(req: SharedEngineRequest): HowsFishingReport
 
     reliability,
     reliability_note: reliabilityNote(reliability),
+    ...(req.data_coverage.source_notes?.length
+      ? { data_coverage_notes: [...req.data_coverage.source_notes] }
+      : {}),
     normalized_debug: {
       available_variables: norm.available_variables,
       missing_variables: norm.missing_variables,
