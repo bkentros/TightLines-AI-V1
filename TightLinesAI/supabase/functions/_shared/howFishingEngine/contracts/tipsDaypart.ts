@@ -22,3 +22,14 @@ export type DaypartNotePreset =
   | "warmest_part_may_help"
   | "cooler_low_light_better"
   | "no_timing_edge";
+
+/**
+ * Timing recommendation confidence — independent of daily score band.
+ * A day can be Fair overall but have a Strong afternoon timing edge,
+ * or Good overall but only fair_default timing guidance.
+ */
+export type TimingStrength =
+  | "very_strong"   // #1 qualifies AND #2 confirms/supports meaningfully
+  | "strong"        // #1 qualifies clearly on its own
+  | "good"          // #1 failed but #2 qualifies; or #1 qualifies weakly
+  | "fair_default"; // neither qualifies, combo fallback used

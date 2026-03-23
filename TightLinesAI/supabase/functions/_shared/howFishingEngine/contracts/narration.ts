@@ -2,7 +2,7 @@
  * LLM narration payload — HOWS_FISHING_REPORT_AND_NARRATION_SPEC § Narration payload contract
  */
 
-import type { ActionableTipTag, DaypartNotePreset } from "./tipsDaypart.ts";
+import type { ActionableTipTag, DaypartNotePreset, TimingStrength } from "./tipsDaypart.ts";
 import type { EngineContext } from "./context.ts";
 import type { ScoreBand, ReportReliabilityTier } from "./report.ts";
 
@@ -24,6 +24,8 @@ export type NarrationPayload = {
   actionable_tip_tag: ActionableTipTag;
   daypart_note_seed?: string | null;
   daypart_preset: DaypartNotePreset | null;
+  /** Timing recommendation confidence — helps LLM calibrate language */
+  timing_strength?: TimingStrength;
   reliability: ReportReliabilityTier;
   reliability_note_seed?: string | null;
 };

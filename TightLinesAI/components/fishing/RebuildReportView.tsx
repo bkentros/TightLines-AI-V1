@@ -9,7 +9,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { colors, fonts, spacing, radius, shadows } from '../../lib/theme';
 import type { HowsFishingReportV1 } from '../../lib/howFishing';
-import type { DaypartNotePreset } from '../../lib/howFishingRebuildContracts';
+// DaypartNotePreset used implicitly via report.daypart_preset in legacy fallback path
 import type { SolunarData } from '../../lib/env/types';
 
 // ─── Score helpers ────────────────────────────────────────────────────────────
@@ -137,7 +137,15 @@ const PERIOD_DEFS: { label: string; icon: keyof typeof Ionicons.glyphMap; subLab
   { label: 'Evening',   subLabel: '5–9pm',   icon: 'moon-outline' },
 ];
 
-function getTimingPeriods(preset: DaypartNotePreset | null): PeriodSlot[] | null {
+function getTimingPeriods(report: HowsFishingReportV1): PeriodSlot[] | null {
+  // New path: direct period flags from the timing engine
+  const hp = (report as any).highlighted_periods as boolean[] | undefined;
+  if (hp && hp.length === 4) {
+    if (hp.every((p: boolean) => !p)) return null; // all false = no edge
+    return PERIOD_DEFS.map((p, i) => ({ label: p.label, icon: p.icon, highlighted: hp[i] }));
+  }
+  // Legacy fallback for cached reports without highlighted_periods
+  const preset = report.daypart_preset;
   if (!preset || preset === 'no_timing_edge') return null;
   const flags = PERIOD_PRESETS[preset];
   if (!flags) return null;
@@ -265,7 +273,7 @@ export function RebuildReportView({
   };
 
   const sc = scoreTextColor(report.score);
-  const timingPeriods = getTimingPeriods(report.daypart_preset);
+  const timingPeriods = getTimingPeriods(report);
   const topDrivers = report.drivers.slice(0, 3);
   const topSuppressors = report.suppressors.slice(0, 2);
   const showTiming = !!(report.daypart_note || timingPeriods);

@@ -95,6 +95,7 @@ interface EnvironmentData {
   tz_offset_hours?: number;
   hourly_pressure_mb?: Array<{ time_utc: string; value: number }>;
   hourly_air_temp_f?: Array<{ time_utc: string; value: number }>;
+  hourly_cloud_cover_pct?: Array<{ time_utc: string; value: number }>;
   tide_predictions_30day?: Array<{ date: string; high_ft: number; low_ft: number }>;
   measured_water_temp_f?: number | null;
   measured_water_temp_source?: string | null;
@@ -214,6 +215,8 @@ interface OpenMeteoResult {
   sun?: SunData;
   hourly_pressure_mb?: Array<{ time_utc: string; value: number }>;
   hourly_air_temp_f?: Array<{ time_utc: string; value: number }>;
+  /** Open-Meteo hourly cloud cover 0–100, same timestamps as hourly_air_temp_f */
+  hourly_cloud_cover_pct?: Array<{ time_utc: string; value: number }>;
   timezone?: string;
   tz_offset_hours?: number;
 }
@@ -311,6 +314,9 @@ async function fetchOpenMeteo(
   const tempHourly: number[] = Array.isArray(hourly.temperature_2m)
     ? (hourly.temperature_2m as (number | null)[]).map((v) => Number(v) || 0)
     : [];
+  const cloudHourly: number[] = Array.isArray(hourly.cloud_cover)
+    ? (hourly.cloud_cover as (number | null)[]).map((v) => Math.max(0, Math.min(100, Number(v) || 0)))
+    : [];
 
   if (tempHourly.length > 0 && currentHourIdx >= 0) {
     // 72-hour delta (approx 3 days × 24 hrs = 72 indices back)
@@ -391,6 +397,7 @@ async function fetchOpenMeteo(
   // Build time-indexed arrays with UTC ISO timestamps
   const hourlyPressureMb: Array<{ time_utc: string; value: number }> = [];
   const hourlyAirTempF: Array<{ time_utc: string; value: number }> = [];
+  const hourlyCloudCoverPct: Array<{ time_utc: string; value: number }> = [];
 
   if (hourlyTimes.length > 0) {
     // Open-Meteo returns local datetime strings ("YYYY-MM-DDTHH:MM") for timezone=auto.
@@ -407,6 +414,9 @@ async function fetchOpenMeteo(
       }
       if (tempHourly.length > i) {
         hourlyAirTempF.push({ time_utc: utcIso, value: tempHourly[i] });
+      }
+      if (cloudHourly.length > i) {
+        hourlyCloudCoverPct.push({ time_utc: utcIso, value: cloudHourly[i] });
       }
     }
   }
@@ -455,6 +465,7 @@ async function fetchOpenMeteo(
     sun,
     hourly_pressure_mb: hourlyPressureMb,
     hourly_air_temp_f: hourlyAirTempF,
+    hourly_cloud_cover_pct: hourlyCloudCoverPct,
     timezone,
     tz_offset_hours: tzOffsetHours,
     forecast_daily: forecastDaily,
@@ -1073,6 +1084,7 @@ Deno.serve(async (req: Request) => {
     tz_offset_hours: tzHours,
     hourly_pressure_mb: meteo?.hourly_pressure_mb ?? [],
     hourly_air_temp_f: meteo?.hourly_air_temp_f ?? [],
+    hourly_cloud_cover_pct: meteo?.hourly_cloud_cover_pct ?? [],
     tide_predictions_30day: noaa?.tide_predictions_30day ?? [],
     measured_water_temp_f: noaa?.measured_water_temp_f ?? null,
     measured_water_temp_source: noaa?.measured_water_temp_source ?? null,

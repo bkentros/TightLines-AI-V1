@@ -21,6 +21,7 @@ export function buildNarrationPayloadFromReport(r: HowsFishingReport): Narration
     actionable_tip_tag: r.actionable_tip_tag,
     daypart_note_seed: r.daypart_note ?? null,
     daypart_preset: r.daypart_preset,
+    timing_strength: r.timing_strength,
     reliability: r.reliability,
     reliability_note_seed: r.reliability_note ?? null,
   };

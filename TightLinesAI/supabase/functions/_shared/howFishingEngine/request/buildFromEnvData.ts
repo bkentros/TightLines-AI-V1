@@ -1,5 +1,6 @@
 import type { EngineContext, SharedEngineRequest } from "../contracts/mod.ts";
 import { resolveRegionForCoordinates } from "../context/resolveRegion.ts";
+import { hourlyPointsTo24ArrayForLocalDate } from "./hourlyLocalDay.ts";
 
 function num(x: unknown): number | null {
   if (x == null) return null;
@@ -129,6 +130,30 @@ export function buildSharedEngineRequestFromEnvData(
     solunar?.major_periods?.map((p) => p.start).filter((s) => typeof s === "string" && s.length > 0) ??
     undefined;
 
+  const tzForHourly =
+    typeof envData.timezone === "string" && envData.timezone.length > 0
+      ? envData.timezone
+      : localTimezone;
+
+  const hourlyAirRaw = envData.hourly_air_temp_f;
+  const hourlyCloudRaw = envData.hourly_cloud_cover_pct;
+  const hourlyAirTemp24 =
+    Array.isArray(hourlyAirRaw) && hourlyAirRaw.length > 0
+      ? hourlyPointsTo24ArrayForLocalDate(
+          hourlyAirRaw as Array<{ time_utc: string; value: number }>,
+          localDate,
+          tzForHourly,
+        )
+      : null;
+  const hourlyCloudPct24 =
+    Array.isArray(hourlyCloudRaw) && hourlyCloudRaw.length > 0
+      ? hourlyPointsTo24ArrayForLocalDate(
+          hourlyCloudRaw as Array<{ time_utc: string; value: number }>,
+          localDate,
+          tzForHourly,
+        )
+      : null;
+
   return {
     latitude,
     longitude,
@@ -159,6 +184,8 @@ export function buildSharedEngineRequestFromEnvData(
       sunrise_local: sun && typeof sun.sunrise === "string" ? sun.sunrise : null,
       sunset_local: sun && typeof sun.sunset === "string" ? sun.sunset : null,
       solunar_peak_local: solunar_peak_local?.length ? solunar_peak_local : undefined,
+      hourly_air_temp_f: hourlyAirTemp24,
+      hourly_cloud_cover_pct: hourlyCloudPct24,
     },
     data_coverage: {},
   };

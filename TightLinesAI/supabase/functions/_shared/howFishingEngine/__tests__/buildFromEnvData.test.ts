@@ -79,3 +79,38 @@ Deno.test("buildFromEnvData: hourly pressure fallback trims to the most recent 4
   assertEquals(req.environment.pressure_history_mb?.[0], 1012);
   assertEquals(req.environment.pressure_history_mb?.[47], 1059);
 });
+
+Deno.test("buildFromEnvData: maps hourly temp and cloud to 24 local slots", () => {
+  const hourly_air_temp_f: Array<{ time_utc: string; value: number }> = [];
+  const hourly_cloud_cover_pct: Array<{ time_utc: string; value: number }> = [];
+  for (let h = 0; h < 24; h++) {
+    const iso = new Date(
+      `2026-06-15T${String(h).padStart(2, "0")}:00:00-04:00`,
+    ).toISOString();
+    hourly_air_temp_f.push({ time_utc: iso, value: 50 + h });
+    hourly_cloud_cover_pct.push({ time_utc: iso, value: h * 2 });
+  }
+  const req = buildSharedEngineRequestFromEnvData(
+    40.7,
+    -74.0,
+    "2026-06-15",
+    "America/New_York",
+    "freshwater_lake_pond",
+    {
+      timezone: "America/New_York",
+      weather: {
+        temperature: 62,
+        pressure: 1013,
+        wind_speed: 5,
+        cloud_cover: 40,
+      },
+      hourly_air_temp_f,
+      hourly_cloud_cover_pct,
+    },
+  );
+  assertEquals(req.environment.hourly_air_temp_f?.length, 24);
+  assertEquals(req.environment.hourly_air_temp_f?.[0], 50);
+  assertEquals(req.environment.hourly_air_temp_f?.[23], 73);
+  assertEquals(req.environment.hourly_cloud_cover_pct?.length, 24);
+  assertEquals(req.environment.hourly_cloud_cover_pct?.[10], 20);
+});

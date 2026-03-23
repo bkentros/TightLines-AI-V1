@@ -41,7 +41,8 @@ export function normalizePrecipitationDisruption(
       return { label: "recent_rain", score: -1 };
     }
     // Extended dry — bone dry over 24h and 72h windows
-    if (r24 < 0.01 && r72 < 0.01 && rate < 0.01 && activeNow !== true) {
+    // If activeNow were true, we already returned active_disruption above.
+    if (r24 < 0.01 && r72 < 0.01 && rate < 0.01) {
       return { label: "extended_dry", score: 2 };
     }
     // Dry stable — dry but not necessarily bone dry
@@ -62,7 +63,7 @@ export function normalizePrecipitationDisruption(
     return { label: "recent_rain", score: -1 };
   }
   // Extended dry — essentially zero precip over both windows
-  if (r24 < 0.01 && r72 < 0.01 && rate < 0.01 && activeNow !== true) {
+  if (r24 < 0.01 && r72 < 0.01 && rate < 0.01) {
     return { label: "extended_dry", score: 2 };
   }
   // Dry stable

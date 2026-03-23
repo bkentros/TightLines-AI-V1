@@ -42,6 +42,9 @@ export type DaypartNotePreset =
   | 'cooler_low_light_better'
   | 'no_timing_edge';
 
+/** Timing recommendation confidence — independent of daily score band */
+export type TimingStrength = 'very_strong' | 'strong' | 'good' | 'fair_default';
+
 export const HOWS_FISHING_REBUILD_FEATURE = 'hows_fishing_rebuild_v1' as const;
 
 export interface HowsFishingReportV1 {
@@ -65,6 +68,10 @@ export interface HowsFishingReportV1 {
   actionable_tip_tag: ActionableTipTag;
   daypart_note?: string | null;
   daypart_preset: DaypartNotePreset | null;
+  /** Timing recommendation confidence — independent of daily score band */
+  timing_strength?: TimingStrength;
+  /** Direct period highlighting [dawn, morning, afternoon, evening] */
+  highlighted_periods?: [boolean, boolean, boolean, boolean];
   reliability: RebuildReliability;
   reliability_note?: string | null;
   normalized_debug?: {

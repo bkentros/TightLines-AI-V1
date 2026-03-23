@@ -2,7 +2,7 @@
  * How's Fishing report + edge bundle — HOWS_FISHING_REPORT_AND_NARRATION_SPEC
  */
 
-import type { ActionableTipTag, DaypartNotePreset } from "./tipsDaypart.ts";
+import type { ActionableTipTag, DaypartNotePreset, TimingStrength } from "./tipsDaypart.ts";
 import type { EngineContext } from "./context.ts";
 import type { TemperatureBandLabel, TrendLabel, ShockLabel } from "./variableState.ts";
 
@@ -44,6 +44,24 @@ export type HowsFishingReport = {
   actionable_tip_tag: ActionableTipTag;
   daypart_note?: string | null;
   daypart_preset: DaypartNotePreset | null;
+  /** Timing recommendation confidence — independent of daily score band */
+  timing_strength?: TimingStrength;
+  /** Direct period highlighting [dawn, morning, afternoon, evening] */
+  highlighted_periods?: [boolean, boolean, boolean, boolean];
+  /** Timing engine decision trace for debugging */
+  timing_debug?: {
+    family_id: string;
+    family_id_secondary?: string | null;
+    month_blend_t?: number | null;
+    anchor_driver: string;
+    primary_driver: string;
+    primary_qualified: boolean;
+    secondary_driver: string;
+    secondary_qualified: boolean;
+    secondary_role: string;
+    fallback_used: boolean;
+    selection_reason: string;
+  };
   reliability: ReportReliabilityTier;
   reliability_note?: string | null;
   normalized_debug?: {

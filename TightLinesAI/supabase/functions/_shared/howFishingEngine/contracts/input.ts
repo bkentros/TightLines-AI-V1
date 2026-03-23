@@ -40,6 +40,9 @@ export type SharedEngineRequest = {
     sunrise_local?: string | null;
     sunset_local?: string | null;
     solunar_peak_local?: string[] | null;
+    /** 24 values, local hour 0–23 from midnight on local_date — optional timing refinement */
+    hourly_air_temp_f?: number[] | null;
+    hourly_cloud_cover_pct?: number[] | null;
   };
   data_coverage: {
     source_notes?: string[];
