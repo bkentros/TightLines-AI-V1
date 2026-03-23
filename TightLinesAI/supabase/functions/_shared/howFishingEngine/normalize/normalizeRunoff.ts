@@ -85,13 +85,19 @@ function classify(
   return { label: "blown_out", score: -2 };
 }
 
+/**
+ * Requires all three precip windows as finite, non-negative inches.
+ * Missing longer windows are NOT treated as zero — that overstated “dry” flow
+ * when only 24h was present. Caller must supply a full triplet or omit runoff.
+ */
 export function normalizeRunoff(
   region: RegionKey,
   p24: number | null | undefined,
   p72: number | null | undefined,
   p7d: number | null | undefined,
 ): VariableState | null {
-  if (p24 == null && p72 == null && p7d == null) return null;
+  if (p24 == null || p72 == null || p7d == null) return null;
+  if (![p24, p72, p7d].every((x) => Number.isFinite(x) && x >= 0)) return null;
   const sens = REGION_SENS[region] ?? "medium";
-  return classify(sens, p24 ?? 0, p72 ?? 0, p7d ?? 0);
+  return classify(sens, p24, p72, p7d);
 }

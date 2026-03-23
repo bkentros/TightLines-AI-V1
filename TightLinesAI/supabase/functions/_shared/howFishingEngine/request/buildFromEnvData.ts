@@ -43,6 +43,15 @@ function sumRecent(values: number[] | undefined, endIdx: number | null, days: nu
 
 /**
  * Maps client get-environment payload into SharedEngineRequest.
+ *
+ * **Precip contract (tight):**
+ * - When `weather.precip_7day_daily` exists for the target day index, fills
+ *   `precip_24h_in`, `precip_72h_in` (rolling 3d), and `precip_7d_in` (rolling 7d)
+ *   so river runoff can score without imputing missing windows as zero.
+ * - `precip_7day_inches` is only a fallback when the daily series cannot supply 7d.
+ * - River + partial precip (e.g. only 48h-derived 24/72) yields a `data_coverage`
+ *   note; the engine omits `runoff_flow_disruption` until `precip_7d_in` exists.
+ *
  * @param dayOffset - 0 = today (default), 1 = tomorrow, etc.
  *   When > 0, shifts all daily array lookups forward and extracts the
  *   appropriate hourly pressure window for the target forecast day.
@@ -101,10 +110,27 @@ export function buildSharedEngineRequestFromEnvData(
 
   const pd = w?.precip_7day_daily as number[] | undefined;
   const precipIdx = currentDailyIndex(pd, dayOffset);
-  const precip_24h = precipIdx != null
-    ? (pd?.[precipIdx] ?? null)
-    : (num(w?.precip_48hr_inches) != null ? num(w!.precip_48hr_inches)! / 2 : null);
-  const precip_72h = sumRecent(pd, precipIdx, 3) ?? num(w?.precip_48hr_inches);
+
+  let precip_24h: number | null = null;
+  let precip_72h: number | null = null;
+  let precip_7d_in: number | null = null;
+
+  if (precipIdx != null && Array.isArray(pd) && pd.length > 0) {
+    precip_24h = pd[precipIdx] ?? 0;
+    precip_72h = sumRecent(pd, precipIdx, 3);
+    precip_7d_in = sumRecent(pd, precipIdx, 7);
+  }
+
+  if (precip_24h == null && num(w?.precip_48hr_inches) != null) {
+    precip_24h = num(w!.precip_48hr_inches)! / 2;
+  }
+  if (precip_72h == null && num(w?.precip_48hr_inches) != null) {
+    precip_72h = num(w!.precip_48hr_inches)!;
+  }
+
+  if (precip_7d_in == null) {
+    precip_7d_in = num(w?.precip_7day_inches) ?? null;
+  }
 
   const precip_mm = num(w?.precipitation);
   const precip_rate_now = precip_mm != null ? precip_mm / 25.4 : null;
@@ -174,6 +200,16 @@ export function buildSharedEngineRequestFromEnvData(
     );
   }
 
+  if (
+    context === "freshwater_river" &&
+    precip_7d_in == null &&
+    (precip_24h != null || precip_72h != null)
+  ) {
+    source_notes.push(
+      "river_runoff: precip_7d_in missing while other precip totals exist — runoff_flow_disruption omitted until 7-day total is available",
+    );
+  }
+
   return {
     latitude,
     longitude,
@@ -193,7 +229,7 @@ export function buildSharedEngineRequestFromEnvData(
       cloud_cover_pct: num(w?.cloud_cover),
       precip_24h_in: precip_24h,
       precip_72h_in: precip_72h,
-      precip_7d_in: num(w?.precip_7day_inches),
+      precip_7d_in: precip_7d_in,
       active_precip_now: precip_mm != null && precip_mm > 0.5,
       precip_rate_now_in_per_hr: precip_rate_now,
       tide_movement_state: tidePhase,

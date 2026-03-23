@@ -33,3 +33,6 @@ export type TemperatureNormalized = {
   shock_adjustment: -1 | 0;
   final_score: VariableScore;
 };
+
+/** LLM / narration: how air-temp scoring constrains metabolic story (orthogonal to band_label wording) */
+export type TemperatureMetabolicContext = "heat_limited" | "cold_limited" | "neutral";

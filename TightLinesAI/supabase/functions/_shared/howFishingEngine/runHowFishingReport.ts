@@ -2,36 +2,14 @@ import type { HowsFishingReport, RegionKey, SharedEngineRequest } from "./contra
 import { DISPLAY_CONTEXT_LABEL } from "./contracts/mod.ts";
 import { buildSharedNormalizedOutput } from "./normalize/buildNormalized.ts";
 import { scoreDay } from "./score/scoreDay.ts";
+import { buildReportSummaryLine } from "./summary/summaryLine.ts";
 import { buildActionableTip } from "./tips/buildTips.ts";
+import {
+  avoidHeatTimingApplies,
+  deriveTemperatureMetabolicContext,
+  highlightedDaypartLabels,
+} from "./narration/deriveNarrationHints.ts";
 import { resolveTimingResult } from "./timing/resolveTimingResult.ts";
-
-function sentenceCap(s: string): string {
-  if (!s) return s;
-  return s.charAt(0).toUpperCase() + s.slice(1);
-}
-
-function bandSentence(band: string): string {
-  switch (band) {
-    case "Excellent": return "It's an excellent day to be on the water.";
-    case "Good": return "Conditions are looking good out there today.";
-    case "Fair": return "It's a fair day — fishable, but not all factors are lined up.";
-    case "Poor": return "Tough conditions today — it's going to take patience and persistence.";
-    default: return `Today's outlook: ${band}.`;
-  }
-}
-
-function summaryLine(
-  band: string,
-  drivers: { label: string }[],
-  suppressors: { label: string }[]
-): string {
-  const d0 = drivers[0]?.label ?? "";
-  const s0 = suppressors[0]?.label ?? "";
-  let core = bandSentence(band);
-  if (d0) core += ` ${d0}`;
-  if (s0) core += ` ${sentenceCap(s0)}`;
-  return core.replace(/\s+/g, " ").trim().slice(0, 280);
-}
 
 function reliabilityNote(tier: "high" | "medium" | "low"): string | null {
   if (tier === "high") return null;
@@ -57,24 +35,25 @@ export function runHowFishingReport(req: SharedEngineRequest): HowsFishingReport
 
   // ── Timing engine (parallel lane to scoring) ──────────────────────────
   const month = parseInt(req.local_date.slice(5, 7), 10) || 1;
+  const timingEvalOpts = {
+    local_date: req.local_date,
+    tide_high_low: req.environment.tide_high_low,
+    solunar_peak_local: req.environment.solunar_peak_local,
+    sunrise_local: req.environment.sunrise_local,
+    sunset_local: req.environment.sunset_local,
+    cloud_cover_pct: req.environment.cloud_cover_pct,
+    daily_mean_air_temp_f:
+      req.environment.daily_mean_air_temp_f ?? req.environment.current_air_temp_f,
+    prior_day_mean_air_temp_f: req.environment.prior_day_mean_air_temp_f,
+    hourly_air_temp_f: req.environment.hourly_air_temp_f,
+    hourly_cloud_cover_pct: req.environment.hourly_cloud_cover_pct,
+  };
   const timing = resolveTimingResult(
     req.context,
     req.region_key as RegionKey,
     month,
     norm,
-    {
-      local_date: req.local_date,
-      tide_high_low: req.environment.tide_high_low,
-      solunar_peak_local: req.environment.solunar_peak_local,
-      sunrise_local: req.environment.sunrise_local,
-      sunset_local: req.environment.sunset_local,
-      cloud_cover_pct: req.environment.cloud_cover_pct,
-      daily_mean_air_temp_f:
-        req.environment.daily_mean_air_temp_f ?? req.environment.current_air_temp_f,
-      prior_day_mean_air_temp_f: req.environment.prior_day_mean_air_temp_f,
-      hourly_air_temp_f: req.environment.hourly_air_temp_f,
-      hourly_cloud_cover_pct: req.environment.hourly_cloud_cover_pct,
-    },
+    timingEvalOpts,
   );
 
   const drivers = scored.drivers.map((c) => ({
@@ -101,7 +80,7 @@ export function runHowFishingReport(req: SharedEngineRequest): HowsFishingReport
     },
     score: scored.score,
     band: scored.band,
-    summary_line: summaryLine(scored.band, drivers, suppressors),
+    summary_line: buildReportSummaryLine(scored.band),
     drivers,
     suppressors,
     actionable_tip: tip.actionable_tip,
@@ -155,6 +134,13 @@ export function runHowFishingReport(req: SharedEngineRequest): HowsFishingReport
       region_key: norm.location.region_key,
       available_variables: norm.available_variables,
       missing_variables: norm.missing_variables,
+      temperature_metabolic_context: deriveTemperatureMetabolicContext(
+        norm.normalized.temperature,
+      ),
+      avoid_midday_for_heat: avoidHeatTimingApplies(norm, timingEvalOpts),
+      highlighted_dayparts_for_narration: highlightedDaypartLabels(
+        timing.highlighted_periods,
+      ),
     },
   };
 }

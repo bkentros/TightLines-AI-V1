@@ -21,13 +21,18 @@ import { normalizeTideCurrentMovement } from "./normalizeTide.ts";
 
 function buildDataGaps(
   context: EngineContext,
-  missing: string[]
+  missing: string[],
+  runoffGapReason: "absent" | "incomplete_precip_windows",
 ): VariableDataGap[] {
   const expected = SCORED_VARIABLE_KEYS_BY_CONTEXT[context];
   const gaps: VariableDataGap[] = [];
   for (const key of expected) {
     if (missing.includes(key)) {
-      gaps.push({ variable_key: key as ScoredVariableKey, reason: "absent" });
+      const reason =
+        key === "runoff_flow_disruption" && runoffGapReason === "incomplete_precip_windows"
+          ? "incomplete_precip_windows"
+          : "absent";
+      gaps.push({ variable_key: key as ScoredVariableKey, reason });
     }
   }
   return gaps;
@@ -108,28 +113,38 @@ export function buildSharedNormalizedOutput(req: SharedEngineRequest): SharedNor
   const wind = normalizeWind(e.wind_speed_mph, req.context);
   const light = normalizeLight(e.cloud_cover_pct, req.context);
 
+  const precipRate = e.precip_rate_now_in_per_hr;
+  const p24 = e.precip_24h_in;
+  const p72 = e.precip_72h_in;
+  const p7dRiver = e.precip_7d_in;
+
+  const precipLakeCoastalContract =
+    (p24 != null && p72 != null) ||
+    precipRate != null ||
+    e.active_precip_now === true;
+
   let precip: ReturnType<typeof normalizePrecipitationDisruption> = null;
   if (req.context === "freshwater_lake_pond" || req.context === "coastal") {
-    if (
-      e.precip_24h_in != null ||
-      e.precip_72h_in != null ||
-      e.precip_rate_now_in_per_hr != null ||
-      e.active_precip_now === true
-    ) {
+    if (precipLakeCoastalContract) {
       precip = normalizePrecipitationDisruption(
         req.context,
-        e.precip_rate_now_in_per_hr,
-        e.precip_24h_in,
-        e.precip_72h_in,
+        precipRate,
+        p24,
+        p72,
         e.active_precip_now
       );
     }
   }
 
+  const riverPrecipPartial =
+    req.context === "freshwater_river" &&
+    (p24 != null || p72 != null || p7dRiver != null) &&
+    (p24 == null || p72 == null || p7dRiver == null);
+
   let runoff: ReturnType<typeof normalizeRunoff> = null;
   if (req.context === "freshwater_river") {
-    if (e.precip_24h_in != null || e.precip_72h_in != null || e.precip_7d_in != null) {
-      runoff = normalizeRunoff(req.region_key, e.precip_24h_in, e.precip_72h_in, e.precip_7d_in);
+    if (p24 != null && p72 != null && p7dRiver != null) {
+      runoff = normalizeRunoff(req.region_key, p24, p72, p7dRiver);
     }
   }
 
@@ -194,7 +209,15 @@ export function buildSharedNormalizedOutput(req: SharedEngineRequest): SharedNor
     missing,
     pressureQuality
   );
-  const data_gaps = buildDataGaps(req.context, missing);
+
+  const runoffGapReason: "absent" | "incomplete_precip_windows" =
+    req.context === "freshwater_river" &&
+    missing.includes("runoff_flow_disruption") &&
+    riverPrecipPartial
+      ? "incomplete_precip_windows"
+      : "absent";
+
+  const data_gaps = buildDataGaps(req.context, missing, runoffGapReason);
 
   return {
     location: {

@@ -38,6 +38,7 @@ import {
 } from "./evaluators/mod.ts";
 import { pickTimingNote } from "./timingNotes.ts";
 import { adjacentMonthsBlend, collapsePeriodsToMaxTwo } from "./timingMonthBlend.ts";
+import { reconcileHeatStressTiming } from "./reconcileHeatStressTiming.ts";
 
 // ── Driver dispatch ──────────────────────────────────────────────────────────
 
@@ -278,12 +279,26 @@ function computeTimingForFamily(
         `Primary (${family.primary_driver}) does not qualify; secondary ` +
         `(${family.secondary_driver}) rescues as anchor (capped at ${anchorStrength}).`;
     } else {
-      anchorSignal = evaluateFallbackBias(family.fallback_bias);
-      anchorStrength = "fair_default";
-      fallbackUsed = true;
-      selectionReason =
-        `Neither primary (${family.primary_driver}) nor secondary ` +
-        `(${family.secondary_driver}) qualifies — using fallback bias (${family.fallback_bias}).`;
+      // e.g. March "warm winter" family: seek_warmth misses on a freak-hot day and
+      // low_light can fail on harsh glare — combo fallback "morning_afternoon" would
+      // wrongly praise midday. Prefer avoid_heat when the temp model says so.
+      const heatAvoid = runEvaluator("avoid_heat", norm, opts);
+      if (heatAvoid) {
+        anchorSignal = { ...heatAvoid, role: "anchor" };
+        anchorStrength = capStrength(heatAvoid.strength, "strong");
+        secondaryRole = "anchor";
+        fallbackUsed = false;
+        selectionReason =
+          `Neither primary (${family.primary_driver}) nor secondary (${family.secondary_driver}) ` +
+          `qualified; avoid_heat overrides combo fallback for warm-day dawn/dusk timing.`;
+      } else {
+        anchorSignal = evaluateFallbackBias(family.fallback_bias);
+        anchorStrength = "fair_default";
+        fallbackUsed = true;
+        selectionReason =
+          `Neither primary (${family.primary_driver}) nor secondary ` +
+          `(${family.secondary_driver}) qualifies — using fallback bias (${family.fallback_bias}).`;
+      }
     }
   }
 
@@ -374,9 +389,11 @@ export function resolveTimingResult(
   const zone = climateZoneFromRegion(region as RegionKey);
   const season = seasonFromMonth(month);
 
+  let result: TimingResult;
+
   if (context === "coastal") {
     const family = resolveTimingFamily(context, region as RegionKey, month);
-    return computeTimingForFamily(
+    result = computeTimingForFamily(
       context,
       region as RegionKey,
       month,
@@ -386,87 +403,88 @@ export function resolveTimingResult(
       norm,
       opts,
     );
+  } else {
+    const blend = opts.local_date ? adjacentMonthsBlend(opts.local_date) : null;
+
+    if (!blend) {
+      const family = resolveTimingFamily(context, region as RegionKey, month);
+      result = computeTimingForFamily(
+        context,
+        region as RegionKey,
+        month,
+        zone,
+        season,
+        family,
+        norm,
+        opts,
+      );
+    } else {
+      const fa = resolveTimingFamily(context, region as RegionKey, blend.loMonth);
+      const fb = resolveTimingFamily(context, region as RegionKey, blend.hiMonth);
+
+      if (fa.family_id === fb.family_id) {
+        result = computeTimingForFamily(
+          context,
+          region as RegionKey,
+          month,
+          zone,
+          season,
+          fa,
+          norm,
+          opts,
+        );
+      } else {
+        const EPS = 1e-4;
+        if (blend.t < EPS) {
+          result = computeTimingForFamily(
+            context,
+            region as RegionKey,
+            month,
+            zone,
+            season,
+            fa,
+            norm,
+            opts,
+          );
+        } else if (blend.t > 1 - EPS) {
+          result = computeTimingForFamily(
+            context,
+            region as RegionKey,
+            month,
+            zone,
+            season,
+            fb,
+            norm,
+            opts,
+          );
+        } else {
+          const ra = computeTimingForFamily(
+            context,
+            region as RegionKey,
+            month,
+            zone,
+            season,
+            fa,
+            norm,
+            opts,
+          );
+          const rb = computeTimingForFamily(
+            context,
+            region as RegionKey,
+            month,
+            zone,
+            season,
+            fb,
+            norm,
+            opts,
+          );
+          result = blendTwoTimingResults(ra, rb, blend.t, month, zone, season, context, region as RegionKey);
+        }
+      }
+    }
   }
 
-  const blend = opts.local_date ? adjacentMonthsBlend(opts.local_date) : null;
-
-  if (!blend) {
-    const family = resolveTimingFamily(context, region as RegionKey, month);
-    return computeTimingForFamily(
-      context,
-      region as RegionKey,
-      month,
-      zone,
-      season,
-      family,
-      norm,
-      opts,
-    );
-  }
-
-  const fa = resolveTimingFamily(context, region as RegionKey, blend.loMonth);
-  const fb = resolveTimingFamily(context, region as RegionKey, blend.hiMonth);
-
-  if (fa.family_id === fb.family_id) {
-    return computeTimingForFamily(
-      context,
-      region as RegionKey,
-      month,
-      zone,
-      season,
-      fa,
-      norm,
-      opts,
-    );
-  }
-
-  const EPS = 1e-4;
-  if (blend.t < EPS) {
-    return computeTimingForFamily(
-      context,
-      region as RegionKey,
-      month,
-      zone,
-      season,
-      fa,
-      norm,
-      opts,
-    );
-  }
-  if (blend.t > 1 - EPS) {
-    return computeTimingForFamily(
-      context,
-      region as RegionKey,
-      month,
-      zone,
-      season,
-      fb,
-      norm,
-      opts,
-    );
-  }
-
-  const ra = computeTimingForFamily(
-    context,
-    region as RegionKey,
-    month,
-    zone,
-    season,
-    fa,
-    norm,
-    opts,
-  );
-  const rb = computeTimingForFamily(
-    context,
-    region as RegionKey,
-    month,
-    zone,
-    season,
-    fb,
-    norm,
-    opts,
-  );
-  return blendTwoTimingResults(ra, rb, blend.t, month, zone, season, context, region as RegionKey);
+  return reconcileHeatStressTiming(context, norm, opts, result).result;
 }
 
 function buildResult(r: TimingResult): TimingResult {

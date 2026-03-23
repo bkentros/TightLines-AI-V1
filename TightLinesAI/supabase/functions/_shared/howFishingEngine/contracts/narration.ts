@@ -5,6 +5,7 @@
 import type { ActionableTipTag, DaypartNotePreset, TimingStrength } from "./tipsDaypart.ts";
 import type { EngineContext } from "./context.ts";
 import type { ScoreBand, ReportReliabilityTier } from "./report.ts";
+import type { TemperatureMetabolicContext } from "./variableState.ts";
 
 export type NarrationDriverEntry = {
   variable: string;
@@ -28,4 +29,12 @@ export type NarrationPayload = {
   timing_strength?: TimingStrength;
   reliability: ReportReliabilityTier;
   reliability_note_seed?: string | null;
+  /** Explicit metabolic story for the LLM (never invert vs temperature_band) */
+  temperature_metabolic_context: TemperatureMetabolicContext;
+  /** True when timing model says midday sun/heat is the wrong sell */
+  avoid_midday_for_heat: boolean;
+  /** Human labels aligned with highlighted_periods */
+  highlighted_dayparts_for_narration: string[];
+  /** Timing lane anchor after heat reconcile (for LLM audit) */
+  timing_anchor_driver: string | null;
 };

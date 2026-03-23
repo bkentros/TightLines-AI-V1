@@ -33,6 +33,8 @@ Deno.test("buildFromEnvData: daily temp and precip use current historical index"
   assertEquals(req.environment.day_minus_2_mean_air_temp_f, (highs[12]! + lows[12]!) / 2);
   assertEquals(req.environment.precip_24h_in, precip[14]);
   assertEquals(req.environment.precip_72h_in, Number((precip[12]! + precip[13]! + precip[14]!).toFixed(2)));
+  const sum7 = precip.slice(8, 15).reduce((a, b) => a + b, 0);
+  assertEquals(req.environment.precip_7d_in, sum7);
 });
 
 Deno.test("buildFromEnvData: pressure prefers provider 48hr slice over oversized hourly history", () => {

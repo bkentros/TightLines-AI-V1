@@ -91,8 +91,17 @@ const RUNOFF_TIPS = [
   "In these conditions, fish are relying on senses other than sight. Prioritize feel and sound over visual appeal.",
 ];
 
+// Heat-stress band (warm / very_warm with a negative net score) — NOT cold-water logic
+const TEMP_HOT_STRESS_TIPS = [
+  "Heat-stressed fish hug shade, depth, current seams, and anything that adds oxygen. Put a natural, easy meal in those lanes with a slower cadence and longer hangs — they won’t chase like they do in prime temps.",
+  "When the air mass is this warm for the date, think comfort zones: docks, wood, grass edges, drops into deeper water. Downsize a touch and fish it patiently — lethargy here is from heat, not winter lockjaw.",
+  "Warm water with a tough score usually means short commitment windows and picky fish. Work high-percentage cover, keep retrieves smooth and easy to track, and let pauses do the convincing.",
+  "Bright, hot setups reward finesse in the right water: less line slap, smaller or subtler profiles, and presentations they can intercept without a long chase.",
+  "If the model says heat is the headwind, target the most stable, oxygenated water you can find and fish it thoroughly — one good refuge beats racing sun-baked flats.",
+];
+
 // Cold band temp → fish metabolism genuinely slow, finesse-first tactics
-// Only fires when temperature IS a suppressor with a cold/very_cold band_label
+// Only when temperature IS a suppressor AND band is cool / very_cold (never warm/very_warm)
 const TEMP_COLD_TIPS = [
   "Cold water means slow fish — match that energy with a slower retrieve and extended pauses. They'll eat, just not on your timeline.",
   "Fish are running on low-idle right now. Deliberate, finesse presentations out-earn anything aggressive.",
@@ -190,8 +199,17 @@ export function buildActionableTip(
     actionable_tip = pick(LIGHT_BRIGHT_TIPS);
     actionable_tip_tag = "lean_into_top_driver";
   } else if (topSuppressor?.key === "temperature_condition" && topSuppressor.score < 0) {
-    actionable_tip = pick(TEMP_COLD_TIPS);
-    actionable_tip_tag = "temperature_intraday_flex";
+    const tb = norm.temperature?.band_label;
+    if (tb === "very_warm" || tb === "warm") {
+      actionable_tip = pick(TEMP_HOT_STRESS_TIPS);
+      actionable_tip_tag = "temperature_intraday_flex";
+    } else if (tb === "very_cold" || tb === "cool") {
+      actionable_tip = pick(TEMP_COLD_TIPS);
+      actionable_tip_tag = "temperature_intraday_flex";
+    } else {
+      actionable_tip = pick(GENERAL_FLEXIBILITY_TIPS);
+      actionable_tip_tag = "general_flexibility";
+    }
   } else if (topDriver?.key === "temperature_condition" && topDriver.score > 0) {
     actionable_tip = pick(TEMP_ACTIVE_TIPS);
     actionable_tip_tag = "temperature_intraday_flex";

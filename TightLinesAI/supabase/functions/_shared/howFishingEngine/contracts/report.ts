@@ -4,7 +4,12 @@
 
 import type { ActionableTipTag, DaypartNotePreset, TimingStrength } from "./tipsDaypart.ts";
 import type { EngineContext } from "./context.ts";
-import type { TemperatureBandLabel, TrendLabel, ShockLabel } from "./variableState.ts";
+import type {
+  TemperatureBandLabel,
+  TemperatureMetabolicContext,
+  TrendLabel,
+  ShockLabel,
+} from "./variableState.ts";
 
 export type ScoreBand = "Poor" | "Fair" | "Good" | "Excellent";
 
@@ -86,6 +91,11 @@ export type HowsFishingReport = {
     region_key: string;
     available_variables: string[];
     missing_variables: string[];
+    temperature_metabolic_context: TemperatureMetabolicContext;
+    /** When true, summary/timing language must not praise midday as the best window */
+    avoid_midday_for_heat: boolean;
+    /** e.g. ["dawn","evening"] — matches highlighted_periods on the report */
+    highlighted_dayparts_for_narration: string[];
   };
 };
 

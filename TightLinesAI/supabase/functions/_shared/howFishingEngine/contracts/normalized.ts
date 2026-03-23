@@ -13,7 +13,9 @@ export type ReliabilityTierNormalized = "high" | "medium" | "low";
 export type VariableDataGapReason =
   | "absent"
   | "insufficient_history"
-  | "not_applicable_context";
+  | "not_applicable_context"
+  /** River: runoff needs 24h + 72h + 7d precip totals together — partial fields are not imputed */
+  | "incomplete_precip_windows";
 
 export type VariableDataGap = {
   variable_key: ScoredVariableKey;

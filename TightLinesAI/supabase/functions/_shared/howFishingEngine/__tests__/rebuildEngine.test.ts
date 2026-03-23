@@ -128,6 +128,12 @@ Deno.test("runoff: florida more tolerant than northeast for same totals", () => 
   assertEquals(ne!.label, "slightly_elevated");
 });
 
+Deno.test("runoff: requires 24h + 72h + 7d together — no imputed zeros", () => {
+  assertEquals(normalizeRunoff("northeast", 0.2, null, 0.5), null);
+  assertEquals(normalizeRunoff("northeast", null, 0.2, 0.5), null);
+  assertEquals(normalizeRunoff("northeast", 0.2, 0.2, null), null);
+});
+
 Deno.test("band mapping exact thresholds", () => {
   assertEquals(bandFromScore(0), "Poor");
   assertEquals(bandFromScore(39), "Poor");
@@ -300,6 +306,32 @@ Deno.test("buildNormalized: <3 variables -> low reliability", () => {
   assertEquals(n.reliability, "low");
 });
 
+Deno.test("buildNormalized: river with only 24h+72h precip omits runoff and tags incomplete_precip_windows", () => {
+  const n = buildSharedNormalizedOutput({
+    latitude: 44.9,
+    longitude: -93.2,
+    state_code: "MN",
+    region_key: "great_lakes_upper_midwest",
+    local_date: "2025-06-10",
+    local_timezone: "America/Chicago",
+    context: "freshwater_river",
+    environment: {
+      daily_mean_air_temp_f: 68,
+      prior_day_mean_air_temp_f: 65,
+      day_minus_2_mean_air_temp_f: 62,
+      pressure_history_mb: Array.from({ length: 24 }, () => 1014),
+      wind_speed_mph: 8,
+      cloud_cover_pct: 45,
+      precip_24h_in: 0.1,
+      precip_72h_in: 0.3,
+    },
+    data_coverage: {},
+  });
+  assert(n.missing_variables.includes("runoff_flow_disruption"));
+  const g = n.data_gaps.find((x) => x.variable_key === "runoff_flow_disruption");
+  assertEquals(g?.reason, "incomplete_precip_windows");
+});
+
 Deno.test("buildActionableTip: positive temp driver → active tip", () => {
   const norm = minimalNorm();
   const driver = {
@@ -317,6 +349,62 @@ Deno.test("buildActionableTip: positive temp driver → active tip", () => {
   );
   // With a positive temp driver, the tip should be from TEMP_ACTIVE_TIPS
   assert(b.actionable_tip_tag === "temperature_intraday_flex");
+});
+
+Deno.test("buildActionableTip: heat suppressor (very_warm) never uses cold-water pool", () => {
+  const n = minimalNorm({
+    temperature: {
+      context_group: "freshwater",
+      band_label: "very_warm",
+      band_score: -1,
+      trend_label: "warming",
+      trend_adjustment: 0,
+      shock_label: "sharp_warmup",
+      shock_adjustment: -1,
+      final_score: -2,
+    },
+  });
+  const sup = {
+    key: "temperature_condition" as const,
+    score: -2 as const,
+    label: "",
+    weight: 40,
+    weightedContribution: -80,
+  };
+  for (let i = 0; i < 20; i++) {
+    const b = buildActionableTip("freshwater_lake_pond", undefined, sup, n.normalized);
+    assert(!/\bcold water\b/i.test(b.actionable_tip), b.actionable_tip);
+  }
+});
+
+Deno.test("timing: hot south_central March — avoid_heat rescues when winter-family drivers miss", () => {
+  const r = runHowFishingReport({
+    latitude: 34.7465,
+    longitude: -92.2896,
+    state_code: "AR",
+    region_key: "south_central",
+    local_date: "2026-03-26",
+    local_timezone: "America/Chicago",
+    context: "freshwater_lake_pond",
+    environment: {
+      daily_mean_air_temp_f: 75,
+      prior_day_mean_air_temp_f: 55,
+      day_minus_2_mean_air_temp_f: 50,
+      pressure_history_mb: Array.from({ length: 24 }, () => 1015),
+      wind_speed_mph: 6,
+      cloud_cover_pct: 0,
+      precip_24h_in: 0,
+      precip_72h_in: 0,
+      precip_7d_in: 0.1,
+      hourly_air_temp_f: [
+        63, 62, 62, 61, 61, 60, 60, 61, 64, 68, 72, 75, 78, 81, 84, 86, 86, 85, 82, 78, 75, 73, 71, 68,
+      ],
+      hourly_cloud_cover_pct: Array(24).fill(0),
+    },
+    data_coverage: {},
+  });
+  assertEquals(r.daypart_preset, "early_late_low_light");
+  assertEquals(r.highlighted_periods, [true, false, false, true]);
 });
 
 Deno.test("temperature: at ±2 band, trend nudge not applied (table dominates)", () => {

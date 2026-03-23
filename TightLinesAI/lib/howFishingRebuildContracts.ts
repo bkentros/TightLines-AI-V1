@@ -45,6 +45,8 @@ export type DaypartNotePreset =
 /** Timing recommendation confidence — independent of daily score band */
 export type TimingStrength = 'very_strong' | 'strong' | 'good' | 'fair_default';
 
+export type TemperatureMetabolicContext = 'heat_limited' | 'cold_limited' | 'neutral';
+
 export const HOWS_FISHING_REBUILD_FEATURE = 'hows_fishing_rebuild_v1' as const;
 
 export interface HowsFishingReportV1 {
@@ -80,6 +82,21 @@ export interface HowsFishingReportV1 {
     available_variables: string[];
     missing_variables: string[];
     data_gaps?: Array<{ variable_key: string; reason: string }>;
+  };
+  /** Engine + LLM narration hints (optional on older cached bundles) */
+  condition_context?: {
+    temperature_band: string;
+    temperature_trend: string;
+    temperature_shock: string;
+    region_key: string;
+    available_variables: string[];
+    missing_variables: string[];
+    temperature_metabolic_context: TemperatureMetabolicContext;
+    avoid_midday_for_heat: boolean;
+    highlighted_dayparts_for_narration: string[];
+    pressure_detail?: string | null;
+    wind_detail?: string | null;
+    tide_detail?: string | null;
   };
 }
 
