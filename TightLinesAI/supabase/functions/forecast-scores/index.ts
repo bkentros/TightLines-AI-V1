@@ -141,6 +141,12 @@ Deno.serve(async (req: Request) => {
   const hourlyCloud = ((hourly.cloud_cover ?? []) as (number | null)[]).map(
     (v) => num(v) ?? 0,
   );
+  // wind_speed_10m is already in the hourly request — use it for daily mean wind
+  // instead of wind_speed_10m_max (daily peak), which overstates suppression vs
+  // the point-in-time wind a live report would use.
+  const hourlyWind = ((hourly.wind_speed_10m ?? []) as (number | null)[]).map(
+    (v) => num(v) ?? 0,
+  );
 
   const { state_code, region_key } = resolveRegionForCoordinates(latitude, longitude);
 
@@ -161,13 +167,20 @@ Deno.serve(async (req: Request) => {
     const pressureSlice = hourlyPressure.slice(pressureStart, noonHourlyIdx + 1);
     const pressureNoon = safeNum(hourlyPressure, noonHourlyIdx);
 
-    // Mean cloud cover for the target day
+    // Mean cloud cover and mean wind speed for the target day
+    // (24-hour mean is more representative of angler conditions than the daily peak)
     const cloudStart = dailyIdx * 24;
     const cloudSlice = hourlyCloud.slice(cloudStart, cloudStart + 24);
     const cloudMean =
       cloudSlice.length > 0
         ? cloudSlice.reduce((a, b) => a + b, 0) / cloudSlice.length
         : null;
+
+    const windSlice = hourlyWind.slice(cloudStart, cloudStart + 24);
+    const windMean =
+      windSlice.length > 0
+        ? windSlice.reduce((a, b) => a + b, 0) / windSlice.length
+        : safeNum(dailyWindMax, dailyIdx);
 
     // Precipitation totals (mm → inches)
     const precip24h =
@@ -208,7 +221,7 @@ Deno.serve(async (req: Request) => {
             dailyIdx > 1 ? dailyMean(dailyHighs, dailyLows, dailyIdx - 2) : null,
           pressure_mb: pressureNoon,
           pressure_history_mb: pressureSlice.length >= 2 ? pressureSlice : null,
-          wind_speed_mph: safeNum(dailyWindMax, dailyIdx),
+          wind_speed_mph: windMean,
           cloud_cover_pct: cloudMean,
           precip_24h_in: precip24h,
           precip_72h_in: precip72h,
