@@ -30,7 +30,7 @@ const RIVER: Record<RegionKey, RiverR> = {
   mountain_west: { t: 1, p: 0, w: 0, l: 0, r: 1 },
   southwest_desert: { t: 0, p: 0, w: 0, l: 0, r: 2 },
   southwest_high_desert: { t: 0, p: 0, w: 0, l: 0, r: 2 },
-  pacific_northwest: { t: 0, p: 0, w: 0, l: 0, r: 2 },
+  pacific_northwest: { t: 0, p: 0, w: 0, l: 0, r: 1 },
   southern_california: { t: 0, p: 0, w: 0, l: 0, r: 2 },
 };
 

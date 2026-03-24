@@ -10,6 +10,7 @@
     "start:dev-client:tunnel": "expo start --dev-client --tunnel",
     "start:dev-client:tunnel:clear": "expo start --dev-client --tunnel --clear",
     "start:dev-client:with-tunnel-host": "bash scripts/expo-metro-via-tunnel-host.sh",
+    "audit:how-fishing": "deno run --allow-read --allow-write scripts/how-fishing-audit/run-audit.ts",
     "android": "expo run:android",
     "ios": "expo run:ios",
     "web": "expo start --web"

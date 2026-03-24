@@ -1,0 +1,80 @@
+[
+  {
+    "id": "boise-lake-synthetic-2025-09-03",
+    "notes": "Replace env_data with a real get-environment-shaped payload or Open-Meteo–mapped history for this date.",
+    "latitude": 43.615,
+    "longitude": -116.2023,
+    "local_date": "2025-09-03",
+    "local_timezone": "America/Boise",
+    "context": "freshwater_lake_pond",
+    "env_data": {
+      "timezone": "America/Boise",
+      "weather": {
+        "temperature": 78,
+        "pressure": 1012,
+        "wind_speed": 6,
+        "cloud_cover": 25,
+        "precipitation": 0,
+        "pressure_48hr": [1014, 1012],
+        "temp_7day_high": [82, 81, 80, 79, 78, 77, 76, 75, 74, 73, 72, 71, 70, 79, 78],
+        "temp_7day_low": [58, 57, 56, 55, 54, 53, 52, 51, 50, 49, 48, 47, 46, 55, 54],
+        "precip_7day_daily": [0, 0, 0, 0.1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+      },
+      "sun": { "sunrise": "06:45", "sunset": "20:10" }
+    }
+  },
+  {
+    "id": "charleston-coastal-synthetic",
+    "latitude": 32.7765,
+    "longitude": -79.9311,
+    "local_date": "2025-06-15",
+    "local_timezone": "America/New_York",
+    "context": "coastal",
+    "env_data": {
+      "timezone": "America/New_York",
+      "weather": {
+        "temperature": 85,
+        "pressure": 1018,
+        "wind_speed": 12,
+        "cloud_cover": 60,
+        "precipitation": 0,
+        "pressure_48hr": [1019, 1018],
+        "temp_7day_high": [86, 85, 84, 83, 82, 81, 80, 79, 78, 77, 76, 75, 74, 84, 85],
+        "temp_7day_low": [72, 71, 70, 69, 68, 67, 66, 65, 64, 63, 62, 61, 60, 70, 71],
+        "precip_7day_daily": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+      },
+      "sun": { "sunrise": "06:05", "sunset": "20:25" },
+      "tides": {
+        "station_id": "8665530",
+        "phase": "rising",
+        "high_low": [
+          { "time": "06:00", "type": "H", "value": 5.2 },
+          { "time": "12:30", "type": "L", "value": 0.8 }
+        ]
+      }
+    }
+  },
+  {
+    "id": "missouri-river-synthetic",
+    "latitude": 38.627,
+    "longitude": -90.1994,
+    "local_date": "2025-03-20",
+    "local_timezone": "America/Chicago",
+    "context": "freshwater_river",
+    "env_data": {
+      "timezone": "America/Chicago",
+      "weather": {
+        "temperature": 52,
+        "pressure": 1005,
+        "wind_speed": 18,
+        "cloud_cover": 90,
+        "precipitation": 2,
+        "pressure_48hr": [1008, 1005],
+        "temp_7day_high": [55, 54, 53, 52, 51, 50, 48, 47, 46, 45, 44, 43, 42, 50, 52],
+        "temp_7day_low": [38, 37, 36, 35, 34, 33, 32, 31, 30, 29, 28, 27, 26, 33, 35],
+        "precip_7day_daily": [0.2, 0.1, 0, 0.5, 1.2, 0.3, 0, 0, 0, 0, 0, 0, 0, 0.4, 0.8]
+      },
+      "sun": { "sunrise": "07:00", "sunset": "19:15" }
+    }
+  }
+]

@@ -81,6 +81,13 @@ const POOLS: Record<string, string[]> = {
     "Clouds aren’t symmetric today — one dawn or dusk window has the real light edge. Stack your plan on that side of the clock.",
   ],
 
+  cloud_window_midday: [
+    "There's a cloud window that softens the sun for a stretch — fish are more likely to roam and feed when that low-light cover moves through.",
+    "A multi-hour cloud block breaks up the glare today. That window is your best shot for active, surface-oriented fish.",
+    "The cloud bank rolls through during this part of the day — softer light, less sky pressure, better bite window.",
+    "Low-light cover holds for a stretch today. Take advantage of that window while it lasts.",
+  ],
+
   cloud_extended_shaped: [
     "Overcast isn’t even all day — the thickest cloud (softest light) concentrates in these windows. Fish those harder than the brighter gaps in between.",
     "Hourly cloud shows where low-light really hangs around. Target those stretches instead of treating the whole day as identical.",

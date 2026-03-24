@@ -20,8 +20,10 @@ import type {
 } from "../timingTypes.ts";
 import {
   collapseTrueDaypartsToTopByScore,
+  daypartIndexFromClockHour,
   daypartMeansForSeries,
   meanInHourRange,
+  singleDaypart,
 } from "../daypartHourly.ts";
 
 export type LightMode = "low_light_geometry" | "cloud_extended_low_light";
@@ -50,6 +52,41 @@ export function evaluateLightWindow(
 
 function meanFishableCloud(hourly: number[]): number | null {
   return meanInHourRange(hourly, FISHABLE_CLOUD_LO, FISHABLE_CLOUD_HI);
+}
+
+/**
+ * Scan for 3+ consecutive fishing hours (7–19) where cloud cover ≥ threshold.
+ * Returns the center hour of the longest qualifying block, or null if none found.
+ */
+function findConsecutiveCloudWindowHour(
+  hourly: number[],
+  minHours = 3,
+  threshold = 65,
+): number | null {
+  let bestStart = -1;
+  let bestLen = 0;
+  let curStart = -1;
+  let curLen = 0;
+
+  const lo = 7;
+  const hi = Math.min(hourly.length - 1, 19);
+
+  for (let h = lo; h <= hi; h++) {
+    if ((hourly[h] ?? 0) >= threshold) {
+      if (curStart === -1) curStart = h;
+      curLen++;
+      if (curLen > bestLen) {
+        bestStart = curStart;
+        bestLen = curLen;
+      }
+    } else {
+      curStart = -1;
+      curLen = 0;
+    }
+  }
+
+  if (bestLen < minHours) return null;
+  return Math.round(bestStart + bestLen / 2);
 }
 
 function evaluateLowLightGeometry(
@@ -160,12 +197,28 @@ function evaluateCloudExtended(
   if (hourly && hourly.length >= HOURLY_MIN_LEN) {
     const fishMean = meanFishableCloud(hourly);
     const dailyOvercast = cloudPct != null && cloudPct >= 70;
-    // Hourly curve disagrees with a “not overcast” daily average — don’t force extended
+    // Hourly curve disagrees with a “not overcast” daily average — but first check
+    // for a 3+ hour consecutive cloud window during fishing hours. Even on a mostly-
+    // clear day a cloud block suppresses glare and can trigger a feeding window.
     if (
       fishMean !== null &&
       fishMean < 55 &&
       !dailyOvercast
     ) {
+      const windowCenterHour = findConsecutiveCloudWindowHour(hourly);
+      if (windowCenterHour !== null) {
+        const dp = daypartIndexFromClockHour(windowCenterHour);
+        return {
+          driver_id: “cloud_extended_low_light”,
+          role: “anchor”,
+          strength: “good”,
+          periods: singleDaypart(dp),
+          note_pool_key: “cloud_window_midday”,
+          debug_reason:
+            `cloud_window: 3+ consecutive hrs ≥65% cloud found, center h=${windowCenterHour} ` +
+            `→ daypart=${[“dawn”, “morning”, “afternoon”, “evening”][dp]}; fishMean=${fishMean?.toFixed(0) ?? “n/a”}%`,
+        };
+      }
       return null;
     }
 

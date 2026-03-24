@@ -119,7 +119,29 @@ function evaluateSeekWarmth(
     dayDelta !== null && dayDelta >= MODERATE_DAY_OVER_DAY_WARM_F;
 
   if (!sharpWarmup && !warming72 && !moderateDayRise) {
-    return null;
+    // On a stable very-cold day with no warming signal, fish still gravitate to the
+    // warmest water at midday even without a temperature rise. Guide anglers there at
+    // lower confidence rather than cascading to light/fallback.
+    if (band_label !== "very_cold") return null;
+
+    const stableHourly = opts.hourly_air_temp_f;
+    let stablePeriods: DaypartFlags;
+    if (stableHourly && stableHourly.length >= 12) {
+      const intraday = periodsFromHourlyWarmth(stableHourly);
+      stablePeriods = intraday ?? [false, false, true, false];
+    } else {
+      stablePeriods = [false, false, true, false]; // afternoon default
+    }
+    return {
+      driver_id: "seek_warmth",
+      role: "anchor",
+      strength: "good",
+      periods: stablePeriods,
+      note_pool_key: "warmest_window",
+      debug_reason:
+        `seek_warmth: stable very_cold (no spike/trend/rise), band=${band_label}; ` +
+        `warmest midday window — fish seek heat at coldest temps regardless of trend.`,
+    };
   }
 
   let strength: TimingStrength;

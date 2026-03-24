@@ -27,6 +27,10 @@ android/
 .vscode/
 .idea/
 
+# One-off engine QA output (see npm run audit:how-fishing)
+how-fishing-audit-results.jsonl
+how-fishing-live-audit-results.jsonl
+
 # Logs
 npm-debug.log*
 yarn-debug.log*
