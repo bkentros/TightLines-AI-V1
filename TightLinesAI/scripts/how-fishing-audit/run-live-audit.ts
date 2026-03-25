@@ -16,6 +16,10 @@
  *     scripts/how-fishing-audit/run-live-audit.ts \
  *     scripts/how-fishing-audit/scenarios-live.json \
  *     how-fishing-live-audit-results.jsonl
+ *
+ * Shared audit scenarios (altitude + explicit region_key, same list as alpine-norCal Part B):
+ *   deno run --allow-net --allow-read --allow-write \
+ *     scripts/how-fishing-audit/run-live-audit.ts --audit-bundle [out.jsonl]
  */
 
 import { dirname, join } from "jsr:@std/path";
@@ -24,12 +28,14 @@ import {
   buildSharedEngineRequestFromEnvData,
   runHowFishingReport,
 } from "../../supabase/functions/_shared/howFishingEngine/index.ts";
+import type { SharedEngineRequest } from "../../supabase/functions/_shared/howFishingEngine/contracts/mod.ts";
 import type { EngineContext } from "../../supabase/functions/_shared/howFishingEngine/contracts/context.ts";
 import { fetchArchiveWeather } from "./lib/fetchArchiveWeather.ts";
 import { fetchSunriseSunset } from "./lib/fetchSunriseSunset.ts";
 import { fetchUSNOMoon } from "./lib/fetchUSNOMoon.ts";
 import { fetchNOAATides } from "./lib/fetchNOAATides.ts";
 import { mapArchiveToEnvData } from "./lib/mapEnvData.ts";
+import { AUDIT_SCENARIOS, type AuditScenario } from "./auditScenarios.ts";
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
@@ -42,7 +48,28 @@ type LiveScenario = {
   local_date: string;    // YYYY-MM-DD
   context: EngineContext;
   tide_station_id?: string | null;
+  /** Passed through env_data for buildFromEnvData altitude / sub-region rules */
+  altitude_ft?: number;
+  /** Audit-only: force region after auto-resolve (matches alpine-norCal-sweep Part B) */
+  region_key?: string;
+  expect_band?: string;
 };
+
+function auditScenarioToLive(s: AuditScenario): LiveScenario {
+  return {
+    id: s.id,
+    notes: s.notes,
+    lat: s.latitude,
+    lon: s.longitude,
+    local_timezone: s.local_timezone,
+    local_date: s.local_date,
+    context: s.context,
+    tide_station_id: s.tide_station_id ?? null,
+    altitude_ft: s.altitude_ft,
+    region_key: s.region_key,
+    expect_band: s.expect_band,
+  };
+}
 
 const CONTEXTS: EngineContext[] = [
   "freshwater_lake_pond",
@@ -54,14 +81,27 @@ const CONTEXTS: EngineContext[] = [
 
 const auditDir = dirname(fromFileUrl(import.meta.url));
 const defaultScenarios = join(auditDir, "scenarios-live.json");
-const scenariosPath = Deno.args[0] ?? defaultScenarios;
-const outPath = Deno.args[1] ?? "how-fishing-live-audit-results.jsonl";
+
+const flags = Deno.args.filter((a) => a.startsWith("--"));
+const pos = Deno.args.filter((a) => !a.startsWith("--"));
+const useAuditBundle = flags.includes("--audit-bundle");
+
+const scenariosPath = useAuditBundle ? null : (pos[0] ?? defaultScenarios);
+const outPath = useAuditBundle
+  ? (pos[0] ?? "how-fishing-live-audit-results.jsonl")
+  : (pos[1] ?? "how-fishing-live-audit-results.jsonl");
 
 // ── Load scenarios ────────────────────────────────────────────────────────────
 
-const raw = await Deno.readTextFile(scenariosPath);
-const scenarios = JSON.parse(raw) as LiveScenario[];
-console.log(`Loaded ${scenarios.length} scenarios from ${scenariosPath}`);
+const scenarios: LiveScenario[] = useAuditBundle
+  ? AUDIT_SCENARIOS.map(auditScenarioToLive)
+  : JSON.parse(await Deno.readTextFile(scenariosPath!)) as LiveScenario[];
+
+console.log(
+  useAuditBundle
+    ? `Loaded ${scenarios.length} scenarios from audit bundle (auditScenarios.ts)`
+    : `Loaded ${scenarios.length} scenarios from ${scenariosPath}`,
+);
 console.log(`Output → ${outPath}\n`);
 
 await Deno.writeTextFile(outPath, ""); // clear/create output file
@@ -106,7 +146,7 @@ for (const s of scenarios) {
     }
 
     // 3. Map to env_data shape
-    const env_data = mapArchiveToEnvData(
+    let env_data: Record<string, unknown> = mapArchiveToEnvData(
       archive,
       s.local_date,
       archive.timezone,
@@ -114,9 +154,12 @@ for (const s of scenarios) {
       moon,
       tides ?? null,
     );
+    if (s.altitude_ft != null) {
+      env_data = { ...env_data, altitude_ft: s.altitude_ft };
+    }
 
     // 4. Run engine (deterministic — no LLM)
-    const req = buildSharedEngineRequestFromEnvData(
+    const reqAuto = buildSharedEngineRequestFromEnvData(
       s.lat,
       s.lon,
       s.local_date,
@@ -125,12 +168,19 @@ for (const s of scenarios) {
       env_data,
       0,
     );
+    const req: SharedEngineRequest = s.region_key
+      ? {
+        ...reqAuto,
+        region_key: s.region_key as SharedEngineRequest["region_key"],
+      }
+      : reqAuto;
     const report = runHowFishingReport(req);
 
     // 5. Write JSONL line
     const line = JSON.stringify({
       id: s.id,
       notes: s.notes ?? null,
+      expect_band: s.expect_band ?? null,
       input: {
         latitude: s.lat,
         longitude: s.lon,
@@ -138,6 +188,8 @@ for (const s of scenarios) {
         local_timezone: s.local_timezone,
         context: s.context,
         region_key: req.region_key,
+        auto_region_key: reqAuto.region_key,
+        explicit_region_key: s.region_key ?? null,
         state_code: req.state_code,
         environment: req.environment,
         data_coverage: req.data_coverage,

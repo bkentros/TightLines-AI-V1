@@ -9,7 +9,8 @@
  *   or where monotonic order is violated.
  *
  * PART B — REAL-WEATHER SCENARIOS (live API calls)
- *   20 targeted scenarios:
+ *   50+ targeted scenarios (alpine months, NorCal fall/winter, coastal prime stacks,
+ *   sweep-anchor regions, Appalachian / Hells Canyon gaps):
  *     - New alpine region across all seasons (Dillon Reservoir CO, Yellowstone Lake WY, Tahoe CA)
  *     - New NorCal region (Lake Shasta, Sacramento River, Bodega Bay)
  *     - Coastal "should be Excellent" validation with prime-condition dates
@@ -20,11 +21,18 @@
  *     alpine-norCal-sweep-results.jsonl
  */
 
+import { buildSharedEngineRequestFromEnvData } from "../../supabase/functions/_shared/howFishingEngine/request/buildFromEnvData.ts";
 import {
   runHowFishingReport,
 } from "../../supabase/functions/_shared/howFishingEngine/index.ts";
 import type { SharedEngineRequest } from "../../supabase/functions/_shared/howFishingEngine/contracts/mod.ts";
 import { CANONICAL_REGION_KEYS } from "../../supabase/functions/_shared/howFishingEngine/contracts/region.ts";
+import { AUDIT_SCENARIOS, type AuditScenario } from "./auditScenarios.ts";
+import { fetchArchiveWeather } from "./lib/fetchArchiveWeather.ts";
+import { mapArchiveToEnvData } from "./lib/mapEnvData.ts";
+import { fetchSunriseSunset } from "./lib/fetchSunriseSunset.ts";
+import { fetchUSNOMoon } from "./lib/fetchUSNOMoon.ts";
+import { fetchNOAATides } from "./lib/fetchNOAATides.ts";
 
 const outPath = Deno.args[0] ?? "alpine-norCal-sweep-results.jsonl";
 const enc = new TextEncoder();
@@ -37,7 +45,8 @@ type WeatherMood = "excellent" | "good" | "fair" | "poor";
  * Build a synthetic SharedEngineRequest for a given region/month/context/mood.
  * No real weather data — uses idealized inputs to test engine calibration.
  *
- * Pressure series: 48 values, shaped to represent the mood's pressure trend.
+ * Pressure series: 48 hourly samples; moods tuned to normalizePressure buckets (E: falling_slow,
+ * G: falling_moderate, F: rising_slow). Cloud % kept in “mixed” band so light scoring does not invert G<F.
  * Temp: mid-band for the month (derived from regional knowledge, not from DB lookup).
  */
 function buildSyntheticRequest(
@@ -90,39 +99,34 @@ function buildSyntheticRequest(
   const tempBase = (REGION_MONTH_TEMPS[region] ?? REGION_MONTH_TEMPS.midwest_interior!)[month - 1]!;
 
   // ── Temperature by mood ──
-  // excellent: land in optimal band (center)
-  // good: same but with moderate wind/pressure deviation
-  // fair: slightly cool or warm (edge of optimal)
-  // poor: cold extreme or hot extreme
-  const tempByMood: Record<WeatherMood, number> = {
-    excellent: tempBase,
-    good: tempBase,
-    fair: tempBase - 8,    // cooler than optimal (not terrible)
-    poor: tempBase - 20,   // genuinely cold (winter) or apply heat stress
-  };
-
-  // For summer poor_day, use heat stress instead of cold
+  // Cold season: fair a few °F below prime. Summer: tempBase from REGION_MONTH_TEMPS often
+  // lands on a band-table fence (e.g. midwest Jul 78°F = “cool” ceiling) so prime moods
+  // score −1 while fair at tempBase+6 could score optimal +1. Nudge E/G into the optimal
+  // heart (+3°F) and fair farther into warm stress (+10°F).
   const isSummerMonth = month >= 6 && month <= 8;
+  const summerPrimeNudge = isSummerMonth ? 3 : 0;
   const poorTemp = isSummerMonth ? tempBase + 15 : tempBase - 20;
-
+  const fairTemp = isSummerMonth ? tempBase + 10 : tempBase - 8;
   const tempF: Record<WeatherMood, number> = {
-    excellent: tempBase,
-    good: tempBase,
-    fair: tempBase - 8,
+    excellent: tempBase + summerPrimeNudge,
+    good: tempBase + summerPrimeNudge,
+    fair: fairTemp,
     poor: poorTemp,
   };
 
-  // ── Pressure series: 48 readings shaped to mood ──
+  // ── Pressure series: 48 hourly samples (~48h window). Engine uses latest−oldest
+  // (normalizePressure.ts): falling_slow +2 when |Δ|∈(0.5,4], falling_moderate +1
+  // when |Δ|∈(4,6], stable 0, rising_slow +1 for modest rises.
   function buildPressureSeries(mood: WeatherMood): number[] {
     const base = 1013;
     const n = 48;
     const series: number[] = [];
     if (mood === "excellent") {
-      // Slow steady fall: -2.5mb over 48h — classic feeding trigger
+      // −2.5 mb → falling_slow (+2)
       for (let i = 0; i < n; i++) series.push(base - i * (2.5 / (n - 1)));
     } else if (mood === "good") {
-      // Stable: flat within ±0.5mb
-      for (let i = 0; i < n; i++) series.push(base + Math.sin(i / 8) * 0.3);
+      // −4.5 mb → falling_moderate (+1), below excellent on pressure
+      for (let i = 0; i < n; i++) series.push(base - i * (4.5 / (n - 1)));
     } else if (mood === "fair") {
       // Slow rise: post-front recovery, fish still adjusting
       for (let i = 0; i < n; i++) series.push(base - 2 + i * (2.5 / (n - 1)));
@@ -144,12 +148,13 @@ function buildSyntheticRequest(
     poor: 28,       // strong: -2
   };
 
-  // ── Cloud by mood ──
+  // ── Cloud by mood (normalizeLight: 26–69% = mixed/0; <25 = bright/glare -1; 70+ = +1/+2)
+  // Good/fair must stay in "mixed" or good ends up worse than fair on light alone.
   const cloudByMood: Record<WeatherMood, number> = {
-    excellent: 40,   // partly cloudy: optimal
-    good: 20,        // mostly clear: mild glare
-    fair: 80,        // overcast: flat light
-    poor: 0,         // clear sky (bluebird) or fully overcast — both can suppress
+    excellent: 40,   // mixed (0): prime without handing fair a +1 tier
+    good: 45,        // mixed (0): not bright/glare (avoid systematic G<F inversions)
+    fair: 65,        // mixed (0): duller than good but not 70%+ low_light (+1)
+    poor: 0,         // glare (-1)
   };
 
   // ── Precip ──
@@ -338,329 +343,8 @@ console.log("\n═════════════════════�
 console.log("  PART B — REAL-WEATHER SCENARIOS (live API)");
 console.log("═══════════════════════════════════════════════════════════════\n");
 
-type ScenarioDef = {
-  id: string;
-  notes: string;
-  latitude: number;
-  longitude: number;
-  local_date: string;
-  local_timezone: string;
-  context: "freshwater_lake_pond" | "freshwater_river" | "coastal";
-  region_key: string;
-  state_code: string;
-  altitude_ft?: number;
-  tide_station_id?: string;
-  expect_band?: string;
-};
 
-const SCENARIOS: ScenarioDef[] = [
-
-  // ── mountain_alpine region scenarios ──────────────────────────────────────
-  // Dillon Reservoir CO (9,017ft) — confirms altitude override to mountain_alpine
-
-  {
-    id: "alpine-dillon-co-lake-sep",
-    notes: "SHOULD BE GOOD+: Prime fall kokanee Dillon Reservoir CO (9,017ft) — Sep bite window before Oct freeze",
-    latitude: 39.63, longitude: -106.07,
-    local_date: "2024-09-07", local_timezone: "America/Denver",
-    context: "freshwater_lake_pond", region_key: "mountain_alpine", state_code: "CO",
-    altitude_ft: 9017, expect_band: "Good",
-  },
-  {
-    id: "alpine-dillon-co-lake-jun",
-    notes: "SHOULD BE GOOD+: Post-ice-out Dillon Reservoir CO — Jun brown trout prime, cold clear water",
-    latitude: 39.63, longitude: -106.07,
-    local_date: "2024-06-08", local_timezone: "America/Denver",
-    context: "freshwater_lake_pond", region_key: "mountain_alpine", state_code: "CO",
-    altitude_ft: 9017, expect_band: "Good",
-  },
-  {
-    id: "alpine-dillon-co-river-aug",
-    notes: "Blue River CO (feeds Dillon, 9,000ft) — Aug cutthroat dry fly, low runoff, clear water",
-    latitude: 39.60, longitude: -106.05,
-    local_date: "2024-08-10", local_timezone: "America/Denver",
-    context: "freshwater_river", region_key: "mountain_alpine", state_code: "CO",
-    altitude_ft: 9000, expect_band: "Good",
-  },
-  {
-    id: "alpine-dillon-co-lake-jan",
-    notes: "Ice fishing Dillon Reservoir CO Jan — should score Poor (frozen/ice fishing only)",
-    latitude: 39.63, longitude: -106.07,
-    local_date: "2024-01-13", local_timezone: "America/Denver",
-    context: "freshwater_lake_pond", region_key: "mountain_alpine", state_code: "CO",
-    altitude_ft: 9017, expect_band: "Poor",
-  },
-  {
-    id: "alpine-yellowstone-lake-wy-sep",
-    notes: "SHOULD BE GOOD+: Yellowstone Lake WY (7,733ft) — Sep cutthroat prime after summer crowds leave",
-    latitude: 44.45, longitude: -110.37,
-    local_date: "2024-09-12", local_timezone: "America/Denver",
-    context: "freshwater_lake_pond", region_key: "mountain_alpine", state_code: "WY",
-    altitude_ft: 7733, expect_band: "Good",
-  },
-  {
-    id: "alpine-yellowstone-river-wy-jul",
-    notes: "Firehole/Madison River WY (7,300ft) — Jul dry fly; classic Yellowstone summer window",
-    latitude: 44.56, longitude: -110.82,
-    local_date: "2024-07-13", local_timezone: "America/Denver",
-    context: "freshwater_river", region_key: "mountain_alpine", state_code: "WY",
-    altitude_ft: 7300, expect_band: "Good",
-  },
-  {
-    id: "alpine-tahoe-ca-lake-oct",
-    notes: "Lake Tahoe CA (6,225ft) — Oct mackinaw (lake trout) prime; confirms NorCal+altitude → mountain_alpine override",
-    latitude: 39.10, longitude: -120.03,
-    local_date: "2024-10-05", local_timezone: "America/Los_Angeles",
-    context: "freshwater_lake_pond", region_key: "mountain_alpine", state_code: "CA",
-    altitude_ft: 6225, expect_band: "Good",
-  },
-  {
-    id: "alpine-blue-mesa-co-lake-may",
-    notes: "Blue Mesa Reservoir CO (7,519ft) — May ice-out; kokanee and brown trout prime spring window",
-    latitude: 38.45, longitude: -107.35,
-    local_date: "2024-05-11", local_timezone: "America/Denver",
-    context: "freshwater_lake_pond", region_key: "mountain_alpine", state_code: "CO",
-    altitude_ft: 7519, expect_band: "Good",
-  },
-
-  // ── northern_california region scenarios ───────────────────────────────────
-
-  {
-    id: "norcal-shasta-lake-oct",
-    notes: "SHOULD BE GOOD+: Lake Shasta CA (~1,000ft) — Oct prime fall bass/salmon; NorCal best season",
-    latitude: 40.72, longitude: -122.41,
-    local_date: "2024-10-12", local_timezone: "America/Los_Angeles",
-    context: "freshwater_lake_pond", region_key: "northern_california", state_code: "CA",
-    altitude_ft: 1000, expect_band: "Good",
-  },
-  {
-    id: "norcal-shasta-lake-apr",
-    notes: "SHOULD BE GOOD+: Lake Shasta CA — Apr bass pre-spawn; 58-68°F prime temps",
-    latitude: 40.72, longitude: -122.41,
-    local_date: "2024-04-20", local_timezone: "America/Los_Angeles",
-    context: "freshwater_lake_pond", region_key: "northern_california", state_code: "CA",
-    altitude_ft: 1000, expect_band: "Good",
-  },
-  {
-    id: "norcal-sacramento-river-jan",
-    notes: "Sacramento River CA (near Red Bluff) — Jan steelhead prime; winter clarity, strong runs",
-    latitude: 40.17, longitude: -122.24,
-    local_date: "2024-01-20", local_timezone: "America/Los_Angeles",
-    context: "freshwater_river", region_key: "northern_california", state_code: "CA",
-    altitude_ft: 350, expect_band: "Good",
-  },
-  {
-    id: "norcal-trinity-river-nov",
-    notes: "Trinity River CA — Nov steelhead run; prime fall-run chinook and steelhead window",
-    latitude: 40.69, longitude: -123.12,
-    local_date: "2024-11-09", local_timezone: "America/Los_Angeles",
-    context: "freshwater_river", region_key: "northern_california", state_code: "CA",
-    altitude_ft: 2000, expect_band: "Good",
-  },
-  {
-    id: "norcal-shasta-lake-jul",
-    notes: "Lake Shasta CA — Jul heat stress check; 95°F+ air temps suppress scoring",
-    latitude: 40.72, longitude: -122.41,
-    local_date: "2024-07-20", local_timezone: "America/Los_Angeles",
-    context: "freshwater_lake_pond", region_key: "northern_california", state_code: "CA",
-    altitude_ft: 1000, expect_band: "Fair",
-  },
-  {
-    id: "norcal-bodega-bay-coastal-oct",
-    notes: "Bodega Bay CA coastal — Oct rockfish/striper prime; confirms NorCal coastal bands",
-    latitude: 38.33, longitude: -123.05,
-    local_date: "2024-10-05", local_timezone: "America/Los_Angeles",
-    context: "coastal", region_key: "northern_california", state_code: "CA",
-    altitude_ft: 10, tide_station_id: "9415020",  // Bodega Bay NOAA
-    expect_band: "Good",
-  },
-
-  // ── Coastal "should be Excellent" validation ───────────────────────────────
-  // Using dates with known falling pressure AND partial overcast (no glare)
-  // + active tidal exchange — the combination needed to reach 80+
-
-  {
-    id: "excellent-chesapeake-bay-oct-overcast",
-    notes: "SHOULD BE EXCELLENT: Chesapeake Bay Oct — specifically seeking overcast+falling pressure (no glare penalty). Station 8574680.",
-    latitude: 38.72, longitude: -76.52,
-    local_date: "2024-10-26", local_timezone: "America/New_York",
-    context: "coastal", region_key: "southeast_atlantic", state_code: "MD",
-    tide_station_id: "8574680", expect_band: "Good",
-  },
-  {
-    id: "excellent-outer-banks-nc-oct",
-    notes: "Outer Banks NC — Oct prime; bluefish/striper blitz. Station 8652587 (Oregon Inlet).",
-    latitude: 35.80, longitude: -75.60,
-    local_date: "2024-10-19", local_timezone: "America/New_York",
-    context: "coastal", region_key: "southeast_atlantic", state_code: "NC",
-    tide_station_id: "8652587", expect_band: "Good",
-  },
-  {
-    id: "excellent-puget-sound-wa-sep",
-    notes: "SHOULD BE EXCELLENT: Puget Sound WA — Sep salmon/rockfish prime; overcast + tidal + falling pressure. Station 9447130 (Seattle).",
-    latitude: 47.58, longitude: -122.33,
-    local_date: "2024-09-21", local_timezone: "America/Los_Angeles",
-    context: "coastal", region_key: "pacific_northwest", state_code: "WA",
-    tide_station_id: "9447130", expect_band: "Good",
-  },
-  {
-    id: "excellent-puget-sound-wa-oct",
-    notes: "Puget Sound WA — Oct peak coho salmon; prime fall conditions. Station 9447130.",
-    latitude: 47.58, longitude: -122.33,
-    local_date: "2024-10-12", local_timezone: "America/Los_Angeles",
-    context: "coastal", region_key: "pacific_northwest", state_code: "WA",
-    tide_station_id: "9447130", expect_band: "Good",
-  },
-  {
-    id: "excellent-galveston-tx-nov",
-    notes: "Galveston TX coastal — Nov post-cold-front redfish/trout prime. Station 8771450.",
-    latitude: 29.30, longitude: -94.79,
-    local_date: "2024-11-16", local_timezone: "America/Chicago",
-    context: "coastal", region_key: "gulf_coast", state_code: "TX",
-    tide_station_id: "8771450", expect_band: "Good",
-  },
-  {
-    id: "excellent-mobile-bay-al-oct",
-    notes: "Mobile Bay AL — Oct prime redfish/speckled trout. Station 8737048.",
-    latitude: 30.69, longitude: -88.04,
-    local_date: "2024-10-05", local_timezone: "America/Chicago",
-    context: "coastal", region_key: "gulf_coast", state_code: "AL",
-    tide_station_id: "8737048", expect_band: "Good",
-  },
-
-];
-
-// ── Open-Meteo archive fetch ──────────────────────────────────────────────────
-
-type OMResponse = {
-  hourly: {
-    time: string[];
-    temperature_2m: number[];
-    cloud_cover: number[];
-    wind_speed_10m: number[];
-    surface_pressure: number[];
-    precipitation: number[];
-  };
-  daily: {
-    time: string[];
-    temperature_2m_max: number[];
-    temperature_2m_min: number[];
-    precipitation_sum: number[];
-    sunrise: string[];
-    sunset: string[];
-  };
-};
-
-async function fetchOpenMeteo(lat: number, lng: number, targetDate: string): Promise<OMResponse> {
-  const startMs = new Date(targetDate + "T12:00:00Z").getTime() - 14 * 86400_000;
-  const startDate = new Date(startMs).toISOString().slice(0, 10);
-  const url = new URL("https://archive-api.open-meteo.com/v1/archive");
-  url.searchParams.set("latitude", String(lat));
-  url.searchParams.set("longitude", String(lng));
-  url.searchParams.set("start_date", startDate);
-  url.searchParams.set("end_date", targetDate);
-  url.searchParams.set("hourly", "temperature_2m,cloud_cover,wind_speed_10m,surface_pressure,precipitation");
-  url.searchParams.set("daily", "temperature_2m_max,temperature_2m_min,precipitation_sum,sunrise,sunset");
-  url.searchParams.set("temperature_unit", "fahrenheit");
-  url.searchParams.set("wind_speed_unit", "mph");
-  url.searchParams.set("precipitation_unit", "inch");
-  url.searchParams.set("timezone", "UTC");
-  const res = await fetch(url.toString());
-  if (!res.ok) throw new Error(`Open-Meteo ${res.status}: ${(await res.text()).slice(0, 200)}`);
-  return res.json() as Promise<OMResponse>;
-}
-
-async function fetchNOAATides(
-  stationId: string, date: string,
-): Promise<{ phase: string; high_low: Array<{ time: string; type: string; value: number }> } | null> {
-  const d = date.replace(/-/g, "");
-  const url = `https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?product=predictions` +
-    `&begin_date=${d}&end_date=${d}&datum=MLLW&station=${stationId}&time_zone=gmt&interval=hilo&units=english&format=json`;
-  try {
-    const res = await fetch(url);
-    if (!res.ok) return null;
-    const data = await res.json() as { predictions?: Array<{ t: string; v: string; type?: string }> };
-    if (!data.predictions?.length) return null;
-    const high_low = data.predictions.map((p) => ({
-      time: p.t, type: p.type === "H" ? "H" : "L", value: parseFloat(p.v),
-    }));
-    let phase = "incoming";
-    for (const hl of high_low) {
-      const timeStr = hl.time.split(" ")[1] ?? "00:00";
-      const [hh, mm] = timeStr.split(":").map(Number);
-      const mins = (hh ?? 0) * 60 + (mm ?? 0);
-      if (mins <= 720) phase = hl.type === "H" ? "outgoing" : "incoming";
-    }
-    return { phase, high_low };
-  } catch { return null; }
-}
-
-function utcToLocalHHMM(utcIso: string, timeZone: string): string {
-  const d = new Date(utcIso.endsWith("Z") ? utcIso : utcIso + "Z");
-  if (Number.isNaN(d.getTime())) return "06:00";
-  try {
-    return new Intl.DateTimeFormat("en-US", {
-      timeZone, hour: "2-digit", minute: "2-digit", hour12: false,
-    }).format(d).replace(/^24:/, "00:");
-  } catch { return "06:00"; }
-}
-
-function buildEnvData(
-  om: OMResponse,
-  targetDate: string,
-  localTimezone: string,
-  tides: { phase: string; high_low: Array<{ time: string; type: string; value: number }> } | null,
-  altitudeFt?: number,
-): Record<string, unknown> {
-  const { hourly, daily } = om;
-  const dailyIdx = 14;
-  const noonApproxIdx = Math.min(dailyIdx * 24 + 17, hourly.time.length - 1);
-  const currentTemp = hourly.temperature_2m[noonApproxIdx]
-    ?? ((daily.temperature_2m_max[dailyIdx] ?? 60) + (daily.temperature_2m_min[dailyIdx] ?? 45)) / 2;
-  const currentPressure = hourly.surface_pressure[noonApproxIdx] ?? 1013;
-  const windMax = Math.max(
-    ...hourly.wind_speed_10m.slice(dailyIdx * 24, (dailyIdx + 1) * 24).map((v) => v ?? 0), 0,
-  );
-  const daySlice = hourly.cloud_cover.slice(dailyIdx * 24 + 6, dailyIdx * 24 + 20);
-  const cloudMean = daySlice.length
-    ? Math.round(daySlice.reduce((a, b) => a + (b ?? 0), 0) / daySlice.length) : 50;
-  const p48End = noonApproxIdx;
-  const p48Start = Math.max(0, p48End - 47);
-  const pressure48hr = hourly.surface_pressure.slice(p48Start, p48End + 1);
-  const hourlyAirTempPoints = hourly.time.map((t, i) => ({
-    time_utc: t + "Z", value: hourly.temperature_2m[i] ?? 0,
-  }));
-  const hourlyCloudPoints = hourly.time.map((t, i) => ({
-    time_utc: t + "Z", value: hourly.cloud_cover[i] ?? 0,
-  }));
-  const sunriseLocal = utcToLocalHHMM(daily.sunrise[dailyIdx] ?? "", localTimezone);
-  const sunsetLocal = utcToLocalHHMM(daily.sunset[dailyIdx] ?? "", localTimezone);
-
-  return {
-    timezone: localTimezone,
-    altitude_ft: altitudeFt,  // passed through so buildFromEnvData altitude override works
-    weather: {
-      temperature: currentTemp,
-      pressure: currentPressure,
-      wind_speed: windMax,
-      cloud_cover: cloudMean,
-      precipitation: (hourly.precipitation[noonApproxIdx] ?? 0) * 25.4,
-      pressure_48hr: pressure48hr,
-      temp_7day_high: daily.temperature_2m_max,
-      temp_7day_low: daily.temperature_2m_min,
-      precip_7day_daily: daily.precipitation_sum,
-    },
-    sun: { sunrise: sunriseLocal, sunset: sunsetLocal },
-    solunar: null,
-    tides: tides ? { station_id: "", phase: tides.phase, high_low: tides.high_low } : null,
-    hourly_air_temp_f: hourlyAirTempPoints,
-    hourly_cloud_cover_pct: hourlyCloudPoints,
-  };
-}
-
-// ── Import buildSharedEngineRequestFromEnvData ────────────────────────────────
-
-import { buildSharedEngineRequestFromEnvData } from "../../supabase/functions/_shared/howFishingEngine/request/buildFromEnvData.ts";
+const SCENARIOS: AuditScenario[] = AUDIT_SCENARIOS;
 
 const realResults: string[] = [];
 let passed = 0;
@@ -673,11 +357,29 @@ for (let i = 0; i < SCENARIOS.length; i++) {
   await Deno.stdout.write(enc.encode(`${tag} ${sc.id.slice(0, 46).padEnd(46)} `));
 
   try {
-    const om = await fetchOpenMeteo(sc.latitude, sc.longitude, sc.local_date);
-    const tides = (sc.context === "coastal" && sc.tide_station_id)
-      ? await fetchNOAATides(sc.tide_station_id, sc.local_date) : null;
+    const archive = await fetchArchiveWeather(sc.latitude, sc.longitude, sc.local_date);
+    if (!archive) throw new Error("archive weather fetch failed");
 
-    const envData = buildEnvData(om, sc.local_date, sc.local_timezone, tides, sc.altitude_ft);
+    const tzOffsetHours = archive.tz_offset_seconds / 3600;
+    const [sun, moon, tides] = await Promise.all([
+      fetchSunriseSunset(sc.latitude, sc.longitude, sc.local_date, archive.timezone),
+      fetchUSNOMoon(sc.latitude, sc.longitude, sc.local_date, tzOffsetHours),
+      sc.context === "coastal" && sc.tide_station_id
+        ? fetchNOAATides(sc.tide_station_id, sc.local_date, tzOffsetHours)
+        : Promise.resolve(null),
+    ]);
+
+    let envData: Record<string, unknown> = mapArchiveToEnvData(
+      archive,
+      sc.local_date,
+      archive.timezone,
+      sun,
+      moon,
+      tides,
+    );
+    if (sc.altitude_ft != null) {
+      envData = { ...envData, altitude_ft: sc.altitude_ft };
+    }
 
     // Build via buildFromEnvData (applies altitude/NorCal override in production mode)
     // then override region_key explicitly for audit — ensures we test the intended region

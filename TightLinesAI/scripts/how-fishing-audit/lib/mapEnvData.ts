@@ -4,8 +4,8 @@
  *
  * Key contracts (from buildFromEnvData.ts):
  *   weather.pressure_48hr           → flat number[] (read directly at dayOffset=0)
- *   weather.temp_7day_high/low      → number[], targetDate at index 14
- *   weather.precip_7day_daily       → number[] in INCHES, targetDate at index 14
+ *   weather.temp_7day_high/low      → 21-length slice, targetDate at index 14
+ *   weather.precip_7day_daily       → same; inches
  *   weather.precipitation           → mm (divided by 25.4 for precip_rate_now)
  *   hourly_air_temp_f               → Array<{ time_utc: string; value: number }>
  *   hourly_cloud_cover_pct          → same shape
@@ -47,12 +47,30 @@ export function mapArchiveToEnvData(
     ianaTimezone,
   );
 
-  // Warn if expected daily index (14) doesn't match — this would indicate a
-  // fetch window misconfiguration.
-  if (targetDailyIdx !== -1 && targetDailyIdx !== 14) {
+  // Rebase parallel daily arrays so targetDate is always at index 14 (engine contract).
+  let daily_times_unix = archive.daily_times_unix;
+  let daily_temp_max_f = archive.daily_temp_max_f;
+  let daily_temp_min_f = archive.daily_temp_min_f;
+  let daily_precip_mm = archive.daily_precip_mm;
+  let daily_precip_in = archive.daily_precip_in;
+  let daily_wind_max_mph = archive.daily_wind_max_mph;
+
+  if (targetDailyIdx >= 14 && archive.daily_temp_max_f.length >= targetDailyIdx + 7) {
+    const a = targetDailyIdx - 14;
+    const b = a + 21;
+    daily_times_unix = daily_times_unix.slice(a, b);
+    daily_temp_max_f = daily_temp_max_f.slice(a, b);
+    daily_temp_min_f = daily_temp_min_f.slice(a, b);
+    daily_precip_mm = daily_precip_mm.slice(a, b);
+    daily_precip_in = daily_precip_in.slice(a, b);
+    daily_wind_max_mph = daily_wind_max_mph.slice(a, b);
+  } else if (targetDailyIdx >= 0 && targetDailyIdx < 14) {
     console.warn(
-      `mapEnvData: targetDate ${targetDate} landed at daily index ${targetDailyIdx} (expected 14). ` +
-        `Engine will still use Math.min(14, len-1)=${Math.min(14, archive.daily_times_unix.length - 1)}.`,
+      `mapEnvData: targetDate ${targetDate} at daily index ${targetDailyIdx} (<14) — cannot rebase; check archive start_date`,
+    );
+  } else if (targetDailyIdx >= 0 && archive.daily_temp_max_f.length < targetDailyIdx + 7) {
+    console.warn(
+      `mapEnvData: daily series too short (targetIdx=${targetDailyIdx} len=${archive.daily_temp_max_f.length}) for 7d lookahead; using raw arrays`,
     );
   }
 
@@ -63,24 +81,24 @@ export function mapArchiveToEnvData(
   const pressure = archive.hourly_pressure_msl[noonIdx] ?? 0;
   const cloud_cover = archive.hourly_cloud_cover[noonIdx] ?? 0;
 
-  // Daily max wind for the target date (index 14 in daily array)
-  const dailyIdx = Math.min(14, archive.daily_wind_max_mph.length - 1);
-  const wind_speed = archive.daily_wind_max_mph[dailyIdx] ?? 0;
+  // Daily max wind / precip for target calendar day (rebased → index 14)
+  const dailyIdx = Math.min(14, daily_wind_max_mph.length - 1);
+  const wind_speed = daily_wind_max_mph[dailyIdx] ?? 0;
 
   // Daily precip total in mm for weather.precipitation
   // (buildFromEnvData divides by 25.4 to get in/hr — for archive this is the
   // daily total, not an instantaneous rate, but the sign/magnitude is correct
   // for active_precip_now detection: > 0.5mm means it rained that day)
-  const precipitation = archive.daily_precip_mm[dailyIdx] ?? 0;
+  const precipitation = daily_precip_mm[dailyIdx] ?? 0;
 
   // ── 3. pressure_48hr: 48 hourly readings ending at noon ──────────────────
   const p48Start = Math.max(0, noonIdx - 47);
   const pressure_48hr = archive.hourly_pressure_msl.slice(p48Start, noonIdx + 1);
 
-  // ── 4. Daily arrays (21 entries: targetDate at index 14) ─────────────────
-  const temp_7day_high = archive.daily_temp_max_f;
-  const temp_7day_low = archive.daily_temp_min_f;
-  const precip_7day_daily = archive.daily_precip_in; // inches
+  // ── 4. Daily arrays (21 entries: targetDate at index 14 after rebase) ─────
+  const temp_7day_high = daily_temp_max_f;
+  const temp_7day_low = daily_temp_min_f;
+  const precip_7day_daily = daily_precip_in; // inches
 
   // ── 5. Hourly UTC-stamped point arrays ────────────────────────────────────
   // buildFromEnvData feeds these through hourlyPointsTo24ArrayForLocalDate which

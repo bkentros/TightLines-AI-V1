@@ -1,9 +1,9 @@
 /**
  * Fetches historical weather data from Open-Meteo Archive API.
  *
- * Fetch window: targetDate-14 days to targetDate+6 days (21 daily entries)
- * so that targetDate lands at daily index 14 — matching buildFromEnvData's
- * currentDailyIndex(arr, 0) = Math.min(14, len-1) assumption.
+ * Fetch window: targetDate-15 through targetDate+7 (23 calendar days of dailies).
+ * Leaves room to slice 21 rows ending the day after the 6-day “forward” tail so
+ * findDailyIndex(target) can sit as high as 16 when Open-Meteo shifts buckets.
  */
 
 import { addDays, parseUnixSeconds } from "./dateUtils.ts";
@@ -33,8 +33,8 @@ export async function fetchArchiveWeather(
   lon: number,
   targetDate: string, // YYYY-MM-DD local date
 ): Promise<ArchiveWeatherResult | null> {
-  const startDate = addDays(targetDate, -14);
-  const endDate = addDays(targetDate, 6);
+  const startDate = addDays(targetDate, -15);
+  const endDate = addDays(targetDate, 7);
 
   const params = new URLSearchParams({
     latitude: String(lat),
