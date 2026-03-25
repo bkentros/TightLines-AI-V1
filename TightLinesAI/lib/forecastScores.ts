@@ -64,6 +64,20 @@ export function bestDayScore(day: DayForecastScore): number {
 }
 
 /**
+ * Mean score (0–100) across the water-type tabs the user can open at this location.
+ * Matches how the 7-day outlook aligns with multi-tab reports: inland = lake + river,
+ * coastal-eligible = lake + river + coastal.
+ */
+export function meanDayScore(day: DayForecastScore, isCoastalEligible: boolean): number {
+  if (isCoastalEligible) {
+    return (
+      day.freshwater_lake_pond + day.freshwater_river + day.coastal
+    ) / 3;
+  }
+  return (day.freshwater_lake_pond + day.freshwater_river) / 2;
+}
+
+/**
  * Converts a raw 0–100 score to an out-of-10 display string ("7.2" or "7").
  */
 export function formatScoreDisplay(raw: number): string {

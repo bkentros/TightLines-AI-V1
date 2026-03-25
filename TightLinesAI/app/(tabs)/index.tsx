@@ -21,6 +21,7 @@ import {
   getForecastScores,
   invalidateForecastCache,
   formatScoreDisplay,
+  meanDayScore,
   scoreColor,
   type DayForecastScore,
 } from '../../lib/forecastScores';
@@ -28,7 +29,14 @@ import {
 export default function HomeScreen() {
   const router = useRouter();
   const { profile } = useAuthStore();
-  const { ignoreGps, overrideLocation, overrideSubscriptionTier, load: loadDevTesting } = useDevTestingStore();
+  const {
+    ignoreGps,
+    overrideLocation,
+    overrideSubscriptionTier,
+    load: loadDevTesting,
+    clearOverride,
+    setIgnoreGps,
+  } = useDevTestingStore();
   const { loadEnv } = useEnvStore();
   const {
     savedLocation,
@@ -49,8 +57,9 @@ export default function HomeScreen() {
   const [forecastLoading, setForecastLoading] = useState(false);
 
   // ── Active coordinates and label ──────────────────────────────────────────
-  // Priority: user's explicit custom choice > DEV ignoreGps > DEV override > GPS
-  // Custom always wins over dev overrides so the location picker works in dev builds.
+  // Priority: saved custom pin > DEV ignoreGps (no coords) > DEV override > GPS
+  // Dev presets (Settings) override GPS until the user syncs GPS or taps "Use my GPS"
+  // in the picker — then we clear override + ignore (see handleUseGPS / handleRequestLocation).
   const coords =
     useCustom && savedLocation
       ? { lat: savedLocation.lat, lon: savedLocation.lon }
@@ -126,10 +135,8 @@ export default function HomeScreen() {
   }, [loadLocationStore]);
 
   // Read the cached fishing score — no API call, purely local cache.
-  // Since the engine is deterministic, the score from the last generated
-  // report is valid for today. Shows the best score across all water types.
+  // Mean of lake/pond + river (+ coastal if eligible) matches the 7-day outlook.
   useEffect(() => {
-    const ALL_CONTEXTS: EngineContextKey[] = ['freshwater_lake_pond', 'freshwater_river', 'coastal'];
     let cancelled = false;
 
     async function loadCachedScore() {
@@ -137,20 +144,24 @@ export default function HomeScreen() {
       const lon = coords?.lon;
       if (lat == null || lon == null) return;
 
-      // Try in-memory first (instant, no I/O)
+      const coastal = isCoastalContextEligible(lat, lon);
+      const contexts: EngineContextKey[] = coastal
+        ? ['freshwater_lake_pond', 'freshwater_river', 'coastal']
+        : ['freshwater_lake_pond', 'freshwater_river'];
+
       const inMemory = getCurrentMultiRebuild(lat, lon);
-      const source = inMemory
-        ?? await getCachedMultiRebuild(lat, lon, ALL_CONTEXTS);
+      const hasAllInMemory =
+        inMemory != null && contexts.every((ctx) => inMemory[ctx] != null);
+      const source = hasAllInMemory
+        ? inMemory!
+        : await getCachedMultiRebuild(lat, lon, contexts);
 
       if (cancelled || !source) return;
 
-      // Take the best score across all available water types
-      const best = Math.max(
-        ...ALL_CONTEXTS.map(ctx => source[ctx]?.report.score ?? -1)
-      );
-      if (best < 0) return;
+      const scores = contexts.map((ctx) => source[ctx]!.report.score);
+      const meanRaw = scores.reduce((a, b) => a + b, 0) / scores.length;
 
-      const v = Math.round(best) / 10;
+      const v = Math.round(meanRaw) / 10;
       const display = Number.isInteger(v) ? v.toFixed(0) : v.toFixed(1);
       if (!cancelled) setCachedScore(display);
     }
@@ -198,14 +209,16 @@ export default function HomeScreen() {
       // Refresh the cached score when user returns to the home tab,
       // so a newly-generated report immediately updates the displayed number.
       if (coords) {
-        const ALL_CONTEXTS: EngineContextKey[] = ['freshwater_lake_pond', 'freshwater_river', 'coastal'];
+        const coastal = isCoastalContextEligible(coords.lat, coords.lon);
+        const contexts: EngineContextKey[] = coastal
+          ? ['freshwater_lake_pond', 'freshwater_river', 'coastal']
+          : ['freshwater_lake_pond', 'freshwater_river'];
         const inMemory = getCurrentMultiRebuild(coords.lat, coords.lon);
-        if (inMemory) {
-          const best = Math.max(...ALL_CONTEXTS.map(ctx => inMemory[ctx]?.report.score ?? -1));
-          if (best >= 0) {
-            const v = Math.round(best) / 10;
-            setCachedScore(Number.isInteger(v) ? v.toFixed(0) : v.toFixed(1));
-          }
+        if (inMemory && contexts.every((ctx) => inMemory[ctx] != null)) {
+          const meanRaw =
+            contexts.reduce((sum, ctx) => sum + inMemory[ctx]!.report.score, 0) / contexts.length;
+          const v = Math.round(meanRaw) / 10;
+          setCachedScore(Number.isInteger(v) ? v.toFixed(0) : v.toFixed(1));
         }
       }
     }, [refreshLiveConditions, coords])
@@ -243,11 +256,15 @@ export default function HomeScreen() {
 
   const handleUseGPS = useCallback(async () => {
     if (coords && useCustom) invalidateForecastCache(coords.lat, coords.lon);
+    if (__DEV__) {
+      await clearOverride();
+      await setIgnoreGps(false);
+    }
     await clearSavedLocation();
     setShowLocationPicker(false);
     setForecastDays(null);
     setCachedScore(null);
-  }, [coords, useCustom, clearSavedLocation]);
+  }, [coords, useCustom, clearSavedLocation, clearOverride, setIgnoreGps]);
 
   const handleHowFishingPress = useCallback(() => {
     if (!hasSubscription) {
@@ -265,23 +282,22 @@ export default function HomeScreen() {
   }, [hasSubscription, coords, router]);
 
   const handleRequestLocation = useCallback(async () => {
+    if (__DEV__) {
+      await clearOverride();
+      await setIgnoreGps(false);
+    }
     const { status } = await Location.requestForegroundPermissionsAsync();
     if (status !== 'granted') return;
     const loc = await Location.getCurrentPositionAsync({
       accuracy: Location.Accuracy.Balanced,
     });
     setGpsCoords({ lat: loc.coords.latitude, lon: loc.coords.longitude });
-  }, []);
+  }, [clearOverride, setIgnoreGps]);
 
-  // Match the context a user would actually generate a report in.
-  // Inland → freshwater_lake_pond (most common freshwater report context).
-  // Coastal → coastal context score.
-  // Never take Math.max across contexts — that inflates the calendar score
-  // relative to any single-context report the user generates.
   const isCoastal = coords ? isCoastalContextEligible(coords.lat, coords.lon) : false;
 
-  const effectiveDayScore = (day: DayForecastScore): number =>
-    isCoastal ? day.coastal : day.freshwater_lake_pond;
+  const combinedOutlookScore = (day: DayForecastScore): number =>
+    meanDayScore(day, isCoastal);
 
   const getQualityLabel = (raw: number): string => {
     if (raw >= 80) return 'EXCELLENT';
@@ -294,7 +310,7 @@ export default function HomeScreen() {
   // Falls back to a previously-cached report score when the forecast hasn't loaded yet.
   const todayForecast = forecastDays?.[0] ?? null;
   const heroScore = todayForecast
-    ? formatScoreDisplay(effectiveDayScore(todayForecast))
+    ? formatScoreDisplay(combinedOutlookScore(todayForecast))
     : cachedScore;
 
   const getGreeting = () => {
@@ -385,7 +401,7 @@ export default function HomeScreen() {
                     <View key={i} style={[styles.calendarDay, styles.calendarDaySkeleton]} />
                   ))
                 : forecastDays?.map((day) => {
-                    const raw = effectiveDayScore(day);
+                    const raw = combinedOutlookScore(day);
                     const display = formatScoreDisplay(raw);
                     const color = scoreColor(raw);
                     const isToday = day.day_offset === 0;

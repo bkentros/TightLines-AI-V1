@@ -18,6 +18,12 @@ export type RegionKey =
   | 'southwest_high_desert'
   | 'pacific_northwest'
   | 'southern_california'
+  | 'mountain_alpine'
+  | 'northern_california'
+  | 'appalachian'
+  | 'inland_northwest'
+  | 'alaska'
+  | 'hawaii'
   // Legacy aliases (backwards compat with old cached bundles)
   | 'southwest'
   | 'pacific_coast';
@@ -97,6 +103,28 @@ export interface HowsFishingReportV1 {
     pressure_detail?: string | null;
     wind_detail?: string | null;
     tide_detail?: string | null;
+    light_cloud_label?: string | null;
+    light_cloud_detail?: string | null;
+    precipitation_disruption_label?: string | null;
+    precipitation_disruption_detail?: string | null;
+    runoff_flow_label?: string | null;
+    runoff_flow_detail?: string | null;
+    /** Deterministic engine facts for narration (optional on older bundles) */
+    normalized_variable_scores?: Array<{
+      variable_key: string;
+      engine_score: number;
+      engine_label: string;
+      engine_detail?: string | null;
+      temperature_breakdown?: Record<string, unknown>;
+    }>;
+    composite_contributions?: Array<{
+      variable_key: string;
+      normalized_score: number;
+      weight: number;
+      weight_percent: number;
+      weighted_contribution: number;
+    }>;
+    environment_snapshot?: Record<string, unknown>;
   };
 }
 
