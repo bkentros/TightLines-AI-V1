@@ -5,8 +5,8 @@
  * - **Geometry:** only highlight dawn and/or evening buckets whose **mean cloud is low
  *   enough** that sun angle actually creates an edge (typically <70% in-bucket).
  * - **Extended:** highlight buckets where mean cloud is high enough to soften light
- *   (≥~68%), then cap breadth (top 2 buckets by cloud) so we don’t imply “equal
- *   everywhere” when coverage varies by hour.
+ *   (≥~68%), then cap breadth (top 2 buckets by cloud) so we don’t imply "equal
+ *   everywhere" when coverage varies by hour.
  *
  * When hourly is missing, behavior falls back to daily `cloud_cover_pct` + light score.
  */
@@ -20,10 +20,8 @@ import type {
 } from "../timingTypes.ts";
 import {
   collapseTrueDaypartsToTopByScore,
-  daypartIndexFromClockHour,
   daypartMeansForSeries,
   meanInHourRange,
-  singleDaypart,
 } from "../daypartHourly.ts";
 
 export type LightMode = "low_light_geometry" | "cloud_extended_low_light";
@@ -31,9 +29,9 @@ export type LightMode = "low_light_geometry" | "cloud_extended_low_light";
 const HOURLY_MIN_LEN = 12;
 /** Match daily geometry gate (~70%): bucket mean must stay below this for sharp edges */
 const GEOMETRY_BUCKET_MAX_CLOUD_MEAN = 69;
-/** Bucket qualifies as “extended low-light” helpful (aligns normalizeLight 70%+ tiers) */
+/** Bucket qualifies as "extended low-light" helpful (aligns normalizeLight 70%+ tiers) */
 const EXTENDED_BUCKET_MIN_CLOUD_MEAN = 68;
-/** Fishable hours for “is this an overcast day?” when reconciling hourly vs daily */
+/** Fishable hours for "is this an overcast day?" when reconciling hourly vs daily */
 const FISHABLE_CLOUD_LO = 6;
 const FISHABLE_CLOUD_HI = 20;
 const EXTENDED_DAY_MEAN_MIN = 65;
@@ -52,41 +50,6 @@ export function evaluateLightWindow(
 
 function meanFishableCloud(hourly: number[]): number | null {
   return meanInHourRange(hourly, FISHABLE_CLOUD_LO, FISHABLE_CLOUD_HI);
-}
-
-/**
- * Scan for 3+ consecutive fishing hours (7–19) where cloud cover ≥ threshold.
- * Returns the center hour of the longest qualifying block, or null if none found.
- */
-function findConsecutiveCloudWindowHour(
-  hourly: number[],
-  minHours = 3,
-  threshold = 65,
-): number | null {
-  let bestStart = -1;
-  let bestLen = 0;
-  let curStart = -1;
-  let curLen = 0;
-
-  const lo = 7;
-  const hi = Math.min(hourly.length - 1, 19);
-
-  for (let h = lo; h <= hi; h++) {
-    if ((hourly[h] ?? 0) >= threshold) {
-      if (curStart === -1) curStart = h;
-      curLen++;
-      if (curLen > bestLen) {
-        bestStart = curStart;
-        bestLen = curLen;
-      }
-    } else {
-      curStart = -1;
-      curLen = 0;
-    }
-  }
-
-  if (bestLen < minHours) return null;
-  return Math.round(bestStart + bestLen / 2);
 }
 
 function evaluateLowLightGeometry(
@@ -197,28 +160,12 @@ function evaluateCloudExtended(
   if (hourly && hourly.length >= HOURLY_MIN_LEN) {
     const fishMean = meanFishableCloud(hourly);
     const dailyOvercast = cloudPct != null && cloudPct >= 70;
-    // Hourly curve disagrees with a “not overcast” daily average — but first check
-    // for a 3+ hour consecutive cloud window during fishing hours. Even on a mostly-
-    // clear day a cloud block suppresses glare and can trigger a feeding window.
+    // Hourly curve disagrees with a "not overcast" daily average — don’t force extended
     if (
       fishMean !== null &&
       fishMean < 55 &&
       !dailyOvercast
     ) {
-      const windowCenterHour = findConsecutiveCloudWindowHour(hourly);
-      if (windowCenterHour !== null) {
-        const dp = daypartIndexFromClockHour(windowCenterHour);
-        return {
-          driver_id: “cloud_extended_low_light”,
-          role: “anchor”,
-          strength: “good”,
-          periods: singleDaypart(dp),
-          note_pool_key: “cloud_window_midday”,
-          debug_reason:
-            `cloud_window: 3+ consecutive hrs ≥65% cloud found, center h=${windowCenterHour} ` +
-            `→ daypart=${[“dawn”, “morning”, “afternoon”, “evening”][dp]}; fishMean=${fishMean?.toFixed(0) ?? “n/a”}%`,
-        };
-      }
       return null;
     }
 

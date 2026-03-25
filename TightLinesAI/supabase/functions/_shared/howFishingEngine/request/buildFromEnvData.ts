@@ -65,7 +65,29 @@ export function buildSharedEngineRequestFromEnvData(
   envData: Record<string, unknown>,
   dayOffset = 0,
 ): SharedEngineRequest {
-  const { state_code, region_key } = resolveRegionForCoordinates(latitude, longitude);
+  const { state_code, region_key: baseRegionKey } = resolveRegionForCoordinates(latitude, longitude);
+
+  // ── Altitude and latitude-based region overrides ──────────────────────────
+  // These apply AFTER state-based resolution and can override to a sub-region.
+  const altitudeFt = num(envData.altitude_ft);
+  let region_key = baseRegionKey;
+
+  // mountain_alpine: >5,500ft anywhere in the continental US (all high-altitude western fishing).
+  // E.g.: Dillon CO (9,017ft), Yellowstone Lake WY (7,733ft), Lake Tahoe CA (6,225ft),
+  //        Big Bear Lake CA (6,752ft), Strawberry Reservoir UT (7,597ft).
+  // Below 5,500ft (e.g., Flathead Lake MT at 2,893ft) stays in its base region.
+  // Applied BEFORE the NorCal check so CA alpine (Tahoe) routes to mountain_alpine, not northern_california.
+  if (altitudeFt != null && altitudeFt > 5500) {
+    region_key = "mountain_alpine";
+  }
+
+  // northern_california: CA above 37.5°N — NorCal inland/foothills/coast.
+  // Applies AFTER alpine check so high-elevation NorCal (e.g. Lake Tahoe CA side)
+  // still routes to mountain_alpine.
+  if (state_code === "CA" && latitude > 37.5 && region_key !== "mountain_alpine") {
+    region_key = "northern_california";
+  }
+  // ─────────────────────────────────────────────────────────────────────────
 
   const w = readWeather(envData);
 

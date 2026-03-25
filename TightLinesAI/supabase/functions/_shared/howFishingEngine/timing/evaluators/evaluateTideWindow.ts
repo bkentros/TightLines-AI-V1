@@ -8,9 +8,9 @@
  * Qualification:
  * - Best case: parseable NOAA high/low events → map exchanges to dayparts.
  *   If exchanges scatter across 3+ buckets, keep only the **earliest and latest**
- *   bucket so we never imply “all four windows are equally best.”
+ *   bucket so we never imply "all four windows are equally best."
  * - Mid case: tide_current_movement score ≥ 1 but no specific times → honest
- *   “tides matter but clock unknown” with **no** daypart highlights (not all four).
+ *   "tides matter but clock unknown" with **no** daypart highlights (not all four).
  * - Worst case: no usable tide data → returns null, lets secondary/fallback take over
  */
 
@@ -74,7 +74,7 @@ function fmtTideTime(h: number, m: number): string {
  * - One distinct bucket → highlight only that bucket (e.g. slack at 2pm → afternoon).
  * - Two buckets → both highlighted.
  * - Three or more distinct buckets → highlight **earliest and latest** only
- *   (typical two-tide narrative without “fish everywhere”).
+ *   (typical two-tide narrative without "fish everywhere").
  */
 function daypartsFromExchangeHours(hours: number[]): DaypartFlags {
   const buckets = new Set<number>();

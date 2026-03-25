@@ -55,7 +55,7 @@ const PRECIP_RAIN_TIPS = [
   "Stained water from rain rewards patience. One slow, thorough pass through a good spot beats racing around the lake.",
 ];
 
-// Dry, settled weather helping the bite (precip score +1 / +2 — NOT “disruption” in the lay sense)
+// Dry, settled weather helping the bite (precip score +1 / +2 — NOT "disruption" in the lay sense)
 const PRECIP_DRY_FAVORABLE_TIPS = [
   "Weather has been dry and settled, so water is usually clearer than after a big rain. Fish can see farther — use natural-looking colors, avoid loud line slap on the water, and make the first cast count.",
   "Calm, dry stretches mean fish often use their eyes more. Stealth helps: approach quietly, longer leaders if you use braid, and realistic retrieves rather than burning baits past them.",
@@ -66,7 +66,7 @@ const PRECIP_DRY_FAVORABLE_TIPS = [
 // Barometer helping the day (slow fall or moderate fall — fish often feed ahead of a front)
 const PRESSURE_FALLING_FAVORABLE_TIPS = [
   "Air pressure has been dropping slowly — that often gets fish feeding ahead of a weather change. Cover water at a steady pace, try a few retrieve speeds, and don’t give up on a spot after one cast.",
-  "A gentle falling barometer is a classic “go fishing” signal. Make confident casts to likely spots (cover, depth changes, baitfish) and change lure depth or speed before you change locations.",
+  "A gentle falling barometer is a classic \"go fishing\" signal. Make confident casts to likely spots (cover, depth changes, baitfish) and change lure depth or speed before you change locations.",
 ];
 
 // Post-front, pressure recovering — fish can be picky
@@ -157,7 +157,7 @@ const GENERAL_FLEXIBILITY_TIPS = [
 // Last resort — never use raw engine key names; keep grade-school clear
 const BALANCED_DAY_TIPS = [
   "Nothing in the data screams one magic pattern — that’s normal. Pick two or three spots you trust, fish them slowly and thoroughly, and change lure depth or speed before you run to a new lake.",
-  "On an “in-between” day, basics win: match something food-sized, fish where fish hide (cover, depth changes), and stay patient. Small adjustments beat constant running around.",
+  "On an \"in-between\" day, basics win: match something food-sized, fish where fish hide (cover, depth changes), and stay patient. Small adjustments beat constant running around.",
 ];
 
 /**

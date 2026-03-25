@@ -89,6 +89,24 @@ const COASTAL_ROWS: Partial<Record<RegionKey, TempBandRow[]>> = {
     [48, 58, 68, 78, [-2, -1, 1, 2, 0]],
     [40, 50, 62, 72, [-2, -1, 1, 2, 0]],
   ],
+
+  // northern_california: NorCal coast (Humboldt Bay, Bodega Bay, SF Bay area)
+  // Cold upwelling year-round; cooler than SoCal by 8-12°F; similar to PNW but slightly warmer
+  // Species: rockfish, lingcod, halibut, salmon (offshore), striped bass (SF Bay/Delta)
+  northern_california: [
+    [34, 44, 56, 66, [-2, -1, 1, 2, 0]],   // Jan — cold NorCal coast; salmon/rockfish winter
+    [36, 46, 58, 68, [-2, -1, 1, 2, 0]],   // Feb — similar, pre-spring; 46-58°F = typical
+    [40, 50, 62, 72, [-2, -1, 2, 1, -1]],  // Mar — spring stripers begin; 50-62°F ideal
+    [44, 54, 64, 74, [-2, -1, 2, 1, -1]],  // Apr — prime rockfish/halibut; upwelling begins
+    [48, 58, 68, 78, [-2, -1, 2, 1, -1]],  // May — NW winds + upwelling peak; foggy coast = good
+    [52, 60, 70, 80, [-2, -1, 2, 0, -2]],  // Jun — summer; fog season; 60-70°F sweet spot
+    [54, 62, 72, 80, [-2, -1, 2, 0, -2]],  // Jul — fog-belt summer; cool coast vs hot inland
+    [54, 62, 72, 80, [-2, -1, 2, 0, -2]],  // Aug — same; salmon season offshore
+    [52, 60, 70, 78, [-2, -1, 2, 1, -1]],  // Sep — fog lifting; prime fall stripers/salmon
+    [44, 54, 64, 74, [-2, -1, 2, 1, -1]],  // Oct — PRIME: salmon runs, rockfish, stripers
+    [38, 48, 60, 70, [-2, -1, 2, 1, -1]],  // Nov — late salmon; steelhead starting; rain begins
+    [34, 44, 56, 66, [-2, -1, 1, 2, 0]],   // Dec — winter coast; 44-56°F = decent for rockfish
+  ],
 };
 
 export function coastalTempRow(homeRegion: RegionKey, month1to12: number): number[] | null {

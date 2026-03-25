@@ -13,6 +13,8 @@ export const CANONICAL_REGIONS: RegionKey[] = [
   "southwest_high_desert",
   "pacific_northwest",
   "southern_california",
+  "mountain_alpine",
+  "northern_california",
 ];
 
 /** Coastal temp tables exist for these regions only; others map to nearest for coastal scoring. */
@@ -23,6 +25,7 @@ export const COASTAL_TEMP_REGIONS: RegionKey[] = [
   "gulf_coast",
   "pacific_northwest",
   "southern_california",
+  "northern_california",
 ];
 
 export function coastalTempRegion(region: RegionKey): RegionKey {
@@ -30,5 +33,6 @@ export function coastalTempRegion(region: RegionKey): RegionKey {
   if (region === "great_lakes_upper_midwest" || region === "midwest_interior") return "northeast";
   if (region === "south_central" || region === "mountain_west") return "gulf_coast";
   if (region === "southwest_desert" || region === "southwest_high_desert") return "gulf_coast";
+  if (region === "mountain_alpine") return "pacific_northwest"; // alpine → nearest ocean coast
   return "southern_california";
 }

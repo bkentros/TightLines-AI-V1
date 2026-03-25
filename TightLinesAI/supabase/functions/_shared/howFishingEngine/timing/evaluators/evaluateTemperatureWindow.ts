@@ -29,9 +29,9 @@ export type TemperatureMode = "seek_warmth" | "avoid_heat";
 
 /** Matches 72h trend threshold in normalizeTemperature (5°F). */
 const MODERATE_DAY_OVER_DAY_WARM_F = 5;
-/** Hourly step must clear this to treat as an intraday “spike” (noise filter). */
+/** Hourly step must clear this to treat as an intraday "spike" (noise filter). */
 const MIN_HOURLY_WARMING_STEP_F = 2;
-/** Without hourly data, treat this day-over-day mean rise as “late warmth possible”. */
+/** Without hourly data, treat this day-over-day mean rise as "late warmth possible". */
 const BROAD_WARMTH_WINDOW_DAY_DELTA_F = 8;
 
 export function evaluateTemperatureWindow(
@@ -195,7 +195,7 @@ function evaluateAvoidHeat(
 
   if (final_score > 0) return null;
 
-  // Sudden cold push on an otherwise warm day — do not anchor “escape the heat” on temp
+  // Sudden cold push on an otherwise warm day — do not anchor "escape the heat" on temp
   if (shock_label === "sharp_cooldown" || trend_label === "cooling") {
     return null;
   }

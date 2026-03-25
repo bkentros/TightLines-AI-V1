@@ -33,9 +33,9 @@ export const FRESHWATER_TEMP_ROWS: Record<RegionKey, TempBandRow[]> = {
     [34,44,56,66,[-2,-1,1,2,0]],
   ],
   florida: [
-    [36,46,62,74,[-2,-1,2,1,0]],   // Jan: pre-spawn LMB — 50-62°F = optimal (+2), cold snap <46°F = suppressed
-    [38,48,64,76,[-2,-1,2,1,0]],   // Feb: peak pre-spawn — same logic, slightly warmer range
-    [46,56,68,80,[-2,-1,2,1,-1]],  // Mar: peak spawn — 56-68°F = optimal, above 80°F = too warm
+    [42,52,64,74,[-2,-1,1,2,0]],
+    [46,56,68,78,[-2,-1,1,2,0]],
+    [54,64,74,82,[-2,-1,2,1,-1]],
     [62,70,80,88,[-2,-1,2,1,-1]],
     [68,76,84,90,[-2,-1,2,0,-2]],
     [72,80,86,92,[-2,-1,1,0,-2]],
@@ -43,8 +43,8 @@ export const FRESHWATER_TEMP_ROWS: Record<RegionKey, TempBandRow[]> = {
     [74,82,88,94,[-2,-1,1,0,-2]],
     [72,80,86,92,[-2,-1,1,0,-2]],
     [64,72,82,90,[-2,-1,2,0,-2]],
-    [44,54,68,78,[-2,-1,2,2,-1]],  // Nov: post-spawn recovery — 54-68°F = optimal, 68-78°F = also good
-    [36,46,62,74,[-2,-1,2,1,0]],   // Dec: same as Jan — 50-62°F = optimal winter fishing
+    [54,64,76,84,[-2,-1,2,1,-1]],
+    [46,56,68,78,[-2,-1,1,2,0]],
   ],
   gulf_coast: [
     [38,48,60,70,[-2,-1,1,2,0]],
@@ -67,8 +67,8 @@ export const FRESHWATER_TEMP_ROWS: Record<RegionKey, TempBandRow[]> = {
     [36,46,56,66,[-2,-1,2,1,-1]],
     [46,56,66,76,[-2,-1,2,1,-1]],
     [56,66,74,82,[-2,-1,2,0,-2]],
-    [58,65,78,86,[-2,-1,2,0,-2]],
-    [56,64,77,85,[-2,-1,2,0,-2]],
+    [60,67,77,85,[-2,-1,2,0,-2]],  // Jul: cold_max 70→67; large-lake thermal inertia means 67°F air = ~73°F water = prime walleye/bass
+    [58,65,75,83,[-2,-1,2,0,-2]],  // Aug: cold_max 70→65; 67°F air on Lake Erie still means ~73°F water, not cold
     [52,62,72,80,[-2,-1,2,1,-1]],
     [40,50,60,70,[-2,-1,2,1,-1]],
     [28,38,48,58,[-2,-1,1,2,0]],
@@ -83,7 +83,7 @@ export const FRESHWATER_TEMP_ROWS: Record<RegionKey, TempBandRow[]> = {
     [64,72,80,88,[-2,-1,2,0,-2]],
     [70,78,84,92,[-2,-1,1,0,-2]],
     [68,76,84,92,[-2,-1,1,0,-2]],
-    [58,68,78,86,[-2,-1,2,0,-2]],
+    [52,62,78,86,[-2,-1,2,0,-2]],  // Sep: cold_max 68→62; walleye/smallmouth prime at 65-70°F
     [46,56,66,76,[-2,-1,2,1,-1]],
     [34,44,54,64,[-2,-1,1,2,0]],
     [24,34,44,54,[-2,-1,1,2,0]],
@@ -94,7 +94,7 @@ export const FRESHWATER_TEMP_ROWS: Record<RegionKey, TempBandRow[]> = {
     [42,52,64,74,[-2,-1,2,1,-1]],
     [52,62,72,82,[-2,-1,2,1,-1]],
     [62,70,80,88,[-2,-1,2,0,-2]],
-    [70,78,84,92,[-2,-1,1,0,-2]],
+    [62,72,84,92,[-2,-1,1,0,-2]],  // Jun: cold_max 78→72; 72-84°F = optimal range for bass/catfish
     [74,82,88,94,[-2,-1,1,0,-2]],
     [72,80,86,92,[-2,-1,1,0,-2]],
     [66,74,82,90,[-2,-1,2,0,-2]],
@@ -111,7 +111,7 @@ export const FRESHWATER_TEMP_ROWS: Record<RegionKey, TempBandRow[]> = {
     [58,68,76,84,[-2,-1,2,0,-2]],
     [64,72,80,88,[-2,-1,2,0,-2]],
     [62,70,78,86,[-2,-1,2,0,-2]],
-    [52,62,72,80,[-2,-1,2,1,-1]],
+    [48,62,72,80,[-2,-1,2,1,-1]],  // Sep: cold_max 52→48; kokanee/lake trout prefer 48-55°F
     [40,50,60,70,[-2,-1,2,1,-1]],
     [28,38,48,58,[-2,-1,1,2,0]],
     [18,28,38,48,[-2,-1,1,2,0]],
@@ -122,9 +122,9 @@ export const FRESHWATER_TEMP_ROWS: Record<RegionKey, TempBandRow[]> = {
     [48,58,68,78,[-2,-1,2,1,-1]],
     [56,66,76,86,[-2,-1,2,1,-1]],
     [66,74,82,90,[-2,-1,2,0,-2]],
-    [76,84,90,98,[-2,-1,1,-1,-2]],  // Jun: zone 4 (90-98°F) now -1; fish stressed, deep-only bite
-    [80,88,94,100,[-2,-1,1,-1,-2]], // Jul: zone 4 (94-100°F) = -1; river slightly less hurt (lower base weight)
-    [78,86,92,100,[-2,-1,1,-1,-2]],  // Aug: same — extreme heat still stress even for desert-adapted species
+    [76,84,90,98,[-2,-1,1,0,-2]],
+    [80,88,94,100,[-2,-1,1,0,-2]],
+    [78,86,92,100,[-2,-1,1,0,-2]],
     [72,80,86,94,[-2,-1,2,0,-2]],
     [60,70,80,88,[-2,-1,2,1,-1]],
     [46,56,66,76,[-2,-1,1,2,0]],
@@ -171,6 +171,46 @@ export const FRESHWATER_TEMP_ROWS: Record<RegionKey, TempBandRow[]> = {
     [52,62,72,82,[-2,-1,2,1,-1]],
     [42,52,64,74,[-2,-1,1,2,0]],
     [36,46,58,68,[-2,-1,1,2,0]],
+  ],
+
+  // ── NEW REGIONS ────────────────────────────────────────────────────────────
+
+  // mountain_alpine: >5,500ft elevation in mountain states (Dillon CO, Yellowstone Lake, Tahoe, etc.)
+  // Species: cutthroat, lake trout, brown trout, brook trout, kokanee salmon
+  // Key: optimal water temp 50-65°F; air-to-water lag ~5-8°F at altitude; narrow thermal windows
+  // Sep = BEST season (kokanee spawning, big browns staging); Jun prime spring; ice-fishing Jan-Mar
+  mountain_alpine: [
+    [0,14,28,40,[-2,-1,1,2,0]],   // Jan — deep freeze; ice fishing 14-28°F air = harsh but possible
+    [2,18,32,44,[-2,-1,1,2,0]],   // Feb — frozen; 18-32°F = typical ice fishing conditions
+    [16,28,44,56,[-2,-1,1,2,0]],  // Mar — ice-out starting; 28-44°F = pre-thaw, some open water
+    [26,40,56,66,[-2,-1,2,1,-1]], // Apr — ice-out prime; 40-56°F air → ~45-60°F water = trout VERY active
+    [36,50,64,74,[-2,-1,2,1,-1]], // May — prime spring; widest optimal window of year
+    [44,58,70,80,[-2,-1,2,0,-2]], // Jun — peak pre-summer; 58-70°F = optimal alpine lake conditions
+    [50,62,74,84,[-2,-1,2,0,-2]], // Jul — summer; fish AM/PM; 62-74°F air = ~65-72°F water, still ok
+    [48,60,72,82,[-2,-1,2,0,-2]], // Aug — late summer; 60-72°F sweet spot; fish deeper midday
+    [32,46,64,74,[-2,-1,2,1,-1]], // Sep — BEST SEASON: kokanee spawning + big browns staging; 46-64°F air = prime (50-58°F water at altitude)
+    [26,38,56,66,[-2,-1,2,1,-1]], // Oct — PRIME late season: lake trout + brown trout spawning; 38-56°F air = very active (38-50°F water)
+    [14,26,40,52,[-2,-1,1,2,0]],  // Nov — closing season; 26-40°F = late ice-forming; ice-fishing begins
+    [0,14,28,40,[-2,-1,1,2,0]],   // Dec — frozen; ice fishing only
+  ],
+
+  // northern_california: CA lat>37.5°N — Sacramento Valley, NorCal foothills, lower Sierra
+  // Covers: Lake Shasta (~1,000ft), Trinity Lake, Oroville, Berryessa, Sacramento/Trinity rivers
+  // Species: largemouth/smallmouth bass, rainbow/brown trout, king/coho salmon, steelhead
+  // Key: HOT summers (Sacramento Valley 95-105°F); wet mild winters; prime = spring/fall + winter steelhead
+  northern_california: [
+    [32,44,60,72,[-2,-1,2,1,-1]], // Jan — mild winter; 44-60°F = steelhead prime, bass deep but catchable
+    [34,46,62,74,[-2,-1,2,1,-1]], // Feb — warming; steelhead running; bass pre-spawn warming up
+    [40,52,68,78,[-2,-1,2,1,-1]], // Mar — bass pre-spawn starting; trout prime; 52-68°F ideal
+    [48,58,74,84,[-2,-1,2,1,-1]], // Apr — PRIME bass pre-spawn; 58-74°F = spawn trigger temps
+    [54,64,78,88,[-2,-1,2,0,-2]], // May — top-water bass begins; trout going deeper; warming fast
+    [62,72,84,94,[-2,-1,2,0,-2]], // Jun — hot; fish early morning; 72-84°F = acceptable, >94°F = stress
+    [68,78,88,98,[-2,-1,1,0,-2]], // Jul — peak heat; dawn only viable in Sacramento Valley
+    [66,76,88,96,[-2,-1,1,0,-2]], // Aug — still hot; similar to Jul; evening bass top-water possible
+    [60,70,82,92,[-2,-1,2,0,-2]], // Sep — cooling starts; bass very active; salmon/steelhead incoming
+    [50,60,76,86,[-2,-1,2,1,-1]], // Oct — PRIME fall; salmon running; bass and trout very active
+    [40,52,66,76,[-2,-1,2,1,-1]], // Nov — steelhead season begins; bass still active; rain starts
+    [34,46,62,72,[-2,-1,2,1,-1]], // Dec — winter steelhead peak; bass slow but catchable
   ],
 };
 

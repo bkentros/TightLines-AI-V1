@@ -7,12 +7,12 @@ import type { EngineContext, VariableState } from "../contracts/mod.ts";
  * Previously max was +1 ("low_light") and the minimum for coastal was 0 —
  * both ceilings that prevented 10.0 scores and compressed the coastal floor.
  *
- * Tier       Cloud %    Freshwater   Coastal
- * glare       < 10 %       -2          -1   (harsh glare, fish deep/spooky)
- * bright     10–25 %       -1          -1   (sunny, fish seek cover)
- * mixed      26–69 %        0           0   (neutral)
- * low_light  70–85 %       +1          +1   (ideal feeding light)
- * heavy_overcast > 85 %   +2          +2   (peak feeding conditions, low light)
+ * Tier       Cloud %    Score   (all contexts)
+ * glare       < 10 %     -1   (clear sky pushes fish deep; -1 not -2: timing tips already flag dawn/dusk)
+ * bright     10–25 %     -1   (sunny, fish seek cover/shade)
+ * mixed      26–69 %      0   (neutral)
+ * low_light  70–85 %     +1   (ideal feeding light)
+ * heavy_overcast > 85 %  +2   (peak feeding conditions)
  */
 export function normalizeLight(
   cloudPct: number | null | undefined,
@@ -32,9 +32,10 @@ export function normalizeLight(
 
   let score: -2 | -1 | 0 | 1 | 2;
   if (label === "glare") {
-    // Bright glare is most punishing for freshwater (fish go deep or stop feeding).
-    // Coastal fish are somewhat less affected — still negative but only -1.
-    score = freshwater ? -2 : -1;
+    // Clear sky pushes fish deep and shifts activity to dawn/dusk — not catastrophic,
+    // just unfavorable. Timing recommendations already communicate the workaround.
+    // -1 for both contexts; -2 was masking too many genuinely fishable clear days.
+    score = -1;
   } else if (label === "bright") {
     score = -1;
   } else if (label === "mixed") {
