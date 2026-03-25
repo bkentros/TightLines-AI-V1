@@ -57,7 +57,9 @@ export function regionKeyFromState(state: string | null): RegionKey | null {
   return STATE_TO_REGION[k] ?? null;
 }
 
-/** Bounding-box fallback when state is unknown (US mainland approximation). */
+/** Bounding-box fallback when state is unknown (US mainland approximation).
+ *  Note: mountain_alpine requires altitude data — handled by buildFromEnvData override.
+ *  northern_california lat/lon box included here for cases where state is unknown. */
 export function regionKeyFromLatLon(lat: number, lon: number): RegionKey {
   if (lat >= 24 && lat <= 31.5 && lon >= -98 && lon <= -79.5) return "gulf_coast";
   if (lat >= 24.5 && lat <= 31 && lon >= -87.5 && lon <= -80) return "florida";
@@ -66,6 +68,8 @@ export function regionKeyFromLatLon(lat: number, lon: number): RegionKey {
   if (lat >= 40 && lat <= 49 && lon >= -97 && lon <= -76) return "great_lakes_upper_midwest";
   if (lat >= 35 && lat <= 40 && lon >= -95 && lon <= -80) return "midwest_interior";
   if (lat >= 33 && lat <= 37 && lon >= -103 && lon <= -88) return "south_central";
+  // NorCal bounding box (lat > 37.5 along CA coast/inland corridor, west of Sierra crest)
+  if (lat >= 37.5 && lat <= 42.0 && lon >= -124.5 && lon <= -119.5) return "northern_california";
   if (lat >= 37 && lat <= 49 && lon >= -125 && lon <= -104) return "mountain_west";
   if (lat >= 31 && lat <= 37 && lon >= -115 && lon <= -109) return "southwest_desert";
   if (lat >= 31 && lat <= 37 && lon >= -109 && lon <= -103) return "southwest_high_desert";

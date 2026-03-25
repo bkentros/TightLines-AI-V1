@@ -5,8 +5,8 @@
  * - **Geometry:** only highlight dawn and/or evening buckets whose **mean cloud is low
  *   enough** that sun angle actually creates an edge (typically <70% in-bucket).
  * - **Extended:** highlight buckets where mean cloud is high enough to soften light
- *   (≥~68%), then cap breadth (top 2 buckets by cloud) so we don’t imply “equal
- *   everywhere” when coverage varies by hour.
+ *   (≥~68%), then cap breadth (top 2 buckets by cloud) so we don’t imply "equal
+ *   everywhere" when coverage varies by hour.
  *
  * When hourly is missing, behavior falls back to daily `cloud_cover_pct` + light score.
  */
@@ -29,9 +29,9 @@ export type LightMode = "low_light_geometry" | "cloud_extended_low_light";
 const HOURLY_MIN_LEN = 12;
 /** Match daily geometry gate (~70%): bucket mean must stay below this for sharp edges */
 const GEOMETRY_BUCKET_MAX_CLOUD_MEAN = 69;
-/** Bucket qualifies as “extended low-light” helpful (aligns normalizeLight 70%+ tiers) */
+/** Bucket qualifies as "extended low-light" helpful (aligns normalizeLight 70%+ tiers) */
 const EXTENDED_BUCKET_MIN_CLOUD_MEAN = 68;
-/** Fishable hours for “is this an overcast day?” when reconciling hourly vs daily */
+/** Fishable hours for "is this an overcast day?" when reconciling hourly vs daily */
 const FISHABLE_CLOUD_LO = 6;
 const FISHABLE_CLOUD_HI = 20;
 const EXTENDED_DAY_MEAN_MIN = 65;
@@ -160,7 +160,7 @@ function evaluateCloudExtended(
   if (hourly && hourly.length >= HOURLY_MIN_LEN) {
     const fishMean = meanFishableCloud(hourly);
     const dailyOvercast = cloudPct != null && cloudPct >= 70;
-    // Hourly curve disagrees with a “not overcast” daily average — don’t force extended
+    // Hourly curve disagrees with a "not overcast" daily average — don’t force extended
     if (
       fishMean !== null &&
       fishMean < 55 &&

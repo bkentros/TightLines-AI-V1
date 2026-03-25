@@ -27,7 +27,7 @@ function temperatureDriverLabel(t: NonNullable<Norm["temperature"]>): string {
     }
     if (band === "optimal") {
       return pick([
-        "Water-adjacent air temps sit in the seasonal sweet spot — a classic “no excuses” thermal window.",
+        "Water-adjacent air temps sit in the seasonal sweet spot — a classic \"no excuses\" thermal window.",
         "You’re inside the comfort band most species prefer today; turnover stress is minimal.",
         "Thermal picture is textbook: not too hot, not too cold for this time of year.",
         "Temps line up with what guides call the money zone for this month.",
@@ -123,7 +123,7 @@ function pressureDriverLabel(p: NonNullable<Norm["pressure_regime"]>): string {
   switch (p.label) {
     case "falling_slow":
       return pick([
-        "Barometer is easing downward slowly — the classic “fish feel it coming” pre-front window.",
+        "Barometer is easing downward slowly — the classic \"fish feel it coming\" pre-front window.",
         "Gentle pressure fall often correlates with confident feeding ahead of a weak change.",
         "Slow drop in mercury: subtle instability that many fisheries read as a green light.",
         "Soft falling pressure — enough movement to turn heads without a shock to the system.",

@@ -65,9 +65,9 @@ export function normalizePressureDetailed(
       // Pressure was swinging earlier but has now settled — fish are adjusting/recovering.
       // Score softens to -1 ("recently_stabilizing") rather than full -2 penalty.
       if (series.length >= 6) {
-        const recentSlice = series.slice(-4);
+        const recentSlice = series.slice(-8);
         const recentRange = Math.max(...recentSlice) - Math.min(...recentSlice);
-        if (recentRange < 1.5) {
+        if (recentRange < 3.0) {
           return {
             quality,
             state: {

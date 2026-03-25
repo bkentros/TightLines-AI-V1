@@ -24,7 +24,7 @@ export function seasonFromMonth(month: number): SeasonKey {
 // ── Region → timing climate (5 archetypes) ───────────────────────────────────
 
 const CLIMATE_ZONE_MAP: Record<RegionKey, ClimateZone> = {
-  /** Strong winter / real summer — same family stack as legacy “cold continental” */
+  /** Strong winter / real summer — same family stack as legacy "cold continental" */
   northeast: "interior_continental",
   great_lakes_upper_midwest: "interior_continental",
   midwest_interior: "interior_continental",
@@ -46,6 +46,11 @@ const CLIMATE_ZONE_MAP: Record<RegionKey, ClimateZone> = {
   /** Dry bright heat — spring leans warm-belt wind/cloud row vs humid subtropical */
   southwest_desert: "hot_arid",
   southern_california: "hot_arid",
+
+  /** Alpine: continental timing (cold winter / real summer) — same stack as mountain_west */
+  mountain_alpine: "interior_continental",
+  /** NorCal: Mediterranean-ish with wet winters; maritime coast + hot inland valley blend */
+  northern_california: "warm_humid",
 };
 
 export function climateZoneFromRegion(region: RegionKey): ClimateZone {
@@ -77,7 +82,7 @@ const LAKE_INTERIOR: MonthFamilyRow = [
 
 /**
  * Maritime cool — mild gray winters (warm-belt winter stack); peak summer uses
- * interior “cool summer” row (low-light + cloud) instead of harsh avoid-heat.
+ * interior "cool summer" row (low-light + cloud) instead of harsh avoid-heat.
  */
 const LAKE_MARITIME: MonthFamilyRow = [
   "lake_warm_winter",

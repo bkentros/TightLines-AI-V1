@@ -26,6 +26,10 @@ const REGION_SENS: Record<RegionKey, Sens> = {
   southwest_high_desert: "high",
   pacific_northwest: "high",
   southern_california: "high",
+  // Alpine rivers react extremely fast to snowmelt and afternoon thunderstorms
+  mountain_alpine: "high",
+  // NorCal rivers (Sacramento, Trinity) flood fast in winter rain events
+  northern_california: "high",
 };
 
 function classify(
@@ -87,7 +91,7 @@ function classify(
 
 /**
  * Requires all three precip windows as finite, non-negative inches.
- * Missing longer windows are NOT treated as zero — that overstated “dry” flow
+ * Missing longer windows are NOT treated as zero — that overstated "dry" flow
  * when only 24h was present. Caller must supply a full triplet or omit runoff.
  */
 export function normalizeRunoff(

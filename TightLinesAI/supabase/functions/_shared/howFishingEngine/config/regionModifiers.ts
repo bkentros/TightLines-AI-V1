@@ -17,6 +17,10 @@ const LAKE: Record<RegionKey, LakeR> = {
   southwest_high_desert: { t: 1, p: 0, w: 0, l: 0, pr: 0 },
   pacific_northwest: { t: 1, p: 0, w: 1, l: 0, pr: 0 },
   southern_california: { t: 0, p: 0, w: 0, l: 1, pr: -1 },
+  // Alpine: temp is the dominant variable (narrow thermal windows for trout); wind matters (mountain events)
+  mountain_alpine: { t: 3, p: 0, w: 1, l: 0, pr: 0 },
+  // NorCal: similar to SoCal but heavier rain disruption and less heat suppression
+  northern_california: { t: 0, p: 0, w: 0, l: 1, pr: -1 },
 };
 
 const RIVER: Record<RegionKey, RiverR> = {
@@ -32,6 +36,10 @@ const RIVER: Record<RegionKey, RiverR> = {
   southwest_high_desert: { t: 0, p: 0, w: 0, l: 0, r: 2 },
   pacific_northwest: { t: 0, p: 0, w: 0, l: 0, r: 2 },
   southern_california: { t: 0, p: 0, w: 0, l: 0, r: 2 },
+  // Alpine: snowmelt runoff is the biggest disruptor; temp still critical for trout
+  mountain_alpine: { t: 2, p: 0, w: 0, l: 0, r: 3 },
+  // NorCal: heavy winter rains, powerful runoff (Sacramento/Trinity rivers); similar to PNW
+  northern_california: { t: 0, p: 0, w: 0, l: 0, r: 2 },
 };
 
 const COAST: Record<RegionKey, CoastalR> = {
@@ -47,6 +55,10 @@ const COAST: Record<RegionKey, CoastalR> = {
   southwest_high_desert: { ti: 0, wi: 0, pr: 0, l: 0, te: 0, pi: -1 },
   pacific_northwest: { ti: 1, wi: 1, pr: 0, l: 0, te: 0, pi: -1 },
   southern_california: { ti: 0, wi: 0, pr: 0, l: 0, te: 0, pi: -1 },
+  // Alpine has no meaningful coastal; default to neutral (shouldn't be called in practice)
+  mountain_alpine: { ti: 0, wi: 0, pr: 0, l: 0, te: 0, pi: 0 },
+  // NorCal coast: tidal and wind are primary drivers (upwelling, fog-break windows)
+  northern_california: { ti: 1, wi: 1, pr: 0, l: 0, te: 0, pi: -1 },
 };
 
 export function getRegionModifiers(

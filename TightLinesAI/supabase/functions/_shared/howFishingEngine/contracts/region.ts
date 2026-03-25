@@ -15,6 +15,9 @@ export const CANONICAL_REGION_KEYS = [
   "southwest_high_desert",
   "pacific_northwest",
   "southern_california",
+  // Altitude/latitude-derived sub-regions (override base state mapping when conditions met)
+  "mountain_alpine",       // >5,500ft in mountain states — alpine trout/kokanee calibration
+  "northern_california",   // CA lat>37.5°N — NorCal inland/foothill + coast, distinct from SoCal
 ] as const;
 
 export type RegionKey = (typeof CANONICAL_REGION_KEYS)[number];
