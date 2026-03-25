@@ -84,7 +84,8 @@ export function isPointInBounds(lat: number, lon: number, b: StateBounds): boole
 }
 
 export function resolveStateFromCoords(lat: number, lon: number): string | null {
-  if (lat < 24 || lat > 72 || lon < -180 || lon > 180) return null;
+  // Min lat must include Hawaii (~19°N) and Puerto Rico (~18°N); max ~72° for northern AK
+  if (lat < 16 || lat > 72 || lon < -180 || lon > 180) return null;
   for (const b of STATE_BOUNDS) {
     if (isPointInBounds(lat, lon, b)) return b.state;
   }

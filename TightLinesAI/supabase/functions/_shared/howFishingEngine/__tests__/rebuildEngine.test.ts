@@ -16,6 +16,7 @@ import {
 import { bandFromScore, scoreDay } from "../score/scoreDay.ts";
 import { computeActiveWeights } from "../score/reweight.ts";
 import { buildSharedNormalizedOutput } from "../normalize/buildNormalized.ts";
+import { compositeScoreActivityTier } from "../narration/compositeScoreTier.ts";
 import { runHowFishingReport } from "../runHowFishingReport.ts";
 import { buildActionableTip } from "../tips/buildTips.ts";
 import type { SharedNormalizedOutput, TemperatureNormalized } from "../contracts/mod.ts";
@@ -54,6 +55,20 @@ Deno.test("temperature: Feb great_lakes_upper_midwest river 45F in warm band +2"
   assertEquals(t!.band_score, 2);
 });
 
+Deno.test("temperature: Jul mountain_west ~58F daily mean is cool not very_cold", () => {
+  const t = normalizeTemperature(
+    "freshwater_lake_pond",
+    "mountain_west",
+    7,
+    57.5,
+    57.7,
+    56.4
+  );
+  assert(t != null);
+  assertEquals(t!.band_label, "cool");
+  assertEquals(t!.band_score, -1);
+});
+
 Deno.test("temperature: shock from 10F day-over-day swing", () => {
   const t = normalizeTemperature(
     "freshwater_lake_pond",
@@ -73,12 +88,16 @@ Deno.test("wind: mph thresholds — light helps lake/coast; moderate only helps 
   assertEquals(normalizeWind(8, "freshwater_lake_pond")!.score, 0);
   assertEquals(normalizeWind(8, "coastal")!.score, 1);
   assertEquals(normalizeWind(16, "freshwater_lake_pond")!.score, -1);
+  assertEquals(normalizeWind(16, "coastal")!.score, 0);
   assertEquals(normalizeWind(25, "freshwater_river")!.score, -2);
+  assertEquals(normalizeWind(25, "coastal")!.score, 0);
+  assertEquals(normalizeWind(32, "coastal")!.score, -1);
+  assertEquals(normalizeWind(40, "coastal")!.score, -2);
 });
 
-Deno.test("light: coastal bright negative; mixed neutral; low cloud positive", () => {
-  assertEquals(normalizeLight(5, "coastal")!.score, -1);
-  assertEquals(normalizeLight(20, "coastal")!.score, -1);
+Deno.test("light: coastal glare/bright neutral; mixed neutral; low cloud positive", () => {
+  assertEquals(normalizeLight(5, "coastal")!.score, 0);
+  assertEquals(normalizeLight(20, "coastal")!.score, 0);
   assertEquals(normalizeLight(40, "coastal")!.score, 0);
   assertEquals(normalizeLight(70, "coastal")!.score, 1);
 });
@@ -227,6 +246,41 @@ Deno.test("scoreDay: drivers from positive contributions only", () => {
   assert(s.score >= 0 && s.score <= 100);
 });
 
+Deno.test("compositeScoreActivityTier: describes score band only", () => {
+  assert(compositeScoreActivityTier(72).includes("70–100"));
+  assert(!compositeScoreActivityTier(72).toLowerCase().includes("fish"));
+});
+
+Deno.test("labelForDriver: same inputs yield identical driver labels (no randomness)", () => {
+  const req = {
+    latitude: 44.9,
+    longitude: -93.2,
+    state_code: "MN",
+    region_key: "great_lakes_upper_midwest" as const,
+    local_date: "2025-02-15",
+    local_timezone: "America/Chicago",
+    context: "freshwater_river" as const,
+    environment: {
+      daily_mean_air_temp_f: 44,
+      prior_day_mean_air_temp_f: 38,
+      day_minus_2_mean_air_temp_f: 30,
+      pressure_history_mb: [1013, 1012],
+      wind_speed_mph: 8,
+      cloud_cover_pct: 50,
+      precip_24h_in: 0.05,
+      precip_72h_in: 0.1,
+      precip_7d_in: 0.5,
+    },
+    data_coverage: {},
+  };
+  const a = runHowFishingReport(req);
+  const b = runHowFishingReport(req);
+  assertEquals(
+    a.drivers.map((d) => `${d.variable}|${d.label}`),
+    b.drivers.map((d) => `${d.variable}|${d.label}`),
+  );
+});
+
 Deno.test("runHowFishingReport: contract fields", () => {
   const req = {
     latitude: 44.9,
@@ -256,6 +310,17 @@ Deno.test("runHowFishingReport: contract fields", () => {
   assert(r.suppressors.length <= 2);
   assert(r.actionable_tip.length > 0);
   assert(r.daypart_preset != null);
+  const cc = r.condition_context!;
+  assert(cc.normalized_variable_scores.length >= 3);
+  const tempEntry = cc.normalized_variable_scores.find((x) => x.variable_key === "temperature_condition");
+  assert(tempEntry != null);
+  assertEquals(tempEntry!.engine_score, tempEntry!.temperature_breakdown?.final_score);
+  assert(cc.composite_contributions.length >= 3);
+  assertEquals(
+    cc.composite_contributions.reduce((a, c) => a + c.weighted_contribution, 0),
+    cc.composite_contributions.reduce((a, c) => a + c.weight * c.normalized_score, 0),
+  );
+  assertEquals(cc.environment_snapshot.pressure_history_summary?.sample_count, 24);
 });
 
 Deno.test("runHowFishingReport: forwards data_coverage_notes from adapter", () => {

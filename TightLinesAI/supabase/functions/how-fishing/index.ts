@@ -9,7 +9,9 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import {
+  applyConditionContextToEngineVerdict,
   buildSharedEngineRequestFromEnvData,
+  compositeScoreActivityTier,
   runHowFishingReport,
   buildNarrationPayloadFromReport,
   type EngineContext,
@@ -186,7 +188,7 @@ This applies to every variable — not just pressure. If temperature_band says "
 Non-negotiable rules:
 - Output valid JSON only: {"summary_line":"...","actionable_tip":"..."}
 - Keep each field at or under 220 characters.
-- Never invent species behavior, spawning claims, structure, bait, exact depths, or habitat details not implied by the payload.
+- Never invent species behavior, spawning claims, structure, bait, exact depths, or habitat details not implied by the payload. When engine_verdict includes normalized_variable_scores and environment_snapshot, treat them as ground truth for translating conditions — do not guess drivers or magnitudes beyond those structures.
 - Never invent exact time slots or hourly windows. Broad timing language in summary_line only when payload supports it.
 - Treat the engine score as truth. Never contradict driver/suppressor logic.
 - Freshwater temperature is air-temp context only. Never mention measured or inferred water temperature.
@@ -333,19 +335,6 @@ function buildWeatherSnapshot(envData?: Record<string, unknown> | null): Record<
   return Object.keys(snap).length > 0 ? snap : null;
 }
 
-/**
- * Translate the engine score into an explicit fish activity verdict.
- * The LLM receives this directly so it never has to infer behavior from
- * raw air temp + season alone — which causes the cold-metabolism-in-spring bug.
- */
-function deriveActivityLevel(score: number): string {
-  if (score >= 70) return "high — fish are feeding actively and willing to commit";
-  if (score >= 55) return "moderate-high — fish are engaged and responding well to proper presentation";
-  if (score >= 40) return "moderate — fish are selectively willing, need a clean presentation";
-  if (score >= 25) return "low — fish are tentative, require deliberate and precise approach";
-  return "very low — fish are not cooperative, tough conditions across the board";
-}
-
 /** Convert driver/suppressor objects to short factual descriptors for the LLM */
 function driverToFact(d: { variable: string; effect: string; label: string }): string {
   // Extract the variable name and the score-aware factual core
@@ -382,28 +371,7 @@ function buildNarrationPrompt(
     timing_strength: narration.timing_strength ?? null,
   };
   if (conditionContext) {
-    engineVerdict.temperature_band = conditionContext.temperature_band;
-    engineVerdict.temperature_metabolic_context = conditionContext.temperature_metabolic_context;
-    engineVerdict.avoid_midday_for_heat = conditionContext.avoid_midday_for_heat;
-    engineVerdict.recommended_fishing_dayparts = conditionContext.highlighted_dayparts_for_narration;
-    engineVerdict.temperature_trend = conditionContext.temperature_trend;
-    if (conditionContext.temperature_shock !== "none") {
-      engineVerdict.temperature_shock = conditionContext.temperature_shock;
-    }
-    if (conditionContext.pressure_detail) {
-      engineVerdict.pressure_detail = conditionContext.pressure_detail;
-    }
-    if (conditionContext.wind_detail) {
-      engineVerdict.wind_detail = conditionContext.wind_detail;
-    }
-    if (conditionContext.tide_detail) {
-      engineVerdict.tide_detail = conditionContext.tide_detail;
-    }
-    engineVerdict.region = conditionContext.region_key;
-    engineVerdict.scored_variables_present = conditionContext.available_variables;
-    if (conditionContext.missing_variables.length > 0) {
-      engineVerdict.data_gaps_variable_keys = conditionContext.missing_variables;
-    }
+    applyConditionContextToEngineVerdict(engineVerdict, conditionContext);
   }
 
   const gapDetails = report.normalized_debug?.data_gaps ?? [];
@@ -462,11 +430,12 @@ function buildNarrationPrompt(
     "<output_contract>",
     "summary_line: one or two short sentences (max 220 chars total). High-level mood of the day only — band/score vibe, not a factor-by-factor recap. Do NOT repeat, paraphrase, or preview sentences from whats_helping or whats_hurting; those lists own the detailed 'why'. You MAY align broad timing language with engine_timing_note and recommended_fishing_dayparts when present. Reference the location by name if provided. Optional: one grounded detail from 'conditions' (temp, wind, or rain) if it adds life — not a stat dump. Never mention solunar_peaks in summary unless you frame them as soft folklore; engine timing_note takes priority.",
     "actionable_tip: ONE complete sentence (two max, 220 chars total). MUST stay inside ASSIGNED_TIP_FOCUS_LANE only (offering_size_profile | retrieval_method | speed_aggression | finesse_vs_power). Name a concrete mechanical move: explicit pace OR explicit size/profile change OR explicit retrieve pattern OR explicit finesse-vs-power stance. FORBIDDEN in actionable_tip: where to fish, structure, depth, water column targets, tide time, time of day, solunar, boat/stealth/cast placement, 'cover water' as main advice, fish-mood monologues.",
-    "CRITICAL — engine_verdict.fish_activity_level and engine_verdict.temperature_band are the engine's scored verdicts. Your tip must be consistent with both. If fish_activity_level says 'high' and temperature_band says 'optimal', do NOT default to ultra-slow finesse unless that lane still demands a speed call — then choose a faster retrieve method or power stance instead.",
+    "CRITICAL — engine_verdict.fish_activity_level states which composite score band the engine assigned (it is not a live fish survey). engine_verdict.temperature_band is the air-temp normalization bucket. Your tip must be consistent with both. If fish_activity_level is in the high composite band and temperature_band is optimal, do NOT default to ultra-slow finesse unless that lane still demands a speed call — then choose a faster retrieve method or power stance instead.",
     "If temperature_band is warm or very_warm, NEVER frame the bite as 'cold water' or winter-style lethargy — that is a hard factual error. If it is very_cold or cool, do not write heat-stress advice.",
     "Trust engine_verdict.temperature_metabolic_context: heat_limited = heat is constraining the bite (even in a normally cool month); cold_limited = cold is the limiter; neutral = neither dominates the metabolic story.",
     "If engine_verdict.avoid_midday_for_heat is true OR recommended_fishing_dayparts excludes afternoon, do NOT praise midday or peak-sun hours as the best time — keep timing language on dawn, morning shoulders, and/or evening as the payload indicates.",
     "If data_gap_details or data_gaps_variable_keys is non-empty, do not invent specifics for those variables — stay honest about uncertainty.",
+    "Authoritative facts for each scored variable are engine_verdict.normalized_variable_scores (labels + engine_score) and the weighting in composite_contributions. environment_snapshot is the scalar/summary input the engine used. Do not infer fish behavior, habitat, or underwater conditions beyond what those fields and the band/score imply. If whats_helping or whats_hurting ever disagrees with normalized_variable_scores on sign or severity for a variable, ignore the conflicting clause and follow normalized_variable_scores.",
     "Use engine_tip_seed only as loose phrasing inspiration; you may rewrite completely. Do not copy it verbatim if it violates ASSIGNED_TIP_FOCUS_LANE.",
     "Uniqueness: generation_id must produce visibly different phrasing from any other generation_id you have written. If a sentence could apply unchanged to a different lake on a different day, rewrite.",
     "Do not mention JSON, payload, scoring math, data confidence, score numbers, generation_id, or lane machine labels in output.",

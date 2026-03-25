@@ -7,12 +7,12 @@ import type { EngineContext, VariableState } from "../contracts/mod.ts";
  * Previously max was +1 ("low_light") and the minimum for coastal was 0 —
  * both ceilings that prevented 10.0 scores and compressed the coastal floor.
  *
- * Tier       Cloud %    Score   (all contexts)
- * glare       < 10 %     -1   (clear sky pushes fish deep; -1 not -2: timing tips already flag dawn/dusk)
- * bright     10–25 %     -1   (sunny, fish seek cover/shade)
- * mixed      26–69 %      0   (neutral)
- * low_light  70–85 %     +1   (ideal feeding light)
- * heavy_overcast > 85 %  +2   (peak feeding conditions)
+ * Tier       Cloud %    Score   freshwater / river     coastal
+ * glare       < 10 %     -1                         0   (marine: bright days routinely fished)
+ * bright     10–25 %     -1                         0
+ * mixed      26–69 %      0                         0
+ * low_light  70–85 %     +1                        +1
+ * heavy_overcast > 85 %  +2                        +2
  */
 export function normalizeLight(
   cloudPct: number | null | undefined,
@@ -28,16 +28,16 @@ export function normalizeLight(
   else if (c <= 85) label = "low_light";
   else label = "heavy_overcast";
 
-  const freshwater = context !== "coastal";
-
   let score: -2 | -1 | 0 | 1 | 2;
   if (label === "glare") {
     // Clear sky pushes fish deep and shifts activity to dawn/dusk — not catastrophic,
     // just unfavorable. Timing recommendations already communicate the workaround.
-    // -1 for both contexts; -2 was masking too many genuinely fishable clear days.
-    score = -1;
+    // Coastal: saltwater fisheries routinely fish bright/sunny days (structure, tide,
+    // polarized optics); keep freshwater penalty, neutralize marine "glare" tier.
+    score = context === "coastal" ? 0 : -1;
   } else if (label === "bright") {
-    score = -1;
+    // Same idea: bright sun is a modest headwind on lakes/rivers, usually workable inshore.
+    score = context === "coastal" ? 0 : -1;
   } else if (label === "mixed") {
     score = 0;
   } else if (label === "low_light") {

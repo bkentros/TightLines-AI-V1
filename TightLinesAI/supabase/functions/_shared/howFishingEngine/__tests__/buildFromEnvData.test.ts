@@ -143,6 +143,31 @@ Deno.test("buildFromEnvData: sparse hourly temp adds data_coverage source_note",
   assert(req.data_coverage.source_notes?.some((s) => s.includes("hourly_cloud_cover_pct")));
 });
 
+Deno.test("buildFromEnvData: daily total precipitation matches 24h — no fake rate or active flag", () => {
+  const req = buildSharedEngineRequestFromEnvData(
+   40.72,
+    -122.41,
+    "2024-10-12",
+    "America/Los_Angeles",
+    "freshwater_lake_pond",
+    {
+      weather: {
+        temperature: 65,
+        pressure: 1013,
+        wind_speed: 8,
+        cloud_cover: 40,
+        precipitation: 0.05905511811023623 * 25.4, // mm = same as 0.059 in daily
+        temp_7day_high: Array.from({ length: 21 }, () => 70),
+        temp_7day_low: Array.from({ length: 21 }, () => 50),
+        precip_7day_daily: Array.from({ length: 21 }, () => 0.06),
+      },
+    },
+  );
+  assertEquals(req.environment.precip_24h_in, 0.06);
+  assertEquals(req.environment.precip_rate_now_in_per_hr, null);
+  assertEquals(req.environment.active_precip_now, false);
+});
+
 Deno.test("buildFromEnvData: env vs request timezone mismatch is noted", () => {
   const req = buildSharedEngineRequestFromEnvData(
     40.7,

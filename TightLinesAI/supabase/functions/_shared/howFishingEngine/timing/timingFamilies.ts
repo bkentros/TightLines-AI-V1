@@ -51,6 +51,13 @@ const CLIMATE_ZONE_MAP: Record<RegionKey, ClimateZone> = {
   mountain_alpine: "interior_continental",
   /** NorCal: Mediterranean-ish with wet winters; maritime coast + hot inland valley blend */
   northern_california: "warm_humid",
+
+  appalachian: "warm_humid",
+  inland_northwest: "interior_continental",
+
+  alaska: "interior_continental",
+  /** Year-round mild/warm — share subtropical stack with Florida for month timing */
+  hawaii: "hot_humid",
 };
 
 export function climateZoneFromRegion(region: RegionKey): ClimateZone {

@@ -9,6 +9,7 @@ import {
   deriveTemperatureMetabolicContext,
   highlightedDaypartLabels,
 } from "./narration/deriveNarrationHints.ts";
+import { buildLlmConditionExtensions } from "./narration/buildLlmConditionExtensions.ts";
 import { resolveTimingResult } from "./timing/resolveTimingResult.ts";
 
 function reliabilityNote(tier: "high" | "medium" | "low"): string | null {
@@ -131,6 +132,14 @@ export function runHowFishingReport(req: SharedEngineRequest): HowsFishingReport
       pressure_detail: norm.normalized.pressure_regime?.detail ?? null,
       wind_detail: norm.normalized.wind_condition?.detail ?? null,
       tide_detail: norm.normalized.tide_current_movement?.detail ?? null,
+      light_cloud_label: norm.normalized.light_cloud_condition?.label ?? null,
+      light_cloud_detail: norm.normalized.light_cloud_condition?.detail ?? null,
+      precipitation_disruption_label:
+        norm.normalized.precipitation_disruption?.label ?? null,
+      precipitation_disruption_detail:
+        norm.normalized.precipitation_disruption?.detail ?? null,
+      runoff_flow_label: norm.normalized.runoff_flow_disruption?.label ?? null,
+      runoff_flow_detail: norm.normalized.runoff_flow_disruption?.detail ?? null,
       region_key: norm.location.region_key,
       available_variables: norm.available_variables,
       missing_variables: norm.missing_variables,
@@ -141,6 +150,7 @@ export function runHowFishingReport(req: SharedEngineRequest): HowsFishingReport
       highlighted_dayparts_for_narration: highlightedDaypartLabels(
         timing.highlighted_periods,
       ),
+      ...buildLlmConditionExtensions(norm, scored.contributions, req.environment),
     },
   };
 }

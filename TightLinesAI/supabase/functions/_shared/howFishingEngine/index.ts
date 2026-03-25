@@ -8,4 +8,6 @@ export { buildSharedEngineRequestFromEnvData } from "./request/buildFromEnvData.
 export { buildSharedNormalizedOutput } from "./normalize/buildNormalized.ts";
 export { runHowFishingReport } from "./runHowFishingReport.ts";
 export { buildNarrationPayloadFromReport } from "./narration/buildNarrationPayload.ts";
+export { applyConditionContextToEngineVerdict } from "./narration/applyConditionContextToEngineVerdict.ts";
+export { compositeScoreActivityTier } from "./narration/compositeScoreTier.ts";
 export { scoreDay, bandFromScore } from "./score/scoreDay.ts";

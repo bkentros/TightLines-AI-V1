@@ -48,10 +48,19 @@ export function normalizeWind(
     // Lake/pond and river: workable but not a help.
     score = coastal ? 1 : 0;
   } else if (label === "strong") {
-    score = -1;
+    // Coastal: 16–24 mph is often fishable from lee shore / inside bars; chop can
+    // concentrate bait. Freshwater/river still treat as a clear hindrance.
+    score = coastal ? 0 : -1;
   } else {
-    // extreme
-    score = -2;
+    // extreme (>24 mph): Gulf/Atlantic inshore often fishes mid-20s from lee shore;
+    // treat ≤26 mph coastal as "workable chop" (0), 27–35 as caution (-1), above as -2.
+    if (coastal) {
+      if (windMph <= 26) score = 0;
+      else if (windMph <= 35) score = -1;
+      else score = -2;
+    } else {
+      score = -2;
+    }
   }
 
   return { label, score, detail: `${Math.round(windMph)} mph` };

@@ -98,7 +98,21 @@ export function normalizeTemperature(
     else if (delta72h <= -5) trendAdj = -1;
   }
 
-  const final_score = clampScore(bandScore + trendAdj + shockAdj);
+  let final_score = clampScore(bandScore + trendAdj + shockAdj);
+
+  // Coastal: seasonally cool air is often aligned with good inshore / migratory
+  // behavior (e.g. fall salmon, winter redfish). A single-step soften avoids
+  // marking textbook "cool" fall days as a thermal suppressor when bandScore
+  // already says only mildly cool (-1 composite).
+  if (
+    context === "coastal" &&
+    label === "cool" &&
+    final_score === -1 &&
+    shockAdj === 0
+  ) {
+    final_score = 0;
+  }
+
   const context_group = context === "coastal" ? "coastal" : "freshwater";
 
   return {

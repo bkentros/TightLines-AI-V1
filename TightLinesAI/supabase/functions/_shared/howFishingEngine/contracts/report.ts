@@ -9,7 +9,64 @@ import type {
   TemperatureMetabolicContext,
   TrendLabel,
   ShockLabel,
+  VariableScore,
+  TemperatureNormalized,
 } from "./variableState.ts";
+import type { ScoredVariableKey } from "./variables.ts";
+
+/** One scored variable’s deterministic normalizer output for LLM narration (no stochastic copy). */
+export type LlmNormalizedVariableScore = {
+  variable_key: ScoredVariableKey;
+  engine_score: VariableScore;
+  /** Normalizer bucket / regime id (machine-readable; paraphrase in user-facing text). */
+  engine_label: string;
+  engine_detail?: string | null;
+  /** Present only for temperature — band vs trend vs shock vs final_score explicit. */
+  temperature_breakdown?: TemperatureNormalized;
+};
+
+export type LlmCompositeContribution = {
+  variable_key: ScoredVariableKey;
+  normalized_score: VariableScore;
+  /** Active weight in the composite (0–1), same as scoreDay weighting. */
+  weight: number;
+  weight_percent: number;
+  weighted_contribution: number;
+};
+
+export type LlmPressureHistorySummary = {
+  sample_count: number;
+  first_mb: number | null;
+  last_mb: number | null;
+  min_mb: number | null;
+  max_mb: number | null;
+};
+
+/** Scalar and summarized environment fields the engine actually consumed. */
+export type LlmEnvironmentSnapshot = {
+  current_air_temp_f: number | null;
+  daily_mean_air_temp_f: number | null;
+  prior_day_mean_air_temp_f: number | null;
+  day_minus_2_mean_air_temp_f: number | null;
+  pressure_mb: number | null;
+  wind_speed_mph: number | null;
+  cloud_cover_pct: number | null;
+  precip_24h_in: number | null;
+  precip_72h_in: number | null;
+  precip_7d_in: number | null;
+  active_precip_now: boolean | null;
+  precip_rate_now_in_per_hr: number | null;
+  tide_movement_state: string | null;
+  tide_station_id: string | null;
+  current_speed_knots_max: number | null;
+  sunrise_local: string | null;
+  sunset_local: string | null;
+  solunar_peak_count: number | null;
+  hourly_air_temp_sample_count: number | null;
+  hourly_cloud_cover_sample_count: number | null;
+  pressure_history_summary: LlmPressureHistorySummary | null;
+  tide_high_low_event_count: number | null;
+};
 
 export type ScoreBand = "Poor" | "Fair" | "Good" | "Excellent";
 
@@ -88,6 +145,15 @@ export type HowsFishingReport = {
     pressure_detail?: string | null;
     wind_detail?: string | null;
     tide_detail?: string | null;
+    /** Light / cloud tier + numeric detail for narration (all contexts) */
+    light_cloud_label?: string | null;
+    light_cloud_detail?: string | null;
+    /** Precip / clarity signal when scored (lake + coastal) */
+    precipitation_disruption_label?: string | null;
+    precipitation_disruption_detail?: string | null;
+    /** River runoff tier when scored */
+    runoff_flow_label?: string | null;
+    runoff_flow_detail?: string | null;
     region_key: string;
     available_variables: string[];
     missing_variables: string[];
@@ -96,6 +162,12 @@ export type HowsFishingReport = {
     avoid_midday_for_heat: boolean;
     /** e.g. ["dawn","evening"] — matches highlighted_periods on the report */
     highlighted_dayparts_for_narration: string[];
+    /** Deterministic per-variable scores/labels from normalizers (parallel to available_variables). */
+    normalized_variable_scores: LlmNormalizedVariableScore[];
+    /** Same weighting math as the rounded 0–100 score (see scoreDay). */
+    composite_contributions: LlmCompositeContribution[];
+    /** Environment scalars + compact summaries of large arrays. */
+    environment_snapshot: LlmEnvironmentSnapshot;
   };
 };
 

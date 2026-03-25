@@ -33,7 +33,7 @@ export const STATE_TO_REGION: Record<string, RegionKey> = {
   NE: "midwest_interior",
   SD: "midwest_interior",
   ND: "midwest_interior",
-  WV: "south_central",
+  WV: "appalachian",
   KY: "south_central",
   TN: "south_central",
   AR: "south_central",
@@ -49,6 +49,8 @@ export const STATE_TO_REGION: Record<string, RegionKey> = {
   CA: "southern_california",
   OR: "pacific_northwest",
   WA: "pacific_northwest",
+  AK: "alaska",
+  HI: "hawaii",
 };
 
 export function regionKeyFromState(state: string | null): RegionKey | null {
@@ -75,5 +77,8 @@ export function regionKeyFromLatLon(lat: number, lon: number): RegionKey {
   if (lat >= 31 && lat <= 37 && lon >= -109 && lon <= -103) return "southwest_high_desert";
   if (lat >= 42 && lat <= 49 && lon >= -125 && lon <= -116) return "pacific_northwest";
   if (lat >= 32 && lat <= 42 && lon >= -125 && lon <= -116) return "southern_california";
+  // Hawaii / Alaska — coarse fallback if state resolution misses (offshore geocode, tests)
+  if (lat >= 18.5 && lat <= 22.5 && lon >= -161 && lon <= -154) return "hawaii";
+  if (lat >= 51 && lat <= 72 && lon >= -179 && lon <= -129) return "alaska";
   return "midwest_interior";
 }

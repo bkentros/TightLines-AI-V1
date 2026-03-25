@@ -87,6 +87,17 @@ export function buildSharedEngineRequestFromEnvData(
   if (state_code === "CA" && latitude > 37.5 && region_key !== "mountain_alpine") {
     region_key = "northern_california";
   }
+
+  // Inland Pacific Northwest — east-of-Cascades OR/WA (continental / rain-shadow).
+  // Distinct from maritime pacific_northwest for temp/runoff behavior (e.g. Hells Canyon corridor).
+  if (
+    region_key === "pacific_northwest" &&
+    (altitudeFt == null || altitudeFt <= 5500) &&
+    ((state_code === "OR" && longitude >= -118.2) ||
+      (state_code === "WA" && latitude >= 45.5 && longitude >= -119.8))
+  ) {
+    region_key = "inland_northwest";
+  }
   // ─────────────────────────────────────────────────────────────────────────
 
   const w = readWeather(envData);
@@ -155,7 +166,15 @@ export function buildSharedEngineRequestFromEnvData(
   }
 
   const precip_mm = num(w?.precipitation);
-  const precip_rate_now = precip_mm != null ? precip_mm / 25.4 : null;
+  // When `weather.precipitation` is the same magnitude as 24h inches (common for archive /
+  // daily-total payloads), it is not an hourly rate — omit fake `precip_rate_now` and
+  // `active_precip_now` or normalizePrecip treats trace rain as active / high-rate rain.
+  const precipInFromMm = precip_mm != null ? precip_mm / 25.4 : null;
+  const precipitationMatches24h =
+    precipInFromMm != null &&
+    precip_24h != null &&
+    Math.abs(precipInFromMm - precip_24h) < 0.02;
+  const precip_rate_now = precipitationMatches24h ? null : precipInFromMm;
 
   const tides = envData.tides as Record<string, unknown> | null | undefined;
   const tidePhase = tides && typeof tides.phase === "string" ? tides.phase : null;
@@ -252,7 +271,10 @@ export function buildSharedEngineRequestFromEnvData(
       precip_24h_in: precip_24h,
       precip_72h_in: precip_72h,
       precip_7d_in: precip_7d_in,
-      active_precip_now: precip_mm != null && precip_mm > 0.5,
+      active_precip_now:
+        !precipitationMatches24h &&
+        precip_mm != null &&
+        precip_mm > 0.5,
       precip_rate_now_in_per_hr: precip_rate_now,
       tide_movement_state: tidePhase,
       tide_station_id: tides && typeof tides.station_id === "string" ? tides.station_id : null,

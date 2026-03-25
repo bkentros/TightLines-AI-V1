@@ -30,6 +30,10 @@ const REGION_SENS: Record<RegionKey, Sens> = {
   mountain_alpine: "high",
   // NorCal rivers (Sacramento, Trinity) flood fast in winter rain events
   northern_california: "high",
+  appalachian: "high",
+  inland_northwest: "medium",
+  alaska: "high",
+  hawaii: "medium",
 };
 
 function classify(

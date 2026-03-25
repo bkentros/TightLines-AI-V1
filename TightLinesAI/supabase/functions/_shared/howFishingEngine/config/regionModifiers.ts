@@ -21,6 +21,12 @@ const LAKE: Record<RegionKey, LakeR> = {
   mountain_alpine: { t: 3, p: 0, w: 1, l: 0, pr: 0 },
   // NorCal: similar to SoCal but heavier rain disruption and less heat suppression
   northern_california: { t: 0, p: 0, w: 0, l: 1, pr: -1 },
+  appalachian: { t: 1, p: 0, w: 1, l: 0, pr: 0 },
+  inland_northwest: { t: 2, p: 0, w: 1, l: 0, pr: 0 },
+  // Alaska: cold-season dominant; precip as snow/rain mix; wind events matter
+  alaska: { t: 3, p: 0, w: 1, l: 0, pr: 0 },
+  // Hawaii: tropical steady temps; trade wind + cloud; surf/runoff after heavy rain on windward
+  hawaii: { t: 0, p: 0, w: 0, l: 1, pr: -1 },
 };
 
 const RIVER: Record<RegionKey, RiverR> = {
@@ -40,6 +46,10 @@ const RIVER: Record<RegionKey, RiverR> = {
   mountain_alpine: { t: 2, p: 0, w: 0, l: 0, r: 3 },
   // NorCal: heavy winter rains, powerful runoff (Sacramento/Trinity rivers); similar to PNW
   northern_california: { t: 0, p: 0, w: 0, l: 0, r: 2 },
+  appalachian: { t: 1, p: 0, w: 0, l: 0, r: 2 },
+  inland_northwest: { t: 1, p: 0, w: 0, l: 0, r: 1 },
+  alaska: { t: 2, p: 0, w: 0, l: 0, r: 2 },
+  hawaii: { t: 0, p: 0, w: 0, l: 0, r: 1 },
 };
 
 const COAST: Record<RegionKey, CoastalR> = {
@@ -59,6 +69,10 @@ const COAST: Record<RegionKey, CoastalR> = {
   mountain_alpine: { ti: 0, wi: 0, pr: 0, l: 0, te: 0, pi: 0 },
   // NorCal coast: tidal and wind are primary drivers (upwelling, fog-break windows)
   northern_california: { ti: 1, wi: 1, pr: 0, l: 0, te: 0, pi: -1 },
+  appalachian: { ti: 0, wi: 0, pr: 0, l: 0, te: 0, pi: -1 },
+  inland_northwest: { ti: 0, wi: 0, pr: 0, l: 0, te: 0, pi: -1 },
+  alaska: { ti: 1, wi: 1, pr: 0, l: 0, te: 2, pi: 0 },
+  hawaii: { ti: 1, wi: 1, pr: 0, l: 0, te: 0, pi: -1 },
 };
 
 export function getRegionModifiers(

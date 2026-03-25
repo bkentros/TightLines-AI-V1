@@ -62,8 +62,8 @@ export function normalizePressureDetailed(
       (directionChanges >= 4 && range24 >= 5.0)
     ) {
       // --- Recency check: if the last 4+ readings are tightly stable, the worst has passed.
-      // Pressure was swinging earlier but has now settled — fish are adjusting/recovering.
-      // Score softens to -1 ("recently_stabilizing") rather than full -2 penalty.
+      // Post-front settling often still fishes well; neutral (0) avoids systematic Fair caps on
+      // legitimate "clearing" days while keeping full -2 for ongoing volatile windows.
       if (series.length >= 6) {
         const recentSlice = series.slice(-8);
         const recentRange = Math.max(...recentSlice) - Math.min(...recentSlice);
@@ -72,7 +72,7 @@ export function normalizePressureDetailed(
             quality,
             state: {
               label: "recently_stabilizing",
-              score: -1,
+              score: 0,
               detail: `prior range ${range24.toFixed(1)} mb, now settling (recent range ${recentRange.toFixed(1)} mb)`,
             },
           };
