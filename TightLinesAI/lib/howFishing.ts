@@ -558,7 +558,7 @@ export type {
   HowFishingRebuildResponse,
   RegionKey as RebuildRegionKey,
 } from './howFishingRebuildContracts';
-export { HOWS_FISHING_REBUILD_FEATURE } from './howFishingRebuildContracts';
+export { HOWS_FISHING_REBUILD_FEATURE, howFishingMultiContexts } from './howFishingRebuildContracts';
 
 function rebuildCacheKey(lat: number, lon: number, ctx: EngineContextKey): string {
   return `how_fishing_rebuild_${lat.toFixed(3)}_${lon.toFixed(3)}_${ctx}`;

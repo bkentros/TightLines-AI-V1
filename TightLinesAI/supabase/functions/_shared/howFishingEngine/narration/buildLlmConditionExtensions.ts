@@ -138,9 +138,18 @@ function buildEnvironmentSnapshot(
   env: SharedEngineRequest["environment"],
   context: EngineContext,
 ): LlmEnvironmentSnapshot {
+  const lo = env.daily_low_air_temp_f ?? null;
+  const hi = env.daily_high_air_temp_f ?? null;
+  const range =
+    lo != null && hi != null && Number.isFinite(lo) && Number.isFinite(hi)
+      ? Math.round((hi - lo) * 10) / 10
+      : null;
   return {
     current_air_temp_f: env.current_air_temp_f ?? null,
     daily_mean_air_temp_f: env.daily_mean_air_temp_f ?? null,
+    daily_low_air_temp_f: lo,
+    daily_high_air_temp_f: hi,
+    air_temp_diurnal_range_f: range,
     prior_day_mean_air_temp_f: env.prior_day_mean_air_temp_f ?? null,
     day_minus_2_mean_air_temp_f: env.day_minus_2_mean_air_temp_f ?? null,
     pressure_mb: env.pressure_mb ?? null,

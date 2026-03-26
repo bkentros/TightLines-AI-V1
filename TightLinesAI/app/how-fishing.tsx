@@ -23,13 +23,14 @@ import {
   setCurrentMultiRebuild,
   getCachedForecastRebuild,
   setCachedForecastRebuild,
+  howFishingMultiContexts,
   type HowFishingRebuildBundle,
   type HowFishingRebuildMultiBundle,
   type EngineContextKey,
 } from '../lib/howFishing';
 import { useEnvStore } from '../store/envStore';
 import type { EnvironmentData } from '../lib/env/types';
-import { isCoastalContextEligible } from '../lib/coastalProximity';
+import { isCoastalContextEligible, oceanCoastalZoneLabel } from '../lib/coastalProximity';
 import { RebuildReportView } from '../components/fishing/RebuildReportView';
 
 function currentLocationDateString(timezone?: string) {
@@ -62,8 +63,46 @@ function formatGeneratedTime(iso: string, timezone?: string): string {
 const TAB_CONFIG: { key: EngineContextKey; label: string; icon: string; color: string }[] = [
   { key: 'freshwater_lake_pond', label: 'Lake / Pond', icon: 'water', color: colors.contextFreshwater },
   { key: 'freshwater_river', label: 'River', icon: 'git-merge-outline', color: colors.contextRiver },
-  { key: 'coastal', label: 'Coastal', icon: 'boat-outline', color: colors.contextCoastal },
+  { key: 'coastal', label: 'Inshore', icon: 'boat-outline', color: colors.contextCoastal },
+  {
+    key: 'coastal_flats_estuary',
+    label: 'Flats / Est',
+    icon: 'resize-outline',
+    color: colors.contextFlatsEstuary,
+  },
 ];
+
+function geocodeToDisplayLabel(g: Location.LocationGeocodedAddress): string | null {
+  const city = g.city ?? g.subregion ?? g.district ?? g.name ?? undefined;
+  const region = g.region ?? '';
+  if (city && region) return `${city}, ${region}`;
+  if (city) return city;
+  if (region) return region;
+  if (g.subregion) return g.subregion;
+  return null;
+}
+
+/**
+ * Place name for how-fishing polish when reverse-geocode is slow, failed, or still "Current location".
+ * Order: existing custom label → fresh geocode → coarse ocean zone label → null.
+ */
+async function resolveLocationLabelForPolish(
+  lat: number,
+  lon: number,
+  currentLabel: string,
+): Promise<string | null> {
+  if (currentLabel !== 'Current location') {
+    return currentLabel;
+  }
+  try {
+    const geo = await Location.reverseGeocodeAsync({ latitude: lat, longitude: lon });
+    const fromGeo = geo[0] ? geocodeToDisplayLabel(geo[0]) : null;
+    if (fromGeo) return fromGeo;
+  } catch {
+    /* fall through */
+  }
+  return oceanCoastalZoneLabel(lat, lon);
+}
 
 /** First tab order slot that actually has a bundle (handles partial API + stale coastal tab). */
 function firstContextWithReport(
@@ -100,11 +139,10 @@ export default function HowFishingScreen() {
   const [locationLabel, setLocationLabel] = useState<string>('Current location');
 
   const coastalEligible = useMemo(() => isCoastalContextEligible(lat, lon), [lat, lon]);
-  const availableContexts: EngineContextKey[] = useMemo(() => {
-    const ctxs: EngineContextKey[] = ['freshwater_lake_pond', 'freshwater_river'];
-    if (coastalEligible) ctxs.push('coastal');
-    return ctxs;
-  }, [coastalEligible]);
+  const availableContexts: EngineContextKey[] = useMemo(
+    () => howFishingMultiContexts(coastalEligible),
+    [coastalEligible],
+  );
 
   const availableTabs = useMemo(
     () => TAB_CONFIG.filter((t) => availableContexts.includes(t.key)),
@@ -148,10 +186,10 @@ export default function HowFishingScreen() {
         if (cancelled) return;
         setEnv(cachedEnv);
         if (geo?.[0]) {
-          const g = geo[0];
-          const city = g.city ?? g.subregion ?? g.district;
-          const region = g.region ?? '';
-          setLocationLabel(city && region ? `${city}, ${region}` : city ?? region ?? 'Current location');
+          const fromGeo = geocodeToDisplayLabel(geo[0]);
+          setLocationLabel(fromGeo ?? oceanCoastalZoneLabel(lat, lon) ?? 'Current location');
+        } else {
+          setLocationLabel(oceanCoastalZoneLabel(lat, lon) ?? 'Current location');
         }
       } catch {
         if (!cancelled) setAnalysisError('Unable to load live conditions.');
@@ -208,6 +246,11 @@ export default function HowFishingScreen() {
       const freshEnv = await fetchFreshEnvironment({ latitude: lat, longitude: lon, units });
       setEnv(freshEnv);
 
+      const polishLocationName = await resolveLocationLabelForPolish(lat, lon, locationLabel);
+      if (polishLocationName && locationLabel === 'Current location') {
+        setLocationLabel(polishLocationName);
+      }
+
       const result = await invokeEdgeFunction<
         HowFishingRebuildMultiBundle | { error: string; message?: string }
       >('how-fishing', {
@@ -219,7 +262,7 @@ export default function HowFishingScreen() {
           mode: 'multi',
           contexts: availableContexts,
           env_data: freshEnv,
-          location_name: locationLabel !== 'Current location' ? locationLabel : null,
+          location_name: polishLocationName,
           ...(isForecastDay && { day_offset: dayOffset, target_date: targetDate }),
         },
       });
@@ -437,8 +480,14 @@ export default function HowFishingScreen() {
         </Pressable>
       </View>
 
-      {/* Tab Bar */}
-      <View style={styles.tabBar}>
+      {/* Tab Bar — horizontal scroll so four contexts (incl. inshore + flats) stay tappable on narrow phones */}
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        style={styles.tabBarScroll}
+        contentContainerStyle={styles.tabBarScrollContent}
+        keyboardShouldPersistTaps="handled"
+      >
         {availableTabs.map((t) => {
           const isActive = activeTab === t.key;
           const hasReport = !!multiBundles[t.key];
@@ -454,17 +503,20 @@ export default function HowFishingScreen() {
                 size={16}
                 color={isActive ? t.color : hasReport ? colors.textMuted : colors.border}
               />
-              <Text style={[
-                styles.tabLabel,
-                isActive && { color: t.color, fontWeight: '700' },
-                !hasReport && { color: colors.border },
-              ]}>
+              <Text
+                style={[
+                  styles.tabLabel,
+                  isActive && { color: t.color, fontWeight: '700' },
+                  !hasReport && { color: colors.border },
+                ]}
+                numberOfLines={1}
+              >
                 {t.label}
               </Text>
             </Pressable>
           );
         })}
-      </View>
+      </ScrollView>
 
       <ScrollView
         style={styles.scroll}
@@ -543,20 +595,26 @@ const styles = StyleSheet.create({
   newReportText: { fontSize: 14, fontWeight: '600', color: colors.primary },
 
   /* Tab Bar */
-  tabBar: {
-    flexDirection: 'row',
+  tabBarScroll: {
     borderBottomWidth: 1,
     borderBottomColor: colors.border,
-    marginHorizontal: 20,
+    marginHorizontal: 12,
     marginBottom: spacing.sm,
+    maxHeight: 48,
+  },
+  tabBarScrollContent: {
+    flexDirection: 'row',
+    alignItems: 'stretch',
+    paddingHorizontal: 8,
+    gap: 4,
   },
   tab: {
-    flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     gap: 6,
     paddingVertical: 10,
+    paddingHorizontal: 10,
     borderBottomWidth: 3,
     borderBottomColor: 'transparent',
   },
@@ -610,6 +668,8 @@ const styles = StyleSheet.create({
   },
   confirmContextList: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
     gap: spacing.md,
     marginBottom: spacing.lg,
   },

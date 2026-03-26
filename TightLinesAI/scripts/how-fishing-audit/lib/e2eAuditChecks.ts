@@ -336,7 +336,10 @@ export function runE2eAuditChecks(input: {
       flags.push({ code: "tip_lane_mismatch", severity: "major", detail: "retrieval_method weak cues" });
     }
   } else if (assigned_tip_lane === "speed_aggression") {
-    const hasSpeed = /crawl|slow|medium|fast|burn|pace|tempo|speed/i.test(tip);
+    const hasSpeed =
+      /crawl|slow|medium|fast|burn|pace|tempo|speed|steady|quicker|snappy|sharper|purposeful|nursing|cadence|firmer|snap\w*|harder|softer(?=\s+(?:pace|retrieve|wind|turns))/i
+        .test(tip) ||
+      /\b(firm|firmest)\b.*\bretrieve\b|\bretrieve\b.*\b(firm|steady)\b|turns?\s+of\s+the\s+handle|moving\s+with\s+purpose|dead\s+air/i.test(tip);
     if (!hasSpeed) {
       flags.push({ code: "tip_lane_mismatch", severity: "major", detail: "speed_aggression weak cues" });
     }
@@ -362,7 +365,8 @@ export function runE2eAuditChecks(input: {
   }
 
   // ── Water type stray tides on freshwater ────────────────────────────────
-  if (report.context !== "coastal" && (summaryLow.includes("slack tide") || summaryLow.includes("high tide"))) {
+  const coastalFamily = report.context === "coastal" || report.context === "coastal_flats_estuary";
+  if (!coastalFamily && (summaryLow.includes("slack tide") || summaryLow.includes("high tide"))) {
     flags.push({ code: "water_type_tone", severity: "major", detail: "tide-specific on freshwater context" });
   }
 

@@ -25,7 +25,8 @@ function displayScore(score: number): string {
 function contextTitle(context: string): string {
   if (context === "freshwater_lake_pond") return "Freshwater Lake/Pond";
   if (context === "freshwater_river") return "Freshwater River";
-  if (context === "coastal") return "Coastal";
+  if (context === "coastal") return "Coastal Inshore";
+  if (context === "coastal_flats_estuary") return "Flats & Estuary";
   return context;
 }
 

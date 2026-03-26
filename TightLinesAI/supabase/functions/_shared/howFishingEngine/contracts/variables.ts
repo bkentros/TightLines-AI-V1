@@ -39,6 +39,14 @@ export const SCORED_VARIABLE_KEYS_BY_CONTEXT: Record<
     "tide_current_movement",
     "precipitation_disruption",
   ],
+  coastal_flats_estuary: [
+    "temperature_condition",
+    "pressure_regime",
+    "wind_condition",
+    "light_cloud_condition",
+    "tide_current_movement",
+    "precipitation_disruption",
+  ],
 };
 
 export function isScoredVariableKey(x: string): x is ScoredVariableKey {

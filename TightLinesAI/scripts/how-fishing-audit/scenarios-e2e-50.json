@@ -10,7 +10,7 @@
     "region_key": "mountain_alpine",
     "state_code": "CO",
     "altitude_ft": 9017,
-    "location_name": "Coverage",
+    "location_name": "Lake Dillon",
     "e2e_seed_note": "generated seed=424242 count=50"
   },
   {
@@ -39,7 +39,7 @@
     "region_key": "northeast",
     "state_code": "MA",
     "tide_station_id": "8443970",
-    "location_name": "Excellent",
+    "location_name": "Boston Harbor",
     "e2e_seed_note": "generated seed=424242 count=50"
   },
   {
@@ -72,17 +72,17 @@
   },
   {
     "id": "excellent-mobile-bay-al-oct",
-    "notes": "Mobile Bay AL — Oct prime redfish/speckled trout. Station 8737048.",
+    "notes": "Mobile Bay AL — Oct prime redfish/speckled trout; coastal_flats_estuary (estuary tide policy). Station 8737048.",
     "latitude": 30.69,
     "longitude": -88.04,
     "local_date": "2024-10-05",
     "local_timezone": "America/Chicago",
-    "context": "coastal",
+    "context": "coastal_flats_estuary",
     "region_key": "gulf_coast",
     "state_code": "AL",
     "tide_station_id": "8737048",
     "expect_band": "Good",
-    "location_name": "Excellent",
+    "location_name": "Mobile Bay",
     "e2e_seed_note": "generated seed=424242 count=50"
   },
   {
@@ -123,7 +123,7 @@
     "region_key": "southeast_atlantic",
     "state_code": "MD",
     "tide_station_id": "8574680",
-    "location_name": "Excellent",
+    "location_name": "Chesapeake Bay",
     "e2e_seed_note": "generated seed=424242 count=50"
   },
   {
@@ -164,7 +164,7 @@
     "state_code": "WA",
     "tide_station_id": "9447130",
     "expect_band": "Good",
-    "location_name": "Excellent",
+    "location_name": "Puget Sound",
     "e2e_seed_note": "generated seed=424242 count=50"
   },
   {
@@ -219,7 +219,7 @@
     "context": "freshwater_lake_pond",
     "region_key": "pacific_northwest",
     "state_code": "WA",
-    "location_name": "Coverage",
+    "location_name": "Seattle",
     "e2e_seed_note": "generated seed=424242 count=50"
   },
   {
@@ -249,7 +249,7 @@
     "state_code": "WA",
     "tide_station_id": "9447130",
     "expect_band": "Good",
-    "location_name": "Excellent",
+    "location_name": "Puget Sound (Oct)",
     "e2e_seed_note": "generated seed=424242 count=50"
   },
   {
@@ -291,7 +291,7 @@
     "region_key": "southeast_atlantic",
     "state_code": "SC",
     "tide_station_id": "8665530",
-    "location_name": "Excellent",
+    "location_name": "Springmaid Pier",
     "e2e_seed_note": "generated seed=424242 count=50"
   },
   {
@@ -304,7 +304,7 @@
     "context": "freshwater_lake_pond",
     "region_key": "mountain_west",
     "state_code": "CO",
-    "location_name": "Coverage",
+    "location_name": "Breckenridge",
     "e2e_seed_note": "generated seed=424242 count=50"
   },
   {
@@ -332,7 +332,7 @@
     "state_code": "NC",
     "tide_station_id": "8652587",
     "expect_band": "Good",
-    "location_name": "Excellent",
+    "location_name": "Outer Banks",
     "e2e_seed_note": "generated seed=424242 count=50"
   },
   {
@@ -418,7 +418,7 @@
     "state_code": "TX",
     "tide_station_id": "8771450",
     "expect_band": "Good",
-    "location_name": "",
+    "location_name": "Galveston",
     "e2e_seed_note": "generated seed=424242 count=50"
   },
   {
@@ -459,7 +459,7 @@
     "region_key": "northeast",
     "state_code": "NJ",
     "tide_station_id": "8536110",
-    "location_name": "Excellent",
+    "location_name": "Cape May",
     "e2e_seed_note": "generated seed=424242 count=50"
   },
   {
@@ -502,7 +502,7 @@
     "region_key": "florida",
     "state_code": "FL",
     "tide_station_id": "8724580",
-    "location_name": "Excellent",
+    "location_name": "Key West",
     "e2e_seed_note": "generated seed=424242 count=50"
   },
   {
@@ -545,7 +545,7 @@
     "region_key": "southeast_atlantic",
     "state_code": "NC",
     "tide_station_id": "8658163",
-    "location_name": "",
+    "location_name": "Wilmington",
     "e2e_seed_note": "generated seed=424242 count=50"
   },
   {
@@ -585,7 +585,7 @@
     "region_key": "pacific_northwest",
     "state_code": "OR",
     "tide_station_id": "9439040",
-    "location_name": "",
+    "location_name": "Astoria",
     "e2e_seed_note": "generated seed=424242 count=50"
   },
   {
@@ -626,7 +626,7 @@
     "region_key": "pacific_northwest",
     "state_code": "WA",
     "tide_station_id": "9449424",
-    "location_name": "",
+    "location_name": "Westport",
     "e2e_seed_note": "generated seed=424242 count=50"
   },
   {
@@ -640,7 +640,7 @@
     "region_key": "northern_california",
     "state_code": "CA",
     "altitude_ft": 4500,
-    "location_name": "Norcal",
+    "location_name": "Lake Almanor",
     "e2e_seed_note": "generated seed=424242 count=50"
   },
   {

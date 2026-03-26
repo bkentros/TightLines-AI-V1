@@ -4,6 +4,7 @@ import type {
   TemperatureBandLabel,
   TemperatureNormalized,
 } from "../contracts/mod.ts";
+import { isCoastalFamilyContext } from "../contracts/context.ts";
 import { freshwaterTempRow } from "../config/tempBandsFreshwater.ts";
 import {
   clampEngineScore,
@@ -137,7 +138,7 @@ export function normalizeTemperature(
   let final_score = clampEngineScore(bandScore + trendAdj + shockAdj);
 
   if (
-    context === "coastal" &&
+    isCoastalFamilyContext(context) &&
     label === "cool" &&
     shockAdj === 0 &&
     engineScoreTier(final_score) === -1 &&
@@ -147,7 +148,7 @@ export function normalizeTemperature(
     final_score = clampEngineScore(0);
   }
 
-  const context_group = context === "coastal" ? "coastal" : "freshwater";
+  const context_group = isCoastalFamilyContext(context) ? "coastal" : "freshwater";
 
   return {
     context_group,

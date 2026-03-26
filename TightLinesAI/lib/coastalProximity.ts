@@ -56,16 +56,24 @@ const OCEAN_COASTAL_ZONES: CoastalZone[] = [
 ];
 
 /**
- * Check if a lat/lon falls within any ocean coastal zone.
+ * Human-readable ocean-adjacent region for polish / UI fallback (same boxes as eligibility).
+ * Returns null when the point is outside all coastal zones (inland / Great Lakes).
  */
-function isNearOceanCoast(lat: number, lon: number): boolean {
+export function oceanCoastalZoneLabel(lat: number, lon: number): string | null {
   for (const zone of OCEAN_COASTAL_ZONES) {
     const [minLat, maxLat, minLon, maxLon] = zone.bounds;
     if (lat >= minLat && lat <= maxLat && lon >= minLon && lon <= maxLon) {
-      return true;
+      return zone.label;
     }
   }
-  return false;
+  return null;
+}
+
+/**
+ * Check if a lat/lon falls within any ocean coastal zone.
+ */
+function isNearOceanCoast(lat: number, lon: number): boolean {
+  return oceanCoastalZoneLabel(lat, lon) != null;
 }
 
 /**

@@ -5,7 +5,7 @@ import type {
   SharedNormalizedOutput,
   VariableDataGap,
 } from "../contracts/mod.ts";
-import { SCORED_VARIABLE_KEYS_BY_CONTEXT } from "../contracts/mod.ts";
+import { isCoastalFamilyContext, SCORED_VARIABLE_KEYS_BY_CONTEXT } from "../contracts/mod.ts";
 import type { ReliabilityTierNormalized } from "../contracts/normalized.ts";
 import { monthIndexFromDate } from "../config/monthModifiers.ts";
 import { normalizeTemperature } from "./normalizeTemperature.ts";
@@ -79,7 +79,7 @@ function computeReliability(
     tier = downgradeOnce(tier);
   }
 
-  if (context === "coastal" && missing.includes("tide_current_movement")) {
+  if (isCoastalFamilyContext(context) && missing.includes("tide_current_movement")) {
     tier = minTier(tier, "medium");
   }
 
@@ -149,13 +149,14 @@ export function buildSharedNormalizedOutput(req: SharedEngineRequest): SharedNor
   }
 
   let tide: ReturnType<typeof normalizeTideCurrentMovement> = null;
-  if (req.context === "coastal") {
+  if (isCoastalFamilyContext(req.context)) {
+    const tidePolicy = req.context === "coastal_flats_estuary" ? "flats_estuary" : "inshore";
     tide = normalizeTideCurrentMovement({
       current_speed_knots_max: e.current_speed_knots_max,
       tide_height_hourly_ft: e.tide_height_hourly_ft,
       tide_high_low: e.tide_high_low,
       stage: e.tide_movement_state,
-    });
+    }, tidePolicy);
   }
 
   const normalized: SharedNormalizedOutput["normalized"] = {};
@@ -185,7 +186,7 @@ export function buildSharedNormalizedOutput(req: SharedEngineRequest): SharedNor
   if (precip) {
     normalized.precipitation_disruption = precip;
     available.push("precipitation_disruption");
-  } else if (req.context === "freshwater_lake_pond" || req.context === "coastal") {
+  } else if (req.context === "freshwater_lake_pond" || isCoastalFamilyContext(req.context)) {
     missing.push("precipitation_disruption");
   }
 
@@ -199,7 +200,7 @@ export function buildSharedNormalizedOutput(req: SharedEngineRequest): SharedNor
   if (tide) {
     normalized.tide_current_movement = tide;
     available.push("tide_current_movement");
-  } else if (req.context === "coastal") {
+  } else if (isCoastalFamilyContext(req.context)) {
     missing.push("tide_current_movement");
   }
 

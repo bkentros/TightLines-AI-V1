@@ -75,6 +75,8 @@ export const colors = {
   contextFreshwater: '#2E6F40',
   contextRiver: '#68BA7F',
   contextCoastal: '#2B7EB5',
+  /** Flats / estuary tab — distinct from inshore coastal blue */
+  contextFlatsEstuary: '#1A8A8A',
 } as const;
 
 export const fonts = {

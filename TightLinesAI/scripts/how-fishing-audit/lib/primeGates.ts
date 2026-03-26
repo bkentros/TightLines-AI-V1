@@ -85,7 +85,7 @@ export function evaluatePrimeGates(input: {
     } else if (s7 != null) reasons_ok.push(`7d precip ${s7.toFixed(2)} in (moderate)`);
   }
 
-  if (input.context === "coastal") {
+  if (input.context === "coastal" || input.context === "coastal_flats_estuary") {
     if (input.has_valid_tide) reasons_ok.push("tide predictions present");
     else reasons_fail.push("missing tide predictions (coastal prime stack incomplete)");
   }
@@ -98,7 +98,7 @@ export function evaluatePrimeGates(input: {
     w <= WIND_MAX_EXCELLENT_MPH &&
     c >= 20 &&
     c <= 78 &&
-    (input.context !== "coastal" || input.has_valid_tide)
+    ((input.context !== "coastal" && input.context !== "coastal_flats_estuary") || input.has_valid_tide)
   ) {
     tier = "excellent_stack";
   } else if (!fail && okPressure && !volatileBad && !hardFall && w <= WIND_MAX_GOOD_MPH) {

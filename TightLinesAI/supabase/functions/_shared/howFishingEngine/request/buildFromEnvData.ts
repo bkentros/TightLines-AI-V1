@@ -73,7 +73,15 @@ function sumRecent(values: number[] | undefined, endIdx: number | null, days: nu
  * @param dayOffset - 0 = today (default), 1 = tomorrow, etc.
  *   When > 0, shifts all daily array lookups forward and extracts the
  *   appropriate hourly pressure window for the target forecast day.
+ * @param opts.useCalendarDayProfileForToday — with `dayOffset === 0`, use noon/mean scalars and
+ *   a fixed pressure window to **local noon** (same convention as future forecast days) instead of
+ *   live `weather.*` + sliding `pressure_48hr`. **forecast-scores** sets this so 7-day chips do not
+ *   jitter on every cache clear / refetch; **how-fishing** / get-environment omit it for true “now”.
  */
+export type BuildFromEnvDataOptions = {
+  useCalendarDayProfileForToday?: boolean;
+};
+
 export function buildSharedEngineRequestFromEnvData(
   latitude: number,
   longitude: number,
@@ -82,6 +90,7 @@ export function buildSharedEngineRequestFromEnvData(
   context: EngineContext,
   envData: Record<string, unknown>,
   dayOffset = 0,
+  opts?: BuildFromEnvDataOptions,
 ): SharedEngineRequest {
   const { state_code, region_key: baseRegionKey } = resolveRegionForCoordinates(latitude, longitude);
 
@@ -120,10 +129,15 @@ export function buildSharedEngineRequestFromEnvData(
 
   const w = readWeather(envData);
 
+  const calDayToday =
+    opts?.useCalendarDayProfileForToday === true && dayOffset === 0;
+  /** Pressure series ending at target calendar day's local noon (not “current hour”). */
+  const noonAnchoredPressure = dayOffset > 0 || calDayToday;
+
   let pressure_history_mb: number[] | null = null;
 
-  if (dayOffset === 0 && w && Array.isArray(w.pressure_48hr)) {
-    // Today: use the pre-built 48hr pressure array (ends at current hour)
+  if (dayOffset === 0 && w && Array.isArray(w.pressure_48hr) && !calDayToday) {
+    // Live “today”: pre-built 48hr ending at current hour (changes as the clock moves).
     pressure_history_mb = (w.pressure_48hr as unknown[])
       .map((x) => num(x))
       .filter((x): x is number => x != null);
@@ -133,11 +147,8 @@ export function buildSharedEngineRequestFromEnvData(
     const hourly = envData.hourly_pressure_mb;
     if (Array.isArray(hourly)) {
       let trimmed: unknown[];
-      if (dayOffset > 0) {
-        // For forecast days: extract 48 readings centered on target day's noon.
-        // Open-Meteo hourly array (past_days=14 + forecast_days=7 = 504 entries):
-        //   Index 14*24 = 336 = today midnight, 14*24+12 = 348 = today noon
-        //   Index (14+D)*24+12 = target day noon
+      if (noonAnchoredPressure) {
+        // 48 readings ending at target day local noon (D=0 → today noon; D=1 → tomorrow noon).
         const targetNoonIdx = (14 + dayOffset) * 24 + 12;
         trimmed = hourly.slice(Math.max(0, targetNoonIdx - 47), targetNoonIdx + 1);
       } else {
@@ -158,6 +169,10 @@ export function buildSharedEngineRequestFromEnvData(
   const daily_mean = readDailyMean(th, tl, tempIdx) ?? num(w?.temperature);
   const prior_mean = readDailyMean(th, tl, tempIdx != null ? tempIdx - 1 : null);
   const d2_mean = readDailyMean(th, tl, tempIdx != null ? tempIdx - 2 : null);
+  const daily_low_air =
+    tempIdx != null && tl && tl[tempIdx] != null ? num(tl[tempIdx]) : null;
+  const daily_high_air =
+    tempIdx != null && th && th[tempIdx] != null ? num(th[tempIdx]) : null;
 
   const pd = w?.precip_7day_daily as number[] | undefined;
   const precipIdx = currentDailyIndex(pd, dayOffset);
@@ -273,7 +288,7 @@ export function buildSharedEngineRequestFromEnvData(
     precip_mm > 0.5;
   let precip_rate_now_out: number | null = precip_rate_now;
 
-  if (dayOffset > 0) {
+  if (dayOffset > 0 || calDayToday) {
     const noonAir =
       hourlyAirTemp24 != null && Number.isFinite(hourlyAirTemp24[12]) ? hourlyAirTemp24[12]! : null;
     daily_mean_air_temp_f = noonAir ?? daily_mean;
@@ -289,7 +304,7 @@ export function buildSharedEngineRequestFromEnvData(
       cloud_cover_pct_out = cloudMean;
     } else {
       source_notes.push(
-        `forecast_day_cloud_scalar_fallback: insufficient hourly cloud for ${localDate} — cloud_cover_pct uses current weather`,
+        `${calDayToday ? "calendar_today" : "forecast_day"}_cloud_scalar_fallback: insufficient hourly cloud for ${localDate} — cloud_cover_pct uses current weather`,
       );
     }
 
@@ -320,7 +335,7 @@ export function buildSharedEngineRequestFromEnvData(
       wind_speed_mph_out = windToMph(wmax, windUnitLabel) ?? windNowMph;
       if (windMeanMph == null && hourlyWindPts) {
         source_notes.push(
-          `forecast_day_wind_scalar_fallback: insufficient hourly wind for ${localDate} — using daily max or current`,
+          `${calDayToday ? "calendar_today" : "forecast_day"}_wind_scalar_fallback: insufficient hourly wind for ${localDate} — using daily max or current`,
         );
       }
     }
@@ -350,6 +365,8 @@ export function buildSharedEngineRequestFromEnvData(
     environment: {
       current_air_temp_f,
       daily_mean_air_temp_f,
+      daily_low_air_temp_f: daily_low_air,
+      daily_high_air_temp_f: daily_high_air,
       prior_day_mean_air_temp_f: prior_mean,
       day_minus_2_mean_air_temp_f: d2_mean,
       pressure_mb: pressure_mb_out,

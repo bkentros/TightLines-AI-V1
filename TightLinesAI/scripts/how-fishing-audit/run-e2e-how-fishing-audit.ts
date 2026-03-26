@@ -94,7 +94,12 @@ if (!OPENAI_KEY) {
   Deno.exit(1);
 }
 
-const CONTEXTS: EngineContext[] = ["freshwater_lake_pond", "freshwater_river", "coastal"];
+const CONTEXTS: EngineContext[] = [
+  "freshwater_lake_pond",
+  "freshwater_river",
+  "coastal",
+  "coastal_flats_estuary",
+];
 
 const scenarios: E2eScenario[] = JSON.parse(await Deno.readTextFile(scenariosPath));
 console.log(`Loaded ${scenarios.length} scenarios from ${scenariosPath}`);
@@ -156,7 +161,7 @@ for (let idx = 0; idx < scenarios.length; idx++) {
     const [sun, moon, tides] = await Promise.all([
       fetchSunriseSunset(s.latitude, s.longitude, s.local_date, archive.timezone),
       fetchUSNOMoon(s.latitude, s.longitude, s.local_date, tzOffsetHours),
-      s.context === "coastal" && s.tide_station_id
+      (s.context === "coastal" || s.context === "coastal_flats_estuary") && s.tide_station_id
         ? fetchNOAATides(s.tide_station_id, s.local_date, tzOffsetHours)
         : Promise.resolve(null),
     ]);

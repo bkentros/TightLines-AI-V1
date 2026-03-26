@@ -35,7 +35,12 @@ Deno.test("forecast-scores envRecord shape: engine runs for day_offset 0 and 1",
   };
 
   for (const dayOffset of [0, 1] as const) {
-    for (const context of ["freshwater_lake_pond", "freshwater_river", "coastal"] as const) {
+    for (const context of [
+      "freshwater_lake_pond",
+      "freshwater_river",
+      "coastal",
+      "coastal_flats_estuary",
+    ] as const) {
       const req = buildSharedEngineRequestFromEnvData(
         41.88,
         -87.63,
@@ -44,6 +49,7 @@ Deno.test("forecast-scores envRecord shape: engine runs for day_offset 0 and 1",
         context,
         envRecord,
         dayOffset,
+        dayOffset === 0 ? { useCalendarDayProfileForToday: true } : undefined,
       );
       const score = runHowFishingScoreOnly(req);
       assertEquals(typeof score, "number");
@@ -86,6 +92,7 @@ Deno.test("forecast-scores: clone baseReq + context matches full build per conte
   const tz = "America/Chicago";
 
   for (const dayOffset of [0, 1] as const) {
+    const dayOpts = dayOffset === 0 ? { useCalendarDayProfileForToday: true } : undefined;
     const baseReq = buildSharedEngineRequestFromEnvData(
       lat,
       lon,
@@ -94,8 +101,14 @@ Deno.test("forecast-scores: clone baseReq + context matches full build per conte
       "freshwater_lake_pond",
       envRecord,
       dayOffset,
+      dayOpts,
     );
-    for (const context of ["freshwater_lake_pond", "freshwater_river", "coastal"] as const) {
+    for (const context of [
+      "freshwater_lake_pond",
+      "freshwater_river",
+      "coastal",
+      "coastal_flats_estuary",
+    ] as const) {
       const cloned =
         context === "freshwater_lake_pond" ? baseReq : { ...baseReq, context };
       const full = buildSharedEngineRequestFromEnvData(
@@ -106,6 +119,7 @@ Deno.test("forecast-scores: clone baseReq + context matches full build per conte
         context,
         envRecord,
         dayOffset,
+        dayOpts,
       );
       assertEquals(runHowFishingScoreOnly(cloned), runHowFishingScoreOnly(full));
     }

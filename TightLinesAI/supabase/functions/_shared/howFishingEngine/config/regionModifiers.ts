@@ -1,4 +1,5 @@
 import type { EngineContext, RegionKey } from "../contracts/mod.ts";
+import { isCoastalFamilyContext } from "../contracts/context.ts";
 
 type LakeR = { t: number; p: number; w: number; l: number; pr: number };
 type RiverR = { t: number; p: number; w: number; l: number; r: number };
@@ -99,13 +100,16 @@ export function getRegionModifiers(
       runoff_flow_disruption: r.r,
     };
   }
-  const r = COAST[region]!;
-  return {
-    tide_current_movement: r.ti,
-    wind_condition: r.wi,
-    pressure_regime: r.pr,
-    light_cloud_condition: r.l,
-    temperature_condition: r.te,
-    precipitation_disruption: r.pi,
-  };
+  if (isCoastalFamilyContext(context)) {
+    const r = COAST[region]!;
+    return {
+      tide_current_movement: r.ti,
+      wind_condition: r.wi,
+      pressure_regime: r.pr,
+      light_cloud_condition: r.l,
+      temperature_condition: r.te,
+      precipitation_disruption: r.pi,
+    };
+  }
+  return {};
 }

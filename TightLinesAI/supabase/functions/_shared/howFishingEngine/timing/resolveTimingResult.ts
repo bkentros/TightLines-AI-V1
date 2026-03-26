@@ -18,6 +18,7 @@ import type {
   RegionKey,
   SharedNormalizedOutput,
 } from "../contracts/mod.ts";
+import { isCoastalFamilyContext } from "../contracts/context.ts";
 import type {
   DaypartFlags,
   TimingDriverId,
@@ -402,7 +403,7 @@ export function resolveTimingResult(
 
   let result: TimingResult;
 
-  if (context === "coastal") {
+  if (isCoastalFamilyContext(context)) {
     const family = resolveTimingFamily(context, region as RegionKey, month);
     result = computeTimingForFamily(
       context,

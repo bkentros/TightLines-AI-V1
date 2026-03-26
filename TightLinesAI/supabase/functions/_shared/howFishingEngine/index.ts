@@ -17,3 +17,7 @@ export {
 } from "./narration/pickTipFocusFromEngine.ts";
 export type { TipFocusRng } from "./narration/pickTipFocusFromEngine.ts";
 export { scoreDay, bandFromScore } from "./score/scoreDay.ts";
+export {
+  buildDeterministicTimingInsight,
+  buildEngineLedSummaryLine,
+} from "./narration/polishSafeSurfaceCopy.ts";

@@ -9,6 +9,7 @@ import { colors, fonts, spacing, radius, shadows } from '../lib/theme';
 import { useEnvStore } from '../store/envStore';
 import { useAuthStore } from '../store/authStore';
 import type { EnvironmentData } from '../lib/env';
+import type { WeatherData } from '../lib/env/types';
 import { CACHE_TTL_MS } from '../lib/env/constants';
 
 function windDirectionLabel(deg: number): string {
@@ -33,6 +34,18 @@ function cloudLabel(pct: number): string {
   if (pct <= 35) return 'Partly';
   if (pct <= 65) return 'Cloudy';
   return 'Overcast';
+}
+
+/** Index 14 = today in 21-slot 7-day history arrays from get-environment. */
+function airTempTileContent(w: WeatherData): { value: string; label: string } {
+  const hiArr = w.temp_7day_high;
+  const loArr = w.temp_7day_low;
+  const hi = hiArr && hiArr.length > 14 ? hiArr[14] : null;
+  const lo = loArr && loArr.length > 14 ? loArr[14] : null;
+  if (hi != null && lo != null && Number.isFinite(hi) && Number.isFinite(lo)) {
+    return { value: `${Math.round(lo)}–${Math.round(hi)}${w.temp_unit}`, label: 'Air today' };
+  }
+  return { value: `${Math.round(w.temperature)}${w.temp_unit}`, label: 'Temp' };
 }
 
 function pressureTrendInfo(trend: string | undefined): { label: string; color: string } | null {
@@ -194,6 +207,7 @@ export function LiveConditionsWidget({
 
   const showErrorBanner = error && (isRateLimitError || env);
   const pressureTrend = w?.pressure_trend ? pressureTrendInfo(w.pressure_trend) : null;
+  const airTile = w ? airTempTileContent(w) : { value: '—', label: 'Temp' };
 
   const cardContent = (
     <>
@@ -251,9 +265,9 @@ export function LiveConditionsWidget({
         <View style={styles.gridTile}>
           <Ionicons name="thermometer-outline" size={16} color={colors.primary} />
           <Text style={styles.gridValue} numberOfLines={1}>
-            {w ? `${Math.round(w.temperature)}${w.temp_unit}` : '—'}
+            {airTile.value}
           </Text>
-          <Text style={styles.gridLabel}>Temp</Text>
+          <Text style={styles.gridLabel}>{airTile.label}</Text>
         </View>
         <View style={styles.gridTile}>
           <Ionicons name="cloud-outline" size={16} color={colors.primary} />

@@ -52,7 +52,7 @@ type WeatherMood = "excellent" | "good" | "fair" | "poor";
 function buildSyntheticRequest(
   region: string,
   month: number,  // 1-12
-  context: "freshwater_lake_pond" | "freshwater_river" | "coastal",
+  context: "freshwater_lake_pond" | "freshwater_river" | "coastal" | "coastal_flats_estuary",
   mood: WeatherMood,
 ): SharedEngineRequest {
   // Representative lat/lon per region (for context/timing resolution)
@@ -166,7 +166,7 @@ function buildSyntheticRequest(
   };
 
   // ── Tide (coastal only) ──
-  const hasTide = context === "coastal";
+  const hasTide = context === "coastal" || context === "coastal_flats_estuary";
   const tidePhase = mood === "excellent" || mood === "good" ? "incoming" : "outgoing";
   const tideHighLow = hasTide ? [
     { time: "2024-10-12 06:00", type: "L", value: 0.5 },
@@ -246,8 +246,13 @@ function sumArray(arr: number[]): number {
 // ── Run Synthetic Sweep ───────────────────────────────────────────────────────
 
 const ALL_REGIONS = [...CANONICAL_REGION_KEYS];
-const ALL_CONTEXTS: Array<"freshwater_lake_pond" | "freshwater_river" | "coastal"> = [
-  "freshwater_lake_pond", "freshwater_river", "coastal",
+const ALL_CONTEXTS: Array<
+  "freshwater_lake_pond" | "freshwater_river" | "coastal" | "coastal_flats_estuary"
+> = [
+  "freshwater_lake_pond",
+  "freshwater_river",
+  "coastal",
+  "coastal_flats_estuary",
 ];
 const ALL_MOODS: WeatherMood[] = ["excellent", "good", "fair", "poor"];
 const MONTHS = [1,2,3,4,5,6,7,8,9,10,11,12];
@@ -317,7 +322,13 @@ for (const month of MONTHS) {
     const entry = sweepResults.find(r => r.region === "mountain_alpine" && r.month === month && r.context === context);
     if (!entry) continue;
     const s = entry.scores;
-    const ctxShort = context === "freshwater_lake_pond" ? "lake" : context === "freshwater_river" ? "river" : "coast";
+    const ctxShort = context === "freshwater_lake_pond"
+      ? "lake"
+      : context === "freshwater_river"
+      ? "river"
+      : context === "coastal"
+      ? "coast"
+      : "flats";
     const monthNames = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
     const mn = monthNames[month - 1]!;
     console.log(`  ${mn} ${ctxShort.padEnd(5)}: E=${String(s.excellent).padStart(2)} G=${String(s.good).padStart(2)} F=${String(s.fair).padStart(2)} P=${String(s.poor).padStart(2)}`);
@@ -330,7 +341,13 @@ for (const month of MONTHS) {
     const entry = sweepResults.find(r => r.region === "northern_california" && r.month === month && r.context === context);
     if (!entry) continue;
     const s = entry.scores;
-    const ctxShort = context === "freshwater_lake_pond" ? "lake" : context === "freshwater_river" ? "river" : "coast";
+    const ctxShort = context === "freshwater_lake_pond"
+      ? "lake"
+      : context === "freshwater_river"
+      ? "river"
+      : context === "coastal"
+      ? "coast"
+      : "flats";
     const monthNames = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
     const mn = monthNames[month - 1]!;
     console.log(`  ${mn} ${ctxShort.padEnd(5)}: E=${String(s.excellent).padStart(2)} G=${String(s.good).padStart(2)} F=${String(s.fair).padStart(2)} P=${String(s.poor).padStart(2)}`);
@@ -364,7 +381,7 @@ for (let i = 0; i < SCENARIOS.length; i++) {
     const [sun, moon, tides] = await Promise.all([
       fetchSunriseSunset(sc.latitude, sc.longitude, sc.local_date, archive.timezone),
       fetchUSNOMoon(sc.latitude, sc.longitude, sc.local_date, tzOffsetHours),
-      sc.context === "coastal" && sc.tide_station_id
+      (sc.context === "coastal" || sc.context === "coastal_flats_estuary") && sc.tide_station_id
         ? fetchNOAATides(sc.tide_station_id, sc.local_date, tzOffsetHours)
         : Promise.resolve(null),
     ]);
@@ -397,7 +414,7 @@ for (let i = 0; i < SCENARIOS.length; i++) {
     const autoRegion = req.region_key;
     const regionNote = autoRegion !== sc.region_key ? ` [auto:${autoRegion}]` : "";
 
-    const tideNote = sc.context === "coastal"
+    const tideNote = (sc.context === "coastal" || sc.context === "coastal_flats_estuary")
       ? (tides ? ` [tide:${tides.phase}]` : " [tide:MISS]") : "";
     const tempF = (req.environment.daily_mean_air_temp_f ?? req.environment.current_air_temp_f ?? 0).toFixed(1);
 

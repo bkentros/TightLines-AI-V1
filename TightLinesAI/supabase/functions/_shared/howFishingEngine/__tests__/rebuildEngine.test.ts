@@ -166,6 +166,13 @@ Deno.test("tide: unknown stage does not auto-score positive", () => {
   assertEquals(t, null);
 });
 
+Deno.test("tide: flats_estuary policy softens slack stage vs inshore", () => {
+  const inshore = normalizeTideFromStage("low slack", "inshore");
+  const flats = normalizeTideFromStage("low slack", "flats_estuary");
+  assertEquals(inshore!.score, -0.95);
+  assertEquals(flats!.score, -0.32);
+});
+
 Deno.test("precip: coastal is softer than lake for the same rain totals", () => {
   const lake = normalizePrecipitationDisruption("freshwater_lake_pond", 0.03, 0.8, 1.6, false);
   const coast = normalizePrecipitationDisruption("coastal", 0.03, 0.8, 1.6, false);
@@ -360,6 +367,40 @@ Deno.test("runHowFishingReport: contract fields", () => {
     cc.composite_contributions.reduce((a, c) => a + c.weight * c.normalized_score, 0),
   );
   assertEquals(cc.environment_snapshot.pressure_history_summary?.sample_count, 24);
+  assertEquals(cc.environment_snapshot.daily_low_air_temp_f, null);
+  assertEquals(cc.environment_snapshot.daily_high_air_temp_f, null);
+  assertEquals(cc.environment_snapshot.air_temp_diurnal_range_f, null);
+});
+
+Deno.test("runHowFishingReport: snapshot includes daily high/low when provided", () => {
+  const req = {
+    latitude: 44.9,
+    longitude: -93.2,
+    state_code: "MN",
+    region_key: "great_lakes_upper_midwest" as const,
+    local_date: "2025-02-15",
+    local_timezone: "America/Chicago",
+    context: "freshwater_river" as const,
+    environment: {
+      daily_mean_air_temp_f: 44,
+      daily_low_air_temp_f: 28,
+      daily_high_air_temp_f: 52,
+      prior_day_mean_air_temp_f: 38,
+      day_minus_2_mean_air_temp_f: 30,
+      pressure_history_mb: [1013, 1012],
+      wind_speed_mph: 8,
+      cloud_cover_pct: 50,
+      precip_24h_in: 0.05,
+      precip_72h_in: 0.1,
+      precip_7d_in: 0.5,
+    },
+    data_coverage: {},
+  };
+  const r = runHowFishingReport(req);
+  const snap = r.condition_context!.environment_snapshot;
+  assertEquals(snap.daily_low_air_temp_f, 28);
+  assertEquals(snap.daily_high_air_temp_f, 52);
+  assertEquals(snap.air_temp_diurnal_range_f, 24);
 });
 
 Deno.test("runHowFishingReport: forwards data_coverage_notes from adapter", () => {

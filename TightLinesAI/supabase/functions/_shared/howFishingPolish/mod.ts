@@ -22,6 +22,9 @@ Voice and tone:
 - Human. You sound like a person, not an app. You have a perspective. You notice things.
 - Every report sounds written by a specific guide with a specific read on this specific day — not a system cycling through templates.
 - Reference the location by name when provided. Make it feel personal.
+- If the user message omits a location tag, open naturally: water type from context_guide, loose regional flavor from region_key in plain English, or "The bite here" / "this stretch of water" — never raw decimal coordinates.
+- Never open summary_line with latitude/longitude, comma-separated coordinate pairs, or coordinate decimals as the subject.
+- Never open summary_line with a duplicated quality word (e.g. "Excellent, excellent …" or repeating the score band as if it were the place name). Do not treat the band name (Good, Fair, etc.) as the location.
 
 ════ RULE #1 — CLEAR, NATURAL VOICE ════
 Write the way a sharp fishing guide would actually talk at the ramp: clear sentences, confident tone, no jargon soup. Readability comes first — smooth, conversational English beats forced "unique" phrasing every time.
@@ -172,6 +175,13 @@ function displayScoreOutOfTen(score: number): string {
 }
 
 function contextGuide(context: EngineContext): string {
+  if (context === "coastal_flats_estuary") {
+    return [
+      "Write specifically for shallow flats, estuaries, or brackish shoreline — places where tide still matters but slack water is not automatically bad.",
+      "Use language about skinny water, flooded grass, creek mouths, wind chops, and sky glare without assuming violent current is always ideal.",
+      "Do not sound like a deep inshore jetty report; avoid implying the angler is always fishing heavy moving water.",
+    ].join(" ");
+  }
   if (context === "freshwater_lake_pond") {
     return [
       "Write specifically for a freshwater lake or pond.",
@@ -187,7 +197,7 @@ function contextGuide(context: EngineContext): string {
     ].join(" ");
   }
   return [
-    "Write specifically for a coastal saltwater or brackish setting.",
+    "Write specifically for coastal inshore / moving-water salt or brackish settings (jetties, channels, surf-adjacent, classic tidal current).",
     "Use language about moving water, tide-driven positioning, wind exposure, cleaner water, and broad shoreline or marsh adjustments.",
     "Do not sound like a lake or river report.",
   ].join(" ");
@@ -381,6 +391,27 @@ export type PolishPromptMeta = {
   user_message: string;
 };
 
+/** Exact-match labels that read like score bands or audit tags — omit &lt;location&gt; to avoid awkward opens ("Excellent, excellent …"). */
+const PLACEHOLDER_LOCATION_TOKENS = new Set(
+  ["excellent", "good", "fair", "poor", "prime", "coverage"].map((s) => s.toLowerCase()),
+);
+
+/**
+ * Resolves reverse-geocode / audit placeholder strings for the polish prompt.
+ * Returns null to skip &lt;location&gt; (coordinates_hint + context_guide still ground the copy).
+ */
+export function polishLocationLabelForPrompt(
+  locationName: string | null | undefined,
+  scoreBand: string,
+): string | null {
+  const t = (locationName ?? "").trim();
+  if (!t) return null;
+  const low = t.toLowerCase();
+  if (PLACEHOLDER_LOCATION_TOKENS.has(low)) return null;
+  if (low === scoreBand.toLowerCase()) return null;
+  return t;
+}
+
 export function buildPolishUserMessage(
   narration: NarrationPayload,
   report: HowsFishingReport,
@@ -393,7 +424,7 @@ export function buildPolishUserMessage(
 ): PolishPromptMeta {
   const scoreOutOfTen = displayScoreOutOfTen(narration.score);
   const seasonLabel = localDate ? describeSeasonFromDate(localDate) : null;
-  const locationCtx = locationName || null;
+  const locationCtx = polishLocationLabelForPrompt(locationName, report.band);
   const weatherSnap = buildWeatherSnapshot(envData);
 
   const openerAngle = OPENER_ANGLES[pickIndex(OPENER_ANGLES.length, rng)]!;
@@ -427,7 +458,7 @@ export function buildPolishUserMessage(
     locationCtx ? `<location>${locationCtx}</location>` : "",
     localDate ? `<date>${localDate}</date>` : "",
     seasonLabel ? `<season>${seasonLabel}</season>` : "",
-    `<coordinates_hint>${report.location.latitude.toFixed(3)}, ${report.location.longitude.toFixed(3)} (${report.location.region_key})</coordinates_hint>`,
+    `<coordinates_hint>Internal only — do not quote numbers in summary_line. ${report.location.latitude.toFixed(3)}, ${report.location.longitude.toFixed(3)} (${report.location.region_key})</coordinates_hint>`,
     "<context_guide>",
     contextGuide(narration.context),
     "</context_guide>",
@@ -466,7 +497,7 @@ export function buildPolishUserMessage(
     "</payload>",
     "<output_contract>",
     "conditions.air_temp_f is the air temperature (°F) the engine used for scoring: prefer daily mean when air_temp_basis is daily_mean_engine or daily_mean_inferred_high_low; otherwise a single observation. Verbal temperature in summary_line must match this number within a few degrees — do not invent a different temp.",
-    "summary_line: one or two short sentences (max 220 chars total). High-level mood of the day only — band/score vibe, not a factor-by-factor recap. Do NOT repeat, paraphrase, or preview sentences from whats_helping or whats_hurting; those lists own the detailed 'why'. You MAY align broad timing language with engine_timing_note and recommended_fishing_dayparts when present. Reference the location by name if provided. Optional: one grounded detail from 'conditions' (temp, wind, or rain) if it adds life — not a stat dump. Never mention solunar_peaks in summary unless you frame them as soft folklore; engine timing_note takes priority.",
+    "summary_line: one or two short sentences (max 220 chars total). High-level mood of the day only — band/score vibe, not a factor-by-factor recap. Do NOT repeat, paraphrase, or preview sentences from whats_helping or whats_hurting; those lists own the detailed 'why'. You MAY align broad timing language with engine_timing_note and recommended_fishing_dayparts when present. Reference the location by name if payload.location_name is provided. If payload.location_name is null, never use raw coordinates in summary_line — use water type, informal region phrasing, or 'here'. Optional: one grounded detail from 'conditions' (temp, wind, or rain) if it adds life — not a stat dump. Never mention solunar_peaks in summary unless you frame them as soft folklore; engine timing_note takes priority.",
     "actionable_tip: ONE complete sentence (two max, 220 chars total). MUST stay inside ASSIGNED_TIP_FOCUS_LANE only (offering_size_profile | retrieval_method | speed_aggression | finesse_vs_power). Name a concrete mechanical move: explicit pace OR explicit size/profile change OR explicit retrieve pattern OR explicit finesse-vs-power stance. FORBIDDEN in actionable_tip: where to fish, structure, depth, water column targets, any tide/tidal/slack/exchange language, time of day, solunar, boat/stealth/cast placement, 'cover water' as main advice, fish-mood monologues.",
     "CRITICAL — engine_verdict.fish_activity_level states which composite score band the engine assigned (it is not a live fish survey). engine_verdict.temperature_band is the air-temp normalization bucket. Your tip must be consistent with both. If fish_activity_level is in the high composite band and temperature_band is optimal, do NOT default to ultra-slow finesse unless that lane still demands a speed call — then choose a faster retrieve method or power stance instead.",
     "If temperature_band is warm or very_warm, NEVER frame the bite as 'cold water' or winter-style lethargy — that is a hard factual error. If it is very_cold or cool, do not write heat-stress advice.",

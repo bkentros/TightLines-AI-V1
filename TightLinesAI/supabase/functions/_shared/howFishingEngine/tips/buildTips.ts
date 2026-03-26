@@ -3,6 +3,7 @@ import type {
   EngineContext,
   SharedNormalizedOutput,
 } from "../contracts/mod.ts";
+import { isCoastalFamilyContext } from "../contracts/context.ts";
 import type { ActiveVariableScore } from "../score/types.ts";
 
 /**
@@ -180,7 +181,7 @@ export function buildActionableTip(
   const lite = norm.light_cloud_condition;
   const w = norm.wind_condition;
 
-  if (context === "coastal" && (norm.tide_current_movement?.score ?? 0) >= 1.5) {
+  if (isCoastalFamilyContext(context) && (norm.tide_current_movement?.score ?? 0) >= 1.5) {
     actionable_tip = pick(COASTAL_TIDE_TIPS);
     actionable_tip_tag = "coastal_tide_positive";
   } else if (topSuppressor?.key === "wind_condition" && topSuppressor.score < 0) {

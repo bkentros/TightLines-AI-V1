@@ -15,7 +15,7 @@ import { useEnvStore } from '../../store/envStore';
 import { useLocationStore } from '../../store/locationStore';
 import { getEffectiveTier, canUseAIFeatures } from '../../lib/subscription';
 import { getCurrentMultiRebuild, getCachedMultiRebuild } from '../../lib/howFishing';
-import type { EngineContextKey } from '../../lib/howFishingRebuildContracts';
+import { howFishingMultiContexts } from '../../lib/howFishingRebuildContracts';
 import { isCoastalContextEligible } from '../../lib/coastalProximity';
 import {
   getForecastScores,
@@ -52,7 +52,7 @@ export default function HomeScreen() {
   const [showSubscribePrompt, setShowSubscribePrompt] = useState(false);
   const [showLocationPicker, setShowLocationPicker] = useState(false);
   const [cachedScore, setCachedScore] = useState<string | null>(null);
-  /** Mean 0–100 across today's multi-tab cached reports — aligns hero + "Today" chip with Lake/River/Coastal tabs. */
+  /** Mean 0–100 across today's multi-tab cached reports — used for hero headline only (7-day strip stays forecast API). */
   const [cachedMeanRaw, setCachedMeanRaw] = useState<number | null>(null);
   const [forecastDays, setForecastDays] = useState<DayForecastScore[] | null>(null);
   const [forecastLoading, setForecastLoading] = useState(false);
@@ -156,10 +156,7 @@ export default function HomeScreen() {
       return;
     }
 
-    const coastal = isCoastalContextEligible(lat, lon);
-    const contexts: EngineContextKey[] = coastal
-      ? ['freshwater_lake_pond', 'freshwater_river', 'coastal']
-      : ['freshwater_lake_pond', 'freshwater_river'];
+    const contexts = howFishingMultiContexts(isCoastalContextEligible(lat, lon));
 
     const inMemory = getCurrentMultiRebuild(lat, lon);
     const hasAllInMemory =
@@ -246,10 +243,7 @@ export default function HomeScreen() {
       // Refresh the cached score when user returns to the home tab,
       // so a newly-generated report immediately updates the displayed number.
       if (coords) {
-        const coastal = isCoastalContextEligible(coords.lat, coords.lon);
-        const contexts: EngineContextKey[] = coastal
-          ? ['freshwater_lake_pond', 'freshwater_river', 'coastal']
-          : ['freshwater_lake_pond', 'freshwater_river'];
+        const contexts = howFishingMultiContexts(isCoastalContextEligible(coords.lat, coords.lon));
         const inMemory = getCurrentMultiRebuild(coords.lat, coords.lon);
         if (inMemory && contexts.every((ctx) => inMemory[ctx] != null)) {
           const meanRaw =
@@ -360,8 +354,8 @@ export default function HomeScreen() {
     return 'POOR';
   };
 
-  // Hero + "Today" chip: prefer mean of cached multi-tab reports (same math as tabs) when available;
-  // otherwise deterministic 7-day strip (Open-Meteo–only engine — can diverge slightly from full env).
+  // Hero: prefer mean of cached multi-tab reports when user has generated all tabs; else 7-day “today” forecast.
+  // 7-day calendar always uses forecast-scores only so chips never jump after opening How’s Fishing.
   const todayForecast = forecastDays?.[0] ?? null;
   const heroScore =
     cachedMeanRaw != null
@@ -458,10 +452,7 @@ export default function HomeScreen() {
                     <View key={i} style={[styles.calendarDay, styles.calendarDaySkeleton]} />
                   ))
                 : forecastDays?.map((day) => {
-                    const raw =
-                      day.day_offset === 0 && cachedMeanRaw != null
-                        ? cachedMeanRaw
-                        : combinedOutlookScore(day);
+                    const raw = combinedOutlookScore(day);
                     const display = formatScoreDisplay(raw);
                     const color = scoreColor(raw);
                     const isToday = day.day_offset === 0;

@@ -7,6 +7,7 @@
  */
 
 import type { EngineContext, SharedNormalizedOutput } from "../contracts/mod.ts";
+import { isCoastalFamilyContext } from "../contracts/context.ts";
 import type { DaypartFlags, TimingEvalOptions, TimingResult } from "./timingTypes.ts";
 import { evaluateTemperatureWindow } from "./evaluators/evaluateTemperatureWindow.ts";
 import { pickTimingNote } from "./timingNotes.ts";
@@ -67,7 +68,7 @@ export function reconcileHeatStressTiming(
     return { result, applied: false };
   }
 
-  if (context === "coastal" && result.anchor_driver === "tide_exchange_window") {
+  if (isCoastalFamilyContext(context) && result.anchor_driver === "tide_exchange_window") {
     return { result, applied: false };
   }
 

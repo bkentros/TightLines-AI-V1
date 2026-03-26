@@ -81,7 +81,12 @@ function stratifiedPick(
   for (const s of pool) {
     byContext[s.context]!.push(s);
   }
-  const ctxOrder = ["freshwater_lake_pond", "freshwater_river", "coastal"] as const;
+  const ctxOrder = [
+    "freshwater_lake_pond",
+    "freshwater_river",
+    "coastal",
+    "coastal_flats_estuary",
+  ] as const;
   for (const c of ctxOrder) {
     shuffleInPlace(byContext[c], rand);
   }

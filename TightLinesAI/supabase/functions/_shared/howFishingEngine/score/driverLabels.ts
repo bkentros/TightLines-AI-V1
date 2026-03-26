@@ -60,7 +60,7 @@ function temperatureDriverLabel(t: NonNullable<Norm["temperature"]>): string {
     return pick([
       "Temperature is a clear net positive on the model — one of the stronger green lights today.",
       "The thermal stack is doing real work for the score; plan around normal seasonal patterns.",
-      "Heat/cool balance lands on the helpful side — use it to pick depth and pace confidently.",
+      "Warm/cool balance lands on the helpful side — use it to pick depth and pace confidently.",
     ]);
   }
   if (tier === 1) {

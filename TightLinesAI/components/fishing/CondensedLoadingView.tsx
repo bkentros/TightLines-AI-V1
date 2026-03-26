@@ -10,6 +10,9 @@ import { colors, fonts, spacing, radius } from '../../lib/theme';
 
 interface ConditionsData {
   air_temp_f?: number | null;
+  /** When both set, Temp tile shows low–high instead of air_temp_f. */
+  air_temp_low_f?: number | null;
+  air_temp_high_f?: number | null;
   wind_speed_mph?: number | null;
   wind_direction?: string | null;
   pressure_mb?: number | null;
@@ -49,6 +52,15 @@ function Tile({ icon, label, value, subValue }: TileProps) {
 function formatTemp(temp: number | null | undefined): string {
   if (temp == null) return '--';
   return `${Math.round(temp)}\u00B0F`;
+}
+
+function formatAirTempTile(c: ConditionsData | null): { value: string; sub?: string } {
+  const lo = c?.air_temp_low_f;
+  const hi = c?.air_temp_high_f;
+  if (lo != null && hi != null && Number.isFinite(lo) && Number.isFinite(hi)) {
+    return { value: `${Math.round(lo)}–${Math.round(hi)}\u00B0F`, sub: "Today's range" };
+  }
+  return { value: formatTemp(c?.air_temp_f) };
 }
 
 function formatWind(speed: number | null | undefined, dir: string | null | undefined): string {
@@ -123,6 +135,7 @@ export function CondensedLoadingView({ conditions, statusText }: CondensedLoadin
 
   const c = conditions;
   const hasTide = c?.tide_phase_state != null;
+  const airTile = formatAirTempTile(c);
 
   return (
     <View style={styles.container}>
@@ -134,7 +147,7 @@ export function CondensedLoadingView({ conditions, statusText }: CondensedLoadin
 
       {/* Row 1 */}
       <View style={styles.row}>
-        <Tile icon="thermometer-outline" label="Temp" value={formatTemp(c?.air_temp_f)} />
+        <Tile icon="thermometer-outline" label="Temp" value={airTile.value} subValue={airTile.sub} />
         <Tile icon="flag-outline" label="Wind" value={formatWind(c?.wind_speed_mph, c?.wind_direction)} />
         <Tile icon="speedometer-outline" label="Pressure" value={formatPressure(c?.pressure_mb)} subValue={formatPressureState(c?.pressure_state)} />
         <Tile icon="cloud-outline" label="Sky" value={formatSky(c?.cloud_cover_pct)} />

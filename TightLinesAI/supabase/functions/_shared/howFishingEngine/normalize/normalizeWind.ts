@@ -1,4 +1,5 @@
 import type { EngineContext, VariableState } from "../contracts/mod.ts";
+import { isCoastalFamilyContext } from "../contracts/context.ts";
 import { clampEngineScore, pieceLinear } from "../score/engineScoreMath.ts";
 
 function windLabel(
@@ -12,7 +13,7 @@ function windLabel(
 }
 
 function scoreAtMph(mph: number, context: EngineContext): number {
-  const coastal = context === "coastal";
+  const coastal = isCoastalFamilyContext(context);
 
   if (coastal) {
     if (mph <= 3) return 2;

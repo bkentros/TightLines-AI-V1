@@ -9,7 +9,7 @@ export type AuditScenario = {
   longitude: number;
   local_date: string;
   local_timezone: string;
-  context: "freshwater_lake_pond" | "freshwater_river" | "coastal";
+  context: "freshwater_lake_pond" | "freshwater_river" | "coastal" | "coastal_flats_estuary";
   /** Explicit engine region for regression (production may auto-resolve similarly). */
   region_key: string;
   state_code: string;

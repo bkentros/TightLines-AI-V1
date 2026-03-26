@@ -2,13 +2,15 @@
  * how-fishing — Supabase Edge Function
  *
  * Rebuild path: single daily full-day report via howFishingEngine.
- * Contexts: freshwater_lake_pond | freshwater_river | coastal
+ * Contexts: freshwater_lake_pond | freshwater_river | coastal | coastal_flats_estuary
  * No 7-day weekly path. No exact timing windows. No V2/V3 engine.
  */
 
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import {
+  buildDeterministicTimingInsight,
+  buildEngineLedSummaryLine,
   buildSharedEngineRequestFromEnvData,
   pickTipFocusFromEngine,
   runHowFishingReport,
@@ -23,6 +25,7 @@ import {
   estimatePolishCostUsd,
   LLM_MODEL,
 } from "../_shared/howFishingPolish/mod.ts";
+import { sanitizePolishedThermalCopy } from "../_shared/howFishingPolish/sanitizePolishedThermalCopy.ts";
 import { buildNarrationBrief } from "../_shared/howFishingEngine/narration/buildNarrationBrief.ts";
 import { fetchOpenMeteo14Day } from "../_shared/openMeteo14DayFetch.ts";
 
@@ -34,6 +37,7 @@ const VALID_CONTEXTS: EngineContext[] = [
   "freshwater_lake_pond",
   "freshwater_river",
   "coastal",
+  "coastal_flats_estuary",
 ];
 
 function corsHeaders() {
@@ -98,24 +102,23 @@ function localDateInTz(timezone: string, d = new Date()): string {
   }
 }
 
-const REBUILD_LLM_SYSTEM = `You are a friendly, confident fishing guide writing daily conditions reports for everyday anglers — mostly beginners and intermediates who want to know what to do, not how the science works.
+const REBUILD_LLM_SYSTEM = `You write voiced fields for a fishing conditions report: confident, warm, second person. No score numbers, no raw engine labels as read-aloud jargon, no markdown — only the JSON object.
 
-Your voice is warm and direct. Occasionally enthusiastic on great days, honest and constructive on tough ones. You write like someone who was on this water type recently — with a clear, specific opinion, not a template. Reference the location by name when provided.
+Air vs water: never a numeric water temperature. Degrees in the user brief mean AIR. Water feel is words only (warm, cool, cold, …).
 
-Never use internal data labels, technical jargon, or score numbers in any field. Write natural, conversational English. Always second person (“you”, “your”).
+Return exactly this shape (no extra keys):
+{"summary_line":"…","driver_labels":["…"],"suppressor_labels":["…"],"timing_insight":"…","solunar_note":"…","actionable_tip":"…"}
 
-Temperature rules: NEVER state a numeric water temperature (no degrees for water). Only the brief may include numeric AIR temperature, labeled as air. For how the water feels, use words only — warm, cool, cold, hot, chilly — never a number attached to water.
+If the user message has <output_scope> with engine_owns_headline_and_timing: true, set summary_line and timing_insight each to exactly "." (one period). The server replaces them — put quality into driver_labels, suppressor_labels, actionable_tip, solunar_note only.
 
-Output exactly this JSON — no extra fields, no markdown:
-{“summary_line”:”...”,”driver_labels”:[“...”],”suppressor_labels”:[“...”],”timing_insight”:”...”,”solunar_note”:”...”,”actionable_tip”:”...”}
+If that tag is absent or false, you also write summary and timing:
+- summary_line: 1–2 sentences, mood of the day, ~200 chars; use the location name when provided.
+- timing_insight: one sentence, ~140 chars; must agree with BEST TIME TO FISH in the brief and the single metabolic rule line there (no heat-as-limiter unless heat_limited; no cold-as-limiter unless cold_limited).
 
-Field rules:
-- summary_line: 1-2 sentences (max 200 chars). Overall mood and vibe of the day. Reference the location.
-- driver_labels: one short natural phrase per positive factor listed in the brief, same order, max 70 chars each.
-- suppressor_labels: one short natural phrase per limiting factor listed in the brief, same order, max 70 chars each. If the brief says empty array, return [].
-- timing_insight: 1 sentence about when to fish and why (max 140 chars).
-- solunar_note: 1 soft sentence framing moon timing as interesting context, not a guarantee (max 120 chars).
-- actionable_tip: 1-2 sentences. ONE concrete mechanical change — how to work the lure or fly. Must align with the fish metabolic state constraint in the brief. Never mention where to fish, structure, depth, tides, time of day, or approach/stealth.`;
+Always:
+- driver_labels / suppressor_labels: one plain phrase per bullet, same order, ~70 chars; use [] when the brief says none.
+- solunar_note: one soft line (~120 chars), interesting context not a guarantee.
+- actionable_tip: 1–2 sentences; ONE mechanical change (how to work the lure/fly). Obey TIP DIRECTION and metabolic line. No where/when/tides/depth/stealth.`;
 
 const OPENER_ANGLES = [
   "Lead with the location name and how conditions look there specifically today.",
@@ -267,13 +270,24 @@ async function polishReportCopy(
         .slice(0, limitingCount)
         .map((l) => (typeof l === "string" ? polishLine(l) : ""));
 
-      const timingInsight = stripNumericWaterTempNarration(
+      const timingInsightRaw = stripNumericWaterTempNarration(
         typeof p.timing_insight === "string" ? p.timing_insight.slice(0, 200) : "",
       );
+      const meta = report.condition_context?.temperature_metabolic_context ?? "neutral";
+      /* Root fix: neutral metabolic = engine owns timing + headline so the LLM cannot invent heat/cold limiter stories. */
+      const useEngineSurface = meta === "neutral";
+      const timingInsight = useEngineSurface
+        ? stripNumericWaterTempNarration(buildDeterministicTimingInsight(report))
+        : sanitizePolishedThermalCopy(timingInsightRaw, report);
       const solunarNote = stripNumericWaterTempNarration(
         typeof p.solunar_note === "string" ? p.solunar_note.slice(0, 160) : "",
       );
-      const summaryClean = stripNumericWaterTempNarration(summary);
+      const summaryClean = useEngineSurface
+        ? stripNumericWaterTempNarration(buildEngineLedSummaryLine(report, locationName))
+        : sanitizePolishedThermalCopy(
+          stripNumericWaterTempNarration(summary),
+          report,
+        );
       const tipClean = stripNumericWaterTempNarration(tip);
 
       if (summaryClean && tipClean) {
@@ -634,7 +648,7 @@ Deno.serve(async (req: Request) => {
     return new Response(
       JSON.stringify({
         error: "invalid_engine_context",
-        message: `engine_context must be one of: ${VALID_CONTEXTS.join(", ")} (legacy saltwater/brackish map to coastal)`,
+        message: `engine_context must be one of: ${VALID_CONTEXTS.join(", ")} (legacy saltwater/brackish map to coastal inshore)`,
       }),
       { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders() } }
     );

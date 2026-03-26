@@ -10,6 +10,7 @@
  */
 
 import type { HowsFishingReport } from "../contracts/report.ts";
+import { AIR_TEMP_LARGE_DIURNAL_SWING_F } from "../config/airTempDisplayConstants.ts";
 import { engineScoreTier, ENGINE_SCORE_EPSILON } from "../score/engineScoreMath.ts";
 
 export type TipFocusLane =
@@ -81,10 +82,16 @@ function variableToPlain(
   label: string,
   score: number,
   tempF: number | null,
+  tempLowHigh: { low: number; high: number } | null,
 ): string {
   switch (key) {
     case "temperature_condition": {
-      const t = tempF != null ? `${Math.round(tempF)}°F air — ` : "";
+      const t =
+        tempLowHigh != null
+          ? `${Math.round(tempLowHigh.low)}–${Math.round(tempLowHigh.high)}°F forecast air (low–high) — `
+          : tempF != null
+            ? `${Math.round(tempF)}°F air (representative daily value) — `
+            : "";
       if (label === "optimal") return `${t}right in the seasonal range`;
       if (label === "warm") {
         if (score >= 1) return `${t}running warm, metabolism is up`;
@@ -233,7 +240,8 @@ function bandToPlain(band: string): string {
 function contextToPlain(ctx: string): string {
   if (ctx === "freshwater_lake_pond") return "freshwater lake or pond";
   if (ctx === "freshwater_river") return "freshwater river";
-  return "coastal / saltwater";
+  if (ctx === "coastal_flats_estuary") return "shallow flats, estuary, or brackish shoreline";
+  return "coastal inshore / saltwater";
 }
 
 function seasonFromDate(iso: string): string {
@@ -447,22 +455,44 @@ export function buildNarrationBrief(
   const metabolicState = deriveMetabolicState(report);
   const dominantPattern = deriveDominantPattern(report);
   const season = seasonFromDate(localDate);
-  const tempF = cc?.environment_snapshot.current_air_temp_f ?? null;
+  const snap = cc?.environment_snapshot;
+  const tempF = snap?.daily_mean_air_temp_f ?? snap?.current_air_temp_f ?? null;
+  const lo = snap?.daily_low_air_temp_f ?? null;
+  const hi = snap?.daily_high_air_temp_f ?? null;
+  const tempLowHigh =
+    lo != null &&
+      hi != null &&
+      Number.isFinite(lo) &&
+      Number.isFinite(hi)
+      ? { low: lo, high: hi }
+      : null;
+  const diurnalRange =
+    tempLowHigh != null ? Math.round(tempLowHigh.high - tempLowHigh.low) : null;
 
   // Build factors in exact report.drivers / report.suppressors order
   const positiveFactors: string[] = report.drivers.map((d) => {
     const norm = cc?.normalized_variable_scores.find((v) => v.variable_key === d.variable);
     if (!norm) return variableKeyToName(d.variable);
-    const plain = variableToPlain(d.variable, norm.engine_label, norm.engine_score,
-      d.variable === "temperature_condition" ? tempF : null);
+    const plain = variableToPlain(
+      d.variable,
+      norm.engine_label,
+      norm.engine_score,
+      d.variable === "temperature_condition" ? tempF : null,
+      d.variable === "temperature_condition" ? tempLowHigh : null,
+    );
     return `${variableKeyToName(d.variable)}: ${plain}`;
   });
 
   const limitingFactors: string[] = report.suppressors.map((s) => {
     const norm = cc?.normalized_variable_scores.find((v) => v.variable_key === s.variable);
     if (!norm) return variableKeyToName(s.variable);
-    const plain = variableToPlain(s.variable, norm.engine_label, norm.engine_score,
-      s.variable === "temperature_condition" ? tempF : null);
+    const plain = variableToPlain(
+      s.variable,
+      norm.engine_label,
+      norm.engine_score,
+      s.variable === "temperature_condition" ? tempF : null,
+      s.variable === "temperature_condition" ? tempLowHigh : null,
+    );
     return `${variableKeyToName(s.variable)}: ${plain}`;
   });
 
@@ -483,6 +513,50 @@ export function buildNarrationBrief(
     ? crypto.randomUUID()
     : `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
 
+  /** Neutral metabolic: headline + timing come from the engine; LLM only voices labels/tip/solunar. */
+  const engineOwnsHeadlineTiming = (cc?.temperature_metabolic_context ?? "neutral") === "neutral";
+
+  const thermalBlockFull: string[] = engineOwnsHeadlineTiming
+    ? []
+    : [
+      "HARD RULES — TEMPERATURE",
+      "°F in factor lines = AIR only, never numeric water temp. Water feel: words only (warm, cool, cold, …).",
+      tempLowHigh != null
+        ? `Forecast air ~${Math.round(tempLowHigh.low)}°F (low) to ~${Math.round(tempLowHigh.high)}°F (high). Representative model temp is not always the daily high — see snapshot.`
+        : tempF != null
+          ? `Representative air ~${Math.round(tempF)}°F — context only.`
+          : "No air range in snapshot — do not invent highs/lows.",
+      ...(diurnalRange != null && diurnalRange >= AIR_TEMP_LARGE_DIURNAL_SWING_F
+        ? [
+          `~${diurnalRange}°F diurnal swing: tie timing prose to BEST TIME below (not heat stress unless heat_limited).`,
+        ]
+        : []),
+      "",
+      "HARD RULES — SUMMARY + TIMING vs METABOLIC",
+      `temperature_metabolic_context=${cc?.temperature_metabolic_context ?? "unknown"}; metabolic_state=${metabolicState}; band=${cc?.temperature_band ?? "unknown"}; avoid_midday_for_heat=${cc?.avoid_midday_for_heat === true ? "true" : "false"}.`,
+      metabolicState === "heat_limited"
+        ? "You MAY name heat/peak warmth as narrowing the bite; stay consistent with TIP DIRECTION. Do not blame cold as limiter."
+        : metabolicState === "cold_limited"
+          ? "You MAY name cold as slowing/narrowing; stay consistent with TIP DIRECTION. Do not blame heat as limiter."
+          : "Do not treat heat or frigid air as the bite limiter unless this line is heat_limited/cold_limited above. Cool morning + warmer afternoon is normal, not heat stress.",
+      "",
+    ];
+
+  const thermalBlockSlim: string[] = engineOwnsHeadlineTiming
+    ? [
+      "<output_scope>",
+      "engine_owns_headline_and_timing: true",
+      "Return summary_line and timing_insight each as exactly \".\" (one period). The server replaces them with engine text.",
+      "Focus on driver_labels, suppressor_labels, actionable_tip, solunar_note only.",
+      "voice_mode and lead_angle below = tone for those fields only, not for headline/timing.",
+      "</output_scope>",
+      "",
+      "TEMPERATURE (for paraphrasing driver/suppressor lines only)",
+      "°F = AIR, never numeric water temp.",
+      "",
+    ]
+    : [];
+
   const lines: string[] = [
     `<voice_mode>${voiceMode}</voice_mode>`,
     `<lead_angle>${openerAngle}</lead_angle>`,
@@ -490,9 +564,8 @@ export function buildNarrationBrief(
     "",
     "FISHING CONDITIONS BRIEF",
     "═══════════════════════",
-    "HARD RULES — TEMPERATURE",
-    "Any numeric temperature in this brief is AIR temperature from weather data, not measured water. Never write a numeric water temperature (no °F/°C for water). You may describe water qualitatively only: warm, cool, cold, hot, chilly — no numbers tied to water.",
-    "",
+    ...thermalBlockSlim,
+    ...thermalBlockFull,
     `Location: ${locationName ?? `${report.location.latitude.toFixed(2)}, ${report.location.longitude.toFixed(2)}`}`,
     `Water type: ${contextToPlain(report.context)}`,
     `Season: ${season}`,
@@ -513,9 +586,13 @@ export function buildNarrationBrief(
       ? `Write one short honest phrase per factor below (${limitingFactors.length} total) — not discouraging, max 70 chars each, in the same order:`
       : "Nothing notable is limiting the fishing — suppressor_labels should be an empty array [].",
     ...limitingFactors.map((f) => `→ ${f}`),
-    "",
-    "BEST TIME TO FISH",
-    formatTimingSection(report),
+    ...(engineOwnsHeadlineTiming
+      ? []
+      : [
+        "",
+        "BEST TIME TO FISH",
+        formatTimingSection(report),
+      ]),
     "",
     "SOLUNAR CONTEXT",
     solunarLine,
@@ -528,12 +605,11 @@ export function buildNarrationBrief(
       const hints = deriveTipContextFromVariables(report, metabolicState);
       if (hints.length === 0) return [];
       return [
-        "Mechanical context — your tip must be consistent with ALL of these (already resolved against metabolic state above — no conflicts):",
+        "Mechanical context — tip must match ALL of these (already resolved vs metabolic state):",
         ...hints.map((h) => `  • ${h}`),
       ];
     })(),
-    "Tip MUST be: one clear mechanical change in HOW to work the lure or fly.",
-    "Tip MUST NOT mention: where to fish, structure, depth, tides, time of day, stealth/approach.",
+    "Tip: one mechanical change (lure/fly work only). No where/when/tides/depth/stealth.",
     "",
     "DATA QUALITY",
     dataLine,

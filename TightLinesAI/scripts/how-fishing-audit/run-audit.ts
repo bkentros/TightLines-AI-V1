@@ -31,7 +31,12 @@ type Scenario = {
   env_data: Record<string, unknown>;
 };
 
-const CONTEXTS: EngineContext[] = ["freshwater_lake_pond", "freshwater_river", "coastal"];
+const CONTEXTS: EngineContext[] = [
+  "freshwater_lake_pond",
+  "freshwater_river",
+  "coastal",
+  "coastal_flats_estuary",
+];
 
 const auditDir = dirname(fromFileUrl(import.meta.url));
 const defaultScenarios = join(auditDir, "scenarios.sample.json");

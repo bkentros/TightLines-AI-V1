@@ -17,6 +17,9 @@ export type SharedEngineRequest = {
   environment: {
     current_air_temp_f?: number | null;
     daily_mean_air_temp_f?: number | null;
+    /** Forecast calendar-day low/high (°F), same index as 7-day arrays — for UI + narration only. */
+    daily_low_air_temp_f?: number | null;
+    daily_high_air_temp_f?: number | null;
     prior_day_mean_air_temp_f?: number | null;
     day_minus_2_mean_air_temp_f?: number | null;
     pressure_mb?: number | null;

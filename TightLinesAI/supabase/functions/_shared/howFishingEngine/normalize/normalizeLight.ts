@@ -1,4 +1,5 @@
 import type { EngineContext, VariableState } from "../contracts/mod.ts";
+import { isCoastalFamilyContext } from "../contracts/context.ts";
 import { clampEngineScore, pieceLinear } from "../score/engineScoreMath.ts";
 
 /**
@@ -14,7 +15,7 @@ export function normalizeLight(
   if (cloudPct == null || Number.isNaN(cloudPct)) return null;
   const c = Math.max(0, Math.min(100, cloudPct));
 
-  const freshwater = context !== "coastal";
+  const freshwater = !isCoastalFamilyContext(context);
 
   let score: number;
   if (freshwater) {

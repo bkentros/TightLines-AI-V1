@@ -43,6 +43,9 @@ function stubReport(
       environment_snapshot: {
         current_air_temp_f: 72,
         daily_mean_air_temp_f: 72,
+        daily_low_air_temp_f: 65,
+        daily_high_air_temp_f: 78,
+        air_temp_diurnal_range_f: 13,
         prior_day_mean_air_temp_f: null,
         day_minus_2_mean_air_temp_f: null,
         pressure_mb: 1013,

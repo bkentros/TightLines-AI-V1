@@ -28,7 +28,11 @@ export type RegionKey =
   | 'southwest'
   | 'pacific_coast';
 
-export type EngineContextKey = 'freshwater_lake_pond' | 'freshwater_river' | 'coastal';
+export type EngineContextKey =
+  | 'freshwater_lake_pond'
+  | 'freshwater_river'
+  | 'coastal'
+  | 'coastal_flats_estuary';
 
 export type RebuildScoreBand = 'Poor' | 'Fair' | 'Good' | 'Excellent';
 export type RebuildReliability = 'high' | 'medium' | 'low';
@@ -55,9 +59,25 @@ export type TemperatureMetabolicContext = 'heat_limited' | 'cold_limited' | 'neu
 
 export const HOWS_FISHING_REBUILD_FEATURE = 'hows_fishing_rebuild_v1' as const;
 
+/**
+ * Contexts for How's Fishing multi-mode + home cached score mean.
+ * Order matches tab order: lake → river → inshore → flats/estuary (when coastal).
+ */
+export function howFishingMultiContexts(coastalEligible: boolean): EngineContextKey[] {
+  const ctxs: EngineContextKey[] = ['freshwater_lake_pond', 'freshwater_river'];
+  if (coastalEligible) {
+    ctxs.push('coastal', 'coastal_flats_estuary');
+  }
+  return ctxs;
+}
+
 export interface HowsFishingReportV1 {
   context: EngineContextKey;
-  display_context_label: 'Freshwater Lake/Pond' | 'Freshwater River' | 'Coastal';
+  display_context_label:
+    | 'Freshwater Lake/Pond'
+    | 'Freshwater River'
+    | 'Coastal Inshore'
+    | 'Flats & Estuary';
   location: {
     latitude: number;
     longitude: number;
@@ -126,6 +146,11 @@ export interface HowsFishingReportV1 {
       weighted_contribution: number;
     }>;
     environment_snapshot?: Record<string, unknown> & {
+      daily_low_air_temp_f?: number | null;
+      daily_high_air_temp_f?: number | null;
+      air_temp_diurnal_range_f?: number | null;
+      daily_mean_air_temp_f?: number | null;
+      current_air_temp_f?: number | null;
       sky_narration_contract?: {
         sky_character: string;
         cloud_cover_pct_rounded: number;

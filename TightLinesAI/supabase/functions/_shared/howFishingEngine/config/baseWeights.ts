@@ -26,4 +26,13 @@ export const BASE_WEIGHTS: Record<
     temperature_condition: 16,
     precipitation_disruption: 6,
   },
+  /** Softer tide weight; more wind/light/temp for skinny water & estuary anglers. */
+  coastal_flats_estuary: {
+    tide_current_movement: 24,
+    wind_condition: 26,
+    pressure_regime: 12,
+    light_cloud_condition: 14,
+    temperature_condition: 18,
+    precipitation_disruption: 6,
+  },
 };

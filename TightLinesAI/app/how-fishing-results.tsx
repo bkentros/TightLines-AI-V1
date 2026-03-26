@@ -12,7 +12,12 @@ import { colors, fonts, spacing } from '../lib/theme';
 
 export default function HowFishingResultsRedirect() {
   const router = useRouter();
-  const params = useLocalSearchParams<{ lat?: string; lon?: string }>();
+  const params = useLocalSearchParams<{
+    lat?: string;
+    lon?: string;
+    day_offset?: string;
+    target_date?: string;
+  }>();
 
   useEffect(() => {
     // Redirect to the unified how-fishing screen
@@ -21,6 +26,8 @@ export default function HowFishingResultsRedirect() {
       params: {
         ...(params.lat ? { lat: params.lat } : {}),
         ...(params.lon ? { lon: params.lon } : {}),
+        ...(params.day_offset ? { day_offset: params.day_offset } : {}),
+        ...(params.target_date ? { target_date: params.target_date } : {}),
       },
     });
   }, []);

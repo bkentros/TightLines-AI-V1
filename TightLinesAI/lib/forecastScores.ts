@@ -11,7 +11,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const SUPABASE_URL = process.env.EXPO_PUBLIC_SUPABASE_URL!;
 const SUPABASE_ANON_KEY = process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY!;
 
-const CACHE_KEY_PREFIX = 'forecast_scores_v1';
+/** v2 adds coastal_flats_estuary; bump invalidated old cache shape. */
+const CACHE_KEY_PREFIX = 'forecast_scores_v2';
+
+const LEGACY_FORECAST_CACHE_PREFIXES = ['forecast_scores_v1', 'forecast_scores_v2'] as const;
 
 /**
  * Next instant (UTC ms) when the calendar date advances in `timeZone` (IANA).
@@ -57,12 +60,26 @@ export interface DayForecastScore {
   freshwater_lake_pond: number; // 0–100 raw score
   freshwater_river: number;
   coastal: number;
+  coastal_flats_estuary: number;
 }
 
 export interface ForecastScoresResult {
   forecast: DayForecastScore[];
   timezone: string;
   fetched_at: string; // ISO string
+}
+
+function normalizeForecastRows(rows: Partial<DayForecastScore>[]): DayForecastScore[] {
+  return rows.map((row) => ({
+    date: row.date!,
+    day_offset: row.day_offset!,
+    day_label: row.day_label!,
+    month_day: row.month_day!,
+    freshwater_lake_pond: row.freshwater_lake_pond ?? 50,
+    freshwater_river: row.freshwater_river ?? 50,
+    coastal: row.coastal ?? 50,
+    coastal_flats_estuary: row.coastal_flats_estuary ?? row.coastal ?? 50,
+  }));
 }
 
 // ---------------------------------------------------------------------------
@@ -81,22 +98,24 @@ function cacheKey(lat: number, lon: number): string {
 // ---------------------------------------------------------------------------
 
 /**
- * Returns the best score across all three contexts for a day, 0–100.
+ * Returns the best score across all tab contexts for a day, 0–100.
  */
 export function bestDayScore(day: DayForecastScore): number {
-  return Math.max(day.freshwater_lake_pond, day.freshwater_river, day.coastal);
+  const flats = day.coastal_flats_estuary ?? day.coastal;
+  return Math.max(day.freshwater_lake_pond, day.freshwater_river, day.coastal, flats);
 }
 
 /**
  * Mean score (0–100) across the water-type tabs the user can open at this location.
- * Matches how the 7-day outlook aligns with multi-tab reports: inland = lake + river,
- * coastal-eligible = lake + river + coastal.
+ * Matches how the 7-day outlook aligns with multi-tab reports: inland = lake + river;
+ * coastal-eligible = lake + river + inshore + flats/estuary (four-way mean).
  */
 export function meanDayScore(day: DayForecastScore, isCoastalEligible: boolean): number {
   if (isCoastalEligible) {
+    const flats = day.coastal_flats_estuary ?? day.coastal;
     return (
-      day.freshwater_lake_pond + day.freshwater_river + day.coastal
-    ) / 3;
+      day.freshwater_lake_pond + day.freshwater_river + day.coastal + flats
+    ) / 4;
   }
   return (day.freshwater_lake_pond + day.freshwater_river) / 2;
 }
@@ -144,7 +163,10 @@ export async function getForecastScores(
       };
       // Valid until the midnight that was computed when the data was fetched
       if (Date.now() < (parsed._expires_at ?? 0)) {
-        return parsed;
+        return {
+          ...parsed,
+          forecast: normalizeForecastRows(parsed.forecast ?? []),
+        };
       }
     }
   } catch {
@@ -171,14 +193,14 @@ export async function getForecastScores(
       return null;
     }
 
-    const json = await res.json() as { forecast?: DayForecastScore[]; timezone?: string };
+    const json = await res.json() as { forecast?: Partial<DayForecastScore>[]; timezone?: string };
     if (!Array.isArray(json.forecast) || json.forecast.length === 0) {
       if (__DEV__) console.error('[forecastScores] empty or missing forecast array:', json);
       return null;
     }
 
     const data: ForecastScoresResult = {
-      forecast: json.forecast,
+      forecast: normalizeForecastRows(json.forecast),
       timezone: json.timezone ?? 'UTC',
       fetched_at: new Date().toISOString(),
     };
@@ -205,8 +227,9 @@ export async function getForecastScores(
 }
 
 /**
- * Removes the cached forecast for the given location.
- * Call after generating a full report so the calendar reflects updated scores.
+ * Removes the cached forecast for the given location (e.g. after changing pin
+ * so the next fetch is for the new coordinates). Full How’s Fishing reports do
+ * not invalidate this cache — the 7-day strip stays on the forecast-scores snapshot.
  */
 export function invalidateForecastCache(lat: number, lon: number): void {
   const key = cacheKey(lat, lon);
@@ -217,7 +240,9 @@ export function invalidateForecastCache(lat: number, lon: number): void {
 export async function clearAllForecastScoreCaches(): Promise<void> {
   try {
     const keys = await AsyncStorage.getAllKeys();
-    const toRemove = keys.filter((k) => k.startsWith(`${CACHE_KEY_PREFIX}_`));
+    const toRemove = keys.filter((k) =>
+      LEGACY_FORECAST_CACHE_PREFIXES.some((p) => k.startsWith(`${p}_`))
+    );
     if (toRemove.length > 0) {
       await AsyncStorage.multiRemove(toRemove);
     }

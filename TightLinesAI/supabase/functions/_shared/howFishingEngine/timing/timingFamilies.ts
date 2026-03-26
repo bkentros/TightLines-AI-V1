@@ -10,6 +10,7 @@
  */
 
 import type { EngineContext, RegionKey } from "../contracts/mod.ts";
+import { isCoastalFamilyContext } from "../contracts/context.ts";
 import type { ClimateZone, SeasonKey, TimingFamilyConfig } from "./timingTypes.ts";
 import { TIMING_FAMILY_CONFIGS } from "./timingDriverConfig.ts";
 
@@ -260,7 +261,7 @@ export function resolveTimingFamily(
   region: RegionKey,
   month: number,
 ): TimingFamilyConfig {
-  if (context === "coastal") {
+  if (isCoastalFamilyContext(context)) {
     return TIMING_FAMILY_CONFIGS.coastal_all;
   }
 

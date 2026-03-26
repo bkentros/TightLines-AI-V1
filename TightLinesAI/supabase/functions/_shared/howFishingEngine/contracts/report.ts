@@ -3,7 +3,7 @@
  */
 
 import type { ActionableTipTag, DaypartNotePreset, TimingStrength } from "./tipsDaypart.ts";
-import type { EngineContext } from "./context.ts";
+import type { DisplayContextLabel, EngineContext } from "./context.ts";
 import type {
   TemperatureBandLabel,
   TemperatureMetabolicContext,
@@ -58,6 +58,11 @@ export type LlmSkyNarrationContract = {
 export type LlmEnvironmentSnapshot = {
   current_air_temp_f: number | null;
   daily_mean_air_temp_f: number | null;
+  /** Forecast low/high for local_date when 7-day arrays supply them — UI + LLM context only. */
+  daily_low_air_temp_f: number | null;
+  daily_high_air_temp_f: number | null;
+  /** high − low when both defined; else null. */
+  air_temp_diurnal_range_f: number | null;
   prior_day_mean_air_temp_f: number | null;
   day_minus_2_mean_air_temp_f: number | null;
   pressure_mb: number | null;
@@ -99,7 +104,7 @@ export type SuppressorEntry = {
 
 export type HowsFishingReport = {
   context: EngineContext;
-  display_context_label: "Freshwater Lake/Pond" | "Freshwater River" | "Coastal";
+  display_context_label: DisplayContextLabel;
   location: {
     latitude: number;
     longitude: number;

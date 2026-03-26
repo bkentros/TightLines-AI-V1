@@ -1,13 +1,16 @@
 /**
  * forecast-scores — Supabase Edge Function
  *
- * Runs the deterministic fishing engine for 7 days × 3 contexts.
+ * Runs the deterministic fishing engine for 7 days × 4 contexts (inland scores
+ * for all four still returned; clients use lake+river only when not coastal-eligible).
  * No LLM, no auth required — returns raw scores only.
  * Used to populate the 7-day forecast calendar on the home screen.
  *
  * Uses the same Open-Meteo bundle as get-environment (past_days=14, forecast_days=7)
- * and buildSharedEngineRequestFromEnvData so chip scores match full How’s Fishing
- * reports for the same target_date.
+ * and buildSharedEngineRequestFromEnvData. For **day_offset 0** we pass
+ * `useCalendarDayProfileForToday` so “today” uses calendar-day scalars (like days 1–6),
+ * not live `current` + sliding pressure — scores stay stable across refetches until the
+ * model bundle changes. Live How’s Fishing (day 0) still uses true “now” without that flag.
  *
  * Per day: one buildFromEnvData (expensive Intl/hourly work), then shallow-clone the
  * request with each context — environment is identical; only context affects scoring.
@@ -21,7 +24,12 @@ import {
   type EngineContext,
 } from "../_shared/howFishingEngine/index.ts";
 
-const CONTEXTS: EngineContext[] = ["freshwater_lake_pond", "freshwater_river", "coastal"];
+const CONTEXTS: EngineContext[] = [
+  "freshwater_lake_pond",
+  "freshwater_river",
+  "coastal",
+  "coastal_flats_estuary",
+];
 const DAY_NAMES = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 function corsHeaders() {
@@ -126,6 +134,7 @@ Deno.serve(async (req: Request) => {
       "freshwater_lake_pond",
       envRecord,
       D,
+      D === 0 ? { useCalendarDayProfileForToday: true } : undefined,
     );
 
     const scores: Record<string, number> = {};
@@ -149,6 +158,7 @@ Deno.serve(async (req: Request) => {
       freshwater_lake_pond: scores["freshwater_lake_pond"] ?? 50,
       freshwater_river: scores["freshwater_river"] ?? 50,
       coastal: scores["coastal"] ?? 50,
+      coastal_flats_estuary: scores["coastal_flats_estuary"] ?? 50,
     });
   }
 

@@ -1,4 +1,5 @@
 import type { EngineContext, VariableState } from "../contracts/mod.ts";
+import { isCoastalFamilyContext } from "../contracts/context.ts";
 import { clampEngineScore, pieceLinear } from "../score/engineScoreMath.ts";
 
 /**
@@ -19,7 +20,7 @@ export function normalizePrecipitationDisruption(
   const r24 = p24 ?? 0;
   const r72 = p72 ?? 0;
 
-  if (context === "coastal") {
+  if (isCoastalFamilyContext(context)) {
     if (rate >= 0.12 || r24 >= 1.1 || r72 >= 2.2 || activeNow === true) {
       const sev = Math.max(
         rate / 0.12,
