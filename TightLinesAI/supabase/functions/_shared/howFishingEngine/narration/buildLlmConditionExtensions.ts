@@ -1,4 +1,5 @@
 import type { SharedEngineRequest } from "../contracts/input.ts";
+import type { EngineContext } from "../contracts/mod.ts";
 import type { SharedNormalizedOutput } from "../contracts/normalized.ts";
 import type {
   LlmCompositeContribution,
@@ -6,6 +7,7 @@ import type {
   LlmNormalizedVariableScore,
   LlmPressureHistorySummary,
 } from "../contracts/report.ts";
+import { buildSkyNarrationContract } from "./skyNarrationContract.ts";
 import type { ScoredVariableKey } from "../contracts/variables.ts";
 import { isScoredVariableKey } from "../contracts/variables.ts";
 import type { ActiveVariableScore } from "../score/types.ts";
@@ -132,7 +134,10 @@ function buildCompositeContributions(contributions: ActiveVariableScore[]): LlmC
   }));
 }
 
-function buildEnvironmentSnapshot(env: SharedEngineRequest["environment"]): LlmEnvironmentSnapshot {
+function buildEnvironmentSnapshot(
+  env: SharedEngineRequest["environment"],
+  context: EngineContext,
+): LlmEnvironmentSnapshot {
   return {
     current_air_temp_f: env.current_air_temp_f ?? null,
     daily_mean_air_temp_f: env.daily_mean_air_temp_f ?? null,
@@ -158,6 +163,7 @@ function buildEnvironmentSnapshot(env: SharedEngineRequest["environment"]): LlmE
       : null,
     pressure_history_summary: summarizePressureHistory(env.pressure_history_mb ?? undefined),
     tide_high_low_event_count: env.tide_high_low != null ? env.tide_high_low.length : null,
+    sky_narration_contract: buildSkyNarrationContract(env.cloud_cover_pct, context),
   };
 }
 
@@ -166,6 +172,7 @@ export function buildLlmConditionExtensions(
   norm: SharedNormalizedOutput,
   contributions: ActiveVariableScore[],
   environment: SharedEngineRequest["environment"],
+  context: EngineContext,
 ): {
   normalized_variable_scores: LlmNormalizedVariableScore[];
   composite_contributions: LlmCompositeContribution[];
@@ -174,6 +181,6 @@ export function buildLlmConditionExtensions(
   return {
     normalized_variable_scores: buildNormalizedVariableScores(norm),
     composite_contributions: buildCompositeContributions(contributions),
-    environment_snapshot: buildEnvironmentSnapshot(environment),
+    environment_snapshot: buildEnvironmentSnapshot(environment, context),
   };
 }

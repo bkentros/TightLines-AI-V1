@@ -239,8 +239,8 @@ export default function HowFishingScreen() {
         const failed = multi.failed_contexts?.join(', ') ?? '';
         throw new Error(
           failed
-            ? `Reports failed for: ${failed}. Pull to refresh or try again.`
-            : 'No fishing report was returned for this location. Pull to refresh or try again.',
+            ? `Reports failed for: ${failed}. Try again from the home screen.`
+            : 'No fishing report was returned for this location. Try again from the home screen.',
         );
       }
       if (isForecastDay && targetDate) {
@@ -266,28 +266,53 @@ export default function HowFishingScreen() {
     }
   }, [hasCoords, lat, lon, units, availableContexts, locationLabel, setLastReportEnv, isForecastDay, dayOffset, targetDate]);
 
+  /** Pull-to-refresh / header Refresh: reload cached report if still valid; never wipe cache. Regenerate only on miss/expiry. */
   const handleRefresh = useCallback(async () => {
     setRefreshing(true);
     try {
-      const AsyncStorage = (await import('@react-native-async-storage/async-storage')).default;
+      let cached: Record<EngineContextKey, HowFishingRebuildBundle> | null = null;
       if (isForecastDay && targetDate) {
-        // Clear the dedicated forecast-day cache so a fresh generation runs
-        for (const ctx of availableContexts) {
-          await AsyncStorage.removeItem(
-            `how_fishing_forecast_${lat.toFixed(3)}_${lon.toFixed(3)}_${targetDate}_${ctx}`
-          );
-        }
+        cached = await getCachedForecastRebuild(lat, lon, targetDate, availableContexts);
       } else {
-        // Clear today's daily cache
-        for (const ctx of availableContexts) {
-          await AsyncStorage.removeItem(`how_fishing_rebuild_${lat.toFixed(3)}_${lon.toFixed(3)}_${ctx}`);
-        }
+        cached = await getCachedMultiRebuild(lat, lon, availableContexts);
       }
-    } catch { /* ignore */ }
-    setMultiBundles(null);
-    await generateReports();
-    setRefreshing(false);
-  }, [generateReports, availableContexts, lat, lon, isForecastDay, targetDate]);
+
+      if (cached) {
+        if (__DEV__) {
+          const first = availableContexts.map((c) => cached![c]?.cache_expires_at).find(Boolean);
+          console.log('[HowFishing] refresh: cache HIT, expires_at=', first ?? 'n/a');
+        }
+        const tab = firstContextWithReport(cached, availableContexts);
+        if (tab) setActiveTab(tab);
+        setMultiBundles(cached);
+        if (!isForecastDay) {
+          setCurrentMultiRebuild(lat, lon, cached);
+        }
+        try {
+          const refreshed = await getEnvironment({ latitude: lat, longitude: lon, units });
+          setEnv(refreshed);
+        } catch {
+          /* keep existing env */
+        }
+        return;
+      }
+
+      if (__DEV__) {
+        console.log('[HowFishing] refresh: cache MISS or expired → generateReports');
+      }
+      await generateReports();
+    } finally {
+      setRefreshing(false);
+    }
+  }, [
+    generateReports,
+    availableContexts,
+    lat,
+    lon,
+    units,
+    isForecastDay,
+    targetDate,
+  ]);
 
   const activeBundle = multiBundles?.[activeTab] ?? null;
   const activeTz = activeBundle?.report.location.timezone ?? env?.timezone;
@@ -390,20 +415,21 @@ export default function HowFishingScreen() {
   return (
     <SafeAreaView style={styles.safe}>
       <View style={styles.topBar}>
-        <Pressable style={styles.navBack} onPress={() => router.back()} hitSlop={12}>
+        <Pressable style={[styles.topBarSide, styles.topBarSideLeft]} onPress={() => router.back()} hitSlop={12}>
           <Ionicons name="chevron-back" size={26} color={colors.primary} />
         </Pressable>
-        <View style={{ alignItems: 'center' }}>
-          <Text style={styles.heading}>How's Fishing</Text>
-          {isForecastDay && (
-            <View style={styles.forecastBadge}>
-              <Ionicons name="calendar-outline" size={10} color="#4F61A3" />
-              <Text style={styles.forecastBadgeText}>{reportDateLabel}</Text>
-            </View>
-          )}
+        <View style={styles.topBarCenter}>
+          <Text style={styles.heading} numberOfLines={1}>
+            How's Fishing
+          </Text>
         </View>
         <Pressable
-          style={({ pressed }) => [styles.newReportBtn, pressed && { opacity: 0.7 }]}
+          style={({ pressed }) => [
+            styles.topBarSide,
+            styles.topBarSideRight,
+            styles.newReportBtn,
+            pressed && { opacity: 0.7 },
+          ]}
           onPress={handleRefresh}
         >
           <Ionicons name="refresh-outline" size={16} color={colors.primary} />
@@ -484,41 +510,37 @@ const styles = StyleSheet.create({
     paddingBottom: 8,
   },
   navBack: { padding: 4 },
+  topBarSide: {
+    width: 88,
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 4,
+  },
+  topBarSideLeft: { justifyContent: 'flex-start' },
+  topBarSideRight: { justifyContent: 'flex-end' },
+  topBarCenter: {
+    flex: 1,
+    paddingHorizontal: 8,
+    alignItems: 'center',
+    justifyContent: 'center',
+    minHeight: 32,
+  },
   heading: {
     fontFamily: fonts.serif,
     fontSize: 20,
     fontWeight: '700',
     color: colors.text,
     textAlign: 'center',
-    flex: 1,
   },
   newReportBtn: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 4,
     paddingVertical: 4,
-    paddingHorizontal: 8,
+    paddingHorizontal: 4,
+    justifyContent: 'flex-end',
   },
   newReportText: { fontSize: 14, fontWeight: '600', color: colors.primary },
-
-  /* Forecast Day Badge */
-  forecastBadge: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 3,
-    backgroundColor: '#4F61A3' + '15',
-    paddingHorizontal: 7,
-    paddingVertical: 2,
-    borderRadius: 8,
-    marginTop: 2,
-    alignSelf: 'center',
-  },
-  forecastBadgeText: {
-    fontFamily: fonts.bodySemiBold,
-    fontSize: 10,
-    color: '#4F61A3',
-    letterSpacing: 0.2,
-  },
 
   /* Tab Bar */
   tabBar: {

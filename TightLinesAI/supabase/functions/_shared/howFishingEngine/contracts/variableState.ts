@@ -1,8 +1,11 @@
 /**
  * Normalized variable state — VARIABLE_THRESHOLDS_AND_SCORING_SPEC + master plan temperature block
+ *
+ * Scores are deterministic floats in [-2, 2] (quantized in normalizers) for tapered contributions.
  */
 
-export type VariableScore = -2 | -1 | 0 | 1 | 2;
+/** Clamped float in [-2, 2]; not limited to five integer steps. */
+export type VariableScore = number;
 
 export type VariableState = {
   label: string;
@@ -26,6 +29,7 @@ export type ShockLabel = "none" | "sharp_warmup" | "sharp_cooldown";
 export type TemperatureNormalized = {
   context_group: TemperatureContextGroup;
   band_label: TemperatureBandLabel;
+  /** Interpolated thermal score from season table before trend/shock (tapered). */
   band_score: VariableScore;
   trend_label: TrendLabel;
   trend_adjustment: -1 | 0 | 1;

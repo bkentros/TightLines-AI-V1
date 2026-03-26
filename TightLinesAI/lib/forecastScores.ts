@@ -2,8 +2,8 @@
  * forecastScores — 7-day deterministic fishing score forecast
  *
  * Calls the forecast-scores edge function (no LLM, no auth required).
- * Results are cached until midnight local time — consistent with the full
- * report cache so scores stay fresh and aligned daily.
+ * Results are cached until midnight in the **fishing location** timezone (from the
+ * API response), not the device clock — so travelers see chips roll over with the spot.
  */
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -13,12 +13,36 @@ const SUPABASE_ANON_KEY = process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY!;
 
 const CACHE_KEY_PREFIX = 'forecast_scores_v1';
 
-/** Returns the UTC timestamp of the next local midnight (device timezone). */
-function nextLocalMidnightMs(): number {
-  const now = new Date();
-  const midnight = new Date(now);
-  midnight.setHours(24, 0, 0, 0); // next midnight in device local time
-  return midnight.getTime();
+/**
+ * Next instant (UTC ms) when the calendar date advances in `timeZone` (IANA).
+ * Falls back to device-local next midnight if the zone is invalid.
+ */
+export function nextMidnightInTimeZoneMs(timeZone: string, fromMs: number = Date.now()): number {
+  const tz = typeof timeZone === 'string' && timeZone.trim().length > 0 ? timeZone.trim() : 'UTC';
+  try {
+    const dayFmt = new Intl.DateTimeFormat('en-CA', {
+      timeZone: tz,
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    });
+    const startKey = dayFmt.format(new Date(fromMs));
+    let lo = fromMs;
+    let hi = fromMs + 25 * 60 * 60 * 1000;
+    if (dayFmt.format(new Date(hi)) === startKey) {
+      hi = fromMs + 96 * 60 * 60 * 1000;
+    }
+    while (lo < hi) {
+      const mid = Math.floor((lo + hi) / 2);
+      if (dayFmt.format(new Date(mid)) === startKey) lo = mid + 1;
+      else hi = mid;
+    }
+    return lo;
+  } catch {
+    const midnight = new Date(fromMs);
+    midnight.setHours(24, 0, 0, 0);
+    return midnight.getTime();
+  }
 }
 
 // ---------------------------------------------------------------------------
@@ -159,14 +183,14 @@ export async function getForecastScores(
       fetched_at: new Date().toISOString(),
     };
 
-    // Persist to cache — expires at tonight's local midnight
+    // Persist to cache — expires at next midnight in the fishing location TZ
     try {
       await AsyncStorage.setItem(
         key,
         JSON.stringify({
           ...data,
           _fetched_at: Date.now(),
-          _expires_at: nextLocalMidnightMs(),
+          _expires_at: nextMidnightInTimeZoneMs(data.timezone),
         }),
       );
     } catch {
@@ -187,4 +211,17 @@ export async function getForecastScores(
 export function invalidateForecastCache(lat: number, lon: number): void {
   const key = cacheKey(lat, lon);
   AsyncStorage.removeItem(key).catch(() => {});
+}
+
+/** Remove all stored 7-day forecast chip caches (any location). */
+export async function clearAllForecastScoreCaches(): Promise<void> {
+  try {
+    const keys = await AsyncStorage.getAllKeys();
+    const toRemove = keys.filter((k) => k.startsWith(`${CACHE_KEY_PREFIX}_`));
+    if (toRemove.length > 0) {
+      await AsyncStorage.multiRemove(toRemove);
+    }
+  } catch {
+    // non-fatal
+  }
 }

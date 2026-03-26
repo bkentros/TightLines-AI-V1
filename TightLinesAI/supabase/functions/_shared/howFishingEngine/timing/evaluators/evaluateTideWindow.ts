@@ -7,8 +7,10 @@
  *
  * Qualification:
  * - Best case: parseable NOAA high/low events → map exchanges to dayparts.
- *   If exchanges scatter across 3+ buckets, keep only the **earliest and latest**
- *   bucket so we never imply "all four windows are equally best."
+ *   Highlight **every** bucket that contains at least one same-day exchange so
+ *   tiles match the tide windows (e.g. dawn + afternoon, not dawn + evening when
+ *   a key slack is ~2:40pm). One representative clock time per lit bucket feeds
+ *   `exchange_times` so narration and highlights stay aligned.
  * - Mid case: tide_current_movement score ≥ 1 but no specific times → honest
  *   "tides matter but clock unknown" with **no** daypart highlights (not all four).
  * - Worst case: no usable tide data → returns null, lets secondary/fallback take over
@@ -69,31 +71,41 @@ function fmtTideTime(h: number, m: number): string {
   return `${displayH}${displayM}${period}`;
 }
 
+function minutesSinceMidnight(h: number, m: number): number {
+  return h * 60 + m;
+}
+
 /**
- * Build daypart flags from exchange hours.
- * - One distinct bucket → highlight only that bucket (e.g. slack at 2pm → afternoon).
- * - Two buckets → both highlighted.
- * - Three or more distinct buckets → highlight **earliest and latest** only
- *   (typical two-tide narrative without "fish everywhere").
+ * Union of all daypart buckets that contain a tide event, plus one display string
+ * per bucket (earliest event in that bucket, chronological order).
  */
-function daypartsFromExchangeHours(hours: number[]): DaypartFlags {
-  const buckets = new Set<number>();
-  for (const h of hours) {
-    buckets.add(daypartFromHourNearest(h));
+function daypartsAndExchangeStringsFromParsed(
+  parsed: { h: number; m: number }[],
+): { periods: DaypartFlags; exchangeTimeStrs: string[] } {
+  const bestInBucket = new Map<number, { h: number; m: number }>();
+
+  for (const p of parsed) {
+    const bucket = daypartFromHourNearest(p.h);
+    const mins = minutesSinceMidnight(p.h, p.m);
+    const prev = bestInBucket.get(bucket);
+    if (!prev || mins < minutesSinceMidnight(prev.h, prev.m)) {
+      bestInBucket.set(bucket, { h: p.h, m: p.m });
+    }
   }
-  if (buckets.size === 0) return [false, false, false, false];
 
-  const sorted = [...buckets].sort((a, b) => a - b);
-  const out: DaypartFlags = [false, false, false, false];
-
-  if (sorted.length <= 2) {
-    for (const i of sorted) out[i] = true;
-    return out;
+  const periods: DaypartFlags = [false, false, false, false];
+  for (const b of bestInBucket.keys()) {
+    periods[b] = true;
   }
 
-  out[sorted[0]!] = true;
-  out[sorted[sorted.length - 1]!] = true;
-  return out;
+  const sortedByClock = [...bestInBucket.values()].sort(
+    (a, b) => minutesSinceMidnight(a.h, a.m) - minutesSinceMidnight(b.h, b.m),
+  );
+  const exchangeTimeStrs = sortedByClock.map(
+    (hm) => `around ${fmtTideTime(hm.h, hm.m)}`,
+  );
+
+  return { periods, exchangeTimeStrs };
 }
 
 // ── Main evaluator ───────────────────────────────────────────────────────────
@@ -120,9 +132,8 @@ export function evaluateTideWindow(
       }
 
       if (parsed.length > 0) {
-        const periods = daypartsFromExchangeHours(parsed.map((p) => p.h));
+        const { periods, exchangeTimeStrs } = daypartsAndExchangeStringsFromParsed(parsed);
 
-        const timeStrs = parsed.map((p) => `around ${fmtTideTime(p.h, p.m)}`);
         const strength: TimingStrength = parsed.length >= 2 ? "very_strong" : "strong";
 
         return {
@@ -131,9 +142,9 @@ export function evaluateTideWindow(
           strength,
           periods,
           note_pool_key: "tide_exchange_specific",
-          exchange_times: timeStrs,
+          exchange_times: exchangeTimeStrs,
           debug_reason:
-            `Parsed ${parsed.length} tide exchange(s) for ${localDate}; ` +
+            `Parsed ${parsed.length} tide event(s) for ${localDate}; ` +
             `highlighted dayparts: ` +
             periods.map((v, i) => v ? ["dawn", "morning", "afternoon", "evening"][i] : null)
               .filter(Boolean)

@@ -105,6 +105,7 @@ export interface HowsFishingReportV1 {
     tide_detail?: string | null;
     light_cloud_label?: string | null;
     light_cloud_detail?: string | null;
+    thermal_air_narration_plain?: string | null;
     precipitation_disruption_label?: string | null;
     precipitation_disruption_detail?: string | null;
     runoff_flow_label?: string | null;
@@ -124,7 +125,14 @@ export interface HowsFishingReportV1 {
       weight_percent: number;
       weighted_contribution: number;
     }>;
-    environment_snapshot?: Record<string, unknown>;
+    environment_snapshot?: Record<string, unknown> & {
+      sky_narration_contract?: {
+        sky_character: string;
+        cloud_cover_pct_rounded: number;
+        allowed_sky_descriptors: string[];
+        forbidden_sky_terms: string[];
+      } | null;
+    };
   };
 }
 

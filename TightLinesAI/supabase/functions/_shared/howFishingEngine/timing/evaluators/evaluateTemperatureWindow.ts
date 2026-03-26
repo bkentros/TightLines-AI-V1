@@ -24,6 +24,7 @@ import {
   daypartIndexFromClockHour,
   singleDaypart,
 } from "../daypartHourly.ts";
+import { ENGINE_SCORE_EPSILON } from "../../score/engineScoreMath.ts";
 
 export type TemperatureMode = "seek_warmth" | "avoid_heat";
 
@@ -193,7 +194,7 @@ function evaluateAvoidHeat(
 
   if (band_label !== "warm" && band_label !== "very_warm") return null;
 
-  if (final_score > 0) return null;
+  if (final_score > ENGINE_SCORE_EPSILON) return null;
 
   // Sudden cold push on an otherwise warm day — do not anchor "escape the heat" on temp
   if (shock_label === "sharp_cooldown" || trend_label === "cooling") {
@@ -203,7 +204,7 @@ function evaluateAvoidHeat(
   if (cloudPct != null && cloudPct >= 85) return null;
 
   let strength: TimingStrength;
-  if (band_label === "very_warm" && final_score <= -1) {
+  if (band_label === "very_warm" && final_score <= -ENGINE_SCORE_EPSILON) {
     strength = "strong";
   } else {
     strength = "good";

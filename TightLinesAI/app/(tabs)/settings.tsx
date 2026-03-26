@@ -17,9 +17,19 @@ import { Ionicons } from '@expo/vector-icons';
 import * as Location from 'expo-location';
 import { colors, fonts, spacing, radius } from '../../lib/theme';
 import { useAuthStore } from '../../store/authStore';
-import { useDevTestingStore, LOCATION_PRESETS, type DevSubscriptionTier } from '../../store/devTestingStore';
+import { useDevTestingStore, type DevSubscriptionTier } from '../../store/devTestingStore';
 import type { FishingMode, UserProfile } from '../../lib/types';
 import { supabase } from '../../lib/supabase';
+import { clearOwnerFishCaches } from '../../lib/clearOwnerFishCaches';
+
+/** Accounts that see owner-only cache tools in Settings (production + dev). */
+const CACHE_OWNER_EMAILS = ['brandonkentros@icloud.com'];
+
+function isCacheOwnerEmail(email: string | undefined | null): boolean {
+  if (!email || typeof email !== 'string') return false;
+  const n = email.trim().toLowerCase();
+  return CACHE_OWNER_EMAILS.some((e) => e.toLowerCase() === n);
+}
 
 const US_STATES = [
   'AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA',
@@ -67,13 +77,10 @@ export default function SettingsScreen() {
   const { profile, user, setProfile, signOut } = useAuthStore();
   const {
     ignoreGps,
-    overrideLocation,
     overrideSubscriptionTier,
     load: loadDevTesting,
     setIgnoreGps,
-    setOverrideLocation,
     setOverrideSubscriptionTier,
-    clearOverride,
   } = useDevTestingStore();
 
   const [displayName, setDisplayName] = useState('');
@@ -85,9 +92,7 @@ export default function SettingsScreen() {
   const [units, setUnits] = useState<'imperial' | 'metric'>('imperial');
   const [locationLoading, setLocationLoading] = useState(false);
   const [saving, setSaving] = useState(false);
-  const [customLat, setCustomLat] = useState('');
-  const [customLon, setCustomLon] = useState('');
-  const [customLabel, setCustomLabel] = useState('');
+  const [clearingCaches, setClearingCaches] = useState(false);
 
   useEffect(() => {
     if (!profile) return;
@@ -368,12 +373,65 @@ export default function SettingsScreen() {
             )}
           </Pressable>
 
-          {/* Dev/Testing — only in __DEV__ */}
+          {/* Owner-only: clear on-device fish caches (any build) */}
+          {isCacheOwnerEmail(user?.email) && (
+            <View style={styles.ownerSection}>
+              <Text style={styles.ownerSectionTitle}>Developer</Text>
+              <Text style={styles.ownerSectionHint}>
+                Clear saved How&apos;s Fishing reports (today and forecast days), 7-day outlook chips,
+                and the live conditions cache. Open Home or How&apos;s Fishing again to regenerate.
+              </Text>
+              <Pressable
+                style={({ pressed }) => [
+                  styles.ownerClearBtn,
+                  pressed && styles.ownerClearBtnPressed,
+                  clearingCaches && styles.btnDisabled,
+                ]}
+                onPress={() => {
+                  if (clearingCaches) return;
+                  Alert.alert(
+                    'Clear local caches?',
+                    "Removes this device's cached reports and outlook data. You'll fetch fresh data the next time you load Home or generate a report.",
+                    [
+                      { text: 'Cancel', style: 'cancel' },
+                      {
+                        text: 'Clear caches',
+                        style: 'destructive',
+                        onPress: async () => {
+                          setClearingCaches(true);
+                          try {
+                            await clearOwnerFishCaches();
+                            Alert.alert('Caches cleared', 'Go to Home or How\'s Fishing to load new data.');
+                          } catch {
+                            Alert.alert('Could not clear', 'Try again in a moment.');
+                          } finally {
+                            setClearingCaches(false);
+                          }
+                        },
+                      },
+                    ],
+                  );
+                }}
+                disabled={clearingCaches}
+              >
+                {clearingCaches ? (
+                  <ActivityIndicator color={colors.textLight} size="small" />
+                ) : (
+                  <>
+                    <Ionicons name="trash-outline" size={18} color={colors.textLight} />
+                    <Text style={styles.ownerClearBtnText}>Clear fish report caches</Text>
+                  </>
+                )}
+              </Pressable>
+            </View>
+          )}
+
+          {/* Dev-only: subscription tier + ignore GPS */}
           {__DEV__ && (
             <View style={styles.testingSection}>
-              <Text style={styles.testingTitle}>Testing</Text>
+              <Text style={styles.testingTitle}>Testing (dev build)</Text>
               <Text style={styles.testingHint}>
-                Override location and subscription tier for QA.
+                Subscription tier override and GPS simulation. Set your pin on the Home screen.
               </Text>
 
               <Text style={styles.testingLabel}>Override subscription tier</Text>
@@ -383,7 +441,7 @@ export default function SettingsScreen() {
                   const isActive = overrideSubscriptionTier === t;
                   return (
                     <Pressable
-                      key={label}
+                      key={String(label)}
                       style={[styles.presetBtn, isActive && styles.presetBtnActive]}
                       onPress={() => setOverrideSubscriptionTier(t)}
                     >
@@ -412,96 +470,6 @@ export default function SettingsScreen() {
                   thumbColor={ignoreGps ? colors.sage : colors.surface}
                 />
               </View>
-
-              <Text style={styles.testingLabel}>Override location</Text>
-              <View style={styles.presetRow}>
-                {LOCATION_PRESETS.map((preset) => {
-                  const isActive =
-                    overrideLocation &&
-                    Math.abs(overrideLocation.lat - preset.lat) < 0.001 &&
-                    Math.abs(overrideLocation.lon - preset.lon) < 0.001;
-                  return (
-                    <Pressable
-                      key={preset.label}
-                      style={[styles.presetBtn, isActive && styles.presetBtnActive]}
-                      onPress={() =>
-                        setOverrideLocation(
-                          isActive ? null : { lat: preset.lat, lon: preset.lon, label: preset.label }
-                        )
-                      }
-                    >
-                      <Text
-                        style={[styles.presetBtnText, isActive && styles.presetBtnTextActive]}
-                        numberOfLines={1}
-                      >
-                        {preset.label.split(' ')[0]}
-                      </Text>
-                    </Pressable>
-                  );
-                })}
-              </View>
-
-              <View style={styles.customRow}>
-                <TextInput
-                  style={[styles.customInput, { flex: 1 }]}
-                  value={customLat}
-                  onChangeText={setCustomLat}
-                  placeholder="Lat"
-                  placeholderTextColor={colors.textMuted}
-                  keyboardType="decimal-pad"
-                />
-                <TextInput
-                  style={[styles.customInput, { flex: 1 }]}
-                  value={customLon}
-                  onChangeText={setCustomLon}
-                  placeholder="Lon"
-                  placeholderTextColor={colors.textMuted}
-                  keyboardType="decimal-pad"
-                />
-                <TextInput
-                  style={[styles.customInput, { flex: 1.5 }]}
-                  value={customLabel}
-                  onChangeText={setCustomLabel}
-                  placeholder="Label"
-                  placeholderTextColor={colors.textMuted}
-                />
-                <Pressable
-                  style={({ pressed }) => [styles.customApplyBtn, pressed && styles.customApplyBtnPressed]}
-                  onPress={() => {
-                    const lat = parseFloat(customLat);
-                    const lon = parseFloat(customLon);
-                    if (!Number.isFinite(lat) || !Number.isFinite(lon)) return;
-                    setOverrideLocation({
-                      lat,
-                      lon,
-                      label: customLabel.trim() || `${lat.toFixed(2)}, ${lon.toFixed(2)}`,
-                    });
-                  }}
-                >
-                  <Text style={styles.customApplyBtnText}>Use</Text>
-                </Pressable>
-              </View>
-
-              {overrideLocation && (
-                <Pressable
-                  style={({ pressed }) => [styles.clearOverrideBtn, pressed && styles.clearOverrideBtnPressed]}
-                  onPress={async () => {
-                    await clearOverride();
-                    setCustomLat('');
-                    setCustomLon('');
-                    setCustomLabel('');
-                  }}
-                >
-                  <Ionicons name="location-outline" size={14} color={colors.sage} />
-                  <Text style={styles.clearOverrideBtnText}>Use GPS instead</Text>
-                </Pressable>
-              )}
-
-              {overrideLocation && (
-                <Text style={styles.currentOverride}>
-                  Using: {overrideLocation.label} ({overrideLocation.lat.toFixed(2)}, {overrideLocation.lon.toFixed(2)})
-                </Text>
-              )}
             </View>
           )}
 
@@ -667,6 +635,36 @@ const styles = StyleSheet.create({
   signOutBtnPressed: { opacity: 0.7 },
   signOutText: { fontSize: 15, color: colors.stone, fontWeight: '500' },
 
+  ownerSection: {
+    marginTop: spacing.xl,
+    paddingTop: spacing.lg,
+    borderTopWidth: 1,
+    borderTopColor: colors.border,
+  },
+  ownerSectionTitle: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: colors.text,
+    marginBottom: spacing.xs,
+  },
+  ownerSectionHint: {
+    fontSize: 12,
+    color: colors.textMuted,
+    marginBottom: spacing.md,
+    lineHeight: 18,
+  },
+  ownerClearBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: spacing.sm,
+    backgroundColor: colors.stone,
+    borderRadius: radius.md,
+    paddingVertical: spacing.md,
+  },
+  ownerClearBtnPressed: { opacity: 0.85 },
+  ownerClearBtnText: { fontSize: 15, fontWeight: '600', color: colors.textLight },
+
   /* Testing section (__DEV__ only) */
   testingSection: {
     marginTop: spacing.xl,
@@ -717,39 +715,6 @@ const styles = StyleSheet.create({
   },
   presetBtnText: { fontSize: 12, color: colors.textSecondary },
   presetBtnTextActive: { color: colors.sageDark, fontWeight: '600' },
-  customRow: {
-    flexDirection: 'row',
-    gap: spacing.sm,
-    marginBottom: spacing.sm,
-    alignItems: 'center',
-  },
-  customInput: {
-    backgroundColor: colors.surface,
-    borderRadius: radius.sm,
-    borderWidth: 1,
-    borderColor: colors.border,
-    paddingHorizontal: spacing.sm,
-    paddingVertical: spacing.xs + 2,
-    fontSize: 13,
-    color: colors.text,
-  },
-  customApplyBtn: {
-    paddingHorizontal: spacing.sm,
-    paddingVertical: spacing.xs + 2,
-    borderRadius: radius.sm,
-    backgroundColor: colors.sage,
-  },
-  customApplyBtnPressed: { opacity: 0.8 },
-  customApplyBtnText: { fontSize: 12, fontWeight: '600', color: colors.textLight },
-  clearOverrideBtn: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 4,
-    alignSelf: 'flex-start',
-    paddingVertical: spacing.xs,
-  },
-  clearOverrideBtnPressed: { opacity: 0.7 },
-  clearOverrideBtnText: { fontSize: 13, fontWeight: '600', color: colors.sage },
   currentOverride: {
     fontSize: 12,
     color: colors.textMuted,

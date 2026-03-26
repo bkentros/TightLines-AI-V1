@@ -6,7 +6,7 @@
  * tomorrow — show me that report now").
  *
  * Priority (in index.tsx):
- *   1. DEV overrideLocation (dev-only)
+ *   1. DEV ignoreGps (dev-only — no coords until user syncs)
  *   2. savedLocation (when useCustom = true)
  *   3. GPS coords (default)
  *

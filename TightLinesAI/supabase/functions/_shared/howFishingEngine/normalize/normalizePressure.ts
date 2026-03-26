@@ -1,4 +1,5 @@
 import type { VariableState } from "../contracts/mod.ts";
+import { clampEngineScore, pieceLinear } from "../score/engineScoreMath.ts";
 
 /** Per VARIABLE_THRESHOLDS — sparse history downgrades reliability one level */
 export type PressureHistoryQuality = "two_point" | "sparse" | "adequate";
@@ -79,11 +80,13 @@ export function normalizePressureDetailed(
         }
       }
 
+      const chaos = Math.max(range24 - 8, max3hSwing - 4, 0);
+      const volScore = clampEngineScore(pieceLinear(chaos, 0, 6, -1.35, -2));
       return {
         quality,
         state: {
           label: "volatile",
-          score: -2,
+          score: volScore,
           detail: `range ${range24.toFixed(1)} mb, 3h swing ${max3hSwing.toFixed(1)}`,
         },
       };
@@ -93,32 +96,57 @@ export function normalizePressureDetailed(
   const absDelta = Math.abs(delta24);
 
   // --- Falling pressure: the BEST fishing trigger ---
-  // Slow steady drop signals an approaching front → peak feeding activity.
   if (delta24 < -0.5) {
-    // Rapid crash (>6 mb/24h) = severe front, genuinely bad
     if (absDelta > 6.0) {
-      return { quality, state: { label: "falling_hard", score: -1, detail: `${delta24.toFixed(1)} mb/24h` } };
+      const score = clampEngineScore(
+        pieceLinear(absDelta, 6, 11, -0.45, -1.35),
+      );
+      return {
+        quality,
+        state: { label: "falling_hard", score, detail: `${delta24.toFixed(1)} mb/24h` },
+      };
     }
-    // Strong steady drop (4–6 mb) = front arriving, still positive but fish may slow later
     if (absDelta > 4.0) {
-      return { quality, state: { label: "falling_moderate", score: 1, detail: `${delta24.toFixed(1)} mb/24h` } };
+      const score = clampEngineScore(
+        pieceLinear(absDelta, 4, 6, 1.1, -0.45),
+      );
+      return {
+        quality,
+        state: { label: "falling_moderate", score, detail: `${delta24.toFixed(1)} mb/24h` },
+      };
     }
-    // Sweet spot: slow steady drop (0.5–4 mb) = prime feeding conditions
-    return { quality, state: { label: "falling_slow", score: 2, detail: `${delta24.toFixed(1)} mb/24h` } };
+    const score = clampEngineScore(
+      pieceLinear(absDelta, 0.5, 4, 2, 1.1),
+    );
+    return {
+      quality,
+      state: { label: "falling_slow", score, detail: `${delta24.toFixed(1)} mb/24h` },
+    };
   }
 
-  // --- Rising pressure: post-front, fish re-adjusting ---
   if (delta24 > 0.5) {
-    // Slow rise = stable recovery, mildly positive
     if (delta24 <= 3.0) {
-      return { quality, state: { label: "rising_slow", score: 1, detail: `+${delta24.toFixed(1)} mb/24h` } };
+      const score = clampEngineScore(
+        pieceLinear(delta24, 0.5, 3, 1, 0.42),
+      );
+      return {
+        quality,
+        state: { label: "rising_slow", score, detail: `+${delta24.toFixed(1)} mb/24h` },
+      };
     }
-    // Rapid rise = quick clearing, neutral (fish still adjusting)
-    return { quality, state: { label: "rising_fast", score: 0, detail: `+${delta24.toFixed(1)} mb/24h` } };
+    const score = clampEngineScore(
+      pieceLinear(delta24, 3, 7.5, 0.42, -0.45),
+    );
+    return {
+      quality,
+      state: { label: "rising_fast", score, detail: `+${delta24.toFixed(1)} mb/24h` },
+    };
   }
 
-  // --- Steady pressure: flat, neutral ---
-  return { quality, state: { label: "stable_neutral", score: 0, detail: `${delta24.toFixed(1)} mb/24h` } };
+  return {
+    quality,
+    state: { label: "stable_neutral", score: 0, detail: `${delta24.toFixed(1)} mb/24h` },
+  };
 }
 
 /** @deprecated use normalizePressureDetailed for quality-aware reliability */

@@ -5,25 +5,54 @@ import type {
   TemperatureNormalized,
 } from "../contracts/mod.ts";
 import { freshwaterTempRow } from "../config/tempBandsFreshwater.ts";
+import {
+  clampEngineScore,
+  engineScoreTier,
+  pieceLinear,
+} from "../score/engineScoreMath.ts";
 
-function clampScore(n: number): -2 | -1 | 0 | 1 | 2 {
-  return Math.max(-2, Math.min(2, Math.round(n))) as -2 | -1 | 0 | 1 | 2;
+const WARM_TO_VERY_WARM_SPAN_F = 10;
+
+function clampAnchor(n: number): number {
+  return Math.max(-2, Math.min(2, n));
 }
 
-function bandFromTemp(
+function discreteBandLabel(
   t: number,
   vc: number,
   cool: number,
   opt: number,
   warm: number,
-  scores: number[]
-): { label: TemperatureBandLabel; bandScore: -2 | -1 | 0 | 1 | 2 } {
-  const s = (i: number) => clampScore(scores[i]!);
-  if (t <= vc) return { label: "very_cold", bandScore: s(0) };
-  if (t <= cool) return { label: "cool", bandScore: s(1) };
-  if (t <= opt) return { label: "optimal", bandScore: s(2) };
-  if (t <= warm) return { label: "warm", bandScore: s(3) };
-  return { label: "very_warm", bandScore: s(4) };
+): TemperatureBandLabel {
+  if (t <= vc) return "very_cold";
+  if (t <= cool) return "cool";
+  if (t <= opt) return "optimal";
+  if (t <= warm) return "warm";
+  return "very_warm";
+}
+
+/** Piecewise-linear score through table knots; plateaus outside inner range. */
+function taperedBandScore(
+  t: number,
+  vc: number,
+  cool: number,
+  opt: number,
+  warm: number,
+  scores: number[],
+): number {
+  const s0 = clampAnchor(scores[0]!);
+  const s1 = clampAnchor(scores[1]!);
+  const s2 = clampAnchor(scores[2]!);
+  const s3 = clampAnchor(scores[3]!);
+  const s4 = clampAnchor(scores[4]!);
+
+  if (t <= vc) return clampEngineScore(s0);
+  if (t <= cool) return clampEngineScore(pieceLinear(t, vc, cool, s0, s1));
+  if (t <= opt) return clampEngineScore(pieceLinear(t, cool, opt, s1, s2));
+  if (t <= warm) return clampEngineScore(pieceLinear(t, opt, warm, s2, s3));
+  return clampEngineScore(
+    pieceLinear(t, warm, warm + WARM_TO_VERY_WARM_SPAN_F, s3, s4),
+  );
 }
 
 /**
@@ -36,13 +65,10 @@ export function normalizeTemperature(
   month: number,
   dailyMeanF: number | null | undefined,
   priorMeanF: number | null | undefined,
-  dayMinus2MeanF: number | null | undefined
+  dayMinus2MeanF: number | null | undefined,
 ): TemperatureNormalized | null {
   if (dailyMeanF == null || Number.isNaN(dailyMeanF)) return null;
 
-  // Same mean air temp from one weather feed must score identically for freshwater vs coastal
-  // at the same coordinates; coastal vs lake differences are handled by tide/wind/salinity paths,
-  // not parallel temp band tables (those caused contradictory "sweet spot" vs "below average" copy).
   const row = freshwaterTempRow(region, month);
   if (!row || row.length < 5) return null;
 
@@ -52,7 +78,16 @@ export function normalizeTemperature(
   const warm = Number(row[3]);
   const scores = row[4] as unknown as number[];
   if (!Array.isArray(scores) || scores.length < 5) return null;
-  const { label, bandScore } = bandFromTemp(dailyMeanF, vc, cool, opt, warm, scores);
+
+  const label = discreteBandLabel(dailyMeanF, vc, cool, opt, warm);
+  const bandScore = taperedBandScore(
+    dailyMeanF,
+    vc,
+    cool,
+    opt,
+    warm,
+    scores,
+  );
 
   let trendLabel: "warming" | "stable" | "cooling" = "stable";
   let trendAdj: -1 | 0 | 1 = 0;
@@ -87,30 +122,29 @@ export function normalizeTemperature(
     shockAdj = -1;
   }
 
-  /**
-   * Band score is primary. Trend is a slight nudge only when:
-   * - no shock penalty (shock already reflects instability), and
-   * - band is not already at an extreme (±2), so season table stays dominant.
-   */
-  if (shockAdj === 0 && Math.abs(bandScore) < 2 && dayMinus2MeanF != null) {
+  // Skip trend nudge when already at a strong table extreme (legacy ±2 behavior).
+  if (
+    shockAdj === 0 &&
+    bandScore < 1.875 &&
+    bandScore > -1.875 &&
+    dayMinus2MeanF != null
+  ) {
     const delta72h = dailyMeanF - dayMinus2MeanF;
     if (delta72h >= 5) trendAdj = 1;
     else if (delta72h <= -5) trendAdj = -1;
   }
 
-  let final_score = clampScore(bandScore + trendAdj + shockAdj);
+  let final_score = clampEngineScore(bandScore + trendAdj + shockAdj);
 
-  // Coastal: seasonally cool air is often aligned with good inshore / migratory
-  // behavior (e.g. fall salmon, winter redfish). A single-step soften avoids
-  // marking textbook "cool" fall days as a thermal suppressor when bandScore
-  // already says only mildly cool (-1 composite).
   if (
     context === "coastal" &&
     label === "cool" &&
-    final_score === -1 &&
-    shockAdj === 0
+    shockAdj === 0 &&
+    engineScoreTier(final_score) === -1 &&
+    bandScore >= -1.2 &&
+    bandScore <= -0.65
   ) {
-    final_score = 0;
+    final_score = clampEngineScore(0);
   }
 
   const context_group = context === "coastal" ? "coastal" : "freshwater";

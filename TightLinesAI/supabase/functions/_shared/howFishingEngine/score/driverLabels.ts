@@ -7,6 +7,7 @@
  */
 
 import type { ScoredVariableKey, SharedNormalizedOutput } from "../contracts/mod.ts";
+import { engineScoreTier } from "./engineScoreMath.ts";
 
 let _pickOffset = -1; // -1 = unseeded (use Math.random)
 
@@ -35,8 +36,9 @@ function temperatureDriverLabel(t: NonNullable<Norm["temperature"]>): string {
   const band = t.band_label;
   const trend = t.trend_label;
   const score = t.final_score;
+  const tier = engineScoreTier(score);
 
-  if (score >= 2) {
+  if (tier === 2) {
     if (band === "warm") {
       return pick([
         "Air temps are running warm for the calendar — metabolism and forage activity tend to stay up.",
@@ -61,7 +63,7 @@ function temperatureDriverLabel(t: NonNullable<Norm["temperature"]>): string {
       "Heat/cool balance lands on the helpful side — use it to pick depth and pace confidently.",
     ]);
   }
-  if (score === 1) {
+  if (tier === 1) {
     if (band === "warm" || band === "optimal") {
       return pick([
         "Temps are cooperative — not flashy, but they’re tilting the odds toward an active bite.",
@@ -84,7 +86,7 @@ function temperatureDriverLabel(t: NonNullable<Norm["temperature"]>): string {
       "Slight positive on temperature — enough to notice, not enough to ignore other factors.",
     ]);
   }
-  if (score === 0) {
+  if (tier === 0) {
     if (band === "very_warm") {
       return pick([
         "It’s genuinely hot — dissolved oxygen and shade lines start to matter more than usual.",
@@ -99,7 +101,7 @@ function temperatureDriverLabel(t: NonNullable<Norm["temperature"]>): string {
       "No strong thermal signal today — treat temp as background noise, not a decision driver.",
     ]);
   }
-  if (score === -1) {
+  if (tier === -1) {
     if (band === "cool") {
       return pick([
         "Below-average cool — metabolisms dip; slower presentations and deeper staging are common.",
@@ -120,7 +122,7 @@ function temperatureDriverLabel(t: NonNullable<Norm["temperature"]>): string {
       "Thermals lean against you mildly; compensate with timing and high-percentage water.",
     ]);
   }
-  // score === -2
+  // tier === -2
   if (band === "very_cold") {
     return pick([
       "Well below seasonal norms — tough thermal conditions; pick the warmest stable water available.",
@@ -212,7 +214,8 @@ export function labelForDriver(key: ScoredVariableKey, norm: Norm): string {
       return p ? pressureDriverLabel(p) : "";
     case "wind_condition": {
       if (!w) return "";
-      if (w.score === 2) {
+      const wt = engineScoreTier(w.score);
+      if (wt === 2) {
         return pick([
           "Glass-calm surface — stealth presentations and spooky fish become the main puzzle.",
           "Dead flat wind: long casts and light line beat heavy hardware.",
@@ -220,7 +223,7 @@ export function labelForDriver(key: ScoredVariableKey, norm: Norm): string {
           "Calm air — great for sight-fishing and precise drifts, poor for masking noise.",
         ]);
       }
-      if (w.score === 1) {
+      if (wt === 1) {
         return pick([
           "Light breeze — enough ripple to hide approach without wrecking boat control.",
           "Manageable wind: you can still work structure methodically.",
@@ -228,7 +231,7 @@ export function labelForDriver(key: ScoredVariableKey, norm: Norm): string {
           "Gentle wind window — ideal for covering water without fighting the elements.",
         ]);
       }
-      if (w.score === 0) {
+      if (wt === 0) {
         return pick([
           "Moderate wind — factor it into cast angles, anchor plans, and drift speed.",
           "Mid-range breeze: workable, but presentations need a wind-aware tweak.",
@@ -236,7 +239,7 @@ export function labelForDriver(key: ScoredVariableKey, norm: Norm): string {
           "Wind sits in the middle; boat handling and line belly become part of the pattern.",
         ]);
       }
-      if (w.score === -1) {
+      if (wt === -1) {
         return pick([
           "Breeze is picking up — positioning and cast timing matter more than lure choice.",
           "Windy enough to skew drifts; use banks, points, and lee pockets strategically.",
@@ -252,7 +255,8 @@ export function labelForDriver(key: ScoredVariableKey, norm: Norm): string {
     }
     case "light_cloud_condition": {
       if (!l) return "";
-      if (l.score === 2) {
+      const lt = engineScoreTier(l.score);
+      if (lt === 2) {
         return pick([
           "Heavy cloud deck — low light often pulls predators shallow and extends morning behavior.",
           "Dark sky filter: UV drops, silhouettes matter, and fish roam more freely.",
@@ -260,7 +264,7 @@ export function labelForDriver(key: ScoredVariableKey, norm: Norm): string {
           "Low-light ceiling — prime time can stretch well past normal sunny-hour rules.",
         ]);
       }
-      if (l.score === 1) {
+      if (lt === 1) {
         return pick([
           "Useful cloud cover — enough shade to keep fish honest without full blackout vibes.",
           "Softened sunlight — good for wary fish and longer feeding moods.",
@@ -268,14 +272,14 @@ export function labelForDriver(key: ScoredVariableKey, norm: Norm): string {
           "Broken to solid mid-cloud — a dependable light-quality boost.",
         ]);
       }
-      if (l.score === 0) {
+      if (lt === 0) {
         return pick([
           "Light is average for the date — no major glare or shade story.",
           "Sky conditions are middle-of-the-pack; neither a superpower nor a penalty.",
           "Sun/cloud mix is ordinary — pattern around structure and forage, not light tricks.",
         ]);
       }
-      if (l.score === -1) {
+      if (lt === -1) {
         return pick([
           "Bright sun — fish may hug shade, depth, or cover harder than on a gray day.",
           "High glare potential — polarized optics and natural-color baits earn their keep.",
@@ -290,28 +294,29 @@ export function labelForDriver(key: ScoredVariableKey, norm: Norm): string {
     }
     case "precipitation_disruption": {
       if (!pr) return "";
-      if (pr.score === 2) {
+      const prt = engineScoreTier(pr.score);
+      if (prt === 2) {
         return pick([
           "Extended dry spell — flows often clear and stabilize; fish settle into predictable lies.",
           "Long clear stretch — minimal runoff noise, good for pattern repetition.",
           "Dry pattern dominance — water chemistry and clarity tend toward the friendly side.",
         ]);
       }
-      if (pr.score === 1) {
+      if (prt === 1) {
         return pick([
           "Dry, settled regime — no rain drama muddying the picture.",
           "Precipitation isn’t in play — one less variable to second-guess.",
           "Quiet hydrology day — clarity and comfort usually hold steady.",
         ]);
       }
-      if (pr.score === 0) {
+      if (prt === 0) {
         return pick([
           "Light precip in the mix — enough to note, not enough to reset the whole system.",
           "Spritz-level moisture — watch inflows and stain lines if it lingers.",
           "Minor rain/snow signal — monitor visibility more than volume.",
         ]);
       }
-      if (pr.score === -1) {
+      if (prt === -1) {
         return pick([
           "Recent rain is shifting stain, flow, and forage location — old waypoints may lie.",
           "Runoff tint creeping in — edges and current seams become high-percentage.",
@@ -326,21 +331,22 @@ export function labelForDriver(key: ScoredVariableKey, norm: Norm): string {
     }
     case "runoff_flow_disruption": {
       if (!r) return "";
-      if (r.score === 2) {
+      const rt = engineScoreTier(r.score);
+      if (rt === 2) {
         return pick([
           "Flows are prime — clear, wadable or floatable, with habitat in textbook shape.",
           "River reads like a brochure: ideal cfs/clarity combo for this time of year.",
           "Runoff picture is clean and stable — spend time fishing, not guessing.",
         ]);
       }
-      if (r.score === 1) {
+      if (rt === 1) {
         return pick([
           "Flows are fishable and mostly clear — normal seasonal river math applies.",
           "Healthy flow band — not blown out, not skinny; standard tactics should translate.",
           "Hydrology is cooperative — wading and crossing stay reasonable with care.",
         ]);
       }
-      if (r.score === 0) {
+      if (rt === 0) {
         return pick([
           "Elevated but workable flows — heavier water, tighter lies, more current seams.",
           "Mid-high stage — fish hug slower water; expect closer quarters than at low water.",
@@ -355,14 +361,14 @@ export function labelForDriver(key: ScoredVariableKey, norm: Norm): string {
     }
     case "tide_current_movement": {
       if (!ti) return "";
-      if (ti.score >= 1) {
+      if (ti.label === "strong_moving" || ti.score >= 1.5) {
         return pick([
           "Strong tidal exchange — current is moving nutrients and disorienting prey; lean into it.",
           "Big water movement day — stage on seams, rips, and pinch points where speed changes.",
           "Healthy tidal engine — timing the push or drain matters more than lure color.",
         ]);
       }
-      if (ti.score === 0) {
+      if (ti.label === "moving") {
         return pick([
           "Moderate tide — enough flow to work with, not a slam-dunk current day.",
           "Average tidal range — fish won’t ignore the moon, but it won’t do all the work.",

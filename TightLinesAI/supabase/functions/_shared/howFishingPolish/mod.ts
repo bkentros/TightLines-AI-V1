@@ -102,6 +102,13 @@ For every driver or suppressor in the payload: translate it into plainspoken gui
 
 If temperature_band says "very_warm," do not write "temps are very warm." Use the air temp number from conditions and say something specific. If wind_detail is harsh, describe the feel on the water and what it means for presentations — without echoing internal jargon.
 
+When environment_snapshot.sky_narration_contract is present, sky and light language is **locked** to that object:
+- Stay consistent with sky_character; paraphrase only from allowed_sky_descriptors for how the sky looks.
+- Never use any forbidden_sky_term (case-insensitive) when describing clouds, sun, brightness, or glare.
+- cloud_cover_pct_rounded must not be contradicted (e.g. do not call ~50% cloud cover "bluebird," "crystal clear," "no clouds," or "full blazing sun").
+
+When condition_context.thermal_air_narration_plain is present, air-temperature copy must not contradict that sentence’s thermal story (warmer/cooler/hot/narrow windows).
+
 Non-negotiable rules:
 - Output valid JSON only: {"summary_line":"...","actionable_tip":"..."}
 - Keep each field at or under 220 characters.

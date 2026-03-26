@@ -9,7 +9,6 @@ import type {
   TemperatureMetabolicContext,
   TrendLabel,
   ShockLabel,
-  VariableScore,
   TemperatureNormalized,
 } from "./variableState.ts";
 import type { ScoredVariableKey } from "./variables.ts";
@@ -17,7 +16,8 @@ import type { ScoredVariableKey } from "./variables.ts";
 /** One scored variable’s deterministic normalizer output for LLM narration (no stochastic copy). */
 export type LlmNormalizedVariableScore = {
   variable_key: ScoredVariableKey;
-  engine_score: VariableScore;
+  /** Tapered deterministic score in [-2, 2]. */
+  engine_score: number;
   /** Normalizer bucket / regime id (machine-readable; paraphrase in user-facing text). */
   engine_label: string;
   engine_detail?: string | null;
@@ -27,7 +27,7 @@ export type LlmNormalizedVariableScore = {
 
 export type LlmCompositeContribution = {
   variable_key: ScoredVariableKey;
-  normalized_score: VariableScore;
+  normalized_score: number;
   /** Active weight in the composite (0–1), same as scoreDay weighting. */
   weight: number;
   weight_percent: number;
@@ -40,6 +40,18 @@ export type LlmPressureHistorySummary = {
   last_mb: number | null;
   min_mb: number | null;
   max_mb: number | null;
+};
+
+/** Engine-owned sky claims — LLM polish must not contradict these buckets. */
+export type LlmSkyNarrationContract = {
+  sky_character:
+    | "mostly_clear"
+    | "mixed_sky"
+    | "cloud_dominant"
+    | "heavy_overcast";
+  cloud_cover_pct_rounded: number;
+  allowed_sky_descriptors: string[];
+  forbidden_sky_terms: string[];
 };
 
 /** Scalar and summarized environment fields the engine actually consumed. */
@@ -66,6 +78,7 @@ export type LlmEnvironmentSnapshot = {
   hourly_cloud_cover_sample_count: number | null;
   pressure_history_summary: LlmPressureHistorySummary | null;
   tide_high_low_event_count: number | null;
+  sky_narration_contract: LlmSkyNarrationContract | null;
 };
 
 export type ScoreBand = "Poor" | "Fair" | "Good" | "Excellent";
@@ -166,6 +179,8 @@ export type HowsFishingReport = {
     avoid_midday_for_heat: boolean;
     /** e.g. ["dawn","evening"] — matches highlighted_periods on the report */
     highlighted_dayparts_for_narration: string[];
+    /** Engine-only air-temp line; LLM must not contradict this thermal story. */
+    thermal_air_narration_plain?: string | null;
     /** Deterministic per-variable scores/labels from normalizers (parallel to available_variables). */
     normalized_variable_scores: LlmNormalizedVariableScore[];
     /** Same weighting math as the rounded 0–100 score (see scoreDay). */

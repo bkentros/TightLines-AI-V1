@@ -5,23 +5,23 @@
  * No LLM, no auth required — returns raw scores only.
  * Used to populate the 7-day forecast calendar on the home screen.
  *
- * Open-Meteo: past_days=2 + forecast_days=7 → 9 daily entries
- *   Index 0 = 2 days ago, Index 1 = yesterday, Index 2 = today (TODAY_DAILY_IDX)
- *   Indices 3–8 = D+1 through D+6
+ * Uses the same Open-Meteo bundle as get-environment (past_days=14, forecast_days=7)
+ * and buildSharedEngineRequestFromEnvData so chip scores match full How’s Fishing
+ * reports for the same target_date.
+ *
+ * Per day: one buildFromEnvData (expensive Intl/hourly work), then shallow-clone the
+ * request with each context — environment is identical; only context affects scoring.
  */
 
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
+import { fetchOpenMeteo14Day } from "../_shared/openMeteo14DayFetch.ts";
 import {
-  runHowFishingReport,
+  buildSharedEngineRequestFromEnvData,
+  runHowFishingScoreOnly,
   type EngineContext,
-  type SharedEngineRequest,
 } from "../_shared/howFishingEngine/index.ts";
-import { resolveRegionForCoordinates } from "../_shared/howFishingEngine/context/resolveRegion.ts";
 
-const MM_TO_INCHES = 1 / 25.4;
 const CONTEXTS: EngineContext[] = ["freshwater_lake_pond", "freshwater_river", "coastal"];
-// With past_days=2: index 0 = 2 days ago, index 1 = yesterday, index 2 = today
-const TODAY_DAILY_IDX = 2;
 const DAY_NAMES = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 function corsHeaders() {
@@ -36,56 +36,6 @@ function num(x: unknown): number | null {
   if (x == null) return null;
   const n = Number(x);
   return Number.isFinite(n) ? n : null;
-}
-
-function safeNum(arr: number[], idx: number): number | null {
-  return idx >= 0 && idx < arr.length ? (arr[idx] ?? null) : null;
-}
-
-function dailyMean(highs: number[], lows: number[], idx: number): number | null {
-  const h = safeNum(highs, idx);
-  const l = safeNum(lows, idx);
-  if (h == null || l == null) return null;
-  return (h + l) / 2;
-}
-
-async function fetchOpenMeteoForecast(
-  lat: number,
-  lon: number,
-): Promise<Record<string, unknown> | null> {
-  const params = new URLSearchParams({
-    latitude: String(lat),
-    longitude: String(lon),
-    // Hourly: pressure (48h window per day), cloud cover, precip, wind, actual temp
-    hourly: "temperature_2m,pressure_msl,cloud_cover,wind_speed_10m,precipitation",
-    // Daily: temp highs/lows, precip totals, max wind, dates
-    daily: "temperature_2m_max,temperature_2m_min,precipitation_sum,wind_speed_10m_max",
-    temperature_unit: "fahrenheit",
-    wind_speed_unit: "mph",
-    timezone: "auto",
-    past_days: "2",     // indices 0-1 = history, index 2 = today
-    forecast_days: "7", // indices 2-8 (today + 6 ahead)
-  });
-  const url = `https://api.open-meteo.com/v1/forecast?${params.toString()}`;
-  const MAX_RETRIES = 3;
-  const RETRY_DELAY_MS = 600;
-  for (let attempt = 0; attempt < MAX_RETRIES; attempt++) {
-    try {
-      const res = await fetch(url, {
-        headers: { "User-Agent": "TightLinesAI/2.0 (fishing app)" },
-        signal: AbortSignal.timeout(10_000),
-      });
-      if (res.ok) return await res.json();
-      // 5xx = transient server error — retry; 4xx = bad request — bail immediately
-      if (res.status < 500) return null;
-    } catch {
-      // Network error or timeout — will retry
-    }
-    if (attempt < MAX_RETRIES - 1) {
-      await new Promise((r) => setTimeout(r, RETRY_DELAY_MS * (attempt + 1)));
-    }
-  }
-  return null;
 }
 
 Deno.serve(async (req: Request) => {
@@ -112,102 +62,55 @@ Deno.serve(async (req: Request) => {
     );
   }
 
-  const omData = await fetchOpenMeteoForecast(latitude, longitude);
-  if (!omData) {
+  const MAX_RETRIES = 3;
+  const RETRY_DELAY_MS = 600;
+  let om = null;
+  for (let attempt = 0; attempt < MAX_RETRIES; attempt++) {
+    try {
+      om = await fetchOpenMeteo14Day(latitude, longitude, "imperial");
+      if (om?.weather) break;
+      if (om == null && attempt < MAX_RETRIES - 1) {
+        await new Promise((r) => setTimeout(r, RETRY_DELAY_MS * (attempt + 1)));
+      }
+    } catch {
+      if (attempt < MAX_RETRIES - 1) {
+        await new Promise((r) => setTimeout(r, RETRY_DELAY_MS * (attempt + 1)));
+      }
+    }
+  }
+
+  if (!om?.weather) {
     return new Response(
       JSON.stringify({ error: "Weather data unavailable" }),
       { status: 503, headers: { ...corsHeaders(), "Content-Type": "application/json" } },
     );
   }
 
-  const daily = omData.daily as Record<string, unknown[]> | undefined;
-  const hourly = omData.hourly as Record<string, unknown[]> | undefined;
-  const timezone = typeof omData.timezone === "string" ? omData.timezone : "UTC";
+  const timezone = om.timezone ?? "UTC";
+  const envRecord: Record<string, unknown> = {
+    timezone: om.timezone,
+    tz_offset_hours: om.tz_offset_hours,
+    weather: om.weather,
+    hourly_pressure_mb: om.hourly_pressure_mb ?? [],
+    hourly_air_temp_f: om.hourly_air_temp_f ?? [],
+    hourly_cloud_cover_pct: om.hourly_cloud_cover_pct ?? [],
+    hourly_wind_speed: om.hourly_wind_speed ?? [],
+  };
 
-  if (!daily || !hourly) {
+  const days = om.forecast_daily ?? [];
+  if (days.length === 0) {
     return new Response(
       JSON.stringify({ error: "Incomplete weather response" }),
       { status: 503, headers: { ...corsHeaders(), "Content-Type": "application/json" } },
     );
   }
 
-  // Parse arrays
-  const dailyDates = (daily.time ?? []) as string[];
-  const dailyHighs = ((daily.temperature_2m_max ?? []) as (number | null)[]).map(
-    (v) => num(v) ?? 0,
-  );
-  const dailyLows = ((daily.temperature_2m_min ?? []) as (number | null)[]).map(
-    (v) => num(v) ?? 0,
-  );
-  const dailyPrecipMm = ((daily.precipitation_sum ?? []) as (number | null)[]).map(
-    (v) => num(v) ?? 0,
-  );
-  const dailyWindMax = ((daily.wind_speed_10m_max ?? []) as (number | null)[]).map(
-    (v) => num(v) ?? 0,
-  );
-  const hourlyTemp = ((hourly.temperature_2m ?? []) as (number | null)[]).map(
-    (v) => num(v) ?? 0,
-  );
-  const hourlyPressure = ((hourly.pressure_msl ?? []) as (number | null)[]).map(
-    (v) => num(v) ?? 0,
-  );
-  const hourlyCloud = ((hourly.cloud_cover ?? []) as (number | null)[]).map(
-    (v) => num(v) ?? 0,
-  );
-  // wind_speed_10m is already in the hourly request — use it for daily mean wind
-  // instead of wind_speed_10m_max (daily peak), which overstates suppression vs
-  // the point-in-time wind a live report would use.
-  const hourlyWind = ((hourly.wind_speed_10m ?? []) as (number | null)[]).map(
-    (v) => num(v) ?? 0,
-  );
-
-  const { state_code, region_key } = resolveRegionForCoordinates(latitude, longitude);
-
   const forecast = [];
 
-  for (let D = 0; D < 7; D++) {
-    const dailyIdx = TODAY_DAILY_IDX + D;
-    if (dailyIdx >= dailyDates.length) break;
+  for (let D = 0; D < 7 && D < days.length; D++) {
+    const localDate = days[D]!.date;
+    if (!localDate || localDate.length !== 10) break;
 
-    const localDate = String(dailyDates[dailyIdx] ?? "");
-    if (!localDate) break;
-
-    // Noon hourly index for this day (hourly array: 9 days × 24 = 216 entries)
-    const noonHourlyIdx = dailyIdx * 24 + 12;
-
-    // 48-hour pressure window ending at noon of target day
-    const pressureStart = Math.max(0, noonHourlyIdx - 47);
-    const pressureSlice = hourlyPressure.slice(pressureStart, noonHourlyIdx + 1);
-    const pressureNoon = safeNum(hourlyPressure, noonHourlyIdx);
-
-    // Mean cloud cover and mean wind speed for the target day
-    // (24-hour mean is more representative of angler conditions than the daily peak)
-    const cloudStart = dailyIdx * 24;
-    const cloudSlice = hourlyCloud.slice(cloudStart, cloudStart + 24);
-    const cloudMean =
-      cloudSlice.length > 0
-        ? cloudSlice.reduce((a, b) => a + b, 0) / cloudSlice.length
-        : null;
-
-    const windSlice = hourlyWind.slice(cloudStart, cloudStart + 24);
-    const windMean =
-      windSlice.length > 0
-        ? windSlice.reduce((a, b) => a + b, 0) / windSlice.length
-        : safeNum(dailyWindMax, dailyIdx);
-
-    // Precipitation totals (mm → inches)
-    const precip24h =
-      safeNum(dailyPrecipMm, dailyIdx) != null
-        ? (dailyPrecipMm[dailyIdx]! * MM_TO_INCHES)
-        : null;
-    const precip72h = [dailyIdx - 2, dailyIdx - 1, dailyIdx]
-      .filter((i) => i >= 0 && i < dailyPrecipMm.length)
-      .reduce((sum, i) => sum + (dailyPrecipMm[i] ?? 0) * MM_TO_INCHES, 0);
-    const precip7d = Array.from({ length: 7 }, (_, i) => dailyIdx - 6 + i)
-      .filter((i) => i >= 0 && i < dailyPrecipMm.length)
-      .reduce((sum, i) => sum + (dailyPrecipMm[i] ?? 0) * MM_TO_INCHES, 0);
-
-    // Day label and display date
     const [yr, mo, dy] = localDate.split("-").map(Number);
     const dateObj = new Date(Date.UTC(yr!, (mo ?? 1) - 1, dy ?? 1));
     const dayOfWeek = dateObj.getUTCDay();
@@ -215,50 +118,24 @@ Deno.serve(async (req: Request) => {
       D === 0 ? "Today" : D === 1 ? "Tmrw" : (DAY_NAMES[dayOfWeek] ?? "");
     const monthDay = `${mo}/${dy}`;
 
-    // Run engine for each context
+    const baseReq = buildSharedEngineRequestFromEnvData(
+      latitude,
+      longitude,
+      localDate,
+      timezone,
+      "freshwater_lake_pond",
+      envRecord,
+      D,
+    );
+
     const scores: Record<string, number> = {};
     for (const context of CONTEXTS) {
-      // Use noon hourly temp as the representative air temp for this day.
-      // This matches how the full how-fishing report sources current temp,
-      // keeping 7-day forecast scores consistent with the detailed report score.
-      const noonTemp = safeNum(hourlyTemp, noonHourlyIdx);
-      const airTempF = noonTemp ?? dailyMean(dailyHighs, dailyLows, dailyIdx);
-
-      const req: SharedEngineRequest = {
-        latitude,
-        longitude,
-        state_code,
-        region_key,
-        local_date: localDate,
-        local_timezone: timezone,
-        context,
-        environment: {
-          daily_mean_air_temp_f: airTempF,
-          prior_day_mean_air_temp_f:
-            dailyIdx > 0
-              ? (safeNum(hourlyTemp, (dailyIdx - 1) * 24 + 12) ??
-                dailyMean(dailyHighs, dailyLows, dailyIdx - 1))
-              : null,
-          day_minus_2_mean_air_temp_f:
-            dailyIdx > 1
-              ? (safeNum(hourlyTemp, (dailyIdx - 2) * 24 + 12) ??
-                dailyMean(dailyHighs, dailyLows, dailyIdx - 2))
-              : null,
-          pressure_mb: pressureNoon,
-          pressure_history_mb: pressureSlice.length >= 2 ? pressureSlice : null,
-          wind_speed_mph: windMean,
-          cloud_cover_pct: cloudMean,
-          precip_24h_in: precip24h,
-          precip_72h_in: precip72h,
-          precip_7d_in: precip7d,
-          active_precip_now: false,
-        },
-        data_coverage: {},
-      };
-
+      const sharedReq =
+        context === "freshwater_lake_pond"
+          ? baseReq
+          : { ...baseReq, context };
       try {
-        const report = runHowFishingReport(req);
-        scores[context] = report.score;
+        scores[context] = runHowFishingScoreOnly(sharedReq);
       } catch {
         scores[context] = 50;
       }

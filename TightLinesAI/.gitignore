@@ -36,6 +36,15 @@ how-fishing-e2e-audit*-in-app.md
 how-fishing-core-regression.jsonl
 how-fishing-core-regression-cost-summary.json
 how-fishing-core-regression-in-app.md
+# Ad-hoc audit sweeps / local bundles (keep scripts under scripts/how-fishing-audit/)
+how-fishing-audit-run*.jsonl
+how-fishing-audit-sweep*.jsonl
+how-fishing-live-audit-bundle*.jsonl
+how-fishing-quick-finish*.jsonl
+how-fishing-targeted-audit.jsonl
+
+# Supabase CLI cache
+supabase/.temp/
 
 # Logs
 npm-debug.log*

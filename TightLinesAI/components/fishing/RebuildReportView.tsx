@@ -23,6 +23,20 @@ function displayScore(score: number): string {
   return Number.isInteger(v) ? v.toFixed(0) : v.toFixed(1);
 }
 
+/** Capitalize sentence starts after . ; ! ? so LLM/engine multi-sentence lines read correctly. */
+function formatFactorLabel(text: string): string {
+  if (!text || !text.trim()) return text;
+  return text
+    .split(/(?<=[.;!?])\s+/)
+    .map((sentence) => {
+      const t = sentence.trimStart();
+      if (!t) return sentence;
+      const lead = sentence.length - t.length;
+      return sentence.slice(0, lead) + t.charAt(0).toUpperCase() + t.slice(1);
+    })
+    .join(' ');
+}
+
 /** Per-segment color: deep gradient red → amber → forest green */
 // Gauge has 10 segments (idx 0–9). Aligned with band thresholds:
 // Poor <40 → idx 0–3, Fair 40–59 → idx 4–5, Good 60–79 → idx 6–7, Excellent 80+ → idx 8–9
@@ -327,7 +341,7 @@ export function RebuildReportView({
               <View style={[styles.reasonNum, { backgroundColor: colors.primary }]}>
                 <Text style={styles.reasonNumText}>{i + 1}</Text>
               </View>
-              <Text style={styles.driverText}>{d.label}</Text>
+              <Text style={styles.driverText}>{formatFactorLabel(d.label)}</Text>
             </View>
           )) : (
             <View style={styles.reasonRow}>
@@ -456,29 +470,6 @@ export function RebuildReportView({
         </View>
       </View>
 
-      {/* ══════════════════════════════════════════════════
-          CARD 6 — Confidence (low/medium only)
-      ══════════════════════════════════════════════════ */}
-      {report.reliability !== 'high' && report.reliability_note ? (
-        <View style={styles.confidenceCard}>
-          <View style={styles.cardHeader}>
-            <View style={[styles.cardIconBox, { backgroundColor: colors.backgroundAlt }]}>
-              <Ionicons name="shield-checkmark-outline" size={13} color={colors.textMuted} />
-            </View>
-            <Text style={[styles.cardTitle, styles.cardTitleMuted]}>Confidence</Text>
-            <View style={[styles.reliDot, {
-              backgroundColor: report.reliability === 'medium' ? '#C29B2A' : '#C0504A',
-            }]} />
-            <Text style={[styles.reliLabel, {
-              color: report.reliability === 'medium' ? '#C29B2A' : '#C0504A',
-            }]}>
-              {report.reliability === 'medium' ? 'Medium' : 'Low'}
-            </Text>
-          </View>
-          <Text style={styles.confidenceText}>{report.reliability_note}</Text>
-        </View>
-      ) : null}
-
     </View>
   );
 }
@@ -585,7 +576,6 @@ const styles = StyleSheet.create({
     letterSpacing: 0.8,
     flex: 1,
   },
-  cardTitleMuted: { color: colors.textMuted },
 
   // ── Reasons ─────────────────────────────────────────────────────
   reasonList: { gap: spacing.sm + 2 },
@@ -688,31 +678,6 @@ const styles = StyleSheet.create({
     color: colors.text,
     lineHeight: 24,
     flex: 1,
-  },
-
-  // ── Confidence ──────────────────────────────────────────────────
-  confidenceCard: {
-    backgroundColor: colors.backgroundAlt,
-    borderRadius: radius.md,
-    padding: spacing.md,
-    borderWidth: 1,
-    borderColor: colors.border,
-  },
-  reliDot: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-  },
-  reliLabel: {
-    fontFamily: fonts.bodyBold,
-    fontSize: 11,
-    letterSpacing: 0.3,
-  },
-  confidenceText: {
-    fontFamily: fonts.body,
-    fontSize: 13,
-    color: colors.textMuted,
-    lineHeight: 20,
   },
 });
 

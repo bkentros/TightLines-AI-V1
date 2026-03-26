@@ -12,6 +12,7 @@
 
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+import { fetchOpenMeteo14Day } from "../_shared/openMeteo14DayFetch.ts";
 
 // -----------------------------------------------------------------------------
 // Types (mirror lib/env/types.ts — Edge Functions are isolated)
@@ -41,6 +42,7 @@ interface WeatherData {
   precip_48hr_inches?: number;
   precip_7day_inches?: number;
   precip_7day_daily?: number[];
+  wind_speed_10m_max_daily?: number[];
 }
 
 interface TideData {
@@ -96,6 +98,8 @@ interface EnvironmentData {
   hourly_pressure_mb?: Array<{ time_utc: string; value: number }>;
   hourly_air_temp_f?: Array<{ time_utc: string; value: number }>;
   hourly_cloud_cover_pct?: Array<{ time_utc: string; value: number }>;
+  /** Hourly wind — same unit as weather.wind_speed (mph or km/h) */
+  hourly_wind_speed?: Array<{ time_utc: string; value: number }>;
   tide_predictions_30day?: Array<{ date: string; high_ft: number; low_ft: number }>;
   measured_water_temp_f?: number | null;
   measured_water_temp_source?: string | null;
@@ -103,6 +107,15 @@ interface EnvironmentData {
   coastal?: boolean;
   nearest_tide_station_id?: string | null;
   altitude_ft?: number | null;
+  forecast_daily?: Array<{
+    date: string;
+    high_temp_f: number;
+    low_temp_f: number;
+    precip_chance_pct: number;
+    wind_mph_max: number;
+    sunrise_local: string;
+    sunset_local: string;
+  }>;
 }
 
 // -----------------------------------------------------------------------------
@@ -110,8 +123,11 @@ interface EnvironmentData {
 // -----------------------------------------------------------------------------
 
 const TIDE_STATION_MAX_MILES = 50;
+/** NOAA returns ~300 water-level stations (~766KB JSON). Cache in-process to avoid re-downloading every request (timeouts → missing tides). */
+const WATERLEVEL_STATIONS_TTL_MS = 6 * 60 * 60 * 1000;
+const MAX_TIDE_STATION_CANDIDATES = 8;
+const MAX_HILO_PREDICTIONS_RETURNED = 56;
 const EARTH_RADIUS_MILES = 3958.8;
-const MM_TO_INCHES = 1 / 25.4;
 
 // -----------------------------------------------------------------------------
 // Helpers
@@ -163,55 +179,6 @@ function isoUtcToLocalHHMM(isoStr: string, tzHours: number): string {
   return `${String(localH).padStart(2, '0')}:${String(utcM).padStart(2, '0')}`;
 }
 
-/** Unix seconds (UTC instant) from Open-Meteo when timeformat=unixtime. */
-function parseOpenMeteoUnixSeconds(t: unknown): number | null {
-  if (typeof t === 'number' && Number.isFinite(t)) return t;
-  if (typeof t === 'string' && t.length > 0) {
-    const n = Number(t);
-    if (Number.isFinite(n)) return n;
-  }
-  return null;
-}
-
-/** YYYY-MM-DD in IANA timeZone for a UTC instant. */
-function unixSecToLocalDateYmd(unixSec: number, timeZone: string): string {
-  return new Intl.DateTimeFormat('en-CA', {
-    timeZone,
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-  }).format(new Date(unixSec * 1000));
-}
-
-/** Local HH:mm in IANA timeZone for a UTC instant. */
-function unixSecToLocalHHMM(unixSec: number, timeZone: string): string {
-  const d = new Date(unixSec * 1000);
-  const parts = new Intl.DateTimeFormat('en-US', {
-    timeZone,
-    hour: '2-digit',
-    minute: '2-digit',
-    hour12: false,
-  }).formatToParts(d);
-  const hour = parts.find((p) => p.type === 'hour')?.value ?? '00';
-  const minute = parts.find((p) => p.type === 'minute')?.value ?? '00';
-  return `${hour.padStart(2, '0')}:${minute.padStart(2, '0')}`;
-}
-
-/** Index of the latest hourly row whose start is <= observation time. */
-function findCurrentHourlyIndex(hourlyUnix: number[], observationUnix: number | null): number {
-  if (!hourlyUnix.length) return -1;
-  if (observationUnix == null || !Number.isFinite(observationUnix)) {
-    return hourlyUnix.length - 1;
-  }
-  let found = -1;
-  for (let i = 0; i < hourlyUnix.length; i++) {
-    const t = hourlyUnix[i];
-    if (t != null && t <= observationUnix) found = i;
-    else break;
-  }
-  return found >= 0 ? found : 0;
-}
-
 /**
  * Add minutes to a local "HH:mm" time and return a local "HH:mm" string.
  * Handles wrapping past midnight.
@@ -226,294 +193,6 @@ function addMinsToHHMM(timeStr: string, minutes: number): string {
   return `${String(hh).padStart(2, '0')}:${String(mm).padStart(2, '0')}`;
 }
 
-// -----------------------------------------------------------------------------
-// Pressure trend classification
-// -----------------------------------------------------------------------------
-
-type PressureTrend = 'rapidly_falling' | 'slowly_falling' | 'stable' | 'slowly_rising' | 'rapidly_rising';
-
-function classifyPressureTrend(rateMbPerHr: number): PressureTrend {
-  if (rateMbPerHr < -1.5) return 'rapidly_falling';
-  if (rateMbPerHr < -0.5) return 'slowly_falling';
-  if (rateMbPerHr <= 0.5) return 'stable';
-  if (rateMbPerHr <= 1.5) return 'slowly_rising';
-  return 'rapidly_rising';
-}
-
-// -----------------------------------------------------------------------------
-// Temperature trend classification
-// -----------------------------------------------------------------------------
-
-type TempTrend3Day = 'rapid_warming' | 'warming' | 'stable' | 'cooling' | 'rapid_cooling';
-
-function classifyTempTrend(deltaF72hr: number, maxDrop24hr: number): TempTrend3Day {
-  // Rapid cooling: > 3°F drop in 24 hours takes priority — this is the feed-up window
-  if (maxDrop24hr > 3) return 'rapid_cooling';
-  if (deltaF72hr >= 4) return 'rapid_warming';
-  if (deltaF72hr >= 2) return 'warming';
-  if (deltaF72hr > -2) return 'stable';
-  return 'cooling';
-}
-
-// -----------------------------------------------------------------------------
-// API Fetchers
-// -----------------------------------------------------------------------------
-
-interface OpenMeteoResult {
-  weather?: WeatherData;
-  sun?: SunData;
-  hourly_pressure_mb?: Array<{ time_utc: string; value: number }>;
-  hourly_air_temp_f?: Array<{ time_utc: string; value: number }>;
-  /** Open-Meteo hourly cloud cover 0–100, same timestamps as hourly_air_temp_f */
-  hourly_cloud_cover_pct?: Array<{ time_utc: string; value: number }>;
-  timezone?: string;
-  tz_offset_hours?: number;
-}
-
-async function fetchOpenMeteo(
-  lat: number,
-  lon: number,
-  units: 'imperial' | 'metric'
-): Promise<OpenMeteoResult | null> {
-  const tempUnit = units === 'imperial' ? 'fahrenheit' : 'celsius';
-  const windUnit = units === 'imperial' ? 'mph' : 'kmh';
-
-  // Single call: current conditions + 14-day history + 7-day forecast
-  // past_days=14 + forecast_days=7 → 22 days of hourly + daily data
-  // 14-day history improves freshwater temperature estimation (thermal inertia)
-  // Forecast data supports 7-day fishing outlook feature
-  const params = new URLSearchParams({
-    latitude: String(lat),
-    longitude: String(lon),
-    current: 'temperature_2m,relative_humidity_2m,cloud_cover,pressure_msl,wind_speed_10m,wind_direction_10m,precipitation,wind_gusts_10m',
-    hourly: 'pressure_msl,temperature_2m,cloud_cover,wind_speed_10m,wind_direction_10m,precipitation',
-    daily: 'sunrise,sunset,temperature_2m_max,temperature_2m_min,precipitation_sum,precipitation_probability_max,wind_speed_10m_max',
-    temperature_unit: tempUnit,
-    wind_speed_unit: windUnit,
-    timezone: 'auto',
-    past_days: '14',
-    forecast_days: '7',
-    // UTC Unix seconds for every time axis — avoids mis-parsing local ISO strings on the server.
-    timeformat: 'unixtime',
-  });
-
-  const url = `https://api.open-meteo.com/v1/forecast?${params.toString()}`;
-  const res = await fetch(url, { headers: { 'User-Agent': 'TightLinesAI/2.0 (fishing app)' } });
-  if (!res.ok) return null;
-
-  const json = await res.json();
-  const current = json?.current;
-  const daily = json?.daily;
-  const hourly = json?.hourly;
-  if (!current || !daily || !hourly) return null;
-  const tzOffsetHoursRaw = Number(json?.utc_offset_seconds);
-  const tzOffsetHours = Number.isFinite(tzOffsetHoursRaw)
-    ? tzOffsetHoursRaw / 3600
-    : getTzOffsetHours(lon);
-  const timezone = typeof json?.timezone === 'string' ? json.timezone : 'UTC';
-
-  // ─── Current weather ────────────────────────────────────────────────────────
-  const weather: WeatherData = {
-    temperature: Number(current.temperature_2m) || 0,
-    humidity: Number(current.relative_humidity_2m) || 0,
-    cloud_cover: Number(current.cloud_cover) || 0,
-    pressure: Number(current.pressure_msl) || 0,
-    wind_speed: Number(current.wind_speed_10m) || 0,
-    wind_direction: Number(current.wind_direction_10m) || 0,
-    precipitation: Number(current.precipitation) || 0,
-    gust_speed: Number(current.wind_gusts_10m) || null,
-    temp_unit: units === 'imperial' ? '°F' : '°C',
-    wind_speed_unit: units === 'imperial' ? 'mph' : 'km/h',
-  };
-
-  // ─── Pressure trend from hourly data ────────────────────────────────────────
-  // hourly has past_days=14 + forecast_days=7 = 21 days × 24 hrs = 504 entries
-  // current_time from Open-Meteo tells us the exact UTC timestamp of current data
-  const hourlyUnix: number[] = Array.isArray(hourly.time)
-    ? (hourly.time as unknown[]).map((x) => parseOpenMeteoUnixSeconds(x)).filter((x): x is number => x != null)
-    : [];
-  const currentUnix = parseOpenMeteoUnixSeconds(current.time);
-  const pressureHourly: number[] = Array.isArray(hourly.pressure_msl)
-    ? (hourly.pressure_msl as (number | null)[]).map((v) => Number(v) || 0)
-    : [];
-
-  const currentHourIdx = findCurrentHourlyIndex(hourlyUnix, currentUnix);
-
-  if (pressureHourly.length > 0 && currentHourIdx >= 0) {
-    // 3-hour delta for trend: guard against going below index 0
-    const lookbackIdx = Math.max(0, currentHourIdx - 3);
-    const pressureNow = pressureHourly[currentHourIdx] ?? 0;
-    const pressure3hAgo = pressureHourly[lookbackIdx] ?? pressureNow;
-    const hoursElapsed = currentHourIdx - lookbackIdx || 1;
-    const rateMbPerHr = (pressureNow - pressure3hAgo) / hoursElapsed;
-
-    weather.pressure_trend = classifyPressureTrend(rateMbPerHr);
-    weather.pressure_change_rate_mb_hr = Math.round(rateMbPerHr * 100) / 100;
-
-    // Last 48 hourly readings for sparkline — oldest first
-    const startIdx = Math.max(0, currentHourIdx - 47);
-    weather.pressure_48hr = pressureHourly.slice(startIdx, currentHourIdx + 1);
-  }
-
-  // ─── Temperature trend ──────────────────────────────────────────────────────
-  const tempHourly: number[] = Array.isArray(hourly.temperature_2m)
-    ? (hourly.temperature_2m as (number | null)[]).map((v) => Number(v) || 0)
-    : [];
-  const cloudHourly: number[] = Array.isArray(hourly.cloud_cover)
-    ? (hourly.cloud_cover as (number | null)[]).map((v) => Math.max(0, Math.min(100, Number(v) || 0)))
-    : [];
-
-  if (tempHourly.length > 0 && currentHourIdx >= 0) {
-    // 72-hour delta (approx 3 days × 24 hrs = 72 indices back)
-    const idx72hAgo = Math.max(0, currentHourIdx - 72);
-    const idx24hAgo = Math.max(0, currentHourIdx - 24);
-    const tempNow = tempHourly[currentHourIdx] ?? 0;
-    const temp72hAgo = tempHourly[idx72hAgo] ?? tempNow;
-    const temp24hAgo = tempHourly[idx24hAgo] ?? tempNow;
-
-    const delta72hr = tempNow - temp72hAgo;
-    const drop24hr = temp24hAgo - tempNow; // positive = drop
-
-    weather.temp_trend_3day = classifyTempTrend(delta72hr, drop24hr);
-    weather.temp_trend_direction_f = Math.round(delta72hr * 10) / 10;
-  }
-
-  // ─── Daily temp highs/lows ───────────────────────────────────────────────────
-  // past_days=14 + forecast_days=7 → 21 daily entries: index 0 = 14 days ago, index 14 = today, 15-20 = forecast
-  const dailyHighs: (number | null)[] = Array.isArray(daily.temperature_2m_max)
-    ? daily.temperature_2m_max
-    : [];
-  const dailyLows: (number | null)[] = Array.isArray(daily.temperature_2m_min)
-    ? daily.temperature_2m_min
-    : [];
-
-  if (dailyHighs.length > 0) {
-    weather.temp_7day_high = dailyHighs.map((v) => Math.round((Number(v) || 0) * 10) / 10);
-  }
-  if (dailyLows.length > 0) {
-    weather.temp_7day_low = dailyLows.map((v) => Math.round((Number(v) || 0) * 10) / 10);
-  }
-
-  // ─── Precipitation history ───────────────────────────────────────────────────
-  // precipitation_sum is always in mm — convert to inches regardless of unit setting
-  const dailyPrecipMm: (number | null)[] = Array.isArray(daily.precipitation_sum)
-    ? daily.precipitation_sum
-    : [];
-
-  if (dailyPrecipMm.length > 0) {
-    const dailyPrecipIn = dailyPrecipMm.map((v) =>
-      Math.round((Number(v) || 0) * MM_TO_INCHES * 1000) / 1000
-    );
-    weather.precip_7day_daily = dailyPrecipIn;
-
-    // Today is at index 14 (past_days=14). Use indices 0-14 for historical precip.
-    const todayPrecipIdx = Math.min(14, dailyPrecipIn.length - 1);
-    const yesterdayIn = todayPrecipIdx >= 1 ? (dailyPrecipIn[todayPrecipIdx - 1] ?? 0) : 0;
-    const todayIn = todayPrecipIdx >= 0 ? (dailyPrecipIn[todayPrecipIdx] ?? 0) : 0;
-    weather.precip_48hr_inches = Math.round((yesterdayIn + todayIn) * 1000) / 1000;
-    // Sum only the past 7 days (indices todayPrecipIdx-6 through todayPrecipIdx), not all 14 days
-    const precip7Start = Math.max(0, todayPrecipIdx - 6);
-    weather.precip_7day_inches = Math.round(
-      dailyPrecipIn.slice(precip7Start, todayPrecipIdx + 1).reduce((sum, v) => sum + (v ?? 0), 0) * 1000
-    ) / 1000;
-  }
-
-  // ─── Sun times ───────────────────────────────────────────────────────────────
-  // daily.sunrise / daily.sunset: past_days=14 + forecast_days=7 → 21 entries
-  // index 0 = 14 days ago, index 14 = today — guard against shorter responses
-  const sunriseArr = Array.isArray(daily.sunrise) ? daily.sunrise : [];
-  const sunsetArr = Array.isArray(daily.sunset) ? daily.sunset : [];
-  // past_days=14 means today is at index 14 (indices 0-13 = past days, 14 = today, 15+ = forecast)
-  const todayIdx = Math.min(14, Math.max(0, sunriseArr.length - 1));
-  const todaySunriseUnix = parseOpenMeteoUnixSeconds(sunriseArr[todayIdx]);
-  const todaySunsetUnix = parseOpenMeteoUnixSeconds(sunsetArr[todayIdx]);
-  const sunriseHHMM =
-    todaySunriseUnix != null ? unixSecToLocalHHMM(todaySunriseUnix, timezone) : '';
-  const sunsetHHMM = todaySunsetUnix != null ? unixSecToLocalHHMM(todaySunsetUnix, timezone) : '';
-
-  const sun: SunData | undefined =
-    sunriseHHMM && sunsetHHMM
-      ? { sunrise: sunriseHHMM, sunset: sunsetHHMM }
-      : undefined;
-
-  // ─── Hourly arrays for core intelligence engine ──────────────────────────────
-  // Build time-indexed arrays with UTC ISO timestamps
-  const hourlyPressureMb: Array<{ time_utc: string; value: number }> = [];
-  const hourlyAirTempF: Array<{ time_utc: string; value: number }> = [];
-  const hourlyCloudCoverPct: Array<{ time_utc: string; value: number }> = [];
-
-  if (hourlyUnix.length > 0) {
-    // timeformat=unixtime: each value is seconds since Unix epoch in UTC (Open-Meteo).
-    for (let i = 0; i < hourlyUnix.length; i++) {
-      const sec = hourlyUnix[i];
-      if (sec == null || !Number.isFinite(sec)) continue;
-      const utcIso = new Date(sec * 1000).toISOString();
-
-      if (pressureHourly.length > i) {
-        hourlyPressureMb.push({ time_utc: utcIso, value: pressureHourly[i] });
-      }
-      if (tempHourly.length > i) {
-        hourlyAirTempF.push({ time_utc: utcIso, value: tempHourly[i] });
-      }
-      if (cloudHourly.length > i) {
-        hourlyCloudCoverPct.push({ time_utc: utcIso, value: cloudHourly[i] });
-      }
-    }
-  }
-
-  // ─── Build forecast daily array for 7-day overview ─────────────────────────
-  // Indices 8-13 (or 7-13) in the daily arrays are future days.
-  // "today" is at index 7 (past_days=7 means 0..6 = past, 7 = today).
-  const dailyTimeAxis: unknown[] = Array.isArray(daily.time) ? daily.time : [];
-  const dailyPrecipProb: (number | null)[] = Array.isArray(daily.precipitation_probability_max)
-    ? daily.precipitation_probability_max : [];
-  const dailyWindMax: (number | null)[] = Array.isArray(daily.wind_speed_10m_max)
-    ? daily.wind_speed_10m_max : [];
-
-  interface ForecastDayData {
-    date: string;
-    high_temp_f: number;
-    low_temp_f: number;
-    precip_chance_pct: number;
-    wind_mph_max: number;
-    sunrise_local: string;
-    sunset_local: string;
-  }
-
-  const forecastDaily: ForecastDayData[] = [];
-  // Today is index 14 (past_days=14). Forecast days are 15..20 (or however many exist).
-  // Include today (14) and next 6 days (15-20) = 7 entries total.
-  const todayDailyIdx = 14;
-  for (let d = todayDailyIdx; d < Math.min(todayDailyIdx + 7, dailyTimeAxis.length); d++) {
-    const dayUnix = parseOpenMeteoUnixSeconds(dailyTimeAxis[d]);
-    if (dayUnix == null) continue;
-    const dateStr = unixSecToLocalDateYmd(dayUnix, timezone);
-    const srU = parseOpenMeteoUnixSeconds(sunriseArr[d]);
-    const ssU = parseOpenMeteoUnixSeconds(sunsetArr[d]);
-    const sr = srU != null ? unixSecToLocalHHMM(srU, timezone) : '';
-    const ss = ssU != null ? unixSecToLocalHHMM(ssU, timezone) : '';
-    forecastDaily.push({
-      date: dateStr,
-      high_temp_f: Math.round(Number(dailyHighs[d] ?? 0) * 10) / 10,
-      low_temp_f: Math.round(Number(dailyLows[d] ?? 0) * 10) / 10,
-      precip_chance_pct: Math.round(Number(dailyPrecipProb[d] ?? 0)),
-      wind_mph_max: Math.round(Number(dailyWindMax[d] ?? 0) * 10) / 10,
-      sunrise_local: sr,
-      sunset_local: ss,
-    });
-  }
-
-  return {
-    weather,
-    sun,
-    hourly_pressure_mb: hourlyPressureMb,
-    hourly_air_temp_f: hourlyAirTempF,
-    hourly_cloud_cover_pct: hourlyCloudCoverPct,
-    timezone,
-    tz_offset_hours: tzOffsetHours,
-    forecast_daily: forecastDaily,
-  };
-}
 
 // -----------------------------------------------------------------------------
 // Sunrise-Sunset.org — civil twilight
@@ -558,6 +237,8 @@ interface NOAAStation {
   latitude?: number;
   longitude?: number;
 }
+
+let waterLevelStationsCache: { fetchedAt: number; stations: NOAAStation[] } | null = null;
 
 interface NOAAResult {
   tides: TideData | null;
@@ -657,37 +338,152 @@ async function fetchNoaaWaterTemperature(
   }
 }
 
-async function fetchNOAA(
-  lat: number,
-  lon: number,
-  units: 'imperial' | 'metric',
-  tzHours: number
-): Promise<NOAAResult | null> {
+/** Local calendar begin/end for NOAA begin_date/end_date (aligns with Open-Meteo IANA tz). */
+function tideHiloDateRangeYyyymmdd(ianaTimeZone: string): { beginDate: string; endDate: string } {
+  try {
+    const now = new Date();
+    const fmt = new Intl.DateTimeFormat('en-CA', {
+      timeZone: ianaTimeZone,
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    });
+    const toCompact = (d: Date) => fmt.format(d).replace(/-/g, '');
+    const beginDate = toCompact(now);
+    const endCap = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000);
+    const endDate = toCompact(endCap);
+    return { beginDate, endDate };
+  } catch {
+    const now = new Date();
+    const beginDate = now.toISOString().slice(0, 10).replace(/-/g, '');
+    const end = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000);
+    return { beginDate, endDate: end.toISOString().slice(0, 10).replace(/-/g, '') };
+  }
+}
+
+async function getWaterLevelStationsCached(): Promise<NOAAStation[] | null> {
+  if (
+    waterLevelStationsCache &&
+    Date.now() - waterLevelStationsCache.fetchedAt < WATERLEVEL_STATIONS_TTL_MS
+  ) {
+    return waterLevelStationsCache.stations;
+  }
   const stationsUrl =
     'https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations.json?type=waterlevels';
+  try {
+    const stationsRes = await fetch(stationsUrl, {
+      headers: { 'User-Agent': 'TightLinesAI/2.0 (fishing app)' },
+    });
+    if (!stationsRes.ok) return waterLevelStationsCache?.stations ?? null;
+    const stationsJson = await stationsRes.json();
+    const stations: NOAAStation[] = stationsJson?.stations ?? stationsJson?.data?.stations ?? [];
+    if (!Array.isArray(stations) || stations.length === 0) {
+      return waterLevelStationsCache?.stations ?? null;
+    }
+    waterLevelStationsCache = { fetchedAt: Date.now(), stations };
+    return stations;
+  } catch {
+    return waterLevelStationsCache?.stations ?? null;
+  }
+}
 
-  const stationsRes = await fetch(stationsUrl, {
-    headers: { 'User-Agent': 'TightLinesAI/2.0 (fishing app)' },
-  });
-  if (!stationsRes.ok) return null;
-
-  const stationsJson = await stationsRes.json();
-  const stations: NOAAStation[] = stationsJson?.stations ?? stationsJson?.data?.stations ?? [];
-  if (!Array.isArray(stations) || stations.length === 0) return null;
-
-  let nearest: { station: NOAAStation; miles: number } | null = null;
+function rankNearbyTideStations(
+  lat: number,
+  lon: number,
+  stations: NOAAStation[],
+  maxMiles: number,
+  limit: number,
+): Array<{ station: NOAAStation; miles: number }> {
+  const out: Array<{ station: NOAAStation; miles: number }> = [];
   for (const s of stations) {
     const slat = Number(s.lat ?? s.latitude);
     const slon = Number(s.lng ?? s.lon ?? s.longitude);
     if (isNaN(slat) || isNaN(slon) || !s.id) continue;
     const miles = haversineMiles(lat, lon, slat, slon);
-    if (!nearest || miles < nearest.miles) nearest = { station: s, miles };
+    if (miles <= maxMiles) out.push({ station: s, miles });
   }
+  out.sort((a, b) => a.miles - b.miles);
+  return out.slice(0, limit);
+}
 
-  if (!nearest || nearest.miles > TIDE_STATION_MAX_MILES) {
+function mapPredictionsToHighLow(
+  preds: unknown,
+): Array<{ time: string; type: 'H' | 'L'; value: number }> {
+  const arr = Array.isArray(preds) ? preds : [];
+  return arr.slice(0, MAX_HILO_PREDICTIONS_RETURNED).map(
+    (p: { t?: string; v?: string; type?: string }) => ({
+      time: String(p.t ?? ''),
+      type: (p.type === 'L' ? 'L' : 'H') as 'H' | 'L',
+      value: parseFloat(String(p.v ?? 0)) || 0,
+    }),
+  );
+}
+
+async function fetchHiloPredictions(
+  stationId: string,
+  units: 'imperial' | 'metric',
+  beginDate: string,
+  endDate: string,
+): Promise<Array<{ time: string; type: 'H' | 'L'; value: number }>> {
+  const unitsParam = units === 'imperial' ? 'english' : 'metric';
+  const predUrl =
+    `https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?product=predictions&station=${stationId}&format=json&interval=hilo&units=${unitsParam}&datum=mllw&begin_date=${beginDate}&end_date=${endDate}&time_zone=lst_ldt`;
+  try {
+    const predRes = await fetch(predUrl, { headers: { 'User-Agent': 'TightLinesAI/2.0 (fishing app)' } });
+    if (!predRes.ok) return [];
+    const predJson = await predRes.json();
+    return mapPredictionsToHighLow(predJson?.predictions ?? []);
+  } catch {
+    return [];
+  }
+}
+
+function deriveTidePhaseFromHighLow(
+  highLow: Array<{ time: string; type: 'H' | 'L'; value: number }>,
+  tzHours: number,
+): string | undefined {
+  if (highLow.length < 2) return undefined;
+  const nowMs = Date.now();
+  const parseNOAALocalTime = (t: string) => parseNoaaLocalTimeToUtcMs(t, tzHours);
+  const pastPreds = highLow.filter((p) => parseNOAALocalTime(p.time) <= nowMs);
+  const futurePreds = highLow.filter((p) => parseNOAALocalTime(p.time) > nowMs);
+  if (pastPreds.length > 0 && futurePreds.length > 0) {
+    const lastPred = pastPreds[pastPreds.length - 1]!;
+    const nextPred = futurePreds[0]!;
+    const minsToNext = (parseNOAALocalTime(nextPred.time) - nowMs) / 60000;
+    if (minsToNext <= 30) {
+      return 'approaching slack';
+    }
+    if (lastPred.type === 'L') {
+      return 'incoming';
+    }
+    return 'outgoing';
+  }
+  return undefined;
+}
+
+async function fetchNOAA(
+  lat: number,
+  lon: number,
+  units: 'imperial' | 'metric',
+  tzHours: number,
+  ianaTimeZone: string,
+): Promise<NOAAResult | null> {
+  const stations = await getWaterLevelStationsCached();
+  if (!stations || stations.length === 0) return null;
+
+  const candidates = rankNearbyTideStations(
+    lat,
+    lon,
+    stations,
+    TIDE_STATION_MAX_MILES,
+    MAX_TIDE_STATION_CANDIDATES,
+  );
+
+  if (candidates.length === 0) {
     return {
       tides: null,
-      nearestMiles: nearest?.miles ?? Infinity,
+      nearestMiles: Infinity,
       stationId: null,
       measured_water_temp_f: null,
       measured_water_temp_72h_ago_f: null,
@@ -695,68 +491,39 @@ async function fetchNOAA(
     };
   }
 
-  const stationId = String(nearest.station.id);
-  const unitsParam = units === 'imperial' ? 'english' : 'metric';
-  const predUrl = `https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?product=predictions&station=${stationId}&format=json&interval=hilo&units=${unitsParam}&datum=mllw&date=today&time_zone=lst_ldt`;
+  const { beginDate, endDate } = tideHiloDateRangeYyyymmdd(ianaTimeZone);
 
-  const predRes = await fetch(predUrl, { headers: { 'User-Agent': 'TightLinesAI/2.0 (fishing app)' } });
-  if (!predRes.ok) {
+  for (const { station, miles } of candidates) {
+    const stationId = String(station.id);
+    const highLow = await fetchHiloPredictions(stationId, units, beginDate, endDate);
+    if (highLow.length < 2) continue;
+
+    const phase = deriveTidePhaseFromHighLow(highLow, tzHours);
     const waterTemp = await fetchNoaaWaterTemperature(stationId, tzHours);
+
     return {
-      tides: null,
-      nearestMiles: nearest.miles,
+      tides: {
+        station_id: stationId,
+        station_name: String(station.name ?? stationId),
+        high_low: highLow,
+        phase,
+        unit: units === 'imperial' ? 'ft' : 'm',
+      },
+      nearestMiles: miles,
       stationId,
+      tide_predictions_30day: await fetch30DayTideRange(stationId, units, tzHours),
       ...waterTemp,
     };
   }
 
-  const predJson = await predRes.json();
-  const preds = predJson?.predictions ?? [];
-  const highLow = (Array.isArray(preds) ? preds : []).slice(0, 10).map(
-    (p: { t?: string; v?: string; type?: string }) => ({
-      time: String(p.t ?? ''),
-      type: (p.type === 'L' ? 'L' : 'H') as 'H' | 'L',
-      value: parseFloat(String(p.v ?? 0)) || 0,
-    })
-  );
-
-  // Derive current tide phase from high_low predictions
-  let phase: string | undefined;
-  if (highLow.length >= 2) {
-    // NOAA prediction times are in local station time "YYYY-MM-DD HH:mm".
-    // new Date(t.replace(' ', 'T')) would treat the string as UTC in Deno's V8 runtime,
-    // which runs in UTC. But the times are LOCAL. We must shift by tzHours to get true UTC ms.
-    const nowMs = Date.now();
-    const parseNOAALocalTime = (t: string) => parseNoaaLocalTimeToUtcMs(t, tzHours);
-    const pastPreds = highLow.filter((p) => parseNOAALocalTime(p.time) <= nowMs);
-    const futurePreds = highLow.filter((p) => parseNOAALocalTime(p.time) > nowMs);
-    if (pastPreds.length > 0 && futurePreds.length > 0) {
-      const lastPred = pastPreds[pastPreds.length - 1]!;
-      const nextPred = futurePreds[0]!;
-      const minsToNext = (parseNOAALocalTime(nextPred.time) - nowMs) / 60000;
-      if (minsToNext <= 30) {
-        phase = 'approaching slack';
-      } else if (lastPred.type === 'L') {
-        phase = 'incoming';
-      } else {
-        phase = 'outgoing';
-      }
-    }
-  }
-
+  const fallback = candidates[0]!;
+  const stationId = String(fallback.station.id);
   const waterTemp = await fetchNoaaWaterTemperature(stationId, tzHours);
-
   return {
-    tides: {
-      station_id: stationId,
-      station_name: String(nearest.station.name ?? stationId),
-      high_low: highLow,
-      phase,
-      unit: units === 'imperial' ? 'ft' : 'm',
-    },
-    nearestMiles: nearest.miles,
+    tides: null,
+    nearestMiles: fallback.miles,
     stationId,
-    tide_predictions_30day: await fetch30DayTideRange(stationId, units, tzHours),
+    tide_predictions_30day: [],
     ...waterTemp,
   };
 }
@@ -1066,7 +833,7 @@ Deno.serve(async (req: Request) => {
     });
   }
 
-  const meteo = await fetchOpenMeteo(lat, lon, units);
+  const meteo = await fetchOpenMeteo14Day(lat, lon, units);
   const tzHours = meteo?.tz_offset_hours ?? getTzOffsetHours(lon);
   const timezone = meteo?.timezone ?? "UTC";
   const fetchedAt = new Date().toISOString();
@@ -1074,7 +841,7 @@ Deno.serve(async (req: Request) => {
   // Fetch all remaining sources in parallel once the live timezone offset is known.
   const [twilightResult, noaaResult, usnoResult, elevationResult] = await Promise.allSettled([
     fetchCivilTwilight(lat, lon, tzHours),
-    fetchNOAA(lat, lon, units, tzHours),
+    fetchNOAA(lat, lon, units, tzHours, timezone),
     fetchUSNO(lat, lon, tzHours),
     fetchElevation(lat, lon),
   ]);
@@ -1128,6 +895,7 @@ Deno.serve(async (req: Request) => {
     hourly_pressure_mb: meteo?.hourly_pressure_mb ?? [],
     hourly_air_temp_f: meteo?.hourly_air_temp_f ?? [],
     hourly_cloud_cover_pct: meteo?.hourly_cloud_cover_pct ?? [],
+    hourly_wind_speed: meteo?.hourly_wind_speed ?? [],
     tide_predictions_30day: noaa?.tide_predictions_30day ?? [],
     measured_water_temp_f: noaa?.measured_water_temp_f ?? null,
     measured_water_temp_source: noaa?.measured_water_temp_source ?? null,

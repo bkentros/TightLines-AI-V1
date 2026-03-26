@@ -12,6 +12,24 @@ function num(x: unknown): number | null {
   return Number.isFinite(n) ? n : null;
 }
 
+/** Convert wind speed to mph using `weather.wind_speed_unit` when present. */
+function windToMph(speed: number | null, windUnitRaw: unknown): number | null {
+  if (speed == null || !Number.isFinite(speed)) return null;
+  const u = String(windUnitRaw ?? "mph").toLowerCase();
+  if (u.includes("km")) return speed * 0.621371;
+  return speed;
+}
+
+function mean24(values: number[] | null | undefined): number | null {
+  if (!values || values.length === 0) return null;
+  let s = 0;
+  for (const v of values) {
+    if (!Number.isFinite(v)) return null;
+    s += v;
+  }
+  return s / values.length;
+}
+
 function readWeather(env: Record<string, unknown>): Record<string, unknown> | null {
   const w = env.weather;
   return w && typeof w === "object" ? (w as Record<string, unknown>) : null;
@@ -241,6 +259,76 @@ export function buildSharedEngineRequestFromEnvData(
     );
   }
 
+  const windUnitLabel = w?.wind_speed_unit;
+  const windNowMph = windToMph(num(w?.wind_speed), windUnitLabel);
+
+  let daily_mean_air_temp_f = daily_mean;
+  let current_air_temp_f = num(w?.temperature);
+  let pressure_mb_out = num(w?.pressure);
+  let wind_speed_mph_out: number | null = windNowMph;
+  let cloud_cover_pct_out = num(w?.cloud_cover);
+  let active_precip_now =
+    !precipitationMatches24h &&
+    precip_mm != null &&
+    precip_mm > 0.5;
+  let precip_rate_now_out: number | null = precip_rate_now;
+
+  if (dayOffset > 0) {
+    const noonAir =
+      hourlyAirTemp24 != null && Number.isFinite(hourlyAirTemp24[12]) ? hourlyAirTemp24[12]! : null;
+    daily_mean_air_temp_f = noonAir ?? daily_mean;
+    current_air_temp_f = noonAir ?? daily_mean;
+
+    if (pressure_history_mb && pressure_history_mb.length > 0) {
+      const last = pressure_history_mb[pressure_history_mb.length - 1];
+      if (last != null && Number.isFinite(last)) pressure_mb_out = last;
+    }
+
+    const cloudMean = mean24(hourlyCloudPct24 ?? undefined);
+    if (cloudMean != null) {
+      cloud_cover_pct_out = cloudMean;
+    } else {
+      source_notes.push(
+        `forecast_day_cloud_scalar_fallback: insufficient hourly cloud for ${localDate} — cloud_cover_pct uses current weather`,
+      );
+    }
+
+    const hourlyWindRaw = envData.hourly_wind_speed;
+    const hourlyWindPts = Array.isArray(hourlyWindRaw) && hourlyWindRaw.length > 0
+      ? (hourlyWindRaw as Array<{ time_utc: string; value: number }>)
+      : null;
+    const hourlyWind24 = hourlyWindPts
+      ? hourlyPointsTo24ArrayForLocalDate(hourlyWindPts, localDate, tzForHourly)
+      : null;
+    const windMeanMph = (() => {
+      if (!hourlyWind24 || hourlyWind24.length === 0) return null;
+      let s = 0;
+      for (const v of hourlyWind24) {
+        const m = windToMph(v, windUnitLabel);
+        if (m == null || !Number.isFinite(m)) return null;
+        s += m;
+      }
+      return s / hourlyWind24.length;
+    })();
+    if (windMeanMph != null) {
+      wind_speed_mph_out = windMeanMph;
+    } else {
+      const wmaxArr = w?.wind_speed_10m_max_daily as number[] | undefined;
+      const wmax = tempIdx != null && wmaxArr && wmaxArr[tempIdx] != null
+        ? num(wmaxArr[tempIdx])
+        : null;
+      wind_speed_mph_out = windToMph(wmax, windUnitLabel) ?? windNowMph;
+      if (windMeanMph == null && hourlyWindPts) {
+        source_notes.push(
+          `forecast_day_wind_scalar_fallback: insufficient hourly wind for ${localDate} — using daily max or current`,
+        );
+      }
+    }
+
+    active_precip_now = false;
+    precip_rate_now_out = null;
+  }
+
   if (
     context === "freshwater_river" &&
     precip_7d_in == null &&
@@ -260,22 +348,19 @@ export function buildSharedEngineRequestFromEnvData(
     local_timezone: localTimezone,
     context,
     environment: {
-      current_air_temp_f: num(w?.temperature),
-      daily_mean_air_temp_f: daily_mean,
+      current_air_temp_f,
+      daily_mean_air_temp_f,
       prior_day_mean_air_temp_f: prior_mean,
       day_minus_2_mean_air_temp_f: d2_mean,
-      pressure_mb: num(w?.pressure),
+      pressure_mb: pressure_mb_out,
       pressure_history_mb,
-      wind_speed_mph: num(w?.wind_speed),
-      cloud_cover_pct: num(w?.cloud_cover),
+      wind_speed_mph: wind_speed_mph_out,
+      cloud_cover_pct: cloud_cover_pct_out,
       precip_24h_in: precip_24h,
       precip_72h_in: precip_72h,
       precip_7d_in: precip_7d_in,
-      active_precip_now:
-        !precipitationMatches24h &&
-        precip_mm != null &&
-        precip_mm > 0.5,
-      precip_rate_now_in_per_hr: precip_rate_now,
+      active_precip_now,
+      precip_rate_now_in_per_hr: precip_rate_now_out,
       tide_movement_state: tidePhase,
       tide_station_id: tides && typeof tides.station_id === "string" ? tides.station_id : null,
       tide_high_low,

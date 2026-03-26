@@ -1,13 +1,28 @@
 import type { VariableState } from "../contracts/mod.ts";
+import { clampEngineScore, pieceLinear } from "../score/engineScoreMath.ts";
 
-function fromCurrentSpeedKnots(c: number): VariableState {
-  if (c < 0.5) return { label: "slack", score: -1 };
-  if (c < 1.5) return { label: "moving", score: 1 };
-  if (c <= 2.5) return { label: "strong_moving", score: 2 };
-  return { label: "too_strong", score: -1 };
+function tideLabelFromKnots(c: number): "slack" | "moving" | "strong_moving" | "too_strong" {
+  if (c < 0.5) return "slack";
+  if (c < 1.5) return "moving";
+  if (c <= 2.5) return "strong_moving";
+  return "too_strong";
 }
 
-/** Max |h[i+lag]-h[i]| as proxy for 3h swing; lag=3 for hourly ft heights */
+function fromCurrentSpeedKnots(c: number): VariableState {
+  const label = tideLabelFromKnots(c);
+  let score: number;
+  if (c < 0.5) {
+    score = pieceLinear(c, 0, 0.5, -1.08, -0.82);
+  } else if (c < 1.5) {
+    score = pieceLinear(c, 0.5, 1.5, -0.82, 1.05);
+  } else if (c <= 2.5) {
+    score = pieceLinear(c, 1.5, 2.5, 1.05, 2);
+  } else {
+    score = pieceLinear(c, 2.5, 4.2, 2, -1.12);
+  }
+  return { label, score: clampEngineScore(score) };
+}
+
 function max3hTideDeltaFt(heightsFt: number[], lag: number): number {
   let max = 0;
   for (let i = 0; i + lag < heightsFt.length; i++) {
@@ -16,11 +31,26 @@ function max3hTideDeltaFt(heightsFt: number[], lag: number): number {
   return max;
 }
 
+function tideLabelFromFt(max3h: number): "slack" | "moving" | "strong_moving" | "too_strong" {
+  if (max3h < 0.3) return "slack";
+  if (max3h < 1.0) return "moving";
+  if (max3h <= 1.8) return "strong_moving";
+  return "too_strong";
+}
+
 function fromMax3hDeltaFt(max3h: number): VariableState {
-  if (max3h < 0.3) return { label: "slack", score: -1 };
-  if (max3h < 1.0) return { label: "moving", score: 1 };
-  if (max3h <= 1.8) return { label: "strong_moving", score: 2 };
-  return { label: "too_strong", score: -1 };
+  const label = tideLabelFromFt(max3h);
+  let score: number;
+  if (max3h < 0.3) {
+    score = pieceLinear(max3h, 0, 0.3, -1.08, -0.82);
+  } else if (max3h < 1.0) {
+    score = pieceLinear(max3h, 0.3, 1.0, -0.82, 1.05);
+  } else if (max3h <= 1.8) {
+    score = pieceLinear(max3h, 1.0, 1.8, 1.05, 2);
+  } else {
+    score = pieceLinear(max3h, 1.8, 3.2, 2, -1.12);
+  }
+  return { label, score: clampEngineScore(score) };
 }
 
 function parseTideTime(iso: string): number {
@@ -28,9 +58,6 @@ function parseTideTime(iso: string): number {
   return Number.isFinite(t) ? t : NaN;
 }
 
-/**
- * High/low events within 3h windows (sparse CO-OPS hilo).
- */
 function maxDeltaFromHighLow(
   events: Array<{ time: string; value: number }>
 ): number | null {
@@ -57,9 +84,6 @@ export type TideMovementInput = {
   stage?: string | null;
 };
 
-/**
- * VARIABLE_THRESHOLDS priority: current knots → hourly heights → hilo 3h → stage label.
- */
 export function normalizeTideCurrentMovement(input: TideMovementInput): VariableState | null {
   const c = input.current_speed_knots_max;
   if (c != null && Number.isFinite(c) && c >= 0) {
@@ -88,10 +112,10 @@ export function normalizeTideFromStage(tideState: string | null | undefined): Va
   const s = tideState.toLowerCase();
 
   if (/slack|high slack|low slack/.test(s)) {
-    return { label: "slack", score: -1 };
+    return { label: "slack", score: -0.95 };
   }
   if (/spring|strong|peak flow/.test(s)) {
-    return { label: "strong_moving", score: 2 };
+    return { label: "strong_moving", score: 1.85 };
   }
   if (/incoming|outgoing|rising|falling/.test(s)) {
     return { label: "moving", score: 1 };

@@ -55,7 +55,7 @@ export function scoreDay(norm: SharedNormalizedOutput): {
     if (vs == null) continue;
     contributions.push({
       key,
-      score: vs as -2 | -1 | 0 | 1 | 2,
+      score: vs,
       label: labelForDriver(key, norm.normalized),
       weight: finalWeight,
       weightedContribution: finalWeight * vs,

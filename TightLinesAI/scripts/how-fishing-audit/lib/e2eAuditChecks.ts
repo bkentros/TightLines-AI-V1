@@ -163,6 +163,17 @@ export function runE2eAuditChecks(input: {
     }
   }
 
+  const numericWaterTempClaim =
+    /\bwater(?:\s+temp(?:erature)?s?)?\s+(?:of|at|around|near|is|about)\s+\d{1,3}\b/i.test(allText) ||
+    /\b\d{1,3}\s*°?\s*F?\s*(?:degree\s+)?water\b/i.test(allText);
+  if (numericWaterTempClaim) {
+    flags.push({
+      code: "numeric_water_temperature",
+      severity: "major",
+      detail: "Summary/tip must not state numeric water temperature",
+    });
+  }
+
   for (const word of TIP_TIMING_WORDS) {
     if (word === "slack") {
       if (/\bslack\b/i.test(tipLow) && !/\bslack\s*[- ]?line\b/i.test(tipLow)) {

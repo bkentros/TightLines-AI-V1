@@ -776,3 +776,25 @@ export function getCurrentHowFishingRebuild(
   }
   return currentRebuildEntry.bundle;
 }
+
+/**
+ * Clears all persisted How's Fishing rebuild caches (today + forecast-day keys),
+ * plus in-memory "current" bundles. Does not touch env or forecast-chips caches.
+ */
+export async function clearHowFishingReportCaches(): Promise<void> {
+  currentMultiRebuildEntry = null;
+  currentRebuildEntry = null;
+  try {
+    const keys = await AsyncStorage.getAllKeys();
+    const toRemove = keys.filter(
+      (k) =>
+        k.startsWith('how_fishing_rebuild_') ||
+        k.startsWith('how_fishing_forecast_'),
+    );
+    if (toRemove.length > 0) {
+      await AsyncStorage.multiRemove(toRemove);
+    }
+  } catch {
+    // non-fatal
+  }
+}

@@ -1,16 +1,6 @@
 import type { RegionKey, VariableState } from "../contracts/mod.ts";
+import { clampEngineScore, pieceLinear } from "../score/engineScoreMath.ts";
 
-/**
- * River runoff / flow disruption normalizer.
- *
- * Five tiers covering the full [-2, +2] range.
- * Previously max was +1 ("stable") — added "perfect_clear" at +2 for
- * genuinely pristine, bone-dry conditions so an ideal river day can score
- * all the way to 10.0.
- *
- * Region sensitivity controls how much rain it takes to elevate flows —
- * high-sensitivity rivers (Northeast, Great Lakes, etc.) react faster.
- */
 type Sens = "low" | "medium" | "high";
 
 const REGION_SENS: Record<RegionKey, Sens> = {
@@ -26,9 +16,7 @@ const REGION_SENS: Record<RegionKey, Sens> = {
   southwest_high_desert: "high",
   pacific_northwest: "high",
   southern_california: "high",
-  // Alpine rivers react extremely fast to snowmelt and afternoon thunderstorms
   mountain_alpine: "high",
-  // NorCal rivers (Sacramento, Trinity) flood fast in winter rain events
   northern_california: "high",
   appalachian: "high",
   inland_northwest: "medium",
@@ -36,68 +24,176 @@ const REGION_SENS: Record<RegionKey, Sens> = {
   hawaii: "medium",
 };
 
-function classify(
-  s: Sens,
+function wetnessU(
   p24: number,
   p72: number,
   p7d: number,
-): VariableState {
+  b24: number,
+  b72: number,
+  b7d: number,
+): number {
+  return Math.max(p24 / b24, p72 / b72, p7d / b7d);
+}
+
+function classify(s: Sens, p24: number, p72: number, p7d: number): VariableState {
   if (s === "low") {
-    // Perfect clear — bone dry, flow pristine
     if (p24 < 0.12 && p72 < 0.20 && p7d < 0.50) {
-      return { label: "perfect_clear", score: 2 };
+      const u = wetnessU(p24, p72, p7d, 0.12, 0.2, 0.5);
+      return {
+        label: "perfect_clear",
+        score: clampEngineScore(pieceLinear(u, 0, 1, 2, 1.62)),
+      };
     }
     if (p24 < 0.35 && p72 < 0.85 && p7d < 1.8) {
-      return { label: "stable", score: 1 };
+      const u = Math.max(
+        pieceLinear(p24, 0.12, 0.35, 0, 1),
+        pieceLinear(p72, 0.2, 0.85, 0, 1),
+        pieceLinear(p7d, 0.5, 1.8, 0, 1),
+      );
+      const score = clampEngineScore(pieceLinear(u, 0, 1, 1.72, 0.92));
+      return { label: "stable", score };
     }
     if (p24 < 0.7 && p72 < 1.6 && p7d < 3.0) {
-      return { label: "slightly_elevated", score: 0 };
+      const u = Math.max(
+        pieceLinear(p24, 0.35, 0.7, 0, 1),
+        pieceLinear(p72, 0.85, 1.6, 0, 1),
+        pieceLinear(p7d, 1.8, 3.0, 0, 1),
+      );
+      const score = clampEngineScore(pieceLinear(u, 0, 1, 0.72, -0.08));
+      return { label: "slightly_elevated", score };
     }
     if (p24 < 1.1 && p72 < 2.6 && p7d < 4.8) {
-      return { label: "elevated", score: -1 };
+      const u = Math.max(
+        pieceLinear(p24, 0.7, 1.1, 0, 1),
+        pieceLinear(p72, 1.6, 2.6, 0, 1),
+        pieceLinear(p7d, 3.0, 4.8, 0, 1),
+      );
+      const score = clampEngineScore(pieceLinear(u, 0, 1, -0.12, -1.05));
+      return { label: "elevated", score };
     }
-    return { label: "blown_out", score: -2 };
+    const u = Math.min(
+      1,
+      Math.max(
+        pieceLinear(p24, 1.1, 2.2, 0, 1),
+        pieceLinear(p72, 2.6, 5.0, 0, 1),
+        pieceLinear(p7d, 4.8, 9, 0, 1),
+      ),
+    );
+    return {
+      label: "blown_out",
+      score: clampEngineScore(pieceLinear(u, 0, 1, -1.15, -2)),
+    };
   }
 
   if (s === "medium") {
-    // Perfect clear
     if (p24 < 0.08 && p72 < 0.15 && p7d < 0.40) {
-      return { label: "perfect_clear", score: 2 };
+      const u = wetnessU(p24, p72, p7d, 0.08, 0.15, 0.4);
+      return {
+        label: "perfect_clear",
+        score: clampEngineScore(pieceLinear(u, 0, 1, 2, 1.62)),
+      };
     }
     if (p24 < 0.22 && p72 < 0.55 && p7d < 1.25) {
-      return { label: "stable", score: 1 };
+      const u = Math.max(
+        pieceLinear(p24, 0.08, 0.22, 0, 1),
+        pieceLinear(p72, 0.15, 0.55, 0, 1),
+        pieceLinear(p7d, 0.4, 1.25, 0, 1),
+      );
+      return {
+        label: "stable",
+        score: clampEngineScore(pieceLinear(u, 0, 1, 1.72, 0.92)),
+      };
     }
     if (p24 < 0.5 && p72 < 1.15 && p7d < 2.3) {
-      return { label: "slightly_elevated", score: 0 };
+      const u = Math.max(
+        pieceLinear(p24, 0.22, 0.5, 0, 1),
+        pieceLinear(p72, 0.55, 1.15, 0, 1),
+        pieceLinear(p7d, 1.25, 2.3, 0, 1),
+      );
+      return {
+        label: "slightly_elevated",
+        score: clampEngineScore(pieceLinear(u, 0, 1, 0.72, -0.08)),
+      };
     }
     if (p24 < 0.9 && p72 < 2.0 && p7d < 3.9) {
-      return { label: "elevated", score: -1 };
+      const u = Math.max(
+        pieceLinear(p24, 0.5, 0.9, 0, 1),
+        pieceLinear(p72, 1.15, 2.0, 0, 1),
+        pieceLinear(p7d, 2.3, 3.9, 0, 1),
+      );
+      return {
+        label: "elevated",
+        score: clampEngineScore(pieceLinear(u, 0, 1, -0.12, -1.05)),
+      };
     }
-    return { label: "blown_out", score: -2 };
+    const u = Math.min(
+      1,
+      Math.max(
+        pieceLinear(p24, 0.9, 1.8, 0, 1),
+        pieceLinear(p72, 2.0, 4.0, 0, 1),
+        pieceLinear(p7d, 3.9, 8, 0, 1),
+      ),
+    );
+    return {
+      label: "blown_out",
+      score: clampEngineScore(pieceLinear(u, 0, 1, -1.15, -2)),
+    };
   }
 
-  // high sensitivity
-  // Perfect clear
   if (p24 < 0.05 && p72 < 0.10 && p7d < 0.25) {
-    return { label: "perfect_clear", score: 2 };
+    const u = wetnessU(p24, p72, p7d, 0.05, 0.1, 0.25);
+    return {
+      label: "perfect_clear",
+      score: clampEngineScore(pieceLinear(u, 0, 1, 2, 1.62)),
+    };
   }
   if (p24 < 0.15 && p72 < 0.4 && p7d < 1.0) {
-    return { label: "stable", score: 1 };
+    const u = Math.max(
+      pieceLinear(p24, 0.05, 0.15, 0, 1),
+      pieceLinear(p72, 0.1, 0.4, 0, 1),
+      pieceLinear(p7d, 0.25, 1.0, 0, 1),
+    );
+    return {
+      label: "stable",
+      score: clampEngineScore(pieceLinear(u, 0, 1, 1.72, 0.92)),
+    };
   }
   if (p24 < 0.35 && p72 < 0.8 && p7d < 1.8) {
-    return { label: "slightly_elevated", score: 0 };
+    const u = Math.max(
+      pieceLinear(p24, 0.15, 0.35, 0, 1),
+      pieceLinear(p72, 0.4, 0.8, 0, 1),
+      pieceLinear(p7d, 1.0, 1.8, 0, 1),
+    );
+    return {
+      label: "slightly_elevated",
+      score: clampEngineScore(pieceLinear(u, 0, 1, 0.72, -0.08)),
+    };
   }
   if (p24 < 0.65 && p72 < 1.5 && p7d < 3.1) {
-    return { label: "elevated", score: -1 };
+    const u = Math.max(
+      pieceLinear(p24, 0.35, 0.65, 0, 1),
+      pieceLinear(p72, 0.8, 1.5, 0, 1),
+      pieceLinear(p7d, 1.8, 3.1, 0, 1),
+    );
+    return {
+      label: "elevated",
+      score: clampEngineScore(pieceLinear(u, 0, 1, -0.12, -1.05)),
+    };
   }
-  return { label: "blown_out", score: -2 };
+  const u = Math.min(
+    1,
+    Math.max(
+      pieceLinear(p24, 0.65, 1.3, 0, 1),
+      pieceLinear(p72, 1.5, 3.0, 0, 1),
+      pieceLinear(p7d, 3.1, 6.2, 0, 1),
+    ),
+  );
+  return {
+    label: "blown_out",
+    score: clampEngineScore(pieceLinear(u, 0, 1, -1.15, -2)),
+  };
 }
 
-/**
- * Requires all three precip windows as finite, non-negative inches.
- * Missing longer windows are NOT treated as zero — that overstated "dry" flow
- * when only 24h was present. Caller must supply a full triplet or omit runoff.
- */
 export function normalizeRunoff(
   region: RegionKey,
   p24: number | null | undefined,

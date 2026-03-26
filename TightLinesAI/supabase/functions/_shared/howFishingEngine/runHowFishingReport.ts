@@ -2,6 +2,15 @@ import type { HowsFishingReport, RegionKey, SharedEngineRequest } from "./contra
 import { DISPLAY_CONTEXT_LABEL } from "./contracts/mod.ts";
 import { buildSharedNormalizedOutput } from "./normalize/buildNormalized.ts";
 import { scoreDay } from "./score/scoreDay.ts";
+
+/**
+ * Same numeric score as `runHowFishingReport(req).score`.
+ * Skips timing engine, tips, summary, and LLM condition payloads — use for bulk / edge limits.
+ */
+export function runHowFishingScoreOnly(req: SharedEngineRequest): number {
+  const norm = buildSharedNormalizedOutput(req);
+  return scoreDay(norm).score;
+}
 import { buildReportSummaryLine } from "./summary/summaryLine.ts";
 import { buildActionableTip } from "./tips/buildTips.ts";
 import {
@@ -10,6 +19,7 @@ import {
   highlightedDaypartLabels,
 } from "./narration/deriveNarrationHints.ts";
 import { buildLlmConditionExtensions } from "./narration/buildLlmConditionExtensions.ts";
+import { buildThermalAirPlain } from "./narration/thermalAirPlain.ts";
 import { resolveTimingResult } from "./timing/resolveTimingResult.ts";
 
 function reliabilityNote(tier: "high" | "medium" | "low"): string | null {
@@ -150,7 +160,20 @@ export function runHowFishingReport(req: SharedEngineRequest): HowsFishingReport
       highlighted_dayparts_for_narration: highlightedDaypartLabels(
         timing.highlighted_periods,
       ),
-      ...buildLlmConditionExtensions(norm, scored.contributions, req.environment),
+      thermal_air_narration_plain: norm.normalized.temperature
+        ? buildThermalAirPlain(
+          norm.normalized.temperature,
+          req.environment.daily_mean_air_temp_f ??
+            req.environment.current_air_temp_f ??
+            null,
+        )
+        : null,
+      ...buildLlmConditionExtensions(
+        norm,
+        scored.contributions,
+        req.environment,
+        req.context,
+      ),
     },
   };
 }

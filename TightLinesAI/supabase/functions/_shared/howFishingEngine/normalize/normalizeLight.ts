@@ -1,18 +1,11 @@
 import type { EngineContext, VariableState } from "../contracts/mod.ts";
+import { clampEngineScore, pieceLinear } from "../score/engineScoreMath.ts";
 
 /**
- * Cloud-cover / light condition normalizer.
+ * Cloud-cover / light — tapered piecewise ramps (freshwater penalizes bright sun;
+ * coastal neutralizes 0–69% per marine norms).
  *
- * Five tiers so the full [-2, +2] score range is reachable in all contexts.
- * Previously max was +1 ("low_light") and the minimum for coastal was 0 —
- * both ceilings that prevented 10.0 scores and compressed the coastal floor.
- *
- * Tier       Cloud %    Score   freshwater / river     coastal
- * glare       < 10 %     -1                         0   (marine: bright days routinely fished)
- * bright     10–25 %     -1                         0
- * mixed      26–69 %      0                         0
- * low_light  70–85 %     +1                        +1
- * heavy_overcast > 85 %  +2                        +2
+ * Macro `label` stays stable for tips/timing; `detail` carries % and mixed sub-hint.
  */
 export function normalizeLight(
   cloudPct: number | null | undefined,
@@ -21,6 +14,30 @@ export function normalizeLight(
   if (cloudPct == null || Number.isNaN(cloudPct)) return null;
   const c = Math.max(0, Math.min(100, cloudPct));
 
+  const freshwater = context !== "coastal";
+
+  let score: number;
+  if (freshwater) {
+    if (c <= 25) {
+      score = pieceLinear(c, 0, 25, -1.15, -0.72);
+    } else if (c <= 69) {
+      score = pieceLinear(c, 25, 69, -0.72, 0.72);
+    } else if (c <= 85) {
+      score = pieceLinear(c, 69, 85, 0.72, 1.35);
+    } else {
+      score = pieceLinear(c, 85, 100, 1.35, 2);
+    }
+  } else if (c <= 69) {
+    score = 0;
+  } else if (c <= 85) {
+    // ~70% remains a clear low-light helper on the coast (legacy +1 tier center)
+    score = pieceLinear(c, 69, 85, 0.92, 1.35);
+  } else {
+    score = pieceLinear(c, 85, 100, 1.35, 2);
+  }
+
+  score = clampEngineScore(score);
+
   let label: "glare" | "bright" | "mixed" | "low_light" | "heavy_overcast";
   if (c < 10) label = "glare";
   else if (c <= 25) label = "bright";
@@ -28,24 +45,17 @@ export function normalizeLight(
   else if (c <= 85) label = "low_light";
   else label = "heavy_overcast";
 
-  let score: -2 | -1 | 0 | 1 | 2;
-  if (label === "glare") {
-    // Clear sky pushes fish deep and shifts activity to dawn/dusk — not catastrophic,
-    // just unfavorable. Timing recommendations already communicate the workaround.
-    // Coastal: saltwater fisheries routinely fish bright/sunny days (structure, tide,
-    // polarized optics); keep freshwater penalty, neutralize marine "glare" tier.
-    score = context === "coastal" ? 0 : -1;
-  } else if (label === "bright") {
-    // Same idea: bright sun is a modest headwind on lakes/rivers, usually workable inshore.
-    score = context === "coastal" ? 0 : -1;
-  } else if (label === "mixed") {
-    score = 0;
-  } else if (label === "low_light") {
-    score = 1;
-  } else {
-    // heavy_overcast — genuinely the best light tier for feeding activity
-    score = 2;
+  let mixedHint = "";
+  if (label === "mixed") {
+    if (c < 40) mixedHint = "mixed_thin_cloud";
+    else if (c < 55) mixedHint = "mixed_mid_cloud";
+    else mixedHint = "mixed_heavy_cloud";
   }
 
-  return { label, score, detail: `${Math.round(c)}% cloud` };
+  const rounded = Math.round(c);
+  const detail = mixedHint
+    ? `${rounded}% cloud — ${mixedHint}`
+    : `${rounded}% cloud`;
+
+  return { label, score, detail };
 }

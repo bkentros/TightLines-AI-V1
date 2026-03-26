@@ -189,3 +189,71 @@ Deno.test("buildFromEnvData: env vs request timezone mismatch is noted", () => {
     req.data_coverage.source_notes?.some((s) => s.includes("hourly_series_timezone_mismatch")),
   );
 });
+
+Deno.test("buildFromEnvData: dayOffset>0 uses target-day hourly aggregates, not live weather.*", () => {
+  const localDate = "2026-06-17";
+  const tz = "America/New_York";
+  const hourly_air_temp_f: Array<{ time_utc: string; value: number }> = [];
+  const hourly_cloud_cover_pct: Array<{ time_utc: string; value: number }> = [];
+  const hourly_wind_speed: Array<{ time_utc: string; value: number }> = [];
+  for (let h = 0; h < 24; h++) {
+    const iso = new Date(
+      `2026-06-17T${String(h).padStart(2, "0")}:00:00-04:00`,
+    ).toISOString();
+    hourly_air_temp_f.push({ time_utc: iso, value: 50 + h });
+    hourly_cloud_cover_pct.push({ time_utc: iso, value: h * 3 });
+    hourly_wind_speed.push({ time_utc: iso, value: 4 });
+  }
+
+  const targetNoonIdx = (14 + 1) * 24 + 12;
+  const hourly_pressure_mb: Array<{ time_utc: string; value: number }> = [];
+  for (let i = 0; i <= targetNoonIdx; i++) {
+    hourly_pressure_mb.push({
+      time_utc: new Date(Date.UTC(2026, 5, 1, 0, 0, 0) + i * 3600 * 1000).toISOString(),
+      value: 1000 + i,
+    });
+  }
+
+  const highs = Array.from({ length: 21 }, (_, i) => 60 + i);
+  const lows = Array.from({ length: 21 }, (_, i) => 40 + i);
+  const precip = Array.from({ length: 21 }, (_, i) => Number((i * 0.01).toFixed(3)));
+
+  const req = buildSharedEngineRequestFromEnvData(
+    40.7,
+    -74.0,
+    localDate,
+    tz,
+    "freshwater_lake_pond",
+    {
+      timezone: tz,
+      weather: {
+        temperature: 999,
+        pressure: 888,
+        wind_speed: 777,
+        cloud_cover: 666,
+        wind_speed_unit: "mph",
+        temp_7day_high: highs,
+        temp_7day_low: lows,
+        precip_7day_daily: precip,
+        wind_speed_10m_max_daily: Array.from({ length: 21 }, () => 99),
+      },
+      hourly_air_temp_f,
+      hourly_cloud_cover_pct,
+      hourly_wind_speed,
+      hourly_pressure_mb,
+    },
+    1,
+  );
+
+  assertEquals(req.environment.current_air_temp_f, 62);
+  assertEquals(req.environment.daily_mean_air_temp_f, 62);
+  assertEquals(req.environment.pressure_mb, 1000 + targetNoonIdx);
+  assertEquals(req.environment.wind_speed_mph, 4);
+  const cloudMean = hourly_cloud_cover_pct.reduce((s, p) => s + p.value, 0) / 24;
+  assertEquals(req.environment.cloud_cover_pct, cloudMean);
+  assertEquals(req.environment.active_precip_now, false);
+  assertEquals(req.environment.precip_rate_now_in_per_hr, null);
+  assert(
+    !req.data_coverage.source_notes?.some((s) => s.includes("forecast_day_cloud_scalar_fallback")),
+  );
+});

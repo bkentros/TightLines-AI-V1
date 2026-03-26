@@ -6,6 +6,7 @@
 import type { SharedNormalizedOutput, TemperatureMetabolicContext } from "../contracts/mod.ts";
 import { evaluateTemperatureWindow } from "../timing/evaluators/evaluateTemperatureWindow.ts";
 import type { TimingEvalOptions } from "../timing/timingTypes.ts";
+import { engineScoreTier, ENGINE_SCORE_EPSILON } from "../score/engineScoreMath.ts";
 
 const DAYPART_LABELS = ["dawn", "morning", "afternoon", "evening"] as const;
 
@@ -14,10 +15,16 @@ export function deriveTemperatureMetabolicContext(
 ): TemperatureMetabolicContext {
   if (!t) return "neutral";
   const { band_label, final_score } = t;
-  if ((band_label === "very_warm" || band_label === "warm") && final_score <= 0) {
+  if (
+    (band_label === "very_warm" || band_label === "warm") &&
+    final_score <= ENGINE_SCORE_EPSILON
+  ) {
     return "heat_limited";
   }
-  if ((band_label === "very_cold" || band_label === "cool") && final_score < 0) {
+  if (
+    (band_label === "very_cold" || band_label === "cool") &&
+    engineScoreTier(final_score) <= -1
+  ) {
     return "cold_limited";
   }
   return "neutral";

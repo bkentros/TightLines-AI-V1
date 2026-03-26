@@ -30,6 +30,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { colors, fonts, spacing, radius } from '../lib/theme';
 import type { SavedLocation } from '../store/locationStore';
+import { getRecentLocations, type RecentLocation } from '../lib/recentLocations';
 
 // ---------------------------------------------------------------------------
 // Types
@@ -75,6 +76,24 @@ function toStateAbbr(stateName: string): string {
   return STATE_ABBR[stateName] ?? stateName;
 }
 
+const ABBR_TO_STATE_NAME: Record<string, string> = Object.fromEntries(
+  Object.entries(STATE_ABBR).map(([name, abbr]) => [abbr, name]),
+) as Record<string, string>;
+
+/** "Charleston, SC" → structured Nominatim city + state name */
+function parseCityCommaState(q: string): { city: string; state: string } | null {
+  const m = q.match(/^([^,]{2,}),\s*([A-Za-z.\s]{2,})\s*$/);
+  if (!m) return null;
+  const city = m[1].trim();
+  let state = m[2].trim();
+  if (/^[A-Z]{2}$/i.test(state)) {
+    const full = ABBR_TO_STATE_NAME[state.toUpperCase()];
+    if (full) state = full;
+  }
+  if (city.length < 2 || state.length < 2) return null;
+  return { city, state };
+}
+
 // ---------------------------------------------------------------------------
 // Nominatim search
 // ---------------------------------------------------------------------------
@@ -82,10 +101,12 @@ function toStateAbbr(stateName: string): string {
 interface NominatimItem {
   lat: string;
   lon: string;
+  place_id?: number;
   address?: {
     city?: string;
     town?: string;
     village?: string;
+    borough?: string;
     hamlet?: string;
     municipality?: string;
     county?: string;
@@ -96,68 +117,107 @@ interface NominatimItem {
   class?: string;
 }
 
+const NOMINATIM_HEADERS = {
+  'User-Agent': 'TightLinesAI/2.0 (fishing app; contact@tightlines.ai)',
+  Accept: 'application/json',
+} as const;
+
+function mapNominatimToPlaces(data: NominatimItem[], max = 8): PlaceResult[] {
+  const seen = new Set<string>();
+  const results: PlaceResult[] = [];
+
+  for (const item of data) {
+    const addr = item.address;
+    if (!addr) continue;
+
+    const city =
+      addr.city ??
+      addr.town ??
+      addr.village ??
+      addr.borough ??
+      addr.hamlet ??
+      addr.municipality ??
+      addr.county;
+    const state = addr.state ?? '';
+    if (!city || !state) continue;
+
+    const isoCode = addr['ISO3166-2-lvl4']?.replace('US-', '');
+    const stateCode = isoCode ?? toStateAbbr(state);
+    const label = stateCode ? `${city}, ${stateCode}` : `${city}, ${state}`;
+    const key = `${label}|${item.place_id ?? `${item.lat},${item.lon}`}`;
+    if (seen.has(key)) continue;
+    seen.add(key);
+
+    results.push({
+      lat: parseFloat(item.lat),
+      lon: parseFloat(item.lon),
+      label,
+    });
+
+    if (results.length >= max) break;
+  }
+
+  return results;
+}
+
+async function nominatimFetch(params: URLSearchParams): Promise<NominatimItem[]> {
+  const url = `https://nominatim.openstreetmap.org/search?${params.toString()}`;
+  const res = await fetch(url, { headers: NOMINATIM_HEADERS });
+  if (!res.ok) return [];
+  return (await res.json()) as NominatimItem[];
+}
+
 async function searchCities(query: string): Promise<PlaceResult[]> {
   const trimmed = query.trim();
   if (trimmed.length < 2) return [];
 
-  const params = new URLSearchParams({
-    q: trimmed,
-    countrycodes: 'us',
-    format: 'jsonv2',
-    limit: '10',
-    addressdetails: '1',
-    featuretype: 'settlement',
-    dedupe: '1',
-  });
-
-  const url = `https://nominatim.openstreetmap.org/search?${params.toString()}`;
-
   try {
-    const res = await fetch(url, {
-      headers: {
-        'User-Agent': 'TightLinesAI/2.0 (fishing app; contact@tightlines.ai)',
-        Accept: 'application/json',
-      },
-    });
-    if (!res.ok) return [];
+    // 1) US settlements (strict)
+    let data = await nominatimFetch(
+      new URLSearchParams({
+        q: trimmed,
+        countrycodes: 'us',
+        format: 'jsonv2',
+        limit: '12',
+        addressdetails: '1',
+        featuretype: 'settlement',
+        dedupe: '1',
+      }),
+    );
+    let places = mapNominatimToPlaces(data);
+    if (places.length > 0) return places;
 
-    const data = (await res.json()) as NominatimItem[];
-    const seen = new Set<string>();
-    const results: PlaceResult[] = [];
+    // 2) Same query without featuretype (admin areas, neighborhoods)
+    data = await nominatimFetch(
+      new URLSearchParams({
+        q: trimmed,
+        countrycodes: 'us',
+        format: 'jsonv2',
+        limit: '12',
+        addressdetails: '1',
+        dedupe: '1',
+      }),
+    );
+    places = mapNominatimToPlaces(data);
+    if (places.length > 0) return places;
 
-    for (const item of data) {
-      const addr = item.address;
-      if (!addr) continue;
-
-      // Extract best city name
-      const city =
-        addr.city ??
-        addr.town ??
-        addr.village ??
-        addr.hamlet ??
-        addr.municipality ??
-        addr.county;
-      const state = addr.state ?? '';
-      if (!city || !state) continue;
-
-      // Prefer the ISO 3166-2 code directly from Nominatim, then abbreviation map
-      const isoCode = addr['ISO3166-2-lvl4']?.replace('US-', '');
-      const stateCode = isoCode ?? toStateAbbr(state);
-
-      const label = stateCode ? `${city}, ${stateCode}` : `${city}, ${state}`;
-      if (seen.has(label)) continue;
-      seen.add(label);
-
-      results.push({
-        lat: parseFloat(item.lat),
-        lon: parseFloat(item.lon),
-        label,
-      });
-
-      if (results.length >= 6) break;
+    // 3) Structured "City, ST" (helps Charleston, SC style queries)
+    const parsed = parseCityCommaState(trimmed);
+    if (parsed) {
+      data = await nominatimFetch(
+        new URLSearchParams({
+          city: parsed.city,
+          state: parsed.state,
+          country: 'usa',
+          format: 'jsonv2',
+          limit: '10',
+          addressdetails: '1',
+        }),
+      );
+      places = mapNominatimToPlaces(data);
     }
 
-    return results;
+    return places;
   } catch {
     return [];
   }
@@ -181,16 +241,18 @@ export function LocationPickerModal({
   const [results, setResults] = useState<PlaceResult[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const [recentLocations, setRecentLocations] = useState<RecentLocation[]>([]);
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const inputRef = useRef<TextInput>(null);
 
-  // Reset state when modal opens
+  // Reset state when modal opens; reload recent picks from storage
   useEffect(() => {
     if (visible) {
       setQuery('');
       setResults([]);
       setLoading(false);
       setError(false);
+      void getRecentLocations().then(setRecentLocations);
     }
   }, [visible]);
 
@@ -230,8 +292,10 @@ export function LocationPickerModal({
 
   const showResults = results.length > 0;
   const showEmpty = query.trim().length >= 2 && !loading && !showResults && !error;
-  const showHint = query.trim().length < 2 && !isUsingCustom;
-  const showCurrentCustom = query.trim().length < 2 && isUsingCustom;
+  const shortQuery = query.trim().length < 2;
+  const showRecent = shortQuery && recentLocations.length > 0;
+  const showHint = shortQuery && !isUsingCustom && !showRecent;
+  const showCurrentCustom = shortQuery && isUsingCustom;
 
   return (
     <Modal
@@ -309,6 +373,31 @@ export function LocationPickerModal({
               </View>
             )}
           </Pressable>
+
+          {showRecent && (
+            <View style={styles.recentSection}>
+              <Text style={styles.recentSectionHead}>Recent locations</Text>
+              {recentLocations.map((r) => (
+                <Pressable
+                  key={`${r.lat}_${r.lon}_${r.label}`}
+                  style={({ pressed }) => [
+                    styles.recentRow,
+                    pressed && styles.resultRowPressed,
+                  ]}
+                  onPress={() => onSelect({ lat: r.lat, lon: r.lon, label: r.label })}
+                >
+                  <View style={styles.resultIconWrap}>
+                    <Ionicons name="time-outline" size={15} color={colors.primary} />
+                  </View>
+                  <View style={styles.resultTextWrap}>
+                    <Text style={styles.resultLabel}>{r.label}</Text>
+                    <Text style={styles.resultSub}>Tap to use</Text>
+                  </View>
+                  <Ionicons name="chevron-forward" size={15} color={colors.border} />
+                </Pressable>
+              ))}
+            </View>
+          )}
 
           <View style={styles.divider}>
             <Text style={styles.dividerLabel}>OR SEARCH A CITY</Text>
@@ -532,6 +621,28 @@ const styles = StyleSheet.create({
     color: colors.textMuted,
     letterSpacing: 1,
     textTransform: 'uppercase',
+  },
+
+  recentSection: {
+    marginHorizontal: 16,
+    marginTop: 4,
+    marginBottom: 4,
+  },
+  recentSectionHead: {
+    fontFamily: fonts.bodyBold,
+    fontSize: 10,
+    color: colors.textMuted,
+    letterSpacing: 1,
+    textTransform: 'uppercase',
+    marginBottom: 8,
+  },
+  recentRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+    paddingVertical: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: colors.borderLight,
   },
 
   /* Results list */

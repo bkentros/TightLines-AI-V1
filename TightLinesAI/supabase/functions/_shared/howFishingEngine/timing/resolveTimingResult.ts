@@ -109,6 +109,10 @@ function mapToLegacyPreset(periods: DaypartFlags): DaypartNotePreset {
   const key = periods.map((v) => (v ? "1" : "0")).join("");
   switch (key) {
     case "1001": return "early_late_low_light";
+    case "1010": return "moving_water_periods"; // dawn + afternoon (tide / shoulder)
+    case "1011": return "moving_water_periods"; // dawn + afternoon + evening
+    case "1110": return "moving_water_periods"; // dawn + morning + afternoon
+    case "0111": return "moving_water_periods"; // morning + afternoon + evening
     case "0010": return "warmest_part_may_help";
     case "1101": return "cooler_low_light_better";
     case "1111": return "moving_water_periods";
@@ -517,9 +521,22 @@ function buildTideExchangeNoteFromSignal(exchangeTimes: string[]): string {
       `Best opportunities near ${exchangeTimes[0]} and ${exchangeTimes[1]} around the tide changes. The transition windows are the bite; slack in between is the slow stretch.`,
     ]);
   }
-  const mainStrs = exchangeTimes.slice(0, 2);
+  if (exchangeTimes.length === 3) {
+    const [a, b, c] = exchangeTimes;
+    return pick([
+      `Three key tide turns — ${a}, ${b}, and ${c}. Fish the highlighted windows hard on each side of those exchanges.`,
+      `Moving-water windows ${a}, ${b}, and ${c}. Work those clock bands — each tide change is its own bite opportunity.`,
+    ]);
+  }
+  if (exchangeTimes.length >= 4) {
+    const [a, b, c, d] = exchangeTimes;
+    return pick([
+      `Four exchanges today — key turns ${a}, ${b}, ${c}, and ${d}. Rotate with the tide; each highlighted band lines up with a real exchange.`,
+      `Active tide cycle: ${a}, ${b}, ${c}, and ${d}. The lit time blocks match those turns — fish the movement, rest the slack.`,
+    ]);
+  }
   return pick([
-    `Multiple exchanges today — key windows ${mainStrs.join(" and ")}. Fish the moving water around each turn and ease off during the slack.`,
-    `Tides are active today. Target the ${mainStrs.join(" and ")} exchange windows — moving water is your trigger, slack is your rest.`,
+    `Multiple exchanges today — key windows ${exchangeTimes.join(" and ")}. Fish the moving water around each turn and ease off during the slack.`,
+    `Tides are active today. Target those exchange windows — moving water is your trigger, slack is your rest.`,
   ]);
 }

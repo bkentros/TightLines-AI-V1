@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import { AppState, type AppStateStatus, View, Text, StyleSheet, ScrollView, Pressable, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
@@ -25,16 +25,15 @@ import {
   scoreColor,
   type DayForecastScore,
 } from '../../lib/forecastScores';
+import { recordRecentLocation } from '../../lib/recentLocations';
 
 export default function HomeScreen() {
   const router = useRouter();
   const { profile } = useAuthStore();
   const {
     ignoreGps,
-    overrideLocation,
     overrideSubscriptionTier,
     load: loadDevTesting,
-    clearOverride,
     setIgnoreGps,
   } = useDevTestingStore();
   const { loadEnv } = useEnvStore();
@@ -59,24 +58,31 @@ export default function HomeScreen() {
   const [forecastLoading, setForecastLoading] = useState(false);
 
   // ── Active coordinates and label ──────────────────────────────────────────
-  // Priority: saved custom pin > DEV ignoreGps (no coords) > DEV override > GPS
-  // Dev presets (Settings) override GPS until the user syncs GPS or taps "Use my GPS"
-  // in the picker — then we clear override + ignore (see handleUseGPS / handleRequestLocation).
-  const coords =
-    useCustom && savedLocation
-      ? { lat: savedLocation.lat, lon: savedLocation.lon }
-      : __DEV__ && ignoreGps
-        ? null
-        : __DEV__ && overrideLocation
-          ? { lat: overrideLocation.lat, lon: overrideLocation.lon }
-          : gpsCoords;
+  // Priority: saved custom pin > DEV ignoreGps (no coords) > GPS
+  // Dev: ignore GPS simulates missing location until the user taps "Use my GPS" in the picker.
+  //
+  // Memoize `{ lat, lon }` so the reference is stable when values are unchanged. A fresh object
+  // every render breaks useFocusEffect / useCallback deps and causes an infinite loop (loadEnv →
+  // re-render → new coords ref → focus effect re-runs → loadEnv).
+  const coords = useMemo(() => {
+    if (useCustom && savedLocation) {
+      return { lat: savedLocation.lat, lon: savedLocation.lon };
+    }
+    if (__DEV__ && ignoreGps) return null;
+    return gpsCoords;
+  }, [
+    useCustom,
+    savedLocation?.lat,
+    savedLocation?.lon,
+    ignoreGps,
+    gpsCoords?.lat,
+    gpsCoords?.lon,
+  ]);
 
   const locationLabel =
     useCustom && savedLocation
       ? savedLocation.label
-      : __DEV__ && overrideLocation
-        ? overrideLocation.label
-        : gpsLocationLabel ?? 'Current location';
+      : gpsLocationLabel ?? 'Current location';
 
   // GPS label for use in the picker ("you are here" context)
   const gpsLabel = gpsLocationLabel ?? 'Current location';
@@ -191,27 +197,34 @@ export default function HomeScreen() {
     }, [loadCachedReportMean]),
   );
 
-  // Load 7-day forecast scores — cached up to 6h, no API call if fresh
-  useEffect(() => {
+  const forecastFetchSeq = useRef(0);
+  const loadForecastScores = useCallback(async () => {
     const lat = coords?.lat;
     const lon = coords?.lon;
-    if (lat == null || lon == null) return;
-    let cancelled = false;
-
-    (async () => {
-      setForecastLoading(true);
-      try {
-        const result = await getForecastScores(lat, lon);
-        if (!cancelled && result) setForecastDays(result.forecast);
-      } catch {
-        // Silent fail — calendar just won't show
-      } finally {
-        if (!cancelled) setForecastLoading(false);
-      }
-    })();
-
-    return () => { cancelled = true; };
+    if (lat == null || lon == null) {
+      setForecastDays(null);
+      return;
+    }
+    const mySeq = ++forecastFetchSeq.current;
+    setForecastLoading(true);
+    try {
+      const result = await getForecastScores(lat, lon);
+      if (mySeq !== forecastFetchSeq.current) return;
+      if (result) setForecastDays(result.forecast);
+    } catch {
+      if (mySeq === forecastFetchSeq.current) setForecastDays(null);
+    } finally {
+      if (mySeq === forecastFetchSeq.current) setForecastLoading(false);
+    }
   }, [coords?.lat, coords?.lon]);
+
+  // Load 7-day forecast scores — cached until fishing-location midnight
+  useEffect(() => {
+    void loadForecastScores();
+    return () => {
+      forecastFetchSeq.current++;
+    };
+  }, [loadForecastScores]);
 
   const refreshLiveConditions = useCallback(() => {
     const now = Date.now();
@@ -219,14 +232,17 @@ export default function HomeScreen() {
     lastAutoRefreshAtRef.current = now;
 
     const units = profile?.preferred_units ?? 'imperial';
-    if (coords) {
-      loadEnv(coords.lat, coords.lon, { units });
+    const lat = coords?.lat;
+    const lon = coords?.lon;
+    if (lat != null && lon != null) {
+      loadEnv(lat, lon, { units });
     }
-  }, [profile?.preferred_units, coords, loadEnv]);
+  }, [profile?.preferred_units, coords?.lat, coords?.lon, loadEnv]);
 
   useFocusEffect(
     useCallback(() => {
       refreshLiveConditions();
+      void loadForecastScores();
       // Refresh the cached score when user returns to the home tab,
       // so a newly-generated report immediately updates the displayed number.
       if (coords) {
@@ -242,7 +258,7 @@ export default function HomeScreen() {
           setCachedScore(Number.isInteger(v) ? v.toFixed(0) : v.toFixed(1));
         }
       }
-    }, [refreshLiveConditions, coords])
+    }, [refreshLiveConditions, loadForecastScores, coords?.lat, coords?.lon])
   );
 
   useEffect(() => {
@@ -251,11 +267,12 @@ export default function HomeScreen() {
         appStateRef.current === 'background' || appStateRef.current === 'inactive';
       if (wasBackgrounded && nextAppState === 'active') {
         refreshLiveConditions();
+        void loadForecastScores();
       }
       appStateRef.current = nextAppState;
     });
     return () => subscription.remove();
-  }, [refreshLiveConditions]);
+  }, [refreshLiveConditions, loadForecastScores]);
 
   const effectiveTier = getEffectiveTier(profile, overrideSubscriptionTier ?? null);
   const hasSubscription = canUseAIFeatures(effectiveTier);
@@ -265,6 +282,7 @@ export default function HomeScreen() {
   const handleLocationSelect = useCallback(async (loc: { lat: number; lon: number; label: string }) => {
     // Invalidate forecast cache for the OLD location before switching
     if (coords) invalidateForecastCache(coords.lat, coords.lon);
+    await recordRecentLocation({ lat: loc.lat, lon: loc.lon, label: loc.label });
     await setSavedLocation(loc);
     setShowLocationPicker(false);
     // Clear stale forecast/score data — fresh data will load via useEffect deps
@@ -278,7 +296,6 @@ export default function HomeScreen() {
   const handleUseGPS = useCallback(async () => {
     if (coords && useCustom) invalidateForecastCache(coords.lat, coords.lon);
     if (__DEV__) {
-      await clearOverride();
       await setIgnoreGps(false);
     }
     await clearSavedLocation();
@@ -286,7 +303,23 @@ export default function HomeScreen() {
     setForecastDays(null);
     setCachedScore(null);
     setCachedMeanRaw(null);
-  }, [coords, useCustom, clearSavedLocation, clearOverride, setIgnoreGps]);
+    try {
+      const { status } = await Location.getForegroundPermissionsAsync();
+      if (status === 'granted') {
+        const loc = await Location.getCurrentPositionAsync({
+          accuracy: Location.Accuracy.Balanced,
+        });
+        const label = gpsLocationLabel ?? 'Current location';
+        await recordRecentLocation({
+          lat: loc.coords.latitude,
+          lon: loc.coords.longitude,
+          label,
+        });
+      }
+    } catch {
+      /* non-fatal */
+    }
+  }, [coords, useCustom, clearSavedLocation, setIgnoreGps, gpsLocationLabel]);
 
   const handleHowFishingPress = useCallback(() => {
     if (!hasSubscription) {
@@ -305,7 +338,6 @@ export default function HomeScreen() {
 
   const handleRequestLocation = useCallback(async () => {
     if (__DEV__) {
-      await clearOverride();
       await setIgnoreGps(false);
     }
     const { status } = await Location.requestForegroundPermissionsAsync();
@@ -314,7 +346,7 @@ export default function HomeScreen() {
       accuracy: Location.Accuracy.Balanced,
     });
     setGpsCoords({ lat: loc.coords.latitude, lon: loc.coords.longitude });
-  }, [clearOverride, setIgnoreGps]);
+  }, [setIgnoreGps]);
 
   const isCoastal = coords ? isCoastalContextEligible(coords.lat, coords.lon) : false;
 

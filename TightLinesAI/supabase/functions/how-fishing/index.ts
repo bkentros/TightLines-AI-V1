@@ -15,6 +15,10 @@ import {
   type HowsFishingReport,
 } from "../_shared/howFishingEngine/index.ts";
 import {
+  clearDriverLabelSeed,
+  setDriverLabelSeed,
+} from "../_shared/howFishingEngine/score/driverLabels.ts";
+import {
   estimatePolishCostUsd,
   LLM_MODEL,
 } from "../_shared/howFishingPolish/mod.ts";
@@ -22,6 +26,7 @@ import {
   buildNarrationBrief,
   type TipFocusLane,
 } from "../_shared/howFishingEngine/narration/buildNarrationBrief.ts";
+import { fetchOpenMeteo14Day } from "../_shared/openMeteo14DayFetch.ts";
 
 const USAGE_CAP_ANGLER_USD = 1;
 const USAGE_CAP_MASTER_ANGLER_USD = 3;
@@ -101,6 +106,8 @@ Your voice is warm and direct. Occasionally enthusiastic on great days, honest a
 
 Never use internal data labels, technical jargon, or score numbers in any field. Write natural, conversational English. Always second person (“you”, “your”).
 
+Temperature rules: NEVER state a numeric water temperature (no degrees for water). Only the brief may include numeric AIR temperature, labeled as air. For how the water feels, use words only — warm, cool, cold, hot, chilly — never a number attached to water.
+
 Output exactly this JSON — no extra fields, no markdown:
 {“summary_line”:”...”,”driver_labels”:[“...”],”suppressor_labels”:[“...”],”timing_insight”:”...”,”solunar_note”:”...”,”actionable_tip”:”...”}
 
@@ -164,6 +171,31 @@ function pickTipFocus(): { lane: TipFocusLane; instruction: string } {
   const lane = lanes[Math.floor(Math.random() * lanes.length)]!;
   const pool = TIP_FOCUS_INSTRUCTIONS[lane];
   return { lane, instruction: pool[Math.floor(Math.random() * pool.length)]! };
+}
+
+/** Capitalize sentence starts after . ; ! ? for driver/suppressor lines. */
+function formatFactorLabel(s: string): string {
+  if (!s || !s.trim()) return s;
+  return s
+    .split(/(?<=[.;!?])\s+/)
+    .map((sentence) => {
+      const t = sentence.trimStart();
+      if (!t) return sentence;
+      const lead = sentence.length - t.length;
+      return sentence.slice(0, lead) + t.charAt(0).toUpperCase() + t.slice(1);
+    })
+    .join(" ");
+}
+
+/** Best-effort removal of hallucinated numeric water-temperature claims from user-facing copy. */
+function stripNumericWaterTempNarration(text: string): string {
+  if (!text) return text;
+  let s = text;
+  s = s.replace(/\b\d{1,3}\s*°?\s*F?\s*[-\s]?degree\s+water\b/gi, "warm water");
+  s = s.replace(/\b\d{1,3}\s*°\s*water\b/gi, "warm water");
+  s = s.replace(/\bwater\s+(?:temp(?:erature)?s?|temperature)\s*(?:of|at|around|near|about|is)?\s*\d{1,3}\s*°?\s*F?\b/gi, "water conditions");
+  s = s.replace(/\bwater\s+(?:at|around|near|of|about)\s+\d{1,3}\s*°?\s*F?\b/gi, "water");
+  return s.replace(/\s{2,}/g, " ").trim();
 }
 
 /**
@@ -266,18 +298,35 @@ async function polishReportCopy(
       const rawSupps = Array.isArray(p.suppressor_labels) ? p.suppressor_labels : [];
       const capFirst = (s: string) =>
         s.length > 0 ? s.charAt(0).toUpperCase() + s.slice(1) : s;
+      const polishLine = (raw: string) =>
+        stripNumericWaterTempNarration(formatFactorLabel(capFirst(raw.slice(0, 120))));
       const driverLabels = rawDrivers
         .slice(0, positiveCount)
-        .map((l) => (typeof l === "string" ? capFirst(l.slice(0, 120)) : ""));
+        .map((l) => (typeof l === "string" ? polishLine(l) : ""));
       const suppressorLabels = rawSupps
         .slice(0, limitingCount)
-        .map((l) => (typeof l === "string" ? capFirst(l.slice(0, 120)) : ""));
+        .map((l) => (typeof l === "string" ? polishLine(l) : ""));
 
-      const timingInsight = typeof p.timing_insight === "string" ? p.timing_insight.slice(0, 200) : "";
-      const solunarNote = typeof p.solunar_note === "string" ? p.solunar_note.slice(0, 160) : "";
+      const timingInsight = stripNumericWaterTempNarration(
+        typeof p.timing_insight === "string" ? p.timing_insight.slice(0, 200) : "",
+      );
+      const solunarNote = stripNumericWaterTempNarration(
+        typeof p.solunar_note === "string" ? p.solunar_note.slice(0, 160) : "",
+      );
+      const summaryClean = stripNumericWaterTempNarration(summary);
+      const tipClean = stripNumericWaterTempNarration(tip);
 
-      if (summary && tip) {
-        return { summary, driverLabels, suppressorLabels, timingInsight, solunarNote, tip, inT, outT };
+      if (summaryClean && tipClean) {
+        return {
+          summary: summaryClean,
+          driverLabels,
+          suppressorLabels,
+          timingInsight,
+          solunarNote,
+          tip: tipClean,
+          inT,
+          outT,
+        };
       }
     } catch {
       /* fall through to null */
@@ -387,8 +436,7 @@ Deno.serve(async (req: Request) => {
       { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders() } }
     );
   }
-  const envData = body.env_data as Record<string, unknown>;
-  const timezone = extractTimezone(envData);
+  let envData = body.env_data as Record<string, unknown>;
 
   // day_offset > 0 means this is a forecast day report, not today's report.
   // target_date: caller-supplied YYYY-MM-DD for the forecast day.
@@ -398,6 +446,26 @@ Deno.serve(async (req: Request) => {
   const targetDateStr = dayOffset > 0 && typeof body.target_date === "string" && body.target_date.length === 10
     ? body.target_date
     : null;
+
+  // Forecast-day reports: replace Open-Meteo-derived fields with a fresh server fetch so
+  // scores match forecast-scores and client env_data cannot drift or omit hourly wind.
+  if (dayOffset > 0) {
+    const om = await fetchOpenMeteo14Day(lat, lon, "imperial");
+    if (om?.weather) {
+      envData = {
+        ...envData,
+        timezone: om.timezone ?? envData.timezone,
+        tz_offset_hours: om.tz_offset_hours ?? envData.tz_offset_hours,
+        weather: om.weather,
+        hourly_pressure_mb: om.hourly_pressure_mb ?? [],
+        hourly_air_temp_f: om.hourly_air_temp_f ?? [],
+        hourly_cloud_cover_pct: om.hourly_cloud_cover_pct ?? [],
+        hourly_wind_speed: om.hourly_wind_speed ?? [],
+      };
+    }
+  }
+
+  const timezone = extractTimezone(envData);
   const localDate = targetDateStr ?? localDateInTz(timezone);
 
   const locationName = typeof body.location_name === "string" && body.location_name.length > 0
@@ -417,25 +485,36 @@ Deno.serve(async (req: Request) => {
     outT: number;
   }> {
     const sharedReq = buildSharedEngineRequestFromEnvData(lat, lon, localDate, timezone, ctx, envData, dayOffset);
-    let report = runHowFishingReport(sharedReq);
+    const labelSeed =
+      `${localDate}|${ctx}|${sharedReq.region_key}|${lat.toFixed(4)}|${lon.toFixed(4)}`;
+    setDriverLabelSeed(labelSeed);
+    let report: HowsFishingReport;
+    try {
+      report = runHowFishingReport(sharedReq);
+    } finally {
+      clearDriverLabelSeed();
+    }
     let inT = 0;
     let outT = 0;
+    let polishedApplied = false;
+    const engineDriver = (s: string) => stripNumericWaterTempNarration(formatFactorLabel(s));
     if (openaiKey) {
       try {
         const polished = await polishReportCopy(openaiKey, report, locationName, localDate);
         if (polished) {
+          polishedApplied = true;
           // Apply LLM-voiced labels to drivers and suppressors (fallback to engine label if count short)
           const updatedDrivers = report.drivers.map((d, i) => ({
             ...d,
             label: polished.driverLabels[i] && polished.driverLabels[i].length > 0
               ? polished.driverLabels[i]
-              : d.label,
+              : engineDriver(d.label),
           }));
           const updatedSuppressors = report.suppressors.map((s, i) => ({
             ...s,
             label: polished.suppressorLabels[i] && polished.suppressorLabels[i].length > 0
               ? polished.suppressorLabels[i]
-              : s.label,
+              : engineDriver(s.label),
           }));
           report = {
             ...report,
@@ -453,6 +532,15 @@ Deno.serve(async (req: Request) => {
         // Never fail the whole report if narration/OpenAI hiccups — ship engine copy.
         console.error("[how-fishing] polish path failed, using engine copy:", ctx, e);
       }
+    }
+    if (!polishedApplied) {
+      report = {
+        ...report,
+        drivers: report.drivers.map((d) => ({ ...d, label: engineDriver(d.label) })),
+        suppressors: report.suppressors.map((s) => ({ ...s, label: engineDriver(s.label) })),
+        summary_line: stripNumericWaterTempNarration(report.summary_line),
+        actionable_tip: stripNumericWaterTempNarration(report.actionable_tip),
+      };
     }
     return { report, inT, outT };
   }

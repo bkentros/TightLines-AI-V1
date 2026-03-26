@@ -10,6 +10,7 @@
  */
 
 import type { HowsFishingReport } from "../contracts/report.ts";
+import { engineScoreTier, ENGINE_SCORE_EPSILON } from "../score/engineScoreMath.ts";
 
 export type TipFocusLane =
   | "offering_size_profile"
@@ -83,12 +84,28 @@ function variableToPlain(
 ): string {
   switch (key) {
     case "temperature_condition": {
-      const t = tempF != null ? `${Math.round(tempF)}°F — ` : "";
+      const t = tempF != null ? `${Math.round(tempF)}°F air — ` : "";
       if (label === "optimal") return `${t}right in the seasonal range`;
-      if (label === "warm") return `${t}running warm, metabolism is up`;
+      if (label === "warm") {
+        if (score >= 1) return `${t}running warm, metabolism is up`;
+        if (score >= ENGINE_SCORE_EPSILON) {
+          return `${t}warming side of normal — still a fishable thermal band`;
+        }
+        return `${t}warm for the calendar but thermally tempered — not a big heat penalty`;
+      }
       if (label === "cool") return `${t}a bit below average, slightly slower bite`;
-      if (label === "very_warm") return `${t}quite hot — activity windows are narrow`;
-      if (label === "very_cold" || label === "cold") return `${t}well below seasonal range — fish are sluggish`;
+      if (label === "very_warm") {
+        if (score <= -ENGINE_SCORE_EPSILON) {
+          return `${t}quite hot — activity windows are narrow`;
+        }
+        if (score <= ENGINE_SCORE_EPSILON) {
+          return `${t}hot for the date — warmth is a headwind but not extreme on the model`;
+        }
+        return `${t}upper warm range — monitor low-light and comfort water`;
+      }
+      if (label === "very_cold" || label === "cold") {
+        return `${t}well below seasonal range — fish are sluggish`;
+      }
       return `${t}${label.replace(/_/g, " ")}`;
     }
     case "pressure_regime": {
@@ -102,34 +119,42 @@ function variableToPlain(
       return label.replace(/_/g, " ");
     }
     case "wind_condition": {
-      if (score >= 2) return "glass calm — great for delicate presentations";
-      if (score === 1) return "light breeze — ripple without the problems";
-      if (score === 0) return "moderate — manageable but needs attention";
-      if (score === -1) return "building strong — boat control and casting take more effort";
+      const wt = engineScoreTier(score);
+      if (wt === 2) return "glass calm — great for delicate presentations";
+      if (wt === 1) return "light breeze — ripple without the problems";
+      if (wt === 0) return "moderate — manageable but needs attention";
+      if (wt === -1) return "building strong — boat control and casting take more effort";
       return "very strong — safety and sheltered water are the priority";
     }
     case "light_cloud_condition": {
-      if (score >= 2) return "heavy overcast — low light keeps fish active and less cautious";
-      if (score === 1) return "helpful cloud cover — softened light extends feeding periods";
-      if (score === 0) return "mixed sky — average light, no strong edge either way";
-      if (score === -1) return "bright and clear — fish may hold tighter to shade and cover";
+      const lt = engineScoreTier(score);
+      if (lt === 2) return "heavy overcast — low light keeps fish active and less cautious";
+      if (lt === 1) return "helpful cloud cover — softened light extends feeding periods";
+      if (lt === 0) return "mixed sky — average light, no strong edge either way";
+      if (lt === -1) return "bright and clear — fish may hold tighter to shade and cover";
       return "direct sun and glare — fish are most cautious right now";
     }
     case "precipitation_disruption": {
-      if (score >= 1) return "dry stretch — water is stable and predictable";
-      if (score === 0) return "light rain or recent wet weather — minor effect";
-      if (score === -1) return "recent rain affecting water clarity and fish position";
+      const pt = engineScoreTier(score);
+      if (pt >= 1) return "dry stretch — water is stable and predictable";
+      if (pt === 0) return "light rain or recent wet weather — minor effect";
+      if (pt === -1) return "recent rain affecting water clarity and fish position";
       return "heavy rain or runoff — conditions are disrupted";
     }
     case "runoff_flow_disruption": {
-      if (score >= 1) return "flows are clear and fishable — normal river patterns apply";
-      if (score === 0) return "elevated flows — fish are pushed toward slower water";
+      const rt = engineScoreTier(score);
+      if (rt >= 1) return "flows are clear and fishable — normal river patterns apply";
+      if (rt === 0) return "elevated flows — fish are pushed toward slower water";
       return "high or dirty water — visibility and access are limited";
     }
     case "tide_current_movement": {
-      if (score >= 2) return "strong tidal exchange — baitfish and predators are moving";
-      if (score === 1) return "good tidal movement — current is working in your favor";
-      if (score === 0) return "moderate exchange — average tide day";
+      if (score >= 1.5) {
+        return "strong tidal exchange — baitfish and predators are moving";
+      }
+      if (score >= 0.5) {
+        return "good tidal movement — current is working in your favor";
+      }
+      if (score > -0.5) return "moderate exchange — average tide day";
       return "slack or minimal tide — current isn't helping today";
     }
     default:
@@ -152,7 +177,7 @@ function deriveDominantPattern(report: HowsFishingReport): string {
   const tempBand = ctx.temperature_band;
 
   if (pl === "falling_moderate" || pl === "falling_slow") {
-    return (lightVar && lightVar.engine_score >= 1)
+    return (lightVar && lightVar.engine_score >= ENGINE_SCORE_EPSILON)
       ? "Pressure easing + overcast sky — a textbook setup for an active bite"
       : "Pressure easing ahead of a weather change — fish often feed up in this window";
   }
@@ -168,10 +193,10 @@ function deriveDominantPattern(report: HowsFishingReport): string {
   if (metab === "cold_limited" || tempBand === "very_cold") {
     return "Cold conditions are keeping fish sluggish — slow and methodical is the call";
   }
-  if (windVar && windVar.engine_score <= -2) {
+  if (windVar && windVar.engine_score <= -1.5) {
     return "Strong wind is the main challenge — sheltered water makes all the difference today";
   }
-  if (lightVar && lightVar.engine_score >= 2) {
+  if (lightVar && lightVar.engine_score >= 1.5) {
     return "Heavy cloud deck keeps light low — fish stay active well past normal windows";
   }
   if (report.score >= 75) return "Several conditions are aligned — a strong overall day";
@@ -273,25 +298,27 @@ function deriveTipContextFromVariables(
 
     switch (key) {
       // ── Wind ──────────────────────────────────────────────────────────────
-      case "wind_condition":
-        if (score >= 2) {
+      case "wind_condition": {
+        const wt = engineScoreTier(score);
+        if (wt === 2) {
           hints.push(
             "Calm water: ultra-subtle presentations shine — fish detect the lightest touch; finesse-friendly environment.",
           );
-        } else if (score === -1) {
+        } else if (wt === -1) {
           hints.push(
             "Strong wind: heavier or more compact offerings cut through better; long slow drifts lose control in chop; shorter snappier cadences outperform.",
           );
-        } else if (score <= -2) {
+        } else if (wt === -2) {
           hints.push(
             "Very strong wind: heavy compact presentations only — anything light or slow gets blown off course.",
           );
         }
         break;
+      }
 
       // ── Light / Cloud ──────────────────────────────────────────────────────
       case "light_cloud_condition":
-        if (score >= 2) {
+        if (score >= 1.5) {
           if (metabolicDemandsSlowFinesse) {
             // Overcast is a positive light condition, but metabolic state overrides pace
             hints.push(
@@ -302,7 +329,7 @@ function deriveTipContextFromVariables(
               "Heavy overcast: fish are less cautious — bolder profiles and more assertive retrieves earn more than usual.",
             );
           }
-        } else if (score <= -1) {
+        } else if (score <= -ENGINE_SCORE_EPSILON) {
           hints.push(
             "Bright/clear conditions: fish can see everything — natural subtle profiles and slower deliberate pacing outperform loud or bulky presentations.",
           );
@@ -311,11 +338,11 @@ function deriveTipContextFromVariables(
 
       // ── Precipitation ──────────────────────────────────────────────────────
       case "precipitation_disruption":
-        if (score <= -1) {
+        if (score <= -ENGINE_SCORE_EPSILON) {
           hints.push(
             "Stained or disrupted water: larger more visible offerings with extra vibration help fish locate the bait; slow down near calmer edges.",
           );
-        } else if (score >= 1) {
+        } else if (score >= ENGINE_SCORE_EPSILON) {
           hints.push(
             "Clear stable water: fish can inspect freely — size restraint and natural presentation beat loud or oversized profiles.",
           );
@@ -324,11 +351,11 @@ function deriveTipContextFromVariables(
 
       // ── Runoff / River Flow ────────────────────────────────────────────────
       case "runoff_flow_disruption":
-        if (score <= -1) {
+        if (score <= -ENGINE_SCORE_EPSILON) {
           hints.push(
             "High or dirty water: bump up size and visibility so fish can find the offering; slow the pace near slack pockets where fish have retreated.",
           );
-        } else if (score >= 1) {
+        } else if (score >= ENGINE_SCORE_EPSILON) {
           hints.push(
             "Clear fishable flows: fish can see precisely — natural sizes and deliberate presentation beat power-covering water.",
           );
@@ -337,7 +364,7 @@ function deriveTipContextFromVariables(
 
       // ── Tide / Current ────────────────────────────────────────────────────
       case "tide_current_movement":
-        if (score >= 1) {
+        if (score >= ENGINE_SCORE_EPSILON) {
           if (metabolicDemandsSlowFinesse) {
             // Active tide suggests pace-matching, but metabolic state demands slow
             hints.push(
@@ -348,7 +375,7 @@ function deriveTipContextFromVariables(
               "Active tidal current: pace the retrieve to work with the flow — matching or slightly exceeding current speed often triggers more than fighting it.",
             );
           }
-        } else if (score <= -1) {
+        } else if (score <= -ENGINE_SCORE_EPSILON) {
           hints.push(
             "Minimal current today: no flow to concentrate fish — precise methodical presentation beats covering water fast; fish aren't stacked by current.",
           );
@@ -463,6 +490,9 @@ export function buildNarrationBrief(
     "",
     "FISHING CONDITIONS BRIEF",
     "═══════════════════════",
+    "HARD RULES — TEMPERATURE",
+    "Any numeric temperature in this brief is AIR temperature from weather data, not measured water. Never write a numeric water temperature (no °F/°C for water). You may describe water qualitatively only: warm, cool, cold, hot, chilly — no numbers tied to water.",
+    "",
     `Location: ${locationName ?? `${report.location.latitude.toFixed(2)}, ${report.location.longitude.toFixed(2)}`}`,
     `Water type: ${contextToPlain(report.context)}`,
     `Season: ${season}`,

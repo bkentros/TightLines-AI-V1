@@ -12,6 +12,15 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import type { EnvironmentData } from './types';
 import { CACHE_TTL_MS, ENV_CACHE_KEY, CACHE_COORD_PRECISION } from './constants';
 
+/** Clear the single global env payload (live conditions / get-environment cache). */
+export async function clearEnvCache(): Promise<void> {
+  try {
+    await AsyncStorage.removeItem(ENV_CACHE_KEY);
+  } catch {
+    // non-fatal
+  }
+}
+
 export interface CachedEnvPayload {
   latitude: number;
   longitude: number;
