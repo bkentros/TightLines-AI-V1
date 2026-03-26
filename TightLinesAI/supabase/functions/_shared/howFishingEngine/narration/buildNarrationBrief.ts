@@ -230,21 +230,40 @@ function seasonFromDate(iso: string): string {
 
 /**
  * Translates every scored variable into an explicit mechanical hint for the tip.
- * This is the full anti-contradiction layer — covers all variables, not just
- * temperature. The LLM tip must be consistent with every hint returned here.
  *
- * Coverage:
+ * CONFLICT RESOLUTION: metabolicState is passed in and acts as the highest authority.
+ * When a variable hint would conflict with the metabolic constraint (e.g. overcast
+ * saying "assertive retrieves" while cold_limited says "never fast"), the hint is
+ * rewritten to align with metabolicState rather than contradict it. The LLM never
+ * receives two instructions that point in opposite directions.
+ *
+ * Priority order:
+ *   1. metabolicState (temperature + pressure + score — fish physiology)
+ *   2. variable-specific mechanical hints (environment demands)
+ *   3. tip lane instruction (what aspect of technique to address)
+ *
+ * Coverage per variable:
  *   wind          → calm = finesse-friendly; strong = compact/heavy; very strong = no drifts
- *   light/cloud   → overcast = bolder/assertive OK; bright/glare = subtle/natural mandatory
- *   precipitation → stained water = bigger/vibration; clear water = size restraint rewarded
+ *   light/cloud   → overcast = bolder OK (unless constrained); bright/glare = subtle mandatory
+ *   precipitation → stained = bigger/vibration; clear = size restraint
  *   runoff/flow   → high/dirty = bump size + slow near slack; clear = precise/natural
- *   tide          → active = match the current pace; slack = methodical not fast
- *   pressure      → falling_hard = reaction triggers, short window; volatile = decisive not slow;
- *                   rising_slow = start subtle, build confidence
+ *   tide          → active = match flow pace (unless constrained); slack = methodical
+ *   pressure      → falling_hard = short decisive window; volatile = compact/quick;
+ *                   rising_slow = start subtle, build
  */
-function deriveTipContextFromVariables(report: HowsFishingReport): string[] {
+function deriveTipContextFromVariables(
+  report: HowsFishingReport,
+  metabolicState: MetabolicState,
+): string[] {
   const cc = report.condition_context;
   if (!cc) return [];
+
+  // Whether the metabolic state mandates slow/finesse — used to resolve conflicts
+  const metabolicDemandsSlowFinesse =
+    metabolicState === "cold_limited" ||
+    metabolicState === "post_front_recovery" ||
+    metabolicState === "tough";
+
   const hints: string[] = [];
 
   for (const norm of cc.normalized_variable_scores) {
@@ -253,10 +272,11 @@ function deriveTipContextFromVariables(report: HowsFishingReport): string[] {
     const label = norm.engine_label;
 
     switch (key) {
+      // ── Wind ──────────────────────────────────────────────────────────────
       case "wind_condition":
         if (score >= 2) {
           hints.push(
-            "Calm water: ultra-subtle presentations shine here — fish detect even the lightest touch; this is a finesse-friendly environment.",
+            "Calm water: ultra-subtle presentations shine — fish detect the lightest touch; finesse-friendly environment.",
           );
         } else if (score === -1) {
           hints.push(
@@ -269,11 +289,19 @@ function deriveTipContextFromVariables(report: HowsFishingReport): string[] {
         }
         break;
 
+      // ── Light / Cloud ──────────────────────────────────────────────────────
       case "light_cloud_condition":
         if (score >= 2) {
-          hints.push(
-            "Heavy overcast: fish are less cautious — bolder profiles and more assertive retrieves earn more than usual; fish aren't inspecting as closely.",
-          );
+          if (metabolicDemandsSlowFinesse) {
+            // Overcast is a positive light condition, but metabolic state overrides pace
+            hints.push(
+              "Heavy overcast: bolder profiles can help fish locate the offering — but keep the pace slow; metabolic conditions demand patience over aggression.",
+            );
+          } else {
+            hints.push(
+              "Heavy overcast: fish are less cautious — bolder profiles and more assertive retrieves earn more than usual.",
+            );
+          }
         } else if (score <= -1) {
           hints.push(
             "Bright/clear conditions: fish can see everything — natural subtle profiles and slower deliberate pacing outperform loud or bulky presentations.",
@@ -281,10 +309,11 @@ function deriveTipContextFromVariables(report: HowsFishingReport): string[] {
         }
         break;
 
+      // ── Precipitation ──────────────────────────────────────────────────────
       case "precipitation_disruption":
         if (score <= -1) {
           hints.push(
-            "Stained or disrupted water: larger more visible offerings with extra vibration help fish locate the bait; slow down near the calmer edges.",
+            "Stained or disrupted water: larger more visible offerings with extra vibration help fish locate the bait; slow down near calmer edges.",
           );
         } else if (score >= 1) {
           hints.push(
@@ -293,6 +322,7 @@ function deriveTipContextFromVariables(report: HowsFishingReport): string[] {
         }
         break;
 
+      // ── Runoff / River Flow ────────────────────────────────────────────────
       case "runoff_flow_disruption":
         if (score <= -1) {
           hints.push(
@@ -300,16 +330,24 @@ function deriveTipContextFromVariables(report: HowsFishingReport): string[] {
           );
         } else if (score >= 1) {
           hints.push(
-            "Clear fishable flows: fish can see precisely — natural sizes and colors, and a deliberate drift or retrieve, beat power-covering water.",
+            "Clear fishable flows: fish can see precisely — natural sizes and deliberate presentation beat power-covering water.",
           );
         }
         break;
 
+      // ── Tide / Current ────────────────────────────────────────────────────
       case "tide_current_movement":
         if (score >= 1) {
-          hints.push(
-            "Active tidal current: pace the retrieve to work with the flow — matching or slightly exceeding current speed often triggers more than fighting it.",
-          );
+          if (metabolicDemandsSlowFinesse) {
+            // Active tide suggests pace-matching, but metabolic state demands slow
+            hints.push(
+              "Active tidal current: use the flow to drift your presentation slowly and naturally — don't speed up to match current; metabolic conditions require a measured pace.",
+            );
+          } else {
+            hints.push(
+              "Active tidal current: pace the retrieve to work with the flow — matching or slightly exceeding current speed often triggers more than fighting it.",
+            );
+          }
         } else if (score <= -1) {
           hints.push(
             "Minimal current today: no flow to concentrate fish — precise methodical presentation beats covering water fast; fish aren't stacked by current.",
@@ -317,15 +355,29 @@ function deriveTipContextFromVariables(report: HowsFishingReport): string[] {
         }
         break;
 
+      // ── Pressure ──────────────────────────────────────────────────────────
       case "pressure_regime":
         if (label === "falling_hard") {
-          hints.push(
-            "Pressure dropping hard: short window — decisive reaction-style presentations outperform slow drawn-out sequences; fish can go off the bite quickly.",
-          );
+          if (metabolicDemandsSlowFinesse) {
+            // Fast-dropping pressure normally calls for reaction triggers, but metabolic state overrides
+            hints.push(
+              "Pressure dropping hard: short window, but metabolic conditions require slow deliberate presentations — short precise moves over fast reaction triggers.",
+            );
+          } else {
+            hints.push(
+              "Pressure dropping hard: short window — decisive reaction-style presentations outperform slow drawn-out sequences; fish can go off the bite quickly.",
+            );
+          }
         } else if (label === "volatile") {
-          hints.push(
-            "Unsettled pressure: commitment windows are short — compact decisive presentations beat slow ones; don't linger in one retrieve pattern.",
-          );
+          if (metabolicDemandsSlowFinesse) {
+            hints.push(
+              "Unsettled pressure: commitment windows are short — keep presentations brief and deliberate; slow finesse over fast covering.",
+            );
+          } else {
+            hints.push(
+              "Unsettled pressure: commitment windows are short — compact decisive presentations beat slow drawn-out ones; don't linger on one retrieve pattern.",
+            );
+          }
         } else if (label === "rising_slow") {
           hints.push(
             "Pressure slowly recovering: fish are gradually re-engaging — start subtle and build toward more confident presentations as the session progresses.",
@@ -333,7 +385,7 @@ function deriveTipContextFromVariables(report: HowsFishingReport): string[] {
         }
         break;
 
-      // temperature_condition tip context is already handled by metabolicConstraint()
+      // temperature_condition tip context is handled by metabolicConstraint()
       default:
         break;
     }
@@ -443,10 +495,10 @@ export function buildNarrationBrief(
     `Instruction: ${tipInstruction}`,
     `Fish activity / metabolic state: ${metabolicConstraint(metabolicState, report.band)}`,
     ...(() => {
-      const hints = deriveTipContextFromVariables(report);
+      const hints = deriveTipContextFromVariables(report, metabolicState);
       if (hints.length === 0) return [];
       return [
-        "Mechanical context — your tip must be consistent with ALL of these:",
+        "Mechanical context — your tip must be consistent with ALL of these (already resolved against metabolic state above — no conflicts):",
         ...hints.map((h) => `  • ${h}`),
       ];
     })(),
