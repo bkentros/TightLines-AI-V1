@@ -56,8 +56,8 @@ async function fetchOpenMeteoForecast(
   const params = new URLSearchParams({
     latitude: String(lat),
     longitude: String(lon),
-    // Hourly: pressure (48h window per day), cloud cover, precip, wind
-    hourly: "pressure_msl,cloud_cover,wind_speed_10m,precipitation",
+    // Hourly: pressure (48h window per day), cloud cover, precip, wind, actual temp
+    hourly: "temperature_2m,pressure_msl,cloud_cover,wind_speed_10m,precipitation",
     // Daily: temp highs/lows, precip totals, max wind, dates
     daily: "temperature_2m_max,temperature_2m_min,precipitation_sum,wind_speed_10m_max",
     temperature_unit: "fahrenheit",
@@ -67,15 +67,25 @@ async function fetchOpenMeteoForecast(
     forecast_days: "7", // indices 2-8 (today + 6 ahead)
   });
   const url = `https://api.open-meteo.com/v1/forecast?${params.toString()}`;
-  try {
-    const res = await fetch(url, {
-      headers: { "User-Agent": "TightLinesAI/2.0 (fishing app)" },
-    });
-    if (!res.ok) return null;
-    return await res.json();
-  } catch {
-    return null;
+  const MAX_RETRIES = 3;
+  const RETRY_DELAY_MS = 600;
+  for (let attempt = 0; attempt < MAX_RETRIES; attempt++) {
+    try {
+      const res = await fetch(url, {
+        headers: { "User-Agent": "TightLinesAI/2.0 (fishing app)" },
+        signal: AbortSignal.timeout(10_000),
+      });
+      if (res.ok) return await res.json();
+      // 5xx = transient server error — retry; 4xx = bad request — bail immediately
+      if (res.status < 500) return null;
+    } catch {
+      // Network error or timeout — will retry
+    }
+    if (attempt < MAX_RETRIES - 1) {
+      await new Promise((r) => setTimeout(r, RETRY_DELAY_MS * (attempt + 1)));
+    }
   }
+  return null;
 }
 
 Deno.serve(async (req: Request) => {
@@ -133,6 +143,9 @@ Deno.serve(async (req: Request) => {
     (v) => num(v) ?? 0,
   );
   const dailyWindMax = ((daily.wind_speed_10m_max ?? []) as (number | null)[]).map(
+    (v) => num(v) ?? 0,
+  );
+  const hourlyTemp = ((hourly.temperature_2m ?? []) as (number | null)[]).map(
     (v) => num(v) ?? 0,
   );
   const hourlyPressure = ((hourly.pressure_msl ?? []) as (number | null)[]).map(
@@ -205,6 +218,12 @@ Deno.serve(async (req: Request) => {
     // Run engine for each context
     const scores: Record<string, number> = {};
     for (const context of CONTEXTS) {
+      // Use noon hourly temp as the representative air temp for this day.
+      // This matches how the full how-fishing report sources current temp,
+      // keeping 7-day forecast scores consistent with the detailed report score.
+      const noonTemp = safeNum(hourlyTemp, noonHourlyIdx);
+      const airTempF = noonTemp ?? dailyMean(dailyHighs, dailyLows, dailyIdx);
+
       const req: SharedEngineRequest = {
         latitude,
         longitude,
@@ -214,11 +233,17 @@ Deno.serve(async (req: Request) => {
         local_timezone: timezone,
         context,
         environment: {
-          daily_mean_air_temp_f: dailyMean(dailyHighs, dailyLows, dailyIdx),
+          daily_mean_air_temp_f: airTempF,
           prior_day_mean_air_temp_f:
-            dailyIdx > 0 ? dailyMean(dailyHighs, dailyLows, dailyIdx - 1) : null,
+            dailyIdx > 0
+              ? (safeNum(hourlyTemp, (dailyIdx - 1) * 24 + 12) ??
+                dailyMean(dailyHighs, dailyLows, dailyIdx - 1))
+              : null,
           day_minus_2_mean_air_temp_f:
-            dailyIdx > 1 ? dailyMean(dailyHighs, dailyLows, dailyIdx - 2) : null,
+            dailyIdx > 1
+              ? (safeNum(hourlyTemp, (dailyIdx - 2) * 24 + 12) ??
+                dailyMean(dailyHighs, dailyLows, dailyIdx - 2))
+              : null,
           pressure_mb: pressureNoon,
           pressure_history_mb: pressureSlice.length >= 2 ? pressureSlice : null,
           wind_speed_mph: windMean,

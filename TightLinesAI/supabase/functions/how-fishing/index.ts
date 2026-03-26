@@ -264,12 +264,14 @@ async function polishReportCopy(
       // Parse label arrays — must match expected counts; fall back gracefully
       const rawDrivers = Array.isArray(p.driver_labels) ? p.driver_labels : [];
       const rawSupps = Array.isArray(p.suppressor_labels) ? p.suppressor_labels : [];
+      const capFirst = (s: string) =>
+        s.length > 0 ? s.charAt(0).toUpperCase() + s.slice(1) : s;
       const driverLabels = rawDrivers
         .slice(0, positiveCount)
-        .map((l) => (typeof l === "string" ? l.slice(0, 120) : ""));
+        .map((l) => (typeof l === "string" ? capFirst(l.slice(0, 120)) : ""));
       const suppressorLabels = rawSupps
         .slice(0, limitingCount)
-        .map((l) => (typeof l === "string" ? l.slice(0, 120) : ""));
+        .map((l) => (typeof l === "string" ? capFirst(l.slice(0, 120)) : ""));
 
       const timingInsight = typeof p.timing_insight === "string" ? p.timing_insight.slice(0, 200) : "";
       const solunarNote = typeof p.solunar_note === "string" ? p.solunar_note.slice(0, 160) : "";
