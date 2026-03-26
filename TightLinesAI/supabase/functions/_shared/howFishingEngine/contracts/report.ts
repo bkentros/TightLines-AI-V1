@@ -126,6 +126,10 @@ export type HowsFishingReport = {
   };
   reliability: ReportReliabilityTier;
   reliability_note?: string | null;
+  /** LLM-generated timing insight — replaces engine daypart_note when available */
+  timing_insight?: string | null;
+  /** LLM-generated soft solunar context note */
+  solunar_note?: string | null;
   /** Env adapter notes (e.g. sparse hourly, timezone mismatch) — for QA and scans */
   data_coverage_notes?: string[];
   normalized_debug?: {
