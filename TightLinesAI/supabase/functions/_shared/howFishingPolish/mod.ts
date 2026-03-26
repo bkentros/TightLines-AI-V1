@@ -5,11 +5,15 @@
 import {
   applyConditionContextToEngineVerdict,
   compositeScoreActivityTier,
+  pickTipFocusFromEngine,
   type EngineContext,
   type HowsFishingReport,
 } from "../howFishingEngine/index.ts";
 import type { NarrationPayload } from "../howFishingEngine/contracts/mod.ts";
 import type { SharedEngineRequest } from "../howFishingEngine/contracts/input.ts";
+import type { TipFocusLane } from "../howFishingEngine/narration/buildNarrationBrief.ts";
+
+export type { TipFocusLane };
 
 export const REBUILD_LLM_SYSTEM = `You are the voice of TightLines AI — a confident, experienced fishing guide with real personality. You've been on the water all week. You have opinions. You give every angler an honest, specific read — not a polished summary.
 
@@ -139,12 +143,6 @@ export function estimatePolishCostUsd(promptTokens: number, completionTokens: nu
   ) / 1_000_000;
 }
 
-export type TipFocusLane =
-  | "offering_size_profile"
-  | "retrieval_method"
-  | "speed_aggression"
-  | "finesse_vs_power";
-
 /** Random source in [0, 1). Use `mulberry32Rng(seed)` for reproducible audits. */
 export type PolishRandom = {
   next: () => number;
@@ -210,43 +208,8 @@ const OPENER_ANGLES = [
   "Lead with the one thing that jumps off the data — the headline of the day.",
 ] as const;
 
-const TIP_FOCUS_INSTRUCTIONS: Record<TipFocusLane, readonly string[]> = {
-  offering_size_profile: [
-    "Make exactly ONE call on offering size or profile: downsize, upsize, slimmer bulk, more or less vibration/thump, heavier or lighter head *as tackle choice* — tied to today's drivers/suppressors. No depth or spot advice.",
-    "Commit to a profile change the data supports: smaller vs larger, subtler vs louder action, finesse plastic vs hard bait energy — one clear mechanical choice.",
-    "Name the size or silhouette shift that fits engine_verdict today (e.g. trim profile, bulk up, swap to something they can find without chasing).",
-  ],
-  retrieval_method: [
-    "Name ONE retrieve *pattern* to own today: steady wind, twitch-pause, rip-and-fall, dead drift, slow roll, short pops — pick one and justify with conditions in half a clause max.",
-    "Pick a single cadence recipe (e.g. two turns, pause, tick) vs steady crawl — the tip is the pattern, not the spot.",
-    "Choose between reaction-style snaps vs smooth continuous motion — one method only, spelled out so they can replicate it.",
-  ],
-  speed_aggression: [
-    "Pick ONE pace: crawl, slow, medium steady, fast, aggressive rip — what speed matches fish_activity_level and the top suppressors today?",
-    "Commit to slower *or* more aggressive rod work on the retrieve — not both as equals; one dominant speed story.",
-    "Should they earn bites with patience or trigger them with tempo? One explicit speed call.",
-  ],
-  finesse_vs_power: [
-    "Finesse vs power on the *rod and retrieve*: light touch, long hangs vs confident snaps — one stance for today.",
-    "Delicate vs authoritative with the same lure family — which side does the score and temperature story support?",
-    "Soft hands and micro-movements vs assertive strips — pick the side and name what that looks like mechanically.",
-  ],
-};
-
 function pickIndex(len: number, rng: PolishRandom): number {
   return Math.min(len - 1, Math.floor(rng.next() * len));
-}
-
-export function pickTipFocus(rng: PolishRandom): { lane: TipFocusLane; instruction: string } {
-  const lanes: TipFocusLane[] = [
-    "offering_size_profile",
-    "retrieval_method",
-    "speed_aggression",
-    "finesse_vs_power",
-  ];
-  const lane = lanes[pickIndex(lanes.length, rng)]!;
-  const pool = TIP_FOCUS_INSTRUCTIONS[lane];
-  return { lane, instruction: pool[pickIndex(pool.length, rng)]! };
 }
 
 export function narrationDiversitySeed(
@@ -434,7 +397,7 @@ export function buildPolishUserMessage(
   const weatherSnap = buildWeatherSnapshot(envData);
 
   const openerAngle = OPENER_ANGLES[pickIndex(OPENER_ANGLES.length, rng)]!;
-  const tipFocus = pickTipFocus(rng);
+  const tipFocus = pickTipFocusFromEngine(report, rng);
   const voiceMode = VOICE_MODES[pickIndex(VOICE_MODES.length, rng)]!;
 
   const engineVerdict: Record<string, unknown> = {

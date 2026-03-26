@@ -10,6 +10,7 @@ import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import {
   buildSharedEngineRequestFromEnvData,
+  pickTipFocusFromEngine,
   runHowFishingReport,
   type EngineContext,
   type HowsFishingReport,
@@ -22,10 +23,7 @@ import {
   estimatePolishCostUsd,
   LLM_MODEL,
 } from "../_shared/howFishingPolish/mod.ts";
-import {
-  buildNarrationBrief,
-  type TipFocusLane,
-} from "../_shared/howFishingEngine/narration/buildNarrationBrief.ts";
+import { buildNarrationBrief } from "../_shared/howFishingEngine/narration/buildNarrationBrief.ts";
 import { fetchOpenMeteo14Day } from "../_shared/openMeteo14DayFetch.ts";
 
 const USAGE_CAP_ANGLER_USD = 1;
@@ -134,45 +132,6 @@ const OPENER_ANGLES = [
   "Lead with the one thing that jumps off the data — the headline of the day.",
 ];
 
-/**
- * Tip focus lanes — must match the four pillars in REBUILD_LLM_SYSTEM.
- * One lane is randomly assigned per API call so tips don't drift into location/timing/fish-psych.
- */
-const TIP_FOCUS_INSTRUCTIONS: Record<TipFocusLane, readonly string[]> = {
-  offering_size_profile: [
-    "Make exactly ONE call on offering size or profile: downsize, upsize, slimmer bulk, more or less vibration/thump, heavier or lighter head *as tackle choice* — tied to today's drivers/suppressors. No depth or spot advice.",
-    "Commit to a profile change the data supports: smaller vs larger, subtler vs louder action, finesse plastic vs hard bait energy — one clear mechanical choice.",
-    "Name the size or silhouette shift that fits engine_verdict today (e.g. trim profile, bulk up, swap to something they can find without chasing).",
-  ],
-  retrieval_method: [
-    "Name ONE retrieve *pattern* to own today: steady wind, twitch-pause, rip-and-fall, dead drift, slow roll, short pops — pick one and justify with conditions in half a clause max.",
-    "Pick a single cadence recipe (e.g. two turns, pause, tick) vs steady crawl — the tip is the pattern, not the spot.",
-    "Choose between reaction-style snaps vs smooth continuous motion — one method only, spelled out so they can replicate it.",
-  ],
-  speed_aggression: [
-    "Pick ONE pace: crawl, slow, medium steady, fast, aggressive rip — what speed matches fish_activity_level and the top suppressors today?",
-    "Commit to slower *or* more aggressive rod work on the retrieve — not both as equals; one dominant speed story.",
-    "Should they earn bites with patience or trigger them with tempo? One explicit speed call.",
-  ],
-  finesse_vs_power: [
-    "Finesse vs power on the *rod and retrieve*: light touch, long hangs vs confident snaps — one stance for today.",
-    "Delicate vs authoritative with the same lure family — which side does the score and temperature story support?",
-    "Soft hands and micro-movements vs assertive strips — pick the side and name what that looks like mechanically.",
-  ],
-};
-
-function pickTipFocus(): { lane: TipFocusLane; instruction: string } {
-  const lanes: TipFocusLane[] = [
-    "offering_size_profile",
-    "retrieval_method",
-    "speed_aggression",
-    "finesse_vs_power",
-  ];
-  const lane = lanes[Math.floor(Math.random() * lanes.length)]!;
-  const pool = TIP_FOCUS_INSTRUCTIONS[lane];
-  return { lane, instruction: pool[Math.floor(Math.random() * pool.length)]! };
-}
-
 /** Capitalize sentence starts after . ; ! ? for driver/suppressor lines. */
 function formatFactorLabel(s: string): string {
   if (!s || !s.trim()) return s;
@@ -232,7 +191,8 @@ async function polishReportCopy(
 } | null> {
   try {
     const date = localDate ?? report.location.local_date;
-    const tipFocus = pickTipFocus();
+    const tipRng = { next: () => Math.random() };
+    const tipFocus = pickTipFocusFromEngine(report, tipRng);
     const voiceMode = VOICE_MODES[Math.floor(Math.random() * VOICE_MODES.length)]!;
     const openerAngle = OPENER_ANGLES[Math.floor(Math.random() * OPENER_ANGLES.length)]!;
 

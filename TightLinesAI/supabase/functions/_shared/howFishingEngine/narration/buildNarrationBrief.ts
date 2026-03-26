@@ -24,7 +24,7 @@ export interface NarrationBriefResult {
   limitingCount: number;
 }
 
-type MetabolicState =
+export type MetabolicState =
   | "active"
   | "selective"
   | "cold_limited"
@@ -32,7 +32,7 @@ type MetabolicState =
   | "post_front_recovery"
   | "tough";
 
-function deriveMetabolicState(report: HowsFishingReport): MetabolicState {
+export function deriveMetabolicState(report: HowsFishingReport): MetabolicState {
   const ctx = report.condition_context;
   const score = report.score;
   if (ctx?.temperature_metabolic_context === "cold_limited") return "cold_limited";

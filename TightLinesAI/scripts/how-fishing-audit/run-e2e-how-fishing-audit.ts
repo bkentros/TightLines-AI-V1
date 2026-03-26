@@ -9,7 +9,7 @@
  *     how-fishing-e2e-audit.jsonl
  *
  * Options:
- *   --polish-seed 424242   — deterministic opener/voice/lane per row (combined with scenario id)
+ *   --polish-seed 424242   — deterministic opener/voice + weighted lane draw/instruction per row (combined with scenario id)
  *
  * Engine score regression: deno test --allow-read \
  *   supabase/functions/_shared/howFishingEngine/__tests__/scoreDeterminism.test.ts

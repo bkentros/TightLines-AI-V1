@@ -10,4 +10,10 @@ export { runHowFishingReport, runHowFishingScoreOnly } from "./runHowFishingRepo
 export { buildNarrationPayloadFromReport } from "./narration/buildNarrationPayload.ts";
 export { applyConditionContextToEngineVerdict } from "./narration/applyConditionContextToEngineVerdict.ts";
 export { compositeScoreActivityTier } from "./narration/compositeScoreTier.ts";
+export {
+  laneWeightsFromReport,
+  pickTipFocusFromEngine,
+  TIP_FOCUS_INSTRUCTIONS,
+} from "./narration/pickTipFocusFromEngine.ts";
+export type { TipFocusRng } from "./narration/pickTipFocusFromEngine.ts";
 export { scoreDay, bandFromScore } from "./score/scoreDay.ts";
