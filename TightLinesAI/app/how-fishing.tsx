@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useMemo } from 'react';
+import { useState, useEffect, useLayoutEffect, useCallback, useMemo } from 'react';
 import {
   View,
   Text,
@@ -65,6 +65,15 @@ const TAB_CONFIG: { key: EngineContextKey; label: string; icon: string; color: s
   { key: 'coastal', label: 'Coastal', icon: 'boat-outline', color: colors.contextCoastal },
 ];
 
+/** First tab order slot that actually has a bundle (handles partial API + stale coastal tab). */
+function firstContextWithReport(
+  bundles: Partial<Record<EngineContextKey, HowFishingRebuildBundle>>,
+  contexts: EngineContextKey[],
+): EngineContextKey | null {
+  const hit = contexts.find((c) => bundles[c] != null);
+  return hit ?? null;
+}
+
 export default function HowFishingScreen() {
   const router = useRouter();
   const params = useLocalSearchParams<{
@@ -110,6 +119,21 @@ export default function HowFishingScreen() {
   const [refreshing, setRefreshing] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
 
+  // Params can change without remounting this screen; coastal tab must drop when [lake,river] only.
+  useEffect(() => {
+    setActiveTab((prev) =>
+      availableContexts.includes(prev) ? prev : (availableContexts[0] ?? 'freshwater_lake_pond'),
+    );
+  }, [availableContexts]);
+
+  // Before paint: if the visible tab has no report (partial cache, race), jump to first tab that does.
+  useLayoutEffect(() => {
+    if (!multiBundles) return;
+    if (multiBundles[activeTab]) return;
+    const next = firstContextWithReport(multiBundles, availableContexts);
+    if (next) setActiveTab(next);
+  }, [multiBundles, activeTab, availableContexts]);
+
   // Load env + geocode on mount
   useEffect(() => {
     if (!hasCoords) return;
@@ -151,6 +175,8 @@ export default function HowFishingScreen() {
         const cached = await getCachedForecastRebuild(lat, lon, targetDate, availableContexts);
         if (cancelled) return;
         if (cached) {
+          const tab = firstContextWithReport(cached, availableContexts);
+          if (tab) setActiveTab(tab);
           setMultiBundles(cached);
           // Do NOT write to the in-memory today store — forecast days are separate
         } else {
@@ -161,6 +187,8 @@ export default function HowFishingScreen() {
       const cached = await getCachedMultiRebuild(lat, lon, availableContexts);
       if (cancelled) return;
       if (cached) {
+        const tab = firstContextWithReport(cached, availableContexts);
+        if (tab) setActiveTab(tab);
         setMultiBundles(cached);
         setCurrentMultiRebuild(lat, lon, cached);
       } else {
@@ -206,6 +234,15 @@ export default function HowFishingScreen() {
       }
 
       const bundles = multi.reports as Record<EngineContextKey, HowFishingRebuildBundle>;
+      const tabWithReport = firstContextWithReport(bundles, availableContexts);
+      if (!tabWithReport) {
+        const failed = multi.failed_contexts?.join(', ') ?? '';
+        throw new Error(
+          failed
+            ? `Reports failed for: ${failed}. Pull to refresh or try again.`
+            : 'No fishing report was returned for this location. Pull to refresh or try again.',
+        );
+      }
       if (isForecastDay && targetDate) {
         // Forecast day: write to dedicated (lat,lon,target_date,ctx) cache.
         // Expires at tonight's midnight — same-day re-opens are instant hits;
@@ -218,6 +255,7 @@ export default function HowFishingScreen() {
         setCurrentMultiRebuild(lat, lon, bundles);
       }
       setLastReportEnv(freshEnv);
+      setActiveTab(tabWithReport);
       setMultiBundles(bundles);
     } catch (err) {
       const msg = err instanceof Error ? err.message : 'Something went wrong.';

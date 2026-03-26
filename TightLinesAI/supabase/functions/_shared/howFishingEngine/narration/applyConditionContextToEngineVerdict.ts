@@ -18,8 +18,9 @@ export function applyConditionContextToEngineVerdict(
   if (cc.tide_detail) verdict.tide_detail = cc.tide_detail;
   verdict.region = cc.region_key;
   verdict.scored_variables_present = cc.available_variables;
-  if (cc.missing_variables.length > 0) {
-    verdict.data_gaps_variable_keys = cc.missing_variables;
+  const missing = cc.missing_variables;
+  if (Array.isArray(missing) && missing.length > 0) {
+    verdict.data_gaps_variable_keys = missing;
   }
   verdict.normalized_variable_scores = cc.normalized_variable_scores;
   verdict.composite_contributions = cc.composite_contributions;

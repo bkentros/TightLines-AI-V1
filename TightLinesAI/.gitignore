@@ -30,6 +30,12 @@ android/
 # One-off engine QA output (see npm run audit:how-fishing)
 how-fishing-audit-results.jsonl
 how-fishing-live-audit-results.jsonl
+how-fishing-e2e-audit*.jsonl
+how-fishing-e2e-audit*-cost-summary.json
+how-fishing-e2e-audit*-in-app.md
+how-fishing-core-regression.jsonl
+how-fishing-core-regression-cost-summary.json
+how-fishing-core-regression-in-app.md
 
 # Logs
 npm-debug.log*

@@ -36,7 +36,7 @@ import {
   evaluateSolunarWindow,
   evaluateFallbackBias,
 } from "./evaluators/mod.ts";
-import { pickTimingNote } from "./timingNotes.ts";
+import { pickTimingNote, synthesizeDaypartNoteForPeriods } from "./timingNotes.ts";
 import { adjacentMonthsBlend, collapsePeriodsToMaxTwo } from "./timingMonthBlend.ts";
 import { reconcileHeatStressTiming } from "./reconcileHeatStressTiming.ts";
 
@@ -173,13 +173,16 @@ function blendTwoTimingResults(
   const strength = blendTimingStrength(ra.timing_strength, rb.timing_strength, st);
   const winner = pickWinnerByStrength(ra, rb, st);
   const daypartPreset = mapToLegacyPreset(periods);
+  // Periods are blended from both months; the strength winner’s note can describe a different
+  // window (e.g. afternoon warmth) while tiles show morning — always align copy to final flags.
+  const daypartNote = synthesizeDaypartNoteForPeriods(periods);
 
   return {
     anchor_driver: winner.anchor_driver,
     timing_strength: strength,
     highlighted_periods: periods,
     daypart_preset: daypartPreset,
-    daypart_note: winner.daypart_note,
+    daypart_note: daypartNote,
     fallback_used: ra.fallback_used || rb.fallback_used,
     trace: {
       family_id: `${ra.trace.family_id}~${rb.trace.family_id}`,
@@ -201,7 +204,8 @@ function blendTwoTimingResults(
       fallback_used: ra.fallback_used || rb.fallback_used,
       selection_reason:
         `Blended (${(1 - st).toFixed(2)}×${ra.trace.family_id} + ${st.toFixed(2)}×${rb.trace.family_id}). ` +
-        `Narrative from ${winner === ra ? "earlier" : "later"} month family: ${winner.trace.selection_reason}`,
+        `Tiles merged from both families; daypart note synthesized from final flags. ` +
+        `Trace winner (${winner === ra ? "earlier" : "later"} month): ${winner.trace.selection_reason}`,
     },
   };
 }
@@ -308,6 +312,9 @@ function computeTimingForFamily(
   let daypartNote: string;
   if (anchorSignal.note_pool_key === "tide_exchange_specific" && anchorSignal.exchange_times) {
     daypartNote = buildTideExchangeNoteFromSignal(anchorSignal.exchange_times);
+  } else if (secondaryRole === "widener") {
+    // Widener OR’s in extra buckets; the anchor’s note_pool_key still describes the primary shape only.
+    daypartNote = synthesizeDaypartNoteForPeriods(highlightedPeriods);
   } else {
     daypartNote = pickTimingNote(anchorSignal.note_pool_key);
   }

@@ -6,6 +6,8 @@
  * The pick() helper selects randomly from the pool (same pattern as existing tip pools).
  */
 
+import type { DaypartFlags } from "./timingTypes.ts";
+
 function pick<T>(arr: T[]): T {
   return arr[Math.floor(Math.random() * arr.length)]!;
 }
@@ -172,6 +174,12 @@ const POOLS: Record<string, string[]> = {
     "No warming trend to exploit. Fish your best spots and stay with it all day.",
     "Cold and steady. No clear prime window — slow and deliberate all day is the play.",
   ],
+
+  /** Dawn + afternoon + evening (no morning bucket) — widener / rare OR shapes */
+  timing_dawn_afternoon_evening: [
+    "Dawn, the warmer middle of the day, and evening all rate today — put real time in those highlighted bands instead of the gaps between them.",
+    "Early, mid-day, and late windows all show an edge — work those highlighted stretches rather than splitting effort evenly across the clock.",
+  ],
 };
 
 // ── Public API ───────────────────────────────────────────────────────────────
@@ -186,4 +194,52 @@ export function pickTimingNote(poolKey: string): string {
     return "No clear timing edge today — fish when you can get out.";
   }
   return pick(pool);
+}
+
+/**
+ * Maps final [dawn, morning, afternoon, evening] flags → a pool whose wording matches the tiles.
+ * Used when periods were merged (month blend, widener) so narrative cannot drift from the winner’s note alone.
+ */
+export function notePoolKeyForDaypartFlags(periods: DaypartFlags): string {
+  const key = periods.map((v) => (v ? "1" : "0")).join("");
+  switch (key) {
+    case "1001":
+      return "fallback_dawn_evening";
+    case "0010":
+      return "warmest_window";
+    case "1101":
+      return "cooler_low_light";
+    case "1111":
+      return "fallback_all_day";
+    case "0110":
+      return "fallback_morning_afternoon";
+    // morning + evening shoulders (no dawn bucket, no afternoon) — not a "midday" window
+    case "0101":
+      return "fallback_morning_evening";
+    // dawn + afternoon without the morning bucket — true mid-clock block
+    case "1010":
+      return "fallback_morning_afternoon";
+    case "1100":
+      return "fallback_dawn_morning";
+    case "0000":
+      return "fallback_all_day";
+    case "0011":
+      return "warmest_window";
+    case "0001":
+      return "fallback_morning_evening";
+    case "0100":
+      return "fallback_dawn_morning";
+    case "1000":
+      return "fallback_dawn_morning";
+    case "1011":
+      return "timing_dawn_afternoon_evening";
+    case "0111":
+      return "warmest_window";
+    default:
+      return "fallback_all_day";
+  }
+}
+
+export function synthesizeDaypartNoteForPeriods(periods: DaypartFlags): string {
+  return pickTimingNote(notePoolKeyForDaypartFlags(periods));
 }

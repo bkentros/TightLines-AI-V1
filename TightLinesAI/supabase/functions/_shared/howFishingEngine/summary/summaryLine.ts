@@ -54,11 +54,9 @@ const PRIMARY: Record<ScoreBand, readonly string[]> = {
 
 /** Optional second sentence — never names temp, wind, pressure, etc. */
 const CLOSERS: readonly string[] = [
-  "The positives and headwinds below break it down factor by factor.",
-  "Scroll for what’s helping versus what’s holding the score back.",
-  "Details under the score spell out the why.",
-  "Each bullet under the score adds a piece of the puzzle.",
-  "Use the list below to see what’s carrying the day and what isn’t.",
+  "Check the reasons below for the full picture.",
+  "The list under the score spells out what’s helping and what isn’t.",
+  "Details below fill in the rest of the story.",
 ];
 
 /**
@@ -66,7 +64,7 @@ const CLOSERS: readonly string[] = [
  */
 export function buildReportSummaryLine(band: ScoreBand): string {
   const first = pick(PRIMARY[band]);
-  if (Math.random() < 0.45) {
+  if (Math.random() < 0.72) {
     return first.replace(/\s+/g, " ").trim().slice(0, 220);
   }
   const out = `${first} ${pick(CLOSERS)}`.replace(/\s+/g, " ").trim();

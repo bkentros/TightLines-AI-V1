@@ -53,6 +53,8 @@ export default function HomeScreen() {
   const [showSubscribePrompt, setShowSubscribePrompt] = useState(false);
   const [showLocationPicker, setShowLocationPicker] = useState(false);
   const [cachedScore, setCachedScore] = useState<string | null>(null);
+  /** Mean 0–100 across today's multi-tab cached reports — aligns hero + "Today" chip with Lake/River/Coastal tabs. */
+  const [cachedMeanRaw, setCachedMeanRaw] = useState<number | null>(null);
   const [forecastDays, setForecastDays] = useState<DayForecastScore[] | null>(null);
   const [forecastLoading, setForecastLoading] = useState(false);
 
@@ -134,41 +136,60 @@ export default function HomeScreen() {
     loadLocationStore();
   }, [loadLocationStore]);
 
-  // Read the cached fishing score — no API call, purely local cache.
-  // Mean of lake/pond + river (+ coastal if eligible) matches the 7-day outlook.
-  useEffect(() => {
-    let cancelled = false;
+  const cacheMeanRequestSeq = useRef(0);
 
-    async function loadCachedScore() {
-      const lat = coords?.lat;
-      const lon = coords?.lon;
-      if (lat == null || lon == null) return;
-
-      const coastal = isCoastalContextEligible(lat, lon);
-      const contexts: EngineContextKey[] = coastal
-        ? ['freshwater_lake_pond', 'freshwater_river', 'coastal']
-        : ['freshwater_lake_pond', 'freshwater_river'];
-
-      const inMemory = getCurrentMultiRebuild(lat, lon);
-      const hasAllInMemory =
-        inMemory != null && contexts.every((ctx) => inMemory[ctx] != null);
-      const source = hasAllInMemory
-        ? inMemory!
-        : await getCachedMultiRebuild(lat, lon, contexts);
-
-      if (cancelled || !source) return;
-
-      const scores = contexts.map((ctx) => source[ctx]!.report.score);
-      const meanRaw = scores.reduce((a, b) => a + b, 0) / scores.length;
-
-      const v = Math.round(meanRaw) / 10;
-      const display = Number.isInteger(v) ? v.toFixed(0) : v.toFixed(1);
-      if (!cancelled) setCachedScore(display);
+  const loadCachedReportMean = useCallback(async () => {
+    const req = ++cacheMeanRequestSeq.current;
+    const lat = coords?.lat;
+    const lon = coords?.lon;
+    if (lat == null || lon == null) {
+      if (req === cacheMeanRequestSeq.current) {
+        setCachedMeanRaw(null);
+        setCachedScore(null);
+      }
+      return;
     }
 
-    loadCachedScore();
-    return () => { cancelled = true; };
+    const coastal = isCoastalContextEligible(lat, lon);
+    const contexts: EngineContextKey[] = coastal
+      ? ['freshwater_lake_pond', 'freshwater_river', 'coastal']
+      : ['freshwater_lake_pond', 'freshwater_river'];
+
+    const inMemory = getCurrentMultiRebuild(lat, lon);
+    const hasAllInMemory =
+      inMemory != null && contexts.every((ctx) => inMemory[ctx] != null);
+    const source = hasAllInMemory
+      ? inMemory!
+      : await getCachedMultiRebuild(lat, lon, contexts);
+
+    if (req !== cacheMeanRequestSeq.current) return;
+
+    if (!source) {
+      setCachedMeanRaw(null);
+      setCachedScore(null);
+      return;
+    }
+
+    const scores = contexts.map((ctx) => source[ctx]!.report.score);
+    const meanRaw = scores.reduce((a, b) => a + b, 0) / scores.length;
+
+    const v = Math.round(meanRaw) / 10;
+    const display = Number.isInteger(v) ? v.toFixed(0) : v.toFixed(1);
+    setCachedMeanRaw(meanRaw);
+    setCachedScore(display);
   }, [coords?.lat, coords?.lon]);
+
+  // Read cached multi-tab mean — matches How's Fishing tabs (same contexts as meanDayScore).
+  useEffect(() => {
+    void loadCachedReportMean();
+  }, [loadCachedReportMean]);
+
+  // Refresh when returning from How's Fishing so today's chip matches freshly generated tabs.
+  useFocusEffect(
+    useCallback(() => {
+      void loadCachedReportMean();
+    }, [loadCachedReportMean]),
+  );
 
   // Load 7-day forecast scores — cached up to 6h, no API call if fresh
   useEffect(() => {
@@ -264,6 +285,7 @@ export default function HomeScreen() {
     setShowLocationPicker(false);
     setForecastDays(null);
     setCachedScore(null);
+    setCachedMeanRaw(null);
   }, [coords, useCustom, clearSavedLocation, clearOverride, setIgnoreGps]);
 
   const handleHowFishingPress = useCallback(() => {
@@ -306,12 +328,15 @@ export default function HomeScreen() {
     return 'POOR';
   };
 
-  // Derive the score for the hero card from the deterministic forecast (no report needed).
-  // Falls back to a previously-cached report score when the forecast hasn't loaded yet.
+  // Hero + "Today" chip: prefer mean of cached multi-tab reports (same math as tabs) when available;
+  // otherwise deterministic 7-day strip (Open-Meteo–only engine — can diverge slightly from full env).
   const todayForecast = forecastDays?.[0] ?? null;
-  const heroScore = todayForecast
-    ? formatScoreDisplay(combinedOutlookScore(todayForecast))
-    : cachedScore;
+  const heroScore =
+    cachedMeanRaw != null
+      ? formatScoreDisplay(cachedMeanRaw)
+      : todayForecast
+        ? formatScoreDisplay(combinedOutlookScore(todayForecast))
+        : cachedScore;
 
   const getGreeting = () => {
     const h = new Date().getHours();
@@ -401,7 +426,10 @@ export default function HomeScreen() {
                     <View key={i} style={[styles.calendarDay, styles.calendarDaySkeleton]} />
                   ))
                 : forecastDays?.map((day) => {
-                    const raw = combinedOutlookScore(day);
+                    const raw =
+                      day.day_offset === 0 && cachedMeanRaw != null
+                        ? cachedMeanRaw
+                        : combinedOutlookScore(day);
                     const display = formatScoreDisplay(raw);
                     const color = scoreColor(raw);
                     const isToday = day.day_offset === 0;
