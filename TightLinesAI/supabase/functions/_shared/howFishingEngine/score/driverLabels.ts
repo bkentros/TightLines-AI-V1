@@ -1,10 +1,31 @@
 /**
  * Human-readable driver/suppressor lines — multi-variant so repeats read fresh.
+ *
+ * pick() uses Math.random() in production (intentional — avoids repetitive reads
+ * across refreshes). For deterministic audit runs, call setDriverLabelSeed(str)
+ * before executing the engine; the seed is hashed to an index offset.
  */
 
 import type { ScoredVariableKey, SharedNormalizedOutput } from "../contracts/mod.ts";
 
+let _pickOffset = -1; // -1 = unseeded (use Math.random)
+
+/** Call in audit/test harnesses to make pick() deterministic for a given scenario. */
+export function setDriverLabelSeed(seed: string): void {
+  let h = 0;
+  for (let i = 0; i < seed.length; i++) {
+    h = Math.imul(31, h) + seed.charCodeAt(i) | 0;
+  }
+  _pickOffset = Math.abs(h);
+}
+
+/** Reset to random mode (call between unrelated test suites if needed). */
+export function clearDriverLabelSeed(): void {
+  _pickOffset = -1;
+}
+
 function pick<T>(arr: readonly T[]): T {
+  if (_pickOffset >= 0) return arr[_pickOffset % arr.length]!;
   return arr[Math.floor(Math.random() * arr.length)]!;
 }
 
@@ -103,7 +124,7 @@ function temperatureDriverLabel(t: NonNullable<Norm["temperature"]>): string {
   if (band === "very_cold") {
     return pick([
       "Well below seasonal norms — tough thermal conditions; pick the warmest stable water available.",
-      "Deep cold: expect lockjaw periods and a need for finesse or live-bait patience.",
+      "Deep cold: fish move slow and tight — finesse or live-bait patience is the call.",
       "Frigid readings dominate; safety and realistic catch expectations matter as much as tactics.",
     ]);
   }
@@ -153,15 +174,15 @@ function pressureDriverLabel(p: NonNullable<Norm["pressure_regime"]>): string {
       return pick([
         "Barometer snapped upward — fish can go fussy while they recalibrate to the new baseline.",
         "Fast rise often means a pause in the bite until the new pressure plateaus.",
-        "Sharp recovery slope: expect lockjaw pockets until the trend mellows.",
+        "Sharp recovery slope: expect selective, finicky bites until the new baseline settles.",
         "Quick jump in pressure — presentation subtlety and repeat casts beat power fishing.",
       ]);
     case "volatile":
       return pick([
-        "Pressure has been bouncing — indecisive barometer, indecisive fish; pick consistent spots.",
-        "Erratic mercury: short commitment windows; avoid chasing ghosts across the whole lake.",
-        "Unstable barometric pattern — quality over quantity; wait for calmer trend segments.",
-        "Choppy pressure history today — fish hate whiplash; find sheltered, stable water.",
+        "Mixed barometric signals over the last 24 hours — short windows; stick to high-percentage spots.",
+        "Pressure has been swinging back and forth — commitment windows shrink; avoid spreading thin.",
+        "Back-and-forth pressure history: quality beats quantity; patient, focused fishing wins.",
+        "Choppy pressure record today — find sheltered, stable water and stay put longer than usual.",
       ]);
     case "stable_neutral":
       return pick([

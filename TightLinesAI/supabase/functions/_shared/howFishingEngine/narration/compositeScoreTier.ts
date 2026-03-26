@@ -4,9 +4,9 @@
  * fish activity from raw score numbers alone.
  */
 export function compositeScoreActivityTier(score: number): string {
-  if (score >= 70) return "high — fish are feeding actively and willing to commit";
-  if (score >= 55) return "moderate-high — fish are engaged and responding well to proper presentation";
-  if (score >= 40) return "moderate — fish are selectively willing, need a clean presentation";
-  if (score >= 25) return "low — fish are tentative, require deliberate and precise approach";
-  return "very low — fish are not cooperative, tough conditions across the board";
+  if (score >= 70) return "high — conditions strongly favor active feeding and willing strikes";
+  if (score >= 55) return "moderate-high — conditions favor engaged fish responding to proper presentation";
+  if (score >= 40) return "moderate — conditions support selective feeding; clean presentation matters";
+  if (score >= 25) return "low — conditions are working against the bite; deliberate, precise approach needed";
+  return "very low — conditions are tough across the board; narrow windows, hard-earned fish";
 }
