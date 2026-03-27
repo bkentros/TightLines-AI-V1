@@ -7,20 +7,34 @@ import { clampEngineScore, pieceLinear } from "../score/engineScoreMath.ts";
  * coastal neutralizes 0–69% per marine norms).
  *
  * Macro `label` stays stable for tips/timing; `detail` carries % and mixed sub-hint.
+ *
+ * opts.temperatureBandLabel: when "very_cold" or "cool", bright/clear sky on freshwater
+ * is scored neutral (0) rather than negative — cold-water fish are not harmed by sun.
  */
 export function normalizeLight(
   cloudPct: number | null | undefined,
   context: EngineContext,
+  opts?: { temperatureBandLabel?: string },
 ): VariableState | null {
   if (cloudPct == null || Number.isNaN(cloudPct)) return null;
   const c = Math.max(0, Math.min(100, cloudPct));
 
   const freshwater = !isCoastalFamilyContext(context);
+  const isFlats = context === "coastal_flats_estuary";
+
+  const inColdBand =
+    opts?.temperatureBandLabel === "very_cold" ||
+    opts?.temperatureBandLabel === "cool";
 
   let score: number;
   if (freshwater) {
     if (c <= 25) {
-      score = pieceLinear(c, 0, 25, -1.15, -0.72);
+      if (inColdBand) {
+        // Cold-band neutralization: clear sky is not a glare suppressor in cold water
+        score = 0;
+      } else {
+        score = pieceLinear(c, 0, 25, -1.15, -0.72);
+      }
     } else if (c <= 69) {
       score = pieceLinear(c, 25, 69, -0.72, 0.72);
     } else if (c <= 85) {
@@ -29,7 +43,12 @@ export function normalizeLight(
       score = pieceLinear(c, 85, 100, 1.35, 2);
     }
   } else if (c <= 69) {
-    score = 0;
+    if (isFlats && c <= 20) {
+      // Flats-specific glare penalty: shallow clear water makes sun visibility a real issue
+      score = pieceLinear(c, 0, 20, -0.45, -0.20);
+    } else {
+      score = 0;
+    }
   } else if (c <= 85) {
     // ~70% remains a clear low-light helper on the coast (legacy +1 tier center)
     score = pieceLinear(c, 69, 85, 0.92, 1.35);
@@ -40,7 +59,8 @@ export function normalizeLight(
   score = clampEngineScore(score);
 
   let label: "glare" | "bright" | "mixed" | "low_light" | "heavy_overcast";
-  if (c < 10) label = "glare";
+  // In cold band, suppress "glare" label even at very low cloud cover — no penalty word
+  if (c < 10) label = (freshwater && inColdBand) ? "bright" : "glare";
   else if (c <= 25) label = "bright";
   else if (c <= 69) label = "mixed";
   else if (c <= 85) label = "low_light";

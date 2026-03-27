@@ -142,6 +142,9 @@ function variableToPlain(
       return "direct sun and glare — fish are most cautious right now";
     }
     case "precipitation_disruption": {
+      if (label === "light_mist") {
+        return "trace moisture — conditions essentially stable; may stir warm-water species";
+      }
       const pt = engineScoreTier(score);
       if (pt >= 1) return "dry stretch — water is stable and predictable";
       if (pt === 0) return "light rain or recent wet weather — minor effect";

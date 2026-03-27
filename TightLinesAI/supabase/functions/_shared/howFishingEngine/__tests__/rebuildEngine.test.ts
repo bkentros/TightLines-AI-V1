@@ -892,10 +892,10 @@ Deno.test("timing: maritime_cool June uses cold_summer vs interior June uses col
   assertEquals(gl.family_id, "lake_cold_spring");
 });
 
-Deno.test("timing: hot_arid April uses warm_spring vs hot_humid April uses hot_spring", () => {
+Deno.test("timing: hot_arid April uses hot_summer (avoid_heat) vs hot_humid April uses hot_spring", () => {
   const arid = resolveTimingFamily("freshwater_lake_pond", "southwest_desert", 4);
   const humid = resolveTimingFamily("freshwater_lake_pond", "gulf_coast", 4);
-  assertEquals(arid.family_id, "lake_warm_spring");
+  assertEquals(arid.family_id, "lake_hot_summer");
   assertEquals(humid.family_id, "lake_hot_spring");
 });
 
@@ -927,4 +927,237 @@ Deno.test("timing: runHowFishingReport freshwater June includes blend in trace w
     `expected blended family_id, got ${r.timing_debug!.family_id}`,
   );
   assert(r.timing_debug!.month_blend_t != null && r.timing_debug!.month_blend_t > 0);
+});
+
+// ── New tests for Changes 1, 2, 3, 4 ─────────────────────────────────────────
+
+Deno.test("change1: cold band (cool) clear sky — light score neutral, not penalized", () => {
+  // Direct normalizer call: cool band, 5% cloud — should score ~0 not -1.x
+  const result = normalizeLight(5, "freshwater_lake_pond", { temperatureBandLabel: "cool" });
+  assert(result != null);
+  assert(result!.score > -0.5, `expected score > -0.5 in cold band, got ${result!.score}`);
+  assertEquals(result!.label, "bright"); // not "glare" even at 5%
+});
+
+Deno.test("change1: very_cold band clear sky — light score neutral", () => {
+  const result = normalizeLight(3, "freshwater_lake_pond", { temperatureBandLabel: "very_cold" });
+  assert(result != null);
+  assert(result!.score > -0.5, `expected score > -0.5 in very_cold band, got ${result!.score}`);
+  assertEquals(result!.label, "bright");
+});
+
+Deno.test("change1 regression: warm band clear sky — glare penalty still applied", () => {
+  // No opts / warm band should still apply the original penalty
+  const warm = normalizeLight(5, "freshwater_lake_pond", { temperatureBandLabel: "warm" });
+  const noOpts = normalizeLight(5, "freshwater_lake_pond");
+  assert(warm != null && noOpts != null);
+  assert(warm!.score < -0.5, `warm band should still penalize glare: ${warm!.score}`);
+  assert(noOpts!.score < -0.5, `no opts should still penalize glare: ${noOpts!.score}`);
+  assertEquals(warm!.label, "glare");
+  assertEquals(noOpts!.label, "glare");
+});
+
+Deno.test("change1 full-report: Great Lakes March clear day cool band — light not major suppressor", () => {
+  // 30°F daily_mean in March at great_lakes lands in 'cool' band -> cold-band neutralization applies
+  const r = runHowFishingReport({
+    latitude: 44.5,
+    longitude: -84.0,
+    state_code: "MI",
+    region_key: "great_lakes_upper_midwest",
+    local_date: "2025-03-15",
+    local_timezone: "America/Detroit",
+    context: "freshwater_lake_pond",
+    environment: {
+      daily_mean_air_temp_f: 30,
+      daily_low_air_temp_f: 24,
+      daily_high_air_temp_f: 38,
+      prior_day_mean_air_temp_f: 28,
+      day_minus_2_mean_air_temp_f: 26,
+      pressure_history_mb: Array.from({ length: 24 }, () => 1015),
+      wind_speed_mph: 5,
+      cloud_cover_pct: 5,
+      precip_24h_in: 0,
+      precip_72h_in: 0,
+      precip_7d_in: 0.1,
+    },
+    data_coverage: {},
+  });
+  const lightEntry = r.condition_context?.normalized_variable_scores.find(
+    (v) => v.variable_key === "light_cloud_condition"
+  );
+  assert(lightEntry != null, "light_cloud_condition should be scored");
+  assert(
+    lightEntry!.engine_score > -0.5,
+    `light score should be near 0 in cool band March clear day, got ${lightEntry!.engine_score}`
+  );
+});
+
+Deno.test("change1 regression: July warm band Great Lakes clear sky — glare penalty intact", () => {
+  const r = runHowFishingReport({
+    latitude: 44.5,
+    longitude: -84.0,
+    state_code: "MI",
+    region_key: "great_lakes_upper_midwest",
+    local_date: "2025-07-15",
+    local_timezone: "America/Detroit",
+    context: "freshwater_lake_pond",
+    environment: {
+      daily_mean_air_temp_f: 75,
+      prior_day_mean_air_temp_f: 74,
+      day_minus_2_mean_air_temp_f: 73,
+      pressure_history_mb: Array.from({ length: 24 }, () => 1015),
+      wind_speed_mph: 5,
+      cloud_cover_pct: 5,
+      precip_24h_in: 0,
+      precip_72h_in: 0,
+      precip_7d_in: 0.2,
+    },
+    data_coverage: {},
+  });
+  const lightEntry = r.condition_context?.normalized_variable_scores.find(
+    (v) => v.variable_key === "light_cloud_condition"
+  );
+  assert(lightEntry != null);
+  assert(
+    lightEntry!.engine_score < -0.5,
+    `warm band July clear sky should still penalize, got ${lightEntry!.engine_score}`
+  );
+});
+
+Deno.test("change2: light_mist dry baseline — score positive, label light_mist", () => {
+  // Low p72 and p7d — mist is a mild positive
+  const r = normalizePrecipitationDisruption(
+    "freshwater_lake_pond",
+    0,      // rate: not raining
+    0.08,   // p24: trace
+    0.15,   // p72: low
+    false,
+    0.4     // p7d: low
+  );
+  assert(r != null);
+  assertEquals(r!.label, "light_mist");
+  assert(r!.score > 0, `expected score > 0 for dry-baseline light_mist, got ${r!.score}`);
+});
+
+Deno.test("change2: light_mist wet baseline — score negative, label light_mist", () => {
+  // p72=0.32 (below recent_rain threshold of 0.35, but above first gate of 0.30)
+  // p7d=1.2 (below second gate's 1.50 ceiling)
+  // -> second light_mist gate: score = -0.10
+  const r = normalizePrecipitationDisruption(
+    "freshwater_lake_pond",
+    0,      // rate: not actively raining
+    0.08,   // p24: trace (in [0.01, 0.15))
+    0.32,   // p72: in [0.30, 0.35) — above first gate, below recent_rain threshold
+    false,
+    1.2     // p7d: in [0.75, 1.50) — above first gate, below second gate ceiling
+  );
+  assert(r != null);
+  assertEquals(r!.label, "light_mist");
+  assert(r!.score < 0, `expected score < 0 for wet-baseline light_mist, got ${r!.score}`);
+});
+
+Deno.test("change2: light_mist — flooded baseline falls through to recent_rain (p72 too high)", () => {
+  // p72 = 0.70 exceeds recent_rain threshold (0.35) so recent_rain fires first
+  const r = normalizePrecipitationDisruption(
+    "freshwater_lake_pond",
+    0,     // rate
+    0.08,  // p24: would qualify for light_mist if p72 were low
+    0.70,  // p72: exceeds recent_rain threshold (>= 0.35)
+    false
+  );
+  assert(r != null);
+  assertEquals(r!.label, "recent_rain", `expected recent_rain when p72 too high, got ${r!.label}`);
+});
+
+Deno.test("change2: extended_dry cap — score <= 1.35", () => {
+  const r = normalizePrecipitationDisruption(
+    "freshwater_lake_pond",
+    0, 0, 0, false
+  );
+  assert(r != null);
+  assertEquals(r!.label, "extended_dry");
+  assert(r!.score <= 1.35, `extended_dry should be capped at 1.3, got ${r!.score}`);
+});
+
+Deno.test("change2: extended_dry coastal cap — score <= 1.35", () => {
+  const r = normalizePrecipitationDisruption(
+    "coastal",
+    0, 0, 0, false
+  );
+  assert(r != null);
+  assertEquals(r!.label, "extended_dry");
+  assert(r!.score <= 1.35, `coastal extended_dry should be capped at 1.3, got ${r!.score}`);
+});
+
+Deno.test("change3: SW Desert April — timing anchor driver is not seek_warmth", () => {
+  const r = runHowFishingReport({
+    latitude: 33.4,
+    longitude: -112.1,
+    state_code: "AZ",
+    region_key: "southwest_desert",
+    local_date: "2025-04-20",
+    local_timezone: "America/Phoenix",
+    context: "freshwater_lake_pond",
+    environment: {
+      daily_mean_air_temp_f: 82,
+      prior_day_mean_air_temp_f: 80,
+      day_minus_2_mean_air_temp_f: 78,
+      pressure_history_mb: Array.from({ length: 24 }, () => 1015),
+      wind_speed_mph: 6,
+      cloud_cover_pct: 10,
+      precip_24h_in: 0,
+      precip_72h_in: 0,
+      precip_7d_in: 0,
+    },
+    data_coverage: {},
+  });
+  assert(r.timing_debug != null);
+  assert(
+    r.timing_debug!.primary_driver !== "seek_warmth",
+    `SW Desert April should not use seek_warmth as primary driver, got: ${r.timing_debug!.primary_driver}`
+  );
+});
+
+Deno.test("change3: SW Desert April timing family is lake_hot_summer (avoid_heat)", () => {
+  const apr = resolveTimingFamily("freshwater_lake_pond", "southwest_desert", 4);
+  assertEquals(apr.family_id, "lake_hot_summer");
+  assertEquals(apr.primary_driver, "avoid_heat");
+});
+
+Deno.test("change3: SW Desert May/June unchanged — still warm_spring", () => {
+  const may = resolveTimingFamily("freshwater_lake_pond", "southwest_desert", 5);
+  const jun = resolveTimingFamily("freshwater_lake_pond", "southwest_desert", 6);
+  assertEquals(may.family_id, "lake_warm_spring");
+  assertEquals(jun.family_id, "lake_warm_spring");
+});
+
+Deno.test("change3: SW Desert river April — also lake_hot_summer equivalent", () => {
+  const apr = resolveTimingFamily("freshwater_river", "southwest_desert", 4);
+  assertEquals(apr.family_id, "river_hot_summer");
+});
+
+Deno.test("change4: coastal flats low cloud (8%) — glare penalty applied", () => {
+  const r = normalizeLight(8, "coastal_flats_estuary");
+  assert(r != null);
+  assert(r!.score < -0.15, `flats 8% cloud should have glare penalty, got ${r!.score}`);
+});
+
+Deno.test("change4: coastal flats 21% cloud — above threshold, no penalty (score = 0)", () => {
+  const r = normalizeLight(21, "coastal_flats_estuary");
+  assert(r != null);
+  assertEquals(r!.score, 0);
+});
+
+Deno.test("change4: coastal non-flats 8% cloud — no glare penalty (score = 0)", () => {
+  const nearshore = normalizeLight(8, "coastal");
+  assert(nearshore != null);
+  assertEquals(nearshore!.score, 0, `nearshore coastal 8% cloud should still be 0, got ${nearshore!.score}`);
+});
+
+Deno.test("change4: coastal non-flats (coastal) existing behavior unchanged at all ranges", () => {
+  // Verify non-flats coastal unchanged across the 0-69% range
+  assertEquals(normalizeLight(5, "coastal")!.score, 0);
+  assertEquals(normalizeLight(20, "coastal")!.score, 0);
+  assertEquals(normalizeLight(40, "coastal")!.score, 0);
+  assertEquals(normalizeLight(69, "coastal")!.score, 0);
 });

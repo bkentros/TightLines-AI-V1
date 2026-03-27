@@ -111,7 +111,9 @@ export function buildSharedNormalizedOutput(req: SharedEngineRequest): SharedNor
     : null;
 
   const wind = normalizeWind(e.wind_speed_mph, req.context);
-  const light = normalizeLight(e.cloud_cover_pct, req.context);
+  const light = normalizeLight(e.cloud_cover_pct, req.context, {
+    temperatureBandLabel: temp?.band_label ?? undefined,
+  });
 
   const precipRate = e.precip_rate_now_in_per_hr;
   const p24 = e.precip_24h_in;
@@ -131,7 +133,8 @@ export function buildSharedNormalizedOutput(req: SharedEngineRequest): SharedNor
         precipRate,
         p24,
         p72,
-        e.active_precip_now
+        e.active_precip_now,
+        e.precip_7d_in
       );
     }
   }

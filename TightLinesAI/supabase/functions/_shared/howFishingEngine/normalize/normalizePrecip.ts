@@ -11,6 +11,7 @@ export function normalizePrecipitationDisruption(
   p24: number | null | undefined,
   p72: number | null | undefined,
   activeNow: boolean | null | undefined,
+  p7d?: number | null,
 ): VariableState | null {
   const hasSignal =
     p24 != null || p72 != null || rateNow != null || activeNow === true;
@@ -52,7 +53,17 @@ export function normalizePrecipitationDisruption(
       return { label: "recent_rain", score };
     }
     if (r24 < 0.01 && r72 < 0.01 && rate < 0.01) {
-      return { label: "extended_dry", score: 2 };
+      return { label: "extended_dry", score: clampEngineScore(1.3) };
+    }
+    // light_mist: trace moisture (not actively raining, p24 in 0.01–0.20 range)
+    if (rate < 0.02 && r24 >= 0.01 && r24 < 0.20) {
+      const p7dVal = p7d ?? 999;
+      if (r72 < 0.30 && p7dVal < 0.75) {
+        return { label: "light_mist", score: clampEngineScore(0.10) };
+      } else if (r72 < 0.60 && p7dVal < 1.50) {
+        return { label: "light_mist", score: clampEngineScore(-0.10) };
+      }
+      // else: fall through to dry_stable (p72/p7d too high for mist to be neutral)
     }
     const dryness = Math.max(r24, r72, rate);
     const score = clampEngineScore(
@@ -92,7 +103,17 @@ export function normalizePrecipitationDisruption(
     return { label: "recent_rain", score };
   }
   if (r24 < 0.01 && r72 < 0.01 && rate < 0.01) {
-    return { label: "extended_dry", score: 2 };
+    return { label: "extended_dry", score: clampEngineScore(1.3) };
+  }
+  // light_mist: trace moisture (not actively raining, p24 in 0.01–0.15 range)
+  if (rate < 0.02 && r24 >= 0.01 && r24 < 0.15) {
+    const p7dVal = p7d ?? 999;
+    if (r72 < 0.30 && p7dVal < 0.75) {
+      return { label: "light_mist", score: clampEngineScore(0.10) };
+    } else if (r72 < 0.60 && p7dVal < 1.50) {
+      return { label: "light_mist", score: clampEngineScore(-0.10) };
+    }
+    // else: fall through to dry_stable (p72/p7d too high for mist to be neutral)
   }
   const dryness = Math.max(r24, r72, rate);
   const score = clampEngineScore(

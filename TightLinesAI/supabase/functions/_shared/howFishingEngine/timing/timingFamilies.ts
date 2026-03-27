@@ -140,14 +140,15 @@ const LAKE_HOT_HUMID: MonthFamilyRow = [
 ];
 
 /**
- * Hot arid — dry bright summers; Apr–Jun use warm-belt spring (cloud/low-light)
- * instead of humid-subtropical spring (low-light + avoid-heat) for wind/dust/front swings.
+ * Hot arid — dry bright summers; Apr already hits 85°F+ in AZ/NV so avoid_heat
+ * (July family) is appropriate for April; May–Jun use warm-belt spring for
+ * wind/dust/front swings.
  */
 const LAKE_HOT_ARID: MonthFamilyRow = [
   "lake_hot_winter",
   "lake_hot_winter",
   "lake_hot_winter",
-  "lake_warm_spring",
+  "lake_hot_summer",
   "lake_warm_spring",
   "lake_warm_spring",
   "lake_hot_summer",
@@ -230,7 +231,7 @@ const RIVER_HOT_ARID: MonthFamilyRow = [
   "river_hot_winter",
   "river_hot_winter",
   "river_hot_winter",
-  "river_warm_spring",
+  "river_hot_summer",
   "river_warm_spring",
   "river_warm_spring",
   "river_hot_summer",
