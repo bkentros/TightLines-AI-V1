@@ -1161,3 +1161,93 @@ Deno.test("change4: coastal non-flats (coastal) existing behavior unchanged at a
   assertEquals(normalizeLight(40, "coastal")!.score, 0);
   assertEquals(normalizeLight(69, "coastal")!.score, 0);
 });
+
+// ── Fix 1: very_cold day seek_warmth — cloud_extended must not add dawn periods ─
+
+Deno.test("fix1: timing: very_cold day seek_warmth — cloud_extended must not add dawn periods on 22°F day", () => {
+  const r = runHowFishingReport({
+    latitude: 43.9,
+    longitude: -85.1,
+    state_code: "MI",
+    region_key: "great_lakes_upper_midwest",
+    local_date: "2026-03-15",
+    local_timezone: "America/Detroit",
+    context: "freshwater_lake_pond",
+    environment: {
+      daily_mean_air_temp_f: 27,
+      daily_low_air_temp_f: 22,
+      daily_high_air_temp_f: 33,
+      prior_day_mean_air_temp_f: 25,
+      day_minus_2_mean_air_temp_f: 24,
+      pressure_history_mb: Array.from({ length: 24 }, () => 1013),
+      wind_speed_mph: 5,
+      cloud_cover_pct: 88, // heavy overcast — cloud_extended will try to fire
+      precip_24h_in: 0,
+      precip_72h_in: 0,
+      precip_7d_in: 0,
+    },
+    data_coverage: {},
+  });
+  // On a 22-33°F day, dawn (5-7AM = coldest point) must NOT be highlighted
+  // seek_warmth should dominate, pointing to midday/afternoon
+  const periods = r.highlighted_periods ?? [false, false, false, false];
+  // Dawn (index 0) should be false — seek_warmth never recommends coldest moment
+  assertEquals(periods[0], false, "Dawn must not be highlighted on a 22°F day");
+  // At least afternoon or morning should be recommended (warmest window)
+  const hasWarmPeriod = periods[2] === true || periods[1] === true;
+  assertEquals(hasWarmPeriod, true, "Midday or morning should be the recommended window on a cold day");
+});
+
+// ── Fix 4: shared size anchor — overcast day, lake/pond and river run without crash ─
+
+Deno.test("fix4: tip consistency — overcast lake/pond day runs without crash and score is non-zero", () => {
+  const r = runHowFishingReport({
+    latitude: 43.9,
+    longitude: -85.1,
+    state_code: "MI",
+    region_key: "great_lakes_upper_midwest",
+    local_date: "2026-03-15",
+    local_timezone: "America/Detroit",
+    context: "freshwater_lake_pond",
+    environment: {
+      daily_mean_air_temp_f: 52,
+      prior_day_mean_air_temp_f: 50,
+      day_minus_2_mean_air_temp_f: 48,
+      pressure_history_mb: Array.from({ length: 24 }, () => 1013),
+      wind_speed_mph: 6,
+      cloud_cover_pct: 90, // heavy overcast — size anchor should bump offering_size_profile
+      precip_24h_in: 0,
+      precip_72h_in: 0,
+      precip_7d_in: 0,
+    },
+    data_coverage: {},
+  });
+  assert(r.score > 0, `lake/pond overcast report score should be > 0, got ${r.score}`);
+  assert(r.actionable_tip.length > 0, "actionable_tip must not be empty");
+});
+
+Deno.test("fix4: tip consistency — overcast river day runs without crash and score is non-zero", () => {
+  const r = runHowFishingReport({
+    latitude: 43.9,
+    longitude: -85.1,
+    state_code: "MI",
+    region_key: "great_lakes_upper_midwest",
+    local_date: "2026-03-15",
+    local_timezone: "America/Detroit",
+    context: "freshwater_river",
+    environment: {
+      daily_mean_air_temp_f: 52,
+      prior_day_mean_air_temp_f: 50,
+      day_minus_2_mean_air_temp_f: 48,
+      pressure_history_mb: Array.from({ length: 24 }, () => 1013),
+      wind_speed_mph: 6,
+      cloud_cover_pct: 90, // heavy overcast — size anchor should bump offering_size_profile
+      precip_24h_in: 0.05,
+      precip_72h_in: 0.1,
+      precip_7d_in: 0.2,
+    },
+    data_coverage: {},
+  });
+  assert(r.score > 0, `river overcast report score should be > 0, got ${r.score}`);
+  assert(r.actionable_tip.length > 0, "actionable_tip must not be empty");
+});

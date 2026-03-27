@@ -529,11 +529,12 @@ export function buildNarrationBrief(
         : tempF != null
           ? `Representative air ~${Math.round(tempF)}°F — context only.`
           : "No air range in snapshot — do not invent highs/lows.",
-      ...(diurnalRange != null && diurnalRange >= AIR_TEMP_LARGE_DIURNAL_SWING_F
-        ? [
-          `~${diurnalRange}°F diurnal swing: tie timing prose to BEST TIME below (not heat stress unless heat_limited).`,
-        ]
-        : []),
+      // Diurnal swing instruction removed — was causing LLM to generate "large range" timing language.
+      // ...(diurnalRange != null && diurnalRange >= AIR_TEMP_LARGE_DIURNAL_SWING_F
+      //   ? [
+      //     `~${diurnalRange}°F diurnal swing: tie timing prose to BEST TIME below (not heat stress unless heat_limited).`,
+      //   ]
+      //   : []),
       "",
       "HARD RULES — SUMMARY + TIMING vs METABOLIC",
       `temperature_metabolic_context=${cc?.temperature_metabolic_context ?? "unknown"}; metabolic_state=${metabolicState}; band=${cc?.temperature_band ?? "unknown"}; avoid_midday_for_heat=${cc?.avoid_midday_for_heat === true ? "true" : "false"}.`,
@@ -556,6 +557,7 @@ export function buildNarrationBrief(
       "",
       "TEMPERATURE (for paraphrasing driver/suppressor lines only)",
       "°F = AIR, never numeric water temp.",
+      "CRITICAL: temperature_metabolic_context is neutral — heat and cold are NOT constraining today. Do NOT write heat-avoidance or cold-stress language in driver_labels. No phrases like 'heat trims the window', 'cooler edges of the day', 'warm stretch limits action', 'cold slows the bite', or similar. Describe temperature as a neutral-to-positive factor.",
       "",
     ]
     : [];

@@ -63,53 +63,31 @@ function AirForecastStrip({ report }: { report: HowsFishingReportV1 }) {
   const lo = snap.daily_low_air_temp_f as number | null | undefined;
   const hi = snap.daily_high_air_temp_f as number | null | undefined;
   if (lo == null || hi == null || !Number.isFinite(lo) || !Number.isFinite(hi)) return null;
-  const span = Math.round(hi - lo);
   return (
     <View style={airForecastStyles.wrap}>
-      <View style={airForecastStyles.row}>
-        <Ionicons name="thermometer-outline" size={14} color={colors.textSecondary} />
-        <Text style={airForecastStyles.title}>Forecast air</Text>
-      </View>
-      <Text style={airForecastStyles.range}>{`${Math.round(lo)}° – ${Math.round(hi)}°F`}</Text>
-      <Text style={airForecastStyles.caption}>Low / high for this calendar day</Text>
-      {span >= AIR_TEMP_LARGE_DIURNAL_SWING_F ? (
-        <Text style={airForecastStyles.swing}>Large daily range — pay attention to timing.</Text>
-      ) : null}
+      <Ionicons name="thermometer-outline" size={13} color={colors.textMuted} />
+      <Text style={airForecastStyles.label}>Air</Text>
+      <Text style={airForecastStyles.range}>{`${Math.round(lo)}–${Math.round(hi)}°F`}</Text>
     </View>
   );
 }
 
 const airForecastStyles = StyleSheet.create({
   wrap: {
-    marginTop: spacing.md,
-    paddingTop: spacing.md,
-    borderTopWidth: 1,
-    borderTopColor: colors.borderLight,
-    gap: 4,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
+    marginTop: spacing.sm,
   },
-  row: { flexDirection: 'row', alignItems: 'center', gap: 6 },
-  title: {
+  label: {
     fontFamily: fonts.bodySemiBold,
-    fontSize: 11,
-    color: colors.textSecondary,
-    textTransform: 'uppercase',
-    letterSpacing: 0.6,
-  },
-  range: {
-    fontFamily: fonts.serifBold,
-    fontSize: 20,
-    color: colors.text,
-  },
-  caption: {
-    fontFamily: fonts.body,
-    fontSize: 11,
+    fontSize: 13,
     color: colors.textMuted,
   },
-  swing: {
-    fontFamily: fonts.bodyMedium,
-    fontSize: 12,
-    color: '#B8862D',
-    marginTop: 4,
+  range: {
+    fontFamily: fonts.bodySemiBold,
+    fontSize: 13,
+    color: colors.textSecondary,
   },
 });
 

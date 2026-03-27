@@ -70,6 +70,39 @@ export function laneWeightsFromReport(report: HowsFishingReport): Map<TipFocusLa
   const cc = report.condition_context;
   if (!cc) return weights;
 
+  // ─── Shared size anchor (cross-context consistency) ────────────────────────
+  // Temperature band + light score drive size direction universally across all
+  // water types. This ensures lake/pond, river, coastal tabs agree on whether
+  // today is a "go bigger/bolder" or "go smaller/finesse" day, regardless of
+  // water-type-specific weights (runoff, tide, etc.).
+  //
+  // This is computed FIRST so it seeds the baseline before context-specific
+  // variables adjust it.
+  const tempBandLabel = cc.temperature_band ?? cc.temperature_metabolic_context ?? "neutral";
+  const lightNorm = cc.normalized_variable_scores.find(
+    (v) => v.variable_key === "light_cloud_condition",
+  );
+  const lightScore = lightNorm?.engine_score ?? 0;
+  // tempFinalScore available for future use if needed:
+  // cc.normalized_variable_scores.find(v => v.variable_key === "temperature_condition")
+  //   ?.temperature_breakdown?.final_score ?? 0
+
+  // Heavy overcast = bolder/larger presentation appropriate
+  if (lightScore >= 1.0) {
+    addW(weights, "offering_size_profile", 1.4);
+  }
+  // Glare / bright sun = finesse/smaller appropriate
+  if (lightScore <= -0.5) {
+    addW(weights, "offering_size_profile", 0.9);
+    addW(weights, "finesse_vs_power", 0.9);
+  }
+  // Cold temp (very_cold or cool band) = finesse/smaller baseline
+  if (tempBandLabel === "very_cold" || tempBandLabel === "cool") {
+    addW(weights, "finesse_vs_power", 1.1);
+    addW(weights, "offering_size_profile", 0.8);
+  }
+  // ───────────────────────────────────────────────────────────────────────────
+
   const metabolic = deriveMetabolicState(report);
   const slowFinesse =
     metabolic === "cold_limited" ||
