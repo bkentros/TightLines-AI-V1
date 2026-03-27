@@ -6,6 +6,7 @@
 export * from "./types.ts";
 export { buildSharedEngineRequestFromEnvData } from "./request/buildFromEnvData.ts";
 export { buildSharedNormalizedOutput } from "./normalize/buildNormalized.ts";
+export { analyzeSharedConditions } from "./analyzeSharedConditions.ts";
 export { runHowFishingReport, runHowFishingScoreOnly } from "./runHowFishingReport.ts";
 export { buildNarrationPayloadFromReport } from "./narration/buildNarrationPayload.ts";
 export { applyConditionContextToEngineVerdict } from "./narration/applyConditionContextToEngineVerdict.ts";

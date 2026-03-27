@@ -330,6 +330,21 @@ export default function HomeScreen() {
     });
   }, [hasSubscription, coords, router]);
 
+  const handleRecommenderPress = useCallback(() => {
+    if (!hasSubscription) {
+      setShowSubscribePrompt(true);
+      return;
+    }
+    if (!coords) {
+      router.push({ pathname: '/recommender' });
+      return;
+    }
+    router.push({
+      pathname: '/recommender',
+      params: { lat: String(coords.lat), lon: String(coords.lon) },
+    });
+  }, [hasSubscription, coords, router]);
+
   const handleRequestLocation = useCallback(async () => {
     if (__DEV__) {
       await setIgnoreGps(false);
@@ -577,7 +592,7 @@ export default function HomeScreen() {
               styles.featureCard,
               pressed && styles.featureCardPressed,
             ]}
-            onPress={() => router.push('/recommender')}
+            onPress={handleRecommenderPress}
           >
             <View style={styles.featureTop}>
               <View style={[styles.featureIconWrap, { backgroundColor: colors.primaryMist }]}>
@@ -589,7 +604,7 @@ export default function HomeScreen() {
             </View>
             <Text style={styles.featureTitle}>Lure & Fly Recommender</Text>
             <Text style={styles.featureDesc}>
-              AI-powered tackle picks tailored to real-time conditions and target species.
+              Deterministic lure and fly family picks built from monthly regional baselines plus today&apos;s live conditions.
             </Text>
             <View style={[styles.aiBadge, { backgroundColor: colors.primaryMist }]}>
               <Ionicons name="sparkles" size={10} color={colors.primary} />

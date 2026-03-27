@@ -1,593 +1,1018 @@
-import { useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
+  ActivityIndicator,
+  Alert,
   Pressable,
-  TextInput,
-  KeyboardAvoidingView,
-  Platform,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { useLocalSearchParams, useRouter } from 'expo-router';
+import * as Location from 'expo-location';
 import { Ionicons } from '@expo/vector-icons';
 import Select from '../components/Select';
-import { colors, fonts, spacing, radius } from '../lib/theme';
+import { SubscribePrompt } from '../components/SubscribePrompt';
+import { colors, fonts, radius, shadows, spacing } from '../lib/theme';
+import { fetchFreshEnvironment, getEnvironment } from '../lib/env';
+import type { EnvironmentData } from '../lib/env/types';
+import { getValidAccessToken, invokeEdgeFunction } from '../lib/supabase';
+import { useAuthStore } from '../store/authStore';
+import { isCoastalContextEligible } from '../lib/coastalProximity';
+import type { EngineContextKey } from '../lib/howFishingRebuildContracts';
+import {
+  RECOMMENDER_HABITAT_OPTIONS,
+  RECOMMENDER_FEATURE,
+  type RecommenderGearMode,
+  type RecommenderResponse,
+  type RecommenderRefinements,
+  type WaterClarity,
+  type VegetationDensity,
+} from '../lib/recommenderContracts';
+import {
+  getCachedRecommendation,
+  setCachedRecommendation,
+  setCurrentRecommendation,
+} from '../lib/recommender';
 
-/* ─── Option lists ─── */
-const BODY_OPTIONS = [
-  'River', 'Lake', 'Pond', 'Surf / Beach',
-  'Inshore Flats', 'Offshore', 'Creek', 'Reservoir',
+const TAB_CONFIG: { key: EngineContextKey; label: string; icon: string; color: string }[] = [
+  { key: 'freshwater_lake_pond', label: 'Lake / Pond', icon: 'water', color: colors.contextFreshwater },
+  { key: 'freshwater_river', label: 'River', icon: 'git-merge-outline', color: colors.contextRiver },
+  { key: 'coastal', label: 'Inshore', icon: 'boat-outline', color: colors.contextCoastal },
+  {
+    key: 'coastal_flats_estuary',
+    label: 'Flats / Est',
+    icon: 'resize-outline',
+    color: colors.contextFlatsEstuary,
+  },
 ];
-const WATER_TYPE_OPTIONS = ['Freshwater', 'Saltwater', 'Brackish'];
-const CLARITY_OPTIONS = ['Clear', 'Stained', 'Murky', 'Muddy'];
-const BOTTOM_OPTIONS = ['Grassy', 'Sandy', 'Rocky', 'Muddy', 'Mixed'];
-const WIND_DIR_OPTIONS = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'];
-const PRESSURE_OPTIONS = ['Rising', 'Stable', 'Falling'];
-const CLOUD_OPTIONS = ['Clear', 'Partly Cloudy', 'Mostly Cloudy', 'Overcast'];
-const PRECIP_OPTIONS = ['None', 'Light Rain', 'Rain', 'Heavy Rain', 'Snow'];
-const TIDE_OPTIONS = ['Rising', 'High', 'Falling', 'Low'];
-const MOON_OPTIONS = [
-  'New Moon', 'Waxing Crescent', 'First Quarter', 'Waxing Gibbous',
-  'Full Moon', 'Waning Gibbous', 'Last Quarter', 'Waning Crescent',
+
+const CLARITY_OPTIONS: Array<{ label: string; value: WaterClarity }> = [
+  { label: 'Clear', value: 'clear' },
+  { label: 'Stained', value: 'stained' },
+  { label: 'Dirty', value: 'dirty' },
 ];
 
-/* ─── Mock results ─── */
-const MOCK_CONV = {
-  overview:
-    'Current conditions favor an aggressive feeding response. With overcast skies and falling barometric pressure, expect gamefish to move shallow and feed actively along structure.',
-  recs: [
-    {
-      name: 'White Chatterbait — 3/8 oz',
-      how: 'Slow roll along grass edges with intermittent pauses. Let the blade flutter on the fall.',
-      where: 'Target 3–5 ft depths near submerged grass lines and laydowns.',
-      why: 'Dropping pressure pushes baitfish tight to cover. Chatterbait mimics a fleeing shad.',
-    },
-    {
-      name: 'Bone Suspending Jerkbait — 4"',
-      how: 'Sharp jerk-pause-jerk. Let it suspend 3–4 seconds between twitches.',
-      where: 'Points, channel swings, and transitions between flats and drop-offs.',
-      why: 'Overcast skies reduce light — fish are more willing to chase a suspended target.',
-    },
-    {
-      name: 'Green Pumpkin Ned Rig — 1/4 oz',
-      how: 'Drag and hop slowly along the bottom. Keep constant bottom contact.',
-      where: 'Rock transitions, gravel points, hard bottom in 4–8 ft.',
-      why: 'Subtle action and natural profile fool pressured fish.',
-    },
-    {
-      name: 'Chartreuse Spinnerbait — 1/2 oz',
-      how: 'Slow roll above vegetation. Bump structure and let blades helicopter on the drop.',
-      where: 'Grass lines, dock pilings, riprap in 2–6 ft.',
-      why: 'Vibration and flash work well in stained water with low visibility.',
-    },
-    {
-      name: 'Watermelon Red Texas Rig — 5" Senko',
-      how: 'Pitch to targets, let it fall on slack line. Watch your line on the drop.',
-      where: 'Tight to laydowns, docks, and isolated grass clumps.',
-      why: 'Natural profile and slow fall trigger bites from fish holding tight to cover.',
-    },
-  ],
-};
+const VEGETATION_OPTIONS: Array<{ label: string; value: VegetationDensity }> = [
+  { label: 'None', value: 'none' },
+  { label: 'Sparse', value: 'sparse' },
+  { label: 'Moderate', value: 'moderate' },
+  { label: 'Heavy', value: 'heavy' },
+];
 
-const MOCK_FLY = {
-  overview:
-    'Overcast skies and cooling temps create ideal conditions for a midday hatch. Fish are looking up and actively feeding in slower seams. Focus on presentation over pattern today.',
-  recs: [
-    {
-      name: 'Woolly Bugger — Olive/Black — Sz 8',
-      how: 'Strip-and-pause with short, erratic strips. Let marabou pulse between strips.',
-      where: 'Deeper pools and runs where riffles dump into slower water.',
-      why: 'Stained water calls for movement-based patterns that trigger predatory response.',
-    },
-    {
-      name: 'Pheasant Tail Nymph — Sz 16',
-      how: 'Dead drift under indicator through the current seam, 2–4" off bottom.',
-      where: 'Heads and tailouts of pools. Seams between fast and slow water.',
-      why: 'Year-round staple matching a wide range of mayfly nymphs.',
-    },
-    {
-      name: 'Elk Hair Caddis — Sz 14',
-      how: "Dead drift or slight skate. Let it swing at the end of the drift.",
-      where: 'Riffles, pocket water, foam lines along banks.',
-      why: 'Caddis are active in these temps. Buoyant silhouette visible in broken water.',
-    },
-    {
-      name: 'RS2 Emerger — Sz 20',
-      how: 'Fish in the film or just below surface. Long fine tippet, dead drift.',
-      where: 'Soft water along banks, eddy lines, tail ends of pools.',
-      why: 'Matches BWO emerger profile. Fish sipping in slow water key on this.',
-    },
-    {
-      name: 'Copper John — Sz 16',
-      how: 'Euro-nymph or indicator, tight-line through faster runs. Maintain bottom contact.',
-      where: 'Riffle pockets, plunge pools, fast water above deeper runs.',
-      why: 'Heavy bead sinks fast. Flash and movement trigger opportunistic takes.',
-    },
-  ],
-  hatch: [
-    {
-      insect: 'Blue-Winged Olive (Baetis)',
-      stage: 'Emerger → Dun',
-      size: '18–20',
-      peak: '1:00 PM – 4:00 PM',
-      pattern: 'RS2 Emerger (sz 20) or Sparkle Dun BWO (sz 18)',
-      presentation: 'Dead drift in film, slower seams and eddies',
-    },
-    {
-      insect: 'Spotted Sedge (Caddis)',
-      stage: 'Adult',
-      size: '14–16',
-      peak: 'Late afternoon into dusk',
-      pattern: 'Elk Hair Caddis (sz 14) or X-Caddis (sz 16)',
-      presentation: 'Dead drift to slight skate, riffles and runs',
-    },
-  ],
-};
+const PLATFORM_OPTIONS = [
+  { label: 'Bank', value: 'bank' as const },
+  { label: 'Boat / Kayak', value: 'boat_kayak' as const },
+];
+
+function geocodeToDisplayLabel(g: Location.LocationGeocodedAddress): string | null {
+  const city = g.city ?? g.subregion ?? g.district ?? g.name ?? undefined;
+  const region = g.region ?? '';
+  if (city && region) return `${city}, ${region}`;
+  if (city) return city;
+  if (region) return region;
+  if (g.subregion) return g.subregion;
+  return null;
+}
+
+function toTitle(text: string): string {
+  return text
+    .replaceAll('_', ' ')
+    .split(' ')
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+}
+
+function depthLaneLabel(id: string): string {
+  switch (id) {
+    case 'very_shallow':
+      return 'Very shallow';
+    case 'mid_depth':
+      return 'Mid-depth';
+    case 'upper_column':
+      return 'Upper column';
+    case 'lower_column':
+      return 'Lower column';
+    case 'bottom_oriented':
+      return 'Bottom-oriented';
+    default:
+      return toTitle(id);
+  }
+}
+
+function defaultGearMode(profileMode?: string | null): RecommenderGearMode {
+  if (profileMode === 'fly') return 'fly';
+  return 'lure';
+}
 
 export default function RecommenderScreen() {
-  const [mode, setMode] = useState<'conventional' | 'fly'>('conventional');
-  const [showManual, setShowManual] = useState(false);
+  const router = useRouter();
+  const params = useLocalSearchParams<{ lat?: string; lon?: string }>();
+  const lat = params.lat != null ? parseFloat(params.lat) : NaN;
+  const lon = params.lon != null ? parseFloat(params.lon) : NaN;
+  const hasCoords = !Number.isNaN(lat) && !Number.isNaN(lon);
+  const { profile } = useAuthStore();
+  const units = profile?.preferred_units ?? 'imperial';
 
-  // Conditions (manual)
-  const [windDir, setWindDir] = useState<string | null>(null);
-  const [pressure, setPressure] = useState<string | null>(null);
-  const [cloud, setCloud] = useState<string | null>(null);
-  const [precip, setPrecip] = useState<string | null>(null);
-  const [tide, setTide] = useState<string | null>(null);
-  const [moon, setMoon] = useState<string | null>(null);
+  const [env, setEnv] = useState<EnvironmentData | null>(null);
+  const [envLoading, setEnvLoading] = useState(true);
+  const [locationLabel, setLocationLabel] = useState<string>('Current location');
+  const [activeContext, setActiveContext] = useState<EngineContextKey>('freshwater_lake_pond');
+  const [gearMode, setGearMode] = useState<RecommenderGearMode>(defaultGearMode(profile?.fishing_mode));
+  const [result, setResult] = useState<RecommenderResponse | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [showSubscribePrompt, setShowSubscribePrompt] = useState(false);
 
-  // Your Spot
-  const [body, setBody] = useState<string | null>(null);
-  const [waterType, setWaterType] = useState<string | null>(null);
-  const [clarity, setClarity] = useState<string | null>(null);
-  const [bottom, setBottom] = useState<string | null>(null);
+  const [waterClarity, setWaterClarity] = useState<WaterClarity | null>(null);
+  const [vegetation, setVegetation] = useState<VegetationDensity | null>(null);
+  const [platform, setPlatform] = useState<'bank' | 'boat_kayak' | null>(null);
+  const [habitatTags, setHabitatTags] = useState<string[]>([]);
 
-  const data = mode === 'conventional' ? MOCK_CONV : MOCK_FLY;
+  const coastalEligible = useMemo(() => isCoastalContextEligible(lat, lon), [lat, lon]);
+  const availableContexts = useMemo<EngineContextKey[]>(
+    () =>
+      coastalEligible
+        ? ['freshwater_lake_pond', 'freshwater_river', 'coastal', 'coastal_flats_estuary']
+        : ['freshwater_lake_pond', 'freshwater_river'],
+    [coastalEligible],
+  );
+  const availableTabs = useMemo(
+    () => TAB_CONFIG.filter((tab) => availableContexts.includes(tab.key)),
+    [availableContexts],
+  );
+  const activeTabConfig = availableTabs.find((tab) => tab.key === activeContext) ?? availableTabs[0]!;
+
+  useEffect(() => {
+    setGearMode(defaultGearMode(profile?.fishing_mode));
+  }, [profile?.fishing_mode]);
+
+  useEffect(() => {
+    setActiveContext((current) => (availableContexts.includes(current) ? current : availableContexts[0]!));
+  }, [availableContexts]);
+
+  useEffect(() => {
+    setHabitatTags((current) =>
+      current.filter((tag) =>
+        RECOMMENDER_HABITAT_OPTIONS[activeContext].some((option) => option.id === tag),
+      ),
+    );
+  }, [activeContext]);
+
+  useEffect(() => {
+    if (!hasCoords) return;
+    let cancelled = false;
+    (async () => {
+      setEnvLoading(true);
+      try {
+        const [cachedEnv, geo] = await Promise.all([
+          getEnvironment({ latitude: lat, longitude: lon, units }),
+          Location.reverseGeocodeAsync({ latitude: lat, longitude: lon }).catch(() => []),
+        ]);
+        if (cancelled) return;
+        setEnv(cachedEnv);
+        if (geo?.[0]) {
+          setLocationLabel(geocodeToDisplayLabel(geo[0]) ?? 'Current location');
+        }
+      } catch {
+        if (!cancelled) setError('Unable to load live conditions for this location.');
+      } finally {
+        if (!cancelled) setEnvLoading(false);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [hasCoords, lat, lon, units]);
+
+  const refinements = useMemo<RecommenderRefinements>(
+    () => ({
+      ...(waterClarity ? { water_clarity: waterClarity } : {}),
+      ...(vegetation ? { vegetation } : {}),
+      ...(platform ? { platform } : {}),
+      ...(habitatTags.length > 0 ? { habitat_tags: habitatTags as RecommenderRefinements['habitat_tags'] } : {}),
+    }),
+    [waterClarity, vegetation, platform, habitatTags],
+  );
+
+  const hasActiveRefinements = Boolean(
+    refinements.water_clarity ||
+      refinements.vegetation ||
+      refinements.platform ||
+      (refinements.habitat_tags?.length ?? 0) > 0,
+  );
+
+  useEffect(() => {
+    if (!hasCoords || envLoading || hasActiveRefinements) {
+      if (hasActiveRefinements) setResult(null);
+      return;
+    }
+    let cancelled = false;
+    (async () => {
+      const cached = await getCachedRecommendation(lat, lon, activeContext);
+      if (cancelled) return;
+      setResult(cached);
+      setError(null);
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [hasCoords, envLoading, hasActiveRefinements, activeContext, lat, lon]);
+
+  const generateRecommendation = useCallback(async () => {
+    if (!hasCoords) return;
+    setLoading(true);
+    setError(null);
+    try {
+      const accessToken = await getValidAccessToken();
+      const freshEnv = await fetchFreshEnvironment({ latitude: lat, longitude: lon, units });
+      setEnv(freshEnv);
+
+      const response = await invokeEdgeFunction<RecommenderResponse>('recommender', {
+        accessToken,
+        body: {
+          latitude: lat,
+          longitude: lon,
+          context: activeContext,
+          env_data: freshEnv,
+          refinements,
+        },
+      });
+
+      if (!response || response.feature !== RECOMMENDER_FEATURE) {
+        throw new Error('Invalid response from recommender service.');
+      }
+
+      setResult(response);
+      setCurrentRecommendation(lat, lon, activeContext, response);
+      if (!hasActiveRefinements) {
+        await setCachedRecommendation(lat, lon, activeContext, response);
+      }
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'Unable to generate recommendations.';
+      setError(message);
+      if (message.toLowerCase().includes('subscribe')) {
+        setShowSubscribePrompt(true);
+      } else {
+        Alert.alert('Recommendation unavailable', message);
+      }
+    } finally {
+      setLoading(false);
+    }
+  }, [hasCoords, lat, lon, units, activeContext, refinements, hasActiveRefinements]);
+
+  const visibleFamilies = gearMode === 'lure' ? result?.lure_rankings ?? [] : result?.fly_rankings ?? [];
+  const topArchetype = result?.presentation_archetypes[0] ?? null;
+
+  if (!hasCoords) {
+    return (
+      <SafeAreaView style={styles.safe}>
+        <View style={styles.centeredCard}>
+          <View style={styles.centerIconWrap}>
+            <Ionicons name="location-outline" size={30} color={colors.primary} />
+          </View>
+          <Text style={styles.messageTitle}>Location Required</Text>
+          <Text style={styles.messageBody}>
+            The recommender needs your location so it can use the same live environmental data flow as How&apos;s Fishing.
+          </Text>
+          <Pressable style={({ pressed }) => [styles.primaryBtn, pressed && styles.primaryBtnPressed]} onPress={() => router.back()}>
+            <Text style={styles.primaryBtnText}>Go back</Text>
+          </Pressable>
+        </View>
+      </SafeAreaView>
+    );
+  }
 
   return (
-    <KeyboardAvoidingView
-      style={styles.flex}
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-    >
-      <ScrollView
-        style={styles.scroll}
-        contentContainerStyle={styles.content}
-        showsVerticalScrollIndicator={false}
-        keyboardShouldPersistTaps="handled"
-      >
-        {/* Mode Toggle */}
-        <View style={styles.toggle}>
-          <Pressable
-            style={[styles.toggleOpt, mode === 'conventional' && styles.toggleActive]}
-            onPress={() => setMode('conventional')}
-          >
-            <Text style={[styles.toggleText, mode === 'conventional' && styles.toggleTextActive]}>
-              Conventional
-            </Text>
-          </Pressable>
-          <Pressable
-            style={[styles.toggleOpt, mode === 'fly' && styles.toggleActive]}
-            onPress={() => setMode('fly')}
-          >
-            <Text style={[styles.toggleText, mode === 'fly' && styles.toggleTextActive]}>
-              Fly Fishing
-            </Text>
-          </Pressable>
+    <SafeAreaView style={styles.safe}>
+      <View style={styles.topBar}>
+        <Pressable style={styles.topBarIconBtn} onPress={() => router.back()} hitSlop={12}>
+          <Ionicons name="chevron-back" size={24} color={colors.primary} />
+        </Pressable>
+        <Text style={styles.heading}>Recommender</Text>
+        <Pressable
+          style={({ pressed }) => [styles.refreshBtn, pressed && { opacity: 0.7 }]}
+          onPress={generateRecommendation}
+          disabled={loading || envLoading}
+        >
+          <Ionicons name="refresh-outline" size={16} color={colors.primary} />
+          <Text style={styles.refreshBtnText}>Refresh</Text>
+        </Pressable>
+      </View>
+
+      <ScrollView style={styles.scroll} contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
+        <View style={styles.metaCard}>
+          <View style={styles.metaHeaderRow}>
+            <View>
+              <Text style={styles.metaTitle}>Fish Position + Presentation Recommender</Text>
+              <Text style={styles.metaSubtitle}>{locationLabel}</Text>
+            </View>
+            {envLoading ? (
+              <ActivityIndicator size="small" color={colors.primary} />
+            ) : (
+              <View style={styles.liveChip}>
+                <Ionicons name="pulse" size={12} color={colors.primary} />
+                <Text style={styles.liveChipText}>Live Conditions</Text>
+              </View>
+            )}
+          </View>
+          <Text style={styles.metaBody}>
+            Month-by-month regional baseline logic first, daily modifiers second, and family recommendations only after the engine resolves presentation needs.
+          </Text>
         </View>
 
-        {/* ─── Location & Conditions ─── */}
-        <Text style={styles.section}>Location & Conditions</Text>
-
-        <Pressable style={({ pressed }) => [styles.syncBtn, pressed && styles.pressed]}>
-          <Ionicons name="location" size={18} color={colors.textLight} />
-          <Text style={styles.syncBtnText}>Sync My Location</Text>
-        </Pressable>
-
-        <Pressable
-          style={styles.manualToggle}
-          onPress={() => setShowManual(!showManual)}
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          style={styles.tabBarScroll}
+          contentContainerStyle={styles.tabBarScrollContent}
         >
-          <Text style={styles.manualToggleText}>
-            {showManual ? 'Hide manual entry' : "Can't sync? Enter manually"}
-          </Text>
-          <Ionicons
-            name={showManual ? 'chevron-up' : 'chevron-down'}
-            size={16}
-            color={colors.sage}
-          />
-        </Pressable>
+          {availableTabs.map((tab) => {
+            const active = tab.key === activeContext;
+            return (
+              <Pressable
+                key={tab.key}
+                style={[styles.tab, active && styles.tabActive, active && { borderBottomColor: tab.color }]}
+                onPress={() => setActiveContext(tab.key)}
+              >
+                <Ionicons name={tab.icon as any} size={16} color={active ? tab.color : colors.textMuted} />
+                <Text style={[styles.tabLabel, active && { color: tab.color, fontWeight: '700' }]}>{tab.label}</Text>
+              </Pressable>
+            );
+          })}
+        </ScrollView>
 
-        {showManual && (
-          <View style={styles.manualSection}>
-            <View style={styles.field}>
-              <Text style={styles.label}>Location</Text>
-              <TextInput
-                style={styles.input}
-                placeholder="e.g. Tampa Bay, FL"
-                placeholderTextColor={colors.textMuted}
+        <View style={styles.sectionCard}>
+          <View style={styles.sectionHeaderRow}>
+            <Text style={styles.sectionTitle}>Refine The Recommendation</Text>
+            <Text style={styles.sectionHint}>Optional</Text>
+          </View>
+
+          <View style={styles.row}>
+            <View style={styles.halfField}>
+              <Text style={styles.label}>Water Clarity</Text>
+              <Select
+                value={waterClarity ? CLARITY_OPTIONS.find((option) => option.value === waterClarity)?.label ?? null : null}
+                options={CLARITY_OPTIONS.map((option) => option.label)}
+                placeholder="Select clarity"
+                onSelect={(value) =>
+                  setWaterClarity(CLARITY_OPTIONS.find((option) => option.label === value)?.value ?? null)
+                }
               />
             </View>
-
-            <View style={styles.row}>
-              <View style={styles.halfField}>
-                <Text style={styles.label}>Air Temp (°F)</Text>
-                <TextInput
-                  style={styles.input}
-                  placeholder="72"
-                  placeholderTextColor={colors.textMuted}
-                  keyboardType="numeric"
-                />
-              </View>
-              <View style={styles.halfField}>
-                <Text style={styles.label}>Wind Speed (mph)</Text>
-                <TextInput
-                  style={styles.input}
-                  placeholder="8"
-                  placeholderTextColor={colors.textMuted}
-                  keyboardType="numeric"
-                />
-              </View>
-            </View>
-
-            <View style={styles.row}>
-              <View style={styles.halfField}>
-                <Text style={styles.label}>Wind Direction</Text>
-                <Select
-                  value={windDir}
-                  options={WIND_DIR_OPTIONS}
-                  placeholder="Direction"
-                  onSelect={setWindDir}
-                />
-              </View>
-              <View style={styles.halfField}>
-                <Text style={styles.label}>Pressure</Text>
-                <Select
-                  value={pressure}
-                  options={PRESSURE_OPTIONS}
-                  placeholder="Trend"
-                  onSelect={setPressure}
-                />
-              </View>
-            </View>
-
-            <View style={styles.row}>
-              <View style={styles.halfField}>
-                <Text style={styles.label}>Cloud Cover</Text>
-                <Select
-                  value={cloud}
-                  options={CLOUD_OPTIONS}
-                  placeholder="Cover"
-                  onSelect={setCloud}
-                />
-              </View>
-              <View style={styles.halfField}>
-                <Text style={styles.label}>Precipitation</Text>
-                <Select
-                  value={precip}
-                  options={PRECIP_OPTIONS}
-                  placeholder="Precip"
-                  onSelect={setPrecip}
-                />
-              </View>
-            </View>
-
-            <View style={styles.row}>
-              <View style={styles.halfField}>
-                <Text style={styles.label}>Tide Phase</Text>
-                <Select
-                  value={tide}
-                  options={TIDE_OPTIONS}
-                  placeholder="Tide"
-                  onSelect={setTide}
-                />
-              </View>
-              <View style={styles.halfField}>
-                <Text style={styles.label}>Moon Phase</Text>
-                <Select
-                  value={moon}
-                  options={MOON_OPTIONS}
-                  placeholder="Moon"
-                  onSelect={setMoon}
-                />
-              </View>
+            <View style={styles.halfField}>
+              <Text style={styles.label}>Vegetation</Text>
+              <Select
+                value={vegetation ? VEGETATION_OPTIONS.find((option) => option.value === vegetation)?.label ?? null : null}
+                options={VEGETATION_OPTIONS.map((option) => option.label)}
+                placeholder="Select vegetation"
+                onSelect={(value) =>
+                  setVegetation(VEGETATION_OPTIONS.find((option) => option.label === value)?.value ?? null)
+                }
+              />
             </View>
           </View>
-        )}
 
-        {/* ─── Your Spot ─── */}
-        <Text style={styles.section}>Your Spot</Text>
-
-        <View style={styles.field}>
-          <Text style={styles.label}>Target Species</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="e.g. Redfish, Largemouth Bass, Trout"
-            placeholderTextColor={colors.textMuted}
-          />
-        </View>
-
-        <View style={styles.field}>
-          <Text style={styles.label}>Body of Water</Text>
-          <Select value={body} options={BODY_OPTIONS} placeholder="Select body of water" onSelect={setBody} />
-        </View>
-
-        <View style={styles.row}>
-          <View style={styles.halfField}>
-            <Text style={styles.label}>Water Type</Text>
-            <Select value={waterType} options={WATER_TYPE_OPTIONS} placeholder="Type" onSelect={setWaterType} />
-          </View>
-          <View style={styles.halfField}>
-            <Text style={styles.label}>Water Clarity</Text>
-            <Select value={clarity} options={CLARITY_OPTIONS} placeholder="Clarity" onSelect={setClarity} />
-          </View>
-        </View>
-
-        <View style={styles.row}>
-          <View style={styles.halfField}>
-            <Text style={styles.label}>
-              Bottom / Structure
-              <Text style={styles.opt}> · Optional</Text>
-            </Text>
-            <Select value={bottom} options={BOTTOM_OPTIONS} placeholder="Bottom" onSelect={setBottom} />
-          </View>
-          <View style={styles.halfField}>
-            <Text style={styles.label}>
-              Water Temp (°F)
-              <Text style={styles.opt}> · Optional</Text>
-            </Text>
-            <TextInput
-              style={styles.input}
-              placeholder="e.g. 72"
-              placeholderTextColor={colors.textMuted}
-              keyboardType="numeric"
+          <View style={styles.field}>
+            <Text style={styles.label}>Platform</Text>
+            <Select
+              value={platform ? PLATFORM_OPTIONS.find((option) => option.value === platform)?.label ?? null : null}
+              options={PLATFORM_OPTIONS.map((option) => option.label)}
+              placeholder="Bank or boat"
+              onSelect={(value) => setPlatform(PLATFORM_OPTIONS.find((option) => option.label === value)?.value ?? null)}
             />
           </View>
+
+          <Text style={[styles.label, styles.chipLabel]}>Spot Details</Text>
+          <View style={styles.chipWrap}>
+            {RECOMMENDER_HABITAT_OPTIONS[activeContext].map((option) => {
+              const selected = habitatTags.includes(option.id);
+              return (
+                <Pressable
+                  key={option.id}
+                  style={[styles.chip, selected && styles.chipSelected]}
+                  onPress={() =>
+                    setHabitatTags((current) =>
+                      current.includes(option.id)
+                        ? current.filter((tag) => tag !== option.id)
+                        : [...current, option.id],
+                    )
+                  }
+                >
+                  <Text style={[styles.chipText, selected && styles.chipTextSelected]}>{option.label}</Text>
+                </Pressable>
+              );
+            })}
+          </View>
         </View>
 
-        <View style={styles.field}>
-          <Text style={styles.label}>
-            Describe Your Spot
-            <Text style={styles.opt}> · Optional</Text>
+        <Pressable
+          style={({ pressed }) => [
+            styles.generateBtn,
+            (loading || envLoading) && styles.generateBtnDisabled,
+            pressed && !(loading || envLoading) && styles.generateBtnPressed,
+          ]}
+          onPress={generateRecommendation}
+          disabled={loading || envLoading}
+        >
+          {loading ? (
+            <ActivityIndicator size="small" color={colors.textOnPrimary} />
+          ) : (
+            <Ionicons name="sparkles" size={16} color={colors.textOnPrimary} />
+          )}
+          <Text style={styles.generateBtnText}>
+            {result ? 'Update Recommendation' : 'Generate Recommendation'}
           </Text>
-          <TextInput
-            style={[styles.input, styles.textArea]}
-            placeholder="e.g. Deep bend with fallen timber and a grass line on the far bank"
-            placeholderTextColor={colors.textMuted}
-            multiline
-            numberOfLines={2}
-            textAlignVertical="top"
-          />
-        </View>
-
-        {/* CTA */}
-        <Pressable style={({ pressed }) => [styles.cta, pressed && styles.pressed]}>
-          <Ionicons name="sparkles" size={18} color={colors.textLight} />
-          <Text style={styles.ctaText}>Get Recommendations</Text>
         </Pressable>
 
-        {/* ═══ Results Preview ═══ */}
-        <View style={styles.results}>
-          <View style={styles.resultsDivider}>
-            <View style={styles.resultsDividerLine} />
-            <Text style={styles.resultsDividerLabel}>Results Preview</Text>
-            <View style={styles.resultsDividerLine} />
+        {error ? <Text style={styles.inlineError}>{error}</Text> : null}
+
+        {!result ? (
+          <View style={styles.emptyCard}>
+            <Text style={styles.emptyTitle}>
+              {envLoading ? 'Loading conditions...' : `Ready for ${activeTabConfig.label}`}
+            </Text>
+            <Text style={styles.emptyBody}>
+              {envLoading
+                ? 'Pulling the live environmental inputs the recommender depends on.'
+                : 'Generate the recommendation to resolve likely fish position, presentation needs, and the top lure or fly families for this context.'}
+            </Text>
           </View>
-
-          {/* Overview */}
-          <View style={styles.overviewCard}>
-            <View style={styles.overviewHeader}>
-              <Ionicons name="analytics-outline" size={15} color={colors.sage} />
-              <Text style={styles.overviewTitle}>Situational Assessment</Text>
-            </View>
-            <Text style={styles.overviewText}>{data.overview}</Text>
-          </View>
-
-          {/* Recs */}
-          {data.recs.map((r, i) => (
-            <View key={i} style={styles.recCard}>
-              <View style={styles.recHeader}>
-                <View style={styles.recNum}>
-                  <Text style={styles.recNumText}>{i + 1}</Text>
-                </View>
-                <Text style={styles.recName}>{r.name}</Text>
+        ) : (
+          <>
+            <View style={styles.resultHero}>
+              <View style={[styles.contextPill, { backgroundColor: activeTabConfig.color + '14' }]}>
+                <Ionicons name={activeTabConfig.icon as any} size={13} color={activeTabConfig.color} />
+                <Text style={[styles.contextPillText, { color: activeTabConfig.color }]}>{activeTabConfig.label}</Text>
               </View>
-              <Detail label="How to Fish" text={r.how} />
-              <Detail label="Where to Fish" text={r.where} />
-              <Detail label="Why It Works" text={r.why} last />
+              <Text style={styles.resultSummary}>{result.narration_payload.summary_seed}</Text>
+              {result.narration_payload.confidence_note ? (
+                <Text style={styles.resultNote}>{result.narration_payload.confidence_note}</Text>
+              ) : null}
             </View>
-          ))}
 
-          {/* Hatch Panel — Fly only */}
-          {mode === 'fly' && (
-            <View style={styles.hatchPanel}>
-              <View style={styles.hatchHeader}>
-                <Text style={styles.hatchTitle}>What's Hatching Now</Text>
-                <View style={styles.masterBadge}>
-                  <Ionicons name="diamond" size={10} color={colors.gold} />
-                  <Text style={styles.masterText}>Master Angler</Text>
-                </View>
-              </View>
-              {(data as typeof MOCK_FLY).hatch.map((h, i) => (
-                <View key={i} style={styles.hatchCard}>
-                  <Text style={styles.hatchInsect}>{h.insect}</Text>
-                  <View style={styles.hatchMeta}>
-                    <View style={styles.hatchBadge}>
-                      <Text style={styles.hatchBadgeText}>{h.stage}</Text>
-                    </View>
-                    <Text style={styles.hatchSize}>Size {h.size}</Text>
+            <View style={styles.toggle}>
+              <Pressable
+                style={[styles.toggleOpt, gearMode === 'lure' && styles.toggleActive]}
+                onPress={() => setGearMode('lure')}
+              >
+                <Text style={[styles.toggleText, gearMode === 'lure' && styles.toggleTextActive]}>Lures</Text>
+              </Pressable>
+              <Pressable
+                style={[styles.toggleOpt, gearMode === 'fly' && styles.toggleActive]}
+                onPress={() => setGearMode('fly')}
+              >
+                <Text style={[styles.toggleText, gearMode === 'fly' && styles.toggleTextActive]}>Flies</Text>
+              </Pressable>
+            </View>
+
+            <View style={styles.sectionCard}>
+              <Text style={styles.sectionTitle}>Where Fish Likely Are</Text>
+              <Text style={styles.sectionBody}>
+                Start around {depthLaneLabel(result.fish_behavior.position.depth_lanes[0]?.id ?? 'mid_depth').toLowerCase()} and
+                key on {toTitle(result.fish_behavior.position.relation_tags[0]?.id ?? 'edge_oriented').toLowerCase()} first.
+              </Text>
+              <View style={styles.inlineChipRow}>
+                {result.fish_behavior.position.depth_lanes.slice(0, 3).map((item) => (
+                  <View key={item.id} style={styles.inlineChip}>
+                    <Text style={styles.inlineChipText}>{depthLaneLabel(item.id)}</Text>
                   </View>
-                  <HatchRow icon="time-outline" text={`Peak: ${h.peak}`} />
-                  <HatchRow icon="color-wand-outline" text={h.pattern} />
-                  <HatchRow icon="water-outline" text={h.presentation} />
+                ))}
+              </View>
+              <View style={styles.inlineChipRow}>
+                {result.fish_behavior.position.relation_tags.slice(0, 4).map((item) => (
+                  <View key={item.id} style={styles.inlineChip}>
+                    <Text style={styles.inlineChipText}>{toTitle(item.id)}</Text>
+                  </View>
+                ))}
+              </View>
+            </View>
+
+            <View style={styles.sectionCard}>
+              <Text style={styles.sectionTitle}>How They&apos;re Likely Acting</Text>
+              <Text style={styles.sectionBody}>
+                Fish look {result.fish_behavior.behavior.activity} with a {result.fish_behavior.behavior.strike_zone} strike zone and a{' '}
+                {result.fish_behavior.behavior.chase_radius} chase radius.
+              </Text>
+              <View style={styles.inlineChipRow}>
+                {result.fish_behavior.behavior.style_flags.slice(0, 6).map((flag) => (
+                  <View key={flag} style={styles.inlineChip}>
+                    <Text style={styles.inlineChipText}>{toTitle(flag)}</Text>
+                  </View>
+                ))}
+              </View>
+            </View>
+
+            <View style={styles.sectionCard}>
+              <Text style={styles.sectionTitle}>Best Presentation</Text>
+              {topArchetype ? (
+                <>
+                  <Text style={styles.presentationLead}>
+                    {toTitle(topArchetype.archetype_id)}: {toTitle(topArchetype.speed)} at {toTitle(topArchetype.depth_target)}.
+                  </Text>
+                  <Text style={styles.sectionBody}>
+                    Motion: {topArchetype.motions.map(toTitle).join(', ')}. Triggers: {topArchetype.triggers.map(toTitle).join(', ')}.
+                  </Text>
+                  {topArchetype.reasons.length > 0 ? (
+                    <View style={styles.inlineChipRow}>
+                      {topArchetype.reasons.map((reason) => (
+                        <View key={reason} style={styles.inlineChip}>
+                          <Text style={styles.inlineChipText}>{reason}</Text>
+                        </View>
+                      ))}
+                    </View>
+                  ) : null}
+                </>
+              ) : (
+                <Text style={styles.sectionBody}>The engine did not surface a single dominant presentation lane yet.</Text>
+              )}
+            </View>
+
+            <View style={styles.sectionCard}>
+              <Text style={styles.sectionTitle}>Top {gearMode === 'lure' ? 'Lure' : 'Fly'} Families</Text>
+              {visibleFamilies.map((family) => (
+                <View key={family.family_id} style={styles.familyCard}>
+                  <View style={styles.familyHeader}>
+                    <View>
+                      <Text style={styles.familyName}>{family.display_name}</Text>
+                      <Text style={styles.familyExamples}>{family.examples.join(' • ')}</Text>
+                    </View>
+                    <View style={styles.scorePill}>
+                      <Text style={styles.scorePillText}>{family.score.toFixed(0)}</Text>
+                    </View>
+                  </View>
+
+                  {family.match_reasons.length > 0 ? (
+                    <Text style={styles.familyBlock}>
+                      Why: {family.match_reasons.join(' • ')}
+                    </Text>
+                  ) : null}
+                  {family.color_profile_guidance?.length ? (
+                    <Text style={styles.familyBlock}>
+                      Color / profile: {family.color_profile_guidance.join(' • ')}
+                    </Text>
+                  ) : null}
+                  <Text style={styles.familyBlock}>
+                    How to fish it: {family.how_to_fish.join(' ')}
+                  </Text>
+                  <Text style={styles.familyBlock}>
+                    Best windows: {family.best_dayparts.join(', ')}
+                  </Text>
                 </View>
               ))}
             </View>
-          )}
-        </View>
+
+            <View style={styles.sectionCard}>
+              <Text style={styles.sectionTitle}>Best Dayparts</Text>
+              <View style={styles.inlineChipRow}>
+                {Array.from(new Set(visibleFamilies.flatMap((family) => family.best_dayparts))).slice(0, 4).map((daypart) => (
+                  <View key={daypart} style={styles.inlineChip}>
+                    <Text style={styles.inlineChipText}>{daypart}</Text>
+                  </View>
+                ))}
+              </View>
+            </View>
+
+            <View style={styles.sectionCard}>
+              <Text style={styles.sectionTitle}>Confidence / What This Depends On</Text>
+              <Text style={styles.sectionBody}>
+                Behavior: {toTitle(result.confidence.behavior_confidence)} • Presentation: {toTitle(result.confidence.presentation_confidence)} • Family:{' '}
+                {toTitle(result.confidence.family_confidence)}
+              </Text>
+              <View style={styles.reasonBlock}>
+                {result.confidence.reasons.map((reason) => (
+                  <Text key={reason} style={styles.reasonText}>• {reason}</Text>
+                ))}
+              </View>
+              {(result.shared_condition_summary.drivers.length > 0 || result.shared_condition_summary.suppressors.length > 0) ? (
+                <View style={styles.driverWrap}>
+                  {result.shared_condition_summary.drivers.length > 0 ? (
+                    <Text style={styles.driverText}>
+                      Helpful today: {result.shared_condition_summary.drivers.map((item) => item.label).join(' • ')}
+                    </Text>
+                  ) : null}
+                  {result.shared_condition_summary.suppressors.length > 0 ? (
+                    <Text style={styles.driverText}>
+                      Tightening factors: {result.shared_condition_summary.suppressors.map((item) => item.label).join(' • ')}
+                    </Text>
+                  ) : null}
+                </View>
+              ) : null}
+            </View>
+          </>
+        )}
       </ScrollView>
-    </KeyboardAvoidingView>
+
+      <SubscribePrompt
+        visible={showSubscribePrompt}
+        onDismiss={() => setShowSubscribePrompt(false)}
+        onViewPlans={() => {
+          setShowSubscribePrompt(false);
+          router.push('/subscribe');
+        }}
+      />
+    </SafeAreaView>
   );
 }
 
-/* ─── Tiny sub-components ─── */
-function Detail({ label, text, last }: { label: string; text: string; last?: boolean }) {
-  return (
-    <View style={last ? undefined : { marginBottom: spacing.sm }}>
-      <Text style={styles.detailLabel}>{label}</Text>
-      <Text style={styles.detailText}>{text}</Text>
-    </View>
-  );
-}
-
-function HatchRow({ icon, text }: { icon: string; text: string }) {
-  return (
-    <View style={styles.hatchRow}>
-      <Ionicons name={icon as any} size={13} color={colors.textMuted} />
-      <Text style={styles.hatchRowText}>{text}</Text>
-    </View>
-  );
-}
-
-/* ─── Styles ─── */
 const styles = StyleSheet.create({
-  flex: { flex: 1 },
-  scroll: { flex: 1, backgroundColor: colors.background },
-  content: { padding: spacing.lg, paddingBottom: spacing.xxl + 20 },
-  pressed: { opacity: 0.8 },
-
-  /* Toggle */
+  safe: { flex: 1, backgroundColor: colors.background },
+  scroll: { flex: 1 },
+  content: {
+    paddingHorizontal: 20,
+    paddingBottom: spacing.xl,
+    paddingTop: spacing.sm,
+    gap: spacing.md,
+  },
+  topBar: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 20,
+    paddingTop: 6,
+    paddingBottom: 10,
+  },
+  topBarIconBtn: {
+    width: 80,
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+  },
+  heading: {
+    flex: 1,
+    textAlign: 'center',
+    fontFamily: fonts.serif,
+    fontSize: 20,
+    fontWeight: '700',
+    color: colors.text,
+  },
+  refreshBtn: {
+    width: 80,
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    gap: 4,
+  },
+  refreshBtnText: {
+    color: colors.primary,
+    fontSize: 14,
+    fontWeight: '600',
+  },
+  centeredCard: {
+    margin: 24,
+    padding: 24,
+    borderRadius: radius.lg,
+    backgroundColor: colors.surface,
+    alignItems: 'center',
+    gap: 12,
+    ...shadows.sm,
+  },
+  centerIconWrap: {
+    width: 56,
+    height: 56,
+    borderRadius: 28,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: colors.primaryMist,
+  },
+  messageTitle: {
+    fontFamily: fonts.serif,
+    fontSize: 22,
+    fontWeight: '700',
+    color: colors.text,
+  },
+  messageBody: {
+    fontSize: 15,
+    lineHeight: 22,
+    color: colors.textMuted,
+    textAlign: 'center',
+  },
+  primaryBtn: {
+    marginTop: 8,
+    backgroundColor: colors.primary,
+    borderRadius: radius.full,
+    paddingHorizontal: 18,
+    paddingVertical: 12,
+  },
+  primaryBtnPressed: { opacity: 0.85 },
+  primaryBtnText: {
+    color: colors.textOnPrimary,
+    fontWeight: '700',
+  },
+  metaCard: {
+    backgroundColor: colors.surface,
+    borderRadius: radius.lg,
+    padding: spacing.md,
+    gap: 10,
+    ...shadows.sm,
+  },
+  metaHeaderRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+    gap: 12,
+  },
+  metaTitle: {
+    fontSize: 20,
+    fontFamily: fonts.serif,
+    fontWeight: '700',
+    color: colors.text,
+  },
+  metaSubtitle: {
+    marginTop: 4,
+    fontSize: 14,
+    color: colors.textMuted,
+  },
+  metaBody: {
+    fontSize: 14,
+    lineHeight: 21,
+    color: colors.textMuted,
+  },
+  liveChip: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    backgroundColor: colors.primaryMist,
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+    borderRadius: radius.full,
+  },
+  liveChipText: {
+    fontSize: 12,
+    color: colors.primary,
+    fontWeight: '700',
+  },
+  tabBarScroll: {
+    marginHorizontal: -4,
+  },
+  tabBarScrollContent: {
+    paddingHorizontal: 4,
+    gap: 4,
+  },
+  tab: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    paddingVertical: 10,
+    paddingHorizontal: 12,
+    borderBottomWidth: 3,
+    borderBottomColor: 'transparent',
+  },
+  tabActive: {
+    backgroundColor: colors.surface,
+    borderTopLeftRadius: radius.md,
+    borderTopRightRadius: radius.md,
+  },
+  tabLabel: {
+    fontSize: 14,
+    color: colors.textMuted,
+  },
+  sectionCard: {
+    backgroundColor: colors.surface,
+    borderRadius: radius.lg,
+    padding: spacing.md,
+    gap: 10,
+    ...shadows.sm,
+  },
+  sectionHeaderRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  sectionTitle: {
+    fontSize: 18,
+    fontFamily: fonts.serif,
+    fontWeight: '700',
+    color: colors.text,
+  },
+  sectionHint: {
+    fontSize: 12,
+    color: colors.textMuted,
+    fontWeight: '600',
+  },
+  row: {
+    flexDirection: 'row',
+    gap: spacing.sm,
+  },
+  halfField: {
+    flex: 1,
+    gap: 6,
+  },
+  field: {
+    gap: 6,
+  },
+  label: {
+    fontSize: 13,
+    fontWeight: '600',
+    color: colors.textMuted,
+  },
+  chipLabel: {
+    marginTop: 4,
+  },
+  chipWrap: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 8,
+  },
+  chip: {
+    borderWidth: 1,
+    borderColor: colors.border,
+    borderRadius: radius.full,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    backgroundColor: colors.background,
+  },
+  chipSelected: {
+    borderColor: colors.primary,
+    backgroundColor: colors.primaryMist,
+  },
+  chipText: {
+    fontSize: 13,
+    color: colors.textMuted,
+    fontWeight: '600',
+  },
+  chipTextSelected: {
+    color: colors.primary,
+  },
+  generateBtn: {
+    backgroundColor: colors.primary,
+    borderRadius: radius.full,
+    paddingVertical: 14,
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
+    gap: 8,
+    ...shadows.sm,
+  },
+  generateBtnPressed: { opacity: 0.85 },
+  generateBtnDisabled: { opacity: 0.7 },
+  generateBtnText: {
+    color: colors.textOnPrimary,
+    fontSize: 15,
+    fontWeight: '700',
+  },
+  inlineError: {
+    color: colors.reportScoreRed,
+    fontSize: 14,
+    lineHeight: 20,
+  },
+  emptyCard: {
+    padding: spacing.lg,
+    borderRadius: radius.lg,
+    backgroundColor: colors.surface,
+    gap: 8,
+    ...shadows.sm,
+  },
+  emptyTitle: {
+    fontSize: 18,
+    fontFamily: fonts.serif,
+    fontWeight: '700',
+    color: colors.text,
+  },
+  emptyBody: {
+    fontSize: 14,
+    lineHeight: 21,
+    color: colors.textMuted,
+  },
+  resultHero: {
+    backgroundColor: colors.surface,
+    borderRadius: radius.lg,
+    padding: spacing.md,
+    gap: 10,
+    ...shadows.sm,
+  },
+  contextPill: {
+    alignSelf: 'flex-start',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+    borderRadius: radius.full,
+  },
+  contextPillText: {
+    fontSize: 12,
+    fontWeight: '700',
+  },
+  resultSummary: {
+    fontSize: 15,
+    lineHeight: 23,
+    color: colors.text,
+    fontWeight: '600',
+  },
+  resultNote: {
+    fontSize: 13,
+    lineHeight: 20,
+    color: colors.textMuted,
+  },
   toggle: {
-    flexDirection: 'row', backgroundColor: colors.divider,
-    borderRadius: radius.md, padding: 3, marginBottom: spacing.lg,
+    flexDirection: 'row',
+    backgroundColor: colors.surface,
+    borderRadius: radius.full,
+    padding: 4,
+    ...shadows.sm,
   },
   toggleOpt: {
-    flex: 1, paddingVertical: spacing.sm + 2,
-    alignItems: 'center', borderRadius: radius.md - 2,
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 10,
+    borderRadius: radius.full,
   },
   toggleActive: {
-    backgroundColor: colors.surface,
-    shadowColor: '#000', shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.06, shadowRadius: 4, elevation: 1,
+    backgroundColor: colors.primary,
   },
-  toggleText: { fontSize: 14, fontWeight: '600', color: colors.textMuted },
-  toggleTextActive: { color: colors.text },
-
-  /* Section headers */
-  section: {
-    fontFamily: fonts.serif, fontSize: 18, color: colors.text,
-    marginBottom: spacing.md,
+  toggleText: {
+    color: colors.textMuted,
+    fontWeight: '700',
   },
-
-  /* Sync */
-  syncBtn: {
-    flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
-    gap: spacing.sm, backgroundColor: colors.sage,
-    borderRadius: radius.md, paddingVertical: spacing.md - 2,
-    marginBottom: spacing.sm,
+  toggleTextActive: {
+    color: colors.textOnPrimary,
   },
-  syncBtnText: { fontSize: 15, fontWeight: '600', color: colors.textLight },
-  manualToggle: {
-    flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
-    gap: spacing.xs, marginBottom: spacing.lg,
+  sectionBody: {
+    fontSize: 14,
+    lineHeight: 21,
+    color: colors.textMuted,
   },
-  manualToggleText: { fontSize: 13, color: colors.sage },
-
-  /* Manual section */
-  manualSection: {
-    backgroundColor: colors.surface, borderRadius: radius.md,
-    padding: spacing.md, marginBottom: spacing.lg,
-    borderWidth: StyleSheet.hairlineWidth, borderColor: colors.border,
+  inlineChipRow: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 8,
   },
-
-  /* Fields */
-  field: { marginBottom: spacing.md },
-  label: { fontSize: 13, fontWeight: '500', color: colors.textSecondary, marginBottom: 6 },
-  opt: { fontWeight: '400', fontStyle: 'italic', color: colors.textMuted },
-  input: {
-    backgroundColor: colors.surface, borderRadius: radius.md,
-    borderWidth: StyleSheet.hairlineWidth, borderColor: colors.border,
-    paddingHorizontal: spacing.md, paddingVertical: spacing.sm + 4,
-    fontSize: 15, color: colors.text,
+  inlineChip: {
+    backgroundColor: colors.background,
+    borderRadius: radius.full,
+    paddingHorizontal: 10,
+    paddingVertical: 6,
   },
-  textArea: { minHeight: 64, paddingTop: spacing.sm + 4 },
-  row: { flexDirection: 'row', gap: spacing.sm, marginBottom: spacing.md },
-  halfField: { flex: 1 },
-
-  /* CTA */
-  cta: {
-    flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
-    gap: spacing.sm, backgroundColor: colors.sage,
-    borderRadius: radius.md, paddingVertical: spacing.md, marginTop: spacing.sm,
+  inlineChipText: {
+    color: colors.textMuted,
+    fontSize: 12,
+    fontWeight: '600',
   },
-  ctaText: { fontSize: 16, fontWeight: '600', color: colors.textLight },
-
-  /* Results */
-  results: { marginTop: spacing.xl },
-  resultsDivider: { flexDirection: 'row', alignItems: 'center', marginBottom: spacing.lg },
-  resultsDividerLine: { flex: 1, height: StyleSheet.hairlineWidth, backgroundColor: colors.border },
-  resultsDividerLabel: {
-    fontSize: 12, color: colors.textMuted, marginHorizontal: spacing.md, fontStyle: 'italic',
+  presentationLead: {
+    fontSize: 15,
+    lineHeight: 22,
+    color: colors.text,
+    fontWeight: '700',
   },
-
-  /* Overview */
-  overviewCard: {
-    backgroundColor: colors.surface, borderRadius: radius.md,
-    padding: spacing.md, marginBottom: spacing.md,
-    borderWidth: StyleSheet.hairlineWidth, borderColor: colors.border,
+  familyCard: {
+    borderWidth: 1,
+    borderColor: colors.border,
+    borderRadius: radius.lg,
+    padding: spacing.md,
+    gap: 8,
   },
-  overviewHeader: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm, marginBottom: spacing.sm },
-  overviewTitle: { fontFamily: fonts.serif, fontSize: 15, fontWeight: '700', color: colors.sage },
-  overviewText: { fontSize: 13, lineHeight: 20, color: colors.textSecondary, fontStyle: 'italic' },
-
-  /* Rec cards */
-  recCard: {
-    backgroundColor: colors.surface, borderRadius: radius.md,
-    padding: spacing.md, marginBottom: spacing.md,
-    borderWidth: StyleSheet.hairlineWidth, borderColor: colors.border,
+  familyHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    gap: 12,
   },
-  recHeader: { flexDirection: 'row', alignItems: 'center', marginBottom: spacing.md },
-  recNum: {
-    width: 26, height: 26, borderRadius: 13,
-    backgroundColor: colors.sage, alignItems: 'center', justifyContent: 'center',
-    marginRight: spacing.sm,
+  familyName: {
+    fontSize: 16,
+    fontWeight: '700',
+    color: colors.text,
   },
-  recNumText: { fontSize: 13, fontWeight: '700', color: colors.textLight },
-  recName: { fontFamily: fonts.serif, fontSize: 15, color: colors.text, flex: 1 },
-  detailLabel: {
-    fontSize: 13, fontWeight: '700', color: colors.sage,
-    letterSpacing: 0.3, marginBottom: 3,
+  familyExamples: {
+    marginTop: 4,
+    fontSize: 13,
+    color: colors.textMuted,
+    lineHeight: 18,
   },
-  detailText: { fontSize: 13, lineHeight: 19, color: colors.textSecondary },
-
-  /* Hatch */
-  hatchPanel: {
-    backgroundColor: colors.surface, borderRadius: radius.md,
-    padding: spacing.md, marginTop: spacing.sm,
-    borderWidth: 1, borderColor: colors.gold + '40',
+  scorePill: {
+    minWidth: 42,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+    borderRadius: radius.full,
+    backgroundColor: colors.primaryMist,
   },
-  hatchHeader: {
-    flexDirection: 'row', justifyContent: 'space-between',
-    alignItems: 'center', marginBottom: spacing.md,
+  scorePillText: {
+    fontSize: 13,
+    color: colors.primary,
+    fontWeight: '700',
   },
-  hatchTitle: { fontFamily: fonts.serif, fontSize: 16, color: colors.text },
-  masterBadge: {
-    flexDirection: 'row', alignItems: 'center', gap: 4,
-    backgroundColor: colors.goldLight, paddingHorizontal: spacing.sm,
-    paddingVertical: 3, borderRadius: radius.sm,
+  familyBlock: {
+    fontSize: 13,
+    lineHeight: 20,
+    color: colors.textMuted,
   },
-  masterText: { fontSize: 10, fontWeight: '600', color: colors.gold, letterSpacing: 0.3 },
-  hatchCard: {
-    backgroundColor: colors.background, borderRadius: radius.sm,
-    padding: spacing.md, marginBottom: spacing.sm,
+  reasonBlock: {
+    gap: 6,
   },
-  hatchInsect: { fontFamily: fonts.serif, fontSize: 14, color: colors.text, marginBottom: spacing.xs },
-  hatchMeta: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm, marginBottom: spacing.sm },
-  hatchBadge: {
-    backgroundColor: colors.sageLight, paddingHorizontal: spacing.sm,
-    paddingVertical: 2, borderRadius: radius.sm,
+  reasonText: {
+    fontSize: 13,
+    lineHeight: 19,
+    color: colors.textMuted,
   },
-  hatchBadgeText: { fontSize: 11, fontWeight: '500', color: colors.sage },
-  hatchSize: { fontSize: 12, color: colors.textMuted },
-  hatchRow: { flexDirection: 'row', alignItems: 'flex-start', gap: spacing.sm, marginTop: spacing.xs + 2 },
-  hatchRowText: { fontSize: 12, color: colors.textSecondary, lineHeight: 17, flex: 1 },
+  driverWrap: {
+    gap: 6,
+    paddingTop: 4,
+  },
+  driverText: {
+    fontSize: 13,
+    lineHeight: 19,
+    color: colors.textMuted,
+  },
 });

@@ -11,6 +11,7 @@
     "start:dev-client:tunnel:clear": "expo start --dev-client --tunnel --clear",
     "start:dev-client:with-tunnel-host": "bash scripts/expo-metro-via-tunnel-host.sh",
     "audit:how-fishing": "deno run --allow-read --allow-write scripts/how-fishing-audit/run-audit.ts",
+    "audit:recommender": "deno run --allow-read --allow-write scripts/recommender-audit/run-audit.ts",
     "audit:how-fishing:e2e": "deno run --allow-net --allow-read --allow-write --allow-env scripts/how-fishing-audit/run-e2e-how-fishing-audit.ts scripts/how-fishing-audit/scenarios-e2e-50.json how-fishing-e2e-audit.jsonl",
     "audit:how-fishing:core": "deno run --allow-net --allow-read --allow-write --allow-env scripts/how-fishing-audit/run-e2e-how-fishing-audit.ts scripts/how-fishing-audit/scenarios-core-us-regression.json how-fishing-core-regression.jsonl",
     "android": "expo run:android",
