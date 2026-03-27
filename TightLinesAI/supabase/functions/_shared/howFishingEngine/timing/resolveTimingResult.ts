@@ -252,13 +252,16 @@ function computeTimingForFamily(
       );
       secondarySignal = { ...secondarySignal!, role: secondaryRole };
 
-      // Guard: On very_cold days with seek_warmth as anchor, secondary must only
-      // confirm (escalate strength) — never widen (add dawn/morning cold periods).
-      // Cloud_extended otherwise OR-merges dawn/morning into an afternoon window,
-      // recommending the coldest part of the day.
+      // Guard: On cold days (very_cold OR cool band) with seek_warmth as anchor,
+      // secondary must only confirm (escalate strength) — never widen (add dawn/
+      // morning cold periods). Cloud_extended otherwise OR-merges dawn/morning into
+      // an afternoon window, recommending the coldest part of the day. This applies
+      // equally at 22°F (very_cold) and 40°F (cool) — seek_warmth always means
+      // fish the warmest window, not the earliest one.
+      const _tempBand = norm?.normalized?.temperature?.band_label;
       if (
         primarySignal!.driver_id === "seek_warmth" &&
-        norm?.normalized?.temperature?.band_label === "very_cold" &&
+        (_tempBand === "very_cold" || _tempBand === "cool") &&
         secondaryRole === "widener"
       ) {
         secondaryRole = "confirmer";
