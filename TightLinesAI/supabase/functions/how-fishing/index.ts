@@ -262,7 +262,10 @@ async function polishReportCopy(
       const capFirst = (s: string) =>
         s.length > 0 ? s.charAt(0).toUpperCase() + s.slice(1) : s;
       const polishLine = (raw: string) =>
-        stripNumericWaterTempNarration(formatFactorLabel(capFirst(raw.slice(0, 120))));
+        sanitizePolishedThermalCopy(
+          stripNumericWaterTempNarration(formatFactorLabel(capFirst(raw.slice(0, 120)))),
+          report,
+        );
       const driverLabels = rawDrivers
         .slice(0, positiveCount)
         .map((l) => (typeof l === "string" ? polishLine(l) : ""));

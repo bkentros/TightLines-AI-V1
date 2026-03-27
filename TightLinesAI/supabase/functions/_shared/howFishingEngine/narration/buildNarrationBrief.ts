@@ -197,10 +197,10 @@ function deriveDominantPattern(report: HowsFishingReport): string {
   if (pl === "rising_fast") {
     return "Front has passed, pressure rebounding — bite is rebuilding as conditions settle";
   }
-  if (metab === "heat_limited" || tempBand === "very_warm") {
+  if (metab === "heat_limited") {
     return "Heat is the main story — peak activity narrows to cooler parts of the day";
   }
-  if (metab === "cold_limited" || tempBand === "very_cold") {
+  if (metab === "cold_limited") {
     return "Cold conditions are keeping fish sluggish — slow and methodical is the call";
   }
   if (windVar && windVar.engine_score <= -1.5) {
@@ -557,6 +557,7 @@ export function buildNarrationBrief(
       "",
       "TEMPERATURE (for paraphrasing driver/suppressor lines only)",
       "°F = AIR, never numeric water temp.",
+      `avoid_midday_for_heat=${cc?.avoid_midday_for_heat === true ? "true" : "false"} — when false, do NOT frame warm afternoons as a negative or suggest avoiding midday due to heat.`,
       "CRITICAL: temperature_metabolic_context is neutral — heat and cold are NOT constraining today. Do NOT write heat-avoidance or cold-stress language in driver_labels. No phrases like 'heat trims the window', 'cooler edges of the day', 'warm stretch limits action', 'cold slows the bite', or similar. Describe temperature as a neutral-to-positive factor.",
       "",
     ]
