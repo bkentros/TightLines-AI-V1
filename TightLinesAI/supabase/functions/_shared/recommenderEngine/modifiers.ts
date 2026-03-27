@@ -71,7 +71,9 @@ function currentProfileFor(
 function monthGroups(seasonPhase: SeasonPhase, month: number): string[] {
   const groups = ["all_year", seasonPhase];
   if (month >= 5 && month <= 9) groups.push("warm_months");
-  if (month >= 10 || month <= 2) groups.push("cool_months");
+  if (month >= 10 || month <= 2 || seasonPhase === "winter_hold" || seasonPhase === "late_fall") {
+    groups.push("cool_months");
+  }
   if (month >= 6 && month <= 8) groups.push("topwater_window");
   if (month >= 9 && month <= 11) groups.push("baitfish_push");
   return groups;
@@ -173,16 +175,38 @@ export function applyDailyModifiers(
   const context = input.request.context;
 
   const temp = analysis.norm.normalized.temperature;
+  const coldFreshwaterDay = temp != null &&
+    (temp.band_label === "very_cold" || temp.band_label === "cool") &&
+    (context === "freshwater_lake_pond" || context === "freshwater_river");
   if (temp) {
     if (temp.band_label === "very_cold") {
       addToScore(acc.depth_scores, "deep", 0.9);
       addToScore(acc.depth_scores, "bottom_oriented", 1);
+      addToScore(acc.depth_scores, "very_shallow", -0.8);
+      addToScore(acc.depth_scores, "shallow", -0.5);
       addToScore(acc.depth_scores, "upper_column", -0.9);
       acc.activity_index -= 0.7;
       acc.strike_index -= 0.5;
       acc.chase_index -= 0.5;
+      acc.style_flags.add("finesse_best");
       acc.style_flags.add("slow_bottom_best");
       addModifier(modifiers, "very_cold_band");
+    } else if (temp.band_label === "cool") {
+      addToScore(acc.depth_scores, "deep", 0.8);
+      addToScore(acc.depth_scores, "bottom_oriented", 0.9);
+      addToScore(acc.depth_scores, "lower_column", 0.6);
+      addToScore(acc.depth_scores, "mid_depth", 0.35);
+      addToScore(acc.depth_scores, "very_shallow", -0.6);
+      addToScore(acc.depth_scores, "shallow", -0.4);
+      addToScore(acc.depth_scores, "upper_column", -0.4);
+      addToScore(acc.relation_scores, "depth_transition_oriented", 0.5);
+      addToScore(acc.relation_scores, "structure_oriented", 0.3);
+      acc.activity_index -= 0.45;
+      acc.strike_index -= 0.35;
+      acc.chase_index -= 0.4;
+      acc.style_flags.add("finesse_best");
+      acc.style_flags.add("slow_bottom_best");
+      addModifier(modifiers, "cool_temperature_band");
     } else if (temp.band_label === "optimal") {
       acc.activity_index += 0.5;
       acc.strike_index += 0.4;
@@ -204,13 +228,23 @@ export function applyDailyModifiers(
         acc.season_phase === "winter_hold" ||
         acc.season_phase === "spring_transition"
       ) {
-        addToScore(acc.depth_scores, "shallow", 0.9);
-        addToScore(acc.depth_scores, "upper_column", 0.6);
-        acc.activity_index += 0.6;
-        acc.strike_index += 0.4;
-        acc.chase_index += 0.4;
-        acc.style_flags.add("willing_to_chase");
-        addModifier(modifiers, "warming_transition_push");
+        const conservativeColdWindow =
+          acc.season_phase === "winter_hold" ||
+          temp.band_label === "very_cold" ||
+          temp.band_label === "cool";
+        addToScore(acc.depth_scores, "mid_depth", conservativeColdWindow ? 0.35 : 0.2);
+        addToScore(acc.depth_scores, "shallow", conservativeColdWindow ? 0.35 : 0.9);
+        addToScore(acc.depth_scores, "upper_column", conservativeColdWindow ? 0.15 : 0.6);
+        acc.activity_index += conservativeColdWindow ? 0.25 : 0.6;
+        acc.strike_index += conservativeColdWindow ? 0.15 : 0.4;
+        acc.chase_index += conservativeColdWindow ? 0.1 : 0.4;
+        if (!conservativeColdWindow && temp.band_label === "optimal") {
+          acc.style_flags.add("willing_to_chase");
+        }
+        addModifier(
+          modifiers,
+          conservativeColdWindow ? "warming_transition_window" : "warming_transition_push",
+        );
       } else {
         addToScore(acc.depth_scores, "mid_depth", 0.4);
         addToScore(acc.relation_scores, "shade_oriented", 0.4);
@@ -245,9 +279,19 @@ export function applyDailyModifiers(
         acc.season_phase === "winter_hold" ||
         acc.season_phase === "spring_transition"
       ) {
-        addToScore(acc.depth_scores, "shallow", 0.6);
-        acc.activity_index += 0.3;
-        addModifier(modifiers, "sharp_warmup_positive");
+        const conservativeColdWindow =
+          acc.season_phase === "winter_hold" ||
+          temp.band_label === "very_cold" ||
+          temp.band_label === "cool";
+        addToScore(acc.depth_scores, conservativeColdWindow ? "mid_depth" : "shallow", 0.35);
+        if (!conservativeColdWindow) addToScore(acc.depth_scores, "shallow", 0.25);
+        acc.activity_index += conservativeColdWindow ? 0.15 : 0.3;
+        acc.strike_index += conservativeColdWindow ? 0.1 : 0.2;
+        acc.chase_index += conservativeColdWindow ? 0.05 : 0.15;
+        addModifier(
+          modifiers,
+          conservativeColdWindow ? "sharp_warmup_cold_window" : "sharp_warmup_positive",
+        );
       } else {
         addToScore(acc.relation_scores, "shade_oriented", 0.5);
         acc.style_flags.add("short_feeding_windows");
@@ -276,14 +320,21 @@ export function applyDailyModifiers(
 
   const windScore = analysis.norm.normalized.wind_condition?.score ?? 0;
   if (windScore >= 0.5) {
-    acc.activity_index += 0.2;
-    acc.chase_index += 0.15;
-    acc.style_flags.add("horizontal_search_best");
+    acc.activity_index += coldFreshwaterDay ? 0.1 : 0.2;
+    acc.chase_index += coldFreshwaterDay ? 0.05 : 0.15;
+    if (!coldFreshwaterDay) {
+      acc.style_flags.add("horizontal_search_best");
+    }
     if (context === "freshwater_lake_pond") {
-      addToScore(acc.relation_scores, "edge_oriented", 0.6);
-      addToScore(acc.relation_scores, "point_oriented", 0.4);
+      addToScore(acc.relation_scores, "edge_oriented", coldFreshwaterDay ? 0.4 : 0.6);
+      if (coldFreshwaterDay) {
+        addToScore(acc.relation_scores, "depth_transition_oriented", 0.35);
+      } else {
+        addToScore(acc.relation_scores, "point_oriented", 0.4);
+      }
     } else if (context === "freshwater_river") {
-      addToScore(acc.relation_scores, "seam_oriented", 0.4);
+      addToScore(acc.relation_scores, "seam_oriented", coldFreshwaterDay ? 0.25 : 0.4);
+      if (coldFreshwaterDay) addToScore(acc.relation_scores, "hole_oriented", 0.25);
     } else if (context === "coastal") {
       addToScore(acc.relation_scores, "point_oriented", 0.6);
       addToScore(acc.relation_scores, "current_break_oriented", 0.5);
@@ -302,13 +353,31 @@ export function applyDailyModifiers(
   let lightProfile: "bright" | "mixed" | "low_light" = "mixed";
   if (lightScore >= 0.75) {
     lightProfile = "low_light";
-    addToScore(acc.depth_scores, "upper_column", 0.8);
-    addToScore(acc.depth_scores, "shallow", 0.7);
-    addToScore(acc.relation_scores, "shoreline_cruising", 0.5);
-    acc.activity_index += 0.35;
-    acc.strike_index += 0.25;
-    acc.style_flags.add("topwater_window");
-    addModifier(modifiers, "low_light_window");
+    if (coldFreshwaterDay) {
+      addToScore(acc.depth_scores, "mid_depth", 0.2);
+      addToScore(acc.depth_scores, "shallow", 0.15);
+      addToScore(acc.relation_scores, "shoreline_cruising", 0.2);
+      acc.activity_index += 0.1;
+      acc.strike_index += 0.05;
+      addModifier(modifiers, "cold_low_light_window");
+    } else {
+      addToScore(acc.depth_scores, "upper_column", 0.8);
+      addToScore(acc.depth_scores, "shallow", 0.7);
+      addToScore(acc.relation_scores, "shoreline_cruising", 0.5);
+      if (
+        context === "freshwater_lake_pond" &&
+        (acc.season_phase === "summer_pattern" || acc.season_phase === "summer_heat")
+      ) {
+        addToScore(acc.depth_scores, "shallow", 0.35);
+        addToScore(acc.depth_scores, "upper_column", 0.45);
+        addToScore(acc.depth_scores, "deep", -0.35);
+        addToScore(acc.depth_scores, "lower_column", -0.2);
+      }
+      acc.activity_index += 0.35;
+      acc.strike_index += 0.25;
+      acc.style_flags.add("topwater_window");
+      addModifier(modifiers, "low_light_window");
+    }
   } else if (lightScore <= -0.75) {
     lightProfile = "bright";
     addToScore(acc.depth_scores, "lower_column", 0.7);
@@ -319,10 +388,11 @@ export function applyDailyModifiers(
     addModifier(modifiers, "bright_light_tightening");
   }
 
-  const precipScore = analysis.norm.normalized.precipitation_disruption?.score ?? 0;
-  if (precipScore >= 0.5) {
-    acc.activity_index += 0.15;
-    addToScore(acc.depth_scores, "shallow", 0.2);
+  const precipState = analysis.norm.normalized.precipitation_disruption;
+  const precipScore = precipState?.score ?? 0;
+  if (precipState?.label === "light_mist") {
+    acc.activity_index += 0.1;
+    addToScore(acc.depth_scores, "shallow", 0.1);
     addModifier(modifiers, "light_precip_activation");
   } else if (precipScore <= -0.8) {
     addToScore(acc.relation_scores, "cover_oriented", 0.4);

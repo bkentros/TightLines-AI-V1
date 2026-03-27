@@ -7,6 +7,7 @@ import type {
   EngineContext,
   RegionKey,
 } from "../howFishingEngine/contracts/mod.ts";
+import { resolveTimingFamily } from "../howFishingEngine/timing/timingFamilies.ts";
 import {
   DEPTH_LANE_IDS,
   RELATION_TAG_IDS,
@@ -127,13 +128,55 @@ function seasonPhaseForMonth(climateBand: ClimateBand, month: number): SeasonPha
   }
 }
 
+function seasonPhaseFromTimingFamily(
+  regionKey: RegionKey,
+  month: number,
+  context: EngineContext,
+  climateBand: ClimateBand,
+): SeasonPhase {
+  if (context === "coastal" || context === "coastal_flats_estuary") {
+    return seasonPhaseForMonth(climateBand, month);
+  }
+
+  const familyId = resolveTimingFamily(context, regionKey, month).family_id;
+
+  if (familyId.endsWith("_winter")) return "winter_hold";
+
+  if (familyId.endsWith("_summer")) {
+    return climateBand === "warm" || climateBand === "tropical" || climateBand === "arid"
+      ? "summer_heat"
+      : "summer_pattern";
+  }
+
+  if (familyId.endsWith("_fall")) {
+    const lateColdMonth =
+      month >= 11 ||
+      (month === 10 &&
+        (climateBand === "cold" || climateBand === "maritime" || climateBand === "alpine"));
+    return lateColdMonth ? "late_fall" : "fall_feed";
+  }
+
+  if (climateBand === "cold" || climateBand === "maritime" || climateBand === "alpine") {
+    return month <= 5 ? "spring_transition" : "warm_transition";
+  }
+  if (climateBand === "temperate") {
+    return month <= 4 ? "spring_transition" : "warm_transition";
+  }
+  return month <= 4 ? "spring_transition" : "warm_transition";
+}
+
 function makeAccumulator(
   regionKey: RegionKey,
   month: number,
   context: EngineContext,
 ): BehaviorAccumulator {
   const climateBand = climateBandForRegion(regionKey);
-  const seasonPhase = seasonPhaseForMonth(climateBand, month);
+  const seasonPhase = seasonPhaseFromTimingFamily(
+    regionKey,
+    month,
+    context,
+    climateBand,
+  );
   return {
     baseline_profile_id: `${regionKey}:${context}:m${month}`,
     climate_band: climateBand,

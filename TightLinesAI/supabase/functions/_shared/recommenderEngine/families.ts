@@ -699,7 +699,9 @@ function environmentalScore(
   if (family.strike_zone_fit.includes(behavior.fish_behavior.behavior.strike_zone)) score += 4;
   if (family.light_fit.includes(behavior.light_profile)) score += 3;
   if ((family.daypart_fit ?? []).some((daypart) => behavior.best_dayparts.includes(daypart))) score += 4;
-  if ((family.preferred_month_groups ?? []).some((group) => behavior.month_groups.includes(group))) score += 4;
+  if ((family.preferred_month_groups ?? []).some((group) => behavior.month_groups.includes(group))) {
+    score += 4;
+  }
   if (family.preferred_regions?.includes(input.request.region_key as RegionKey)) score += 3;
 
   const vegetation = input.refinements.vegetation;
@@ -737,6 +739,19 @@ function depriorityPenalty(
   behavior: BehaviorResolution,
 ): number {
   let penalty = 0;
+  const seasonMatch =
+    family.preferred_month_groups == null ||
+    family.preferred_month_groups.length === 0 ||
+    family.preferred_month_groups.includes("all_year") ||
+    family.preferred_month_groups.some((group) => behavior.month_groups.includes(group));
+
+  if (!seasonMatch) {
+    const surfaceLocked = family.presentation_archetype_fit.length === 1 &&
+      family.presentation_archetype_fit[0] === "surface_low_light_commotion";
+    penalty += surfaceLocked ? 16 : family.preferred_month_groups!.length <= 3 ? 10 : 6;
+  }
+  if (!family.activity_fit.includes(behavior.fish_behavior.behavior.activity)) penalty += 6;
+  if (!family.strike_zone_fit.includes(behavior.fish_behavior.behavior.strike_zone)) penalty += 4;
   if (family.depriors.includes("bright_midday") && behavior.light_profile === "bright") penalty += 8;
   if (family.depriors.includes("dirty_water") && behavior.inferred_clarity === "dirty") penalty += 8;
   if (family.depriors.includes("surface_window") && behavior.style_flags.includes("topwater_window")) penalty -= 2;

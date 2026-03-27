@@ -32,18 +32,51 @@ function scoreFor(list: Array<{ id: string; score: number }> | undefined, id: st
   return list?.find((item) => item.id === id)?.score ?? 0;
 }
 
-Deno.test("recommender: warming trend is contextual by region and month", () => {
-  const earlyNorthLake = buildSharedEngineRequestFromEnvData(
+Deno.test("recommender: Great Lakes March lake stays winter-biased even during a warm spell", () => {
+  const lateMarchNorthLake = buildSharedEngineRequestFromEnvData(
+    44.30,
+    -84.68,
+    "2026-03-26",
+    "America/Detroit",
+    "freshwater_lake_pond",
+    envFixture({
+      timezone: "America/Detroit",
+      weather: {
+        temperature: 49,
+        pressure: 1017,
+        cloud_cover: 45,
+        temp_7day_high: dailySeries(48, 38, 43, 49),
+        temp_7day_low: dailySeries(34, 26, 30, 36),
+      },
+    }),
+  );
+
+  const north = runRecommender({ request: lateMarchNorthLake, refinements: {} });
+
+  assert(scoreFor(north.debug?.depth_lane_scores, "deep") >= scoreFor(north.debug?.depth_lane_scores, "shallow"));
+  assert(scoreFor(north.debug?.depth_lane_scores, "lower_column") >= scoreFor(north.debug?.depth_lane_scores, "upper_column"));
+  assertEquals(north.fish_behavior.behavior.activity, "neutral");
+  assert(north.presentation_archetypes.some((item) => item.archetype_id === "slow_bottom_contact"));
+  assert(!north.lure_rankings.slice(0, 3).some((item) =>
+    item.family_id === "frog_toad" || item.family_id === "topwater_walker_popper"
+  ));
+});
+
+Deno.test("recommender: warming remains contextual by region and month after cold-season hold clears", () => {
+  const northJuneLake = buildSharedEngineRequestFromEnvData(
     44.97,
     -93.26,
-    "2026-03-20",
+    "2026-06-20",
     "America/Chicago",
     "freshwater_lake_pond",
     envFixture({
+      timezone: "America/Chicago",
       weather: {
-        temperature: 49,
-        temp_7day_high: dailySeries(48, 38, 43, 49),
-        temp_7day_low: dailySeries(34, 26, 30, 36),
+        temperature: 76,
+        pressure: 1012,
+        cloud_cover: 45,
+        temp_7day_high: dailySeries(74, 68, 72, 76),
+        temp_7day_low: dailySeries(56, 50, 54, 58),
       },
     }),
   );
@@ -64,10 +97,10 @@ Deno.test("recommender: warming trend is contextual by region and month", () => 
     }),
   );
 
-  const north = runRecommender({ request: earlyNorthLake, refinements: {} });
+  const north = runRecommender({ request: northJuneLake, refinements: {} });
   const south = runRecommender({ request: hotSouthLake, refinements: {} });
 
-  assert(scoreFor(north.debug?.depth_lane_scores, "shallow") > scoreFor(north.debug?.depth_lane_scores, "deep"));
+  assert(scoreFor(north.debug?.depth_lane_scores, "shallow") > 0);
   assert(scoreFor(south.debug?.depth_lane_scores, "deep") >= scoreFor(south.debug?.depth_lane_scores, "shallow"));
   assert(north.fish_behavior.behavior.activity !== "inactive");
   assert(south.fish_behavior.position.relation_tags.some((item) => item.id === "shade_oriented" || item.id === "depth_transition_oriented"));

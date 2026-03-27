@@ -11,14 +11,20 @@ function includesAny(actual: string[], expected: string[] | undefined): boolean 
   return expected.some((item) => actual.includes(item));
 }
 
+function excludesAll(actual: string[], forbidden: string[] | undefined): boolean {
+  if (!forbidden || forbidden.length === 0) return true;
+  return forbidden.every((item) => !actual.includes(item));
+}
+
 function evaluateScenario(s: RecommenderAuditScenario, result: ReturnType<typeof runRecommender>): string[] {
   const findings: string[] = [];
-  const depths = result.fish_behavior.position.depth_lanes.map((item) => item.id);
-  const relations = result.fish_behavior.position.relation_tags.map((item) => item.id);
-  const archetypes = result.presentation_archetypes.map((item) => item.archetype_id);
+  const depths = result.fish_behavior.position.depth_lanes.slice(0, 3).map((item) => item.id);
+  const relations = result.fish_behavior.position.relation_tags.slice(0, 4).map((item) => item.id);
+  const archetypes = result.presentation_archetypes.slice(0, 3).map((item) => item.archetype_id);
   const styleFlags = result.fish_behavior.behavior.style_flags;
-  const lureIds = result.lure_rankings.map((item) => item.family_id);
-  const flyIds = result.fly_rankings.map((item) => item.family_id);
+  const lureIds = result.lure_rankings.slice(0, 3).map((item) => item.family_id);
+  const flyIds = result.fly_rankings.slice(0, 3).map((item) => item.family_id);
+  const activity = result.fish_behavior.behavior.activity;
 
   if (!includesAny(depths, s.expectations.top_depth_in)) {
     findings.push(`expected one of top_depth_in=${JSON.stringify(s.expectations.top_depth_in)} but saw ${JSON.stringify(depths.slice(0, 3))}`);
@@ -29,14 +35,23 @@ function evaluateScenario(s: RecommenderAuditScenario, result: ReturnType<typeof
   if (!includesAny(archetypes, s.expectations.top_archetype_in)) {
     findings.push(`expected one of top_archetype_in=${JSON.stringify(s.expectations.top_archetype_in)} but saw ${JSON.stringify(archetypes.slice(0, 3))}`);
   }
+  if (!excludesAll(archetypes, s.expectations.forbidden_top_archetype_ids)) {
+    findings.push(`forbidden top archetype in ${JSON.stringify(s.expectations.forbidden_top_archetype_ids)} but saw ${JSON.stringify(archetypes.slice(0, 3))}`);
+  }
   if (!includesAny(styleFlags, s.expectations.required_style_flags)) {
     findings.push(`expected style flag in ${JSON.stringify(s.expectations.required_style_flags)} but saw ${JSON.stringify(styleFlags)}`);
   }
   if (!includesAny(lureIds, s.expectations.top_lure_ids_in)) {
     findings.push(`expected lure family in ${JSON.stringify(s.expectations.top_lure_ids_in)} but saw ${JSON.stringify(lureIds.slice(0, 3))}`);
   }
+  if (!excludesAll(lureIds, s.expectations.forbidden_top_lure_ids)) {
+    findings.push(`forbidden top lure family in ${JSON.stringify(s.expectations.forbidden_top_lure_ids)} but saw ${JSON.stringify(lureIds.slice(0, 3))}`);
+  }
   if (!includesAny(flyIds, s.expectations.top_fly_ids_in)) {
     findings.push(`expected fly family in ${JSON.stringify(s.expectations.top_fly_ids_in)} but saw ${JSON.stringify(flyIds.slice(0, 3))}`);
+  }
+  if (!includesAny([activity], s.expectations.activity_in)) {
+    findings.push(`expected activity in ${JSON.stringify(s.expectations.activity_in)} but saw ${JSON.stringify(activity)}`);
   }
   return findings;
 }

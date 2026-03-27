@@ -5,9 +5,12 @@ type ExpectationShape = {
   top_depth_in?: string[];
   top_relation_in?: string[];
   top_archetype_in?: string[];
+  forbidden_top_archetype_ids?: string[];
   required_style_flags?: string[];
   top_lure_ids_in?: string[];
   top_fly_ids_in?: string[];
+  forbidden_top_lure_ids?: string[];
+  activity_in?: string[];
 };
 
 export type RecommenderAuditScenario = {
@@ -52,23 +55,82 @@ function baseEnv(overrides: Record<string, unknown> = {}): Record<string, unknow
 export const RECOMMENDER_AUDIT_SCENARIOS: RecommenderAuditScenario[] = [
   {
     id: "north-lake-spring-warming",
-    notes: "Northern early-spring warming should pull fish shallower and open the search window.",
+    notes: "Northern post-spawn warmth should finally open search lanes after the cold-season hold clears.",
     latitude: 44.97,
     longitude: -93.26,
-    local_date: "2026-03-20",
+    local_date: "2026-06-20",
     local_timezone: "America/Chicago",
     context: "freshwater_lake_pond",
     env_data: baseEnv({
       weather: {
+        temperature: 76,
+        temp_7day_high: dailySeries(74, 68, 72, 76),
+        temp_7day_low: dailySeries(56, 50, 54, 58),
+      },
+    }),
+    expectations: {
+      top_depth_in: ["shallow", "mid_depth", "upper_column"],
+      top_archetype_in: ["horizontal_search_mid_column", "grass_edge_swim"],
+      top_lure_ids_in: ["paddle_tail_swimbait", "chatterbait", "spinnerbait", "crankbait_shallow_mid"],
+      activity_in: ["active", "aggressive"],
+    },
+  },
+  {
+    id: "great-lakes-late-march-cold-lake",
+    notes: "Late-March Great Lakes lake fishing should still be winter-hold oriented, not surface or summer-search oriented.",
+    latitude: 44.30,
+    longitude: -84.68,
+    local_date: "2026-03-26",
+    local_timezone: "America/Detroit",
+    context: "freshwater_lake_pond",
+    env_data: baseEnv({
+      timezone: "America/Detroit",
+      weather: {
+        temperature: 35,
+        pressure: 1019,
+        cloud_cover: 35,
+        temp_7day_high: dailySeries(36, 34, 35, 36),
+        temp_7day_low: dailySeries(24, 20, 22, 24),
+      },
+    }),
+    expectations: {
+      top_depth_in: ["deep", "bottom_oriented", "lower_column"],
+      top_archetype_in: ["slow_bottom_contact", "tight_to_cover_vertical"],
+      forbidden_top_archetype_ids: ["surface_low_light_commotion", "grass_edge_swim", "horizontal_search_mid_column"],
+      required_style_flags: ["slow_bottom_best", "finesse_best"],
+      top_lure_ids_in: ["jig_trailer", "finesse_worm", "jerkbait"],
+      top_fly_ids_in: ["nymph_rig", "weighted_streamer", "woolly_bugger_leech"],
+      forbidden_top_lure_ids: ["frog_toad", "topwater_walker_popper", "spinnerbait", "chatterbait"],
+      activity_in: ["inactive", "neutral"],
+    },
+  },
+  {
+    id: "great-lakes-late-march-warm-spell-lake",
+    notes: "A northern March warm spell can loosen fish slightly, but it should still stay a cold-water, lower-lane recommendation.",
+    latitude: 44.30,
+    longitude: -84.68,
+    local_date: "2026-03-26",
+    local_timezone: "America/Detroit",
+    context: "freshwater_lake_pond",
+    env_data: baseEnv({
+      timezone: "America/Detroit",
+      weather: {
         temperature: 49,
+        pressure: 1017,
+        cloud_cover: 45,
         temp_7day_high: dailySeries(48, 38, 43, 49),
         temp_7day_low: dailySeries(34, 26, 30, 36),
       },
     }),
     expectations: {
-      top_depth_in: ["shallow", "upper_column"],
-      top_archetype_in: ["subtle_shallow_cover", "horizontal_search_mid_column"],
-      top_lure_ids_in: ["soft_stick_worm", "jerkbait", "crankbait_shallow_mid"],
+      top_depth_in: ["deep", "bottom_oriented", "lower_column", "mid_depth"],
+      top_archetype_in: ["slow_bottom_contact", "tight_to_cover_vertical", "depth_break_suspend_pause"],
+      forbidden_top_archetype_ids: ["surface_low_light_commotion", "grass_edge_swim"],
+      required_style_flags: ["finesse_best", "slow_bottom_best"],
+      top_lure_ids_in: ["jig_trailer", "finesse_worm", "jerkbait"],
+      top_fly_ids_in: ["nymph_rig", "weighted_streamer", "woolly_bugger_leech"],
+      forbidden_top_lure_ids: ["frog_toad", "topwater_walker_popper", "spinnerbait", "chatterbait"],
+      activity_in: ["neutral"],
     },
   },
   {
