@@ -3,34 +3,8 @@ import type { EngineContextKey } from './howFishingRebuildContracts';
 export type RecommenderGearMode = 'lure' | 'fly';
 export type WaterClarity = 'clear' | 'stained' | 'dirty';
 
-export type RefinementTag =
-  | 'grass'
-  | 'wood'
-  | 'docks'
-  | 'rock'
-  | 'shade'
-  | 'breakline'
-  | 'seam'
-  | 'eddy'
-  | 'hole'
-  | 'riffle_run'
-  | 'undercut_bank'
-  | 'wood_boulder'
-  | 'channel_edge'
-  | 'point'
-  | 'current_seam'
-  | 'dock'
-  | 'shoreline_edge'
-  | 'drain'
-  | 'grass_edge'
-  | 'pothole'
-  | 'trough'
-  | 'oyster'
-  | 'marsh_edge';
-
 export type RecommenderRefinements = {
   water_clarity?: WaterClarity;
-  habitat_tags?: RefinementTag[];
 };
 
 export type FishBehaviorOutput = {
@@ -69,6 +43,25 @@ export type RankedFamily = {
   score: number;
   examples: string[];
   match_reasons: string[];
+  best_method: {
+    method_id: string;
+    label: string;
+    presentation_note: string;
+    setup_label: string;
+    presentation_guide: {
+      pace: 'slow' | 'medium' | 'fast';
+      lane: 'upper' | 'mid' | 'lower' | 'bottom';
+      action:
+        | 'steady'
+        | 'pause-heavy'
+        | 'subtle twitch'
+        | 'bottom contact'
+        | 'natural drift'
+        | 'surface commotion';
+      summary: string;
+    };
+    reasons: string[];
+  };
   color_profile_guidance?: string[];
   how_to_fish: string[];
   best_dayparts: string[];
@@ -104,11 +97,29 @@ export type RecommenderDebugPayload = {
   region_key: string;
   month: number;
   shared_condition_reliability: string;
+  seasonal_basis: string[];
+  daily_adjustments: string[];
+  clarity_adjustments: string[];
   active_modifiers: string[];
   depth_lane_scores: Array<{ id: string; score: number }>;
   relation_scores: Array<{ id: string; score: number }>;
   archetype_scores: Array<{ archetype_id: string; score: number; reasons: string[] }>;
-  family_scores: Array<{ family_id: string; gear_mode: RecommenderGearMode; score: number; reasons: string[] }>;
+  family_scores: Array<{
+    family_id: string;
+    gear_mode: RecommenderGearMode;
+    score: number;
+    seasonal_score: number;
+    daily_score: number;
+    clarity_score: number;
+    best_method_id?: string;
+    best_method_score?: number;
+    reasons: string[];
+  }>;
+  method_scores: Array<{
+    family_id: string;
+    gear_mode: RecommenderGearMode;
+    methods: Array<{ method_id: string; score: number; reasons: string[] }>;
+  }>;
   confidence_reasons: string[];
 };
 
@@ -134,6 +145,7 @@ export type RecommenderResponse = {
   debug?: RecommenderDebugPayload;
   inventory?: InventoryCompatibilityResult;
   polished: {
+    track_kind: RecommenderGearMode;
     headline: string;
     where_insight: string;
     behavior_read: string;
@@ -146,38 +158,4 @@ export type RecommenderResponse = {
     presentation_points: string[];
     confidence_note?: string | null;
   };
-};
-
-export const RECOMMENDER_HABITAT_OPTIONS: Record<EngineContextKey, Array<{ id: RefinementTag; label: string }>> = {
-  freshwater_lake_pond: [
-    { id: 'grass', label: 'Grass' },
-    { id: 'wood', label: 'Wood' },
-    { id: 'docks', label: 'Docks' },
-    { id: 'rock', label: 'Rock' },
-    { id: 'shade', label: 'Shade' },
-    { id: 'breakline', label: 'Breakline' },
-  ],
-  freshwater_river: [
-    { id: 'seam', label: 'Seam' },
-    { id: 'eddy', label: 'Eddy' },
-    { id: 'hole', label: 'Hole' },
-    { id: 'riffle_run', label: 'Riffle / Run' },
-    { id: 'undercut_bank', label: 'Undercut Bank' },
-    { id: 'wood_boulder', label: 'Wood / Boulder' },
-  ],
-  coastal: [
-    { id: 'channel_edge', label: 'Channel Edge' },
-    { id: 'point', label: 'Point' },
-    { id: 'current_seam', label: 'Current Seam' },
-    { id: 'dock', label: 'Dock' },
-    { id: 'shoreline_edge', label: 'Shoreline Edge' },
-  ],
-  coastal_flats_estuary: [
-    { id: 'drain', label: 'Drain' },
-    { id: 'grass_edge', label: 'Grass Edge' },
-    { id: 'pothole', label: 'Pothole' },
-    { id: 'trough', label: 'Trough' },
-    { id: 'oyster', label: 'Oyster' },
-    { id: 'marsh_edge', label: 'Marsh Edge' },
-  ],
 };

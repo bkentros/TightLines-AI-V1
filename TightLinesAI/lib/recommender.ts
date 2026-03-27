@@ -3,7 +3,7 @@ import type { EngineContextKey } from './howFishingRebuildContracts';
 import type { RecommenderResponse } from './recommenderContracts';
 
 const COORD_MATCH_THRESHOLD = 0.01;
-const STORAGE_KEY = 'recommender_cache_v1';
+const STORAGE_KEY = 'recommender_cache_v3';
 
 type CachedRecommendation = {
   latitude: number;

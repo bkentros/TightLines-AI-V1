@@ -23,7 +23,6 @@ import { useAuthStore } from '../store/authStore';
 import { isCoastalContextEligible } from '../lib/coastalProximity';
 import type { EngineContextKey } from '../lib/howFishingRebuildContracts';
 import {
-  RECOMMENDER_HABITAT_OPTIONS,
   RECOMMENDER_FEATURE,
   type RecommenderGearMode,
   type RecommenderResponse,
@@ -81,6 +80,21 @@ function confidenceLabel(level: 'high' | 'medium' | 'low'): string {
   return 'Low';
 }
 
+function titleizePresentationValue(value: string): string {
+  return value
+    .split(/[\s_]+/)
+    .filter(Boolean)
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(' ');
+}
+
+function deterministicHeadline(
+  family: RecommenderResponse['lure_rankings'][number] | RecommenderResponse['fly_rankings'][number] | null,
+): string {
+  if (!family) return 'Start with the top-ranked family and keep the presentation clean and controlled.';
+  return `Start with ${family.display_name}. ${family.best_method.presentation_guide.summary}`;
+}
+
 export default function RecommenderScreen() {
   const router = useRouter();
   const params = useLocalSearchParams<{ lat?: string; lon?: string }>();
@@ -102,7 +116,6 @@ export default function RecommenderScreen() {
   const [confidenceExpanded, setConfidenceExpanded] = useState(false);
 
   const [waterClarity, setWaterClarity] = useState<WaterClarity | null>(null);
-  const [habitatTags, setHabitatTags] = useState<string[]>([]);
 
   const coastalEligible = useMemo(() => isCoastalContextEligible(lat, lon), [lat, lon]);
   const availableContexts = useMemo<EngineContextKey[]>(
@@ -125,14 +138,6 @@ export default function RecommenderScreen() {
   useEffect(() => {
     setActiveContext((current) => (availableContexts.includes(current) ? current : availableContexts[0]!));
   }, [availableContexts]);
-
-  useEffect(() => {
-    setHabitatTags((current) =>
-      current.filter((tag) =>
-        RECOMMENDER_HABITAT_OPTIONS[activeContext].some((option) => option.id === tag),
-      ),
-    );
-  }, [activeContext]);
 
   useEffect(() => {
     if (!hasCoords) return;
@@ -163,15 +168,11 @@ export default function RecommenderScreen() {
   const refinements = useMemo<RecommenderRefinements>(
     () => ({
       ...(waterClarity ? { water_clarity: waterClarity } : {}),
-      ...(habitatTags.length > 0 ? { habitat_tags: habitatTags as RecommenderRefinements['habitat_tags'] } : {}),
     }),
-    [waterClarity, habitatTags],
+    [waterClarity],
   );
 
-  const hasActiveRefinements = Boolean(
-    refinements.water_clarity ||
-      (refinements.habitat_tags?.length ?? 0) > 0,
-  );
+  const hasActiveRefinements = Boolean(refinements.water_clarity);
 
   useEffect(() => {
     if (!hasCoords || envLoading || hasActiveRefinements) {
@@ -234,6 +235,8 @@ export default function RecommenderScreen() {
   }, [hasCoords, lat, lon, units, activeContext, refinements, hasActiveRefinements, locationLabel]);
 
   const visibleFamilies = gearMode === 'lure' ? result?.lure_rankings ?? [] : result?.fly_rankings ?? [];
+  const activeFamily = visibleFamilies[0] ?? null;
+  const polishMatchesActiveTrack = result?.polished?.track_kind === gearMode;
   const timingPeriods = result?.shared_condition_summary.highlighted_periods
     ? resolveTimingPeriods(result.shared_condition_summary.highlighted_periods)
     : null;
@@ -330,28 +333,6 @@ export default function RecommenderScreen() {
               }
             />
           </View>
-
-          <Text style={[styles.label, styles.chipLabel]}>Spot Details</Text>
-          <View style={styles.chipWrap}>
-            {RECOMMENDER_HABITAT_OPTIONS[activeContext].map((option) => {
-              const selected = habitatTags.includes(option.id);
-              return (
-                <Pressable
-                  key={option.id}
-                  style={[styles.chip, selected && styles.chipSelected]}
-                  onPress={() =>
-                    setHabitatTags((current) =>
-                      current.includes(option.id)
-                        ? current.filter((tag) => tag !== option.id)
-                        : [...current, option.id],
-                    )
-                  }
-                >
-                  <Text style={[styles.chipText, selected && styles.chipTextSelected]}>{option.label}</Text>
-                </Pressable>
-              );
-            })}
-          </View>
         </View>
 
         {/* ── Generate button ───────────────────────────────────────── */}
@@ -384,7 +365,7 @@ export default function RecommenderScreen() {
             <Text style={styles.emptyBody}>
               {envLoading
                 ? 'Pulling the live environmental inputs the recommender depends on.'
-                : 'Tap Generate to see where fish are, how they\'re behaving, and what to throw.'}
+                : 'Tap Generate to see where fish are, how they\'re behaving, what to throw, and how to fish it.'}
             </Text>
           </View>
         ) : (
@@ -396,7 +377,7 @@ export default function RecommenderScreen() {
                 <Text style={[styles.contextPillText, { color: activeTabConfig.color }]}>{activeTabConfig.label}</Text>
               </View>
               <Text style={styles.heroHeadline}>
-                {result.polished?.headline ?? result.narration_payload.summary_seed}
+                {(polishMatchesActiveTrack ? result.polished?.headline : null) ?? deterministicHeadline(activeFamily)}
               </Text>
             </View>
 
@@ -457,6 +438,12 @@ export default function RecommenderScreen() {
                         {family.color_profile_guidance.join(' \u2022 ')}
                       </Text>
                     ) : null}
+                    <Text style={styles.familyMethodLabel}>Best setup: {family.best_method.setup_label}</Text>
+                    <Text style={styles.familyMethodNote}>
+                      {titleizePresentationValue(family.best_method.presentation_guide.pace)} pace {'\u2022'}{' '}
+                      {titleizePresentationValue(family.best_method.presentation_guide.lane)} lane {'\u2022'}{' '}
+                      {titleizePresentationValue(family.best_method.presentation_guide.action)}
+                    </Text>
                   </View>
                 );
               })}
@@ -471,13 +458,14 @@ export default function RecommenderScreen() {
             ) : null}
 
             {/* ── 5. Presentation Tip ─────────────────────────────── */}
-            {(result.polished?.presentation_tip || result.narration_payload.presentation_points[0]) ? (
+            {(result.polished?.presentation_tip || activeFamily?.best_method.presentation_guide.summary) ? (
               <View style={styles.tipCard}>
                 <View style={styles.tipAccent} />
                 <View style={styles.tipContent}>
-                  <Text style={styles.tipLabel}>How to work it</Text>
+                  <Text style={styles.tipLabel}>Presentation</Text>
                   <Text style={styles.tipText}>
-                    {result.polished?.presentation_tip ?? result.narration_payload.presentation_points[0]}
+                    {(polishMatchesActiveTrack ? result.polished?.presentation_tip : null) ??
+                      activeFamily?.best_method.presentation_guide.summary}
                   </Text>
                 </View>
               </View>
@@ -884,6 +872,17 @@ const styles = StyleSheet.create({
   familyColor: {
     fontSize: 12,
     color: colors.textMuted,
+    lineHeight: 17,
+  },
+  familyMethodLabel: {
+    marginTop: 2,
+    fontSize: 12,
+    color: colors.primary,
+    fontFamily: fonts.bodySemiBold,
+  },
+  familyMethodNote: {
+    fontSize: 12,
+    color: colors.text,
     lineHeight: 17,
   },
 

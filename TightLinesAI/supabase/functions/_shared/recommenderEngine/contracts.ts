@@ -8,34 +8,8 @@ export type RecommenderGearMode = "lure" | "fly";
 
 export type WaterClarity = "clear" | "stained" | "dirty";
 
-export type RefinementTag =
-  | "grass"
-  | "wood"
-  | "docks"
-  | "rock"
-  | "shade"
-  | "breakline"
-  | "seam"
-  | "eddy"
-  | "hole"
-  | "riffle_run"
-  | "undercut_bank"
-  | "wood_boulder"
-  | "channel_edge"
-  | "point"
-  | "current_seam"
-  | "dock"
-  | "shoreline_edge"
-  | "drain"
-  | "grass_edge"
-  | "pothole"
-  | "trough"
-  | "oyster"
-  | "marsh_edge";
-
 export type RecommenderRefinements = {
   water_clarity?: WaterClarity;
-  habitat_tags?: RefinementTag[];
 };
 
 export type RecommenderRequest = {
@@ -197,12 +171,54 @@ export type FamilyDefinition = {
   how_to_fish: string[];
 };
 
+export type FamilyMethodDefinition = {
+  id: string;
+  label: string;
+  presentation_note: string;
+  setup_label?: string;
+  preferred_month_groups?: string[];
+  depth_lane_fit?: DepthLaneId[];
+  activity_fit?: ActivityState[];
+  clarity_fit?: WaterClarity[];
+  archetype_fit?: PresentationArchetypeId[];
+  style_flags?: string[];
+};
+
+export type SimplifiedPresentationPace = "slow" | "medium" | "fast";
+
+export type SimplifiedPresentationLane = "upper" | "mid" | "lower" | "bottom";
+
+export type SimplifiedPresentationAction =
+  | "steady"
+  | "pause-heavy"
+  | "subtle twitch"
+  | "bottom contact"
+  | "natural drift"
+  | "surface commotion";
+
+export type SimplifiedPresentationGuide = {
+  pace: SimplifiedPresentationPace;
+  lane: SimplifiedPresentationLane;
+  action: SimplifiedPresentationAction;
+  summary: string;
+};
+
+export type RankedFamilyMethod = {
+  method_id: string;
+  label: string;
+  presentation_note: string;
+  setup_label: string;
+  presentation_guide: SimplifiedPresentationGuide;
+  reasons: string[];
+};
+
 export type RankedFamily = {
   family_id: string;
   display_name: string;
   score: number;
   examples: string[];
   match_reasons: string[];
+  best_method: RankedFamilyMethod;
   color_profile_guidance?: string[];
   how_to_fish: string[];
   best_dayparts: string[];
@@ -254,6 +270,9 @@ export type RecommenderDebugPayload = {
   region_key: RegionKey;
   month: number;
   shared_condition_reliability: string;
+  seasonal_basis: string[];
+  daily_adjustments: string[];
+  clarity_adjustments: string[];
   active_modifiers: string[];
   depth_lane_scores: Array<ScoredId<DepthLaneId>>;
   relation_scores: Array<ScoredId<RelationTagId>>;
@@ -266,7 +285,21 @@ export type RecommenderDebugPayload = {
     family_id: string;
     gear_mode: RecommenderGearMode;
     score: number;
+    seasonal_score: number;
+    daily_score: number;
+    clarity_score: number;
+    best_method_id?: string;
+    best_method_score?: number;
     reasons: string[];
+  }>;
+  method_scores: Array<{
+    family_id: string;
+    gear_mode: RecommenderGearMode;
+    methods: Array<{
+      method_id: string;
+      score: number;
+      reasons: string[];
+    }>;
   }>;
   confidence_reasons: string[];
 };
@@ -293,6 +326,7 @@ export type RecommenderResponse = {
   debug?: RecommenderDebugPayload;
   inventory?: InventoryCompatibilityResult;
   polished: {
+    track_kind: RecommenderGearMode;
     headline: string;
     where_insight: string;
     behavior_read: string;

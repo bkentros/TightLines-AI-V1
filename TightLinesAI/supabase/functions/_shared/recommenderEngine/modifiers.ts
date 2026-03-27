@@ -1,6 +1,5 @@
 import type {
   FishBehaviorOutput,
-  RefinementTag,
   RecommenderRunInput,
   RelationTagId,
   ScoredId,
@@ -26,6 +25,9 @@ export type BehaviorResolution = {
   depth_scores: Array<ScoredId<FishBehaviorOutput["position"]["depth_lanes"][number]["id"]>>;
   relation_scores: Array<ScoredId<RelationTagId>>;
   style_flags: string[];
+  seasonal_basis: string[];
+  daily_adjustments: string[];
+  clarity_adjustments: string[];
   active_modifiers: string[];
   inferred_clarity: WaterClarity;
   light_profile: "bright" | "mixed" | "low_light";
@@ -85,89 +87,52 @@ function monthGroups(seasonPhase: SeasonPhase, month: number, climateBand: Clima
   return groups;
 }
 
-function applyHabitatTag(
-  acc: BehaviorAccumulator,
-  tag: RefinementTag,
-): void {
-  switch (tag) {
-    case "grass":
-      addToScore(acc.relation_scores, "vegetation_oriented", 1.2);
-      addToScore(acc.relation_scores, "grass_edge_oriented", 0.9);
-      break;
-    case "wood":
-    case "docks":
-    case "dock":
-      addToScore(acc.relation_scores, "cover_oriented", 1);
-      addToScore(acc.relation_scores, "structure_oriented", 0.8);
-      break;
-    case "rock":
-    case "breakline":
-      addToScore(acc.relation_scores, "depth_transition_oriented", 0.9);
-      addToScore(acc.relation_scores, "structure_oriented", 0.8);
-      break;
-    case "shade":
-      addToScore(acc.relation_scores, "shade_oriented", 1.2);
-      break;
-    case "seam":
-    case "current_seam":
-      addToScore(acc.relation_scores, "seam_oriented", 1.2);
-      addToScore(acc.relation_scores, "current_break_oriented", 0.8);
-      break;
-    case "eddy":
-      addToScore(acc.relation_scores, "current_break_oriented", 1);
-      addToScore(acc.relation_scores, "hole_oriented", 0.5);
-      break;
-    case "hole":
-      addToScore(acc.relation_scores, "hole_oriented", 1.1);
-      break;
-    case "riffle_run":
-      addToScore(acc.relation_scores, "seam_oriented", 0.8);
-      break;
-    case "undercut_bank":
-      addToScore(acc.relation_scores, "undercut_bank_oriented", 1.2);
-      addToScore(acc.relation_scores, "shade_oriented", 0.5);
-      break;
-    case "wood_boulder":
-      addToScore(acc.relation_scores, "structure_oriented", 0.9);
-      addToScore(acc.relation_scores, "current_break_oriented", 0.8);
-      break;
-    case "channel_edge":
-      addToScore(acc.relation_scores, "channel_related", 1.2);
-      addToScore(acc.relation_scores, "depth_transition_oriented", 0.8);
-      break;
-    case "point":
-      addToScore(acc.relation_scores, "point_oriented", 1.2);
-      break;
-    case "shoreline_edge":
-      addToScore(acc.relation_scores, "edge_oriented", 0.9);
-      addToScore(acc.relation_scores, "shoreline_cruising", 0.6);
-      break;
-    case "drain":
-      addToScore(acc.relation_scores, "drain_oriented", 1.2);
-      break;
-    case "grass_edge":
-      addToScore(acc.relation_scores, "grass_edge_oriented", 1.3);
-      addToScore(acc.relation_scores, "vegetation_oriented", 0.9);
-      break;
-    case "pothole":
-      addToScore(acc.relation_scores, "pothole_oriented", 1.2);
-      break;
-    case "trough":
-      addToScore(acc.relation_scores, "trough_oriented", 1.2);
-      break;
-    case "oyster":
-      addToScore(acc.relation_scores, "oyster_bar_oriented", 1.2);
-      addToScore(acc.relation_scores, "structure_oriented", 0.5);
-      break;
-    case "marsh_edge":
-      addToScore(acc.relation_scores, "marsh_edge_oriented", 1.3);
-      addToScore(acc.relation_scores, "shoreline_cruising", 0.5);
-      break;
-  }
-}
-
 function addModifier(modifiers: string[], id: string): void {
   if (!modifiers.includes(id)) modifiers.push(id);
+}
+
+function seasonalBasisNotes(
+  seasonPhase: SeasonPhase,
+  climateBand: ClimateBand,
+  context: EngineContext,
+): string[] {
+  const notes = [`Season phase: ${seasonPhase.replaceAll("_", " ")}`];
+  if (climateBand === "cold" || climateBand === "alpine" || climateBand === "maritime") {
+    notes.push("Cold-climate seasonal logic stays conservative until the seasonal hold clears.");
+  }
+  switch (seasonPhase) {
+    case "winter_hold":
+      notes.push("Seasonal bias keeps fish slower and lower in the water column.");
+      break;
+    case "spring_transition":
+      notes.push("Seasonal transition starts sliding fish shallower, but not into full chase mode.");
+      break;
+    case "warm_transition":
+      notes.push("Warm transition opens broader feeding lanes and more willing fish behavior.");
+      break;
+    case "summer_pattern":
+      notes.push("Summer pattern stabilizes fish positioning around repeatable cover and lane choices.");
+      break;
+    case "summer_heat":
+      notes.push("Summer heat biases fish toward shade, deeper lanes, and shorter feeding windows.");
+      break;
+    case "fall_feed":
+      notes.push("Fall feed expands chase radius and rewards baitfish-style search tools.");
+      break;
+    case "late_fall":
+      notes.push("Late-fall logic pulls fish back toward slower, lower, more deliberate setups.");
+      break;
+  }
+  if (context === "coastal_flats_estuary") {
+    notes.push("Flats logic favors drains, grass edges, potholes, troughs, and marsh lanes over broad inshore channels.");
+  } else if (context === "coastal") {
+    notes.push("Coastal inshore logic favors channels, points, and moving-water edges.");
+  } else if (context === "freshwater_river") {
+    notes.push("River logic keeps fish tied to seams, current breaks, and softer flow lanes.");
+  } else {
+    notes.push("Lake and pond logic centers on edges, cover, vegetation, and depth transitions.");
+  }
+  return notes;
 }
 
 export function applyDailyModifiers(
@@ -177,8 +142,11 @@ export function applyDailyModifiers(
 ): BehaviorResolution {
   const acc = baseline;
   const modifiers: string[] = [];
+  const dailyAdjustments: string[] = [];
+  const clarityAdjustments: string[] = [];
   const confidenceReasons: string[] = [];
   const context = input.request.context;
+  const seasonalBasis = seasonalBasisNotes(acc.season_phase, acc.climate_band, context);
 
   const temp = analysis.norm.normalized.temperature;
   const coldFreshwaterDay = temp != null &&
@@ -374,10 +342,14 @@ export function applyDailyModifiers(
         context === "freshwater_lake_pond" &&
         (acc.season_phase === "summer_pattern" || acc.season_phase === "summer_heat")
       ) {
+        addToScore(acc.depth_scores, "very_shallow", 0.55);
         addToScore(acc.depth_scores, "shallow", 0.35);
         addToScore(acc.depth_scores, "upper_column", 0.45);
         addToScore(acc.depth_scores, "deep", -0.35);
         addToScore(acc.depth_scores, "lower_column", -0.2);
+        addToScore(acc.relation_scores, "vegetation_oriented", 0.45);
+        addToScore(acc.relation_scores, "grass_edge_oriented", 0.7);
+        addToScore(acc.relation_scores, "shoreline_cruising", 0.25);
       }
       acc.activity_index += 0.35;
       acc.strike_index += 0.25;
@@ -459,21 +431,26 @@ export function applyDailyModifiers(
     }
   }
 
-  for (const tag of input.refinements.habitat_tags ?? []) {
-    applyHabitatTag(acc, tag);
-  }
-  if ((input.refinements.habitat_tags ?? []).length > 0) {
-    addModifier(modifiers, "manual_habitat_refinement");
-  }
-
   const clarity = inferClarity(analysis, input);
   if (clarity === "dirty") {
-    acc.strike_index -= 0.1;
-    acc.style_flags.add("finesse_best");
+    acc.strike_index -= 0.15;
+    acc.chase_index -= 0.1;
+    addToScore(acc.relation_scores, "cover_oriented", 0.35);
+    addToScore(acc.relation_scores, "shoreline_cruising", 0.25);
+    acc.style_flags.add("loud_profile_window");
+    acc.style_flags.add("bulk_profile_window");
     addModifier(modifiers, "dirty_water_profile");
+    clarityAdjustments.push("Dirty water pushes the recommendation toward stronger silhouettes, more vibration, and easier-to-find presentations.");
   } else if (clarity === "clear") {
     addToScore(acc.relation_scores, "shade_oriented", 0.3);
+    acc.strike_index -= 0.05;
+    acc.style_flags.add("natural_profile_window");
+    acc.style_flags.add("finesse_best");
     addModifier(modifiers, "clear_water_profile");
+    clarityAdjustments.push("Clear water tightens the recommendation toward natural profiles, subtler actions, and cleaner presentations.");
+  } else {
+    acc.style_flags.add("contrast_profile_window");
+    clarityAdjustments.push("Stained water supports moderate contrast and balanced profile choices.");
   }
 
   // ── Seasonal activity caps ──────────────────────────────────────────
@@ -491,6 +468,9 @@ export function applyDailyModifiers(
   }
   if (seasonCap != null && acc.chase_index > seasonCap) {
     acc.chase_index = seasonCap;
+  }
+  if (seasonCap != null && acc.strike_index > seasonCap + 0.15) {
+    acc.strike_index = seasonCap + 0.15;
   }
 
   // Strip topwater flags in cold-climate cold seasons
@@ -519,9 +499,6 @@ export function applyDailyModifiers(
   }
   if (!input.refinements.water_clarity) {
     confidenceReasons.push("Water clarity was inferred rather than confirmed.");
-  }
-  if ((input.refinements.habitat_tags ?? []).length === 0) {
-    confidenceReasons.push("Habitat position is broader because no spot details were selected.");
   }
   if (
     (context === "coastal" || context === "coastal_flats_estuary") &&
@@ -575,6 +552,11 @@ export function applyDailyModifiers(
     depth_scores: depthScores,
     relation_scores: relationScores,
     style_flags: uniq(styleFlags),
+    seasonal_basis: seasonalBasis,
+    daily_adjustments: uniq(dailyAdjustments.length > 0 ? dailyAdjustments : modifiers.filter((id) =>
+      id !== "dirty_water_profile" && id !== "clear_water_profile"
+    )),
+    clarity_adjustments: uniq(clarityAdjustments),
     active_modifiers: modifiers,
     inferred_clarity: clarity,
     light_profile: lightProfile,

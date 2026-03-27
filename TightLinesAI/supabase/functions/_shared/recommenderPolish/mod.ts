@@ -9,7 +9,10 @@
  * so the LLM never needs to interpret raw scores or IDs.
  */
 
-import type { RecommenderResponse } from "../recommenderEngine/contracts.ts";
+import type {
+  RecommenderGearMode,
+  RecommenderResponse,
+} from "../recommenderEngine/contracts.ts";
 import type { BehaviorResolution } from "../recommenderEngine/modifiers.ts";
 import { archetypeLabel } from "../recommenderEngine/narration.ts";
 
@@ -26,10 +29,18 @@ Air vs water: never a numeric water temperature. Degrees in the brief mean AIR o
 Return exactly this shape (no extra keys):
 {"headline":"…","where_insight":"…","behavior_read":"…","presentation_tip":"…"}
 
-- headline: 1–2 sentences, ~200 chars. The lead: what to throw, where, and why today. Name the top family. Set the tone for the whole recommendation.
+- headline: 1–2 sentences, ~200 chars. The lead: what to throw, where, and why today. Name the primary family. Set the tone for the whole recommendation.
 - where_insight: 1 sentence, ~150 chars. Where fish are holding right now and why (depth zone + positioning + seasonal/daily reason).
 - behavior_read: 1 sentence, ~140 chars. How fish are acting — activity level, willingness to chase, strike zone. Must obey the metabolic constraint in the brief.
-- presentation_tip: 1–2 sentences, ~180 chars. ONE specific mechanical instruction for how to work the top presentation (speed, cadence, depth target, motion). Must obey metabolic constraint. No where/when/tides — only lure/fly work.`;
+- presentation_tip: 1–2 sentences, ~180 chars. ONE broad instruction for how to fish the primary family. Use the setup plus pace/lane/action guide from the brief. No step-by-step rod-work, no lure-school jargon, no detailed sequencing. Must obey metabolic constraint. No where/when/tides — only lure/fly work.
+
+Hard rules:
+- The deterministic engine already chose the family and method. Do not blend multiple families or methods into one instruction.
+- If alternates are listed, they are backup options only. You may mention one briefly in the headline, but never mix its mechanics into the presentation_tip.
+- Never name a specific species. Say fish, never bass, trout, redfish, snook, tarpon, salmon, steelhead, or similar.
+- The presentation_tip must stay faithful to the primary setup plus the broad pace/lane/action guide in the brief.
+- Prefer words like slow, medium, fast, upper lane, mid lane, lower lane, bottom lane, steady, long pauses, subtle twitch, natural drift, bottom contact.
+- Do not invent extra mechanics like hops, drags, snaps, shakes, or swing instructions unless that exact broad action is in the brief.`;
 
 // ── Voice diversity ─────────────────────────────────────────────────────────
 
@@ -207,7 +218,6 @@ function modifierToPlain(mod: string): string {
     seasonal_activity_cap: "Seasonal ceiling on fish activity",
     dirty_water_profile: "Stained or dirty water",
     clear_water_profile: "Clear water conditions",
-    manual_habitat_refinement: "Spot-specific structure provided",
   };
   return map[mod] ?? mod.replaceAll("_", " ");
 }
@@ -221,6 +231,21 @@ export type RecommenderBriefInput = {
   locationName: string | null;
 };
 
+function choosePrimaryTrack(response: RecommenderResponse): {
+  kind: RecommenderGearMode;
+  family: RecommenderResponse["lure_rankings"][number] | RecommenderResponse["fly_rankings"][number] | undefined;
+  alternate: RecommenderResponse["lure_rankings"][number] | RecommenderResponse["fly_rankings"][number] | undefined;
+} {
+  const topLure = response.lure_rankings[0];
+  const topFly = response.fly_rankings[0];
+  const topLure2 = response.lure_rankings[1];
+  const topFly2 = response.fly_rankings[1];
+
+  return !topFly || (topLure != null && topLure.score >= topFly.score)
+    ? { kind: "lure", family: topLure, alternate: topLure2 }
+    : { kind: "fly", family: topFly, alternate: topFly2 };
+}
+
 export function buildRecommenderBrief(input: RecommenderBriefInput): string {
   const { response, behavior, localDate, locationName } = input;
   const voiceMode = VOICE_MODES[Math.floor(Math.random() * VOICE_MODES.length)]!;
@@ -233,9 +258,8 @@ export function buildRecommenderBrief(input: RecommenderBriefInput): string {
   const fb = response.fish_behavior.behavior;
 
   const topLure = response.lure_rankings[0];
-  const topLure2 = response.lure_rankings[1];
   const topFly = response.fly_rankings[0];
-  const topFly2 = response.fly_rankings[1];
+  const primaryTrack = choosePrimaryTrack(response);
 
   const lines: string[] = [
     `<voice_mode>${voiceMode}</voice_mode>`,
@@ -314,22 +338,31 @@ export function buildRecommenderBrief(input: RecommenderBriefInput): string {
   }
   lines.push("");
 
-  lines.push("TOP FAMILIES");
-  lines.push("────────────");
-  if (topLure) {
-    const lureLine = topLure2
-      ? `Lure side: ${topLure.display_name}, ${topLure2.display_name}`
-      : `Lure side: ${topLure.display_name}`;
-    lines.push(lureLine);
+  lines.push("PRIMARY NARRATIVE TRACK");
+  lines.push("───────────────────────");
+  if (primaryTrack.family) {
+    lines.push(`Primary gear track: ${primaryTrack.kind}`);
+    lines.push(`Primary family: ${primaryTrack.family.display_name}`);
+    lines.push(`Primary setup: ${primaryTrack.family.best_method.setup_label}`);
+    lines.push(
+      `Primary presentation guide: ${primaryTrack.family.best_method.presentation_guide.pace} pace, ` +
+        `${primaryTrack.family.best_method.presentation_guide.lane} lane, ` +
+        `${primaryTrack.family.best_method.presentation_guide.action}`,
+    );
+    lines.push(`Public guidance line: ${primaryTrack.family.best_method.presentation_guide.summary}`);
+    lines.push(
+      `Internal method reference only: ${primaryTrack.family.best_method.label} — ${primaryTrack.family.best_method.presentation_note}`,
+    );
+    if (primaryTrack.alternate) {
+      lines.push(`Backup on same gear track: ${primaryTrack.alternate.display_name}`);
+    }
+    const alternateMode = primaryTrack.kind === "lure" ? topFly : topLure;
+    if (alternateMode) {
+      lines.push(`Backup on the other gear track: ${alternateMode.display_name}`);
+    }
   }
-  if (topFly) {
-    const flyLine = topFly2
-      ? `Fly side: ${topFly.display_name}, ${topFly2.display_name}`
-      : `Fly side: ${topFly.display_name}`;
-    lines.push(flyLine);
-  }
-  if (topLure?.color_profile_guidance?.length) {
-    lines.push(`Color guidance: ${topLure.color_profile_guidance.join(", ")}`);
+  if (primaryTrack.family?.color_profile_guidance?.length) {
+    lines.push(`Color guidance: ${primaryTrack.family.color_profile_guidance.join(", ")}`);
   }
   lines.push("");
 
@@ -353,6 +386,9 @@ export function buildRecommenderBrief(input: RecommenderBriefInput): string {
   lines.push("No engine jargon (activity_index, relation_tag, archetype_id).");
   lines.push("No numeric water temperatures — air temps in °F only.");
   lines.push("Do not contradict the metabolic constraint above.");
+  lines.push("The primary family, primary setup, and primary presentation guide are the truth.");
+  lines.push("Keep the presentation_tip broad, clean, and locked to the pace/lane/action guide.");
+  lines.push("Do not borrow cadence, depth behavior, or motion from any backup option.");
   lines.push("The engine already decided WHERE/HOW/WHAT — you voice it with personality.");
 
   return lines.join("\n");
@@ -361,6 +397,7 @@ export function buildRecommenderBrief(input: RecommenderBriefInput): string {
 // ── Polished output type ────────────────────────────────────────────────────
 
 export type PolishedRecommenderCopy = {
+  track_kind: RecommenderGearMode;
   headline: string;
   where_insight: string;
   behavior_read: string;
@@ -379,11 +416,55 @@ function stripNumericWaterTemp(text: string): string {
   return s.replace(/\s{2,}/g, " ").trim();
 }
 
+const SPECIES_TERM_RE =
+  /\b(?:striped bass|sea trout|speckled trout|smallmouth|largemouth|bass|trout|redfish|snook|tarpon|steelhead|salmon|striper)\b/gi;
+
+function stripSpeciesClaims(text: string): string {
+  if (!text) return text;
+  return text.replace(SPECIES_TERM_RE, "fish").replace(/\s{2,}/g, " ").trim();
+}
+
+function violatesBroadActionGuide(
+  text: string,
+  guide: RecommenderResponse["lure_rankings"][number]["best_method"]["presentation_guide"] | undefined,
+): boolean {
+  if (!guide || !text) return false;
+  const lower = text.toLowerCase();
+
+  if (
+    guide.action !== "bottom contact" &&
+    (/\bhop\b/.test(lower) || /\bdrag\b/.test(lower) || /\bcrawl\b/.test(lower) || lower.includes("bottom contact"))
+  ) {
+    return true;
+  }
+  if (
+    guide.action !== "natural drift" &&
+    (lower.includes("dead-drift") || lower.includes("dead drift") || /\bswing\b/.test(lower))
+  ) {
+    return true;
+  }
+  if (
+    guide.action !== "surface commotion" &&
+    (/\bpop\b/.test(lower) || /\bwalk\b/.test(lower))
+  ) {
+    return true;
+  }
+  return false;
+}
+
+function sanitizePolishedField(text: string): string {
+  let s = stripSpeciesClaims(stripNumericWaterTemp(text));
+  s = s.replace(/\b(upper|mid|lower|bottom)(?:-|\s)lane\s+lane\b/gi, "$1 lane");
+  return s.replace(/\s{2,}/g, " ").trim();
+}
+
 // ── OpenAI call ─────────────────────────────────────────────────────────────
 
 export async function polishRecommenderOutput(
   openaiKey: string,
   briefText: string,
+  response: RecommenderResponse,
+  trackKind: RecommenderGearMode,
 ): Promise<{ polished: PolishedRecommenderCopy; inT: number; outT: number } | null> {
   try {
     const res = await fetch("https://api.openai.com/v1/chat/completions", {
@@ -420,19 +501,24 @@ export async function polishRecommenderOutput(
     const outT = json.usage?.completion_tokens ?? 0;
 
     const parsed = JSON.parse(text) as Record<string, unknown>;
+    const primaryTrack = choosePrimaryTrack(response);
+    const primaryGuide = primaryTrack.family?.best_method.presentation_guide;
 
     const headline = typeof parsed.headline === "string"
-      ? stripNumericWaterTemp(parsed.headline.slice(0, 280))
+      ? sanitizePolishedField(parsed.headline.slice(0, 280))
       : "";
     const where_insight = typeof parsed.where_insight === "string"
-      ? stripNumericWaterTemp(parsed.where_insight.slice(0, 280))
+      ? sanitizePolishedField(parsed.where_insight.slice(0, 280))
       : "";
     const behavior_read = typeof parsed.behavior_read === "string"
-      ? stripNumericWaterTemp(parsed.behavior_read.slice(0, 280))
+      ? sanitizePolishedField(parsed.behavior_read.slice(0, 280))
       : "";
-    const presentation_tip = typeof parsed.presentation_tip === "string"
-      ? stripNumericWaterTemp(parsed.presentation_tip.slice(0, 280))
+    let presentation_tip = typeof parsed.presentation_tip === "string"
+      ? sanitizePolishedField(parsed.presentation_tip.slice(0, 280))
       : "";
+    if (violatesBroadActionGuide(presentation_tip, primaryGuide)) {
+      presentation_tip = primaryGuide?.summary ?? presentation_tip;
+    }
 
     if (!headline && !where_insight && !behavior_read && !presentation_tip) {
       console.error("[recommender-polish] all fields empty after parse");
@@ -440,7 +526,7 @@ export async function polishRecommenderOutput(
     }
 
     return {
-      polished: { headline, where_insight, behavior_read, presentation_tip },
+      polished: { track_kind: trackKind, headline, where_insight, behavior_read, presentation_tip },
       inT,
       outT,
     };
@@ -448,4 +534,8 @@ export async function polishRecommenderOutput(
     console.error("[recommender-polish] failed:", e);
     return null;
   }
+}
+
+export function primaryTrackKind(response: RecommenderResponse): RecommenderGearMode {
+  return choosePrimaryTrack(response).kind;
 }

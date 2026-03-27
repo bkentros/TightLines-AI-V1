@@ -134,7 +134,11 @@ function seasonPhaseFromTimingFamily(
   context: EngineContext,
   climateBand: ClimateBand,
 ): SeasonPhase {
-  if (context === "coastal" || context === "coastal_flats_estuary") {
+  if (
+    context === "coastal" ||
+    context === "coastal_flats_estuary" ||
+    climateBand === "tropical"
+  ) {
     return seasonPhaseForMonth(climateBand, month);
   }
 
@@ -143,7 +147,7 @@ function seasonPhaseFromTimingFamily(
   if (familyId.endsWith("_winter")) return "winter_hold";
 
   if (familyId.endsWith("_summer")) {
-    return climateBand === "warm" || climateBand === "tropical" || climateBand === "arid"
+    return climateBand === "warm" || climateBand === "arid"
       ? "summer_heat"
       : "summer_pattern";
   }

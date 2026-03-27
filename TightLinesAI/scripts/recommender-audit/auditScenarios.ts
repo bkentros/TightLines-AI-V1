@@ -8,7 +8,9 @@ type ExpectationShape = {
   forbidden_top_archetype_ids?: string[];
   required_style_flags?: string[];
   top_lure_ids_in?: string[];
+  top_lure_method_ids_in?: string[];
   top_fly_ids_in?: string[];
+  top_fly_method_ids_in?: string[];
   forbidden_top_lure_ids?: string[];
   activity_in?: string[];
 };
@@ -68,6 +70,7 @@ export const RECOMMENDER_AUDIT_SCENARIOS: RecommenderAuditScenario[] = [
         temp_7day_low: dailySeries(56, 50, 54, 58),
       },
     }),
+    refinements: { water_clarity: "clear" },
     expectations: {
       top_depth_in: ["shallow", "mid_depth", "upper_column"],
       top_archetype_in: ["horizontal_search_mid_column", "grass_edge_swim"],
@@ -93,13 +96,16 @@ export const RECOMMENDER_AUDIT_SCENARIOS: RecommenderAuditScenario[] = [
         temp_7day_low: dailySeries(24, 20, 22, 24),
       },
     }),
+    refinements: { water_clarity: "clear" },
     expectations: {
       top_depth_in: ["deep", "bottom_oriented", "lower_column"],
       top_archetype_in: ["slow_bottom_contact", "tight_to_cover_vertical"],
       forbidden_top_archetype_ids: ["surface_low_light_commotion", "grass_edge_swim", "horizontal_search_mid_column"],
       required_style_flags: ["slow_bottom_best", "finesse_best"],
       top_lure_ids_in: ["jig_trailer", "finesse_worm", "jerkbait"],
+      top_lure_method_ids_in: ["crawl_hop_bottom", "shaky_head_drag", "suspend_twitch_pause"],
       top_fly_ids_in: ["nymph_rig", "weighted_streamer", "woolly_bugger_leech"],
+      top_fly_method_ids_in: ["dead_drift_bottom", "sink_strip_pause", "dead_drift_swing"],
       forbidden_top_lure_ids: ["frog_toad", "topwater_walker_popper", "spinnerbait", "chatterbait"],
       activity_in: ["inactive", "neutral"],
     },
@@ -122,6 +128,7 @@ export const RECOMMENDER_AUDIT_SCENARIOS: RecommenderAuditScenario[] = [
         temp_7day_low: dailySeries(34, 26, 30, 36),
       },
     }),
+    refinements: { water_clarity: "stained" },
     expectations: {
       top_depth_in: ["deep", "bottom_oriented", "lower_column", "mid_depth"],
       top_archetype_in: ["slow_bottom_contact", "tight_to_cover_vertical", "depth_break_suspend_pause"],
@@ -149,6 +156,7 @@ export const RECOMMENDER_AUDIT_SCENARIOS: RecommenderAuditScenario[] = [
         temp_7day_low: dailySeries(78, 74, 76, 80),
       },
     }),
+    refinements: { water_clarity: "clear" },
     expectations: {
       top_relation_in: ["shade_oriented", "depth_transition_oriented"],
       top_archetype_in: ["slow_bottom_contact", "tight_to_cover_vertical"],
@@ -170,11 +178,13 @@ export const RECOMMENDER_AUDIT_SCENARIOS: RecommenderAuditScenario[] = [
         precip_7day_inches: 4.2,
       },
     }),
+    refinements: { water_clarity: "dirty" },
     expectations: {
       top_relation_in: ["seam_oriented", "current_break_oriented"],
       top_archetype_in: ["current_seam_drift", "slow_bottom_contact"],
       required_style_flags: ["current_drift_best"],
       top_fly_ids_in: ["weighted_streamer", "nymph_rig", "woolly_bugger_leech"],
+      top_fly_method_ids_in: ["swing_current_edge", "dead_drift_bottom", "dead_drift_swing"],
     },
   },
   {
@@ -205,10 +215,12 @@ export const RECOMMENDER_AUDIT_SCENARIOS: RecommenderAuditScenario[] = [
       },
       coastal: true,
     }),
+    refinements: { water_clarity: "clear" },
     expectations: {
       top_relation_in: ["channel_related", "point_oriented"],
       top_archetype_in: ["horizontal_search_mid_column", "depth_break_suspend_pause"],
       top_lure_ids_in: ["jighead_minnow", "paddle_tail_swimbait", "weighted_bottom_presentation"],
+      top_lure_method_ids_in: ["steady_jighead_swim", "glide_pause_swim", "bottom_drag"],
     },
   },
   {
@@ -239,17 +251,20 @@ export const RECOMMENDER_AUDIT_SCENARIOS: RecommenderAuditScenario[] = [
       },
       coastal: true,
     }),
-    refinements: { habitat_tags: ["drain", "trough", "oyster"] },
+    refinements: { water_clarity: "stained" },
     expectations: {
       top_relation_in: ["drain_oriented", "trough_oriented", "pothole_oriented"],
       top_archetype_in: ["drain_edge_intercept"],
       required_style_flags: ["draining_window_best"],
       top_lure_ids_in: ["shrimp_imitation", "jighead_minnow", "weighted_bottom_presentation"],
+      top_lure_method_ids_in: ["subtle_hop_fall", "steady_jighead_swim", "bottom_drag"],
+      top_fly_ids_in: ["shrimp_fly", "crab_fly", "baitfish_streamer"],
+      top_fly_method_ids_in: ["short_strip_pause", "dead_stick_drop", "slow_strip_pause"],
     },
   },
   {
     id: "summer-low-light-grass-lake",
-    notes: "Heavy vegetation plus summer low light should make surface or grass-edge families viable instead of defaulting to generic finesse only.",
+    notes: "Summer low light should reopen surface and grass-edge families in lake context instead of defaulting to bottom finesse only.",
     latitude: 31.50,
     longitude: -81.37,
     local_date: "2026-08-08",
@@ -263,11 +278,12 @@ export const RECOMMENDER_AUDIT_SCENARIOS: RecommenderAuditScenario[] = [
         temp_7day_low: dailySeries(71, 69, 70, 72),
       },
     }),
-    refinements: { vegetation: "heavy", habitat_tags: ["grass", "shade"] },
+    refinements: { water_clarity: "dirty" },
     expectations: {
       top_depth_in: ["very_shallow", "shallow", "upper_column"],
       top_archetype_in: ["surface_low_light_commotion", "grass_edge_swim"],
       top_lure_ids_in: ["frog_toad", "topwater_walker_popper", "paddle_tail_swimbait"],
+      top_lure_method_ids_in: ["hollow_body_pause", "pop_pause_surface", "steady_toad_swim"],
     },
   },
 ];

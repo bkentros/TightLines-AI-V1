@@ -7,39 +7,13 @@ import {
 import {
   runRecommender,
   type RecommenderRefinements,
-  type RefinementTag,
   type TackleBoxItem,
 } from "../_shared/recommenderEngine/index.ts";
 import {
   buildRecommenderBrief,
+  primaryTrackKind,
   polishRecommenderOutput,
 } from "../_shared/recommenderPolish/mod.ts";
-
-const VALID_REFINEMENT_TAGS: RefinementTag[] = [
-  "grass",
-  "wood",
-  "docks",
-  "rock",
-  "shade",
-  "breakline",
-  "seam",
-  "eddy",
-  "hole",
-  "riffle_run",
-  "undercut_bank",
-  "wood_boulder",
-  "channel_edge",
-  "point",
-  "current_seam",
-  "dock",
-  "shoreline_edge",
-  "drain",
-  "grass_edge",
-  "pothole",
-  "trough",
-  "oyster",
-  "marsh_edge",
-];
 
 function corsHeaders() {
   return {
@@ -96,11 +70,6 @@ function localDateInTz(timezone: string, d = new Date()): string {
 function parseRefinements(raw: unknown): RecommenderRefinements {
   if (!raw || typeof raw !== "object") return {};
   const source = raw as Record<string, unknown>;
-  const habitat_tags = Array.isArray(source.habitat_tags)
-    ? source.habitat_tags.filter((tag): tag is RefinementTag =>
-      typeof tag === "string" && VALID_REFINEMENT_TAGS.includes(tag as RefinementTag)
-    )
-    : undefined;
 
   return {
     ...(source.water_clarity === "clear" ||
@@ -108,7 +77,6 @@ function parseRefinements(raw: unknown): RecommenderRefinements {
         source.water_clarity === "dirty"
       ? { water_clarity: source.water_clarity }
       : {}),
-    ...(habitat_tags && habitat_tags.length > 0 ? { habitat_tags } : {}),
   };
 }
 
@@ -247,7 +215,7 @@ Deno.serve(async (req: Request) => {
           localDate,
           locationName: typeof body.location_name === "string" ? body.location_name : null,
         });
-        const polishResult = await polishRecommenderOutput(openaiKey, briefText);
+        const polishResult = await polishRecommenderOutput(openaiKey, briefText, response, primaryTrackKind(response));
         if (polishResult) {
           response.polished = polishResult.polished;
           const INPUT_COST_PER_1M = 0.15;

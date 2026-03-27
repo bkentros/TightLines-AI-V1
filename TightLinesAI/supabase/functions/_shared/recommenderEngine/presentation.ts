@@ -232,6 +232,22 @@ export function resolvePresentationArchetypes(
         score += 5;
       }
 
+      if (context === "coastal" && behavior.inferred_clarity === "dirty") {
+        if (archetype.id === "slow_bottom_contact" && behavior.fish_behavior.behavior.activity !== "aggressive") {
+          score += 14;
+          reasons.push("dirty inshore water favors slower lower-lane control");
+        }
+        if (archetype.id === "current_seam_drift") {
+          score -= 16;
+        }
+        if (archetype.id === "depth_break_suspend_pause") {
+          score -= 12;
+        }
+        if (archetype.id === "tight_to_cover_vertical") {
+          score -= 10;
+        }
+      }
+
       return {
         archetype_id: archetype.id,
         score: Number(score.toFixed(2)),

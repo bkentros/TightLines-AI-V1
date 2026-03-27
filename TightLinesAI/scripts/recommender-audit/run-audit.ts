@@ -1,6 +1,7 @@
 #!/usr/bin/env -S deno run --allow-read --allow-write
 import { buildSharedEngineRequestFromEnvData } from "../../supabase/functions/_shared/howFishingEngine/index.ts";
 import { runRecommender } from "../../supabase/functions/_shared/recommenderEngine/index.ts";
+import type { RecommenderResponse } from "../../supabase/functions/_shared/recommenderEngine/contracts.ts";
 import {
   RECOMMENDER_AUDIT_SCENARIOS,
   type RecommenderAuditScenario,
@@ -16,14 +17,16 @@ function excludesAll(actual: string[], forbidden: string[] | undefined): boolean
   return forbidden.every((item) => !actual.includes(item));
 }
 
-function evaluateScenario(s: RecommenderAuditScenario, result: ReturnType<typeof runRecommender>): string[] {
+function evaluateScenario(s: RecommenderAuditScenario, result: RecommenderResponse): string[] {
   const findings: string[] = [];
   const depths = result.fish_behavior.position.depth_lanes.slice(0, 3).map((item) => item.id);
   const relations = result.fish_behavior.position.relation_tags.slice(0, 4).map((item) => item.id);
   const archetypes = result.presentation_archetypes.slice(0, 3).map((item) => item.archetype_id);
   const styleFlags = result.fish_behavior.behavior.style_flags;
   const lureIds = result.lure_rankings.slice(0, 3).map((item) => item.family_id);
+  const lureMethods = result.lure_rankings.slice(0, 3).map((item) => item.best_method.method_id);
   const flyIds = result.fly_rankings.slice(0, 3).map((item) => item.family_id);
+  const flyMethods = result.fly_rankings.slice(0, 3).map((item) => item.best_method.method_id);
   const activity = result.fish_behavior.behavior.activity;
 
   if (!includesAny(depths, s.expectations.top_depth_in)) {
@@ -44,11 +47,21 @@ function evaluateScenario(s: RecommenderAuditScenario, result: ReturnType<typeof
   if (!includesAny(lureIds, s.expectations.top_lure_ids_in)) {
     findings.push(`expected lure family in ${JSON.stringify(s.expectations.top_lure_ids_in)} but saw ${JSON.stringify(lureIds.slice(0, 3))}`);
   }
+  if (!includesAny(lureMethods, s.expectations.top_lure_method_ids_in)) {
+    findings.push(
+      `expected lure method in ${JSON.stringify(s.expectations.top_lure_method_ids_in)} but saw ${JSON.stringify(lureMethods.slice(0, 3))}`,
+    );
+  }
   if (!excludesAll(lureIds, s.expectations.forbidden_top_lure_ids)) {
     findings.push(`forbidden top lure family in ${JSON.stringify(s.expectations.forbidden_top_lure_ids)} but saw ${JSON.stringify(lureIds.slice(0, 3))}`);
   }
   if (!includesAny(flyIds, s.expectations.top_fly_ids_in)) {
     findings.push(`expected fly family in ${JSON.stringify(s.expectations.top_fly_ids_in)} but saw ${JSON.stringify(flyIds.slice(0, 3))}`);
+  }
+  if (!includesAny(flyMethods, s.expectations.top_fly_method_ids_in)) {
+    findings.push(
+      `expected fly method in ${JSON.stringify(s.expectations.top_fly_method_ids_in)} but saw ${JSON.stringify(flyMethods.slice(0, 3))}`,
+    );
   }
   if (!includesAny([activity], s.expectations.activity_in)) {
     findings.push(`expected activity in ${JSON.stringify(s.expectations.activity_in)} but saw ${JSON.stringify(activity)}`);
@@ -73,7 +86,7 @@ for (const scenario of RECOMMENDER_AUDIT_SCENARIOS) {
   const result = runRecommender({
     request,
     refinements: scenario.refinements ?? {},
-  });
+  }).response;
   const findings = evaluateScenario(scenario, result);
   const pass = findings.length === 0;
   if (pass) passCount++;
@@ -89,15 +102,25 @@ for (const scenario of RECOMMENDER_AUDIT_SCENARIOS) {
         top_depths: result.fish_behavior.position.depth_lanes.slice(0, 3),
         top_relations: result.fish_behavior.position.relation_tags.slice(0, 4),
         top_archetypes: result.presentation_archetypes.slice(0, 2).map((item) => item.archetype_id),
-        top_lures: result.lure_rankings.slice(0, 3).map((item) => item.family_id),
-        top_flies: result.fly_rankings.slice(0, 3).map((item) => item.family_id),
+        top_lures: result.lure_rankings.slice(0, 3).map((item) => ({
+          family_id: item.family_id,
+          method_id: item.best_method.method_id,
+        })),
+        top_flies: result.fly_rankings.slice(0, 3).map((item) => ({
+          family_id: item.family_id,
+          method_id: item.best_method.method_id,
+        })),
       },
       debug: result.debug,
     }) + "\n",
     { append: true },
   );
 
-  console.log(pass ? "ok" : "review", scenario.id, result.lure_rankings[0]?.family_id ?? "none");
+  console.log(
+    pass ? "ok" : "review",
+    scenario.id,
+    `${result.lure_rankings[0]?.family_id ?? "none"}:${result.lure_rankings[0]?.best_method.method_id ?? "none"}`,
+  );
   if (!pass) {
     findings.forEach((finding) => console.log("  -", finding));
   }

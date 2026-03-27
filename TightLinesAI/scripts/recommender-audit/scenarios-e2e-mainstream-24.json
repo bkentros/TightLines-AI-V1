@@ -1,0 +1,505 @@
+[
+  {
+    "id": "great-lakes-erie-jan-lake-clear",
+    "notes": "True winter Great Lakes lake scenario. Keeps northern cold-season lake logic in the matrix.",
+    "latitude": 41.77,
+    "longitude": -82.78,
+    "local_date": "2024-01-22",
+    "local_timezone": "America/Detroit",
+    "context": "freshwater_lake_pond",
+    "location_name": "Lake Erie",
+    "region_key": "great_lakes_upper_midwest",
+    "refinements": { "water_clarity": "clear" },
+    "expectations": {
+      "top_depth_in": ["deep", "lower_column", "bottom_oriented", "mid_depth"],
+      "top_relation_in": ["depth_transition_oriented", "shade_oriented", "structure_oriented", "cover_oriented"],
+      "top_archetype_in": ["slow_bottom_contact", "tight_to_cover_vertical", "depth_break_suspend_pause"],
+      "forbidden_top_archetype_ids": ["surface_low_light_commotion", "grass_edge_swim", "horizontal_search_mid_column"],
+      "required_style_flags": ["finesse_best"],
+      "top_lure_ids_in": ["jig_trailer", "finesse_worm", "jerkbait"],
+      "top_lure_method_ids_in": ["crawl_hop_bottom", "shaky_head_drag", "suspend_twitch_pause"],
+      "top_fly_ids_in": ["nymph_rig", "weighted_streamer", "woolly_bugger_leech"],
+      "top_fly_method_ids_in": ["dead_drift_bottom", "sink_strip_pause", "dead_drift_swing"],
+      "forbidden_top_lure_ids": ["frog_toad", "topwater_walker_popper", "spinnerbait", "chatterbait"],
+      "activity_in": ["inactive", "neutral"]
+    }
+  },
+  {
+    "id": "florida-okeechobee-jan-lake-no-clarity",
+    "notes": "High-volume Florida winter bass water. Should still feel Florida-warm, shallow, and cover-aware.",
+    "latitude": 26.94,
+    "longitude": -80.80,
+    "local_date": "2024-01-20",
+    "local_timezone": "America/New_York",
+    "context": "freshwater_lake_pond",
+    "location_name": "Lake Okeechobee",
+    "region_key": "florida",
+    "expectations": {
+      "top_depth_in": ["shallow", "mid_depth", "upper_column", "lower_column"],
+      "top_relation_in": ["cover_oriented", "vegetation_oriented", "edge_oriented", "shade_oriented"],
+      "top_archetype_in": ["subtle_shallow_cover", "tight_to_cover_vertical", "horizontal_search_mid_column"],
+      "top_lure_ids_in": ["soft_stick_worm", "jig_trailer", "paddle_tail_swimbait", "spinnerbait", "jerkbait"],
+      "top_fly_ids_in": ["baitfish_streamer", "weighted_streamer", "popper_surface_bug"],
+      "activity_in": ["neutral", "active"]
+    }
+  },
+  {
+    "id": "florida-toho-feb-lake-stained",
+    "notes": "Core Florida pre-spawn bass month. Recommendations should stay biologically warm and shallow-forward.",
+    "latitude": 28.18,
+    "longitude": -81.38,
+    "local_date": "2024-02-15",
+    "local_timezone": "America/New_York",
+    "context": "freshwater_lake_pond",
+    "location_name": "Lake Toho",
+    "region_key": "florida",
+    "refinements": { "water_clarity": "stained" },
+    "expectations": {
+      "top_depth_in": ["shallow", "mid_depth", "upper_column"],
+      "top_relation_in": ["cover_oriented", "vegetation_oriented", "edge_oriented", "shade_oriented"],
+      "top_archetype_in": ["subtle_shallow_cover", "tight_to_cover_vertical", "grass_edge_swim", "horizontal_search_mid_column"],
+      "top_lure_ids_in": ["soft_stick_worm", "jig_trailer", "spinnerbait", "chatterbait", "paddle_tail_swimbait"],
+      "top_fly_ids_in": ["baitfish_streamer", "weighted_streamer", "popper_surface_bug"],
+      "activity_in": ["neutral", "active", "aggressive"]
+    }
+  },
+  {
+    "id": "tx-sam-rayburn-jun-lake-dirty",
+    "notes": "Mainstream summer bass reservoir. Heat should narrow the bite without making the output reckless.",
+    "latitude": 31.06,
+    "longitude": -94.10,
+    "local_date": "2024-06-14",
+    "local_timezone": "America/Chicago",
+    "context": "freshwater_lake_pond",
+    "location_name": "Sam Rayburn",
+    "region_key": "south_central",
+    "refinements": { "water_clarity": "dirty" },
+    "expectations": {
+      "top_depth_in": ["mid_depth", "lower_column", "shallow"],
+      "top_relation_in": ["shade_oriented", "cover_oriented", "vegetation_oriented", "depth_transition_oriented"],
+      "top_archetype_in": ["tight_to_cover_vertical", "slow_bottom_contact", "grass_edge_swim", "surface_low_light_commotion"],
+      "top_lure_ids_in": ["jig_trailer", "chatterbait", "spinnerbait", "frog_toad", "paddle_tail_swimbait"],
+      "top_fly_ids_in": ["weighted_streamer", "baitfish_streamer", "woolly_bugger_leech"],
+      "activity_in": ["neutral", "active"]
+    }
+  },
+  {
+    "id": "ok-broken-bow-sep-lake-no-clarity",
+    "notes": "Early-fall southern lake. Search families should be live without turning the whole read into surface-only fishing.",
+    "latitude": 34.14,
+    "longitude": -94.88,
+    "local_date": "2024-09-24",
+    "local_timezone": "America/Chicago",
+    "context": "freshwater_lake_pond",
+    "location_name": "Broken Bow Lake",
+    "region_key": "south_central",
+    "expectations": {
+      "top_depth_in": ["shallow", "mid_depth", "upper_column"],
+      "top_relation_in": ["edge_oriented", "shoreline_cruising", "vegetation_oriented", "point_oriented"],
+      "top_archetype_in": ["horizontal_search_mid_column", "grass_edge_swim", "depth_break_suspend_pause"],
+      "required_style_flags": ["horizontal_search_best"],
+      "top_lure_ids_in": ["paddle_tail_swimbait", "spinnerbait", "chatterbait", "jerkbait", "crankbait_shallow_mid"],
+      "top_fly_ids_in": ["baitfish_streamer", "weighted_streamer", "popper_surface_bug"],
+      "activity_in": ["active", "aggressive"]
+    }
+  },
+  {
+    "id": "il-shelbyville-jun-lake-stained",
+    "notes": "Midwest interior reservoir with common bass/crappie/catfish usage. Should stay approachable and seasonally warm.",
+    "latitude": 39.41,
+    "longitude": -88.85,
+    "local_date": "2024-06-08",
+    "local_timezone": "America/Chicago",
+    "context": "freshwater_lake_pond",
+    "location_name": "Lake Shelbyville",
+    "region_key": "midwest_interior",
+    "refinements": { "water_clarity": "stained" },
+    "expectations": {
+      "top_depth_in": ["shallow", "mid_depth", "upper_column"],
+      "top_relation_in": ["cover_oriented", "edge_oriented", "vegetation_oriented", "point_oriented"],
+      "top_archetype_in": ["horizontal_search_mid_column", "grass_edge_swim", "tight_to_cover_vertical"],
+      "top_lure_ids_in": ["paddle_tail_swimbait", "spinnerbait", "chatterbait", "soft_stick_worm", "crankbait_shallow_mid"],
+      "top_fly_ids_in": ["baitfish_streamer", "weighted_streamer", "popper_surface_bug"],
+      "activity_in": ["active", "aggressive"]
+    }
+  },
+
+  {
+    "id": "id-snake-mar-river-dirty",
+    "notes": "Cold March river with dirty-water bias. Should stay seam/current-break driven and drift- or lane-based.",
+    "latitude": 44.07,
+    "longitude": -114.95,
+    "local_date": "2024-03-22",
+    "local_timezone": "America/Boise",
+    "context": "freshwater_river",
+    "location_name": "Snake River",
+    "region_key": "mountain_west",
+    "refinements": { "water_clarity": "dirty" },
+    "expectations": {
+      "top_depth_in": ["lower_column", "bottom_oriented", "mid_depth"],
+      "top_relation_in": ["seam_oriented", "current_break_oriented", "hole_oriented"],
+      "top_archetype_in": ["current_seam_drift", "slow_bottom_contact", "depth_break_suspend_pause"],
+      "required_style_flags": ["current_drift_best"],
+      "top_lure_ids_in": ["compact_spoon", "inline_spinner", "jig_trailer", "finesse_worm"],
+      "top_fly_ids_in": ["nymph_rig", "weighted_streamer", "woolly_bugger_leech"],
+      "activity_in": ["inactive", "neutral"]
+    }
+  },
+  {
+    "id": "wv-new-river-oct-river-clear",
+    "notes": "Mainstream Appalachian smallmouth river. Output should feel current-positioned without getting too bass-lake coded.",
+    "latitude": 37.76,
+    "longitude": -81.00,
+    "local_date": "2024-10-12",
+    "local_timezone": "America/New_York",
+    "context": "freshwater_river",
+    "location_name": "New River",
+    "region_key": "appalachian",
+    "refinements": { "water_clarity": "clear" },
+    "expectations": {
+      "top_depth_in": ["mid_depth", "lower_column", "shallow"],
+      "top_relation_in": ["seam_oriented", "current_break_oriented", "structure_oriented"],
+      "top_archetype_in": ["current_seam_drift", "horizontal_search_mid_column", "slow_bottom_contact"],
+      "required_style_flags": ["current_drift_best"],
+      "top_lure_ids_in": ["inline_spinner", "compact_spoon", "jig_trailer", "finesse_worm"],
+      "top_fly_ids_in": ["weighted_streamer", "woolly_bugger_leech", "nymph_rig"],
+      "activity_in": ["neutral", "active"]
+    }
+  },
+  {
+    "id": "ar-white-river-dec-river-clear",
+    "notes": "Very common trout-tailwater use case. Should feel precise, low-lane, and biologically calm.",
+    "latitude": 35.837,
+    "longitude": -91.269,
+    "local_date": "2025-12-14",
+    "local_timezone": "America/Chicago",
+    "context": "freshwater_river",
+    "location_name": "White River",
+    "region_key": "south_central",
+    "refinements": { "water_clarity": "clear" },
+    "expectations": {
+      "top_depth_in": ["lower_column", "bottom_oriented", "mid_depth"],
+      "top_relation_in": ["seam_oriented", "current_break_oriented", "hole_oriented"],
+      "top_archetype_in": ["current_seam_drift", "slow_bottom_contact", "depth_break_suspend_pause"],
+      "required_style_flags": ["current_drift_best"],
+      "top_lure_ids_in": ["compact_spoon", "inline_spinner", "jig_trailer", "finesse_worm"],
+      "top_fly_ids_in": ["nymph_rig", "weighted_streamer", "woolly_bugger_leech"],
+      "activity_in": ["inactive", "neutral"]
+    }
+  },
+  {
+    "id": "wa-yakima-mar-river-no-clarity",
+    "notes": "Mainstream western trout river in early spring. The read should stay cold-aware but not dead.",
+    "latitude": 46.600,
+    "longitude": -120.505,
+    "local_date": "2025-03-15",
+    "local_timezone": "America/Los_Angeles",
+    "context": "freshwater_river",
+    "location_name": "Yakima River",
+    "region_key": "inland_northwest",
+    "expectations": {
+      "top_depth_in": ["mid_depth", "lower_column", "bottom_oriented"],
+      "top_relation_in": ["seam_oriented", "current_break_oriented", "hole_oriented"],
+      "top_archetype_in": ["current_seam_drift", "slow_bottom_contact"],
+      "required_style_flags": ["current_drift_best"],
+      "top_lure_ids_in": ["compact_spoon", "inline_spinner", "jig_trailer"],
+      "top_fly_ids_in": ["nymph_rig", "weighted_streamer", "woolly_bugger_leech"],
+      "activity_in": ["inactive", "neutral", "active"]
+    }
+  },
+  {
+    "id": "or-deschutes-jul-river-clear",
+    "notes": "Famous western summer river. A good answer should allow a more active, cleaner river presentation mix.",
+    "latitude": 44.667,
+    "longitude": -121.150,
+    "local_date": "2025-07-10",
+    "local_timezone": "America/Los_Angeles",
+    "context": "freshwater_river",
+    "location_name": "Deschutes River",
+    "region_key": "inland_northwest",
+    "refinements": { "water_clarity": "clear" },
+    "expectations": {
+      "top_depth_in": ["shallow", "mid_depth", "lower_column"],
+      "top_relation_in": ["seam_oriented", "current_break_oriented", "undercut_bank_oriented", "structure_oriented"],
+      "top_archetype_in": ["current_seam_drift", "horizontal_search_mid_column", "subtle_shallow_cover"],
+      "required_style_flags": ["current_drift_best"],
+      "top_lure_ids_in": ["inline_spinner", "compact_spoon", "jig_trailer"],
+      "top_fly_ids_in": ["dry_emerger", "terrestrial_hopper", "weighted_streamer", "woolly_bugger_leech"],
+      "activity_in": ["neutral", "active", "aggressive"]
+    }
+  },
+  {
+    "id": "nm-san-juan-nov-river-clear",
+    "notes": "Blue-ribbon tailwater. Recommendations should feel grounded for cold, precise, high-confidence trout water.",
+    "latitude": 36.785,
+    "longitude": -107.908,
+    "local_date": "2025-11-02",
+    "local_timezone": "America/Denver",
+    "context": "freshwater_river",
+    "location_name": "San Juan River",
+    "region_key": "southwest_high_desert",
+    "refinements": { "water_clarity": "clear" },
+    "expectations": {
+      "top_depth_in": ["lower_column", "bottom_oriented", "mid_depth"],
+      "top_relation_in": ["seam_oriented", "current_break_oriented", "hole_oriented"],
+      "top_archetype_in": ["current_seam_drift", "slow_bottom_contact", "depth_break_suspend_pause"],
+      "required_style_flags": ["current_drift_best"],
+      "top_lure_ids_in": ["compact_spoon", "inline_spinner", "jig_trailer"],
+      "top_fly_ids_in": ["nymph_rig", "weighted_streamer", "woolly_bugger_leech"],
+      "activity_in": ["inactive", "neutral", "active"]
+    }
+  },
+
+  {
+    "id": "fl-keys-may-coastal-clear",
+    "notes": "High-priority Florida inshore water. Warm-season coastal recommendations should stay natural, moving-water, and bait-aware.",
+    "latitude": 24.56,
+    "longitude": -81.80,
+    "local_date": "2024-05-12",
+    "local_timezone": "America/New_York",
+    "context": "coastal",
+    "location_name": "Florida Keys",
+    "region_key": "florida",
+    "tide_station_id": "8724580",
+    "refinements": { "water_clarity": "clear" },
+    "expectations": {
+      "top_depth_in": ["mid_depth", "shallow", "lower_column"],
+      "top_relation_in": ["channel_related", "point_oriented", "current_break_oriented"],
+      "top_archetype_in": ["horizontal_search_mid_column", "depth_break_suspend_pause", "drain_edge_intercept"],
+      "top_lure_ids_in": ["jighead_minnow", "paddle_tail_swimbait", "jerkbait", "shrimp_imitation"],
+      "top_fly_ids_in": ["baitfish_streamer", "weighted_streamer", "shrimp_fly"],
+      "activity_in": ["active", "aggressive"]
+    }
+  },
+  {
+    "id": "fl-tampa-aug-coastal-stained",
+    "notes": "Very common Florida inshore use case. Summer heat should narrow windows without losing the saltwater lane logic.",
+    "latitude": 27.768,
+    "longitude": -82.638,
+    "local_date": "2025-08-14",
+    "local_timezone": "America/New_York",
+    "context": "coastal",
+    "location_name": "Tampa Bay",
+    "region_key": "florida",
+    "tide_station_id": "8726520",
+    "refinements": { "water_clarity": "stained" },
+    "expectations": {
+      "top_depth_in": ["shallow", "mid_depth", "lower_column"],
+      "top_relation_in": ["channel_related", "current_break_oriented", "point_oriented", "shoreline_cruising"],
+      "top_archetype_in": ["horizontal_search_mid_column", "drain_edge_intercept", "slow_bottom_contact"],
+      "top_lure_ids_in": ["jighead_minnow", "paddle_tail_swimbait", "shrimp_imitation", "popping_cork_trailer", "weighted_bottom_presentation"],
+      "top_fly_ids_in": ["baitfish_streamer", "shrimp_fly", "weighted_streamer"],
+      "activity_in": ["neutral", "active"]
+    }
+  },
+  {
+    "id": "al-mobile-bay-oct-coastal-no-clarity",
+    "notes": "Northern Gulf majority-water scenario. Should feel like moving-water inshore, not generic saltwater mush.",
+    "latitude": 30.69,
+    "longitude": -88.04,
+    "local_date": "2024-10-05",
+    "local_timezone": "America/Chicago",
+    "context": "coastal",
+    "location_name": "Mobile Bay",
+    "region_key": "gulf_coast",
+    "tide_station_id": "8737048",
+    "expectations": {
+      "top_depth_in": ["shallow", "mid_depth", "lower_column"],
+      "top_relation_in": ["channel_related", "current_break_oriented", "point_oriented", "shoreline_cruising"],
+      "top_archetype_in": ["horizontal_search_mid_column", "drain_edge_intercept", "slow_bottom_contact"],
+      "top_lure_ids_in": ["jighead_minnow", "paddle_tail_swimbait", "shrimp_imitation", "popping_cork_trailer", "weighted_bottom_presentation"],
+      "top_fly_ids_in": ["baitfish_streamer", "shrimp_fly", "weighted_streamer"],
+      "activity_in": ["active", "aggressive"]
+    }
+  },
+  {
+    "id": "tx-galveston-nov-coastal-dirty",
+    "notes": "Dirty-water Gulf coastal inshore. Should lean to easier-to-find coastal families before a clean-water pause bait.",
+    "latitude": 29.30,
+    "longitude": -94.79,
+    "local_date": "2024-11-16",
+    "local_timezone": "America/Chicago",
+    "context": "coastal",
+    "location_name": "Galveston",
+    "region_key": "gulf_coast",
+    "tide_station_id": "8771450",
+    "refinements": { "water_clarity": "dirty" },
+    "expectations": {
+      "top_depth_in": ["lower_column", "mid_depth", "shallow"],
+      "top_relation_in": ["channel_related", "current_break_oriented", "point_oriented"],
+      "top_archetype_in": ["slow_bottom_contact", "drain_edge_intercept", "horizontal_search_mid_column"],
+      "top_lure_ids_in": ["jighead_minnow", "weighted_bottom_presentation", "shrimp_imitation", "popping_cork_trailer"],
+      "forbidden_top_lure_ids": ["jerkbait"],
+      "top_fly_ids_in": ["shrimp_fly", "baitfish_streamer", "weighted_streamer"],
+      "activity_in": ["inactive", "neutral", "active"]
+    }
+  },
+  {
+    "id": "nc-wilmington-oct-coastal-stained",
+    "notes": "Common Southeast inshore estuary-adjacent coast. Should stay current, edge, and bait-aware.",
+    "latitude": 34.23,
+    "longitude": -77.95,
+    "local_date": "2024-10-14",
+    "local_timezone": "America/New_York",
+    "context": "coastal",
+    "location_name": "Wilmington",
+    "region_key": "southeast_atlantic",
+    "tide_station_id": "8658163",
+    "refinements": { "water_clarity": "stained" },
+    "expectations": {
+      "top_depth_in": ["shallow", "mid_depth", "lower_column"],
+      "top_relation_in": ["channel_related", "current_break_oriented", "point_oriented", "shoreline_cruising"],
+      "top_archetype_in": ["horizontal_search_mid_column", "drain_edge_intercept", "slow_bottom_contact"],
+      "top_lure_ids_in": ["jighead_minnow", "paddle_tail_swimbait", "shrimp_imitation", "popping_cork_trailer", "weighted_bottom_presentation"],
+      "top_fly_ids_in": ["baitfish_streamer", "shrimp_fly", "weighted_streamer"],
+      "activity_in": ["active", "aggressive"]
+    }
+  },
+  {
+    "id": "nc-outer-banks-oct-coastal-clear",
+    "notes": "Major Atlantic fall inshore/surf-adjacent fishery. The answer should still stay coastal-inshore sensible.",
+    "latitude": 35.80,
+    "longitude": -75.60,
+    "local_date": "2024-10-19",
+    "local_timezone": "America/New_York",
+    "context": "coastal",
+    "location_name": "Outer Banks",
+    "region_key": "southeast_atlantic",
+    "tide_station_id": "8652587",
+    "refinements": { "water_clarity": "clear" },
+    "expectations": {
+      "top_depth_in": ["mid_depth", "shallow", "lower_column"],
+      "top_relation_in": ["channel_related", "point_oriented", "current_break_oriented", "shoreline_cruising"],
+      "top_archetype_in": ["horizontal_search_mid_column", "depth_break_suspend_pause", "slow_bottom_contact"],
+      "top_lure_ids_in": ["jighead_minnow", "jerkbait", "paddle_tail_swimbait", "weighted_bottom_presentation"],
+      "top_fly_ids_in": ["baitfish_streamer", "weighted_streamer", "shrimp_fly"],
+      "activity_in": ["neutral", "active", "aggressive"]
+    }
+  },
+
+  {
+    "id": "fl-key-west-jan-flats-clear",
+    "notes": "Classic clear-water flats case. Should stay subtle, precise, and flats-specific.",
+    "latitude": 24.56,
+    "longitude": -81.80,
+    "local_date": "2024-01-18",
+    "local_timezone": "America/New_York",
+    "context": "coastal_flats_estuary",
+    "location_name": "Key West Flats",
+    "region_key": "florida",
+    "tide_station_id": "8724580",
+    "refinements": { "water_clarity": "clear" },
+    "expectations": {
+      "top_depth_in": ["very_shallow", "shallow", "lower_column"],
+      "top_relation_in": ["drain_oriented", "grass_edge_oriented", "pothole_oriented", "trough_oriented"],
+      "top_archetype_in": ["drain_edge_intercept", "open_flats_cruise_intercept", "slow_bottom_contact"],
+      "top_lure_ids_in": ["shrimp_imitation", "jighead_minnow", "weighted_bottom_presentation", "paddle_tail_swimbait"],
+      "top_fly_ids_in": ["shrimp_fly", "crab_fly", "baitfish_streamer"],
+      "activity_in": ["neutral", "active"]
+    }
+  },
+  {
+    "id": "fl-mosquito-lagoon-apr-flats-clear",
+    "notes": "Mainstream Florida sight-fishing style water. Recommendations should stay skinny-water and methodical.",
+    "latitude": 28.96,
+    "longitude": -80.85,
+    "local_date": "2025-04-24",
+    "local_timezone": "America/New_York",
+    "context": "coastal_flats_estuary",
+    "location_name": "Mosquito Lagoon",
+    "region_key": "florida",
+    "tide_station_id": "8721604",
+    "refinements": { "water_clarity": "clear" },
+    "expectations": {
+      "top_depth_in": ["very_shallow", "shallow", "lower_column"],
+      "top_relation_in": ["grass_edge_oriented", "pothole_oriented", "drain_oriented", "trough_oriented"],
+      "top_archetype_in": ["open_flats_cruise_intercept", "drain_edge_intercept", "slow_bottom_contact"],
+      "top_lure_ids_in": ["shrimp_imitation", "jighead_minnow", "paddle_tail_swimbait", "weighted_bottom_presentation"],
+      "top_fly_ids_in": ["shrimp_fly", "crab_fly", "baitfish_streamer"],
+      "activity_in": ["neutral", "active", "aggressive"]
+    }
+  },
+  {
+    "id": "fl-tampa-may-flats-stained",
+    "notes": "Florida grass-flat and estuary crossover. Should stay flats-aware and not collapse into generic deeper inshore logic.",
+    "latitude": 27.76,
+    "longitude": -82.62,
+    "local_date": "2025-05-17",
+    "local_timezone": "America/New_York",
+    "context": "coastal_flats_estuary",
+    "location_name": "Tampa Bay Estuary",
+    "region_key": "florida",
+    "tide_station_id": "8726724",
+    "refinements": { "water_clarity": "stained" },
+    "expectations": {
+      "top_depth_in": ["shallow", "very_shallow", "lower_column"],
+      "top_relation_in": ["grass_edge_oriented", "drain_oriented", "marsh_edge_oriented", "trough_oriented"],
+      "top_archetype_in": ["open_flats_cruise_intercept", "drain_edge_intercept", "slow_bottom_contact"],
+      "top_lure_ids_in": ["jighead_minnow", "paddle_tail_swimbait", "shrimp_imitation", "popping_cork_trailer", "weighted_bottom_presentation"],
+      "top_fly_ids_in": ["baitfish_streamer", "shrimp_fly", "crab_fly"],
+      "activity_in": ["active", "aggressive"]
+    }
+  },
+  {
+    "id": "al-mobile-bay-oct-flats-stained",
+    "notes": "Mobile Bay estuary/flooded-edge style scenario. Needs a real flats split from broader coastal.",
+    "latitude": 30.69,
+    "longitude": -88.04,
+    "local_date": "2024-10-05",
+    "local_timezone": "America/Chicago",
+    "context": "coastal_flats_estuary",
+    "location_name": "Mobile Bay",
+    "region_key": "gulf_coast",
+    "tide_station_id": "8737048",
+    "refinements": { "water_clarity": "stained" },
+    "expectations": {
+      "top_depth_in": ["shallow", "very_shallow", "mid_depth"],
+      "top_relation_in": ["drain_oriented", "grass_edge_oriented", "marsh_edge_oriented", "pothole_oriented"],
+      "top_archetype_in": ["drain_edge_intercept", "open_flats_cruise_intercept", "slow_bottom_contact"],
+      "top_lure_ids_in": ["jighead_minnow", "paddle_tail_swimbait", "popping_cork_trailer", "shrimp_imitation"],
+      "top_fly_ids_in": ["baitfish_streamer", "shrimp_fly", "crab_fly"],
+      "activity_in": ["active", "aggressive"]
+    }
+  },
+  {
+    "id": "tx-galveston-nov-flats-dirty",
+    "notes": "Dirty-water estuary. Lower-lane and louder flats-safe families should make sense before cleaner search reads.",
+    "latitude": 29.30,
+    "longitude": -94.79,
+    "local_date": "2024-11-16",
+    "local_timezone": "America/Chicago",
+    "context": "coastal_flats_estuary",
+    "location_name": "Galveston Estuary",
+    "region_key": "gulf_coast",
+    "tide_station_id": "8771450",
+    "refinements": { "water_clarity": "dirty" },
+    "expectations": {
+      "top_depth_in": ["lower_column", "shallow", "mid_depth"],
+      "top_relation_in": ["drain_oriented", "grass_edge_oriented", "trough_oriented", "marsh_edge_oriented"],
+      "top_archetype_in": ["drain_edge_intercept", "slow_bottom_contact", "open_flats_cruise_intercept"],
+      "top_lure_ids_in": ["jighead_minnow", "shrimp_imitation", "popping_cork_trailer", "weighted_bottom_presentation"],
+      "top_fly_ids_in": ["shrimp_fly", "baitfish_streamer", "crab_fly"],
+      "activity_in": ["neutral", "active"]
+    }
+  },
+  {
+    "id": "nc-wilmington-oct-flats-no-clarity",
+    "notes": "Atlantic estuary with no manual clarity entry. The engine still needs a sensible flats/estuary read.",
+    "latitude": 34.23,
+    "longitude": -77.95,
+    "local_date": "2024-10-14",
+    "local_timezone": "America/New_York",
+    "context": "coastal_flats_estuary",
+    "location_name": "Wilmington Estuary",
+    "region_key": "southeast_atlantic",
+    "tide_station_id": "8658163",
+    "expectations": {
+      "top_depth_in": ["shallow", "very_shallow", "mid_depth"],
+      "top_relation_in": ["drain_oriented", "grass_edge_oriented", "marsh_edge_oriented", "pothole_oriented"],
+      "top_archetype_in": ["open_flats_cruise_intercept", "drain_edge_intercept", "slow_bottom_contact"],
+      "top_lure_ids_in": ["jighead_minnow", "paddle_tail_swimbait", "shrimp_imitation", "popping_cork_trailer"],
+      "top_fly_ids_in": ["baitfish_streamer", "shrimp_fly", "crab_fly"],
+      "activity_in": ["active", "aggressive"]
+    }
+  }
+]

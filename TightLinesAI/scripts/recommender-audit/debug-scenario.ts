@@ -28,7 +28,7 @@ const request = buildSharedEngineRequestFromEnvData(
 const result = runRecommender({
   request,
   refinements: scenario.refinements ?? {},
-});
+}).response;
 
 console.log(JSON.stringify({
   id: scenario.id,

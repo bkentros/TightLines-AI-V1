@@ -14,6 +14,7 @@ export function buildDebugPayload(params: {
   behavior: BehaviorResolution;
   archetypes: PresentationArchetypeScore[];
   familyScores: RecommenderDebugPayload["family_scores"];
+  methodScores: RecommenderDebugPayload["method_scores"];
   confidence: RecommenderConfidence;
 }): RecommenderDebugPayload {
   return {
@@ -21,6 +22,9 @@ export function buildDebugPayload(params: {
     region_key: params.regionKey,
     month: params.month,
     shared_condition_reliability: params.reliability,
+    seasonal_basis: params.behavior.seasonal_basis,
+    daily_adjustments: params.behavior.daily_adjustments,
+    clarity_adjustments: params.behavior.clarity_adjustments,
     active_modifiers: params.behavior.active_modifiers,
     depth_lane_scores: params.behavior.depth_scores,
     relation_scores: params.behavior.relation_scores,
@@ -30,6 +34,7 @@ export function buildDebugPayload(params: {
       reasons: item.reasons,
     })),
     family_scores: params.familyScores,
+    method_scores: params.methodScores,
     confidence_reasons: params.confidence.reasons,
   };
 }

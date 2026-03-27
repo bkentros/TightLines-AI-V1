@@ -85,7 +85,9 @@ export function buildNarrationPayload(params: {
   const topRelation = params.behavior.fish_behavior.position.relation_tags[0]?.id ?? "edge_oriented";
   const topArchetype = params.archetypes[0];
   const topLure = params.lureRankings[0]?.display_name;
+  const topLureMethod = params.lureRankings[0]?.best_method.label;
   const topFly = params.flyRankings[0]?.display_name;
+  const topFlyMethod = params.flyRankings[0]?.best_method.label;
 
   return {
     summary_seed:
@@ -104,11 +106,11 @@ export function buildNarrationPayload(params: {
         ? `Lead with ${topArchetype.speed.replaceAll("_", " ")} ${topArchetype.depth_target.replaceAll("_", " ")} work.`
         : "Lead with the cleanest presentation that matches the lane.",
       topLure && topFly
-        ? `Top starting families are ${topLure} on the lure side and ${topFly} on the fly side.`
+        ? `Top starting reads are ${topLure}${topLureMethod ? ` on a ${topLureMethod}` : ""} and ${topFly}${topFlyMethod ? ` on a ${topFlyMethod}` : ""}.`
         : topLure
-        ? `Top starting family is ${topLure}.`
+        ? `Top starting family is ${topLure}${topLureMethod ? ` on a ${topLureMethod}` : ""}.`
         : topFly
-        ? `Top starting fly family is ${topFly}.`
+        ? `Top starting fly family is ${topFly}${topFlyMethod ? ` on a ${topFlyMethod}` : ""}.`
         : "Use the top-ranked family as the first read and rotate only if fish show otherwise.",
     ],
     confidence_note: confidenceNote(params.confidence),

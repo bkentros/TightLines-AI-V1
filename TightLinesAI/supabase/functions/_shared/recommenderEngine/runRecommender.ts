@@ -44,12 +44,10 @@ function buildConfidence(params: {
 
   const reasons = [...params.behaviorReasons];
 
-  if ((params.input.refinements.habitat_tags ?? []).length === 0) {
-    behaviorScore -= 1;
-  }
   if (!params.input.refinements.water_clarity) {
     presentationScore -= 1;
     familyScore -= 1;
+    reasons.push("Water clarity is inferred, so presentation and family matching stay broader.");
   }
   if (
     (params.input.request.context === "coastal" ||
@@ -174,6 +172,10 @@ export function runRecommender(
         familyScores: [
           ...lureRankings.debug_scores,
           ...flyRankings.debug_scores,
+        ],
+        methodScores: [
+          ...lureRankings.method_scores,
+          ...flyRankings.method_scores,
         ],
         confidence,
       }),
