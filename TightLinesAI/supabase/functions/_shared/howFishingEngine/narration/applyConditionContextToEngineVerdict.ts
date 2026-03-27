@@ -8,6 +8,9 @@ export function applyConditionContextToEngineVerdict(
   verdict.temperature_band = cc.temperature_band;
   verdict.temperature_metabolic_context = cc.temperature_metabolic_context;
   verdict.avoid_midday_for_heat = cc.avoid_midday_for_heat;
+  if (cc.thermal_air_narration_plain) {
+    verdict.thermal_air_narration_plain = cc.thermal_air_narration_plain;
+  }
   verdict.recommended_fishing_dayparts = cc.highlighted_dayparts_for_narration;
   verdict.temperature_trend = cc.temperature_trend;
   if (cc.temperature_shock !== "none") {
