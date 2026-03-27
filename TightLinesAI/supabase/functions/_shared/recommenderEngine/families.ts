@@ -48,7 +48,7 @@ const FAMILY_LIBRARY: FamilyDefinition[] = [
     id: "soft_stick_worm",
     display_name: "Soft Stick Worm",
     gear_mode: "lure",
-    supported_contexts: ["freshwater_lake_pond"],
+    supported_contexts: ["freshwater_lake_pond", "freshwater_river"],
     preferred_month_groups: ["spring_transition", "warm_transition", "summer_pattern"],
     habitat_tags: ["cover", "docks", "shade", "grass"],
     vegetation_affinity: "medium",
@@ -57,7 +57,8 @@ const FAMILY_LIBRARY: FamilyDefinition[] = [
     strike_zone_fit: ["narrow", "moderate"],
     depth_lane_fit: ["shallow", "upper_column"],
     relation_fit: ["cover_oriented", "vegetation_oriented", "shade_oriented"],
-    forage_fit: ["baitfish", "amphibian"],
+    forage_fit: ["baitfish", "worm_invertebrate", "amphibian"],
+    depth_range_ft: { min: 1, max: 15 },
     light_fit: ["bright", "mixed"],
     daypart_fit: ["Morning", "Afternoon", "Evening"],
     speed_fit: ["dead_slow", "slow"],
@@ -84,7 +85,8 @@ const FAMILY_LIBRARY: FamilyDefinition[] = [
     strike_zone_fit: ["narrow", "moderate"],
     depth_lane_fit: ["mid_depth", "bottom_oriented", "lower_column"],
     relation_fit: ["structure_oriented", "depth_transition_oriented", "seam_oriented"],
-    forage_fit: ["insect", "crustacean"],
+    forage_fit: ["crawfish", "worm_invertebrate", "insect"],
+    depth_range_ft: { min: 1, max: 30 },
     light_fit: ["bright", "mixed"],
     daypart_fit: ["Morning", "Afternoon"],
     speed_fit: ["dead_slow", "slow"],
@@ -110,7 +112,8 @@ const FAMILY_LIBRARY: FamilyDefinition[] = [
     strike_zone_fit: ["narrow", "moderate"],
     depth_lane_fit: ["mid_depth", "deep", "bottom_oriented"],
     relation_fit: ["cover_oriented", "structure_oriented", "depth_transition_oriented"],
-    forage_fit: ["crustacean", "baitfish"],
+    forage_fit: ["crawfish", "baitfish"],  // crawfish is the #1 jig forage cue; coastal crustacean is separate
+    depth_range_ft: { min: 1, max: 40 }, // jig + weight = unlimited depth
     light_fit: ["bright", "mixed"],
     daypart_fit: ["Morning", "Afternoon"],
     speed_fit: ["dead_slow", "slow"],
@@ -138,6 +141,7 @@ const FAMILY_LIBRARY: FamilyDefinition[] = [
     depth_lane_fit: ["shallow", "mid_depth", "upper_column"],
     relation_fit: ["edge_oriented", "point_oriented", "channel_related", "grass_edge_oriented"],
     forage_fit: ["baitfish"],
+    depth_range_ft: { min: 2, max: 20 },
     light_fit: ["mixed", "low_light"],
     daypart_fit: ["Dawn", "Morning", "Evening"],
     speed_fit: ["slow", "moderate"],
@@ -165,6 +169,7 @@ const FAMILY_LIBRARY: FamilyDefinition[] = [
     depth_lane_fit: ["shallow", "upper_column"],
     relation_fit: ["cover_oriented", "vegetation_oriented", "edge_oriented"],
     forage_fit: ["baitfish"],
+    depth_range_ft: { min: 1, max: 8 }, // blade needs to spin — max effective depth limited
     light_fit: ["mixed", "low_light"],
     daypart_fit: ["Morning", "Evening"],
     speed_fit: ["slow", "moderate"],
@@ -192,6 +197,7 @@ const FAMILY_LIBRARY: FamilyDefinition[] = [
     depth_lane_fit: ["shallow", "mid_depth"],
     relation_fit: ["vegetation_oriented", "edge_oriented", "cover_oriented"],
     forage_fit: ["baitfish"],
+    depth_range_ft: { min: 1, max: 8 }, // blade vibration requires active retrieve — limited effective depth
     light_fit: ["mixed", "low_light"],
     daypart_fit: ["Morning", "Evening"],
     speed_fit: ["moderate"],
@@ -219,6 +225,7 @@ const FAMILY_LIBRARY: FamilyDefinition[] = [
     depth_lane_fit: ["mid_depth", "suspended", "upper_column"],
     relation_fit: ["depth_transition_oriented", "point_oriented", "channel_related"],
     forage_fit: ["baitfish"],
+    depth_range_ft: { min: 2, max: 10 }, // model-dependent; most suspend 2-8 ft, deep divers to ~10
     light_fit: ["bright", "mixed"],
     daypart_fit: ["Morning", "Afternoon"],
     speed_fit: ["slow", "moderate"],
@@ -236,7 +243,7 @@ const FAMILY_LIBRARY: FamilyDefinition[] = [
     display_name: "Topwater Walker / Popper",
     gear_mode: "lure",
     supported_contexts: ["freshwater_lake_pond", "coastal", "coastal_flats_estuary"],
-    preferred_month_groups: ["summer_pattern", "summer_heat", "topwater_window", "fall_feed"],
+    preferred_month_groups: ["warm_transition", "summer_pattern", "summer_heat", "topwater_window", "fall_feed"],
     habitat_tags: ["shoreline", "grass_edge", "point"],
     vegetation_affinity: "medium",
     clarity_fit: ["clear", "stained"],
@@ -245,6 +252,7 @@ const FAMILY_LIBRARY: FamilyDefinition[] = [
     depth_lane_fit: ["very_shallow", "upper_column"],
     relation_fit: ["shoreline_cruising", "edge_oriented", "grass_edge_oriented", "marsh_edge_oriented"],
     forage_fit: ["baitfish", "amphibian"],
+    depth_range_ft: { min: 0, max: 1 }, // surface only — fish must be willing to come up
     light_fit: ["low_light", "mixed"],
     daypart_fit: ["Dawn", "Evening"],
     speed_fit: ["slow", "moderate"],
@@ -270,6 +278,7 @@ const FAMILY_LIBRARY: FamilyDefinition[] = [
     depth_lane_fit: ["very_shallow", "upper_column"],
     relation_fit: ["vegetation_oriented", "cover_oriented", "shade_oriented"],
     forage_fit: ["amphibian"],
+    depth_range_ft: { min: 0, max: 1 }, // surface only — designed specifically for heavy cover/mat fishing
     light_fit: ["low_light", "mixed"],
     daypart_fit: ["Dawn", "Evening"],
     speed_fit: ["slow", "moderate"],
@@ -286,8 +295,8 @@ const FAMILY_LIBRARY: FamilyDefinition[] = [
     id: "crankbait_shallow_mid",
     display_name: "Crankbait",
     gear_mode: "lure",
-    supported_contexts: ["freshwater_lake_pond"],
-    preferred_month_groups: ["spring_transition", "warm_transition", "fall_feed"],
+    supported_contexts: ["freshwater_lake_pond", "freshwater_river"],
+    preferred_month_groups: ["spring_transition", "warm_transition", "fall_feed", "late_fall"],
     habitat_tags: ["rock", "point", "breakline"],
     vegetation_affinity: "low",
     clarity_fit: ["clear", "stained"],
@@ -295,7 +304,8 @@ const FAMILY_LIBRARY: FamilyDefinition[] = [
     strike_zone_fit: ["moderate", "wide"],
     depth_lane_fit: ["shallow", "mid_depth"],
     relation_fit: ["point_oriented", "depth_transition_oriented", "structure_oriented"],
-    forage_fit: ["baitfish"],
+    forage_fit: ["baitfish", "crawfish"],  // crawfish color = squarebill on rock; baitfish = shad crank
+    depth_range_ft: { min: 1, max: 12 }, // squarebill 1-5 ft; medium diver 5-12 ft
     light_fit: ["mixed", "low_light"],
     daypart_fit: ["Morning", "Afternoon"],
     speed_fit: ["moderate", "fast"],
@@ -317,10 +327,11 @@ const FAMILY_LIBRARY: FamilyDefinition[] = [
     vegetation_affinity: "low",
     clarity_fit: ["clear", "stained"],
     activity_fit: ["neutral", "active", "aggressive"],
+    depth_range_ft: { min: 1, max: 5 }, // blade needs speed to spin — most effective 1-5 ft in current
     strike_zone_fit: ["moderate", "wide"],
     depth_lane_fit: ["shallow", "mid_depth", "upper_column"],
     relation_fit: ["seam_oriented", "current_break_oriented", "undercut_bank_oriented", "structure_oriented"],
-    forage_fit: ["baitfish", "insect"],
+    forage_fit: ["baitfish", "insect", "worm_invertebrate"],
     light_fit: ["bright", "mixed", "low_light"],
     daypart_fit: ["Morning", "Afternoon", "Evening"],
     speed_fit: ["slow", "moderate"],
@@ -345,6 +356,7 @@ const FAMILY_LIBRARY: FamilyDefinition[] = [
     vegetation_affinity: "low",
     clarity_fit: ["clear", "stained", "dirty"],
     activity_fit: ["neutral", "active"],
+    depth_range_ft: { min: 1, max: 20 }, // can flutter deep on a slow swing or lift-drop
     strike_zone_fit: ["moderate", "wide"],
     depth_lane_fit: ["mid_depth", "lower_column", "suspended"],
     relation_fit: ["seam_oriented", "current_break_oriented", "hole_oriented", "depth_transition_oriented"],
@@ -372,6 +384,7 @@ const FAMILY_LIBRARY: FamilyDefinition[] = [
     vegetation_affinity: "medium",
     clarity_fit: ["clear", "stained", "dirty"],
     activity_fit: ["inactive", "neutral", "active"],
+    depth_range_ft: { min: 1, max: 8 },
     strike_zone_fit: ["narrow", "moderate"],
     depth_lane_fit: ["shallow", "lower_column", "bottom_oriented"],
     relation_fit: ["drain_oriented", "grass_edge_oriented", "oyster_bar_oriented", "channel_related"],
@@ -397,6 +410,7 @@ const FAMILY_LIBRARY: FamilyDefinition[] = [
     vegetation_affinity: "low",
     clarity_fit: ["clear", "stained"],
     activity_fit: ["neutral", "active", "aggressive"],
+    depth_range_ft: { min: 1, max: 15 },
     strike_zone_fit: ["moderate", "wide"],
     depth_lane_fit: ["shallow", "mid_depth", "lower_column"],
     relation_fit: ["channel_related", "point_oriented", "drain_oriented", "current_break_oriented"],
@@ -423,6 +437,7 @@ const FAMILY_LIBRARY: FamilyDefinition[] = [
     vegetation_affinity: "medium",
     clarity_fit: ["stained", "dirty"],
     activity_fit: ["active", "aggressive"],
+    depth_range_ft: { min: 0, max: 4 }, // float system limits depth; trailer hangs 18-24 in below cork
     strike_zone_fit: ["moderate", "wide"],
     depth_lane_fit: ["shallow", "upper_column"],
     relation_fit: ["grass_edge_oriented", "drain_oriented", "shoreline_cruising"],
@@ -448,6 +463,7 @@ const FAMILY_LIBRARY: FamilyDefinition[] = [
     vegetation_affinity: "low",
     clarity_fit: ["clear", "stained", "dirty"],
     activity_fit: ["inactive", "neutral"],
+    depth_range_ft: { min: 2, max: 25 },
     strike_zone_fit: ["narrow", "moderate"],
     depth_lane_fit: ["lower_column", "bottom_oriented"],
     relation_fit: ["channel_related", "oyster_bar_oriented", "trough_oriented", "point_oriented"],
@@ -474,6 +490,7 @@ const FAMILY_LIBRARY: FamilyDefinition[] = [
     vegetation_affinity: "low",
     clarity_fit: ["clear", "stained"],
     activity_fit: ["neutral", "active"],
+    depth_range_ft: { min: 2, max: 20 },
     strike_zone_fit: ["narrow", "moderate"],
     depth_lane_fit: ["mid_depth", "lower_column", "suspended"],
     relation_fit: ["seam_oriented", "depth_transition_oriented", "channel_related", "point_oriented"],
@@ -500,6 +517,7 @@ const FAMILY_LIBRARY: FamilyDefinition[] = [
     vegetation_affinity: "medium",
     clarity_fit: ["clear", "stained"],
     activity_fit: ["active", "aggressive"],
+    depth_range_ft: { min: 1, max: 10 },
     strike_zone_fit: ["moderate", "wide"],
     depth_lane_fit: ["shallow", "mid_depth", "upper_column"],
     relation_fit: ["edge_oriented", "point_oriented", "grass_edge_oriented", "channel_related"],
@@ -528,7 +546,8 @@ const FAMILY_LIBRARY: FamilyDefinition[] = [
     strike_zone_fit: ["narrow", "moderate"],
     depth_lane_fit: ["mid_depth", "lower_column", "upper_column"],
     relation_fit: ["seam_oriented", "structure_oriented", "vegetation_oriented"],
-    forage_fit: ["insect", "baitfish"],
+    forage_fit: ["insect", "baitfish", "crawfish", "worm_invertebrate"], // woolly bugger imitates all of these
+    depth_range_ft: { min: 1, max: 15 },
     light_fit: ["bright", "mixed", "low_light"],
     daypart_fit: ["Morning", "Afternoon", "Evening"],
     speed_fit: ["slow", "moderate"],
@@ -550,6 +569,7 @@ const FAMILY_LIBRARY: FamilyDefinition[] = [
     vegetation_affinity: "medium",
     clarity_fit: ["clear", "stained"],
     activity_fit: ["active", "aggressive"],
+    depth_range_ft: { min: 0, max: 1 }, // surface only
     strike_zone_fit: ["moderate", "wide"],
     depth_lane_fit: ["very_shallow", "upper_column"],
     relation_fit: ["shoreline_cruising", "grass_edge_oriented", "marsh_edge_oriented"],
@@ -570,15 +590,18 @@ const FAMILY_LIBRARY: FamilyDefinition[] = [
     display_name: "Nymph Rig",
     gear_mode: "fly",
     supported_contexts: ["freshwater_river", "freshwater_lake_pond"],
-    preferred_month_groups: ["winter_hold", "spring_transition", "late_fall"],
+    // Nymphing is the most productive fly fishing technique year-round — 80% of trout feed subsurface
+    // even during hatches. All_year reflects biological reality; style flags gate it vs dry flies.
+    preferred_month_groups: ["all_year"],
     habitat_tags: ["seam", "riffle_run", "hole"],
     vegetation_affinity: "low",
     clarity_fit: ["clear", "stained"],
-    activity_fit: ["inactive", "neutral"],
+    activity_fit: ["inactive", "neutral", "active"],
     strike_zone_fit: ["narrow", "moderate"],
-    depth_lane_fit: ["lower_column", "bottom_oriented"],
-    relation_fit: ["seam_oriented", "hole_oriented", "current_break_oriented"],
-    forage_fit: ["insect"],
+    depth_lane_fit: ["lower_column", "bottom_oriented", "mid_depth"],
+    relation_fit: ["seam_oriented", "hole_oriented", "current_break_oriented", "riffle_oriented", "pool_oriented", "depth_transition_oriented", "structure_oriented", "edge_oriented"],
+    forage_fit: ["insect", "worm_invertebrate"],
+    depth_range_ft: { min: 1, max: 12 }, // indicator depth limits; euro nymphing can go deeper
     light_fit: ["bright", "mixed"],
     daypart_fit: ["Morning", "Afternoon"],
     speed_fit: ["dead_slow", "slow"],
@@ -595,11 +618,13 @@ const FAMILY_LIBRARY: FamilyDefinition[] = [
     display_name: "Dry / Emerger",
     gear_mode: "fly",
     supported_contexts: ["freshwater_river", "freshwater_lake_pond"],
-    preferred_month_groups: ["warm_transition", "summer_pattern"],
+    // Spring BWO and caddis hatches are some of the best dry fly fishing of the year
+    preferred_month_groups: ["spring_transition", "warm_transition", "summer_pattern"],
     habitat_tags: ["riffle_run", "shoreline", "shade"],
     vegetation_affinity: "low",
     clarity_fit: ["clear", "stained"],
     activity_fit: ["active", "aggressive"],
+    depth_range_ft: { min: 0, max: 1 }, // surface only
     strike_zone_fit: ["moderate", "wide"],
     depth_lane_fit: ["very_shallow", "upper_column"],
     relation_fit: ["shoreline_cruising", "edge_oriented", "shade_oriented"],
@@ -620,8 +645,10 @@ const FAMILY_LIBRARY: FamilyDefinition[] = [
     display_name: "Terrestrial / Hopper",
     gear_mode: "fly",
     supported_contexts: ["freshwater_river", "freshwater_lake_pond"],
-    preferred_month_groups: ["summer_pattern", "summer_heat"],
+    // Warm_transition: early beetles and ants start falling in late spring/early summer
+    preferred_month_groups: ["warm_transition", "summer_pattern", "summer_heat"],
     habitat_tags: ["bank", "grass", "shade"],
+    depth_range_ft: { min: 0, max: 1 }, // surface only
     vegetation_affinity: "medium",
     clarity_fit: ["clear", "stained"],
     activity_fit: ["active", "aggressive"],
@@ -650,6 +677,7 @@ const FAMILY_LIBRARY: FamilyDefinition[] = [
     vegetation_affinity: "medium",
     clarity_fit: ["clear", "stained"],
     activity_fit: ["inactive", "neutral", "active"],
+    depth_range_ft: { min: 1, max: 6 },
     strike_zone_fit: ["narrow", "moderate"],
     depth_lane_fit: ["shallow", "lower_column"],
     relation_fit: ["drain_oriented", "grass_edge_oriented", "shoreline_cruising", "channel_related"],
@@ -675,6 +703,7 @@ const FAMILY_LIBRARY: FamilyDefinition[] = [
     vegetation_affinity: "low",
     clarity_fit: ["clear", "stained"],
     activity_fit: ["inactive", "neutral"],
+    depth_range_ft: { min: 1, max: 4 }, // flats fishing is by nature shallow
     strike_zone_fit: ["narrow", "moderate"],
     depth_lane_fit: ["shallow", "bottom_oriented"],
     relation_fit: ["oyster_bar_oriented", "pothole_oriented", "trough_oriented"],
@@ -689,6 +718,155 @@ const FAMILY_LIBRARY: FamilyDefinition[] = [
     depriors: ["dirty_windy_search"],
     example_names: ["small crab fly", "light crab pattern", "weighted crab imitation"],
     how_to_fish: ["Set it down in the fish’s path and barely move it.", "Use tiny hops instead of long strips."],
+  },
+  {
+    id: "lipless_crankbait",
+    display_name: "Lipless Crankbait",
+    gear_mode: "lure",
+    supported_contexts: ["freshwater_lake_pond"],
+    preferred_month_groups: ["all_year"],
+    habitat_tags: ["grass", "point", "breakline", "open_water"],
+    vegetation_affinity: "high",
+    clarity_fit: ["clear", "stained", "dirty"],
+    activity_fit: ["neutral", "active", "aggressive"],
+    strike_zone_fit: ["moderate", "wide"],
+    depth_lane_fit: ["mid_depth", "lower_column", "bottom_oriented"],
+    relation_fit: ["vegetation_oriented", "depth_transition_oriented", "edge_oriented", "open_water_roaming"],
+    forage_fit: ["baitfish", "crawfish"],
+    depth_range_ft: { min: 1, max: 20 }, // yo-yo to surface; weight and retrieve speed control depth
+    light_fit: ["bright", "mixed", "low_light"],
+    daypart_fit: ["Morning", "Afternoon", "Evening"],
+    speed_fit: ["dead_slow", "slow", "moderate"],
+    motion_fit: ["steady", "erratic", "hopping"],
+    trigger_fit: ["vibration", "reaction", "flash"],
+    presentation_archetype_fit: ["horizontal_search_mid_column", "depth_break_suspend_pause"],
+    vibration_level: "strong",
+    silhouette: "medium",
+    weedless_level: "low", // treble hooks — fish over grass, not through dense mats
+    current_suitability: "low",
+    best_use_cases: [
+      "winter yo-yo over deep grass flats",
+      "fall baitfish blitz — burn it through schooling fish",
+      "spring pre-spawn over shallow grass",
+    ],
+    depriors: ["strong_current"],
+    example_names: ["Rat-L-Trap", "Strike King Red Eye Shad", "Bill Lewis Rat-L-Trap 1/2 oz"],
+    how_to_fish: [
+      "In winter, let it sink to the grass and yo-yo it with long pauses — the flutter on the fall is the trigger.",
+      "In fall, burn it steadily through baitfish schools; fish will tell you if they want a pause added.",
+    ],
+  },
+  {
+    id: "soft_hackle_wet_fly",
+    display_name: "Soft Hackle / Wet Fly",
+    gear_mode: "fly",
+    supported_contexts: ["freshwater_river"],
+    // Downstream swing during caddis and mayfly emergence — a technique as old as fly fishing itself.
+    // Fish intercept ascending nymphs and emergers in the upper column, not on the bottom.
+    preferred_month_groups: ["spring_transition", "warm_transition", "fall_feed"],
+    habitat_tags: ["seam", "tailout", "riffle", "run"],
+    vegetation_affinity: "low",
+    clarity_fit: ["clear", "stained"],
+    activity_fit: ["neutral", "active"],
+    strike_zone_fit: ["moderate", "wide"],
+    depth_lane_fit: ["upper_column", "mid_depth"],
+    relation_fit: ["seam_oriented", "tailout_oriented", "riffle_oriented", "current_break_oriented"],
+    forage_fit: ["insect"],
+    depth_range_ft: { min: 0, max: 6 }, // swings in the top half of the column
+    light_fit: ["mixed", "low_light"],
+    daypart_fit: ["Morning", "Evening"],
+    speed_fit: ["slow", "moderate"],
+    motion_fit: ["sweeping", "drift_natural"],
+    trigger_fit: ["natural_match", "current_drift", "silhouette"],
+    presentation_archetype_fit: ["current_seam_drift", "surface_low_light_commotion"],
+    current_suitability: "high",
+    best_use_cases: [
+      "caddis and mayfly emergence windows",
+      "fish actively rising or intercepting in the upper column",
+      "evening seam feeding when fish are not quite on top",
+    ],
+    depriors: ["dirty_water", "deep_bottom_fish"],
+    example_names: ["partridge and orange", "hare’s ear soft hackle", "pheasant tail wet fly"],
+    how_to_fish: [
+      "Cast slightly across current and swing it downstream on a tight line through the upper column.",
+      "Fish it in the top third of the water where ascending insects are most vulnerable.",
+    ],
+  },
+  {
+    id: "chironomid_stillwater",
+    display_name: "Chironomid / Stillwater Midge",
+    gear_mode: "fly",
+    supported_contexts: ["freshwater_lake_pond"],
+    // The dominant stillwater fly technique in the western US and Pacific Northwest.
+    // Chironomids (midges) are the #1 food source in most trout lakes by biomass.
+    // This presentation is fundamentally different from river nymphing — nearly motionless,
+    // suspended at a precise depth, over drop-offs and weed edges.
+    preferred_month_groups: ["all_year"],
+    preferred_regions: ["pacific_northwest", "mountain_alpine", "inland_northwest", "great_lakes_upper_midwest", "northern_california"],
+    habitat_tags: ["drop_off", "weed_edge", "shoal", "basin"],
+    vegetation_affinity: "medium",
+    clarity_fit: ["clear", "stained"],
+    activity_fit: ["inactive", "neutral"],
+    strike_zone_fit: ["narrow", "moderate"],
+    depth_lane_fit: ["deep", "lower_column", "suspended", "mid_depth"],
+    relation_fit: ["depth_transition_oriented", "structure_oriented", "edge_oriented", "vegetation_oriented"],
+    forage_fit: ["insect"],
+    depth_range_ft: { min: 4, max: 30 }, // indicator system can fish very deep
+    light_fit: ["bright", "mixed"],
+    daypart_fit: ["Morning", "Afternoon"],
+    speed_fit: ["dead_slow"],
+    motion_fit: ["subtle"],
+    trigger_fit: ["natural_match", "silhouette"],
+    presentation_archetype_fit: ["depth_break_suspend_pause", "slow_bottom_contact"],
+    best_use_cases: [
+      "stillwater trout lakes over drop-offs and shoal edges",
+      "suspended fish holding just below the thermocline",
+      "slow deliberate takes that demand a precise depth presentation",
+    ],
+    depriors: ["fast_current", "dirty_water"],
+    example_names: ["chironomid pupa under indicator", "midge pupa pattern", "bloodworm / bloodworm midge"],
+    how_to_fish: [
+      "Suspend it at the exact depth of the fish under an indicator and leave it nearly motionless.",
+      "Set your indicator so the fly hangs just above the weed tops — depth matters more than pattern.",
+    ],
+  },
+  {
+    id: "egg_pattern",
+    display_name: "Egg / Flesh Pattern",
+    gear_mode: "fly",
+    supported_contexts: ["freshwater_river"],
+    // The defining fly for fall steelhead, Pacific salmon tributaries, and Great Lakes runs.
+    // Eggs drift in the current column during spawning events — opportunistic trout and steelhead
+    // sit in current breaks below holding fish and intercept the drift.
+    preferred_month_groups: ["fall_feed", "late_fall", "winter_hold"],
+    preferred_regions: ["pacific_northwest", "inland_northwest", "great_lakes_upper_midwest", "appalachian", "alaska"],
+    habitat_tags: ["seam", "hole", "pool", "current_break"],
+    vegetation_affinity: "low",
+    clarity_fit: ["clear", "stained", "dirty"], // egg patterns are high-visibility; work in off-color water
+    activity_fit: ["inactive", "neutral"],
+    strike_zone_fit: ["narrow", "moderate"],
+    depth_lane_fit: ["lower_column", "bottom_oriented", "mid_depth"],
+    relation_fit: ["seam_oriented", "hole_oriented", "pool_oriented", "current_break_oriented"],
+    forage_fit: ["worm_invertebrate"], // closest proxy for opportunistic spawn drift
+    depth_range_ft: { min: 1, max: 15 },
+    light_fit: ["bright", "mixed"],
+    daypart_fit: ["Morning", "Afternoon"],
+    speed_fit: ["dead_slow", "slow"],
+    motion_fit: ["drift_natural"],
+    trigger_fit: ["natural_match", "visibility"],
+    presentation_archetype_fit: ["current_seam_drift", "slow_bottom_contact"],
+    current_suitability: "medium",
+    best_use_cases: [
+      "fall and winter steelhead and salmon tributaries",
+      "trout and whitefish opportunistically feeding below spawning fish",
+      "high-visibility drift in stained or off-color river conditions",
+    ],
+    depriors: ["surface_window"],
+    example_names: ["Glo Bug", "egg yarn fly", "flesh pattern", "Sucker Spawn"],
+    how_to_fish: [
+      "Dead-drift it through the current seam below where salmon or steelhead are holding.",
+      "Use enough weight to keep it in the lower column without dragging on the bottom.",
+    ],
   },
 ];
 
@@ -1293,6 +1471,102 @@ const FAMILY_METHODS: Record<string, FamilyMethodDefinition[]> = {
       style_flags: ["finesse_best"],
     },
   ],
+  lipless_crankbait: [
+    {
+      id: "yo_yo_bottom",
+      label: "Yo-Yo Bottom",
+      presentation_note: "Let it sink to the grass or bottom, then rip it up 2-3 feet and let it flutter back down on a slack line.",
+      preferred_month_groups: ["winter_hold", "spring_transition", "late_fall"],
+      depth_lane_fit: ["bottom_oriented", "lower_column", "mid_depth"],
+      activity_fit: ["neutral", "active"],
+      clarity_fit: ["clear", "stained", "dirty"],
+      archetype_fit: ["depth_break_suspend_pause", "slow_bottom_contact"],
+      style_flags: ["finesse_best"],
+    },
+    {
+      id: "burn_rip_grass",
+      label: "Burn-Rip Grass",
+      presentation_note: "Burn it quickly over or through the grass and rip it free whenever it ticks the top — the deflection triggers the bite.",
+      preferred_month_groups: ["warm_transition", "summer_pattern", "fall_feed"],
+      depth_lane_fit: ["mid_depth", "lower_column"],
+      activity_fit: ["active", "aggressive"],
+      clarity_fit: ["stained", "dirty"],
+      archetype_fit: ["horizontal_search_mid_column"],
+      style_flags: ["horizontal_search_best", "loud_profile_window"],
+    },
+  ],
+  soft_hackle_wet_fly: [
+    {
+      id: "downstream_swing",
+      label: "Downstream Swing",
+      presentation_note: "Cast 45° across current, mend upstream to slow the swing, and let the fly arc through the seam on a tight line.",
+      preferred_month_groups: ["spring_transition", "warm_transition", "fall_feed"],
+      depth_lane_fit: ["upper_column", "mid_depth"],
+      activity_fit: ["neutral", "active"],
+      clarity_fit: ["clear", "stained"],
+      archetype_fit: ["current_seam_drift"],
+      style_flags: ["current_drift_best", "natural_profile_window"],
+    },
+    {
+      id: "rising_lift_swing",
+      label: "Rising Lift + Swing",
+      presentation_note: "Let it sink slightly, then let the current tighten the line and lift the fly through the column — imitating an ascending insect.",
+      preferred_month_groups: ["warm_transition", "summer_pattern", "fall_feed"],
+      depth_lane_fit: ["upper_column", "mid_depth"],
+      activity_fit: ["active"],
+      clarity_fit: ["clear"],
+      archetype_fit: ["surface_low_light_commotion", "current_seam_drift"],
+      style_flags: ["natural_profile_window"],
+    },
+  ],
+  chironomid_stillwater: [
+    {
+      id: "deep_indicator_hang",
+      label: "Deep Indicator Hang",
+      presentation_note: "Set the indicator so the fly hangs at the right depth and leave it completely motionless — takes are often imperceptible twitches.",
+      preferred_month_groups: ["all_year"],
+      depth_lane_fit: ["deep", "lower_column", "suspended"],
+      activity_fit: ["inactive", "neutral"],
+      clarity_fit: ["clear", "stained"],
+      archetype_fit: ["depth_break_suspend_pause"],
+      style_flags: ["finesse_best"],
+    },
+    {
+      id: "slow_figure_eight",
+      label: "Slow Figure-Eight",
+      presentation_note: "Use a nearly imperceptible figure-eight retrieve with the rod tip to give the fly a micro-pulse without breaking the drift.",
+      preferred_month_groups: ["spring_transition", "warm_transition", "fall_feed"],
+      depth_lane_fit: ["mid_depth", "suspended"],
+      activity_fit: ["neutral"],
+      clarity_fit: ["clear"],
+      archetype_fit: ["depth_break_suspend_pause"],
+      style_flags: ["finesse_best", "natural_profile_window"],
+    },
+  ],
+  egg_pattern: [
+    {
+      id: "dead_drift_seam",
+      label: "Dead-Drift Seam",
+      presentation_note: "Dead-drift it naturally through the current lane below where fish are holding — mend to maintain drag-free drift.",
+      preferred_month_groups: ["fall_feed", "late_fall", "winter_hold"],
+      depth_lane_fit: ["lower_column", "bottom_oriented", "mid_depth"],
+      activity_fit: ["inactive", "neutral"],
+      clarity_fit: ["clear", "stained", "dirty"],
+      archetype_fit: ["current_seam_drift", "slow_bottom_contact"],
+      style_flags: ["current_drift_best", "finesse_best"],
+    },
+    {
+      id: "indicator_depth_drift",
+      label: "Indicator Depth Drift",
+      presentation_note: "Use an indicator for precise depth control and adjust until the fly drifts in the exact feeding lane.",
+      preferred_month_groups: ["fall_feed", "late_fall"],
+      depth_lane_fit: ["lower_column", "mid_depth"],
+      activity_fit: ["neutral"],
+      clarity_fit: ["stained", "dirty"],
+      archetype_fit: ["slow_bottom_contact"],
+      style_flags: ["finesse_best"],
+    },
+  ],
 };
 
 for (const family of FAMILY_LIBRARY) {
@@ -1303,33 +1577,276 @@ for (const family of FAMILY_LIBRARY) {
 
 function dominantForage(behavior: BehaviorResolution): string[] {
   const forage = behavior.fish_behavior.forage;
-  const entries = [
+  const entries: [string, number][] = [
     ["baitfish", forage.baitfish_bias],
+    ["crawfish", forage.crawfish_bias ?? 0],
     ["crustacean", forage.crustacean_bias],
     ["insect", forage.insect_bias],
+    ["worm_invertebrate", forage.worm_invertebrate_bias ?? 0],
     ["amphibian", forage.amphibian_surface_bias ?? 0],
-  ] as const;
-  const top = [...entries].sort((a, b) => b[1] - a[1]).slice(0, 2);
+  ];
+  const top = [...entries].sort((a, b) => b[1] - a[1]).slice(0, 3);
   return top.filter(([, score]) => score > 0.2).map(([id]) => id);
 }
 
 function colorGuidance(behavior: BehaviorResolution, family: FamilyDefinition): string[] {
-  const notes: string[] = [];
-  switch (behavior.inferred_clarity) {
-    case "clear":
-      notes.push("lean natural: olive, tan, translucent, green pumpkin");
-      break;
-    case "stained":
-      notes.push("lean contrast: white, chartreuse accents, darker back");
-      break;
-    case "dirty":
-      notes.push("lean visibility: dark silhouette, black-blue, chartreuse");
-      break;
-  }
+  const clarity = behavior.inferred_clarity;
+  const light = behavior.light_profile;
   const forage = dominantForage(behavior);
-  if (forage.includes("crustacean")) notes.push("rust, brown, and amber profiles fit the forage cue");
-  if (forage.includes("baitfish")) notes.push("white, silver, pearl, and olive baitfish profiles are strong");
-  if (family.id === "frog_toad") notes.push("dark silhouettes or natural frog tones are usually the cleanest call");
+  const isSpring = behavior.season_phase === "spring_transition";
+  const isFallFeed = behavior.season_phase === "fall_feed";
+  const notes: string[] = [];
+
+  // ── Per-family color guidance ────────────────────────────────────────────────
+  // Rules are grounded in fish vision biology and guide-level field knowledge:
+  // dirty water → fish rely on lateral line + silhouette; dark outline OR high-contrast bright
+  // stained water → contrast and reaction colors; chartreuse, white, orange
+  // clear water → natural, subtle; match the forage closely
+  // light modifier: low light → shift brighter; bright sun → shift more natural/subdued
+
+  switch (family.id) {
+    case "soft_stick_worm":
+      if (clarity === "dirty") notes.push("black/blue or junebug — solid dark silhouette reads best when visibility is low");
+      else if (clarity === "stained") notes.push("green pumpkin/chartreuse, watermelon red flake, or black blue — bump up contrast");
+      else notes.push(light === "bright" ? "green pumpkin, watermelon seed, natural brown — subtle in clear bright water" : "green pumpkin with black flake, junebug — go slightly darker at low light");
+      notes.push("natural worm tones (green pumpkin, watermelon) are the baseline; only go darker or brighter when conditions demand it");
+      break;
+
+    case "finesse_worm":
+      if (clarity === "dirty") notes.push("black/blue or junebug — dark profile for visibility in off-color water");
+      else if (clarity === "stained") notes.push("green pumpkin/red flake, green pumpkin/chartreuse — subtle contrast");
+      else notes.push("green pumpkin, natural watermelon, smoke/shad — match the bottom substrate as closely as possible");
+      break;
+
+    case "jig_trailer":
+      if (clarity === "dirty") notes.push("black/blue — the most reliable dirty-water jig color; bulky trailer adds displacement");
+      else if (clarity === "stained") notes.push("black/blue (most versatile), green pumpkin/chart, or brown/orange");
+      else if (light === "bright") notes.push("natural brown/green pumpkin or dark crawfish tones — match the bottom closely in clear bright water");
+      else notes.push("black/blue or brown/orange — both read in clear low-light conditions");
+      if (isSpring) notes.push("orange and brown tones are critical in spring — molting crayfish turn orange-bellied and fish key on this color hard");
+      else if (forage.includes("crawfish")) notes.push("natural crawfish tones — brown, green pumpkin, rust/orange — match the local crayfish color");
+      else if (forage.includes("baitfish")) notes.push("white/gray or smoke profiles when baitfish are driving the bite");
+      break;
+
+    case "paddle_tail_swimbait":
+      if (clarity === "dirty") notes.push("white or black/blue — white is the most visible swimbait color in off-color water");
+      else if (clarity === "stained") notes.push("white/pearl, chartreuse/white — light-colored swimbaits read in stained water");
+      else notes.push(isFallFeed ? "natural shad — silver, white/gray, alewife patterns match the fall baitfish schools precisely" : "natural shad/baitfish — pearl, silver/white, or perch patterns");
+      break;
+
+    case "spinnerbait":
+      if (clarity === "dirty") notes.push("all-white with Colorado blade — maximum water displacement and visibility in dirty water");
+      else if (clarity === "stained") notes.push("chartreuse/white or all-white with willow blades — contrast works best here");
+      else notes.push("white/silver with willow blades in clear water — silver blade flashes most naturally");
+      notes.push(clarity === "dirty" || clarity === "stained" ? "gold blade in stained/dirty water — gold reads when silver disappears" : "silver blade in clearer water — more natural flash");
+      break;
+
+    case "chatterbait":
+      if (clarity === "dirty") notes.push("white/chartreuse or black/blue — the blade noise matters as much as the color in dirty water");
+      else notes.push("chartreuse, white, or green pumpkin/chart — contrast works best for a moving vibration bait");
+      notes.push("add a matching paddletail trailer; the color of the trailer trailing the blade is what fish commit to");
+      break;
+
+    case "jerkbait":
+      if (clarity === "dirty") notes.push("white/chartreuse if you must fish it — jerkbaits struggle in dirty water; strongly consider a different family");
+      else if (clarity === "stained") notes.push("chartreuse/silver, white/silver, or natural shad — brighter than clear-water choices");
+      else notes.push(light === "bright" ? "ghost/translucent, natural shad (silver-gray), or bone/white — fish can examine it closely in clear water" : "fire tiger, bone, or chrome-silver — low light activates reaction colors even in clear water");
+      notes.push("pause length matters more than color — extend pauses in cold water, shorten as fish get more active");
+      break;
+
+    case "topwater_walker_popper":
+      // Fish see topwaters from below as silhouettes — belly color matters most
+      if (clarity === "dirty") notes.push("white is the #1 topwater color in off-color water — clearest surface silhouette from below");
+      else if (clarity === "stained") notes.push("white/chartreuse, bone, or loud chrome patterns — contrast on the surface calls fish in");
+      else notes.push(light === "low_light" ? "bone, white, or natural chrome — bright enough to see at dawn/dusk without being overdone" : "bone, ghost, or natural shad — subtle in calm clear water; walk-the-dog style lets the sound do the calling");
+      break;
+
+    case "frog_toad":
+      // Fish always see the frog from below — underside silhouette is everything
+      if (clarity === "dirty") notes.push("black — clearest silhouette from below in dirty water; always the go-to in heavy cover");
+      else if (clarity === "stained") notes.push("white belly frog or natural green/brown — white underside reads best from below in stained water");
+      else notes.push("natural green/brown frog tones — match the frogs actually living on or near the cover you're fishing");
+      notes.push("fish key on the silhouette from below — a dark underside always reads, regardless of clarity");
+      break;
+
+    case "crankbait_shallow_mid":
+      if (clarity === "dirty") notes.push("chartreuse/white or bright orange/red — crankbaits need maximum visibility in dirty water");
+      else if (clarity === "stained") notes.push("firetiger, chartreuse/white, or crawfish orange — reaction colors in stained water");
+      else if (isSpring) notes.push("natural crawfish (brown/orange) — spring crankbait fishing keys heavily on crawfish color as fish move shallow");
+      else notes.push(light === "bright" ? "natural crawfish (brown/orange), shad/perch patterns — match the forage in clear bright water" : "fire tiger, bone, or natural bone/olive — low light opens up brighter choices even in clear water");
+      if (forage.includes("baitfish") && !isSpring) notes.push("shad/baitfish patterns (white, silver, blue/silver) when fish are keying on baitfish instead of crawfish");
+      break;
+
+    case "inline_spinner":
+      if (clarity === "dirty") notes.push("gold blade with chartreuse or white body — gold reads in off-color water where silver disappears");
+      else if (clarity === "stained") notes.push("gold or copper blade with yellow/white body — warm metals in stained river water");
+      else notes.push("silver blade with brown/olive/black body — natural river tones in clear water; match the local minnow coloring");
+      notes.push("blade color is often more important than body color — silver blade in clear water, gold blade in stained or low-light");
+      break;
+
+    case "compact_spoon":
+      if (clarity === "dirty") notes.push("hammered gold or copper — gold reads in off-color water and still produces flash on the flutter");
+      else if (clarity === "stained") notes.push("hammered gold or copper/brass — warmer metal tones in stained river water");
+      else notes.push("plain silver or hammered silver — maximum flash in clear water; smaller profile flutters more naturally");
+      notes.push("cold-water note: fish the spoon slower and let it flutter longer — fish are not moving far to eat");
+      break;
+
+    case "shrimp_imitation":
+      if (clarity === "dirty") notes.push("chartreuse/white or bright pink — maximum visibility while still maintaining the shrimp profile");
+      else if (clarity === "stained") notes.push("chartreuse/white, pink/white, or root beer — brighter than natural but still a shrimp shape");
+      else notes.push("natural tan/pink/copper or root beer/amber — match real shrimp as closely as possible in clear water");
+      break;
+
+    case "jighead_minnow":
+      if (clarity === "dirty") notes.push("chartreuse/white or all-white — bright and visible, stays readable in off-color coastal water");
+      else if (clarity === "stained") notes.push("chartreuse/white, white/pearl, or natural shad");
+      else notes.push("natural shad/silver, clear/pearl, or white/silver — clean baitfish profile in clear inshore water");
+      break;
+
+    case "popping_cork_trailer":
+      if (clarity === "dirty") notes.push("bright chartreuse or white trailer — the cork noise calls fish, the trailer needs to be easy to find");
+      else notes.push("natural shrimp (tan/pink) or chartreuse under the cork — match the shrimp in the tide lanes");
+      notes.push("the cork noise is the primary attractor; let the trailer settle and do the work after each pop");
+      break;
+
+    case "weighted_bottom_presentation":
+      if (clarity === "dirty") notes.push("dark profile or chartreuse tail — darker body with a bright tail tip helps fish find the hook");
+      else if (clarity === "stained") notes.push("natural brown/tan with chartreuse tipping — subtle contrast near the bottom");
+      else notes.push("natural brown/tan/olive or shrimp tones — match the bottom substrate and forage in clear water");
+      break;
+
+    // ── FLY FAMILIES ──────────────────────────────────────────────────────────
+
+    case "weighted_streamer": {
+      const bottomFish = behavior.fish_behavior.position.depth_lanes[0]?.id === "lower_column" ||
+        behavior.fish_behavior.position.depth_lanes[0]?.id === "bottom_oriented";
+      const isRiverLike = behavior.style_flags.includes("current_drift_best");
+      if (clarity === "dirty") notes.push("black/chartreuse or white/red — swing it slow and get it deep so fish can find it");
+      else if (clarity === "stained") notes.push("chartreuse/white (Clouser-style), olive/yellow, or black/purple — match the forage with contrast");
+      else notes.push(light === "bright" ? "natural/olive, sparse white/brown (Clouser) — less flash in clear bright water" : "white/blue, olive/flash, or black/olive — more silhouette at low light even in clear water");
+      if (isRiverLike && bottomFish) {
+        notes.push("sculpin note: when fish are tight to the bottom, shift to olive/tan/rust with a muddler-style head — brown trout key on sculpin and it reads differently from a mid-column baitfish profile");
+      } else {
+        notes.push("in rivers, swing deep and slow — a weighted streamer fished on tension through the seam is more effective than a stripped retrieve");
+      }
+      break;
+    }
+
+    case "baitfish_streamer": {
+      const isLakeLike = !behavior.style_flags.includes("current_drift_best") &&
+        !behavior.style_flags.includes("crustacean_match");
+      if (clarity === "dirty") notes.push("white/chartreuse or black/white — keep the silhouette clean and strip with authority");
+      else if (clarity === "stained") notes.push(isLakeLike
+        ? "chartreuse/white, olive/yellow flash, or yellow/white — yellow and olive read well in stained lake water for panfish-imitating profiles"
+        : "chartreuse/white, olive/yellow flash, or white/gold");
+      else notes.push(isFallFeed
+        ? (isLakeLike
+          ? "olive/white, yellow/olive, or natural shiner tones — match the perch, bluegill, and shiner schools that bass and pike key on in fall lakes"
+          : "natural shad/baitfish — white/gray, white/olive, or EP-style sparse matches fall schools precisely")
+        : (isLakeLike
+          ? "olive/white, yellow/olive, or chartreuse/white for panfish (bluegill/perch imitation); white/silver for shiner-style lake baitfish"
+          : "natural baitfish — white/olive, white/gray, or EP-style sparse patterns"));
+      break;
+    }
+
+    case "woolly_bugger_leech":
+      // Woolly bugger is the most versatile fly in existence — black is always the right start
+      if (clarity === "dirty") notes.push("black — universally the best fly color in dirty water; maximum silhouette contrast");
+      else if (clarity === "stained") notes.push("black (best silhouette), olive/black, or dark purple — dark colors read in stained water");
+      else notes.push(behavior.season_phase === "winter_hold" || behavior.season_phase === "late_fall" ? "black or dark olive — subdued and natural in cold clear water" : "olive, brown, or black — all work; olive in summer and fall, black as the default when unsure");
+      notes.push("black is the universal go-to when in doubt — it reads in any clarity and imitates leeches, large nymphs, and small baitfish simultaneously");
+      break;
+
+    case "popper_surface_bug":
+      if (clarity === "stained") notes.push("chartreuse/yellow or bright white — louder than clear-water choices but still a surface bait");
+      else notes.push("natural tan/cream, yellow/olive, or white — subtle in clear water, let the noise do the calling");
+      notes.push("pause after every pop — that is when fish commit; dead-stick it longer than feels comfortable");
+      break;
+
+    case "nymph_rig":
+      if (clarity === "dirty") notes.push("tungsten beadhead nymphs with hot-spot beads (orange, red, chartreuse) — gets down and gives fish a target in off-color water");
+      else if (clarity === "stained") notes.push("hot-spot bead heads (orange, red) help fish locate the fly in off-color water");
+      else notes.push("match the hatch — natural PT nymph, hare's ear, RS2, olive caddis; natural colors are always right in clear water");
+      notes.push("adjust weight to get to the bottom before changing fly patterns — depth is more important than pattern selection");
+      break;
+
+    case "dry_emerger":
+      if (clarity === "stained") notes.push("parachute-style with hi-vis post — slightly brighter than natural; the post helps you track the fly in off-color water");
+      else notes.push("match the hatch precisely — natural dun colors, cream, tan, olive; fish can examine it closely in clear water");
+      notes.push("prioritize a clean dead drift before changing patterns — drag is the #1 reason fish refuse a dry fly");
+      break;
+
+    case "terrestrial_hopper":
+      if (clarity === "stained") notes.push("foam patterns with chartreuse or yellow accents — helps you track the fly and adds slight contrast");
+      else notes.push("natural hopper tones — tan, yellow, olive, brown; match the grasshoppers and beetles living along the bank");
+      notes.push("land it tight to the bank and let it sit still — terrestrials fall from the bank and drift, they do not swim");
+      break;
+
+    case "shrimp_fly":
+      if (clarity === "dirty") notes.push("chartreuse/white or bright pink shrimp pattern — maximum visibility while maintaining shrimp profile");
+      else if (clarity === "stained") notes.push("copper/orange shrimp, chartreuse shrimp, or EP shrimp in brighter tones");
+      else notes.push("natural tan/pink/copper (EP shrimp), or lightly-weighted shrimp in sand/root beer — match the local shrimp color");
+      notes.push("lead the fish and keep the strip subtle — the fly should look like a fleeing shrimp, not a darting minnow");
+      break;
+
+    case "crab_fly":
+      if (clarity === "stained") notes.push("slightly brighter crab — olive/orange, rust/brown, or tan/orange rather than plain natural");
+      else notes.push("natural olive/brown/tan — match the local crab coloring precisely; fish on clear flats are selective");
+      notes.push("dead-stick it — most takes happen with zero movement after the fly settles on the bottom");
+      break;
+
+    case "lipless_crankbait":
+      if (clarity === "dirty") notes.push("all-white or chartreuse/chrome — the rattle does the work in dirty water; color needs maximum visibility");
+      else if (clarity === "stained") notes.push("chrome/red (classic), chartreuse/white, or gold — Rat-L-Trap red and chrome is a proven stained-water color");
+      else notes.push(light === "bright" ? "natural shad (silver/white), perch/gold, or chrome — match the local baitfish profile closely in clear water" : "chrome/blue or chrome/black back — cleaner in clear low-light conditions");
+      if (behavior.season_phase === "spring_transition" || behavior.season_phase === "fall_feed") {
+        notes.push(behavior.season_phase === "spring_transition"
+          ? "spring note: crawfish-orange belly versions (gold/orange) excel when fish are targeting molting crawfish over grass flats"
+          : "fall note: match the dying shad — natural silver/white with a slightly duller finish as baitfish schools thin out");
+      } else if (behavior.season_phase === "winter_hold") {
+        notes.push("winter yo-yo note: red/chrome or gold in stained; natural shad in clear — the flutter and pause matter more than color at cold-water speeds");
+      }
+      break;
+
+    case "soft_hackle_wet_fly":
+      if (clarity === "dirty") notes.push("orange body with brown partridge — orange reads in off-color water and is the most visible soft hackle color");
+      else if (clarity === "stained") notes.push("orange or amber body with partridge, copper-ribbed hare's ear — warm metallic tones read in stained water");
+      else notes.push("match the emerging insect: olive or tan for caddis, dun/cream for mayflies, yellow for yellow sallies — natural tones in clear water");
+      notes.push("partridge and orange is the universal starting point — if you don't know the hatch, start here before switching to match-the-hatch patterns");
+      break;
+
+    case "chironomid_stillwater":
+      if (clarity === "stained") notes.push("use a hot-spot bead (orange or red) to give fish a visual target in the water column — the bead matters more than body color in off-color water");
+      else notes.push("black with red wire rib is the most universal chironomid color; olive/brown and rust are close seconds — match the locally hatching midge size and color");
+      notes.push("depth is more important than color — set your indicator so the fly hangs at the right level before worrying about pattern; go smaller (size 16-20) if fish are refusing");
+      break;
+
+    case "egg_pattern":
+      if (clarity === "dirty") notes.push("hot orange, fluorescent pink, or chartreuse — maximum visibility in off-color steelhead and salmon rivers");
+      else if (clarity === "stained") notes.push("peach/orange or hot pink — bright enough to be found in stained water but not so loud it looks unnatural");
+      else notes.push("natural peach/cream (closest to real spawn color) or hot pink as a contrast option in clear water");
+      notes.push("match the dominant egg in the river — chinook eggs are larger and redder; coho and steelhead eggs are smaller and lighter; adjust size and color accordingly");
+      break;
+
+    default:
+      // Generic fallback for any family not explicitly covered
+      if (clarity === "dirty") notes.push("lean toward dark silhouettes or high-contrast bright colors (chartreuse, white)");
+      else if (clarity === "stained") notes.push("contrast colors: white, chartreuse, or darker-backed profiles with brighter belly");
+      else notes.push("natural, subtle colors that match the local forage as closely as possible");
+  }
+
+  // ── Universal forage color modifier ─────────────────────────────────────────
+  // Only add if not already captured by the family-specific note
+  if (notes.length < 2) {
+    if (forage.includes("crawfish") && !["jig_trailer", "crankbait_shallow_mid", "finesse_worm"].includes(family.id)) {
+      notes.push("crawfish tones (brown, orange, green pumpkin) fit the forage cue");
+    } else if (forage.includes("baitfish") && !["paddle_tail_swimbait", "jerkbait", "topwater_walker_popper"].includes(family.id)) {
+      notes.push("baitfish profiles (white, silver, pearl) match the active forage");
+    } else if (forage.includes("crustacean") && !["shrimp_imitation", "shrimp_fly", "crab_fly", "popping_cork_trailer"].includes(family.id)) {
+      notes.push("shrimp/crab tones (tan, pink, copper, rust) fit the flats forage cue");
+    }
+  }
+
   return uniq(notes).slice(0, 2);
 }
 
@@ -1491,6 +2008,19 @@ function archetypeMatchScore(
   };
 }
 
+// Rough depth-feet equivalents for each depth lane ID — used for physical depth gating.
+// These are approximate midpoints or worst-case depths for the category.
+const DEPTH_LANE_FEET: Partial<Record<string, number>> = {
+  very_shallow: 1,
+  shallow: 4,
+  mid_depth: 10,
+  deep: 20,
+  suspended: 12,
+  bottom_oriented: 18,
+  upper_column: 3,
+  lower_column: 14,
+};
+
 function depthAndRelationScore(
   family: FamilyDefinition,
   behavior: BehaviorResolution,
@@ -1502,8 +2032,27 @@ function depthAndRelationScore(
   const reasons: string[] = [];
   if (depthHits > 0) reasons.push("matches the preferred depth lane");
   if (relationHits > 0) reasons.push("matches the main cover or structure setup");
+
+  // ── Physical depth gating ──────────────────────────────────────────────────
+  // If the family physically cannot reach where fish are holding, apply a score
+  // penalty. This prevents recommending topwater on fish holding 20 feet deep.
+  let depthPenalty = 0;
+  const range = family.depth_range_ft;
+  if (range != null && topDepths.length > 0) {
+    const primaryDepthLabel = topDepths[0];
+    const targetFeet = DEPTH_LANE_FEET[primaryDepthLabel] ?? 0;
+    if (targetFeet > range.max * 1.4) {
+      // Fish are well below the family's physical max depth
+      depthPenalty = -18;
+      reasons.push("limited reach — fish are deeper than this lure/fly can effectively work");
+    } else if (targetFeet > range.max) {
+      // Fish are just beyond the comfortable range but not impossibly deep
+      depthPenalty = -8;
+    }
+  }
+
   return {
-    score: depthHits * 9 + relationHits * 6,
+    score: Math.max(0, depthHits * 9 + relationHits * 6 + depthPenalty),
     reasons,
   };
 }
@@ -1571,6 +2120,9 @@ function contextCurationScore(
     const coldRiverWindow = ["winter_hold", "late_fall", "spring_transition"].includes(behavior.season_phase);
     const seamDriven =
       mainRelation === "seam_oriented" || mainRelation === "current_break_oriented" || mainRelation === "hole_oriented";
+    const riffleDriven = mainRelation === "riffle_oriented";
+    const tailoutDriven = mainRelation === "tailout_oriented";
+    const poolDriven = mainRelation === "pool_oriented";
 
     if (["inline_spinner", "compact_spoon", "nymph_rig", "weighted_streamer", "woolly_bugger_leech"].includes(family.id)) {
       seasonal += 5;
@@ -1582,6 +2134,95 @@ function contextCurationScore(
     } else if (family.id === "jig_trailer") {
       seasonal -= seamDriven ? 9 : 6;
     }
+    // Soft plastics and crankbaits can work in river eddies/pockets but rank behind current-native tools
+    if (family.id === "soft_stick_worm" || family.id === "crankbait_shallow_mid") {
+      if (riffleDriven || seamDriven) {
+        seasonal -= 8;
+        reasons.push("current-seam or riffle zone favors current-native presentations");
+      } else {
+        seasonal -= 4;
+        reasons.push("river pocket approach — current-native tools still lead");
+      }
+    }
+
+    // ── River structural zone routing ──────────────────────────────────────────
+    if (riffleDriven) {
+      // Riffles: shallow, oxygenated, fast — spinner and nymph are king
+      if (family.id === "inline_spinner") {
+        daily += 6;
+        reasons.push("riffles are the inline spinner's home water");
+      }
+      if (family.id === "nymph_rig") {
+        daily += 8;
+        reasons.push("riffle nymphing is the most productive approach in moving water");
+      }
+      if (family.id === "dry_emerger") {
+        daily += 6;
+        reasons.push("riffles are prime hatch zones — fish look up here");
+      }
+      if (family.id === "woolly_bugger_leech") {
+        daily += 3;
+        reasons.push("bugger swings well through the tail of riffle pockets");
+      }
+      if (family.id === "compact_spoon") {
+        daily -= 5;
+        reasons.push("compact spoon is less targeted in fast shallow riffle water");
+      }
+    }
+
+    if (tailoutDriven) {
+      // Tailouts: slowing tail of a pool — great swing and nymph water; risers common
+      if (family.id === "nymph_rig") {
+        daily += 6;
+        reasons.push("tailouts are classic nymph intercept positions");
+      }
+      if (family.id === "compact_spoon") {
+        daily += 5;
+        reasons.push("tailout swing — spoon flash covers the current edge cleanly");
+      }
+      if (family.id === "dry_emerger") {
+        daily += 5;
+        reasons.push("tailouts see consistent surface feeders during hatches");
+      }
+      if (family.id === "woolly_bugger_leech") {
+        daily += 4;
+        reasons.push("bugger swings the tailout lane naturally");
+      }
+    }
+
+    if (poolDriven) {
+      // Pools: deeper, slower — cold refuge; spoon flash and subsurface presentations lead
+      if (family.id === "compact_spoon") {
+        daily += 8;
+        reasons.push("pools are spoon water — fish hold deep and react to flash");
+      }
+      if (family.id === "nymph_rig") {
+        daily += 5;
+        reasons.push("deep pool nymphing — adjust weight to get down");
+      }
+      if (family.id === "woolly_bugger_leech") {
+        daily += 5;
+        reasons.push("slow swing or strip through the pool column");
+      }
+      if (family.id === "inline_spinner") {
+        daily -= 6;
+        reasons.push("pool water is too slow and deep for blade efficiency");
+      }
+    }
+
+    // ── Hatch window ──────────────────────────────────────────────────────────
+    if (behavior.style_flags.includes("hatch_window")) {
+      if (family.id === "dry_emerger") {
+        daily += 10;
+        reasons.push("hatch window active — dry/emerger is the priority call");
+      } else if (family.id === "nymph_rig") {
+        daily += 4;
+        reasons.push("hatch window — nymphs below the surface column still produce");
+      } else if (family.id === "terrestrial_hopper") {
+        daily -= 3; // don't compete with dry_emerger during an active hatch
+      }
+    }
+
     if (
       behavior.current_profile !== "slack" &&
       ["inline_spinner", "compact_spoon", "weighted_streamer", "nymph_rig"].includes(family.id)
@@ -1609,6 +2250,100 @@ function contextCurationScore(
     ) {
       daily += 4;
       reasons.push("active river fish favor a cleaner moving current tool");
+    }
+  }
+
+  if (context === "freshwater_lake_pond") {
+    const lakePhase = behavior.season_phase;
+    const hasBaitfishMatch = behavior.style_flags.includes("baitfish_match");
+    const hasTopwaterWindow = behavior.style_flags.includes("topwater_window");
+    const hasFinesseBest = behavior.style_flags.includes("finesse_best");
+
+    // ── Winter / Late-fall: slow and deep — jig and finesse are the two calls ──
+    if (lakePhase === "winter_hold" || lakePhase === "late_fall") {
+      if (family.id === "jig_trailer") {
+        seasonal += 6;
+        reasons.push("winter lake — jig is the primary call for deep inactive fish on hard structure");
+      } else if (family.id === "finesse_worm") {
+        seasonal += 4;
+        reasons.push("winter lake — drop shot or shaky head is the secondary slow-bottom call");
+      } else if (family.id === "lipless_crankbait" && lakePhase === "winter_hold") {
+        seasonal += 8;
+        reasons.push("lipless crankbait yo-yo over deep grass is the defining winter lake technique");
+      } else if (family.id === "lipless_crankbait") {
+        seasonal += 5; // late_fall still great
+      } else if (family.id === "jerkbait") {
+        daily += 3; // suspended fish in clear cold water
+      } else if (["paddle_tail_swimbait", "topwater_walker_popper", "frog_toad", "chatterbait", "spinnerbait"].includes(family.id)) {
+        seasonal -= 6;
+        reasons.push("fish are too deep and inactive for moving-water search tools");
+      }
+    }
+
+    // ── Spring transition: crawfish peak + pre-spawn shallow movement ──────────
+    if (lakePhase === "spring_transition") {
+      if (family.id === "jig_trailer") {
+        seasonal += 5;
+        reasons.push("spring crawfish peak — jig is the #1 call as pre-spawn fish move to spawning flats");
+      } else if (family.id === "crankbait_shallow_mid") {
+        seasonal += 3;
+        reasons.push("squarebill deflecting off shallow cover matches the spring crawfish bite");
+      } else if (family.id === "lipless_crankbait") {
+        seasonal += 4;
+        reasons.push("lipless crankbait over spring grass flats — yo-yo or burn as fish begin to activate");
+      } else if (family.id === "spinnerbait") {
+        daily += 2; // spring search tool, still works
+      }
+    }
+
+    // ── Summer pattern: topwater window = frog and walker lead ───────────────
+    if (lakePhase === "summer_pattern" && hasTopwaterWindow) {
+      if (family.id === "frog_toad") {
+        seasonal += 6;
+        reasons.push("topwater window — frog over shallow grass is the defining summer lake call");
+      } else if (family.id === "topwater_walker_popper") {
+        seasonal += 4;
+        reasons.push("topwater window — walker or popper on open edges at dawn and dusk");
+      } else if (family.id === "lipless_crankbait") {
+        daily += 3;
+        reasons.push("lipless crankbait along the grass edge at thermocline depth when fish move off the surface");
+      }
+    }
+
+    // ── Summer heat: deep finesse is the game ─────────────────────────────────
+    if (lakePhase === "summer_heat") {
+      if (family.id === "jig_trailer") {
+        seasonal += 5;
+        reasons.push("summer heat — jig follows fish to deep wood and deep rock structure");
+      } else if (family.id === "finesse_worm") {
+        seasonal += 4;
+        reasons.push("summer heat — drop shot off deep structure is the primary finesse call");
+      } else if (family.id === "lipless_crankbait") {
+        daily += 3;
+        reasons.push("lipless at thermocline depth — yo-yo it along the deep grass edge during feeding windows");
+      } else if (["topwater_walker_popper", "frog_toad", "spinnerbait", "chatterbait"].includes(family.id)) {
+        daily -= 5;
+        reasons.push("fish are too deep for sustained surface or shallow feeding in summer heat");
+      }
+    }
+
+    // ── Fall baitfish blitz: moving search tools and baitfish match dominate ──
+    if (lakePhase === "fall_feed" && hasBaitfishMatch) {
+      if (family.id === "paddle_tail_swimbait") {
+        seasonal += 6;
+        reasons.push("fall baitfish blitz — paddle tail matches shad and perch schools precisely");
+      } else if (family.id === "lipless_crankbait") {
+        seasonal += 5;
+        reasons.push("fall lipless crankbait — burn it through schooling baitfish on any depth flat");
+      } else if (family.id === "crankbait_shallow_mid") {
+        seasonal += 4;
+        reasons.push("fall crankbait covers ground efficiently and matches the baitfish schooling pattern");
+      } else if (family.id === "topwater_walker_popper") {
+        daily += 3;
+        reasons.push("fall topwater blowups on schooling fish are a real window — especially at dawn");
+      } else if (family.id === "jig_trailer") {
+        daily -= 3; // jig still works but baitfish match families lead
+      }
     }
   }
 
@@ -1915,7 +2650,7 @@ export function rankFamilies(
   scored.sort((a, b) => b.ranked.score - a.ranked.score || a.family.display_name.localeCompare(b.family.display_name));
 
   return {
-    ranked: scored.slice(0, 5).map((entry) => entry.ranked),
+    ranked: scored.slice(0, 3).map((entry) => entry.ranked),
     debug_scores: scored.map((entry) => entry.debug).slice(0, 10),
     method_scores: scored.map((entry) => entry.methodDebug).slice(0, 10),
   };

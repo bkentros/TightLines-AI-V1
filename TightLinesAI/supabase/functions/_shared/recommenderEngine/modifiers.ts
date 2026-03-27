@@ -43,14 +43,18 @@ function inferClarity(
   analysis: SharedConditionAnalysis,
   input: RecommenderRunInput,
 ): WaterClarity {
+  // User-provided clarity always wins — they can see the water, the engine cannot.
   const user = input.refinements.water_clarity;
   if (user) return user;
 
+  // Use precip and runoff signals to infer when water is disrupted.
+  // When neither signal is present (no recent rain, no runoff) water is assumed clear —
+  // the biologically correct default for undisturbed water bodies.
   const runoff = analysis.norm.normalized.runoff_flow_disruption?.score ?? 0;
   const precip = analysis.norm.normalized.precipitation_disruption?.score ?? 0;
   if (runoff <= -1 || precip <= -1.25) return "dirty";
   if (runoff < 0 || precip < 0) return "stained";
-  return "stained";
+  return "clear"; // no disruption signals → assume clear
 }
 
 function currentProfileFor(
@@ -485,6 +489,24 @@ export function applyDailyModifiers(
     acc.style_flags.delete("topwater_window");
   }
 
+  // ── Hatch window flag ────────────────────────────────────────────────────────
+  // Signals that insect emergence is likely active. Boosts dry fly / emerger
+  // recommendations in river contexts. Fires when insect bias is elevated AND
+  // conditions (season + temp) support active surface feeding.
+  const insectBias = acc.forage.insect_bias ?? 0;
+  const hatchSeason =
+    acc.season_phase === "warm_transition" ||
+    acc.season_phase === "summer_pattern" ||
+    acc.season_phase === "spring_transition";
+  const hatchTemp = temp != null && (temp.band_label === "optimal" || temp.band_label === "cool");
+  if (
+    context === "freshwater_river" &&
+    insectBias >= 0.45 &&
+    (hatchSeason || hatchTemp)
+  ) {
+    acc.style_flags.add("hatch_window");
+  }
+
   const depthScores = topScoredIds(acc.depth_scores, Object.keys(acc.depth_scores) as Array<keyof typeof acc.depth_scores>, 5);
   const relationScores = topScoredIds(acc.relation_scores, Object.keys(acc.relation_scores) as Array<keyof typeof acc.relation_scores>, 7);
   const visibleDepthScores = depthScores.filter((item) => item.score > 0).slice(0, 4);
@@ -536,16 +558,16 @@ export function applyDailyModifiers(
       },
       forage: {
         baitfish_bias: clamp(acc.forage.baitfish_bias, 0, 1.5),
+        ...(acc.forage.crawfish_bias != null
+          ? { crawfish_bias: clamp(acc.forage.crawfish_bias, 0, 1.2) }
+          : {}),
         crustacean_bias: clamp(acc.forage.crustacean_bias, 0, 1.5),
         insect_bias: clamp(acc.forage.insect_bias, 0, 1.5),
+        ...(acc.forage.worm_invertebrate_bias != null
+          ? { worm_invertebrate_bias: clamp(acc.forage.worm_invertebrate_bias, 0, 1.0) }
+          : {}),
         ...(acc.forage.amphibian_surface_bias != null
-          ? {
-              amphibian_surface_bias: clamp(
-                acc.forage.amphibian_surface_bias,
-                0,
-                1.2,
-              ),
-            }
+          ? { amphibian_surface_bias: clamp(acc.forage.amphibian_surface_bias, 0, 1.2) }
           : {}),
       },
     },

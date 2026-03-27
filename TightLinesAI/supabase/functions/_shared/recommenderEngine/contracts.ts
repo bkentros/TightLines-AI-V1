@@ -52,7 +52,10 @@ export type RelationTagId =
   | "pothole_oriented"
   | "trough_oriented"
   | "oyster_bar_oriented"
-  | "marsh_edge_oriented";
+  | "marsh_edge_oriented"
+  | "riffle_oriented"
+  | "tailout_oriented"
+  | "pool_oriented";
 
 export type ActivityState = "inactive" | "neutral" | "active" | "aggressive";
 export type StrikeZoneState = "narrow" | "moderate" | "wide";
@@ -124,9 +127,11 @@ export type FishBehaviorOutput = {
   };
   forage: {
     baitfish_bias: number;
-    crustacean_bias: number;
-    insect_bias: number;
-    amphibian_surface_bias?: number;
+    crawfish_bias?: number;           // freshwater crayfish — distinct from coastal crustacean; key bass/smallmouth forage
+    crustacean_bias: number;          // coastal shrimp, crab, saltwater crustaceans
+    insect_bias: number;              // aquatic and terrestrial insects; dominant in river fly fishing
+    worm_invertebrate_bias?: number;  // earthworms, leeches, soft invertebrates; important in rivers and runoff
+    amphibian_surface_bias?: number;  // frogs, salamanders; surface window signal for lakes
   };
 };
 
@@ -165,6 +170,7 @@ export type FamilyDefinition = {
   silhouette?: "slim" | "medium" | "bulky";
   weedless_level?: "low" | "medium" | "high";
   current_suitability?: "low" | "medium" | "high";
+  depth_range_ft?: { min: number; max: number }; // physical depth the lure/fly can effectively reach — used for depth gating
   best_use_cases: string[];
   depriors: string[];
   example_names: string[];

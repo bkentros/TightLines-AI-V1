@@ -41,6 +41,10 @@ export const RELATION_TAG_IDS = [
   "trough_oriented",
   "oyster_bar_oriented",
   "marsh_edge_oriented",
+  // River structural zones — distinct from seam/hole; give precision to fish position routing
+  "riffle_oriented",   // fast, oxygenated, shallow water; active feeding in summer; trout/smallmouth prime zone
+  "tailout_oriented",  // tail of a pool graduating to riffle; prime intercept position at many flow levels
+  "pool_oriented",     // deep holding water; refuge in winter, high flow, and extreme heat
 ] as const satisfies readonly RelationTagId[];
 
 export const DAYPART_IDS = ["dawn", "morning", "afternoon", "evening"] as const;
