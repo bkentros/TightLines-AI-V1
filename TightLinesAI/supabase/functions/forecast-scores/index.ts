@@ -113,6 +113,29 @@ Deno.serve(async (req: Request) => {
     );
   }
 
+  // Pre-extract full hourly arrays once so we can slice a tight window per day.
+  // hourlyPointsTo24ArrayForLocalDate iterates every entry with an Intl call — passing
+  // the full 504-entry (21-day) array 7× blows the edge function compute limit.
+  // Slicing air/cloud/wind to ~3 days (~72 entries) per day offset reduces that by ~7×.
+  //
+  // NOTE: hourly_pressure_mb is NOT sliced here — buildSharedEngineRequestFromEnvData
+  // accesses it by absolute index ((14+D)*24+12 as the noon anchor) and a relative slice
+  // must preserve those absolute offsets. Pressure arrays are small objects so the cost
+  // of passing them full is negligible compared to the Intl-heavy air/cloud/wind scans.
+  const INTL_HEAVY_KEYS = [
+    "hourly_air_temp_f",
+    "hourly_cloud_cover_pct",
+    "hourly_wind_speed",
+  ] as const;
+
+  const fullHourly: Record<string, Array<{ time_utc: string; value: number }>> = {};
+  for (const key of INTL_HEAVY_KEYS) {
+    const arr = envRecord[key];
+    fullHourly[key] = Array.isArray(arr)
+      ? (arr as Array<{ time_utc: string; value: number }>)
+      : [];
+  }
+
   const forecast = [];
 
   for (let D = 0; D < 7 && D < days.length; D++) {
@@ -126,13 +149,24 @@ Deno.serve(async (req: Request) => {
       D === 0 ? "Today" : D === 1 ? "Tmrw" : (DAY_NAMES[dayOfWeek] ?? "");
     const monthDay = `${mo}/${dy}`;
 
+    // Slice air/cloud/wind arrays to a ~3-day window around the target day.
+    // Index layout: past_days=14 → index 14*24=336 = today's midnight UTC.
+    // Include one day before and one after to cover any timezone offset.
+    const targetIdx = (14 + D) * 24;
+    const sliceStart = Math.max(0, targetIdx - 24);
+    const sliceEnd = targetIdx + 48; // exclusive — covers target + 1 buffer day
+    const slicedEnvRecord: Record<string, unknown> = { ...envRecord };
+    for (const key of INTL_HEAVY_KEYS) {
+      slicedEnvRecord[key] = fullHourly[key]!.slice(sliceStart, sliceEnd);
+    }
+
     const baseReq = buildSharedEngineRequestFromEnvData(
       latitude,
       longitude,
       localDate,
       timezone,
       "freshwater_lake_pond",
-      envRecord,
+      slicedEnvRecord,
       D,
       D === 0 ? { useCalendarDayProfileForToday: true } : undefined,
     );
