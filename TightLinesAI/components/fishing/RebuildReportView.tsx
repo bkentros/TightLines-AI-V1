@@ -8,6 +8,7 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { colors, fonts, spacing, radius, shadows } from '../../lib/theme';
+import { resolveTimingPeriods, resolveTimingFromPreset, TimingTilesRow, PERIOD_DEFS, type PeriodSlot } from './TimingTiles';
 import { AIR_TEMP_LARGE_DIURNAL_SWING_F } from '../../lib/airTempUiConstants';
 import type { HowsFishingReportV1 } from '../../lib/howFishing';
 // DaypartNotePreset used implicitly via report.daypart_preset in legacy fallback path
@@ -170,111 +171,11 @@ const gaugeStyles = StyleSheet.create({
 
 // ─── Timing periods ───────────────────────────────────────────────────────────
 
-type PeriodSlot = { label: string; icon: keyof typeof Ionicons.glyphMap; highlighted: boolean };
-
-const PERIOD_PRESETS: Record<string, boolean[]> = {
-  early_late_low_light:    [true,  false, false, true],
-  warmest_part_may_help:   [false, false, true,  false],
-  cooler_low_light_better: [true,  true,  false, true],
-  moving_water_periods:    [true,  true,  true,  true],
-};
-
-const PERIOD_DEFS: { label: string; icon: keyof typeof Ionicons.glyphMap; subLabel: string }[] = [
-  { label: 'Dawn',      subLabel: '5–7am',   icon: 'partly-sunny-outline' },
-  { label: 'Morning',   subLabel: '7–11am',  icon: 'sunny-outline' },
-  { label: 'Afternoon', subLabel: '11–5pm',  icon: 'sunny' },
-  { label: 'Evening',   subLabel: '5–9pm',   icon: 'moon-outline' },
-];
-
 function getTimingPeriods(report: HowsFishingReportV1): PeriodSlot[] | null {
-  // New path: direct period flags from the timing engine
   const hp = (report as any).highlighted_periods as boolean[] | undefined;
-  if (hp && hp.length === 4) {
-    if (hp.every((p: boolean) => !p)) return null; // all false = no edge
-    return PERIOD_DEFS.map((p, i) => ({ label: p.label, icon: p.icon, highlighted: hp[i] }));
-  }
-  // Legacy fallback for cached reports without highlighted_periods
-  const preset = report.daypart_preset;
-  if (!preset || preset === 'no_timing_edge') return null;
-  const flags = PERIOD_PRESETS[preset];
-  if (!flags) return null;
-  return PERIOD_DEFS.map((p, i) => ({ label: p.label, icon: p.icon, highlighted: flags[i] }));
+  if (hp && hp.length === 4) return resolveTimingPeriods(hp as [boolean, boolean, boolean, boolean]);
+  return resolveTimingFromPreset(report.daypart_preset);
 }
-
-// ─── Timing Tile ─────────────────────────────────────────────────────────────
-
-function TimingTile({ label, icon, highlighted, subLabel }: {
-  label: string; icon: keyof typeof Ionicons.glyphMap;
-  highlighted: boolean; subLabel: string;
-}) {
-  return (
-    <View style={[
-      timingStyles.tile,
-      highlighted ? timingStyles.tileActive : timingStyles.tileInactive,
-    ]}>
-      <View style={[
-        timingStyles.iconWrap,
-        highlighted ? timingStyles.iconWrapActive : timingStyles.iconWrapInactive,
-      ]}>
-        <Ionicons
-          name={icon}
-          size={20}
-          color={highlighted ? '#C29B2A' : colors.textMuted}
-        />
-      </View>
-      <Text style={[timingStyles.tileLabel, highlighted && timingStyles.tileLabelActive]}>
-        {label}
-      </Text>
-      <Text style={timingStyles.tileSubLabel}>{subLabel}</Text>
-    </View>
-  );
-}
-
-const timingStyles = StyleSheet.create({
-  tile: {
-    flex: 1,
-    alignItems: 'center',
-    paddingVertical: spacing.sm + 4,
-    borderRadius: radius.md,
-    borderWidth: 1.5,
-    gap: 4,
-  },
-  tileActive: {
-    backgroundColor: '#FFFBEF',
-    borderColor: '#C29B2A50',
-  },
-  tileInactive: {
-    backgroundColor: colors.backgroundAlt,
-    borderColor: colors.borderLight,
-  },
-  iconWrap: {
-    width: 36,
-    height: 36,
-    borderRadius: 18,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 2,
-  },
-  iconWrapActive: {
-    backgroundColor: '#FDF6E8',
-  },
-  iconWrapInactive: {
-    backgroundColor: colors.background,
-  },
-  tileLabel: {
-    fontFamily: fonts.bodySemiBold,
-    fontSize: 12,
-    color: colors.textMuted,
-  },
-  tileLabelActive: {
-    color: '#B8862D',
-  },
-  tileSubLabel: {
-    fontFamily: fonts.body,
-    fontSize: 10,
-    color: colors.textMuted,
-  },
-});
 
 // ─── Solunar helpers ──────────────────────────────────────────────────────────
 
@@ -421,20 +322,7 @@ export function RebuildReportView({
           </View>
 
           {timingPeriods && (
-            <View style={styles.timingRow}>
-              {PERIOD_DEFS.map((def, i) => {
-                const slot = timingPeriods[i];
-                return (
-                  <TimingTile
-                    key={i}
-                    label={def.label}
-                    subLabel={def.subLabel}
-                    icon={def.icon}
-                    highlighted={slot.highlighted}
-                  />
-                );
-              })}
-            </View>
+            <TimingTilesRow periods={timingPeriods} />
           )}
 
           {report.daypart_note ? (

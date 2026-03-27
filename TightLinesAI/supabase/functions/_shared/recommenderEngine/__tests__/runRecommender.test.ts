@@ -51,7 +51,7 @@ Deno.test("recommender: Great Lakes March lake stays winter-biased even during a
     }),
   );
 
-  const north = runRecommender({ request: lateMarchNorthLake, refinements: {} });
+  const { response: north } = runRecommender({ request: lateMarchNorthLake, refinements: {} });
 
   assert(scoreFor(north.debug?.depth_lane_scores, "deep") >= scoreFor(north.debug?.depth_lane_scores, "shallow"));
   assert(scoreFor(north.debug?.depth_lane_scores, "lower_column") >= scoreFor(north.debug?.depth_lane_scores, "upper_column"));
@@ -97,8 +97,8 @@ Deno.test("recommender: warming remains contextual by region and month after col
     }),
   );
 
-  const north = runRecommender({ request: northJuneLake, refinements: {} });
-  const south = runRecommender({ request: hotSouthLake, refinements: {} });
+  const { response: north } = runRecommender({ request: northJuneLake, refinements: {} });
+  const { response: south } = runRecommender({ request: hotSouthLake, refinements: {} });
 
   assert(scoreFor(north.debug?.depth_lane_scores, "shallow") > 0);
   assert(scoreFor(south.debug?.depth_lane_scores, "deep") >= scoreFor(south.debug?.depth_lane_scores, "shallow"));
@@ -115,7 +115,7 @@ Deno.test("recommender: river behavior stays current-position driven while lake 
     },
   });
 
-  const river = runRecommender({
+  const { response: river } = runRecommender({
     request: buildSharedEngineRequestFromEnvData(
       35.95,
       -83.92,
@@ -126,7 +126,7 @@ Deno.test("recommender: river behavior stays current-position driven while lake 
     ),
     refinements: {},
   });
-  const lake = runRecommender({
+  const { response: lake } = runRecommender({
     request: buildSharedEngineRequestFromEnvData(
       35.95,
       -83.92,
@@ -161,7 +161,7 @@ Deno.test("recommender: coastal and flats diverge on the same falling-tide day",
     nearest_tide_station_id: "123",
   });
 
-  const coastal = runRecommender({
+  const { response: coastal } = runRecommender({
     request: buildSharedEngineRequestFromEnvData(
       29.14,
       -83.03,
@@ -172,7 +172,7 @@ Deno.test("recommender: coastal and flats diverge on the same falling-tide day",
     ),
     refinements: {},
   });
-  const flats = runRecommender({
+  const { response: flats } = runRecommender({
     request: buildSharedEngineRequestFromEnvData(
       29.14,
       -83.03,
@@ -199,11 +199,10 @@ Deno.test("recommender: returns both lure and fly rankings plus debug payload", 
     envFixture(),
   );
 
-  const result = runRecommender({
+  const { response: result } = runRecommender({
     request: req,
     refinements: {
       water_clarity: "stained",
-      vegetation: "moderate",
       habitat_tags: ["grass", "shade"],
     },
   });
@@ -238,7 +237,7 @@ Deno.test("recommender: inventory compatibility surfaces best owned options", ()
     }),
   );
 
-  const result = runRecommender({
+  const { response: result } = runRecommender({
     request: req,
     refinements: { habitat_tags: ["grass_edge", "marsh_edge"] },
     inventory_items: [
@@ -258,4 +257,80 @@ Deno.test("recommender: inventory compatibility surfaces best owned options", ()
 
   assert(result.inventory?.best_from_inventory?.length);
   assertEquals(result.inventory?.best_from_inventory?.[0]?.item_id, "1");
+});
+
+Deno.test("recommender: Alaska February warm day does not produce topwater or aggressive behavior", () => {
+  const req = buildSharedEngineRequestFromEnvData(
+    61.22,
+    -149.89,
+    "2026-02-15",
+    "America/Anchorage",
+    "freshwater_lake_pond",
+    envFixture({
+      timezone: "America/Anchorage",
+      weather: {
+        temperature: 38,
+        pressure: 1020,
+        cloud_cover: 30,
+        temp_7day_high: dailySeries(32, 28, 34, 38),
+        temp_7day_low: dailySeries(18, 14, 20, 24),
+      },
+    }),
+  );
+
+  const { response: result } = runRecommender({ request: req, refinements: {} });
+
+  assert(
+    result.fish_behavior.behavior.activity === "inactive" ||
+    result.fish_behavior.behavior.activity === "neutral",
+    `Expected inactive or neutral, got ${result.fish_behavior.behavior.activity}`,
+  );
+  assert(!result.lure_rankings.slice(0, 3).some((item) =>
+    item.family_id === "frog_toad" || item.family_id === "topwater_walker_popper"
+  ));
+  assert(!result.fish_behavior.behavior.style_flags.includes("topwater_window"));
+});
+
+Deno.test("recommender: Florida February can produce active behavior (no winter_hold for warm climate)", () => {
+  const req = buildSharedEngineRequestFromEnvData(
+    25.76,
+    -80.19,
+    "2026-02-15",
+    "America/New_York",
+    "freshwater_lake_pond",
+    envFixture({
+      weather: {
+        temperature: 75,
+        pressure: 1015,
+        cloud_cover: 40,
+        temp_7day_high: dailySeries(78, 72, 76, 80),
+        temp_7day_low: dailySeries(62, 58, 60, 64),
+      },
+    }),
+  );
+
+  const { response: result } = runRecommender({ request: req, refinements: {} });
+
+  assert(
+    result.fish_behavior.behavior.activity === "active" ||
+    result.fish_behavior.behavior.activity === "aggressive" ||
+    result.fish_behavior.behavior.activity === "neutral",
+    `Expected at least neutral for warm Florida February, got ${result.fish_behavior.behavior.activity}`,
+  );
+});
+
+Deno.test("recommender: polished field starts as null before LLM runs", () => {
+  const req = buildSharedEngineRequestFromEnvData(
+    43.04,
+    -87.91,
+    "2026-09-15",
+    "America/Chicago",
+    "freshwater_lake_pond",
+    envFixture(),
+  );
+
+  const { response: result } = runRecommender({ request: req, refinements: {} });
+
+  assertEquals(result.polished, null);
+  assert(result.narration_payload.summary_seed.length > 0);
 });

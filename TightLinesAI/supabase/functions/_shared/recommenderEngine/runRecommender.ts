@@ -2,6 +2,7 @@ import { analyzeSharedConditions } from "../howFishingEngine/analyzeSharedCondit
 import { buildBaselineBehavior } from "./baseline.ts";
 import {
   RECOMMENDER_FEATURE,
+  type PresentationArchetypeScore,
   type RankedFamily,
   type RecommenderConfidence,
   type RecommenderResponse,
@@ -10,7 +11,7 @@ import {
 import { buildDebugPayload } from "./debug.ts";
 import { rankFamilies } from "./families.ts";
 import { scoreInventoryCompatibility } from "./inventory.ts";
-import { applyDailyModifiers } from "./modifiers.ts";
+import { applyDailyModifiers, type BehaviorResolution } from "./modifiers.ts";
 import { buildNarrationPayload } from "./narration.ts";
 import { resolvePresentationArchetypes } from "./presentation.ts";
 
@@ -31,7 +32,7 @@ function buildConfidence(params: {
   behaviorReasons: string[];
   lureRankings: RankedFamily[];
   flyRankings: RankedFamily[];
-  archetypeCount: number;
+  archetypeScores: PresentationArchetypeScore[];
 }): RecommenderConfidence {
   let behaviorScore = params.sharedReliability === "high"
     ? 3
@@ -58,7 +59,14 @@ function buildConfidence(params: {
     presentationScore -= 1;
     reasons.push("Live tide movement detail is missing.");
   }
-  if (params.archetypeCount < 2) {
+  if (params.archetypeScores.length >= 2) {
+    const topScore = params.archetypeScores[0]!.score;
+    const secondScore = params.archetypeScores[1]!.score;
+    if (topScore > 0 && (topScore - secondScore) < topScore * 0.1) {
+      presentationScore -= 1;
+      reasons.push("Presentation styles are close — rotate approaches if the first one isn't connecting.");
+    }
+  } else if (params.archetypeScores.length < 2) {
     presentationScore -= 1;
     reasons.push("Only one presentation style stood out clearly.");
   }
@@ -82,10 +90,15 @@ function buildConfidence(params: {
   };
 }
 
+export type RecommenderRunResult = {
+  response: RecommenderResponse;
+  behaviorResolution: BehaviorResolution;
+};
+
 export function runRecommender(
   input: RecommenderRunInput,
   meta?: { generated_at?: string; cache_expires_at?: string },
-): RecommenderResponse {
+): RecommenderRunResult {
   const analysis = analyzeSharedConditions(input.request);
   const month = parseInt(input.request.local_date.slice(5, 7), 10) || 1;
   const baseline = buildBaselineBehavior(
@@ -107,7 +120,7 @@ export function runRecommender(
     behaviorReasons: behavior.confidence_reasons,
     lureRankings: lureRankings.ranked,
     flyRankings: flyRankings.ranked,
-    archetypeCount: presentationArchetypes.length,
+    archetypeScores: presentationArchetypes,
   });
 
   const narrationPayload = buildNarrationPayload({
@@ -119,50 +132,54 @@ export function runRecommender(
   });
 
   return {
-    feature: RECOMMENDER_FEATURE,
-    context: input.request.context,
-    generated_at: meta?.generated_at ?? new Date().toISOString(),
-    cache_expires_at: meta?.cache_expires_at ?? new Date().toISOString(),
-    shared_condition_summary: {
-      reliability: analysis.norm.reliability,
-      timing_strength: analysis.timing.timing_strength,
-      highlighted_periods: analysis.timing.highlighted_periods,
-      drivers: analysis.scored.drivers.map((driver) => ({
-        variable: driver.key,
-        label: driver.label || driver.key,
-      })),
-      suppressors: analysis.scored.suppressors.map((suppressor) => ({
-        variable: suppressor.key,
-        label: suppressor.label || suppressor.key,
-      })),
-    },
-    fish_behavior: behavior.fish_behavior,
-    presentation_archetypes: presentationArchetypes,
-    lure_rankings: lureRankings.ranked,
-    fly_rankings: flyRankings.ranked,
-    confidence,
-    ...(input.inventory_items?.length
-      ? {
-          inventory: scoreInventoryCompatibility(
-            input.inventory_items,
-            lureRankings.ranked,
-            flyRankings.ranked,
-          ),
-        }
-      : {}),
-    debug: buildDebugPayload({
-      baselineProfileId: behavior.fish_behavior.baseline_profile_id,
-      regionKey: input.request.region_key,
-      month,
-      reliability: analysis.norm.reliability,
-      behavior,
-      archetypes: presentationArchetypes,
-      familyScores: [
-        ...lureRankings.debug_scores,
-        ...flyRankings.debug_scores,
-      ],
+    response: {
+      feature: RECOMMENDER_FEATURE,
+      context: input.request.context,
+      generated_at: meta?.generated_at ?? new Date().toISOString(),
+      cache_expires_at: meta?.cache_expires_at ?? new Date().toISOString(),
+      shared_condition_summary: {
+        reliability: analysis.norm.reliability,
+        timing_strength: analysis.timing.timing_strength,
+        highlighted_periods: analysis.timing.highlighted_periods,
+        drivers: analysis.scored.drivers.map((driver) => ({
+          variable: driver.key,
+          label: driver.label || driver.key,
+        })),
+        suppressors: analysis.scored.suppressors.map((suppressor) => ({
+          variable: suppressor.key,
+          label: suppressor.label || suppressor.key,
+        })),
+      },
+      fish_behavior: behavior.fish_behavior,
+      presentation_archetypes: presentationArchetypes,
+      lure_rankings: lureRankings.ranked,
+      fly_rankings: flyRankings.ranked,
       confidence,
-    }),
-    narration_payload: narrationPayload,
+      ...(input.inventory_items?.length
+        ? {
+            inventory: scoreInventoryCompatibility(
+              input.inventory_items,
+              lureRankings.ranked,
+              flyRankings.ranked,
+            ),
+          }
+        : {}),
+      debug: buildDebugPayload({
+        baselineProfileId: behavior.fish_behavior.baseline_profile_id,
+        regionKey: input.request.region_key,
+        month,
+        reliability: analysis.norm.reliability,
+        behavior,
+        archetypes: presentationArchetypes,
+        familyScores: [
+          ...lureRankings.debug_scores,
+          ...flyRankings.debug_scores,
+        ],
+        confidence,
+      }),
+      polished: null,
+      narration_payload: narrationPayload,
+    },
+    behaviorResolution: behavior,
   };
 }

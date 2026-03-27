@@ -704,9 +704,10 @@ function environmentalScore(
   }
   if (family.preferred_regions?.includes(input.request.region_key as RegionKey)) score += 3;
 
-  const vegetation = input.refinements.vegetation;
-  if (vegetation === "heavy" && family.vegetation_affinity === "high") score += 4;
-  if (vegetation === "none" && family.vegetation_affinity === "low") score += 2;
+  const hasVegetationHabitat = (input.refinements.habitat_tags ?? []).some(
+    (tag) => tag === "grass" || tag === "grass_edge",
+  );
+  if (hasVegetationHabitat && family.vegetation_affinity === "high") score += 4;
 
   if (behavior.current_profile !== "slack" && family.current_suitability === "high") score += 3;
 

@@ -10,6 +10,10 @@ import {
   type RefinementTag,
   type TackleBoxItem,
 } from "../_shared/recommenderEngine/index.ts";
+import {
+  buildRecommenderBrief,
+  polishRecommenderOutput,
+} from "../_shared/recommenderPolish/mod.ts";
 
 const VALID_REFINEMENT_TAGS: RefinementTag[] = [
   "grass",
@@ -103,15 +107,6 @@ function parseRefinements(raw: unknown): RecommenderRefinements {
         source.water_clarity === "stained" ||
         source.water_clarity === "dirty"
       ? { water_clarity: source.water_clarity }
-      : {}),
-    ...(source.vegetation === "none" ||
-        source.vegetation === "sparse" ||
-        source.vegetation === "moderate" ||
-        source.vegetation === "heavy"
-      ? { vegetation: source.vegetation }
-      : {}),
-    ...(source.platform === "bank" || source.platform === "boat_kayak"
-      ? { platform: source.platform }
       : {}),
     ...(habitat_tags && habitat_tags.length > 0 ? { habitat_tags } : {}),
   };
@@ -226,9 +221,11 @@ Deno.serve(async (req: Request) => {
     envData,
   );
 
+  const openaiKey = Deno.env.get("OPENAI_API_KEY") ?? "";
+
   try {
     const timestampUtc = new Date().toISOString();
-    const response = runRecommender(
+    const { response, behaviorResolution } = runRecommender(
       {
         request: sharedRequest,
         refinements: parseRefinements(body.refinements),
@@ -240,6 +237,30 @@ Deno.serve(async (req: Request) => {
       },
     );
 
+    // ── LLM polish (mandatory — null only on failure) ───────────────────
+    let actualCostUsd = 0;
+    if (openaiKey) {
+      try {
+        const briefText = buildRecommenderBrief({
+          response,
+          behavior: behaviorResolution,
+          localDate,
+          locationName: typeof body.location_name === "string" ? body.location_name : null,
+        });
+        const polishResult = await polishRecommenderOutput(openaiKey, briefText);
+        if (polishResult) {
+          response.polished = polishResult.polished;
+          const INPUT_COST_PER_1M = 0.15;
+          const OUTPUT_COST_PER_1M = 0.60;
+          actualCostUsd =
+            (polishResult.inT * INPUT_COST_PER_1M + polishResult.outT * OUTPUT_COST_PER_1M) /
+            1_000_000;
+        }
+      } catch (e) {
+        console.error("[recommender] polish failed, shipping engine copy:", e);
+      }
+    }
+
     await supabase.from("ai_sessions").insert({
       user_id: user.id,
       session_type: "recommender",
@@ -250,7 +271,7 @@ Deno.serve(async (req: Request) => {
         refinements: parseRefinements(body.refinements),
       },
       response_payload: null,
-      token_cost_usd: 0,
+      token_cost_usd: actualCostUsd,
     });
 
     return new Response(JSON.stringify(response), {

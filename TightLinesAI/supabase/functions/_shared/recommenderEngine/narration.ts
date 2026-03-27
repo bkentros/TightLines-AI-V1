@@ -7,7 +7,30 @@ import type {
 import type { BehaviorResolution } from "./modifiers.ts";
 
 function relationLabel(id: string): string {
-  return id.replaceAll("_", " ");
+  const map: Record<string, string> = {
+    cover_oriented: "cover",
+    vegetation_oriented: "vegetation and weed lines",
+    edge_oriented: "edges and transitions",
+    structure_oriented: "hard structure",
+    current_break_oriented: "current breaks",
+    channel_related: "channel edges",
+    flats_related: "open flats",
+    shoreline_cruising: "shoreline",
+    open_water_roaming: "open water",
+    shade_oriented: "shaded areas",
+    depth_transition_oriented: "depth transitions",
+    undercut_bank_oriented: "undercut banks",
+    hole_oriented: "deeper holes",
+    seam_oriented: "current seams",
+    point_oriented: "points",
+    drain_oriented: "drains",
+    grass_edge_oriented: "grass edges",
+    pothole_oriented: "potholes",
+    trough_oriented: "troughs",
+    oyster_bar_oriented: "oyster bars",
+    marsh_edge_oriented: "marsh edges",
+  };
+  return map[id] ?? id.replaceAll("_", " ");
 }
 
 function depthLabel(id: string): string {
@@ -25,6 +48,22 @@ function depthLabel(id: string): string {
     default:
       return id.replaceAll("_", " ");
   }
+}
+
+export function archetypeLabel(id: string): string {
+  const map: Record<string, string> = {
+    subtle_shallow_cover: "finesse shallow cover work",
+    slow_bottom_contact: "slow bottom contact",
+    horizontal_search_mid_column: "mid-column search",
+    surface_low_light_commotion: "low-light topwater",
+    current_seam_drift: "current seam drift",
+    drain_edge_intercept: "drain edge intercept",
+    grass_edge_swim: "grass edge swim",
+    depth_break_suspend_pause: "suspend and pause near depth breaks",
+    open_flats_cruise_intercept: "open flats intercept",
+    tight_to_cover_vertical: "tight vertical cover work",
+  };
+  return map[id] ?? id.replaceAll("_", " ");
 }
 
 function confidenceNote(confidence: RecommenderConfidence): string | null {
@@ -51,7 +90,7 @@ export function buildNarrationPayload(params: {
   return {
     summary_seed:
       `Best bet is to start around ${depthLabel(topDepth)} with fish relating to ${relationLabel(topRelation)}. ` +
-      `The current setup leans toward ${topArchetype ? topArchetype.archetype_id.replaceAll("_", " ") : "a balanced search presentation"}.`,
+      `The current setup leans toward ${topArchetype ? archetypeLabel(topArchetype.archetype_id) : "a balanced search presentation"}.`,
     position_points: [
       `Start around ${depthLabel(topDepth)}.`,
       `Prioritize ${relationLabel(topRelation)} first.`,

@@ -13,6 +13,7 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import * as Location from 'expo-location';
 import { Ionicons } from '@expo/vector-icons';
 import Select from '../components/Select';
+import { TimingTilesRow, resolveTimingPeriods } from '../components/fishing/TimingTiles';
 import { SubscribePrompt } from '../components/SubscribePrompt';
 import { colors, fonts, radius, shadows, spacing } from '../lib/theme';
 import { fetchFreshEnvironment, getEnvironment } from '../lib/env';
@@ -28,7 +29,6 @@ import {
   type RecommenderResponse,
   type RecommenderRefinements,
   type WaterClarity,
-  type VegetationDensity,
 } from '../lib/recommenderContracts';
 import {
   getCachedRecommendation,
@@ -54,18 +54,6 @@ const CLARITY_OPTIONS: Array<{ label: string; value: WaterClarity }> = [
   { label: 'Dirty', value: 'dirty' },
 ];
 
-const VEGETATION_OPTIONS: Array<{ label: string; value: VegetationDensity }> = [
-  { label: 'None', value: 'none' },
-  { label: 'Sparse', value: 'sparse' },
-  { label: 'Moderate', value: 'moderate' },
-  { label: 'Heavy', value: 'heavy' },
-];
-
-const PLATFORM_OPTIONS = [
-  { label: 'Bank', value: 'bank' as const },
-  { label: 'Boat / Kayak', value: 'boat_kayak' as const },
-];
-
 function geocodeToDisplayLabel(g: Location.LocationGeocodedAddress): string | null {
   const city = g.city ?? g.subregion ?? g.district ?? g.name ?? undefined;
   const region = g.region ?? '';
@@ -76,34 +64,21 @@ function geocodeToDisplayLabel(g: Location.LocationGeocodedAddress): string | nu
   return null;
 }
 
-function toTitle(text: string): string {
-  return text
-    .replaceAll('_', ' ')
-    .split(' ')
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(' ');
-}
-
-function depthLaneLabel(id: string): string {
-  switch (id) {
-    case 'very_shallow':
-      return 'Very shallow';
-    case 'mid_depth':
-      return 'Mid-depth';
-    case 'upper_column':
-      return 'Upper column';
-    case 'lower_column':
-      return 'Lower column';
-    case 'bottom_oriented':
-      return 'Bottom-oriented';
-    default:
-      return toTitle(id);
-  }
-}
-
 function defaultGearMode(profileMode?: string | null): RecommenderGearMode {
   if (profileMode === 'fly') return 'fly';
   return 'lure';
+}
+
+function scorePillColor(score: number): { bg: string; text: string } {
+  if (score >= 70) return { bg: colors.reportScoreGreenBg, text: colors.reportScoreGreen };
+  if (score >= 45) return { bg: colors.reportScoreYellowBg, text: colors.reportScoreYellow };
+  return { bg: colors.reportScoreRedBg, text: colors.reportScoreRed };
+}
+
+function confidenceLabel(level: 'high' | 'medium' | 'low'): string {
+  if (level === 'high') return 'High';
+  if (level === 'medium') return 'Med';
+  return 'Low';
 }
 
 export default function RecommenderScreen() {
@@ -124,10 +99,9 @@ export default function RecommenderScreen() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showSubscribePrompt, setShowSubscribePrompt] = useState(false);
+  const [confidenceExpanded, setConfidenceExpanded] = useState(false);
 
   const [waterClarity, setWaterClarity] = useState<WaterClarity | null>(null);
-  const [vegetation, setVegetation] = useState<VegetationDensity | null>(null);
-  const [platform, setPlatform] = useState<'bank' | 'boat_kayak' | null>(null);
   const [habitatTags, setHabitatTags] = useState<string[]>([]);
 
   const coastalEligible = useMemo(() => isCoastalContextEligible(lat, lon), [lat, lon]);
@@ -189,17 +163,13 @@ export default function RecommenderScreen() {
   const refinements = useMemo<RecommenderRefinements>(
     () => ({
       ...(waterClarity ? { water_clarity: waterClarity } : {}),
-      ...(vegetation ? { vegetation } : {}),
-      ...(platform ? { platform } : {}),
       ...(habitatTags.length > 0 ? { habitat_tags: habitatTags as RecommenderRefinements['habitat_tags'] } : {}),
     }),
-    [waterClarity, vegetation, platform, habitatTags],
+    [waterClarity, habitatTags],
   );
 
   const hasActiveRefinements = Boolean(
     refinements.water_clarity ||
-      refinements.vegetation ||
-      refinements.platform ||
       (refinements.habitat_tags?.length ?? 0) > 0,
   );
 
@@ -237,6 +207,7 @@ export default function RecommenderScreen() {
           context: activeContext,
           env_data: freshEnv,
           refinements,
+          location_name: locationLabel !== 'Current location' ? locationLabel : undefined,
         },
       });
 
@@ -260,10 +231,12 @@ export default function RecommenderScreen() {
     } finally {
       setLoading(false);
     }
-  }, [hasCoords, lat, lon, units, activeContext, refinements, hasActiveRefinements]);
+  }, [hasCoords, lat, lon, units, activeContext, refinements, hasActiveRefinements, locationLabel]);
 
   const visibleFamilies = gearMode === 'lure' ? result?.lure_rankings ?? [] : result?.fly_rankings ?? [];
-  const topArchetype = result?.presentation_archetypes[0] ?? null;
+  const timingPeriods = result?.shared_condition_summary.highlighted_periods
+    ? resolveTimingPeriods(result.shared_condition_summary.highlighted_periods)
+    : null;
 
   if (!hasCoords) {
     return (
@@ -302,26 +275,22 @@ export default function RecommenderScreen() {
       </View>
 
       <ScrollView style={styles.scroll} contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
-        <View style={styles.metaCard}>
-          <View style={styles.metaHeaderRow}>
-            <View>
-              <Text style={styles.metaTitle}>Fish Position + Presentation Recommender</Text>
-              <Text style={styles.metaSubtitle}>{locationLabel}</Text>
-            </View>
-            {envLoading ? (
-              <ActivityIndicator size="small" color={colors.primary} />
-            ) : (
-              <View style={styles.liveChip}>
-                <Ionicons name="pulse" size={12} color={colors.primary} />
-                <Text style={styles.liveChipText}>Live Conditions</Text>
-              </View>
-            )}
+        {/* ── Location + live badge ─────────────────────────────────── */}
+        <View style={styles.metaRow}>
+          <View style={{ flex: 1 }}>
+            <Text style={styles.metaLocation}>{locationLabel}</Text>
           </View>
-          <Text style={styles.metaBody}>
-            Month-by-month regional baseline logic first, daily modifiers second, and family recommendations only after the engine resolves presentation needs.
-          </Text>
+          {envLoading ? (
+            <ActivityIndicator size="small" color={colors.primary} />
+          ) : (
+            <View style={styles.liveChip}>
+              <Ionicons name="pulse" size={12} color={colors.primary} />
+              <Text style={styles.liveChipText}>Live</Text>
+            </View>
+          )}
         </View>
 
+        {/* ── Context tabs ──────────────────────────────────────────── */}
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
@@ -343,44 +312,22 @@ export default function RecommenderScreen() {
           })}
         </ScrollView>
 
+        {/* ── Refinements ───────────────────────────────────────────── */}
         <View style={styles.sectionCard}>
           <View style={styles.sectionHeaderRow}>
-            <Text style={styles.sectionTitle}>Refine The Recommendation</Text>
+            <Text style={styles.sectionTitle}>Refine</Text>
             <Text style={styles.sectionHint}>Optional</Text>
           </View>
 
-          <View style={styles.row}>
-            <View style={styles.halfField}>
-              <Text style={styles.label}>Water Clarity</Text>
-              <Select
-                value={waterClarity ? CLARITY_OPTIONS.find((option) => option.value === waterClarity)?.label ?? null : null}
-                options={CLARITY_OPTIONS.map((option) => option.label)}
-                placeholder="Select clarity"
-                onSelect={(value) =>
-                  setWaterClarity(CLARITY_OPTIONS.find((option) => option.label === value)?.value ?? null)
-                }
-              />
-            </View>
-            <View style={styles.halfField}>
-              <Text style={styles.label}>Vegetation</Text>
-              <Select
-                value={vegetation ? VEGETATION_OPTIONS.find((option) => option.value === vegetation)?.label ?? null : null}
-                options={VEGETATION_OPTIONS.map((option) => option.label)}
-                placeholder="Select vegetation"
-                onSelect={(value) =>
-                  setVegetation(VEGETATION_OPTIONS.find((option) => option.label === value)?.value ?? null)
-                }
-              />
-            </View>
-          </View>
-
           <View style={styles.field}>
-            <Text style={styles.label}>Platform</Text>
+            <Text style={styles.label}>Water Clarity</Text>
             <Select
-              value={platform ? PLATFORM_OPTIONS.find((option) => option.value === platform)?.label ?? null : null}
-              options={PLATFORM_OPTIONS.map((option) => option.label)}
-              placeholder="Bank or boat"
-              onSelect={(value) => setPlatform(PLATFORM_OPTIONS.find((option) => option.label === value)?.value ?? null)}
+              value={waterClarity ? CLARITY_OPTIONS.find((option) => option.value === waterClarity)?.label ?? null : null}
+              options={CLARITY_OPTIONS.map((option) => option.label)}
+              placeholder="Select clarity"
+              onSelect={(value) =>
+                setWaterClarity(CLARITY_OPTIONS.find((option) => option.label === value)?.value ?? null)
+              }
             />
           </View>
 
@@ -407,6 +354,7 @@ export default function RecommenderScreen() {
           </View>
         </View>
 
+        {/* ── Generate button ───────────────────────────────────────── */}
         <Pressable
           style={({ pressed }) => [
             styles.generateBtn,
@@ -436,22 +384,40 @@ export default function RecommenderScreen() {
             <Text style={styles.emptyBody}>
               {envLoading
                 ? 'Pulling the live environmental inputs the recommender depends on.'
-                : 'Generate the recommendation to resolve likely fish position, presentation needs, and the top lure or fly families for this context.'}
+                : 'Tap Generate to see where fish are, how they\'re behaving, and what to throw.'}
             </Text>
           </View>
         ) : (
           <>
-            <View style={styles.resultHero}>
+            {/* ── 1. Hero Card — headline ─────────────────────────── */}
+            <View style={styles.heroCard}>
               <View style={[styles.contextPill, { backgroundColor: activeTabConfig.color + '14' }]}>
                 <Ionicons name={activeTabConfig.icon as any} size={13} color={activeTabConfig.color} />
                 <Text style={[styles.contextPillText, { color: activeTabConfig.color }]}>{activeTabConfig.label}</Text>
               </View>
-              <Text style={styles.resultSummary}>{result.narration_payload.summary_seed}</Text>
-              {result.narration_payload.confidence_note ? (
-                <Text style={styles.resultNote}>{result.narration_payload.confidence_note}</Text>
-              ) : null}
+              <Text style={styles.heroHeadline}>
+                {result.polished?.headline ?? result.narration_payload.summary_seed}
+              </Text>
             </View>
 
+            {/* ── 2. Where & How Card ─────────────────────────────── */}
+            <View style={styles.sectionCard}>
+              <View style={styles.insightRow}>
+                <Ionicons name="navigate-outline" size={16} color={colors.primary} style={{ marginTop: 2 }} />
+                <Text style={styles.insightText}>
+                  {result.polished?.where_insight ?? result.narration_payload.position_points[0] ?? ''}
+                </Text>
+              </View>
+              <View style={styles.divider} />
+              <View style={styles.insightRow}>
+                <Ionicons name="fish-outline" size={16} color={colors.primary} style={{ marginTop: 2 }} />
+                <Text style={styles.insightText}>
+                  {result.polished?.behavior_read ?? result.narration_payload.behavior_points[0] ?? ''}
+                </Text>
+              </View>
+            </View>
+
+            {/* ── 3. Gear Toggle + Top Families ───────────────────── */}
             <View style={styles.toggle}>
               <Pressable
                 style={[styles.toggleOpt, gearMode === 'lure' && styles.toggleActive]}
@@ -468,138 +434,99 @@ export default function RecommenderScreen() {
             </View>
 
             <View style={styles.sectionCard}>
-              <Text style={styles.sectionTitle}>Where Fish Likely Are</Text>
-              <Text style={styles.sectionBody}>
-                Start around {depthLaneLabel(result.fish_behavior.position.depth_lanes[0]?.id ?? 'mid_depth').toLowerCase()} and
-                key on {toTitle(result.fish_behavior.position.relation_tags[0]?.id ?? 'edge_oriented').toLowerCase()} first.
-              </Text>
-              <View style={styles.inlineChipRow}>
-                {result.fish_behavior.position.depth_lanes.slice(0, 3).map((item) => (
-                  <View key={item.id} style={styles.inlineChip}>
-                    <Text style={styles.inlineChipText}>{depthLaneLabel(item.id)}</Text>
-                  </View>
-                ))}
-              </View>
-              <View style={styles.inlineChipRow}>
-                {result.fish_behavior.position.relation_tags.slice(0, 4).map((item) => (
-                  <View key={item.id} style={styles.inlineChip}>
-                    <Text style={styles.inlineChipText}>{toTitle(item.id)}</Text>
-                  </View>
-                ))}
-              </View>
-            </View>
-
-            <View style={styles.sectionCard}>
-              <Text style={styles.sectionTitle}>How They&apos;re Likely Acting</Text>
-              <Text style={styles.sectionBody}>
-                Fish look {result.fish_behavior.behavior.activity} with a {result.fish_behavior.behavior.strike_zone} strike zone and a{' '}
-                {result.fish_behavior.behavior.chase_radius} chase radius.
-              </Text>
-              <View style={styles.inlineChipRow}>
-                {result.fish_behavior.behavior.style_flags.slice(0, 6).map((flag) => (
-                  <View key={flag} style={styles.inlineChip}>
-                    <Text style={styles.inlineChipText}>{toTitle(flag)}</Text>
-                  </View>
-                ))}
-              </View>
-            </View>
-
-            <View style={styles.sectionCard}>
-              <Text style={styles.sectionTitle}>Best Presentation</Text>
-              {topArchetype ? (
-                <>
-                  <Text style={styles.presentationLead}>
-                    {toTitle(topArchetype.archetype_id)}: {toTitle(topArchetype.speed)} at {toTitle(topArchetype.depth_target)}.
-                  </Text>
-                  <Text style={styles.sectionBody}>
-                    Motion: {topArchetype.motions.map(toTitle).join(', ')}. Triggers: {topArchetype.triggers.map(toTitle).join(', ')}.
-                  </Text>
-                  {topArchetype.reasons.length > 0 ? (
-                    <View style={styles.inlineChipRow}>
-                      {topArchetype.reasons.map((reason) => (
-                        <View key={reason} style={styles.inlineChip}>
-                          <Text style={styles.inlineChipText}>{reason}</Text>
-                        </View>
-                      ))}
-                    </View>
-                  ) : null}
-                </>
-              ) : (
-                <Text style={styles.sectionBody}>The engine did not surface a single dominant presentation lane yet.</Text>
-              )}
-            </View>
-
-            <View style={styles.sectionCard}>
               <Text style={styles.sectionTitle}>Top {gearMode === 'lure' ? 'Lure' : 'Fly'} Families</Text>
-              {visibleFamilies.map((family) => (
-                <View key={family.family_id} style={styles.familyCard}>
-                  <View style={styles.familyHeader}>
-                    <View>
-                      <Text style={styles.familyName}>{family.display_name}</Text>
-                      <Text style={styles.familyExamples}>{family.examples.join(' • ')}</Text>
+              {visibleFamilies.slice(0, 3).map((family) => {
+                const pill = scorePillColor(family.score);
+                return (
+                  <View key={family.family_id} style={styles.familyCard}>
+                    <View style={styles.familyHeader}>
+                      <View style={{ flex: 1 }}>
+                        <Text style={styles.familyName}>{family.display_name}</Text>
+                        <Text style={styles.familyExamples} numberOfLines={1}>
+                          {family.examples.join(' \u2022 ')}
+                        </Text>
+                      </View>
+                      <View style={[styles.scorePill, { backgroundColor: pill.bg }]}>
+                        <Text style={[styles.scorePillText, { color: pill.text }]}>
+                          {family.score.toFixed(0)}
+                        </Text>
+                      </View>
                     </View>
-                    <View style={styles.scorePill}>
-                      <Text style={styles.scorePillText}>{family.score.toFixed(0)}</Text>
-                    </View>
+                    {family.color_profile_guidance?.length ? (
+                      <Text style={styles.familyColor}>
+                        {family.color_profile_guidance.join(' \u2022 ')}
+                      </Text>
+                    ) : null}
                   </View>
+                );
+              })}
+            </View>
 
-                  {family.match_reasons.length > 0 ? (
-                    <Text style={styles.familyBlock}>
-                      Why: {family.match_reasons.join(' • ')}
-                    </Text>
-                  ) : null}
-                  {family.color_profile_guidance?.length ? (
-                    <Text style={styles.familyBlock}>
-                      Color / profile: {family.color_profile_guidance.join(' • ')}
-                    </Text>
-                  ) : null}
-                  <Text style={styles.familyBlock}>
-                    How to fish it: {family.how_to_fish.join(' ')}
-                  </Text>
-                  <Text style={styles.familyBlock}>
-                    Best windows: {family.best_dayparts.join(', ')}
+            {/* ── 4. Timing Tiles ─────────────────────────────────── */}
+            {timingPeriods ? (
+              <View style={styles.sectionCard}>
+                <Text style={styles.sectionTitle}>Best Timing</Text>
+                <TimingTilesRow periods={timingPeriods} />
+              </View>
+            ) : null}
+
+            {/* ── 5. Presentation Tip ─────────────────────────────── */}
+            {(result.polished?.presentation_tip || result.narration_payload.presentation_points[0]) ? (
+              <View style={styles.tipCard}>
+                <View style={styles.tipAccent} />
+                <View style={styles.tipContent}>
+                  <Text style={styles.tipLabel}>How to work it</Text>
+                  <Text style={styles.tipText}>
+                    {result.polished?.presentation_tip ?? result.narration_payload.presentation_points[0]}
                   </Text>
                 </View>
-              ))}
-            </View>
-
-            <View style={styles.sectionCard}>
-              <Text style={styles.sectionTitle}>Best Dayparts</Text>
-              <View style={styles.inlineChipRow}>
-                {Array.from(new Set(visibleFamilies.flatMap((family) => family.best_dayparts))).slice(0, 4).map((daypart) => (
-                  <View key={daypart} style={styles.inlineChip}>
-                    <Text style={styles.inlineChipText}>{daypart}</Text>
-                  </View>
-                ))}
               </View>
-            </View>
+            ) : null}
 
-            <View style={styles.sectionCard}>
-              <Text style={styles.sectionTitle}>Confidence / What This Depends On</Text>
-              <Text style={styles.sectionBody}>
-                Behavior: {toTitle(result.confidence.behavior_confidence)} • Presentation: {toTitle(result.confidence.presentation_confidence)} • Family:{' '}
-                {toTitle(result.confidence.family_confidence)}
+            {/* ── 6. Confidence footer (collapsed) ────────────────── */}
+            <Pressable
+              style={styles.confidenceBar}
+              onPress={() => setConfidenceExpanded((prev) => !prev)}
+            >
+              <Text style={styles.confidenceText}>
+                Behavior: {confidenceLabel(result.confidence.behavior_confidence)} {'\u00B7'}{' '}
+                Presentation: {confidenceLabel(result.confidence.presentation_confidence)} {'\u00B7'}{' '}
+                Family: {confidenceLabel(result.confidence.family_confidence)}
               </Text>
-              <View style={styles.reasonBlock}>
-                {result.confidence.reasons.map((reason) => (
-                  <Text key={reason} style={styles.reasonText}>• {reason}</Text>
-                ))}
+              <Ionicons
+                name={confidenceExpanded ? 'chevron-up' : 'chevron-down'}
+                size={14}
+                color={colors.textMuted}
+              />
+            </Pressable>
+
+            {confidenceExpanded ? (
+              <View style={styles.confidenceDetail}>
+                {result.shared_condition_summary.drivers.length > 0 ? (
+                  <View style={styles.driverRow}>
+                    <Ionicons name="trending-up" size={14} color={colors.reportScoreGreen} />
+                    <Text style={styles.driverText}>
+                      {result.shared_condition_summary.drivers.map((d) => d.label).join(' \u2022 ')}
+                    </Text>
+                  </View>
+                ) : null}
+                {result.shared_condition_summary.suppressors.length > 0 ? (
+                  <View style={styles.driverRow}>
+                    <Ionicons name="trending-down" size={14} color={colors.reportScoreRed} />
+                    <Text style={styles.driverText}>
+                      {result.shared_condition_summary.suppressors.map((s) => s.label).join(' \u2022 ')}
+                    </Text>
+                  </View>
+                ) : null}
+                {result.confidence.reasons.length > 0 ? (
+                  <View style={styles.reasonBlock}>
+                    {result.confidence.reasons.map((reason) => (
+                      <Text key={reason} style={styles.reasonText}>{'\u2022'} {reason}</Text>
+                    ))}
+                  </View>
+                ) : null}
               </View>
-              {(result.shared_condition_summary.drivers.length > 0 || result.shared_condition_summary.suppressors.length > 0) ? (
-                <View style={styles.driverWrap}>
-                  {result.shared_condition_summary.drivers.length > 0 ? (
-                    <Text style={styles.driverText}>
-                      Helpful today: {result.shared_condition_summary.drivers.map((item) => item.label).join(' • ')}
-                    </Text>
-                  ) : null}
-                  {result.shared_condition_summary.suppressors.length > 0 ? (
-                    <Text style={styles.driverText}>
-                      Tightening factors: {result.shared_condition_summary.suppressors.map((item) => item.label).join(' • ')}
-                    </Text>
-                  ) : null}
-                </View>
-              ) : null}
-            </View>
+            ) : null}
           </>
         )}
       </ScrollView>
@@ -625,6 +552,8 @@ const styles = StyleSheet.create({
     paddingTop: spacing.sm,
     gap: spacing.md,
   },
+
+  // ── Top bar ──────────────────────────────────────────────────────
   topBar: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -658,6 +587,8 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '600',
   },
+
+  // ── No-coords fallback ───────────────────────────────────────────
   centeredCard: {
     margin: 24,
     padding: 24,
@@ -699,56 +630,38 @@ const styles = StyleSheet.create({
     color: colors.textOnPrimary,
     fontWeight: '700',
   },
-  metaCard: {
-    backgroundColor: colors.surface,
-    borderRadius: radius.lg,
-    padding: spacing.md,
-    gap: 10,
-    ...shadows.sm,
-  },
-  metaHeaderRow: {
+
+  // ── Meta row ─────────────────────────────────────────────────────
+  metaRow: {
     flexDirection: 'row',
+    alignItems: 'center',
     justifyContent: 'space-between',
-    alignItems: 'flex-start',
     gap: 12,
   },
-  metaTitle: {
-    fontSize: 20,
+  metaLocation: {
+    fontSize: 16,
     fontFamily: fonts.serif,
     fontWeight: '700',
     color: colors.text,
   },
-  metaSubtitle: {
-    marginTop: 4,
-    fontSize: 14,
-    color: colors.textMuted,
-  },
-  metaBody: {
-    fontSize: 14,
-    lineHeight: 21,
-    color: colors.textMuted,
-  },
   liveChip: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 6,
+    gap: 4,
     backgroundColor: colors.primaryMist,
     paddingHorizontal: 10,
-    paddingVertical: 6,
+    paddingVertical: 5,
     borderRadius: radius.full,
   },
   liveChipText: {
-    fontSize: 12,
+    fontSize: 11,
     color: colors.primary,
     fontWeight: '700',
   },
-  tabBarScroll: {
-    marginHorizontal: -4,
-  },
-  tabBarScrollContent: {
-    paddingHorizontal: 4,
-    gap: 4,
-  },
+
+  // ── Tab bar ──────────────────────────────────────────────────────
+  tabBarScroll: { marginHorizontal: -4 },
+  tabBarScrollContent: { paddingHorizontal: 4, gap: 4 },
   tab: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -763,10 +676,9 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: radius.md,
     borderTopRightRadius: radius.md,
   },
-  tabLabel: {
-    fontSize: 14,
-    color: colors.textMuted,
-  },
+  tabLabel: { fontSize: 14, color: colors.textMuted },
+
+  // ── Section card (reused) ────────────────────────────────────────
   sectionCard: {
     backgroundColor: colors.surface,
     borderRadius: radius.lg,
@@ -780,7 +692,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   sectionTitle: {
-    fontSize: 18,
+    fontSize: 17,
     fontFamily: fonts.serif,
     fontWeight: '700',
     color: colors.text,
@@ -790,25 +702,15 @@ const styles = StyleSheet.create({
     color: colors.textMuted,
     fontWeight: '600',
   },
-  row: {
-    flexDirection: 'row',
-    gap: spacing.sm,
-  },
-  halfField: {
-    flex: 1,
-    gap: 6,
-  },
-  field: {
-    gap: 6,
-  },
+
+  // ── Refinements ──────────────────────────────────────────────────
+  field: { gap: 6 },
   label: {
     fontSize: 13,
     fontWeight: '600',
     color: colors.textMuted,
   },
-  chipLabel: {
-    marginTop: 4,
-  },
+  chipLabel: { marginTop: 4 },
   chipWrap: {
     flexDirection: 'row',
     flexWrap: 'wrap',
@@ -831,9 +733,9 @@ const styles = StyleSheet.create({
     color: colors.textMuted,
     fontWeight: '600',
   },
-  chipTextSelected: {
-    color: colors.primary,
-  },
+  chipTextSelected: { color: colors.primary },
+
+  // ── Generate button ──────────────────────────────────────────────
   generateBtn: {
     backgroundColor: colors.primary,
     borderRadius: radius.full,
@@ -856,6 +758,8 @@ const styles = StyleSheet.create({
     fontSize: 14,
     lineHeight: 20,
   },
+
+  // ── Empty state ──────────────────────────────────────────────────
   emptyCard: {
     padding: spacing.lg,
     borderRadius: radius.lg,
@@ -874,12 +778,14 @@ const styles = StyleSheet.create({
     lineHeight: 21,
     color: colors.textMuted,
   },
-  resultHero: {
+
+  // ── Hero card ────────────────────────────────────────────────────
+  heroCard: {
     backgroundColor: colors.surface,
     borderRadius: radius.lg,
     padding: spacing.md,
     gap: 10,
-    ...shadows.sm,
+    ...shadows.md,
   },
   contextPill: {
     alignSelf: 'flex-start',
@@ -887,24 +793,39 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 6,
     paddingHorizontal: 10,
-    paddingVertical: 6,
+    paddingVertical: 5,
     borderRadius: radius.full,
   },
   contextPillText: {
     fontSize: 12,
     fontWeight: '700',
   },
-  resultSummary: {
-    fontSize: 15,
-    lineHeight: 23,
+  heroHeadline: {
+    fontSize: 16,
+    lineHeight: 24,
     color: colors.text,
-    fontWeight: '600',
+    fontFamily: fonts.bodySemiBold,
   },
-  resultNote: {
-    fontSize: 13,
-    lineHeight: 20,
-    color: colors.textMuted,
+
+  // ── Where & How card ─────────────────────────────────────────────
+  insightRow: {
+    flexDirection: 'row',
+    gap: 10,
+    alignItems: 'flex-start',
   },
+  insightText: {
+    flex: 1,
+    fontSize: 14,
+    lineHeight: 21,
+    color: colors.text,
+  },
+  divider: {
+    height: 1,
+    backgroundColor: colors.borderLight,
+    marginVertical: 2,
+  },
+
+  // ── Gear toggle ──────────────────────────────────────────────────
   toggle: {
     flexDirection: 'row',
     backgroundColor: colors.surface,
@@ -919,100 +840,121 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     borderRadius: radius.full,
   },
-  toggleActive: {
-    backgroundColor: colors.primary,
-  },
-  toggleText: {
-    color: colors.textMuted,
-    fontWeight: '700',
-  },
-  toggleTextActive: {
-    color: colors.textOnPrimary,
-  },
-  sectionBody: {
-    fontSize: 14,
-    lineHeight: 21,
-    color: colors.textMuted,
-  },
-  inlineChipRow: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 8,
-  },
-  inlineChip: {
-    backgroundColor: colors.background,
-    borderRadius: radius.full,
-    paddingHorizontal: 10,
-    paddingVertical: 6,
-  },
-  inlineChipText: {
-    color: colors.textMuted,
-    fontSize: 12,
-    fontWeight: '600',
-  },
-  presentationLead: {
-    fontSize: 15,
-    lineHeight: 22,
-    color: colors.text,
-    fontWeight: '700',
-  },
+  toggleActive: { backgroundColor: colors.primary },
+  toggleText: { color: colors.textMuted, fontWeight: '700' },
+  toggleTextActive: { color: colors.textOnPrimary },
+
+  // ── Family cards ─────────────────────────────────────────────────
   familyCard: {
     borderWidth: 1,
-    borderColor: colors.border,
-    borderRadius: radius.lg,
-    padding: spacing.md,
-    gap: 8,
+    borderColor: colors.borderLight,
+    borderRadius: radius.md,
+    padding: spacing.sm + 4,
+    gap: 4,
   },
   familyHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
     gap: 12,
   },
   familyName: {
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: '700',
     color: colors.text,
   },
   familyExamples: {
-    marginTop: 4,
-    fontSize: 13,
+    marginTop: 2,
+    fontSize: 12,
     color: colors.textMuted,
-    lineHeight: 18,
+    lineHeight: 16,
   },
   scorePill: {
-    minWidth: 42,
+    minWidth: 40,
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 10,
-    paddingVertical: 6,
+    paddingVertical: 5,
     borderRadius: radius.full,
-    backgroundColor: colors.primaryMist,
   },
   scorePillText: {
     fontSize: 13,
-    color: colors.primary,
     fontWeight: '700',
   },
-  familyBlock: {
-    fontSize: 13,
-    lineHeight: 20,
+  familyColor: {
+    fontSize: 12,
     color: colors.textMuted,
+    lineHeight: 17,
   },
-  reasonBlock: {
+
+  // ── Presentation tip card ────────────────────────────────────────
+  tipCard: {
+    flexDirection: 'row',
+    backgroundColor: '#FFFBEF',
+    borderRadius: radius.lg,
+    overflow: 'hidden',
+    ...shadows.sm,
+  },
+  tipAccent: {
+    width: 4,
+    backgroundColor: colors.gold,
+  },
+  tipContent: {
+    flex: 1,
+    padding: spacing.md,
     gap: 6,
   },
-  reasonText: {
-    fontSize: 13,
-    lineHeight: 19,
-    color: colors.textMuted,
+  tipLabel: {
+    fontSize: 12,
+    fontFamily: fonts.bodySemiBold,
+    color: '#B8862D',
+    textTransform: 'uppercase',
+    letterSpacing: 0.5,
   },
-  driverWrap: {
-    gap: 6,
-    paddingTop: 4,
+  tipText: {
+    fontSize: 14,
+    lineHeight: 21,
+    color: colors.text,
+  },
+
+  // ── Confidence footer ────────────────────────────────────────────
+  confidenceBar: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    backgroundColor: colors.surface,
+    borderRadius: radius.md,
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.sm + 4,
+    ...shadows.sm,
+  },
+  confidenceText: {
+    fontSize: 12,
+    color: colors.textMuted,
+    fontFamily: fonts.bodySemiBold,
+  },
+  confidenceDetail: {
+    backgroundColor: colors.surface,
+    borderRadius: radius.md,
+    padding: spacing.md,
+    gap: 8,
+    ...shadows.sm,
+  },
+  driverRow: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    gap: 8,
   },
   driverText: {
+    flex: 1,
     fontSize: 13,
     lineHeight: 19,
+    color: colors.textMuted,
+  },
+  reasonBlock: { gap: 4, paddingTop: 4 },
+  reasonText: {
+    fontSize: 12,
+    lineHeight: 17,
     color: colors.textMuted,
   },
 });

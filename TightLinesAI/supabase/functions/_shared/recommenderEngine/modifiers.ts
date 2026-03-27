@@ -48,8 +48,7 @@ function inferClarity(
   const precip = analysis.norm.normalized.precipitation_disruption?.score ?? 0;
   if (runoff <= -1 || precip <= -1.25) return "dirty";
   if (runoff < 0 || precip < 0) return "stained";
-  const light = analysis.norm.normalized.light_cloud_condition?.score ?? 0;
-  return light < 0 ? "clear" : "stained";
+  return "stained";
 }
 
 function currentProfileFor(
@@ -68,13 +67,20 @@ function currentProfileFor(
   return "slack";
 }
 
-function monthGroups(seasonPhase: SeasonPhase, month: number): string[] {
+function monthGroups(seasonPhase: SeasonPhase, month: number, climateBand: ClimateBand): string[] {
   const groups = ["all_year", seasonPhase];
-  if (month >= 5 && month <= 9) groups.push("warm_months");
+  const warmClimate =
+    climateBand === "warm" || climateBand === "tropical" || climateBand === "arid";
+
+  if (warmClimate ? (month >= 3 && month <= 10) : (month >= 5 && month <= 9)) {
+    groups.push("warm_months");
+  }
   if (month >= 10 || month <= 2 || seasonPhase === "winter_hold" || seasonPhase === "late_fall") {
     groups.push("cool_months");
   }
-  if (month >= 6 && month <= 8) groups.push("topwater_window");
+  if (warmClimate ? (month >= 4 && month <= 9) : (month >= 6 && month <= 8)) {
+    groups.push("topwater_window");
+  }
   if (month >= 9 && month <= 11) groups.push("baitfish_push");
   return groups;
 }
@@ -453,27 +459,11 @@ export function applyDailyModifiers(
     }
   }
 
-  if (input.refinements.vegetation === "heavy") {
-    addToScore(acc.relation_scores, "vegetation_oriented", 1.1);
-    addToScore(acc.relation_scores, "grass_edge_oriented", 0.7);
-    addToScore(acc.relation_scores, "cover_oriented", 0.4);
-    addModifier(modifiers, "heavy_vegetation_refinement");
-  } else if (input.refinements.vegetation === "moderate") {
-    addToScore(acc.relation_scores, "vegetation_oriented", 0.8);
-    addModifier(modifiers, "vegetation_refinement");
-  }
-
   for (const tag of input.refinements.habitat_tags ?? []) {
     applyHabitatTag(acc, tag);
   }
   if ((input.refinements.habitat_tags ?? []).length > 0) {
     addModifier(modifiers, "manual_habitat_refinement");
-  }
-
-  if (input.refinements.platform === "bank") {
-    addToScore(acc.relation_scores, "shoreline_cruising", 0.4);
-    addToScore(acc.relation_scores, "edge_oriented", 0.4);
-    addModifier(modifiers, "bank_access_bias");
   }
 
   const clarity = inferClarity(analysis, input);
@@ -484,6 +474,35 @@ export function applyDailyModifiers(
   } else if (clarity === "clear") {
     addToScore(acc.relation_scores, "shade_oriented", 0.3);
     addModifier(modifiers, "clear_water_profile");
+  }
+
+  // ── Seasonal activity caps ──────────────────────────────────────────
+  // Prevent daily modifiers from pushing fish behavior beyond what the
+  // season phase biologically supports.
+  const SEASON_ACTIVITY_CAPS: Partial<Record<SeasonPhase, number>> = {
+    winter_hold: 0.2,
+    late_fall: 0.6,
+    spring_transition: 0.8,
+  };
+  const seasonCap = SEASON_ACTIVITY_CAPS[acc.season_phase];
+  if (seasonCap != null && acc.activity_index > seasonCap) {
+    acc.activity_index = seasonCap;
+    addModifier(modifiers, "seasonal_activity_cap");
+  }
+  if (seasonCap != null && acc.chase_index > seasonCap) {
+    acc.chase_index = seasonCap;
+  }
+
+  // Strip topwater flags in cold-climate cold seasons
+  const coldClimateEarlySeason =
+    (acc.season_phase === "winter_hold" ||
+      acc.season_phase === "late_fall" ||
+      acc.season_phase === "spring_transition") &&
+    (acc.climate_band === "cold" ||
+      acc.climate_band === "alpine" ||
+      acc.climate_band === "maritime");
+  if (coldClimateEarlySeason) {
+    acc.style_flags.delete("topwater_window");
   }
 
   const depthScores = topScoredIds(acc.depth_scores, Object.keys(acc.depth_scores) as Array<keyof typeof acc.depth_scores>, 5);
@@ -561,7 +580,7 @@ export function applyDailyModifiers(
     light_profile: lightProfile,
     current_profile: currentProfileFor(analysis, context),
     best_dayparts: bestDayparts.length > 0 ? bestDayparts : ["Dawn", "Evening"],
-    month_groups: monthGroups(acc.season_phase, parseInt(input.request.local_date.slice(5, 7), 10) || 1),
+    month_groups: monthGroups(acc.season_phase, parseInt(input.request.local_date.slice(5, 7), 10) || 1, acc.climate_band),
     season_phase: acc.season_phase,
     climate_band: acc.climate_band,
     confidence_reasons: uniq(confidenceReasons),

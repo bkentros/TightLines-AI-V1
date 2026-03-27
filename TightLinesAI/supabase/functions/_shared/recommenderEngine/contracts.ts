@@ -7,8 +7,6 @@ import type {
 export type RecommenderGearMode = "lure" | "fly";
 
 export type WaterClarity = "clear" | "stained" | "dirty";
-export type VegetationDensity = "none" | "sparse" | "moderate" | "heavy";
-export type PlatformType = "bank" | "boat_kayak";
 
 export type RefinementTag =
   | "grass"
@@ -37,8 +35,6 @@ export type RefinementTag =
 
 export type RecommenderRefinements = {
   water_clarity?: WaterClarity;
-  vegetation?: VegetationDensity;
-  platform?: PlatformType;
   habitat_tags?: RefinementTag[];
 };
 
@@ -296,6 +292,12 @@ export type RecommenderResponse = {
   confidence: RecommenderConfidence;
   debug?: RecommenderDebugPayload;
   inventory?: InventoryCompatibilityResult;
+  polished: {
+    headline: string;
+    where_insight: string;
+    behavior_read: string;
+    presentation_tip: string;
+  } | null;
   narration_payload: {
     summary_seed: string;
     position_points: string[];
