@@ -27,7 +27,7 @@ export const FRESHWATER_TEMP_ROWS: Record<RegionKey, TempBandRow[]> = {
     [22, 34, 44, 54, [-2, -1,  1,  2,  0]],  // Jan — deep winter; 34-44°F = ice fishing; warm days briefly active bass
     [24, 36, 46, 56, [-2, -1,  1,  2,  0]],  // Feb — still frozen; same pattern
     [32, 42, 52, 62, [-2, -1,  1,  2,  0]],  // Mar — WINTER: ice-out; above-avg warmth = first bass/perch
-    [42, 52, 62, 72, [-2, -1,  2,  1, -1]],  // Apr — SHOULDER: pre-spawn bass; trout prime
+    [34, 48, 62, 72, [-2, -0.5,  2,  1, -1]],  // Apr — SHOULDER: trout prime 44-55°F; soften cool-band so trout-optimal days don't score as suppressors
     [52, 62, 72, 82, [-2, -1,  2,  1, -1]],  // May — SHOULDER: prime bass pre/spawn; walleye spawn
     [52, 64, 76, 86, [-2, -1,  2,  0, -2]],  // Jun — SUM_MOD: 64-76°F sweet spot; above 86°F pushes stress
     [52, 64, 76, 86, [-2, -1,  2,  0, -2]],  // Jul — SUM_MOD: very_cold 52°F = genuine cold front; mean ~72°F
@@ -101,9 +101,9 @@ export const FRESHWATER_TEMP_ROWS: Record<RegionKey, TempBandRow[]> = {
   great_lakes_upper_midwest: [
     [14, 26, 36, 46, [-2, -1,  1,  2,  0]],  // Jan — frozen lakes; ice fishing; 26-36°F = typical ice fishing days
     [16, 28, 38, 48, [-2, -1,  1,  2,  0]],  // Feb — deep ice season; perch and walleye under ice
-    [26, 36, 46, 56, [-2, -1,  1,  2,  0]],  // Mar — WINTER: ice-out beginning in south; pre-season walleye staging
-    [38, 48, 60, 70, [-2, -1,  2,  1, -1]],  // Apr — SHOULDER: walleye spawn; prime early bass; ice-out complete
-    [48, 58, 68, 78, [-2, -1,  2,  1, -1]],  // May — SHOULDER: excellent walleye and bass pre-spawn
+    [22, 34, 48, 58, [-2, -0.5,  1,  2,  0]],  // Mar — WINTER: ice-out; pike & walleye staging; 34-48°F = neutral-to-good for cold-tolerant species
+    [30, 42, 56, 70, [-2, -0.5,  2,  1, -1]],  // Apr — SHOULDER: walleye spawn prime at 42-56°F; soften cool-band penalty for cold-tolerant species
+    [40, 52, 66, 78, [-2, -0.5,  2,  1, -1]],  // May — SHOULDER: walleye/bass pre-spawn; 52°F = cool but active for smallmouth/walleye
     [50, 62, 74, 84, [-2, -1,  2,  0, -2]],  // Jun — SUM_MOD: prime Great Lakes surface; walleye/bass excellent
     [50, 64, 76, 86, [-2, -1,  2,  0, -2]],  // Jul — SUM_MOD: very_cold 50°F = cold front event (mean ~76°F); 64-76°F = prime
     [48, 62, 74, 84, [-2, -1,  2,  0, -2]],  // Aug — SUM_MOD: lake thermal inertia keeps water warm; 62°F air ≠ cold lake
@@ -157,8 +157,8 @@ export const FRESHWATER_TEMP_ROWS: Record<RegionKey, TempBandRow[]> = {
   mountain_west: [
     [16, 28, 38, 48, [-2, -1,  1,  2,  0]],  // Jan — frozen; ice fishing on reservoirs; 28-38°F typical
     [20, 30, 42, 52, [-2, -1,  1,  2,  0]],  // Feb — still frozen; mid-elevation ice-out beginning
-    [30, 42, 54, 64, [-2, -1,  1,  2,  0]],  // Mar — WINTER: ice-out; trout begin feeding; warm days prime
-    [40, 52, 64, 74, [-2, -1,  2,  1, -1]],  // Apr — SHOULDER: trout excellent; walleye spawning; bass waking
+    [24, 38, 52, 64, [-2, -0.5,  1,  2,  0]],  // Mar — WINTER: ice-out; trout begin feeding; 38-52°F = neutral-to-good for trout
+    [32, 46, 62, 74, [-2, -0.5,  2,  1, -1]],  // Apr — SHOULDER: trout prime 46-62°F; soften cool-band for cold-water species
     [50, 62, 72, 82, [-2, -1,  2,  1, -1]],  // May — SHOULDER: prime trout season; runoff starting
     [50, 62, 74, 84, [-2, -1,  2,  0, -2]],  // Jun — SUM_MOD: post-runoff; trout excellent in clear water
     [50, 64, 76, 86, [-2, -1,  2,  0, -2]],  // Jul — SUM_MOD: very_cold 50°F = genuine cold front (mean ~72°F); 64-76°F = prime
@@ -213,8 +213,8 @@ export const FRESHWATER_TEMP_ROWS: Record<RegionKey, TempBandRow[]> = {
   pacific_northwest: [
     [28, 40, 50, 60, [-2, -1,  1,  2,  0]],  // Jan — mild PNW winter; steelhead running in rivers; 40-50°F = active
     [30, 42, 52, 62, [-2, -1,  1,  2,  0]],  // Feb — winter steelhead peak in coastal rivers; above-avg warmth = best
-    [36, 46, 58, 68, [-2, -1,  2,  1, -1]],  // Mar — SHOULDER: spring chinook beginning; trout excellent
-    [42, 52, 64, 74, [-2, -1,  2,  1, -1]],  // Apr — SHOULDER: spring salmon run; trout season opens; prime
+    [28, 40, 56, 68, [-2, -0.5,  2,  1, -1]],  // Mar — SHOULDER: winter steelhead peak; spring chinook beginning; 40-56°F = prime
+    [34, 48, 62, 74, [-2, -0.5,  2,  1, -1]],  // Apr — SHOULDER: spring salmon run; steelhead; trout prime 44-56°F
     [48, 58, 68, 78, [-2, -1,  2,  1, -1]],  // May — SHOULDER: excellent all-around; rivers clearing post-runoff
     [48, 58, 68, 76, [-2, -1,  2,  0, -2]],  // Jun — SUM_MOD: steelhead summer runs; trout prime; mild PNW summer
     [48, 60, 70, 80, [-2, -1,  2,  0, -2]],  // Jul — SUM_MOD: very_cold 48°F = cold front (mean ~68°F); 60-70°F sweet spot
