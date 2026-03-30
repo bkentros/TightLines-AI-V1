@@ -19,20 +19,20 @@ export const BASE_WEIGHTS: Record<
     runoff_flow_disruption: 32,
   },
   coastal: {
-    tide_current_movement: 30,
+    tide_current_movement: 38,
+    wind_condition: 22,
+    pressure_regime: 12,
+    light_cloud_condition: 10,
+    temperature_condition: 14,
+    precipitation_disruption: 4,
+  },
+  /** Tide is still the dominant variable; wind matters more on skinny water than inshore. */
+  coastal_flats_estuary: {
+    tide_current_movement: 32,
     wind_condition: 24,
     pressure_regime: 12,
     light_cloud_condition: 12,
     temperature_condition: 16,
-    precipitation_disruption: 6,
-  },
-  /** Softer tide weight; more wind/light/temp for skinny water & estuary anglers. */
-  coastal_flats_estuary: {
-    tide_current_movement: 24,
-    wind_condition: 26,
-    pressure_regime: 12,
-    light_cloud_condition: 14,
-    temperature_condition: 18,
-    precipitation_disruption: 6,
+    precipitation_disruption: 4,
   },
 };

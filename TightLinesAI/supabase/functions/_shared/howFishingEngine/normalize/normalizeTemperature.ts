@@ -7,7 +7,6 @@ import type {
 import { isCoastalFamilyContext } from "../contracts/context.ts";
 import { freshwaterTempRow } from "../config/tempBandsFreshwater.ts";
 import { coastalTempRow } from "../config/tempBandsCoastal.ts";
-import { coastalWaterTempRow } from "../config/tempBandsCoastalWater.ts";
 import {
   clampEngineScore,
   engineScoreTier,
@@ -82,13 +81,12 @@ function bandScoreForRow(
 
 /**
  * TEMPERATURE_AND_MODIFIER_REFERENCE:
- * - freshwater uses calendar-day mean AIR temperature
- * - coastal uses measured WATER temperature when a nearby NOAA station is available,
- *   otherwise falls back to the existing air-temperature path
+ * - all contexts use calendar-day mean AIR temperature
+ * - coastal contexts use coastal air-temp band tables (species-calibrated)
+ * - freshwater contexts use freshwater air-temp band tables
  * - trend is based on whether thermal favorability improved or worsened relative to
  *   the same month/region table, not on a hard-coded "optimal" label assumption
- * - shock penalizes abrupt 24h instability only when the selected thermal source has
- *   a 24h comparison point
+ * - shock penalizes abrupt 24h instability
  */
 export function normalizeTemperature(
   context: EngineContext,
@@ -104,26 +102,16 @@ export function normalizeTemperature(
   },
 ): TemperatureNormalized | null {
   const coastalContext = isCoastalFamilyContext(context);
-  const useMeasuredCoastalWater =
-    coastalContext && isFiniteTemp(opts?.measuredWaterTempF);
 
-  const selectedTempF = useMeasuredCoastalWater
-    ? opts!.measuredWaterTempF!
-    : dailyMeanF;
+  const selectedTempF = dailyMeanF;
   if (!isFiniteTemp(selectedTempF)) return null;
 
-  const priorSelectedF = useMeasuredCoastalWater
-    ? opts?.measuredWaterTemp24hAgoF
-    : priorMeanF;
-  const dayMinus2SelectedF = useMeasuredCoastalWater
-    ? opts?.measuredWaterTemp72hAgoF
-    : dayMinus2MeanF;
+  const priorSelectedF = priorMeanF;
+  const dayMinus2SelectedF = dayMinus2MeanF;
 
-  const row = useMeasuredCoastalWater
-    ? coastalWaterTempRow(region, month)
-    : coastalContext
-      ? coastalTempRow(region, month)
-      : freshwaterTempRow(region, month);
+  const row = coastalContext
+    ? coastalTempRow(region, month)
+    : freshwaterTempRow(region, month);
   if (!row || row.length < 5) return null;
 
   const vc = Number(row[0]);
@@ -211,9 +199,7 @@ export function normalizeTemperature(
   }
 
   const context_group = coastalContext ? "coastal" : "freshwater";
-  const measurement_source = useMeasuredCoastalWater
-    ? "coastal_water_temp"
-    : "air_daily_mean";
+  const measurement_source = "air_daily_mean";
 
   return {
     context_group,
