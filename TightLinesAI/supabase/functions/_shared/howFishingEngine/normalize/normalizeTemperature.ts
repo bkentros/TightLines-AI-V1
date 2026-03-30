@@ -6,6 +6,7 @@ import type {
 } from "../contracts/mod.ts";
 import { isCoastalFamilyContext } from "../contracts/context.ts";
 import { freshwaterTempRow } from "../config/tempBandsFreshwater.ts";
+import { coastalTempRow } from "../config/tempBandsCoastal.ts";
 import {
   clampEngineScore,
   engineScoreTier,
@@ -57,8 +58,10 @@ function taperedBandScore(
 }
 
 /**
- * TEMPERATURE_AND_MODIFIER_REFERENCE: 72h trend (daily vs day-2 mean),
- * shock on abrupt 24–48h movement (|today−prior|≥10 or |prior−d2|≥10).
+ * TEMPERATURE_AND_MODIFIER_REFERENCE: 72h band-relative trend (daily vs day-2 mean),
+ * shock on abrupt 24h movement only (|today−prior|≥10). Trend direction is evaluated
+ * relative to the current band — warming helps only when below optimal, cooling helps
+ * only when above optimal; either direction away from optimal is a mild negative.
  */
 export function normalizeTemperature(
   context: EngineContext,
@@ -70,7 +73,12 @@ export function normalizeTemperature(
 ): TemperatureNormalized | null {
   if (dailyMeanF == null || Number.isNaN(dailyMeanF)) return null;
 
-  const row = freshwaterTempRow(region, month);
+  // Route to the correct band table based on what the user is actually fishing.
+  // Coastal contexts (inshore, flats/estuary) use saltwater-species-calibrated tables.
+  // Freshwater contexts always use freshwater tables — geographic proximity to coast is irrelevant.
+  const row = isCoastalFamilyContext(context)
+    ? coastalTempRow(region, month)
+    : freshwaterTempRow(region, month);
   if (!row || row.length < 5) return null;
 
   const vc = Number(row[0]);
@@ -92,11 +100,6 @@ export function normalizeTemperature(
 
   let trendLabel: "warming" | "stable" | "cooling" = "stable";
   let trendAdj: -1 | 0 | 1 = 0;
-  if (dayMinus2MeanF != null && !Number.isNaN(dayMinus2MeanF)) {
-    const delta72h = dailyMeanF - dayMinus2MeanF;
-    if (delta72h >= 5) trendLabel = "warming";
-    else if (delta72h <= -5) trendLabel = "cooling";
-  }
 
   let shockLabel: "none" | "sharp_warmup" | "sharp_cooldown" = "none";
   let shockAdj: -1 | 0 = 0;
@@ -104,35 +107,24 @@ export function normalizeTemperature(
     priorMeanF != null && !Number.isNaN(priorMeanF)
       ? dailyMeanF - priorMeanF
       : null;
-  const d2step =
-    priorMeanF != null &&
-    dayMinus2MeanF != null &&
-    !Number.isNaN(priorMeanF) &&
-    !Number.isNaN(dayMinus2MeanF)
-      ? priorMeanF - dayMinus2MeanF
-      : null;
 
-  const shock24 = d1 !== null && (d1 >= 10 || d1 <= -10);
-  const shock48 = d2step !== null && (d2step >= 10 || d2step <= -10);
-
-  if (shock24) {
-    shockLabel = d1! >= 10 ? "sharp_warmup" : "sharp_cooldown";
-    shockAdj = -1;
-  } else if (shock48) {
-    shockLabel = d2step! >= 10 ? "sharp_warmup" : "sharp_cooldown";
+  if (d1 !== null && (d1 >= 10 || d1 <= -10)) {
+    shockLabel = d1 >= 10 ? "sharp_warmup" : "sharp_cooldown";
     shockAdj = -1;
   }
 
-  // Skip trend nudge when already at a strong table extreme (legacy ±2 behavior).
-  if (
-    shockAdj === 0 &&
-    bandScore < 1.875 &&
-    bandScore > -1.875 &&
-    dayMinus2MeanF != null
-  ) {
+  // Band-relative trend: direction only helps if it moves toward the optimal zone.
+  // Warming in cold bands (+1) and cooling in warm bands (+1) = approaching optimal.
+  // Any movement away from optimal, or leaving optimal in either direction, = -1.
+  if (shockAdj === 0 && dayMinus2MeanF != null && !Number.isNaN(dayMinus2MeanF)) {
     const delta72h = dailyMeanF - dayMinus2MeanF;
-    if (delta72h >= 5) trendAdj = 1;
-    else if (delta72h <= -5) trendAdj = -1;
+    if (delta72h >= 5) {
+      trendLabel = "warming";
+      trendAdj = (label === "very_cold" || label === "cool") ? 1 : -1;
+    } else if (delta72h <= -5) {
+      trendLabel = "cooling";
+      trendAdj = (label === "warm" || label === "very_warm") ? 1 : -1;
+    }
   }
 
   let final_score = clampEngineScore(bandScore + trendAdj + shockAdj);

@@ -17,7 +17,9 @@ export function resolveRegionForCoordinates(
   longitude: number
 ): ResolvedRegion {
   const state_code = resolveStateFromCoords(latitude, longitude);
+  // lat/lon is the primary precision layer — always use it when coordinates exist.
+  // regionKeyFromState is the last-resort fallback only when coordinates fail entirely.
   const region_key =
-    regionKeyFromState(state_code) ?? regionKeyFromLatLon(latitude, longitude);
+    regionKeyFromLatLon(latitude, longitude) ?? regionKeyFromState(state_code) ?? "midwest_interior";
   return { state_code, region_key };
 }
