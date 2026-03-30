@@ -209,7 +209,6 @@ export default function RootLayout() {
         <Stack.Screen name="(auth)" options={{ headerShown: false }} />
         <Stack.Screen name="(onboarding)" options={{ headerShown: false }} />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="recommender" options={{ title: 'Recommender' }} />
         <Stack.Screen name="water-reader" options={{ title: 'Water Reader' }} />
         <Stack.Screen name="new-entry" options={{ title: 'New Entry' }} />
         <Stack.Screen name="log-detail" options={{ title: 'Trip Details' }} />

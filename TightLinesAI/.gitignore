@@ -42,9 +42,6 @@ how-fishing-audit-sweep*.jsonl
 how-fishing-live-audit-bundle*.jsonl
 how-fishing-quick-finish*.jsonl
 how-fishing-targeted-audit.jsonl
-recommender-e2e-audit*.jsonl
-recommender-e2e-audit*-cost-summary.json
-recommender-e2e-audit*-in-app.md
 
 # Supabase CLI cache
 supabase/.temp/

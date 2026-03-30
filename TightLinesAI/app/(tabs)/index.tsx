@@ -330,21 +330,6 @@ export default function HomeScreen() {
     });
   }, [hasSubscription, coords, router]);
 
-  const handleRecommenderPress = useCallback(() => {
-    if (!hasSubscription) {
-      setShowSubscribePrompt(true);
-      return;
-    }
-    if (!coords) {
-      router.push({ pathname: '/recommender' });
-      return;
-    }
-    router.push({
-      pathname: '/recommender',
-      params: { lat: String(coords.lat), lon: String(coords.lon) },
-    });
-  }, [hasSubscription, coords, router]);
-
   const handleRequestLocation = useCallback(async () => {
     if (__DEV__) {
       await setIgnoreGps(false);
@@ -586,32 +571,6 @@ export default function HomeScreen() {
 
         {/* ─── Feature Tiles ─── */}
         <View style={styles.tiles}>
-          {/* Lure & Fly Recommender */}
-          <Pressable
-            style={({ pressed }) => [
-              styles.featureCard,
-              pressed && styles.featureCardPressed,
-            ]}
-            onPress={handleRecommenderPress}
-          >
-            <View style={styles.featureTop}>
-              <View style={[styles.featureIconWrap, { backgroundColor: colors.primaryMist }]}>
-                <Ionicons name="fish" size={20} color={colors.primary} />
-              </View>
-              <View style={styles.featureArrow}>
-                <Ionicons name="chevron-forward" size={18} color={colors.textMuted} />
-              </View>
-            </View>
-            <Text style={styles.featureTitle}>Lure & Fly Recommender</Text>
-            <Text style={styles.featureDesc}>
-              Deterministic lure and fly family picks built from monthly regional baselines plus today&apos;s live conditions.
-            </Text>
-            <View style={[styles.aiBadge, { backgroundColor: colors.primaryMist }]}>
-              <Ionicons name="sparkles" size={10} color={colors.primary} />
-              <Text style={[styles.aiBadgeText, { color: colors.primary }]}>AI-Powered</Text>
-            </View>
-          </Pressable>
-
           {/* Water Reader */}
           <Pressable
             style={({ pressed }) => [
