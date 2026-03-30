@@ -20,7 +20,7 @@ export function buildDeterministicTimingInsight(report: HowsFishingReport): stri
     const best = DAYPART_NAMES.filter((_, i) => periods[i]);
     const avoided = DAYPART_NAMES.filter((_, i) => !periods[i]);
     if (best.length === 4) {
-      return (note ?? "Fishable throughout the day — no strong clock bias.").replace(/\s+/g, " ").trim().slice(
+      return (note ?? "Fishable throughout the day. No strong timing edge stands out.").replace(/\s+/g, " ").trim().slice(
         0,
         200,
       );
@@ -35,19 +35,23 @@ export function buildDeterministicTimingInsight(report: HowsFishingReport): stri
       return base.replace(/\s+/g, " ").trim().slice(0, 200);
     }
   }
-  return (note ?? "No strong timing signal — stay flexible.").replace(/\s+/g, " ").trim().slice(0, 200);
+  return (note ?? "No strong timing edge stands out. Stay flexible.").replace(/\s+/g, " ").trim().slice(0, 200);
 }
 
 const SOLUNAR_PRESENT = [
-  "Solunar majors line up today, but treat them as bonus windows alongside the main timing call.",
-  "There is at least one worthwhile solunar bump today, though it is still secondary to the main timing recommendation.",
-  "Solunar activity adds a little extra context today, but it should stay in the bonus column rather than driving the plan.",
+  "Solunar activity may add a small bonus window today, but it should stay secondary to the main timing call.",
+  "There is some solunar support today, but the main timing recommendation still matters more.",
+  "Solunar periods may help a little today, but they should be treated as a bonus, not the main plan.",
 ] as const;
 
 const SOLUNAR_QUIET = [
-  "Solunar signals look quiet today, so lean on the main timing recommendation first.",
-  "There is no standout solunar push today, so let the primary timing window do the heavy lifting.",
+  "Solunar activity looks quiet today, so lean on the main timing recommendation first.",
+  "There is no standout solunar push today, so trust the main timing window first.",
 ] as const;
+
+export function listSurfaceCopyForAudit(): string[] {
+  return [...SOLUNAR_PRESENT, ...SOLUNAR_QUIET];
+}
 
 export function buildDeterministicSolunarNote(report: HowsFishingReport): string | null {
   const count = report.condition_context?.environment_snapshot.solunar_peak_count ?? null;

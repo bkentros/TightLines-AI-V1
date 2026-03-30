@@ -1,15 +1,22 @@
 /**
  * Run: deno test --allow-read supabase/functions/_shared/howFishingEngine/__tests__/polishSafeSurfaceCopy.test.ts
  */
-import { assertEquals, assertStringIncludes } from "jsr:@std/assert";
+import { assert, assertEquals, assertStringIncludes } from "jsr:@std/assert";
 import { DISPLAY_CONTEXT_LABEL } from "../contracts/context.ts";
 import type { HowsFishingReport } from "../contracts/report.ts";
 import {
   buildDeterministicTimingInsight,
   buildDeterministicSolunarNote,
   buildEngineLedSummaryLine,
+  listSurfaceCopyForAudit,
 } from "../narration/polishSafeSurfaceCopy.ts";
-import { buildReportSummaryLine } from "../summary/summaryLine.ts";
+import {
+  buildReportSummaryLine,
+  buildVariableDisplayLabel,
+  listSummaryCopyForAudit,
+} from "../summary/summaryLine.ts";
+import { listTipCopyForAudit } from "../tips/buildTips.ts";
+import { listTimingCopyForAudit } from "../timing/timingNotes.ts";
 
 function minimalReport(overrides: Partial<HowsFishingReport>): HowsFishingReport {
   const base: HowsFishingReport = {
@@ -62,7 +69,7 @@ Deno.test("buildReportSummaryLine is deterministic and references factor names",
     suppressors: [{ variable: "wind_condition" }],
     seed: "coastal|florida|2026-03-30|68",
   });
-  assertStringIncludes(out, "Tide / Current");
+  assertStringIncludes(out, "Tide and current");
   assertStringIncludes(out, "Wind");
   assertEquals(
     out,
@@ -129,4 +136,56 @@ Deno.test("buildDeterministicSolunarNote stays soft and non-null when peaks exis
   const out = buildDeterministicSolunarNote(r);
   assertEquals(typeof out, "string");
   assertStringIncludes(out ?? "", "bonus");
+});
+
+Deno.test("river runoff label stays honest about proxy input", () => {
+  assertEquals(
+    buildVariableDisplayLabel("runoff_flow_disruption", "freshwater_river"),
+    "Rain / Runoff",
+  );
+});
+
+function assertCleanCopy(line: string) {
+  const rendered = line
+    .replaceAll("{driver}", "Temperature")
+    .replaceAll("{suppressor}", "Wind");
+  assertEquals(rendered, rendered.replace(/\s+/g, " ").trim());
+  assertEquals(/\s[.,!?;:]/.test(rendered), false, `bad punctuation spacing: ${rendered}`);
+  assertEquals(/^[A-Z]/.test(rendered), true, `must start uppercase: ${rendered}`);
+  assertEquals(/[.!?]$/.test(rendered), true, `must end with punctuation: ${rendered}`);
+  assert(rendered.length <= 180, `copy line too long: ${rendered}`);
+  for (const banned of [
+    "headline",
+    "stealing the show",
+    "heavy lifting",
+    "bonus column",
+    "from the engine",
+    "usable edge",
+  ]) {
+    assertEquals(rendered.toLowerCase().includes(banned), false, `avoid vague phrase "${banned}": ${rendered}`);
+  }
+}
+
+Deno.test("summary copy banks stay concise and grammatically normalized", () => {
+  for (const line of listSummaryCopyForAudit()) {
+    assertCleanCopy(line);
+  }
+});
+
+Deno.test("tip copy banks stay concise and grammatically normalized", () => {
+  for (const line of listTipCopyForAudit()) {
+    assertCleanCopy(line);
+  }
+});
+
+Deno.test("timing copy banks stay concise and grammatically normalized", () => {
+  for (const line of listTimingCopyForAudit()) {
+    assertCleanCopy(line);
+  }
+});
+
+Deno.test("surface copy banks stay concise and grammatically normalized", () => {
+  for (const line of listSurfaceCopyForAudit()) {
+    assertCleanCopy(line);
+  }
 });

@@ -52,7 +52,7 @@ export default function HomeScreen() {
   const [showSubscribePrompt, setShowSubscribePrompt] = useState(false);
   const [showLocationPicker, setShowLocationPicker] = useState(false);
   const [cachedScore, setCachedScore] = useState<string | null>(null);
-  /** Mean 0–100 across today's multi-tab cached reports — used for hero headline only (7-day strip stays forecast API). */
+  /** Mean 0–100 across today's multi-tab cached reports — used as the home-screen source of truth for today. */
   const [cachedMeanRaw, setCachedMeanRaw] = useState<number | null>(null);
   const [forecastDays, setForecastDays] = useState<DayForecastScore[] | null>(null);
   const [forecastLoading, setForecastLoading] = useState(false);
@@ -354,15 +354,14 @@ export default function HomeScreen() {
     return 'POOR';
   };
 
-  // Hero: prefer mean of cached multi-tab reports when user has generated all tabs; else 7-day “today” forecast.
-  // 7-day calendar always uses forecast-scores only so chips never jump after opening How’s Fishing.
   const todayForecast = forecastDays?.[0] ?? null;
-  const heroScore =
+  const todayUnifiedRaw =
     cachedMeanRaw != null
-      ? formatScoreDisplay(cachedMeanRaw)
+      ? cachedMeanRaw
       : todayForecast
-        ? formatScoreDisplay(combinedOutlookScore(todayForecast))
-        : cachedScore;
+        ? combinedOutlookScore(todayForecast)
+        : null;
+  const heroScore = todayUnifiedRaw != null ? formatScoreDisplay(todayUnifiedRaw) : cachedScore;
 
   const getGreeting = () => {
     const h = new Date().getHours();
@@ -452,7 +451,10 @@ export default function HomeScreen() {
                     <View key={i} style={[styles.calendarDay, styles.calendarDaySkeleton]} />
                   ))
                 : forecastDays?.map((day) => {
-                    const raw = combinedOutlookScore(day);
+                    const raw =
+                      day.day_offset === 0 && todayUnifiedRaw != null
+                        ? todayUnifiedRaw
+                        : combinedOutlookScore(day);
                     const display = formatScoreDisplay(raw);
                     const color = scoreColor(raw);
                     const isToday = day.day_offset === 0;

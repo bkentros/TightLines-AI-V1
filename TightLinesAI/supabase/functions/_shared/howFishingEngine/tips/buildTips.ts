@@ -21,10 +21,20 @@ function pick<T>(arr: readonly T[], seed: string, salt: string): T {
   return pickDeterministic(arr, seed, `tip:${salt}`);
 }
 
+function normalizeTipText(text: string): string {
+  const clean = text
+    .replace(/\s+/g, " ")
+    .replace(/\s+([.,!?;:])/g, "$1")
+    .trim();
+  if (!clean) return "";
+  const withCapital = clean.charAt(0).toUpperCase() + clean.slice(1);
+  return /[.!?]$/.test(withCapital) ? withCapital : `${withCapital}.`;
+}
+
 const CURRENT_SWEEP_TIPS = [
   "Cast slightly across the current and keep light contact so the bait sweeps naturally instead of coming back too straight.",
   "Use the current as part of the retrieve: cast a little uptide, let the bait swing, and add only small corrections.",
-  "Let the moving water carry most of the action today. Keep the rod steady and avoid overworking the bait on the swing.",
+  "Let the current do most of the work today. Keep the rod steady and avoid overworking the bait.",
   "A clean swing is better than a busy retrieve here. Cast across the flow, stay in touch, and let the current move the bait.",
   "Keep the presentation simple in current: cast at an angle, maintain steady contact, and let the bait travel naturally with the flow.",
   "Do less with the rod and more with the angle. A natural sweep through the current will look better than constant twitching.",
@@ -37,7 +47,7 @@ const CURRENT_SWEEP_TIPS = [
 const CONTACT_CONTROL_TIPS = [
   "Shorten the cast a little and use enough weight to stay in contact with the bait from start to finish.",
   "Keep the rod lower and the retrieve steadier so you can feel the bait instead of letting slack hide what it is doing.",
-  "This is a good day for cleaner contact. A slightly heavier setup and a shorter cast will usually beat guessing.",
+  "This is a good day for cleaner contact. A slightly heavier setup and a shorter cast will usually help.",
   "Make the presentation easier to control than normal. Shorter casts and steady line tension will help more than extra speed.",
   "Keep the bait in touch with you the whole time. If the line is bowing too much, shorten up and simplify the retrieve.",
   "Use a more controlled presentation today: fewer long casts, less slack, and a steady pace you can actually manage.",
@@ -51,7 +61,7 @@ const VISIBILITY_LOUD_TIPS = [
   "Go a little bigger or louder and slow the retrieve down so fish have time to find it.",
   "Pick one thing that stands out today: a larger profile, more vibration, or more contrast, then move it slowly enough to track.",
   "Make the bait easier to notice than normal. Bigger profile and steadier pace usually beat subtle and fast.",
-  "Use a presentation fish can find with feel as much as sight: a little more vibration, a little more contrast, and a little less speed.",
+  "Use a presentation fish can find with feel as much as sight: more vibration, more contrast, and a little less speed.",
   "Do not make the fish search too hard. A more visible or thumping bait with a slower retrieve is the cleaner play.",
   "Make the bait easier to track today. Go more obvious with the profile or vibration, then keep the retrieve controlled.",
   "When visibility drops, help the fish out: stronger profile, clearer movement, and a slower finish.",
@@ -65,9 +75,9 @@ const VISIBILITY_NATURAL_TIPS = [
   "Use a more natural profile and fewer sharp twitches. Cleaner water and brighter light reward believable movement.",
   "A smaller, simpler look is usually better today. Let the bait move naturally instead of forcing extra action.",
   "Take one step toward subtle: slightly smaller profile, quieter action, and fewer unnecessary rod pops.",
-  "This is a good day to fish more naturally. Keep the bait realistic, not busy.",
+  "This is a good day to fish more naturally. Keep the bait simple, not busy.",
   "Start with a cleaner presentation than usual: modest profile, smooth pace, and only short changes in action.",
-  "Make the bait look easy to trust. Smaller or more natural usually beats loud or exaggerated today.",
+  "Make the bait look easy to believe. Smaller or more natural usually beats loud or exaggerated today.",
   "Avoid too much extra flash or motion. A simple, believable retrieve is the better starting point.",
   "The clearer look today favors subtle over flashy. Scale the profile down a touch and keep the cadence calm.",
   "Let realism win today: natural size, natural movement, and no extra drama in the retrieve.",
@@ -75,7 +85,7 @@ const VISIBILITY_NATURAL_TIPS = [
 
 const PRESSURE_SLOW_TIPS = [
   "Shorten the movements and add longer pauses between them. On a tougher day, the pause often does more than the pull.",
-  "Fish slower and cleaner than normal. Small movements and a longer hang time usually beat constant action here.",
+  "Fish slower and cleaner than normal. Small movements and longer pauses usually beat constant action here.",
   "Take speed out of the presentation first. A slower bait with a cleaner pause is the better starting point.",
   "Do less with the bait today: shorter pulls, steadier line, and a pause long enough for fish to make up their mind.",
   "Favor a slower, more patient cadence. The bait should look easy to catch, not urgent.",
@@ -102,7 +112,7 @@ const COLD_SLOW_TIPS = [
 const HEAT_EASY_TIPS = [
   "Make the bait easier to eat today: slightly smaller profile, smoother retrieve, and longer pauses.",
   "A compact, easy meal is the better look in warm, stressful conditions. Slow the bait down and let it hang.",
-  "Reduce the amount of work the fish has to do. Smaller profile and steadier pace usually beat a big, fast presentation.",
+  "Reduce the amount of work the fish has to do. A smaller profile and steadier pace usually beat a big, fast presentation.",
   "When heat is the problem, simplify the bait: less speed, less bulk, and more time between movements.",
   "A calm, easy retrieve makes more sense than an aggressive one today. Think smooth and patient.",
   "Move toward a smaller or cleaner presentation and give the bait a longer finish before the next move.",
@@ -113,12 +123,12 @@ const HEAT_EASY_TIPS = [
 ] as const;
 
 const ACTIVE_CADENCE_TIPS = [
-  "Start with a more committed retrieve today. A steady medium pace is a better opening move than a dead-slow drag.",
+  "Start with a more active retrieve today. A steady medium pace is a better starting point than dragging it too slowly.",
   "Let the bait move with some intent. Fish are more likely to respond to a cleaner, more active cadence today.",
   "Do not over-finesse the first pass. A confident, steady retrieve is a better starting point here.",
   "This is a good day to keep the bait moving instead of pausing too long between actions.",
   "Fish with a little more pace than normal. A bait that moves with purpose should get more attention today.",
-  "Try a medium, consistent retrieve before you slow all the way down. The fish look more willing than stubborn.",
+  "Try a medium, consistent retrieve before you slow all the way down. The fish look willing to move today.",
   "A cleaner, more active cadence makes sense today. Let the bait travel and trust the movement.",
   "Start one gear faster than your conservative setting and only slow down if the water tells you to.",
   "This looks more like a controlled movement day than a dead-stick day.",
@@ -129,15 +139,15 @@ const ACTIVE_CADENCE_TIPS = [
 
 const GENERAL_PRESENTATION_TIPS = [
   "Start with a steady, simple retrieve and change only one thing at a time: speed, pause length, or profile.",
-  "Keep the presentation easy to repeat today. A clean, consistent retrieve tells you more than constant experimenting.",
+  "Keep the presentation easy to repeat today. A clean, consistent retrieve tells you more than constant changes.",
   "Begin with a middle-of-the-road presentation and make small adjustments instead of big jumps.",
   "Fish a clean, steady cadence first. If you need to adjust, change one variable and keep the rest the same.",
-  "This is a good day to keep the retrieve simple, repeatable, and easy to judge.",
+  "This is a good day to keep the retrieve simple, repeatable, and easy to read.",
   "Pick one clear presentation and stay with it long enough to learn something before changing it.",
   "Use a presentation you can repeat well: controlled speed, clear pauses, and no extra wasted movement.",
   "The best starting point today is simple and steady, not clever.",
   "Stay organized with the bait: one profile, one cadence, one adjustment at a time.",
-  "Keep the presentation calm and readable. Consistency will help more than constant reinvention today.",
+  "Keep the presentation calm and consistent. Repeating a good retrieve will help more than changing every cast.",
 ] as const;
 
 const BALANCED_PRESENTATION_TIPS = [
@@ -145,11 +155,26 @@ const BALANCED_PRESENTATION_TIPS = [
   "On a balanced day, a simple medium-speed retrieve is a better starting point than something extreme.",
   "Try a clean, controlled presentation first and let the fish tell you whether to speed up, slow down, or downsize.",
   "This is a day for a simple bait path and small adjustments, not dramatic changes every few casts.",
-  "Stay with a believable presentation long enough to evaluate it. Balance days reward patience more than bouncing around.",
+  "Stay with a believable presentation long enough to evaluate it. Balanced days reward patience more than constant changes.",
   "A moderate profile and a clean, steady cadence are both good starting choices today.",
   "Keep the bait easy to follow and easy to repeat. Balanced days usually reward clarity over creativity.",
   "The better move today is a calm, dependable presentation rather than something extreme on either end.",
 ] as const;
+
+export function listTipCopyForAudit(): string[] {
+  return [
+    ...CURRENT_SWEEP_TIPS,
+    ...CONTACT_CONTROL_TIPS,
+    ...VISIBILITY_LOUD_TIPS,
+    ...VISIBILITY_NATURAL_TIPS,
+    ...PRESSURE_SLOW_TIPS,
+    ...COLD_SLOW_TIPS,
+    ...HEAT_EASY_TIPS,
+    ...ACTIVE_CADENCE_TIPS,
+    ...GENERAL_PRESENTATION_TIPS,
+    ...BALANCED_PRESENTATION_TIPS,
+  ];
+}
 
 /**
  * Build an actionable tip — PRESENTATION only.
@@ -221,5 +246,5 @@ export function buildActionableTip(
     actionable_tip_tag = "presentation_general";
   }
 
-  return { actionable_tip, actionable_tip_tag };
+  return { actionable_tip: normalizeTipText(actionable_tip), actionable_tip_tag };
 }

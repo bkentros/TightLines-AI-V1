@@ -3,6 +3,8 @@ import type { ActiveVariableScore } from "./types.ts";
 import { labelForDriver } from "./driverLabels.ts";
 import { computeActiveWeights } from "./reweight.ts";
 
+const FACTOR_SURFACE_MIN_WEIGHTED_CONTRIBUTION = 6;
+
 function scoreForKey(
   key: ScoredVariableKey,
   norm: SharedNormalizedOutput["normalized"]
@@ -94,11 +96,18 @@ export function scoreDay(norm: SharedNormalizedOutput): {
       : tieBreak(a, b)
   );
 
+  const surfacedDrivers = pos.filter((c) =>
+    c.weightedContribution >= FACTOR_SURFACE_MIN_WEIGHTED_CONTRIBUTION
+  );
+  const surfacedSuppressors = neg.filter((c) =>
+    c.weightedContribution <= -FACTOR_SURFACE_MIN_WEIGHTED_CONTRIBUTION
+  );
+
   return {
     score: clamped,
     band,
     contributions,
-    drivers: pos.slice(0, 2),
-    suppressors: neg.slice(0, 2),
+    drivers: surfacedDrivers.slice(0, 2),
+    suppressors: surfacedSuppressors.slice(0, 2),
   };
 }

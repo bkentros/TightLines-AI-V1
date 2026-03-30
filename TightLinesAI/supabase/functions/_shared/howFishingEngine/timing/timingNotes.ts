@@ -17,107 +17,107 @@ const POOLS: Record<string, string[]> = {
   // (it formats actual exchange times), so there's no static pool here.
 
   tide_moving_water: [
-    "Time it around the moving water — that's when the bite turns on.",
-    "Work the tide exchanges. Moving water is your trigger window today.",
-    "Don't sit through the slack. Get on the water when the tide's running and make the most of it.",
+    "Time your trip around the moving water. That is the best window today.",
+    "Work the tide exchanges. Moving water is the key trigger today.",
+    "Do not sit through the slack. Fish when the tide is moving.",
     "The bite follows the tide today. Put your best effort into the moving-water windows.",
-    "Plan your outing around the exchange windows — that's where the bite lives right now.",
+    "Plan around the tide exchanges. That is where the best window sits today.",
   ],
 
   /** Coastal: tide is a real driver but we don't have same-day exchange times to place on the clock */
   tide_uncertain_no_clock: [
-    "Tide movement is in your favor today, but the feed didn't pin today's exchange times — use a tide chart or local app to line up with high and low, then fish the moving water around those turns.",
-    "Current and tide stage look supportive, yet we can't place today's exchanges on the clock from this data. Check a tide table for your spot and plan around the nearest high or low — that's where the bite usually organizes.",
-    "Tides matter today, but exact turn times aren't in this bundle. Pull local tide times and treat the hour or so each side of high and low as your priority windows instead of spreading effort evenly.",
+    "Tide movement is favorable today, but exact turn times are not in this data. Check a local tide chart and fish the moving water around those turns.",
+    "Current and tide stage look supportive, but this data does not place the exchanges on the clock. Use a local tide table and plan around high or low turns.",
+    "Tides matter today, but exact turn times are missing here. Pull local tide times and focus on the moving-water periods around those turns.",
   ],
 
   tide_general_coastal: [
-    "Work around today's tide exchanges — moving water is when inshore fish turn on. Don't spread effort evenly across the clock.",
-    "Tidal movement drives the coastal bite. Fish the transitions; rest during the slack.",
+    "Work around today's tide exchanges. Moving water is when inshore fish are most likely to feed.",
+    "Tidal movement drives the coastal bite today. Fish the transitions and ease off during slack water.",
     "Position for the tide changes today. Moving water is your window — slack tide is the slow stretch between them.",
-    "Inshore fish key on tide exchanges. Work the moving-water windows and don't burn time during the dead-tide lulls.",
+    "Inshore fish key on tide exchanges. Work the moving-water windows and ease off during slack periods.",
     "The bite follows the tide. Get positioned for the exchanges and fish the moving-water windows hard.",
   ],
 
   // ── Temperature-driven ─────────────────────────────────────────────────
   warmth_intraday_peak: [
-    "The hourly temperature curve puts the warmest fishable water in this part of the day — stack your best effort there.",
-    "This is the part of the day when temperatures top out locally. That's the stretch to own, not a generic midday guess.",
-    "Hourly temps peak here, and that's the cleanest warmth signal on the clock. Lean into this window instead of spreading time evenly.",
+    "This is the warmest fishable part of the day. Put your best effort into this window.",
+    "Temperatures peak here, and that is the clearest warmth signal on the clock.",
+    "This part of the day carries the strongest warmth edge. Lean into it.",
   ],
 
   warmth_plateau_window: [
-    "Temperatures stay elevated across these highlighted windows, not just one brief peak. Treat the whole stretch as your best thermal window.",
-    "Warmth holds across more than one part of the day, so you have a broader temperature-driven opportunity than a single peak hour.",
-    "The warming signal lingers across these buckets instead of spiking and disappearing. Fish the full warm stretch, not just one moment.",
+    "Temperatures stay elevated across these highlighted windows, not just one brief peak. Treat the whole stretch as your best window.",
+    "Warmth holds across more than one part of the day, so you have a broader temperature-driven window than one peak hour.",
+    "The warming signal lasts across these periods instead of spiking and fading. Fish the full warm stretch.",
   ],
 
   warmth_spike_aggregate: [
-    "Air temps jump sharply day-over-day — treat the warmer afternoon and evening as your flex windows while that rebound is in play.",
-    "A big warmup versus yesterday means the latter half of the day is carrying the metabolic edge. Lean there instead of front-loading cold water.",
-    "Today's a sharp warm swing on the mean — afternoon into evening is where the water is most likely to feel alive after the cold stretch.",
+    "Air temperatures are running much warmer than yesterday. Focus on the warmer second half of the day.",
+    "A strong warmup versus yesterday makes the latter half of the day more attractive.",
+    "Today has a sharp warm rebound, so afternoon into evening is the better stretch to lean on.",
   ],
 
   warmest_window: [
-    "The warmest stretch of the day is your prime window — lean into it.",
-    "Afternoon warmth is the trigger today. Be on the water when temps peak.",
-    "Time your best push around peak warmth. That's the window that'll produce.",
-    "Get out there when the day is at its warmest — that's your most productive stretch.",
-    "Warmth builds as the day goes. Stack your effort around the highest temps of the day.",
-    "Afternoon warmth will be the trigger — plan your best push around it.",
+    "The warmest stretch of the day is your prime window.",
+    "Afternoon warmth is the trigger today. Be on the water when temperatures peak.",
+    "Time your best effort around peak warmth.",
+    "The warmest part of the day is your best stretch.",
+    "Warmth builds as the day goes. Focus on the highest temperatures of the day.",
+    "Afternoon warmth is the key trigger today.",
     "Let the air warm up first. Afternoon is when cold-water fish start to move.",
-    "Cold morning, then it warms. Save your prime spots for the afternoon stretch.",
+    "A cold morning gives way to better warmth later. Save your best water for the afternoon.",
     "The day builds as it goes. Your best window is the warmest part of the afternoon.",
     "Hold something back for the afternoon warmth. That's when this water comes alive.",
   ],
 
   cooler_low_light: [
-    "Beat the heat — early morning and evening are the productive windows today.",
+    "Beat the heat. Early morning and evening are the best windows today.",
     "Warm temps push fish to cooler, low-light periods. Dawn and dusk are your best shots.",
-    "Fish are going quiet in the heat. Hit it early, break mid-day, then close it out at dusk.",
-    "Early and late are your windows. The middle of the day is a tough sell right now.",
-    "Low-light edges are the move today. Morning bite and late afternoon are where it's at.",
+    "Fish are less likely to feed in the heat. Focus on the early and late windows.",
+    "Early and late are your best windows. The middle of the day is the toughest stretch.",
+    "Low-light periods are the better play today. Focus on morning and evening.",
   ],
 
   coolest_window: [
-    "This cooler stretch is where the temperature burden eases off most. Put your best effort into these highlighted windows.",
-    "Heat is less oppressive during these parts of the day, and that's the cleanest temperature edge on the clock.",
-    "If you're fishing around the heat, these are the cooler windows to lean on rather than forcing the harsh middle stretch.",
+    "This cooler stretch is where the heat backs off the most. Put your best effort into these windows.",
+    "Heat is less intense during these parts of the day, and that is the clearest temperature edge.",
+    "If you are fishing around the heat, these are the cooler windows to lean on.",
   ],
 
   // ── Light-driven ───────────────────────────────────────────────────────
   low_light_geometry_shaped: [
-    "Hourly cloud cover clears one transition window more than the other — put your best low-light effort where the sky actually opens, not both ends by default.",
-    "The forecast socks in one end of the day but leaves the other cleaner. Fish the cleaner low-light edge hard and don’t split time evenly.",
-    "Clouds aren’t symmetric today — one dawn or dusk window has the real light edge. Stack your plan on that side of the clock.",
+    "Hourly cloud cover makes one low-light transition better than the other. Put your best effort there.",
+    "One end of the day has the better low-light edge. Focus on that side of the clock.",
+    "Cloud cover is not even today. One dawn or dusk window has the real light advantage.",
   ],
 
   cloud_window_midday: [
-    "There's a cloud window that softens the sun for a stretch — fish are more likely to roam and feed when that low-light cover moves through.",
-    "A multi-hour cloud block breaks up the glare today. That window is your best shot for active, surface-oriented fish.",
-    "The cloud bank rolls through during this part of the day — softer light, less sky pressure, better bite window.",
+    "A cloud window softens the sun for a stretch today. That is your better feeding window.",
+    "A multi-hour cloud block breaks up the glare today. That window is worth leaning on.",
+    "Cloud cover builds during this part of the day, giving you softer light and a better bite window.",
     "Low-light cover holds for a stretch today. Take advantage of that window while it lasts.",
   ],
 
   cloud_extended_shaped: [
-    "Overcast isn’t even all day — the thickest cloud (softest light) concentrates in these windows. Fish those harder than the brighter gaps in between.",
-    "Hourly cloud shows where low-light really hangs around. Target those stretches instead of treating the whole day as identical.",
-    "The deck is cloudier in parts of the day than others — those are your extended feeding windows; don’t burn time in the thinner-cloud slices.",
+    "Overcast is not even all day. The thickest cloud cover sits in these windows, so fish those harder than the brighter gaps.",
+    "Hourly cloud cover shows where low light lasts the longest. Target those stretches instead of treating the whole day the same.",
+    "Some parts of the day stay cloudier than others. Those are your better feeding windows.",
   ],
 
   low_light_geometry: [
     "Dawn and dusk have the best light edges today — plan around those transitions.",
     "Clear skies mean sharp light transitions. Dawn and evening are your prime windows.",
     "Low-light periods are where it's at today. Be on the water for the transitions.",
-    "The light change at dawn and dusk is your main advantage today — don't miss it.",
+    "The light change at dawn and dusk is your main advantage today.",
     "Sun angle works in your favor at the edges of the day. Dawn and evening are the call.",
   ],
 
   cloud_all_day: [
-    "Heavy cloud cover is keeping light low all day — you can fish any window.",
-    "Overcast all day means low light all day. No need to pick a window — fish it start to finish.",
-    "Cloud's doing you a favor today — fish can stay active around the clock.",
-    "With this cloud cover, light isn't the limiter. Fish whenever you can get out.",
+    "Heavy cloud cover is keeping light low all day. You can fish any window.",
+    "Overcast all day means low light all day. There is no need to force one narrow window.",
+    "Cloud cover is helping all day today, so fish can stay active for longer stretches.",
+    "With this cloud cover, light is not the main limiter. Fish whenever you can get out.",
   ],
 
   // ── Solunar ────────────────────────────────────────────────────────────
@@ -131,7 +131,7 @@ const POOLS: Record<string, string[]> = {
 
   // ── Fallback pools (combo-specific defaults) ───────────────────────────
   fallback_afternoon: [
-    "Afternoon is your best bet today — that's when conditions are most supportive.",
+    "Afternoon is your best bet today. That is when conditions are most supportive.",
     "The afternoon stretch is your prime window. Lean into the warmest part of the day.",
     "Plan your push around the afternoon. That's where the day is most productive.",
   ],
@@ -139,12 +139,12 @@ const POOLS: Record<string, string[]> = {
   fallback_dawn_evening: [
     "Early and late are your windows today. Dawn and evening offer the best conditions.",
     "Fish the edges — dawn and evening are your best bets when other signals are flat.",
-    "Dawn and dusk are the default play. Low-light edges are always worth fishing.",
+    "Dawn and dusk are the default play. Low-light edges are the safest bet today.",
   ],
 
   fallback_morning_evening: [
     "Shoulder hours are the play today — morning and evening look strongest.",
-    "Morning and evening are your best windows. Fish the transitions.",
+    "Morning and evening are your best windows. Focus on those transitions.",
     "The productive windows are at the shoulders today — morning and evening.",
   ],
 
@@ -164,8 +164,8 @@ const POOLS: Record<string, string[]> = {
     "No single window dominates — the whole day is fair game.",
     "No major timing advantage today — fish it when you can get out.",
     "No clear edge on timing. Get out when it works and fish your best water.",
-    "Clock's not really a factor today. Go when it works for you.",
-    "Timing's neutral today. Fish your spots when you can get out there.",
+    "The clock is not the main factor today. Go when it works for you.",
+    "Timing is neutral today. Fish when you can get out there.",
   ],
 
   // ── Low-reliability / degraded ─────────────────────────────────────────
@@ -173,15 +173,15 @@ const POOLS: Record<string, string[]> = {
     "No clear timing edge stands out — fish it as the day comes.",
     "Data's thin today, so no strong timing call to make. Fish when you can get out.",
     "Limited confidence right now — no single window stands clearly above another.",
-    "Hard to pin down a prime window. Fish it as opportunities come.",
+    "It is hard to pin down a prime window. Fish when you have the chance.",
   ],
 
   // ── Cold all day (seek_warmth failed because flat cold) ────────────────
   cold_all_day: [
     "Cold temps all day — no single window stands out. Fish when you can.",
-    "It's cold start to finish today. No real timing edge — just put in your time.",
+    "It is cold from start to finish today. No real timing edge stands out.",
     "No warming trend to exploit. Fish your best spots and stay with it all day.",
-    "Cold and steady. No clear prime window — slow and deliberate all day is the play.",
+    "Cold and steady. No clear prime window stands out, so fish slow all day.",
   ],
 
   /** Dawn + afternoon + evening (no morning bucket) — widener / rare OR shapes */
@@ -190,6 +190,10 @@ const POOLS: Record<string, string[]> = {
     "Early, mid-day, and late windows all show an edge — work those highlighted stretches rather than splitting effort evenly across the clock.",
   ],
 };
+
+export function listTimingCopyForAudit(): string[] {
+  return Object.values(POOLS).flat();
+}
 
 // ── Public API ───────────────────────────────────────────────────────────────
 

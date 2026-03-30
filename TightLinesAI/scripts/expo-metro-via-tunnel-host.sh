@@ -22,8 +22,10 @@ if [[ -z "${TUNNEL_HOST:-}" ]]; then
   exit 1
 fi
 
-export CI="${CI:-false}"
+export CI=0
 export REACT_NATIVE_PACKAGER_HOSTNAME="${TUNNEL_HOST}"
+# See start-metro-localtunnel.sh — tunnel HTTPS is on 443, not public :8081.
+export EXPO_PACKAGER_PROXY_URL="https://${TUNNEL_HOST}"
 export RCT_METRO_PORT="${RCT_METRO_PORT:-8081}"
 
 exec npx expo start --dev-client --port "${RCT_METRO_PORT}"

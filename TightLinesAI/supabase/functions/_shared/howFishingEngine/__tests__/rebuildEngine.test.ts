@@ -379,6 +379,115 @@ Deno.test("scoreDay: drivers from positive contributions only", () => {
   assert(s.score >= 0 && s.score <= 100);
 });
 
+Deno.test("scoreDay: tiny negatives do not surface as limiting factors", () => {
+  const s = scoreDay(minimalNorm({
+    temperature: {
+      context_group: "freshwater",
+      measurement_source: "air_daily_mean",
+      measurement_value_f: 52,
+      band_label: "optimal",
+      band_score: 1.2,
+      trend_label: "stable",
+      trend_adjustment: 0,
+      shock_label: "none",
+      shock_adjustment: 0,
+      final_score: 1.2,
+    },
+    runoff_flow_disruption: { label: "slightly_elevated", score: -0.12 },
+  }));
+  assertEquals(s.suppressors.length, 0);
+});
+
+Deno.test("scoreDay: mild coastal rain does not surface as a limiting factor", () => {
+  const s = scoreDay({
+    location: {
+      latitude: 27.95,
+      longitude: -82.46,
+      state_code: "FL",
+      region_key: "florida",
+      local_date: "2026-03-30",
+      local_timezone: "America/New_York",
+    },
+    context: "coastal",
+    normalized: {
+      temperature: {
+        context_group: "coastal",
+        measurement_source: "coastal_water_temp",
+        measurement_value_f: 71,
+        band_label: "optimal",
+        band_score: 1.1,
+        trend_label: "stable",
+        trend_adjustment: 0,
+        shock_label: "none",
+        shock_adjustment: 0,
+        final_score: 1.1,
+      },
+      pressure_regime: { label: "stable_neutral", score: 0.1 },
+      wind_condition: { label: "light", score: 0.9 },
+      light_cloud_condition: { label: "mixed", score: 0.15 },
+      tide_current_movement: { label: "moderate_moving", score: 1.4 },
+      precipitation_disruption: { label: "recent_rain", score: -0.4 },
+    },
+    available_variables: [
+      "temperature_condition",
+      "pressure_regime",
+      "wind_condition",
+      "light_cloud_condition",
+      "tide_current_movement",
+      "precipitation_disruption",
+    ],
+    missing_variables: [],
+    data_gaps: [],
+    reliability: "high",
+  });
+  assertEquals(s.suppressors.length, 0);
+});
+
+Deno.test("scoreDay: meaningful coastal rain still surfaces as a limiting factor", () => {
+  const s = scoreDay({
+    location: {
+      latitude: 27.95,
+      longitude: -82.46,
+      state_code: "FL",
+      region_key: "florida",
+      local_date: "2026-03-30",
+      local_timezone: "America/New_York",
+    },
+    context: "coastal",
+    normalized: {
+      temperature: {
+        context_group: "coastal",
+        measurement_source: "coastal_water_temp",
+        measurement_value_f: 71,
+        band_label: "optimal",
+        band_score: 1.1,
+        trend_label: "stable",
+        trend_adjustment: 0,
+        shock_label: "none",
+        shock_adjustment: 0,
+        final_score: 1.1,
+      },
+      pressure_regime: { label: "stable_neutral", score: 0.1 },
+      wind_condition: { label: "light", score: 0.9 },
+      light_cloud_condition: { label: "mixed", score: 0.15 },
+      tide_current_movement: { label: "moderate_moving", score: 1.4 },
+      precipitation_disruption: { label: "active_disruption", score: -1.4 },
+    },
+    available_variables: [
+      "temperature_condition",
+      "pressure_regime",
+      "wind_condition",
+      "light_cloud_condition",
+      "tide_current_movement",
+      "precipitation_disruption",
+    ],
+    missing_variables: [],
+    data_gaps: [],
+    reliability: "high",
+  });
+  assertEquals(s.suppressors[0]?.key, "precipitation_disruption");
+});
+
 Deno.test("compositeScoreActivityTier: describes score band only", () => {
   const t = compositeScoreActivityTier(72);
   assert(t.toLowerCase().includes("high"));

@@ -3,6 +3,7 @@ import { Stack, useRouter, useSegments } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import * as Linking from 'expo-linking';
 import { useFonts } from 'expo-font';
+import Ionicons from '@expo/vector-icons/Ionicons';
 import {
   BricolageGrotesque_600SemiBold,
   BricolageGrotesque_700Bold,
@@ -60,6 +61,7 @@ export default function RootLayout() {
   const { hydrate, setSession, setProfile, fetchProfile } = useAuthStore();
 
   useFonts({
+    ...Ionicons.font,
     BricolageGrotesque_600SemiBold,
     BricolageGrotesque_700Bold,
     Inter_400Regular,
