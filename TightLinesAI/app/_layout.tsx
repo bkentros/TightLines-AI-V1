@@ -59,7 +59,7 @@ export default function RootLayout() {
   const router = useRouter();
   const { hydrate, setSession, setProfile, fetchProfile } = useAuthStore();
 
-  useFonts({
+  const [fontsLoaded] = useFonts({
     BricolageGrotesque_600SemiBold,
     BricolageGrotesque_700Bold,
     Inter_400Regular,
@@ -188,6 +188,8 @@ export default function RootLayout() {
 
   useProtectedRoute();
   useBiometricLock();
+
+  if (!fontsLoaded) return null;
 
   return (
     <>
