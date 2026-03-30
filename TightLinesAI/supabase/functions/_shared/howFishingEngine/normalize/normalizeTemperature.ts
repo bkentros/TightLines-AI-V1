@@ -7,6 +7,7 @@ import type {
 import { isCoastalFamilyContext } from "../contracts/context.ts";
 import { freshwaterTempRow } from "../config/tempBandsFreshwater.ts";
 import { coastalTempRow } from "../config/tempBandsCoastal.ts";
+import { coastalWaterTempRow } from "../config/tempBandsCoastalWater.ts";
 import {
   clampEngineScore,
   engineScoreTier,
@@ -14,6 +15,10 @@ import {
 } from "../score/engineScoreMath.ts";
 
 const WARM_TO_VERY_WARM_SPAN_F = 10;
+const TREND_FAVORABILITY_DELTA_MIN = 0.35;
+const SHOCK_24H_THRESHOLD_F = 10;
+const SHOCK_48H_THRESHOLD_F = 18;
+const SHOCK_48H_LAST_LEG_MIN_F = 5;
 
 function clampAnchor(n: number): number {
   return Math.max(-2, Math.min(2, n));
@@ -57,11 +62,33 @@ function taperedBandScore(
   );
 }
 
+function isFiniteTemp(value: number | null | undefined): value is number {
+  return value != null && Number.isFinite(value);
+}
+
+function bandScoreForRow(
+  tempF: number,
+  row: number[],
+): number | null {
+  if (!row || row.length < 5) return null;
+  const vc = Number(row[0]);
+  const cool = Number(row[1]);
+  const opt = Number(row[2]);
+  const warm = Number(row[3]);
+  const scores = row[4] as unknown as number[];
+  if (!Array.isArray(scores) || scores.length < 5) return null;
+  return taperedBandScore(tempF, vc, cool, opt, warm, scores);
+}
+
 /**
- * TEMPERATURE_AND_MODIFIER_REFERENCE: 72h band-relative trend (daily vs day-2 mean),
- * shock on abrupt 24h movement only (|today−prior|≥10). Trend direction is evaluated
- * relative to the current band — warming helps only when below optimal, cooling helps
- * only when above optimal; either direction away from optimal is a mild negative.
+ * TEMPERATURE_AND_MODIFIER_REFERENCE:
+ * - freshwater uses calendar-day mean AIR temperature
+ * - coastal uses measured WATER temperature when a nearby NOAA station is available,
+ *   otherwise falls back to the existing air-temperature path
+ * - trend is based on whether thermal favorability improved or worsened relative to
+ *   the same month/region table, not on a hard-coded "optimal" label assumption
+ * - shock penalizes abrupt 24h instability only when the selected thermal source has
+ *   a 24h comparison point
  */
 export function normalizeTemperature(
   context: EngineContext,
@@ -70,15 +97,33 @@ export function normalizeTemperature(
   dailyMeanF: number | null | undefined,
   priorMeanF: number | null | undefined,
   dayMinus2MeanF: number | null | undefined,
+  opts?: {
+    measuredWaterTempF?: number | null;
+    measuredWaterTemp24hAgoF?: number | null;
+    measuredWaterTemp72hAgoF?: number | null;
+  },
 ): TemperatureNormalized | null {
-  if (dailyMeanF == null || Number.isNaN(dailyMeanF)) return null;
+  const coastalContext = isCoastalFamilyContext(context);
+  const useMeasuredCoastalWater =
+    coastalContext && isFiniteTemp(opts?.measuredWaterTempF);
 
-  // Route to the correct band table based on what the user is actually fishing.
-  // Coastal contexts (inshore, flats/estuary) use saltwater-species-calibrated tables.
-  // Freshwater contexts always use freshwater tables — geographic proximity to coast is irrelevant.
-  const row = isCoastalFamilyContext(context)
-    ? coastalTempRow(region, month)
-    : freshwaterTempRow(region, month);
+  const selectedTempF = useMeasuredCoastalWater
+    ? opts!.measuredWaterTempF!
+    : dailyMeanF;
+  if (!isFiniteTemp(selectedTempF)) return null;
+
+  const priorSelectedF = useMeasuredCoastalWater
+    ? opts?.measuredWaterTemp24hAgoF
+    : priorMeanF;
+  const dayMinus2SelectedF = useMeasuredCoastalWater
+    ? opts?.measuredWaterTemp72hAgoF
+    : dayMinus2MeanF;
+
+  const row = useMeasuredCoastalWater
+    ? coastalWaterTempRow(region, month)
+    : coastalContext
+      ? coastalTempRow(region, month)
+      : freshwaterTempRow(region, month);
   if (!row || row.length < 5) return null;
 
   const vc = Number(row[0]);
@@ -88,9 +133,9 @@ export function normalizeTemperature(
   const scores = row[4] as unknown as number[];
   if (!Array.isArray(scores) || scores.length < 5) return null;
 
-  const label = discreteBandLabel(dailyMeanF, vc, cool, opt, warm);
+  const label = discreteBandLabel(selectedTempF, vc, cool, opt, warm);
   const bandScore = taperedBandScore(
-    dailyMeanF,
+    selectedTempF,
     vc,
     cool,
     opt,
@@ -104,33 +149,58 @@ export function normalizeTemperature(
   let shockLabel: "none" | "sharp_warmup" | "sharp_cooldown" = "none";
   let shockAdj: -1 | 0 = 0;
   const d1 =
-    priorMeanF != null && !Number.isNaN(priorMeanF)
-      ? dailyMeanF - priorMeanF
+    isFiniteTemp(priorSelectedF)
+      ? selectedTempF - priorSelectedF
+      : null;
+  const d2 =
+    isFiniteTemp(dayMinus2SelectedF)
+      ? selectedTempF - dayMinus2SelectedF
       : null;
 
-  if (d1 !== null && (d1 >= 10 || d1 <= -10)) {
+  const sustained48hShock =
+    d1 !== null &&
+    d2 !== null &&
+    Math.abs(d1) >= SHOCK_48H_LAST_LEG_MIN_F &&
+    Math.abs(d2) >= SHOCK_48H_THRESHOLD_F &&
+    Math.sign(d1) === Math.sign(d2);
+
+  if (d1 !== null && Math.abs(d1) >= SHOCK_24H_THRESHOLD_F) {
     shockLabel = d1 >= 10 ? "sharp_warmup" : "sharp_cooldown";
+    shockAdj = -1;
+  } else if (sustained48hShock) {
+    shockLabel = d2! >= 0 ? "sharp_warmup" : "sharp_cooldown";
     shockAdj = -1;
   }
 
-  // Band-relative trend: direction only helps if it moves toward the optimal zone.
-  // Warming in cold bands (+1) and cooling in warm bands (+1) = approaching optimal.
-  // Any movement away from optimal, or leaving optimal in either direction, = -1.
-  if (shockAdj === 0 && dayMinus2MeanF != null && !Number.isNaN(dayMinus2MeanF)) {
-    const delta72h = dailyMeanF - dayMinus2MeanF;
-    if (delta72h >= 5) {
-      trendLabel = "warming";
-      trendAdj = (label === "very_cold" || label === "cool") ? 1 : -1;
-    } else if (delta72h <= -5) {
-      trendLabel = "cooling";
-      trendAdj = (label === "warm" || label === "very_warm") ? 1 : -1;
+  // Trend is a modest favorability nudge: compare today's table score against the score
+  // the same table would have given the selected thermal source ~72h ago.
+  if (shockAdj === 0 && isFiniteTemp(dayMinus2SelectedF)) {
+    const delta72h = selectedTempF - dayMinus2SelectedF;
+    if (delta72h >= 5 || delta72h <= -5) {
+      const priorBandScore = bandScoreForRow(dayMinus2SelectedF, row);
+      const favorabilityDelta =
+        priorBandScore != null ? bandScore - priorBandScore : null;
+
+      if (delta72h >= 5) {
+        trendLabel = "warming";
+      } else {
+        trendLabel = "cooling";
+      }
+
+      if (favorabilityDelta != null) {
+        if (favorabilityDelta >= TREND_FAVORABILITY_DELTA_MIN) {
+          trendAdj = 1;
+        } else if (favorabilityDelta <= -TREND_FAVORABILITY_DELTA_MIN) {
+          trendAdj = -1;
+        }
+      }
     }
   }
 
   let final_score = clampEngineScore(bandScore + trendAdj + shockAdj);
 
   if (
-    isCoastalFamilyContext(context) &&
+    coastalContext &&
     label === "cool" &&
     shockAdj === 0 &&
     engineScoreTier(final_score) === -1 &&
@@ -140,10 +210,15 @@ export function normalizeTemperature(
     final_score = clampEngineScore(0);
   }
 
-  const context_group = isCoastalFamilyContext(context) ? "coastal" : "freshwater";
+  const context_group = coastalContext ? "coastal" : "freshwater";
+  const measurement_source = useMeasuredCoastalWater
+    ? "coastal_water_temp"
+    : "air_daily_mean";
 
   return {
     context_group,
+    measurement_source,
+    measurement_value_f: selectedTempF,
     band_label: label,
     band_score: bandScore,
     trend_label: trendLabel,

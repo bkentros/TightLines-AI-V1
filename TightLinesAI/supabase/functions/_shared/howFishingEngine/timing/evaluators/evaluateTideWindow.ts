@@ -11,9 +11,8 @@
  *   tiles match the tide windows (e.g. dawn + afternoon, not dawn + evening when
  *   a key slack is ~2:40pm). One representative clock time per lit bucket feeds
  *   `exchange_times` so narration and highlights stay aligned.
- * - Mid case: tide_current_movement score ≥ 1 but no specific times → honest
- *   "tides matter but clock unknown" with **no** daypart highlights (not all four).
- * - Worst case: no usable tide data → returns null, lets secondary/fallback take over
+ * - If exchange times are unavailable, return null and let the combo-specific
+ *   fallback bias carry the recommendation instead of fabricating a tide clock.
  */
 
 import type { SharedNormalizedOutput } from "../../contracts/mod.ts";
@@ -154,20 +153,6 @@ export function evaluateTideWindow(
     }
   }
 
-  // ── Positive tide score but no parseable exchange times ─────────────────
-  if (tideState && tideState.score >= 1) {
-    return {
-      driver_id: "tide_exchange_window",
-      role: "anchor",
-      strength: "good",
-      periods: [false, false, false, false],
-      note_pool_key: "tide_uncertain_no_clock",
-      debug_reason:
-        `Tide score ${tideState.score} ≥ 1 but no parseable same-day exchange times — ` +
-        "no false daypart highlights; narration stays tide-anchored.",
-    };
-  }
-
-  // ── No usable tide signal ──────────────────────────────────────────────
+  // ── No usable tide clock for this daypart system ───────────────────────
   return null;
 }

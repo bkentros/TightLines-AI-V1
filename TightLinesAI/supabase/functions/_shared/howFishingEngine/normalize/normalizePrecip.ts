@@ -49,17 +49,17 @@ export function normalizePrecipitationDisruption(
         ? pieceLinear(r72, 0.6, 2.2, 0, 1)
         : 0;
       const u = Math.max(ur, u24, u72);
-      const score = clampEngineScore(pieceLinear(u, 0, 1, -0.35, -1.1));
+      const score = clampEngineScore(pieceLinear(u, 0, 1, -0.2, -0.95));
       return { label: "recent_rain", score };
     }
     if (r24 < 0.01 && r72 < 0.01 && rate < 0.01) {
-      return { label: "extended_dry", score: clampEngineScore(1.3) };
+      return { label: "extended_dry", score: clampEngineScore(0.25) };
     }
     // light_mist: trace moisture (not actively raining, p24 in 0.01–0.20 range)
     if (rate < 0.02 && r24 >= 0.01 && r24 < 0.20) {
       const p7dVal = p7d ?? 999;
       if (r72 < 0.30 && p7dVal < 0.75) {
-        return { label: "light_mist", score: clampEngineScore(0.10) };
+        return { label: "light_mist", score: clampEngineScore(0.05) };
       } else if (r72 < 0.60 && p7dVal < 1.50) {
         return { label: "light_mist", score: clampEngineScore(-0.10) };
       }
@@ -67,7 +67,7 @@ export function normalizePrecipitationDisruption(
     }
     const dryness = Math.max(r24, r72, rate);
     const score = clampEngineScore(
-      pieceLinear(dryness, 0, 0.35, 1.85, 0.95),
+      pieceLinear(dryness, 0, 0.35, 0.3, 0.05),
     );
     return { label: "dry_stable", score };
   }
@@ -99,17 +99,17 @@ export function normalizePrecipitationDisruption(
       ? pieceLinear(r72, 0.35, 1.5, 0, 1)
       : 0;
     const u = Math.max(ur, u24, u72);
-    const score = clampEngineScore(pieceLinear(u, 0, 1, -0.35, -1.1));
+    const score = clampEngineScore(pieceLinear(u, 0, 1, -0.2, -0.95));
     return { label: "recent_rain", score };
   }
   if (r24 < 0.01 && r72 < 0.01 && rate < 0.01) {
-    return { label: "extended_dry", score: clampEngineScore(1.3) };
+    return { label: "extended_dry", score: clampEngineScore(0.2) };
   }
   // light_mist: trace moisture (not actively raining, p24 in 0.01–0.15 range)
   if (rate < 0.02 && r24 >= 0.01 && r24 < 0.15) {
     const p7dVal = p7d ?? 999;
     if (r72 < 0.30 && p7dVal < 0.75) {
-      return { label: "light_mist", score: clampEngineScore(0.10) };
+      return { label: "light_mist", score: clampEngineScore(0.05) };
     } else if (r72 < 0.60 && p7dVal < 1.50) {
       return { label: "light_mist", score: clampEngineScore(-0.10) };
     }
@@ -117,7 +117,7 @@ export function normalizePrecipitationDisruption(
   }
   const dryness = Math.max(r24, r72, rate);
   const score = clampEngineScore(
-    pieceLinear(dryness, 0, 0.3, 1.85, 0.95),
+    pieceLinear(dryness, 0, 0.3, 0.25, 0.05),
   );
   return { label: "dry_stable", score };
 }

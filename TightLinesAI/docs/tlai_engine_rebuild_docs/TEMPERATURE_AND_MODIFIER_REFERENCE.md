@@ -17,17 +17,17 @@ Temperature is the most detailed variable in this engine. It must carry most of 
 
 ## Core temperature design
 
-Temperature for How's Fishing uses **air temperature only** across all contexts.
+Temperature for How's Fishing is now split by context:
 
-No freshwater water temperature.
-No measured coastal water temperature in this feature.
+- freshwater uses daily mean **air temperature**
+- coastal and flats/estuary use measured **coastal water temperature** when a nearby NOAA reading is available
+- coastal and flats/estuary fall back to the existing air-temperature path when measured water temperature is missing or stale
 
 ### Why
-- simpler and more consistent
-- fewer branching paths
-- more robust with available data
-- easier to test and narrate
-- avoids fake precision
+- freshwater still needs the simpler air-temperature proxy
+- coastal fish respond more directly to the actual water mass than to a short-lived air swing
+- fallback-safe coastal water temperature improves realism without breaking score continuity
+- the narration layer can still use air temperature for intraday feel
 
 ---
 
@@ -93,19 +93,24 @@ Reason:
 - avoids unnecessary split logic before real-world testing proves it is needed
 
 ### Coastal group
-Use a separate coastal temperature table for:
+Use the coastal-family temperature path for:
 - `coastal`
+- `coastal_flats_estuary`
 
 Reason:
 - coastal seasonal air conditions are moderated differently
-- coastal timing / exposure context differs enough to justify a separate table
-- still much simpler than species-specific or measured-water-temp logic
+- coastal timing / exposure context differs enough to justify a separate table family
+- measured water temperature is preferred when available because it better matches fish metabolism in these systems
 
 ---
 
 ## Trend rules
 
-Trend uses 72-hour mean-air movement.
+Trend uses the selected thermal source over roughly 72 hours:
+
+- freshwater: mean air temperature
+- coastal-family with NOAA coverage: measured water temperature
+- coastal-family fallback: mean air temperature
 
 ### Labels
 - `warming`
@@ -118,18 +123,18 @@ Trend uses 72-hour mean-air movement.
 - `stable` otherwise
 
 ### Trend adjustment
-- warming: `+1`
-- stable: `0`
-- cooling: `-1`
+- `+1` only when the current month/region table says today's temperature is materially **more favorable** than the same table would have scored 72 hours ago
+- `-1` only when the current month/region table says today's temperature is materially **less favorable** than 72 hours ago
+- `0` otherwise
 
 ### Important rule
-Trend is only a slight nudge. It must never be treated as more important than the band itself.
+Trend is only a slight nudge. It must never be treated as more important than the band itself, and it must follow the row-defined biological target rather than assuming "warming is always good" or "cooling is always bad."
 
 ---
 
 ## Shock rules
 
-Shock uses abrupt 24–48 hour movement.
+Shock uses abrupt selected-source movement.
 
 ### Labels
 - `none`
@@ -137,8 +142,9 @@ Shock uses abrupt 24–48 hour movement.
 - `sharp_cooldown`
 
 ### Thresholds
-- `sharp_warmup` if delta >= `+10°F`
-- `sharp_cooldown` if delta <= `-10°F`
+- `sharp_warmup` if the 24-hour move is `>= +10°F`
+- `sharp_cooldown` if the 24-hour move is `<= -10°F`
+- also treat it as shock when the total 48-hour move is very large and the last 24 hours are still moving hard in that same direction
 - `none` otherwise
 
 ### Shock adjustment
@@ -148,6 +154,7 @@ Shock uses abrupt 24–48 hour movement.
 
 ### Important rule
 Shock mostly penalizes instability. It does **not** usually help even if the direction seems favorable.
+When shock is active, do not stack a trend bonus on top of it.
 
 ---
 
@@ -197,12 +204,22 @@ It is **not** an hourly recommendation engine.
 ### Coastal
 | variable | base |
 |---|---:|
-| tide_current_movement | 28 |
-| wind_condition | 22 |
-| pressure_regime | 16 |
+| tide_current_movement | 30 |
+| wind_condition | 24 |
+| pressure_regime | 12 |
 | light_cloud_condition | 12 |
-| temperature_condition | 14 |
-| precipitation_disruption | 8 |
+| temperature_condition | 16 |
+| precipitation_disruption | 6 |
+
+### Coastal Flats / Estuary
+| variable | base |
+|---|---:|
+| tide_current_movement | 24 |
+| wind_condition | 26 |
+| pressure_regime | 12 |
+| light_cloud_condition | 14 |
+| temperature_condition | 18 |
+| precipitation_disruption | 6 |
 
 ---
 
@@ -299,6 +316,27 @@ Interpretation:
 - wind remains highly relevant much of the year
 - tide remains the structural anchor of the coastal context
 
+### Coastal Flats / Estuary month modifiers
+| month | tide | wind | pressure | light | temp | precip |
+|---|---:|---:|---:|---:|---:|---:|
+| Jan | 0 | +1 | 0 | +1 | +3 | 0 |
+| Feb | 0 | +1 | 0 | +1 | +3 | 0 |
+| Mar | 0 | +1 | 0 | +1 | +2 | 0 |
+| Apr | 0 | +1 | 0 | +1 | +1 | 0 |
+| May | 0 | +1 | 0 | +1 | 0 | 0 |
+| Jun | -1 | +2 | 0 | +2 | 0 | 0 |
+| Jul | -1 | +2 | 0 | +2 | +1 | 0 |
+| Aug | -1 | +2 | 0 | +2 | +1 | 0 |
+| Sep | 0 | +2 | +1 | +1 | 0 | 0 |
+| Oct | 0 | +1 | +1 | +1 | +1 | 0 |
+| Nov | 0 | +1 | +1 | +1 | +2 | 0 |
+| Dec | 0 | +1 | 0 | +1 | +3 | 0 |
+
+Interpretation:
+- tide stays important, but less dominant than inshore coastal
+- wind and light matter more in skinny water because drift control, visibility, and approach angle shape the bite
+- temperature remains a bigger seasonal lever than classic inshore current in winter and shoulder seasons
+
 ---
 
 ## Region modifier tables
@@ -350,6 +388,19 @@ These are starter region nudges. They should remain light. They tune emphasis wi
 Important:
 - only coastal-eligible regions actually matter for coastal runtime
 - inland regions may still exist in config for completeness but should not be user-selectable via the UI coastal rule
+
+### Coastal Flats / Estuary region modifiers
+| region | tide | wind | pressure | light | temp | precip |
+|---|---:|---:|---:|---:|---:|---:|
+| northeast | 0 | 0 | 0 | 0 | +1 | 0 |
+| southeast_atlantic | -1 | +1 | 0 | +1 | 0 | -1 |
+| florida | -1 | +1 | 0 | +1 | +1 | -1 |
+| gulf_coast | -1 | +1 | 0 | +1 | 0 | 0 |
+| pacific_northwest | 0 | +1 | 0 | 0 | 0 | -1 |
+| southern_california | -1 | +1 | 0 | +1 | 0 | -1 |
+| northern_california | 0 | +1 | 0 | 0 | 0 | -1 |
+| alaska | 0 | +1 | 0 | 0 | +2 | 0 |
+| hawaii | 0 | +1 | 0 | +1 | 0 | -1 |
 
 ---
 

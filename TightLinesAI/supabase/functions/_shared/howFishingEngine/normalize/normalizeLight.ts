@@ -33,27 +33,28 @@ export function normalizeLight(
         // Cold-band neutralization: clear sky is not a glare suppressor in cold water
         score = 0;
       } else {
-        score = pieceLinear(c, 0, 25, -1.15, -0.72);
+        score = pieceLinear(c, 0, 25, -1.0, -0.55);
       }
     } else if (c <= 69) {
-      score = pieceLinear(c, 25, 69, -0.72, 0.72);
+      score = pieceLinear(c, 25, 69, -0.55, 0.55);
     } else if (c <= 85) {
-      score = pieceLinear(c, 69, 85, 0.72, 1.35);
+      score = pieceLinear(c, 69, 85, 0.55, 0.95);
     } else {
-      score = pieceLinear(c, 85, 100, 1.35, 2);
+      score = pieceLinear(c, 85, 100, 0.95, 1.15);
     }
-  } else if (c <= 69) {
+  } else if (c <= 50) {
     if (isFlats && c <= 20) {
       // Flats-specific glare penalty: shallow clear water makes sun visibility a real issue
-      score = pieceLinear(c, 0, 20, -0.45, -0.20);
+      score = pieceLinear(c, 0, 20, -0.35, -0.15);
     } else {
       score = 0;
     }
-  } else if (c <= 85) {
-    // ~70% remains a clear low-light helper on the coast (legacy +1 tier center)
-    score = pieceLinear(c, 69, 85, 0.92, 1.35);
+  } else if (c <= 75) {
+    score = pieceLinear(c, 50, 75, 0, 0.4);
+  } else if (c <= 90) {
+    score = pieceLinear(c, 75, 90, 0.4, 0.9);
   } else {
-    score = pieceLinear(c, 85, 100, 1.35, 2);
+    score = pieceLinear(c, 90, 100, 0.9, 1.05);
   }
 
   score = clampEngineScore(score);

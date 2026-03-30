@@ -3,14 +3,11 @@
  * Tactical tip language lives in buildTips.ts — never timing language there.
  *
  * Each pool is keyed by a note_pool_key string that evaluators reference.
- * The pick() helper selects randomly from the pool (same pattern as existing tip pools).
+ * Selection is seeded so the same timing scenario always returns the same note.
  */
 
 import type { DaypartFlags } from "./timingTypes.ts";
-
-function pick<T>(arr: T[]): T {
-  return arr[Math.floor(Math.random() * arr.length)]!;
-}
+import { pickDeterministic } from "../copy/deterministicPick.ts";
 
 // ── Note pools ───────────────────────────────────────────────────────────────
 
@@ -44,9 +41,15 @@ const POOLS: Record<string, string[]> = {
 
   // ── Temperature-driven ─────────────────────────────────────────────────
   warmth_intraday_peak: [
-    "The temperature curve shows the strongest warming into this part of the day — stack your best effort there while that lift is happening.",
-    "Today's air temps build hardest right in this window. That's the stretch to own, not a generic midday guess.",
-    "The hourly trend puts the meaningful warmup here. Fish it while it's developing rather than spreading time evenly.",
+    "The hourly temperature curve puts the warmest fishable water in this part of the day — stack your best effort there.",
+    "This is the part of the day when temperatures top out locally. That's the stretch to own, not a generic midday guess.",
+    "Hourly temps peak here, and that's the cleanest warmth signal on the clock. Lean into this window instead of spreading time evenly.",
+  ],
+
+  warmth_plateau_window: [
+    "Temperatures stay elevated across these highlighted windows, not just one brief peak. Treat the whole stretch as your best thermal window.",
+    "Warmth holds across more than one part of the day, so you have a broader temperature-driven opportunity than a single peak hour.",
+    "The warming signal lingers across these buckets instead of spiking and disappearing. Fish the full warm stretch, not just one moment.",
   ],
 
   warmth_spike_aggregate: [
@@ -74,6 +77,12 @@ const POOLS: Record<string, string[]> = {
     "Fish are going quiet in the heat. Hit it early, break mid-day, then close it out at dusk.",
     "Early and late are your windows. The middle of the day is a tough sell right now.",
     "Low-light edges are the move today. Morning bite and late afternoon are where it's at.",
+  ],
+
+  coolest_window: [
+    "This cooler stretch is where the temperature burden eases off most. Put your best effort into these highlighted windows.",
+    "Heat is less oppressive during these parts of the day, and that's the cleanest temperature edge on the clock.",
+    "If you're fishing around the heat, these are the cooler windows to lean on rather than forcing the harsh middle stretch.",
   ],
 
   // ── Light-driven ───────────────────────────────────────────────────────
@@ -185,15 +194,15 @@ const POOLS: Record<string, string[]> = {
 // ── Public API ───────────────────────────────────────────────────────────────
 
 /**
- * Pick a random note from the pool for the given key.
+ * Pick a deterministic note from the pool for the given key.
  * Returns a generic fallback if the key is unknown (defensive).
  */
-export function pickTimingNote(poolKey: string): string {
+export function pickTimingNote(poolKey: string, seed = poolKey): string {
   const pool = POOLS[poolKey];
   if (!pool || pool.length === 0) {
     return "No clear timing edge today — fish when you can get out.";
   }
-  return pick(pool);
+  return pickDeterministic(pool, seed, `timing:${poolKey}`);
 }
 
 /**
@@ -240,6 +249,7 @@ export function notePoolKeyForDaypartFlags(periods: DaypartFlags): string {
   }
 }
 
-export function synthesizeDaypartNoteForPeriods(periods: DaypartFlags): string {
-  return pickTimingNote(notePoolKeyForDaypartFlags(periods));
+export function synthesizeDaypartNoteForPeriods(periods: DaypartFlags, seed?: string): string {
+  const poolKey = notePoolKeyForDaypartFlags(periods);
+  return pickTimingNote(poolKey, seed ?? periods.map((v) => (v ? "1" : "0")).join(""));
 }

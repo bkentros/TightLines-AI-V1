@@ -101,7 +101,12 @@ export function buildSharedNormalizedOutput(req: SharedEngineRequest): SharedNor
     month,
     dailyMean,
     e.prior_day_mean_air_temp_f,
-    e.day_minus_2_mean_air_temp_f
+    e.day_minus_2_mean_air_temp_f,
+    {
+      measuredWaterTempF: e.measured_water_temp_f,
+      measuredWaterTemp24hAgoF: e.measured_water_temp_24h_ago_f,
+      measuredWaterTemp72hAgoF: e.measured_water_temp_72h_ago_f,
+    }
   );
 
   const pressureResult = normalizePressureDetailed(e.pressure_history_mb);
@@ -207,12 +212,20 @@ export function buildSharedNormalizedOutput(req: SharedEngineRequest): SharedNor
     missing.push("tide_current_movement");
   }
 
-  const reliability = computeReliability(
+  let reliability = computeReliability(
     req.context,
     available,
     missing,
     pressureQuality
   );
+
+  if (
+    isCoastalFamilyContext(req.context) &&
+    temp != null &&
+    temp.measurement_source === "air_daily_mean"
+  ) {
+    reliability = downgradeOnce(reliability);
+  }
 
   const runoffGapReason: "absent" | "incomplete_precip_windows" =
     req.context === "freshwater_river" &&

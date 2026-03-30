@@ -19,7 +19,7 @@ const fixtureEnv = {
   },
 };
 
-Deno.test("runHowFishingReport: duplicate calls same score and band", () => {
+Deno.test("runHowFishingReport: duplicate calls same report surface for same input", () => {
   const req = buildSharedEngineRequestFromEnvData(
     32.7767,
     -79.9309,
@@ -33,6 +33,12 @@ Deno.test("runHowFishingReport: duplicate calls same score and band", () => {
   const b = runHowFishingReport(req);
   assertEquals(a.score, b.score);
   assertEquals(a.band, b.band);
+  assertEquals(a.summary_line, b.summary_line);
+  assertEquals(a.actionable_tip, b.actionable_tip);
+  assertEquals(a.drivers, b.drivers);
+  assertEquals(a.suppressors, b.suppressors);
+  assertEquals(a.timing_insight, b.timing_insight);
+  assertEquals(a.solunar_note, b.solunar_note);
 });
 
 Deno.test("runHowFishingScoreOnly matches runHowFishingReport.score", () => {

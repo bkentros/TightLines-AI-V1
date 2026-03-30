@@ -5,10 +5,18 @@ import { ENGINE_SCORE_EPSILON } from "../score/engineScoreMath.ts";
 export function buildThermalAirPlain(
   t: TemperatureNormalized,
   tempF: number | null,
+  measuredWaterTempF: number | null,
 ): string {
   const label = t.band_label;
   const score = t.final_score;
-  const prefix = tempF != null ? `${Math.round(tempF)}°F air — ` : "";
+  const usingWater = t.measurement_source === "coastal_water_temp";
+  const prefix = usingWater
+    ? measuredWaterTempF != null
+      ? `${Math.round(measuredWaterTempF)}°F water — `
+      : "Measured coastal water temp — "
+    : tempF != null
+      ? `${Math.round(tempF)}°F air — `
+      : "";
 
   if (label === "optimal") return `${prefix}right in the seasonal range`;
   if (label === "warm") {

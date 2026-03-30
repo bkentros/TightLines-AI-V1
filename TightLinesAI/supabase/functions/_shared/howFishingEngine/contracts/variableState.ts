@@ -21,6 +21,7 @@ export type TemperatureBandLabel =
   | "very_warm";
 
 export type TemperatureContextGroup = "freshwater" | "coastal";
+export type TemperatureMeasurementSource = "air_daily_mean" | "coastal_water_temp";
 
 export type TrendLabel = "warming" | "stable" | "cooling";
 
@@ -28,6 +29,8 @@ export type ShockLabel = "none" | "sharp_warmup" | "sharp_cooldown";
 
 export type TemperatureNormalized = {
   context_group: TemperatureContextGroup;
+  measurement_source: TemperatureMeasurementSource;
+  measurement_value_f: number;
   band_label: TemperatureBandLabel;
   /** Interpolated thermal score from season table before trend/shock (tapered). */
   band_score: VariableScore;

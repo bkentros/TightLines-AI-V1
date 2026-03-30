@@ -38,12 +38,12 @@ export type RebuildScoreBand = 'Poor' | 'Fair' | 'Good' | 'Excellent';
 export type RebuildReliability = 'high' | 'medium' | 'low';
 
 export type ActionableTipTag =
-  | 'coastal_tide_positive'
-  | 'wind_shelter'
-  | 'runoff_clarity_flow'
-  | 'temperature_intraday_flex'
-  | 'lean_into_top_driver'
-  | 'general_flexibility';
+  | 'presentation_current_sweep'
+  | 'presentation_contact_control'
+  | 'presentation_visibility_profile'
+  | 'presentation_slow_subtle'
+  | 'presentation_active_cadence'
+  | 'presentation_general';
 
 export type DaypartNotePreset =
   | 'moving_water_periods'
@@ -100,6 +100,10 @@ export interface HowsFishingReportV1 {
   timing_strength?: TimingStrength;
   /** Direct period highlighting [dawn, morning, afternoon, evening] */
   highlighted_periods?: [boolean, boolean, boolean, boolean];
+  /** Deterministic timing sentence derived from engine timing output */
+  timing_insight?: string | null;
+  /** Soft deterministic solunar note — bonus context only */
+  solunar_note?: string | null;
   reliability: RebuildReliability;
   reliability_note?: string | null;
   /** Env adapter notes (sparse hourly, timezone mismatch) for QA */
@@ -109,7 +113,7 @@ export interface HowsFishingReportV1 {
     missing_variables: string[];
     data_gaps?: Array<{ variable_key: string; reason: string }>;
   };
-  /** Engine + LLM narration hints (optional on older cached bundles) */
+  /** Engine context used for deterministic surface copy and QA */
   condition_context?: {
     temperature_band: string;
     temperature_trend: string;

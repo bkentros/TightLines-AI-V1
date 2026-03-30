@@ -21,6 +21,7 @@ export type TimingDriverId =
   | "tide_exchange_window"
   | "seek_warmth"
   | "avoid_heat"
+  | "light_window"
   | "low_light_geometry"
   | "cloud_extended_low_light"
   | "solunar_minor"
@@ -141,8 +142,7 @@ export type ClimateZone =
 
 export type TimingFamilyConfig = {
   family_id: string;
-  primary_driver: TimingDriverId;
-  secondary_driver: TimingDriverId;
+  anchor_driver: TimingDriverId;
   fallback_bias: DaypartBias;
   /** Human-readable rationale for this family's driver choices */
   rationale: string;

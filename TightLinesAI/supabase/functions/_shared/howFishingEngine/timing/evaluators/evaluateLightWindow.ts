@@ -36,6 +36,7 @@ const FISHABLE_CLOUD_LO = 6;
 const FISHABLE_CLOUD_HI = 20;
 const EXTENDED_DAY_MEAN_MIN = 65;
 const MAX_EXTENDED_HIGHLIGHT_BUCKETS = 2;
+const FLAT_EXTENDED_CLOUD_SPREAD_MAX = 8;
 
 export function evaluateLightWindow(
   mode: LightMode,
@@ -46,6 +47,39 @@ export function evaluateLightWindow(
     return evaluateLowLightGeometry(norm, opts);
   }
   return evaluateCloudExtended(norm, opts);
+}
+
+/**
+ * Single-variable light timing evaluator.
+ * Prefers cloud-extended low-light when it creates a real shaped window;
+ * otherwise falls back to classic dawn/evening light geometry.
+ */
+export function evaluatePreferredLightWindow(
+  norm: SharedNormalizedOutput,
+  opts: TimingEvalOptions,
+): TimingSignal | null {
+  const extended = evaluateCloudExtended(norm, opts);
+  if (extended) {
+    const count = extended.periods.filter(Boolean).length;
+    if (
+      count > 0 &&
+      (count < 4 || extended.note_pool_key === "cloud_all_day")
+    ) {
+      return {
+        ...extended,
+        driver_id: "light_window",
+        debug_reason: `light_window: cloud_extended qualified. ${extended.debug_reason}`,
+      };
+    }
+  }
+
+  const geometry = evaluateLowLightGeometry(norm, opts);
+  if (!geometry) return null;
+  return {
+    ...geometry,
+    driver_id: "light_window",
+    debug_reason: `light_window: low_light_geometry qualified. ${geometry.debug_reason}`,
+  };
 }
 
 function meanFishableCloud(hourly: number[]): number | null {
@@ -189,12 +223,21 @@ function evaluateCloudExtended(
       return null;
     }
 
-    const bucketScores = means.map((m) => (m === null ? -1 : m));
-    periods = collapseTrueDaypartsToTopByScore(
-      periods,
-      bucketScores,
-      MAX_EXTENDED_HIGHLIGHT_BUCKETS,
-    );
+    const qualifiedMeans = means.filter((m, i): m is number => periods[i] === true && m !== null);
+    const spread = qualifiedMeans.length >= 2
+      ? Math.max(...qualifiedMeans) - Math.min(...qualifiedMeans)
+      : 0;
+    const broadExtendedWindow =
+      qualifiedMeans.length >= 3 && spread <= FLAT_EXTENDED_CLOUD_SPREAD_MAX;
+
+    if (!broadExtendedWindow) {
+      const bucketScores = means.map((m) => (m === null ? -1 : m));
+      periods = collapseTrueDaypartsToTopByScore(
+        periods,
+        bucketScores,
+        MAX_EXTENDED_HIGHLIGHT_BUCKETS,
+      );
+    }
 
     const validMeans = means.filter((m): m is number => m !== null);
     if (validMeans.length === 0) return null;
@@ -209,10 +252,11 @@ function evaluateCloudExtended(
       role: "anchor",
       strength,
       periods,
-      note_pool_key: "cloud_extended_shaped",
+      note_pool_key: periods.every(Boolean) ? "cloud_all_day" : "cloud_extended_shaped",
       debug_reason:
         `cloud_extended hourly: fishableMean=${fishMean?.toFixed(0) ?? "n/a"}% ` +
-        `bucketMeans=${means.map((m) => m?.toFixed(0) ?? "x").join("/")}`,
+        `bucketMeans=${means.map((m) => m?.toFixed(0) ?? "x").join("/")} ` +
+        `spread=${spread.toFixed(0)} broad=${broadExtendedWindow}`,
     };
   }
 

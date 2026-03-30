@@ -13,7 +13,7 @@ import type {
 } from "./variableState.ts";
 import type { ScoredVariableKey } from "./variables.ts";
 
-/** One scored variable’s deterministic normalizer output for LLM narration (no stochastic copy). */
+/** One scored variable’s deterministic normalizer output for report surface copy and QA. */
 export type LlmNormalizedVariableScore = {
   variable_key: ScoredVariableKey;
   /** Tapered deterministic score in [-2, 2]. */
@@ -42,7 +42,7 @@ export type LlmPressureHistorySummary = {
   max_mb: number | null;
 };
 
-/** Engine-owned sky claims — LLM polish must not contradict these buckets. */
+/** Engine-owned sky claims used by deterministic surface copy and QA. */
 export type LlmSkyNarrationContract = {
   sky_character:
     | "mostly_clear"
@@ -58,6 +58,10 @@ export type LlmSkyNarrationContract = {
 export type LlmEnvironmentSnapshot = {
   current_air_temp_f: number | null;
   daily_mean_air_temp_f: number | null;
+  measured_water_temp_f: number | null;
+  measured_water_temp_24h_ago_f: number | null;
+  measured_water_temp_72h_ago_f: number | null;
+  measured_water_temp_source: string | null;
   /** Forecast low/high for local_date when 7-day arrays supply them — UI + LLM context only. */
   daily_low_air_temp_f: number | null;
   daily_high_air_temp_f: number | null;
@@ -144,9 +148,9 @@ export type HowsFishingReport = {
   };
   reliability: ReportReliabilityTier;
   reliability_note?: string | null;
-  /** LLM-generated timing insight — replaces engine daypart_note when available */
+  /** Deterministic timing sentence derived from engine timing output */
   timing_insight?: string | null;
-  /** LLM-generated soft solunar context note */
+  /** Soft deterministic solunar context note */
   solunar_note?: string | null;
   /** Env adapter notes (e.g. sparse hourly, timezone mismatch) — for QA and scans */
   data_coverage_notes?: string[];
@@ -156,9 +160,8 @@ export type HowsFishingReport = {
     data_gaps?: Array<{ variable_key: string; reason: string }>;
   };
   /**
-   * Rich normalized context forwarded verbatim to the LLM narration layer.
-   * Ensures the model has the engine's full verdict on every variable — not
-   * just raw air temp + season — so it never has to guess fish behavior.
+   * Rich normalized context forwarded with the report for deterministic copy,
+   * audits, and QA tooling.
    */
   condition_context?: {
     temperature_band: TemperatureBandLabel;

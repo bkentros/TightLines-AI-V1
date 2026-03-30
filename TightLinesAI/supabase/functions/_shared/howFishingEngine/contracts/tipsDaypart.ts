@@ -5,12 +5,12 @@
 
 /** Classifies the primary actionable-tip strategy */
 export type ActionableTipTag =
-  | "coastal_tide_positive"
-  | "wind_shelter"
-  | "runoff_clarity_flow"
-  | "temperature_intraday_flex"
-  | "lean_into_top_driver"
-  | "general_flexibility";
+  | "presentation_current_sweep"
+  | "presentation_contact_control"
+  | "presentation_visibility_profile"
+  | "presentation_slow_subtle"
+  | "presentation_active_cadence"
+  | "presentation_general";
 
 /**
  * Broad daypart guidance presets (no exact windows).

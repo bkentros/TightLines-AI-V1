@@ -7,7 +7,8 @@
  * - Qualifies only when there is a **warming reason**: sharp warmup shock, 72h warming
  *   trend, or ≥5°F day-over-day mean lift (feeds optional hourly placement).
  * - Optional `hourly_air_temp_f` (24 values, local hour 0 = index 0): place the window on
- *   the largest hour-over-hour **rise**, else the warmest fishable-hour peak.
+ *   the warmest fishable-hour peak. For broad fishing windows, fish biology tracks the
+ *   accumulated warmest water better than the first sharp warming step after sunrise.
  * - Without hourly: large jumps use afternoon + evening; moderate signals use afternoon.
  *
  * avoid_heat: warm/very_warm, negative score, light cloud gate — unchanged in spirit.
@@ -21,8 +22,7 @@ import type {
   TimingStrength,
 } from "../timingTypes.ts";
 import {
-  daypartIndexFromClockHour,
-  singleDaypart,
+  daypartMeansForSeries,
 } from "../daypartHourly.ts";
 import { ENGINE_SCORE_EPSILON } from "../../score/engineScoreMath.ts";
 
@@ -30,10 +30,10 @@ export type TemperatureMode = "seek_warmth" | "avoid_heat";
 
 /** Matches 72h trend threshold in normalizeTemperature (5°F). */
 const MODERATE_DAY_OVER_DAY_WARM_F = 5;
-/** Hourly step must clear this to treat as an intraday "spike" (noise filter). */
-const MIN_HOURLY_WARMING_STEP_F = 2;
 /** Without hourly data, treat this day-over-day mean rise as "late warmth possible". */
 const BROAD_WARMTH_WINDOW_DAY_DELTA_F = 8;
+/** Adjacent bucket can join when thermal means stay close enough to act like one broad window. */
+const TEMP_BUCKET_PLATEAU_DELTA_F = 3;
 
 export function evaluateTemperatureWindow(
   mode: TemperatureMode,
@@ -49,36 +49,81 @@ export function evaluateTemperatureWindow(
   return evaluateAvoidHeat(temp, opts);
 }
 
-/**
- * 24 hourly temps, index 0 = local midnight. Prefer the hour ending the steepest
- * warming step; else the hour of max temp between 06:00–21:00.
- */
-function periodsFromHourlyWarmth(hourly: number[]): DaypartFlags | null {
-  const n = Math.min(hourly.length, 24);
-  if (n < 12) return null;
+function formatBucketMeans(means: (number | null)[]): string {
+  return means.map((m) => (m == null ? "x" : m.toFixed(1))).join("/");
+}
 
-  let maxDelta = -Infinity;
-  let hourAfterMaxDelta = 14;
-  for (let i = 1; i < n; i++) {
-    const d = hourly[i]! - hourly[i - 1]!;
-    if (d > maxDelta) {
-      maxDelta = d;
-      hourAfterMaxDelta = i;
+function periodsFromHourlyWarmth(hourly: number[]): { periods: DaypartFlags; debug: string } | null {
+  const means = daypartMeansForSeries(hourly);
+  if (!means) return null;
+
+  let bestIdx = 0;
+  let bestMean = -Infinity;
+  for (let i = 0; i < means.length; i++) {
+    const mean = means[i];
+    if (mean == null) continue;
+    if (mean > bestMean || (mean === bestMean && i > bestIdx)) {
+      bestMean = mean;
+      bestIdx = i;
     }
   }
-  if (maxDelta >= MIN_HOURLY_WARMING_STEP_F) {
-    return singleDaypart(daypartIndexFromClockHour(hourAfterMaxDelta));
+  if (!Number.isFinite(bestMean)) return null;
+
+  const periods: DaypartFlags = [false, false, false, false];
+  periods[bestIdx] = true;
+
+  const adjacent = [bestIdx - 1, bestIdx + 1]
+    .filter((idx) => idx >= 0 && idx < means.length)
+    .map((idx) => ({ idx, mean: means[idx] }))
+    .filter((x): x is { idx: number; mean: number } => x.mean != null)
+    .filter((x) => x.mean >= bestMean - TEMP_BUCKET_PLATEAU_DELTA_F)
+    .sort((a, b) => (b.idx - a.idx) || (b.mean - a.mean));
+
+  if (adjacent.length > 0) {
+    periods[adjacent[0]!.idx as 0 | 1 | 2 | 3] = true;
   }
 
-  let maxT = -Infinity;
-  let maxH = 14;
-  for (let h = 6; h < Math.min(n, 22); h++) {
-    if (hourly[h]! > maxT) {
-      maxT = hourly[h]!;
-      maxH = h;
-    }
+  return {
+    periods,
+    debug: `bucketMeans=${formatBucketMeans(means)} best=${bestIdx} bestMean=${bestMean.toFixed(1)}`,
+  };
+}
+
+function periodsFromHourlyCool(hourly: number[]): { periods: DaypartFlags; debug: string } | null {
+  const means = daypartMeansForSeries(hourly);
+  if (!means) return null;
+
+  const allowed: Array<{ idx: 0 | 1 | 3; mean: number }> = [0, 1, 3]
+    .map((idx) => ({ idx: idx as 0 | 1 | 3, mean: means[idx] }))
+    .filter((x): x is { idx: 0 | 1 | 3; mean: number } => x.mean != null);
+  if (allowed.length === 0) return null;
+
+  const coolestMean = Math.min(...allowed.map((x) => x.mean));
+  const qualified = new Set(
+    allowed
+      .filter((x) => x.mean <= coolestMean + TEMP_BUCKET_PLATEAU_DELTA_F)
+      .map((x) => x.idx),
+  );
+
+  const periods: DaypartFlags = [false, false, false, false];
+  if (qualified.has(0) && qualified.has(3)) {
+    periods[0] = true;
+    periods[3] = true;
+  } else if (qualified.has(0) && qualified.has(1)) {
+    periods[0] = true;
+    periods[1] = true;
+  } else if (qualified.has(1) && qualified.has(3)) {
+    periods[1] = true;
+    periods[3] = true;
+  } else {
+    const best = allowed.sort((a, b) => a.mean - b.mean || a.idx - b.idx)[0]!;
+    periods[best.idx] = true;
   }
-  return singleDaypart(daypartIndexFromClockHour(maxH));
+
+  return {
+    periods,
+    debug: `bucketMeans=${formatBucketMeans(means)} coolest=${coolestMean.toFixed(1)} qualified=${[...qualified].join(",")}`,
+  };
 }
 
 function defaultPeriodsWithoutHourly(
@@ -129,7 +174,7 @@ function evaluateSeekWarmth(
     let stablePeriods: DaypartFlags;
     if (stableHourly && stableHourly.length >= 12) {
       const intraday = periodsFromHourlyWarmth(stableHourly);
-      stablePeriods = intraday ?? [false, false, true, false];
+      stablePeriods = intraday?.periods ?? [false, false, true, false];
     } else {
       stablePeriods = [false, false, true, false]; // afternoon default
     }
@@ -159,8 +204,10 @@ function evaluateSeekWarmth(
   if (hourly && hourly.length >= 12) {
     const intraday = periodsFromHourlyWarmth(hourly);
     if (intraday) {
-      periods = intraday;
-      notePoolKey = "warmth_intraday_peak";
+      periods = intraday.periods;
+      notePoolKey = periods.filter(Boolean).length >= 2
+        ? "warmth_plateau_window"
+        : "warmth_intraday_peak";
     } else {
       periods = defaultPeriodsWithoutHourly(sharpWarmup, dayDelta);
       notePoolKey = sharpWarmup ? "warmth_spike_aggregate" : "warmest_window";
@@ -173,7 +220,10 @@ function evaluateSeekWarmth(
   const debugReason =
     `seek_warmth: band=${band_label}, shock=${shock_label}, trend=${trend_label}, ` +
     `dayDelta=${dayDelta ?? "n/a"}; hourly=${hourly && hourly.length >= 12 ? "yes" : "no"} → ` +
-    `periods=${periods.map((v, i) => v ? ["dawn", "morning", "afternoon", "evening"][i] : "").filter(Boolean).join("+")}`;
+    `periods=${periods.map((v, i) => v ? ["dawn", "morning", "afternoon", "evening"][i] : "").filter(Boolean).join("+")}` +
+    (hourly && hourly.length >= 12 && periodsFromHourlyWarmth(hourly)
+      ? `; ${periodsFromHourlyWarmth(hourly)!.debug}`
+      : "");
 
   return {
     driver_id: "seek_warmth",
@@ -210,16 +260,31 @@ function evaluateAvoidHeat(
     strength = "good";
   }
 
-  const periods: DaypartFlags = [true, false, false, true];
+  const hourly = opts.hourly_air_temp_f;
+  let periods: DaypartFlags = [true, false, false, true];
+  if (hourly && hourly.length >= 12) {
+    const intraday = periodsFromHourlyCool(hourly);
+    if (intraday) {
+      periods = intraday.periods;
+    }
+  }
+
+  const notePoolKey =
+    periods[0] === true && periods[3] === true && !periods[1] && !periods[2]
+      ? "cooler_low_light"
+      : "coolest_window";
 
   return {
     driver_id: "avoid_heat",
     role: "anchor",
     strength,
     periods,
-    note_pool_key: "cooler_low_light",
+    note_pool_key: notePoolKey,
     debug_reason:
       `avoid_heat: band=${band_label}, final_score=${final_score}, cloud=${cloudPct ?? "unknown"}%; ` +
-      `dawn+evening highlighted.`,
+      `periods=${periods.map((v, i) => v ? ["dawn", "morning", "afternoon", "evening"][i] : "").filter(Boolean).join("+")}` +
+      (hourly && hourly.length >= 12 && periodsFromHourlyCool(hourly)
+        ? `; ${periodsFromHourlyCool(hourly)!.debug}`
+        : ""),
   };
 }

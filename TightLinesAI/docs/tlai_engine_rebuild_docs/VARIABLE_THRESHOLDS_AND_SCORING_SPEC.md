@@ -57,9 +57,13 @@ If an upstream API already returns these units, preserve them. If units are miss
 Pressure should be read as a broad regime and stability signal. It should not be treated as a simplistic "high good / low bad" variable.
 
 ### Labels
-- `stable_positive`
+- `falling_slow`
+- `falling_moderate`
+- `falling_hard`
+- `rising_slow`
+- `rising_fast`
+- `recently_stabilizing`
 - `stable_neutral`
-- `falling`
 - `volatile`
 
 ### Inputs
@@ -81,39 +85,45 @@ Evaluate in this order:
 
 #### 1. volatile
 Assign `volatile` if **any** of the following are true:
-- `range24 >= 5.0 hPa`
-- `max3hSwing >= 2.0 hPa`
-- `directionChanges >= 2` **and** `range24 >= 3.5 hPa`
+- `range24 >= 8.0 hPa`
+- `max3hSwing >= 4.0 hPa`
+- `directionChanges >= 4` **and** `range24 >= 5.0 hPa`
 
-Score: `-2`
+Score: strong negative
 
-#### 2. falling
-Assign `falling` if:
-- not already `volatile`
-- and `delta24 <= -1.8 hPa`
+#### 2. recently_stabilizing
+Assign `recently_stabilizing` when the broader window was volatile, but the last few readings have flattened materially.
 
-Score: `-1`
+Score: slight positive to neutral
 
-#### 3. stable_positive
-Assign `stable_positive` if:
-- not already `volatile`
-- and `delta24 >= +1.2 hPa`
-- and `range24 < 5.0 hPa`
+#### 3. falling_slow / falling_moderate / falling_hard
+Assign one of the falling labels when:
+- not already volatile
+- and `delta24 < -0.5 hPa`
 
-Score: `+1`
+Scoring shape:
+- gentle fall is mildly positive
+- moderate fall is the best pressure zone
+- hard fall turns negative again because instability begins to dominate
 
-#### 4. stable_neutral
-Assign `stable_neutral` if:
-- not already matched above
-- and `delta24` is between `-1.7 hPa` and `+1.1 hPa`
+#### 4. rising_slow / rising_fast
+Assign one of the rising labels when:
+- not already volatile
+- and `delta24 > +0.5 hPa`
+
+Scoring shape:
+- slow rise is near-neutral to slightly positive
+- fast rise is negative
+
+#### 5. stable_neutral
+Assign `stable_neutral` otherwise.
 
 Score: `0`
 
 ### Fallback rule when only 2 pressure points exist
 If only two recent pressure readings exist:
-- `delta <= -1.8 hPa` → `falling`
-- `delta >= +1.2 hPa` → `stable_positive`
-- otherwise → `stable_neutral`
+- use the same falling / rising / neutral thresholds from the full classifier
+- do not assign `volatile`
 
 Do **not** assign `volatile` without at least 3 readings.
 
@@ -139,35 +149,36 @@ The engine should prefer simple regime interpretation over overfitted meteorolog
 | extreme | 25+ |
 
 ### Context scoring
+Wind now uses context-specific piecewise scoring rather than one fixed score per label.
+
 #### Freshwater Lake/Pond
-- light: `0`
-- moderate: `+1`
-- strong: `-1`
-- extreme: `-2`
+- calm to light wind is only mildly positive
+- light-to-moderate chop is often the best range
+- stronger wind tapers down and becomes negative once boat control and presentation start to suffer
 
 #### Freshwater River
-- light: `0`
-- moderate: `0`
-- strong: `-1`
-- extreme: `-2`
+- calm is effectively neutral
+- only a small bump is allowed for light breeze
+- stronger wind turns negative sooner than in lakes because fish positioning is driven more by current than surface chop
 
-#### Coastal
-- light: `0`
-- moderate: `+1`
-- strong: `-1`
-- extreme: `-2`
+#### Coastal / Flats
+- light-to-moderate wind can help, but it peaks lower and drops faster than before
+- flats/estuary is the strictest branch because visibility, boat positioning, and presentation degrade sooner
+- higher wind is now penalized materially rather than staying neutral too long
 
 ### Note
-This keeps moderate wind from being uniformly bad. It may provide positive movement/chop in some contexts without overcomplicating direction.
+This keeps moderate wind from being uniformly bad, but it also avoids treating calm or heavy wind as broadly favorable when the biology and fishability say otherwise.
 
 ---
 
 ## Light / cloud condition
 
 ### Labels
+- `glare`
 - `bright`
 - `mixed`
 - `low_light`
+- `heavy_overcast`
 
 ### Thresholds (cloud cover)
 | label | cloud cover |
@@ -177,20 +188,19 @@ This keeps moderate wind from being uniformly bad. It may provide positive movem
 | low_light | 70–100% |
 
 ### Context scoring
-#### Freshwater Lake/Pond
-- bright: `-1`
-- mixed: `0`
-- low_light: `+1`
-
-#### Freshwater River
-- bright: `-1`
-- mixed: `0`
-- low_light: `+1`
+#### Freshwater
+- bright sun is a real negative on warm-season days
+- cold-band freshwater can neutralize clear-sky penalty
+- low light helps, but heavy overcast no longer hard-maxes the variable by itself
 
 #### Coastal
-- bright: `0`
-- mixed: `0`
-- low_light: `+1`
+- inshore stays neutral through bright and mixed sky most of the time
+- low light helps modestly
+- heavy overcast is positive but not an automatic slam-dunk
+
+#### Flats / Estuary
+- very bright, low-cloud days can be mildly negative because glare matters in shallow clear water
+- otherwise follow the softer coastal pattern
 
 ### Important note
 This variable is intentionally broad and should not become a sunrise/sunset proxy. Daypart logic handles broad timing notes separately.
@@ -235,10 +245,16 @@ Score: `-1`
 #### dry_stable
 Assign `dry_stable` otherwise.
 
-Score: `0`
+Score: near-neutral to mildly positive only
+
+#### extended_dry
+Assign `extended_dry` when recent precipitation is essentially absent.
+
+Score: small positive only
 
 ### Implementation rule
 Keep this broad. Do not convert lake/coastal precipitation into a detailed runoff model.
+The main signal should come from present/recent rain disruption, not from giving oversized bonuses to dry weather by itself.
 
 ---
 
@@ -251,6 +267,7 @@ Keep this broad. Do not convert lake/coastal precipitation into a detailed runof
 This is the main variable that makes river logic meaningfully different from lake logic.
 
 ### Labels
+- `perfect_clear`
 - `stable`
 - `slightly_elevated`
 - `elevated`
@@ -262,10 +279,11 @@ This is the main variable that makes river logic meaningfully different from lak
 - precip_7d_in
 
 ### Scoring
-- stable: `+1`
-- slightly_elevated: `0`
-- elevated: `-1`
-- blown_out: `-2`
+- `perfect_clear` is positive but no longer a full `+2` day-maker
+- `stable` is the broad positive river zone
+- `slightly_elevated` is near-neutral to mildly positive
+- `elevated` is negative
+- `blown_out` is strongly negative
 
 ### Starter regional runoff sensitivity classes
 
@@ -315,6 +333,7 @@ This is a precipitation-based river proxy, not a true discharge model.
 
 ### Applies to
 - `coastal`
+- `coastal_flats_estuary`
 
 ### Labels
 - `slack`
@@ -323,10 +342,10 @@ This is a precipitation-based river proxy, not a true discharge model.
 - `too_strong`
 
 ### Scores
-- slack: `-1`
-- moving: `+1`
-- strong_moving: `+2`
-- too_strong: `-1`
+- tides use tapered scoring, not one fixed score per label
+- slack is negative in inshore water but only mildly negative in flats/estuary
+- moving to strong_moving is the positive zone
+- too much flow tapers back down and can become negative, especially in flats
 
 ### Raw-data priority order
 Use the highest-quality available source in this order:
@@ -336,15 +355,14 @@ Use the highest-quality available source in this order:
 3. tide stage label only (fallback)
 
 ### A. If current speed in knots is available
-Classify using the strongest representative current speed during the report day:
+Use a policy-specific piecewise curve.
 
-- slack: `< 0.50 kt`
-- moving: `0.50–1.49 kt`
-- strong_moving: `1.50–2.50 kt`
-- too_strong: `> 2.50 kt`
+- inshore peaks in the low-to-mid `2 kt` range, then tapers
+- flats/estuary peaks earlier and turns negative sooner
+- avoid hard discontinuities right above slack; gentle movement in flats should not score worse than near-slack water
 
 ### B. If only tide-height time series is available
-Approximate movement using the largest absolute tide-height change over any rolling 3-hour period.
+Approximate movement using the largest absolute tide-height change over any rolling 3-hour period, then apply the same inshore vs flats policy logic.
 
 Call this value `max3hTideDeltaFt`.
 

@@ -1,9 +1,12 @@
 import type { EngineContext, RegionKey } from "../contracts/mod.ts";
-import { isCoastalFamilyContext } from "../contracts/context.ts";
 
 type LakeR = { t: number; p: number; w: number; l: number; pr: number };
 type RiverR = { t: number; p: number; w: number; l: number; r: number };
 type CoastalR = { ti: number; wi: number; pr: number; l: number; te: number; pi: number };
+
+const NEUTRAL_LAKE: LakeR = { t: 0, p: 0, w: 0, l: 0, pr: 0 };
+const NEUTRAL_RIVER: RiverR = { t: 0, p: 0, w: 0, l: 0, r: 0 };
+const NEUTRAL_COASTAL: CoastalR = { ti: 0, wi: 0, pr: 0, l: 0, te: 0, pi: 0 };
 
 const LAKE: Record<RegionKey, LakeR> = {
   northeast: { t: 2, p: 0, w: 1, l: 0, pr: 0 },
@@ -76,12 +79,33 @@ const COAST: Record<RegionKey, CoastalR> = {
   hawaii: { ti: 1, wi: 1, pr: 0, l: 0, te: 0, pi: -1 },
 };
 
+const FLATS: Record<RegionKey, CoastalR> = {
+  northeast: { ti: 0, wi: 0, pr: 0, l: 0, te: 1, pi: 0 },
+  southeast_atlantic: { ti: -1, wi: 1, pr: 0, l: 1, te: 0, pi: -1 },
+  florida: { ti: -1, wi: 1, pr: 0, l: 1, te: 1, pi: -1 },
+  gulf_coast: { ti: -1, wi: 1, pr: 0, l: 1, te: 0, pi: 0 },
+  great_lakes_upper_midwest: { ti: 0, wi: 0, pr: 0, l: 0, te: 0, pi: 0 },
+  midwest_interior: { ti: 0, wi: 0, pr: 0, l: 0, te: 0, pi: 0 },
+  south_central: { ti: 0, wi: 0, pr: 0, l: 0, te: 0, pi: 0 },
+  mountain_west: { ti: 0, wi: 0, pr: 0, l: 0, te: 0, pi: 0 },
+  southwest_desert: { ti: 0, wi: 0, pr: 0, l: 0, te: 0, pi: -1 },
+  southwest_high_desert: { ti: 0, wi: 0, pr: 0, l: 0, te: 0, pi: -1 },
+  pacific_northwest: { ti: 0, wi: 1, pr: 0, l: 0, te: 0, pi: -1 },
+  southern_california: { ti: -1, wi: 1, pr: 0, l: 1, te: 0, pi: -1 },
+  mountain_alpine: { ti: 0, wi: 0, pr: 0, l: 0, te: 0, pi: 0 },
+  northern_california: { ti: 0, wi: 1, pr: 0, l: 0, te: 0, pi: -1 },
+  appalachian: { ti: 0, wi: 0, pr: 0, l: 0, te: 0, pi: -1 },
+  inland_northwest: { ti: 0, wi: 0, pr: 0, l: 0, te: 0, pi: -1 },
+  alaska: { ti: 0, wi: 1, pr: 0, l: 0, te: 2, pi: 0 },
+  hawaii: { ti: 0, wi: 1, pr: 0, l: 1, te: 0, pi: -1 },
+};
+
 export function getRegionModifiers(
   context: EngineContext,
   region: RegionKey
 ): Record<string, number> {
   if (context === "freshwater_lake_pond") {
-    const r = LAKE[region]!;
+    const r = LAKE[region] ?? NEUTRAL_LAKE;
     return {
       temperature_condition: r.t,
       pressure_regime: r.p,
@@ -91,7 +115,7 @@ export function getRegionModifiers(
     };
   }
   if (context === "freshwater_river") {
-    const r = RIVER[region]!;
+    const r = RIVER[region] ?? NEUTRAL_RIVER;
     return {
       temperature_condition: r.t,
       pressure_regime: r.p,
@@ -100,8 +124,19 @@ export function getRegionModifiers(
       runoff_flow_disruption: r.r,
     };
   }
-  if (isCoastalFamilyContext(context)) {
-    const r = COAST[region]!;
+  if (context === "coastal") {
+    const r = COAST[region] ?? NEUTRAL_COASTAL;
+    return {
+      tide_current_movement: r.ti,
+      wind_condition: r.wi,
+      pressure_regime: r.pr,
+      light_cloud_condition: r.l,
+      temperature_condition: r.te,
+      precipitation_disruption: r.pi,
+    };
+  }
+  if (context === "coastal_flats_estuary") {
+    const r = FLATS[region] ?? NEUTRAL_COASTAL;
     return {
       tide_current_movement: r.ti,
       wind_condition: r.wi,

@@ -25,7 +25,7 @@ function stubReport(
     drivers: [],
     suppressors: [],
     actionable_tip: "",
-    actionable_tip_tag: "general_flexibility",
+    actionable_tip_tag: "presentation_general",
     daypart_preset: null,
     reliability: "high",
     condition_context: {

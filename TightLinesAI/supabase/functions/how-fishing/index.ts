@@ -9,29 +9,13 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import {
-  buildDeterministicTimingInsight,
   buildEngineLedSummaryLine,
   buildSharedEngineRequestFromEnvData,
-  pickTipFocusFromEngine,
   runHowFishingReport,
   type EngineContext,
   type HowsFishingReport,
 } from "../_shared/howFishingEngine/index.ts";
-import {
-  clearDriverLabelSeed,
-  setDriverLabelSeed,
-} from "../_shared/howFishingEngine/score/driverLabels.ts";
-import {
-  estimatePolishCostUsd,
-  LLM_MODEL,
-} from "../_shared/howFishingPolish/mod.ts";
-import { sanitizePolishedThermalCopy } from "../_shared/howFishingPolish/sanitizePolishedThermalCopy.ts";
-import { buildNarrationBrief } from "../_shared/howFishingEngine/narration/buildNarrationBrief.ts";
 import { fetchOpenMeteo14Day } from "../_shared/openMeteo14DayFetch.ts";
-
-const USAGE_CAP_ANGLER_USD = 1;
-const USAGE_CAP_MASTER_ANGLER_USD = 3;
-const ESTIMATED_COST_PER_CALL_USD = 0.003;
 
 const VALID_CONTEXTS: EngineContext[] = [
   "freshwater_lake_pond",
@@ -46,16 +30,6 @@ function corsHeaders() {
     "Access-Control-Allow-Methods": "POST, OPTIONS",
     "Access-Control-Allow-Headers": "Content-Type, Authorization, apikey, x-user-token",
   };
-}
-
-function getUsageCapUsd(tier: string): number {
-  if (tier === "angler") return USAGE_CAP_ANGLER_USD;
-  if (tier === "master_angler") return USAGE_CAP_MASTER_ANGLER_USD;
-  return 0;
-}
-
-function computeCallCost(inputTokens: number, outputTokens: number): number {
-  return estimatePolishCostUsd(inputTokens, outputTokens);
 }
 
 function locationLocalMidnightIso(timezone: string, now = new Date()): string {
@@ -102,218 +76,11 @@ function localDateInTz(timezone: string, d = new Date()): string {
   }
 }
 
-const REBUILD_LLM_SYSTEM = `You write voiced fields for a fishing conditions report: confident, warm, second person. No score numbers, no raw engine labels as read-aloud jargon, no markdown — only the JSON object.
-
-Air vs water: never a numeric water temperature. Degrees in the user brief mean AIR. Water feel is words only (warm, cool, cold, …).
-
-Return exactly this shape (no extra keys):
-{"summary_line":"…","driver_labels":["…"],"suppressor_labels":["…"],"timing_insight":"…","solunar_note":"…","actionable_tip":"…"}
-
-If the user message has <output_scope> with engine_owns_headline_and_timing: true, set summary_line and timing_insight each to exactly "." (one period). The server replaces them — put quality into driver_labels, suppressor_labels, actionable_tip, solunar_note only.
-
-If that tag is absent or false, you also write summary and timing:
-- summary_line: 1–2 sentences, mood of the day, ~200 chars; use the location name when provided.
-- timing_insight: one sentence, ~140 chars; must agree with BEST TIME TO FISH in the brief and the single metabolic rule line there (no heat-as-limiter unless heat_limited; no cold-as-limiter unless cold_limited).
-
-Always:
-- driver_labels / suppressor_labels: one plain phrase per bullet, same order, ~70 chars; use [] when the brief says none.
-- solunar_note: one soft line (~120 chars), interesting context not a guarantee.
-- actionable_tip: 1–2 sentences; ONE mechanical change (how to work the lure/fly). Obey TIP DIRECTION and metabolic line. No where/when/tides/depth/stealth.`;
-
-const OPENER_ANGLES = [
-  "Lead with the location name and how conditions look there specifically today.",
-  "Lead with the strongest driver — name it and say why it matters.",
-  "Lead with the season and what that means for fishing right now.",
-  "Lead with the overall vibe — is this a go day, a patience day, or a grind-it-out day?",
-  "Lead with the angler's emotional read — should they feel fired up, cautiously optimistic, or scrappy?",
-  "Lead with what makes today different from a typical day in this region.",
-  "Lead with a direct, confident statement about the score and back it up with the top driver.",
-  "Lead with the atmospheric story — pressure, wind, or sky — and connect it to the fishing.",
-  "Lead with the water type and what it means for today — lake calm, river flow, tidal push.",
-  "Lead with a contrast — what's working vs what's not — and give the honest balance.",
-  "Paint a quick picture of the day ahead — what the angler is walking into out there.",
-  "Lead with the one thing that jumps off the data — the headline of the day.",
-];
-
-/** Capitalize sentence starts after . ; ! ? for driver/suppressor lines. */
-function formatFactorLabel(s: string): string {
-  if (!s || !s.trim()) return s;
-  return s
-    .split(/(?<=[.;!?])\s+/)
-    .map((sentence) => {
-      const t = sentence.trimStart();
-      if (!t) return sentence;
-      const lead = sentence.length - t.length;
-      return sentence.slice(0, lead) + t.charAt(0).toUpperCase() + t.slice(1);
-    })
-    .join(" ");
+function normalizeSurfaceText(text: string | null | undefined): string | null {
+  if (!text) return null;
+  return text.replace(/\s+/g, " ").trim();
 }
 
-/** Best-effort removal of hallucinated numeric water-temperature claims from user-facing copy. */
-function stripNumericWaterTempNarration(text: string): string {
-  if (!text) return text;
-  let s = text;
-  s = s.replace(/\b\d{1,3}\s*°?\s*F?\s*[-\s]?degree\s+water\b/gi, "warm water");
-  s = s.replace(/\b\d{1,3}\s*°\s*water\b/gi, "warm water");
-  s = s.replace(/\bwater\s+(?:temp(?:erature)?s?|temperature)\s*(?:of|at|around|near|about|is)?\s*\d{1,3}\s*°?\s*F?\b/gi, "water conditions");
-  s = s.replace(/\bwater\s+(?:at|around|near|of|about)\s+\d{1,3}\s*°?\s*F?\b/gi, "water");
-  return s.replace(/\s{2,}/g, " ").trim();
-}
-
-/**
- * Voice modes — force a different personality register every call.
- * Sampled randomly and injected into the task block to break LLM "default voice."
- */
-const VOICE_MODES = [
-  "Write with understated, knowing confidence — like a guide who's seen it all and doesn't need to oversell anything. Quiet authority.",
-  "Write punchy and direct. Short sentences. Confident calls. Zero wasted words. Say it and mean it.",
-  "Write with vivid specificity — paint an honest picture of what the angler is actually walking into, not what you wish you could tell them.",
-  "Write like you're texting a close fishing buddy who trusts your read completely. Casual but confident. No formality.",
-  "Write with wry, honest personality — acknowledge what's working and what isn't, without softening either. Be real about it.",
-  "Write with measured authority — like someone who speaks carefully because every word is backed by time on the water.",
-  "Write with energy that matches the conditions — fired up when it earns it, dry and tactical when it doesn't.",
-  "Write like someone who was on this exact water type last week and has strong, specific opinions about what today looks like.",
-  "Write with the casual confidence of someone who already knows what the fish are doing and is just filling the angler in.",
-  "Write tight and stripped down. No preamble, no throat-clearing. Lead with the most important thing and don't look back.",
-];
-
-async function polishReportCopy(
-  openaiKey: string,
-  report: HowsFishingReport,
-  locationName: string | null,
-  localDate: string | null,
-): Promise<{
-  summary: string;
-  driverLabels: string[];
-  suppressorLabels: string[];
-  timingInsight: string;
-  solunarNote: string;
-  tip: string;
-  inT: number;
-  outT: number;
-} | null> {
-  try {
-    const date = localDate ?? report.location.local_date;
-    const tipRng = { next: () => Math.random() };
-    const tipFocus = pickTipFocusFromEngine(report, tipRng);
-    const voiceMode = VOICE_MODES[Math.floor(Math.random() * VOICE_MODES.length)]!;
-    const openerAngle = OPENER_ANGLES[Math.floor(Math.random() * OPENER_ANGLES.length)]!;
-
-    const { briefText, positiveCount, limitingCount } = buildNarrationBrief(
-      report,
-      locationName,
-      date,
-      tipFocus.lane,
-      tipFocus.instruction,
-      voiceMode,
-      openerAngle,
-    );
-
-    const res = await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Authorization": `Bearer ${openaiKey}`,
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({
-        model: LLM_MODEL,
-        max_completion_tokens: 1024,
-        reasoning_effort: "none",
-        temperature: 0.82,
-        response_format: { type: "json_object" },
-        messages: [
-          { role: "system", content: REBUILD_LLM_SYSTEM },
-          { role: "user", content: briefText },
-        ],
-      }),
-    });
-    if (!res.ok) return null;
-
-    let json: {
-      choices?: { message?: { content?: string } }[];
-      usage?: { prompt_tokens: number; completion_tokens: number };
-    };
-    try {
-      json = await res.json() as typeof json;
-    } catch {
-      return null;
-    }
-
-    const text = json.choices?.[0]?.message?.content ?? "";
-    const inT = json.usage?.prompt_tokens ?? 0;
-    const outT = json.usage?.completion_tokens ?? 0;
-
-    try {
-      const p = JSON.parse(text) as {
-        summary_line?: string;
-        driver_labels?: unknown;
-        suppressor_labels?: unknown;
-        timing_insight?: string;
-        solunar_note?: string;
-        actionable_tip?: string;
-      };
-
-      const summary = typeof p.summary_line === "string" ? p.summary_line.slice(0, 280) : "";
-      const tip = typeof p.actionable_tip === "string" ? p.actionable_tip.slice(0, 280) : "";
-
-      // Parse label arrays — must match expected counts; fall back gracefully
-      const rawDrivers = Array.isArray(p.driver_labels) ? p.driver_labels : [];
-      const rawSupps = Array.isArray(p.suppressor_labels) ? p.suppressor_labels : [];
-      const capFirst = (s: string) =>
-        s.length > 0 ? s.charAt(0).toUpperCase() + s.slice(1) : s;
-      const polishLine = (raw: string) =>
-        sanitizePolishedThermalCopy(
-          stripNumericWaterTempNarration(formatFactorLabel(capFirst(raw.slice(0, 120)))),
-          report,
-        );
-      const driverLabels = rawDrivers
-        .slice(0, positiveCount)
-        .map((l) => (typeof l === "string" ? polishLine(l) : ""));
-      const suppressorLabels = rawSupps
-        .slice(0, limitingCount)
-        .map((l) => (typeof l === "string" ? polishLine(l) : ""));
-
-      const timingInsightRaw = stripNumericWaterTempNarration(
-        typeof p.timing_insight === "string" ? p.timing_insight.slice(0, 200) : "",
-      );
-      const meta = report.condition_context?.temperature_metabolic_context ?? "neutral";
-      /* Root fix: neutral metabolic = engine owns timing + headline so the LLM cannot invent heat/cold limiter stories. */
-      const useEngineSurface = meta === "neutral";
-      const timingInsight = useEngineSurface
-        ? stripNumericWaterTempNarration(buildDeterministicTimingInsight(report))
-        : sanitizePolishedThermalCopy(timingInsightRaw, report);
-      const solunarNote = stripNumericWaterTempNarration(
-        typeof p.solunar_note === "string" ? p.solunar_note.slice(0, 160) : "",
-      );
-      const summaryClean = useEngineSurface
-        ? stripNumericWaterTempNarration(buildEngineLedSummaryLine(report, locationName))
-        : sanitizePolishedThermalCopy(
-          stripNumericWaterTempNarration(summary),
-          report,
-        );
-      const tipClean = stripNumericWaterTempNarration(tip);
-
-      if (summaryClean && tipClean) {
-        return {
-          summary: summaryClean,
-          driverLabels,
-          suppressorLabels,
-          timingInsight,
-          solunarNote,
-          tip: tipClean,
-          inT,
-          outT,
-        };
-      }
-    } catch {
-      /* fall through to null */
-    }
-    return null;
-  } catch (e) {
-    console.error("[how-fishing] polishReportCopy error:", e);
-    return null;
-  }
-}
 
 Deno.serve(async (req: Request) => {
   if (req.method === "OPTIONS") {
@@ -397,7 +164,6 @@ Deno.serve(async (req: Request) => {
     );
   }
 
-  const cap = getUsageCapUsd(tier);
   const billingPeriod = new Date().toISOString().slice(0, 7);
   const { data: usageRow } = await supabase
     .from("usage_tracking")
@@ -450,7 +216,6 @@ Deno.serve(async (req: Request) => {
     : typeof body.city === "string" && body.city.length > 0
       ? body.city
       : null;
-  const openaiKey = Deno.env.get("OPENAI_API_KEY");
   const timestampUtc = new Date().toISOString();
   // Forecast reports expire at the target day's midnight; today's expire at local midnight
   const cacheExpiresAt = locationLocalMidnightIso(timezone);
@@ -462,64 +227,23 @@ Deno.serve(async (req: Request) => {
     outT: number;
   }> {
     const sharedReq = buildSharedEngineRequestFromEnvData(lat, lon, localDate, timezone, ctx, envData, dayOffset);
-    const labelSeed =
-      `${localDate}|${ctx}|${sharedReq.region_key}|${lat.toFixed(4)}|${lon.toFixed(4)}`;
-    setDriverLabelSeed(labelSeed);
-    let report: HowsFishingReport;
-    try {
-      report = runHowFishingReport(sharedReq);
-    } finally {
-      clearDriverLabelSeed();
-    }
-    let inT = 0;
-    let outT = 0;
-    let polishedApplied = false;
-    const engineDriver = (s: string) => stripNumericWaterTempNarration(formatFactorLabel(s));
-    if (openaiKey) {
-      try {
-        const polished = await polishReportCopy(openaiKey, report, locationName, localDate);
-        if (polished) {
-          polishedApplied = true;
-          // Apply LLM-voiced labels to drivers and suppressors (fallback to engine label if count short)
-          const updatedDrivers = report.drivers.map((d, i) => ({
-            ...d,
-            label: polished.driverLabels[i] && polished.driverLabels[i].length > 0
-              ? polished.driverLabels[i]
-              : engineDriver(d.label),
-          }));
-          const updatedSuppressors = report.suppressors.map((s, i) => ({
-            ...s,
-            label: polished.suppressorLabels[i] && polished.suppressorLabels[i].length > 0
-              ? polished.suppressorLabels[i]
-              : engineDriver(s.label),
-          }));
-          report = {
-            ...report,
-            summary_line: polished.summary,
-            actionable_tip: polished.tip,
-            drivers: updatedDrivers,
-            suppressors: updatedSuppressors,
-            timing_insight: polished.timingInsight || null,
-            solunar_note: polished.solunarNote || null,
-          };
-          inT = polished.inT;
-          outT = polished.outT;
-        }
-      } catch (e) {
-        // Never fail the whole report if narration/OpenAI hiccups — ship engine copy.
-        console.error("[how-fishing] polish path failed, using engine copy:", ctx, e);
-      }
-    }
-    if (!polishedApplied) {
-      report = {
-        ...report,
-        drivers: report.drivers.map((d) => ({ ...d, label: engineDriver(d.label) })),
-        suppressors: report.suppressors.map((s) => ({ ...s, label: engineDriver(s.label) })),
-        summary_line: stripNumericWaterTempNarration(report.summary_line),
-        actionable_tip: stripNumericWaterTempNarration(report.actionable_tip),
-      };
-    }
-    return { report, inT, outT };
+    const report = runHowFishingReport(sharedReq);
+    const surfaced: HowsFishingReport = {
+      ...report,
+      summary_line: normalizeSurfaceText(buildEngineLedSummaryLine(report, locationName)) ?? report.summary_line,
+      actionable_tip: normalizeSurfaceText(report.actionable_tip) ?? report.actionable_tip,
+      timing_insight: normalizeSurfaceText(report.timing_insight) ?? null,
+      solunar_note: normalizeSurfaceText(report.solunar_note) ?? null,
+      drivers: report.drivers.map((d) => ({
+        ...d,
+        label: normalizeSurfaceText(d.label) ?? d.label,
+      })),
+      suppressors: report.suppressors.map((s) => ({
+        ...s,
+        label: normalizeSurfaceText(s.label) ?? s.label,
+      })),
+    };
+    return { report: surfaced, inT: 0, outT: 0 };
   }
 
   // ─── Helper: track usage (insert or update) ───
@@ -572,15 +296,6 @@ Deno.serve(async (req: Request) => {
       );
     }
 
-    // Usage cap check — estimate cost for all contexts
-    const estimatedCost = ESTIMATED_COST_PER_CALL_USD * contexts.length;
-    if (currentCost + estimatedCost > cap) {
-      return new Response(
-        JSON.stringify({ error: "usage_cap_exceeded", message: "You've reached your monthly usage limit." }),
-        { status: 429, headers: { "Content-Type": "application/json", ...corsHeaders() } }
-      );
-    }
-
     // Generate reports sequentially (safe for rate limits)
     const reports: Record<string, {
       feature: "hows_fishing_rebuild_v1";
@@ -605,7 +320,7 @@ Deno.serve(async (req: Request) => {
           cache_expires_at: cacheExpiresAt,
           engine_context: ctx,
           report,
-          usage: { input_tokens: inT, output_tokens: outT, token_cost_usd: computeCallCost(inT, outT) },
+          usage: { input_tokens: inT, output_tokens: outT, token_cost_usd: 0 },
         };
       } catch (e) {
         console.error("[how-fishing] generateSingleReport failed:", ctx, e);
@@ -613,7 +328,7 @@ Deno.serve(async (req: Request) => {
       }
     }
 
-    const totalCost = computeCallCost(totalInT, totalOutT);
+    const totalCost = 0;
     const multiBundle = {
       feature: "hows_fishing_rebuild_v1" as const,
       mode: "multi" as const,
@@ -657,15 +372,8 @@ Deno.serve(async (req: Request) => {
     );
   }
 
-  if (currentCost + ESTIMATED_COST_PER_CALL_USD > cap) {
-    return new Response(
-      JSON.stringify({ error: "usage_cap_exceeded", message: "You've reached your monthly usage limit." }),
-      { status: 429, headers: { "Content-Type": "application/json", ...corsHeaders() } }
-    );
-  }
-
   const { report: singleReport, inT: singleInT, outT: singleOutT } = await generateSingleReport(context);
-  const singleCost = computeCallCost(singleInT, singleOutT);
+  const singleCost = 0;
 
   const responseBundle = {
     feature: "hows_fishing_rebuild_v1" as const,

@@ -379,14 +379,14 @@ export function RebuildReportView({
       )}
 
       {/* ══════════════════════════════════════════════════
-          CARD 5 — Tip of the Day
+          CARD 5 — Today's Presentation Tip
       ══════════════════════════════════════════════════ */}
       <View style={styles.tipCard}>
         <View style={styles.cardHeader}>
           <View style={[styles.cardIconBox, { backgroundColor: 'rgba(46,111,64,0.15)' }]}>
             <Ionicons name="bulb" size={14} color={colors.primary} />
           </View>
-          <Text style={[styles.cardTitle, { color: colors.primary }]}>Tip of the Day</Text>
+          <Text style={[styles.cardTitle, { color: colors.primary }]}>Today's Presentation Tip</Text>
         </View>
         <View style={styles.tipQuoteWrap}>
           <View style={styles.tipAccentBar} />

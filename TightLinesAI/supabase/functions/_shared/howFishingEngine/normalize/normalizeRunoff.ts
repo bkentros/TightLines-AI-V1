@@ -41,7 +41,7 @@ function classify(s: Sens, p24: number, p72: number, p7d: number): VariableState
       const u = wetnessU(p24, p72, p7d, 0.12, 0.2, 0.5);
       return {
         label: "perfect_clear",
-        score: clampEngineScore(pieceLinear(u, 0, 1, 2, 1.62)),
+        score: clampEngineScore(pieceLinear(u, 0, 1, 1.15, 0.9)),
       };
     }
     if (p24 < 0.35 && p72 < 0.85 && p7d < 1.8) {
@@ -50,7 +50,7 @@ function classify(s: Sens, p24: number, p72: number, p7d: number): VariableState
         pieceLinear(p72, 0.2, 0.85, 0, 1),
         pieceLinear(p7d, 0.5, 1.8, 0, 1),
       );
-      const score = clampEngineScore(pieceLinear(u, 0, 1, 1.72, 0.92));
+      const score = clampEngineScore(pieceLinear(u, 0, 1, 1.0, 0.6));
       return { label: "stable", score };
     }
     if (p24 < 0.7 && p72 < 1.6 && p7d < 3.0) {
@@ -59,7 +59,7 @@ function classify(s: Sens, p24: number, p72: number, p7d: number): VariableState
         pieceLinear(p72, 0.85, 1.6, 0, 1),
         pieceLinear(p7d, 1.8, 3.0, 0, 1),
       );
-      const score = clampEngineScore(pieceLinear(u, 0, 1, 0.72, -0.08));
+      const score = clampEngineScore(pieceLinear(u, 0, 1, 0.35, -0.15));
       return { label: "slightly_elevated", score };
     }
     if (p24 < 1.1 && p72 < 2.6 && p7d < 4.8) {
@@ -68,7 +68,7 @@ function classify(s: Sens, p24: number, p72: number, p7d: number): VariableState
         pieceLinear(p72, 1.6, 2.6, 0, 1),
         pieceLinear(p7d, 3.0, 4.8, 0, 1),
       );
-      const score = clampEngineScore(pieceLinear(u, 0, 1, -0.12, -1.05));
+      const score = clampEngineScore(pieceLinear(u, 0, 1, -0.2, -1.0));
       return { label: "elevated", score };
     }
     const u = Math.min(
@@ -81,7 +81,7 @@ function classify(s: Sens, p24: number, p72: number, p7d: number): VariableState
     );
     return {
       label: "blown_out",
-      score: clampEngineScore(pieceLinear(u, 0, 1, -1.15, -2)),
+      score: clampEngineScore(pieceLinear(u, 0, 1, -1.1, -2)),
     };
   }
 
@@ -90,7 +90,7 @@ function classify(s: Sens, p24: number, p72: number, p7d: number): VariableState
       const u = wetnessU(p24, p72, p7d, 0.08, 0.15, 0.4);
       return {
         label: "perfect_clear",
-        score: clampEngineScore(pieceLinear(u, 0, 1, 2, 1.62)),
+        score: clampEngineScore(pieceLinear(u, 0, 1, 1.15, 0.9)),
       };
     }
     if (p24 < 0.22 && p72 < 0.55 && p7d < 1.25) {
@@ -101,7 +101,7 @@ function classify(s: Sens, p24: number, p72: number, p7d: number): VariableState
       );
       return {
         label: "stable",
-        score: clampEngineScore(pieceLinear(u, 0, 1, 1.72, 0.92)),
+        score: clampEngineScore(pieceLinear(u, 0, 1, 1.0, 0.6)),
       };
     }
     if (p24 < 0.5 && p72 < 1.15 && p7d < 2.3) {
@@ -112,7 +112,7 @@ function classify(s: Sens, p24: number, p72: number, p7d: number): VariableState
       );
       return {
         label: "slightly_elevated",
-        score: clampEngineScore(pieceLinear(u, 0, 1, 0.72, -0.08)),
+        score: clampEngineScore(pieceLinear(u, 0, 1, 0.35, -0.15)),
       };
     }
     if (p24 < 0.9 && p72 < 2.0 && p7d < 3.9) {
@@ -123,7 +123,7 @@ function classify(s: Sens, p24: number, p72: number, p7d: number): VariableState
       );
       return {
         label: "elevated",
-        score: clampEngineScore(pieceLinear(u, 0, 1, -0.12, -1.05)),
+        score: clampEngineScore(pieceLinear(u, 0, 1, -0.2, -1.0)),
       };
     }
     const u = Math.min(
@@ -136,7 +136,7 @@ function classify(s: Sens, p24: number, p72: number, p7d: number): VariableState
     );
     return {
       label: "blown_out",
-      score: clampEngineScore(pieceLinear(u, 0, 1, -1.15, -2)),
+      score: clampEngineScore(pieceLinear(u, 0, 1, -1.1, -2)),
     };
   }
 
@@ -144,7 +144,7 @@ function classify(s: Sens, p24: number, p72: number, p7d: number): VariableState
     const u = wetnessU(p24, p72, p7d, 0.05, 0.1, 0.25);
     return {
       label: "perfect_clear",
-      score: clampEngineScore(pieceLinear(u, 0, 1, 2, 1.62)),
+      score: clampEngineScore(pieceLinear(u, 0, 1, 1.15, 0.9)),
     };
   }
   if (p24 < 0.15 && p72 < 0.4 && p7d < 1.0) {
@@ -155,7 +155,7 @@ function classify(s: Sens, p24: number, p72: number, p7d: number): VariableState
     );
     return {
       label: "stable",
-      score: clampEngineScore(pieceLinear(u, 0, 1, 1.72, 0.92)),
+      score: clampEngineScore(pieceLinear(u, 0, 1, 1.0, 0.6)),
     };
   }
   if (p24 < 0.35 && p72 < 0.8 && p7d < 1.8) {
@@ -166,7 +166,7 @@ function classify(s: Sens, p24: number, p72: number, p7d: number): VariableState
     );
     return {
       label: "slightly_elevated",
-      score: clampEngineScore(pieceLinear(u, 0, 1, 0.72, -0.08)),
+      score: clampEngineScore(pieceLinear(u, 0, 1, 0.35, -0.15)),
     };
   }
   if (p24 < 0.65 && p72 < 1.5 && p7d < 3.1) {
@@ -177,7 +177,7 @@ function classify(s: Sens, p24: number, p72: number, p7d: number): VariableState
     );
     return {
       label: "elevated",
-      score: clampEngineScore(pieceLinear(u, 0, 1, -0.12, -1.05)),
+      score: clampEngineScore(pieceLinear(u, 0, 1, -0.2, -1.0)),
     };
   }
   const u = Math.min(
@@ -190,7 +190,7 @@ function classify(s: Sens, p24: number, p72: number, p7d: number): VariableState
   );
   return {
     label: "blown_out",
-    score: clampEngineScore(pieceLinear(u, 0, 1, -1.15, -2)),
+    score: clampEngineScore(pieceLinear(u, 0, 1, -1.1, -2)),
   };
 }
 

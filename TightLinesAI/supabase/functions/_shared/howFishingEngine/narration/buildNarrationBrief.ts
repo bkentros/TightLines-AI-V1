@@ -121,6 +121,7 @@ function variableToPlain(
       if (label === "falling_hard") return "dropping hard and fast — short aggressive window before the front hits";
       if (label === "rising_slow") return "slowly recovering after a front";
       if (label === "rising_fast") return "bouncing up sharply after a front — fish are recalibrating";
+      if (label === "recently_stabilizing") return "pressure settled after earlier swings — conditions are calming down";
       if (label === "volatile") return "moving in both directions — unsettled pattern";
       if (label === "stable_neutral") return "flat and steady — no directional pressure story";
       return label.replace(/_/g, " ");
@@ -193,6 +194,9 @@ function deriveDominantPattern(report: HowsFishingReport): string {
   }
   if (pl === "falling_hard") {
     return "Pressure dropping hard — short, aggressive window before the front moves through";
+  }
+  if (pl === "recently_stabilizing") {
+    return "Pressure was messy earlier but has settled down — the bite may rebuild as conditions normalize";
   }
   if (pl === "rising_fast") {
     return "Front has passed, pressure rebounding — bite is rebuilding as conditions settle";
@@ -419,6 +423,10 @@ function deriveTipContextFromVariables(
         } else if (label === "rising_slow") {
           hints.push(
             "Pressure slowly recovering: fish are gradually re-engaging — start subtle and build toward more confident presentations as the session progresses.",
+          );
+        } else if (label === "recently_stabilizing") {
+          hints.push(
+            "Pressure has settled after earlier swings: let the spot reload and fish it methodically before bouncing around too fast.",
           );
         }
         break;

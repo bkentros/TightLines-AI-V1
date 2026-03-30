@@ -1,20 +1,13 @@
 /**
- * Timing family resolution — maps (context, region, month) to a TimingFamilyConfig.
- *
- * **Five timing climates** (not three): interior continental, maritime cool,
- * warm humid, hot humid, hot arid. Regions map to the archetype whose seasonal
- * timing levers best match general freshwater/coastal behavior there.
- *
- * Uses **calendar month (1–12)** as the lookup key, not a 4-bucket season.
- * **Month blend** (freshwater) cross-fades adjacent months in resolveTimingResult.
+ * Timing profile resolution — maps (context, region, month) to a single-anchor
+ * timing profile and one fallback feeding-bias window.
  */
 
 import type { EngineContext, RegionKey } from "../contracts/mod.ts";
-import { isCoastalFamilyContext } from "../contracts/context.ts";
 import type { ClimateZone, SeasonKey, TimingFamilyConfig } from "./timingTypes.ts";
 import { TIMING_FAMILY_CONFIGS } from "./timingDriverConfig.ts";
 
-/** Meteorological season label for traces only — not used for family lookup. */
+/** Meteorological season label for traces only. */
 export function seasonFromMonth(month: number): SeasonKey {
   if (month === 12 || month === 1 || month === 2) return "winter";
   if (month >= 3 && month <= 5) return "spring";
@@ -22,42 +15,24 @@ export function seasonFromMonth(month: number): SeasonKey {
   return "fall";
 }
 
-// ── Region → timing climate (5 archetypes) ───────────────────────────────────
-
 const CLIMATE_ZONE_MAP: Record<RegionKey, ClimateZone> = {
-  /** Strong winter / real summer — same family stack as legacy "cold continental" */
   northeast: "interior_continental",
   great_lakes_upper_midwest: "interior_continental",
   midwest_interior: "interior_continental",
   mountain_west: "interior_continental",
-  /** High-elevation cold winter + warm summer — not low-desert */
   southwest_high_desert: "interior_continental",
-
-  /** Mild wet winters, moderate summers — low-light/cloud weighted vs interior heat */
   pacific_northwest: "maritime_cool",
-
-  /** Humid warm belt without Gulf/FL subtropical extremes */
   southeast_atlantic: "warm_humid",
   south_central: "warm_humid",
-
-  /** Subtropical wet heat */
   florida: "hot_humid",
   gulf_coast: "hot_humid",
-
-  /** Dry bright heat — spring leans warm-belt wind/cloud row vs humid subtropical */
   southwest_desert: "hot_arid",
   southern_california: "hot_arid",
-
-  /** Alpine: continental timing (cold winter / real summer) — same stack as mountain_west */
   mountain_alpine: "interior_continental",
-  /** NorCal: Mediterranean-ish with wet winters; maritime coast + hot inland valley blend */
   northern_california: "warm_humid",
-
   appalachian: "warm_humid",
   inland_northwest: "interior_continental",
-
   alaska: "interior_continental",
-  /** Year-round mild/warm — share subtropical stack with Florida for month timing */
   hawaii: "hot_humid",
 };
 
@@ -65,21 +40,18 @@ export function climateZoneFromRegion(region: RegionKey): ClimateZone {
   return CLIMATE_ZONE_MAP[region] ?? "warm_humid";
 }
 
-// ── 12-month family IDs (index 0 = January … 11 = December) ─────────────────
-
-type MonthFamilyRow = readonly [
+type MonthProfileRow = readonly [
   string, string, string, string, string, string,
   string, string, string, string, string, string,
 ];
 
-/** Interior continental — legacy cold row */
-const LAKE_INTERIOR: MonthFamilyRow = [
-  "lake_cold_winter",
-  "lake_cold_winter",
+const LAKE_INTERIOR: MonthProfileRow = [
   "lake_cold_winter",
   "lake_cold_winter",
   "lake_cold_spring",
   "lake_cold_spring",
+  "lake_cold_spring",
+  "lake_cold_summer",
   "lake_cold_summer",
   "lake_cold_summer",
   "lake_cold_fall",
@@ -88,14 +60,10 @@ const LAKE_INTERIOR: MonthFamilyRow = [
   "lake_cold_winter",
 ];
 
-/**
- * Maritime cool — mild gray winters (warm-belt winter stack); peak summer uses
- * interior "cool summer" row (low-light + cloud) instead of harsh avoid-heat.
- */
-const LAKE_MARITIME: MonthFamilyRow = [
+const LAKE_MARITIME: MonthProfileRow = [
   "lake_warm_winter",
   "lake_warm_winter",
-  "lake_warm_winter",
+  "lake_warm_spring",
   "lake_warm_spring",
   "lake_warm_spring",
   "lake_cold_summer",
@@ -107,14 +75,13 @@ const LAKE_MARITIME: MonthFamilyRow = [
   "lake_warm_winter",
 ];
 
-/** Warm humid — legacy warm temperate row */
-const LAKE_WARM_HUMID: MonthFamilyRow = [
-  "lake_warm_winter",
+const LAKE_WARM_HUMID: MonthProfileRow = [
   "lake_warm_winter",
   "lake_warm_winter",
   "lake_warm_winter",
   "lake_warm_spring",
   "lake_warm_spring",
+  "lake_warm_summer",
   "lake_warm_summer",
   "lake_warm_summer",
   "lake_warm_summer",
@@ -123,34 +90,28 @@ const LAKE_WARM_HUMID: MonthFamilyRow = [
   "lake_warm_winter",
 ];
 
-/** Hot humid — legacy hot subtropical row */
-const LAKE_HOT_HUMID: MonthFamilyRow = [
+const LAKE_HOT_HUMID: MonthProfileRow = [
   "lake_hot_winter",
   "lake_hot_winter",
-  "lake_hot_winter",
+  "lake_hot_spring",
   "lake_hot_spring",
   "lake_hot_spring",
   "lake_hot_summer",
   "lake_hot_summer",
   "lake_hot_summer",
-  "lake_hot_fall",
+  "lake_hot_summer",
   "lake_hot_fall",
   "lake_hot_fall",
   "lake_hot_winter",
 ];
 
-/**
- * Hot arid — dry bright summers; Apr already hits 85°F+ in AZ/NV so avoid_heat
- * (July family) is appropriate for April; May–Jun use warm-belt spring for
- * wind/dust/front swings.
- */
-const LAKE_HOT_ARID: MonthFamilyRow = [
+const LAKE_HOT_ARID: MonthProfileRow = [
   "lake_hot_winter",
   "lake_hot_winter",
-  "lake_hot_winter",
+  "lake_hot_spring",
   "lake_hot_summer",
-  "lake_warm_spring",
-  "lake_warm_spring",
+  "lake_hot_summer",
+  "lake_hot_summer",
   "lake_hot_summer",
   "lake_hot_summer",
   "lake_hot_summer",
@@ -159,7 +120,7 @@ const LAKE_HOT_ARID: MonthFamilyRow = [
   "lake_hot_winter",
 ];
 
-const LAKE_BY_ZONE: Record<ClimateZone, MonthFamilyRow> = {
+const LAKE_BY_ZONE: Record<ClimateZone, MonthProfileRow> = {
   interior_continental: LAKE_INTERIOR,
   maritime_cool: LAKE_MARITIME,
   warm_humid: LAKE_WARM_HUMID,
@@ -167,13 +128,13 @@ const LAKE_BY_ZONE: Record<ClimateZone, MonthFamilyRow> = {
   hot_arid: LAKE_HOT_ARID,
 };
 
-const RIVER_INTERIOR: MonthFamilyRow = [
-  "river_cold_winter",
-  "river_cold_winter",
+const RIVER_INTERIOR: MonthProfileRow = [
   "river_cold_winter",
   "river_cold_winter",
   "river_cold_spring",
   "river_cold_spring",
+  "river_cold_spring",
+  "river_cold_summer",
   "river_cold_summer",
   "river_cold_summer",
   "river_cold_fall",
@@ -182,10 +143,10 @@ const RIVER_INTERIOR: MonthFamilyRow = [
   "river_cold_winter",
 ];
 
-const RIVER_MARITIME: MonthFamilyRow = [
+const RIVER_MARITIME: MonthProfileRow = [
   "river_warm_winter",
   "river_warm_winter",
-  "river_warm_winter",
+  "river_warm_spring",
   "river_warm_spring",
   "river_warm_spring",
   "river_cold_summer",
@@ -197,13 +158,13 @@ const RIVER_MARITIME: MonthFamilyRow = [
   "river_warm_winter",
 ];
 
-const RIVER_WARM_HUMID: MonthFamilyRow = [
-  "river_warm_winter",
+const RIVER_WARM_HUMID: MonthProfileRow = [
   "river_warm_winter",
   "river_warm_winter",
   "river_warm_winter",
   "river_warm_spring",
   "river_warm_spring",
+  "river_warm_summer",
   "river_warm_summer",
   "river_warm_summer",
   "river_warm_summer",
@@ -212,28 +173,13 @@ const RIVER_WARM_HUMID: MonthFamilyRow = [
   "river_warm_winter",
 ];
 
-const RIVER_HOT_HUMID: MonthFamilyRow = [
-  "river_hot_winter",
+const RIVER_HOT_HUMID: MonthProfileRow = [
   "river_hot_winter",
   "river_hot_winter",
   "river_hot_spring",
   "river_hot_spring",
+  "river_hot_spring",
   "river_hot_summer",
-  "river_hot_summer",
-  "river_hot_summer",
-  "river_hot_fall",
-  "river_hot_fall",
-  "river_hot_fall",
-  "river_hot_winter",
-];
-
-const RIVER_HOT_ARID: MonthFamilyRow = [
-  "river_hot_winter",
-  "river_hot_winter",
-  "river_hot_winter",
-  "river_hot_summer",
-  "river_warm_spring",
-  "river_warm_spring",
   "river_hot_summer",
   "river_hot_summer",
   "river_hot_summer",
@@ -242,7 +188,22 @@ const RIVER_HOT_ARID: MonthFamilyRow = [
   "river_hot_winter",
 ];
 
-const RIVER_BY_ZONE: Record<ClimateZone, MonthFamilyRow> = {
+const RIVER_HOT_ARID: MonthProfileRow = [
+  "river_hot_winter",
+  "river_hot_winter",
+  "river_hot_spring",
+  "river_hot_summer",
+  "river_hot_summer",
+  "river_hot_summer",
+  "river_hot_summer",
+  "river_hot_summer",
+  "river_hot_summer",
+  "river_hot_fall",
+  "river_hot_fall",
+  "river_hot_winter",
+];
+
+const RIVER_BY_ZONE: Record<ClimateZone, MonthProfileRow> = {
   interior_continental: RIVER_INTERIOR,
   maritime_cool: RIVER_MARITIME,
   warm_humid: RIVER_WARM_HUMID,
@@ -250,7 +211,171 @@ const RIVER_BY_ZONE: Record<ClimateZone, MonthFamilyRow> = {
   hot_arid: RIVER_HOT_ARID,
 };
 
-// ── Public lookup ────────────────────────────────────────────────────────────
+const COAST_INTERIOR: MonthProfileRow = [
+  "coastal_cold_winter_tide",
+  "coastal_cold_winter_tide",
+  "coastal_cold_shoulder_tide",
+  "coastal_cold_shoulder_tide",
+  "coastal_cold_shoulder_tide",
+  "coastal_cold_summer_tide",
+  "coastal_cold_summer_tide",
+  "coastal_cold_summer_tide",
+  "coastal_cold_fall_tide",
+  "coastal_cold_fall_tide",
+  "coastal_cold_fall_tide",
+  "coastal_cold_winter_tide",
+];
+
+const COAST_MARITIME: MonthProfileRow = [
+  "coastal_cold_winter_tide",
+  "coastal_cold_winter_tide",
+  "coastal_cold_shoulder_tide",
+  "coastal_cold_shoulder_tide",
+  "coastal_cold_shoulder_tide",
+  "coastal_cold_summer_tide",
+  "coastal_cold_summer_tide",
+  "coastal_cold_summer_tide",
+  "coastal_cold_fall_tide",
+  "coastal_cold_fall_tide",
+  "coastal_cold_fall_tide",
+  "coastal_cold_winter_tide",
+];
+
+const COAST_WARM_HUMID: MonthProfileRow = [
+  "coastal_warm_winter_tide",
+  "coastal_warm_winter_tide",
+  "coastal_warm_shoulder_tide",
+  "coastal_warm_shoulder_tide",
+  "coastal_warm_shoulder_tide",
+  "coastal_warm_summer_tide",
+  "coastal_warm_summer_tide",
+  "coastal_warm_summer_tide",
+  "coastal_warm_summer_tide",
+  "coastal_warm_shoulder_tide",
+  "coastal_warm_shoulder_tide",
+  "coastal_warm_winter_tide",
+];
+
+const COAST_HOT_HUMID: MonthProfileRow = [
+  "coastal_hot_winter_tide",
+  "coastal_hot_winter_tide",
+  "coastal_hot_shoulder_tide",
+  "coastal_hot_shoulder_tide",
+  "coastal_hot_shoulder_tide",
+  "coastal_hot_summer_tide",
+  "coastal_hot_summer_tide",
+  "coastal_hot_summer_tide",
+  "coastal_hot_summer_tide",
+  "coastal_hot_shoulder_tide",
+  "coastal_hot_shoulder_tide",
+  "coastal_hot_winter_tide",
+];
+
+const COAST_HOT_ARID: MonthProfileRow = [
+  "coastal_warm_winter_tide",
+  "coastal_warm_winter_tide",
+  "coastal_warm_shoulder_tide",
+  "coastal_warm_shoulder_tide",
+  "coastal_warm_shoulder_tide",
+  "coastal_warm_summer_tide",
+  "coastal_warm_summer_tide",
+  "coastal_warm_summer_tide",
+  "coastal_warm_summer_tide",
+  "coastal_warm_shoulder_tide",
+  "coastal_warm_shoulder_tide",
+  "coastal_warm_winter_tide",
+];
+
+const COAST_BY_ZONE: Record<ClimateZone, MonthProfileRow> = {
+  interior_continental: COAST_INTERIOR,
+  maritime_cool: COAST_MARITIME,
+  warm_humid: COAST_WARM_HUMID,
+  hot_humid: COAST_HOT_HUMID,
+  hot_arid: COAST_HOT_ARID,
+};
+
+const FLATS_INTERIOR: MonthProfileRow = [
+  "flats_cold_winter_warmth",
+  "flats_cold_winter_warmth",
+  "flats_cold_spring_tide",
+  "flats_cold_spring_tide",
+  "flats_cold_spring_tide",
+  "flats_cold_summer_light",
+  "flats_cold_summer_light",
+  "flats_cold_summer_light",
+  "flats_cold_fall_tide",
+  "flats_cold_fall_tide",
+  "flats_cold_fall_tide",
+  "flats_cold_winter_warmth",
+];
+
+const FLATS_MARITIME: MonthProfileRow = [
+  "flats_cold_winter_warmth",
+  "flats_cold_winter_warmth",
+  "flats_cold_spring_tide",
+  "flats_cold_spring_tide",
+  "flats_cold_spring_tide",
+  "flats_cold_summer_light",
+  "flats_cold_summer_light",
+  "flats_cold_summer_light",
+  "flats_cold_fall_tide",
+  "flats_cold_fall_tide",
+  "flats_cold_fall_tide",
+  "flats_cold_winter_warmth",
+];
+
+const FLATS_WARM_HUMID: MonthProfileRow = [
+  "flats_warm_winter_warmth",
+  "flats_warm_winter_warmth",
+  "flats_warm_spring_tide",
+  "flats_warm_spring_tide",
+  "flats_warm_spring_tide",
+  "flats_warm_summer_heat",
+  "flats_warm_summer_heat",
+  "flats_warm_summer_heat",
+  "flats_warm_summer_heat",
+  "flats_warm_fall_tide",
+  "flats_warm_fall_tide",
+  "flats_warm_winter_warmth",
+];
+
+const FLATS_HOT_HUMID: MonthProfileRow = [
+  "flats_hot_winter_warmth",
+  "flats_hot_winter_warmth",
+  "flats_hot_spring_tide",
+  "flats_hot_spring_tide",
+  "flats_hot_spring_tide",
+  "flats_hot_summer_heat",
+  "flats_hot_summer_heat",
+  "flats_hot_summer_heat",
+  "flats_hot_summer_heat",
+  "flats_hot_fall_tide",
+  "flats_hot_fall_tide",
+  "flats_hot_winter_warmth",
+];
+
+const FLATS_HOT_ARID: MonthProfileRow = [
+  "flats_warm_winter_warmth",
+  "flats_warm_winter_warmth",
+  "flats_warm_spring_tide",
+  "flats_warm_spring_tide",
+  "flats_warm_spring_tide",
+  "flats_warm_summer_heat",
+  "flats_warm_summer_heat",
+  "flats_warm_summer_heat",
+  "flats_warm_summer_heat",
+  "flats_warm_fall_tide",
+  "flats_warm_fall_tide",
+  "flats_warm_winter_warmth",
+];
+
+const FLATS_BY_ZONE: Record<ClimateZone, MonthProfileRow> = {
+  interior_continental: FLATS_INTERIOR,
+  maritime_cool: FLATS_MARITIME,
+  warm_humid: FLATS_WARM_HUMID,
+  hot_humid: FLATS_HOT_HUMID,
+  hot_arid: FLATS_HOT_ARID,
+};
 
 function monthIndexClamped(month: number): number {
   if (!Number.isFinite(month) || month < 1 || month > 12) return 0;
@@ -262,19 +387,20 @@ export function resolveTimingFamily(
   region: RegionKey,
   month: number,
 ): TimingFamilyConfig {
-  if (isCoastalFamilyContext(context)) {
-    return TIMING_FAMILY_CONFIGS.coastal_all;
-  }
-
   const zone = climateZoneFromRegion(region);
   const mi = monthIndexClamped(month);
-  const table = context === "freshwater_river" ? RIVER_BY_ZONE : LAKE_BY_ZONE;
-  const row = table[zone];
-  const familyId = row[mi]!;
 
-  const cfg = TIMING_FAMILY_CONFIGS[familyId];
-  if (!cfg) {
-    return TIMING_FAMILY_CONFIGS.lake_cold_fall;
+  let table: Record<ClimateZone, MonthProfileRow>;
+  if (context === "freshwater_lake_pond") {
+    table = LAKE_BY_ZONE;
+  } else if (context === "freshwater_river") {
+    table = RIVER_BY_ZONE;
+  } else if (context === "coastal") {
+    table = COAST_BY_ZONE;
+  } else {
+    table = FLATS_BY_ZONE;
   }
-  return cfg;
+
+  const profileId = table[zone][mi]!;
+  return TIMING_FAMILY_CONFIGS[profileId] ?? TIMING_FAMILY_CONFIGS.lake_cold_fall;
 }

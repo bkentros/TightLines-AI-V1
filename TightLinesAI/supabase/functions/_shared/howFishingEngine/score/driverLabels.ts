@@ -193,6 +193,12 @@ function pressureDriverLabel(p: NonNullable<Norm["pressure_regime"]>): string {
         "Mercury holding steady — neither helper nor villain on its own.",
         "Neutral pressure regime: lean on wind, light, temperature, and flow for edges.",
       ]);
+    case "recently_stabilizing":
+      return pick([
+        "Pressure was jumpy but has settled down lately — the worst atmospheric noise may be behind you.",
+        "Post-front settling signal — conditions look calmer now than they did earlier in the cycle.",
+        "Barometer is flattening after earlier swings — fish often re-engage once the chaos fades.",
+      ]);
     default:
       return `Pressure regime: ${p.label.replace(/_/g, " ")}.`;
   }
@@ -361,14 +367,14 @@ export function labelForDriver(key: ScoredVariableKey, norm: Norm): string {
     }
     case "tide_current_movement": {
       if (!ti) return "";
-      if (ti.label === "strong_moving" || ti.score >= 1.5) {
+      if (ti.score >= 1.2) {
         return pick([
           "Strong tidal exchange — current is moving nutrients and disorienting prey; lean into it.",
           "Big water movement day — stage on seams, rips, and pinch points where speed changes.",
           "Healthy tidal engine — timing the push or drain matters more than lure color.",
         ]);
       }
-      if (ti.label === "moving") {
+      if (ti.score >= 0.2) {
         return pick([
           "Moderate tide — enough flow to work with, not a slam-dunk current day.",
           "Average tidal range — fish won’t ignore the moon, but it won’t do all the work.",

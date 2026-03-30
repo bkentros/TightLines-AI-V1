@@ -5,6 +5,7 @@
  */
 
 import type { HowsFishingReport } from "../contracts/report.ts";
+import { pickDeterministic } from "../copy/deterministicPick.ts";
 
 const DAYPART_NAMES = ["dawn", "morning", "afternoon", "evening"] as const;
 
@@ -35,6 +36,33 @@ export function buildDeterministicTimingInsight(report: HowsFishingReport): stri
     }
   }
   return (note ?? "No strong timing signal — stay flexible.").replace(/\s+/g, " ").trim().slice(0, 200);
+}
+
+const SOLUNAR_PRESENT = [
+  "Solunar majors line up today, but treat them as bonus windows alongside the main timing call.",
+  "There is at least one worthwhile solunar bump today, though it is still secondary to the main timing recommendation.",
+  "Solunar activity adds a little extra context today, but it should stay in the bonus column rather than driving the plan.",
+] as const;
+
+const SOLUNAR_QUIET = [
+  "Solunar signals look quiet today, so lean on the main timing recommendation first.",
+  "There is no standout solunar push today, so let the primary timing window do the heavy lifting.",
+] as const;
+
+export function buildDeterministicSolunarNote(report: HowsFishingReport): string | null {
+  const count = report.condition_context?.environment_snapshot.solunar_peak_count ?? null;
+  const seed = [
+    report.context,
+    report.location.region_key,
+    report.location.local_date,
+    String(count ?? "none"),
+  ].join("|");
+
+  if (count == null) return null;
+  if (count > 0) {
+    return pickDeterministic(SOLUNAR_PRESENT, seed, "solunar:present");
+  }
+  return pickDeterministic(SOLUNAR_QUIET, seed, "solunar:quiet");
 }
 
 /**

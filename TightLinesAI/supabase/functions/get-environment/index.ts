@@ -13,6 +13,14 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import { fetchOpenMeteo14Day } from "../_shared/openMeteo14DayFetch.ts";
+import {
+  buildEnvironmentSnapshotKey,
+  hasSufficientHourlyWeather,
+  isEnvironmentSnapshotUsable,
+  localDateFromUtcIso,
+  mergeEnvironmentWithSnapshot,
+  type EnvironmentSnapshotLike,
+} from "./cache.ts";
 
 // -----------------------------------------------------------------------------
 // Types (mirror lib/env/types.ts — Edge Functions are isolated)
@@ -103,6 +111,7 @@ interface EnvironmentData {
   tide_predictions_30day?: Array<{ date: string; high_ft: number; low_ft: number }>;
   measured_water_temp_f?: number | null;
   measured_water_temp_source?: string | null;
+  measured_water_temp_24h_ago_f?: number | null;
   measured_water_temp_72h_ago_f?: number | null;
   coastal?: boolean;
   nearest_tide_station_id?: string | null;
@@ -116,7 +125,22 @@ interface EnvironmentData {
     sunrise_local: string;
     sunset_local: string;
   }>;
+  source_notes?: string[];
 }
+
+type EnvironmentSnapshotRow = {
+  snapshot_key: string;
+  latitude_bucket: number;
+  longitude_bucket: number;
+  units: "imperial" | "metric";
+  local_date: string;
+  payload: EnvironmentData;
+  captured_at: string;
+  has_hourly_weather: boolean;
+  weather_available: boolean;
+  tides_available: boolean;
+  water_temp_available: boolean;
+};
 
 // -----------------------------------------------------------------------------
 // Constants
@@ -193,6 +217,66 @@ function addMinsToHHMM(timeStr: string, minutes: number): string {
   return `${String(hh).padStart(2, '0')}:${String(mm).padStart(2, '0')}`;
 }
 
+function latBucket(lat: number): number {
+  return Math.round(lat * 100) / 100;
+}
+
+function lonBucket(lon: number): number {
+  return Math.round(lon * 100) / 100;
+}
+
+async function readEnvironmentSnapshot(
+  supabase: any,
+  snapshotKey: string,
+): Promise<EnvironmentData | null> {
+  try {
+    const { data, error } = await supabase
+      .from("environment_snapshots")
+      .select("payload")
+      .eq("snapshot_key", snapshotKey)
+      .maybeSingle();
+    const row = data as { payload?: EnvironmentData } | null;
+    if (error || !row?.payload) return null;
+    return row.payload;
+  } catch {
+    return null;
+  }
+}
+
+async function writeEnvironmentSnapshot(
+  supabase: any,
+  snapshotKey: string,
+  lat: number,
+  lon: number,
+  units: "imperial" | "metric",
+  localDate: string,
+  payload: EnvironmentData,
+): Promise<void> {
+  if (!isEnvironmentSnapshotUsable(payload as EnvironmentSnapshotLike)) return;
+
+  const row: EnvironmentSnapshotRow = {
+    snapshot_key: snapshotKey,
+    latitude_bucket: latBucket(lat),
+    longitude_bucket: lonBucket(lon),
+    units,
+    local_date: localDate,
+    payload,
+    captured_at: payload.fetched_at,
+    has_hourly_weather: hasSufficientHourlyWeather(payload as EnvironmentSnapshotLike),
+    weather_available: payload.weather_available,
+    tides_available: payload.tides_available,
+    water_temp_available: payload.measured_water_temp_f != null,
+  };
+
+  try {
+    await supabase.from("environment_snapshots").upsert(row as any, {
+      onConflict: "snapshot_key",
+    });
+  } catch {
+    // Snapshot fallback is a reliability enhancement, never a hard dependency.
+  }
+}
+
 
 // -----------------------------------------------------------------------------
 // Sunrise-Sunset.org — civil twilight
@@ -246,6 +330,7 @@ interface NOAAResult {
   stationId: string | null;
   tide_predictions_30day?: Array<{ date: string; high_ft: number; low_ft: number }>;
   measured_water_temp_f?: number | null;
+  measured_water_temp_24h_ago_f?: number | null;
   measured_water_temp_72h_ago_f?: number | null;
   measured_water_temp_source?: "noaa_coops" | null;
 }
@@ -285,6 +370,7 @@ async function fetchNoaaWaterTemperature(
   tzHours: number
 ): Promise<{
   measured_water_temp_f: number | null;
+  measured_water_temp_24h_ago_f: number | null;
   measured_water_temp_72h_ago_f: number | null;
   measured_water_temp_source: "noaa_coops" | null;
 }> {
@@ -294,6 +380,7 @@ async function fetchNoaaWaterTemperature(
     if (!res.ok) {
       return {
         measured_water_temp_f: null,
+        measured_water_temp_24h_ago_f: null,
         measured_water_temp_72h_ago_f: null,
         measured_water_temp_source: null,
       };
@@ -303,12 +390,19 @@ async function fetchNoaaWaterTemperature(
     if (observations.length === 0) {
       return {
         measured_water_temp_f: null,
+        measured_water_temp_24h_ago_f: null,
         measured_water_temp_72h_ago_f: null,
         measured_water_temp_source: null,
       };
     }
 
     const latest = pickClosestObservationValueF(observations, tzHours, Date.now(), 12);
+    const twentyFourHoursAgo = pickClosestObservationValueF(
+      observations,
+      tzHours,
+      Date.now() - 24 * 3600 * 1000,
+      12
+    );
     const seventyTwoHoursAgo = pickClosestObservationValueF(
       observations,
       tzHours,
@@ -319,6 +413,7 @@ async function fetchNoaaWaterTemperature(
     if (latest === null) {
       return {
         measured_water_temp_f: null,
+        measured_water_temp_24h_ago_f: null,
         measured_water_temp_72h_ago_f: null,
         measured_water_temp_source: null,
       };
@@ -326,12 +421,14 @@ async function fetchNoaaWaterTemperature(
 
     return {
       measured_water_temp_f: latest,
+      measured_water_temp_24h_ago_f: twentyFourHoursAgo,
       measured_water_temp_72h_ago_f: seventyTwoHoursAgo,
       measured_water_temp_source: "noaa_coops",
     };
   } catch {
     return {
       measured_water_temp_f: null,
+      measured_water_temp_24h_ago_f: null,
       measured_water_temp_72h_ago_f: null,
       measured_water_temp_source: null,
     };
@@ -486,6 +583,7 @@ async function fetchNOAA(
       nearestMiles: Infinity,
       stationId: null,
       measured_water_temp_f: null,
+      measured_water_temp_24h_ago_f: null,
       measured_water_temp_72h_ago_f: null,
       measured_water_temp_source: null,
     };
@@ -837,15 +935,19 @@ Deno.serve(async (req: Request) => {
   const tzHours = meteo?.tz_offset_hours ?? getTzOffsetHours(lon);
   const timezone = meteo?.timezone ?? "UTC";
   const fetchedAt = new Date().toISOString();
+  const localDate = localDateFromUtcIso(fetchedAt, tzHours);
+  const snapshotKey = buildEnvironmentSnapshotKey(lat, lon, units, localDate);
 
   // Fetch all remaining sources in parallel once the live timezone offset is known.
-  const [twilightResult, noaaResult, usnoResult, elevationResult] = await Promise.allSettled([
+  const [snapshotResult, twilightResult, noaaResult, usnoResult, elevationResult] = await Promise.allSettled([
+    readEnvironmentSnapshot(supabase, snapshotKey),
     fetchCivilTwilight(lat, lon, tzHours),
     fetchNOAA(lat, lon, units, tzHours, timezone),
     fetchUSNO(lat, lon, tzHours),
     fetchElevation(lat, lon),
   ]);
 
+  const cachedSnapshot = snapshotResult.status === 'fulfilled' ? snapshotResult.value : null;
   const twilight = twilightResult.status === 'fulfilled' ? twilightResult.value : null;
   const noaa = noaaResult.status === 'fulfilled' ? noaaResult.value : null;
   const usno = usnoResult.status === 'fulfilled' ? usnoResult.value : null;
@@ -878,7 +980,7 @@ Deno.serve(async (req: Request) => {
   const moon = usno?.moon;
   const solunar = moon ? computeSolunar(moon) : undefined;
 
-  const response: EnvironmentData = {
+  const liveResponse: EnvironmentData = {
     weather_available: Boolean(meteo?.weather && typeof meteo.weather.temperature === 'number'),
     tides_available,
     moon_available: Boolean(moon?.phase),
@@ -899,12 +1001,28 @@ Deno.serve(async (req: Request) => {
     tide_predictions_30day: noaa?.tide_predictions_30day ?? [],
     measured_water_temp_f: noaa?.measured_water_temp_f ?? null,
     measured_water_temp_source: noaa?.measured_water_temp_source ?? null,
+    measured_water_temp_24h_ago_f: noaa?.measured_water_temp_24h_ago_f ?? null,
     measured_water_temp_72h_ago_f: noaa?.measured_water_temp_72h_ago_f ?? null,
     coastal: Boolean(noaa?.tides),
     nearest_tide_station_id: noaa?.stationId ?? null,
     altitude_ft: altitude_ft,
     forecast_daily: meteo?.forecast_daily ?? [],
   };
+
+  const response = mergeEnvironmentWithSnapshot(
+    liveResponse as EnvironmentSnapshotLike,
+    cachedSnapshot as EnvironmentSnapshotLike | null,
+  ) as EnvironmentData;
+
+  await writeEnvironmentSnapshot(
+    supabase,
+    snapshotKey,
+    lat,
+    lon,
+    units,
+    localDate,
+    response,
+  );
 
   return new Response(JSON.stringify(response), {
     status: 200,

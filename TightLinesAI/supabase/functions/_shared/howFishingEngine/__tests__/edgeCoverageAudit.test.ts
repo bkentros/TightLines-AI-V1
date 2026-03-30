@@ -7,6 +7,7 @@ import { buildSharedEngineRequestFromEnvData } from "../request/buildFromEnvData
 import { resolveRegionForCoordinates } from "../context/resolveRegion.ts";
 import { runHowFishingReport } from "../runHowFishingReport.ts";
 import { CANONICAL_REGION_KEYS } from "../contracts/region.ts";
+import { getRegionModifiers } from "../config/regionModifiers.ts";
 
 function pad2(m: number): string {
   return m < 10 ? `0${m}` : `${m}`;
@@ -148,4 +149,24 @@ Deno.test("CANONICAL_REGION_KEYS includes alaska and hawaii (18 total)", () => {
   assertEquals(CANONICAL_REGION_KEYS.includes("alaska"), true);
   assertEquals(CANONICAL_REGION_KEYS.includes("hawaii"), true);
   assertEquals(CANONICAL_REGION_KEYS.length, 18);
+});
+
+Deno.test("region modifiers: every canonical region key resolves across all contexts", () => {
+  for (const region of CANONICAL_REGION_KEYS) {
+    assertEquals(typeof getRegionModifiers("freshwater_lake_pond", region).temperature_condition, "number");
+    assertEquals(typeof getRegionModifiers("freshwater_river", region).runoff_flow_disruption, "number");
+    assertEquals(typeof getRegionModifiers("coastal", region).tide_current_movement, "number");
+    assertEquals(typeof getRegionModifiers("coastal_flats_estuary", region).tide_current_movement, "number");
+  }
+});
+
+Deno.test("region modifiers: unexpected region input falls back to neutral instead of throwing", () => {
+  const invalidRegion = "appalachia" as typeof CANONICAL_REGION_KEYS[number];
+  assertEquals(getRegionModifiers("freshwater_river", invalidRegion), {
+    temperature_condition: 0,
+    pressure_regime: 0,
+    wind_condition: 0,
+    light_cloud_condition: 0,
+    runoff_flow_disruption: 0,
+  });
 });

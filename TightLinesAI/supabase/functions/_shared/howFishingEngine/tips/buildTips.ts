@@ -4,238 +4,221 @@ import type {
   SharedNormalizedOutput,
 } from "../contracts/mod.ts";
 import { isCoastalFamilyContext } from "../contracts/context.ts";
+import { pickDeterministic } from "../copy/deterministicPick.ts";
 import type { ActiveVariableScore } from "../score/types.ts";
 
 /**
- * Actionable tip result — TACTICAL only, zero timing language.
- * Timing recommendation is now handled by the timing engine
- * (timing/resolveTimingResult.ts) and returned separately.
+ * Actionable tip result — PRESENTATION only.
+ * This field answers one question: how should the angler work the lure or fly today?
+ * It must not tell them where to fish, when to fish, or how to read the water.
  */
 export type EngineActionableTipBundle = {
   actionable_tip: string;
   actionable_tip_tag: ActionableTipTag;
 };
 
-function pick<T>(arr: T[]): T {
-  return arr[Math.floor(Math.random() * arr.length)]!;
+function pick<T>(arr: readonly T[], seed: string, salt: string): T {
+  return pickDeterministic(arr, seed, `tip:${salt}`);
 }
 
-// ─── Tip pools — purely TACTICAL, zero timing language ──────────────────────
-// These are engine-generated fallbacks. The LLM rewrites them from scratch.
-// No "when to fish" content here — that lives in daypart_note exclusively.
+const CURRENT_SWEEP_TIPS = [
+  "Cast slightly across the current and keep light contact so the bait sweeps naturally instead of coming back too straight.",
+  "Use the current as part of the retrieve: cast a little uptide, let the bait swing, and add only small corrections.",
+  "Let the moving water carry most of the action today. Keep the rod steady and avoid overworking the bait on the swing.",
+  "A clean swing is better than a busy retrieve here. Cast across the flow, stay in touch, and let the current move the bait.",
+  "Keep the presentation simple in current: cast at an angle, maintain steady contact, and let the bait travel naturally with the flow.",
+  "Do less with the rod and more with the angle. A natural sweep through the current will look better than constant twitching.",
+  "Fish the bait on a controlled drift or swing today. Too much extra rod action will fight the current instead of helping it.",
+  "Start with a slightly uptide cast and let the bait track across the flow before you speed it up or add extra movement.",
+  "Keep just enough tension to feel the bait without pulling it out of the natural line of travel.",
+  "When current is helping, the cleanest presentation is usually a controlled swing with only short, subtle changes in pace.",
+] as const;
 
-// Strong tidal flow → how to fish it, not when
-const COASTAL_TIDE_TIPS = [
-  "Current is your structure — position where tidal flow deflects off any hard edge and work the seam on the swing.",
-  "Fish the current breaks hard. Moving water stacks baitfish and the predators know it — work the edges, not the open flow.",
-  "Let the tide do the work. Cast uptide or across, keep contact, and hit the feeding lane as the offering swings through.",
-  "Target the transition zones where current eases — that's where fish post up to intercept without fighting the flow.",
-  "Work the points and structure pockets where tidal push creates ambush zones. Fish are positioned there, not in the main flow.",
-  "Strong current means fish are facing into it. Approach from downtide and put the offering in front of them, not behind.",
-  "Current-driven fish are confident. You can fish with authority — cover the structure edges and key transition lines.",
-];
+const CONTACT_CONTROL_TIPS = [
+  "Shorten the cast a little and use enough weight to stay in contact with the bait from start to finish.",
+  "Keep the rod lower and the retrieve steadier so you can feel the bait instead of letting slack hide what it is doing.",
+  "This is a good day for cleaner contact. A slightly heavier setup and a shorter cast will usually beat guessing.",
+  "Make the presentation easier to control than normal. Shorter casts and steady line tension will help more than extra speed.",
+  "Keep the bait in touch with you the whole time. If the line is bowing too much, shorten up and simplify the retrieve.",
+  "Use a more controlled presentation today: fewer long casts, less slack, and a steady pace you can actually manage.",
+  "Go one step more controlled than usual. The goal today is feeling the bait cleanly, not just covering water.",
+  "A smooth, connected retrieve is the priority. If you lose contact too often, shorten the cast or add a little weight.",
+  "This is a line-control day. Keep the presentation compact enough that you can feel every change and keep the bait on track.",
+  "Favor control over distance today. Staying connected to the bait matters more than firing the longest cast you can.",
+] as const;
 
-// Wind suppressor → positioning + how to fish sheltered water tactically
-const WIND_SHELTER_TIPS = [
-  "Find the calm pockets — protected water concentrates fish and lets you make precise, controlled presentations.",
-  "Sheltered banks aren't just comfortable — fish stack there too. Work that protected water deliberately, not quickly.",
-  "Get behind structure. Fish sitting out of the wind are calmer and may require a lighter, more deliberate presentation.",
-  "Wind-protected edges hold fish tight right now. Slow down once you're in the calm and pick the water apart carefully.",
-  "The lee side is the play. Position there and fish methodically — breezy conditions compress fish into predictable spots.",
-  "Less-exposed water concentrates fish today. Get there and fish with intention — thoroughness beats covering ground.",
-  "Calm pockets are high-percentage today. Set up in the shelter and let the fish come to you rather than burning through water.",
-  "Protected shorelines and cut banks are holding fish. Once you're there, soften your approach — these fish aren't spooky but they're tucked in tight.",
-];
+const VISIBILITY_LOUD_TIPS = [
+  "Go a little bigger or louder and slow the retrieve down so fish have time to find it.",
+  "Pick one thing that stands out today: a larger profile, more vibration, or more contrast, then move it slowly enough to track.",
+  "Make the bait easier to notice than normal. Bigger profile and steadier pace usually beat subtle and fast.",
+  "Use a presentation fish can find with feel as much as sight: a little more vibration, a little more contrast, and a little less speed.",
+  "Do not make the fish search too hard. A more visible or thumping bait with a slower retrieve is the cleaner play.",
+  "Make the bait easier to track today. Go more obvious with the profile or vibration, then keep the retrieve controlled.",
+  "When visibility drops, help the fish out: stronger profile, clearer movement, and a slower finish.",
+  "A louder presentation makes sense today, but only if you slow it down enough for fish to stay with it.",
+  "Move toward a bait the fish can notice quickly, then fish it with a steady pace instead of sharp, frantic movement.",
+  "This is a good day to give the bait more presence and less speed.",
+] as const;
 
-// Recent rain or downpour making the day harder (precip as suppressor)
-const PRECIP_RAIN_TIPS = [
-  "Rain has the water stirred up or stained. Slow your retrieve down, pick lures fish can feel or hear (vibration, rattle, or a bigger profile), and fish closer to shore and cover where water is often a bit clearer.",
-  "Wet weather usually means poorer visibility underwater. Make easier targets: slower strips or cranks, pauses so fish can find the bait, and colors that stand out against muddy or tannic water.",
-  "After rain, skip long casts into the middle. Work the bank, points, and anywhere creeks or runoff pour in — predators often sit where fresh, food-filled water meets the main lake.",
-  "If it is still raining hard, safety first — but when you can fish, expect fish tighter to banks and wood. Keep retrieves simple and easy to track.",
-  "Stained water from rain rewards patience. One slow, thorough pass through a good spot beats racing around the lake.",
-];
+const VISIBILITY_NATURAL_TIPS = [
+  "Downsize a step and keep the action clean and natural instead of overworking the bait.",
+  "Use a more natural profile and fewer sharp twitches. Cleaner water and brighter light reward believable movement.",
+  "A smaller, simpler look is usually better today. Let the bait move naturally instead of forcing extra action.",
+  "Take one step toward subtle: slightly smaller profile, quieter action, and fewer unnecessary rod pops.",
+  "This is a good day to fish more naturally. Keep the bait realistic, not busy.",
+  "Start with a cleaner presentation than usual: modest profile, smooth pace, and only short changes in action.",
+  "Make the bait look easy to trust. Smaller or more natural usually beats loud or exaggerated today.",
+  "Avoid too much extra flash or motion. A simple, believable retrieve is the better starting point.",
+  "The clearer look today favors subtle over flashy. Scale the profile down a touch and keep the cadence calm.",
+  "Let realism win today: natural size, natural movement, and no extra drama in the retrieve.",
+] as const;
 
-// Dry, settled weather helping the bite (precip score +1 / +2 — NOT "disruption" in the lay sense)
-const PRECIP_DRY_FAVORABLE_TIPS = [
-  "Weather has been dry and settled, so water is usually clearer than after a big rain. Fish can see farther — use natural-looking colors, avoid loud line slap on the water, and make the first cast count.",
-  "Calm, dry stretches mean fish often use their eyes more. Stealth helps: approach quietly, longer leaders if you use braid, and realistic retrieves rather than burning baits past them.",
-  "Without fresh runoff muddying things, you can fish a bit farther from the bank and still get bit — but keep watching for shade, docks, and grass edges where fish hide from bright sun.",
-  "Dry conditions are a good day to experiment with finesse (lighter line, smaller baits) in clear pockets, and power fishing (chunkier baits) right against cover where fish ambush.",
-];
+const PRESSURE_SLOW_TIPS = [
+  "Shorten the movements and add longer pauses between them. On a tougher day, the pause often does more than the pull.",
+  "Fish slower and cleaner than normal. Small movements and a longer hang time usually beat constant action here.",
+  "Take speed out of the presentation first. A slower bait with a cleaner pause is the better starting point.",
+  "Do less with the bait today: shorter pulls, steadier line, and a pause long enough for fish to make up their mind.",
+  "Favor a slower, more patient cadence. The bait should look easy to catch, not urgent.",
+  "This is a good day for smaller moves and longer stops. Let the bait sit long enough to get noticed.",
+  "Keep the presentation calm and deliberate. A tight day usually rewards control more than flair.",
+  "Reduce the amount of movement in each retrieve cycle. Let the pause carry more of the presentation.",
+  "Think soft and patient today: shorter hops, slower turns, and more time between actions.",
+  "A steady slow retrieve with clear pauses is a better bet than ripping, burning, or constantly changing pace.",
+] as const;
 
-// Barometer helping the day (slow fall or moderate fall — fish often feed ahead of a front)
-const PRESSURE_FALLING_FAVORABLE_TIPS = [
-  "Air pressure has been dropping slowly — that often gets fish feeding ahead of a weather change. Cover water at a steady pace, try a few retrieve speeds, and don’t give up on a spot after one cast.",
-  "A gentle falling barometer is a classic \"go fishing\" signal. Make confident casts to likely spots (cover, depth changes, baitfish) and change lure depth or speed before you change locations.",
-];
+const COLD_SLOW_TIPS = [
+  "Slow the retrieve down and lengthen the pause. Cold fish usually need more time than you think.",
+  "Give the bait less action and more hang time. In cold conditions, simple usually beats busy.",
+  "A smaller profile with a slower pace is a strong starting point when the water is cold.",
+  "Fish the bait slowly enough that it stays in front of them, not just near them.",
+  "Take a little size and a lot of speed out of the presentation today.",
+  "Let the bait rest longer than feels natural. Cold fish often eat during the quiet part of the retrieve.",
+  "Use a slower, tighter cadence today. Small moves and long pauses are more likely to get a real look.",
+  "This is not a speed day. Keep the bait in the zone and let the pause do most of the work.",
+  "Make the retrieve easy to finish: slower, smaller, and more patient from start to end.",
+  "In the cold, the cleaner move is usually a reduced profile and a longer pause between each action.",
+] as const;
 
-// Post-front, pressure recovering — fish can be picky
-const PRESSURE_RISING_SLOW_TIPS = [
-  "Pressure is creeping back up after weather moved through — fish sometimes need smaller, slower offerings. Downsize a bit, add pauses, and hit the same good spots more thoroughly.",
-];
+const HEAT_EASY_TIPS = [
+  "Make the bait easier to eat today: slightly smaller profile, smoother retrieve, and longer pauses.",
+  "A compact, easy meal is the better look in warm, stressful conditions. Slow the bait down and let it hang.",
+  "Reduce the amount of work the fish has to do. Smaller profile and steadier pace usually beat a big, fast presentation.",
+  "When heat is the problem, simplify the bait: less speed, less bulk, and more time between movements.",
+  "A calm, easy retrieve makes more sense than an aggressive one today. Think smooth and patient.",
+  "Move toward a smaller or cleaner presentation and give the bait a longer finish before the next move.",
+  "This is a good day to take some urgency out of the retrieve. Let the bait look easy to catch.",
+  "Fish slower than normal and keep the profile simple. Warm, stressed fish usually do not want to chase a lot.",
+  "A smoother cadence and a slightly simpler profile are both worth trying today.",
+  "Think easy meal, not reaction bait: controlled speed, softer moves, and longer pauses.",
+] as const;
 
-// Barometer swinging hard or crashing — tougher bite
-const PRESSURE_TOUGH_TIPS = [
-  "The barometer has been jumpy or dropping fast — bass and other predators often go off feed briefly. Slow way down, downsize baits, and fish the most comfortable-looking water (stable depth, cover, out of heavy current).",
-  "When pressure is unstable, make short, quiet presentations to high-percentage spots instead of burning a whole bank. Pauses and finesse often beat aggressive retrieves.",
-];
+const ACTIVE_CADENCE_TIPS = [
+  "Start with a more committed retrieve today. A steady medium pace is a better opening move than a dead-slow drag.",
+  "Let the bait move with some intent. Fish are more likely to respond to a cleaner, more active cadence today.",
+  "Do not over-finesse the first pass. A confident, steady retrieve is a better starting point here.",
+  "This is a good day to keep the bait moving instead of pausing too long between actions.",
+  "Fish with a little more pace than normal. A bait that moves with purpose should get more attention today.",
+  "Try a medium, consistent retrieve before you slow all the way down. The fish look more willing than stubborn.",
+  "A cleaner, more active cadence makes sense today. Let the bait travel and trust the movement.",
+  "Start one gear faster than your conservative setting and only slow down if the water tells you to.",
+  "This looks more like a controlled movement day than a dead-stick day.",
+  "Keep the bait lively enough to get noticed. Today favors commitment more than hesitation.",
+  "Use a steadier retrieve and shorter pauses. The fish look more ready to meet the bait than wait on it.",
+  "A smooth, active cadence is the clearer first choice today over a slow, stop-heavy presentation.",
+] as const;
 
-// Runoff / dirty water → visibility-adjusted tactics
-const RUNOFF_TIPS = [
-  "Low clarity means fish are hunting by feel and lateral line — slower retrieves with vibration or thump help them locate the offering.",
-  "Stained water compresses visibility. Go bigger or louder to give fish something to find. Subtlety is wasted right now.",
-  "Find the clarity edge where clean water meets turbid and fish that transition — that's where fish can actually see and intercept.",
-  "Off-color conditions favor contrast. Anything with movement, vibration, or visibility earns more attention in this water.",
-  "High, dirty water pushes fish tight to structure and margins. Slow down, fish the edges, and let them find the offering.",
-  "Visibility is limited — fish aren't ranging far to feed. Get the presentation close, keep it slower, and put it right in their lane.",
-  "In these conditions, fish are relying on senses other than sight. Prioritize feel and sound over visual appeal.",
-];
+const GENERAL_PRESENTATION_TIPS = [
+  "Start with a steady, simple retrieve and change only one thing at a time: speed, pause length, or profile.",
+  "Keep the presentation easy to repeat today. A clean, consistent retrieve tells you more than constant experimenting.",
+  "Begin with a middle-of-the-road presentation and make small adjustments instead of big jumps.",
+  "Fish a clean, steady cadence first. If you need to adjust, change one variable and keep the rest the same.",
+  "This is a good day to keep the retrieve simple, repeatable, and easy to judge.",
+  "Pick one clear presentation and stay with it long enough to learn something before changing it.",
+  "Use a presentation you can repeat well: controlled speed, clear pauses, and no extra wasted movement.",
+  "The best starting point today is simple and steady, not clever.",
+  "Stay organized with the bait: one profile, one cadence, one adjustment at a time.",
+  "Keep the presentation calm and readable. Consistency will help more than constant reinvention today.",
+] as const;
 
-// Heat-stress band (warm / very_warm with a negative net score) — NOT cold-water logic
-const TEMP_HOT_STRESS_TIPS = [
-  "Heat-stressed fish hug shade, depth, current seams, and anything that adds oxygen. Put a natural, easy meal in those lanes with a slower cadence and longer hangs — they won’t chase like they do in prime temps.",
-  "When the air mass is this warm for the date, think comfort zones: docks, wood, grass edges, drops into deeper water. Downsize a touch and fish it patiently — lethargy here is from heat, not winter lockjaw.",
-  "Warm water with a tough score usually means short commitment windows and picky fish. Work high-percentage cover, keep retrieves smooth and easy to track, and let pauses do the convincing.",
-  "Bright, hot setups reward finesse in the right water: less line slap, smaller or subtler profiles, and presentations they can intercept without a long chase.",
-  "If the model says heat is the headwind, target the most stable, oxygenated water you can find and fish it thoroughly — one good refuge beats racing sun-baked flats.",
-];
-
-// Cold band temp → fish metabolism genuinely slow, finesse-first tactics
-// Only when temperature IS a suppressor AND band is cool / very_cold (never warm/very_warm)
-const TEMP_COLD_TIPS = [
-  "Cold water means slow fish — match that energy with a slower retrieve and extended pauses. They'll eat, just not on your timeline.",
-  "Fish are running on low-idle right now. Deliberate, finesse presentations out-earn anything aggressive.",
-  "Cold-water fish won't chase. Give them something easy to intercept — keep it slow, give it time.",
-  "Every pause matters more than every strip in these temps. Let the offering settle, twitch once, and hold.",
-  "Cold conditions require patience. Keep the offering in the zone longer than feels right and let the fish make the move.",
-  "Fish are conserving energy. Slow and subtle earns bites — anything too assertive just burns your time.",
-  "Low-idle fish need a presentation that comes to them. Shrink the profile, slow the retrieve, and let pauses close the deal.",
-];
-
-// Favorable / optimal temp → active fish, confident approach earns bites
-// Fires when temp is a POSITIVE driver — regardless of season
-// Cloud / light helping (overcast, low light — fish less spooky, often shallower)
-const LIGHT_LOW_OVERCAST_TIPS = [
-  "Clouds cut glare and fish often roam more freely. You can get away with slightly bolder presentations — try parallel casts along banks and cover without spooking fish as easily as on a bluebird day.",
-  "Low, gray light is a great time to fish shallower than you think. Work visible cover and transitions (grass lines, drop-offs) with steady retrieves and let the fish tell you the speed.",
-];
-
-// Sun / glare challenging day — still might be driver in edge cases; keep practical
-const LIGHT_BRIGHT_TIPS = [
-  "Bright sun pushes many fish to shade, deeper water, or tight to cover. Put the bait where their eyes are protected — docks, trees, ledges — and use steady, predictable retrieves.",
-];
-
-// Light wind or calm helping (already positive score from normalizer)
-const WIND_HELPING_TIPS = [
-  "Wind is light enough to fish comfortably but can hide your presence. Use it to your advantage: cast with the breeze when you can and work edges where a little chop breaks up your silhouette.",
-  "Calm or light air makes boat control and line control easier. Take time to make accurate casts to specific targets instead of fan-casting randomly.",
-];
-
-const TEMP_ACTIVE_TIPS = [
-  "Fish are metabolically primed right now — a confident, assertive retrieve earns bites over timid finesse.",
-  "Favorable temps mean fish are willing to commit. Cover water with purpose and trust they'll respond.",
-  "Don't over-finesse this one. Conditions have fish active and a brisker pace is the right call.",
-  "Fish are in a cooperative metabolic window. Keep the offering moving with confidence and cover your water.",
-  "Active fish in good temps respond to authority. Move with purpose and let them commit.",
-  "These conditions have fish feeding willingly. Trust the data, fish assertively, and don't slow down unless the water tells you to.",
-  "Fish metabolism is on your side. A steady, purposeful retrieve gets bites — dragging it out is leaving fish behind.",
-  "Temps are producing willing fish. Cover water thoroughly at a confident pace — this isn't a finesse day.",
-];
-
-// Generic fallback — methodical approach, no timing
-const GENERAL_FLEXIBILITY_TIPS = [
-  "Work the water methodically. Hit high-percentage structure, cover it thoroughly, and trust your proven presentations.",
-  "No clear standout today — fish deliberately, stay patient, and lean on what you know works on this water.",
-  "Cover your best water with intention. Today rewards persistence over anything flashy.",
-  "Grind your most reliable spots and stay systematic. Patience and thoroughness win days like this.",
-  "Pick your best water and fish it with intent. Conditions aren't gifting bites — earn them.",
-  "Nothing stands out from the data — just put in focused time on proven structure and trust your approach.",
-  "Work it methodically and stay in the water. On days like this, effort and consistency separate results.",
-  "Slow down and be thorough. High-percentage spots fished carefully beat covering ground in marginal conditions.",
-];
-
-// Last resort — never use raw engine key names; keep grade-school clear
-const BALANCED_DAY_TIPS = [
-  "Nothing in the data screams one magic pattern — that’s normal. Pick two or three spots you trust, fish them slowly and thoroughly, and change lure depth or speed before you run to a new lake.",
-  "On an \"in-between\" day, basics win: match something food-sized, fish where fish hide (cover, depth changes), and stay patient. Small adjustments beat constant running around.",
-];
+const BALANCED_PRESENTATION_TIPS = [
+  "Keep the presentation clean and repeatable: moderate pace, clear pauses, and a profile that looks easy to trust.",
+  "On a balanced day, a simple medium-speed retrieve is a better starting point than something extreme.",
+  "Try a clean, controlled presentation first and let the fish tell you whether to speed up, slow down, or downsize.",
+  "This is a day for a simple bait path and small adjustments, not dramatic changes every few casts.",
+  "Stay with a believable presentation long enough to evaluate it. Balance days reward patience more than bouncing around.",
+  "A moderate profile and a clean, steady cadence are both good starting choices today.",
+  "Keep the bait easy to follow and easy to repeat. Balanced days usually reward clarity over creativity.",
+  "The better move today is a calm, dependable presentation rather than something extreme on either end.",
+] as const;
 
 /**
- * Build an actionable tip — TACTICAL only, zero timing language.
- *
- * Timing recommendation is now produced by the timing engine
- * (timing/resolveTimingResult.ts) and wired into the report separately.
+ * Build an actionable tip — PRESENTATION only.
+ * The output should read like a clear mechanical adjustment for the bait or fly.
  */
 export function buildActionableTip(
   context: EngineContext,
   topDriver: ActiveVariableScore | undefined,
   topSuppressor: ActiveVariableScore | undefined,
   norm: SharedNormalizedOutput["normalized"],
+  seed: string,
 ): EngineActionableTipBundle {
-  let actionable_tip = pick(GENERAL_FLEXIBILITY_TIPS);
-  let actionable_tip_tag: ActionableTipTag = "general_flexibility";
+  let actionable_tip: string = pick(GENERAL_PRESENTATION_TIPS, seed, "general");
+  let actionable_tip_tag: ActionableTipTag = "presentation_general";
 
-  const pr = norm.precipitation_disruption;
-  const pReg = norm.pressure_regime;
-  const lite = norm.light_cloud_condition;
-  const w = norm.wind_condition;
+  const tempBand = norm.temperature?.band_label ?? null;
+  const pressureLabel = norm.pressure_regime?.label ?? null;
 
   if (isCoastalFamilyContext(context) && (norm.tide_current_movement?.score ?? 0) >= 1.5) {
-    actionable_tip = pick(COASTAL_TIDE_TIPS);
-    actionable_tip_tag = "coastal_tide_positive";
-  } else if (topSuppressor?.key === "wind_condition" && topSuppressor.score < 0) {
-    actionable_tip = pick(WIND_SHELTER_TIPS);
-    actionable_tip_tag = "wind_shelter";
-  } else if (topSuppressor?.key === "precipitation_disruption" && topSuppressor.score < 0) {
-    actionable_tip = pick(PRECIP_RAIN_TIPS);
-    actionable_tip_tag = "lean_into_top_driver";
-  } else if (topSuppressor?.key === "runoff_flow_disruption" && topSuppressor.score < 0) {
-    actionable_tip = pick(RUNOFF_TIPS);
-    actionable_tip_tag = "runoff_clarity_flow";
-  } else if (topSuppressor?.key === "pressure_regime" && topSuppressor.score < 0) {
-    actionable_tip = pick(PRESSURE_TOUGH_TIPS);
-    actionable_tip_tag = "lean_into_top_driver";
-  } else if (topSuppressor?.key === "light_cloud_condition" && topSuppressor.score < 0) {
-    actionable_tip = pick(LIGHT_BRIGHT_TIPS);
-    actionable_tip_tag = "lean_into_top_driver";
-  } else if (topSuppressor?.key === "temperature_condition" && topSuppressor.score < 0) {
-    const tb = norm.temperature?.band_label;
-    if (tb === "very_warm" || tb === "warm") {
-      actionable_tip = pick(TEMP_HOT_STRESS_TIPS);
-      actionable_tip_tag = "temperature_intraday_flex";
-    } else if (tb === "very_cold" || tb === "cool") {
-      actionable_tip = pick(TEMP_COLD_TIPS);
-      actionable_tip_tag = "temperature_intraday_flex";
+    actionable_tip = pick(CURRENT_SWEEP_TIPS, seed, "current_sweep");
+    actionable_tip_tag = "presentation_current_sweep";
+  } else if (topSuppressor?.key === "wind_condition") {
+    actionable_tip = pick(CONTACT_CONTROL_TIPS, seed, "contact_control_negative_wind");
+    actionable_tip_tag = "presentation_contact_control";
+  } else if (
+    topSuppressor?.key === "precipitation_disruption" ||
+    topSuppressor?.key === "runoff_flow_disruption"
+  ) {
+    actionable_tip = pick(VISIBILITY_LOUD_TIPS, seed, "visibility_loud");
+    actionable_tip_tag = "presentation_visibility_profile";
+  } else if (topSuppressor?.key === "light_cloud_condition") {
+    actionable_tip = pick(VISIBILITY_NATURAL_TIPS, seed, "visibility_natural_bright");
+    actionable_tip_tag = "presentation_visibility_profile";
+  } else if (topSuppressor?.key === "pressure_regime") {
+    actionable_tip = pick(PRESSURE_SLOW_TIPS, seed, "pressure_slow");
+    actionable_tip_tag = "presentation_slow_subtle";
+  } else if (topSuppressor?.key === "temperature_condition") {
+    if (tempBand === "very_cold" || tempBand === "cool") {
+      actionable_tip = pick(COLD_SLOW_TIPS, seed, "cold_slow");
     } else {
-      actionable_tip = pick(GENERAL_FLEXIBILITY_TIPS);
-      actionable_tip_tag = "general_flexibility";
+      actionable_tip = pick(HEAT_EASY_TIPS, seed, "heat_easy");
     }
-  } else if (topDriver?.key === "temperature_condition" && topDriver.score > 0) {
-    actionable_tip = pick(TEMP_ACTIVE_TIPS);
-    actionable_tip_tag = "temperature_intraday_flex";
-  } else if (topDriver?.key === "precipitation_disruption" && topDriver.score > 0 && pr && pr.score > 0) {
-    actionable_tip = pick(PRECIP_DRY_FAVORABLE_TIPS);
-    actionable_tip_tag = "lean_into_top_driver";
-  } else if (topDriver?.key === "pressure_regime" && topDriver.score > 0 && pReg) {
-    const lbl = pReg.label;
-    if (lbl === "falling_slow" || lbl === "falling_moderate") {
-      actionable_tip = pick(PRESSURE_FALLING_FAVORABLE_TIPS);
-    } else if (lbl === "rising_slow") {
-      actionable_tip = pick(PRESSURE_RISING_SLOW_TIPS);
+    actionable_tip_tag = "presentation_slow_subtle";
+  } else if (topDriver?.key === "temperature_condition") {
+    actionable_tip = pick(ACTIVE_CADENCE_TIPS, seed, "active_cadence_temperature");
+    actionable_tip_tag = "presentation_active_cadence";
+  } else if (topDriver?.key === "pressure_regime") {
+    if (pressureLabel === "rising_slow" || pressureLabel === "rising_fast") {
+      actionable_tip = pick(PRESSURE_SLOW_TIPS, seed, "pressure_slow_positive_rise");
+      actionable_tip_tag = "presentation_slow_subtle";
     } else {
-      actionable_tip = pick(PRESSURE_FALLING_FAVORABLE_TIPS);
+      actionable_tip = pick(ACTIVE_CADENCE_TIPS, seed, "active_cadence_pressure");
+      actionable_tip_tag = "presentation_active_cadence";
     }
-    actionable_tip_tag = "lean_into_top_driver";
-  } else if (topDriver?.key === "light_cloud_condition" && topDriver.score > 0 && lite) {
-    actionable_tip = pick(LIGHT_LOW_OVERCAST_TIPS);
-    actionable_tip_tag = "lean_into_top_driver";
-  } else if (topDriver?.key === "wind_condition" && topDriver.score > 0 && w) {
-    actionable_tip = pick(WIND_HELPING_TIPS);
-    actionable_tip_tag = "lean_into_top_driver";
+  } else if (topDriver?.key === "light_cloud_condition") {
+    actionable_tip = pick(ACTIVE_CADENCE_TIPS, seed, "active_cadence_light");
+    actionable_tip_tag = "presentation_active_cadence";
+  } else if (topDriver?.key === "precipitation_disruption") {
+    actionable_tip = pick(VISIBILITY_NATURAL_TIPS, seed, "visibility_natural_dry");
+    actionable_tip_tag = "presentation_visibility_profile";
+  } else if (topDriver?.key === "wind_condition") {
+    actionable_tip = pick(CONTACT_CONTROL_TIPS, seed, "contact_control_positive_wind");
+    actionable_tip_tag = "presentation_contact_control";
+  } else if (topDriver?.key === "tide_current_movement") {
+    actionable_tip = pick(CURRENT_SWEEP_TIPS, seed, "current_sweep_driver");
+    actionable_tip_tag = "presentation_current_sweep";
   } else if (topDriver) {
-    actionable_tip = pick(BALANCED_DAY_TIPS);
-    actionable_tip_tag = "general_flexibility";
+    actionable_tip = pick(BALANCED_PRESENTATION_TIPS, seed, "balanced");
+    actionable_tip_tag = "presentation_general";
   }
 
   return { actionable_tip, actionable_tip_tag };

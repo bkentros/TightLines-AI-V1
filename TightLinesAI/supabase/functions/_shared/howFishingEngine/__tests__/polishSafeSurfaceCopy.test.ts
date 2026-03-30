@@ -6,8 +6,10 @@ import { DISPLAY_CONTEXT_LABEL } from "../contracts/context.ts";
 import type { HowsFishingReport } from "../contracts/report.ts";
 import {
   buildDeterministicTimingInsight,
+  buildDeterministicSolunarNote,
   buildEngineLedSummaryLine,
 } from "../narration/polishSafeSurfaceCopy.ts";
+import { buildReportSummaryLine } from "../summary/summaryLine.ts";
 
 function minimalReport(overrides: Partial<HowsFishingReport>): HowsFishingReport {
   const base: HowsFishingReport = {
@@ -27,7 +29,7 @@ function minimalReport(overrides: Partial<HowsFishingReport>): HowsFishingReport
     drivers: [],
     suppressors: [],
     actionable_tip: "Tip",
-    actionable_tip_tag: "general_flexibility",
+    actionable_tip_tag: "presentation_general",
     daypart_preset: null,
     reliability: "high",
   };
@@ -48,4 +50,83 @@ Deno.test("buildDeterministicTimingInsight respects highlighted periods", () => 
   });
   const out = buildDeterministicTimingInsight(r);
   assertStringIncludes(out.toLowerCase(), "afternoon");
+});
+
+Deno.test("buildReportSummaryLine is deterministic and references factor names", () => {
+  const out = buildReportSummaryLine({
+    band: "Good",
+    score: 68,
+    context: "coastal",
+    reliability: "high",
+    drivers: [{ variable: "tide_current_movement" }],
+    suppressors: [{ variable: "wind_condition" }],
+    seed: "coastal|florida|2026-03-30|68",
+  });
+  assertStringIncludes(out, "Tide / Current");
+  assertStringIncludes(out, "Wind");
+  assertEquals(
+    out,
+    buildReportSummaryLine({
+      band: "Good",
+      score: 68,
+      context: "coastal",
+      reliability: "high",
+      drivers: [{ variable: "tide_current_movement" }],
+      suppressors: [{ variable: "wind_condition" }],
+      seed: "coastal|florida|2026-03-30|68",
+    }),
+  );
+});
+
+Deno.test("buildDeterministicSolunarNote stays soft and non-null when peaks exist", () => {
+  const r = minimalReport({
+    condition_context: {
+      temperature_band: "optimal",
+      temperature_trend: "stable",
+      temperature_shock: "none",
+      region_key: "northeast",
+      available_variables: [],
+      missing_variables: [],
+      temperature_metabolic_context: "neutral",
+      avoid_midday_for_heat: false,
+      highlighted_dayparts_for_narration: [],
+      normalized_variable_scores: [],
+      composite_contributions: [],
+      environment_snapshot: {
+        current_air_temp_f: 60,
+        daily_mean_air_temp_f: 60,
+        measured_water_temp_f: null,
+        measured_water_temp_24h_ago_f: null,
+        measured_water_temp_72h_ago_f: null,
+        measured_water_temp_source: null,
+        daily_low_air_temp_f: 48,
+        daily_high_air_temp_f: 68,
+        air_temp_diurnal_range_f: 20,
+        prior_day_mean_air_temp_f: 57,
+        day_minus_2_mean_air_temp_f: 54,
+        pressure_mb: 1015,
+        wind_speed_mph: 6,
+        cloud_cover_pct: 45,
+        precip_24h_in: 0,
+        precip_72h_in: 0,
+        precip_7d_in: 0,
+        active_precip_now: false,
+        precip_rate_now_in_per_hr: 0,
+        tide_movement_state: null,
+        tide_station_id: null,
+        current_speed_knots_max: null,
+        sunrise_local: "06:30",
+        sunset_local: "19:40",
+        solunar_peak_count: 2,
+        hourly_air_temp_sample_count: 24,
+        hourly_cloud_cover_sample_count: 24,
+        pressure_history_summary: null,
+        tide_high_low_event_count: null,
+        sky_narration_contract: null,
+      },
+    },
+  });
+  const out = buildDeterministicSolunarNote(r);
+  assertEquals(typeof out, "string");
+  assertStringIncludes(out ?? "", "bonus");
 });

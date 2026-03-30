@@ -14,6 +14,11 @@ export function runHowFishingScoreOnly(req: SharedEngineRequest): number {
 }
 import { buildReportSummaryLine } from "./summary/summaryLine.ts";
 import { buildActionableTip } from "./tips/buildTips.ts";
+import {
+  buildDeterministicSolunarNote,
+  buildDeterministicTimingInsight,
+} from "./narration/polishSafeSurfaceCopy.ts";
+import { buildVariableDisplayLabel } from "./summary/summaryLine.ts";
 
 function reliabilityNote(tier: "high" | "medium" | "low"): string | null {
   if (tier === "high") return null;
@@ -27,6 +32,16 @@ export function runHowFishingReport(req: SharedEngineRequest): HowsFishingReport
   const analysis = analyzeSharedConditions(req);
   const { norm, scored, timing, condition_context } = analysis;
   const reliability = norm.reliability;
+  const copySeed = [
+    req.context,
+    req.region_key,
+    req.local_date,
+    `${req.latitude.toFixed(4)},${req.longitude.toFixed(4)}`,
+    scored.band,
+    String(scored.score),
+    scored.drivers[0]?.key ?? "none",
+    scored.suppressors[0]?.key ?? "none",
+  ].join("|");
 
   // ── Tactical tip (no timing language) ──────────────────────────────────
   const tip = buildActionableTip(
@@ -34,21 +49,22 @@ export function runHowFishingReport(req: SharedEngineRequest): HowsFishingReport
     scored.drivers[0],
     scored.suppressors[0],
     norm.normalized,
+    copySeed,
   );
 
   // ── Timing engine (parallel lane to scoring) ──────────────────────────
   const drivers = scored.drivers.map((c) => ({
     variable: c.key,
-    label: c.label || c.key,
+    label: buildVariableDisplayLabel(c.key, req.context),
     effect: "positive" as const,
   }));
   const suppressors = scored.suppressors.map((c) => ({
     variable: c.key,
-    label: c.label || c.key,
+    label: buildVariableDisplayLabel(c.key, req.context),
     effect: "negative" as const,
   }));
 
-  return {
+  const baseReport: HowsFishingReport = {
     context: req.context,
     display_context_label: DISPLAY_CONTEXT_LABEL[req.context],
     location: {
@@ -61,7 +77,15 @@ export function runHowFishingReport(req: SharedEngineRequest): HowsFishingReport
     },
     score: scored.score,
     band: scored.band,
-    summary_line: buildReportSummaryLine(scored.band),
+    summary_line: buildReportSummaryLine({
+      band: scored.band,
+      score: scored.score,
+      context: req.context,
+      reliability,
+      drivers,
+      suppressors,
+      seed: copySeed,
+    }),
     drivers,
     suppressors,
     actionable_tip: tip.actionable_tip,
@@ -103,10 +127,14 @@ export function runHowFishingReport(req: SharedEngineRequest): HowsFishingReport
         reason: g.reason,
       })),
     },
-    // Full normalized context forwarded to the LLM so it never has to infer
-    // fish behavior from raw air temp + season alone.
     condition_context: {
       ...condition_context,
     },
+  };
+
+  return {
+    ...baseReport,
+    timing_insight: buildDeterministicTimingInsight(baseReport),
+    solunar_note: buildDeterministicSolunarNote(baseReport),
   };
 }

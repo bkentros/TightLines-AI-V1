@@ -66,14 +66,14 @@ export function normalizePressureDetailed(
       // Post-front settling often still fishes well; neutral (0) avoids systematic Fair caps on
       // legitimate "clearing" days while keeping full -2 for ongoing volatile windows.
       if (series.length >= 6) {
-        const recentSlice = series.slice(-8);
+        const recentSlice = series.slice(-4);
         const recentRange = Math.max(...recentSlice) - Math.min(...recentSlice);
-        if (recentRange < 3.0) {
+        if (recentRange < 1.5) {
           return {
             quality,
             state: {
               label: "recently_stabilizing",
-              score: 0,
+              score: 0.25,
               detail: `prior range ${range24.toFixed(1)} mb, now settling (recent range ${recentRange.toFixed(1)} mb)`,
             },
           };
@@ -99,16 +99,16 @@ export function normalizePressureDetailed(
   if (delta24 < -0.5) {
     if (absDelta > 6.0) {
       const score = clampEngineScore(
-        pieceLinear(absDelta, 6, 11, -0.45, -1.35),
+        pieceLinear(absDelta, 6, 11, -0.25, -1.25),
       );
       return {
         quality,
         state: { label: "falling_hard", score, detail: `${delta24.toFixed(1)} mb/24h` },
       };
     }
-    if (absDelta > 4.0) {
+    if (absDelta > 3.0) {
       const score = clampEngineScore(
-        pieceLinear(absDelta, 4, 6, 1.1, -0.45),
+        pieceLinear(absDelta, 3, 6, 1.15, -0.25),
       );
       return {
         quality,
@@ -116,7 +116,7 @@ export function normalizePressureDetailed(
       };
     }
     const score = clampEngineScore(
-      pieceLinear(absDelta, 0.5, 4, 2, 1.1),
+      pieceLinear(absDelta, 0.5, 3, 0.35, 1.15),
     );
     return {
       quality,
@@ -127,7 +127,7 @@ export function normalizePressureDetailed(
   if (delta24 > 0.5) {
     if (delta24 <= 3.0) {
       const score = clampEngineScore(
-        pieceLinear(delta24, 0.5, 3, 1, 0.42),
+        pieceLinear(delta24, 0.5, 3, 0.25, -0.15),
       );
       return {
         quality,
@@ -135,7 +135,7 @@ export function normalizePressureDetailed(
       };
     }
     const score = clampEngineScore(
-      pieceLinear(delta24, 3, 7.5, 0.42, -0.45),
+      pieceLinear(delta24, 3, 7.5, -0.15, -0.85),
     );
     return {
       quality,

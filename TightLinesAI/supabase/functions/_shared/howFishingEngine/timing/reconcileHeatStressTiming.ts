@@ -78,7 +78,16 @@ export function reconcileHeatStressTiming(
 
   const periods = [...HEAT_ESCAPE_PERIODS] as DaypartFlags;
   const preset = mapFlagsToPreset(periods);
-  const note = pickTimingNote("cooler_low_light");
+  const note = pickTimingNote(
+    "cooler_low_light",
+    [
+      context,
+      norm.location.region_key,
+      norm.location.local_date,
+      result.anchor_driver,
+      periods.map((v) => (v ? "1" : "0")).join(""),
+    ].join("|"),
+  );
 
   return {
     result: {

@@ -147,6 +147,10 @@ function buildEnvironmentSnapshot(
   return {
     current_air_temp_f: env.current_air_temp_f ?? null,
     daily_mean_air_temp_f: env.daily_mean_air_temp_f ?? null,
+    measured_water_temp_f: env.measured_water_temp_f ?? null,
+    measured_water_temp_24h_ago_f: env.measured_water_temp_24h_ago_f ?? null,
+    measured_water_temp_72h_ago_f: env.measured_water_temp_72h_ago_f ?? null,
+    measured_water_temp_source: env.measured_water_temp_source ?? null,
     daily_low_air_temp_f: lo,
     daily_high_air_temp_f: hi,
     air_temp_diurnal_range_f: range,

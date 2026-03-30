@@ -81,6 +81,7 @@ export function analyzeSharedConditions(
         req.environment.daily_mean_air_temp_f ??
           req.environment.current_air_temp_f ??
           null,
+        req.environment.measured_water_temp_f ?? null,
       )
       : null,
     ...buildLlmConditionExtensions(

@@ -58,6 +58,8 @@ export interface EnvironmentData {
   measured_water_temp_f?: number | null;
   /** Source label for measured coastal water temperature */
   measured_water_temp_source?: string | null;
+  /** Measured coastal water temperature from roughly 24 hours ago for shock detection */
+  measured_water_temp_24h_ago_f?: number | null;
   /** Measured coastal water temperature from roughly 72 hours ago for cold-stun evaluation */
   measured_water_temp_72h_ago_f?: number | null;
   /** Whether the location is treated as coastal for engine routing */

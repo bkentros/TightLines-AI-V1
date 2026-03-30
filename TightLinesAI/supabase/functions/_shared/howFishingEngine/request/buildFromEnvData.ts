@@ -276,6 +276,13 @@ export function buildSharedEngineRequestFromEnvData(
 
   const windUnitLabel = w?.wind_speed_unit;
   const windNowMph = windToMph(num(w?.wind_speed), windUnitLabel);
+  const measuredWaterTempF = num(envData.measured_water_temp_f);
+  const measuredWaterTemp24hAgoF = num(envData.measured_water_temp_24h_ago_f);
+  const measuredWaterTemp72hAgoF = num(envData.measured_water_temp_72h_ago_f);
+  const measuredWaterTempSource =
+    typeof envData.measured_water_temp_source === "string"
+      ? envData.measured_water_temp_source
+      : null;
 
   let daily_mean_air_temp_f = daily_mean;
   let current_air_temp_f = num(w?.temperature);
@@ -365,6 +372,10 @@ export function buildSharedEngineRequestFromEnvData(
     environment: {
       current_air_temp_f,
       daily_mean_air_temp_f,
+      measured_water_temp_f: measuredWaterTempF,
+      measured_water_temp_24h_ago_f: measuredWaterTemp24hAgoF,
+      measured_water_temp_72h_ago_f: measuredWaterTemp72hAgoF,
+      measured_water_temp_source: measuredWaterTempSource,
       daily_low_air_temp_f: daily_low_air,
       daily_high_air_temp_f: daily_high_air,
       prior_day_mean_air_temp_f: prior_mean,
