@@ -60,7 +60,7 @@ export default function RootLayout() {
   const router = useRouter();
   const { hydrate, setSession, setProfile, fetchProfile } = useAuthStore();
 
-  useFonts({
+  const [fontsLoaded] = useFonts({
     ...Ionicons.font,
     BricolageGrotesque_600SemiBold,
     BricolageGrotesque_700Bold,
@@ -190,6 +190,8 @@ export default function RootLayout() {
 
   useProtectedRoute();
   useBiometricLock();
+
+  if (!fontsLoaded) return null;
 
   return (
     <>
