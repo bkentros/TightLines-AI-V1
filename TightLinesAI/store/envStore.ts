@@ -12,7 +12,7 @@
  */
 
 import { create } from 'zustand';
-import type { EnvironmentData } from '../lib/env';
+import { getEnvironment, getStaleCachedEnv, type EnvironmentData } from '../lib/env';
 
 /** Incremented on each loadEnv call; used to ignore results from superseded requests */
 let loadGeneration = 0;
@@ -92,7 +92,6 @@ export const useEnvStore = create<EnvState>((set, get) => ({
     // so the user sees something immediately when returning to the app instead of long loading.
     if (!forceRefresh && !get().envData) {
       try {
-        const { getStaleCachedEnv } = await import('../lib/env');
         const stale = await getStaleCachedEnv(latitude, longitude);
         if (stale && myGeneration === loadGeneration) {
           set({ envData: stale, lastCoords: { lat: latitude, lon: longitude }, error: null });
@@ -105,7 +104,6 @@ export const useEnvStore = create<EnvState>((set, get) => ({
     set({ isLoading: true, error: null });
 
     try {
-      const { getEnvironment } = await import('../lib/env');
       const data = await getEnvironment({
         latitude,
         longitude,

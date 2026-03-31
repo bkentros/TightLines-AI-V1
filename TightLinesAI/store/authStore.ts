@@ -2,6 +2,7 @@ import { create } from 'zustand';
 import type { Session, User } from '../lib/supabase';
 import type { UserProfile, OnboardingPrefs } from '../lib/types';
 import { supabase } from '../lib/supabase';
+import { useEnvStore } from './envStore';
 
 interface AuthState {
   // Core auth
@@ -85,7 +86,6 @@ export const useAuthStore = create<AuthState>((set, get) => ({
 
   signOut: async () => {
     await supabase.auth.signOut();
-    const { useEnvStore } = await import('./envStore');
     useEnvStore.getState().clear();
     set({
       session: null,

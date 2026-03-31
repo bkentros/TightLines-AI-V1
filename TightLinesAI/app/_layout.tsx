@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { View, Text, StyleSheet } from 'react-native';
 import { Stack, useRouter, useSegments } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import * as Linking from 'expo-linking';
@@ -191,7 +192,17 @@ export default function RootLayout() {
   useProtectedRoute();
   useBiometricLock();
 
-  if (!fontsLoaded) return null;
+  if (!fontsLoaded) {
+    return (
+      <>
+        <StatusBar style="dark" />
+        <View style={styles.bootScreen}>
+          <Text style={styles.bootTitle}>TightLines AI</Text>
+          <Text style={styles.bootSubtitle}>Loading your app…</Text>
+        </View>
+      </>
+    );
+  }
 
   return (
     <>
@@ -233,3 +244,23 @@ export default function RootLayout() {
     </>
   );
 }
+
+const styles = StyleSheet.create({
+  bootScreen: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: colors.background,
+    paddingHorizontal: 24,
+  },
+  bootTitle: {
+    fontSize: 32,
+    fontWeight: '700',
+    color: colors.text,
+    marginBottom: 8,
+  },
+  bootSubtitle: {
+    fontSize: 16,
+    color: colors.textMuted,
+  },
+});
