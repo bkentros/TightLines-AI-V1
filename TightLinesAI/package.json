@@ -14,6 +14,7 @@
     "start:dev-client:with-tunnel-host": "bash scripts/expo-metro-via-tunnel-host.sh",
     "start:dev-client:localtunnel": "bash scripts/start-metro-localtunnel.sh",
     "start:dev-client:ngrok": "bash scripts/start-metro-ngrok.sh",
+    "generate:us-city-index": "node scripts/generate-us-city-index.mjs",
     "audit:how-fishing": "deno run --allow-read --allow-write scripts/audit/run-full-audit.ts",
     "audit:how-fishing:march-august": "deno run --allow-read --allow-write scripts/audit/run-full-audit.ts --months=3,4,5,6,7,8",
     "audit:how-fishing:remaining": "deno run --allow-read --allow-write scripts/audit/run-full-audit.ts --months=1,2,9,10,11,12",

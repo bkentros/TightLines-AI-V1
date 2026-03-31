@@ -37,6 +37,7 @@ export default function HomeScreen() {
   } = useDevTestingStore();
   const loadEnv = useEnvStore((s) => s.loadEnv);
   const envData = useEnvStore((s) => s.envData);
+  const envLastCoords = useEnvStore((s) => s.lastCoords);
   const {
     savedLocation,
     useCustom,
@@ -56,6 +57,7 @@ export default function HomeScreen() {
   /** Mean 0–100 across today's multi-tab cached reports — only populated after report generation. */
   const [cachedMeanRaw, setCachedMeanRaw] = useState<number | null>(null);
   const [forecastDays, setForecastDays] = useState<DayForecastScore[] | null>(null);
+  const [forecastCoastalEligible, setForecastCoastalEligible] = useState<boolean | null>(null);
   const [forecastLoading, setForecastLoading] = useState(false);
 
   // ── Active coordinates and label ──────────────────────────────────────────
@@ -87,6 +89,15 @@ export default function HomeScreen() {
 
   // GPS label for use in the picker ("you are here" context)
   const gpsLabel = gpsLocationLabel ?? 'Current location';
+  const envMatchesCoords =
+    coords != null &&
+    envData != null &&
+    envLastCoords != null &&
+    Math.abs(envLastCoords.lat - coords.lat) < 0.01 &&
+    Math.abs(envLastCoords.lon - coords.lon) < 0.01;
+  const locationCoastalEligible = envMatchesCoords
+    ? Boolean(envData?.coastal)
+    : (forecastCoastalEligible ?? false);
 
   useEffect(() => {
     if (!gpsCoords) {
@@ -157,7 +168,7 @@ export default function HomeScreen() {
       return;
     }
 
-    const contexts = howFishingMultiContexts(Boolean(envData?.coastal));
+    const contexts = howFishingMultiContexts(locationCoastalEligible);
 
     const inMemory = getCurrentMultiRebuild(lat, lon);
     const hasAllInMemory =
@@ -181,7 +192,7 @@ export default function HomeScreen() {
     const display = Number.isInteger(v) ? v.toFixed(0) : v.toFixed(1);
     setCachedMeanRaw(meanRaw);
     setCachedScore(display);
-  }, [coords?.lat, coords?.lon]);
+  }, [coords?.lat, coords?.lon, locationCoastalEligible]);
 
   // Read cached multi-tab mean — matches How's Fishing tabs (same contexts as meanDayScore).
   useEffect(() => {
@@ -208,9 +219,15 @@ export default function HomeScreen() {
     try {
       const result = await getForecastScores(lat, lon);
       if (mySeq !== forecastFetchSeq.current) return;
-      if (result) setForecastDays(result.forecast);
+      if (result) {
+        setForecastDays(result.forecast);
+        setForecastCoastalEligible(Boolean(result.snapshot_env?.coastal));
+      }
     } catch {
-      if (mySeq === forecastFetchSeq.current) setForecastDays(null);
+      if (mySeq === forecastFetchSeq.current) {
+        setForecastDays(null);
+        setForecastCoastalEligible(null);
+      }
     } finally {
       if (mySeq === forecastFetchSeq.current) setForecastLoading(false);
     }
@@ -244,7 +261,7 @@ export default function HomeScreen() {
       // Refresh the cached score when user returns to the home tab,
       // so a newly-generated report immediately updates the displayed number.
       if (coords) {
-        const contexts = howFishingMultiContexts(Boolean(envData?.coastal));
+        const contexts = howFishingMultiContexts(locationCoastalEligible);
         const inMemory = getCurrentMultiRebuild(coords.lat, coords.lon);
         if (inMemory && contexts.every((ctx) => inMemory[ctx] != null)) {
           const meanRaw =
@@ -253,7 +270,7 @@ export default function HomeScreen() {
           setCachedScore(Number.isInteger(v) ? v.toFixed(0) : v.toFixed(1));
         }
       }
-    }, [refreshLiveConditions, loadForecastScores, coords?.lat, coords?.lon, envData?.coastal])
+    }, [refreshLiveConditions, loadForecastScores, coords?.lat, coords?.lon, locationCoastalEligible])
   );
 
   useEffect(() => {
@@ -282,7 +299,9 @@ export default function HomeScreen() {
     setShowLocationPicker(false);
     // Clear stale forecast/score data — fresh data will load via useEffect deps
     setForecastDays(null);
+    setForecastCoastalEligible(null);
     setCachedScore(null);
+    setCachedMeanRaw(null);
     // Immediately load env for the new location
     const units = profile?.preferred_units ?? 'imperial';
     loadEnv(loc.lat, loc.lon, { units });
@@ -296,6 +315,7 @@ export default function HomeScreen() {
     await clearSavedLocation();
     setShowLocationPicker(false);
     setForecastDays(null);
+    setForecastCoastalEligible(null);
     setCachedScore(null);
     setCachedMeanRaw(null);
     try {
@@ -343,10 +363,8 @@ export default function HomeScreen() {
     setGpsCoords({ lat: loc.coords.latitude, lon: loc.coords.longitude });
   }, [setIgnoreGps]);
 
-  const isCoastal = Boolean(envData?.coastal);
-
   const combinedOutlookScore = (day: DayForecastScore): number =>
-    meanDayScore(day, isCoastal);
+    meanDayScore(day, locationCoastalEligible);
 
   const getQualityLabel = (raw: number): string => {
     if (raw >= 80) return 'EXCELLENT';

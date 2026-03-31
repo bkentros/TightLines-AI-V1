@@ -1,9 +1,9 @@
 /**
  * LocationPickerModal
  *
- * Full-screen city search modal. Uses OpenStreetMap Nominatim (free, no key
- * required) with a 350ms debounce. US-only results, filtered to populated
- * places (cities, towns, villages).
+ * Full-screen city search modal. Uses a U.S.-focused geocoding flow with
+ * exact city/state handling, request cancellation, and cached results so the
+ * picker feels fast and reliable for U.S. city lookup.
  *
  * Props:
  *   visible       — controls modal visibility
@@ -31,16 +31,11 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { colors, fonts, spacing, radius } from '../lib/theme';
 import type { SavedLocation } from '../store/locationStore';
 import { getRecentLocations, type RecentLocation } from '../lib/recentLocations';
+import { searchUsCities, type PlaceResult } from '../lib/locationSearch';
 
 // ---------------------------------------------------------------------------
 // Types
 // ---------------------------------------------------------------------------
-
-interface PlaceResult {
-  lat: number;
-  lon: number;
-  label: string; // "City, ST"
-}
 
 interface Props {
   visible: boolean;
@@ -50,177 +45,6 @@ interface Props {
   onSelect: (loc: SavedLocation) => void;
   onUseGPS: () => void;
   onClose: () => void;
-}
-
-// ---------------------------------------------------------------------------
-// State abbreviation lookup — Nominatim sometimes returns full state names
-// ---------------------------------------------------------------------------
-
-const STATE_ABBR: Record<string, string> = {
-  'Alabama': 'AL', 'Alaska': 'AK', 'Arizona': 'AZ', 'Arkansas': 'AR',
-  'California': 'CA', 'Colorado': 'CO', 'Connecticut': 'CT', 'Delaware': 'DE',
-  'Florida': 'FL', 'Georgia': 'GA', 'Hawaii': 'HI', 'Idaho': 'ID',
-  'Illinois': 'IL', 'Indiana': 'IN', 'Iowa': 'IA', 'Kansas': 'KS',
-  'Kentucky': 'KY', 'Louisiana': 'LA', 'Maine': 'ME', 'Maryland': 'MD',
-  'Massachusetts': 'MA', 'Michigan': 'MI', 'Minnesota': 'MN', 'Mississippi': 'MS',
-  'Missouri': 'MO', 'Montana': 'MT', 'Nebraska': 'NE', 'Nevada': 'NV',
-  'New Hampshire': 'NH', 'New Jersey': 'NJ', 'New Mexico': 'NM', 'New York': 'NY',
-  'North Carolina': 'NC', 'North Dakota': 'ND', 'Ohio': 'OH', 'Oklahoma': 'OK',
-  'Oregon': 'OR', 'Pennsylvania': 'PA', 'Rhode Island': 'RI', 'South Carolina': 'SC',
-  'South Dakota': 'SD', 'Tennessee': 'TN', 'Texas': 'TX', 'Utah': 'UT',
-  'Vermont': 'VT', 'Virginia': 'VA', 'Washington': 'WA', 'West Virginia': 'WV',
-  'Wisconsin': 'WI', 'Wyoming': 'WY',
-};
-
-function toStateAbbr(stateName: string): string {
-  return STATE_ABBR[stateName] ?? stateName;
-}
-
-const ABBR_TO_STATE_NAME: Record<string, string> = Object.fromEntries(
-  Object.entries(STATE_ABBR).map(([name, abbr]) => [abbr, name]),
-) as Record<string, string>;
-
-/** "Charleston, SC" → structured Nominatim city + state name */
-function parseCityCommaState(q: string): { city: string; state: string } | null {
-  const m = q.match(/^([^,]{2,}),\s*([A-Za-z.\s]{2,})\s*$/);
-  if (!m) return null;
-  const city = m[1].trim();
-  let state = m[2].trim();
-  if (/^[A-Z]{2}$/i.test(state)) {
-    const full = ABBR_TO_STATE_NAME[state.toUpperCase()];
-    if (full) state = full;
-  }
-  if (city.length < 2 || state.length < 2) return null;
-  return { city, state };
-}
-
-// ---------------------------------------------------------------------------
-// Nominatim search
-// ---------------------------------------------------------------------------
-
-interface NominatimItem {
-  lat: string;
-  lon: string;
-  place_id?: number;
-  address?: {
-    city?: string;
-    town?: string;
-    village?: string;
-    borough?: string;
-    hamlet?: string;
-    municipality?: string;
-    county?: string;
-    state?: string;
-    'ISO3166-2-lvl4'?: string;
-  };
-  type?: string;
-  class?: string;
-}
-
-const NOMINATIM_HEADERS = {
-  'User-Agent': 'TightLinesAI/2.0 (fishing app; contact@tightlines.ai)',
-  Accept: 'application/json',
-} as const;
-
-function mapNominatimToPlaces(data: NominatimItem[], max = 8): PlaceResult[] {
-  const seen = new Set<string>();
-  const results: PlaceResult[] = [];
-
-  for (const item of data) {
-    const addr = item.address;
-    if (!addr) continue;
-
-    const city =
-      addr.city ??
-      addr.town ??
-      addr.village ??
-      addr.borough ??
-      addr.hamlet ??
-      addr.municipality ??
-      addr.county;
-    const state = addr.state ?? '';
-    if (!city || !state) continue;
-
-    const isoCode = addr['ISO3166-2-lvl4']?.replace('US-', '');
-    const stateCode = isoCode ?? toStateAbbr(state);
-    const label = stateCode ? `${city}, ${stateCode}` : `${city}, ${state}`;
-    const key = `${label}|${item.place_id ?? `${item.lat},${item.lon}`}`;
-    if (seen.has(key)) continue;
-    seen.add(key);
-
-    results.push({
-      lat: parseFloat(item.lat),
-      lon: parseFloat(item.lon),
-      label,
-    });
-
-    if (results.length >= max) break;
-  }
-
-  return results;
-}
-
-async function nominatimFetch(params: URLSearchParams): Promise<NominatimItem[]> {
-  const url = `https://nominatim.openstreetmap.org/search?${params.toString()}`;
-  const res = await fetch(url, { headers: NOMINATIM_HEADERS });
-  if (!res.ok) return [];
-  return (await res.json()) as NominatimItem[];
-}
-
-async function searchCities(query: string): Promise<PlaceResult[]> {
-  const trimmed = query.trim();
-  if (trimmed.length < 2) return [];
-
-  try {
-    // 1) US settlements (strict)
-    let data = await nominatimFetch(
-      new URLSearchParams({
-        q: trimmed,
-        countrycodes: 'us',
-        format: 'jsonv2',
-        limit: '12',
-        addressdetails: '1',
-        featuretype: 'settlement',
-        dedupe: '1',
-      }),
-    );
-    let places = mapNominatimToPlaces(data);
-    if (places.length > 0) return places;
-
-    // 2) Same query without featuretype (admin areas, neighborhoods)
-    data = await nominatimFetch(
-      new URLSearchParams({
-        q: trimmed,
-        countrycodes: 'us',
-        format: 'jsonv2',
-        limit: '12',
-        addressdetails: '1',
-        dedupe: '1',
-      }),
-    );
-    places = mapNominatimToPlaces(data);
-    if (places.length > 0) return places;
-
-    // 3) Structured "City, ST" (helps Charleston, SC style queries)
-    const parsed = parseCityCommaState(trimmed);
-    if (parsed) {
-      data = await nominatimFetch(
-        new URLSearchParams({
-          city: parsed.city,
-          state: parsed.state,
-          country: 'usa',
-          format: 'jsonv2',
-          limit: '10',
-          addressdetails: '1',
-        }),
-      );
-      places = mapNominatimToPlaces(data);
-    }
-
-    return places;
-  } catch {
-    return [];
-  }
 }
 
 // ---------------------------------------------------------------------------
@@ -243,6 +67,8 @@ export function LocationPickerModal({
   const [error, setError] = useState(false);
   const [recentLocations, setRecentLocations] = useState<RecentLocation[]>([]);
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const abortRef = useRef<AbortController | null>(null);
+  const requestIdRef = useRef(0);
   const inputRef = useRef<TextInput>(null);
 
   // Reset state when modal opens; reload recent picks from storage
@@ -256,11 +82,17 @@ export function LocationPickerModal({
     }
   }, [visible]);
 
+  useEffect(() => () => {
+    if (debounceRef.current) clearTimeout(debounceRef.current);
+    abortRef.current?.abort();
+  }, []);
+
   const handleQueryChange = useCallback((text: string) => {
     setQuery(text);
     setError(false);
 
     if (debounceRef.current) clearTimeout(debounceRef.current);
+    abortRef.current?.abort();
 
     if (!text.trim() || text.trim().length < 2) {
       setResults([]);
@@ -270,17 +102,26 @@ export function LocationPickerModal({
 
     setLoading(true);
     debounceRef.current = setTimeout(async () => {
+      const requestId = requestIdRef.current + 1;
+      requestIdRef.current = requestId;
+      const controller = new AbortController();
+      abortRef.current = controller;
       try {
-        const r = await searchCities(text);
+        const r = await searchUsCities(text, controller.signal);
+        if (requestId !== requestIdRef.current) return;
         setResults(r);
         setError(false);
-      } catch {
+      } catch (error) {
+        if ((error as Error)?.name === 'AbortError') return;
+        if (requestId !== requestIdRef.current) return;
         setResults([]);
         setError(true);
       } finally {
-        setLoading(false);
+        if (requestId === requestIdRef.current) {
+          setLoading(false);
+        }
       }
-    }, 150);
+    }, 200);
   }, []);
 
   const handleClear = useCallback(() => {
