@@ -18,6 +18,18 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const STORAGE_KEY = 'tightlines_location_pref_v1';
 
+function isPlausibleUsPinnedLocation(loc: { lat: number; lon: number; label: string } | null | undefined): loc is SavedLocation {
+  return Boolean(
+    loc &&
+    Number.isFinite(loc.lat) &&
+    Number.isFinite(loc.lon) &&
+    typeof loc.label === 'string' &&
+    loc.lon < 0 &&
+    loc.lat >= 15 &&
+    loc.lat <= 72,
+  );
+}
+
 export interface SavedLocation {
   lat: number;
   lon: number;
@@ -51,11 +63,7 @@ export const useLocationStore = create<LocationState>((set, get) => ({
       const raw = await AsyncStorage.getItem(STORAGE_KEY);
       if (!raw) return;
       const p = JSON.parse(raw);
-      if (
-        p &&
-        typeof p.savedLocation?.lat === 'number' &&
-        typeof p.savedLocation?.lon === 'number'
-      ) {
+      if (p && isPlausibleUsPinnedLocation(p.savedLocation)) {
         set({
           savedLocation: {
             lat: p.savedLocation.lat,
@@ -64,6 +72,9 @@ export const useLocationStore = create<LocationState>((set, get) => ({
           },
           useCustom: Boolean(p.useCustom),
         });
+      } else if (p?.savedLocation != null) {
+        await AsyncStorage.removeItem(STORAGE_KEY);
+        set({ savedLocation: null, useCustom: false });
       }
     } catch {
       // Ignore

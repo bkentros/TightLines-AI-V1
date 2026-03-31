@@ -13,6 +13,10 @@ export interface RecentLocation {
   label: string;
 }
 
+function isPlausibleUsRecentLocation(x: RecentLocation): boolean {
+  return Number.isFinite(x.lat) && Number.isFinite(x.lon) && x.lon < 0 && x.lat >= 15 && x.lat <= 72;
+}
+
 function nearSame(a: RecentLocation, b: RecentLocation): boolean {
   return (
     Math.abs(a.lat - b.lat) < 0.02 &&
@@ -33,7 +37,8 @@ export async function getRecentLocations(): Promise<RecentLocation[]> {
           x != null &&
           typeof (x as RecentLocation).lat === 'number' &&
           typeof (x as RecentLocation).lon === 'number' &&
-          typeof (x as RecentLocation).label === 'string',
+          typeof (x as RecentLocation).label === 'string' &&
+          isPlausibleUsRecentLocation(x as RecentLocation),
       )
       .slice(0, MAX);
   } catch {

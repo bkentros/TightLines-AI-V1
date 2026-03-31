@@ -47,8 +47,8 @@ for (const line of rows) {
   if (cols.length < 11) continue;
   const stateCode = cols[0]?.trim();
   const rawName = cols[3]?.trim();
-  const lat = Number(cols[9]);
-  const lon = Number(cols[10]);
+  const lat = Number(cols[10]);
+  const lon = Number(cols[11]);
   if (!stateCode || !ALLOWED_STATES.has(stateCode) || !rawName || !Number.isFinite(lat) || !Number.isFinite(lon)) {
     continue;
   }
