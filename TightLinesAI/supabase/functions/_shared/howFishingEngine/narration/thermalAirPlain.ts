@@ -18,7 +18,26 @@ export function buildThermalAirPlain(
       ? `${Math.round(tempF)}°F air — `
       : "";
 
-  if (label === "optimal") return `${prefix}right in the seasonal range`;
+  if (label === "optimal") {
+    if (score >= 1) return `${prefix}well inside the seasonal sweet spot`;
+    if (score >= ENGINE_SCORE_EPSILON) {
+      return `${prefix}inside the seasonal range and helping`;
+    }
+    if (score <= -ENGINE_SCORE_EPSILON) {
+      return `${prefix}inside the seasonal range, but still near the edge of the better window`;
+    }
+    return `${prefix}inside the seasonal range without a strong thermal push`;
+  }
+  if (label === "near_optimal") {
+    if (score >= 1) return `${prefix}close to the seasonal sweet spot and helping`;
+    if (score >= ENGINE_SCORE_EPSILON) {
+      return `${prefix}close to the seasonal range and quietly helping`;
+    }
+    if (score <= -ENGINE_SCORE_EPSILON) {
+      return `${prefix}close to the seasonal range, but still on the edge of the better window`;
+    }
+    return `${prefix}close to the seasonal range without a strong thermal push`;
+  }
   if (label === "warm") {
     if (score >= 1) return `${prefix}running warm, metabolism is up`;
     if (score >= ENGINE_SCORE_EPSILON) {

@@ -72,6 +72,13 @@ function temperatureDriverLabel(t: NonNullable<Norm["temperature"]>): string {
         "Seasonal temperatures are behaving; treat it as a quiet helper behind flashier factors.",
       ]);
     }
+    if (band === "near_optimal") {
+      return pick([
+        "Temperature is close to the seasonal comfort band — modestly helpful, but not fully open yet.",
+        "Thermals are near the better window and offering a small lift without becoming the whole story.",
+        "Temperature is trending toward the seasonal target zone — useful, but still a secondary helper.",
+      ]);
+    }
     if (band === "cool" && trend === "warming") {
       return pick([
         "It’s cool now but warming through the day — fish often respond as the water creeps up.",
@@ -87,6 +94,13 @@ function temperatureDriverLabel(t: NonNullable<Norm["temperature"]>): string {
     ]);
   }
   if (tier === 0) {
+    if (band === "near_optimal") {
+      return pick([
+        "Temperature is close to the seasonal window, but it is not pushing the day strongly either way.",
+        "Thermals are near the better range without becoming a decisive factor in the report.",
+        "Temperature sits near the seasonal target band, but other variables matter more today.",
+      ]);
+    }
     if (band === "very_warm") {
       return pick([
         "It’s genuinely hot — dissolved oxygen and shade lines start to matter more than usual.",
@@ -102,6 +116,13 @@ function temperatureDriverLabel(t: NonNullable<Norm["temperature"]>): string {
     ]);
   }
   if (tier === -1) {
+    if (band === "near_optimal") {
+      return pick([
+        "Temperature is close to the seasonal window, but still a shade off the better bite.",
+        "Thermals are near the right zone without fully landing in it, so the bite can stay a little tight.",
+        "Temperature is almost where you want it, but still limiting just enough to matter.",
+      ]);
+    }
     if (band === "cool") {
       return pick([
         "Below-average cool — metabolisms dip; slower presentations and deeper staging are common.",

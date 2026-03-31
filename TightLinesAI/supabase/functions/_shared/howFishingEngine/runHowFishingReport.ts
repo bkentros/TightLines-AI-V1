@@ -23,7 +23,7 @@ import { buildVariableDisplayLabel } from "./summary/summaryLine.ts";
 function reliabilityNote(tier: "high" | "medium" | "low"): string | null {
   if (tier === "high") return null;
   if (tier === "medium") {
-    return "Today's outlook is still usable, but one or two inputs were limited.";
+    return "Today's outlook is still usable, but the read is a little broader than the cleanest cases.";
   }
   return "Today's report is broader than usual because some key inputs were limited.";
 }

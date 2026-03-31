@@ -9,6 +9,7 @@ import { freshwaterTempRow } from "../config/tempBandsFreshwater.ts";
 import { coastalTempRow } from "../config/tempBandsCoastal.ts";
 import {
   clampEngineScore,
+  ENGINE_SCORE_EPSILON,
   engineScoreTier,
   pieceLinear,
 } from "../score/engineScoreMath.ts";
@@ -18,6 +19,11 @@ const TREND_FAVORABILITY_DELTA_MIN = 0.35;
 const SHOCK_24H_THRESHOLD_F = 10;
 const SHOCK_48H_THRESHOLD_F = 18;
 const SHOCK_48H_LAST_LEG_MIN_F = 5;
+const FRESHWATER_POSITIVE_TREND_ADJ = 0.75;
+const FRESHWATER_NEGATIVE_TREND_ADJ = -0.75;
+const COASTAL_POSITIVE_TREND_ADJ = 0.5;
+const COASTAL_POSITIVE_TEMP_CAP = 1.75;
+const COASTAL_FLATS_POSITIVE_TEMP_CAP = 1.5;
 
 function clampAnchor(n: number): number {
   return Math.max(-2, Math.min(2, n));
@@ -35,6 +41,21 @@ function discreteBandLabel(
   if (t <= opt) return "optimal";
   if (t <= warm) return "warm";
   return "very_warm";
+}
+
+function semanticBandLabel(
+  t: number,
+  vc: number,
+  cool: number,
+  opt: number,
+  warm: number,
+  bandScore: number,
+): TemperatureBandLabel {
+  const label = discreteBandLabel(t, vc, cool, opt, warm);
+  if (label === "optimal" && bandScore < -ENGINE_SCORE_EPSILON) {
+    return "near_optimal";
+  }
+  return label;
 }
 
 /** Piecewise-linear score through table knots; plateaus outside inner range. */
@@ -121,7 +142,6 @@ export function normalizeTemperature(
   const scores = row[4] as unknown as number[];
   if (!Array.isArray(scores) || scores.length < 5) return null;
 
-  const label = discreteBandLabel(selectedTempF, vc, cool, opt, warm);
   const bandScore = taperedBandScore(
     selectedTempF,
     vc,
@@ -130,9 +150,17 @@ export function normalizeTemperature(
     warm,
     scores,
   );
+  const label = semanticBandLabel(
+    selectedTempF,
+    vc,
+    cool,
+    opt,
+    warm,
+    bandScore,
+  );
 
   let trendLabel: "warming" | "stable" | "cooling" = "stable";
-  let trendAdj: -1 | 0 | 1 = 0;
+  let trendAdj = 0;
 
   let shockLabel: "none" | "sharp_warmup" | "sharp_cooldown" = "none";
   let shockAdj: -1 | 0 = 0;
@@ -177,15 +205,29 @@ export function normalizeTemperature(
 
       if (favorabilityDelta != null) {
         if (favorabilityDelta >= TREND_FAVORABILITY_DELTA_MIN) {
-          trendAdj = 1;
+          trendAdj = coastalContext ? COASTAL_POSITIVE_TREND_ADJ : FRESHWATER_POSITIVE_TREND_ADJ;
         } else if (favorabilityDelta <= -TREND_FAVORABILITY_DELTA_MIN) {
-          trendAdj = -1;
+          trendAdj = coastalContext ? -1 : FRESHWATER_NEGATIVE_TREND_ADJ;
         }
       }
     }
   }
 
   let final_score = clampEngineScore(bandScore + trendAdj + shockAdj);
+
+  const positiveTempCap = coastalContext
+    ? context === "coastal_flats_estuary"
+      ? COASTAL_FLATS_POSITIVE_TEMP_CAP
+      : COASTAL_POSITIVE_TEMP_CAP
+    : null;
+
+  if (
+    positiveTempCap != null &&
+    shockAdj === 0 &&
+    final_score > positiveTempCap
+  ) {
+    final_score = positiveTempCap;
+  }
 
   if (
     coastalContext &&

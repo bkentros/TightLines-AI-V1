@@ -25,6 +25,7 @@ import {
   daypartMeansForSeries,
 } from "../daypartHourly.ts";
 import { ENGINE_SCORE_EPSILON } from "../../score/engineScoreMath.ts";
+import { notePoolKeyForDaypartFlags } from "../timingNotes.ts";
 
 export type TemperatureMode = "seek_warmth" | "avoid_heat";
 
@@ -183,7 +184,7 @@ function evaluateSeekWarmth(
       role: "anchor",
       strength: "good",
       periods: stablePeriods,
-      note_pool_key: "warmest_window",
+      note_pool_key: notePoolKeyForDaypartFlags(stablePeriods),
       debug_reason:
         `seek_warmth: stable very_cold (no spike/trend/rise), band=${band_label}; ` +
         `warmest midday window — fish seek heat at coldest temps regardless of trend.`,

@@ -6,7 +6,7 @@ import { clampEngineScore, pieceLinear } from "../score/engineScoreMath.ts";
  * Precipitation disruption — same label buckets as V1; scores tapered within buckets.
  */
 export function normalizePrecipitationDisruption(
-  context: Extract<EngineContext, "freshwater_lake_pond" | "coastal">,
+  context: Extract<EngineContext, "freshwater_lake_pond" | "coastal" | "coastal_flats_estuary">,
   rateNow: number | null | undefined,
   p24: number | null | undefined,
   p72: number | null | undefined,

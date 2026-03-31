@@ -131,15 +131,26 @@ export function buildSharedNormalizedOutput(req: SharedEngineRequest): SharedNor
     e.active_precip_now === true;
 
   let precip: ReturnType<typeof normalizePrecipitationDisruption> = null;
-  if (req.context === "freshwater_lake_pond" || req.context === "coastal") {
+  if (req.context === "freshwater_lake_pond") {
     if (precipLakeCoastalContract) {
       precip = normalizePrecipitationDisruption(
-        req.context,
+        "freshwater_lake_pond",
         precipRate,
         p24,
         p72,
         e.active_precip_now,
-        e.precip_7d_in
+        e.precip_7d_in,
+      );
+    }
+  } else if (isCoastalFamilyContext(req.context)) {
+    if (precipLakeCoastalContract) {
+      precip = normalizePrecipitationDisruption(
+        req.context as "coastal" | "coastal_flats_estuary",
+        precipRate,
+        p24,
+        p72,
+        e.active_precip_now,
+        e.precip_7d_in,
       );
     }
   }

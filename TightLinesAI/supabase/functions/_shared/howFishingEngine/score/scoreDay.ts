@@ -4,6 +4,8 @@ import { labelForDriver } from "./driverLabels.ts";
 import { computeActiveWeights } from "./reweight.ts";
 
 const FACTOR_SURFACE_MIN_WEIGHTED_CONTRIBUTION = 6;
+const POSITIVE_RAW_SCORE_DIVISOR = 3.2;
+const NEGATIVE_RAW_SCORE_DIVISOR = 4;
 
 function scoreForKey(
   key: ScoredVariableKey,
@@ -65,10 +67,16 @@ export function scoreDay(norm: SharedNormalizedOutput): {
   }
 
   const rawSum = contributions.reduce((a, c) => a + c.weightedContribution, 0);
-  const score = Math.round(((rawSum + 200) / 400) * 100);
+  const score = Math.round(
+    rawSum >= 0
+      ? 50 + rawSum / POSITIVE_RAW_SCORE_DIVISOR
+      : 50 + rawSum / NEGATIVE_RAW_SCORE_DIVISOR
+  );
   // Floor at 10 so the display minimum is 1.0/10 — catastrophic conditions still
-  // show a number rather than zero. Ceiling at 100 (10.0/10) is now reachable
-  // since all normalizers can reach +2 under genuinely ideal conditions.
+  // show a number rather than zero. The positive side uses a slightly more
+  // generous ramp so context-perfect seasonal setups can realistically reach
+  // the top band, while the negative side stays unchanged to avoid making poor
+  // conditions look too forgiving.
   const clamped = Math.max(10, Math.min(100, score));
   const band = bandFromScore(clamped);
 

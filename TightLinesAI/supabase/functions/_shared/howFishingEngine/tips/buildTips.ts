@@ -122,6 +122,17 @@ const HEAT_EASY_TIPS = [
   "Think easy meal, not reaction bait: controlled speed, softer moves, and longer pauses.",
 ] as const;
 
+const THERMAL_EDGE_TIPS = [
+  "Temperature is close but not fully helping, so start with a slightly slower, cleaner presentation than your default.",
+  "Keep the retrieve controlled and repeatable today. Conditions are close enough that small thermal misses matter.",
+  "This is a good day to stay just a touch more patient than normal: clean pace, softer moves, and no wasted action.",
+  "Do not force the presentation. A smooth, slightly slower retrieve is the better starting point when temperature is only close.",
+  "Start simple and controlled today. The temperature window is close enough that overworking the bait can cost you.",
+  "A measured presentation makes sense here: steady contact, modest pace, and pauses long enough to feel intentional.",
+  "Keep the bait easy to track and easy to trust. Temperature is near the zone, but not helping enough for a busy retrieve.",
+  "Go one step more controlled than an all-green day: clean cadence, light adjustments, and no extra speed.",
+] as const;
+
 const ACTIVE_CADENCE_TIPS = [
   "Start with a more active retrieve today. A steady medium pace is a better starting point than dragging it too slowly.",
   "Let the bait move with some intent. Fish are more likely to respond to a cleaner, more active cadence today.",
@@ -170,6 +181,7 @@ export function listTipCopyForAudit(): string[] {
     ...PRESSURE_SLOW_TIPS,
     ...COLD_SLOW_TIPS,
     ...HEAT_EASY_TIPS,
+    ...THERMAL_EDGE_TIPS,
     ...ACTIVE_CADENCE_TIPS,
     ...GENERAL_PRESENTATION_TIPS,
     ...BALANCED_PRESENTATION_TIPS,
@@ -191,6 +203,7 @@ export function buildActionableTip(
   let actionable_tip_tag: ActionableTipTag = "presentation_general";
 
   const tempBand = norm.temperature?.band_label ?? null;
+  const tempScore = norm.temperature?.final_score ?? null;
   const pressureLabel = norm.pressure_regime?.label ?? null;
 
   if (isCoastalFamilyContext(context) && (norm.tide_current_movement?.score ?? 0) >= 1.5) {
@@ -214,6 +227,12 @@ export function buildActionableTip(
   } else if (topSuppressor?.key === "temperature_condition") {
     if (tempBand === "very_cold" || tempBand === "cool") {
       actionable_tip = pick(COLD_SLOW_TIPS, seed, "cold_slow");
+    } else if (
+      (tempBand === "optimal" || tempBand === "near_optimal") &&
+      tempScore != null &&
+      tempScore < 0
+    ) {
+      actionable_tip = pick(THERMAL_EDGE_TIPS, seed, "thermal_edge");
     } else {
       actionable_tip = pick(HEAT_EASY_TIPS, seed, "heat_easy");
     }

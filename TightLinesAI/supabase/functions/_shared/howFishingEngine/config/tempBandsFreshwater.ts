@@ -65,7 +65,7 @@ export const FRESHWATER_TEMP_ROWS: Record<RegionKey, TempBandRow[]> = {
     [50, 62, 74, 82, [-2, -1,  2,  1, -1]],  // Jan — BEST MONTH: bass pre-spawn staging; crappie prime; 62-74°F = ideal water conditions
     [54, 64, 76, 84, [-2, -1,  2,  1, -1]],  // Feb — PRIME: bass spawn begins; largemouth most active; peacock bass feeding
     [58, 68, 78, 86, [-2, -1,  2,  1, -1]],  // Mar — SHOULDER: spawn peak; great bass topwater; crappie wrapping up spawn
-    [64, 72, 82, 90, [-2, -1,  2,  0, -2]],  // Apr — SHOULDER: post-spawn; bass recovering; warming toward summer
+    [58, 66, 78, 88, [-2, -1,  2,  0, -2]],  // Apr — SHOULDER: post-spawn but still very viable; upper-60s to low-70s mean air should read as a solid Florida spring window, not a default thermal limiter
     [70, 78, 86, 92, [-2, -1,  1,  0, -2]],  // May — SUM_HOT: heat arriving; morning/evening only viable
     [74, 82, 88, 94, [-2, -1,  0, -1, -2]],  // Jun — WORST: no good air temp for FL bass; water 86-92°F = stress
     [76, 84, 90, 96, [-2, -1,  0, -1, -2]],  // Jul — WORST: brutal heat; even peacock bass slow in midday
@@ -139,8 +139,8 @@ export const FRESHWATER_TEMP_ROWS: Record<RegionKey, TempBandRow[]> = {
     [30, 40, 52, 62, [-2, -1,  1,  2,  0]],  // Jan — mild; crappie slow; warm days trigger bass feeding
     [34, 44, 56, 66, [-2, -1,  1,  2,  0]],  // Feb — pre-spawn crappie moving; warm days = bass active
     [44, 54, 66, 76, [-2, -1,  2,  1, -1]],  // Mar — SHOULDER: crappie spawn; bass pre-spawn; excellent
-    [54, 64, 74, 84, [-2, -1,  2,  1, -1]],  // Apr — SHOULDER: bass spawn peak; topwater begins; striper run
-    [64, 72, 82, 90, [-2, -1,  2,  0, -2]],  // May — SUM_MOD: last great month before heat; dawn topwater prime
+    [50, 60, 74, 84, [-2, -1,  2,  1, -1]],  // Apr — SHOULDER: TVA and Deep South bass lakes often fish well on 58-62°F mean-air spring days; keep them cool, but not overly suppressed
+    [60, 70, 82, 90, [-2, -1,  2,  0, -2]],  // May — SUM_MOD: still a strong bass month on many South Central lakes; 70-72°F mean air should be near-neutral to lightly positive, not a clear limiter
     [70, 78, 86, 92, [-2, -1,  1,  0, -2]],  // Jun — SUM_HOT: heat arriving; early morning bass only viable
     [70, 80, 88, 94, [-2, -1,  1,  0, -2]],  // Jul — SUM_HOT: very_cold 70°F = cold front event (mean ~90°F)
     [68, 78, 86, 92, [-2, -1,  1,  0, -2]],  // Aug — SUM_HOT: similar; catfish in deep water overnight

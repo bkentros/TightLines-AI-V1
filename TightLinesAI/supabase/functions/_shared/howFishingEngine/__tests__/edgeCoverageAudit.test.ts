@@ -23,6 +23,12 @@ Deno.test("resolveRegion: Hawaii and Alaska use dedicated region keys", () => {
   assertEquals(anchorage.region_key, "alaska");
 });
 
+Deno.test("resolveRegion: Chesapeake Bay stays in southeast_atlantic", () => {
+  const chesapeake = resolveRegionForCoordinates(38.97, -76.48);
+  assertEquals(chesapeake.state_code, "MD");
+  assertEquals(chesapeake.region_key, "southeast_atlantic");
+});
+
 Deno.test("buildFromEnvData: Dillon with altitude_ft → mountain_alpine; without → not alpine", () => {
   const baseEnv = {
     timezone: "America/Denver",

@@ -1,5 +1,8 @@
 import type { EngineContext, ScoreBand } from "../contracts/mod.ts";
-import { chanceDeterministic, pickDeterministic } from "../copy/deterministicPick.ts";
+import {
+  chanceDeterministic,
+  pickDeterministic,
+} from "../copy/deterministicPick.ts";
 
 type SummaryFactor = { variable: string };
 
@@ -94,9 +97,11 @@ const POSITIVE_TEMPLATES = [
   "{driver} is giving the day its clearest advantage.",
   "{driver} is the main thing pushing the setup in the right direction.",
   "{driver} is the biggest reason the day feels more open than tight.",
-  "{driver} is doing a lot of the heavy work today.",
+  "{driver} is carrying more of the day than anything else.",
   "{driver} is doing the most to keep the outlook favorable.",
 ] as const;
+
+const SUMMARY_MAX_LEN = 220;
 
 const NEGATIVE_TEMPLATES = [
   "{suppressor} is the main thing holding the day back.",
@@ -149,11 +154,11 @@ const CONTEXT_TOUCHES: Record<EngineContext, readonly string[]> = {
 
 const RELIABILITY_CLOSERS: Record<"medium" | "low", readonly string[]> = {
   medium: [
-    "A couple of inputs were limited, so treat this as a slightly broader read.",
-    "The call is still useful, but one or two inputs were thinner than usual.",
-    "This is still useful, just a little broader than the cleanest version of the report.",
-    "The signal is good, but not as complete as it could be.",
-    "Some input coverage was lighter than usual, so keep the read a little broad.",
+    "This is still a usable read, just a little broader than the cleanest version of the report.",
+    "The call is still useful, but lean on the main signals more than fine detail.",
+    "The read is still solid, just a touch broader than the most precise cases.",
+    "This is a trustworthy read, but it is better as direction than over-precision.",
+    "The main setup is still useful here, even if the report should stay a little broad.",
   ],
   low: [
     "Key inputs were limited, so treat this as a broad read rather than a precise one.",
@@ -198,24 +203,23 @@ function buildVariableSummaryLabel(
 ): string {
   switch (variable) {
     case "temperature_condition":
-      return "Temperature";
+      return "temperature";
     case "pressure_regime":
-      return "Pressure";
+      return "pressure";
     case "wind_condition":
-      return "Wind";
+      return "wind";
     case "light_cloud_condition":
-      return "Cloud cover";
+      return "cloud cover";
     case "precipitation_disruption":
-      return "Rain";
+      return "rain";
     case "runoff_flow_disruption":
-      return "Rain and runoff";
+      return "runoff";
     case "tide_current_movement":
       return context === "coastal" || context === "coastal_flats_estuary"
-        ? "Tide and current"
-        : "Current";
+        ? "tidal movement"
+        : "current";
     default: {
-      const display = buildVariableDisplayLabel(variable, context).toLowerCase();
-      return display.charAt(0).toUpperCase() + display.slice(1);
+      return buildVariableDisplayLabel(variable, context).toLowerCase();
     }
   }
 }
@@ -228,7 +232,11 @@ function trimAtWordBoundary(text: string, maxLen: number): string {
   return (cut > 0 ? sliced.slice(0, cut) : clean.slice(0, maxLen)).trim();
 }
 
-function appendIfFits(parts: string[], addition: string, maxLen: number): string[] {
+function appendIfFits(
+  parts: string[],
+  addition: string,
+  maxLen: number,
+): string[] {
   const next = [...parts, addition];
   if (next.join(" ").replace(/\s+/g, " ").trim().length <= maxLen) {
     return next;
@@ -261,7 +269,9 @@ export function listSummaryCopyForAudit(): string[] {
 export function buildReportSummaryLine(input: ReportSummaryInput): string {
   const { band, reliability, drivers, suppressors, seed, context } = input;
   const opener = pickDeterministic(OPENERS[band], seed, "summary:opener");
-  const driver = drivers[0] ? buildVariableSummaryLabel(drivers[0].variable, context) : null;
+  const driver = drivers[0]
+    ? buildVariableSummaryLabel(drivers[0].variable, context)
+    : null;
   const suppressor = suppressors[0]
     ? buildVariableSummaryLabel(suppressors[0].variable, context)
     : null;
@@ -291,7 +301,11 @@ export function buildReportSummaryLine(input: ReportSummaryInput): string {
       ),
     );
   } else {
-    parts.push(normalizeSurfaceSentence(pickDeterministic(NEUTRAL_CLOSERS, seed, "summary:neutral")));
+    parts.push(
+      normalizeSurfaceSentence(
+        pickDeterministic(NEUTRAL_CLOSERS, seed, "summary:neutral"),
+      ),
+    );
   }
 
   let built = parts.join(" ");
@@ -300,10 +314,13 @@ export function buildReportSummaryLine(input: ReportSummaryInput): string {
     const contextTouch = normalizeSurfaceSentence(
       pickDeterministic(CONTEXT_TOUCHES[context], seed, "summary:context"),
     );
-    built = appendIfFits([built], contextTouch, 280).join(" ");
+    built = appendIfFits([built], contextTouch, SUMMARY_MAX_LEN).join(" ");
   }
 
-  if (reliability !== "high" && chanceDeterministic(seed, "summary:reliability:include", 0.5)) {
+  if (
+    reliability !== "high" &&
+    chanceDeterministic(seed, "summary:reliability:include", 0.5)
+  ) {
     const reliabilityNote = normalizeSurfaceSentence(
       pickDeterministic(
         RELIABILITY_CLOSERS[reliability],
@@ -311,8 +328,8 @@ export function buildReportSummaryLine(input: ReportSummaryInput): string {
         `summary:reliability:${reliability}`,
       ),
     );
-    built = appendIfFits([built], reliabilityNote, 280).join(" ");
+    built = appendIfFits([built], reliabilityNote, SUMMARY_MAX_LEN).join(" ");
   }
 
-  return trimAtWordBoundary(built, 280);
+  return trimAtWordBoundary(built, SUMMARY_MAX_LEN);
 }

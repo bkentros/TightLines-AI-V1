@@ -192,21 +192,21 @@ function buildTideExchangeNoteFromSignal(exchangeTimes: string[], seedBase: stri
     return pickDeterministic([
       `Two exchange windows today — ${exchangeTimes[0]} and ${exchangeTimes[1]}. Fish the movement on each side and ease off during the slack between them.`,
       `Tide turns ${exchangeTimes[0]} and ${exchangeTimes[1]}. Those are your two best windows — get in position before each one and fish the moving water hard.`,
-      `Best opportunities near ${exchangeTimes[0]} and ${exchangeTimes[1]} around the tide changes. The transition windows are the bite; slack in between is the slow stretch.`,
+      `Best opportunities near ${exchangeTimes[0]} and ${exchangeTimes[1]} around the tide changes. Fish the moving water there; slack in between is slower.`,
     ], seedBase, "tide_exchange_double");
   }
   if (exchangeTimes.length === 3) {
     const [a, b, c] = exchangeTimes;
     return pickDeterministic([
       `Three key tide turns — ${a}, ${b}, and ${c}. Fish the highlighted windows hard on each side of those exchanges.`,
-      `Moving-water windows ${a}, ${b}, and ${c}. Work those clock bands — each tide change is its own bite opportunity.`,
+      `Moving-water windows ${a}, ${b}, and ${c}. Fish those turns first; each exchange can open a bite window.`,
     ], seedBase, "tide_exchange_triple");
   }
   if (exchangeTimes.length >= 4) {
     const [a, b, c, d] = exchangeTimes;
     return pickDeterministic([
-      `Four exchanges today — key turns ${a}, ${b}, ${c}, and ${d}. Rotate with the tide; each highlighted band lines up with a real exchange.`,
-      `Active tide cycle: ${a}, ${b}, ${c}, and ${d}. The lit time blocks match those turns — fish the movement, rest the slack.`,
+      `Four exchanges today — key turns ${a}, ${b}, ${c}, and ${d}. Rotate with the tide; each highlighted band lines up with a real turn.`,
+      `Active tide cycle: ${a}, ${b}, ${c}, and ${d}. Fish the movement and ease off during slack.`,
     ], seedBase, "tide_exchange_quad");
   }
   return pickDeterministic([

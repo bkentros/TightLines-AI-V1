@@ -9,6 +9,30 @@ import { pickDeterministic } from "../copy/deterministicPick.ts";
 
 const DAYPART_NAMES = ["dawn", "morning", "afternoon", "evening"] as const;
 
+function trimSurfaceLine(text: string, maxLen: number): string {
+  const clean = text.replace(/\s+/g, " ").trim();
+  if (!clean) return "";
+  if (clean.length > maxLen) {
+    const punctuations = [".", "!", "?"];
+    let bestCut = -1;
+    for (const punctuation of punctuations) {
+      const idx = clean.lastIndexOf(punctuation, maxLen - 1);
+      if (idx > bestCut) bestCut = idx;
+    }
+    if (bestCut >= Math.floor(maxLen * 0.6)) {
+      return clean.slice(0, bestCut + 1).trim();
+    }
+  }
+  let output = clean;
+  if (output.length > maxLen) {
+    const sliced = output.slice(0, maxLen + 1);
+    const cut = sliced.lastIndexOf(" ");
+    output = (cut > 0 ? sliced.slice(0, cut) : output.slice(0, maxLen)).trim();
+    output = output.replace(/[,:;\-]\s*$/g, "").trim();
+  }
+  return /[.!?]$/.test(output) ? output : `${output}.`;
+}
+
 /**
  * Same logic as buildNarrationBrief `formatTimingSection`, condensed for UI (single line).
  */
@@ -20,8 +44,8 @@ export function buildDeterministicTimingInsight(report: HowsFishingReport): stri
     const best = DAYPART_NAMES.filter((_, i) => periods[i]);
     const avoided = DAYPART_NAMES.filter((_, i) => !periods[i]);
     if (best.length === 4) {
-      return (note ?? "Fishable throughout the day. No strong timing edge stands out.").replace(/\s+/g, " ").trim().slice(
-        0,
+      return trimSurfaceLine(
+        note ?? "Fishable throughout the day. No strong timing edge stands out.",
         200,
       );
     }
@@ -32,10 +56,10 @@ export function buildDeterministicTimingInsight(report: HowsFishingReport): stri
           ? ` Weaker: ${avoided.join(" and ")}.`
           : "";
       const base = `Best windows: ${bestStr}.${avoidStr}${note ? ` ${note}` : ""}`;
-      return base.replace(/\s+/g, " ").trim().slice(0, 200);
+      return trimSurfaceLine(base, 200);
     }
   }
-  return (note ?? "No strong timing edge stands out. Stay flexible.").replace(/\s+/g, " ").trim().slice(0, 200);
+  return trimSurfaceLine(note ?? "No strong timing edge stands out. Stay flexible.", 200);
 }
 
 const SOLUNAR_PRESENT = [

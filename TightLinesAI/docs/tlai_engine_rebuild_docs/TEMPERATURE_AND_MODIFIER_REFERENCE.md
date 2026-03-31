@@ -17,17 +17,16 @@ Temperature is the most detailed variable in this engine. It must carry most of 
 
 ## Core temperature design
 
-Temperature for How's Fishing is now split by context:
+Temperature for How's Fishing now uses the same thermal source across every context:
 
 - freshwater uses daily mean **air temperature**
-- coastal and flats/estuary use measured **coastal water temperature** when a nearby NOAA reading is available
-- coastal and flats/estuary fall back to the existing air-temperature path when measured water temperature is missing or stale
+- coastal and flats/estuary also use daily mean **air temperature**
 
 ### Why
-- freshwater still needs the simpler air-temperature proxy
-- coastal fish respond more directly to the actual water mass than to a short-lived air swing
-- fallback-safe coastal water temperature improves realism without breaking score continuity
-- the narration layer can still use air temperature for intraday feel
+- one thermal source keeps lake/river/coastal tabs from contradicting each other on the same day
+- shallow inshore and flats systems still respond meaningfully to seasonal air patterns and short warming/cooling trends
+- coastal air is a weaker biological proxy than direct water temperature, so the engine treats those reports as less reliable than same-coverage freshwater runs
+- the narration layer still uses the daily low/high air range for intraday feel
 
 ---
 
@@ -100,17 +99,13 @@ Use the coastal-family temperature path for:
 Reason:
 - coastal seasonal air conditions are moderated differently
 - coastal timing / exposure context differs enough to justify a separate table family
-- measured water temperature is preferred when available because it better matches fish metabolism in these systems
+- shallow ocean-adjacent water still needs its own seasonal air table because the same air temp means something different on the coast than inland
 
 ---
 
 ## Trend rules
 
-Trend uses the selected thermal source over roughly 72 hours:
-
-- freshwater: mean air temperature
-- coastal-family with NOAA coverage: measured water temperature
-- coastal-family fallback: mean air temperature
+Trend uses daily mean air temperature over roughly 72 hours for every context group.
 
 ### Labels
 - `warming`

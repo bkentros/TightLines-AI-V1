@@ -1,5 +1,9 @@
 # Core U.S. coverage — solo testing (no beta users yet)
 
+> Archived note: the older `scripts/how-fishing-audit/*` E2E/LLM workflow referenced below
+> has been removed. Use `scripts/audit/run-full-audit.ts` and the `audit:how-fishing:*`
+> package scripts for the deterministic audit path.
+
 This is a lightweight way to stay honest about **mainstream U.S. fishing** (bass, trout, inshore salt, Great Lakes, etc.) while you are the only tester.
 
 ## 1. Automated regression (cheap, repeatable)

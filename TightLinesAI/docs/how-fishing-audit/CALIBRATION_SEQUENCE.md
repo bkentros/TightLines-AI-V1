@@ -1,5 +1,9 @@
 # Calibration sequence (accuracy → reliability → credibility)
 
+> Archived note: the older `scripts/how-fishing-audit/*` E2E/LLM workflow has been removed.
+> The current deterministic audit entry point is `scripts/audit/run-full-audit.ts`
+> via `npm run audit:how-fishing:march-august` or `npm run audit:how-fishing:remaining`.
+
 Recommended order of work so changes are measurable and hard to “fake” with cherry-picked dates.
 
 ## 1. Ground truth and contracts (accuracy foundations)

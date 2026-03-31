@@ -93,6 +93,12 @@ function variableToPlain(
             ? `${Math.round(tempF)}°F air (representative daily value) — `
             : "";
       if (label === "optimal") return `${t}right in the seasonal range`;
+      if (label === "near_optimal") {
+        if (score <= -ENGINE_SCORE_EPSILON) {
+          return `${t}close to the seasonal range, but still on the edge of the better window`;
+        }
+        return `${t}close to the seasonal range`;
+      }
       if (label === "warm") {
         if (score >= 1) return `${t}running warm, metabolism is up`;
         if (score >= ENGINE_SCORE_EPSILON) {

@@ -19,6 +19,7 @@ import { buildSharedNormalizedOutput } from "../normalize/buildNormalized.ts";
 import { compositeScoreActivityTier } from "../narration/compositeScoreTier.ts";
 import { runHowFishingReport } from "../runHowFishingReport.ts";
 import { buildActionableTip } from "../tips/buildTips.ts";
+import { buildThermalAirPlain } from "../narration/thermalAirPlain.ts";
 import type { SharedNormalizedOutput, TemperatureNormalized } from "../contracts/mod.ts";
 import { evaluateTemperatureWindow } from "../timing/evaluators/evaluateTemperatureWindow.ts";
 import {
@@ -107,7 +108,20 @@ Deno.test("temperature: band_score rises smoothly within optimal segment (taper)
   assert(b.band_score - a.band_score < 1.0);
 });
 
-Deno.test("temperature: coastal measured water temp becomes the primary thermal input", () => {
+Deno.test("temperature: low-end optimal segment is labeled near_optimal when still thermally negative", () => {
+  const t = normalizeTemperature(
+    "freshwater_lake_pond",
+    "south_central",
+    4,
+    60.3,
+    56.4,
+    60.05,
+  )!;
+  assertEquals(t.band_label, "near_optimal");
+  assertAlmostEquals(t.band_score, -0.9357, 1e-3);
+});
+
+Deno.test("temperature: coastal path stays on air temp even when measured water temp exists", () => {
   const t = normalizeTemperature(
     "coastal",
     "florida",
@@ -122,28 +136,24 @@ Deno.test("temperature: coastal measured water temp becomes the primary thermal 
     },
   );
   assert(t != null);
-  assertEquals(t!.measurement_source, "coastal_water_temp");
-  assertEquals(t!.measurement_value_f, 71);
-  assertEquals(t!.band_label, "optimal");
+  assertEquals(t!.measurement_source, "air_daily_mean");
+  assertEquals(t!.measurement_value_f, 52);
+  assertEquals(t!.band_label, "cool");
 });
 
-Deno.test("temperature: coastal air path remains the fallback when water temp is absent", () => {
+Deno.test("temperature: coastal positive warming trend is softened and capped below a full +2 spike", () => {
   const t = normalizeTemperature(
     "coastal",
-    "florida",
-    1,
-    72,
-    70,
-    68,
-    {
-      measuredWaterTempF: null,
-      measuredWaterTemp24hAgoF: null,
-      measuredWaterTemp72hAgoF: null,
-    },
+    "northeast",
+    7,
+    77.1,
+    73.8,
+    70.8,
   );
   assert(t != null);
-  assertEquals(t!.measurement_source, "air_daily_mean");
-  assertEquals(t!.measurement_value_f, 72);
+  assertEquals(t!.trend_label, "warming");
+  assertAlmostEquals(t!.trend_adjustment, 0.5, 1e-3);
+  assertAlmostEquals(t!.final_score, 1.75, 1e-3);
 });
 
 Deno.test("light: freshwater score does not improve when cloud decreases in mixed band", () => {
@@ -211,6 +221,21 @@ Deno.test("tide: stage incoming -> moving", () => {
   assertEquals(t!.score, 0.7);
 });
 
+Deno.test("tide: high-low exchange range can score strong movement without hourly tide heights", () => {
+  const t = normalizeTideCurrentMovement({
+    tide_high_low: [
+      { time: "2024-07-13 01:26", value: 4.249 },
+      { time: "2024-07-13 07:38", value: 0.934 },
+      { time: "2024-07-13 14:11", value: 4.584 },
+      { time: "2024-07-13 20:19", value: 1.465 },
+    ],
+    stage: "incoming",
+  }, "inshore");
+  assert(t != null);
+  assertEquals(t.label, "strong_moving");
+  assert(t.score > 1.2, `expected exchange-range tide score > 1.2, got ${t.score}`);
+});
+
 Deno.test("tide: unknown stage does not auto-score positive", () => {
   const t = normalizeTideFromStage("unknown");
   assertEquals(t, null);
@@ -233,11 +258,32 @@ Deno.test("tide: flats avoids a false penalty just above slack but turns negativ
   assert(tooHard.score < 0, `expected hard flats current to be negative, got ${tooHard.score}`);
 });
 
+Deno.test("tide: flats exchange range stays positive enough to matter on strong moving days", () => {
+  const t = normalizeTideCurrentMovement({
+    tide_high_low: [
+      { time: "2024-03-16 01:17", value: 3.783 },
+      { time: "2024-03-16 07:54", value: 0.346 },
+      { time: "2024-03-16 13:34", value: 2.635 },
+      { time: "2024-03-16 19:42", value: 0.025 },
+    ],
+    stage: "incoming",
+  }, "flats_estuary");
+  assert(t != null);
+  assertEquals(t.label, "strong_moving");
+  assert(t.score >= 1.0, `expected flats exchange-range tide score >= 1.0, got ${t.score}`);
+});
+
 Deno.test("precip: coastal is softer than lake for the same rain totals", () => {
   const lake = normalizePrecipitationDisruption("freshwater_lake_pond", 0.03, 0.8, 1.6, false);
   const coast = normalizePrecipitationDisruption("coastal", 0.03, 0.8, 1.6, false);
   assertEquals(lake!.label, "active_disruption");
   assertEquals(coast!.label, "recent_rain");
+});
+
+Deno.test("precip: flats_estuary scores the same coastal rain signal instead of dropping it as missing", () => {
+  const flats = normalizePrecipitationDisruption("coastal_flats_estuary", 0.03, 0.8, 1.6, false);
+  assert(flats != null);
+  assertEquals(flats.label, "recent_rain");
 });
 
 Deno.test("runoff: florida more tolerant than northeast for same totals", () => {
@@ -401,18 +447,18 @@ Deno.test("scoreDay: tiny negatives do not surface as limiting factors", () => {
 Deno.test("scoreDay: mild coastal rain does not surface as a limiting factor", () => {
   const s = scoreDay({
     location: {
-      latitude: 27.95,
-      longitude: -82.46,
-      state_code: "FL",
-      region_key: "florida",
+      latitude: 29.76,
+      longitude: -95.37,
+      state_code: "TX",
+      region_key: "gulf_coast",
       local_date: "2026-03-30",
-      local_timezone: "America/New_York",
+      local_timezone: "America/Chicago",
     },
     context: "coastal",
     normalized: {
       temperature: {
         context_group: "coastal",
-        measurement_source: "coastal_water_temp",
+        measurement_source: "air_daily_mean",
         measurement_value_f: 71,
         band_label: "optimal",
         band_score: 1.1,
@@ -446,32 +492,32 @@ Deno.test("scoreDay: mild coastal rain does not surface as a limiting factor", (
 Deno.test("scoreDay: meaningful coastal rain still surfaces as a limiting factor", () => {
   const s = scoreDay({
     location: {
-      latitude: 27.95,
-      longitude: -82.46,
-      state_code: "FL",
-      region_key: "florida",
+      latitude: 29.76,
+      longitude: -95.37,
+      state_code: "TX",
+      region_key: "gulf_coast",
       local_date: "2026-03-30",
-      local_timezone: "America/New_York",
+      local_timezone: "America/Chicago",
     },
     context: "coastal",
     normalized: {
       temperature: {
         context_group: "coastal",
-        measurement_source: "coastal_water_temp",
+        measurement_source: "air_daily_mean",
         measurement_value_f: 71,
         band_label: "optimal",
-        band_score: 1.1,
+        band_score: 0.4,
         trend_label: "stable",
         trend_adjustment: 0,
         shock_label: "none",
         shock_adjustment: 0,
-        final_score: 1.1,
+        final_score: 0.4,
       },
       pressure_regime: { label: "stable_neutral", score: 0.1 },
-      wind_condition: { label: "light", score: 0.9 },
-      light_cloud_condition: { label: "mixed", score: 0.15 },
-      tide_current_movement: { label: "moderate_moving", score: 1.4 },
-      precipitation_disruption: { label: "active_disruption", score: -1.4 },
+      wind_condition: { label: "light", score: 0.3 },
+      light_cloud_condition: { label: "mixed", score: 0.1 },
+      tide_current_movement: { label: "moderate_moving", score: 0.8 },
+      precipitation_disruption: { label: "active_disruption", score: -2 },
     },
     available_variables: [
       "temperature_condition",
@@ -679,7 +725,7 @@ Deno.test("buildNormalized: river with only 24h+72h precip omits runoff and tags
   assertEquals(g?.reason, "incomplete_precip_windows");
 });
 
-Deno.test("buildNormalized: coastal-family air-temp fallback downgrades reliability one step when water temp is missing", () => {
+Deno.test("buildNormalized: coastal-family air-temp scoring downgrades reliability one step", () => {
   const n = buildSharedNormalizedOutput({
     latitude: 25.2,
     longitude: -80.9,
@@ -749,6 +795,50 @@ Deno.test("buildActionableTip: heat suppressor (very_warm) never uses cold-water
     const b = buildActionableTip("freshwater_lake_pond", undefined, sup, n.normalized, `seed:${i}`);
     assert(!/\bcold water\b/i.test(b.actionable_tip), b.actionable_tip);
   }
+});
+
+Deno.test("buildActionableTip: near-optimal temperature suppressor avoids false heat wording", () => {
+  const n = minimalNorm({
+    temperature: {
+      context_group: "freshwater",
+      measurement_source: "air_daily_mean",
+      measurement_value_f: 60,
+      band_label: "near_optimal",
+      band_score: -0.5,
+      trend_label: "stable",
+      trend_adjustment: 0,
+      shock_label: "none",
+      shock_adjustment: 0,
+      final_score: -0.5,
+    },
+  });
+  const sup = {
+    key: "temperature_condition" as const,
+    score: -0.5 as const,
+    label: "",
+    weight: 32,
+    weightedContribution: -16,
+  };
+  const tip = buildActionableTip("freshwater_lake_pond", undefined, sup, n.normalized, "seed:optimal-edge");
+  assertEquals(/\bheat\b/i.test(tip.actionable_tip), false, tip.actionable_tip);
+  assertEquals(/\bcold\b/i.test(tip.actionable_tip), false, tip.actionable_tip);
+});
+
+Deno.test("thermalAirPlain: near-optimal negative temp stays honest about edge-of-window conditions", () => {
+  const line = buildThermalAirPlain({
+    context_group: "freshwater",
+    measurement_source: "air_daily_mean",
+    measurement_value_f: 60,
+    band_label: "near_optimal",
+    band_score: -0.5,
+    trend_label: "stable",
+    trend_adjustment: 0,
+    shock_label: "none",
+    shock_adjustment: 0,
+    final_score: -0.5,
+  }, 60, null);
+  assertEquals(line.includes("right in the seasonal range"), false);
+  assert(line.includes("edge of the better window"));
 });
 
 Deno.test("timing: hot south_central March — avoid_heat rescues when winter-family drivers miss", () => {
@@ -1169,6 +1259,29 @@ Deno.test("timing: seek_warmth hourly places spike in evening when curve jumps l
   });
   assert(s != null);
   assertEquals(s!.periods, [false, false, false, true]);
+});
+
+Deno.test("timing: stable very-cold dawn window uses a dawn-aligned note pool", () => {
+  const hourly = [
+    43, 41, 39, 37, 34, 30, 27, 24, 22, 21, 20, 19,
+    18, 18, 18, 19, 20, 21, 22, 23, 25, 28, 33, 38,
+  ];
+  const norm = minimalNorm({
+    temperature: coolTemp({
+      band_label: "very_cold",
+      band_score: -2,
+      final_score: -2,
+      trend_label: "stable",
+      shock_label: "none",
+    }),
+  });
+  const s = evaluateTemperatureWindow("seek_warmth", norm, {
+    local_date: "2025-02-15",
+    hourly_air_temp_f: hourly,
+  });
+  assert(s != null);
+  assertEquals(s!.periods, [true, false, false, false]);
+  assertEquals(s!.note_pool_key, "fallback_dawn_morning");
 });
 
 Deno.test("timing: seek_warmth hourly prefers the warmest late-day bucket over an early warming slope", () => {

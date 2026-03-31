@@ -16,6 +16,7 @@ export type VariableState = {
 export type TemperatureBandLabel =
   | "very_cold"
   | "cool"
+  | "near_optimal"
   | "optimal"
   | "warm"
   | "very_warm";
@@ -35,7 +36,7 @@ export type TemperatureNormalized = {
   /** Interpolated thermal score from season table before trend/shock (tapered). */
   band_score: VariableScore;
   trend_label: TrendLabel;
-  trend_adjustment: -1 | 0 | 1;
+  trend_adjustment: VariableScore;
   shock_label: ShockLabel;
   shock_adjustment: -1 | 0;
   final_score: VariableScore;

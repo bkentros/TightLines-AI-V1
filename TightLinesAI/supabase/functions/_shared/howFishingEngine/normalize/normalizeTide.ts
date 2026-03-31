@@ -88,6 +88,57 @@ function fromMax3hDeltaFt(max3h: number, policy: TideScoringPolicy): VariableSta
   return { label, score: clampEngineScore(score) };
 }
 
+function maxAdjacentExchangeRangeFt(
+  events: Array<{ time: string; value: number }>
+): number | null {
+  const parsed = events
+    .map((event) => ({ t: parseTideTime(event.time), v: event.value }))
+    .filter((event) => !Number.isNaN(event.t))
+    .sort((a, b) => a.t - b.t);
+  if (parsed.length < 2) return null;
+
+  let maxRange = 0;
+  for (let index = 0; index < parsed.length - 1; index++) {
+    maxRange = Math.max(maxRange, Math.abs(parsed[index + 1]!.v - parsed[index]!.v));
+  }
+  return maxRange > 0 ? maxRange : null;
+}
+
+function fromExchangeRangeFt(rangeFt: number, policy: TideScoringPolicy): VariableState {
+  let score: number;
+  let label: "moving" | "strong_moving";
+
+  if (policy === "flats_estuary") {
+    if (rangeFt < 0.8) {
+      score = pieceLinear(rangeFt, 0.2, 0.8, 0.25, 0.6);
+      label = "moving";
+    } else if (rangeFt < 2.0) {
+      score = pieceLinear(rangeFt, 0.8, 2.0, 0.6, 0.95);
+      label = "moving";
+    } else {
+      score = pieceLinear(Math.min(rangeFt, 4.5), 2.0, 4.5, 0.95, 1.2);
+      label = "strong_moving";
+    }
+  } else {
+    if (rangeFt < 1.0) {
+      score = pieceLinear(rangeFt, 0.3, 1.0, 0.45, 0.85);
+      label = "moving";
+    } else if (rangeFt < 2.2) {
+      score = pieceLinear(rangeFt, 1.0, 2.2, 0.85, 1.15);
+      label = "moving";
+    } else {
+      score = pieceLinear(Math.min(rangeFt, 5.5), 2.2, 5.5, 1.15, 1.55);
+      label = "strong_moving";
+    }
+  }
+
+  return {
+    label,
+    score: clampEngineScore(score),
+    detail: `${rangeFt.toFixed(1)} ft exchange range`,
+  };
+}
+
 function parseTideTime(iso: string): number {
   const t = Date.parse(iso);
   return Number.isFinite(t) ? t : NaN;
@@ -139,6 +190,10 @@ export function normalizeTideCurrentMovement(
     const maxD = maxDeltaFromHighLow(hl);
     if (maxD != null && maxD >= 0.05) {
       return fromMax3hDeltaFt(maxD, policy);
+    }
+    const exchangeRange = maxAdjacentExchangeRangeFt(hl);
+    if (exchangeRange != null && exchangeRange >= 0.2) {
+      return fromExchangeRangeFt(exchangeRange, policy);
     }
   }
 

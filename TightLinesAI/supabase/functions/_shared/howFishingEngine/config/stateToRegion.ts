@@ -142,7 +142,7 @@ export function regionKeyFromLatLon(lat: number, lon: number): RegionKey {
   if (lat >= 36 && lat <= 39.5 && lon >= -83 && lon <= -78) return "appalachian";
 
   // Southeast Atlantic (GA, SC, NC, VA, DE, MD — coastal plain and piedmont)
-  if (lat >= 30 && lat <= 38 && lon >= -84 && lon <= -74) return "southeast_atlantic";
+  if (lat >= 30 && lat <= 39.5 && lon >= -84 && lon <= -74) return "southeast_atlantic";
 
   // ── Northern tier ───────────────────────────────────────────────────────────
 

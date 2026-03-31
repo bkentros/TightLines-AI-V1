@@ -5,8 +5,8 @@ import { assert, assertEquals, assertStringIncludes } from "jsr:@std/assert";
 import { DISPLAY_CONTEXT_LABEL } from "../contracts/context.ts";
 import type { HowsFishingReport } from "../contracts/report.ts";
 import {
-  buildDeterministicTimingInsight,
   buildDeterministicSolunarNote,
+  buildDeterministicTimingInsight,
   buildEngineLedSummaryLine,
   listSurfaceCopyForAudit,
 } from "../narration/polishSafeSurfaceCopy.ts";
@@ -18,7 +18,9 @@ import {
 import { listTipCopyForAudit } from "../tips/buildTips.ts";
 import { listTimingCopyForAudit } from "../timing/timingNotes.ts";
 
-function minimalReport(overrides: Partial<HowsFishingReport>): HowsFishingReport {
+function minimalReport(
+  overrides: Partial<HowsFishingReport>,
+): HowsFishingReport {
   const base: HowsFishingReport = {
     context: "freshwater_river",
     display_context_label: DISPLAY_CONTEXT_LABEL.freshwater_river,
@@ -69,8 +71,9 @@ Deno.test("buildReportSummaryLine is deterministic and references factor names",
     suppressors: [{ variable: "wind_condition" }],
     seed: "coastal|florida|2026-03-30|68",
   });
-  assertStringIncludes(out, "Tide and current");
-  assertStringIncludes(out, "Wind");
+  assertStringIncludes(out.toLowerCase(), "tidal movement");
+  assertStringIncludes(out.toLowerCase(), "wind");
+  assertEquals(/\bbut Wind\b/.test(out), false, out);
   assertEquals(
     out,
     buildReportSummaryLine({
@@ -83,6 +86,20 @@ Deno.test("buildReportSummaryLine is deterministic and references factor names",
       seed: "coastal|florida|2026-03-30|68",
     }),
   );
+});
+
+Deno.test("buildReportSummaryLine stays compact when context and reliability closers are eligible", () => {
+  const out = buildReportSummaryLine({
+    band: "Good",
+    score: 68,
+    context: "coastal_flats_estuary",
+    reliability: "low",
+    drivers: [{ variable: "temperature_condition" }],
+    suppressors: [{ variable: "wind_condition" }],
+    seed: "coastal_flats_estuary|florida|2026-08-17|68|compact",
+  });
+  assert(out.length <= 220, `summary too long: ${out.length} chars`);
+  assertEquals(/[.!?]$/.test(out), true);
 });
 
 Deno.test("buildDeterministicSolunarNote stays soft and non-null when peaks exist", () => {
@@ -138,6 +155,21 @@ Deno.test("buildDeterministicSolunarNote stays soft and non-null when peaks exis
   assertStringIncludes(out ?? "", "bonus");
 });
 
+Deno.test("buildDeterministicTimingInsight preserves ending punctuation when trimmed", () => {
+  const r = minimalReport({
+    highlighted_periods: [false, true, true, false],
+    daypart_note:
+      "Best opportunities near around 12:10pm and around 8:25pm around the tide changes. The transition windows are the bite; slack in between is the slow stretch.",
+  });
+  const out = buildDeterministicTimingInsight(r);
+  assert(out.length <= 200, `timing too long: ${out.length} chars`);
+  assertEquals(
+    /[.!?]$/.test(out),
+    true,
+    `timing missing end punctuation: ${out}`,
+  );
+});
+
 Deno.test("river runoff label stays honest about proxy input", () => {
   assertEquals(
     buildVariableDisplayLabel("runoff_flow_disruption", "freshwater_river"),
@@ -150,19 +182,37 @@ function assertCleanCopy(line: string) {
     .replaceAll("{driver}", "Temperature")
     .replaceAll("{suppressor}", "Wind");
   assertEquals(rendered, rendered.replace(/\s+/g, " ").trim());
-  assertEquals(/\s[.,!?;:]/.test(rendered), false, `bad punctuation spacing: ${rendered}`);
-  assertEquals(/^[A-Z]/.test(rendered), true, `must start uppercase: ${rendered}`);
-  assertEquals(/[.!?]$/.test(rendered), true, `must end with punctuation: ${rendered}`);
+  assertEquals(
+    /\s[.,!?;:]/.test(rendered),
+    false,
+    `bad punctuation spacing: ${rendered}`,
+  );
+  assertEquals(
+    /^[A-Z]/.test(rendered),
+    true,
+    `must start uppercase: ${rendered}`,
+  );
+  assertEquals(
+    /[.!?]$/.test(rendered),
+    true,
+    `must end with punctuation: ${rendered}`,
+  );
   assert(rendered.length <= 180, `copy line too long: ${rendered}`);
-  for (const banned of [
-    "headline",
-    "stealing the show",
-    "heavy lifting",
-    "bonus column",
-    "from the engine",
-    "usable edge",
-  ]) {
-    assertEquals(rendered.toLowerCase().includes(banned), false, `avoid vague phrase "${banned}": ${rendered}`);
+  for (
+    const banned of [
+      "headline",
+      "stealing the show",
+      "heavy lifting",
+      "bonus column",
+      "from the engine",
+      "usable edge",
+    ]
+  ) {
+    assertEquals(
+      rendered.toLowerCase().includes(banned),
+      false,
+      `avoid vague phrase "${banned}": ${rendered}`,
+    );
   }
 }
 

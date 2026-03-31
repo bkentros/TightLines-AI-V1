@@ -1,5 +1,9 @@
 # Prime-day contract (audit / calibration)
 
+> Archived note: the `scripts/how-fishing-audit/*` tooling referenced in this document was
+> part of the removed E2E/LLM audit workflow. The current deterministic audit entry point is
+> `scripts/audit/run-full-audit.ts`.
+
 This document describes **input-space prime gates** used to label historical dates before expectations such as `expect_band: "Good"` are applied in `auditScenarios.ts`. Prime gates are **not** the engine score; they approximate “did this day have a defensible multisignal stack (pressure, light, wind, river runoff, coastal tides)?”
 
 ## Implementation

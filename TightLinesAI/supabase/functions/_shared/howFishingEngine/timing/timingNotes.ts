@@ -65,7 +65,7 @@ const POOLS: Record<string, string[]> = {
     "The warmest part of the day is your best stretch.",
     "Warmth builds as the day goes. Focus on the highest temperatures of the day.",
     "Afternoon warmth is the key trigger today.",
-    "Let the air warm up first. Afternoon is when cold-water fish start to move.",
+    "Lean on the warmest part of the day. That is when cold-water fish are most likely to move.",
     "A cold morning gives way to better warmth later. Save your best water for the afternoon.",
     "The day builds as it goes. Your best window is the warmest part of the afternoon.",
     "Hold something back for the afternoon warmth. That's when this water comes alive.",
@@ -100,7 +100,7 @@ const POOLS: Record<string, string[]> = {
   ],
 
   cloud_extended_shaped: [
-    "Overcast is not even all day. The thickest cloud cover sits in these windows, so fish those harder than the brighter gaps.",
+    "Cloud cover is uneven through the day. The thickest low-light stretch sits in these windows, so lean on them more than the brighter gaps.",
     "Hourly cloud cover shows where low light lasts the longest. Target those stretches instead of treating the whole day the same.",
     "Some parts of the day stay cloudier than others. Those are your better feeding windows.",
   ],
