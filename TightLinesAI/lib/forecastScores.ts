@@ -2,19 +2,25 @@
  * forecastScores — 7-day deterministic fishing score forecast
  *
  * Calls the forecast-scores edge function (no LLM, no auth required).
- * Results are cached until midnight in the **fishing location** timezone (from the
- * API response), not the device clock — so travelers see chips roll over with the spot.
+ * Results are cached until the next midnight in the fishing location timezone so the
+ * 7-day outlook stays stable all day and future-day reports can reuse the same snapshot.
  */
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import type { WeatherData } from './env/types';
 
 const SUPABASE_URL = process.env.EXPO_PUBLIC_SUPABASE_URL!;
 const SUPABASE_ANON_KEY = process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY!;
 
-/** v2 adds coastal_flats_estuary; bump invalidated old cache shape. */
-const CACHE_KEY_PREFIX = 'forecast_scores_v2';
+/** v4 stores the shared forecast weather snapshot used by future-day reports. */
+const CACHE_KEY_PREFIX = 'forecast_scores_v4';
 
-const LEGACY_FORECAST_CACHE_PREFIXES = ['forecast_scores_v1', 'forecast_scores_v2'] as const;
+const LEGACY_FORECAST_CACHE_PREFIXES = [
+  'forecast_scores_v1',
+  'forecast_scores_v2',
+  'forecast_scores_v3',
+  'forecast_scores_v4',
+] as const;
 
 /**
  * Next instant (UTC ms) when the calendar date advances in `timeZone` (IANA).
@@ -67,6 +73,17 @@ export interface ForecastScoresResult {
   forecast: DayForecastScore[];
   timezone: string;
   fetched_at: string; // ISO string
+  snapshot_env?: ForecastSnapshotEnv;
+}
+
+export interface ForecastSnapshotEnv {
+  timezone?: string;
+  tz_offset_hours?: number;
+  weather: WeatherData;
+  hourly_pressure_mb?: Array<{ time_utc: string; value: number }>;
+  hourly_air_temp_f?: Array<{ time_utc: string; value: number }>;
+  hourly_cloud_cover_pct?: Array<{ time_utc: string; value: number }>;
+  hourly_wind_speed?: Array<{ time_utc: string; value: number }>;
 }
 
 function normalizeForecastRows(rows: Partial<DayForecastScore>[]): DayForecastScore[] {
@@ -145,7 +162,7 @@ export function scoreColor(raw: number): string {
 
 /**
  * Fetches 7-day forecast scores for the given location.
- * Returns cached data if it was fetched today (before midnight), otherwise fetches fresh.
+ * Returns cached data until the next location-midnight rollover.
  */
 export async function getForecastScores(
   lat: number,
@@ -193,7 +210,11 @@ export async function getForecastScores(
       return null;
     }
 
-    const json = await res.json() as { forecast?: Partial<DayForecastScore>[]; timezone?: string };
+    const json = await res.json() as {
+      forecast?: Partial<DayForecastScore>[];
+      timezone?: string;
+      snapshot_env?: ForecastSnapshotEnv;
+    };
     if (!Array.isArray(json.forecast) || json.forecast.length === 0) {
       if (__DEV__) console.error('[forecastScores] empty or missing forecast array:', json);
       return null;
@@ -203,9 +224,10 @@ export async function getForecastScores(
       forecast: normalizeForecastRows(json.forecast),
       timezone: json.timezone ?? 'UTC',
       fetched_at: new Date().toISOString(),
+      snapshot_env: json.snapshot_env,
     };
 
-    // Persist to cache — expires at next midnight in the fishing location TZ
+    // Persist to cache — stable until the location's next midnight rollover.
     try {
       await AsyncStorage.setItem(
         key,
@@ -228,8 +250,7 @@ export async function getForecastScores(
 
 /**
  * Removes the cached forecast for the given location (e.g. after changing pin
- * so the next fetch is for the new coordinates). Full How’s Fishing reports do
- * not invalidate this cache — the 7-day strip stays on the forecast-scores snapshot.
+ * so the next fetch is for the new coordinates).
  */
 export function invalidateForecastCache(lat: number, lon: number): void {
   const key = cacheKey(lat, lon);

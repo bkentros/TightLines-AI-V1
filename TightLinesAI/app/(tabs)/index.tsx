@@ -51,8 +51,9 @@ export default function HomeScreen() {
   const [gpsLocationLabel, setGpsLocationLabel] = useState<string | null>(null);
   const [showSubscribePrompt, setShowSubscribePrompt] = useState(false);
   const [showLocationPicker, setShowLocationPicker] = useState(false);
+  /** Latest generated live-report score for today, when available. */
   const [cachedScore, setCachedScore] = useState<string | null>(null);
-  /** Mean 0–100 across today's multi-tab cached reports — used as the home-screen source of truth for today. */
+  /** Mean 0–100 across today's multi-tab cached reports — only populated after report generation. */
   const [cachedMeanRaw, setCachedMeanRaw] = useState<number | null>(null);
   const [forecastDays, setForecastDays] = useState<DayForecastScore[] | null>(null);
   const [forecastLoading, setForecastLoading] = useState(false);
@@ -187,7 +188,7 @@ export default function HomeScreen() {
     void loadCachedReportMean();
   }, [loadCachedReportMean]);
 
-  // Refresh when returning from How's Fishing so today's chip matches freshly generated tabs.
+  // Refresh when returning from How's Fishing so the hero reflects freshly generated tabs.
   useFocusEffect(
     useCallback(() => {
       void loadCachedReportMean();
@@ -215,7 +216,7 @@ export default function HomeScreen() {
     }
   }, [coords?.lat, coords?.lon]);
 
-  // Load 7-day forecast scores — cached until fishing-location midnight
+  // Load 7-day forecast scores — stable until fishing-location midnight.
   useEffect(() => {
     void loadForecastScores();
     return () => {
@@ -354,14 +355,9 @@ export default function HomeScreen() {
     return 'POOR';
   };
 
-  const todayForecast = forecastDays?.[0] ?? null;
-  const todayUnifiedRaw =
-    cachedMeanRaw != null
-      ? cachedMeanRaw
-      : todayForecast
-        ? combinedOutlookScore(todayForecast)
-        : null;
-  const heroScore = todayUnifiedRaw != null ? formatScoreDisplay(todayUnifiedRaw) : cachedScore;
+  const heroScore =
+    cachedMeanRaw != null ? formatScoreDisplay(cachedMeanRaw) : cachedScore;
+  const forecastDisplayDays = forecastDays?.filter((day) => day.day_offset > 0) ?? [];
 
   const getGreeting = () => {
     const h = new Date().getHours();
@@ -432,12 +428,12 @@ export default function HomeScreen() {
         />
 
         {/* ─── 7-Day Forecast Calendar ─── */}
-        {coords && (forecastLoading || (forecastDays && forecastDays.length > 0)) && (
+        {coords && (forecastLoading || forecastDisplayDays.length > 0) && (
           <View style={styles.calendarSection}>
             <View style={styles.calendarHeader}>
               <View style={styles.calendarTitleRow}>
                 <Ionicons name="calendar-outline" size={12} color={colors.primary} />
-                <Text style={styles.calendarTitle}>7-Day Outlook</Text>
+                <Text style={styles.calendarTitle}>Forecast Ahead</Text>
               </View>
               <Text style={styles.calendarHint}>Tap any day</Text>
             </View>
@@ -447,24 +443,19 @@ export default function HomeScreen() {
               contentContainerStyle={styles.calendarRow}
             >
               {forecastLoading && !forecastDays
-                ? Array.from({ length: 7 }).map((_, i) => (
+                ? Array.from({ length: 6 }).map((_, i) => (
                     <View key={i} style={[styles.calendarDay, styles.calendarDaySkeleton]} />
                   ))
-                : forecastDays?.map((day) => {
-                    const raw =
-                      day.day_offset === 0 && todayUnifiedRaw != null
-                        ? todayUnifiedRaw
-                        : combinedOutlookScore(day);
+                : forecastDisplayDays.map((day) => {
+                    const raw = combinedOutlookScore(day);
                     const display = formatScoreDisplay(raw);
                     const color = scoreColor(raw);
-                    const isToday = day.day_offset === 0;
                     const quality = getQualityLabel(raw);
                     return (
                       <Pressable
                         key={day.date}
                         style={({ pressed }) => [
                           styles.calendarDay,
-                          isToday && styles.calendarDayToday,
                           pressed && styles.calendarDayPressed,
                         ]}
                         onPress={() => {
@@ -473,13 +464,6 @@ export default function HomeScreen() {
                             return;
                           }
                           if (!coords) return;
-                          if (day.day_offset === 0) {
-                            router.push({
-                              pathname: '/how-fishing',
-                              params: { lat: String(coords.lat), lon: String(coords.lon) },
-                            });
-                            return;
-                          }
                           router.push({
                             pathname: '/how-fishing',
                             params: {
@@ -491,12 +475,8 @@ export default function HomeScreen() {
                           });
                         }}
                       >
-                        <Text style={[styles.calendarDayLabel, isToday && styles.calendarDayLabelToday]}>
-                          {day.day_label}
-                        </Text>
-                        <Text style={[styles.calendarDateNum, isToday && styles.calendarDateNumToday]}>
-                          {day.month_day}
-                        </Text>
+                        <Text style={styles.calendarDayLabel}>{day.day_label}</Text>
+                        <Text style={styles.calendarDateNum}>{day.month_day}</Text>
                         <View style={styles.calendarScoreWrap}>
                           <Text style={[styles.calendarScore, { color }]}>{display}</Text>
                         </View>

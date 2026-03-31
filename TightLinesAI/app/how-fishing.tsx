@@ -28,6 +28,7 @@ import {
   type HowFishingRebuildMultiBundle,
   type EngineContextKey,
 } from '../lib/howFishing';
+import { getForecastScores } from '../lib/forecastScores';
 import { useEnvStore } from '../store/envStore';
 import type { EnvironmentData } from '../lib/env/types';
 import { isCoastalContextEligible, oceanCoastalZoneLabel } from '../lib/coastalProximity';
@@ -128,7 +129,7 @@ export default function HowFishingScreen() {
   // Forecast day support: day_offset > 0 means this is a future-day report
   const dayOffset = params.day_offset != null ? parseInt(params.day_offset, 10) : 0;
   const targetDate = params.target_date ?? null;
-  const isForecastDay = dayOffset > 0 && targetDate != null;
+  const isForecastDay = targetDate != null;
 
   const { profile } = useAuthStore();
   const units = profile?.preferred_units ?? 'imperial';
@@ -243,8 +244,14 @@ export default function HowFishingScreen() {
     setShowConfirm(false);
     try {
       const accessToken = await getValidAccessToken();
-      const freshEnv = await fetchFreshEnvironment({ latitude: lat, longitude: lon, units });
-      setEnv(freshEnv);
+      const forecastSnapshot = isForecastDay ? await getForecastScores(lat, lon) : null;
+      const sharedForecastEnv = isForecastDay ? forecastSnapshot?.snapshot_env ?? null : null;
+      const freshEnv =
+        sharedForecastEnv ??
+        await fetchFreshEnvironment({ latitude: lat, longitude: lon, units });
+      if (!sharedForecastEnv) {
+        setEnv(freshEnv as EnvironmentData);
+      }
 
       const polishLocationName = await resolveLocationLabelForPolish(lat, lon, locationLabel);
       if (polishLocationName && locationLabel === 'Current location') {
@@ -262,6 +269,7 @@ export default function HowFishingScreen() {
           mode: 'multi',
           contexts: availableContexts,
           env_data: freshEnv,
+          use_forecast_snapshot: Boolean(sharedForecastEnv),
           location_name: polishLocationName,
           ...(isForecastDay && { day_offset: dayOffset, target_date: targetDate }),
         },
@@ -297,7 +305,7 @@ export default function HowFishingScreen() {
         await setCachedMultiRebuild(lat, lon, multi);
         setCurrentMultiRebuild(lat, lon, bundles);
       }
-      setLastReportEnv(freshEnv);
+      setLastReportEnv(sharedForecastEnv ? null : (freshEnv as EnvironmentData));
       setActiveTab(tabWithReport);
       setMultiBundles(bundles);
     } catch (err) {

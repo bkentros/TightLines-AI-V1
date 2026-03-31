@@ -181,18 +181,21 @@ Deno.serve(async (req: Request) => {
   }
   let envData = body.env_data as Record<string, unknown>;
 
-  // day_offset > 0 means this is a forecast day report, not today's report.
-  // target_date: caller-supplied YYYY-MM-DD for the forecast day.
+  // target_date marks a report opened from the 7-day strip, including day 0 ("Today").
+  // day_offset is still used to select the correct forecast-day arrays inside the engine.
   const dayOffset = typeof body.day_offset === "number" && body.day_offset > 0
     ? Math.min(Math.floor(body.day_offset), 6)
     : 0;
-  const targetDateStr = dayOffset > 0 && typeof body.target_date === "string" && body.target_date.length === 10
+  const targetDateStr = typeof body.target_date === "string" && body.target_date.length === 10
     ? body.target_date
     : null;
+  const useForecastSnapshot = body.use_forecast_snapshot === true;
 
   // Forecast-day reports: replace Open-Meteo-derived fields with a fresh server fetch so
   // scores match forecast-scores and client env_data cannot drift or omit hourly wind.
-  if (dayOffset > 0) {
+  // When the client provides the cached forecast snapshot from the 7-day strip, reuse it
+  // verbatim so the report matches the strip for the rest of the local day.
+  if (dayOffset > 0 && !useForecastSnapshot) {
     const om = await fetchOpenMeteo14Day(lat, lon, "imperial");
     if (om?.weather) {
       envData = {

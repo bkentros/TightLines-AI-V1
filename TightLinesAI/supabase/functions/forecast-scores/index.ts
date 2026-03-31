@@ -7,10 +7,8 @@
  * Used to populate the 7-day forecast calendar on the home screen.
  *
  * Uses the same Open-Meteo bundle as get-environment (past_days=14, forecast_days=7)
- * and buildSharedEngineRequestFromEnvData. For **day_offset 0** we pass
- * `useCalendarDayProfileForToday` so “today” uses calendar-day scalars (like days 1–6),
- * not live `current` + sliding pressure — scores stay stable across refetches until the
- * model bundle changes. Live How’s Fishing (day 0) still uses true “now” without that flag.
+ * and buildSharedEngineRequestFromEnvData. The response also returns the exact weather
+ * snapshot that generated the scores so future-day reports can reuse it until midnight.
  *
  * Per day: one buildFromEnvData (expensive Intl/hourly work), then shallow-clone the
  * request with each context — environment is identical; only context affects scoring.
@@ -168,7 +166,6 @@ Deno.serve(async (req: Request) => {
       "freshwater_lake_pond",
       slicedEnvRecord,
       D,
-      D === 0 ? { useCalendarDayProfileForToday: true } : undefined,
     );
 
     const scores: Record<string, number> = {};
@@ -196,7 +193,7 @@ Deno.serve(async (req: Request) => {
     });
   }
 
-  return new Response(JSON.stringify({ forecast, timezone }), {
+  return new Response(JSON.stringify({ forecast, timezone, snapshot_env: envRecord }), {
     status: 200,
     headers: { ...corsHeaders(), "Content-Type": "application/json" },
   });
