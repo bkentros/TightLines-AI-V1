@@ -6,10 +6,25 @@ ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT"
 export CI=0
 
+if [[ -x "$HOME/.local/bin/ngrok" ]]; then
+  export PATH="$HOME/.local/bin:$PATH"
+fi
+
 if ! command -v ngrok >/dev/null 2>&1; then
   echo "ngrok is not installed."
-  echo "  brew install ngrok/ngrok/ngrok"
-  echo "  ngrok config add-authtoken <token>   # from https://dashboard.ngrok.com/"
+  echo "  Download the current macOS binary from https://ngrok.com/downloads"
+  echo "  Then place it at: $HOME/.local/bin/ngrok"
+  echo "  Then run: ngrok config add-authtoken <token>"
+  exit 1
+fi
+
+NGROK_VERSION="$(ngrok version 2>/dev/null | awk '{print $3}')"
+NGROK_MAJOR="${NGROK_VERSION%%.*}"
+if [[ -n "$NGROK_MAJOR" ]] && [[ "$NGROK_MAJOR" =~ ^[0-9]+$ ]] && (( NGROK_MAJOR < 3 )); then
+  echo "ngrok version $NGROK_VERSION is too old."
+  echo "  Download the current macOS binary from https://ngrok.com/downloads"
+  echo "  Then place it at: $HOME/.local/bin/ngrok"
+  echo "  Then rerun this same npm script."
   exit 1
 fi
 
