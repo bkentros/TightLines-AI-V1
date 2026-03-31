@@ -82,8 +82,26 @@ export function runHowFishingReport(req: SharedEngineRequest): HowsFishingReport
       score: scored.score,
       context: req.context,
       reliability,
-      drivers,
-      suppressors,
+      drivers: scored.drivers.map((c) => {
+        const normVar = condition_context.normalized_variable_scores.find((v) => v.variable_key === c.key);
+        return {
+          variable: c.key,
+          weightedContribution: c.weightedContribution,
+          normalizedScore: c.score,
+          engineLabel: normVar?.engine_label,
+          temperatureBreakdown: normVar?.temperature_breakdown ?? null,
+        };
+      }),
+      suppressors: scored.suppressors.map((c) => {
+        const normVar = condition_context.normalized_variable_scores.find((v) => v.variable_key === c.key);
+        return {
+          variable: c.key,
+          weightedContribution: c.weightedContribution,
+          normalizedScore: c.score,
+          engineLabel: normVar?.engine_label,
+          temperatureBreakdown: normVar?.temperature_breakdown ?? null,
+        };
+      }),
       seed: copySeed,
     }),
     drivers,

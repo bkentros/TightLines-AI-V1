@@ -204,7 +204,16 @@ export function buildActionableTip(
 
   const tempBand = norm.temperature?.band_label ?? null;
   const tempScore = norm.temperature?.final_score ?? null;
+  const tempShock = norm.temperature?.shock_label ?? "none";
   const pressureLabel = norm.pressure_regime?.label ?? null;
+  const tempPenaltyIsLight =
+    topSuppressor?.key === "temperature_condition" &&
+    tempScore != null &&
+    tempScore > -0.6;
+  const tempHelpIsLight =
+    topDriver?.key === "temperature_condition" &&
+    tempScore != null &&
+    tempScore < 0.9;
 
   if (isCoastalFamilyContext(context) && (norm.tide_current_movement?.score ?? 0) >= 1.5) {
     actionable_tip = pick(CURRENT_SWEEP_TIPS, seed, "current_sweep");
@@ -225,21 +234,27 @@ export function buildActionableTip(
     actionable_tip = pick(PRESSURE_SLOW_TIPS, seed, "pressure_slow");
     actionable_tip_tag = "presentation_slow_subtle";
   } else if (topSuppressor?.key === "temperature_condition") {
-    if (tempBand === "very_cold" || tempBand === "cool") {
-      actionable_tip = pick(COLD_SLOW_TIPS, seed, "cold_slow");
-    } else if (
-      (tempBand === "optimal" || tempBand === "near_optimal") &&
-      tempScore != null &&
-      tempScore < 0
+    if (
+      tempPenaltyIsLight ||
+      tempShock === "sharp_warmup" ||
+      tempShock === "sharp_cooldown" ||
+      tempBand === "near_optimal"
     ) {
       actionable_tip = pick(THERMAL_EDGE_TIPS, seed, "thermal_edge");
+    } else if (tempBand === "very_cold" || tempBand === "cool") {
+      actionable_tip = pick(COLD_SLOW_TIPS, seed, "cold_slow");
     } else {
       actionable_tip = pick(HEAT_EASY_TIPS, seed, "heat_easy");
     }
     actionable_tip_tag = "presentation_slow_subtle";
   } else if (topDriver?.key === "temperature_condition") {
-    actionable_tip = pick(ACTIVE_CADENCE_TIPS, seed, "active_cadence_temperature");
-    actionable_tip_tag = "presentation_active_cadence";
+    if (tempHelpIsLight) {
+      actionable_tip = pick(BALANCED_PRESENTATION_TIPS, seed, "balanced_temp_light");
+      actionable_tip_tag = "presentation_general";
+    } else {
+      actionable_tip = pick(ACTIVE_CADENCE_TIPS, seed, "active_cadence_temperature");
+      actionable_tip_tag = "presentation_active_cadence";
+    }
   } else if (topDriver?.key === "pressure_regime") {
     if (pressureLabel === "rising_slow" || pressureLabel === "rising_fast") {
       actionable_tip = pick(PRESSURE_SLOW_TIPS, seed, "pressure_slow_positive_rise");

@@ -15,7 +15,7 @@ import {
   buildVariableDisplayLabel,
   listSummaryCopyForAudit,
 } from "../summary/summaryLine.ts";
-import { listTipCopyForAudit } from "../tips/buildTips.ts";
+import { buildActionableTip, listTipCopyForAudit } from "../tips/buildTips.ts";
 import { listTimingCopyForAudit } from "../timing/timingNotes.ts";
 
 function minimalReport(
@@ -188,6 +188,67 @@ Deno.test("river positive runoff summary says stable flow", () => {
     seed: "river-stable-flow-summary",
   });
   assertStringIncludes(out.toLowerCase(), "stable flow");
+});
+
+Deno.test("slight temperature suppressor uses proportional warmup wording", () => {
+  const out = buildReportSummaryLine({
+    band: "Fair",
+    score: 47,
+    context: "freshwater_river",
+    reliability: "high",
+    drivers: [{ variable: "light_cloud_condition", weightedContribution: 12 }],
+    suppressors: [{
+      variable: "temperature_condition",
+      weightedContribution: -6.2,
+      normalizedScore: -0.18,
+      temperatureBreakdown: {
+        context_group: "freshwater",
+        measurement_source: "air_daily_mean",
+        measurement_value_f: 63.9,
+        band_label: "very_warm",
+        band_score: 0.82,
+        trend_label: "stable",
+        trend_adjustment: 0,
+        shock_label: "sharp_warmup",
+        shock_adjustment: -1,
+        final_score: -0.18,
+      },
+    }],
+    seed: "clarkston-temp-soft-wording",
+  });
+  assertStringIncludes(out.toLowerCase(), "small headwind");
+  assertStringIncludes(out.toLowerCase(), "fast warmup");
+  assertEquals(out.toLowerCase().includes("making things harder"), false, out);
+});
+
+Deno.test("light temperature suppressor picks thermal edge tip instead of harsh heat copy", () => {
+  const out = buildActionableTip(
+    "freshwater_lake_pond",
+    undefined,
+    {
+      key: "temperature_condition",
+      score: -0.18,
+      label: "Temperature",
+      weight: 32,
+      weightedContribution: -5.8,
+    },
+    {
+      temperature: {
+        context_group: "freshwater",
+        measurement_source: "air_daily_mean",
+        measurement_value_f: 63.9,
+        band_label: "very_warm",
+        band_score: 0.82,
+        trend_label: "stable",
+        trend_adjustment: 0,
+        shock_label: "sharp_warmup",
+        shock_adjustment: -1,
+        final_score: -0.18,
+      },
+    },
+    "clarkston-temp-soft-tip",
+  );
+  assertEquals(out.actionable_tip.toLowerCase().includes("easy meal"), false, out.actionable_tip);
 });
 
 function assertCleanCopy(line: string) {

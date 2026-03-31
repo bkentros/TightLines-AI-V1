@@ -1,11 +1,22 @@
-import type { EngineContext, ScoreBand } from "../contracts/mod.ts";
+import type {
+  EngineContext,
+  ScoreBand,
+  TemperatureNormalized,
+} from "../contracts/mod.ts";
 import {
   chanceDeterministic,
   pickDeterministic,
 } from "../copy/deterministicPick.ts";
 
-type SummaryFactor = { variable: string };
+type SummaryFactor = {
+  variable: string;
+  weightedContribution?: number;
+  normalizedScore?: number;
+  engineLabel?: string;
+  temperatureBreakdown?: TemperatureNormalized | null;
+};
 type SummaryFactorRole = "driver" | "suppressor";
+type SummaryStrength = "slight" | "moderate" | "strong";
 
 export type ReportSummaryInput = {
   band: ScoreBand;
@@ -76,43 +87,52 @@ const OPENERS: Record<ScoreBand, readonly string[]> = {
   ],
 };
 
-const MIXED_TEMPLATES = [
-  "{driver} is helping, but {suppressor} is still the main problem.",
-  "{driver} is a real plus, while {suppressor} is the biggest thing holding the day back.",
-  "{driver} is doing the most to help, but {suppressor} is still keeping the day in check.",
-  "{driver} is helping the day, but {suppressor} is still making things harder.",
-  "{driver} is the clearest positive, while {suppressor} is the clearest problem.",
-  "{driver} is helping more than anything else, but {suppressor} keeps the day from opening up.",
-  "{driver} is pushing the report in the right direction, but {suppressor} is still limiting the bite.",
-  "{driver} gives you a real opening, although {suppressor} still keeps the day tight.",
-  "{driver} is giving the day a better look, but {suppressor} is still enough to matter.",
-  "{driver} is helping the most in the report, while {suppressor} is the main thing pulling the day down.",
-  "{driver} is helping the most, but {suppressor} is still the piece to watch.",
-  "{driver} is the reason this still looks fishable, and {suppressor} is the reason it is not better.",
+const MIXED_TEMPLATES_SOFT = [
+  "{driver}, while {suppressor}.",
+  "{driver}, and {suppressor}.",
+  "{driver}, but {suppressor}.",
 ] as const;
 
-const POSITIVE_TEMPLATES = [
-  "{driver} is the clearest reason the day looks this good.",
-  "{driver} is doing more than anything else to help the bite.",
-  "{driver} is helping the most in the report today.",
-  "{driver} is giving the day its clearest advantage.",
-  "{driver} is the main thing pushing the setup in the right direction.",
-  "{driver} is the biggest reason the day feels more open than tight.",
-  "{driver} is carrying more of the day than anything else.",
-  "{driver} is doing the most to keep the outlook favorable.",
+const MIXED_TEMPLATES_STRONG = [
+  "{driver}, but {suppressor}.",
+  "{driver}, although {suppressor}.",
+  "{driver}, while {suppressor}.",
+] as const;
+
+const POSITIVE_TEMPLATES_SOFT = [
+  "{driver}.",
+  "{driver}.",
+  "{driver}.",
+] as const;
+
+const POSITIVE_TEMPLATES_STRONG = [
+  "{driver}.",
+  "{driver}.",
+  "{driver}.",
 ] as const;
 
 const SUMMARY_MAX_LEN = 220;
 
-const NEGATIVE_TEMPLATES = [
-  "{suppressor} is the main thing holding the day back.",
-  "{suppressor} is the clearest problem in the report.",
-  "{suppressor} is doing the most to make the day tougher.",
-  "{suppressor} is the biggest reason the setup stays tight.",
-  "{suppressor} is the main thing working against you today.",
-  "{suppressor} is the part of the day that hurts the most.",
-  "{suppressor} is what keeps this from turning into a cleaner bite.",
-  "{suppressor} is the first thing to pay attention to today.",
+const NEGATIVE_TEMPLATES_SOFT = [
+  "{suppressor}.",
+  "{suppressor}.",
+  "{suppressor}.",
+  "{suppressor}.",
+  "{suppressor}.",
+  "{suppressor}.",
+  "{suppressor}.",
+  "{suppressor}.",
+] as const;
+
+const NEGATIVE_TEMPLATES_STRONG = [
+  "{suppressor}.",
+  "{suppressor}.",
+  "{suppressor}.",
+  "{suppressor}.",
+  "{suppressor}.",
+  "{suppressor}.",
+  "{suppressor}.",
+  "{suppressor}.",
 ] as const;
 
 const NEUTRAL_CLOSERS = [
@@ -261,46 +281,148 @@ function normalizeSurfaceSentence(text: string): string {
 export function listSummaryCopyForAudit(): string[] {
   return [
     ...Object.values(OPENERS).flat(),
-    ...MIXED_TEMPLATES,
-    ...POSITIVE_TEMPLATES,
-    ...NEGATIVE_TEMPLATES,
+    ...MIXED_TEMPLATES_SOFT,
+    ...MIXED_TEMPLATES_STRONG,
+    ...POSITIVE_TEMPLATES_SOFT,
+    ...POSITIVE_TEMPLATES_STRONG,
+    ...NEGATIVE_TEMPLATES_SOFT,
+    ...NEGATIVE_TEMPLATES_STRONG,
     ...NEUTRAL_CLOSERS,
     ...Object.values(CONTEXT_TOUCHES).flat(),
     ...Object.values(RELIABILITY_CLOSERS).flat(),
   ];
 }
 
+function contributionStrength(factor: SummaryFactor | undefined): SummaryStrength {
+  const weighted = Math.abs(factor?.weightedContribution ?? 0);
+  if (weighted >= 18) return "strong";
+  if (weighted >= 9) return "moderate";
+  return "slight";
+}
+
+function temperaturePhrase(
+  factor: SummaryFactor,
+  role: SummaryFactorRole,
+  strength: SummaryStrength,
+): string {
+  const breakdown = factor.temperatureBreakdown ?? null;
+  const shock = breakdown?.shock_label ?? "none";
+  const band = breakdown?.band_label ?? null;
+
+  const reason =
+    shock === "sharp_warmup"
+      ? "after a fast warmup"
+      : shock === "sharp_cooldown"
+        ? "after a fast cooldown"
+        : band === "near_optimal"
+          ? "with the day sitting close to the better range"
+          : band === "very_warm"
+            ? "with the day running warmer than the seasonal range"
+            : band === "very_cold" || band === "cool"
+              ? "with the day running colder than the seasonal range"
+              : band === "warm"
+                ? "with the day a little warmer than the seasonal sweet spot"
+                : "";
+
+  if (role === "driver") {
+    if (strength === "strong") {
+      return reason
+        ? `temperature is lining up especially well ${reason}`
+        : "temperature is one of the clearest positives";
+    }
+    if (strength === "moderate") {
+      return reason
+        ? `temperature is helping in a noticeable way ${reason}`
+        : "temperature is helping in a noticeable way";
+    }
+    return reason
+      ? `temperature is helping a bit ${reason}`
+      : "temperature is helping a bit";
+  }
+
+  if (strength === "strong") {
+    return reason
+      ? `temperature is a real limiter ${reason}`
+      : "temperature is the clearest limiter";
+  }
+  if (strength === "moderate") {
+    return reason
+      ? `temperature is a noticeable headwind ${reason}`
+      : "temperature is a noticeable headwind";
+  }
+  return reason
+    ? `temperature is only a small headwind ${reason}`
+    : "temperature is only a small headwind";
+}
+
+function genericFactorPhrase(
+  factor: SummaryFactor,
+  context: EngineContext,
+  role: SummaryFactorRole,
+  strength: SummaryStrength,
+): string {
+  const noun = buildVariableSummaryLabel(factor.variable, context, role);
+
+  if (role === "driver") {
+    if (strength === "strong") return `${noun} is doing more than anything else to help`;
+    if (strength === "moderate") return `${noun} is one of the clearer positives`;
+    return `${noun} is helping a bit`;
+  }
+
+  if (strength === "strong") return `${noun} is the main thing holding the day back`;
+  if (strength === "moderate") return `${noun} is a noticeable headwind`;
+  return `${noun} is only a small drag on the day`;
+}
+
+function buildFactorPhrase(
+  factor: SummaryFactor,
+  context: EngineContext,
+  role: SummaryFactorRole,
+): string {
+  const strength = contributionStrength(factor);
+  if (factor.variable === "temperature_condition") {
+    return temperaturePhrase(factor, role, strength);
+  }
+  return genericFactorPhrase(factor, context, role, strength);
+}
+
 export function buildReportSummaryLine(input: ReportSummaryInput): string {
   const { band, reliability, drivers, suppressors, seed, context } = input;
   const opener = pickDeterministic(OPENERS[band], seed, "summary:opener");
-  const driver = drivers[0]
-    ? buildVariableSummaryLabel(drivers[0].variable, context, "driver")
-    : null;
-  const suppressor = suppressors[0]
-    ? buildVariableSummaryLabel(suppressors[0].variable, context, "suppressor")
-    : null;
+  const driver = drivers[0] ? buildFactorPhrase(drivers[0], context, "driver") : null;
+  const suppressor = suppressors[0] ? buildFactorPhrase(suppressors[0], context, "suppressor") : null;
+  const driverStrength = contributionStrength(drivers[0]);
+  const suppressorStrength = contributionStrength(suppressors[0]);
 
   const parts: string[] = [normalizeSurfaceSentence(opener)];
 
   if (driver && suppressor) {
+    const templates =
+      driverStrength === "slight" || suppressorStrength === "slight"
+        ? MIXED_TEMPLATES_SOFT
+        : MIXED_TEMPLATES_STRONG;
     parts.push(
       normalizeSurfaceSentence(
-        pickDeterministic(MIXED_TEMPLATES, seed, "summary:mixed")
+        pickDeterministic(templates, seed, "summary:mixed")
           .replace("{driver}", driver)
           .replace("{suppressor}", suppressor),
       ),
     );
   } else if (driver) {
+    const templates =
+      driverStrength === "slight" ? POSITIVE_TEMPLATES_SOFT : POSITIVE_TEMPLATES_STRONG;
     parts.push(
       normalizeSurfaceSentence(
-        pickDeterministic(POSITIVE_TEMPLATES, seed, "summary:positive")
+        pickDeterministic(templates, seed, "summary:positive")
           .replace("{driver}", driver),
       ),
     );
   } else if (suppressor) {
+    const templates =
+      suppressorStrength === "slight" ? NEGATIVE_TEMPLATES_SOFT : NEGATIVE_TEMPLATES_STRONG;
     parts.push(
       normalizeSurfaceSentence(
-        pickDeterministic(NEGATIVE_TEMPLATES, seed, "summary:negative")
+        pickDeterministic(templates, seed, "summary:negative")
           .replace("{suppressor}", suppressor),
       ),
     );

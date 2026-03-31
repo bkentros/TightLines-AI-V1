@@ -83,6 +83,7 @@ function variableToPlain(
   score: number,
   tempF: number | null,
   tempLowHigh: { low: number; high: number } | null,
+  tempBreakdown?: { shock_label?: string | null } | null,
 ): string {
   switch (key) {
     case "temperature_condition": {
@@ -92,6 +93,7 @@ function variableToPlain(
           : tempF != null
             ? `${Math.round(tempF)}°F air (representative daily value) — `
             : "";
+      const tempReason = tempBreakdown?.shock_label ?? null;
       if (label === "optimal") return `${t}right in the seasonal range`;
       if (label === "near_optimal") {
         if (score <= -ENGINE_SCORE_EPSILON) {
@@ -104,10 +106,19 @@ function variableToPlain(
         if (score >= ENGINE_SCORE_EPSILON) {
           return `${t}warming side of normal — still a fishable thermal band`;
         }
+        if (tempReason === "sharp_warmup") {
+          return `${t}warmer than the recent pattern after a fast warmup`;
+        }
+        if (tempReason === "sharp_cooldown") {
+          return `${t}warmer band, but the recent cooldown still matters`;
+        }
         return `${t}warm for the calendar but thermally tempered — not a big heat penalty`;
       }
       if (label === "cool") return `${t}a bit below average, slightly slower bite`;
       if (label === "very_warm") {
+        if (tempReason === "sharp_warmup" && score > -0.5) {
+          return `${t}well above the recent pattern after a fast warmup — worth noting, but not a severe thermal penalty`;
+        }
         if (score <= -ENGINE_SCORE_EPSILON) {
           return `${t}quite hot — activity windows are narrow`;
         }
@@ -496,6 +507,7 @@ export function buildNarrationBrief(
       norm.engine_score,
       d.variable === "temperature_condition" ? tempF : null,
       d.variable === "temperature_condition" ? tempLowHigh : null,
+      d.variable === "temperature_condition" ? (norm.temperature_breakdown ?? null) : null,
     );
     return `${variableKeyToName(d.variable)}: ${plain}`;
   });
@@ -509,6 +521,7 @@ export function buildNarrationBrief(
       norm.engine_score,
       s.variable === "temperature_condition" ? tempF : null,
       s.variable === "temperature_condition" ? tempLowHigh : null,
+      s.variable === "temperature_condition" ? (norm.temperature_breakdown ?? null) : null,
     );
     return `${variableKeyToName(s.variable)}: ${plain}`;
   });
