@@ -347,9 +347,9 @@ export default function HomeScreen() {
     }
     router.push({
       pathname: '/how-fishing',
-      params: { lat: String(coords.lat), lon: String(coords.lon) },
+      params: { lat: String(coords.lat), lon: String(coords.lon), location_label: locationLabel },
     });
-  }, [hasSubscription, coords, router]);
+  }, [hasSubscription, coords, locationLabel, router]);
 
   const handleRequestLocation = useCallback(async () => {
     if (__DEV__) {
@@ -487,6 +487,7 @@ export default function HomeScreen() {
                             params: {
                               lat: String(coords.lat),
                               lon: String(coords.lon),
+                              location_label: locationLabel,
                               day_offset: String(day.day_offset),
                               target_date: day.date,
                             },

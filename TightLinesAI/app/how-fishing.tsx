@@ -148,6 +148,7 @@ export default function HowFishingScreen() {
   const params = useLocalSearchParams<{
     lat?: string;
     lon?: string;
+    location_label?: string;
     day_offset?: string;
     target_date?: string;
   }>();
@@ -159,6 +160,10 @@ export default function HowFishingScreen() {
   const dayOffset = params.day_offset != null ? parseInt(params.day_offset, 10) : 0;
   const targetDate = params.target_date ?? null;
   const isForecastDay = targetDate != null;
+  const requestedLocationLabel =
+    typeof params.location_label === 'string' && params.location_label.trim().length > 0
+      ? params.location_label.trim()
+      : null;
 
   const { profile } = useAuthStore();
   const units = profile?.preferred_units ?? 'imperial';
@@ -209,18 +214,25 @@ export default function HowFishingScreen() {
     (async () => {
       setEnvLoading(true);
       try {
+        if (requestedLocationLabel) {
+          setLocationLabel(requestedLocationLabel);
+        }
         const [cachedEnv, geo] = await Promise.all([
           getEnvironment({ latitude: lat, longitude: lon, units }),
-          Location.reverseGeocodeAsync({ latitude: lat, longitude: lon }).catch(() => []),
+          requestedLocationLabel
+            ? Promise.resolve([])
+            : Location.reverseGeocodeAsync({ latitude: lat, longitude: lon }).catch(() => []),
         ]);
         if (cancelled) return;
         setEnv(cachedEnv);
-          if (geo?.[0]) {
-            const fromGeo = geocodeToDisplayLabel(geo[0]);
-            setLocationLabel(fromGeo ?? (cachedEnv.coastal ? oceanCoastalZoneLabel(lat, lon) : null) ?? 'Current location');
-          } else {
-            setLocationLabel((cachedEnv.coastal ? oceanCoastalZoneLabel(lat, lon) : null) ?? 'Current location');
-          }
+        if (requestedLocationLabel) {
+          setLocationLabel(requestedLocationLabel);
+        } else if (geo?.[0]) {
+          const fromGeo = geocodeToDisplayLabel(geo[0]);
+          setLocationLabel(fromGeo ?? (cachedEnv.coastal ? oceanCoastalZoneLabel(lat, lon) : null) ?? 'Current location');
+        } else {
+          setLocationLabel((cachedEnv.coastal ? oceanCoastalZoneLabel(lat, lon) : null) ?? 'Current location');
+        }
       } catch {
         if (!cancelled) setAnalysisError('Unable to load live conditions.');
       } finally {
@@ -228,7 +240,7 @@ export default function HowFishingScreen() {
       }
     })();
     return () => { cancelled = true; };
-  }, [hasCoords, lat, lon, units]);
+  }, [hasCoords, lat, lon, units, requestedLocationLabel]);
 
   // Check cache on mount, show confirm if not cached.
   // Forecast day reports use a separate per-(lat,lon,target_date,ctx) cache that

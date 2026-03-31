@@ -34,6 +34,7 @@ const ABBR_TO_STATE_NAME: Record<string, string> = Object.fromEntries(
 ) as Record<string, string>;
 
 const SEARCH_CACHE = new Map<string, PlaceResult[]>();
+const REMOTE_GEOCODER_URL = 'https://geocoding-api.open-meteo.com/v1/search';
 
 interface IndexedPlace extends PlaceResult {
   cityNorm: string;
@@ -55,6 +56,15 @@ function normalizeText(value: string): string {
     .toLowerCase()
     .replace(/[.,']/g, '')
     .replace(/\s+/g, ' ');
+}
+
+function cleanPlaceName(value: string): string {
+  return value
+    .trim()
+    .replace(/^(city|town|village|borough|municipality|charter township|township)\s+of\s+/i, '')
+    .replace(/\s+\(balance\)$/i, '')
+    .replace(/\s+(city|town|village|borough|municipio|municipality|cdp)$/i, '')
+    .trim();
 }
 
 function normalizeQueryKey(query: string): string {
@@ -89,16 +99,24 @@ function dedupePlaces(items: PlaceResult[], max = 8): PlaceResult[] {
   return results;
 }
 
+function clampQueryCount(query: string): number {
+  const len = query.trim().length;
+  if (len >= 8) return 10;
+  if (len >= 5) return 8;
+  return 6;
+}
+
 function buildIndex(): { all: IndexedPlace[]; byFirstChar: Map<string, IndexedPlace[]> } {
   const all = US_CITY_INDEX.map(([name, stateCode, lat, lon, placeRank]) => {
-    const label = `${name}, ${stateCode}`;
+    const cleanedName = cleanPlaceName(name);
+    const label = `${cleanedName}, ${stateCode}`;
     return {
       lat,
       lon,
       label,
       stateCode,
       placeRank,
-      cityNorm: normalizeText(name),
+      cityNorm: normalizeText(cleanedName),
       labelNorm: normalizeText(label),
     };
   });
@@ -133,6 +151,93 @@ function scoreCandidate(item: IndexedPlace, cityNorm: string, labelNorm: string,
   return Number.POSITIVE_INFINITY;
 }
 
+function scoreRemoteCandidate(
+  item: PlaceResult & { cityNorm: string; labelNorm: string; stateCode: string; population: number },
+  cityNorm: string,
+  labelNorm: string,
+  stateAbbr?: string | null,
+): number {
+  const stateBonus = stateAbbr && item.stateCode === stateAbbr ? -25 : 0;
+  const popRank = item.population > 0 ? -Math.min(18, Math.round(Math.log10(item.population + 1) * 3)) : 0;
+  if (item.labelNorm === labelNorm) return 0 + stateBonus + popRank;
+  if (item.cityNorm === cityNorm && (!stateAbbr || item.stateCode === stateAbbr)) return 4 + stateBonus + popRank;
+  if (item.cityNorm.startsWith(cityNorm) && (!stateAbbr || item.stateCode === stateAbbr)) return 18 + stateBonus + popRank;
+  if (item.labelNorm.startsWith(labelNorm)) return 32 + stateBonus + popRank;
+  if (item.cityNorm.includes(cityNorm) && (!stateAbbr || item.stateCode === stateAbbr)) return 48 + stateBonus + popRank;
+  if (item.labelNorm.includes(labelNorm)) return 68 + stateBonus + popRank;
+  return Number.POSITIVE_INFINITY;
+}
+
+async function searchRemoteUsCities(
+  rawQuery: string,
+  cityNorm: string,
+  labelNorm: string,
+  stateAbbr: string | null,
+  signal?: AbortSignal,
+): Promise<PlaceResult[]> {
+  const url = new URL(REMOTE_GEOCODER_URL);
+  url.searchParams.set('name', rawQuery.trim());
+  url.searchParams.set('count', String(clampQueryCount(rawQuery)));
+  url.searchParams.set('language', 'en');
+  url.searchParams.set('format', 'json');
+  url.searchParams.set('countryCode', 'US');
+
+  const res = await fetch(url.toString(), {
+    method: 'GET',
+    headers: { Accept: 'application/json' },
+    signal,
+  });
+  if (!res.ok) return [];
+
+  const data = (await res.json()) as {
+    results?: Array<{
+      name?: string;
+      latitude?: number;
+      longitude?: number;
+      country_code?: string;
+      admin1?: string;
+      population?: number;
+    }>;
+  };
+
+  const mapped = (data.results ?? [])
+    .filter((row) =>
+      row &&
+      row.country_code === 'US' &&
+      typeof row.name === 'string' &&
+      Number.isFinite(row.latitude) &&
+      Number.isFinite(row.longitude) &&
+      typeof row.admin1 === 'string',
+    )
+    .map((row) => {
+      const stateCode = toStateAbbr(row.admin1!);
+      const cleanedName = cleanPlaceName(row.name!);
+      const label = `${cleanedName}, ${stateCode}`;
+      return {
+        lat: Number(row.latitude),
+        lon: Number(row.longitude),
+        label,
+        stateCode,
+        population: Number(row.population ?? 0),
+        cityNorm: normalizeText(cleanedName),
+        labelNorm: normalizeText(label),
+      };
+    })
+    .filter((row) => /^[A-Z]{2}$/.test(row.stateCode))
+    .map((row) => ({
+      ...row,
+      score: scoreRemoteCandidate(row, cityNorm, labelNorm, stateAbbr),
+    }))
+    .filter((row) => Number.isFinite(row.score))
+    .sort((a, b) => {
+      if (a.score !== b.score) return a.score - b.score;
+      return a.label.localeCompare(b.label);
+    })
+    .map(({ lat, lon, label }) => ({ lat, lon, label }));
+
+  return dedupePlaces(mapped);
+}
+
 export async function searchUsCities(query: string, signal?: AbortSignal): Promise<PlaceResult[]> {
   if (signal?.aborted) {
     const abortError = new Error('Search aborted');
@@ -163,11 +268,26 @@ export async function searchUsCities(query: string, signal?: AbortSignal): Promi
       return a.item.label.localeCompare(b.item.label);
     });
 
-  const results = dedupePlaces(scored.map(({ item }) => ({
+  const localResults = dedupePlaces(scored.map(({ item }) => ({
     lat: item.lat,
     lon: item.lon,
     label: item.label,
   })));
-  SEARCH_CACHE.set(cacheKey, results);
-  return results;
+
+  let merged = localResults;
+  const shouldQueryRemote =
+    trimmed.length >= 3 &&
+    (localResults.length < 6 || (parsed != null && !localResults.some((r) => normalizeText(r.label) === labelNorm)));
+
+  if (shouldQueryRemote) {
+    try {
+      const remoteResults = await searchRemoteUsCities(trimmed, cityNorm, labelNorm, stateAbbr, signal);
+      merged = dedupePlaces([...localResults, ...remoteResults]);
+    } catch (error) {
+      if ((error as Error)?.name === 'AbortError') throw error;
+    }
+  }
+
+  SEARCH_CACHE.set(cacheKey, merged);
+  return merged;
 }
