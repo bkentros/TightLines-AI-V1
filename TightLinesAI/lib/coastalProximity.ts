@@ -1,19 +1,10 @@
 // =============================================================================
-// Coastal Proximity Check
+// Coastal Label Fallback
 //
-// Determines whether a user's location is close enough to a US ocean coastline
-// to offer saltwater/brackish water type options.
-//
-// Rules:
-// - If >50 miles from any ocean coastline → freshwater only
-// - Great Lakes shoreline = freshwater only (not coastal)
-// - If within 50 miles of ocean coast → freshwater + saltwater + brackish
-//
-// Uses simplified coastal bounding zones (not precise coastline geometry).
-// This is a frontend-level filter — the engine still accepts any valid mode.
+// Coarse, label-only ocean zone mapping used when reverse geocoding fails.
+// Eligibility and engine routing now come from the env service `coastal` flag,
+// not from these broad boxes.
 // =============================================================================
-
-type WaterTypeOption = 'freshwater' | 'saltwater' | 'brackish';
 
 interface CoastalZone {
   label: string;
@@ -55,10 +46,6 @@ const OCEAN_COASTAL_ZONES: CoastalZone[] = [
   { label: 'South-Central Alaska', bounds: [58.0, 62.0, -155.0, -140.0] },
 ];
 
-/**
- * Human-readable ocean-adjacent region for polish / UI fallback (same boxes as eligibility).
- * Returns null when the point is outside all coastal zones (inland / Great Lakes).
- */
 export function oceanCoastalZoneLabel(lat: number, lon: number): string | null {
   for (const zone of OCEAN_COASTAL_ZONES) {
     const [minLat, maxLat, minLon, maxLon] = zone.bounds;
@@ -67,38 +54,4 @@ export function oceanCoastalZoneLabel(lat: number, lon: number): string | null {
     }
   }
   return null;
-}
-
-/**
- * Check if a lat/lon falls within any ocean coastal zone.
- */
-function isNearOceanCoast(lat: number, lon: number): boolean {
-  return oceanCoastalZoneLabel(lat, lon) != null;
-}
-
-/**
- * Returns the available water type options for a given location.
- *
- * - Inland locations (>50mi from ocean coast): ['freshwater']
- * - Coastal locations: ['freshwater', 'saltwater', 'brackish']
- *
- * Great Lakes shoreline is treated as freshwater-only.
- */
-export function getAvailableWaterTypes(lat: number, lon: number): WaterTypeOption[] {
-  if (isNearOceanCoast(lat, lon)) {
-    return ['freshwater', 'saltwater', 'brackish'];
-  }
-  return ['freshwater'];
-}
-
-/**
- * Quick boolean check: should saltwater/brackish options be shown?
- */
-export function isCoastalLocation(lat: number, lon: number): boolean {
-  return isNearOceanCoast(lat, lon);
-}
-
-/** True when user may select Coastal (ocean-adjacent) engine context. */
-export function isCoastalContextEligible(lat: number, lon: number): boolean {
-  return isNearOceanCoast(lat, lon);
 }

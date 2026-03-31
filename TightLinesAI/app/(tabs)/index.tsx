@@ -16,7 +16,6 @@ import { useLocationStore } from '../../store/locationStore';
 import { getEffectiveTier, canUseAIFeatures } from '../../lib/subscription';
 import { getCurrentMultiRebuild, getCachedMultiRebuild } from '../../lib/howFishing';
 import { howFishingMultiContexts } from '../../lib/howFishingRebuildContracts';
-import { isCoastalContextEligible } from '../../lib/coastalProximity';
 import {
   getForecastScores,
   invalidateForecastCache,
@@ -36,7 +35,8 @@ export default function HomeScreen() {
     load: loadDevTesting,
     setIgnoreGps,
   } = useDevTestingStore();
-  const { loadEnv } = useEnvStore();
+  const loadEnv = useEnvStore((s) => s.loadEnv);
+  const envData = useEnvStore((s) => s.envData);
   const {
     savedLocation,
     useCustom,
@@ -157,7 +157,7 @@ export default function HomeScreen() {
       return;
     }
 
-    const contexts = howFishingMultiContexts(isCoastalContextEligible(lat, lon));
+    const contexts = howFishingMultiContexts(Boolean(envData?.coastal));
 
     const inMemory = getCurrentMultiRebuild(lat, lon);
     const hasAllInMemory =
@@ -244,7 +244,7 @@ export default function HomeScreen() {
       // Refresh the cached score when user returns to the home tab,
       // so a newly-generated report immediately updates the displayed number.
       if (coords) {
-        const contexts = howFishingMultiContexts(isCoastalContextEligible(coords.lat, coords.lon));
+        const contexts = howFishingMultiContexts(Boolean(envData?.coastal));
         const inMemory = getCurrentMultiRebuild(coords.lat, coords.lon);
         if (inMemory && contexts.every((ctx) => inMemory[ctx] != null)) {
           const meanRaw =
@@ -253,7 +253,7 @@ export default function HomeScreen() {
           setCachedScore(Number.isInteger(v) ? v.toFixed(0) : v.toFixed(1));
         }
       }
-    }, [refreshLiveConditions, loadForecastScores, coords?.lat, coords?.lon])
+    }, [refreshLiveConditions, loadForecastScores, coords?.lat, coords?.lon, envData?.coastal])
   );
 
   useEffect(() => {
@@ -343,7 +343,7 @@ export default function HomeScreen() {
     setGpsCoords({ lat: loc.coords.latitude, lon: loc.coords.longitude });
   }, [setIgnoreGps]);
 
-  const isCoastal = coords ? isCoastalContextEligible(coords.lat, coords.lon) : false;
+  const isCoastal = Boolean(envData?.coastal);
 
   const combinedOutlookScore = (day: DayForecastScore): number =>
     meanDayScore(day, isCoastal);

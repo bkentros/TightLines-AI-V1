@@ -81,6 +81,21 @@ function normalizeSurfaceText(text: string | null | undefined): string | null {
   return text.replace(/\s+/g, " ").trim();
 }
 
+function isCoastalEnv(envData: Record<string, unknown>): boolean {
+  if (envData.coastal === true) return true;
+  if (typeof envData.nearest_tide_station_id === "string" && envData.nearest_tide_station_id.length > 0) {
+    return true;
+  }
+  if (envData.tides_available === true && envData.tides && typeof envData.tides === "object") {
+    return true;
+  }
+  return false;
+}
+
+function isCoastalContext(context: EngineContext): boolean {
+  return context === "coastal" || context === "coastal_flats_estuary";
+}
+
 
 Deno.serve(async (req: Request) => {
   if (req.method === "OPTIONS") {
@@ -211,6 +226,8 @@ Deno.serve(async (req: Request) => {
     }
   }
 
+  const coastalAllowed = isCoastalEnv(envData);
+
   const timezone = extractTimezone(envData);
   const localDate = targetDateStr ?? localDateInTz(timezone);
 
@@ -289,12 +306,23 @@ Deno.serve(async (req: Request) => {
         { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders() } }
       );
     }
-    const contexts = rawContexts.filter((c: unknown) =>
+    const requestedContexts = rawContexts.filter((c: unknown) =>
       typeof c === "string" && VALID_CONTEXTS.includes(c as EngineContext)
     ) as EngineContext[];
-    if (contexts.length === 0) {
+    if (requestedContexts.length === 0) {
       return new Response(
         JSON.stringify({ error: "invalid_contexts", message: `Each context must be one of: ${VALID_CONTEXTS.join(", ")}` }),
+        { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders() } }
+      );
+    }
+    const disallowedContexts = requestedContexts.filter((ctx) => isCoastalContext(ctx) && !coastalAllowed);
+    const contexts = requestedContexts.filter((ctx) => !disallowedContexts.includes(ctx));
+    if (contexts.length === 0) {
+      return new Response(
+        JSON.stringify({
+          error: "inland_location",
+          message: "Coastal reports are only available for locations the environment service classifies as coastal.",
+        }),
         { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders() } }
       );
     }
@@ -339,7 +367,9 @@ Deno.serve(async (req: Request) => {
       cache_expires_at: cacheExpiresAt,
       contexts,
       reports,
-      ...(failedContexts.length > 0 ? { failed_contexts: failedContexts } : {}),
+      ...(failedContexts.length > 0 || disallowedContexts.length > 0
+        ? { failed_contexts: [...failedContexts, ...disallowedContexts] }
+        : {}),
       usage: { input_tokens: totalInT, output_tokens: totalOutT, token_cost_usd: totalCost },
     };
 
@@ -370,6 +400,16 @@ Deno.serve(async (req: Request) => {
       JSON.stringify({
         error: "invalid_engine_context",
         message: `engine_context must be one of: ${VALID_CONTEXTS.join(", ")} (legacy saltwater/brackish map to coastal inshore)`,
+      }),
+      { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders() } }
+    );
+  }
+
+  if (isCoastalContext(context) && !coastalAllowed) {
+    return new Response(
+      JSON.stringify({
+        error: "inland_location",
+        message: "Coastal reports are only available for locations the environment service classifies as coastal.",
       }),
       { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders() } }
     );

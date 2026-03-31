@@ -12,7 +12,6 @@
  *   deno run --allow-read --allow-write scripts/audit/run-full-audit.ts --months=1,2,9,10,11,12
  */
 
-import { isCoastalContextEligible } from "../../lib/coastalProximity.ts";
 import { howFishingMultiContexts } from "../../lib/howFishingRebuildContracts.ts";
 import type { EngineContext } from "../../supabase/functions/_shared/howFishingEngine/contracts/context.ts";
 import type { RegionKey } from "../../supabase/functions/_shared/howFishingEngine/contracts/region.ts";
@@ -29,25 +28,25 @@ const CONTEXT_ORDER: EngineContext[] = [
   "coastal_flats_estuary",
 ];
 
-const REGIONS: Record<RegionKey, { lat: number; lon: number; state: string; tz: string }> = {
-  northeast: { lat: 42.3, lon: -71.1, state: "MA", tz: "America/New_York" },
-  southeast_atlantic: { lat: 32.8, lon: -79.9, state: "SC", tz: "America/New_York" },
-  florida: { lat: 27.9, lon: -82.5, state: "FL", tz: "America/New_York" },
-  gulf_coast: { lat: 29.9, lon: -90.1, state: "LA", tz: "America/Chicago" },
-  great_lakes_upper_midwest: { lat: 43.9, lon: -85.9, state: "MI", tz: "America/Chicago" },
-  midwest_interior: { lat: 40.0, lon: -86.2, state: "IN", tz: "America/Chicago" },
-  south_central: { lat: 30.3, lon: -97.7, state: "TX", tz: "America/Chicago" },
-  mountain_west: { lat: 40.7, lon: -111.9, state: "UT", tz: "America/Denver" },
-  southwest_desert: { lat: 33.4, lon: -112.0, state: "AZ", tz: "America/Phoenix" },
-  southwest_high_desert: { lat: 35.1, lon: -106.7, state: "NM", tz: "America/Denver" },
-  pacific_northwest: { lat: 47.6, lon: -122.3, state: "WA", tz: "America/Los_Angeles" },
-  southern_california: { lat: 34.0, lon: -118.2, state: "CA", tz: "America/Los_Angeles" },
-  mountain_alpine: { lat: 39.6, lon: -105.9, state: "CO", tz: "America/Denver" },
-  northern_california: { lat: 38.3, lon: -123.0, state: "CA", tz: "America/Los_Angeles" },
-  appalachian: { lat: 38.4, lon: -81.6, state: "WV", tz: "America/New_York" },
-  inland_northwest: { lat: 47.7, lon: -117.4, state: "WA", tz: "America/Los_Angeles" },
-  alaska: { lat: 61.2, lon: -149.9, state: "AK", tz: "America/Anchorage" },
-  hawaii: { lat: 21.3, lon: -157.8, state: "HI", tz: "Pacific/Honolulu" },
+const REGIONS: Record<RegionKey, { lat: number; lon: number; state: string; tz: string; coastal: boolean }> = {
+  northeast: { lat: 42.3, lon: -71.1, state: "MA", tz: "America/New_York", coastal: true },
+  southeast_atlantic: { lat: 32.8, lon: -79.9, state: "SC", tz: "America/New_York", coastal: true },
+  florida: { lat: 27.9, lon: -82.5, state: "FL", tz: "America/New_York", coastal: true },
+  gulf_coast: { lat: 29.9, lon: -90.1, state: "LA", tz: "America/Chicago", coastal: true },
+  great_lakes_upper_midwest: { lat: 43.9, lon: -85.9, state: "MI", tz: "America/Chicago", coastal: false },
+  midwest_interior: { lat: 40.0, lon: -86.2, state: "IN", tz: "America/Chicago", coastal: false },
+  south_central: { lat: 30.3, lon: -97.7, state: "TX", tz: "America/Chicago", coastal: false },
+  mountain_west: { lat: 40.7, lon: -111.9, state: "UT", tz: "America/Denver", coastal: false },
+  southwest_desert: { lat: 33.4, lon: -112.0, state: "AZ", tz: "America/Phoenix", coastal: false },
+  southwest_high_desert: { lat: 35.1, lon: -106.7, state: "NM", tz: "America/Denver", coastal: false },
+  pacific_northwest: { lat: 47.6, lon: -122.3, state: "WA", tz: "America/Los_Angeles", coastal: true },
+  southern_california: { lat: 34.0, lon: -118.2, state: "CA", tz: "America/Los_Angeles", coastal: true },
+  mountain_alpine: { lat: 39.6, lon: -105.9, state: "CO", tz: "America/Denver", coastal: false },
+  northern_california: { lat: 38.3, lon: -123.0, state: "CA", tz: "America/Los_Angeles", coastal: true },
+  appalachian: { lat: 38.4, lon: -81.6, state: "WV", tz: "America/New_York", coastal: false },
+  inland_northwest: { lat: 47.7, lon: -117.4, state: "WA", tz: "America/Los_Angeles", coastal: false },
+  alaska: { lat: 61.2, lon: -149.9, state: "AK", tz: "America/Anchorage", coastal: true },
+  hawaii: { lat: 21.3, lon: -157.8, state: "HI", tz: "Pacific/Honolulu", coastal: true },
 };
 
 type ScenarioKind = "prime" | "bad";
@@ -99,8 +98,7 @@ function buildPressureHistory(current: number, ago24: number): number[] {
 }
 
 function validContextsForRegion(region: RegionKey): EngineContext[] {
-  const { lat, lon } = REGIONS[region];
-  return howFishingMultiContexts(isCoastalContextEligible(lat, lon)) as EngineContext[];
+  return howFishingMultiContexts(REGIONS[region].coastal) as EngineContext[];
 }
 
 function deriveScenarioTemperature(

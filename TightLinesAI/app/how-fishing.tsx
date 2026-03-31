@@ -31,7 +31,7 @@ import {
 import { getForecastScores } from '../lib/forecastScores';
 import { useEnvStore } from '../store/envStore';
 import type { EnvironmentData } from '../lib/env/types';
-import { isCoastalContextEligible, oceanCoastalZoneLabel } from '../lib/coastalProximity';
+import { oceanCoastalZoneLabel } from '../lib/coastalProximity';
 import { RebuildReportView } from '../components/fishing/RebuildReportView';
 
 function currentLocationDateString(timezone?: string) {
@@ -91,6 +91,7 @@ async function resolveLocationLabelForPolish(
   lat: number,
   lon: number,
   currentLabel: string,
+  allowCoastalFallback: boolean,
 ): Promise<string | null> {
   if (currentLabel !== 'Current location') {
     return currentLabel;
@@ -102,7 +103,7 @@ async function resolveLocationLabelForPolish(
   } catch {
     /* fall through */
   }
-  return oceanCoastalZoneLabel(lat, lon);
+  return allowCoastalFallback ? oceanCoastalZoneLabel(lat, lon) : null;
 }
 
 /** First tab order slot that actually has a bundle (handles partial API + stale coastal tab). */
@@ -139,7 +140,7 @@ export default function HowFishingScreen() {
   const [envLoading, setEnvLoading] = useState(true);
   const [locationLabel, setLocationLabel] = useState<string>('Current location');
 
-  const coastalEligible = useMemo(() => isCoastalContextEligible(lat, lon), [lat, lon]);
+  const coastalEligible = useMemo(() => Boolean(env?.coastal), [env?.coastal]);
   const availableContexts: EngineContextKey[] = useMemo(
     () => howFishingMultiContexts(coastalEligible),
     [coastalEligible],
@@ -186,12 +187,12 @@ export default function HowFishingScreen() {
         ]);
         if (cancelled) return;
         setEnv(cachedEnv);
-        if (geo?.[0]) {
-          const fromGeo = geocodeToDisplayLabel(geo[0]);
-          setLocationLabel(fromGeo ?? oceanCoastalZoneLabel(lat, lon) ?? 'Current location');
-        } else {
-          setLocationLabel(oceanCoastalZoneLabel(lat, lon) ?? 'Current location');
-        }
+          if (geo?.[0]) {
+            const fromGeo = geocodeToDisplayLabel(geo[0]);
+            setLocationLabel(fromGeo ?? (cachedEnv.coastal ? oceanCoastalZoneLabel(lat, lon) : null) ?? 'Current location');
+          } else {
+            setLocationLabel((cachedEnv.coastal ? oceanCoastalZoneLabel(lat, lon) : null) ?? 'Current location');
+          }
       } catch {
         if (!cancelled) setAnalysisError('Unable to load live conditions.');
       } finally {
@@ -253,7 +254,12 @@ export default function HowFishingScreen() {
         setEnv(freshEnv as EnvironmentData);
       }
 
-      const polishLocationName = await resolveLocationLabelForPolish(lat, lon, locationLabel);
+      const polishLocationName = await resolveLocationLabelForPolish(
+        lat,
+        lon,
+        locationLabel,
+        Boolean((sharedForecastEnv ?? freshEnv)?.coastal),
+      );
       if (polishLocationName && locationLabel === 'Current location') {
         setLocationLabel(polishLocationName);
       }
