@@ -29,6 +29,38 @@ const CONTEXTS: EngineContext[] = [
   "coastal_flats_estuary",
 ];
 const DAY_NAMES = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+const TIDE_STATION_MAX_MILES = 50;
+const WATERLEVEL_STATIONS_TTL_MS = 6 * 60 * 60 * 1000;
+const MAX_TIDE_STATION_CANDIDATES = 8;
+const MAX_HILO_PREDICTIONS_RETURNED = 56;
+const EARTH_RADIUS_MILES = 3958.8;
+
+interface NOAAStation {
+  id?: string;
+  name?: string;
+  lat?: number;
+  lon?: number;
+  lng?: number;
+  latitude?: number;
+  longitude?: number;
+}
+
+interface TideEntry {
+  time: string;
+  type: "H" | "L";
+  value: number;
+}
+
+interface ForecastTideDay {
+  date: string;
+  station_id: string;
+  station_name: string;
+  high_low: TideEntry[];
+  phase?: string;
+  unit: string;
+}
+
+let waterLevelStationsCache: { fetchedAt: number; stations: NOAAStation[] } | null = null;
 
 function corsHeaders() {
   return {
@@ -42,6 +74,209 @@ function num(x: unknown): number | null {
   if (x == null) return null;
   const n = Number(x);
   return Number.isFinite(n) ? n : null;
+}
+
+function haversineMiles(lat1: number, lon1: number, lat2: number, lon2: number): number {
+  const toRad = (d: number) => (d * Math.PI) / 180;
+  const dLat = toRad(lat2 - lat1);
+  const dLon = toRad(lon2 - lon1);
+  const a =
+    Math.sin(dLat / 2) ** 2 +
+    Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLon / 2) ** 2;
+  return EARTH_RADIUS_MILES * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+}
+
+async function getWaterLevelStationsCached(): Promise<NOAAStation[] | null> {
+  if (
+    waterLevelStationsCache &&
+    Date.now() - waterLevelStationsCache.fetchedAt < WATERLEVEL_STATIONS_TTL_MS
+  ) {
+    return waterLevelStationsCache.stations;
+  }
+  const stationsUrl =
+    "https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations.json?type=waterlevels";
+  try {
+    const response = await fetch(stationsUrl, {
+      headers: { "User-Agent": "TightLinesAI/2.0 (fishing app)" },
+    });
+    if (!response.ok) return waterLevelStationsCache?.stations ?? null;
+    const json = await response.json();
+    const stations: NOAAStation[] = json?.stations ?? json?.data?.stations ?? [];
+    if (!Array.isArray(stations) || stations.length === 0) {
+      return waterLevelStationsCache?.stations ?? null;
+    }
+    waterLevelStationsCache = { fetchedAt: Date.now(), stations };
+    return stations;
+  } catch {
+    return waterLevelStationsCache?.stations ?? null;
+  }
+}
+
+function rankNearbyTideStations(
+  lat: number,
+  lon: number,
+  stations: NOAAStation[],
+): Array<{ station: NOAAStation; miles: number }> {
+  const out: Array<{ station: NOAAStation; miles: number }> = [];
+  for (const station of stations) {
+    const slat = Number(station.lat ?? station.latitude);
+    const slon = Number(station.lng ?? station.lon ?? station.longitude);
+    if (isNaN(slat) || isNaN(slon) || !station.id) continue;
+    const miles = haversineMiles(lat, lon, slat, slon);
+    if (miles <= TIDE_STATION_MAX_MILES) out.push({ station, miles });
+  }
+  out.sort((a, b) => a.miles - b.miles);
+  return out.slice(0, MAX_TIDE_STATION_CANDIDATES);
+}
+
+function formatDateInZone(date: Date, timeZone: string): string {
+  try {
+    return new Intl.DateTimeFormat("en-CA", {
+      timeZone,
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    }).format(date);
+  } catch {
+    return date.toISOString().slice(0, 10);
+  }
+}
+
+function tideDateRangeYyyymmdd(timezone: string): { beginDate: string; endDate: string } {
+  const now = new Date();
+  const beginDate = formatDateInZone(now, timezone).replace(/-/g, "");
+  const endCap = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000);
+  const endDate = formatDateInZone(endCap, timezone).replace(/-/g, "");
+  return { beginDate, endDate };
+}
+
+function mapPredictionsToHighLow(
+  preds: unknown,
+): TideEntry[] {
+  const arr = Array.isArray(preds) ? preds : [];
+  return arr.slice(0, MAX_HILO_PREDICTIONS_RETURNED).map(
+    (p: { t?: string; v?: string; type?: string }) => ({
+      time: String(p.t ?? ""),
+      type: p.type === "L" ? "L" : "H",
+      value: parseFloat(String(p.v ?? 0)) || 0,
+    }),
+  );
+}
+
+async function fetchHiloPredictions(
+  stationId: string,
+  beginDate: string,
+  endDate: string,
+): Promise<TideEntry[]> {
+  const url =
+    `https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?product=predictions&station=${stationId}` +
+    `&format=json&interval=hilo&units=english&datum=mllw&begin_date=${beginDate}&end_date=${endDate}&time_zone=lst_ldt`;
+  try {
+    const response = await fetch(url, {
+      headers: { "User-Agent": "TightLinesAI/2.0 (fishing app)" },
+    });
+    if (!response.ok) return [];
+    const json = await response.json();
+    return mapPredictionsToHighLow(json?.predictions ?? []);
+  } catch {
+    return [];
+  }
+}
+
+function parseNoaaLocalTimeToUtcMs(localTime: string, tzHours: number): number {
+  const asIfUtcMs = new Date(localTime.replace(" ", "T") + ":00Z").getTime();
+  return asIfUtcMs - tzHours * 3600 * 1000;
+}
+
+function deriveTidePhaseForDate(
+  highLow: TideEntry[],
+  tzHours: number,
+  date: string,
+): string | undefined {
+  if (highLow.length < 2) return undefined;
+  const noonLocalMs = new Date(date + "T12:00:00Z").getTime() - tzHours * 3600 * 1000;
+  const pastPreds = highLow.filter((entry) => parseNoaaLocalTimeToUtcMs(entry.time, tzHours) <= noonLocalMs);
+  const futurePreds = highLow.filter((entry) => parseNoaaLocalTimeToUtcMs(entry.time, tzHours) > noonLocalMs);
+
+  if (pastPreds.length > 0 && futurePreds.length > 0) {
+    const lastPred = pastPreds[pastPreds.length - 1]!;
+    const nextPred = futurePreds[0]!;
+    const minsToNext = (parseNoaaLocalTimeToUtcMs(nextPred.time, tzHours) - noonLocalMs) / 60_000;
+    if (minsToNext <= 30) return "approaching slack";
+    return lastPred.type === "L" ? "incoming" : "outgoing";
+  }
+  if (pastPreds.length === 0 && futurePreds.length > 0) {
+    const nextPred = futurePreds[0]!;
+    const minsToNext = (parseNoaaLocalTimeToUtcMs(nextPred.time, tzHours) - noonLocalMs) / 60_000;
+    if (minsToNext <= 30) return "approaching slack";
+    return nextPred.type === "H" ? "incoming" : "outgoing";
+  }
+  if (futurePreds.length === 0 && pastPreds.length > 0) {
+    const lastPred = pastPreds[pastPreds.length - 1]!;
+    const minsSinceLast = (noonLocalMs - parseNoaaLocalTimeToUtcMs(lastPred.time, tzHours)) / 60_000;
+    if (minsSinceLast <= 30) return "approaching slack";
+    return lastPred.type === "L" ? "incoming" : "outgoing";
+  }
+  return undefined;
+}
+
+async function fetchForecastTides(
+  latitude: number,
+  longitude: number,
+  timezone: string,
+  tzOffsetHours: number,
+): Promise<{
+  coastal: boolean;
+  nearest_tide_station_id: string | null;
+  forecast_tides_by_date: ForecastTideDay[];
+}> {
+  const stations = await getWaterLevelStationsCached();
+  if (!stations || stations.length === 0) {
+    return { coastal: false, nearest_tide_station_id: null, forecast_tides_by_date: [] };
+  }
+
+  const candidates = rankNearbyTideStations(latitude, longitude, stations);
+  if (candidates.length === 0) {
+    return { coastal: false, nearest_tide_station_id: null, forecast_tides_by_date: [] };
+  }
+
+  const { beginDate, endDate } = tideDateRangeYyyymmdd(timezone);
+
+  for (const { station } of candidates) {
+    const stationId = String(station.id);
+    const highLow = await fetchHiloPredictions(stationId, beginDate, endDate);
+    if (highLow.length < 2) continue;
+
+    const byDate = new Map<string, TideEntry[]>();
+    for (const entry of highLow) {
+      const date = String(entry.time).slice(0, 10);
+      if (!date) continue;
+      const bucket = byDate.get(date) ?? [];
+      bucket.push(entry);
+      byDate.set(date, bucket);
+    }
+
+    const forecast_tides_by_date = Array.from(byDate.entries())
+      .map(([date, entries]) => ({
+        date,
+        station_id: stationId,
+        station_name: String(station.name ?? stationId),
+        high_low: entries,
+        phase: deriveTidePhaseForDate(entries, tzOffsetHours, date),
+        unit: "ft",
+      }))
+      .sort((a, b) => a.date.localeCompare(b.date));
+
+    if (forecast_tides_by_date.length > 0) {
+      return {
+        coastal: true,
+        nearest_tide_station_id: stationId,
+        forecast_tides_by_date,
+      };
+    }
+  }
+
+  return { coastal: false, nearest_tide_station_id: null, forecast_tides_by_date: [] };
 }
 
 Deno.serve(async (req: Request) => {
@@ -93,14 +328,24 @@ Deno.serve(async (req: Request) => {
   }
 
   const timezone = om.timezone ?? "UTC";
+  const tideSnapshot = await fetchForecastTides(
+    latitude,
+    longitude,
+    timezone,
+    om.tz_offset_hours ?? 0,
+  );
   const envRecord: Record<string, unknown> = {
     timezone: om.timezone,
     tz_offset_hours: om.tz_offset_hours,
+    coastal: tideSnapshot.coastal,
+    tides_available: tideSnapshot.forecast_tides_by_date.length > 0,
+    nearest_tide_station_id: tideSnapshot.nearest_tide_station_id,
     weather: om.weather,
     hourly_pressure_mb: om.hourly_pressure_mb ?? [],
     hourly_air_temp_f: om.hourly_air_temp_f ?? [],
     hourly_cloud_cover_pct: om.hourly_cloud_cover_pct ?? [],
     hourly_wind_speed: om.hourly_wind_speed ?? [],
+    forecast_tides_by_date: tideSnapshot.forecast_tides_by_date,
   };
 
   const days = om.forecast_daily ?? [];
@@ -157,6 +402,18 @@ Deno.serve(async (req: Request) => {
     for (const key of INTL_HEAVY_KEYS) {
       slicedEnvRecord[key] = fullHourly[key]!.slice(sliceStart, sliceEnd);
     }
+    const tideForDay =
+      tideSnapshot.forecast_tides_by_date.find((entry) => entry.date === localDate) ?? null;
+    slicedEnvRecord.tides_available = tideForDay != null;
+    slicedEnvRecord.tides = tideForDay
+      ? {
+          station_id: tideForDay.station_id,
+          station_name: tideForDay.station_name,
+          high_low: tideForDay.high_low,
+          phase: tideForDay.phase,
+          unit: tideForDay.unit,
+        }
+      : null;
 
     const baseReq = buildSharedEngineRequestFromEnvData(
       latitude,

@@ -177,6 +177,19 @@ Deno.test("river runoff label stays honest about proxy input", () => {
   );
 });
 
+Deno.test("river positive runoff summary says stable flow", () => {
+  const out = buildReportSummaryLine({
+    band: "Good",
+    score: 68,
+    context: "freshwater_river",
+    reliability: "high",
+    drivers: [{ variable: "runoff_flow_disruption" }],
+    suppressors: [],
+    seed: "river-stable-flow-summary",
+  });
+  assertStringIncludes(out.toLowerCase(), "stable flow");
+});
+
 function assertCleanCopy(line: string) {
   const rendered = line
     .replaceAll("{driver}", "Temperature")

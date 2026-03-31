@@ -5,6 +5,7 @@ import {
 } from "../copy/deterministicPick.ts";
 
 type SummaryFactor = { variable: string };
+type SummaryFactorRole = "driver" | "suppressor";
 
 export type ReportSummaryInput = {
   band: ScoreBand;
@@ -200,6 +201,7 @@ export function buildVariableDisplayLabel(
 function buildVariableSummaryLabel(
   variable: string,
   context?: EngineContext,
+  role: SummaryFactorRole = "driver",
 ): string {
   switch (variable) {
     case "temperature_condition":
@@ -213,7 +215,9 @@ function buildVariableSummaryLabel(
     case "precipitation_disruption":
       return "rain";
     case "runoff_flow_disruption":
-      return "runoff";
+      return context === "freshwater_river" && role === "driver"
+        ? "stable flow"
+        : "runoff";
     case "tide_current_movement":
       return context === "coastal" || context === "coastal_flats_estuary"
         ? "tidal movement"
@@ -270,10 +274,10 @@ export function buildReportSummaryLine(input: ReportSummaryInput): string {
   const { band, reliability, drivers, suppressors, seed, context } = input;
   const opener = pickDeterministic(OPENERS[band], seed, "summary:opener");
   const driver = drivers[0]
-    ? buildVariableSummaryLabel(drivers[0].variable, context)
+    ? buildVariableSummaryLabel(drivers[0].variable, context, "driver")
     : null;
   const suppressor = suppressors[0]
-    ? buildVariableSummaryLabel(suppressors[0].variable, context)
+    ? buildVariableSummaryLabel(suppressors[0].variable, context, "suppressor")
     : null;
 
   const parts: string[] = [normalizeSurfaceSentence(opener)];

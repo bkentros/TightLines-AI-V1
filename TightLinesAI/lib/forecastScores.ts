@@ -12,14 +12,15 @@ import type { WeatherData } from './env/types';
 const SUPABASE_URL = process.env.EXPO_PUBLIC_SUPABASE_URL!;
 const SUPABASE_ANON_KEY = process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY!;
 
-/** v4 stores the shared forecast weather snapshot used by future-day reports. */
-const CACHE_KEY_PREFIX = 'forecast_scores_v4';
+/** v5 stores the shared forecast weather+tide snapshot used by future-day reports. */
+const CACHE_KEY_PREFIX = 'forecast_scores_v5';
 
 const LEGACY_FORECAST_CACHE_PREFIXES = [
   'forecast_scores_v1',
   'forecast_scores_v2',
   'forecast_scores_v3',
   'forecast_scores_v4',
+  'forecast_scores_v5',
 ] as const;
 
 /**
@@ -76,14 +77,27 @@ export interface ForecastScoresResult {
   snapshot_env?: ForecastSnapshotEnv;
 }
 
+export interface ForecastSnapshotTideDay {
+  date: string;
+  station_id: string;
+  station_name: string;
+  high_low: Array<{ time: string; type: 'H' | 'L'; value: number }>;
+  phase?: string;
+  unit: string;
+}
+
 export interface ForecastSnapshotEnv {
   timezone?: string;
   tz_offset_hours?: number;
+  coastal?: boolean;
+  tides_available?: boolean;
+  nearest_tide_station_id?: string | null;
   weather: WeatherData;
   hourly_pressure_mb?: Array<{ time_utc: string; value: number }>;
   hourly_air_temp_f?: Array<{ time_utc: string; value: number }>;
   hourly_cloud_cover_pct?: Array<{ time_utc: string; value: number }>;
   hourly_wind_speed?: Array<{ time_utc: string; value: number }>;
+  forecast_tides_by_date?: ForecastSnapshotTideDay[];
 }
 
 function normalizeForecastRows(rows: Partial<DayForecastScore>[]): DayForecastScore[] {

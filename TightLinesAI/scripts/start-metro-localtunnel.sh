@@ -5,6 +5,10 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT"
 
+# Keep one clean Metro on 8081 so the dev client URL stays stable.
+lsof -tiTCP:8081 -sTCP:LISTEN 2>/dev/null | xargs kill -9 2>/dev/null || true
+sleep 1
+
 # Cursor/CI often sets CI=true and breaks watch mode; empty CI breaks Expo’s env parser.
 export CI=0
 
@@ -40,7 +44,7 @@ echo "━━━━━━━━━━━━━━━━━━━━━━━━�
 echo "  HTTPS (Safari / tunnel check):  $HTTPS_URL"
 echo "  If loca.lt shows a warning, open that link once and click Continue."
 echo ""
-echo "  Dev client — try Enter URL manually, in this order:"
+echo "  Dev client — Enter URL manually:"
 echo "    exp://${HOST}:443"
 echo "    exp://${HOST}:80"
 echo "  (Expo Go / dev client negotiate TLS on 443 for https tunnels.)"
@@ -49,4 +53,7 @@ echo ""
 
 export REACT_NATIVE_PACKAGER_HOSTNAME="$HOST"
 export RCT_METRO_PORT="${RCT_METRO_PORT:-8081}"
+if [[ "${EXPO_START_CLEAR:-}" == "1" ]]; then
+  exec npx expo start --dev-client --clear --port "${RCT_METRO_PORT}"
+fi
 exec npx expo start --dev-client --port "${RCT_METRO_PORT}"

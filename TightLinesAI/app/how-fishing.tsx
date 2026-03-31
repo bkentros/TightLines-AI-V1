@@ -33,6 +33,7 @@ import { useEnvStore } from '../store/envStore';
 import type { EnvironmentData } from '../lib/env/types';
 import { oceanCoastalZoneLabel } from '../lib/coastalProximity';
 import { RebuildReportView } from '../components/fishing/RebuildReportView';
+import type { ForecastSnapshotEnv } from '../lib/forecastScores';
 
 function currentLocationDateString(timezone?: string) {
   try {
@@ -113,6 +114,33 @@ function firstContextWithReport(
 ): EngineContextKey | null {
   const hit = contexts.find((c) => bundles[c] != null);
   return hit ?? null;
+}
+
+function materializeForecastEnvForDate(
+  snapshot: ForecastSnapshotEnv | null,
+  targetDate: string | null,
+): Record<string, unknown> | null {
+  if (!snapshot) return null;
+  const tideForDate =
+    targetDate != null
+      ? snapshot.forecast_tides_by_date?.find((entry) => entry.date === targetDate) ?? null
+      : null;
+
+  return {
+    ...snapshot,
+    coastal: tideForDate != null ? true : Boolean(snapshot.coastal),
+    tides_available: tideForDate != null,
+    nearest_tide_station_id: tideForDate?.station_id ?? snapshot.nearest_tide_station_id ?? null,
+    tides: tideForDate
+      ? {
+          station_id: tideForDate.station_id,
+          station_name: tideForDate.station_name,
+          high_low: tideForDate.high_low,
+          phase: tideForDate.phase,
+          unit: tideForDate.unit,
+        }
+      : null,
+  };
 }
 
 export default function HowFishingScreen() {
@@ -247,18 +275,19 @@ export default function HowFishingScreen() {
       const accessToken = await getValidAccessToken();
       const forecastSnapshot = isForecastDay ? await getForecastScores(lat, lon) : null;
       const sharedForecastEnv = isForecastDay ? forecastSnapshot?.snapshot_env ?? null : null;
+      const forecastEnvForReport = isForecastDay
+        ? materializeForecastEnvForDate(sharedForecastEnv, targetDate)
+        : null;
       const freshEnv =
-        sharedForecastEnv ??
+        forecastEnvForReport ??
         await fetchFreshEnvironment({ latitude: lat, longitude: lon, units });
-      if (!sharedForecastEnv) {
-        setEnv(freshEnv as EnvironmentData);
-      }
+      setEnv(freshEnv as EnvironmentData);
 
       const polishLocationName = await resolveLocationLabelForPolish(
         lat,
         lon,
         locationLabel,
-        Boolean((sharedForecastEnv ?? freshEnv)?.coastal),
+        Boolean((forecastEnvForReport ?? freshEnv)?.coastal),
       );
       if (polishLocationName && locationLabel === 'Current location') {
         setLocationLabel(polishLocationName);
@@ -275,7 +304,7 @@ export default function HowFishingScreen() {
           mode: 'multi',
           contexts: availableContexts,
           env_data: freshEnv,
-          use_forecast_snapshot: Boolean(sharedForecastEnv),
+          use_forecast_snapshot: Boolean(forecastEnvForReport),
           location_name: polishLocationName,
           ...(isForecastDay && { day_offset: dayOffset, target_date: targetDate }),
         },
