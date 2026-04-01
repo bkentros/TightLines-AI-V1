@@ -45,6 +45,9 @@ import {
   SPECIES_GROUPS,
   SPECIES_WATER_TYPE,
   WATER_CLARITY_LABELS,
+  getSpeciesForState,
+  getContextsForState,
+  getContextsForStateSpecies,
 } from '../lib/recommenderContracts';
 
 // ─── Context helpers ──────────────────────────────────────────────────────────
@@ -72,28 +75,6 @@ function contextAccentColor(ctx: EngineContext): string {
     case 'coastal':               return colors.contextCoastal;
     case 'coastal_flats_estuary': return colors.contextFlatsEstuary;
   }
-}
-
-function isCoastalContext(ctx: EngineContext): boolean {
-  return ctx === 'coastal' || ctx === 'coastal_flats_estuary';
-}
-
-function isSaltwater(species: SpeciesGroup): boolean {
-  return SPECIES_WATER_TYPE[species] === 'saltwater';
-}
-
-function isFreshwater(species: SpeciesGroup): boolean {
-  return SPECIES_WATER_TYPE[species] === 'freshwater';
-}
-
-/** Returns true if species + context combination is plausible. */
-function isValidCombination(species: SpeciesGroup, context: EngineContext): boolean {
-  const wt = SPECIES_WATER_TYPE[species];
-  const coastal = isCoastalContext(context);
-  if (wt === 'saltwater' && !coastal) return false;
-  if (wt === 'freshwater' && coastal) return false;
-  // striped_bass = 'both' — valid in any context
-  return true;
 }
 
 // ─── State code extraction ────────────────────────────────────────────────────
@@ -186,15 +167,17 @@ function ChipRow<T extends string>({
 }
 
 function SpeciesGrid({
+  options,
   selected,
   onSelect,
 }: {
+  options: SpeciesGroup[];
   selected: SpeciesGroup | null;
   onSelect: (s: SpeciesGroup) => void;
 }) {
   return (
     <View style={styles.speciesGrid}>
-      {SPECIES_GROUPS.map((sp) => {
+      {options.map((sp) => {
         const isActive = selected === sp;
         return (
           <TouchableOpacity
@@ -252,10 +235,50 @@ export default function RecommenderScreen() {
   );
   const [clarity, setClarity] = useState<WaterClarity | null>(null);
 
+  // Resolved state code — drives chip filtering
+  const [stateCode, setStateCode] = useState<string | null>(null);
+  const [resolvingRegion, setResolvingRegion] = useState(false);
+
   const [screenState, setScreenState] = useState<ScreenState>('setup');
   const [result, setResult] = useState<RecommenderResponse | null>(null);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [isRefreshing, setIsRefreshing] = useState(false);
+
+  // Resolve state code as soon as we have coords — don't wait for the fetch
+  useEffect(() => {
+    if (!hasCoords) return;
+    setResolvingRegion(true);
+    resolveStateCode(lat, lon).then((code) => {
+      setStateCode(code === 'XX' ? null : code);
+      setResolvingRegion(false);
+    });
+  }, [lat, lon, hasCoords]);
+
+  // When state resolves, clear any selections that are no longer valid
+  useEffect(() => {
+    if (!stateCode) return;
+    const validSpecies = getSpeciesForState(stateCode);
+    if (species && !validSpecies.includes(species)) {
+      setSpecies(null);
+      setContext(null);
+      return;
+    }
+    if (species && context) {
+      const validCtxs = getContextsForStateSpecies(stateCode, species);
+      if (!validCtxs.includes(context)) setContext(null);
+    }
+  }, [stateCode]);
+
+  // Derived chip options — always state-aware
+  const availableSpecies: SpeciesGroup[] = stateCode
+    ? getSpeciesForState(stateCode)
+    : SPECIES_GROUPS;
+
+  const availableContexts: EngineContext[] = stateCode && species
+    ? getContextsForStateSpecies(stateCode, species)
+    : stateCode
+      ? getContextsForState(stateCode)
+      : ENGINE_CONTEXTS;
 
   // Validation
   const isReady =
@@ -263,14 +286,7 @@ export default function RecommenderScreen() {
     context !== null &&
     clarity !== null &&
     hasCoords &&
-    (species && context ? isValidCombination(species, context) : false);
-
-  // Auto-clear invalid species/context combos when context changes
-  useEffect(() => {
-    if (species && context && !isValidCombination(species, context)) {
-      setSpecies(null);
-    }
-  }, [context]);
+    availableContexts.includes(context);
 
   const handleFetch = useCallback(
     async (forceRefresh = false) => {
@@ -383,17 +399,48 @@ export default function RecommenderScreen() {
             </View>
           )}
 
+          {/* Region detection indicator */}
+          {resolvingRegion && (
+            <View style={styles.regionBanner}>
+              <ActivityIndicator size="small" color={colors.textMuted} />
+              <Text style={styles.regionBannerText}>Detecting your region…</Text>
+            </View>
+          )}
+          {!resolvingRegion && stateCode && (
+            <View style={styles.regionBanner}>
+              <Ionicons name="location" size={14} color={colors.textMuted} />
+              <Text style={styles.regionBannerText}>
+                Showing species available in {stateCode}
+              </Text>
+            </View>
+          )}
+
           {/* Species */}
           <SectionLabel label="Target Species" />
-          <SpeciesGrid selected={species} onSelect={setSpecies} />
+          <SpeciesGrid
+            options={availableSpecies}
+            selected={species}
+            onSelect={(sp) => {
+              setSpecies(sp);
+              // If current context isn't valid for this species in this state, clear it
+              if (context && stateCode) {
+                const validCtxs = getContextsForStateSpecies(stateCode, sp);
+                if (!validCtxs.includes(context)) setContext(null);
+              } else if (context) {
+                // Fallback to water-type check when state unknown
+                const wt = SPECIES_WATER_TYPE[sp];
+                const isCoastal = context === 'coastal' || context === 'coastal_flats_estuary';
+                if ((wt === 'saltwater' && !isCoastal) || (wt === 'freshwater' && isCoastal)) {
+                  setContext(null);
+                }
+              }
+            }}
+          />
 
           {/* Context */}
-          <SectionLabel label="Water Type" />
+          <SectionLabel label="Body of Water" />
           <ChipRow
-            options={ENGINE_CONTEXTS.filter((ctx) => {
-              if (!species) return true;
-              return isValidCombination(species, ctx);
-            })}
+            options={availableContexts}
             selected={context}
             onSelect={setContext}
             labelFor={contextLabel}
@@ -431,13 +478,10 @@ export default function RecommenderScreen() {
             })}
           </View>
 
-          {/* Validation note */}
-          {species && context && !isValidCombination(species, context) && (
+          {/* If context chip area is empty (no valid contexts for selection), show a note */}
+          {availableContexts.length === 0 && species && (
             <Text style={styles.validationNote}>
-              {SPECIES_DISPLAY[species]} is a{' '}
-              {isFreshwater(species) ? 'freshwater' : 'saltwater'} species —
-              switch to a{' '}
-              {isFreshwater(species) ? 'freshwater' : 'coastal'} water type.
+              No water types available for {SPECIES_DISPLAY[species]} in this region.
             </Text>
           )}
 
@@ -603,6 +647,18 @@ const styles = StyleSheet.create({
   clarityChipText: {
     fontFamily: fonts.bodyMedium,
     fontSize: 14,
+  },
+
+  // Region banner
+  regionBanner: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.xs,
+  },
+  regionBannerText: {
+    fontFamily: fonts.body,
+    fontSize: 12,
+    color: colors.textMuted,
   },
 
   // Validation
