@@ -208,8 +208,9 @@ Deno.serve(async (req: Request) => {
 
   // Forecast-day reports: replace Open-Meteo-derived fields with a fresh server fetch so
   // scores match forecast-scores and client env_data cannot drift or omit hourly wind.
-  // When the client provides the cached forecast snapshot from the 7-day strip, reuse it
-  // verbatim so the report matches the strip for the rest of the local day.
+  // When the client provides the cached forecast snapshot from forecast-scores, reuse it
+  // verbatim so the report stays aligned with the midnight-refreshed daily snapshot
+  // for the rest of the local day, including day 0 ("today").
   if (dayOffset > 0 && !useForecastSnapshot) {
     const om = await fetchOpenMeteo14Day(lat, lon, "imperial");
     if (om?.weather) {
@@ -246,7 +247,18 @@ Deno.serve(async (req: Request) => {
     inT: number;
     outT: number;
   }> {
-    const sharedReq = buildSharedEngineRequestFromEnvData(lat, lon, localDate, timezone, ctx, envData, dayOffset);
+    const sharedReq = buildSharedEngineRequestFromEnvData(
+      lat,
+      lon,
+      localDate,
+      timezone,
+      ctx,
+      envData,
+      dayOffset,
+      useForecastSnapshot && dayOffset === 0
+        ? { useCalendarDayProfileForToday: true }
+        : undefined,
+    );
     const report = runHowFishingReport(sharedReq);
     const surfaced: HowsFishingReport = {
       ...report,

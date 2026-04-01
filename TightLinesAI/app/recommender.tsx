@@ -293,7 +293,7 @@ export default function RecommenderScreen() {
             species,
             context,
             water_clarity: clarity,
-            env_data: envData as Record<string, unknown>,
+            env_data: envData as unknown as Record<string, unknown>,
           },
           { forceRefresh },
         );

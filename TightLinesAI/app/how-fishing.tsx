@@ -14,7 +14,7 @@ import { useRouter, useLocalSearchParams } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import * as Location from 'expo-location';
 import { colors, fonts, spacing, radius, shadows } from '../lib/theme';
-import { getEnvironment, fetchFreshEnvironment } from '../lib/env';
+import { getEnvironment } from '../lib/env';
 import { invokeEdgeFunction, getValidAccessToken } from '../lib/supabase';
 import { useAuthStore } from '../store/authStore';
 import {
@@ -143,6 +143,12 @@ function materializeForecastEnvForDate(
   };
 }
 
+function todayDateFromForecastSnapshot(
+  forecastSnapshot: Awaited<ReturnType<typeof getForecastScores>> | null,
+): string | null {
+  return forecastSnapshot?.forecast.find((day) => day.day_offset === 0)?.date ?? null;
+}
+
 export default function HowFishingScreen() {
   const router = useRouter();
   const params = useLocalSearchParams<{
@@ -172,8 +178,12 @@ export default function HowFishingScreen() {
   const [env, setEnv] = useState<EnvironmentData | null>(null);
   const [envLoading, setEnvLoading] = useState(true);
   const [locationLabel, setLocationLabel] = useState<string>('Current location');
+  const [forecastSnapshotCoastalEligible, setForecastSnapshotCoastalEligible] = useState<boolean | null>(null);
 
-  const coastalEligible = useMemo(() => Boolean(env?.coastal), [env?.coastal]);
+  const coastalEligible = useMemo(
+    () => forecastSnapshotCoastalEligible ?? Boolean(env?.coastal),
+    [forecastSnapshotCoastalEligible, env?.coastal],
+  );
   const availableContexts: EngineContextKey[] = useMemo(
     () => howFishingMultiContexts(coastalEligible),
     [coastalEligible],
@@ -217,21 +227,25 @@ export default function HowFishingScreen() {
         if (requestedLocationLabel) {
           setLocationLabel(requestedLocationLabel);
         }
-        const [cachedEnv, geo] = await Promise.all([
+        const [cachedEnv, forecastSnapshot, geo] = await Promise.all([
           getEnvironment({ latitude: lat, longitude: lon, units }),
+          getForecastScores(lat, lon).catch(() => null),
           requestedLocationLabel
             ? Promise.resolve([])
             : Location.reverseGeocodeAsync({ latitude: lat, longitude: lon }).catch(() => []),
         ]);
         if (cancelled) return;
-        setEnv(cachedEnv);
+        setEnv(cachedEnv as EnvironmentData);
+        setForecastSnapshotCoastalEligible(
+          Boolean((forecastSnapshot as Awaited<ReturnType<typeof getForecastScores>> | null)?.snapshot_env?.coastal),
+        );
         if (requestedLocationLabel) {
           setLocationLabel(requestedLocationLabel);
         } else if (geo?.[0]) {
           const fromGeo = geocodeToDisplayLabel(geo[0]);
-          setLocationLabel(fromGeo ?? (cachedEnv.coastal ? oceanCoastalZoneLabel(lat, lon) : null) ?? 'Current location');
+          setLocationLabel(fromGeo ?? ((cachedEnv as EnvironmentData).coastal ? oceanCoastalZoneLabel(lat, lon) : null) ?? 'Current location');
         } else {
-          setLocationLabel((cachedEnv.coastal ? oceanCoastalZoneLabel(lat, lon) : null) ?? 'Current location');
+          setLocationLabel((((cachedEnv as EnvironmentData).coastal) ? oceanCoastalZoneLabel(lat, lon) : null) ?? 'Current location');
         }
       } catch {
         if (!cancelled) setAnalysisError('Unable to load live conditions.');
@@ -285,21 +299,25 @@ export default function HowFishingScreen() {
     setShowConfirm(false);
     try {
       const accessToken = await getValidAccessToken();
-      const forecastSnapshot = isForecastDay ? await getForecastScores(lat, lon) : null;
-      const sharedForecastEnv = isForecastDay ? forecastSnapshot?.snapshot_env ?? null : null;
-      const forecastEnvForReport = isForecastDay
-        ? materializeForecastEnvForDate(sharedForecastEnv, targetDate)
-        : null;
-      const freshEnv =
+      const forecastSnapshot = await getForecastScores(lat, lon);
+      const sharedForecastEnv = forecastSnapshot?.snapshot_env ?? null;
+      const snapshotDateForReport = isForecastDay
+        ? targetDate
+        : todayDateFromForecastSnapshot(forecastSnapshot);
+      const forecastEnvForReport = materializeForecastEnvForDate(
+        sharedForecastEnv,
+        snapshotDateForReport,
+      );
+      const envForReport =
         forecastEnvForReport ??
-        await fetchFreshEnvironment({ latitude: lat, longitude: lon, units });
-      setEnv(freshEnv as EnvironmentData);
+        env ??
+        await getEnvironment({ latitude: lat, longitude: lon, units });
 
       const polishLocationName = await resolveLocationLabelForPolish(
         lat,
         lon,
         locationLabel,
-        Boolean((forecastEnvForReport ?? freshEnv)?.coastal),
+        Boolean((forecastEnvForReport ?? env)?.coastal),
       );
       if (polishLocationName && locationLabel === 'Current location') {
         setLocationLabel(polishLocationName);
@@ -315,7 +333,7 @@ export default function HowFishingScreen() {
           units,
           mode: 'multi',
           contexts: availableContexts,
-          env_data: freshEnv,
+          env_data: envForReport,
           use_forecast_snapshot: Boolean(forecastEnvForReport),
           location_name: polishLocationName,
           ...(isForecastDay && { day_offset: dayOffset, target_date: targetDate }),
@@ -352,7 +370,7 @@ export default function HowFishingScreen() {
         await setCachedMultiRebuild(lat, lon, multi);
         setCurrentMultiRebuild(lat, lon, bundles);
       }
-      setLastReportEnv(sharedForecastEnv ? null : (freshEnv as EnvironmentData));
+      setLastReportEnv(env);
       setActiveTab(tabWithReport);
       setMultiBundles(bundles);
     } catch (err) {
@@ -362,7 +380,7 @@ export default function HowFishingScreen() {
     } finally {
       setAnalysisLoading(false);
     }
-  }, [hasCoords, lat, lon, units, availableContexts, locationLabel, setLastReportEnv, isForecastDay, dayOffset, targetDate]);
+  }, [hasCoords, lat, lon, units, availableContexts, locationLabel, setLastReportEnv, isForecastDay, dayOffset, targetDate, env]);
 
   /** Pull-to-refresh / header Refresh: reload cached report if still valid; never wipe cache. Regenerate only on miss/expiry. */
   const handleRefresh = useCallback(async () => {
