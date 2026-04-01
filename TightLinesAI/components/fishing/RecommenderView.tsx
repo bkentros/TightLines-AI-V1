@@ -2,12 +2,11 @@
  * RecommenderView — renders the full recommender result.
  *
  * Layout:
- *   1. Species + context header (accent bar)
+ *   1. Header hero card (species, context badge, water clarity, confidence pill)
  *   2. Behavior summary card (3-line deterministic block)
  *   3. Lure / Fly sub-tabs
- *   4. Top 3 ranked family cards (why, how, best_when, color_guide)
- *   5. Confidence footer
- *   6. Tidal note (if coastal)
+ *   4. Top ranked family cards — collapsed by default, expandable for full details
+ *   5. Generated note footer
  */
 
 import React, { useState } from 'react';
@@ -26,7 +25,6 @@ import type {
   RankedFamily,
   RecommenderConfidenceTier,
   RecommenderResponse,
-  SpeciesGroup,
   WaterClarity,
 } from '../../lib/recommenderContracts';
 import {
@@ -34,7 +32,7 @@ import {
   WATER_CLARITY_LABELS,
 } from '../../lib/recommenderContracts';
 
-// ─── Context accent colors ────────────────────────────────────────────────────
+// ─── Context helpers ──────────────────────────────────────────────────────────
 
 function contextAccentColor(ctx: EngineContext): string {
   switch (ctx) {
@@ -54,6 +52,15 @@ function contextLabel(ctx: EngineContext): string {
   }
 }
 
+function contextIcon(ctx: EngineContext): string {
+  switch (ctx) {
+    case 'freshwater_lake_pond':  return 'water-outline';
+    case 'freshwater_river':      return 'git-merge-outline';
+    case 'coastal':               return 'boat-outline';
+    case 'coastal_flats_estuary': return 'expand-outline';
+  }
+}
+
 // ─── Confidence helpers ───────────────────────────────────────────────────────
 
 function confidenceColor(tier: RecommenderConfidenceTier): string {
@@ -67,7 +74,7 @@ function confidenceColor(tier: RecommenderConfidenceTier): string {
 function confidenceLabel(tier: RecommenderConfidenceTier): string {
   switch (tier) {
     case 'high':   return 'High confidence';
-    case 'medium': return 'Moderate confidence';
+    case 'medium': return 'Moderate';
     case 'low':    return 'Low confidence';
   }
 }
@@ -80,14 +87,38 @@ function ScorePill({ score }: { score: number }) {
     score >= 45 ? colors.reportScoreYellow :
     colors.reportScoreRed;
 
+  const bg =
+    score >= 70 ? colors.reportScoreGreenBg :
+    score >= 45 ? colors.reportScoreYellowBg :
+    colors.reportScoreRedBg;
+
   return (
-    <View style={[styles.scorePill, { borderColor: color }]}>
+    <View style={[styles.scorePill, { backgroundColor: bg, borderColor: color }]}>
       <Text style={[styles.scorePillText, { color }]}>{score}</Text>
     </View>
   );
 }
 
-// ─── Family card ──────────────────────────────────────────────────────────────
+// ─── Detail row (inside expanded section) ────────────────────────────────────
+
+function DetailRow({ icon, label, text }: { icon: string; label: string; text: string }) {
+  return (
+    <View style={styles.detailRow}>
+      <Ionicons
+        name={icon as never}
+        size={14}
+        color={colors.primaryLight}
+        style={styles.detailIcon}
+      />
+      <View style={styles.detailTextBlock}>
+        <Text style={styles.detailLabel}>{label}</Text>
+        <Text style={styles.detailText}>{text}</Text>
+      </View>
+    </View>
+  );
+}
+
+// ─── Family card (collapsible) ────────────────────────────────────────────────
 
 function FamilyCard({
   family,
@@ -98,16 +129,18 @@ function FamilyCard({
   rank: number;
   accentColor: string;
 }) {
+  const [expanded, setExpanded] = useState(false);
+
   return (
-    <View style={[styles.familyCard, shadows.md]}>
+    <View style={[styles.familyCard, shadows.sm]}>
       {/* Accent left bar */}
       <View style={[styles.familyAccentBar, { backgroundColor: accentColor }]} />
 
       <View style={styles.familyCardInner}>
         {/* Header row */}
         <View style={styles.familyHeaderRow}>
-          <View style={styles.familyRankBadge}>
-            <Text style={styles.familyRankText}>#{rank}</Text>
+          <View style={[styles.familyRankBadge, { backgroundColor: accentColor + '1A' }]}>
+            <Text style={[styles.familyRankText, { color: accentColor }]}>#{rank}</Text>
           </View>
           <Text style={styles.familyName} numberOfLines={1}>
             {family.display_name}
@@ -122,44 +155,33 @@ function FamilyCard({
           </Text>
         )}
 
-        <View style={styles.familyDivider} />
+        {/* Details toggle */}
+        <TouchableOpacity
+          style={styles.detailsToggle}
+          onPress={() => setExpanded((v) => !v)}
+          activeOpacity={0.7}
+          hitSlop={8}
+        >
+          <Text style={[styles.detailsToggleText, { color: accentColor }]}>
+            {expanded ? 'Hide details' : 'See details'}
+          </Text>
+          <Ionicons
+            name={expanded ? 'chevron-up' : 'chevron-down'}
+            size={14}
+            color={accentColor}
+          />
+        </TouchableOpacity>
 
-        {/* Why picked */}
-        <Row icon="checkmark-circle-outline" label="Why" text={family.why_picked} />
-
-        {/* How to fish */}
-        <Row icon="fish-outline" label="Technique" text={family.how_to_fish} />
-
-        {/* Best when */}
-        <Row icon="time-outline" label="Best when" text={family.best_when} />
-
-        {/* Color guide */}
-        <Row icon="color-palette-outline" label="Color" text={family.color_guide} />
-      </View>
-    </View>
-  );
-}
-
-function Row({
-  icon,
-  label,
-  text,
-}: {
-  icon: string;
-  label: string;
-  text: string;
-}) {
-  return (
-    <View style={styles.factorRow}>
-      <Ionicons
-        name={icon as never}
-        size={15}
-        color={colors.primaryLight}
-        style={styles.factorIcon}
-      />
-      <View style={styles.factorTextBlock}>
-        <Text style={styles.factorLabel}>{label}</Text>
-        <Text style={styles.factorText}>{text}</Text>
+        {/* Expanded detail rows */}
+        {expanded && (
+          <View style={styles.detailsExpanded}>
+            <View style={styles.detailsDivider} />
+            <DetailRow icon="checkmark-circle-outline" label="Why it works"    text={family.why_picked} />
+            <DetailRow icon="fish-outline"             label="Technique"       text={family.how_to_fish} />
+            <DetailRow icon="time-outline"             label="Best when"       text={family.best_when} />
+            <DetailRow icon="color-palette-outline"    label="Color guide"     text={family.color_guide} />
+          </View>
+        )}
       </View>
     </View>
   );
@@ -176,10 +198,13 @@ function BehaviorSummaryCard({
 }) {
   return (
     <View style={[styles.behaviorCard, shadows.sm]}>
-      <Text style={styles.behaviorTitle}>Fish Behavior</Text>
+      <View style={styles.behaviorTitleRow}>
+        <View style={styles.behaviorTitleDot} />
+        <Text style={styles.behaviorTitle}>Fish Behavior</Text>
+      </View>
       {lines.map((line, i) => (
         <View key={i} style={styles.behaviorLine}>
-          <View style={styles.behaviorDot} />
+          <View style={styles.behaviorBullet} />
           <Text style={styles.behaviorText}>{line}</Text>
         </View>
       ))}
@@ -234,31 +259,6 @@ function GearTabs({
   );
 }
 
-// ─── Confidence footer ────────────────────────────────────────────────────────
-
-function ConfidenceFooter({
-  tier,
-  reasons,
-}: {
-  tier: RecommenderConfidenceTier;
-  reasons: string[];
-}) {
-  const color = confidenceColor(tier);
-  return (
-    <View style={styles.confidenceCard}>
-      <View style={styles.confidenceHeader}>
-        <View style={[styles.confidenceDot, { backgroundColor: color }]} />
-        <Text style={[styles.confidenceLabel, { color }]}>{confidenceLabel(tier)}</Text>
-      </View>
-      {reasons.map((r, i) => (
-        <Text key={i} style={styles.confidenceReason}>
-          {r}
-        </Text>
-      ))}
-    </View>
-  );
-}
-
 // ─── Main component ───────────────────────────────────────────────────────────
 
 type Props = {
@@ -272,24 +272,44 @@ export function RecommenderView({ result, style }: Props) {
 
   const families = gearTab === 'lure' ? result.lure_rankings : result.fly_rankings;
 
+  const confColor = confidenceColor(result.confidence.tier);
+
   return (
     <ScrollView
       style={[styles.root, style]}
       contentContainerStyle={styles.content}
       showsVerticalScrollIndicator={false}
     >
-      {/* ── Header ── */}
-      <View style={[styles.header, { borderLeftColor: accentColor }]}>
-        <Text style={styles.headerSpecies}>{SPECIES_DISPLAY[result.species]}</Text>
-        <View style={styles.headerMeta}>
-          <Text style={[styles.headerContext, { color: accentColor }]}>
-            {contextLabel(result.context)}
-          </Text>
-          <View style={styles.headerDot} />
+      {/* ── Header card ── */}
+      <View style={[styles.headerCard, shadows.sm]}>
+        {/* Context + water clarity row */}
+        <View style={styles.headerTopRow}>
+          <View style={[styles.contextBadge, { backgroundColor: accentColor + '18', borderColor: accentColor + '40' }]}>
+            <Ionicons name={contextIcon(result.context) as never} size={12} color={accentColor} />
+            <Text style={[styles.contextBadgeText, { color: accentColor }]}>
+              {contextLabel(result.context)}
+            </Text>
+          </View>
           <Text style={styles.headerClarity}>
             {WATER_CLARITY_LABELS[result.water_clarity]} water
           </Text>
+          <View style={[styles.confBadge, { backgroundColor: confColor + '18', borderColor: confColor + '40' }]}>
+            <View style={[styles.confDot, { backgroundColor: confColor }]} />
+            <Text style={[styles.confBadgeText, { color: confColor }]}>
+              {confidenceLabel(result.confidence.tier)}
+            </Text>
+          </View>
         </View>
+
+        {/* Species name */}
+        <Text style={styles.headerSpecies}>{SPECIES_DISPLAY[result.species]}</Text>
+
+        {/* Confidence reasons */}
+        {result.confidence.reasons.length > 0 && (
+          <Text style={styles.headerConfReason} numberOfLines={2}>
+            {result.confidence.reasons[0]}
+          </Text>
+        )}
       </View>
 
       {/* ── Behavior summary ── */}
@@ -301,7 +321,7 @@ export function RecommenderView({ result, style }: Props) {
       {/* ── Gear tabs ── */}
       <GearTabs active={gearTab} onChange={setGearTab} accentColor={accentColor} />
 
-      {/* ── Family scope note for fly / trout ── */}
+      {/* ── Trout streamers note ── */}
       {gearTab === 'fly' && result.species === 'river_trout' && (
         <View style={styles.scopeNote}>
           <Ionicons name="information-circle-outline" size={14} color={colors.textMuted} />
@@ -315,8 +335,8 @@ export function RecommenderView({ result, style }: Props) {
       {families.length === 0 ? (
         <View style={styles.emptyState}>
           <Text style={styles.emptyStateText}>
-            No {gearTab === 'lure' ? 'lure' : 'fly'} families matched this species + context
-            combination. Try a different context or species.
+            No {gearTab === 'lure' ? 'lure' : 'fly'} families matched this species + context.
+            Try a different context or species.
           </Text>
         </View>
       ) : (
@@ -329,12 +349,6 @@ export function RecommenderView({ result, style }: Props) {
           />
         ))
       )}
-
-      {/* ── Confidence footer ── */}
-      <ConfidenceFooter
-        tier={result.confidence.tier}
-        reasons={result.confidence.reasons}
-      />
 
       {/* ── Generated note ── */}
       <Text style={styles.generatedNote}>
@@ -357,71 +371,115 @@ const styles = StyleSheet.create({
   content: {
     paddingHorizontal: spacing.md,
     paddingTop: spacing.md,
-    paddingBottom: spacing.xxl,
+    paddingBottom: 48,
     gap: spacing.md,
   },
 
-  // Header
-  header: {
-    borderLeftWidth: 4,
-    paddingLeft: spacing.md,
-    paddingVertical: spacing.xs,
+  // Header card
+  headerCard: {
+    backgroundColor: colors.surface,
+    borderRadius: radius.lg,
+    padding: spacing.md,
+    borderWidth: 1,
+    borderColor: colors.borderLight,
+    gap: 8,
   },
-  headerSpecies: {
-    fontFamily: fonts.serifBold,
-    fontSize: 22,
-    color: colors.text,
-  },
-  headerMeta: {
+  headerTopRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: spacing.xs,
-    marginTop: 2,
+    gap: 8,
+    flexWrap: 'wrap',
   },
-  headerContext: {
+  contextBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    paddingHorizontal: 9,
+    paddingVertical: 4,
+    borderRadius: radius.full,
+    borderWidth: 1,
+  },
+  contextBadgeText: {
     fontFamily: fonts.bodySemiBold,
-    fontSize: 13,
-  },
-  headerDot: {
-    width: 3,
-    height: 3,
-    borderRadius: 99,
-    backgroundColor: colors.textMuted,
+    fontSize: 12,
   },
   headerClarity: {
     fontFamily: fonts.body,
-    fontSize: 13,
+    fontSize: 12,
     color: colors.textMuted,
+    flex: 1,
+  },
+  confBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
+    paddingHorizontal: 9,
+    paddingVertical: 4,
+    borderRadius: radius.full,
+    borderWidth: 1,
+  },
+  confDot: {
+    width: 6,
+    height: 6,
+    borderRadius: 99,
+  },
+  confBadgeText: {
+    fontFamily: fonts.bodySemiBold,
+    fontSize: 12,
+  },
+  headerSpecies: {
+    fontFamily: fonts.serifBold,
+    fontSize: 24,
+    color: colors.text,
+    lineHeight: 28,
+  },
+  headerConfReason: {
+    fontFamily: fonts.body,
+    fontSize: 13,
+    color: colors.textSecondary,
+    lineHeight: 18,
   },
 
   // Behavior summary
   behaviorCard: {
     backgroundColor: colors.surface,
-    borderRadius: radius.md,
+    borderRadius: radius.lg,
     padding: spacing.md,
     borderWidth: 1,
     borderColor: colors.borderLight,
+    gap: 8,
+  },
+  behaviorTitleRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 7,
+    marginBottom: 2,
+  },
+  behaviorTitleDot: {
+    width: 8,
+    height: 8,
+    borderRadius: 99,
+    backgroundColor: colors.primaryLight,
   },
   behaviorTitle: {
     fontFamily: fonts.bodySemiBold,
-    fontSize: 12,
+    fontSize: 11,
     color: colors.textMuted,
     textTransform: 'uppercase',
-    letterSpacing: 0.6,
-    marginBottom: spacing.sm,
+    letterSpacing: 0.7,
   },
   behaviorLine: {
     flexDirection: 'row',
     alignItems: 'flex-start',
     gap: spacing.sm,
-    marginBottom: 6,
   },
-  behaviorDot: {
+  behaviorBullet: {
     width: 5,
     height: 5,
     borderRadius: 99,
     backgroundColor: colors.primaryLight,
     marginTop: 7,
+    flexShrink: 0,
   },
   behaviorText: {
     flex: 1,
@@ -434,7 +492,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'flex-start',
     gap: 6,
-    marginTop: spacing.sm,
+    marginTop: 4,
     paddingTop: spacing.sm,
     borderTopWidth: 1,
     borderTopColor: colors.borderLight,
@@ -485,7 +543,7 @@ const styles = StyleSheet.create({
   // Family card
   familyCard: {
     backgroundColor: colors.surface,
-    borderRadius: radius.md,
+    borderRadius: radius.lg,
     overflow: 'hidden',
     borderWidth: 1,
     borderColor: colors.borderLight,
@@ -505,17 +563,15 @@ const styles = StyleSheet.create({
     marginBottom: 4,
   },
   familyRankBadge: {
-    backgroundColor: colors.backgroundAlt,
     borderRadius: radius.full,
-    width: 22,
-    height: 22,
+    width: 26,
+    height: 26,
     alignItems: 'center',
     justifyContent: 'center',
   },
   familyRankText: {
     fontFamily: fonts.bodySemiBold,
-    fontSize: 11,
-    color: colors.textSecondary,
+    fontSize: 12,
   },
   familyName: {
     flex: 1,
@@ -525,9 +581,9 @@ const styles = StyleSheet.create({
   },
   scorePill: {
     borderRadius: radius.full,
-    borderWidth: 1.5,
-    paddingHorizontal: 8,
-    paddingVertical: 2,
+    borderWidth: 1,
+    paddingHorizontal: 9,
+    paddingVertical: 3,
   },
   scorePillText: {
     fontFamily: fonts.bodySemiBold,
@@ -537,36 +593,51 @@ const styles = StyleSheet.create({
     fontFamily: fonts.bodyItalic,
     fontSize: 12,
     color: colors.textMuted,
-    marginBottom: spacing.sm,
-  },
-  familyDivider: {
-    height: 1,
-    backgroundColor: colors.borderLight,
-    marginBottom: spacing.sm,
+    marginBottom: 4,
   },
 
-  // Factor rows
-  factorRow: {
+  // Details toggle
+  detailsToggle: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    marginTop: 6,
+  },
+  detailsToggleText: {
+    fontFamily: fonts.bodySemiBold,
+    fontSize: 13,
+  },
+
+  // Expanded details
+  detailsExpanded: {
+    marginTop: 4,
+    gap: 10,
+  },
+  detailsDivider: {
+    height: 1,
+    backgroundColor: colors.borderLight,
+    marginVertical: 4,
+  },
+  detailRow: {
     flexDirection: 'row',
     alignItems: 'flex-start',
     gap: spacing.sm,
-    marginBottom: 8,
   },
-  factorIcon: {
-    marginTop: 1,
+  detailIcon: {
+    marginTop: 2,
   },
-  factorTextBlock: {
+  detailTextBlock: {
     flex: 1,
   },
-  factorLabel: {
+  detailLabel: {
     fontFamily: fonts.bodySemiBold,
     fontSize: 11,
     color: colors.textMuted,
     textTransform: 'uppercase',
     letterSpacing: 0.4,
-    marginBottom: 1,
+    marginBottom: 2,
   },
-  factorText: {
+  detailText: {
     fontFamily: fonts.body,
     fontSize: 14,
     color: colors.text,
@@ -584,37 +655,6 @@ const styles = StyleSheet.create({
     color: colors.textMuted,
     textAlign: 'center',
     lineHeight: 20,
-  },
-
-  // Confidence
-  confidenceCard: {
-    backgroundColor: colors.backgroundAlt,
-    borderRadius: radius.md,
-    padding: spacing.md,
-    borderWidth: 1,
-    borderColor: colors.border,
-  },
-  confidenceHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: spacing.sm,
-    marginBottom: spacing.sm,
-  },
-  confidenceDot: {
-    width: 8,
-    height: 8,
-    borderRadius: 99,
-  },
-  confidenceLabel: {
-    fontFamily: fonts.bodySemiBold,
-    fontSize: 13,
-  },
-  confidenceReason: {
-    fontFamily: fonts.body,
-    fontSize: 13,
-    color: colors.textSecondary,
-    lineHeight: 19,
-    marginBottom: 3,
   },
 
   // Footer
