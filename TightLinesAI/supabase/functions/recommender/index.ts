@@ -145,7 +145,7 @@ Deno.serve(async (req: Request) => {
   }
 
   // ── State × species gate ──────────────────────────────────────────────────
-  if (!isSpeciesValidForState(species as SpeciesGroup, state_code, context as EngineContext)) {
+  if (!isSpeciesValidForState(state_code, species as SpeciesGroup, context as EngineContext)) {
     return jsonError(
       `Species '${species}' is not available in ${state_code} for context '${context}'.`,
       "species_not_available",

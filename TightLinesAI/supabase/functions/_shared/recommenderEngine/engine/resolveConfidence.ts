@@ -114,7 +114,7 @@ export function resolveConfidence(
   analysis: SharedConditionAnalysis,
   species_display_name: string,
 ): RecommenderConfidence {
-  const availability_tier = getSpeciesTierForState(req.species, req.location.state_code, req.context);
+  const availability_tier = getSpeciesTierForState(req.location.state_code, req.species);
   const missing_vars = analysis.condition_context.missing_variables ?? [];
 
   // Score components (0–2 each)
