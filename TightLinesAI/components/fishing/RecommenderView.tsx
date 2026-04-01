@@ -142,7 +142,7 @@ function FamilyCard({
           <View style={[styles.familyRankBadge, { backgroundColor: accentColor + '1A' }]}>
             <Text style={[styles.familyRankText, { color: accentColor }]}>#{rank}</Text>
           </View>
-          <Text style={styles.familyName} numberOfLines={1}>
+          <Text style={styles.familyName} numberOfLines={2}>
             {family.display_name}
           </Text>
           <ScorePill score={family.score} />
@@ -150,7 +150,7 @@ function FamilyCard({
 
         {/* Examples */}
         {family.examples.length > 0 && (
-          <Text style={styles.familyExamples} numberOfLines={1}>
+          <Text style={styles.familyExamples} numberOfLines={2}>
             e.g. {family.examples.slice(0, 3).join(' · ')}
           </Text>
         )}

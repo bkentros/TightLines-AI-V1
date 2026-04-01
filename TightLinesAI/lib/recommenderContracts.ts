@@ -4,6 +4,8 @@
  * Deno/edge-function module system.
  */
 
+import { STATE_SPECIES_CONTEXTS as GENERATED_STATE_SPECIES_CONTEXTS } from './generated/recommenderStateSpecies';
+
 export const RECOMMENDER_FEATURE = "recommender_v1" as const;
 
 export type SpeciesGroup =
@@ -98,68 +100,10 @@ export const SPECIES_WATER_TYPE: Record<SpeciesGroup, SpeciesWaterType> = {
 // Mirrors supabase/functions/_shared/recommenderEngine/config/stateSpeciesGating.ts
 // Keep in sync when the backend map changes.
 
-const L  = ["freshwater_lake_pond"] as EngineContext[];
-const R  = ["freshwater_river"] as EngineContext[];
-const LR = ["freshwater_lake_pond", "freshwater_river"] as EngineContext[];
-const C  = ["coastal", "coastal_flats_estuary"] as EngineContext[];
-const CO = ["coastal"] as EngineContext[];
-const LCO = ["freshwater_lake_pond", "coastal"] as EngineContext[];
-const RCO = ["freshwater_river", "coastal"] as EngineContext[];
-
 export type StateSpeciesContexts = Partial<Record<SpeciesGroup, EngineContext[]>>;
 
-export const STATE_SPECIES_CONTEXTS: Record<string, StateSpeciesContexts> = {
-  AL: { largemouth_bass: LR, smallmouth_bass: R, walleye: L, striped_bass: L, redfish: C, seatrout: C },
-  AK: { river_trout: R, pike_musky: L },
-  AZ: { largemouth_bass: L, smallmouth_bass: LR, striped_bass: L, walleye: L },
-  AR: { largemouth_bass: LR, smallmouth_bass: R, walleye: LR, striped_bass: L },
-  CA: { largemouth_bass: L, smallmouth_bass: LR, river_trout: R, striped_bass: RCO, walleye: L },
-  CO: { largemouth_bass: L, smallmouth_bass: LR, river_trout: R, walleye: L, pike_musky: LR },
-  CT: { largemouth_bass: LR, smallmouth_bass: LR, river_trout: R, walleye: L, striped_bass: CO },
-  DE: { largemouth_bass: LR, smallmouth_bass: R, striped_bass: CO, seatrout: CO },
-  FL: { largemouth_bass: LR, striped_bass: L, redfish: C, snook: C, seatrout: C, tarpon: C },
-  GA: { largemouth_bass: LR, smallmouth_bass: R, striped_bass: L, walleye: L, redfish: C, seatrout: C, tarpon: CO },
-  HI: { largemouth_bass: L },
-  ID: { largemouth_bass: L, smallmouth_bass: LR, river_trout: R, walleye: L, pike_musky: L },
-  IL: { largemouth_bass: LR, smallmouth_bass: R, walleye: LR, pike_musky: LR, striped_bass: L },
-  IN: { largemouth_bass: LR, smallmouth_bass: LR, walleye: LR, pike_musky: LR },
-  IA: { largemouth_bass: LR, smallmouth_bass: R, walleye: LR, pike_musky: LR },
-  KS: { largemouth_bass: L, smallmouth_bass: R, walleye: L, striped_bass: L },
-  KY: { largemouth_bass: LR, smallmouth_bass: LR, walleye: L, striped_bass: L, pike_musky: L },
-  LA: { largemouth_bass: LR, striped_bass: L, redfish: C, seatrout: C, snook: C, tarpon: CO },
-  ME: { largemouth_bass: LR, smallmouth_bass: LR, river_trout: R, walleye: L, pike_musky: L, striped_bass: CO },
-  MD: { largemouth_bass: LR, smallmouth_bass: LR, walleye: L, striped_bass: RCO, seatrout: CO, redfish: CO },
-  MA: { largemouth_bass: LR, smallmouth_bass: LR, river_trout: R, walleye: L, pike_musky: L, striped_bass: CO },
-  MI: { largemouth_bass: LR, smallmouth_bass: LR, river_trout: R, walleye: LR, pike_musky: LR },
-  MN: { largemouth_bass: LR, smallmouth_bass: LR, river_trout: R, walleye: LR, pike_musky: LR },
-  MS: { largemouth_bass: LR, striped_bass: L, redfish: C, seatrout: C },
-  MO: { largemouth_bass: LR, smallmouth_bass: R, walleye: LR, pike_musky: L, striped_bass: L },
-  MT: { largemouth_bass: L, smallmouth_bass: LR, river_trout: R, walleye: L, pike_musky: LR },
-  NE: { largemouth_bass: L, smallmouth_bass: R, walleye: LR, pike_musky: L, striped_bass: L },
-  NV: { largemouth_bass: L, smallmouth_bass: LR, walleye: L, striped_bass: L },
-  NH: { largemouth_bass: LR, smallmouth_bass: LR, river_trout: R, walleye: L, pike_musky: L, striped_bass: CO },
-  NJ: { largemouth_bass: LR, smallmouth_bass: LR, river_trout: R, walleye: L, pike_musky: L, striped_bass: CO, seatrout: CO },
-  NM: { largemouth_bass: L, smallmouth_bass: LR, river_trout: R, walleye: L },
-  NY: { largemouth_bass: LR, smallmouth_bass: LR, river_trout: R, walleye: LR, pike_musky: LR, striped_bass: CO },
-  NC: { largemouth_bass: LR, smallmouth_bass: R, river_trout: R, walleye: L, striped_bass: LCO, redfish: C, seatrout: C, tarpon: CO },
-  ND: { largemouth_bass: L, smallmouth_bass: R, walleye: LR, pike_musky: LR },
-  OH: { largemouth_bass: LR, smallmouth_bass: LR, river_trout: R, walleye: LR, pike_musky: LR, striped_bass: L },
-  OK: { largemouth_bass: LR, smallmouth_bass: R, walleye: L, striped_bass: L },
-  OR: { largemouth_bass: LR, smallmouth_bass: LR, river_trout: R, walleye: L, striped_bass: RCO },
-  PA: { largemouth_bass: LR, smallmouth_bass: LR, river_trout: R, walleye: LR, pike_musky: LR, striped_bass: CO },
-  RI: { largemouth_bass: LR, smallmouth_bass: LR, river_trout: R, striped_bass: CO },
-  SC: { largemouth_bass: LR, smallmouth_bass: R, walleye: L, striped_bass: LCO, redfish: C, seatrout: C, tarpon: CO },
-  SD: { largemouth_bass: L, smallmouth_bass: R, walleye: LR, pike_musky: LR },
-  TN: { largemouth_bass: LR, smallmouth_bass: LR, walleye: L, striped_bass: L, river_trout: R },
-  TX: { largemouth_bass: LR, smallmouth_bass: R, walleye: L, striped_bass: L, redfish: C, seatrout: C, snook: C, tarpon: CO },
-  UT: { largemouth_bass: L, smallmouth_bass: LR, river_trout: R, walleye: L, striped_bass: L },
-  VT: { largemouth_bass: LR, smallmouth_bass: LR, river_trout: R, walleye: L, pike_musky: L },
-  VA: { largemouth_bass: LR, smallmouth_bass: LR, river_trout: R, walleye: L, striped_bass: LCO, redfish: CO, seatrout: CO },
-  WA: { largemouth_bass: LR, smallmouth_bass: LR, river_trout: R, walleye: L, striped_bass: CO },
-  WV: { largemouth_bass: LR, smallmouth_bass: R, river_trout: R, walleye: LR, pike_musky: L },
-  WI: { largemouth_bass: LR, smallmouth_bass: LR, river_trout: R, walleye: LR, pike_musky: LR },
-  WY: { largemouth_bass: L, smallmouth_bass: LR, river_trout: R, walleye: L, pike_musky: L },
-};
+export const STATE_SPECIES_CONTEXTS: Record<string, StateSpeciesContexts> =
+  GENERATED_STATE_SPECIES_CONTEXTS as unknown as Record<string, StateSpeciesContexts>;
 
 /**
  * Returns the species available in a given state, across any valid context.
@@ -245,6 +189,13 @@ export type RankedFamily = {
   display_name: string;
   examples: string[];
   score: number;
+  score_reasons: string[];
+  score_breakdown?: Array<{
+    code: string;
+    direction: "bonus" | "penalty";
+    weight: number;
+    detail: string;
+  }>;
   why_picked: string;
   how_to_fish: string;
   best_when: string;

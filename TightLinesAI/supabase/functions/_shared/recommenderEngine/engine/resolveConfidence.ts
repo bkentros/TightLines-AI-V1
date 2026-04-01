@@ -19,6 +19,7 @@ import type { ActivityLevel, BehaviorOutput, SeasonalFlag } from "../contracts/b
 import type { RecommenderConfidence, RecommenderConfidenceTier } from "../contracts/output.ts";
 import type { RecommenderRequest } from "../contracts/input.ts";
 import { getSpeciesTierForState } from "../config/stateSpeciesGating.ts";
+import type { ScoredFamily } from "./scoreFamilies.ts";
 
 // ─── Confidence tier logic ────────────────────────────────────────────────────
 
@@ -67,6 +68,8 @@ function buildReasons(
   activity: ActivityLevel,
   missing_vars: string[],
   species_display: string,
+  recommendation_robustness: number,
+  penalty_pressure: number,
 ): string[] {
   const reasons: string[] = [];
 
@@ -79,6 +82,9 @@ function buildReasons(
   }
   if (activity === "active" || activity === "aggressive") {
     reasons.push("Conditions support good feeding activity.");
+  }
+  if (recommendation_robustness >= 2) {
+    reasons.push("Top families separate clearly from the backup options.");
   }
 
   // Caution reasons
@@ -97,6 +103,12 @@ function buildReasons(
   if (missing_vars.length > 0) {
     reasons.push("Some environmental data unavailable — recommendation is based on typical conditions.");
   }
+  if (recommendation_robustness === 0) {
+    reasons.push("Top families are close together — presentation details matter more than usual.");
+  }
+  if (penalty_pressure >= 2) {
+    reasons.push("Even the leading families still carry condition tradeoffs.");
+  }
 
   // Fallback
   if (reasons.length === 0) {
@@ -106,6 +118,35 @@ function buildReasons(
   return reasons;
 }
 
+function recommendationRobustness(rankings: ScoredFamily[]): number {
+  if (rankings.length === 0) return 0;
+  const winner = rankings[0]!;
+  const runnerUp = rankings[1];
+  const gap = runnerUp ? winner.score - runnerUp.score : winner.score;
+  const penaltyCount = winner.breakdown.filter((item) => item.direction === "penalty").length;
+
+  if (winner.score >= 80 && gap >= 10 && penaltyCount <= 1) return 2;
+  if (winner.score >= 65 && gap >= 5 && penaltyCount <= 2) return 1;
+  return 0;
+}
+
+function averageRobustness(lure_rankings: ScoredFamily[], fly_rankings: ScoredFamily[]): number {
+  const scores = [lure_rankings, fly_rankings]
+    .map(recommendationRobustness)
+    .filter((value) => Number.isFinite(value));
+  if (scores.length === 0) return 0;
+  return Math.round(scores.reduce((sum, value) => sum + value, 0) / scores.length);
+}
+
+function penaltyPressure(lure_rankings: ScoredFamily[], fly_rankings: ScoredFamily[]): number {
+  const winners = [lure_rankings[0], fly_rankings[0]].filter(Boolean) as ScoredFamily[];
+  if (winners.length === 0) return 0;
+  return Math.round(
+    winners.reduce((sum, family) => sum + family.breakdown.filter((item) => item.direction === "penalty").length, 0) /
+      winners.length,
+  );
+}
+
 // ─── Main resolver ────────────────────────────────────────────────────────────
 
 export function resolveConfidence(
@@ -113,9 +154,13 @@ export function resolveConfidence(
   behavior: BehaviorOutput,
   analysis: SharedConditionAnalysis,
   species_display_name: string,
+  lure_rankings: ScoredFamily[],
+  fly_rankings: ScoredFamily[],
 ): RecommenderConfidence {
   const availability_tier = getSpeciesTierForState(req.location.state_code, req.species);
   const missing_vars = analysis.condition_context.missing_variables ?? [];
+  const recommendation_robustness = averageRobustness(lure_rankings, fly_rankings);
+  const top_penalty_pressure = penaltyPressure(lure_rankings, fly_rankings);
 
   // Score components (0–2 each)
   const tier_score = availability_tier === "primary" ? 2 : availability_tier === "marginal" ? 1 : 0;
@@ -123,14 +168,15 @@ export function resolveConfidence(
   const activity_s = activityScore(behavior.activity);
   const data_score = missing_vars.length === 0 ? 2 : missing_vars.length <= 2 ? 1 : 0;
   const temp_s = tempGateScore(analysis, behavior.activity);
+  const robustness_score = recommendation_robustness;
 
-  const total = tier_score + season_score + activity_s + data_score + temp_s;
-  // Max possible: 2+2+2+2+1 = 9
+  const total = tier_score + season_score + activity_s + data_score + temp_s + robustness_score;
+  // Max possible: 2+2+2+2+1+2 = 11
 
   let confidence_tier: RecommenderConfidenceTier;
-  if (total >= 7) {
+  if (total >= 8) {
     confidence_tier = "high";
-  } else if (total >= 4) {
+  } else if (total >= 5) {
     confidence_tier = "medium";
   } else {
     confidence_tier = "low";
@@ -148,6 +194,8 @@ export function resolveConfidence(
     behavior.activity,
     missing_vars,
     species_display_name,
+    recommendation_robustness,
+    top_penalty_pressure,
   );
 
   return { tier: confidence_tier, reasons };

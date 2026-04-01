@@ -3,7 +3,7 @@
  * Clarity × forage mode × light/time-of-day → ColorFamily.
  *
  * Logic priority:
- *   1. Dirty water → chartreuse_white always wins (visibility beats everything)
+ *   1. Dirty water still needs visibility, but forage family keeps mattering
  *   2. Forage mode anchors the base color
  *   3. Stained water shifts baitfish away from silver toward gold/amber
  *   4. Low light (overcast or dawn/dusk flag) → dark silhouette for most
@@ -50,9 +50,16 @@ export function resolveColorFamily(
   species: SpeciesGroup,
 ): ColorFamily {
 
-  // 1. Dirty water — visibility wins everything
+  // 1. Dirty water — visibility matters, but forage family still matters.
   if (water_clarity === "dirty") {
-    return "chartreuse_white";
+    if (forage_mode === "baitfish" || forage_mode === "surface_prey") {
+      return "chartreuse_white";
+    }
+    if (forage_mode === "crawfish") return "craw_pattern";
+    if (forage_mode === "shrimp") return "shrimp_tan";
+    if (forage_mode === "crab") return "crab_olive";
+    if (forage_mode === "leech") return "dark_silhouette";
+    return "gold_amber";
   }
 
   // 2. Start with forage-anchored base
@@ -74,8 +81,7 @@ export function resolveColorFamily(
     light_label === "heavy_overcast" &&
     forage_mode !== "crab" &&
     forage_mode !== "shrimp" &&
-    forage_mode !== "crawfish" &&
-    water_clarity !== "dirty"
+    forage_mode !== "crawfish"
   ) {
     color = "dark_silhouette";
   }

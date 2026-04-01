@@ -66,11 +66,11 @@ export function runRecommender(req: RecommenderRequest): RecommenderResponse {
 
   // 5. Score families
   const lure_scored = topN(
-    scoreLureFamilies(behavior, presentation, req.species, req.context),
+    scoreLureFamilies(behavior, presentation, req.species, req.context, req.water_clarity),
     3,
   );
   const fly_scored = topN(
-    scoreFlyFamilies(behavior, presentation, req.species, req.context),
+    scoreFlyFamilies(behavior, presentation, req.species, req.context, req.water_clarity),
     3,
   );
 
@@ -80,19 +80,30 @@ export function runRecommender(req: RecommenderRequest): RecommenderResponse {
     behavior,
     presentation,
     req.species,
+    req.context,
     req.location.local_date,
+    req.water_clarity,
   );
   const fly_rankings = buildExplanations(
     fly_scored,
     behavior,
     presentation,
     req.species,
+    req.context,
     req.location.local_date,
+    req.water_clarity,
   );
 
   // 7. Resolve confidence
   const species_display = SPECIES_META[req.species].display_name;
-  const confidence = resolveConfidence(req, behavior, analysis, species_display);
+  const confidence = resolveConfidence(
+    req,
+    behavior,
+    analysis,
+    species_display,
+    lure_scored,
+    fly_scored,
+  );
 
   // 8. Timing passthrough from shared analysis
   const timing = {

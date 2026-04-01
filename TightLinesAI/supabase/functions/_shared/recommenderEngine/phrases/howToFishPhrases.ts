@@ -118,6 +118,14 @@ export const HOW_TO_FISH_FAMILY_OVERRIDE: Partial<
     "Contact bottom deliberately — the deflection off rocks and wood triggers bites.",
     "Crank it down, then vary the speed and pause after every deflection.",
   ],
+  jerkbait: [
+    "Twitch-twitch-pause. Let the bait hang long enough for fish to commit.",
+    "Sharp downward snaps with slack line, then a full pause between moves.",
+    "Work it like a wounded baitfish: two snaps, pause, then one quick twitch.",
+    "Twitch it over grass or around cover, letting it glide and stall in place.",
+    "Vary pause length until fish tell you what cadence they want.",
+    "Snap it hard, feed a touch of slack, and let it suspend like a stunned shad.",
+  ],
   spinnerbait: [
     "Slow-roll along the bottom or burn just beneath the surface.",
     "Helicopter the blades down walls of wood or rock structure.",

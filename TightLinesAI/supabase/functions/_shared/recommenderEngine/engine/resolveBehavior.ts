@@ -10,6 +10,7 @@
  */
 
 import type { SharedConditionAnalysis } from "../../howFishingEngine/analyzeSharedConditions.ts";
+import { pickDeterministic } from "../../howFishingEngine/copy/deterministicPick.ts";
 import type {
   ActivityLevel,
   AggressionLevel,
@@ -44,6 +45,19 @@ function activityFromIndex(i: number): ActivityLevel {
   return ACTIVITY_LEVELS[Math.max(0, Math.min(4, i))];
 }
 
+function shiftDepth(depth: DepthLane, delta: number): DepthLane {
+  const ordered: DepthLane[] = ["surface", "upper", "mid", "near_bottom", "bottom"];
+  const next = ordered.indexOf(depth) + delta;
+  return ordered[Math.max(0, Math.min(ordered.length - 1, next))]!;
+}
+
+function shiftSpeed(speed: SpeedPreference, delta: number): SpeedPreference {
+  const ordered: SpeedPreference[] = ["dead_slow", "slow", "moderate", "fast", "vary"];
+  if (speed === "vary") return "vary";
+  const next = ordered.indexOf(speed) + delta;
+  return ordered[Math.max(0, Math.min(3, next))]!;
+}
+
 // ─── Topwater threshold ───────────────────────────────────────────────────────
 
 const TOPWATER_TEMP_FLOOR_F = 58; // Below this, topwater is suppressed for all species
@@ -54,6 +68,7 @@ function activityLine(
   activity: ActivityLevel,
   depth: DepthLane,
   seasonal_flag: string | undefined,
+  seed: string,
 ): string {
   const depthLabel: Record<DepthLane, string> = {
     surface: "near the surface",
@@ -70,13 +85,29 @@ function activityLine(
     aggressive: "Aggressively feeding",
   };
   const base = `${actLabel[activity]} ${depthLabel[depth]}.`;
-  if (seasonal_flag === "spawning") return `${base} In or near spawning areas.`;
-  if (seasonal_flag === "pre_spawn") return `${base} Staging pre-spawn.`;
-  if (seasonal_flag === "post_spawn") return `${base} Recovering post-spawn.`;
-  return base;
+  const seasonalTail =
+    seasonal_flag === "spawning"
+      ? "In or near spawning areas."
+      : seasonal_flag === "pre_spawn"
+      ? "Staging pre-spawn."
+      : seasonal_flag === "post_spawn"
+      ? "Recovering post-spawn."
+      : seasonal_flag === "peak_season"
+      ? "Holding in a prime seasonal feeding window."
+      : seasonal_flag === "off_season"
+      ? "Operating in a tougher seasonal window."
+      : null;
+
+  const variants = [
+    seasonalTail ? `${base} ${seasonalTail}` : base,
+    seasonalTail ? `${actLabel[activity]} and set up ${depthLabel[depth]}. ${seasonalTail}` : `${actLabel[activity]} and set up ${depthLabel[depth]}.`,
+    seasonalTail ? `${depthLabel[depth][0]!.toUpperCase()}${depthLabel[depth].slice(1)} is the key zone right now. ${seasonalTail}` : `${depthLabel[depth][0]!.toUpperCase()}${depthLabel[depth].slice(1)} is the key zone right now.`,
+  ];
+
+  return pickDeterministic(variants, seed, `activity:${activity}:${depth}:${seasonal_flag ?? "none"}`);
 }
 
-function forageLine(primary: ForageMode, secondary?: ForageMode): string {
+function forageLine(primary: ForageMode, secondary: ForageMode | undefined, seed: string): string {
   const forageLabel: Record<ForageMode, string> = {
     baitfish: "baitfish and shad",
     shrimp: "shrimp",
@@ -88,9 +119,25 @@ function forageLine(primary: ForageMode, secondary?: ForageMode): string {
   };
   const primary_text = forageLabel[primary];
   if (secondary && secondary !== primary) {
-    return `Keying on ${primary_text} with some interest in ${forageLabel[secondary]}.`;
+    return pickDeterministic(
+      [
+        `Keying on ${primary_text} with some interest in ${forageLabel[secondary]}.`,
+        `Primary forage looks like ${primary_text}, with a secondary look at ${forageLabel[secondary]}.`,
+        `Most fish should be tuned to ${primary_text}, but ${forageLabel[secondary]} is still in play.`,
+      ],
+      seed,
+      `forage:${primary}:${secondary}`,
+    );
   }
-  return `Keying primarily on ${primary_text}.`;
+  return pickDeterministic(
+    [
+      `Keying primarily on ${primary_text}.`,
+      `Forage focus is mostly ${primary_text}.`,
+      `The cleanest food cue right now is ${primary_text}.`,
+    ],
+    seed,
+    `forage:${primary}:none`,
+  );
 }
 
 function triggerLine(
@@ -99,12 +146,57 @@ function triggerLine(
   chase: ChaseRadius,
   speed: SpeedPreference,
   topwater: boolean,
+  forage: ForageMode,
+  depth: DepthLane,
+  seed: string,
 ): string {
   if (activity === "inactive" || activity === "low") {
-    return "Slow finesse presentation tight to cover most likely to draw a strike.";
+    const bottomForage = forage === "crab" || forage === "shrimp" || forage === "crawfish";
+    return pickDeterministic(
+      bottomForage
+        ? [
+          "Keep it slow and close to bottom-oriented cover to draw the bite.",
+          "A low, patient presentation around bottom cover is the best trigger here.",
+          "Drag or crawl it through the feeding lane instead of forcing a chase.",
+        ]
+        : [
+          "Slow finesse presentation tight to cover most likely to draw a strike.",
+          "Keep it slow, controlled, and close to the fish rather than making them chase.",
+          "Short moves and long pauses should outproduce a fast retrieve here.",
+        ],
+      seed,
+      `trigger:slow:${activity}:${forage}:${depth}`,
+    );
   }
-  if (topwater && (activity === "aggressive" || activity === "active")) {
-    return "Surface presentations viable — target transitions and edges.";
+  if (
+    topwater &&
+    (activity === "aggressive" || activity === "active") &&
+    (depth === "surface" || depth === "upper") &&
+    forage !== "crab" &&
+    forage !== "shrimp" &&
+    forage !== "crawfish"
+  ) {
+    return pickDeterministic(
+      [
+        "Surface presentations are in play — target transitions and edges.",
+        "A topwater window is open if fish keep tracking high in the column.",
+        "Look for fish willing to rise on a surface-style presentation around edges and lanes.",
+      ],
+      seed,
+      `trigger:topwater:${activity}:${forage}:${depth}`,
+    );
+  }
+
+  if ((forage === "crab" || forage === "shrimp" || forage === "crawfish") && (depth === "near_bottom" || depth === "bottom")) {
+    return pickDeterministic(
+      [
+        "Stay low in the water column and fish it with a bottom-first cadence.",
+        "Bottom-oriented forage means keeping the presentation down and in their path.",
+        "Work the lure or fly through the lower feeding lane instead of pulling fish high.",
+      ],
+      seed,
+      `trigger:bottom-forage:${activity}:${forage}:${depth}`,
+    );
   }
   const chaseLabel: Record<ChaseRadius, string> = {
     short: "Won't chase far",
@@ -118,7 +210,15 @@ function triggerLine(
     fast: "faster retrieves",
     vary: "varying retrieves",
   };
-  return `${chaseLabel[chase]} — ${speedLabel[speed]} in the ${strike_zone} strike zone.`;
+  return pickDeterministic(
+    [
+      `${chaseLabel[chase]} — ${speedLabel[speed]} in the ${strike_zone} strike zone.`,
+      `${speedLabel[speed][0]!.toUpperCase()}${speedLabel[speed].slice(1)} should fit fish willing to move a ${chase} distance.`,
+      `Fish should respond best to ${speedLabel[speed]} worked through a ${strike_zone} strike window.`,
+    ],
+    seed,
+    `trigger:general:${activity}:${strike_zone}:${chase}:${speed}`,
+  );
 }
 
 // ─── Main resolver ────────────────────────────────────────────────────────────
@@ -127,6 +227,7 @@ export function resolveBehavior(
   req: RecommenderRequest,
   analysis: SharedConditionAnalysis,
 ): BehaviorOutput {
+  const summary_seed = `${req.location.local_date}|${req.species}|${req.context}|${req.water_clarity}`;
   const region_group = getSpeciesRegionGroup(req.location.region_key, req.context);
   const baseline =
     getSpeciesProfile(req.species, region_group, req.location.month) ??
@@ -168,7 +269,12 @@ export function resolveBehavior(
 
   const temp_norm = analysis.norm.normalized.temperature;
   const metabolic_ctx = analysis.condition_context.temperature_metabolic_context;
+  const temperature_band = analysis.condition_context.temperature_band;
+  const temperature_trend = analysis.condition_context.temperature_trend;
+  const temperature_shock = analysis.condition_context.temperature_shock;
+  const temperature_score = temp_norm?.final_score ?? null;
   const water_temp_f = temp_norm?.measurement_value_f ?? null;
+  const pressure_label = analysis.norm.normalized.pressure_regime?.label ?? null;
 
   // Hard temp gates: snook, tarpon, river_trout, striped_bass
   const temp_floor = baseline.temp_floor_f;
@@ -206,6 +312,33 @@ export function resolveBehavior(
     }
   }
 
+  // Daily thermal changes matter even inside the same seasonal window.
+  if (activity !== "inactive") {
+    if (temperature_shock === "sharp_cooldown") {
+      activity = activityFromIndex(activityIndex(activity) - 1);
+      strike_zone = "narrow";
+      chase = "short";
+      speed = shiftSpeed(speed, -1);
+      depth = shiftDepth(depth, +1);
+      topwater_viable = false;
+    } else if (temperature_shock === "sharp_warmup" && temperature_band !== "very_warm") {
+      activity = activityFromIndex(activityIndex(activity) + 1);
+      speed = shiftSpeed(speed, +1);
+      if (depth === "near_bottom" || depth === "bottom") depth = shiftDepth(depth, -1);
+    } else if (temperature_trend === "warming" && (temperature_band === "cool" || temperature_band === "near_optimal" || temperature_band === "optimal")) {
+      activity = activityFromIndex(activityIndex(activity) + 1);
+      speed = shiftSpeed(speed, +1);
+      if ((forage === "baitfish" || secondary_forage === "baitfish") && depth !== "surface") {
+        depth = shiftDepth(depth, -1);
+      }
+    } else if (temperature_trend === "cooling" && temperature_band !== "very_warm") {
+      activity = activityFromIndex(activityIndex(activity) - 1);
+      speed = shiftSpeed(speed, -1);
+      if (depth !== "bottom") depth = shiftDepth(depth, +1);
+      topwater_viable = false;
+    }
+  }
+
   // ── 4. Condition modifier — light / cloud ─────────────────────────────────
 
   const light_label = (analysis.norm.normalized.light_cloud_condition?.label ?? "mixed_sky") as string;
@@ -235,7 +368,6 @@ export function resolveBehavior(
   //   - Stable neutral: no modification — let other variables carry weight
   //
   if (activity !== "inactive") {
-    const pressure_label = analysis.norm.normalized.pressure_regime?.label ?? null;
     if (pressure_label) {
       const pidx = activityIndex(activity);
       if (pressure_label === "falling_slow") {
@@ -305,6 +437,221 @@ export function resolveBehavior(
     }
   }
 
+  const isFreshwaterBass =
+    (req.species === "largemouth_bass" || req.species === "smallmouth_bass") &&
+    (req.context === "freshwater_lake_pond" || req.context === "freshwater_river");
+
+  if (isFreshwaterBass && temperature_score !== null) {
+    const lateWinterOrSpring = req.location.month <= 5 || req.location.month >= 10;
+
+    if (
+      lateWinterOrSpring &&
+      (temperature_score >= -0.5 || temperature_band === "near_optimal" || temperature_band === "optimal") &&
+      temperature_trend !== "cooling" &&
+      temperature_shock !== "sharp_cooldown"
+    ) {
+      activity = activityFromIndex(activityIndex(activity) + 1);
+      strike_zone = strike_zone === "narrow" ? "moderate" : strike_zone;
+      chase = chase === "short" ? "moderate" : chase;
+      speed = shiftSpeed(speed, +1);
+      if (depth === "bottom") depth = "near_bottom";
+      else if (depth === "near_bottom" && req.species === "largemouth_bass") depth = "mid";
+      if (aggression === "passive") aggression = "neutral";
+    }
+
+    if (
+      lateWinterOrSpring &&
+      temperature_score <= -1.5 &&
+      (temperature_trend === "cooling" || temperature_band === "cool" || temperature_band === "very_cold")
+    ) {
+      activity = activityFromIndex(activityIndex(activity) - 1);
+      strike_zone = "narrow";
+      chase = "short";
+      speed = "dead_slow";
+      if (depth !== "bottom") depth = shiftDepth(depth, +1);
+      topwater_viable = false;
+      aggression = "passive";
+    }
+  }
+
+  const isSouthernLargemouthLake =
+    req.species === "largemouth_bass" &&
+    req.context === "freshwater_lake_pond" &&
+    (
+      region_group === "southeast_warmwater" ||
+      region_group === "florida_gulf" ||
+      req.location.region_key === "south_central" ||
+      ["AL", "GA", "TX", "LA", "MS", "AR", "TN", "KY", "NC", "SC", "VA", "FL"].includes(req.location.state_code)
+    );
+
+  if (isSouthernLargemouthLake) {
+    const lateWinterPrespawnWindow = req.location.month === 2 || req.location.month === 3;
+    const stableOrFeedingPressure =
+      pressure_label === "falling_slow" ||
+      pressure_label === "falling_moderate" ||
+      pressure_label === "rising_slow" ||
+      pressure_label === "recently_stabilizing" ||
+      pressure_label === "stable_neutral";
+
+    if (
+      lateWinterPrespawnWindow &&
+      (temperature_band === "near_optimal" || temperature_band === "optimal" || temperature_band === "warm" || temperature_band === "very_warm") &&
+      temperature_shock !== "sharp_cooldown" &&
+      temperature_trend !== "cooling"
+    ) {
+      activity = activityFromIndex(activityIndex(activity) + 1);
+      strike_zone = strike_zone === "narrow" ? "moderate" : strike_zone;
+      chase = chase === "short" ? "moderate" : chase;
+      speed = shiftSpeed(speed, +1);
+      if (depth === "bottom") depth = "near_bottom";
+      else if (depth === "near_bottom") depth = "mid";
+      if (aggression === "passive") aggression = "neutral";
+      else if (aggression === "neutral") aggression = "reactive";
+    }
+
+    if (
+      lateWinterPrespawnWindow &&
+      stableOrFeedingPressure &&
+      (
+        temperature_band === "optimal" ||
+        temperature_band === "warm" ||
+        temperature_band === "very_warm" ||
+        (temperature_band === "near_optimal" && temperature_trend === "warming")
+      )
+    ) {
+      activity = activityFromIndex(activityIndex(activity) + 1);
+      chase = chase === "short" ? "moderate" : chase;
+      speed = speed === "slow" ? "moderate" : speed;
+      if (depth === "near_bottom" && forage === "baitfish") depth = "mid";
+      if (aggression === "passive") aggression = "neutral";
+    }
+
+    if (
+      lateWinterPrespawnWindow &&
+      (pressure_label === "falling_slow" || pressure_label === "falling_moderate" || pressure_label === "recently_stabilizing") &&
+      (temperature_band === "optimal" || temperature_band === "warm" || temperature_band === "very_warm")
+    ) {
+      if (activityIndex(activity) < activityIndex("neutral")) {
+        activity = "neutral";
+      }
+      if (speed === "dead_slow" || speed === "slow") {
+        speed = "moderate";
+      }
+      chase = chase === "short" ? "moderate" : chase;
+      strike_zone = strike_zone === "narrow" ? "moderate" : strike_zone;
+      if (depth === "near_bottom" && forage === "baitfish") depth = "mid";
+      if (aggression === "passive") aggression = "neutral";
+      else if (aggression === "neutral") aggression = "reactive";
+    }
+
+    const fallBaitfishCooldownWindow = req.location.month === 10 || req.location.month === 11;
+    if (
+      fallBaitfishCooldownWindow &&
+      forage === "baitfish" &&
+      (temperature_band === "cool" || metabolic_ctx === "cold_limited" || temperature_trend === "cooling" || temperature_shock === "sharp_cooldown") &&
+      pressure_label !== "falling_slow" &&
+      pressure_label !== "falling_moderate"
+    ) {
+      activity = activityFromIndex(activityIndex(activity) - 1);
+      chase = chase === "long" ? "moderate" : chase;
+      speed = shiftSpeed(speed, -1);
+      if (depth === "surface") depth = "upper";
+      else if (depth === "upper") depth = "mid";
+      topwater_viable = false;
+      if (aggression === "aggressive") aggression = "reactive";
+    }
+  }
+
+  const isWinterRiverSmallmouth =
+    req.species === "smallmouth_bass" &&
+    req.context === "freshwater_river" &&
+    (req.location.month <= 3 ||
+      temperature_band === "very_cold" ||
+      (temperature_band === "cool" && metabolic_ctx === "cold_limited"));
+
+  if (isWinterRiverSmallmouth) {
+    depth = depth === "mid" ? "near_bottom" : depth;
+    if (depth === "surface" || depth === "upper") depth = "mid";
+    speed = activity === "inactive" ? "dead_slow" : speed === "moderate" ? "slow" : speed;
+    chase = "short";
+    strike_zone = "narrow";
+    forage = "crawfish";
+    secondary_forage = "baitfish";
+    topwater_viable = false;
+    if (aggression !== "aggressive") {
+      aggression = activity === "inactive" || activity === "low" ? "passive" : "neutral";
+    }
+  }
+
+  if (
+    isSouthernLargemouthLake &&
+    (req.location.month === 2 || req.location.month === 3) &&
+    forage === "baitfish" &&
+    temperature_shock !== "sharp_cooldown" &&
+    temperature_trend !== "cooling"
+  ) {
+    const strongLateWinterOpen =
+      pressure_label === "falling_slow" ||
+      pressure_label === "falling_moderate" ||
+      temperature_shock === "sharp_warmup" ||
+      (temperature_score !== null && temperature_score >= 1);
+
+    const moderateLateWinterOpen =
+      temperature_band === "optimal" ||
+      temperature_band === "warm" ||
+      temperature_band === "very_warm" ||
+      temperature_band === "near_optimal";
+
+    if (moderateLateWinterOpen) {
+      if (activityIndex(activity) < activityIndex("neutral")) {
+        activity = "neutral";
+      }
+      if (speed === "dead_slow" || speed === "slow") {
+        speed = "moderate";
+      }
+      if (depth === "bottom") depth = "near_bottom";
+      else if (depth === "near_bottom") depth = "mid";
+      chase = chase === "short" ? "moderate" : chase;
+      strike_zone = strike_zone === "narrow" ? "moderate" : strike_zone;
+      if (aggression === "passive") aggression = "neutral";
+    }
+
+    if (strongLateWinterOpen) {
+      if (activityIndex(activity) < activityIndex("active")) {
+        activity = "active";
+      }
+      if (depth === "near_bottom") depth = "mid";
+      speed = speed === "fast" ? "fast" : "moderate";
+      chase = "moderate";
+      strike_zone = "moderate";
+      aggression = aggression === "aggressive" ? "aggressive" : "reactive";
+    }
+  }
+
+  if (
+    isSouthernLargemouthLake &&
+    (req.location.month === 10 || req.location.month === 11) &&
+    req.water_clarity === "dirty" &&
+    forage === "baitfish" &&
+    (temperature_band === "cool" || metabolic_ctx === "cold_limited" || (temperature_score !== null && temperature_score < 0))
+  ) {
+    if (activityIndex(activity) > activityIndex("active")) {
+      activity = "active";
+    }
+    if (depth === "surface") depth = "upper";
+    topwater_viable = false;
+    if (speed === "fast") speed = "moderate";
+    if (aggression === "aggressive") aggression = "reactive";
+  }
+
+  const bottom_oriented_forage = forage === "crab" || forage === "shrimp" || forage === "crawfish";
+  if (activity === "inactive" || activity === "low") {
+    topwater_viable = false;
+  }
+  if (bottom_oriented_forage && (depth === "near_bottom" || depth === "bottom")) {
+    topwater_viable = false;
+  }
+
   // ── 8. Build tidal note (coastal contexts) ────────────────────────────────
 
   let tidal_note: string | undefined;
@@ -320,9 +667,9 @@ export function resolveBehavior(
   // ── 9. Build behavior summary (3 deterministic lines) ─────────────────────
 
   const behavior_summary: [string, string, string] = [
-    activityLine(activity, depth, baseline.seasonal_flag),
-    forageLine(forage, secondary_forage),
-    triggerLine(activity, strike_zone, chase, speed, topwater_viable),
+    activityLine(activity, depth, baseline.seasonal_flag, summary_seed),
+    forageLine(forage, secondary_forage, summary_seed),
+    triggerLine(activity, strike_zone, chase, speed, topwater_viable, forage, depth, summary_seed),
   ];
 
   return {

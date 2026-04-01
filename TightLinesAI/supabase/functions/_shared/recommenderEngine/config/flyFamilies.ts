@@ -7,8 +7,10 @@
 import type { EngineContext } from "../../howFishingEngine/contracts/context.ts";
 import type {
   ActivityLevel,
+  CoverClass,
   DepthLane,
   FlashLevel,
+  FlowSuitability,
   ForageMode,
   NoiseLevel,
   ProfileSize,
@@ -17,6 +19,7 @@ import type {
 } from "../contracts/behavior.ts";
 import type { FlyFamilyId } from "../contracts/families.ts";
 import type { SpeciesGroup } from "../contracts/species.ts";
+import type { WaterClarity } from "../contracts/input.ts";
 
 export type FlyFamilyMetadata = {
   id: FlyFamilyId;
@@ -28,6 +31,10 @@ export type FlyFamilyMetadata = {
   noise_level: NoiseLevel;
   flash_level: FlashLevel;
   profile: ProfileSize;
+  clarity_strengths: WaterClarity[];
+  cover_strengths: CoverClass[];
+  current_suitability: FlowSuitability;
+  tide_suitability: FlowSuitability;
   topwater: boolean;
   forage_affinity: ForageMode[];
   activity_affinity: ActivityLevel[];
@@ -40,13 +47,17 @@ export const FLY_FAMILIES: Record<FlyFamilyId, FlyFamilyMetadata> = {
   streamer_baitfish: {
     id: "streamer_baitfish",
     display_name: "Baitfish Streamer",
-    examples: ["Clouser Minnow", "Lefty's Deceiver", "Craft Fur Streamer", "EP Streamer"],
+    examples: ["Clouser Minnow", "Lefty's Deceiver", "Half & Half", "Baitfish Bunny"],
     depth_match: ["upper", "mid", "near_bottom"],
     speed_match: ["moderate", "slow", "fast"],
     trigger_type: "natural_match",
     noise_level: "silent",
     flash_level: "moderate",
     profile: "slim",
+    clarity_strengths: ["clear", "stained"],
+    cover_strengths: ["open_water", "current_seam", "flats"],
+    current_suitability: "strong",
+    tide_suitability: "strong",
     topwater: false,
     forage_affinity: ["baitfish"],
     activity_affinity: ["active", "aggressive", "neutral"],
@@ -62,13 +73,17 @@ export const FLY_FAMILIES: Record<FlyFamilyId, FlyFamilyMetadata> = {
   streamer_articulated: {
     id: "streamer_articulated",
     display_name: "Articulated Streamer",
-    examples: ["Articulated trout streamer", "Double Deceiver", "Game Changer", "Blane Chisholm streamer"],
+    examples: ["Game Changer", "Double Deceiver", "Sex Dungeon", "Articulated Minnow"],
     depth_match: ["upper", "mid"],
     speed_match: ["slow", "moderate", "vary"],
     trigger_type: "aggressive",
     noise_level: "subtle",
     flash_level: "heavy",
     profile: "bulky",
+    clarity_strengths: ["clear", "stained"],
+    cover_strengths: ["open_water", "hard_structure", "current_seam"],
+    current_suitability: "capable",
+    tide_suitability: "strong",
     topwater: false,
     forage_affinity: ["baitfish"],
     activity_affinity: ["active", "aggressive"],
@@ -83,14 +98,18 @@ export const FLY_FAMILIES: Record<FlyFamilyId, FlyFamilyMetadata> = {
 
   topwater_popper_fly: {
     id: "topwater_popper_fly",
-    display_name: "Fly Popper",
-    examples: ["Foam popper", "Crease Fly", "Gurgler", "Deer hair popper"],
+    display_name: "Popper / Gurgler",
+    examples: ["Foam popper", "Gurgler", "Mouse fly", "Frog bug"],
     depth_match: ["surface"],
     speed_match: ["slow", "vary"],
     trigger_type: "aggressive",
     noise_level: "loud",
     flash_level: "subtle",
     profile: "medium",
+    clarity_strengths: ["clear", "stained"],
+    cover_strengths: ["open_water", "hard_structure", "current_seam"],
+    current_suitability: "poor",
+    tide_suitability: "poor",
     topwater: true,
     forage_affinity: ["surface_prey", "baitfish"],
     activity_affinity: ["active", "aggressive"],
@@ -105,14 +124,18 @@ export const FLY_FAMILIES: Record<FlyFamilyId, FlyFamilyMetadata> = {
 
   slider_diver_fly: {
     id: "slider_diver_fly",
-    display_name: "Slider / Diver Fly",
-    examples: ["Dahlberg Diver", "Foam slider", "Sneaky Pete", "Bass slider"],
+    display_name: "Diver / Slider",
+    examples: ["Sneaky Pete", "Bass slider", "Foam slider", "Deer-hair slider"],
     depth_match: ["surface", "upper"],
     speed_match: ["slow", "moderate"],
     trigger_type: "reaction",
     noise_level: "moderate",
     flash_level: "subtle",
     profile: "medium",
+    clarity_strengths: ["clear", "stained"],
+    cover_strengths: ["open_water", "flats", "hard_structure"],
+    current_suitability: "poor",
+    tide_suitability: "capable",
     topwater: true,
     forage_affinity: ["surface_prey", "baitfish"],
     activity_affinity: ["active", "aggressive", "neutral"],
@@ -128,16 +151,20 @@ export const FLY_FAMILIES: Record<FlyFamilyId, FlyFamilyMetadata> = {
   shrimp_fly: {
     id: "shrimp_fly",
     display_name: "Shrimp Fly",
-    examples: ["EP Shrimp", "Crazy Charlie", "Mantis Shrimp pattern", "Bonefish Charlie"],
+    examples: ["EP Shrimp", "Gotcha", "Fox Shrimp", "Shrimp fly"],
     depth_match: ["near_bottom", "bottom", "mid"],
     speed_match: ["slow", "dead_slow", "moderate"],
     trigger_type: "natural_match",
     noise_level: "silent",
     flash_level: "subtle",
     profile: "slim",
+    clarity_strengths: ["clear", "stained", "dirty"],
+    cover_strengths: ["flats", "bottom", "current_seam"],
+    current_suitability: "capable",
+    tide_suitability: "strong",
     topwater: false,
     forage_affinity: ["shrimp"],
-    activity_affinity: ["neutral", "active", "low"],
+    activity_affinity: ["neutral", "active", "low", "aggressive"],
     valid_species: ["redfish", "seatrout", "snook", "tarpon"],
     valid_contexts: ["coastal", "coastal_flats_estuary"],
   },
@@ -145,32 +172,40 @@ export const FLY_FAMILIES: Record<FlyFamilyId, FlyFamilyMetadata> = {
   crab_fly: {
     id: "crab_fly",
     display_name: "Crab Fly",
-    examples: ["Del Brown Crab", "Merkin", "Spawning Shrimp Crab", "McCrab"],
+    examples: ["Del Brown Crab", "Flexo Crab", "Raghead Crab", "Crab fly"],
     depth_match: ["near_bottom", "bottom"],
     speed_match: ["dead_slow", "slow"],
     trigger_type: "natural_match",
     noise_level: "silent",
     flash_level: "none",
     profile: "medium",
+    clarity_strengths: ["clear", "stained", "dirty"],
+    cover_strengths: ["flats", "bottom"],
+    current_suitability: "capable",
+    tide_suitability: "strong",
     topwater: false,
     forage_affinity: ["crab"],
-    activity_affinity: ["neutral", "active", "low"],
+    activity_affinity: ["neutral", "active", "low", "aggressive"],
     valid_species: ["redfish", "tarpon"],
     valid_contexts: ["coastal", "coastal_flats_estuary"],
   },
 
   leech_worm_fly: {
     id: "leech_worm_fly",
-    display_name: "Leech / Woolly Bugger",
-    examples: ["Woolly Bugger", "Muddler Minnow", "Leech pattern", "San Juan Worm-style streamer"],
+    display_name: "Woolly Bugger / Leech",
+    examples: ["Woolly Bugger", "Zonker", "Muddler Minnow", "Bunny leech", "Sculpin streamer", "Rabbit-strip leech"],
     depth_match: ["mid", "near_bottom"],
     speed_match: ["slow", "moderate", "dead_slow"],
     trigger_type: "natural_match",
     noise_level: "subtle",
     flash_level: "subtle",
     profile: "slim",
+    clarity_strengths: ["clear", "stained", "dirty"],
+    cover_strengths: ["current_seam", "rock", "wood", "bottom"],
+    current_suitability: "strong",
+    tide_suitability: "poor",
     topwater: false,
-    forage_affinity: ["leech", "baitfish", "mixed"],
+    forage_affinity: ["leech", "crawfish", "baitfish", "mixed"],
     activity_affinity: ["neutral", "active", "low"],
     valid_species: [
       "river_trout", "largemouth_bass", "smallmouth_bass",

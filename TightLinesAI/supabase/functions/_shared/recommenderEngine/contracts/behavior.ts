@@ -12,6 +12,16 @@ export type NoiseLevel = "silent" | "subtle" | "moderate" | "loud";
 export type FlashLevel = "none" | "subtle" | "moderate" | "heavy";
 export type ProfileSize = "slim" | "medium" | "bulky";
 export type TriggerType = "finesse" | "reaction" | "natural_match" | "aggressive";
+export type CoverClass =
+  | "vegetation"
+  | "wood"
+  | "rock"
+  | "current_seam"
+  | "open_water"
+  | "hard_structure"
+  | "flats"
+  | "bottom";
+export type FlowSuitability = "poor" | "capable" | "strong";
 export type SeasonalFlag =
   | "pre_spawn"
   | "spawning"

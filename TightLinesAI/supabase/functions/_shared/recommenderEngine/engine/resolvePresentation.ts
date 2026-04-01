@@ -54,7 +54,7 @@ function deriveMotion(
 
   if (activity === "inactive" || activity === "low") {
     // Inactive/slow fish need a pause trigger
-    if (forage === "crawfish" || forage === "crab") return "drag";
+    if (forage === "crawfish" || forage === "crab" || forage === "shrimp") return "drag";
     return "hop";
   }
 
@@ -79,8 +79,15 @@ function deriveTrigger(
   activity: ActivityLevel,
   forage: ForageMode,
   speed: SpeedPreference,
+  depth: DepthLane,
 ): TriggerType {
   if (activity === "inactive" || activity === "low") return "finesse";
+  if (
+    (forage === "crab" || forage === "shrimp" || forage === "crawfish") &&
+    (depth === "near_bottom" || depth === "bottom")
+  ) {
+    return activity === "aggressive" && speed === "fast" ? "reaction" : "natural_match";
+  }
   if (activity === "aggressive") {
     if (speed === "fast" || speed === "moderate") return "reaction";
     return "aggressive";
@@ -126,7 +133,14 @@ function deriveFlash(
   forage: ForageMode,
   water_clarity: WaterClarity,
 ): FlashLevel {
-  if (water_clarity === "dirty") return "heavy";
+  if (water_clarity === "dirty") {
+    if (forage === "baitfish") return activity === "low" ? "moderate" : "heavy";
+    if (forage === "crab" || forage === "shrimp" || forage === "crawfish") {
+      return activity === "aggressive" ? "moderate" : "subtle";
+    }
+    if (forage === "surface_prey") return "moderate";
+    return "moderate";
+  }
   if (activity === "inactive" || activity === "low") return "none";
   if (activity === "aggressive" && forage === "baitfish") return "heavy";
   if (water_clarity === "stained" && forage === "baitfish") return "moderate";
@@ -175,10 +189,13 @@ export function resolvePresentation(
 ): PresentationOutput {
   const ctx_mod = getContextModifier(req_species, req_context);
   const light_label = extractLightLabel(analysis);
+  const bottomForage = behavior.forage_mode === "crab" || behavior.forage_mode === "shrimp" || behavior.forage_mode === "crawfish";
+  const lowConfidenceWindow = behavior.activity === "inactive" || behavior.activity === "low";
 
   // Start with the behavior-derived depth and speed
   let depth_target: DepthLane = behavior.depth_lane;
   let speed: SpeedPreference = behavior.speed_preference;
+  let topwater_viable = behavior.topwater_viable;
 
   // ── Water clarity → depth/speed adjustments ───────────────────────────────
   //
@@ -197,15 +214,28 @@ export function resolvePresentation(
       speed = speedFromIndex(si - 1);
     }
   } else if (water_clarity === "dirty") {
-    // Slightly shallower / higher water column (fish using lateral line to locate)
-    const di = depthIndex(depth_target);
-    if (di > 0 && depth_target !== "surface") {
-      depth_target = depthFromIndex(di - 1);
-    }
-    // Small speed bump — faster lure creates more vibration for lateral line detection
-    const si = speedIndex(speed);
-    if (speed !== "fast" && speed !== "vary" && si < 3) {
-      speed = speedFromIndex(si + 1);
+    if (bottomForage) {
+      if (depth_target === "surface" || depth_target === "upper") {
+        depth_target = depthFromIndex(depthIndex(depth_target) + 1);
+      }
+      if (!lowConfidenceWindow && speed === "dead_slow") {
+        speed = "slow";
+      }
+      topwater_viable = false;
+    } else if (lowConfidenceWindow) {
+      if (speed === "moderate") speed = "slow";
+      if (speed === "fast") speed = "moderate";
+    } else {
+      // Slightly shallower / higher water column when fish are actively tracking bait.
+      const di = depthIndex(depth_target);
+      if (di > 0 && depth_target !== "surface") {
+        depth_target = depthFromIndex(di - 1);
+      }
+      // Small speed bump — faster lure creates more vibration for lateral line detection
+      const si = speedIndex(speed);
+      if (speed !== "fast" && speed !== "vary" && si < 3) {
+        speed = speedFromIndex(si + 1);
+      }
     }
   }
   // "stained" = no adjustment (middle ground — default behavior)
@@ -213,20 +243,21 @@ export function resolvePresentation(
   const motion: MotionType = deriveMotion(
     behavior.activity,
     speed,           // clarity-adjusted speed
-    behavior.topwater_viable,
+    topwater_viable,
     behavior.forage_mode,
   );
   const trigger: TriggerType = deriveTrigger(
     behavior.activity,
     behavior.forage_mode,
     speed,           // clarity-adjusted speed
+    depth_target,
   );
   const profile: ProfileSize = deriveProfile(behavior.forage_mode, behavior.activity);
 
   const noise: NoiseLevel = deriveNoise(
     behavior.noise_preference,
     behavior.activity,
-    behavior.topwater_viable,
+    topwater_viable,
   );
   const flash: FlashLevel = deriveFlash(
     behavior.flash_preference,
@@ -254,7 +285,7 @@ export function resolvePresentation(
     flash,
     profile,
     color_family,
-    topwater_viable: behavior.topwater_viable,
+    topwater_viable,
     current_technique,
   };
 }

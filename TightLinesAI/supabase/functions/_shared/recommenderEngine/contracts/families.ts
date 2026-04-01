@@ -11,6 +11,7 @@ export const LURE_FAMILY_IDS = [
   "soft_craw",
   "lipless_crankbait",
   "diving_crankbait",
+  "jerkbait",
   "spinnerbait",
   "topwater_popper",
   "topwater_walker",

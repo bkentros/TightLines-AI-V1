@@ -9,11 +9,20 @@ export const RECOMMENDER_FEATURE = "recommender_v1" as const;
 
 // ─── Ranked Family ────────────────────────────────────────────────────────────
 
+export type RankedFamilyScoreBreakdown = {
+  code: string;
+  direction: "bonus" | "penalty";
+  weight: number;
+  detail: string;
+};
+
 export type RankedFamily = {
   family_id: LureFamilyId | FlyFamilyId;
   display_name: string;
   examples: string[];
   score: number;
+  score_reasons: string[];
+  score_breakdown?: RankedFamilyScoreBreakdown[];
   why_picked: string;
   how_to_fish: string;
   best_when: string;

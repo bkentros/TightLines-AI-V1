@@ -85,6 +85,14 @@ function contextAccentColor(ctx: EngineContext): string {
   }
 }
 
+function speciesMatchesContext(species: SpeciesGroup, context: EngineContext): boolean {
+  const waterType = SPECIES_WATER_TYPE[species];
+  const isCoastal = context === 'coastal' || context === 'coastal_flats_estuary';
+  if (waterType === 'both') return true;
+  if (waterType === 'freshwater') return !isCoastal;
+  return isCoastal;
+}
+
 // ─── State code extraction ────────────────────────────────────────────────────
 
 const STATE_NAME_TO_CODE: Record<string, string> = {
@@ -357,10 +365,22 @@ export default function RecommenderScreen() {
     }
   }, [stateCode]);
 
+  useEffect(() => {
+    if (!context || !species) return;
+    if (stateCode) {
+      const validCtxs = getContextsForStateSpecies(stateCode, species);
+      if (!validCtxs.includes(context)) setSpecies(null);
+      return;
+    }
+    if (!speciesMatchesContext(species, context)) {
+      setSpecies(null);
+    }
+  }, [context, stateCode, species]);
+
   // Derived chip options — always state-aware
   const availableSpecies: SpeciesGroup[] = stateCode
-    ? getSpeciesForState(stateCode)
-    : SPECIES_GROUPS;
+    ? getSpeciesForState(stateCode).filter((sp) => !context || getContextsForStateSpecies(stateCode, sp).includes(context))
+    : SPECIES_GROUPS.filter((sp) => !context || speciesMatchesContext(sp, context));
 
   const availableContexts: EngineContext[] = stateCode && species
     ? getContextsForStateSpecies(stateCode, species)
@@ -374,6 +394,7 @@ export default function RecommenderScreen() {
     context !== null &&
     clarity !== null &&
     hasCoords &&
+    availableSpecies.includes(species) &&
     availableContexts.includes(context);
 
   const handleFetch = useCallback(
