@@ -351,6 +351,19 @@ export default function HomeScreen() {
     });
   }, [hasSubscription, coords, locationLabel, router]);
 
+  const handleRecommenderPress = useCallback(() => {
+    if (!hasSubscription) {
+      setShowSubscribePrompt(true);
+      return;
+    }
+    const params: Record<string, string> = {};
+    if (coords) {
+      params.latitude = String(coords.lat);
+      params.longitude = String(coords.lon);
+    }
+    router.push({ pathname: '/recommender', params });
+  }, [hasSubscription, coords, router]);
+
   const handleRequestLocation = useCallback(async () => {
     if (__DEV__) {
       await setIgnoreGps(false);
@@ -541,6 +554,31 @@ export default function HomeScreen() {
           <View style={styles.heroFooter}>
             <Text style={styles.heroFooterText}>View today's report</Text>
             <Ionicons name="arrow-forward" size={16} color={colors.primary} />
+          </View>
+        </Pressable>
+
+        {/* ─── Recommender Card ─── */}
+        <Pressable
+          style={({ pressed }) => [
+            styles.recommenderCard,
+            pressed && styles.recommenderCardPressed,
+          ]}
+          onPress={handleRecommenderPress}
+        >
+          <View style={styles.recommenderAccentBar} />
+          <View style={styles.recommenderBody}>
+            <View style={styles.recommenderLeft}>
+              <View style={styles.recommenderIconWrap}>
+                <Ionicons name="fish-outline" size={18} color={colors.primary} />
+              </View>
+              <View style={styles.recommenderTextBlock}>
+                <Text style={styles.recommenderTitle}>What to Throw</Text>
+                <Text style={styles.recommenderSubtitle}>
+                  Top lures & flies for your target species
+                </Text>
+              </View>
+            </View>
+            <Ionicons name="chevron-forward" size={18} color={colors.textMuted} />
           </View>
         </Pressable>
 
@@ -1030,5 +1068,62 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginTop: spacing.xxl,
     marginBottom: spacing.md,
+  },
+
+  // ── Recommender card ──────────────────────────────────────────────────────
+  recommenderCard: {
+    backgroundColor: colors.surface,
+    borderRadius: radius.md,
+    overflow: 'hidden',
+    borderWidth: 1,
+    borderColor: colors.border,
+    flexDirection: 'row',
+    marginBottom: spacing.md,
+    ...shadows.sm,
+  },
+  recommenderCardPressed: {
+    backgroundColor: colors.surfacePressed,
+    transform: [{ scale: 0.985 }],
+  },
+  recommenderAccentBar: {
+    width: 4,
+    backgroundColor: colors.primary,
+  },
+  recommenderBody: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.md,
+    gap: spacing.sm,
+  },
+  recommenderLeft: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.sm,
+  },
+  recommenderIconWrap: {
+    width: 38,
+    height: 38,
+    borderRadius: radius.sm,
+    backgroundColor: colors.primaryMist,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  recommenderTextBlock: {
+    flex: 1,
+  },
+  recommenderTitle: {
+    fontFamily: fonts.serifBold,
+    fontSize: 16,
+    color: colors.text,
+    marginBottom: 2,
+  },
+  recommenderSubtitle: {
+    fontFamily: fonts.body,
+    fontSize: 13,
+    color: colors.textSecondary,
+    lineHeight: 18,
   },
 });
