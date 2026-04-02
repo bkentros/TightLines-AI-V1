@@ -12,7 +12,7 @@ type PhraseKey = `${TriggerType}:${ForageMode}`;
 
 export const WHY_PICKED_PHRASES: Record<
   PhraseKey,
-  readonly [string, string, string, string, string, string]
+  readonly string[]
 > = {
   // ── finesse × forage ──────────────────────────────────────────────────────
 
@@ -252,14 +252,7 @@ export const WHY_PICKED_PHRASES: Record<
 };
 
 /** Fallback phrase when no key matches. */
-export const WHY_PICKED_FALLBACK: readonly [
-  string,
-  string,
-  string,
-  string,
-  string,
-  string,
-] = [
+export const WHY_PICKED_FALLBACK: readonly string[] = [
   "Strong match for current conditions and forage.",
   "Profile and action align with what fish are likely targeting.",
   "Solid all-around pick for the current species and conditions.",

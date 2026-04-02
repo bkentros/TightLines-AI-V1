@@ -9,7 +9,7 @@ import type { ColorFamily } from "../contracts/behavior.ts";
 
 export const COLOR_PHRASES: Record<
   ColorFamily,
-  readonly [string, string, string, string, string, string]
+  readonly string[]
 > = {
   natural_match: [
     "Clear water — match the exact baitfish or forage color as closely as possible.",

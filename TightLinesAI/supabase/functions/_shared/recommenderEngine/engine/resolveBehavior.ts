@@ -24,6 +24,7 @@ import type {
   StrikeZone,
 } from "../contracts/behavior.ts";
 import type { RecommenderRequest } from "../contracts/input.ts";
+import type { SpeciesGroup } from "../contracts/species.ts";
 import { getContextModifier } from "../config/contextModifiers.ts";
 import {
   getFallbackProfile,
@@ -69,6 +70,7 @@ function activityLine(
   depth: DepthLane,
   seasonal_flag: string | undefined,
   seed: string,
+  species?: SpeciesGroup,
 ): string {
   const depthLabel: Record<DepthLane, string> = {
     surface: "near the surface",
@@ -77,8 +79,16 @@ function activityLine(
     near_bottom: "near the bottom",
     bottom: "tight to the bottom",
   };
+
+  // Cold-stressed tropical species are still catchable — just very slow.
+  // Avoid language that implies they won't eat.
+  const isColdStressTropical = activity === "inactive" &&
+    (species === "snook" || species === "tarpon");
+
   const actLabel: Record<ActivityLevel, string> = {
-    inactive: "Largely inactive",
+    inactive: isColdStressTropical
+      ? "Very slow and cold-stressed but still catchable"
+      : "Largely inactive",
     low: "Sluggish and tight to cover",
     neutral: "Moderately active",
     active: "Feeding actively",
@@ -98,10 +108,23 @@ function activityLine(
       ? "Operating in a tougher seasonal window."
       : null;
 
+  const depthCap = `${depthLabel[depth][0]!.toUpperCase()}${depthLabel[depth].slice(1)}`;
+  const st = seasonalTail;
   const variants = [
-    seasonalTail ? `${base} ${seasonalTail}` : base,
-    seasonalTail ? `${actLabel[activity]} and set up ${depthLabel[depth]}. ${seasonalTail}` : `${actLabel[activity]} and set up ${depthLabel[depth]}.`,
-    seasonalTail ? `${depthLabel[depth][0]!.toUpperCase()}${depthLabel[depth].slice(1)} is the key zone right now. ${seasonalTail}` : `${depthLabel[depth][0]!.toUpperCase()}${depthLabel[depth].slice(1)} is the key zone right now.`,
+    st ? `${base} ${st}` : base,
+    st ? `${actLabel[activity]} and set up ${depthLabel[depth]}. ${st}` : `${actLabel[activity]} and set up ${depthLabel[depth]}.`,
+    st ? `${depthCap} is the key zone right now. ${st}` : `${depthCap} is the key zone right now.`,
+    st ? `Fish are positioned ${depthLabel[depth]} and ${actLabel[activity].toLowerCase()}. ${st}` : `Fish are positioned ${depthLabel[depth]} and ${actLabel[activity].toLowerCase()}.`,
+    st ? `Expect fish holding ${depthLabel[depth]}. ${st}` : `Expect fish holding ${depthLabel[depth]}.`,
+    st ? `${actLabel[activity]} fish sitting ${depthLabel[depth]}. ${st}` : `${actLabel[activity]} fish sitting ${depthLabel[depth]}.`,
+    st ? `${depthCap} is where the bite should be. ${st}` : `${depthCap} is where the bite should be.`,
+    st ? `Fish are set up ${depthLabel[depth]} right now. ${st}` : `Fish are set up ${depthLabel[depth]} right now.`,
+    st ? `${actLabel[activity]} and holding ${depthLabel[depth]}. ${st}` : `${actLabel[activity]} and holding ${depthLabel[depth]}.`,
+    st ? `Target fish ${depthLabel[depth]} — they are ${actLabel[activity].toLowerCase()}. ${st}` : `Target fish ${depthLabel[depth]} — they are ${actLabel[activity].toLowerCase()}.`,
+    st ? `The bite is ${depthLabel[depth]}. ${st}` : `The bite is ${depthLabel[depth]}. ${actLabel[activity]}.`,
+    st ? `Focus ${depthLabel[depth]} where fish are ${actLabel[activity].toLowerCase()}. ${st}` : `Focus ${depthLabel[depth]} where fish are ${actLabel[activity].toLowerCase()}.`,
+    st ? `${actLabel[activity]} with most fish sitting ${depthLabel[depth]}. ${st}` : `${actLabel[activity]} with most fish sitting ${depthLabel[depth]}.`,
+    st ? `Fish are relating to ${depthLabel[depth]} structure. ${st}` : `Fish are relating to ${depthLabel[depth]} structure. ${actLabel[activity]}.`,
   ];
 
   return pickDeterministic(variants, seed, `activity:${activity}:${depth}:${seasonal_flag ?? "none"}`);
@@ -119,11 +142,23 @@ function forageLine(primary: ForageMode, secondary: ForageMode | undefined, seed
   };
   const primary_text = forageLabel[primary];
   if (secondary && secondary !== primary) {
+    const sec = forageLabel[secondary];
     return pickDeterministic(
       [
-        `Keying on ${primary_text} with some interest in ${forageLabel[secondary]}.`,
-        `Primary forage looks like ${primary_text}, with a secondary look at ${forageLabel[secondary]}.`,
-        `Most fish should be tuned to ${primary_text}, but ${forageLabel[secondary]} is still in play.`,
+        `Keying on ${primary_text} with some interest in ${sec}.`,
+        `Primary forage looks like ${primary_text}, with a secondary look at ${sec}.`,
+        `Most fish should be tuned to ${primary_text}, but ${sec} is still in play.`,
+        `Fish are focused on ${primary_text}, though ${sec} could draw attention too.`,
+        `The main food source is ${primary_text}. ${sec[0]!.toUpperCase()}${sec.slice(1)} is a secondary option.`,
+        `Expect fish keying on ${primary_text} first, with ${sec} as a backup forage.`,
+        `${primary_text[0]!.toUpperCase()}${primary_text.slice(1)} is the primary forage right now, with ${sec} in the mix.`,
+        `Fish are eating ${primary_text} primarily, but will take ${sec} when available.`,
+        `The dominant forage is ${primary_text}. ${sec[0]!.toUpperCase()}${sec.slice(1)} is worth trying as an alternate.`,
+        `${primary_text[0]!.toUpperCase()}${primary_text.slice(1)} is the lead forage, with a secondary window on ${sec}.`,
+        `Fish should be locked on ${primary_text}, though ${sec} presentations can produce.`,
+        `Matching ${primary_text} is the priority. ${sec[0]!.toUpperCase()}${sec.slice(1)} is a viable second choice.`,
+        `Target ${primary_text} first. If the bite slows, try switching to a ${sec} imitation.`,
+        `Forage cues point to ${primary_text} as the primary, with ${sec} as a close second.`,
       ],
       seed,
       `forage:${primary}:${secondary}`,
@@ -134,6 +169,17 @@ function forageLine(primary: ForageMode, secondary: ForageMode | undefined, seed
       `Keying primarily on ${primary_text}.`,
       `Forage focus is mostly ${primary_text}.`,
       `The cleanest food cue right now is ${primary_text}.`,
+      `Fish are locked on ${primary_text} right now.`,
+      `The primary food source is ${primary_text}.`,
+      `Match ${primary_text} for the best results today.`,
+      `Fish are eating ${primary_text} — match it closely.`,
+      `${primary_text[0]!.toUpperCase()}${primary_text.slice(1)} is the dominant forage in this system right now.`,
+      `Everything points to ${primary_text} as the main food source.`,
+      `Focus on ${primary_text} presentations — that is what fish are eating.`,
+      `The forage base is ${primary_text}. Match it as closely as possible.`,
+      `Fish are targeting ${primary_text}. Keep your presentation in that family.`,
+      `${primary_text[0]!.toUpperCase()}${primary_text.slice(1)} is the clear forage leader for this scenario.`,
+      `The strongest forage cue is ${primary_text}. Stay in that lane.`,
     ],
     seed,
     `forage:${primary}:none`,
@@ -158,11 +204,33 @@ function triggerLine(
           "Keep it slow and close to bottom-oriented cover to draw the bite.",
           "A low, patient presentation around bottom cover is the best trigger here.",
           "Drag or crawl it through the feeding lane instead of forcing a chase.",
+          "Slow bottom presentation is the play. Keep it in their face and be patient.",
+          "Fish it on the bottom with long pauses. Don't force them to move.",
+          "Stay tight to the substrate and move the bait as slowly as possible.",
+          "Bottom-first approach — drag it through the zone and let fish come to it.",
+          "Slow and low is the only way to trigger bites when activity is this limited.",
+          "Keep the presentation on the bottom, close to cover, with minimal movement.",
+          "Patient bottom fishing wins here. Drag it slowly and pause often.",
+          "Put it right on the bottom and barely move it. These fish will not chase.",
+          "Dead-slow bottom contact is the trigger. Keep it in the feeding zone as long as possible.",
+          "Fish are not willing to move far. Keep the bait on the bottom and in their path.",
+          "Ultra-slow presentation near bottom cover. Patience is more important than technique today.",
         ]
         : [
           "Slow finesse presentation tight to cover most likely to draw a strike.",
           "Keep it slow, controlled, and close to the fish rather than making them chase.",
           "Short moves and long pauses should outproduce a fast retrieve here.",
+          "Downsize and slow down — finesse presentations win when fish are this sluggish.",
+          "Keep it close and slow. Fish are not going to chase anything today.",
+          "Tight to cover with a slow presentation. Make it easy for them to eat.",
+          "Slow and subtle is the key. Don't give them a reason to refuse the bait.",
+          "Finesse approach — small movements, long pauses, and lots of patience.",
+          "The slower you go, the more bites you will get. Keep it in the strike zone.",
+          "Short hops and long pauses near cover. The fish need it right in their face.",
+          "Slow down more than you think is necessary. Then slow down again.",
+          "Keep the presentation tight to structure with minimal movement between pauses.",
+          "Fish will eat, but you need to put it right on them. Slow and precise wins.",
+          "Patient, slow presentation near cover. Don't try to force the bite — let it happen.",
         ],
       seed,
       `trigger:slow:${activity}:${forage}:${depth}`,
@@ -181,6 +249,17 @@ function triggerLine(
         "Surface presentations are in play — target transitions and edges.",
         "A topwater window is open if fish keep tracking high in the column.",
         "Look for fish willing to rise on a surface-style presentation around edges and lanes.",
+        "Topwater is a strong option right now. Target shade lines and current edges.",
+        "Fish are tracking high enough for surface presentations. Work the edges and transitions.",
+        "Surface action is likely. Cover water with topwater near structure and baitfish activity.",
+        "Conditions favor topwater. Focus on low-light edges and any visible surface activity.",
+        "Fish should be willing to come up. Target transition zones with surface presentations.",
+        "The topwater bite should be on. Work points, edges, and any areas with surface bait.",
+        "Conditions are set up for surface strikes. Cast to any visible activity or shaded structure.",
+        "Fish are positioned high enough for topwater. Hit the edges and cover transitions first.",
+        "A surface bite is in play — target bait schools, shade lines, and current seams.",
+        "Topwater presentations are a strong play. Cover edges and structure transitions at first light.",
+        "Fish are high in the column and active enough for surface strikes. Target transition areas.",
       ],
       seed,
       `trigger:topwater:${activity}:${forage}:${depth}`,
@@ -193,6 +272,17 @@ function triggerLine(
         "Stay low in the water column and fish it with a bottom-first cadence.",
         "Bottom-oriented forage means keeping the presentation down and in their path.",
         "Work the lure or fly through the lower feeding lane instead of pulling fish high.",
+        "Keep it on or near the bottom. The forage lives there and so should your bait.",
+        "Fish it low — bottom-dwelling forage means a bottom-first presentation.",
+        "Target the lower water column. The forage is on the bottom and fish are following it.",
+        "Stay deep and fish slowly along the bottom. Match the forage's natural position.",
+        "Bottom contact is key. Keep the presentation where the forage actually lives.",
+        "Don't pull them up — the food is on the bottom, so your presentation should be too.",
+        "Fish are feeding low. Keep everything tight to the bottom for the best results.",
+        "Focus on bottom presentations. The forage is there and fish are set up to eat it.",
+        "Stay in the lower feeding lane and match the natural position of the forage.",
+        "Bottom-oriented approach is best. Keep the bait low and in the fish's feeding path.",
+        "The forage is bottom-dwelling, so your presentation needs to be there too. Stay low.",
       ],
       seed,
       `trigger:bottom-forage:${activity}:${forage}:${depth}`,
@@ -210,11 +300,23 @@ function triggerLine(
     fast: "faster retrieves",
     vary: "varying retrieves",
   };
+  const spdCap = `${speedLabel[speed][0]!.toUpperCase()}${speedLabel[speed].slice(1)}`;
   return pickDeterministic(
     [
       `${chaseLabel[chase]} — ${speedLabel[speed]} in the ${strike_zone} strike zone.`,
-      `${speedLabel[speed][0]!.toUpperCase()}${speedLabel[speed].slice(1)} should fit fish willing to move a ${chase} distance.`,
+      `${spdCap} should fit fish willing to move a ${chase} distance.`,
       `Fish should respond best to ${speedLabel[speed]} worked through a ${strike_zone} strike window.`,
+      `${spdCap} through the ${strike_zone} strike zone should produce.`,
+      `Fish are willing to move a ${chase} distance. ${spdCap} are a good match.`,
+      `Target the ${strike_zone} strike zone with ${speedLabel[speed]} for the best results.`,
+      `${chaseLabel[chase]} today. Keep ${speedLabel[speed]} in the ${strike_zone} window.`,
+      `Match ${speedLabel[speed]} to the ${strike_zone} bite window for the most consistent action.`,
+      `The ${strike_zone} strike zone favors ${speedLabel[speed]} at this activity level.`,
+      `${spdCap} should connect. Fish are moving a ${chase} distance to eat.`,
+      `Work ${speedLabel[speed]} through the zone. Fish are covering a ${chase} distance to strike.`,
+      `${chaseLabel[chase]}, so ${speedLabel[speed]} in the ${strike_zone} zone are the play.`,
+      `${spdCap} through the ${strike_zone} window should match fish activity well.`,
+      `The bite window is ${strike_zone}. ${spdCap} at a ${chase} range should produce.`,
     ],
     seed,
     `trigger:general:${activity}:${strike_zone}:${chase}:${speed}`,
@@ -667,7 +769,7 @@ export function resolveBehavior(
   // ── 9. Build behavior summary (3 deterministic lines) ─────────────────────
 
   const behavior_summary: [string, string, string] = [
-    activityLine(activity, depth, baseline.seasonal_flag, summary_seed),
+    activityLine(activity, depth, baseline.seasonal_flag, summary_seed, req.species),
     forageLine(forage, secondary_forage, summary_seed),
     triggerLine(activity, strike_zone, chase, speed, topwater_viable, forage, depth, summary_seed),
   ];

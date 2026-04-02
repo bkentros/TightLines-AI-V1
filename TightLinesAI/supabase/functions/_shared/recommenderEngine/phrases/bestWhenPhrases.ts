@@ -10,7 +10,7 @@ import type { ActivityLevel, SeasonalFlag } from "../contracts/behavior.ts";
 type BestWhenKey = `${SeasonalFlag | "none"}:${ActivityLevel}`;
 
 export const BEST_WHEN_PHRASES: Partial<
-  Record<BestWhenKey, readonly [string, string, string, string, string, string]>
+  Record<BestWhenKey, readonly string[]>
 > = {
   // ── Peak season ──────────────────────────────────────────────────────────
 
@@ -219,12 +219,12 @@ export const BEST_WHEN_PHRASES: Partial<
     "Off-season with a slow bite — one or two hours around midday in warm shallow water.",
   ],
   "off_season:inactive": [
-    "Fish are in deep winter mode — inactive and not worth targeting today.",
-    "Off-season inactive — save energy for better conditions.",
-    "Hard off-season. Fish are essentially dormant in this system.",
-    "Deep off-season dormancy — fish are holding at depth and won't bite anything today.",
-    "Conditions are too hostile — come back when temperatures recover.",
-    "Fish are inactive. This is a day to scout, not to fish.",
+    "Deep off-season — fish are very slow. Downsize, go ultra-slow, and target the warmest water available.",
+    "Cold-stressed fish will still eat, but you need the smallest presentation fished as slow as possible.",
+    "Extremely slow conditions — find the warmest pocket in the system and fish the tiniest offering you have.",
+    "Off-season shutdown — they are still catchable, but only with the lightest tackle and the most patience.",
+    "Fish are holding deep and cold-stressed. Slow down drastically and focus on the warmest hours.",
+    "Tough off-season conditions — use finesse presentations at the slowest speed you can manage.",
   ],
 
   // ── None (no seasonal flag) ───────────────────────────────────────────────
@@ -262,23 +262,16 @@ export const BEST_WHEN_PHRASES: Partial<
     "Fish are there but slow — grind the transition hours hard and then call it.",
   ],
   "none:inactive": [
-    "Inactive fish — weather event or temperature extreme has shut them down.",
-    "Tough conditions today — consider waiting for a weather change.",
-    "Fish are inactive — a front has likely suppressed the bite.",
-    "Inactive fish — conditions have created a near-lockjaw situation today.",
-    "Not a fishing day — conditions are against you. Come back tomorrow.",
-    "Fish are shut down — weather event has disrupted normal feeding windows.",
+    "Very slow conditions — downsize your presentation and fish it as slowly as possible.",
+    "Tough conditions today — go finesse, slow down, and focus on the warmest water.",
+    "Fish are sluggish — a front or temperature shift has slowed the bite drastically.",
+    "Near-lockjaw conditions — smallest bait, slowest retrieve, most patience wins here.",
+    "Fish are cold-stressed or post-frontal. They will still eat if you put it right on them.",
+    "Extremely slow bite — use the lightest tackle and work it through the strike zone at a crawl.",
   ],
 };
 
-export const BEST_WHEN_FALLBACK: readonly [
-  string,
-  string,
-  string,
-  string,
-  string,
-  string,
-] = [
+export const BEST_WHEN_FALLBACK: readonly string[] = [
   "Focus on low-light windows at dawn and dusk for the best action.",
   "Morning and evening transitions are typically most productive.",
   "Fish are most catchable during stable conditions with low light.",

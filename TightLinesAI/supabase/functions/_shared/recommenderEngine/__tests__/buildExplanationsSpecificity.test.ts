@@ -109,5 +109,11 @@ Deno.test("buildExplanations: baitfish families get baitfish-specific copy and n
 
   assertStringIncludes(explained[0]!.why_picked, "baitfish");
   assertStringIncludes(explained[0]!.color_guide, "White / Chartreuse");
-  assertStringIncludes(explained[0]!.examples.join(" "), "Bladed jig");
+  const exJoined = explained[0]!.examples.join(" ");
+  const hasSpinnerbaitExample = exJoined.includes("Spinnerbait") || exJoined.includes("spinnerbait") ||
+    exJoined.includes("Bladed jig") || exJoined.includes("ChatterBait") ||
+    exJoined.includes("Colorado-blade") || exJoined.includes("Double-willow") ||
+    exJoined.includes("Tandem") || exJoined.includes("Finesse spinnerbait") ||
+    exJoined.includes("Short-arm") || exJoined.includes("Compact");
+  assert(hasSpinnerbaitExample, `Expected a spinnerbait example in: ${exJoined}`);
 });

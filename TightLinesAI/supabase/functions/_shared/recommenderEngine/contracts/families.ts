@@ -19,6 +19,19 @@ export const LURE_FAMILY_IDS = [
   "shrimp_crab_plastic",
   "large_profile_swimbait",
   "casting_spoon",
+  "ned_rig",
+  "drop_shot",
+  "blade_bait",
+  "inline_spinner",
+  "buzzbait",
+  "swim_jig",
+  "underspin",
+  "bucktail_jig",
+  "wacky_rig",
+  "topwater_prop",
+  "gold_spoon",
+  "topwater_plug",
+  "soft_jerkbait_coastal",
 ] as const;
 
 export type LureFamilyId = (typeof LURE_FAMILY_IDS)[number];
@@ -31,6 +44,9 @@ export const FLY_FAMILY_IDS = [
   "shrimp_fly",
   "crab_fly",
   "leech_worm_fly",
+  "crawfish_streamer",
+  "sand_eel_fly",
+  "bendback_streamer",
 ] as const;
 
 export type FlyFamilyId = (typeof FLY_FAMILY_IDS)[number];
