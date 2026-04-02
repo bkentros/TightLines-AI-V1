@@ -23,6 +23,7 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   Alert,
+  Image,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter, useLocalSearchParams } from 'expo-router';
@@ -48,6 +49,7 @@ import {
   getContextsForState,
   getContextsForStateSpecies,
 } from '../lib/recommenderContracts';
+import { SPECIES_IMAGES } from '../lib/recommenderAssets';
 
 // ─── Context helpers ──────────────────────────────────────────────────────────
 
@@ -190,7 +192,7 @@ function ChipRow<T extends string>({
   );
 }
 
-/** Two-column grid of species selection cards */
+/** Two-column grid of species selection cards with fish illustrations */
 function SpeciesGrid({
   options,
   selected,
@@ -200,7 +202,6 @@ function SpeciesGrid({
   selected: SpeciesGroup | null;
   onSelect: (s: SpeciesGroup) => void;
 }) {
-  // Pair items into rows of 2
   const rows: SpeciesGroup[][] = [];
   for (let i = 0; i < options.length; i += 2) {
     rows.push(options.slice(i, i + 2));
@@ -212,42 +213,51 @@ function SpeciesGrid({
         <View key={rowIdx} style={styles.speciesRow}>
           {row.map((sp) => {
             const isActive = selected === sp;
+            const image = SPECIES_IMAGES[sp];
             return (
               <TouchableOpacity
                 key={sp}
                 style={[
                   styles.speciesCard,
-                  shadows.sm,
                   isActive
-                    ? { backgroundColor: colors.primary, borderColor: colors.primary }
-                    : { backgroundColor: colors.surface, borderColor: colors.border },
+                    ? { borderColor: colors.primary, borderWidth: 2 }
+                    : { borderColor: '#2A2A2A', borderWidth: 1.5 },
                 ]}
                 onPress={() => onSelect(sp)}
-                activeOpacity={0.75}
+                activeOpacity={0.8}
               >
-                <View style={styles.speciesCardInner}>
-                  {isActive ? (
-                    <View style={styles.speciesCheckCircle}>
-                      <Ionicons name="checkmark" size={11} color="#fff" />
-                    </View>
-                  ) : (
-                    <View style={styles.speciesUncheckCircle} />
-                  )}
-                  <Text
-                    style={[
-                      styles.speciesCardText,
-                      { color: isActive ? '#fff' : colors.text },
-                      isActive && { fontFamily: fonts.bodySemiBold },
-                    ]}
-                    numberOfLines={2}
-                  >
+                {/* Fish illustration */}
+                {image ? (
+                  <Image
+                    source={image}
+                    style={styles.speciesImage}
+                    resizeMode="contain"
+                  />
+                ) : (
+                  <View style={styles.speciesImagePlaceholder}>
+                    <Ionicons name="fish-outline" size={36} color="#444" />
+                  </View>
+                )}
+
+                {/* Name bar at bottom */}
+                <View
+                  style={[
+                    styles.speciesNameBar,
+                    isActive && { backgroundColor: colors.primary },
+                  ]}
+                >
+                  <Text style={styles.speciesCardText} numberOfLines={1}>
                     {SPECIES_DISPLAY[sp]}
                   </Text>
+                  {isActive && (
+                    <View style={styles.speciesCheckBadge}>
+                      <Ionicons name="checkmark" size={10} color={colors.primary} />
+                    </View>
+                  )}
                 </View>
               </TouchableOpacity>
             );
           })}
-          {/* Spacer for odd last item */}
           {row.length === 1 && <View style={styles.speciesCardSpacer} />}
         </View>
       ))}
@@ -712,7 +722,7 @@ const styles = StyleSheet.create({
     letterSpacing: 0.7,
   },
 
-  // Species grid — 2 columns
+  // Species grid — 2 columns, dark illustration cards
   speciesGrid: {
     gap: spacing.sm,
   },
@@ -723,38 +733,46 @@ const styles = StyleSheet.create({
   speciesCard: {
     flex: 1,
     borderRadius: radius.md,
-    borderWidth: 1.5,
-    paddingVertical: 13,
-    paddingHorizontal: spacing.md,
+    backgroundColor: '#0D0D0D',
+    overflow: 'hidden',
   },
   speciesCardSpacer: {
     flex: 1,
   },
-  speciesCardInner: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
+  speciesImage: {
+    width: '100%',
+    height: 100,
+    backgroundColor: '#000',
   },
-  speciesCheckCircle: {
-    width: 18,
-    height: 18,
-    borderRadius: 99,
-    backgroundColor: 'rgba(255,255,255,0.25)',
+  speciesImagePlaceholder: {
+    width: '100%',
+    height: 100,
+    backgroundColor: '#111',
     alignItems: 'center',
     justifyContent: 'center',
   },
-  speciesUncheckCircle: {
+  speciesNameBar: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 12,
+    paddingVertical: 9,
+    backgroundColor: '#1A1A1A',
+  },
+  speciesCheckBadge: {
     width: 18,
     height: 18,
     borderRadius: 99,
-    borderWidth: 1.5,
-    borderColor: colors.border,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   speciesCardText: {
     flex: 1,
     fontFamily: fonts.bodyMedium,
-    fontSize: 14,
-    lineHeight: 18,
+    fontSize: 13,
+    color: '#fff',
+    lineHeight: 17,
   },
 
   // Context chips
