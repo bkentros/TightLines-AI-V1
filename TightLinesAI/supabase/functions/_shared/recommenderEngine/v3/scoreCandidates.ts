@@ -117,6 +117,20 @@ function chooseColorTheme(
   if (profile.id === "mouse_fly") {
     priorities.push("mouse_natural", "dark_contrast");
   }
+  // Articulated and big baitfish streamers call for white/pearl as the primary
+  // color in non-dirty conditions — this is the classic fall brown trout and big
+  // streamer color lane regardless of water clarity.
+  if (
+    (profile.id === "articulated_baitfish_streamer" || profile.id === "game_changer") &&
+    clarity !== "dirty"
+  ) {
+    priorities.push("white_shad", "natural_baitfish");
+  }
+  // Bottom streamers (sculpin, muddler, conehead) should read as earth tones in
+  // clear/stained water regardless of what forage the row assigns.
+  if (profile.family_key === "bottom_streamer" && clarity !== "dirty") {
+    priorities.push("natural_baitfish", "craw_natural");
+  }
   if (
     profile.id === "bladed_jig" &&
     clarity === "stained" &&

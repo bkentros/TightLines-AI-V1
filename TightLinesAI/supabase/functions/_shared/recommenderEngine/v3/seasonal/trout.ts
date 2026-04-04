@@ -28,10 +28,10 @@ function addMonths(
 }
 
 const WINTER_RIVER_LURES: readonly LureArchetypeIdV3[] = [
-  "hair_jig",
   "suspending_jerkbait",
   "blade_bait",
   "casting_spoon",
+  "hair_jig",
   "paddle_tail_swimbait",
 ];
 const WINTER_RIVER_FLIES: readonly FlyArchetypeIdV3[] = [
@@ -47,7 +47,6 @@ const SPRING_RIVER_LURES: readonly LureArchetypeIdV3[] = [
   "suspending_jerkbait",
   "casting_spoon",
   "paddle_tail_swimbait",
-  "hair_jig",
   "soft_jerkbait",
 ];
 const SPRING_RIVER_FLIES: readonly FlyArchetypeIdV3[] = [
@@ -65,7 +64,6 @@ const WESTERN_SPRING_RIVER_LURES: readonly LureArchetypeIdV3[] = [
   "casting_spoon",
   "soft_jerkbait",
   "paddle_tail_swimbait",
-  "hair_jig",
 ];
 const WESTERN_SPRING_RIVER_FLIES: readonly FlyArchetypeIdV3[] = [
   "clouser_minnow",
@@ -81,7 +79,6 @@ const COOL_SUMMER_RIVER_LURES: readonly LureArchetypeIdV3[] = [
   "casting_spoon",
   "paddle_tail_swimbait",
   "soft_jerkbait",
-  "hair_jig",
 ];
 const COOL_SUMMER_RIVER_FLIES: readonly FlyArchetypeIdV3[] = [
   "slim_minnow_streamer",
@@ -89,7 +86,6 @@ const COOL_SUMMER_RIVER_FLIES: readonly FlyArchetypeIdV3[] = [
   "muddler_sculpin",
   "woolly_bugger",
   "zonker_streamer",
-  "mouse_fly",
 ];
 
 const WARM_SUMMER_RIVER_LURES: readonly LureArchetypeIdV3[] = [
@@ -210,7 +206,7 @@ export const TROUT_V3_SUPPORTED_REGIONS: readonly RegionKey[] = [
 
 // Cold classic trout water
 addMonths(COLD_CLASSIC_REGIONS, [1, 2], {
-  base_water_column: "bottom",
+  base_water_column: "mid",
   base_mood: "negative",
   base_presentation_style: "subtle",
   primary_forage: "baitfish",
@@ -291,7 +287,7 @@ addMonths(["great_lakes_upper_midwest"], [11], {
   viable_fly_archetypes: GREAT_LAKES_LATEFALL_HIGHWATER_FLIES,
 });
 addMonths(COLD_CLASSIC_REGIONS, [12], {
-  base_water_column: "bottom",
+  base_water_column: "mid",
   base_mood: "negative",
   base_presentation_style: "subtle",
   primary_forage: "baitfish",
@@ -302,7 +298,7 @@ addMonths(COLD_CLASSIC_REGIONS, [12], {
 
 // Western classic trout rivers
 addMonths(WESTERN_CLASSIC_REGIONS, [1, 2, 3], {
-  base_water_column: "bottom",
+  base_water_column: "mid",
   base_mood: "negative",
   base_presentation_style: "subtle",
   primary_forage: "baitfish",
@@ -346,6 +342,17 @@ addMonths(WESTERN_CLASSIC_REGIONS, [7, 8], {
   viable_lure_archetypes: COOL_SUMMER_RIVER_LURES,
   viable_fly_archetypes: COOL_SUMMER_RIVER_FLIES,
 });
+// Mountain West and Inland Northwest midsummer: runoff and stained-water
+// conditions push toward visible search presentations, not subtle finesse.
+addMonths(["mountain_west", "inland_northwest"], [7, 8], {
+  base_water_column: "mid",
+  base_mood: "neutral",
+  base_presentation_style: "balanced",
+  primary_forage: "baitfish",
+  secondary_forage: "insect_misc",
+  viable_lure_archetypes: COOL_SUMMER_RIVER_LURES,
+  viable_fly_archetypes: COOL_SUMMER_RIVER_FLIES,
+});
 addMonths(WESTERN_CLASSIC_REGIONS, [9, 10, 11], {
   base_water_column: "mid",
   base_mood: "active",
@@ -374,7 +381,7 @@ addMonths(["northern_california"], [10], {
   viable_fly_archetypes: WESTERN_FALL_RIVER_FLIES,
 });
 addMonths(WESTERN_CLASSIC_REGIONS, [12], {
-  base_water_column: "bottom",
+  base_water_column: "mid",
   base_mood: "negative",
   base_presentation_style: "subtle",
   primary_forage: "baitfish",
@@ -385,7 +392,7 @@ addMonths(WESTERN_CLASSIC_REGIONS, [12], {
 
 // Warm tailwaters and southern highland trout water
 addMonths(WARM_TAILWATER_REGIONS, [1, 2], {
-  base_water_column: "bottom",
+  base_water_column: "mid",
   base_mood: "negative",
   base_presentation_style: "subtle",
   primary_forage: "leech_worm",
@@ -430,7 +437,7 @@ addMonths(WARM_TAILWATER_REGIONS, [9, 10, 11], {
   viable_fly_archetypes: FALL_RIVER_FLIES,
 });
 addMonths(WARM_TAILWATER_REGIONS, [12], {
-  base_water_column: "bottom",
+  base_water_column: "mid",
   base_mood: "negative",
   base_presentation_style: "subtle",
   primary_forage: "leech_worm",
