@@ -31,7 +31,9 @@ import {
   SPECIES_GROUPS,
   type SpeciesGroup,
   type WaterClarity,
-  runRecommender,
+  isContextAllowedForRecommenderV3,
+  runRecommenderV3Surface,
+  toRecommenderV3Species,
   isSpeciesValidForState,
 } from "../_shared/recommenderEngine/index.ts";
 
@@ -165,7 +167,7 @@ Deno.serve(async (req: Request) => {
   const month = parseInt(local_date.slice(5, 7), 10);
 
   // ── Resolve region key ────────────────────────────────────────────────────
-  const region_key = resolveRegionForCoordinates(lat, lon);
+  const region = resolveRegionForCoordinates(lat, lon);
 
   // ── Build SharedEngineRequest (env normalizer) ────────────────────────────
   const shared_req = buildSharedEngineRequestFromEnvData(
@@ -179,14 +181,17 @@ Deno.serve(async (req: Request) => {
   );
 
   // ── Run recommender ───────────────────────────────────────────────────────
+  // The recommender is now a freshwater V3-only flagship path. We keep the
+  // current frontend response shape, but all fish logic, seasonal tables,
+  // and scoring come from V3.
   let result;
   try {
-    result = runRecommender({
+    const engineReq = {
       location: {
         latitude: lat,
         longitude: lon,
         state_code,
-        region_key,
+        region_key: region.region_key,
         local_date,
         local_timezone: timezone,
         month,
@@ -195,7 +200,18 @@ Deno.serve(async (req: Request) => {
       context: context as EngineContext,
       water_clarity: water_clarity as WaterClarity,
       env_data: shared_req.environment as Record<string, unknown>,
-    });
+    };
+
+    const v3Species = toRecommenderV3Species(engineReq.species);
+    if (v3Species === null || !isContextAllowedForRecommenderV3(v3Species, engineReq.context)) {
+      return jsonError(
+        "The recommender currently supports freshwater V3 species and water types only.",
+        "unsupported_recommender_scope",
+        422,
+      );
+    }
+
+    result = runRecommenderV3Surface(engineReq);
   } catch (err) {
     const msg = err instanceof Error ? err.message : "Engine error";
     console.error("[recommender] engine error:", msg);

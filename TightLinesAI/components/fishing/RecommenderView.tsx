@@ -38,8 +38,7 @@ function contextAccentColor(ctx: EngineContext): string {
   switch (ctx) {
     case 'freshwater_lake_pond':    return colors.contextFreshwater;
     case 'freshwater_river':        return colors.contextRiver;
-    case 'coastal':                 return colors.contextCoastal;
-    case 'coastal_flats_estuary':   return colors.contextFlatsEstuary;
+    default:                        return colors.contextFreshwater;
   }
 }
 
@@ -47,8 +46,7 @@ function contextLabel(ctx: EngineContext): string {
   switch (ctx) {
     case 'freshwater_lake_pond':    return 'Lake / Pond';
     case 'freshwater_river':        return 'River';
-    case 'coastal':                 return 'Coastal Inshore';
-    case 'coastal_flats_estuary':   return 'Flats & Estuary';
+    default:                        return 'Freshwater';
   }
 }
 
@@ -56,8 +54,7 @@ function contextIcon(ctx: EngineContext): string {
   switch (ctx) {
     case 'freshwater_lake_pond':  return 'water-outline';
     case 'freshwater_river':      return 'git-merge-outline';
-    case 'coastal':               return 'boat-outline';
-    case 'coastal_flats_estuary': return 'expand-outline';
+    default: return 'water-outline';
   }
 }
 
@@ -177,9 +174,15 @@ function FamilyCard({
           <View style={styles.detailsExpanded}>
             <View style={styles.detailsDivider} />
             <DetailRow icon="checkmark-circle-outline" label="Why it works"    text={family.why_picked} />
+            {!!family.where_to_start && (
+              <DetailRow icon="navigate-outline"         label="Start here"      text={family.where_to_start} />
+            )}
             <DetailRow icon="fish-outline"             label="Technique"       text={family.how_to_fish} />
             <DetailRow icon="time-outline"             label="Best when"       text={family.best_when} />
             <DetailRow icon="color-palette-outline"    label="Color guide"     text={family.color_guide} />
+            {!!family.what_to_adjust_if_ignored && (
+              <DetailRow icon="refresh-outline"          label="If they ignore it" text={family.what_to_adjust_if_ignored} />
+            )}
           </View>
         )}
       </View>
@@ -310,6 +313,11 @@ export function RecommenderView({ result, style }: Props) {
             {result.confidence.reasons[0]}
           </Text>
         )}
+        {result.primary_pattern_summary && (
+          <Text style={styles.patternSummary}>
+            {result.primary_pattern_summary}
+          </Text>
+        )}
       </View>
 
       {/* ── Behavior summary ── */}
@@ -320,16 +328,6 @@ export function RecommenderView({ result, style }: Props) {
 
       {/* ── Gear tabs ── */}
       <GearTabs active={gearTab} onChange={setGearTab} accentColor={accentColor} />
-
-      {/* ── Trout streamers note ── */}
-      {gearTab === 'fly' && result.species === 'river_trout' && (
-        <View style={styles.scopeNote}>
-          <Ionicons name="information-circle-outline" size={14} color={colors.textMuted} />
-          <Text style={styles.scopeNoteText}>
-            V1 fly recommendations are streamers only. Nymph and dry fly coverage coming soon.
-          </Text>
-        </View>
-      )}
 
       {/* ── Family cards ── */}
       {families.length === 0 ? (
@@ -439,6 +437,12 @@ const styles = StyleSheet.create({
     color: colors.textSecondary,
     lineHeight: 18,
   },
+  patternSummary: {
+    fontFamily: fonts.body,
+    fontSize: 14,
+    color: colors.text,
+    lineHeight: 20,
+  },
 
   // Behavior summary
   behaviorCard: {
@@ -521,23 +525,6 @@ const styles = StyleSheet.create({
   tabText: {
     fontFamily: fonts.bodyMedium,
     fontSize: 14,
-  },
-
-  // Scope note
-  scopeNote: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    gap: 6,
-    backgroundColor: colors.backgroundAlt,
-    borderRadius: radius.sm,
-    padding: spacing.sm,
-  },
-  scopeNoteText: {
-    flex: 1,
-    fontFamily: fonts.body,
-    fontSize: 12,
-    color: colors.textMuted,
-    lineHeight: 17,
   },
 
   // Family card

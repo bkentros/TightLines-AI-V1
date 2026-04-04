@@ -6,7 +6,7 @@
 
 import { STATE_SPECIES_CONTEXTS as GENERATED_STATE_SPECIES_CONTEXTS } from './generated/recommenderStateSpecies';
 
-export const RECOMMENDER_FEATURE = "recommender_v1" as const;
+export const RECOMMENDER_FEATURE = "recommender_v3" as const;
 
 export type SpeciesGroup =
   | "largemouth_bass"
@@ -36,8 +36,8 @@ export const SPECIES_GROUPS: SpeciesGroup[] = [
 export const SPECIES_DISPLAY: Record<SpeciesGroup, string> = {
   largemouth_bass:  "Largemouth Bass",
   smallmouth_bass:  "Smallmouth Bass",
-  pike_musky:       "Pike / Musky",
-  river_trout:      "River Trout",
+  pike_musky:       "Northern Pike",
+  river_trout:      "Trout",
   walleye:          "Walleye",
   redfish:          "Redfish",
   snook:            "Snook",
@@ -50,7 +50,7 @@ export const SPECIES_DISPLAY: Record<SpeciesGroup, string> = {
 export const SPECIES_SHORT: Record<SpeciesGroup, string> = {
   largemouth_bass:  "LMB",
   smallmouth_bass:  "SMB",
-  pike_musky:       "Pike/Musky",
+  pike_musky:       "Pike",
   river_trout:      "Trout",
   walleye:          "Walleye",
   redfish:          "Redfish",
@@ -74,23 +74,6 @@ export type EngineContext =
   | "coastal"
   | "coastal_flats_estuary";
 
-// ─── Species water type gate (for UI pre-filtering) ──────────────────────────
-
-export type SpeciesWaterType = "freshwater" | "saltwater" | "both";
-
-export const SPECIES_WATER_TYPE: Record<SpeciesGroup, SpeciesWaterType> = {
-  largemouth_bass:  "freshwater",
-  smallmouth_bass:  "freshwater",
-  pike_musky:       "freshwater",
-  river_trout:      "freshwater",
-  walleye:          "freshwater",
-  redfish:          "saltwater",
-  snook:            "saltwater",
-  seatrout:         "saltwater",
-  striped_bass:     "both",
-  tarpon:           "saltwater",
-};
-
 // ─── State × species × context gating (frontend mirror of backend map) ────────
 //
 // Maps each US state to the species available there and which contexts
@@ -101,6 +84,18 @@ export const SPECIES_WATER_TYPE: Record<SpeciesGroup, SpeciesWaterType> = {
 // Keep in sync when the backend map changes.
 
 export type StateSpeciesContexts = Partial<Record<SpeciesGroup, EngineContext[]>>;
+
+export const RECOMMENDER_V3_UI_SPECIES: SpeciesGroup[] = [
+  "largemouth_bass",
+  "smallmouth_bass",
+  "pike_musky",
+  "river_trout",
+];
+
+export const RECOMMENDER_V3_UI_CONTEXTS: EngineContext[] = [
+  "freshwater_lake_pond",
+  "freshwater_river",
+];
 
 export const STATE_SPECIES_CONTEXTS: Record<string, StateSpeciesContexts> =
   GENERATED_STATE_SPECIES_CONTEXTS as unknown as Record<string, StateSpeciesContexts>;
@@ -144,9 +139,65 @@ export function getContextsForState(state_code: string): EngineContext[] {
     .filter((c) => all.has(c));
 }
 
+export function getRecommenderSpeciesForState(state_code: string): SpeciesGroup[] {
+  return getSpeciesForState(state_code).filter((species) => RECOMMENDER_V3_UI_SPECIES.includes(species));
+}
+
+export function getRecommenderContextsForStateSpecies(
+  state_code: string,
+  species: SpeciesGroup,
+): EngineContext[] {
+  return getContextsForStateSpecies(state_code, species)
+    .filter((context) => RECOMMENDER_V3_UI_CONTEXTS.includes(context));
+}
+
+export function getRecommenderContextsForState(state_code: string): EngineContext[] {
+  return getContextsForState(state_code).filter((context) => RECOMMENDER_V3_UI_CONTEXTS.includes(context));
+}
+
+export function isRecommenderV3UiSpecies(species: string): species is SpeciesGroup {
+  return RECOMMENDER_V3_UI_SPECIES.includes(species as SpeciesGroup);
+}
+
+export function isRecommenderV3UiContext(context: string): context is EngineContext {
+  return RECOMMENDER_V3_UI_CONTEXTS.includes(context as EngineContext);
+}
+
 // ─── Output types ─────────────────────────────────────────────────────────────
 
 export type ActivityLevel = "inactive" | "low" | "neutral" | "active" | "aggressive";
+export type AggressionLevel = "passive" | "neutral" | "reactive" | "aggressive";
+export type StrikeZone = "narrow" | "moderate" | "wide";
+export type ChaseRadius = "short" | "moderate" | "long";
+export type DepthLane = "surface" | "upper" | "mid" | "near_bottom" | "bottom";
+export type SpeedPreference = "dead_slow" | "slow" | "moderate" | "fast" | "vary";
+export type NoiseLevel = "silent" | "subtle" | "moderate" | "loud";
+export type FlashLevel = "none" | "subtle" | "moderate" | "heavy";
+export type ProfileSize = "slim" | "medium" | "bulky";
+export type TriggerType = "finesse" | "reaction" | "natural_match" | "aggressive";
+export type MotionType =
+  | "steady"
+  | "hop"
+  | "twitch_pause"
+  | "rip"
+  | "sweep"
+  | "walk"
+  | "pop"
+  | "drag"
+  | "swing";
+export type CurrentTechnique =
+  | "uptide_cast"
+  | "cross_current"
+  | "downstream_drift"
+  | "static";
+export type ForageMode =
+  | "baitfish"
+  | "shrimp"
+  | "crab"
+  | "crawfish"
+  | "leech"
+  | "surface_prey"
+  | "mixed";
 export type ColorFamily =
   | "natural_match"
   | "shad_silver"
@@ -160,11 +211,16 @@ export type ColorFamily =
 
 export type BehaviorOutput = {
   activity: ActivityLevel;
-  depth_lane: string;
-  forage_mode: string;
-  secondary_forage?: string;
+  aggression: AggressionLevel;
+  strike_zone: StrikeZone;
+  chase_radius: ChaseRadius;
+  depth_lane: DepthLane;
+  forage_mode: ForageMode;
+  secondary_forage?: ForageMode;
   topwater_viable: boolean;
-  speed_preference: string;
+  speed_preference: SpeedPreference;
+  noise_preference: NoiseLevel;
+  flash_preference: FlashLevel;
   habitat_tags: string[];
   behavior_summary: [string, string, string];
   tidal_note?: string;
@@ -172,16 +228,16 @@ export type BehaviorOutput = {
 };
 
 export type PresentationOutput = {
-  depth_target: string;
-  speed: string;
-  motion: string;
-  trigger_type: string;
-  noise: string;
-  flash: string;
-  profile: string;
+  depth_target: DepthLane;
+  speed: SpeedPreference;
+  motion: MotionType;
+  trigger_type: TriggerType;
+  noise: NoiseLevel;
+  flash: FlashLevel;
+  profile: ProfileSize;
   color_family: ColorFamily;
   topwater_viable: boolean;
-  current_technique?: string;
+  current_technique?: CurrentTechnique;
 };
 
 export type RankedFamily = {
@@ -197,9 +253,13 @@ export type RankedFamily = {
     detail: string;
   }>;
   why_picked: string;
+  /** Phase 6 target field: first lane or structure to start on. */
+  where_to_start?: string;
   how_to_fish: string;
   best_when: string;
   color_guide: string;
+  /** Phase 6 target field: deterministic backup adjustment if fish do not commit. */
+  what_to_adjust_if_ignored?: string;
 };
 
 export type RecommenderConfidenceTier = "high" | "medium" | "low";
@@ -225,6 +285,8 @@ export type RecommenderResponse = {
     timing_strength: string;
   };
   confidence: RecommenderConfidence;
+  /** Phase 6 target field: top-level guide summary for the overall pattern. */
+  primary_pattern_summary?: string;
 };
 
 // ─── Request shape (what the frontend sends) ──────────────────────────────────

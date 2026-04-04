@@ -1,7 +1,7 @@
 /**
  * Recommender client — AsyncStorage + in-memory cache layer.
  *
- * Cache key: `recommender_v1_{lat}_{lon}_{context}_{species}_{clarity}`
+ * Cache key: `recommender_v3_{lat}_{lon}_{context}_{species}_{clarity}`
  * TTL: respects cache_expires_at from server response (6-hour rolling).
  *
  * Mirrors the howFishing.ts cache pattern exactly.
@@ -26,7 +26,7 @@ function cacheKey(
   species: SpeciesGroup,
   clarity: WaterClarity,
 ): string {
-  return `recommender_v1_${lat.toFixed(3)}_${lon.toFixed(3)}_${context}_${species}_${clarity}`;
+  return `recommender_v3_${lat.toFixed(3)}_${lon.toFixed(3)}_${context}_${species}_${clarity}`;
 }
 
 function coordsMatch(a: number, b: number, c: number, d: number): boolean {
@@ -145,7 +145,9 @@ export async function clearRecommenderCache(): Promise<void> {
   _memCache.clear();
   try {
     const keys = await AsyncStorage.getAllKeys();
-    const toRemove = keys.filter((k) => k.startsWith('recommender_v1_'));
+    const toRemove = keys.filter(
+      (k) => k.startsWith('recommender_v1_') || k.startsWith('recommender_v3_'),
+    );
     if (toRemove.length > 0) {
       await AsyncStorage.multiRemove(toRemove);
     }

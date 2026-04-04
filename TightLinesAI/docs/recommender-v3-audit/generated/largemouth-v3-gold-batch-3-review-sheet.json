@@ -1,0 +1,1945 @@
+{
+  "batch_id": "largemouth_v3_gold_batch_3",
+  "generated_at": "2026-04-04T15:53:47.724Z",
+  "archive_bundle_generated_at": "2026-04-04T13:57:26.415Z",
+  "scenario_count": 10,
+  "score_keys": [
+    "seasonal_fit",
+    "daily_fit",
+    "water_column_fit",
+    "archetype_fit",
+    "color_fit",
+    "top3_variety",
+    "boundedness"
+  ],
+  "scenarios": [
+    {
+      "scenario_id": "lmb_florida_apr_spawn_lake_clear",
+      "label": "Florida natural lake largemouth, clear spawn window",
+      "priority": "core",
+      "species": "largemouth_bass",
+      "context": "freshwater_lake_pond",
+      "water_clarity": "clear",
+      "state_code": "FL",
+      "timezone": "America/New_York",
+      "local_date": "2025-04-16",
+      "latitude": 28.5383,
+      "longitude": -81.3792,
+      "expectation": {
+        "seasonal_story": "Clear-water Florida spawn bass should stay shallow and target-oriented, with clean follow-up baitfish lanes instead of a wild topwater jump.",
+        "primary_lanes": [
+          "weightless_stick_worm",
+          "wacky_rigged_stick_worm",
+          "compact_flipping_jig"
+        ],
+        "acceptable_secondary_lanes": [
+          "swim_jig",
+          "paddle_tail_swimbait",
+          "woolly_bugger"
+        ],
+        "disallowed_lanes": [
+          "blade_bait",
+          "hollow_body_frog"
+        ],
+        "expected_color_lanes": [
+          "watermelon_natural",
+          "green_pumpkin_natural",
+          "natural_baitfish"
+        ]
+      },
+      "engine_run_status": "complete",
+      "archived_env_summary": [
+        "Region: florida",
+        "Archive weather timezone: America/New_York",
+        "Noon air temp: 78.2 F",
+        "Noon pressure: 1019.7 mb",
+        "Noon cloud cover: 0%",
+        "Daily high/low: 83.6 / 64.1 F",
+        "Daily wind max: 8.3 mph",
+        "Daily precip: 0 in",
+        "Moon phase: Waning Gibbous",
+        "Sunrise/sunset: 06:57 / 19:53"
+      ],
+      "actual_output": {
+        "top_1_lure": {
+          "id": "weightless_stick_worm",
+          "display_name": "Weightless Stick Worm",
+          "score": 14,
+          "tactical_lane": "finesse_subtle",
+          "color_theme": "green_pumpkin_natural",
+          "color_recommendations": [
+            "green pumpkin",
+            "green pumpkin blue",
+            "pb&j"
+          ],
+          "why": "Weightless Stick Worm fits a active fish mood, stays in the shallow lane, and matches today's subtle need in clear water."
+        },
+        "top_3_lures": [
+          {
+            "id": "weightless_stick_worm",
+            "display_name": "Weightless Stick Worm",
+            "score": 14,
+            "tactical_lane": "finesse_subtle",
+            "color_theme": "green_pumpkin_natural",
+            "color_recommendations": [
+              "green pumpkin",
+              "green pumpkin blue",
+              "pb&j"
+            ],
+            "why": "Weightless Stick Worm fits a active fish mood, stays in the shallow lane, and matches today's subtle need in clear water."
+          },
+          {
+            "id": "paddle_tail_swimbait",
+            "display_name": "Paddle-Tail Swimbait",
+            "score": 13.7,
+            "tactical_lane": "horizontal_search",
+            "color_theme": "natural_baitfish",
+            "color_recommendations": [
+              "olive/white",
+              "shad",
+              "smoke shad"
+            ],
+            "why": "Paddle-Tail Swimbait fits a active fish mood, stays in the shallow lane, and matches today's subtle need in clear water."
+          },
+          {
+            "id": "wacky_rigged_stick_worm",
+            "display_name": "Wacky-Rigged Stick Worm",
+            "score": 14,
+            "tactical_lane": "finesse_subtle",
+            "color_theme": "green_pumpkin_natural",
+            "color_recommendations": [
+              "green pumpkin",
+              "green pumpkin blue",
+              "pb&j"
+            ],
+            "why": "Wacky-Rigged Stick Worm fits a active fish mood, stays in the shallow lane, and matches today's subtle need in clear water."
+          }
+        ],
+        "top_1_fly": {
+          "id": "woolly_bugger",
+          "display_name": "Woolly Bugger",
+          "score": 14.5,
+          "tactical_lane": "fly_bottom",
+          "color_theme": "dark_contrast",
+          "color_recommendations": [
+            "black",
+            "black/olive",
+            "black/purple"
+          ],
+          "why": "Woolly Bugger fits a active fish mood, stays in the shallow lane, and matches today's subtle need in clear water."
+        },
+        "top_3_flies": [
+          {
+            "id": "woolly_bugger",
+            "display_name": "Woolly Bugger",
+            "score": 14.5,
+            "tactical_lane": "fly_bottom",
+            "color_theme": "dark_contrast",
+            "color_recommendations": [
+              "black",
+              "black/olive",
+              "black/purple"
+            ],
+            "why": "Woolly Bugger fits a active fish mood, stays in the shallow lane, and matches today's subtle need in clear water."
+          },
+          {
+            "id": "clouser_minnow",
+            "display_name": "Clouser Minnow",
+            "score": 13.7,
+            "tactical_lane": "fly_baitfish",
+            "color_theme": "natural_baitfish",
+            "color_recommendations": [
+              "olive/white",
+              "shad",
+              "smoke shad"
+            ],
+            "why": "Clouser Minnow fits a active fish mood, stays in the shallow lane, and matches today's subtle need in clear water."
+          },
+          {
+            "id": "rabbit_strip_leech",
+            "display_name": "Rabbit-Strip Leech",
+            "score": 13.25,
+            "tactical_lane": "fly_bottom",
+            "color_theme": "dark_contrast",
+            "color_recommendations": [
+              "black",
+              "black/purple",
+              "black/blue"
+            ],
+            "why": "Rabbit-Strip Leech fits a active fish mood, stays in the shallow lane, and matches today's subtle need in clear water."
+          }
+        ],
+        "color_notes": [
+          "Weightless Stick Worm: Theme: green pumpkin natural. Try green pumpkin, green pumpkin blue, pb&j.",
+          "Paddle-Tail Swimbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.",
+          "Wacky-Rigged Stick Worm: Theme: green pumpkin natural. Try green pumpkin, green pumpkin blue, pb&j.",
+          "Woolly Bugger: Theme: dark contrast. Try black, black/olive, black/purple.",
+          "Clouser Minnow: Theme: natural baitfish. Try olive/white, shad, smoke shad.",
+          "Rabbit-Strip Leech: Theme: dark contrast. Try black, black/purple, black/blue."
+        ],
+        "daily_profile_notes": [
+          "Shared score: 72 (Good)",
+          "Daily nudges: mood=up_1, water_column=higher_1, presentation=subtler",
+          "Resolved profile: water_column=shallow, mood=active, presentation=subtle",
+          "Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption"
+        ]
+      },
+      "review": {
+        "precheck_flags": [
+          "TOP1_PRIMARY_HIT",
+          "TOP3_PRIMARY_PRESENT",
+          "NO_DISALLOWED_PRESENT",
+          "TOP_COLOR_MATCH:green_pumpkin_natural"
+        ],
+        "top_1_verdict": "",
+        "top_3_verdict": "",
+        "scores": {
+          "seasonal_fit": null,
+          "daily_fit": null,
+          "water_column_fit": null,
+          "archetype_fit": null,
+          "color_fit": null,
+          "top3_variety": null,
+          "boundedness": null
+        },
+        "failure_clusters": [],
+        "notes": ""
+      }
+    },
+    {
+      "scenario_id": "lmb_florida_aug_grass_lake_heat_dirty",
+      "label": "Florida grass lake largemouth, dirty late-summer heat control",
+      "priority": "core",
+      "species": "largemouth_bass",
+      "context": "freshwater_lake_pond",
+      "water_clarity": "dirty",
+      "state_code": "FL",
+      "timezone": "America/New_York",
+      "local_date": "2025-08-14",
+      "latitude": 26.94,
+      "longitude": -80.8,
+      "expectation": {
+        "seasonal_story": "Late-summer Florida largemouth in dirty grass should stay cover-oriented with bold visible lanes, not drift into clear-water finesse.",
+        "primary_lanes": [
+          "compact_flipping_jig",
+          "texas_rigged_soft_plastic_craw",
+          "hollow_body_frog"
+        ],
+        "acceptable_secondary_lanes": [
+          "swim_jig",
+          "buzzbait_prop_bait",
+          "frog_fly"
+        ],
+        "disallowed_lanes": [
+          "drop_shot_worm_minnow",
+          "suspending_jerkbait"
+        ],
+        "expected_color_lanes": [
+          "dark_contrast",
+          "craw_natural",
+          "frog_natural"
+        ]
+      },
+      "engine_run_status": "complete",
+      "archived_env_summary": [
+        "Region: florida",
+        "Archive weather timezone: America/New_York",
+        "Noon air temp: 83.5 F",
+        "Noon pressure: 1018.7 mb",
+        "Noon cloud cover: 82%",
+        "Daily high/low: 88.3 / 82.2 F",
+        "Daily wind max: 13.3 mph",
+        "Daily precip: 0.06299212598425198 in",
+        "Moon phase: Waning Gibbous",
+        "Sunrise/sunset: 06:53 / 20:02"
+      ],
+      "actual_output": {
+        "top_1_lure": {
+          "id": "compact_flipping_jig",
+          "display_name": "Compact Flipping / Pitching Jig",
+          "score": 14.5,
+          "tactical_lane": "cover_weedless",
+          "color_theme": "green_pumpkin_natural",
+          "color_recommendations": [
+            "green pumpkin",
+            "green pumpkin blue",
+            "pb&j"
+          ],
+          "why": "Compact Flipping / Pitching Jig fits a negative fish mood, stays in the mid lane, and matches today's bold need in dirty water."
+        },
+        "top_3_lures": [
+          {
+            "id": "compact_flipping_jig",
+            "display_name": "Compact Flipping / Pitching Jig",
+            "score": 14.5,
+            "tactical_lane": "cover_weedless",
+            "color_theme": "green_pumpkin_natural",
+            "color_recommendations": [
+              "green pumpkin",
+              "green pumpkin blue",
+              "pb&j"
+            ],
+            "why": "Compact Flipping / Pitching Jig fits a negative fish mood, stays in the mid lane, and matches today's bold need in dirty water."
+          },
+          {
+            "id": "bladed_jig",
+            "display_name": "Bladed Jig",
+            "score": 13.2,
+            "tactical_lane": "horizontal_search",
+            "color_theme": "white_shad",
+            "color_recommendations": [
+              "white",
+              "white/chartreuse",
+              "pearl shad"
+            ],
+            "why": "Bladed Jig fits a negative fish mood, stays in the mid lane, and matches today's bold need in dirty water."
+          },
+          {
+            "id": "swim_jig",
+            "display_name": "Swim Jig",
+            "score": 13.2,
+            "tactical_lane": "horizontal_search",
+            "color_theme": "dark_contrast",
+            "color_recommendations": [
+              "black/blue",
+              "black/purple",
+              "black"
+            ],
+            "why": "Swim Jig fits a negative fish mood, stays in the mid lane, and matches today's bold need in dirty water."
+          }
+        ],
+        "top_1_fly": {
+          "id": "woolly_bugger",
+          "display_name": "Woolly Bugger",
+          "score": 13.8,
+          "tactical_lane": "fly_bottom",
+          "color_theme": "craw_natural",
+          "color_recommendations": [
+            "brown/orange",
+            "rust brown",
+            "amber brown"
+          ],
+          "why": "Woolly Bugger fits a negative fish mood, stays in the mid lane, and matches today's bold need in dirty water."
+        },
+        "top_3_flies": [
+          {
+            "id": "woolly_bugger",
+            "display_name": "Woolly Bugger",
+            "score": 13.8,
+            "tactical_lane": "fly_bottom",
+            "color_theme": "craw_natural",
+            "color_recommendations": [
+              "brown/orange",
+              "rust brown",
+              "amber brown"
+            ],
+            "why": "Woolly Bugger fits a negative fish mood, stays in the mid lane, and matches today's bold need in dirty water."
+          },
+          {
+            "id": "frog_fly",
+            "display_name": "Topwater Frog Fly",
+            "score": 12.8,
+            "tactical_lane": "fly_surface",
+            "color_theme": "frog_natural",
+            "color_recommendations": [
+              "leopard frog",
+              "bullfrog",
+              "black frog"
+            ],
+            "why": "Topwater Frog Fly fits a negative fish mood, stays in the mid lane, and matches today's bold need in dirty water."
+          },
+          {
+            "id": "game_changer",
+            "display_name": "Game Changer",
+            "score": 11.7,
+            "tactical_lane": "fly_baitfish",
+            "color_theme": "white_shad",
+            "color_recommendations": [
+              "white",
+              "pearl",
+              "white/silver"
+            ],
+            "why": "Game Changer fits a negative fish mood, stays in the mid lane, and matches today's bold need in dirty water."
+          }
+        ],
+        "color_notes": [
+          "Compact Flipping / Pitching Jig: Theme: green pumpkin natural. Try green pumpkin, green pumpkin blue, pb&j.",
+          "Bladed Jig: Theme: white shad. Try white, white/chartreuse, pearl shad.",
+          "Swim Jig: Theme: dark contrast. Try black/blue, black/purple, black.",
+          "Woolly Bugger: Theme: craw natural. Try brown/orange, rust brown, amber brown.",
+          "Topwater Frog Fly: Theme: frog natural. Try leopard frog, bullfrog, black frog.",
+          "Game Changer: Theme: white shad. Try white, pearl, white/silver."
+        ],
+        "daily_profile_notes": [
+          "Shared score: 45 (Fair)",
+          "Daily nudges: mood=down_1, water_column=lower_1, presentation=neutral",
+          "Resolved profile: water_column=mid, mood=negative, presentation=bold",
+          "Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption"
+        ]
+      },
+      "review": {
+        "precheck_flags": [
+          "TOP1_PRIMARY_HIT",
+          "TOP3_PRIMARY_PRESENT",
+          "NO_DISALLOWED_PRESENT",
+          "TOP_COLOR_MATCH:craw_natural"
+        ],
+        "top_1_verdict": "",
+        "top_3_verdict": "",
+        "scores": {
+          "seasonal_fit": null,
+          "daily_fit": null,
+          "water_column_fit": null,
+          "archetype_fit": null,
+          "color_fit": null,
+          "top3_variety": null,
+          "boundedness": null
+        },
+        "failure_clusters": [],
+        "notes": ""
+      }
+    },
+    {
+      "scenario_id": "lmb_texas_jan_reservoir_cold_stained",
+      "label": "Texas reservoir largemouth, stained midwinter tightening window",
+      "priority": "core",
+      "species": "largemouth_bass",
+      "context": "freshwater_lake_pond",
+      "water_clarity": "stained",
+      "state_code": "TX",
+      "timezone": "America/Chicago",
+      "local_date": "2025-01-16",
+      "latitude": 31.101,
+      "longitude": -95.566,
+      "expectation": {
+        "seasonal_story": "Midwinter south-central reservoir bass should stay controlled and lower-column, but stained water can still keep a jerkbait or flat-side in play.",
+        "primary_lanes": [
+          "football_jig",
+          "suspending_jerkbait",
+          "flat_sided_crankbait"
+        ],
+        "acceptable_secondary_lanes": [
+          "shaky_head_worm",
+          "texas_rigged_soft_plastic_craw",
+          "rabbit_strip_leech"
+        ],
+        "disallowed_lanes": [
+          "walking_topwater",
+          "hollow_body_frog"
+        ],
+        "expected_color_lanes": [
+          "green_pumpkin_natural",
+          "white_shad",
+          "dark_contrast"
+        ]
+      },
+      "engine_run_status": "complete",
+      "archived_env_summary": [
+        "Region: south_central",
+        "Archive weather timezone: America/Chicago",
+        "Noon air temp: 57 F",
+        "Noon pressure: 1029.1 mb",
+        "Noon cloud cover: 100%",
+        "Daily high/low: 60.3 / 42.6 F",
+        "Daily wind max: 12.3 mph",
+        "Daily precip: 0.023622047244094488 in",
+        "Moon phase: Waning Gibbous",
+        "Sunrise/sunset: 07:19 / 17:44"
+      ],
+      "actual_output": {
+        "top_1_lure": {
+          "id": "suspending_jerkbait",
+          "display_name": "Suspending Jerkbait",
+          "score": 13.75,
+          "tactical_lane": "reaction_mid_column",
+          "color_theme": "white_shad",
+          "color_recommendations": [
+            "pearl",
+            "table rock shad",
+            "white/silver"
+          ],
+          "why": "Suspending Jerkbait fits a negative fish mood, stays in the bottom lane, and matches today's subtle need in stained water."
+        },
+        "top_3_lures": [
+          {
+            "id": "suspending_jerkbait",
+            "display_name": "Suspending Jerkbait",
+            "score": 13.75,
+            "tactical_lane": "reaction_mid_column",
+            "color_theme": "white_shad",
+            "color_recommendations": [
+              "pearl",
+              "table rock shad",
+              "white/silver"
+            ],
+            "why": "Suspending Jerkbait fits a negative fish mood, stays in the bottom lane, and matches today's subtle need in stained water."
+          },
+          {
+            "id": "texas_rigged_soft_plastic_craw",
+            "display_name": "Texas-Rigged Soft-Plastic Craw",
+            "score": 13.7,
+            "tactical_lane": "cover_weedless",
+            "color_theme": "green_pumpkin_natural",
+            "color_recommendations": [
+              "green pumpkin",
+              "green pumpkin blue",
+              "pb&j"
+            ],
+            "why": "Texas-Rigged Soft-Plastic Craw fits a negative fish mood, stays in the bottom lane, and matches today's subtle need in stained water."
+          },
+          {
+            "id": "flat_sided_crankbait",
+            "display_name": "Flat-Sided Crankbait",
+            "score": 13.75,
+            "tactical_lane": "reaction_mid_column",
+            "color_theme": "white_shad",
+            "color_recommendations": [
+              "white",
+              "pearl",
+              "white/silver"
+            ],
+            "why": "Flat-Sided Crankbait fits a negative fish mood, stays in the bottom lane, and matches today's subtle need in stained water."
+          }
+        ],
+        "top_1_fly": {
+          "id": "rabbit_strip_leech",
+          "display_name": "Rabbit-Strip Leech",
+          "score": 14.5,
+          "tactical_lane": "fly_bottom",
+          "color_theme": "dark_contrast",
+          "color_recommendations": [
+            "black",
+            "black/purple",
+            "black/blue"
+          ],
+          "why": "Rabbit-Strip Leech fits a negative fish mood, stays in the bottom lane, and matches today's subtle need in stained water."
+        },
+        "top_3_flies": [
+          {
+            "id": "rabbit_strip_leech",
+            "display_name": "Rabbit-Strip Leech",
+            "score": 14.5,
+            "tactical_lane": "fly_bottom",
+            "color_theme": "dark_contrast",
+            "color_recommendations": [
+              "black",
+              "black/purple",
+              "black/blue"
+            ],
+            "why": "Rabbit-Strip Leech fits a negative fish mood, stays in the bottom lane, and matches today's subtle need in stained water."
+          },
+          {
+            "id": "woolly_bugger",
+            "display_name": "Woolly Bugger",
+            "score": 14.5,
+            "tactical_lane": "fly_bottom",
+            "color_theme": "dark_contrast",
+            "color_recommendations": [
+              "black",
+              "black/olive",
+              "black/purple"
+            ],
+            "why": "Woolly Bugger fits a negative fish mood, stays in the bottom lane, and matches today's subtle need in stained water."
+          },
+          {
+            "id": "sculpin_streamer",
+            "display_name": "Sculpin Streamer",
+            "score": 14.5,
+            "tactical_lane": "fly_bottom",
+            "color_theme": "dark_contrast",
+            "color_recommendations": [
+              "black/blue",
+              "black/purple",
+              "black/red"
+            ],
+            "why": "Sculpin Streamer fits a negative fish mood, stays in the bottom lane, and matches today's subtle need in stained water."
+          }
+        ],
+        "color_notes": [
+          "Suspending Jerkbait: Theme: white shad. Try pearl, table rock shad, white/silver.",
+          "Texas-Rigged Soft-Plastic Craw: Theme: green pumpkin natural. Try green pumpkin, green pumpkin blue, pb&j.",
+          "Flat-Sided Crankbait: Theme: white shad. Try white, pearl, white/silver.",
+          "Rabbit-Strip Leech: Theme: dark contrast. Try black, black/purple, black/blue.",
+          "Woolly Bugger: Theme: dark contrast. Try black, black/olive, black/purple.",
+          "Sculpin Streamer: Theme: dark contrast. Try black/blue, black/purple, black/red."
+        ],
+        "daily_profile_notes": [
+          "Shared score: 60 (Good)",
+          "Daily nudges: mood=neutral, water_column=lower_1, presentation=neutral",
+          "Resolved profile: water_column=bottom, mood=negative, presentation=subtle",
+          "Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption"
+        ]
+      },
+      "review": {
+        "precheck_flags": [
+          "TOP1_PRIMARY_HIT",
+          "TOP3_PRIMARY_PRESENT",
+          "NO_DISALLOWED_PRESENT",
+          "TOP_COLOR_MATCH:white_shad,dark_contrast"
+        ],
+        "top_1_verdict": "",
+        "top_3_verdict": "",
+        "scores": {
+          "seasonal_fit": null,
+          "daily_fit": null,
+          "water_column_fit": null,
+          "archetype_fit": null,
+          "color_fit": null,
+          "top3_variety": null,
+          "boundedness": null
+        },
+        "failure_clusters": [],
+        "notes": ""
+      }
+    },
+    {
+      "scenario_id": "lmb_texas_jul_reservoir_brush_dirty",
+      "label": "Texas reservoir largemouth, dirty summer brush and ledge day",
+      "priority": "core",
+      "species": "largemouth_bass",
+      "context": "freshwater_lake_pond",
+      "water_clarity": "dirty",
+      "state_code": "TX",
+      "timezone": "America/Chicago",
+      "local_date": "2025-07-16",
+      "latitude": 31.101,
+      "longitude": -95.566,
+      "expectation": {
+        "seasonal_story": "Dirty summer reservoir largemouth should lean visible cover and mid-depth control lanes rather than clean clear-water search baits.",
+        "primary_lanes": [
+          "compact_flipping_jig",
+          "texas_rigged_soft_plastic_craw",
+          "deep_diving_crankbait"
+        ],
+        "acceptable_secondary_lanes": [
+          "football_jig",
+          "spinnerbait",
+          "woolly_bugger"
+        ],
+        "disallowed_lanes": [
+          "drop_shot_worm_minnow",
+          "weightless_stick_worm"
+        ],
+        "expected_color_lanes": [
+          "dark_contrast",
+          "craw_natural",
+          "bright_contrast"
+        ]
+      },
+      "engine_run_status": "complete",
+      "archived_env_summary": [
+        "Region: south_central",
+        "Archive weather timezone: America/Chicago",
+        "Noon air temp: 89.5 F",
+        "Noon pressure: 1015.8 mb",
+        "Noon cloud cover: 22%",
+        "Daily high/low: 95.9 / 75.2 F",
+        "Daily wind max: 9.5 mph",
+        "Daily precip: 0.015748031496062995 in",
+        "Moon phase: Waning Gibbous",
+        "Sunrise/sunset: 06:28 / 20:28"
+      ],
+      "actual_output": {
+        "top_1_lure": {
+          "id": "compact_flipping_jig",
+          "display_name": "Compact Flipping / Pitching Jig",
+          "score": 14.5,
+          "tactical_lane": "cover_weedless",
+          "color_theme": "green_pumpkin_natural",
+          "color_recommendations": [
+            "green pumpkin",
+            "green pumpkin blue",
+            "pb&j"
+          ],
+          "why": "Compact Flipping / Pitching Jig fits a active fish mood, stays in the mid lane, and matches today's bold need in dirty water."
+        },
+        "top_3_lures": [
+          {
+            "id": "compact_flipping_jig",
+            "display_name": "Compact Flipping / Pitching Jig",
+            "score": 14.5,
+            "tactical_lane": "cover_weedless",
+            "color_theme": "green_pumpkin_natural",
+            "color_recommendations": [
+              "green pumpkin",
+              "green pumpkin blue",
+              "pb&j"
+            ],
+            "why": "Compact Flipping / Pitching Jig fits a active fish mood, stays in the mid lane, and matches today's bold need in dirty water."
+          },
+          {
+            "id": "football_jig",
+            "display_name": "Football Jig",
+            "score": 14.5,
+            "tactical_lane": "bottom_contact",
+            "color_theme": "craw_natural",
+            "color_recommendations": [
+              "brown/orange",
+              "rust brown",
+              "amber brown"
+            ],
+            "why": "Football Jig fits a active fish mood, stays in the mid lane, and matches today's bold need in dirty water."
+          },
+          {
+            "id": "deep_diving_crankbait",
+            "display_name": "Deep-Diving Crankbait",
+            "score": 13,
+            "tactical_lane": "horizontal_search",
+            "color_theme": "white_shad",
+            "color_recommendations": [
+              "white",
+              "pearl",
+              "white/silver"
+            ],
+            "why": "Deep-Diving Crankbait fits a active fish mood, stays in the mid lane, and matches today's bold need in dirty water."
+          }
+        ],
+        "top_1_fly": {
+          "id": "woolly_bugger",
+          "display_name": "Woolly Bugger",
+          "score": 13.8,
+          "tactical_lane": "fly_bottom",
+          "color_theme": "craw_natural",
+          "color_recommendations": [
+            "brown/orange",
+            "rust brown",
+            "amber brown"
+          ],
+          "why": "Woolly Bugger fits a active fish mood, stays in the mid lane, and matches today's bold need in dirty water."
+        },
+        "top_3_flies": [
+          {
+            "id": "woolly_bugger",
+            "display_name": "Woolly Bugger",
+            "score": 13.8,
+            "tactical_lane": "fly_bottom",
+            "color_theme": "craw_natural",
+            "color_recommendations": [
+              "brown/orange",
+              "rust brown",
+              "amber brown"
+            ],
+            "why": "Woolly Bugger fits a active fish mood, stays in the mid lane, and matches today's bold need in dirty water."
+          },
+          {
+            "id": "crawfish_streamer",
+            "display_name": "Crawfish Streamer",
+            "score": 13.4,
+            "tactical_lane": "fly_bottom",
+            "color_theme": "craw_natural",
+            "color_recommendations": [
+              "brown/orange",
+              "rust brown",
+              "amber brown"
+            ],
+            "why": "Crawfish Streamer fits a active fish mood, stays in the mid lane, and matches today's bold need in dirty water."
+          },
+          {
+            "id": "game_changer",
+            "display_name": "Game Changer",
+            "score": 11.85,
+            "tactical_lane": "fly_baitfish",
+            "color_theme": "white_shad",
+            "color_recommendations": [
+              "white",
+              "pearl",
+              "white/silver"
+            ],
+            "why": "Game Changer fits a active fish mood, stays in the mid lane, and matches today's bold need in dirty water."
+          }
+        ],
+        "color_notes": [
+          "Compact Flipping / Pitching Jig: Theme: green pumpkin natural. Try green pumpkin, green pumpkin blue, pb&j.",
+          "Football Jig: Theme: craw natural. Try brown/orange, rust brown, amber brown.",
+          "Deep-Diving Crankbait: Theme: white shad. Try white, pearl, white/silver.",
+          "Woolly Bugger: Theme: craw natural. Try brown/orange, rust brown, amber brown.",
+          "Crawfish Streamer: Theme: craw natural. Try brown/orange, rust brown, amber brown.",
+          "Game Changer: Theme: white shad. Try white, pearl, white/silver."
+        ],
+        "daily_profile_notes": [
+          "Shared score: 74 (Good)",
+          "Daily nudges: mood=up_1, water_column=higher_1, presentation=subtler",
+          "Resolved profile: water_column=mid, mood=active, presentation=bold",
+          "Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption"
+        ]
+      },
+      "review": {
+        "precheck_flags": [
+          "TOP1_PRIMARY_HIT",
+          "TOP3_PRIMARY_PRESENT",
+          "NO_DISALLOWED_PRESENT",
+          "TOP_COLOR_MATCH:craw_natural"
+        ],
+        "top_1_verdict": "",
+        "top_3_verdict": "",
+        "scores": {
+          "seasonal_fit": null,
+          "daily_fit": null,
+          "water_column_fit": null,
+          "archetype_fit": null,
+          "color_fit": null,
+          "top3_variety": null,
+          "boundedness": null
+        },
+        "failure_clusters": [],
+        "notes": ""
+      }
+    },
+    {
+      "scenario_id": "lmb_georgia_dec_highland_clear",
+      "label": "Georgia highland largemouth, clear early-winter reservoir day",
+      "priority": "secondary",
+      "species": "largemouth_bass",
+      "context": "freshwater_lake_pond",
+      "water_clarity": "clear",
+      "state_code": "GA",
+      "timezone": "America/New_York",
+      "local_date": "2025-12-10",
+      "latitude": 34.579,
+      "longitude": -83.543,
+      "expectation": {
+        "seasonal_story": "Clear highland winter largemouth should stay disciplined around baitfish and subtle lower-mid control, not noisy dirty-water lanes.",
+        "primary_lanes": [
+          "suspending_jerkbait",
+          "flat_sided_crankbait",
+          "paddle_tail_swimbait"
+        ],
+        "acceptable_secondary_lanes": [
+          "football_jig",
+          "drop_shot_worm_minnow",
+          "clouser_minnow"
+        ],
+        "disallowed_lanes": [
+          "buzzbait_prop_bait",
+          "hollow_body_frog"
+        ],
+        "expected_color_lanes": [
+          "natural_baitfish",
+          "white_shad",
+          "green_pumpkin_natural"
+        ]
+      },
+      "engine_run_status": "complete",
+      "archived_env_summary": [
+        "Region: south_central",
+        "Archive weather timezone: America/New_York",
+        "Noon air temp: 46.7 F",
+        "Noon pressure: 1010.5 mb",
+        "Noon cloud cover: 13%",
+        "Daily high/low: 47.4 / 32.7 F",
+        "Daily wind max: 14.6 mph",
+        "Daily precip: 0 in",
+        "Moon phase: Waning Gibbous",
+        "Sunrise/sunset: 07:29 / 17:25"
+      ],
+      "actual_output": {
+        "top_1_lure": {
+          "id": "flat_sided_crankbait",
+          "display_name": "Flat-Sided Crankbait",
+          "score": 14.15,
+          "tactical_lane": "reaction_mid_column",
+          "color_theme": "natural_baitfish",
+          "color_recommendations": [
+            "ghost shad",
+            "smoke shad",
+            "olive shad"
+          ],
+          "why": "Flat-Sided Crankbait fits a neutral fish mood, stays in the mid lane, and matches today's subtle need in clear water."
+        },
+        "top_3_lures": [
+          {
+            "id": "flat_sided_crankbait",
+            "display_name": "Flat-Sided Crankbait",
+            "score": 14.15,
+            "tactical_lane": "reaction_mid_column",
+            "color_theme": "natural_baitfish",
+            "color_recommendations": [
+              "ghost shad",
+              "smoke shad",
+              "olive shad"
+            ],
+            "why": "Flat-Sided Crankbait fits a neutral fish mood, stays in the mid lane, and matches today's subtle need in clear water."
+          },
+          {
+            "id": "football_jig",
+            "display_name": "Football Jig",
+            "score": 13.8,
+            "tactical_lane": "bottom_contact",
+            "color_theme": "green_pumpkin_natural",
+            "color_recommendations": [
+              "green pumpkin",
+              "green pumpkin blue",
+              "pb&j"
+            ],
+            "why": "Football Jig fits a neutral fish mood, stays in the mid lane, and matches today's subtle need in clear water."
+          },
+          {
+            "id": "suspending_jerkbait",
+            "display_name": "Suspending Jerkbait",
+            "score": 13.35,
+            "tactical_lane": "reaction_mid_column",
+            "color_theme": "natural_baitfish",
+            "color_recommendations": [
+              "ghost minnow",
+              "pro blue",
+              "olive shad"
+            ],
+            "why": "Suspending Jerkbait fits a neutral fish mood, stays in the mid lane, and matches today's subtle need in clear water."
+          }
+        ],
+        "top_1_fly": {
+          "id": "sculpin_streamer",
+          "display_name": "Sculpin Streamer",
+          "score": 14.5,
+          "tactical_lane": "fly_bottom",
+          "color_theme": "craw_natural",
+          "color_recommendations": [
+            "brown/orange",
+            "rust brown",
+            "amber brown"
+          ],
+          "why": "Sculpin Streamer fits a neutral fish mood, stays in the mid lane, and matches today's subtle need in clear water."
+        },
+        "top_3_flies": [
+          {
+            "id": "sculpin_streamer",
+            "display_name": "Sculpin Streamer",
+            "score": 14.5,
+            "tactical_lane": "fly_bottom",
+            "color_theme": "craw_natural",
+            "color_recommendations": [
+              "brown/orange",
+              "rust brown",
+              "amber brown"
+            ],
+            "why": "Sculpin Streamer fits a neutral fish mood, stays in the mid lane, and matches today's subtle need in clear water."
+          },
+          {
+            "id": "woolly_bugger",
+            "display_name": "Woolly Bugger",
+            "score": 14.5,
+            "tactical_lane": "fly_bottom",
+            "color_theme": "craw_natural",
+            "color_recommendations": [
+              "brown/orange",
+              "rust brown",
+              "amber brown"
+            ],
+            "why": "Woolly Bugger fits a neutral fish mood, stays in the mid lane, and matches today's subtle need in clear water."
+          },
+          {
+            "id": "crawfish_streamer",
+            "display_name": "Crawfish Streamer",
+            "score": 14.1,
+            "tactical_lane": "fly_bottom",
+            "color_theme": "green_pumpkin_natural",
+            "color_recommendations": [
+              "green pumpkin",
+              "green pumpkin blue",
+              "pb&j"
+            ],
+            "why": "Crawfish Streamer fits a neutral fish mood, stays in the mid lane, and matches today's subtle need in clear water."
+          }
+        ],
+        "color_notes": [
+          "Flat-Sided Crankbait: Theme: natural baitfish. Try ghost shad, smoke shad, olive shad.",
+          "Football Jig: Theme: green pumpkin natural. Try green pumpkin, green pumpkin blue, pb&j.",
+          "Suspending Jerkbait: Theme: natural baitfish. Try ghost minnow, pro blue, olive shad.",
+          "Sculpin Streamer: Theme: craw natural. Try brown/orange, rust brown, amber brown.",
+          "Woolly Bugger: Theme: craw natural. Try brown/orange, rust brown, amber brown.",
+          "Crawfish Streamer: Theme: green pumpkin natural. Try green pumpkin, green pumpkin blue, pb&j."
+        ],
+        "daily_profile_notes": [
+          "Shared score: 60 (Good)",
+          "Daily nudges: mood=up_1, water_column=higher_1, presentation=bolder",
+          "Resolved profile: water_column=mid, mood=neutral, presentation=subtle",
+          "Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption"
+        ]
+      },
+      "review": {
+        "precheck_flags": [
+          "TOP1_PRIMARY_HIT",
+          "TOP3_PRIMARY_PRESENT",
+          "NO_DISALLOWED_PRESENT",
+          "TOP_COLOR_MATCH:natural_baitfish"
+        ],
+        "top_1_verdict": "",
+        "top_3_verdict": "",
+        "scores": {
+          "seasonal_fit": null,
+          "daily_fit": null,
+          "water_column_fit": null,
+          "archetype_fit": null,
+          "color_fit": null,
+          "top3_variety": null,
+          "boundedness": null
+        },
+        "failure_clusters": [],
+        "notes": ""
+      }
+    },
+    {
+      "scenario_id": "lmb_louisiana_mar_grass_lake_prespawn_dirty",
+      "label": "Louisiana grass lake largemouth, dirty prespawn push",
+      "priority": "core",
+      "species": "largemouth_bass",
+      "context": "freshwater_lake_pond",
+      "water_clarity": "dirty",
+      "state_code": "LA",
+      "timezone": "America/Chicago",
+      "local_date": "2025-03-20",
+      "latitude": 30.208,
+      "longitude": -92.329,
+      "expectation": {
+        "seasonal_story": "Dirty-water southern prespawn bass should still push shallow with visible grass and baitfish lanes, but without leaping into pure surface-only behavior.",
+        "primary_lanes": [
+          "spinnerbait",
+          "bladed_jig",
+          "compact_flipping_jig"
+        ],
+        "acceptable_secondary_lanes": [
+          "swim_jig",
+          "paddle_tail_swimbait",
+          "game_changer"
+        ],
+        "disallowed_lanes": [
+          "drop_shot_worm_minnow",
+          "walking_topwater"
+        ],
+        "expected_color_lanes": [
+          "dark_contrast",
+          "bright_contrast",
+          "craw_natural"
+        ]
+      },
+      "engine_run_status": "complete",
+      "archived_env_summary": [
+        "Region: gulf_coast",
+        "Archive weather timezone: America/Chicago",
+        "Noon air temp: 58.6 F",
+        "Noon pressure: 1025 mb",
+        "Noon cloud cover: 0%",
+        "Daily high/low: 64.4 / 47.8 F",
+        "Daily wind max: 19.5 mph",
+        "Daily precip: 0 in",
+        "Moon phase: Waning Gibbous",
+        "Sunrise/sunset: 07:11 / 19:22"
+      ],
+      "actual_output": {
+        "top_1_lure": {
+          "id": "spinnerbait",
+          "display_name": "Spinnerbait",
+          "score": 14,
+          "tactical_lane": "horizontal_search",
+          "color_theme": "bright_contrast",
+          "color_recommendations": [
+            "white/chartreuse",
+            "firetiger",
+            "chartreuse/white"
+          ],
+          "why": "Spinnerbait fits a negative fish mood, stays in the mid lane, and matches today's bold need in dirty water."
+        },
+        "top_3_lures": [
+          {
+            "id": "spinnerbait",
+            "display_name": "Spinnerbait",
+            "score": 14,
+            "tactical_lane": "horizontal_search",
+            "color_theme": "bright_contrast",
+            "color_recommendations": [
+              "white/chartreuse",
+              "firetiger",
+              "chartreuse/white"
+            ],
+            "why": "Spinnerbait fits a negative fish mood, stays in the mid lane, and matches today's bold need in dirty water."
+          },
+          {
+            "id": "compact_flipping_jig",
+            "display_name": "Compact Flipping / Pitching Jig",
+            "score": 13.7,
+            "tactical_lane": "cover_weedless",
+            "color_theme": "green_pumpkin_natural",
+            "color_recommendations": [
+              "green pumpkin",
+              "green pumpkin blue",
+              "pb&j"
+            ],
+            "why": "Compact Flipping / Pitching Jig fits a negative fish mood, stays in the mid lane, and matches today's bold need in dirty water."
+          },
+          {
+            "id": "bladed_jig",
+            "display_name": "Bladed Jig",
+            "score": 14,
+            "tactical_lane": "horizontal_search",
+            "color_theme": "white_shad",
+            "color_recommendations": [
+              "white",
+              "white/chartreuse",
+              "pearl shad"
+            ],
+            "why": "Bladed Jig fits a negative fish mood, stays in the mid lane, and matches today's bold need in dirty water."
+          }
+        ],
+        "top_1_fly": {
+          "id": "woolly_bugger",
+          "display_name": "Woolly Bugger",
+          "score": 13.8,
+          "tactical_lane": "fly_bottom",
+          "color_theme": "dark_contrast",
+          "color_recommendations": [
+            "black",
+            "black/olive",
+            "black/purple"
+          ],
+          "why": "Woolly Bugger fits a negative fish mood, stays in the mid lane, and matches today's bold need in dirty water."
+        },
+        "top_3_flies": [
+          {
+            "id": "woolly_bugger",
+            "display_name": "Woolly Bugger",
+            "score": 13.8,
+            "tactical_lane": "fly_bottom",
+            "color_theme": "dark_contrast",
+            "color_recommendations": [
+              "black",
+              "black/olive",
+              "black/purple"
+            ],
+            "why": "Woolly Bugger fits a negative fish mood, stays in the mid lane, and matches today's bold need in dirty water."
+          },
+          {
+            "id": "clouser_minnow",
+            "display_name": "Clouser Minnow",
+            "score": 13.3,
+            "tactical_lane": "fly_baitfish",
+            "color_theme": "bright_contrast",
+            "color_recommendations": [
+              "white/chartreuse",
+              "chartreuse/white",
+              "firetiger"
+            ],
+            "why": "Clouser Minnow fits a negative fish mood, stays in the mid lane, and matches today's bold need in dirty water."
+          },
+          {
+            "id": "rabbit_strip_leech",
+            "display_name": "Rabbit-Strip Leech",
+            "score": 13.45,
+            "tactical_lane": "fly_bottom",
+            "color_theme": "dark_contrast",
+            "color_recommendations": [
+              "black",
+              "black/purple",
+              "black/blue"
+            ],
+            "why": "Rabbit-Strip Leech fits a negative fish mood, stays in the mid lane, and matches today's bold need in dirty water."
+          }
+        ],
+        "color_notes": [
+          "Spinnerbait: Theme: bright contrast. Try white/chartreuse, firetiger, chartreuse/white.",
+          "Compact Flipping / Pitching Jig: Theme: green pumpkin natural. Try green pumpkin, green pumpkin blue, pb&j.",
+          "Bladed Jig: Theme: white shad. Try white, white/chartreuse, pearl shad.",
+          "Woolly Bugger: Theme: dark contrast. Try black, black/olive, black/purple.",
+          "Clouser Minnow: Theme: bright contrast. Try white/chartreuse, chartreuse/white, firetiger.",
+          "Rabbit-Strip Leech: Theme: dark contrast. Try black, black/purple, black/blue."
+        ],
+        "daily_profile_notes": [
+          "Shared score: 37 (Poor)",
+          "Daily nudges: mood=down_1, water_column=lower_1, presentation=subtler",
+          "Resolved profile: water_column=mid, mood=negative, presentation=bold",
+          "Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption"
+        ]
+      },
+      "review": {
+        "precheck_flags": [
+          "TOP1_PRIMARY_HIT",
+          "TOP3_PRIMARY_PRESENT",
+          "NO_DISALLOWED_PRESENT",
+          "TOP_COLOR_MATCH:bright_contrast,dark_contrast"
+        ],
+        "top_1_verdict": "",
+        "top_3_verdict": "",
+        "scores": {
+          "seasonal_fit": null,
+          "daily_fit": null,
+          "water_column_fit": null,
+          "archetype_fit": null,
+          "color_fit": null,
+          "top3_variety": null,
+          "boundedness": null
+        },
+        "failure_clusters": [],
+        "notes": ""
+      }
+    },
+    {
+      "scenario_id": "lmb_ozarks_may_postspawn_clear",
+      "label": "Ozarks largemouth, clear postspawn shad-following setup",
+      "priority": "secondary",
+      "species": "largemouth_bass",
+      "context": "freshwater_lake_pond",
+      "water_clarity": "clear",
+      "state_code": "MO",
+      "timezone": "America/Chicago",
+      "local_date": "2025-05-15",
+      "latitude": 36.525,
+      "longitude": -93.214,
+      "expectation": {
+        "seasonal_story": "Clear postspawn Ozarks largemouth should allow cleaner shad-following lanes with one controlled backup, not only bottom craw reads.",
+        "primary_lanes": [
+          "soft_jerkbait",
+          "paddle_tail_swimbait",
+          "swim_jig"
+        ],
+        "acceptable_secondary_lanes": [
+          "suspending_jerkbait",
+          "wacky_rigged_stick_worm",
+          "game_changer"
+        ],
+        "disallowed_lanes": [
+          "blade_bait"
+        ],
+        "expected_color_lanes": [
+          "natural_baitfish",
+          "white_shad",
+          "watermelon_natural"
+        ]
+      },
+      "engine_run_status": "complete",
+      "archived_env_summary": [
+        "Region: south_central",
+        "Archive weather timezone: America/Chicago",
+        "Noon air temp: 83.8 F",
+        "Noon pressure: 1004 mb",
+        "Noon cloud cover: 92%",
+        "Daily high/low: 85.2 / 66.7 F",
+        "Daily wind max: 13 mph",
+        "Daily precip: 0 in",
+        "Moon phase: Waning Gibbous",
+        "Sunrise/sunset: 06:03 / 20:14"
+      ],
+      "actual_output": {
+        "top_1_lure": {
+          "id": "swim_jig",
+          "display_name": "Swim Jig",
+          "score": 14.5,
+          "tactical_lane": "horizontal_search",
+          "color_theme": "white_shad",
+          "color_recommendations": [
+            "white",
+            "pearl",
+            "white/silver"
+          ],
+          "why": "Swim Jig fits a active fish mood, stays in the shallow lane, and matches today's balanced need in clear water."
+        },
+        "top_3_lures": [
+          {
+            "id": "swim_jig",
+            "display_name": "Swim Jig",
+            "score": 14.5,
+            "tactical_lane": "horizontal_search",
+            "color_theme": "white_shad",
+            "color_recommendations": [
+              "white",
+              "pearl",
+              "white/silver"
+            ],
+            "why": "Swim Jig fits a active fish mood, stays in the shallow lane, and matches today's balanced need in clear water."
+          },
+          {
+            "id": "paddle_tail_swimbait",
+            "display_name": "Paddle-Tail Swimbait",
+            "score": 14.5,
+            "tactical_lane": "horizontal_search",
+            "color_theme": "natural_baitfish",
+            "color_recommendations": [
+              "olive/white",
+              "shad",
+              "smoke shad"
+            ],
+            "why": "Paddle-Tail Swimbait fits a active fish mood, stays in the shallow lane, and matches today's balanced need in clear water."
+          },
+          {
+            "id": "soft_jerkbait",
+            "display_name": "Soft Jerkbait",
+            "score": 14.5,
+            "tactical_lane": "horizontal_search",
+            "color_theme": "natural_baitfish",
+            "color_recommendations": [
+              "olive/white",
+              "shad",
+              "smoke shad"
+            ],
+            "why": "Soft Jerkbait fits a active fish mood, stays in the shallow lane, and matches today's balanced need in clear water."
+          }
+        ],
+        "top_1_fly": {
+          "id": "clouser_minnow",
+          "display_name": "Clouser Minnow",
+          "score": 14.5,
+          "tactical_lane": "fly_baitfish",
+          "color_theme": "natural_baitfish",
+          "color_recommendations": [
+            "olive/white",
+            "shad",
+            "smoke shad"
+          ],
+          "why": "Clouser Minnow fits a active fish mood, stays in the shallow lane, and matches today's balanced need in clear water."
+        },
+        "top_3_flies": [
+          {
+            "id": "clouser_minnow",
+            "display_name": "Clouser Minnow",
+            "score": 14.5,
+            "tactical_lane": "fly_baitfish",
+            "color_theme": "natural_baitfish",
+            "color_recommendations": [
+              "olive/white",
+              "shad",
+              "smoke shad"
+            ],
+            "why": "Clouser Minnow fits a active fish mood, stays in the shallow lane, and matches today's balanced need in clear water."
+          },
+          {
+            "id": "woolly_bugger",
+            "display_name": "Woolly Bugger",
+            "score": 14.5,
+            "tactical_lane": "fly_bottom",
+            "color_theme": "natural_baitfish",
+            "color_recommendations": [
+              "olive",
+              "white/olive",
+              "gray/white"
+            ],
+            "why": "Woolly Bugger fits a active fish mood, stays in the shallow lane, and matches today's balanced need in clear water."
+          },
+          {
+            "id": "game_changer",
+            "display_name": "Game Changer",
+            "score": 14.5,
+            "tactical_lane": "fly_baitfish",
+            "color_theme": "natural_baitfish",
+            "color_recommendations": [
+              "olive/white",
+              "shad",
+              "smoke shad"
+            ],
+            "why": "Game Changer fits a active fish mood, stays in the shallow lane, and matches today's balanced need in clear water."
+          }
+        ],
+        "color_notes": [
+          "Swim Jig: Theme: white shad. Try white, pearl, white/silver.",
+          "Paddle-Tail Swimbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.",
+          "Soft Jerkbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.",
+          "Clouser Minnow: Theme: natural baitfish. Try olive/white, shad, smoke shad.",
+          "Woolly Bugger: Theme: natural baitfish. Try olive, white/olive, gray/white.",
+          "Game Changer: Theme: natural baitfish. Try olive/white, shad, smoke shad."
+        ],
+        "daily_profile_notes": [
+          "Shared score: 85 (Excellent)",
+          "Daily nudges: mood=up_2, water_column=higher_1, presentation=bolder",
+          "Resolved profile: water_column=shallow, mood=active, presentation=balanced",
+          "Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption"
+        ]
+      },
+      "review": {
+        "precheck_flags": [
+          "TOP1_PRIMARY_HIT",
+          "TOP3_PRIMARY_PRESENT",
+          "NO_DISALLOWED_PRESENT",
+          "TOP_COLOR_MATCH:white_shad,natural_baitfish"
+        ],
+        "top_1_verdict": "",
+        "top_3_verdict": "",
+        "scores": {
+          "seasonal_fit": null,
+          "daily_fit": null,
+          "water_column_fit": null,
+          "archetype_fit": null,
+          "color_fit": null,
+          "top3_variety": null,
+          "boundedness": null
+        },
+        "failure_clusters": [],
+        "notes": ""
+      }
+    },
+    {
+      "scenario_id": "lmb_minnesota_sep_weed_lake_stained",
+      "label": "Minnesota weed lake largemouth, stained early-fall edge pattern",
+      "priority": "secondary",
+      "species": "largemouth_bass",
+      "context": "freshwater_lake_pond",
+      "water_clarity": "stained",
+      "state_code": "MN",
+      "timezone": "America/Chicago",
+      "local_date": "2025-09-17",
+      "latitude": 46.7296,
+      "longitude": -94.6859,
+      "expectation": {
+        "seasonal_story": "Northern early-fall weedline largemouth should open horizontal edge lanes and a surface option, but still through a cooler-water seasonal posture.",
+        "primary_lanes": [
+          "spinnerbait",
+          "swim_jig",
+          "walking_topwater"
+        ],
+        "acceptable_secondary_lanes": [
+          "paddle_tail_swimbait",
+          "hollow_body_frog",
+          "mouse_fly"
+        ],
+        "disallowed_lanes": [
+          "blade_bait"
+        ],
+        "expected_color_lanes": [
+          "white_shad",
+          "frog_natural",
+          "bright_contrast"
+        ]
+      },
+      "engine_run_status": "complete",
+      "archived_env_summary": [
+        "Region: great_lakes_upper_midwest",
+        "Archive weather timezone: America/Chicago",
+        "Noon air temp: 72.1 F",
+        "Noon pressure: 1019.2 mb",
+        "Noon cloud cover: 92%",
+        "Daily high/low: 74.7 / 59.1 F",
+        "Daily wind max: 10.8 mph",
+        "Daily precip: 0 in",
+        "Moon phase: Waning Crescent",
+        "Sunrise/sunset: 06:58 / 19:27"
+      ],
+      "actual_output": {
+        "top_1_lure": {
+          "id": "spinnerbait",
+          "display_name": "Spinnerbait",
+          "score": 14.5,
+          "tactical_lane": "horizontal_search",
+          "color_theme": "bright_contrast",
+          "color_recommendations": [
+            "white/chartreuse",
+            "firetiger",
+            "chartreuse/white"
+          ],
+          "why": "Spinnerbait fits a active fish mood, stays in the shallow lane, and matches today's balanced need in stained water."
+        },
+        "top_3_lures": [
+          {
+            "id": "spinnerbait",
+            "display_name": "Spinnerbait",
+            "score": 14.5,
+            "tactical_lane": "horizontal_search",
+            "color_theme": "bright_contrast",
+            "color_recommendations": [
+              "white/chartreuse",
+              "firetiger",
+              "chartreuse/white"
+            ],
+            "why": "Spinnerbait fits a active fish mood, stays in the shallow lane, and matches today's balanced need in stained water."
+          },
+          {
+            "id": "suspending_jerkbait",
+            "display_name": "Suspending Jerkbait",
+            "score": 14.2,
+            "tactical_lane": "reaction_mid_column",
+            "color_theme": "bright_contrast",
+            "color_recommendations": [
+              "clown",
+              "firetiger",
+              "chartreuse shad"
+            ],
+            "why": "Suspending Jerkbait fits a active fish mood, stays in the shallow lane, and matches today's balanced need in stained water."
+          },
+          {
+            "id": "bladed_jig",
+            "display_name": "Bladed Jig",
+            "score": 14.5,
+            "tactical_lane": "horizontal_search",
+            "color_theme": "dark_contrast",
+            "color_recommendations": [
+              "black/blue",
+              "black/purple",
+              "black"
+            ],
+            "why": "Bladed Jig fits a active fish mood, stays in the shallow lane, and matches today's balanced need in stained water."
+          }
+        ],
+        "top_1_fly": {
+          "id": "game_changer",
+          "display_name": "Game Changer",
+          "score": 14.5,
+          "tactical_lane": "fly_baitfish",
+          "color_theme": "white_shad",
+          "color_recommendations": [
+            "white",
+            "pearl",
+            "white/silver"
+          ],
+          "why": "Game Changer fits a active fish mood, stays in the shallow lane, and matches today's balanced need in stained water."
+        },
+        "top_3_flies": [
+          {
+            "id": "game_changer",
+            "display_name": "Game Changer",
+            "score": 14.5,
+            "tactical_lane": "fly_baitfish",
+            "color_theme": "white_shad",
+            "color_recommendations": [
+              "white",
+              "pearl",
+              "white/silver"
+            ],
+            "why": "Game Changer fits a active fish mood, stays in the shallow lane, and matches today's balanced need in stained water."
+          },
+          {
+            "id": "woolly_bugger",
+            "display_name": "Woolly Bugger",
+            "score": 14.2,
+            "tactical_lane": "fly_bottom",
+            "color_theme": "dark_contrast",
+            "color_recommendations": [
+              "black",
+              "black/olive",
+              "black/purple"
+            ],
+            "why": "Woolly Bugger fits a active fish mood, stays in the shallow lane, and matches today's balanced need in stained water."
+          },
+          {
+            "id": "articulated_baitfish_streamer",
+            "display_name": "Articulated Baitfish Streamer",
+            "score": 14.5,
+            "tactical_lane": "fly_baitfish",
+            "color_theme": "white_shad",
+            "color_recommendations": [
+              "white",
+              "pearl",
+              "white/silver"
+            ],
+            "why": "Articulated Baitfish Streamer fits a active fish mood, stays in the shallow lane, and matches today's balanced need in stained water."
+          }
+        ],
+        "color_notes": [
+          "Spinnerbait: Theme: bright contrast. Try white/chartreuse, firetiger, chartreuse/white.",
+          "Suspending Jerkbait: Theme: bright contrast. Try clown, firetiger, chartreuse shad.",
+          "Bladed Jig: Theme: dark contrast. Try black/blue, black/purple, black.",
+          "Game Changer: Theme: white shad. Try white, pearl, white/silver.",
+          "Woolly Bugger: Theme: dark contrast. Try black, black/olive, black/purple.",
+          "Articulated Baitfish Streamer: Theme: white shad. Try white, pearl, white/silver."
+        ],
+        "daily_profile_notes": [
+          "Shared score: 79 (Good)",
+          "Daily nudges: mood=neutral, water_column=neutral, presentation=subtler",
+          "Resolved profile: water_column=shallow, mood=active, presentation=balanced",
+          "Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption"
+        ]
+      },
+      "review": {
+        "precheck_flags": [
+          "TOP1_PRIMARY_HIT",
+          "TOP3_PRIMARY_PRESENT",
+          "NO_DISALLOWED_PRESENT",
+          "TOP_COLOR_MATCH:bright_contrast,white_shad"
+        ],
+        "top_1_verdict": "",
+        "top_3_verdict": "",
+        "scores": {
+          "seasonal_fit": null,
+          "daily_fit": null,
+          "water_column_fit": null,
+          "archetype_fit": null,
+          "color_fit": null,
+          "top3_variety": null,
+          "boundedness": null
+        },
+        "failure_clusters": [],
+        "notes": ""
+      }
+    },
+    {
+      "scenario_id": "lmb_alabama_jul_river_stained",
+      "label": "Alabama river largemouth, stained midsummer current and shade day",
+      "priority": "secondary",
+      "species": "largemouth_bass",
+      "context": "freshwater_river",
+      "water_clarity": "stained",
+      "state_code": "AL",
+      "timezone": "America/Chicago",
+      "local_date": "2025-07-16",
+      "latitude": 34.8,
+      "longitude": -87.67,
+      "expectation": {
+        "seasonal_story": "Summer river largemouth should hold to current edges, shade, and ambush water with moving river-friendly presentations, not drift into lake finesse.",
+        "primary_lanes": [
+          "swim_jig",
+          "spinnerbait",
+          "soft_jerkbait"
+        ],
+        "acceptable_secondary_lanes": [
+          "squarebill_crankbait",
+          "texas_rigged_stick_worm",
+          "clouser_minnow"
+        ],
+        "disallowed_lanes": [
+          "drop_shot_worm_minnow",
+          "blade_bait"
+        ],
+        "expected_color_lanes": [
+          "white_shad",
+          "bright_contrast",
+          "green_pumpkin_natural"
+        ]
+      },
+      "engine_run_status": "complete",
+      "archived_env_summary": [
+        "Region: south_central",
+        "Archive weather timezone: America/Chicago",
+        "Noon air temp: 85.8 F",
+        "Noon pressure: 1017.2 mb",
+        "Noon cloud cover: 26%",
+        "Daily high/low: 90.6 / 75.7 F",
+        "Daily wind max: 4.4 mph",
+        "Daily precip: 0.08267716535433071 in",
+        "Moon phase: Waning Gibbous",
+        "Sunrise/sunset: 05:48 / 20:05"
+      ],
+      "actual_output": {
+        "top_1_lure": {
+          "id": "swim_jig",
+          "display_name": "Swim Jig",
+          "score": 14.5,
+          "tactical_lane": "horizontal_search",
+          "color_theme": "white_shad",
+          "color_recommendations": [
+            "white",
+            "pearl",
+            "white/silver"
+          ],
+          "why": "Swim Jig fits a active fish mood, stays in the shallow lane, and matches today's balanced need in stained water."
+        },
+        "top_3_lures": [
+          {
+            "id": "swim_jig",
+            "display_name": "Swim Jig",
+            "score": 14.5,
+            "tactical_lane": "horizontal_search",
+            "color_theme": "white_shad",
+            "color_recommendations": [
+              "white",
+              "pearl",
+              "white/silver"
+            ],
+            "why": "Swim Jig fits a active fish mood, stays in the shallow lane, and matches today's balanced need in stained water."
+          },
+          {
+            "id": "spinnerbait",
+            "display_name": "Spinnerbait",
+            "score": 14.5,
+            "tactical_lane": "horizontal_search",
+            "color_theme": "bright_contrast",
+            "color_recommendations": [
+              "white/chartreuse",
+              "firetiger",
+              "chartreuse/white"
+            ],
+            "why": "Spinnerbait fits a active fish mood, stays in the shallow lane, and matches today's balanced need in stained water."
+          },
+          {
+            "id": "soft_jerkbait",
+            "display_name": "Soft Jerkbait",
+            "score": 14.5,
+            "tactical_lane": "horizontal_search",
+            "color_theme": "bright_contrast",
+            "color_recommendations": [
+              "bubblegum",
+              "albino",
+              "white/chartreuse"
+            ],
+            "why": "Soft Jerkbait fits a active fish mood, stays in the shallow lane, and matches today's balanced need in stained water."
+          }
+        ],
+        "top_1_fly": {
+          "id": "clouser_minnow",
+          "display_name": "Clouser Minnow",
+          "score": 14.5,
+          "tactical_lane": "fly_baitfish",
+          "color_theme": "bright_contrast",
+          "color_recommendations": [
+            "white/chartreuse",
+            "chartreuse/white",
+            "firetiger"
+          ],
+          "why": "Clouser Minnow fits a active fish mood, stays in the shallow lane, and matches today's balanced need in stained water."
+        },
+        "top_3_flies": [
+          {
+            "id": "clouser_minnow",
+            "display_name": "Clouser Minnow",
+            "score": 14.5,
+            "tactical_lane": "fly_baitfish",
+            "color_theme": "bright_contrast",
+            "color_recommendations": [
+              "white/chartreuse",
+              "chartreuse/white",
+              "firetiger"
+            ],
+            "why": "Clouser Minnow fits a active fish mood, stays in the shallow lane, and matches today's balanced need in stained water."
+          },
+          {
+            "id": "woolly_bugger",
+            "display_name": "Woolly Bugger",
+            "score": 14.5,
+            "tactical_lane": "fly_bottom",
+            "color_theme": "dark_contrast",
+            "color_recommendations": [
+              "black",
+              "black/olive",
+              "black/purple"
+            ],
+            "why": "Woolly Bugger fits a active fish mood, stays in the shallow lane, and matches today's balanced need in stained water."
+          },
+          {
+            "id": "game_changer",
+            "display_name": "Game Changer",
+            "score": 14.5,
+            "tactical_lane": "fly_baitfish",
+            "color_theme": "white_shad",
+            "color_recommendations": [
+              "white",
+              "pearl",
+              "white/silver"
+            ],
+            "why": "Game Changer fits a active fish mood, stays in the shallow lane, and matches today's balanced need in stained water."
+          }
+        ],
+        "color_notes": [
+          "Swim Jig: Theme: white shad. Try white, pearl, white/silver.",
+          "Spinnerbait: Theme: bright contrast. Try white/chartreuse, firetiger, chartreuse/white.",
+          "Soft Jerkbait: Theme: bright contrast. Try bubblegum, albino, white/chartreuse.",
+          "Clouser Minnow: Theme: bright contrast. Try white/chartreuse, chartreuse/white, firetiger.",
+          "Woolly Bugger: Theme: dark contrast. Try black, black/olive, black/purple.",
+          "Game Changer: Theme: white shad. Try white, pearl, white/silver."
+        ],
+        "daily_profile_notes": [
+          "Shared score: 67 (Good)",
+          "Daily nudges: mood=up_2, water_column=higher_1, presentation=subtler",
+          "Resolved profile: water_column=shallow, mood=active, presentation=balanced",
+          "Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption"
+        ]
+      },
+      "review": {
+        "precheck_flags": [
+          "TOP1_PRIMARY_HIT",
+          "TOP3_PRIMARY_PRESENT",
+          "NO_DISALLOWED_PRESENT",
+          "TOP_COLOR_MATCH:white_shad,bright_contrast"
+        ],
+        "top_1_verdict": "",
+        "top_3_verdict": "",
+        "scores": {
+          "seasonal_fit": null,
+          "daily_fit": null,
+          "water_column_fit": null,
+          "archetype_fit": null,
+          "color_fit": null,
+          "top3_variety": null,
+          "boundedness": null
+        },
+        "failure_clusters": [],
+        "notes": ""
+      }
+    },
+    {
+      "scenario_id": "lmb_california_mar_delta_clear",
+      "label": "California Delta largemouth, clearer prespawn tidal-fresh setup",
+      "priority": "secondary",
+      "species": "largemouth_bass",
+      "context": "freshwater_river",
+      "water_clarity": "clear",
+      "state_code": "CA",
+      "timezone": "America/Los_Angeles",
+      "local_date": "2025-03-20",
+      "latitude": 38.035,
+      "longitude": -121.636,
+      "expectation": {
+        "seasonal_story": "Clearer prespawn Delta largemouth should still respect current and cover, but with cleaner baitfish and target lanes than the stained late-fall version.",
+        "primary_lanes": [
+          "soft_jerkbait",
+          "compact_flipping_jig",
+          "spinnerbait"
+        ],
+        "acceptable_secondary_lanes": [
+          "swim_jig",
+          "paddle_tail_swimbait",
+          "game_changer"
+        ],
+        "disallowed_lanes": [
+          "walking_topwater",
+          "blade_bait"
+        ],
+        "expected_color_lanes": [
+          "natural_baitfish",
+          "white_shad",
+          "green_pumpkin_natural"
+        ]
+      },
+      "engine_run_status": "complete",
+      "archived_env_summary": [
+        "Region: northern_california",
+        "Archive weather timezone: America/Los_Angeles",
+        "Noon air temp: 56 F",
+        "Noon pressure: 1026.3 mb",
+        "Noon cloud cover: 49%",
+        "Daily high/low: 61.3 / 45 F",
+        "Daily wind max: 8 mph",
+        "Daily precip: 0 in",
+        "Moon phase: Waning Gibbous",
+        "Sunrise/sunset: 07:07 / 19:20"
+      ],
+      "actual_output": {
+        "top_1_lure": {
+          "id": "soft_jerkbait",
+          "display_name": "Soft Jerkbait",
+          "score": 14.5,
+          "tactical_lane": "horizontal_search",
+          "color_theme": "natural_baitfish",
+          "color_recommendations": [
+            "olive/white",
+            "shad",
+            "smoke shad"
+          ],
+          "why": "Soft Jerkbait fits a active fish mood, stays in the shallow lane, and matches today's balanced need in clear water."
+        },
+        "top_3_lures": [
+          {
+            "id": "soft_jerkbait",
+            "display_name": "Soft Jerkbait",
+            "score": 14.5,
+            "tactical_lane": "horizontal_search",
+            "color_theme": "natural_baitfish",
+            "color_recommendations": [
+              "olive/white",
+              "shad",
+              "smoke shad"
+            ],
+            "why": "Soft Jerkbait fits a active fish mood, stays in the shallow lane, and matches today's balanced need in clear water."
+          },
+          {
+            "id": "swim_jig",
+            "display_name": "Swim Jig",
+            "score": 14.5,
+            "tactical_lane": "horizontal_search",
+            "color_theme": "white_shad",
+            "color_recommendations": [
+              "white",
+              "pearl",
+              "white/silver"
+            ],
+            "why": "Swim Jig fits a active fish mood, stays in the shallow lane, and matches today's balanced need in clear water."
+          },
+          {
+            "id": "paddle_tail_swimbait",
+            "display_name": "Paddle-Tail Swimbait",
+            "score": 14.5,
+            "tactical_lane": "horizontal_search",
+            "color_theme": "natural_baitfish",
+            "color_recommendations": [
+              "olive/white",
+              "shad",
+              "smoke shad"
+            ],
+            "why": "Paddle-Tail Swimbait fits a active fish mood, stays in the shallow lane, and matches today's balanced need in clear water."
+          }
+        ],
+        "top_1_fly": {
+          "id": "clouser_minnow",
+          "display_name": "Clouser Minnow",
+          "score": 14.5,
+          "tactical_lane": "fly_baitfish",
+          "color_theme": "natural_baitfish",
+          "color_recommendations": [
+            "olive/white",
+            "shad",
+            "smoke shad"
+          ],
+          "why": "Clouser Minnow fits a active fish mood, stays in the shallow lane, and matches today's balanced need in clear water."
+        },
+        "top_3_flies": [
+          {
+            "id": "clouser_minnow",
+            "display_name": "Clouser Minnow",
+            "score": 14.5,
+            "tactical_lane": "fly_baitfish",
+            "color_theme": "natural_baitfish",
+            "color_recommendations": [
+              "olive/white",
+              "shad",
+              "smoke shad"
+            ],
+            "why": "Clouser Minnow fits a active fish mood, stays in the shallow lane, and matches today's balanced need in clear water."
+          },
+          {
+            "id": "woolly_bugger",
+            "display_name": "Woolly Bugger",
+            "score": 14.5,
+            "tactical_lane": "fly_bottom",
+            "color_theme": "natural_baitfish",
+            "color_recommendations": [
+              "olive",
+              "white/olive",
+              "gray/white"
+            ],
+            "why": "Woolly Bugger fits a active fish mood, stays in the shallow lane, and matches today's balanced need in clear water."
+          },
+          {
+            "id": "game_changer",
+            "display_name": "Game Changer",
+            "score": 14.5,
+            "tactical_lane": "fly_baitfish",
+            "color_theme": "natural_baitfish",
+            "color_recommendations": [
+              "olive/white",
+              "shad",
+              "smoke shad"
+            ],
+            "why": "Game Changer fits a active fish mood, stays in the shallow lane, and matches today's balanced need in clear water."
+          }
+        ],
+        "color_notes": [
+          "Soft Jerkbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.",
+          "Swim Jig: Theme: white shad. Try white, pearl, white/silver.",
+          "Paddle-Tail Swimbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.",
+          "Clouser Minnow: Theme: natural baitfish. Try olive/white, shad, smoke shad.",
+          "Woolly Bugger: Theme: natural baitfish. Try olive, white/olive, gray/white.",
+          "Game Changer: Theme: natural baitfish. Try olive/white, shad, smoke shad."
+        ],
+        "daily_profile_notes": [
+          "Shared score: 57 (Fair)",
+          "Daily nudges: mood=up_1, water_column=higher_1, presentation=bolder",
+          "Resolved profile: water_column=shallow, mood=active, presentation=balanced",
+          "Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption"
+        ]
+      },
+      "review": {
+        "precheck_flags": [
+          "TOP1_PRIMARY_HIT",
+          "TOP3_PRIMARY_PRESENT",
+          "NO_DISALLOWED_PRESENT",
+          "TOP_COLOR_MATCH:natural_baitfish,natural_baitfish"
+        ],
+        "top_1_verdict": "",
+        "top_3_verdict": "",
+        "scores": {
+          "seasonal_fit": null,
+          "daily_fit": null,
+          "water_column_fit": null,
+          "archetype_fit": null,
+          "color_fit": null,
+          "top3_variety": null,
+          "boundedness": null
+        },
+        "failure_clusters": [],
+        "notes": ""
+      }
+    }
+  ]
+}

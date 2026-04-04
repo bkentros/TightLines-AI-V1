@@ -41,29 +41,27 @@ import type {
 } from '../lib/recommenderContracts';
 import {
   SPECIES_DISPLAY,
-  SPECIES_GROUPS,
-  SPECIES_WATER_TYPE,
+  RECOMMENDER_V3_UI_CONTEXTS,
+  RECOMMENDER_V3_UI_SPECIES,
   WATER_CLARITY_LABELS,
-  getSpeciesForState,
-  getContextsForState,
-  getContextsForStateSpecies,
+  getRecommenderSpeciesForState,
+  getRecommenderContextsForState,
+  getRecommenderContextsForStateSpecies,
+  isRecommenderV3UiContext,
+  isRecommenderV3UiSpecies,
 } from '../lib/recommenderContracts';
 
 // ─── Context helpers ──────────────────────────────────────────────────────────
 
 const ENGINE_CONTEXTS: EngineContext[] = [
-  'freshwater_lake_pond',
-  'freshwater_river',
-  'coastal',
-  'coastal_flats_estuary',
+  ...RECOMMENDER_V3_UI_CONTEXTS,
 ];
 
 function contextLabel(ctx: EngineContext): string {
   switch (ctx) {
     case 'freshwater_lake_pond':  return 'Lake / Pond';
     case 'freshwater_river':      return 'River';
-    case 'coastal':               return 'Coastal Inshore';
-    case 'coastal_flats_estuary': return 'Flats & Estuary';
+    default: return 'Freshwater';
   }
 }
 
@@ -71,8 +69,7 @@ function contextIcon(ctx: EngineContext): string {
   switch (ctx) {
     case 'freshwater_lake_pond':  return 'water-outline';
     case 'freshwater_river':      return 'git-merge-outline';
-    case 'coastal':               return 'boat-outline';
-    case 'coastal_flats_estuary': return 'expand-outline';
+    default: return 'water-outline';
   }
 }
 
@@ -80,17 +77,21 @@ function contextAccentColor(ctx: EngineContext): string {
   switch (ctx) {
     case 'freshwater_lake_pond':  return colors.contextFreshwater;
     case 'freshwater_river':      return colors.contextRiver;
-    case 'coastal':               return colors.contextCoastal;
-    case 'coastal_flats_estuary': return colors.contextFlatsEstuary;
+    default: return colors.contextFreshwater;
   }
 }
 
-function speciesMatchesContext(species: SpeciesGroup, context: EngineContext): boolean {
-  const waterType = SPECIES_WATER_TYPE[species];
-  const isCoastal = context === 'coastal' || context === 'coastal_flats_estuary';
-  if (waterType === 'both') return true;
-  if (waterType === 'freshwater') return !isCoastal;
-  return isCoastal;
+function defaultContextsForSpecies(species: SpeciesGroup): EngineContext[] {
+  switch (species) {
+    case 'river_trout':
+      return ['freshwater_river'];
+    case 'largemouth_bass':
+    case 'smallmouth_bass':
+    case 'pike_musky':
+      return [...ENGINE_CONTEXTS];
+    default:
+      return [];
+  }
 }
 
 // ─── State code extraction ────────────────────────────────────────────────────
@@ -323,11 +324,20 @@ export default function RecommenderScreen() {
   const lon = parseFloat(params.longitude ?? '');
   const hasCoords = !isNaN(lat) && !isNaN(lon);
 
+  const initialSpecies =
+    typeof params.species === 'string' && isRecommenderV3UiSpecies(params.species)
+      ? params.species
+      : null;
+  const initialContext =
+    typeof params.context === 'string' && isRecommenderV3UiContext(params.context)
+      ? params.context
+      : null;
+
   const [species, setSpecies] = useState<SpeciesGroup | null>(
-    (params.species as SpeciesGroup) ?? null,
+    initialSpecies,
   );
   const [context, setContext] = useState<EngineContext | null>(
-    (params.context as EngineContext) ?? null,
+    initialContext,
   );
   const [clarity, setClarity] = useState<WaterClarity | null>(null);
 
@@ -353,40 +363,46 @@ export default function RecommenderScreen() {
   // When state resolves, clear any selections that are no longer valid
   useEffect(() => {
     if (!stateCode) return;
-    const validSpecies = getSpeciesForState(stateCode);
+    const validSpecies = getRecommenderSpeciesForState(stateCode);
     if (species && !validSpecies.includes(species)) {
       setSpecies(null);
       setContext(null);
       return;
     }
     if (species && context) {
-      const validCtxs = getContextsForStateSpecies(stateCode, species);
+      const validCtxs = getRecommenderContextsForStateSpecies(stateCode, species);
       if (!validCtxs.includes(context)) setContext(null);
     }
-  }, [stateCode]);
+  }, [stateCode, species, context]);
 
   useEffect(() => {
     if (!context || !species) return;
     if (stateCode) {
-      const validCtxs = getContextsForStateSpecies(stateCode, species);
-      if (!validCtxs.includes(context)) setSpecies(null);
+      const validCtxs = getRecommenderContextsForStateSpecies(stateCode, species);
+      if (!validCtxs.includes(context)) setContext(null);
       return;
     }
-    if (!speciesMatchesContext(species, context)) {
-      setSpecies(null);
+    if (!defaultContextsForSpecies(species).includes(context)) {
+      setContext(null);
     }
   }, [context, stateCode, species]);
 
   // Derived chip options — always state-aware
   const availableSpecies: SpeciesGroup[] = stateCode
-    ? getSpeciesForState(stateCode).filter((sp) => !context || getContextsForStateSpecies(stateCode, sp).includes(context))
-    : SPECIES_GROUPS.filter((sp) => !context || speciesMatchesContext(sp, context));
+    ? getRecommenderSpeciesForState(stateCode).filter(
+        (sp) => !context || getRecommenderContextsForStateSpecies(stateCode, sp).includes(context),
+      )
+    : RECOMMENDER_V3_UI_SPECIES.filter(
+        (sp) => !context || defaultContextsForSpecies(sp).includes(context),
+      );
 
   const availableContexts: EngineContext[] = stateCode && species
-    ? getContextsForStateSpecies(stateCode, species)
+    ? getRecommenderContextsForStateSpecies(stateCode, species)
     : stateCode
-      ? getContextsForState(stateCode)
-      : ENGINE_CONTEXTS;
+      ? getRecommenderContextsForState(stateCode)
+      : species
+        ? defaultContextsForSpecies(species)
+        : ENGINE_CONTEXTS;
 
   // Validation
   const isReady =
@@ -432,6 +448,10 @@ export default function RecommenderScreen() {
         if (msg === 'species_not_available') {
           setErrorMsg(
             `${SPECIES_DISPLAY[species]} isn't available in this region for ${contextLabel(context)}. Try a different species or context.`,
+          );
+        } else if (msg === 'unsupported_recommender_scope') {
+          setErrorMsg(
+            'This recommender currently supports freshwater largemouth, smallmouth, northern pike, and trout only.',
           );
         } else {
           setErrorMsg(msg);
@@ -494,7 +514,8 @@ export default function RecommenderScreen() {
           {/* Intro */}
           <View style={styles.setupIntro}>
             <Text style={styles.setupIntroText}>
-              Get lure and fly recommendations tuned to today's conditions at your location.
+              Freshwater-only V3 recommendations built around your state, today&apos;s conditions,
+              and the exact species you&apos;re targeting.
             </Text>
             {/* Region detection */}
             {resolvingRegion ? (
@@ -529,15 +550,11 @@ export default function RecommenderScreen() {
               selected={species}
               onSelect={(sp) => {
                 setSpecies(sp);
-                if (context && stateCode) {
-                  const validCtxs = getContextsForStateSpecies(stateCode, sp);
+                if (context) {
+                  const validCtxs = stateCode
+                    ? getRecommenderContextsForStateSpecies(stateCode, sp)
+                    : defaultContextsForSpecies(sp);
                   if (!validCtxs.includes(context)) setContext(null);
-                } else if (context) {
-                  const wt = SPECIES_WATER_TYPE[sp];
-                  const isCoastal = context === 'coastal' || context === 'coastal_flats_estuary';
-                  if ((wt === 'saltwater' && !isCoastal) || (wt === 'freshwater' && isCoastal)) {
-                    setContext(null);
-                  }
                 }
               }}
             />

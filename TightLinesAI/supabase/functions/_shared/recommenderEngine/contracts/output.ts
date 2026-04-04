@@ -5,7 +5,7 @@ import type { LureFamilyId, FlyFamilyId } from "./families.ts";
 import type { SpeciesGroup } from "./species.ts";
 import type { WaterClarity } from "./input.ts";
 
-export const RECOMMENDER_FEATURE = "recommender_v1" as const;
+export const RECOMMENDER_FEATURE = "recommender_v3" as const;
 
 // ─── Ranked Family ────────────────────────────────────────────────────────────
 
@@ -24,9 +24,13 @@ export type RankedFamily = {
   score_reasons: string[];
   score_breakdown?: RankedFamilyScoreBreakdown[];
   why_picked: string;
+  /** Phase 6 target field: first lane or structure to start on. */
+  where_to_start?: string;
   how_to_fish: string;
   best_when: string;
   color_guide: string;
+  /** Phase 6 target field: deterministic backup adjustment if fish do not commit. */
+  what_to_adjust_if_ignored?: string;
 };
 
 // ─── Confidence ───────────────────────────────────────────────────────────────
@@ -56,4 +60,6 @@ export type RecommenderResponse = {
     timing_strength: TimingStrength;
   };
   confidence: RecommenderConfidence;
+  /** Phase 6 target field: top-level guide summary for the overall pattern. */
+  primary_pattern_summary?: string;
 };
