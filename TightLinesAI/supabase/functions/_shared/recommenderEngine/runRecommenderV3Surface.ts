@@ -415,47 +415,52 @@ const FINE_TO_MEGA: Record<string, ColorMegaTheme> = {
 };
 
 /**
- * 6 colors per mega-theme expressed as 3 pairs of 2.
- * Different archetypes hash to different pair indices for variety.
- *
- * Natural pairs are flavor-split so craw/bottom lures differ from baitfish lures:
- *   index 0 → craw/earth-tone lane
- *   index 1 → finesse soft-plastic lane
- *   index 2 → baitfish/shad natural lane
+ * 6 color examples per mega-theme. On each run, 2 are randomly selected
+ * so the output varies while the theme stays condition-driven.
  */
-const COLOR_PAIRS: Record<ColorMegaTheme, readonly [string, string][]> = {
+const COLOR_POOLS: Record<ColorMegaTheme, readonly string[]> = {
   dark: [
-    ["black/blue",  "black/purple"],
-    ["black/red",   "black/brown"],
-    ["midnight blue","black/green"],
+    "black/blue",
+    "black/purple",
+    "black/red",
+    "black/brown",
+    "midnight blue",
+    "black/green",
   ],
   natural: [
-    ["green pumpkin", "natural craw"],
-    ["watermelon",    "green pumpkin/blue"],
-    ["olive/shad",    "white/silver"],
+    "green pumpkin",
+    "natural craw",
+    "watermelon",
+    "green pumpkin/blue",
+    "olive/shad",
+    "white/silver",
   ],
   bright: [
-    ["white/chartreuse", "chartreuse/black"],
-    ["firetiger",        "white/blue"],
-    ["pearl/white",      "orange/chartreuse"],
+    "white/chartreuse",
+    "chartreuse/black",
+    "firetiger",
+    "white/blue",
+    "pearl/white",
+    "orange/chartreuse",
   ],
 };
 
-/** Stable, archetype-specific index into a color pair pool. */
-function archetypeHash(id: string): number {
-  let h = 0;
-  for (let i = 0; i < id.length; i++) h = ((h * 31) + id.charCodeAt(i)) >>> 0;
-  return h;
+/** Picks 2 distinct colors at random from a pool. */
+function pickTwo(pool: readonly string[]): [string, string] {
+  const i = Math.floor(Math.random() * pool.length);
+  let j = Math.floor(Math.random() * (pool.length - 1));
+  if (j >= i) j++;
+  return [pool[i]!, pool[j]!];
 }
 
 /**
  * Returns a string in the format "Dark — black/blue & black/purple".
- * The UI splits on " — " to style the theme label and example separately.
+ * Theme is condition-driven; the two example colors are random each run.
+ * The UI splits on " — " to style label and examples separately.
  */
 function colorGuideText(candidate: RecommenderV3RankedArchetype): string {
   const mega: ColorMegaTheme = FINE_TO_MEGA[candidate.color_theme] ?? "natural";
-  const pairs = COLOR_PAIRS[mega];
-  const [a, b] = pairs[archetypeHash(candidate.id) % pairs.length]!;
+  const [a, b] = pickTwo(COLOR_POOLS[mega]);
   const label = mega.charAt(0).toUpperCase() + mega.slice(1);
   return `${label} — ${a} & ${b}`;
 }
