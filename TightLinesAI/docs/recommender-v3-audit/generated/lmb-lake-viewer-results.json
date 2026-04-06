@@ -1,0 +1,2437 @@
+{
+  "generated_at": "2026-04-06T01:50:25.879Z",
+  "archive_bundle_generated_at": "2026-04-06T01:50:19.675Z",
+  "scenario_count": 18,
+  "scenarios": [
+    {
+      "id": "lmb_viewer_fl_01",
+      "region_label": "Florida",
+      "state_code": "FL",
+      "local_date": "2025-01-16",
+      "month": 1,
+      "month_label": "January",
+      "water_clarity": "stained",
+      "weather_summary": "65°F high · 58°F low · 15 mph wind · 0.04\" precip · Waning Gibbous",
+      "daily_context": "Fair (50) · neutral mood · depth lower_1 · pres. bolder",
+      "lures": [
+        {
+          "id": "suspending_jerkbait",
+          "display_name": "Suspending Jerkbait",
+          "gear_mode": "lure",
+          "color_theme": "white_shad",
+          "color_theme_label": "White / Shad",
+          "color_shades": [
+            "pearl",
+            "table rock shad",
+            "white/silver"
+          ],
+          "how_to_fish": "Rip-and-pause reaction retrieve",
+          "water_column": "Mid",
+          "score": 13.75,
+          "seasonal_baseline": 9.25,
+          "daily_modifier": 2.1,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 1
+        },
+        {
+          "id": "texas_rigged_soft_plastic_craw",
+          "display_name": "Texas-Rigged Soft-Plastic Craw",
+          "gear_mode": "lure",
+          "color_theme": "green_pumpkin_natural",
+          "color_theme_label": "Green Pumpkin",
+          "color_shades": [
+            "green pumpkin",
+            "green pumpkin blue",
+            "pb&j"
+          ],
+          "how_to_fish": "Flip or pitch into heavy cover",
+          "water_column": "Shallow",
+          "score": 13.7,
+          "seasonal_baseline": 9.3,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1,
+          "rank": 2
+        },
+        {
+          "id": "football_jig",
+          "display_name": "Football Jig",
+          "gear_mode": "lure",
+          "color_theme": "green_pumpkin_natural",
+          "color_theme_label": "Green Pumpkin",
+          "color_shades": [
+            "green pumpkin",
+            "green pumpkin blue",
+            "pb&j"
+          ],
+          "how_to_fish": "Drag or hop along the bottom",
+          "water_column": "Bottom",
+          "score": 13.4,
+          "seasonal_baseline": 9,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1,
+          "rank": 3
+        }
+      ],
+      "flies": [
+        {
+          "id": "woolly_bugger",
+          "display_name": "Woolly Bugger",
+          "gear_mode": "fly",
+          "color_theme": "dark_contrast",
+          "color_theme_label": "Dark Contrast",
+          "color_shades": [
+            "black",
+            "black/olive",
+            "black/purple"
+          ],
+          "how_to_fish": "Dead drift or slow strip along the bottom",
+          "water_column": "Bottom",
+          "score": 14.5,
+          "seasonal_baseline": 9.6,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 1
+        },
+        {
+          "id": "rabbit_strip_leech",
+          "display_name": "Rabbit-Strip Leech",
+          "gear_mode": "fly",
+          "color_theme": "dark_contrast",
+          "color_theme_label": "Dark Contrast",
+          "color_shades": [
+            "black",
+            "black/purple",
+            "black/blue"
+          ],
+          "how_to_fish": "Dead drift or slow strip along the bottom",
+          "water_column": "Bottom",
+          "score": 14.5,
+          "seasonal_baseline": 9.6,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 2
+        },
+        {
+          "id": "sculpin_streamer",
+          "display_name": "Sculpin Streamer",
+          "gear_mode": "fly",
+          "color_theme": "natural_baitfish",
+          "color_theme_label": "Natural Baitfish",
+          "color_shades": [
+            "olive",
+            "sculpin olive",
+            "tan/olive"
+          ],
+          "how_to_fish": "Dead drift or slow strip along the bottom",
+          "water_column": "Bottom",
+          "score": 14.5,
+          "seasonal_baseline": 9.6,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 3
+        }
+      ]
+    },
+    {
+      "id": "lmb_viewer_fl_03",
+      "region_label": "Florida",
+      "state_code": "FL",
+      "local_date": "2025-03-20",
+      "month": 3,
+      "month_label": "March",
+      "water_clarity": "stained",
+      "weather_summary": "75°F high · 66°F low · 23 mph wind · Waning Gibbous",
+      "daily_context": "Fair (44) · neutral mood · neutral depth · neutral pres.",
+      "lures": [
+        {
+          "id": "suspending_jerkbait",
+          "display_name": "Suspending Jerkbait",
+          "gear_mode": "lure",
+          "color_theme": "white_shad",
+          "color_theme_label": "White / Shad",
+          "color_shades": [
+            "pearl",
+            "table rock shad",
+            "white/silver"
+          ],
+          "how_to_fish": "Rip-and-pause reaction retrieve",
+          "water_column": "Mid",
+          "score": 14.5,
+          "seasonal_baseline": 9.6,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 1
+        },
+        {
+          "id": "paddle_tail_swimbait",
+          "display_name": "Paddle-Tail Swimbait",
+          "gear_mode": "lure",
+          "color_theme": "white_shad",
+          "color_theme_label": "White / Shad",
+          "color_shades": [
+            "white",
+            "pearl",
+            "white/silver"
+          ],
+          "how_to_fish": "Steady retrieve through the water column",
+          "water_column": "Mid",
+          "score": 14.5,
+          "seasonal_baseline": 9.6,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 2
+        },
+        {
+          "id": "spinnerbait",
+          "display_name": "Spinnerbait",
+          "gear_mode": "lure",
+          "color_theme": "bright_contrast",
+          "color_theme_label": "Bright Contrast",
+          "color_shades": [
+            "white/chartreuse",
+            "firetiger",
+            "chartreuse/white"
+          ],
+          "how_to_fish": "Cover water at a steady pace, then slow slightly after follows, bumps, or missed strikes.",
+          "water_column": "Mid",
+          "score": 14.5,
+          "seasonal_baseline": 9.6,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 3
+        }
+      ],
+      "flies": [
+        {
+          "id": "clouser_minnow",
+          "display_name": "Clouser Minnow",
+          "gear_mode": "fly",
+          "color_theme": "bright_contrast",
+          "color_theme_label": "Bright Contrast",
+          "color_shades": [
+            "white/chartreuse",
+            "chartreuse/white",
+            "firetiger"
+          ],
+          "how_to_fish": "Strip retrieve through mid column",
+          "water_column": "Mid",
+          "score": 14.5,
+          "seasonal_baseline": 9.6,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 1
+        },
+        {
+          "id": "woolly_bugger",
+          "display_name": "Woolly Bugger",
+          "gear_mode": "fly",
+          "color_theme": "dark_contrast",
+          "color_theme_label": "Dark Contrast",
+          "color_shades": [
+            "black",
+            "black/olive",
+            "black/purple"
+          ],
+          "how_to_fish": "Dead drift or slow strip along the bottom",
+          "water_column": "Bottom",
+          "score": 14.5,
+          "seasonal_baseline": 9.6,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 2
+        },
+        {
+          "id": "game_changer",
+          "display_name": "Game Changer",
+          "gear_mode": "fly",
+          "color_theme": "white_shad",
+          "color_theme_label": "White / Shad",
+          "color_shades": [
+            "white",
+            "pearl",
+            "white/silver"
+          ],
+          "how_to_fish": "Strip retrieve through mid column",
+          "water_column": "Mid",
+          "score": 14.5,
+          "seasonal_baseline": 9.6,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 3
+        }
+      ]
+    },
+    {
+      "id": "lmb_viewer_fl_07",
+      "region_label": "Florida",
+      "state_code": "FL",
+      "local_date": "2025-07-16",
+      "month": 7,
+      "month_label": "July",
+      "water_clarity": "stained",
+      "weather_summary": "85°F high · 79°F low · 19 mph wind · 0.24\" precip · Waning Gibbous",
+      "daily_context": "Fair (40) · mood down_1 · depth lower_1 · neutral pres.",
+      "lures": [
+        {
+          "id": "swim_jig",
+          "display_name": "Swim Jig",
+          "gear_mode": "lure",
+          "color_theme": "white_shad",
+          "color_theme_label": "White / Shad",
+          "color_shades": [
+            "white",
+            "pearl",
+            "white/silver"
+          ],
+          "how_to_fish": "Steady retrieve through the water column",
+          "water_column": "Mid",
+          "score": 14,
+          "seasonal_baseline": 9.6,
+          "daily_modifier": 2,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 1
+        },
+        {
+          "id": "hollow_body_frog",
+          "display_name": "Hollow-Body Frog",
+          "gear_mode": "lure",
+          "color_theme": "frog_natural",
+          "color_theme_label": "Frog Natural",
+          "color_shades": [
+            "leopard frog",
+            "bullfrog",
+            "black frog"
+          ],
+          "how_to_fish": "Flip or pitch into heavy cover",
+          "water_column": "Shallow",
+          "score": 13.6,
+          "seasonal_baseline": 9.6,
+          "daily_modifier": 1.6,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 2
+        },
+        {
+          "id": "bladed_jig",
+          "display_name": "Bladed Jig",
+          "gear_mode": "lure",
+          "color_theme": "dark_contrast",
+          "color_theme_label": "Dark Contrast",
+          "color_shades": [
+            "black/blue",
+            "black/purple",
+            "black"
+          ],
+          "how_to_fish": "Cover water at a steady pace, then slow slightly after follows, bumps, or missed strikes.",
+          "water_column": "Mid",
+          "score": 14,
+          "seasonal_baseline": 9.6,
+          "daily_modifier": 2,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 3
+        }
+      ],
+      "flies": [
+        {
+          "id": "game_changer",
+          "display_name": "Game Changer",
+          "gear_mode": "fly",
+          "color_theme": "white_shad",
+          "color_theme_label": "White / Shad",
+          "color_shades": [
+            "white",
+            "pearl",
+            "white/silver"
+          ],
+          "how_to_fish": "Strip retrieve through mid column",
+          "water_column": "Mid",
+          "score": 14,
+          "seasonal_baseline": 9.6,
+          "daily_modifier": 2,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 1
+        },
+        {
+          "id": "woolly_bugger",
+          "display_name": "Woolly Bugger",
+          "gear_mode": "fly",
+          "color_theme": "dark_contrast",
+          "color_theme_label": "Dark Contrast",
+          "color_shades": [
+            "black",
+            "black/olive",
+            "black/purple"
+          ],
+          "how_to_fish": "Dead drift or slow strip along the bottom",
+          "water_column": "Bottom",
+          "score": 13.8,
+          "seasonal_baseline": 9.3,
+          "daily_modifier": 2.1,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 2
+        },
+        {
+          "id": "frog_fly",
+          "display_name": "Topwater Frog Fly",
+          "gear_mode": "fly",
+          "color_theme": "frog_natural",
+          "color_theme_label": "Frog Natural",
+          "color_shades": [
+            "leopard frog",
+            "bullfrog",
+            "black frog"
+          ],
+          "how_to_fish": "Pop or skate on the surface",
+          "water_column": "Surface",
+          "score": 13.6,
+          "seasonal_baseline": 9.6,
+          "daily_modifier": 1.6,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 3
+        }
+      ]
+    },
+    {
+      "id": "lmb_viewer_tx_03",
+      "region_label": "Texas",
+      "state_code": "TX",
+      "local_date": "2025-03-20",
+      "month": 3,
+      "month_label": "March",
+      "water_clarity": "stained",
+      "weather_summary": "63°F high · 41°F low · 16 mph wind · Waning Gibbous",
+      "daily_context": "Poor (38) · mood down_1 · depth lower_1 · neutral pres.",
+      "lures": [
+        {
+          "id": "suspending_jerkbait",
+          "display_name": "Suspending Jerkbait",
+          "gear_mode": "lure",
+          "color_theme": "white_shad",
+          "color_theme_label": "White / Shad",
+          "color_shades": [
+            "pearl",
+            "table rock shad",
+            "white/silver"
+          ],
+          "how_to_fish": "Rip-and-pause reaction retrieve",
+          "water_column": "Mid",
+          "score": 14.1,
+          "seasonal_baseline": 9.6,
+          "daily_modifier": 2.1,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 1
+        },
+        {
+          "id": "football_jig",
+          "display_name": "Football Jig",
+          "gear_mode": "lure",
+          "color_theme": "green_pumpkin_natural",
+          "color_theme_label": "Green Pumpkin",
+          "color_shades": [
+            "green pumpkin",
+            "green pumpkin blue",
+            "pb&j"
+          ],
+          "how_to_fish": "Drag or hop along the bottom",
+          "water_column": "Bottom",
+          "score": 13.7,
+          "seasonal_baseline": 9.3,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1,
+          "rank": 2
+        },
+        {
+          "id": "spinnerbait",
+          "display_name": "Spinnerbait",
+          "gear_mode": "lure",
+          "color_theme": "bright_contrast",
+          "color_theme_label": "Bright Contrast",
+          "color_shades": [
+            "white/chartreuse",
+            "firetiger",
+            "chartreuse/white"
+          ],
+          "how_to_fish": "Cover water at a steady pace, then slow slightly after follows, bumps, or missed strikes.",
+          "water_column": "Mid",
+          "score": 13.6,
+          "seasonal_baseline": 9.6,
+          "daily_modifier": 1.6,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 3
+        }
+      ],
+      "flies": [
+        {
+          "id": "rabbit_strip_leech",
+          "display_name": "Rabbit-Strip Leech",
+          "gear_mode": "fly",
+          "color_theme": "dark_contrast",
+          "color_theme_label": "Dark Contrast",
+          "color_shades": [
+            "black",
+            "black/purple",
+            "black/blue"
+          ],
+          "how_to_fish": "Dead drift or slow strip along the bottom",
+          "water_column": "Bottom",
+          "score": 14.5,
+          "seasonal_baseline": 9.6,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 1
+        },
+        {
+          "id": "clouser_minnow",
+          "display_name": "Clouser Minnow",
+          "gear_mode": "fly",
+          "color_theme": "bright_contrast",
+          "color_theme_label": "Bright Contrast",
+          "color_shades": [
+            "white/chartreuse",
+            "chartreuse/white",
+            "firetiger"
+          ],
+          "how_to_fish": "Strip retrieve through mid column",
+          "water_column": "Mid",
+          "score": 14,
+          "seasonal_baseline": 9.6,
+          "daily_modifier": 2,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 2
+        },
+        {
+          "id": "woolly_bugger",
+          "display_name": "Woolly Bugger",
+          "gear_mode": "fly",
+          "color_theme": "dark_contrast",
+          "color_theme_label": "Dark Contrast",
+          "color_shades": [
+            "black",
+            "black/olive",
+            "black/purple"
+          ],
+          "how_to_fish": "Dead drift or slow strip along the bottom",
+          "water_column": "Bottom",
+          "score": 14.5,
+          "seasonal_baseline": 9.6,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 3
+        }
+      ]
+    },
+    {
+      "id": "lmb_viewer_tx_06",
+      "region_label": "Texas",
+      "state_code": "TX",
+      "local_date": "2025-06-18",
+      "month": 6,
+      "month_label": "June",
+      "water_clarity": "stained",
+      "weather_summary": "94°F high · 75°F low · 19 mph wind · 0.03\" precip · Waning Gibbous",
+      "daily_context": "Good (67) · mood up_1 · depth higher_1 · pres. bolder",
+      "lures": [
+        {
+          "id": "compact_flipping_jig",
+          "display_name": "Compact Flipping / Pitching Jig",
+          "gear_mode": "lure",
+          "color_theme": "green_pumpkin_natural",
+          "color_theme_label": "Green Pumpkin",
+          "color_shades": [
+            "green pumpkin",
+            "green pumpkin blue",
+            "pb&j"
+          ],
+          "how_to_fish": "Flip or pitch into heavy cover",
+          "water_column": "Shallow",
+          "score": 14.5,
+          "seasonal_baseline": 9.6,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 1
+        },
+        {
+          "id": "deep_diving_crankbait",
+          "display_name": "Deep-Diving Crankbait",
+          "gear_mode": "lure",
+          "color_theme": "white_shad",
+          "color_theme_label": "White / Shad",
+          "color_shades": [
+            "white",
+            "pearl",
+            "white/silver"
+          ],
+          "how_to_fish": "Steady retrieve through the water column",
+          "water_column": "Mid",
+          "score": 14.5,
+          "seasonal_baseline": 9.6,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 2
+        },
+        {
+          "id": "football_jig",
+          "display_name": "Football Jig",
+          "gear_mode": "lure",
+          "color_theme": "craw_natural",
+          "color_theme_label": "Crawfish Natural",
+          "color_shades": [
+            "brown/orange",
+            "rust brown",
+            "amber brown"
+          ],
+          "how_to_fish": "Drag or hop along the bottom",
+          "water_column": "Bottom",
+          "score": 14.5,
+          "seasonal_baseline": 9.6,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 3
+        }
+      ],
+      "flies": [
+        {
+          "id": "woolly_bugger",
+          "display_name": "Woolly Bugger",
+          "gear_mode": "fly",
+          "color_theme": "craw_natural",
+          "color_theme_label": "Crawfish Natural",
+          "color_shades": [
+            "brown/orange",
+            "rust brown",
+            "amber brown"
+          ],
+          "how_to_fish": "Dead drift or slow strip along the bottom",
+          "water_column": "Bottom",
+          "score": 14.5,
+          "seasonal_baseline": 9.6,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 1
+        },
+        {
+          "id": "clouser_minnow",
+          "display_name": "Clouser Minnow",
+          "gear_mode": "fly",
+          "color_theme": "bright_contrast",
+          "color_theme_label": "Bright Contrast",
+          "color_shades": [
+            "white/chartreuse",
+            "chartreuse/white",
+            "firetiger"
+          ],
+          "how_to_fish": "Strip retrieve through mid column",
+          "water_column": "Mid",
+          "score": 13.7,
+          "seasonal_baseline": 9.3,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1,
+          "rank": 2
+        },
+        {
+          "id": "crawfish_streamer",
+          "display_name": "Crawfish Streamer",
+          "gear_mode": "fly",
+          "color_theme": "craw_natural",
+          "color_theme_label": "Crawfish Natural",
+          "color_shades": [
+            "brown/orange",
+            "rust brown",
+            "amber brown"
+          ],
+          "how_to_fish": "Dead drift or slow strip along the bottom",
+          "water_column": "Bottom",
+          "score": 14.1,
+          "seasonal_baseline": 9.6,
+          "daily_modifier": 2.1,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 3
+        }
+      ]
+    },
+    {
+      "id": "lmb_viewer_tx_10",
+      "region_label": "Texas",
+      "state_code": "TX",
+      "local_date": "2025-10-15",
+      "month": 10,
+      "month_label": "October",
+      "water_clarity": "stained",
+      "weather_summary": "85°F high · 62°F low · 9 mph wind · Waning Crescent",
+      "daily_context": "Good (67) · neutral mood · neutral depth · pres. subtler",
+      "lures": [
+        {
+          "id": "paddle_tail_swimbait",
+          "display_name": "Paddle-Tail Swimbait",
+          "gear_mode": "lure",
+          "color_theme": "white_shad",
+          "color_theme_label": "White / Shad",
+          "color_shades": [
+            "white",
+            "pearl",
+            "white/silver"
+          ],
+          "how_to_fish": "Steady retrieve through the water column",
+          "water_column": "Mid",
+          "score": 14.5,
+          "seasonal_baseline": 9.6,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 1
+        },
+        {
+          "id": "suspending_jerkbait",
+          "display_name": "Suspending Jerkbait",
+          "gear_mode": "lure",
+          "color_theme": "white_shad",
+          "color_theme_label": "White / Shad",
+          "color_shades": [
+            "pearl",
+            "table rock shad",
+            "white/silver"
+          ],
+          "how_to_fish": "Rip-and-pause reaction retrieve",
+          "water_column": "Mid",
+          "score": 14.5,
+          "seasonal_baseline": 9.6,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 2
+        },
+        {
+          "id": "spinnerbait",
+          "display_name": "Spinnerbait",
+          "gear_mode": "lure",
+          "color_theme": "bright_contrast",
+          "color_theme_label": "Bright Contrast",
+          "color_shades": [
+            "white/chartreuse",
+            "firetiger",
+            "chartreuse/white"
+          ],
+          "how_to_fish": "Cover water at a steady pace, then slow slightly after follows, bumps, or missed strikes.",
+          "water_column": "Mid",
+          "score": 14.5,
+          "seasonal_baseline": 9.6,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 3
+        }
+      ],
+      "flies": [
+        {
+          "id": "clouser_minnow",
+          "display_name": "Clouser Minnow",
+          "gear_mode": "fly",
+          "color_theme": "bright_contrast",
+          "color_theme_label": "Bright Contrast",
+          "color_shades": [
+            "white/chartreuse",
+            "chartreuse/white",
+            "firetiger"
+          ],
+          "how_to_fish": "Strip retrieve through mid column",
+          "water_column": "Mid",
+          "score": 14.5,
+          "seasonal_baseline": 9.6,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 1
+        },
+        {
+          "id": "woolly_bugger",
+          "display_name": "Woolly Bugger",
+          "gear_mode": "fly",
+          "color_theme": "dark_contrast",
+          "color_theme_label": "Dark Contrast",
+          "color_shades": [
+            "black",
+            "black/olive",
+            "black/purple"
+          ],
+          "how_to_fish": "Dead drift or slow strip along the bottom",
+          "water_column": "Bottom",
+          "score": 14.5,
+          "seasonal_baseline": 9.6,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 2
+        },
+        {
+          "id": "game_changer",
+          "display_name": "Game Changer",
+          "gear_mode": "fly",
+          "color_theme": "white_shad",
+          "color_theme_label": "White / Shad",
+          "color_shades": [
+            "white",
+            "pearl",
+            "white/silver"
+          ],
+          "how_to_fish": "Strip retrieve through mid column",
+          "water_column": "Mid",
+          "score": 14.5,
+          "seasonal_baseline": 9.6,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 3
+        }
+      ]
+    },
+    {
+      "id": "lmb_viewer_ga_04",
+      "region_label": "Georgia",
+      "state_code": "GA",
+      "local_date": "2025-04-16",
+      "month": 4,
+      "month_label": "April",
+      "water_clarity": "stained",
+      "weather_summary": "71°F high · 49°F low · 8 mph wind · Waning Gibbous",
+      "daily_context": "Fair (49) · neutral mood · neutral depth · pres. subtler",
+      "lures": [
+        {
+          "id": "compact_flipping_jig",
+          "display_name": "Compact Flipping / Pitching Jig",
+          "gear_mode": "lure",
+          "color_theme": "green_pumpkin_natural",
+          "color_theme_label": "Green Pumpkin",
+          "color_shades": [
+            "green pumpkin",
+            "green pumpkin blue",
+            "pb&j"
+          ],
+          "how_to_fish": "Flip or pitch into heavy cover",
+          "water_column": "Shallow",
+          "score": 14.5,
+          "seasonal_baseline": 9.6,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 1
+        },
+        {
+          "id": "soft_jerkbait",
+          "display_name": "Soft Jerkbait",
+          "gear_mode": "lure",
+          "color_theme": "bright_contrast",
+          "color_theme_label": "Bright Contrast",
+          "color_shades": [
+            "bubblegum",
+            "albino",
+            "white/chartreuse"
+          ],
+          "how_to_fish": "Cover water at a steady pace, then slow slightly after follows, bumps, or missed strikes.",
+          "water_column": "Mid",
+          "score": 13.7,
+          "seasonal_baseline": 9.3,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1,
+          "rank": 2
+        },
+        {
+          "id": "suspending_jerkbait",
+          "display_name": "Suspending Jerkbait",
+          "gear_mode": "lure",
+          "color_theme": "white_shad",
+          "color_theme_label": "White / Shad",
+          "color_shades": [
+            "pearl",
+            "table rock shad",
+            "white/silver"
+          ],
+          "how_to_fish": "Rip-and-pause reaction retrieve",
+          "water_column": "Mid",
+          "score": 13.7,
+          "seasonal_baseline": 9.3,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1,
+          "rank": 3
+        }
+      ],
+      "flies": [
+        {
+          "id": "woolly_bugger",
+          "display_name": "Woolly Bugger",
+          "gear_mode": "fly",
+          "color_theme": "craw_natural",
+          "color_theme_label": "Crawfish Natural",
+          "color_shades": [
+            "brown/orange",
+            "rust brown",
+            "amber brown"
+          ],
+          "how_to_fish": "Dead drift or slow strip along the bottom",
+          "water_column": "Bottom",
+          "score": 14.5,
+          "seasonal_baseline": 9.6,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 1
+        },
+        {
+          "id": "clouser_minnow",
+          "display_name": "Clouser Minnow",
+          "gear_mode": "fly",
+          "color_theme": "bright_contrast",
+          "color_theme_label": "Bright Contrast",
+          "color_shades": [
+            "white/chartreuse",
+            "chartreuse/white",
+            "firetiger"
+          ],
+          "how_to_fish": "Strip retrieve through mid column",
+          "water_column": "Mid",
+          "score": 13.7,
+          "seasonal_baseline": 9.3,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1,
+          "rank": 2
+        },
+        {
+          "id": "game_changer",
+          "display_name": "Game Changer",
+          "gear_mode": "fly",
+          "color_theme": "white_shad",
+          "color_theme_label": "White / Shad",
+          "color_shades": [
+            "white",
+            "pearl",
+            "white/silver"
+          ],
+          "how_to_fish": "Strip retrieve through mid column",
+          "water_column": "Mid",
+          "score": 13.7,
+          "seasonal_baseline": 9.3,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1,
+          "rank": 3
+        }
+      ]
+    },
+    {
+      "id": "lmb_viewer_ga_07",
+      "region_label": "Georgia",
+      "state_code": "GA",
+      "local_date": "2025-07-16",
+      "month": 7,
+      "month_label": "July",
+      "water_clarity": "stained",
+      "weather_summary": "94°F high · 75°F low · 8 mph wind · 0.01\" precip · Waning Gibbous",
+      "daily_context": "Good (61) · neutral mood · neutral depth · pres. subtler",
+      "lures": [
+        {
+          "id": "compact_flipping_jig",
+          "display_name": "Compact Flipping / Pitching Jig",
+          "gear_mode": "lure",
+          "color_theme": "green_pumpkin_natural",
+          "color_theme_label": "Green Pumpkin",
+          "color_shades": [
+            "green pumpkin",
+            "green pumpkin blue",
+            "pb&j"
+          ],
+          "how_to_fish": "Flip or pitch into heavy cover",
+          "water_column": "Shallow",
+          "score": 14.5,
+          "seasonal_baseline": 9.6,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 1
+        },
+        {
+          "id": "deep_diving_crankbait",
+          "display_name": "Deep-Diving Crankbait",
+          "gear_mode": "lure",
+          "color_theme": "white_shad",
+          "color_theme_label": "White / Shad",
+          "color_shades": [
+            "white",
+            "pearl",
+            "white/silver"
+          ],
+          "how_to_fish": "Steady retrieve through the water column",
+          "water_column": "Mid",
+          "score": 14.5,
+          "seasonal_baseline": 9.6,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 2
+        },
+        {
+          "id": "football_jig",
+          "display_name": "Football Jig",
+          "gear_mode": "lure",
+          "color_theme": "craw_natural",
+          "color_theme_label": "Crawfish Natural",
+          "color_shades": [
+            "brown/orange",
+            "rust brown",
+            "amber brown"
+          ],
+          "how_to_fish": "Drag or hop along the bottom",
+          "water_column": "Bottom",
+          "score": 14.5,
+          "seasonal_baseline": 9.6,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 3
+        }
+      ],
+      "flies": [
+        {
+          "id": "woolly_bugger",
+          "display_name": "Woolly Bugger",
+          "gear_mode": "fly",
+          "color_theme": "craw_natural",
+          "color_theme_label": "Crawfish Natural",
+          "color_shades": [
+            "brown/orange",
+            "rust brown",
+            "amber brown"
+          ],
+          "how_to_fish": "Dead drift or slow strip along the bottom",
+          "water_column": "Bottom",
+          "score": 14.2,
+          "seasonal_baseline": 9.3,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 1
+        },
+        {
+          "id": "crawfish_streamer",
+          "display_name": "Crawfish Streamer",
+          "gear_mode": "fly",
+          "color_theme": "craw_natural",
+          "color_theme_label": "Crawfish Natural",
+          "color_shades": [
+            "brown/orange",
+            "rust brown",
+            "amber brown"
+          ],
+          "how_to_fish": "Dead drift or slow strip along the bottom",
+          "water_column": "Bottom",
+          "score": 14.2,
+          "seasonal_baseline": 9.3,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 2
+        },
+        {
+          "id": "game_changer",
+          "display_name": "Game Changer",
+          "gear_mode": "fly",
+          "color_theme": "white_shad",
+          "color_theme_label": "White / Shad",
+          "color_shades": [
+            "white",
+            "pearl",
+            "white/silver"
+          ],
+          "how_to_fish": "Strip retrieve through mid column",
+          "water_column": "Mid",
+          "score": 12.95,
+          "seasonal_baseline": 8.95,
+          "daily_modifier": 2.1,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1,
+          "rank": 3
+        }
+      ]
+    },
+    {
+      "id": "lmb_viewer_ga_10",
+      "region_label": "Georgia",
+      "state_code": "GA",
+      "local_date": "2025-10-15",
+      "month": 10,
+      "month_label": "October",
+      "water_clarity": "stained",
+      "weather_summary": "80°F high · 58°F low · 5 mph wind · Waning Crescent",
+      "daily_context": "Good (68) · neutral mood · neutral depth · pres. subtler",
+      "lures": [
+        {
+          "id": "paddle_tail_swimbait",
+          "display_name": "Paddle-Tail Swimbait",
+          "gear_mode": "lure",
+          "color_theme": "white_shad",
+          "color_theme_label": "White / Shad",
+          "color_shades": [
+            "white",
+            "pearl",
+            "white/silver"
+          ],
+          "how_to_fish": "Steady retrieve through the water column",
+          "water_column": "Mid",
+          "score": 14.5,
+          "seasonal_baseline": 9.6,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 1
+        },
+        {
+          "id": "suspending_jerkbait",
+          "display_name": "Suspending Jerkbait",
+          "gear_mode": "lure",
+          "color_theme": "white_shad",
+          "color_theme_label": "White / Shad",
+          "color_shades": [
+            "pearl",
+            "table rock shad",
+            "white/silver"
+          ],
+          "how_to_fish": "Rip-and-pause reaction retrieve",
+          "water_column": "Mid",
+          "score": 14.5,
+          "seasonal_baseline": 9.6,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 2
+        },
+        {
+          "id": "spinnerbait",
+          "display_name": "Spinnerbait",
+          "gear_mode": "lure",
+          "color_theme": "bright_contrast",
+          "color_theme_label": "Bright Contrast",
+          "color_shades": [
+            "white/chartreuse",
+            "firetiger",
+            "chartreuse/white"
+          ],
+          "how_to_fish": "Cover water at a steady pace, then slow slightly after follows, bumps, or missed strikes.",
+          "water_column": "Mid",
+          "score": 14.5,
+          "seasonal_baseline": 9.6,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 3
+        }
+      ],
+      "flies": [
+        {
+          "id": "clouser_minnow",
+          "display_name": "Clouser Minnow",
+          "gear_mode": "fly",
+          "color_theme": "bright_contrast",
+          "color_theme_label": "Bright Contrast",
+          "color_shades": [
+            "white/chartreuse",
+            "chartreuse/white",
+            "firetiger"
+          ],
+          "how_to_fish": "Strip retrieve through mid column",
+          "water_column": "Mid",
+          "score": 14.5,
+          "seasonal_baseline": 9.6,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 1
+        },
+        {
+          "id": "woolly_bugger",
+          "display_name": "Woolly Bugger",
+          "gear_mode": "fly",
+          "color_theme": "dark_contrast",
+          "color_theme_label": "Dark Contrast",
+          "color_shades": [
+            "black",
+            "black/olive",
+            "black/purple"
+          ],
+          "how_to_fish": "Dead drift or slow strip along the bottom",
+          "water_column": "Bottom",
+          "score": 14.5,
+          "seasonal_baseline": 9.6,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 2
+        },
+        {
+          "id": "game_changer",
+          "display_name": "Game Changer",
+          "gear_mode": "fly",
+          "color_theme": "white_shad",
+          "color_theme_label": "White / Shad",
+          "color_shades": [
+            "white",
+            "pearl",
+            "white/silver"
+          ],
+          "how_to_fish": "Strip retrieve through mid column",
+          "water_column": "Mid",
+          "score": 14.5,
+          "seasonal_baseline": 9.6,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 3
+        }
+      ]
+    },
+    {
+      "id": "lmb_viewer_il_04",
+      "region_label": "Midwest (Illinois)",
+      "state_code": "IL",
+      "local_date": "2025-04-16",
+      "month": 4,
+      "month_label": "April",
+      "water_clarity": "stained",
+      "weather_summary": "61°F high · 37°F low · 9 mph wind · Waning Gibbous",
+      "daily_context": "Fair (46) · neutral mood · neutral depth · pres. subtler",
+      "lures": [
+        {
+          "id": "football_jig",
+          "display_name": "Football Jig",
+          "gear_mode": "lure",
+          "color_theme": "craw_natural",
+          "color_theme_label": "Crawfish Natural",
+          "color_shades": [
+            "brown/orange",
+            "rust brown",
+            "amber brown"
+          ],
+          "how_to_fish": "Drag or hop along the bottom",
+          "water_column": "Bottom",
+          "score": 14.5,
+          "seasonal_baseline": 9.6,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 1
+        },
+        {
+          "id": "lipless_crankbait",
+          "display_name": "Lipless Crankbait",
+          "gear_mode": "lure",
+          "color_theme": "bright_contrast",
+          "color_theme_label": "Bright Contrast",
+          "color_shades": [
+            "firetiger",
+            "chartreuse shad",
+            "orange craw"
+          ],
+          "how_to_fish": "Steady retrieve through the water column",
+          "water_column": "Mid",
+          "score": 14.5,
+          "seasonal_baseline": 9.6,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 2
+        },
+        {
+          "id": "texas_rigged_soft_plastic_craw",
+          "display_name": "Texas-Rigged Soft-Plastic Craw",
+          "gear_mode": "lure",
+          "color_theme": "craw_natural",
+          "color_theme_label": "Crawfish Natural",
+          "color_shades": [
+            "brown/orange",
+            "rust brown",
+            "amber brown"
+          ],
+          "how_to_fish": "Flip or pitch into heavy cover",
+          "water_column": "Shallow",
+          "score": 13.75,
+          "seasonal_baseline": 9.25,
+          "daily_modifier": 2.1,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 3
+        }
+      ],
+      "flies": [
+        {
+          "id": "woolly_bugger",
+          "display_name": "Woolly Bugger",
+          "gear_mode": "fly",
+          "color_theme": "craw_natural",
+          "color_theme_label": "Crawfish Natural",
+          "color_shades": [
+            "brown/orange",
+            "rust brown",
+            "amber brown"
+          ],
+          "how_to_fish": "Dead drift or slow strip along the bottom",
+          "water_column": "Bottom",
+          "score": 14.5,
+          "seasonal_baseline": 9.6,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 1
+        },
+        {
+          "id": "sculpin_streamer",
+          "display_name": "Sculpin Streamer",
+          "gear_mode": "fly",
+          "color_theme": "natural_baitfish",
+          "color_theme_label": "Natural Baitfish",
+          "color_shades": [
+            "olive",
+            "sculpin olive",
+            "tan/olive"
+          ],
+          "how_to_fish": "Dead drift or slow strip along the bottom",
+          "water_column": "Bottom",
+          "score": 14.5,
+          "seasonal_baseline": 9.6,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 2
+        },
+        {
+          "id": "clouser_minnow",
+          "display_name": "Clouser Minnow",
+          "gear_mode": "fly",
+          "color_theme": "bright_contrast",
+          "color_theme_label": "Bright Contrast",
+          "color_shades": [
+            "white/chartreuse",
+            "chartreuse/white",
+            "firetiger"
+          ],
+          "how_to_fish": "Strip retrieve through mid column",
+          "water_column": "Mid",
+          "score": 13.7,
+          "seasonal_baseline": 9.3,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1,
+          "rank": 3
+        }
+      ]
+    },
+    {
+      "id": "lmb_viewer_il_07",
+      "region_label": "Midwest (Illinois)",
+      "state_code": "IL",
+      "local_date": "2025-07-16",
+      "month": 7,
+      "month_label": "July",
+      "water_clarity": "stained",
+      "weather_summary": "88°F high · 71°F low · 13 mph wind · 0.03\" precip · Waning Gibbous",
+      "daily_context": "Good (77) · mood up_1 · depth higher_1 · pres. bolder",
+      "lures": [
+        {
+          "id": "hollow_body_frog",
+          "display_name": "Hollow-Body Frog",
+          "gear_mode": "lure",
+          "color_theme": "frog_natural",
+          "color_theme_label": "Frog Natural",
+          "color_shades": [
+            "leopard frog",
+            "bullfrog",
+            "black frog"
+          ],
+          "how_to_fish": "Flip or pitch into heavy cover",
+          "water_column": "Shallow",
+          "score": 14.5,
+          "seasonal_baseline": 9.6,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 1
+        },
+        {
+          "id": "swim_jig",
+          "display_name": "Swim Jig",
+          "gear_mode": "lure",
+          "color_theme": "white_shad",
+          "color_theme_label": "White / Shad",
+          "color_shades": [
+            "white",
+            "pearl",
+            "white/silver"
+          ],
+          "how_to_fish": "Steady retrieve through the water column",
+          "water_column": "Mid",
+          "score": 14.5,
+          "seasonal_baseline": 9.6,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 2
+        },
+        {
+          "id": "walking_topwater",
+          "display_name": "Walking Topwater",
+          "gear_mode": "lure",
+          "color_theme": "white_shad",
+          "color_theme_label": "White / Shad",
+          "color_shades": [
+            "bone",
+            "white",
+            "pearl"
+          ],
+          "how_to_fish": "Walk, pop, or chug along the surface",
+          "water_column": "Surface",
+          "score": 13.75,
+          "seasonal_baseline": 9.25,
+          "daily_modifier": 2.1,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 3
+        }
+      ],
+      "flies": [
+        {
+          "id": "frog_fly",
+          "display_name": "Topwater Frog Fly",
+          "gear_mode": "fly",
+          "color_theme": "frog_natural",
+          "color_theme_label": "Frog Natural",
+          "color_shades": [
+            "leopard frog",
+            "bullfrog",
+            "black frog"
+          ],
+          "how_to_fish": "Pop or skate on the surface",
+          "water_column": "Surface",
+          "score": 14.5,
+          "seasonal_baseline": 9.6,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 1
+        },
+        {
+          "id": "game_changer",
+          "display_name": "Game Changer",
+          "gear_mode": "fly",
+          "color_theme": "white_shad",
+          "color_theme_label": "White / Shad",
+          "color_shades": [
+            "white",
+            "pearl",
+            "white/silver"
+          ],
+          "how_to_fish": "Strip retrieve through mid column",
+          "water_column": "Mid",
+          "score": 14.5,
+          "seasonal_baseline": 9.6,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 2
+        },
+        {
+          "id": "mouse_fly",
+          "display_name": "Topwater Mouse Fly",
+          "gear_mode": "fly",
+          "color_theme": "mouse_natural",
+          "color_theme_label": "Mouse Natural",
+          "color_shades": [
+            "gray mouse",
+            "brown mouse",
+            "black mouse"
+          ],
+          "how_to_fish": "Pop or skate on the surface",
+          "water_column": "Surface",
+          "score": 14.5,
+          "seasonal_baseline": 9.6,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 3
+        }
+      ]
+    },
+    {
+      "id": "lmb_viewer_il_10",
+      "region_label": "Midwest (Illinois)",
+      "state_code": "IL",
+      "local_date": "2025-10-15",
+      "month": 10,
+      "month_label": "October",
+      "water_clarity": "stained",
+      "weather_summary": "76°F high · 56°F low · 8 mph wind · Waning Crescent",
+      "daily_context": "Good (70) · mood up_1 · depth higher_1 · pres. subtler",
+      "lures": [
+        {
+          "id": "spinnerbait",
+          "display_name": "Spinnerbait",
+          "gear_mode": "lure",
+          "color_theme": "bright_contrast",
+          "color_theme_label": "Bright Contrast",
+          "color_shades": [
+            "white/chartreuse",
+            "firetiger",
+            "chartreuse/white"
+          ],
+          "how_to_fish": "Cover water at a steady pace, then slow slightly after follows, bumps, or missed strikes.",
+          "water_column": "Mid",
+          "score": 14.5,
+          "seasonal_baseline": 9.6,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 1
+        },
+        {
+          "id": "suspending_jerkbait",
+          "display_name": "Suspending Jerkbait",
+          "gear_mode": "lure",
+          "color_theme": "white_shad",
+          "color_theme_label": "White / Shad",
+          "color_shades": [
+            "pearl",
+            "table rock shad",
+            "white/silver"
+          ],
+          "how_to_fish": "Rip-and-pause reaction retrieve",
+          "water_column": "Mid",
+          "score": 14.5,
+          "seasonal_baseline": 9.6,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 2
+        },
+        {
+          "id": "bladed_jig",
+          "display_name": "Bladed Jig",
+          "gear_mode": "lure",
+          "color_theme": "dark_contrast",
+          "color_theme_label": "Dark Contrast",
+          "color_shades": [
+            "black/blue",
+            "black/purple",
+            "black"
+          ],
+          "how_to_fish": "Cover water at a steady pace, then slow slightly after follows, bumps, or missed strikes.",
+          "water_column": "Mid",
+          "score": 14.5,
+          "seasonal_baseline": 9.6,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 3
+        }
+      ],
+      "flies": [
+        {
+          "id": "clouser_minnow",
+          "display_name": "Clouser Minnow",
+          "gear_mode": "fly",
+          "color_theme": "bright_contrast",
+          "color_theme_label": "Bright Contrast",
+          "color_shades": [
+            "white/chartreuse",
+            "chartreuse/white",
+            "firetiger"
+          ],
+          "how_to_fish": "Strip retrieve through mid column",
+          "water_column": "Mid",
+          "score": 14.5,
+          "seasonal_baseline": 9.6,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 1
+        },
+        {
+          "id": "woolly_bugger",
+          "display_name": "Woolly Bugger",
+          "gear_mode": "fly",
+          "color_theme": "dark_contrast",
+          "color_theme_label": "Dark Contrast",
+          "color_shades": [
+            "black",
+            "black/olive",
+            "black/purple"
+          ],
+          "how_to_fish": "Dead drift or slow strip along the bottom",
+          "water_column": "Bottom",
+          "score": 14.5,
+          "seasonal_baseline": 9.6,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 2
+        },
+        {
+          "id": "deceiver",
+          "display_name": "Deceiver",
+          "gear_mode": "fly",
+          "color_theme": "white_shad",
+          "color_theme_label": "White / Shad",
+          "color_shades": [
+            "white",
+            "pearl",
+            "white/silver"
+          ],
+          "how_to_fish": "Strip retrieve through mid column",
+          "water_column": "Mid",
+          "score": 14.5,
+          "seasonal_baseline": 9.6,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 3
+        }
+      ]
+    },
+    {
+      "id": "lmb_viewer_mn_05",
+      "region_label": "Great Lakes (Minnesota)",
+      "state_code": "MN",
+      "local_date": "2025-05-15",
+      "month": 5,
+      "month_label": "May",
+      "water_clarity": "stained",
+      "weather_summary": "65°F high · 51°F low · 20 mph wind · 0.51\" precip · Waning Gibbous",
+      "daily_context": "Fair (59) · mood down_1 · depth lower_1 · neutral pres.",
+      "lures": [
+        {
+          "id": "wacky_rigged_stick_worm",
+          "display_name": "Wacky-Rigged Stick Worm",
+          "gear_mode": "lure",
+          "color_theme": "green_pumpkin_natural",
+          "color_theme_label": "Green Pumpkin",
+          "color_shades": [
+            "green pumpkin",
+            "green pumpkin blue",
+            "pb&j"
+          ],
+          "how_to_fish": "Slow drag with minimal action",
+          "water_column": "Bottom–Mid",
+          "score": 13.8,
+          "seasonal_baseline": 9.3,
+          "daily_modifier": 2.1,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 1
+        },
+        {
+          "id": "swim_jig",
+          "display_name": "Swim Jig",
+          "gear_mode": "lure",
+          "color_theme": "white_shad",
+          "color_theme_label": "White / Shad",
+          "color_shades": [
+            "white",
+            "pearl",
+            "white/silver"
+          ],
+          "how_to_fish": "Steady retrieve through the water column",
+          "water_column": "Mid",
+          "score": 13.2,
+          "seasonal_baseline": 9.3,
+          "daily_modifier": 2,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1,
+          "rank": 2
+        },
+        {
+          "id": "weightless_stick_worm",
+          "display_name": "Weightless Stick Worm",
+          "gear_mode": "lure",
+          "color_theme": "green_pumpkin_natural",
+          "color_theme_label": "Green Pumpkin",
+          "color_shades": [
+            "green pumpkin",
+            "green pumpkin blue",
+            "pb&j"
+          ],
+          "how_to_fish": "Slow drag with minimal action",
+          "water_column": "Bottom–Mid",
+          "score": 13.4,
+          "seasonal_baseline": 9.3,
+          "daily_modifier": 1.7,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 3
+        }
+      ],
+      "flies": [
+        {
+          "id": "woolly_bugger",
+          "display_name": "Woolly Bugger",
+          "gear_mode": "fly",
+          "color_theme": "dark_contrast",
+          "color_theme_label": "Dark Contrast",
+          "color_shades": [
+            "black",
+            "black/olive",
+            "black/purple"
+          ],
+          "how_to_fish": "Dead drift or slow strip along the bottom",
+          "water_column": "Bottom",
+          "score": 14.5,
+          "seasonal_baseline": 9.6,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 1
+        },
+        {
+          "id": "rabbit_strip_leech",
+          "display_name": "Rabbit-Strip Leech",
+          "gear_mode": "fly",
+          "color_theme": "dark_contrast",
+          "color_theme_label": "Dark Contrast",
+          "color_shades": [
+            "black",
+            "black/purple",
+            "black/blue"
+          ],
+          "how_to_fish": "Dead drift or slow strip along the bottom",
+          "water_column": "Bottom",
+          "score": 14.15,
+          "seasonal_baseline": 9.25,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 2
+        },
+        {
+          "id": "clouser_minnow",
+          "display_name": "Clouser Minnow",
+          "gear_mode": "fly",
+          "color_theme": "bright_contrast",
+          "color_theme_label": "Bright Contrast",
+          "color_shades": [
+            "white/chartreuse",
+            "chartreuse/white",
+            "firetiger"
+          ],
+          "how_to_fish": "Strip retrieve through mid column",
+          "water_column": "Mid",
+          "score": 13.2,
+          "seasonal_baseline": 9.3,
+          "daily_modifier": 2,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1,
+          "rank": 3
+        }
+      ]
+    },
+    {
+      "id": "lmb_viewer_mn_07",
+      "region_label": "Great Lakes (Minnesota)",
+      "state_code": "MN",
+      "local_date": "2025-07-16",
+      "month": 7,
+      "month_label": "July",
+      "water_clarity": "stained",
+      "weather_summary": "65°F high · 60°F low · 17 mph wind · 0.02\" precip · Waning Gibbous",
+      "daily_context": "Poor (37) · mood down_1 · depth lower_1 · neutral pres.",
+      "lures": [
+        {
+          "id": "swim_jig",
+          "display_name": "Swim Jig",
+          "gear_mode": "lure",
+          "color_theme": "white_shad",
+          "color_theme_label": "White / Shad",
+          "color_shades": [
+            "white",
+            "pearl",
+            "white/silver"
+          ],
+          "how_to_fish": "Steady retrieve through the water column",
+          "water_column": "Mid",
+          "score": 14.5,
+          "seasonal_baseline": 9.6,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 1
+        },
+        {
+          "id": "hollow_body_frog",
+          "display_name": "Hollow-Body Frog",
+          "gear_mode": "lure",
+          "color_theme": "frog_natural",
+          "color_theme_label": "Frog Natural",
+          "color_shades": [
+            "leopard frog",
+            "bullfrog",
+            "black frog"
+          ],
+          "how_to_fish": "Flip or pitch into heavy cover",
+          "water_column": "Shallow",
+          "score": 14.1,
+          "seasonal_baseline": 9.6,
+          "daily_modifier": 2.1,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 2
+        },
+        {
+          "id": "paddle_tail_swimbait",
+          "display_name": "Paddle-Tail Swimbait",
+          "gear_mode": "lure",
+          "color_theme": "white_shad",
+          "color_theme_label": "White / Shad",
+          "color_shades": [
+            "white",
+            "pearl",
+            "white/silver"
+          ],
+          "how_to_fish": "Steady retrieve through the water column",
+          "water_column": "Mid",
+          "score": 14.5,
+          "seasonal_baseline": 9.6,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 3
+        }
+      ],
+      "flies": [
+        {
+          "id": "game_changer",
+          "display_name": "Game Changer",
+          "gear_mode": "fly",
+          "color_theme": "white_shad",
+          "color_theme_label": "White / Shad",
+          "color_shades": [
+            "white",
+            "pearl",
+            "white/silver"
+          ],
+          "how_to_fish": "Strip retrieve through mid column",
+          "water_column": "Mid",
+          "score": 14.5,
+          "seasonal_baseline": 9.6,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 1
+        },
+        {
+          "id": "woolly_bugger",
+          "display_name": "Woolly Bugger",
+          "gear_mode": "fly",
+          "color_theme": "dark_contrast",
+          "color_theme_label": "Dark Contrast",
+          "color_shades": [
+            "black",
+            "black/olive",
+            "black/purple"
+          ],
+          "how_to_fish": "Dead drift or slow strip along the bottom",
+          "water_column": "Bottom",
+          "score": 14.5,
+          "seasonal_baseline": 9.6,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 2
+        },
+        {
+          "id": "frog_fly",
+          "display_name": "Topwater Frog Fly",
+          "gear_mode": "fly",
+          "color_theme": "frog_natural",
+          "color_theme_label": "Frog Natural",
+          "color_shades": [
+            "leopard frog",
+            "bullfrog",
+            "black frog"
+          ],
+          "how_to_fish": "Pop or skate on the surface",
+          "water_column": "Surface",
+          "score": 14.1,
+          "seasonal_baseline": 9.6,
+          "daily_modifier": 2.1,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 3
+        }
+      ]
+    },
+    {
+      "id": "lmb_viewer_mn_09",
+      "region_label": "Great Lakes (Minnesota)",
+      "state_code": "MN",
+      "local_date": "2025-09-17",
+      "month": 9,
+      "month_label": "September",
+      "water_clarity": "stained",
+      "weather_summary": "73°F high · 65°F low · 11 mph wind · Waning Crescent",
+      "daily_context": "Excellent (83) · neutral mood · neutral depth · pres. subtler",
+      "lures": [
+        {
+          "id": "spinnerbait",
+          "display_name": "Spinnerbait",
+          "gear_mode": "lure",
+          "color_theme": "bright_contrast",
+          "color_theme_label": "Bright Contrast",
+          "color_shades": [
+            "white/chartreuse",
+            "firetiger",
+            "chartreuse/white"
+          ],
+          "how_to_fish": "Cover water at a steady pace, then slow slightly after follows, bumps, or missed strikes.",
+          "water_column": "Mid",
+          "score": 14.5,
+          "seasonal_baseline": 9.6,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 1
+        },
+        {
+          "id": "suspending_jerkbait",
+          "display_name": "Suspending Jerkbait",
+          "gear_mode": "lure",
+          "color_theme": "white_shad",
+          "color_theme_label": "White / Shad",
+          "color_shades": [
+            "pearl",
+            "table rock shad",
+            "white/silver"
+          ],
+          "how_to_fish": "Rip-and-pause reaction retrieve",
+          "water_column": "Mid",
+          "score": 14.2,
+          "seasonal_baseline": 9.3,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 2
+        },
+        {
+          "id": "bladed_jig",
+          "display_name": "Bladed Jig",
+          "gear_mode": "lure",
+          "color_theme": "dark_contrast",
+          "color_theme_label": "Dark Contrast",
+          "color_shades": [
+            "black/blue",
+            "black/purple",
+            "black"
+          ],
+          "how_to_fish": "Cover water at a steady pace, then slow slightly after follows, bumps, or missed strikes.",
+          "water_column": "Mid",
+          "score": 14.5,
+          "seasonal_baseline": 9.6,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 3
+        }
+      ],
+      "flies": [
+        {
+          "id": "game_changer",
+          "display_name": "Game Changer",
+          "gear_mode": "fly",
+          "color_theme": "white_shad",
+          "color_theme_label": "White / Shad",
+          "color_shades": [
+            "white",
+            "pearl",
+            "white/silver"
+          ],
+          "how_to_fish": "Strip retrieve through mid column",
+          "water_column": "Mid",
+          "score": 14.5,
+          "seasonal_baseline": 9.6,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 1
+        },
+        {
+          "id": "woolly_bugger",
+          "display_name": "Woolly Bugger",
+          "gear_mode": "fly",
+          "color_theme": "dark_contrast",
+          "color_theme_label": "Dark Contrast",
+          "color_shades": [
+            "black",
+            "black/olive",
+            "black/purple"
+          ],
+          "how_to_fish": "Dead drift or slow strip along the bottom",
+          "water_column": "Bottom",
+          "score": 14.2,
+          "seasonal_baseline": 9.3,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 2
+        },
+        {
+          "id": "articulated_baitfish_streamer",
+          "display_name": "Articulated Baitfish Streamer",
+          "gear_mode": "fly",
+          "color_theme": "white_shad",
+          "color_theme_label": "White / Shad",
+          "color_shades": [
+            "white",
+            "pearl",
+            "white/silver"
+          ],
+          "how_to_fish": "Strip retrieve through mid column",
+          "water_column": "Mid",
+          "score": 14.5,
+          "seasonal_baseline": 9.6,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 3
+        }
+      ]
+    },
+    {
+      "id": "lmb_viewer_ny_05",
+      "region_label": "Northeast (New York)",
+      "state_code": "NY",
+      "local_date": "2025-05-15",
+      "month": 5,
+      "month_label": "May",
+      "water_clarity": "clear",
+      "weather_summary": "75°F high · 61°F low · 7 mph wind · 0.10\" precip · Waning Gibbous",
+      "daily_context": "Excellent (84) · mood up_2 · depth higher_1 · pres. bolder",
+      "lures": [
+        {
+          "id": "compact_flipping_jig",
+          "display_name": "Compact Flipping / Pitching Jig",
+          "gear_mode": "lure",
+          "color_theme": "green_pumpkin_natural",
+          "color_theme_label": "Green Pumpkin",
+          "color_shades": [
+            "green pumpkin",
+            "green pumpkin blue",
+            "pb&j"
+          ],
+          "how_to_fish": "Flip or pitch into heavy cover",
+          "water_column": "Shallow",
+          "score": 14.5,
+          "seasonal_baseline": 9.6,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 1
+        },
+        {
+          "id": "soft_jerkbait",
+          "display_name": "Soft Jerkbait",
+          "gear_mode": "lure",
+          "color_theme": "natural_baitfish",
+          "color_theme_label": "Natural Baitfish",
+          "color_shades": [
+            "olive/white",
+            "shad",
+            "smoke shad"
+          ],
+          "how_to_fish": "Cover water at a steady pace, then slow slightly after follows, bumps, or missed strikes.",
+          "water_column": "Mid",
+          "score": 13.7,
+          "seasonal_baseline": 9.3,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1,
+          "rank": 2
+        },
+        {
+          "id": "swim_jig",
+          "display_name": "Swim Jig",
+          "gear_mode": "lure",
+          "color_theme": "white_shad",
+          "color_theme_label": "White / Shad",
+          "color_shades": [
+            "white",
+            "pearl",
+            "white/silver"
+          ],
+          "how_to_fish": "Steady retrieve through the water column",
+          "water_column": "Mid",
+          "score": 13.7,
+          "seasonal_baseline": 9.3,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1,
+          "rank": 3
+        }
+      ],
+      "flies": [
+        {
+          "id": "woolly_bugger",
+          "display_name": "Woolly Bugger",
+          "gear_mode": "fly",
+          "color_theme": "craw_natural",
+          "color_theme_label": "Crawfish Natural",
+          "color_shades": [
+            "brown/orange",
+            "rust brown",
+            "amber brown"
+          ],
+          "how_to_fish": "Dead drift or slow strip along the bottom",
+          "water_column": "Bottom",
+          "score": 14.5,
+          "seasonal_baseline": 9.6,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 1
+        },
+        {
+          "id": "clouser_minnow",
+          "display_name": "Clouser Minnow",
+          "gear_mode": "fly",
+          "color_theme": "natural_baitfish",
+          "color_theme_label": "Natural Baitfish",
+          "color_shades": [
+            "olive/white",
+            "shad",
+            "smoke shad"
+          ],
+          "how_to_fish": "Strip retrieve through mid column",
+          "water_column": "Mid",
+          "score": 13.7,
+          "seasonal_baseline": 9.3,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1,
+          "rank": 2
+        },
+        {
+          "id": "game_changer",
+          "display_name": "Game Changer",
+          "gear_mode": "fly",
+          "color_theme": "white_shad",
+          "color_theme_label": "White / Shad",
+          "color_shades": [
+            "white",
+            "pearl",
+            "white/silver"
+          ],
+          "how_to_fish": "Strip retrieve through mid column",
+          "water_column": "Mid",
+          "score": 13.7,
+          "seasonal_baseline": 9.3,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1,
+          "rank": 3
+        }
+      ]
+    },
+    {
+      "id": "lmb_viewer_ny_07",
+      "region_label": "Northeast (New York)",
+      "state_code": "NY",
+      "local_date": "2025-07-16",
+      "month": 7,
+      "month_label": "July",
+      "water_clarity": "clear",
+      "weather_summary": "89°F high · 68°F low · 7 mph wind · 0.02\" precip · Waning Gibbous",
+      "daily_context": "Fair (44) · neutral mood · neutral depth · pres. subtler",
+      "lures": [
+        {
+          "id": "swim_jig",
+          "display_name": "Swim Jig",
+          "gear_mode": "lure",
+          "color_theme": "perch_bluegill",
+          "color_theme_label": "Perch / Bluegill",
+          "color_shades": [
+            "perch",
+            "bluegill",
+            "olive/orange"
+          ],
+          "how_to_fish": "Steady retrieve through the water column",
+          "water_column": "Mid",
+          "score": 13.8,
+          "seasonal_baseline": 9.3,
+          "daily_modifier": 2.1,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 1
+        },
+        {
+          "id": "soft_jerkbait",
+          "display_name": "Soft Jerkbait",
+          "gear_mode": "lure",
+          "color_theme": "natural_baitfish",
+          "color_theme_label": "Natural Baitfish",
+          "color_shades": [
+            "olive/white",
+            "shad",
+            "smoke shad"
+          ],
+          "how_to_fish": "Cover water at a steady pace, then slow slightly after follows, bumps, or missed strikes.",
+          "water_column": "Mid",
+          "score": 13.7,
+          "seasonal_baseline": 9.3,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1,
+          "rank": 2
+        },
+        {
+          "id": "walking_topwater",
+          "display_name": "Walking Topwater",
+          "gear_mode": "lure",
+          "color_theme": "perch_bluegill",
+          "color_theme_label": "Perch / Bluegill",
+          "color_shades": [
+            "perch",
+            "bluegill",
+            "olive/orange"
+          ],
+          "how_to_fish": "Walk, pop, or chug along the surface",
+          "water_column": "Surface",
+          "score": 13.05,
+          "seasonal_baseline": 8.95,
+          "daily_modifier": 1.7,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 3
+        }
+      ],
+      "flies": [
+        {
+          "id": "game_changer",
+          "display_name": "Game Changer",
+          "gear_mode": "fly",
+          "color_theme": "white_shad",
+          "color_theme_label": "White / Shad",
+          "color_shades": [
+            "white",
+            "pearl",
+            "white/silver"
+          ],
+          "how_to_fish": "Strip retrieve through mid column",
+          "water_column": "Mid",
+          "score": 13.8,
+          "seasonal_baseline": 9.3,
+          "daily_modifier": 2.1,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 1
+        },
+        {
+          "id": "frog_fly",
+          "display_name": "Topwater Frog Fly",
+          "gear_mode": "fly",
+          "color_theme": "frog_natural",
+          "color_theme_label": "Frog Natural",
+          "color_shades": [
+            "leopard frog",
+            "bullfrog",
+            "black frog"
+          ],
+          "how_to_fish": "Pop or skate on the surface",
+          "water_column": "Surface",
+          "score": 13.8,
+          "seasonal_baseline": 9.3,
+          "daily_modifier": 2.1,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 2
+        },
+        {
+          "id": "woolly_bugger",
+          "display_name": "Woolly Bugger",
+          "gear_mode": "fly",
+          "color_theme": "dark_contrast",
+          "color_theme_label": "Dark Contrast",
+          "color_shades": [
+            "black",
+            "black/olive",
+            "black/purple"
+          ],
+          "how_to_fish": "Dead drift or slow strip along the bottom",
+          "water_column": "Bottom",
+          "score": 13.7,
+          "seasonal_baseline": 9.3,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1,
+          "rank": 3
+        }
+      ]
+    },
+    {
+      "id": "lmb_viewer_ny_10",
+      "region_label": "Northeast (New York)",
+      "state_code": "NY",
+      "local_date": "2025-10-15",
+      "month": 10,
+      "month_label": "October",
+      "water_clarity": "stained",
+      "weather_summary": "56°F high · 45°F low · 13 mph wind · Waning Crescent",
+      "daily_context": "Fair (56) · neutral mood · neutral depth · pres. bolder",
+      "lures": [
+        {
+          "id": "spinnerbait",
+          "display_name": "Spinnerbait",
+          "gear_mode": "lure",
+          "color_theme": "bright_contrast",
+          "color_theme_label": "Bright Contrast",
+          "color_shades": [
+            "white/chartreuse",
+            "firetiger",
+            "chartreuse/white"
+          ],
+          "how_to_fish": "Cover water at a steady pace, then slow slightly after follows, bumps, or missed strikes.",
+          "water_column": "Mid",
+          "score": 14.5,
+          "seasonal_baseline": 9.6,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 1
+        },
+        {
+          "id": "bladed_jig",
+          "display_name": "Bladed Jig",
+          "gear_mode": "lure",
+          "color_theme": "dark_contrast",
+          "color_theme_label": "Dark Contrast",
+          "color_shades": [
+            "black/blue",
+            "black/purple",
+            "black"
+          ],
+          "how_to_fish": "Cover water at a steady pace, then slow slightly after follows, bumps, or missed strikes.",
+          "water_column": "Mid",
+          "score": 14.5,
+          "seasonal_baseline": 9.6,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 2
+        },
+        {
+          "id": "squarebill_crankbait",
+          "display_name": "Squarebill Crankbait",
+          "gear_mode": "lure",
+          "color_theme": "bright_contrast",
+          "color_theme_label": "Bright Contrast",
+          "color_shades": [
+            "firetiger",
+            "chartreuse black back",
+            "chartreuse blue"
+          ],
+          "how_to_fish": "Steady retrieve through the water column",
+          "water_column": "Mid",
+          "score": 14.5,
+          "seasonal_baseline": 9.6,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 3
+        }
+      ],
+      "flies": [
+        {
+          "id": "game_changer",
+          "display_name": "Game Changer",
+          "gear_mode": "fly",
+          "color_theme": "white_shad",
+          "color_theme_label": "White / Shad",
+          "color_shades": [
+            "white",
+            "pearl",
+            "white/silver"
+          ],
+          "how_to_fish": "Strip retrieve through mid column",
+          "water_column": "Mid",
+          "score": 14.5,
+          "seasonal_baseline": 9.6,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 1
+        },
+        {
+          "id": "articulated_baitfish_streamer",
+          "display_name": "Articulated Baitfish Streamer",
+          "gear_mode": "fly",
+          "color_theme": "white_shad",
+          "color_theme_label": "White / Shad",
+          "color_shades": [
+            "white",
+            "pearl",
+            "white/silver"
+          ],
+          "how_to_fish": "Strip retrieve through mid column",
+          "water_column": "Mid",
+          "score": 14.5,
+          "seasonal_baseline": 9.6,
+          "daily_modifier": 2.5,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 2
+        },
+        {
+          "id": "woolly_bugger",
+          "display_name": "Woolly Bugger",
+          "gear_mode": "fly",
+          "color_theme": "dark_contrast",
+          "color_theme_label": "Dark Contrast",
+          "color_shades": [
+            "black",
+            "black/olive",
+            "black/purple"
+          ],
+          "how_to_fish": "Dead drift or slow strip along the bottom",
+          "water_column": "Bottom",
+          "score": 13.8,
+          "seasonal_baseline": 9.3,
+          "daily_modifier": 2.1,
+          "clarity_modifier": 0.9,
+          "forage_bonus": 1.5,
+          "rank": 3
+        }
+      ]
+    }
+  ]
+}

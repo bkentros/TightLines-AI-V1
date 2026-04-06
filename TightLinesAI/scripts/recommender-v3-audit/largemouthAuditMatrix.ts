@@ -11,7 +11,13 @@ export type LargemouthAuditAnchorKey =
   | "louisiana_grass_lake"
   | "ozarks_reservoir"
   | "minnesota_weed_lake"
-  | "california_delta";
+  | "california_delta"
+  | "socal_reservoir"
+  | "pnw_bass_lake"
+  | "colorado_bass_lake"
+  | "northeast_maine_lake"
+  | "gulf_dirty_grass_lake"
+  | "midwest_dirty_backwater";
 
 export type LargemouthAuditAnchor = {
   key: LargemouthAuditAnchorKey;
@@ -181,6 +187,84 @@ export const LARGEMOUTH_AUDIT_ANCHORS: readonly LargemouthAuditAnchor[] = [
     audit_role: "seasonal_overlay",
     notes: "Western tidal-fresh overlay for grass/current behavior and late-fall stained-water largemouth lanes.",
   },
+  {
+    key: "socal_reservoir",
+    label: "Southern California reservoir",
+    latitude: 33.68,
+    longitude: -117.02,
+    state_code: "CA",
+    timezone: "America/Los_Angeles",
+    context: "freshwater_lake_pond",
+    region_key: "southern_california",
+    default_clarity: "stained",
+    audit_role: "seasonal_overlay",
+    notes: "Warm western reservoir overlay for mild-winter control, early prespawn craw reads, summer topwater, and fall shad behavior.",
+  },
+  {
+    key: "pnw_bass_lake",
+    label: "Pacific Northwest bass lake",
+    latitude: 45.47,
+    longitude: -123.18,
+    state_code: "OR",
+    timezone: "America/Los_Angeles",
+    context: "freshwater_lake_pond",
+    region_key: "pacific_northwest",
+    default_clarity: "stained",
+    audit_role: "seasonal_overlay",
+    notes: "Northwest lake overlay for extended prespawn (spawn is June), summer shallow behavior, and November winter-onset tightening.",
+  },
+  {
+    key: "colorado_bass_lake",
+    label: "Colorado highland reservoir",
+    latitude: 40.55,
+    longitude: -105.17,
+    state_code: "CO",
+    timezone: "America/Denver",
+    context: "freshwater_lake_pond",
+    region_key: "mountain_west",
+    default_clarity: "clear",
+    audit_role: "seasonal_overlay",
+    notes: "Mountain West clear-lake overlay for cold-season winter control, late prespawn (spawn is June), summer topwater, and fall baitfish transition.",
+  },
+  {
+    key: "northeast_maine_lake",
+    label: "Maine clear natural lake",
+    latitude: 43.87,
+    longitude: -70.56,
+    state_code: "ME",
+    timezone: "America/New_York",
+    context: "freshwater_lake_pond",
+    region_key: "northeast",
+    default_clarity: "clear",
+    audit_role: "seasonal_overlay",
+    notes: "Northeast clear-lake overlay for the distinct northeast LMB rows: jerkbait-first winter, finesse-spawn, wacky/perch summer, and active-fall-through-November posture.",
+  },
+  {
+    key: "gulf_dirty_grass_lake",
+    label: "Gulf Coast dirty grass lake",
+    latitude: 30.18,
+    longitude: -91.82,
+    state_code: "LA",
+    timezone: "America/Chicago",
+    context: "freshwater_lake_pond",
+    region_key: "gulf_coast",
+    default_clarity: "dirty",
+    audit_role: "seasonal_overlay",
+    notes: "Dirty-water gulf_coast overlay: validates GULF_DIRTY_PRESPAWN_GRASS_LAKE (spinnerbait-led March), early-fall dirty window where walking_topwater is penalized and buzzbait/swim_jig/bladed_jig surface, and October FALL_LAKE dirty behavior where spinnerbait dominates.",
+  },
+  {
+    key: "midwest_dirty_backwater",
+    label: "Midwest dirty backwater lake",
+    latitude: 40.3,
+    longitude: -90.04,
+    state_code: "IL",
+    timezone: "America/Chicago",
+    context: "freshwater_lake_pond",
+    region_key: "midwest_interior",
+    default_clarity: "dirty",
+    audit_role: "seasonal_overlay",
+    notes: "Dirty-water midwest_interior overlay: tests generic dirty clarity impact on PRESPAWN_LAKE (football jig holds via forage), SUMMER_LAKE (walking_topwater displaced by buzzbait/hollow_body_frog), and FALL_LAKE (spinnerbait confirmed).",
+  },
 ] as const;
 
 const CORE_MONTHLY_MONTHS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] as const;
@@ -194,6 +278,12 @@ const OVERLAY_MONTHS_BY_ANCHOR: Record<
   ozarks_reservoir: [2, 5, 10, 12],
   minnesota_weed_lake: [5, 7, 8, 10],
   california_delta: [3, 6, 9, 11],
+  socal_reservoir: [1, 4, 7, 10],
+  pnw_bass_lake: [3, 5, 8, 11],
+  colorado_bass_lake: [2, 5, 8, 10],
+  northeast_maine_lake: [1, 5, 7, 11],
+  gulf_dirty_grass_lake: [3, 9, 10],
+  midwest_dirty_backwater: [3, 7, 10],
 };
 
 function focusWindow(month: number): string {

@@ -50,19 +50,10 @@ function resolvePresentationDelta(
   }
 }
 
-function clarityBias(clarity: WaterClarity): PresentationStyleV3 {
-  switch (clarity) {
-    case "clear": return "subtle";
-    case "dirty": return "bold";
-    case "stained":
-    default: return "balanced";
-  }
-}
-
 /**
  * The resolver intentionally makes only bounded moves.
  * Water column can move one step. Mood can move up to two. Presentation style
- * blends the seasonal read, the daily nudge, and visibility needs from clarity.
+ * blends 55% seasonal + 45% daily, then applies clarity floor/ceiling (not a blend vote).
  */
 export function resolveFinalProfileV3(
   seasonal: RecommenderV3SeasonalRow,
@@ -94,13 +85,23 @@ export function resolveFinalProfileV3(
       resolvePresentationDelta(daily.presentation_nudge),
     ),
   );
-  const clarityPresentationIndex = PRESENTATION_STYLES.indexOf(clarityBias(clarity));
-  const blendedPresentationIndex = Math.round(
-    (seasonalPresentationIndex + dailyPresentationIndex + clarityPresentationIndex) / 3,
+  let blendedPresentationIndex = Math.round(
+    0.55 * seasonalPresentationIndex + 0.45 * dailyPresentationIndex,
   );
-  const final_presentation_style = PRESENTATION_STYLES[
-    Math.max(0, Math.min(PRESENTATION_STYLES.length - 1, blendedPresentationIndex))
-  ]!;
+  blendedPresentationIndex = Math.max(0, Math.min(PRESENTATION_STYLES.length - 1, blendedPresentationIndex));
+
+  if (clarity === "dirty" && blendedPresentationIndex < 1) {
+    blendedPresentationIndex = 1;
+  }
+  if (clarity === "clear" && blendedPresentationIndex === 2) {
+    const seasonalBold = seasonal.base_presentation_style === "bold";
+    const dailyBold = dailyPresentationIndex === 2;
+    if (!(seasonalBold && dailyBold)) {
+      blendedPresentationIndex = 1;
+    }
+  }
+
+  const final_presentation_style = PRESENTATION_STYLES[blendedPresentationIndex]!;
 
   return {
     final_water_column,

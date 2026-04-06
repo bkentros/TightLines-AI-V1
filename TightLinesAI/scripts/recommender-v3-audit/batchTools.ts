@@ -37,7 +37,6 @@ type ActualCandidate = {
   tactical_lane: string;
   color_theme: string;
   color_recommendations: string[];
-  why: string;
 };
 
 type ReviewSheetScenario = {
@@ -94,7 +93,6 @@ function toActualCandidate(candidate: ReturnType<typeof runRecommenderV3>["lure_
     tactical_lane: candidate.tactical_lane,
     color_theme: candidate.color_theme,
     color_recommendations: candidate.color_recommendations,
-    why: candidate.why,
   };
 }
 

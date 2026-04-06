@@ -148,8 +148,8 @@ function toViewerRec(
   gearMode: "lure" | "fly",
   rank: number,
 ): ViewerRecommendation {
-  // Match surface family by family_key — gives us the deterministic how_to_fish string.
-  const surfaceFamily = surfaceRankings.find((f) => f.family_id === rawRec.family_key);
+  // Match surface row by archetype id — gives us the deterministic how_to_fish string.
+  const surfaceFamily = surfaceRankings.find((f) => f.family_id === rawRec.id);
   const howToFish = surfaceFamily?.how_to_fish ?? TECHNIQUE_FROM_LANE[rawRec.tactical_lane] ?? rawRec.tactical_lane;
   const waterColumn = WATER_COLUMN_FROM_LANE[rawRec.tactical_lane] ?? "Mid";
   const shades = rawRec.color_recommendations as [string, string, string];

@@ -7,7 +7,6 @@ import type { RecommenderRequest, WaterClarity } from "./contracts/input.ts";
 import {
   RECOMMENDER_FEATURE,
   type RankedFamily,
-  type RankedFamilyScoreBreakdown,
   type RecommenderResponse,
 } from "./contracts/output.ts";
 import type {
@@ -27,10 +26,12 @@ import type {
 import type { LureFamilyId, FlyFamilyId } from "./contracts/families.ts";
 import { resolveConfidence } from "./resolveConfidence.ts";
 import { computeRecommenderV3 } from "./runRecommenderV3.ts";
+import { FLY_ARCHETYPES_V3, LURE_ARCHETYPES_V3 } from "./v3/candidates/index.ts";
 import type {
   ColorThemeIdV3,
   RecommenderV3RankedArchetype,
   RecommenderV3Response,
+  TacticalLaneV3,
 } from "./v3/contracts.ts";
 
 const CACHE_TTL_HOURS = 6;
@@ -315,25 +316,16 @@ function buildBehaviorSummary(
   ];
 }
 
-function rankScore(candidate: RecommenderV3RankedArchetype): number {
-  return Math.max(35, Math.min(99, Math.round(candidate.score * 8)));
-}
-
-function scoreBreakdownFromV3(candidate: RecommenderV3RankedArchetype): RankedFamilyScoreBreakdown[] {
-  return candidate.breakdown.map((item) => ({
-    code: item.code,
-    direction: item.value >= 0 ? "bonus" : "penalty",
-    weight: Math.abs(item.value),
-    detail: item.detail,
-  }));
-}
-
-function scoreReasons(candidate: RecommenderV3RankedArchetype): string[] {
-  return candidate.breakdown
-    .filter((item) => item.value > 0)
-    .sort((a, b) => b.value - a.value)
-    .slice(0, 3)
-    .map((item) => item.detail);
+function v3ToConfidenceInput(candidate: RecommenderV3RankedArchetype): {
+  score: number;
+  breakdown: Array<{ direction: "bonus" | "penalty" }>;
+} {
+  return {
+    score: Math.max(35, Math.min(99, Math.round(candidate.score * 8))),
+    breakdown: candidate.breakdown.map((item) => ({
+      direction: item.value >= 0 ? "bonus" : "penalty",
+    })),
+  };
 }
 
 function startLaneText(
@@ -373,6 +365,12 @@ function startLaneText(
 function howToFishText(
   candidate: RecommenderV3RankedArchetype,
 ): string {
+  const profile =
+    candidate.gear_mode === "lure"
+      ? LURE_ARCHETYPES_V3[candidate.id as keyof typeof LURE_ARCHETYPES_V3]
+      : FLY_ARCHETYPES_V3[candidate.id as keyof typeof FLY_ARCHETYPES_V3];
+  if (profile?.how_to_fish_text) return profile.how_to_fish_text;
+
   switch (candidate.tactical_lane) {
     case "bottom_contact":
     case "fly_bottom":
@@ -397,61 +395,53 @@ function howToFishText(
   }
 }
 
-function bestWhenText(
-  result: RecommenderV3Response,
-): string {
-  return `Best when fish are ${result.resolved_profile.final_mood}, holding ${waterColumnLabel(mapWaterColumnToDepthLane(result.resolved_profile.final_water_column))}, and the water calls for a ${result.resolved_profile.final_presentation_style} look.`;
-}
-
 function colorGuideText(candidate: RecommenderV3RankedArchetype): string {
   return `Theme: ${candidate.color_theme.replace(/_/g, " ")}. Try ${candidate.color_recommendations.join(", ")}.`;
 }
 
-function ignoredAdjustmentText(
-  result: RecommenderV3Response,
-): string {
-  switch (result.resolved_profile.final_presentation_style) {
-    case "bold":
-      return "If they follow but do not commit, slow the cadence one step and clean the color up slightly.";
-    case "subtle":
-      return "If they ignore it completely, add one step more presence with a slightly bolder color or pace.";
-    case "balanced":
-    default:
-      return "If they ignore it, adjust depth and cadence before you make a drastic archetype change.";
-  }
-}
+const RANK_CONTEXT_BY_LANE: Partial<Record<TacticalLaneV3, string>> = {
+  finesse_subtle: "Finesse alternative when fish want a smaller, slower look.",
+  bottom_contact: "Bottom-contact option if fish are pinned to structure or depth.",
+  horizontal_search: "Search bait to cover water when fish are roaming.",
+  reaction_mid_column: "Mid-column reaction bait for suspended or intercepting fish.",
+  surface: "Topwater lane if conditions allow surface strikes.",
+  fly_surface: "Surface fly if fish are looking up.",
+  cover_weedless: "Weedless presentation for heavy cover.",
+  pike_big_profile: "Larger profile for follow-and-crush predator windows.",
+  fly_baitfish: "Baitfish streamer lane for a different silhouette and speed.",
+  fly_bottom: "Bottom-hugging fly if fish won’t come up.",
+};
 
-function toScoredFamily(candidate: RecommenderV3RankedArchetype) {
-  return {
-    family_id: candidate.id as unknown as LureFamilyId | FlyFamilyId,
-    gear_mode: candidate.gear_mode,
-    display_name: candidate.display_name,
-    examples: [],
-    raw_score: candidate.score,
-    score: rankScore(candidate),
-    breakdown: scoreBreakdownFromV3(candidate),
-    score_reasons: scoreReasons(candidate),
-  };
+function buildRankContext(
+  candidate: RecommenderV3RankedArchetype,
+  rank: number,
+  top: RecommenderV3RankedArchetype | undefined,
+): string | undefined {
+  if (rank <= 1 || !top || candidate.id === top.id) return undefined;
+  if (candidate.tactical_lane !== top.tactical_lane) {
+    return RANK_CONTEXT_BY_LANE[candidate.tactical_lane] ??
+      "Different tactical lane from your #1 pick.";
+  }
+  if (candidate.family_key !== top.family_key) {
+    return "Same general lane with a different lure family.";
+  }
+  return "Close backup if your top pick isn’t producing.";
 }
 
 function toRankedFamily(
   candidate: RecommenderV3RankedArchetype,
   result: RecommenderV3Response,
+  rank: number,
+  topInList: RecommenderV3RankedArchetype | undefined,
 ): RankedFamily {
   const depthLane = mapWaterColumnToDepthLane(result.resolved_profile.final_water_column);
   return {
     family_id: candidate.id as unknown as LureFamilyId | FlyFamilyId,
     display_name: candidate.display_name,
-    examples: [],
-    score: rankScore(candidate),
-    score_reasons: scoreReasons(candidate),
-    score_breakdown: scoreBreakdownFromV3(candidate),
-    why_picked: candidate.why,
     where_to_start: startLaneText(candidate, result.context, depthLane),
     how_to_fish: howToFishText(candidate),
-    best_when: bestWhenText(result),
     color_guide: colorGuideText(candidate),
-    what_to_adjust_if_ignored: ignoredAdjustmentText(result),
+    rank_context: buildRankContext(candidate, rank, topInList),
   };
 }
 
@@ -550,17 +540,23 @@ export function runRecommenderV3Surface(req: RecommenderRequest): RecommenderRes
   const v3 = computeRecommenderV3(req, analysis);
   const behavior = buildBehavior(v3);
   const presentation = buildPresentation(v3, behavior);
-  const lureScored = v3.lure_recommendations.map(toScoredFamily);
-  const flyScored = v3.fly_recommendations.map(toScoredFamily);
-  const lure_rankings = v3.lure_recommendations.map((candidate) => toRankedFamily(candidate, v3));
-  const fly_rankings = v3.fly_recommendations.map((candidate) => toRankedFamily(candidate, v3));
+  const lureConfidence = v3.lure_recommendations.map(v3ToConfidenceInput);
+  const flyConfidence = v3.fly_recommendations.map(v3ToConfidenceInput);
+  const lureTop = v3.lure_recommendations[0];
+  const flyTop = v3.fly_recommendations[0];
+  const lure_rankings = v3.lure_recommendations.map((candidate, i) =>
+    toRankedFamily(candidate, v3, i + 1, lureTop),
+  );
+  const fly_rankings = v3.fly_recommendations.map((candidate, i) =>
+    toRankedFamily(candidate, v3, i + 1, flyTop),
+  );
   const confidence = resolveConfidence(
     req,
     behavior,
     analysis,
     SPECIES_META[req.species].display_name,
-    lureScored,
-    flyScored,
+    lureConfidence,
+    flyConfidence,
   );
   const now = new Date();
   const expires = new Date(now.getTime() + CACHE_TTL_HOURS * 60 * 60 * 1000);

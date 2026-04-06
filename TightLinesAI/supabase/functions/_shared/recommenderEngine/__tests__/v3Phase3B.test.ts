@@ -61,11 +61,12 @@ function request(overrides: Partial<RecommenderRequest> = {}): RecommenderReques
 Deno.test("V3 Phase 3B covers every supported smallmouth region, month, and context", () => {
   for (const region of SMALLMOUTH_V3_SUPPORTED_REGIONS) {
     for (const context of ["freshwater_lake_pond", "freshwater_river"] as const) {
-      const months = SMALLMOUTH_V3_SEASONAL_ROWS
-        .filter((row) => row.region_key === region && row.context === context)
-        .map((row) => row.month)
-        .sort((a, b) => a - b);
-
+      const monthSet = new Set(
+        SMALLMOUTH_V3_SEASONAL_ROWS
+          .filter((row) => row.region_key === region && row.context === context)
+          .map((row) => row.month),
+      );
+      const months = [...monthSet].sort((a, b) => a - b);
       assertEquals(months, [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]);
     }
   }

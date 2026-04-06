@@ -85,7 +85,8 @@ Deno.test("V3 Phase 3A keeps a winter Florida largemouth warm-up bounded to an i
 
   assertEquals(resolved.final_water_column, "mid");
   assertEquals(resolved.final_mood, "active");
-  assert(resolved.final_presentation_style === "balanced" || resolved.final_presentation_style === "bold");
+  // 55/45 seasonal/daily presentation blend keeps seasonal subtle when daily only reaches balanced.
+  assertEquals(resolved.final_presentation_style, "subtle");
 });
 
 Deno.test("V3 Phase 3A returns 3 lure and fly recommendations with color guidance", () => {

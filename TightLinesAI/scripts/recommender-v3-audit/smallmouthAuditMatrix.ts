@@ -11,7 +11,11 @@ export type SmallmouthAuditAnchorKey =
   | "minnesota_fall_lake"
   | "colorado_river"
   | "washington_river"
-  | "ohio_dirty_reservoir";
+  | "ohio_dirty_reservoir"
+  | "willamette_river_smb"
+  | "northern_california_smb_river"
+  | "northeast_connecticut_river"
+  | "illinois_river_smb";
 
 export type SmallmouthAuditAnchor = {
   key: SmallmouthAuditAnchorKey;
@@ -177,6 +181,58 @@ export const SMALLMOUTH_AUDIT_ANCHORS: readonly SmallmouthAuditAnchor[] = [
     audit_role: "seasonal_overlay",
     notes: "Dirty-water overlay for visible smallmouth lake/reservoir behavior in prespawn, summer stain, and winter control.",
   },
+  {
+    key: "willamette_river_smb",
+    label: "Willamette River smallmouth",
+    latitude: 44.94,
+    longitude: -123.03,
+    state_code: "OR",
+    timezone: "America/Los_Angeles",
+    context: "freshwater_river",
+    region_key: "pacific_northwest",
+    default_clarity: "clear",
+    audit_role: "seasonal_overlay",
+    notes: "Northwest clear-river overlay for spring tube, summer topwater, September NORTHWEST_EARLY_FALL suspending window, and November cool-down tightening.",
+  },
+  {
+    key: "northern_california_smb_river",
+    label: "Northern California smallmouth river",
+    latitude: 38.78,
+    longitude: -123.02,
+    state_code: "CA",
+    timezone: "America/Los_Angeles",
+    context: "freshwater_river",
+    region_key: "northern_california",
+    default_clarity: "clear",
+    audit_role: "seasonal_overlay",
+    notes: "NorCal clear-river overlay confirming spring tube, summer topwater, and fall jerkbait western river posture for northern_california SMB.",
+  },
+  {
+    key: "northeast_connecticut_river",
+    label: "Connecticut River smallmouth",
+    latitude: 42.33,
+    longitude: -72.64,
+    state_code: "MA",
+    timezone: "America/New_York",
+    context: "freshwater_river",
+    region_key: "northeast",
+    default_clarity: "clear",
+    audit_role: "seasonal_overlay",
+    notes: "Northeast clear-river overlay for the distinct northeast SMB rows: bold-topwater June override, and active-November jerkbait posture vs GLUM's winter-locked tube.",
+  },
+  {
+    key: "illinois_river_smb",
+    label: "Illinois River dirty smallmouth",
+    latitude: 41.37,
+    longitude: -88.84,
+    state_code: "IL",
+    timezone: "America/Chicago",
+    context: "freshwater_river",
+    region_key: "great_lakes_upper_midwest",
+    default_clarity: "dirty",
+    audit_role: "seasonal_overlay",
+    notes: "GLUM dirty-river overlay: April spring where spinnerbait/ned_rig displace finesse tube via clarity penalty, July summer where ALL clear-water lures (tube, suspending, squarebill, walking, inline_spinner) are penalized and paddle_tail_swimbait wins as the only dirty-friendly option in GREAT_LAKES_CLEAR_SUMMER_RIVER, and October fall where spinnerbait displaces suspending_jerkbait.",
+  },
 ] as const;
 
 const CORE_MONTHLY_MONTHS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] as const;
@@ -193,6 +249,10 @@ const OVERLAY_MONTHS_BY_ANCHOR: Record<
   colorado_river: [3, 6, 9, 12],
   washington_river: [4, 7, 9, 11],
   ohio_dirty_reservoir: [4, 6, 8, 12],
+  willamette_river_smb: [4, 6, 9, 11],
+  northern_california_smb_river: [3, 6, 8, 10],
+  northeast_connecticut_river: [4, 6, 9, 11],
+  illinois_river_smb: [4, 7, 10],
 };
 
 function focusWindow(month: number): string {

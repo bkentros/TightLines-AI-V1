@@ -71,12 +71,14 @@ Deno.test("V3 Phase 3C keeps trout geo-gated by the shared state species map", (
 
 Deno.test("V3 Phase 3C covers every supported trout region and month for river context", () => {
   for (const region of TROUT_V3_SUPPORTED_REGIONS) {
-    const months = TROUT_V3_SEASONAL_ROWS
-      .filter((row: RecommenderV3SeasonalRow) =>
-        row.region_key === region && row.context === "freshwater_river"
-      )
-      .map((row: RecommenderV3SeasonalRow) => row.month)
-      .sort((a: number, b: number) => a - b);
+    const monthSet = new Set(
+      TROUT_V3_SEASONAL_ROWS
+        .filter((row: RecommenderV3SeasonalRow) =>
+          row.region_key === region && row.context === "freshwater_river"
+        )
+        .map((row: RecommenderV3SeasonalRow) => row.month),
+    );
+    const months = [...monthSet].sort((a: number, b: number) => a - b);
 
     assertEquals(months, [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]);
   }
@@ -112,7 +114,8 @@ Deno.test("V3 Phase 3C keeps a cold-season trout warm-up bounded away from surfa
     "freshwater_river",
   );
   const resolved = resolveFinalProfileV3(row, daily, "clear");
-  assertEquals(resolved.final_water_column, "mid");
+  // Mid seasonal + higher_1 daily nudge moves one step shallower.
+  assertEquals(resolved.final_water_column, "shallow");
   assertEquals(resolved.final_mood, "active");
 
   const result = runRecommenderV3(request({

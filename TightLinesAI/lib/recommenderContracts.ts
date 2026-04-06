@@ -243,23 +243,10 @@ export type PresentationOutput = {
 export type RankedFamily = {
   family_id: string;
   display_name: string;
-  examples: string[];
-  score: number;
-  score_reasons: string[];
-  score_breakdown?: Array<{
-    code: string;
-    direction: "bonus" | "penalty";
-    weight: number;
-    detail: string;
-  }>;
-  why_picked: string;
-  /** Phase 6 target field: first lane or structure to start on. */
   where_to_start?: string;
   how_to_fish: string;
-  best_when: string;
   color_guide: string;
-  /** Phase 6 target field: deterministic backup adjustment if fish do not commit. */
-  what_to_adjust_if_ignored?: string;
+  rank_context?: string;
 };
 
 export type RecommenderConfidenceTier = "high" | "medium" | "low";

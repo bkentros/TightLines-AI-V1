@@ -1,13 +1,13 @@
 # Smallmouth V3 Matrix Review Sheet
 
-Generated: 2026-04-04T18:17:42.263Z
-Archive bundle generated: 2026-04-04T17:34:17.461Z
-Scenario count: 68
-Contexts: 36 lake/pond, 32 river
-Priority mix: 48 core, 20 secondary
-Completed engine runs: 68/68
+Generated: 2026-04-05T16:22:05.449Z
+Archive bundle generated: 2026-04-05T15:44:56.004Z
+Scenario count: 83
+Contexts: 36 lake/pond, 47 river
+Priority mix: 48 core, 35 secondary
+Completed engine runs: 83/83
 
-This sheet is the scoring surface for the freshwater V3 largemouth audit batch.
+This sheet is the scoring surface for the freshwater V3 recommender audit batch.
 It supports archive-backed engine runs, real top-3 output capture, and lightweight precheck flags before manual scoring.
 
 Scoring rubric:
@@ -321,18 +321,18 @@ Actual output:
 - Tube Jig `tube_jig` | theme: `green_pumpkin_natural` | colors: green pumpkin, green pumpkin blue, pb&j
 - Hair Jig / Marabou Jig `hair_jig` | theme: `craw_natural` | colors: brown/orange, rust brown, amber brown
 - Flat-Sided Crankbait `flat_sided_crankbait` | theme: `natural_baitfish` | colors: ghost shad, smoke shad, olive shad
-- Top 1 fly: Sculpin Streamer `sculpin_streamer` | theme: `craw_natural` | colors: brown/orange, rust brown, amber brown
+- Top 1 fly: Sculpin Streamer `sculpin_streamer` | theme: `natural_baitfish` | colors: olive, sculpin olive, tan/olive
 - Top 3 flies:
-- Sculpin Streamer `sculpin_streamer` | theme: `craw_natural` | colors: brown/orange, rust brown, amber brown
+- Sculpin Streamer `sculpin_streamer` | theme: `natural_baitfish` | colors: olive, sculpin olive, tan/olive
 - Woolly Bugger `woolly_bugger` | theme: `craw_natural` | colors: brown/orange, rust brown, amber brown
-- Crawfish Streamer `crawfish_streamer` | theme: `green_pumpkin_natural` | colors: green pumpkin, green pumpkin blue, pb&j
+- Crawfish Streamer `crawfish_streamer` | theme: `craw_natural` | colors: brown/orange, rust brown, amber brown
 - Color notes:
 - Tube Jig: Theme: green pumpkin natural. Try green pumpkin, green pumpkin blue, pb&j.
 - Hair Jig / Marabou Jig: Theme: craw natural. Try brown/orange, rust brown, amber brown.
 - Flat-Sided Crankbait: Theme: natural baitfish. Try ghost shad, smoke shad, olive shad.
-- Sculpin Streamer: Theme: craw natural. Try brown/orange, rust brown, amber brown.
+- Sculpin Streamer: Theme: natural baitfish. Try olive, sculpin olive, tan/olive.
 - Woolly Bugger: Theme: craw natural. Try brown/orange, rust brown, amber brown.
-- Crawfish Streamer: Theme: green pumpkin natural. Try green pumpkin, green pumpkin blue, pb&j.
+- Crawfish Streamer: Theme: craw natural. Try brown/orange, rust brown, amber brown.
 - Daily profile notes:
 - Shared score: 38 (Poor)
 - Daily nudges: mood=down_1, water_column=lower_1, presentation=subtler
@@ -344,7 +344,7 @@ Review:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
-- TOP_COLOR_MATCH:green_pumpkin_natural
+- TOP_COLOR_MATCH:green_pumpkin_natural,natural_baitfish
 - Top 1 verdict:
 - Top 3 verdict:
 - seasonal_fit:
@@ -408,14 +408,14 @@ Actual output:
 - Top 3 flies:
 - Woolly Bugger `woolly_bugger` | theme: `craw_natural` | colors: brown/orange, rust brown, amber brown
 - Clouser Minnow `clouser_minnow` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Game Changer `game_changer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Game Changer `game_changer` | theme: `white_shad` | colors: white, pearl, white/silver
 - Color notes:
 - Tube Jig: Theme: green pumpkin natural. Try green pumpkin, green pumpkin blue, pb&j.
 - Hair Jig / Marabou Jig: Theme: craw natural. Try brown/orange, rust brown, amber brown.
 - Medium-Diving Crankbait: Theme: white shad. Try sexy shad, pearl shad, white/silver.
 - Woolly Bugger: Theme: craw natural. Try brown/orange, rust brown, amber brown.
 - Clouser Minnow: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Game Changer: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Game Changer: Theme: white shad. Try white, pearl, white/silver.
 - Daily profile notes:
 - Shared score: 63 (Good)
 - Daily nudges: mood=up_1, water_column=higher_1, presentation=bolder
@@ -571,16 +571,16 @@ Actual output:
 - Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Tube Jig `tube_jig` | theme: `green_pumpkin_natural` | colors: green pumpkin, green pumpkin blue, pb&j
 - Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Top 1 fly: Game Changer `game_changer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Top 1 fly: Game Changer `game_changer` | theme: `white_shad` | colors: white, pearl, white/silver
 - Top 3 flies:
-- Game Changer `game_changer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Game Changer `game_changer` | theme: `white_shad` | colors: white, pearl, white/silver
 - Topwater Mouse Fly `mouse_fly` | theme: `mouse_natural` | colors: gray mouse, brown mouse, black mouse
 - Woolly Bugger `woolly_bugger` | theme: `natural_baitfish` | colors: olive, white/olive, gray/white
 - Color notes:
 - Paddle-Tail Swimbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Tube Jig: Theme: green pumpkin natural. Try green pumpkin, green pumpkin blue, pb&j.
 - Hair Jig / Marabou Jig: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Game Changer: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Game Changer: Theme: white shad. Try white, pearl, white/silver.
 - Topwater Mouse Fly: Theme: mouse natural. Try gray mouse, brown mouse, black mouse.
 - Woolly Bugger: Theme: natural baitfish. Try olive, white/olive, gray/white.
 - Daily profile notes:
@@ -594,7 +594,7 @@ Review:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
-- TOP_COLOR_MATCH:natural_baitfish,natural_baitfish
+- TOP_COLOR_MATCH:natural_baitfish,white_shad
 - Top 1 verdict:
 - Top 3 verdict:
 - seasonal_fit:
@@ -1071,16 +1071,16 @@ Actual output:
 - Tube Jig `tube_jig` | theme: `green_pumpkin_natural` | colors: green pumpkin, green pumpkin blue, pb&j
 - Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Blade Bait `blade_bait` | theme: `bright_contrast` | colors: firetiger, chartreuse chrome, orange/chartreuse
-- Top 1 fly: Sculpin Streamer `sculpin_streamer` | theme: `dark_contrast` | colors: black/blue, black/purple, black/red
+- Top 1 fly: Sculpin Streamer `sculpin_streamer` | theme: `natural_baitfish` | colors: olive, sculpin olive, tan/olive
 - Top 3 flies:
-- Sculpin Streamer `sculpin_streamer` | theme: `dark_contrast` | colors: black/blue, black/purple, black/red
+- Sculpin Streamer `sculpin_streamer` | theme: `natural_baitfish` | colors: olive, sculpin olive, tan/olive
 - Woolly Bugger `woolly_bugger` | theme: `dark_contrast` | colors: black, black/olive, black/purple
 - Rabbit-Strip Leech `rabbit_strip_leech` | theme: `dark_contrast` | colors: black, black/purple, black/blue
 - Color notes:
 - Tube Jig: Theme: green pumpkin natural. Try green pumpkin, green pumpkin blue, pb&j.
 - Hair Jig / Marabou Jig: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Blade Bait: Theme: bright contrast. Try firetiger, chartreuse chrome, orange/chartreuse.
-- Sculpin Streamer: Theme: dark contrast. Try black/blue, black/purple, black/red.
+- Sculpin Streamer: Theme: natural baitfish. Try olive, sculpin olive, tan/olive.
 - Woolly Bugger: Theme: dark contrast. Try black, black/olive, black/purple.
 - Rabbit-Strip Leech: Theme: dark contrast. Try black, black/purple, black/blue.
 - Daily profile notes:
@@ -1094,7 +1094,7 @@ Review:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
-- TOP_COLOR_MATCH:green_pumpkin_natural
+- TOP_COLOR_MATCH:green_pumpkin_natural,natural_baitfish
 - Top 1 verdict:
 - Top 3 verdict:
 - seasonal_fit:
@@ -1154,16 +1154,16 @@ Actual output:
 - Tube Jig `tube_jig` | theme: `green_pumpkin_natural` | colors: green pumpkin, green pumpkin blue, pb&j
 - Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Blade Bait `blade_bait` | theme: `bright_contrast` | colors: firetiger, chartreuse chrome, orange/chartreuse
-- Top 1 fly: Sculpin Streamer `sculpin_streamer` | theme: `dark_contrast` | colors: black/blue, black/purple, black/red
+- Top 1 fly: Sculpin Streamer `sculpin_streamer` | theme: `natural_baitfish` | colors: olive, sculpin olive, tan/olive
 - Top 3 flies:
-- Sculpin Streamer `sculpin_streamer` | theme: `dark_contrast` | colors: black/blue, black/purple, black/red
+- Sculpin Streamer `sculpin_streamer` | theme: `natural_baitfish` | colors: olive, sculpin olive, tan/olive
 - Woolly Bugger `woolly_bugger` | theme: `dark_contrast` | colors: black, black/olive, black/purple
 - Rabbit-Strip Leech `rabbit_strip_leech` | theme: `dark_contrast` | colors: black, black/purple, black/blue
 - Color notes:
 - Tube Jig: Theme: green pumpkin natural. Try green pumpkin, green pumpkin blue, pb&j.
 - Hair Jig / Marabou Jig: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Blade Bait: Theme: bright contrast. Try firetiger, chartreuse chrome, orange/chartreuse.
-- Sculpin Streamer: Theme: dark contrast. Try black/blue, black/purple, black/red.
+- Sculpin Streamer: Theme: natural baitfish. Try olive, sculpin olive, tan/olive.
 - Woolly Bugger: Theme: dark contrast. Try black, black/olive, black/purple.
 - Rabbit-Strip Leech: Theme: dark contrast. Try black, black/purple, black/blue.
 - Daily profile notes:
@@ -1237,16 +1237,16 @@ Actual output:
 - Tube Jig `tube_jig` | theme: `green_pumpkin_natural` | colors: green pumpkin, green pumpkin blue, pb&j
 - Hair Jig / Marabou Jig `hair_jig` | theme: `craw_natural` | colors: brown/orange, rust brown, amber brown
 - Flat-Sided Crankbait `flat_sided_crankbait` | theme: `white_shad` | colors: white, pearl, white/silver
-- Top 1 fly: Sculpin Streamer `sculpin_streamer` | theme: `craw_natural` | colors: brown/orange, rust brown, amber brown
+- Top 1 fly: Sculpin Streamer `sculpin_streamer` | theme: `natural_baitfish` | colors: olive, sculpin olive, tan/olive
 - Top 3 flies:
-- Sculpin Streamer `sculpin_streamer` | theme: `craw_natural` | colors: brown/orange, rust brown, amber brown
+- Sculpin Streamer `sculpin_streamer` | theme: `natural_baitfish` | colors: olive, sculpin olive, tan/olive
 - Woolly Bugger `woolly_bugger` | theme: `craw_natural` | colors: brown/orange, rust brown, amber brown
 - Crawfish Streamer `crawfish_streamer` | theme: `craw_natural` | colors: brown/orange, rust brown, amber brown
 - Color notes:
 - Tube Jig: Theme: green pumpkin natural. Try green pumpkin, green pumpkin blue, pb&j.
 - Hair Jig / Marabou Jig: Theme: craw natural. Try brown/orange, rust brown, amber brown.
 - Flat-Sided Crankbait: Theme: white shad. Try white, pearl, white/silver.
-- Sculpin Streamer: Theme: craw natural. Try brown/orange, rust brown, amber brown.
+- Sculpin Streamer: Theme: natural baitfish. Try olive, sculpin olive, tan/olive.
 - Woolly Bugger: Theme: craw natural. Try brown/orange, rust brown, amber brown.
 - Crawfish Streamer: Theme: craw natural. Try brown/orange, rust brown, amber brown.
 - Daily profile notes:
@@ -1320,16 +1320,16 @@ Actual output:
 - Tube Jig `tube_jig` | theme: `green_pumpkin_natural` | colors: green pumpkin, green pumpkin blue, pb&j
 - Hair Jig / Marabou Jig `hair_jig` | theme: `craw_natural` | colors: brown/orange, rust brown, amber brown
 - Flat-Sided Crankbait `flat_sided_crankbait` | theme: `white_shad` | colors: white, pearl, white/silver
-- Top 1 fly: Sculpin Streamer `sculpin_streamer` | theme: `craw_natural` | colors: brown/orange, rust brown, amber brown
+- Top 1 fly: Sculpin Streamer `sculpin_streamer` | theme: `natural_baitfish` | colors: olive, sculpin olive, tan/olive
 - Top 3 flies:
-- Sculpin Streamer `sculpin_streamer` | theme: `craw_natural` | colors: brown/orange, rust brown, amber brown
+- Sculpin Streamer `sculpin_streamer` | theme: `natural_baitfish` | colors: olive, sculpin olive, tan/olive
 - Woolly Bugger `woolly_bugger` | theme: `craw_natural` | colors: brown/orange, rust brown, amber brown
 - Crawfish Streamer `crawfish_streamer` | theme: `craw_natural` | colors: brown/orange, rust brown, amber brown
 - Color notes:
 - Tube Jig: Theme: green pumpkin natural. Try green pumpkin, green pumpkin blue, pb&j.
 - Hair Jig / Marabou Jig: Theme: craw natural. Try brown/orange, rust brown, amber brown.
 - Flat-Sided Crankbait: Theme: white shad. Try white, pearl, white/silver.
-- Sculpin Streamer: Theme: craw natural. Try brown/orange, rust brown, amber brown.
+- Sculpin Streamer: Theme: natural baitfish. Try olive, sculpin olive, tan/olive.
 - Woolly Bugger: Theme: craw natural. Try brown/orange, rust brown, amber brown.
 - Crawfish Streamer: Theme: craw natural. Try brown/orange, rust brown, amber brown.
 - Daily profile notes:
@@ -1407,14 +1407,14 @@ Actual output:
 - Top 3 flies:
 - Woolly Bugger `woolly_bugger` | theme: `craw_natural` | colors: brown/orange, rust brown, amber brown
 - Clouser Minnow `clouser_minnow` | theme: `bright_contrast` | colors: white/chartreuse, chartreuse/white, firetiger
-- Sculpin Streamer `sculpin_streamer` | theme: `craw_natural` | colors: brown/orange, rust brown, amber brown
+- Sculpin Streamer `sculpin_streamer` | theme: `natural_baitfish` | colors: olive, sculpin olive, tan/olive
 - Color notes:
 - Tube Jig: Theme: green pumpkin natural. Try green pumpkin, green pumpkin blue, pb&j.
 - Hair Jig / Marabou Jig: Theme: craw natural. Try brown/orange, rust brown, amber brown.
 - Suspending Jerkbait: Theme: white shad. Try pearl, table rock shad, white/silver.
 - Woolly Bugger: Theme: craw natural. Try brown/orange, rust brown, amber brown.
 - Clouser Minnow: Theme: bright contrast. Try white/chartreuse, chartreuse/white, firetiger.
-- Sculpin Streamer: Theme: craw natural. Try brown/orange, rust brown, amber brown.
+- Sculpin Streamer: Theme: natural baitfish. Try olive, sculpin olive, tan/olive.
 - Daily profile notes:
 - Shared score: 67 (Good)
 - Daily nudges: mood=up_2, water_column=neutral, presentation=bolder
@@ -1988,14 +1988,14 @@ Actual output:
 - Top 3 flies:
 - Woolly Bugger `woolly_bugger` | theme: `dark_contrast` | colors: black, black/olive, black/purple
 - Conehead Bugger / Streamer `conehead_streamer` | theme: `dark_contrast` | colors: black, black/blue, black/purple
-- Sculpin Streamer `sculpin_streamer` | theme: `dark_contrast` | colors: black/blue, black/purple, black/red
+- Sculpin Streamer `sculpin_streamer` | theme: `natural_baitfish` | colors: olive, sculpin olive, tan/olive
 - Color notes:
 - Tube Jig: Theme: green pumpkin natural. Try green pumpkin, green pumpkin blue, pb&j.
 - Hair Jig / Marabou Jig: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Suspending Jerkbait: Theme: white shad. Try pearl, table rock shad, white/silver.
 - Woolly Bugger: Theme: dark contrast. Try black, black/olive, black/purple.
 - Conehead Bugger / Streamer: Theme: dark contrast. Try black, black/blue, black/purple.
-- Sculpin Streamer: Theme: dark contrast. Try black/blue, black/purple, black/red.
+- Sculpin Streamer: Theme: natural baitfish. Try olive, sculpin olive, tan/olive.
 - Daily profile notes:
 - Shared score: 60 (Good)
 - Daily nudges: mood=up_2, water_column=higher_1, presentation=bolder
@@ -2071,14 +2071,14 @@ Actual output:
 - Top 1 fly: Woolly Bugger `woolly_bugger` | theme: `dark_contrast` | colors: black, black/olive, black/purple
 - Top 3 flies:
 - Woolly Bugger `woolly_bugger` | theme: `dark_contrast` | colors: black, black/olive, black/purple
-- Sculpin Streamer `sculpin_streamer` | theme: `dark_contrast` | colors: black/blue, black/purple, black/red
+- Sculpin Streamer `sculpin_streamer` | theme: `natural_baitfish` | colors: olive, sculpin olive, tan/olive
 - Rabbit-Strip Leech `rabbit_strip_leech` | theme: `dark_contrast` | colors: black, black/purple, black/blue
 - Color notes:
 - Tube Jig: Theme: green pumpkin natural. Try green pumpkin, green pumpkin blue, pb&j.
 - Hair Jig / Marabou Jig: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Suspending Jerkbait: Theme: white shad. Try pearl, table rock shad, white/silver.
 - Woolly Bugger: Theme: dark contrast. Try black, black/olive, black/purple.
-- Sculpin Streamer: Theme: dark contrast. Try black/blue, black/purple, black/red.
+- Sculpin Streamer: Theme: natural baitfish. Try olive, sculpin olive, tan/olive.
 - Rabbit-Strip Leech: Theme: dark contrast. Try black, black/purple, black/blue.
 - Daily profile notes:
 - Shared score: 68 (Good)
@@ -2151,16 +2151,16 @@ Actual output:
 - Tube Jig `tube_jig` | theme: `green_pumpkin_natural` | colors: green pumpkin, green pumpkin blue, pb&j
 - Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Blade Bait `blade_bait` | theme: `bright_contrast` | colors: firetiger, chartreuse chrome, orange/chartreuse
-- Top 1 fly: Sculpin Streamer `sculpin_streamer` | theme: `dark_contrast` | colors: black/blue, black/purple, black/red
+- Top 1 fly: Sculpin Streamer `sculpin_streamer` | theme: `natural_baitfish` | colors: olive, sculpin olive, tan/olive
 - Top 3 flies:
-- Sculpin Streamer `sculpin_streamer` | theme: `dark_contrast` | colors: black/blue, black/purple, black/red
+- Sculpin Streamer `sculpin_streamer` | theme: `natural_baitfish` | colors: olive, sculpin olive, tan/olive
 - Woolly Bugger `woolly_bugger` | theme: `dark_contrast` | colors: black, black/olive, black/purple
 - Rabbit-Strip Leech `rabbit_strip_leech` | theme: `dark_contrast` | colors: black, black/purple, black/blue
 - Color notes:
 - Tube Jig: Theme: green pumpkin natural. Try green pumpkin, green pumpkin blue, pb&j.
 - Hair Jig / Marabou Jig: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Blade Bait: Theme: bright contrast. Try firetiger, chartreuse chrome, orange/chartreuse.
-- Sculpin Streamer: Theme: dark contrast. Try black/blue, black/purple, black/red.
+- Sculpin Streamer: Theme: natural baitfish. Try olive, sculpin olive, tan/olive.
 - Woolly Bugger: Theme: dark contrast. Try black, black/olive, black/purple.
 - Rabbit-Strip Leech: Theme: dark contrast. Try black, black/purple, black/blue.
 - Daily profile notes:
@@ -2237,14 +2237,14 @@ Actual output:
 - Top 1 fly: Woolly Bugger `woolly_bugger` | theme: `craw_natural` | colors: brown/orange, rust brown, amber brown
 - Top 3 flies:
 - Woolly Bugger `woolly_bugger` | theme: `craw_natural` | colors: brown/orange, rust brown, amber brown
-- Sculpin Streamer `sculpin_streamer` | theme: `craw_natural` | colors: brown/orange, rust brown, amber brown
+- Sculpin Streamer `sculpin_streamer` | theme: `natural_baitfish` | colors: olive, sculpin olive, tan/olive
 - Crawfish Streamer `crawfish_streamer` | theme: `craw_natural` | colors: brown/orange, rust brown, amber brown
 - Color notes:
 - Tube Jig: Theme: green pumpkin natural. Try green pumpkin, green pumpkin blue, pb&j.
 - Suspending Jerkbait: Theme: white shad. Try pearl, table rock shad, white/silver.
 - Ned Rig: Theme: green pumpkin natural. Try green pumpkin, green pumpkin blue, pb&j.
 - Woolly Bugger: Theme: craw natural. Try brown/orange, rust brown, amber brown.
-- Sculpin Streamer: Theme: craw natural. Try brown/orange, rust brown, amber brown.
+- Sculpin Streamer: Theme: natural baitfish. Try olive, sculpin olive, tan/olive.
 - Crawfish Streamer: Theme: craw natural. Try brown/orange, rust brown, amber brown.
 - Daily profile notes:
 - Shared score: 35 (Poor)
@@ -2320,14 +2320,14 @@ Actual output:
 - Top 1 fly: Woolly Bugger `woolly_bugger` | theme: `craw_natural` | colors: brown/orange, rust brown, amber brown
 - Top 3 flies:
 - Woolly Bugger `woolly_bugger` | theme: `craw_natural` | colors: brown/orange, rust brown, amber brown
-- Sculpin Streamer `sculpin_streamer` | theme: `craw_natural` | colors: brown/orange, rust brown, amber brown
+- Sculpin Streamer `sculpin_streamer` | theme: `natural_baitfish` | colors: olive, sculpin olive, tan/olive
 - Crawfish Streamer `crawfish_streamer` | theme: `craw_natural` | colors: brown/orange, rust brown, amber brown
 - Color notes:
 - Tube Jig: Theme: green pumpkin natural. Try green pumpkin, green pumpkin blue, pb&j.
 - Suspending Jerkbait: Theme: white shad. Try pearl, table rock shad, white/silver.
 - Ned Rig: Theme: green pumpkin natural. Try green pumpkin, green pumpkin blue, pb&j.
 - Woolly Bugger: Theme: craw natural. Try brown/orange, rust brown, amber brown.
-- Sculpin Streamer: Theme: craw natural. Try brown/orange, rust brown, amber brown.
+- Sculpin Streamer: Theme: natural baitfish. Try olive, sculpin olive, tan/olive.
 - Crawfish Streamer: Theme: craw natural. Try brown/orange, rust brown, amber brown.
 - Daily profile notes:
 - Shared score: 46 (Fair)
@@ -2474,8 +2474,8 @@ Archived env summary:
 - Daily high/low: 83 / 68.6 F
 - Daily wind max: 14.2 mph
 - Daily precip: 0.047244094488188976 in
-- Moon phase: Waning Gibbous
-- Sunrise/sunset: 06:22 / 20:57
+- Moon phase: n/a
+- Sunrise/sunset: n/a / n/a
 
 Actual output:
 - Top 1 lure: Inline Spinner `inline_spinner` | theme: `bright_contrast` | colors: white/chartreuse, chartreuse/black, firetiger
@@ -2557,8 +2557,8 @@ Archived env summary:
 - Daily high/low: 91.8 / 73.7 F
 - Daily wind max: 9.1 mph
 - Daily precip: 0.007874015748031498 in
-- Moon phase: Waning Gibbous
-- Sunrise/sunset: 06:34 / 20:54
+- Moon phase: n/a
+- Sunrise/sunset: n/a / n/a
 
 Actual output:
 - Top 1 lure: Inline Spinner `inline_spinner` | theme: `bright_contrast` | colors: white/chartreuse, chartreuse/black, firetiger
@@ -2986,14 +2986,14 @@ Actual output:
 - Top 3 flies:
 - Woolly Bugger `woolly_bugger` | theme: `dark_contrast` | colors: black, black/olive, black/purple
 - Conehead Bugger / Streamer `conehead_streamer` | theme: `dark_contrast` | colors: black, black/blue, black/purple
-- Sculpin Streamer `sculpin_streamer` | theme: `dark_contrast` | colors: black/blue, black/purple, black/red
+- Sculpin Streamer `sculpin_streamer` | theme: `natural_baitfish` | colors: olive, sculpin olive, tan/olive
 - Color notes:
 - Tube Jig: Theme: green pumpkin natural. Try green pumpkin, green pumpkin blue, pb&j.
 - Hair Jig / Marabou Jig: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Suspending Jerkbait: Theme: white shad. Try pearl, table rock shad, white/silver.
 - Woolly Bugger: Theme: dark contrast. Try black, black/olive, black/purple.
 - Conehead Bugger / Streamer: Theme: dark contrast. Try black, black/blue, black/purple.
-- Sculpin Streamer: Theme: dark contrast. Try black/blue, black/purple, black/red.
+- Sculpin Streamer: Theme: natural baitfish. Try olive, sculpin olive, tan/olive.
 - Daily profile notes:
 - Shared score: 69 (Good)
 - Daily nudges: mood=up_2, water_column=higher_1, presentation=bolder
@@ -3317,14 +3317,14 @@ Actual output:
 - Top 1 fly: Woolly Bugger `woolly_bugger` | theme: `craw_natural` | colors: brown/orange, rust brown, amber brown
 - Top 3 flies:
 - Woolly Bugger `woolly_bugger` | theme: `craw_natural` | colors: brown/orange, rust brown, amber brown
-- Sculpin Streamer `sculpin_streamer` | theme: `craw_natural` | colors: brown/orange, rust brown, amber brown
+- Sculpin Streamer `sculpin_streamer` | theme: `natural_baitfish` | colors: olive, sculpin olive, tan/olive
 - Clouser Minnow `clouser_minnow` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Color notes:
 - Tube Jig: Theme: green pumpkin natural. Try green pumpkin, green pumpkin blue, pb&j.
 - Soft Jerkbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Suspending Jerkbait: Theme: natural baitfish. Try ghost minnow, pro blue, olive shad.
 - Woolly Bugger: Theme: craw natural. Try brown/orange, rust brown, amber brown.
-- Sculpin Streamer: Theme: craw natural. Try brown/orange, rust brown, amber brown.
+- Sculpin Streamer: Theme: natural baitfish. Try olive, sculpin olive, tan/olive.
 - Clouser Minnow: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Daily profile notes:
 - Shared score: 44 (Fair)
@@ -3401,14 +3401,14 @@ Actual output:
 - Top 3 flies:
 - Woolly Bugger `woolly_bugger` | theme: `craw_natural` | colors: brown/orange, rust brown, amber brown
 - Clouser Minnow `clouser_minnow` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Game Changer `game_changer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Game Changer `game_changer` | theme: `white_shad` | colors: white, pearl, white/silver
 - Color notes:
 - Tube Jig: Theme: green pumpkin natural. Try green pumpkin, green pumpkin blue, pb&j.
 - Squarebill Crankbait: Theme: white shad. Try sexy shad, pearl shad, white chart back.
 - Suspending Jerkbait: Theme: natural baitfish. Try ghost minnow, pro blue, olive shad.
 - Woolly Bugger: Theme: craw natural. Try brown/orange, rust brown, amber brown.
 - Clouser Minnow: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Game Changer: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Game Changer: Theme: white shad. Try white, pearl, white/silver.
 - Daily profile notes:
 - Shared score: 73 (Good)
 - Daily nudges: mood=up_2, water_column=higher_1, presentation=bolder
@@ -3484,14 +3484,14 @@ Actual output:
 - Top 3 flies:
 - Woolly Bugger `woolly_bugger` | theme: `craw_natural` | colors: brown/orange, rust brown, amber brown
 - Clouser Minnow `clouser_minnow` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Game Changer `game_changer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Game Changer `game_changer` | theme: `white_shad` | colors: white, pearl, white/silver
 - Color notes:
 - Tube Jig: Theme: green pumpkin natural. Try green pumpkin, green pumpkin blue, pb&j.
 - Squarebill Crankbait: Theme: white shad. Try sexy shad, pearl shad, white chart back.
 - Suspending Jerkbait: Theme: natural baitfish. Try ghost minnow, pro blue, olive shad.
 - Woolly Bugger: Theme: craw natural. Try brown/orange, rust brown, amber brown.
 - Clouser Minnow: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Game Changer: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Game Changer: Theme: white shad. Try white, pearl, white/silver.
 - Daily profile notes:
 - Shared score: 63 (Good)
 - Daily nudges: mood=up_2, water_column=higher_1, presentation=bolder
@@ -4061,16 +4061,16 @@ Actual output:
 - Tube Jig `tube_jig` | theme: `green_pumpkin_natural` | colors: green pumpkin, green pumpkin blue, pb&j
 - Hair Jig / Marabou Jig `hair_jig` | theme: `craw_natural` | colors: brown/orange, rust brown, amber brown
 - Flat-Sided Crankbait `flat_sided_crankbait` | theme: `natural_baitfish` | colors: ghost shad, smoke shad, olive shad
-- Top 1 fly: Sculpin Streamer `sculpin_streamer` | theme: `craw_natural` | colors: brown/orange, rust brown, amber brown
+- Top 1 fly: Sculpin Streamer `sculpin_streamer` | theme: `natural_baitfish` | colors: olive, sculpin olive, tan/olive
 - Top 3 flies:
-- Sculpin Streamer `sculpin_streamer` | theme: `craw_natural` | colors: brown/orange, rust brown, amber brown
+- Sculpin Streamer `sculpin_streamer` | theme: `natural_baitfish` | colors: olive, sculpin olive, tan/olive
 - Woolly Bugger `woolly_bugger` | theme: `craw_natural` | colors: brown/orange, rust brown, amber brown
 - Crawfish Streamer `crawfish_streamer` | theme: `craw_natural` | colors: brown/orange, rust brown, amber brown
 - Color notes:
 - Tube Jig: Theme: green pumpkin natural. Try green pumpkin, green pumpkin blue, pb&j.
 - Hair Jig / Marabou Jig: Theme: craw natural. Try brown/orange, rust brown, amber brown.
 - Flat-Sided Crankbait: Theme: natural baitfish. Try ghost shad, smoke shad, olive shad.
-- Sculpin Streamer: Theme: craw natural. Try brown/orange, rust brown, amber brown.
+- Sculpin Streamer: Theme: natural baitfish. Try olive, sculpin olive, tan/olive.
 - Woolly Bugger: Theme: craw natural. Try brown/orange, rust brown, amber brown.
 - Crawfish Streamer: Theme: craw natural. Try brown/orange, rust brown, amber brown.
 - Daily profile notes:
@@ -4084,7 +4084,7 @@ Review:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
-- TOP_COLOR_MATCH:green_pumpkin_natural
+- TOP_COLOR_MATCH:green_pumpkin_natural,natural_baitfish
 - Top 1 verdict:
 - Top 3 verdict:
 - seasonal_fit:
@@ -4730,14 +4730,14 @@ Actual output:
 - Top 1 fly: Woolly Bugger `woolly_bugger` | theme: `craw_natural` | colors: brown/orange, rust brown, amber brown
 - Top 3 flies:
 - Woolly Bugger `woolly_bugger` | theme: `craw_natural` | colors: brown/orange, rust brown, amber brown
-- Sculpin Streamer `sculpin_streamer` | theme: `craw_natural` | colors: brown/orange, rust brown, amber brown
+- Sculpin Streamer `sculpin_streamer` | theme: `natural_baitfish` | colors: olive, sculpin olive, tan/olive
 - Clouser Minnow `clouser_minnow` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Color notes:
 - Tube Jig: Theme: green pumpkin natural. Try green pumpkin, green pumpkin blue, pb&j.
 - Ned Rig: Theme: green pumpkin natural. Try green pumpkin, green pumpkin blue, pb&j.
 - Soft Jerkbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Woolly Bugger: Theme: craw natural. Try brown/orange, rust brown, amber brown.
-- Sculpin Streamer: Theme: craw natural. Try brown/orange, rust brown, amber brown.
+- Sculpin Streamer: Theme: natural baitfish. Try olive, sculpin olive, tan/olive.
 - Clouser Minnow: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Daily profile notes:
 - Shared score: 55 (Fair)
@@ -4810,16 +4810,16 @@ Actual output:
 - Inline Spinner `inline_spinner` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Tube Jig `tube_jig` | theme: `green_pumpkin_natural` | colors: green pumpkin, green pumpkin blue, pb&j
 - Soft Jerkbait `soft_jerkbait` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Top 1 fly: Game Changer `game_changer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Top 1 fly: Game Changer `game_changer` | theme: `white_shad` | colors: white, pearl, white/silver
 - Top 3 flies:
-- Game Changer `game_changer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Game Changer `game_changer` | theme: `white_shad` | colors: white, pearl, white/silver
 - Muddler-Style Sculpin `muddler_sculpin` | theme: `natural_baitfish` | colors: natural, olive, tan/olive
 - Clouser Minnow `clouser_minnow` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Color notes:
 - Inline Spinner: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Tube Jig: Theme: green pumpkin natural. Try green pumpkin, green pumpkin blue, pb&j.
 - Soft Jerkbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Game Changer: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Game Changer: Theme: white shad. Try white, pearl, white/silver.
 - Muddler-Style Sculpin: Theme: natural baitfish. Try natural, olive, tan/olive.
 - Clouser Minnow: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Daily profile notes:
@@ -4833,7 +4833,7 @@ Review:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
-- TOP_COLOR_MATCH:natural_baitfish,natural_baitfish
+- TOP_COLOR_MATCH:natural_baitfish,white_shad
 - Top 1 verdict:
 - Top 3 verdict:
 - seasonal_fit:
@@ -5063,14 +5063,14 @@ Actual output:
 - Top 3 flies:
 - Woolly Bugger `woolly_bugger` | theme: `craw_natural` | colors: brown/orange, rust brown, amber brown
 - Clouser Minnow `clouser_minnow` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Sculpin Streamer `sculpin_streamer` | theme: `craw_natural` | colors: brown/orange, rust brown, amber brown
+- Sculpin Streamer `sculpin_streamer` | theme: `natural_baitfish` | colors: olive, sculpin olive, tan/olive
 - Color notes:
 - Tube Jig: Theme: green pumpkin natural. Try green pumpkin, green pumpkin blue, pb&j.
 - Squarebill Crankbait: Theme: white shad. Try sexy shad, pearl shad, white chart back.
 - Suspending Jerkbait: Theme: natural baitfish. Try ghost minnow, pro blue, olive shad.
 - Woolly Bugger: Theme: craw natural. Try brown/orange, rust brown, amber brown.
 - Clouser Minnow: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Sculpin Streamer: Theme: craw natural. Try brown/orange, rust brown, amber brown.
+- Sculpin Streamer: Theme: natural baitfish. Try olive, sculpin olive, tan/olive.
 - Daily profile notes:
 - Shared score: 80 (Excellent)
 - Daily nudges: mood=up_2, water_column=higher_1, presentation=subtler
@@ -5664,6 +5664,1254 @@ Review:
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
 - TOP_COLOR_MATCH:bright_contrast,dark_contrast
+- Top 1 verdict:
+- Top 3 verdict:
+- seasonal_fit:
+- daily_fit:
+- water_column_fit:
+- archetype_fit:
+- color_fit:
+- top3_variety:
+- boundedness:
+- failure_clusters:
+- notes:
+
+## smb_matrix_willamette_river_smb_04
+
+- Label: Willamette River smallmouth, spawn postspawn transition month 4
+- Priority: secondary
+- Date: 2025-04-16
+- State: OR
+- Context: freshwater_river
+- Water clarity: clear
+- Coordinates: 44.94, -123.03
+- Engine status: complete
+
+Expected seasonal story:
+- April Willamette River smallmouth should open tube and soft-minnow lanes in WESTERN_MIXED spring posture with craw-primary colors.
+Expected primary lanes:
+- tube_jig
+- soft_jerkbait
+- inline_spinner
+Acceptable secondary lanes:
+- spinnerbait
+- suspending_jerkbait
+- clouser_minnow
+Disallowed lanes:
+- hollow_body_frog
+- compact_flipping_jig
+Expected color themes:
+- natural_baitfish
+- white_shad
+- green_pumpkin_natural
+
+Archived env summary:
+- Region: pacific_northwest
+- Archive weather timezone: America/Los_Angeles
+- Noon air temp: 56.2 F
+- Noon pressure: 1017.7 mb
+- Noon cloud cover: 0%
+- Daily high/low: 63.3 / 38.8 F
+- Daily wind max: 10.4 mph
+- Daily precip: 0 in
+- Moon phase: Waning Gibbous
+- Sunrise/sunset: 06:22 / 20:00
+
+Actual output:
+- Top 1 lure: Tube Jig `tube_jig` | theme: `green_pumpkin_natural` | colors: green pumpkin, green pumpkin blue, pb&j
+- Top 3 lures:
+- Tube Jig `tube_jig` | theme: `green_pumpkin_natural` | colors: green pumpkin, green pumpkin blue, pb&j
+- Soft Jerkbait `soft_jerkbait` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Suspending Jerkbait `suspending_jerkbait` | theme: `natural_baitfish` | colors: ghost minnow, pro blue, olive shad
+- Top 1 fly: Woolly Bugger `woolly_bugger` | theme: `craw_natural` | colors: brown/orange, rust brown, amber brown
+- Top 3 flies:
+- Woolly Bugger `woolly_bugger` | theme: `craw_natural` | colors: brown/orange, rust brown, amber brown
+- Clouser Minnow `clouser_minnow` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Sculpin Streamer `sculpin_streamer` | theme: `natural_baitfish` | colors: olive, sculpin olive, tan/olive
+- Color notes:
+- Tube Jig: Theme: green pumpkin natural. Try green pumpkin, green pumpkin blue, pb&j.
+- Soft Jerkbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Suspending Jerkbait: Theme: natural baitfish. Try ghost minnow, pro blue, olive shad.
+- Woolly Bugger: Theme: craw natural. Try brown/orange, rust brown, amber brown.
+- Clouser Minnow: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Sculpin Streamer: Theme: natural baitfish. Try olive, sculpin olive, tan/olive.
+- Daily profile notes:
+- Shared score: 69 (Good)
+- Daily nudges: mood=up_1, water_column=neutral, presentation=subtler
+- Resolved profile: water_column=mid, mood=active, presentation=subtle
+- Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
+
+Review:
+- Precheck flags:
+- TOP1_PRIMARY_HIT
+- TOP3_PRIMARY_PRESENT
+- NO_DISALLOWED_PRESENT
+- TOP_COLOR_MATCH:green_pumpkin_natural
+- Top 1 verdict:
+- Top 3 verdict:
+- seasonal_fit:
+- daily_fit:
+- water_column_fit:
+- archetype_fit:
+- color_fit:
+- top3_variety:
+- boundedness:
+- failure_clusters:
+- notes:
+
+## smb_matrix_willamette_river_smb_06
+
+- Label: Willamette River smallmouth, summer positioning month 6
+- Priority: secondary
+- Date: 2025-06-18
+- State: OR
+- Context: freshwater_river
+- Water clarity: clear
+- Coordinates: 44.94, -123.03
+- Engine status: complete
+
+Expected seasonal story:
+- June Willamette River smallmouth should be in active surface and search mode; walking topwater leads on active days with inline spinner and swimbait as baitfish support lanes.
+Expected primary lanes:
+- walking_topwater
+- inline_spinner
+- paddle_tail_swimbait
+Acceptable secondary lanes:
+- popping_topwater
+- soft_jerkbait
+- popper_fly
+Disallowed lanes:
+- hollow_body_frog
+- compact_flipping_jig
+Expected color themes:
+- natural_baitfish
+- white_shad
+- green_pumpkin_natural
+
+Archived env summary:
+- Region: pacific_northwest
+- Archive weather timezone: America/Los_Angeles
+- Noon air temp: 66 F
+- Noon pressure: 1018.8 mb
+- Noon cloud cover: 67%
+- Daily high/low: 69.9 / 54.5 F
+- Daily wind max: 11.4 mph
+- Daily precip: 0.03543307086614173 in
+- Moon phase: Third Quarter
+- Sunrise/sunset: 05:23 / 21:03
+
+Actual output:
+- Top 1 lure: Inline Spinner `inline_spinner` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Top 3 lures:
+- Inline Spinner `inline_spinner` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Tube Jig `tube_jig` | theme: `green_pumpkin_natural` | colors: green pumpkin, green pumpkin blue, pb&j
+- Soft Jerkbait `soft_jerkbait` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Top 1 fly: Topwater Mouse Fly `mouse_fly` | theme: `mouse_natural` | colors: gray mouse, brown mouse, black mouse
+- Top 3 flies:
+- Topwater Mouse Fly `mouse_fly` | theme: `mouse_natural` | colors: gray mouse, brown mouse, black mouse
+- Clouser Minnow `clouser_minnow` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Woolly Bugger `woolly_bugger` | theme: `natural_baitfish` | colors: olive, white/olive, gray/white
+- Color notes:
+- Inline Spinner: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Tube Jig: Theme: green pumpkin natural. Try green pumpkin, green pumpkin blue, pb&j.
+- Soft Jerkbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Topwater Mouse Fly: Theme: mouse natural. Try gray mouse, brown mouse, black mouse.
+- Clouser Minnow: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Woolly Bugger: Theme: natural baitfish. Try olive, white/olive, gray/white.
+- Daily profile notes:
+- Shared score: 75 (Good)
+- Daily nudges: mood=up_1, water_column=neutral, presentation=neutral
+- Resolved profile: water_column=shallow, mood=active, presentation=balanced
+- Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
+
+Review:
+- Precheck flags:
+- TOP1_PRIMARY_HIT
+- TOP3_PRIMARY_PRESENT
+- NO_DISALLOWED_PRESENT
+- TOP_COLOR_MATCH:natural_baitfish
+- Top 1 verdict:
+- Top 3 verdict:
+- seasonal_fit:
+- daily_fit:
+- water_column_fit:
+- archetype_fit:
+- color_fit:
+- top3_variety:
+- boundedness:
+- failure_clusters:
+- notes:
+
+## smb_matrix_willamette_river_smb_09
+
+- Label: Willamette River smallmouth, fall transition month 9
+- Priority: secondary
+- Date: 2025-09-17
+- State: OR
+- Context: freshwater_river
+- Water clarity: clear
+- Coordinates: 44.94, -123.03
+- Engine status: complete
+
+Expected seasonal story:
+- September Willamette River smallmouth hits the NORTHWEST_EARLY_FALL override — suspending jerkbait leads the baitfish-first fall window with inline spinner and swimbait as support.
+Expected primary lanes:
+- suspending_jerkbait
+- inline_spinner
+- paddle_tail_swimbait
+Acceptable secondary lanes:
+- spinnerbait
+- tube_jig
+- slim_minnow_streamer
+Disallowed lanes:
+- walking_topwater
+- popping_topwater
+Expected color themes:
+- natural_baitfish
+- white_shad
+- green_pumpkin_natural
+
+Archived env summary:
+- Region: pacific_northwest
+- Archive weather timezone: America/Los_Angeles
+- Noon air temp: 73.3 F
+- Noon pressure: 1018.6 mb
+- Noon cloud cover: 0%
+- Daily high/low: 80.2 / 54.4 F
+- Daily wind max: 9.8 mph
+- Daily precip: 0 in
+- Moon phase: Waning Crescent
+- Sunrise/sunset: 06:52 / 19:20
+
+Actual output:
+- Top 1 lure: Suspending Jerkbait `suspending_jerkbait` | theme: `natural_baitfish` | colors: ghost minnow, pro blue, olive shad
+- Top 3 lures:
+- Suspending Jerkbait `suspending_jerkbait` | theme: `natural_baitfish` | colors: ghost minnow, pro blue, olive shad
+- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Tube Jig `tube_jig` | theme: `green_pumpkin_natural` | colors: green pumpkin, green pumpkin blue, pb&j
+- Top 1 fly: Clouser Minnow `clouser_minnow` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Top 3 flies:
+- Clouser Minnow `clouser_minnow` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Woolly Bugger `woolly_bugger` | theme: `natural_baitfish` | colors: olive, white/olive, gray/white
+- Slim Minnow Streamer `slim_minnow_streamer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Color notes:
+- Suspending Jerkbait: Theme: natural baitfish. Try ghost minnow, pro blue, olive shad.
+- Paddle-Tail Swimbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Tube Jig: Theme: green pumpkin natural. Try green pumpkin, green pumpkin blue, pb&j.
+- Clouser Minnow: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Woolly Bugger: Theme: natural baitfish. Try olive, white/olive, gray/white.
+- Slim Minnow Streamer: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Daily profile notes:
+- Shared score: 75 (Good)
+- Daily nudges: mood=up_2, water_column=higher_1, presentation=subtler
+- Resolved profile: water_column=shallow, mood=active, presentation=subtle
+- Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
+
+Review:
+- Precheck flags:
+- TOP1_PRIMARY_HIT
+- TOP3_PRIMARY_PRESENT
+- NO_DISALLOWED_PRESENT
+- TOP_COLOR_MATCH:natural_baitfish,natural_baitfish
+- Top 1 verdict:
+- Top 3 verdict:
+- seasonal_fit:
+- daily_fit:
+- water_column_fit:
+- archetype_fit:
+- color_fit:
+- top3_variety:
+- boundedness:
+- failure_clusters:
+- notes:
+
+## smb_matrix_willamette_river_smb_11
+
+- Label: Willamette River smallmouth, fall transition month 11
+- Priority: secondary
+- Date: 2025-11-12
+- State: OR
+- Context: freshwater_river
+- Water clarity: clear
+- Coordinates: 44.94, -123.03
+- Engine status: complete
+
+Expected seasonal story:
+- November Willamette River smallmouth should center on suspending jerkbait and spinnerbait as baitfish lanes tighten in cool-season FALL_RIVER posture.
+Expected primary lanes:
+- suspending_jerkbait
+- spinnerbait
+- paddle_tail_swimbait
+Acceptable secondary lanes:
+- inline_spinner
+- tube_jig
+- clouser_minnow
+Disallowed lanes:
+- walking_topwater
+- popping_topwater
+Expected color themes:
+- natural_baitfish
+- white_shad
+- green_pumpkin_natural
+
+Archived env summary:
+- Region: pacific_northwest
+- Archive weather timezone: America/Los_Angeles
+- Noon air temp: 57.3 F
+- Noon pressure: 1010.8 mb
+- Noon cloud cover: 78%
+- Daily high/low: 58.9 / 49.5 F
+- Daily wind max: 9.9 mph
+- Daily precip: 0.1968503937007874 in
+- Moon phase: Waning Crescent
+- Sunrise/sunset: 07:04 / 16:47
+
+Actual output:
+- Top 1 lure: Suspending Jerkbait `suspending_jerkbait` | theme: `natural_baitfish` | colors: ghost minnow, pro blue, olive shad
+- Top 3 lures:
+- Suspending Jerkbait `suspending_jerkbait` | theme: `natural_baitfish` | colors: ghost minnow, pro blue, olive shad
+- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Tube Jig `tube_jig` | theme: `green_pumpkin_natural` | colors: green pumpkin, green pumpkin blue, pb&j
+- Top 1 fly: Clouser Minnow `clouser_minnow` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Top 3 flies:
+- Clouser Minnow `clouser_minnow` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Woolly Bugger `woolly_bugger` | theme: `natural_baitfish` | colors: olive, white/olive, gray/white
+- Slim Minnow Streamer `slim_minnow_streamer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Color notes:
+- Suspending Jerkbait: Theme: natural baitfish. Try ghost minnow, pro blue, olive shad.
+- Paddle-Tail Swimbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Tube Jig: Theme: green pumpkin natural. Try green pumpkin, green pumpkin blue, pb&j.
+- Clouser Minnow: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Woolly Bugger: Theme: natural baitfish. Try olive, white/olive, gray/white.
+- Slim Minnow Streamer: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Daily profile notes:
+- Shared score: 78 (Good)
+- Daily nudges: mood=up_2, water_column=higher_1, presentation=bolder
+- Resolved profile: water_column=shallow, mood=active, presentation=balanced
+- Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
+
+Review:
+- Precheck flags:
+- TOP1_PRIMARY_HIT
+- TOP3_PRIMARY_PRESENT
+- NO_DISALLOWED_PRESENT
+- TOP_COLOR_MATCH:natural_baitfish,natural_baitfish
+- Top 1 verdict:
+- Top 3 verdict:
+- seasonal_fit:
+- daily_fit:
+- water_column_fit:
+- archetype_fit:
+- color_fit:
+- top3_variety:
+- boundedness:
+- failure_clusters:
+- notes:
+
+## smb_matrix_northern_california_smb_river_03
+
+- Label: Northern California smallmouth river, prespawn opening month 3
+- Priority: secondary
+- Date: 2025-03-20
+- State: CA
+- Context: freshwater_river
+- Water clarity: clear
+- Coordinates: 38.78, -123.02
+- Engine status: complete
+
+Expected seasonal story:
+- March Northern California smallmouth river should open tube and soft-minnow lanes in WESTERN_MIXED spring posture with craw-primary crawfish-colored reads.
+Expected primary lanes:
+- tube_jig
+- soft_jerkbait
+- spinnerbait
+Acceptable secondary lanes:
+- ned_rig
+- suspending_jerkbait
+- clouser_minnow
+Disallowed lanes:
+- hollow_body_frog
+- compact_flipping_jig
+Expected color themes:
+- natural_baitfish
+- white_shad
+- green_pumpkin_natural
+
+Archived env summary:
+- Region: northern_california
+- Archive weather timezone: America/Los_Angeles
+- Noon air temp: 56.4 F
+- Noon pressure: 1026.3 mb
+- Noon cloud cover: 100%
+- Daily high/low: 60.5 / 39.6 F
+- Daily wind max: 9.3 mph
+- Daily precip: 0 in
+- Moon phase: Waning Gibbous
+- Sunrise/sunset: 07:13 / 19:25
+
+Actual output:
+- Top 1 lure: Tube Jig `tube_jig` | theme: `green_pumpkin_natural` | colors: green pumpkin, green pumpkin blue, pb&j
+- Top 3 lures:
+- Tube Jig `tube_jig` | theme: `green_pumpkin_natural` | colors: green pumpkin, green pumpkin blue, pb&j
+- Squarebill Crankbait `squarebill_crankbait` | theme: `white_shad` | colors: sexy shad, pearl shad, white chart back
+- Suspending Jerkbait `suspending_jerkbait` | theme: `natural_baitfish` | colors: ghost minnow, pro blue, olive shad
+- Top 1 fly: Woolly Bugger `woolly_bugger` | theme: `craw_natural` | colors: brown/orange, rust brown, amber brown
+- Top 3 flies:
+- Woolly Bugger `woolly_bugger` | theme: `craw_natural` | colors: brown/orange, rust brown, amber brown
+- Clouser Minnow `clouser_minnow` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Sculpin Streamer `sculpin_streamer` | theme: `natural_baitfish` | colors: olive, sculpin olive, tan/olive
+- Color notes:
+- Tube Jig: Theme: green pumpkin natural. Try green pumpkin, green pumpkin blue, pb&j.
+- Squarebill Crankbait: Theme: white shad. Try sexy shad, pearl shad, white chart back.
+- Suspending Jerkbait: Theme: natural baitfish. Try ghost minnow, pro blue, olive shad.
+- Woolly Bugger: Theme: craw natural. Try brown/orange, rust brown, amber brown.
+- Clouser Minnow: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Sculpin Streamer: Theme: natural baitfish. Try olive, sculpin olive, tan/olive.
+- Daily profile notes:
+- Shared score: 49 (Fair)
+- Daily nudges: mood=up_1, water_column=neutral, presentation=bolder
+- Resolved profile: water_column=mid, mood=active, presentation=balanced
+- Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
+
+Review:
+- Precheck flags:
+- TOP1_PRIMARY_HIT
+- TOP3_PRIMARY_PRESENT
+- NO_DISALLOWED_PRESENT
+- TOP_COLOR_MATCH:green_pumpkin_natural
+- Top 1 verdict:
+- Top 3 verdict:
+- seasonal_fit:
+- daily_fit:
+- water_column_fit:
+- archetype_fit:
+- color_fit:
+- top3_variety:
+- boundedness:
+- failure_clusters:
+- notes:
+
+## smb_matrix_northern_california_smb_river_06
+
+- Label: Northern California smallmouth river, summer positioning month 6
+- Priority: secondary
+- Date: 2025-06-18
+- State: CA
+- Context: freshwater_river
+- Water clarity: clear
+- Coordinates: 38.78, -123.02
+- Engine status: complete
+
+Expected seasonal story:
+- Northern California summer river smallmouth should be in active surface and baitfish-search mode; walking topwater leads on surface-active days, but tube jig takes over when wind and clear-water depth cues push fish to rocky mid-column holds.
+Expected primary lanes:
+- walking_topwater
+- inline_spinner
+- paddle_tail_swimbait
+- tube_jig
+Acceptable secondary lanes:
+- popping_topwater
+- soft_jerkbait
+- popper_fly
+Disallowed lanes:
+- hollow_body_frog
+- compact_flipping_jig
+Expected color themes:
+- natural_baitfish
+- white_shad
+- green_pumpkin_natural
+
+Archived env summary:
+- Region: northern_california
+- Archive weather timezone: America/Los_Angeles
+- Noon air temp: 88.1 F
+- Noon pressure: 1011.5 mb
+- Noon cloud cover: 0%
+- Daily high/low: 90.9 / 58.6 F
+- Daily wind max: 14.3 mph
+- Daily precip: 0 in
+- Moon phase: Third Quarter
+- Sunrise/sunset: 05:45 / 20:41
+
+Actual output:
+- Top 1 lure: Tube Jig `tube_jig` | theme: `green_pumpkin_natural` | colors: green pumpkin, green pumpkin blue, pb&j
+- Top 3 lures:
+- Tube Jig `tube_jig` | theme: `green_pumpkin_natural` | colors: green pumpkin, green pumpkin blue, pb&j
+- Soft Jerkbait `soft_jerkbait` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Top 1 fly: Clouser Minnow `clouser_minnow` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Top 3 flies:
+- Clouser Minnow `clouser_minnow` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Woolly Bugger `woolly_bugger` | theme: `natural_baitfish` | colors: olive, white/olive, gray/white
+- Muddler-Style Sculpin `muddler_sculpin` | theme: `natural_baitfish` | colors: natural, olive, tan/olive
+- Color notes:
+- Tube Jig: Theme: green pumpkin natural. Try green pumpkin, green pumpkin blue, pb&j.
+- Soft Jerkbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Paddle-Tail Swimbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Clouser Minnow: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Woolly Bugger: Theme: natural baitfish. Try olive, white/olive, gray/white.
+- Muddler-Style Sculpin: Theme: natural baitfish. Try natural, olive, tan/olive.
+- Daily profile notes:
+- Shared score: 61 (Good)
+- Daily nudges: mood=up_1, water_column=lower_1, presentation=subtler
+- Resolved profile: water_column=mid, mood=active, presentation=subtle
+- Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
+
+Review:
+- Precheck flags:
+- TOP1_PRIMARY_HIT
+- TOP3_PRIMARY_PRESENT
+- NO_DISALLOWED_PRESENT
+- TOP_COLOR_MATCH:green_pumpkin_natural,natural_baitfish
+- Top 1 verdict:
+- Top 3 verdict:
+- seasonal_fit:
+- daily_fit:
+- water_column_fit:
+- archetype_fit:
+- color_fit:
+- top3_variety:
+- boundedness:
+- failure_clusters:
+- notes:
+
+## smb_matrix_northern_california_smb_river_08
+
+- Label: Northern California smallmouth river, summer positioning month 8
+- Priority: secondary
+- Date: 2025-08-14
+- State: CA
+- Context: freshwater_river
+- Water clarity: clear
+- Coordinates: 38.78, -123.02
+- Engine status: complete
+
+Expected seasonal story:
+- Northern California summer river smallmouth should be in active surface and baitfish-search mode; walking topwater leads on surface-active days, but tube jig takes over when wind and clear-water depth cues push fish to rocky mid-column holds.
+Expected primary lanes:
+- walking_topwater
+- inline_spinner
+- paddle_tail_swimbait
+- tube_jig
+Acceptable secondary lanes:
+- popping_topwater
+- soft_jerkbait
+- popper_fly
+Disallowed lanes:
+- hollow_body_frog
+- compact_flipping_jig
+Expected color themes:
+- natural_baitfish
+- white_shad
+- green_pumpkin_natural
+
+Archived env summary:
+- Region: northern_california
+- Archive weather timezone: America/Los_Angeles
+- Noon air temp: 86.9 F
+- Noon pressure: 1012.6 mb
+- Noon cloud cover: 0%
+- Daily high/low: 93.6 / 58.2 F
+- Daily wind max: 13.5 mph
+- Daily precip: 0 in
+- Moon phase: Waning Gibbous
+- Sunrise/sunset: 06:24 / 20:09
+
+Actual output:
+- Top 1 lure: Inline Spinner `inline_spinner` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Top 3 lures:
+- Inline Spinner `inline_spinner` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Tube Jig `tube_jig` | theme: `green_pumpkin_natural` | colors: green pumpkin, green pumpkin blue, pb&j
+- Soft Jerkbait `soft_jerkbait` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Top 1 fly: Topwater Mouse Fly `mouse_fly` | theme: `mouse_natural` | colors: gray mouse, brown mouse, black mouse
+- Top 3 flies:
+- Topwater Mouse Fly `mouse_fly` | theme: `mouse_natural` | colors: gray mouse, brown mouse, black mouse
+- Clouser Minnow `clouser_minnow` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Woolly Bugger `woolly_bugger` | theme: `natural_baitfish` | colors: olive, white/olive, gray/white
+- Color notes:
+- Inline Spinner: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Tube Jig: Theme: green pumpkin natural. Try green pumpkin, green pumpkin blue, pb&j.
+- Soft Jerkbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Topwater Mouse Fly: Theme: mouse natural. Try gray mouse, brown mouse, black mouse.
+- Clouser Minnow: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Woolly Bugger: Theme: natural baitfish. Try olive, white/olive, gray/white.
+- Daily profile notes:
+- Shared score: 53 (Fair)
+- Daily nudges: mood=up_2, water_column=neutral, presentation=neutral
+- Resolved profile: water_column=shallow, mood=active, presentation=balanced
+- Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
+
+Review:
+- Precheck flags:
+- TOP1_PRIMARY_HIT
+- TOP3_PRIMARY_PRESENT
+- NO_DISALLOWED_PRESENT
+- TOP_COLOR_MATCH:natural_baitfish
+- Top 1 verdict:
+- Top 3 verdict:
+- seasonal_fit:
+- daily_fit:
+- water_column_fit:
+- archetype_fit:
+- color_fit:
+- top3_variety:
+- boundedness:
+- failure_clusters:
+- notes:
+
+## smb_matrix_northern_california_smb_river_10
+
+- Label: Northern California smallmouth river, fall transition month 10
+- Priority: secondary
+- Date: 2025-10-15
+- State: CA
+- Context: freshwater_river
+- Water clarity: clear
+- Coordinates: 38.78, -123.02
+- Engine status: complete
+
+Expected seasonal story:
+- October Northern California river smallmouth should center on suspending jerkbait and spinnerbait as baitfish lanes tighten in FALL_RIVER posture.
+Expected primary lanes:
+- suspending_jerkbait
+- spinnerbait
+- paddle_tail_swimbait
+Acceptable secondary lanes:
+- inline_spinner
+- tube_jig
+- slim_minnow_streamer
+Disallowed lanes:
+- walking_topwater
+- popping_topwater
+Expected color themes:
+- natural_baitfish
+- white_shad
+- green_pumpkin_natural
+
+Archived env summary:
+- Region: northern_california
+- Archive weather timezone: America/Los_Angeles
+- Noon air temp: 60.1 F
+- Noon pressure: 1019.1 mb
+- Noon cloud cover: 100%
+- Daily high/low: 63.7 / 52.2 F
+- Daily wind max: 4.8 mph
+- Daily precip: 0.011811023622047244 in
+- Moon phase: Waning Crescent
+- Sunrise/sunset: 07:20 / 18:34
+
+Actual output:
+- Top 1 lure: Suspending Jerkbait `suspending_jerkbait` | theme: `natural_baitfish` | colors: ghost minnow, pro blue, olive shad
+- Top 3 lures:
+- Suspending Jerkbait `suspending_jerkbait` | theme: `natural_baitfish` | colors: ghost minnow, pro blue, olive shad
+- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Tube Jig `tube_jig` | theme: `green_pumpkin_natural` | colors: green pumpkin, green pumpkin blue, pb&j
+- Top 1 fly: Clouser Minnow `clouser_minnow` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Top 3 flies:
+- Clouser Minnow `clouser_minnow` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Woolly Bugger `woolly_bugger` | theme: `natural_baitfish` | colors: olive, white/olive, gray/white
+- Slim Minnow Streamer `slim_minnow_streamer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Color notes:
+- Suspending Jerkbait: Theme: natural baitfish. Try ghost minnow, pro blue, olive shad.
+- Paddle-Tail Swimbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Tube Jig: Theme: green pumpkin natural. Try green pumpkin, green pumpkin blue, pb&j.
+- Clouser Minnow: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Woolly Bugger: Theme: natural baitfish. Try olive, white/olive, gray/white.
+- Slim Minnow Streamer: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Daily profile notes:
+- Shared score: 39 (Poor)
+- Daily nudges: mood=neutral, water_column=neutral, presentation=bolder
+- Resolved profile: water_column=mid, mood=neutral, presentation=balanced
+- Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
+
+Review:
+- Precheck flags:
+- TOP1_PRIMARY_HIT
+- TOP3_PRIMARY_PRESENT
+- NO_DISALLOWED_PRESENT
+- TOP_COLOR_MATCH:natural_baitfish,natural_baitfish
+- Top 1 verdict:
+- Top 3 verdict:
+- seasonal_fit:
+- daily_fit:
+- water_column_fit:
+- archetype_fit:
+- color_fit:
+- top3_variety:
+- boundedness:
+- failure_clusters:
+- notes:
+
+## smb_matrix_northeast_connecticut_river_04
+
+- Label: Connecticut River smallmouth, spawn postspawn transition month 4
+- Priority: secondary
+- Date: 2025-04-16
+- State: MA
+- Context: freshwater_river
+- Water clarity: clear
+- Coordinates: 42.33, -72.64
+- Engine status: complete
+
+Expected seasonal story:
+- Northeast spring river smallmouth should open tube and soft-minnow lanes in standard NORTHERN_COLD spring posture.
+Expected primary lanes:
+- tube_jig
+- soft_jerkbait
+- inline_spinner
+Acceptable secondary lanes:
+- spinnerbait
+- suspending_jerkbait
+- clouser_minnow
+Disallowed lanes:
+- hollow_body_frog
+- compact_flipping_jig
+Expected color themes:
+- natural_baitfish
+- white_shad
+- green_pumpkin_natural
+
+Archived env summary:
+- Region: northeast
+- Archive weather timezone: America/New_York
+- Noon air temp: 45.5 F
+- Noon pressure: 1003.7 mb
+- Noon cloud cover: 71%
+- Daily high/low: 47.6 / 38.4 F
+- Daily wind max: 16.8 mph
+- Daily precip: 0 in
+- Moon phase: Waning Gibbous
+- Sunrise/sunset: 06:05 / 19:34
+
+Actual output:
+- Top 1 lure: Tube Jig `tube_jig` | theme: `green_pumpkin_natural` | colors: green pumpkin, green pumpkin blue, pb&j
+- Top 3 lures:
+- Tube Jig `tube_jig` | theme: `green_pumpkin_natural` | colors: green pumpkin, green pumpkin blue, pb&j
+- Suspending Jerkbait `suspending_jerkbait` | theme: `natural_baitfish` | colors: ghost minnow, pro blue, olive shad
+- Ned Rig `ned_rig` | theme: `green_pumpkin_natural` | colors: green pumpkin, green pumpkin blue, pb&j
+- Top 1 fly: Woolly Bugger `woolly_bugger` | theme: `craw_natural` | colors: brown/orange, rust brown, amber brown
+- Top 3 flies:
+- Woolly Bugger `woolly_bugger` | theme: `craw_natural` | colors: brown/orange, rust brown, amber brown
+- Sculpin Streamer `sculpin_streamer` | theme: `natural_baitfish` | colors: olive, sculpin olive, tan/olive
+- Crawfish Streamer `crawfish_streamer` | theme: `craw_natural` | colors: brown/orange, rust brown, amber brown
+- Color notes:
+- Tube Jig: Theme: green pumpkin natural. Try green pumpkin, green pumpkin blue, pb&j.
+- Suspending Jerkbait: Theme: natural baitfish. Try ghost minnow, pro blue, olive shad.
+- Ned Rig: Theme: green pumpkin natural. Try green pumpkin, green pumpkin blue, pb&j.
+- Woolly Bugger: Theme: craw natural. Try brown/orange, rust brown, amber brown.
+- Sculpin Streamer: Theme: natural baitfish. Try olive, sculpin olive, tan/olive.
+- Crawfish Streamer: Theme: craw natural. Try brown/orange, rust brown, amber brown.
+- Daily profile notes:
+- Shared score: 45 (Fair)
+- Daily nudges: mood=down_1, water_column=lower_1, presentation=bolder
+- Resolved profile: water_column=bottom, mood=negative, presentation=balanced
+- Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
+
+Review:
+- Precheck flags:
+- TOP1_PRIMARY_HIT
+- TOP3_PRIMARY_PRESENT
+- NO_DISALLOWED_PRESENT
+- TOP_COLOR_MATCH:green_pumpkin_natural
+- Top 1 verdict:
+- Top 3 verdict:
+- seasonal_fit:
+- daily_fit:
+- water_column_fit:
+- archetype_fit:
+- color_fit:
+- top3_variety:
+- boundedness:
+- failure_clusters:
+- notes:
+
+## smb_matrix_northeast_connecticut_river_06
+
+- Label: Connecticut River smallmouth, summer positioning month 6
+- Priority: secondary
+- Date: 2025-06-18
+- State: MA
+- Context: freshwater_river
+- Water clarity: clear
+- Coordinates: 42.33, -72.64
+- Engine status: complete
+
+Expected seasonal story:
+- Northeast June river smallmouth hits the NORTHEAST_SUMMER_RIVER override — bold topwater presentation leads with walking topwater and inline spinner, confirming the northeast-specific aggressive early-summer surface window distinct from the GLUM spring-holdover posture.
+Expected primary lanes:
+- walking_topwater
+- inline_spinner
+- paddle_tail_swimbait
+Acceptable secondary lanes:
+- popping_topwater
+- spinnerbait
+- popper_fly
+Disallowed lanes:
+- hollow_body_frog
+- compact_flipping_jig
+Expected color themes:
+- natural_baitfish
+- white_shad
+- green_pumpkin_natural
+
+Archived env summary:
+- Region: northeast
+- Archive weather timezone: America/New_York
+- Noon air temp: 69.8 F
+- Noon pressure: 1013.2 mb
+- Noon cloud cover: 100%
+- Daily high/low: 77.8 / 63 F
+- Daily wind max: 7.9 mph
+- Daily precip: 0.25984251968503935 in
+- Moon phase: Waning Gibbous
+- Sunrise/sunset: 05:11 / 20:31
+
+Actual output:
+- Top 1 lure: Inline Spinner `inline_spinner` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Top 3 lures:
+- Inline Spinner `inline_spinner` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Tube Jig `tube_jig` | theme: `green_pumpkin_natural` | colors: green pumpkin, green pumpkin blue, pb&j
+- Walking Topwater `walking_topwater` | theme: `white_shad` | colors: bone, white, pearl
+- Top 1 fly: Game Changer `game_changer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Top 3 flies:
+- Game Changer `game_changer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Woolly Bugger `woolly_bugger` | theme: `natural_baitfish` | colors: olive, white/olive, gray/white
+- Popper Fly `popper_fly` | theme: `white_shad` | colors: white, pearl, white/silver
+- Color notes:
+- Inline Spinner: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Tube Jig: Theme: green pumpkin natural. Try green pumpkin, green pumpkin blue, pb&j.
+- Walking Topwater: Theme: white shad. Try bone, white, pearl.
+- Game Changer: Theme: white shad. Try white, pearl, white/silver.
+- Woolly Bugger: Theme: natural baitfish. Try olive, white/olive, gray/white.
+- Popper Fly: Theme: white shad. Try white, pearl, white/silver.
+- Daily profile notes:
+- Shared score: 68 (Good)
+- Daily nudges: mood=up_2, water_column=higher_1, presentation=bolder
+- Resolved profile: water_column=shallow, mood=active, presentation=balanced
+- Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
+
+Review:
+- Precheck flags:
+- TOP1_PRIMARY_HIT
+- TOP3_PRIMARY_PRESENT
+- NO_DISALLOWED_PRESENT
+- TOP_COLOR_MATCH:natural_baitfish,white_shad
+- Top 1 verdict:
+- Top 3 verdict:
+- seasonal_fit:
+- daily_fit:
+- water_column_fit:
+- archetype_fit:
+- color_fit:
+- top3_variety:
+- boundedness:
+- failure_clusters:
+- notes:
+
+## smb_matrix_northeast_connecticut_river_09
+
+- Label: Connecticut River smallmouth, fall transition month 9
+- Priority: secondary
+- Date: 2025-09-17
+- State: MA
+- Context: freshwater_river
+- Water clarity: clear
+- Coordinates: 42.33, -72.64
+- Engine status: complete
+
+Expected seasonal story:
+- Northeast fall river smallmouth should center on suspending jerkbait — FALL_RIVER fires in September and NORTHEAST_LATEFALL_RIVER fires in November, both putting jerkbait at the top vs the NORTHERN_COLD WINTER_RIVER (tube-first) that would apply to GLUM November.
+Expected primary lanes:
+- suspending_jerkbait
+- spinnerbait
+- paddle_tail_swimbait
+Acceptable secondary lanes:
+- inline_spinner
+- blade_bait
+- slim_minnow_streamer
+Disallowed lanes:
+- walking_topwater
+- popping_topwater
+Expected color themes:
+- natural_baitfish
+- white_shad
+- green_pumpkin_natural
+
+Archived env summary:
+- Region: northeast
+- Archive weather timezone: America/New_York
+- Noon air temp: 67.6 F
+- Noon pressure: 1021.7 mb
+- Noon cloud cover: 2%
+- Daily high/low: 72.9 / 51.8 F
+- Daily wind max: 6.1 mph
+- Daily precip: 0.007874015748031498 in
+- Moon phase: Waning Crescent
+- Sunrise/sunset: 06:31 / 18:58
+
+Actual output:
+- Top 1 lure: Suspending Jerkbait `suspending_jerkbait` | theme: `natural_baitfish` | colors: ghost minnow, pro blue, olive shad
+- Top 3 lures:
+- Suspending Jerkbait `suspending_jerkbait` | theme: `natural_baitfish` | colors: ghost minnow, pro blue, olive shad
+- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Tube Jig `tube_jig` | theme: `green_pumpkin_natural` | colors: green pumpkin, green pumpkin blue, pb&j
+- Top 1 fly: Clouser Minnow `clouser_minnow` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Top 3 flies:
+- Clouser Minnow `clouser_minnow` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Woolly Bugger `woolly_bugger` | theme: `natural_baitfish` | colors: olive, white/olive, gray/white
+- Slim Minnow Streamer `slim_minnow_streamer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Color notes:
+- Suspending Jerkbait: Theme: natural baitfish. Try ghost minnow, pro blue, olive shad.
+- Paddle-Tail Swimbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Tube Jig: Theme: green pumpkin natural. Try green pumpkin, green pumpkin blue, pb&j.
+- Clouser Minnow: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Woolly Bugger: Theme: natural baitfish. Try olive, white/olive, gray/white.
+- Slim Minnow Streamer: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Daily profile notes:
+- Shared score: 78 (Good)
+- Daily nudges: mood=up_1, water_column=neutral, presentation=neutral
+- Resolved profile: water_column=shallow, mood=active, presentation=balanced
+- Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
+
+Review:
+- Precheck flags:
+- TOP1_PRIMARY_HIT
+- TOP3_PRIMARY_PRESENT
+- NO_DISALLOWED_PRESENT
+- TOP_COLOR_MATCH:natural_baitfish,natural_baitfish
+- Top 1 verdict:
+- Top 3 verdict:
+- seasonal_fit:
+- daily_fit:
+- water_column_fit:
+- archetype_fit:
+- color_fit:
+- top3_variety:
+- boundedness:
+- failure_clusters:
+- notes:
+
+## smb_matrix_northeast_connecticut_river_11
+
+- Label: Connecticut River smallmouth, fall transition month 11
+- Priority: secondary
+- Date: 2025-11-12
+- State: MA
+- Context: freshwater_river
+- Water clarity: clear
+- Coordinates: 42.33, -72.64
+- Engine status: complete
+
+Expected seasonal story:
+- Northeast fall river smallmouth should center on suspending jerkbait — FALL_RIVER fires in September and NORTHEAST_LATEFALL_RIVER fires in November, both putting jerkbait at the top vs the NORTHERN_COLD WINTER_RIVER (tube-first) that would apply to GLUM November.
+Expected primary lanes:
+- suspending_jerkbait
+- spinnerbait
+- paddle_tail_swimbait
+Acceptable secondary lanes:
+- inline_spinner
+- blade_bait
+- slim_minnow_streamer
+Disallowed lanes:
+- walking_topwater
+- popping_topwater
+Expected color themes:
+- natural_baitfish
+- white_shad
+- green_pumpkin_natural
+
+Archived env summary:
+- Region: northeast
+- Archive weather timezone: America/New_York
+- Noon air temp: 43.2 F
+- Noon pressure: 1006.1 mb
+- Noon cloud cover: 80%
+- Daily high/low: 46.9 / 35.8 F
+- Daily wind max: 10.8 mph
+- Daily precip: 0.003937007874015749 in
+- Moon phase: Waning Crescent
+- Sunrise/sunset: 06:36 / 16:32
+
+Actual output:
+- Top 1 lure: Suspending Jerkbait `suspending_jerkbait` | theme: `natural_baitfish` | colors: ghost minnow, pro blue, olive shad
+- Top 3 lures:
+- Suspending Jerkbait `suspending_jerkbait` | theme: `natural_baitfish` | colors: ghost minnow, pro blue, olive shad
+- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Tube Jig `tube_jig` | theme: `green_pumpkin_natural` | colors: green pumpkin, green pumpkin blue, pb&j
+- Top 1 fly: Slim Minnow Streamer `slim_minnow_streamer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Top 3 flies:
+- Slim Minnow Streamer `slim_minnow_streamer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Woolly Bugger `woolly_bugger` | theme: `natural_baitfish` | colors: olive, white/olive, gray/white
+- Clouser Minnow `clouser_minnow` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Color notes:
+- Suspending Jerkbait: Theme: natural baitfish. Try ghost minnow, pro blue, olive shad.
+- Paddle-Tail Swimbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Tube Jig: Theme: green pumpkin natural. Try green pumpkin, green pumpkin blue, pb&j.
+- Slim Minnow Streamer: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Woolly Bugger: Theme: natural baitfish. Try olive, white/olive, gray/white.
+- Clouser Minnow: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Daily profile notes:
+- Shared score: 67 (Good)
+- Daily nudges: mood=up_2, water_column=higher_1, presentation=bolder
+- Resolved profile: water_column=shallow, mood=active, presentation=balanced
+- Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
+
+Review:
+- Precheck flags:
+- TOP1_PRIMARY_HIT
+- TOP3_PRIMARY_PRESENT
+- NO_DISALLOWED_PRESENT
+- TOP_COLOR_MATCH:natural_baitfish,natural_baitfish
+- Top 1 verdict:
+- Top 3 verdict:
+- seasonal_fit:
+- daily_fit:
+- water_column_fit:
+- archetype_fit:
+- color_fit:
+- top3_variety:
+- boundedness:
+- failure_clusters:
+- notes:
+
+## smb_matrix_illinois_river_smb_04
+
+- Label: Illinois River dirty smallmouth, spawn postspawn transition month 4
+- Priority: secondary
+- Date: 2025-04-16
+- State: IL
+- Context: freshwater_river
+- Water clarity: dirty
+- Coordinates: 41.37, -88.84
+- Engine status: complete
+
+Expected seasonal story:
+- GLUM dirty river spring smallmouth: tube_jig is penalized in dirty water; spinnerbait and ned_rig both get dirty clarity bonuses (ned_rig also has crawfish forage alignment); paddle_tail_swimbait surfaces as dirty-friendly baitfish option; clear-water finesse tools drop off.
+Expected primary lanes:
+- spinnerbait
+- ned_rig
+- tube_jig
+- paddle_tail_swimbait
+Acceptable secondary lanes:
+- hair_jig
+- clouser_minnow
+Disallowed lanes:
+- suspending_jerkbait
+- squarebill_crankbait
+- inline_spinner
+Expected color themes:
+- green_pumpkin_natural
+- bright_contrast
+- dark_contrast
+- natural_baitfish
+
+Archived env summary:
+- Region: great_lakes_upper_midwest
+- Archive weather timezone: America/Chicago
+- Noon air temp: 51.8 F
+- Noon pressure: 1021.5 mb
+- Noon cloud cover: 100%
+- Daily high/low: 57.4 / 32.4 F
+- Daily wind max: 10 mph
+- Daily precip: 0 in
+- Moon phase: Waning Gibbous
+- Sunrise/sunset: 06:11 / 19:38
+
+Actual output:
+- Top 1 lure: Ned Rig `ned_rig` | theme: `green_pumpkin_natural` | colors: green pumpkin, green pumpkin blue, pb&j
+- Top 3 lures:
+- Ned Rig `ned_rig` | theme: `green_pumpkin_natural` | colors: green pumpkin, green pumpkin blue, pb&j
+- Spinnerbait `spinnerbait` | theme: `bright_contrast` | colors: white/chartreuse, firetiger, chartreuse/white
+- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `white_shad` | colors: white, pearl, white/silver
+- Top 1 fly: Woolly Bugger `woolly_bugger` | theme: `craw_natural` | colors: brown/orange, rust brown, amber brown
+- Top 3 flies:
+- Woolly Bugger `woolly_bugger` | theme: `craw_natural` | colors: brown/orange, rust brown, amber brown
+- Sculpin Streamer `sculpin_streamer` | theme: `craw_natural` | colors: brown/orange, rust brown, amber brown
+- Clouser Minnow `clouser_minnow` | theme: `bright_contrast` | colors: white/chartreuse, chartreuse/white, firetiger
+- Color notes:
+- Ned Rig: Theme: green pumpkin natural. Try green pumpkin, green pumpkin blue, pb&j.
+- Spinnerbait: Theme: bright contrast. Try white/chartreuse, firetiger, chartreuse/white.
+- Paddle-Tail Swimbait: Theme: white shad. Try white, pearl, white/silver.
+- Woolly Bugger: Theme: craw natural. Try brown/orange, rust brown, amber brown.
+- Sculpin Streamer: Theme: craw natural. Try brown/orange, rust brown, amber brown.
+- Clouser Minnow: Theme: bright contrast. Try white/chartreuse, chartreuse/white, firetiger.
+- Daily profile notes:
+- Shared score: 68 (Good)
+- Daily nudges: mood=neutral, water_column=lower_1, presentation=neutral
+- Resolved profile: water_column=bottom, mood=neutral, presentation=balanced
+- Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
+
+Review:
+- Precheck flags:
+- TOP1_PRIMARY_HIT
+- TOP3_PRIMARY_PRESENT
+- NO_DISALLOWED_PRESENT
+- TOP_COLOR_MATCH:green_pumpkin_natural
+- Top 1 verdict:
+- Top 3 verdict:
+- seasonal_fit:
+- daily_fit:
+- water_column_fit:
+- archetype_fit:
+- color_fit:
+- top3_variety:
+- boundedness:
+- failure_clusters:
+- notes:
+
+## smb_matrix_illinois_river_smb_07
+
+- Label: Illinois River dirty smallmouth, summer positioning month 7
+- Priority: secondary
+- Date: 2025-07-16
+- State: IL
+- Context: freshwater_river
+- Water clarity: dirty
+- Coordinates: 41.37, -88.84
+- Engine status: complete
+
+Expected seasonal story:
+- GLUM dirty river summer smallmouth: GREAT_LAKES_CLEAR_SUMMER_RIVER is a clear-water-optimized pool — every lure except paddle_tail_swimbait is penalized in dirty water; paddle_tail wins by a wide margin as the sole dirty-friendly option in the pool.
+Expected primary lanes:
+- paddle_tail_swimbait
+Acceptable secondary lanes:
+- spinnerbait
+- clouser_minnow
+Disallowed lanes:
+- tube_jig
+- suspending_jerkbait
+- squarebill_crankbait
+- walking_topwater
+Expected color themes:
+- natural_baitfish
+- dark_contrast
+- white_shad
+
+Archived env summary:
+- Region: great_lakes_upper_midwest
+- Archive weather timezone: America/Chicago
+- Noon air temp: 85.9 F
+- Noon pressure: 1009.9 mb
+- Noon cloud cover: 22%
+- Daily high/low: 87.9 / 72.2 F
+- Daily wind max: 13.6 mph
+- Daily precip: 0.15354330708661418 in
+- Moon phase: Waning Gibbous
+- Sunrise/sunset: 05:34 / 20:28
+
+Actual output:
+- Top 1 lure: Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `white_shad` | colors: white, pearl, white/silver
+- Top 3 lures:
+- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `white_shad` | colors: white, pearl, white/silver
+- Suspending Jerkbait `suspending_jerkbait` | theme: `bright_contrast` | colors: clown, firetiger, chartreuse shad
+- Tube Jig `tube_jig` | theme: `green_pumpkin_natural` | colors: green pumpkin, green pumpkin blue, pb&j
+- Top 1 fly: Clouser Minnow `clouser_minnow` | theme: `bright_contrast` | colors: white/chartreuse, chartreuse/white, firetiger
+- Top 3 flies:
+- Clouser Minnow `clouser_minnow` | theme: `bright_contrast` | colors: white/chartreuse, chartreuse/white, firetiger
+- Woolly Bugger `woolly_bugger` | theme: `dark_contrast` | colors: black, black/olive, black/purple
+- Topwater Mouse Fly `mouse_fly` | theme: `mouse_natural` | colors: gray mouse, brown mouse, black mouse
+- Color notes:
+- Paddle-Tail Swimbait: Theme: white shad. Try white, pearl, white/silver.
+- Suspending Jerkbait: Theme: bright contrast. Try clown, firetiger, chartreuse shad.
+- Tube Jig: Theme: green pumpkin natural. Try green pumpkin, green pumpkin blue, pb&j.
+- Clouser Minnow: Theme: bright contrast. Try white/chartreuse, chartreuse/white, firetiger.
+- Woolly Bugger: Theme: dark contrast. Try black, black/olive, black/purple.
+- Topwater Mouse Fly: Theme: mouse natural. Try gray mouse, brown mouse, black mouse.
+- Daily profile notes:
+- Shared score: 41 (Fair)
+- Daily nudges: mood=down_1, water_column=lower_1, presentation=neutral
+- Resolved profile: water_column=bottom, mood=neutral, presentation=balanced
+- Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
+
+Review:
+- Precheck flags:
+- TOP1_PRIMARY_HIT
+- TOP3_PRIMARY_PRESENT
+- DISALLOWED_PRESENT:suspending_jerkbait,tube_jig
+- TOP_COLOR_MATCH:white_shad
+- Top 1 verdict:
+- Top 3 verdict:
+- seasonal_fit:
+- daily_fit:
+- water_column_fit:
+- archetype_fit:
+- color_fit:
+- top3_variety:
+- boundedness:
+- failure_clusters:
+- notes:
+
+## smb_matrix_illinois_river_smb_10
+
+- Label: Illinois River dirty smallmouth, fall transition month 10
+- Priority: secondary
+- Date: 2025-10-15
+- State: IL
+- Context: freshwater_river
+- Water clarity: dirty
+- Coordinates: 41.37, -88.84
+- Engine status: complete
+
+Expected seasonal story:
+- GLUM dirty river fall smallmouth: suspending_jerkbait drops from position 0 due to dirty clarity penalty; spinnerbait and paddle_tail_swimbait take over with dirty clarity bonuses; blade_bait surfaces as a dirty-friendly option.
+Expected primary lanes:
+- spinnerbait
+- paddle_tail_swimbait
+- blade_bait
+Acceptable secondary lanes:
+- hair_jig
+- clouser_minnow
+Disallowed lanes:
+- suspending_jerkbait
+- squarebill_crankbait
+- tube_jig
+Expected color themes:
+- bright_contrast
+- white_shad
+- dark_contrast
+
+Archived env summary:
+- Region: great_lakes_upper_midwest
+- Archive weather timezone: America/Chicago
+- Noon air temp: 66.1 F
+- Noon pressure: 1023.6 mb
+- Noon cloud cover: 73%
+- Daily high/low: 66.3 / 57.7 F
+- Daily wind max: 8.3 mph
+- Daily precip: 0.003937007874015749 in
+- Moon phase: Waning Crescent
+- Sunrise/sunset: 07:06 / 18:15
+
+Actual output:
+- Top 1 lure: Spinnerbait `spinnerbait` | theme: `bright_contrast` | colors: white/chartreuse, firetiger, chartreuse/white
+- Top 3 lures:
+- Spinnerbait `spinnerbait` | theme: `bright_contrast` | colors: white/chartreuse, firetiger, chartreuse/white
+- Squarebill Crankbait `squarebill_crankbait` | theme: `bright_contrast` | colors: firetiger, chartreuse black back, chartreuse blue
+- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `white_shad` | colors: white, pearl, white/silver
+- Top 1 fly: Clouser Minnow `clouser_minnow` | theme: `bright_contrast` | colors: white/chartreuse, chartreuse/white, firetiger
+- Top 3 flies:
+- Clouser Minnow `clouser_minnow` | theme: `bright_contrast` | colors: white/chartreuse, chartreuse/white, firetiger
+- Woolly Bugger `woolly_bugger` | theme: `dark_contrast` | colors: black, black/olive, black/purple
+- Slim Minnow Streamer `slim_minnow_streamer` | theme: `bright_contrast` | colors: white/chartreuse, yellow/white, chartreuse/olive
+- Color notes:
+- Spinnerbait: Theme: bright contrast. Try white/chartreuse, firetiger, chartreuse/white.
+- Squarebill Crankbait: Theme: bright contrast. Try firetiger, chartreuse black back, chartreuse blue.
+- Paddle-Tail Swimbait: Theme: white shad. Try white, pearl, white/silver.
+- Clouser Minnow: Theme: bright contrast. Try white/chartreuse, chartreuse/white, firetiger.
+- Woolly Bugger: Theme: dark contrast. Try black, black/olive, black/purple.
+- Slim Minnow Streamer: Theme: bright contrast. Try white/chartreuse, yellow/white, chartreuse/olive.
+- Daily profile notes:
+- Shared score: 82 (Excellent)
+- Daily nudges: mood=up_2, water_column=neutral, presentation=bolder
+- Resolved profile: water_column=shallow, mood=active, presentation=bold
+- Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
+
+Review:
+- Precheck flags:
+- TOP1_PRIMARY_HIT
+- TOP3_PRIMARY_PRESENT
+- DISALLOWED_PRESENT:squarebill_crankbait
+- TOP_COLOR_MATCH:bright_contrast,bright_contrast
 - Top 1 verdict:
 - Top 3 verdict:
 - seasonal_fit:

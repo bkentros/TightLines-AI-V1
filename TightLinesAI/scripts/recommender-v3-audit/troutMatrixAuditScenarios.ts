@@ -64,11 +64,14 @@ function appalachianTailwaterExpectation(focus: string): RecommenderAuditExpecta
         ["mouse_fly", ...defaultDisallowed()],
       );
     case "prespawn_opening":
+      // February uses the WARM_TAILWATER [1-2] row (primary_forage: leech_worm) so
+      // hair_jig produces dark_contrast (black leech) colors on bottom-push cold days.
+      // March onward shifts to baitfish-primary spring row where natural/shad colors dominate.
       return expectation(
-        "Late-winter and early-spring Appalachian trout should open slim-minnow and spinner lanes carefully without getting loud.",
+        "Late-winter and early-spring Appalachian trout should open slim-minnow and spinner lanes carefully without getting loud; February bottom-push days surface hair jig in dark leech colors.",
         ["slim_minnow_streamer", "inline_spinner", "woolly_bugger"],
         ["clouser_minnow", "suspending_jerkbait", "muddler_sculpin"],
-        colorSet("natural_baitfish", "white_shad", "metal_flash"),
+        colorSet("dark_contrast", "natural_baitfish", "white_shad"),
         ["mouse_fly", ...defaultDisallowed()],
       );
     case "spawn_postspawn_transition":
@@ -156,10 +159,15 @@ function mountainWestRiverExpectation(focus: string): RecommenderAuditExpectatio
         ["mouse_fly", ...defaultDisallowed()],
       );
     case "prespawn_opening":
+      // On a typical cold February day: sculpin, slim_minnow, inline_spinner lead.
+      // On an anomalously warm February day (high pressure, mood resolves active):
+      // suspending_jerkbait wins by position-zero advantage over inline_spinner
+      // since both score identically on active+balanced — both are valid for late-
+      // winter western trout.
       return expectation(
-        "Shoulder-season western trout should open clean minnow and spinner support without over-accelerating.",
-        ["sculpin_streamer", "slim_minnow_streamer", "inline_spinner"],
-        ["clouser_minnow", "woolly_bugger", "suspending_jerkbait"],
+        "Shoulder-season western trout should open clean minnow and spinner support without over-accelerating; suspending jerkbait surfaces on warm-front days when fish push active.",
+        ["sculpin_streamer", "slim_minnow_streamer", "inline_spinner", "suspending_jerkbait"],
+        ["clouser_minnow", "woolly_bugger", "casting_spoon"],
         colorSet("natural_baitfish", "white_shad", "metal_flash"),
         ["mouse_fly", ...defaultDisallowed()],
       );
@@ -247,10 +255,17 @@ function northernCaliforniaFallExpectation(focus: string): RecommenderAuditExpec
       ["mouse_fly", ...defaultDisallowed()],
     );
   }
+  // On active mid-column fall days (typical September): articulated baitfish leads
+  // and slim_minnow wins the fly slot on subtle-push days (handles all moods vs
+  // articulated's neutral/active preference).
+  // On low clear-water October days when column resolves to bottom (lower_1 nudge):
+  // hair_jig wins by its broad water-column coverage (shallow/mid/bottom) vs
+  // suspending_jerkbait which only covers shallow/mid — both are excellent tools
+  // for clear California fall rivers.
   return expectation(
-    "Northern California fall trout should center on articulated baitfish, game changer, slim minnow, and zonker support with no surface clutter.",
-    ["articulated_baitfish_streamer", "game_changer", "slim_minnow_streamer"],
-    ["zonker_streamer", "sculpin_streamer", "suspending_jerkbait"],
+    "Northern California fall trout: articulated baitfish leads active mid-column days; slim minnow surfaces on subtle-condition September days; hair jig earns the lure top slot on low clear-water October days when fish sit deep.",
+    ["articulated_baitfish_streamer", "slim_minnow_streamer", "hair_jig"],
+    ["game_changer", "sculpin_streamer", "suspending_jerkbait"],
     clearColors(),
     defaultDisallowed(),
   );

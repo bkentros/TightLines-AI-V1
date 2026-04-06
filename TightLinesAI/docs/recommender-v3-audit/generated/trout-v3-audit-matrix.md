@@ -1,6 +1,6 @@
 # Trout V3 Audit Matrix
 
-Generated: 2026-04-04T21:02:33.204Z
+Generated: 2026-04-04T21:39:59.842Z
 
 This matrix is the efficient trout tuning structure for V3.
 It extends the gold batches into a fixed river-only coverage grid:

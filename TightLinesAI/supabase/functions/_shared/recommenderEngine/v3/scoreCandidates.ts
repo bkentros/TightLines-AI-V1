@@ -1,4 +1,5 @@
 import { FLY_ARCHETYPES_V3, LURE_ARCHETYPES_V3 } from "./candidates/index.ts";
+import { BASE_COLOR_SHADE_POOLS_V3 } from "./colors.ts";
 import type {
   ColorThemeIdV3,
   FlyArchetypeIdV3,
@@ -96,8 +97,15 @@ function chooseColorTheme(
   profile: RecommenderV3ArchetypeProfile,
   resolved: RecommenderV3ResolvedProfile,
   clarity: WaterClarity,
+  lightLabel: string | null,
 ): ColorThemeIdV3 {
   const priorities: ColorThemeIdV3[] = [];
+
+  if (lightLabel === "heavy_overcast" || lightLabel === "low_light") {
+    priorities.push("bright_contrast", "dark_contrast");
+  } else if (lightLabel === "bright" || lightLabel === "glare") {
+    priorities.push("natural_baitfish", "watermelon_natural", "green_pumpkin_natural");
+  }
 
   const baitfishForward =
     BAITFISH_FORWARD_FAMILIES.has(profile.family_key) ||
@@ -258,16 +266,27 @@ function chooseColorTheme(
 }
 
 function firstThreeColors(profile: RecommenderV3ArchetypeProfile, theme: ColorThemeIdV3): [string, string, string] {
-  const shades = profile.shade_examples_by_theme[theme] ?? [];
-  return [shades[0]!, shades[1]!, shades[2]!];
+  const fromProfile = profile.shade_examples_by_theme[theme];
+  const pool = fromProfile?.length ? fromProfile : BASE_COLOR_SHADE_POOLS_V3[theme];
+  const a = pool[0] ?? "natural";
+  const b = pool[1] ?? pool[0] ?? "natural";
+  const c = pool[2] ?? pool[1] ?? pool[0] ?? "natural";
+  return [a, b, c];
 }
 
-function buildWhy(
-  profile: RecommenderV3ArchetypeProfile,
-  resolved: RecommenderV3ResolvedProfile,
-  clarity: WaterClarity,
-): string {
-  return `${profile.display_name} fits a ${resolved.final_mood} fish mood, stays in the ${resolved.final_water_column} lane, and matches today's ${resolved.final_presentation_style} need in ${clarity} water.`;
+/** Not in primary list → tier penalty. Primary list order: 0 = +1.5, 1 = +0.75, 2+ = 0. */
+const TIER_PENALTY = 0.8;
+
+function seasonalPriorityBonus(
+  id: string,
+  primaryList: readonly string[] | undefined,
+): number {
+  if (!primaryList || primaryList.length === 0) return 0;
+  const index = (primaryList as readonly string[]).indexOf(id);
+  if (index === -1) return -TIER_PENALTY;
+  if (index === 0) return 1.5;
+  if (index === 1) return 0.75;
+  return 0;
 }
 
 function scoreProfile(
@@ -275,6 +294,8 @@ function scoreProfile(
   seasonal: RecommenderV3SeasonalRow,
   resolved: RecommenderV3ResolvedProfile,
   clarity: WaterClarity,
+  lightLabel: string | null,
+  priorityBonus: number,
 ): RecommenderV3RankedArchetype {
   const breakdown: RecommenderV3ScoreBreakdown[] = [];
 
@@ -287,7 +308,8 @@ function scoreProfile(
         ? 0.8
         : seasonal.secondary_forage && profile.forage_matches.includes(seasonal.secondary_forage)
         ? 0.5
-        : 0),
+        : 0) +
+      priorityBonus,
   );
   breakdown.push({
     code: "seasonal_baseline",
@@ -349,7 +371,7 @@ function scoreProfile(
   });
 
   const score = roundScore(seasonal_baseline + daily_modifier + clarity_modifier + forage_bonus);
-  const color_theme = chooseColorTheme(profile, resolved, clarity);
+  const color_theme = chooseColorTheme(profile, resolved, clarity, lightLabel);
   const color_recommendations = firstThreeColors(profile, color_theme);
 
   return {
@@ -365,7 +387,6 @@ function scoreProfile(
     forage_bonus,
     color_theme,
     color_recommendations,
-    why: buildWhy(profile, resolved, clarity),
     breakdown,
   };
 }
@@ -406,10 +427,12 @@ export function scoreLureCandidatesV3(
   seasonal: RecommenderV3SeasonalRow,
   resolved: RecommenderV3ResolvedProfile,
   clarity: WaterClarity,
+  lightLabel: string | null,
 ): RecommenderV3RankedArchetype[] {
-  const scored = seasonal.viable_lure_archetypes.map((id) =>
-    scoreProfile(LURE_ARCHETYPES_V3[id], seasonal, resolved, clarity)
-  );
+  const scored = seasonal.viable_lure_archetypes.map((id) => {
+    const bonus = seasonalPriorityBonus(id, seasonal.primary_lure_archetypes);
+    return scoreProfile(LURE_ARCHETYPES_V3[id], seasonal, resolved, clarity, lightLabel, bonus);
+  });
   return selectTopThree(scored, seasonal.viable_lure_archetypes);
 }
 
@@ -417,9 +440,11 @@ export function scoreFlyCandidatesV3(
   seasonal: RecommenderV3SeasonalRow,
   resolved: RecommenderV3ResolvedProfile,
   clarity: WaterClarity,
+  lightLabel: string | null,
 ): RecommenderV3RankedArchetype[] {
-  const scored = seasonal.viable_fly_archetypes.map((id) =>
-    scoreProfile(FLY_ARCHETYPES_V3[id], seasonal, resolved, clarity)
-  );
+  const scored = seasonal.viable_fly_archetypes.map((id) => {
+    const bonus = seasonalPriorityBonus(id, seasonal.primary_fly_archetypes);
+    return scoreProfile(FLY_ARCHETYPES_V3[id], seasonal, resolved, clarity, lightLabel, bonus);
+  });
   return selectTopThree(scored, seasonal.viable_fly_archetypes);
 }

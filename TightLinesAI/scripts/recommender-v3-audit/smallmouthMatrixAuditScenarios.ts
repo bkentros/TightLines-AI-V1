@@ -409,6 +409,183 @@ function ohioDirtyReservoirExpectation(focus: string): RecommenderAuditExpectati
   );
 }
 
+function northeastConnecticutRiverExpectation(focus: string): RecommenderAuditExpectation {
+  if (focus === "spawn_postspawn_transition") {
+    // Month 4: NORTHERN_COLD SPRING_RIVER [4,5], craw-primary, mid/neutral, tube_jig(0)
+    return expectation(
+      "Northeast spring river smallmouth should open tube and soft-minnow lanes in standard NORTHERN_COLD spring posture.",
+      ["tube_jig", "soft_jerkbait", "inline_spinner"],
+      ["spinnerbait", "suspending_jerkbait", "clouser_minnow"],
+      clearColors(),
+      ["hollow_body_frog", "compact_flipping_jig"],
+    );
+  }
+  if (focus === "summer_positioning") {
+    // Month 6: NORTHEAST_SUMMER_RIVER override fires (bold/active/baitfish), walking_topwater(0)
+    // Distinct from GLUM June which uses SPRING_RIVER (craw-primary, balanced)
+    return expectation(
+      "Northeast June river smallmouth hits the NORTHEAST_SUMMER_RIVER override — bold topwater presentation leads with walking topwater and inline spinner, confirming the northeast-specific aggressive early-summer surface window distinct from the GLUM spring-holdover posture.",
+      ["walking_topwater", "inline_spinner", "paddle_tail_swimbait"],
+      ["popping_topwater", "spinnerbait", "popper_fly"],
+      clearColors(),
+      ["hollow_body_frog", "compact_flipping_jig"],
+    );
+  }
+  if (focus === "fall_transition") {
+    // Month 9: NORTHERN_COLD FALL_RIVER [9,10], baitfish-primary, shallow/active, suspending_jerkbait(0)
+    // Month 11: NORTHEAST_LATEFALL_RIVER override fires — mid/neutral/balanced, suspending_jerkbait(0)
+    // Both months share jerkbait as lead; Nov is distinct (active vs GLUM winter tube)
+    return expectation(
+      "Northeast fall river smallmouth should center on suspending jerkbait — FALL_RIVER fires in September and NORTHEAST_LATEFALL_RIVER fires in November, both putting jerkbait at the top vs the NORTHERN_COLD WINTER_RIVER (tube-first) that would apply to GLUM November.",
+      ["suspending_jerkbait", "spinnerbait", "paddle_tail_swimbait"],
+      ["inline_spinner", "blade_bait", "slim_minnow_streamer"],
+      clearColors(),
+      ["walking_topwater", "popping_topwater"],
+    );
+  }
+  return expectation(
+    "Default northeast river smallmouth should favor current-aware baitfish and jerkbait lanes.",
+    ["suspending_jerkbait", "inline_spinner", "paddle_tail_swimbait"],
+    ["tube_jig", "clouser_minnow", "soft_jerkbait"],
+    clearColors(),
+    ["hollow_body_frog", "compact_flipping_jig"],
+  );
+}
+
+function willametteRiverSmbExpectation(focus: string, month: number): RecommenderAuditExpectation {
+  if (focus === "spawn_postspawn_transition") {
+    // Month 4: SPRING_RIVER [3,4], craw-primary, mid/neutral, tube_jig(0)
+    return expectation(
+      "April Willamette River smallmouth should open tube and soft-minnow lanes in WESTERN_MIXED spring posture with craw-primary colors.",
+      ["tube_jig", "soft_jerkbait", "inline_spinner"],
+      ["spinnerbait", "suspending_jerkbait", "clouser_minnow"],
+      clearColors(),
+      ["hollow_body_frog", "compact_flipping_jig"],
+    );
+  }
+  if (focus === "summer_positioning") {
+    // Month 6: SUMMER_RIVER [6,7,8,9], baitfish-primary, shallow/active, walking_topwater(0)
+    return expectation(
+      "June Willamette River smallmouth should be in active surface and search mode; walking topwater leads on active days with inline spinner and swimbait as baitfish support lanes.",
+      ["walking_topwater", "inline_spinner", "paddle_tail_swimbait"],
+      ["popping_topwater", "soft_jerkbait", "popper_fly"],
+      clearColors(),
+      ["hollow_body_frog", "compact_flipping_jig"],
+    );
+  }
+  if (focus === "fall_transition") {
+    if (month === 9) {
+      // Month 9: NORTHWEST_EARLY_FALL override for pacific_northwest, suspending_jerkbait(0)
+      return expectation(
+        "September Willamette River smallmouth hits the NORTHWEST_EARLY_FALL override — suspending jerkbait leads the baitfish-first fall window with inline spinner and swimbait as support.",
+        ["suspending_jerkbait", "inline_spinner", "paddle_tail_swimbait"],
+        ["spinnerbait", "tube_jig", "slim_minnow_streamer"],
+        clearColors(),
+        ["walking_topwater", "popping_topwater"],
+      );
+    }
+    // Month 11: FALL_RIVER [10,11], baitfish-primary, mid/neutral, suspending_jerkbait(0)
+    return expectation(
+      "November Willamette River smallmouth should center on suspending jerkbait and spinnerbait as baitfish lanes tighten in cool-season FALL_RIVER posture.",
+      ["suspending_jerkbait", "spinnerbait", "paddle_tail_swimbait"],
+      ["inline_spinner", "tube_jig", "clouser_minnow"],
+      clearColors(),
+      ["walking_topwater", "popping_topwater"],
+    );
+  }
+  return expectation(
+    "Default Willamette River smallmouth should favor current-aware baitfish lanes.",
+    ["suspending_jerkbait", "inline_spinner", "paddle_tail_swimbait"],
+    ["tube_jig", "clouser_minnow", "soft_jerkbait"],
+    clearColors(),
+    ["hollow_body_frog", "compact_flipping_jig"],
+  );
+}
+
+function northernCaliforniaSmbRiverExpectation(focus: string): RecommenderAuditExpectation {
+  if (focus === "prespawn_opening") {
+    // Month 3: SPRING_RIVER [3,4], craw-primary, mid/neutral, tube_jig(0)
+    return expectation(
+      "March Northern California smallmouth river should open tube and soft-minnow lanes in WESTERN_MIXED spring posture with craw-primary crawfish-colored reads.",
+      ["tube_jig", "soft_jerkbait", "spinnerbait"],
+      ["ned_rig", "suspending_jerkbait", "clouser_minnow"],
+      clearColors(),
+      ["hollow_body_frog", "compact_flipping_jig"],
+    );
+  }
+  if (focus === "summer_positioning") {
+    // Months 6 and 8: SUMMER_RIVER [6,7,8,9], baitfish-primary, shallow/active, walking_topwater(0)
+    // (no NorCal-specific NORTHWEST_SUMMER override — that applies only to inland_northwest and pacific_northwest)
+    // Tube jig can edge walking topwater when hot/windy conditions push water column to mid over rocky pool structure.
+    return expectation(
+      "Northern California summer river smallmouth should be in active surface and baitfish-search mode; walking topwater leads on surface-active days, but tube jig takes over when wind and clear-water depth cues push fish to rocky mid-column holds.",
+      ["walking_topwater", "inline_spinner", "paddle_tail_swimbait", "tube_jig"],
+      ["popping_topwater", "soft_jerkbait", "popper_fly"],
+      clearColors(),
+      ["hollow_body_frog", "compact_flipping_jig"],
+    );
+  }
+  if (focus === "fall_transition") {
+    // Month 10: FALL_RIVER [10,11], baitfish-primary, mid/neutral, suspending_jerkbait(0)
+    return expectation(
+      "October Northern California river smallmouth should center on suspending jerkbait and spinnerbait as baitfish lanes tighten in FALL_RIVER posture.",
+      ["suspending_jerkbait", "spinnerbait", "paddle_tail_swimbait"],
+      ["inline_spinner", "tube_jig", "slim_minnow_streamer"],
+      clearColors(),
+      ["walking_topwater", "popping_topwater"],
+    );
+  }
+  return expectation(
+    "Default Northern California smallmouth river should favor current-aware baitfish and jerkbait lanes.",
+    ["suspending_jerkbait", "inline_spinner", "paddle_tail_swimbait"],
+    ["tube_jig", "clouser_minnow", "soft_jerkbait"],
+    clearColors(),
+    ["hollow_body_frog", "compact_flipping_jig"],
+  );
+}
+
+function illinoisRiverSmbExpectation(focus: string): RecommenderAuditExpectation {
+  if (focus === "spawn_postspawn_transition") {
+    // SPRING_RIVER fires for GLUM [4,5] (mid/neutral/balanced, crawfish primary)
+    // In dirty water: tube_jig(0) gets clarity PENALTY; ned_rig(1) gets dirty BONUS + crawfish forage match
+    // spinnerbait(2) gets dirty BONUS; soft_jerkbait/suspending/squarebill/inline_spinner get PENALTY
+    // paddle_tail_swimbait(6) gets dirty BONUS but no crawfish match
+    // Expected: spinnerbait or ned_rig wins over tube_jig — tube_jig forage bonus may partially offset its clarity penalty
+    return expectation(
+      "GLUM dirty river spring smallmouth: tube_jig is penalized in dirty water; spinnerbait and ned_rig both get dirty clarity bonuses (ned_rig also has crawfish forage alignment); paddle_tail_swimbait surfaces as dirty-friendly baitfish option; clear-water finesse tools drop off.",
+      ["spinnerbait", "ned_rig", "tube_jig", "paddle_tail_swimbait"],
+      ["hair_jig", "clouser_minnow"],
+      colorSet("green_pumpkin_natural", "bright_contrast", "dark_contrast", "natural_baitfish"),
+      ["suspending_jerkbait", "squarebill_crankbait", "inline_spinner"],
+    );
+  }
+  if (focus === "summer_positioning") {
+    // GREAT_LAKES_CLEAR_SUMMER_RIVER fires for GLUM [7,8] (mid/active/subtle, baitfish primary)
+    // EVERY lure in this pool is a clear-water lure EXCEPT paddle_tail_swimbait:
+    //   tube_jig(0), suspending_jerkbait(1), squarebill_crankbait(2), walking_topwater(3),
+    //   inline_spinner(4) all get dirty PENALTY; paddle_tail_swimbait(5) gets dirty BONUS
+    // paddle_tail_swimbait wins by a wide margin — the only dirty-friendly option in the pool
+    return expectation(
+      "GLUM dirty river summer smallmouth: GREAT_LAKES_CLEAR_SUMMER_RIVER is a clear-water-optimized pool — every lure except paddle_tail_swimbait is penalized in dirty water; paddle_tail wins by a wide margin as the sole dirty-friendly option in the pool.",
+      ["paddle_tail_swimbait"],
+      ["spinnerbait", "clouser_minnow"],
+      colorSet("natural_baitfish", "dark_contrast", "white_shad"),
+      ["tube_jig", "suspending_jerkbait", "squarebill_crankbait", "walking_topwater"],
+    );
+  }
+  // fall_transition: FALL_RIVER fires for GLUM [9,10] (shallow/active/balanced, baitfish primary)
+  // suspending_jerkbait(0) gets dirty PENALTY; spinnerbait(1) gets dirty BONUS
+  // paddle_tail_swimbait(2) gets dirty BONUS; blade_bait(4) gets dirty BONUS
+  // squarebill(5)/inline_spinner(6) get PENALTY; tube_jig(3) gets PENALTY
+  return expectation(
+    "GLUM dirty river fall smallmouth: suspending_jerkbait drops from position 0 due to dirty clarity penalty; spinnerbait and paddle_tail_swimbait take over with dirty clarity bonuses; blade_bait surfaces as a dirty-friendly option.",
+    ["spinnerbait", "paddle_tail_swimbait", "blade_bait"],
+    ["hair_jig", "clouser_minnow"],
+    colorSet("bright_contrast", "white_shad", "dark_contrast"),
+    ["suspending_jerkbait", "squarebill_crankbait", "tube_jig"],
+  );
+}
+
 function expectationForScenario(scenario: SmallmouthMatrixScenario): RecommenderAuditExpectation {
   if (scenario.anchor_key === "great_lakes_clear_lake" && scenario.month === 6) {
     return expectation(
@@ -456,6 +633,14 @@ function expectationForScenario(scenario: SmallmouthMatrixScenario): Recommender
       return washingtonRiverExpectation(scenario.focus_window);
     case "ohio_dirty_reservoir":
       return ohioDirtyReservoirExpectation(scenario.focus_window);
+    case "willamette_river_smb":
+      return willametteRiverSmbExpectation(scenario.focus_window, scenario.month);
+    case "northern_california_smb_river":
+      return northernCaliforniaSmbRiverExpectation(scenario.focus_window);
+    case "northeast_connecticut_river":
+      return northeastConnecticutRiverExpectation(scenario.focus_window);
+    case "illinois_river_smb":
+      return illinoisRiverSmbExpectation(scenario.focus_window);
     default: {
       const _never: never = scenario.anchor_key;
       throw new Error(`Unhandled SMB matrix anchor: ${_never}`);

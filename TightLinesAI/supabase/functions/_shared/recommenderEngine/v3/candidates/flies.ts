@@ -19,6 +19,8 @@ export const FLY_ARCHETYPES_V3: Record<FlyArchetypeIdV3, RecommenderV3ArchetypeP
     forage_matches: ["baitfish"],
     clarity_strengths: ["clear", "stained", "dirty"],
     tactical_lane: "fly_baitfish",
+    how_to_fish_text:
+      "Cast across or slightly downstream, let it jig toward you with short strips so the weighted eyes keep the fly tracking hook-point up.",
     allowed_color_themes: ["white_shad", "natural_baitfish", "bright_contrast"],
     shade_examples_by_theme: selectThemeShadesV3(
       ["white_shad", "natural_baitfish", "bright_contrast"],
@@ -38,6 +40,8 @@ export const FLY_ARCHETYPES_V3: Record<FlyArchetypeIdV3, RecommenderV3ArchetypeP
     forage_matches: ["baitfish"],
     clarity_strengths: ["clear", "stained"],
     tactical_lane: "fly_baitfish",
+    how_to_fish_text:
+      "Strip in long, smooth pulls so the saddle feathers breathe; add a pause every few strips for followers to close the gap.",
     allowed_color_themes: ["white_shad", "natural_baitfish", "dark_contrast"],
     shade_examples_by_theme: selectThemeShadesV3(
       ["white_shad", "natural_baitfish", "dark_contrast"],
@@ -104,6 +108,8 @@ export const FLY_ARCHETYPES_V3: Record<FlyArchetypeIdV3, RecommenderV3ArchetypeP
     forage_matches: ["baitfish", "bluegill_perch"],
     clarity_strengths: ["clear", "stained"],
     tactical_lane: "fly_baitfish",
+    how_to_fish_text:
+      "Use a mix of steady strips and sharp 6-inch twitches so the jointed body swims and stalls; pause when you see a follow.",
     allowed_color_themes: ["white_shad", "natural_baitfish", "perch_bluegill", "dark_contrast"],
     shade_examples_by_theme: selectThemeShadesV3(
       ["white_shad", "natural_baitfish", "perch_bluegill", "dark_contrast"],
@@ -181,6 +187,8 @@ export const FLY_ARCHETYPES_V3: Record<FlyArchetypeIdV3, RecommenderV3ArchetypeP
     forage_matches: ["baitfish", "crawfish"],
     clarity_strengths: ["clear", "stained", "dirty"],
     tactical_lane: "fly_bottom",
+    how_to_fish_text:
+      "Bump bottom with short strips and let the fly tick along rocks; keep tension so you feel every stop against structure.",
     allowed_color_themes: ["craw_natural", "natural_baitfish", "dark_contrast"],
     shade_examples_by_theme: selectThemeShadesV3(
       ["craw_natural", "natural_baitfish", "dark_contrast"],
@@ -200,6 +208,8 @@ export const FLY_ARCHETYPES_V3: Record<FlyArchetypeIdV3, RecommenderV3ArchetypeP
     forage_matches: ["baitfish", "crawfish", "insect_misc"],
     clarity_strengths: ["clear", "stained"],
     tactical_lane: "fly_bottom",
+    how_to_fish_text:
+      "Skate or wake it in shallow riffles with short strips, or sink and crawl it along bottom with rod-tip leads so the deer hair pushes water.",
     allowed_color_themes: ["natural_baitfish", "craw_natural", "dark_contrast"],
     shade_examples_by_theme: selectThemeShadesV3(
       ["natural_baitfish", "craw_natural", "dark_contrast"],
@@ -238,6 +248,8 @@ export const FLY_ARCHETYPES_V3: Record<FlyArchetypeIdV3, RecommenderV3ArchetypeP
     forage_matches: ["baitfish", "leech_worm", "crawfish"],
     clarity_strengths: ["clear", "stained", "dirty"],
     tactical_lane: "fly_bottom",
+    how_to_fish_text:
+      "Let the cone dig and dart on each strip — medium pulls with pauses so the fly hunts just off the rocks or wood.",
     allowed_color_themes: ["natural_baitfish", "dark_contrast", "craw_natural"],
     shade_examples_by_theme: selectThemeShadesV3(
       ["natural_baitfish", "dark_contrast", "craw_natural"],

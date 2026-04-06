@@ -58,6 +58,8 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
     forage_matches: ["leech_worm"],
     clarity_strengths: ["clear", "stained"],
     tactical_lane: "finesse_subtle",
+    how_to_fish_text:
+      "Hook through the midsection, let it sink with a slow wobble, then lift and dead-stick with long pauses so both ends flutter.",
     allowed_color_themes: ["green_pumpkin_natural", "watermelon_natural", "dark_contrast"],
     shade_examples_by_theme: selectThemeShadesV3(
       ["green_pumpkin_natural", "watermelon_natural", "dark_contrast"],
@@ -77,6 +79,8 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
     forage_matches: ["leech_worm", "baitfish"],
     clarity_strengths: ["clear", "stained"],
     tactical_lane: "bottom_contact",
+    how_to_fish_text:
+      "Drag the rig slowly across hard bottom and transitions so the leader lets the worm hunt above the weight; pause when you feel it tick structure.",
     allowed_color_themes: ["green_pumpkin_natural", "watermelon_natural", "natural_baitfish"],
     shade_examples_by_theme: selectThemeShadesV3(["green_pumpkin_natural", "watermelon_natural", "natural_baitfish"]),
   }),
@@ -110,6 +114,8 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
     forage_matches: ["baitfish", "leech_worm"],
     clarity_strengths: ["clear", "stained"],
     tactical_lane: "finesse_subtle",
+    how_to_fish_text:
+      "Keep the bait vertical under the boat or bank: tiny hops and shakes with the rod tip, then let it hang still so the minnow or worm quivers on a tight line.",
     allowed_color_themes: ["natural_baitfish", "green_pumpkin_natural", "watermelon_natural"],
     shade_examples_by_theme: selectThemeShadesV3(["natural_baitfish", "green_pumpkin_natural", "watermelon_natural"]),
   }),
@@ -124,6 +130,8 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
     forage_matches: ["crawfish", "leech_worm"],
     clarity_strengths: ["clear", "stained", "dirty"],
     tactical_lane: "bottom_contact",
+    how_to_fish_text:
+      "Drag and shake the small head along bottom like a tiny craw — short pulls, let it settle, repeat instead of big hops.",
     allowed_color_themes: ["green_pumpkin_natural", "watermelon_natural", "dark_contrast"],
     shade_examples_by_theme: selectThemeShadesV3(
       ["green_pumpkin_natural", "watermelon_natural", "dark_contrast"],
@@ -143,6 +151,8 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
     forage_matches: ["crawfish", "baitfish"],
     clarity_strengths: ["clear", "stained"],
     tactical_lane: "bottom_contact",
+    how_to_fish_text:
+      "Snap the tube off bottom with short pops so it spirals on the fall, then let it glide back down on slack or semi-slack line.",
     allowed_color_themes: ["craw_natural", "green_pumpkin_natural", "natural_baitfish"],
     shade_examples_by_theme: selectThemeShadesV3(
       ["craw_natural", "green_pumpkin_natural", "natural_baitfish"],
@@ -162,6 +172,8 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
     forage_matches: ["crawfish"],
     clarity_strengths: ["clear", "stained", "dirty"],
     tactical_lane: "cover_weedless",
+    how_to_fish_text:
+      "Flip or pitch into cover, let the craw fall straight on semi-slack line, then hop it once or twice before the next pitch.",
     allowed_color_themes: ["craw_natural", "green_pumpkin_natural", "dark_contrast"],
     shade_examples_by_theme: selectThemeShadesV3(
       ["craw_natural", "green_pumpkin_natural", "dark_contrast"],
@@ -299,6 +311,8 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
     forage_matches: ["baitfish", "bluegill_perch"],
     clarity_strengths: ["stained", "dirty"],
     tactical_lane: "horizontal_search",
+    how_to_fish_text:
+      "Yo-yo the blade: snap the rod so the head kicks and vibrates, then let it pendulum back with a controlled semi-slack fall.",
     allowed_color_themes: ["white_shad", "green_pumpkin_natural", "dark_contrast"],
     shade_examples_by_theme: selectThemeShadesV3(
       ["white_shad", "green_pumpkin_natural", "dark_contrast"],
@@ -320,6 +334,8 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
     forage_matches: ["baitfish", "bluegill_perch"],
     clarity_strengths: ["clear", "stained", "dirty"],
     tactical_lane: "horizontal_search",
+    how_to_fish_text:
+      "Reel at a steady pace with the rod low so the tail thumps; speed up slightly over bait or slow after a follow.",
     allowed_color_themes: ["natural_baitfish", "white_shad", "perch_bluegill"],
     shade_examples_by_theme: selectThemeShadesV3(
       ["natural_baitfish", "white_shad", "perch_bluegill"],
@@ -339,6 +355,8 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
     forage_matches: ["baitfish"],
     clarity_strengths: ["clear", "stained"],
     tactical_lane: "horizontal_search",
+    how_to_fish_text:
+      "Twitch it with slack in the line so the bait darts and glides erratically; pause and let it sink a few inches between twitches.",
     allowed_color_themes: ["natural_baitfish", "white_shad", "bright_contrast"],
     shade_examples_by_theme: selectThemeShadesV3(
       ["natural_baitfish", "white_shad", "bright_contrast"],

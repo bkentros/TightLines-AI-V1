@@ -5,7 +5,7 @@
  *   1. Header hero card (species, context badge, water clarity, confidence pill)
  *   2. Behavior summary card (3-line deterministic block)
  *   3. Lure / Fly sub-tabs
- *   4. Top ranked family cards — collapsed by default, expandable for full details
+ *   4. Top 3 cards — gold/silver/bronze, collapsed; expand for where / how / colors
  *   5. Generated note footer
  */
 
@@ -76,22 +76,19 @@ function confidenceLabel(tier: RecommenderConfidenceTier): string {
   }
 }
 
-// ─── Score pill ───────────────────────────────────────────────────────────────
+// ─── Medal (rank 1–3) ───────────────────────────────────────────────────────
 
-function ScorePill({ score }: { score: number }) {
-  const color =
-    score >= 70 ? colors.reportScoreGreen :
-    score >= 45 ? colors.reportScoreYellow :
-    colors.reportScoreRed;
+const MEDAL_COLORS = {
+  1: { fg: '#B8860B', bg: 'rgba(184, 134, 11, 0.15)' },
+  2: { fg: '#708090', bg: 'rgba(112, 128, 144, 0.15)' },
+  3: { fg: '#8B4513', bg: 'rgba(139, 69, 19, 0.12)' },
+} as const;
 
-  const bg =
-    score >= 70 ? colors.reportScoreGreenBg :
-    score >= 45 ? colors.reportScoreYellowBg :
-    colors.reportScoreRedBg;
-
+function RankMedal({ rank }: { rank: 1 | 2 | 3 }) {
+  const m = MEDAL_COLORS[rank];
   return (
-    <View style={[styles.scorePill, { backgroundColor: bg, borderColor: color }]}>
-      <Text style={[styles.scorePillText, { color }]}>{score}</Text>
+    <View style={[styles.medalBadge, { backgroundColor: m.bg, borderColor: m.fg + '55' }]}>
+      <Ionicons name="medal-outline" size={18} color={m.fg} />
     </View>
   );
 }
@@ -127,6 +124,7 @@ function FamilyCard({
   accentColor: string;
 }) {
   const [expanded, setExpanded] = useState(false);
+  const medalRank = rank >= 1 && rank <= 3 ? (rank as 1 | 2 | 3) : 1;
 
   return (
     <View style={[styles.familyCard, shadows.sm]}>
@@ -136,21 +134,18 @@ function FamilyCard({
       <View style={styles.familyCardInner}>
         {/* Header row */}
         <View style={styles.familyHeaderRow}>
-          <View style={[styles.familyRankBadge, { backgroundColor: accentColor + '1A' }]}>
-            <Text style={[styles.familyRankText, { color: accentColor }]}>#{rank}</Text>
+          <RankMedal rank={medalRank} />
+          <View style={styles.familyTitleBlock}>
+            <Text style={styles.familyName} numberOfLines={2}>
+              {family.display_name}
+            </Text>
+            {!!family.rank_context && (
+              <Text style={styles.rankContextText} numberOfLines={2}>
+                {family.rank_context}
+              </Text>
+            )}
           </View>
-          <Text style={styles.familyName} numberOfLines={2}>
-            {family.display_name}
-          </Text>
-          <ScorePill score={family.score} />
         </View>
-
-        {/* Examples */}
-        {family.examples.length > 0 && (
-          <Text style={styles.familyExamples} numberOfLines={2}>
-            e.g. {family.examples.slice(0, 3).join(' · ')}
-          </Text>
-        )}
 
         {/* Details toggle */}
         <TouchableOpacity
@@ -169,20 +164,15 @@ function FamilyCard({
           />
         </TouchableOpacity>
 
-        {/* Expanded detail rows */}
+        {/* Expanded: where, how, colors only */}
         {expanded && (
           <View style={styles.detailsExpanded}>
             <View style={styles.detailsDivider} />
-            <DetailRow icon="checkmark-circle-outline" label="Why it works"    text={family.why_picked} />
             {!!family.where_to_start && (
-              <DetailRow icon="navigate-outline"         label="Start here"      text={family.where_to_start} />
+              <DetailRow icon="navigate-outline" label="Where to start" text={family.where_to_start} />
             )}
-            <DetailRow icon="fish-outline"             label="Technique"       text={family.how_to_fish} />
-            <DetailRow icon="time-outline"             label="Best when"       text={family.best_when} />
-            <DetailRow icon="color-palette-outline"    label="Color guide"     text={family.color_guide} />
-            {!!family.what_to_adjust_if_ignored && (
-              <DetailRow icon="refresh-outline"          label="If they ignore it" text={family.what_to_adjust_if_ignored} />
-            )}
+            <DetailRow icon="fish-outline" label="How to fish it" text={family.how_to_fish} />
+            <DetailRow icon="color-palette-outline" label="Colors" text={family.color_guide} />
           </View>
         )}
       </View>
@@ -545,42 +535,33 @@ const styles = StyleSheet.create({
   },
   familyHeaderRow: {
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     gap: spacing.sm,
     marginBottom: 4,
   },
-  familyRankBadge: {
-    borderRadius: radius.full,
-    width: 26,
-    height: 26,
+  medalBadge: {
+    borderRadius: radius.md,
+    width: 36,
+    height: 36,
     alignItems: 'center',
     justifyContent: 'center',
+    borderWidth: 1,
   },
-  familyRankText: {
-    fontFamily: fonts.bodySemiBold,
-    fontSize: 12,
+  familyTitleBlock: {
+    flex: 1,
+    minWidth: 0,
   },
   familyName: {
-    flex: 1,
     fontFamily: fonts.serifBold,
     fontSize: 16,
     color: colors.text,
   },
-  scorePill: {
-    borderRadius: radius.full,
-    borderWidth: 1,
-    paddingHorizontal: 9,
-    paddingVertical: 3,
-  },
-  scorePillText: {
-    fontFamily: fonts.bodySemiBold,
-    fontSize: 12,
-  },
-  familyExamples: {
-    fontFamily: fonts.bodyItalic,
-    fontSize: 12,
+  rankContextText: {
+    fontFamily: fonts.body,
+    fontSize: 13,
     color: colors.textMuted,
-    marginBottom: 4,
+    lineHeight: 18,
+    marginTop: 4,
   },
 
   // Details toggle

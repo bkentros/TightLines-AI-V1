@@ -37,15 +37,18 @@ export function computeRecommenderV3(
     dailyPayload,
     req.water_clarity,
   );
+  const lightLabel = analysis.norm.normalized.light_cloud_condition?.label ?? null;
   const lureRecommendations = scoreLureCandidatesV3(
     seasonalRow,
     resolvedProfile,
     req.water_clarity,
+    lightLabel,
   );
   const flyRecommendations = scoreFlyCandidatesV3(
     seasonalRow,
     resolvedProfile,
     req.water_clarity,
+    lightLabel,
   );
 
   return {

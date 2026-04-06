@@ -1,3 +1,4 @@
+/** See largemouth.ts — primary_*_archetypes order drives seasonal priority bonuses. */
 import type {
   FlyArchetypeIdV3,
   LureArchetypeIdV3,
@@ -540,6 +541,8 @@ addMonths(WARM_HIGHLAND_REGIONS, "freshwater_lake_pond", [1, 2], {
   base_presentation_style: "subtle",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
+  primary_lure_archetypes: ["tube_jig", "hair_jig"],
+  primary_fly_archetypes: ["sculpin_streamer", "woolly_bugger"],
   viable_lure_archetypes: WINTER_LAKE_LURES,
   viable_fly_archetypes: WINTER_LAKE_FLIES,
 });
@@ -549,6 +552,8 @@ addMonths(WARM_HIGHLAND_REGIONS, "freshwater_lake_pond", [3, 4], {
   base_presentation_style: "balanced",
   primary_forage: "crawfish",
   secondary_forage: "baitfish",
+  primary_lure_archetypes: ["tube_jig", "suspending_jerkbait"],
+  primary_fly_archetypes: ["crawfish_streamer", "sculpin_streamer"],
   viable_lure_archetypes: PRESPAWN_LAKE_LURES,
   viable_fly_archetypes: PRESPAWN_LAKE_FLIES,
 });
@@ -558,6 +563,8 @@ addMonths(WARM_HIGHLAND_REGIONS, "freshwater_lake_pond", [5], {
   base_presentation_style: "balanced",
   primary_forage: "crawfish",
   secondary_forage: "baitfish",
+  primary_lure_archetypes: ["tube_jig", "ned_rig"],
+  primary_fly_archetypes: ["crawfish_streamer", "woolly_bugger"],
   viable_lure_archetypes: SPAWN_LAKE_LURES,
   viable_fly_archetypes: SPAWN_LAKE_FLIES,
 });
@@ -567,6 +574,8 @@ addMonths(WARM_HIGHLAND_REGIONS, "freshwater_lake_pond", [6], {
   base_presentation_style: "balanced",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
+  primary_lure_archetypes: ["tube_jig", "soft_jerkbait"],
+  primary_fly_archetypes: ["clouser_minnow", "game_changer"],
   viable_lure_archetypes: POSTSPAWN_LAKE_LURES,
   viable_fly_archetypes: POSTSPAWN_LAKE_FLIES,
 });
@@ -576,6 +585,8 @@ addMonths(WARM_HIGHLAND_REGIONS, "freshwater_lake_pond", [7, 8, 9], {
   base_presentation_style: "balanced",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
+  primary_lure_archetypes: ["walking_topwater", "tube_jig"],
+  primary_fly_archetypes: ["popper_fly", "clouser_minnow"],
   viable_lure_archetypes: SUMMER_LAKE_LURES,
   viable_fly_archetypes: SUMMER_LAKE_FLIES,
 });
@@ -585,6 +596,8 @@ addMonths(["south_central"], "freshwater_lake_pond", [9], {
   base_presentation_style: "balanced",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
+  primary_lure_archetypes: ["suspending_jerkbait", "paddle_tail_swimbait"],
+  primary_fly_archetypes: ["clouser_minnow", "slim_minnow_streamer"],
   viable_lure_archetypes: SOUTH_CENTRAL_EARLYFALL_LAKE_LURES,
   viable_fly_archetypes: SOUTH_CENTRAL_EARLYFALL_LAKE_FLIES,
 });
@@ -594,6 +607,8 @@ addMonths(WARM_HIGHLAND_REGIONS, "freshwater_lake_pond", [10], {
   base_presentation_style: "balanced",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
+  primary_lure_archetypes: ["suspending_jerkbait", "paddle_tail_swimbait"],
+  primary_fly_archetypes: ["clouser_minnow", "slim_minnow_streamer"],
   viable_lure_archetypes: FALL_LAKE_LURES,
   viable_fly_archetypes: FALL_LAKE_FLIES,
 });
@@ -603,6 +618,8 @@ addMonths(WARM_HIGHLAND_REGIONS, "freshwater_lake_pond", [11], {
   base_presentation_style: "balanced",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
+  primary_lure_archetypes: ["suspending_jerkbait", "paddle_tail_swimbait"],
+  primary_fly_archetypes: ["clouser_minnow", "slim_minnow_streamer"],
   viable_lure_archetypes: FALL_LAKE_LURES,
   viable_fly_archetypes: FALL_LAKE_FLIES,
 });
@@ -612,6 +629,8 @@ addMonths(WARM_HIGHLAND_REGIONS, "freshwater_lake_pond", [12], {
   base_presentation_style: "subtle",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
+  primary_lure_archetypes: ["tube_jig", "hair_jig"],
+  primary_fly_archetypes: ["sculpin_streamer", "woolly_bugger"],
   viable_lure_archetypes: WINTER_LAKE_LURES,
   viable_fly_archetypes: WINTER_LAKE_FLIES,
 });
@@ -623,6 +642,8 @@ addMonths(NORTHERN_COLD_REGIONS, "freshwater_lake_pond", [1, 2, 3], {
   base_presentation_style: "subtle",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
+  primary_lure_archetypes: ["tube_jig", "hair_jig"],
+  primary_fly_archetypes: ["sculpin_streamer", "woolly_bugger"],
   viable_lure_archetypes: WINTER_LAKE_LURES,
   viable_fly_archetypes: WINTER_LAKE_FLIES,
 });
@@ -632,6 +653,8 @@ addMonths(NORTHERN_COLD_REGIONS, "freshwater_lake_pond", [4, 5], {
   base_presentation_style: "balanced",
   primary_forage: "crawfish",
   secondary_forage: "baitfish",
+  primary_lure_archetypes: ["tube_jig", "suspending_jerkbait"],
+  primary_fly_archetypes: ["crawfish_streamer", "sculpin_streamer"],
   viable_lure_archetypes: PRESPAWN_LAKE_LURES,
   viable_fly_archetypes: PRESPAWN_LAKE_FLIES,
 });
@@ -641,6 +664,8 @@ addMonths(["midwest_interior"], "freshwater_lake_pond", [4], {
   base_presentation_style: "balanced",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
+  primary_lure_archetypes: ["spinnerbait", "suspending_jerkbait"],
+  primary_fly_archetypes: ["clouser_minnow", "woolly_bugger"],
   viable_lure_archetypes: MIDWEST_DIRTY_PRESPAWN_LAKE_LURES,
   viable_fly_archetypes: MIDWEST_DIRTY_PRESPAWN_LAKE_FLIES,
 });
@@ -650,6 +675,8 @@ addMonths(NORTHERN_COLD_REGIONS, "freshwater_lake_pond", [6], {
   base_presentation_style: "balanced",
   primary_forage: "crawfish",
   secondary_forage: "baitfish",
+  primary_lure_archetypes: ["tube_jig", "ned_rig"],
+  primary_fly_archetypes: ["crawfish_streamer", "woolly_bugger"],
   viable_lure_archetypes: SPAWN_LAKE_LURES,
   viable_fly_archetypes: SPAWN_LAKE_FLIES,
 });
@@ -659,6 +686,8 @@ addMonths(["great_lakes_upper_midwest"], "freshwater_lake_pond", [6], {
   base_presentation_style: "balanced",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
+  primary_lure_archetypes: ["soft_jerkbait", "paddle_tail_swimbait"],
+  primary_fly_archetypes: ["clouser_minnow", "game_changer"],
   viable_lure_archetypes: GREAT_LAKES_POSTSPAWN_LAKE_LURES,
   viable_fly_archetypes: GREAT_LAKES_POSTSPAWN_LAKE_FLIES,
 });
@@ -668,6 +697,8 @@ addMonths(["great_lakes_upper_midwest"], "freshwater_lake_pond", [7], {
   base_presentation_style: "subtle",
   primary_forage: "crawfish",
   secondary_forage: "baitfish",
+  primary_lure_archetypes: ["hair_jig", "tube_jig"],
+  primary_fly_archetypes: ["clouser_minnow", "woolly_bugger"],
   viable_lure_archetypes: GREAT_LAKES_CLEAR_SUMMER_LAKE_LURES,
   viable_fly_archetypes: GREAT_LAKES_CLEAR_SUMMER_LAKE_FLIES,
 });
@@ -677,6 +708,8 @@ addMonths(NORTHERN_COLD_REGIONS, "freshwater_lake_pond", [7], {
   base_presentation_style: "balanced",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
+  primary_lure_archetypes: ["tube_jig", "soft_jerkbait"],
+  primary_fly_archetypes: ["clouser_minnow", "game_changer"],
   viable_lure_archetypes: POSTSPAWN_LAKE_LURES,
   viable_fly_archetypes: POSTSPAWN_LAKE_FLIES,
 });
@@ -686,6 +719,8 @@ addMonths(NORTHERN_COLD_REGIONS, "freshwater_lake_pond", [8], {
   base_presentation_style: "balanced",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
+  primary_lure_archetypes: ["walking_topwater", "tube_jig"],
+  primary_fly_archetypes: ["popper_fly", "clouser_minnow"],
   viable_lure_archetypes: SUMMER_LAKE_LURES,
   viable_fly_archetypes: SUMMER_LAKE_FLIES,
 });
@@ -695,6 +730,8 @@ addMonths(["midwest_interior"], "freshwater_lake_pond", [6], {
   base_presentation_style: "bold",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
+  primary_lure_archetypes: ["spinnerbait", "paddle_tail_swimbait"],
+  primary_fly_archetypes: ["clouser_minnow", "game_changer"],
   viable_lure_archetypes: MIDWEST_DIRTY_SUMMER_LAKE_LURES,
   viable_fly_archetypes: MIDWEST_DIRTY_SUMMER_LAKE_FLIES,
 });
@@ -704,6 +741,8 @@ addMonths(["great_lakes_upper_midwest"], "freshwater_lake_pond", [8], {
   base_presentation_style: "subtle",
   primary_forage: "crawfish",
   secondary_forage: "baitfish",
+  primary_lure_archetypes: ["hair_jig", "tube_jig"],
+  primary_fly_archetypes: ["clouser_minnow", "woolly_bugger"],
   viable_lure_archetypes: GREAT_LAKES_CLEAR_SUMMER_LAKE_LURES,
   viable_fly_archetypes: GREAT_LAKES_CLEAR_SUMMER_LAKE_FLIES,
 });
@@ -713,6 +752,8 @@ addMonths(NORTHERN_COLD_REGIONS, "freshwater_lake_pond", [9, 10], {
   base_presentation_style: "balanced",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
+  primary_lure_archetypes: ["suspending_jerkbait", "paddle_tail_swimbait"],
+  primary_fly_archetypes: ["clouser_minnow", "slim_minnow_streamer"],
   viable_lure_archetypes: FALL_LAKE_LURES,
   viable_fly_archetypes: FALL_LAKE_FLIES,
 });
@@ -722,6 +763,8 @@ addMonths(NORTHERN_COLD_REGIONS, "freshwater_lake_pond", [11, 12], {
   base_presentation_style: "subtle",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
+  primary_lure_archetypes: ["tube_jig", "hair_jig"],
+  primary_fly_archetypes: ["sculpin_streamer", "woolly_bugger"],
   viable_lure_archetypes: WINTER_LAKE_LURES,
   viable_fly_archetypes: WINTER_LAKE_FLIES,
 });
@@ -731,6 +774,8 @@ addMonths(["great_lakes_upper_midwest"], "freshwater_lake_pond", [11], {
   base_presentation_style: "balanced",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
+  primary_lure_archetypes: ["suspending_jerkbait", "blade_bait"],
+  primary_fly_archetypes: ["clouser_minnow", "slim_minnow_streamer"],
   viable_lure_archetypes: GREAT_LAKES_LATEFALL_LAKE_LURES,
   viable_fly_archetypes: GREAT_LAKES_LATEFALL_LAKE_FLIES,
 });
@@ -742,6 +787,8 @@ addMonths(WESTERN_MIXED_REGIONS, "freshwater_lake_pond", [1, 2], {
   base_presentation_style: "subtle",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
+  primary_lure_archetypes: ["tube_jig", "hair_jig"],
+  primary_fly_archetypes: ["sculpin_streamer", "woolly_bugger"],
   viable_lure_archetypes: WINTER_LAKE_LURES,
   viable_fly_archetypes: WINTER_LAKE_FLIES,
 });
@@ -751,6 +798,8 @@ addMonths(WESTERN_MIXED_REGIONS, "freshwater_lake_pond", [3, 4], {
   base_presentation_style: "balanced",
   primary_forage: "crawfish",
   secondary_forage: "baitfish",
+  primary_lure_archetypes: ["tube_jig", "suspending_jerkbait"],
+  primary_fly_archetypes: ["crawfish_streamer", "sculpin_streamer"],
   viable_lure_archetypes: PRESPAWN_LAKE_LURES,
   viable_fly_archetypes: PRESPAWN_LAKE_FLIES,
 });
@@ -760,6 +809,8 @@ addMonths(WESTERN_MIXED_REGIONS, "freshwater_lake_pond", [5], {
   base_presentation_style: "balanced",
   primary_forage: "crawfish",
   secondary_forage: "baitfish",
+  primary_lure_archetypes: ["tube_jig", "ned_rig"],
+  primary_fly_archetypes: ["crawfish_streamer", "woolly_bugger"],
   viable_lure_archetypes: SPAWN_LAKE_LURES,
   viable_fly_archetypes: SPAWN_LAKE_FLIES,
 });
@@ -769,6 +820,8 @@ addMonths(WESTERN_MIXED_REGIONS, "freshwater_lake_pond", [6], {
   base_presentation_style: "balanced",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
+  primary_lure_archetypes: ["tube_jig", "soft_jerkbait"],
+  primary_fly_archetypes: ["clouser_minnow", "game_changer"],
   viable_lure_archetypes: POSTSPAWN_LAKE_LURES,
   viable_fly_archetypes: POSTSPAWN_LAKE_FLIES,
 });
@@ -778,6 +831,8 @@ addMonths(WESTERN_MIXED_REGIONS, "freshwater_lake_pond", [7, 8, 9], {
   base_presentation_style: "balanced",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
+  primary_lure_archetypes: ["walking_topwater", "tube_jig"],
+  primary_fly_archetypes: ["popper_fly", "clouser_minnow"],
   viable_lure_archetypes: SUMMER_LAKE_LURES,
   viable_fly_archetypes: SUMMER_LAKE_FLIES,
 });
@@ -787,6 +842,8 @@ addMonths(WESTERN_MIXED_REGIONS, "freshwater_lake_pond", [10, 11], {
   base_presentation_style: "balanced",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
+  primary_lure_archetypes: ["suspending_jerkbait", "paddle_tail_swimbait"],
+  primary_fly_archetypes: ["clouser_minnow", "slim_minnow_streamer"],
   viable_lure_archetypes: FALL_LAKE_LURES,
   viable_fly_archetypes: FALL_LAKE_FLIES,
 });
@@ -796,6 +853,8 @@ addMonths(WESTERN_MIXED_REGIONS, "freshwater_lake_pond", [12], {
   base_presentation_style: "subtle",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
+  primary_lure_archetypes: ["tube_jig", "hair_jig"],
+  primary_fly_archetypes: ["sculpin_streamer", "woolly_bugger"],
   viable_lure_archetypes: WINTER_LAKE_LURES,
   viable_fly_archetypes: WINTER_LAKE_FLIES,
 });
@@ -807,6 +866,8 @@ addMonths(WARM_WESTERN_REGIONS, "freshwater_lake_pond", [1, 2], {
   base_presentation_style: "subtle",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
+  primary_lure_archetypes: ["tube_jig", "hair_jig"],
+  primary_fly_archetypes: ["sculpin_streamer", "woolly_bugger"],
   viable_lure_archetypes: WINTER_LAKE_LURES,
   viable_fly_archetypes: WINTER_LAKE_FLIES,
 });
@@ -816,6 +877,8 @@ addMonths(WARM_WESTERN_REGIONS, "freshwater_lake_pond", [3, 4], {
   base_presentation_style: "balanced",
   primary_forage: "crawfish",
   secondary_forage: "baitfish",
+  primary_lure_archetypes: ["tube_jig", "suspending_jerkbait"],
+  primary_fly_archetypes: ["crawfish_streamer", "sculpin_streamer"],
   viable_lure_archetypes: PRESPAWN_LAKE_LURES,
   viable_fly_archetypes: PRESPAWN_LAKE_FLIES,
 });
@@ -825,6 +888,8 @@ addMonths(WARM_WESTERN_REGIONS, "freshwater_lake_pond", [5], {
   base_presentation_style: "balanced",
   primary_forage: "crawfish",
   secondary_forage: "baitfish",
+  primary_lure_archetypes: ["tube_jig", "ned_rig"],
+  primary_fly_archetypes: ["crawfish_streamer", "woolly_bugger"],
   viable_lure_archetypes: SPAWN_LAKE_LURES,
   viable_fly_archetypes: SPAWN_LAKE_FLIES,
 });
@@ -834,6 +899,8 @@ addMonths(WARM_WESTERN_REGIONS, "freshwater_lake_pond", [6], {
   base_presentation_style: "balanced",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
+  primary_lure_archetypes: ["tube_jig", "soft_jerkbait"],
+  primary_fly_archetypes: ["clouser_minnow", "game_changer"],
   viable_lure_archetypes: POSTSPAWN_LAKE_LURES,
   viable_fly_archetypes: POSTSPAWN_LAKE_FLIES,
 });
@@ -843,6 +910,8 @@ addMonths(WARM_WESTERN_REGIONS, "freshwater_lake_pond", [7, 8, 9], {
   base_presentation_style: "balanced",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
+  primary_lure_archetypes: ["walking_topwater", "tube_jig"],
+  primary_fly_archetypes: ["popper_fly", "clouser_minnow"],
   viable_lure_archetypes: SUMMER_LAKE_LURES,
   viable_fly_archetypes: SUMMER_LAKE_FLIES,
 });
@@ -852,6 +921,8 @@ addMonths(WARM_WESTERN_REGIONS, "freshwater_lake_pond", [10, 11], {
   base_presentation_style: "balanced",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
+  primary_lure_archetypes: ["suspending_jerkbait", "paddle_tail_swimbait"],
+  primary_fly_archetypes: ["clouser_minnow", "slim_minnow_streamer"],
   viable_lure_archetypes: FALL_LAKE_LURES,
   viable_fly_archetypes: FALL_LAKE_FLIES,
 });
@@ -861,6 +932,8 @@ addMonths(WARM_WESTERN_REGIONS, "freshwater_lake_pond", [12], {
   base_presentation_style: "subtle",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
+  primary_lure_archetypes: ["tube_jig", "hair_jig"],
+  primary_fly_archetypes: ["sculpin_streamer", "woolly_bugger"],
   viable_lure_archetypes: WINTER_LAKE_LURES,
   viable_fly_archetypes: WINTER_LAKE_FLIES,
 });
@@ -872,6 +945,8 @@ addMonths(WARM_HIGHLAND_REGIONS, "freshwater_river", [1, 2], {
   base_presentation_style: "subtle",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
+  primary_lure_archetypes: ["tube_jig", "hair_jig"],
+  primary_fly_archetypes: ["sculpin_streamer", "woolly_bugger"],
   viable_lure_archetypes: WINTER_RIVER_LURES,
   viable_fly_archetypes: WINTER_RIVER_FLIES,
 });
@@ -881,6 +956,8 @@ addMonths(WARM_HIGHLAND_REGIONS, "freshwater_river", [3, 4], {
   base_presentation_style: "balanced",
   primary_forage: "crawfish",
   secondary_forage: "baitfish",
+  primary_lure_archetypes: ["tube_jig", "spinnerbait"],
+  primary_fly_archetypes: ["clouser_minnow", "crawfish_streamer"],
   viable_lure_archetypes: SPRING_RIVER_LURES,
   viable_fly_archetypes: SPRING_RIVER_FLIES,
 });
@@ -890,6 +967,8 @@ addMonths(WARM_HIGHLAND_REGIONS, "freshwater_river", [5], {
   base_presentation_style: "balanced",
   primary_forage: "crawfish",
   secondary_forage: "baitfish",
+  primary_lure_archetypes: ["tube_jig", "spinnerbait"],
+  primary_fly_archetypes: ["clouser_minnow", "crawfish_streamer"],
   viable_lure_archetypes: SPRING_RIVER_LURES,
   viable_fly_archetypes: SPRING_RIVER_FLIES,
 });
@@ -899,6 +978,8 @@ addMonths(WARM_HIGHLAND_REGIONS, "freshwater_river", [6, 7, 8, 9], {
   base_presentation_style: "balanced",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
+  primary_lure_archetypes: ["walking_topwater", "inline_spinner"],
+  primary_fly_archetypes: ["popper_fly", "clouser_minnow"],
   viable_lure_archetypes: SUMMER_RIVER_LURES,
   viable_fly_archetypes: SUMMER_RIVER_FLIES,
 });
@@ -908,6 +989,8 @@ addMonths(["south_central"], "freshwater_river", [9], {
   base_presentation_style: "balanced",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
+  primary_lure_archetypes: ["suspending_jerkbait", "spinnerbait"],
+  primary_fly_archetypes: ["clouser_minnow", "slim_minnow_streamer"],
   viable_lure_archetypes: SOUTH_CENTRAL_EARLYFALL_RIVER_LURES,
   viable_fly_archetypes: SOUTH_CENTRAL_EARLYFALL_RIVER_FLIES,
 });
@@ -917,6 +1000,8 @@ addMonths(WARM_HIGHLAND_REGIONS, "freshwater_river", [10, 11], {
   base_presentation_style: "balanced",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
+  primary_lure_archetypes: ["suspending_jerkbait", "spinnerbait"],
+  primary_fly_archetypes: ["clouser_minnow", "slim_minnow_streamer"],
   viable_lure_archetypes: FALL_RIVER_LURES,
   viable_fly_archetypes: FALL_RIVER_FLIES,
 });
@@ -926,6 +1011,8 @@ addMonths(["south_central"], "freshwater_river", [11], {
   base_presentation_style: "balanced",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
+  primary_lure_archetypes: ["blade_bait", "suspending_jerkbait"],
+  primary_fly_archetypes: ["slim_minnow_streamer", "woolly_bugger"],
   viable_lure_archetypes: SOUTH_CENTRAL_LATEFALL_RIVER_LURES,
   viable_fly_archetypes: SOUTH_CENTRAL_LATEFALL_RIVER_FLIES,
 });
@@ -935,6 +1022,8 @@ addMonths(WARM_HIGHLAND_REGIONS, "freshwater_river", [12], {
   base_presentation_style: "subtle",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
+  primary_lure_archetypes: ["tube_jig", "hair_jig"],
+  primary_fly_archetypes: ["sculpin_streamer", "woolly_bugger"],
   viable_lure_archetypes: WINTER_RIVER_LURES,
   viable_fly_archetypes: WINTER_RIVER_FLIES,
 });
@@ -946,6 +1035,8 @@ addMonths(NORTHERN_COLD_REGIONS, "freshwater_river", [1, 2, 3], {
   base_presentation_style: "subtle",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
+  primary_lure_archetypes: ["tube_jig", "hair_jig"],
+  primary_fly_archetypes: ["sculpin_streamer", "woolly_bugger"],
   viable_lure_archetypes: WINTER_RIVER_LURES,
   viable_fly_archetypes: WINTER_RIVER_FLIES,
 });
@@ -955,6 +1046,8 @@ addMonths(NORTHERN_COLD_REGIONS, "freshwater_river", [4, 5], {
   base_presentation_style: "balanced",
   primary_forage: "crawfish",
   secondary_forage: "baitfish",
+  primary_lure_archetypes: ["tube_jig", "spinnerbait"],
+  primary_fly_archetypes: ["clouser_minnow", "crawfish_streamer"],
   viable_lure_archetypes: SPRING_RIVER_LURES,
   viable_fly_archetypes: SPRING_RIVER_FLIES,
 });
@@ -964,6 +1057,8 @@ addMonths(NORTHERN_COLD_REGIONS, "freshwater_river", [6], {
   base_presentation_style: "balanced",
   primary_forage: "crawfish",
   secondary_forage: "baitfish",
+  primary_lure_archetypes: ["tube_jig", "spinnerbait"],
+  primary_fly_archetypes: ["clouser_minnow", "crawfish_streamer"],
   viable_lure_archetypes: SPRING_RIVER_LURES,
   viable_fly_archetypes: SPRING_RIVER_FLIES,
 });
@@ -973,6 +1068,8 @@ addMonths(NORTHERN_COLD_REGIONS, "freshwater_river", [7, 8], {
   base_presentation_style: "balanced",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
+  primary_lure_archetypes: ["walking_topwater", "inline_spinner"],
+  primary_fly_archetypes: ["popper_fly", "clouser_minnow"],
   viable_lure_archetypes: SUMMER_RIVER_LURES,
   viable_fly_archetypes: SUMMER_RIVER_FLIES,
 });
@@ -982,6 +1079,8 @@ addMonths(["great_lakes_upper_midwest"], "freshwater_river", [7, 8], {
   base_presentation_style: "subtle",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
+  primary_lure_archetypes: ["tube_jig", "suspending_jerkbait"],
+  primary_fly_archetypes: ["clouser_minnow", "muddler_sculpin"],
   viable_lure_archetypes: GREAT_LAKES_CLEAR_SUMMER_RIVER_LURES,
   viable_fly_archetypes: GREAT_LAKES_CLEAR_SUMMER_RIVER_FLIES,
 });
@@ -991,6 +1090,8 @@ addMonths(["northeast"], "freshwater_river", [6], {
   base_presentation_style: "bold",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
+  primary_lure_archetypes: ["walking_topwater", "inline_spinner"],
+  primary_fly_archetypes: ["popper_fly", "clouser_minnow"],
   viable_lure_archetypes: NORTHEAST_SUMMER_RIVER_LURES,
   viable_fly_archetypes: NORTHEAST_SUMMER_RIVER_FLIES,
 });
@@ -1000,6 +1101,8 @@ addMonths(NORTHERN_COLD_REGIONS, "freshwater_river", [9, 10], {
   base_presentation_style: "balanced",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
+  primary_lure_archetypes: ["suspending_jerkbait", "spinnerbait"],
+  primary_fly_archetypes: ["clouser_minnow", "slim_minnow_streamer"],
   viable_lure_archetypes: FALL_RIVER_LURES,
   viable_fly_archetypes: FALL_RIVER_FLIES,
 });
@@ -1009,6 +1112,8 @@ addMonths(NORTHERN_COLD_REGIONS, "freshwater_river", [11, 12], {
   base_presentation_style: "subtle",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
+  primary_lure_archetypes: ["tube_jig", "hair_jig"],
+  primary_fly_archetypes: ["sculpin_streamer", "woolly_bugger"],
   viable_lure_archetypes: WINTER_RIVER_LURES,
   viable_fly_archetypes: WINTER_RIVER_FLIES,
 });
@@ -1018,6 +1123,8 @@ addMonths(["northeast"], "freshwater_river", [11], {
   base_presentation_style: "balanced",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
+  primary_lure_archetypes: ["suspending_jerkbait", "blade_bait"],
+  primary_fly_archetypes: ["slim_minnow_streamer", "clouser_minnow"],
   viable_lure_archetypes: NORTHEAST_LATEFALL_RIVER_LURES,
   viable_fly_archetypes: NORTHEAST_LATEFALL_RIVER_FLIES,
 });
@@ -1027,6 +1134,8 @@ addMonths(["midwest_interior"], "freshwater_river", [11], {
   base_presentation_style: "balanced",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
+  primary_lure_archetypes: ["blade_bait", "suspending_jerkbait"],
+  primary_fly_archetypes: ["slim_minnow_streamer", "clouser_minnow"],
   viable_lure_archetypes: MIDWEST_LATEFALL_RIVER_LURES,
   viable_fly_archetypes: MIDWEST_LATEFALL_RIVER_FLIES,
 });
@@ -1038,6 +1147,8 @@ addMonths(WESTERN_MIXED_REGIONS, "freshwater_river", [1, 2], {
   base_presentation_style: "subtle",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
+  primary_lure_archetypes: ["tube_jig", "hair_jig"],
+  primary_fly_archetypes: ["sculpin_streamer", "woolly_bugger"],
   viable_lure_archetypes: WINTER_RIVER_LURES,
   viable_fly_archetypes: WINTER_RIVER_FLIES,
 });
@@ -1047,6 +1158,8 @@ addMonths(WESTERN_MIXED_REGIONS, "freshwater_river", [3, 4], {
   base_presentation_style: "balanced",
   primary_forage: "crawfish",
   secondary_forage: "baitfish",
+  primary_lure_archetypes: ["tube_jig", "spinnerbait"],
+  primary_fly_archetypes: ["clouser_minnow", "crawfish_streamer"],
   viable_lure_archetypes: SPRING_RIVER_LURES,
   viable_fly_archetypes: SPRING_RIVER_FLIES,
 });
@@ -1056,6 +1169,8 @@ addMonths(WESTERN_MIXED_REGIONS, "freshwater_river", [5], {
   base_presentation_style: "balanced",
   primary_forage: "crawfish",
   secondary_forage: "baitfish",
+  primary_lure_archetypes: ["tube_jig", "spinnerbait"],
+  primary_fly_archetypes: ["clouser_minnow", "crawfish_streamer"],
   viable_lure_archetypes: SPRING_RIVER_LURES,
   viable_fly_archetypes: SPRING_RIVER_FLIES,
 });
@@ -1065,6 +1180,8 @@ addMonths(WESTERN_MIXED_REGIONS, "freshwater_river", [6, 7, 8, 9], {
   base_presentation_style: "balanced",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
+  primary_lure_archetypes: ["walking_topwater", "inline_spinner"],
+  primary_fly_archetypes: ["popper_fly", "clouser_minnow"],
   viable_lure_archetypes: SUMMER_RIVER_LURES,
   viable_fly_archetypes: SUMMER_RIVER_FLIES,
 });
@@ -1074,6 +1191,8 @@ addMonths(["mountain_west"], "freshwater_river", [6], {
   base_presentation_style: "bold",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
+  primary_lure_archetypes: ["soft_jerkbait", "inline_spinner"],
+  primary_fly_archetypes: ["clouser_minnow", "popper_fly"],
   viable_lure_archetypes: WESTERN_POSTSPAWN_RIVER_LURES,
   viable_fly_archetypes: WESTERN_POSTSPAWN_RIVER_FLIES,
 });
@@ -1083,6 +1202,8 @@ addMonths(["mountain_west"], "freshwater_river", [9], {
   base_presentation_style: "balanced",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
+  primary_lure_archetypes: ["suspending_jerkbait", "inline_spinner"],
+  primary_fly_archetypes: ["clouser_minnow", "slim_minnow_streamer"],
   viable_lure_archetypes: MOUNTAIN_WEST_EARLYFALL_RIVER_LURES,
   viable_fly_archetypes: MOUNTAIN_WEST_EARLYFALL_RIVER_FLIES,
 });
@@ -1092,6 +1213,8 @@ addMonths(["inland_northwest", "pacific_northwest"], "freshwater_river", [7], {
   base_presentation_style: "balanced",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
+  primary_lure_archetypes: ["walking_topwater", "inline_spinner"],
+  primary_fly_archetypes: ["popper_fly", "clouser_minnow"],
   viable_lure_archetypes: NORTHWEST_SUMMER_RIVER_LURES,
   viable_fly_archetypes: NORTHWEST_SUMMER_RIVER_FLIES,
 });
@@ -1101,6 +1224,8 @@ addMonths(["inland_northwest", "pacific_northwest"], "freshwater_river", [9], {
   base_presentation_style: "balanced",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
+  primary_lure_archetypes: ["suspending_jerkbait", "inline_spinner"],
+  primary_fly_archetypes: ["clouser_minnow", "slim_minnow_streamer"],
   viable_lure_archetypes: NORTHWEST_EARLY_FALL_RIVER_LURES,
   viable_fly_archetypes: NORTHWEST_EARLY_FALL_RIVER_FLIES,
 });
@@ -1110,6 +1235,8 @@ addMonths(WESTERN_MIXED_REGIONS, "freshwater_river", [10, 11], {
   base_presentation_style: "balanced",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
+  primary_lure_archetypes: ["suspending_jerkbait", "spinnerbait"],
+  primary_fly_archetypes: ["clouser_minnow", "slim_minnow_streamer"],
   viable_lure_archetypes: FALL_RIVER_LURES,
   viable_fly_archetypes: FALL_RIVER_FLIES,
 });
@@ -1119,6 +1246,8 @@ addMonths(WESTERN_MIXED_REGIONS, "freshwater_river", [12], {
   base_presentation_style: "subtle",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
+  primary_lure_archetypes: ["tube_jig", "hair_jig"],
+  primary_fly_archetypes: ["sculpin_streamer", "woolly_bugger"],
   viable_lure_archetypes: WINTER_RIVER_LURES,
   viable_fly_archetypes: WINTER_RIVER_FLIES,
 });
@@ -1130,6 +1259,8 @@ addMonths(WARM_WESTERN_REGIONS, "freshwater_river", [1, 2], {
   base_presentation_style: "subtle",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
+  primary_lure_archetypes: ["tube_jig", "hair_jig"],
+  primary_fly_archetypes: ["sculpin_streamer", "woolly_bugger"],
   viable_lure_archetypes: WINTER_RIVER_LURES,
   viable_fly_archetypes: WINTER_RIVER_FLIES,
 });
@@ -1139,6 +1270,8 @@ addMonths(WARM_WESTERN_REGIONS, "freshwater_river", [3, 4], {
   base_presentation_style: "balanced",
   primary_forage: "crawfish",
   secondary_forage: "baitfish",
+  primary_lure_archetypes: ["tube_jig", "spinnerbait"],
+  primary_fly_archetypes: ["clouser_minnow", "crawfish_streamer"],
   viable_lure_archetypes: SPRING_RIVER_LURES,
   viable_fly_archetypes: SPRING_RIVER_FLIES,
 });
@@ -1148,6 +1281,8 @@ addMonths(WARM_WESTERN_REGIONS, "freshwater_river", [5], {
   base_presentation_style: "balanced",
   primary_forage: "crawfish",
   secondary_forage: "baitfish",
+  primary_lure_archetypes: ["tube_jig", "spinnerbait"],
+  primary_fly_archetypes: ["clouser_minnow", "crawfish_streamer"],
   viable_lure_archetypes: SPRING_RIVER_LURES,
   viable_fly_archetypes: SPRING_RIVER_FLIES,
 });
@@ -1157,6 +1292,8 @@ addMonths(WARM_WESTERN_REGIONS, "freshwater_river", [6, 7, 8, 9], {
   base_presentation_style: "balanced",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
+  primary_lure_archetypes: ["walking_topwater", "inline_spinner"],
+  primary_fly_archetypes: ["popper_fly", "clouser_minnow"],
   viable_lure_archetypes: SUMMER_RIVER_LURES,
   viable_fly_archetypes: SUMMER_RIVER_FLIES,
 });
@@ -1166,6 +1303,8 @@ addMonths(WARM_WESTERN_REGIONS, "freshwater_river", [10, 11], {
   base_presentation_style: "balanced",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
+  primary_lure_archetypes: ["suspending_jerkbait", "spinnerbait"],
+  primary_fly_archetypes: ["clouser_minnow", "slim_minnow_streamer"],
   viable_lure_archetypes: FALL_RIVER_LURES,
   viable_fly_archetypes: FALL_RIVER_FLIES,
 });
@@ -1175,6 +1314,8 @@ addMonths(WARM_WESTERN_REGIONS, "freshwater_river", [12], {
   base_presentation_style: "subtle",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
+  primary_lure_archetypes: ["tube_jig", "hair_jig"],
+  primary_fly_archetypes: ["sculpin_streamer", "woolly_bugger"],
   viable_lure_archetypes: WINTER_RIVER_LURES,
   viable_fly_archetypes: WINTER_RIVER_FLIES,
 });
@@ -1187,6 +1328,8 @@ addMonths(["great_lakes_upper_midwest"], "freshwater_lake_pond", [7], {
   base_presentation_style: "bold",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
+  primary_lure_archetypes: ["walking_topwater", "paddle_tail_swimbait"],
+  primary_fly_archetypes: ["popper_fly", "clouser_minnow"],
   viable_lure_archetypes: GREAT_LAKES_MIDSUMMER_LAKE_LURES,
   viable_fly_archetypes: GREAT_LAKES_MIDSUMMER_LAKE_FLIES,
 });

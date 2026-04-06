@@ -155,6 +155,7 @@ Deno.test("V3 lockdown keeps bladed jig in a dark stained-water lane when that i
       primary_forage: "baitfish",
     }),
     "stained",
+    null,
   );
 
   assertEquals(result[0]?.id, "bladed_jig");
@@ -170,6 +171,7 @@ Deno.test("V3 lockdown prefers white shad for suspending jerkbaits in stained ti
       primary_forage: "baitfish",
     }),
     "stained",
+    null,
   );
 
   assertEquals(result[0]?.id, "suspending_jerkbait");
@@ -185,6 +187,7 @@ Deno.test("V3 lockdown keeps swim jigs in a shad lane instead of inheriting bott
       primary_forage: "baitfish",
     }),
     "stained",
+    null,
   );
 
   assertEquals(result[0]?.id, "swim_jig");

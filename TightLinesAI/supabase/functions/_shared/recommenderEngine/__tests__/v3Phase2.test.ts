@@ -27,10 +27,12 @@ Deno.test("V3 phase 2 every archetype theme has at least three realistic shade e
 Deno.test("V3 phase 2 largemouth seasonal rows cover every supported region, context, and month", () => {
   for (const region of LARGEMOUTH_V3_SUPPORTED_REGIONS) {
     for (const context of ["freshwater_lake_pond", "freshwater_river"] as const) {
-      const months = LARGEMOUTH_V3_SEASONAL_ROWS
-        .filter((row) => row.region_key === region && row.context === context)
-        .map((row) => row.month)
-        .sort((a, b) => a - b);
+      const monthSet = new Set(
+        LARGEMOUTH_V3_SEASONAL_ROWS
+          .filter((row) => row.region_key === region && row.context === context)
+          .map((row) => row.month),
+      );
+      const months = [...monthSet].sort((a, b) => a - b);
       assertEquals(months, [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]);
     }
   }

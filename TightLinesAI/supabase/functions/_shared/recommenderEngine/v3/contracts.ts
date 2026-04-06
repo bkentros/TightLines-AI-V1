@@ -217,6 +217,8 @@ export type RecommenderV3ArchetypeProfile = {
    */
   allowed_color_themes: readonly ColorThemeIdV3[];
   shade_examples_by_theme: Partial<Record<ColorThemeIdV3, readonly string[]>>;
+  /** Optional per-archetype technique line when tactical_lane defaults are too generic. */
+  how_to_fish_text?: string;
 };
 
 export type RecommenderV3SeasonalRow = {
@@ -229,7 +231,11 @@ export type RecommenderV3SeasonalRow = {
   base_presentation_style: PresentationStyleV3;
   primary_forage: ForageBucketV3;
   secondary_forage?: ForageBucketV3;
+  /** Ordered seasonal priorities: index 0 = top pick (+1.5 baseline), index 1 = strong secondary (+0.75).
+   *  Archetypes not listed get a tier penalty (-0.8). If omitted, all viable archetypes are neutral (no bonus/penalty). */
+  primary_lure_archetypes?: readonly LureArchetypeIdV3[];
   viable_lure_archetypes: readonly LureArchetypeIdV3[];
+  primary_fly_archetypes?: readonly FlyArchetypeIdV3[];
   viable_fly_archetypes: readonly FlyArchetypeIdV3[];
 };
 
@@ -260,7 +266,6 @@ export type RecommenderV3RankedArchetype = {
   forage_bonus: number;
   color_theme: ColorThemeIdV3;
   color_recommendations: [string, string, string];
-  why: string;
   breakdown: RecommenderV3ScoreBreakdown[];
 };
 

@@ -9,28 +9,15 @@ export const RECOMMENDER_FEATURE = "recommender_v3" as const;
 
 // ─── Ranked Family ────────────────────────────────────────────────────────────
 
-export type RankedFamilyScoreBreakdown = {
-  code: string;
-  direction: "bonus" | "penalty";
-  weight: number;
-  detail: string;
-};
-
 export type RankedFamily = {
   family_id: LureFamilyId | FlyFamilyId;
   display_name: string;
-  examples: string[];
-  score: number;
-  score_reasons: string[];
-  score_breakdown?: RankedFamilyScoreBreakdown[];
-  why_picked: string;
-  /** Phase 6 target field: first lane or structure to start on. */
+  /** First lane or structure to start on. */
   where_to_start?: string;
   how_to_fish: string;
-  best_when: string;
   color_guide: string;
-  /** Phase 6 target field: deterministic backup adjustment if fish do not commit. */
-  what_to_adjust_if_ignored?: string;
+  /** Ranks 2–3 only: how this pick differs from #1. */
+  rank_context?: string;
 };
 
 // ─── Confidence ───────────────────────────────────────────────────────────────

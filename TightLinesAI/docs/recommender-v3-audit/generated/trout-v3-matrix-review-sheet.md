@@ -1,6 +1,6 @@
 # Trout V3 Matrix Review Sheet
 
-Generated: 2026-04-04T21:04:57.116Z
+Generated: 2026-04-05T16:22:15.050Z
 Archive bundle generated: 2026-04-04T21:03:35.392Z
 Scenario count: 68
 Contexts: 0 lake/pond, 68 river
@@ -77,19 +77,19 @@ Actual output:
 - Top 1 fly: Woolly Bugger `woolly_bugger` | theme: `dark_contrast` | colors: black, black/olive, black/purple
 - Top 3 flies:
 - Woolly Bugger `woolly_bugger` | theme: `dark_contrast` | colors: black, black/olive, black/purple
+- Zonker Streamer `zonker_streamer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Rabbit-Strip Leech `rabbit_strip_leech` | theme: `dark_contrast` | colors: black, black/purple, black/blue
-- Conehead Bugger / Streamer `conehead_streamer` | theme: `dark_contrast` | colors: black, black/blue, black/purple
 - Color notes:
 - Hair Jig / Marabou Jig: Theme: dark contrast. Try black, brown/black, black/purple.
 - Suspending Jerkbait: Theme: natural baitfish. Try ghost minnow, pro blue, olive shad.
 - Paddle-Tail Swimbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Woolly Bugger: Theme: dark contrast. Try black, black/olive, black/purple.
+- Zonker Streamer: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Rabbit-Strip Leech: Theme: dark contrast. Try black, black/purple, black/blue.
-- Conehead Bugger / Streamer: Theme: dark contrast. Try black, black/blue, black/purple.
 - Daily profile notes:
 - Shared score: 66 (Good)
 - Daily nudges: mood=up_2, water_column=higher_1, presentation=subtler
-- Resolved profile: water_column=mid, mood=active, presentation=subtle
+- Resolved profile: water_column=shallow, mood=active, presentation=subtle
 - Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
 
 Review:
@@ -122,7 +122,7 @@ Review:
 - Engine status: complete
 
 Expected seasonal story:
-- Late-winter and early-spring Appalachian trout should open slim-minnow and spinner lanes carefully without getting loud.
+- Late-winter and early-spring Appalachian trout should open slim-minnow and spinner lanes carefully without getting loud; February bottom-push days surface hair jig in dark leech colors.
 Expected primary lanes:
 - slim_minnow_streamer
 - inline_spinner
@@ -138,9 +138,9 @@ Disallowed lanes:
 - walking_topwater
 - hollow_body_frog
 Expected color themes:
+- dark_contrast
 - natural_baitfish
 - white_shad
-- metal_flash
 
 Archived env summary:
 - Region: south_central
@@ -158,7 +158,7 @@ Actual output:
 - Top 1 lure: Hair Jig / Marabou Jig `hair_jig` | theme: `dark_contrast` | colors: black, brown/black, black/purple
 - Top 3 lures:
 - Hair Jig / Marabou Jig `hair_jig` | theme: `dark_contrast` | colors: black, brown/black, black/purple
-- Blade Bait `blade_bait` | theme: `white_shad` | colors: white, pearl, white/silver
+- Suspending Jerkbait `suspending_jerkbait` | theme: `natural_baitfish` | colors: ghost minnow, pro blue, olive shad
 - Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Top 1 fly: Woolly Bugger `woolly_bugger` | theme: `dark_contrast` | colors: black, black/olive, black/purple
 - Top 3 flies:
@@ -167,7 +167,7 @@ Actual output:
 - Conehead Bugger / Streamer `conehead_streamer` | theme: `dark_contrast` | colors: black, black/blue, black/purple
 - Color notes:
 - Hair Jig / Marabou Jig: Theme: dark contrast. Try black, brown/black, black/purple.
-- Blade Bait: Theme: white shad. Try white, pearl, white/silver.
+- Suspending Jerkbait: Theme: natural baitfish. Try ghost minnow, pro blue, olive shad.
 - Paddle-Tail Swimbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Woolly Bugger: Theme: dark contrast. Try black, black/olive, black/purple.
 - Rabbit-Strip Leech: Theme: dark contrast. Try black, black/purple, black/blue.
@@ -183,7 +183,7 @@ Review:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
-- TOP_COLOR_MISS
+- TOP_COLOR_MATCH:dark_contrast,dark_contrast
 - Top 1 verdict:
 - Top 3 verdict:
 - seasonal_fit:
@@ -208,7 +208,7 @@ Review:
 - Engine status: complete
 
 Expected seasonal story:
-- Late-winter and early-spring Appalachian trout should open slim-minnow and spinner lanes carefully without getting loud.
+- Late-winter and early-spring Appalachian trout should open slim-minnow and spinner lanes carefully without getting loud; February bottom-push days surface hair jig in dark leech colors.
 Expected primary lanes:
 - slim_minnow_streamer
 - inline_spinner
@@ -224,9 +224,9 @@ Disallowed lanes:
 - walking_topwater
 - hollow_body_frog
 Expected color themes:
+- dark_contrast
 - natural_baitfish
 - white_shad
-- metal_flash
 
 Archived env summary:
 - Region: south_central
@@ -245,19 +245,19 @@ Actual output:
 - Top 3 lures:
 - Inline Spinner `inline_spinner` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Suspending Jerkbait `suspending_jerkbait` | theme: `natural_baitfish` | colors: ghost minnow, pro blue, olive shad
-- Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Top 1 fly: Clouser Minnow `clouser_minnow` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Top 1 fly: Woolly Bugger `woolly_bugger` | theme: `natural_baitfish` | colors: olive, white/olive, gray/white
 - Top 3 flies:
-- Clouser Minnow `clouser_minnow` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Woolly Bugger `woolly_bugger` | theme: `natural_baitfish` | colors: olive, white/olive, gray/white
 - Slim Minnow Streamer `slim_minnow_streamer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Clouser Minnow `clouser_minnow` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Color notes:
 - Inline Spinner: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Suspending Jerkbait: Theme: natural baitfish. Try ghost minnow, pro blue, olive shad.
-- Hair Jig / Marabou Jig: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Clouser Minnow: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Paddle-Tail Swimbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Woolly Bugger: Theme: natural baitfish. Try olive, white/olive, gray/white.
 - Slim Minnow Streamer: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Clouser Minnow: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Daily profile notes:
 - Shared score: 50 (Fair)
 - Daily nudges: mood=up_1, water_column=higher_1, presentation=bolder
@@ -327,22 +327,22 @@ Archived env summary:
 - Sunrise/sunset: 06:57 / 20:09
 
 Actual output:
-- Top 1 lure: Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Top 1 lure: Suspending Jerkbait `suspending_jerkbait` | theme: `natural_baitfish` | colors: ghost minnow, pro blue, olive shad
 - Top 3 lures:
-- Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Suspending Jerkbait `suspending_jerkbait` | theme: `natural_baitfish` | colors: ghost minnow, pro blue, olive shad
 - Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Top 1 fly: Clouser Minnow `clouser_minnow` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Soft Jerkbait `soft_jerkbait` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Top 1 fly: Woolly Bugger `woolly_bugger` | theme: `natural_baitfish` | colors: olive, white/olive, gray/white
 - Top 3 flies:
-- Clouser Minnow `clouser_minnow` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Woolly Bugger `woolly_bugger` | theme: `natural_baitfish` | colors: olive, white/olive, gray/white
+- Clouser Minnow `clouser_minnow` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Slim Minnow Streamer `slim_minnow_streamer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Color notes:
-- Hair Jig / Marabou Jig: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Suspending Jerkbait: Theme: natural baitfish. Try ghost minnow, pro blue, olive shad.
 - Paddle-Tail Swimbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Clouser Minnow: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Soft Jerkbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Woolly Bugger: Theme: natural baitfish. Try olive, white/olive, gray/white.
+- Clouser Minnow: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Slim Minnow Streamer: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Daily profile notes:
 - Shared score: 50 (Fair)
@@ -352,7 +352,7 @@ Actual output:
 
 Review:
 - Precheck flags:
-- TOP1_PRIMARY_MISS
+- TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
 - TOP_COLOR_MATCH:natural_baitfish,natural_baitfish
@@ -417,19 +417,19 @@ Actual output:
 - Top 3 lures:
 - Inline Spinner `inline_spinner` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Suspending Jerkbait `suspending_jerkbait` | theme: `natural_baitfish` | colors: ghost minnow, pro blue, olive shad
-- Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Top 1 fly: Clouser Minnow `clouser_minnow` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Top 1 fly: Woolly Bugger `woolly_bugger` | theme: `natural_baitfish` | colors: olive, white/olive, gray/white
 - Top 3 flies:
-- Clouser Minnow `clouser_minnow` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Woolly Bugger `woolly_bugger` | theme: `natural_baitfish` | colors: olive, white/olive, gray/white
 - Slim Minnow Streamer `slim_minnow_streamer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Clouser Minnow `clouser_minnow` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Color notes:
 - Inline Spinner: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Suspending Jerkbait: Theme: natural baitfish. Try ghost minnow, pro blue, olive shad.
-- Hair Jig / Marabou Jig: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Clouser Minnow: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Paddle-Tail Swimbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Woolly Bugger: Theme: natural baitfish. Try olive, white/olive, gray/white.
 - Slim Minnow Streamer: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Clouser Minnow: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Daily profile notes:
 - Shared score: 53 (Fair)
 - Daily nudges: mood=up_2, water_column=higher_1, presentation=bolder
@@ -498,23 +498,23 @@ Archived env summary:
 - Sunrise/sunset: 06:17 / 20:53
 
 Actual output:
-- Top 1 lure: Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Top 1 lure: Inline Spinner `inline_spinner` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Top 3 lures:
-- Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Inline Spinner `inline_spinner` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Casting Spoon `casting_spoon` | theme: `white_shad` | colors: white, pearl, white/silver
-- Top 1 fly: Clouser Minnow `clouser_minnow` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Top 1 fly: Woolly Bugger `woolly_bugger` | theme: `natural_baitfish` | colors: olive, white/olive, gray/white
 - Top 3 flies:
-- Clouser Minnow `clouser_minnow` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Woolly Bugger `woolly_bugger` | theme: `natural_baitfish` | colors: olive, white/olive, gray/white
 - Slim Minnow Streamer `slim_minnow_streamer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Muddler-Style Sculpin `muddler_sculpin` | theme: `natural_baitfish` | colors: natural, olive, tan/olive
 - Color notes:
-- Hair Jig / Marabou Jig: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Inline Spinner: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Casting Spoon: Theme: white shad. Try white, pearl, white/silver.
-- Clouser Minnow: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Paddle-Tail Swimbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Woolly Bugger: Theme: natural baitfish. Try olive, white/olive, gray/white.
 - Slim Minnow Streamer: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Muddler-Style Sculpin: Theme: natural baitfish. Try natural, olive, tan/olive.
 - Daily profile notes:
 - Shared score: 53 (Fair)
 - Daily nudges: mood=up_1, water_column=lower_1, presentation=neutral
@@ -523,7 +523,7 @@ Actual output:
 
 Review:
 - Precheck flags:
-- TOP1_PRIMARY_MISS
+- TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
 - TOP_COLOR_MATCH:natural_baitfish,natural_baitfish
@@ -758,18 +758,18 @@ Actual output:
 - Suspending Jerkbait `suspending_jerkbait` | theme: `natural_baitfish` | colors: ghost minnow, pro blue, olive shad
 - Inline Spinner `inline_spinner` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Top 1 fly: Articulated Baitfish Streamer `articulated_baitfish_streamer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Top 1 fly: Articulated Baitfish Streamer `articulated_baitfish_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
 - Top 3 flies:
-- Articulated Baitfish Streamer `articulated_baitfish_streamer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Articulated Baitfish Streamer `articulated_baitfish_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
 - Topwater Mouse Fly `mouse_fly` | theme: `mouse_natural` | colors: gray mouse, brown mouse, black mouse
-- Game Changer `game_changer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Game Changer `game_changer` | theme: `white_shad` | colors: white, pearl, white/silver
 - Color notes:
 - Suspending Jerkbait: Theme: natural baitfish. Try ghost minnow, pro blue, olive shad.
 - Inline Spinner: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Hair Jig / Marabou Jig: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Articulated Baitfish Streamer: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Articulated Baitfish Streamer: Theme: white shad. Try white, pearl, white/silver.
 - Topwater Mouse Fly: Theme: mouse natural. Try gray mouse, brown mouse, black mouse.
-- Game Changer: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Game Changer: Theme: white shad. Try white, pearl, white/silver.
 - Daily profile notes:
 - Shared score: 65 (Good)
 - Daily nudges: mood=up_2, water_column=higher_1, presentation=neutral
@@ -781,7 +781,7 @@ Review:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
-- TOP_COLOR_MATCH:natural_baitfish,natural_baitfish
+- TOP_COLOR_MATCH:natural_baitfish,white_shad
 - Top 1 verdict:
 - Top 3 verdict:
 - seasonal_fit:
@@ -847,14 +847,14 @@ Actual output:
 - Top 3 flies:
 - Slim Minnow Streamer `slim_minnow_streamer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Topwater Mouse Fly `mouse_fly` | theme: `mouse_natural` | colors: gray mouse, brown mouse, black mouse
-- Articulated Baitfish Streamer `articulated_baitfish_streamer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Articulated Baitfish Streamer `articulated_baitfish_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
 - Color notes:
 - Suspending Jerkbait: Theme: natural baitfish. Try ghost minnow, pro blue, olive shad.
 - Paddle-Tail Swimbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Hair Jig / Marabou Jig: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Slim Minnow Streamer: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Topwater Mouse Fly: Theme: mouse natural. Try gray mouse, brown mouse, black mouse.
-- Articulated Baitfish Streamer: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Articulated Baitfish Streamer: Theme: white shad. Try white, pearl, white/silver.
 - Daily profile notes:
 - Shared score: 77 (Good)
 - Daily nudges: mood=up_2, water_column=higher_1, presentation=subtler
@@ -928,17 +928,17 @@ Actual output:
 - Suspending Jerkbait `suspending_jerkbait` | theme: `natural_baitfish` | colors: ghost minnow, pro blue, olive shad
 - Inline Spinner `inline_spinner` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Top 1 fly: Articulated Baitfish Streamer `articulated_baitfish_streamer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Top 1 fly: Articulated Baitfish Streamer `articulated_baitfish_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
 - Top 3 flies:
-- Articulated Baitfish Streamer `articulated_baitfish_streamer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Game Changer `game_changer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Articulated Baitfish Streamer `articulated_baitfish_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Game Changer `game_changer` | theme: `white_shad` | colors: white, pearl, white/silver
 - Slim Minnow Streamer `slim_minnow_streamer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Color notes:
 - Suspending Jerkbait: Theme: natural baitfish. Try ghost minnow, pro blue, olive shad.
 - Inline Spinner: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Hair Jig / Marabou Jig: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Articulated Baitfish Streamer: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Game Changer: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Articulated Baitfish Streamer: Theme: white shad. Try white, pearl, white/silver.
+- Game Changer: Theme: white shad. Try white, pearl, white/silver.
 - Slim Minnow Streamer: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Daily profile notes:
 - Shared score: 46 (Fair)
@@ -951,7 +951,7 @@ Review:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
-- TOP_COLOR_MATCH:natural_baitfish,natural_baitfish
+- TOP_COLOR_MATCH:natural_baitfish,white_shad
 - Top 1 verdict:
 - Top 3 verdict:
 - seasonal_fit:
@@ -1017,19 +1017,19 @@ Actual output:
 - Top 1 fly: Woolly Bugger `woolly_bugger` | theme: `dark_contrast` | colors: black, black/olive, black/purple
 - Top 3 flies:
 - Woolly Bugger `woolly_bugger` | theme: `dark_contrast` | colors: black, black/olive, black/purple
+- Zonker Streamer `zonker_streamer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Rabbit-Strip Leech `rabbit_strip_leech` | theme: `dark_contrast` | colors: black, black/purple, black/blue
-- Conehead Bugger / Streamer `conehead_streamer` | theme: `dark_contrast` | colors: black, black/blue, black/purple
 - Color notes:
 - Hair Jig / Marabou Jig: Theme: dark contrast. Try black, brown/black, black/purple.
 - Suspending Jerkbait: Theme: natural baitfish. Try ghost minnow, pro blue, olive shad.
 - Paddle-Tail Swimbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Woolly Bugger: Theme: dark contrast. Try black, black/olive, black/purple.
+- Zonker Streamer: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Rabbit-Strip Leech: Theme: dark contrast. Try black, black/purple, black/blue.
-- Conehead Bugger / Streamer: Theme: dark contrast. Try black, black/blue, black/purple.
 - Daily profile notes:
 - Shared score: 75 (Good)
 - Daily nudges: mood=up_2, water_column=higher_1, presentation=bolder
-- Resolved profile: water_column=mid, mood=active, presentation=subtle
+- Resolved profile: water_column=shallow, mood=active, presentation=subtle
 - Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
 
 Review:
@@ -1098,7 +1098,7 @@ Actual output:
 - Top 1 lure: Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Top 3 lures:
 - Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Blade Bait `blade_bait` | theme: `white_shad` | colors: white, pearl, white/silver
+- Suspending Jerkbait `suspending_jerkbait` | theme: `natural_baitfish` | colors: ghost minnow, pro blue, olive shad
 - Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Top 1 fly: Sculpin Streamer `sculpin_streamer` | theme: `natural_baitfish` | colors: olive, sculpin olive, tan/olive
 - Top 3 flies:
@@ -1107,7 +1107,7 @@ Actual output:
 - Rabbit-Strip Leech `rabbit_strip_leech` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Color notes:
 - Hair Jig / Marabou Jig: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Blade Bait: Theme: white shad. Try white, pearl, white/silver.
+- Suspending Jerkbait: Theme: natural baitfish. Try ghost minnow, pro blue, olive shad.
 - Paddle-Tail Swimbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Sculpin Streamer: Theme: natural baitfish. Try olive, sculpin olive, tan/olive.
 - Woolly Bugger: Theme: natural baitfish. Try olive, white/olive, gray/white.
@@ -1181,32 +1181,32 @@ Archived env summary:
 - Sunrise/sunset: 06:57 / 17:49
 
 Actual output:
-- Top 1 lure: Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Top 1 lure: Suspending Jerkbait `suspending_jerkbait` | theme: `natural_baitfish` | colors: ghost minnow, pro blue, olive shad
 - Top 3 lures:
-- Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Suspending Jerkbait `suspending_jerkbait` | theme: `natural_baitfish` | colors: ghost minnow, pro blue, olive shad
+- Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Top 1 fly: Sculpin Streamer `sculpin_streamer` | theme: `natural_baitfish` | colors: olive, sculpin olive, tan/olive
+- Top 1 fly: Woolly Bugger `woolly_bugger` | theme: `natural_baitfish` | colors: olive, white/olive, gray/white
 - Top 3 flies:
-- Sculpin Streamer `sculpin_streamer` | theme: `natural_baitfish` | colors: olive, sculpin olive, tan/olive
 - Woolly Bugger `woolly_bugger` | theme: `natural_baitfish` | colors: olive, white/olive, gray/white
+- Sculpin Streamer `sculpin_streamer` | theme: `natural_baitfish` | colors: olive, sculpin olive, tan/olive
 - Rabbit-Strip Leech `rabbit_strip_leech` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Color notes:
-- Hair Jig / Marabou Jig: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Suspending Jerkbait: Theme: natural baitfish. Try ghost minnow, pro blue, olive shad.
+- Hair Jig / Marabou Jig: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Paddle-Tail Swimbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Sculpin Streamer: Theme: natural baitfish. Try olive, sculpin olive, tan/olive.
 - Woolly Bugger: Theme: natural baitfish. Try olive, white/olive, gray/white.
+- Sculpin Streamer: Theme: natural baitfish. Try olive, sculpin olive, tan/olive.
 - Rabbit-Strip Leech: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Daily profile notes:
 - Shared score: 42 (Fair)
 - Daily nudges: mood=up_1, water_column=higher_1, presentation=bolder
-- Resolved profile: water_column=mid, mood=neutral, presentation=subtle
+- Resolved profile: water_column=shallow, mood=neutral, presentation=subtle
 - Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
 
 Review:
 - Precheck flags:
-- TOP1_PRIMARY_MISS
+- TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
 - TOP_COLOR_MATCH:natural_baitfish,natural_baitfish
@@ -1271,19 +1271,19 @@ Actual output:
 - Top 3 lures:
 - Inline Spinner `inline_spinner` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Suspending Jerkbait `suspending_jerkbait` | theme: `natural_baitfish` | colors: ghost minnow, pro blue, olive shad
-- Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Top 1 fly: Clouser Minnow `clouser_minnow` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Top 1 fly: Woolly Bugger `woolly_bugger` | theme: `natural_baitfish` | colors: olive, white/olive, gray/white
 - Top 3 flies:
-- Clouser Minnow `clouser_minnow` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Woolly Bugger `woolly_bugger` | theme: `natural_baitfish` | colors: olive, white/olive, gray/white
 - Slim Minnow Streamer `slim_minnow_streamer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Clouser Minnow `clouser_minnow` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Color notes:
 - Inline Spinner: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Suspending Jerkbait: Theme: natural baitfish. Try ghost minnow, pro blue, olive shad.
-- Hair Jig / Marabou Jig: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Clouser Minnow: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Paddle-Tail Swimbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Woolly Bugger: Theme: natural baitfish. Try olive, white/olive, gray/white.
 - Slim Minnow Streamer: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Clouser Minnow: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Daily profile notes:
 - Shared score: 78 (Good)
 - Daily nudges: mood=up_2, water_column=higher_1, presentation=neutral
@@ -1353,20 +1353,20 @@ Archived env summary:
 - Sunrise/sunset: 06:25 / 19:53
 
 Actual output:
-- Top 1 lure: Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Top 1 lure: Suspending Jerkbait `suspending_jerkbait` | theme: `natural_baitfish` | colors: ghost minnow, pro blue, olive shad
 - Top 3 lures:
-- Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Suspending Jerkbait `suspending_jerkbait` | theme: `natural_baitfish` | colors: ghost minnow, pro blue, olive shad
 - Inline Spinner `inline_spinner` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Casting Spoon `casting_spoon` | theme: `white_shad` | colors: white, pearl, white/silver
 - Top 1 fly: Woolly Bugger `woolly_bugger` | theme: `natural_baitfish` | colors: olive, white/olive, gray/white
 - Top 3 flies:
 - Woolly Bugger `woolly_bugger` | theme: `natural_baitfish` | colors: olive, white/olive, gray/white
 - Slim Minnow Streamer `slim_minnow_streamer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Sculpin Streamer `sculpin_streamer` | theme: `natural_baitfish` | colors: olive, sculpin olive, tan/olive
 - Color notes:
-- Hair Jig / Marabou Jig: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Suspending Jerkbait: Theme: natural baitfish. Try ghost minnow, pro blue, olive shad.
 - Inline Spinner: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Casting Spoon: Theme: white shad. Try white, pearl, white/silver.
 - Woolly Bugger: Theme: natural baitfish. Try olive, white/olive, gray/white.
 - Slim Minnow Streamer: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Sculpin Streamer: Theme: natural baitfish. Try olive, sculpin olive, tan/olive.
@@ -1443,19 +1443,19 @@ Actual output:
 - Top 3 lures:
 - Inline Spinner `inline_spinner` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Suspending Jerkbait `suspending_jerkbait` | theme: `natural_baitfish` | colors: ghost minnow, pro blue, olive shad
-- Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Top 1 fly: Clouser Minnow `clouser_minnow` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Top 1 fly: Woolly Bugger `woolly_bugger` | theme: `natural_baitfish` | colors: olive, white/olive, gray/white
 - Top 3 flies:
-- Clouser Minnow `clouser_minnow` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Woolly Bugger `woolly_bugger` | theme: `natural_baitfish` | colors: olive, white/olive, gray/white
 - Slim Minnow Streamer `slim_minnow_streamer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Clouser Minnow `clouser_minnow` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Color notes:
 - Inline Spinner: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Suspending Jerkbait: Theme: natural baitfish. Try ghost minnow, pro blue, olive shad.
-- Hair Jig / Marabou Jig: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Clouser Minnow: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Paddle-Tail Swimbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Woolly Bugger: Theme: natural baitfish. Try olive, white/olive, gray/white.
 - Slim Minnow Streamer: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Clouser Minnow: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Daily profile notes:
 - Shared score: 73 (Good)
 - Daily nudges: mood=up_2, water_column=higher_1, presentation=bolder
@@ -1464,7 +1464,7 @@ Actual output:
 
 Review:
 - Precheck flags:
-- TOP1_PRIMARY_MISS
+- TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
 - TOP_COLOR_MATCH:natural_baitfish,natural_baitfish
@@ -1527,20 +1527,20 @@ Actual output:
 - Top 1 lure: Inline Spinner `inline_spinner` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Top 3 lures:
 - Inline Spinner `inline_spinner` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Soft Jerkbait `soft_jerkbait` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Top 1 fly: Slim Minnow Streamer `slim_minnow_streamer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Top 3 flies:
 - Slim Minnow Streamer `slim_minnow_streamer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Muddler-Style Sculpin `muddler_sculpin` | theme: `natural_baitfish` | colors: natural, olive, tan/olive
-- Topwater Mouse Fly `mouse_fly` | theme: `mouse_natural` | colors: gray mouse, brown mouse, black mouse
+- Clouser Minnow `clouser_minnow` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Color notes:
 - Inline Spinner: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Hair Jig / Marabou Jig: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Paddle-Tail Swimbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Soft Jerkbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Slim Minnow Streamer: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Muddler-Style Sculpin: Theme: natural baitfish. Try natural, olive, tan/olive.
-- Topwater Mouse Fly: Theme: mouse natural. Try gray mouse, brown mouse, black mouse.
+- Clouser Minnow: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Daily profile notes:
 - Shared score: 68 (Good)
 - Daily nudges: mood=up_1, water_column=neutral, presentation=bolder
@@ -1612,20 +1612,20 @@ Actual output:
 - Top 1 lure: Inline Spinner `inline_spinner` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Top 3 lures:
 - Inline Spinner `inline_spinner` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Soft Jerkbait `soft_jerkbait` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Top 1 fly: Slim Minnow Streamer `slim_minnow_streamer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Top 3 flies:
 - Slim Minnow Streamer `slim_minnow_streamer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Muddler-Style Sculpin `muddler_sculpin` | theme: `natural_baitfish` | colors: natural, olive, tan/olive
-- Topwater Mouse Fly `mouse_fly` | theme: `mouse_natural` | colors: gray mouse, brown mouse, black mouse
+- Clouser Minnow `clouser_minnow` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Color notes:
 - Inline Spinner: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Hair Jig / Marabou Jig: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Paddle-Tail Swimbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Soft Jerkbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Slim Minnow Streamer: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Muddler-Style Sculpin: Theme: natural baitfish. Try natural, olive, tan/olive.
-- Topwater Mouse Fly: Theme: mouse natural. Try gray mouse, brown mouse, black mouse.
+- Clouser Minnow: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Daily profile notes:
 - Shared score: 64 (Good)
 - Daily nudges: mood=up_2, water_column=higher_1, presentation=bolder
@@ -1697,8 +1697,8 @@ Actual output:
 - Top 1 lure: Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Top 3 lures:
 - Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Soft Jerkbait `soft_jerkbait` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Casting Spoon `casting_spoon` | theme: `white_shad` | colors: white, pearl, white/silver
 - Top 1 fly: Slim Minnow Streamer `slim_minnow_streamer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Top 3 flies:
 - Slim Minnow Streamer `slim_minnow_streamer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
@@ -1706,8 +1706,8 @@ Actual output:
 - Clouser Minnow `clouser_minnow` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Color notes:
 - Paddle-Tail Swimbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Hair Jig / Marabou Jig: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Soft Jerkbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Casting Spoon: Theme: white shad. Try white, pearl, white/silver.
 - Slim Minnow Streamer: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Muddler-Style Sculpin: Theme: natural baitfish. Try natural, olive, tan/olive.
 - Clouser Minnow: Theme: natural baitfish. Try olive/white, shad, smoke shad.
@@ -1784,18 +1784,18 @@ Actual output:
 - Suspending Jerkbait `suspending_jerkbait` | theme: `natural_baitfish` | colors: ghost minnow, pro blue, olive shad
 - Inline Spinner `inline_spinner` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Top 1 fly: Articulated Baitfish Streamer `articulated_baitfish_streamer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Top 1 fly: Articulated Baitfish Streamer `articulated_baitfish_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
 - Top 3 flies:
-- Articulated Baitfish Streamer `articulated_baitfish_streamer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Articulated Baitfish Streamer `articulated_baitfish_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
 - Topwater Mouse Fly `mouse_fly` | theme: `mouse_natural` | colors: gray mouse, brown mouse, black mouse
-- Game Changer `game_changer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Game Changer `game_changer` | theme: `white_shad` | colors: white, pearl, white/silver
 - Color notes:
 - Suspending Jerkbait: Theme: natural baitfish. Try ghost minnow, pro blue, olive shad.
 - Inline Spinner: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Hair Jig / Marabou Jig: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Articulated Baitfish Streamer: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Articulated Baitfish Streamer: Theme: white shad. Try white, pearl, white/silver.
 - Topwater Mouse Fly: Theme: mouse natural. Try gray mouse, brown mouse, black mouse.
-- Game Changer: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Game Changer: Theme: white shad. Try white, pearl, white/silver.
 - Daily profile notes:
 - Shared score: 84 (Excellent)
 - Daily nudges: mood=up_2, water_column=higher_1, presentation=neutral
@@ -1807,7 +1807,7 @@ Review:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
-- TOP_COLOR_MISS
+- TOP_COLOR_MATCH:white_shad
 - Top 1 verdict:
 - Top 3 verdict:
 - seasonal_fit:
@@ -1869,17 +1869,17 @@ Actual output:
 - Suspending Jerkbait `suspending_jerkbait` | theme: `natural_baitfish` | colors: ghost minnow, pro blue, olive shad
 - Inline Spinner `inline_spinner` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Top 1 fly: Articulated Baitfish Streamer `articulated_baitfish_streamer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Top 1 fly: Articulated Baitfish Streamer `articulated_baitfish_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
 - Top 3 flies:
-- Articulated Baitfish Streamer `articulated_baitfish_streamer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Game Changer `game_changer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Articulated Baitfish Streamer `articulated_baitfish_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Game Changer `game_changer` | theme: `white_shad` | colors: white, pearl, white/silver
 - Slim Minnow Streamer `slim_minnow_streamer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Color notes:
 - Suspending Jerkbait: Theme: natural baitfish. Try ghost minnow, pro blue, olive shad.
 - Inline Spinner: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Hair Jig / Marabou Jig: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Articulated Baitfish Streamer: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Game Changer: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Articulated Baitfish Streamer: Theme: white shad. Try white, pearl, white/silver.
+- Game Changer: Theme: white shad. Try white, pearl, white/silver.
 - Slim Minnow Streamer: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Daily profile notes:
 - Shared score: 60 (Good)
@@ -1892,7 +1892,7 @@ Review:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
-- TOP_COLOR_MISS
+- TOP_COLOR_MATCH:white_shad
 - Top 1 verdict:
 - Top 3 verdict:
 - seasonal_fit:
@@ -1954,16 +1954,16 @@ Actual output:
 - Suspending Jerkbait `suspending_jerkbait` | theme: `natural_baitfish` | colors: ghost minnow, pro blue, olive shad
 - Inline Spinner `inline_spinner` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Top 1 fly: Articulated Baitfish Streamer `articulated_baitfish_streamer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Top 1 fly: Articulated Baitfish Streamer `articulated_baitfish_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
 - Top 3 flies:
-- Articulated Baitfish Streamer `articulated_baitfish_streamer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Articulated Baitfish Streamer `articulated_baitfish_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
 - Woolly Bugger `woolly_bugger` | theme: `natural_baitfish` | colors: olive, white/olive, gray/white
 - Slim Minnow Streamer `slim_minnow_streamer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Color notes:
 - Suspending Jerkbait: Theme: natural baitfish. Try ghost minnow, pro blue, olive shad.
 - Inline Spinner: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Hair Jig / Marabou Jig: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Articulated Baitfish Streamer: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Articulated Baitfish Streamer: Theme: white shad. Try white, pearl, white/silver.
 - Woolly Bugger: Theme: natural baitfish. Try olive, white/olive, gray/white.
 - Slim Minnow Streamer: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Daily profile notes:
@@ -1977,7 +1977,7 @@ Review:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
-- TOP_COLOR_MISS
+- TOP_COLOR_MATCH:white_shad
 - Top 1 verdict:
 - Top 3 verdict:
 - seasonal_fit:
@@ -2035,27 +2035,27 @@ Archived env summary:
 - Sunrise/sunset: 07:24 / 16:40
 
 Actual output:
-- Top 1 lure: Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Top 1 lure: Suspending Jerkbait `suspending_jerkbait` | theme: `natural_baitfish` | colors: ghost minnow, pro blue, olive shad
 - Top 3 lures:
-- Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Suspending Jerkbait `suspending_jerkbait` | theme: `natural_baitfish` | colors: ghost minnow, pro blue, olive shad
+- Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Top 1 fly: Woolly Bugger `woolly_bugger` | theme: `natural_baitfish` | colors: olive, white/olive, gray/white
 - Top 3 flies:
 - Woolly Bugger `woolly_bugger` | theme: `natural_baitfish` | colors: olive, white/olive, gray/white
+- Zonker Streamer `zonker_streamer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Sculpin Streamer `sculpin_streamer` | theme: `natural_baitfish` | colors: olive, sculpin olive, tan/olive
-- Rabbit-Strip Leech `rabbit_strip_leech` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Color notes:
-- Hair Jig / Marabou Jig: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Suspending Jerkbait: Theme: natural baitfish. Try ghost minnow, pro blue, olive shad.
+- Hair Jig / Marabou Jig: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Paddle-Tail Swimbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Woolly Bugger: Theme: natural baitfish. Try olive, white/olive, gray/white.
+- Zonker Streamer: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Sculpin Streamer: Theme: natural baitfish. Try olive, sculpin olive, tan/olive.
-- Rabbit-Strip Leech: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Daily profile notes:
 - Shared score: 63 (Good)
 - Daily nudges: mood=up_2, water_column=higher_1, presentation=bolder
-- Resolved profile: water_column=mid, mood=active, presentation=subtle
+- Resolved profile: water_column=shallow, mood=active, presentation=subtle
 - Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
 
 Review:
@@ -2124,7 +2124,7 @@ Actual output:
 - Top 1 lure: Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Top 3 lures:
 - Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Blade Bait `blade_bait` | theme: `white_shad` | colors: white, pearl, white/silver
+- Suspending Jerkbait `suspending_jerkbait` | theme: `natural_baitfish` | colors: ghost minnow, pro blue, olive shad
 - Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Top 1 fly: Sculpin Streamer `sculpin_streamer` | theme: `natural_baitfish` | colors: olive, sculpin olive, tan/olive
 - Top 3 flies:
@@ -2133,7 +2133,7 @@ Actual output:
 - Rabbit-Strip Leech `rabbit_strip_leech` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Color notes:
 - Hair Jig / Marabou Jig: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Blade Bait: Theme: white shad. Try white, pearl, white/silver.
+- Suspending Jerkbait: Theme: natural baitfish. Try ghost minnow, pro blue, olive shad.
 - Paddle-Tail Swimbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Sculpin Streamer: Theme: natural baitfish. Try olive, sculpin olive, tan/olive.
 - Woolly Bugger: Theme: natural baitfish. Try olive, white/olive, gray/white.
@@ -2174,15 +2174,16 @@ Review:
 - Engine status: complete
 
 Expected seasonal story:
-- Shoulder-season western trout should open clean minnow and spinner support without over-accelerating.
+- Shoulder-season western trout should open clean minnow and spinner support without over-accelerating; suspending jerkbait surfaces on warm-front days when fish push active.
 Expected primary lanes:
 - sculpin_streamer
 - slim_minnow_streamer
 - inline_spinner
+- suspending_jerkbait
 Acceptable secondary lanes:
 - clouser_minnow
 - woolly_bugger
-- suspending_jerkbait
+- casting_spoon
 Disallowed lanes:
 - mouse_fly
 - frog_fly
@@ -2207,32 +2208,32 @@ Archived env summary:
 - Sunrise/sunset: 06:54 / 17:55
 
 Actual output:
-- Top 1 lure: Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Top 1 lure: Suspending Jerkbait `suspending_jerkbait` | theme: `natural_baitfish` | colors: ghost minnow, pro blue, olive shad
 - Top 3 lures:
-- Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Suspending Jerkbait `suspending_jerkbait` | theme: `natural_baitfish` | colors: ghost minnow, pro blue, olive shad
+- Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Top 1 fly: Woolly Bugger `woolly_bugger` | theme: `natural_baitfish` | colors: olive, white/olive, gray/white
 - Top 3 flies:
 - Woolly Bugger `woolly_bugger` | theme: `natural_baitfish` | colors: olive, white/olive, gray/white
+- Zonker Streamer `zonker_streamer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Sculpin Streamer `sculpin_streamer` | theme: `natural_baitfish` | colors: olive, sculpin olive, tan/olive
-- Rabbit-Strip Leech `rabbit_strip_leech` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Color notes:
-- Hair Jig / Marabou Jig: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Suspending Jerkbait: Theme: natural baitfish. Try ghost minnow, pro blue, olive shad.
+- Hair Jig / Marabou Jig: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Paddle-Tail Swimbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Woolly Bugger: Theme: natural baitfish. Try olive, white/olive, gray/white.
+- Zonker Streamer: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Sculpin Streamer: Theme: natural baitfish. Try olive, sculpin olive, tan/olive.
-- Rabbit-Strip Leech: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Daily profile notes:
 - Shared score: 79 (Good)
 - Daily nudges: mood=up_2, water_column=higher_1, presentation=neutral
-- Resolved profile: water_column=mid, mood=active, presentation=subtle
+- Resolved profile: water_column=shallow, mood=active, presentation=subtle
 - Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
 
 Review:
 - Precheck flags:
-- TOP1_PRIMARY_MISS
+- TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
 - TOP_COLOR_MATCH:natural_baitfish,natural_baitfish
@@ -2260,15 +2261,16 @@ Review:
 - Engine status: complete
 
 Expected seasonal story:
-- Shoulder-season western trout should open clean minnow and spinner support without over-accelerating.
+- Shoulder-season western trout should open clean minnow and spinner support without over-accelerating; suspending jerkbait surfaces on warm-front days when fish push active.
 Expected primary lanes:
 - sculpin_streamer
 - slim_minnow_streamer
 - inline_spinner
+- suspending_jerkbait
 Acceptable secondary lanes:
 - clouser_minnow
 - woolly_bugger
-- suspending_jerkbait
+- casting_spoon
 Disallowed lanes:
 - mouse_fly
 - frog_fly
@@ -2296,8 +2298,8 @@ Actual output:
 - Top 1 lure: Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Top 3 lures:
 - Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Blade Bait `blade_bait` | theme: `white_shad` | colors: white, pearl, white/silver
 - Suspending Jerkbait `suspending_jerkbait` | theme: `natural_baitfish` | colors: ghost minnow, pro blue, olive shad
+- Blade Bait `blade_bait` | theme: `white_shad` | colors: white, pearl, white/silver
 - Top 1 fly: Sculpin Streamer `sculpin_streamer` | theme: `natural_baitfish` | colors: olive, sculpin olive, tan/olive
 - Top 3 flies:
 - Sculpin Streamer `sculpin_streamer` | theme: `natural_baitfish` | colors: olive, sculpin olive, tan/olive
@@ -2305,8 +2307,8 @@ Actual output:
 - Rabbit-Strip Leech `rabbit_strip_leech` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Color notes:
 - Hair Jig / Marabou Jig: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Blade Bait: Theme: white shad. Try white, pearl, white/silver.
 - Suspending Jerkbait: Theme: natural baitfish. Try ghost minnow, pro blue, olive shad.
+- Blade Bait: Theme: white shad. Try white, pearl, white/silver.
 - Sculpin Streamer: Theme: natural baitfish. Try olive, sculpin olive, tan/olive.
 - Woolly Bugger: Theme: natural baitfish. Try olive, white/olive, gray/white.
 - Rabbit-Strip Leech: Theme: natural baitfish. Try olive/white, shad, smoke shad.
@@ -2379,20 +2381,20 @@ Archived env summary:
 - Sunrise/sunset: 06:31 / 19:50
 
 Actual output:
-- Top 1 lure: Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Top 1 lure: Inline Spinner `inline_spinner` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Top 3 lures:
-- Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Inline Spinner `inline_spinner` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Suspending Jerkbait `suspending_jerkbait` | theme: `natural_baitfish` | colors: ghost minnow, pro blue, olive shad
+- Casting Spoon `casting_spoon` | theme: `white_shad` | colors: white, pearl, white/silver
 - Top 1 fly: Clouser Minnow `clouser_minnow` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Top 3 flies:
 - Clouser Minnow `clouser_minnow` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Woolly Bugger `woolly_bugger` | theme: `natural_baitfish` | colors: olive, white/olive, gray/white
 - Slim Minnow Streamer `slim_minnow_streamer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Color notes:
-- Hair Jig / Marabou Jig: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Inline Spinner: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Suspending Jerkbait: Theme: natural baitfish. Try ghost minnow, pro blue, olive shad.
+- Casting Spoon: Theme: white shad. Try white, pearl, white/silver.
 - Clouser Minnow: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Woolly Bugger: Theme: natural baitfish. Try olive, white/olive, gray/white.
 - Slim Minnow Streamer: Theme: natural baitfish. Try olive/white, shad, smoke shad.
@@ -2404,7 +2406,7 @@ Actual output:
 
 Review:
 - Precheck flags:
-- TOP1_PRIMARY_MISS
+- TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
 - TOP_COLOR_MATCH:natural_baitfish,natural_baitfish
@@ -2465,20 +2467,20 @@ Archived env summary:
 - Sunrise/sunset: 05:57 / 20:17
 
 Actual output:
-- Top 1 lure: Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Top 1 lure: Suspending Jerkbait `suspending_jerkbait` | theme: `natural_baitfish` | colors: ghost minnow, pro blue, olive shad
 - Top 3 lures:
-- Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Suspending Jerkbait `suspending_jerkbait` | theme: `natural_baitfish` | colors: ghost minnow, pro blue, olive shad
 - Soft Jerkbait `soft_jerkbait` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Top 1 fly: Sculpin Streamer `sculpin_streamer` | theme: `natural_baitfish` | colors: olive, sculpin olive, tan/olive
 - Top 3 flies:
 - Sculpin Streamer `sculpin_streamer` | theme: `natural_baitfish` | colors: olive, sculpin olive, tan/olive
 - Slim Minnow Streamer `slim_minnow_streamer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Woolly Bugger `woolly_bugger` | theme: `natural_baitfish` | colors: olive, white/olive, gray/white
 - Color notes:
-- Hair Jig / Marabou Jig: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Suspending Jerkbait: Theme: natural baitfish. Try ghost minnow, pro blue, olive shad.
 - Soft Jerkbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Paddle-Tail Swimbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Sculpin Streamer: Theme: natural baitfish. Try olive, sculpin olive, tan/olive.
 - Slim Minnow Streamer: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Woolly Bugger: Theme: natural baitfish. Try olive, white/olive, gray/white.
@@ -2554,7 +2556,7 @@ Actual output:
 - Top 3 lures:
 - Suspending Jerkbait `suspending_jerkbait` | theme: `natural_baitfish` | colors: ghost minnow, pro blue, olive shad
 - Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Soft Jerkbait `soft_jerkbait` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Top 1 fly: Slim Minnow Streamer `slim_minnow_streamer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Top 3 flies:
 - Slim Minnow Streamer `slim_minnow_streamer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
@@ -2563,7 +2565,7 @@ Actual output:
 - Color notes:
 - Suspending Jerkbait: Theme: natural baitfish. Try ghost minnow, pro blue, olive shad.
 - Paddle-Tail Swimbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Hair Jig / Marabou Jig: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Soft Jerkbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Slim Minnow Streamer: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Muddler-Style Sculpin: Theme: natural baitfish. Try natural, olive, tan/olive.
 - Clouser Minnow: Theme: natural baitfish. Try olive/white, shad, smoke shad.
@@ -2635,27 +2637,27 @@ Archived env summary:
 - Sunrise/sunset: 05:59 / 20:35
 
 Actual output:
-- Top 1 lure: Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Top 1 lure: Inline Spinner `inline_spinner` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Top 3 lures:
+- Inline Spinner `inline_spinner` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Casting Spoon `casting_spoon` | theme: `white_shad` | colors: white, pearl, white/silver
 - Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Soft Jerkbait `soft_jerkbait` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Top 1 fly: Slim Minnow Streamer `slim_minnow_streamer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Top 3 flies:
 - Slim Minnow Streamer `slim_minnow_streamer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Muddler-Style Sculpin `muddler_sculpin` | theme: `natural_baitfish` | colors: natural, olive, tan/olive
 - Clouser Minnow `clouser_minnow` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Color notes:
+- Inline Spinner: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Casting Spoon: Theme: white shad. Try white, pearl, white/silver.
 - Paddle-Tail Swimbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Hair Jig / Marabou Jig: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Soft Jerkbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Slim Minnow Streamer: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Muddler-Style Sculpin: Theme: natural baitfish. Try natural, olive, tan/olive.
 - Clouser Minnow: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Daily profile notes:
 - Shared score: 54 (Fair)
 - Daily nudges: mood=up_2, water_column=neutral, presentation=neutral
-- Resolved profile: water_column=mid, mood=active, presentation=subtle
+- Resolved profile: water_column=mid, mood=active, presentation=balanced
 - Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
 
 Review:
@@ -2720,32 +2722,32 @@ Archived env summary:
 - Sunrise/sunset: 06:24 / 20:08
 
 Actual output:
-- Top 1 lure: Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Top 1 lure: Inline Spinner `inline_spinner` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Top 3 lures:
-- Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Inline Spinner `inline_spinner` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Casting Spoon `casting_spoon` | theme: `white_shad` | colors: white, pearl, white/silver
 - Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Soft Jerkbait `soft_jerkbait` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Top 1 fly: Clouser Minnow `clouser_minnow` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Top 3 flies:
 - Clouser Minnow `clouser_minnow` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Woolly Bugger `woolly_bugger` | theme: `natural_baitfish` | colors: olive, white/olive, gray/white
 - Slim Minnow Streamer `slim_minnow_streamer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Color notes:
-- Hair Jig / Marabou Jig: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Inline Spinner: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Casting Spoon: Theme: white shad. Try white, pearl, white/silver.
 - Paddle-Tail Swimbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Soft Jerkbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Clouser Minnow: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Woolly Bugger: Theme: natural baitfish. Try olive, white/olive, gray/white.
 - Slim Minnow Streamer: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Daily profile notes:
 - Shared score: 49 (Fair)
 - Daily nudges: mood=up_2, water_column=lower_1, presentation=bolder
-- Resolved profile: water_column=bottom, mood=active, presentation=subtle
+- Resolved profile: water_column=bottom, mood=active, presentation=balanced
 - Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
 
 Review:
 - Precheck flags:
-- TOP1_PRIMARY_MISS
+- TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
 - TOP_COLOR_MATCH:natural_baitfish,natural_baitfish
@@ -2814,14 +2816,14 @@ Actual output:
 - Top 3 flies:
 - Slim Minnow Streamer `slim_minnow_streamer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Topwater Mouse Fly `mouse_fly` | theme: `mouse_natural` | colors: gray mouse, brown mouse, black mouse
-- Articulated Baitfish Streamer `articulated_baitfish_streamer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Articulated Baitfish Streamer `articulated_baitfish_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
 - Color notes:
 - Suspending Jerkbait: Theme: natural baitfish. Try ghost minnow, pro blue, olive shad.
 - Paddle-Tail Swimbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Hair Jig / Marabou Jig: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Slim Minnow Streamer: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Topwater Mouse Fly: Theme: mouse natural. Try gray mouse, brown mouse, black mouse.
-- Articulated Baitfish Streamer: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Articulated Baitfish Streamer: Theme: white shad. Try white, pearl, white/silver.
 - Daily profile notes:
 - Shared score: 72 (Good)
 - Daily nudges: mood=up_2, water_column=higher_1, presentation=subtler
@@ -2895,17 +2897,17 @@ Actual output:
 - Suspending Jerkbait `suspending_jerkbait` | theme: `natural_baitfish` | colors: ghost minnow, pro blue, olive shad
 - Inline Spinner `inline_spinner` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Top 1 fly: Articulated Baitfish Streamer `articulated_baitfish_streamer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Top 1 fly: Articulated Baitfish Streamer `articulated_baitfish_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
 - Top 3 flies:
-- Articulated Baitfish Streamer `articulated_baitfish_streamer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Game Changer `game_changer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Articulated Baitfish Streamer `articulated_baitfish_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Game Changer `game_changer` | theme: `white_shad` | colors: white, pearl, white/silver
 - Slim Minnow Streamer `slim_minnow_streamer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Color notes:
 - Suspending Jerkbait: Theme: natural baitfish. Try ghost minnow, pro blue, olive shad.
 - Inline Spinner: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Hair Jig / Marabou Jig: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Articulated Baitfish Streamer: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Game Changer: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Articulated Baitfish Streamer: Theme: white shad. Try white, pearl, white/silver.
+- Game Changer: Theme: white shad. Try white, pearl, white/silver.
 - Slim Minnow Streamer: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Daily profile notes:
 - Shared score: 48 (Fair)
@@ -2918,7 +2920,7 @@ Review:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
-- TOP_COLOR_MATCH:natural_baitfish,natural_baitfish
+- TOP_COLOR_MATCH:natural_baitfish,white_shad
 - Top 1 verdict:
 - Top 3 verdict:
 - seasonal_fit:
@@ -2980,18 +2982,18 @@ Actual output:
 - Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Suspending Jerkbait `suspending_jerkbait` | theme: `natural_baitfish` | colors: ghost minnow, pro blue, olive shad
 - Inline Spinner `inline_spinner` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Top 1 fly: Articulated Baitfish Streamer `articulated_baitfish_streamer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Top 1 fly: Articulated Baitfish Streamer `articulated_baitfish_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
 - Top 3 flies:
-- Articulated Baitfish Streamer `articulated_baitfish_streamer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Articulated Baitfish Streamer `articulated_baitfish_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
 - Sculpin Streamer `sculpin_streamer` | theme: `natural_baitfish` | colors: olive, sculpin olive, tan/olive
-- Game Changer `game_changer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Game Changer `game_changer` | theme: `white_shad` | colors: white, pearl, white/silver
 - Color notes:
 - Hair Jig / Marabou Jig: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Suspending Jerkbait: Theme: natural baitfish. Try ghost minnow, pro blue, olive shad.
 - Inline Spinner: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Articulated Baitfish Streamer: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Articulated Baitfish Streamer: Theme: white shad. Try white, pearl, white/silver.
 - Sculpin Streamer: Theme: natural baitfish. Try olive, sculpin olive, tan/olive.
-- Game Changer: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Game Changer: Theme: white shad. Try white, pearl, white/silver.
 - Daily profile notes:
 - Shared score: 65 (Good)
 - Daily nudges: mood=up_1, water_column=lower_1, presentation=neutral
@@ -3003,7 +3005,7 @@ Review:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
-- TOP_COLOR_MATCH:natural_baitfish,natural_baitfish
+- TOP_COLOR_MATCH:natural_baitfish,white_shad
 - Top 1 verdict:
 - Top 3 verdict:
 - seasonal_fit:
@@ -3061,27 +3063,27 @@ Archived env summary:
 - Sunrise/sunset: 07:16 / 16:52
 
 Actual output:
-- Top 1 lure: Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Top 1 lure: Suspending Jerkbait `suspending_jerkbait` | theme: `natural_baitfish` | colors: ghost minnow, pro blue, olive shad
 - Top 3 lures:
-- Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Suspending Jerkbait `suspending_jerkbait` | theme: `natural_baitfish` | colors: ghost minnow, pro blue, olive shad
+- Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Top 1 fly: Woolly Bugger `woolly_bugger` | theme: `natural_baitfish` | colors: olive, white/olive, gray/white
 - Top 3 flies:
 - Woolly Bugger `woolly_bugger` | theme: `natural_baitfish` | colors: olive, white/olive, gray/white
+- Zonker Streamer `zonker_streamer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Sculpin Streamer `sculpin_streamer` | theme: `natural_baitfish` | colors: olive, sculpin olive, tan/olive
-- Rabbit-Strip Leech `rabbit_strip_leech` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Color notes:
-- Hair Jig / Marabou Jig: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Suspending Jerkbait: Theme: natural baitfish. Try ghost minnow, pro blue, olive shad.
+- Hair Jig / Marabou Jig: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Paddle-Tail Swimbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Woolly Bugger: Theme: natural baitfish. Try olive, white/olive, gray/white.
+- Zonker Streamer: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Sculpin Streamer: Theme: natural baitfish. Try olive, sculpin olive, tan/olive.
-- Rabbit-Strip Leech: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Daily profile notes:
 - Shared score: 83 (Excellent)
 - Daily nudges: mood=up_2, water_column=higher_1, presentation=neutral
-- Resolved profile: water_column=mid, mood=active, presentation=subtle
+- Resolved profile: water_column=shallow, mood=active, presentation=subtle
 - Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
 
 Review:
@@ -3150,19 +3152,19 @@ Actual output:
 - Top 1 lure: Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Top 3 lures:
 - Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Blade Bait `blade_bait` | theme: `white_shad` | colors: white, pearl, white/silver
+- Suspending Jerkbait `suspending_jerkbait` | theme: `natural_baitfish` | colors: ghost minnow, pro blue, olive shad
 - Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Top 1 fly: Sculpin Streamer `sculpin_streamer` | theme: `natural_baitfish` | colors: olive, sculpin olive, tan/olive
+- Top 1 fly: Woolly Bugger `woolly_bugger` | theme: `natural_baitfish` | colors: olive, white/olive, gray/white
 - Top 3 flies:
-- Sculpin Streamer `sculpin_streamer` | theme: `natural_baitfish` | colors: olive, sculpin olive, tan/olive
 - Woolly Bugger `woolly_bugger` | theme: `natural_baitfish` | colors: olive, white/olive, gray/white
+- Sculpin Streamer `sculpin_streamer` | theme: `natural_baitfish` | colors: olive, sculpin olive, tan/olive
 - Rabbit-Strip Leech `rabbit_strip_leech` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Color notes:
 - Hair Jig / Marabou Jig: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Blade Bait: Theme: white shad. Try white, pearl, white/silver.
+- Suspending Jerkbait: Theme: natural baitfish. Try ghost minnow, pro blue, olive shad.
 - Paddle-Tail Swimbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Sculpin Streamer: Theme: natural baitfish. Try olive, sculpin olive, tan/olive.
 - Woolly Bugger: Theme: natural baitfish. Try olive, white/olive, gray/white.
+- Sculpin Streamer: Theme: natural baitfish. Try olive, sculpin olive, tan/olive.
 - Rabbit-Strip Leech: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Daily profile notes:
 - Shared score: 66 (Good)
@@ -3233,32 +3235,32 @@ Archived env summary:
 - Sunrise/sunset: 06:57 / 17:42
 
 Actual output:
-- Top 1 lure: Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Top 1 lure: Suspending Jerkbait `suspending_jerkbait` | theme: `natural_baitfish` | colors: ghost minnow, pro blue, olive shad
 - Top 3 lures:
-- Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Blade Bait `blade_bait` | theme: `white_shad` | colors: white, pearl, white/silver
 - Suspending Jerkbait `suspending_jerkbait` | theme: `natural_baitfish` | colors: ghost minnow, pro blue, olive shad
-- Top 1 fly: Sculpin Streamer `sculpin_streamer` | theme: `natural_baitfish` | colors: olive, sculpin olive, tan/olive
+- Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Top 1 fly: Woolly Bugger `woolly_bugger` | theme: `natural_baitfish` | colors: olive, white/olive, gray/white
 - Top 3 flies:
-- Sculpin Streamer `sculpin_streamer` | theme: `natural_baitfish` | colors: olive, sculpin olive, tan/olive
 - Woolly Bugger `woolly_bugger` | theme: `natural_baitfish` | colors: olive, white/olive, gray/white
+- Sculpin Streamer `sculpin_streamer` | theme: `natural_baitfish` | colors: olive, sculpin olive, tan/olive
 - Rabbit-Strip Leech `rabbit_strip_leech` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Color notes:
-- Hair Jig / Marabou Jig: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Blade Bait: Theme: white shad. Try white, pearl, white/silver.
 - Suspending Jerkbait: Theme: natural baitfish. Try ghost minnow, pro blue, olive shad.
-- Sculpin Streamer: Theme: natural baitfish. Try olive, sculpin olive, tan/olive.
+- Hair Jig / Marabou Jig: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Paddle-Tail Swimbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Woolly Bugger: Theme: natural baitfish. Try olive, white/olive, gray/white.
+- Sculpin Streamer: Theme: natural baitfish. Try olive, sculpin olive, tan/olive.
 - Rabbit-Strip Leech: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Daily profile notes:
 - Shared score: 49 (Fair)
 - Daily nudges: mood=neutral, water_column=neutral, presentation=bolder
-- Resolved profile: water_column=bottom, mood=negative, presentation=subtle
+- Resolved profile: water_column=mid, mood=negative, presentation=subtle
 - Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
 
 Review:
 - Precheck flags:
-- TOP1_PRIMARY_MISS
+- TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
 - TOP_COLOR_MATCH:natural_baitfish,natural_baitfish
@@ -3319,32 +3321,32 @@ Archived env summary:
 - Sunrise/sunset: 07:06 / 19:20
 
 Actual output:
-- Top 1 lure: Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Top 1 lure: Suspending Jerkbait `suspending_jerkbait` | theme: `natural_baitfish` | colors: ghost minnow, pro blue, olive shad
 - Top 3 lures:
+- Suspending Jerkbait `suspending_jerkbait` | theme: `natural_baitfish` | colors: ghost minnow, pro blue, olive shad
 - Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Blade Bait `blade_bait` | theme: `white_shad` | colors: white, pearl, white/silver
 - Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Top 1 fly: Sculpin Streamer `sculpin_streamer` | theme: `natural_baitfish` | colors: olive, sculpin olive, tan/olive
+- Top 1 fly: Woolly Bugger `woolly_bugger` | theme: `natural_baitfish` | colors: olive, white/olive, gray/white
 - Top 3 flies:
-- Sculpin Streamer `sculpin_streamer` | theme: `natural_baitfish` | colors: olive, sculpin olive, tan/olive
 - Woolly Bugger `woolly_bugger` | theme: `natural_baitfish` | colors: olive, white/olive, gray/white
+- Sculpin Streamer `sculpin_streamer` | theme: `natural_baitfish` | colors: olive, sculpin olive, tan/olive
 - Rabbit-Strip Leech `rabbit_strip_leech` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Color notes:
+- Suspending Jerkbait: Theme: natural baitfish. Try ghost minnow, pro blue, olive shad.
 - Hair Jig / Marabou Jig: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Blade Bait: Theme: white shad. Try white, pearl, white/silver.
 - Paddle-Tail Swimbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Sculpin Streamer: Theme: natural baitfish. Try olive, sculpin olive, tan/olive.
 - Woolly Bugger: Theme: natural baitfish. Try olive, white/olive, gray/white.
+- Sculpin Streamer: Theme: natural baitfish. Try olive, sculpin olive, tan/olive.
 - Rabbit-Strip Leech: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Daily profile notes:
 - Shared score: 43 (Fair)
 - Daily nudges: mood=up_1, water_column=neutral, presentation=bolder
-- Resolved profile: water_column=bottom, mood=neutral, presentation=subtle
+- Resolved profile: water_column=mid, mood=neutral, presentation=subtle
 - Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
 
 Review:
 - Precheck flags:
-- TOP1_PRIMARY_MISS
+- TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
 - TOP_COLOR_MATCH:natural_baitfish,natural_baitfish
@@ -3409,7 +3411,7 @@ Actual output:
 - Top 3 lures:
 - Inline Spinner `inline_spinner` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Suspending Jerkbait `suspending_jerkbait` | theme: `natural_baitfish` | colors: ghost minnow, pro blue, olive shad
-- Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Casting Spoon `casting_spoon` | theme: `white_shad` | colors: white, pearl, white/silver
 - Top 1 fly: Clouser Minnow `clouser_minnow` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Top 3 flies:
 - Clouser Minnow `clouser_minnow` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
@@ -3418,7 +3420,7 @@ Actual output:
 - Color notes:
 - Inline Spinner: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Suspending Jerkbait: Theme: natural baitfish. Try ghost minnow, pro blue, olive shad.
-- Hair Jig / Marabou Jig: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Casting Spoon: Theme: white shad. Try white, pearl, white/silver.
 - Clouser Minnow: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Woolly Bugger: Theme: natural baitfish. Try olive, white/olive, gray/white.
 - Slim Minnow Streamer: Theme: natural baitfish. Try olive/white, shad, smoke shad.
@@ -3495,7 +3497,7 @@ Actual output:
 - Top 3 lures:
 - Inline Spinner `inline_spinner` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Suspending Jerkbait `suspending_jerkbait` | theme: `natural_baitfish` | colors: ghost minnow, pro blue, olive shad
-- Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Casting Spoon `casting_spoon` | theme: `white_shad` | colors: white, pearl, white/silver
 - Top 1 fly: Clouser Minnow `clouser_minnow` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Top 3 flies:
 - Clouser Minnow `clouser_minnow` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
@@ -3504,7 +3506,7 @@ Actual output:
 - Color notes:
 - Inline Spinner: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Suspending Jerkbait: Theme: natural baitfish. Try ghost minnow, pro blue, olive shad.
-- Hair Jig / Marabou Jig: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Casting Spoon: Theme: white shad. Try white, pearl, white/silver.
 - Clouser Minnow: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Woolly Bugger: Theme: natural baitfish. Try olive, white/olive, gray/white.
 - Slim Minnow Streamer: Theme: natural baitfish. Try olive/white, shad, smoke shad.
@@ -3580,7 +3582,7 @@ Actual output:
 - Top 3 lures:
 - Suspending Jerkbait `suspending_jerkbait` | theme: `natural_baitfish` | colors: ghost minnow, pro blue, olive shad
 - Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Soft Jerkbait `soft_jerkbait` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Top 1 fly: Slim Minnow Streamer `slim_minnow_streamer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Top 3 flies:
 - Slim Minnow Streamer `slim_minnow_streamer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
@@ -3589,7 +3591,7 @@ Actual output:
 - Color notes:
 - Suspending Jerkbait: Theme: natural baitfish. Try ghost minnow, pro blue, olive shad.
 - Paddle-Tail Swimbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Hair Jig / Marabou Jig: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Soft Jerkbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Slim Minnow Streamer: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Muddler-Style Sculpin: Theme: natural baitfish. Try natural, olive, tan/olive.
 - Clouser Minnow: Theme: natural baitfish. Try olive/white, shad, smoke shad.
@@ -3661,20 +3663,20 @@ Archived env summary:
 - Sunrise/sunset: 05:36 / 20:48
 
 Actual output:
-- Top 1 lure: Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Top 1 lure: Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Top 3 lures:
-- Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Soft Jerkbait `soft_jerkbait` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Casting Spoon `casting_spoon` | theme: `white_shad` | colors: white, pearl, white/silver
 - Top 1 fly: Clouser Minnow `clouser_minnow` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Top 3 flies:
 - Clouser Minnow `clouser_minnow` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Woolly Bugger `woolly_bugger` | theme: `natural_baitfish` | colors: olive, white/olive, gray/white
 - Slim Minnow Streamer `slim_minnow_streamer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Color notes:
-- Hair Jig / Marabou Jig: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Paddle-Tail Swimbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Soft Jerkbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Casting Spoon: Theme: white shad. Try white, pearl, white/silver.
 - Clouser Minnow: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Woolly Bugger: Theme: natural baitfish. Try olive, white/olive, gray/white.
 - Slim Minnow Streamer: Theme: natural baitfish. Try olive/white, shad, smoke shad.
@@ -3749,8 +3751,8 @@ Actual output:
 - Top 1 lure: Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Top 3 lures:
 - Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Soft Jerkbait `soft_jerkbait` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Casting Spoon `casting_spoon` | theme: `white_shad` | colors: white, pearl, white/silver
 - Top 1 fly: Slim Minnow Streamer `slim_minnow_streamer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Top 3 flies:
 - Slim Minnow Streamer `slim_minnow_streamer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
@@ -3758,8 +3760,8 @@ Actual output:
 - Clouser Minnow `clouser_minnow` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Color notes:
 - Paddle-Tail Swimbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Hair Jig / Marabou Jig: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Soft Jerkbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Casting Spoon: Theme: white shad. Try white, pearl, white/silver.
 - Slim Minnow Streamer: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Muddler-Style Sculpin: Theme: natural baitfish. Try natural, olive, tan/olive.
 - Clouser Minnow: Theme: natural baitfish. Try olive/white, shad, smoke shad.
@@ -3836,17 +3838,17 @@ Actual output:
 - Suspending Jerkbait `suspending_jerkbait` | theme: `natural_baitfish` | colors: ghost minnow, pro blue, olive shad
 - Inline Spinner `inline_spinner` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Top 1 fly: Articulated Baitfish Streamer `articulated_baitfish_streamer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Top 1 fly: Articulated Baitfish Streamer `articulated_baitfish_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
 - Top 3 flies:
-- Articulated Baitfish Streamer `articulated_baitfish_streamer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Game Changer `game_changer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Articulated Baitfish Streamer `articulated_baitfish_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Game Changer `game_changer` | theme: `white_shad` | colors: white, pearl, white/silver
 - Slim Minnow Streamer `slim_minnow_streamer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Color notes:
 - Suspending Jerkbait: Theme: natural baitfish. Try ghost minnow, pro blue, olive shad.
 - Inline Spinner: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Hair Jig / Marabou Jig: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Articulated Baitfish Streamer: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Game Changer: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Articulated Baitfish Streamer: Theme: white shad. Try white, pearl, white/silver.
+- Game Changer: Theme: white shad. Try white, pearl, white/silver.
 - Slim Minnow Streamer: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Daily profile notes:
 - Shared score: 61 (Good)
@@ -3859,7 +3861,7 @@ Review:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
-- TOP_COLOR_MATCH:natural_baitfish,natural_baitfish
+- TOP_COLOR_MATCH:natural_baitfish,white_shad
 - Top 1 verdict:
 - Top 3 verdict:
 - seasonal_fit:
@@ -3925,14 +3927,14 @@ Actual output:
 - Top 3 flies:
 - Slim Minnow Streamer `slim_minnow_streamer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Sculpin Streamer `sculpin_streamer` | theme: `natural_baitfish` | colors: olive, sculpin olive, tan/olive
-- Articulated Baitfish Streamer `articulated_baitfish_streamer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Articulated Baitfish Streamer `articulated_baitfish_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
 - Color notes:
 - Suspending Jerkbait: Theme: natural baitfish. Try ghost minnow, pro blue, olive shad.
 - Paddle-Tail Swimbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Hair Jig / Marabou Jig: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Slim Minnow Streamer: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Sculpin Streamer: Theme: natural baitfish. Try olive, sculpin olive, tan/olive.
-- Articulated Baitfish Streamer: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Articulated Baitfish Streamer: Theme: white shad. Try white, pearl, white/silver.
 - Daily profile notes:
 - Shared score: 52 (Fair)
 - Daily nudges: mood=up_1, water_column=neutral, presentation=subtler
@@ -4006,16 +4008,16 @@ Actual output:
 - Suspending Jerkbait `suspending_jerkbait` | theme: `natural_baitfish` | colors: ghost minnow, pro blue, olive shad
 - Inline Spinner `inline_spinner` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Top 1 fly: Articulated Baitfish Streamer `articulated_baitfish_streamer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Top 1 fly: Articulated Baitfish Streamer `articulated_baitfish_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
 - Top 3 flies:
-- Articulated Baitfish Streamer `articulated_baitfish_streamer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Articulated Baitfish Streamer `articulated_baitfish_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
 - Woolly Bugger `woolly_bugger` | theme: `natural_baitfish` | colors: olive, white/olive, gray/white
 - Slim Minnow Streamer `slim_minnow_streamer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Color notes:
 - Suspending Jerkbait: Theme: natural baitfish. Try ghost minnow, pro blue, olive shad.
 - Inline Spinner: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Hair Jig / Marabou Jig: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Articulated Baitfish Streamer: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Articulated Baitfish Streamer: Theme: white shad. Try white, pearl, white/silver.
 - Woolly Bugger: Theme: natural baitfish. Try olive, white/olive, gray/white.
 - Slim Minnow Streamer: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Daily profile notes:
@@ -4029,7 +4031,7 @@ Review:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
-- TOP_COLOR_MATCH:natural_baitfish,natural_baitfish
+- TOP_COLOR_MATCH:natural_baitfish,white_shad
 - Top 1 verdict:
 - Top 3 verdict:
 - seasonal_fit:
@@ -4087,10 +4089,10 @@ Archived env summary:
 - Sunrise/sunset: 07:29 / 16:28
 
 Actual output:
-- Top 1 lure: Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Top 1 lure: Suspending Jerkbait `suspending_jerkbait` | theme: `natural_baitfish` | colors: ghost minnow, pro blue, olive shad
 - Top 3 lures:
+- Suspending Jerkbait `suspending_jerkbait` | theme: `natural_baitfish` | colors: ghost minnow, pro blue, olive shad
 - Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Blade Bait `blade_bait` | theme: `white_shad` | colors: white, pearl, white/silver
 - Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Top 1 fly: Sculpin Streamer `sculpin_streamer` | theme: `natural_baitfish` | colors: olive, sculpin olive, tan/olive
 - Top 3 flies:
@@ -4098,8 +4100,8 @@ Actual output:
 - Woolly Bugger `woolly_bugger` | theme: `natural_baitfish` | colors: olive, white/olive, gray/white
 - Rabbit-Strip Leech `rabbit_strip_leech` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Color notes:
+- Suspending Jerkbait: Theme: natural baitfish. Try ghost minnow, pro blue, olive shad.
 - Hair Jig / Marabou Jig: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Blade Bait: Theme: white shad. Try white, pearl, white/silver.
 - Paddle-Tail Swimbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Sculpin Streamer: Theme: natural baitfish. Try olive, sculpin olive, tan/olive.
 - Woolly Bugger: Theme: natural baitfish. Try olive, white/olive, gray/white.
@@ -4107,7 +4109,7 @@ Actual output:
 - Daily profile notes:
 - Shared score: 67 (Good)
 - Daily nudges: mood=up_1, water_column=neutral, presentation=bolder
-- Resolved profile: water_column=bottom, mood=neutral, presentation=subtle
+- Resolved profile: water_column=mid, mood=neutral, presentation=subtle
 - Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
 
 Review:
@@ -4173,27 +4175,27 @@ Archived env summary:
 - Sunrise/sunset: 06:57 / 17:50
 
 Actual output:
-- Top 1 lure: Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Top 1 lure: Suspending Jerkbait `suspending_jerkbait` | theme: `natural_baitfish` | colors: ghost minnow, pro blue, olive shad
 - Top 3 lures:
-- Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Blade Bait `blade_bait` | theme: `white_shad` | colors: white, pearl, white/silver
 - Suspending Jerkbait `suspending_jerkbait` | theme: `natural_baitfish` | colors: ghost minnow, pro blue, olive shad
+- Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Top 1 fly: Sculpin Streamer `sculpin_streamer` | theme: `natural_baitfish` | colors: olive, sculpin olive, tan/olive
 - Top 3 flies:
 - Sculpin Streamer `sculpin_streamer` | theme: `natural_baitfish` | colors: olive, sculpin olive, tan/olive
 - Woolly Bugger `woolly_bugger` | theme: `natural_baitfish` | colors: olive, white/olive, gray/white
 - Rabbit-Strip Leech `rabbit_strip_leech` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Color notes:
-- Hair Jig / Marabou Jig: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Blade Bait: Theme: white shad. Try white, pearl, white/silver.
 - Suspending Jerkbait: Theme: natural baitfish. Try ghost minnow, pro blue, olive shad.
+- Hair Jig / Marabou Jig: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Paddle-Tail Swimbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Sculpin Streamer: Theme: natural baitfish. Try olive, sculpin olive, tan/olive.
 - Woolly Bugger: Theme: natural baitfish. Try olive, white/olive, gray/white.
 - Rabbit-Strip Leech: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Daily profile notes:
 - Shared score: 40 (Fair)
 - Daily nudges: mood=neutral, water_column=neutral, presentation=bolder
-- Resolved profile: water_column=bottom, mood=negative, presentation=subtle
+- Resolved profile: water_column=mid, mood=negative, presentation=subtle
 - Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
 
 Review:
@@ -4226,13 +4228,13 @@ Review:
 - Engine status: complete
 
 Expected seasonal story:
-- Northern California fall trout should center on articulated baitfish, game changer, slim minnow, and zonker support with no surface clutter.
+- Northern California fall trout: articulated baitfish leads active mid-column days; slim minnow surfaces on subtle-condition September days; hair jig earns the lure top slot on low clear-water October days when fish sit deep.
 Expected primary lanes:
 - articulated_baitfish_streamer
-- game_changer
 - slim_minnow_streamer
+- hair_jig
 Acceptable secondary lanes:
-- zonker_streamer
+- game_changer
 - sculpin_streamer
 - suspending_jerkbait
 Disallowed lanes:
@@ -4267,14 +4269,14 @@ Actual output:
 - Top 3 flies:
 - Slim Minnow Streamer `slim_minnow_streamer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Topwater Mouse Fly `mouse_fly` | theme: `mouse_natural` | colors: gray mouse, brown mouse, black mouse
-- Articulated Baitfish Streamer `articulated_baitfish_streamer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Articulated Baitfish Streamer `articulated_baitfish_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
 - Color notes:
 - Suspending Jerkbait: Theme: natural baitfish. Try ghost minnow, pro blue, olive shad.
 - Paddle-Tail Swimbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Hair Jig / Marabou Jig: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Slim Minnow Streamer: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Topwater Mouse Fly: Theme: mouse natural. Try gray mouse, brown mouse, black mouse.
-- Articulated Baitfish Streamer: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Articulated Baitfish Streamer: Theme: white shad. Try white, pearl, white/silver.
 - Daily profile notes:
 - Shared score: 60 (Good)
 - Daily nudges: mood=up_2, water_column=higher_1, presentation=subtler
@@ -4311,13 +4313,13 @@ Review:
 - Engine status: complete
 
 Expected seasonal story:
-- Northern California fall trout should center on articulated baitfish, game changer, slim minnow, and zonker support with no surface clutter.
+- Northern California fall trout: articulated baitfish leads active mid-column days; slim minnow surfaces on subtle-condition September days; hair jig earns the lure top slot on low clear-water October days when fish sit deep.
 Expected primary lanes:
 - articulated_baitfish_streamer
-- game_changer
 - slim_minnow_streamer
+- hair_jig
 Acceptable secondary lanes:
-- zonker_streamer
+- game_changer
 - sculpin_streamer
 - suspending_jerkbait
 Disallowed lanes:
@@ -4352,14 +4354,14 @@ Actual output:
 - Top 3 flies:
 - Sculpin Streamer `sculpin_streamer` | theme: `natural_baitfish` | colors: olive, sculpin olive, tan/olive
 - Slim Minnow Streamer `slim_minnow_streamer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Articulated Baitfish Streamer `articulated_baitfish_streamer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Articulated Baitfish Streamer `articulated_baitfish_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
 - Color notes:
 - Hair Jig / Marabou Jig: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Suspending Jerkbait: Theme: natural baitfish. Try ghost minnow, pro blue, olive shad.
 - Paddle-Tail Swimbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Sculpin Streamer: Theme: natural baitfish. Try olive, sculpin olive, tan/olive.
 - Slim Minnow Streamer: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Articulated Baitfish Streamer: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Articulated Baitfish Streamer: Theme: white shad. Try white, pearl, white/silver.
 - Daily profile notes:
 - Shared score: 31 (Poor)
 - Daily nudges: mood=down_1, water_column=lower_1, presentation=subtler
@@ -4368,7 +4370,7 @@ Actual output:
 
 Review:
 - Precheck flags:
-- TOP1_PRIMARY_MISS
+- TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
 - TOP_COLOR_MATCH:natural_baitfish,natural_baitfish
@@ -4396,13 +4398,13 @@ Review:
 - Engine status: complete
 
 Expected seasonal story:
-- Northern California fall trout should center on articulated baitfish, game changer, slim minnow, and zonker support with no surface clutter.
+- Northern California fall trout: articulated baitfish leads active mid-column days; slim minnow surfaces on subtle-condition September days; hair jig earns the lure top slot on low clear-water October days when fish sit deep.
 Expected primary lanes:
 - articulated_baitfish_streamer
-- game_changer
 - slim_minnow_streamer
+- hair_jig
 Acceptable secondary lanes:
-- zonker_streamer
+- game_changer
 - sculpin_streamer
 - suspending_jerkbait
 Disallowed lanes:
@@ -4433,18 +4435,18 @@ Actual output:
 - Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Suspending Jerkbait `suspending_jerkbait` | theme: `natural_baitfish` | colors: ghost minnow, pro blue, olive shad
 - Inline Spinner `inline_spinner` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Top 1 fly: Articulated Baitfish Streamer `articulated_baitfish_streamer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Top 1 fly: Articulated Baitfish Streamer `articulated_baitfish_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
 - Top 3 flies:
-- Articulated Baitfish Streamer `articulated_baitfish_streamer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Articulated Baitfish Streamer `articulated_baitfish_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
 - Sculpin Streamer `sculpin_streamer` | theme: `natural_baitfish` | colors: olive, sculpin olive, tan/olive
-- Game Changer `game_changer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Game Changer `game_changer` | theme: `white_shad` | colors: white, pearl, white/silver
 - Color notes:
 - Hair Jig / Marabou Jig: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Suspending Jerkbait: Theme: natural baitfish. Try ghost minnow, pro blue, olive shad.
 - Inline Spinner: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Articulated Baitfish Streamer: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Articulated Baitfish Streamer: Theme: white shad. Try white, pearl, white/silver.
 - Sculpin Streamer: Theme: natural baitfish. Try olive, sculpin olive, tan/olive.
-- Game Changer: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Game Changer: Theme: white shad. Try white, pearl, white/silver.
 - Daily profile notes:
 - Shared score: 36 (Poor)
 - Daily nudges: mood=neutral, water_column=lower_1, presentation=bolder
@@ -4456,7 +4458,7 @@ Review:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
-- TOP_COLOR_MATCH:natural_baitfish,natural_baitfish
+- TOP_COLOR_MATCH:natural_baitfish,white_shad
 - Top 1 verdict:
 - Top 3 verdict:
 - seasonal_fit:
@@ -4514,23 +4516,23 @@ Archived env summary:
 - Sunrise/sunset: 06:58 / 19:12
 
 Actual output:
-- Top 1 lure: Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Top 1 lure: Inline Spinner `inline_spinner` | theme: `bright_contrast` | colors: white/chartreuse, chartreuse/black, firetiger
 - Top 3 lures:
-- Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Inline Spinner `inline_spinner` | theme: `bright_contrast` | colors: white/chartreuse, chartreuse/black, firetiger
 - Suspending Jerkbait `suspending_jerkbait` | theme: `white_shad` | colors: pearl, table rock shad, white/silver
-- Top 1 fly: Clouser Minnow `clouser_minnow` | theme: `bright_contrast` | colors: white/chartreuse, chartreuse/white, firetiger
+- Casting Spoon `casting_spoon` | theme: `bright_contrast` | colors: chartreuse chrome, firetiger spoon, orange/chartreuse
+- Top 1 fly: Woolly Bugger `woolly_bugger` | theme: `dark_contrast` | colors: black, black/olive, black/purple
 - Top 3 flies:
-- Clouser Minnow `clouser_minnow` | theme: `bright_contrast` | colors: white/chartreuse, chartreuse/white, firetiger
 - Woolly Bugger `woolly_bugger` | theme: `dark_contrast` | colors: black, black/olive, black/purple
-- Sculpin Streamer `sculpin_streamer` | theme: `dark_contrast` | colors: black/blue, black/purple, black/red
+- Clouser Minnow `clouser_minnow` | theme: `bright_contrast` | colors: white/chartreuse, chartreuse/white, firetiger
+- Sculpin Streamer `sculpin_streamer` | theme: `natural_baitfish` | colors: olive, sculpin olive, tan/olive
 - Color notes:
-- Hair Jig / Marabou Jig: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Inline Spinner: Theme: bright contrast. Try white/chartreuse, chartreuse/black, firetiger.
 - Suspending Jerkbait: Theme: white shad. Try pearl, table rock shad, white/silver.
-- Clouser Minnow: Theme: bright contrast. Try white/chartreuse, chartreuse/white, firetiger.
+- Casting Spoon: Theme: bright contrast. Try chartreuse chrome, firetiger spoon, orange/chartreuse.
 - Woolly Bugger: Theme: dark contrast. Try black, black/olive, black/purple.
-- Sculpin Streamer: Theme: dark contrast. Try black/blue, black/purple, black/red.
+- Clouser Minnow: Theme: bright contrast. Try white/chartreuse, chartreuse/white, firetiger.
+- Sculpin Streamer: Theme: natural baitfish. Try olive, sculpin olive, tan/olive.
 - Daily profile notes:
 - Shared score: 58 (Fair)
 - Daily nudges: mood=neutral, water_column=lower_1, presentation=subtler
@@ -4539,10 +4541,10 @@ Actual output:
 
 Review:
 - Precheck flags:
-- TOP1_PRIMARY_MISS
+- TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
-- TOP_COLOR_MATCH:bright_contrast
+- TOP_COLOR_MATCH:bright_contrast,dark_contrast
 - Top 1 verdict:
 - Top 3 verdict:
 - seasonal_fit:
@@ -4600,23 +4602,23 @@ Archived env summary:
 - Sunrise/sunset: 05:24 / 20:26
 
 Actual output:
-- Top 1 lure: Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Top 1 lure: Inline Spinner `inline_spinner` | theme: `bright_contrast` | colors: white/chartreuse, chartreuse/black, firetiger
 - Top 3 lures:
-- Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Inline Spinner `inline_spinner` | theme: `bright_contrast` | colors: white/chartreuse, chartreuse/black, firetiger
 - Suspending Jerkbait `suspending_jerkbait` | theme: `white_shad` | colors: pearl, table rock shad, white/silver
-- Top 1 fly: Clouser Minnow `clouser_minnow` | theme: `bright_contrast` | colors: white/chartreuse, chartreuse/white, firetiger
+- Casting Spoon `casting_spoon` | theme: `bright_contrast` | colors: chartreuse chrome, firetiger spoon, orange/chartreuse
+- Top 1 fly: Woolly Bugger `woolly_bugger` | theme: `dark_contrast` | colors: black, black/olive, black/purple
 - Top 3 flies:
-- Clouser Minnow `clouser_minnow` | theme: `bright_contrast` | colors: white/chartreuse, chartreuse/white, firetiger
 - Woolly Bugger `woolly_bugger` | theme: `dark_contrast` | colors: black, black/olive, black/purple
-- Sculpin Streamer `sculpin_streamer` | theme: `dark_contrast` | colors: black/blue, black/purple, black/red
+- Clouser Minnow `clouser_minnow` | theme: `bright_contrast` | colors: white/chartreuse, chartreuse/white, firetiger
+- Sculpin Streamer `sculpin_streamer` | theme: `natural_baitfish` | colors: olive, sculpin olive, tan/olive
 - Color notes:
-- Hair Jig / Marabou Jig: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Inline Spinner: Theme: bright contrast. Try white/chartreuse, chartreuse/black, firetiger.
 - Suspending Jerkbait: Theme: white shad. Try pearl, table rock shad, white/silver.
-- Clouser Minnow: Theme: bright contrast. Try white/chartreuse, chartreuse/white, firetiger.
+- Casting Spoon: Theme: bright contrast. Try chartreuse chrome, firetiger spoon, orange/chartreuse.
 - Woolly Bugger: Theme: dark contrast. Try black, black/olive, black/purple.
-- Sculpin Streamer: Theme: dark contrast. Try black/blue, black/purple, black/red.
+- Clouser Minnow: Theme: bright contrast. Try white/chartreuse, chartreuse/white, firetiger.
+- Sculpin Streamer: Theme: natural baitfish. Try olive, sculpin olive, tan/olive.
 - Daily profile notes:
 - Shared score: 53 (Fair)
 - Daily nudges: mood=down_1, water_column=lower_1, presentation=neutral
@@ -4861,20 +4863,20 @@ Actual output:
 - Top 1 lure: Inline Spinner `inline_spinner` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Top 3 lures:
 - Inline Spinner `inline_spinner` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Top 1 fly: Slim Minnow Streamer `slim_minnow_streamer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Soft Jerkbait `soft_jerkbait` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Top 1 fly: Woolly Bugger `woolly_bugger` | theme: `natural_baitfish` | colors: olive, white/olive, gray/white
 - Top 3 flies:
+- Woolly Bugger `woolly_bugger` | theme: `natural_baitfish` | colors: olive, white/olive, gray/white
 - Slim Minnow Streamer `slim_minnow_streamer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Muddler-Style Sculpin `muddler_sculpin` | theme: `natural_baitfish` | colors: natural, olive, tan/olive
-- Topwater Mouse Fly `mouse_fly` | theme: `mouse_natural` | colors: gray mouse, brown mouse, black mouse
 - Color notes:
 - Inline Spinner: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Hair Jig / Marabou Jig: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Paddle-Tail Swimbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Soft Jerkbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Woolly Bugger: Theme: natural baitfish. Try olive, white/olive, gray/white.
 - Slim Minnow Streamer: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Muddler-Style Sculpin: Theme: natural baitfish. Try natural, olive, tan/olive.
-- Topwater Mouse Fly: Theme: mouse natural. Try gray mouse, brown mouse, black mouse.
 - Daily profile notes:
 - Shared score: 80 (Excellent)
 - Daily nudges: mood=up_1, water_column=neutral, presentation=neutral
@@ -4883,9 +4885,9 @@ Actual output:
 
 Review:
 - Precheck flags:
-- TOP1_PRIMARY_MISS
-- TOP3_PRIMARY_MISSING
-- DISALLOWED_PRESENT:mouse_fly
+- TOP1_PRIMARY_HIT
+- TOP3_PRIMARY_PRESENT
+- NO_DISALLOWED_PRESENT
 - TOP_COLOR_MATCH:natural_baitfish,natural_baitfish
 - Top 1 verdict:
 - Top 3 verdict:
@@ -4951,15 +4953,15 @@ Actual output:
 - Top 1 fly: Sculpin Streamer `sculpin_streamer` | theme: `natural_baitfish` | colors: olive, sculpin olive, tan/olive
 - Top 3 flies:
 - Sculpin Streamer `sculpin_streamer` | theme: `natural_baitfish` | colors: olive, sculpin olive, tan/olive
-- Articulated Baitfish Streamer `articulated_baitfish_streamer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Game Changer `game_changer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Articulated Baitfish Streamer `articulated_baitfish_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Game Changer `game_changer` | theme: `white_shad` | colors: white, pearl, white/silver
 - Color notes:
 - Hair Jig / Marabou Jig: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Suspending Jerkbait: Theme: natural baitfish. Try ghost minnow, pro blue, olive shad.
 - Inline Spinner: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Sculpin Streamer: Theme: natural baitfish. Try olive, sculpin olive, tan/olive.
-- Articulated Baitfish Streamer: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Game Changer: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Articulated Baitfish Streamer: Theme: white shad. Try white, pearl, white/silver.
+- Game Changer: Theme: white shad. Try white, pearl, white/silver.
 - Daily profile notes:
 - Shared score: 45 (Fair)
 - Daily nudges: mood=down_1, water_column=lower_1, presentation=bolder
@@ -5032,28 +5034,28 @@ Actual output:
 - Top 3 lures:
 - Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Suspending Jerkbait `suspending_jerkbait` | theme: `natural_baitfish` | colors: ghost minnow, pro blue, olive shad
-- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Top 1 fly: Slim Minnow Streamer `slim_minnow_streamer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Blade Bait `blade_bait` | theme: `white_shad` | colors: white, pearl, white/silver
+- Top 1 fly: Sculpin Streamer `sculpin_streamer` | theme: `natural_baitfish` | colors: olive, sculpin olive, tan/olive
 - Top 3 flies:
-- Slim Minnow Streamer `slim_minnow_streamer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Sculpin Streamer `sculpin_streamer` | theme: `natural_baitfish` | colors: olive, sculpin olive, tan/olive
-- Articulated Baitfish Streamer `articulated_baitfish_streamer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Woolly Bugger `woolly_bugger` | theme: `natural_baitfish` | colors: olive, white/olive, gray/white
+- Rabbit-Strip Leech `rabbit_strip_leech` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Color notes:
 - Hair Jig / Marabou Jig: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Suspending Jerkbait: Theme: natural baitfish. Try ghost minnow, pro blue, olive shad.
-- Paddle-Tail Swimbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Slim Minnow Streamer: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Blade Bait: Theme: white shad. Try white, pearl, white/silver.
 - Sculpin Streamer: Theme: natural baitfish. Try olive, sculpin olive, tan/olive.
-- Articulated Baitfish Streamer: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Woolly Bugger: Theme: natural baitfish. Try olive, white/olive, gray/white.
+- Rabbit-Strip Leech: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Daily profile notes:
 - Shared score: 48 (Fair)
 - Daily nudges: mood=neutral, water_column=lower_1, presentation=subtler
-- Resolved profile: water_column=bottom, mood=active, presentation=subtle
+- Resolved profile: water_column=bottom, mood=negative, presentation=subtle
 - Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
 
 Review:
 - Precheck flags:
-- TOP1_PRIMARY_MISS
+- TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
 - TOP_COLOR_MATCH:natural_baitfish,natural_baitfish
@@ -5117,8 +5119,8 @@ Actual output:
 - Top 1 lure: Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Top 3 lures:
 - Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Blade Bait `blade_bait` | theme: `white_shad` | colors: white, pearl, white/silver
 - Suspending Jerkbait `suspending_jerkbait` | theme: `natural_baitfish` | colors: ghost minnow, pro blue, olive shad
+- Blade Bait `blade_bait` | theme: `white_shad` | colors: white, pearl, white/silver
 - Top 1 fly: Sculpin Streamer `sculpin_streamer` | theme: `natural_baitfish` | colors: olive, sculpin olive, tan/olive
 - Top 3 flies:
 - Sculpin Streamer `sculpin_streamer` | theme: `natural_baitfish` | colors: olive, sculpin olive, tan/olive
@@ -5126,8 +5128,8 @@ Actual output:
 - Rabbit-Strip Leech `rabbit_strip_leech` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Color notes:
 - Hair Jig / Marabou Jig: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Blade Bait: Theme: white shad. Try white, pearl, white/silver.
 - Suspending Jerkbait: Theme: natural baitfish. Try ghost minnow, pro blue, olive shad.
+- Blade Bait: Theme: white shad. Try white, pearl, white/silver.
 - Sculpin Streamer: Theme: natural baitfish. Try olive, sculpin olive, tan/olive.
 - Woolly Bugger: Theme: natural baitfish. Try olive, white/olive, gray/white.
 - Rabbit-Strip Leech: Theme: natural baitfish. Try olive/white, shad, smoke shad.
@@ -5204,7 +5206,7 @@ Actual output:
 - Top 3 lures:
 - Inline Spinner `inline_spinner` | theme: `bright_contrast` | colors: white/chartreuse, chartreuse/black, firetiger
 - Suspending Jerkbait `suspending_jerkbait` | theme: `white_shad` | colors: pearl, table rock shad, white/silver
-- Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `white_shad` | colors: white, pearl, white/silver
 - Top 1 fly: Clouser Minnow `clouser_minnow` | theme: `bright_contrast` | colors: white/chartreuse, chartreuse/white, firetiger
 - Top 3 flies:
 - Clouser Minnow `clouser_minnow` | theme: `bright_contrast` | colors: white/chartreuse, chartreuse/white, firetiger
@@ -5213,7 +5215,7 @@ Actual output:
 - Color notes:
 - Inline Spinner: Theme: bright contrast. Try white/chartreuse, chartreuse/black, firetiger.
 - Suspending Jerkbait: Theme: white shad. Try pearl, table rock shad, white/silver.
-- Hair Jig / Marabou Jig: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Paddle-Tail Swimbait: Theme: white shad. Try white, pearl, white/silver.
 - Clouser Minnow: Theme: bright contrast. Try white/chartreuse, chartreuse/white, firetiger.
 - Woolly Bugger: Theme: dark contrast. Try black, black/olive, black/purple.
 - Slim Minnow Streamer: Theme: bright contrast. Try white/chartreuse, yellow/white, chartreuse/olive.
@@ -5289,19 +5291,19 @@ Actual output:
 - Top 3 lures:
 - Inline Spinner `inline_spinner` | theme: `bright_contrast` | colors: white/chartreuse, chartreuse/black, firetiger
 - Suspending Jerkbait `suspending_jerkbait` | theme: `white_shad` | colors: pearl, table rock shad, white/silver
-- Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `white_shad` | colors: white, pearl, white/silver
 - Top 1 fly: Slim Minnow Streamer `slim_minnow_streamer` | theme: `bright_contrast` | colors: white/chartreuse, yellow/white, chartreuse/olive
 - Top 3 flies:
 - Slim Minnow Streamer `slim_minnow_streamer` | theme: `bright_contrast` | colors: white/chartreuse, yellow/white, chartreuse/olive
-- Muddler-Style Sculpin `muddler_sculpin` | theme: `dark_contrast` | colors: black/blue, black/purple, black/red
-- Topwater Mouse Fly `mouse_fly` | theme: `mouse_natural` | colors: gray mouse, brown mouse, black mouse
+- Muddler-Style Sculpin `muddler_sculpin` | theme: `natural_baitfish` | colors: natural, olive, tan/olive
+- Clouser Minnow `clouser_minnow` | theme: `bright_contrast` | colors: white/chartreuse, chartreuse/white, firetiger
 - Color notes:
 - Inline Spinner: Theme: bright contrast. Try white/chartreuse, chartreuse/black, firetiger.
 - Suspending Jerkbait: Theme: white shad. Try pearl, table rock shad, white/silver.
-- Hair Jig / Marabou Jig: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Paddle-Tail Swimbait: Theme: white shad. Try white, pearl, white/silver.
 - Slim Minnow Streamer: Theme: bright contrast. Try white/chartreuse, yellow/white, chartreuse/olive.
-- Muddler-Style Sculpin: Theme: dark contrast. Try black/blue, black/purple, black/red.
-- Topwater Mouse Fly: Theme: mouse natural. Try gray mouse, brown mouse, black mouse.
+- Muddler-Style Sculpin: Theme: natural baitfish. Try natural, olive, tan/olive.
+- Clouser Minnow: Theme: bright contrast. Try white/chartreuse, chartreuse/white, firetiger.
 - Daily profile notes:
 - Shared score: 43 (Fair)
 - Daily nudges: mood=up_2, water_column=neutral, presentation=neutral
@@ -5370,35 +5372,35 @@ Archived env summary:
 - Sunrise/sunset: 06:09 / 21:20
 
 Actual output:
-- Top 1 lure: Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `white_shad` | colors: white, pearl, white/silver
+- Top 1 lure: Inline Spinner `inline_spinner` | theme: `bright_contrast` | colors: white/chartreuse, chartreuse/black, firetiger
 - Top 3 lures:
+- Inline Spinner `inline_spinner` | theme: `bright_contrast` | colors: white/chartreuse, chartreuse/black, firetiger
+- Casting Spoon `casting_spoon` | theme: `bright_contrast` | colors: chartreuse chrome, firetiger spoon, orange/chartreuse
 - Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `white_shad` | colors: white, pearl, white/silver
-- Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Soft Jerkbait `soft_jerkbait` | theme: `white_shad` | colors: white, pearl, white/silver
-- Top 1 fly: Slim Minnow Streamer `slim_minnow_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Top 1 fly: Slim Minnow Streamer `slim_minnow_streamer` | theme: `bright_contrast` | colors: white/chartreuse, yellow/white, chartreuse/olive
 - Top 3 flies:
-- Slim Minnow Streamer `slim_minnow_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
-- Muddler-Style Sculpin `muddler_sculpin` | theme: `dark_contrast` | colors: black/blue, black/purple, black/red
-- Clouser Minnow `clouser_minnow` | theme: `white_shad` | colors: white, pearl, white/silver
+- Slim Minnow Streamer `slim_minnow_streamer` | theme: `bright_contrast` | colors: white/chartreuse, yellow/white, chartreuse/olive
+- Muddler-Style Sculpin `muddler_sculpin` | theme: `natural_baitfish` | colors: natural, olive, tan/olive
+- Clouser Minnow `clouser_minnow` | theme: `bright_contrast` | colors: white/chartreuse, chartreuse/white, firetiger
 - Color notes:
+- Inline Spinner: Theme: bright contrast. Try white/chartreuse, chartreuse/black, firetiger.
+- Casting Spoon: Theme: bright contrast. Try chartreuse chrome, firetiger spoon, orange/chartreuse.
 - Paddle-Tail Swimbait: Theme: white shad. Try white, pearl, white/silver.
-- Hair Jig / Marabou Jig: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Soft Jerkbait: Theme: white shad. Try white, pearl, white/silver.
-- Slim Minnow Streamer: Theme: white shad. Try white, pearl, white/silver.
-- Muddler-Style Sculpin: Theme: dark contrast. Try black/blue, black/purple, black/red.
-- Clouser Minnow: Theme: white shad. Try white, pearl, white/silver.
+- Slim Minnow Streamer: Theme: bright contrast. Try white/chartreuse, yellow/white, chartreuse/olive.
+- Muddler-Style Sculpin: Theme: natural baitfish. Try natural, olive, tan/olive.
+- Clouser Minnow: Theme: bright contrast. Try white/chartreuse, chartreuse/white, firetiger.
 - Daily profile notes:
 - Shared score: 55 (Fair)
 - Daily nudges: mood=up_1, water_column=neutral, presentation=subtler
-- Resolved profile: water_column=mid, mood=active, presentation=subtle
+- Resolved profile: water_column=mid, mood=active, presentation=balanced
 - Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
 
 Review:
 - Precheck flags:
-- TOP1_PRIMARY_MISS
+- TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
-- TOP_COLOR_MATCH:white_shad,white_shad
+- TOP_COLOR_MATCH:bright_contrast,bright_contrast
 - Top 1 verdict:
 - Top 3 verdict:
 - seasonal_fit:
@@ -5455,35 +5457,35 @@ Archived env summary:
 - Sunrise/sunset: 06:40 / 20:46
 
 Actual output:
-- Top 1 lure: Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `white_shad` | colors: white, pearl, white/silver
+- Top 1 lure: Inline Spinner `inline_spinner` | theme: `bright_contrast` | colors: white/chartreuse, chartreuse/black, firetiger
 - Top 3 lures:
+- Inline Spinner `inline_spinner` | theme: `bright_contrast` | colors: white/chartreuse, chartreuse/black, firetiger
+- Casting Spoon `casting_spoon` | theme: `bright_contrast` | colors: chartreuse chrome, firetiger spoon, orange/chartreuse
 - Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `white_shad` | colors: white, pearl, white/silver
-- Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Soft Jerkbait `soft_jerkbait` | theme: `white_shad` | colors: white, pearl, white/silver
-- Top 1 fly: Slim Minnow Streamer `slim_minnow_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Top 1 fly: Slim Minnow Streamer `slim_minnow_streamer` | theme: `bright_contrast` | colors: white/chartreuse, yellow/white, chartreuse/olive
 - Top 3 flies:
-- Slim Minnow Streamer `slim_minnow_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
-- Muddler-Style Sculpin `muddler_sculpin` | theme: `dark_contrast` | colors: black/blue, black/purple, black/red
-- Clouser Minnow `clouser_minnow` | theme: `white_shad` | colors: white, pearl, white/silver
+- Slim Minnow Streamer `slim_minnow_streamer` | theme: `bright_contrast` | colors: white/chartreuse, yellow/white, chartreuse/olive
+- Muddler-Style Sculpin `muddler_sculpin` | theme: `natural_baitfish` | colors: natural, olive, tan/olive
+- Clouser Minnow `clouser_minnow` | theme: `bright_contrast` | colors: white/chartreuse, chartreuse/white, firetiger
 - Color notes:
+- Inline Spinner: Theme: bright contrast. Try white/chartreuse, chartreuse/black, firetiger.
+- Casting Spoon: Theme: bright contrast. Try chartreuse chrome, firetiger spoon, orange/chartreuse.
 - Paddle-Tail Swimbait: Theme: white shad. Try white, pearl, white/silver.
-- Hair Jig / Marabou Jig: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Soft Jerkbait: Theme: white shad. Try white, pearl, white/silver.
-- Slim Minnow Streamer: Theme: white shad. Try white, pearl, white/silver.
-- Muddler-Style Sculpin: Theme: dark contrast. Try black/blue, black/purple, black/red.
-- Clouser Minnow: Theme: white shad. Try white, pearl, white/silver.
+- Slim Minnow Streamer: Theme: bright contrast. Try white/chartreuse, yellow/white, chartreuse/olive.
+- Muddler-Style Sculpin: Theme: natural baitfish. Try natural, olive, tan/olive.
+- Clouser Minnow: Theme: bright contrast. Try white/chartreuse, chartreuse/white, firetiger.
 - Daily profile notes:
 - Shared score: 76 (Good)
 - Daily nudges: mood=up_2, water_column=higher_1, presentation=subtler
-- Resolved profile: water_column=shallow, mood=active, presentation=subtle
+- Resolved profile: water_column=shallow, mood=active, presentation=balanced
 - Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
 
 Review:
 - Precheck flags:
-- TOP1_PRIMARY_MISS
+- TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
-- TOP_COLOR_MATCH:white_shad,white_shad
+- TOP_COLOR_MATCH:bright_contrast,bright_contrast
 - Top 1 verdict:
 - Top 3 verdict:
 - seasonal_fit:
@@ -5540,23 +5542,23 @@ Archived env summary:
 - Sunrise/sunset: 07:02 / 20:13
 
 Actual output:
-- Top 1 lure: Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Top 1 lure: Inline Spinner `inline_spinner` | theme: `bright_contrast` | colors: white/chartreuse, chartreuse/black, firetiger
 - Top 3 lures:
-- Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Inline Spinner `inline_spinner` | theme: `bright_contrast` | colors: white/chartreuse, chartreuse/black, firetiger
 - Suspending Jerkbait `suspending_jerkbait` | theme: `white_shad` | colors: pearl, table rock shad, white/silver
-- Top 1 fly: Clouser Minnow `clouser_minnow` | theme: `bright_contrast` | colors: white/chartreuse, chartreuse/white, firetiger
+- Casting Spoon `casting_spoon` | theme: `bright_contrast` | colors: chartreuse chrome, firetiger spoon, orange/chartreuse
+- Top 1 fly: Woolly Bugger `woolly_bugger` | theme: `dark_contrast` | colors: black, black/olive, black/purple
 - Top 3 flies:
-- Clouser Minnow `clouser_minnow` | theme: `bright_contrast` | colors: white/chartreuse, chartreuse/white, firetiger
 - Woolly Bugger `woolly_bugger` | theme: `dark_contrast` | colors: black, black/olive, black/purple
-- Sculpin Streamer `sculpin_streamer` | theme: `dark_contrast` | colors: black/blue, black/purple, black/red
+- Clouser Minnow `clouser_minnow` | theme: `bright_contrast` | colors: white/chartreuse, chartreuse/white, firetiger
+- Sculpin Streamer `sculpin_streamer` | theme: `natural_baitfish` | colors: olive, sculpin olive, tan/olive
 - Color notes:
-- Hair Jig / Marabou Jig: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Inline Spinner: Theme: bright contrast. Try white/chartreuse, chartreuse/black, firetiger.
 - Suspending Jerkbait: Theme: white shad. Try pearl, table rock shad, white/silver.
-- Clouser Minnow: Theme: bright contrast. Try white/chartreuse, chartreuse/white, firetiger.
+- Casting Spoon: Theme: bright contrast. Try chartreuse chrome, firetiger spoon, orange/chartreuse.
 - Woolly Bugger: Theme: dark contrast. Try black, black/olive, black/purple.
-- Sculpin Streamer: Theme: dark contrast. Try black/blue, black/purple, black/red.
+- Clouser Minnow: Theme: bright contrast. Try white/chartreuse, chartreuse/white, firetiger.
+- Sculpin Streamer: Theme: natural baitfish. Try olive, sculpin olive, tan/olive.
 - Daily profile notes:
 - Shared score: 46 (Fair)
 - Daily nudges: mood=down_1, water_column=lower_1, presentation=subtler
@@ -5626,22 +5628,22 @@ Archived env summary:
 - Sunrise/sunset: 06:21 / 20:57
 
 Actual output:
-- Top 1 lure: Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Top 1 lure: Inline Spinner `inline_spinner` | theme: `bright_contrast` | colors: white/chartreuse, chartreuse/black, firetiger
 - Top 3 lures:
-- Hair Jig / Marabou Jig `hair_jig` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
 - Inline Spinner `inline_spinner` | theme: `bright_contrast` | colors: white/chartreuse, chartreuse/black, firetiger
 - Casting Spoon `casting_spoon` | theme: `bright_contrast` | colors: chartreuse chrome, firetiger spoon, orange/chartreuse
-- Top 1 fly: Slim Minnow Streamer `slim_minnow_streamer` | theme: `bright_contrast` | colors: white/chartreuse, yellow/white, chartreuse/olive
+- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `white_shad` | colors: white, pearl, white/silver
+- Top 1 fly: Muddler-Style Sculpin `muddler_sculpin` | theme: `natural_baitfish` | colors: natural, olive, tan/olive
 - Top 3 flies:
+- Muddler-Style Sculpin `muddler_sculpin` | theme: `natural_baitfish` | colors: natural, olive, tan/olive
 - Slim Minnow Streamer `slim_minnow_streamer` | theme: `bright_contrast` | colors: white/chartreuse, yellow/white, chartreuse/olive
-- Muddler-Style Sculpin `muddler_sculpin` | theme: `dark_contrast` | colors: black/blue, black/purple, black/red
 - Woolly Bugger `woolly_bugger` | theme: `dark_contrast` | colors: black, black/olive, black/purple
 - Color notes:
-- Hair Jig / Marabou Jig: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Inline Spinner: Theme: bright contrast. Try white/chartreuse, chartreuse/black, firetiger.
 - Casting Spoon: Theme: bright contrast. Try chartreuse chrome, firetiger spoon, orange/chartreuse.
+- Paddle-Tail Swimbait: Theme: white shad. Try white, pearl, white/silver.
+- Muddler-Style Sculpin: Theme: natural baitfish. Try natural, olive, tan/olive.
 - Slim Minnow Streamer: Theme: bright contrast. Try white/chartreuse, yellow/white, chartreuse/olive.
-- Muddler-Style Sculpin: Theme: dark contrast. Try black/blue, black/purple, black/red.
 - Woolly Bugger: Theme: dark contrast. Try black, black/olive, black/purple.
 - Daily profile notes:
 - Shared score: 46 (Fair)
@@ -5651,7 +5653,7 @@ Actual output:
 
 Review:
 - Precheck flags:
-- TOP1_PRIMARY_MISS
+- TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
 - TOP_COLOR_MATCH:natural_baitfish
@@ -5721,14 +5723,14 @@ Actual output:
 - Top 3 flies:
 - Woolly Bugger `woolly_bugger` | theme: `dark_contrast` | colors: black, black/olive, black/purple
 - Rabbit-Strip Leech `rabbit_strip_leech` | theme: `dark_contrast` | colors: black, black/purple, black/blue
-- Sculpin Streamer `sculpin_streamer` | theme: `dark_contrast` | colors: black/blue, black/purple, black/red
+- Sculpin Streamer `sculpin_streamer` | theme: `natural_baitfish` | colors: olive, sculpin olive, tan/olive
 - Color notes:
 - Hair Jig / Marabou Jig: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Suspending Jerkbait: Theme: white shad. Try pearl, table rock shad, white/silver.
 - Paddle-Tail Swimbait: Theme: white shad. Try white, pearl, white/silver.
 - Woolly Bugger: Theme: dark contrast. Try black, black/olive, black/purple.
 - Rabbit-Strip Leech: Theme: dark contrast. Try black, black/purple, black/blue.
-- Sculpin Streamer: Theme: dark contrast. Try black/blue, black/purple, black/red.
+- Sculpin Streamer: Theme: natural baitfish. Try olive, sculpin olive, tan/olive.
 - Daily profile notes:
 - Shared score: 63 (Good)
 - Daily nudges: mood=up_1, water_column=neutral, presentation=neutral
@@ -5807,14 +5809,14 @@ Actual output:
 - Top 3 flies:
 - Woolly Bugger `woolly_bugger` | theme: `dark_contrast` | colors: black, black/olive, black/purple
 - Rabbit-Strip Leech `rabbit_strip_leech` | theme: `dark_contrast` | colors: black, black/purple, black/blue
-- Sculpin Streamer `sculpin_streamer` | theme: `dark_contrast` | colors: black/blue, black/purple, black/red
+- Sculpin Streamer `sculpin_streamer` | theme: `natural_baitfish` | colors: olive, sculpin olive, tan/olive
 - Color notes:
 - Hair Jig / Marabou Jig: Theme: natural baitfish. Try olive/white, shad, smoke shad.
 - Suspending Jerkbait: Theme: white shad. Try pearl, table rock shad, white/silver.
 - Paddle-Tail Swimbait: Theme: white shad. Try white, pearl, white/silver.
 - Woolly Bugger: Theme: dark contrast. Try black, black/olive, black/purple.
 - Rabbit-Strip Leech: Theme: dark contrast. Try black, black/purple, black/blue.
-- Sculpin Streamer: Theme: dark contrast. Try black/blue, black/purple, black/red.
+- Sculpin Streamer: Theme: natural baitfish. Try olive, sculpin olive, tan/olive.
 - Daily profile notes:
 - Shared score: 37 (Poor)
 - Daily nudges: mood=neutral, water_column=lower_1, presentation=bolder
