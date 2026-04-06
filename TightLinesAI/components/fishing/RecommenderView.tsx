@@ -5,7 +5,7 @@
  *   1. Header card (species, context, clarity, confidence, 2-sentence summary)
  *   2. Fish behavior card (Water column / Forage / Speed rows with icons)
  *   3. Lure / Fly sub-tabs
- *   4. Top 3 family cards — medals; expand for How to fish + Colors (chips)
+ *   4. Top 3 family cards — medals; expand for How to fish + Color theme name
  *   5. Generated note footer
  */
 
@@ -76,19 +76,6 @@ function confidenceLabel(tier: RecommenderConfidenceTier): string {
   }
 }
 
-// ─── Color chip parser ────────────────────────────────────────────────────────
-// color_guide format: "Theme: natural baitfish. Try olive/white, shad, smoke shad."
-
-function parseColorGuide(guide: string): { theme: string; chips: string[] } {
-  const themeMatch = guide.match(/^Theme:\s*(.+?)\.\s*Try\s/i);
-  const chipsMatch = guide.match(/Try\s+(.+?)\.?\s*$/i);
-  const theme = themeMatch?.[1] ?? '';
-  const chips = chipsMatch?.[1]
-    ? chipsMatch[1].split(',').map((c) => c.trim()).filter(Boolean)
-    : [];
-  return { theme, chips };
-}
-
 // ─── Medal (rank 1–3) ────────────────────────────────────────────────────────
 
 const MEDAL_COLORS = {
@@ -127,7 +114,6 @@ function FamilyCard({
 }) {
   const [expanded, setExpanded] = useState(false);
   const medalRank = (rank >= 1 && rank <= 3 ? rank : 1) as 1 | 2 | 3;
-  const { theme, chips } = parseColorGuide(family.color_guide);
 
   return (
     <View style={[styles.familyCard, shadows.sm]}>
@@ -189,21 +175,8 @@ function FamilyCard({
                   <Ionicons name="color-palette-outline" size={14} color={accentColor} />
                 </View>
                 <Text style={styles.gearPanelTitle}>Colors</Text>
-                {!!theme && (
-                  <Text style={styles.colorThemeLabel}>{theme}</Text>
-                )}
               </View>
-              {chips.length > 0 ? (
-                <View style={styles.colorChipsRow}>
-                  {chips.map((chip) => (
-                    <View key={chip} style={styles.colorChip}>
-                      <Text style={styles.colorChipText}>{chip}</Text>
-                    </View>
-                  ))}
-                </View>
-              ) : (
-                <Text style={styles.gearPanelBody}>{family.color_guide}</Text>
-              )}
+              <Text style={styles.colorThemeName}>{family.color_guide}</Text>
             </View>
           </View>
         )}
@@ -671,36 +644,17 @@ const styles = StyleSheet.create({
     color: colors.primaryDark,
     flex: 1,
   },
-  colorThemeLabel: {
-    fontFamily: fonts.body,
-    fontSize: 11,
-    color: colors.textMuted,
-    textTransform: 'capitalize',
+  colorThemeName: {
+    fontFamily: fonts.serifBold,
+    fontSize: 15,
+    color: colors.text,
+    letterSpacing: 0.2,
   },
   gearPanelBody: {
     fontFamily: fonts.body,
     fontSize: 14,
     color: colors.text,
     lineHeight: 21,
-  },
-  colorChipsRow: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 6,
-  },
-  colorChip: {
-    backgroundColor: colors.surface,
-    borderRadius: radius.full,
-    borderWidth: 1,
-    borderColor: colors.border,
-    paddingHorizontal: 12,
-    paddingVertical: 5,
-  },
-  colorChipText: {
-    fontFamily: fonts.bodyMedium,
-    fontSize: 13,
-    color: colors.text,
-    textTransform: 'capitalize',
   },
 
   // ── Empty state ───────────────────────────────────────────────────────────────

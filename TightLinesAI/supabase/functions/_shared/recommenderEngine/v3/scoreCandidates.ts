@@ -99,14 +99,7 @@ function chooseColorTheme(
   clarity: WaterClarity,
   lightLabel: string | null,
 ): ColorThemeIdV3 {
-  const priorities: ColorThemeIdV3[] = [];
-
-  if (lightLabel === "heavy_overcast" || lightLabel === "low_light") {
-    priorities.push("bright_contrast", "dark_contrast");
-  } else if (lightLabel === "bright" || lightLabel === "glare") {
-    priorities.push("natural_baitfish", "watermelon_natural", "green_pumpkin_natural");
-  }
-
+  // Classify profile first so light logic can branch on it.
   const baitfishForward =
     BAITFISH_FORWARD_FAMILIES.has(profile.family_key) ||
     profile.tactical_lane === "horizontal_search" ||
@@ -118,6 +111,20 @@ function chooseColorTheme(
     profile.tactical_lane === "finesse_subtle" ||
     profile.tactical_lane === "cover_weedless" ||
     profile.tactical_lane === "fly_bottom";
+
+  const priorities: ColorThemeIdV3[] = [];
+
+  if (lightLabel === "heavy_overcast" || lightLabel === "low_light") {
+    // Search/reaction baits benefit from contrast on overcast — push white or
+    // bright patterns so they cut through reduced-light conditions.
+    // Bottom/finesse lures don't need overcast override; forage logic handles them
+    // (dark silhouette jigs are correct but shouldn't supersede forage-based color).
+    if (baitfishForward) {
+      priorities.push("bright_contrast", "white_shad");
+    }
+  } else if (lightLabel === "bright" || lightLabel === "glare") {
+    priorities.push("natural_baitfish", "watermelon_natural", "green_pumpkin_natural");
+  }
 
   if (profile.family_key === "frog" || profile.id === "frog_fly") {
     priorities.push("frog_natural", clarity === "dirty" ? "dark_contrast" : "bright_contrast");

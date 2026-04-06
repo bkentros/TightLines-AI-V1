@@ -193,3 +193,45 @@ Deno.test("V3 lockdown keeps swim jigs in a shad lane instead of inheriting bott
   assertEquals(result[0]?.id, "swim_jig");
   assertEquals(result[0]?.color_theme, "white_shad");
 });
+
+Deno.test("V3 lockdown gives swim jig white/shad on overcast instead of dark contrast", () => {
+  // Overcast (low_light) should push white_shad for baitfish-forward search baits,
+  // NOT dark_contrast — which was the bug when dark_contrast was the overcast fallback.
+  const result = scoreLureCandidatesV3(
+    seasonalRow(["swim_jig"]),
+    resolvedProfile({
+      final_mood: "active",
+      final_presentation_style: "balanced",
+      primary_forage: "baitfish",
+    }),
+    "clear",
+    "low_light",
+  );
+
+  assertEquals(result[0]?.id, "swim_jig");
+  assertEquals(result[0]?.color_theme, "white_shad");
+});
+
+Deno.test("V3 lockdown keeps bottom jigs in forage-driven color on overcast (no dark hijack)", () => {
+  // Football jig + crawfish forage on an overcast day should stay in craw/natural colors.
+  // The old bug pushed dark_contrast as the overcast fallback, overriding forage logic.
+  const result = scoreLureCandidatesV3(
+    seasonalRow(["football_jig"]),
+    resolvedProfile({
+      final_mood: "neutral",
+      final_presentation_style: "balanced",
+      primary_forage: "crawfish",
+    }),
+    "clear",
+    "heavy_overcast",
+  );
+
+  assertEquals(result[0]?.id, "football_jig");
+  // craw_natural or green_pumpkin_natural — both are forage-driven, not dark_contrast
+  const theme = result[0]?.color_theme;
+  assertEquals(
+    theme === "craw_natural" || theme === "green_pumpkin_natural",
+    true,
+    `Expected forage-driven theme, got: ${theme}`,
+  );
+});

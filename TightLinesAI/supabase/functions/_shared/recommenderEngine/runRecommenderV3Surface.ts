@@ -390,8 +390,28 @@ function howToFishText(
   }
 }
 
+const COLOR_THEME_DISPLAY: Record<string, string> = {
+  natural_baitfish:      "Natural Baitfish",
+  white_shad:            "White / Shad",
+  bright_contrast:       "Bright Contrast",
+  dark_contrast:         "Dark Contrast",
+  craw_natural:          "Natural Craw",
+  green_pumpkin_natural: "Green Pumpkin",
+  watermelon_natural:    "Watermelon / Natural",
+  perch_bluegill:        "Perch / Bluegill",
+  metal_flash:           "Metal Flash",
+  frog_natural:          "Natural Frog",
+  mouse_natural:         "Natural Mouse",
+};
+
 function colorGuideText(candidate: RecommenderV3RankedArchetype): string {
-  return `Theme: ${candidate.color_theme.replace(/_/g, " ")}. Try ${candidate.color_recommendations.join(", ")}.`;
+  return (
+    COLOR_THEME_DISPLAY[candidate.color_theme] ??
+    candidate.color_theme
+      .split("_")
+      .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+      .join(" ")
+  );
 }
 
 const RANK_CONTEXT_BY_LANE: Partial<Record<TacticalLaneV3, string>> = {
