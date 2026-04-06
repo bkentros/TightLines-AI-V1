@@ -218,7 +218,8 @@ export type RecommenderV3ArchetypeProfile = {
   allowed_color_themes: readonly ColorThemeIdV3[];
   shade_examples_by_theme: Partial<Record<ColorThemeIdV3, readonly string[]>>;
   /** Optional per-archetype technique line when tactical_lane defaults are too generic. */
-  how_to_fish_text?: string;
+  /** Three presentation variants — one is randomly selected each run. */
+  how_to_fish_text?: readonly [string, string, string];
 };
 
 export type RecommenderV3SeasonalRow = {

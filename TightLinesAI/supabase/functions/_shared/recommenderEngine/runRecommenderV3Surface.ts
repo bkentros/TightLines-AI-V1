@@ -357,37 +357,71 @@ function v3ToConfidenceInput(candidate: RecommenderV3RankedArchetype): {
   };
 }
 
-function howToFishText(
-  candidate: RecommenderV3RankedArchetype,
-): string {
+const LANE_FALLBACKS: Partial<Record<TacticalLaneV3, readonly [string, string, string]>> = {
+  bottom_contact: [
+    "Keep it close to bottom with short lifts, drags, or slow hops and let it linger in front of the fish.",
+    "Drag it along the substrate slowly with minimal rod movement, pausing when you feel resistance against structure.",
+    "Stay low and slow on the retrieve; short rod-tip lifts and long pauses keep the bait working in the strike zone.",
+  ],
+  fly_bottom: [
+    "Sink it fully and retrieve with short strips, letting the fly tick along the substrate.",
+    "Keep it near the bottom with a slow strip-pause cadence; let the fly settle after each pull.",
+    "Work it close to the substrate with short, controlled strips and deliberate pauses between each one.",
+  ],
+  surface: [
+    "Work it across the surface with deliberate pauses near edges or openings instead of racing it back.",
+    "Pop or walk it with a steady cadence, slowing near cover and letting it rest in the ring before moving.",
+    "Keep the surface disturbance consistent and pause after any splash or boil near the bait.",
+  ],
+  fly_surface: [
+    "Fish it with a strip-pause cadence that mimics surface prey; the pause is when fish commit.",
+    "Strip slowly and let the fly sit between movements — surface strikes come to the stillness, not the action.",
+    "Work it near structure with deliberate pauses after each strip; longer pauses draw more committed strikes.",
+  ],
+  reaction_mid_column: [
+    "Use a pull-pause cadence so the bait flashes, then hangs in the strike window.",
+    "Dart and stall with rod sweeps followed by complete stops; the pause is when fish commit.",
+    "Rip and kill the retrieve, varying pause length until you find the timing fish respond to.",
+  ],
+  cover_weedless: [
+    "Thread it through cover cleanly, then let it fall or stall beside the target before moving it again.",
+    "Pitch tight to cover, give it slack on the drop, and move it only after a thorough pause in each spot.",
+    "Present it at the cover edge, let it settle, then work it slowly before repositioning for the next cast.",
+  ],
+  pike_big_profile: [
+    "Fish it with long sweeps and deliberate pauses so the larger profile hangs in front of following fish.",
+    "Retrieve at a measured pace and deadstop near structure; pike follow long before committing, so hold steady.",
+    "Long sweeps, long pauses — pike want to follow and close, so give them time at each pause point.",
+  ],
+  fly_baitfish: [
+    "Strip it on a steady-to-pulsed cadence that keeps the fly tracking like a live baitfish.",
+    "Vary strip length to make the fly dart and glide; pause to let it sink and breathe between pulls.",
+    "Retrieve with purpose at a baitfish pace; slow near structure and kill the retrieve if you see a follow.",
+  ],
+  horizontal_search: [
+    "Cover water at a steady pace, then slow slightly after follows, bumps, or missed strikes.",
+    "Maintain a consistent retrieve speed and let the lure's action work through the target zone.",
+    "Work through the area at a medium pace, varying depth with rod angle; pause briefly near cover or transitions.",
+  ],
+  finesse_subtle: [
+    "Let it soak, glide, or pendulum naturally with longer pauses than you think you need.",
+    "Fish it slow and methodically; finesse presentations need minimum rod movement and maximum patience.",
+    "Keep the bait in the zone as long as possible with minimal movement — the subtlety is the point.",
+  ],
+};
+
+function howToFishText(candidate: RecommenderV3RankedArchetype): string {
   const profile =
     candidate.gear_mode === "lure"
       ? LURE_ARCHETYPES_V3[candidate.id as keyof typeof LURE_ARCHETYPES_V3]
       : FLY_ARCHETYPES_V3[candidate.id as keyof typeof FLY_ARCHETYPES_V3];
-  if (profile?.how_to_fish_text) return profile.how_to_fish_text;
 
-  switch (candidate.tactical_lane) {
-    case "bottom_contact":
-    case "fly_bottom":
-      return "Keep it close to bottom with short lifts, drags, or slow hops and let it linger in front of the fish.";
-    case "surface":
-    case "fly_surface":
-      return "Work it across the surface with deliberate pauses near edges or openings instead of racing it back.";
-    case "reaction_mid_column":
-      return "Use a pull-pause or rip-pause cadence so the bait flashes, then hangs in the strike window.";
-    case "cover_weedless":
-      return "Thread it through cover cleanly, then let it fall or stall beside the target before moving it again.";
-    case "pike_big_profile":
-      return "Fish it with long sweeps and deliberate pauses so the larger profile hangs in front of following fish.";
-    case "fly_baitfish":
-      return "Strip it on a steady-to-pulsed cadence that keeps the fly tracking like a live baitfish.";
-    case "horizontal_search":
-      return "Cover water at a steady pace, then slow slightly after follows, bumps, or missed strikes.";
-    case "finesse_subtle":
-      return "Let it soak, glide, or pendulum naturally with longer pauses than you think you need.";
-    default:
-      return "Keep the presentation clean, repeatable, and in the fish's lane longer than a random fast retrieve.";
-  }
+  const variants: readonly [string, string, string] | undefined =
+    profile?.how_to_fish_text ??
+    LANE_FALLBACKS[candidate.tactical_lane as TacticalLaneV3];
+
+  if (variants) return variants[Math.floor(Math.random() * variants.length)]!;
+  return "Keep the presentation clean and in the fish's lane longer than a random fast retrieve.";
 }
 
 // ─── Color of the Day ─────────────────────────────────────────────────────────
