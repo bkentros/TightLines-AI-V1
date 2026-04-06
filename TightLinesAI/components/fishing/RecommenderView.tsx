@@ -252,7 +252,7 @@ function BehaviorSummaryCard({
       {/* Rows */}
       <View style={styles.behaviorRowsWrap}>
         {rows.map((row, i) => (
-          <View key={row.label}>
+          <View key={i}>
             <BehaviorRow row={row} />
             {i < rows.length - 1 && <View style={styles.behaviorRowDivider} />}
           </View>
