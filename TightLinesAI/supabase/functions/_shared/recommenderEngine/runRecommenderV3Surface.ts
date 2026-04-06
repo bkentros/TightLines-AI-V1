@@ -390,28 +390,74 @@ function howToFishText(
   }
 }
 
-const COLOR_THEME_DISPLAY: Record<string, string> = {
-  natural_baitfish:      "Natural Baitfish",
-  white_shad:            "White / Shad",
-  bright_contrast:       "Bright Contrast",
-  dark_contrast:         "Dark Contrast",
-  craw_natural:          "Natural Craw",
-  green_pumpkin_natural: "Green Pumpkin",
-  watermelon_natural:    "Watermelon / Natural",
-  perch_bluegill:        "Perch / Bluegill",
-  metal_flash:           "Metal Flash",
-  frog_natural:          "Natural Frog",
-  mouse_natural:         "Natural Mouse",
+// ─── Simplified 3-theme color system ─────────────────────────────────────────
+//
+// Internally the engine still selects one of 11 fine-grained color themes; this
+// layer collapses that to Dark / Natural / Bright and picks 2 example colors
+// from a pool of 6 (3 pairs). The pair is chosen deterministically by archetype
+// ID so different lures within the same mega-theme show different examples.
+
+type ColorMegaTheme = "dark" | "natural" | "bright";
+
+/** Maps the engine's fine-grained theme to one of the three user-facing themes. */
+const FINE_TO_MEGA: Record<string, ColorMegaTheme> = {
+  dark_contrast:         "dark",
+  mouse_natural:         "dark",   // dark silhouette topwater
+  bright_contrast:       "bright",
+  metal_flash:           "bright", // chrome/flash = high-visibility
+  natural_baitfish:      "natural",
+  white_shad:            "natural",
+  craw_natural:          "natural",
+  green_pumpkin_natural: "natural",
+  watermelon_natural:    "natural",
+  perch_bluegill:        "natural",
+  frog_natural:          "natural",
 };
 
+/**
+ * 6 colors per mega-theme expressed as 3 pairs of 2.
+ * Different archetypes hash to different pair indices for variety.
+ *
+ * Natural pairs are flavor-split so craw/bottom lures differ from baitfish lures:
+ *   index 0 → craw/earth-tone lane
+ *   index 1 → finesse soft-plastic lane
+ *   index 2 → baitfish/shad natural lane
+ */
+const COLOR_PAIRS: Record<ColorMegaTheme, readonly [string, string][]> = {
+  dark: [
+    ["black/blue",  "black/purple"],
+    ["black/red",   "black/brown"],
+    ["midnight blue","black/green"],
+  ],
+  natural: [
+    ["green pumpkin", "natural craw"],
+    ["watermelon",    "green pumpkin/blue"],
+    ["olive/shad",    "white/silver"],
+  ],
+  bright: [
+    ["white/chartreuse", "chartreuse/black"],
+    ["firetiger",        "white/blue"],
+    ["pearl/white",      "orange/chartreuse"],
+  ],
+};
+
+/** Stable, archetype-specific index into a color pair pool. */
+function archetypeHash(id: string): number {
+  let h = 0;
+  for (let i = 0; i < id.length; i++) h = ((h * 31) + id.charCodeAt(i)) >>> 0;
+  return h;
+}
+
+/**
+ * Returns a string in the format "Dark — black/blue & black/purple".
+ * The UI splits on " — " to style the theme label and example separately.
+ */
 function colorGuideText(candidate: RecommenderV3RankedArchetype): string {
-  return (
-    COLOR_THEME_DISPLAY[candidate.color_theme] ??
-    candidate.color_theme
-      .split("_")
-      .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-      .join(" ")
-  );
+  const mega: ColorMegaTheme = FINE_TO_MEGA[candidate.color_theme] ?? "natural";
+  const pairs = COLOR_PAIRS[mega];
+  const [a, b] = pairs[archetypeHash(candidate.id) % pairs.length]!;
+  const label = mega.charAt(0).toUpperCase() + mega.slice(1);
+  return `${label} — ${a} & ${b}`;
 }
 
 const RANK_CONTEXT_BY_LANE: Partial<Record<TacticalLaneV3, string>> = {

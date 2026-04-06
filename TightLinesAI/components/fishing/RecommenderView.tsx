@@ -176,7 +176,17 @@ function FamilyCard({
                 </View>
                 <Text style={styles.gearPanelTitle}>Colors</Text>
               </View>
-              <Text style={styles.colorThemeName}>{family.color_guide}</Text>
+              {(() => {
+                const [theme, examples] = family.color_guide.split(' — ');
+                return (
+                  <>
+                    <Text style={styles.colorThemeName}>{theme}</Text>
+                    {!!examples && (
+                      <Text style={styles.colorExamples}>{examples}</Text>
+                    )}
+                  </>
+                );
+              })()}
             </View>
           </View>
         )}
@@ -649,6 +659,12 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: colors.text,
     letterSpacing: 0.2,
+  },
+  colorExamples: {
+    fontFamily: fonts.body,
+    fontSize: 13,
+    color: colors.textMuted,
+    marginTop: 3,
   },
   gearPanelBody: {
     fontFamily: fonts.body,
