@@ -2,10 +2,10 @@
  * RecommenderView — renders the full recommender result.
  *
  * Layout:
- *   1. Header hero card (species, context badge, water clarity, confidence pill)
- *   2. Behavior summary card (3-line deterministic block)
+ *   1. Header card (species, context, clarity, confidence, 2-sentence summary)
+ *   2. Fish behavior card (Water column / Forage / Speed rows with icons)
  *   3. Lure / Fly sub-tabs
- *   4. Top 3 cards — gold/silver/bronze, collapsed; expand for where / how / colors
+ *   4. Top 3 family cards — medals; expand for How to fish + Colors (chips)
  *   5. Generated note footer
  */
 
@@ -21,11 +21,11 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import { colors, fonts, spacing, radius, shadows } from '../../lib/theme';
 import type {
+  BehaviorSummaryRow,
   EngineContext,
   RankedFamily,
   RecommenderConfidenceTier,
   RecommenderResponse,
-  WaterClarity,
 } from '../../lib/recommenderContracts';
 import {
   SPECIES_DISPLAY,
@@ -36,25 +36,25 @@ import {
 
 function contextAccentColor(ctx: EngineContext): string {
   switch (ctx) {
-    case 'freshwater_lake_pond':    return colors.contextFreshwater;
-    case 'freshwater_river':        return colors.contextRiver;
-    default:                        return colors.contextFreshwater;
+    case 'freshwater_lake_pond': return colors.contextFreshwater;
+    case 'freshwater_river':     return colors.contextRiver;
+    default:                     return colors.contextFreshwater;
   }
 }
 
 function contextLabel(ctx: EngineContext): string {
   switch (ctx) {
-    case 'freshwater_lake_pond':    return 'Lake / Pond';
-    case 'freshwater_river':        return 'River';
-    default:                        return 'Freshwater';
+    case 'freshwater_lake_pond': return 'Lake / Pond';
+    case 'freshwater_river':     return 'River';
+    default:                     return 'Freshwater';
   }
 }
 
 function contextIcon(ctx: EngineContext): string {
   switch (ctx) {
-    case 'freshwater_lake_pond':  return 'water-outline';
-    case 'freshwater_river':      return 'git-merge-outline';
-    default: return 'water-outline';
+    case 'freshwater_lake_pond': return 'water-outline';
+    case 'freshwater_river':     return 'git-merge-outline';
+    default:                     return 'water-outline';
   }
 }
 
@@ -76,41 +76,43 @@ function confidenceLabel(tier: RecommenderConfidenceTier): string {
   }
 }
 
-// ─── Medal (rank 1–3) ───────────────────────────────────────────────────────
+// ─── Color chip parser ────────────────────────────────────────────────────────
+// color_guide format: "Theme: natural baitfish. Try olive/white, shad, smoke shad."
+
+function parseColorGuide(guide: string): { theme: string; chips: string[] } {
+  const themeMatch = guide.match(/^Theme:\s*(.+?)\.\s*Try\s/i);
+  const chipsMatch = guide.match(/Try\s+(.+?)\.?\s*$/i);
+  const theme = themeMatch?.[1] ?? '';
+  const chips = chipsMatch?.[1]
+    ? chipsMatch[1].split(',').map((c) => c.trim()).filter(Boolean)
+    : [];
+  return { theme, chips };
+}
+
+// ─── Medal (rank 1–3) ────────────────────────────────────────────────────────
 
 const MEDAL_COLORS = {
-  1: { fg: '#B8860B', bg: 'rgba(184, 134, 11, 0.15)' },
-  2: { fg: '#708090', bg: 'rgba(112, 128, 144, 0.15)' },
-  3: { fg: '#8B4513', bg: 'rgba(139, 69, 19, 0.12)' },
+  1: { fg: '#B8860B', bg: 'rgba(184,134,11,0.12)', border: 'rgba(184,134,11,0.30)' },
+  2: { fg: '#64748B', bg: 'rgba(100,116,139,0.10)', border: 'rgba(100,116,139,0.25)' },
+  3: { fg: '#92400E', bg: 'rgba(146,64,14,0.10)',   border: 'rgba(146,64,14,0.22)' },
 } as const;
 
 function RankMedal({ rank }: { rank: 1 | 2 | 3 }) {
   const m = MEDAL_COLORS[rank];
   return (
-    <View style={[styles.medalBadge, { backgroundColor: m.bg, borderColor: m.fg + '55' }]}>
-      <Ionicons name="medal-outline" size={18} color={m.fg} />
+    <View style={[styles.medalBadge, { backgroundColor: m.bg, borderColor: m.border }]}>
+      <Ionicons name="medal-outline" size={17} color={m.fg} />
     </View>
   );
 }
 
-// ─── Detail row (inside expanded section) ────────────────────────────────────
+// ─── Behavior row icons ───────────────────────────────────────────────────────
 
-function DetailRow({ icon, label, text }: { icon: string; label: string; text: string }) {
-  return (
-    <View style={styles.detailRow}>
-      <Ionicons
-        name={icon as never}
-        size={14}
-        color={colors.primaryLight}
-        style={styles.detailIcon}
-      />
-      <View style={styles.detailTextBlock}>
-        <Text style={styles.detailLabel}>{label}</Text>
-        <Text style={styles.detailText}>{text}</Text>
-      </View>
-    </View>
-  );
-}
+const BEHAVIOR_ROW_META: Record<string, { icon: string; color: string }> = {
+  'Water column': { icon: 'layers-outline',    color: colors.contextFreshwater },
+  'Forage':       { icon: 'fish-outline',       color: colors.contextFreshwater },
+  'Speed':        { icon: 'flash-outline',      color: colors.contextFreshwater },
+};
 
 // ─── Family card (collapsible) ────────────────────────────────────────────────
 
@@ -124,15 +126,16 @@ function FamilyCard({
   accentColor: string;
 }) {
   const [expanded, setExpanded] = useState(false);
-  const medalRank = rank >= 1 && rank <= 3 ? (rank as 1 | 2 | 3) : 1;
+  const medalRank = (rank >= 1 && rank <= 3 ? rank : 1) as 1 | 2 | 3;
+  const { theme, chips } = parseColorGuide(family.color_guide);
 
   return (
     <View style={[styles.familyCard, shadows.sm]}>
-      {/* Accent left bar */}
+      {/* Left accent bar — thicker, same height as card */}
       <View style={[styles.familyAccentBar, { backgroundColor: accentColor }]} />
 
       <View style={styles.familyCardInner}>
-        {/* Header row */}
+        {/* Header: medal + name + optional rank context */}
         <View style={styles.familyHeaderRow}>
           <RankMedal rank={medalRank} />
           <View style={styles.familyTitleBlock}>
@@ -147,32 +150,61 @@ function FamilyCard({
           </View>
         </View>
 
-        {/* Details toggle */}
+        {/* Expand toggle */}
+        <View style={styles.toggleSeparator} />
         <TouchableOpacity
           style={styles.detailsToggle}
           onPress={() => setExpanded((v) => !v)}
           activeOpacity={0.7}
-          hitSlop={8}
+          hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
         >
           <Text style={[styles.detailsToggleText, { color: accentColor }]}>
             {expanded ? 'Hide details' : 'See details'}
           </Text>
           <Ionicons
-            name={expanded ? 'chevron-up' : 'chevron-down'}
-            size={14}
+            name={expanded ? 'chevron-up-outline' : 'chevron-down-outline'}
+            size={15}
             color={accentColor}
           />
         </TouchableOpacity>
 
-        {/* Expanded: where, how, colors only */}
+        {/* Expanded panels */}
         {expanded && (
           <View style={styles.detailsExpanded}>
-            <View style={styles.detailsDivider} />
-            {!!family.where_to_start && (
-              <DetailRow icon="navigate-outline" label="Where to start" text={family.where_to_start} />
-            )}
-            <DetailRow icon="fish-outline" label="How to fish it" text={family.how_to_fish} />
-            <DetailRow icon="color-palette-outline" label="Colors" text={family.color_guide} />
+            {/* How to fish */}
+            <View style={styles.gearPanel}>
+              <View style={styles.gearPanelHeader}>
+                <View style={[styles.gearPanelIconWrap, { borderColor: accentColor + '30' }]}>
+                  <Ionicons name="fish-outline" size={14} color={accentColor} />
+                </View>
+                <Text style={styles.gearPanelTitle}>How to fish it</Text>
+              </View>
+              <Text style={styles.gearPanelBody}>{family.how_to_fish}</Text>
+            </View>
+
+            {/* Colors */}
+            <View style={styles.gearPanel}>
+              <View style={styles.gearPanelHeader}>
+                <View style={[styles.gearPanelIconWrap, { borderColor: accentColor + '30' }]}>
+                  <Ionicons name="color-palette-outline" size={14} color={accentColor} />
+                </View>
+                <Text style={styles.gearPanelTitle}>Colors</Text>
+                {!!theme && (
+                  <Text style={styles.colorThemeLabel}>{theme}</Text>
+                )}
+              </View>
+              {chips.length > 0 ? (
+                <View style={styles.colorChipsRow}>
+                  {chips.map((chip) => (
+                    <View key={chip} style={styles.colorChip}>
+                      <Text style={styles.colorChipText}>{chip}</Text>
+                    </View>
+                  ))}
+                </View>
+              ) : (
+                <Text style={styles.gearPanelBody}>{family.color_guide}</Text>
+              )}
+            </View>
           </View>
         )}
       </View>
@@ -182,25 +214,51 @@ function FamilyCard({
 
 // ─── Behavior summary card ────────────────────────────────────────────────────
 
+function BehaviorRow({ row }: { row: BehaviorSummaryRow }) {
+  const meta = BEHAVIOR_ROW_META[row.label] ?? {
+    icon: 'information-circle-outline',
+    color: colors.primary,
+  };
+  return (
+    <View style={styles.behaviorRow}>
+      <View style={[styles.behaviorRowIconWrap, { backgroundColor: meta.color + '14' }]}>
+        <Ionicons name={meta.icon as never} size={15} color={meta.color} />
+      </View>
+      <View style={styles.behaviorRowText}>
+        <Text style={styles.behaviorRowLabel}>{row.label}</Text>
+        <Text style={styles.behaviorRowDetail}>{row.detail}</Text>
+      </View>
+    </View>
+  );
+}
+
 function BehaviorSummaryCard({
-  lines,
+  rows,
   tidal_note,
 }: {
-  lines: [string, string, string];
+  rows: [BehaviorSummaryRow, BehaviorSummaryRow, BehaviorSummaryRow];
   tidal_note?: string;
 }) {
   return (
     <View style={[styles.behaviorCard, shadows.sm]}>
-      <View style={styles.behaviorTitleRow}>
-        <View style={styles.behaviorTitleDot} />
-        <Text style={styles.behaviorTitle}>Fish Behavior</Text>
+      {/* Card header */}
+      <View style={styles.behaviorCardHeader}>
+        <Text style={styles.behaviorCardTitle}>Fish behavior</Text>
+        <Text style={styles.behaviorCardSubtitle}>
+          Water column · Forage · Retrieve speed
+        </Text>
       </View>
-      {lines.map((line, i) => (
-        <View key={i} style={styles.behaviorLine}>
-          <View style={styles.behaviorBullet} />
-          <Text style={styles.behaviorText}>{line}</Text>
-        </View>
-      ))}
+
+      {/* Rows */}
+      <View style={styles.behaviorRowsWrap}>
+        {rows.map((row, i) => (
+          <View key={row.label}>
+            <BehaviorRow row={row} />
+            {i < rows.length - 1 && <View style={styles.behaviorRowDivider} />}
+          </View>
+        ))}
+      </View>
+
       {!!tidal_note && (
         <View style={styles.tidalNote}>
           <Ionicons name="water-outline" size={13} color={colors.contextCoastal} />
@@ -229,10 +287,7 @@ function GearTabs({
         return (
           <TouchableOpacity
             key={tab}
-            style={[
-              styles.tab,
-              isActive && { borderBottomColor: accentColor, borderBottomWidth: 2 },
-            ]}
+            style={[styles.tab, isActive && { borderBottomColor: accentColor }]}
             onPress={() => onChange(tab)}
             activeOpacity={0.7}
           >
@@ -262,9 +317,7 @@ type Props = {
 export function RecommenderView({ result, style }: Props) {
   const [gearTab, setGearTab] = useState<'lure' | 'fly'>('lure');
   const accentColor = contextAccentColor(result.context);
-
   const families = gearTab === 'lure' ? result.lure_rankings : result.fly_rankings;
-
   const confColor = confidenceColor(result.confidence.tier);
 
   return (
@@ -275,44 +328,39 @@ export function RecommenderView({ result, style }: Props) {
     >
       {/* ── Header card ── */}
       <View style={[styles.headerCard, shadows.sm]}>
-        {/* Context + water clarity row */}
+        {/* Context · Clarity · Confidence badges */}
         <View style={styles.headerTopRow}>
-          <View style={[styles.contextBadge, { backgroundColor: accentColor + '18', borderColor: accentColor + '40' }]}>
-            <Ionicons name={contextIcon(result.context) as never} size={12} color={accentColor} />
-            <Text style={[styles.contextBadgeText, { color: accentColor }]}>
+          <View style={[styles.badge, { backgroundColor: accentColor + '15', borderColor: accentColor + '35' }]}>
+            <Ionicons name={contextIcon(result.context) as never} size={11} color={accentColor} />
+            <Text style={[styles.badgeText, { color: accentColor }]}>
               {contextLabel(result.context)}
             </Text>
           </View>
+
           <Text style={styles.headerClarity}>
             {WATER_CLARITY_LABELS[result.water_clarity]} water
           </Text>
-          <View style={[styles.confBadge, { backgroundColor: confColor + '18', borderColor: confColor + '40' }]}>
+
+          <View style={[styles.badge, { backgroundColor: confColor + '15', borderColor: confColor + '35' }]}>
             <View style={[styles.confDot, { backgroundColor: confColor }]} />
-            <Text style={[styles.confBadgeText, { color: confColor }]}>
+            <Text style={[styles.badgeText, { color: confColor }]}>
               {confidenceLabel(result.confidence.tier)}
             </Text>
           </View>
         </View>
 
-        {/* Species name */}
+        {/* Species */}
         <Text style={styles.headerSpecies}>{SPECIES_DISPLAY[result.species]}</Text>
 
-        {/* Confidence reasons */}
-        {result.confidence.reasons.length > 0 && (
-          <Text style={styles.headerConfReason} numberOfLines={2}>
-            {result.confidence.reasons[0]}
-          </Text>
-        )}
-        {result.primary_pattern_summary && (
-          <Text style={styles.patternSummary}>
-            {result.primary_pattern_summary}
-          </Text>
+        {/* Two-sentence pattern summary */}
+        {!!result.primary_pattern_summary && (
+          <Text style={styles.patternSummary}>{result.primary_pattern_summary}</Text>
         )}
       </View>
 
-      {/* ── Behavior summary ── */}
+      {/* ── Fish behavior ── */}
       <BehaviorSummaryCard
-        lines={result.behavior.behavior_summary}
+        rows={result.behavior.behavior_summary}
         tidal_note={result.behavior.tidal_note}
       />
 
@@ -323,8 +371,7 @@ export function RecommenderView({ result, style }: Props) {
       {families.length === 0 ? (
         <View style={styles.emptyState}>
           <Text style={styles.emptyStateText}>
-            No {gearTab === 'lure' ? 'lure' : 'fly'} families matched this species + context.
-            Try a different context or species.
+            No {gearTab === 'lure' ? 'lure' : 'fly'} families matched this context. Try adjusting species or water type.
           </Text>
         </View>
       ) : (
@@ -338,12 +385,14 @@ export function RecommenderView({ result, style }: Props) {
         ))
       )}
 
-      {/* ── Generated note ── */}
+      {/* ── Footer ── */}
       <Text style={styles.generatedNote}>
-        Generated {new Date(result.generated_at).toLocaleTimeString([], {
+        Generated{' '}
+        {new Date(result.generated_at).toLocaleTimeString([], {
           hour: 'numeric',
           minute: '2-digit',
-        })} · Updates with conditions
+        })}{' '}
+        · Updates with conditions
       </Text>
     </ScrollView>
   );
@@ -359,18 +408,18 @@ const styles = StyleSheet.create({
   content: {
     paddingHorizontal: spacing.md,
     paddingTop: spacing.md,
-    paddingBottom: 48,
+    paddingBottom: 56,
     gap: spacing.md,
   },
 
-  // Header card
+  // ── Header card ──────────────────────────────────────────────────────────────
   headerCard: {
     backgroundColor: colors.surface,
     borderRadius: radius.lg,
     padding: spacing.md,
     borderWidth: 1,
     borderColor: colors.borderLight,
-    gap: 8,
+    gap: 10,
   },
   headerTopRow: {
     flexDirection: 'row',
@@ -378,116 +427,118 @@ const styles = StyleSheet.create({
     gap: 8,
     flexWrap: 'wrap',
   },
-  contextBadge: {
+  badge: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 4,
-    paddingHorizontal: 9,
+    paddingHorizontal: 10,
     paddingVertical: 4,
     borderRadius: radius.full,
     borderWidth: 1,
   },
-  contextBadgeText: {
+  badgeText: {
     fontFamily: fonts.bodySemiBold,
     fontSize: 12,
   },
   headerClarity: {
+    flex: 1,
     fontFamily: fonts.body,
     fontSize: 12,
     color: colors.textMuted,
-    flex: 1,
-  },
-  confBadge: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 5,
-    paddingHorizontal: 9,
-    paddingVertical: 4,
-    borderRadius: radius.full,
-    borderWidth: 1,
   },
   confDot: {
     width: 6,
     height: 6,
     borderRadius: 99,
   },
-  confBadgeText: {
-    fontFamily: fonts.bodySemiBold,
-    fontSize: 12,
-  },
   headerSpecies: {
     fontFamily: fonts.serifBold,
-    fontSize: 24,
+    fontSize: 26,
     color: colors.text,
-    lineHeight: 28,
-  },
-  headerConfReason: {
-    fontFamily: fonts.body,
-    fontSize: 13,
-    color: colors.textSecondary,
-    lineHeight: 18,
+    lineHeight: 30,
+    letterSpacing: -0.3,
   },
   patternSummary: {
     fontFamily: fonts.body,
     fontSize: 14,
-    color: colors.text,
-    lineHeight: 20,
+    color: colors.textSecondary,
+    lineHeight: 22,
   },
 
-  // Behavior summary
+  // ── Behavior card ─────────────────────────────────────────────────────────────
   behaviorCard: {
     backgroundColor: colors.surface,
     borderRadius: radius.lg,
     padding: spacing.md,
     borderWidth: 1,
     borderColor: colors.borderLight,
-    gap: 8,
+    gap: 12,
   },
-  behaviorTitleRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 7,
-    marginBottom: 2,
+  behaviorCardHeader: {
+    gap: 3,
   },
-  behaviorTitleDot: {
-    width: 8,
-    height: 8,
-    borderRadius: 99,
-    backgroundColor: colors.primaryLight,
+  behaviorCardTitle: {
+    fontFamily: fonts.serifBold,
+    fontSize: 17,
+    color: colors.text,
+    lineHeight: 22,
   },
-  behaviorTitle: {
-    fontFamily: fonts.bodySemiBold,
-    fontSize: 11,
+  behaviorCardSubtitle: {
+    fontFamily: fonts.body,
+    fontSize: 12,
     color: colors.textMuted,
-    textTransform: 'uppercase',
-    letterSpacing: 0.7,
+    lineHeight: 17,
   },
-  behaviorLine: {
+  behaviorRowsWrap: {
+    borderRadius: radius.md,
+    borderWidth: 1,
+    borderColor: colors.borderLight,
+    overflow: 'hidden',
+  },
+  behaviorRow: {
     flexDirection: 'row',
     alignItems: 'flex-start',
-    gap: spacing.sm,
+    gap: 12,
+    paddingHorizontal: 14,
+    paddingVertical: 12,
+    backgroundColor: colors.surface,
   },
-  behaviorBullet: {
-    width: 5,
-    height: 5,
-    borderRadius: 99,
-    backgroundColor: colors.primaryLight,
-    marginTop: 7,
+  behaviorRowIconWrap: {
+    width: 30,
+    height: 30,
+    borderRadius: radius.sm,
+    alignItems: 'center',
+    justifyContent: 'center',
     flexShrink: 0,
+    marginTop: 1,
   },
-  behaviorText: {
+  behaviorRowText: {
     flex: 1,
+    minWidth: 0,
+  },
+  behaviorRowLabel: {
+    fontFamily: fonts.bodySemiBold,
+    fontSize: 12,
+    color: colors.primaryDark,
+    letterSpacing: 0.2,
+    marginBottom: 3,
+  },
+  behaviorRowDetail: {
     fontFamily: fonts.body,
     fontSize: 14,
     color: colors.text,
     lineHeight: 20,
   },
+  behaviorRowDivider: {
+    height: 1,
+    backgroundColor: colors.borderLight,
+    marginLeft: 56, // aligns under the text, not the icon
+  },
   tidalNote: {
     flexDirection: 'row',
     alignItems: 'flex-start',
     gap: 6,
-    marginTop: 4,
-    paddingTop: spacing.sm,
+    paddingTop: 4,
     borderTopWidth: 1,
     borderTopColor: colors.borderLight,
   },
@@ -499,15 +550,18 @@ const styles = StyleSheet.create({
     lineHeight: 18,
   },
 
-  // Gear tabs
+  // ── Gear tabs ─────────────────────────────────────────────────────────────────
   tabRow: {
     flexDirection: 'row',
-    borderBottomWidth: 1,
-    borderBottomColor: colors.border,
+    backgroundColor: colors.surface,
+    borderRadius: radius.lg,
+    borderWidth: 1,
+    borderColor: colors.borderLight,
+    overflow: 'hidden',
   },
   tab: {
     flex: 1,
-    paddingVertical: spacing.sm,
+    paddingVertical: 12,
     alignItems: 'center',
     borderBottomWidth: 2,
     borderBottomColor: 'transparent',
@@ -517,7 +571,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
 
-  // Family card
+  // ── Family card ───────────────────────────────────────────────────────────────
   familyCard: {
     backgroundColor: colors.surface,
     borderRadius: radius.lg,
@@ -531,21 +585,23 @@ const styles = StyleSheet.create({
   },
   familyCardInner: {
     flex: 1,
-    padding: spacing.md,
+    paddingHorizontal: spacing.md,
+    paddingVertical: 14,
   },
   familyHeaderRow: {
     flexDirection: 'row',
     alignItems: 'flex-start',
-    gap: spacing.sm,
-    marginBottom: 4,
+    gap: 10,
   },
   medalBadge: {
-    borderRadius: radius.md,
-    width: 36,
-    height: 36,
+    borderRadius: radius.sm,
+    width: 34,
+    height: 34,
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 1,
+    flexShrink: 0,
+    marginTop: 1,
   },
   familyTitleBlock: {
     flex: 1,
@@ -555,66 +611,101 @@ const styles = StyleSheet.create({
     fontFamily: fonts.serifBold,
     fontSize: 16,
     color: colors.text,
+    lineHeight: 21,
   },
   rankContextText: {
     fontFamily: fonts.body,
     fontSize: 13,
     color: colors.textMuted,
     lineHeight: 18,
-    marginTop: 4,
+    marginTop: 3,
   },
 
-  // Details toggle
+  // Toggle
+  toggleSeparator: {
+    height: 1,
+    backgroundColor: colors.borderLight,
+    marginVertical: 12,
+  },
   detailsToggle: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 4,
-    marginTop: 6,
   },
   detailsToggleText: {
     fontFamily: fonts.bodySemiBold,
     fontSize: 13,
   },
 
-  // Expanded details
+  // Expanded panels
   detailsExpanded: {
-    marginTop: 4,
-    gap: 10,
-  },
-  detailsDivider: {
-    height: 1,
-    backgroundColor: colors.borderLight,
-    marginVertical: 4,
-  },
-  detailRow: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
+    marginTop: 12,
     gap: spacing.sm,
   },
-  detailIcon: {
-    marginTop: 2,
+  gearPanel: {
+    borderRadius: radius.md,
+    backgroundColor: colors.backgroundAlt,
+    borderWidth: 1,
+    borderColor: colors.borderLight,
+    padding: 14,
   },
-  detailTextBlock: {
+  gearPanelHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    marginBottom: 10,
+  },
+  gearPanelIconWrap: {
+    width: 24,
+    height: 24,
+    borderRadius: radius.xs,
+    borderWidth: 1,
+    backgroundColor: colors.surface,
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexShrink: 0,
+  },
+  gearPanelTitle: {
+    fontFamily: fonts.bodySemiBold,
+    fontSize: 13,
+    color: colors.primaryDark,
     flex: 1,
   },
-  detailLabel: {
-    fontFamily: fonts.bodySemiBold,
+  colorThemeLabel: {
+    fontFamily: fonts.body,
     fontSize: 11,
     color: colors.textMuted,
-    textTransform: 'uppercase',
-    letterSpacing: 0.4,
-    marginBottom: 2,
+    textTransform: 'capitalize',
   },
-  detailText: {
+  gearPanelBody: {
     fontFamily: fonts.body,
     fontSize: 14,
     color: colors.text,
-    lineHeight: 20,
+    lineHeight: 21,
+  },
+  colorChipsRow: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 6,
+  },
+  colorChip: {
+    backgroundColor: colors.surface,
+    borderRadius: radius.full,
+    borderWidth: 1,
+    borderColor: colors.border,
+    paddingHorizontal: 12,
+    paddingVertical: 5,
+  },
+  colorChipText: {
+    fontFamily: fonts.bodyMedium,
+    fontSize: 13,
+    color: colors.text,
+    textTransform: 'capitalize',
   },
 
-  // Empty state
+  // ── Empty state ───────────────────────────────────────────────────────────────
   emptyState: {
-    padding: spacing.lg,
+    paddingVertical: spacing.xl,
     alignItems: 'center',
   },
   emptyStateText: {
@@ -625,7 +716,7 @@ const styles = StyleSheet.create({
     lineHeight: 20,
   },
 
-  // Footer
+  // ── Footer ────────────────────────────────────────────────────────────────────
   generatedNote: {
     fontFamily: fonts.body,
     fontSize: 11,

@@ -13,6 +13,7 @@ import type {
   ActivityLevel,
   AggressionLevel,
   BehaviorOutput,
+  BehaviorSummaryRow,
   ColorFamily,
   DepthLane,
   FlashLevel,
@@ -297,23 +298,51 @@ function v3ForageLabel(bucket: RecommenderV3Response["resolved_profile"]["primar
   }
 }
 
+function speedSummarySentence(
+  speed: SpeedPreference,
+  presentation: RecommenderV3Response["resolved_profile"]["final_presentation_style"],
+): string {
+  const pace =
+    speed === "dead_slow"
+      ? "Fish dead slow"
+      : speed === "slow"
+      ? "Keep retrieves slow"
+      : speed === "fast"
+      ? "You can speed up"
+      : speed === "vary"
+      ? "Vary pace"
+      : "Use a steady, measured cadence";
+  const tail =
+    presentation === "subtle"
+      ? "with long pauses and minimal noise."
+      : presentation === "bold"
+      ? "and add thump or flash only if fish respond."
+      : "with balanced motion and pauses.";
+  return `${pace} ${tail}`;
+}
+
 function buildBehaviorSummary(
-  activity: ActivityLevel,
   depthLane: DepthLane,
   primary: RecommenderV3Response["resolved_profile"]["primary_forage"] | undefined,
   secondary: RecommenderV3Response["resolved_profile"]["secondary_forage"] | undefined,
   speed: SpeedPreference,
   presentation: RecommenderV3Response["resolved_profile"]["final_presentation_style"],
-): [string, string, string] {
-  const paceText =
-    speed === "dead_slow" ? "very slowly" : speed === "slow" ? "slowly" : speed === "fast" ? "aggressively" : "at a measured pace";
-  const presenceText =
-    presentation === "subtle" ? "clean and restrained" : presentation === "bold" ? "loud enough to draw attention" : "balanced";
-  return [
-    `${activity[0]!.toUpperCase()}${activity.slice(1)} fish should be most catchable in the ${waterColumnLabel(depthLane)} lane today.`,
-    `The monthly read still centers on ${v3ForageLabel(primary)}${secondary ? `, with ${v3ForageLabel(secondary)} as the backup lane` : ""}.`,
-    `Start ${paceText} with a ${presenceText} presentation and only adjust one step faster or higher if the fish show they want it.`,
-  ];
+): [BehaviorSummaryRow, BehaviorSummaryRow, BehaviorSummaryRow] {
+  const water: BehaviorSummaryRow = {
+    label: "Water column",
+    detail: `Best focus is the ${waterColumnLabel(depthLane)} zone today.`,
+  };
+  const forage: BehaviorSummaryRow = {
+    label: "Forage",
+    detail: secondary
+      ? `Month centers on ${v3ForageLabel(primary)}; keep ${v3ForageLabel(secondary)} in mind as a backup.`
+      : `Month centers on ${v3ForageLabel(primary)}.`,
+  };
+  const speedRow: BehaviorSummaryRow = {
+    label: "Speed",
+    detail: speedSummarySentence(speed, presentation),
+  };
+  return [water, forage, speedRow];
 }
 
 function v3ToConfidenceInput(candidate: RecommenderV3RankedArchetype): {
@@ -326,40 +355,6 @@ function v3ToConfidenceInput(candidate: RecommenderV3RankedArchetype): {
       direction: item.value >= 0 ? "bonus" : "penalty",
     })),
   };
-}
-
-function startLaneText(
-  candidate: RecommenderV3RankedArchetype,
-  context: RecommenderRequest["context"],
-  depthLane: DepthLane,
-): string {
-  switch (candidate.tactical_lane) {
-    case "bottom_contact":
-    case "fly_bottom":
-      return `Start on the first hard edge or bottom transition that still keeps the bait in the ${waterColumnLabel(depthLane)} lane.`;
-    case "surface":
-    case "fly_surface":
-      return context === "freshwater_river"
-        ? "Start around softer current seams, shade lines, and bank edges where fish can slide up without traveling far."
-        : "Start around shallow cover, weed openings, or bank edges where fish can rise without leaving the zone.";
-    case "reaction_mid_column":
-      return "Start on the first break, point, or seam where fish can intercept a moving bait in mid-depth water.";
-    case "cover_weedless":
-      return "Start around the thickest fish-holding cover first, then work the clean outside edge before leaving the area.";
-    case "pike_big_profile":
-      return context === "freshwater_river"
-        ? "Start on slow current edges, back eddies, and ambush banks where bigger baitfish stack up."
-        : "Start on outer weed edges, bait-rich bays, or first drop-offs where larger predators can pin forage.";
-    case "fly_baitfish":
-    case "horizontal_search":
-      return context === "freshwater_river"
-        ? "Start at pool heads, current seams, or swing water where the bait can travel naturally across the fish."
-        : "Start on the wind-blown side, travel lanes, or visible bait edges and cover water before slowing down.";
-    case "finesse_subtle":
-      return "Start on the cleanest edge or lighter cover first, where fish get a longer look before they commit.";
-    default:
-      return "Start where fish can hold comfortably and let the bait stay in their lane as long as possible.";
-  }
 }
 
 function howToFishText(
@@ -430,15 +425,12 @@ function buildRankContext(
 
 function toRankedFamily(
   candidate: RecommenderV3RankedArchetype,
-  result: RecommenderV3Response,
   rank: number,
   topInList: RecommenderV3RankedArchetype | undefined,
 ): RankedFamily {
-  const depthLane = mapWaterColumnToDepthLane(result.resolved_profile.final_water_column);
   return {
     family_id: candidate.id as unknown as LureFamilyId | FlyFamilyId,
     display_name: candidate.display_name,
-    where_to_start: startLaneText(candidate, result.context, depthLane),
     how_to_fish: howToFishText(candidate),
     color_guide: colorGuideText(candidate),
     rank_context: buildRankContext(candidate, rank, topInList),
@@ -471,7 +463,6 @@ function buildBehavior(
     noise_preference: noiseFromPresentation(result.resolved_profile.final_presentation_style),
     flash_preference: flashFromPresentation(result.resolved_profile.final_presentation_style),
     behavior_summary: buildBehaviorSummary(
-      activity,
       depthLane,
       result.resolved_profile.primary_forage,
       result.resolved_profile.secondary_forage,
@@ -508,7 +499,12 @@ function buildPrimaryPatternSummary(
   result: RecommenderV3Response,
 ): string | undefined {
   if (!top) return undefined;
-  return `${top.display_name} is the best starting lane today: keep it around the ${waterColumnLabel(behavior.depth_lane)}, match ${forageLabel(behavior.forage_mode)}, and lean on ${result.resolved_profile.final_presentation_style} presence rather than making a drastic jump.`;
+  const depth = waterColumnLabel(behavior.depth_lane);
+  const forage = forageLabel(behavior.forage_mode);
+  const pres = result.resolved_profile.final_presentation_style;
+  const s1 = `${top.display_name} is the lead pick—start in the ${depth} zone.`;
+  const s2 = `Match ${forage} and stay ${pres} on presentation until the bite tells you to change.`;
+  return `${s1}\n\n${s2}`;
 }
 
 function buildSharedRequest(req: RecommenderRequest): SharedEngineRequest {
@@ -545,10 +541,10 @@ export function runRecommenderV3Surface(req: RecommenderRequest): RecommenderRes
   const lureTop = v3.lure_recommendations[0];
   const flyTop = v3.fly_recommendations[0];
   const lure_rankings = v3.lure_recommendations.map((candidate, i) =>
-    toRankedFamily(candidate, v3, i + 1, lureTop),
+    toRankedFamily(candidate, i + 1, lureTop),
   );
   const fly_rankings = v3.fly_recommendations.map((candidate, i) =>
-    toRankedFamily(candidate, v3, i + 1, flyTop),
+    toRankedFamily(candidate, i + 1, flyTop),
   );
   const confidence = resolveConfidence(
     req,

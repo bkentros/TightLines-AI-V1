@@ -68,6 +68,12 @@ export type CurrentTechnique =
 
 // ─── Behavior Output ──────────────────────────────────────────────────────────
 
+/** One labeled row in the recommender “fish behavior” card (water / forage / speed). */
+export type BehaviorSummaryRow = {
+  label: string;
+  detail: string;
+};
+
 export type BehaviorOutput = {
   activity: ActivityLevel;
   aggression: AggressionLevel;
@@ -81,8 +87,8 @@ export type BehaviorOutput = {
   speed_preference: SpeedPreference;
   noise_preference: NoiseLevel;
   flash_preference: FlashLevel;
-  /** Exactly 3 short deterministic lines shown in the behavior summary card. */
-  behavior_summary: [string, string, string];
+  /** Three short rows: water column, forage, retrieve speed. */
+  behavior_summary: [BehaviorSummaryRow, BehaviorSummaryRow, BehaviorSummaryRow];
   tidal_note?: string;
   seasonal_flag?: SeasonalFlag;
 };

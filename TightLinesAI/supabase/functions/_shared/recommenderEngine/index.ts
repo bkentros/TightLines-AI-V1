@@ -16,7 +16,7 @@ export type {
   RecommenderResponse,
 } from "./contracts/output.ts";
 export { RECOMMENDER_FEATURE } from "./contracts/output.ts";
-export type { BehaviorOutput, PresentationOutput } from "./contracts/behavior.ts";
+export type { BehaviorOutput, BehaviorSummaryRow, PresentationOutput } from "./contracts/behavior.ts";
 export type { SpeciesGroup } from "./contracts/species.ts";
 export { SPECIES_GROUPS, SPECIES_META } from "./contracts/species.ts";
 export type { GearMode, LureFamilyId, FlyFamilyId } from "./contracts/families.ts";

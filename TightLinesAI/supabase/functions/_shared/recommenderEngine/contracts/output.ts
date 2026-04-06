@@ -12,8 +12,6 @@ export const RECOMMENDER_FEATURE = "recommender_v3" as const;
 export type RankedFamily = {
   family_id: LureFamilyId | FlyFamilyId;
   display_name: string;
-  /** First lane or structure to start on. */
-  where_to_start?: string;
   how_to_fish: string;
   color_guide: string;
   /** Ranks 2–3 only: how this pick differs from #1. */

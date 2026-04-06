@@ -33,7 +33,7 @@ export const STATE_SPECIES_MAP: Record<string, StateSpeciesMap> = {
   // ─── Alabama ──────────────────────────────────────────────────────────────
   AL: {
     largemouth_bass: { tier: "primary",  contexts: FW },
-    smallmouth_bass: { tier: "marginal", contexts: FW_RIVER },
+    smallmouth_bass: { tier: "marginal", contexts: FW },
     walleye:         { tier: "marginal", contexts: FW_LAKE },
     striped_bass:    { tier: "primary",  contexts: FW_LAKE },
     redfish:         { tier: "primary",  contexts: COAST },
@@ -57,7 +57,7 @@ export const STATE_SPECIES_MAP: Record<string, StateSpeciesMap> = {
   // ─── Arkansas ─────────────────────────────────────────────────────────────
   AR: {
     largemouth_bass: { tier: "primary",  contexts: FW },
-    smallmouth_bass: { tier: "primary",  contexts: FW_RIVER },
+    smallmouth_bass: { tier: "primary",  contexts: FW },
     walleye:         { tier: "primary",  contexts: FW },
     striped_bass:    { tier: "primary",  contexts: FW_LAKE },
   },
@@ -92,7 +92,7 @@ export const STATE_SPECIES_MAP: Record<string, StateSpeciesMap> = {
   // ─── Delaware ─────────────────────────────────────────────────────────────
   DE: {
     largemouth_bass: { tier: "primary",  contexts: FW },
-    smallmouth_bass: { tier: "marginal", contexts: FW_RIVER },
+    smallmouth_bass: { tier: "marginal", contexts: FW },
     striped_bass:    { tier: "primary",  contexts: COAST_ONLY },
     seatrout:        { tier: "marginal", contexts: COAST_ONLY },
   },
@@ -110,7 +110,7 @@ export const STATE_SPECIES_MAP: Record<string, StateSpeciesMap> = {
   // ─── Georgia ──────────────────────────────────────────────────────────────
   GA: {
     largemouth_bass: { tier: "primary",  contexts: FW },
-    smallmouth_bass: { tier: "marginal", contexts: FW_RIVER },
+    smallmouth_bass: { tier: "marginal", contexts: FW },
     striped_bass:    { tier: "primary",  contexts: FW_LAKE },
     walleye:         { tier: "marginal", contexts: FW_LAKE },
     redfish:         { tier: "primary",  contexts: COAST },
@@ -135,7 +135,7 @@ export const STATE_SPECIES_MAP: Record<string, StateSpeciesMap> = {
   // ─── Illinois ─────────────────────────────────────────────────────────────
   IL: {
     largemouth_bass: { tier: "primary",  contexts: FW },
-    smallmouth_bass: { tier: "primary",  contexts: FW_RIVER },
+    smallmouth_bass: { tier: "primary",  contexts: FW },
     walleye:         { tier: "primary",  contexts: FW },
     pike_musky:      { tier: "primary",  contexts: FW },
     striped_bass:    { tier: "marginal", contexts: FW_LAKE },
@@ -152,7 +152,7 @@ export const STATE_SPECIES_MAP: Record<string, StateSpeciesMap> = {
   // ─── Iowa ─────────────────────────────────────────────────────────────────
   IA: {
     largemouth_bass: { tier: "primary", contexts: FW },
-    smallmouth_bass: { tier: "primary", contexts: FW_RIVER },
+    smallmouth_bass: { tier: "primary", contexts: FW },
     walleye:         { tier: "primary", contexts: FW },
     pike_musky:      { tier: "primary", contexts: FW },
   },
@@ -160,7 +160,7 @@ export const STATE_SPECIES_MAP: Record<string, StateSpeciesMap> = {
   // ─── Kansas ───────────────────────────────────────────────────────────────
   KS: {
     largemouth_bass: { tier: "primary",  contexts: FW_LAKE },
-    smallmouth_bass: { tier: "marginal", contexts: FW_RIVER },
+    smallmouth_bass: { tier: "marginal", contexts: FW },
     walleye:         { tier: "primary",  contexts: FW_LAKE },
     striped_bass:    { tier: "primary",  contexts: FW_LAKE },
   },
@@ -243,7 +243,7 @@ export const STATE_SPECIES_MAP: Record<string, StateSpeciesMap> = {
   // ─── Missouri ─────────────────────────────────────────────────────────────
   MO: {
     largemouth_bass: { tier: "primary",  contexts: FW },
-    smallmouth_bass: { tier: "primary",  contexts: FW_RIVER },
+    smallmouth_bass: { tier: "primary",  contexts: FW },
     walleye:         { tier: "primary",  contexts: FW },
     pike_musky:      { tier: "marginal", contexts: FW_LAKE },
     striped_bass:    { tier: "primary",  contexts: FW_LAKE },
@@ -261,7 +261,7 @@ export const STATE_SPECIES_MAP: Record<string, StateSpeciesMap> = {
   // ─── Nebraska ─────────────────────────────────────────────────────────────
   NE: {
     largemouth_bass: { tier: "primary",  contexts: FW_LAKE },
-    smallmouth_bass: { tier: "marginal", contexts: FW_RIVER },
+    smallmouth_bass: { tier: "marginal", contexts: FW },
     walleye:         { tier: "primary",  contexts: FW },
     pike_musky:      { tier: "marginal", contexts: FW_LAKE },
     striped_bass:    { tier: "marginal", contexts: FW_LAKE },
@@ -317,7 +317,7 @@ export const STATE_SPECIES_MAP: Record<string, StateSpeciesMap> = {
   // ─── North Carolina ───────────────────────────────────────────────────────
   NC: {
     largemouth_bass: { tier: "primary",  contexts: FW },
-    smallmouth_bass: { tier: "primary",  contexts: FW_RIVER },
+    smallmouth_bass: { tier: "primary",  contexts: FW },
     river_trout:     { tier: "primary",  contexts: FW_RIVER },
     walleye:         { tier: "marginal", contexts: FW_LAKE },
     striped_bass:    { tier: "primary",  contexts: ["freshwater_lake_pond", "coastal"] },
@@ -329,7 +329,7 @@ export const STATE_SPECIES_MAP: Record<string, StateSpeciesMap> = {
   // ─── North Dakota ─────────────────────────────────────────────────────────
   ND: {
     largemouth_bass: { tier: "primary",  contexts: FW_LAKE },
-    smallmouth_bass: { tier: "marginal", contexts: FW_RIVER },
+    smallmouth_bass: { tier: "marginal", contexts: FW },
     walleye:         { tier: "primary",  contexts: FW },
     pike_musky:      { tier: "primary",  contexts: FW },
   },
@@ -347,7 +347,7 @@ export const STATE_SPECIES_MAP: Record<string, StateSpeciesMap> = {
   // ─── Oklahoma ─────────────────────────────────────────────────────────────
   OK: {
     largemouth_bass: { tier: "primary", contexts: FW },
-    smallmouth_bass: { tier: "marginal", contexts: FW_RIVER },
+    smallmouth_bass: { tier: "marginal", contexts: FW },
     walleye:         { tier: "primary",  contexts: FW_LAKE },
     striped_bass:    { tier: "primary",  contexts: FW_LAKE },
   },
@@ -382,7 +382,7 @@ export const STATE_SPECIES_MAP: Record<string, StateSpeciesMap> = {
   // ─── South Carolina ───────────────────────────────────────────────────────
   SC: {
     largemouth_bass: { tier: "primary",  contexts: FW },
-    smallmouth_bass: { tier: "marginal", contexts: FW_RIVER },
+    smallmouth_bass: { tier: "marginal", contexts: FW },
     walleye:         { tier: "marginal", contexts: FW_LAKE },
     striped_bass:    { tier: "primary",  contexts: ["freshwater_lake_pond", "coastal"] },
     redfish:         { tier: "primary",  contexts: COAST },
@@ -393,7 +393,7 @@ export const STATE_SPECIES_MAP: Record<string, StateSpeciesMap> = {
   // ─── South Dakota ─────────────────────────────────────────────────────────
   SD: {
     largemouth_bass: { tier: "primary",  contexts: FW_LAKE },
-    smallmouth_bass: { tier: "marginal", contexts: FW_RIVER },
+    smallmouth_bass: { tier: "marginal", contexts: FW },
     walleye:         { tier: "primary",  contexts: FW },
     pike_musky:      { tier: "primary",  contexts: FW },
   },
@@ -410,7 +410,7 @@ export const STATE_SPECIES_MAP: Record<string, StateSpeciesMap> = {
   // ─── Texas ────────────────────────────────────────────────────────────────
   TX: {
     largemouth_bass: { tier: "primary",  contexts: FW },
-    smallmouth_bass: { tier: "marginal", contexts: FW_RIVER },
+    smallmouth_bass: { tier: "marginal", contexts: FW },
     walleye:         { tier: "marginal", contexts: FW_LAKE },
     striped_bass:    { tier: "primary",  contexts: FW_LAKE },
     redfish:         { tier: "primary",  contexts: COAST },
@@ -460,7 +460,7 @@ export const STATE_SPECIES_MAP: Record<string, StateSpeciesMap> = {
   // ─── West Virginia ────────────────────────────────────────────────────────
   WV: {
     largemouth_bass: { tier: "primary",  contexts: FW },
-    smallmouth_bass: { tier: "primary",  contexts: FW_RIVER },
+    smallmouth_bass: { tier: "primary",  contexts: FW },
     river_trout:     { tier: "primary",  contexts: FW_RIVER },
     walleye:         { tier: "primary",  contexts: FW },
     pike_musky:      { tier: "marginal", contexts: FW_LAKE },

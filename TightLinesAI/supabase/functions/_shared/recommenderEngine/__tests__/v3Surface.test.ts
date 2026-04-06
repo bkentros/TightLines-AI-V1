@@ -28,13 +28,16 @@ Deno.test("V3 surface returns the current frontend contract for a supported fres
   assertEquals(result.lure_rankings.length, 3);
   assertEquals(result.fly_rankings.length, 3);
   assertEquals(result.behavior.behavior_summary.length, 3);
+  for (const row of result.behavior.behavior_summary) {
+    assert(typeof row.label === "string");
+    assert(typeof row.detail === "string");
+  }
   assert(typeof result.primary_pattern_summary === "string");
   assert(result.confidence.reasons.length > 0);
 
   for (const candidate of [...result.lure_rankings, ...result.fly_rankings]) {
     assert(typeof candidate.display_name === "string");
     assert(typeof candidate.color_guide === "string");
-    assert(typeof candidate.where_to_start === "string");
     assert(typeof candidate.how_to_fish === "string");
     assert(candidate.rank_context === undefined || typeof candidate.rank_context === "string");
   }

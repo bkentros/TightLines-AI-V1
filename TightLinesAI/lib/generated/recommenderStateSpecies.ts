@@ -11,6 +11,7 @@ export const STATE_SPECIES_CONTEXTS = {
       "freshwater_river"
     ],
     "smallmouth_bass": [
+      "freshwater_lake_pond",
       "freshwater_river"
     ],
     "walleye": [
@@ -57,6 +58,7 @@ export const STATE_SPECIES_CONTEXTS = {
       "freshwater_river"
     ],
     "smallmouth_bass": [
+      "freshwater_lake_pond",
       "freshwater_river"
     ],
     "walleye": [
@@ -132,6 +134,7 @@ export const STATE_SPECIES_CONTEXTS = {
       "freshwater_river"
     ],
     "smallmouth_bass": [
+      "freshwater_lake_pond",
       "freshwater_river"
     ],
     "striped_bass": [
@@ -172,6 +175,7 @@ export const STATE_SPECIES_CONTEXTS = {
       "freshwater_river"
     ],
     "smallmouth_bass": [
+      "freshwater_lake_pond",
       "freshwater_river"
     ],
     "striped_bass": [
@@ -222,6 +226,7 @@ export const STATE_SPECIES_CONTEXTS = {
       "freshwater_river"
     ],
     "smallmouth_bass": [
+      "freshwater_lake_pond",
       "freshwater_river"
     ],
     "walleye": [
@@ -260,6 +265,7 @@ export const STATE_SPECIES_CONTEXTS = {
       "freshwater_river"
     ],
     "smallmouth_bass": [
+      "freshwater_lake_pond",
       "freshwater_river"
     ],
     "walleye": [
@@ -276,6 +282,7 @@ export const STATE_SPECIES_CONTEXTS = {
       "freshwater_lake_pond"
     ],
     "smallmouth_bass": [
+      "freshwater_lake_pond",
       "freshwater_river"
     ],
     "walleye": [
@@ -460,6 +467,7 @@ export const STATE_SPECIES_CONTEXTS = {
       "freshwater_river"
     ],
     "smallmouth_bass": [
+      "freshwater_lake_pond",
       "freshwater_river"
     ],
     "walleye": [
@@ -497,6 +505,7 @@ export const STATE_SPECIES_CONTEXTS = {
       "freshwater_lake_pond"
     ],
     "smallmouth_bass": [
+      "freshwater_lake_pond",
       "freshwater_river"
     ],
     "walleye": [
@@ -617,6 +626,7 @@ export const STATE_SPECIES_CONTEXTS = {
       "freshwater_river"
     ],
     "smallmouth_bass": [
+      "freshwater_lake_pond",
       "freshwater_river"
     ],
     "river_trout": [
@@ -646,6 +656,7 @@ export const STATE_SPECIES_CONTEXTS = {
       "freshwater_lake_pond"
     ],
     "smallmouth_bass": [
+      "freshwater_lake_pond",
       "freshwater_river"
     ],
     "walleye": [
@@ -687,6 +698,7 @@ export const STATE_SPECIES_CONTEXTS = {
       "freshwater_river"
     ],
     "smallmouth_bass": [
+      "freshwater_lake_pond",
       "freshwater_river"
     ],
     "walleye": [
@@ -762,6 +774,7 @@ export const STATE_SPECIES_CONTEXTS = {
       "freshwater_river"
     ],
     "smallmouth_bass": [
+      "freshwater_lake_pond",
       "freshwater_river"
     ],
     "walleye": [
@@ -788,6 +801,7 @@ export const STATE_SPECIES_CONTEXTS = {
       "freshwater_lake_pond"
     ],
     "smallmouth_bass": [
+      "freshwater_lake_pond",
       "freshwater_river"
     ],
     "walleye": [
@@ -824,6 +838,7 @@ export const STATE_SPECIES_CONTEXTS = {
       "freshwater_river"
     ],
     "smallmouth_bass": [
+      "freshwater_lake_pond",
       "freshwater_river"
     ],
     "walleye": [
@@ -936,6 +951,7 @@ export const STATE_SPECIES_CONTEXTS = {
       "freshwater_river"
     ],
     "smallmouth_bass": [
+      "freshwater_lake_pond",
       "freshwater_river"
     ],
     "river_trout": [

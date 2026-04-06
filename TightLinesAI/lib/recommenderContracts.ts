@@ -209,6 +209,11 @@ export type ColorFamily =
   | "crab_olive"
   | "flash_heavy";
 
+export type BehaviorSummaryRow = {
+  label: string;
+  detail: string;
+};
+
 export type BehaviorOutput = {
   activity: ActivityLevel;
   aggression: AggressionLevel;
@@ -222,7 +227,7 @@ export type BehaviorOutput = {
   noise_preference: NoiseLevel;
   flash_preference: FlashLevel;
   habitat_tags: string[];
-  behavior_summary: [string, string, string];
+  behavior_summary: [BehaviorSummaryRow, BehaviorSummaryRow, BehaviorSummaryRow];
   tidal_note?: string;
   seasonal_flag?: string;
 };
@@ -243,7 +248,6 @@ export type PresentationOutput = {
 export type RankedFamily = {
   family_id: string;
   display_name: string;
-  where_to_start?: string;
   how_to_fish: string;
   color_guide: string;
   rank_context?: string;
