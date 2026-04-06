@@ -47,6 +47,18 @@ interface CacheEntry {
 
 const _memCache = new Map<string, CacheEntry>();
 
+// ─── Shape validation ─────────────────────────────────────────────────────────
+
+/**
+ * Guards against stale cached results from older API shapes.
+ * behavior_summary must be [{label,detail}, ...] objects — not plain strings.
+ */
+function isCachedResultValid(result: RecommenderResponse): boolean {
+  const summary = result.behavior?.behavior_summary;
+  if (!Array.isArray(summary) || summary.length === 0) return false;
+  return typeof (summary[0] as Record<string, unknown>)?.label === 'string';
+}
+
 // ─── Read cache ───────────────────────────────────────────────────────────────
 
 async function getCachedResult(
@@ -63,6 +75,10 @@ async function getCachedResult(
   if (mem && coordsMatch(mem.lat, mem.lon, lat, lon)) {
     const expires = new Date(mem.cache_expires_at).getTime();
     if (Number.isFinite(expires) && Date.now() < expires) {
+      if (!isCachedResultValid(mem.result)) {
+        _memCache.delete(key);
+        return null;
+      }
       return mem.result;
     }
     _memCache.delete(key);
@@ -76,6 +92,11 @@ async function getCachedResult(
     if (!coordsMatch(entry.lat, entry.lon, lat, lon)) return null;
     const expires = new Date(entry.cache_expires_at).getTime();
     if (!Number.isFinite(expires) || Date.now() >= expires) return null;
+    // Discard if shape is stale (old string-array format)
+    if (!isCachedResultValid(entry.result)) {
+      await AsyncStorage.removeItem(key).catch(() => {});
+      return null;
+    }
     // Warm in-memory cache
     _memCache.set(key, entry);
     return entry.result;
