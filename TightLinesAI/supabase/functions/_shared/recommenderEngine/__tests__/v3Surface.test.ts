@@ -33,11 +33,11 @@ Deno.test("V3 surface returns the current frontend contract for a supported fres
     assert(typeof row.detail === "string");
   }
   assert(typeof result.primary_pattern_summary === "string");
+  assert(typeof result.color_of_day === "string");
   assert(result.confidence.reasons.length > 0);
 
   for (const candidate of [...result.lure_rankings, ...result.fly_rankings]) {
     assert(typeof candidate.display_name === "string");
-    assert(typeof candidate.color_guide === "string");
     assert(typeof candidate.how_to_fish === "string");
     assert(candidate.rank_context === undefined || typeof candidate.rank_context === "string");
   }

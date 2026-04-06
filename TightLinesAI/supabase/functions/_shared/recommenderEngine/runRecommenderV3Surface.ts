@@ -390,79 +390,28 @@ function howToFishText(
   }
 }
 
-// ─── Simplified 3-theme color system ─────────────────────────────────────────
+// ─── Color of the Day ─────────────────────────────────────────────────────────
 //
-// Internally the engine still selects one of 11 fine-grained color themes; this
-// layer collapses that to Dark / Natural / Bright and picks 2 example colors
-// from a pool of 6 (3 pairs). The pair is chosen deterministically by archetype
-// ID so different lures within the same mega-theme show different examples.
-
-type ColorMegaTheme = "dark" | "natural" | "bright";
-
-/** Maps the engine's fine-grained theme to one of the three user-facing themes. */
-const FINE_TO_MEGA: Record<string, ColorMegaTheme> = {
-  dark_contrast:         "dark",
-  mouse_natural:         "dark",   // dark silhouette topwater
-  bright_contrast:       "bright",
-  metal_flash:           "bright", // chrome/flash = high-visibility
-  natural_baitfish:      "natural",
-  white_shad:            "natural",
-  craw_natural:          "natural",
-  green_pumpkin_natural: "natural",
-  watermelon_natural:    "natural",
-  perch_bluegill:        "natural",
-  frog_natural:          "natural",
-};
+// A single condition-driven color direction for the entire session.
+// Applies equally to lures and flies — displayed once at the top of results.
 
 /**
- * 6 color examples per mega-theme. On each run, 2 are randomly selected
- * so the output varies while the theme stays condition-driven.
+ * Returns "Brighter Colors", "Darker Colors", or "Natural Colors" based on
+ * conditions. Dirty water and overcast both need higher visibility; negative
+ * mood + finesse day calls for darker/subtler silhouettes; everything else
+ * defaults to natural forage-match patterns.
  */
-const COLOR_POOLS: Record<ColorMegaTheme, readonly string[]> = {
-  dark: [
-    "black/blue",
-    "black/purple",
-    "black/red",
-    "black/brown",
-    "midnight blue",
-    "black/green",
-  ],
-  natural: [
-    "green pumpkin",
-    "natural craw",
-    "watermelon",
-    "green pumpkin/blue",
-    "olive/shad",
-    "white/silver",
-  ],
-  bright: [
-    "white/chartreuse",
-    "chartreuse/black",
-    "firetiger",
-    "white/blue",
-    "pearl/white",
-    "orange/chartreuse",
-  ],
-};
-
-/** Picks 2 distinct colors at random from a pool. */
-function pickTwo(pool: readonly string[]): [string, string] {
-  const i = Math.floor(Math.random() * pool.length);
-  let j = Math.floor(Math.random() * (pool.length - 1));
-  if (j >= i) j++;
-  return [pool[i]!, pool[j]!];
-}
-
-/**
- * Returns a string in the format "Dark — black/blue & black/purple".
- * Theme is condition-driven; the two example colors are random each run.
- * The UI splits on " — " to style label and examples separately.
- */
-function colorGuideText(candidate: RecommenderV3RankedArchetype): string {
-  const mega: ColorMegaTheme = FINE_TO_MEGA[candidate.color_theme] ?? "natural";
-  const [a, b] = pickTwo(COLOR_POOLS[mega]);
-  const label = mega.charAt(0).toUpperCase() + mega.slice(1);
-  return `${label} — ${a} & ${b}`;
+function colorOfDayText(
+  resolved: RecommenderV3Response["resolved_profile"],
+  clarity: WaterClarity,
+  lightLabel: string | null,
+): string {
+  if (clarity === "dirty") return "Brighter Colors";
+  if (lightLabel === "low_light" || lightLabel === "heavy_overcast") return "Brighter Colors";
+  if (resolved.final_mood === "negative" && resolved.final_presentation_style === "subtle") {
+    return "Darker Colors";
+  }
+  return "Natural Colors";
 }
 
 const RANK_CONTEXT_BY_LANE: Partial<Record<TacticalLaneV3, string>> = {
@@ -503,7 +452,6 @@ function toRankedFamily(
     family_id: candidate.id as unknown as LureFamilyId | FlyFamilyId,
     display_name: candidate.display_name,
     how_to_fish: howToFishText(candidate),
-    color_guide: colorGuideText(candidate),
     rank_context: buildRankContext(candidate, rank, topInList),
   };
 }
@@ -605,6 +553,7 @@ function timingFromAnalysis(analysis: SharedConditionAnalysis): {
 export function runRecommenderV3Surface(req: RecommenderRequest): RecommenderResponse {
   const analysis = analyzeSharedConditions(buildSharedRequest(req));
   const v3 = computeRecommenderV3(req, analysis);
+  const lightLabel = analysis.norm.normalized.light_cloud_condition?.label ?? null;
   const behavior = buildBehavior(v3);
   const presentation = buildPresentation(v3, behavior);
   const lureConfidence = v3.lure_recommendations.map(v3ToConfidenceInput);
@@ -641,6 +590,7 @@ export function runRecommenderV3Surface(req: RecommenderRequest): RecommenderRes
     fly_rankings,
     timing: timingFromAnalysis(analysis),
     confidence,
+    color_of_day: colorOfDayText(v3.resolved_profile, req.water_clarity, lightLabel),
     primary_pattern_summary: buildPrimaryPatternSummary(lure_rankings[0], behavior, v3),
   };
 }

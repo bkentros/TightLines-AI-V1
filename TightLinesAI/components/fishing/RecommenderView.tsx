@@ -157,7 +157,6 @@ function FamilyCard({
         {/* Expanded panels */}
         {expanded && (
           <View style={styles.detailsExpanded}>
-            {/* How to fish */}
             <View style={styles.gearPanel}>
               <View style={styles.gearPanelHeader}>
                 <View style={[styles.gearPanelIconWrap, { borderColor: accentColor + '30' }]}>
@@ -166,27 +165,6 @@ function FamilyCard({
                 <Text style={styles.gearPanelTitle}>How to fish it</Text>
               </View>
               <Text style={styles.gearPanelBody}>{family.how_to_fish}</Text>
-            </View>
-
-            {/* Colors */}
-            <View style={styles.gearPanel}>
-              <View style={styles.gearPanelHeader}>
-                <View style={[styles.gearPanelIconWrap, { borderColor: accentColor + '30' }]}>
-                  <Ionicons name="color-palette-outline" size={14} color={accentColor} />
-                </View>
-                <Text style={styles.gearPanelTitle}>Colors</Text>
-              </View>
-              {(() => {
-                const [theme, examples] = family.color_guide.split(' — ');
-                return (
-                  <>
-                    <Text style={styles.colorThemeName}>{theme}</Text>
-                    {!!examples && (
-                      <Text style={styles.colorExamples}>{examples}</Text>
-                    )}
-                  </>
-                );
-              })()}
             </View>
           </View>
         )}
@@ -339,6 +317,19 @@ export function RecommenderView({ result, style }: Props) {
         {!!result.primary_pattern_summary && (
           <Text style={styles.patternSummary}>{result.primary_pattern_summary}</Text>
         )}
+
+        {/* Color of the Day */}
+        {!!result.color_of_day && (
+          <View style={styles.colorOfDayRow}>
+            <View style={[styles.colorOfDayIconWrap, { backgroundColor: accentColor + '18' }]}>
+              <Ionicons name="color-palette-outline" size={14} color={accentColor} />
+            </View>
+            <Text style={styles.colorOfDayLabel}>Color of the Day</Text>
+            <Text style={[styles.colorOfDayValue, { color: accentColor }]}>
+              {result.color_of_day}
+            </Text>
+          </View>
+        )}
       </View>
 
       {/* ── Fish behavior ── */}
@@ -446,6 +437,32 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: colors.textSecondary,
     lineHeight: 22,
+  },
+  colorOfDayRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    paddingTop: 10,
+    borderTopWidth: 1,
+    borderTopColor: colors.borderLight,
+  },
+  colorOfDayIconWrap: {
+    width: 26,
+    height: 26,
+    borderRadius: radius.sm,
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexShrink: 0,
+  },
+  colorOfDayLabel: {
+    fontFamily: fonts.body,
+    fontSize: 13,
+    color: colors.textMuted,
+    flex: 1,
+  },
+  colorOfDayValue: {
+    fontFamily: fonts.bodySemiBold,
+    fontSize: 13,
   },
 
   // ── Behavior card ─────────────────────────────────────────────────────────────
@@ -653,18 +670,6 @@ const styles = StyleSheet.create({
     fontSize: 13,
     color: colors.primaryDark,
     flex: 1,
-  },
-  colorThemeName: {
-    fontFamily: fonts.serifBold,
-    fontSize: 15,
-    color: colors.text,
-    letterSpacing: 0.2,
-  },
-  colorExamples: {
-    fontFamily: fonts.body,
-    fontSize: 13,
-    color: colors.textMuted,
-    marginTop: 3,
   },
   gearPanelBody: {
     fontFamily: fonts.body,

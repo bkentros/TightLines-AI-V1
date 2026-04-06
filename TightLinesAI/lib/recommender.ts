@@ -51,12 +51,15 @@ const _memCache = new Map<string, CacheEntry>();
 
 /**
  * Guards against stale cached results from older API shapes.
- * behavior_summary must be [{label,detail}, ...] objects — not plain strings.
+ * - behavior_summary must be [{label,detail}] objects (not plain strings)
+ * - color_of_day must be present as a top-level string (added in current shape)
  */
 function isCachedResultValid(result: RecommenderResponse): boolean {
   const summary = result.behavior?.behavior_summary;
   if (!Array.isArray(summary) || summary.length === 0) return false;
-  return typeof (summary[0] as Record<string, unknown>)?.label === 'string';
+  if (typeof (summary[0] as Record<string, unknown>)?.label !== 'string') return false;
+  if (typeof result.color_of_day !== 'string') return false;
+  return true;
 }
 
 // ─── Read cache ───────────────────────────────────────────────────────────────

@@ -13,7 +13,6 @@ export type RankedFamily = {
   family_id: LureFamilyId | FlyFamilyId;
   display_name: string;
   how_to_fish: string;
-  color_guide: string;
   /** Ranks 2–3 only: how this pick differs from #1. */
   rank_context?: string;
 };
@@ -45,6 +44,8 @@ export type RecommenderResponse = {
     timing_strength: TimingStrength;
   };
   confidence: RecommenderConfidence;
+  /** Single condition-driven color direction for the session. */
+  color_of_day: string;
   /** Phase 6 target field: top-level guide summary for the overall pattern. */
   primary_pattern_summary?: string;
 };

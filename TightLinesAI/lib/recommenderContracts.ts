@@ -249,7 +249,6 @@ export type RankedFamily = {
   family_id: string;
   display_name: string;
   how_to_fish: string;
-  color_guide: string;
   rank_context?: string;
 };
 
@@ -276,6 +275,8 @@ export type RecommenderResponse = {
     timing_strength: string;
   };
   confidence: RecommenderConfidence;
+  /** Single condition-driven color direction for the session. */
+  color_of_day: string;
   /** Phase 6 target field: top-level guide summary for the overall pattern. */
   primary_pattern_summary?: string;
 };
