@@ -179,68 +179,45 @@ function SectionLabel({ label }: { label: string }) {
   return <Text style={styles.sectionLabel}>{label}</Text>;
 }
 
-/** Horizontal scrolling chip row — used for Body of Water */
-function ChipRow<T extends string>({
-  options,
-  selected,
+// ─── Species Card ─────────────────────────────────────────────────────────────
+
+function SpeciesCard({
+  sp,
+  isActive,
   onSelect,
-  labelFor,
-  colorFor,
-  iconFor,
 }: {
-  options: T[];
-  selected: T | null;
-  onSelect: (v: T) => void;
-  labelFor: (v: T) => string;
-  colorFor?: (v: T) => string;
-  iconFor?: (v: T) => string;
+  sp: SpeciesGroup;
+  isActive: boolean;
+  onSelect: (s: SpeciesGroup) => void;
 }) {
+  const img = getSpeciesImage(sp);
   return (
-    <ScrollView
-      horizontal
-      showsHorizontalScrollIndicator={false}
-      contentContainerStyle={styles.chipRowContent}
+    <TouchableOpacity
+      style={[styles.speciesCard, isActive && styles.speciesCardActive]}
+      onPress={() => onSelect(sp)}
+      activeOpacity={0.85}
     >
-      {options.map((opt) => {
-        const isActive = selected === opt;
-        const accent = colorFor ? colorFor(opt) : colors.primary;
-        const icon = iconFor ? iconFor(opt) : null;
-        return (
-          <TouchableOpacity
-            key={opt}
-            style={[
-              styles.chip,
-              isActive
-                ? { backgroundColor: accent, borderColor: accent }
-                : { backgroundColor: colors.surface, borderColor: colors.border },
-            ]}
-            onPress={() => onSelect(opt)}
-            activeOpacity={0.7}
-          >
-            {icon && (
-              <Ionicons
-                name={icon as never}
-                size={14}
-                color={isActive ? '#fff' : colors.textSecondary}
-              />
-            )}
-            <Text
-              style={[
-                styles.chipText,
-                { color: isActive ? '#fff' : colors.textSecondary },
-                isActive && { fontFamily: fonts.bodySemiBold },
-              ]}
-            >
-              {labelFor(opt)}
-            </Text>
-          </TouchableOpacity>
-        );
-      })}
-    </ScrollView>
+      {img && (
+        <Image source={img} style={styles.speciesImage} resizeMode="contain" />
+      )}
+      {/* Name strip overlaid at bottom */}
+      <View style={styles.speciesNameStrip}>
+        <Text style={styles.speciesCardText} numberOfLines={1}>
+          {SPECIES_DISPLAY[sp]}
+        </Text>
+      </View>
+      {/* Selection badge */}
+      {isActive && (
+        <View style={styles.speciesCheckBadge}>
+          <Ionicons name="checkmark" size={12} color="#fff" />
+        </View>
+      )}
+    </TouchableOpacity>
   );
 }
 
-/** Two-column grid of species selection cards with fish images */
+// ─── Species Grid ─────────────────────────────────────────────────────────────
+
 function SpeciesGrid({
   options,
   selected,
@@ -250,6 +227,15 @@ function SpeciesGrid({
   selected: SpeciesGroup | null;
   onSelect: (s: SpeciesGroup) => void;
 }) {
+  // Single species → full-width card
+  if (options.length === 1) {
+    return (
+      <View style={styles.speciesGrid}>
+        <SpeciesCard sp={options[0]} isActive={selected === options[0]} onSelect={onSelect} />
+      </View>
+    );
+  }
+
   const rows: SpeciesGroup[][] = [];
   for (let i = 0; i < options.length; i += 2) {
     rows.push(options.slice(i, i + 2));
@@ -259,64 +245,68 @@ function SpeciesGrid({
     <View style={styles.speciesGrid}>
       {rows.map((row, rowIdx) => (
         <View key={rowIdx} style={styles.speciesRow}>
-          {row.map((sp) => {
-            const isActive = selected === sp;
-            const img = getSpeciesImage(sp);
-            return (
-              <TouchableOpacity
-                key={sp}
-                style={[
-                  styles.speciesCard,
-                  shadows.sm,
-                  isActive
-                    ? { borderColor: colors.primary, borderWidth: 2 }
-                    : { backgroundColor: colors.surface, borderColor: colors.border },
-                ]}
-                onPress={() => onSelect(sp)}
-                activeOpacity={0.75}
-              >
-                {/* Fish image */}
-                <View style={styles.speciesImageWrap}>
-                  {img ? (
-                    <Image
-                      source={img}
-                      style={styles.speciesImage}
-                      resizeMode="contain"
-                    />
-                  ) : (
-                    <View style={styles.speciesImageFallback} />
-                  )}
-                </View>
-
-                {/* Name + check row */}
-                <View style={styles.speciesCardFooter}>
-                  <Text
-                    style={[
-                      styles.speciesCardText,
-                      { color: isActive ? colors.primary : colors.text },
-                      isActive && { fontFamily: fonts.bodySemiBold },
-                    ]}
-                    numberOfLines={2}
-                  >
-                    {SPECIES_DISPLAY[sp]}
-                  </Text>
-                  {isActive && (
-                    <View style={styles.speciesCheckCircle}>
-                      <Ionicons name="checkmark" size={11} color="#fff" />
-                    </View>
-                  )}
-                </View>
-              </TouchableOpacity>
-            );
-          })}
-          {row.length === 1 && <View style={styles.speciesCardSpacer} />}
+          {row.map((sp) => (
+            <SpeciesCard key={sp} sp={sp} isActive={selected === sp} onSelect={onSelect} />
+          ))}
+          {row.length === 1 && <View style={{ flex: 1 }} />}
         </View>
       ))}
     </View>
   );
 }
 
-/** Three-column water clarity card selector */
+// ─── Context selector (Body of Water) ────────────────────────────────────────
+
+function ContextSelector({
+  options,
+  selected,
+  onSelect,
+  accentColor,
+}: {
+  options: EngineContext[];
+  selected: EngineContext | null;
+  onSelect: (v: EngineContext) => void;
+  accentColor: string;
+}) {
+  return (
+    <View style={styles.contextRow}>
+      {options.map((opt) => {
+        const isActive = selected === opt;
+        return (
+          <TouchableOpacity
+            key={opt}
+            style={[
+              styles.contextCard,
+              isActive
+                ? { backgroundColor: accentColor, borderColor: accentColor }
+                : { backgroundColor: colors.surface, borderColor: colors.border },
+            ]}
+            onPress={() => onSelect(opt)}
+            activeOpacity={0.75}
+          >
+            <Ionicons
+              name={contextIcon(opt) as never}
+              size={17}
+              color={isActive ? '#fff' : colors.textMuted}
+            />
+            <Text
+              style={[
+                styles.contextCardText,
+                { color: isActive ? '#fff' : colors.text },
+                isActive && { fontFamily: fonts.bodySemiBold },
+              ]}
+            >
+              {contextLabel(opt)}
+            </Text>
+          </TouchableOpacity>
+        );
+      })}
+    </View>
+  );
+}
+
+// ─── Clarity selector ─────────────────────────────────────────────────────────
+
 function ClaritySelector({
   selected,
   onSelect,
@@ -326,15 +316,15 @@ function ClaritySelector({
   onSelect: (c: WaterClarity) => void;
   accentColor: string;
 }) {
-  const options: { value: WaterClarity; icon: string; sub: string }[] = [
-    { value: 'clear',   icon: 'eye-outline',          sub: 'Glass clear' },
-    { value: 'stained', icon: 'water-outline',         sub: 'Tea / green tint' },
-    { value: 'dirty',   icon: 'cloud-outline',         sub: '2 ft or less' },
+  const options: { value: WaterClarity; label: string; sub: string }[] = [
+    { value: 'clear',   label: 'Clear',   sub: 'Glass clear' },
+    { value: 'stained', label: 'Stained', sub: 'Tea / green tint' },
+    { value: 'dirty',   label: 'Murky',   sub: '2 ft or less' },
   ];
 
   return (
     <View style={styles.clarityRow}>
-      {options.map(({ value, icon, sub }) => {
+      {options.map(({ value, label, sub }) => {
         const isActive = selected === value;
         return (
           <TouchableOpacity
@@ -342,21 +332,23 @@ function ClaritySelector({
             style={[
               styles.clarityCard,
               isActive
-                ? { borderColor: accentColor, backgroundColor: accentColor + '14' }
-                : { borderColor: colors.border, backgroundColor: colors.surface },
+                ? { borderColor: accentColor, backgroundColor: accentColor + '12' }
+                : { borderColor: colors.borderLight, backgroundColor: colors.surface },
             ]}
             onPress={() => onSelect(value)}
             activeOpacity={0.7}
           >
-            <Ionicons
-              name={icon as never}
-              size={20}
-              color={isActive ? accentColor : colors.textMuted}
-            />
             <Text style={[styles.clarityCardTitle, { color: isActive ? accentColor : colors.text }]}>
-              {WATER_CLARITY_LABELS[value]}
+              {label}
             </Text>
-            <Text style={styles.clarityCardSub}>{sub}</Text>
+            <Text style={[styles.clarityCardSub, isActive && { color: accentColor + 'AA' }]}>
+              {sub}
+            </Text>
+            {isActive && (
+              <View style={[styles.clarityCheck, { backgroundColor: accentColor }]}>
+                <Ionicons name="checkmark" size={9} color="#fff" />
+              </View>
+            )}
           </TouchableOpacity>
         );
       })}
@@ -558,16 +550,28 @@ export default function RecommenderScreen() {
           }}
           hitSlop={12}
         >
-          <Ionicons
-            name="chevron-back"
-            size={24}
-            color={colors.text}
-          />
+          <Ionicons name="chevron-back" size={24} color={colors.text} />
         </TouchableOpacity>
+
         {(screenState === 'loading' || screenState === 'error') && (
           <Text style={styles.navTitle}>What to Throw</Text>
         )}
         {screenState === 'result' && <View style={{ flex: 1 }} />}
+
+        {/* Region pill — only in setup, right side */}
+        {screenState === 'setup' && (
+          <View style={{ flex: 1, alignItems: 'flex-end' }}>
+            {resolvingRegion ? (
+              <ActivityIndicator size="small" color={colors.textMuted} style={{ transform: [{ scale: 0.7 }] }} />
+            ) : stateCode ? (
+              <View style={styles.regionPill}>
+                <Ionicons name="location" size={11} color={colors.primaryLight} />
+                <Text style={styles.regionPillText}>{stateCode}</Text>
+              </View>
+            ) : null}
+          </View>
+        )}
+
         {screenState === 'result' && (
           <TouchableOpacity style={styles.resetBtn} onPress={handleReset} hitSlop={12}>
             <Ionicons name="options-outline" size={22} color={colors.textSecondary} />
@@ -583,46 +587,12 @@ export default function RecommenderScreen() {
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps="handled"
         >
-          {/* Meta row — hint + region */}
-          <View style={styles.setupMeta}>
-            {/* Region detection */}
-            {resolvingRegion ? (
-              <View style={styles.regionRow}>
-                <ActivityIndicator size="small" color={colors.textMuted} style={{ transform: [{ scale: 0.75 }] }} />
-                <Text style={styles.regionText}>Detecting your region…</Text>
-              </View>
-            ) : stateCode ? (
-              <View style={styles.regionRow}>
-                <Ionicons name="location" size={12} color={colors.primaryLight} />
-                <Text style={[styles.regionText, { color: colors.primaryLight }]}>
-                  Showing valid species for {stateCode}
-                </Text>
-              </View>
-            ) : (
-              <View style={styles.regionRow}>
-                <Ionicons name="alert-circle-outline" size={12} color={colors.reportScoreYellow} />
-                <Text style={[styles.regionText, { color: colors.reportScoreYellow }]}>
-                  We need a verified state before we can build your plan.
-                </Text>
-              </View>
-            )}
-            {!!setupHint && (
-              <View style={styles.setupHintCard}>
-                <Ionicons
-                  name={isReady ? 'checkmark-circle-outline' : 'information-circle-outline'}
-                  size={15}
-                  color={isReady ? colors.reportScoreGreen : colors.textMuted}
-                />
-                <Text style={styles.setupHintText}>{setupHint}</Text>
-              </View>
-            )}
-          </View>
-
+          {/* Location warning — only when no coords */}
           {!hasCoords && (
             <View style={styles.warningBanner}>
-              <Ionicons name="location-outline" size={15} color={colors.reportScoreYellow} />
+              <Ionicons name="location-outline" size={14} color={colors.reportScoreYellow} />
               <Text style={styles.warningText}>
-                Location unavailable — we need it to verify your state and pull today&apos;s conditions.
+                Location needed to pull today&apos;s conditions.
               </Text>
             </View>
           )}
@@ -648,13 +618,11 @@ export default function RecommenderScreen() {
           {/* Body of Water */}
           <View style={styles.section}>
             <SectionLabel label="Body of Water" />
-            <ChipRow
+            <ContextSelector
               options={availableContexts}
               selected={context}
               onSelect={setContext}
-              labelFor={contextLabel}
-              colorFor={contextAccentColor}
-              iconFor={contextIcon}
+              accentColor={accentColor}
             />
             {availableContexts.length === 0 && species && (
               <Text style={styles.validationNote}>
@@ -673,6 +641,11 @@ export default function RecommenderScreen() {
             />
           </View>
 
+          {/* Inline hint above CTA */}
+          {!!setupHint && !isReady && (
+            <Text style={styles.setupHint}>{setupHint}</Text>
+          )}
+
           {/* CTA */}
           <TouchableOpacity
             style={[
@@ -688,10 +661,8 @@ export default function RecommenderScreen() {
             <Ionicons name="arrow-forward" size={18} color="#fff" />
           </TouchableOpacity>
 
-          {/* Disclaimer — below CTA */}
           <Text style={styles.setupDisclaimer}>
-            Freshwater-only recommendations built around your state, today&apos;s conditions,
-            and the exact species you&apos;re targeting.
+            Freshwater-only · built around your location and today&apos;s conditions
           </Text>
         </ScrollView>
       )}
@@ -776,50 +747,38 @@ const styles = StyleSheet.create({
   },
   setupContent: {
     paddingHorizontal: spacing.md,
-    paddingTop: spacing.xs,
-    paddingBottom: 48,
-    gap: spacing.xl,
+    paddingTop: spacing.sm,
+    paddingBottom: 56,
+    gap: 28,
   },
 
-  // Meta block — region + hint at top
-  setupMeta: {
-    gap: 8,
-  },
-  setupHintCard: {
+  // Region pill (in nav header)
+  regionPill: {
     flexDirection: 'row',
-    alignItems: 'flex-start',
-    gap: 8,
-    padding: spacing.sm,
-    borderRadius: radius.sm,
+    alignItems: 'center',
+    gap: 4,
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    borderRadius: radius.full,
     backgroundColor: colors.surface,
     borderWidth: 1,
     borderColor: colors.borderLight,
   },
-  setupHintText: {
-    flex: 1,
-    fontFamily: fonts.body,
-    fontSize: 13,
-    color: colors.textSecondary,
-    lineHeight: 18,
-  },
-  regionRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 5,
-  },
-  regionText: {
-    fontFamily: fonts.body,
+  regionPillText: {
+    fontFamily: fonts.bodySemiBold,
     fontSize: 12,
-    color: colors.textMuted,
+    color: colors.primaryLight,
   },
 
+  // Warning
   warningBanner: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: spacing.sm,
+    gap: 8,
     backgroundColor: colors.reportScoreYellowBg,
-    borderRadius: radius.sm,
-    padding: spacing.sm,
+    borderRadius: radius.md,
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.sm,
   },
   warningText: {
     flex: 1,
@@ -830,16 +789,16 @@ const styles = StyleSheet.create({
 
   // Sections
   section: {
-    gap: spacing.sm,
+    gap: 12,
   },
   sectionLabel: {
     fontFamily: fonts.serifBold,
-    fontSize: 22,
+    fontSize: 20,
     color: colors.text,
-    letterSpacing: -0.3,
+    letterSpacing: -0.2,
   },
 
-  // Species grid — 2 columns
+  // Species grid
   speciesGrid: {
     gap: spacing.sm,
   },
@@ -849,97 +808,105 @@ const styles = StyleSheet.create({
   },
   speciesCard: {
     flex: 1,
-    borderRadius: radius.md,
-    borderWidth: 1.5,
-    borderColor: colors.border,
-    backgroundColor: colors.surface,
+    height: 165,
+    borderRadius: radius.lg,
+    backgroundColor: '#1C2B1E',
     overflow: 'hidden',
+    borderWidth: 2.5,
+    borderColor: 'transparent',
   },
-  speciesCardSpacer: {
-    flex: 1,
-  },
-  speciesImageWrap: {
-    width: '100%',
-    height: 90,
-    backgroundColor: '#111',
-    alignItems: 'center',
-    justifyContent: 'center',
+  speciesCardActive: {
+    borderColor: colors.primary,
   },
   speciesImage: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
     width: '100%',
     height: '100%',
   },
-  speciesImageFallback: {
-    width: '100%',
-    height: '100%',
-    backgroundColor: colors.backgroundAlt,
-  },
-  speciesCardFooter: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: spacing.sm,
+  speciesNameStrip: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    paddingHorizontal: 12,
     paddingVertical: 10,
-    gap: 6,
+    backgroundColor: 'rgba(0,0,0,0.52)',
   },
-  speciesCheckCircle: {
-    width: 18,
-    height: 18,
+  speciesCardText: {
+    fontFamily: fonts.serifBold,
+    fontSize: 14,
+    color: '#fff',
+    letterSpacing: 0.1,
+  },
+  speciesCheckBadge: {
+    position: 'absolute',
+    top: 10,
+    right: 10,
+    width: 22,
+    height: 22,
     borderRadius: 99,
     backgroundColor: colors.primary,
     alignItems: 'center',
     justifyContent: 'center',
-    flexShrink: 0,
-  },
-  speciesCardText: {
-    flex: 1,
-    fontFamily: fonts.bodyMedium,
-    fontSize: 14,
-    lineHeight: 18,
   },
 
-  // Context chips
-  chipRowContent: {
+  // Body of Water — context selector
+  contextRow: {
+    flexDirection: 'row',
     gap: spacing.sm,
-    paddingRight: spacing.md,
   },
-  chip: {
+  contextCard: {
+    flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 6,
-    paddingHorizontal: spacing.md,
-    paddingVertical: 10,
-    borderRadius: radius.full,
+    justifyContent: 'center',
+    gap: 8,
+    paddingVertical: 15,
+    borderRadius: radius.lg,
     borderWidth: 1.5,
   },
-  chipText: {
+  contextCardText: {
     fontFamily: fonts.bodyMedium,
-    fontSize: 14,
+    fontSize: 15,
   },
 
-  // Water clarity cards
+  // Water clarity
   clarityRow: {
     flexDirection: 'row',
     gap: spacing.sm,
   },
   clarityCard: {
     flex: 1,
-    paddingVertical: 14,
+    paddingVertical: 16,
     paddingHorizontal: 6,
-    borderRadius: radius.md,
-    borderWidth: 1.5,
+    borderRadius: radius.lg,
+    borderWidth: 1,
     alignItems: 'center',
     gap: 5,
   },
   clarityCardTitle: {
     fontFamily: fonts.bodySemiBold,
-    fontSize: 13,
+    fontSize: 14,
   },
   clarityCardSub: {
     fontFamily: fonts.body,
     fontSize: 11,
     color: colors.textMuted,
     textAlign: 'center',
+  },
+  clarityCheck: {
+    position: 'absolute',
+    top: 8,
+    right: 8,
+    width: 16,
+    height: 16,
+    borderRadius: 99,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 
   // Validation note
@@ -950,14 +917,24 @@ const styles = StyleSheet.create({
     lineHeight: 18,
   },
 
+  // Inline hint above CTA
+  setupHint: {
+    fontFamily: fonts.body,
+    fontSize: 13,
+    color: colors.textMuted,
+    textAlign: 'center',
+    lineHeight: 19,
+    marginTop: -8,
+  },
+
   // CTA
   ctaBtn: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     gap: spacing.sm,
-    paddingVertical: 15,
-    borderRadius: radius.md,
+    paddingVertical: 17,
+    borderRadius: radius.lg,
   },
   ctaBtnText: {
     fontFamily: fonts.bodySemiBold,
@@ -966,10 +943,11 @@ const styles = StyleSheet.create({
   },
   setupDisclaimer: {
     fontFamily: fonts.body,
-    fontSize: 13,
+    fontSize: 12,
     color: colors.textMuted,
     textAlign: 'center',
-    lineHeight: 19,
+    lineHeight: 18,
+    marginTop: -8,
   },
 
   // Loading / error
