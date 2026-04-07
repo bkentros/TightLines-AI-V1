@@ -31,6 +31,7 @@ import { Ionicons } from '@expo/vector-icons';
 import * as Location from 'expo-location';
 import { colors, fonts, spacing, radius, shadows } from '../lib/theme';
 import { getSpeciesImage } from '../lib/speciesImages';
+import { Asset } from 'expo-asset';
 import { useAuthStore } from '../store/authStore';
 import { fetchRecommendation } from '../lib/recommender';
 import { fetchFreshEnvironment } from '../lib/env';
@@ -508,6 +509,14 @@ export default function RecommenderScreen() {
           },
           { forceRefresh },
         );
+
+        // Preload the fish image so it's decoded before we flip to result —
+        // everything renders together instead of popping in at different speeds.
+        const img = getSpeciesImage(res.species);
+        if (img) {
+          await Asset.fromModule(img).downloadAsync();
+        }
+
         setResult(res);
         setScreenState('result');
       } catch (err: unknown) {
