@@ -450,7 +450,7 @@ export default function HowFishingScreen() {
           </View>
           <Text style={styles.messageTitle}>Location Required</Text>
           <Text style={styles.messageSub}>
-            How's Fishing needs your location to pull live conditions and generate your report.
+            How&apos;s Fishing needs your location so we can pull live conditions and build your report.
           </Text>
           <Pressable
             style={({ pressed }) => [styles.primaryBtn, pressed && styles.primaryBtnPressed]}
@@ -483,7 +483,7 @@ export default function HowFishingScreen() {
               </View>
               <Text style={styles.loadingTitle}>Building your reports</Text>
               <Text style={styles.loadingSub}>
-                Analyzing conditions for {availableContexts.length} water type{availableContexts.length > 1 ? 's' : ''}…
+                Pulling live conditions for {availableContexts.length} water type{availableContexts.length > 1 ? 's' : ''}…
               </Text>
             </View>
           ) : showConfirm ? (
@@ -494,8 +494,8 @@ export default function HowFishingScreen() {
               <Text style={styles.confirmTitle}>Ready to generate?</Text>
               <Text style={styles.confirmSub}>
                 {isForecastDay && targetDate
-                  ? `We'll build the forecast report for ${reportDateLabel} at`
-                  : `We'll build today's fishing report for`}
+                  ? `We&apos;ll build the forecast report for ${reportDateLabel} at`
+                  : `We&apos;ll build today&apos;s fishing report for`}
                 {'\n'}
                 <Text style={{ fontWeight: '700' }}>{locationLabel}</Text>
               </Text>
@@ -549,7 +549,7 @@ export default function HowFishingScreen() {
           onPress={handleRefresh}
         >
           <Ionicons name="refresh-outline" size={16} color={colors.primary} />
-          <Text style={styles.newReportText}>Refresh</Text>
+          <Text style={styles.newReportText}>Refresh report</Text>
         </Pressable>
       </View>
 

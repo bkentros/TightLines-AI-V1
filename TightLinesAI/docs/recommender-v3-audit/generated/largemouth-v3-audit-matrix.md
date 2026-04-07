@@ -1,15 +1,15 @@
 # Largemouth V3 Audit Matrix
 
-Generated: 2026-04-04T02:02:10.946Z
+Generated: 2026-04-07T00:59:26.411Z
 
 This matrix is the efficient largemouth tuning structure for V3.
 It replaces ad-hoc scenario picking with a fixed coverage grid:
 - 4 core anchors run across all 12 months
 - 5 seasonal overlay anchors run across 4 high-value months each
 
-Total scenarios: 68
+Total scenarios: 90
 Core monthly scenarios: 48
-Overlay scenarios: 20
+Overlay scenarios: 42
 
 ## Why This Is Faster
 
@@ -30,22 +30,28 @@ Overlay scenarios: 20
 | Ozarks reservoir | seasonal_overlay | midwest_interior | freshwater_lake_pond | clear | Shad-transition and inland-reservoir overlay for fall and cold-season crankbait / jerkbait behavior. |
 | Minnesota weed lake | seasonal_overlay | great_lakes_upper_midwest | freshwater_lake_pond | clear | Northern weedline overlay for midsummer edge behavior and bluebird adjustments. |
 | California Delta freshwater reach | seasonal_overlay | northern_california | freshwater_river | stained | Western tidal-fresh overlay for grass/current behavior and late-fall stained-water largemouth lanes. |
+| Southern California reservoir | seasonal_overlay | southern_california | freshwater_lake_pond | stained | Warm western reservoir overlay for mild-winter control, early prespawn craw reads, summer topwater, and fall shad behavior. |
+| Pacific Northwest bass lake | seasonal_overlay | pacific_northwest | freshwater_lake_pond | stained | Northwest lake overlay for extended prespawn (spawn is June), summer shallow behavior, and November winter-onset tightening. |
+| Colorado highland reservoir | seasonal_overlay | mountain_west | freshwater_lake_pond | clear | Mountain West clear-lake overlay for cold-season winter control, late prespawn (spawn is June), summer topwater, and fall baitfish transition. |
+| Maine clear natural lake | seasonal_overlay | northeast | freshwater_lake_pond | clear | Northeast clear-lake overlay for the distinct northeast LMB rows: jerkbait-first winter, finesse-spawn, wacky/perch summer, and active-fall-through-November posture. |
+| Gulf Coast dirty grass lake | seasonal_overlay | gulf_coast | freshwater_lake_pond | dirty | Dirty-water gulf_coast overlay: validates GULF_DIRTY_PRESPAWN_GRASS_LAKE (spinnerbait-led March), early-fall dirty window where walking_topwater is penalized and buzzbait/swim_jig/bladed_jig surface, and October FALL_LAKE dirty behavior where spinnerbait dominates. |
+| Midwest dirty backwater lake | seasonal_overlay | midwest_interior | freshwater_lake_pond | dirty | Dirty-water midwest_interior overlay: tests generic dirty clarity impact on PRESPAWN_LAKE (football jig holds via forage), SUMMER_LAKE (walking_topwater displaced by buzzbait/hollow_body_frog), and FALL_LAKE (spinnerbait confirmed). |
 
 ## Month Coverage
 
 | Month | Core monthly | Seasonal overlays | Total |
 |-------|--------------|-------------------|-------|
-| Jan | 4 | 0 | 4 |
-| Feb | 4 | 2 | 6 |
-| Mar | 4 | 2 | 6 |
-| Apr | 4 | 1 | 5 |
-| May | 4 | 2 | 6 |
+| Jan | 4 | 2 | 6 |
+| Feb | 4 | 3 | 7 |
+| Mar | 4 | 5 | 9 |
+| Apr | 4 | 2 | 6 |
+| May | 4 | 5 | 9 |
 | Jun | 4 | 3 | 7 |
-| Jul | 4 | 1 | 5 |
-| Aug | 4 | 1 | 5 |
-| Sep | 4 | 2 | 6 |
-| Oct | 4 | 3 | 7 |
-| Nov | 4 | 2 | 6 |
+| Jul | 4 | 4 | 8 |
+| Aug | 4 | 3 | 7 |
+| Sep | 4 | 3 | 7 |
+| Oct | 4 | 7 | 11 |
+| Nov | 4 | 4 | 8 |
 | Dec | 4 | 1 | 5 |
 
 ## Scenario List
@@ -121,4 +127,26 @@ Format:
 - lmb_matrix_california_delta_06 | California Delta freshwater reach, summer positioning month 6 | northern_california | freshwater_river | 2025-06-18 | stained | seasonal_overlay | summer_positioning
 - lmb_matrix_california_delta_09 | California Delta freshwater reach, fall transition month 9 | northern_california | freshwater_river | 2025-09-17 | stained | seasonal_overlay | fall_transition
 - lmb_matrix_california_delta_11 | California Delta freshwater reach, fall transition month 11 | northern_california | freshwater_river | 2025-11-12 | stained | seasonal_overlay | fall_transition
+- lmb_matrix_socal_reservoir_01 | Southern California reservoir, winter control month 1 | southern_california | freshwater_lake_pond | 2025-01-16 | stained | seasonal_overlay | winter_control
+- lmb_matrix_socal_reservoir_04 | Southern California reservoir, spawn postspawn transition month 4 | southern_california | freshwater_lake_pond | 2025-04-16 | stained | seasonal_overlay | spawn_postspawn_transition
+- lmb_matrix_socal_reservoir_07 | Southern California reservoir, summer positioning month 7 | southern_california | freshwater_lake_pond | 2025-07-16 | stained | seasonal_overlay | summer_positioning
+- lmb_matrix_socal_reservoir_10 | Southern California reservoir, fall transition month 10 | southern_california | freshwater_lake_pond | 2025-10-15 | stained | seasonal_overlay | fall_transition
+- lmb_matrix_pnw_bass_lake_03 | Pacific Northwest bass lake, prespawn opening month 3 | pacific_northwest | freshwater_lake_pond | 2025-03-20 | stained | seasonal_overlay | prespawn_opening
+- lmb_matrix_pnw_bass_lake_05 | Pacific Northwest bass lake, spawn postspawn transition month 5 | pacific_northwest | freshwater_lake_pond | 2025-05-15 | stained | seasonal_overlay | spawn_postspawn_transition
+- lmb_matrix_pnw_bass_lake_08 | Pacific Northwest bass lake, summer positioning month 8 | pacific_northwest | freshwater_lake_pond | 2025-08-14 | stained | seasonal_overlay | summer_positioning
+- lmb_matrix_pnw_bass_lake_11 | Pacific Northwest bass lake, fall transition month 11 | pacific_northwest | freshwater_lake_pond | 2025-11-12 | stained | seasonal_overlay | fall_transition
+- lmb_matrix_colorado_bass_lake_02 | Colorado highland reservoir, prespawn opening month 2 | mountain_west | freshwater_lake_pond | 2025-02-19 | clear | seasonal_overlay | prespawn_opening
+- lmb_matrix_colorado_bass_lake_05 | Colorado highland reservoir, spawn postspawn transition month 5 | mountain_west | freshwater_lake_pond | 2025-05-15 | clear | seasonal_overlay | spawn_postspawn_transition
+- lmb_matrix_colorado_bass_lake_08 | Colorado highland reservoir, summer positioning month 8 | mountain_west | freshwater_lake_pond | 2025-08-14 | clear | seasonal_overlay | summer_positioning
+- lmb_matrix_colorado_bass_lake_10 | Colorado highland reservoir, fall transition month 10 | mountain_west | freshwater_lake_pond | 2025-10-15 | clear | seasonal_overlay | fall_transition
+- lmb_matrix_northeast_maine_lake_01 | Maine clear natural lake, winter control month 1 | northeast | freshwater_lake_pond | 2025-01-16 | clear | seasonal_overlay | winter_control
+- lmb_matrix_northeast_maine_lake_05 | Maine clear natural lake, spawn postspawn transition month 5 | northeast | freshwater_lake_pond | 2025-05-15 | clear | seasonal_overlay | spawn_postspawn_transition
+- lmb_matrix_northeast_maine_lake_07 | Maine clear natural lake, summer positioning month 7 | northeast | freshwater_lake_pond | 2025-07-16 | clear | seasonal_overlay | summer_positioning
+- lmb_matrix_northeast_maine_lake_11 | Maine clear natural lake, fall transition month 11 | northeast | freshwater_lake_pond | 2025-11-12 | clear | seasonal_overlay | fall_transition
+- lmb_matrix_gulf_dirty_grass_lake_03 | Gulf Coast dirty grass lake, prespawn opening month 3 | gulf_coast | freshwater_lake_pond | 2025-03-20 | dirty | seasonal_overlay | prespawn_opening
+- lmb_matrix_gulf_dirty_grass_lake_09 | Gulf Coast dirty grass lake, fall transition month 9 | gulf_coast | freshwater_lake_pond | 2025-09-17 | dirty | seasonal_overlay | fall_transition
+- lmb_matrix_gulf_dirty_grass_lake_10 | Gulf Coast dirty grass lake, fall transition month 10 | gulf_coast | freshwater_lake_pond | 2025-10-15 | dirty | seasonal_overlay | fall_transition
+- lmb_matrix_midwest_dirty_backwater_03 | Midwest dirty backwater lake, prespawn opening month 3 | midwest_interior | freshwater_lake_pond | 2025-03-20 | dirty | seasonal_overlay | prespawn_opening
+- lmb_matrix_midwest_dirty_backwater_07 | Midwest dirty backwater lake, summer positioning month 7 | midwest_interior | freshwater_lake_pond | 2025-07-16 | dirty | seasonal_overlay | summer_positioning
+- lmb_matrix_midwest_dirty_backwater_10 | Midwest dirty backwater lake, fall transition month 10 | midwest_interior | freshwater_lake_pond | 2025-10-15 | dirty | seasonal_overlay | fall_transition
 

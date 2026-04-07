@@ -29,9 +29,9 @@ import { useRouter, useLocalSearchParams } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import * as Location from 'expo-location';
 import { colors, fonts, spacing, radius, shadows } from '../lib/theme';
-import { useEnvStore } from '../store/envStore';
 import { useAuthStore } from '../store/authStore';
 import { fetchRecommendation } from '../lib/recommender';
+import { fetchFreshEnvironment } from '../lib/env';
 import { RecommenderView } from '../components/fishing/RecommenderView';
 import type {
   EngineContext,
@@ -122,6 +122,53 @@ async function resolveStateCode(lat: number, lon: number): Promise<string> {
   } catch {
     return 'XX';
   }
+}
+
+function recommenderErrorMessage(error: unknown, species: SpeciesGroup, context: EngineContext): string {
+  const msg =
+    error instanceof Error
+      ? error.message
+      : 'Something went wrong. Please try again.';
+  if (msg === 'species_not_available') {
+    return `${SPECIES_DISPLAY[species]} isn't available in this region for ${contextLabel(context)}. Try a different species or context.`;
+  }
+  if (msg === 'unsupported_recommender_scope') {
+    return 'This recommender currently supports freshwater largemouth, smallmouth, northern pike, and trout only.';
+  }
+  if (msg === 'state_resolution_failed') {
+    return 'We could not verify your state from this location. Move the pin or refresh location before building a plan.';
+  }
+  return msg;
+}
+
+function readinessMessage(args: {
+  hasCoords: boolean;
+  resolvingRegion: boolean;
+  stateCode: string | null;
+  species: SpeciesGroup | null;
+  context: EngineContext | null;
+  clarity: WaterClarity | null;
+}): string | null {
+  const { hasCoords, resolvingRegion, stateCode, species, context, clarity } = args;
+  if (!hasCoords) {
+    return 'Add a location first so we can verify your state and pull today\'s conditions.';
+  }
+  if (resolvingRegion) {
+    return 'Verifying your state so we only show valid species and water types.';
+  }
+  if (!stateCode) {
+    return 'We need a verified state from your location before we can build your plan.';
+  }
+  if (!species) {
+    return 'Choose your target species so we can lock in the seasonal baseline.';
+  }
+  if (!context) {
+    return 'Choose the body of water so we can use the right behavior model.';
+  }
+  if (!clarity) {
+    return 'Choose water clarity so the visibility and color guidance stay accurate.';
+  }
+  return 'When you run or refresh this, we pull a fresh live conditions snapshot first.';
 }
 
 // ─── Setup sub-components ─────────────────────────────────────────────────────
@@ -317,7 +364,6 @@ export default function RecommenderScreen() {
     context?: string;
   }>();
 
-  const envData = useEnvStore((s) => s.envData);
   const { profile } = useAuthStore();
 
   const lat = parseFloat(params.latitude ?? '');
@@ -410,22 +456,41 @@ export default function RecommenderScreen() {
     context !== null &&
     clarity !== null &&
     hasCoords &&
+    stateCode !== null &&
     availableSpecies.includes(species) &&
     availableContexts.includes(context);
+  const setupHint = readinessMessage({
+    hasCoords,
+    resolvingRegion,
+    stateCode,
+    species,
+    context,
+    clarity,
+  });
 
   const handleFetch = useCallback(
     async (forceRefresh = false) => {
       if (!isReady || !species || !context || !clarity) return;
-      if (!envData) {
-        Alert.alert('No location data', 'Please wait for conditions to load on the home screen.');
-        return;
-      }
+      const isInlineRefresh = forceRefresh && screenState === 'result' && result !== null;
 
-      setScreenState('loading');
-      setErrorMsg(null);
+      if (isInlineRefresh) {
+        setIsRefreshing(true);
+      } else {
+        setScreenState('loading');
+        setErrorMsg(null);
+      }
 
       try {
         const state_code = await resolveStateCode(lat, lon);
+        if (state_code === 'XX') {
+          throw new Error('state_resolution_failed');
+        }
+        const units = profile?.preferred_units ?? 'imperial';
+        const liveEnvData = await fetchFreshEnvironment({
+          latitude: lat,
+          longitude: lon,
+          units,
+        });
         const res = await fetchRecommendation(
           {
             latitude: lat,
@@ -434,32 +499,27 @@ export default function RecommenderScreen() {
             species,
             context,
             water_clarity: clarity,
-            env_data: envData as unknown as Record<string, unknown>,
+            env_data: liveEnvData as unknown as Record<string, unknown>,
           },
           { forceRefresh },
         );
         setResult(res);
         setScreenState('result');
       } catch (err: unknown) {
-        const msg =
-          err instanceof Error
-            ? err.message
-            : 'Something went wrong. Please try again.';
-        if (msg === 'species_not_available') {
-          setErrorMsg(
-            `${SPECIES_DISPLAY[species]} isn't available in this region for ${contextLabel(context)}. Try a different species or context.`,
-          );
-        } else if (msg === 'unsupported_recommender_scope') {
-          setErrorMsg(
-            'This recommender currently supports freshwater largemouth, smallmouth, northern pike, and trout only.',
-          );
+        const friendlyMessage = recommenderErrorMessage(err, species, context);
+        if (isInlineRefresh) {
+          Alert.alert('Could not refresh recommendations', friendlyMessage);
         } else {
-          setErrorMsg(msg);
+          setErrorMsg(friendlyMessage);
+          setScreenState('error');
         }
-        setScreenState('error');
+      } finally {
+        if (isInlineRefresh) {
+          setIsRefreshing(false);
+        }
       }
     },
-    [isReady, species, context, clarity, envData, lat, lon],
+    [isReady, species, context, clarity, lat, lon, profile?.preferred_units, result, screenState],
   );
 
   const handleReset = useCallback(() => {
@@ -514,9 +574,19 @@ export default function RecommenderScreen() {
           {/* Intro */}
           <View style={styles.setupIntro}>
             <Text style={styles.setupIntroText}>
-              Freshwater-only V3 recommendations built around your state, today&apos;s conditions,
+              Freshwater-only recommendations built around your state, today&apos;s conditions,
               and the exact species you&apos;re targeting.
             </Text>
+            {!!setupHint && (
+              <View style={styles.setupHintCard}>
+                <Ionicons
+                  name={isReady ? 'checkmark-circle-outline' : 'information-circle-outline'}
+                  size={15}
+                  color={isReady ? colors.reportScoreGreen : colors.textMuted}
+                />
+                <Text style={styles.setupHintText}>{setupHint}</Text>
+              </View>
+            )}
             {/* Region detection */}
             {resolvingRegion ? (
               <View style={styles.regionRow}>
@@ -527,17 +597,24 @@ export default function RecommenderScreen() {
               <View style={styles.regionRow}>
                 <Ionicons name="location" size={12} color={colors.primaryLight} />
                 <Text style={[styles.regionText, { color: colors.primaryLight }]}>
-                  Showing species available in {stateCode}
+                  Showing valid species for {stateCode}
                 </Text>
               </View>
-            ) : null}
+            ) : (
+              <View style={styles.regionRow}>
+                <Ionicons name="alert-circle-outline" size={12} color={colors.reportScoreYellow} />
+                <Text style={[styles.regionText, { color: colors.reportScoreYellow }]}>
+                  We need a verified state before we can build your plan.
+                </Text>
+              </View>
+            )}
           </View>
 
           {!hasCoords && (
             <View style={styles.warningBanner}>
               <Ionicons name="location-outline" size={15} color={colors.reportScoreYellow} />
               <Text style={styles.warningText}>
-                Location unavailable — results may be less accurate.
+                Location unavailable — we need it to verify your state and pull today&apos;s conditions.
               </Text>
             </View>
           )}
@@ -610,8 +687,11 @@ export default function RecommenderScreen() {
         <View style={styles.centerState}>
           <ActivityIndicator size="large" color={accentColor} />
           <Text style={styles.loadingText}>
-            Analyzing conditions for{' '}
+            Pulling fresh conditions and building today&apos;s plan for{' '}
             {species ? SPECIES_DISPLAY[species] : 'your species'}…
+          </Text>
+          <Text style={styles.loadingSubtext}>
+            Seasonal truth stays anchored while live conditions reshuffle the picks.
           </Text>
         </View>
       )}
@@ -620,10 +700,13 @@ export default function RecommenderScreen() {
       {screenState === 'error' && (
         <View style={styles.centerState}>
           <Ionicons name="alert-circle-outline" size={40} color={colors.reportScoreRed} />
-          <Text style={styles.errorTitle}>Could not load recommendations</Text>
+          <Text style={styles.errorTitle}>Could not build your plan</Text>
           <Text style={styles.errorMsg}>{errorMsg}</Text>
-          <TouchableOpacity style={styles.retryBtn} onPress={handleReset}>
-            <Text style={styles.retryBtnText}>Try Again</Text>
+          <TouchableOpacity style={styles.retryBtn} onPress={() => handleFetch(true)}>
+            <Text style={styles.retryBtnText}>Refresh and Try Again</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.secondaryBtn} onPress={handleReset}>
+            <Text style={styles.secondaryBtnText}>Back to Setup</Text>
           </TouchableOpacity>
         </View>
       )}
@@ -633,6 +716,10 @@ export default function RecommenderScreen() {
         <RecommenderView
           result={result}
           style={styles.resultView}
+          isRefreshing={isRefreshing}
+          onRefresh={() => {
+            void handleFetch(true);
+          }}
         />
       )}
     </SafeAreaView>
@@ -690,6 +777,23 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: colors.textSecondary,
     lineHeight: 20,
+  },
+  setupHintCard: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    gap: 8,
+    padding: spacing.sm,
+    borderRadius: radius.sm,
+    backgroundColor: colors.surface,
+    borderWidth: 1,
+    borderColor: colors.borderLight,
+  },
+  setupHintText: {
+    flex: 1,
+    fontFamily: fonts.body,
+    fontSize: 13,
+    color: colors.textSecondary,
+    lineHeight: 18,
   },
   regionRow: {
     flexDirection: 'row',
@@ -856,6 +960,13 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     lineHeight: 22,
   },
+  loadingSubtext: {
+    fontFamily: fonts.body,
+    fontSize: 13,
+    color: colors.textMuted,
+    textAlign: 'center',
+    lineHeight: 19,
+  },
   errorTitle: {
     fontFamily: fonts.serifBold,
     fontSize: 18,
@@ -879,6 +990,19 @@ const styles = StyleSheet.create({
     fontFamily: fonts.bodySemiBold,
     fontSize: 15,
     color: '#fff',
+  },
+  secondaryBtn: {
+    paddingHorizontal: spacing.xl,
+    paddingVertical: spacing.sm,
+    borderRadius: radius.md,
+    borderWidth: 1,
+    borderColor: colors.border,
+    backgroundColor: colors.surface,
+  },
+  secondaryBtnText: {
+    fontFamily: fonts.bodySemiBold,
+    fontSize: 15,
+    color: colors.textSecondary,
   },
 
   // Result

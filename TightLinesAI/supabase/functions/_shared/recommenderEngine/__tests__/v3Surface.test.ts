@@ -28,6 +28,7 @@ Deno.test("V3 surface returns the current frontend contract for a supported fres
   assertEquals(result.lure_rankings.length, 3);
   assertEquals(result.fly_rankings.length, 3);
   assertEquals(result.behavior.behavior_summary.length, 3);
+  assert(typeof result.behavior.seasonal_flag === "string");
   for (const row of result.behavior.behavior_summary) {
     assert(typeof row.label === "string");
     assert(typeof row.detail === "string");
@@ -41,6 +42,32 @@ Deno.test("V3 surface returns the current frontend contract for a supported fres
     assert(typeof candidate.how_to_fish === "string");
     assert(candidate.rank_context === undefined || typeof candidate.rank_context === "string");
   }
+});
+
+Deno.test("V3 surface keeps color banner and presentation aligned to the shared clarity-light decision", () => {
+  const dirtyLowLight = runRecommenderV3Surface(request({
+    water_clarity: "dirty",
+    env_data: {
+      timezone: "America/New_York",
+      hourly: {
+        cloud_cover_pct: [92, 94, 96],
+      },
+    },
+  }));
+  assertEquals(dirtyLowLight.color_of_day, "Bright Colors");
+  assertEquals(dirtyLowLight.presentation.color_family, "chartreuse_white");
+
+  const clearBright = runRecommenderV3Surface(request({
+    water_clarity: "clear",
+    env_data: {
+      timezone: "America/New_York",
+      hourly: {
+        cloud_cover_pct: [5, 8, 10],
+      },
+    },
+  }));
+  assertEquals(clearBright.color_of_day, "Natural Colors");
+  assertEquals(clearBright.presentation.color_family, "natural_match");
 });
 
 Deno.test("V3 surface maps trout and pike through the current response shape", () => {
@@ -77,4 +104,39 @@ Deno.test("V3 surface maps trout and pike through the current response shape", (
   assertEquals(trout.context, "freshwater_river");
   assertEquals(pike.species, "pike_musky");
   assertEquals(pike.context, "freshwater_lake_pond");
+});
+
+Deno.test("V3 surface includes a seasonal flag that supports confidence reasoning", () => {
+  const winter = runRecommenderV3Surface(request({
+    location: {
+      latitude: 44.98,
+      longitude: -93.26,
+      state_code: "MN",
+      region_key: "great_lakes_upper_midwest",
+      local_date: "2026-01-12",
+      local_timezone: "America/Chicago",
+      month: 1,
+    },
+    species: "pike_musky",
+    context: "freshwater_lake_pond",
+    water_clarity: "stained",
+  }));
+
+  const summer = runRecommenderV3Surface(request({
+    location: {
+      latitude: 28.54,
+      longitude: -81.38,
+      state_code: "FL",
+      region_key: "florida",
+      local_date: "2026-07-18",
+      local_timezone: "America/New_York",
+      month: 7,
+    },
+    species: "largemouth_bass",
+    context: "freshwater_lake_pond",
+    water_clarity: "stained",
+  }));
+
+  assertEquals(winter.behavior.seasonal_flag, "off_season");
+  assertEquals(summer.behavior.seasonal_flag, "post_spawn");
 });

@@ -74,9 +74,65 @@ function extractTimezone(envData: Record<string, unknown>): string {
   return "America/New_York";
 }
 
-// ─── Handler ──────────────────────────────────────────────────────────────────
+export function buildRecommenderEngineRequest(body: Record<string, unknown>) {
+  const lat = Number(body.latitude);
+  const lon = Number(body.longitude);
+  const state_code = typeof body.state_code === "string" ? body.state_code.toUpperCase() : "";
+  const species = body.species as SpeciesGroup;
+  const context = body.context as EngineContext;
+  const water_clarity = body.water_clarity as WaterClarity;
+  const envData = body.env_data as Record<string, unknown>;
+  const timezone = extractTimezone(envData);
+  const local_date = localDateInTz(timezone);
+  const month = parseInt(local_date.slice(5, 7), 10);
 
-Deno.serve(async (req: Request) => {
+  const shared_req = buildSharedEngineRequestFromEnvData(
+    lat,
+    lon,
+    local_date,
+    timezone,
+    context,
+    envData,
+    0,
+  );
+
+  return {
+    timezone,
+    local_date,
+    month,
+    shared_req,
+    engineReq: {
+      location: {
+        latitude: lat,
+        longitude: lon,
+        state_code,
+        region_key: shared_req.region_key,
+        local_date,
+        local_timezone: timezone,
+        month,
+      },
+      species,
+      context,
+      water_clarity,
+      env_data: shared_req.environment as Record<string, unknown>,
+    },
+  };
+}
+
+export async function handleRecommenderRequest(
+  req: Request,
+  deps?: {
+    createAdminClient?: () => ReturnType<typeof createClient>;
+  },
+): Promise<Response> {
+  const createAdminClient =
+    deps?.createAdminClient ??
+    (() => {
+      const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
+      const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
+      return createClient(supabaseUrl, supabaseServiceKey);
+    });
+
   if (req.method === "OPTIONS") {
     return new Response(null, { status: 204, headers: corsHeaders() });
   }
@@ -85,9 +141,7 @@ Deno.serve(async (req: Request) => {
   }
 
   // ── Auth ──────────────────────────────────────────────────────────────────
-  const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
-  const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
-  const supabase = createClient(supabaseUrl, supabaseServiceKey);
+  const supabase = createAdminClient();
 
   const userToken = req.headers.get("x-user-token");
   const authHeader = req.headers.get("Authorization");
@@ -102,8 +156,8 @@ Deno.serve(async (req: Request) => {
     .from("profiles")
     .select("subscription_tier")
     .eq("id", user.id)
-    .single();
-  const tier = (profile?.subscription_tier as string) ?? "free";
+    .single<{ subscription_tier: string | null }>();
+  const tier = profile?.subscription_tier ?? "free";
   if (tier === "free") {
     return jsonError("Subscribe to use this feature", "subscription_required", 403);
   }
@@ -161,24 +215,7 @@ Deno.serve(async (req: Request) => {
   }
   const envData = body.env_data as Record<string, unknown>;
 
-  // ── Resolve timezone + date ───────────────────────────────────────────────
-  const timezone = extractTimezone(envData);
-  const local_date = localDateInTz(timezone);
-  const month = parseInt(local_date.slice(5, 7), 10);
-
-  // ── Resolve region key ────────────────────────────────────────────────────
-  const region = resolveRegionForCoordinates(lat, lon);
-
-  // ── Build SharedEngineRequest (env normalizer) ────────────────────────────
-  const shared_req = buildSharedEngineRequestFromEnvData(
-    lat,
-    lon,
-    local_date,
-    timezone,
-    context as EngineContext,
-    envData,
-    0, // day_offset = 0 (always today)
-  );
+  const { engineReq } = buildRecommenderEngineRequest(body);
 
   // ── Run recommender ───────────────────────────────────────────────────────
   // The recommender is now a freshwater V3-only flagship path. We keep the
@@ -186,22 +223,6 @@ Deno.serve(async (req: Request) => {
   // and scoring come from V3.
   let result;
   try {
-    const engineReq = {
-      location: {
-        latitude: lat,
-        longitude: lon,
-        state_code,
-        region_key: region.region_key,
-        local_date,
-        local_timezone: timezone,
-        month,
-      },
-      species: species as SpeciesGroup,
-      context: context as EngineContext,
-      water_clarity: water_clarity as WaterClarity,
-      env_data: shared_req.environment as Record<string, unknown>,
-    };
-
     const v3Species = toRecommenderV3Species(engineReq.species);
     if (v3Species === null || !isContextAllowedForRecommenderV3(v3Species, engineReq.context)) {
       return jsonError(
@@ -222,4 +243,10 @@ Deno.serve(async (req: Request) => {
     status: 200,
     headers: { "Content-Type": "application/json", ...corsHeaders() },
   });
-});
+}
+
+// ─── Handler ──────────────────────────────────────────────────────────────────
+
+if (import.meta.main) {
+  Deno.serve((req: Request) => handleRecommenderRequest(req));
+}

@@ -1,15 +1,15 @@
 # Smallmouth V3 Audit Matrix
 
-Generated: 2026-04-04T18:16:28.670Z
+Generated: 2026-04-07T00:59:26.345Z
 
 This matrix is the efficient smallmouth tuning structure for V3.
 It extends the gold batches into a fixed coverage grid:
 - 4 core anchors run across all 12 months
 - 5 seasonal overlay anchors run across 4 high-value months each
 
-Total scenarios: 68
+Total scenarios: 83
 Core monthly scenarios: 48
-Overlay scenarios: 20
+Overlay scenarios: 35
 
 ## Why This Is Faster
 
@@ -30,6 +30,10 @@ Overlay scenarios: 20
 | Colorado western river | seasonal_overlay | mountain_west | freshwater_river | clear | Western river overlay for postspawn soft-minnow/open-water behavior and cleaner fall-winter posture. |
 | Washington inland river | seasonal_overlay | inland_northwest | freshwater_river | clear | Northwest river overlay for early-fall and cool-season baitfish/current reads. |
 | Ohio dirty reservoir | seasonal_overlay | midwest_interior | freshwater_lake_pond | dirty | Dirty-water overlay for visible smallmouth lake/reservoir behavior in prespawn, summer stain, and winter control. |
+| Willamette River smallmouth | seasonal_overlay | pacific_northwest | freshwater_river | clear | Northwest clear-river overlay for spring tube, summer topwater, September NORTHWEST_EARLY_FALL suspending window, and November cool-down tightening. |
+| Northern California smallmouth river | seasonal_overlay | northern_california | freshwater_river | clear | NorCal clear-river overlay confirming spring tube, summer topwater, and fall jerkbait western river posture for northern_california SMB. |
+| Connecticut River smallmouth | seasonal_overlay | northeast | freshwater_river | clear | Northeast clear-river overlay for the distinct northeast SMB rows: bold-topwater June override, and active-November jerkbait posture vs GLUM's winter-locked tube. |
+| Illinois River dirty smallmouth | seasonal_overlay | great_lakes_upper_midwest | freshwater_river | dirty | GLUM dirty-river overlay: April spring where spinnerbait/ned_rig displace finesse tube via clarity penalty, July summer where ALL clear-water lures (tube, suspending, squarebill, walking, inline_spinner) are penalized and paddle_tail_swimbait wins as the only dirty-friendly option in GREAT_LAKES_CLEAR_SUMMER_RIVER, and October fall where spinnerbait displaces suspending_jerkbait. |
 
 ## Month Coverage
 
@@ -37,15 +41,15 @@ Overlay scenarios: 20
 |-------|--------------|-------------------|-------|
 | Jan | 4 | 0 | 4 |
 | Feb | 4 | 0 | 4 |
-| Mar | 4 | 1 | 5 |
-| Apr | 4 | 3 | 7 |
+| Mar | 4 | 2 | 6 |
+| Apr | 4 | 6 | 10 |
 | May | 4 | 1 | 5 |
-| Jun | 4 | 3 | 7 |
-| Jul | 4 | 1 | 5 |
-| Aug | 4 | 3 | 7 |
-| Sep | 4 | 2 | 6 |
-| Oct | 4 | 2 | 6 |
-| Nov | 4 | 2 | 6 |
+| Jun | 4 | 6 | 10 |
+| Jul | 4 | 2 | 6 |
+| Aug | 4 | 4 | 8 |
+| Sep | 4 | 4 | 8 |
+| Oct | 4 | 4 | 8 |
+| Nov | 4 | 4 | 8 |
 | Dec | 4 | 2 | 6 |
 
 ## Scenario List
@@ -121,4 +125,19 @@ Format:
 - smb_matrix_ohio_dirty_reservoir_06 | Ohio dirty reservoir, summer positioning month 6 | midwest_interior | freshwater_lake_pond | 2025-06-18 | dirty | seasonal_overlay | summer_positioning
 - smb_matrix_ohio_dirty_reservoir_08 | Ohio dirty reservoir, summer positioning month 8 | midwest_interior | freshwater_lake_pond | 2025-08-14 | dirty | seasonal_overlay | summer_positioning
 - smb_matrix_ohio_dirty_reservoir_12 | Ohio dirty reservoir, winter control month 12 | midwest_interior | freshwater_lake_pond | 2025-12-10 | dirty | seasonal_overlay | winter_control
+- smb_matrix_willamette_river_smb_04 | Willamette River smallmouth, spawn postspawn transition month 4 | pacific_northwest | freshwater_river | 2025-04-16 | clear | seasonal_overlay | spawn_postspawn_transition
+- smb_matrix_willamette_river_smb_06 | Willamette River smallmouth, summer positioning month 6 | pacific_northwest | freshwater_river | 2025-06-18 | clear | seasonal_overlay | summer_positioning
+- smb_matrix_willamette_river_smb_09 | Willamette River smallmouth, fall transition month 9 | pacific_northwest | freshwater_river | 2025-09-17 | clear | seasonal_overlay | fall_transition
+- smb_matrix_willamette_river_smb_11 | Willamette River smallmouth, fall transition month 11 | pacific_northwest | freshwater_river | 2025-11-12 | clear | seasonal_overlay | fall_transition
+- smb_matrix_northern_california_smb_river_03 | Northern California smallmouth river, prespawn opening month 3 | northern_california | freshwater_river | 2025-03-20 | clear | seasonal_overlay | prespawn_opening
+- smb_matrix_northern_california_smb_river_06 | Northern California smallmouth river, summer positioning month 6 | northern_california | freshwater_river | 2025-06-18 | clear | seasonal_overlay | summer_positioning
+- smb_matrix_northern_california_smb_river_08 | Northern California smallmouth river, summer positioning month 8 | northern_california | freshwater_river | 2025-08-14 | clear | seasonal_overlay | summer_positioning
+- smb_matrix_northern_california_smb_river_10 | Northern California smallmouth river, fall transition month 10 | northern_california | freshwater_river | 2025-10-15 | clear | seasonal_overlay | fall_transition
+- smb_matrix_northeast_connecticut_river_04 | Connecticut River smallmouth, spawn postspawn transition month 4 | northeast | freshwater_river | 2025-04-16 | clear | seasonal_overlay | spawn_postspawn_transition
+- smb_matrix_northeast_connecticut_river_06 | Connecticut River smallmouth, summer positioning month 6 | northeast | freshwater_river | 2025-06-18 | clear | seasonal_overlay | summer_positioning
+- smb_matrix_northeast_connecticut_river_09 | Connecticut River smallmouth, fall transition month 9 | northeast | freshwater_river | 2025-09-17 | clear | seasonal_overlay | fall_transition
+- smb_matrix_northeast_connecticut_river_11 | Connecticut River smallmouth, fall transition month 11 | northeast | freshwater_river | 2025-11-12 | clear | seasonal_overlay | fall_transition
+- smb_matrix_illinois_river_smb_04 | Illinois River dirty smallmouth, spawn postspawn transition month 4 | great_lakes_upper_midwest | freshwater_river | 2025-04-16 | dirty | seasonal_overlay | spawn_postspawn_transition
+- smb_matrix_illinois_river_smb_07 | Illinois River dirty smallmouth, summer positioning month 7 | great_lakes_upper_midwest | freshwater_river | 2025-07-16 | dirty | seasonal_overlay | summer_positioning
+- smb_matrix_illinois_river_smb_10 | Illinois River dirty smallmouth, fall transition month 10 | great_lakes_upper_midwest | freshwater_river | 2025-10-15 | dirty | seasonal_overlay | fall_transition
 

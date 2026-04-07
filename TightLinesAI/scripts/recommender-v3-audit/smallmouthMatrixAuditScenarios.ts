@@ -4,7 +4,7 @@ import type {
   RecommenderAuditRegionPriority,
 } from "../recommenderCalibrationScenarios.ts";
 import type {
-  ColorThemeIdV3,
+  ResolvedColorThemeV3,
   RecommenderV3ArchetypeId,
 } from "../../supabase/functions/_shared/recommenderEngine/index.ts";
 import {
@@ -17,7 +17,7 @@ function priorityFor(role: SmallmouthMatrixScenario["matrix_role"]): Recommender
   return role === "core_monthly" ? "core" : "secondary";
 }
 
-function colorSet(...themes: ColorThemeIdV3[]): ColorThemeIdV3[] {
+function colorSet(...themes: ResolvedColorThemeV3[]): ResolvedColorThemeV3[] {
   return themes;
 }
 
@@ -25,7 +25,7 @@ function expectation(
   seasonal_story: string,
   primary_lanes: RecommenderV3ArchetypeId[],
   acceptable_secondary_lanes: RecommenderV3ArchetypeId[],
-  expected_color_lanes: ColorThemeIdV3[],
+  expected_color_lanes: ResolvedColorThemeV3[],
   disallowed_lanes: RecommenderV3ArchetypeId[] = [],
 ): RecommenderAuditExpectation {
   return {
@@ -37,16 +37,16 @@ function expectation(
   };
 }
 
-function clearColors(): ColorThemeIdV3[] {
-  return colorSet("natural_baitfish", "white_shad", "green_pumpkin_natural");
+function clearColors(): ResolvedColorThemeV3[] {
+  return colorSet("natural", "dark");
 }
 
-function stainedColors(): ColorThemeIdV3[] {
-  return colorSet("white_shad", "bright_contrast", "green_pumpkin_natural");
+function stainedColors(): ResolvedColorThemeV3[] {
+  return colorSet("dark", "bright");
 }
 
-function dirtyColors(): ColorThemeIdV3[] {
-  return colorSet("bright_contrast", "white_shad", "dark_contrast");
+function dirtyColors(): ResolvedColorThemeV3[] {
+  return colorSet("dark", "bright");
 }
 
 function greatLakesClearLakeExpectation(focus: string): RecommenderAuditExpectation {
@@ -55,8 +55,8 @@ function greatLakesClearLakeExpectation(focus: string): RecommenderAuditExpectat
       return expectation(
         "Clear Great Lakes smallmouth winter should stay disciplined with tubes, hair, and jerkbait lanes in front.",
         ["tube_jig", "hair_jig", "suspending_jerkbait"],
-        ["blade_bait", "drop_shot_worm_minnow", "sculpin_streamer"],
-        colorSet("green_pumpkin_natural", "natural_baitfish", "craw_natural"),
+        ["blade_bait", "drop_shot_worm", "sculpin_streamer"],
+        colorSet("natural", "natural", "natural"),
         ["walking_topwater", "popping_topwater", "frog_fly"],
       );
     case "prespawn_opening":
@@ -70,17 +70,17 @@ function greatLakesClearLakeExpectation(focus: string): RecommenderAuditExpectat
     case "spawn_postspawn_transition":
       return expectation(
         "Spawn and immediate postspawn clear-lake smallmouth should mix tube, drop-shot, and baitfish lanes with one clean surface option only when supported.",
-        ["tube_jig", "drop_shot_worm_minnow", "paddle_tail_swimbait"],
+        ["tube_jig", "drop_shot_worm", "paddle_tail_swimbait"],
         ["soft_jerkbait", "walking_topwater", "game_changer"],
         clearColors(),
         ["hollow_body_frog", "compact_flipping_jig"],
       );
     case "summer_positioning":
       return expectation(
-        "Summer clear-lake smallmouth should rotate between baitfish and finesse lanes, with topwater as a controlled option rather than a default overreaction.",
-        ["paddle_tail_swimbait", "drop_shot_worm_minnow", "hair_jig"],
-        ["walking_topwater", "tube_jig", "game_changer"],
-        colorSet("natural_baitfish", "white_shad", "green_pumpkin_natural", "craw_natural"),
+        "Summer clear-lake smallmouth should rotate between baitfish and finesse lanes, with topwater able to take the lead on strong active-surface days without becoming the default every day.",
+        ["paddle_tail_swimbait", "drop_shot_worm", "hair_jig", "walking_topwater"],
+        ["tube_jig", "game_changer", "popper_fly"],
+        colorSet("natural", "natural", "natural", "natural"),
         ["hollow_body_frog", "compact_flipping_jig"],
       );
     case "fall_transition":
@@ -89,7 +89,7 @@ function greatLakesClearLakeExpectation(focus: string): RecommenderAuditExpectat
         "Great Lakes fall smallmouth should tighten around jerkbait, swimbait, and hair / blade lanes with clean baitfish colors.",
         ["suspending_jerkbait", "paddle_tail_swimbait", "hair_jig"],
         ["blade_bait", "tube_jig", "slim_minnow_streamer"],
-        colorSet("natural_baitfish", "white_shad", "metal_flash"),
+        colorSet("natural", "natural", "bright"),
         ["walking_topwater", "popping_topwater"],
       );
   }
@@ -102,7 +102,7 @@ function kentuckyHighlandLakeExpectation(focus: string): RecommenderAuditExpecta
         "Highland winter smallmouth should stay lower-column and disciplined, but still allow jerkbait and hair-jig lanes.",
         ["tube_jig", "hair_jig", "suspending_jerkbait"],
         ["blade_bait", "flat_sided_crankbait", "clouser_minnow"],
-        colorSet("green_pumpkin_natural", "white_shad", "natural_baitfish"),
+        colorSet("natural", "natural", "natural"),
         ["walking_topwater", "popping_topwater"],
       );
     case "prespawn_opening":
@@ -111,7 +111,7 @@ function kentuckyHighlandLakeExpectation(focus: string): RecommenderAuditExpecta
         ["tube_jig", "suspending_jerkbait", "paddle_tail_swimbait"],
         ["flat_sided_crankbait", "hair_jig", "clouser_minnow"],
         stainedColors(),
-        ["hollow_body_frog", "buzzbait_prop_bait"],
+        ["hollow_body_frog", "buzzbait", "prop_bait"],
       );
     case "spawn_postspawn_transition":
       return expectation(
@@ -123,9 +123,9 @@ function kentuckyHighlandLakeExpectation(focus: string): RecommenderAuditExpecta
       );
     case "summer_positioning":
       return expectation(
-        "Summer stained highland smallmouth should still stay clean and open-water enough to support swimbait and spinnerbait behavior.",
-        ["spinnerbait", "paddle_tail_swimbait", "tube_jig"],
-        ["walking_topwater", "soft_jerkbait", "clouser_minnow"],
+        "Summer stained highland smallmouth should still stay clean and open-water enough to support swimbait and spinnerbait behavior, while allowing walking topwater to lead on the better active windows you wanted preserved.",
+        ["spinnerbait", "paddle_tail_swimbait", "tube_jig", "walking_topwater"],
+        ["soft_jerkbait", "hair_jig", "clouser_minnow"],
         stainedColors(),
         ["hollow_body_frog", "compact_flipping_jig"],
       );
@@ -135,7 +135,7 @@ function kentuckyHighlandLakeExpectation(focus: string): RecommenderAuditExpecta
         "Highland fall smallmouth should move toward jerkbait, swimbait, and spinnerbait lanes with shad-forward colors.",
         ["suspending_jerkbait", "paddle_tail_swimbait", "spinnerbait"],
         ["hair_jig", "tube_jig", "slim_minnow_streamer"],
-        colorSet("white_shad", "natural_baitfish", "bright_contrast"),
+        colorSet("natural", "natural", "bright"),
         ["walking_topwater", "popping_topwater"],
       );
   }
@@ -148,8 +148,8 @@ function tennesseeRiverExpectation(focus: string): RecommenderAuditExpectation {
         "Winter Tennessee smallmouth should stay current-aware and controlled with tube, hair, and Ned lanes.",
         ["tube_jig", "hair_jig", "ned_rig"],
         ["blade_bait", "suspending_jerkbait", "sculpin_streamer"],
-        colorSet("green_pumpkin_natural", "natural_baitfish", "craw_natural"),
-        ["walking_topwater", "popping_topwater", "buzzbait_prop_bait"],
+        colorSet("natural", "natural", "natural"),
+        ["walking_topwater", "popping_topwater", "buzzbait", "prop_bait"],
       );
     case "prespawn_opening":
       return expectation(
@@ -157,7 +157,7 @@ function tennesseeRiverExpectation(focus: string): RecommenderAuditExpectation {
         ["spinnerbait", "tube_jig", "soft_jerkbait"],
         ["suspending_jerkbait", "inline_spinner", "clouser_minnow"],
         stainedColors(),
-        ["hollow_body_frog", "buzzbait_prop_bait"],
+        ["hollow_body_frog", "buzzbait", "prop_bait"],
       );
     case "spawn_postspawn_transition":
       return expectation(
@@ -172,7 +172,7 @@ function tennesseeRiverExpectation(focus: string): RecommenderAuditExpectation {
         "Summer stained river smallmouth should lean current-edge search tools like inline spinner, spinnerbait, and controlled topwater.",
         ["inline_spinner", "spinnerbait", "walking_topwater"],
         ["soft_jerkbait", "tube_jig", "popper_fly"],
-        colorSet("bright_contrast", "white_shad", "metal_flash"),
+        colorSet("bright", "natural", "bright"),
         ["hollow_body_frog", "compact_flipping_jig"],
       );
     case "fall_transition":
@@ -181,7 +181,7 @@ function tennesseeRiverExpectation(focus: string): RecommenderAuditExpectation {
         "Fall Tennessee smallmouth should shift toward jerkbait, spinnerbait, and swimbait lanes with current still respected.",
         ["suspending_jerkbait", "spinnerbait", "paddle_tail_swimbait"],
         ["inline_spinner", "tube_jig", "slim_minnow_streamer"],
-        colorSet("natural_baitfish", "white_shad", "metal_flash"),
+        colorSet("natural", "natural", "bright"),
         ["walking_topwater", "popping_topwater"],
       );
   }
@@ -193,7 +193,7 @@ function pennsylvaniaRiverExpectation(focus: string): RecommenderAuditExpectatio
       return expectation(
         "Clear northern river smallmouth winter should stay lower-column and subtle with tube, hair, and jerkbait control.",
         ["tube_jig", "hair_jig", "suspending_jerkbait"],
-        ["blade_bait", "drop_shot_worm_minnow", "sculpin_streamer"],
+        ["blade_bait", "drop_shot_worm", "sculpin_streamer"],
         clearColors(),
         ["walking_topwater", "popping_topwater"],
       );
@@ -203,7 +203,7 @@ function pennsylvaniaRiverExpectation(focus: string): RecommenderAuditExpectatio
         ["tube_jig", "ned_rig", "soft_jerkbait"],
         ["suspending_jerkbait", "inline_spinner", "clouser_minnow"],
         clearColors(),
-        ["hollow_body_frog", "buzzbait_prop_bait"],
+        ["hollow_body_frog", "buzzbait", "prop_bait"],
       );
     case "spawn_postspawn_transition":
       return expectation(
@@ -218,7 +218,7 @@ function pennsylvaniaRiverExpectation(focus: string): RecommenderAuditExpectatio
         "Early-summer clear northern river smallmouth should still carry spring-to-early-summer control and current-search behavior rather than fully shifting into pure surface play.",
         ["tube_jig", "squarebill_crankbait", "suspending_jerkbait"],
         ["soft_jerkbait", "inline_spinner", "clouser_minnow"],
-        colorSet("green_pumpkin_natural", "white_shad", "natural_baitfish"),
+        colorSet("natural", "natural", "natural"),
         ["hollow_body_frog", "compact_flipping_jig"],
       );
     case "fall_transition":
@@ -227,7 +227,7 @@ function pennsylvaniaRiverExpectation(focus: string): RecommenderAuditExpectatio
         "Late-fall clear northern river smallmouth should still respect baitfish lanes, but with a stronger tube and hair safety net than southern fall river rows.",
         ["tube_jig", "hair_jig", "suspending_jerkbait"],
         ["paddle_tail_swimbait", "blade_bait", "slim_minnow_streamer"],
-        colorSet("green_pumpkin_natural", "natural_baitfish", "white_shad"),
+        colorSet("natural", "natural", "natural"),
         ["walking_topwater", "popping_topwater"],
       );
   }
@@ -237,7 +237,7 @@ function wisconsinNaturalLakeExpectation(focus: string): RecommenderAuditExpecta
   if (focus === "spawn_postspawn_transition") {
     return expectation(
       "Wisconsin clear-lake spawn and postspawn should keep tube, drop-shot, and clean baitfish lanes in front.",
-      ["tube_jig", "drop_shot_worm_minnow", "paddle_tail_swimbait"],
+      ["tube_jig", "drop_shot_worm", "paddle_tail_swimbait"],
       ["hair_jig", "soft_jerkbait", "game_changer"],
       clearColors(),
       ["hollow_body_frog", "compact_flipping_jig"],
@@ -246,9 +246,9 @@ function wisconsinNaturalLakeExpectation(focus: string): RecommenderAuditExpecta
   if (focus === "summer_positioning") {
     return expectation(
       "Wisconsin summer natural-lake smallmouth should still favor finesse and clean baitfish lanes even when surface windows exist.",
-      ["drop_shot_worm_minnow", "tube_jig", "hair_jig"],
+      ["drop_shot_worm", "tube_jig", "hair_jig"],
       ["paddle_tail_swimbait", "walking_topwater", "game_changer"],
-      colorSet("natural_baitfish", "white_shad", "green_pumpkin_natural", "craw_natural"),
+      colorSet("natural", "natural", "natural", "natural"),
       ["hollow_body_frog", "compact_flipping_jig"],
     );
   }
@@ -256,7 +256,7 @@ function wisconsinNaturalLakeExpectation(focus: string): RecommenderAuditExpecta
     "Wisconsin clear-lake fall smallmouth should move toward jerkbait, swimbait, and hair / blade lanes.",
     ["suspending_jerkbait", "paddle_tail_swimbait", "hair_jig"],
     ["blade_bait", "tube_jig", "slim_minnow_streamer"],
-    colorSet("natural_baitfish", "white_shad", "metal_flash"),
+    colorSet("natural", "natural", "bright"),
     ["walking_topwater", "popping_topwater"],
   );
 }
@@ -267,7 +267,7 @@ function minnesotaFallLakeExpectation(focus: string): RecommenderAuditExpectatio
       "Spring northern stained-lake smallmouth should still stay controlled around tube, hair, and jerkbait lanes rather than forcing a pure fall baitfish read too early.",
       ["tube_jig", "hair_jig", "suspending_jerkbait"],
       ["paddle_tail_swimbait", "flat_sided_crankbait", "clouser_minnow"],
-      colorSet("green_pumpkin_natural", "natural_baitfish", "white_shad"),
+      colorSet("natural", "natural", "natural"),
       ["walking_topwater", "popping_topwater"],
     );
   }
@@ -285,7 +285,7 @@ function minnesotaFallLakeExpectation(focus: string): RecommenderAuditExpectatio
       "A stained northern summer lake should allow swimbait and spinnerbait lanes, but still stay very smallmouth-specific.",
       ["paddle_tail_swimbait", "spinnerbait", "tube_jig"],
       ["hair_jig", "walking_topwater", "clouser_minnow"],
-      colorSet("white_shad", "bright_contrast", "green_pumpkin_natural", "craw_natural"),
+      colorSet("natural", "bright", "natural", "natural"),
       ["hollow_body_frog", "compact_flipping_jig"],
     );
   }
@@ -294,7 +294,7 @@ function minnesotaFallLakeExpectation(focus: string): RecommenderAuditExpectatio
       "Stained Minnesota fall smallmouth should tighten around jerkbait, blade, hair, and swimbait lanes.",
       ["suspending_jerkbait", "blade_bait", "hair_jig"],
       ["paddle_tail_swimbait", "tube_jig", "slim_minnow_streamer"],
-      colorSet("white_shad", "bright_contrast", "natural_baitfish"),
+      colorSet("natural", "bright", "natural"),
       ["walking_topwater", "popping_topwater"],
     );
   }
@@ -302,7 +302,7 @@ function minnesotaFallLakeExpectation(focus: string): RecommenderAuditExpectatio
     "Late-fall northern stained smallmouth should remain disciplined and lower-column aware.",
     ["suspending_jerkbait", "hair_jig", "blade_bait"],
     ["tube_jig", "paddle_tail_swimbait", "clouser_minnow"],
-    colorSet("white_shad", "bright_contrast", "natural_baitfish"),
+    colorSet("natural", "bright", "natural"),
     ["walking_topwater", "popping_topwater"],
   );
 }
@@ -322,7 +322,7 @@ function coloradoRiverExpectation(focus: string): RecommenderAuditExpectation {
       "Western postspawn river smallmouth should open soft-minnow, inline-spinner, and clean baitfish lanes.",
       ["soft_jerkbait", "inline_spinner", "tube_jig"],
       ["paddle_tail_swimbait", "walking_topwater", "clouser_minnow"],
-      colorSet("natural_baitfish", "metal_flash", "white_shad"),
+      colorSet("natural", "bright", "natural"),
       ["hollow_body_frog", "compact_flipping_jig"],
     );
   }
@@ -331,7 +331,7 @@ function coloradoRiverExpectation(focus: string): RecommenderAuditExpectation {
       "Clear western summer river smallmouth should keep current-aware baitfish and search lanes open, with tube support but not tube-first control on every good day.",
       ["inline_spinner", "soft_jerkbait", "paddle_tail_swimbait"],
       ["tube_jig", "walking_topwater", "clouser_minnow"],
-      colorSet("natural_baitfish", "metal_flash", "white_shad"),
+      colorSet("natural", "bright", "natural"),
       ["hollow_body_frog", "compact_flipping_jig"],
     );
   }
@@ -340,14 +340,14 @@ function coloradoRiverExpectation(focus: string): RecommenderAuditExpectation {
       "Clear western fall river smallmouth should center on jerkbait, spinner, and swimbait lanes with current still respected.",
       ["suspending_jerkbait", "inline_spinner", "paddle_tail_swimbait"],
       ["tube_jig", "clouser_minnow", "slim_minnow_streamer"],
-      colorSet("natural_baitfish", "white_shad", "metal_flash"),
+      colorSet("natural", "natural", "bright"),
       ["walking_topwater", "popping_topwater"],
     );
   }
   return expectation(
     "Early-winter western river smallmouth should stay lower-column and disciplined with tube, hair, and jerkbait control.",
     ["tube_jig", "hair_jig", "suspending_jerkbait"],
-    ["blade_bait", "drop_shot_worm_minnow", "sculpin_streamer"],
+    ["blade_bait", "drop_shot_worm", "sculpin_streamer"],
     clearColors(),
     ["walking_topwater", "popping_topwater"],
   );
@@ -368,7 +368,7 @@ function washingtonRiverExpectation(focus: string): RecommenderAuditExpectation 
       "Summer northwest river smallmouth should allow topwater and spinner lanes, but only as current-aware river options.",
       ["walking_topwater", "inline_spinner", "paddle_tail_swimbait"],
       ["soft_jerkbait", "tube_jig", "popper_fly"],
-      colorSet("natural_baitfish", "white_shad", "metal_flash"),
+      colorSet("natural", "natural", "bright"),
       ["hollow_body_frog", "compact_flipping_jig"],
     );
   }
@@ -376,7 +376,7 @@ function washingtonRiverExpectation(focus: string): RecommenderAuditExpectation 
     "Cool-season northwest river smallmouth should prioritize jerkbait, spinner, and swimbait lanes with a clean tube backup.",
     ["suspending_jerkbait", "inline_spinner", "paddle_tail_swimbait"],
     ["spinnerbait", "tube_jig", "clouser_minnow"],
-    colorSet("natural_baitfish", "white_shad", "metal_flash"),
+    colorSet("natural", "natural", "bright"),
     ["walking_topwater", "popping_topwater"],
   );
 }
@@ -387,23 +387,23 @@ function ohioDirtyReservoirExpectation(focus: string): RecommenderAuditExpectati
       "Dirty prespawn and spawn-transition smallmouth reservoirs should stay disciplined but visible, letting spinnerbait and jerkbait lanes stay in play.",
       ["spinnerbait", "tube_jig", "suspending_jerkbait"],
       ["paddle_tail_swimbait", "flat_sided_crankbait", "clouser_minnow"],
-      colorSet("white_shad", "bright_contrast", "green_pumpkin_natural"),
+      colorSet("natural", "bright", "natural"),
       ["walking_topwater", "popping_topwater"],
     );
   }
   if (focus === "summer_positioning") {
     return expectation(
-      "Dirty summer smallmouth reservoirs should still use visible baitfish tools, not collapse into largemouth-only cover pitching.",
-      ["spinnerbait", "paddle_tail_swimbait", "tube_jig"],
-      ["walking_topwater", "medium_diving_crankbait", "game_changer"],
+      "Dirty summer smallmouth reservoirs should still use visible baitfish tools, but controlled topwater can take the lead on active windows instead of being trapped as a permanent backup.",
+      ["spinnerbait", "paddle_tail_swimbait", "tube_jig", "walking_topwater"],
+      ["medium_diving_crankbait", "game_changer", "popper_fly"],
       dirtyColors(),
       ["hollow_body_frog", "compact_flipping_jig"],
     );
   }
   return expectation(
     "Dirty winter smallmouth reservoirs should stay lower-column and visible with jerkbait, blade, and hair/tube lanes.",
-    ["suspending_jerkbait", "blade_bait", "hair_jig"],
-    ["tube_jig", "paddle_tail_swimbait", "clouser_minnow"],
+    ["suspending_jerkbait", "blade_bait", "hair_jig", "tube_jig"],
+    ["paddle_tail_swimbait", "clouser_minnow"],
     dirtyColors(),
     ["walking_topwater", "popping_topwater"],
   );
@@ -555,34 +555,25 @@ function illinoisRiverSmbExpectation(focus: string): RecommenderAuditExpectation
       "GLUM dirty river spring smallmouth: tube_jig is penalized in dirty water; spinnerbait and ned_rig both get dirty clarity bonuses (ned_rig also has crawfish forage alignment); paddle_tail_swimbait surfaces as dirty-friendly baitfish option; clear-water finesse tools drop off.",
       ["spinnerbait", "ned_rig", "tube_jig", "paddle_tail_swimbait"],
       ["hair_jig", "clouser_minnow"],
-      colorSet("green_pumpkin_natural", "bright_contrast", "dark_contrast", "natural_baitfish"),
+      colorSet("natural", "bright", "dark", "natural"),
       ["suspending_jerkbait", "squarebill_crankbait", "inline_spinner"],
     );
   }
   if (focus === "summer_positioning") {
-    // GREAT_LAKES_CLEAR_SUMMER_RIVER fires for GLUM [7,8] (mid/active/subtle, baitfish primary)
-    // EVERY lure in this pool is a clear-water lure EXCEPT paddle_tail_swimbait:
-    //   tube_jig(0), suspending_jerkbait(1), squarebill_crankbait(2), walking_topwater(3),
-    //   inline_spinner(4) all get dirty PENALTY; paddle_tail_swimbait(5) gets dirty BONUS
-    // paddle_tail_swimbait wins by a wide margin — the only dirty-friendly option in the pool
     return expectation(
-      "GLUM dirty river summer smallmouth: GREAT_LAKES_CLEAR_SUMMER_RIVER is a clear-water-optimized pool — every lure except paddle_tail_swimbait is penalized in dirty water; paddle_tail wins by a wide margin as the sole dirty-friendly option in the pool.",
-      ["paddle_tail_swimbait"],
-      ["spinnerbait", "clouser_minnow"],
-      colorSet("natural_baitfish", "dark_contrast", "white_shad"),
-      ["tube_jig", "suspending_jerkbait", "squarebill_crankbait", "walking_topwater"],
+      "GLUM dirty river summer smallmouth should still be bounded by the river baitfish pool, but dirty water no longer means only one legal answer; tube, suspending jerkbait, and paddle-tail can all survive when the day pulls fish lower and more restrained.",
+      ["paddle_tail_swimbait", "tube_jig", "suspending_jerkbait"],
+      ["clouser_minnow", "woolly_bugger", "muddler_sculpin"],
+      dirtyColors(),
+      ["squarebill_crankbait", "walking_topwater"],
     );
   }
-  // fall_transition: FALL_RIVER fires for GLUM [9,10] (shallow/active/balanced, baitfish primary)
-  // suspending_jerkbait(0) gets dirty PENALTY; spinnerbait(1) gets dirty BONUS
-  // paddle_tail_swimbait(2) gets dirty BONUS; blade_bait(4) gets dirty BONUS
-  // squarebill(5)/inline_spinner(6) get PENALTY; tube_jig(3) gets PENALTY
   return expectation(
-    "GLUM dirty river fall smallmouth: suspending_jerkbait drops from position 0 due to dirty clarity penalty; spinnerbait and paddle_tail_swimbait take over with dirty clarity bonuses; blade_bait surfaces as a dirty-friendly option.",
+    "GLUM dirty river fall smallmouth should still emphasize spinnerbait and paddle-tail lanes first, but suspending jerkbait can remain in-bounds as a supporting baitfish option instead of being treated as automatically wrong.",
     ["spinnerbait", "paddle_tail_swimbait", "blade_bait"],
-    ["hair_jig", "clouser_minnow"],
-    colorSet("bright_contrast", "white_shad", "dark_contrast"),
-    ["suspending_jerkbait", "squarebill_crankbait", "tube_jig"],
+    ["suspending_jerkbait", "hair_jig", "clouser_minnow"],
+    dirtyColors(),
+    ["squarebill_crankbait"],
   );
 }
 
@@ -590,7 +581,7 @@ function expectationForScenario(scenario: SmallmouthMatrixScenario): Recommender
   if (scenario.anchor_key === "great_lakes_clear_lake" && scenario.month === 6) {
     return expectation(
       "Early-summer clear Great Lakes smallmouth can legitimately open with a soft jerkbait or swimbait around a postspawn baitfish shift, while still keeping drop-shot and hair support in play.",
-      ["soft_jerkbait", "paddle_tail_swimbait", "drop_shot_worm_minnow"],
+      ["soft_jerkbait", "paddle_tail_swimbait", "drop_shot_worm"],
       ["hair_jig", "tube_jig", "game_changer"],
       clearColors(),
       ["hollow_body_frog", "compact_flipping_jig"],
@@ -599,7 +590,7 @@ function expectationForScenario(scenario: SmallmouthMatrixScenario): Recommender
   if (scenario.anchor_key === "wisconsin_natural_lake" && scenario.month === 6) {
     return expectation(
       "Wisconsin early-summer natural-lake smallmouth can open with a soft jerkbait around a clean baitfish shift, but should still keep tube, drop-shot, and hair control nearby.",
-      ["soft_jerkbait", "drop_shot_worm_minnow", "tube_jig"],
+      ["soft_jerkbait", "drop_shot_worm", "tube_jig"],
       ["hair_jig", "paddle_tail_swimbait", "game_changer"],
       clearColors(),
       ["hollow_body_frog", "compact_flipping_jig"],
@@ -610,7 +601,7 @@ function expectationForScenario(scenario: SmallmouthMatrixScenario): Recommender
       "A stained northern summer lake can still lead with hair, swimbait, or tube lanes when the fish are roaming but not fully power-fishing.",
       ["hair_jig", "paddle_tail_swimbait", "tube_jig"],
       ["spinnerbait", "walking_topwater", "clouser_minnow"],
-      colorSet("white_shad", "bright_contrast", "green_pumpkin_natural", "craw_natural"),
+      colorSet("natural", "bright", "natural", "natural"),
       ["hollow_body_frog", "compact_flipping_jig"],
     );
   }

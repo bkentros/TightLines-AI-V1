@@ -4,7 +4,7 @@ import type {
   RecommenderAuditRegionPriority,
 } from "../recommenderCalibrationScenarios.ts";
 import type {
-  ColorThemeIdV3,
+  ResolvedColorThemeV3,
   RecommenderV3ArchetypeId,
 } from "../../supabase/functions/_shared/recommenderEngine/index.ts";
 import {
@@ -17,7 +17,7 @@ function priorityFor(role: PikeMatrixScenario["matrix_role"]): RecommenderAuditR
   return role === "core_monthly" ? "core" : "secondary";
 }
 
-function colorSet(...themes: ColorThemeIdV3[]): ColorThemeIdV3[] {
+function colorSet(...themes: ResolvedColorThemeV3[]): ResolvedColorThemeV3[] {
   return themes;
 }
 
@@ -25,7 +25,7 @@ function expectation(
   seasonal_story: string,
   primary_lanes: RecommenderV3ArchetypeId[],
   acceptable_secondary_lanes: RecommenderV3ArchetypeId[],
-  expected_color_lanes: ColorThemeIdV3[],
+  expected_color_lanes: ResolvedColorThemeV3[],
   disallowed_lanes: RecommenderV3ArchetypeId[] = [],
 ): RecommenderAuditExpectation {
   return {
@@ -38,20 +38,20 @@ function expectation(
 }
 
 /**
- * Stained-water pike color priority: bright_contrast is the clarity strength,
- * perch_bluegill is the forage-natural fallback, white_shad rounds the set.
+ * Stained-water pike color priority: bright is the clarity strength,
+ * natural is the forage-natural fallback, natural rounds the set.
  */
-function stainedPikeColors(): ColorThemeIdV3[] {
-  return colorSet("perch_bluegill", "bright_contrast", "white_shad");
+function stainedPikeColors(): ResolvedColorThemeV3[] {
+  return colorSet("dark", "bright");
 }
 
 /**
- * Clear-water pike color priority: perch_bluegill is the clarity strength,
- * white_shad and natural_baitfish as clean-baitfish fallbacks (paddle_tail produces
- * natural_baitfish in clear water), bright_contrast last.
+ * Clear-water pike color priority: natural is the clarity strength,
+ * natural and natural as clean-baitfish fallbacks (paddle_tail produces
+ * natural in clear water), bright last.
  */
-function clearPikeColors(): ColorThemeIdV3[] {
-  return colorSet("perch_bluegill", "white_shad", "natural_baitfish", "bright_contrast");
+function clearPikeColors(): ResolvedColorThemeV3[] {
+  return colorSet("natural", "dark");
 }
 
 // ---------------------------------------------------------------------------

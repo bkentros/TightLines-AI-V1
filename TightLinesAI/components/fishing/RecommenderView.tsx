@@ -16,6 +16,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
+  ActivityIndicator,
   type ViewStyle,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
@@ -70,9 +71,9 @@ function confidenceColor(tier: RecommenderConfidenceTier): string {
 
 function confidenceLabel(tier: RecommenderConfidenceTier): string {
   switch (tier) {
-    case 'high':   return 'High confidence';
-    case 'medium': return 'Moderate';
-    case 'low':    return 'Low confidence';
+    case 'high':   return 'Strong read';
+    case 'medium': return 'Solid read';
+    case 'low':    return 'Tougher read';
   }
 }
 
@@ -273,13 +274,19 @@ function GearTabs({
 type Props = {
   result: RecommenderResponse;
   style?: ViewStyle;
+  isRefreshing?: boolean;
+  onRefresh?: () => void;
 };
 
-export function RecommenderView({ result, style }: Props) {
+export function RecommenderView({ result, style, isRefreshing = false, onRefresh }: Props) {
   const [gearTab, setGearTab] = useState<'lure' | 'fly'>('lure');
   const accentColor = contextAccentColor(result.context);
   const families = gearTab === 'lure' ? result.lure_rankings : result.fly_rankings;
   const confColor = confidenceColor(result.confidence.tier);
+  const generatedAtLabel = new Date(result.generated_at).toLocaleTimeString([], {
+    hour: 'numeric',
+    minute: '2-digit',
+  });
 
   return (
     <ScrollView
@@ -324,12 +331,35 @@ export function RecommenderView({ result, style }: Props) {
             <View style={[styles.colorOfDayIconWrap, { backgroundColor: accentColor + '18' }]}>
               <Ionicons name="color-palette-outline" size={14} color={accentColor} />
             </View>
-            <Text style={styles.colorOfDayLabel}>Color of the Day</Text>
+            <Text style={styles.colorOfDayLabel}>Best color direction</Text>
             <Text style={[styles.colorOfDayValue, { color: accentColor }]}>
               {result.color_of_day}
             </Text>
           </View>
         )}
+
+        <View style={styles.headerMetaRow}>
+          <Text style={styles.headerMetaText}>
+            Updated {generatedAtLabel}
+          </Text>
+          {onRefresh && (
+            <TouchableOpacity
+              style={[styles.refreshChip, isRefreshing && styles.refreshChipDisabled]}
+              onPress={onRefresh}
+              activeOpacity={0.75}
+              disabled={isRefreshing}
+            >
+              {isRefreshing ? (
+                <ActivityIndicator size="small" color={accentColor} />
+              ) : (
+                <Ionicons name="refresh-outline" size={13} color={accentColor} />
+              )}
+              <Text style={[styles.refreshChipText, { color: accentColor }]}>
+                {isRefreshing ? 'Refreshing…' : 'Refresh picks'}
+              </Text>
+            </TouchableOpacity>
+          )}
+        </View>
       </View>
 
       {/* ── Fish behavior ── */}
@@ -361,12 +391,7 @@ export function RecommenderView({ result, style }: Props) {
 
       {/* ── Footer ── */}
       <Text style={styles.generatedNote}>
-        Generated{' '}
-        {new Date(result.generated_at).toLocaleTimeString([], {
-          hour: 'numeric',
-          minute: '2-digit',
-        })}{' '}
-        · Updates with conditions
+        Updated {generatedAtLabel} · Refresh any time to pull the latest conditions
       </Text>
     </ScrollView>
   );
@@ -463,6 +488,37 @@ const styles = StyleSheet.create({
   colorOfDayValue: {
     fontFamily: fonts.bodySemiBold,
     fontSize: 13,
+  },
+  headerMetaRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: spacing.sm,
+    paddingTop: 2,
+  },
+  headerMetaText: {
+    flex: 1,
+    fontFamily: fonts.body,
+    fontSize: 12,
+    color: colors.textMuted,
+  },
+  refreshChip: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+    borderRadius: radius.full,
+    borderWidth: 1,
+    borderColor: colors.borderLight,
+    backgroundColor: colors.surface,
+  },
+  refreshChipDisabled: {
+    opacity: 0.8,
+  },
+  refreshChipText: {
+    fontFamily: fonts.bodySemiBold,
+    fontSize: 12,
   },
 
   // ── Behavior card ─────────────────────────────────────────────────────────────

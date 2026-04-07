@@ -1,6 +1,6 @@
 # Pike V3 Matrix Review Sheet
 
-Generated: 2026-04-05T16:22:14.173Z
+Generated: 2026-04-07T01:29:19.395Z
 Archive bundle generated: 2026-04-05T02:38:59.295Z
 Scenario count: 48
 Contexts: 32 lake/pond, 16 river
@@ -46,9 +46,8 @@ Acceptable secondary lanes:
 - casting_spoon
 - pike_bunny_streamer
 Expected color themes:
-- perch_bluegill
-- bright_contrast
-- white_shad
+- dark
+- bright
 
 Archived env summary:
 - Region: great_lakes_upper_midwest
@@ -63,35 +62,40 @@ Archived env summary:
 - Sunrise/sunset: 07:56 / 16:58
 
 Actual output:
-- Top 1 lure: Suspending Jerkbait `suspending_jerkbait` | theme: `white_shad` | colors: pearl, table rock shad, white/silver
+- Top 1 lure: Large Jerkbait `pike_jerkbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Top 3 lures:
-- Suspending Jerkbait `suspending_jerkbait` | theme: `white_shad` | colors: pearl, table rock shad, white/silver
-- Pike Jerkbait `pike_jerkbait` | theme: `white_shad` | colors: silver/black, pearl, whitefish
-- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `white_shad` | colors: white, pearl, white/silver
-- Top 1 fly: Pike Bunny Streamer `pike_bunny_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Large Jerkbait `pike_jerkbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Large Paddle-Tail Swimbait `large_profile_pike_swimbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Suspending Jerkbait `suspending_jerkbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Top 1 fly: Large Rabbit Strip Streamer `pike_bunny_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Top 3 flies:
-- Pike Bunny Streamer `pike_bunny_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
-- Zonker Streamer `zonker_streamer` | theme: `dark_contrast` | colors: black, black/purple, black/olive
-- Large Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Large Rabbit Strip Streamer `pike_bunny_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Articulated Dungeon Streamer `articulated_dungeon_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Balanced Leech `balanced_leech` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Color notes:
-- Suspending Jerkbait: Theme: white shad. Try pearl, table rock shad, white/silver.
-- Pike Jerkbait: Theme: white shad. Try silver/black, pearl, whitefish.
-- Paddle-Tail Swimbait: Theme: white shad. Try white, pearl, white/silver.
-- Pike Bunny Streamer: Theme: white shad. Try white, pearl, white/silver.
-- Zonker Streamer: Theme: dark contrast. Try black, black/purple, black/olive.
-- Large Articulated Pike Streamer: Theme: white shad. Try white, pearl, white/silver.
+- Color of day: Bright Colors
+- Large Jerkbait: bright -> white/chartreuse, chartreuse, firetiger
+- Large Paddle-Tail Swimbait: bright -> white/chartreuse, chartreuse, firetiger
+- Suspending Jerkbait: bright -> white/chartreuse, chartreuse, firetiger
+- Large Rabbit Strip Streamer: bright -> white/chartreuse, chartreuse, firetiger
+- Articulated Dungeon Streamer: bright -> white/chartreuse, chartreuse, firetiger
+- Balanced Leech: bright -> white/chartreuse, chartreuse, firetiger
 - Daily profile notes:
 - Shared score: 67 (Good)
 - Daily nudges: mood=up_2, water_column=higher_1, presentation=bolder
 - Resolved profile: water_column=shallow, mood=active, presentation=balanced
 - Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
+- Variables triggered: temperature_condition, wind_condition, light_cloud_condition
+- Daily note: A warming trend can lift fish slightly and improve willingness.
+- Daily note: Productive chop supports a bolder moving presentation.
+- Daily note: Lower light supports a more assertive daily posture.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
-- TOP_COLOR_MATCH:white_shad,white_shad
+- TOP_COLOR_MATCH:bright,bright
 - Top 1 verdict:
 - Top 3 verdict:
 - seasonal_fit:
@@ -126,9 +130,8 @@ Acceptable secondary lanes:
 - paddle_tail_swimbait
 - pike_bunny_streamer
 Expected color themes:
-- perch_bluegill
-- bright_contrast
-- white_shad
+- dark
+- bright
 
 Archived env summary:
 - Region: great_lakes_upper_midwest
@@ -143,35 +146,41 @@ Archived env summary:
 - Sunrise/sunset: 07:12 / 17:49
 
 Actual output:
-- Top 1 lure: Suspending Jerkbait `suspending_jerkbait` | theme: `white_shad` | colors: pearl, table rock shad, white/silver
+- Top 1 lure: Large Jerkbait `pike_jerkbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Top 3 lures:
-- Suspending Jerkbait `suspending_jerkbait` | theme: `white_shad` | colors: pearl, table rock shad, white/silver
-- Pike Jerkbait `pike_jerkbait` | theme: `white_shad` | colors: silver/black, pearl, whitefish
-- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `white_shad` | colors: white, pearl, white/silver
-- Top 1 fly: Rabbit-Strip Leech `rabbit_strip_leech` | theme: `dark_contrast` | colors: black, black/purple, black/blue
+- Large Jerkbait `pike_jerkbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Large Paddle-Tail Swimbait `large_profile_pike_swimbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Suspending Jerkbait `suspending_jerkbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Top 1 fly: Large Rabbit Strip Streamer `pike_bunny_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Top 3 flies:
-- Rabbit-Strip Leech `rabbit_strip_leech` | theme: `dark_contrast` | colors: black, black/purple, black/blue
-- Pike Bunny Streamer `pike_bunny_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
-- Clouser Minnow `clouser_minnow` | theme: `bright_contrast` | colors: white/chartreuse, chartreuse/white, firetiger
+- Large Rabbit Strip Streamer `pike_bunny_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Articulated Dungeon Streamer `articulated_dungeon_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Balanced Leech `balanced_leech` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Color notes:
-- Suspending Jerkbait: Theme: white shad. Try pearl, table rock shad, white/silver.
-- Pike Jerkbait: Theme: white shad. Try silver/black, pearl, whitefish.
-- Paddle-Tail Swimbait: Theme: white shad. Try white, pearl, white/silver.
-- Rabbit-Strip Leech: Theme: dark contrast. Try black, black/purple, black/blue.
-- Pike Bunny Streamer: Theme: white shad. Try white, pearl, white/silver.
-- Clouser Minnow: Theme: bright contrast. Try white/chartreuse, chartreuse/white, firetiger.
+- Color of day: Bright Colors
+- Large Jerkbait: bright -> white/chartreuse, chartreuse, firetiger
+- Large Paddle-Tail Swimbait: bright -> white/chartreuse, chartreuse, firetiger
+- Suspending Jerkbait: bright -> white/chartreuse, chartreuse, firetiger
+- Large Rabbit Strip Streamer: bright -> white/chartreuse, chartreuse, firetiger
+- Articulated Dungeon Streamer: bright -> white/chartreuse, chartreuse, firetiger
+- Balanced Leech: bright -> white/chartreuse, chartreuse, firetiger
 - Daily profile notes:
 - Shared score: 41 (Fair)
-- Daily nudges: mood=up_1, water_column=neutral, presentation=bolder
-- Resolved profile: water_column=mid, mood=neutral, presentation=balanced
+- Daily nudges: mood=up_2, water_column=neutral, presentation=bolder
+- Resolved profile: water_column=mid, mood=active, presentation=balanced
 - Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
+- Variables triggered: temperature_condition, wind_condition, light_cloud_condition
+- Daily note: Cold-limited conditions pull fish tighter, lower, and less willing.
+- Daily note: A warming trend can lift fish slightly and improve willingness.
+- Daily note: Productive chop supports a bolder moving presentation.
+- Daily note: Lower light supports a more assertive daily posture.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
-- TOP_COLOR_MATCH:white_shad
+- TOP_COLOR_MATCH:bright,bright
 - Top 1 verdict:
 - Top 3 verdict:
 - seasonal_fit:
@@ -206,9 +215,8 @@ Acceptable secondary lanes:
 - paddle_tail_swimbait
 - pike_bunny_streamer
 Expected color themes:
-- perch_bluegill
-- bright_contrast
-- white_shad
+- dark
+- bright
 
 Archived env summary:
 - Region: great_lakes_upper_midwest
@@ -223,35 +231,39 @@ Archived env summary:
 - Sunrise/sunset: 07:17 / 19:32
 
 Actual output:
-- Top 1 lure: Suspending Jerkbait `suspending_jerkbait` | theme: `white_shad` | colors: pearl, table rock shad, white/silver
+- Top 1 lure: Large Jerkbait `pike_jerkbait` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 lures:
-- Suspending Jerkbait `suspending_jerkbait` | theme: `white_shad` | colors: pearl, table rock shad, white/silver
-- Pike Jerkbait `pike_jerkbait` | theme: `white_shad` | colors: silver/black, pearl, whitefish
-- Spinnerbait `spinnerbait` | theme: `bright_contrast` | colors: white/chartreuse, firetiger, chartreuse/white
-- Top 1 fly: Pike Bunny Streamer `pike_bunny_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Large Jerkbait `pike_jerkbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Large Paddle-Tail Swimbait `large_profile_pike_swimbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Spinnerbait `spinnerbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Top 1 fly: Large Rabbit Strip Streamer `pike_bunny_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 flies:
-- Pike Bunny Streamer `pike_bunny_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
-- Game Changer `game_changer` | theme: `white_shad` | colors: white, pearl, white/silver
-- Large Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Large Rabbit Strip Streamer `pike_bunny_streamer` | theme: `dark` | colors: black, black/blue, black/purple
+- Articulated Dungeon Streamer `articulated_dungeon_streamer` | theme: `dark` | colors: black, black/blue, black/purple
+- Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Color notes:
-- Suspending Jerkbait: Theme: white shad. Try pearl, table rock shad, white/silver.
-- Pike Jerkbait: Theme: white shad. Try silver/black, pearl, whitefish.
-- Spinnerbait: Theme: bright contrast. Try white/chartreuse, firetiger, chartreuse/white.
-- Pike Bunny Streamer: Theme: white shad. Try white, pearl, white/silver.
-- Game Changer: Theme: white shad. Try white, pearl, white/silver.
-- Large Articulated Pike Streamer: Theme: white shad. Try white, pearl, white/silver.
+- Color of day: Dark Colors
+- Large Jerkbait: dark -> black, black/blue, black/purple
+- Large Paddle-Tail Swimbait: dark -> black, black/blue, black/purple
+- Spinnerbait: dark -> black, black/blue, black/purple
+- Large Rabbit Strip Streamer: dark -> black, black/blue, black/purple
+- Articulated Dungeon Streamer: dark -> black, black/blue, black/purple
+- Articulated Pike Streamer: dark -> black, black/blue, black/purple
 - Daily profile notes:
 - Shared score: 46 (Fair)
-- Daily nudges: mood=down_1, water_column=lower_1, presentation=neutral
-- Resolved profile: water_column=mid, mood=negative, presentation=balanced
+- Daily nudges: mood=neutral, water_column=lower_1, presentation=neutral
+- Resolved profile: water_column=mid, mood=neutral, presentation=balanced
 - Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
+- Variables triggered: temperature_condition, wind_condition
+- Daily note: Cold-limited conditions pull fish tighter, lower, and less willing.
+- Daily note: Productive chop supports a bolder moving presentation.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
-- TOP_COLOR_MATCH:white_shad,white_shad
+- TOP_COLOR_MATCH:dark,dark
 - Top 1 verdict:
 - Top 3 verdict:
 - seasonal_fit:
@@ -286,9 +298,8 @@ Acceptable secondary lanes:
 - soft_jerkbait
 - pike_bunny_streamer
 Expected color themes:
-- perch_bluegill
-- bright_contrast
-- white_shad
+- dark
+- bright
 
 Archived env summary:
 - Region: great_lakes_upper_midwest
@@ -303,35 +314,39 @@ Archived env summary:
 - Sunrise/sunset: 06:24 / 20:09
 
 Actual output:
-- Top 1 lure: Pike Jerkbait `pike_jerkbait` | theme: `white_shad` | colors: silver/black, pearl, whitefish
+- Top 1 lure: Large Jerkbait `pike_jerkbait` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 lures:
-- Pike Jerkbait `pike_jerkbait` | theme: `white_shad` | colors: silver/black, pearl, whitefish
-- Spinnerbait `spinnerbait` | theme: `bright_contrast` | colors: white/chartreuse, firetiger, chartreuse/white
-- Suspending Jerkbait `suspending_jerkbait` | theme: `white_shad` | colors: pearl, table rock shad, white/silver
-- Top 1 fly: Pike Bunny Streamer `pike_bunny_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Large Jerkbait `pike_jerkbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Large Paddle-Tail Swimbait `large_profile_pike_swimbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Spinnerbait `spinnerbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Top 1 fly: Large Rabbit Strip Streamer `pike_bunny_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 flies:
-- Pike Bunny Streamer `pike_bunny_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
-- Game Changer `game_changer` | theme: `white_shad` | colors: white, pearl, white/silver
-- Large Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Large Rabbit Strip Streamer `pike_bunny_streamer` | theme: `dark` | colors: black, black/blue, black/purple
+- Articulated Dungeon Streamer `articulated_dungeon_streamer` | theme: `dark` | colors: black, black/blue, black/purple
+- Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Color notes:
-- Pike Jerkbait: Theme: white shad. Try silver/black, pearl, whitefish.
-- Spinnerbait: Theme: bright contrast. Try white/chartreuse, firetiger, chartreuse/white.
-- Suspending Jerkbait: Theme: white shad. Try pearl, table rock shad, white/silver.
-- Pike Bunny Streamer: Theme: white shad. Try white, pearl, white/silver.
-- Game Changer: Theme: white shad. Try white, pearl, white/silver.
-- Large Articulated Pike Streamer: Theme: white shad. Try white, pearl, white/silver.
+- Color of day: Dark Colors
+- Large Jerkbait: dark -> black, black/blue, black/purple
+- Large Paddle-Tail Swimbait: dark -> black, black/blue, black/purple
+- Spinnerbait: dark -> black, black/blue, black/purple
+- Large Rabbit Strip Streamer: dark -> black, black/blue, black/purple
+- Articulated Dungeon Streamer: dark -> black, black/blue, black/purple
+- Articulated Pike Streamer: dark -> black, black/blue, black/purple
 - Daily profile notes:
 - Shared score: 56 (Fair)
 - Daily nudges: mood=up_1, water_column=higher_1, presentation=bolder
 - Resolved profile: water_column=shallow, mood=active, presentation=balanced
 - Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
+- Variables triggered: temperature_condition, wind_condition
+- Daily note: A warming trend can lift fish slightly and improve willingness.
+- Daily note: Productive chop supports a bolder moving presentation.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
-- TOP_COLOR_MATCH:white_shad,white_shad
+- TOP_COLOR_MATCH:dark,dark
 - Top 1 verdict:
 - Top 3 verdict:
 - seasonal_fit:
@@ -366,9 +381,8 @@ Acceptable secondary lanes:
 - soft_jerkbait
 - pike_bunny_streamer
 Expected color themes:
-- perch_bluegill
-- bright_contrast
-- white_shad
+- dark
+- bright
 
 Archived env summary:
 - Region: great_lakes_upper_midwest
@@ -383,35 +397,38 @@ Archived env summary:
 - Sunrise/sunset: 05:39 / 20:48
 
 Actual output:
-- Top 1 lure: Large-Profile Pike Swimbait `large_profile_pike_swimbait` | theme: `white_shad` | colors: white, pearl, white/silver
+- Top 1 lure: Large Paddle-Tail Swimbait `large_profile_pike_swimbait` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 lures:
-- Large-Profile Pike Swimbait `large_profile_pike_swimbait` | theme: `white_shad` | colors: white, pearl, white/silver
-- Spinnerbait `spinnerbait` | theme: `bright_contrast` | colors: white/chartreuse, firetiger, chartreuse/white
-- Hollow-Body Frog `hollow_body_frog` | theme: `frog_natural` | colors: leopard frog, bullfrog, black frog
-- Top 1 fly: Large Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Large Paddle-Tail Swimbait `large_profile_pike_swimbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Large Jerkbait `pike_jerkbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Spinnerbait `spinnerbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Top 1 fly: Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 flies:
-- Large Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
-- Game Changer `game_changer` | theme: `white_shad` | colors: white, pearl, white/silver
-- Topwater Frog Fly `frog_fly` | theme: `frog_natural` | colors: leopard frog, bullfrog, black frog
+- Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `dark` | colors: black, black/blue, black/purple
+- Large Rabbit Strip Streamer `pike_bunny_streamer` | theme: `dark` | colors: black, black/blue, black/purple
+- Articulated Dungeon Streamer `articulated_dungeon_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Color notes:
-- Large-Profile Pike Swimbait: Theme: white shad. Try white, pearl, white/silver.
-- Spinnerbait: Theme: bright contrast. Try white/chartreuse, firetiger, chartreuse/white.
-- Hollow-Body Frog: Theme: frog natural. Try leopard frog, bullfrog, black frog.
-- Large Articulated Pike Streamer: Theme: white shad. Try white, pearl, white/silver.
-- Game Changer: Theme: white shad. Try white, pearl, white/silver.
-- Topwater Frog Fly: Theme: frog natural. Try leopard frog, bullfrog, black frog.
+- Color of day: Dark Colors
+- Large Paddle-Tail Swimbait: dark -> black, black/blue, black/purple
+- Large Jerkbait: dark -> black, black/blue, black/purple
+- Spinnerbait: dark -> black, black/blue, black/purple
+- Articulated Pike Streamer: dark -> black, black/blue, black/purple
+- Large Rabbit Strip Streamer: dark -> black, black/blue, black/purple
+- Articulated Dungeon Streamer: dark -> black, black/blue, black/purple
 - Daily profile notes:
 - Shared score: 59 (Fair)
 - Daily nudges: mood=down_1, water_column=lower_1, presentation=neutral
 - Resolved profile: water_column=mid, mood=neutral, presentation=balanced
 - Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
+- Variables triggered: precipitation_disruption
+- Daily note: Recent rain keeps lake fish a bit tighter even if the day stays fishable.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
-- TOP_COLOR_MATCH:white_shad,white_shad
+- TOP_COLOR_MATCH:dark,dark
 - Top 1 verdict:
 - Top 3 verdict:
 - seasonal_fit:
@@ -446,9 +463,8 @@ Acceptable secondary lanes:
 - walking_topwater
 - large_articulated_pike_streamer
 Expected color themes:
-- perch_bluegill
-- bright_contrast
-- white_shad
+- dark
+- bright
 
 Archived env summary:
 - Region: great_lakes_upper_midwest
@@ -463,35 +479,39 @@ Archived env summary:
 - Sunrise/sunset: 05:19 / 21:18
 
 Actual output:
-- Top 1 lure: Large-Profile Pike Swimbait `large_profile_pike_swimbait` | theme: `white_shad` | colors: white, pearl, white/silver
+- Top 1 lure: Large Paddle-Tail Swimbait `large_profile_pike_swimbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Top 3 lures:
-- Large-Profile Pike Swimbait `large_profile_pike_swimbait` | theme: `white_shad` | colors: white, pearl, white/silver
-- Spinnerbait `spinnerbait` | theme: `bright_contrast` | colors: white/chartreuse, firetiger, chartreuse/white
-- Hollow-Body Frog `hollow_body_frog` | theme: `frog_natural` | colors: leopard frog, bullfrog, black frog
-- Top 1 fly: Large Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Large Paddle-Tail Swimbait `large_profile_pike_swimbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Large Jerkbait `pike_jerkbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Spinnerbait `spinnerbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Top 1 fly: Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Top 3 flies:
-- Large Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
-- Game Changer `game_changer` | theme: `white_shad` | colors: white, pearl, white/silver
-- Topwater Frog Fly `frog_fly` | theme: `frog_natural` | colors: leopard frog, bullfrog, black frog
+- Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Large Rabbit Strip Streamer `pike_bunny_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Articulated Dungeon Streamer `articulated_dungeon_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Color notes:
-- Large-Profile Pike Swimbait: Theme: white shad. Try white, pearl, white/silver.
-- Spinnerbait: Theme: bright contrast. Try white/chartreuse, firetiger, chartreuse/white.
-- Hollow-Body Frog: Theme: frog natural. Try leopard frog, bullfrog, black frog.
-- Large Articulated Pike Streamer: Theme: white shad. Try white, pearl, white/silver.
-- Game Changer: Theme: white shad. Try white, pearl, white/silver.
-- Topwater Frog Fly: Theme: frog natural. Try leopard frog, bullfrog, black frog.
+- Color of day: Bright Colors
+- Large Paddle-Tail Swimbait: bright -> white/chartreuse, chartreuse, firetiger
+- Large Jerkbait: bright -> white/chartreuse, chartreuse, firetiger
+- Spinnerbait: bright -> white/chartreuse, chartreuse, firetiger
+- Articulated Pike Streamer: bright -> white/chartreuse, chartreuse, firetiger
+- Large Rabbit Strip Streamer: bright -> white/chartreuse, chartreuse, firetiger
+- Articulated Dungeon Streamer: bright -> white/chartreuse, chartreuse, firetiger
 - Daily profile notes:
 - Shared score: 66 (Good)
 - Daily nudges: mood=neutral, water_column=lower_1, presentation=bolder
 - Resolved profile: water_column=mid, mood=active, presentation=balanced
 - Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
+- Variables triggered: light_cloud_condition, precipitation_disruption
+- Daily note: Lower light supports a more assertive daily posture.
+- Daily note: Recent rain keeps lake fish a bit tighter even if the day stays fishable.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
-- TOP_COLOR_MATCH:white_shad,white_shad
+- TOP_COLOR_MATCH:bright,bright
 - Top 1 verdict:
 - Top 3 verdict:
 - seasonal_fit:
@@ -526,9 +546,8 @@ Acceptable secondary lanes:
 - walking_topwater
 - large_articulated_pike_streamer
 Expected color themes:
-- perch_bluegill
-- bright_contrast
-- white_shad
+- dark
+- bright
 
 Archived env summary:
 - Region: great_lakes_upper_midwest
@@ -543,35 +562,43 @@ Archived env summary:
 - Sunrise/sunset: 05:37 / 21:10
 
 Actual output:
-- Top 1 lure: Large-Profile Pike Swimbait `large_profile_pike_swimbait` | theme: `white_shad` | colors: white, pearl, white/silver
+- Top 1 lure: Large Paddle-Tail Swimbait `large_profile_pike_swimbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Top 3 lures:
-- Large-Profile Pike Swimbait `large_profile_pike_swimbait` | theme: `white_shad` | colors: white, pearl, white/silver
-- Spinnerbait `spinnerbait` | theme: `bright_contrast` | colors: white/chartreuse, firetiger, chartreuse/white
-- Hollow-Body Frog `hollow_body_frog` | theme: `frog_natural` | colors: leopard frog, bullfrog, black frog
-- Top 1 fly: Large Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Large Paddle-Tail Swimbait `large_profile_pike_swimbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Large Jerkbait `pike_jerkbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Spinnerbait `spinnerbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Top 1 fly: Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Top 3 flies:
-- Large Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
-- Game Changer `game_changer` | theme: `white_shad` | colors: white, pearl, white/silver
-- Topwater Frog Fly `frog_fly` | theme: `frog_natural` | colors: leopard frog, bullfrog, black frog
+- Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Large Rabbit Strip Streamer `pike_bunny_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Articulated Dungeon Streamer `articulated_dungeon_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Color notes:
-- Large-Profile Pike Swimbait: Theme: white shad. Try white, pearl, white/silver.
-- Spinnerbait: Theme: bright contrast. Try white/chartreuse, firetiger, chartreuse/white.
-- Hollow-Body Frog: Theme: frog natural. Try leopard frog, bullfrog, black frog.
-- Large Articulated Pike Streamer: Theme: white shad. Try white, pearl, white/silver.
-- Game Changer: Theme: white shad. Try white, pearl, white/silver.
-- Topwater Frog Fly: Theme: frog natural. Try leopard frog, bullfrog, black frog.
+- Color of day: Bright Colors
+- Large Paddle-Tail Swimbait: bright -> white/chartreuse, chartreuse, firetiger
+- Large Jerkbait: bright -> white/chartreuse, chartreuse, firetiger
+- Spinnerbait: bright -> white/chartreuse, chartreuse, firetiger
+- Articulated Pike Streamer: bright -> white/chartreuse, chartreuse, firetiger
+- Large Rabbit Strip Streamer: bright -> white/chartreuse, chartreuse, firetiger
+- Articulated Dungeon Streamer: bright -> white/chartreuse, chartreuse, firetiger
 - Daily profile notes:
 - Shared score: 37 (Poor)
 - Daily nudges: mood=down_1, water_column=lower_1, presentation=neutral
 - Resolved profile: water_column=mid, mood=neutral, presentation=balanced
 - Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
+- Variables triggered: temperature_condition, wind_condition, light_cloud_condition, precipitation_disruption, source_score_guardrail
+- Daily note: Cold-limited conditions pull fish tighter, lower, and less willing.
+- Daily note: A cooling trend favors a lower, tighter daily lane.
+- Daily note: Productive chop supports a bolder moving presentation.
+- Daily note: Lower light supports a more assertive daily posture.
+- Daily note: Active rain disruption should tighten and slow the lake plan.
+- Daily note: Poor overall How's Fishing score caps the day from resolving as an upbeat move-up read.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
-- TOP_COLOR_MATCH:white_shad,white_shad
+- TOP_COLOR_MATCH:bright,bright
 - Top 1 verdict:
 - Top 3 verdict:
 - seasonal_fit:
@@ -606,9 +633,8 @@ Acceptable secondary lanes:
 - walking_topwater
 - large_articulated_pike_streamer
 Expected color themes:
-- perch_bluegill
-- bright_contrast
-- white_shad
+- dark
+- bright
 
 Archived env summary:
 - Region: great_lakes_upper_midwest
@@ -623,35 +649,38 @@ Archived env summary:
 - Sunrise/sunset: 06:12 / 20:31
 
 Actual output:
-- Top 1 lure: Large-Profile Pike Swimbait `large_profile_pike_swimbait` | theme: `white_shad` | colors: white, pearl, white/silver
+- Top 1 lure: Large Paddle-Tail Swimbait `large_profile_pike_swimbait` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 lures:
-- Large-Profile Pike Swimbait `large_profile_pike_swimbait` | theme: `white_shad` | colors: white, pearl, white/silver
-- Spinnerbait `spinnerbait` | theme: `bright_contrast` | colors: white/chartreuse, firetiger, chartreuse/white
-- Casting Spoon `casting_spoon` | theme: `bright_contrast` | colors: chartreuse chrome, firetiger spoon, orange/chartreuse
-- Top 1 fly: Large Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Large Paddle-Tail Swimbait `large_profile_pike_swimbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Large Jerkbait `pike_jerkbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Spinnerbait `spinnerbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Top 1 fly: Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 flies:
-- Large Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
-- Game Changer `game_changer` | theme: `white_shad` | colors: white, pearl, white/silver
-- Pike Bunny Streamer `pike_bunny_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `dark` | colors: black, black/blue, black/purple
+- Large Rabbit Strip Streamer `pike_bunny_streamer` | theme: `dark` | colors: black, black/blue, black/purple
+- Articulated Dungeon Streamer `articulated_dungeon_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Color notes:
-- Large-Profile Pike Swimbait: Theme: white shad. Try white, pearl, white/silver.
-- Spinnerbait: Theme: bright contrast. Try white/chartreuse, firetiger, chartreuse/white.
-- Casting Spoon: Theme: bright contrast. Try chartreuse chrome, firetiger spoon, orange/chartreuse.
-- Large Articulated Pike Streamer: Theme: white shad. Try white, pearl, white/silver.
-- Game Changer: Theme: white shad. Try white, pearl, white/silver.
-- Pike Bunny Streamer: Theme: white shad. Try white, pearl, white/silver.
+- Color of day: Dark Colors
+- Large Paddle-Tail Swimbait: dark -> black, black/blue, black/purple
+- Large Jerkbait: dark -> black, black/blue, black/purple
+- Spinnerbait: dark -> black, black/blue, black/purple
+- Articulated Pike Streamer: dark -> black, black/blue, black/purple
+- Large Rabbit Strip Streamer: dark -> black, black/blue, black/purple
+- Articulated Dungeon Streamer: dark -> black, black/blue, black/purple
 - Daily profile notes:
 - Shared score: 77 (Good)
 - Daily nudges: mood=neutral, water_column=neutral, presentation=bolder
 - Resolved profile: water_column=mid, mood=active, presentation=bold
 - Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
+- Variables triggered: wind_condition
+- Daily note: Productive chop supports a bolder moving presentation.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
-- TOP_COLOR_MATCH:white_shad,white_shad
+- TOP_COLOR_MATCH:dark,dark
 - Top 1 verdict:
 - Top 3 verdict:
 - seasonal_fit:
@@ -686,9 +715,8 @@ Acceptable secondary lanes:
 - casting_spoon
 - large_articulated_pike_streamer
 Expected color themes:
-- perch_bluegill
-- bright_contrast
-- white_shad
+- dark
+- bright
 
 Archived env summary:
 - Region: great_lakes_upper_midwest
@@ -703,35 +731,39 @@ Archived env summary:
 - Sunrise/sunset: 06:57 / 19:26
 
 Actual output:
-- Top 1 lure: Large-Profile Pike Swimbait `large_profile_pike_swimbait` | theme: `white_shad` | colors: white, pearl, white/silver
+- Top 1 lure: Large Paddle-Tail Swimbait `large_profile_pike_swimbait` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 lures:
-- Large-Profile Pike Swimbait `large_profile_pike_swimbait` | theme: `white_shad` | colors: white, pearl, white/silver
-- Spinnerbait `spinnerbait` | theme: `bright_contrast` | colors: white/chartreuse, firetiger, chartreuse/white
-- Casting Spoon `casting_spoon` | theme: `bright_contrast` | colors: chartreuse chrome, firetiger spoon, orange/chartreuse
-- Top 1 fly: Large Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Large Paddle-Tail Swimbait `large_profile_pike_swimbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Large Jerkbait `pike_jerkbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Spinnerbait `spinnerbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Top 1 fly: Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 flies:
-- Large Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
-- Game Changer `game_changer` | theme: `white_shad` | colors: white, pearl, white/silver
-- Pike Bunny Streamer `pike_bunny_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `dark` | colors: black, black/blue, black/purple
+- Large Rabbit Strip Streamer `pike_bunny_streamer` | theme: `dark` | colors: black, black/blue, black/purple
+- Articulated Dungeon Streamer `articulated_dungeon_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Color notes:
-- Large-Profile Pike Swimbait: Theme: white shad. Try white, pearl, white/silver.
-- Spinnerbait: Theme: bright contrast. Try white/chartreuse, firetiger, chartreuse/white.
-- Casting Spoon: Theme: bright contrast. Try chartreuse chrome, firetiger spoon, orange/chartreuse.
-- Large Articulated Pike Streamer: Theme: white shad. Try white, pearl, white/silver.
-- Game Changer: Theme: white shad. Try white, pearl, white/silver.
-- Pike Bunny Streamer: Theme: white shad. Try white, pearl, white/silver.
+- Color of day: Dark Colors
+- Large Paddle-Tail Swimbait: dark -> black, black/blue, black/purple
+- Large Jerkbait: dark -> black, black/blue, black/purple
+- Spinnerbait: dark -> black, black/blue, black/purple
+- Articulated Pike Streamer: dark -> black, black/blue, black/purple
+- Large Rabbit Strip Streamer: dark -> black, black/blue, black/purple
+- Articulated Dungeon Streamer: dark -> black, black/blue, black/purple
 - Daily profile notes:
 - Shared score: 83 (Excellent)
 - Daily nudges: mood=neutral, water_column=neutral, presentation=subtler
-- Resolved profile: water_column=mid, mood=active, presentation=balanced
+- Resolved profile: water_column=mid, mood=active, presentation=bold
 - Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
+- Variables triggered: wind_condition, source_score_guardrail
+- Daily note: Calmer lake water pushes the day toward subtler execution.
+- Daily note: Strong overall How's Fishing score keeps the day from collapsing into a suppressed lane.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
-- TOP_COLOR_MATCH:white_shad,white_shad
+- TOP_COLOR_MATCH:dark,dark
 - Top 1 verdict:
 - Top 3 verdict:
 - seasonal_fit:
@@ -766,9 +798,8 @@ Acceptable secondary lanes:
 - casting_spoon
 - large_articulated_pike_streamer
 Expected color themes:
-- perch_bluegill
-- bright_contrast
-- white_shad
+- dark
+- bright
 
 Archived env summary:
 - Region: great_lakes_upper_midwest
@@ -783,35 +814,39 @@ Archived env summary:
 - Sunrise/sunset: 07:35 / 18:31
 
 Actual output:
-- Top 1 lure: Large-Profile Pike Swimbait `large_profile_pike_swimbait` | theme: `white_shad` | colors: white, pearl, white/silver
+- Top 1 lure: Large Paddle-Tail Swimbait `large_profile_pike_swimbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Top 3 lures:
-- Large-Profile Pike Swimbait `large_profile_pike_swimbait` | theme: `white_shad` | colors: white, pearl, white/silver
-- Spinnerbait `spinnerbait` | theme: `bright_contrast` | colors: white/chartreuse, firetiger, chartreuse/white
-- Casting Spoon `casting_spoon` | theme: `bright_contrast` | colors: chartreuse chrome, firetiger spoon, orange/chartreuse
-- Top 1 fly: Large Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Large Paddle-Tail Swimbait `large_profile_pike_swimbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Large Jerkbait `pike_jerkbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Spinnerbait `spinnerbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Top 1 fly: Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Top 3 flies:
-- Large Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
-- Game Changer `game_changer` | theme: `white_shad` | colors: white, pearl, white/silver
-- Pike Bunny Streamer `pike_bunny_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Large Rabbit Strip Streamer `pike_bunny_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Articulated Dungeon Streamer `articulated_dungeon_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Color notes:
-- Large-Profile Pike Swimbait: Theme: white shad. Try white, pearl, white/silver.
-- Spinnerbait: Theme: bright contrast. Try white/chartreuse, firetiger, chartreuse/white.
-- Casting Spoon: Theme: bright contrast. Try chartreuse chrome, firetiger spoon, orange/chartreuse.
-- Large Articulated Pike Streamer: Theme: white shad. Try white, pearl, white/silver.
-- Game Changer: Theme: white shad. Try white, pearl, white/silver.
-- Pike Bunny Streamer: Theme: white shad. Try white, pearl, white/silver.
+- Color of day: Bright Colors
+- Large Paddle-Tail Swimbait: bright -> white/chartreuse, chartreuse, firetiger
+- Large Jerkbait: bright -> white/chartreuse, chartreuse, firetiger
+- Spinnerbait: bright -> white/chartreuse, chartreuse, firetiger
+- Articulated Pike Streamer: bright -> white/chartreuse, chartreuse, firetiger
+- Large Rabbit Strip Streamer: bright -> white/chartreuse, chartreuse, firetiger
+- Articulated Dungeon Streamer: bright -> white/chartreuse, chartreuse, firetiger
 - Daily profile notes:
 - Shared score: 66 (Good)
 - Daily nudges: mood=up_1, water_column=neutral, presentation=bolder
 - Resolved profile: water_column=mid, mood=active, presentation=bold
 - Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
+- Variables triggered: wind_condition, light_cloud_condition
+- Daily note: Productive chop supports a bolder moving presentation.
+- Daily note: Lower light supports a more assertive daily posture.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
-- TOP_COLOR_MATCH:white_shad,white_shad
+- TOP_COLOR_MATCH:bright,bright
 - Top 1 verdict:
 - Top 3 verdict:
 - seasonal_fit:
@@ -846,9 +881,8 @@ Acceptable secondary lanes:
 - casting_spoon
 - large_articulated_pike_streamer
 Expected color themes:
-- perch_bluegill
-- bright_contrast
-- white_shad
+- dark
+- bright
 
 Archived env summary:
 - Region: great_lakes_upper_midwest
@@ -863,35 +897,40 @@ Archived env summary:
 - Sunrise/sunset: 07:16 / 16:47
 
 Actual output:
-- Top 1 lure: Pike Jerkbait `pike_jerkbait` | theme: `white_shad` | colors: silver/black, pearl, whitefish
+- Top 1 lure: Large Jerkbait `pike_jerkbait` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 lures:
-- Pike Jerkbait `pike_jerkbait` | theme: `white_shad` | colors: silver/black, pearl, whitefish
-- Suspending Jerkbait `suspending_jerkbait` | theme: `white_shad` | colors: pearl, table rock shad, white/silver
-- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `white_shad` | colors: white, pearl, white/silver
-- Top 1 fly: Pike Bunny Streamer `pike_bunny_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Large Jerkbait `pike_jerkbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Large Paddle-Tail Swimbait `large_profile_pike_swimbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Suspending Jerkbait `suspending_jerkbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Top 1 fly: Large Rabbit Strip Streamer `pike_bunny_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 flies:
-- Pike Bunny Streamer `pike_bunny_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
-- Zonker Streamer `zonker_streamer` | theme: `dark_contrast` | colors: black, black/purple, black/olive
-- Large Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Large Rabbit Strip Streamer `pike_bunny_streamer` | theme: `dark` | colors: black, black/blue, black/purple
+- Articulated Dungeon Streamer `articulated_dungeon_streamer` | theme: `dark` | colors: black, black/blue, black/purple
+- Balanced Leech `balanced_leech` | theme: `dark` | colors: black, black/blue, black/purple
 - Color notes:
-- Pike Jerkbait: Theme: white shad. Try silver/black, pearl, whitefish.
-- Suspending Jerkbait: Theme: white shad. Try pearl, table rock shad, white/silver.
-- Paddle-Tail Swimbait: Theme: white shad. Try white, pearl, white/silver.
-- Pike Bunny Streamer: Theme: white shad. Try white, pearl, white/silver.
-- Zonker Streamer: Theme: dark contrast. Try black, black/purple, black/olive.
-- Large Articulated Pike Streamer: Theme: white shad. Try white, pearl, white/silver.
+- Color of day: Dark Colors
+- Large Jerkbait: dark -> black, black/blue, black/purple
+- Large Paddle-Tail Swimbait: dark -> black, black/blue, black/purple
+- Suspending Jerkbait: dark -> black, black/blue, black/purple
+- Large Rabbit Strip Streamer: dark -> black, black/blue, black/purple
+- Articulated Dungeon Streamer: dark -> black, black/blue, black/purple
+- Balanced Leech: dark -> black, black/blue, black/purple
 - Daily profile notes:
 - Shared score: 61 (Good)
 - Daily nudges: mood=up_1, water_column=higher_1, presentation=neutral
 - Resolved profile: water_column=shallow, mood=active, presentation=balanced
 - Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
+- Variables triggered: temperature_condition, wind_condition, light_cloud_condition
+- Daily note: A warming trend can lift fish slightly and improve willingness.
+- Daily note: Productive chop supports a bolder moving presentation.
+- Daily note: Bright overhead light pushes the day toward subtler execution.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
-- TOP_COLOR_MATCH:white_shad,white_shad
+- TOP_COLOR_MATCH:dark,dark
 - Top 1 verdict:
 - Top 3 verdict:
 - seasonal_fit:
@@ -926,9 +965,8 @@ Acceptable secondary lanes:
 - casting_spoon
 - pike_bunny_streamer
 Expected color themes:
-- perch_bluegill
-- bright_contrast
-- white_shad
+- dark
+- bright
 
 Archived env summary:
 - Region: great_lakes_upper_midwest
@@ -943,35 +981,40 @@ Archived env summary:
 - Sunrise/sunset: 07:51 / 16:29
 
 Actual output:
-- Top 1 lure: Blade Bait `blade_bait` | theme: `bright_contrast` | colors: firetiger, chartreuse chrome, orange/chartreuse
+- Top 1 lure: Large Jerkbait `pike_jerkbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Top 3 lures:
-- Blade Bait `blade_bait` | theme: `bright_contrast` | colors: firetiger, chartreuse chrome, orange/chartreuse
-- Pike Jerkbait `pike_jerkbait` | theme: `white_shad` | colors: silver/black, pearl, whitefish
-- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `white_shad` | colors: white, pearl, white/silver
-- Top 1 fly: Rabbit-Strip Leech `rabbit_strip_leech` | theme: `dark_contrast` | colors: black, black/purple, black/blue
+- Large Jerkbait `pike_jerkbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Large Paddle-Tail Swimbait `large_profile_pike_swimbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Blade Bait `blade_bait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Top 1 fly: Large Rabbit Strip Streamer `pike_bunny_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Top 3 flies:
-- Rabbit-Strip Leech `rabbit_strip_leech` | theme: `dark_contrast` | colors: black, black/purple, black/blue
-- Clouser Minnow `clouser_minnow` | theme: `bright_contrast` | colors: white/chartreuse, chartreuse/white, firetiger
-- Pike Bunny Streamer `pike_bunny_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Large Rabbit Strip Streamer `pike_bunny_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Articulated Dungeon Streamer `articulated_dungeon_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Balanced Leech `balanced_leech` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Color notes:
-- Blade Bait: Theme: bright contrast. Try firetiger, chartreuse chrome, orange/chartreuse.
-- Pike Jerkbait: Theme: white shad. Try silver/black, pearl, whitefish.
-- Paddle-Tail Swimbait: Theme: white shad. Try white, pearl, white/silver.
-- Rabbit-Strip Leech: Theme: dark contrast. Try black, black/purple, black/blue.
-- Clouser Minnow: Theme: bright contrast. Try white/chartreuse, chartreuse/white, firetiger.
-- Pike Bunny Streamer: Theme: white shad. Try white, pearl, white/silver.
+- Color of day: Bright Colors
+- Large Jerkbait: bright -> white/chartreuse, chartreuse, firetiger
+- Large Paddle-Tail Swimbait: bright -> white/chartreuse, chartreuse, firetiger
+- Blade Bait: bright -> white/chartreuse, chartreuse, firetiger
+- Large Rabbit Strip Streamer: bright -> white/chartreuse, chartreuse, firetiger
+- Articulated Dungeon Streamer: bright -> white/chartreuse, chartreuse, firetiger
+- Balanced Leech: bright -> white/chartreuse, chartreuse, firetiger
 - Daily profile notes:
 - Shared score: 41 (Fair)
 - Daily nudges: mood=neutral, water_column=lower_1, presentation=bolder
 - Resolved profile: water_column=bottom, mood=neutral, presentation=balanced
 - Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
+- Variables triggered: temperature_condition, wind_condition, light_cloud_condition
+- Daily note: Cold-limited conditions pull fish tighter, lower, and less willing.
+- Daily note: Productive chop supports a bolder moving presentation.
+- Daily note: Lower light supports a more assertive daily posture.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
-- TOP_COLOR_MATCH:bright_contrast
+- TOP_COLOR_MATCH:bright,bright
 - Top 1 verdict:
 - Top 3 verdict:
 - seasonal_fit:
@@ -1006,10 +1049,8 @@ Acceptable secondary lanes:
 - blade_bait
 - pike_bunny_streamer
 Expected color themes:
-- perch_bluegill
-- white_shad
-- natural_baitfish
-- bright_contrast
+- natural
+- dark
 
 Archived env summary:
 - Region: northeast
@@ -1024,35 +1065,42 @@ Archived env summary:
 - Sunrise/sunset: 07:26 / 16:46
 
 Actual output:
-- Top 1 lure: Suspending Jerkbait `suspending_jerkbait` | theme: `natural_baitfish` | colors: ghost minnow, pro blue, olive shad
+- Top 1 lure: Large Jerkbait `pike_jerkbait` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 lures:
-- Suspending Jerkbait `suspending_jerkbait` | theme: `natural_baitfish` | colors: ghost minnow, pro blue, olive shad
-- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Blade Bait `blade_bait` | theme: `white_shad` | colors: white, pearl, white/silver
-- Top 1 fly: Rabbit-Strip Leech `rabbit_strip_leech` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Large Jerkbait `pike_jerkbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Large Paddle-Tail Swimbait `large_profile_pike_swimbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Suspending Jerkbait `suspending_jerkbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Top 1 fly: Large Rabbit Strip Streamer `pike_bunny_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 flies:
-- Rabbit-Strip Leech `rabbit_strip_leech` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Clouser Minnow `clouser_minnow` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Pike Bunny Streamer `pike_bunny_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Large Rabbit Strip Streamer `pike_bunny_streamer` | theme: `dark` | colors: black, black/blue, black/purple
+- Articulated Dungeon Streamer `articulated_dungeon_streamer` | theme: `dark` | colors: black, black/blue, black/purple
+- Balanced Leech `balanced_leech` | theme: `dark` | colors: black, black/blue, black/purple
 - Color notes:
-- Suspending Jerkbait: Theme: natural baitfish. Try ghost minnow, pro blue, olive shad.
-- Paddle-Tail Swimbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Blade Bait: Theme: white shad. Try white, pearl, white/silver.
-- Rabbit-Strip Leech: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Clouser Minnow: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Pike Bunny Streamer: Theme: white shad. Try white, pearl, white/silver.
+- Color of day: Dark Colors
+- Large Jerkbait: dark -> black, black/blue, black/purple
+- Large Paddle-Tail Swimbait: dark -> black, black/blue, black/purple
+- Suspending Jerkbait: dark -> black, black/blue, black/purple
+- Large Rabbit Strip Streamer: dark -> black, black/blue, black/purple
+- Articulated Dungeon Streamer: dark -> black, black/blue, black/purple
+- Balanced Leech: dark -> black, black/blue, black/purple
 - Daily profile notes:
 - Shared score: 40 (Fair)
 - Daily nudges: mood=neutral, water_column=neutral, presentation=subtler
-- Resolved profile: water_column=mid, mood=negative, presentation=subtle
+- Resolved profile: water_column=mid, mood=negative, presentation=balanced
 - Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
+- Variables triggered: temperature_condition, wind_condition, light_cloud_condition, source_score_guardrail
+- Daily note: Cold-limited conditions pull fish tighter, lower, and less willing.
+- Daily note: A warming trend can lift fish slightly and improve willingness.
+- Daily note: Calmer lake water pushes the day toward subtler execution.
+- Daily note: Lower light supports a more assertive daily posture.
+- Daily note: Poor overall How's Fishing score caps the day from resolving as an upbeat move-up read.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
-- TOP_COLOR_MATCH:natural_baitfish,natural_baitfish
+- TOP_COLOR_MATCH:dark,dark
 - Top 1 verdict:
 - Top 3 verdict:
 - seasonal_fit:
@@ -1087,10 +1135,8 @@ Acceptable secondary lanes:
 - soft_jerkbait
 - pike_bunny_streamer
 Expected color themes:
-- perch_bluegill
-- white_shad
-- natural_baitfish
-- bright_contrast
+- natural
+- dark
 
 Archived env summary:
 - Region: northeast
@@ -1105,35 +1151,41 @@ Archived env summary:
 - Sunrise/sunset: 06:47 / 17:32
 
 Actual output:
-- Top 1 lure: Suspending Jerkbait `suspending_jerkbait` | theme: `natural_baitfish` | colors: ghost minnow, pro blue, olive shad
+- Top 1 lure: Large Jerkbait `pike_jerkbait` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 3 lures:
-- Suspending Jerkbait `suspending_jerkbait` | theme: `natural_baitfish` | colors: ghost minnow, pro blue, olive shad
-- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Blade Bait `blade_bait` | theme: `white_shad` | colors: white, pearl, white/silver
-- Top 1 fly: Rabbit-Strip Leech `rabbit_strip_leech` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Large Jerkbait `pike_jerkbait` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Large Paddle-Tail Swimbait `large_profile_pike_swimbait` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Suspending Jerkbait `suspending_jerkbait` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Top 1 fly: Large Rabbit Strip Streamer `pike_bunny_streamer` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 3 flies:
-- Rabbit-Strip Leech `rabbit_strip_leech` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Clouser Minnow `clouser_minnow` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Pike Bunny Streamer `pike_bunny_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Large Rabbit Strip Streamer `pike_bunny_streamer` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Articulated Dungeon Streamer `articulated_dungeon_streamer` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Balanced Leech `balanced_leech` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Color notes:
-- Suspending Jerkbait: Theme: natural baitfish. Try ghost minnow, pro blue, olive shad.
-- Paddle-Tail Swimbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Blade Bait: Theme: white shad. Try white, pearl, white/silver.
-- Rabbit-Strip Leech: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Clouser Minnow: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Pike Bunny Streamer: Theme: white shad. Try white, pearl, white/silver.
+- Color of day: Natural Colors
+- Large Jerkbait: natural -> green pumpkin, olive, smoke
+- Large Paddle-Tail Swimbait: natural -> green pumpkin, olive, smoke
+- Suspending Jerkbait: natural -> green pumpkin, olive, smoke
+- Large Rabbit Strip Streamer: natural -> green pumpkin, olive, smoke
+- Articulated Dungeon Streamer: natural -> green pumpkin, olive, smoke
+- Balanced Leech: natural -> green pumpkin, olive, smoke
 - Daily profile notes:
 - Shared score: 34 (Poor)
 - Daily nudges: mood=neutral, water_column=neutral, presentation=subtler
-- Resolved profile: water_column=mid, mood=negative, presentation=subtle
+- Resolved profile: water_column=mid, mood=negative, presentation=balanced
 - Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
+- Variables triggered: temperature_condition, wind_condition, source_score_guardrail
+- Daily note: Cold-limited conditions pull fish tighter, lower, and less willing.
+- Daily note: A warming trend can lift fish slightly and improve willingness.
+- Daily note: Calmer lake water pushes the day toward subtler execution.
+- Daily note: Poor overall How's Fishing score caps the day from resolving as an upbeat move-up read.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
-- TOP_COLOR_MATCH:natural_baitfish,natural_baitfish
+- TOP_COLOR_MATCH:natural,natural
 - Top 1 verdict:
 - Top 3 verdict:
 - seasonal_fit:
@@ -1168,10 +1220,8 @@ Acceptable secondary lanes:
 - soft_jerkbait
 - pike_bunny_streamer
 Expected color themes:
-- perch_bluegill
-- white_shad
-- natural_baitfish
-- bright_contrast
+- natural
+- dark
 
 Archived env summary:
 - Region: northeast
@@ -1186,35 +1236,40 @@ Archived env summary:
 - Sunrise/sunset: 06:57 / 19:10
 
 Actual output:
-- Top 1 lure: Pike Jerkbait `pike_jerkbait` | theme: `white_shad` | colors: silver/black, pearl, whitefish
+- Top 1 lure: Large Jerkbait `pike_jerkbait` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 3 lures:
-- Pike Jerkbait `pike_jerkbait` | theme: `white_shad` | colors: silver/black, pearl, whitefish
-- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Suspending Jerkbait `suspending_jerkbait` | theme: `natural_baitfish` | colors: ghost minnow, pro blue, olive shad
-- Top 1 fly: Pike Bunny Streamer `pike_bunny_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Large Jerkbait `pike_jerkbait` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Large Paddle-Tail Swimbait `large_profile_pike_swimbait` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Suspending Jerkbait `suspending_jerkbait` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Top 1 fly: Large Rabbit Strip Streamer `pike_bunny_streamer` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 3 flies:
-- Pike Bunny Streamer `pike_bunny_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
-- Game Changer `game_changer` | theme: `white_shad` | colors: white, pearl, white/silver
-- Large Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Large Rabbit Strip Streamer `pike_bunny_streamer` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Articulated Dungeon Streamer `articulated_dungeon_streamer` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Color notes:
-- Pike Jerkbait: Theme: white shad. Try silver/black, pearl, whitefish.
-- Paddle-Tail Swimbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Suspending Jerkbait: Theme: natural baitfish. Try ghost minnow, pro blue, olive shad.
-- Pike Bunny Streamer: Theme: white shad. Try white, pearl, white/silver.
-- Game Changer: Theme: white shad. Try white, pearl, white/silver.
-- Large Articulated Pike Streamer: Theme: white shad. Try white, pearl, white/silver.
+- Color of day: Natural Colors
+- Large Jerkbait: natural -> green pumpkin, olive, smoke
+- Large Paddle-Tail Swimbait: natural -> green pumpkin, olive, smoke
+- Suspending Jerkbait: natural -> green pumpkin, olive, smoke
+- Large Rabbit Strip Streamer: natural -> green pumpkin, olive, smoke
+- Articulated Dungeon Streamer: natural -> green pumpkin, olive, smoke
+- Articulated Pike Streamer: natural -> green pumpkin, olive, smoke
 - Daily profile notes:
 - Shared score: 55 (Fair)
-- Daily nudges: mood=neutral, water_column=lower_1, presentation=bolder
-- Resolved profile: water_column=mid, mood=neutral, presentation=balanced
+- Daily nudges: mood=down_1, water_column=lower_1, presentation=bolder
+- Resolved profile: water_column=mid, mood=negative, presentation=balanced
 - Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
+- Variables triggered: temperature_condition, wind_condition
+- Daily note: Heat-limited conditions tighten fish and reduce roaming willingness.
+- Daily note: A sharp warmup can add some visibility need, but not a full aggressive move-up read.
+- Daily note: Productive chop supports a bolder moving presentation.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
-- TOP_COLOR_MATCH:white_shad,white_shad
+- TOP_COLOR_MATCH:natural,natural
 - Top 1 verdict:
 - Top 3 verdict:
 - seasonal_fit:
@@ -1249,10 +1304,8 @@ Acceptable secondary lanes:
 - paddle_tail_swimbait
 - pike_bunny_streamer
 Expected color themes:
-- perch_bluegill
-- white_shad
-- natural_baitfish
-- bright_contrast
+- natural
+- dark
 
 Archived env summary:
 - Region: northeast
@@ -1267,35 +1320,42 @@ Archived env summary:
 - Sunrise/sunset: 06:08 / 19:43
 
 Actual output:
-- Top 1 lure: Suspending Jerkbait `suspending_jerkbait` | theme: `natural_baitfish` | colors: ghost minnow, pro blue, olive shad
+- Top 1 lure: Large Jerkbait `pike_jerkbait` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 lures:
-- Suspending Jerkbait `suspending_jerkbait` | theme: `natural_baitfish` | colors: ghost minnow, pro blue, olive shad
-- Pike Jerkbait `pike_jerkbait` | theme: `white_shad` | colors: silver/black, pearl, whitefish
-- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Top 1 fly: Pike Bunny Streamer `pike_bunny_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Large Jerkbait `pike_jerkbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Large Paddle-Tail Swimbait `large_profile_pike_swimbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Suspending Jerkbait `suspending_jerkbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Top 1 fly: Large Rabbit Strip Streamer `pike_bunny_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 flies:
-- Pike Bunny Streamer `pike_bunny_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
-- Game Changer `game_changer` | theme: `white_shad` | colors: white, pearl, white/silver
-- Large Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Large Rabbit Strip Streamer `pike_bunny_streamer` | theme: `dark` | colors: black, black/blue, black/purple
+- Articulated Dungeon Streamer `articulated_dungeon_streamer` | theme: `dark` | colors: black, black/blue, black/purple
+- Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Color notes:
-- Suspending Jerkbait: Theme: natural baitfish. Try ghost minnow, pro blue, olive shad.
-- Pike Jerkbait: Theme: white shad. Try silver/black, pearl, whitefish.
-- Paddle-Tail Swimbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Pike Bunny Streamer: Theme: white shad. Try white, pearl, white/silver.
-- Game Changer: Theme: white shad. Try white, pearl, white/silver.
-- Large Articulated Pike Streamer: Theme: white shad. Try white, pearl, white/silver.
+- Color of day: Dark Colors
+- Large Jerkbait: dark -> black, black/blue, black/purple
+- Large Paddle-Tail Swimbait: dark -> black, black/blue, black/purple
+- Suspending Jerkbait: dark -> black, black/blue, black/purple
+- Large Rabbit Strip Streamer: dark -> black, black/blue, black/purple
+- Articulated Dungeon Streamer: dark -> black, black/blue, black/purple
+- Articulated Pike Streamer: dark -> black, black/blue, black/purple
 - Daily profile notes:
 - Shared score: 38 (Poor)
 - Daily nudges: mood=down_1, water_column=lower_1, presentation=neutral
 - Resolved profile: water_column=mid, mood=negative, presentation=balanced
 - Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
+- Variables triggered: temperature_condition, wind_condition, light_cloud_condition, source_score_guardrail
+- Daily note: Cold-limited conditions pull fish tighter, lower, and less willing.
+- Daily note: A sharp cooldown pushes the day back toward control and patience.
+- Daily note: Productive chop supports a bolder moving presentation.
+- Daily note: Lower light supports a more assertive daily posture.
+- Daily note: Poor overall How's Fishing score caps the day from resolving as an upbeat move-up read.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
-- TOP_COLOR_MATCH:natural_baitfish,white_shad
+- TOP_COLOR_MATCH:dark,dark
 - Top 1 verdict:
 - Top 3 verdict:
 - seasonal_fit:
@@ -1330,10 +1390,8 @@ Acceptable secondary lanes:
 - paddle_tail_swimbait
 - pike_bunny_streamer
 Expected color themes:
-- perch_bluegill
-- white_shad
-- natural_baitfish
-- bright_contrast
+- natural
+- dark
 
 Archived env summary:
 - Region: northeast
@@ -1348,35 +1406,41 @@ Archived env summary:
 - Sunrise/sunset: 05:27 / 20:18
 
 Actual output:
-- Top 1 lure: Large-Profile Pike Swimbait `large_profile_pike_swimbait` | theme: `white_shad` | colors: white, pearl, white/silver
+- Top 1 lure: Large Paddle-Tail Swimbait `large_profile_pike_swimbait` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 lures:
-- Large-Profile Pike Swimbait `large_profile_pike_swimbait` | theme: `white_shad` | colors: white, pearl, white/silver
-- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Hollow-Body Frog `hollow_body_frog` | theme: `frog_natural` | colors: leopard frog, bullfrog, black frog
-- Top 1 fly: Large Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Large Paddle-Tail Swimbait `large_profile_pike_swimbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Large Jerkbait `pike_jerkbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Top 1 fly: Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 flies:
-- Large Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
-- Game Changer `game_changer` | theme: `white_shad` | colors: white, pearl, white/silver
-- Topwater Frog Fly `frog_fly` | theme: `frog_natural` | colors: leopard frog, bullfrog, black frog
+- Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `dark` | colors: black, black/blue, black/purple
+- Large Rabbit Strip Streamer `pike_bunny_streamer` | theme: `dark` | colors: black, black/blue, black/purple
+- Articulated Dungeon Streamer `articulated_dungeon_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Color notes:
-- Large-Profile Pike Swimbait: Theme: white shad. Try white, pearl, white/silver.
-- Paddle-Tail Swimbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Hollow-Body Frog: Theme: frog natural. Try leopard frog, bullfrog, black frog.
-- Large Articulated Pike Streamer: Theme: white shad. Try white, pearl, white/silver.
-- Game Changer: Theme: white shad. Try white, pearl, white/silver.
-- Topwater Frog Fly: Theme: frog natural. Try leopard frog, bullfrog, black frog.
+- Color of day: Dark Colors
+- Large Paddle-Tail Swimbait: dark -> black, black/blue, black/purple
+- Large Jerkbait: dark -> black, black/blue, black/purple
+- Paddle-Tail Swimbait: dark -> black, black/blue, black/purple
+- Articulated Pike Streamer: dark -> black, black/blue, black/purple
+- Large Rabbit Strip Streamer: dark -> black, black/blue, black/purple
+- Articulated Dungeon Streamer: dark -> black, black/blue, black/purple
 - Daily profile notes:
 - Shared score: 85 (Excellent)
 - Daily nudges: mood=up_2, water_column=higher_1, presentation=neutral
 - Resolved profile: water_column=shallow, mood=active, presentation=balanced
 - Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
+- Variables triggered: temperature_condition, wind_condition, light_cloud_condition, source_score_guardrail
+- Daily note: A warming trend can lift fish slightly and improve willingness.
+- Daily note: Calmer lake water pushes the day toward subtler execution.
+- Daily note: Lower light supports a more assertive daily posture.
+- Daily note: Strong overall How's Fishing score keeps the day from collapsing into a suppressed lane.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
-- TOP_COLOR_MATCH:white_shad,white_shad
+- TOP_COLOR_MATCH:dark,dark
 - Top 1 verdict:
 - Top 3 verdict:
 - seasonal_fit:
@@ -1411,10 +1475,8 @@ Acceptable secondary lanes:
 - walking_topwater
 - large_articulated_pike_streamer
 Expected color themes:
-- perch_bluegill
-- white_shad
-- natural_baitfish
-- bright_contrast
+- natural
+- dark
 
 Archived env summary:
 - Region: northeast
@@ -1429,35 +1491,41 @@ Archived env summary:
 - Sunrise/sunset: 05:10 / 20:45
 
 Actual output:
-- Top 1 lure: Large-Profile Pike Swimbait `large_profile_pike_swimbait` | theme: `white_shad` | colors: white, pearl, white/silver
+- Top 1 lure: Large Paddle-Tail Swimbait `large_profile_pike_swimbait` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 lures:
-- Large-Profile Pike Swimbait `large_profile_pike_swimbait` | theme: `white_shad` | colors: white, pearl, white/silver
-- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Hollow-Body Frog `hollow_body_frog` | theme: `frog_natural` | colors: leopard frog, bullfrog, black frog
-- Top 1 fly: Large Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Large Paddle-Tail Swimbait `large_profile_pike_swimbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Large Jerkbait `pike_jerkbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Top 1 fly: Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 flies:
-- Large Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
-- Game Changer `game_changer` | theme: `white_shad` | colors: white, pearl, white/silver
-- Topwater Frog Fly `frog_fly` | theme: `frog_natural` | colors: leopard frog, bullfrog, black frog
+- Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `dark` | colors: black, black/blue, black/purple
+- Large Rabbit Strip Streamer `pike_bunny_streamer` | theme: `dark` | colors: black, black/blue, black/purple
+- Articulated Dungeon Streamer `articulated_dungeon_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Color notes:
-- Large-Profile Pike Swimbait: Theme: white shad. Try white, pearl, white/silver.
-- Paddle-Tail Swimbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Hollow-Body Frog: Theme: frog natural. Try leopard frog, bullfrog, black frog.
-- Large Articulated Pike Streamer: Theme: white shad. Try white, pearl, white/silver.
-- Game Changer: Theme: white shad. Try white, pearl, white/silver.
-- Topwater Frog Fly: Theme: frog natural. Try leopard frog, bullfrog, black frog.
+- Color of day: Dark Colors
+- Large Paddle-Tail Swimbait: dark -> black, black/blue, black/purple
+- Large Jerkbait: dark -> black, black/blue, black/purple
+- Paddle-Tail Swimbait: dark -> black, black/blue, black/purple
+- Articulated Pike Streamer: dark -> black, black/blue, black/purple
+- Large Rabbit Strip Streamer: dark -> black, black/blue, black/purple
+- Articulated Dungeon Streamer: dark -> black, black/blue, black/purple
 - Daily profile notes:
 - Shared score: 68 (Good)
-- Daily nudges: mood=up_1, water_column=lower_1, presentation=bolder
+- Daily nudges: mood=neutral, water_column=lower_1, presentation=bolder
 - Resolved profile: water_column=mid, mood=active, presentation=balanced
 - Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
+- Variables triggered: temperature_condition, wind_condition, light_cloud_condition
+- Daily note: Heat-limited conditions tighten fish and reduce roaming willingness.
+- Daily note: A sharp warmup can add some visibility need, but not a full aggressive move-up read.
+- Daily note: Productive chop supports a bolder moving presentation.
+- Daily note: Lower light supports a more assertive daily posture.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
-- TOP_COLOR_MATCH:white_shad,white_shad
+- TOP_COLOR_MATCH:dark,dark
 - Top 1 verdict:
 - Top 3 verdict:
 - seasonal_fit:
@@ -1492,10 +1560,8 @@ Acceptable secondary lanes:
 - walking_topwater
 - large_articulated_pike_streamer
 Expected color themes:
-- perch_bluegill
-- white_shad
-- natural_baitfish
-- bright_contrast
+- natural
+- dark
 
 Archived env summary:
 - Region: northeast
@@ -1510,35 +1576,41 @@ Archived env summary:
 - Sunrise/sunset: 05:26 / 20:39
 
 Actual output:
-- Top 1 lure: Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Top 1 lure: Large Paddle-Tail Swimbait `large_profile_pike_swimbait` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 3 lures:
-- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Large-Profile Pike Swimbait `large_profile_pike_swimbait` | theme: `white_shad` | colors: white, pearl, white/silver
-- Hollow-Body Frog `hollow_body_frog` | theme: `frog_natural` | colors: leopard frog, bullfrog, black frog
-- Top 1 fly: Large Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Large Paddle-Tail Swimbait `large_profile_pike_swimbait` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Large Jerkbait `pike_jerkbait` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Top 1 fly: Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 3 flies:
-- Large Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
-- Game Changer `game_changer` | theme: `white_shad` | colors: white, pearl, white/silver
-- Topwater Frog Fly `frog_fly` | theme: `frog_natural` | colors: leopard frog, bullfrog, black frog
+- Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Large Rabbit Strip Streamer `pike_bunny_streamer` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Articulated Dungeon Streamer `articulated_dungeon_streamer` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Color notes:
-- Paddle-Tail Swimbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Large-Profile Pike Swimbait: Theme: white shad. Try white, pearl, white/silver.
-- Hollow-Body Frog: Theme: frog natural. Try leopard frog, bullfrog, black frog.
-- Large Articulated Pike Streamer: Theme: white shad. Try white, pearl, white/silver.
-- Game Changer: Theme: white shad. Try white, pearl, white/silver.
-- Topwater Frog Fly: Theme: frog natural. Try leopard frog, bullfrog, black frog.
+- Color of day: Natural Colors
+- Large Paddle-Tail Swimbait: natural -> green pumpkin, olive, smoke
+- Large Jerkbait: natural -> green pumpkin, olive, smoke
+- Paddle-Tail Swimbait: natural -> green pumpkin, olive, smoke
+- Articulated Pike Streamer: natural -> green pumpkin, olive, smoke
+- Large Rabbit Strip Streamer: natural -> green pumpkin, olive, smoke
+- Articulated Dungeon Streamer: natural -> green pumpkin, olive, smoke
 - Daily profile notes:
 - Shared score: 46 (Fair)
-- Daily nudges: mood=neutral, water_column=lower_1, presentation=subtler
-- Resolved profile: water_column=mid, mood=active, presentation=subtle
+- Daily nudges: mood=down_1, water_column=lower_1, presentation=subtler
+- Resolved profile: water_column=mid, mood=neutral, presentation=balanced
 - Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
+- Variables triggered: temperature_condition, wind_condition, light_cloud_condition
+- Daily note: Heat-limited conditions tighten fish and reduce roaming willingness.
+- Daily note: A sharp warmup can add some visibility need, but not a full aggressive move-up read.
+- Daily note: Calmer lake water pushes the day toward subtler execution.
+- Daily note: Bright overhead light pushes the day toward subtler execution.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
-- TOP_COLOR_MATCH:natural_baitfish,white_shad
+- TOP_COLOR_MATCH:natural,natural
 - Top 1 verdict:
 - Top 3 verdict:
 - seasonal_fit:
@@ -1573,10 +1645,8 @@ Acceptable secondary lanes:
 - walking_topwater
 - large_articulated_pike_streamer
 Expected color themes:
-- perch_bluegill
-- white_shad
-- natural_baitfish
-- bright_contrast
+- natural
+- dark
 
 Archived env summary:
 - Region: northeast
@@ -1591,35 +1661,37 @@ Archived env summary:
 - Sunrise/sunset: 05:57 / 20:04
 
 Actual output:
-- Top 1 lure: Large-Profile Pike Swimbait `large_profile_pike_swimbait` | theme: `white_shad` | colors: white, pearl, white/silver
+- Top 1 lure: Large Paddle-Tail Swimbait `large_profile_pike_swimbait` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 3 lures:
-- Large-Profile Pike Swimbait `large_profile_pike_swimbait` | theme: `white_shad` | colors: white, pearl, white/silver
-- Casting Spoon `casting_spoon` | theme: `white_shad` | colors: white, pearl, white/silver
-- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Top 1 fly: Large Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Large Paddle-Tail Swimbait `large_profile_pike_swimbait` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Large Jerkbait `pike_jerkbait` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Casting Spoon `casting_spoon` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Top 1 fly: Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 3 flies:
-- Large Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
-- Game Changer `game_changer` | theme: `white_shad` | colors: white, pearl, white/silver
-- Pike Bunny Streamer `pike_bunny_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Large Rabbit Strip Streamer `pike_bunny_streamer` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Articulated Dungeon Streamer `articulated_dungeon_streamer` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Color notes:
-- Large-Profile Pike Swimbait: Theme: white shad. Try white, pearl, white/silver.
-- Casting Spoon: Theme: white shad. Try white, pearl, white/silver.
-- Paddle-Tail Swimbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Large Articulated Pike Streamer: Theme: white shad. Try white, pearl, white/silver.
-- Game Changer: Theme: white shad. Try white, pearl, white/silver.
-- Pike Bunny Streamer: Theme: white shad. Try white, pearl, white/silver.
+- Color of day: Natural Colors
+- Large Paddle-Tail Swimbait: natural -> green pumpkin, olive, smoke
+- Large Jerkbait: natural -> green pumpkin, olive, smoke
+- Casting Spoon: natural -> green pumpkin, olive, smoke
+- Articulated Pike Streamer: natural -> green pumpkin, olive, smoke
+- Large Rabbit Strip Streamer: natural -> green pumpkin, olive, smoke
+- Articulated Dungeon Streamer: natural -> green pumpkin, olive, smoke
 - Daily profile notes:
 - Shared score: 71 (Good)
 - Daily nudges: mood=neutral, water_column=neutral, presentation=neutral
-- Resolved profile: water_column=mid, mood=active, presentation=balanced
+- Resolved profile: water_column=mid, mood=active, presentation=bold
 - Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
+- Variables triggered: none
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
-- TOP_COLOR_MATCH:white_shad,white_shad
+- TOP_COLOR_MATCH:natural,natural
 - Top 1 verdict:
 - Top 3 verdict:
 - seasonal_fit:
@@ -1654,10 +1726,8 @@ Acceptable secondary lanes:
 - casting_spoon
 - large_articulated_pike_streamer
 Expected color themes:
-- perch_bluegill
-- white_shad
-- natural_baitfish
-- bright_contrast
+- natural
+- dark
 
 Archived env summary:
 - Region: northeast
@@ -1672,35 +1742,40 @@ Archived env summary:
 - Sunrise/sunset: 06:37 / 19:04
 
 Actual output:
-- Top 1 lure: Large-Profile Pike Swimbait `large_profile_pike_swimbait` | theme: `white_shad` | colors: white, pearl, white/silver
+- Top 1 lure: Large Paddle-Tail Swimbait `large_profile_pike_swimbait` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 lures:
-- Large-Profile Pike Swimbait `large_profile_pike_swimbait` | theme: `white_shad` | colors: white, pearl, white/silver
-- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Suspending Jerkbait `suspending_jerkbait` | theme: `natural_baitfish` | colors: ghost minnow, pro blue, olive shad
-- Top 1 fly: Large Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Large Paddle-Tail Swimbait `large_profile_pike_swimbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Large Jerkbait `pike_jerkbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Casting Spoon `casting_spoon` | theme: `dark` | colors: black, black/blue, black/purple
+- Top 1 fly: Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 flies:
-- Large Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
-- Game Changer `game_changer` | theme: `white_shad` | colors: white, pearl, white/silver
-- Pike Bunny Streamer `pike_bunny_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `dark` | colors: black, black/blue, black/purple
+- Large Rabbit Strip Streamer `pike_bunny_streamer` | theme: `dark` | colors: black, black/blue, black/purple
+- Articulated Dungeon Streamer `articulated_dungeon_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Color notes:
-- Large-Profile Pike Swimbait: Theme: white shad. Try white, pearl, white/silver.
-- Paddle-Tail Swimbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Suspending Jerkbait: Theme: natural baitfish. Try ghost minnow, pro blue, olive shad.
-- Large Articulated Pike Streamer: Theme: white shad. Try white, pearl, white/silver.
-- Game Changer: Theme: white shad. Try white, pearl, white/silver.
-- Pike Bunny Streamer: Theme: white shad. Try white, pearl, white/silver.
+- Color of day: Dark Colors
+- Large Paddle-Tail Swimbait: dark -> black, black/blue, black/purple
+- Large Jerkbait: dark -> black, black/blue, black/purple
+- Casting Spoon: dark -> black, black/blue, black/purple
+- Articulated Pike Streamer: dark -> black, black/blue, black/purple
+- Large Rabbit Strip Streamer: dark -> black, black/blue, black/purple
+- Articulated Dungeon Streamer: dark -> black, black/blue, black/purple
 - Daily profile notes:
 - Shared score: 82 (Excellent)
 - Daily nudges: mood=up_2, water_column=higher_1, presentation=bolder
-- Resolved profile: water_column=shallow, mood=active, presentation=balanced
+- Resolved profile: water_column=shallow, mood=active, presentation=bold
 - Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
+- Variables triggered: temperature_condition, light_cloud_condition, source_score_guardrail
+- Daily note: A warming trend can lift fish slightly and improve willingness.
+- Daily note: Lower light supports a more assertive daily posture.
+- Daily note: Strong overall How's Fishing score keeps the day from collapsing into a suppressed lane.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
-- TOP_COLOR_MATCH:white_shad,white_shad
+- TOP_COLOR_MATCH:dark,dark
 - Top 1 verdict:
 - Top 3 verdict:
 - seasonal_fit:
@@ -1735,10 +1810,8 @@ Acceptable secondary lanes:
 - casting_spoon
 - large_articulated_pike_streamer
 Expected color themes:
-- perch_bluegill
-- white_shad
-- natural_baitfish
-- bright_contrast
+- natural
+- dark
 
 Archived env summary:
 - Region: northeast
@@ -1753,35 +1826,40 @@ Archived env summary:
 - Sunrise/sunset: 07:10 / 18:13
 
 Actual output:
-- Top 1 lure: Large-Profile Pike Swimbait `large_profile_pike_swimbait` | theme: `white_shad` | colors: white, pearl, white/silver
+- Top 1 lure: Large Paddle-Tail Swimbait `large_profile_pike_swimbait` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 lures:
-- Large-Profile Pike Swimbait `large_profile_pike_swimbait` | theme: `white_shad` | colors: white, pearl, white/silver
-- Casting Spoon `casting_spoon` | theme: `white_shad` | colors: white, pearl, white/silver
-- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Top 1 fly: Large Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Large Paddle-Tail Swimbait `large_profile_pike_swimbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Large Jerkbait `pike_jerkbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Casting Spoon `casting_spoon` | theme: `dark` | colors: black, black/blue, black/purple
+- Top 1 fly: Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 flies:
-- Large Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
-- Game Changer `game_changer` | theme: `white_shad` | colors: white, pearl, white/silver
-- Pike Bunny Streamer `pike_bunny_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `dark` | colors: black, black/blue, black/purple
+- Large Rabbit Strip Streamer `pike_bunny_streamer` | theme: `dark` | colors: black, black/blue, black/purple
+- Articulated Dungeon Streamer `articulated_dungeon_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Color notes:
-- Large-Profile Pike Swimbait: Theme: white shad. Try white, pearl, white/silver.
-- Casting Spoon: Theme: white shad. Try white, pearl, white/silver.
-- Paddle-Tail Swimbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Large Articulated Pike Streamer: Theme: white shad. Try white, pearl, white/silver.
-- Game Changer: Theme: white shad. Try white, pearl, white/silver.
-- Pike Bunny Streamer: Theme: white shad. Try white, pearl, white/silver.
+- Color of day: Dark Colors
+- Large Paddle-Tail Swimbait: dark -> black, black/blue, black/purple
+- Large Jerkbait: dark -> black, black/blue, black/purple
+- Casting Spoon: dark -> black, black/blue, black/purple
+- Articulated Pike Streamer: dark -> black, black/blue, black/purple
+- Large Rabbit Strip Streamer: dark -> black, black/blue, black/purple
+- Articulated Dungeon Streamer: dark -> black, black/blue, black/purple
 - Daily profile notes:
 - Shared score: 46 (Fair)
 - Daily nudges: mood=neutral, water_column=lower_1, presentation=bolder
-- Resolved profile: water_column=bottom, mood=active, presentation=balanced
+- Resolved profile: water_column=bottom, mood=active, presentation=bold
 - Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
+- Variables triggered: temperature_condition, wind_condition, light_cloud_condition
+- Daily note: Cold-limited conditions pull fish tighter, lower, and less willing.
+- Daily note: Productive chop supports a bolder moving presentation.
+- Daily note: Lower light supports a more assertive daily posture.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
-- TOP_COLOR_MATCH:white_shad,white_shad
+- TOP_COLOR_MATCH:dark,dark
 - Top 1 verdict:
 - Top 3 verdict:
 - seasonal_fit:
@@ -1816,10 +1894,8 @@ Acceptable secondary lanes:
 - casting_spoon
 - large_articulated_pike_streamer
 Expected color themes:
-- perch_bluegill
-- white_shad
-- natural_baitfish
-- bright_contrast
+- natural
+- dark
 
 Archived env summary:
 - Region: northeast
@@ -1834,35 +1910,41 @@ Archived env summary:
 - Sunrise/sunset: 06:47 / 16:34
 
 Actual output:
-- Top 1 lure: Pike Jerkbait `pike_jerkbait` | theme: `white_shad` | colors: silver/black, pearl, whitefish
+- Top 1 lure: Large Jerkbait `pike_jerkbait` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 lures:
-- Pike Jerkbait `pike_jerkbait` | theme: `white_shad` | colors: silver/black, pearl, whitefish
-- Suspending Jerkbait `suspending_jerkbait` | theme: `natural_baitfish` | colors: ghost minnow, pro blue, olive shad
-- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Top 1 fly: Pike Bunny Streamer `pike_bunny_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Large Jerkbait `pike_jerkbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Large Paddle-Tail Swimbait `large_profile_pike_swimbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Suspending Jerkbait `suspending_jerkbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Top 1 fly: Large Rabbit Strip Streamer `pike_bunny_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 flies:
-- Pike Bunny Streamer `pike_bunny_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
-- Zonker Streamer `zonker_streamer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Rabbit-Strip Leech `rabbit_strip_leech` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Large Rabbit Strip Streamer `pike_bunny_streamer` | theme: `dark` | colors: black, black/blue, black/purple
+- Articulated Dungeon Streamer `articulated_dungeon_streamer` | theme: `dark` | colors: black, black/blue, black/purple
+- Balanced Leech `balanced_leech` | theme: `dark` | colors: black, black/blue, black/purple
 - Color notes:
-- Pike Jerkbait: Theme: white shad. Try silver/black, pearl, whitefish.
-- Suspending Jerkbait: Theme: natural baitfish. Try ghost minnow, pro blue, olive shad.
-- Paddle-Tail Swimbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Pike Bunny Streamer: Theme: white shad. Try white, pearl, white/silver.
-- Zonker Streamer: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Rabbit-Strip Leech: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Color of day: Dark Colors
+- Large Jerkbait: dark -> black, black/blue, black/purple
+- Large Paddle-Tail Swimbait: dark -> black, black/blue, black/purple
+- Suspending Jerkbait: dark -> black, black/blue, black/purple
+- Large Rabbit Strip Streamer: dark -> black, black/blue, black/purple
+- Articulated Dungeon Streamer: dark -> black, black/blue, black/purple
+- Balanced Leech: dark -> black, black/blue, black/purple
 - Daily profile notes:
 - Shared score: 43 (Fair)
-- Daily nudges: mood=up_1, water_column=neutral, presentation=bolder
+- Daily nudges: mood=up_2, water_column=neutral, presentation=bolder
 - Resolved profile: water_column=mid, mood=active, presentation=balanced
 - Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
+- Variables triggered: temperature_condition, wind_condition, light_cloud_condition
+- Daily note: Cold-limited conditions pull fish tighter, lower, and less willing.
+- Daily note: A warming trend can lift fish slightly and improve willingness.
+- Daily note: Productive chop supports a bolder moving presentation.
+- Daily note: Lower light supports a more assertive daily posture.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
-- TOP_COLOR_MATCH:white_shad,white_shad
+- TOP_COLOR_MATCH:dark,dark
 - Top 1 verdict:
 - Top 3 verdict:
 - seasonal_fit:
@@ -1897,10 +1979,8 @@ Acceptable secondary lanes:
 - blade_bait
 - pike_bunny_streamer
 Expected color themes:
-- perch_bluegill
-- white_shad
-- natural_baitfish
-- bright_contrast
+- natural
+- dark
 
 Archived env summary:
 - Region: northeast
@@ -1915,35 +1995,41 @@ Archived env summary:
 - Sunrise/sunset: 07:20 / 16:18
 
 Actual output:
-- Top 1 lure: Pike Jerkbait `pike_jerkbait` | theme: `white_shad` | colors: silver/black, pearl, whitefish
+- Top 1 lure: Large Jerkbait `pike_jerkbait` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 lures:
-- Pike Jerkbait `pike_jerkbait` | theme: `white_shad` | colors: silver/black, pearl, whitefish
-- Suspending Jerkbait `suspending_jerkbait` | theme: `natural_baitfish` | colors: ghost minnow, pro blue, olive shad
-- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Top 1 fly: Pike Bunny Streamer `pike_bunny_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Large Jerkbait `pike_jerkbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Large Paddle-Tail Swimbait `large_profile_pike_swimbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Suspending Jerkbait `suspending_jerkbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Top 1 fly: Large Rabbit Strip Streamer `pike_bunny_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 flies:
-- Pike Bunny Streamer `pike_bunny_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
-- Zonker Streamer `zonker_streamer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Rabbit-Strip Leech `rabbit_strip_leech` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Large Rabbit Strip Streamer `pike_bunny_streamer` | theme: `dark` | colors: black, black/blue, black/purple
+- Articulated Dungeon Streamer `articulated_dungeon_streamer` | theme: `dark` | colors: black, black/blue, black/purple
+- Balanced Leech `balanced_leech` | theme: `dark` | colors: black, black/blue, black/purple
 - Color notes:
-- Pike Jerkbait: Theme: white shad. Try silver/black, pearl, whitefish.
-- Suspending Jerkbait: Theme: natural baitfish. Try ghost minnow, pro blue, olive shad.
-- Paddle-Tail Swimbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Pike Bunny Streamer: Theme: white shad. Try white, pearl, white/silver.
-- Zonker Streamer: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Rabbit-Strip Leech: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Color of day: Dark Colors
+- Large Jerkbait: dark -> black, black/blue, black/purple
+- Large Paddle-Tail Swimbait: dark -> black, black/blue, black/purple
+- Suspending Jerkbait: dark -> black, black/blue, black/purple
+- Large Rabbit Strip Streamer: dark -> black, black/blue, black/purple
+- Articulated Dungeon Streamer: dark -> black, black/blue, black/purple
+- Balanced Leech: dark -> black, black/blue, black/purple
 - Daily profile notes:
 - Shared score: 52 (Fair)
 - Daily nudges: mood=up_1, water_column=neutral, presentation=bolder
 - Resolved profile: water_column=mid, mood=active, presentation=balanced
 - Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
+- Variables triggered: temperature_condition, wind_condition, light_cloud_condition
+- Daily note: Cold-limited conditions pull fish tighter, lower, and less willing.
+- Daily note: A warming trend can lift fish slightly and improve willingness.
+- Daily note: Productive chop supports a bolder moving presentation.
+- Daily note: Lower light supports a more assertive daily posture.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
-- TOP_COLOR_MATCH:white_shad,white_shad
+- TOP_COLOR_MATCH:dark,dark
 - Top 1 verdict:
 - Top 3 verdict:
 - seasonal_fit:
@@ -1978,9 +2064,8 @@ Acceptable secondary lanes:
 - blade_bait
 - pike_bunny_streamer
 Expected color themes:
-- perch_bluegill
-- bright_contrast
-- white_shad
+- dark
+- bright
 
 Archived env summary:
 - Region: great_lakes_upper_midwest
@@ -1995,35 +2080,40 @@ Archived env summary:
 - Sunrise/sunset: 07:57 / 16:49
 
 Actual output:
-- Top 1 lure: Suspending Jerkbait `suspending_jerkbait` | theme: `white_shad` | colors: pearl, table rock shad, white/silver
+- Top 1 lure: Large Jerkbait `pike_jerkbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Top 3 lures:
-- Suspending Jerkbait `suspending_jerkbait` | theme: `white_shad` | colors: pearl, table rock shad, white/silver
-- Pike Jerkbait `pike_jerkbait` | theme: `white_shad` | colors: silver/black, pearl, whitefish
-- Large-Profile Pike Swimbait `large_profile_pike_swimbait` | theme: `white_shad` | colors: white, pearl, white/silver
-- Top 1 fly: Pike Bunny Streamer `pike_bunny_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Large Jerkbait `pike_jerkbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Large Paddle-Tail Swimbait `large_profile_pike_swimbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Suspending Jerkbait `suspending_jerkbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Top 1 fly: Large Rabbit Strip Streamer `pike_bunny_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Top 3 flies:
-- Pike Bunny Streamer `pike_bunny_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
-- Clouser Minnow `clouser_minnow` | theme: `bright_contrast` | colors: white/chartreuse, chartreuse/white, firetiger
-- Large Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Large Rabbit Strip Streamer `pike_bunny_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Articulated Dungeon Streamer `articulated_dungeon_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Balanced Leech `balanced_leech` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Color notes:
-- Suspending Jerkbait: Theme: white shad. Try pearl, table rock shad, white/silver.
-- Pike Jerkbait: Theme: white shad. Try silver/black, pearl, whitefish.
-- Large-Profile Pike Swimbait: Theme: white shad. Try white, pearl, white/silver.
-- Pike Bunny Streamer: Theme: white shad. Try white, pearl, white/silver.
-- Clouser Minnow: Theme: bright contrast. Try white/chartreuse, chartreuse/white, firetiger.
-- Large Articulated Pike Streamer: Theme: white shad. Try white, pearl, white/silver.
+- Color of day: Bright Colors
+- Large Jerkbait: bright -> white/chartreuse, chartreuse, firetiger
+- Large Paddle-Tail Swimbait: bright -> white/chartreuse, chartreuse, firetiger
+- Suspending Jerkbait: bright -> white/chartreuse, chartreuse, firetiger
+- Large Rabbit Strip Streamer: bright -> white/chartreuse, chartreuse, firetiger
+- Articulated Dungeon Streamer: bright -> white/chartreuse, chartreuse, firetiger
+- Balanced Leech: bright -> white/chartreuse, chartreuse, firetiger
 - Daily profile notes:
 - Shared score: 63 (Good)
 - Daily nudges: mood=up_2, water_column=higher_1, presentation=bolder
 - Resolved profile: water_column=shallow, mood=active, presentation=balanced
 - Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
+- Variables triggered: temperature_condition, light_cloud_condition, runoff_flow_disruption
+- Daily note: A warming trend can lift fish slightly and improve willingness.
+- Daily note: Lower light supports a more assertive daily posture.
+- Daily note: Stable river flow should improve fish willingness without changing the seasonal lane much.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
-- TOP_COLOR_MATCH:white_shad,white_shad
+- TOP_COLOR_MATCH:bright,bright
 - Top 1 verdict:
 - Top 3 verdict:
 - seasonal_fit:
@@ -2058,9 +2148,8 @@ Acceptable secondary lanes:
 - soft_jerkbait
 - pike_bunny_streamer
 Expected color themes:
-- perch_bluegill
-- bright_contrast
-- white_shad
+- dark
+- bright
 
 Archived env summary:
 - Region: great_lakes_upper_midwest
@@ -2075,35 +2164,41 @@ Archived env summary:
 - Sunrise/sunset: 07:11 / 17:43
 
 Actual output:
-- Top 1 lure: Suspending Jerkbait `suspending_jerkbait` | theme: `white_shad` | colors: pearl, table rock shad, white/silver
+- Top 1 lure: Large Jerkbait `pike_jerkbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Top 3 lures:
-- Suspending Jerkbait `suspending_jerkbait` | theme: `white_shad` | colors: pearl, table rock shad, white/silver
-- Pike Jerkbait `pike_jerkbait` | theme: `white_shad` | colors: silver/black, pearl, whitefish
-- Large-Profile Pike Swimbait `large_profile_pike_swimbait` | theme: `white_shad` | colors: white, pearl, white/silver
-- Top 1 fly: Pike Bunny Streamer `pike_bunny_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Large Jerkbait `pike_jerkbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Large Paddle-Tail Swimbait `large_profile_pike_swimbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Suspending Jerkbait `suspending_jerkbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Top 1 fly: Large Rabbit Strip Streamer `pike_bunny_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Top 3 flies:
-- Pike Bunny Streamer `pike_bunny_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
-- Clouser Minnow `clouser_minnow` | theme: `bright_contrast` | colors: white/chartreuse, chartreuse/white, firetiger
-- Rabbit-Strip Leech `rabbit_strip_leech` | theme: `dark_contrast` | colors: black, black/purple, black/blue
+- Large Rabbit Strip Streamer `pike_bunny_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Articulated Dungeon Streamer `articulated_dungeon_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Balanced Leech `balanced_leech` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Color notes:
-- Suspending Jerkbait: Theme: white shad. Try pearl, table rock shad, white/silver.
-- Pike Jerkbait: Theme: white shad. Try silver/black, pearl, whitefish.
-- Large-Profile Pike Swimbait: Theme: white shad. Try white, pearl, white/silver.
-- Pike Bunny Streamer: Theme: white shad. Try white, pearl, white/silver.
-- Clouser Minnow: Theme: bright contrast. Try white/chartreuse, chartreuse/white, firetiger.
-- Rabbit-Strip Leech: Theme: dark contrast. Try black, black/purple, black/blue.
+- Color of day: Bright Colors
+- Large Jerkbait: bright -> white/chartreuse, chartreuse, firetiger
+- Large Paddle-Tail Swimbait: bright -> white/chartreuse, chartreuse, firetiger
+- Suspending Jerkbait: bright -> white/chartreuse, chartreuse, firetiger
+- Large Rabbit Strip Streamer: bright -> white/chartreuse, chartreuse, firetiger
+- Articulated Dungeon Streamer: bright -> white/chartreuse, chartreuse, firetiger
+- Balanced Leech: bright -> white/chartreuse, chartreuse, firetiger
 - Daily profile notes:
 - Shared score: 48 (Fair)
 - Daily nudges: mood=up_2, water_column=neutral, presentation=neutral
 - Resolved profile: water_column=mid, mood=active, presentation=balanced
 - Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
+- Variables triggered: temperature_condition, light_cloud_condition, runoff_flow_disruption
+- Daily note: Cold-limited conditions pull fish tighter, lower, and less willing.
+- Daily note: A warming trend can lift fish slightly and improve willingness.
+- Daily note: Lower light supports a more assertive daily posture.
+- Daily note: Stable river flow should improve fish willingness without changing the seasonal lane much.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
-- TOP_COLOR_MATCH:white_shad,white_shad
+- TOP_COLOR_MATCH:bright,bright
 - Top 1 verdict:
 - Top 3 verdict:
 - seasonal_fit:
@@ -2138,9 +2233,8 @@ Acceptable secondary lanes:
 - soft_jerkbait
 - pike_bunny_streamer
 Expected color themes:
-- perch_bluegill
-- bright_contrast
-- white_shad
+- dark
+- bright
 
 Archived env summary:
 - Region: great_lakes_upper_midwest
@@ -2155,35 +2249,40 @@ Archived env summary:
 - Sunrise/sunset: 07:13 / 19:28
 
 Actual output:
-- Top 1 lure: Pike Jerkbait `pike_jerkbait` | theme: `white_shad` | colors: silver/black, pearl, whitefish
+- Top 1 lure: Large Jerkbait `pike_jerkbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Top 3 lures:
-- Pike Jerkbait `pike_jerkbait` | theme: `white_shad` | colors: silver/black, pearl, whitefish
-- Spinnerbait `spinnerbait` | theme: `bright_contrast` | colors: white/chartreuse, firetiger, chartreuse/white
-- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `white_shad` | colors: white, pearl, white/silver
-- Top 1 fly: Pike Bunny Streamer `pike_bunny_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Large Jerkbait `pike_jerkbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Spinnerbait `spinnerbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Top 1 fly: Large Rabbit Strip Streamer `pike_bunny_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Top 3 flies:
-- Pike Bunny Streamer `pike_bunny_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
-- Clouser Minnow `clouser_minnow` | theme: `bright_contrast` | colors: white/chartreuse, chartreuse/white, firetiger
-- Large Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Large Rabbit Strip Streamer `pike_bunny_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Articulated Dungeon Streamer `articulated_dungeon_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Color notes:
-- Pike Jerkbait: Theme: white shad. Try silver/black, pearl, whitefish.
-- Spinnerbait: Theme: bright contrast. Try white/chartreuse, firetiger, chartreuse/white.
-- Paddle-Tail Swimbait: Theme: white shad. Try white, pearl, white/silver.
-- Pike Bunny Streamer: Theme: white shad. Try white, pearl, white/silver.
-- Clouser Minnow: Theme: bright contrast. Try white/chartreuse, chartreuse/white, firetiger.
-- Large Articulated Pike Streamer: Theme: white shad. Try white, pearl, white/silver.
+- Color of day: Bright Colors
+- Large Jerkbait: bright -> white/chartreuse, chartreuse, firetiger
+- Spinnerbait: bright -> white/chartreuse, chartreuse, firetiger
+- Paddle-Tail Swimbait: bright -> white/chartreuse, chartreuse, firetiger
+- Large Rabbit Strip Streamer: bright -> white/chartreuse, chartreuse, firetiger
+- Articulated Dungeon Streamer: bright -> white/chartreuse, chartreuse, firetiger
+- Articulated Pike Streamer: bright -> white/chartreuse, chartreuse, firetiger
 - Daily profile notes:
 - Shared score: 47 (Fair)
 - Daily nudges: mood=neutral, water_column=neutral, presentation=bolder
 - Resolved profile: water_column=shallow, mood=neutral, presentation=balanced
 - Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
+- Variables triggered: temperature_condition, light_cloud_condition, runoff_flow_disruption
+- Daily note: Cold-limited conditions pull fish tighter, lower, and less willing.
+- Daily note: Lower light supports a more assertive daily posture.
+- Daily note: Slightly elevated flow can pull fish toward softer higher-visibility current edges.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
-- TOP_COLOR_MATCH:white_shad,white_shad
+- TOP_COLOR_MATCH:bright,bright
 - Top 1 verdict:
 - Top 3 verdict:
 - seasonal_fit:
@@ -2218,9 +2317,8 @@ Acceptable secondary lanes:
 - large_profile_pike_swimbait
 - pike_bunny_streamer
 Expected color themes:
-- perch_bluegill
-- bright_contrast
-- white_shad
+- dark
+- bright
 
 Archived env summary:
 - Region: great_lakes_upper_midwest
@@ -2235,35 +2333,39 @@ Archived env summary:
 - Sunrise/sunset: 06:18 / 20:08
 
 Actual output:
-- Top 1 lure: Pike Jerkbait `pike_jerkbait` | theme: `white_shad` | colors: silver/black, pearl, whitefish
+- Top 1 lure: Large Jerkbait `pike_jerkbait` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 lures:
-- Pike Jerkbait `pike_jerkbait` | theme: `white_shad` | colors: silver/black, pearl, whitefish
-- Spinnerbait `spinnerbait` | theme: `bright_contrast` | colors: white/chartreuse, firetiger, chartreuse/white
-- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `white_shad` | colors: white, pearl, white/silver
-- Top 1 fly: Pike Bunny Streamer `pike_bunny_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Large Jerkbait `pike_jerkbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Spinnerbait `spinnerbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Top 1 fly: Large Rabbit Strip Streamer `pike_bunny_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 flies:
-- Pike Bunny Streamer `pike_bunny_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
-- Clouser Minnow `clouser_minnow` | theme: `bright_contrast` | colors: white/chartreuse, chartreuse/white, firetiger
-- Large Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Large Rabbit Strip Streamer `pike_bunny_streamer` | theme: `dark` | colors: black, black/blue, black/purple
+- Articulated Dungeon Streamer `articulated_dungeon_streamer` | theme: `dark` | colors: black, black/blue, black/purple
+- Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Color notes:
-- Pike Jerkbait: Theme: white shad. Try silver/black, pearl, whitefish.
-- Spinnerbait: Theme: bright contrast. Try white/chartreuse, firetiger, chartreuse/white.
-- Paddle-Tail Swimbait: Theme: white shad. Try white, pearl, white/silver.
-- Pike Bunny Streamer: Theme: white shad. Try white, pearl, white/silver.
-- Clouser Minnow: Theme: bright contrast. Try white/chartreuse, chartreuse/white, firetiger.
-- Large Articulated Pike Streamer: Theme: white shad. Try white, pearl, white/silver.
+- Color of day: Dark Colors
+- Large Jerkbait: dark -> black, black/blue, black/purple
+- Spinnerbait: dark -> black, black/blue, black/purple
+- Paddle-Tail Swimbait: dark -> black, black/blue, black/purple
+- Large Rabbit Strip Streamer: dark -> black, black/blue, black/purple
+- Articulated Dungeon Streamer: dark -> black, black/blue, black/purple
+- Articulated Pike Streamer: dark -> black, black/blue, black/purple
 - Daily profile notes:
 - Shared score: 61 (Good)
 - Daily nudges: mood=up_2, water_column=higher_1, presentation=neutral
 - Resolved profile: water_column=shallow, mood=active, presentation=balanced
 - Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
+- Variables triggered: temperature_condition, runoff_flow_disruption
+- Daily note: A warming trend can lift fish slightly and improve willingness.
+- Daily note: Stable river flow should improve fish willingness without changing the seasonal lane much.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
-- TOP_COLOR_MATCH:white_shad,white_shad
+- TOP_COLOR_MATCH:dark,dark
 - Top 1 verdict:
 - Top 3 verdict:
 - seasonal_fit:
@@ -2298,9 +2400,8 @@ Acceptable secondary lanes:
 - large_profile_pike_swimbait
 - pike_bunny_streamer
 Expected color themes:
-- perch_bluegill
-- bright_contrast
-- white_shad
+- dark
+- bright
 
 Archived env summary:
 - Region: great_lakes_upper_midwest
@@ -2315,35 +2416,38 @@ Archived env summary:
 - Sunrise/sunset: 05:29 / 20:49
 
 Actual output:
-- Top 1 lure: Pike Jerkbait `pike_jerkbait` | theme: `white_shad` | colors: silver/black, pearl, whitefish
+- Top 1 lure: Large Jerkbait `pike_jerkbait` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 lures:
-- Pike Jerkbait `pike_jerkbait` | theme: `white_shad` | colors: silver/black, pearl, whitefish
-- Spinnerbait `spinnerbait` | theme: `bright_contrast` | colors: white/chartreuse, firetiger, chartreuse/white
-- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `white_shad` | colors: white, pearl, white/silver
-- Top 1 fly: Large Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Large Jerkbait `pike_jerkbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Spinnerbait `spinnerbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Top 1 fly: Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 flies:
-- Large Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
-- Game Changer `game_changer` | theme: `white_shad` | colors: white, pearl, white/silver
-- Topwater Frog Fly `frog_fly` | theme: `frog_natural` | colors: leopard frog, bullfrog, black frog
+- Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `dark` | colors: black, black/blue, black/purple
+- Large Rabbit Strip Streamer `pike_bunny_streamer` | theme: `dark` | colors: black, black/blue, black/purple
+- Articulated Dungeon Streamer `articulated_dungeon_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Color notes:
-- Pike Jerkbait: Theme: white shad. Try silver/black, pearl, whitefish.
-- Spinnerbait: Theme: bright contrast. Try white/chartreuse, firetiger, chartreuse/white.
-- Paddle-Tail Swimbait: Theme: white shad. Try white, pearl, white/silver.
-- Large Articulated Pike Streamer: Theme: white shad. Try white, pearl, white/silver.
-- Game Changer: Theme: white shad. Try white, pearl, white/silver.
-- Topwater Frog Fly: Theme: frog natural. Try leopard frog, bullfrog, black frog.
+- Color of day: Dark Colors
+- Large Jerkbait: dark -> black, black/blue, black/purple
+- Spinnerbait: dark -> black, black/blue, black/purple
+- Paddle-Tail Swimbait: dark -> black, black/blue, black/purple
+- Articulated Pike Streamer: dark -> black, black/blue, black/purple
+- Large Rabbit Strip Streamer: dark -> black, black/blue, black/purple
+- Articulated Dungeon Streamer: dark -> black, black/blue, black/purple
 - Daily profile notes:
 - Shared score: 66 (Good)
 - Daily nudges: mood=neutral, water_column=higher_1, presentation=bolder
 - Resolved profile: water_column=shallow, mood=active, presentation=balanced
 - Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
+- Variables triggered: runoff_flow_disruption
+- Daily note: Slightly elevated flow can pull fish toward softer higher-visibility current edges.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
-- TOP_COLOR_MATCH:white_shad,white_shad
+- TOP_COLOR_MATCH:dark,dark
 - Top 1 verdict:
 - Top 3 verdict:
 - seasonal_fit:
@@ -2378,9 +2482,8 @@ Acceptable secondary lanes:
 - walking_topwater
 - large_articulated_pike_streamer
 Expected color themes:
-- perch_bluegill
-- bright_contrast
-- white_shad
+- dark
+- bright
 
 Archived env summary:
 - Region: great_lakes_upper_midwest
@@ -2395,35 +2498,39 @@ Archived env summary:
 - Sunrise/sunset: 05:08 / 21:21
 
 Actual output:
-- Top 1 lure: Pike Jerkbait `pike_jerkbait` | theme: `white_shad` | colors: silver/black, pearl, whitefish
+- Top 1 lure: Large Jerkbait `pike_jerkbait` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 lures:
-- Pike Jerkbait `pike_jerkbait` | theme: `white_shad` | colors: silver/black, pearl, whitefish
-- Spinnerbait `spinnerbait` | theme: `bright_contrast` | colors: white/chartreuse, firetiger, chartreuse/white
-- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `white_shad` | colors: white, pearl, white/silver
-- Top 1 fly: Large Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Large Jerkbait `pike_jerkbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Spinnerbait `spinnerbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Top 1 fly: Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 flies:
-- Large Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
-- Game Changer `game_changer` | theme: `white_shad` | colors: white, pearl, white/silver
-- Topwater Frog Fly `frog_fly` | theme: `frog_natural` | colors: leopard frog, bullfrog, black frog
+- Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `dark` | colors: black, black/blue, black/purple
+- Large Rabbit Strip Streamer `pike_bunny_streamer` | theme: `dark` | colors: black, black/blue, black/purple
+- Articulated Dungeon Streamer `articulated_dungeon_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Color notes:
-- Pike Jerkbait: Theme: white shad. Try silver/black, pearl, whitefish.
-- Spinnerbait: Theme: bright contrast. Try white/chartreuse, firetiger, chartreuse/white.
-- Paddle-Tail Swimbait: Theme: white shad. Try white, pearl, white/silver.
-- Large Articulated Pike Streamer: Theme: white shad. Try white, pearl, white/silver.
-- Game Changer: Theme: white shad. Try white, pearl, white/silver.
-- Topwater Frog Fly: Theme: frog natural. Try leopard frog, bullfrog, black frog.
+- Color of day: Dark Colors
+- Large Jerkbait: dark -> black, black/blue, black/purple
+- Spinnerbait: dark -> black, black/blue, black/purple
+- Paddle-Tail Swimbait: dark -> black, black/blue, black/purple
+- Articulated Pike Streamer: dark -> black, black/blue, black/purple
+- Large Rabbit Strip Streamer: dark -> black, black/blue, black/purple
+- Articulated Dungeon Streamer: dark -> black, black/blue, black/purple
 - Daily profile notes:
 - Shared score: 71 (Good)
 - Daily nudges: mood=up_1, water_column=higher_1, presentation=bolder
 - Resolved profile: water_column=shallow, mood=active, presentation=balanced
 - Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
+- Variables triggered: temperature_condition, runoff_flow_disruption
+- Daily note: A warming trend can lift fish slightly and improve willingness.
+- Daily note: Slightly elevated flow can pull fish toward softer higher-visibility current edges.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
-- TOP_COLOR_MATCH:white_shad,white_shad
+- TOP_COLOR_MATCH:dark,dark
 - Top 1 verdict:
 - Top 3 verdict:
 - seasonal_fit:
@@ -2458,9 +2565,8 @@ Acceptable secondary lanes:
 - walking_topwater
 - large_articulated_pike_streamer
 Expected color themes:
-- perch_bluegill
-- bright_contrast
-- white_shad
+- dark
+- bright
 
 Archived env summary:
 - Region: great_lakes_upper_midwest
@@ -2475,35 +2581,42 @@ Archived env summary:
 - Sunrise/sunset: 05:27 / 21:12
 
 Actual output:
-- Top 1 lure: Pike Jerkbait `pike_jerkbait` | theme: `white_shad` | colors: silver/black, pearl, whitefish
+- Top 1 lure: Large Jerkbait `pike_jerkbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Top 3 lures:
-- Pike Jerkbait `pike_jerkbait` | theme: `white_shad` | colors: silver/black, pearl, whitefish
-- Spinnerbait `spinnerbait` | theme: `bright_contrast` | colors: white/chartreuse, firetiger, chartreuse/white
-- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `white_shad` | colors: white, pearl, white/silver
-- Top 1 fly: Large Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Large Jerkbait `pike_jerkbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Spinnerbait `spinnerbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Top 1 fly: Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Top 3 flies:
-- Large Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
-- Game Changer `game_changer` | theme: `white_shad` | colors: white, pearl, white/silver
-- Topwater Frog Fly `frog_fly` | theme: `frog_natural` | colors: leopard frog, bullfrog, black frog
+- Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Large Rabbit Strip Streamer `pike_bunny_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Articulated Dungeon Streamer `articulated_dungeon_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Color notes:
-- Pike Jerkbait: Theme: white shad. Try silver/black, pearl, whitefish.
-- Spinnerbait: Theme: bright contrast. Try white/chartreuse, firetiger, chartreuse/white.
-- Paddle-Tail Swimbait: Theme: white shad. Try white, pearl, white/silver.
-- Large Articulated Pike Streamer: Theme: white shad. Try white, pearl, white/silver.
-- Game Changer: Theme: white shad. Try white, pearl, white/silver.
-- Topwater Frog Fly: Theme: frog natural. Try leopard frog, bullfrog, black frog.
+- Color of day: Bright Colors
+- Large Jerkbait: bright -> white/chartreuse, chartreuse, firetiger
+- Spinnerbait: bright -> white/chartreuse, chartreuse, firetiger
+- Paddle-Tail Swimbait: bright -> white/chartreuse, chartreuse, firetiger
+- Articulated Pike Streamer: bright -> white/chartreuse, chartreuse, firetiger
+- Large Rabbit Strip Streamer: bright -> white/chartreuse, chartreuse, firetiger
+- Articulated Dungeon Streamer: bright -> white/chartreuse, chartreuse, firetiger
 - Daily profile notes:
 - Shared score: 30 (Poor)
-- Daily nudges: mood=down_1, water_column=lower_1, presentation=bolder
+- Daily nudges: mood=down_1, water_column=lower_1, presentation=neutral
 - Resolved profile: water_column=mid, mood=neutral, presentation=balanced
 - Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
+- Variables triggered: temperature_condition, light_cloud_condition, runoff_flow_disruption, source_score_guardrail
+- Daily note: Cold-limited conditions pull fish tighter, lower, and less willing.
+- Daily note: A cooling trend favors a lower, tighter daily lane.
+- Daily note: Lower light supports a more assertive daily posture.
+- Daily note: Blown-out flow is a tough day that still calls for added visibility and push.
+- Daily note: Poor overall How's Fishing score caps the day from resolving as an upbeat move-up read.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
-- TOP_COLOR_MATCH:white_shad,white_shad
+- TOP_COLOR_MATCH:bright,bright
 - Top 1 verdict:
 - Top 3 verdict:
 - seasonal_fit:
@@ -2538,9 +2651,8 @@ Acceptable secondary lanes:
 - walking_topwater
 - large_articulated_pike_streamer
 Expected color themes:
-- perch_bluegill
-- bright_contrast
-- white_shad
+- dark
+- bright
 
 Archived env summary:
 - Region: great_lakes_upper_midwest
@@ -2555,35 +2667,39 @@ Archived env summary:
 - Sunrise/sunset: 06:04 / 20:31
 
 Actual output:
-- Top 1 lure: Large-Profile Pike Swimbait `large_profile_pike_swimbait` | theme: `white_shad` | colors: white, pearl, white/silver
+- Top 1 lure: Large Paddle-Tail Swimbait `large_profile_pike_swimbait` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 lures:
-- Large-Profile Pike Swimbait `large_profile_pike_swimbait` | theme: `white_shad` | colors: white, pearl, white/silver
-- Spinnerbait `spinnerbait` | theme: `bright_contrast` | colors: white/chartreuse, firetiger, chartreuse/white
-- Casting Spoon `casting_spoon` | theme: `bright_contrast` | colors: chartreuse chrome, firetiger spoon, orange/chartreuse
-- Top 1 fly: Large Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Large Paddle-Tail Swimbait `large_profile_pike_swimbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Large Jerkbait `pike_jerkbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Spinnerbait `spinnerbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Top 1 fly: Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 flies:
-- Large Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
-- Game Changer `game_changer` | theme: `white_shad` | colors: white, pearl, white/silver
-- Pike Bunny Streamer `pike_bunny_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `dark` | colors: black, black/blue, black/purple
+- Large Rabbit Strip Streamer `pike_bunny_streamer` | theme: `dark` | colors: black, black/blue, black/purple
+- Articulated Dungeon Streamer `articulated_dungeon_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Color notes:
-- Large-Profile Pike Swimbait: Theme: white shad. Try white, pearl, white/silver.
-- Spinnerbait: Theme: bright contrast. Try white/chartreuse, firetiger, chartreuse/white.
-- Casting Spoon: Theme: bright contrast. Try chartreuse chrome, firetiger spoon, orange/chartreuse.
-- Large Articulated Pike Streamer: Theme: white shad. Try white, pearl, white/silver.
-- Game Changer: Theme: white shad. Try white, pearl, white/silver.
-- Pike Bunny Streamer: Theme: white shad. Try white, pearl, white/silver.
+- Color of day: Dark Colors
+- Large Paddle-Tail Swimbait: dark -> black, black/blue, black/purple
+- Large Jerkbait: dark -> black, black/blue, black/purple
+- Spinnerbait: dark -> black, black/blue, black/purple
+- Articulated Pike Streamer: dark -> black, black/blue, black/purple
+- Large Rabbit Strip Streamer: dark -> black, black/blue, black/purple
+- Articulated Dungeon Streamer: dark -> black, black/blue, black/purple
 - Daily profile notes:
 - Shared score: 71 (Good)
 - Daily nudges: mood=up_1, water_column=higher_1, presentation=bolder
 - Resolved profile: water_column=shallow, mood=active, presentation=bold
 - Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
+- Variables triggered: temperature_condition, runoff_flow_disruption
+- Daily note: A warming trend can lift fish slightly and improve willingness.
+- Daily note: Slightly elevated flow can pull fish toward softer higher-visibility current edges.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
-- TOP_COLOR_MATCH:white_shad,white_shad
+- TOP_COLOR_MATCH:dark,dark
 - Top 1 verdict:
 - Top 3 verdict:
 - seasonal_fit:
@@ -2618,9 +2734,8 @@ Acceptable secondary lanes:
 - casting_spoon
 - large_articulated_pike_streamer
 Expected color themes:
-- perch_bluegill
-- bright_contrast
-- white_shad
+- dark
+- bright
 
 Archived env summary:
 - Region: great_lakes_upper_midwest
@@ -2635,35 +2750,39 @@ Archived env summary:
 - Sunrise/sunset: 06:52 / 19:23
 
 Actual output:
-- Top 1 lure: Large-Profile Pike Swimbait `large_profile_pike_swimbait` | theme: `white_shad` | colors: white, pearl, white/silver
+- Top 1 lure: Large Paddle-Tail Swimbait `large_profile_pike_swimbait` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 lures:
-- Large-Profile Pike Swimbait `large_profile_pike_swimbait` | theme: `white_shad` | colors: white, pearl, white/silver
-- Spinnerbait `spinnerbait` | theme: `bright_contrast` | colors: white/chartreuse, firetiger, chartreuse/white
-- Casting Spoon `casting_spoon` | theme: `bright_contrast` | colors: chartreuse chrome, firetiger spoon, orange/chartreuse
-- Top 1 fly: Large Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Large Paddle-Tail Swimbait `large_profile_pike_swimbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Large Jerkbait `pike_jerkbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Spinnerbait `spinnerbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Top 1 fly: Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 flies:
-- Large Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
-- Game Changer `game_changer` | theme: `white_shad` | colors: white, pearl, white/silver
-- Pike Bunny Streamer `pike_bunny_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `dark` | colors: black, black/blue, black/purple
+- Large Rabbit Strip Streamer `pike_bunny_streamer` | theme: `dark` | colors: black, black/blue, black/purple
+- Articulated Dungeon Streamer `articulated_dungeon_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Color notes:
-- Large-Profile Pike Swimbait: Theme: white shad. Try white, pearl, white/silver.
-- Spinnerbait: Theme: bright contrast. Try white/chartreuse, firetiger, chartreuse/white.
-- Casting Spoon: Theme: bright contrast. Try chartreuse chrome, firetiger spoon, orange/chartreuse.
-- Large Articulated Pike Streamer: Theme: white shad. Try white, pearl, white/silver.
-- Game Changer: Theme: white shad. Try white, pearl, white/silver.
-- Pike Bunny Streamer: Theme: white shad. Try white, pearl, white/silver.
+- Color of day: Dark Colors
+- Large Paddle-Tail Swimbait: dark -> black, black/blue, black/purple
+- Large Jerkbait: dark -> black, black/blue, black/purple
+- Spinnerbait: dark -> black, black/blue, black/purple
+- Articulated Pike Streamer: dark -> black, black/blue, black/purple
+- Large Rabbit Strip Streamer: dark -> black, black/blue, black/purple
+- Articulated Dungeon Streamer: dark -> black, black/blue, black/purple
 - Daily profile notes:
 - Shared score: 82 (Excellent)
 - Daily nudges: mood=up_1, water_column=neutral, presentation=neutral
 - Resolved profile: water_column=mid, mood=active, presentation=bold
 - Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
+- Variables triggered: runoff_flow_disruption, source_score_guardrail
+- Daily note: Stable river flow should improve fish willingness without changing the seasonal lane much.
+- Daily note: Strong overall How's Fishing score keeps the day from collapsing into a suppressed lane.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
-- TOP_COLOR_MATCH:white_shad,white_shad
+- TOP_COLOR_MATCH:dark,dark
 - Top 1 verdict:
 - Top 3 verdict:
 - seasonal_fit:
@@ -2698,9 +2817,8 @@ Acceptable secondary lanes:
 - casting_spoon
 - large_articulated_pike_streamer
 Expected color themes:
-- perch_bluegill
-- bright_contrast
-- white_shad
+- dark
+- bright
 
 Archived env summary:
 - Region: great_lakes_upper_midwest
@@ -2715,35 +2833,40 @@ Archived env summary:
 - Sunrise/sunset: 07:32 / 18:25
 
 Actual output:
-- Top 1 lure: Large-Profile Pike Swimbait `large_profile_pike_swimbait` | theme: `white_shad` | colors: white, pearl, white/silver
+- Top 1 lure: Large Paddle-Tail Swimbait `large_profile_pike_swimbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Top 3 lures:
-- Large-Profile Pike Swimbait `large_profile_pike_swimbait` | theme: `white_shad` | colors: white, pearl, white/silver
-- Spinnerbait `spinnerbait` | theme: `bright_contrast` | colors: white/chartreuse, firetiger, chartreuse/white
-- Casting Spoon `casting_spoon` | theme: `bright_contrast` | colors: chartreuse chrome, firetiger spoon, orange/chartreuse
-- Top 1 fly: Large Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Large Paddle-Tail Swimbait `large_profile_pike_swimbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Large Jerkbait `pike_jerkbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Spinnerbait `spinnerbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Top 1 fly: Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Top 3 flies:
-- Large Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
-- Game Changer `game_changer` | theme: `white_shad` | colors: white, pearl, white/silver
-- Pike Bunny Streamer `pike_bunny_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Large Rabbit Strip Streamer `pike_bunny_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Articulated Dungeon Streamer `articulated_dungeon_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Color notes:
-- Large-Profile Pike Swimbait: Theme: white shad. Try white, pearl, white/silver.
-- Spinnerbait: Theme: bright contrast. Try white/chartreuse, firetiger, chartreuse/white.
-- Casting Spoon: Theme: bright contrast. Try chartreuse chrome, firetiger spoon, orange/chartreuse.
-- Large Articulated Pike Streamer: Theme: white shad. Try white, pearl, white/silver.
-- Game Changer: Theme: white shad. Try white, pearl, white/silver.
-- Pike Bunny Streamer: Theme: white shad. Try white, pearl, white/silver.
+- Color of day: Bright Colors
+- Large Paddle-Tail Swimbait: bright -> white/chartreuse, chartreuse, firetiger
+- Large Jerkbait: bright -> white/chartreuse, chartreuse, firetiger
+- Spinnerbait: bright -> white/chartreuse, chartreuse, firetiger
+- Articulated Pike Streamer: bright -> white/chartreuse, chartreuse, firetiger
+- Large Rabbit Strip Streamer: bright -> white/chartreuse, chartreuse, firetiger
+- Articulated Dungeon Streamer: bright -> white/chartreuse, chartreuse, firetiger
 - Daily profile notes:
 - Shared score: 46 (Fair)
-- Daily nudges: mood=up_2, water_column=higher_1, presentation=bolder
+- Daily nudges: mood=up_1, water_column=higher_1, presentation=bolder
 - Resolved profile: water_column=shallow, mood=active, presentation=bold
 - Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
+- Variables triggered: temperature_condition, light_cloud_condition, runoff_flow_disruption
+- Daily note: A sharp warmup can add some visibility need, but not a full aggressive move-up read.
+- Daily note: Lower light supports a more assertive daily posture.
+- Daily note: Slightly elevated flow can pull fish toward softer higher-visibility current edges.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
-- TOP_COLOR_MATCH:white_shad,white_shad
+- TOP_COLOR_MATCH:bright,bright
 - Top 1 verdict:
 - Top 3 verdict:
 - seasonal_fit:
@@ -2778,9 +2901,8 @@ Acceptable secondary lanes:
 - casting_spoon
 - large_articulated_pike_streamer
 Expected color themes:
-- perch_bluegill
-- bright_contrast
-- white_shad
+- dark
+- bright
 
 Archived env summary:
 - Region: great_lakes_upper_midwest
@@ -2795,35 +2917,40 @@ Archived env summary:
 - Sunrise/sunset: 07:16 / 16:39
 
 Actual output:
-- Top 1 lure: Pike Jerkbait `pike_jerkbait` | theme: `white_shad` | colors: silver/black, pearl, whitefish
+- Top 1 lure: Large Jerkbait `pike_jerkbait` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 lures:
-- Pike Jerkbait `pike_jerkbait` | theme: `white_shad` | colors: silver/black, pearl, whitefish
-- Suspending Jerkbait `suspending_jerkbait` | theme: `white_shad` | colors: pearl, table rock shad, white/silver
-- Large-Profile Pike Swimbait `large_profile_pike_swimbait` | theme: `white_shad` | colors: white, pearl, white/silver
-- Top 1 fly: Pike Bunny Streamer `pike_bunny_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Large Jerkbait `pike_jerkbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Large Paddle-Tail Swimbait `large_profile_pike_swimbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Suspending Jerkbait `suspending_jerkbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Top 1 fly: Large Rabbit Strip Streamer `pike_bunny_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 flies:
-- Pike Bunny Streamer `pike_bunny_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
-- Clouser Minnow `clouser_minnow` | theme: `bright_contrast` | colors: white/chartreuse, chartreuse/white, firetiger
-- Large Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Large Rabbit Strip Streamer `pike_bunny_streamer` | theme: `dark` | colors: black, black/blue, black/purple
+- Articulated Dungeon Streamer `articulated_dungeon_streamer` | theme: `dark` | colors: black, black/blue, black/purple
+- Balanced Leech `balanced_leech` | theme: `dark` | colors: black, black/blue, black/purple
 - Color notes:
-- Pike Jerkbait: Theme: white shad. Try silver/black, pearl, whitefish.
-- Suspending Jerkbait: Theme: white shad. Try pearl, table rock shad, white/silver.
-- Large-Profile Pike Swimbait: Theme: white shad. Try white, pearl, white/silver.
-- Pike Bunny Streamer: Theme: white shad. Try white, pearl, white/silver.
-- Clouser Minnow: Theme: bright contrast. Try white/chartreuse, chartreuse/white, firetiger.
-- Large Articulated Pike Streamer: Theme: white shad. Try white, pearl, white/silver.
+- Color of day: Dark Colors
+- Large Jerkbait: dark -> black, black/blue, black/purple
+- Large Paddle-Tail Swimbait: dark -> black, black/blue, black/purple
+- Suspending Jerkbait: dark -> black, black/blue, black/purple
+- Large Rabbit Strip Streamer: dark -> black, black/blue, black/purple
+- Articulated Dungeon Streamer: dark -> black, black/blue, black/purple
+- Balanced Leech: dark -> black, black/blue, black/purple
 - Daily profile notes:
 - Shared score: 63 (Good)
 - Daily nudges: mood=up_2, water_column=higher_1, presentation=subtler
 - Resolved profile: water_column=shallow, mood=active, presentation=balanced
 - Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
+- Variables triggered: temperature_condition, light_cloud_condition, runoff_flow_disruption
+- Daily note: A warming trend can lift fish slightly and improve willingness.
+- Daily note: Bright overhead light pushes the day toward subtler execution.
+- Daily note: Stable river flow should improve fish willingness without changing the seasonal lane much.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
-- TOP_COLOR_MATCH:white_shad,white_shad
+- TOP_COLOR_MATCH:dark,dark
 - Top 1 verdict:
 - Top 3 verdict:
 - seasonal_fit:
@@ -2858,9 +2985,8 @@ Acceptable secondary lanes:
 - blade_bait
 - pike_bunny_streamer
 Expected color themes:
-- perch_bluegill
-- bright_contrast
-- white_shad
+- dark
+- bright
 
 Archived env summary:
 - Region: great_lakes_upper_midwest
@@ -2875,35 +3001,40 @@ Archived env summary:
 - Sunrise/sunset: 07:53 / 16:19
 
 Actual output:
-- Top 1 lure: Pike Jerkbait `pike_jerkbait` | theme: `white_shad` | colors: silver/black, pearl, whitefish
+- Top 1 lure: Large Jerkbait `pike_jerkbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Top 3 lures:
-- Pike Jerkbait `pike_jerkbait` | theme: `white_shad` | colors: silver/black, pearl, whitefish
-- Suspending Jerkbait `suspending_jerkbait` | theme: `white_shad` | colors: pearl, table rock shad, white/silver
-- Large-Profile Pike Swimbait `large_profile_pike_swimbait` | theme: `white_shad` | colors: white, pearl, white/silver
-- Top 1 fly: Clouser Minnow `clouser_minnow` | theme: `bright_contrast` | colors: white/chartreuse, chartreuse/white, firetiger
+- Large Jerkbait `pike_jerkbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Large Paddle-Tail Swimbait `large_profile_pike_swimbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Suspending Jerkbait `suspending_jerkbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Top 1 fly: Large Rabbit Strip Streamer `pike_bunny_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Top 3 flies:
-- Clouser Minnow `clouser_minnow` | theme: `bright_contrast` | colors: white/chartreuse, chartreuse/white, firetiger
-- Pike Bunny Streamer `pike_bunny_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
-- Rabbit-Strip Leech `rabbit_strip_leech` | theme: `dark_contrast` | colors: black, black/purple, black/blue
+- Large Rabbit Strip Streamer `pike_bunny_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Articulated Dungeon Streamer `articulated_dungeon_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Balanced Leech `balanced_leech` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Color notes:
-- Pike Jerkbait: Theme: white shad. Try silver/black, pearl, whitefish.
-- Suspending Jerkbait: Theme: white shad. Try pearl, table rock shad, white/silver.
-- Large-Profile Pike Swimbait: Theme: white shad. Try white, pearl, white/silver.
-- Clouser Minnow: Theme: bright contrast. Try white/chartreuse, chartreuse/white, firetiger.
-- Pike Bunny Streamer: Theme: white shad. Try white, pearl, white/silver.
-- Rabbit-Strip Leech: Theme: dark contrast. Try black, black/purple, black/blue.
+- Color of day: Bright Colors
+- Large Jerkbait: bright -> white/chartreuse, chartreuse, firetiger
+- Large Paddle-Tail Swimbait: bright -> white/chartreuse, chartreuse, firetiger
+- Suspending Jerkbait: bright -> white/chartreuse, chartreuse, firetiger
+- Large Rabbit Strip Streamer: bright -> white/chartreuse, chartreuse, firetiger
+- Articulated Dungeon Streamer: bright -> white/chartreuse, chartreuse, firetiger
+- Balanced Leech: bright -> white/chartreuse, chartreuse, firetiger
 - Daily profile notes:
 - Shared score: 47 (Fair)
 - Daily nudges: mood=up_1, water_column=lower_1, presentation=neutral
 - Resolved profile: water_column=bottom, mood=active, presentation=balanced
 - Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
+- Variables triggered: temperature_condition, light_cloud_condition, runoff_flow_disruption
+- Daily note: Cold-limited conditions pull fish tighter, lower, and less willing.
+- Daily note: Lower light supports a more assertive daily posture.
+- Daily note: Stable river flow should improve fish willingness without changing the seasonal lane much.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
-- TOP_COLOR_MATCH:white_shad,bright_contrast
+- TOP_COLOR_MATCH:bright,bright
 - Top 1 verdict:
 - Top 3 verdict:
 - seasonal_fit:
@@ -2938,9 +3069,8 @@ Acceptable secondary lanes:
 - hollow_body_frog
 - pike_bunny_streamer
 Expected color themes:
-- perch_bluegill
-- bright_contrast
-- white_shad
+- dark
+- bright
 
 Archived env summary:
 - Region: alaska
@@ -2955,35 +3085,40 @@ Archived env summary:
 - Sunrise/sunset: 04:20 / 23:13
 
 Actual output:
-- Top 1 lure: Large-Profile Pike Swimbait `large_profile_pike_swimbait` | theme: `white_shad` | colors: white, pearl, white/silver
+- Top 1 lure: Large Paddle-Tail Swimbait `large_profile_pike_swimbait` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 lures:
-- Large-Profile Pike Swimbait `large_profile_pike_swimbait` | theme: `white_shad` | colors: white, pearl, white/silver
-- Spinnerbait `spinnerbait` | theme: `bright_contrast` | colors: white/chartreuse, firetiger, chartreuse/white
-- Hollow-Body Frog `hollow_body_frog` | theme: `frog_natural` | colors: leopard frog, bullfrog, black frog
-- Top 1 fly: Large Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Large Paddle-Tail Swimbait `large_profile_pike_swimbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Large Jerkbait `pike_jerkbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Spinnerbait `spinnerbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Top 1 fly: Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 flies:
-- Large Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
-- Game Changer `game_changer` | theme: `white_shad` | colors: white, pearl, white/silver
-- Topwater Frog Fly `frog_fly` | theme: `frog_natural` | colors: leopard frog, bullfrog, black frog
+- Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `dark` | colors: black, black/blue, black/purple
+- Large Rabbit Strip Streamer `pike_bunny_streamer` | theme: `dark` | colors: black, black/blue, black/purple
+- Articulated Dungeon Streamer `articulated_dungeon_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Color notes:
-- Large-Profile Pike Swimbait: Theme: white shad. Try white, pearl, white/silver.
-- Spinnerbait: Theme: bright contrast. Try white/chartreuse, firetiger, chartreuse/white.
-- Hollow-Body Frog: Theme: frog natural. Try leopard frog, bullfrog, black frog.
-- Large Articulated Pike Streamer: Theme: white shad. Try white, pearl, white/silver.
-- Game Changer: Theme: white shad. Try white, pearl, white/silver.
-- Topwater Frog Fly: Theme: frog natural. Try leopard frog, bullfrog, black frog.
+- Color of day: Dark Colors
+- Large Paddle-Tail Swimbait: dark -> black, black/blue, black/purple
+- Large Jerkbait: dark -> black, black/blue, black/purple
+- Spinnerbait: dark -> black, black/blue, black/purple
+- Articulated Pike Streamer: dark -> black, black/blue, black/purple
+- Large Rabbit Strip Streamer: dark -> black, black/blue, black/purple
+- Articulated Dungeon Streamer: dark -> black, black/blue, black/purple
 - Daily profile notes:
 - Shared score: 59 (Fair)
 - Daily nudges: mood=up_1, water_column=neutral, presentation=bolder
 - Resolved profile: water_column=shallow, mood=active, presentation=balanced
 - Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
+- Variables triggered: temperature_condition, wind_condition, light_cloud_condition
+- Daily note: A sharp warmup can add some visibility need, but not a full aggressive move-up read.
+- Daily note: Productive chop supports a bolder moving presentation.
+- Daily note: Bright overhead light pushes the day toward subtler execution.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
-- TOP_COLOR_MATCH:white_shad,white_shad
+- TOP_COLOR_MATCH:dark,dark
 - Top 1 verdict:
 - Top 3 verdict:
 - seasonal_fit:
@@ -3018,9 +3153,8 @@ Acceptable secondary lanes:
 - walking_topwater
 - large_articulated_pike_streamer
 Expected color themes:
-- perch_bluegill
-- bright_contrast
-- white_shad
+- dark
+- bright
 
 Archived env summary:
 - Region: alaska
@@ -3035,35 +3169,38 @@ Archived env summary:
 - Sunrise/sunset: 03:53 / 00:00
 
 Actual output:
-- Top 1 lure: Large-Profile Pike Swimbait `large_profile_pike_swimbait` | theme: `white_shad` | colors: white, pearl, white/silver
+- Top 1 lure: Large Paddle-Tail Swimbait `large_profile_pike_swimbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Top 3 lures:
-- Large-Profile Pike Swimbait `large_profile_pike_swimbait` | theme: `white_shad` | colors: white, pearl, white/silver
-- Spinnerbait `spinnerbait` | theme: `bright_contrast` | colors: white/chartreuse, firetiger, chartreuse/white
-- Hollow-Body Frog `hollow_body_frog` | theme: `frog_natural` | colors: leopard frog, bullfrog, black frog
-- Top 1 fly: Large Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Large Paddle-Tail Swimbait `large_profile_pike_swimbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Large Jerkbait `pike_jerkbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Spinnerbait `spinnerbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Top 1 fly: Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Top 3 flies:
-- Large Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
-- Game Changer `game_changer` | theme: `white_shad` | colors: white, pearl, white/silver
-- Topwater Frog Fly `frog_fly` | theme: `frog_natural` | colors: leopard frog, bullfrog, black frog
+- Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Large Rabbit Strip Streamer `pike_bunny_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Articulated Dungeon Streamer `articulated_dungeon_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Color notes:
-- Large-Profile Pike Swimbait: Theme: white shad. Try white, pearl, white/silver.
-- Spinnerbait: Theme: bright contrast. Try white/chartreuse, firetiger, chartreuse/white.
-- Hollow-Body Frog: Theme: frog natural. Try leopard frog, bullfrog, black frog.
-- Large Articulated Pike Streamer: Theme: white shad. Try white, pearl, white/silver.
-- Game Changer: Theme: white shad. Try white, pearl, white/silver.
-- Topwater Frog Fly: Theme: frog natural. Try leopard frog, bullfrog, black frog.
+- Color of day: Bright Colors
+- Large Paddle-Tail Swimbait: bright -> white/chartreuse, chartreuse, firetiger
+- Large Jerkbait: bright -> white/chartreuse, chartreuse, firetiger
+- Spinnerbait: bright -> white/chartreuse, chartreuse, firetiger
+- Articulated Pike Streamer: bright -> white/chartreuse, chartreuse, firetiger
+- Large Rabbit Strip Streamer: bright -> white/chartreuse, chartreuse, firetiger
+- Articulated Dungeon Streamer: bright -> white/chartreuse, chartreuse, firetiger
 - Daily profile notes:
 - Shared score: 76 (Good)
 - Daily nudges: mood=up_1, water_column=neutral, presentation=bolder
 - Resolved profile: water_column=shallow, mood=active, presentation=balanced
 - Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
+- Variables triggered: light_cloud_condition
+- Daily note: Lower light supports a more assertive daily posture.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
-- TOP_COLOR_MATCH:white_shad,white_shad
+- TOP_COLOR_MATCH:bright,bright
 - Top 1 verdict:
 - Top 3 verdict:
 - seasonal_fit:
@@ -3098,9 +3235,8 @@ Acceptable secondary lanes:
 - casting_spoon
 - large_articulated_pike_streamer
 Expected color themes:
-- perch_bluegill
-- bright_contrast
-- white_shad
+- dark
+- bright
 
 Archived env summary:
 - Region: alaska
@@ -3115,35 +3251,38 @@ Archived env summary:
 - Sunrise/sunset: 07:18 / 20:11
 
 Actual output:
-- Top 1 lure: Large-Profile Pike Swimbait `large_profile_pike_swimbait` | theme: `white_shad` | colors: white, pearl, white/silver
+- Top 1 lure: Large Paddle-Tail Swimbait `large_profile_pike_swimbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Top 3 lures:
-- Large-Profile Pike Swimbait `large_profile_pike_swimbait` | theme: `white_shad` | colors: white, pearl, white/silver
-- Spinnerbait `spinnerbait` | theme: `bright_contrast` | colors: white/chartreuse, firetiger, chartreuse/white
-- Casting Spoon `casting_spoon` | theme: `bright_contrast` | colors: chartreuse chrome, firetiger spoon, orange/chartreuse
-- Top 1 fly: Large Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Large Paddle-Tail Swimbait `large_profile_pike_swimbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Large Jerkbait `pike_jerkbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Spinnerbait `spinnerbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Top 1 fly: Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Top 3 flies:
-- Large Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
-- Game Changer `game_changer` | theme: `white_shad` | colors: white, pearl, white/silver
-- Pike Bunny Streamer `pike_bunny_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Large Rabbit Strip Streamer `pike_bunny_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Articulated Dungeon Streamer `articulated_dungeon_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Color notes:
-- Large-Profile Pike Swimbait: Theme: white shad. Try white, pearl, white/silver.
-- Spinnerbait: Theme: bright contrast. Try white/chartreuse, firetiger, chartreuse/white.
-- Casting Spoon: Theme: bright contrast. Try chartreuse chrome, firetiger spoon, orange/chartreuse.
-- Large Articulated Pike Streamer: Theme: white shad. Try white, pearl, white/silver.
-- Game Changer: Theme: white shad. Try white, pearl, white/silver.
-- Pike Bunny Streamer: Theme: white shad. Try white, pearl, white/silver.
+- Color of day: Bright Colors
+- Large Paddle-Tail Swimbait: bright -> white/chartreuse, chartreuse, firetiger
+- Large Jerkbait: bright -> white/chartreuse, chartreuse, firetiger
+- Spinnerbait: bright -> white/chartreuse, chartreuse, firetiger
+- Articulated Pike Streamer: bright -> white/chartreuse, chartreuse, firetiger
+- Large Rabbit Strip Streamer: bright -> white/chartreuse, chartreuse, firetiger
+- Articulated Dungeon Streamer: bright -> white/chartreuse, chartreuse, firetiger
 - Daily profile notes:
 - Shared score: 69 (Good)
 - Daily nudges: mood=up_1, water_column=neutral, presentation=bolder
 - Resolved profile: water_column=mid, mood=active, presentation=bold
 - Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
+- Variables triggered: light_cloud_condition
+- Daily note: Lower light supports a more assertive daily posture.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
-- TOP_COLOR_MATCH:white_shad,white_shad
+- TOP_COLOR_MATCH:bright,bright
 - Top 1 verdict:
 - Top 3 verdict:
 - seasonal_fit:
@@ -3178,9 +3317,8 @@ Acceptable secondary lanes:
 - casting_spoon
 - large_articulated_pike_streamer
 Expected color themes:
-- perch_bluegill
-- bright_contrast
-- white_shad
+- dark
+- bright
 
 Archived env summary:
 - Region: alaska
@@ -3195,35 +3333,39 @@ Archived env summary:
 - Sunrise/sunset: 09:14 / 15:55
 
 Actual output:
-- Top 1 lure: Blade Bait `blade_bait` | theme: `bright_contrast` | colors: firetiger, chartreuse chrome, orange/chartreuse
+- Top 1 lure: Large Jerkbait `pike_jerkbait` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 lures:
-- Blade Bait `blade_bait` | theme: `bright_contrast` | colors: firetiger, chartreuse chrome, orange/chartreuse
-- Pike Jerkbait `pike_jerkbait` | theme: `white_shad` | colors: silver/black, pearl, whitefish
-- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `white_shad` | colors: white, pearl, white/silver
-- Top 1 fly: Rabbit-Strip Leech `rabbit_strip_leech` | theme: `dark_contrast` | colors: black, black/purple, black/blue
+- Large Jerkbait `pike_jerkbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Large Paddle-Tail Swimbait `large_profile_pike_swimbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Blade Bait `blade_bait` | theme: `dark` | colors: black, black/blue, black/purple
+- Top 1 fly: Large Rabbit Strip Streamer `pike_bunny_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 flies:
-- Rabbit-Strip Leech `rabbit_strip_leech` | theme: `dark_contrast` | colors: black, black/purple, black/blue
-- Clouser Minnow `clouser_minnow` | theme: `bright_contrast` | colors: white/chartreuse, chartreuse/white, firetiger
-- Pike Bunny Streamer `pike_bunny_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Large Rabbit Strip Streamer `pike_bunny_streamer` | theme: `dark` | colors: black, black/blue, black/purple
+- Articulated Dungeon Streamer `articulated_dungeon_streamer` | theme: `dark` | colors: black, black/blue, black/purple
+- Balanced Leech `balanced_leech` | theme: `dark` | colors: black, black/blue, black/purple
 - Color notes:
-- Blade Bait: Theme: bright contrast. Try firetiger, chartreuse chrome, orange/chartreuse.
-- Pike Jerkbait: Theme: white shad. Try silver/black, pearl, whitefish.
-- Paddle-Tail Swimbait: Theme: white shad. Try white, pearl, white/silver.
-- Rabbit-Strip Leech: Theme: dark contrast. Try black, black/purple, black/blue.
-- Clouser Minnow: Theme: bright contrast. Try white/chartreuse, chartreuse/white, firetiger.
-- Pike Bunny Streamer: Theme: white shad. Try white, pearl, white/silver.
+- Color of day: Dark Colors
+- Large Jerkbait: dark -> black, black/blue, black/purple
+- Large Paddle-Tail Swimbait: dark -> black, black/blue, black/purple
+- Blade Bait: dark -> black, black/blue, black/purple
+- Large Rabbit Strip Streamer: dark -> black, black/blue, black/purple
+- Articulated Dungeon Streamer: dark -> black, black/blue, black/purple
+- Balanced Leech: dark -> black, black/blue, black/purple
 - Daily profile notes:
 - Shared score: 33 (Poor)
 - Daily nudges: mood=down_1, water_column=lower_1, presentation=subtler
 - Resolved profile: water_column=bottom, mood=negative, presentation=balanced
 - Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
+- Variables triggered: temperature_condition, source_score_guardrail
+- Daily note: Cold-limited conditions pull fish tighter, lower, and less willing.
+- Daily note: Poor overall How's Fishing score caps the day from resolving as an upbeat move-up read.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
-- TOP_COLOR_MATCH:bright_contrast
+- TOP_COLOR_MATCH:dark,dark
 - Top 1 verdict:
 - Top 3 verdict:
 - seasonal_fit:
@@ -3258,9 +3400,8 @@ Acceptable secondary lanes:
 - blade_bait
 - pike_bunny_streamer
 Expected color themes:
-- perch_bluegill
-- bright_contrast
-- white_shad
+- dark
+- bright
 
 Archived env summary:
 - Region: midwest_interior
@@ -3275,35 +3416,41 @@ Archived env summary:
 - Sunrise/sunset: 07:41 / 18:17
 
 Actual output:
-- Top 1 lure: Suspending Jerkbait `suspending_jerkbait` | theme: `white_shad` | colors: pearl, table rock shad, white/silver
+- Top 1 lure: Large Jerkbait `pike_jerkbait` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 lures:
-- Suspending Jerkbait `suspending_jerkbait` | theme: `white_shad` | colors: pearl, table rock shad, white/silver
-- Blade Bait `blade_bait` | theme: `bright_contrast` | colors: firetiger, chartreuse chrome, orange/chartreuse
-- Pike Jerkbait `pike_jerkbait` | theme: `white_shad` | colors: silver/black, pearl, whitefish
-- Top 1 fly: Rabbit-Strip Leech `rabbit_strip_leech` | theme: `dark_contrast` | colors: black, black/purple, black/blue
+- Large Jerkbait `pike_jerkbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Large Paddle-Tail Swimbait `large_profile_pike_swimbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Suspending Jerkbait `suspending_jerkbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Top 1 fly: Large Rabbit Strip Streamer `pike_bunny_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 flies:
-- Rabbit-Strip Leech `rabbit_strip_leech` | theme: `dark_contrast` | colors: black, black/purple, black/blue
-- Pike Bunny Streamer `pike_bunny_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
-- Clouser Minnow `clouser_minnow` | theme: `bright_contrast` | colors: white/chartreuse, chartreuse/white, firetiger
+- Large Rabbit Strip Streamer `pike_bunny_streamer` | theme: `dark` | colors: black, black/blue, black/purple
+- Articulated Dungeon Streamer `articulated_dungeon_streamer` | theme: `dark` | colors: black, black/blue, black/purple
+- Balanced Leech `balanced_leech` | theme: `dark` | colors: black, black/blue, black/purple
 - Color notes:
-- Suspending Jerkbait: Theme: white shad. Try pearl, table rock shad, white/silver.
-- Blade Bait: Theme: bright contrast. Try firetiger, chartreuse chrome, orange/chartreuse.
-- Pike Jerkbait: Theme: white shad. Try silver/black, pearl, whitefish.
-- Rabbit-Strip Leech: Theme: dark contrast. Try black, black/purple, black/blue.
-- Pike Bunny Streamer: Theme: white shad. Try white, pearl, white/silver.
-- Clouser Minnow: Theme: bright contrast. Try white/chartreuse, chartreuse/white, firetiger.
+- Color of day: Dark Colors
+- Large Jerkbait: dark -> black, black/blue, black/purple
+- Large Paddle-Tail Swimbait: dark -> black, black/blue, black/purple
+- Suspending Jerkbait: dark -> black, black/blue, black/purple
+- Large Rabbit Strip Streamer: dark -> black, black/blue, black/purple
+- Articulated Dungeon Streamer: dark -> black, black/blue, black/purple
+- Balanced Leech: dark -> black, black/blue, black/purple
 - Daily profile notes:
 - Shared score: 32 (Poor)
 - Daily nudges: mood=neutral, water_column=neutral, presentation=subtler
 - Resolved profile: water_column=mid, mood=negative, presentation=balanced
 - Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
+- Variables triggered: temperature_condition, light_cloud_condition, source_score_guardrail
+- Daily note: Cold-limited conditions pull fish tighter, lower, and less willing.
+- Daily note: A warming trend can lift fish slightly and improve willingness.
+- Daily note: Bright overhead light pushes the day toward subtler execution.
+- Daily note: Poor overall How's Fishing score caps the day from resolving as an upbeat move-up read.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
-- TOP_COLOR_MATCH:white_shad
+- TOP_COLOR_MATCH:dark,dark
 - Top 1 verdict:
 - Top 3 verdict:
 - seasonal_fit:
@@ -3338,9 +3485,8 @@ Acceptable secondary lanes:
 - paddle_tail_swimbait
 - pike_bunny_streamer
 Expected color themes:
-- perch_bluegill
-- bright_contrast
-- white_shad
+- dark
+- bright
 
 Archived env summary:
 - Region: midwest_interior
@@ -3355,35 +3501,42 @@ Archived env summary:
 - Sunrise/sunset: 06:05 / 21:18
 
 Actual output:
-- Top 1 lure: Suspending Jerkbait `suspending_jerkbait` | theme: `white_shad` | colors: pearl, table rock shad, white/silver
+- Top 1 lure: Large Jerkbait `pike_jerkbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Top 3 lures:
-- Suspending Jerkbait `suspending_jerkbait` | theme: `white_shad` | colors: pearl, table rock shad, white/silver
-- Pike Jerkbait `pike_jerkbait` | theme: `white_shad` | colors: silver/black, pearl, whitefish
-- Spinnerbait `spinnerbait` | theme: `bright_contrast` | colors: white/chartreuse, firetiger, chartreuse/white
-- Top 1 fly: Pike Bunny Streamer `pike_bunny_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Large Jerkbait `pike_jerkbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Large Paddle-Tail Swimbait `large_profile_pike_swimbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Suspending Jerkbait `suspending_jerkbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Top 1 fly: Large Rabbit Strip Streamer `pike_bunny_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Top 3 flies:
-- Pike Bunny Streamer `pike_bunny_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
-- Game Changer `game_changer` | theme: `white_shad` | colors: white, pearl, white/silver
-- Large Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Large Rabbit Strip Streamer `pike_bunny_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Articulated Dungeon Streamer `articulated_dungeon_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Color notes:
-- Suspending Jerkbait: Theme: white shad. Try pearl, table rock shad, white/silver.
-- Pike Jerkbait: Theme: white shad. Try silver/black, pearl, whitefish.
-- Spinnerbait: Theme: bright contrast. Try white/chartreuse, firetiger, chartreuse/white.
-- Pike Bunny Streamer: Theme: white shad. Try white, pearl, white/silver.
-- Game Changer: Theme: white shad. Try white, pearl, white/silver.
-- Large Articulated Pike Streamer: Theme: white shad. Try white, pearl, white/silver.
+- Color of day: Bright Colors
+- Large Jerkbait: bright -> white/chartreuse, chartreuse, firetiger
+- Large Paddle-Tail Swimbait: bright -> white/chartreuse, chartreuse, firetiger
+- Suspending Jerkbait: bright -> white/chartreuse, chartreuse, firetiger
+- Large Rabbit Strip Streamer: bright -> white/chartreuse, chartreuse, firetiger
+- Articulated Dungeon Streamer: bright -> white/chartreuse, chartreuse, firetiger
+- Articulated Pike Streamer: bright -> white/chartreuse, chartreuse, firetiger
 - Daily profile notes:
 - Shared score: 30 (Poor)
 - Daily nudges: mood=down_1, water_column=lower_1, presentation=subtler
 - Resolved profile: water_column=mid, mood=negative, presentation=balanced
 - Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
+- Variables triggered: temperature_condition, light_cloud_condition, precipitation_disruption, source_score_guardrail
+- Daily note: Cold-limited conditions pull fish tighter, lower, and less willing.
+- Daily note: A sharp cooldown pushes the day back toward control and patience.
+- Daily note: Lower light supports a more assertive daily posture.
+- Daily note: Active rain disruption should tighten and slow the lake plan.
+- Daily note: Poor overall How's Fishing score caps the day from resolving as an upbeat move-up read.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
-- TOP_COLOR_MATCH:white_shad,white_shad
+- TOP_COLOR_MATCH:bright,bright
 - Top 1 verdict:
 - Top 3 verdict:
 - seasonal_fit:
@@ -3418,9 +3571,8 @@ Acceptable secondary lanes:
 - casting_spoon
 - large_articulated_pike_streamer
 Expected color themes:
-- perch_bluegill
-- bright_contrast
-- white_shad
+- dark
+- bright
 
 Archived env summary:
 - Region: midwest_interior
@@ -3435,35 +3587,40 @@ Archived env summary:
 - Sunrise/sunset: 06:39 / 21:00
 
 Actual output:
-- Top 1 lure: Large-Profile Pike Swimbait `large_profile_pike_swimbait` | theme: `white_shad` | colors: white, pearl, white/silver
+- Top 1 lure: Large Paddle-Tail Swimbait `large_profile_pike_swimbait` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 lures:
-- Large-Profile Pike Swimbait `large_profile_pike_swimbait` | theme: `white_shad` | colors: white, pearl, white/silver
-- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `white_shad` | colors: white, pearl, white/silver
-- Suspending Jerkbait `suspending_jerkbait` | theme: `white_shad` | colors: pearl, table rock shad, white/silver
-- Top 1 fly: Large Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Large Paddle-Tail Swimbait `large_profile_pike_swimbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Large Jerkbait `pike_jerkbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Spinnerbait `spinnerbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Top 1 fly: Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 flies:
-- Large Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
-- Game Changer `game_changer` | theme: `white_shad` | colors: white, pearl, white/silver
-- Pike Bunny Streamer `pike_bunny_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `dark` | colors: black, black/blue, black/purple
+- Large Rabbit Strip Streamer `pike_bunny_streamer` | theme: `dark` | colors: black, black/blue, black/purple
+- Articulated Dungeon Streamer `articulated_dungeon_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Color notes:
-- Large-Profile Pike Swimbait: Theme: white shad. Try white, pearl, white/silver.
-- Paddle-Tail Swimbait: Theme: white shad. Try white, pearl, white/silver.
-- Suspending Jerkbait: Theme: white shad. Try pearl, table rock shad, white/silver.
-- Large Articulated Pike Streamer: Theme: white shad. Try white, pearl, white/silver.
-- Game Changer: Theme: white shad. Try white, pearl, white/silver.
-- Pike Bunny Streamer: Theme: white shad. Try white, pearl, white/silver.
+- Color of day: Dark Colors
+- Large Paddle-Tail Swimbait: dark -> black, black/blue, black/purple
+- Large Jerkbait: dark -> black, black/blue, black/purple
+- Spinnerbait: dark -> black, black/blue, black/purple
+- Articulated Pike Streamer: dark -> black, black/blue, black/purple
+- Large Rabbit Strip Streamer: dark -> black, black/blue, black/purple
+- Articulated Dungeon Streamer: dark -> black, black/blue, black/purple
 - Daily profile notes:
 - Shared score: 64 (Good)
-- Daily nudges: mood=up_1, water_column=higher_1, presentation=neutral
+- Daily nudges: mood=up_2, water_column=higher_1, presentation=neutral
 - Resolved profile: water_column=shallow, mood=active, presentation=balanced
 - Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
+- Variables triggered: temperature_condition, wind_condition, light_cloud_condition
+- Daily note: A warming trend can lift fish slightly and improve willingness.
+- Daily note: Productive chop supports a bolder moving presentation.
+- Daily note: Bright overhead light pushes the day toward subtler execution.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
-- TOP_COLOR_MATCH:white_shad,white_shad
+- TOP_COLOR_MATCH:dark,dark
 - Top 1 verdict:
 - Top 3 verdict:
 - seasonal_fit:
@@ -3498,9 +3655,8 @@ Acceptable secondary lanes:
 - casting_spoon
 - large_articulated_pike_streamer
 Expected color themes:
-- perch_bluegill
-- bright_contrast
-- white_shad
+- dark
+- bright
 
 Archived env summary:
 - Region: midwest_interior
@@ -3515,35 +3671,41 @@ Archived env summary:
 - Sunrise/sunset: 08:03 / 18:59
 
 Actual output:
-- Top 1 lure: Large-Profile Pike Swimbait `large_profile_pike_swimbait` | theme: `white_shad` | colors: white, pearl, white/silver
+- Top 1 lure: Large Paddle-Tail Swimbait `large_profile_pike_swimbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Top 3 lures:
-- Large-Profile Pike Swimbait `large_profile_pike_swimbait` | theme: `white_shad` | colors: white, pearl, white/silver
-- Spinnerbait `spinnerbait` | theme: `bright_contrast` | colors: white/chartreuse, firetiger, chartreuse/white
-- Casting Spoon `casting_spoon` | theme: `bright_contrast` | colors: chartreuse chrome, firetiger spoon, orange/chartreuse
-- Top 1 fly: Large Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Large Paddle-Tail Swimbait `large_profile_pike_swimbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Large Jerkbait `pike_jerkbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Spinnerbait `spinnerbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Top 1 fly: Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Top 3 flies:
-- Large Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
-- Game Changer `game_changer` | theme: `white_shad` | colors: white, pearl, white/silver
-- Pike Bunny Streamer `pike_bunny_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Large Rabbit Strip Streamer `pike_bunny_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Articulated Dungeon Streamer `articulated_dungeon_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Color notes:
-- Large-Profile Pike Swimbait: Theme: white shad. Try white, pearl, white/silver.
-- Spinnerbait: Theme: bright contrast. Try white/chartreuse, firetiger, chartreuse/white.
-- Casting Spoon: Theme: bright contrast. Try chartreuse chrome, firetiger spoon, orange/chartreuse.
-- Large Articulated Pike Streamer: Theme: white shad. Try white, pearl, white/silver.
-- Game Changer: Theme: white shad. Try white, pearl, white/silver.
-- Pike Bunny Streamer: Theme: white shad. Try white, pearl, white/silver.
+- Color of day: Bright Colors
+- Large Paddle-Tail Swimbait: bright -> white/chartreuse, chartreuse, firetiger
+- Large Jerkbait: bright -> white/chartreuse, chartreuse, firetiger
+- Spinnerbait: bright -> white/chartreuse, chartreuse, firetiger
+- Articulated Pike Streamer: bright -> white/chartreuse, chartreuse, firetiger
+- Large Rabbit Strip Streamer: bright -> white/chartreuse, chartreuse, firetiger
+- Articulated Dungeon Streamer: bright -> white/chartreuse, chartreuse, firetiger
 - Daily profile notes:
 - Shared score: 53 (Fair)
 - Daily nudges: mood=up_1, water_column=neutral, presentation=bolder
 - Resolved profile: water_column=mid, mood=active, presentation=bold
 - Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
+- Variables triggered: temperature_condition, wind_condition, light_cloud_condition
+- Daily note: Cold-limited conditions pull fish tighter, lower, and less willing.
+- Daily note: A warming trend can lift fish slightly and improve willingness.
+- Daily note: Productive chop supports a bolder moving presentation.
+- Daily note: Lower light supports a more assertive daily posture.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
-- TOP_COLOR_MATCH:white_shad,white_shad
+- TOP_COLOR_MATCH:bright,bright
 - Top 1 verdict:
 - Top 3 verdict:
 - seasonal_fit:
@@ -3578,10 +3740,8 @@ Acceptable secondary lanes:
 - large_profile_pike_swimbait
 - pike_bunny_streamer
 Expected color themes:
-- perch_bluegill
-- white_shad
-- natural_baitfish
-- bright_contrast
+- natural
+- dark
 
 Archived env summary:
 - Region: inland_northwest
@@ -3596,35 +3756,39 @@ Archived env summary:
 - Sunrise/sunset: 05:53 / 19:39
 
 Actual output:
-- Top 1 lure: Pike Jerkbait `pike_jerkbait` | theme: `white_shad` | colors: silver/black, pearl, whitefish
+- Top 1 lure: Large Jerkbait `pike_jerkbait` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 3 lures:
-- Pike Jerkbait `pike_jerkbait` | theme: `white_shad` | colors: silver/black, pearl, whitefish
-- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Soft Jerkbait `soft_jerkbait` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Top 1 fly: Pike Bunny Streamer `pike_bunny_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Large Jerkbait `pike_jerkbait` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Spinnerbait `spinnerbait` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Top 1 fly: Large Rabbit Strip Streamer `pike_bunny_streamer` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 3 flies:
-- Pike Bunny Streamer `pike_bunny_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
-- Clouser Minnow `clouser_minnow` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Large Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Large Rabbit Strip Streamer `pike_bunny_streamer` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Articulated Dungeon Streamer `articulated_dungeon_streamer` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Color notes:
-- Pike Jerkbait: Theme: white shad. Try silver/black, pearl, whitefish.
-- Paddle-Tail Swimbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Soft Jerkbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Pike Bunny Streamer: Theme: white shad. Try white, pearl, white/silver.
-- Clouser Minnow: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Large Articulated Pike Streamer: Theme: white shad. Try white, pearl, white/silver.
+- Color of day: Natural Colors
+- Large Jerkbait: natural -> green pumpkin, olive, smoke
+- Spinnerbait: natural -> green pumpkin, olive, smoke
+- Paddle-Tail Swimbait: natural -> green pumpkin, olive, smoke
+- Large Rabbit Strip Streamer: natural -> green pumpkin, olive, smoke
+- Articulated Dungeon Streamer: natural -> green pumpkin, olive, smoke
+- Articulated Pike Streamer: natural -> green pumpkin, olive, smoke
 - Daily profile notes:
 - Shared score: 69 (Good)
 - Daily nudges: mood=up_2, water_column=higher_1, presentation=neutral
 - Resolved profile: water_column=shallow, mood=active, presentation=balanced
 - Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
+- Variables triggered: temperature_condition, runoff_flow_disruption
+- Daily note: A warming trend can lift fish slightly and improve willingness.
+- Daily note: Stable river flow should improve fish willingness without changing the seasonal lane much.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
-- TOP_COLOR_MATCH:white_shad,white_shad
+- TOP_COLOR_MATCH:natural,natural
 - Top 1 verdict:
 - Top 3 verdict:
 - seasonal_fit:
@@ -3659,10 +3823,8 @@ Acceptable secondary lanes:
 - walking_topwater
 - large_articulated_pike_streamer
 Expected color themes:
-- perch_bluegill
-- white_shad
-- natural_baitfish
-- bright_contrast
+- natural
+- dark
 
 Archived env summary:
 - Region: inland_northwest
@@ -3677,35 +3839,39 @@ Archived env summary:
 - Sunrise/sunset: 05:05 / 20:41
 
 Actual output:
-- Top 1 lure: Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Top 1 lure: Large Jerkbait `pike_jerkbait` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 3 lures:
-- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Pike Jerkbait `pike_jerkbait` | theme: `white_shad` | colors: silver/black, pearl, whitefish
-- Inline Spinner `inline_spinner` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Top 1 fly: Clouser Minnow `clouser_minnow` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Large Jerkbait `pike_jerkbait` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Spinnerbait `spinnerbait` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Top 1 fly: Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 3 flies:
-- Clouser Minnow `clouser_minnow` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Large Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
-- Topwater Frog Fly `frog_fly` | theme: `frog_natural` | colors: leopard frog, bullfrog, black frog
+- Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Large Rabbit Strip Streamer `pike_bunny_streamer` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Articulated Dungeon Streamer `articulated_dungeon_streamer` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Color notes:
-- Paddle-Tail Swimbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Pike Jerkbait: Theme: white shad. Try silver/black, pearl, whitefish.
-- Inline Spinner: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Clouser Minnow: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Large Articulated Pike Streamer: Theme: white shad. Try white, pearl, white/silver.
-- Topwater Frog Fly: Theme: frog natural. Try leopard frog, bullfrog, black frog.
+- Color of day: Natural Colors
+- Large Jerkbait: natural -> green pumpkin, olive, smoke
+- Spinnerbait: natural -> green pumpkin, olive, smoke
+- Paddle-Tail Swimbait: natural -> green pumpkin, olive, smoke
+- Articulated Pike Streamer: natural -> green pumpkin, olive, smoke
+- Large Rabbit Strip Streamer: natural -> green pumpkin, olive, smoke
+- Articulated Dungeon Streamer: natural -> green pumpkin, olive, smoke
 - Daily profile notes:
 - Shared score: 65 (Good)
 - Daily nudges: mood=up_1, water_column=neutral, presentation=subtler
-- Resolved profile: water_column=shallow, mood=active, presentation=subtle
+- Resolved profile: water_column=shallow, mood=active, presentation=balanced
 - Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
+- Variables triggered: light_cloud_condition, runoff_flow_disruption
+- Daily note: Bright overhead light pushes the day toward subtler execution.
+- Daily note: Stable river flow should improve fish willingness without changing the seasonal lane much.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
-- TOP_COLOR_MATCH:natural_baitfish,natural_baitfish
+- TOP_COLOR_MATCH:natural,natural
 - Top 1 verdict:
 - Top 3 verdict:
 - seasonal_fit:
@@ -3740,10 +3906,8 @@ Acceptable secondary lanes:
 - casting_spoon
 - large_articulated_pike_streamer
 Expected color themes:
-- perch_bluegill
-- white_shad
-- natural_baitfish
-- bright_contrast
+- natural
+- dark
 
 Archived env summary:
 - Region: inland_northwest
@@ -3758,35 +3922,41 @@ Archived env summary:
 - Sunrise/sunset: 06:26 / 18:56
 
 Actual output:
-- Top 1 lure: Large-Profile Pike Swimbait `large_profile_pike_swimbait` | theme: `white_shad` | colors: white, pearl, white/silver
+- Top 1 lure: Large Paddle-Tail Swimbait `large_profile_pike_swimbait` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 3 lures:
-- Large-Profile Pike Swimbait `large_profile_pike_swimbait` | theme: `white_shad` | colors: white, pearl, white/silver
-- Casting Spoon `casting_spoon` | theme: `white_shad` | colors: white, pearl, white/silver
-- Inline Spinner `inline_spinner` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Top 1 fly: Clouser Minnow `clouser_minnow` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Large Paddle-Tail Swimbait `large_profile_pike_swimbait` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Large Jerkbait `pike_jerkbait` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Casting Spoon `casting_spoon` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Top 1 fly: Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 3 flies:
-- Clouser Minnow `clouser_minnow` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Large Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
-- Pike Bunny Streamer `pike_bunny_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Large Rabbit Strip Streamer `pike_bunny_streamer` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Clouser Minnow `clouser_minnow` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Color notes:
-- Large-Profile Pike Swimbait: Theme: white shad. Try white, pearl, white/silver.
-- Casting Spoon: Theme: white shad. Try white, pearl, white/silver.
-- Inline Spinner: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Clouser Minnow: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Large Articulated Pike Streamer: Theme: white shad. Try white, pearl, white/silver.
-- Pike Bunny Streamer: Theme: white shad. Try white, pearl, white/silver.
+- Color of day: Natural Colors
+- Large Paddle-Tail Swimbait: natural -> green pumpkin, olive, smoke
+- Large Jerkbait: natural -> green pumpkin, olive, smoke
+- Casting Spoon: natural -> green pumpkin, olive, smoke
+- Articulated Pike Streamer: natural -> green pumpkin, olive, smoke
+- Large Rabbit Strip Streamer: natural -> green pumpkin, olive, smoke
+- Clouser Minnow: natural -> green pumpkin, olive, smoke
 - Daily profile notes:
 - Shared score: 61 (Good)
-- Daily nudges: mood=up_1, water_column=lower_1, presentation=subtler
+- Daily nudges: mood=neutral, water_column=lower_1, presentation=subtler
 - Resolved profile: water_column=bottom, mood=active, presentation=balanced
 - Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
+- Variables triggered: temperature_condition, light_cloud_condition, runoff_flow_disruption
+- Daily note: Heat-limited conditions tighten fish and reduce roaming willingness.
+- Daily note: A sharp warmup can add some visibility need, but not a full aggressive move-up read.
+- Daily note: Bright overhead light pushes the day toward subtler execution.
+- Daily note: Stable river flow should improve fish willingness without changing the seasonal lane much.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
-- TOP_COLOR_MATCH:white_shad,natural_baitfish
+- TOP_COLOR_MATCH:natural,natural
 - Top 1 verdict:
 - Top 3 verdict:
 - seasonal_fit:
@@ -3821,10 +3991,8 @@ Acceptable secondary lanes:
 - blade_bait
 - pike_bunny_streamer
 Expected color themes:
-- perch_bluegill
-- white_shad
-- natural_baitfish
-- bright_contrast
+- natural
+- dark
 
 Archived env summary:
 - Region: inland_northwest
@@ -3839,35 +4007,40 @@ Archived env summary:
 - Sunrise/sunset: 07:22 / 15:58
 
 Actual output:
-- Top 1 lure: Suspending Jerkbait `suspending_jerkbait` | theme: `natural_baitfish` | colors: ghost minnow, pro blue, olive shad
+- Top 1 lure: Large Jerkbait `pike_jerkbait` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 lures:
-- Suspending Jerkbait `suspending_jerkbait` | theme: `natural_baitfish` | colors: ghost minnow, pro blue, olive shad
-- Pike Jerkbait `pike_jerkbait` | theme: `white_shad` | colors: silver/black, pearl, whitefish
-- Large-Profile Pike Swimbait `large_profile_pike_swimbait` | theme: `white_shad` | colors: white, pearl, white/silver
-- Top 1 fly: Pike Bunny Streamer `pike_bunny_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Large Jerkbait `pike_jerkbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Large Paddle-Tail Swimbait `large_profile_pike_swimbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Suspending Jerkbait `suspending_jerkbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Top 1 fly: Large Rabbit Strip Streamer `pike_bunny_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 flies:
-- Pike Bunny Streamer `pike_bunny_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
-- Clouser Minnow `clouser_minnow` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Large Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Large Rabbit Strip Streamer `pike_bunny_streamer` | theme: `dark` | colors: black, black/blue, black/purple
+- Articulated Dungeon Streamer `articulated_dungeon_streamer` | theme: `dark` | colors: black, black/blue, black/purple
+- Balanced Leech `balanced_leech` | theme: `dark` | colors: black, black/blue, black/purple
 - Color notes:
-- Suspending Jerkbait: Theme: natural baitfish. Try ghost minnow, pro blue, olive shad.
-- Pike Jerkbait: Theme: white shad. Try silver/black, pearl, whitefish.
-- Large-Profile Pike Swimbait: Theme: white shad. Try white, pearl, white/silver.
-- Pike Bunny Streamer: Theme: white shad. Try white, pearl, white/silver.
-- Clouser Minnow: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Large Articulated Pike Streamer: Theme: white shad. Try white, pearl, white/silver.
+- Color of day: Dark Colors
+- Large Jerkbait: dark -> black, black/blue, black/purple
+- Large Paddle-Tail Swimbait: dark -> black, black/blue, black/purple
+- Suspending Jerkbait: dark -> black, black/blue, black/purple
+- Large Rabbit Strip Streamer: dark -> black, black/blue, black/purple
+- Articulated Dungeon Streamer: dark -> black, black/blue, black/purple
+- Balanced Leech: dark -> black, black/blue, black/purple
 - Daily profile notes:
 - Shared score: 76 (Good)
 - Daily nudges: mood=up_2, water_column=higher_1, presentation=bolder
 - Resolved profile: water_column=shallow, mood=active, presentation=balanced
 - Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
+- Variables triggered: temperature_condition, light_cloud_condition, runoff_flow_disruption
+- Daily note: A warming trend can lift fish slightly and improve willingness.
+- Daily note: Lower light supports a more assertive daily posture.
+- Daily note: Slightly elevated flow can pull fish toward softer higher-visibility current edges.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
-- TOP_COLOR_MATCH:natural_baitfish,white_shad
+- TOP_COLOR_MATCH:dark,dark
 - Top 1 verdict:
 - Top 3 verdict:
 - seasonal_fit:

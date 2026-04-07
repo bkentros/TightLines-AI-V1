@@ -1,6 +1,7 @@
 import { assert, assertEquals } from "jsr:@std/assert";
 import { FLY_ARCHETYPES_V3, LURE_ARCHETYPES_V3 } from "../v3/index.ts";
 import { FLY_ARCHETYPE_IDS_V3, LURE_ARCHETYPE_IDS_V3 } from "../v3/index.ts";
+import { RESOLVED_COLOR_SHADE_POOLS_V3 } from "../v3/index.ts";
 import {
   LARGEMOUTH_V3_SEASONAL_ROWS,
   LARGEMOUTH_V3_SUPPORTED_REGIONS,
@@ -11,16 +12,9 @@ Deno.test("V3 phase 2 lure and fly archetype libraries cover every declared arch
   assertEquals(Object.keys(FLY_ARCHETYPES_V3).sort(), [...FLY_ARCHETYPE_IDS_V3].sort());
 });
 
-Deno.test("V3 phase 2 every archetype theme has at least three realistic shade examples", () => {
-  for (const profile of [...Object.values(LURE_ARCHETYPES_V3), ...Object.values(FLY_ARCHETYPES_V3)]) {
-    assert(profile.allowed_color_themes.length > 0, `${profile.id} should allow at least one color theme`);
-    for (const theme of profile.allowed_color_themes) {
-      const shades = profile.shade_examples_by_theme[theme] ?? [];
-      assert(
-        shades.length >= 3,
-        `${profile.id} theme ${theme} should provide at least 3 shade examples`,
-      );
-    }
+Deno.test("V3 phase 2 resolved color lanes keep at least three realistic shade examples", () => {
+  for (const [theme, shades] of Object.entries(RESOLVED_COLOR_SHADE_POOLS_V3)) {
+    assert(shades.length >= 3, `${theme} should provide at least 3 shade examples`);
   }
 });
 

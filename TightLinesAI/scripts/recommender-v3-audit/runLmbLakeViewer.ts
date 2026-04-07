@@ -76,17 +76,9 @@ const MONTH_LABELS: Record<number, string> = {
 };
 
 const COLOR_THEME_LABELS: Record<string, string> = {
-  natural_baitfish: "Natural Baitfish",
-  white_shad: "White / Shad",
-  bright_contrast: "Bright Contrast",
-  dark_contrast: "Dark Contrast",
-  craw_natural: "Crawfish Natural",
-  green_pumpkin_natural: "Green Pumpkin",
-  watermelon_natural: "Watermelon",
-  perch_bluegill: "Perch / Bluegill",
-  frog_natural: "Frog Natural",
-  mouse_natural: "Mouse Natural",
-  metal_flash: "Metal / Flash",
+  natural: "Natural",
+  dark: "Dark",
+  bright: "Bright",
 };
 
 // Maps tactical_lane → human water column label used in the details dropdown.
@@ -139,7 +131,8 @@ function dailyContext(raw: ReturnType<typeof runRecommenderV3>): string {
   const mood = p.mood_nudge === "neutral" ? "neutral mood" : `mood ${p.mood_nudge}`;
   const wc = p.water_column_nudge === "neutral" ? "neutral depth" : `depth ${p.water_column_nudge}`;
   const pres = p.presentation_nudge === "neutral" ? "neutral pres." : `pres. ${p.presentation_nudge}`;
-  return `${p.source_band} (${p.source_score}) · ${mood} · ${wc} · ${pres}`;
+  const triggered = p.variables_triggered.length > 0 ? ` · fired: ${p.variables_triggered.join("/")}` : "";
+  return `${p.source_band} (${p.source_score}) · ${mood} · ${wc} · ${pres}${triggered}`;
 }
 
 function toViewerRec(

@@ -1,5 +1,4 @@
 import type { FlyArchetypeIdV3, RecommenderV3ArchetypeProfile } from "../contracts.ts";
-import { selectThemeShadesV3 } from "../colors.ts";
 
 function fly(
   profile: RecommenderV3ArchetypeProfile,
@@ -24,13 +23,6 @@ export const FLY_ARCHETYPES_V3: Record<FlyArchetypeIdV3, RecommenderV3ArchetypeP
       "Strip in short, consistent pulls so the dumbbell eyes make the fly jig up and down; let it sink between strips to stay hook-point up throughout.",
       "Cast and let the weighted eyes sink the fly, then retrieve with a strip-pause cadence that makes it dart upward on the strip and dive back on the pause.",
     ],
-    allowed_color_themes: ["white_shad", "natural_baitfish", "bright_contrast"],
-    shade_examples_by_theme: selectThemeShadesV3(
-      ["white_shad", "natural_baitfish", "bright_contrast"],
-      {
-        bright_contrast: ["white/chartreuse", "chartreuse/white", "firetiger"],
-      },
-    ),
   }),
   deceiver: fly({
     id: "deceiver",
@@ -48,17 +40,10 @@ export const FLY_ARCHETYPES_V3: Record<FlyArchetypeIdV3, RecommenderV3ArchetypeP
       "Retrieve with medium-to-long pulls and let the feathers collapse and flare; pause every 3-4 strips to let the profile swell and hang for trailing fish.",
       "Work it with a steady baitfish swim at medium cadence; slow down near structure and let it breathe on a semi-tight line between strips.",
     ],
-    allowed_color_themes: ["white_shad", "natural_baitfish", "dark_contrast"],
-    shade_examples_by_theme: selectThemeShadesV3(
-      ["white_shad", "natural_baitfish", "dark_contrast"],
-      {
-        dark_contrast: ["black/purple", "black", "black/red"],
-      },
-    ),
   }),
   bucktail_baitfish_streamer: fly({
     id: "bucktail_baitfish_streamer",
-    display_name: "Bucktail Baitfish Streamer",
+    display_name: "Bucktail Streamer",
     gear_mode: "fly",
     family_key: "baitfish_streamer",
     preferred_water_columns: ["shallow", "mid"],
@@ -72,12 +57,10 @@ export const FLY_ARCHETYPES_V3: Record<FlyArchetypeIdV3, RecommenderV3ArchetypeP
       "Cast across or down and retrieve with consistent strips; add a pause every 4-5 strips so the bucktail flares and collapses like a stunned baitfish.",
       "Use a steady pulsing retrieve in open water, or short strips near structure where the pause and flare can trigger fish that are holding tight.",
     ],
-    allowed_color_themes: ["natural_baitfish", "white_shad", "perch_bluegill"],
-    shade_examples_by_theme: selectThemeShadesV3(["natural_baitfish", "white_shad", "perch_bluegill"]),
   }),
   slim_minnow_streamer: fly({
     id: "slim_minnow_streamer",
-    display_name: "Slim Minnow Streamer",
+    display_name: "Slim Baitfish Streamer",
     gear_mode: "fly",
     family_key: "baitfish_streamer",
     preferred_water_columns: ["shallow", "mid"],
@@ -91,13 +74,6 @@ export const FLY_ARCHETYPES_V3: Record<FlyArchetypeIdV3, RecommenderV3ArchetypeP
       "Retrieve with a mix of short darts and longer glides; the thin profile tracks like a small minnow on a tight line.",
       "Fish it on a dead-drift through seams, then activate with quick strips near holding structure; the slim silhouette works best in clear water at a measured pace.",
     ],
-    allowed_color_themes: ["natural_baitfish", "white_shad", "bright_contrast"],
-    shade_examples_by_theme: selectThemeShadesV3(
-      ["natural_baitfish", "white_shad", "bright_contrast"],
-      {
-        bright_contrast: ["white/chartreuse", "yellow/white", "chartreuse/olive"],
-      },
-    ),
   }),
   articulated_baitfish_streamer: fly({
     id: "articulated_baitfish_streamer",
@@ -115,8 +91,23 @@ export const FLY_ARCHETYPES_V3: Record<FlyArchetypeIdV3, RecommenderV3ArchetypeP
       "Work it across current and down with a varied strip cadence; when a fish follows, slow down and kill the retrieve to let the body spiral on the sink.",
       "Cover water at mid-depth with steady strips; add a hard single rip followed by a full pause to imitate an injured baitfish fleeing and then stopping.",
     ],
-    allowed_color_themes: ["natural_baitfish", "white_shad", "perch_bluegill"],
-    shade_examples_by_theme: selectThemeShadesV3(["natural_baitfish", "white_shad", "perch_bluegill"]),
+  }),
+  articulated_dungeon_streamer: fly({
+    id: "articulated_dungeon_streamer",
+    display_name: "Articulated Dungeon Streamer",
+    gear_mode: "fly",
+    family_key: "articulated_streamer",
+    preferred_water_columns: ["shallow", "mid"],
+    preferred_moods: ["neutral", "active"],
+    preferred_presentation_styles: ["balanced", "bold"],
+    forage_matches: ["baitfish", "bluegill_perch", "crawfish"],
+    clarity_strengths: ["clear", "stained", "dirty"],
+    tactical_lane: "fly_baitfish",
+    how_to_fish_text: [
+      "Strip it with long pulls and full pauses so the articulated profile kicks wide, then hangs and breathes in place.",
+      "Use varied strip lengths with hard pauses after each burst; the fly should surge, then stall and hover like a wounded meal.",
+      "Fish it on a sweep-pause cadence near cover and transitions, giving the bulky profile time to hang between strips before moving it again.",
+    ],
   }),
   game_changer: fly({
     id: "game_changer",
@@ -134,13 +125,6 @@ export const FLY_ARCHETYPES_V3: Record<FlyArchetypeIdV3, RecommenderV3ArchetypeP
       "Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink.",
       "Retrieve with medium strips, then occasionally rip hard so the body compresses and then springs apart — pause after each hard strip and hold your nerve.",
     ],
-    allowed_color_themes: ["white_shad", "natural_baitfish", "perch_bluegill", "dark_contrast"],
-    shade_examples_by_theme: selectThemeShadesV3(
-      ["white_shad", "natural_baitfish", "perch_bluegill", "dark_contrast"],
-      {
-        dark_contrast: ["black/purple", "black/blue", "midnight"],
-      },
-    ),
   }),
   woolly_bugger: fly({
     id: "woolly_bugger",
@@ -158,14 +142,6 @@ export const FLY_ARCHETYPES_V3: Record<FlyArchetypeIdV3, RecommenderV3ArchetypeP
       "Cast across and swing it on a tight line through the drift, then activate on the hang-down with short strips before lifting.",
       "Fish it on a dead-drift near the bottom, then come alive with a strip-pause retrieve through prime holding water; let the tail do most of the work.",
     ],
-    allowed_color_themes: ["dark_contrast", "natural_baitfish", "craw_natural"],
-    shade_examples_by_theme: selectThemeShadesV3(
-      ["dark_contrast", "natural_baitfish", "craw_natural"],
-      {
-        dark_contrast: ["black", "black/olive", "black/purple"],
-        natural_baitfish: ["olive", "white/olive", "gray/white"],
-      },
-    ),
   }),
   rabbit_strip_leech: fly({
     id: "rabbit_strip_leech",
@@ -183,13 +159,23 @@ export const FLY_ARCHETYPES_V3: Record<FlyArchetypeIdV3, RecommenderV3ArchetypeP
       "Cast and count it down, then use a strip-pause retrieve with exaggerated pauses — the pulse on the stop is when most fish commit.",
       "Swim it slowly through deeper pockets and woody structure; the rabbit strip breathes on a semi-tight line, so use the absolute minimum retrieve speed.",
     ],
-    allowed_color_themes: ["dark_contrast", "natural_baitfish", "craw_natural"],
-    shade_examples_by_theme: selectThemeShadesV3(
-      ["dark_contrast", "natural_baitfish", "craw_natural"],
-      {
-        dark_contrast: ["black", "black/purple", "black/blue"],
-      },
-    ),
+  }),
+  balanced_leech: fly({
+    id: "balanced_leech",
+    display_name: "Balanced Leech",
+    gear_mode: "fly",
+    family_key: "bugger_leech",
+    preferred_water_columns: ["mid", "bottom"],
+    preferred_moods: ["negative", "neutral", "active"],
+    preferred_presentation_styles: ["subtle", "balanced"],
+    forage_matches: ["leech_worm", "baitfish"],
+    clarity_strengths: ["clear", "stained", "dirty"],
+    tactical_lane: "fly_bottom",
+    how_to_fish_text: [
+      "Fish it under an indicator or on a slow hand-twist so the fly hovers level and pulses in place rather than diving nose-first.",
+      "Let it suspend just off bottom or under cover and move it only with tiny strips; the balanced posture is the trigger, not speed.",
+      "Count it down to the level you want, then use a very slow strip-pause cadence so the fly hangs horizontally through the zone.",
+    ],
   }),
   zonker_streamer: fly({
     id: "zonker_streamer",
@@ -207,13 +193,6 @@ export const FLY_ARCHETYPES_V3: Record<FlyArchetypeIdV3, RecommenderV3ArchetypeP
       "Retrieve at moderate speed with intentional pauses where the fly sinks and the strip wing breathes; strikes often come as you restart the strip.",
       "Cast across current and strip steadily through the swing; add a momentary deadstop near structure so the wing collapses and then puffs back out.",
     ],
-    allowed_color_themes: ["natural_baitfish", "white_shad", "dark_contrast"],
-    shade_examples_by_theme: selectThemeShadesV3(
-      ["natural_baitfish", "white_shad", "dark_contrast"],
-      {
-        dark_contrast: ["black", "black/purple", "black/olive"],
-      },
-    ),
   }),
   sculpin_streamer: fly({
     id: "sculpin_streamer",
@@ -231,17 +210,27 @@ export const FLY_ARCHETYPES_V3: Record<FlyArchetypeIdV3, RecommenderV3ArchetypeP
       "Cast upstream and mend for a natural drift, then activate with short strips that make the fly bumble over the bottom like a sculpin retreating.",
       "Inch it along the bottom with tight-line strips; sculpin barely swim, so keep the fly close to the substrate and use current for most of the motion.",
     ],
-    allowed_color_themes: ["craw_natural", "natural_baitfish", "dark_contrast"],
-    shade_examples_by_theme: selectThemeShadesV3(
-      ["craw_natural", "natural_baitfish", "dark_contrast"],
-      {
-        natural_baitfish: ["olive", "sculpin olive", "tan/olive"],
-      },
-    ),
+  }),
+  sculpzilla: fly({
+    id: "sculpzilla",
+    display_name: "Sculpzilla",
+    gear_mode: "fly",
+    family_key: "bottom_streamer",
+    preferred_water_columns: ["mid", "bottom"],
+    preferred_moods: ["negative", "neutral", "active"],
+    preferred_presentation_styles: ["balanced"],
+    forage_matches: ["baitfish", "crawfish"],
+    clarity_strengths: ["clear", "stained", "dirty"],
+    tactical_lane: "fly_bottom",
+    how_to_fish_text: [
+      "Drive it down near bottom, then strip it in short, hard pulls with pauses so the fly breathes and kicks like a fleeing sculpin.",
+      "Cast across current and let it sink, then work it with compact strips that keep the fly close to the substrate without ripping it away from structure.",
+      "Use a strip-pause crawl along the bottom with just enough speed to make the materials pulse; keep it low, heavy, and in the fish's lane.",
+    ],
   }),
   muddler_sculpin: fly({
     id: "muddler_sculpin",
-    display_name: "Muddler-Style Sculpin",
+    display_name: "Muddler Minnow",
     gear_mode: "fly",
     family_key: "bottom_streamer",
     preferred_water_columns: ["shallow", "mid"],
@@ -255,13 +244,6 @@ export const FLY_ARCHETYPES_V3: Record<FlyArchetypeIdV3, RecommenderV3ArchetypeP
       "Work it as a swung wet fly in current with minimal stripping; on still water, hop it along the bottom with slow, erratic pulls.",
       "Cast across and let current animate the fly; add a slow retrieve in lakes and ponds, using rod dips to make the deer hair head push water and dive.",
     ],
-    allowed_color_themes: ["natural_baitfish", "craw_natural", "dark_contrast"],
-    shade_examples_by_theme: selectThemeShadesV3(
-      ["natural_baitfish", "craw_natural", "dark_contrast"],
-      {
-        natural_baitfish: ["natural", "olive", "tan/olive"],
-      },
-    ),
   }),
   crawfish_streamer: fly({
     id: "crawfish_streamer",
@@ -279,17 +261,10 @@ export const FLY_ARCHETYPES_V3: Record<FlyArchetypeIdV3, RecommenderV3ArchetypeP
       "Cast upstream and mend for a dead-drift first; then come alive with quick, short strips that make the claw materials flex like a fleeing crawfish.",
       "Pinch the fly to the bottom and move it in erratic 1-2 inch hops with long pauses; the slower and lower, the better — crawfish don't sprint.",
     ],
-    allowed_color_themes: ["craw_natural", "green_pumpkin_natural", "dark_contrast"],
-    shade_examples_by_theme: selectThemeShadesV3(
-      ["craw_natural", "green_pumpkin_natural", "dark_contrast"],
-      {
-        dark_contrast: ["black", "black/rust", "black/brown"],
-      },
-    ),
   }),
   conehead_streamer: fly({
     id: "conehead_streamer",
-    display_name: "Conehead Bugger / Streamer",
+    display_name: "Conehead Streamer",
     gear_mode: "fly",
     family_key: "weighted_streamer",
     preferred_water_columns: ["mid", "bottom"],
@@ -303,17 +278,10 @@ export const FLY_ARCHETYPES_V3: Record<FlyArchetypeIdV3, RecommenderV3ArchetypeP
       "Strip with consistent medium pulls; the cone keeps the fly diving nose-first on each retrieve, so use pauses to let it hunt and settle before the next strip.",
       "Cast across or down, let it sink to depth, then strip with a jig-like cadence where the cone tips the fly nose-down on each pause.",
     ],
-    allowed_color_themes: ["natural_baitfish", "dark_contrast", "craw_natural"],
-    shade_examples_by_theme: selectThemeShadesV3(
-      ["natural_baitfish", "dark_contrast", "craw_natural"],
-      {
-        dark_contrast: ["black", "black/blue", "black/purple"],
-      },
-    ),
   }),
   pike_bunny_streamer: fly({
     id: "pike_bunny_streamer",
-    display_name: "Pike Bunny Streamer",
+    display_name: "Large Rabbit Strip Streamer",
     gear_mode: "fly",
     family_key: "pike_streamer",
     preferred_water_columns: ["shallow", "mid"],
@@ -327,17 +295,10 @@ export const FLY_ARCHETYPES_V3: Record<FlyArchetypeIdV3, RecommenderV3ArchetypeP
       "Retrieve at a consistent pace that keeps the fly moving but gives the rabbit strip time to pulse; deadstop near structure to trigger strike reactions.",
       "Work it on medium strips with deliberate pauses; the oversized rabbit profile holds fish attention — give it time to be seen before the next strip.",
     ],
-    allowed_color_themes: ["perch_bluegill", "bright_contrast", "white_shad"],
-    shade_examples_by_theme: selectThemeShadesV3(
-      ["perch_bluegill", "bright_contrast", "white_shad"],
-      {
-        bright_contrast: ["firetiger", "orange/white", "chartreuse/white"],
-      },
-    ),
   }),
   large_articulated_pike_streamer: fly({
     id: "large_articulated_pike_streamer",
-    display_name: "Large Articulated Pike Streamer",
+    display_name: "Articulated Pike Streamer",
     gear_mode: "fly",
     family_key: "pike_streamer",
     preferred_water_columns: ["shallow", "mid"],
@@ -351,13 +312,6 @@ export const FLY_ARCHETYPES_V3: Record<FlyArchetypeIdV3, RecommenderV3ArchetypeP
       "Retrieve with slow, arm-length strips and complete stops; pike follow and commit on the pause, so hold the deadstop for a count of two.",
       "Run it at mid-depth on alternating long and short strips; after a follow, stop completely and let the articulated body collapse before the next strip.",
     ],
-    allowed_color_themes: ["perch_bluegill", "white_shad", "dark_contrast"],
-    shade_examples_by_theme: selectThemeShadesV3(
-      ["perch_bluegill", "white_shad", "dark_contrast"],
-      {
-        dark_contrast: ["black/red", "black/purple", "midnight"],
-      },
-    ),
   }),
   popper_fly: fly({
     id: "popper_fly",
@@ -375,18 +329,10 @@ export const FLY_ARCHETYPES_V3: Record<FlyArchetypeIdV3, RecommenderV3ArchetypeP
       "Make a sharp strip-pause to spit water, then wait; the longer the pause in the ring, the more time a fish has to rise and commit.",
       "Work it with medium strips that spit and gurgle; slow the cadence near structure and let the fly rest after each pop — target the edge of any surface shadow.",
     ],
-    allowed_color_themes: ["white_shad", "bright_contrast", "dark_contrast"],
-    shade_examples_by_theme: selectThemeShadesV3(
-      ["white_shad", "bright_contrast", "dark_contrast"],
-      {
-        bright_contrast: ["chartreuse", "yellow", "firetiger"],
-        dark_contrast: ["black", "black/yellow", "black/orange"],
-      },
-    ),
   }),
   frog_fly: fly({
     id: "frog_fly",
-    display_name: "Topwater Frog Fly",
+    display_name: "Frog Fly",
     gear_mode: "fly",
     family_key: "surface_fly",
     preferred_water_columns: ["top", "shallow"],
@@ -400,17 +346,10 @@ export const FLY_ARCHETYPES_V3: Record<FlyArchetypeIdV3, RecommenderV3ArchetypeP
       "Walk it across the surface with alternating rod twitches; slow to a crawl near pad edges and let it rest fully before the next move.",
       "Retrieve with a strip-rest cadence; the fly should look like a frog resting, then kicking — most strikes come right after the stillness.",
     ],
-    allowed_color_themes: ["frog_natural", "dark_contrast", "bright_contrast"],
-    shade_examples_by_theme: selectThemeShadesV3(
-      ["frog_natural", "dark_contrast", "bright_contrast"],
-      {
-        bright_contrast: ["chartreuse frog", "yellow frog", "white frog"],
-      },
-    ),
   }),
   mouse_fly: fly({
     id: "mouse_fly",
-    display_name: "Topwater Mouse Fly",
+    display_name: "Mouse Fly",
     gear_mode: "fly",
     family_key: "surface_fly",
     preferred_water_columns: ["top", "shallow"],
@@ -424,12 +363,5 @@ export const FLY_ARCHETYPES_V3: Record<FlyArchetypeIdV3, RecommenderV3ArchetypeP
       "Swim it on a constant slow retrieve just fast enough to leave a wake; target near-shore edges and structure where big fish expect food to cross.",
       "Work it with a slow, uninterrupted retrieve across open water; the V-wake is the trigger, so keep it moving at a steady pace and stay alert.",
     ],
-    allowed_color_themes: ["mouse_natural", "dark_contrast", "white_shad"],
-    shade_examples_by_theme: selectThemeShadesV3(
-      ["mouse_natural", "dark_contrast", "white_shad"],
-      {
-        white_shad: ["white mouse", "cream mouse", "pearl mouse"],
-      },
-    ),
   }),
 };

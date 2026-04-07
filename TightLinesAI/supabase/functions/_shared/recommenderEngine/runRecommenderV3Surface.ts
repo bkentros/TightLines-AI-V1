@@ -21,15 +21,16 @@ import type {
   NoiseLevel,
   PresentationOutput,
   ProfileSize,
+  SeasonalFlag,
   SpeedPreference,
   TriggerType,
 } from "./contracts/behavior.ts";
 import type { LureFamilyId, FlyFamilyId } from "./contracts/families.ts";
 import { resolveConfidence } from "./resolveConfidence.ts";
 import { computeRecommenderV3 } from "./runRecommenderV3.ts";
+import { normalizeLightBucketV3, resolveColorDecisionV3 } from "./v3/colorDecision.ts";
 import { FLY_ARCHETYPES_V3, LURE_ARCHETYPES_V3 } from "./v3/candidates/index.ts";
 import type {
-  ColorThemeIdV3,
   RecommenderV3RankedArchetype,
   RecommenderV3Response,
   TacticalLaneV3,
@@ -194,26 +195,15 @@ function motionFromCandidate(candidate: RecommenderV3RankedArchetype): Presentat
   }
 }
 
-function colorFamilyFromTheme(theme: ColorThemeIdV3, clarity: WaterClarity): ColorFamily {
+function colorFamilyFromTheme(theme: RecommenderV3RankedArchetype["color_theme"]): ColorFamily {
   switch (theme) {
-    case "white_shad":
-      return "shad_silver";
-    case "bright_contrast":
+    case "bright":
       return "chartreuse_white";
-    case "dark_contrast":
+    case "dark":
       return "dark_silhouette";
-    case "craw_natural":
-    case "green_pumpkin_natural":
-      return "craw_pattern";
-    case "metal_flash":
-      return "flash_heavy";
-    case "natural_baitfish":
-    case "perch_bluegill":
-    case "frog_natural":
-    case "mouse_natural":
-    case "watermelon_natural":
+    case "natural":
     default:
-      return clarity === "dirty" ? "dark_silhouette" : "natural_match";
+      return "natural_match";
   }
 }
 
@@ -345,6 +335,17 @@ function buildBehaviorSummary(
   return [water, forage, speedRow];
 }
 
+function seasonalFlagFromV3(result: RecommenderV3Response): SeasonalFlag {
+  const mood = result.seasonal_row.base_mood;
+  const month = result.month;
+
+  if (month >= 12 || month <= 2) return "off_season";
+  if (month >= 3 && month <= 4) return mood === "active" ? "spawning" : "pre_spawn";
+  if (month === 5) return mood === "negative" ? "spawning" : "post_spawn";
+  if (mood === "active") return "peak_season";
+  return "post_spawn";
+}
+
 function v3ToConfidenceInput(candidate: RecommenderV3RankedArchetype): {
   score: number;
   breakdown: Array<{ direction: "bonus" | "penalty" }>;
@@ -435,17 +436,16 @@ function howToFishText(candidate: RecommenderV3RankedArchetype): string {
  * mood + finesse day calls for darker/subtler silhouettes; everything else
  * defaults to natural forage-match patterns.
  */
-function colorOfDayText(
-  resolved: RecommenderV3Response["resolved_profile"],
-  clarity: WaterClarity,
-  lightLabel: string | null,
-): string {
-  if (clarity === "dirty") return "Brighter Colors";
-  if (lightLabel === "low_light" || lightLabel === "heavy_overcast") return "Brighter Colors";
-  if (resolved.final_mood === "negative" && resolved.final_presentation_style === "subtle") {
-    return "Darker Colors";
+function colorOfDayText(theme: RecommenderV3RankedArchetype["color_theme"]): string {
+  switch (theme) {
+    case "bright":
+      return "Bright Colors";
+    case "dark":
+      return "Dark Colors";
+    case "natural":
+    default:
+      return "Natural Colors";
   }
-  return "Natural Colors";
 }
 
 const RANK_CONTEXT_BY_LANE: Partial<Record<TacticalLaneV3, string>> = {
@@ -522,6 +522,7 @@ function buildBehavior(
       speedFromV3(result),
       result.resolved_profile.final_presentation_style,
     ),
+    seasonal_flag: seasonalFlagFromV3(result),
   };
 }
 
@@ -538,7 +539,7 @@ function buildPresentation(
     noise: behavior.noise_preference,
     flash: behavior.flash_preference,
     profile: leadCandidate ? profileFromCandidate(leadCandidate) : "medium",
-    color_family: colorFamilyFromTheme(leadCandidate?.color_theme ?? "natural_baitfish", result.water_clarity),
+    color_family: colorFamilyFromTheme(leadCandidate?.color_theme ?? "natural"),
     topwater_viable: behavior.topwater_viable,
     current_technique: result.context === "freshwater_river"
       ? (leadCandidate?.tactical_lane === "fly_baitfish" ? "cross_current" : "downstream_drift")
@@ -588,6 +589,10 @@ export function runRecommenderV3Surface(req: RecommenderRequest): RecommenderRes
   const analysis = analyzeSharedConditions(buildSharedRequest(req));
   const v3 = computeRecommenderV3(req, analysis);
   const lightLabel = analysis.norm.normalized.light_cloud_condition?.label ?? null;
+  const colorDecision = resolveColorDecisionV3(
+    req.water_clarity,
+    normalizeLightBucketV3(lightLabel),
+  );
   const behavior = buildBehavior(v3);
   const presentation = buildPresentation(v3, behavior);
   const lureConfidence = v3.lure_recommendations.map(v3ToConfidenceInput);
@@ -624,7 +629,7 @@ export function runRecommenderV3Surface(req: RecommenderRequest): RecommenderRes
     fly_rankings,
     timing: timingFromAnalysis(analysis),
     confidence,
-    color_of_day: colorOfDayText(v3.resolved_profile, req.water_clarity, lightLabel),
+    color_of_day: colorOfDayText(colorDecision.color_theme),
     primary_pattern_summary: buildPrimaryPatternSummary(lure_rankings[0], behavior, v3),
   };
 }

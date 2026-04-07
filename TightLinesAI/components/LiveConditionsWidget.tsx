@@ -189,7 +189,7 @@ export function LiveConditionsWidget({
         </View>
         <View style={styles.loadingBox}>
           <ActivityIndicator size="small" color={colors.primary} />
-          <Text style={styles.loadingText}>Loading conditions…</Text>
+          <Text style={styles.loadingText}>Pulling live conditions…</Text>
         </View>
       </View>
     );
@@ -234,7 +234,7 @@ export function LiveConditionsWidget({
           </View>
         </View>
         <View style={styles.headerRight}>
-          {isLoading && <Text style={styles.updatingText}>Updating…</Text>}
+          {isLoading && <Text style={styles.updatingText}>Refreshing…</Text>}
           {ageLabel && !isLoading && (
             <Text style={[styles.ageText, isStale && { color: colors.textSecondary }]}>{ageLabel}</Text>
           )}

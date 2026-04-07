@@ -83,13 +83,13 @@ Deno.test("V3 Phase 3D covers every supported pike region, month, and context", 
   }
 });
 
-Deno.test("V3 Phase 3D resolves warm-edge summer pike as restrained mid-column fish", () => {
+Deno.test("V3 Phase 3D resolves warm-edge summer pike as a true summer row with topwater available", () => {
   const row = resolveSeasonalRowV3("northern_pike", "south_central", 8, "freshwater_lake_pond");
-  assertEquals(row.base_water_column, "mid");
-  assertEquals(row.base_mood, "neutral");
+  assertEquals(row.base_water_column, "shallow");
+  assertEquals(row.base_mood, "active");
   assertEquals(row.primary_forage, "baitfish");
   assert(row.viable_lure_archetypes.includes("large_profile_pike_swimbait"));
-  assert(!row.viable_lure_archetypes.includes("hollow_body_frog"));
+  assert(row.viable_lure_archetypes.includes("hollow_body_frog"));
 });
 
 Deno.test("V3 Phase 3D keeps a winter warm-up bounded away from surface output", () => {

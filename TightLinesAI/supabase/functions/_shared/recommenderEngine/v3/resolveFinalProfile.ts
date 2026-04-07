@@ -53,7 +53,8 @@ function resolvePresentationDelta(
 /**
  * The resolver intentionally makes only bounded moves.
  * Water column can move one step. Mood can move up to two. Presentation style
- * blends 55% seasonal + 45% daily, then applies clarity floor/ceiling (not a blend vote).
+ * stays seasonal-first, but gives a slightly stronger voice to aligned daily cues
+ * before clarity floor/ceiling is applied.
  */
 export function resolveFinalProfileV3(
   seasonal: RecommenderV3SeasonalRow,
@@ -85,8 +86,10 @@ export function resolveFinalProfileV3(
       resolvePresentationDelta(daily.presentation_nudge),
     ),
   );
+  const presentationDelta = Math.abs(dailyPresentationIndex - seasonalPresentationIndex);
+  const dailyWeight = presentationDelta === 0 ? 0.35 : 0.48;
   let blendedPresentationIndex = Math.round(
-    0.55 * seasonalPresentationIndex + 0.45 * dailyPresentationIndex,
+    (1 - dailyWeight) * seasonalPresentationIndex + dailyWeight * dailyPresentationIndex,
   );
   blendedPresentationIndex = Math.max(0, Math.min(PRESENTATION_STYLES.length - 1, blendedPresentationIndex));
 

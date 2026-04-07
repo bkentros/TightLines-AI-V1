@@ -141,6 +141,18 @@ function buildArchiveSummaryLines(bundle: ArchiveScenarioBundle | undefined): st
   ];
 }
 
+function validColorThemesForClarity(
+  waterClarity: ArchivedRecommenderAuditScenario["water_clarity"],
+): readonly string[] {
+  switch (waterClarity) {
+    case "clear":
+      return ["natural", "dark"];
+    case "stained":
+    case "dirty":
+      return ["dark", "bright"];
+  }
+}
+
 function precheckFlags(
   scenario: ArchivedRecommenderAuditScenario,
   raw: ReturnType<typeof runRecommenderV3>,
@@ -173,11 +185,12 @@ function precheckFlags(
     flags.push("NO_DISALLOWED_PRESENT");
   }
 
+  const validColorThemes = new Set(validColorThemesForClarity(scenario.water_clarity));
   const colorHits = [
     raw.lure_recommendations[0]?.color_theme,
     raw.fly_recommendations[0]?.color_theme,
   ].filter((value): value is NonNullable<typeof value> => value != null)
-    .filter((theme) => scenario.expectation.expected_color_lanes.includes(theme));
+    .filter((theme) => validColorThemes.has(theme));
   if (colorHits.length > 0) {
     flags.push(`TOP_COLOR_MATCH:${colorHits.join(",")}`);
   } else {
@@ -295,14 +308,21 @@ function toReviewScenario(
       top_1_fly: topFlies[0] ?? null,
       top_3_flies: topFlies,
       color_notes: [
-        ...surface.lure_rankings.slice(0, 3).map((candidate) => `${candidate.display_name}: ${candidate.color_guide}`),
-        ...surface.fly_rankings.slice(0, 3).map((candidate) => `${candidate.display_name}: ${candidate.color_guide}`),
+        `Color of day: ${surface.color_of_day}`,
+        ...topLures.slice(0, 3).map((candidate) =>
+          `${candidate.display_name}: ${candidate.color_theme} -> ${candidate.color_recommendations.join(", ")}`
+        ),
+        ...topFlies.slice(0, 3).map((candidate) =>
+          `${candidate.display_name}: ${candidate.color_theme} -> ${candidate.color_recommendations.join(", ")}`
+        ),
       ],
       daily_profile_notes: [
         `Shared score: ${raw.daily_payload.source_score} (${raw.daily_payload.source_band})`,
         `Daily nudges: mood=${raw.daily_payload.mood_nudge}, water_column=${raw.daily_payload.water_column_nudge}, presentation=${raw.daily_payload.presentation_nudge}`,
         `Resolved profile: water_column=${raw.resolved_profile.final_water_column}, mood=${raw.resolved_profile.final_mood}, presentation=${raw.resolved_profile.final_presentation_style}`,
         `Variables considered: ${raw.variables_considered.join(", ")}`,
+        `Variables triggered: ${raw.daily_payload.variables_triggered.join(", ") || "none"}`,
+        ...raw.daily_payload.notes.map((note) => `Daily note: ${note}`),
       ],
     },
     review: {

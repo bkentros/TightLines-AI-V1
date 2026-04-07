@@ -144,6 +144,16 @@ export const STATE_SPECIES_CONTEXTS = {
       "coastal"
     ]
   },
+  "DC": {
+    "largemouth_bass": [
+      "freshwater_lake_pond",
+      "freshwater_river"
+    ],
+    "striped_bass": [
+      "freshwater_river",
+      "coastal"
+    ]
+  },
   "FL": {
     "largemouth_bass": [
       "freshwater_lake_pond",
@@ -199,7 +209,8 @@ export const STATE_SPECIES_CONTEXTS = {
   },
   "HI": {
     "largemouth_bass": [
-      "freshwater_lake_pond"
+      "freshwater_lake_pond",
+      "freshwater_river"
     ]
   },
   "ID": {
@@ -446,6 +457,10 @@ export const STATE_SPECIES_CONTEXTS = {
   },
   "MS": {
     "largemouth_bass": [
+      "freshwater_lake_pond",
+      "freshwater_river"
+    ],
+    "smallmouth_bass": [
       "freshwater_lake_pond",
       "freshwater_river"
     ],

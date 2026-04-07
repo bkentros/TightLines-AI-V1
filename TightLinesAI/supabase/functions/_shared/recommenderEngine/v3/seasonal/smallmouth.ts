@@ -33,9 +33,11 @@ function addMonths(
 const WINTER_LAKE_LURES: readonly LureArchetypeIdV3[] = [
   "tube_jig",
   "hair_jig",
+  "finesse_jig",
   "blade_bait",
   "suspending_jerkbait",
-  "drop_shot_worm_minnow",
+  "drop_shot_worm",
+  "drop_shot_minnow",
   "ned_rig",
   "football_jig",
 ];
@@ -62,6 +64,7 @@ const PRESPAWN_LAKE_FLIES: readonly FlyArchetypeIdV3[] = [
   "sculpin_streamer",
   "clouser_minnow",
   "woolly_bugger",
+  "balanced_leech",
   "game_changer",
   "zonker_streamer",
 ];
@@ -69,7 +72,8 @@ const PRESPAWN_LAKE_FLIES: readonly FlyArchetypeIdV3[] = [
 const SPAWN_LAKE_LURES: readonly LureArchetypeIdV3[] = [
   "tube_jig",
   "ned_rig",
-  "drop_shot_worm_minnow",
+  "drop_shot_worm",
+  "drop_shot_minnow",
   "suspending_jerkbait",
   "hair_jig",
   "soft_jerkbait",
@@ -85,15 +89,17 @@ const SPAWN_LAKE_FLIES: readonly FlyArchetypeIdV3[] = [
 const POSTSPAWN_LAKE_LURES: readonly LureArchetypeIdV3[] = [
   "tube_jig",
   "soft_jerkbait",
+  "drop_shot_minnow",
   "paddle_tail_swimbait",
   "spinnerbait",
   "hair_jig",
   "walking_topwater",
-  "drop_shot_worm_minnow",
+  "drop_shot_worm",
 ];
 const POSTSPAWN_LAKE_FLIES: readonly FlyArchetypeIdV3[] = [
   "clouser_minnow",
   "game_changer",
+  "balanced_leech",
   "woolly_bugger",
   "zonker_streamer",
   "popper_fly",
@@ -105,13 +111,14 @@ const GREAT_LAKES_POSTSPAWN_LAKE_LURES: readonly LureArchetypeIdV3[] = [
   "paddle_tail_swimbait",
   "walking_topwater",
   "tube_jig",
-  "drop_shot_worm_minnow",
+  "drop_shot_worm",
   "hair_jig",
   "spinnerbait",
 ];
 const GREAT_LAKES_POSTSPAWN_LAKE_FLIES: readonly FlyArchetypeIdV3[] = [
   "clouser_minnow",
   "game_changer",
+  "balanced_leech",
   "woolly_bugger",
   "zonker_streamer",
   "popper_fly",
@@ -121,7 +128,8 @@ const GREAT_LAKES_POSTSPAWN_LAKE_FLIES: readonly FlyArchetypeIdV3[] = [
 const GREAT_LAKES_MIDSUMMER_LAKE_LURES: readonly LureArchetypeIdV3[] = [
   "walking_topwater",
   "paddle_tail_swimbait",
-  "drop_shot_worm_minnow",
+  "drop_shot_worm",
+  "drop_shot_minnow",
   "soft_jerkbait",
   "tube_jig",
   "hair_jig",
@@ -141,13 +149,15 @@ const GREAT_LAKES_LATEFALL_LAKE_LURES: readonly LureArchetypeIdV3[] = [
   "suspending_jerkbait",
   "blade_bait",
   "hair_jig",
+  "finesse_jig",
   "paddle_tail_swimbait",
   "tube_jig",
-  "drop_shot_worm_minnow",
+  "drop_shot_worm",
 ];
 const GREAT_LAKES_LATEFALL_LAKE_FLIES: readonly FlyArchetypeIdV3[] = [
   "clouser_minnow",
   "slim_minnow_streamer",
+  "articulated_dungeon_streamer",
   "woolly_bugger",
   "rabbit_strip_leech",
   "sculpin_streamer",
@@ -164,32 +174,16 @@ const MIDWEST_DIRTY_PRESPAWN_LAKE_LURES: readonly LureArchetypeIdV3[] = [
 const MIDWEST_DIRTY_PRESPAWN_LAKE_FLIES: readonly FlyArchetypeIdV3[] = [
   "clouser_minnow",
   "woolly_bugger",
+  "balanced_leech",
   "sculpin_streamer",
   "crawfish_streamer",
   "game_changer",
 ];
 
-const GREAT_LAKES_STAINED_SUMMER_LAKE_LURES: readonly LureArchetypeIdV3[] = [
-  "spinnerbait",
-  "walking_topwater",
-  "paddle_tail_swimbait",
-  "tube_jig",
-  "drop_shot_worm_minnow",
-  "hair_jig",
-  "soft_jerkbait",
-];
-const GREAT_LAKES_STAINED_SUMMER_LAKE_FLIES: readonly FlyArchetypeIdV3[] = [
-  "clouser_minnow",
-  "game_changer",
-  "popper_fly",
-  "mouse_fly",
-  "woolly_bugger",
-];
-
 const GREAT_LAKES_CLEAR_SUMMER_LAKE_LURES: readonly LureArchetypeIdV3[] = [
   "hair_jig",
   "tube_jig",
-  "drop_shot_worm_minnow",
+  "drop_shot_worm",
   "paddle_tail_swimbait",
   "soft_jerkbait",
   "walking_topwater",
@@ -198,6 +192,7 @@ const GREAT_LAKES_CLEAR_SUMMER_LAKE_LURES: readonly LureArchetypeIdV3[] = [
 const GREAT_LAKES_CLEAR_SUMMER_LAKE_FLIES: readonly FlyArchetypeIdV3[] = [
   "clouser_minnow",
   "woolly_bugger",
+  "balanced_leech",
   "game_changer",
   "mouse_fly",
   "popper_fly",
@@ -215,6 +210,7 @@ const WESTERN_POSTSPAWN_RIVER_LURES: readonly LureArchetypeIdV3[] = [
 const WESTERN_POSTSPAWN_RIVER_FLIES: readonly FlyArchetypeIdV3[] = [
   "clouser_minnow",
   "game_changer",
+  "articulated_dungeon_streamer",
   "popper_fly",
   "muddler_sculpin",
   "woolly_bugger",
@@ -228,11 +224,13 @@ const NORTHWEST_EARLY_FALL_RIVER_LURES: readonly LureArchetypeIdV3[] = [
   "spinnerbait",
   "tube_jig",
   "soft_jerkbait",
+  "drop_shot_minnow",
   "blade_bait",
 ];
 const NORTHWEST_EARLY_FALL_RIVER_FLIES: readonly FlyArchetypeIdV3[] = [
   "clouser_minnow",
   "slim_minnow_streamer",
+  "articulated_dungeon_streamer",
   "game_changer",
   "articulated_baitfish_streamer",
   "woolly_bugger",
@@ -250,6 +248,7 @@ const SOUTH_CENTRAL_LATEFALL_RIVER_FLIES: readonly FlyArchetypeIdV3[] = [
   "slim_minnow_streamer",
   "clouser_minnow",
   "woolly_bugger",
+  "balanced_leech",
   "sculpin_streamer",
   "articulated_baitfish_streamer",
 ];
@@ -281,6 +280,7 @@ const SOUTH_CENTRAL_EARLYFALL_LAKE_LURES: readonly LureArchetypeIdV3[] = [
 const SOUTH_CENTRAL_EARLYFALL_LAKE_FLIES: readonly FlyArchetypeIdV3[] = [
   "clouser_minnow",
   "slim_minnow_streamer",
+  "articulated_dungeon_streamer",
   "game_changer",
   "woolly_bugger",
   "mouse_fly",
@@ -297,6 +297,7 @@ const SOUTH_CENTRAL_EARLYFALL_RIVER_LURES: readonly LureArchetypeIdV3[] = [
 const SOUTH_CENTRAL_EARLYFALL_RIVER_FLIES: readonly FlyArchetypeIdV3[] = [
   "clouser_minnow",
   "slim_minnow_streamer",
+  "articulated_dungeon_streamer",
   "game_changer",
   "woolly_bugger",
   "mouse_fly",
@@ -314,6 +315,7 @@ const NORTHEAST_SUMMER_RIVER_FLIES: readonly FlyArchetypeIdV3[] = [
   "popper_fly",
   "clouser_minnow",
   "game_changer",
+  "balanced_leech",
   "woolly_bugger",
   "muddler_sculpin",
 ];
@@ -361,6 +363,7 @@ const MIDWEST_DIRTY_SUMMER_LAKE_LURES: readonly LureArchetypeIdV3[] = [
 const MIDWEST_DIRTY_SUMMER_LAKE_FLIES: readonly FlyArchetypeIdV3[] = [
   "clouser_minnow",
   "game_changer",
+  "balanced_leech",
   "woolly_bugger",
   "sculpin_streamer",
   "articulated_baitfish_streamer",
@@ -377,6 +380,7 @@ const MOUNTAIN_WEST_EARLYFALL_RIVER_LURES: readonly LureArchetypeIdV3[] = [
 const MOUNTAIN_WEST_EARLYFALL_RIVER_FLIES: readonly FlyArchetypeIdV3[] = [
   "clouser_minnow",
   "slim_minnow_streamer",
+  "articulated_dungeon_streamer",
   "game_changer",
   "articulated_baitfish_streamer",
   "woolly_bugger",
@@ -394,6 +398,7 @@ const NORTHWEST_SUMMER_RIVER_FLIES: readonly FlyArchetypeIdV3[] = [
   "popper_fly",
   "clouser_minnow",
   "game_changer",
+  "balanced_leech",
   "woolly_bugger",
   "muddler_sculpin",
 ];
@@ -402,7 +407,7 @@ const SUMMER_LAKE_LURES: readonly LureArchetypeIdV3[] = [
   "walking_topwater",
   "popping_topwater",
   "tube_jig",
-  "drop_shot_worm_minnow",
+  "drop_shot_worm",
   "hair_jig",
   "paddle_tail_swimbait",
   "spinnerbait",
@@ -413,6 +418,7 @@ const SUMMER_LAKE_FLIES: readonly FlyArchetypeIdV3[] = [
   "mouse_fly",
   "clouser_minnow",
   "game_changer",
+  "balanced_leech",
   "woolly_bugger",
   "articulated_baitfish_streamer",
 ];
@@ -429,6 +435,7 @@ const FALL_LAKE_LURES: readonly LureArchetypeIdV3[] = [
 const FALL_LAKE_FLIES: readonly FlyArchetypeIdV3[] = [
   "clouser_minnow",
   "slim_minnow_streamer",
+  "articulated_dungeon_streamer",
   "game_changer",
   "woolly_bugger",
   "zonker_streamer",
@@ -441,7 +448,8 @@ const WINTER_RIVER_LURES: readonly LureArchetypeIdV3[] = [
   "ned_rig",
   "blade_bait",
   "suspending_jerkbait",
-  "drop_shot_worm_minnow",
+  "drop_shot_worm",
+  "drop_shot_minnow",
 ];
 const WINTER_RIVER_FLIES: readonly FlyArchetypeIdV3[] = [
   "sculpin_streamer",
@@ -486,6 +494,7 @@ const SUMMER_RIVER_FLIES: readonly FlyArchetypeIdV3[] = [
   "mouse_fly",
   "clouser_minnow",
   "game_changer",
+  "balanced_leech",
   "woolly_bugger",
   "muddler_sculpin",
   "zonker_streamer",
@@ -503,6 +512,7 @@ const FALL_RIVER_LURES: readonly LureArchetypeIdV3[] = [
 const FALL_RIVER_FLIES: readonly FlyArchetypeIdV3[] = [
   "clouser_minnow",
   "slim_minnow_streamer",
+  "articulated_dungeon_streamer",
   "game_changer",
   "woolly_bugger",
   "zonker_streamer",

@@ -1,6 +1,6 @@
 import type { EngineContext } from "../supabase/functions/_shared/howFishingEngine/contracts/context.ts";
 import type {
-  ColorThemeIdV3,
+  ResolvedColorThemeV3,
   RecommenderV3ArchetypeId,
   SpeciesGroup,
   WaterClarity,
@@ -30,7 +30,7 @@ export type RecommenderAuditExpectation = {
   primary_lanes: RecommenderV3ArchetypeId[];
   acceptable_secondary_lanes?: RecommenderV3ArchetypeId[];
   disallowed_lanes?: RecommenderV3ArchetypeId[];
-  expected_color_lanes: ColorThemeIdV3[];
+  expected_color_lanes: ResolvedColorThemeV3[];
   notes?: string[];
 };
 
@@ -84,7 +84,7 @@ export const LARGEMOUTH_V3_ARCHIVED_SCENARIOS: ArchivedRecommenderAuditScenario[
       primary_lanes: ["football_jig", "texas_rigged_soft_plastic_craw", "suspending_jerkbait"],
       acceptable_secondary_lanes: ["compact_flipping_jig", "shaky_head_worm", "paddle_tail_swimbait"],
       disallowed_lanes: ["hollow_body_frog", "walking_topwater", "mouse_fly"],
-      expected_color_lanes: ["green_pumpkin_natural", "craw_natural", "dark_contrast"],
+      expected_color_lanes: ["natural", "natural", "dark"],
       notes: ["Daily warming may raise pace slightly, but should not create a drastic surface jump."],
     },
   },
@@ -105,7 +105,7 @@ export const LARGEMOUTH_V3_ARCHIVED_SCENARIOS: ArchivedRecommenderAuditScenario[
       primary_lanes: ["suspending_jerkbait", "paddle_tail_swimbait", "compact_flipping_jig"],
       acceptable_secondary_lanes: ["spinnerbait", "texas_rigged_stick_worm", "swim_jig"],
       disallowed_lanes: ["blade_bait", "mouse_fly"],
-      expected_color_lanes: ["natural_baitfish", "white_shad", "green_pumpkin_natural"],
+      expected_color_lanes: ["natural", "natural", "natural"],
     },
   },
   {
@@ -125,7 +125,7 @@ export const LARGEMOUTH_V3_ARCHIVED_SCENARIOS: ArchivedRecommenderAuditScenario[
       primary_lanes: ["spinnerbait", "suspending_jerkbait", "paddle_tail_swimbait"],
       acceptable_secondary_lanes: ["football_jig", "bladed_jig", "swim_jig"],
       disallowed_lanes: ["hollow_body_frog", "popper_fly"],
-      expected_color_lanes: ["white_shad", "bright_contrast", "dark_contrast"],
+      expected_color_lanes: ["natural", "bright", "dark"],
     },
   },
   {
@@ -145,7 +145,7 @@ export const LARGEMOUTH_V3_ARCHIVED_SCENARIOS: ArchivedRecommenderAuditScenario[
       primary_lanes: ["suspending_jerkbait", "soft_jerkbait", "swim_jig"],
       acceptable_secondary_lanes: ["wacky_rigged_stick_worm", "paddle_tail_swimbait", "clouser_minnow"],
       disallowed_lanes: ["hollow_body_frog"],
-      expected_color_lanes: ["natural_baitfish", "white_shad", "watermelon_natural"],
+      expected_color_lanes: ["natural", "natural", "natural"],
     },
   },
   {
@@ -165,7 +165,7 @@ export const LARGEMOUTH_V3_ARCHIVED_SCENARIOS: ArchivedRecommenderAuditScenario[
       primary_lanes: ["spinnerbait", "swim_jig", "soft_jerkbait"],
       acceptable_secondary_lanes: ["compact_flipping_jig", "paddle_tail_swimbait", "game_changer"],
       disallowed_lanes: ["hollow_body_frog"],
-      expected_color_lanes: ["white_shad", "bright_contrast", "green_pumpkin_natural"],
+      expected_color_lanes: ["natural", "bright", "natural"],
     },
   },
   {
@@ -184,8 +184,8 @@ export const LARGEMOUTH_V3_ARCHIVED_SCENARIOS: ArchivedRecommenderAuditScenario[
       seasonal_story: "Warm dirty river largemouth should favor visible cover-oriented lanes and not over-clean the presentation.",
       primary_lanes: ["compact_flipping_jig", "texas_rigged_soft_plastic_craw", "spinnerbait"],
       acceptable_secondary_lanes: ["bladed_jig", "frog_fly", "swim_jig"],
-      disallowed_lanes: ["drop_shot_worm_minnow", "clouser_minnow"],
-      expected_color_lanes: ["dark_contrast", "craw_natural", "bright_contrast"],
+      disallowed_lanes: ["drop_shot_worm", "clouser_minnow"],
+      expected_color_lanes: ["dark", "natural", "bright"],
     },
   },
   {
@@ -205,7 +205,7 @@ export const LARGEMOUTH_V3_ARCHIVED_SCENARIOS: ArchivedRecommenderAuditScenario[
       primary_lanes: ["swim_jig", "weightless_stick_worm", "walking_topwater"],
       acceptable_secondary_lanes: ["hollow_body_frog", "mouse_fly", "paddle_tail_swimbait"],
       disallowed_lanes: ["blade_bait"],
-      expected_color_lanes: ["green_pumpkin_natural", "frog_natural", "natural_baitfish"],
+      expected_color_lanes: ["natural", "natural", "natural"],
     },
   },
   {
@@ -222,10 +222,10 @@ export const LARGEMOUTH_V3_ARCHIVED_SCENARIOS: ArchivedRecommenderAuditScenario[
     water_clarity: "clear",
     expectation: {
       seasonal_story: "Bluebird summer largemouth should tighten into cleaner, more controlled options.",
-      primary_lanes: ["wacky_rigged_stick_worm", "weightless_stick_worm", "drop_shot_worm_minnow"],
+      primary_lanes: ["wacky_rigged_stick_worm", "weightless_stick_worm", "drop_shot_worm"],
       acceptable_secondary_lanes: ["shaky_head_worm", "rabbit_strip_leech", "soft_jerkbait"],
-      disallowed_lanes: ["buzzbait_prop_bait"],
-      expected_color_lanes: ["watermelon_natural", "green_pumpkin_natural", "natural_baitfish"],
+      disallowed_lanes: ["buzzbait", "prop_bait"],
+      expected_color_lanes: ["natural", "natural", "natural"],
     },
   },
   {
@@ -245,7 +245,7 @@ export const LARGEMOUTH_V3_ARCHIVED_SCENARIOS: ArchivedRecommenderAuditScenario[
       primary_lanes: ["walking_topwater", "swim_jig", "spinnerbait"],
       acceptable_secondary_lanes: ["hollow_body_frog", "bladed_jig", "popper_fly"],
       disallowed_lanes: ["blade_bait"],
-      expected_color_lanes: ["white_shad", "frog_natural", "bright_contrast"],
+      expected_color_lanes: ["natural", "natural", "bright"],
     },
   },
   {
@@ -265,7 +265,7 @@ export const LARGEMOUTH_V3_ARCHIVED_SCENARIOS: ArchivedRecommenderAuditScenario[
       primary_lanes: ["squarebill_crankbait", "spinnerbait", "paddle_tail_swimbait"],
       acceptable_secondary_lanes: ["soft_jerkbait", "suspending_jerkbait", "game_changer"],
       disallowed_lanes: ["texas_rigged_soft_plastic_craw"],
-      expected_color_lanes: ["white_shad", "natural_baitfish", "metal_flash"],
+      expected_color_lanes: ["natural", "natural", "bright"],
     },
   },
   {
@@ -285,7 +285,7 @@ export const LARGEMOUTH_V3_ARCHIVED_SCENARIOS: ArchivedRecommenderAuditScenario[
       primary_lanes: ["bladed_jig", "compact_flipping_jig", "spinnerbait"],
       acceptable_secondary_lanes: ["paddle_tail_swimbait", "rabbit_strip_leech"],
       disallowed_lanes: ["walking_topwater"],
-      expected_color_lanes: ["dark_contrast", "bright_contrast", "craw_natural"],
+      expected_color_lanes: ["dark", "bright", "natural"],
     },
   },
   {
@@ -305,7 +305,7 @@ export const LARGEMOUTH_V3_ARCHIVED_SCENARIOS: ArchivedRecommenderAuditScenario[
       primary_lanes: ["football_jig", "shaky_head_worm", "suspending_jerkbait"],
       acceptable_secondary_lanes: ["blade_bait", "rabbit_strip_leech"],
       disallowed_lanes: ["walking_topwater", "hollow_body_frog"],
-      expected_color_lanes: ["green_pumpkin_natural", "dark_contrast", "natural_baitfish"],
+      expected_color_lanes: ["natural", "dark", "natural"],
     },
   },
   {
@@ -325,7 +325,7 @@ export const LARGEMOUTH_V3_ARCHIVED_SCENARIOS: ArchivedRecommenderAuditScenario[
       primary_lanes: ["suspending_jerkbait", "paddle_tail_swimbait", "spinnerbait"],
       acceptable_secondary_lanes: ["compact_flipping_jig", "swim_jig", "football_jig"],
       disallowed_lanes: ["hollow_body_frog", "mouse_fly"],
-      expected_color_lanes: ["white_shad", "natural_baitfish", "bright_contrast"],
+      expected_color_lanes: ["natural", "natural", "bright"],
     },
   },
   {
@@ -343,9 +343,9 @@ export const LARGEMOUTH_V3_ARCHIVED_SCENARIOS: ArchivedRecommenderAuditScenario[
     expectation: {
       seasonal_story: "Early-summer Florida largemouth should open grass and surface-adjacent lanes while still respecting cover-oriented backup options.",
       primary_lanes: ["hollow_body_frog", "swim_jig", "walking_topwater"],
-      acceptable_secondary_lanes: ["buzzbait_prop_bait", "texas_rigged_stick_worm", "frog_fly"],
-      disallowed_lanes: ["blade_bait", "drop_shot_worm_minnow"],
-      expected_color_lanes: ["frog_natural", "white_shad", "dark_contrast"],
+      acceptable_secondary_lanes: ["buzzbait", "prop_bait", "texas_rigged_stick_worm", "frog_fly"],
+      disallowed_lanes: ["blade_bait", "drop_shot_worm"],
+      expected_color_lanes: ["natural", "natural", "dark"],
     },
   },
   {
@@ -365,7 +365,7 @@ export const LARGEMOUTH_V3_ARCHIVED_SCENARIOS: ArchivedRecommenderAuditScenario[
       primary_lanes: ["walking_topwater", "swim_jig", "spinnerbait"],
       acceptable_secondary_lanes: ["bladed_jig", "hollow_body_frog", "popper_fly"],
       disallowed_lanes: ["blade_bait"],
-      expected_color_lanes: ["frog_natural", "white_shad", "bright_contrast"],
+      expected_color_lanes: ["natural", "natural", "bright"],
     },
   },
   {
@@ -385,7 +385,7 @@ export const LARGEMOUTH_V3_ARCHIVED_SCENARIOS: ArchivedRecommenderAuditScenario[
       primary_lanes: ["compact_flipping_jig", "wacky_rigged_stick_worm", "swim_jig"],
       acceptable_secondary_lanes: ["weightless_stick_worm", "paddle_tail_swimbait", "woolly_bugger"],
       disallowed_lanes: ["blade_bait", "walking_topwater"],
-      expected_color_lanes: ["green_pumpkin_natural", "white_shad", "watermelon_natural"],
+      expected_color_lanes: ["natural", "natural", "natural"],
     },
   },
   {
@@ -405,7 +405,7 @@ export const LARGEMOUTH_V3_ARCHIVED_SCENARIOS: ArchivedRecommenderAuditScenario[
       primary_lanes: ["suspending_jerkbait", "flat_sided_crankbait", "football_jig"],
       acceptable_secondary_lanes: ["blade_bait", "paddle_tail_swimbait", "rabbit_strip_leech"],
       disallowed_lanes: ["walking_topwater", "hollow_body_frog"],
-      expected_color_lanes: ["natural_baitfish", "white_shad", "green_pumpkin_natural"],
+      expected_color_lanes: ["natural", "natural", "natural"],
     },
   },
   {
@@ -425,7 +425,7 @@ export const LARGEMOUTH_V3_ARCHIVED_SCENARIOS: ArchivedRecommenderAuditScenario[
       primary_lanes: ["spinnerbait", "swim_jig", "soft_jerkbait"],
       acceptable_secondary_lanes: ["squarebill_crankbait", "texas_rigged_soft_plastic_craw", "clouser_minnow"],
       disallowed_lanes: ["hollow_body_frog"],
-      expected_color_lanes: ["white_shad", "bright_contrast", "green_pumpkin_natural"],
+      expected_color_lanes: ["natural", "bright", "natural"],
     },
   },
   {
@@ -444,8 +444,8 @@ export const LARGEMOUTH_V3_ARCHIVED_SCENARIOS: ArchivedRecommenderAuditScenario[
       seasonal_story: "Early-fall river largemouth should open horizontal baitfish lanes around current edges without losing river-specific control.",
       primary_lanes: ["spinnerbait", "paddle_tail_swimbait", "squarebill_crankbait"],
       acceptable_secondary_lanes: ["bladed_jig", "soft_jerkbait", "clouser_minnow"],
-      disallowed_lanes: ["drop_shot_worm_minnow"],
-      expected_color_lanes: ["white_shad", "bright_contrast", "natural_baitfish"],
+      disallowed_lanes: ["drop_shot_worm"],
+      expected_color_lanes: ["natural", "bright", "natural"],
     },
   },
   {
@@ -465,7 +465,7 @@ export const LARGEMOUTH_V3_ARCHIVED_SCENARIOS: ArchivedRecommenderAuditScenario[
       primary_lanes: ["bladed_jig", "spinnerbait", "compact_flipping_jig"],
       acceptable_secondary_lanes: ["paddle_tail_swimbait", "rabbit_strip_leech", "hollow_body_frog"],
       disallowed_lanes: ["blade_bait"],
-      expected_color_lanes: ["dark_contrast", "bright_contrast", "craw_natural"],
+      expected_color_lanes: ["dark", "bright", "natural"],
     },
   },
   {
@@ -485,7 +485,7 @@ export const LARGEMOUTH_V3_ARCHIVED_SCENARIOS: ArchivedRecommenderAuditScenario[
       primary_lanes: ["suspending_jerkbait", "flat_sided_crankbait", "football_jig"],
       acceptable_secondary_lanes: ["paddle_tail_swimbait", "blade_bait", "clouser_minnow"],
       disallowed_lanes: ["hollow_body_frog", "walking_topwater"],
-      expected_color_lanes: ["natural_baitfish", "white_shad", "craw_natural"],
+      expected_color_lanes: ["natural", "natural", "natural"],
     },
   },
   {
@@ -505,7 +505,7 @@ export const LARGEMOUTH_V3_ARCHIVED_SCENARIOS: ArchivedRecommenderAuditScenario[
       primary_lanes: ["weightless_stick_worm", "wacky_rigged_stick_worm", "compact_flipping_jig"],
       acceptable_secondary_lanes: ["swim_jig", "paddle_tail_swimbait", "woolly_bugger"],
       disallowed_lanes: ["blade_bait", "hollow_body_frog"],
-      expected_color_lanes: ["watermelon_natural", "green_pumpkin_natural", "natural_baitfish"],
+      expected_color_lanes: ["natural", "natural", "natural"],
     },
   },
   {
@@ -523,9 +523,9 @@ export const LARGEMOUTH_V3_ARCHIVED_SCENARIOS: ArchivedRecommenderAuditScenario[
     expectation: {
       seasonal_story: "Late-summer Florida largemouth in dirty grass should stay cover-oriented with bold visible lanes, not drift into clear-water finesse.",
       primary_lanes: ["compact_flipping_jig", "texas_rigged_soft_plastic_craw", "hollow_body_frog"],
-      acceptable_secondary_lanes: ["swim_jig", "buzzbait_prop_bait", "frog_fly"],
-      disallowed_lanes: ["drop_shot_worm_minnow", "suspending_jerkbait"],
-      expected_color_lanes: ["dark_contrast", "craw_natural", "frog_natural"],
+      acceptable_secondary_lanes: ["swim_jig", "buzzbait", "prop_bait", "frog_fly"],
+      disallowed_lanes: ["drop_shot_worm", "suspending_jerkbait"],
+      expected_color_lanes: ["dark", "natural", "natural"],
     },
   },
   {
@@ -545,7 +545,7 @@ export const LARGEMOUTH_V3_ARCHIVED_SCENARIOS: ArchivedRecommenderAuditScenario[
       primary_lanes: ["football_jig", "suspending_jerkbait", "flat_sided_crankbait"],
       acceptable_secondary_lanes: ["shaky_head_worm", "texas_rigged_soft_plastic_craw", "rabbit_strip_leech"],
       disallowed_lanes: ["walking_topwater", "hollow_body_frog"],
-      expected_color_lanes: ["green_pumpkin_natural", "white_shad", "dark_contrast"],
+      expected_color_lanes: ["natural", "natural", "dark"],
     },
   },
   {
@@ -564,8 +564,8 @@ export const LARGEMOUTH_V3_ARCHIVED_SCENARIOS: ArchivedRecommenderAuditScenario[
       seasonal_story: "Dirty summer reservoir largemouth should lean visible cover and mid-depth control lanes rather than clean clear-water search baits.",
       primary_lanes: ["compact_flipping_jig", "texas_rigged_soft_plastic_craw", "deep_diving_crankbait"],
       acceptable_secondary_lanes: ["football_jig", "spinnerbait", "woolly_bugger"],
-      disallowed_lanes: ["drop_shot_worm_minnow", "weightless_stick_worm"],
-      expected_color_lanes: ["dark_contrast", "craw_natural", "bright_contrast"],
+      disallowed_lanes: ["drop_shot_worm", "weightless_stick_worm"],
+      expected_color_lanes: ["dark", "natural", "bright"],
     },
   },
   {
@@ -583,9 +583,9 @@ export const LARGEMOUTH_V3_ARCHIVED_SCENARIOS: ArchivedRecommenderAuditScenario[
     expectation: {
       seasonal_story: "Clear highland winter largemouth should stay disciplined around baitfish and subtle lower-mid control, not noisy dirty-water lanes.",
       primary_lanes: ["suspending_jerkbait", "flat_sided_crankbait", "paddle_tail_swimbait"],
-      acceptable_secondary_lanes: ["football_jig", "drop_shot_worm_minnow", "clouser_minnow"],
-      disallowed_lanes: ["buzzbait_prop_bait", "hollow_body_frog"],
-      expected_color_lanes: ["natural_baitfish", "white_shad", "green_pumpkin_natural"],
+      acceptable_secondary_lanes: ["football_jig", "drop_shot_worm", "clouser_minnow"],
+      disallowed_lanes: ["buzzbait", "prop_bait", "hollow_body_frog"],
+      expected_color_lanes: ["natural", "natural", "natural"],
     },
   },
   {
@@ -604,8 +604,8 @@ export const LARGEMOUTH_V3_ARCHIVED_SCENARIOS: ArchivedRecommenderAuditScenario[
       seasonal_story: "Dirty-water southern prespawn bass should still push shallow with visible grass and baitfish lanes, but without leaping into pure surface-only behavior.",
       primary_lanes: ["spinnerbait", "bladed_jig", "compact_flipping_jig"],
       acceptable_secondary_lanes: ["swim_jig", "paddle_tail_swimbait", "game_changer"],
-      disallowed_lanes: ["drop_shot_worm_minnow", "walking_topwater"],
-      expected_color_lanes: ["dark_contrast", "bright_contrast", "craw_natural"],
+      disallowed_lanes: ["drop_shot_worm", "walking_topwater"],
+      expected_color_lanes: ["dark", "bright", "natural"],
     },
   },
   {
@@ -625,7 +625,7 @@ export const LARGEMOUTH_V3_ARCHIVED_SCENARIOS: ArchivedRecommenderAuditScenario[
       primary_lanes: ["soft_jerkbait", "paddle_tail_swimbait", "swim_jig"],
       acceptable_secondary_lanes: ["suspending_jerkbait", "wacky_rigged_stick_worm", "game_changer"],
       disallowed_lanes: ["blade_bait"],
-      expected_color_lanes: ["natural_baitfish", "white_shad", "watermelon_natural"],
+      expected_color_lanes: ["natural", "natural", "natural"],
     },
   },
   {
@@ -645,7 +645,7 @@ export const LARGEMOUTH_V3_ARCHIVED_SCENARIOS: ArchivedRecommenderAuditScenario[
       primary_lanes: ["spinnerbait", "swim_jig", "walking_topwater"],
       acceptable_secondary_lanes: ["paddle_tail_swimbait", "hollow_body_frog", "mouse_fly"],
       disallowed_lanes: ["blade_bait"],
-      expected_color_lanes: ["white_shad", "frog_natural", "bright_contrast"],
+      expected_color_lanes: ["natural", "natural", "bright"],
     },
   },
   {
@@ -664,8 +664,8 @@ export const LARGEMOUTH_V3_ARCHIVED_SCENARIOS: ArchivedRecommenderAuditScenario[
       seasonal_story: "Summer river largemouth should hold to current edges, shade, and ambush water with moving river-friendly presentations, not drift into lake finesse.",
       primary_lanes: ["swim_jig", "spinnerbait", "soft_jerkbait"],
       acceptable_secondary_lanes: ["squarebill_crankbait", "texas_rigged_stick_worm", "clouser_minnow"],
-      disallowed_lanes: ["drop_shot_worm_minnow", "blade_bait"],
-      expected_color_lanes: ["white_shad", "bright_contrast", "green_pumpkin_natural"],
+      disallowed_lanes: ["drop_shot_worm", "blade_bait"],
+      expected_color_lanes: ["natural", "bright", "natural"],
     },
   },
   {
@@ -685,7 +685,7 @@ export const LARGEMOUTH_V3_ARCHIVED_SCENARIOS: ArchivedRecommenderAuditScenario[
       primary_lanes: ["soft_jerkbait", "compact_flipping_jig", "spinnerbait"],
       acceptable_secondary_lanes: ["swim_jig", "paddle_tail_swimbait", "game_changer"],
       disallowed_lanes: ["walking_topwater", "blade_bait"],
-      expected_color_lanes: ["natural_baitfish", "white_shad", "green_pumpkin_natural"],
+      expected_color_lanes: ["natural", "natural", "natural"],
     },
   },
 ];
@@ -711,9 +711,9 @@ export const SMALLMOUTH_V3_ARCHIVED_SCENARIOS: ArchivedRecommenderAuditScenario[
     expectation: {
       seasonal_story: "Cold clear winter smallmouth should stay disciplined around bottom-to-lower-mid control with tubes, hair, blade, and jerkbait lanes.",
       primary_lanes: ["tube_jig", "hair_jig", "suspending_jerkbait"],
-      acceptable_secondary_lanes: ["blade_bait", "drop_shot_worm_minnow", "sculpin_streamer"],
+      acceptable_secondary_lanes: ["blade_bait", "drop_shot_worm", "sculpin_streamer"],
       disallowed_lanes: ["walking_topwater", "popping_topwater", "frog_fly"],
-      expected_color_lanes: ["natural_baitfish", "craw_natural", "green_pumpkin_natural"],
+      expected_color_lanes: ["natural", "natural", "natural"],
     },
   },
   {
@@ -732,8 +732,8 @@ export const SMALLMOUTH_V3_ARCHIVED_SCENARIOS: ArchivedRecommenderAuditScenario[
       seasonal_story: "Prespawn river smallmouth should use current seams with tube, Ned, spinner, jerkbait, and soft-minnow lanes that still feel current-driven.",
       primary_lanes: ["tube_jig", "ned_rig", "spinnerbait"],
       acceptable_secondary_lanes: ["soft_jerkbait", "suspending_jerkbait", "clouser_minnow"],
-      disallowed_lanes: ["hollow_body_frog", "buzzbait_prop_bait"],
-      expected_color_lanes: ["green_pumpkin_natural", "white_shad", "bright_contrast"],
+      disallowed_lanes: ["hollow_body_frog", "buzzbait", "prop_bait"],
+      expected_color_lanes: ["natural", "natural", "bright"],
     },
   },
   {
@@ -753,7 +753,7 @@ export const SMALLMOUTH_V3_ARCHIVED_SCENARIOS: ArchivedRecommenderAuditScenario[
       primary_lanes: ["tube_jig", "football_jig", "suspending_jerkbait"],
       acceptable_secondary_lanes: ["hair_jig", "paddle_tail_swimbait", "clouser_minnow"],
       disallowed_lanes: ["walking_topwater", "popping_topwater", "mouse_fly"],
-      expected_color_lanes: ["natural_baitfish", "craw_natural", "green_pumpkin_natural"],
+      expected_color_lanes: ["natural", "natural", "natural"],
     },
   },
   {
@@ -772,8 +772,8 @@ export const SMALLMOUTH_V3_ARCHIVED_SCENARIOS: ArchivedRecommenderAuditScenario[
       seasonal_story: "Late-spring river smallmouth should still feel current- and rock-oriented, mixing tube/Ned control with moving seam reads.",
       primary_lanes: ["tube_jig", "ned_rig", "soft_jerkbait"],
       acceptable_secondary_lanes: ["spinnerbait", "squarebill_crankbait", "crawfish_streamer"],
-      disallowed_lanes: ["hollow_body_frog", "buzzbait_prop_bait"],
-      expected_color_lanes: ["green_pumpkin_natural", "watermelon_natural", "natural_baitfish"],
+      disallowed_lanes: ["hollow_body_frog", "buzzbait", "prop_bait"],
+      expected_color_lanes: ["natural", "natural", "natural"],
     },
   },
   {
@@ -791,9 +791,9 @@ export const SMALLMOUTH_V3_ARCHIVED_SCENARIOS: ArchivedRecommenderAuditScenario[
     expectation: {
       seasonal_story: "Postspawn lake smallmouth should open horizontal baitfish and clean topwater lanes while keeping tube/drop-shot as disciplined backups.",
       primary_lanes: ["soft_jerkbait", "paddle_tail_swimbait", "walking_topwater"],
-      acceptable_secondary_lanes: ["tube_jig", "drop_shot_worm_minnow", "game_changer"],
+      acceptable_secondary_lanes: ["tube_jig", "drop_shot_worm", "game_changer"],
       disallowed_lanes: ["hollow_body_frog"],
-      expected_color_lanes: ["natural_baitfish", "white_shad", "metal_flash"],
+      expected_color_lanes: ["natural", "natural", "bright"],
     },
   },
   {
@@ -813,7 +813,7 @@ export const SMALLMOUTH_V3_ARCHIVED_SCENARIOS: ArchivedRecommenderAuditScenario[
       primary_lanes: ["walking_topwater", "inline_spinner", "spinnerbait"],
       acceptable_secondary_lanes: ["tube_jig", "soft_jerkbait", "popper_fly"],
       disallowed_lanes: ["hollow_body_frog", "compact_flipping_jig"],
-      expected_color_lanes: ["white_shad", "bright_contrast", "metal_flash"],
+      expected_color_lanes: ["natural", "bright", "bright"],
     },
   },
   {
@@ -830,10 +830,10 @@ export const SMALLMOUTH_V3_ARCHIVED_SCENARIOS: ArchivedRecommenderAuditScenario[
     water_clarity: "clear",
     expectation: {
       seasonal_story: "Bluebird summer smallmouth should still allow topwater and baitfish lanes, but only alongside clean drop-shot, tube, and hair-jig control.",
-      primary_lanes: ["drop_shot_worm_minnow", "tube_jig", "hair_jig"],
+      primary_lanes: ["drop_shot_worm", "tube_jig", "hair_jig"],
       acceptable_secondary_lanes: ["walking_topwater", "paddle_tail_swimbait", "game_changer"],
       disallowed_lanes: ["hollow_body_frog", "compact_flipping_jig"],
-      expected_color_lanes: ["green_pumpkin_natural", "natural_baitfish", "watermelon_natural"],
+      expected_color_lanes: ["natural", "natural", "natural"],
     },
   },
   {
@@ -853,7 +853,7 @@ export const SMALLMOUTH_V3_ARCHIVED_SCENARIOS: ArchivedRecommenderAuditScenario[
       primary_lanes: ["suspending_jerkbait", "spinnerbait", "paddle_tail_swimbait"],
       acceptable_secondary_lanes: ["inline_spinner", "tube_jig", "slim_minnow_streamer"],
       disallowed_lanes: ["hollow_body_frog"],
-      expected_color_lanes: ["natural_baitfish", "white_shad", "metal_flash"],
+      expected_color_lanes: ["natural", "natural", "bright"],
     },
   },
   {
@@ -873,7 +873,7 @@ export const SMALLMOUTH_V3_ARCHIVED_SCENARIOS: ArchivedRecommenderAuditScenario[
       primary_lanes: ["suspending_jerkbait", "paddle_tail_swimbait", "blade_bait"],
       acceptable_secondary_lanes: ["spinnerbait", "hair_jig", "clouser_minnow"],
       disallowed_lanes: ["hollow_body_frog", "compact_flipping_jig"],
-      expected_color_lanes: ["white_shad", "natural_baitfish", "metal_flash"],
+      expected_color_lanes: ["natural", "natural", "bright"],
     },
   },
   {
@@ -893,7 +893,7 @@ export const SMALLMOUTH_V3_ARCHIVED_SCENARIOS: ArchivedRecommenderAuditScenario[
       primary_lanes: ["tube_jig", "hair_jig", "ned_rig"],
       acceptable_secondary_lanes: ["blade_bait", "suspending_jerkbait", "sculpin_streamer"],
       disallowed_lanes: ["walking_topwater", "popping_topwater"],
-      expected_color_lanes: ["green_pumpkin_natural", "craw_natural", "natural_baitfish"],
+      expected_color_lanes: ["natural", "natural", "natural"],
     },
   },
 ];
@@ -934,8 +934,8 @@ export const SMALLMOUTH_V3_ARCHIVED_SCENARIOS_BATCH_2: ArchivedRecommenderAuditS
       seasonal_story: "Late-winter clear river smallmouth should stay in subtle current-aware control with tube, hair, Ned, blade, and jerkbait lanes.",
       primary_lanes: ["tube_jig", "hair_jig", "ned_rig"],
       acceptable_secondary_lanes: ["blade_bait", "suspending_jerkbait", "sculpin_streamer"],
-      disallowed_lanes: ["walking_topwater", "popping_topwater", "buzzbait_prop_bait"],
-      expected_color_lanes: ["green_pumpkin_natural", "natural_baitfish", "craw_natural"],
+      disallowed_lanes: ["walking_topwater", "popping_topwater", "buzzbait", "prop_bait"],
+      expected_color_lanes: ["natural", "natural", "natural"],
     },
   },
   {
@@ -954,8 +954,8 @@ export const SMALLMOUTH_V3_ARCHIVED_SCENARIOS_BATCH_2: ArchivedRecommenderAuditS
       seasonal_story: "Windy stained spring smallmouth lakes should still feel prespawn-to-spawn disciplined, but allow jerkbait, crankbait, and swimbait lanes to open up.",
       primary_lanes: ["tube_jig", "suspending_jerkbait", "paddle_tail_swimbait"],
       acceptable_secondary_lanes: ["flat_sided_crankbait", "hair_jig", "clouser_minnow"],
-      disallowed_lanes: ["hollow_body_frog", "buzzbait_prop_bait"],
-      expected_color_lanes: ["white_shad", "green_pumpkin_natural", "bright_contrast"],
+      disallowed_lanes: ["hollow_body_frog", "buzzbait", "prop_bait"],
+      expected_color_lanes: ["natural", "natural", "bright"],
     },
   },
   {
@@ -972,10 +972,10 @@ export const SMALLMOUTH_V3_ARCHIVED_SCENARIOS_BATCH_2: ArchivedRecommenderAuditS
     water_clarity: "clear",
     expectation: {
       seasonal_story: "Spawn-stage clear lake smallmouth should stay target- and bottom-aware with tube, Ned, drop-shot, and clean jerkbait lanes rather than noisy surface jumps.",
-      primary_lanes: ["tube_jig", "ned_rig", "drop_shot_worm_minnow"],
+      primary_lanes: ["tube_jig", "ned_rig", "drop_shot_worm"],
       acceptable_secondary_lanes: ["suspending_jerkbait", "hair_jig", "crawfish_streamer"],
       disallowed_lanes: ["walking_topwater", "popping_topwater"],
-      expected_color_lanes: ["green_pumpkin_natural", "watermelon_natural", "natural_baitfish"],
+      expected_color_lanes: ["natural", "natural", "natural"],
     },
   },
   {
@@ -995,7 +995,7 @@ export const SMALLMOUTH_V3_ARCHIVED_SCENARIOS_BATCH_2: ArchivedRecommenderAuditS
       primary_lanes: ["soft_jerkbait", "inline_spinner", "walking_topwater"],
       acceptable_secondary_lanes: ["tube_jig", "paddle_tail_swimbait", "clouser_minnow"],
       disallowed_lanes: ["hollow_body_frog", "compact_flipping_jig"],
-      expected_color_lanes: ["natural_baitfish", "metal_flash", "white_shad"],
+      expected_color_lanes: ["natural", "bright", "natural"],
     },
   },
   {
@@ -1012,10 +1012,10 @@ export const SMALLMOUTH_V3_ARCHIVED_SCENARIOS_BATCH_2: ArchivedRecommenderAuditS
     water_clarity: "clear",
     expectation: {
       seasonal_story: "Clear midsummer lake smallmouth should allow topwater and clean baitfish lanes, but still through a smallmouth lens with tube/drop-shot support.",
-      primary_lanes: ["walking_topwater", "paddle_tail_swimbait", "drop_shot_worm_minnow"],
+      primary_lanes: ["walking_topwater", "paddle_tail_swimbait", "drop_shot_worm"],
       acceptable_secondary_lanes: ["tube_jig", "hair_jig", "popper_fly"],
       disallowed_lanes: ["hollow_body_frog", "compact_flipping_jig"],
-      expected_color_lanes: ["natural_baitfish", "white_shad", "green_pumpkin_natural"],
+      expected_color_lanes: ["natural", "natural", "natural"],
     },
   },
   {
@@ -1035,7 +1035,7 @@ export const SMALLMOUTH_V3_ARCHIVED_SCENARIOS_BATCH_2: ArchivedRecommenderAuditS
       primary_lanes: ["inline_spinner", "spinnerbait", "walking_topwater"],
       acceptable_secondary_lanes: ["soft_jerkbait", "tube_jig", "popper_fly"],
       disallowed_lanes: ["hollow_body_frog", "compact_flipping_jig"],
-      expected_color_lanes: ["bright_contrast", "white_shad", "metal_flash"],
+      expected_color_lanes: ["bright", "natural", "bright"],
     },
   },
   {
@@ -1055,7 +1055,7 @@ export const SMALLMOUTH_V3_ARCHIVED_SCENARIOS_BATCH_2: ArchivedRecommenderAuditS
       primary_lanes: ["suspending_jerkbait", "paddle_tail_swimbait", "blade_bait"],
       acceptable_secondary_lanes: ["inline_spinner", "slim_minnow_streamer", "tube_jig"],
       disallowed_lanes: ["walking_topwater", "popping_topwater"],
-      expected_color_lanes: ["natural_baitfish", "white_shad", "metal_flash"],
+      expected_color_lanes: ["natural", "natural", "bright"],
     },
   },
   {
@@ -1075,7 +1075,7 @@ export const SMALLMOUTH_V3_ARCHIVED_SCENARIOS_BATCH_2: ArchivedRecommenderAuditS
       primary_lanes: ["suspending_jerkbait", "blade_bait", "hair_jig"],
       acceptable_secondary_lanes: ["paddle_tail_swimbait", "tube_jig", "slim_minnow_streamer"],
       disallowed_lanes: ["walking_topwater", "popping_topwater"],
-      expected_color_lanes: ["white_shad", "bright_contrast", "natural_baitfish"],
+      expected_color_lanes: ["natural", "bright", "natural"],
     },
   },
   {
@@ -1095,7 +1095,7 @@ export const SMALLMOUTH_V3_ARCHIVED_SCENARIOS_BATCH_2: ArchivedRecommenderAuditS
       primary_lanes: ["suspending_jerkbait", "inline_spinner", "paddle_tail_swimbait"],
       acceptable_secondary_lanes: ["spinnerbait", "tube_jig", "clouser_minnow"],
       disallowed_lanes: ["hollow_body_frog", "compact_flipping_jig"],
-      expected_color_lanes: ["natural_baitfish", "white_shad", "metal_flash"],
+      expected_color_lanes: ["natural", "natural", "bright"],
     },
   },
   {
@@ -1113,9 +1113,9 @@ export const SMALLMOUTH_V3_ARCHIVED_SCENARIOS_BATCH_2: ArchivedRecommenderAuditS
     expectation: {
       seasonal_story: "Early-winter clear smallmouth lakes should stay in subtle lower-column control with tube, hair, blade, and jerkbait lanes, not warm-season power.",
       primary_lanes: ["tube_jig", "hair_jig", "suspending_jerkbait"],
-      acceptable_secondary_lanes: ["blade_bait", "drop_shot_worm_minnow", "sculpin_streamer"],
+      acceptable_secondary_lanes: ["blade_bait", "drop_shot_worm", "sculpin_streamer"],
       disallowed_lanes: ["walking_topwater", "popping_topwater"],
-      expected_color_lanes: ["green_pumpkin_natural", "natural_baitfish", "craw_natural"],
+      expected_color_lanes: ["natural", "natural", "natural"],
     },
   },
 ];
@@ -1156,8 +1156,8 @@ export const SMALLMOUTH_V3_ARCHIVED_SCENARIOS_BATCH_3: ArchivedRecommenderAuditS
       seasonal_story: "Stained prespawn river smallmouth should still feel current-seam and rock disciplined, but spinnerbait, tube, and soft-minnow lanes should open naturally.",
       primary_lanes: ["spinnerbait", "tube_jig", "soft_jerkbait"],
       acceptable_secondary_lanes: ["suspending_jerkbait", "inline_spinner", "clouser_minnow"],
-      disallowed_lanes: ["hollow_body_frog", "buzzbait_prop_bait"],
-      expected_color_lanes: ["white_shad", "bright_contrast", "green_pumpkin_natural"],
+      disallowed_lanes: ["hollow_body_frog", "buzzbait", "prop_bait"],
+      expected_color_lanes: ["natural", "bright", "natural"],
     },
   },
   {
@@ -1177,7 +1177,7 @@ export const SMALLMOUTH_V3_ARCHIVED_SCENARIOS_BATCH_3: ArchivedRecommenderAuditS
       primary_lanes: ["spinnerbait", "tube_jig", "suspending_jerkbait"],
       acceptable_secondary_lanes: ["paddle_tail_swimbait", "flat_sided_crankbait", "clouser_minnow"],
       disallowed_lanes: ["walking_topwater", "popping_topwater"],
-      expected_color_lanes: ["white_shad", "bright_contrast", "green_pumpkin_natural"],
+      expected_color_lanes: ["natural", "bright", "natural"],
     },
   },
   {
@@ -1197,7 +1197,7 @@ export const SMALLMOUTH_V3_ARCHIVED_SCENARIOS_BATCH_3: ArchivedRecommenderAuditS
       primary_lanes: ["spinnerbait", "paddle_tail_swimbait", "tube_jig"],
       acceptable_secondary_lanes: ["soft_jerkbait", "flat_sided_crankbait", "game_changer"],
       disallowed_lanes: ["hollow_body_frog", "compact_flipping_jig"],
-      expected_color_lanes: ["white_shad", "bright_contrast", "green_pumpkin_natural"],
+      expected_color_lanes: ["natural", "bright", "natural"],
     },
   },
   {
@@ -1217,7 +1217,7 @@ export const SMALLMOUTH_V3_ARCHIVED_SCENARIOS_BATCH_3: ArchivedRecommenderAuditS
       primary_lanes: ["soft_jerkbait", "inline_spinner", "tube_jig"],
       acceptable_secondary_lanes: ["paddle_tail_swimbait", "walking_topwater", "clouser_minnow"],
       disallowed_lanes: ["hollow_body_frog", "compact_flipping_jig"],
-      expected_color_lanes: ["natural_baitfish", "metal_flash", "green_pumpkin_natural"],
+      expected_color_lanes: ["natural", "bright", "natural"],
     },
   },
   {
@@ -1237,7 +1237,7 @@ export const SMALLMOUTH_V3_ARCHIVED_SCENARIOS_BATCH_3: ArchivedRecommenderAuditS
       primary_lanes: ["spinnerbait", "inline_spinner", "soft_jerkbait"],
       acceptable_secondary_lanes: ["paddle_tail_swimbait", "tube_jig", "clouser_minnow"],
       disallowed_lanes: ["hollow_body_frog", "compact_flipping_jig"],
-      expected_color_lanes: ["bright_contrast", "white_shad", "metal_flash"],
+      expected_color_lanes: ["bright", "natural", "bright"],
     },
   },
   {
@@ -1255,9 +1255,9 @@ export const SMALLMOUTH_V3_ARCHIVED_SCENARIOS_BATCH_3: ArchivedRecommenderAuditS
     expectation: {
       seasonal_story: "Windy stained late-summer lake smallmouth should allow spinnerbait, walking topwater, and swimbait lanes while still carrying tube support.",
       primary_lanes: ["spinnerbait", "walking_topwater", "paddle_tail_swimbait"],
-      acceptable_secondary_lanes: ["tube_jig", "drop_shot_worm_minnow", "popper_fly"],
+      acceptable_secondary_lanes: ["tube_jig", "drop_shot_worm", "popper_fly"],
       disallowed_lanes: ["hollow_body_frog", "compact_flipping_jig"],
-      expected_color_lanes: ["white_shad", "bright_contrast", "green_pumpkin_natural"],
+      expected_color_lanes: ["natural", "bright", "natural"],
     },
   },
   {
@@ -1277,7 +1277,7 @@ export const SMALLMOUTH_V3_ARCHIVED_SCENARIOS_BATCH_3: ArchivedRecommenderAuditS
       primary_lanes: ["spinnerbait", "paddle_tail_swimbait", "clouser_minnow"],
       acceptable_secondary_lanes: ["tube_jig", "squarebill_crankbait", "game_changer"],
       disallowed_lanes: ["walking_topwater", "popping_topwater"],
-      expected_color_lanes: ["bright_contrast", "white_shad", "dark_contrast"],
+      expected_color_lanes: ["bright", "natural", "dark"],
     },
   },
   {
@@ -1297,7 +1297,7 @@ export const SMALLMOUTH_V3_ARCHIVED_SCENARIOS_BATCH_3: ArchivedRecommenderAuditS
       primary_lanes: ["suspending_jerkbait", "paddle_tail_swimbait", "hair_jig"],
       acceptable_secondary_lanes: ["blade_bait", "tube_jig", "slim_minnow_streamer"],
       disallowed_lanes: ["walking_topwater", "popping_topwater"],
-      expected_color_lanes: ["natural_baitfish", "white_shad", "metal_flash"],
+      expected_color_lanes: ["natural", "natural", "bright"],
     },
   },
   {
@@ -1317,7 +1317,7 @@ export const SMALLMOUTH_V3_ARCHIVED_SCENARIOS_BATCH_3: ArchivedRecommenderAuditS
       primary_lanes: ["blade_bait", "suspending_jerkbait", "paddle_tail_swimbait"],
       acceptable_secondary_lanes: ["tube_jig", "slim_minnow_streamer", "inline_spinner"],
       disallowed_lanes: ["walking_topwater", "popping_topwater"],
-      expected_color_lanes: ["metal_flash", "natural_baitfish", "white_shad"],
+      expected_color_lanes: ["bright", "natural", "natural"],
     },
   },
   {
@@ -1337,7 +1337,7 @@ export const SMALLMOUTH_V3_ARCHIVED_SCENARIOS_BATCH_3: ArchivedRecommenderAuditS
       primary_lanes: ["suspending_jerkbait", "blade_bait", "hair_jig"],
       acceptable_secondary_lanes: ["tube_jig", "paddle_tail_swimbait", "clouser_minnow"],
       disallowed_lanes: ["walking_topwater", "popping_topwater"],
-      expected_color_lanes: ["white_shad", "bright_contrast", "dark_contrast"],
+      expected_color_lanes: ["natural", "bright", "dark"],
     },
   },
 ];
@@ -1441,7 +1441,7 @@ export const TROUT_V3_ARCHIVED_SCENARIOS: ArchivedRecommenderAuditScenario[] = [
       primary_lanes: ["sculpin_streamer", "woolly_bugger", "hair_jig"],
       acceptable_secondary_lanes: ["rabbit_strip_leech", "suspending_jerkbait", "conehead_streamer"],
       disallowed_lanes: ["popper_fly", "mouse_fly", "walking_topwater"],
-      expected_color_lanes: ["dark_contrast", "natural_baitfish", "white_shad"],
+      expected_color_lanes: ["dark", "natural", "natural"],
     },
   },
   {
@@ -1461,7 +1461,7 @@ export const TROUT_V3_ARCHIVED_SCENARIOS: ArchivedRecommenderAuditScenario[] = [
       primary_lanes: ["slim_minnow_streamer", "woolly_bugger", "inline_spinner"],
       acceptable_secondary_lanes: ["clouser_minnow", "suspending_jerkbait", "muddler_sculpin"],
       disallowed_lanes: ["popper_fly", "frog_fly", "walking_topwater"],
-      expected_color_lanes: ["natural_baitfish", "white_shad", "dark_contrast"],
+      expected_color_lanes: ["natural", "natural", "dark"],
     },
   },
   {
@@ -1481,7 +1481,7 @@ export const TROUT_V3_ARCHIVED_SCENARIOS: ArchivedRecommenderAuditScenario[] = [
       primary_lanes: ["slim_minnow_streamer", "sculpin_streamer", "inline_spinner"],
       acceptable_secondary_lanes: ["clouser_minnow", "woolly_bugger", "suspending_jerkbait"],
       disallowed_lanes: ["popper_fly", "mouse_fly", "walking_topwater"],
-      expected_color_lanes: ["natural_baitfish", "white_shad", "metal_flash"],
+      expected_color_lanes: ["natural", "natural", "bright"],
     },
   },
   {
@@ -1500,8 +1500,8 @@ export const TROUT_V3_ARCHIVED_SCENARIOS: ArchivedRecommenderAuditScenario[] = [
       seasonal_story: "Early-summer trout should allow clean baitfish streamer and spinner lanes, with one tasteful mouse option only if conditions support it.",
       primary_lanes: ["slim_minnow_streamer", "inline_spinner", "clouser_minnow"],
       acceptable_secondary_lanes: ["muddler_sculpin", "mouse_fly", "casting_spoon"],
-      disallowed_lanes: ["frog_fly", "popping_topwater", "buzzbait_prop_bait"],
-      expected_color_lanes: ["natural_baitfish", "white_shad", "metal_flash"],
+      disallowed_lanes: ["frog_fly", "popping_topwater", "buzzbait", "prop_bait"],
+      expected_color_lanes: ["natural", "natural", "bright"],
     },
   },
   {
@@ -1521,7 +1521,7 @@ export const TROUT_V3_ARCHIVED_SCENARIOS: ArchivedRecommenderAuditScenario[] = [
       primary_lanes: ["muddler_sculpin", "woolly_bugger", "rabbit_strip_leech"],
       acceptable_secondary_lanes: ["sculpin_streamer", "hair_jig", "slim_minnow_streamer"],
       disallowed_lanes: ["popper_fly", "mouse_fly", "walking_topwater"],
-      expected_color_lanes: ["dark_contrast", "natural_baitfish", "white_shad"],
+      expected_color_lanes: ["dark", "natural", "natural"],
     },
   },
   {
@@ -1540,8 +1540,8 @@ export const TROUT_V3_ARCHIVED_SCENARIOS: ArchivedRecommenderAuditScenario[] = [
       seasonal_story: "A stained late-summer tailwater bump should still stay trout-clean, but visible bugger, sculpin, and minnow lanes should rise naturally.",
       primary_lanes: ["woolly_bugger", "sculpin_streamer", "slim_minnow_streamer"],
       acceptable_secondary_lanes: ["rabbit_strip_leech", "clouser_minnow", "inline_spinner"],
-      disallowed_lanes: ["frog_fly", "popping_topwater", "buzzbait_prop_bait"],
-      expected_color_lanes: ["dark_contrast", "white_shad", "bright_contrast"],
+      disallowed_lanes: ["frog_fly", "popping_topwater", "buzzbait", "prop_bait"],
+      expected_color_lanes: ["dark", "natural", "bright"],
     },
   },
   {
@@ -1560,8 +1560,8 @@ export const TROUT_V3_ARCHIVED_SCENARIOS: ArchivedRecommenderAuditScenario[] = [
       seasonal_story: "Clear fall trout should strongly reward baitfish streamer and minnow lanes, with one mouse option allowed but not mandatory.",
       primary_lanes: ["game_changer", "slim_minnow_streamer", "articulated_baitfish_streamer"],
       acceptable_secondary_lanes: ["zonker_streamer", "mouse_fly", "suspending_jerkbait"],
-      disallowed_lanes: ["frog_fly", "popping_topwater", "buzzbait_prop_bait"],
-      expected_color_lanes: ["natural_baitfish", "white_shad", "dark_contrast"],
+      disallowed_lanes: ["frog_fly", "popping_topwater", "buzzbait", "prop_bait"],
+      expected_color_lanes: ["natural", "natural", "dark"],
     },
   },
   {
@@ -1581,7 +1581,7 @@ export const TROUT_V3_ARCHIVED_SCENARIOS: ArchivedRecommenderAuditScenario[] = [
       primary_lanes: ["slim_minnow_streamer", "articulated_baitfish_streamer", "sculpin_streamer"],
       acceptable_secondary_lanes: ["suspending_jerkbait", "inline_spinner", "zonker_streamer"],
       disallowed_lanes: ["frog_fly", "popping_topwater", "walking_topwater"],
-      expected_color_lanes: ["natural_baitfish", "white_shad", "dark_contrast"],
+      expected_color_lanes: ["natural", "natural", "dark"],
     },
   },
   {
@@ -1601,7 +1601,7 @@ export const TROUT_V3_ARCHIVED_SCENARIOS: ArchivedRecommenderAuditScenario[] = [
       primary_lanes: ["articulated_baitfish_streamer", "woolly_bugger", "inline_spinner"],
       acceptable_secondary_lanes: ["slim_minnow_streamer", "zonker_streamer", "casting_spoon"],
       disallowed_lanes: ["popper_fly", "mouse_fly", "walking_topwater"],
-      expected_color_lanes: ["white_shad", "dark_contrast", "bright_contrast"],
+      expected_color_lanes: ["natural", "dark", "bright"],
     },
   },
   {
@@ -1621,7 +1621,7 @@ export const TROUT_V3_ARCHIVED_SCENARIOS: ArchivedRecommenderAuditScenario[] = [
       primary_lanes: ["sculpin_streamer", "woolly_bugger", "rabbit_strip_leech"],
       acceptable_secondary_lanes: ["conehead_streamer", "suspending_jerkbait", "hair_jig"],
       disallowed_lanes: ["mouse_fly", "popper_fly", "walking_topwater"],
-      expected_color_lanes: ["dark_contrast", "natural_baitfish", "white_shad"],
+      expected_color_lanes: ["dark", "natural", "natural"],
     },
   },
 ];
@@ -1663,7 +1663,7 @@ export const TROUT_V3_ARCHIVED_SCENARIOS_BATCH_2: ArchivedRecommenderAuditScenar
       primary_lanes: ["sculpin_streamer", "woolly_bugger", "suspending_jerkbait"],
       acceptable_secondary_lanes: ["rabbit_strip_leech", "slim_minnow_streamer", "hair_jig"],
       disallowed_lanes: ["popper_fly", "mouse_fly", "walking_topwater"],
-      expected_color_lanes: ["dark_contrast", "natural_baitfish", "white_shad"],
+      expected_color_lanes: ["dark", "natural", "natural"],
     },
   },
   {
@@ -1682,8 +1682,8 @@ export const TROUT_V3_ARCHIVED_SCENARIOS_BATCH_2: ArchivedRecommenderAuditScenar
       seasonal_story: "A stained spring tailwater pulse should open visible streamer and spinner lanes, but still stay trout-clean and current-aware.",
       primary_lanes: ["clouser_minnow", "slim_minnow_streamer", "inline_spinner"],
       acceptable_secondary_lanes: ["woolly_bugger", "suspending_jerkbait", "muddler_sculpin"],
-      disallowed_lanes: ["frog_fly", "buzzbait_prop_bait", "popping_topwater"],
-      expected_color_lanes: ["white_shad", "bright_contrast", "dark_contrast"],
+      disallowed_lanes: ["frog_fly", "buzzbait", "prop_bait", "popping_topwater"],
+      expected_color_lanes: ["natural", "bright", "dark"],
     },
   },
   {
@@ -1703,7 +1703,7 @@ export const TROUT_V3_ARCHIVED_SCENARIOS_BATCH_2: ArchivedRecommenderAuditScenar
       primary_lanes: ["woolly_bugger", "slim_minnow_streamer", "inline_spinner"],
       acceptable_secondary_lanes: ["sculpin_streamer", "clouser_minnow", "suspending_jerkbait"],
       disallowed_lanes: ["popper_fly", "mouse_fly", "walking_topwater"],
-      expected_color_lanes: ["natural_baitfish", "white_shad", "dark_contrast"],
+      expected_color_lanes: ["natural", "natural", "dark"],
     },
   },
   {
@@ -1722,8 +1722,8 @@ export const TROUT_V3_ARCHIVED_SCENARIOS_BATCH_2: ArchivedRecommenderAuditScenar
       seasonal_story: "A runoff-edge western trout day should promote visible minnow, bugger, and spinner lanes without turning into bass power fishing.",
       primary_lanes: ["clouser_minnow", "woolly_bugger", "inline_spinner"],
       acceptable_secondary_lanes: ["slim_minnow_streamer", "muddler_sculpin", "casting_spoon"],
-      disallowed_lanes: ["frog_fly", "buzzbait_prop_bait", "hollow_body_frog"],
-      expected_color_lanes: ["white_shad", "bright_contrast", "dark_contrast"],
+      disallowed_lanes: ["frog_fly", "buzzbait", "prop_bait", "hollow_body_frog"],
+      expected_color_lanes: ["natural", "bright", "dark"],
     },
   },
   {
@@ -1743,7 +1743,7 @@ export const TROUT_V3_ARCHIVED_SCENARIOS_BATCH_2: ArchivedRecommenderAuditScenar
       primary_lanes: ["muddler_sculpin", "woolly_bugger", "rabbit_strip_leech"],
       acceptable_secondary_lanes: ["sculpin_streamer", "hair_jig", "slim_minnow_streamer"],
       disallowed_lanes: ["mouse_fly", "popper_fly", "walking_topwater"],
-      expected_color_lanes: ["dark_contrast", "natural_baitfish", "white_shad"],
+      expected_color_lanes: ["dark", "natural", "natural"],
     },
   },
   {
@@ -1762,8 +1762,8 @@ export const TROUT_V3_ARCHIVED_SCENARIOS_BATCH_2: ArchivedRecommenderAuditScenar
       seasonal_story: "Low-water late-summer trout should stay clean and controlled with slim minnow, muddler, and understated bugger lanes.",
       primary_lanes: ["clouser_minnow", "slim_minnow_streamer", "muddler_sculpin"],
       acceptable_secondary_lanes: ["woolly_bugger", "inline_spinner", "mouse_fly"],
-      disallowed_lanes: ["frog_fly", "buzzbait_prop_bait", "popping_topwater"],
-      expected_color_lanes: ["natural_baitfish", "white_shad", "dark_contrast"],
+      disallowed_lanes: ["frog_fly", "buzzbait", "prop_bait", "popping_topwater"],
+      expected_color_lanes: ["natural", "natural", "dark"],
     },
   },
   {
@@ -1783,7 +1783,7 @@ export const TROUT_V3_ARCHIVED_SCENARIOS_BATCH_2: ArchivedRecommenderAuditScenar
       primary_lanes: ["articulated_baitfish_streamer", "sculpin_streamer", "rabbit_strip_leech"],
       acceptable_secondary_lanes: ["slim_minnow_streamer", "game_changer", "zonker_streamer"],
       disallowed_lanes: ["popper_fly", "frog_fly", "walking_topwater"],
-      expected_color_lanes: ["natural_baitfish", "dark_contrast", "white_shad"],
+      expected_color_lanes: ["natural", "dark", "natural"],
     },
   },
   {
@@ -1803,7 +1803,7 @@ export const TROUT_V3_ARCHIVED_SCENARIOS_BATCH_2: ArchivedRecommenderAuditScenar
       primary_lanes: ["articulated_baitfish_streamer", "woolly_bugger", "inline_spinner"],
       acceptable_secondary_lanes: ["slim_minnow_streamer", "game_changer", "suspending_jerkbait"],
       disallowed_lanes: ["mouse_fly", "popper_fly", "walking_topwater"],
-      expected_color_lanes: ["white_shad", "bright_contrast", "dark_contrast"],
+      expected_color_lanes: ["natural", "bright", "dark"],
     },
   },
   {
@@ -1823,7 +1823,7 @@ export const TROUT_V3_ARCHIVED_SCENARIOS_BATCH_2: ArchivedRecommenderAuditScenar
       primary_lanes: ["slim_minnow_streamer", "zonker_streamer", "articulated_baitfish_streamer"],
       acceptable_secondary_lanes: ["suspending_jerkbait", "game_changer", "inline_spinner"],
       disallowed_lanes: ["mouse_fly", "popper_fly", "walking_topwater"],
-      expected_color_lanes: ["natural_baitfish", "white_shad", "dark_contrast"],
+      expected_color_lanes: ["natural", "natural", "dark"],
     },
   },
   {
@@ -1843,7 +1843,7 @@ export const TROUT_V3_ARCHIVED_SCENARIOS_BATCH_2: ArchivedRecommenderAuditScenar
       primary_lanes: ["sculpin_streamer", "woolly_bugger", "suspending_jerkbait"],
       acceptable_secondary_lanes: ["slim_minnow_streamer", "hair_jig", "conehead_streamer"],
       disallowed_lanes: ["mouse_fly", "popper_fly", "walking_topwater"],
-      expected_color_lanes: ["dark_contrast", "natural_baitfish", "white_shad"],
+      expected_color_lanes: ["dark", "natural", "natural"],
     },
   },
 ];
@@ -1885,7 +1885,7 @@ export const TROUT_V3_ARCHIVED_SCENARIOS_BATCH_3: ArchivedRecommenderAuditScenar
       primary_lanes: ["sculpin_streamer", "woolly_bugger", "clouser_minnow"],
       acceptable_secondary_lanes: ["slim_minnow_streamer", "inline_spinner", "muddler_sculpin"],
       disallowed_lanes: ["mouse_fly", "popper_fly", "walking_topwater"],
-      expected_color_lanes: ["dark_contrast", "white_shad", "bright_contrast"],
+      expected_color_lanes: ["dark", "natural", "bright"],
     },
   },
   {
@@ -1905,7 +1905,7 @@ export const TROUT_V3_ARCHIVED_SCENARIOS_BATCH_3: ArchivedRecommenderAuditScenar
       primary_lanes: ["sculpin_streamer", "clouser_minnow", "woolly_bugger"],
       acceptable_secondary_lanes: ["slim_minnow_streamer", "suspending_jerkbait", "hair_jig"],
       disallowed_lanes: ["mouse_fly", "popper_fly", "walking_topwater"],
-      expected_color_lanes: ["dark_contrast", "natural_baitfish", "white_shad"],
+      expected_color_lanes: ["dark", "natural", "natural"],
     },
   },
   {
@@ -1924,8 +1924,8 @@ export const TROUT_V3_ARCHIVED_SCENARIOS_BATCH_3: ArchivedRecommenderAuditScenar
       seasonal_story: "Early-summer tailwater trout can open slim-minnow, clouser, and inline-spinner lanes, but should still feel measured and current-aware.",
       primary_lanes: ["slim_minnow_streamer", "clouser_minnow", "inline_spinner"],
       acceptable_secondary_lanes: ["muddler_sculpin", "woolly_bugger", "suspending_jerkbait"],
-      disallowed_lanes: ["frog_fly", "buzzbait_prop_bait", "hollow_body_frog"],
-      expected_color_lanes: ["natural_baitfish", "white_shad", "metal_flash"],
+      disallowed_lanes: ["frog_fly", "buzzbait", "prop_bait", "hollow_body_frog"],
+      expected_color_lanes: ["natural", "natural", "bright"],
     },
   },
   {
@@ -1944,8 +1944,8 @@ export const TROUT_V3_ARCHIVED_SCENARIOS_BATCH_3: ArchivedRecommenderAuditScenar
       seasonal_story: "Even with summertime bank activity, trout V3 should stay streamer-minded here and not drift into noisy surface recommendations by default.",
       primary_lanes: ["muddler_sculpin", "slim_minnow_streamer", "woolly_bugger"],
       acceptable_secondary_lanes: ["clouser_minnow", "mouse_fly", "inline_spinner"],
-      disallowed_lanes: ["frog_fly", "buzzbait_prop_bait", "popping_topwater"],
-      expected_color_lanes: ["natural_baitfish", "dark_contrast", "white_shad"],
+      disallowed_lanes: ["frog_fly", "buzzbait", "prop_bait", "popping_topwater"],
+      expected_color_lanes: ["natural", "dark", "natural"],
     },
   },
   {
@@ -1964,8 +1964,8 @@ export const TROUT_V3_ARCHIVED_SCENARIOS_BATCH_3: ArchivedRecommenderAuditScenar
       seasonal_story: "Low-light late-summer trout should let slim-minnow, clouser, and bugger lanes breathe without turning into aggressive warmwater chaos.",
       primary_lanes: ["slim_minnow_streamer", "clouser_minnow", "woolly_bugger"],
       acceptable_secondary_lanes: ["muddler_sculpin", "inline_spinner", "mouse_fly"],
-      disallowed_lanes: ["frog_fly", "buzzbait_prop_bait", "hollow_body_frog"],
-      expected_color_lanes: ["natural_baitfish", "white_shad", "dark_contrast"],
+      disallowed_lanes: ["frog_fly", "buzzbait", "prop_bait", "hollow_body_frog"],
+      expected_color_lanes: ["natural", "natural", "dark"],
     },
   },
   {
@@ -1985,7 +1985,7 @@ export const TROUT_V3_ARCHIVED_SCENARIOS_BATCH_3: ArchivedRecommenderAuditScenar
       primary_lanes: ["articulated_baitfish_streamer", "game_changer", "slim_minnow_streamer"],
       acceptable_secondary_lanes: ["zonker_streamer", "suspending_jerkbait", "sculpin_streamer"],
       disallowed_lanes: ["popper_fly", "frog_fly", "walking_topwater"],
-      expected_color_lanes: ["natural_baitfish", "white_shad", "dark_contrast"],
+      expected_color_lanes: ["natural", "natural", "dark"],
     },
   },
   {
@@ -2005,7 +2005,7 @@ export const TROUT_V3_ARCHIVED_SCENARIOS_BATCH_3: ArchivedRecommenderAuditScenar
       primary_lanes: ["articulated_baitfish_streamer", "woolly_bugger", "zonker_streamer"],
       acceptable_secondary_lanes: ["slim_minnow_streamer", "inline_spinner", "game_changer"],
       disallowed_lanes: ["mouse_fly", "popper_fly", "walking_topwater"],
-      expected_color_lanes: ["white_shad", "dark_contrast", "bright_contrast"],
+      expected_color_lanes: ["natural", "dark", "bright"],
     },
   },
   {
@@ -2025,7 +2025,7 @@ export const TROUT_V3_ARCHIVED_SCENARIOS_BATCH_3: ArchivedRecommenderAuditScenar
       primary_lanes: ["articulated_baitfish_streamer", "slim_minnow_streamer", "zonker_streamer"],
       acceptable_secondary_lanes: ["sculpin_streamer", "woolly_bugger", "suspending_jerkbait"],
       disallowed_lanes: ["mouse_fly", "popper_fly", "walking_topwater"],
-      expected_color_lanes: ["natural_baitfish", "dark_contrast", "white_shad"],
+      expected_color_lanes: ["natural", "dark", "natural"],
     },
   },
   {
@@ -2045,7 +2045,7 @@ export const TROUT_V3_ARCHIVED_SCENARIOS_BATCH_3: ArchivedRecommenderAuditScenar
       primary_lanes: ["sculpin_streamer", "rabbit_strip_leech", "conehead_streamer"],
       acceptable_secondary_lanes: ["woolly_bugger", "hair_jig", "suspending_jerkbait"],
       disallowed_lanes: ["mouse_fly", "popper_fly", "walking_topwater"],
-      expected_color_lanes: ["dark_contrast", "natural_baitfish", "white_shad"],
+      expected_color_lanes: ["dark", "natural", "natural"],
     },
   },
   {
@@ -2065,7 +2065,7 @@ export const TROUT_V3_ARCHIVED_SCENARIOS_BATCH_3: ArchivedRecommenderAuditScenar
       primary_lanes: ["sculpin_streamer", "woolly_bugger", "rabbit_strip_leech"],
       acceptable_secondary_lanes: ["conehead_streamer", "suspending_jerkbait", "hair_jig"],
       disallowed_lanes: ["mouse_fly", "popper_fly", "walking_topwater"],
-      expected_color_lanes: ["dark_contrast", "natural_baitfish", "white_shad"],
+      expected_color_lanes: ["dark", "natural", "natural"],
     },
   },
 ];

@@ -97,6 +97,12 @@ export const STATE_SPECIES_MAP: Record<string, StateSpeciesMap> = {
     seatrout:        { tier: "marginal", contexts: COAST_ONLY },
   },
 
+  // ─── District of Columbia ────────────────────────────────────────────────
+  DC: {
+    largemouth_bass: { tier: "marginal", contexts: FW },
+    striped_bass:    { tier: "primary",  contexts: ["freshwater_river", "coastal"] },
+  },
+
   // ─── Florida ──────────────────────────────────────────────────────────────
   FL: {
     largemouth_bass: { tier: "primary", contexts: FW },
@@ -120,7 +126,7 @@ export const STATE_SPECIES_MAP: Record<string, StateSpeciesMap> = {
 
   // ─── Hawaii ───────────────────────────────────────────────────────────────
   HI: {
-    largemouth_bass: { tier: "marginal", contexts: FW_LAKE },
+    largemouth_bass: { tier: "marginal", contexts: FW },
   },
 
   // ─── Idaho ────────────────────────────────────────────────────────────────
@@ -235,6 +241,7 @@ export const STATE_SPECIES_MAP: Record<string, StateSpeciesMap> = {
   // ─── Mississippi ──────────────────────────────────────────────────────────
   MS: {
     largemouth_bass: { tier: "primary",  contexts: FW },
+    smallmouth_bass: { tier: "marginal", contexts: FW },
     striped_bass:    { tier: "marginal", contexts: FW_LAKE },
     redfish:         { tier: "primary",  contexts: COAST },
     seatrout:        { tier: "primary",  contexts: COAST },

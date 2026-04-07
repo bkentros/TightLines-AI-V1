@@ -106,20 +106,20 @@ export const STATE_SPECIES_CONTEXTS: Record<string, StateSpeciesContexts> =
  */
 export function getSpeciesForState(state_code: string): SpeciesGroup[] {
   const map = STATE_SPECIES_CONTEXTS[state_code.toUpperCase()];
-  if (!map) return [...SPECIES_GROUPS]; // unknown state — show all
+  if (!map) return [];
   return SPECIES_GROUPS.filter((sp) => sp in map);
 }
 
 /**
  * Returns the valid contexts for a given state + species combo.
- * Falls back to all engine contexts if state or species is unknown.
+ * Returns an empty array when the state or species is unknown.
  */
 export function getContextsForStateSpecies(
   state_code: string,
   species: SpeciesGroup,
 ): EngineContext[] {
   const map = STATE_SPECIES_CONTEXTS[state_code.toUpperCase()];
-  if (!map) return ["freshwater_lake_pond", "freshwater_river", "coastal", "coastal_flats_estuary"];
+  if (!map) return [];
   return map[species] ?? [];
 }
 
@@ -129,7 +129,7 @@ export function getContextsForStateSpecies(
  */
 export function getContextsForState(state_code: string): EngineContext[] {
   const map = STATE_SPECIES_CONTEXTS[state_code.toUpperCase()];
-  if (!map) return ["freshwater_lake_pond", "freshwater_river", "coastal", "coastal_flats_estuary"];
+  if (!map) return [];
   const all = new Set<EngineContext>();
   for (const ctxs of Object.values(map)) {
     for (const c of ctxs) all.add(c);

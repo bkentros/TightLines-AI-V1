@@ -37,6 +37,7 @@ const WINTER_RIVER_LURES: readonly LureArchetypeIdV3[] = [
 ];
 const WINTER_RIVER_FLIES: readonly FlyArchetypeIdV3[] = [
   "sculpin_streamer",
+  "sculpzilla",
   "conehead_streamer",
   "woolly_bugger",
   "rabbit_strip_leech",
@@ -63,6 +64,7 @@ const SPRING_RIVER_LURES: readonly LureArchetypeIdV3[] = [
 const SPRING_RIVER_FLIES: readonly FlyArchetypeIdV3[] = [
   "clouser_minnow",
   "slim_minnow_streamer",
+  "balanced_leech",
   "woolly_bugger",
   "sculpin_streamer",
   "muddler_sculpin",
@@ -75,6 +77,7 @@ const SPRING_RIVER_FLIES: readonly FlyArchetypeIdV3[] = [
 const SLIM_MINNOW_SPRING_RIVER_FLIES: readonly FlyArchetypeIdV3[] = [
   "woolly_bugger",
   "slim_minnow_streamer",
+  "balanced_leech",
   "clouser_minnow",
   "sculpin_streamer",
   "muddler_sculpin",
@@ -92,6 +95,7 @@ const WESTERN_SPRING_RIVER_FLIES: readonly FlyArchetypeIdV3[] = [
   "clouser_minnow",
   "slim_minnow_streamer",
   "muddler_sculpin",
+  "sculpzilla",
   "sculpin_streamer",
   "woolly_bugger",
   "zonker_streamer",
@@ -106,6 +110,7 @@ const COOL_SUMMER_RIVER_LURES: readonly LureArchetypeIdV3[] = [
 const COOL_SUMMER_RIVER_FLIES: readonly FlyArchetypeIdV3[] = [
   "slim_minnow_streamer",
   "clouser_minnow",
+  "articulated_dungeon_streamer",
   "muddler_sculpin",
   "woolly_bugger",
   "zonker_streamer",
@@ -129,6 +134,7 @@ const WARM_SUMMER_RIVER_LURES: readonly LureArchetypeIdV3[] = [
 ];
 const WARM_SUMMER_RIVER_FLIES: readonly FlyArchetypeIdV3[] = [
   "muddler_sculpin",
+  "sculpzilla",
   "slim_minnow_streamer",
   "woolly_bugger",
   "rabbit_strip_leech",
@@ -145,6 +151,7 @@ const FALL_RIVER_LURES: readonly LureArchetypeIdV3[] = [
 ];
 const FALL_RIVER_FLIES: readonly FlyArchetypeIdV3[] = [
   "articulated_baitfish_streamer",
+  "articulated_dungeon_streamer",
   "game_changer",
   "slim_minnow_streamer",
   "zonker_streamer",
@@ -179,6 +186,7 @@ const NORTHEAST_LATEFALL_HIGHWATER_LURES: readonly LureArchetypeIdV3[] = [
 ];
 const NORTHEAST_LATEFALL_HIGHWATER_FLIES: readonly FlyArchetypeIdV3[] = [
   "articulated_baitfish_streamer",
+  "articulated_dungeon_streamer",
   "slim_minnow_streamer",
   "game_changer",
   "zonker_streamer",
@@ -187,6 +195,7 @@ const NORTHEAST_LATEFALL_HIGHWATER_FLIES: readonly FlyArchetypeIdV3[] = [
 ];
 const NORTHEAST_FALL_PULSE_FLIES: readonly FlyArchetypeIdV3[] = [
   "articulated_baitfish_streamer",
+  "articulated_dungeon_streamer",
   "game_changer",
   "slim_minnow_streamer",
   "zonker_streamer",
@@ -195,6 +204,7 @@ const NORTHEAST_FALL_PULSE_FLIES: readonly FlyArchetypeIdV3[] = [
 ];
 const GREAT_LAKES_LATEFALL_HIGHWATER_FLIES: readonly FlyArchetypeIdV3[] = [
   "articulated_baitfish_streamer",
+  "articulated_dungeon_streamer",
   "slim_minnow_streamer",
   "game_changer",
   "sculpin_streamer",
@@ -203,6 +213,7 @@ const GREAT_LAKES_LATEFALL_HIGHWATER_FLIES: readonly FlyArchetypeIdV3[] = [
 ];
 const PACIFIC_NORTHWEST_LATEFALL_RIVER_FLIES: readonly FlyArchetypeIdV3[] = [
   "articulated_baitfish_streamer",
+  "articulated_dungeon_streamer",
   "slim_minnow_streamer",
   "game_changer",
   "zonker_streamer",
@@ -256,7 +267,7 @@ addMonths(COLD_CLASSIC_REGIONS, [3, 4], {
   secondary_forage: "leech_worm",
   primary_lure_archetypes: ["inline_spinner", "suspending_jerkbait"],
   viable_lure_archetypes: SPRING_RIVER_LURES,
-  primary_fly_archetypes: ["woolly_bugger", "slim_minnow_streamer"],
+  primary_fly_archetypes: ["woolly_bugger", "balanced_leech"],
   viable_fly_archetypes: SLIM_MINNOW_SPRING_RIVER_FLIES,
 });
 addMonths(COLD_CLASSIC_REGIONS, [5], {
@@ -267,7 +278,7 @@ addMonths(COLD_CLASSIC_REGIONS, [5], {
   secondary_forage: "leech_worm",
   primary_lure_archetypes: ["inline_spinner", "suspending_jerkbait"],
   viable_lure_archetypes: SPRING_RIVER_LURES,
-  primary_fly_archetypes: ["woolly_bugger", "slim_minnow_streamer"],
+  primary_fly_archetypes: ["woolly_bugger", "balanced_leech"],
   viable_fly_archetypes: SLIM_MINNOW_SPRING_RIVER_FLIES,
 });
 addMonths(COLD_CLASSIC_REGIONS, [6, 7], {
@@ -351,7 +362,7 @@ addMonths(["northeast"], [11], {
   secondary_forage: "leech_worm",
   primary_lure_archetypes: ["suspending_jerkbait", "inline_spinner"],
   viable_lure_archetypes: NORTHEAST_LATEFALL_HIGHWATER_LURES,
-  primary_fly_archetypes: ["articulated_baitfish_streamer", "slim_minnow_streamer"],
+  primary_fly_archetypes: ["articulated_baitfish_streamer", "articulated_dungeon_streamer"],
   viable_fly_archetypes: NORTHEAST_LATEFALL_HIGHWATER_FLIES,
 });
 addMonths(["great_lakes_upper_midwest"], [11], {
@@ -362,7 +373,7 @@ addMonths(["great_lakes_upper_midwest"], [11], {
   secondary_forage: "leech_worm",
   primary_lure_archetypes: ["suspending_jerkbait", "inline_spinner"],
   viable_lure_archetypes: NORTHEAST_LATEFALL_HIGHWATER_LURES,
-  primary_fly_archetypes: ["articulated_baitfish_streamer", "slim_minnow_streamer"],
+  primary_fly_archetypes: ["articulated_baitfish_streamer", "articulated_dungeon_streamer"],
   viable_fly_archetypes: GREAT_LAKES_LATEFALL_HIGHWATER_FLIES,
 });
 addMonths(COLD_CLASSIC_REGIONS, [12], {
@@ -378,7 +389,7 @@ addMonths(COLD_CLASSIC_REGIONS, [12], {
 });
 
 // Western classic trout rivers
-addMonths(WESTERN_CLASSIC_REGIONS, [1, 2, 3], {
+addMonths(WESTERN_CLASSIC_REGIONS, [1, 2], {
   base_water_column: "mid",
   base_mood: "negative",
   base_presentation_style: "subtle",
@@ -403,7 +414,7 @@ addMonths(["pacific_northwest"], [1, 2, 3], {
   primary_fly_archetypes: ["woolly_bugger", "sculpin_streamer"],
   viable_fly_archetypes: PNW_WINTER_RIVER_FLIES,
 });
-addMonths(WESTERN_CLASSIC_REGIONS, [4, 5], {
+addMonths(WESTERN_CLASSIC_REGIONS, [3, 4, 5], {
   base_water_column: "mid",
   base_mood: "neutral",
   base_presentation_style: "balanced",
@@ -479,7 +490,7 @@ addMonths(["pacific_northwest"], [11], {
   secondary_forage: "leech_worm",
   primary_lure_archetypes: ["suspending_jerkbait", "inline_spinner"],
   viable_lure_archetypes: FALL_RIVER_LURES,
-  primary_fly_archetypes: ["articulated_baitfish_streamer", "slim_minnow_streamer"],
+  primary_fly_archetypes: ["articulated_baitfish_streamer", "articulated_dungeon_streamer"],
   viable_fly_archetypes: PACIFIC_NORTHWEST_LATEFALL_RIVER_FLIES,
 });
 addMonths(["northern_california"], [10], {
@@ -517,9 +528,20 @@ addMonths(WARM_TAILWATER_REGIONS, [1, 2], {
   primary_fly_archetypes: ["sculpin_streamer", "woolly_bugger"],
   viable_fly_archetypes: WINTER_RIVER_FLIES,
 });
-addMonths(WARM_TAILWATER_REGIONS, [3, 4, 5], {
+addMonths(WARM_TAILWATER_REGIONS, [4, 5], {
   base_water_column: "mid",
   base_mood: "active",
+  base_presentation_style: "balanced",
+  primary_forage: "baitfish",
+  secondary_forage: "leech_worm",
+  primary_lure_archetypes: ["inline_spinner", "suspending_jerkbait"],
+  viable_lure_archetypes: SPRING_RIVER_LURES,
+  primary_fly_archetypes: ["woolly_bugger", "balanced_leech"],
+  viable_fly_archetypes: SLIM_MINNOW_SPRING_RIVER_FLIES,
+});
+addMonths(WARM_TAILWATER_REGIONS, [3], {
+  base_water_column: "mid",
+  base_mood: "neutral",
   base_presentation_style: "balanced",
   primary_forage: "baitfish",
   secondary_forage: "leech_worm",

@@ -1,5 +1,7 @@
 import { assertEquals } from "jsr:@std/assert";
 import {
+  normalizeLightBucketV3,
+  resolveColorDecisionV3,
   resolveDailyPayloadV3,
   scoreLureCandidatesV3,
   type RecommenderV3ResolvedProfile,
@@ -93,6 +95,10 @@ Deno.test("V3 lockdown resolves an explicit upbeat lake nudge from variable rule
   assertEquals(daily.mood_nudge, "up_2");
   assertEquals(daily.water_column_nudge, "higher_1");
   assertEquals(daily.presentation_nudge, "bolder");
+  assertEquals(
+    daily.variables_triggered,
+    ["temperature_condition", "pressure_regime", "wind_condition", "light_cloud_condition", "source_score_guardrail"],
+  );
 });
 
 Deno.test("V3 lockdown uses How's Fishing score only as a guardrail, not a second full engine", () => {
@@ -118,7 +124,11 @@ Deno.test("V3 lockdown uses How's Fishing score only as a guardrail, not a secon
 
   assertEquals(daily.mood_nudge, "neutral");
   assertEquals(daily.water_column_nudge, "neutral");
-  assertEquals(daily.presentation_nudge, "bolder");
+  assertEquals(daily.presentation_nudge, "neutral");
+  assertEquals(
+    daily.variables_triggered,
+    ["pressure_regime", "wind_condition", "light_cloud_condition", "source_score_guardrail"],
+  );
 });
 
 Deno.test("V3 lockdown resolves blown-out rivers as down, lower, but still more visible", () => {
@@ -144,94 +154,60 @@ Deno.test("V3 lockdown resolves blown-out rivers as down, lower, but still more 
 
   assertEquals(daily.mood_nudge, "down_1");
   assertEquals(daily.water_column_nudge, "lower_1");
-  assertEquals(daily.presentation_nudge, "bolder");
-});
-
-Deno.test("V3 lockdown keeps bladed jig in a dark stained-water lane when that is the intended read", () => {
-  const result = scoreLureCandidatesV3(
-    seasonalRow(["bladed_jig"]),
-    resolvedProfile({
-      final_presentation_style: "balanced",
-      primary_forage: "baitfish",
-    }),
-    "stained",
-    null,
+  assertEquals(daily.presentation_nudge, "neutral");
+  assertEquals(
+    daily.variables_triggered,
+    ["temperature_condition", "runoff_flow_disruption", "source_score_guardrail"],
   );
-
-  assertEquals(result[0]?.id, "bladed_jig");
-  assertEquals(result[0]?.color_theme, "dark_contrast");
 });
 
-Deno.test("V3 lockdown prefers white shad for suspending jerkbaits in stained tightening baitfish windows", () => {
-  const result = scoreLureCandidatesV3(
-    seasonalRow(["suspending_jerkbait"]),
-    resolvedProfile({
-      final_mood: "neutral",
-      final_presentation_style: "balanced",
-      primary_forage: "baitfish",
-    }),
-    "stained",
-    null,
-  );
+const COLOR_MATRIX_CASES = [
+  ["clear", "bright", "natural"],
+  ["clear", "glare", "natural"],
+  ["clear", "mixed", "natural"],
+  ["clear", "mixed_sky", "natural"],
+  ["clear", "low_light", "dark"],
+  ["clear", "heavy_overcast", "dark"],
+  ["stained", "bright", "dark"],
+  ["stained", "glare", "dark"],
+  ["stained", "mixed", "dark"],
+  ["stained", "mixed_sky", "dark"],
+  ["stained", "low_light", "bright"],
+  ["stained", "heavy_overcast", "bright"],
+  ["dirty", "bright", "dark"],
+  ["dirty", "glare", "dark"],
+  ["dirty", "mixed", "bright"],
+  ["dirty", "mixed_sky", "bright"],
+  ["dirty", "low_light", "bright"],
+  ["dirty", "heavy_overcast", "bright"],
+] as const;
 
-  assertEquals(result[0]?.id, "suspending_jerkbait");
-  assertEquals(result[0]?.color_theme, "white_shad");
+Deno.test("V3 lockdown color matrix resolves every clarity/light combination deterministically", () => {
+  for (const [clarity, lightLabel, expectedTheme] of COLOR_MATRIX_CASES) {
+    const lightBucket = normalizeLightBucketV3(lightLabel);
+    const decision = resolveColorDecisionV3(clarity, lightBucket);
+    assertEquals(
+      decision.color_theme,
+      expectedTheme,
+      `${clarity} + ${lightLabel} should resolve ${expectedTheme}`,
+    );
+  }
 });
 
-Deno.test("V3 lockdown keeps swim jigs in a shad lane instead of inheriting bottom-jig color bias", () => {
+Deno.test("V3 lockdown scored candidates inherit the shared color decision instead of old lure-specific logic", () => {
   const result = scoreLureCandidatesV3(
-    seasonalRow(["swim_jig"]),
+    seasonalRow(["football_jig", "swim_jig", "suspending_jerkbait"]),
     resolvedProfile({
       final_mood: "active",
-      final_presentation_style: "balanced",
+      final_presentation_style: "bold",
       primary_forage: "baitfish",
     }),
     "stained",
-    null,
-  );
-
-  assertEquals(result[0]?.id, "swim_jig");
-  assertEquals(result[0]?.color_theme, "white_shad");
-});
-
-Deno.test("V3 lockdown gives swim jig white/shad on overcast instead of dark contrast", () => {
-  // Overcast (low_light) should push white_shad for baitfish-forward search baits,
-  // NOT dark_contrast — which was the bug when dark_contrast was the overcast fallback.
-  const result = scoreLureCandidatesV3(
-    seasonalRow(["swim_jig"]),
-    resolvedProfile({
-      final_mood: "active",
-      final_presentation_style: "balanced",
-      primary_forage: "baitfish",
-    }),
-    "clear",
     "low_light",
   );
 
-  assertEquals(result[0]?.id, "swim_jig");
-  assertEquals(result[0]?.color_theme, "white_shad");
-});
-
-Deno.test("V3 lockdown keeps bottom jigs in forage-driven color on overcast (no dark hijack)", () => {
-  // Football jig + crawfish forage on an overcast day should stay in craw/natural colors.
-  // The old bug pushed dark_contrast as the overcast fallback, overriding forage logic.
-  const result = scoreLureCandidatesV3(
-    seasonalRow(["football_jig"]),
-    resolvedProfile({
-      final_mood: "neutral",
-      final_presentation_style: "balanced",
-      primary_forage: "crawfish",
-    }),
-    "clear",
-    "heavy_overcast",
-  );
-
-  assertEquals(result[0]?.id, "football_jig");
-  // craw_natural or green_pumpkin_natural — both are forage-driven, not dark_contrast
-  const theme = result[0]?.color_theme;
-  assertEquals(
-    theme === "craw_natural" || theme === "green_pumpkin_natural",
-    true,
-    `Expected forage-driven theme, got: ${theme}`,
-  );
+  assertEquals(result.length, 3);
+  for (const candidate of result) {
+    assertEquals(candidate.color_theme, "bright");
+  }
 });

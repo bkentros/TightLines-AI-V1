@@ -1,6 +1,5 @@
 import type { RecommenderV3ArchetypeProfile } from "../contracts.ts";
 import type { LureArchetypeIdV3 } from "../contracts.ts";
-import { selectThemeShadesV3 } from "../colors.ts";
 
 function lure(
   profile: RecommenderV3ArchetypeProfile,
@@ -25,13 +24,6 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
       "Pitch it to shallow cover or open water and give it full slack; the slow, nose-down fall is when fish bite, so watch the line carefully.",
       "Let it sink undisturbed until you feel or see a pickup, then reel down and set; if nothing on the fall, twitch it once and let it settle again.",
     ],
-    allowed_color_themes: ["green_pumpkin_natural", "watermelon_natural", "dark_contrast"],
-    shade_examples_by_theme: selectThemeShadesV3(
-      ["green_pumpkin_natural", "watermelon_natural", "dark_contrast"],
-      {
-        dark_contrast: ["black", "black/blue", "junebug"],
-      },
-    ),
   }),
   texas_rigged_stick_worm: lure({
     id: "texas_rigged_stick_worm",
@@ -49,13 +41,6 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
       "Cast to cover and give it slack on the fall; if nothing bites, drag it along the bottom in slow sweeps and pause any time you feel resistance.",
       "Work it through cover with slow drags and short lifts; the bait should be near the bottom most of the time — resist the urge to hop it aggressively.",
     ],
-    allowed_color_themes: ["green_pumpkin_natural", "watermelon_natural", "dark_contrast"],
-    shade_examples_by_theme: selectThemeShadesV3(
-      ["green_pumpkin_natural", "watermelon_natural", "dark_contrast"],
-      {
-        dark_contrast: ["black/blue", "junebug", "black grape"],
-      },
-    ),
   }),
   wacky_rigged_stick_worm: lure({
     id: "wacky_rigged_stick_worm",
@@ -73,13 +58,6 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
       "Pin the hook through the center and pitch it in; give it complete slack on the fall, then barely move it — the ends flutter with zero effort on a dead-stick.",
       "Toss it beside cover and watch the line; when it stops falling, shake the rod softly once and pause longer than feels comfortable.",
     ],
-    allowed_color_themes: ["green_pumpkin_natural", "watermelon_natural", "dark_contrast"],
-    shade_examples_by_theme: selectThemeShadesV3(
-      ["green_pumpkin_natural", "watermelon_natural", "dark_contrast"],
-      {
-        dark_contrast: ["black", "junebug", "black/blue"],
-      },
-    ),
   }),
   carolina_rigged_stick_worm: lure({
     id: "carolina_rigged_stick_worm",
@@ -97,8 +75,6 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
       "Sweep the rod slowly across rocky or hard bottom and watch for the line to go tight; the worm floats and hunts freely above the sinker on a stretched leader.",
       "Long sweeping drags followed by a complete pause; the worm sinks and rises naturally on the leader — focus on structure changes and hard bottom.",
     ],
-    allowed_color_themes: ["green_pumpkin_natural", "watermelon_natural", "natural_baitfish"],
-    shade_examples_by_theme: selectThemeShadesV3(["green_pumpkin_natural", "watermelon_natural", "natural_baitfish"]),
   }),
   shaky_head_worm: lure({
     id: "shaky_head_worm",
@@ -116,32 +92,40 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
       "Pin the nose to bottom and shake the rod tip while crawling it forward an inch at a time — don't rush the retrieve.",
       "Steady drag along hard bottom with subtle rod shakes; pause on any tick or thump and let it sit a full two seconds before moving again.",
     ],
-    allowed_color_themes: ["green_pumpkin_natural", "watermelon_natural", "dark_contrast"],
-    shade_examples_by_theme: selectThemeShadesV3(
-      ["green_pumpkin_natural", "watermelon_natural", "dark_contrast"],
-      {
-        dark_contrast: ["black", "black grape", "junebug"],
-      },
-    ),
   }),
-  drop_shot_worm_minnow: lure({
-    id: "drop_shot_worm_minnow",
-    display_name: "Drop-Shot Worm / Minnow",
+  drop_shot_worm: lure({
+    id: "drop_shot_worm",
+    display_name: "Drop-Shot Worm",
     gear_mode: "lure",
     family_key: "drop_shot",
     preferred_water_columns: ["mid", "bottom"],
     preferred_moods: ["negative", "neutral"],
     preferred_presentation_styles: ["subtle"],
-    forage_matches: ["baitfish", "leech_worm"],
+    forage_matches: ["leech_worm"],
     clarity_strengths: ["clear", "stained"],
     tactical_lane: "finesse_subtle",
     how_to_fish_text: [
-      "Keep the bait vertical under the boat or bank: tiny hops and shakes with the rod tip, then let it hang still so the minnow or worm quivers on a tight line.",
-      "Hold the weight on the bottom and shake the rod tip with light pressure to make the bait dance in place; move it only a foot or two before settling again.",
-      "Position over the depth you want and twitch the rod tip without lifting the weight; the bait trembles in the strike zone — pause often and let it hang.",
+      "Hold the weight on the bottom and gently shake the rod tip so the worm quivers in place; move it only a foot or two before letting it settle again.",
+      "Keep the rig nearly vertical and make tiny rod-tip pulses while the weight stays pinned; the worm should hover and tremble without traveling far.",
+      "Shake in place with light tension, then pause completely and let the worm hang still; most bites come when the bait barely moves at all.",
     ],
-    allowed_color_themes: ["natural_baitfish", "green_pumpkin_natural", "watermelon_natural"],
-    shade_examples_by_theme: selectThemeShadesV3(["natural_baitfish", "green_pumpkin_natural", "watermelon_natural"]),
+  }),
+  drop_shot_minnow: lure({
+    id: "drop_shot_minnow",
+    display_name: "Drop-Shot Minnow",
+    gear_mode: "lure",
+    family_key: "drop_shot",
+    preferred_water_columns: ["mid", "bottom"],
+    preferred_moods: ["negative", "neutral", "active"],
+    preferred_presentation_styles: ["subtle", "balanced"],
+    forage_matches: ["baitfish"],
+    clarity_strengths: ["clear", "stained"],
+    tactical_lane: "finesse_subtle",
+    how_to_fish_text: [
+      "Keep the bait just off bottom with tiny shakes and short glides so the minnow hovers naturally in the strike zone.",
+      "Hold the weight down and pulse the rod tip lightly; the minnow should quiver in place, then glide a few inches before the next shake.",
+      "Use a subtle shake-pause cadence with the line tight enough to feel the bait; let the minnow suspend and look alive rather than dragging it forward.",
+    ],
   }),
   ned_rig: lure({
     id: "ned_rig",
@@ -159,13 +143,6 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
       "Cast and let it settle fully to the bottom, then drag very slowly with the rod held low; pause between moves so the tail stands upright and wiggles.",
       "Inch it along with small rod pops and long pauses; the mushroom head keeps it nose-down and upright — let it sit longer than you think is necessary.",
     ],
-    allowed_color_themes: ["green_pumpkin_natural", "watermelon_natural", "dark_contrast"],
-    shade_examples_by_theme: selectThemeShadesV3(
-      ["green_pumpkin_natural", "watermelon_natural", "dark_contrast"],
-      {
-        dark_contrast: ["black/blue", "black", "pb&j"],
-      },
-    ),
   }),
   tube_jig: lure({
     id: "tube_jig",
@@ -183,13 +160,6 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
       "Hop it erratically off the bottom with sharp pops, then open the bail slightly so it spirals down freely; strikes happen on that spinning fall.",
       "Cast, let it sink, then pop sharply and release line; the tube should corkscrew back to bottom on each drop — keep a watchful eye on the line.",
     ],
-    allowed_color_themes: ["craw_natural", "green_pumpkin_natural", "natural_baitfish"],
-    shade_examples_by_theme: selectThemeShadesV3(
-      ["craw_natural", "green_pumpkin_natural", "natural_baitfish"],
-      {
-        natural_baitfish: ["smoke purple", "goby", "olive smoke"],
-      },
-    ),
   }),
   texas_rigged_soft_plastic_craw: lure({
     id: "texas_rigged_soft_plastic_craw",
@@ -207,13 +177,6 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
       "Drop it into cover or along grass edges and count it down; short one-inch hops with a pause mimics a crawfish on the bottom — don't rush the next cast.",
       "Pitch to cover and let it fall freely; if nothing on the drop, slowly crawl it along the bottom and shake gently before picking up for the next pitch.",
     ],
-    allowed_color_themes: ["craw_natural", "green_pumpkin_natural", "dark_contrast"],
-    shade_examples_by_theme: selectThemeShadesV3(
-      ["craw_natural", "green_pumpkin_natural", "dark_contrast"],
-      {
-        dark_contrast: ["black/blue", "black/red", "junebug"],
-      },
-    ),
   }),
   football_jig: lure({
     id: "football_jig",
@@ -231,17 +194,10 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
       "Work it with slow rod sweeps across rocky bottom, letting it tick and grind the structure rather than hop above it.",
       "Crawl it across rock, gravel, or shell beds with steady low lifts and long pauses — the football head keeps it upright and loud the whole time.",
     ],
-    allowed_color_themes: ["craw_natural", "green_pumpkin_natural", "dark_contrast"],
-    shade_examples_by_theme: selectThemeShadesV3(
-      ["craw_natural", "green_pumpkin_natural", "dark_contrast"],
-      {
-        dark_contrast: ["black/blue", "black/purple", "black/brown"],
-      },
-    ),
   }),
   compact_flipping_jig: lure({
     id: "compact_flipping_jig",
-    display_name: "Compact Flipping / Pitching Jig",
+    display_name: "Compact Flipping Jig",
     gear_mode: "lure",
     family_key: "jig",
     preferred_water_columns: ["shallow", "mid", "bottom"],
@@ -255,14 +211,23 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
       "Get the bait right into the cover before moving it — thumb the spool on the drop, and if you don't feel a strike, give it one or two hops then move on.",
       "Pitch tight to lay-downs, dock piles, or mats; give it enough slack line to fall straight, then drag or shake slowly before picking up for the next cast.",
     ],
-    allowed_color_themes: ["green_pumpkin_natural", "dark_contrast", "perch_bluegill"],
-    shade_examples_by_theme: selectThemeShadesV3(
-      ["green_pumpkin_natural", "dark_contrast", "perch_bluegill"],
-      {
-        dark_contrast: ["black/blue", "black/purple", "black/red"],
-        perch_bluegill: ["bluegill", "green pumpkin bluegill", "sunfish"],
-      },
-    ),
+  }),
+  finesse_jig: lure({
+    id: "finesse_jig",
+    display_name: "Finesse Jig",
+    gear_mode: "lure",
+    family_key: "jig",
+    preferred_water_columns: ["shallow", "mid", "bottom"],
+    preferred_moods: ["negative", "neutral"],
+    preferred_presentation_styles: ["subtle", "balanced"],
+    forage_matches: ["crawfish", "bluegill_perch"],
+    clarity_strengths: ["clear", "stained"],
+    tactical_lane: "bottom_contact",
+    how_to_fish_text: [
+      "Crawl it slowly along bottom with short drags and tiny hops; the smaller profile should stay in the fish's face longer than a bulkier jig.",
+      "Pitch it to light cover or transitions and let it settle fully before moving it; small lifts and long pauses are the whole point.",
+      "Drag it with the rod low and barely shake the skirt in place; keep it compact, quiet, and close to bottom the entire retrieve.",
+    ],
   }),
   swim_jig: lure({
     id: "swim_jig",
@@ -280,17 +245,10 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
       "Cast past targets and swim it through, reeling just fast enough to feel the head wiggle; slow down near the edge of cover and let it drop.",
       "Run it parallel to grass edges or fallen timber; keep the pace consistent so the skirt breathes, and pause briefly when it reaches the target zone.",
     ],
-    allowed_color_themes: ["white_shad", "perch_bluegill", "dark_contrast"],
-    shade_examples_by_theme: selectThemeShadesV3(
-      ["white_shad", "perch_bluegill", "dark_contrast"],
-      {
-        dark_contrast: ["black/blue", "black/purple", "black"],
-      },
-    ),
   }),
   hair_jig: lure({
     id: "hair_jig",
-    display_name: "Hair Jig / Marabou Jig",
+    display_name: "Hair Jig",
     gear_mode: "lure",
     family_key: "hair_jig",
     preferred_water_columns: ["shallow", "mid", "bottom"],
@@ -304,14 +262,6 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
       "Fish it on a tight line at slow speed — the hair works best with tiny line pulses rather than big lifts; let it hang in the current or slack zone.",
       "Swing it through current seams or drop it in pockets with minimal movement; let the marabou breathe in place before slowly pulling it along.",
     ],
-    allowed_color_themes: ["natural_baitfish", "white_shad", "dark_contrast", "craw_natural"],
-    shade_examples_by_theme: selectThemeShadesV3(
-      ["natural_baitfish", "white_shad", "dark_contrast", "craw_natural"],
-      {
-        white_shad: ["white", "pearl", "white/silver"],
-        dark_contrast: ["black", "brown/black", "black/purple"],
-      },
-    ),
   }),
   inline_spinner: lure({
     id: "inline_spinner",
@@ -329,13 +279,6 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
       "Use a slow-roll retrieve near bottom or cover edges; occasionally bump into structure to trigger reaction strikes.",
       "Cast across current and let the blade flash on a quarter-downstream retrieve; speed up briefly after bumps or short strikes.",
     ],
-    allowed_color_themes: ["metal_flash", "bright_contrast", "natural_baitfish"],
-    shade_examples_by_theme: selectThemeShadesV3(
-      ["metal_flash", "bright_contrast", "natural_baitfish"],
-      {
-        metal_flash: ["silver blade", "gold blade", "copper blade"],
-      },
-    ),
   }),
   spinnerbait: lure({
     id: "spinnerbait",
@@ -353,15 +296,6 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
       "Work it parallel to grass lines or over submerged timber; slow the retrieve near the target and let the head tick the top.",
       "Cast past the target and retrieve through it, varying speed to find the blade thump fish respond to; hesitate briefly at cover edges.",
     ],
-    allowed_color_themes: ["white_shad", "bright_contrast", "dark_contrast"],
-    shade_examples_by_theme: selectThemeShadesV3(
-      ["white_shad", "bright_contrast", "dark_contrast"],
-      {
-        white_shad: ["white", "white/blue", "white/silver"],
-        bright_contrast: ["white/chartreuse", "firetiger", "chartreuse/white"],
-        dark_contrast: ["black", "black/blue", "red/black"],
-      },
-    ),
   }),
   bladed_jig: lure({
     id: "bladed_jig",
@@ -379,15 +313,6 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
       "Work it with a lift-fall cadence; pop the rod to make the blade kick and clack, then let it fall on a controlled line — fish typically strike on the fall.",
       "Snap the rod tip up sharply to activate the blade, then lower it on a semi-tight line so the jig falls at a controlled rate; vary the fall speed with rod angle.",
     ],
-    allowed_color_themes: ["white_shad", "green_pumpkin_natural", "dark_contrast"],
-    shade_examples_by_theme: selectThemeShadesV3(
-      ["white_shad", "green_pumpkin_natural", "dark_contrast"],
-      {
-        white_shad: ["white", "white/chartreuse", "pearl shad"],
-        green_pumpkin_natural: ["green pumpkin", "green pumpkin shad", "bluegill"],
-        dark_contrast: ["black/blue", "black/purple", "black"],
-      },
-    ),
   }),
   paddle_tail_swimbait: lure({
     id: "paddle_tail_swimbait",
@@ -405,17 +330,10 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
       "Swim it at the speed where you feel a steady kick through the rod; use rod angle to change depth without changing retrieve speed.",
       "Slow-roll near the bottom on a consistent retrieve; the paddle thumps best just barely above the substrate, so keep the rod tip down and the pace even.",
     ],
-    allowed_color_themes: ["natural_baitfish", "white_shad", "perch_bluegill"],
-    shade_examples_by_theme: selectThemeShadesV3(
-      ["natural_baitfish", "white_shad", "perch_bluegill"],
-      {
-        perch_bluegill: ["bluegill", "perch", "sunfish"],
-      },
-    ),
   }),
   soft_jerkbait: lure({
     id: "soft_jerkbait",
-    display_name: "Soft Jerkbait",
+    display_name: "Soft Plastic Jerkbait",
     gear_mode: "lure",
     family_key: "soft_jerkbait",
     preferred_water_columns: ["top", "shallow", "mid"],
@@ -429,13 +347,6 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
       "Snap the rod sideways so the bait darts left or right, then drop the rod tip so it glides and sinks on a slack line before the next snap.",
       "Work it with a jerk-sink-jerk cadence; keep the line slightly slack between twitches so the bait moves unpredictably, and vary the pause length.",
     ],
-    allowed_color_themes: ["natural_baitfish", "white_shad", "bright_contrast"],
-    shade_examples_by_theme: selectThemeShadesV3(
-      ["natural_baitfish", "white_shad", "bright_contrast"],
-      {
-        bright_contrast: ["bubblegum", "albino", "white/chartreuse"],
-      },
-    ),
   }),
   suspending_jerkbait: lure({
     id: "suspending_jerkbait",
@@ -453,15 +364,6 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
       "Jerk, jerk, pause. The bait should dart and glide sideways on each twitch; dial the pause length to water temperature — colder means longer.",
       "Work it with wrist snaps, not big sweeps; keep slack in the line between snaps so the bait swings freely, then pause until you see a follow or feel weight.",
     ],
-    allowed_color_themes: ["natural_baitfish", "white_shad", "bright_contrast"],
-    shade_examples_by_theme: selectThemeShadesV3(
-      ["natural_baitfish", "white_shad", "bright_contrast"],
-      {
-        natural_baitfish: ["ghost minnow", "pro blue", "olive shad"],
-        white_shad: ["pearl", "table rock shad", "white/silver"],
-        bright_contrast: ["clown", "firetiger", "chartreuse shad"],
-      },
-    ),
   }),
   squarebill_crankbait: lure({
     id: "squarebill_crankbait",
@@ -479,15 +381,6 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
       "Cast past structure and crank it down, then steer it right into cover; the deflection is the trigger, so don't try to avoid contact.",
       "Run it tight to cover at a steady pace; when it hits, give a slight rod pause so the bill pries free and the bait kicks up erratically.",
     ],
-    allowed_color_themes: ["white_shad", "bright_contrast", "craw_natural", "perch_bluegill"],
-    shade_examples_by_theme: selectThemeShadesV3(
-      ["white_shad", "bright_contrast", "craw_natural", "perch_bluegill"],
-      {
-        white_shad: ["sexy shad", "pearl shad", "white chart back"],
-        bright_contrast: ["firetiger", "chartreuse black back", "chartreuse blue"],
-        craw_natural: ["red craw", "brown craw", "rust craw"],
-      },
-    ),
   }),
   flat_sided_crankbait: lure({
     id: "flat_sided_crankbait",
@@ -505,14 +398,6 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
       "Use a steady retrieve with subtle rod-tip pumps to vary the bait's depth and roll; works along transitional depths and current seams.",
       "Work it across hard bottom or rock piles with a consistent slow crank, letting the tight shimmy attract finicky fish holding close to structure.",
     ],
-    allowed_color_themes: ["natural_baitfish", "white_shad", "craw_natural"],
-    shade_examples_by_theme: selectThemeShadesV3(
-      ["natural_baitfish", "white_shad", "craw_natural"],
-      {
-        natural_baitfish: ["ghost shad", "smoke shad", "olive shad"],
-        craw_natural: ["red craw", "brown craw", "mud craw"],
-      },
-    ),
   }),
   medium_diving_crankbait: lure({
     id: "medium_diving_crankbait",
@@ -530,15 +415,6 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
       "Retrieve at a medium pace along depth contours, pausing after any bottom contact so the bait rises before diving back when you resume.",
       "Work it through mid-column structure at steady speed, varying rod angle to bump the lip on rock ledges or submerged debris.",
     ],
-    allowed_color_themes: ["white_shad", "bright_contrast", "craw_natural"],
-    shade_examples_by_theme: selectThemeShadesV3(
-      ["white_shad", "bright_contrast", "craw_natural"],
-      {
-        white_shad: ["sexy shad", "pearl shad", "white/silver"],
-        bright_contrast: ["firetiger", "chartreuse blue", "chartreuse black back"],
-        craw_natural: ["red craw", "brown craw", "orange belly craw"],
-      },
-    ),
   }),
   deep_diving_crankbait: lure({
     id: "deep_diving_crankbait",
@@ -556,13 +432,6 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
       "Run it along drop-offs and ledges, keeping the line angle shallow so the lip catches bottom occasionally; pause on contact and let it rise.",
       "Long cast, fast crank to get it down, then steady-slow retrieve; bump along bottom transitions and slow down after any tick or thump.",
     ],
-    allowed_color_themes: ["white_shad", "natural_baitfish", "craw_natural"],
-    shade_examples_by_theme: selectThemeShadesV3(
-      ["white_shad", "natural_baitfish", "craw_natural"],
-      {
-        natural_baitfish: ["gizzard shad", "olive shad", "smoke shad"],
-      },
-    ),
   }),
   lipless_crankbait: lure({
     id: "lipless_crankbait",
@@ -580,15 +449,6 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
       "Burn it at mid-speed and occasionally pop the rod tip to make the bait jump; over vegetation, rip it free when it ticks the top.",
       "Slow-roll it through grass just above the canopy, and when it hangs up, rip sharply to tear free — that trigger almost always draws a strike.",
     ],
-    allowed_color_themes: ["bright_contrast", "metal_flash", "craw_natural"],
-    shade_examples_by_theme: selectThemeShadesV3(
-      ["bright_contrast", "metal_flash", "craw_natural"],
-      {
-        bright_contrast: ["firetiger", "chartreuse shad", "orange craw"],
-        metal_flash: ["chrome/blue", "chrome/black", "gold/black"],
-        craw_natural: ["red craw", "brown craw", "rayburn red"],
-      },
-    ),
   }),
   blade_bait: lure({
     id: "blade_bait",
@@ -606,13 +466,6 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
       "Vertical jig it with short, sharp hops over suspended fish; the flutter-fall is the presentation — set hard the moment you feel weight.",
       "Cast and hop it off bottom with quick wrist snaps, counting the flutter back down; strikes usually come on the fall, so stay in contact with semi-tight line.",
     ],
-    allowed_color_themes: ["metal_flash", "bright_contrast", "white_shad"],
-    shade_examples_by_theme: selectThemeShadesV3(
-      ["metal_flash", "bright_contrast", "white_shad"],
-      {
-        bright_contrast: ["firetiger", "chartreuse chrome", "orange/chartreuse"],
-      },
-    ),
   }),
   casting_spoon: lure({
     id: "casting_spoon",
@@ -630,13 +483,6 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
       "Work it with a lift-and-drop over suspended fish; the concave face spins as it falls — strikes are usually on the drop, so keep a semi-tight line.",
       "Retrieve with a wobbly, wandering cadence by mixing speed; bump into cover and let it flutter down beside structure on the pause.",
     ],
-    allowed_color_themes: ["metal_flash", "white_shad", "bright_contrast"],
-    shade_examples_by_theme: selectThemeShadesV3(
-      ["metal_flash", "white_shad", "bright_contrast"],
-      {
-        bright_contrast: ["chartreuse chrome", "firetiger spoon", "orange/chartreuse"],
-      },
-    ),
   }),
   walking_topwater: lure({
     id: "walking_topwater",
@@ -654,18 +500,10 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
       "Downrod with light wrist flicks to make it dance; the pause between twitches lets fish track and commit, so give it a beat before the next twitch.",
       "Work it with consistent wrist flicks over open water or above grass; keep the cadence smooth and only slow down if you see fish following.",
     ],
-    allowed_color_themes: ["white_shad", "dark_contrast", "perch_bluegill"],
-    shade_examples_by_theme: selectThemeShadesV3(
-      ["white_shad", "dark_contrast", "perch_bluegill"],
-      {
-        white_shad: ["bone", "white", "pearl"],
-        dark_contrast: ["black", "black shad", "black chrome"],
-      },
-    ),
   }),
   popping_topwater: lure({
     id: "popping_topwater",
-    display_name: "Popping Topwater",
+    display_name: "Topwater Popper",
     gear_mode: "lure",
     family_key: "topwater",
     preferred_water_columns: ["top"],
@@ -679,19 +517,10 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
       "Use rhythmic 1-2 pops followed by a pause; target the shadow of any surface feature and let the bait sit still in the ring for a count of three.",
       "Short sharp pops followed by deliberate pauses near cover edges; slower and louder pops in flat calm, quicker pops when fish are aggressive.",
     ],
-    allowed_color_themes: ["white_shad", "dark_contrast", "bright_contrast"],
-    shade_examples_by_theme: selectThemeShadesV3(
-      ["white_shad", "dark_contrast", "bright_contrast"],
-      {
-        white_shad: ["bone", "white", "pearl"],
-        dark_contrast: ["black", "black chrome", "midnight"],
-        bright_contrast: ["firetiger", "chartreuse", "orange belly"],
-      },
-    ),
   }),
-  buzzbait_prop_bait: lure({
-    id: "buzzbait_prop_bait",
-    display_name: "Buzzbait / Prop Bait",
+  buzzbait: lure({
+    id: "buzzbait",
+    display_name: "Buzzbait",
     gear_mode: "lure",
     family_key: "topwater",
     preferred_water_columns: ["top"],
@@ -705,14 +534,23 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
       "Burn it across the surface on a constant retrieve tight to cover edges; vary speed only to keep it on top, and set hard when you feel weight.",
       "Run it on a straight, steady retrieve through open pockets in cover; pause only if a fish swipes and misses — then hold still briefly and resume.",
     ],
-    allowed_color_themes: ["white_shad", "dark_contrast", "bright_contrast"],
-    shade_examples_by_theme: selectThemeShadesV3(
-      ["white_shad", "dark_contrast", "bright_contrast"],
-      {
-        white_shad: ["white", "white/chartreuse", "pearl"],
-        dark_contrast: ["black", "black/blue", "black/red"],
-      },
-    ),
+  }),
+  prop_bait: lure({
+    id: "prop_bait",
+    display_name: "Prop Bait",
+    gear_mode: "lure",
+    family_key: "topwater",
+    preferred_water_columns: ["top"],
+    preferred_moods: ["neutral", "active"],
+    preferred_presentation_styles: ["balanced", "bold"],
+    forage_matches: ["baitfish", "bluegill_perch"],
+    clarity_strengths: ["clear", "stained"],
+    tactical_lane: "surface",
+    how_to_fish_text: [
+      "Twitch it just enough to make the props sputter and spit, then let it sit still until the rings disappear before moving it again.",
+      "Use a pull-pause cadence so the prop churns on the pull and goes dead still on the pause; fish often eat it after the commotion stops.",
+      "Work it around isolated cover with sharp little pops of the rod tip, letting the bait rest between sputters instead of reeling it straight back.",
+    ],
   }),
   hollow_body_frog: lure({
     id: "hollow_body_frog",
@@ -730,18 +568,10 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
       "Twitch it just enough to make the legs kick; pause over every opening in the cover and count to three before moving — strikes on mats come after the pause.",
       "Use steady walking cadence across open surface, then slow and pause aggressively when near cover; don't set the hook until you feel the fish pulling.",
     ],
-    allowed_color_themes: ["frog_natural", "dark_contrast", "white_shad"],
-    shade_examples_by_theme: selectThemeShadesV3(
-      ["frog_natural", "dark_contrast", "white_shad"],
-      {
-        dark_contrast: ["black frog", "black/blue frog", "midnight frog"],
-        white_shad: ["white", "bone", "pearl frog"],
-      },
-    ),
   }),
   large_profile_pike_swimbait: lure({
     id: "large_profile_pike_swimbait",
-    display_name: "Large-Profile Pike Swimbait",
+    display_name: "Large Paddle-Tail Swimbait",
     gear_mode: "lure",
     family_key: "pike_swimbait",
     preferred_water_columns: ["shallow", "mid"],
@@ -755,17 +585,10 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
       "Work it with long, deliberate sweeps that make the body undulate; pause at the end of each sweep and hold position so following pike can close.",
       "Retrieve at a measured pace over weed tops or along the edge; the big profile does the work — don't twitch or jerk, just keep it gliding.",
     ],
-    allowed_color_themes: ["perch_bluegill", "bright_contrast", "white_shad"],
-    shade_examples_by_theme: selectThemeShadesV3(
-      ["perch_bluegill", "bright_contrast", "white_shad"],
-      {
-        bright_contrast: ["firetiger", "orange perch", "hot pike"],
-      },
-    ),
   }),
   pike_jerkbait: lure({
     id: "pike_jerkbait",
-    display_name: "Pike Jerkbait",
+    display_name: "Large Jerkbait",
     gear_mode: "lure",
     family_key: "pike_jerkbait",
     preferred_water_columns: ["shallow", "mid"],
@@ -779,13 +602,5 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
       "Rip it hard with two or three sweeps, then kill it completely — let the bait sink or suspend in place while you count three before the next sequence.",
       "Work it erratically with big pulls and deadstops; the key is the pause after the dash, so hold still for at least two seconds before triggering again.",
     ],
-    allowed_color_themes: ["perch_bluegill", "bright_contrast", "white_shad"],
-    shade_examples_by_theme: selectThemeShadesV3(
-      ["perch_bluegill", "bright_contrast", "white_shad"],
-      {
-        bright_contrast: ["firetiger", "clown", "redhead"],
-        white_shad: ["silver/black", "pearl", "whitefish"],
-      },
-    ),
   }),
 };

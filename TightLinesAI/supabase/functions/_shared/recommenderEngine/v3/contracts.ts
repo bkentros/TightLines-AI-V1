@@ -101,6 +101,7 @@ export type RecommenderV3DailyPayload = {
   water_column_nudge: RecommenderV3DailyWaterColumnNudge;
   presentation_nudge: RecommenderV3DailyPresentationNudge;
   variables_considered: readonly string[];
+  variables_triggered: readonly string[];
   notes: string[];
   source_score: number;
   source_band: string;
@@ -112,12 +113,14 @@ export const LURE_ARCHETYPE_IDS_V3 = [
   "wacky_rigged_stick_worm",
   "carolina_rigged_stick_worm",
   "shaky_head_worm",
-  "drop_shot_worm_minnow",
+  "drop_shot_worm",
+  "drop_shot_minnow",
   "ned_rig",
   "tube_jig",
   "texas_rigged_soft_plastic_craw",
   "football_jig",
   "compact_flipping_jig",
+  "finesse_jig",
   "swim_jig",
   "hair_jig",
   "inline_spinner",
@@ -135,7 +138,8 @@ export const LURE_ARCHETYPE_IDS_V3 = [
   "casting_spoon",
   "walking_topwater",
   "popping_topwater",
-  "buzzbait_prop_bait",
+  "buzzbait",
+  "prop_bait",
   "hollow_body_frog",
   "large_profile_pike_swimbait",
   "pike_jerkbait",
@@ -149,11 +153,14 @@ export const FLY_ARCHETYPE_IDS_V3 = [
   "bucktail_baitfish_streamer",
   "slim_minnow_streamer",
   "articulated_baitfish_streamer",
+  "articulated_dungeon_streamer",
   "game_changer",
   "woolly_bugger",
   "rabbit_strip_leech",
+  "balanced_leech",
   "zonker_streamer",
   "sculpin_streamer",
+  "sculpzilla",
   "muddler_sculpin",
   "crawfish_streamer",
   "conehead_streamer",
@@ -168,21 +175,13 @@ export type FlyArchetypeIdV3 = (typeof FLY_ARCHETYPE_IDS_V3)[number];
 
 export type RecommenderV3ArchetypeId = LureArchetypeIdV3 | FlyArchetypeIdV3;
 
-export const COLOR_THEME_IDS_V3 = [
-  "natural_baitfish",
-  "white_shad",
-  "bright_contrast",
-  "dark_contrast",
-  "craw_natural",
-  "green_pumpkin_natural",
-  "watermelon_natural",
-  "perch_bluegill",
-  "frog_natural",
-  "mouse_natural",
-  "metal_flash",
+export const RESOLVED_COLOR_THEMES_V3 = [
+  "natural",
+  "dark",
+  "bright",
 ] as const;
 
-export type ColorThemeIdV3 = (typeof COLOR_THEME_IDS_V3)[number];
+export type ResolvedColorThemeV3 = (typeof RESOLVED_COLOR_THEMES_V3)[number];
 
 export const TACTICAL_LANES_V3 = [
   "bottom_contact",
@@ -210,13 +209,6 @@ export type RecommenderV3ArchetypeProfile = {
   forage_matches: readonly ForageBucketV3[];
   clarity_strengths: readonly WaterClarity[];
   tactical_lane: TacticalLaneV3;
-  /**
-   * Each allowed theme should map to realistic shades that anglers can actually
-   * find or tie for that archetype. The engine will return three shade examples
-   * per recommendation so anglers can work with what they already own.
-   */
-  allowed_color_themes: readonly ColorThemeIdV3[];
-  shade_examples_by_theme: Partial<Record<ColorThemeIdV3, readonly string[]>>;
   /** Optional per-archetype technique line when tactical_lane defaults are too generic. */
   /** Three presentation variants — one is randomly selected each run. */
   how_to_fish_text?: readonly [string, string, string];
@@ -265,7 +257,7 @@ export type RecommenderV3RankedArchetype = {
   daily_modifier: number;
   clarity_modifier: number;
   forage_bonus: number;
-  color_theme: ColorThemeIdV3;
+  color_theme: ResolvedColorThemeV3;
   color_recommendations: [string, string, string];
   breakdown: RecommenderV3ScoreBreakdown[];
 };

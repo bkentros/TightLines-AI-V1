@@ -4,7 +4,7 @@ import type {
   RecommenderAuditRegionPriority,
 } from "../recommenderCalibrationScenarios.ts";
 import type {
-  ColorThemeIdV3,
+  ResolvedColorThemeV3,
   RecommenderV3ArchetypeId,
 } from "../../supabase/functions/_shared/recommenderEngine/index.ts";
 import {
@@ -17,7 +17,7 @@ function priorityFor(role: TroutMatrixScenario["matrix_role"]): RecommenderAudit
   return role === "core_monthly" ? "core" : "secondary";
 }
 
-function colorSet(...themes: ColorThemeIdV3[]): ColorThemeIdV3[] {
+function colorSet(...themes: ResolvedColorThemeV3[]): ResolvedColorThemeV3[] {
   return themes;
 }
 
@@ -25,7 +25,7 @@ function expectation(
   seasonal_story: string,
   primary_lanes: RecommenderV3ArchetypeId[],
   acceptable_secondary_lanes: RecommenderV3ArchetypeId[],
-  expected_color_lanes: ColorThemeIdV3[],
+  expected_color_lanes: ResolvedColorThemeV3[],
   disallowed_lanes: RecommenderV3ArchetypeId[] = [],
 ): RecommenderAuditExpectation {
   return {
@@ -37,16 +37,16 @@ function expectation(
   };
 }
 
-function clearColors(): ColorThemeIdV3[] {
-  return colorSet("natural_baitfish", "white_shad", "dark_contrast");
+function clearColors(): ResolvedColorThemeV3[] {
+  return colorSet("natural", "natural", "dark");
 }
 
-function stainedColors(): ColorThemeIdV3[] {
-  return colorSet("white_shad", "dark_contrast", "bright_contrast");
+function stainedColors(): ResolvedColorThemeV3[] {
+  return colorSet("natural", "dark", "bright");
 }
 
-function highVisColors(): ColorThemeIdV3[] {
-  return colorSet("white_shad", "bright_contrast", "metal_flash");
+function highVisColors(): ResolvedColorThemeV3[] {
+  return colorSet("dark", "bright");
 }
 
 function defaultDisallowed(): RecommenderV3ArchetypeId[] {
@@ -65,13 +65,13 @@ function appalachianTailwaterExpectation(focus: string): RecommenderAuditExpecta
       );
     case "prespawn_opening":
       // February uses the WARM_TAILWATER [1-2] row (primary_forage: leech_worm) so
-      // hair_jig produces dark_contrast (black leech) colors on bottom-push cold days.
+      // hair_jig produces dark (black leech) colors on bottom-push cold days.
       // March onward shifts to baitfish-primary spring row where natural/shad colors dominate.
       return expectation(
-        "Late-winter and early-spring Appalachian trout should open slim-minnow and spinner lanes carefully without getting loud; February bottom-push days surface hair jig in dark leech colors.",
-        ["slim_minnow_streamer", "inline_spinner", "woolly_bugger"],
-        ["clouser_minnow", "suspending_jerkbait", "muddler_sculpin"],
-        colorSet("dark_contrast", "natural_baitfish", "white_shad"),
+        "Late-winter and early-spring Appalachian trout should open slim-minnow and spinner lanes carefully without getting loud; the coldest bottom-push days can still elevate sculpin-style streamers and disciplined hair or jerkbait support.",
+        ["slim_minnow_streamer", "inline_spinner", "woolly_bugger", "sculpin_streamer"],
+        ["clouser_minnow", "suspending_jerkbait", "muddler_sculpin", "hair_jig"],
+        colorSet("dark", "natural", "natural"),
         ["mouse_fly", ...defaultDisallowed()],
       );
     case "spawn_postspawn_transition":
@@ -87,7 +87,7 @@ function appalachianTailwaterExpectation(focus: string): RecommenderAuditExpecta
         "Summer tailwater trout should tighten into controlled sculpin, bugger, and leech lanes, only allowing a mouse as a narrow supporting read.",
         ["muddler_sculpin", "woolly_bugger", "rabbit_strip_leech"],
         ["sculpin_streamer", "slim_minnow_streamer", "mouse_fly"],
-        colorSet("dark_contrast", "natural_baitfish", "white_shad"),
+        colorSet("dark", "natural", "natural"),
         defaultDisallowed(),
       );
     case "fall_transition":
@@ -114,8 +114,8 @@ function northeastFreestoneExpectation(focus: string): RecommenderAuditExpectati
       );
     case "prespawn_opening":
       return expectation(
-        "Early-spring freestone trout should open slim-minnow, bugger, and spinner lanes without turning flashy.",
-        ["slim_minnow_streamer", "woolly_bugger", "inline_spinner"],
+        "Early-spring freestone trout should open slim-minnow, bugger, and spinner lanes without turning flashy, while still allowing sculpin-style streamers to lead on the coldest bottom-oriented days.",
+        ["slim_minnow_streamer", "woolly_bugger", "inline_spinner", "sculpin_streamer"],
         ["clouser_minnow", "muddler_sculpin", "suspending_jerkbait"],
         clearColors(),
         ["mouse_fly", ...defaultDisallowed()],
@@ -168,7 +168,7 @@ function mountainWestRiverExpectation(focus: string): RecommenderAuditExpectatio
         "Shoulder-season western trout should open clean minnow and spinner support without over-accelerating; suspending jerkbait surfaces on warm-front days when fish push active.",
         ["sculpin_streamer", "slim_minnow_streamer", "inline_spinner", "suspending_jerkbait"],
         ["clouser_minnow", "woolly_bugger", "casting_spoon"],
-        colorSet("natural_baitfish", "white_shad", "metal_flash"),
+        colorSet("natural", "natural", "bright"),
         ["mouse_fly", ...defaultDisallowed()],
       );
     case "spawn_postspawn_transition":
@@ -184,7 +184,7 @@ function mountainWestRiverExpectation(focus: string): RecommenderAuditExpectatio
         "Summer western trout should remain streamer-minded with controlled minnow, muddler, and spinner lanes rather than bass-style aggression.",
         ["slim_minnow_streamer", "muddler_sculpin", "inline_spinner"],
         ["clouser_minnow", "woolly_bugger", "mouse_fly"],
-        colorSet("natural_baitfish", "white_shad", "metal_flash"),
+        colorSet("natural", "natural", "bright"),
         defaultDisallowed(),
       );
     case "fall_transition":
@@ -214,7 +214,7 @@ function pacificNorthwestRiverExpectation(focus: string): RecommenderAuditExpect
         "Shoulder-season northwest trout should let minnow and spinner lanes breathe while staying clean and river-specific.",
         ["slim_minnow_streamer", "inline_spinner", "woolly_bugger"],
         ["clouser_minnow", "muddler_sculpin", "suspending_jerkbait"],
-        colorSet("natural_baitfish", "white_shad", "metal_flash"),
+        colorSet("natural", "natural", "bright"),
         ["mouse_fly", ...defaultDisallowed()],
       );
     case "spawn_postspawn_transition":
@@ -305,7 +305,7 @@ function alaskaBigRiverExpectation(focus: string): RecommenderAuditExpectation {
       "Big Alaskan trout water in summer should still feel streamer-heavy and disciplined, not warmwater noisy.",
       ["sculpin_streamer", "woolly_bugger", "rabbit_strip_leech"],
       ["articulated_baitfish_streamer", "slim_minnow_streamer", "casting_spoon"],
-      colorSet("dark_contrast", "natural_baitfish", "white_shad"),
+      colorSet("dark", "natural", "natural"),
       ["mouse_fly", ...defaultDisallowed()],
     );
   }
@@ -322,7 +322,7 @@ function alaskaBigRiverExpectation(focus: string): RecommenderAuditExpectation {
     "Early-winter Alaska trout should stay in heavy sculpin, leech, and conehead control with no surface drift.",
     ["sculpin_streamer", "rabbit_strip_leech", "conehead_streamer"],
     ["woolly_bugger", "hair_jig", "suspending_jerkbait"],
-    colorSet("dark_contrast", "natural_baitfish", "white_shad"),
+    colorSet("dark", "natural", "natural"),
     ["mouse_fly", ...defaultDisallowed()],
   );
 }
@@ -360,7 +360,7 @@ function southCentralTailwaterExpectation(focus: string): RecommenderAuditExpect
     "Warm-tailwater summer trout should tighten back into sculpin, bugger, and leech-style restraint rather than broad summer aggression.",
     ["muddler_sculpin", "woolly_bugger", "rabbit_strip_leech"],
     ["sculpin_streamer", "slim_minnow_streamer", "hair_jig"],
-    colorSet("dark_contrast", "white_shad", "natural_baitfish"),
+    colorSet("dark", "natural", "natural"),
     ["mouse_fly", ...defaultDisallowed()],
   );
 }
