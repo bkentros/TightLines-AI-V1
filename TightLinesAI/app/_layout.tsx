@@ -233,6 +233,10 @@ export default function RootLayout() {
         />
         <Stack.Screen name="subscribe" options={{ title: 'Subscribe' }} />
         <Stack.Screen
+          name="recommender"
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
           name="how-fishing"
           options={{ headerShown: false }}
         />
