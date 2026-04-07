@@ -186,7 +186,6 @@ export function RecommenderView({ result, style }: Props) {
 
   const accentColor = contextAccentColor(result.context);
   const families = gearTab === 'lure' ? result.lure_rankings : result.fly_rankings;
-  const confColor = confidenceColor(result.confidence.tier);
   const img = getSpeciesImage(result.species);
 
   return (
@@ -217,10 +216,6 @@ export function RecommenderView({ result, style }: Props) {
             <Text style={[styles.badgeText, { color: accentColor }]}>{contextLabel(result.context)}</Text>
           </View>
           <Text style={styles.headerClarity}>{WATER_CLARITY_LABELS[result.water_clarity]} water</Text>
-          <View style={[styles.badge, { backgroundColor: confColor + '15', borderColor: confColor + '35' }]}>
-            <View style={[styles.confDot, { backgroundColor: confColor }]} />
-            <Text style={[styles.badgeText, { color: confColor }]}>{confidenceLabel(result.confidence.tier)}</Text>
-          </View>
         </View>
 
         <View style={styles.divider} />
@@ -334,22 +329,25 @@ const styles = StyleSheet.create({
     paddingBottom: 12,
   },
 
-  // Fish image — large, warm dark background, full-width
+  // Fish image — large, transparent, full-width
   fishImageWrap: {
     width: '100%',
-    height: 220,
-    backgroundColor: '#1C2B1E',
-    alignItems: 'center',
-    justifyContent: 'center',
+    height: 230,
+    backgroundColor: 'transparent',
+    overflow: 'hidden',
   },
   fishImage: {
-    width: '90%',
-    height: '90%',
+    position: 'absolute',
+    top: '-8%' as unknown as number,
+    left: '-8%' as unknown as number,
+    width: '116%',
+    height: '116%',
   },
   fishImageFallback: {
     width: '100%',
     height: '100%',
-    backgroundColor: '#1C2B1E',
+    backgroundColor: colors.backgroundAlt,
+    borderRadius: radius.md,
   },
 
   // Badges row — below image
