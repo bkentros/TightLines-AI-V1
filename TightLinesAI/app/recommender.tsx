@@ -18,6 +18,7 @@ import { useState, useEffect, useCallback } from 'react';
 import {
   View,
   Text,
+  Image,
   StyleSheet,
   ScrollView,
   TouchableOpacity,
@@ -29,6 +30,7 @@ import { useRouter, useLocalSearchParams } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import * as Location from 'expo-location';
 import { colors, fonts, spacing, radius, shadows } from '../lib/theme';
+import { getSpeciesImage } from '../lib/speciesImages';
 import { useAuthStore } from '../store/authStore';
 import { fetchRecommendation } from '../lib/recommender';
 import { fetchFreshEnvironment } from '../lib/env';
@@ -238,7 +240,7 @@ function ChipRow<T extends string>({
   );
 }
 
-/** Two-column grid of species selection cards */
+/** Two-column grid of species selection cards with fish images */
 function SpeciesGrid({
   options,
   selected,
@@ -248,7 +250,6 @@ function SpeciesGrid({
   selected: SpeciesGroup | null;
   onSelect: (s: SpeciesGroup) => void;
 }) {
-  // Pair items into rows of 2
   const rows: SpeciesGroup[][] = [];
   for (let i = 0; i < options.length; i += 2) {
     rows.push(options.slice(i, i + 2));
@@ -260,6 +261,7 @@ function SpeciesGrid({
         <View key={rowIdx} style={styles.speciesRow}>
           {row.map((sp) => {
             const isActive = selected === sp;
+            const img = getSpeciesImage(sp);
             return (
               <TouchableOpacity
                 key={sp}
@@ -267,35 +269,46 @@ function SpeciesGrid({
                   styles.speciesCard,
                   shadows.sm,
                   isActive
-                    ? { backgroundColor: colors.primary, borderColor: colors.primary }
+                    ? { borderColor: colors.primary, borderWidth: 2 }
                     : { backgroundColor: colors.surface, borderColor: colors.border },
                 ]}
                 onPress={() => onSelect(sp)}
                 activeOpacity={0.75}
               >
-                <View style={styles.speciesCardInner}>
-                  {isActive ? (
-                    <View style={styles.speciesCheckCircle}>
-                      <Ionicons name="checkmark" size={11} color="#fff" />
-                    </View>
+                {/* Fish image */}
+                <View style={styles.speciesImageWrap}>
+                  {img ? (
+                    <Image
+                      source={img}
+                      style={styles.speciesImage}
+                      resizeMode="contain"
+                    />
                   ) : (
-                    <View style={styles.speciesUncheckCircle} />
+                    <View style={styles.speciesImageFallback} />
                   )}
+                </View>
+
+                {/* Name + check row */}
+                <View style={styles.speciesCardFooter}>
                   <Text
                     style={[
                       styles.speciesCardText,
-                      { color: isActive ? '#fff' : colors.text },
+                      { color: isActive ? colors.primary : colors.text },
                       isActive && { fontFamily: fonts.bodySemiBold },
                     ]}
                     numberOfLines={2}
                   >
                     {SPECIES_DISPLAY[sp]}
                   </Text>
+                  {isActive && (
+                    <View style={styles.speciesCheckCircle}>
+                      <Ionicons name="checkmark" size={11} color="#fff" />
+                    </View>
+                  )}
                 </View>
               </TouchableOpacity>
             );
           })}
-          {/* Spacer for odd last item */}
           {row.length === 1 && <View style={styles.speciesCardSpacer} />}
         </View>
       ))}
@@ -533,7 +546,7 @@ export default function RecommenderScreen() {
   return (
     <SafeAreaView style={styles.root} edges={['top']}>
       {/* Nav header */}
-      <View style={styles.navHeader}>
+      <View style={[styles.navHeader, screenState === 'setup' && styles.navHeaderBorderless]}>
         <TouchableOpacity
           style={styles.backBtn}
           onPress={() => {
@@ -546,16 +559,15 @@ export default function RecommenderScreen() {
           hitSlop={12}
         >
           <Ionicons
-            name={screenState === 'setup' ? 'chevron-back' : 'arrow-back-circle-outline'}
+            name="chevron-back"
             size={24}
             color={colors.text}
           />
         </TouchableOpacity>
-        <Text style={styles.navTitle}>
-          {screenState === 'result' && result
-            ? SPECIES_DISPLAY[result.species]
-            : 'What to Throw'}
-        </Text>
+        {(screenState === 'loading' || screenState === 'error') && (
+          <Text style={styles.navTitle}>What to Throw</Text>
+        )}
+        {screenState === 'result' && <View style={{ flex: 1 }} />}
         {screenState === 'result' && (
           <TouchableOpacity style={styles.resetBtn} onPress={handleReset} hitSlop={12}>
             <Ionicons name="options-outline" size={22} color={colors.textSecondary} />
@@ -571,22 +583,8 @@ export default function RecommenderScreen() {
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps="handled"
         >
-          {/* Intro */}
-          <View style={styles.setupIntro}>
-            <Text style={styles.setupIntroText}>
-              Freshwater-only recommendations built around your state, today&apos;s conditions,
-              and the exact species you&apos;re targeting.
-            </Text>
-            {!!setupHint && (
-              <View style={styles.setupHintCard}>
-                <Ionicons
-                  name={isReady ? 'checkmark-circle-outline' : 'information-circle-outline'}
-                  size={15}
-                  color={isReady ? colors.reportScoreGreen : colors.textMuted}
-                />
-                <Text style={styles.setupHintText}>{setupHint}</Text>
-              </View>
-            )}
+          {/* Meta row — hint + region */}
+          <View style={styles.setupMeta}>
             {/* Region detection */}
             {resolvingRegion ? (
               <View style={styles.regionRow}>
@@ -606,6 +604,16 @@ export default function RecommenderScreen() {
                 <Text style={[styles.regionText, { color: colors.reportScoreYellow }]}>
                   We need a verified state before we can build your plan.
                 </Text>
+              </View>
+            )}
+            {!!setupHint && (
+              <View style={styles.setupHintCard}>
+                <Ionicons
+                  name={isReady ? 'checkmark-circle-outline' : 'information-circle-outline'}
+                  size={15}
+                  color={isReady ? colors.reportScoreGreen : colors.textMuted}
+                />
+                <Text style={styles.setupHintText}>{setupHint}</Text>
               </View>
             )}
           </View>
@@ -679,6 +687,12 @@ export default function RecommenderScreen() {
             <Text style={styles.ctaBtnText}>Get Recommendations</Text>
             <Ionicons name="arrow-forward" size={18} color="#fff" />
           </TouchableOpacity>
+
+          {/* Disclaimer — below CTA */}
+          <Text style={styles.setupDisclaimer}>
+            Freshwater-only recommendations built around your state, today&apos;s conditions,
+            and the exact species you&apos;re targeting.
+          </Text>
         </ScrollView>
       )}
 
@@ -687,11 +701,7 @@ export default function RecommenderScreen() {
         <View style={styles.centerState}>
           <ActivityIndicator size="large" color={accentColor} />
           <Text style={styles.loadingText}>
-            Pulling fresh conditions and building today&apos;s plan for{' '}
-            {species ? SPECIES_DISPLAY[species] : 'your species'}…
-          </Text>
-          <Text style={styles.loadingSubtext}>
-            Seasonal truth stays anchored while live conditions reshuffle the picks.
+            Determining lures and flies for your current conditions…
           </Text>
         </View>
       )}
@@ -744,6 +754,9 @@ const styles = StyleSheet.create({
     borderBottomColor: colors.border,
     gap: spacing.sm,
   },
+  navHeaderBorderless: {
+    borderBottomWidth: 0,
+  },
   backBtn: {
     padding: 4,
   },
@@ -763,20 +776,14 @@ const styles = StyleSheet.create({
   },
   setupContent: {
     paddingHorizontal: spacing.md,
-    paddingTop: spacing.md,
+    paddingTop: spacing.xs,
     paddingBottom: 48,
-    gap: spacing.lg,
+    gap: spacing.xl,
   },
 
-  // Intro block
-  setupIntro: {
-    gap: 6,
-  },
-  setupIntroText: {
-    fontFamily: fonts.body,
-    fontSize: 14,
-    color: colors.textSecondary,
-    lineHeight: 20,
+  // Meta block — region + hint at top
+  setupMeta: {
+    gap: 8,
   },
   setupHintCard: {
     flexDirection: 'row',
@@ -826,11 +833,10 @@ const styles = StyleSheet.create({
     gap: spacing.sm,
   },
   sectionLabel: {
-    fontFamily: fonts.bodySemiBold,
-    fontSize: 11,
-    color: colors.textMuted,
-    textTransform: 'uppercase',
-    letterSpacing: 0.7,
+    fontFamily: fonts.serifBold,
+    fontSize: 22,
+    color: colors.text,
+    letterSpacing: -0.3,
   },
 
   // Species grid — 2 columns
@@ -845,31 +851,45 @@ const styles = StyleSheet.create({
     flex: 1,
     borderRadius: radius.md,
     borderWidth: 1.5,
-    paddingVertical: 13,
-    paddingHorizontal: spacing.md,
+    borderColor: colors.border,
+    backgroundColor: colors.surface,
+    overflow: 'hidden',
   },
   speciesCardSpacer: {
     flex: 1,
   },
-  speciesCardInner: {
+  speciesImageWrap: {
+    width: '100%',
+    height: 90,
+    backgroundColor: '#111',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  speciesImage: {
+    width: '100%',
+    height: '100%',
+  },
+  speciesImageFallback: {
+    width: '100%',
+    height: '100%',
+    backgroundColor: colors.backgroundAlt,
+  },
+  speciesCardFooter: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
+    justifyContent: 'space-between',
+    paddingHorizontal: spacing.sm,
+    paddingVertical: 10,
+    gap: 6,
   },
   speciesCheckCircle: {
     width: 18,
     height: 18,
     borderRadius: 99,
-    backgroundColor: 'rgba(255,255,255,0.25)',
+    backgroundColor: colors.primary,
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  speciesUncheckCircle: {
-    width: 18,
-    height: 18,
-    borderRadius: 99,
-    borderWidth: 1.5,
-    borderColor: colors.border,
+    flexShrink: 0,
   },
   speciesCardText: {
     flex: 1,
@@ -943,6 +963,13 @@ const styles = StyleSheet.create({
     fontFamily: fonts.bodySemiBold,
     fontSize: 16,
     color: '#fff',
+  },
+  setupDisclaimer: {
+    fontFamily: fonts.body,
+    fontSize: 13,
+    color: colors.textMuted,
+    textAlign: 'center',
+    lineHeight: 19,
   },
 
   // Loading / error
