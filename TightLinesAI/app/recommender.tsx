@@ -176,8 +176,14 @@ function readinessMessage(args: {
 
 // ─── Setup sub-components ─────────────────────────────────────────────────────
 
-function SectionLabel({ label }: { label: string }) {
-  return <Text style={styles.sectionLabel}>{label}</Text>;
+function SectionLabel({ label, step }: { label: string; step: number }) {
+  return (
+    <View style={styles.sectionLabelRow}>
+      <Text style={styles.sectionStep}>{`0${step}`}</Text>
+      <View style={styles.sectionLabelDivider} />
+      <Text style={styles.sectionLabel}>{label.toUpperCase()}</Text>
+    </View>
+  );
 }
 
 // ─── Species Card ─────────────────────────────────────────────────────────────
@@ -258,11 +264,19 @@ function SpeciesGrid({
 
 // ─── Context selector (Body of Water) ────────────────────────────────────────
 
+const CONTEXT_PASSIVE_BG: Record<string, string> = {
+  freshwater_lake_pond: '#DFF1FA',
+  freshwater_river:     '#E0F2E8',
+};
+const CONTEXT_PASSIVE_ICON: Record<string, string> = {
+  freshwater_lake_pond: '#1A6B8F',
+  freshwater_river:     colors.primary,
+};
+
 function ContextSelector({
   options,
   selected,
   onSelect,
-  accentColor,
 }: {
   options: EngineContext[];
   selected: EngineContext | null;
@@ -273,22 +287,25 @@ function ContextSelector({
     <View style={styles.contextRow}>
       {options.map((opt) => {
         const isActive = selected === opt;
+        const passiveBg = CONTEXT_PASSIVE_BG[opt] ?? colors.surface;
+        const passiveIcon = CONTEXT_PASSIVE_ICON[opt] ?? colors.primary;
+        const activeAccent = contextAccentColor(opt);
         return (
           <TouchableOpacity
             key={opt}
             style={[
               styles.contextCard,
               isActive
-                ? { backgroundColor: accentColor, borderColor: accentColor }
-                : { backgroundColor: colors.surface, borderColor: colors.border },
+                ? { backgroundColor: activeAccent, borderColor: activeAccent }
+                : { backgroundColor: passiveBg, borderColor: 'transparent' },
             ]}
             onPress={() => onSelect(opt)}
-            activeOpacity={0.75}
+            activeOpacity={0.8}
           >
             <Ionicons
               name={contextIcon(opt) as never}
-              size={17}
-              color={isActive ? '#fff' : colors.textMuted}
+              size={30}
+              color={isActive ? 'rgba(255,255,255,0.9)' : passiveIcon}
             />
             <Text
               style={[
@@ -299,6 +316,11 @@ function ContextSelector({
             >
               {contextLabel(opt)}
             </Text>
+            {isActive && (
+              <View style={styles.contextCheckBadge}>
+                <Ionicons name="checkmark" size={9} color="#fff" />
+              </View>
+            )}
           </TouchableOpacity>
         );
       })}
@@ -317,15 +339,15 @@ function ClaritySelector({
   onSelect: (c: WaterClarity) => void;
   accentColor: string;
 }) {
-  const options: { value: WaterClarity; label: string; sub: string }[] = [
-    { value: 'clear',   label: 'Clear',   sub: 'Glass clear' },
-    { value: 'stained', label: 'Stained', sub: 'Tea / green tint' },
-    { value: 'dirty',   label: 'Murky',   sub: '2 ft or less' },
+  const options: { value: WaterClarity; label: string; sub: string; bg: string; textColor: string }[] = [
+    { value: 'clear',   label: 'Clear',   sub: 'Glass clear',      bg: '#DBF0FA', textColor: '#1A6B8F' },
+    { value: 'stained', label: 'Stained', sub: 'Tea / green tint', bg: '#FDF3D0', textColor: '#8B6814' },
+    { value: 'dirty',   label: 'Murky',   sub: '2 ft or less',     bg: '#EDE4D4', textColor: '#6B4F2F' },
   ];
 
   return (
     <View style={styles.clarityRow}>
-      {options.map(({ value, label, sub }) => {
+      {options.map(({ value, label, sub, bg, textColor }) => {
         const isActive = selected === value;
         return (
           <TouchableOpacity
@@ -333,16 +355,22 @@ function ClaritySelector({
             style={[
               styles.clarityCard,
               isActive
-                ? { borderColor: accentColor, backgroundColor: accentColor + '12' }
-                : { borderColor: colors.borderLight, backgroundColor: colors.surface },
+                ? { borderColor: accentColor, borderWidth: 2, backgroundColor: accentColor + '14' }
+                : { borderColor: 'transparent', borderWidth: 2, backgroundColor: bg },
             ]}
             onPress={() => onSelect(value)}
-            activeOpacity={0.7}
+            activeOpacity={0.75}
           >
-            <Text style={[styles.clarityCardTitle, { color: isActive ? accentColor : colors.text }]}>
+            <Text style={[
+              styles.clarityCardTitle,
+              { color: isActive ? accentColor : textColor },
+            ]}>
               {label}
             </Text>
-            <Text style={[styles.clarityCardSub, isActive && { color: accentColor + 'AA' }]}>
+            <Text style={[
+              styles.clarityCardSub,
+              { color: isActive ? accentColor + 'AA' : textColor + '99' },
+            ]}>
               {sub}
             </Text>
             {isActive && (
@@ -562,14 +590,16 @@ export default function RecommenderScreen() {
           <Ionicons name="chevron-back" size={24} color={colors.text} />
         </TouchableOpacity>
 
-        {(screenState === 'loading' || screenState === 'error') && (
-          <Text style={styles.navTitle}>What to Throw</Text>
+        {screenState !== 'result' && (
+          <Text style={styles.navTitle}>
+            {screenState === 'setup' ? 'Lure & Fly' : 'What to Throw'}
+          </Text>
         )}
         {screenState === 'result' && <View style={{ flex: 1 }} />}
 
         {/* Region pill — only in setup, right side */}
         {screenState === 'setup' && (
-          <View style={{ flex: 1, alignItems: 'flex-end' }}>
+          <View style={styles.navRight}>
             {resolvingRegion ? (
               <ActivityIndicator size="small" color={colors.textMuted} style={{ transform: [{ scale: 0.7 }] }} />
             ) : stateCode ? (
@@ -608,7 +638,7 @@ export default function RecommenderScreen() {
 
           {/* Species */}
           <View style={styles.section}>
-            <SectionLabel label="Target Species" />
+            <SectionLabel label="Target Species" step={1} />
             <SpeciesGrid
               options={availableSpecies}
               selected={species}
@@ -626,7 +656,7 @@ export default function RecommenderScreen() {
 
           {/* Body of Water */}
           <View style={styles.section}>
-            <SectionLabel label="Body of Water" />
+            <SectionLabel label="Body of Water" step={2} />
             <ContextSelector
               options={availableContexts}
               selected={context}
@@ -642,7 +672,7 @@ export default function RecommenderScreen() {
 
           {/* Water Clarity */}
           <View style={styles.section}>
-            <SectionLabel label="Water Clarity" />
+            <SectionLabel label="Water Clarity" step={3} />
             <ClaritySelector
               selected={clarity}
               onSelect={setClarity}
@@ -743,8 +773,13 @@ const styles = StyleSheet.create({
   navTitle: {
     flex: 1,
     fontFamily: fonts.serifBold,
-    fontSize: 18,
+    fontSize: 19,
     color: colors.text,
+    letterSpacing: -0.3,
+  },
+  navRight: {
+    alignItems: 'flex-end',
+    minWidth: 48,
   },
   resetBtn: {
     padding: 4,
@@ -756,9 +791,9 @@ const styles = StyleSheet.create({
   },
   setupContent: {
     paddingHorizontal: spacing.md,
-    paddingTop: spacing.sm,
+    paddingTop: spacing.md,
     paddingBottom: 56,
-    gap: 28,
+    gap: 24,
   },
 
   // Region pill (in nav header)
@@ -798,13 +833,29 @@ const styles = StyleSheet.create({
 
   // Sections
   section: {
-    gap: 12,
+    gap: 14,
+  },
+  sectionLabelRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+  },
+  sectionStep: {
+    fontFamily: fonts.bodyMedium,
+    fontSize: 12,
+    color: colors.primaryLight,
+    letterSpacing: 0.5,
+  },
+  sectionLabelDivider: {
+    width: 1,
+    height: 12,
+    backgroundColor: colors.borderLight,
   },
   sectionLabel: {
-    fontFamily: fonts.serifBold,
-    fontSize: 20,
-    color: colors.text,
-    letterSpacing: -0.2,
+    fontFamily: fonts.bodySemiBold,
+    fontSize: 11,
+    color: colors.textMuted,
+    letterSpacing: 1.4,
   },
 
   // Species grid
@@ -840,15 +891,15 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    paddingHorizontal: 12,
-    paddingVertical: 10,
-    backgroundColor: 'rgba(255,255,255,0.88)',
+    paddingHorizontal: 14,
+    paddingVertical: 11,
+    backgroundColor: 'rgba(255,255,255,0.92)',
   },
   speciesCardText: {
-    fontFamily: fonts.serifBold,
-    fontSize: 14,
+    fontFamily: fonts.bodySemiBold,
+    fontSize: 13,
     color: colors.text,
-    letterSpacing: 0.1,
+    letterSpacing: 0.2,
   },
   speciesCheckBadge: {
     position: 'absolute',
@@ -869,17 +920,29 @@ const styles = StyleSheet.create({
   },
   contextCard: {
     flex: 1,
-    flexDirection: 'row',
+    height: 118,
+    borderRadius: radius.lg,
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 8,
-    paddingVertical: 15,
-    borderRadius: radius.lg,
-    borderWidth: 1.5,
+    gap: 10,
+    borderWidth: 2,
+    overflow: 'hidden',
   },
   contextCardText: {
-    fontFamily: fonts.bodyMedium,
-    fontSize: 15,
+    fontFamily: fonts.bodySemiBold,
+    fontSize: 14,
+    letterSpacing: 0.1,
+  },
+  contextCheckBadge: {
+    position: 'absolute',
+    top: 10,
+    right: 10,
+    width: 18,
+    height: 18,
+    borderRadius: 99,
+    backgroundColor: 'rgba(255,255,255,0.3)',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 
   // Water clarity
@@ -889,27 +952,27 @@ const styles = StyleSheet.create({
   },
   clarityCard: {
     flex: 1,
-    paddingVertical: 16,
-    paddingHorizontal: 6,
+    paddingVertical: 22,
+    paddingHorizontal: 8,
     borderRadius: radius.lg,
-    borderWidth: 1,
     alignItems: 'center',
-    gap: 5,
+    gap: 6,
+    minHeight: 96,
   },
   clarityCardTitle: {
     fontFamily: fonts.bodySemiBold,
-    fontSize: 14,
+    fontSize: 15,
   },
   clarityCardSub: {
     fontFamily: fonts.body,
     fontSize: 11,
-    color: colors.textMuted,
     textAlign: 'center',
+    lineHeight: 15,
   },
   clarityCheck: {
     position: 'absolute',
-    top: 8,
-    right: 8,
+    top: 9,
+    right: 9,
     width: 16,
     height: 16,
     borderRadius: 99,
@@ -951,11 +1014,12 @@ const styles = StyleSheet.create({
   },
   setupDisclaimer: {
     fontFamily: fonts.body,
-    fontSize: 12,
-    color: colors.textMuted,
+    fontSize: 11,
+    color: colors.disabled,
     textAlign: 'center',
-    lineHeight: 18,
-    marginTop: -8,
+    lineHeight: 17,
+    letterSpacing: 0.2,
+    marginTop: -4,
   },
 
   // Loading / error
