@@ -210,15 +210,42 @@ function windCardinal(deg: number): string {
 }
 
 function cloudCoverLabel(pct: number): string {
-  if (pct < 20) return 'Clear';
-  if (pct < 50) return 'Partly Cloudy';
-  if (pct < 80) return 'Mostly Cloudy';
+  if (pct <= 15) return 'Clear';
+  if (pct <= 35) return 'Partly';
+  if (pct <= 65) return 'Cloudy';
   return 'Overcast';
 }
 
-// ─── Conditions card ──────────────────────────────────────────────────────────
+function windDirectionLabel16(deg: number): string {
+  const cards = ['N','NNE','NE','ENE','E','ESE','SE','SSE','S','SSW','SW','WSW','W','WNW','NW','NNW'];
+  const i = Math.round(((deg % 360) + 360) / 22.5) % 16;
+  return cards[i] ?? '—';
+}
 
-function ConditionsCard({
+function moonPhaseLabel(phase: string | undefined, illumination: number | undefined): string {
+  if (phase && phase !== 'Unknown') return phase;
+  if (illumination == null) return '—';
+  if (illumination <= 0.05) return 'New Moon';
+  if (illumination <= 0.4)  return 'Crescent';
+  if (illumination <= 0.6)  return 'Half';
+  if (illumination <= 0.9)  return 'Gibbous';
+  return 'Full Moon';
+}
+
+function pressureTrendInfo(trend: string): { label: string; color: string } | null {
+  switch (trend) {
+    case 'rapidly_falling': return { label: '↓↓ Rapidly Falling', color: '#2E7D32' };
+    case 'slowly_falling':  return { label: '↓ Falling',          color: '#388E3C' };
+    case 'stable':          return { label: 'Stable',             color: colors.textMuted };
+    case 'slowly_rising':   return { label: '↑ Rising',           color: '#E65100' };
+    case 'rapidly_rising':  return { label: '↑↑ Rapidly Rising',  color: '#B71C1C' };
+    default: return null;
+  }
+}
+
+// ─── Mini Conditions Card (≈60% of LiveConditionsWidget) ─────────────────────
+
+function MiniConditionsCard({
   stateCode,
   loading,
   env,
@@ -232,38 +259,107 @@ function ConditionsCard({
   if (!stateName && !loading) return null;
 
   const w = env?.weather;
-  const tempStr  = w ? `${Math.round(w.temperature)}°${w.temp_unit.replace('°', '')}` : null;
-  const skyStr   = w ? cloudCoverLabel(w.cloud_cover) : null;
-  const windStr  = w ? `${Math.round(w.wind_speed)} ${w.wind_speed_unit} ${windCardinal(w.wind_direction)}` : null;
+  const moon = env?.moon;
+
+  // Air temp tile — prefer today's high/low, fall back to current temp
+  let tempValue = '—';
+  let tempLabel = 'Temp';
+  if (w) {
+    const hi = w.temp_7day_high && w.temp_7day_high.length > 14 ? w.temp_7day_high[14] : null;
+    const lo = w.temp_7day_low  && w.temp_7day_low.length  > 14 ? w.temp_7day_low[14]  : null;
+    if (hi != null && lo != null && Number.isFinite(hi) && Number.isFinite(lo)) {
+      tempValue = `${Math.round(lo)}–${Math.round(hi)}${w.temp_unit}`;
+      tempLabel = 'Air today';
+    } else {
+      tempValue = `${Math.round(w.temperature)}${w.temp_unit}`;
+    }
+  }
+
+  const skyValue      = w ? cloudCoverLabel(w.cloud_cover) : '—';
+  const windValue     = w ? `${windDirectionLabel16(w.wind_direction)} ${Math.round(w.wind_speed)}` : '—';
+  const pressureValue = w ? String(w.pressure) : '—';
+  const pTrend        = w?.pressure_trend ? pressureTrendInfo(w.pressure_trend) : null;
+  const moonLabel     = moon ? moonPhaseLabel(moon.phase, moon.illumination) : null;
+  const humidLabel    = w?.humidity != null ? `${Math.round(w.humidity)}%` : null;
+
+  const fetchedAt = env?.fetched_at ? new Date(env.fetched_at).getTime() : 0;
+  const ageMs     = fetchedAt ? Math.max(0, Date.now() - fetchedAt) : 0;
+  const ageLabel  = fetchedAt ? `${Math.floor(ageMs / 60000)}m ago` : null;
 
   return (
-    <View style={styles.conditionsCard}>
-      {/* Location + season */}
-      <View style={styles.conditionsHeaderRow}>
-        <Ionicons name="location" size={11} color={colors.primaryLight} />
-        <Text style={styles.conditionsLocationText}>{stateName ?? '—'}</Text>
-        <Text style={styles.conditionsMetricDot}>·</Text>
-        <Text style={styles.conditionsSeasonText}>{season}</Text>
+    <View style={styles.miniCondCard}>
+      {/* Header row */}
+      <View style={styles.miniCondHeader}>
+        <View style={styles.miniCondHeaderLeft}>
+          <View style={styles.miniCondDot} />
+          <View>
+            <Text style={styles.miniCondLabel}>Live Conditions</Text>
+            <Text style={styles.miniCondLocation}>{stateName ?? '—'}  ·  {season}</Text>
+          </View>
+        </View>
+        <View style={styles.miniCondHeaderRight}>
+          {ageLabel && !loading && (
+            <Text style={styles.miniCondAge}>{ageLabel}</Text>
+          )}
+          {loading && (
+            <ActivityIndicator size="small" color={colors.primary} style={{ transform: [{ scale: 0.6 }] }} />
+          )}
+        </View>
       </View>
 
-      {/* Live metrics */}
-      {loading ? (
-        <Text style={styles.conditionsLoadingText}>Loading conditions…</Text>
-      ) : w ? (
-        <View style={styles.conditionsMetricsRow}>
-          {tempStr && <Text style={styles.conditionsMetricText}>{tempStr}</Text>}
-          {skyStr && (
-            <>
-              <Text style={styles.conditionsMetricDot}>·</Text>
-              <Text style={styles.conditionsMetricText}>{skyStr}</Text>
-            </>
+      {/* Metric grid */}
+      {w ? (
+        <>
+          <View style={styles.miniCondGrid}>
+            <View style={styles.miniCondTile}>
+              <Ionicons name="thermometer-outline" size={10} color={colors.primary} />
+              <Text style={styles.miniCondValue} numberOfLines={1}>{tempValue}</Text>
+              <Text style={styles.miniCondTileLabel}>{tempLabel}</Text>
+            </View>
+            <View style={styles.miniCondTile}>
+              <Ionicons name="cloud-outline" size={10} color={colors.primary} />
+              <Text style={styles.miniCondValue} numberOfLines={1}>{skyValue}</Text>
+              <Text style={styles.miniCondTileLabel}>Sky</Text>
+            </View>
+            <View style={styles.miniCondTile}>
+              <Ionicons name="flag-outline" size={10} color={colors.primary} />
+              <Text style={styles.miniCondValue} numberOfLines={1}>{windValue}</Text>
+              <Text style={styles.miniCondTileLabel}>{w.wind_speed_unit}</Text>
+            </View>
+            <View style={styles.miniCondTile}>
+              <Ionicons name="speedometer-outline" size={10} color={colors.primary} />
+              <Text style={styles.miniCondValue} numberOfLines={1}>{pressureValue}</Text>
+              {pTrend ? (
+                <Text style={[styles.miniCondTileLabel, { color: pTrend.color }]} numberOfLines={1}>
+                  {pTrend.label}
+                </Text>
+              ) : (
+                <Text style={styles.miniCondTileLabel}>Press.</Text>
+              )}
+            </View>
+          </View>
+
+          {/* Footer pills */}
+          {(moonLabel || humidLabel) && (
+            <View style={styles.miniCondFooter}>
+              {moonLabel && (
+                <View style={styles.miniCondPill}>
+                  <Ionicons name="moon-outline" size={8} color={colors.textSecondary} />
+                  <Text style={styles.miniCondPillText}>{moonLabel}</Text>
+                </View>
+              )}
+              {humidLabel && (
+                <View style={styles.miniCondPill}>
+                  <Ionicons name="water-outline" size={8} color={colors.textSecondary} />
+                  <Text style={styles.miniCondPillText}>{humidLabel}</Text>
+                </View>
+              )}
+            </View>
           )}
-          {windStr && (
-            <>
-              <Text style={styles.conditionsMetricDot}>·</Text>
-              <Text style={styles.conditionsMetricText}>{windStr}</Text>
-            </>
-          )}
+        </>
+      ) : loading ? (
+        <View style={styles.miniCondLoading}>
+          <Text style={styles.miniCondLoadingText}>Pulling live conditions…</Text>
         </View>
       ) : null}
     </View>
@@ -766,7 +862,7 @@ export default function RecommenderScreen() {
 
         {screenState !== 'result' && (
           <Text style={styles.navTitle}>
-            {screenState === 'setup' ? 'Lure & Fly' : 'What to Throw'}
+            {screenState === 'setup' ? 'Lure & Fly Recommender' : 'What to Throw'}
           </Text>
         )}
         {screenState === 'result' && <View style={{ flex: 1 }} />}
@@ -817,8 +913,8 @@ export default function RecommenderScreen() {
             </View>
           )}
 
-          {/* Conditions card */}
-          <ConditionsCard
+          {/* Mini live conditions card */}
+          <MiniConditionsCard
             stateCode={stateCode}
             loading={conditionsLoading}
             env={liveConditions}
@@ -869,11 +965,6 @@ export default function RecommenderScreen() {
               accentColor={accentColor}
             />
           </View>
-
-          {/* Inline hint above CTA */}
-          {!!setupHint && !isReady && (
-            <Text style={styles.setupHint}>{setupHint}</Text>
-          )}
 
           {/* CTA */}
           <TouchableOpacity
@@ -963,9 +1054,10 @@ const styles = StyleSheet.create({
   navTitle: {
     flex: 1,
     fontFamily: fonts.serifBold,
-    fontSize: 19,
+    fontSize: 17,
     color: colors.text,
     letterSpacing: -0.3,
+    textAlign: 'center',
   },
   navRight: {
     alignItems: 'flex-end',
@@ -1050,6 +1142,8 @@ const styles = StyleSheet.create({
     borderRadius: radius.xl,
     padding: spacing.md,
     gap: 14,
+    borderWidth: 1.5,
+    borderColor: colors.primaryMistDark,
     shadowColor: '#253D2C',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.05,
@@ -1057,55 +1151,105 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
 
-  // Conditions card — live weather strip at top of scroll
-  conditionsCard: {
+  // Mini conditions card — 60% scale of LiveConditionsWidget
+  miniCondCard: {
     backgroundColor: colors.surface,
     borderRadius: radius.xl,
-    paddingHorizontal: spacing.md,
-    paddingVertical: 14,
-    gap: 6,
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+    gap: 8,
     shadowColor: '#253D2C',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.05,
     shadowRadius: 12,
     elevation: 2,
   },
-  conditionsHeaderRow: {
+  miniCondHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  miniCondHeaderLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+  },
+  miniCondHeaderRight: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 5,
   },
-  conditionsLocationText: {
-    fontFamily: fonts.bodySemiBold,
-    fontSize: 13,
+  miniCondDot: {
+    width: 5,
+    height: 5,
+    borderRadius: 3,
+    backgroundColor: colors.primary,
+  },
+  miniCondLabel: {
+    fontSize: 9,
+    fontWeight: '700' as const,
+    color: colors.primary,
+    letterSpacing: 0.4,
+    textTransform: 'uppercase' as const,
+  },
+  miniCondLocation: {
+    fontSize: 9,
+    color: colors.textMuted,
+    marginTop: 1,
+  },
+  miniCondAge: {
+    fontSize: 9,
+    color: colors.textMuted,
+  },
+  miniCondGrid: {
+    flexDirection: 'row',
+    gap: 5,
+  },
+  miniCondTile: {
+    flex: 1,
+    alignItems: 'center',
+    backgroundColor: colors.background,
+    borderRadius: radius.sm,
+    paddingVertical: 8,
+    gap: 2,
+  },
+  miniCondValue: {
+    fontSize: 10,
+    fontWeight: '700' as const,
     color: colors.text,
   },
-  conditionsSeasonText: {
-    fontFamily: fonts.bodyMedium,
-    fontSize: 13,
-    color: colors.textSecondary,
-  },
-  conditionsLoadingText: {
-    fontFamily: fonts.body,
-    fontSize: 12,
+  miniCondTileLabel: {
+    fontSize: 8,
     color: colors.textMuted,
     letterSpacing: 0.2,
+    textAlign: 'center' as const,
   },
-  conditionsMetricsRow: {
+  miniCondFooter: {
     flexDirection: 'row',
+    flexWrap: 'wrap' as const,
     alignItems: 'center',
     gap: 5,
-    flexWrap: 'wrap' as const,
   },
-  conditionsMetricText: {
-    fontFamily: fonts.body,
-    fontSize: 12,
+  miniCondPill: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 3,
+    backgroundColor: colors.background,
+    borderRadius: radius.sm,
+    paddingHorizontal: 7,
+    paddingVertical: 3,
+  },
+  miniCondPillText: {
+    fontSize: 9,
+    color: colors.textSecondary,
+  },
+  miniCondLoading: {
+    paddingVertical: 8,
+    alignItems: 'center',
+  },
+  miniCondLoadingText: {
+    fontSize: 10,
     color: colors.textMuted,
-  },
-  conditionsMetricDot: {
-    fontFamily: fonts.body,
-    fontSize: 12,
-    color: colors.borderLight,
   },
 
   // Sections
@@ -1115,20 +1259,20 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   sectionStep: {
-    fontFamily: fonts.bodyMedium,
-    fontSize: 12,
-    color: colors.primaryLight,
+    fontFamily: fonts.bodyBold,
+    fontSize: 13,
+    color: colors.primaryDark,
     letterSpacing: 0.5,
   },
   sectionLabelDivider: {
-    width: 1,
-    height: 12,
-    backgroundColor: colors.borderLight,
+    width: 1.5,
+    height: 13,
+    backgroundColor: colors.primaryMistDark,
   },
   sectionLabel: {
-    fontFamily: fonts.bodySemiBold,
-    fontSize: 11,
-    color: colors.textMuted,
+    fontFamily: fonts.bodyBold,
+    fontSize: 12,
+    color: colors.primaryDark,
     letterSpacing: 1.4,
   },
 
@@ -1353,12 +1497,13 @@ const styles = StyleSheet.create({
     letterSpacing: 0.2,
   },
   setupDisclaimer: {
-    fontFamily: fonts.body,
+    fontFamily: fonts.bodySemiBold,
     fontSize: 12,
-    color: colors.textMuted,
+    color: colors.primaryDark,
     textAlign: 'center',
     lineHeight: 18,
-    marginTop: -4,
+    paddingHorizontal: spacing.sm,
+    marginTop: -2,
   },
 
   // Loading / error
