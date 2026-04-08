@@ -38,7 +38,8 @@ import { ALL_LURE_IMAGES } from '../lib/lureImages';
 import { Asset } from 'expo-asset';
 import { useAuthStore } from '../store/authStore';
 import { fetchRecommendation } from '../lib/recommender';
-import { fetchFreshEnvironment } from '../lib/env';
+import { fetchFreshEnvironment, getEnvironment } from '../lib/env';
+import type { EnvironmentData } from '../lib/env';
 import { RecommenderView } from '../components/fishing/RecommenderView';
 import type {
   EngineContext,
@@ -187,6 +188,86 @@ function readinessMessage(args: {
     return 'Choose water clarity so the visibility and color guidance stay accurate.';
   }
   return 'When you run or refresh this, we pull a fresh live conditions snapshot first.';
+}
+
+// ─── Conditions helpers ───────────────────────────────────────────────────────
+
+const STATE_CODE_TO_NAME: Record<string, string> = Object.fromEntries(
+  Object.entries(STATE_NAME_TO_CODE).map(([name, code]) => [code, name])
+);
+
+function getCurrentSeason(): string {
+  const m = new Date().getMonth();
+  if (m >= 2 && m <= 4) return 'Spring';
+  if (m >= 5 && m <= 7) return 'Summer';
+  if (m >= 8 && m <= 10) return 'Fall';
+  return 'Winter';
+}
+
+function windCardinal(deg: number): string {
+  const dirs = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'];
+  return dirs[Math.round(deg / 45) % 8] ?? 'N';
+}
+
+function cloudCoverLabel(pct: number): string {
+  if (pct < 20) return 'Clear';
+  if (pct < 50) return 'Partly Cloudy';
+  if (pct < 80) return 'Mostly Cloudy';
+  return 'Overcast';
+}
+
+// ─── Conditions card ──────────────────────────────────────────────────────────
+
+function ConditionsCard({
+  stateCode,
+  loading,
+  env,
+}: {
+  stateCode: string | null;
+  loading: boolean;
+  env: EnvironmentData | null;
+}) {
+  const season = getCurrentSeason();
+  const stateName = stateCode ? (STATE_CODE_TO_NAME[stateCode] ?? stateCode) : null;
+  if (!stateName && !loading) return null;
+
+  const w = env?.weather;
+  const tempStr  = w ? `${Math.round(w.temperature)}°${w.temp_unit.replace('°', '')}` : null;
+  const skyStr   = w ? cloudCoverLabel(w.cloud_cover) : null;
+  const windStr  = w ? `${Math.round(w.wind_speed)} ${w.wind_speed_unit} ${windCardinal(w.wind_direction)}` : null;
+
+  return (
+    <View style={styles.conditionsCard}>
+      {/* Location + season */}
+      <View style={styles.conditionsHeaderRow}>
+        <Ionicons name="location" size={11} color={colors.primaryLight} />
+        <Text style={styles.conditionsLocationText}>{stateName ?? '—'}</Text>
+        <Text style={styles.conditionsMetricDot}>·</Text>
+        <Text style={styles.conditionsSeasonText}>{season}</Text>
+      </View>
+
+      {/* Live metrics */}
+      {loading ? (
+        <Text style={styles.conditionsLoadingText}>Loading conditions…</Text>
+      ) : w ? (
+        <View style={styles.conditionsMetricsRow}>
+          {tempStr && <Text style={styles.conditionsMetricText}>{tempStr}</Text>}
+          {skyStr && (
+            <>
+              <Text style={styles.conditionsMetricDot}>·</Text>
+              <Text style={styles.conditionsMetricText}>{skyStr}</Text>
+            </>
+          )}
+          {windStr && (
+            <>
+              <Text style={styles.conditionsMetricDot}>·</Text>
+              <Text style={styles.conditionsMetricText}>{windStr}</Text>
+            </>
+          )}
+        </View>
+      ) : null}
+    </View>
+  );
 }
 
 // ─── Setup sub-components ─────────────────────────────────────────────────────
@@ -470,6 +551,20 @@ export default function RecommenderScreen() {
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [isRefreshing, setIsRefreshing] = useState(false);
 
+  // Live conditions for the setup card — uses 15-min cache so it's fast and cheap
+  const [liveConditions, setLiveConditions] = useState<EnvironmentData | null>(null);
+  const [conditionsLoading, setConditionsLoading] = useState(false);
+
+  useEffect(() => {
+    if (!hasCoords) return;
+    setConditionsLoading(true);
+    const units = profile?.preferred_units ?? 'imperial';
+    getEnvironment({ latitude: lat, longitude: lon, units })
+      .then((data) => setLiveConditions(data))
+      .catch(() => { /* silently fail — card just shows location + season */ })
+      .finally(() => setConditionsLoading(false));
+  }, [hasCoords, lat, lon, profile?.preferred_units]);
+
   // Each image in ALL_PRELOAD_IMAGES is rendered off-screen at 1×1px.
   // onLoad / onError fires when the native image pipeline finishes decoding it.
   // We count completions with a ref (avoids stale-closure issues) and only flip
@@ -722,8 +817,15 @@ export default function RecommenderScreen() {
             </View>
           )}
 
-          {/* Species */}
-          <View style={styles.section}>
+          {/* Conditions card */}
+          <ConditionsCard
+            stateCode={stateCode}
+            loading={conditionsLoading}
+            env={liveConditions}
+          />
+
+          {/* 01 — Target Species */}
+          <View style={styles.sectionCard}>
             <SectionLabel label="Target Species" step={1} />
             <SpeciesGrid
               allOptions={allSpeciesForState}
@@ -741,8 +843,8 @@ export default function RecommenderScreen() {
             />
           </View>
 
-          {/* Body of Water */}
-          <View style={styles.section}>
+          {/* 02 — Body of Water */}
+          <View style={styles.sectionCard}>
             <SectionLabel label="Body of Water" step={2} />
             <ContextSelector
               allOptions={allContextsForState}
@@ -758,8 +860,8 @@ export default function RecommenderScreen() {
             )}
           </View>
 
-          {/* Water Clarity */}
-          <View style={styles.section}>
+          {/* 03 — Water Clarity */}
+          <View style={styles.sectionCard}>
             <SectionLabel label="Water Clarity" step={3} />
             <ClaritySelector
               selected={clarity}
@@ -789,7 +891,7 @@ export default function RecommenderScreen() {
           </TouchableOpacity>
 
           <Text style={styles.setupDisclaimer}>
-            Freshwater-only · built around your location and today&apos;s conditions
+            Lure and fly recommendations are based around your location&apos;s seasonal characteristics, influence from daily conditions, and water clarity.
           </Text>
         </ScrollView>
       )}
@@ -879,9 +981,9 @@ const styles = StyleSheet.create({
   },
   setupContent: {
     paddingHorizontal: spacing.md,
-    paddingTop: spacing.md,
+    paddingTop: spacing.sm,
     paddingBottom: 64,
-    gap: 26,
+    gap: 14,
   },
 
   // Region pill (in nav header)
@@ -942,10 +1044,71 @@ const styles = StyleSheet.create({
     marginBottom: -4,
   },
 
-  // Sections
-  section: {
+  // Section card — each step gets its own floating white card
+  sectionCard: {
+    backgroundColor: colors.surface,
+    borderRadius: radius.xl,
+    padding: spacing.md,
     gap: 14,
+    shadowColor: '#253D2C',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.05,
+    shadowRadius: 12,
+    elevation: 2,
   },
+
+  // Conditions card — live weather strip at top of scroll
+  conditionsCard: {
+    backgroundColor: colors.surface,
+    borderRadius: radius.xl,
+    paddingHorizontal: spacing.md,
+    paddingVertical: 14,
+    gap: 6,
+    shadowColor: '#253D2C',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.05,
+    shadowRadius: 12,
+    elevation: 2,
+  },
+  conditionsHeaderRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
+  },
+  conditionsLocationText: {
+    fontFamily: fonts.bodySemiBold,
+    fontSize: 13,
+    color: colors.text,
+  },
+  conditionsSeasonText: {
+    fontFamily: fonts.bodyMedium,
+    fontSize: 13,
+    color: colors.textSecondary,
+  },
+  conditionsLoadingText: {
+    fontFamily: fonts.body,
+    fontSize: 12,
+    color: colors.textMuted,
+    letterSpacing: 0.2,
+  },
+  conditionsMetricsRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
+    flexWrap: 'wrap' as const,
+  },
+  conditionsMetricText: {
+    fontFamily: fonts.body,
+    fontSize: 12,
+    color: colors.textMuted,
+  },
+  conditionsMetricDot: {
+    fontFamily: fonts.body,
+    fontSize: 12,
+    color: colors.borderLight,
+  },
+
+  // Sections
   sectionLabelRow: {
     flexDirection: 'row',
     alignItems: 'center',
