@@ -14,7 +14,7 @@
  *   4. Pull-to-refresh for fresh results
  */
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import {
   View,
   Text,
@@ -31,6 +31,10 @@ import { Ionicons } from '@expo/vector-icons';
 import * as Location from 'expo-location';
 import { colors, fonts, spacing, radius, shadows } from '../lib/theme';
 import { getSpeciesImage } from '../lib/speciesImages';
+import { getWatertypeImage, ALL_WATERTYPE_IMAGES } from '../lib/watertypeImages';
+import { getWaterclarityImage, ALL_WATERCLARITY_IMAGES } from '../lib/waterclarityImages';
+import { ALL_COLOR_PALETTE_IMAGES } from '../lib/colorPaletteImages';
+import { ALL_LURE_IMAGES } from '../lib/lureImages';
 import { Asset } from 'expo-asset';
 import { useAuthStore } from '../store/authStore';
 import { fetchRecommendation } from '../lib/recommender';
@@ -53,6 +57,17 @@ import {
   isRecommenderV3UiContext,
   isRecommenderV3UiSpecies,
 } from '../lib/recommenderContracts';
+
+// ─── Static preload list — rendered off-screen so images are decoded before page shows ──
+const ALL_PRELOAD_IMAGES: ReturnType<typeof require>[] = [
+  ...RECOMMENDER_V3_UI_SPECIES
+    .map((sp) => getSpeciesImage(sp))
+    .filter((img): img is ReturnType<typeof require> => img !== null),
+  ...ALL_WATERTYPE_IMAGES,
+  ...ALL_WATERCLARITY_IMAGES,
+  ...ALL_COLOR_PALETTE_IMAGES,
+  ...ALL_LURE_IMAGES,
+];
 
 // ─── Context helpers ──────────────────────────────────────────────────────────
 
@@ -176,8 +191,14 @@ function readinessMessage(args: {
 
 // ─── Setup sub-components ─────────────────────────────────────────────────────
 
-function SectionLabel({ label }: { label: string }) {
-  return <Text style={styles.sectionLabel}>{label}</Text>;
+function SectionLabel({ label, step }: { label: string; step: number }) {
+  return (
+    <View style={styles.sectionLabelRow}>
+      <Text style={styles.sectionStep}>{`0${step}`}</Text>
+      <View style={styles.sectionLabelDivider} />
+      <Text style={styles.sectionLabel}>{label.toUpperCase()}</Text>
+    </View>
+  );
 }
 
 // ─── Species Card ─────────────────────────────────────────────────────────────
@@ -185,61 +206,85 @@ function SectionLabel({ label }: { label: string }) {
 function SpeciesCard({
   sp,
   isActive,
+  isDisabled,
   onSelect,
+  fishAreaHeight,
 }: {
   sp: SpeciesGroup;
   isActive: boolean;
+  isDisabled: boolean;
   onSelect: (s: SpeciesGroup) => void;
+  fishAreaHeight: number;
 }) {
   const img = getSpeciesImage(sp);
   return (
     <TouchableOpacity
       style={[styles.speciesCard, isActive && styles.speciesCardActive]}
-      onPress={() => onSelect(sp)}
-      activeOpacity={0.85}
+      onPress={() => { if (!isDisabled) onSelect(sp); }}
+      activeOpacity={isDisabled ? 1 : 0.88}
     >
-      {img && (
-        <Image source={img} style={styles.speciesImage} resizeMode="contain" />
-      )}
-      {/* Name strip overlaid at bottom */}
-      <View style={styles.speciesNameStrip}>
+      {/* Explicit pixel height — the only reliable way in RN to get
+          width:'100%' / height:'100%' on the Image to scale against. */}
+      <View style={[styles.speciesFishArea, { height: fishAreaHeight }]}>
+        {img && (
+          <Image source={img} style={styles.speciesImage} resizeMode="contain" />
+        )}
+      </View>
+      <View style={styles.speciesNameFooter}>
         <Text style={styles.speciesCardText} numberOfLines={1}>
           {SPECIES_DISPLAY[sp]}
         </Text>
       </View>
-      {/* Selection badge */}
       {isActive && (
         <View style={styles.speciesCheckBadge}>
-          <Ionicons name="checkmark" size={12} color="#fff" />
+          <Ionicons name="checkmark" size={13} color="#fff" />
         </View>
       )}
+      {/* Grey hue overlay when this species is incompatible with selected water type */}
+      {isDisabled && <View style={styles.cardDisabledOverlay} pointerEvents="none" />}
     </TouchableOpacity>
   );
 }
 
 // ─── Species Grid ─────────────────────────────────────────────────────────────
 
+function fishAreaHeightForCount(count: number): number {
+  if (count === 1) return 160; // was 200 → −20%
+  if (count === 2) return 128; // was 160 → −20%
+  return 104;                  // was 130 → −20%
+}
+
 function SpeciesGrid({
-  options,
+  allOptions,
+  availableOptions,
   selected,
   onSelect,
 }: {
-  options: SpeciesGroup[];
+  allOptions: SpeciesGroup[];      // every species for this state — always rendered
+  availableOptions: SpeciesGroup[]; // subset compatible with current water-type selection
   selected: SpeciesGroup | null;
   onSelect: (s: SpeciesGroup) => void;
 }) {
-  // Single species → full-width card
-  if (options.length === 1) {
+  // Base size on the full allOptions count so cards never resize when a selection greys some out
+  const fishAreaHeight = fishAreaHeightForCount(allOptions.length);
+
+  if (allOptions.length === 1) {
     return (
       <View style={styles.speciesGrid}>
-        <SpeciesCard sp={options[0]} isActive={selected === options[0]} onSelect={onSelect} />
+        <SpeciesCard
+          sp={allOptions[0]}
+          isActive={selected === allOptions[0]}
+          isDisabled={!availableOptions.includes(allOptions[0])}
+          onSelect={onSelect}
+          fishAreaHeight={fishAreaHeight}
+        />
       </View>
     );
   }
 
   const rows: SpeciesGroup[][] = [];
-  for (let i = 0; i < options.length; i += 2) {
-    rows.push(options.slice(i, i + 2));
+  for (let i = 0; i < allOptions.length; i += 2) {
+    rows.push(allOptions.slice(i, i + 2));
   }
 
   return (
@@ -247,7 +292,14 @@ function SpeciesGrid({
       {rows.map((row, rowIdx) => (
         <View key={rowIdx} style={styles.speciesRow}>
           {row.map((sp) => (
-            <SpeciesCard key={sp} sp={sp} isActive={selected === sp} onSelect={onSelect} />
+            <SpeciesCard
+              key={sp}
+              sp={sp}
+              isActive={selected === sp}
+              isDisabled={!availableOptions.includes(sp)}
+              onSelect={onSelect}
+              fishAreaHeight={fishAreaHeight}
+            />
           ))}
           {row.length === 1 && <View style={{ flex: 1 }} />}
         </View>
@@ -256,49 +308,58 @@ function SpeciesGrid({
   );
 }
 
-// ─── Context selector (Body of Water) ────────────────────────────────────────
+// ─── Context selector (Body of Water) — image cards ──────────────────────────
 
 function ContextSelector({
-  options,
+  allOptions,
+  availableOptions,
   selected,
   onSelect,
   accentColor,
 }: {
-  options: EngineContext[];
+  allOptions: EngineContext[];      // every water type for this state — always rendered
+  availableOptions: EngineContext[]; // subset compatible with selected species
   selected: EngineContext | null;
   onSelect: (v: EngineContext) => void;
   accentColor: string;
 }) {
   return (
     <View style={styles.contextRow}>
-      {options.map((opt) => {
+      {allOptions.map((opt) => {
         const isActive = selected === opt;
+        const isDisabled = !availableOptions.includes(opt);
+        const img = getWatertypeImage(opt);
         return (
           <TouchableOpacity
             key={opt}
-            style={[
-              styles.contextCard,
-              isActive
-                ? { backgroundColor: accentColor, borderColor: accentColor }
-                : { backgroundColor: colors.surface, borderColor: colors.border },
-            ]}
-            onPress={() => onSelect(opt)}
-            activeOpacity={0.75}
+            style={[styles.contextCard, isActive && { borderColor: accentColor, borderWidth: 2 }]}
+            onPress={() => { if (!isDisabled) onSelect(opt); }}
+            activeOpacity={isDisabled ? 1 : 0.88}
           >
-            <Ionicons
-              name={contextIcon(opt) as never}
-              size={17}
-              color={isActive ? '#fff' : colors.textMuted}
-            />
-            <Text
-              style={[
-                styles.contextCardText,
-                { color: isActive ? '#fff' : colors.text },
-                isActive && { fontFamily: fonts.bodySemiBold },
-              ]}
-            >
-              {contextLabel(opt)}
-            </Text>
+            {/* Image area — aspectRatio matches the 3:2 source images exactly */}
+            <View style={styles.contextImageArea}>
+              {img && (
+                <Image
+                  source={img}
+                  style={styles.contextCardImage}
+                  resizeMode="contain"
+                />
+              )}
+            </View>
+            {/* Name footer — same pattern as fish cards */}
+            <View style={styles.contextNameFooter}>
+              <Text style={[styles.contextCardText, isActive && { color: accentColor, fontFamily: fonts.bodySemiBold }]}>
+                {contextLabel(opt)}
+              </Text>
+            </View>
+            {/* Selection badge */}
+            {isActive && (
+              <View style={[styles.contextCheckBadge, { backgroundColor: accentColor }]}>
+                <Ionicons name="checkmark" size={12} color="#fff" />
+              </View>
+            )}
+            {/* Grey hue when incompatible with selected species */}
+            {isDisabled && <View style={styles.cardDisabledOverlay} pointerEvents="none" />}
           </TouchableOpacity>
         );
       })}
@@ -306,7 +367,7 @@ function ContextSelector({
   );
 }
 
-// ─── Clarity selector ─────────────────────────────────────────────────────────
+// ─── Clarity selector — image cards ──────────────────────────────────────────
 
 function ClaritySelector({
   selected,
@@ -327,24 +388,31 @@ function ClaritySelector({
     <View style={styles.clarityRow}>
       {options.map(({ value, label, sub }) => {
         const isActive = selected === value;
+        const img = getWaterclarityImage(value);
         return (
           <TouchableOpacity
             key={value}
-            style={[
-              styles.clarityCard,
-              isActive
-                ? { borderColor: accentColor, backgroundColor: accentColor + '12' }
-                : { borderColor: colors.borderLight, backgroundColor: colors.surface },
-            ]}
+            style={[styles.clarityCard, isActive && { borderColor: accentColor, borderWidth: 2 }]}
             onPress={() => onSelect(value)}
-            activeOpacity={0.7}
+            activeOpacity={0.88}
           >
-            <Text style={[styles.clarityCardTitle, { color: isActive ? accentColor : colors.text }]}>
-              {label}
-            </Text>
-            <Text style={[styles.clarityCardSub, isActive && { color: accentColor + 'AA' }]}>
-              {sub}
-            </Text>
+            {/* Underwater scene image */}
+            <View style={styles.clarityImageArea}>
+              <Image
+                source={img}
+                style={styles.clarityCardImage}
+                resizeMode="cover"
+              />
+            </View>
+            {/* Name + sub footer */}
+            <View style={styles.clarityNameFooter}>
+              <Text style={[styles.clarityCardTitle, { color: isActive ? accentColor : colors.text }]}>
+                {label}
+              </Text>
+              <Text style={[styles.clarityCardSub, isActive && { color: accentColor + 'BB' }]}>
+                {sub}
+              </Text>
+            </View>
             {isActive && (
               <View style={[styles.clarityCheck, { backgroundColor: accentColor }]}>
                 <Ionicons name="checkmark" size={9} color="#fff" />
@@ -402,6 +470,20 @@ export default function RecommenderScreen() {
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [isRefreshing, setIsRefreshing] = useState(false);
 
+  // Each image in ALL_PRELOAD_IMAGES is rendered off-screen at 1×1px.
+  // onLoad / onError fires when the native image pipeline finishes decoding it.
+  // We count completions with a ref (avoids stale-closure issues) and only flip
+  // setupImagesReady to true once every image has settled — guaranteeing zero
+  // pop-in when the setup form appears.
+  const preloadCountRef = useRef(0);
+  const [setupImagesReady, setSetupImagesReady] = useState(false);
+  const handlePreloadImage = useCallback(() => {
+    preloadCountRef.current += 1;
+    if (preloadCountRef.current >= ALL_PRELOAD_IMAGES.length) {
+      setSetupImagesReady(true);
+    }
+  }, []);
+
   // Resolve state code as soon as we have coords
   useEffect(() => {
     if (!hasCoords) return;
@@ -439,7 +521,17 @@ export default function RecommenderScreen() {
     }
   }, [context, stateCode, species]);
 
-  // Derived chip options — always state-aware
+  // All species/contexts for the current state — these drive what cards are rendered.
+  // We never remove cards from the grid; instead we grey out incompatible ones below.
+  const allSpeciesForState: SpeciesGroup[] = stateCode
+    ? getRecommenderSpeciesForState(stateCode)
+    : RECOMMENDER_V3_UI_SPECIES;
+
+  const allContextsForState: EngineContext[] = stateCode
+    ? getRecommenderContextsForState(stateCode)
+    : ENGINE_CONTEXTS;
+
+  // Derived chip options — always state-aware (subset of the above)
   const availableSpecies: SpeciesGroup[] = stateCode
     ? getRecommenderSpeciesForState(stateCode).filter(
         (sp) => !context || getRecommenderContextsForStateSpecies(stateCode, sp).includes(context),
@@ -546,6 +638,21 @@ export default function RecommenderScreen() {
 
   return (
     <SafeAreaView style={styles.root} edges={['top']}>
+      {/* Off-screen image preloader — 1×1px, invisible.
+          Renders every setup image immediately so the native pipeline decodes them
+          before the form appears. onLoad/onError count up; page only shows once all settle. */}
+      <View pointerEvents="none" style={styles.preloadContainer}>
+        {ALL_PRELOAD_IMAGES.map((img, i) => (
+          <Image
+            key={i}
+            source={img}
+            style={styles.preloadImage}
+            onLoad={handlePreloadImage}
+            onError={handlePreloadImage}
+          />
+        ))}
+      </View>
+
       {/* Nav header */}
       <View style={[styles.navHeader, screenState === 'setup' && styles.navHeaderBorderless]}>
         <TouchableOpacity
@@ -562,14 +669,16 @@ export default function RecommenderScreen() {
           <Ionicons name="chevron-back" size={24} color={colors.text} />
         </TouchableOpacity>
 
-        {(screenState === 'loading' || screenState === 'error') && (
-          <Text style={styles.navTitle}>What to Throw</Text>
+        {screenState !== 'result' && (
+          <Text style={styles.navTitle}>
+            {screenState === 'setup' ? 'Lure & Fly' : 'What to Throw'}
+          </Text>
         )}
         {screenState === 'result' && <View style={{ flex: 1 }} />}
 
         {/* Region pill — only in setup, right side */}
         {screenState === 'setup' && (
-          <View style={{ flex: 1, alignItems: 'flex-end' }}>
+          <View style={styles.navRight}>
             {resolvingRegion ? (
               <ActivityIndicator size="small" color={colors.textMuted} style={{ transform: [{ scale: 0.7 }] }} />
             ) : stateCode ? (
@@ -588,8 +697,15 @@ export default function RecommenderScreen() {
         )}
       </View>
 
+      {/* ── Setup: waiting for images ── */}
+      {screenState === 'setup' && !setupImagesReady && (
+        <View style={styles.centerState}>
+          <ActivityIndicator size="large" color={accentColor} />
+        </View>
+      )}
+
       {/* ── Setup form ── */}
-      {screenState === 'setup' && (
+      {screenState === 'setup' && setupImagesReady && (
         <ScrollView
           style={styles.setupScroll}
           contentContainerStyle={styles.setupContent}
@@ -608,9 +724,10 @@ export default function RecommenderScreen() {
 
           {/* Species */}
           <View style={styles.section}>
-            <SectionLabel label="Target Species" />
+            <SectionLabel label="Target Species" step={1} />
             <SpeciesGrid
-              options={availableSpecies}
+              allOptions={allSpeciesForState}
+              availableOptions={availableSpecies}
               selected={species}
               onSelect={(sp) => {
                 setSpecies(sp);
@@ -626,9 +743,10 @@ export default function RecommenderScreen() {
 
           {/* Body of Water */}
           <View style={styles.section}>
-            <SectionLabel label="Body of Water" />
+            <SectionLabel label="Body of Water" step={2} />
             <ContextSelector
-              options={availableContexts}
+              allOptions={allContextsForState}
+              availableOptions={availableContexts}
               selected={context}
               onSelect={setContext}
               accentColor={accentColor}
@@ -642,7 +760,7 @@ export default function RecommenderScreen() {
 
           {/* Water Clarity */}
           <View style={styles.section}>
-            <SectionLabel label="Water Clarity" />
+            <SectionLabel label="Water Clarity" step={3} />
             <ClaritySelector
               selected={clarity}
               onSelect={setClarity}
@@ -743,8 +861,13 @@ const styles = StyleSheet.create({
   navTitle: {
     flex: 1,
     fontFamily: fonts.serifBold,
-    fontSize: 18,
+    fontSize: 19,
     color: colors.text,
+    letterSpacing: -0.3,
+  },
+  navRight: {
+    alignItems: 'flex-end',
+    minWidth: 48,
   },
   resetBtn: {
     padding: 4,
@@ -756,9 +879,9 @@ const styles = StyleSheet.create({
   },
   setupContent: {
     paddingHorizontal: spacing.md,
-    paddingTop: spacing.sm,
-    paddingBottom: 56,
-    gap: 28,
+    paddingTop: spacing.md,
+    paddingBottom: 64,
+    gap: 26,
   },
 
   // Region pill (in nav header)
@@ -785,7 +908,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 8,
     backgroundColor: colors.reportScoreYellowBg,
-    borderRadius: radius.md,
+    borderRadius: radius.lg,
     paddingHorizontal: spacing.md,
     paddingVertical: spacing.sm,
   },
@@ -796,122 +919,238 @@ const styles = StyleSheet.create({
     color: colors.reportScoreYellow,
   },
 
+  // Off-screen image preloader
+  preloadContainer: {
+    position: 'absolute',
+    width: 1,
+    height: 1,
+    overflow: 'hidden',
+    opacity: 0,
+  },
+  preloadImage: {
+    width: 1,
+    height: 1,
+  },
+
+  // Page title
+  pageTitle: {
+    fontFamily: fonts.serifBold,
+    fontSize: 26,
+    color: colors.text,
+    letterSpacing: -0.5,
+    textAlign: 'center',
+    marginBottom: -4,
+  },
+
   // Sections
   section: {
-    gap: 12,
+    gap: 14,
+  },
+  sectionLabelRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+  },
+  sectionStep: {
+    fontFamily: fonts.bodyMedium,
+    fontSize: 12,
+    color: colors.primaryLight,
+    letterSpacing: 0.5,
+  },
+  sectionLabelDivider: {
+    width: 1,
+    height: 12,
+    backgroundColor: colors.borderLight,
   },
   sectionLabel: {
-    fontFamily: fonts.serifBold,
-    fontSize: 20,
-    color: colors.text,
-    letterSpacing: -0.2,
+    fontFamily: fonts.bodySemiBold,
+    fontSize: 11,
+    color: colors.textMuted,
+    letterSpacing: 1.4,
   },
 
   // Species grid
   speciesGrid: {
-    gap: spacing.sm,
+    gap: 10,
   },
   speciesRow: {
     flexDirection: 'row',
-    gap: spacing.sm,
+    gap: 10,
   },
+  // No fixed height — card auto-sizes to fishAreaHeight (inline) + footer
   speciesCard: {
     flex: 1,
-    height: 160,
-    borderRadius: radius.lg,
-    backgroundColor: colors.surface,
+    borderRadius: radius.xl,
+    backgroundColor: colors.background,
     overflow: 'hidden',
-    borderWidth: 2,
+    borderWidth: 1.5,
     borderColor: colors.borderLight,
+    shadowColor: '#253D2C',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.07,
+    shadowRadius: 10,
+    elevation: 2,
   },
   speciesCardActive: {
     borderColor: colors.primary,
-    borderWidth: 2.5,
+    borderWidth: 2,
+    shadowOpacity: 0.14,
+    shadowRadius: 16,
+    elevation: 4,
+  },
+  // width: '100%' + explicit height (set inline from prop) = reliable image sizing in RN
+  speciesFishArea: {
+    width: '100%',
   },
   speciesImage: {
-    position: 'absolute',
-    top: '-5%' as unknown as number,
-    left: '-5%' as unknown as number,
-    width: '110%',
-    height: '110%',
+    width: '100%',
+    height: '100%',
   },
-  speciesNameStrip: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    paddingHorizontal: 12,
-    paddingVertical: 10,
-    backgroundColor: 'rgba(255,255,255,0.88)',
+  speciesNameFooter: {
+    backgroundColor: colors.surface,
+    paddingHorizontal: 14,
+    paddingVertical: 13,
+    alignItems: 'center',
+    borderTopWidth: 1,
+    borderTopColor: colors.borderLight,
   },
   speciesCardText: {
-    fontFamily: fonts.serifBold,
-    fontSize: 14,
+    fontFamily: fonts.bodySemiBold,
+    fontSize: 15,
     color: colors.text,
-    letterSpacing: 0.1,
+    textAlign: 'center',
   },
   speciesCheckBadge: {
     position: 'absolute',
     top: 10,
     right: 10,
-    width: 22,
-    height: 22,
+    width: 26,
+    height: 26,
     borderRadius: 99,
     backgroundColor: colors.primary,
     alignItems: 'center',
     justifyContent: 'center',
+    shadowColor: '#253D2C',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 2,
+  },
+  // Shared disabled overlay — grey hue over species and water-type cards
+  // when they are incompatible with the current selection.
+  cardDisabledOverlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(180,195,183,0.52)',
+    borderRadius: radius.xl,
   },
 
-  // Body of Water — context selector
+  // Body of Water — image cards (same pattern as species cards)
   contextRow: {
     flexDirection: 'row',
-    gap: spacing.sm,
+    gap: 10,
   },
   contextCard: {
     flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 8,
-    paddingVertical: 15,
-    borderRadius: radius.lg,
+    borderRadius: radius.xl,
+    backgroundColor: colors.background,
+    overflow: 'hidden',
     borderWidth: 1.5,
+    borderColor: colors.borderLight,
+    shadowColor: '#253D2C',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.07,
+    shadowRadius: 8,
+    elevation: 2,
+  },
+  // aspectRatio: 1.5 matches the 600×400 (3:2) source images — ensures full image shows
+  contextImageArea: {
+    width: '100%',
+    aspectRatio: 1.5,
+  },
+  contextCardImage: {
+    width: '100%',
+    height: '100%',
+  },
+  contextNameFooter: {
+    backgroundColor: colors.surface,
+    paddingHorizontal: 14,
+    paddingVertical: 11,
+    alignItems: 'center',
+    borderTopWidth: 1,
+    borderTopColor: colors.borderLight,
   },
   contextCardText: {
     fontFamily: fonts.bodyMedium,
     fontSize: 15,
+    color: colors.text,
+  },
+  contextCheckBadge: {
+    position: 'absolute',
+    top: 8,
+    right: 8,
+    width: 24,
+    height: 24,
+    borderRadius: 99,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 
-  // Water clarity
+  // Water clarity — image cards (3-col)
   clarityRow: {
     flexDirection: 'row',
-    gap: spacing.sm,
+    gap: 10,
   },
   clarityCard: {
     flex: 1,
-    paddingVertical: 16,
-    paddingHorizontal: 6,
-    borderRadius: radius.lg,
-    borderWidth: 1,
+    borderRadius: radius.xl,
+    backgroundColor: colors.background,
+    overflow: 'hidden',
+    borderWidth: 1.5,
+    borderColor: colors.borderLight,
+    shadowColor: '#253D2C',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.07,
+    shadowRadius: 8,
+    elevation: 2,
+  },
+  // cover for underwater scenes — fills the card nicely for tall-ish crops
+  clarityImageArea: {
+    width: '100%',
+    aspectRatio: 1.2,
+  },
+  clarityCardImage: {
+    width: '100%',
+    height: '100%',
+  },
+  clarityNameFooter: {
+    backgroundColor: colors.surface,
+    paddingHorizontal: 8,
+    paddingVertical: 9,
     alignItems: 'center',
-    gap: 5,
+    borderTopWidth: 1,
+    borderTopColor: colors.borderLight,
+    gap: 1,
   },
   clarityCardTitle: {
     fontFamily: fonts.bodySemiBold,
-    fontSize: 14,
+    fontSize: 13,
   },
   clarityCardSub: {
     fontFamily: fonts.body,
-    fontSize: 11,
+    fontSize: 10,
     color: colors.textMuted,
     textAlign: 'center',
   },
   clarityCheck: {
     position: 'absolute',
-    top: 8,
-    right: 8,
-    width: 16,
-    height: 16,
+    top: 6,
+    right: 6,
+    width: 18,
+    height: 18,
     borderRadius: 99,
     alignItems: 'center',
     justifyContent: 'center',
@@ -932,22 +1171,23 @@ const styles = StyleSheet.create({
     color: colors.textMuted,
     textAlign: 'center',
     lineHeight: 19,
-    marginTop: -8,
+    marginTop: -4,
   },
 
-  // CTA
+  // CTA — pill shaped, taller, premium
   ctaBtn: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: spacing.sm,
-    paddingVertical: 17,
-    borderRadius: radius.lg,
+    gap: 10,
+    paddingVertical: 19,
+    borderRadius: radius.full,
   },
   ctaBtnText: {
     fontFamily: fonts.bodySemiBold,
-    fontSize: 16,
+    fontSize: 17,
     color: '#fff',
+    letterSpacing: 0.2,
   },
   setupDisclaimer: {
     fontFamily: fonts.body,
@@ -955,7 +1195,7 @@ const styles = StyleSheet.create({
     color: colors.textMuted,
     textAlign: 'center',
     lineHeight: 18,
-    marginTop: -8,
+    marginTop: -4,
   },
 
   // Loading / error
@@ -997,7 +1237,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing.xl,
     paddingVertical: spacing.sm,
     backgroundColor: colors.primary,
-    borderRadius: radius.md,
+    borderRadius: radius.full,
   },
   retryBtnText: {
     fontFamily: fonts.bodySemiBold,
@@ -1007,7 +1247,7 @@ const styles = StyleSheet.create({
   secondaryBtn: {
     paddingHorizontal: spacing.xl,
     paddingVertical: spacing.sm,
-    borderRadius: radius.md,
+    borderRadius: radius.full,
     borderWidth: 1,
     borderColor: colors.border,
     backgroundColor: colors.surface,
