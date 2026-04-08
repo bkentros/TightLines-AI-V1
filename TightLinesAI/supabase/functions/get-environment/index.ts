@@ -146,7 +146,7 @@ type EnvironmentSnapshotRow = {
 // Constants
 // -----------------------------------------------------------------------------
 
-const TIDE_STATION_MAX_MILES = 50;
+const TIDE_STATION_MAX_MILES = 10;
 /** NOAA returns ~300 water-level stations (~766KB JSON). Cache in-process to avoid re-downloading every request (timeouts → missing tides). */
 const WATERLEVEL_STATIONS_TTL_MS = 6 * 60 * 60 * 1000;
 const MAX_TIDE_STATION_CANDIDATES = 8;

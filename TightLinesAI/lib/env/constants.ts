@@ -20,7 +20,7 @@ export const MANUAL_REFRESH_LIMIT = 2;
 export const REFRESH_RATE_LIMIT_WINDOW_MS = 15 * 60 * 1000;
 
 /** AsyncStorage key prefix for env cache (single key; coords stored in value per audit #10) */
-export const ENV_CACHE_KEY = 'env_cache';
+export const ENV_CACHE_KEY = 'env_cache_v2';
 
 /** Coordinate precision for cache key bucketing (4 decimals ≈ 10m; avoids float noise per audit #18) */
 export const CACHE_COORD_PRECISION = 4;
@@ -28,9 +28,9 @@ export const CACHE_COORD_PRECISION = 4;
 /**
  * Max distance (miles) from user to nearest NOAA tide station.
  * Beyond this, treat as inland — no tide data.
- * ~50 miles per spec/plan.
+ * 10 miles after tightening coastal eligibility.
  */
-export const TIDE_STATION_MAX_DISTANCE_MILES = 50;
+export const TIDE_STATION_MAX_DISTANCE_MILES = 10;
 
 /** Major solunar period duration (minutes) — 2 hours centered on overhead/underfoot */
 export const SOLUNAR_MAJOR_MINUTES = 60;

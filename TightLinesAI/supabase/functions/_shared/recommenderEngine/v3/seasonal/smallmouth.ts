@@ -519,7 +519,12 @@ const FALL_RIVER_FLIES: readonly FlyArchetypeIdV3[] = [
   "articulated_baitfish_streamer",
 ];
 
-const WARM_HIGHLAND_REGIONS: readonly RegionKey[] = ["appalachian", "south_central"];
+const WARM_HIGHLAND_REGIONS: readonly RegionKey[] = [
+  "appalachian",
+  "south_central",
+  "gulf_coast",
+  "southeast_atlantic",
+];
 const NORTHERN_COLD_REGIONS: readonly RegionKey[] = [
   "northeast",
   "great_lakes_upper_midwest",

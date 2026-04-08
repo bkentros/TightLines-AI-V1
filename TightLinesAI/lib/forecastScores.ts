@@ -12,8 +12,8 @@ import type { WeatherData } from './env/types';
 const SUPABASE_URL = process.env.EXPO_PUBLIC_SUPABASE_URL!;
 const SUPABASE_ANON_KEY = process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY!;
 
-/** v5 stores the shared forecast weather+tide snapshot used by future-day reports. */
-const CACHE_KEY_PREFIX = 'forecast_scores_v5';
+/** v6 invalidates stale coastal-eligibility snapshots after the 15-mile gating change. */
+const CACHE_KEY_PREFIX = 'forecast_scores_v6';
 
 const LEGACY_FORECAST_CACHE_PREFIXES = [
   'forecast_scores_v1',
@@ -21,6 +21,7 @@ const LEGACY_FORECAST_CACHE_PREFIXES = [
   'forecast_scores_v3',
   'forecast_scores_v4',
   'forecast_scores_v5',
+  'forecast_scores_v6',
 ] as const;
 
 /**

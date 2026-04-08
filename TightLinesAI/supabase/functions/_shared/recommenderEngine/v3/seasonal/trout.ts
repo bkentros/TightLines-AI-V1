@@ -239,6 +239,7 @@ const WARM_TAILWATER_REGIONS: readonly RegionKey[] = [
   "midwest_interior",
   "southwest_high_desert",
   "southern_california",
+  "southeast_atlantic",
 ];
 
 export const TROUT_V3_SUPPORTED_REGIONS: readonly RegionKey[] = [

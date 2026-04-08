@@ -1,6 +1,9 @@
 # Dependencies
 node_modules/
 
+# Local tools (e.g. cloudflared binary from npm run setup:cloudflared)
+.tools/
+
 # Expo
 .expo/
 dist/

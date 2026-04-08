@@ -35,7 +35,7 @@ function coordsMatch(a: number, b: number, c: number, d: number): boolean {
 }
 
 function rebuildCacheKey(lat: number, lon: number, ctx: EngineContextKey): string {
-  return `how_fishing_rebuild_${lat.toFixed(3)}_${lon.toFixed(3)}_${ctx}`;
+  return `how_fishing_rebuild_v2_${lat.toFixed(3)}_${lon.toFixed(3)}_${ctx}`;
 }
 
 function forecastCacheKey(
@@ -44,7 +44,7 @@ function forecastCacheKey(
   targetDate: string,
   ctx: EngineContextKey,
 ): string {
-  return `how_fishing_forecast_${lat.toFixed(3)}_${lon.toFixed(3)}_${targetDate}_${ctx}`;
+  return `how_fishing_forecast_v2_${lat.toFixed(3)}_${lon.toFixed(3)}_${targetDate}_${ctx}`;
 }
 
 interface RebuildCacheEntry {

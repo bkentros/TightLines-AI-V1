@@ -122,7 +122,7 @@ Deno.test("forecast-scores: clone baseReq + context matches full build per conte
   }
 });
 
-Deno.test("forecast-scores day 0 matches live report path instead of calendar-day fallback", () => {
+Deno.test("forecast-scores day 0 matches calendar-day fallback used by locked daily snapshots", () => {
   const localDate = "2026-06-15";
   const hourlyAirTempF: Array<{ time_utc: string; value: number }> = [];
   for (let h = 0; h < 24; h++) {
@@ -188,8 +188,22 @@ Deno.test("forecast-scores day 0 matches live report path instead of calendar-da
 
   assertEquals(liveReq.environment.current_air_temp_f, 47);
   assertEquals(legacyCalendarReq.environment.current_air_temp_f, 62);
-  assertNotEquals(
+  const forecastDayZeroReq = buildSharedEngineRequestFromEnvData(
+    44.3,
+    -84.67,
+    localDate,
+    "America/Detroit",
+    "freshwater_lake_pond",
+    envRecord,
+    0,
+    { useCalendarDayProfileForToday: true },
+  );
+  assertEquals(
+    runHowFishingScoreOnly(forecastDayZeroReq),
     runHowFishingScoreOnly(legacyCalendarReq),
+  );
+  assertNotEquals(
+    runHowFishingScoreOnly(forecastDayZeroReq),
     runHowFishingScoreOnly(liveReq),
   );
 });

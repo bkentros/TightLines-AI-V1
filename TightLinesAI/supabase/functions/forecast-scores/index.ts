@@ -29,7 +29,7 @@ const CONTEXTS: EngineContext[] = [
   "coastal_flats_estuary",
 ];
 const DAY_NAMES = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-const TIDE_STATION_MAX_MILES = 50;
+const TIDE_STATION_MAX_MILES = 10;
 const WATERLEVEL_STATIONS_TTL_MS = 6 * 60 * 60 * 1000;
 const MAX_TIDE_STATION_CANDIDATES = 8;
 const MAX_HILO_PREDICTIONS_RETURNED = 56;
@@ -423,6 +423,7 @@ Deno.serve(async (req: Request) => {
       "freshwater_lake_pond",
       slicedEnvRecord,
       D,
+      D === 0 ? { useCalendarDayProfileForToday: true } : undefined,
     );
 
     const scores: Record<string, number> = {};

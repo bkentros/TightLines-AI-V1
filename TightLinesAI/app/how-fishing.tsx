@@ -370,7 +370,7 @@ export default function HowFishingScreen() {
         await setCachedMultiRebuild(lat, lon, multi);
         setCurrentMultiRebuild(lat, lon, bundles);
       }
-      setLastReportEnv(env);
+      setLastReportEnv((envForReport as EnvironmentData) ?? env);
       setActiveTab(tabWithReport);
       setMultiBundles(bundles);
     } catch (err) {

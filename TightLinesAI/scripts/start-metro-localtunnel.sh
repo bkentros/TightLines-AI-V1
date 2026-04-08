@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # Metro + localtunnel → public https URL for dev client (any Wi‑Fi).
-# Paste an exp:// URL below into the dev client (Enter URL manually).
+# localtunnel/loca.lt is free but flaky (503 “tunnel unavailable”, drops on reload).
+# Prefer: npm run start:dev-client:tunnel:cf (Cloudflare) or :tunnel:expo (Expo).
+# Custom dev clients need exp+<slug>://expo-development-client/?url=... (see banner).
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT"
@@ -39,15 +41,25 @@ HTTPS_URL="https://${HOST}"
 # the dev client requests https://tunnel:8081/... which nothing serves publicly.
 export EXPO_PACKAGER_PROXY_URL="$HTTPS_URL"
 
+# Same shape as expo-dev-client getDefaultScheme + @expo/cli constructDevClientUrl
+DEV_CLIENT_URL="$(HOST="$HOST" node -e "
+const slug = require('./app.json').expo.slug;
+const s = String(slug).replace(/[^A-Za-z0-9+\\-.]/g, '').toLowerCase();
+const scheme = 'exp+' + s;
+const manifest = 'https://' + process.env.HOST + ':443';
+process.stdout.write(scheme + '://expo-development-client/?url=' + encodeURIComponent(manifest));
+")"
+
 echo ""
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo "  HTTPS (Safari / tunnel check):  $HTTPS_URL"
 echo "  If loca.lt shows a warning, open that link once and click Continue."
 echo ""
-echo "  Dev client — Enter URL manually:"
+echo "  TightLines dev client — Enter URL manually (copy full line):"
+echo "    ${DEV_CLIENT_URL}"
+echo ""
+echo "  Expo Go only (not the custom dev client):"
 echo "    exp://${HOST}:443"
-echo "    exp://${HOST}:80"
-echo "  (Expo Go / dev client negotiate TLS on 443 for https tunnels.)"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo ""
 

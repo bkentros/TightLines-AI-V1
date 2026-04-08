@@ -17,7 +17,14 @@
       "buildNumber": "1",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false,
-        "UIDesignRequiresCompatibility": true
+        "UIDesignRequiresCompatibility": true,
+        "NSLocalNetworkUsageDescription": "TightLines connects to the Metro dev server on your Mac over Wi‑Fi while you develop.",
+        "NSBonjourServices": [
+          "_expo._tcp"
+        ],
+        "NSAppTransportSecurity": {
+          "NSAllowsLocalNetworking": true
+        }
       },
       "usesAppleSignIn": true
     },

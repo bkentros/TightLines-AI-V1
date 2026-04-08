@@ -80,6 +80,7 @@ export function mergeEnvironmentWithSnapshot(
 
   const merged = structuredClone(live);
   const notes = [...(live.source_notes ?? [])];
+  const liveExplicitlyInland = live.coastal === false;
   const addNote = (note: string) => {
     if (!notes.includes(note)) notes.push(note);
   };
@@ -129,7 +130,12 @@ export function mergeEnvironmentWithSnapshot(
     addNote("snapshot_fallback:moon_solunar");
   }
 
-  if ((!merged.tides_available || !merged.tides) && cached.tides_available && cached.tides) {
+  if (
+    !liveExplicitlyInland &&
+    (!merged.tides_available || !merged.tides) &&
+    cached.tides_available &&
+    cached.tides
+  ) {
     merged.tides_available = true;
     merged.tides = cached.tides;
     if (!merged.tide_predictions_30day?.length && cached.tide_predictions_30day?.length) {
@@ -142,7 +148,11 @@ export function mergeEnvironmentWithSnapshot(
     addNote("snapshot_fallback:tides");
   }
 
-  if (merged.measured_water_temp_f == null && cached.measured_water_temp_f != null) {
+  if (
+    !liveExplicitlyInland &&
+    merged.measured_water_temp_f == null &&
+    cached.measured_water_temp_f != null
+  ) {
     merged.measured_water_temp_f = cached.measured_water_temp_f;
     merged.measured_water_temp_24h_ago_f = cached.measured_water_temp_24h_ago_f ?? null;
     merged.measured_water_temp_72h_ago_f = cached.measured_water_temp_72h_ago_f ?? null;

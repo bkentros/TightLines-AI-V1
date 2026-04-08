@@ -27,6 +27,8 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import { colors, fonts, spacing, radius, shadows } from '../../lib/theme';
 import { getSpeciesImage } from '../../lib/speciesImages';
+import { getColorPaletteImage } from '../../lib/colorPaletteImages';
+import { getLureImage } from '../../lib/lureImages';
 import type {
   BehaviorSummaryRow,
   EngineContext,
@@ -105,6 +107,7 @@ function FamilyCard({ family, rank }: { family: RankedFamily; rank: number }) {
   const [expanded, setExpanded] = useState(false);
   const medalRank = (rank >= 1 && rank <= 3 ? rank : 3) as 1 | 2 | 3;
   const medal = MEDAL_COLORS[medalRank];
+  const lureImg = getLureImage(family.family_id);
 
   return (
     <View style={[styles.familyCard, { backgroundColor: medal.cardBg, borderColor: medal.border }, shadows.sm]}>
@@ -113,8 +116,18 @@ function FamilyCard({ family, rank }: { family: RankedFamily; rank: number }) {
         <Text style={[styles.medalPillText, { color: medal.fg }]}>{medal.label}</Text>
       </View>
 
-      {/* Image placeholder */}
-      <View style={styles.familyImagePlaceholder} />
+      {/* Lure/fly image — shows when available, placeholder when not yet uploaded */}
+      {lureImg ? (
+        <View style={styles.familyImageWrap}>
+          <Image
+            source={lureImg}
+            style={styles.familyImage}
+            resizeMode="contain"
+          />
+        </View>
+      ) : (
+        <View style={styles.familyImagePlaceholder} />
+      )}
 
       <TouchableOpacity
         style={styles.familyFooterRow}
@@ -122,7 +135,7 @@ function FamilyCard({ family, rank }: { family: RankedFamily; rank: number }) {
         activeOpacity={0.7}
         hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
       >
-        <Text style={styles.familyName} numberOfLines={1}>{family.display_name}</Text>
+        <Text style={styles.familyName} numberOfLines={2}>{family.display_name}</Text>
         <Ionicons name={expanded ? 'chevron-up' : 'chevron-down'} size={20} color={colors.textMuted} />
       </TouchableOpacity>
 
@@ -139,37 +152,6 @@ function FamilyCard({ family, rank }: { family: RankedFamily; rank: number }) {
   );
 }
 
-// ─── Gear tabs ────────────────────────────────────────────────────────────────
-
-function GearTabs({
-  active,
-  onChange,
-  accentColor,
-}: {
-  active: 'lure' | 'fly';
-  onChange: (tab: 'lure' | 'fly') => void;
-  accentColor: string;
-}) {
-  return (
-    <View style={styles.tabRow}>
-      {(['lure', 'fly'] as const).map((tab) => {
-        const isActive = active === tab;
-        return (
-          <TouchableOpacity
-            key={tab}
-            style={[styles.tab, isActive && { borderBottomColor: accentColor }]}
-            onPress={() => onChange(tab)}
-            activeOpacity={0.7}
-          >
-            <Text style={[styles.tabText, { color: isActive ? accentColor : colors.textMuted }, isActive && { fontFamily: fonts.bodySemiBold }]}>
-              {tab === 'lure' ? 'Lures' : 'Fly Fishing'}
-            </Text>
-          </TouchableOpacity>
-        );
-      })}
-    </View>
-  );
-}
 
 // ─── Main component ───────────────────────────────────────────────────────────
 
@@ -181,12 +163,11 @@ type Props = {
 };
 
 export function RecommenderView({ result, style }: Props) {
-  const [gearTab, setGearTab] = useState<'lure' | 'fly'>('lure');
   const [behaviorOpen, setBehaviorOpen] = useState(false);
 
   const accentColor = contextAccentColor(result.context);
-  const families = gearTab === 'lure' ? result.lure_rankings : result.fly_rankings;
   const img = getSpeciesImage(result.species);
+  const colorPaletteImg = getColorPaletteImage(result.presentation.color_family);
 
   return (
     <ScrollView
@@ -223,11 +204,16 @@ export function RecommenderView({ result, style }: Props) {
         {/* Color of the day */}
         {!!result.color_of_day && (
           <View style={styles.colorOfDayRow}>
-            <View style={[styles.colorIconWrap, { backgroundColor: accentColor + '18' }]}>
-              <Ionicons name="color-palette-outline" size={13} color={accentColor} />
+            {/* Palette swatch — transparent PNG that blends with the card background */}
+            <Image
+              source={colorPaletteImg}
+              style={styles.colorPaletteThumb}
+              resizeMode="contain"
+            />
+            <View style={styles.colorTextCol}>
+              <Text style={styles.colorLabel}>Color of the day</Text>
+              <Text style={[styles.colorValue, { color: accentColor }]}>{result.color_of_day}</Text>
             </View>
-            <Text style={styles.colorLabel}>Color of the day</Text>
-            <Text style={[styles.colorValue, { color: accentColor }]}>{result.color_of_day}</Text>
           </View>
         )}
 
@@ -276,21 +262,29 @@ export function RecommenderView({ result, style }: Props) {
         )}
       </View>
 
-      {/* ── Gear tabs ── */}
-      <GearTabs active={gearTab} onChange={setGearTab} accentColor={accentColor} />
+      {/* ── Column headers ── */}
+      <View style={styles.colHeaders}>
+        <Text style={styles.colHeader}>Lures</Text>
+        <Text style={styles.colHeader}>Fly Fishing</Text>
+      </View>
 
-      {/* ── Family cards ── */}
-      {families.length === 0 ? (
-        <View style={styles.emptyState}>
-          <Text style={styles.emptyStateText}>
-            No {gearTab === 'lure' ? 'lure' : 'fly'} families matched this context.
-          </Text>
+      {/* ── Paired lure + fly rows ── */}
+      {Array.from({
+        length: Math.max(result.lure_rankings.length, result.fly_rankings.length),
+      }).map((_, i) => (
+        <View key={i} style={styles.cardRow}>
+          {result.lure_rankings[i] ? (
+            <FamilyCard family={result.lure_rankings[i]} rank={i + 1} />
+          ) : (
+            <View style={styles.cardRowSpacer} />
+          )}
+          {result.fly_rankings[i] ? (
+            <FamilyCard family={result.fly_rankings[i]} rank={i + 1} />
+          ) : (
+            <View style={styles.cardRowSpacer} />
+          )}
         </View>
-      ) : (
-        families.map((family, i) => (
-          <FamilyCard key={family.family_id} family={family} rank={i + 1} />
-        ))
-      )}
+      ))}
     </ScrollView>
   );
 }
@@ -304,9 +298,9 @@ const styles = StyleSheet.create({
   },
   content: {
     paddingHorizontal: spacing.md,
-    paddingTop: spacing.md,
-    paddingBottom: 64,
-    gap: spacing.md,
+    paddingTop: spacing.sm,
+    paddingBottom: 48,
+    gap: 8,
   },
 
   // ── Header card ──────────────────────────────────────────────────────────────
@@ -321,18 +315,18 @@ const styles = StyleSheet.create({
 
   headerSpecies: {
     fontFamily: fonts.serifBold,
-    fontSize: 28,
+    fontSize: 22,
     color: colors.text,
     letterSpacing: -0.5,
     paddingHorizontal: spacing.md,
-    paddingTop: spacing.md,
-    paddingBottom: 12,
+    paddingTop: 12,
+    paddingBottom: 6,
   },
 
-  // Fish image — large, transparent, full-width
+  // Fish image — compact, transparent, full-width
   fishImageWrap: {
     width: '100%',
-    height: 230,
+    height: 160,
     backgroundColor: 'transparent',
     overflow: 'hidden',
   },
@@ -357,8 +351,8 @@ const styles = StyleSheet.create({
     gap: 8,
     flexWrap: 'wrap',
     paddingHorizontal: spacing.md,
-    paddingTop: 14,
-    paddingBottom: 4,
+    paddingTop: 8,
+    paddingBottom: 2,
   },
   badge: {
     flexDirection: 'row',
@@ -389,7 +383,7 @@ const styles = StyleSheet.create({
     height: 1,
     backgroundColor: colors.borderLight,
     marginHorizontal: spacing.md,
-    marginVertical: 2,
+    marginVertical: 0,
   },
 
   // Color of day
@@ -398,19 +392,21 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 10,
     paddingHorizontal: spacing.md,
-    paddingVertical: 12,
+    paddingVertical: 8,
   },
-  colorIconWrap: {
-    width: 26,
-    height: 26,
+  // 3:2 aspect ratio — compact swatch thumbnail
+  colorPaletteThumb: {
+    width: 54,
+    height: 36,
     borderRadius: radius.sm,
-    alignItems: 'center',
-    justifyContent: 'center',
+  },
+  colorTextCol: {
+    flex: 1,
+    gap: 1,
   },
   colorLabel: {
-    flex: 1,
     fontFamily: fonts.body,
-    fontSize: 13,
+    fontSize: 11,
     color: colors.textMuted,
   },
   colorValue: {
@@ -424,7 +420,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: spacing.md,
-    paddingVertical: 14,
+    paddingVertical: 10,
   },
   behaviorToggleLabel: {
     fontFamily: fonts.bodySemiBold,
@@ -488,41 +484,42 @@ const styles = StyleSheet.create({
     lineHeight: 17,
   },
 
-  // ── Gear tabs ─────────────────────────────────────────────────────────────────
-  tabRow: {
+  // ── Column headers + card rows ────────────────────────────────────────────────
+  colHeaders: {
     flexDirection: 'row',
-    backgroundColor: colors.surface,
-    borderRadius: radius.lg,
-    borderWidth: 1,
-    borderColor: colors.borderLight,
-    overflow: 'hidden',
+    paddingHorizontal: 2,
   },
-  tab: {
+  colHeader: {
     flex: 1,
-    paddingVertical: 12,
-    alignItems: 'center',
-    borderBottomWidth: 2,
-    borderBottomColor: 'transparent',
+    textAlign: 'center',
+    fontFamily: fonts.bodySemiBold,
+    fontSize: 13,
+    color: colors.textMuted,
+    letterSpacing: 0.3,
   },
-  tabText: {
-    fontFamily: fonts.bodyMedium,
-    fontSize: 14,
+  cardRow: {
+    flexDirection: 'row',
+    gap: 8,
+  },
+  cardRowSpacer: {
+    flex: 1,
   },
 
   // ── Family card ───────────────────────────────────────────────────────────────
   familyCard: {
+    flex: 1,
     borderRadius: radius.lg,
     borderWidth: 1.5,
-    padding: spacing.md,
-    gap: 12,
+    padding: 10,
+    gap: 8,
   },
   medalPill: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 5,
+    gap: 4,
     alignSelf: 'flex-start',
-    paddingHorizontal: 10,
-    paddingVertical: 5,
+    paddingHorizontal: 8,
+    paddingVertical: 4,
     borderRadius: radius.full,
     borderWidth: 1,
   },
@@ -531,12 +528,24 @@ const styles = StyleSheet.create({
     fontSize: 12,
     letterSpacing: 0.3,
   },
+  // Both the placeholder and the real image use the same fixed height so all
+  // cards — with or without an image — are identical in size.
   familyImagePlaceholder: {
     height: 120,
     borderRadius: radius.md,
     backgroundColor: colors.backgroundAlt,
     borderWidth: 1,
     borderColor: colors.borderLight,
+  },
+  familyImageWrap: {
+    width: '100%',
+    height: 120,
+    borderRadius: radius.md,
+    overflow: 'hidden',
+  },
+  familyImage: {
+    width: '100%',
+    height: '100%',
   },
   familyFooterRow: {
     flexDirection: 'row',
@@ -546,7 +555,7 @@ const styles = StyleSheet.create({
   },
   familyName: {
     fontFamily: fonts.serifBold,
-    fontSize: 17,
+    fontSize: 13,
     color: colors.text,
     flex: 1,
   },
