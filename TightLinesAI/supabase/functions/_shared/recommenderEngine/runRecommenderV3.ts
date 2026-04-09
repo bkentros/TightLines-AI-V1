@@ -41,12 +41,14 @@ export function computeRecommenderV3(
   const lureRecommendations = scoreLureCandidatesV3(
     seasonalRow,
     resolvedProfile,
+    dailyPayload,
     req.water_clarity,
     lightLabel,
   );
   const flyRecommendations = scoreFlyCandidatesV3(
     seasonalRow,
     resolvedProfile,
+    dailyPayload,
     req.water_clarity,
     lightLabel,
   );

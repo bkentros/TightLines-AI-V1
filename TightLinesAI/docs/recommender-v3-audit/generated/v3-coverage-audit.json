@@ -1,0 +1,3309 @@
+{
+  "generated_at": "2026-04-09T16:39:28.035Z",
+  "seasonal_rows": 1104,
+  "synthetic_states_per_row": 1944,
+  "scenario_keys_sample": [
+    "largemouth_bass|florida|freshwater_lake_pond|1",
+    "largemouth_bass|hawaii|freshwater_lake_pond|1",
+    "largemouth_bass|florida|freshwater_lake_pond|2",
+    "largemouth_bass|hawaii|freshwater_lake_pond|2",
+    "largemouth_bass|florida|freshwater_lake_pond|3"
+  ],
+  "scope": {
+    "problem_areas": [
+      "Daily conditions need stronger, biologically coherent influence on rank movement.",
+      "Every library archetype must have an intentional role and measurable reach target.",
+      "Specialty winners need narrow but real primary windows instead of permanent support-only status.",
+      "Top-3 diversity must stay tactically coherent rather than mixing contradictory stories.",
+      "Audit output must expose dead archetypes, sticky rows, and intended-vs-actual mismatches."
+    ],
+    "role_definitions": {
+      "winner_capable": "Should legitimately win rank 1 in at least one intended scenario.",
+      "top3_support": "Should reach the top 3 in intended scenarios, but is not required to own rank 1.",
+      "intentional_low_frequency_specialty": "Narrow-context tool that should surface rarely, but still only in biologically credible windows."
+    }
+  },
+  "success_targets": {
+    "locked_top1_ratio": {
+      "lure": {
+        "actual": 0.25,
+        "target": 0.5,
+        "pass": true
+      },
+      "fly": {
+        "actual": 0.4973,
+        "target": 0.55,
+        "pass": true
+      }
+    },
+    "low_daily_sensitivity_ratio": {
+      "lure": {
+        "actual": 0.0978,
+        "target": 0.45,
+        "pass": true
+      },
+      "fly": {
+        "actual": 0.4094,
+        "target": 0.5,
+        "pass": true
+      }
+    },
+    "tactical_conflict_rate": {
+      "lure": {
+        "actual": 0.0111,
+        "target": 0.02,
+        "pass": true
+      },
+      "fly": {
+        "actual": 0.0006,
+        "target": 0.02,
+        "pass": true
+      }
+    },
+    "expectation_mismatches": {
+      "lure": {
+        "actual": 0,
+        "target": 0,
+        "pass": true
+      },
+      "fly": {
+        "actual": 0,
+        "target": 0,
+        "pass": true
+      }
+    },
+    "never_viable": {
+      "lure": {
+        "actual": 0,
+        "target": 0,
+        "pass": true
+      },
+      "fly": {
+        "actual": 0,
+        "target": 0,
+        "pass": true
+      }
+    },
+    "never_top3": {
+      "lure": {
+        "actual": 0,
+        "target": 0,
+        "pass": true
+      },
+      "fly": {
+        "actual": 0,
+        "target": 0,
+        "pass": true
+      }
+    }
+  },
+  "locked_top1_rows": {
+    "lure": 276,
+    "fly": 549
+  },
+  "low_daily_sensitivity_rows": {
+    "lure": {
+      "count": 108,
+      "examples": [
+        {
+          "species": "largemouth_bass",
+          "region_key": "south_central",
+          "month": 4,
+          "context": "freshwater_lake_pond",
+          "gear_mode": "lure",
+          "unique_top1_count": 1,
+          "unique_top3_signature_count": 2,
+          "sample_top1_ids": [
+            "compact_flipping_jig"
+          ],
+          "sample_lineups": [
+            "compact_flipping_jig > soft_jerkbait > suspending_jerkbait",
+            "compact_flipping_jig > soft_jerkbait > wacky_rigged_stick_worm"
+          ]
+        },
+        {
+          "species": "largemouth_bass",
+          "region_key": "south_central",
+          "month": 12,
+          "context": "freshwater_lake_pond",
+          "gear_mode": "lure",
+          "unique_top1_count": 1,
+          "unique_top3_signature_count": 1,
+          "sample_top1_ids": [
+            "shaky_head_worm"
+          ],
+          "sample_lineups": [
+            "shaky_head_worm > texas_rigged_soft_plastic_craw > football_jig"
+          ]
+        },
+        {
+          "species": "largemouth_bass",
+          "region_key": "south_central",
+          "month": 7,
+          "context": "freshwater_river",
+          "gear_mode": "lure",
+          "unique_top1_count": 1,
+          "unique_top3_signature_count": 2,
+          "sample_top1_ids": [
+            "swim_jig"
+          ],
+          "sample_lineups": [
+            "swim_jig > texas_rigged_stick_worm > spinnerbait",
+            "swim_jig > compact_flipping_jig > spinnerbait"
+          ]
+        },
+        {
+          "species": "largemouth_bass",
+          "region_key": "northern_california",
+          "month": 6,
+          "context": "freshwater_river",
+          "gear_mode": "lure",
+          "unique_top1_count": 1,
+          "unique_top3_signature_count": 2,
+          "sample_top1_ids": [
+            "swim_jig"
+          ],
+          "sample_lineups": [
+            "swim_jig > hollow_body_frog > spinnerbait",
+            "swim_jig > hollow_body_frog > compact_flipping_jig"
+          ]
+        },
+        {
+          "species": "smallmouth_bass",
+          "region_key": "northeast",
+          "month": 6,
+          "context": "freshwater_lake_pond",
+          "gear_mode": "lure",
+          "unique_top1_count": 1,
+          "unique_top3_signature_count": 1,
+          "sample_top1_ids": [
+            "tube_jig"
+          ],
+          "sample_lineups": [
+            "tube_jig > hair_jig > soft_jerkbait"
+          ]
+        },
+        {
+          "species": "smallmouth_bass",
+          "region_key": "mountain_west",
+          "month": 5,
+          "context": "freshwater_lake_pond",
+          "gear_mode": "lure",
+          "unique_top1_count": 1,
+          "unique_top3_signature_count": 1,
+          "sample_top1_ids": [
+            "tube_jig"
+          ],
+          "sample_lineups": [
+            "tube_jig > hair_jig > soft_jerkbait"
+          ]
+        },
+        {
+          "species": "smallmouth_bass",
+          "region_key": "inland_northwest",
+          "month": 5,
+          "context": "freshwater_lake_pond",
+          "gear_mode": "lure",
+          "unique_top1_count": 1,
+          "unique_top3_signature_count": 1,
+          "sample_top1_ids": [
+            "tube_jig"
+          ],
+          "sample_lineups": [
+            "tube_jig > hair_jig > soft_jerkbait"
+          ]
+        },
+        {
+          "species": "smallmouth_bass",
+          "region_key": "pacific_northwest",
+          "month": 5,
+          "context": "freshwater_lake_pond",
+          "gear_mode": "lure",
+          "unique_top1_count": 1,
+          "unique_top3_signature_count": 1,
+          "sample_top1_ids": [
+            "tube_jig"
+          ],
+          "sample_lineups": [
+            "tube_jig > hair_jig > soft_jerkbait"
+          ]
+        },
+        {
+          "species": "smallmouth_bass",
+          "region_key": "northern_california",
+          "month": 5,
+          "context": "freshwater_lake_pond",
+          "gear_mode": "lure",
+          "unique_top1_count": 1,
+          "unique_top3_signature_count": 1,
+          "sample_top1_ids": [
+            "tube_jig"
+          ],
+          "sample_lineups": [
+            "tube_jig > hair_jig > soft_jerkbait"
+          ]
+        },
+        {
+          "species": "smallmouth_bass",
+          "region_key": "southern_california",
+          "month": 5,
+          "context": "freshwater_lake_pond",
+          "gear_mode": "lure",
+          "unique_top1_count": 1,
+          "unique_top3_signature_count": 1,
+          "sample_top1_ids": [
+            "tube_jig"
+          ],
+          "sample_lineups": [
+            "tube_jig > hair_jig > soft_jerkbait"
+          ]
+        },
+        {
+          "species": "smallmouth_bass",
+          "region_key": "southwest_desert",
+          "month": 5,
+          "context": "freshwater_lake_pond",
+          "gear_mode": "lure",
+          "unique_top1_count": 1,
+          "unique_top3_signature_count": 1,
+          "sample_top1_ids": [
+            "tube_jig"
+          ],
+          "sample_lineups": [
+            "tube_jig > hair_jig > soft_jerkbait"
+          ]
+        },
+        {
+          "species": "smallmouth_bass",
+          "region_key": "southwest_high_desert",
+          "month": 5,
+          "context": "freshwater_lake_pond",
+          "gear_mode": "lure",
+          "unique_top1_count": 1,
+          "unique_top3_signature_count": 1,
+          "sample_top1_ids": [
+            "tube_jig"
+          ],
+          "sample_lineups": [
+            "tube_jig > hair_jig > soft_jerkbait"
+          ]
+        },
+        {
+          "species": "smallmouth_bass",
+          "region_key": "mountain_west",
+          "month": 9,
+          "context": "freshwater_river",
+          "gear_mode": "lure",
+          "unique_top1_count": 1,
+          "unique_top3_signature_count": 1,
+          "sample_top1_ids": [
+            "suspending_jerkbait"
+          ],
+          "sample_lineups": [
+            "suspending_jerkbait > inline_spinner > blade_bait"
+          ]
+        },
+        {
+          "species": "smallmouth_bass",
+          "region_key": "inland_northwest",
+          "month": 9,
+          "context": "freshwater_river",
+          "gear_mode": "lure",
+          "unique_top1_count": 1,
+          "unique_top3_signature_count": 1,
+          "sample_top1_ids": [
+            "suspending_jerkbait"
+          ],
+          "sample_lineups": [
+            "suspending_jerkbait > inline_spinner > blade_bait"
+          ]
+        },
+        {
+          "species": "smallmouth_bass",
+          "region_key": "pacific_northwest",
+          "month": 9,
+          "context": "freshwater_river",
+          "gear_mode": "lure",
+          "unique_top1_count": 1,
+          "unique_top3_signature_count": 1,
+          "sample_top1_ids": [
+            "suspending_jerkbait"
+          ],
+          "sample_lineups": [
+            "suspending_jerkbait > inline_spinner > blade_bait"
+          ]
+        },
+        {
+          "species": "trout",
+          "region_key": "mountain_west",
+          "month": 7,
+          "context": "freshwater_river",
+          "gear_mode": "lure",
+          "unique_top1_count": 1,
+          "unique_top3_signature_count": 2,
+          "sample_top1_ids": [
+            "inline_spinner"
+          ],
+          "sample_lineups": [
+            "inline_spinner > casting_spoon > soft_jerkbait",
+            "inline_spinner > soft_jerkbait > paddle_tail_swimbait"
+          ]
+        },
+        {
+          "species": "trout",
+          "region_key": "mountain_west",
+          "month": 8,
+          "context": "freshwater_river",
+          "gear_mode": "lure",
+          "unique_top1_count": 1,
+          "unique_top3_signature_count": 2,
+          "sample_top1_ids": [
+            "inline_spinner"
+          ],
+          "sample_lineups": [
+            "inline_spinner > casting_spoon > soft_jerkbait",
+            "inline_spinner > soft_jerkbait > paddle_tail_swimbait"
+          ]
+        },
+        {
+          "species": "trout",
+          "region_key": "inland_northwest",
+          "month": 7,
+          "context": "freshwater_river",
+          "gear_mode": "lure",
+          "unique_top1_count": 1,
+          "unique_top3_signature_count": 2,
+          "sample_top1_ids": [
+            "inline_spinner"
+          ],
+          "sample_lineups": [
+            "inline_spinner > casting_spoon > soft_jerkbait",
+            "inline_spinner > soft_jerkbait > paddle_tail_swimbait"
+          ]
+        },
+        {
+          "species": "trout",
+          "region_key": "inland_northwest",
+          "month": 8,
+          "context": "freshwater_river",
+          "gear_mode": "lure",
+          "unique_top1_count": 1,
+          "unique_top3_signature_count": 2,
+          "sample_top1_ids": [
+            "inline_spinner"
+          ],
+          "sample_lineups": [
+            "inline_spinner > casting_spoon > soft_jerkbait",
+            "inline_spinner > soft_jerkbait > paddle_tail_swimbait"
+          ]
+        },
+        {
+          "species": "trout",
+          "region_key": "northern_california",
+          "month": 7,
+          "context": "freshwater_river",
+          "gear_mode": "lure",
+          "unique_top1_count": 1,
+          "unique_top3_signature_count": 2,
+          "sample_top1_ids": [
+            "inline_spinner"
+          ],
+          "sample_lineups": [
+            "inline_spinner > casting_spoon > soft_jerkbait",
+            "inline_spinner > soft_jerkbait > paddle_tail_swimbait"
+          ]
+        },
+        {
+          "species": "trout",
+          "region_key": "northern_california",
+          "month": 8,
+          "context": "freshwater_river",
+          "gear_mode": "lure",
+          "unique_top1_count": 1,
+          "unique_top3_signature_count": 2,
+          "sample_top1_ids": [
+            "inline_spinner"
+          ],
+          "sample_lineups": [
+            "inline_spinner > casting_spoon > soft_jerkbait",
+            "inline_spinner > soft_jerkbait > paddle_tail_swimbait"
+          ]
+        },
+        {
+          "species": "northern_pike",
+          "region_key": "northeast",
+          "month": 3,
+          "context": "freshwater_lake_pond",
+          "gear_mode": "lure",
+          "unique_top1_count": 1,
+          "unique_top3_signature_count": 2,
+          "sample_top1_ids": [
+            "pike_jerkbait"
+          ],
+          "sample_lineups": [
+            "pike_jerkbait > suspending_jerkbait > paddle_tail_swimbait",
+            "pike_jerkbait > suspending_jerkbait > spinnerbait"
+          ]
+        },
+        {
+          "species": "northern_pike",
+          "region_key": "northeast",
+          "month": 4,
+          "context": "freshwater_lake_pond",
+          "gear_mode": "lure",
+          "unique_top1_count": 1,
+          "unique_top3_signature_count": 2,
+          "sample_top1_ids": [
+            "pike_jerkbait"
+          ],
+          "sample_lineups": [
+            "pike_jerkbait > suspending_jerkbait > paddle_tail_swimbait",
+            "pike_jerkbait > suspending_jerkbait > spinnerbait"
+          ]
+        },
+        {
+          "species": "northern_pike",
+          "region_key": "great_lakes_upper_midwest",
+          "month": 3,
+          "context": "freshwater_lake_pond",
+          "gear_mode": "lure",
+          "unique_top1_count": 1,
+          "unique_top3_signature_count": 2,
+          "sample_top1_ids": [
+            "pike_jerkbait"
+          ],
+          "sample_lineups": [
+            "pike_jerkbait > suspending_jerkbait > paddle_tail_swimbait",
+            "pike_jerkbait > suspending_jerkbait > spinnerbait"
+          ]
+        },
+        {
+          "species": "northern_pike",
+          "region_key": "great_lakes_upper_midwest",
+          "month": 4,
+          "context": "freshwater_lake_pond",
+          "gear_mode": "lure",
+          "unique_top1_count": 1,
+          "unique_top3_signature_count": 2,
+          "sample_top1_ids": [
+            "pike_jerkbait"
+          ],
+          "sample_lineups": [
+            "pike_jerkbait > suspending_jerkbait > paddle_tail_swimbait",
+            "pike_jerkbait > suspending_jerkbait > spinnerbait"
+          ]
+        }
+      ]
+    },
+    "fly": {
+      "count": 452,
+      "examples": [
+        {
+          "species": "largemouth_bass",
+          "region_key": "hawaii",
+          "month": 1,
+          "context": "freshwater_lake_pond",
+          "gear_mode": "fly",
+          "unique_top1_count": 1,
+          "unique_top3_signature_count": 2,
+          "sample_top1_ids": [
+            "woolly_bugger"
+          ],
+          "sample_lineups": [
+            "woolly_bugger > balanced_leech > crawfish_streamer",
+            "woolly_bugger > balanced_leech > sculpin_streamer"
+          ]
+        },
+        {
+          "species": "largemouth_bass",
+          "region_key": "hawaii",
+          "month": 2,
+          "context": "freshwater_lake_pond",
+          "gear_mode": "fly",
+          "unique_top1_count": 1,
+          "unique_top3_signature_count": 2,
+          "sample_top1_ids": [
+            "crawfish_streamer"
+          ],
+          "sample_lineups": [
+            "crawfish_streamer > clouser_minnow > woolly_bugger",
+            "crawfish_streamer > articulated_dungeon_streamer > woolly_bugger"
+          ]
+        },
+        {
+          "species": "largemouth_bass",
+          "region_key": "florida",
+          "month": 4,
+          "context": "freshwater_lake_pond",
+          "gear_mode": "fly",
+          "unique_top1_count": 1,
+          "unique_top3_signature_count": 1,
+          "sample_top1_ids": [
+            "woolly_bugger"
+          ],
+          "sample_lineups": [
+            "woolly_bugger > clouser_minnow > rabbit_strip_leech"
+          ]
+        },
+        {
+          "species": "largemouth_bass",
+          "region_key": "hawaii",
+          "month": 7,
+          "context": "freshwater_lake_pond",
+          "gear_mode": "fly",
+          "unique_top1_count": 1,
+          "unique_top3_signature_count": 1,
+          "sample_top1_ids": [
+            "woolly_bugger"
+          ],
+          "sample_lineups": [
+            "woolly_bugger > clouser_minnow > balanced_leech"
+          ]
+        },
+        {
+          "species": "largemouth_bass",
+          "region_key": "hawaii",
+          "month": 8,
+          "context": "freshwater_lake_pond",
+          "gear_mode": "fly",
+          "unique_top1_count": 1,
+          "unique_top3_signature_count": 1,
+          "sample_top1_ids": [
+            "woolly_bugger"
+          ],
+          "sample_lineups": [
+            "woolly_bugger > clouser_minnow > balanced_leech"
+          ]
+        },
+        {
+          "species": "largemouth_bass",
+          "region_key": "hawaii",
+          "month": 12,
+          "context": "freshwater_lake_pond",
+          "gear_mode": "fly",
+          "unique_top1_count": 1,
+          "unique_top3_signature_count": 2,
+          "sample_top1_ids": [
+            "woolly_bugger"
+          ],
+          "sample_lineups": [
+            "woolly_bugger > balanced_leech > rabbit_strip_leech",
+            "woolly_bugger > balanced_leech > crawfish_streamer"
+          ]
+        },
+        {
+          "species": "largemouth_bass",
+          "region_key": "florida",
+          "month": 1,
+          "context": "freshwater_river",
+          "gear_mode": "fly",
+          "unique_top1_count": 1,
+          "unique_top3_signature_count": 2,
+          "sample_top1_ids": [
+            "woolly_bugger"
+          ],
+          "sample_lineups": [
+            "woolly_bugger > balanced_leech > crawfish_streamer",
+            "woolly_bugger > balanced_leech > sculpin_streamer"
+          ]
+        },
+        {
+          "species": "largemouth_bass",
+          "region_key": "florida",
+          "month": 2,
+          "context": "freshwater_river",
+          "gear_mode": "fly",
+          "unique_top1_count": 1,
+          "unique_top3_signature_count": 2,
+          "sample_top1_ids": [
+            "woolly_bugger"
+          ],
+          "sample_lineups": [
+            "woolly_bugger > balanced_leech > crawfish_streamer",
+            "woolly_bugger > balanced_leech > sculpin_streamer"
+          ]
+        },
+        {
+          "species": "largemouth_bass",
+          "region_key": "hawaii",
+          "month": 1,
+          "context": "freshwater_river",
+          "gear_mode": "fly",
+          "unique_top1_count": 1,
+          "unique_top3_signature_count": 2,
+          "sample_top1_ids": [
+            "woolly_bugger"
+          ],
+          "sample_lineups": [
+            "woolly_bugger > balanced_leech > crawfish_streamer",
+            "woolly_bugger > balanced_leech > sculpin_streamer"
+          ]
+        },
+        {
+          "species": "largemouth_bass",
+          "region_key": "hawaii",
+          "month": 2,
+          "context": "freshwater_river",
+          "gear_mode": "fly",
+          "unique_top1_count": 1,
+          "unique_top3_signature_count": 2,
+          "sample_top1_ids": [
+            "woolly_bugger"
+          ],
+          "sample_lineups": [
+            "woolly_bugger > balanced_leech > crawfish_streamer",
+            "woolly_bugger > balanced_leech > sculpin_streamer"
+          ]
+        },
+        {
+          "species": "largemouth_bass",
+          "region_key": "florida",
+          "month": 7,
+          "context": "freshwater_river",
+          "gear_mode": "fly",
+          "unique_top1_count": 1,
+          "unique_top3_signature_count": 2,
+          "sample_top1_ids": [
+            "woolly_bugger"
+          ],
+          "sample_lineups": [
+            "woolly_bugger > game_changer > crawfish_streamer",
+            "woolly_bugger > frog_fly > game_changer"
+          ]
+        },
+        {
+          "species": "largemouth_bass",
+          "region_key": "florida",
+          "month": 8,
+          "context": "freshwater_river",
+          "gear_mode": "fly",
+          "unique_top1_count": 1,
+          "unique_top3_signature_count": 2,
+          "sample_top1_ids": [
+            "woolly_bugger"
+          ],
+          "sample_lineups": [
+            "woolly_bugger > game_changer > crawfish_streamer",
+            "woolly_bugger > frog_fly > game_changer"
+          ]
+        },
+        {
+          "species": "largemouth_bass",
+          "region_key": "hawaii",
+          "month": 7,
+          "context": "freshwater_river",
+          "gear_mode": "fly",
+          "unique_top1_count": 1,
+          "unique_top3_signature_count": 2,
+          "sample_top1_ids": [
+            "woolly_bugger"
+          ],
+          "sample_lineups": [
+            "woolly_bugger > game_changer > crawfish_streamer",
+            "woolly_bugger > frog_fly > game_changer"
+          ]
+        },
+        {
+          "species": "largemouth_bass",
+          "region_key": "hawaii",
+          "month": 8,
+          "context": "freshwater_river",
+          "gear_mode": "fly",
+          "unique_top1_count": 1,
+          "unique_top3_signature_count": 2,
+          "sample_top1_ids": [
+            "woolly_bugger"
+          ],
+          "sample_lineups": [
+            "woolly_bugger > game_changer > crawfish_streamer",
+            "woolly_bugger > frog_fly > game_changer"
+          ]
+        },
+        {
+          "species": "largemouth_bass",
+          "region_key": "florida",
+          "month": 9,
+          "context": "freshwater_river",
+          "gear_mode": "fly",
+          "unique_top1_count": 1,
+          "unique_top3_signature_count": 2,
+          "sample_top1_ids": [
+            "clouser_minnow"
+          ],
+          "sample_lineups": [
+            "clouser_minnow > game_changer > deceiver",
+            "clouser_minnow > popper_fly > game_changer"
+          ]
+        },
+        {
+          "species": "largemouth_bass",
+          "region_key": "florida",
+          "month": 10,
+          "context": "freshwater_river",
+          "gear_mode": "fly",
+          "unique_top1_count": 1,
+          "unique_top3_signature_count": 2,
+          "sample_top1_ids": [
+            "clouser_minnow"
+          ],
+          "sample_lineups": [
+            "clouser_minnow > game_changer > deceiver",
+            "clouser_minnow > popper_fly > game_changer"
+          ]
+        },
+        {
+          "species": "largemouth_bass",
+          "region_key": "florida",
+          "month": 11,
+          "context": "freshwater_river",
+          "gear_mode": "fly",
+          "unique_top1_count": 1,
+          "unique_top3_signature_count": 2,
+          "sample_top1_ids": [
+            "clouser_minnow"
+          ],
+          "sample_lineups": [
+            "clouser_minnow > game_changer > deceiver",
+            "clouser_minnow > popper_fly > game_changer"
+          ]
+        },
+        {
+          "species": "largemouth_bass",
+          "region_key": "hawaii",
+          "month": 9,
+          "context": "freshwater_river",
+          "gear_mode": "fly",
+          "unique_top1_count": 1,
+          "unique_top3_signature_count": 2,
+          "sample_top1_ids": [
+            "clouser_minnow"
+          ],
+          "sample_lineups": [
+            "clouser_minnow > game_changer > deceiver",
+            "clouser_minnow > popper_fly > game_changer"
+          ]
+        },
+        {
+          "species": "largemouth_bass",
+          "region_key": "hawaii",
+          "month": 10,
+          "context": "freshwater_river",
+          "gear_mode": "fly",
+          "unique_top1_count": 1,
+          "unique_top3_signature_count": 2,
+          "sample_top1_ids": [
+            "clouser_minnow"
+          ],
+          "sample_lineups": [
+            "clouser_minnow > game_changer > deceiver",
+            "clouser_minnow > popper_fly > game_changer"
+          ]
+        },
+        {
+          "species": "largemouth_bass",
+          "region_key": "hawaii",
+          "month": 11,
+          "context": "freshwater_river",
+          "gear_mode": "fly",
+          "unique_top1_count": 1,
+          "unique_top3_signature_count": 2,
+          "sample_top1_ids": [
+            "clouser_minnow"
+          ],
+          "sample_lineups": [
+            "clouser_minnow > game_changer > deceiver",
+            "clouser_minnow > popper_fly > game_changer"
+          ]
+        },
+        {
+          "species": "largemouth_bass",
+          "region_key": "florida",
+          "month": 12,
+          "context": "freshwater_river",
+          "gear_mode": "fly",
+          "unique_top1_count": 1,
+          "unique_top3_signature_count": 2,
+          "sample_top1_ids": [
+            "woolly_bugger"
+          ],
+          "sample_lineups": [
+            "woolly_bugger > balanced_leech > rabbit_strip_leech",
+            "woolly_bugger > balanced_leech > crawfish_streamer"
+          ]
+        },
+        {
+          "species": "largemouth_bass",
+          "region_key": "hawaii",
+          "month": 12,
+          "context": "freshwater_river",
+          "gear_mode": "fly",
+          "unique_top1_count": 1,
+          "unique_top3_signature_count": 2,
+          "sample_top1_ids": [
+            "woolly_bugger"
+          ],
+          "sample_lineups": [
+            "woolly_bugger > balanced_leech > rabbit_strip_leech",
+            "woolly_bugger > balanced_leech > crawfish_streamer"
+          ]
+        },
+        {
+          "species": "largemouth_bass",
+          "region_key": "gulf_coast",
+          "month": 1,
+          "context": "freshwater_lake_pond",
+          "gear_mode": "fly",
+          "unique_top1_count": 1,
+          "unique_top3_signature_count": 2,
+          "sample_top1_ids": [
+            "woolly_bugger"
+          ],
+          "sample_lineups": [
+            "woolly_bugger > balanced_leech > rabbit_strip_leech",
+            "woolly_bugger > balanced_leech > crawfish_streamer"
+          ]
+        },
+        {
+          "species": "largemouth_bass",
+          "region_key": "southeast_atlantic",
+          "month": 1,
+          "context": "freshwater_lake_pond",
+          "gear_mode": "fly",
+          "unique_top1_count": 1,
+          "unique_top3_signature_count": 2,
+          "sample_top1_ids": [
+            "woolly_bugger"
+          ],
+          "sample_lineups": [
+            "woolly_bugger > balanced_leech > rabbit_strip_leech",
+            "woolly_bugger > balanced_leech > crawfish_streamer"
+          ]
+        },
+        {
+          "species": "largemouth_bass",
+          "region_key": "gulf_coast",
+          "month": 7,
+          "context": "freshwater_lake_pond",
+          "gear_mode": "fly",
+          "unique_top1_count": 1,
+          "unique_top3_signature_count": 1,
+          "sample_top1_ids": [
+            "woolly_bugger"
+          ],
+          "sample_lineups": [
+            "woolly_bugger > clouser_minnow > balanced_leech"
+          ]
+        }
+      ]
+    }
+  },
+  "tactical_conflicts": {
+    "lure": {
+      "count": 23778,
+      "examples": [
+        {
+          "species": "smallmouth_bass",
+          "region_key": "appalachian",
+          "month": 1,
+          "context": "freshwater_lake_pond",
+          "clarity": "clear",
+          "gear_mode": "lure",
+          "reason": "slow_vs_fast",
+          "ids": [
+            "suspending_jerkbait",
+            "blade_bait",
+            "tube_jig"
+          ],
+          "lanes": [
+            "reaction_mid_column",
+            "reaction_mid_column",
+            "bottom_contact"
+          ],
+          "scores": [
+            14.15,
+            13.8,
+            14.05
+          ]
+        },
+        {
+          "species": "smallmouth_bass",
+          "region_key": "appalachian",
+          "month": 1,
+          "context": "freshwater_lake_pond",
+          "clarity": "clear",
+          "gear_mode": "lure",
+          "reason": "slow_vs_fast",
+          "ids": [
+            "suspending_jerkbait",
+            "blade_bait",
+            "tube_jig"
+          ],
+          "lanes": [
+            "reaction_mid_column",
+            "reaction_mid_column",
+            "bottom_contact"
+          ],
+          "scores": [
+            14.15,
+            13.8,
+            14.05
+          ]
+        },
+        {
+          "species": "smallmouth_bass",
+          "region_key": "appalachian",
+          "month": 1,
+          "context": "freshwater_lake_pond",
+          "clarity": "clear",
+          "gear_mode": "lure",
+          "reason": "slow_vs_fast",
+          "ids": [
+            "suspending_jerkbait",
+            "blade_bait",
+            "tube_jig"
+          ],
+          "lanes": [
+            "reaction_mid_column",
+            "reaction_mid_column",
+            "bottom_contact"
+          ],
+          "scores": [
+            14.15,
+            13.8,
+            14.05
+          ]
+        },
+        {
+          "species": "smallmouth_bass",
+          "region_key": "appalachian",
+          "month": 1,
+          "context": "freshwater_lake_pond",
+          "clarity": "clear",
+          "gear_mode": "lure",
+          "reason": "slow_vs_fast",
+          "ids": [
+            "suspending_jerkbait",
+            "blade_bait",
+            "tube_jig"
+          ],
+          "lanes": [
+            "reaction_mid_column",
+            "reaction_mid_column",
+            "bottom_contact"
+          ],
+          "scores": [
+            14.15,
+            13.8,
+            14.05
+          ]
+        },
+        {
+          "species": "smallmouth_bass",
+          "region_key": "appalachian",
+          "month": 1,
+          "context": "freshwater_lake_pond",
+          "clarity": "clear",
+          "gear_mode": "lure",
+          "reason": "slow_vs_fast",
+          "ids": [
+            "suspending_jerkbait",
+            "blade_bait",
+            "tube_jig"
+          ],
+          "lanes": [
+            "reaction_mid_column",
+            "reaction_mid_column",
+            "bottom_contact"
+          ],
+          "scores": [
+            14.15,
+            13.8,
+            14.05
+          ]
+        },
+        {
+          "species": "smallmouth_bass",
+          "region_key": "appalachian",
+          "month": 1,
+          "context": "freshwater_lake_pond",
+          "clarity": "clear",
+          "gear_mode": "lure",
+          "reason": "slow_vs_fast",
+          "ids": [
+            "suspending_jerkbait",
+            "blade_bait",
+            "tube_jig"
+          ],
+          "lanes": [
+            "reaction_mid_column",
+            "reaction_mid_column",
+            "bottom_contact"
+          ],
+          "scores": [
+            14.15,
+            13.8,
+            14.05
+          ]
+        },
+        {
+          "species": "smallmouth_bass",
+          "region_key": "appalachian",
+          "month": 1,
+          "context": "freshwater_lake_pond",
+          "clarity": "clear",
+          "gear_mode": "lure",
+          "reason": "slow_vs_fast",
+          "ids": [
+            "suspending_jerkbait",
+            "blade_bait",
+            "tube_jig"
+          ],
+          "lanes": [
+            "reaction_mid_column",
+            "reaction_mid_column",
+            "bottom_contact"
+          ],
+          "scores": [
+            14.15,
+            13.8,
+            14.05
+          ]
+        },
+        {
+          "species": "smallmouth_bass",
+          "region_key": "appalachian",
+          "month": 1,
+          "context": "freshwater_lake_pond",
+          "clarity": "clear",
+          "gear_mode": "lure",
+          "reason": "slow_vs_fast",
+          "ids": [
+            "suspending_jerkbait",
+            "blade_bait",
+            "tube_jig"
+          ],
+          "lanes": [
+            "reaction_mid_column",
+            "reaction_mid_column",
+            "bottom_contact"
+          ],
+          "scores": [
+            14.15,
+            13.8,
+            14.05
+          ]
+        },
+        {
+          "species": "smallmouth_bass",
+          "region_key": "appalachian",
+          "month": 1,
+          "context": "freshwater_lake_pond",
+          "clarity": "clear",
+          "gear_mode": "lure",
+          "reason": "slow_vs_fast",
+          "ids": [
+            "suspending_jerkbait",
+            "blade_bait",
+            "tube_jig"
+          ],
+          "lanes": [
+            "reaction_mid_column",
+            "reaction_mid_column",
+            "bottom_contact"
+          ],
+          "scores": [
+            14.15,
+            13.8,
+            14.05
+          ]
+        },
+        {
+          "species": "smallmouth_bass",
+          "region_key": "appalachian",
+          "month": 1,
+          "context": "freshwater_lake_pond",
+          "clarity": "clear",
+          "gear_mode": "lure",
+          "reason": "slow_vs_fast",
+          "ids": [
+            "suspending_jerkbait",
+            "blade_bait",
+            "tube_jig"
+          ],
+          "lanes": [
+            "reaction_mid_column",
+            "reaction_mid_column",
+            "bottom_contact"
+          ],
+          "scores": [
+            14.15,
+            13.3,
+            14.05
+          ]
+        },
+        {
+          "species": "smallmouth_bass",
+          "region_key": "appalachian",
+          "month": 1,
+          "context": "freshwater_lake_pond",
+          "clarity": "clear",
+          "gear_mode": "lure",
+          "reason": "slow_vs_fast",
+          "ids": [
+            "suspending_jerkbait",
+            "blade_bait",
+            "tube_jig"
+          ],
+          "lanes": [
+            "reaction_mid_column",
+            "reaction_mid_column",
+            "bottom_contact"
+          ],
+          "scores": [
+            14.15,
+            13.3,
+            14.05
+          ]
+        },
+        {
+          "species": "smallmouth_bass",
+          "region_key": "appalachian",
+          "month": 1,
+          "context": "freshwater_lake_pond",
+          "clarity": "clear",
+          "gear_mode": "lure",
+          "reason": "slow_vs_fast",
+          "ids": [
+            "suspending_jerkbait",
+            "blade_bait",
+            "tube_jig"
+          ],
+          "lanes": [
+            "reaction_mid_column",
+            "reaction_mid_column",
+            "bottom_contact"
+          ],
+          "scores": [
+            14.15,
+            13.3,
+            14.05
+          ]
+        },
+        {
+          "species": "smallmouth_bass",
+          "region_key": "appalachian",
+          "month": 1,
+          "context": "freshwater_lake_pond",
+          "clarity": "stained",
+          "gear_mode": "lure",
+          "reason": "slow_vs_fast",
+          "ids": [
+            "suspending_jerkbait",
+            "blade_bait",
+            "tube_jig"
+          ],
+          "lanes": [
+            "reaction_mid_column",
+            "reaction_mid_column",
+            "bottom_contact"
+          ],
+          "scores": [
+            14.15,
+            13.8,
+            14.05
+          ]
+        },
+        {
+          "species": "smallmouth_bass",
+          "region_key": "appalachian",
+          "month": 1,
+          "context": "freshwater_lake_pond",
+          "clarity": "stained",
+          "gear_mode": "lure",
+          "reason": "slow_vs_fast",
+          "ids": [
+            "suspending_jerkbait",
+            "blade_bait",
+            "tube_jig"
+          ],
+          "lanes": [
+            "reaction_mid_column",
+            "reaction_mid_column",
+            "bottom_contact"
+          ],
+          "scores": [
+            14.15,
+            13.8,
+            14.05
+          ]
+        },
+        {
+          "species": "smallmouth_bass",
+          "region_key": "appalachian",
+          "month": 1,
+          "context": "freshwater_lake_pond",
+          "clarity": "stained",
+          "gear_mode": "lure",
+          "reason": "slow_vs_fast",
+          "ids": [
+            "suspending_jerkbait",
+            "blade_bait",
+            "tube_jig"
+          ],
+          "lanes": [
+            "reaction_mid_column",
+            "reaction_mid_column",
+            "bottom_contact"
+          ],
+          "scores": [
+            14.15,
+            13.8,
+            14.05
+          ]
+        },
+        {
+          "species": "smallmouth_bass",
+          "region_key": "appalachian",
+          "month": 1,
+          "context": "freshwater_lake_pond",
+          "clarity": "stained",
+          "gear_mode": "lure",
+          "reason": "slow_vs_fast",
+          "ids": [
+            "suspending_jerkbait",
+            "blade_bait",
+            "tube_jig"
+          ],
+          "lanes": [
+            "reaction_mid_column",
+            "reaction_mid_column",
+            "bottom_contact"
+          ],
+          "scores": [
+            14.15,
+            13.8,
+            14.05
+          ]
+        },
+        {
+          "species": "smallmouth_bass",
+          "region_key": "appalachian",
+          "month": 1,
+          "context": "freshwater_lake_pond",
+          "clarity": "stained",
+          "gear_mode": "lure",
+          "reason": "slow_vs_fast",
+          "ids": [
+            "suspending_jerkbait",
+            "blade_bait",
+            "tube_jig"
+          ],
+          "lanes": [
+            "reaction_mid_column",
+            "reaction_mid_column",
+            "bottom_contact"
+          ],
+          "scores": [
+            14.15,
+            13.8,
+            14.05
+          ]
+        },
+        {
+          "species": "smallmouth_bass",
+          "region_key": "appalachian",
+          "month": 1,
+          "context": "freshwater_lake_pond",
+          "clarity": "stained",
+          "gear_mode": "lure",
+          "reason": "slow_vs_fast",
+          "ids": [
+            "suspending_jerkbait",
+            "blade_bait",
+            "tube_jig"
+          ],
+          "lanes": [
+            "reaction_mid_column",
+            "reaction_mid_column",
+            "bottom_contact"
+          ],
+          "scores": [
+            14.15,
+            13.8,
+            14.05
+          ]
+        },
+        {
+          "species": "smallmouth_bass",
+          "region_key": "appalachian",
+          "month": 1,
+          "context": "freshwater_lake_pond",
+          "clarity": "stained",
+          "gear_mode": "lure",
+          "reason": "slow_vs_fast",
+          "ids": [
+            "suspending_jerkbait",
+            "blade_bait",
+            "tube_jig"
+          ],
+          "lanes": [
+            "reaction_mid_column",
+            "reaction_mid_column",
+            "bottom_contact"
+          ],
+          "scores": [
+            14.15,
+            13.8,
+            14.05
+          ]
+        },
+        {
+          "species": "smallmouth_bass",
+          "region_key": "appalachian",
+          "month": 1,
+          "context": "freshwater_lake_pond",
+          "clarity": "stained",
+          "gear_mode": "lure",
+          "reason": "slow_vs_fast",
+          "ids": [
+            "suspending_jerkbait",
+            "blade_bait",
+            "tube_jig"
+          ],
+          "lanes": [
+            "reaction_mid_column",
+            "reaction_mid_column",
+            "bottom_contact"
+          ],
+          "scores": [
+            14.15,
+            13.8,
+            14.05
+          ]
+        },
+        {
+          "species": "smallmouth_bass",
+          "region_key": "appalachian",
+          "month": 1,
+          "context": "freshwater_lake_pond",
+          "clarity": "stained",
+          "gear_mode": "lure",
+          "reason": "slow_vs_fast",
+          "ids": [
+            "suspending_jerkbait",
+            "blade_bait",
+            "tube_jig"
+          ],
+          "lanes": [
+            "reaction_mid_column",
+            "reaction_mid_column",
+            "bottom_contact"
+          ],
+          "scores": [
+            14.15,
+            13.8,
+            14.05
+          ]
+        },
+        {
+          "species": "smallmouth_bass",
+          "region_key": "appalachian",
+          "month": 1,
+          "context": "freshwater_lake_pond",
+          "clarity": "stained",
+          "gear_mode": "lure",
+          "reason": "slow_vs_fast",
+          "ids": [
+            "suspending_jerkbait",
+            "blade_bait",
+            "tube_jig"
+          ],
+          "lanes": [
+            "reaction_mid_column",
+            "reaction_mid_column",
+            "bottom_contact"
+          ],
+          "scores": [
+            14.15,
+            13.3,
+            14.05
+          ]
+        },
+        {
+          "species": "smallmouth_bass",
+          "region_key": "appalachian",
+          "month": 1,
+          "context": "freshwater_lake_pond",
+          "clarity": "stained",
+          "gear_mode": "lure",
+          "reason": "slow_vs_fast",
+          "ids": [
+            "suspending_jerkbait",
+            "blade_bait",
+            "tube_jig"
+          ],
+          "lanes": [
+            "reaction_mid_column",
+            "reaction_mid_column",
+            "bottom_contact"
+          ],
+          "scores": [
+            14.15,
+            13.3,
+            14.05
+          ]
+        },
+        {
+          "species": "smallmouth_bass",
+          "region_key": "appalachian",
+          "month": 1,
+          "context": "freshwater_lake_pond",
+          "clarity": "stained",
+          "gear_mode": "lure",
+          "reason": "slow_vs_fast",
+          "ids": [
+            "suspending_jerkbait",
+            "blade_bait",
+            "tube_jig"
+          ],
+          "lanes": [
+            "reaction_mid_column",
+            "reaction_mid_column",
+            "bottom_contact"
+          ],
+          "scores": [
+            14.15,
+            13.3,
+            14.05
+          ]
+        },
+        {
+          "species": "smallmouth_bass",
+          "region_key": "appalachian",
+          "month": 1,
+          "context": "freshwater_lake_pond",
+          "clarity": "dirty",
+          "gear_mode": "lure",
+          "reason": "slow_vs_fast",
+          "ids": [
+            "blade_bait",
+            "suspending_jerkbait",
+            "tube_jig"
+          ],
+          "lanes": [
+            "reaction_mid_column",
+            "reaction_mid_column",
+            "bottom_contact"
+          ],
+          "scores": [
+            12.7,
+            12.25,
+            12.55
+          ]
+        }
+      ]
+    },
+    "fly": {
+      "count": 1296,
+      "examples": [
+        {
+          "species": "largemouth_bass",
+          "region_key": "gulf_coast",
+          "month": 4,
+          "context": "freshwater_lake_pond",
+          "clarity": "clear",
+          "gear_mode": "fly",
+          "reason": "slow_vs_fast",
+          "ids": [
+            "frog_fly",
+            "woolly_bugger",
+            "popper_fly"
+          ],
+          "lanes": [
+            "fly_surface",
+            "fly_bottom",
+            "fly_surface"
+          ],
+          "scores": [
+            14.1,
+            14.05,
+            13.35
+          ]
+        },
+        {
+          "species": "largemouth_bass",
+          "region_key": "gulf_coast",
+          "month": 4,
+          "context": "freshwater_lake_pond",
+          "clarity": "clear",
+          "gear_mode": "fly",
+          "reason": "slow_vs_fast",
+          "ids": [
+            "frog_fly",
+            "woolly_bugger",
+            "popper_fly"
+          ],
+          "lanes": [
+            "fly_surface",
+            "fly_bottom",
+            "fly_surface"
+          ],
+          "scores": [
+            14.1,
+            14.05,
+            13.35
+          ]
+        },
+        {
+          "species": "largemouth_bass",
+          "region_key": "gulf_coast",
+          "month": 4,
+          "context": "freshwater_lake_pond",
+          "clarity": "clear",
+          "gear_mode": "fly",
+          "reason": "slow_vs_fast",
+          "ids": [
+            "frog_fly",
+            "woolly_bugger",
+            "popper_fly"
+          ],
+          "lanes": [
+            "fly_surface",
+            "fly_bottom",
+            "fly_surface"
+          ],
+          "scores": [
+            14.1,
+            14.05,
+            13.35
+          ]
+        },
+        {
+          "species": "largemouth_bass",
+          "region_key": "gulf_coast",
+          "month": 4,
+          "context": "freshwater_lake_pond",
+          "clarity": "clear",
+          "gear_mode": "fly",
+          "reason": "slow_vs_fast",
+          "ids": [
+            "frog_fly",
+            "woolly_bugger",
+            "popper_fly"
+          ],
+          "lanes": [
+            "fly_surface",
+            "fly_bottom",
+            "fly_surface"
+          ],
+          "scores": [
+            14.1,
+            14.05,
+            13.35
+          ]
+        },
+        {
+          "species": "largemouth_bass",
+          "region_key": "gulf_coast",
+          "month": 4,
+          "context": "freshwater_lake_pond",
+          "clarity": "clear",
+          "gear_mode": "fly",
+          "reason": "slow_vs_fast",
+          "ids": [
+            "frog_fly",
+            "woolly_bugger",
+            "popper_fly"
+          ],
+          "lanes": [
+            "fly_surface",
+            "fly_bottom",
+            "fly_surface"
+          ],
+          "scores": [
+            14.1,
+            14.05,
+            13.35
+          ]
+        },
+        {
+          "species": "largemouth_bass",
+          "region_key": "gulf_coast",
+          "month": 4,
+          "context": "freshwater_lake_pond",
+          "clarity": "clear",
+          "gear_mode": "fly",
+          "reason": "slow_vs_fast",
+          "ids": [
+            "frog_fly",
+            "woolly_bugger",
+            "popper_fly"
+          ],
+          "lanes": [
+            "fly_surface",
+            "fly_bottom",
+            "fly_surface"
+          ],
+          "scores": [
+            14.1,
+            14.05,
+            13.35
+          ]
+        },
+        {
+          "species": "largemouth_bass",
+          "region_key": "gulf_coast",
+          "month": 4,
+          "context": "freshwater_lake_pond",
+          "clarity": "clear",
+          "gear_mode": "fly",
+          "reason": "slow_vs_fast",
+          "ids": [
+            "frog_fly",
+            "woolly_bugger",
+            "popper_fly"
+          ],
+          "lanes": [
+            "fly_surface",
+            "fly_bottom",
+            "fly_surface"
+          ],
+          "scores": [
+            14.1,
+            14.05,
+            13.35
+          ]
+        },
+        {
+          "species": "largemouth_bass",
+          "region_key": "gulf_coast",
+          "month": 4,
+          "context": "freshwater_lake_pond",
+          "clarity": "clear",
+          "gear_mode": "fly",
+          "reason": "slow_vs_fast",
+          "ids": [
+            "frog_fly",
+            "woolly_bugger",
+            "popper_fly"
+          ],
+          "lanes": [
+            "fly_surface",
+            "fly_bottom",
+            "fly_surface"
+          ],
+          "scores": [
+            14.1,
+            14.05,
+            13.35
+          ]
+        },
+        {
+          "species": "largemouth_bass",
+          "region_key": "gulf_coast",
+          "month": 4,
+          "context": "freshwater_lake_pond",
+          "clarity": "clear",
+          "gear_mode": "fly",
+          "reason": "slow_vs_fast",
+          "ids": [
+            "frog_fly",
+            "woolly_bugger",
+            "popper_fly"
+          ],
+          "lanes": [
+            "fly_surface",
+            "fly_bottom",
+            "fly_surface"
+          ],
+          "scores": [
+            14.1,
+            14.05,
+            13.35
+          ]
+        },
+        {
+          "species": "largemouth_bass",
+          "region_key": "gulf_coast",
+          "month": 4,
+          "context": "freshwater_lake_pond",
+          "clarity": "clear",
+          "gear_mode": "fly",
+          "reason": "slow_vs_fast",
+          "ids": [
+            "frog_fly",
+            "woolly_bugger",
+            "popper_fly"
+          ],
+          "lanes": [
+            "fly_surface",
+            "fly_bottom",
+            "fly_surface"
+          ],
+          "scores": [
+            14.1,
+            14.05,
+            13.35
+          ]
+        },
+        {
+          "species": "largemouth_bass",
+          "region_key": "gulf_coast",
+          "month": 4,
+          "context": "freshwater_lake_pond",
+          "clarity": "clear",
+          "gear_mode": "fly",
+          "reason": "slow_vs_fast",
+          "ids": [
+            "frog_fly",
+            "woolly_bugger",
+            "popper_fly"
+          ],
+          "lanes": [
+            "fly_surface",
+            "fly_bottom",
+            "fly_surface"
+          ],
+          "scores": [
+            14.1,
+            14.05,
+            13.35
+          ]
+        },
+        {
+          "species": "largemouth_bass",
+          "region_key": "gulf_coast",
+          "month": 4,
+          "context": "freshwater_lake_pond",
+          "clarity": "clear",
+          "gear_mode": "fly",
+          "reason": "slow_vs_fast",
+          "ids": [
+            "frog_fly",
+            "woolly_bugger",
+            "popper_fly"
+          ],
+          "lanes": [
+            "fly_surface",
+            "fly_bottom",
+            "fly_surface"
+          ],
+          "scores": [
+            14.1,
+            14.05,
+            13.35
+          ]
+        },
+        {
+          "species": "largemouth_bass",
+          "region_key": "gulf_coast",
+          "month": 4,
+          "context": "freshwater_lake_pond",
+          "clarity": "clear",
+          "gear_mode": "fly",
+          "reason": "slow_vs_fast",
+          "ids": [
+            "frog_fly",
+            "woolly_bugger",
+            "popper_fly"
+          ],
+          "lanes": [
+            "fly_surface",
+            "fly_bottom",
+            "fly_surface"
+          ],
+          "scores": [
+            14.1,
+            14.05,
+            13.35
+          ]
+        },
+        {
+          "species": "largemouth_bass",
+          "region_key": "gulf_coast",
+          "month": 4,
+          "context": "freshwater_lake_pond",
+          "clarity": "clear",
+          "gear_mode": "fly",
+          "reason": "slow_vs_fast",
+          "ids": [
+            "frog_fly",
+            "woolly_bugger",
+            "popper_fly"
+          ],
+          "lanes": [
+            "fly_surface",
+            "fly_bottom",
+            "fly_surface"
+          ],
+          "scores": [
+            14.1,
+            14.05,
+            13.35
+          ]
+        },
+        {
+          "species": "largemouth_bass",
+          "region_key": "gulf_coast",
+          "month": 4,
+          "context": "freshwater_lake_pond",
+          "clarity": "clear",
+          "gear_mode": "fly",
+          "reason": "slow_vs_fast",
+          "ids": [
+            "frog_fly",
+            "woolly_bugger",
+            "popper_fly"
+          ],
+          "lanes": [
+            "fly_surface",
+            "fly_bottom",
+            "fly_surface"
+          ],
+          "scores": [
+            14.1,
+            14.05,
+            13.35
+          ]
+        },
+        {
+          "species": "largemouth_bass",
+          "region_key": "gulf_coast",
+          "month": 4,
+          "context": "freshwater_lake_pond",
+          "clarity": "clear",
+          "gear_mode": "fly",
+          "reason": "slow_vs_fast",
+          "ids": [
+            "frog_fly",
+            "woolly_bugger",
+            "popper_fly"
+          ],
+          "lanes": [
+            "fly_surface",
+            "fly_bottom",
+            "fly_surface"
+          ],
+          "scores": [
+            14.1,
+            14.05,
+            13.35
+          ]
+        },
+        {
+          "species": "largemouth_bass",
+          "region_key": "gulf_coast",
+          "month": 4,
+          "context": "freshwater_lake_pond",
+          "clarity": "clear",
+          "gear_mode": "fly",
+          "reason": "slow_vs_fast",
+          "ids": [
+            "frog_fly",
+            "woolly_bugger",
+            "popper_fly"
+          ],
+          "lanes": [
+            "fly_surface",
+            "fly_bottom",
+            "fly_surface"
+          ],
+          "scores": [
+            14.1,
+            14.05,
+            13.35
+          ]
+        },
+        {
+          "species": "largemouth_bass",
+          "region_key": "gulf_coast",
+          "month": 4,
+          "context": "freshwater_lake_pond",
+          "clarity": "clear",
+          "gear_mode": "fly",
+          "reason": "slow_vs_fast",
+          "ids": [
+            "frog_fly",
+            "woolly_bugger",
+            "popper_fly"
+          ],
+          "lanes": [
+            "fly_surface",
+            "fly_bottom",
+            "fly_surface"
+          ],
+          "scores": [
+            14.1,
+            14.05,
+            13.35
+          ]
+        },
+        {
+          "species": "largemouth_bass",
+          "region_key": "gulf_coast",
+          "month": 4,
+          "context": "freshwater_lake_pond",
+          "clarity": "clear",
+          "gear_mode": "fly",
+          "reason": "slow_vs_fast",
+          "ids": [
+            "frog_fly",
+            "woolly_bugger",
+            "popper_fly"
+          ],
+          "lanes": [
+            "fly_surface",
+            "fly_bottom",
+            "fly_surface"
+          ],
+          "scores": [
+            14.1,
+            14.05,
+            13.35
+          ]
+        },
+        {
+          "species": "largemouth_bass",
+          "region_key": "gulf_coast",
+          "month": 4,
+          "context": "freshwater_lake_pond",
+          "clarity": "clear",
+          "gear_mode": "fly",
+          "reason": "slow_vs_fast",
+          "ids": [
+            "frog_fly",
+            "woolly_bugger",
+            "popper_fly"
+          ],
+          "lanes": [
+            "fly_surface",
+            "fly_bottom",
+            "fly_surface"
+          ],
+          "scores": [
+            14.1,
+            14.05,
+            13.35
+          ]
+        },
+        {
+          "species": "largemouth_bass",
+          "region_key": "gulf_coast",
+          "month": 4,
+          "context": "freshwater_lake_pond",
+          "clarity": "clear",
+          "gear_mode": "fly",
+          "reason": "slow_vs_fast",
+          "ids": [
+            "frog_fly",
+            "woolly_bugger",
+            "popper_fly"
+          ],
+          "lanes": [
+            "fly_surface",
+            "fly_bottom",
+            "fly_surface"
+          ],
+          "scores": [
+            14.1,
+            14.05,
+            13.35
+          ]
+        },
+        {
+          "species": "largemouth_bass",
+          "region_key": "gulf_coast",
+          "month": 4,
+          "context": "freshwater_lake_pond",
+          "clarity": "clear",
+          "gear_mode": "fly",
+          "reason": "slow_vs_fast",
+          "ids": [
+            "frog_fly",
+            "woolly_bugger",
+            "popper_fly"
+          ],
+          "lanes": [
+            "fly_surface",
+            "fly_bottom",
+            "fly_surface"
+          ],
+          "scores": [
+            14.1,
+            14.05,
+            13.35
+          ]
+        },
+        {
+          "species": "largemouth_bass",
+          "region_key": "gulf_coast",
+          "month": 4,
+          "context": "freshwater_lake_pond",
+          "clarity": "clear",
+          "gear_mode": "fly",
+          "reason": "slow_vs_fast",
+          "ids": [
+            "frog_fly",
+            "woolly_bugger",
+            "popper_fly"
+          ],
+          "lanes": [
+            "fly_surface",
+            "fly_bottom",
+            "fly_surface"
+          ],
+          "scores": [
+            14.1,
+            14.05,
+            13.35
+          ]
+        },
+        {
+          "species": "largemouth_bass",
+          "region_key": "gulf_coast",
+          "month": 4,
+          "context": "freshwater_lake_pond",
+          "clarity": "clear",
+          "gear_mode": "fly",
+          "reason": "slow_vs_fast",
+          "ids": [
+            "frog_fly",
+            "woolly_bugger",
+            "popper_fly"
+          ],
+          "lanes": [
+            "fly_surface",
+            "fly_bottom",
+            "fly_surface"
+          ],
+          "scores": [
+            14.1,
+            14.05,
+            13.35
+          ]
+        },
+        {
+          "species": "largemouth_bass",
+          "region_key": "gulf_coast",
+          "month": 4,
+          "context": "freshwater_lake_pond",
+          "clarity": "stained",
+          "gear_mode": "fly",
+          "reason": "slow_vs_fast",
+          "ids": [
+            "frog_fly",
+            "woolly_bugger",
+            "popper_fly"
+          ],
+          "lanes": [
+            "fly_surface",
+            "fly_bottom",
+            "fly_surface"
+          ],
+          "scores": [
+            14.1,
+            14.05,
+            13.35
+          ]
+        }
+      ]
+    }
+  },
+  "lure": {
+    "never_viable": [],
+    "never_top3": [],
+    "never_top1": [],
+    "lowest_top3_presence": [
+      {
+        "id": "carolina_rigged_stick_worm",
+        "role": "intentional_low_frequency_specialty",
+        "required_reach": "top3",
+        "notes": "Deeper dragging stick-worm support lane on structure.",
+        "viable_rows": 2,
+        "top3_hits": 120,
+        "top1_hits": 36,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "buzzbait",
+        "role": "intentional_low_frequency_specialty",
+        "required_reach": "top1",
+        "notes": "Noisy low-light surface search lane.",
+        "viable_rows": 65,
+        "top3_hits": 1404,
+        "top1_hits": 552,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "finesse_jig",
+        "role": "winner_capable",
+        "required_reach": "top1",
+        "notes": "Small-profile jig for pressured fish and smaller forage.",
+        "viable_rows": 93,
+        "top3_hits": 1920,
+        "top1_hits": 1920,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "shaky_head_worm",
+        "role": "winner_capable",
+        "required_reach": "top1",
+        "notes": "Subtle bottom-worm lane for pressured or clear-water fish.",
+        "viable_rows": 124,
+        "top3_hits": 5775,
+        "top1_hits": 1944,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "prop_bait",
+        "role": "intentional_low_frequency_specialty",
+        "required_reach": "top1",
+        "notes": "Subtle sputter-and-pause surface lane.",
+        "viable_rows": 71,
+        "top3_hits": 6792,
+        "top1_hits": 3480,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "weightless_stick_worm",
+        "role": "winner_capable",
+        "required_reach": "top1",
+        "notes": "Shallow clear-water finesse fall for neutral or pressured fish.",
+        "viable_rows": 28,
+        "top3_hits": 7434,
+        "top1_hits": 4290,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "deep_diving_crankbait",
+        "role": "intentional_low_frequency_specialty",
+        "required_reach": "top1",
+        "notes": "Deep structure crank lane.",
+        "viable_rows": 38,
+        "top3_hits": 11616,
+        "top1_hits": 54,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "bladed_jig",
+        "role": "winner_capable",
+        "required_reach": "top1",
+        "notes": "Thumping cover-search lane with baitfish/craw crossover.",
+        "viable_rows": 99,
+        "top3_hits": 25578,
+        "top1_hits": 4650,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "flat_sided_crankbait",
+        "role": "intentional_low_frequency_specialty",
+        "required_reach": "top1",
+        "notes": "Cold-water tight-wobble crank lane.",
+        "viable_rows": 85,
+        "top3_hits": 29454,
+        "top1_hits": 1728,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "lipless_crankbait",
+        "role": "intentional_low_frequency_specialty",
+        "required_reach": "top1",
+        "notes": "Burn-or-yo-yo reaction search lane.",
+        "viable_rows": 76,
+        "top3_hits": 36936,
+        "top1_hits": 1935,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "wacky_rigged_stick_worm",
+        "role": "winner_capable",
+        "required_reach": "top1",
+        "notes": "Subtle neutral-fish finesse stick-worm lane.",
+        "viable_rows": 33,
+        "top3_hits": 37995,
+        "top1_hits": 6927,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "popping_topwater",
+        "role": "intentional_low_frequency_specialty",
+        "required_reach": "top1",
+        "notes": "Pop-pause surface lane.",
+        "viable_rows": 135,
+        "top3_hits": 52856,
+        "top1_hits": 1700,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      }
+    ],
+    "top1_leaders": [
+      {
+        "id": "tube_jig",
+        "role": "winner_capable",
+        "required_reach": "top1",
+        "notes": "Bottom-contact crawfish and goby staple.",
+        "viable_rows": 374,
+        "top3_hits": 518023,
+        "top1_hits": 339786,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "suspending_jerkbait",
+        "role": "winner_capable",
+        "required_reach": "top1",
+        "notes": "Cold-to-cool pause-and-react baitfish lane.",
+        "viable_rows": 723,
+        "top3_hits": 726492,
+        "top1_hits": 288096,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "pike_jerkbait",
+        "role": "winner_capable",
+        "required_reach": "top1",
+        "notes": "Slash-and-pause pike reaction lane.",
+        "viable_rows": 216,
+        "top3_hits": 260496,
+        "top1_hits": 256608,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "compact_flipping_jig",
+        "role": "winner_capable",
+        "required_reach": "top1",
+        "notes": "Heavy-cover compact jig primary.",
+        "viable_rows": 178,
+        "top3_hits": 332835,
+        "top1_hits": 233289,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "inline_spinner",
+        "role": "winner_capable",
+        "required_reach": "top1",
+        "notes": "River search and reaction staple.",
+        "viable_rows": 319,
+        "top3_hits": 352944,
+        "top1_hits": 170775,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "large_profile_pike_swimbait",
+        "role": "winner_capable",
+        "required_reach": "top1",
+        "notes": "Big-profile pike search lane.",
+        "viable_rows": 216,
+        "top3_hits": 285768,
+        "top1_hits": 163296,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "spinnerbait",
+        "role": "winner_capable",
+        "required_reach": "top1",
+        "notes": "Wind-driven horizontal search staple.",
+        "viable_rows": 547,
+        "top3_hits": 593643,
+        "top1_hits": 152745,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "walking_topwater",
+        "role": "winner_capable",
+        "required_reach": "top1",
+        "notes": "Open-water surface cadence lane.",
+        "viable_rows": 288,
+        "top3_hits": 292230,
+        "top1_hits": 96600,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "football_jig",
+        "role": "winner_capable",
+        "required_reach": "top1",
+        "notes": "Offshore hard-bottom craw lane.",
+        "viable_rows": 171,
+        "top3_hits": 167598,
+        "top1_hits": 93879,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "swim_jig",
+        "role": "winner_capable",
+        "required_reach": "top1",
+        "notes": "Shallow moving bluegill or baitfish jig lane.",
+        "viable_rows": 181,
+        "top3_hits": 184456,
+        "top1_hits": 66909,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "paddle_tail_swimbait",
+        "role": "winner_capable",
+        "required_reach": "top1",
+        "notes": "General-purpose baitfish swim lane.",
+        "viable_rows": 793,
+        "top3_hits": 653220,
+        "top1_hits": 57657,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "hair_jig",
+        "role": "intentional_low_frequency_specialty",
+        "required_reach": "top1",
+        "notes": "Cold-water finesse baitfish lane.",
+        "viable_rows": 312,
+        "top3_hits": 359166,
+        "top1_hits": 55912,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      }
+    ],
+    "expectation_mismatches": [],
+    "reachability_by_id": [
+      {
+        "id": "weightless_stick_worm",
+        "role": "winner_capable",
+        "required_reach": "top1",
+        "notes": "Shallow clear-water finesse fall for neutral or pressured fish.",
+        "viable_rows": 28,
+        "top3_hits": 7434,
+        "top1_hits": 4290,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "texas_rigged_stick_worm",
+        "role": "winner_capable",
+        "required_reach": "top1",
+        "notes": "Weedless stick-worm cover lane across shallow to mid-depth.",
+        "viable_rows": 77,
+        "top3_hits": 60792,
+        "top1_hits": 312,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "wacky_rigged_stick_worm",
+        "role": "winner_capable",
+        "required_reach": "top1",
+        "notes": "Subtle neutral-fish finesse stick-worm lane.",
+        "viable_rows": 33,
+        "top3_hits": 37995,
+        "top1_hits": 6927,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "carolina_rigged_stick_worm",
+        "role": "intentional_low_frequency_specialty",
+        "required_reach": "top3",
+        "notes": "Deeper dragging stick-worm support lane on structure.",
+        "viable_rows": 2,
+        "top3_hits": 120,
+        "top1_hits": 36,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "shaky_head_worm",
+        "role": "winner_capable",
+        "required_reach": "top1",
+        "notes": "Subtle bottom-worm lane for pressured or clear-water fish.",
+        "viable_rows": 124,
+        "top3_hits": 5775,
+        "top1_hits": 1944,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "drop_shot_worm",
+        "role": "winner_capable",
+        "required_reach": "top1",
+        "notes": "Vertical suspended finesse worm lane.",
+        "viable_rows": 301,
+        "top3_hits": 95049,
+        "top1_hits": 1863,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "drop_shot_minnow",
+        "role": "intentional_low_frequency_specialty",
+        "required_reach": "top1",
+        "notes": "Baitfish-forward suspended finesse lane.",
+        "viable_rows": 155,
+        "top3_hits": 157962,
+        "top1_hits": 72,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "ned_rig",
+        "role": "winner_capable",
+        "required_reach": "top1",
+        "notes": "Tiny bottom finesse lane for tough pressured conditions.",
+        "viable_rows": 215,
+        "top3_hits": 92466,
+        "top1_hits": 7344,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "tube_jig",
+        "role": "winner_capable",
+        "required_reach": "top1",
+        "notes": "Bottom-contact crawfish and goby staple.",
+        "viable_rows": 374,
+        "top3_hits": 518023,
+        "top1_hits": 339786,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "texas_rigged_soft_plastic_craw",
+        "role": "winner_capable",
+        "required_reach": "top1",
+        "notes": "Weedless craw lane in cover and current seams.",
+        "viable_rows": 150,
+        "top3_hits": 161864,
+        "top1_hits": 42828,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "football_jig",
+        "role": "winner_capable",
+        "required_reach": "top1",
+        "notes": "Offshore hard-bottom craw lane.",
+        "viable_rows": 171,
+        "top3_hits": 167598,
+        "top1_hits": 93879,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "compact_flipping_jig",
+        "role": "winner_capable",
+        "required_reach": "top1",
+        "notes": "Heavy-cover compact jig primary.",
+        "viable_rows": 178,
+        "top3_hits": 332835,
+        "top1_hits": 233289,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "finesse_jig",
+        "role": "winner_capable",
+        "required_reach": "top1",
+        "notes": "Small-profile jig for pressured fish and smaller forage.",
+        "viable_rows": 93,
+        "top3_hits": 1920,
+        "top1_hits": 1920,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "swim_jig",
+        "role": "winner_capable",
+        "required_reach": "top1",
+        "notes": "Shallow moving bluegill or baitfish jig lane.",
+        "viable_rows": 181,
+        "top3_hits": 184456,
+        "top1_hits": 66909,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "hair_jig",
+        "role": "intentional_low_frequency_specialty",
+        "required_reach": "top1",
+        "notes": "Cold-water finesse baitfish lane.",
+        "viable_rows": 312,
+        "top3_hits": 359166,
+        "top1_hits": 55912,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "inline_spinner",
+        "role": "winner_capable",
+        "required_reach": "top1",
+        "notes": "River search and reaction staple.",
+        "viable_rows": 319,
+        "top3_hits": 352944,
+        "top1_hits": 170775,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "spinnerbait",
+        "role": "winner_capable",
+        "required_reach": "top1",
+        "notes": "Wind-driven horizontal search staple.",
+        "viable_rows": 547,
+        "top3_hits": 593643,
+        "top1_hits": 152745,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "bladed_jig",
+        "role": "winner_capable",
+        "required_reach": "top1",
+        "notes": "Thumping cover-search lane with baitfish/craw crossover.",
+        "viable_rows": 99,
+        "top3_hits": 25578,
+        "top1_hits": 4650,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "paddle_tail_swimbait",
+        "role": "winner_capable",
+        "required_reach": "top1",
+        "notes": "General-purpose baitfish swim lane.",
+        "viable_rows": 793,
+        "top3_hits": 653220,
+        "top1_hits": 57657,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "soft_jerkbait",
+        "role": "winner_capable",
+        "required_reach": "top1",
+        "notes": "Subsurface darting baitfish lane.",
+        "viable_rows": 419,
+        "top3_hits": 147991,
+        "top1_hits": 16011,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "suspending_jerkbait",
+        "role": "winner_capable",
+        "required_reach": "top1",
+        "notes": "Cold-to-cool pause-and-react baitfish lane.",
+        "viable_rows": 723,
+        "top3_hits": 726492,
+        "top1_hits": 288096,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "squarebill_crankbait",
+        "role": "winner_capable",
+        "required_reach": "top1",
+        "notes": "Shallow deflection crank lane.",
+        "viable_rows": 299,
+        "top3_hits": 119564,
+        "top1_hits": 2592,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "flat_sided_crankbait",
+        "role": "intentional_low_frequency_specialty",
+        "required_reach": "top1",
+        "notes": "Cold-water tight-wobble crank lane.",
+        "viable_rows": 85,
+        "top3_hits": 29454,
+        "top1_hits": 1728,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "medium_diving_crankbait",
+        "role": "intentional_low_frequency_specialty",
+        "required_reach": "top1",
+        "notes": "Mid-depth crank lane.",
+        "viable_rows": 81,
+        "top3_hits": 58428,
+        "top1_hits": 1080,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "deep_diving_crankbait",
+        "role": "intentional_low_frequency_specialty",
+        "required_reach": "top1",
+        "notes": "Deep structure crank lane.",
+        "viable_rows": 38,
+        "top3_hits": 11616,
+        "top1_hits": 54,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "lipless_crankbait",
+        "role": "intentional_low_frequency_specialty",
+        "required_reach": "top1",
+        "notes": "Burn-or-yo-yo reaction search lane.",
+        "viable_rows": 76,
+        "top3_hits": 36936,
+        "top1_hits": 1935,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "blade_bait",
+        "role": "winner_capable",
+        "required_reach": "top1",
+        "notes": "Cold bottom reaction metal lane.",
+        "viable_rows": 383,
+        "top3_hits": 202965,
+        "top1_hits": 6219,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "casting_spoon",
+        "role": "winner_capable",
+        "required_reach": "top1",
+        "notes": "Flash search lane in open or current water.",
+        "viable_rows": 294,
+        "top3_hits": 293382,
+        "top1_hits": 9927,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "walking_topwater",
+        "role": "winner_capable",
+        "required_reach": "top1",
+        "notes": "Open-water surface cadence lane.",
+        "viable_rows": 288,
+        "top3_hits": 292230,
+        "top1_hits": 96600,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "popping_topwater",
+        "role": "intentional_low_frequency_specialty",
+        "required_reach": "top1",
+        "notes": "Pop-pause surface lane.",
+        "viable_rows": 135,
+        "top3_hits": 52856,
+        "top1_hits": 1700,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "buzzbait",
+        "role": "intentional_low_frequency_specialty",
+        "required_reach": "top1",
+        "notes": "Noisy low-light surface search lane.",
+        "viable_rows": 65,
+        "top3_hits": 1404,
+        "top1_hits": 552,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "prop_bait",
+        "role": "intentional_low_frequency_specialty",
+        "required_reach": "top1",
+        "notes": "Subtle sputter-and-pause surface lane.",
+        "viable_rows": 71,
+        "top3_hits": 6792,
+        "top1_hits": 3480,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "hollow_body_frog",
+        "role": "winner_capable",
+        "required_reach": "top1",
+        "notes": "Weed-mat and heavy-cover surface lane.",
+        "viable_rows": 61,
+        "top3_hits": 103314,
+        "top1_hits": 53160,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "large_profile_pike_swimbait",
+        "role": "winner_capable",
+        "required_reach": "top1",
+        "notes": "Big-profile pike search lane.",
+        "viable_rows": 216,
+        "top3_hits": 285768,
+        "top1_hits": 163296,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "pike_jerkbait",
+        "role": "winner_capable",
+        "required_reach": "top1",
+        "notes": "Slash-and-pause pike reaction lane.",
+        "viable_rows": 216,
+        "top3_hits": 260496,
+        "top1_hits": 256608,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      }
+    ],
+    "role_summary": {
+      "winner_capable": {
+        "total": 25,
+        "failing": 0
+      },
+      "top3_support": {
+        "total": 0,
+        "failing": 0
+      },
+      "intentional_low_frequency_specialty": {
+        "total": 10,
+        "failing": 0
+      }
+    }
+  },
+  "fly": {
+    "never_viable": [],
+    "never_top3": [],
+    "never_top1": [],
+    "lowest_top3_presence": [
+      {
+        "id": "conehead_streamer",
+        "role": "intentional_low_frequency_specialty",
+        "required_reach": "top1",
+        "notes": "Weighted bottom streamer lane.",
+        "viable_rows": 247,
+        "top3_hits": 1944,
+        "top1_hits": 1944,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "sculpzilla",
+        "role": "intentional_low_frequency_specialty",
+        "required_reach": "top1",
+        "notes": "Large sculpin bottom lane.",
+        "viable_rows": 60,
+        "top3_hits": 2646,
+        "top1_hits": 1944,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "bucktail_baitfish_streamer",
+        "role": "intentional_low_frequency_specialty",
+        "required_reach": "top1",
+        "notes": "Sparse baitfish streamer lane.",
+        "viable_rows": 58,
+        "top3_hits": 8532,
+        "top1_hits": 1644,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "deceiver",
+        "role": "intentional_low_frequency_specialty",
+        "required_reach": "top1",
+        "notes": "Longer-profile baitfish streamer lane.",
+        "viable_rows": 117,
+        "top3_hits": 27108,
+        "top1_hits": 1752,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "muddler_sculpin",
+        "role": "winner_capable",
+        "required_reach": "top1",
+        "notes": "Shallow waking or stripped sculpin lane.",
+        "viable_rows": 131,
+        "top3_hits": 65598,
+        "top1_hits": 22656,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "articulated_baitfish_streamer",
+        "role": "winner_capable",
+        "required_reach": "top1",
+        "notes": "Big articulated baitfish primary.",
+        "viable_rows": 298,
+        "top3_hits": 89616,
+        "top1_hits": 71952,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "zonker_streamer",
+        "role": "intentional_low_frequency_specialty",
+        "required_reach": "top1",
+        "notes": "Rabbit-strip baitfish lane with slower pulse.",
+        "viable_rows": 447,
+        "top3_hits": 126036,
+        "top1_hits": 2340,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "mouse_fly",
+        "role": "intentional_low_frequency_specialty",
+        "required_reach": "top1",
+        "notes": "Surface wake mouse lane in narrow low-light windows.",
+        "viable_rows": 224,
+        "top3_hits": 154674,
+        "top1_hits": 9456,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "frog_fly",
+        "role": "winner_capable",
+        "required_reach": "top1",
+        "notes": "Surface frog or slider lane around cover.",
+        "viable_rows": 144,
+        "top3_hits": 158415,
+        "top1_hits": 21897,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "popper_fly",
+        "role": "winner_capable",
+        "required_reach": "top1",
+        "notes": "Topwater pop-and-pause fly lane.",
+        "viable_rows": 296,
+        "top3_hits": 253670,
+        "top1_hits": 151888,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "slim_minnow_streamer",
+        "role": "winner_capable",
+        "required_reach": "top1",
+        "notes": "Lean baitfish streamer for active fish.",
+        "viable_rows": 189,
+        "top3_hits": 258174,
+        "top1_hits": 31710,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "crawfish_streamer",
+        "role": "winner_capable",
+        "required_reach": "top1",
+        "notes": "Crawfish-specific bottom fly lane.",
+        "viable_rows": 410,
+        "top3_hits": 328422,
+        "top1_hits": 90441,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      }
+    ],
+    "top1_leaders": [
+      {
+        "id": "clouser_minnow",
+        "role": "winner_capable",
+        "required_reach": "top1",
+        "notes": "Core baitfish streamer lane across species and current.",
+        "viable_rows": 720,
+        "top3_hits": 881715,
+        "top1_hits": 526178,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "woolly_bugger",
+        "role": "winner_capable",
+        "required_reach": "top1",
+        "notes": "Generalist subsurface staple.",
+        "viable_rows": 815,
+        "top3_hits": 1186289,
+        "top1_hits": 473775,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "sculpin_streamer",
+        "role": "winner_capable",
+        "required_reach": "top1",
+        "notes": "Bottom-scuttling sculpin primary.",
+        "viable_rows": 477,
+        "top3_hits": 411927,
+        "top1_hits": 246999,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "pike_bunny_streamer",
+        "role": "winner_capable",
+        "required_reach": "top1",
+        "notes": "Large rabbit-strip pike fly primary.",
+        "viable_rows": 216,
+        "top3_hits": 340821,
+        "top1_hits": 204741,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "large_articulated_pike_streamer",
+        "role": "winner_capable",
+        "required_reach": "top1",
+        "notes": "Large articulated pike fly primary.",
+        "viable_rows": 216,
+        "top3_hits": 403029,
+        "top1_hits": 198288,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "popper_fly",
+        "role": "winner_capable",
+        "required_reach": "top1",
+        "notes": "Topwater pop-and-pause fly lane.",
+        "viable_rows": 296,
+        "top3_hits": 253670,
+        "top1_hits": 151888,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "crawfish_streamer",
+        "role": "winner_capable",
+        "required_reach": "top1",
+        "notes": "Crawfish-specific bottom fly lane.",
+        "viable_rows": 410,
+        "top3_hits": 328422,
+        "top1_hits": 90441,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "articulated_baitfish_streamer",
+        "role": "winner_capable",
+        "required_reach": "top1",
+        "notes": "Big articulated baitfish primary.",
+        "viable_rows": 298,
+        "top3_hits": 89616,
+        "top1_hits": 71952,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "game_changer",
+        "role": "winner_capable",
+        "required_reach": "top1",
+        "notes": "Broad baitfish-and-pulse streamer lane.",
+        "viable_rows": 663,
+        "top3_hits": 442883,
+        "top1_hits": 36819,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "slim_minnow_streamer",
+        "role": "winner_capable",
+        "required_reach": "top1",
+        "notes": "Lean baitfish streamer for active fish.",
+        "viable_rows": 189,
+        "top3_hits": 258174,
+        "top1_hits": 31710,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "balanced_leech",
+        "role": "winner_capable",
+        "required_reach": "top1",
+        "notes": "Suspended leech/bugger lane for restrained fish.",
+        "viable_rows": 375,
+        "top3_hits": 366606,
+        "top1_hits": 24753,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "muddler_sculpin",
+        "role": "winner_capable",
+        "required_reach": "top1",
+        "notes": "Shallow waking or stripped sculpin lane.",
+        "viable_rows": 131,
+        "top3_hits": 65598,
+        "top1_hits": 22656,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      }
+    ],
+    "expectation_mismatches": [],
+    "reachability_by_id": [
+      {
+        "id": "clouser_minnow",
+        "role": "winner_capable",
+        "required_reach": "top1",
+        "notes": "Core baitfish streamer lane across species and current.",
+        "viable_rows": 720,
+        "top3_hits": 881715,
+        "top1_hits": 526178,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "deceiver",
+        "role": "intentional_low_frequency_specialty",
+        "required_reach": "top1",
+        "notes": "Longer-profile baitfish streamer lane.",
+        "viable_rows": 117,
+        "top3_hits": 27108,
+        "top1_hits": 1752,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "bucktail_baitfish_streamer",
+        "role": "intentional_low_frequency_specialty",
+        "required_reach": "top1",
+        "notes": "Sparse baitfish streamer lane.",
+        "viable_rows": 58,
+        "top3_hits": 8532,
+        "top1_hits": 1644,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "slim_minnow_streamer",
+        "role": "winner_capable",
+        "required_reach": "top1",
+        "notes": "Lean baitfish streamer for active fish.",
+        "viable_rows": 189,
+        "top3_hits": 258174,
+        "top1_hits": 31710,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "articulated_baitfish_streamer",
+        "role": "winner_capable",
+        "required_reach": "top1",
+        "notes": "Big articulated baitfish primary.",
+        "viable_rows": 298,
+        "top3_hits": 89616,
+        "top1_hits": 71952,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "articulated_dungeon_streamer",
+        "role": "winner_capable",
+        "required_reach": "top1",
+        "notes": "Heavy articulated streamer with added push.",
+        "viable_rows": 438,
+        "top3_hits": 571353,
+        "top1_hits": 14544,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "game_changer",
+        "role": "winner_capable",
+        "required_reach": "top1",
+        "notes": "Broad baitfish-and-pulse streamer lane.",
+        "viable_rows": 663,
+        "top3_hits": 442883,
+        "top1_hits": 36819,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "woolly_bugger",
+        "role": "winner_capable",
+        "required_reach": "top1",
+        "notes": "Generalist subsurface staple.",
+        "viable_rows": 815,
+        "top3_hits": 1186289,
+        "top1_hits": 473775,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "rabbit_strip_leech",
+        "role": "winner_capable",
+        "required_reach": "top1",
+        "notes": "Slow-pulse leech and sculpin-adjacent lane.",
+        "viable_rows": 482,
+        "top3_hits": 359070,
+        "top1_hits": 10455,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "balanced_leech",
+        "role": "winner_capable",
+        "required_reach": "top1",
+        "notes": "Suspended leech/bugger lane for restrained fish.",
+        "viable_rows": 375,
+        "top3_hits": 366606,
+        "top1_hits": 24753,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "zonker_streamer",
+        "role": "intentional_low_frequency_specialty",
+        "required_reach": "top1",
+        "notes": "Rabbit-strip baitfish lane with slower pulse.",
+        "viable_rows": 447,
+        "top3_hits": 126036,
+        "top1_hits": 2340,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "sculpin_streamer",
+        "role": "winner_capable",
+        "required_reach": "top1",
+        "notes": "Bottom-scuttling sculpin primary.",
+        "viable_rows": 477,
+        "top3_hits": 411927,
+        "top1_hits": 246999,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "sculpzilla",
+        "role": "intentional_low_frequency_specialty",
+        "required_reach": "top1",
+        "notes": "Large sculpin bottom lane.",
+        "viable_rows": 60,
+        "top3_hits": 2646,
+        "top1_hits": 1944,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "muddler_sculpin",
+        "role": "winner_capable",
+        "required_reach": "top1",
+        "notes": "Shallow waking or stripped sculpin lane.",
+        "viable_rows": 131,
+        "top3_hits": 65598,
+        "top1_hits": 22656,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "crawfish_streamer",
+        "role": "winner_capable",
+        "required_reach": "top1",
+        "notes": "Crawfish-specific bottom fly lane.",
+        "viable_rows": 410,
+        "top3_hits": 328422,
+        "top1_hits": 90441,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "conehead_streamer",
+        "role": "intentional_low_frequency_specialty",
+        "required_reach": "top1",
+        "notes": "Weighted bottom streamer lane.",
+        "viable_rows": 247,
+        "top3_hits": 1944,
+        "top1_hits": 1944,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "pike_bunny_streamer",
+        "role": "winner_capable",
+        "required_reach": "top1",
+        "notes": "Large rabbit-strip pike fly primary.",
+        "viable_rows": 216,
+        "top3_hits": 340821,
+        "top1_hits": 204741,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "large_articulated_pike_streamer",
+        "role": "winner_capable",
+        "required_reach": "top1",
+        "notes": "Large articulated pike fly primary.",
+        "viable_rows": 216,
+        "top3_hits": 403029,
+        "top1_hits": 198288,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "popper_fly",
+        "role": "winner_capable",
+        "required_reach": "top1",
+        "notes": "Topwater pop-and-pause fly lane.",
+        "viable_rows": 296,
+        "top3_hits": 253670,
+        "top1_hits": 151888,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "frog_fly",
+        "role": "winner_capable",
+        "required_reach": "top1",
+        "notes": "Surface frog or slider lane around cover.",
+        "viable_rows": 144,
+        "top3_hits": 158415,
+        "top1_hits": 21897,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "mouse_fly",
+        "role": "intentional_low_frequency_specialty",
+        "required_reach": "top1",
+        "notes": "Surface wake mouse lane in narrow low-light windows.",
+        "viable_rows": 224,
+        "top3_hits": 154674,
+        "top1_hits": 9456,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      }
+    ],
+    "role_summary": {
+      "winner_capable": {
+        "total": 15,
+        "failing": 0
+      },
+      "top3_support": {
+        "total": 0,
+        "failing": 0
+      },
+      "intentional_low_frequency_specialty": {
+        "total": 6,
+        "failing": 0
+      }
+    }
+  },
+  "redundancy_collisions": []
+}

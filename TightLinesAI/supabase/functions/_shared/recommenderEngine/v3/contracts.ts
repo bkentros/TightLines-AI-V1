@@ -70,6 +70,10 @@ export const V3_SCORED_VARIABLE_KEYS_BY_CONTEXT: Record<
     "wind_condition",
     "light_cloud_condition",
     "precipitation_disruption",
+    "timing_window",
+    "reaction_window",
+    "finesse_window",
+    "pace_bias",
   ],
   freshwater_river: [
     "temperature_condition",
@@ -77,6 +81,10 @@ export const V3_SCORED_VARIABLE_KEYS_BY_CONTEXT: Record<
     "wind_condition",
     "light_cloud_condition",
     "runoff_flow_disruption",
+    "timing_window",
+    "reaction_window",
+    "finesse_window",
+    "pace_bias",
   ],
 };
 
@@ -96,10 +104,18 @@ export type RecommenderV3DailyPresentationNudge =
   | "neutral"
   | "bolder";
 
+export type RecommenderV3SurfaceWindow = "off" | "watch" | "on";
+export type RecommenderV3TacticalWindow = "off" | "watch" | "on";
+export type RecommenderV3PaceBias = "slow" | "neutral" | "fast";
+
 export type RecommenderV3DailyPayload = {
   mood_nudge: RecommenderV3DailyMoodNudge;
   water_column_nudge: RecommenderV3DailyWaterColumnNudge;
   presentation_nudge: RecommenderV3DailyPresentationNudge;
+  surface_window?: RecommenderV3SurfaceWindow;
+  reaction_window?: RecommenderV3TacticalWindow;
+  finesse_window?: RecommenderV3TacticalWindow;
+  pace_bias?: RecommenderV3PaceBias;
   variables_considered: readonly string[];
   variables_triggered: readonly string[];
   notes: string[];
@@ -203,6 +219,8 @@ export type RecommenderV3ArchetypeProfile = {
   display_name: string;
   gear_mode: "lure" | "fly";
   family_key: string;
+  /** Optional: only use for near-duplicates that should not coexist in the top 3. */
+  top3_redundancy_key?: string;
   preferred_water_columns: readonly WaterColumnV3[];
   preferred_moods: readonly MoodV3[];
   preferred_presentation_styles: readonly PresentationStyleV3[];
@@ -279,7 +297,8 @@ export type RecommenderV3Response = {
   fly_recommendations: RecommenderV3RankedArchetype[];
 };
 
-export const RECOMMENDER_V3_FOUNDATION_FEATURE = "recommender_v3_foundation" as const;
+export const RECOMMENDER_V3_FOUNDATION_FEATURE =
+  "recommender_v3_foundation" as const;
 
 export type RecommenderV3FoundationSnapshot = {
   feature: typeof RECOMMENDER_V3_FOUNDATION_FEATURE;

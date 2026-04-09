@@ -1,10 +1,12 @@
 import { assert, assertEquals } from "jsr:@std/assert";
 import { runRecommenderV3 } from "../runRecommenderV3.ts";
 import type { RecommenderRequest } from "../contracts/input.ts";
+import type { RecommenderV3DailyPayload } from "../v3/index.ts";
 import {
   resolveDailyPayloadV3,
   resolveFinalProfileV3,
   resolveSeasonalRowV3,
+  scoreLureCandidatesV3,
   SMALLMOUTH_V3_SEASONAL_ROWS,
   SMALLMOUTH_V3_SUPPORTED_REGIONS,
 } from "../v3/index.ts";
@@ -33,13 +35,16 @@ function analysis(overrides: Record<string, unknown> = {}) {
         pressure_regime: { label: "recently_stabilizing" },
         wind_condition: { score: 0 },
         light_cloud_condition: { label: "mixed_sky" },
-        ...((overrides.norm as { normalized?: object } | undefined)?.normalized ?? {}),
+        ...((overrides.norm as { normalized?: object } | undefined)
+          ?.normalized ?? {}),
       },
     },
   } as any;
 }
 
-function request(overrides: Partial<RecommenderRequest> = {}): RecommenderRequest {
+function request(
+  overrides: Partial<RecommenderRequest> = {},
+): RecommenderRequest {
   return {
     location: {
       latitude: 35.56,
@@ -60,7 +65,9 @@ function request(overrides: Partial<RecommenderRequest> = {}): RecommenderReques
 
 Deno.test("V3 Phase 3B covers every supported smallmouth region, month, and context", () => {
   for (const region of SMALLMOUTH_V3_SUPPORTED_REGIONS) {
-    for (const context of ["freshwater_lake_pond", "freshwater_river"] as const) {
+    for (
+      const context of ["freshwater_lake_pond", "freshwater_river"] as const
+    ) {
       const monthSet = new Set(
         SMALLMOUTH_V3_SEASONAL_ROWS
           .filter((row) => row.region_key === region && row.context === context)
@@ -73,7 +80,12 @@ Deno.test("V3 Phase 3B covers every supported smallmouth region, month, and cont
 });
 
 Deno.test("V3 Phase 3B resolves a spring Appalachian river row with a true smallmouth crawfish lane", () => {
-  const row = resolveSeasonalRowV3("smallmouth_bass", "appalachian", 4, "freshwater_river");
+  const row = resolveSeasonalRowV3(
+    "smallmouth_bass",
+    "appalachian",
+    4,
+    "freshwater_river",
+  );
   assertEquals(row.base_water_column, "mid");
   assertEquals(row.base_mood, "neutral");
   assertEquals(row.primary_forage, "crawfish");
@@ -125,8 +137,16 @@ Deno.test("V3 Phase 3B keeps a winter Great Lakes smallmouth warm-up bounded awa
     water_clarity: "stained",
   }));
 
-  assert(result.lure_recommendations.every((candidate) => candidate.tactical_lane !== "surface"));
-  assert(result.fly_recommendations.every((candidate) => candidate.tactical_lane !== "fly_surface"));
+  assert(
+    result.lure_recommendations.every((candidate) =>
+      candidate.tactical_lane !== "surface"
+    ),
+  );
+  assert(
+    result.fly_recommendations.every((candidate) =>
+      candidate.tactical_lane !== "fly_surface"
+    ),
+  );
 });
 
 Deno.test("V3 Phase 3B returns tube-forward, color-guided smallmouth recommendations for spring rivers", () => {
@@ -135,10 +155,102 @@ Deno.test("V3 Phase 3B returns tube-forward, color-guided smallmouth recommendat
   assertEquals(result.feature, "recommender_v3");
   assertEquals(result.lure_recommendations.length, 3);
   assertEquals(result.fly_recommendations.length, 3);
-  assert(result.lure_recommendations.some((candidate) => candidate.id === "tube_jig"));
+  assert(
+    result.lure_recommendations.some((candidate) =>
+      candidate.id === "tube_jig"
+    ),
+  );
 
-  for (const candidate of [...result.lure_recommendations, ...result.fly_recommendations]) {
+  for (
+    const candidate of [
+      ...result.lure_recommendations,
+      ...result.fly_recommendations,
+    ]
+  ) {
     assertEquals(candidate.color_recommendations.length, 3);
     assert(candidate.score > 0);
   }
+});
+
+Deno.test("V3 Phase 3B gives smallmouth specialty winners explicit narrow primary windows", () => {
+  const midsummerPopper = resolveSeasonalRowV3(
+    "smallmouth_bass",
+    "great_lakes_upper_midwest",
+    7,
+    "freshwater_lake_pond",
+  );
+  const dirtySummerCrank = resolveSeasonalRowV3(
+    "smallmouth_bass",
+    "midwest_interior",
+    6,
+    "freshwater_lake_pond",
+  );
+
+  assertEquals(midsummerPopper.primary_lure_archetypes, [
+    "popping_topwater",
+    "walking_topwater",
+  ]);
+  assertEquals(dirtySummerCrank.primary_lure_archetypes, [
+    "medium_diving_crankbait",
+    "spinnerbait",
+  ]);
+});
+
+Deno.test("V3 Phase 3B gives smallmouth finesse winners real seasonal windows", () => {
+  const nedRow = resolveSeasonalRowV3(
+    "smallmouth_bass",
+    "appalachian",
+    5,
+    "freshwater_lake_pond",
+  );
+  const finesseJigRow = resolveSeasonalRowV3(
+    "smallmouth_bass",
+    "great_lakes_upper_midwest",
+    11,
+    "freshwater_lake_pond",
+  );
+  const toughDaily: RecommenderV3DailyPayload = {
+    mood_nudge: "down_1",
+    water_column_nudge: "lower_1",
+    presentation_nudge: "subtler",
+    surface_window: "off",
+    reaction_window: "off",
+    finesse_window: "on",
+    pace_bias: "slow",
+    variables_considered: [],
+    variables_triggered: [],
+    notes: [],
+    source_score: 48,
+    source_band: "Fair",
+  };
+
+  assertEquals(nedRow.primary_lure_archetypes, ["ned_rig", "tube_jig"]);
+  assertEquals(finesseJigRow.primary_lure_archetypes, [
+    "finesse_jig",
+    "tube_jig",
+  ]);
+
+  const nedResolved = resolveFinalProfileV3(nedRow, toughDaily, "clear");
+  const nedRecommendations = scoreLureCandidatesV3(
+    nedRow,
+    nedResolved,
+    toughDaily,
+    "clear",
+    "bright",
+  );
+  const finesseJigResolved = resolveFinalProfileV3(
+    finesseJigRow,
+    toughDaily,
+    "clear",
+  );
+  const finesseJigRecommendations = scoreLureCandidatesV3(
+    finesseJigRow,
+    finesseJigResolved,
+    toughDaily,
+    "clear",
+    "bright",
+  );
+
+  assertEquals(nedRecommendations[0]?.id, "ned_rig");
+  assertEquals(finesseJigRecommendations[0]?.id, "finesse_jig");
 });

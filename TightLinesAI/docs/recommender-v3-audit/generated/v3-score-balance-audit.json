@@ -1,0 +1,687 @@
+{
+  "generated_at": "2026-04-09T17:30:45.356Z",
+  "audited_rows": 1104,
+  "synthetic_daily_states_per_row": 648,
+  "lure": {
+    "states": 2146176,
+    "top1_changed_vs_neutral_ratio": 0.1679,
+    "top3_changed_vs_neutral_ratio": 0.3465,
+    "components": {
+      "seasonal_baseline": {
+        "winner_mean": 10.0572,
+        "winner_abs_mean": 10.0572,
+        "decisive_share": 0.8559,
+        "mean_decisive_margin": 1.6176,
+        "max_decisive_margin": 3
+      },
+      "daily_modifier": {
+        "winner_mean": 2.3513,
+        "winner_abs_mean": 2.3513,
+        "decisive_share": 0.0241,
+        "mean_decisive_margin": 0.8095,
+        "max_decisive_margin": 1.35
+      },
+      "clarity_modifier": {
+        "winner_mean": 0,
+        "winner_abs_mean": 0,
+        "decisive_share": 0,
+        "mean_decisive_margin": 0,
+        "max_decisive_margin": 0
+      },
+      "forage_bonus": {
+        "winner_mean": 1.4334,
+        "winner_abs_mean": 1.4334,
+        "decisive_share": 0.0208,
+        "mean_decisive_margin": 0.7852,
+        "max_decisive_margin": 1.5
+      },
+      "lane_window_bonus": {
+        "winner_mean": 0.0653,
+        "winner_abs_mean": 0.1097,
+        "decisive_share": 0.0436,
+        "mean_decisive_margin": 0.9471,
+        "max_decisive_margin": 1.25
+      },
+      "tactical_window_bonus": {
+        "winner_mean": 0.2351,
+        "winner_abs_mean": 0.338,
+        "decisive_share": 0.0534,
+        "mean_decisive_margin": 1.1393,
+        "max_decisive_margin": 1.45
+      },
+      "pace_bias_bonus": {
+        "winner_mean": 0.1109,
+        "winner_abs_mean": 0.2151,
+        "decisive_share": 0.0022,
+        "mean_decisive_margin": 0.314,
+        "max_decisive_margin": 0.5
+      }
+    },
+    "groups": {
+      "seasonal_core": {
+        "decisive_share": 0.8783,
+        "mean_decisive_margin": 1.585,
+        "max_decisive_margin": 3
+      },
+      "daily_stack": {
+        "decisive_share": 0.105,
+        "mean_decisive_margin": 1.1817,
+        "max_decisive_margin": 3.05
+      },
+      "forage": {
+        "decisive_share": 0.0167,
+        "mean_decisive_margin": 0.8459,
+        "max_decisive_margin": 1.5
+      },
+      "clarity": {
+        "decisive_share": 0,
+        "mean_decisive_margin": 0,
+        "max_decisive_margin": 0
+      }
+    }
+  },
+  "fly": {
+    "states": 2146176,
+    "top1_changed_vs_neutral_ratio": 0.1362,
+    "top3_changed_vs_neutral_ratio": 0.35,
+    "components": {
+      "seasonal_baseline": {
+        "winner_mean": 10.1023,
+        "winner_abs_mean": 10.1023,
+        "decisive_share": 0.8828,
+        "mean_decisive_margin": 1.6185,
+        "max_decisive_margin": 3
+      },
+      "daily_modifier": {
+        "winner_mean": 2.3755,
+        "winner_abs_mean": 2.3755,
+        "decisive_share": 0.014,
+        "mean_decisive_margin": 1.0644,
+        "max_decisive_margin": 1.3
+      },
+      "clarity_modifier": {
+        "winner_mean": 0,
+        "winner_abs_mean": 0,
+        "decisive_share": 0,
+        "mean_decisive_margin": 0,
+        "max_decisive_margin": 0
+      },
+      "forage_bonus": {
+        "winner_mean": 1.4624,
+        "winner_abs_mean": 1.4624,
+        "decisive_share": 0.0034,
+        "mean_decisive_margin": 0.5,
+        "max_decisive_margin": 0.5
+      },
+      "lane_window_bonus": {
+        "winner_mean": 0.0293,
+        "winner_abs_mean": 0.1255,
+        "decisive_share": 0.0577,
+        "mean_decisive_margin": 1.0058,
+        "max_decisive_margin": 1.6
+      },
+      "tactical_window_bonus": {
+        "winner_mean": 0.1746,
+        "winner_abs_mean": 0.3204,
+        "decisive_share": 0.0372,
+        "mean_decisive_margin": 1.0078,
+        "max_decisive_margin": 1.25
+      },
+      "pace_bias_bonus": {
+        "winner_mean": 0.0748,
+        "winner_abs_mean": 0.2156,
+        "decisive_share": 0,
+        "mean_decisive_margin": 0,
+        "max_decisive_margin": 0
+      }
+    },
+    "groups": {
+      "seasonal_core": {
+        "decisive_share": 0.9049,
+        "mean_decisive_margin": 1.5791,
+        "max_decisive_margin": 3
+      },
+      "daily_stack": {
+        "decisive_share": 0.0866,
+        "mean_decisive_margin": 1.1553,
+        "max_decisive_margin": 2.85
+      },
+      "forage": {
+        "decisive_share": 0.0036,
+        "mean_decisive_margin": 0.5,
+        "max_decisive_margin": 0.5
+      },
+      "clarity": {
+        "decisive_share": 0,
+        "mean_decisive_margin": 0,
+        "max_decisive_margin": 0
+      }
+    }
+  },
+  "examples": {
+    "lure": [
+      {
+        "species": "largemouth_bass",
+        "region_key": "florida",
+        "month": 1,
+        "context": "freshwater_lake_pond",
+        "clarity": "clear",
+        "top1": "texas_rigged_soft_plastic_craw",
+        "runner_up": "suspending_jerkbait",
+        "decisive_component": "seasonal_baseline",
+        "decisive_margin": 1.1,
+        "decisive_group": "seasonal_core",
+        "group_margin": 1.1
+      },
+      {
+        "species": "largemouth_bass",
+        "region_key": "florida",
+        "month": 1,
+        "context": "freshwater_lake_pond",
+        "clarity": "clear",
+        "top1": "texas_rigged_soft_plastic_craw",
+        "runner_up": "suspending_jerkbait",
+        "decisive_component": "seasonal_baseline",
+        "decisive_margin": 1.1,
+        "decisive_group": "seasonal_core",
+        "group_margin": 1.1
+      },
+      {
+        "species": "largemouth_bass",
+        "region_key": "florida",
+        "month": 1,
+        "context": "freshwater_lake_pond",
+        "clarity": "clear",
+        "top1": "suspending_jerkbait",
+        "runner_up": "texas_rigged_soft_plastic_craw",
+        "decisive_component": "tactical_window_bonus",
+        "decisive_margin": 1.15,
+        "decisive_group": "daily_stack",
+        "group_margin": 1.05
+      },
+      {
+        "species": "largemouth_bass",
+        "region_key": "florida",
+        "month": 1,
+        "context": "freshwater_lake_pond",
+        "clarity": "clear",
+        "top1": "texas_rigged_soft_plastic_craw",
+        "runner_up": "football_jig",
+        "decisive_component": "seasonal_baseline",
+        "decisive_margin": 2.6,
+        "decisive_group": "seasonal_core",
+        "group_margin": 2.6
+      },
+      {
+        "species": "largemouth_bass",
+        "region_key": "florida",
+        "month": 1,
+        "context": "freshwater_lake_pond",
+        "clarity": "clear",
+        "top1": "texas_rigged_soft_plastic_craw",
+        "runner_up": "football_jig",
+        "decisive_component": "seasonal_baseline",
+        "decisive_margin": 2.6,
+        "decisive_group": "seasonal_core",
+        "group_margin": 2.6
+      },
+      {
+        "species": "largemouth_bass",
+        "region_key": "florida",
+        "month": 1,
+        "context": "freshwater_lake_pond",
+        "clarity": "clear",
+        "top1": "texas_rigged_soft_plastic_craw",
+        "runner_up": "suspending_jerkbait",
+        "decisive_component": "seasonal_baseline",
+        "decisive_margin": 1.1,
+        "decisive_group": "seasonal_core",
+        "group_margin": 1.1
+      },
+      {
+        "species": "largemouth_bass",
+        "region_key": "florida",
+        "month": 1,
+        "context": "freshwater_lake_pond",
+        "clarity": "clear",
+        "top1": "texas_rigged_soft_plastic_craw",
+        "runner_up": "suspending_jerkbait",
+        "decisive_component": "seasonal_baseline",
+        "decisive_margin": 1.1,
+        "decisive_group": "seasonal_core",
+        "group_margin": 1.1
+      },
+      {
+        "species": "largemouth_bass",
+        "region_key": "florida",
+        "month": 1,
+        "context": "freshwater_lake_pond",
+        "clarity": "clear",
+        "top1": "texas_rigged_soft_plastic_craw",
+        "runner_up": "suspending_jerkbait",
+        "decisive_component": "seasonal_baseline",
+        "decisive_margin": 1.1,
+        "decisive_group": "seasonal_core",
+        "group_margin": 1.1
+      },
+      {
+        "species": "largemouth_bass",
+        "region_key": "florida",
+        "month": 1,
+        "context": "freshwater_lake_pond",
+        "clarity": "clear",
+        "top1": "suspending_jerkbait",
+        "runner_up": "texas_rigged_soft_plastic_craw",
+        "decisive_component": "tactical_window_bonus",
+        "decisive_margin": 1.15,
+        "decisive_group": "daily_stack",
+        "group_margin": 0.8
+      },
+      {
+        "species": "largemouth_bass",
+        "region_key": "florida",
+        "month": 1,
+        "context": "freshwater_lake_pond",
+        "clarity": "clear",
+        "top1": "texas_rigged_soft_plastic_craw",
+        "runner_up": "football_jig",
+        "decisive_component": "seasonal_baseline",
+        "decisive_margin": 2.6,
+        "decisive_group": "seasonal_core",
+        "group_margin": 2.6
+      },
+      {
+        "species": "largemouth_bass",
+        "region_key": "florida",
+        "month": 1,
+        "context": "freshwater_lake_pond",
+        "clarity": "clear",
+        "top1": "texas_rigged_soft_plastic_craw",
+        "runner_up": "football_jig",
+        "decisive_component": "seasonal_baseline",
+        "decisive_margin": 2.6,
+        "decisive_group": "seasonal_core",
+        "group_margin": 2.6
+      },
+      {
+        "species": "largemouth_bass",
+        "region_key": "florida",
+        "month": 1,
+        "context": "freshwater_lake_pond",
+        "clarity": "clear",
+        "top1": "texas_rigged_soft_plastic_craw",
+        "runner_up": "suspending_jerkbait",
+        "decisive_component": "seasonal_baseline",
+        "decisive_margin": 1.1,
+        "decisive_group": "seasonal_core",
+        "group_margin": 1.1
+      },
+      {
+        "species": "largemouth_bass",
+        "region_key": "florida",
+        "month": 1,
+        "context": "freshwater_lake_pond",
+        "clarity": "clear",
+        "top1": "texas_rigged_soft_plastic_craw",
+        "runner_up": "suspending_jerkbait",
+        "decisive_component": "seasonal_baseline",
+        "decisive_margin": 1.1,
+        "decisive_group": "seasonal_core",
+        "group_margin": 1.1
+      },
+      {
+        "species": "largemouth_bass",
+        "region_key": "florida",
+        "month": 1,
+        "context": "freshwater_lake_pond",
+        "clarity": "clear",
+        "top1": "texas_rigged_soft_plastic_craw",
+        "runner_up": "suspending_jerkbait",
+        "decisive_component": "seasonal_baseline",
+        "decisive_margin": 1.1,
+        "decisive_group": "seasonal_core",
+        "group_margin": 1.1
+      },
+      {
+        "species": "largemouth_bass",
+        "region_key": "florida",
+        "month": 1,
+        "context": "freshwater_lake_pond",
+        "clarity": "clear",
+        "top1": "texas_rigged_soft_plastic_craw",
+        "runner_up": "suspending_jerkbait",
+        "decisive_component": "seasonal_baseline",
+        "decisive_margin": 1.1,
+        "decisive_group": "seasonal_core",
+        "group_margin": 1.1
+      },
+      {
+        "species": "largemouth_bass",
+        "region_key": "florida",
+        "month": 1,
+        "context": "freshwater_lake_pond",
+        "clarity": "clear",
+        "top1": "texas_rigged_soft_plastic_craw",
+        "runner_up": "football_jig",
+        "decisive_component": "seasonal_baseline",
+        "decisive_margin": 2.6,
+        "decisive_group": "seasonal_core",
+        "group_margin": 2.6
+      },
+      {
+        "species": "largemouth_bass",
+        "region_key": "florida",
+        "month": 1,
+        "context": "freshwater_lake_pond",
+        "clarity": "clear",
+        "top1": "texas_rigged_soft_plastic_craw",
+        "runner_up": "football_jig",
+        "decisive_component": "seasonal_baseline",
+        "decisive_margin": 2.6,
+        "decisive_group": "seasonal_core",
+        "group_margin": 2.6
+      },
+      {
+        "species": "largemouth_bass",
+        "region_key": "florida",
+        "month": 1,
+        "context": "freshwater_lake_pond",
+        "clarity": "clear",
+        "top1": "texas_rigged_soft_plastic_craw",
+        "runner_up": "suspending_jerkbait",
+        "decisive_component": "seasonal_baseline",
+        "decisive_margin": 1.1,
+        "decisive_group": "seasonal_core",
+        "group_margin": 1.1
+      },
+      {
+        "species": "largemouth_bass",
+        "region_key": "florida",
+        "month": 1,
+        "context": "freshwater_lake_pond",
+        "clarity": "clear",
+        "top1": "texas_rigged_soft_plastic_craw",
+        "runner_up": "suspending_jerkbait",
+        "decisive_component": "seasonal_baseline",
+        "decisive_margin": 1.1,
+        "decisive_group": "seasonal_core",
+        "group_margin": 1.1
+      },
+      {
+        "species": "largemouth_bass",
+        "region_key": "florida",
+        "month": 1,
+        "context": "freshwater_lake_pond",
+        "clarity": "clear",
+        "top1": "texas_rigged_soft_plastic_craw",
+        "runner_up": "suspending_jerkbait",
+        "decisive_component": "seasonal_baseline",
+        "decisive_margin": 1.1,
+        "decisive_group": "seasonal_core",
+        "group_margin": 1.1
+      }
+    ],
+    "fly": [
+      {
+        "species": "largemouth_bass",
+        "region_key": "florida",
+        "month": 1,
+        "context": "freshwater_lake_pond",
+        "clarity": "clear",
+        "top1": "crawfish_streamer",
+        "runner_up": "clouser_minnow",
+        "decisive_component": "seasonal_baseline",
+        "decisive_margin": 2.65,
+        "decisive_group": "seasonal_core",
+        "group_margin": 2.65
+      },
+      {
+        "species": "largemouth_bass",
+        "region_key": "florida",
+        "month": 1,
+        "context": "freshwater_lake_pond",
+        "clarity": "clear",
+        "top1": "crawfish_streamer",
+        "runner_up": "clouser_minnow",
+        "decisive_component": "seasonal_baseline",
+        "decisive_margin": 2.65,
+        "decisive_group": "seasonal_core",
+        "group_margin": 2.65
+      },
+      {
+        "species": "largemouth_bass",
+        "region_key": "florida",
+        "month": 1,
+        "context": "freshwater_lake_pond",
+        "clarity": "clear",
+        "top1": "crawfish_streamer",
+        "runner_up": "clouser_minnow",
+        "decisive_component": "seasonal_baseline",
+        "decisive_margin": 2.65,
+        "decisive_group": "seasonal_core",
+        "group_margin": 2.65
+      },
+      {
+        "species": "largemouth_bass",
+        "region_key": "florida",
+        "month": 1,
+        "context": "freshwater_lake_pond",
+        "clarity": "clear",
+        "top1": "crawfish_streamer",
+        "runner_up": "clouser_minnow",
+        "decisive_component": "seasonal_baseline",
+        "decisive_margin": 2.65,
+        "decisive_group": "seasonal_core",
+        "group_margin": 2.65
+      },
+      {
+        "species": "largemouth_bass",
+        "region_key": "florida",
+        "month": 1,
+        "context": "freshwater_lake_pond",
+        "clarity": "clear",
+        "top1": "crawfish_streamer",
+        "runner_up": "clouser_minnow",
+        "decisive_component": "seasonal_baseline",
+        "decisive_margin": 2.65,
+        "decisive_group": "seasonal_core",
+        "group_margin": 2.65
+      },
+      {
+        "species": "largemouth_bass",
+        "region_key": "florida",
+        "month": 1,
+        "context": "freshwater_lake_pond",
+        "clarity": "clear",
+        "top1": "crawfish_streamer",
+        "runner_up": "clouser_minnow",
+        "decisive_component": "seasonal_baseline",
+        "decisive_margin": 2.65,
+        "decisive_group": "seasonal_core",
+        "group_margin": 2.65
+      },
+      {
+        "species": "largemouth_bass",
+        "region_key": "florida",
+        "month": 1,
+        "context": "freshwater_lake_pond",
+        "clarity": "clear",
+        "top1": "crawfish_streamer",
+        "runner_up": "clouser_minnow",
+        "decisive_component": "seasonal_baseline",
+        "decisive_margin": 2.65,
+        "decisive_group": "seasonal_core",
+        "group_margin": 2.65
+      },
+      {
+        "species": "largemouth_bass",
+        "region_key": "florida",
+        "month": 1,
+        "context": "freshwater_lake_pond",
+        "clarity": "clear",
+        "top1": "crawfish_streamer",
+        "runner_up": "clouser_minnow",
+        "decisive_component": "seasonal_baseline",
+        "decisive_margin": 2.65,
+        "decisive_group": "seasonal_core",
+        "group_margin": 2.65
+      },
+      {
+        "species": "largemouth_bass",
+        "region_key": "florida",
+        "month": 1,
+        "context": "freshwater_lake_pond",
+        "clarity": "clear",
+        "top1": "crawfish_streamer",
+        "runner_up": "clouser_minnow",
+        "decisive_component": "seasonal_baseline",
+        "decisive_margin": 2.65,
+        "decisive_group": "seasonal_core",
+        "group_margin": 2.65
+      },
+      {
+        "species": "largemouth_bass",
+        "region_key": "florida",
+        "month": 1,
+        "context": "freshwater_lake_pond",
+        "clarity": "clear",
+        "top1": "crawfish_streamer",
+        "runner_up": "clouser_minnow",
+        "decisive_component": "seasonal_baseline",
+        "decisive_margin": 2.65,
+        "decisive_group": "seasonal_core",
+        "group_margin": 2.65
+      },
+      {
+        "species": "largemouth_bass",
+        "region_key": "florida",
+        "month": 1,
+        "context": "freshwater_lake_pond",
+        "clarity": "clear",
+        "top1": "crawfish_streamer",
+        "runner_up": "clouser_minnow",
+        "decisive_component": "seasonal_baseline",
+        "decisive_margin": 2.65,
+        "decisive_group": "seasonal_core",
+        "group_margin": 2.65
+      },
+      {
+        "species": "largemouth_bass",
+        "region_key": "florida",
+        "month": 1,
+        "context": "freshwater_lake_pond",
+        "clarity": "clear",
+        "top1": "crawfish_streamer",
+        "runner_up": "clouser_minnow",
+        "decisive_component": "seasonal_baseline",
+        "decisive_margin": 2.65,
+        "decisive_group": "seasonal_core",
+        "group_margin": 2.65
+      },
+      {
+        "species": "largemouth_bass",
+        "region_key": "florida",
+        "month": 1,
+        "context": "freshwater_lake_pond",
+        "clarity": "clear",
+        "top1": "crawfish_streamer",
+        "runner_up": "clouser_minnow",
+        "decisive_component": "seasonal_baseline",
+        "decisive_margin": 2.65,
+        "decisive_group": "seasonal_core",
+        "group_margin": 2.65
+      },
+      {
+        "species": "largemouth_bass",
+        "region_key": "florida",
+        "month": 1,
+        "context": "freshwater_lake_pond",
+        "clarity": "clear",
+        "top1": "crawfish_streamer",
+        "runner_up": "clouser_minnow",
+        "decisive_component": "seasonal_baseline",
+        "decisive_margin": 2.65,
+        "decisive_group": "seasonal_core",
+        "group_margin": 2.65
+      },
+      {
+        "species": "largemouth_bass",
+        "region_key": "florida",
+        "month": 1,
+        "context": "freshwater_lake_pond",
+        "clarity": "clear",
+        "top1": "crawfish_streamer",
+        "runner_up": "clouser_minnow",
+        "decisive_component": "seasonal_baseline",
+        "decisive_margin": 2.65,
+        "decisive_group": "seasonal_core",
+        "group_margin": 2.65
+      },
+      {
+        "species": "largemouth_bass",
+        "region_key": "florida",
+        "month": 1,
+        "context": "freshwater_lake_pond",
+        "clarity": "clear",
+        "top1": "crawfish_streamer",
+        "runner_up": "clouser_minnow",
+        "decisive_component": "seasonal_baseline",
+        "decisive_margin": 2.65,
+        "decisive_group": "seasonal_core",
+        "group_margin": 2.65
+      },
+      {
+        "species": "largemouth_bass",
+        "region_key": "florida",
+        "month": 1,
+        "context": "freshwater_lake_pond",
+        "clarity": "clear",
+        "top1": "crawfish_streamer",
+        "runner_up": "clouser_minnow",
+        "decisive_component": "seasonal_baseline",
+        "decisive_margin": 2.65,
+        "decisive_group": "seasonal_core",
+        "group_margin": 2.65
+      },
+      {
+        "species": "largemouth_bass",
+        "region_key": "florida",
+        "month": 1,
+        "context": "freshwater_lake_pond",
+        "clarity": "clear",
+        "top1": "crawfish_streamer",
+        "runner_up": "clouser_minnow",
+        "decisive_component": "seasonal_baseline",
+        "decisive_margin": 2.65,
+        "decisive_group": "seasonal_core",
+        "group_margin": 2.65
+      },
+      {
+        "species": "largemouth_bass",
+        "region_key": "florida",
+        "month": 1,
+        "context": "freshwater_lake_pond",
+        "clarity": "clear",
+        "top1": "crawfish_streamer",
+        "runner_up": "clouser_minnow",
+        "decisive_component": "seasonal_baseline",
+        "decisive_margin": 2.65,
+        "decisive_group": "seasonal_core",
+        "group_margin": 2.65
+      },
+      {
+        "species": "largemouth_bass",
+        "region_key": "florida",
+        "month": 1,
+        "context": "freshwater_lake_pond",
+        "clarity": "clear",
+        "top1": "crawfish_streamer",
+        "runner_up": "clouser_minnow",
+        "decisive_component": "seasonal_baseline",
+        "decisive_margin": 2.65,
+        "decisive_group": "seasonal_core",
+        "group_margin": 2.65
+      }
+    ]
+  }
+}

@@ -36,7 +36,29 @@ import type {
   TacticalLaneV3,
 } from "./v3/contracts.ts";
 
-const CACHE_TTL_HOURS = 6;
+export function locationLocalMidnightIso(timezone: string, now = new Date()): string {
+  const formatter = new Intl.DateTimeFormat("en-US", {
+    timeZone: timezone,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: false,
+  });
+  const parts = Object.fromEntries(formatter.formatToParts(now).map((p) => [p.type, p.value]));
+  const y = Number(parts.year);
+  const m = Number(parts.month);
+  const d = Number(parts.day);
+  const hh = Number(parts.hour);
+  const mm = Number(parts.minute);
+  const ss = Number(parts.second);
+  const localNowUtcMillis = Date.UTC(y, m - 1, d, hh, mm, ss);
+  const offsetMillis = localNowUtcMillis - now.getTime();
+  const nextLocalMidnightUtcMillis = Date.UTC(y, m - 1, d + 1, 0, 0, 0) - offsetMillis;
+  return new Date(nextLocalMidnightUtcMillis).toISOString();
+}
 
 function mapWaterColumnToDepthLane(column: RecommenderV3Response["resolved_profile"]["final_water_column"]): DepthLane {
   switch (column) {
@@ -411,7 +433,15 @@ const LANE_FALLBACKS: Partial<Record<TacticalLaneV3, readonly [string, string, s
   ],
 };
 
-function howToFishText(candidate: RecommenderV3RankedArchetype): string {
+function stableVariantIndex(seed: string, length: number): number {
+  let hash = 5381;
+  for (let index = 0; index < seed.length; index += 1) {
+    hash = (hash * 33) ^ seed.charCodeAt(index);
+  }
+  return (hash >>> 0) % length;
+}
+
+function howToFishText(candidate: RecommenderV3RankedArchetype, seed: string): string {
   const profile =
     candidate.gear_mode === "lure"
       ? LURE_ARCHETYPES_V3[candidate.id as keyof typeof LURE_ARCHETYPES_V3]
@@ -421,7 +451,13 @@ function howToFishText(candidate: RecommenderV3RankedArchetype): string {
     profile?.how_to_fish_text ??
     LANE_FALLBACKS[candidate.tactical_lane as TacticalLaneV3];
 
-  if (variants) return variants[Math.floor(Math.random() * variants.length)]!;
+  if (variants) {
+    const pick = stableVariantIndex(
+      `${seed}:${candidate.id}:${candidate.gear_mode}:${candidate.tactical_lane}`,
+      variants.length,
+    );
+    return variants[pick]!;
+  }
   return "Keep the presentation clean and in the fish's lane longer than a random fast retrieve.";
 }
 
@@ -481,11 +517,12 @@ function toRankedFamily(
   candidate: RecommenderV3RankedArchetype,
   rank: number,
   topInList: RecommenderV3RankedArchetype | undefined,
+  requestSeed: string,
 ): RankedFamily {
   return {
     family_id: candidate.id as unknown as LureFamilyId | FlyFamilyId,
     display_name: candidate.display_name,
-    how_to_fish: howToFishText(candidate),
+    how_to_fish: howToFishText(candidate, requestSeed),
     rank_context: buildRankContext(candidate, rank, topInList),
   };
 }
@@ -588,6 +625,14 @@ function timingFromAnalysis(analysis: SharedConditionAnalysis): {
 export function runRecommenderV3Surface(req: RecommenderRequest): RecommenderResponse {
   const analysis = analyzeSharedConditions(buildSharedRequest(req));
   const v3 = computeRecommenderV3(req, analysis);
+  const requestSeed = [
+    req.location.local_date,
+    req.location.local_timezone,
+    req.location.region_key,
+    req.species,
+    req.context,
+    req.water_clarity,
+  ].join(":");
   const lightLabel = analysis.norm.normalized.light_cloud_condition?.label ?? null;
   const colorDecision = resolveColorDecisionV3(
     req.water_clarity,
@@ -600,10 +645,10 @@ export function runRecommenderV3Surface(req: RecommenderRequest): RecommenderRes
   const lureTop = v3.lure_recommendations[0];
   const flyTop = v3.fly_recommendations[0];
   const lure_rankings = v3.lure_recommendations.map((candidate, i) =>
-    toRankedFamily(candidate, i + 1, lureTop),
+    toRankedFamily(candidate, i + 1, lureTop, requestSeed),
   );
   const fly_rankings = v3.fly_recommendations.map((candidate, i) =>
-    toRankedFamily(candidate, i + 1, flyTop),
+    toRankedFamily(candidate, i + 1, flyTop, requestSeed),
   );
   const confidence = resolveConfidence(
     req,
@@ -614,7 +659,7 @@ export function runRecommenderV3Surface(req: RecommenderRequest): RecommenderRes
     flyConfidence,
   );
   const now = new Date();
-  const expires = new Date(now.getTime() + CACHE_TTL_HOURS * 60 * 60 * 1000);
+  const expires = locationLocalMidnightIso(req.location.local_timezone, now);
 
   return {
     feature: RECOMMENDER_FEATURE,
@@ -622,7 +667,7 @@ export function runRecommenderV3Surface(req: RecommenderRequest): RecommenderRes
     context: req.context,
     water_clarity: req.water_clarity,
     generated_at: now.toISOString(),
-    cache_expires_at: expires.toISOString(),
+    cache_expires_at: expires,
     behavior,
     presentation,
     lure_rankings,

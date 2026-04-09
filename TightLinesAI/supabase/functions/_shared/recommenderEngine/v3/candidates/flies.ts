@@ -1,4 +1,7 @@
-import type { FlyArchetypeIdV3, RecommenderV3ArchetypeProfile } from "../contracts.ts";
+import type {
+  FlyArchetypeIdV3,
+  RecommenderV3ArchetypeProfile,
+} from "../contracts.ts";
 
 function fly(
   profile: RecommenderV3ArchetypeProfile,
@@ -6,7 +9,10 @@ function fly(
   return profile;
 }
 
-export const FLY_ARCHETYPES_V3: Record<FlyArchetypeIdV3, RecommenderV3ArchetypeProfile> = {
+export const FLY_ARCHETYPES_V3: Record<
+  FlyArchetypeIdV3,
+  RecommenderV3ArchetypeProfile
+> = {
   clouser_minnow: fly({
     id: "clouser_minnow",
     display_name: "Clouser Minnow",
@@ -31,7 +37,7 @@ export const FLY_ARCHETYPES_V3: Record<FlyArchetypeIdV3, RecommenderV3ArchetypeP
     family_key: "baitfish_streamer",
     preferred_water_columns: ["shallow", "mid"],
     preferred_moods: ["neutral", "active"],
-    preferred_presentation_styles: ["balanced"],
+    preferred_presentation_styles: ["balanced", "bold"],
     forage_matches: ["baitfish"],
     clarity_strengths: ["clear", "stained"],
     tactical_lane: "fly_baitfish",
@@ -47,7 +53,7 @@ export const FLY_ARCHETYPES_V3: Record<FlyArchetypeIdV3, RecommenderV3ArchetypeP
     gear_mode: "fly",
     family_key: "baitfish_streamer",
     preferred_water_columns: ["shallow", "mid"],
-    preferred_moods: ["neutral", "active"],
+    preferred_moods: ["negative", "neutral"],
     preferred_presentation_styles: ["subtle", "balanced"],
     forage_matches: ["baitfish"],
     clarity_strengths: ["clear", "stained"],
@@ -183,7 +189,7 @@ export const FLY_ARCHETYPES_V3: Record<FlyArchetypeIdV3, RecommenderV3ArchetypeP
     gear_mode: "fly",
     family_key: "bugger_leech",
     preferred_water_columns: ["shallow", "mid"],
-    preferred_moods: ["neutral", "active"],
+    preferred_moods: ["negative", "neutral"],
     preferred_presentation_styles: ["balanced"],
     forage_matches: ["baitfish", "leech_worm"],
     clarity_strengths: ["clear", "stained"],
@@ -217,8 +223,8 @@ export const FLY_ARCHETYPES_V3: Record<FlyArchetypeIdV3, RecommenderV3ArchetypeP
     gear_mode: "fly",
     family_key: "bottom_streamer",
     preferred_water_columns: ["mid", "bottom"],
-    preferred_moods: ["negative", "neutral", "active"],
-    preferred_presentation_styles: ["balanced"],
+    preferred_moods: ["neutral", "active"],
+    preferred_presentation_styles: ["balanced", "bold"],
     forage_matches: ["baitfish", "crawfish"],
     clarity_strengths: ["clear", "stained", "dirty"],
     tactical_lane: "fly_bottom",
@@ -267,8 +273,8 @@ export const FLY_ARCHETYPES_V3: Record<FlyArchetypeIdV3, RecommenderV3ArchetypeP
     display_name: "Conehead Streamer",
     gear_mode: "fly",
     family_key: "weighted_streamer",
-    preferred_water_columns: ["mid", "bottom"],
-    preferred_moods: ["negative", "neutral", "active"],
+    preferred_water_columns: ["bottom"],
+    preferred_moods: ["negative", "neutral"],
     preferred_presentation_styles: ["balanced"],
     forage_matches: ["baitfish", "leech_worm", "crawfish"],
     clarity_strengths: ["clear", "stained", "dirty"],
@@ -354,7 +360,7 @@ export const FLY_ARCHETYPES_V3: Record<FlyArchetypeIdV3, RecommenderV3ArchetypeP
     family_key: "surface_fly",
     preferred_water_columns: ["top", "shallow"],
     preferred_moods: ["neutral", "active"],
-    preferred_presentation_styles: ["balanced", "bold"],
+    preferred_presentation_styles: ["subtle", "balanced"],
     forage_matches: ["baitfish", "insect_misc"],
     clarity_strengths: ["clear", "stained", "dirty"],
     tactical_lane: "fly_surface",

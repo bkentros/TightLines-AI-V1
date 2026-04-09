@@ -59,7 +59,7 @@ function resolvePresentationDelta(
 export function resolveFinalProfileV3(
   seasonal: RecommenderV3SeasonalRow,
   daily: RecommenderV3DailyPayload,
-  clarity: WaterClarity,
+  _clarity: WaterClarity,
 ): RecommenderV3ResolvedProfile {
   let final_water_column = shiftOrdinal(
     WATER_COLUMNS,
@@ -92,17 +92,6 @@ export function resolveFinalProfileV3(
     (1 - dailyWeight) * seasonalPresentationIndex + dailyWeight * dailyPresentationIndex,
   );
   blendedPresentationIndex = Math.max(0, Math.min(PRESENTATION_STYLES.length - 1, blendedPresentationIndex));
-
-  if (clarity === "dirty" && blendedPresentationIndex < 1) {
-    blendedPresentationIndex = 1;
-  }
-  if (clarity === "clear" && blendedPresentationIndex === 2) {
-    const seasonalBold = seasonal.base_presentation_style === "bold";
-    const dailyBold = dailyPresentationIndex === 2;
-    if (!(seasonalBold && dailyBold)) {
-      blendedPresentationIndex = 1;
-    }
-  }
 
   const final_presentation_style = PRESENTATION_STYLES[blendedPresentationIndex]!;
 

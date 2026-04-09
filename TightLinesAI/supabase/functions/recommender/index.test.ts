@@ -3,6 +3,7 @@ import {
   buildRecommenderEngineRequest,
   handleRecommenderRequest,
 } from "./index.ts";
+import { locationLocalMidnightIso } from "../_shared/recommenderEngine/runRecommenderV3Surface.ts";
 
 function makeRequest(body: Record<string, unknown>, headers: HeadersInit = {}): Request {
   return new Request("https://example.com/functions/v1/recommender", {
@@ -111,6 +112,61 @@ Deno.test("buildRecommenderEngineRequest keeps refined shared region routing", (
   assertEquals(built.engineReq.species, "smallmouth_bass");
 });
 
+Deno.test("buildRecommenderEngineRequest honors target_date snapshot semantics", () => {
+  const built = buildRecommenderEngineRequest(validBody({
+    target_date: "2026-07-11",
+  }));
+
+  assertEquals(built.local_date, "2026-07-11");
+  assertEquals(built.engineReq.location.local_date, "2026-07-11");
+});
+
+Deno.test("buildRecommenderEngineRequest uses calendar-day profiling even without target_date", () => {
+  const built = buildRecommenderEngineRequest(validBody({
+    env_data: {
+      timezone: "America/Detroit",
+      fetched_at: "2026-06-15T16:00:00.000Z",
+      weather: {
+        temperature: 47,
+        humidity: 70,
+        cloud_cover: 100,
+        pressure: 1008,
+        wind_speed: 6,
+        wind_direction: 120,
+        precipitation: 0,
+        wind_speed_unit: "mph",
+        temp_unit: "°F",
+        pressure_48hr: Array.from({ length: 48 }, () => 1008),
+        temp_7day_high: Array.from({ length: 21 }, (_, i) => 60 + i),
+        temp_7day_low: Array.from({ length: 21 }, (_, i) => 40 + i),
+        precip_7day_daily: Array.from({ length: 21 }, () => 0),
+        wind_speed_10m_max_daily: Array.from({ length: 21 }, () => 10),
+      },
+      hourly_pressure_mb: Array.from({ length: 14 * 24 + 13 }, (_, i) => ({
+        time_utc: new Date(Date.UTC(2026, 5, 1, 0, 0, 0) + i * 3600 * 1000).toISOString(),
+        value: 1000 + i,
+      })),
+      hourly_air_temp_f: Array.from({ length: 24 }, (_, h) => ({
+        time_utc: new Date(`2026-06-15T${String(h).padStart(2, "0")}:00:00-04:00`).toISOString(),
+        value: 50 + h,
+      })),
+      hourly_cloud_cover_pct: [],
+      hourly_wind_speed: [],
+    },
+  }));
+
+  assertEquals(built.shared_req.environment.current_air_temp_f, 64);
+});
+
+Deno.test("locationLocalMidnightIso resolves the next local midnight", () => {
+  const iso = locationLocalMidnightIso(
+    "America/New_York",
+    new Date("2026-07-11T16:00:00.000Z"),
+  );
+
+  assertEquals(iso, "2026-07-12T04:00:00.000Z");
+});
+
 Deno.test("recommender handler rejects missing auth before doing work", async () => {
   const response = await handleRecommenderRequest(
     makeRequest(validBody(), { Authorization: "" }),
@@ -189,4 +245,7 @@ Deno.test("recommender handler returns the public surface contract for valid req
   assertEquals(json.behavior.behavior_summary.length, 3);
   assertMatch(json.generated_at, /^\d{4}-\d{2}-\d{2}T/);
   assertMatch(json.cache_expires_at, /^\d{4}-\d{2}-\d{2}T/);
+  const generated = new Date(json.generated_at).getTime();
+  const expires = new Date(json.cache_expires_at).getTime();
+  assertEquals(expires > generated, true);
 });

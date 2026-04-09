@@ -7,7 +7,10 @@ import type {
 } from "../contracts.ts";
 import type { RegionKey } from "../../../howFishingEngine/contracts/region.ts";
 
-type SeasonalCore = Omit<RecommenderV3SeasonalRow, "species" | "region_key" | "month" | "context">;
+type SeasonalCore = Omit<
+  RecommenderV3SeasonalRow,
+  "species" | "region_key" | "month" | "context"
+>;
 
 const SMB_ROWS: RecommenderV3SeasonalRow[] = [];
 
@@ -574,11 +577,11 @@ addMonths(WARM_HIGHLAND_REGIONS, "freshwater_lake_pond", [3, 4], {
 });
 addMonths(WARM_HIGHLAND_REGIONS, "freshwater_lake_pond", [5], {
   base_water_column: "shallow",
-  base_mood: "active",
-  base_presentation_style: "balanced",
+  base_mood: "neutral",
+  base_presentation_style: "subtle",
   primary_forage: "crawfish",
   secondary_forage: "baitfish",
-  primary_lure_archetypes: ["tube_jig", "ned_rig"],
+  primary_lure_archetypes: ["ned_rig", "tube_jig"],
   primary_fly_archetypes: ["crawfish_streamer", "woolly_bugger"],
   viable_lure_archetypes: SPAWN_LAKE_LURES,
   viable_fly_archetypes: SPAWN_LAKE_FLIES,
@@ -745,7 +748,7 @@ addMonths(["midwest_interior"], "freshwater_lake_pond", [6], {
   base_presentation_style: "bold",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
-  primary_lure_archetypes: ["spinnerbait", "paddle_tail_swimbait"],
+  primary_lure_archetypes: ["medium_diving_crankbait", "spinnerbait"],
   primary_fly_archetypes: ["clouser_minnow", "game_changer"],
   viable_lure_archetypes: MIDWEST_DIRTY_SUMMER_LAKE_LURES,
   viable_fly_archetypes: MIDWEST_DIRTY_SUMMER_LAKE_FLIES,
@@ -784,12 +787,12 @@ addMonths(NORTHERN_COLD_REGIONS, "freshwater_lake_pond", [11, 12], {
   viable_fly_archetypes: WINTER_LAKE_FLIES,
 });
 addMonths(["great_lakes_upper_midwest"], "freshwater_lake_pond", [11], {
-  base_water_column: "mid",
-  base_mood: "neutral",
-  base_presentation_style: "balanced",
-  primary_forage: "baitfish",
-  secondary_forage: "crawfish",
-  primary_lure_archetypes: ["suspending_jerkbait", "blade_bait"],
+  base_water_column: "bottom",
+  base_mood: "negative",
+  base_presentation_style: "subtle",
+  primary_forage: "crawfish",
+  secondary_forage: "baitfish",
+  primary_lure_archetypes: ["finesse_jig", "tube_jig"],
   primary_fly_archetypes: ["clouser_minnow", "slim_minnow_streamer"],
   viable_lure_archetypes: GREAT_LAKES_LATEFALL_LAKE_LURES,
   viable_fly_archetypes: GREAT_LAKES_LATEFALL_LAKE_FLIES,
@@ -1343,7 +1346,7 @@ addMonths(["great_lakes_upper_midwest"], "freshwater_lake_pond", [7], {
   base_presentation_style: "bold",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
-  primary_lure_archetypes: ["walking_topwater", "paddle_tail_swimbait"],
+  primary_lure_archetypes: ["popping_topwater", "walking_topwater"],
   primary_fly_archetypes: ["popper_fly", "clouser_minnow"],
   viable_lure_archetypes: GREAT_LAKES_MIDSUMMER_LAKE_LURES,
   viable_fly_archetypes: GREAT_LAKES_MIDSUMMER_LAKE_FLIES,

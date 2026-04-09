@@ -2,6 +2,8 @@ import { assertEquals, assertThrows } from "jsr:@std/assert";
 import type { RecommenderRequest } from "../contracts/input.ts";
 import { runRecommenderV3 } from "../runRecommenderV3.ts";
 import { resolveDailyPayloadV3 } from "../v3/resolveDailyPayload.ts";
+import { resolveFinalProfileV3 } from "../v3/resolveFinalProfile.ts";
+import { resolveSeasonalRowV3 } from "../v3/seasonal/resolveSeasonalRow.ts";
 import {
   assertRecommenderV3Scope,
   toRecommenderV3Species,
@@ -31,13 +33,16 @@ function analysis(overrides: Record<string, unknown> = {}) {
         pressure_regime: { label: "recently_stabilizing" },
         wind_condition: { score: 0 },
         light_cloud_condition: { label: "mixed_sky" },
-        ...((overrides.norm as { normalized?: object } | undefined)?.normalized ?? {}),
+        ...((overrides.norm as { normalized?: object } | undefined)
+          ?.normalized ?? {}),
       },
     },
   } as any;
 }
 
-function request(overrides: Partial<RecommenderRequest> = {}): RecommenderRequest {
+function request(
+  overrides: Partial<RecommenderRequest> = {},
+): RecommenderRequest {
   return {
     location: {
       latitude: 35.5,
@@ -65,7 +70,11 @@ Deno.test("V3 scope maps legacy freshwater species into the new species list", (
 
 Deno.test("V3 scope enforces trout as river-only", () => {
   assertThrows(
-    () => assertRecommenderV3Scope({ species: "river_trout", context: "freshwater_lake_pond" }),
+    () =>
+      assertRecommenderV3Scope({
+        species: "river_trout",
+        context: "freshwater_lake_pond",
+      }),
     Error,
     "does not support",
   );
@@ -112,7 +121,51 @@ Deno.test("V3 foundation shell reuses the canonical region key and core daily pa
     "wind_condition",
     "light_cloud_condition",
     "runoff_flow_disruption",
+    "timing_window",
+    "reaction_window",
+    "finesse_window",
+    "pace_bias",
   ]);
   assertEquals(snapshot.lure_recommendations.length, 3);
   assertEquals(snapshot.fly_recommendations.length, 3);
+});
+
+Deno.test("V3 foundation keeps clarity in the color layer without changing the resolved water column", () => {
+  const row = resolveSeasonalRowV3(
+    "smallmouth_bass",
+    "great_lakes_upper_midwest",
+    7,
+    "freshwater_lake_pond",
+  );
+  const daily = resolveDailyPayloadV3(
+    analysis({
+      scored: { score: 74, band: "Good" },
+      timing: {
+        timing_strength: "good",
+        highlighted_periods: [true, false, false, true],
+      },
+      condition_context: {
+        temperature_metabolic_context: "neutral",
+        temperature_trend: "warming",
+        temperature_shock: "none",
+      },
+      norm: {
+        normalized: {
+          pressure_regime: { label: "falling_slow", score: 0.8 },
+          wind_condition: { label: "light", score: 0.65 },
+          light_cloud_condition: { label: "low_light" },
+        },
+      },
+    }),
+    "freshwater_lake_pond",
+  );
+
+  const clear = resolveFinalProfileV3(row, daily, "clear");
+  const stained = resolveFinalProfileV3(row, daily, "stained");
+  const dirty = resolveFinalProfileV3(row, daily, "dirty");
+
+  assertEquals(clear.final_water_column, stained.final_water_column);
+  assertEquals(stained.final_water_column, dirty.final_water_column);
+  assertEquals(clear.final_presentation_style, stained.final_presentation_style);
+  assertEquals(stained.final_presentation_style, dirty.final_presentation_style);
 });

@@ -1,13 +1,15 @@
 import { assert, assertEquals } from "jsr:@std/assert";
 import { runRecommenderV3 } from "../runRecommenderV3.ts";
 import type { RecommenderRequest } from "../contracts/input.ts";
+import type { RecommenderV3DailyPayload } from "../v3/index.ts";
 import type { RecommenderV3SeasonalRow } from "../v3/index.ts";
 import {
-  TROUT_V3_SEASONAL_ROWS,
-  TROUT_V3_SUPPORTED_REGIONS,
   resolveDailyPayloadV3,
   resolveFinalProfileV3,
   resolveSeasonalRowV3,
+  scoreFlyCandidatesV3,
+  TROUT_V3_SEASONAL_ROWS,
+  TROUT_V3_SUPPORTED_REGIONS,
 } from "../v3/index.ts";
 import { getValidSpeciesForState, isSpeciesValidForState } from "../index.ts";
 
@@ -35,13 +37,16 @@ function analysis(overrides: Record<string, unknown> = {}) {
         pressure_regime: { label: "recently_stabilizing" },
         wind_condition: { score: 0 },
         light_cloud_condition: { label: "mixed_sky" },
-        ...((overrides.norm as { normalized?: object } | undefined)?.normalized ?? {}),
+        ...((overrides.norm as { normalized?: object } | undefined)
+          ?.normalized ?? {}),
       },
     },
   } as any;
 }
 
-function request(overrides: Partial<RecommenderRequest> = {}): RecommenderRequest {
+function request(
+  overrides: Partial<RecommenderRequest> = {},
+): RecommenderRequest {
   return {
     location: {
       latitude: 45.31,
@@ -61,10 +66,19 @@ function request(overrides: Partial<RecommenderRequest> = {}): RecommenderReques
 }
 
 Deno.test("V3 Phase 3C keeps trout geo-gated by the shared state species map", () => {
-  assertEquals(isSpeciesValidForState("FL", "river_trout", "freshwater_river"), false);
-  assertEquals(isSpeciesValidForState("NC", "river_trout", "freshwater_river"), true);
+  assertEquals(
+    isSpeciesValidForState("FL", "river_trout", "freshwater_river"),
+    false,
+  );
+  assertEquals(
+    isSpeciesValidForState("NC", "river_trout", "freshwater_river"),
+    true,
+  );
 
-  const ncFreshwaterRiverSpecies = getValidSpeciesForState("NC", "freshwater_river")
+  const ncFreshwaterRiverSpecies = getValidSpeciesForState(
+    "NC",
+    "freshwater_river",
+  )
     .map((entry: { species: string }) => entry.species);
   assert(ncFreshwaterRiverSpecies.includes("river_trout"));
 });
@@ -85,7 +99,12 @@ Deno.test("V3 Phase 3C covers every supported trout region and month for river c
 });
 
 Deno.test("V3 Phase 3C resolves warm-tailwater trout as summer-deeper and more restrained", () => {
-  const row = resolveSeasonalRowV3("trout", "south_central", 8, "freshwater_river");
+  const row = resolveSeasonalRowV3(
+    "trout",
+    "south_central",
+    8,
+    "freshwater_river",
+  );
   assertEquals(row.base_water_column, "bottom");
   assertEquals(row.base_mood, "negative");
   assertEquals(row.primary_forage, "baitfish");
@@ -130,8 +149,233 @@ Deno.test("V3 Phase 3C keeps a cold-season trout warm-up bounded away from surfa
     },
   }));
 
-  assert(result.lure_recommendations.every((candidate) => candidate.tactical_lane !== "surface"));
-  assert(result.fly_recommendations.every((candidate) => candidate.tactical_lane !== "fly_surface"));
+  assert(
+    result.lure_recommendations.every((candidate) =>
+      candidate.tactical_lane !== "surface"
+    ),
+  );
+  assert(
+    result.fly_recommendations.every((candidate) =>
+      candidate.tactical_lane !== "fly_surface"
+    ),
+  );
+});
+
+Deno.test("V3 Phase 3C gives western midsummer trout a real mouse-fly window without changing the lure story", () => {
+  const row = resolveSeasonalRowV3(
+    "trout",
+    "mountain_west",
+    7,
+    "freshwater_river",
+  );
+  assertEquals(row.base_water_column, "shallow");
+  assertEquals(row.base_mood, "active");
+  assertEquals(row.primary_lure_archetypes, [
+    "inline_spinner",
+    "soft_jerkbait",
+  ]);
+  assertEquals(row.primary_fly_archetypes, [
+    "mouse_fly",
+    "slim_minnow_streamer",
+  ]);
+  assert(row.viable_fly_archetypes.includes("mouse_fly"));
+
+  const daily = resolveDailyPayloadV3(
+    analysis({
+      scored: { score: 72, band: "Good" },
+      timing: {
+        timing_strength: "good",
+        highlighted_periods: [true, false, false, true],
+      },
+      condition_context: {
+        temperature_metabolic_context: "neutral",
+        temperature_trend: "warming",
+        temperature_shock: "none",
+      },
+      norm: {
+        normalized: {
+          pressure_regime: { label: "falling_slow", score: 0.7 },
+          wind_condition: { label: "light", score: 0.65 },
+          light_cloud_condition: { label: "low_light" },
+        },
+      },
+    }),
+    "freshwater_river",
+  );
+  const resolved = resolveFinalProfileV3(row, daily, "clear");
+  const flies = scoreFlyCandidatesV3(
+    row,
+    resolved,
+    daily,
+    "clear",
+    "low_light",
+  );
+
+  assertEquals(daily.surface_window, "on");
+  assertEquals(flies[0]?.id, "mouse_fly");
+});
+
+Deno.test("V3 Phase 3C gives trout specialty streamers distinct seasonal winner windows", () => {
+  const bucktailRow = resolveSeasonalRowV3(
+    "trout",
+    "mountain_west",
+    4,
+    "freshwater_river",
+  );
+  const zonkerRow = resolveSeasonalRowV3(
+    "trout",
+    "northeast",
+    11,
+    "freshwater_river",
+  );
+  const sculpzillaRow = resolveSeasonalRowV3(
+    "trout",
+    "southwest_high_desert",
+    8,
+    "freshwater_river",
+  );
+  const coneheadRow = resolveSeasonalRowV3(
+    "trout",
+    "pacific_northwest",
+    12,
+    "freshwater_river",
+  );
+
+  assertEquals(bucktailRow.primary_fly_archetypes, [
+    "bucktail_baitfish_streamer",
+    "slim_minnow_streamer",
+  ]);
+  assertEquals(zonkerRow.primary_fly_archetypes, [
+    "zonker_streamer",
+    "articulated_baitfish_streamer",
+  ]);
+  assertEquals(sculpzillaRow.primary_fly_archetypes, [
+    "sculpzilla",
+    "sculpin_streamer",
+  ]);
+  assertEquals(coneheadRow.primary_fly_archetypes, [
+    "conehead_streamer",
+    "sculpin_streamer",
+  ]);
+
+  const bucktailDaily: RecommenderV3DailyPayload = {
+    mood_nudge: "neutral",
+    water_column_nudge: "neutral",
+    presentation_nudge: "neutral",
+    surface_window: "off",
+    reaction_window: "off",
+    finesse_window: "watch",
+    pace_bias: "neutral",
+    variables_considered: [],
+    variables_triggered: [],
+    notes: [],
+    source_score: 58,
+    source_band: "Fair",
+  };
+  const zonkerDaily: RecommenderV3DailyPayload = {
+    mood_nudge: "neutral",
+    water_column_nudge: "neutral",
+    presentation_nudge: "neutral",
+    surface_window: "off",
+    reaction_window: "watch",
+    finesse_window: "watch",
+    pace_bias: "neutral",
+    variables_considered: [],
+    variables_triggered: [],
+    notes: [],
+    source_score: 61,
+    source_band: "Good",
+  };
+  const sculpzillaDaily: RecommenderV3DailyPayload = {
+    mood_nudge: "neutral",
+    water_column_nudge: "lower_1",
+    presentation_nudge: "neutral",
+    surface_window: "off",
+    reaction_window: "watch",
+    finesse_window: "off",
+    pace_bias: "neutral",
+    variables_considered: [],
+    variables_triggered: [],
+    notes: [],
+    source_score: 64,
+    source_band: "Good",
+  };
+  const coneheadDaily: RecommenderV3DailyPayload = {
+    mood_nudge: "down_1",
+    water_column_nudge: "lower_1",
+    presentation_nudge: "neutral",
+    surface_window: "off",
+    reaction_window: "off",
+    finesse_window: "watch",
+    pace_bias: "slow",
+    variables_considered: [],
+    variables_triggered: [],
+    notes: [],
+    source_score: 56,
+    source_band: "Fair",
+  };
+
+  const bucktailResolved = resolveFinalProfileV3(
+    bucktailRow,
+    bucktailDaily,
+    "clear",
+  );
+  const zonkerResolved = resolveFinalProfileV3(
+    zonkerRow,
+    zonkerDaily,
+    "clear",
+  );
+  const sculpzillaResolved = resolveFinalProfileV3(
+    sculpzillaRow,
+    sculpzillaDaily,
+    "clear",
+  );
+  const coneheadResolved = resolveFinalProfileV3(
+    coneheadRow,
+    coneheadDaily,
+    "clear",
+  );
+
+  assertEquals(
+    scoreFlyCandidatesV3(
+      bucktailRow,
+      bucktailResolved,
+      bucktailDaily,
+      "clear",
+      "mixed_sky",
+    )[0]?.id,
+    "bucktail_baitfish_streamer",
+  );
+  assertEquals(
+    scoreFlyCandidatesV3(
+      zonkerRow,
+      zonkerResolved,
+      zonkerDaily,
+      "clear",
+      "mixed_sky",
+    )[0]?.id,
+    "zonker_streamer",
+  );
+  assertEquals(
+    scoreFlyCandidatesV3(
+      sculpzillaRow,
+      sculpzillaResolved,
+      sculpzillaDaily,
+      "clear",
+      "mixed_sky",
+    )[0]?.id,
+    "sculpzilla",
+  );
+  assertEquals(
+    scoreFlyCandidatesV3(
+      coneheadRow,
+      coneheadResolved,
+      coneheadDaily,
+      "clear",
+      "mixed_sky",
+    )[0]?.id,
+    "conehead_streamer",
+  );
 });
 
 Deno.test("V3 Phase 3C returns trout-focused fall river recommendations with color guidance", () => {
@@ -142,16 +386,23 @@ Deno.test("V3 Phase 3C returns trout-focused fall river recommendations with col
   assertEquals(result.fly_recommendations.length, 3);
   assert(
     result.lure_recommendations.some((candidate) =>
-      candidate.id === "inline_spinner" || candidate.id === "suspending_jerkbait"
+      candidate.id === "inline_spinner" ||
+      candidate.id === "suspending_jerkbait"
     ),
   );
   assert(
     result.fly_recommendations.some((candidate) =>
-      candidate.id === "articulated_baitfish_streamer" || candidate.id === "game_changer"
+      candidate.id === "articulated_baitfish_streamer" ||
+      candidate.id === "game_changer"
     ),
   );
 
-  for (const candidate of [...result.lure_recommendations, ...result.fly_recommendations]) {
+  for (
+    const candidate of [
+      ...result.lure_recommendations,
+      ...result.fly_recommendations,
+    ]
+  ) {
     assertEquals(candidate.color_recommendations.length, 3);
     assert(candidate.score > 0);
   }

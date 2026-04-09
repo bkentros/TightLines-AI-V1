@@ -67,6 +67,10 @@ function localDateInTz(timezone: string, d = new Date()): string {
   }
 }
 
+function isIsoDateString(raw: unknown): raw is string {
+  return typeof raw === "string" && /^\d{4}-\d{2}-\d{2}$/.test(raw);
+}
+
 function extractTimezone(envData: Record<string, unknown>): string {
   if (typeof envData.timezone === "string" && envData.timezone.length > 0) {
     return envData.timezone;
@@ -83,7 +87,8 @@ export function buildRecommenderEngineRequest(body: Record<string, unknown>) {
   const water_clarity = body.water_clarity as WaterClarity;
   const envData = body.env_data as Record<string, unknown>;
   const timezone = extractTimezone(envData);
-  const local_date = localDateInTz(timezone);
+  const target_date = isIsoDateString(body.target_date) ? body.target_date : null;
+  const local_date = target_date ?? localDateInTz(timezone);
   const month = parseInt(local_date.slice(5, 7), 10);
 
   const shared_req = buildSharedEngineRequestFromEnvData(
@@ -94,6 +99,7 @@ export function buildRecommenderEngineRequest(body: Record<string, unknown>) {
     context,
     envData,
     0,
+    { useCalendarDayProfileForToday: true },
   );
 
   return {
@@ -213,7 +219,9 @@ export async function handleRecommenderRequest(
   if (!body.env_data || typeof body.env_data !== "object") {
     return jsonError("env_data is required", "missing_env_data", 400);
   }
-  const envData = body.env_data as Record<string, unknown>;
+  if (body.target_date != null && !isIsoDateString(body.target_date)) {
+    return jsonError("Invalid target_date. Must be YYYY-MM-DD.", "invalid_input", 400);
+  }
 
   const { engineReq } = buildRecommenderEngineRequest(body);
 

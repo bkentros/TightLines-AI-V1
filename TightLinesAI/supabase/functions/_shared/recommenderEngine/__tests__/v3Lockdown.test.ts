@@ -1,11 +1,11 @@
 import { assertEquals } from "jsr:@std/assert";
 import {
   normalizeLightBucketV3,
+  type RecommenderV3ResolvedProfile,
+  type RecommenderV3SeasonalRow,
   resolveColorDecisionV3,
   resolveDailyPayloadV3,
   scoreLureCandidatesV3,
-  type RecommenderV3ResolvedProfile,
-  type RecommenderV3SeasonalRow,
 } from "../v3/index.ts";
 
 function analysis(overrides: Record<string, unknown> = {}) {
@@ -34,7 +34,8 @@ function analysis(overrides: Record<string, unknown> = {}) {
         light_cloud_condition: { label: "mixed", score: 0 },
         precipitation_disruption: { label: "dry_stable", score: 0.2 },
         runoff_flow_disruption: { label: "stable", score: 0.8 },
-        ...((overrides.norm as { normalized?: object } | undefined)?.normalized ?? {}),
+        ...((overrides.norm as { normalized?: object } | undefined)
+          ?.normalized ?? {}),
       },
     },
   } as any;
@@ -97,7 +98,15 @@ Deno.test("V3 lockdown resolves an explicit upbeat lake nudge from variable rule
   assertEquals(daily.presentation_nudge, "bolder");
   assertEquals(
     daily.variables_triggered,
-    ["temperature_condition", "pressure_regime", "wind_condition", "light_cloud_condition", "source_score_guardrail"],
+    [
+      "temperature_condition",
+      "pressure_regime",
+      "wind_condition",
+      "light_cloud_condition",
+      "source_score_guardrail",
+      "reaction_window",
+      "pace_bias",
+    ],
   );
 });
 
@@ -127,7 +136,14 @@ Deno.test("V3 lockdown uses How's Fishing score only as a guardrail, not a secon
   assertEquals(daily.presentation_nudge, "neutral");
   assertEquals(
     daily.variables_triggered,
-    ["pressure_regime", "wind_condition", "light_cloud_condition", "source_score_guardrail"],
+    [
+      "pressure_regime",
+      "wind_condition",
+      "light_cloud_condition",
+      "source_score_guardrail",
+      "reaction_window",
+      "pace_bias",
+    ],
   );
 });
 
@@ -157,7 +173,13 @@ Deno.test("V3 lockdown resolves blown-out rivers as down, lower, but still more 
   assertEquals(daily.presentation_nudge, "neutral");
   assertEquals(
     daily.variables_triggered,
-    ["temperature_condition", "runoff_flow_disruption", "source_score_guardrail"],
+    [
+      "temperature_condition",
+      "runoff_flow_disruption",
+      "source_score_guardrail",
+      "finesse_window",
+      "pace_bias",
+    ],
   );
 });
 
@@ -202,6 +224,17 @@ Deno.test("V3 lockdown scored candidates inherit the shared color decision inste
       final_presentation_style: "bold",
       primary_forage: "baitfish",
     }),
+    {
+      mood_nudge: "neutral",
+      water_column_nudge: "neutral",
+      presentation_nudge: "neutral",
+      surface_window: "off",
+      variables_considered: [],
+      variables_triggered: [],
+      notes: [],
+      source_score: 60,
+      source_band: "Good",
+    },
     "stained",
     "low_light",
   );

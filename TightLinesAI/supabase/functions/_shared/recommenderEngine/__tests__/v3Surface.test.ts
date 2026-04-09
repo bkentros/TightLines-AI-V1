@@ -2,7 +2,9 @@ import { assert, assertEquals } from "jsr:@std/assert";
 import { runRecommenderV3Surface } from "../index.ts";
 import type { RecommenderRequest } from "../contracts/input.ts";
 
-function request(overrides: Partial<RecommenderRequest> = {}): RecommenderRequest {
+function request(
+  overrides: Partial<RecommenderRequest> = {},
+): RecommenderRequest {
   return {
     location: {
       latitude: 35.56,
@@ -40,7 +42,10 @@ Deno.test("V3 surface returns the current frontend contract for a supported fres
   for (const candidate of [...result.lure_rankings, ...result.fly_rankings]) {
     assert(typeof candidate.display_name === "string");
     assert(typeof candidate.how_to_fish === "string");
-    assert(candidate.rank_context === undefined || typeof candidate.rank_context === "string");
+    assert(
+      candidate.rank_context === undefined ||
+        typeof candidate.rank_context === "string",
+    );
   }
 });
 
@@ -138,5 +143,15 @@ Deno.test("V3 surface includes a seasonal flag that supports confidence reasonin
   }));
 
   assertEquals(winter.behavior.seasonal_flag, "off_season");
-  assertEquals(summer.behavior.seasonal_flag, "post_spawn");
+  assertEquals(summer.behavior.seasonal_flag, "peak_season");
+});
+
+Deno.test("V3 surface keeps visible recommendation text deterministic for the same request", () => {
+  const a = runRecommenderV3Surface(request());
+  const b = runRecommenderV3Surface(request());
+
+  assertEquals(a.lure_rankings, b.lure_rankings);
+  assertEquals(a.fly_rankings, b.fly_rankings);
+  assertEquals(a.primary_pattern_summary, b.primary_pattern_summary);
+  assertEquals(a.color_of_day, b.color_of_day);
 });

@@ -1,29 +1,29 @@
 export {
-  RECOMMENDER_V3_SPECIES_CONTEXTS,
-  RECOMMENDER_V3_SPECIES_META,
   assertRecommenderV3Scope,
   isContextAllowedForRecommenderV3,
   isRecommenderV3Context,
   isRecommenderV3Species,
+  RECOMMENDER_V3_SPECIES_CONTEXTS,
+  RECOMMENDER_V3_SPECIES_META,
   toRecommenderV3Species,
 } from "./scope.ts";
 export { resolveDailyPayloadV3 } from "./resolveDailyPayload.ts";
 export {
-  RECOMMENDER_V3_FEATURE,
-  RECOMMENDER_V3_FOUNDATION_FEATURE,
-  RECOMMENDER_V3_CONTEXTS,
-  RECOMMENDER_V3_SPECIES,
-  LURE_ARCHETYPE_IDS_V3,
   FLY_ARCHETYPE_IDS_V3,
-  TACTICAL_LANES_V3,
-  WATER_COLUMNS_V3,
+  FORAGE_BUCKETS_V3,
+  LURE_ARCHETYPE_IDS_V3,
   MOODS_V3,
   PRESENTATION_STYLES_V3,
-  FORAGE_BUCKETS_V3,
+  RECOMMENDER_V3_CONTEXTS,
+  RECOMMENDER_V3_FEATURE,
+  RECOMMENDER_V3_FOUNDATION_FEATURE,
+  RECOMMENDER_V3_SPECIES,
+  TACTICAL_LANES_V3,
   V3_SCORED_VARIABLE_KEYS_BY_CONTEXT,
+  WATER_COLUMNS_V3,
 } from "./contracts.ts";
 export { RESOLVED_COLOR_SHADE_POOLS_V3 } from "./colors.ts";
-export { LURE_ARCHETYPES_V3, FLY_ARCHETYPES_V3 } from "./candidates/index.ts";
+export { FLY_ARCHETYPES_V3, LURE_ARCHETYPES_V3 } from "./candidates/index.ts";
 export {
   LARGEMOUTH_V3_SEASONAL_ROWS,
   LARGEMOUTH_V3_SUPPORTED_REGIONS,
@@ -41,7 +41,10 @@ export {
   normalizeLightBucketV3,
   resolveColorDecisionV3,
 } from "./colorDecision.ts";
-export { scoreLureCandidatesV3, scoreFlyCandidatesV3 } from "./scoreCandidates.ts";
+export {
+  scoreFlyCandidatesV3,
+  scoreLureCandidatesV3,
+} from "./scoreCandidates.ts";
 export type {
   FlyArchetypeIdV3,
   ForageBucketV3,
@@ -55,14 +58,17 @@ export type {
   RecommenderV3DailyPayload,
   RecommenderV3DailyPresentationNudge,
   RecommenderV3DailyWaterColumnNudge,
+  RecommenderV3FoundationSnapshot,
+  RecommenderV3PaceBias,
   RecommenderV3RankedArchetype,
+  RecommenderV3ResolvedProfile,
   RecommenderV3Response,
   RecommenderV3ScoreBreakdown,
-  RecommenderV3FoundationSnapshot,
-  RecommenderV3ResolvedProfile,
-  ResolvedColorThemeV3,
   RecommenderV3SeasonalRow,
   RecommenderV3Species,
+  RecommenderV3SurfaceWindow,
+  RecommenderV3TacticalWindow,
+  ResolvedColorThemeV3,
   TacticalLaneV3,
   WaterColumnV3,
 } from "./contracts.ts";
