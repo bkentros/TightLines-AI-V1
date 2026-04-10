@@ -1,6 +1,7 @@
 import { assert, assertEquals } from "jsr:@std/assert";
 import { runRecommenderV3 } from "../runRecommenderV3.ts";
 import type { RecommenderRequest } from "../contracts/input.ts";
+import type { RecommenderV3DailyPayload } from "../v3/index.ts";
 import type { RecommenderV3SeasonalRow } from "../v3/index.ts";
 import {
   NORTHERN_PIKE_V3_SEASONAL_ROWS,
@@ -8,6 +9,7 @@ import {
   resolveDailyPayloadV3,
   resolveFinalProfileV3,
   resolveSeasonalRowV3,
+  scoreFlyCandidatesV3,
 } from "../v3/index.ts";
 import { getValidSpeciesForState, isSpeciesValidForState } from "../index.ts";
 
@@ -77,8 +79,9 @@ Deno.test("V3 Phase 3D covers every supported pike region, month, and context", 
         .filter((row: RecommenderV3SeasonalRow) => row.region_key === region && row.context === context)
         .map((row: RecommenderV3SeasonalRow) => row.month)
         .sort((a: number, b: number) => a - b);
+      const uniqueMonths = [...new Set(months)];
 
-      assertEquals(months, [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]);
+      assertEquals(uniqueMonths, [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]);
     }
   }
 });
@@ -154,4 +157,42 @@ Deno.test("V3 Phase 3D returns pike-specific fall recommendations with color gui
     assertEquals(candidate.color_recommendations.length, 3);
     assert(candidate.score > 0);
   }
+});
+
+Deno.test("V3 Phase 3D gives articulated dungeon streamer a true spring river winner window", () => {
+  const row = resolveSeasonalRowV3(
+    "northern_pike",
+    "south_central",
+    4,
+    "freshwater_river",
+  );
+  assertEquals(row.primary_fly_archetypes, [
+    "articulated_dungeon_streamer",
+    "pike_bunny_streamer",
+  ]);
+
+  const daily: RecommenderV3DailyPayload = {
+    mood_nudge: "up_2",
+    water_column_nudge: "neutral",
+    presentation_nudge: "bolder",
+    surface_window: "off",
+    reaction_window: "on",
+    finesse_window: "off",
+    pace_bias: "fast",
+    variables_considered: [],
+    variables_triggered: [],
+    notes: [],
+    source_score: 73,
+    source_band: "Good",
+  };
+  const resolved = resolveFinalProfileV3(row, daily, "dirty");
+  const flies = scoreFlyCandidatesV3(
+    row,
+    resolved,
+    daily,
+    "dirty",
+    "low_light",
+  );
+
+  assertEquals(flies[0]?.id, "articulated_dungeon_streamer");
 });

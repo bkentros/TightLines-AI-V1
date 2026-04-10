@@ -28,6 +28,7 @@ const PRESENTATION_STYLES: PresentationStyleV3[] = [
   "bold",
 ];
 const PACE_ORDER = ["slow", "medium", "fast"] as const;
+const PACE_BIAS_ORDER = ["slow", "neutral", "fast"] as const;
 
 type ScoredSelectionCandidate = {
   candidate: RecommenderV3RankedArchetype;
@@ -344,6 +345,31 @@ function paceBiasBonusValue(
 ): number {
   const paceBias = daily?.pace_bias ?? "neutral";
   if (paceBias === "neutral") return 0;
+
+  if (
+    daily?.surface_window === "off" &&
+    (profile.tactical_lane === "surface" ||
+      profile.tactical_lane === "fly_surface")
+  ) {
+    return -0.4;
+  }
+
+  if (
+    profile.preferred_pace_biases &&
+    profile.preferred_pace_biases.length > 0
+  ) {
+    const target = PACE_BIAS_ORDER.indexOf(paceBias);
+    const preferredDistances = profile.preferred_pace_biases
+      .map((preferred) => PACE_BIAS_ORDER.indexOf(preferred))
+      .filter((value) => value >= 0)
+      .map((value) => Math.abs(target - value));
+    const distance = preferredDistances.length > 0
+      ? Math.min(...preferredDistances)
+      : 1;
+    if (distance === 0) return 0.45;
+    if (distance === 1) return 0.15;
+    return -0.25;
+  }
 
   const target = PACE_ORDER.indexOf(paceBias);
   const lane = PACE_ORDER.indexOf(lanePace(profile));

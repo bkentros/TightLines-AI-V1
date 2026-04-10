@@ -7,6 +7,7 @@ import {
   resolveDailyPayloadV3,
   resolveFinalProfileV3,
   resolveSeasonalRowV3,
+  scoreLureCandidatesV3,
   scoreFlyCandidatesV3,
   TROUT_V3_SEASONAL_ROWS,
   TROUT_V3_SUPPORTED_REGIONS,
@@ -215,6 +216,130 @@ Deno.test("V3 Phase 3C gives western midsummer trout a real mouse-fly window wit
   assertEquals(flies[0]?.id, "mouse_fly");
 });
 
+Deno.test("V3 Phase 3C rotates cool-summer trout baitfish flies by daily posture", () => {
+  const row = resolveSeasonalRowV3(
+    "trout",
+    "mountain_west",
+    6,
+    "freshwater_river",
+  );
+  assertEquals(row.primary_fly_archetypes, [
+    "slim_minnow_streamer",
+    "clouser_minnow",
+  ]);
+
+  const slowDaily: RecommenderV3DailyPayload = {
+    mood_nudge: "down_1",
+    water_column_nudge: "neutral",
+    presentation_nudge: "subtler",
+    surface_window: "off",
+    reaction_window: "off",
+    finesse_window: "on",
+    pace_bias: "slow",
+    variables_considered: [],
+    variables_triggered: [],
+    notes: [],
+    source_score: 54,
+    source_band: "Fair",
+  };
+  const fastDaily: RecommenderV3DailyPayload = {
+    mood_nudge: "up_1",
+    water_column_nudge: "neutral",
+    presentation_nudge: "bolder",
+    surface_window: "off",
+    reaction_window: "on",
+    finesse_window: "off",
+    pace_bias: "fast",
+    variables_considered: [],
+    variables_triggered: [],
+    notes: [],
+    source_score: 72,
+    source_band: "Good",
+  };
+
+  const slowResolved = resolveFinalProfileV3(row, slowDaily, "clear");
+  const fastResolved = resolveFinalProfileV3(row, fastDaily, "clear");
+  const slowFlies = scoreFlyCandidatesV3(
+    row,
+    slowResolved,
+    slowDaily,
+    "clear",
+    "bright",
+  );
+  const fastFlies = scoreFlyCandidatesV3(
+    row,
+    fastResolved,
+    fastDaily,
+    "clear",
+    "low_light",
+  );
+
+  assertEquals(slowFlies[0]?.id, "slim_minnow_streamer");
+  assertEquals(fastFlies[0]?.id, "clouser_minnow");
+});
+
+Deno.test("V3 Phase 3C rotates warm-tailwater trout bottom flies by daily pace", () => {
+  const row = resolveSeasonalRowV3(
+    "trout",
+    "south_central",
+    8,
+    "freshwater_river",
+  );
+  assertEquals(row.primary_fly_archetypes, [
+    "muddler_sculpin",
+    "woolly_bugger",
+  ]);
+
+  const slowDaily: RecommenderV3DailyPayload = {
+    mood_nudge: "down_1",
+    water_column_nudge: "neutral",
+    presentation_nudge: "subtler",
+    surface_window: "off",
+    reaction_window: "off",
+    finesse_window: "on",
+    pace_bias: "slow",
+    variables_considered: [],
+    variables_triggered: [],
+    notes: [],
+    source_score: 46,
+    source_band: "Fair",
+  };
+  const fastDaily: RecommenderV3DailyPayload = {
+    mood_nudge: "up_1",
+    water_column_nudge: "higher_1",
+    presentation_nudge: "bolder",
+    surface_window: "off",
+    reaction_window: "on",
+    finesse_window: "off",
+    pace_bias: "fast",
+    variables_considered: [],
+    variables_triggered: [],
+    notes: [],
+    source_score: 68,
+    source_band: "Good",
+  };
+
+  const slowResolved = resolveFinalProfileV3(row, slowDaily, "clear");
+  const fastResolved = resolveFinalProfileV3(row, fastDaily, "clear");
+  const slowFlies = scoreFlyCandidatesV3(
+    row,
+    slowResolved,
+    slowDaily,
+    "clear",
+    "bright",
+  );
+  const fastFlies = scoreFlyCandidatesV3(
+    row,
+    fastResolved,
+    fastDaily,
+    "clear",
+    "mixed_sky",
+  );
+
+  assertEquals(slowFlies[0]?.id, "woolly_bugger");
+  assertEquals(fastFlies[0]?.id, "muddler_sculpin");
+});
+
 Deno.test("V3 Phase 3C gives trout specialty streamers distinct seasonal winner windows", () => {
   const bucktailRow = resolveSeasonalRowV3(
     "trout",
@@ -406,4 +531,42 @@ Deno.test("V3 Phase 3C returns trout-focused fall river recommendations with col
     assertEquals(candidate.color_recommendations.length, 3);
     assert(candidate.score > 0);
   }
+});
+
+Deno.test("V3 Phase 3C gives casting spoon a true Alaska midsummer winner window", () => {
+  const row = resolveSeasonalRowV3(
+    "trout",
+    "alaska",
+    7,
+    "freshwater_river",
+  );
+  assertEquals(row.primary_lure_archetypes, [
+    "casting_spoon",
+    "inline_spinner",
+  ]);
+
+  const daily: RecommenderV3DailyPayload = {
+    mood_nudge: "up_2",
+    water_column_nudge: "neutral",
+    presentation_nudge: "bolder",
+    surface_window: "watch",
+    reaction_window: "on",
+    finesse_window: "off",
+    pace_bias: "fast",
+    variables_considered: [],
+    variables_triggered: [],
+    notes: [],
+    source_score: 74,
+    source_band: "Good",
+  };
+  const resolved = resolveFinalProfileV3(row, daily, "stained");
+  const lures = scoreLureCandidatesV3(
+    row,
+    resolved,
+    daily,
+    "stained",
+    "low_light",
+  );
+
+  assertEquals(lures[0]?.id, "casting_spoon");
 });

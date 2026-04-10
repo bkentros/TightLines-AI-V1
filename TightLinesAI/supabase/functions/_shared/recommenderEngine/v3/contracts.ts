@@ -224,6 +224,8 @@ export type RecommenderV3ArchetypeProfile = {
   preferred_water_columns: readonly WaterColumnV3[];
   preferred_moods: readonly MoodV3[];
   preferred_presentation_styles: readonly PresentationStyleV3[];
+  /** Optional pace identity when archetypes in the same tactical lane should rotate by daily retrieve tempo. */
+  preferred_pace_biases?: readonly RecommenderV3PaceBias[];
   forage_matches: readonly ForageBucketV3[];
   clarity_strengths: readonly WaterClarity[];
   tactical_lane: TacticalLaneV3;

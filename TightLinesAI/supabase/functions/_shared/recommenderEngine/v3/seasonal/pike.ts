@@ -513,4 +513,22 @@ addMonths(MOUNTAIN_REGIONS, "freshwater_river", [9, 10, 11], {
   viable_fly_archetypes: FALL_RIVER_FLIES,
 });
 
+// South-central April river push: the dungeon gets one explicit heavy-profile
+// winner window in colored spring water instead of always trailing the softer
+// bunny lane.
+addMonths(["south_central"], "freshwater_river", [4], {
+  base_water_column: "mid",
+  base_mood: "active",
+  base_presentation_style: "bold",
+  primary_forage: "baitfish",
+  secondary_forage: "bluegill_perch",
+  primary_lure_archetypes: ["pike_jerkbait", "spinnerbait"],
+  primary_fly_archetypes: [
+    "articulated_dungeon_streamer",
+    "pike_bunny_streamer",
+  ],
+  viable_lure_archetypes: SPRING_RIVER_LURES,
+  viable_fly_archetypes: SPRING_RIVER_FLIES,
+});
+
 export const NORTHERN_PIKE_V3_SEASONAL_ROWS = PIKE_ROWS;

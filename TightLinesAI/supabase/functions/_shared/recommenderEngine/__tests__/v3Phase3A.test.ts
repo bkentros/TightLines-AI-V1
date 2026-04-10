@@ -742,3 +742,41 @@ Deno.test("V3 Phase 3A resolves a finesse-forward daily posture on a bright post
   assertEquals(daily.finesse_window, "on");
   assertEquals(daily.pace_bias, "slow");
 });
+
+Deno.test("V3 Phase 3A gives texas-rigged stick worm a true shallow-cover winner window", () => {
+  const row = resolveSeasonalRowV3(
+    "largemouth_bass",
+    "florida",
+    5,
+    "freshwater_lake_pond",
+  );
+  assertEquals(row.primary_lure_archetypes, [
+    "texas_rigged_stick_worm",
+    "compact_flipping_jig",
+  ]);
+
+  const daily: RecommenderV3DailyPayload = {
+    mood_nudge: "down_1",
+    water_column_nudge: "lower_1",
+    presentation_nudge: "subtler",
+    surface_window: "off",
+    reaction_window: "off",
+    finesse_window: "on",
+    pace_bias: "slow",
+    variables_considered: [],
+    variables_triggered: [],
+    notes: [],
+    source_score: 48,
+    source_band: "Fair",
+  };
+  const resolved = resolveFinalProfileV3(row, daily, "stained");
+  const lures = scoreLureCandidatesV3(
+    row,
+    resolved,
+    daily,
+    "stained",
+    "bright",
+  );
+
+  assertEquals(lures[0]?.id, "texas_rigged_stick_worm");
+});

@@ -603,7 +603,6 @@ const FLORIDA_MIDSUMMER_GRASS_LAKE_LURES: readonly LureArchetypeIdV3[] = [
 const FLORIDA_MIDSUMMER_GRASS_LAKE_FLIES: readonly FlyArchetypeIdV3[] = [
   "frog_fly",
   "game_changer",
-  "popper_fly",
   "mouse_fly",
   "woolly_bugger",
   "clouser_minnow",
@@ -2549,6 +2548,31 @@ addMonths(["great_lakes_upper_midwest"], "freshwater_lake_pond", [7], {
   viable_lure_archetypes: MN_WEED_LAKE_SUMMER_LURES,
   primary_fly_archetypes: ["popper_fly", "frog_fly"],
   viable_fly_archetypes: SUMMER_LAKE_FLIES,
+});
+
+// Florida May shallow cover: a texas-rigged stick worm gets one true
+// weedless postspawn winner window instead of always trailing wacky or jig
+// lanes in the same seasonal bucket.
+addMonths(["florida"], "freshwater_lake_pond", [5], {
+  base_water_column: "shallow",
+  base_mood: "neutral",
+  base_presentation_style: "subtle",
+  primary_forage: "leech_worm",
+  secondary_forage: "baitfish",
+  primary_lure_archetypes: [
+    "texas_rigged_stick_worm",
+    "compact_flipping_jig",
+  ],
+  viable_lure_archetypes: [
+    "texas_rigged_stick_worm",
+    "compact_flipping_jig",
+    "weightless_stick_worm",
+    "wacky_rigged_stick_worm",
+    "swim_jig",
+    "paddle_tail_swimbait",
+  ],
+  primary_fly_archetypes: ["woolly_bugger", "balanced_leech"],
+  viable_fly_archetypes: FLORIDA_POSTSPAWN_SHALLOW_LAKE_FLIES,
 });
 
 export const LARGEMOUTH_V3_SEASONAL_ROWS = LMB_ROWS;

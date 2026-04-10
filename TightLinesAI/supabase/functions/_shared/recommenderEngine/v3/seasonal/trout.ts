@@ -702,4 +702,18 @@ addMonths(["pacific_northwest"], [12], {
   viable_fly_archetypes: PNW_WINTER_RIVER_FLIES,
 });
 
+// Alaska July: open current and broad baitfish sweeps give the spoon one real
+// midsummer flash-search lane instead of always sitting under inline spinner.
+addMonths(["alaska"], [7], {
+  base_water_column: "mid",
+  base_mood: "active",
+  base_presentation_style: "balanced",
+  primary_forage: "baitfish",
+  secondary_forage: "insect_misc",
+  primary_lure_archetypes: ["casting_spoon", "inline_spinner"],
+  viable_lure_archetypes: COOL_SUMMER_RIVER_LURES,
+  primary_fly_archetypes: ["sculpin_streamer", "woolly_bugger"],
+  viable_fly_archetypes: ALASKA_SUMMER_RIVER_FLIES,
+});
+
 export const TROUT_V3_SEASONAL_ROWS = TROUT_ROWS;
