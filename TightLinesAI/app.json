@@ -69,7 +69,8 @@
       "expo-apple-authentication",
       "expo-local-authentication",
       "expo-asset",
-      "expo-font"
+      "expo-font",
+      "expo-image"
     ],
     "scheme": "tightlinesai",
     "extra": {

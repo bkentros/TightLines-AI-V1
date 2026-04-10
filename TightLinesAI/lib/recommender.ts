@@ -1,9 +1,9 @@
 /**
  * Recommender client — AsyncStorage + in-memory cache layer.
  *
- * Cache key includes the request day and a compact environment fingerprint so
- * recommendations turn over when today's weather payload changes materially.
- * TTL: respects cache_expires_at from server response (6-hour rolling).
+ * Cache key is calendar-day based so a given lure/fly report stays stable for
+ * the rest of the local day.
+ * TTL: respects cache_expires_at from server response (location midnight).
  *
  * Mirrors the howFishing.ts cache pattern exactly.
  */
@@ -24,6 +24,10 @@ function normalizeTimezone(raw: unknown): string {
   return typeof raw === 'string' && raw.trim().length > 0 ? raw.trim() : 'America/New_York';
 }
 
+function isIsoDate(raw: unknown): raw is string {
+  return typeof raw === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(raw);
+}
+
 function localDayKey(timezone: string, reference: Date): string {
   try {
     return new Intl.DateTimeFormat('en-CA', {
@@ -37,53 +41,22 @@ function localDayKey(timezone: string, reference: Date): string {
   }
 }
 
-function stableHash(input: string): string {
-  let hash = 5381;
-  for (let index = 0; index < input.length; index += 1) {
-    hash = (hash * 33) ^ input.charCodeAt(index);
+function extractRequestDay(params: Pick<RecommenderCallParams, 'target_date' | 'env_data'>): string {
+  if (isIsoDate(params.target_date)) {
+    return params.target_date;
   }
-  return (hash >>> 0).toString(36);
-}
-
-function extractEnvFingerprint(envData: Record<string, unknown>): { dayKey: string; envHash: string } {
-  const fetchedAtRaw = typeof envData.fetched_at === 'string' ? envData.fetched_at : null;
-  const timezone = normalizeTimezone(envData.timezone);
-  const fetchedAt = fetchedAtRaw ? new Date(fetchedAtRaw) : new Date();
-  const referenceDate = Number.isFinite(fetchedAt.getTime()) ? fetchedAt : new Date();
-  const weather =
-    envData.weather && typeof envData.weather === 'object'
-      ? (envData.weather as Record<string, unknown>)
-      : null;
-
-  const payload = JSON.stringify({
-    fetched_at: fetchedAtRaw,
-    timezone,
-    weather: weather
-      ? {
-          temperature: weather.temperature ?? null,
-          pressure: weather.pressure ?? null,
-          wind_speed: weather.wind_speed ?? null,
-          cloud_cover: weather.cloud_cover ?? null,
-          precipitation: weather.precipitation ?? null,
-        }
-      : null,
-  });
-
-  return {
-    dayKey: localDayKey(timezone, referenceDate),
-    envHash: stableHash(payload),
-  };
+  return localDayKey(normalizeTimezone(params.env_data.timezone), new Date());
 }
 
 function cacheKey(
   params: Pick<
     RecommenderCallParams,
-    'latitude' | 'longitude' | 'state_code' | 'context' | 'species' | 'water_clarity' | 'env_data'
+    'latitude' | 'longitude' | 'state_code' | 'context' | 'species' | 'water_clarity' | 'env_data' | 'target_date'
   >,
 ): string {
-  const { dayKey, envHash } = extractEnvFingerprint(params.env_data);
+  const dayKey = extractRequestDay(params);
   return [
-    'recommender_v4',
+    'recommender_v5',
     params.latitude.toFixed(3),
     params.longitude.toFixed(3),
     params.state_code.toUpperCase(),
@@ -91,7 +64,6 @@ function cacheKey(
     params.species,
     params.water_clarity,
     dayKey,
-    envHash,
   ].join('_');
 }
 
@@ -109,7 +81,6 @@ interface CacheEntry {
   species: SpeciesGroup;
   clarity: WaterClarity;
   day_key: string;
-  env_hash: string;
   cache_expires_at: string;
   result: RecommenderResponse;
 }
@@ -125,7 +96,7 @@ const _memCache = new Map<string, CacheEntry>();
  */
 function isCachedResultValid(result: RecommenderResponse): boolean {
   const summary = result.behavior?.behavior_summary;
-  if (!Array.isArray(summary) || summary.length === 0) return false;
+  if (!Array.isArray(summary) || summary[0] == null) return false;
   if (typeof (summary[0] as Record<string, unknown>)?.label !== 'string') return false;
   if (typeof result.color_of_day !== 'string') return false;
   return true;
@@ -180,7 +151,7 @@ async function setCachedResult(
   params: RecommenderCallParams,
   result: RecommenderResponse,
 ): Promise<void> {
-  const { dayKey, envHash } = extractEnvFingerprint(params.env_data);
+  const dayKey = extractRequestDay(params);
   const key = cacheKey(params);
   const entry: CacheEntry = {
     lat: params.latitude,
@@ -190,7 +161,6 @@ async function setCachedResult(
     species: params.species,
     clarity: params.water_clarity,
     day_key: dayKey,
-    env_hash: envHash,
     cache_expires_at: result.cache_expires_at,
     result,
   };
@@ -237,7 +207,8 @@ export async function clearRecommenderCache(): Promise<void> {
       (k) =>
         k.startsWith('recommender_v1_') ||
         k.startsWith('recommender_v3_') ||
-        k.startsWith('recommender_v4_'),
+        k.startsWith('recommender_v4_') ||
+        k.startsWith('recommender_v5_'),
     );
     if (toRemove.length > 0) {
       await AsyncStorage.multiRemove(toRemove);

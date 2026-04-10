@@ -1,0 +1,681 @@
+{
+  "generated_at": "2026-04-10T14:13:21.940Z",
+  "total_pairs": 7,
+  "total_checks": 14,
+  "passed_checks": 14,
+  "failed_checks": 0,
+  "pairs": [
+    {
+      "id": "florida_may_overcast_vs_bright",
+      "label": "Florida May bass: overcast midday vs bright midday",
+      "checks": [
+        {
+          "label": "Overcast midday opens a bounded surface lane",
+          "pass": true,
+          "detail": "left surface=watch; left lure=texas_rigged_stick_worm, swim_jig, hollow_body_frog; left fly=woolly_bugger, game_changer, rabbit_strip_leech"
+        },
+        {
+          "label": "Bright midday suppresses frog options",
+          "pass": true,
+          "detail": "right surface=off; right lure=texas_rigged_stick_worm, swim_jig, paddle_tail_swimbait; right fly=woolly_bugger, game_changer, rabbit_strip_leech"
+        }
+      ],
+      "left": {
+        "id": "fl_may_overcast_midday",
+        "label": "Florida May overcast midday",
+        "species": "largemouth_bass",
+        "context": "freshwater_lake_pond",
+        "region_key": "florida",
+        "month": 5,
+        "water_clarity": "stained",
+        "daily_payload": {
+          "surface_window": "watch",
+          "reaction_window": "on",
+          "finesse_window": "off",
+          "pace_bias": "fast"
+        },
+        "resolved_profile": {
+          "final_water_column": "shallow",
+          "final_mood": "active",
+          "final_presentation_style": "balanced"
+        },
+        "lure_top3": [
+          "texas_rigged_stick_worm",
+          "swim_jig",
+          "hollow_body_frog"
+        ],
+        "fly_top3": [
+          "woolly_bugger",
+          "game_changer",
+          "rabbit_strip_leech"
+        ],
+        "lure_lanes": [
+          "cover_weedless",
+          "horizontal_search",
+          "cover_weedless"
+        ],
+        "fly_lanes": [
+          "fly_bottom",
+          "fly_baitfish",
+          "fly_bottom"
+        ]
+      },
+      "right": {
+        "id": "fl_may_bright_midday",
+        "label": "Florida May bright midday",
+        "species": "largemouth_bass",
+        "context": "freshwater_lake_pond",
+        "region_key": "florida",
+        "month": 5,
+        "water_clarity": "stained",
+        "daily_payload": {
+          "surface_window": "off",
+          "reaction_window": "watch",
+          "finesse_window": "off",
+          "pace_bias": "fast"
+        },
+        "resolved_profile": {
+          "final_water_column": "shallow",
+          "final_mood": "active",
+          "final_presentation_style": "balanced"
+        },
+        "lure_top3": [
+          "texas_rigged_stick_worm",
+          "swim_jig",
+          "paddle_tail_swimbait"
+        ],
+        "fly_top3": [
+          "woolly_bugger",
+          "game_changer",
+          "rabbit_strip_leech"
+        ],
+        "lure_lanes": [
+          "cover_weedless",
+          "horizontal_search",
+          "horizontal_search"
+        ],
+        "fly_lanes": [
+          "fly_bottom",
+          "fly_baitfish",
+          "fly_bottom"
+        ]
+      }
+    },
+    {
+      "id": "largemouth_finesse_vs_reaction",
+      "label": "Largemouth daily posture: winter post-front finesse vs fall reaction",
+      "checks": [
+        {
+          "label": "Winter post-front day resolves to finesse/slow without surface or search noise",
+          "pass": true,
+          "detail": "left lanes=bottom_contact, cover_weedless, bottom_contact; pace=slow"
+        },
+        {
+          "label": "Productive fall day resolves to reaction/fast without bottom drag",
+          "pass": true,
+          "detail": "right lanes=horizontal_search, reaction_mid_column, horizontal_search; pace=fast"
+        }
+      ],
+      "left": {
+        "id": "tx_winter_finesse",
+        "label": "Texas winter post-front bright day",
+        "species": "largemouth_bass",
+        "context": "freshwater_lake_pond",
+        "region_key": "south_central",
+        "month": 12,
+        "water_clarity": "clear",
+        "daily_payload": {
+          "surface_window": "off",
+          "reaction_window": "off",
+          "finesse_window": "on",
+          "pace_bias": "slow"
+        },
+        "resolved_profile": {
+          "final_water_column": "bottom",
+          "final_mood": "negative",
+          "final_presentation_style": "subtle"
+        },
+        "lure_top3": [
+          "shaky_head_worm",
+          "texas_rigged_soft_plastic_craw",
+          "football_jig"
+        ],
+        "fly_top3": [
+          "balanced_leech",
+          "sculpin_streamer",
+          "rabbit_strip_leech"
+        ],
+        "lure_lanes": [
+          "bottom_contact",
+          "cover_weedless",
+          "bottom_contact"
+        ],
+        "fly_lanes": [
+          "fly_bottom",
+          "fly_bottom",
+          "fly_bottom"
+        ]
+      },
+      "right": {
+        "id": "tx_fall_reaction",
+        "label": "Texas productive windy fall day",
+        "species": "largemouth_bass",
+        "context": "freshwater_lake_pond",
+        "region_key": "south_central",
+        "month": 10,
+        "water_clarity": "clear",
+        "daily_payload": {
+          "surface_window": "on",
+          "reaction_window": "on",
+          "finesse_window": "off",
+          "pace_bias": "fast"
+        },
+        "resolved_profile": {
+          "final_water_column": "shallow",
+          "final_mood": "active",
+          "final_presentation_style": "balanced"
+        },
+        "lure_top3": [
+          "squarebill_crankbait",
+          "suspending_jerkbait",
+          "paddle_tail_swimbait"
+        ],
+        "fly_top3": [
+          "clouser_minnow",
+          "game_changer",
+          "deceiver"
+        ],
+        "lure_lanes": [
+          "horizontal_search",
+          "reaction_mid_column",
+          "horizontal_search"
+        ],
+        "fly_lanes": [
+          "fly_baitfish",
+          "fly_baitfish",
+          "fly_baitfish"
+        ]
+      }
+    },
+    {
+      "id": "florida_july_lowlight_vs_heat",
+      "label": "Florida July bass: productive low-light vs heat-limited midday",
+      "checks": [
+        {
+          "label": "Good low-light summer day keeps surface and topwater available",
+          "pass": true,
+          "detail": "left surface=on; lures=buzzbait, hollow_body_frog, swim_jig; flies=frog_fly, game_changer, mouse_fly"
+        },
+        {
+          "label": "Heat-limited midday shuts off surface and slows/deepens the day",
+          "pass": true,
+          "detail": "right water=mid; lures=swim_jig, compact_flipping_jig, bladed_jig; flies=game_changer, woolly_bugger, clouser_minnow"
+        }
+      ],
+      "left": {
+        "id": "fl_july_lowlight",
+        "label": "Florida July low-light shoulder window",
+        "species": "largemouth_bass",
+        "context": "freshwater_lake_pond",
+        "region_key": "florida",
+        "month": 7,
+        "water_clarity": "stained",
+        "daily_payload": {
+          "surface_window": "on",
+          "reaction_window": "on",
+          "finesse_window": "off",
+          "pace_bias": "fast"
+        },
+        "resolved_profile": {
+          "final_water_column": "shallow",
+          "final_mood": "active",
+          "final_presentation_style": "bold"
+        },
+        "lure_top3": [
+          "buzzbait",
+          "hollow_body_frog",
+          "swim_jig"
+        ],
+        "fly_top3": [
+          "frog_fly",
+          "game_changer",
+          "mouse_fly"
+        ],
+        "lure_lanes": [
+          "surface",
+          "cover_weedless",
+          "horizontal_search"
+        ],
+        "fly_lanes": [
+          "fly_surface",
+          "fly_baitfish",
+          "fly_surface"
+        ]
+      },
+      "right": {
+        "id": "fl_july_heat_midday",
+        "label": "Florida July bright heat-limited midday",
+        "species": "largemouth_bass",
+        "context": "freshwater_lake_pond",
+        "region_key": "florida",
+        "month": 7,
+        "water_clarity": "stained",
+        "daily_payload": {
+          "surface_window": "off",
+          "reaction_window": "off",
+          "finesse_window": "on",
+          "pace_bias": "slow"
+        },
+        "resolved_profile": {
+          "final_water_column": "mid",
+          "final_mood": "neutral",
+          "final_presentation_style": "bold"
+        },
+        "lure_top3": [
+          "swim_jig",
+          "compact_flipping_jig",
+          "bladed_jig"
+        ],
+        "fly_top3": [
+          "game_changer",
+          "woolly_bugger",
+          "clouser_minnow"
+        ],
+        "lure_lanes": [
+          "horizontal_search",
+          "cover_weedless",
+          "horizontal_search"
+        ],
+        "fly_lanes": [
+          "fly_baitfish",
+          "fly_bottom",
+          "fly_baitfish"
+        ]
+      }
+    },
+    {
+      "id": "smallmouth_surface_rotation",
+      "label": "Smallmouth summer lake: low-light surface window vs bright restraint",
+      "checks": [
+        {
+          "label": "Low-light summer smallmouth allows surface options",
+          "pass": true,
+          "detail": "left lure lanes=surface, horizontal_search, surface; fly lanes=fly_surface, fly_baitfish, fly_surface"
+        },
+        {
+          "label": "Bright summer smallmouth removes surface options",
+          "pass": true,
+          "detail": "right lure lanes=finesse_subtle, bottom_contact, horizontal_search; fly lanes=fly_baitfish, fly_bottom, fly_baitfish"
+        }
+      ],
+      "left": {
+        "id": "smallmouth_lowlight",
+        "label": "Great Lakes summer smallmouth low light",
+        "species": "smallmouth_bass",
+        "context": "freshwater_lake_pond",
+        "region_key": "great_lakes_upper_midwest",
+        "month": 7,
+        "water_clarity": "clear",
+        "daily_payload": {
+          "surface_window": "on",
+          "reaction_window": "on",
+          "finesse_window": "off",
+          "pace_bias": "fast"
+        },
+        "resolved_profile": {
+          "final_water_column": "shallow",
+          "final_mood": "active",
+          "final_presentation_style": "bold"
+        },
+        "lure_top3": [
+          "popping_topwater",
+          "spinnerbait",
+          "walking_topwater"
+        ],
+        "fly_top3": [
+          "popper_fly",
+          "clouser_minnow",
+          "mouse_fly"
+        ],
+        "lure_lanes": [
+          "surface",
+          "horizontal_search",
+          "surface"
+        ],
+        "fly_lanes": [
+          "fly_surface",
+          "fly_baitfish",
+          "fly_surface"
+        ]
+      },
+      "right": {
+        "id": "smallmouth_bright",
+        "label": "Great Lakes summer smallmouth bright midday",
+        "species": "smallmouth_bass",
+        "context": "freshwater_lake_pond",
+        "region_key": "great_lakes_upper_midwest",
+        "month": 7,
+        "water_clarity": "clear",
+        "daily_payload": {
+          "surface_window": "off",
+          "reaction_window": "off",
+          "finesse_window": "on",
+          "pace_bias": "slow"
+        },
+        "resolved_profile": {
+          "final_water_column": "shallow",
+          "final_mood": "active",
+          "final_presentation_style": "bold"
+        },
+        "lure_top3": [
+          "hair_jig",
+          "tube_jig",
+          "spinnerbait"
+        ],
+        "fly_top3": [
+          "clouser_minnow",
+          "woolly_bugger",
+          "game_changer"
+        ],
+        "lure_lanes": [
+          "finesse_subtle",
+          "bottom_contact",
+          "horizontal_search"
+        ],
+        "fly_lanes": [
+          "fly_baitfish",
+          "fly_bottom",
+          "fly_baitfish"
+        ]
+      }
+    },
+    {
+      "id": "trout_mouse_vs_river_wind",
+      "label": "Western midsummer trout: mouse window vs strong river wind",
+      "checks": [
+        {
+          "label": "Mouse window truly elevates mouse fly",
+          "pass": true,
+          "detail": "left surface=on; left fly=mouse_fly, slim_minnow_streamer, clouser_minnow"
+        },
+        {
+          "label": "Strong river wind removes the mouse lane",
+          "pass": true,
+          "detail": "right surface=watch; right fly=slim_minnow_streamer, clouser_minnow, zonker_streamer"
+        }
+      ],
+      "left": {
+        "id": "trout_mouse_window",
+        "label": "Western midsummer trout mouse window",
+        "species": "trout",
+        "context": "freshwater_river",
+        "region_key": "mountain_west",
+        "month": 7,
+        "water_clarity": "clear",
+        "daily_payload": {
+          "surface_window": "on",
+          "reaction_window": "on",
+          "finesse_window": "off",
+          "pace_bias": "fast"
+        },
+        "resolved_profile": {
+          "final_water_column": "shallow",
+          "final_mood": "active",
+          "final_presentation_style": "balanced"
+        },
+        "lure_top3": [
+          "inline_spinner",
+          "casting_spoon",
+          "soft_jerkbait"
+        ],
+        "fly_top3": [
+          "mouse_fly",
+          "slim_minnow_streamer",
+          "clouser_minnow"
+        ],
+        "lure_lanes": [
+          "horizontal_search",
+          "reaction_mid_column",
+          "horizontal_search"
+        ],
+        "fly_lanes": [
+          "fly_surface",
+          "fly_baitfish",
+          "fly_baitfish"
+        ]
+      },
+      "right": {
+        "id": "trout_mouse_windy",
+        "label": "Western midsummer trout strong river wind",
+        "species": "trout",
+        "context": "freshwater_river",
+        "region_key": "mountain_west",
+        "month": 7,
+        "water_clarity": "clear",
+        "daily_payload": {
+          "surface_window": "watch",
+          "reaction_window": "on",
+          "finesse_window": "off",
+          "pace_bias": "fast"
+        },
+        "resolved_profile": {
+          "final_water_column": "shallow",
+          "final_mood": "active",
+          "final_presentation_style": "balanced"
+        },
+        "lure_top3": [
+          "inline_spinner",
+          "casting_spoon",
+          "soft_jerkbait"
+        ],
+        "fly_top3": [
+          "slim_minnow_streamer",
+          "clouser_minnow",
+          "zonker_streamer"
+        ],
+        "lure_lanes": [
+          "horizontal_search",
+          "reaction_mid_column",
+          "horizontal_search"
+        ],
+        "fly_lanes": [
+          "fly_baitfish",
+          "fly_baitfish",
+          "fly_baitfish"
+        ]
+      }
+    },
+    {
+      "id": "trout_warmup_vs_coldsnap",
+      "label": "Western midsummer trout: warmup vs cold snap",
+      "checks": [
+        {
+          "label": "Warmup stays shallow and fast",
+          "pass": true,
+          "detail": "left reaction=on; left pace=fast; left water=shallow"
+        },
+        {
+          "label": "Cold snap slows and deepens with a hair-jig fallback",
+          "pass": true,
+          "detail": "right finesse=on; right pace=slow; right water=mid; right lures=inline_spinner, hair_jig, soft_jerkbait"
+        }
+      ],
+      "left": {
+        "id": "trout_warmup",
+        "label": "Western midsummer trout warming day",
+        "species": "trout",
+        "context": "freshwater_river",
+        "region_key": "mountain_west",
+        "month": 7,
+        "water_clarity": "clear",
+        "daily_payload": {
+          "surface_window": "on",
+          "reaction_window": "on",
+          "finesse_window": "off",
+          "pace_bias": "fast"
+        },
+        "resolved_profile": {
+          "final_water_column": "shallow",
+          "final_mood": "active",
+          "final_presentation_style": "balanced"
+        },
+        "lure_top3": [
+          "inline_spinner",
+          "casting_spoon",
+          "soft_jerkbait"
+        ],
+        "fly_top3": [
+          "mouse_fly",
+          "slim_minnow_streamer",
+          "clouser_minnow"
+        ],
+        "lure_lanes": [
+          "horizontal_search",
+          "reaction_mid_column",
+          "horizontal_search"
+        ],
+        "fly_lanes": [
+          "fly_surface",
+          "fly_baitfish",
+          "fly_baitfish"
+        ]
+      },
+      "right": {
+        "id": "trout_coldsnap",
+        "label": "Western midsummer trout cold snap",
+        "species": "trout",
+        "context": "freshwater_river",
+        "region_key": "mountain_west",
+        "month": 7,
+        "water_clarity": "clear",
+        "daily_payload": {
+          "surface_window": "off",
+          "reaction_window": "off",
+          "finesse_window": "on",
+          "pace_bias": "slow"
+        },
+        "resolved_profile": {
+          "final_water_column": "mid",
+          "final_mood": "neutral",
+          "final_presentation_style": "balanced"
+        },
+        "lure_top3": [
+          "inline_spinner",
+          "hair_jig",
+          "soft_jerkbait"
+        ],
+        "fly_top3": [
+          "muddler_sculpin",
+          "slim_minnow_streamer",
+          "woolly_bugger"
+        ],
+        "lure_lanes": [
+          "horizontal_search",
+          "finesse_subtle",
+          "horizontal_search"
+        ],
+        "fly_lanes": [
+          "fly_bottom",
+          "fly_baitfish",
+          "fly_bottom"
+        ]
+      }
+    },
+    {
+      "id": "pike_lowlight_vs_bright",
+      "label": "Northern pike summer: low-light surface opening vs bright restraint",
+      "checks": [
+        {
+          "label": "Low-light pike opens at least one surface-adjacent option",
+          "pass": true,
+          "detail": "left lures=large_profile_pike_swimbait, walking_topwater, spinnerbait; left flies=large_articulated_pike_streamer, frog_fly, game_changer"
+        },
+        {
+          "label": "Bright pike day removes surface-adjacent options",
+          "pass": true,
+          "detail": "right lures=large_profile_pike_swimbait, spinnerbait, pike_jerkbait; right flies=large_articulated_pike_streamer, game_changer, pike_bunny_streamer"
+        }
+      ],
+      "left": {
+        "id": "pike_lowlight",
+        "label": "Northern pike summer low light",
+        "species": "northern_pike",
+        "context": "freshwater_lake_pond",
+        "region_key": "great_lakes_upper_midwest",
+        "month": 7,
+        "water_clarity": "stained",
+        "daily_payload": {
+          "surface_window": "on",
+          "reaction_window": "on",
+          "finesse_window": "off",
+          "pace_bias": "fast"
+        },
+        "resolved_profile": {
+          "final_water_column": "shallow",
+          "final_mood": "active",
+          "final_presentation_style": "balanced"
+        },
+        "lure_top3": [
+          "large_profile_pike_swimbait",
+          "walking_topwater",
+          "spinnerbait"
+        ],
+        "fly_top3": [
+          "large_articulated_pike_streamer",
+          "frog_fly",
+          "game_changer"
+        ],
+        "lure_lanes": [
+          "pike_big_profile",
+          "surface",
+          "horizontal_search"
+        ],
+        "fly_lanes": [
+          "pike_big_profile",
+          "fly_surface",
+          "fly_baitfish"
+        ]
+      },
+      "right": {
+        "id": "pike_bright",
+        "label": "Northern pike summer bright midday",
+        "species": "northern_pike",
+        "context": "freshwater_lake_pond",
+        "region_key": "great_lakes_upper_midwest",
+        "month": 7,
+        "water_clarity": "stained",
+        "daily_payload": {
+          "surface_window": "off",
+          "reaction_window": "off",
+          "finesse_window": "watch",
+          "pace_bias": "slow"
+        },
+        "resolved_profile": {
+          "final_water_column": "shallow",
+          "final_mood": "active",
+          "final_presentation_style": "balanced"
+        },
+        "lure_top3": [
+          "large_profile_pike_swimbait",
+          "spinnerbait",
+          "pike_jerkbait"
+        ],
+        "fly_top3": [
+          "large_articulated_pike_streamer",
+          "game_changer",
+          "pike_bunny_streamer"
+        ],
+        "lure_lanes": [
+          "pike_big_profile",
+          "horizontal_search",
+          "pike_big_profile"
+        ],
+        "fly_lanes": [
+          "pike_big_profile",
+          "fly_baitfish",
+          "pike_big_profile"
+        ]
+      }
+    }
+  ]
+}

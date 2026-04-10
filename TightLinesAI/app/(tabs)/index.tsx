@@ -1,5 +1,12 @@
 import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
-import { AppState, type AppStateStatus, View, Text, StyleSheet, ScrollView, Pressable, Alert } from 'react-native';
+import { AppState, type AppStateStatus, View, Text, StyleSheet, ScrollView, Pressable, Image, Dimensions } from 'react-native';
+
+const LOGO = require('../../assets/images/fish/new_logo.png');
+
+// Calendar sizing — 6 cards + 5 gaps must fit inside content width (screen - 40px padding)
+const SCREEN_W = Dimensions.get('window').width;
+const CAL_GAP = 6;
+const CAL_CARD_W = Math.floor((SCREEN_W - 40 - CAL_GAP * 5) / 6);
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { useFocusEffect } from '@react-navigation/native';
@@ -408,43 +415,45 @@ export default function HomeScreen() {
       >
         {/* ─── Header ─── */}
         <View style={styles.header}>
-          <View style={styles.brandRow}>
-            <View style={styles.brandIconWrap}>
-              <Ionicons name="fish" size={16} color={colors.textOnPrimary} />
+          {/* Row 1: FinFindr left — location pill right, perfectly baseline-aligned */}
+          <View style={styles.headerTopRow}>
+            <View style={styles.brandRow}>
+              <Image source={LOGO} style={styles.brandLogo} resizeMode="contain" />
+              <Text style={styles.brand}>FinFindr</Text>
             </View>
-            <Text style={styles.brand}>TightLines AI</Text>
+            <Pressable
+              style={({ pressed }) => [
+                styles.locationRow,
+                pressed && styles.locationRowPressed,
+              ]}
+              onPress={() => setShowLocationPicker(true)}
+            >
+              <Ionicons
+                name={useCustom && savedLocation ? 'pin' : 'locate-outline'}
+                size={12}
+                color={useCustom && savedLocation ? colors.primary : colors.textMuted}
+              />
+              <Text style={styles.locationRowLabel} numberOfLines={1} ellipsizeMode="tail">
+                {locationLabel}
+              </Text>
+              {useCustom && savedLocation ? (
+                <View style={styles.locationCustomChip}>
+                  <Text style={styles.locationCustomChipText}>Custom</Text>
+                </View>
+              ) : (
+                <View style={styles.locationGpsChip}>
+                  <Text style={styles.locationGpsChipText}>GPS</Text>
+                </View>
+              )}
+              <Ionicons name="chevron-down" size={10} color={colors.textMuted} />
+            </Pressable>
           </View>
-          <Text style={styles.greeting}>
-            {getGreeting()}. What's the plan?
-          </Text>
 
-          {/* ── Location Row ── */}
-          <Pressable
-            style={({ pressed }) => [
-              styles.locationRow,
-              pressed && styles.locationRowPressed,
-            ]}
-            onPress={() => setShowLocationPicker(true)}
-          >
-            <Ionicons
-              name={useCustom && savedLocation ? 'pin' : 'locate-outline'}
-              size={13}
-              color={useCustom && savedLocation ? colors.primary : colors.textMuted}
-            />
-            <Text style={styles.locationRowLabel} numberOfLines={1}>
-              {locationLabel}
-            </Text>
-            {useCustom && savedLocation ? (
-              <View style={styles.locationCustomChip}>
-                <Text style={styles.locationCustomChipText}>Custom</Text>
-              </View>
-            ) : (
-              <View style={styles.locationGpsChip}>
-                <Text style={styles.locationGpsChipText}>GPS</Text>
-              </View>
-            )}
-            <Ionicons name="chevron-down" size={11} color={colors.textMuted} />
-          </Pressable>
+          {/* Full-width green accent line — clean visual break */}
+          <View style={styles.headerLine} />
+
+          {/* Tagline centered */}
+          <Text style={styles.greeting}>We help you find more fins.</Text>
         </View>
 
         {/* ─── Location Picker Modal ─── */}
@@ -535,7 +544,7 @@ export default function HomeScreen() {
                 <Ionicons name="sparkles" size={10} color={colors.primary} />
                 <Text style={styles.heroBadgeText}>AI-Enhanced</Text>
               </View>
-              <Text style={styles.heroTitle}>How's Fishing{'\n'}Right Now?</Text>
+              <Text style={styles.heroTitle} numberOfLines={1} adjustsFontSizeToFit>{"How's Fishing Right Now?"}</Text>
               <Text style={styles.heroSubtitle}>
                 Real-time conditions, timing, and strategy
               </Text>
@@ -582,6 +591,31 @@ export default function HomeScreen() {
           </View>
         </Pressable>
 
+        {/* ─── Water Reader Card ─── */}
+        <Pressable
+          style={({ pressed }) => [
+            styles.recommenderCard,
+            pressed && styles.recommenderCardPressed,
+          ]}
+          onPress={() => {/* placeholder — page coming soon */}}
+        >
+          <View style={[styles.recommenderAccentBar, { backgroundColor: colors.waterBlue }]} />
+          <View style={styles.recommenderBody}>
+            <View style={styles.recommenderLeft}>
+              <View style={[styles.recommenderIconWrap, { backgroundColor: colors.waterBlue + '18' }]}>
+                <Ionicons name="scan-outline" size={18} color={colors.waterBlue} />
+              </View>
+              <View style={styles.recommenderTextBlock}>
+                <Text style={styles.recommenderTitle}>Water Reader</Text>
+                <Text style={styles.recommenderSubtitle} numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.75}>
+                  Identify where to fish in your lake or pond
+                </Text>
+              </View>
+            </View>
+            <Ionicons name="chevron-forward" size={18} color={colors.textMuted} />
+          </View>
+        </Pressable>
+
         <SubscribePrompt
           visible={showSubscribePrompt}
           onDismiss={() => setShowSubscribePrompt(false)}
@@ -590,6 +624,14 @@ export default function HomeScreen() {
             router.push('/subscribe');
           }}
         />
+
+        {/* ─── Live Conditions section label ─── */}
+        <View style={styles.sectionDividerRow}>
+          <View style={styles.sectionDividerLine} />
+          <Ionicons name="radio-outline" size={11} color={colors.primary} />
+          <Text style={styles.sectionDividerText}>LIVE CONDITIONS</Text>
+          <View style={styles.sectionDividerLine} />
+        </View>
 
         {/* ─── Live Conditions ─── */}
         <LiveConditionsWidget
@@ -602,61 +644,14 @@ export default function HomeScreen() {
           onPress={handleHowFishingPress}
         />
 
-        {/* ─── Section Label ─── */}
-        <View style={styles.sectionHeader}>
-          <Text style={styles.sectionTitle}>Tools</Text>
-          <View style={styles.sectionLine} />
-        </View>
-
-        {/* ─── Feature Tiles ─── */}
-        <View style={styles.tiles}>
-          {/* Water Reader */}
-          <Pressable
-            style={({ pressed }) => [
-              styles.featureCard,
-              pressed && styles.featureCardPressed,
-            ]}
-            onPress={() => router.push('/water-reader')}
-          >
-            <View style={styles.featureTop}>
-              <View style={[styles.featureIconWrap, { backgroundColor: colors.waterBlue + '14' }]}>
-                <Ionicons name="scan" size={20} color={colors.waterBlue} />
-              </View>
-              <View style={styles.featureArrow}>
-                <Ionicons name="chevron-forward" size={18} color={colors.textMuted} />
-              </View>
-            </View>
-            <Text style={styles.featureTitle}>Water Reader</Text>
-            <Text style={styles.featureDesc}>
-              Analyze river photos and satellite images with AI-powered visual overlays.
-            </Text>
-            <View style={[styles.aiBadge, { backgroundColor: colors.waterBlue + '14' }]}>
-              <Ionicons name="sparkles" size={10} color={colors.waterBlue} />
-              <Text style={[styles.aiBadgeText, { color: colors.waterBlue }]}>AI-Powered</Text>
-            </View>
-          </Pressable>
-
-          {/* Trip Planner — Coming Soon */}
-          <View style={styles.featureCardDisabled}>
-            <View style={styles.featureTop}>
-              <View style={[styles.featureIconWrap, { backgroundColor: colors.plannerYellow + '14' }]}>
-                <Ionicons name="calendar-outline" size={20} color={colors.plannerYellow} />
-              </View>
-              <View style={styles.comingSoonPill}>
-                <Text style={styles.comingSoonText}>Coming Soon</Text>
-              </View>
-            </View>
-            <Text style={styles.featureTitleDisabled}>Trip Planner</Text>
-            <Text style={styles.featureDescDisabled}>
-              Plan your trip with ranked fishing windows from weather, tides, and solunar data.
-            </Text>
-          </View>
-        </View>
-
         {/* ─── Tagline ─── */}
-        <Text style={styles.tagline}>
-          Tight lines start with better intel.
-        </Text>
+        <View style={styles.taglineRow}>
+          <View style={styles.taglineLine} />
+          <Ionicons name="fish-outline" size={12} color={colors.textMuted} style={{ opacity: 0.5 }} />
+          <Text style={styles.tagline}>Tight lines start with better intel.</Text>
+          <Ionicons name="fish-outline" size={12} color={colors.textMuted} style={{ opacity: 0.5 }} />
+          <View style={styles.taglineLine} />
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
@@ -669,32 +664,42 @@ const styles = StyleSheet.create({
 
   /* Header */
   header: { paddingTop: spacing.xl, marginBottom: spacing.lg },
+  headerTopRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  headerLine: {
+    height: 2,
+    borderRadius: 99,
+    backgroundColor: colors.primary,
+    opacity: 0.45,
+    marginTop: 8,
+    marginBottom: 8,
+  },
   brandRow: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: spacing.sm + 2,
-    marginBottom: spacing.sm,
   },
-  brandIconWrap: {
-    width: 32,
-    height: 32,
-    borderRadius: 10,
-    backgroundColor: colors.primary,
-    alignItems: 'center',
-    justifyContent: 'center',
+  brandLogo: {
+    width: 44,
+    height: 44,
   },
   brand: {
-    fontFamily: fonts.serif,
-    fontSize: 28,
+    fontFamily: fonts.serifBold,
+    fontSize: 30,
     color: colors.text,
-    letterSpacing: 0.3,
+    letterSpacing: -0.3,
   },
   greeting: {
-    fontFamily: fonts.body,
-    fontSize: 16,
-    color: colors.textSecondary,
+    fontFamily: fonts.bodyItalic,
+    fontSize: 15,
+    color: colors.textMuted,
     lineHeight: 22,
     marginBottom: 10,
+    letterSpacing: 0.1,
+    textAlign: 'center',
   },
 
   /* Location Row */
@@ -702,13 +707,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 6,
-    alignSelf: 'flex-start',
+    alignSelf: 'center',
     paddingVertical: 6,
     paddingHorizontal: 10,
     backgroundColor: colors.surface,
     borderRadius: radius.full,
     borderWidth: 1,
     borderColor: colors.border,
+    maxWidth: 210,
   },
   locationRowPressed: {
     backgroundColor: colors.primaryMist,
@@ -716,9 +722,9 @@ const styles = StyleSheet.create({
   },
   locationRowLabel: {
     fontFamily: fonts.bodySemiBold,
-    fontSize: 13,
+    fontSize: 12,
     color: colors.text,
-    maxWidth: 180,
+    maxWidth: 120,
   },
   locationCustomChip: {
     backgroundColor: colors.primary + '18',
@@ -750,11 +756,11 @@ const styles = StyleSheet.create({
   /* Hero Card — How's Fishing */
   heroCard: {
     backgroundColor: colors.surface,
-    borderRadius: radius.lg,
-    padding: 16,
+    borderRadius: radius.xl,
+    padding: 14,
     marginBottom: spacing.md,
-    borderWidth: 1,
-    borderColor: colors.primary + '20',
+    borderWidth: 1.5,
+    borderColor: colors.primaryMistDark,
     ...shadows.lg,
   },
   heroCardPressed: {
@@ -765,7 +771,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
-    marginBottom: spacing.md,
+    marginBottom: spacing.sm,
   },
   heroLeft: { flex: 1, paddingRight: spacing.md },
   heroBadge: {
@@ -786,11 +792,12 @@ const styles = StyleSheet.create({
     letterSpacing: 0.3,
   },
   heroTitle: {
-    fontFamily: fonts.serif,
-    fontSize: 22,
+    fontFamily: fonts.serifBold,
+    fontSize: 18,
     color: colors.text,
-    lineHeight: 28,
+    lineHeight: 24,
     marginBottom: spacing.xs + 2,
+    letterSpacing: -0.2,
   },
   heroSubtitle: {
     fontFamily: fonts.body,
@@ -804,17 +811,17 @@ const styles = StyleSheet.create({
     paddingTop: spacing.sm,
   },
   heroPulseOuter: {
-    width: 56,
-    height: 56,
-    borderRadius: 28,
+    width: 48,
+    height: 48,
+    borderRadius: 24,
     backgroundColor: colors.primaryMist,
     alignItems: 'center',
     justifyContent: 'center',
   },
   heroPulseInner: {
-    width: 38,
-    height: 38,
-    borderRadius: 19,
+    width: 32,
+    height: 32,
+    borderRadius: 16,
     backgroundColor: colors.primaryLight,
     alignItems: 'center',
     justifyContent: 'center',
@@ -870,13 +877,12 @@ const styles = StyleSheet.create({
     color: colors.textMuted,
   },
   calendarRow: {
-    gap: 8,
-    paddingRight: 4,
+    gap: CAL_GAP,
   },
   calendarDay: {
-    width: 76,
-    paddingTop: 12,
-    paddingHorizontal: 8,
+    width: CAL_CARD_W,
+    paddingTop: 9,
+    paddingHorizontal: 4,
     paddingBottom: 0,
     backgroundColor: colors.surface,
     borderRadius: radius.md,
@@ -895,16 +901,16 @@ const styles = StyleSheet.create({
     transform: [{ scale: 0.95 }],
   },
   calendarDaySkeleton: {
-    height: 124,
+    height: 104,
     backgroundColor: colors.border,
     opacity: 0.35,
   },
   calendarDayLabel: {
     fontFamily: fonts.bodyBold,
-    fontSize: 10,
+    fontSize: 9,
     color: colors.textMuted,
     textTransform: 'uppercase',
-    letterSpacing: 0.7,
+    letterSpacing: 0.5,
     textAlign: 'center',
   },
   calendarDayLabelToday: {
@@ -912,11 +918,11 @@ const styles = StyleSheet.create({
   },
   calendarDateNum: {
     fontFamily: fonts.body,
-    fontSize: 11,
+    fontSize: 10,
     color: colors.textSecondary,
     textAlign: 'center',
     marginTop: 1,
-    marginBottom: 6,
+    marginBottom: 4,
   },
   calendarDateNumToday: {
     color: colors.text,
@@ -929,17 +935,17 @@ const styles = StyleSheet.create({
   },
   calendarScore: {
     fontFamily: fonts.serifBold,
-    fontSize: 26,
-    letterSpacing: -0.5,
+    fontSize: 21,
+    letterSpacing: -0.4,
     textAlign: 'center',
   },
   calendarQuality: {
     fontFamily: fonts.bodyBold,
-    fontSize: 8,
+    fontSize: 7,
     textTransform: 'uppercase',
-    letterSpacing: 0.9,
+    letterSpacing: 0.7,
     textAlign: 'center',
-    marginBottom: 10,
+    marginBottom: 7,
   },
   calendarBar: {
     width: '100%',
@@ -1061,13 +1067,46 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     letterSpacing: 0.2,
   },
-  tagline: {
-    fontFamily: fonts.bodyItalic,
-    fontSize: 14,
-    color: colors.textMuted,
-    textAlign: 'center',
+  // Section divider (before Live Conditions)
+  sectionDividerRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    marginBottom: spacing.sm,
+    marginTop: spacing.xs,
+  },
+  sectionDividerLine: {
+    flex: 1,
+    height: 1,
+    backgroundColor: colors.borderLight,
+  },
+  sectionDividerText: {
+    fontFamily: fonts.bodyBold,
+    fontSize: 9,
+    color: colors.primary,
+    letterSpacing: 1.2,
+  },
+
+  // Tagline row
+  taglineRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 7,
     marginTop: spacing.xxl,
     marginBottom: spacing.md,
+    paddingHorizontal: spacing.sm,
+  },
+  taglineLine: {
+    flex: 1,
+    height: 1,
+    backgroundColor: colors.borderLight,
+  },
+  tagline: {
+    fontFamily: fonts.bodyItalic,
+    fontSize: 12,
+    color: colors.textMuted,
+    textAlign: 'center',
+    flexShrink: 1,
   },
 
   // ── Recommender card ──────────────────────────────────────────────────────

@@ -112,6 +112,7 @@ const COOL_SUMMER_RIVER_LURES: readonly LureArchetypeIdV3[] = [
   "casting_spoon",
   "paddle_tail_swimbait",
   "soft_jerkbait",
+  "hair_jig",
 ];
 const COOL_SUMMER_RIVER_FLIES: readonly FlyArchetypeIdV3[] = [
   "slim_minnow_streamer",

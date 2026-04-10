@@ -305,6 +305,125 @@ Deno.test("V3 Phase 8 keeps a real summer frog window available for largemouth",
   ));
 });
 
+Deno.test("V3 Phase 8 lets a Florida May surface window pull frog options into the mix", () => {
+  const result = scenario({
+    location: {
+      latitude: 28.54,
+      longitude: -81.38,
+      state_code: "FL",
+      region_key: "florida",
+      local_date: "2026-05-18",
+      local_timezone: "America/New_York",
+      month: 5,
+    },
+    species: "largemouth_bass",
+    context: "freshwater_lake_pond",
+    water_clarity: "stained",
+  }, {
+    scored: { score: 69, band: "Good" },
+    timing: {
+      timing_strength: "good",
+      highlighted_periods: [true, false, false, true],
+    },
+    condition_context: {
+      temperature_metabolic_context: "neutral",
+      temperature_trend: "warming",
+      temperature_shock: "none",
+    },
+    norm: {
+      normalized: {
+        pressure_regime: { label: "falling_slow", score: 0.7 },
+        wind_condition: { label: "light", score: 0.6 },
+        light_cloud_condition: { label: "low_light" },
+      },
+    },
+  });
+
+  assertEquals(result.daily_payload.surface_window, "on");
+  assert(ids(result.lure_recommendations).includes("hollow_body_frog"));
+  assert(ids(result.fly_recommendations).includes("frog_fly"));
+});
+
+Deno.test("V3 Phase 8 allows a watch-level overcast midday surface window for Florida May", () => {
+  const result = scenario({
+    location: {
+      latitude: 28.54,
+      longitude: -81.38,
+      state_code: "FL",
+      region_key: "florida",
+      local_date: "2026-05-18",
+      local_timezone: "America/New_York",
+      month: 5,
+    },
+    species: "largemouth_bass",
+    context: "freshwater_lake_pond",
+    water_clarity: "stained",
+  }, {
+    scored: { score: 69, band: "Good" },
+    timing: {
+      timing_strength: "fair",
+      highlighted_periods: [false, false, false, false],
+    },
+    condition_context: {
+      temperature_metabolic_context: "neutral",
+      temperature_trend: "warming",
+      temperature_shock: "none",
+    },
+    norm: {
+      normalized: {
+        pressure_regime: { label: "falling_slow", score: 0.7 },
+        wind_condition: { label: "light", score: 0.6 },
+        light_cloud_condition: { label: "heavy_overcast" },
+      },
+    },
+  });
+
+  assertEquals(result.daily_payload.surface_window, "watch");
+  assert(
+    ids(result.lure_recommendations).includes("hollow_body_frog") ||
+      ids(result.fly_recommendations).includes("frog_fly"),
+  );
+});
+
+Deno.test("V3 Phase 8 suppresses Florida May frog options when the surface window is off", () => {
+  const result = scenario({
+    location: {
+      latitude: 28.54,
+      longitude: -81.38,
+      state_code: "FL",
+      region_key: "florida",
+      local_date: "2026-05-18",
+      local_timezone: "America/New_York",
+      month: 5,
+    },
+    species: "largemouth_bass",
+    context: "freshwater_lake_pond",
+    water_clarity: "stained",
+  }, {
+    scored: { score: 69, band: "Good" },
+    timing: {
+      timing_strength: "good",
+      highlighted_periods: [true, false, false, true],
+    },
+    condition_context: {
+      temperature_metabolic_context: "neutral",
+      temperature_trend: "warming",
+      temperature_shock: "none",
+    },
+    norm: {
+      normalized: {
+        pressure_regime: { label: "falling_slow", score: 0.7 },
+        wind_condition: { label: "light", score: 0.6 },
+        light_cloud_condition: { label: "bright" },
+      },
+    },
+  });
+
+  assertEquals(result.daily_payload.surface_window, "off");
+  assert(!ids(result.lure_recommendations).includes("hollow_body_frog"));
+  assert(!ids(result.fly_recommendations).includes("frog_fly"));
+});
+
 Deno.test("V3 Phase 8 suppresses Florida midsummer bass surface flies when the daily window is off", () => {
   const result = scenario({
     location: {
@@ -413,9 +532,8 @@ Deno.test("V3 Phase 8 keeps midsummer trout mouse fishing sensitive to river win
   assertEquals(lightWind.daily_payload.surface_window, "on");
   assertEquals(lightWind.fly_recommendations[0]?.id, "mouse_fly");
   assertEquals(strongWind.daily_payload.surface_window, "watch");
-  assert(strongWind.fly_recommendations.some((candidate) =>
-    candidate.id === "mouse_fly"
-  ));
+  assertEquals(strongWind.fly_recommendations[0]?.id, "slim_minnow_streamer");
+  assert(!ids(strongWind.fly_recommendations).includes("mouse_fly"));
   assertEquals(extremeWind.daily_payload.surface_window, "off");
   assertEquals(extremeWind.fly_recommendations[0]?.id, "slim_minnow_streamer");
   assert(!ids(extremeWind.fly_recommendations).includes("mouse_fly"));

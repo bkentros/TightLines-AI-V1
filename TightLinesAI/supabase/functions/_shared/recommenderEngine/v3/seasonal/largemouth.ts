@@ -83,6 +83,10 @@ const SPAWN_LAKE_LURES: readonly LureArchetypeIdV3[] = [
   "swim_jig",
   "paddle_tail_swimbait",
 ];
+const SOUTHERN_MAY_FROG_LAKE_LURES: readonly LureArchetypeIdV3[] = [
+  ...SPAWN_LAKE_LURES,
+  "hollow_body_frog",
+];
 const SPAWN_LAKE_FLIES: readonly FlyArchetypeIdV3[] = [
   "woolly_bugger",
   "balanced_leech",
@@ -404,6 +408,7 @@ const TEXAS_SPAWN_TRANSITION_LAKE_LURES: readonly LureArchetypeIdV3[] = [
   "compact_flipping_jig",
   "wacky_rigged_stick_worm",
   "swim_jig",
+  "hollow_body_frog",
   "weightless_stick_worm",
   "paddle_tail_swimbait",
   "soft_jerkbait",
@@ -412,6 +417,7 @@ const TEXAS_SPAWN_TRANSITION_LAKE_LURES: readonly LureArchetypeIdV3[] = [
 const TEXAS_SPAWN_TRANSITION_LAKE_FLIES: readonly FlyArchetypeIdV3[] = [
   "clouser_minnow",
   "game_changer",
+  "frog_fly",
   "articulated_dungeon_streamer",
   "woolly_bugger",
   "rabbit_strip_leech",
@@ -577,10 +583,19 @@ const FLORIDA_POSTSPAWN_SHALLOW_LAKE_LURES: readonly LureArchetypeIdV3[] = [
   "wacky_rigged_stick_worm",
   "compact_flipping_jig",
   "swim_jig",
+  "hollow_body_frog",
   "paddle_tail_swimbait",
   "soft_jerkbait",
   "drop_shot_minnow",
   "spinnerbait",
+];
+const FLORIDA_MAY_SHALLOW_COVER_LAKE_LURES: readonly LureArchetypeIdV3[] = [
+  "texas_rigged_stick_worm",
+  "compact_flipping_jig",
+  "swim_jig",
+  "paddle_tail_swimbait",
+  "hollow_body_frog",
+  "soft_jerkbait",
 ];
 const FLORIDA_POSTSPAWN_SHALLOW_LAKE_FLIES: readonly FlyArchetypeIdV3[] = [
   "woolly_bugger",
@@ -1028,7 +1043,7 @@ addMonths(TROPICAL_WARM_REGIONS, "freshwater_lake_pond", [5], {
   base_presentation_style: "balanced",
   primary_forage: "crawfish",
   secondary_forage: "baitfish",
-  primary_lure_archetypes: ["compact_flipping_jig", "wacky_rigged_stick_worm"],
+  primary_lure_archetypes: ["compact_flipping_jig", "hollow_body_frog"],
   viable_lure_archetypes: TEXAS_SPAWN_TRANSITION_LAKE_LURES,
   primary_fly_archetypes: ["clouser_minnow", "game_changer"],
   viable_fly_archetypes: TEXAS_SPAWN_TRANSITION_LAKE_FLIES,
@@ -1177,6 +1192,17 @@ addMonths(SOUTHEAST_WARM_REGIONS, "freshwater_lake_pond", [4, 5], {
   secondary_forage: "baitfish",
   primary_lure_archetypes: ["compact_flipping_jig", "wacky_rigged_stick_worm"],
   viable_lure_archetypes: SPAWN_LAKE_LURES,
+  primary_fly_archetypes: ["woolly_bugger", "balanced_leech"],
+  viable_fly_archetypes: SPAWN_LAKE_FLIES,
+});
+addMonths(SOUTHEAST_WARM_REGIONS, "freshwater_lake_pond", [5], {
+  base_water_column: "shallow",
+  base_mood: "active",
+  base_presentation_style: "balanced",
+  primary_forage: "crawfish",
+  secondary_forage: "baitfish",
+  primary_lure_archetypes: ["compact_flipping_jig", "hollow_body_frog"],
+  viable_lure_archetypes: SOUTHERN_MAY_FROG_LAKE_LURES,
   primary_fly_archetypes: ["woolly_bugger", "balanced_leech"],
   viable_fly_archetypes: SPAWN_LAKE_FLIES,
 });
@@ -2084,12 +2110,12 @@ addMonths(["florida"], "freshwater_lake_pond", [4], {
 addMonths(["florida"], "freshwater_lake_pond", [5], {
   base_water_column: "shallow",
   base_mood: "neutral",
-  base_presentation_style: "subtle",
+  base_presentation_style: "balanced",
   primary_forage: "leech_worm",
   secondary_forage: "baitfish",
-  primary_lure_archetypes: ["wacky_rigged_stick_worm", "compact_flipping_jig"],
-  viable_lure_archetypes: FLORIDA_POSTSPAWN_SHALLOW_LAKE_LURES,
-  primary_fly_archetypes: ["woolly_bugger", "clouser_minnow"],
+  primary_lure_archetypes: ["texas_rigged_stick_worm", "hollow_body_frog"],
+  viable_lure_archetypes: FLORIDA_MAY_SHALLOW_COVER_LAKE_LURES,
+  primary_fly_archetypes: ["woolly_bugger", "frog_fly"],
   viable_fly_archetypes: FLORIDA_POSTSPAWN_SHALLOW_LAKE_FLIES,
 });
 addMonths(["florida"], "freshwater_lake_pond", [7], {
@@ -2550,28 +2576,17 @@ addMonths(["great_lakes_upper_midwest"], "freshwater_lake_pond", [7], {
   viable_fly_archetypes: SUMMER_LAKE_FLIES,
 });
 
-// Florida May shallow cover: a texas-rigged stick worm gets one true
-// weedless postspawn winner window instead of always trailing wacky or jig
-// lanes in the same seasonal bucket.
+// Florida May shallow cover: keep the texas-rig winner window intact, but let
+// frog earn real low-light pull as the secondary surface option.
 addMonths(["florida"], "freshwater_lake_pond", [5], {
   base_water_column: "shallow",
   base_mood: "neutral",
-  base_presentation_style: "subtle",
+  base_presentation_style: "balanced",
   primary_forage: "leech_worm",
   secondary_forage: "baitfish",
-  primary_lure_archetypes: [
-    "texas_rigged_stick_worm",
-    "compact_flipping_jig",
-  ],
-  viable_lure_archetypes: [
-    "texas_rigged_stick_worm",
-    "compact_flipping_jig",
-    "weightless_stick_worm",
-    "wacky_rigged_stick_worm",
-    "swim_jig",
-    "paddle_tail_swimbait",
-  ],
-  primary_fly_archetypes: ["woolly_bugger", "balanced_leech"],
+  primary_lure_archetypes: ["texas_rigged_stick_worm", "hollow_body_frog"],
+  viable_lure_archetypes: FLORIDA_MAY_SHALLOW_COVER_LAKE_LURES,
+  primary_fly_archetypes: ["woolly_bugger", "frog_fly"],
   viable_fly_archetypes: FLORIDA_POSTSPAWN_SHALLOW_LAKE_FLIES,
 });
 

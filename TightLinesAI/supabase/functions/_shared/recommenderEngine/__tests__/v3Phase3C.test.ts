@@ -216,6 +216,51 @@ Deno.test("V3 Phase 3C gives western midsummer trout a real mouse-fly window wit
   assertEquals(flies[0]?.id, "mouse_fly");
 });
 
+Deno.test("V3 Phase 3C lets a midsummer western trout cold snap reach a slower deeper fallback", () => {
+  const row = resolveSeasonalRowV3(
+    "trout",
+    "mountain_west",
+    7,
+    "freshwater_river",
+  );
+  const daily = resolveDailyPayloadV3(
+    analysis({
+      scored: { score: 48, band: "Fair" },
+      timing: {
+        timing_strength: "fair",
+        highlighted_periods: [false, false, false, false],
+      },
+      condition_context: {
+        temperature_metabolic_context: "cold_limited",
+        temperature_trend: "cooling",
+        temperature_shock: "sharp_cooldown",
+      },
+      norm: {
+        normalized: {
+          pressure_regime: { label: "rising_fast", score: -0.8 },
+          wind_condition: { label: "light", score: 0.5 },
+          light_cloud_condition: { label: "bright" },
+        },
+      },
+    }),
+    "freshwater_river",
+  );
+  const resolved = resolveFinalProfileV3(row, daily, "clear");
+  const lures = scoreLureCandidatesV3(
+    row,
+    resolved,
+    daily,
+    "clear",
+    "bright",
+  );
+
+  assertEquals(daily.surface_window, "off");
+  assertEquals(daily.finesse_window, "on");
+  assertEquals(daily.pace_bias, "slow");
+  assertEquals(resolved.final_water_column, "mid");
+  assert(lures.some((candidate) => candidate.id === "hair_jig"));
+});
+
 Deno.test("V3 Phase 3C rotates cool-summer trout baitfish flies by daily posture", () => {
   const row = resolveSeasonalRowV3(
     "trout",

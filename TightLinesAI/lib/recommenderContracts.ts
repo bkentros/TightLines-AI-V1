@@ -291,4 +291,5 @@ export type RecommenderCallParams = {
   context: EngineContext;
   water_clarity: WaterClarity;
   env_data: Record<string, unknown>;
+  target_date?: string;
 };

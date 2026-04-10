@@ -752,7 +752,7 @@ Deno.test("V3 Phase 3A gives texas-rigged stick worm a true shallow-cover winner
   );
   assertEquals(row.primary_lure_archetypes, [
     "texas_rigged_stick_worm",
-    "compact_flipping_jig",
+    "hollow_body_frog",
   ]);
 
   const daily: RecommenderV3DailyPayload = {

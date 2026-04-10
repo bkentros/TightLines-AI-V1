@@ -37,6 +37,20 @@ type ScoredSelectionCandidate = {
 
 type CohesionLevel = 0 | 1 | 2;
 
+function isSurfaceLeanWeedlessProfile(
+  profile: RecommenderV3ArchetypeProfile,
+): boolean {
+  return profile.tactical_lane === "cover_weedless" &&
+    profile.preferred_water_columns.includes("top");
+}
+
+function isWindConstrainedSurfaceWatch(
+  daily: RecommenderV3DailyPayload | undefined,
+): boolean {
+  return (daily?.surface_window ?? "off") === "watch" &&
+    daily?.variables_triggered.includes("wind_condition") === true;
+}
+
 function roundScore(value: number): number {
   return Number(value.toFixed(2));
 }
@@ -250,13 +264,18 @@ function laneContextBonusValue(
   daily: RecommenderV3DailyPayload | undefined,
 ): number {
   const surfaceWindow = daily?.surface_window ?? "off";
+  const surfaceLeanWeedless = isSurfaceLeanWeedlessProfile(profile);
   if (surfaceWindow === "off") {
     if (
       profile.tactical_lane === "surface" ||
-      profile.tactical_lane === "fly_surface"
+      profile.tactical_lane === "fly_surface" ||
+      surfaceLeanWeedless
     ) {
       if (profile.tactical_lane === "fly_surface") {
         return resolved.final_water_column === "top" ? -0.7 : -1.4;
+      }
+      if (surfaceLeanWeedless) {
+        return resolved.final_water_column === "top" ? -1.2 : -2;
       }
       return resolved.final_water_column === "top" ? -0.35 : -0.85;
     }
@@ -264,10 +283,9 @@ function laneContextBonusValue(
   }
 
   if (surfaceWindow === "watch") {
-    if (
-      profile.tactical_lane === "surface" ||
-      profile.tactical_lane === "fly_surface"
-    ) return 0.6;
+    if (profile.tactical_lane === "surface") return 0.6;
+    if (profile.tactical_lane === "fly_surface") return -0.4;
+    if (surfaceLeanWeedless) return 0.35;
     if (profile.tactical_lane === "cover_weedless") return 0.25;
     return 0;
   }
@@ -276,6 +294,7 @@ function laneContextBonusValue(
     profile.tactical_lane === "surface" ||
     profile.tactical_lane === "fly_surface"
   ) return 1.25;
+  if (surfaceLeanWeedless) return 0.75;
   if (profile.tactical_lane === "cover_weedless") return 0.45;
   if (
     profile.tactical_lane === "bottom_contact" ||
@@ -345,11 +364,13 @@ function paceBiasBonusValue(
 ): number {
   const paceBias = daily?.pace_bias ?? "neutral";
   if (paceBias === "neutral") return 0;
+  const surfaceLeanWeedless = isSurfaceLeanWeedlessProfile(profile);
 
   if (
     daily?.surface_window === "off" &&
     (profile.tactical_lane === "surface" ||
-      profile.tactical_lane === "fly_surface")
+      profile.tactical_lane === "fly_surface" ||
+      surfaceLeanWeedless)
   ) {
     return -0.4;
   }
@@ -641,7 +662,13 @@ export function scoreLureCandidatesV3(
   clarity: WaterClarity,
   lightLabel: string | null,
 ): RecommenderV3RankedArchetype[] {
-  const scored = seasonal.viable_lure_archetypes.map((id) => {
+  const viableLureArchetypes = (daily?.surface_window ?? "off") === "off"
+    ? seasonal.viable_lure_archetypes.filter((id) =>
+      !isSurfaceLeanWeedlessProfile(LURE_ARCHETYPES_V3[id])
+    )
+    : seasonal.viable_lure_archetypes;
+
+  const scored = viableLureArchetypes.map((id) => {
     const bonus = seasonalPriorityBonus(id, seasonal.primary_lure_archetypes);
     return {
       candidate: scoreProfile(
@@ -656,7 +683,7 @@ export function scoreLureCandidatesV3(
       top3_redundancy_key: LURE_ARCHETYPES_V3[id].top3_redundancy_key,
     };
   });
-  return selectTopThree(scored, seasonal.viable_lure_archetypes, daily);
+  return selectTopThree(scored, viableLureArchetypes, daily);
 }
 
 export function scoreFlyCandidatesV3(
@@ -666,7 +693,13 @@ export function scoreFlyCandidatesV3(
   clarity: WaterClarity,
   lightLabel: string | null,
 ): RecommenderV3RankedArchetype[] {
-  const scored = seasonal.viable_fly_archetypes.map((id) => {
+  const viableFlyArchetypes = isWindConstrainedSurfaceWatch(daily)
+    ? seasonal.viable_fly_archetypes.filter((id) =>
+      FLY_ARCHETYPES_V3[id].tactical_lane !== "fly_surface"
+    )
+    : seasonal.viable_fly_archetypes;
+
+  const scored = viableFlyArchetypes.map((id) => {
     const bonus = seasonalPriorityBonus(id, seasonal.primary_fly_archetypes);
     return {
       candidate: scoreProfile(
@@ -681,5 +714,5 @@ export function scoreFlyCandidatesV3(
       top3_redundancy_key: FLY_ARCHETYPES_V3[id].top3_redundancy_key,
     };
   });
-  return selectTopThree(scored, seasonal.viable_fly_archetypes, daily);
+  return selectTopThree(scored, viableFlyArchetypes, daily);
 }

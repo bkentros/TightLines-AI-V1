@@ -272,9 +272,19 @@ function resolveSurfaceWindow(
     windLabel === "strong" && (windScore ?? 0) <= -0.75;
   const extremeRiverWind = context === "freshwater_river" &&
     windLabel === "extreme" && (windScore ?? 0) <= -1.0;
+  const calmSurfaceWind = windLabel === "calm" || windLabel === "light";
+  const overcastExtension = !shoulderPeriods &&
+    lowLight &&
+    calmSurfaceWind &&
+    analysis.scored.score >= 55 &&
+    clampedMood >= 0 &&
+    clampedPresentation >= 0;
 
   if (
-    !shoulderPeriods || coldLimited || brightSuppression || extremeRiverWind
+    (!shoulderPeriods && !overcastExtension) ||
+    coldLimited ||
+    brightSuppression ||
+    extremeRiverWind
   ) {
     return "off";
   }

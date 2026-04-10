@@ -9,7 +9,7 @@
  *
  * Screen flow:
  *   1. Setup form: species selector + context selector + water clarity chips
- *   2. Tap "Get Recommendations" → loading state
+ *   2. Tap "Build plan" → loading state
  *   3. RecommenderView with results
  *   4. Pull-to-refresh for fresh results
  */
@@ -18,13 +18,15 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import {
   View,
   Text,
-  Image,
   StyleSheet,
   ScrollView,
-  TouchableOpacity,
+  Pressable,
+  Platform,
   ActivityIndicator,
   Alert,
 } from 'react-native';
+import { Image as ExpoImage } from 'expo-image';
+import { hapticSelection, hapticImpact, ImpactFeedbackStyle } from '../lib/safeHaptics';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter, useLocalSearchParams } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
@@ -35,12 +37,13 @@ import { getWatertypeImage, ALL_WATERTYPE_IMAGES } from '../lib/watertypeImages'
 import { getWaterclarityImage, ALL_WATERCLARITY_IMAGES } from '../lib/waterclarityImages';
 import { ALL_COLOR_PALETTE_IMAGES } from '../lib/colorPaletteImages';
 import { ALL_LURE_IMAGES } from '../lib/lureImages';
+import { ALL_FLY_IMAGES } from '../lib/flyImages';
 import { Asset } from 'expo-asset';
 import { useAuthStore } from '../store/authStore';
 import { fetchRecommendation } from '../lib/recommender';
-import { fetchFreshEnvironment, getEnvironment } from '../lib/env';
-import type { EnvironmentData } from '../lib/env';
+import { getForecastScores } from '../lib/forecastScores';
 import { RecommenderView } from '../components/fishing/RecommenderView';
+import { RecommenderLoadingSkeleton } from '../components/fishing/RecommenderLoadingSkeleton';
 import type {
   EngineContext,
   RecommenderResponse,
@@ -59,6 +62,9 @@ import {
   isRecommenderV3UiSpecies,
 } from '../lib/recommenderContracts';
 
+const RIPPLE = { color: 'rgba(10,22,40,0.08)' };
+const IMG_IN = { duration: 200 } as const;
+
 // ─── Static preload list — rendered off-screen so images are decoded before page shows ──
 const ALL_PRELOAD_IMAGES: ReturnType<typeof require>[] = [
   ...RECOMMENDER_V3_UI_SPECIES
@@ -68,6 +74,7 @@ const ALL_PRELOAD_IMAGES: ReturnType<typeof require>[] = [
   ...ALL_WATERCLARITY_IMAGES,
   ...ALL_COLOR_PALETTE_IMAGES,
   ...ALL_LURE_IMAGES,
+  ...ALL_FLY_IMAGES,
 ];
 
 // ─── Context helpers ──────────────────────────────────────────────────────────
@@ -78,7 +85,7 @@ const ENGINE_CONTEXTS: EngineContext[] = [
 
 function contextLabel(ctx: EngineContext): string {
   switch (ctx) {
-    case 'freshwater_lake_pond':  return 'Lake / Pond';
+    case 'freshwater_lake_pond':  return 'Lake';
     case 'freshwater_river':      return 'River';
     default: return 'Freshwater';
   }
@@ -95,7 +102,7 @@ function contextIcon(ctx: EngineContext): string {
 function contextAccentColor(ctx: EngineContext): string {
   switch (ctx) {
     case 'freshwater_lake_pond':  return colors.contextFreshwater;
-    case 'freshwater_river':      return colors.contextRiver;
+    case 'freshwater_river':      return colors.contextFreshwater;
     default: return colors.contextFreshwater;
   }
 }
@@ -157,6 +164,9 @@ function recommenderErrorMessage(error: unknown, species: SpeciesGroup, context:
   if (msg === 'state_resolution_failed') {
     return 'We could not verify your state from this location. Move the pin or refresh location before building a plan.';
   }
+  if (msg === 'daily_snapshot_unavailable') {
+    return 'We could not load today\'s midnight conditions snapshot. Please try again in a moment.';
+  }
   return msg;
 }
 
@@ -187,7 +197,20 @@ function readinessMessage(args: {
   if (!clarity) {
     return 'Choose water clarity so the visibility and color guidance stay accurate.';
   }
-  return 'When you run or refresh this, we pull a fresh live conditions snapshot first.';
+  return 'When you run or refresh this, we use today\'s midnight conditions snapshot so the plan stays stable all day.';
+}
+
+function getTodaySnapshotRequest(
+  forecastSnapshot: Awaited<ReturnType<typeof getForecastScores>> | null,
+): { envData: Record<string, unknown>; targetDate: string } | null {
+  const targetDate = forecastSnapshot?.forecast.find((day) => day.day_offset === 0)?.date ?? null;
+  const envData =
+    forecastSnapshot?.snapshot_env && typeof forecastSnapshot.snapshot_env === 'object'
+      ? (forecastSnapshot.snapshot_env as unknown as Record<string, unknown>)
+      : null;
+
+  if (!targetDate || !envData) return null;
+  return { envData, targetDate };
 }
 
 // ─── Conditions helpers ───────────────────────────────────────────────────────
@@ -243,137 +266,17 @@ function pressureTrendInfo(trend: string): { label: string; color: string } | nu
   }
 }
 
-// ─── Mini Conditions Card (≈60% of LiveConditionsWidget) ─────────────────────
-
-function MiniConditionsCard({
-  stateCode,
-  loading,
-  env,
-}: {
-  stateCode: string | null;
-  loading: boolean;
-  env: EnvironmentData | null;
-}) {
-  const season = getCurrentSeason();
-  const stateName = stateCode ? (STATE_CODE_TO_NAME[stateCode] ?? stateCode) : null;
-  if (!stateName && !loading) return null;
-
-  const w = env?.weather;
-  const moon = env?.moon;
-
-  // Air temp tile — prefer today's high/low, fall back to current temp
-  let tempValue = '—';
-  let tempLabel = 'Temp';
-  if (w) {
-    const hi = w.temp_7day_high && w.temp_7day_high.length > 14 ? w.temp_7day_high[14] : null;
-    const lo = w.temp_7day_low  && w.temp_7day_low.length  > 14 ? w.temp_7day_low[14]  : null;
-    if (hi != null && lo != null && Number.isFinite(hi) && Number.isFinite(lo)) {
-      tempValue = `${Math.round(lo)}–${Math.round(hi)}${w.temp_unit}`;
-      tempLabel = 'Air today';
-    } else {
-      tempValue = `${Math.round(w.temperature)}${w.temp_unit}`;
-    }
-  }
-
-  const skyValue      = w ? cloudCoverLabel(w.cloud_cover) : '—';
-  const windValue     = w ? `${windDirectionLabel16(w.wind_direction)} ${Math.round(w.wind_speed)}` : '—';
-  const pressureValue = w ? String(w.pressure) : '—';
-  const pTrend        = w?.pressure_trend ? pressureTrendInfo(w.pressure_trend) : null;
-  const moonLabel     = moon ? moonPhaseLabel(moon.phase, moon.illumination) : null;
-  const humidLabel    = w?.humidity != null ? `${Math.round(w.humidity)}%` : null;
-
-  const fetchedAt = env?.fetched_at ? new Date(env.fetched_at).getTime() : 0;
-  const ageMs     = fetchedAt ? Math.max(0, Date.now() - fetchedAt) : 0;
-  const ageLabel  = fetchedAt ? `${Math.floor(ageMs / 60000)}m ago` : null;
-
-  return (
-    <View style={styles.miniCondCard}>
-      {/* Header row */}
-      <View style={styles.miniCondHeader}>
-        <View style={styles.miniCondHeaderLeft}>
-          <View style={styles.miniCondDot} />
-          <View>
-            <Text style={styles.miniCondLabel}>Live Conditions</Text>
-            <Text style={styles.miniCondLocation}>{stateName ?? '—'}  ·  {season}</Text>
-          </View>
-        </View>
-        <View style={styles.miniCondHeaderRight}>
-          {ageLabel && !loading && (
-            <Text style={styles.miniCondAge}>{ageLabel}</Text>
-          )}
-          {loading && (
-            <ActivityIndicator size="small" color={colors.primary} style={{ transform: [{ scale: 0.6 }] }} />
-          )}
-        </View>
-      </View>
-
-      {/* Metric grid */}
-      {w ? (
-        <>
-          <View style={styles.miniCondGrid}>
-            <View style={styles.miniCondTile}>
-              <Ionicons name="thermometer-outline" size={10} color={colors.primary} />
-              <Text style={styles.miniCondValue} numberOfLines={1}>{tempValue}</Text>
-              <Text style={styles.miniCondTileLabel}>{tempLabel}</Text>
-            </View>
-            <View style={styles.miniCondTile}>
-              <Ionicons name="cloud-outline" size={10} color={colors.primary} />
-              <Text style={styles.miniCondValue} numberOfLines={1}>{skyValue}</Text>
-              <Text style={styles.miniCondTileLabel}>Sky</Text>
-            </View>
-            <View style={styles.miniCondTile}>
-              <Ionicons name="flag-outline" size={10} color={colors.primary} />
-              <Text style={styles.miniCondValue} numberOfLines={1}>{windValue}</Text>
-              <Text style={styles.miniCondTileLabel}>{w.wind_speed_unit}</Text>
-            </View>
-            <View style={styles.miniCondTile}>
-              <Ionicons name="speedometer-outline" size={10} color={colors.primary} />
-              <Text style={styles.miniCondValue} numberOfLines={1}>{pressureValue}</Text>
-              {pTrend ? (
-                <Text style={[styles.miniCondTileLabel, { color: pTrend.color }]} numberOfLines={1}>
-                  {pTrend.label}
-                </Text>
-              ) : (
-                <Text style={styles.miniCondTileLabel}>Press.</Text>
-              )}
-            </View>
-          </View>
-
-          {/* Footer pills */}
-          {(moonLabel || humidLabel) && (
-            <View style={styles.miniCondFooter}>
-              {moonLabel && (
-                <View style={styles.miniCondPill}>
-                  <Ionicons name="moon-outline" size={8} color={colors.textSecondary} />
-                  <Text style={styles.miniCondPillText}>{moonLabel}</Text>
-                </View>
-              )}
-              {humidLabel && (
-                <View style={styles.miniCondPill}>
-                  <Ionicons name="water-outline" size={8} color={colors.textSecondary} />
-                  <Text style={styles.miniCondPillText}>{humidLabel}</Text>
-                </View>
-              )}
-            </View>
-          )}
-        </>
-      ) : loading ? (
-        <View style={styles.miniCondLoading}>
-          <Text style={styles.miniCondLoadingText}>Pulling live conditions…</Text>
-        </View>
-      ) : null}
-    </View>
-  );
-}
-
 // ─── Setup sub-components ─────────────────────────────────────────────────────
 
-function SectionLabel({ label, step }: { label: string; step: number }) {
+/** Floats above each section card — step pill + guiding question */
+function StepQuestion({ step, label, question }: { step: number; label: string; question: string }) {
   return (
-    <View style={styles.sectionLabelRow}>
-      <Text style={styles.sectionStep}>{`0${step}`}</Text>
-      <View style={styles.sectionLabelDivider} />
-      <Text style={styles.sectionLabel}>{label.toUpperCase()}</Text>
+    <View style={styles.stepQuestion}>
+      <View style={styles.stepQuestionAccent} />
+      <View style={styles.stepQuestionBody}>
+        <Text style={styles.stepQuestionLabel}>{`0${step}  ·  ${label.toUpperCase()}`}</Text>
+        <Text style={styles.stepQuestionText}>{question}</Text>
+      </View>
     </View>
   );
 }
@@ -395,20 +298,33 @@ function SpeciesCard({
 }) {
   const img = getSpeciesImage(sp);
   return (
-    <TouchableOpacity
-      style={[styles.speciesCard, isActive && styles.speciesCardActive]}
-      onPress={() => { if (!isDisabled) onSelect(sp); }}
-      activeOpacity={isDisabled ? 1 : 0.88}
+    <Pressable
+      style={({ pressed }) => [
+        styles.speciesCard,
+        isActive && styles.speciesCardActive,
+        Platform.OS === 'ios' && pressed && !isDisabled && { opacity: 0.88 },
+      ]}
+      onPress={() => {
+        if (isDisabled) return;
+        hapticSelection();
+        onSelect(sp);
+      }}
+      android_ripple={isDisabled ? undefined : RIPPLE}
+      disabled={isDisabled}
     >
-      {/* Explicit pixel height — the only reliable way in RN to get
-          width:'100%' / height:'100%' on the Image to scale against. */}
       <View style={[styles.speciesFishArea, { height: fishAreaHeight }]}>
         {img && (
-          <Image source={img} style={styles.speciesImage} resizeMode="contain" />
+          <ExpoImage
+            source={img}
+            style={styles.speciesImage}
+            contentFit="contain"
+            transition={IMG_IN}
+            cachePolicy="memory-disk"
+          />
         )}
       </View>
       <View style={styles.speciesNameFooter}>
-        <Text style={styles.speciesCardText} numberOfLines={1}>
+        <Text style={styles.speciesCardText} numberOfLines={1} ellipsizeMode="tail">
           {SPECIES_DISPLAY[sp]}
         </Text>
       </View>
@@ -417,9 +333,8 @@ function SpeciesCard({
           <Ionicons name="checkmark" size={13} color="#fff" />
         </View>
       )}
-      {/* Grey hue overlay when this species is incompatible with selected water type */}
       {isDisabled && <View style={styles.cardDisabledOverlay} pointerEvents="none" />}
-    </TouchableOpacity>
+    </Pressable>
   );
 }
 
@@ -507,37 +422,48 @@ function ContextSelector({
         const isDisabled = !availableOptions.includes(opt);
         const img = getWatertypeImage(opt);
         return (
-          <TouchableOpacity
+          <Pressable
             key={opt}
-            style={[styles.contextCard, isActive && { borderColor: accentColor, borderWidth: 2 }]}
-            onPress={() => { if (!isDisabled) onSelect(opt); }}
-            activeOpacity={isDisabled ? 1 : 0.88}
+            style={({ pressed }) => [
+              styles.contextCard,
+              isActive && { borderColor: accentColor, borderWidth: 2 },
+              Platform.OS === 'ios' && pressed && !isDisabled && { opacity: 0.88 },
+            ]}
+            onPress={() => {
+              if (isDisabled) return;
+              hapticSelection();
+              onSelect(opt);
+            }}
+            android_ripple={isDisabled ? undefined : RIPPLE}
+            disabled={isDisabled}
           >
-            {/* Image area — aspectRatio matches the 3:2 source images exactly */}
             <View style={styles.contextImageArea}>
               {img && (
-                <Image
+                <ExpoImage
                   source={img}
                   style={styles.contextCardImage}
-                  resizeMode="contain"
+                  contentFit="contain"
+                  transition={IMG_IN}
+                  cachePolicy="memory-disk"
                 />
               )}
             </View>
-            {/* Name footer — same pattern as fish cards */}
             <View style={styles.contextNameFooter}>
-              <Text style={[styles.contextCardText, isActive && { color: accentColor, fontFamily: fonts.bodySemiBold }]}>
+              <Text
+                style={[styles.contextCardText, isActive && { color: accentColor, fontFamily: fonts.bodySemiBold }]}
+                numberOfLines={1}
+                ellipsizeMode="tail"
+              >
                 {contextLabel(opt)}
               </Text>
             </View>
-            {/* Selection badge */}
             {isActive && (
               <View style={[styles.contextCheckBadge, { backgroundColor: accentColor }]}>
                 <Ionicons name="checkmark" size={12} color="#fff" />
               </View>
             )}
-            {/* Grey hue when incompatible with selected species */}
             {isDisabled && <View style={styles.cardDisabledOverlay} pointerEvents="none" />}
-          </TouchableOpacity>
+          </Pressable>
         );
       })}
     </View>
@@ -556,9 +482,9 @@ function ClaritySelector({
   accentColor: string;
 }) {
   const options: { value: WaterClarity; label: string; sub: string }[] = [
-    { value: 'clear',   label: 'Clear',   sub: 'Glass clear' },
-    { value: 'stained', label: 'Stained', sub: 'Tea / green tint' },
-    { value: 'dirty',   label: 'Murky',   sub: '2 ft or less' },
+    { value: 'clear',   label: 'Clear',   sub: 'High visibility' },
+    { value: 'stained', label: 'Stained', sub: 'Tinted water' },
+    { value: 'dirty',   label: 'Murky',   sub: 'Low visibility' },
   ];
 
   return (
@@ -567,26 +493,40 @@ function ClaritySelector({
         const isActive = selected === value;
         const img = getWaterclarityImage(value);
         return (
-          <TouchableOpacity
+          <Pressable
             key={value}
-            style={[styles.clarityCard, isActive && { borderColor: accentColor, borderWidth: 2 }]}
-            onPress={() => onSelect(value)}
-            activeOpacity={0.88}
+            style={({ pressed }) => [
+              styles.clarityCard,
+              isActive && { borderColor: accentColor, borderWidth: 2 },
+              Platform.OS === 'ios' && pressed && { opacity: 0.88 },
+            ]}
+            onPress={() => {
+              hapticSelection();
+              onSelect(value);
+            }}
+            android_ripple={RIPPLE}
           >
-            {/* Underwater scene image */}
             <View style={styles.clarityImageArea}>
-              <Image
+              <ExpoImage
                 source={img}
                 style={styles.clarityCardImage}
-                resizeMode="cover"
+                contentFit="cover"
+                transition={IMG_IN}
+                cachePolicy="memory-disk"
               />
             </View>
-            {/* Name + sub footer */}
             <View style={styles.clarityNameFooter}>
-              <Text style={[styles.clarityCardTitle, { color: isActive ? accentColor : colors.text }]}>
+              <Text
+                style={[styles.clarityCardTitle, { color: isActive ? accentColor : colors.text }]}
+                numberOfLines={1}
+              >
                 {label}
               </Text>
-              <Text style={[styles.clarityCardSub, isActive && { color: accentColor + 'BB' }]}>
+              <Text
+                style={[styles.clarityCardSub, isActive && { color: accentColor + 'BB' }]}
+                numberOfLines={2}
+                ellipsizeMode="tail"
+              >
                 {sub}
               </Text>
             </View>
@@ -595,7 +535,7 @@ function ClaritySelector({
                 <Ionicons name="checkmark" size={9} color="#fff" />
               </View>
             )}
-          </TouchableOpacity>
+          </Pressable>
         );
       })}
     </View>
@@ -646,20 +586,6 @@ export default function RecommenderScreen() {
   const [result, setResult] = useState<RecommenderResponse | null>(null);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [isRefreshing, setIsRefreshing] = useState(false);
-
-  // Live conditions for the setup card — uses 15-min cache so it's fast and cheap
-  const [liveConditions, setLiveConditions] = useState<EnvironmentData | null>(null);
-  const [conditionsLoading, setConditionsLoading] = useState(false);
-
-  useEffect(() => {
-    if (!hasCoords) return;
-    setConditionsLoading(true);
-    const units = profile?.preferred_units ?? 'imperial';
-    getEnvironment({ latitude: lat, longitude: lon, units })
-      .then((data) => setLiveConditions(data))
-      .catch(() => { /* silently fail — card just shows location + season */ })
-      .finally(() => setConditionsLoading(false));
-  }, [hasCoords, lat, lon, profile?.preferred_units]);
 
   // Each image in ALL_PRELOAD_IMAGES is rendered off-screen at 1×1px.
   // onLoad / onError fires when the native image pipeline finishes decoding it.
@@ -774,12 +700,10 @@ export default function RecommenderScreen() {
         if (state_code === 'XX') {
           throw new Error('state_resolution_failed');
         }
-        const units = profile?.preferred_units ?? 'imperial';
-        const liveEnvData = await fetchFreshEnvironment({
-          latitude: lat,
-          longitude: lon,
-          units,
-        });
+        const dailySnapshot = getTodaySnapshotRequest(await getForecastScores(lat, lon));
+        if (!dailySnapshot) {
+          throw new Error('daily_snapshot_unavailable');
+        }
         const res = await fetchRecommendation(
           {
             latitude: lat,
@@ -788,7 +712,8 @@ export default function RecommenderScreen() {
             species,
             context,
             water_clarity: clarity,
-            env_data: liveEnvData as unknown as Record<string, unknown>,
+            env_data: dailySnapshot.envData,
+            target_date: dailySnapshot.targetDate,
           },
           { forceRefresh },
         );
@@ -816,7 +741,7 @@ export default function RecommenderScreen() {
         }
       }
     },
-    [isReady, species, context, clarity, lat, lon, profile?.preferred_units, result, screenState],
+    [isReady, species, context, clarity, lat, lon, result, screenState],
   );
 
   const handleReset = useCallback(() => {
@@ -834,20 +759,26 @@ export default function RecommenderScreen() {
           before the form appears. onLoad/onError count up; page only shows once all settle. */}
       <View pointerEvents="none" style={styles.preloadContainer}>
         {ALL_PRELOAD_IMAGES.map((img, i) => (
-          <Image
+          <ExpoImage
             key={i}
             source={img}
             style={styles.preloadImage}
-            onLoad={handlePreloadImage}
+            onLoadEnd={handlePreloadImage}
             onError={handlePreloadImage}
           />
         ))}
       </View>
 
       {/* Nav header */}
-      <View style={[styles.navHeader, screenState === 'setup' && styles.navHeaderBorderless]}>
-        <TouchableOpacity
-          style={styles.backBtn}
+      <View style={[
+        styles.navHeader,
+        screenState === 'setup' && styles.navHeaderBorderless,
+      ]}>
+        <Pressable
+          style={({ pressed }) => [
+            styles.backBtn,
+            Platform.OS === 'ios' && pressed && { opacity: 0.6 },
+          ]}
           onPress={() => {
             if (screenState === 'result' || screenState === 'error') {
               handleReset();
@@ -856,16 +787,14 @@ export default function RecommenderScreen() {
             }
           }}
           hitSlop={12}
+          android_ripple={RIPPLE}
         >
           <Ionicons name="chevron-back" size={24} color={colors.text} />
-        </TouchableOpacity>
+        </Pressable>
 
-        {screenState !== 'result' && (
-          <Text style={styles.navTitle}>
-            {screenState === 'setup' ? 'Lure & Fly Recommender' : 'What to Throw'}
-          </Text>
-        )}
-        {screenState === 'result' && <View style={{ flex: 1 }} />}
+        <Text style={styles.navTitle} numberOfLines={1} ellipsizeMode="tail">
+          Lure & Fly Recommender
+        </Text>
 
         {/* Region pill — only in setup, right side */}
         {screenState === 'setup' && (
@@ -882,9 +811,17 @@ export default function RecommenderScreen() {
         )}
 
         {screenState === 'result' && (
-          <TouchableOpacity style={styles.resetBtn} onPress={handleReset} hitSlop={12}>
+          <Pressable
+            style={({ pressed }) => [styles.resetBtn, Platform.OS === 'ios' && pressed && { opacity: 0.6 }]}
+            onPress={() => {
+              hapticSelection();
+              handleReset();
+            }}
+            hitSlop={12}
+            android_ripple={RIPPLE}
+          >
             <Ionicons name="options-outline" size={22} color={colors.textSecondary} />
-          </TouchableOpacity>
+          </Pressable>
         )}
       </View>
 
@@ -903,26 +840,40 @@ export default function RecommenderScreen() {
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps="handled"
         >
+          {/* Hero headline */}
+          <View style={styles.heroHeader}>
+            <View style={styles.heroAccent}>
+              <View style={styles.heroAccentLine} />
+              <Ionicons name="fish-outline" size={13} color={colors.primary} />
+              <View style={styles.heroAccentLine} />
+            </View>
+            <Text style={styles.heroTitle}>
+              {"Pick the right lure or fly\nfor where you’re fishing now."}
+            </Text>
+          </View>
+
           {/* Location warning — only when no coords */}
           {!hasCoords && (
             <View style={styles.warningBanner}>
               <Ionicons name="location-outline" size={14} color={colors.reportScoreYellow} />
               <Text style={styles.warningText}>
-                Location needed to pull today&apos;s conditions.
+                Add a location for today&apos;s conditions.
               </Text>
             </View>
           )}
 
-          {/* Mini live conditions card */}
-          <MiniConditionsCard
-            stateCode={stateCode}
-            loading={conditionsLoading}
-            env={liveConditions}
-          />
+          {/* Decorative bridge — separates hero from the step cards */}
+          <View style={styles.sectionBridge}>
+            <View style={styles.sectionBridgeLine} />
+            <Ionicons name="fish-outline" size={12} color={colors.primary + '70'} />
+            <Text style={styles.sectionBridgeText}>3 quick questions</Text>
+            <Ionicons name="fish-outline" size={12} color={colors.primary + '70'} style={{ transform: [{ scaleX: -1 }] }} />
+            <View style={styles.sectionBridgeLine} />
+          </View>
 
           {/* 01 — Target Species */}
+          <StepQuestion step={1} label="Target Species" question="Click your target species." />
           <View style={styles.sectionCard}>
-            <SectionLabel label="Target Species" step={1} />
             <SpeciesGrid
               allOptions={allSpeciesForState}
               availableOptions={availableSpecies}
@@ -940,8 +891,8 @@ export default function RecommenderScreen() {
           </View>
 
           {/* 02 — Body of Water */}
+          <StepQuestion step={2} label="Body of Water" question="Where are you fishing today?" />
           <View style={styles.sectionCard}>
-            <SectionLabel label="Body of Water" step={2} />
             <ContextSelector
               allOptions={allContextsForState}
               availableOptions={availableContexts}
@@ -957,8 +908,8 @@ export default function RecommenderScreen() {
           </View>
 
           {/* 03 — Water Clarity */}
+          <StepQuestion step={3} label="Water Clarity" question="How's the water looking today?" />
           <View style={styles.sectionCard}>
-            <SectionLabel label="Water Clarity" step={3} />
             <ClaritySelector
               selected={clarity}
               onSelect={setClarity}
@@ -967,19 +918,24 @@ export default function RecommenderScreen() {
           </View>
 
           {/* CTA */}
-          <TouchableOpacity
-            style={[
+          <Pressable
+            style={({ pressed }) => [
               styles.ctaBtn,
               { backgroundColor: isReady ? accentColor : colors.disabled },
               isReady && shadows.md,
+              Platform.OS === 'ios' && pressed && isReady && { opacity: 0.92 },
             ]}
             disabled={!isReady}
-            onPress={() => handleFetch(false)}
-            activeOpacity={0.8}
+            onPress={() => {
+              if (!isReady) return;
+              hapticImpact(ImpactFeedbackStyle.Medium);
+              handleFetch(false);
+            }}
+            android_ripple={isReady ? { color: 'rgba(255,255,255,0.25)' } : undefined}
           >
-            <Text style={styles.ctaBtnText}>Get Recommendations</Text>
+            <Text style={styles.ctaBtnText}>Build plan</Text>
             <Ionicons name="arrow-forward" size={18} color="#fff" />
-          </TouchableOpacity>
+          </Pressable>
 
           <Text style={styles.setupDisclaimer}>
             Lure and fly recommendations are based around your location&apos;s seasonal characteristics, influence from daily conditions, and water clarity.
@@ -989,11 +945,12 @@ export default function RecommenderScreen() {
 
       {/* ── Loading ── */}
       {screenState === 'loading' && (
-        <View style={styles.centerState}>
-          <ActivityIndicator size="large" color={accentColor} />
-          <Text style={styles.loadingText}>
-            Determining lures and flies for your current conditions…
-          </Text>
+        <View style={styles.loadingWrap}>
+          <RecommenderLoadingSkeleton />
+          <View style={styles.loadingOverlay} pointerEvents="none">
+            <ActivityIndicator size="small" color={accentColor} />
+            <Text style={styles.loadingCaption}>Matching lures & flies…</Text>
+          </View>
         </View>
       )}
 
@@ -1003,12 +960,26 @@ export default function RecommenderScreen() {
           <Ionicons name="alert-circle-outline" size={40} color={colors.reportScoreRed} />
           <Text style={styles.errorTitle}>Could not build your plan</Text>
           <Text style={styles.errorMsg}>{errorMsg}</Text>
-          <TouchableOpacity style={styles.retryBtn} onPress={() => handleFetch(true)}>
-            <Text style={styles.retryBtnText}>Refresh and Try Again</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.secondaryBtn} onPress={handleReset}>
-            <Text style={styles.secondaryBtnText}>Back to Setup</Text>
-          </TouchableOpacity>
+          <Pressable
+            style={({ pressed }) => [styles.retryBtn, Platform.OS === 'ios' && pressed && { opacity: 0.88 }]}
+            onPress={() => {
+              hapticImpact(ImpactFeedbackStyle.Light);
+              handleFetch(true);
+            }}
+            android_ripple={RIPPLE}
+          >
+            <Text style={styles.retryBtnText}>Try again</Text>
+          </Pressable>
+          <Pressable
+            style={({ pressed }) => [styles.secondaryBtn, Platform.OS === 'ios' && pressed && { opacity: 0.88 }]}
+            onPress={() => {
+              hapticSelection();
+              handleReset();
+            }}
+            android_ripple={RIPPLE}
+          >
+            <Text style={styles.secondaryBtnText}>Back to setup</Text>
+          </Pressable>
         </View>
       )}
 
@@ -1047,6 +1018,10 @@ const styles = StyleSheet.create({
   },
   navHeaderBorderless: {
     borderBottomWidth: 0,
+  },
+  navHeaderResult: {
+    borderBottomWidth: 2,
+    borderBottomColor: colors.primaryDark,
   },
   backBtn: {
     padding: 4,
@@ -1096,6 +1071,34 @@ const styles = StyleSheet.create({
     color: colors.primaryLight,
   },
 
+  // Hero headline
+  heroHeader: {
+    alignItems: 'center',
+    paddingHorizontal: spacing.sm,
+    paddingTop: spacing.xs,
+    paddingBottom: 4,
+    gap: 10,
+  },
+  heroAccent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  heroAccentLine: {
+    flex: 1,
+    height: 1,
+    backgroundColor: colors.primaryMistDark,
+    maxWidth: 44,
+  },
+  heroTitle: {
+    fontFamily: fonts.serifBold,
+    fontSize: 24,
+    color: colors.text,
+    textAlign: 'center',
+    lineHeight: 32,
+    letterSpacing: -0.4,
+  },
+
   // Warning
   warningBanner: {
     flexDirection: 'row',
@@ -1141,9 +1144,9 @@ const styles = StyleSheet.create({
     backgroundColor: colors.surface,
     borderRadius: radius.xl,
     padding: spacing.md,
-    gap: 14,
+    gap: 10,
     borderWidth: 1.5,
-    borderColor: colors.primaryMistDark,
+    borderColor: colors.primary + '55',
     shadowColor: '#253D2C',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.05,
@@ -1151,105 +1154,57 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
 
-  // Mini conditions card — 60% scale of LiveConditionsWidget
-  miniCondCard: {
-    backgroundColor: colors.surface,
-    borderRadius: radius.xl,
-    paddingHorizontal: 10,
-    paddingVertical: 10,
+  // Decorative bridge between hero and section cards
+  sectionBridge: {
+    flexDirection: 'row',
+    alignItems: 'center',
     gap: 8,
-    shadowColor: '#253D2C',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.05,
-    shadowRadius: 12,
-    elevation: 2,
+    paddingVertical: 4,
+    paddingHorizontal: 4,
   },
-  miniCondHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+  sectionBridgeLine: {
+    flex: 1,
+    height: 1,
+    backgroundColor: colors.borderLight,
   },
-  miniCondHeaderLeft: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 6,
-  },
-  miniCondHeaderRight: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 5,
-  },
-  miniCondDot: {
-    width: 5,
-    height: 5,
-    borderRadius: 3,
-    backgroundColor: colors.primary,
-  },
-  miniCondLabel: {
-    fontSize: 9,
-    fontWeight: '700' as const,
-    color: colors.primary,
-    letterSpacing: 0.4,
+  sectionBridgeText: {
+    fontFamily: fonts.body,
+    fontSize: 11,
+    color: colors.textMuted,
+    letterSpacing: 0.6,
     textTransform: 'uppercase' as const,
   },
-  miniCondLocation: {
-    fontSize: 9,
-    color: colors.textMuted,
-    marginTop: 1,
-  },
-  miniCondAge: {
-    fontSize: 9,
-    color: colors.textMuted,
-  },
-  miniCondGrid: {
+
+  // Step question — floats above each section card
+  stepQuestion: {
     flexDirection: 'row',
-    gap: 5,
+    alignItems: 'stretch',
+    gap: 11,
+    paddingHorizontal: 2,
+    marginBottom: -4,
   },
-  miniCondTile: {
-    flex: 1,
-    alignItems: 'center',
-    backgroundColor: colors.background,
-    borderRadius: radius.sm,
-    paddingVertical: 8,
-    gap: 2,
+  stepQuestionAccent: {
+    width: 3,
+    borderRadius: 99,
+    backgroundColor: colors.primary,
   },
-  miniCondValue: {
-    fontSize: 10,
-    fontWeight: '700' as const,
-    color: colors.text,
-  },
-  miniCondTileLabel: {
-    fontSize: 8,
-    color: colors.textMuted,
-    letterSpacing: 0.2,
-    textAlign: 'center' as const,
-  },
-  miniCondFooter: {
-    flexDirection: 'row',
-    flexWrap: 'wrap' as const,
-    alignItems: 'center',
-    gap: 5,
-  },
-  miniCondPill: {
-    flexDirection: 'row',
-    alignItems: 'center',
+  stepQuestionBody: {
     gap: 3,
-    backgroundColor: colors.background,
-    borderRadius: radius.sm,
-    paddingHorizontal: 7,
-    paddingVertical: 3,
+    paddingVertical: 2,
   },
-  miniCondPillText: {
-    fontSize: 9,
-    color: colors.textSecondary,
-  },
-  miniCondLoading: {
-    paddingVertical: 8,
-    alignItems: 'center',
-  },
-  miniCondLoadingText: {
+  stepQuestionLabel: {
+    fontFamily: fonts.bodyBold,
     fontSize: 10,
-    color: colors.textMuted,
+    color: colors.primaryLight,
+    letterSpacing: 1.4,
+    textTransform: 'uppercase' as const,
+  },
+  stepQuestionText: {
+    fontFamily: fonts.serifBold,
+    fontSize: 19,
+    color: colors.text,
+    letterSpacing: -0.3,
+    lineHeight: 24,
   },
 
   // Sections
@@ -1260,20 +1215,20 @@ const styles = StyleSheet.create({
   },
   sectionStep: {
     fontFamily: fonts.bodyBold,
-    fontSize: 13,
+    fontSize: 16,
     color: colors.primaryDark,
     letterSpacing: 0.5,
   },
   sectionLabelDivider: {
     width: 1.5,
-    height: 13,
+    height: 15,
     backgroundColor: colors.primaryMistDark,
   },
   sectionLabel: {
     fontFamily: fonts.bodyBold,
-    fontSize: 12,
+    fontSize: 14,
     color: colors.primaryDark,
-    letterSpacing: 1.4,
+    letterSpacing: 1.6,
   },
 
   // Species grid
@@ -1514,19 +1469,22 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing.xl,
     gap: spacing.md,
   },
-  loadingText: {
+  loadingWrap: {
+    flex: 1,
+    position: 'relative',
+  },
+  loadingOverlay: {
+    ...StyleSheet.absoluteFillObject,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    paddingBottom: spacing.xl * 2,
+    gap: spacing.sm,
+  },
+  loadingCaption: {
     fontFamily: fonts.body,
-    fontSize: 15,
+    fontSize: 14,
     color: colors.textSecondary,
     textAlign: 'center',
-    lineHeight: 22,
-  },
-  loadingSubtext: {
-    fontFamily: fonts.body,
-    fontSize: 13,
-    color: colors.textMuted,
-    textAlign: 'center',
-    lineHeight: 19,
   },
   errorTitle: {
     fontFamily: fonts.serifBold,
