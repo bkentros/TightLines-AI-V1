@@ -10,6 +10,10 @@ cd "$ROOT"
 # Keep one clean Metro on 8081 so the dev client URL stays stable.
 lsof -tiTCP:8081 -sTCP:LISTEN 2>/dev/null | xargs kill -9 2>/dev/null || true
 sleep 1
+# A second terminal often leaves an old localtunnel running; two tunnels break loading.
+pkill -f "localtunnel --port 8081" 2>/dev/null || true
+pkill -f "npx.*localtunnel.*8081" 2>/dev/null || true
+sleep 1
 
 # Cursor/CI often sets CI=true and breaks watch mode; empty CI breaks Expo’s env parser.
 export CI=0
@@ -52,10 +56,17 @@ process.stdout.write(scheme + '://expo-development-client/?url=' + encodeURIComp
 
 echo ""
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-echo "  HTTPS (Safari / tunnel check):  $HTTPS_URL"
+echo "  Away from home — tunnel (localtunnel). Same Wi‑Fi? Use instead:"
+echo "    npm run start:dev-client:same-wifi"
+echo ""
+echo "  Preferred: when Metro finishes starting, scan the QR code printed"
+echo "  in this terminal with the iPhone Camera — opens the dev client with"
+echo "  the bundle URL embedded (no manual paste)."
+echo ""
+echo "  HTTPS (Safari / tunnel check if connection fails):  $HTTPS_URL"
 echo "  If loca.lt shows a warning, open that link once and click Continue."
 echo ""
-echo "  TightLines dev client — Enter URL manually (copy full line):"
+echo "  Fallback — Enter URL manually (copy full line):"
 echo "    ${DEV_CLIENT_URL}"
 echo ""
 echo "  Expo Go only (not the custom dev client):"

@@ -5,7 +5,6 @@ import type {
   RecommenderV3RankedArchetype,
   RecommenderV3ScoreBreakdown,
   RecommenderV3SeasonalRow,
-  RecommenderV3SurfaceWindow,
 } from "../../supabase/functions/_shared/recommenderEngine/v3/index.ts";
 import {
   LARGEMOUTH_V3_SEASONAL_ROWS,
@@ -17,6 +16,11 @@ import {
   SMALLMOUTH_V3_SEASONAL_ROWS,
   TROUT_V3_SEASONAL_ROWS,
 } from "../../supabase/functions/_shared/recommenderEngine/v3/index.ts";
+import {
+  allSyntheticDailyPayloads,
+  COVERAGE_ANALYSIS,
+  NEUTRAL_SYNTHETIC_DAILY,
+} from "./syntheticRecommenderAudit.ts";
 
 const OUTPUT_JSON =
   "docs/recommender-v3-audit/generated/v3-score-balance-audit.json";
@@ -55,77 +59,19 @@ const LIGHT_BY_CLARITY = {
   dirty: "low_light",
 } as const;
 
-const TACTICAL_PROFILES = [
-  { reaction_window: "off", finesse_window: "off", pace_bias: "neutral" },
-  { reaction_window: "watch", finesse_window: "off", pace_bias: "fast" },
-  { reaction_window: "on", finesse_window: "off", pace_bias: "fast" },
-  { reaction_window: "off", finesse_window: "watch", pace_bias: "slow" },
-  { reaction_window: "off", finesse_window: "on", pace_bias: "slow" },
-  { reaction_window: "watch", finesse_window: "watch", pace_bias: "neutral" },
-] as const;
+const DAILY_PAYLOADS: readonly RecommenderV3DailyPayload[] =
+  allSyntheticDailyPayloads();
 
-const DAILY_PAYLOADS: readonly RecommenderV3DailyPayload[] = (() => {
-  const payloads: RecommenderV3DailyPayload[] = [];
-  for (const mood_nudge of ["down_1", "neutral", "up_1", "up_2"] as const) {
-    for (
-      const water_column_nudge of ["lower_1", "neutral", "higher_1"] as const
-    ) {
-      for (
-        const presentation_nudge of ["subtler", "neutral", "bolder"] as const
-      ) {
-        for (
-          const surface_window of [
-            "off",
-            "watch",
-            "on",
-          ] as const satisfies readonly RecommenderV3SurfaceWindow[]
-        ) {
-          for (const tactical of TACTICAL_PROFILES) {
-            payloads.push({
-              mood_nudge,
-              water_column_nudge,
-              presentation_nudge,
-              surface_window,
-              reaction_window: tactical.reaction_window,
-              finesse_window: tactical.finesse_window,
-              pace_bias: tactical.pace_bias,
-              variables_considered: [],
-              variables_triggered: [],
-              notes: [],
-              source_score: 60,
-              source_band: "Good",
-            });
-          }
-        }
-      }
-    }
-  }
-  return payloads;
-})();
-
-const NEUTRAL_DAILY: RecommenderV3DailyPayload = {
-  mood_nudge: "neutral",
-  water_column_nudge: "neutral",
-  presentation_nudge: "neutral",
-  surface_window: "off",
-  reaction_window: "off",
-  finesse_window: "off",
-  pace_bias: "neutral",
-  variables_considered: [],
-  variables_triggered: [],
-  notes: [],
-  source_score: 60,
-  source_band: "Good",
-};
+const NEUTRAL_DAILY = NEUTRAL_SYNTHETIC_DAILY;
 
 const COMPONENT_CODES = [
-  "seasonal_baseline",
-  "daily_modifier",
-  "clarity_modifier",
+  "water_column_fit",
+  "posture_fit",
+  "presentation_fit",
   "forage_bonus",
-  "lane_window_bonus",
-  "tactical_window_bonus",
-  "pace_bias_bonus",
+  "daily_condition_fit",
+  "clarity_fit",
+  "guardrail_penalty",
 ] as const;
 
 type ComponentCode = (typeof COMPONENT_CODES)[number];
@@ -231,16 +177,17 @@ function groupValue(
 ): number {
   switch (group) {
     case "seasonal_core":
-      return breakdownValue(candidate, "seasonal_baseline");
+      return breakdownValue(candidate, "water_column_fit") +
+        breakdownValue(candidate, "forage_bonus");
     case "daily_stack":
-      return breakdownValue(candidate, "daily_modifier") +
-        breakdownValue(candidate, "lane_window_bonus") +
-        breakdownValue(candidate, "tactical_window_bonus") +
-        breakdownValue(candidate, "pace_bias_bonus");
+      return breakdownValue(candidate, "posture_fit") +
+        breakdownValue(candidate, "presentation_fit") +
+        breakdownValue(candidate, "daily_condition_fit") +
+        breakdownValue(candidate, "guardrail_penalty");
     case "forage":
       return breakdownValue(candidate, "forage_bonus");
     case "clarity":
-      return breakdownValue(candidate, "clarity_modifier");
+      return breakdownValue(candidate, "clarity_fit");
   }
 }
 
@@ -510,13 +457,14 @@ const examples = {
 
 for (const row of AUDITED_ROWS) {
   for (const clarity of CLARITIES) {
-    const neutralResolved = resolveFinalProfileV3(row, NEUTRAL_DAILY, clarity);
+    const neutralResolved = resolveFinalProfileV3(row, NEUTRAL_DAILY);
     const neutralLures = scoreLureCandidatesV3(
       row,
       neutralResolved,
       NEUTRAL_DAILY,
       clarity,
       LIGHT_BY_CLARITY[clarity],
+      COVERAGE_ANALYSIS,
     );
     const neutralFlies = scoreFlyCandidatesV3(
       row,
@@ -524,16 +472,18 @@ for (const row of AUDITED_ROWS) {
       NEUTRAL_DAILY,
       clarity,
       LIGHT_BY_CLARITY[clarity],
+      COVERAGE_ANALYSIS,
     );
 
     for (const daily of DAILY_PAYLOADS) {
-      const resolved = resolveFinalProfileV3(row, daily, clarity);
+      const resolved = resolveFinalProfileV3(row, daily);
       const lures = scoreLureCandidatesV3(
         row,
         resolved,
         daily,
         clarity,
         LIGHT_BY_CLARITY[clarity],
+        COVERAGE_ANALYSIS,
       );
       const flies = scoreFlyCandidatesV3(
         row,
@@ -541,6 +491,7 @@ for (const row of AUDITED_ROWS) {
         daily,
         clarity,
         LIGHT_BY_CLARITY[clarity],
+        COVERAGE_ANALYSIS,
       );
       updateAggregate(
         aggregates.lure,

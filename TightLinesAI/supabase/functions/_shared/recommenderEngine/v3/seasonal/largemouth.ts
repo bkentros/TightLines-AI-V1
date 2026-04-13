@@ -1,7 +1,7 @@
 /**
  * Legacy seasonal definitions are converted into the rebuilt deterministic row
  * shape here so the month-by-month species coverage stays intact while the
- * runtime contract moves to explicit weights and seasonal anchors.
+ * runtime contract uses eligible archetype pools and seasonal anchors.
  */
 import type {
   FlyArchetypeIdV3,
@@ -13,11 +13,10 @@ import type {
   SeasonalWaterColumnV3,
 } from "../contracts.ts";
 import type { RegionKey } from "../../../howFishingEngine/contracts/region.ts";
-import { FLY_ARCHETYPES_V3, LURE_ARCHETYPES_V3 } from "../candidates/index.ts";
 import {
   baseSeasonalWaterColumn,
-  buildSeasonalWeights,
   shiftSeasonalWaterColumn,
+  sortEligibleArchetypeIds,
 } from "./tuning.ts";
 
 type LegacyWaterColumn = "top" | "shallow" | "mid" | "bottom";
@@ -144,29 +143,6 @@ function resolveLargemouthSeasonalLocation(
   }
 }
 
-function toSeasonalWeights<T extends string>(
-  viable: readonly T[],
-  primary?: readonly T[],
-  profiles?: Record<T, { display_name: string } & Record<string, unknown>>,
-  core?: LegacySeasonalCore,
-  typicalColumn?: SeasonalWaterColumnV3,
-): Partial<Record<T, 1 | 2 | 3>> {
-  if (!profiles || !core || !typicalColumn) {
-    const weights: Partial<Record<T, 1 | 2 | 3>> = {};
-    for (const id of viable) weights[id] = 1;
-    if (primary?.[1]) weights[primary[1]] = 2;
-    if (primary?.[0]) weights[primary[0]] = 3;
-    return weights;
-  }
-  return buildSeasonalWeights(
-    viable,
-    primary,
-    profiles as never,
-    core,
-    typicalColumn,
-  );
-}
-
 function toSeasonalRow(
   species: RecommenderV3SeasonalRow["species"],
   region_key: RegionKey,
@@ -191,23 +167,10 @@ function toSeasonalRow(
       month,
       typicalColumn,
     ),
-    default_presentation_presence: core.base_presentation_style,
     primary_forage: core.primary_forage,
     secondary_forage: core.secondary_forage,
-    seasonal_lure_weights: toSeasonalWeights(
-      core.viable_lure_archetypes,
-      core.primary_lure_archetypes,
-      LURE_ARCHETYPES_V3,
-      core,
-      typicalColumn,
-    ),
-    seasonal_fly_weights: toSeasonalWeights(
-      core.viable_fly_archetypes,
-      core.primary_fly_archetypes,
-      FLY_ARCHETYPES_V3,
-      core,
-      typicalColumn,
-    ),
+    eligible_lure_ids: sortEligibleArchetypeIds(core.viable_lure_archetypes),
+    eligible_fly_ids: sortEligibleArchetypeIds(core.viable_fly_archetypes),
   };
 }
 

@@ -1,19 +1,19 @@
 {
-  "generated_at": "2026-04-13T01:06:04.795Z",
+  "generated_at": "2026-04-13T13:33:12.704Z",
   "species": {
     "largemouth_bass": {
       "batch_id": "largemouth_v3_matrix",
       "scenario_count": 110,
       "core_count": 48,
       "secondary_count": 62,
-      "top1_primary_hit_count": 109,
+      "top1_primary_hit_count": 110,
       "top3_primary_present_count": 110,
       "disallowed_avoidance_count": 110,
       "top_color_match_count": 110,
       "unique_top1_lure_ids": 16,
-      "unique_top1_fly_ids": 9,
+      "unique_top1_fly_ids": 8,
       "unique_lure_top3_signatures": 52,
-      "unique_fly_top3_signatures": 42,
+      "unique_fly_top3_signatures": 40,
       "lure_top1_leaders": [
         {
           "id": "spinnerbait",
@@ -55,7 +55,7 @@
         },
         {
           "id": "game_changer",
-          "count": 24
+          "count": 29
         },
         {
           "id": "woolly_bugger",
@@ -70,16 +70,16 @@
           "count": 7
         },
         {
-          "id": "frog_fly",
-          "count": 6
-        },
-        {
           "id": "balanced_leech",
           "count": 5
         },
         {
-          "id": "popper_fly",
-          "count": 2
+          "id": "frog_fly",
+          "count": 3
+        },
+        {
+          "id": "deceiver",
+          "count": 1
         }
       ],
       "anchor_top1_primary_hit": {
@@ -96,7 +96,7 @@
           "total": 12
         },
         "new_york_natural_lake": {
-          "hit": 11,
+          "hit": 12,
           "total": 12
         },
         "michigan_clear_natural_lake": {
@@ -175,28 +175,28 @@
           "expected_count": 6,
           "top3_hit_count": 5,
           "top1_hit_count": 3,
-          "unexpected_top3_count": 7
+          "unexpected_top3_count": 0
         },
         "mouse_fly": {
           "expected_count": 3,
-          "top3_hit_count": 1,
+          "top3_hit_count": 2,
           "top1_hit_count": 0,
-          "unexpected_top3_count": 4
+          "unexpected_top3_count": 5
         },
         "walking_topwater": {
-          "expected_count": 22,
+          "expected_count": 10,
           "top3_hit_count": 1,
           "top1_hit_count": 1,
           "unexpected_top3_count": 0
         },
         "buzzbait": {
-          "expected_count": 11,
+          "expected_count": 10,
           "top3_hit_count": 4,
           "top1_hit_count": 0,
           "unexpected_top3_count": 0
         },
         "prop_bait": {
-          "expected_count": 10,
+          "expected_count": 7,
           "top3_hit_count": 1,
           "top1_hit_count": 1,
           "unexpected_top3_count": 0
@@ -205,26 +205,10 @@
           "expected_count": 2,
           "top3_hit_count": 0,
           "top1_hit_count": 0,
-          "unexpected_top3_count": 10
+          "unexpected_top3_count": 0
         }
       },
-      "top1_primary_miss_examples": [
-        {
-          "scenario_id": "lmb_matrix_new_york_natural_lake_04",
-          "label": "New York natural lake, spawn postspawn transition month 4",
-          "actual_top1_ids": [
-            "compact_flipping_jig",
-            "woolly_bugger"
-          ],
-          "expected_primary_ids": [
-            "weightless_stick_worm",
-            "wacky_rigged_stick_worm",
-            "swim_jig"
-          ],
-          "state_code": "NY",
-          "context": "freshwater_lake_pond"
-        }
-      ],
+      "top1_primary_miss_examples": [],
       "disallowed_examples": []
     },
     "smallmouth_bass": {

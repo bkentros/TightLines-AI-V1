@@ -15,9 +15,9 @@ import type { SharedConditionAnalysis } from "../howFishingEngine/analyzeSharedC
 /**
  * Freshwater V3 production path.
  *
- * The runtime stays intentionally compact: shared condition analysis from
- * How's Fishing, a month-by-month seasonal row for the species and region,
- * bounded daily nudges, and archetype scoring with realistic color guidance.
+ * Seasonal rows define eligible lure/fly pools; shared How's Fishing analysis
+ * and daily payload drive ranking inside those pools (condition features,
+ * column/posture/presentation fit, clarity, guardrails).
  */
 export function computeRecommenderV3(
   req: RecommenderRequest,
@@ -44,6 +44,7 @@ export function computeRecommenderV3(
     dailyPayload,
     req.water_clarity,
     lightLabel,
+    analysis,
   );
   const flyRecommendations = scoreFlyCandidatesV3(
     seasonalRow,
@@ -51,6 +52,7 @@ export function computeRecommenderV3(
     dailyPayload,
     req.water_clarity,
     lightLabel,
+    analysis,
   );
 
   return {

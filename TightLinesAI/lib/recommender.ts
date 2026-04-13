@@ -56,7 +56,7 @@ function cacheKey(
 ): string {
   const dayKey = extractRequestDay(params);
   return [
-    'recommender_v5',
+    'recommender_v6',
     params.latitude.toFixed(3),
     params.longitude.toFixed(3),
     params.state_code.toUpperCase(),

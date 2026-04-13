@@ -288,11 +288,9 @@ export type RecommenderV3ArchetypeProfile = {
   clarity_strengths: readonly WaterClarity[];
   tactical_lane: TacticalLaneV3;
   /** Optional per-archetype technique line when tactical_lane defaults are too generic. */
-  /** Three presentation variants — one is randomly selected each run. */
+  /** Three variants; `runRecommenderV3Surface` picks one deterministically from the request seed. */
   how_to_fish_text?: readonly [string, string, string];
 };
-
-export type SeasonalArchetypeWeight = 1 | 2 | 3;
 
 export type RecommenderV3SeasonalRow = {
   species: RecommenderV3Species;
@@ -301,15 +299,11 @@ export type RecommenderV3SeasonalRow = {
   context: RecommenderV3Context;
   typical_seasonal_water_column: SeasonalWaterColumnV3;
   typical_seasonal_location: SeasonalLocationV3;
-  default_presentation_presence: PresentationStyleV3;
   primary_forage: ForageBucketV3;
   secondary_forage?: ForageBucketV3;
-  seasonal_lure_weights: Partial<
-    Record<LureArchetypeIdV3, SeasonalArchetypeWeight>
-  >;
-  seasonal_fly_weights: Partial<
-    Record<FlyArchetypeIdV3, SeasonalArchetypeWeight>
-  >;
+  /** Seasonal eligibility only — equal standing; daily conditions rank within this set. */
+  eligible_lure_ids: readonly LureArchetypeIdV3[];
+  eligible_fly_ids: readonly FlyArchetypeIdV3[];
 };
 
 export type RecommenderV3ResolvedProfile = {
@@ -326,6 +320,8 @@ export type RecommenderV3ScoreBreakdown = {
   code: string;
   value: number;
   detail: string;
+  /** Used by confidence heuristics when present. */
+  direction?: "bonus" | "penalty";
 };
 
 export type RecommenderV3RankedArchetype = {
@@ -335,11 +331,12 @@ export type RecommenderV3RankedArchetype = {
   family_key: string;
   tactical_lane: TacticalLaneV3;
   score: number;
-  seasonal_weight: number;
   water_column_fit: number;
   posture_fit: number;
   presentation_fit: number;
   forage_bonus: number;
+  daily_condition_fit: number;
+  clarity_fit: number;
   guardrail_penalty: number;
   color_theme: ResolvedColorThemeV3;
   color_recommendations: [string, string, string];

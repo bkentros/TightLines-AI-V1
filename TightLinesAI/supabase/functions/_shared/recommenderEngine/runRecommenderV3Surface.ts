@@ -512,7 +512,7 @@ function howToFishText(candidate: RecommenderV3RankedArchetype, seed: string): s
     );
     return variants[pick]!;
   }
-  return "Keep the presentation clean and in the fish's lane longer than a random fast retrieve.";
+  return "Keep the presentation clean and in the fish's lane longer than a rushed, mechanical retrieve.";
 }
 
 // ─── Color of the Day ─────────────────────────────────────────────────────────

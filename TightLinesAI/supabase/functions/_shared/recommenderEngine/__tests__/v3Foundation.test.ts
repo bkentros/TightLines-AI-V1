@@ -177,8 +177,8 @@ Deno.test("V3 windy summer lake days suppress true topwater and keep picks insid
     }),
   );
   const seasonalIds = new Set([
-    ...Object.keys(result.seasonal_row.seasonal_lure_weights),
-    ...Object.keys(result.seasonal_row.seasonal_fly_weights),
+    ...result.seasonal_row.eligible_lure_ids,
+    ...result.seasonal_row.eligible_fly_ids,
   ]);
 
   assertEquals(result.daily_payload.surface_window_today, "closed");

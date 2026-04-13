@@ -1,12 +1,17 @@
+import type { SharedConditionAnalysis } from "../../howFishingEngine/analyzeSharedConditions.ts";
 import { FLY_ARCHETYPES_V3, LURE_ARCHETYPES_V3 } from "./candidates/index.ts";
 import { RESOLVED_COLOR_SHADE_POOLS_V3 } from "./colors.ts";
 import {
   normalizeLightBucketV3,
   resolveColorDecisionV3,
 } from "./colorDecision.ts";
+import { buildConditionFeaturesFromAnalysis } from "./buildConditionFeatures.ts";
+import {
+  clarityProfileFit,
+  dailyConditionFitScore,
+} from "./archetypeConditionWeights.ts";
 import type {
   ArchetypeWaterColumnV3,
-  FlyArchetypeIdV3,
   MoodV3,
   PresentationStyleV3,
   RecommenderV3ArchetypeProfile,
@@ -142,97 +147,6 @@ function forageBonusValue(
   return 0;
 }
 
-function isTrueTopwaterLure(profile: RecommenderV3ArchetypeProfile): boolean {
-  return profile.gear_mode === "lure" && profile.tactical_lane === "surface";
-}
-
-function isSurfaceAdjacentCoverLure(
-  profile: RecommenderV3ArchetypeProfile,
-): boolean {
-  return profile.id === "hollow_body_frog";
-}
-
-function isSpringSouthernFrogWindow(
-  seasonal: RecommenderV3SeasonalRow,
-  profile: RecommenderV3ArchetypeProfile,
-): boolean {
-  return (
-    profile.id === "hollow_body_frog" &&
-    seasonal.context === "freshwater_lake_pond" &&
-    (seasonal.month === 4 || seasonal.month === 5) &&
-    (
-      seasonal.region_key === "florida" ||
-      seasonal.region_key === "gulf_coast" ||
-      seasonal.region_key === "southeast_atlantic" ||
-      seasonal.region_key === "south_central"
-    )
-  );
-}
-
-function largemouthSurfaceFlyAdjustmentValue(
-  profile: RecommenderV3ArchetypeProfile,
-  seasonal: RecommenderV3SeasonalRow,
-  resolved: RecommenderV3ResolvedProfile,
-  daily: RecommenderV3DailyPayload | undefined,
-  clarity: WaterClarity,
-): number {
-  if (!daily) return 0;
-  if (seasonal.species !== "largemouth_bass") return 0;
-  if (profile.tactical_lane !== "fly_surface") return 0;
-
-  const surfaceWindow = daily.surface_window_today;
-  if (surfaceWindow === "closed") return 0;
-
-  const upperColumnOpen = resolved.likely_water_column_today !== "mid_low" &&
-    resolved.likely_water_column_today !== "low";
-  const subtlePresentation = resolved.presentation_presence_today === "subtle";
-  const balancedPresentation = resolved.presentation_presence_today === "balanced";
-  const neutralPosture = resolved.daily_posture_band === "neutral";
-  const slightlyAggressivePosture =
-    resolved.daily_posture_band === "slightly_aggressive";
-  const aggressivePosture = resolved.daily_posture_band === "aggressive";
-
-  if (!upperColumnOpen) return -0.35;
-
-  if (profile.id === "popper_fly") {
-    if (subtlePresentation) return clarity === "clear" ? -1.1 : -0.8;
-    if (neutralPosture && clarity === "clear") return -0.65;
-    if (
-      surfaceWindow === "rippled" &&
-      clarity !== "clear" &&
-      (aggressivePosture || slightlyAggressivePosture)
-    ) {
-      return 0.35;
-    }
-    if (
-      surfaceWindow === "clean" &&
-      clarity !== "dirty" &&
-      balancedPresentation &&
-      slightlyAggressivePosture
-    ) {
-      return 0.15;
-    }
-    return -0.15;
-  }
-
-  if (profile.id === "frog_fly") {
-    if (clarity === "clear" && subtlePresentation) return -1.0;
-    if (clarity === "clear" && neutralPosture) return -0.6;
-    if (seasonal.context === "freshwater_river" && clarity === "clear") return -0.4;
-    if (
-      surfaceWindow === "rippled" &&
-      clarity !== "clear" &&
-      !subtlePresentation
-    ) {
-      return 0.25;
-    }
-    if (aggressivePosture || slightlyAggressivePosture) return 0.15;
-    return -0.1;
-  }
-
-  return 0;
-}
-
 function guardrailPenaltyValue(
   profile: RecommenderV3ArchetypeProfile,
   daily: RecommenderV3DailyPayload | undefined,
@@ -250,7 +164,9 @@ function guardrailPenaltyValue(
 
   if (!daily.surface_allowed_today && isTrueTopwater) return -100;
   if (daily.suppress_true_topwater && isTrueTopwater) return -100;
-  if (daily.surface_window_today === "closed" && isSurfaceAdjacentCover) penalty -= 2.15;
+  if (daily.surface_window_today === "closed" && isSurfaceAdjacentCover) {
+    penalty -= 2.15;
+  }
   if (daily.suppress_fast_presentations && isFastLane) penalty -= 0.9;
   if (
     daily.high_visibility_needed_today &&
@@ -260,147 +176,6 @@ function guardrailPenaltyValue(
     penalty -= 0.4;
   }
   return penalty;
-}
-
-function surfaceWindowBonusValue(
-  profile: RecommenderV3ArchetypeProfile,
-  seasonal: RecommenderV3SeasonalRow,
-  resolved: RecommenderV3ResolvedProfile,
-  daily: RecommenderV3DailyPayload | undefined,
-  clarity: WaterClarity,
-): number {
-  if (!daily) return 0;
-
-  const isTopwaterLure = isTrueTopwaterLure(profile);
-  const isFrogLure = isSurfaceAdjacentCoverLure(profile);
-  if (!isTopwaterLure && !isFrogLure) return 0;
-
-  const surfaceWindow = daily.surface_window_today;
-  const surfaceOpen = surfaceWindow !== "closed";
-  const cleanSurfaceWindow = surfaceWindow === "clean";
-  const rippledSurfaceWindow = surfaceWindow === "rippled";
-  const upperColumnOpen = resolved.likely_water_column_today !== "mid_low" &&
-    resolved.likely_water_column_today !== "low";
-  const neutralPosture = resolved.daily_posture_band === "neutral";
-  const aggressivePosture = resolved.daily_posture_band === "aggressive";
-  const slightlyAggressivePosture =
-    resolved.daily_posture_band === "slightly_aggressive";
-  const subtlePresentation = resolved.presentation_presence_today === "subtle";
-  const balancedPresentation = resolved.presentation_presence_today === "balanced";
-  const boldPresentation = resolved.presentation_presence_today === "bold";
-
-  if (isSpringSouthernFrogWindow(seasonal, profile)) {
-    if (!surfaceOpen || (!aggressivePosture && !slightlyAggressivePosture)) {
-      return -1.25;
-    }
-    if (rippledSurfaceWindow) return aggressivePosture ? 1.25 : 1.0;
-    return aggressivePosture ? 1.05 : 0.8;
-  }
-
-  if (!surfaceOpen || !upperColumnOpen) return 0;
-
-  if (isTopwaterLure) {
-    if (profile.id === "buzzbait") {
-      if (rippledSurfaceWindow) {
-        if (aggressivePosture) return clarity === "dirty" ? 1.45 : 1.25;
-        if (slightlyAggressivePosture) return clarity === "clear" ? 0.35 : 1.0;
-        if (neutralPosture && clarity !== "clear" && !subtlePresentation) {
-          return 0.35;
-        }
-        return 0;
-      }
-      if (cleanSurfaceWindow && aggressivePosture && clarity !== "clear") {
-        return 0.55;
-      }
-      return 0;
-    }
-
-    if (profile.id === "prop_bait") {
-      if (clarity === "dirty") return 0;
-      if (cleanSurfaceWindow) {
-        if (slightlyAggressivePosture) {
-          return subtlePresentation ? 1.25 : 1.1;
-        }
-        if (neutralPosture) {
-          return subtlePresentation || balancedPresentation ? 1.0 : 0.65;
-        }
-        if (aggressivePosture) return balancedPresentation ? 0.75 : 0.55;
-        return 0;
-      }
-      if (rippledSurfaceWindow) {
-        if (slightlyAggressivePosture && balancedPresentation && clarity === "stained") {
-          return 0.25;
-        }
-        if (neutralPosture && subtlePresentation && clarity === "stained") return 0.15;
-      }
-      return 0;
-    }
-
-    if (profile.id === "walking_topwater") {
-      if (clarity === "dirty") return 0;
-      if (cleanSurfaceWindow) {
-        if (aggressivePosture) return clarity === "clear" ? 1.4 : 1.25;
-        if (slightlyAggressivePosture) return clarity === "clear" ? 1.1 : 0.95;
-        if (neutralPosture && !subtlePresentation) {
-          return clarity === "clear" ? 0.65 : 0.5;
-        }
-        return 0;
-      }
-      if (rippledSurfaceWindow) {
-        if (aggressivePosture) return clarity === "clear" ? 0.85 : 0.75;
-        if (slightlyAggressivePosture) return clarity === "clear" ? 0.65 : 0.55;
-        if (neutralPosture && clarity === "stained" && boldPresentation) return 0.25;
-        return 0;
-      }
-      return 0;
-    }
-
-    if (profile.id === "popping_topwater") {
-      if (cleanSurfaceWindow) {
-        if (aggressivePosture) return clarity === "dirty" ? 0.95 : 0.8;
-        if (slightlyAggressivePosture) return clarity === "dirty" ? 0.85 : 0.7;
-        if (neutralPosture && !subtlePresentation) {
-          return clarity === "clear" ? 0.35 : 0.55;
-        }
-        return 0;
-      }
-      if (rippledSurfaceWindow) {
-        if (aggressivePosture) return clarity === "dirty" ? 1.1 : 0.9;
-        if (slightlyAggressivePosture) return clarity === "dirty" ? 1.0 : 0.8;
-        if (neutralPosture && !subtlePresentation) {
-          return clarity === "clear" ? 0.25 : 0.45;
-        }
-      }
-      return 0;
-    }
-
-    if (rippledSurfaceWindow) {
-      if (aggressivePosture) return 0.9;
-      if (slightlyAggressivePosture) return 0.7;
-      if (neutralPosture && !subtlePresentation) return 0.35;
-      return 0;
-    }
-    if (aggressivePosture) return 0.8;
-    if (slightlyAggressivePosture) return 0.6;
-    if (neutralPosture && !subtlePresentation) return 0.25;
-    return 0;
-  }
-
-  if (isFrogLure) {
-    if (rippledSurfaceWindow) {
-      if (aggressivePosture) return 0.95;
-      if (slightlyAggressivePosture) return 0.75;
-      if (neutralPosture && !subtlePresentation && clarity !== "clear") return 0.3;
-      return 0;
-    }
-    if (aggressivePosture) return 0.75;
-    if (slightlyAggressivePosture) return 0.55;
-    if (neutralPosture && seasonal.month >= 6 && !subtlePresentation && clarity !== "clear") {
-      return 0.2;
-    }
-  }
-
-  return 0;
 }
 
 function firstThreeColors(
@@ -413,6 +188,19 @@ function firstThreeColors(
   return [a, b, c];
 }
 
+function breakdownEntry(
+  code: string,
+  value: number,
+  detail: string,
+): RecommenderV3ScoreBreakdown {
+  return {
+    code,
+    value: roundScore(value),
+    detail,
+    direction: value < 0 ? "penalty" : "bonus",
+  };
+}
+
 function scoreProfile(
   profile: RecommenderV3ArchetypeProfile,
   seasonal: RecommenderV3SeasonalRow,
@@ -420,90 +208,99 @@ function scoreProfile(
   daily: RecommenderV3DailyPayload | undefined,
   clarity: WaterClarity,
   lightLabel: string | null,
-  seasonalWeight: number,
+  analysis: SharedConditionAnalysis,
 ): RecommenderV3RankedArchetype {
   const breakdown: RecommenderV3ScoreBreakdown[] = [];
-  const seasonal_weight = seasonalWeight * 2;
-  breakdown.push({
-    code: "seasonal_weight",
-    value: seasonal_weight,
-    detail:
-      "Seasonal row weighting stays the primary driver of what belongs at the top today.",
-  });
+
+  const features = daily
+    ? buildConditionFeaturesFromAnalysis(
+      analysis,
+      daily,
+      clarity,
+      seasonal.context,
+    )
+    : null;
 
   const targetColumn = toArchetypeWaterColumn(resolved.likely_water_column_today);
   const water_column_fit = roundScore(waterColumnFit(targetColumn, profile));
-  breakdown.push({
-    code: "water_column_fit",
-    value: water_column_fit,
-    detail:
-      "Water-column fit compares the resolved likely bite lane today to the archetype's natural lane.",
-  });
+  breakdown.push(
+    breakdownEntry(
+      "water_column_fit",
+      water_column_fit,
+      "Compares today's resolved water column to the archetype's preferred lanes.",
+    ),
+  );
 
   const posture_fit = roundScore(
     moodFit(toMood(resolved.daily_posture_band), profile),
   );
-  breakdown.push({
-    code: "posture_fit",
-    value: posture_fit,
-    detail:
-      "Posture fit checks whether the archetype matches today's suppression or aggression level.",
-  });
+  breakdown.push(
+    breakdownEntry(
+      "posture_fit",
+      posture_fit,
+      "Matches daily fish willingness (from posture band) to archetype mood.",
+    ),
+  );
 
   const presentation_fit_value = roundScore(
     presentationFit(resolved.presentation_presence_today, profile),
   );
-  breakdown.push({
-    code: "presentation_fit",
-    value: presentation_fit_value,
-    detail:
-      "Presentation fit checks whether the archetype naturally matches today's subtle, balanced, or bold look.",
-  });
+  breakdown.push(
+    breakdownEntry(
+      "presentation_fit",
+      presentation_fit_value,
+      "Aligns daily presentation presence (subtle/balanced/bold) with the archetype.",
+    ),
+  );
 
   const forage_bonus = roundScore(forageBonusValue(seasonal, profile));
-  breakdown.push({
-    code: "forage_bonus",
-    value: forage_bonus,
-    detail:
-      "Forage bonus keeps the recommendation tied to likely prey for the season and region.",
-  });
-
-  const surface_window_bonus = roundScore(
-    surfaceWindowBonusValue(profile, seasonal, resolved, daily, clarity),
+  breakdown.push(
+    breakdownEntry(
+      "forage_bonus",
+      forage_bonus,
+      "Seasonal primary/secondary forage alignment.",
+    ),
   );
-  breakdown.push({
-    code: "surface_window_bonus",
-    value: surface_window_bonus,
-    detail:
-      "Surface-window bonus promotes topwater only when today's surface window is either clean or lightly rippled, then differentiates which style of topwater actually fits that specific window.",
-  });
 
-  const largemouth_surface_fly_adjustment = roundScore(
-    largemouthSurfaceFlyAdjustmentValue(profile, seasonal, resolved, daily, clarity),
+  const daily_condition_fit = features
+    ? roundScore(
+      dailyConditionFitScore(features, profile.tactical_lane, profile.id),
+    )
+    : 0;
+  breakdown.push(
+    breakdownEntry(
+      "daily_condition_fit",
+      daily_condition_fit,
+      "Weather and flow features × tactical lane (and small per-id tuning).",
+    ),
   );
-  breakdown.push({
-    code: "largemouth_surface_fly_adjustment",
-    value: largemouth_surface_fly_adjustment,
-    detail:
-      "Largemouth surface-fly adjustment keeps popper and frog flies from outranking cleaner streamer lanes unless today's surface window and presentation really support that choice.",
-  });
+
+  const clarity_fit = roundScore(
+    clarityProfileFit(clarity, profile.clarity_strengths),
+  );
+  breakdown.push(
+    breakdownEntry(
+      "clarity_fit",
+      clarity_fit,
+      "User water clarity vs archetype clarity strengths.",
+    ),
+  );
 
   const guardrail_penalty = roundScore(guardrailPenaltyValue(profile, daily));
   breakdown.push({
     code: "guardrail_penalty",
     value: guardrail_penalty,
-    detail:
-      "Guardrail penalties suppress archetypes that today's deterministic rules say should not rise to the top.",
+    detail: "Hard limits for illegal surface or pace when today's rules forbid them.",
+    direction: guardrail_penalty < 0 ? "penalty" : "bonus",
   });
 
   const score = roundScore(
-    seasonal_weight +
-      water_column_fit +
+    water_column_fit +
       posture_fit +
       presentation_fit_value +
       forage_bonus +
-      surface_window_bonus +
-      largemouth_surface_fly_adjustment +
+      daily_condition_fit +
+      clarity_fit +
       guardrail_penalty,
   );
 
@@ -520,22 +317,17 @@ function scoreProfile(
     family_key: profile.family_key,
     tactical_lane: profile.tactical_lane,
     score,
-    seasonal_weight,
     water_column_fit,
     posture_fit,
     presentation_fit: presentation_fit_value,
     forage_bonus,
+    daily_condition_fit,
+    clarity_fit,
     guardrail_penalty,
     color_theme,
     color_recommendations,
     breakdown,
   };
-}
-
-function eligibleWeights<T extends string>(
-  weights: Partial<Record<T, 1 | 2 | 3>>,
-): Array<[T, 1 | 2 | 3]> {
-  return Object.entries(weights) as Array<[T, 1 | 2 | 3]>;
 }
 
 function selectTopThree(
@@ -572,27 +364,40 @@ function selectTopThree(
   return selected.map((candidate) => candidate.candidate);
 }
 
+function assertEligiblePools(seasonal: RecommenderV3SeasonalRow): void {
+  if (seasonal.eligible_lure_ids.length < 3) {
+    throw new Error(
+      `Seasonal row ${seasonal.species} ${seasonal.region_key} m${seasonal.month} ${seasonal.context}: need >= 3 eligible lures`,
+    );
+  }
+  if (seasonal.eligible_fly_ids.length < 3) {
+    throw new Error(
+      `Seasonal row ${seasonal.species} ${seasonal.region_key} m${seasonal.month} ${seasonal.context}: need >= 3 eligible flies`,
+    );
+  }
+}
+
 export function scoreLureCandidatesV3(
   seasonal: RecommenderV3SeasonalRow,
   resolved: RecommenderV3ResolvedProfile,
   daily: RecommenderV3DailyPayload | undefined,
   clarity: WaterClarity,
   lightLabel: string | null,
+  analysis: SharedConditionAnalysis,
 ): RecommenderV3RankedArchetype[] {
-  const scored = eligibleWeights(seasonal.seasonal_lure_weights).map(([id, weight]) => {
-    return {
-      candidate: scoreProfile(
-        LURE_ARCHETYPES_V3[id],
-        seasonal,
-        resolved,
-        daily,
-        clarity,
-        lightLabel,
-        weight,
-      ),
-      top3_redundancy_key: LURE_ARCHETYPES_V3[id].top3_redundancy_key,
-    };
-  });
+  assertEligiblePools(seasonal);
+  const scored = seasonal.eligible_lure_ids.map((id) => ({
+    candidate: scoreProfile(
+      LURE_ARCHETYPES_V3[id],
+      seasonal,
+      resolved,
+      daily,
+      clarity,
+      lightLabel,
+      analysis,
+    ),
+    top3_redundancy_key: LURE_ARCHETYPES_V3[id].top3_redundancy_key,
+  }));
   return selectTopThree(scored);
 }
 
@@ -602,20 +407,20 @@ export function scoreFlyCandidatesV3(
   daily: RecommenderV3DailyPayload | undefined,
   clarity: WaterClarity,
   lightLabel: string | null,
+  analysis: SharedConditionAnalysis,
 ): RecommenderV3RankedArchetype[] {
-  const scored = eligibleWeights(seasonal.seasonal_fly_weights).map(([id, weight]) => {
-    return {
-      candidate: scoreProfile(
-        FLY_ARCHETYPES_V3[id],
-        seasonal,
-        resolved,
-        daily,
-        clarity,
-        lightLabel,
-        weight,
-      ),
-      top3_redundancy_key: FLY_ARCHETYPES_V3[id].top3_redundancy_key,
-    };
-  });
+  assertEligiblePools(seasonal);
+  const scored = seasonal.eligible_fly_ids.map((id) => ({
+    candidate: scoreProfile(
+      FLY_ARCHETYPES_V3[id],
+      seasonal,
+      resolved,
+      daily,
+      clarity,
+      lightLabel,
+      analysis,
+    ),
+    top3_redundancy_key: FLY_ARCHETYPES_V3[id].top3_redundancy_key,
+  }));
   return selectTopThree(scored);
 }

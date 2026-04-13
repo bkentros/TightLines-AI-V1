@@ -96,8 +96,50 @@ function analysis(overrides: AnalysisInput = {}) {
   } as any;
 }
 
+function auditSurfaceWindow(
+  daily: { surface_allowed_today: boolean; surface_window_today: string },
+): "on" | "off" | "watch" {
+  if (!daily.surface_allowed_today || daily.surface_window_today === "closed") {
+    return "off";
+  }
+  if (daily.surface_window_today === "clean") return "on";
+  return "watch";
+}
+
+function auditReactionWindow(posture_band: string): "on" | "off" | "watch" {
+  if (posture_band === "aggressive" || posture_band === "slightly_aggressive") {
+    return "on";
+  }
+  if (posture_band === "suppressed" || posture_band === "slightly_suppressed") {
+    return "off";
+  }
+  return "watch";
+}
+
+function auditFinesseWindow(presentation: string): "on" | "off" {
+  return presentation === "subtle" ? "on" : "off";
+}
+
+function auditPaceBias(daily: {
+  suppress_fast_presentations: boolean;
+  posture_band: string;
+}): "slow" | "fast" | "neutral" {
+  if (daily.suppress_fast_presentations) return "slow";
+  if (daily.posture_band === "aggressive") return "fast";
+  return "neutral";
+}
+
+function simplifyWaterColumn(likely: string): "top" | "shallow" | "mid" | "bottom" {
+  if (likely === "top" || likely === "high_top") return "top";
+  if (likely === "high" || likely === "mid_high") return "shallow";
+  if (likely === "mid") return "mid";
+  return "bottom";
+}
+
 function summarize(caseDef: ScenarioCase): ScenarioSummary {
   const result = computeRecommenderV3(caseDef.request, analysis(caseDef.analysis));
+  const dp = result.daily_payload;
+  const rp = result.resolved_profile;
   return {
     id: caseDef.id,
     label: caseDef.label,
@@ -107,15 +149,15 @@ function summarize(caseDef: ScenarioCase): ScenarioSummary {
     month: result.month,
     water_clarity: result.water_clarity,
     daily_payload: {
-      surface_window: result.daily_payload.surface_window,
-      reaction_window: result.daily_payload.reaction_window,
-      finesse_window: result.daily_payload.finesse_window,
-      pace_bias: result.daily_payload.pace_bias,
+      surface_window: auditSurfaceWindow(dp),
+      reaction_window: auditReactionWindow(dp.posture_band),
+      finesse_window: auditFinesseWindow(dp.presentation_presence_today),
+      pace_bias: auditPaceBias(dp),
     },
     resolved_profile: {
-      final_water_column: result.resolved_profile.final_water_column,
-      final_mood: result.resolved_profile.final_mood,
-      final_presentation_style: result.resolved_profile.final_presentation_style,
+      final_water_column: simplifyWaterColumn(rp.likely_water_column_today),
+      final_mood: rp.daily_posture_band,
+      final_presentation_style: rp.presentation_presence_today,
     },
     lure_top3: result.lure_recommendations.map((candidate) => candidate.id),
     fly_top3: result.fly_recommendations.map((candidate) => candidate.id),
@@ -529,7 +571,7 @@ const PAIRS: readonly PairAudit[] = [
           local_timezone: "America/Denver",
           month: 7,
         },
-        species: "trout",
+        species: "river_trout",
         context: "freshwater_river",
         water_clarity: "clear",
         env_data: {},
@@ -564,7 +606,7 @@ const PAIRS: readonly PairAudit[] = [
           local_timezone: "America/Denver",
           month: 7,
         },
-        species: "trout",
+        species: "river_trout",
         context: "freshwater_river",
         water_clarity: "clear",
         env_data: {},
@@ -617,7 +659,7 @@ const PAIRS: readonly PairAudit[] = [
           local_timezone: "America/Denver",
           month: 7,
         },
-        species: "trout",
+        species: "river_trout",
         context: "freshwater_river",
         water_clarity: "clear",
         env_data: {},
@@ -652,7 +694,7 @@ const PAIRS: readonly PairAudit[] = [
           local_timezone: "America/Denver",
           month: 7,
         },
-        species: "trout",
+        species: "river_trout",
         context: "freshwater_river",
         water_clarity: "clear",
         env_data: {},
@@ -710,7 +752,7 @@ const PAIRS: readonly PairAudit[] = [
           local_timezone: "America/Chicago",
           month: 7,
         },
-        species: "northern_pike",
+        species: "pike_musky",
         context: "freshwater_lake_pond",
         water_clarity: "stained",
         env_data: {},
@@ -745,7 +787,7 @@ const PAIRS: readonly PairAudit[] = [
           local_timezone: "America/Chicago",
           month: 7,
         },
-        species: "northern_pike",
+        species: "pike_musky",
         context: "freshwater_lake_pond",
         water_clarity: "stained",
         env_data: {},

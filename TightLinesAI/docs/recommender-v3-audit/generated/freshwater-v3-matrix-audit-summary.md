@@ -1,9 +1,9 @@
 # Freshwater V3 Matrix Audit Summary
 
-Generated: 2026-04-13T01:06:04.795Z
+Generated: 2026-04-13T13:33:12.704Z
 
 Total scenarios: 309
-Top-1 primary hit rate: 297/309 (96.1%)
+Top-1 primary hit rate: 298/309 (96.4%)
 Top-3 primary present rate: 309/309 (100.0%)
 Disallowed avoidance rate: 308/309 (99.7%)
 Top color-lane match rate: 309/309 (100.0%)
@@ -13,11 +13,11 @@ Top color-lane match rate: 309/309 (100.0%)
 ### largemouth_v3_matrix
 
 - Scenarios: 110 (48 core / 62 secondary)
-- Top-1 primary hits: 109/110 (99.1%)
+- Top-1 primary hits: 110/110 (100.0%)
 - Top-3 primary present: 110/110 (100.0%)
 - Disallowed avoidance: 110/110 (100.0%)
 - Top color-lane match: 110/110 (100.0%)
-- Variety: 16 unique lure top-1 IDs, 9 unique fly top-1 IDs, 52 lure top-3 signatures, 42 fly top-3 signatures
+- Variety: 16 unique lure top-1 IDs, 8 unique fly top-1 IDs, 52 lure top-3 signatures, 40 fly top-3 signatures
 
 Top lure leaders:
 - `spinnerbait`: 25
@@ -28,11 +28,11 @@ Top lure leaders:
 - `weightless_stick_worm`: 6
 Top fly leaders:
 - `clouser_minnow`: 31
-- `game_changer`: 24
+- `game_changer`: 29
 - `woolly_bugger`: 19
 - `crawfish_streamer`: 15
 - `rabbit_strip_leech`: 7
-- `frog_fly`: 6
+- `balanced_leech`: 5
 
 Anchor top-1 primary hit:
 - `alabama_river`: 12/12 (100.0%)
@@ -46,6 +46,7 @@ Anchor top-1 primary hit:
 - `michigan_clear_natural_lake`: 4/4 (100.0%)
 - `midwest_dirty_backwater`: 3/3 (100.0%)
 - `minnesota_weed_lake`: 4/4 (100.0%)
+- `new_york_natural_lake`: 12/12 (100.0%)
 - `northeast_maine_lake`: 4/4 (100.0%)
 - `ohio_reservoir`: 4/4 (100.0%)
 - `ozarks_reservoir`: 4/4 (100.0%)
@@ -54,19 +55,18 @@ Anchor top-1 primary hit:
 - `socal_reservoir`: 4/4 (100.0%)
 - `texas_reservoir`: 12/12 (100.0%)
 - `wisconsin_clear_weed_lake`: 4/4 (100.0%)
-- `new_york_natural_lake`: 11/12 (91.7%)
 
 Specialty reach:
 - `hollow_body_frog`: expected 30, top3 hits 11, top1 hits 4, unexpected top3 1
-- `frog_fly`: expected 6, top3 hits 5, top1 hits 3, unexpected top3 7
-- `mouse_fly`: expected 3, top3 hits 1, top1 hits 0, unexpected top3 4
-- `walking_topwater`: expected 22, top3 hits 1, top1 hits 1, unexpected top3 0
-- `buzzbait`: expected 11, top3 hits 4, top1 hits 0, unexpected top3 0
-- `prop_bait`: expected 10, top3 hits 1, top1 hits 1, unexpected top3 0
-- `popper_fly`: expected 2, top3 hits 0, top1 hits 0, unexpected top3 10
+- `frog_fly`: expected 6, top3 hits 5, top1 hits 3, unexpected top3 0
+- `mouse_fly`: expected 3, top3 hits 2, top1 hits 0, unexpected top3 5
+- `walking_topwater`: expected 10, top3 hits 1, top1 hits 1, unexpected top3 0
+- `buzzbait`: expected 10, top3 hits 4, top1 hits 0, unexpected top3 0
+- `prop_bait`: expected 7, top3 hits 1, top1 hits 1, unexpected top3 0
+- `popper_fly`: expected 2, top3 hits 0, top1 hits 0, unexpected top3 0
 
 Top-1 miss examples:
-- `lmb_matrix_new_york_natural_lake_04` (NY, freshwater_lake_pond): actual compact_flipping_jig / woolly_bugger | expected weightless_stick_worm, wacky_rigged_stick_worm, swim_jig
+- none
 
 ### smallmouth_v3_matrix
 

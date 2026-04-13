@@ -4,6 +4,8 @@
  * buildLmbLakeViewerArchiveEnv.ts
  *
  * Fetches and caches archived weather data for each LMB lake viewer scenario.
+ * Scenarios that share the same coordinates + `local_date` + timezone reuse one fetch
+ * (July 8 clarity sweep: three clarities, one archive pull per region).
  * Run this once (or re-run to refresh). Output is read by runLmbLakeViewer.ts.
  *
  * Usage:
@@ -22,7 +24,11 @@ import { fetchUSNOMoon } from "../audit/lib/fetchUSNOMoon.ts";
 import { findDailyIndex, findNoonHourIndex } from "../audit/lib/dateUtils.ts";
 import { mapArchiveToEnvData } from "../audit/lib/mapArchiveToEnvData.ts";
 import type { ArchiveBatchBundle, ArchiveScenarioBundle } from "./archiveBundle.ts";
-import { LMB_LAKE_VIEWER_SCENARIOS, type LmbLakeViewerScenario } from "./lmbLakeViewerScenarios.ts";
+import {
+  LMB_LAKE_VIEWER_SCENARIOS,
+  lmbLakeViewerArchiveDedupeKey,
+  type LmbLakeViewerScenario,
+} from "./lmbLakeViewerScenarios.ts";
 
 const OUTPUT_PATH = "docs/recommender-v3-audit/generated/lmb-lake-viewer-archive-env.json";
 
@@ -155,12 +161,30 @@ async function buildScenarioBundle(
 
 if (import.meta.main) {
   const builtScenarios: ArchiveScenarioBundle[] = [];
+  const archiveTemplateByKey = new Map<string, ArchiveScenarioBundle>();
 
   for (const [i, scenario] of LMB_LAKE_VIEWER_SCENARIOS.entries()) {
-    console.log(
-      `[${i + 1}/${LMB_LAKE_VIEWER_SCENARIOS.length}] ${scenario.id} (${scenario.local_date})`,
-    );
-    builtScenarios.push(await buildScenarioBundle(scenario));
+    const dedupeKey = lmbLakeViewerArchiveDedupeKey(scenario);
+    let template = archiveTemplateByKey.get(dedupeKey);
+
+    if (!template) {
+      console.log(
+        `[${i + 1}/${LMB_LAKE_VIEWER_SCENARIOS.length}] ${scenario.id} (${scenario.local_date}) — fetch archive`,
+      );
+      template = await buildScenarioBundle(scenario);
+      archiveTemplateByKey.set(dedupeKey, template);
+    } else {
+      console.log(
+        `[${i + 1}/${LMB_LAKE_VIEWER_SCENARIOS.length}] ${scenario.id} (${scenario.local_date}) — reuse archive`,
+      );
+    }
+
+    const clarityNote = scenario.water_clarity ? ` · ${scenario.water_clarity}` : "";
+    builtScenarios.push({
+      ...template,
+      scenario_id: scenario.id,
+      label: `${scenario.region_label} · ${scenario.local_date}${clarityNote}`,
+    });
   }
 
   const bundle: ArchiveBatchBundle = {

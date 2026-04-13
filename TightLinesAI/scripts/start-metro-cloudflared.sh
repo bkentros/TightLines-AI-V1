@@ -59,11 +59,15 @@ process.stdout.write(scheme + '://expo-development-client/?url=' + encodeURIComp
 
 echo ""
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-echo "  Cloudflare Quick Tunnel (reload-friendly; no loca.lt 503s)"
+echo "  Cloudflare Quick Tunnel (no Expo/ngrok — use when dev:live:expo fails)"
 echo "  HTTPS check:  $HTTPS_URL"
 echo ""
-echo "  TightLines dev client — Enter URL manually (copy full line):"
+echo "  1) Scan the QR code Metro prints below (Camera app) ONCE, or paste:"
 echo "    ${DEV_CLIENT_URL}"
+echo "  2) Leave this terminal open — that keeps the server live."
+echo "  3) After first load, use Recently opened until you stop Metro."
+echo ""
+echo "  If the tunnel URL does not load in Safari, wait a few seconds and retry."
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo ""
 

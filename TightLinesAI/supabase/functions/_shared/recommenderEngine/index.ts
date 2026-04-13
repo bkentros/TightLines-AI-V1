@@ -71,7 +71,6 @@ export type {
   ResolvedColorThemeV3,
   RecommenderV3SeasonalRow,
   ResolvedWaterColumnV3,
-  SeasonalArchetypeWeight,
   SeasonalLocationV3,
   SeasonalWaterColumnV3,
   RecommenderV3Species,

@@ -9,7 +9,6 @@ import {
   type RecommenderV3DailyPayload,
   type RecommenderV3RankedArchetype,
   type RecommenderV3SeasonalRow,
-  type RecommenderV3SurfaceWindow,
   type TacticalLaneV3,
 } from "../../supabase/functions/_shared/recommenderEngine/v3/contracts.ts";
 import {
@@ -35,6 +34,10 @@ import {
   V3_AUDIT_SUCCESS_TARGETS,
   V3_IMPLEMENTATION_SCOPE_AREAS,
 } from "./archetypeExpectations.ts";
+import {
+  allSyntheticDailyPayloads,
+  COVERAGE_ANALYSIS,
+} from "./syntheticRecommenderAudit.ts";
 
 const OUTPUT_JSON =
   "docs/recommender-v3-audit/generated/v3-coverage-audit.json";
@@ -67,53 +70,9 @@ const AUDITED_ROWS: readonly RecommenderV3SeasonalRow[] = [
 ];
 
 const CLARITIES = ["clear", "stained", "dirty"] as const;
-const TACTICAL_PROFILES = [
-  { reaction_window: "off", finesse_window: "off", pace_bias: "neutral" },
-  { reaction_window: "watch", finesse_window: "off", pace_bias: "fast" },
-  { reaction_window: "on", finesse_window: "off", pace_bias: "fast" },
-  { reaction_window: "off", finesse_window: "watch", pace_bias: "slow" },
-  { reaction_window: "off", finesse_window: "on", pace_bias: "slow" },
-  { reaction_window: "watch", finesse_window: "watch", pace_bias: "neutral" },
-] as const;
 
-const DAILY_PAYLOADS: readonly RecommenderV3DailyPayload[] = (() => {
-  const payloads: RecommenderV3DailyPayload[] = [];
-  for (const mood_nudge of ["down_1", "neutral", "up_1", "up_2"] as const) {
-    for (
-      const water_column_nudge of ["lower_1", "neutral", "higher_1"] as const
-    ) {
-      for (
-        const presentation_nudge of ["subtler", "neutral", "bolder"] as const
-      ) {
-        for (
-          const surface_window of [
-            "off",
-            "watch",
-            "on",
-          ] as const satisfies readonly RecommenderV3SurfaceWindow[]
-        ) {
-          for (const tactical of TACTICAL_PROFILES) {
-            payloads.push({
-              mood_nudge,
-              water_column_nudge,
-              presentation_nudge,
-              surface_window,
-              reaction_window: tactical.reaction_window,
-              finesse_window: tactical.finesse_window,
-              pace_bias: tactical.pace_bias,
-              variables_considered: [],
-              variables_triggered: [],
-              notes: [],
-              source_score: 60,
-              source_band: "Good",
-            });
-          }
-        }
-      }
-    }
-  }
-  return payloads;
-})();
+const DAILY_PAYLOADS: readonly RecommenderV3DailyPayload[] =
+  allSyntheticDailyPayloads();
 
 const PACE_BY_LANE: Record<TacticalLaneV3, "slow" | "medium" | "fast"> = {
   bottom_contact: "slow",
@@ -261,9 +220,10 @@ function detectTacticalConflict(
 
     if ((topSurface && bottom) || (topBottom && surface)) {
       if (
-        daily.surface_window === "off" ||
-        (daily.finesse_window === "on" && daily.reaction_window === "off") ||
-        daily.pace_bias === "slow"
+        daily.surface_window_today === "closed" ||
+        daily.suppress_true_topwater ||
+        daily.presentation_presence_today === "subtle" ||
+        daily.suppress_fast_presentations
       ) {
         return {
           reason: "surface_vs_bottom",
@@ -274,10 +234,7 @@ function detectTacticalConflict(
     }
     if (
       topPace === "slow" && pace === "fast" &&
-      (
-        (daily.finesse_window === "on" && daily.reaction_window === "off") ||
-        daily.pace_bias === "slow"
-      )
+      daily.suppress_fast_presentations
     ) {
       return {
         reason: "slow_vs_fast",
@@ -287,10 +244,8 @@ function detectTacticalConflict(
     }
     if (
       topPace === "fast" && pace === "slow" &&
-      (
-        (daily.reaction_window === "on" && daily.finesse_window === "off") ||
-        daily.pace_bias === "fast"
-      )
+      (daily.posture_band === "aggressive" ||
+        daily.posture_band === "slightly_aggressive")
     ) {
       return {
         reason: "slow_vs_fast",
@@ -584,8 +539,8 @@ async function main() {
   const redundancyCollisions: CollisionExample[] = [];
 
   for (const row of AUDITED_ROWS) {
-    for (const id of row.viable_lure_archetypes) lureStats[id].viable_rows += 1;
-    for (const id of row.viable_fly_archetypes) flyStats[id].viable_rows += 1;
+    for (const id of row.eligible_lure_ids) lureStats[id].viable_rows += 1;
+    for (const id of row.eligible_fly_ids) flyStats[id].viable_rows += 1;
 
     const uniqueLureTop1 = new Set<string>();
     const uniqueFlyTop1 = new Set<string>();
@@ -594,15 +549,23 @@ async function main() {
 
     for (const clarity of CLARITIES) {
       for (const daily of DAILY_PAYLOADS) {
-        const resolved = resolveFinalProfileV3(row, daily, clarity);
+        const resolved = resolveFinalProfileV3(row, daily);
         const lures = scoreLureCandidatesV3(
           row,
           resolved,
           daily,
           clarity,
           null,
+          COVERAGE_ANALYSIS,
         );
-        const flies = scoreFlyCandidatesV3(row, resolved, daily, clarity, null);
+        const flies = scoreFlyCandidatesV3(
+          row,
+          resolved,
+          daily,
+          clarity,
+          null,
+          COVERAGE_ANALYSIS,
+        );
         const lureLineup = lures.map((candidate) => candidate.id).join(" > ");
         const flyLineup = flies.map((candidate) => candidate.id).join(" > ");
 

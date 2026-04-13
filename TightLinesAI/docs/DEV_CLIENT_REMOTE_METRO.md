@@ -1,6 +1,80 @@
-# Dev client + Metro while away from home (no rebuild)
+# Dev client + Metro (no rebuild)
 
-When your phone is not on the same Wi‑Fi as your laptop, **do not use `--host lan`**. Use a **tunnel** so Metro gets a public URL you can type into the dev client.
+## Fastest way in when LAN keeps timing out (guest Wi‑Fi, AP isolation)
+
+Many routers block phone ↔ Mac even on “same Wi‑Fi.” Use a **tunnel**.  
+**`npm run dev:live`** uses **Cloudflare Quick Tunnel** (no Expo/ngrok). If **`npm run dev:live:expo`** fails with `failed to start tunnel` / `session closed`, use **`dev:live`** instead.
+
+From `TightLinesAI/`:
+
+```bash
+npm run setup:cloudflared
+npm run dev:kill-servers
+npm run dev:live
+```
+
+(`setup:cloudflared` is one-time if you do not have `cloudflared` / Homebrew.)
+
+1. When Metro shows a **QR code**, scan **once** with the iPhone Camera, or paste the printed `exp+…` line.
+2. **Leave that terminal open** — that is your live server.
+3. After the first successful load, use **Recently opened** until you stop Metro (new `*.trycloudflare.com` host each run — you reconnect once per new terminal session).
+
+Optional Expo/ngrok tunnel (when it works): `npm run dev:live:expo`
+
+Stale cache: `npm run dev:live:clear`
+
+---
+
+## Same Wi‑Fi (recommended when LAN actually works — usually no URL)
+
+From `TightLinesAI/`:
+
+```bash
+npm run start:dev-client
+```
+
+(`start:dev-client`, `start:dev-client:lan`, and `start:dev-client:same-wifi` all run `scripts/start-metro-lan.sh`, which sets your LAN IP for Metro and prints a fallback link.)
+
+1. Mac and iPhone on the **same Wi‑Fi**.
+2. iPhone: **Settings → TightLines AI → Local Network → On** (needed once).
+3. Open the **TightLines dev build** (not App Store production).
+4. Use the dev launcher’s **Development servers** list (Bonjour / “Searching for development servers…”) and **tap your Mac** — no manual URL in the common case.
+5. If the list is empty, **scan the QR code** Metro prints in the terminal, or use the `exp+…` line from the banner.
+
+### New place, new Wi‑Fi (still LAN)
+
+There is no “home network” stored in the app. **Recently opened** only shows the **last Metro URL** (e.g. `http://192.168.1.39:8081` from your old router). On a new network your Mac gets a **new IP**, so that row stays **offline** until you connect again. Run `npm run start:dev-client` on the Mac — the banner shows **today’s IP** — then tap your Mac under **Development servers**, scan the **new** QR, or paste the **new** `exp+…` line once. After a successful load, **Recently opened** will reflect this network.
+
+### QR works but times out / grey dot (LAN)
+
+1. On the **iPhone**, open **Safari** and visit `http://<IP-from-banner>:8081` (same IP `start-metro-lan.sh` prints). If Safari **times out**, the phone cannot reach Metro (guest/AP **client isolation**, **Mac firewall**, or wrong IP). Fix the network or allow **Node** in **System Settings → Network → Firewall**.
+2. **Green dot** appears only after the dev client can **reach** that URL; fix Safari first, then rescan QR or tap the server again.
+3. If the Mac has **VPN** or several interfaces, force the Wi‑Fi IP:  
+   `METRO_LAN_IP=192.168.x.x npm run start:dev-client`
+
+Clear cache:
+
+```bash
+npm run start:dev-client:lan:clear
+```
+
+### Nothing loads / spinner forever / stale tunnel
+
+1. Stop **every** Metro terminal (Ctrl+C in each).
+2. From `TightLinesAI/` run:
+
+```bash
+npm run dev:kill-servers
+```
+
+3. Start **only one** session: either **same‑Wi‑Fi** (`npm run start:dev-client`) **or** **tunnel** (`npm run start:dev-client:localtunnel`), not both.
+4. After a tunnel restart, use the **new** QR code or `exp+…` URL from that run (old `*.loca.lt` hosts die when the tunnel process stops).
+
+---
+
+## Away from home (tunnel)
+
+When your phone is not on the same Wi‑Fi as your laptop, **do not use LAN**. Use a **tunnel** so Metro gets a public URL the phone can reach. **Prefer scanning the QR code** Metro prints; paste URL only if needed.
 
 ## 1. Start Metro with tunnel
 

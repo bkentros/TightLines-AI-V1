@@ -70,5 +70,11 @@ export function resolveSeasonalRowV3(
     );
   }
 
+  if (row.eligible_lure_ids.length < 3 || row.eligible_fly_ids.length < 3) {
+    throw new Error(
+      `Seasonal row for ${species} ${region_key} month ${month} ${context} must have at least 3 eligible lures and 3 eligible flies.`,
+    );
+  }
+
   return row;
 }

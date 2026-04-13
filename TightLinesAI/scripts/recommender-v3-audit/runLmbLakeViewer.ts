@@ -39,9 +39,11 @@ type ViewerRecommendation = {
   how_to_fish: string;
   water_column: string;
   score: number;
-  seasonal_baseline: number;
-  daily_modifier: number;
-  clarity_modifier: number;
+  /** `water_column_fit` — resolved column vs archetype preference. */
+  water_column_fit: number;
+  /** Posture + presentation + daily_condition_fit + guardrail_penalty. */
+  daily_stack: number;
+  clarity_fit: number;
   forage_bonus: number;
   rank: number;
 };
@@ -128,11 +130,10 @@ function weatherSummary(bundle: ArchiveScenarioBundle): string {
 
 function dailyContext(raw: ReturnType<typeof runRecommenderV3>): string {
   const p = raw.daily_payload;
-  const mood = p.mood_nudge === "neutral" ? "neutral mood" : `mood ${p.mood_nudge}`;
-  const wc = p.water_column_nudge === "neutral" ? "neutral depth" : `depth ${p.water_column_nudge}`;
-  const pres = p.presentation_nudge === "neutral" ? "neutral pres." : `pres. ${p.presentation_nudge}`;
-  const triggered = p.variables_triggered.length > 0 ? ` · fired: ${p.variables_triggered.join("/")}` : "";
-  return `${p.source_band} (${p.source_score}) · ${mood} · ${wc} · ${pres}${triggered}`;
+  const triggered = p.variables_triggered.length > 0
+    ? ` · fired: ${p.variables_triggered.join("/")}`
+    : "";
+  return `posture ${p.posture_band} (${p.posture_score_10}/10) · presence ${p.presentation_presence_today} · surface ${p.surface_window_today}${triggered}`;
 }
 
 function toViewerRec(
@@ -157,9 +158,13 @@ function toViewerRec(
     how_to_fish: howToFish,
     water_column: waterColumn,
     score: rawRec.score,
-    seasonal_baseline: rawRec.seasonal_baseline,
-    daily_modifier: rawRec.daily_modifier,
-    clarity_modifier: rawRec.clarity_modifier,
+    water_column_fit: rawRec.water_column_fit,
+    daily_stack:
+      rawRec.posture_fit +
+      rawRec.presentation_fit +
+      rawRec.daily_condition_fit +
+      rawRec.guardrail_penalty,
+    clarity_fit: rawRec.clarity_fit,
     forage_bonus: rawRec.forage_bonus,
     rank,
   };
@@ -282,9 +287,9 @@ function renderRecCard(rec: ViewerRecommendation, scenarioId: string): string {
   const rankLabel = rec.rank === 1 ? "Top pick" : rec.rank === 2 ? "2nd" : "3rd";
   const scoreSign = (n: number) => (n >= 0 ? `+${n.toFixed(2)}` : n.toFixed(2));
   const scoreBreakdown = [
-    `Base ${rec.seasonal_baseline.toFixed(2)}`,
-    rec.daily_modifier !== 0 ? `Daily ${scoreSign(rec.daily_modifier)}` : null,
-    rec.clarity_modifier !== 0 ? `Clarity ${scoreSign(rec.clarity_modifier)}` : null,
+    `Column ${rec.water_column_fit.toFixed(2)}`,
+    rec.daily_stack !== 0 ? `Daily ${scoreSign(rec.daily_stack)}` : null,
+    rec.clarity_fit !== 0 ? `Clarity ${scoreSign(rec.clarity_fit)}` : null,
     rec.forage_bonus !== 0 ? `Forage ${scoreSign(rec.forage_bonus)}` : null,
   ].filter(Boolean).join(" · ");
 
@@ -336,6 +341,7 @@ function renderScenarioCard(s: ViewerScenarioResult): string {
 <div class="scenario-card">
   <div class="scenario-header">
     <div class="scenario-title">${s.region_label.toUpperCase()} · ${s.month_label.toUpperCase()}</div>
+    <div class="scenario-subdate">${s.local_date}</div>
     <div class="scenario-meta">
       <span class="badge ${clarityBadgeClass(s.water_clarity)}">${s.water_clarity}</span>
       <span class="badge badge-state">${s.state_code}</span>
@@ -423,6 +429,12 @@ function generateHtml(results: ViewerResults): string {
       font-weight: 700;
       color: #253D2C;
       letter-spacing: 0.7px;
+    }
+    .scenario-subdate {
+      font-size: 10px;
+      color: #6B8A78;
+      margin-top: 3px;
+      font-variant-numeric: tabular-nums;
     }
     .scenario-meta {
       display: flex;

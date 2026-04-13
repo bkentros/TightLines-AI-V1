@@ -9,6 +9,10 @@ export {
 } from "./scope.ts";
 export { resolveDailyPayloadV3 } from "./resolveDailyPayload.ts";
 export {
+  buildConditionFeaturesFromAnalysis,
+  type RecommenderV3ConditionFeatures,
+} from "./buildConditionFeatures.ts";
+export {
   FLY_ARCHETYPE_IDS_V3,
   ARCHETYPE_WATER_COLUMNS_V3,
   DAILY_SURFACE_WINDOWS_V3,
@@ -73,7 +77,6 @@ export type {
   RecommenderV3Species,
   ResolvedWaterColumnV3,
   ResolvedColorThemeV3,
-  SeasonalArchetypeWeight,
   SeasonalLocationV3,
   SeasonalWaterColumnV3,
   TacticalLaneV3,
