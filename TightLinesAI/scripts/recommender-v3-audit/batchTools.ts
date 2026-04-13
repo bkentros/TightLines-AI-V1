@@ -317,9 +317,10 @@ function toReviewScenario(
         ),
       ],
       daily_profile_notes: [
-        `Shared score: ${raw.daily_payload.source_score} (${raw.daily_payload.source_band})`,
-        `Daily nudges: mood=${raw.daily_payload.mood_nudge}, water_column=${raw.daily_payload.water_column_nudge}, presentation=${raw.daily_payload.presentation_nudge}`,
-        `Resolved profile: water_column=${raw.resolved_profile.final_water_column}, mood=${raw.resolved_profile.final_mood}, presentation=${raw.resolved_profile.final_presentation_style}`,
+        `Daily posture: ${raw.daily_payload.posture_band} (${raw.daily_payload.posture_score_10}/10)`,
+        `Presentation presence today: ${raw.daily_payload.presentation_presence_today}`,
+        `Resolved profile: typical_column=${raw.resolved_profile.typical_seasonal_water_column}, likely_column_today=${raw.resolved_profile.likely_water_column_today}, seasonal_location=${raw.resolved_profile.typical_seasonal_location}, posture=${raw.resolved_profile.daily_posture_band}, presentation=${raw.resolved_profile.presentation_presence_today}`,
+        `Guardrails: surface_allowed=${raw.daily_payload.surface_allowed_today}, suppress_true_topwater=${raw.daily_payload.suppress_true_topwater}, suppress_fast_presentations=${raw.daily_payload.suppress_fast_presentations}, high_visibility_needed=${raw.daily_payload.high_visibility_needed_today}, column_shift_half_steps=${raw.daily_payload.column_shift_bias_half_steps}`,
         `Variables considered: ${raw.variables_considered.join(", ")}`,
         `Variables triggered: ${raw.daily_payload.variables_triggered.join(", ") || "none"}`,
         ...raw.daily_payload.notes.map((note) => `Daily note: ${note}`),

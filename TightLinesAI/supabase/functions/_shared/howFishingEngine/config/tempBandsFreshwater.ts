@@ -68,8 +68,8 @@ export const FRESHWATER_TEMP_ROWS: Record<RegionKey, TempBandRow[]> = {
     [58, 66, 78, 88, [-2, -1,  2,  0, -2]],  // Apr — SHOULDER: post-spawn but still very viable; upper-60s to low-70s mean air should read as a solid Florida spring window, not a default thermal limiter
     [70, 78, 86, 92, [-2, -1,  1,  0, -2]],  // May — SUM_HOT: heat arriving; morning/evening only viable
     [74, 82, 88, 94, [-2, -1,  0, -1, -2]],  // Jun — WORST: no good air temp for FL bass; water 86-92°F = stress
-    [76, 84, 90, 96, [-2, -1,  0, -1, -2]],  // Jul — WORST: brutal heat; even peacock bass slow in midday
-    [76, 84, 90, 96, [-2, -1,  0, -1, -2]],  // Aug — WORST: same as July; only dawn/dusk viable
+    [72, 80, 86, 92, [-2, -1,  1,  0, -2]],  // Jul — brutal overall, but storm-cooled low-80s days can still fish like a usable dawn/dusk-style opening instead of a false cold clampdown; true heat still fades quickly above the mid-80s mean-air range
+    [72, 80, 86, 92, [-2, -1,  1,  0, -2]],  // Aug — same as July; late-summer Florida bass still struggle in heat, but low-80s overcast/rain cycles should read as neutral-to-open, not cold-limited
     [72, 80, 88, 94, [-2, -1,  1,  0, -2]],  // Sep — SUM_HOT: slight improvement; afternoon thunderstorms help
     [62, 72, 82, 90, [-2, -1,  2,  0, -2]],  // Oct — SUM_MOD: cooling; bass feeding more; excellent for peacock bass
     [56, 66, 76, 84, [-2, -1,  2,  1, -1]],  // Nov — SHOULDER → PRIME: water cooling to ideal; bass and crappie excellent

@@ -1,32 +1,157 @@
-/** See largemouth.ts — primary_*_archetypes order drives seasonal priority bonuses. */
+/** See `largemouth.ts` for the row-conversion strategy used by the rebuilt engine. */
 import type {
   FlyArchetypeIdV3,
   LureArchetypeIdV3,
+  PresentationStyleV3,
   RecommenderV3SeasonalRow,
+  SeasonalLocationV3,
+  SeasonalWaterColumnV3,
 } from "../contracts.ts";
 import type { RegionKey } from "../../../howFishingEngine/contracts/region.ts";
+import { FLY_ARCHETYPES_V3, LURE_ARCHETYPES_V3 } from "../candidates/index.ts";
+import {
+  baseSeasonalWaterColumn,
+  buildSeasonalWeights,
+  shiftSeasonalWaterColumn,
+} from "./tuning.ts";
 
-type SeasonalCore = Omit<
-  RecommenderV3SeasonalRow,
-  "species" | "region_key" | "month" | "context"
->;
+type LegacyWaterColumn = "top" | "shallow" | "mid" | "bottom";
+type LegacyMood = "negative" | "neutral" | "active";
+
+type LegacySeasonalCore = {
+  base_water_column: LegacyWaterColumn;
+  base_mood: LegacyMood;
+  base_presentation_style: PresentationStyleV3;
+  primary_forage: RecommenderV3SeasonalRow["primary_forage"];
+  secondary_forage?: RecommenderV3SeasonalRow["secondary_forage"];
+  primary_lure_archetypes?: readonly LureArchetypeIdV3[];
+  viable_lure_archetypes: readonly LureArchetypeIdV3[];
+  primary_fly_archetypes?: readonly FlyArchetypeIdV3[];
+  viable_fly_archetypes: readonly FlyArchetypeIdV3[];
+};
 
 const TROUT_ROWS: RecommenderV3SeasonalRow[] = [];
+
+function inRegions(region_key: RegionKey, regions: readonly RegionKey[]): boolean {
+  return regions.includes(region_key);
+}
+
+function resolveTroutSeasonalWaterColumn(
+  region_key: RegionKey,
+  month: number,
+  core: LegacySeasonalCore,
+): SeasonalWaterColumnV3 {
+  let column = baseSeasonalWaterColumn(core.base_water_column);
+
+  if ([12, 1, 2].includes(month) && column === "mid") {
+    column = "mid_low";
+  }
+
+  if (inRegions(region_key, WARM_TAILWATER_REGIONS)) {
+    if ([3, 4, 10, 11].includes(month) && column === "low") {
+      column = "mid_low";
+    }
+    if ([6, 7, 8].includes(month) && column === "top") {
+      column = "high";
+    }
+  } else {
+    if ([4, 5, 6].includes(month) && column === "low") {
+      column = "mid_low";
+    }
+    if ([7, 8, 9].includes(month) && column === "top") {
+      column = "high";
+    }
+  }
+
+  if ([5, 6, 7].includes(month) && column === "mid") {
+    column = shiftSeasonalWaterColumn(column, 1);
+  }
+
+  return column;
+}
+
+function resolveTroutSeasonalLocation(
+  month: number,
+  column: SeasonalWaterColumnV3,
+): SeasonalLocationV3 {
+  switch (column) {
+    case "top":
+    case "high":
+      return "shallow";
+    case "mid":
+      return [4, 5, 6, 7, 8, 9, 10].includes(month) ? "shallow_mid" : "mid";
+    case "mid_low":
+      return [12, 1, 2].includes(month) ? "mid_deep" : "mid";
+    case "low":
+    default:
+      return "mid_deep";
+  }
+}
+
+function toSeasonalWeights<T extends string>(
+  viable: readonly T[],
+  primary?: readonly T[],
+  profiles?: Record<T, { display_name: string } & Record<string, unknown>>,
+  core?: LegacySeasonalCore,
+  typicalColumn?: SeasonalWaterColumnV3,
+): Partial<Record<T, 1 | 2 | 3>> {
+  if (!profiles || !core || !typicalColumn) {
+    const weights: Partial<Record<T, 1 | 2 | 3>> = {};
+    for (const id of viable) weights[id] = 1;
+    if (primary?.[1]) weights[primary[1]] = 2;
+    if (primary?.[0]) weights[primary[0]] = 3;
+    return weights;
+  }
+  return buildSeasonalWeights(
+    viable,
+    primary,
+    profiles as never,
+    core,
+    typicalColumn,
+  );
+}
+
+function toSeasonalRow(
+  region_key: RegionKey,
+  month: number,
+  core: LegacySeasonalCore,
+): RecommenderV3SeasonalRow {
+  const typicalColumn = resolveTroutSeasonalWaterColumn(region_key, month, core);
+  return {
+    species: "trout",
+    region_key,
+    context: "freshwater_river",
+    month,
+    typical_seasonal_water_column: typicalColumn,
+    typical_seasonal_location: resolveTroutSeasonalLocation(month, typicalColumn),
+    default_presentation_presence: core.base_presentation_style,
+    primary_forage: core.primary_forage,
+    secondary_forage: core.secondary_forage,
+    seasonal_lure_weights: toSeasonalWeights(
+      core.viable_lure_archetypes,
+      core.primary_lure_archetypes,
+      LURE_ARCHETYPES_V3,
+      core,
+      typicalColumn,
+    ),
+    seasonal_fly_weights: toSeasonalWeights(
+      core.viable_fly_archetypes,
+      core.primary_fly_archetypes,
+      FLY_ARCHETYPES_V3,
+      core,
+      typicalColumn,
+    ),
+  };
+}
 
 function addMonths(
   regions: readonly RegionKey[],
   months: readonly number[],
-  core: SeasonalCore,
+  core: LegacySeasonalCore,
 ) {
   for (const region_key of regions) {
     for (const month of months) {
-      TROUT_ROWS.push({
-        species: "trout",
-        region_key,
-        context: "freshwater_river",
-        month,
-        ...core,
-      });
+      TROUT_ROWS.push(toSeasonalRow(region_key, month, core));
     }
   }
 }

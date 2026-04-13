@@ -4,9 +4,12 @@ import type { RegionKey } from "../../howFishingEngine/contracts/region.ts";
 import type { WaterClarity } from "../contracts/input.ts";
 
 /**
- * V3 is intentionally freshwater-only while the flagship architecture is rebuilt.
- * Region keys stay aligned with the canonical How's Fishing region system so every
- * engine in the app uses the same geography vocabulary.
+ * Freshwater-only V3 contracts.
+ *
+ * The rebuilt recommender is intentionally compact and deterministic:
+ * seasonal rows define what is biologically sensible, then a small daily payload
+ * reshuffles that pool using posture, presentation presence, and explicit
+ * guardrails.
  */
 
 export const RECOMMENDER_V3_SPECIES = [
@@ -25,15 +28,44 @@ export const RECOMMENDER_V3_CONTEXTS = [
 
 export type RecommenderV3Context = (typeof RECOMMENDER_V3_CONTEXTS)[number];
 
-export const WATER_COLUMNS_V3 = [
+/** Existing archetype catalogs still profile water-column fit in 4 broad lanes. */
+export const ARCHETYPE_WATER_COLUMNS_V3 = [
   "top",
   "shallow",
   "mid",
   "bottom",
 ] as const;
 
-export type WaterColumnV3 = (typeof WATER_COLUMNS_V3)[number];
+export type ArchetypeWaterColumnV3 =
+  (typeof ARCHETYPE_WATER_COLUMNS_V3)[number];
 
+/** Seasonal baseline anchors use the explicit 5-state model from the new spec. */
+export const SEASONAL_WATER_COLUMNS_V3 = [
+  "top",
+  "high",
+  "mid",
+  "mid_low",
+  "low",
+] as const;
+
+export type SeasonalWaterColumnV3 =
+  (typeof SEASONAL_WATER_COLUMNS_V3)[number];
+
+/** Today's likely bite lane resolves on a 7-step deterministic scale. */
+export const RESOLVED_WATER_COLUMNS_V3 = [
+  "top",
+  "high_top",
+  "high",
+  "mid_high",
+  "mid",
+  "mid_low",
+  "low",
+] as const;
+
+export type ResolvedWaterColumnV3 =
+  (typeof RESOLVED_WATER_COLUMNS_V3)[number];
+
+/** Archetype catalogs already encode fit using these broad posture buckets. */
 export const MOODS_V3 = [
   "negative",
   "neutral",
@@ -42,6 +74,7 @@ export const MOODS_V3 = [
 
 export type MoodV3 = (typeof MOODS_V3)[number];
 
+/** Presence values match the subtle/balanced/bold model locked in the plan. */
 export const PRESENTATION_STYLES_V3 = [
   "subtle",
   "balanced",
@@ -49,6 +82,36 @@ export const PRESENTATION_STYLES_V3 = [
 ] as const;
 
 export type PresentationStyleV3 = (typeof PRESENTATION_STYLES_V3)[number];
+
+export const DAILY_POSTURE_BANDS_V3 = [
+  "suppressed",
+  "slightly_suppressed",
+  "neutral",
+  "slightly_aggressive",
+  "aggressive",
+] as const;
+
+export type DailyPostureBandV3 =
+  (typeof DAILY_POSTURE_BANDS_V3)[number];
+
+export const DAILY_SURFACE_WINDOWS_V3 = [
+  "closed",
+  "clean",
+  "rippled",
+] as const;
+
+export type DailySurfaceWindowV3 =
+  (typeof DAILY_SURFACE_WINDOWS_V3)[number];
+
+export const SEASONAL_LOCATIONS_V3 = [
+  "shallow",
+  "shallow_mid",
+  "mid",
+  "mid_deep",
+  "deep",
+] as const;
+
+export type SeasonalLocationV3 = (typeof SEASONAL_LOCATIONS_V3)[number];
 
 export const FORAGE_BUCKETS_V3 = [
   "baitfish",
@@ -65,62 +128,57 @@ export const V3_SCORED_VARIABLE_KEYS_BY_CONTEXT: Record<
   readonly string[]
 > = {
   freshwater_lake_pond: [
-    "temperature_condition",
+    "temperature_metabolic_context",
+    "temperature_trend",
+    "temperature_shock",
     "pressure_regime",
     "wind_condition",
     "light_cloud_condition",
     "precipitation_disruption",
-    "timing_window",
-    "reaction_window",
-    "finesse_window",
-    "pace_bias",
   ],
   freshwater_river: [
-    "temperature_condition",
+    "temperature_metabolic_context",
+    "temperature_trend",
+    "temperature_shock",
     "pressure_regime",
     "wind_condition",
     "light_cloud_condition",
     "runoff_flow_disruption",
-    "timing_window",
-    "reaction_window",
-    "finesse_window",
-    "pace_bias",
   ],
 };
 
-export type RecommenderV3DailyMoodNudge =
-  | "down_1"
-  | "neutral"
-  | "up_1"
-  | "up_2";
+export const RECOMMENDER_V3_GUARDRAIL_KEYS = [
+  "surface_allowed_today",
+  "suppress_true_topwater",
+  "surface_window_today",
+  "max_upward_column_shift_today",
+  "max_downward_column_shift_today",
+  "suppress_fast_presentations",
+  "high_visibility_needed_today",
+] as const;
 
-export type RecommenderV3DailyWaterColumnNudge =
-  | "lower_1"
-  | "neutral"
-  | "higher_1";
-
-export type RecommenderV3DailyPresentationNudge =
-  | "subtler"
-  | "neutral"
-  | "bolder";
-
-export type RecommenderV3SurfaceWindow = "off" | "watch" | "on";
-export type RecommenderV3TacticalWindow = "off" | "watch" | "on";
-export type RecommenderV3PaceBias = "slow" | "neutral" | "fast";
+export type RecommenderV3GuardrailKey =
+  (typeof RECOMMENDER_V3_GUARDRAIL_KEYS)[number];
 
 export type RecommenderV3DailyPayload = {
-  mood_nudge: RecommenderV3DailyMoodNudge;
-  water_column_nudge: RecommenderV3DailyWaterColumnNudge;
-  presentation_nudge: RecommenderV3DailyPresentationNudge;
-  surface_window?: RecommenderV3SurfaceWindow;
-  reaction_window?: RecommenderV3TacticalWindow;
-  finesse_window?: RecommenderV3TacticalWindow;
-  pace_bias?: RecommenderV3PaceBias;
+  posture_score_10: number;
+  posture_band: DailyPostureBandV3;
+  presentation_presence_today: PresentationStyleV3;
+  /**
+   * Desired directional shift in half-steps before seasonal/guardrail clamping.
+   * -2 = stronger move up in the column, +2 = stronger move down.
+   */
+  column_shift_bias_half_steps: -2 | -1 | 0 | 1 | 2;
+  max_upward_column_shift_today: 0 | 1 | 2;
+  max_downward_column_shift_today: 0 | 1 | 2;
+  surface_allowed_today: boolean;
+  suppress_true_topwater: boolean;
+  surface_window_today: DailySurfaceWindowV3;
+  suppress_fast_presentations: boolean;
+  high_visibility_needed_today: boolean;
   variables_considered: readonly string[];
   variables_triggered: readonly string[];
   notes: string[];
-  source_score: number;
-  source_band: string;
 };
 
 export const LURE_ARCHETYPE_IDS_V3 = [
@@ -221,11 +279,11 @@ export type RecommenderV3ArchetypeProfile = {
   family_key: string;
   /** Optional: only use for near-duplicates that should not coexist in the top 3. */
   top3_redundancy_key?: string;
-  preferred_water_columns: readonly WaterColumnV3[];
+  preferred_water_columns: readonly ArchetypeWaterColumnV3[];
   preferred_moods: readonly MoodV3[];
   preferred_presentation_styles: readonly PresentationStyleV3[];
-  /** Optional pace identity when archetypes in the same tactical lane should rotate by daily retrieve tempo. */
-  preferred_pace_biases?: readonly RecommenderV3PaceBias[];
+  /** Legacy metadata retained temporarily while archetype profiles are migrated. */
+  preferred_pace_biases?: readonly ("slow" | "neutral" | "fast")[];
   forage_matches: readonly ForageBucketV3[];
   clarity_strengths: readonly WaterClarity[];
   tactical_lane: TacticalLaneV3;
@@ -234,28 +292,32 @@ export type RecommenderV3ArchetypeProfile = {
   how_to_fish_text?: readonly [string, string, string];
 };
 
+export type SeasonalArchetypeWeight = 1 | 2 | 3;
+
 export type RecommenderV3SeasonalRow = {
   species: RecommenderV3Species;
   region_key: RegionKey;
   month: number;
   context: RecommenderV3Context;
-  base_water_column: WaterColumnV3;
-  base_mood: MoodV3;
-  base_presentation_style: PresentationStyleV3;
+  typical_seasonal_water_column: SeasonalWaterColumnV3;
+  typical_seasonal_location: SeasonalLocationV3;
+  default_presentation_presence: PresentationStyleV3;
   primary_forage: ForageBucketV3;
   secondary_forage?: ForageBucketV3;
-  /** Ordered seasonal priorities: index 0 = top pick (+1.5 baseline), index 1 = strong secondary (+0.75).
-   *  Archetypes not listed get a tier penalty (-0.8). If omitted, all viable archetypes are neutral (no bonus/penalty). */
-  primary_lure_archetypes?: readonly LureArchetypeIdV3[];
-  viable_lure_archetypes: readonly LureArchetypeIdV3[];
-  primary_fly_archetypes?: readonly FlyArchetypeIdV3[];
-  viable_fly_archetypes: readonly FlyArchetypeIdV3[];
+  seasonal_lure_weights: Partial<
+    Record<LureArchetypeIdV3, SeasonalArchetypeWeight>
+  >;
+  seasonal_fly_weights: Partial<
+    Record<FlyArchetypeIdV3, SeasonalArchetypeWeight>
+  >;
 };
 
 export type RecommenderV3ResolvedProfile = {
-  final_water_column: WaterColumnV3;
-  final_mood: MoodV3;
-  final_presentation_style: PresentationStyleV3;
+  typical_seasonal_water_column: SeasonalWaterColumnV3;
+  likely_water_column_today: ResolvedWaterColumnV3;
+  typical_seasonal_location: SeasonalLocationV3;
+  daily_posture_band: DailyPostureBandV3;
+  presentation_presence_today: PresentationStyleV3;
   primary_forage: ForageBucketV3;
   secondary_forage?: ForageBucketV3;
 };
@@ -273,10 +335,12 @@ export type RecommenderV3RankedArchetype = {
   family_key: string;
   tactical_lane: TacticalLaneV3;
   score: number;
-  seasonal_baseline: number;
-  daily_modifier: number;
-  clarity_modifier: number;
+  seasonal_weight: number;
+  water_column_fit: number;
+  posture_fit: number;
+  presentation_fit: number;
   forage_bonus: number;
+  guardrail_penalty: number;
   color_theme: ResolvedColorThemeV3;
   color_recommendations: [string, string, string];
   breakdown: RecommenderV3ScoreBreakdown[];

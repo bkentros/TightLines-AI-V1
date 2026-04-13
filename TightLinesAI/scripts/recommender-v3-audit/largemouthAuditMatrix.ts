@@ -7,6 +7,11 @@ export type LargemouthAuditAnchorKey =
   | "texas_reservoir"
   | "alabama_river"
   | "new_york_natural_lake"
+  | "michigan_clear_natural_lake"
+  | "wisconsin_clear_weed_lake"
+  | "illinois_backwater_river"
+  | "ohio_reservoir"
+  | "pennsylvania_natural_lake"
   | "georgia_highland"
   | "louisiana_grass_lake"
   | "ozarks_reservoir"
@@ -113,7 +118,7 @@ export const LARGEMOUTH_AUDIT_ANCHORS: readonly LargemouthAuditAnchor[] = [
     key: "new_york_natural_lake",
     label: "New York natural lake",
     latitude: 42.642,
-    longitude: -76.718,
+    longitude: -75.72,
     state_code: "NY",
     timezone: "America/New_York",
     context: "freshwater_lake_pond",
@@ -121,6 +126,71 @@ export const LARGEMOUTH_AUDIT_ANCHORS: readonly LargemouthAuditAnchor[] = [
     default_clarity: "clear",
     audit_role: "core_monthly",
     notes: "Northern clear-lake benchmark for finesse, cooler seasonal posture, and restrained surface behavior.",
+  },
+  {
+    key: "michigan_clear_natural_lake",
+    label: "Michigan clear natural lake",
+    latitude: 44.9747,
+    longitude: -85.2278,
+    state_code: "MI",
+    timezone: "America/Detroit",
+    context: "freshwater_lake_pond",
+    region_key: "great_lakes_upper_midwest",
+    default_clarity: "clear",
+    audit_role: "seasonal_overlay",
+    notes: "Great Lakes clear natural-lake overlay for colder seasonal posture, perch-and-baitfish transitions, and restrained summer surface behavior.",
+  },
+  {
+    key: "wisconsin_clear_weed_lake",
+    label: "Wisconsin clear weed lake",
+    latitude: 46.0481,
+    longitude: -89.486,
+    state_code: "WI",
+    timezone: "America/Chicago",
+    context: "freshwater_lake_pond",
+    region_key: "great_lakes_upper_midwest",
+    default_clarity: "clear",
+    audit_role: "seasonal_overlay",
+    notes: "Upper-Midwest weed-edge overlay for clear-water summer edge fishing, topwater windows, and cooler fall weedline behavior.",
+  },
+  {
+    key: "illinois_backwater_river",
+    label: "Illinois backwater river",
+    latitude: 40.3,
+    longitude: -90.04,
+    state_code: "IL",
+    timezone: "America/Chicago",
+    context: "freshwater_river",
+    region_key: "midwest_interior",
+    default_clarity: "stained",
+    audit_role: "seasonal_overlay",
+    notes: "Midwest river-backwater overlay for largemouth that fish current breaks, slop, wood, and dirty-water baitfish lanes differently than southern current systems.",
+  },
+  {
+    key: "ohio_reservoir",
+    label: "Ohio inland reservoir",
+    latitude: 40.367,
+    longitude: -82.9962,
+    state_code: "OH",
+    timezone: "America/New_York",
+    context: "freshwater_lake_pond",
+    region_key: "midwest_interior",
+    default_clarity: "stained",
+    audit_role: "seasonal_overlay",
+    notes: "Inland Midwest reservoir overlay for late-winter tightening, spring wind lanes, summer structure reads, and late-fall baitfish control.",
+  },
+  {
+    key: "pennsylvania_natural_lake",
+    label: "Pennsylvania natural lake",
+    latitude: 41.35,
+    longitude: -75.6,
+    state_code: "PA",
+    timezone: "America/New_York",
+    context: "freshwater_lake_pond",
+    region_key: "northeast",
+    default_clarity: "clear",
+    audit_role: "seasonal_overlay",
+    notes: "Northeast natural-lake overlay for Pennsylvania largemouth that should stay cooler, cleaner, and more restrained than southern grass and reservoir fish.",
   },
   {
     key: "georgia_highland",
@@ -273,6 +343,11 @@ const OVERLAY_MONTHS_BY_ANCHOR: Record<
   Exclude<LargemouthAuditAnchorKey, "florida_lake" | "texas_reservoir" | "alabama_river" | "new_york_natural_lake">,
   readonly number[]
 > = {
+  michigan_clear_natural_lake: [2, 5, 7, 10],
+  wisconsin_clear_weed_lake: [5, 7, 9, 11],
+  illinois_backwater_river: [3, 6, 9, 11],
+  ohio_reservoir: [2, 4, 8, 11],
+  pennsylvania_natural_lake: [1, 5, 8, 11],
   georgia_highland: [2, 4, 6, 10],
   louisiana_grass_lake: [3, 6, 9, 11],
   ozarks_reservoir: [2, 5, 10, 12],

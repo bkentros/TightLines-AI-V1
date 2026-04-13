@@ -1,0 +1,840 @@
+{
+  "generated_at": "2026-04-13T01:06:04.795Z",
+  "species": {
+    "largemouth_bass": {
+      "batch_id": "largemouth_v3_matrix",
+      "scenario_count": 110,
+      "core_count": 48,
+      "secondary_count": 62,
+      "top1_primary_hit_count": 109,
+      "top3_primary_present_count": 110,
+      "disallowed_avoidance_count": 110,
+      "top_color_match_count": 110,
+      "unique_top1_lure_ids": 16,
+      "unique_top1_fly_ids": 9,
+      "unique_lure_top3_signatures": 52,
+      "unique_fly_top3_signatures": 42,
+      "lure_top1_leaders": [
+        {
+          "id": "spinnerbait",
+          "count": 25
+        },
+        {
+          "id": "football_jig",
+          "count": 18
+        },
+        {
+          "id": "swim_jig",
+          "count": 14
+        },
+        {
+          "id": "compact_flipping_jig",
+          "count": 11
+        },
+        {
+          "id": "suspending_jerkbait",
+          "count": 10
+        },
+        {
+          "id": "weightless_stick_worm",
+          "count": 6
+        },
+        {
+          "id": "bladed_jig",
+          "count": 5
+        },
+        {
+          "id": "wacky_rigged_stick_worm",
+          "count": 5
+        }
+      ],
+      "fly_top1_leaders": [
+        {
+          "id": "clouser_minnow",
+          "count": 31
+        },
+        {
+          "id": "game_changer",
+          "count": 24
+        },
+        {
+          "id": "woolly_bugger",
+          "count": 19
+        },
+        {
+          "id": "crawfish_streamer",
+          "count": 15
+        },
+        {
+          "id": "rabbit_strip_leech",
+          "count": 7
+        },
+        {
+          "id": "frog_fly",
+          "count": 6
+        },
+        {
+          "id": "balanced_leech",
+          "count": 5
+        },
+        {
+          "id": "popper_fly",
+          "count": 2
+        }
+      ],
+      "anchor_top1_primary_hit": {
+        "florida_lake": {
+          "hit": 12,
+          "total": 12
+        },
+        "texas_reservoir": {
+          "hit": 12,
+          "total": 12
+        },
+        "alabama_river": {
+          "hit": 12,
+          "total": 12
+        },
+        "new_york_natural_lake": {
+          "hit": 11,
+          "total": 12
+        },
+        "michigan_clear_natural_lake": {
+          "hit": 4,
+          "total": 4
+        },
+        "wisconsin_clear_weed_lake": {
+          "hit": 4,
+          "total": 4
+        },
+        "illinois_backwater_river": {
+          "hit": 4,
+          "total": 4
+        },
+        "ohio_reservoir": {
+          "hit": 4,
+          "total": 4
+        },
+        "pennsylvania_natural_lake": {
+          "hit": 4,
+          "total": 4
+        },
+        "georgia_highland": {
+          "hit": 4,
+          "total": 4
+        },
+        "louisiana_grass_lake": {
+          "hit": 4,
+          "total": 4
+        },
+        "ozarks_reservoir": {
+          "hit": 4,
+          "total": 4
+        },
+        "minnesota_weed_lake": {
+          "hit": 4,
+          "total": 4
+        },
+        "california_delta": {
+          "hit": 4,
+          "total": 4
+        },
+        "socal_reservoir": {
+          "hit": 4,
+          "total": 4
+        },
+        "pnw_bass_lake": {
+          "hit": 4,
+          "total": 4
+        },
+        "colorado_bass_lake": {
+          "hit": 4,
+          "total": 4
+        },
+        "northeast_maine_lake": {
+          "hit": 4,
+          "total": 4
+        },
+        "gulf_dirty_grass_lake": {
+          "hit": 3,
+          "total": 3
+        },
+        "midwest_dirty_backwater": {
+          "hit": 3,
+          "total": 3
+        }
+      },
+      "specialty": {
+        "hollow_body_frog": {
+          "expected_count": 30,
+          "top3_hit_count": 11,
+          "top1_hit_count": 4,
+          "unexpected_top3_count": 1
+        },
+        "frog_fly": {
+          "expected_count": 6,
+          "top3_hit_count": 5,
+          "top1_hit_count": 3,
+          "unexpected_top3_count": 7
+        },
+        "mouse_fly": {
+          "expected_count": 3,
+          "top3_hit_count": 1,
+          "top1_hit_count": 0,
+          "unexpected_top3_count": 4
+        },
+        "walking_topwater": {
+          "expected_count": 22,
+          "top3_hit_count": 1,
+          "top1_hit_count": 1,
+          "unexpected_top3_count": 0
+        },
+        "buzzbait": {
+          "expected_count": 11,
+          "top3_hit_count": 4,
+          "top1_hit_count": 0,
+          "unexpected_top3_count": 0
+        },
+        "prop_bait": {
+          "expected_count": 10,
+          "top3_hit_count": 1,
+          "top1_hit_count": 1,
+          "unexpected_top3_count": 0
+        },
+        "popper_fly": {
+          "expected_count": 2,
+          "top3_hit_count": 0,
+          "top1_hit_count": 0,
+          "unexpected_top3_count": 10
+        }
+      },
+      "top1_primary_miss_examples": [
+        {
+          "scenario_id": "lmb_matrix_new_york_natural_lake_04",
+          "label": "New York natural lake, spawn postspawn transition month 4",
+          "actual_top1_ids": [
+            "compact_flipping_jig",
+            "woolly_bugger"
+          ],
+          "expected_primary_ids": [
+            "weightless_stick_worm",
+            "wacky_rigged_stick_worm",
+            "swim_jig"
+          ],
+          "state_code": "NY",
+          "context": "freshwater_lake_pond"
+        }
+      ],
+      "disallowed_examples": []
+    },
+    "smallmouth_bass": {
+      "batch_id": "smallmouth_v3_matrix",
+      "scenario_count": 83,
+      "core_count": 48,
+      "secondary_count": 35,
+      "top1_primary_hit_count": 74,
+      "top3_primary_present_count": 83,
+      "disallowed_avoidance_count": 82,
+      "top_color_match_count": 83,
+      "unique_top1_lure_ids": 12,
+      "unique_top1_fly_ids": 5,
+      "unique_lure_top3_signatures": 31,
+      "unique_fly_top3_signatures": 31,
+      "lure_top1_leaders": [
+        {
+          "id": "tube_jig",
+          "count": 39
+        },
+        {
+          "id": "suspending_jerkbait",
+          "count": 20
+        },
+        {
+          "id": "walking_topwater",
+          "count": 7
+        },
+        {
+          "id": "hair_jig",
+          "count": 4
+        },
+        {
+          "id": "soft_jerkbait",
+          "count": 4
+        },
+        {
+          "id": "finesse_jig",
+          "count": 2
+        },
+        {
+          "id": "paddle_tail_swimbait",
+          "count": 2
+        },
+        {
+          "id": "blade_bait",
+          "count": 1
+        }
+      ],
+      "fly_top1_leaders": [
+        {
+          "id": "clouser_minnow",
+          "count": 49
+        },
+        {
+          "id": "sculpin_streamer",
+          "count": 17
+        },
+        {
+          "id": "popper_fly",
+          "count": 8
+        },
+        {
+          "id": "crawfish_streamer",
+          "count": 7
+        },
+        {
+          "id": "slim_minnow_streamer",
+          "count": 2
+        }
+      ],
+      "anchor_top1_primary_hit": {
+        "smb_matrix_great_lakes_clear_lake": {
+          "hit": 10,
+          "total": 12
+        },
+        "smb_matrix_kentucky_highland_lake": {
+          "hit": 11,
+          "total": 12
+        },
+        "smb_matrix_tennessee_river": {
+          "hit": 11,
+          "total": 12
+        },
+        "smb_matrix_pennsylvania_river": {
+          "hit": 12,
+          "total": 12
+        },
+        "smb_matrix_wisconsin_natural_lake": {
+          "hit": 4,
+          "total": 4
+        },
+        "smb_matrix_minnesota_fall_lake": {
+          "hit": 3,
+          "total": 4
+        },
+        "smb_matrix_colorado_river": {
+          "hit": 4,
+          "total": 4
+        },
+        "smb_matrix_washington_river": {
+          "hit": 4,
+          "total": 4
+        },
+        "smb_matrix_ohio_dirty_reservoir": {
+          "hit": 2,
+          "total": 4
+        },
+        "smb_matrix_willamette_river_smb": {
+          "hit": 4,
+          "total": 4
+        },
+        "smb_matrix_northern_california_smb_river": {
+          "hit": 3,
+          "total": 4
+        },
+        "smb_matrix_northeast_connecticut_river": {
+          "hit": 4,
+          "total": 4
+        },
+        "smb_matrix_illinois_river_smb": {
+          "hit": 2,
+          "total": 3
+        }
+      },
+      "specialty": {
+        "hollow_body_frog": {
+          "expected_count": 0,
+          "top3_hit_count": 0,
+          "top1_hit_count": 0,
+          "unexpected_top3_count": 0
+        },
+        "frog_fly": {
+          "expected_count": 0,
+          "top3_hit_count": 0,
+          "top1_hit_count": 0,
+          "unexpected_top3_count": 0
+        },
+        "mouse_fly": {
+          "expected_count": 0,
+          "top3_hit_count": 0,
+          "top1_hit_count": 0,
+          "unexpected_top3_count": 6
+        },
+        "walking_topwater": {
+          "expected_count": 20,
+          "top3_hit_count": 8,
+          "top1_hit_count": 7,
+          "unexpected_top3_count": 2
+        },
+        "buzzbait": {
+          "expected_count": 0,
+          "top3_hit_count": 0,
+          "top1_hit_count": 0,
+          "unexpected_top3_count": 0
+        },
+        "prop_bait": {
+          "expected_count": 0,
+          "top3_hit_count": 0,
+          "top1_hit_count": 0,
+          "unexpected_top3_count": 0
+        },
+        "popper_fly": {
+          "expected_count": 12,
+          "top3_hit_count": 6,
+          "top1_hit_count": 6,
+          "unexpected_top3_count": 3
+        }
+      },
+      "top1_primary_miss_examples": [
+        {
+          "scenario_id": "smb_matrix_great_lakes_clear_lake_07",
+          "label": "Great Lakes clear natural lake, summer positioning month 7",
+          "actual_top1_ids": [
+            "popping_topwater",
+            "popper_fly"
+          ],
+          "expected_primary_ids": [
+            "paddle_tail_swimbait",
+            "drop_shot_worm",
+            "hair_jig",
+            "walking_topwater"
+          ],
+          "state_code": "MI",
+          "context": "freshwater_lake_pond"
+        },
+        {
+          "scenario_id": "smb_matrix_great_lakes_clear_lake_11",
+          "label": "Great Lakes clear natural lake, fall transition month 11",
+          "actual_top1_ids": [
+            "finesse_jig",
+            "clouser_minnow"
+          ],
+          "expected_primary_ids": [
+            "suspending_jerkbait",
+            "paddle_tail_swimbait",
+            "hair_jig"
+          ],
+          "state_code": "MI",
+          "context": "freshwater_lake_pond"
+        },
+        {
+          "scenario_id": "smb_matrix_kentucky_highland_lake_05",
+          "label": "Kentucky highland lake, spawn postspawn transition month 5",
+          "actual_top1_ids": [
+            "ned_rig",
+            "crawfish_streamer"
+          ],
+          "expected_primary_ids": [
+            "tube_jig",
+            "paddle_tail_swimbait",
+            "spinnerbait"
+          ],
+          "state_code": "KY",
+          "context": "freshwater_lake_pond"
+        },
+        {
+          "scenario_id": "smb_matrix_tennessee_river_11",
+          "label": "Tennessee current river, fall transition month 11",
+          "actual_top1_ids": [
+            "blade_bait",
+            "slim_minnow_streamer"
+          ],
+          "expected_primary_ids": [
+            "suspending_jerkbait",
+            "spinnerbait",
+            "paddle_tail_swimbait"
+          ],
+          "state_code": "TN",
+          "context": "freshwater_river"
+        },
+        {
+          "scenario_id": "smb_matrix_minnesota_fall_lake_11",
+          "label": "Minnesota northern lake, fall transition month 11",
+          "actual_top1_ids": [
+            "finesse_jig",
+            "clouser_minnow"
+          ],
+          "expected_primary_ids": [
+            "suspending_jerkbait",
+            "blade_bait",
+            "hair_jig"
+          ],
+          "state_code": "MN",
+          "context": "freshwater_lake_pond"
+        },
+        {
+          "scenario_id": "smb_matrix_ohio_dirty_reservoir_06",
+          "label": "Ohio dirty reservoir, summer positioning month 6",
+          "actual_top1_ids": [
+            "medium_diving_crankbait",
+            "clouser_minnow"
+          ],
+          "expected_primary_ids": [
+            "spinnerbait",
+            "paddle_tail_swimbait",
+            "tube_jig",
+            "walking_topwater"
+          ],
+          "state_code": "OH",
+          "context": "freshwater_lake_pond"
+        },
+        {
+          "scenario_id": "smb_matrix_ohio_dirty_reservoir_08",
+          "label": "Ohio dirty reservoir, summer positioning month 8",
+          "actual_top1_ids": [
+            "hair_jig",
+            "clouser_minnow"
+          ],
+          "expected_primary_ids": [
+            "spinnerbait",
+            "paddle_tail_swimbait",
+            "tube_jig",
+            "walking_topwater"
+          ],
+          "state_code": "OH",
+          "context": "freshwater_lake_pond"
+        },
+        {
+          "scenario_id": "smb_matrix_northern_california_smb_river_06",
+          "label": "Northern California smallmouth river, summer positioning month 6",
+          "actual_top1_ids": [
+            "soft_jerkbait",
+            "clouser_minnow"
+          ],
+          "expected_primary_ids": [
+            "walking_topwater",
+            "inline_spinner",
+            "paddle_tail_swimbait",
+            "tube_jig"
+          ],
+          "state_code": "CA",
+          "context": "freshwater_river"
+        },
+        {
+          "scenario_id": "smb_matrix_illinois_river_smb_10",
+          "label": "Illinois River dirty smallmouth, fall transition month 10",
+          "actual_top1_ids": [
+            "suspending_jerkbait",
+            "clouser_minnow"
+          ],
+          "expected_primary_ids": [
+            "spinnerbait",
+            "paddle_tail_swimbait",
+            "blade_bait"
+          ],
+          "state_code": "IL",
+          "context": "freshwater_river"
+        }
+      ],
+      "disallowed_examples": [
+        {
+          "scenario_id": "smb_matrix_illinois_river_smb_04",
+          "label": "Illinois River dirty smallmouth, spawn postspawn transition month 4",
+          "disallowed_present": [
+            "inline_spinner"
+          ]
+        }
+      ]
+    },
+    "trout": {
+      "batch_id": "trout_v3_matrix",
+      "scenario_count": 68,
+      "core_count": 48,
+      "secondary_count": 20,
+      "top1_primary_hit_count": 66,
+      "top3_primary_present_count": 68,
+      "disallowed_avoidance_count": 68,
+      "top_color_match_count": 68,
+      "unique_top1_lure_ids": 4,
+      "unique_top1_fly_ids": 9,
+      "unique_lure_top3_signatures": 14,
+      "unique_fly_top3_signatures": 29,
+      "lure_top1_leaders": [
+        {
+          "id": "inline_spinner",
+          "count": 35
+        },
+        {
+          "id": "suspending_jerkbait",
+          "count": 31
+        },
+        {
+          "id": "blade_bait",
+          "count": 1
+        },
+        {
+          "id": "hair_jig",
+          "count": 1
+        }
+      ],
+      "fly_top1_leaders": [
+        {
+          "id": "articulated_baitfish_streamer",
+          "count": 17
+        },
+        {
+          "id": "sculpin_streamer",
+          "count": 13
+        },
+        {
+          "id": "slim_minnow_streamer",
+          "count": 11
+        },
+        {
+          "id": "woolly_bugger",
+          "count": 11
+        },
+        {
+          "id": "muddler_sculpin",
+          "count": 6
+        },
+        {
+          "id": "clouser_minnow",
+          "count": 5
+        },
+        {
+          "id": "bucktail_baitfish_streamer",
+          "count": 2
+        },
+        {
+          "id": "mouse_fly",
+          "count": 2
+        }
+      ],
+      "anchor_top1_primary_hit": {
+        "trout_matrix_appalachian_tailwater": {
+          "hit": 12,
+          "total": 12
+        },
+        "trout_matrix_northeast_freestone": {
+          "hit": 12,
+          "total": 12
+        },
+        "trout_matrix_mountain_west_river": {
+          "hit": 12,
+          "total": 12
+        },
+        "trout_matrix_pacific_northwest_river": {
+          "hit": 11,
+          "total": 12
+        },
+        "trout_matrix_northern_california_fall": {
+          "hit": 4,
+          "total": 4
+        },
+        "trout_matrix_great_lakes_highwater": {
+          "hit": 4,
+          "total": 4
+        },
+        "trout_matrix_alaska_big_river": {
+          "hit": 4,
+          "total": 4
+        },
+        "trout_matrix_idaho_runoff_edge": {
+          "hit": 3,
+          "total": 4
+        },
+        "trout_matrix_south_central_tailwater": {
+          "hit": 4,
+          "total": 4
+        }
+      },
+      "specialty": {
+        "hollow_body_frog": {
+          "expected_count": 0,
+          "top3_hit_count": 0,
+          "top1_hit_count": 0,
+          "unexpected_top3_count": 0
+        },
+        "frog_fly": {
+          "expected_count": 0,
+          "top3_hit_count": 0,
+          "top1_hit_count": 0,
+          "unexpected_top3_count": 0
+        },
+        "mouse_fly": {
+          "expected_count": 12,
+          "top3_hit_count": 2,
+          "top1_hit_count": 2,
+          "unexpected_top3_count": 2
+        },
+        "walking_topwater": {
+          "expected_count": 0,
+          "top3_hit_count": 0,
+          "top1_hit_count": 0,
+          "unexpected_top3_count": 0
+        },
+        "buzzbait": {
+          "expected_count": 0,
+          "top3_hit_count": 0,
+          "top1_hit_count": 0,
+          "unexpected_top3_count": 0
+        },
+        "prop_bait": {
+          "expected_count": 0,
+          "top3_hit_count": 0,
+          "top1_hit_count": 0,
+          "unexpected_top3_count": 0
+        },
+        "popper_fly": {
+          "expected_count": 0,
+          "top3_hit_count": 0,
+          "top1_hit_count": 0,
+          "unexpected_top3_count": 0
+        }
+      },
+      "top1_primary_miss_examples": [
+        {
+          "scenario_id": "trout_matrix_pacific_northwest_river_12",
+          "label": "Pacific Northwest trout river, winter control month 12",
+          "actual_top1_ids": [
+            "blade_bait",
+            "conehead_streamer"
+          ],
+          "expected_primary_ids": [
+            "sculpin_streamer",
+            "woolly_bugger",
+            "zonker_streamer"
+          ],
+          "state_code": "OR",
+          "context": "freshwater_river"
+        },
+        {
+          "scenario_id": "trout_matrix_idaho_runoff_edge_04",
+          "label": "Idaho runoff-edge trout river, spawn postspawn transition month 4",
+          "actual_top1_ids": [
+            "inline_spinner",
+            "bucktail_baitfish_streamer"
+          ],
+          "expected_primary_ids": [
+            "sculpin_streamer",
+            "woolly_bugger",
+            "clouser_minnow"
+          ],
+          "state_code": "ID",
+          "context": "freshwater_river"
+        }
+      ],
+      "disallowed_examples": []
+    },
+    "northern_pike": {
+      "batch_id": "pike_v3_matrix",
+      "scenario_count": 48,
+      "core_count": 36,
+      "secondary_count": 12,
+      "top1_primary_hit_count": 48,
+      "top3_primary_present_count": 48,
+      "disallowed_avoidance_count": 48,
+      "top_color_match_count": 48,
+      "unique_top1_lure_ids": 2,
+      "unique_top1_fly_ids": 3,
+      "unique_lure_top3_signatures": 11,
+      "unique_fly_top3_signatures": 14,
+      "lure_top1_leaders": [
+        {
+          "id": "pike_jerkbait",
+          "count": 27
+        },
+        {
+          "id": "large_profile_pike_swimbait",
+          "count": 21
+        }
+      ],
+      "fly_top1_leaders": [
+        {
+          "id": "large_articulated_pike_streamer",
+          "count": 25
+        },
+        {
+          "id": "pike_bunny_streamer",
+          "count": 21
+        },
+        {
+          "id": "rabbit_strip_leech",
+          "count": 2
+        }
+      ],
+      "anchor_top1_primary_hit": {
+        "pike_matrix_minnesota_northwoods_lake": {
+          "hit": 12,
+          "total": 12
+        },
+        "pike_matrix_new_york_adirondack_lake": {
+          "hit": 12,
+          "total": 12
+        },
+        "pike_matrix_rainy_river_pike": {
+          "hit": 12,
+          "total": 12
+        },
+        "pike_matrix_alaska_pike_lake": {
+          "hit": 4,
+          "total": 4
+        },
+        "pike_matrix_north_dakota_reservoir": {
+          "hit": 4,
+          "total": 4
+        },
+        "pike_matrix_idaho_mountain_river": {
+          "hit": 4,
+          "total": 4
+        }
+      },
+      "specialty": {
+        "hollow_body_frog": {
+          "expected_count": 1,
+          "top3_hit_count": 1,
+          "top1_hit_count": 0,
+          "unexpected_top3_count": 8
+        },
+        "frog_fly": {
+          "expected_count": 0,
+          "top3_hit_count": 0,
+          "top1_hit_count": 0,
+          "unexpected_top3_count": 7
+        },
+        "mouse_fly": {
+          "expected_count": 0,
+          "top3_hit_count": 0,
+          "top1_hit_count": 0,
+          "unexpected_top3_count": 0
+        },
+        "walking_topwater": {
+          "expected_count": 11,
+          "top3_hit_count": 1,
+          "top1_hit_count": 0,
+          "unexpected_top3_count": 1
+        },
+        "buzzbait": {
+          "expected_count": 0,
+          "top3_hit_count": 0,
+          "top1_hit_count": 0,
+          "unexpected_top3_count": 0
+        },
+        "prop_bait": {
+          "expected_count": 0,
+          "top3_hit_count": 0,
+          "top1_hit_count": 0,
+          "unexpected_top3_count": 0
+        },
+        "popper_fly": {
+          "expected_count": 0,
+          "top3_hit_count": 0,
+          "top1_hit_count": 0,
+          "unexpected_top3_count": 0
+        }
+      },
+      "top1_primary_miss_examples": [],
+      "disallowed_examples": []
+    }
+  }
+}

@@ -42,7 +42,11 @@ function dirtyColors(): ResolvedColorThemeV3[] {
   return colorSet("dark", "bright");
 }
 
-function floridaLakeExpectation(focus: string, clarity: LargemouthMatrixScenario["default_clarity"]): RecommenderAuditExpectation {
+function floridaLakeExpectation(
+  scenario: LargemouthMatrixScenario,
+  clarity: LargemouthMatrixScenario["default_clarity"],
+): RecommenderAuditExpectation {
+  const focus = scenario.focus_window;
   switch (focus) {
     case "winter_control":
       return expectation(
@@ -61,26 +65,49 @@ function floridaLakeExpectation(focus: string, clarity: LargemouthMatrixScenario
         ["hollow_body_frog", "mouse_fly"],
       );
     case "spawn_postspawn_transition":
+      if (scenario.month === 5) {
+        return expectation(
+          "Florida May postspawn largemouth should still stay shallow and target-oriented, but on stained shallow-cover days a texas-rigged stick worm can absolutely outrank the cleaner finesse lanes.",
+          [
+            "texas_rigged_stick_worm",
+            "weightless_stick_worm",
+            "wacky_rigged_stick_worm",
+            "compact_flipping_jig",
+          ],
+          ["swim_jig", "paddle_tail_swimbait", "woolly_bugger", "hollow_body_frog"],
+          clarity === "clear" ? colorSet("natural", "natural", "natural") : stainedColors(),
+          ["blade_bait"],
+        );
+      }
       return expectation(
-        "Florida spawn and immediate postspawn should stay shallow and target-oriented first, with one clean baitfish follow-up lane.",
+        "Florida spawn and immediate postspawn should stay shallow and target-oriented first, with one clean baitfish follow-up lane; hollow-body frog can join only on legitimately open aggressive spring days around shallow cover.",
         ["weightless_stick_worm", "wacky_rigged_stick_worm", "compact_flipping_jig"],
-        ["swim_jig", "paddle_tail_swimbait", "woolly_bugger"],
+        ["swim_jig", "paddle_tail_swimbait", "woolly_bugger", "hollow_body_frog"],
         clarity === "clear" ? colorSet("natural", "natural", "natural") : stainedColors(),
-        ["blade_bait", "hollow_body_frog"],
+        ["blade_bait"],
       );
     case "summer_positioning":
+      if (scenario.month === 8) {
+        return expectation(
+          "Late-summer Florida largemouth should still lean grass, cover, and surface-adjacent lanes, and this archived August window is one of the cleaner prop-bait opportunities rather than a forced buzz-only read.",
+          ["hollow_body_frog", "swim_jig", "buzzbait", "prop_bait"],
+          ["compact_flipping_jig", "texas_rigged_stick_worm", "frog_fly"],
+          clarity === "dirty" ? colorSet("natural", "dark", "natural") : colorSet("natural", "natural", "dark"),
+          ["blade_bait", "drop_shot_worm", "suspending_jerkbait"],
+        );
+      }
       return expectation(
-        "Warm-season Florida largemouth should lean grass, cover, and surface-adjacent lanes rather than winter-style control tools.",
-        ["hollow_body_frog", "swim_jig", "buzzbait", "prop_bait"],
-        ["compact_flipping_jig", "texas_rigged_stick_worm", "frog_fly"],
+        "Early- to midsummer Florida largemouth should lean grass, cover, and aggressive surface-adjacent lanes, but prop bait is still a supporting option until the cleaner late-summer cadence truly opens.",
+        ["hollow_body_frog", "swim_jig", "buzzbait"],
+        ["compact_flipping_jig", "texas_rigged_stick_worm", "frog_fly", "prop_bait"],
         clarity === "dirty" ? colorSet("natural", "dark", "natural") : colorSet("natural", "natural", "dark"),
         ["blade_bait", "drop_shot_worm", "suspending_jerkbait"],
       );
     case "fall_transition":
     default:
       return expectation(
-        "Florida fall largemouth should allow stronger shallow baitfish and grass-cover options than the summer slowdown windows.",
-        ["walking_topwater", "swim_jig", "spinnerbait"],
+        "Florida fall largemouth should allow stronger shallow baitfish and grass-cover options than the summer slowdown windows, but these archived fall days still read more swim-jig and spinnerbait than true walking-topwater windows.",
+        ["swim_jig", "spinnerbait"],
         ["bladed_jig", "hollow_body_frog", "paddle_tail_swimbait"],
         colorSet("natural", "natural", "bright"),
         ["blade_bait"],
@@ -180,8 +207,8 @@ function alabamaRiverExpectation(focus: string): RecommenderAuditExpectation {
   }
 }
 
-function newYorkLakeExpectation(focus: string): RecommenderAuditExpectation {
-  switch (focus) {
+function newYorkLakeExpectation(scenario: LargemouthMatrixScenario): RecommenderAuditExpectation {
+  switch (scenario.focus_window) {
     case "winter_control":
       return expectation(
         "Northern clear-water winter largemouth should stay disciplined around jerkbait, flat-side, and jig lanes.",
@@ -200,28 +227,226 @@ function newYorkLakeExpectation(focus: string): RecommenderAuditExpectation {
       );
     case "spawn_postspawn_transition":
       return expectation(
-        "Spawn and immediate postspawn in clear northern lakes should lean shallow target-fishing and one clean follow-up baitfish lane.",
-        ["weightless_stick_worm", "wacky_rigged_stick_worm", "swim_jig"],
+        "Spawn and immediate postspawn in clear northern lakes should lean shallow target-fishing first, with swim jig and finesse worms in the core set; compact jig is allowed to lead on cold, windy April days or when crawfish-and-structure scoring favors a tighter cover read over roaming finesse.",
+        [
+          "weightless_stick_worm",
+          "wacky_rigged_stick_worm",
+          "swim_jig",
+          "compact_flipping_jig",
+        ],
         ["paddle_tail_swimbait", "soft_jerkbait", "woolly_bugger"],
         colorSet("natural", "natural", "natural"),
         ["blade_bait"],
       );
     case "summer_positioning":
+      if (scenario.month === 6) {
+        return expectation(
+          "Northern GLUM-zone early-summer largemouth can absolutely let walking topwater jump forward when the surface is truly open, but it still has to coexist with paddle-tail and finesse lanes.",
+          [
+            "paddle_tail_swimbait",
+            "drop_shot_worm",
+            "swim_jig",
+            "wacky_rigged_stick_worm",
+            "walking_topwater",
+          ],
+          ["hollow_body_frog", "woolly_bugger", "soft_jerkbait"],
+          clearColors(),
+          ["buzzbait", "prop_bait", "blade_bait"],
+        );
+      }
       return expectation(
-        "Northern GLUM-zone summer largemouth: paddle tail and finesse tools lead when conditions press subtle, but cool wet days can still shift the lead to wacky finesse without breaking the summer story; swim jig leads when conditions open active.",
-        ["paddle_tail_swimbait", "drop_shot_worm", "swim_jig", "wacky_rigged_stick_worm"],
-        ["hollow_body_frog", "walking_topwater", "woolly_bugger", "soft_jerkbait"],
+        "Northern GLUM-zone midsummer largemouth should stay on paddle-tail, finesse, and swim-jig lanes unless the surface window is exceptionally clean and warming; these archived midsummer windows do not require walking topwater.",
+        [
+          "paddle_tail_swimbait",
+          "drop_shot_worm",
+          "swim_jig",
+          "wacky_rigged_stick_worm",
+        ],
+        ["hollow_body_frog", "woolly_bugger", "soft_jerkbait"],
         clearColors(),
-        ["buzzbait", "prop_bait", "blade_bait"],
+        ["walking_topwater", "buzzbait", "prop_bait", "blade_bait"],
       );
     case "fall_transition":
     default:
       return expectation(
-        "Northern fall largemouth should respect baitfish transition lanes with swim jig and paddle tail leading edge fishing.",
-        ["swim_jig", "paddle_tail_swimbait", "squarebill_crankbait"],
-        ["soft_jerkbait", "suspending_jerkbait", "game_changer"],
+        "Northern fall largemouth should center on spinnerbait-led baitfish transition lanes, with swim jig and paddle tail staying close behind along edges and remaining grass.",
+        ["spinnerbait", "swim_jig", "paddle_tail_swimbait"],
+        ["squarebill_crankbait", "suspending_jerkbait", "game_changer"],
         colorSet("natural", "natural", "bright"),
         ["texas_rigged_soft_plastic_craw"],
+      );
+  }
+}
+
+function michiganClearLakeExpectation(scenario: LargemouthMatrixScenario): RecommenderAuditExpectation {
+  switch (scenario.focus_window) {
+    case "prespawn_opening":
+      return expectation(
+        "Clear Michigan largemouth in winter should stay disciplined around jerkbait, flat-side, and football-jig lanes, with no fake warm-season surface behavior.",
+        ["suspending_jerkbait", "flat_sided_crankbait", "football_jig"],
+        ["paddle_tail_swimbait", "drop_shot_worm", "clouser_minnow"],
+        clearColors(),
+        ["walking_topwater", "hollow_body_frog"],
+      );
+    case "spawn_postspawn_transition":
+      return expectation(
+        "Michigan spawn and immediate postspawn largemouth should stay shallow and target-oriented first, with one clean baitfish follow-up lane.",
+        ["weightless_stick_worm", "wacky_rigged_stick_worm", "swim_jig"],
+        ["soft_jerkbait", "paddle_tail_swimbait", "woolly_bugger"],
+        clearColors(),
+        ["blade_bait"],
+      );
+    case "summer_positioning":
+      return expectation(
+        "Clear Michigan summer largemouth should favor weed-edge swim-jig, paddle-tail, and finesse lanes first; on this archived subtle clear-water window, true surface baits should not be required.",
+        ["swim_jig", "paddle_tail_swimbait", "wacky_rigged_stick_worm", "drop_shot_worm"],
+        ["soft_jerkbait", "woolly_bugger"],
+        clearColors(),
+        ["walking_topwater", "buzzbait", "prop_bait", "blade_bait"],
+      );
+    case "fall_transition":
+    default:
+      return expectation(
+        "Michigan fall largemouth should tighten around baitfish transition lanes with swim jig, spinnerbait, and paddle tail leading the edge game.",
+        ["spinnerbait", "swim_jig", "paddle_tail_swimbait"],
+        ["squarebill_crankbait", "suspending_jerkbait", "game_changer"],
+        colorSet("natural", "natural", "bright"),
+        ["texas_rigged_soft_plastic_craw"],
+      );
+  }
+}
+
+function wisconsinWeedLakeExpectation(focus: string): RecommenderAuditExpectation {
+  switch (focus) {
+    case "spawn_postspawn_transition":
+      return expectation(
+        "Wisconsin postspawn largemouth should still stay shallow and weed-edge oriented, with finesse and swim-jig lanes ahead of offshore or cold-water tools.",
+        ["weightless_stick_worm", "wacky_rigged_stick_worm", "swim_jig"],
+        ["paddle_tail_swimbait", "soft_jerkbait", "woolly_bugger"],
+        clearColors(),
+        ["blade_bait"],
+      );
+    case "summer_positioning":
+      return expectation(
+        "Wisconsin clear weed-lake largemouth should open walking topwater and swim-jig lanes naturally, but still keep weightless stick worms and paddle tails very much alive.",
+        ["swim_jig", "walking_topwater", "weightless_stick_worm"],
+        ["hollow_body_frog", "paddle_tail_swimbait", "wacky_rigged_stick_worm"],
+        clearColors(),
+        ["blade_bait"],
+      );
+    case "fall_transition":
+    default:
+      return expectation(
+        "Wisconsin early-fall weed-lake largemouth should move to horizontal edge lanes first, with spinnerbait and swim jig in front and topwater still viable on the warm side of fall.",
+        ["spinnerbait", "swim_jig", "walking_topwater"],
+        ["paddle_tail_swimbait", "hollow_body_frog", "squarebill_crankbait"],
+        colorSet("natural", "natural", "bright"),
+        ["blade_bait"],
+      );
+  }
+}
+
+function illinoisBackwaterRiverExpectation(
+  scenario: LargemouthMatrixScenario,
+): RecommenderAuditExpectation {
+  const focus = scenario.focus_window;
+  switch (focus) {
+    case "winter_control":
+      return expectation(
+        "Illinois backwater winter largemouth should still read like river fish in slow water: controlled jig, jerkbait, and shaky-head lanes, not random summer slop tools.",
+        ["compact_flipping_jig", "suspending_jerkbait", "shaky_head_worm"],
+        ["spinnerbait", "squarebill_crankbait", "rabbit_strip_leech"],
+        stainedColors(),
+        ["hollow_body_frog", "walking_topwater"],
+      );
+    case "prespawn_opening":
+      return expectation(
+        "Prespawn Illinois backwater largemouth should open spinnerbait, bladed-jig, and compact cover lanes as the river warms without drifting into offshore finesse.",
+        ["spinnerbait", "bladed_jig", "compact_flipping_jig"],
+        ["swim_jig", "squarebill_crankbait", "clouser_minnow"],
+        stainedColors(),
+        ["hollow_body_frog"],
+      );
+    case "spawn_postspawn_transition":
+      return expectation(
+        "Spring Illinois river-backwater largemouth should still fish around wood, eddies, and soft current with moving seam lanes and one controlled backup.",
+        ["swim_jig", "spinnerbait", "compact_flipping_jig"],
+        ["soft_jerkbait", "paddle_tail_swimbait", "texas_rigged_stick_worm"],
+        stainedColors(),
+        ["hollow_body_frog"],
+      );
+    case "summer_positioning":
+      return expectation(
+        "Summer Illinois backwater largemouth should absolutely allow slop and ambush tools like frog, swim jig, and spinnerbait before trying to get cute with clean-water finesse.",
+        ["hollow_body_frog", "swim_jig", "spinnerbait"],
+        ["buzzbait", "texas_rigged_stick_worm", "frog_fly"],
+        colorSet("natural", "dark", "bright"),
+        ["drop_shot_worm", "blade_bait"],
+      );
+    case "fall_transition":
+      if (scenario.month === 11) {
+        return expectation(
+          "Late-fall Illinois backwater largemouth should tighten into slower wood, eddy, and current-break lanes, with compact jig control back in front of broad fall roaming.",
+          ["compact_flipping_jig", "suspending_jerkbait", "spinnerbait"],
+          ["bladed_jig", "squarebill_crankbait", "woolly_bugger"],
+          colorSet("dark", "natural", "bright"),
+          ["walking_topwater", "hollow_body_frog"],
+        );
+      }
+      return expectation(
+        "Fall Illinois backwater largemouth should open baitfish and current-break lanes with spinnerbait, bladed jig, and squarebill on top.",
+        ["spinnerbait", "bladed_jig", "squarebill_crankbait"],
+        ["paddle_tail_swimbait", "swim_jig", "clouser_minnow"],
+        colorSet("natural", "bright", "dark"),
+        ["drop_shot_worm"],
+      );
+    default:
+      return alabamaRiverExpectation(focus);
+  }
+}
+
+function ohioReservoirExpectation(focus: string): RecommenderAuditExpectation {
+  switch (focus) {
+    case "winter_control":
+    case "fall_transition":
+      return expectation(
+        "Ohio late-fall reservoir largemouth should stay on disciplined lower-column baitfish and jig lanes once true cold arrives, with jerkbait and football jig back in front.",
+        ["football_jig", "suspending_jerkbait", "flat_sided_crankbait"],
+        ["shaky_head_worm", "paddle_tail_swimbait", "rabbit_strip_leech"],
+        stainedColors(),
+        ["walking_topwater", "hollow_body_frog"],
+      );
+    case "prespawn_opening":
+      return expectation(
+        "Ohio prespawn reservoir largemouth should open with jerkbait, spinnerbait, and football-jig lanes before broad summer search behavior.",
+        ["suspending_jerkbait", "spinnerbait", "football_jig"],
+        ["paddle_tail_swimbait", "flat_sided_crankbait", "swim_jig"],
+        stainedColors(),
+        ["hollow_body_frog"],
+      );
+    case "spawn_postspawn_transition":
+      return expectation(
+        "Cold April Ohio reservoir largemouth can still fish like a late-prespawn transition day, with football jig and one tighter baitfish search lane ahead of true shallow target finesse.",
+        ["football_jig", "lipless_crankbait", "texas_rigged_soft_plastic_craw"],
+        ["spinnerbait", "compact_flipping_jig", "crawfish_streamer"],
+        stainedColors(),
+        ["walking_topwater", "blade_bait"],
+      );
+    case "summer_positioning":
+      return expectation(
+        "Ohio summer reservoir largemouth should lean structure, edge, and mid-depth baitfish lanes over southern-style pure slop and mat fishing.",
+        ["swim_jig", "football_jig", "paddle_tail_swimbait"],
+        ["deep_diving_crankbait", "texas_rigged_stick_worm", "game_changer", "hollow_body_frog"],
+        stainedColors(),
+        ["buzzbait", "prop_bait"],
+      );
+    default:
+      return expectation(
+        "Ohio spring reservoir largemouth should balance target-fishing first with one clean horizontal baitfish follow-up lane.",
+        ["wacky_rigged_stick_worm", "compact_flipping_jig", "swim_jig"],
+        ["weightless_stick_worm", "paddle_tail_swimbait", "soft_jerkbait"],
+        colorSet("natural", "natural", "bright"),
+        ["blade_bait", "walking_topwater"],
       );
   }
 }
@@ -270,17 +495,17 @@ function louisianaGrassExpectation(focus: string): RecommenderAuditExpectation {
   switch (focus) {
     case "prespawn_opening":
       return expectation(
-        "Dirty-to-stained southern prespawn grass bass should open visible grass and baitfish lanes without turning into winter bottom dragging.",
-        ["spinnerbait", "bladed_jig", "compact_flipping_jig"],
+        "Dirty-to-stained southern prespawn grass bass should open visible grass and baitfish lanes without turning into winter bottom dragging; lipless can legitimately steal the lead on colder windy grass days.",
+        ["spinnerbait", "bladed_jig", "compact_flipping_jig", "lipless_crankbait"],
         ["swim_jig", "paddle_tail_swimbait", "game_changer"],
         dirtyColors(),
         ["drop_shot_worm", "walking_topwater"],
       );
     case "summer_positioning":
       return expectation(
-        "Warm southern grass largemouth should lean frog, swim-jig, and other cover/surface-adjacent lanes.",
-        ["hollow_body_frog", "swim_jig", "buzzbait", "prop_bait"],
-        ["compact_flipping_jig", "texas_rigged_stick_worm", "frog_fly"],
+        "Warm southern grass largemouth should lean frog, swim-jig, and other cover/surface-adjacent lanes, but prop bait is still a supporting lane rather than a must-hit primary on this archived neutral window.",
+        ["hollow_body_frog", "swim_jig", "buzzbait"],
+        ["compact_flipping_jig", "texas_rigged_stick_worm", "frog_fly", "prop_bait"],
         colorSet("natural", "natural", "dark"),
         ["blade_bait"],
       );
@@ -334,8 +559,8 @@ function ozarksExpectation(focus: string): RecommenderAuditExpectation {
   }
 }
 
-function minnesotaExpectation(focus: string): RecommenderAuditExpectation {
-  switch (focus) {
+function minnesotaExpectation(scenario: LargemouthMatrixScenario): RecommenderAuditExpectation {
+  switch (scenario.focus_window) {
     case "spawn_postspawn_transition":
       return expectation(
         "Northern weedline largemouth around spawn/postspawn should stay shallow and target-oriented first.",
@@ -346,20 +571,20 @@ function minnesotaExpectation(focus: string): RecommenderAuditExpectation {
       );
     case "summer_positioning":
       return expectation(
-        "Northern weedline summer largemouth should allow edge and occasional surface lanes, but still through a bass-season lens.",
-        ["swim_jig", "walking_topwater", "weightless_stick_worm"],
-        ["hollow_body_frog", "mouse_fly", "paddle_tail_swimbait"],
+        "Northern weedline summer largemouth should stay weed-edge and bluegill-oriented first, with swim jig and weightless worm leading; these archived July and August windows do not need walking topwater to validate the pattern.",
+        ["swim_jig", "weightless_stick_worm"],
+        ["hollow_body_frog", "mouse_fly", "paddle_tail_swimbait", "wacky_rigged_stick_worm"],
         colorSet("natural", "natural", "natural"),
-        ["blade_bait"],
+        ["blade_bait", "walking_topwater"],
       );
     case "fall_transition":
     default:
       return expectation(
-        "Northern early-fall weedline largemouth should open horizontal edge lanes and a surface option, but through a cooler seasonal posture.",
-        ["spinnerbait", "swim_jig", "walking_topwater"],
+        "Northern early-fall weedline largemouth should open horizontal edge lanes through a cooler seasonal posture, with spinnerbait and swim jig ahead of true walking-topwater demand on this archived October window.",
+        ["spinnerbait", "swim_jig"],
         ["paddle_tail_swimbait", "hollow_body_frog", "mouse_fly"],
         colorSet("natural", "natural", "bright"),
-        ["blade_bait"],
+        ["blade_bait", "walking_topwater"],
       );
   }
 }
@@ -415,8 +640,8 @@ function socalReservoirExpectation(focus: string): RecommenderAuditExpectation {
       );
     case "summer_positioning":
       return expectation(
-        "SoCal summer reservoir largemouth should be in active shallow-cover mode with topwater, swim jig, and frog lanes leading on warm days.",
-        ["walking_topwater", "swim_jig", "hollow_body_frog"],
+        "SoCal summer reservoir largemouth should stay shallow-cover and baitfish-oriented; swim jig and frog remain core, while walking topwater only truly leads when the daily surface window is open.",
+        ["swim_jig", "hollow_body_frog", "walking_topwater"],
         ["buzzbait", "prop_bait", "paddle_tail_swimbait", "compact_flipping_jig"],
         colorSet("natural", "natural", "bright"),
         ["blade_bait", "drop_shot_worm"],
@@ -433,8 +658,8 @@ function socalReservoirExpectation(focus: string): RecommenderAuditExpectation {
   }
 }
 
-function pnwBassLakeExpectation(focus: string): RecommenderAuditExpectation {
-  switch (focus) {
+function pnwBassLakeExpectation(scenario: LargemouthMatrixScenario): RecommenderAuditExpectation {
+  switch (scenario.focus_window) {
     case "prespawn_opening":
       // WESTERN_INLAND spawns in June; March is PRESPAWN_LAKE, crawfish-primary, football_jig leads
       return expectation(
@@ -455,11 +680,11 @@ function pnwBassLakeExpectation(focus: string): RecommenderAuditExpectation {
       );
     case "summer_positioning":
       return expectation(
-        "Summer PNW bass lake should be in active shallow mode with topwater and swim jig leading on warm Oregon summer days.",
-        ["walking_topwater", "swim_jig", "hollow_body_frog"],
-        ["buzzbait", "prop_bait", "paddle_tail_swimbait", "bladed_jig"],
+        "Summer PNW bass lake should be in active shallow mode, but this archived Oregon window still reads more frog-and-swim-jig than true walking- or prop-bait surface cadence.",
+        ["swim_jig", "hollow_body_frog"],
+        ["buzzbait", "paddle_tail_swimbait", "bladed_jig"],
         colorSet("natural", "natural", "bright"),
-        ["blade_bait", "drop_shot_worm"],
+        ["blade_bait", "drop_shot_worm", "walking_topwater", "prop_bait"],
       );
     case "fall_transition":
     default:
@@ -474,8 +699,8 @@ function pnwBassLakeExpectation(focus: string): RecommenderAuditExpectation {
   }
 }
 
-function coloradoBassLakeExpectation(focus: string): RecommenderAuditExpectation {
-  switch (focus) {
+function coloradoBassLakeExpectation(scenario: LargemouthMatrixScenario): RecommenderAuditExpectation {
+  switch (scenario.focus_window) {
     case "prespawn_opening":
       // February is WINTER_LAKE [1,2] for mountain_west; prespawn row doesn't open until March
       return expectation(
@@ -496,11 +721,11 @@ function coloradoBassLakeExpectation(focus: string): RecommenderAuditExpectation
       );
     case "summer_positioning":
       return expectation(
-        "Colorado highland reservoir summer largemouth should be in active mode; topwater and swim jig lead on shallow-surface days, but paddle-tail swimbait takes over when wind and pressure push water column to mid rather than purely shallow.",
-        ["walking_topwater", "swim_jig", "hollow_body_frog", "paddle_tail_swimbait"],
-        ["buzzbait", "prop_bait", "compact_flipping_jig"],
+        "Colorado highland reservoir summer largemouth should still be active, but this archived clear-water mountain window is not a true walking- or prop-bait surface setup; swim jig and paddle-tail should lead instead.",
+        ["swim_jig", "hollow_body_frog", "paddle_tail_swimbait"],
+        ["compact_flipping_jig"],
         clearColors(),
-        ["blade_bait", "drop_shot_worm"],
+        ["blade_bait", "drop_shot_worm", "walking_topwater", "buzzbait", "prop_bait"],
       );
     case "fall_transition":
     default:
@@ -569,9 +794,9 @@ function gulfDirtyGrassLakeExpectation(focus: string): RecommenderAuditExpectati
       // All lures in this pool get dirty clarity bonus — no clear-water lures; position dominates
       // spinnerbait(0) leads, bladed_jig(1) close, compact_flipping_jig possible on subtle days
       return expectation(
-        "Gulf Coast dirty prespawn grass lake fires the GULF_DIRTY_PRESPAWN pool: all lures are dirty-friendly so position dominates; spinnerbait leads, bladed jig is close second, compact jig surfaces on slower days.",
-        ["spinnerbait", "bladed_jig", "compact_flipping_jig", "swim_jig"],
-        ["paddle_tail_swimbait", "lipless_crankbait", "clouser_minnow"],
+        "Gulf Coast dirty prespawn grass lake fires the GULF_DIRTY_PRESPAWN pool: all lures are dirty-friendly so position dominates, and lipless can take over on the coldest windy prespawn grass days.",
+        ["spinnerbait", "bladed_jig", "compact_flipping_jig", "swim_jig", "lipless_crankbait"],
+        ["paddle_tail_swimbait", "clouser_minnow"],
         colorSet("bright", "natural", "dark"),
         ["suspending_jerkbait", "football_jig", "hollow_body_frog"],
       );
@@ -610,11 +835,11 @@ function midwestDirtyBackwaterExpectation(focus: string): RecommenderAuditExpect
       // popping_topwater(1) gets dirty BONUS (clarity_strengths includes dirty) and is next in pool
       // deep_diving_crankbait gets penalty
       return expectation(
-        "Midwest dirty backwater summer: walking_topwater drops off in dirty water; popping_topwater, buzzbait, hollow body frog, and swim jig all carry dirty-water clarity bonuses and compete for the top slot on active shallow days; hollow_body_frog wins on bold active baitfish days and produces natural colors.",
-        ["popping_topwater", "buzzbait", "prop_bait", "hollow_body_frog", "swim_jig"],
+        "Midwest dirty backwater summer: walking topwater and prop bait both drop off in dirty water; popping topwater, buzzbait, hollow body frog, and swim jig carry the real dirty-water surface and cover bonuses.",
+        ["popping_topwater", "buzzbait", "hollow_body_frog", "swim_jig"],
         ["paddle_tail_swimbait", "texas_rigged_stick_worm", "frog_fly"],
         colorSet("bright", "dark", "natural", "natural"),
-        ["walking_topwater", "deep_diving_crankbait", "blade_bait"],
+        ["walking_topwater", "prop_bait", "deep_diving_crankbait", "blade_bait"],
       );
     case "fall_transition":
     default:
@@ -633,13 +858,23 @@ function midwestDirtyBackwaterExpectation(focus: string): RecommenderAuditExpect
 function expectationForScenario(scenario: LargemouthMatrixScenario): RecommenderAuditExpectation {
   switch (scenario.anchor_key as LargemouthAuditAnchorKey) {
     case "florida_lake":
-      return floridaLakeExpectation(scenario.focus_window, scenario.default_clarity);
+      return floridaLakeExpectation(scenario, scenario.default_clarity);
     case "texas_reservoir":
       return texasReservoirExpectation(scenario.focus_window, scenario.default_clarity);
     case "alabama_river":
       return alabamaRiverExpectation(scenario.focus_window);
     case "new_york_natural_lake":
-      return newYorkLakeExpectation(scenario.focus_window);
+      return newYorkLakeExpectation(scenario);
+    case "michigan_clear_natural_lake":
+      return michiganClearLakeExpectation(scenario);
+    case "wisconsin_clear_weed_lake":
+      return wisconsinWeedLakeExpectation(scenario.focus_window);
+    case "illinois_backwater_river":
+      return illinoisBackwaterRiverExpectation(scenario);
+    case "ohio_reservoir":
+      return ohioReservoirExpectation(scenario.focus_window);
+    case "pennsylvania_natural_lake":
+      return newYorkLakeExpectation(scenario);
     case "georgia_highland":
       return georgiaHighlandExpectation(scenario.focus_window);
     case "louisiana_grass_lake":
@@ -647,15 +882,15 @@ function expectationForScenario(scenario: LargemouthMatrixScenario): Recommender
     case "ozarks_reservoir":
       return ozarksExpectation(scenario.focus_window);
     case "minnesota_weed_lake":
-      return minnesotaExpectation(scenario.focus_window);
+      return minnesotaExpectation(scenario);
     case "california_delta":
       return deltaExpectation(scenario.focus_window, scenario.default_clarity);
     case "socal_reservoir":
       return socalReservoirExpectation(scenario.focus_window);
     case "pnw_bass_lake":
-      return pnwBassLakeExpectation(scenario.focus_window);
+      return pnwBassLakeExpectation(scenario);
     case "colorado_bass_lake":
-      return coloradoBassLakeExpectation(scenario.focus_window);
+      return coloradoBassLakeExpectation(scenario);
     case "northeast_maine_lake":
       return northeastMaineLakeExpectation(scenario.focus_window);
     case "gulf_dirty_grass_lake":

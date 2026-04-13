@@ -1,15 +1,15 @@
 # Largemouth V3 Audit Matrix
 
-Generated: 2026-04-07T00:59:26.411Z
+Generated: 2026-04-12T18:27:16.047Z
 
 This matrix is the efficient largemouth tuning structure for V3.
 It replaces ad-hoc scenario picking with a fixed coverage grid:
 - 4 core anchors run across all 12 months
 - 5 seasonal overlay anchors run across 4 high-value months each
 
-Total scenarios: 90
+Total scenarios: 110
 Core monthly scenarios: 48
-Overlay scenarios: 42
+Overlay scenarios: 62
 
 ## Why This Is Faster
 
@@ -25,6 +25,11 @@ Overlay scenarios: 42
 | Texas reservoir | core_monthly | south_central | freshwater_lake_pond | stained | South-central reservoir benchmark for windy baitfish windows, winter tightening, and fall shad behavior. |
 | Alabama river current system | core_monthly | south_central | freshwater_river | stained | River largemouth benchmark for current seams, dirty-water cover lanes, and bounded warm-season river behavior. |
 | New York natural lake | core_monthly | northeast | freshwater_lake_pond | clear | Northern clear-lake benchmark for finesse, cooler seasonal posture, and restrained surface behavior. |
+| Michigan clear natural lake | seasonal_overlay | great_lakes_upper_midwest | freshwater_lake_pond | clear | Great Lakes clear natural-lake overlay for colder seasonal posture, perch-and-baitfish transitions, and restrained summer surface behavior. |
+| Wisconsin clear weed lake | seasonal_overlay | great_lakes_upper_midwest | freshwater_lake_pond | clear | Upper-Midwest weed-edge overlay for clear-water summer edge fishing, topwater windows, and cooler fall weedline behavior. |
+| Illinois backwater river | seasonal_overlay | midwest_interior | freshwater_river | stained | Midwest river-backwater overlay for largemouth that fish current breaks, slop, wood, and dirty-water baitfish lanes differently than southern current systems. |
+| Ohio inland reservoir | seasonal_overlay | midwest_interior | freshwater_lake_pond | stained | Inland Midwest reservoir overlay for late-winter tightening, spring wind lanes, summer structure reads, and late-fall baitfish control. |
+| Pennsylvania natural lake | seasonal_overlay | northeast | freshwater_lake_pond | clear | Northeast natural-lake overlay for Pennsylvania largemouth that should stay cooler, cleaner, and more restrained than southern grass and reservoir fish. |
 | Georgia highland reservoir | seasonal_overlay | south_central | freshwater_lake_pond | clear | Clear highland-reservoir overlay for spring baitfish reads and cleaner color behavior. |
 | Louisiana grass lake | seasonal_overlay | gulf_coast | freshwater_lake_pond | stained | Southern grass overlay for early-fall topwater, frog, swim-jig, and spinnerbait lanes. |
 | Ozarks reservoir | seasonal_overlay | midwest_interior | freshwater_lake_pond | clear | Shad-transition and inland-reservoir overlay for fall and cold-season crankbait / jerkbait behavior. |
@@ -41,17 +46,17 @@ Overlay scenarios: 42
 
 | Month | Core monthly | Seasonal overlays | Total |
 |-------|--------------|-------------------|-------|
-| Jan | 4 | 2 | 6 |
-| Feb | 4 | 3 | 7 |
-| Mar | 4 | 5 | 9 |
-| Apr | 4 | 2 | 6 |
-| May | 4 | 5 | 9 |
-| Jun | 4 | 3 | 7 |
-| Jul | 4 | 4 | 8 |
-| Aug | 4 | 3 | 7 |
-| Sep | 4 | 3 | 7 |
-| Oct | 4 | 7 | 11 |
-| Nov | 4 | 4 | 8 |
+| Jan | 4 | 3 | 7 |
+| Feb | 4 | 5 | 9 |
+| Mar | 4 | 6 | 10 |
+| Apr | 4 | 3 | 7 |
+| May | 4 | 8 | 12 |
+| Jun | 4 | 4 | 8 |
+| Jul | 4 | 6 | 10 |
+| Aug | 4 | 5 | 9 |
+| Sep | 4 | 5 | 9 |
+| Oct | 4 | 8 | 12 |
+| Nov | 4 | 8 | 12 |
 | Dec | 4 | 1 | 5 |
 
 ## Scenario List
@@ -107,6 +112,26 @@ Format:
 - lmb_matrix_new_york_natural_lake_10 | New York natural lake, fall transition month 10 | northeast | freshwater_lake_pond | 2025-10-15 | clear | core_monthly | fall_transition
 - lmb_matrix_new_york_natural_lake_11 | New York natural lake, fall transition month 11 | northeast | freshwater_lake_pond | 2025-11-12 | clear | core_monthly | fall_transition
 - lmb_matrix_new_york_natural_lake_12 | New York natural lake, winter control month 12 | northeast | freshwater_lake_pond | 2025-12-10 | clear | core_monthly | winter_control
+- lmb_matrix_michigan_clear_natural_lake_02 | Michigan clear natural lake, prespawn opening month 2 | great_lakes_upper_midwest | freshwater_lake_pond | 2025-02-19 | clear | seasonal_overlay | prespawn_opening
+- lmb_matrix_michigan_clear_natural_lake_05 | Michigan clear natural lake, spawn postspawn transition month 5 | great_lakes_upper_midwest | freshwater_lake_pond | 2025-05-15 | clear | seasonal_overlay | spawn_postspawn_transition
+- lmb_matrix_michigan_clear_natural_lake_07 | Michigan clear natural lake, summer positioning month 7 | great_lakes_upper_midwest | freshwater_lake_pond | 2025-07-16 | clear | seasonal_overlay | summer_positioning
+- lmb_matrix_michigan_clear_natural_lake_10 | Michigan clear natural lake, fall transition month 10 | great_lakes_upper_midwest | freshwater_lake_pond | 2025-10-15 | clear | seasonal_overlay | fall_transition
+- lmb_matrix_wisconsin_clear_weed_lake_05 | Wisconsin clear weed lake, spawn postspawn transition month 5 | great_lakes_upper_midwest | freshwater_lake_pond | 2025-05-15 | clear | seasonal_overlay | spawn_postspawn_transition
+- lmb_matrix_wisconsin_clear_weed_lake_07 | Wisconsin clear weed lake, summer positioning month 7 | great_lakes_upper_midwest | freshwater_lake_pond | 2025-07-16 | clear | seasonal_overlay | summer_positioning
+- lmb_matrix_wisconsin_clear_weed_lake_09 | Wisconsin clear weed lake, fall transition month 9 | great_lakes_upper_midwest | freshwater_lake_pond | 2025-09-17 | clear | seasonal_overlay | fall_transition
+- lmb_matrix_wisconsin_clear_weed_lake_11 | Wisconsin clear weed lake, fall transition month 11 | great_lakes_upper_midwest | freshwater_lake_pond | 2025-11-12 | clear | seasonal_overlay | fall_transition
+- lmb_matrix_illinois_backwater_river_03 | Illinois backwater river, prespawn opening month 3 | midwest_interior | freshwater_river | 2025-03-20 | stained | seasonal_overlay | prespawn_opening
+- lmb_matrix_illinois_backwater_river_06 | Illinois backwater river, summer positioning month 6 | midwest_interior | freshwater_river | 2025-06-18 | stained | seasonal_overlay | summer_positioning
+- lmb_matrix_illinois_backwater_river_09 | Illinois backwater river, fall transition month 9 | midwest_interior | freshwater_river | 2025-09-17 | stained | seasonal_overlay | fall_transition
+- lmb_matrix_illinois_backwater_river_11 | Illinois backwater river, fall transition month 11 | midwest_interior | freshwater_river | 2025-11-12 | stained | seasonal_overlay | fall_transition
+- lmb_matrix_ohio_reservoir_02 | Ohio inland reservoir, prespawn opening month 2 | midwest_interior | freshwater_lake_pond | 2025-02-19 | stained | seasonal_overlay | prespawn_opening
+- lmb_matrix_ohio_reservoir_04 | Ohio inland reservoir, spawn postspawn transition month 4 | midwest_interior | freshwater_lake_pond | 2025-04-16 | stained | seasonal_overlay | spawn_postspawn_transition
+- lmb_matrix_ohio_reservoir_08 | Ohio inland reservoir, summer positioning month 8 | midwest_interior | freshwater_lake_pond | 2025-08-14 | stained | seasonal_overlay | summer_positioning
+- lmb_matrix_ohio_reservoir_11 | Ohio inland reservoir, fall transition month 11 | midwest_interior | freshwater_lake_pond | 2025-11-12 | stained | seasonal_overlay | fall_transition
+- lmb_matrix_pennsylvania_natural_lake_01 | Pennsylvania natural lake, winter control month 1 | northeast | freshwater_lake_pond | 2025-01-16 | clear | seasonal_overlay | winter_control
+- lmb_matrix_pennsylvania_natural_lake_05 | Pennsylvania natural lake, spawn postspawn transition month 5 | northeast | freshwater_lake_pond | 2025-05-15 | clear | seasonal_overlay | spawn_postspawn_transition
+- lmb_matrix_pennsylvania_natural_lake_08 | Pennsylvania natural lake, summer positioning month 8 | northeast | freshwater_lake_pond | 2025-08-14 | clear | seasonal_overlay | summer_positioning
+- lmb_matrix_pennsylvania_natural_lake_11 | Pennsylvania natural lake, fall transition month 11 | northeast | freshwater_lake_pond | 2025-11-12 | clear | seasonal_overlay | fall_transition
 - lmb_matrix_georgia_highland_02 | Georgia highland reservoir, prespawn opening month 2 | south_central | freshwater_lake_pond | 2025-02-19 | clear | seasonal_overlay | prespawn_opening
 - lmb_matrix_georgia_highland_04 | Georgia highland reservoir, spawn postspawn transition month 4 | south_central | freshwater_lake_pond | 2025-04-16 | clear | seasonal_overlay | spawn_postspawn_transition
 - lmb_matrix_georgia_highland_06 | Georgia highland reservoir, summer positioning month 6 | south_central | freshwater_lake_pond | 2025-06-18 | clear | seasonal_overlay | summer_positioning

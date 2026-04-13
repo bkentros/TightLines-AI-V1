@@ -11,8 +11,6 @@ export { runRecommenderV3Surface } from "./runRecommenderV3Surface.ts";
 export type { RecommenderRequest, WaterClarity } from "./contracts/input.ts";
 export type {
   RankedFamily,
-  RecommenderConfidence,
-  RecommenderConfidenceTier,
   RecommenderResponse,
 } from "./contracts/output.ts";
 export { RECOMMENDER_FEATURE } from "./contracts/output.ts";
@@ -24,13 +22,17 @@ export {
   RECOMMENDER_V3_FOUNDATION_FEATURE,
   RECOMMENDER_V3_FEATURE,
   RECOMMENDER_V3_CONTEXTS,
+  DAILY_POSTURE_BANDS_V3,
   RECOMMENDER_V3_SPECIES,
   RECOMMENDER_V3_SPECIES_CONTEXTS,
   RECOMMENDER_V3_SPECIES_META,
   LURE_ARCHETYPE_IDS_V3,
   FLY_ARCHETYPE_IDS_V3,
   TACTICAL_LANES_V3,
-  WATER_COLUMNS_V3,
+  ARCHETYPE_WATER_COLUMNS_V3,
+  SEASONAL_WATER_COLUMNS_V3,
+  RESOLVED_WATER_COLUMNS_V3,
+  SEASONAL_LOCATIONS_V3,
   MOODS_V3,
   PRESENTATION_STYLES_V3,
   FORAGE_BUCKETS_V3,
@@ -50,6 +52,8 @@ export {
   scoreFlyCandidatesV3,
 } from "./v3/index.ts";
 export type {
+  ArchetypeWaterColumnV3,
+  DailyPostureBandV3,
   FlyArchetypeIdV3,
   ForageBucketV3,
   LureArchetypeIdV3,
@@ -58,10 +62,7 @@ export type {
   RecommenderV3ArchetypeId,
   RecommenderV3ArchetypeProfile,
   RecommenderV3Context,
-  RecommenderV3DailyMoodNudge,
   RecommenderV3DailyPayload,
-  RecommenderV3DailyPresentationNudge,
-  RecommenderV3DailyWaterColumnNudge,
   RecommenderV3RankedArchetype,
   RecommenderV3Response,
   RecommenderV3ScoreBreakdown,
@@ -69,9 +70,12 @@ export type {
   RecommenderV3ResolvedProfile,
   ResolvedColorThemeV3,
   RecommenderV3SeasonalRow,
+  ResolvedWaterColumnV3,
+  SeasonalArchetypeWeight,
+  SeasonalLocationV3,
+  SeasonalWaterColumnV3,
   RecommenderV3Species,
   TacticalLaneV3,
-  WaterColumnV3,
 } from "./v3/index.ts";
 export type {
   LightBucketV3,

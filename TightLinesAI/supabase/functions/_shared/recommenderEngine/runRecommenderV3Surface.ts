@@ -1,9 +1,7 @@
 import { analyzeSharedConditions } from "../howFishingEngine/analyzeSharedConditions.ts";
-import type { SharedConditionAnalysis } from "../howFishingEngine/analyzeSharedConditions.ts";
 import type { SharedEngineRequest } from "../howFishingEngine/contracts/input.ts";
-import type { TimingStrength } from "../howFishingEngine/contracts/tipsDaypart.ts";
-import { SPECIES_META, type SpeciesGroup } from "./contracts/species.ts";
-import type { RecommenderRequest, WaterClarity } from "./contracts/input.ts";
+import { type SpeciesGroup } from "./contracts/species.ts";
+import type { RecommenderRequest } from "./contracts/input.ts";
 import {
   RECOMMENDER_FEATURE,
   type RankedFamily,
@@ -26,7 +24,6 @@ import type {
   TriggerType,
 } from "./contracts/behavior.ts";
 import type { LureFamilyId, FlyFamilyId } from "./contracts/families.ts";
-import { resolveConfidence } from "./resolveConfidence.ts";
 import { computeRecommenderV3 } from "./runRecommenderV3.ts";
 import { normalizeLightBucketV3, resolveColorDecisionV3 } from "./v3/colorDecision.ts";
 import { FLY_ARCHETYPES_V3, LURE_ARCHETYPES_V3 } from "./v3/candidates/index.ts";
@@ -60,15 +57,21 @@ export function locationLocalMidnightIso(timezone: string, now = new Date()): st
   return new Date(nextLocalMidnightUtcMillis).toISOString();
 }
 
-function mapWaterColumnToDepthLane(column: RecommenderV3Response["resolved_profile"]["final_water_column"]): DepthLane {
+function mapWaterColumnToDepthLane(
+  column: RecommenderV3Response["resolved_profile"]["likely_water_column_today"],
+): DepthLane {
   switch (column) {
     case "top":
+    case "high_top":
       return "surface";
-    case "shallow":
+    case "high":
       return "upper";
+    case "mid_high":
     case "mid":
       return "mid";
-    case "bottom":
+    case "mid_low":
+      return "near_bottom";
+    case "low":
     default:
       return "bottom";
   }
@@ -93,24 +96,35 @@ function forageBucketToMode(
 }
 
 function activityFromV3(result: RecommenderV3Response): ActivityLevel {
-  switch (result.resolved_profile.final_mood) {
-    case "negative":
-      return result.daily_payload.source_score <= 35 ? "inactive" : "low";
+  switch (result.resolved_profile.daily_posture_band) {
+    case "suppressed":
+      return result.daily_payload.posture_score_10 <= 1.6 ? "inactive" : "low";
+    case "slightly_suppressed":
+      return "low";
     case "neutral":
       return "neutral";
-    case "active":
-      return result.daily_payload.mood_nudge === "up_2" && result.daily_payload.source_score >= 70
-        ? "aggressive"
-        : "active";
+    case "slightly_aggressive":
+      return "active";
+    case "aggressive":
+      return "aggressive";
   }
 }
 
 function aggressionFromV3(result: RecommenderV3Response): AggressionLevel {
-  if (result.resolved_profile.final_mood === "negative") return "passive";
-  if (result.resolved_profile.final_mood === "neutral") {
-    return result.resolved_profile.final_presentation_style === "bold" ? "reactive" : "neutral";
+  if (
+    result.resolved_profile.daily_posture_band === "suppressed" ||
+    result.resolved_profile.daily_posture_band === "slightly_suppressed"
+  ) {
+    return "passive";
   }
-  return result.resolved_profile.final_presentation_style === "bold" ? "aggressive" : "reactive";
+  if (result.resolved_profile.daily_posture_band === "neutral") {
+    return result.resolved_profile.presentation_presence_today === "bold"
+      ? "reactive"
+      : "neutral";
+  }
+  return result.resolved_profile.presentation_presence_today === "bold"
+    ? "aggressive"
+    : "reactive";
 }
 
 function strikeZoneFromActivity(activity: ActivityLevel): BehaviorOutput["strike_zone"] {
@@ -140,18 +154,26 @@ function chaseRadiusFromActivity(activity: ActivityLevel): BehaviorOutput["chase
 }
 
 function speedFromV3(result: RecommenderV3Response): SpeedPreference {
-  const { final_mood, final_presentation_style } = result.resolved_profile;
-  if (final_mood === "negative") {
-    return final_presentation_style === "bold" ? "slow" : "dead_slow";
+  const {
+    daily_posture_band,
+    presentation_presence_today,
+  } = result.resolved_profile;
+  if (daily_posture_band === "suppressed") {
+    return presentation_presence_today === "bold" ? "slow" : "dead_slow";
   }
-  if (final_mood === "neutral") {
-    return final_presentation_style === "subtle" ? "slow" : "moderate";
+  if (daily_posture_band === "slightly_suppressed") return "slow";
+  if (daily_posture_band === "neutral") {
+    return presentation_presence_today === "subtle" ? "slow" : "moderate";
   }
-  if (final_presentation_style === "bold") return "fast";
-  return "moderate";
+  if (daily_posture_band === "aggressive" && presentation_presence_today === "bold") {
+    return "fast";
+  }
+  return presentation_presence_today === "bold" ? "fast" : "moderate";
 }
 
-function noiseFromPresentation(style: RecommenderV3Response["resolved_profile"]["final_presentation_style"]): NoiseLevel {
+function noiseFromPresentation(
+  style: RecommenderV3Response["resolved_profile"]["presentation_presence_today"],
+): NoiseLevel {
   switch (style) {
     case "subtle":
       return "subtle";
@@ -162,7 +184,9 @@ function noiseFromPresentation(style: RecommenderV3Response["resolved_profile"][
   }
 }
 
-function flashFromPresentation(style: RecommenderV3Response["resolved_profile"]["final_presentation_style"]): FlashLevel {
+function flashFromPresentation(
+  style: RecommenderV3Response["resolved_profile"]["presentation_presence_today"],
+): FlashLevel {
   switch (style) {
     case "subtle":
       return "subtle";
@@ -174,11 +198,22 @@ function flashFromPresentation(style: RecommenderV3Response["resolved_profile"][
 }
 
 function triggerFromV3(result: RecommenderV3Response): TriggerType {
-  if (result.resolved_profile.final_presentation_style === "subtle") return "finesse";
-  if (result.resolved_profile.final_mood === "active" && result.resolved_profile.final_presentation_style === "bold") {
+  if (result.resolved_profile.presentation_presence_today === "subtle") {
+    return "finesse";
+  }
+  if (
+    (result.resolved_profile.daily_posture_band === "slightly_aggressive" ||
+      result.resolved_profile.daily_posture_band === "aggressive") &&
+    result.resolved_profile.presentation_presence_today === "bold"
+  ) {
     return "aggressive";
   }
-  if (result.resolved_profile.final_mood === "active") return "reaction";
+  if (
+    result.resolved_profile.daily_posture_band === "slightly_aggressive" ||
+    result.resolved_profile.daily_posture_band === "aggressive"
+  ) {
+    return "reaction";
+  }
   return "natural_match";
 }
 
@@ -257,18 +292,47 @@ function habitatTags(
     : ["vegetation", "wood", "hard_structure"];
 }
 
-function waterColumnLabel(depthLane: DepthLane): string {
+/** Vertical position in the water (surface → bottom), not “shallow vs deep” spot depth. */
+function waterColumnBehaviorDetail(depthLane: DepthLane): string {
   switch (depthLane) {
     case "surface":
-      return "surface";
+      return (
+        "Vertically: fish are most likely keyed to the true surface or just under it. " +
+        "This reads height in the water column—not whether the overall spot is deep or shallow."
+      );
     case "upper":
-      return "upper water";
+      return (
+        "Vertically: expect fish higher in the water column—closer to the surface than to the bottom. " +
+        "That still includes bottom-contact lures in shallow cover; the jig ticks bottom in water that isn’t deep overall."
+      );
     case "mid":
-      return "mid-depth";
+      return (
+        "Vertically: expect fish in the middle of the column—between the surface and the bottom—for much of the day."
+      );
     case "near_bottom":
-      return "near-bottom";
+      return (
+        "Vertically: expect fish in the lower third of the column, tight to or just above bottom."
+      );
     case "bottom":
-      return "bottom";
+      return (
+        "Vertically: expect fish on or scraping the bottom—lean into bottom-contact and structure presentations."
+      );
+  }
+}
+
+/** Short phrase for tips—same vertical meaning, less prose. */
+function waterColumnShortForTip(depthLane: DepthLane): string {
+  switch (depthLane) {
+    case "surface":
+      return "top of the water column (surface)";
+    case "upper":
+      return "upper water column (nearer the surface than the bottom)";
+    case "mid":
+      return "middle of the water column";
+    case "near_bottom":
+      return "lower water column (near bottom)";
+    case "bottom":
+      return "bottom of the water column";
   }
 }
 
@@ -312,7 +376,7 @@ function v3ForageLabel(bucket: RecommenderV3Response["resolved_profile"]["primar
 
 function speedSummarySentence(
   speed: SpeedPreference,
-  presentation: RecommenderV3Response["resolved_profile"]["final_presentation_style"],
+  presentation: RecommenderV3Response["resolved_profile"]["presentation_presence_today"],
 ): string {
   const pace =
     speed === "dead_slow"
@@ -338,11 +402,11 @@ function buildBehaviorSummary(
   primary: RecommenderV3Response["resolved_profile"]["primary_forage"] | undefined,
   secondary: RecommenderV3Response["resolved_profile"]["secondary_forage"] | undefined,
   speed: SpeedPreference,
-  presentation: RecommenderV3Response["resolved_profile"]["final_presentation_style"],
+  presentation: RecommenderV3Response["resolved_profile"]["presentation_presence_today"],
 ): [BehaviorSummaryRow, BehaviorSummaryRow, BehaviorSummaryRow] {
   const water: BehaviorSummaryRow = {
-    label: "Water column",
-    detail: `Best focus is the ${waterColumnLabel(depthLane)} zone today.`,
+    label: "Where in the water",
+    detail: waterColumnBehaviorDetail(depthLane),
   };
   const forage: BehaviorSummaryRow = {
     label: "Forage",
@@ -358,26 +422,16 @@ function buildBehaviorSummary(
 }
 
 function seasonalFlagFromV3(result: RecommenderV3Response): SeasonalFlag {
-  const mood = result.seasonal_row.base_mood;
   const month = result.month;
+  const species = result.species;
 
   if (month >= 12 || month <= 2) return "off_season";
-  if (month >= 3 && month <= 4) return mood === "active" ? "spawning" : "pre_spawn";
-  if (month === 5) return mood === "negative" ? "spawning" : "post_spawn";
-  if (mood === "active") return "peak_season";
-  return "post_spawn";
-}
-
-function v3ToConfidenceInput(candidate: RecommenderV3RankedArchetype): {
-  score: number;
-  breakdown: Array<{ direction: "bonus" | "penalty" }>;
-} {
-  return {
-    score: Math.max(35, Math.min(99, Math.round(candidate.score * 8))),
-    breakdown: candidate.breakdown.map((item) => ({
-      direction: item.value >= 0 ? "bonus" : "penalty",
-    })),
-  };
+  if (species === "largemouth_bass" || species === "smallmouth_bass") {
+    if (month <= 4) return "pre_spawn";
+    if (month === 5) return "spawning";
+    if (month === 6) return "post_spawn";
+  }
+  return "peak_season";
 }
 
 const LANE_FALLBACKS: Partial<Record<TacticalLaneV3, readonly [string, string, string]>> = {
@@ -530,14 +584,14 @@ function toRankedFamily(
 function buildBehavior(
   result: RecommenderV3Response,
 ): BehaviorOutput {
-  const depthLane = mapWaterColumnToDepthLane(result.resolved_profile.final_water_column);
+  const depthLane = mapWaterColumnToDepthLane(
+    result.resolved_profile.likely_water_column_today,
+  );
   const activity = activityFromV3(result);
   const primary = forageBucketToMode(result.resolved_profile.primary_forage, depthLane);
   const secondary = forageBucketToMode(result.resolved_profile.secondary_forage, depthLane);
-  const topwaterViable = [
-    ...result.lure_recommendations,
-    ...result.fly_recommendations,
-  ].some((candidate) => candidate.tactical_lane === "surface" || candidate.tactical_lane === "fly_surface");
+  const topwaterViable = result.daily_payload.surface_allowed_today &&
+    !result.daily_payload.suppress_true_topwater;
 
   return {
     activity,
@@ -550,14 +604,18 @@ function buildBehavior(
     secondary_forage: secondary,
     topwater_viable: topwaterViable,
     speed_preference: speedFromV3(result),
-    noise_preference: noiseFromPresentation(result.resolved_profile.final_presentation_style),
-    flash_preference: flashFromPresentation(result.resolved_profile.final_presentation_style),
+    noise_preference: noiseFromPresentation(
+      result.resolved_profile.presentation_presence_today,
+    ),
+    flash_preference: flashFromPresentation(
+      result.resolved_profile.presentation_presence_today,
+    ),
     behavior_summary: buildBehaviorSummary(
       depthLane,
       result.resolved_profile.primary_forage,
       result.resolved_profile.secondary_forage,
       speedFromV3(result),
-      result.resolved_profile.final_presentation_style,
+      result.resolved_profile.presentation_presence_today,
     ),
     seasonal_flag: seasonalFlagFromV3(result),
   };
@@ -590,10 +648,10 @@ function buildPrimaryPatternSummary(
   result: RecommenderV3Response,
 ): string | undefined {
   if (!top) return undefined;
-  const depth = waterColumnLabel(behavior.depth_lane);
+  const depth = waterColumnShortForTip(behavior.depth_lane);
   const forage = forageLabel(behavior.forage_mode);
-  const pres = result.resolved_profile.final_presentation_style;
-  const s1 = `${top.display_name} is the lead pick—start in the ${depth} zone.`;
+  const pres = result.resolved_profile.presentation_presence_today;
+  const s1 = `${top.display_name} is the lead pick—work the ${depth}.`;
   const s2 = `Match ${forage} and stay ${pres} on presentation until the bite tells you to change.`;
   return `${s1}\n\n${s2}`;
 }
@@ -609,16 +667,6 @@ function buildSharedRequest(req: RecommenderRequest): SharedEngineRequest {
     context: req.context,
     environment: req.env_data as SharedEngineRequest["environment"],
     data_coverage: {},
-  };
-}
-
-function timingFromAnalysis(analysis: SharedConditionAnalysis): {
-  highlighted_periods: [boolean, boolean, boolean, boolean];
-  timing_strength: TimingStrength;
-} {
-  return {
-    highlighted_periods: analysis.timing.highlighted_periods as [boolean, boolean, boolean, boolean],
-    timing_strength: analysis.timing.timing_strength,
   };
 }
 
@@ -640,8 +688,6 @@ export function runRecommenderV3Surface(req: RecommenderRequest): RecommenderRes
   );
   const behavior = buildBehavior(v3);
   const presentation = buildPresentation(v3, behavior);
-  const lureConfidence = v3.lure_recommendations.map(v3ToConfidenceInput);
-  const flyConfidence = v3.fly_recommendations.map(v3ToConfidenceInput);
   const lureTop = v3.lure_recommendations[0];
   const flyTop = v3.fly_recommendations[0];
   const lure_rankings = v3.lure_recommendations.map((candidate, i) =>
@@ -649,14 +695,6 @@ export function runRecommenderV3Surface(req: RecommenderRequest): RecommenderRes
   );
   const fly_rankings = v3.fly_recommendations.map((candidate, i) =>
     toRankedFamily(candidate, i + 1, flyTop, requestSeed),
-  );
-  const confidence = resolveConfidence(
-    req,
-    behavior,
-    analysis,
-    SPECIES_META[req.species].display_name,
-    lureConfidence,
-    flyConfidence,
   );
   const now = new Date();
   const expires = locationLocalMidnightIso(req.location.local_timezone, now);
@@ -672,8 +710,11 @@ export function runRecommenderV3Surface(req: RecommenderRequest): RecommenderRes
     presentation,
     lure_rankings,
     fly_rankings,
-    timing: timingFromAnalysis(analysis),
-    confidence,
+    daily_posture_band: v3.resolved_profile.daily_posture_band,
+    typical_seasonal_water_column:
+      v3.resolved_profile.typical_seasonal_water_column,
+    likely_water_column_today: v3.resolved_profile.likely_water_column_today,
+    typical_seasonal_location: v3.resolved_profile.typical_seasonal_location,
     color_of_day: colorOfDayText(colorDecision.color_theme),
     primary_pattern_summary: buildPrimaryPatternSummary(lure_rankings[0], behavior, v3),
   };

@@ -1,34 +1,207 @@
-/** See largemouth.ts — primary_*_archetypes order drives seasonal priority bonuses. */
+/** See `largemouth.ts` for the row-conversion strategy used by the rebuilt engine. */
 import type {
   FlyArchetypeIdV3,
   LureArchetypeIdV3,
+  PresentationStyleV3,
   RecommenderV3Context,
   RecommenderV3SeasonalRow,
+  SeasonalLocationV3,
+  SeasonalWaterColumnV3,
 } from "../contracts.ts";
 import type { RegionKey } from "../../../howFishingEngine/contracts/region.ts";
+import { FLY_ARCHETYPES_V3, LURE_ARCHETYPES_V3 } from "../candidates/index.ts";
+import {
+  baseSeasonalWaterColumn,
+  buildSeasonalWeights,
+  shiftSeasonalWaterColumn,
+} from "./tuning.ts";
 
-type SeasonalCore = Omit<
-  RecommenderV3SeasonalRow,
-  "species" | "region_key" | "month" | "context"
->;
+type LegacyWaterColumn = "top" | "shallow" | "mid" | "bottom";
+type LegacyMood = "negative" | "neutral" | "active";
+
+type LegacySeasonalCore = {
+  base_water_column: LegacyWaterColumn;
+  base_mood: LegacyMood;
+  base_presentation_style: PresentationStyleV3;
+  primary_forage: RecommenderV3SeasonalRow["primary_forage"];
+  secondary_forage?: RecommenderV3SeasonalRow["secondary_forage"];
+  primary_lure_archetypes?: readonly LureArchetypeIdV3[];
+  viable_lure_archetypes: readonly LureArchetypeIdV3[];
+  primary_fly_archetypes?: readonly FlyArchetypeIdV3[];
+  viable_fly_archetypes: readonly FlyArchetypeIdV3[];
+};
 
 const SMB_ROWS: RecommenderV3SeasonalRow[] = [];
+
+function inRegions(region_key: RegionKey, regions: readonly RegionKey[]): boolean {
+  return regions.includes(region_key);
+}
+
+function isSmallmouthSpawnWindow(region_key: RegionKey, month: number): boolean {
+  if (inRegions(region_key, WARM_HIGHLAND_REGIONS)) return [4, 5].includes(month);
+  if (inRegions(region_key, WARM_WESTERN_REGIONS)) return [3, 4, 5].includes(month);
+  if (inRegions(region_key, NORTHERN_COLD_REGIONS)) return [5, 6].includes(month);
+  if (inRegions(region_key, WESTERN_MIXED_REGIONS)) return [5, 6].includes(month);
+  return [5, 6].includes(month);
+}
+
+function resolveSmallmouthSeasonalWaterColumn(
+  region_key: RegionKey,
+  context: RecommenderV3Context,
+  month: number,
+  core: LegacySeasonalCore,
+): SeasonalWaterColumnV3 {
+  let column = baseSeasonalWaterColumn(core.base_water_column);
+
+  if (context === "freshwater_lake_pond") {
+    if (
+      [12, 1, 2, 3].includes(month) &&
+      inRegions(region_key, NORTHERN_COLD_REGIONS) &&
+      column === "low"
+    ) {
+      return "mid_low";
+    }
+    if (isSmallmouthSpawnWindow(region_key, month)) {
+      return shiftSeasonalWaterColumn(column, 1);
+    }
+    if (
+      [7, 8].includes(month) &&
+      inRegions(region_key, [...NORTHERN_COLD_REGIONS, ...WESTERN_MIXED_REGIONS]) &&
+      column === "top"
+    ) {
+      return "high";
+    }
+    if ([9, 10].includes(month) && column === "low") {
+      return "mid_low";
+    }
+    return column;
+  }
+
+  if ([12, 1, 2, 3].includes(month) && column === "low") {
+    return "mid_low";
+  }
+  if (isSmallmouthSpawnWindow(region_key, month)) {
+    return shiftSeasonalWaterColumn(column, 1);
+  }
+  if ([6, 7, 8, 9].includes(month) && column === "top") {
+    return "high";
+  }
+  return column;
+}
+
+function resolveSmallmouthSeasonalLocation(
+  context: RecommenderV3Context,
+  month: number,
+  column: SeasonalWaterColumnV3,
+): SeasonalLocationV3 {
+  if (context === "freshwater_river") {
+    switch (column) {
+      case "top":
+      case "high":
+        return "shallow";
+      case "mid":
+        return [4, 5, 6, 7, 8, 9, 10].includes(month) ? "shallow_mid" : "mid";
+      case "mid_low":
+        return "mid";
+      case "low":
+      default:
+        return "mid_deep";
+    }
+  }
+
+  switch (column) {
+    case "top":
+      return "shallow";
+    case "high":
+      return [4, 5, 6].includes(month) ? "shallow" : "shallow_mid";
+    case "mid":
+      return [4, 5, 9, 10].includes(month) ? "shallow_mid" : "mid";
+    case "mid_low":
+      return "mid_deep";
+    case "low":
+    default:
+      return [12, 1, 2, 3].includes(month) ? "deep" : "mid_deep";
+  }
+}
+
+function toSeasonalWeights<T extends string>(
+  viable: readonly T[],
+  primary?: readonly T[],
+  profiles?: Record<T, { display_name: string } & Record<string, unknown>>,
+  core?: LegacySeasonalCore,
+  typicalColumn?: SeasonalWaterColumnV3,
+): Partial<Record<T, 1 | 2 | 3>> {
+  if (!profiles || !core || !typicalColumn) {
+    const weights: Partial<Record<T, 1 | 2 | 3>> = {};
+    for (const id of viable) weights[id] = 1;
+    if (primary?.[1]) weights[primary[1]] = 2;
+    if (primary?.[0]) weights[primary[0]] = 3;
+    return weights;
+  }
+  return buildSeasonalWeights(
+    viable,
+    primary,
+    profiles as never,
+    core,
+    typicalColumn,
+  );
+}
+
+function toSeasonalRow(
+  species: RecommenderV3SeasonalRow["species"],
+  region_key: RegionKey,
+  context: RecommenderV3Context,
+  month: number,
+  core: LegacySeasonalCore,
+): RecommenderV3SeasonalRow {
+  const typicalColumn = resolveSmallmouthSeasonalWaterColumn(
+    region_key,
+    context,
+    month,
+    core,
+  );
+  return {
+    species,
+    region_key,
+    context,
+    month,
+    typical_seasonal_water_column: typicalColumn,
+    typical_seasonal_location: resolveSmallmouthSeasonalLocation(
+      context,
+      month,
+      typicalColumn,
+    ),
+    default_presentation_presence: core.base_presentation_style,
+    primary_forage: core.primary_forage,
+    secondary_forage: core.secondary_forage,
+    seasonal_lure_weights: toSeasonalWeights(
+      core.viable_lure_archetypes,
+      core.primary_lure_archetypes,
+      LURE_ARCHETYPES_V3,
+      core,
+      typicalColumn,
+    ),
+    seasonal_fly_weights: toSeasonalWeights(
+      core.viable_fly_archetypes,
+      core.primary_fly_archetypes,
+      FLY_ARCHETYPES_V3,
+      core,
+      typicalColumn,
+    ),
+  };
+}
 
 function addMonths(
   regions: readonly RegionKey[],
   context: RecommenderV3Context,
   months: readonly number[],
-  core: SeasonalCore,
+  core: LegacySeasonalCore,
 ) {
   for (const region_key of regions) {
     for (const month of months) {
-      SMB_ROWS.push({
-        species: "smallmouth_bass",
-        region_key,
-        context,
-        month,
-        ...core,
-      });
+      SMB_ROWS.push(
+        toSeasonalRow("smallmouth_bass", region_key, context, month, core),
+      );
     }
   }
 }

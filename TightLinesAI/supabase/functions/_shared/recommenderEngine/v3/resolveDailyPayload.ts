@@ -1,788 +1,714 @@
 import type { SharedConditionAnalysis } from "../../howFishingEngine/analyzeSharedConditions.ts";
 import type { RecommenderV3Context } from "./contracts.ts";
 import {
-  type RecommenderV3DailyMoodNudge,
+  type DailySurfaceWindowV3,
+  type PresentationStyleV3,
   type RecommenderV3DailyPayload,
-  type RecommenderV3DailyPresentationNudge,
-  type RecommenderV3DailyWaterColumnNudge,
-  type RecommenderV3PaceBias,
-  type RecommenderV3SurfaceWindow,
-  type RecommenderV3TacticalWindow,
   V3_SCORED_VARIABLE_KEYS_BY_CONTEXT,
 } from "./contracts.ts";
 
-type Accumulator = {
-  mood: number;
-  water: number;
-  presentation: number;
-};
-
 type TriggerKey =
-  | "temperature_condition"
+  | "temperature_metabolic_context"
+  | "temperature_trend"
+  | "temperature_shock"
   | "pressure_regime"
   | "wind_condition"
   | "light_cloud_condition"
   | "precipitation_disruption"
-  | "runoff_flow_disruption"
-  | "source_score_guardrail"
-  | "timing_window"
-  | "reaction_window"
-  | "finesse_window"
-  | "pace_bias";
+  | "runoff_flow_disruption";
+
+type PostureContribution = {
+  posture: number;
+  note?: string;
+};
+
+type PresenceContribution = {
+  subtle: number;
+  balanced: number;
+  bold: number;
+  note?: string;
+};
 
 function clamp(value: number, min: number, max: number): number {
   return Math.max(min, Math.min(max, value));
 }
 
-function pushUnique(list: string[], note: string) {
+function round1(value: number): number {
+  return Number(value.toFixed(1));
+}
+
+function pushUnique(list: string[], note: string | undefined) {
+  if (!note) return;
   if (!list.includes(note)) list.push(note);
 }
 
-function markTriggered(list: TriggerKey[], key: TriggerKey) {
+function markTriggered(list: TriggerKey[], key: TriggerKey, touched: boolean) {
+  if (!touched) return;
   if (!list.includes(key)) list.push(key);
 }
 
-function adjust(
-  accumulator: Accumulator,
-  next: Partial<Accumulator>,
+const LAKE_POSTURE_WEIGHTS = {
+  temperature: 3.5,
+  pressure: 2.0,
+  wind: 2.0,
+  light: 1.5,
+  disruption: 1.0,
+} as const;
+
+const RIVER_POSTURE_WEIGHTS = {
+  temperature: 3.0,
+  runoff: 3.0,
+  light: 1.5,
+  pressure: 1.5,
+  wind: 1.0,
+} as const;
+
+const TEMPERATURE_METABOLIC_POSTURE: Record<string, PostureContribution> = {
+  cold_limited: {
+    posture: -0.9,
+    note: "Cold-limited metabolism suppresses fish posture and tightens the bite lane.",
+  },
+  heat_limited: {
+    posture: -0.8,
+    note: "Heat-limited metabolism suppresses fish posture and shrinks the reliable lane.",
+  },
+  neutral: {
+    posture: 0.15,
+    note: "Neutral temperature metabolism keeps the day open to the normal seasonal pattern.",
+  },
+};
+
+const TEMPERATURE_TREND_POSTURE: Record<string, PostureContribution> = {
+  warming: {
+    posture: 0.45,
+    note: "A warming trend nudges fish into a slightly more willing posture.",
+  },
+  stable: {
+    posture: 0,
+  },
+  cooling: {
+    posture: -0.45,
+    note: "A cooling trend tightens fish and reduces daily willingness.",
+  },
+};
+
+const TEMPERATURE_SHOCK_POSTURE: Record<string, PostureContribution> = {
+  none: { posture: 0 },
+  sharp_warmup: {
+    posture: 0.2,
+    note: "A sharp warmup can help slightly, but not enough to rewrite the seasonal pattern.",
+  },
+  sharp_cooldown: {
+    posture: -0.65,
+    note: "A sharp cooldown suppresses fish posture and lowers confidence in upward movement.",
+  },
+};
+
+const PRESSURE_POSTURE: Record<string, PostureContribution> = {
+  falling_slow: {
+    posture: 0.45,
+    note: "Slowly falling pressure supports a stronger feeding posture.",
+  },
+  falling_moderate: {
+    posture: 0.55,
+    note: "Moderately falling pressure supports an aggressive pre-front posture.",
+  },
+  falling_hard: {
+    posture: -0.1,
+    note: "Hard-falling pressure can create a short burst, but it is too unstable to treat as clean aggression.",
+  },
+  rising_slow: {
+    posture: -0.2,
+    note: "Slowly rising pressure leans fish back toward a more selective posture.",
+  },
+  rising_fast: {
+    posture: -0.55,
+    note: "Fast-rising pressure suppresses fish posture after the front.",
+  },
+  volatile: {
+    posture: -0.75,
+    note: "Volatile pressure suppresses posture and makes the day less stable.",
+  },
+  stable_neutral: {
+    posture: 0,
+  },
+  recently_stabilizing: {
+    posture: 0.1,
+    note: "Recently stabilizing pressure keeps the day fishable without forcing aggression.",
+  },
+};
+
+const WIND_POSTURE_LAKE: Record<string, PostureContribution> = {
+  calm: { posture: -0.1 },
+  light: { posture: 0.05 },
+  moderate: {
+    posture: 0.35,
+    note: "Moderate chop supports a slightly more open lake posture.",
+  },
+  strong: {
+    posture: -0.2,
+    note: "Strong wind adds instability even if it can still help visibility and presence.",
+  },
+  extreme: {
+    posture: -0.65,
+    note: "Extreme wind suppresses fish posture and limits clean execution.",
+  },
+};
+
+const WIND_POSTURE_RIVER: Record<string, PostureContribution> = {
+  calm: { posture: 0 },
+  light: { posture: 0.05 },
+  moderate: { posture: 0 },
+  strong: {
+    posture: -0.35,
+    note: "Strong river wind hurts comfort without creating a true feeding advantage.",
+  },
+  extreme: {
+    posture: -0.7,
+    note: "Extreme river wind suppresses posture and tightens the daily lane.",
+  },
+};
+
+const LIGHT_POSTURE: Record<string, PostureContribution> = {
+  glare: {
+    posture: -0.35,
+    note: "Hard glare keeps fish more cautious and selective.",
+  },
+  bright: {
+    posture: -0.2,
+    note: "Bright light trims daily willingness without fully shutting the day down.",
+  },
+  mixed: { posture: 0 },
+  low_light: {
+    posture: 0.35,
+    note: "Low light opens the daily posture and supports more willingness.",
+  },
+  heavy_overcast: {
+    posture: 0.45,
+    note: "Heavy overcast supports a more open feeding posture.",
+  },
+};
+
+const PRECIP_POSTURE: Record<string, PostureContribution> = {
+  active_disruption: {
+    posture: -0.85,
+    note: "Active rain disruption suppresses fish posture and shrinks the clean bite lane.",
+  },
+  recent_rain: {
+    posture: -0.35,
+    note: "Recent rain keeps the lake bite a little more controlled and selective.",
+  },
+  light_mist: { posture: 0 },
+  extended_dry: { posture: 0.15 },
+  dry_stable: { posture: 0.1 },
+};
+
+const RUNOFF_POSTURE: Record<string, PostureContribution> = {
+  perfect_clear: {
+    posture: 0.35,
+    note: "Perfect-clear river flow supports a stable seasonal bite posture.",
+  },
+  stable: {
+    posture: 0.25,
+    note: "Stable river flow supports a reliable seasonal posture.",
+  },
+  slightly_elevated: {
+    posture: 0.05,
+    note: "Slightly elevated flow can still fish well, but it changes where fish set up.",
+  },
+  elevated: {
+    posture: -0.45,
+    note: "Elevated flow suppresses posture and tightens fish to safer holding lanes.",
+  },
+  blown_out: {
+    posture: -0.95,
+    note: "Blown-out flow strongly suppresses posture and collapses the clean bite lane.",
+  },
+};
+
+const CLARITY_PRESENCE: Record<string, PresenceContribution> = {
+  clear: {
+    subtle: 1.0,
+    balanced: 0.45,
+    bold: -0.7,
+    note: "Clear water favors a cleaner, subtler presentation.",
+  },
+  stained: {
+    subtle: 0,
+    balanced: 0.7,
+    bold: 0.35,
+    note: "Stained water supports a balanced presentation with some extra presence.",
+  },
+  dirty: {
+    subtle: -0.75,
+    balanced: 0.35,
+    bold: 1.05,
+    note: "Dirty water calls for more visibility and presence.",
+  },
+};
+
+const LIGHT_PRESENCE: Record<string, PresenceContribution> = {
+  glare: {
+    subtle: 0.9,
+    balanced: 0.2,
+    bold: -0.75,
+    note: "Glare favors a subtler look.",
+  },
+  bright: {
+    subtle: 0.7,
+    balanced: 0.25,
+    bold: -0.55,
+    note: "Bright conditions favor restraint more than added commotion.",
+  },
+  mixed: {
+    subtle: 0.15,
+    balanced: 0.4,
+    bold: 0.05,
+  },
+  low_light: {
+    subtle: -0.2,
+    balanced: 0.45,
+    bold: 0.8,
+    note: "Low light supports extra visibility and a bolder look.",
+  },
+  heavy_overcast: {
+    subtle: -0.3,
+    balanced: 0.35,
+    bold: 0.9,
+    note: "Heavy overcast supports a bolder profile and more visible presentation.",
+  },
+};
+
+const WIND_PRESENCE_LAKE: Record<string, PresenceContribution> = {
+  calm: {
+    subtle: 0.7,
+    balanced: 0.2,
+    bold: -0.55,
+    note: "Calm lake conditions reward a clean, subtle presentation.",
+  },
+  light: {
+    subtle: 0.45,
+    balanced: 0.35,
+    bold: -0.15,
+  },
+  moderate: {
+    subtle: -0.1,
+    balanced: 0.45,
+    bold: 0.75,
+    note: "Moderate chop supports more presence and movement.",
+  },
+  strong: {
+    subtle: -0.25,
+    balanced: 0.35,
+    bold: 0.95,
+    note: "Strong wind often calls for added presence, even if posture is not fully aggressive.",
+  },
+  extreme: {
+    subtle: -0.4,
+    balanced: 0.2,
+    bold: 1.0,
+    note: "Extreme wind demands visibility and feel if the day is still fishable.",
+  },
+};
+
+const WIND_PRESENCE_RIVER: Record<string, PresenceContribution> = {
+  calm: {
+    subtle: 0.5,
+    balanced: 0.3,
+    bold: -0.25,
+  },
+  light: {
+    subtle: 0.35,
+    balanced: 0.35,
+    bold: -0.1,
+  },
+  moderate: {
+    subtle: 0,
+    balanced: 0.45,
+    bold: 0.35,
+  },
+  strong: {
+    subtle: -0.15,
+    balanced: 0.35,
+    bold: 0.55,
+  },
+  extreme: {
+    subtle: -0.2,
+    balanced: 0.25,
+    bold: 0.65,
+  },
+};
+
+const RUNOFF_PRESENCE: Record<string, PresenceContribution> = {
+  perfect_clear: {
+    subtle: 0.35,
+    balanced: 0.35,
+    bold: -0.1,
+  },
+  stable: {
+    subtle: 0.2,
+    balanced: 0.4,
+    bold: 0,
+  },
+  slightly_elevated: {
+    subtle: -0.15,
+    balanced: 0.45,
+    bold: 0.6,
+    note: "Slightly elevated flow asks for some extra visibility and push.",
+  },
+  elevated: {
+    subtle: -0.5,
+    balanced: 0.2,
+    bold: 1.0,
+    note: "Elevated flow calls for more visible, assertive presentations.",
+  },
+  blown_out: {
+    subtle: -0.8,
+    balanced: 0.05,
+    bold: 1.2,
+    note: "Blown-out flow demands maximum presence if the river is still at all fishable.",
+  },
+};
+
+const PRECIP_PRESENCE: Record<string, PresenceContribution> = {
+  active_disruption: {
+    subtle: 0.05,
+    balanced: 0.45,
+    bold: 0.55,
+  },
+  recent_rain: {
+    subtle: 0,
+    balanced: 0.45,
+    bold: 0.3,
+  },
+  light_mist: {
+    subtle: 0.15,
+    balanced: 0.35,
+    bold: 0,
+  },
+  extended_dry: {
+    subtle: 0.2,
+    balanced: 0.35,
+    bold: -0.1,
+  },
+  dry_stable: {
+    subtle: 0.1,
+    balanced: 0.4,
+    bold: 0,
+  },
+};
+
+function getPostureContribution(
+  table: Record<string, PostureContribution>,
+  label: string | null,
+): PostureContribution {
+  if (!label) return { posture: 0 };
+  return table[label] ?? { posture: 0 };
+}
+
+function addPresenceScores(
+  totals: Record<PresentationStyleV3, number>,
+  contribution: PresenceContribution,
 ) {
-  accumulator.mood += next.mood ?? 0;
-  accumulator.water += next.water ?? 0;
-  accumulator.presentation += next.presentation ?? 0;
+  totals.subtle += contribution.subtle;
+  totals.balanced += contribution.balanced;
+  totals.bold += contribution.bold;
 }
 
-function toMoodNudge(score: number): RecommenderV3DailyMoodNudge {
-  if (score >= 2) return "up_2";
-  if (score >= 1) return "up_1";
-  if (score <= -1) return "down_1";
-  return "neutral";
+function resolvePresentationPresence(
+  totals: Record<PresentationStyleV3, number>,
+): PresentationStyleV3 {
+  const sorted = (Object.entries(totals) as Array<
+    [PresentationStyleV3, number]
+  >).sort((a, b) => b[1] - a[1]);
+  return sorted[0]?.[0] ?? "balanced";
 }
 
-function toWaterColumnNudge(score: number): RecommenderV3DailyWaterColumnNudge {
-  if (score >= 1) return "higher_1";
-  if (score <= -1) return "lower_1";
-  return "neutral";
+function resolvePostureBand(score10: number): RecommenderV3DailyPayload["posture_band"] {
+  if (score10 <= 2.4) return "suppressed";
+  if (score10 <= 4.4) return "slightly_suppressed";
+  if (score10 <= 6.4) return "neutral";
+  if (score10 <= 8.1) return "slightly_aggressive";
+  return "aggressive";
 }
 
-function toPresentationNudge(
-  score: number,
-): RecommenderV3DailyPresentationNudge {
-  if (score >= 1) return "bolder";
-  if (score <= -1) return "subtler";
-  return "neutral";
-}
-
-function toTacticalWindow(score: number): RecommenderV3TacticalWindow {
-  if (score >= 4) return "on";
-  if (score >= 2) return "watch";
-  return "off";
-}
-
-function reconcileTacticalWindows(
-  reactionScore: number,
-  finesseScore: number,
-): {
-  reaction_window: RecommenderV3TacticalWindow;
-  finesse_window: RecommenderV3TacticalWindow;
-} {
-  let reaction_window = toTacticalWindow(reactionScore);
-  let finesse_window = toTacticalWindow(finesseScore);
-
-  if (reaction_window !== "off" && finesse_window !== "off") {
-    if (reactionScore >= finesseScore + 2) {
-      finesse_window = "off";
-    } else if (finesseScore >= reactionScore + 2) {
-      reaction_window = "off";
-    } else {
-      reaction_window = "watch";
-      finesse_window = "watch";
-    }
+function resolveColumnShiftBias(
+  postureBand: RecommenderV3DailyPayload["posture_band"],
+): RecommenderV3DailyPayload["column_shift_bias_half_steps"] {
+  switch (postureBand) {
+    case "aggressive":
+      return -2;
+    case "slightly_aggressive":
+      return -1;
+    case "neutral":
+      return 0;
+    case "slightly_suppressed":
+      return 1;
+    case "suppressed":
+      return 2;
   }
-
-  return { reaction_window, finesse_window };
 }
 
-function resolveReactionScore(
-  analysis: SharedConditionAnalysis,
+function surfaceAllowedToday(
   context: RecommenderV3Context,
-  pressureLabel: string | null,
-  windLabel: string | null,
-  windScore: number | null,
   lightLabel: string | null,
-  clampedMood: number,
-  clampedPresentation: number,
-): number {
-  let score = 0;
-  const runoffLabel = analysis.norm.normalized.runoff_flow_disruption?.label ??
-    null;
-  const precipLabel =
-    analysis.norm.normalized.precipitation_disruption?.label ?? null;
-  const metabolicContext =
-    analysis.condition_context.temperature_metabolic_context;
-
-  if (analysis.condition_context.temperature_trend === "warming") score += 1;
-  if (
-    pressureLabel === "falling_slow" || pressureLabel === "falling_moderate"
-  ) score += 1;
-  if (lightLabel === "low_light" || lightLabel === "heavy_overcast") score += 1;
-  if (analysis.scored.score >= 65) score += 1;
-  if (clampedMood >= 1) score += 1;
-  if (clampedPresentation >= 0) score += 1;
-
-  if (
-    context === "freshwater_lake_pond" &&
-    (windLabel === "moderate" || windLabel === "strong") &&
-    (windScore ?? 0) >= 0.45
-  ) {
-    score += 1;
-  }
-  if (
-    context === "freshwater_river" &&
-    (runoffLabel === "perfect_clear" || runoffLabel === "stable" ||
-      runoffLabel === "slightly_elevated")
-  ) {
-    score += 1;
-  }
-
-  if (lightLabel === "bright" || lightLabel === "glare") score -= 1;
-  if (
-    metabolicContext === "cold_limited" || metabolicContext === "heat_limited"
-  ) score -= 1;
-  if (
-    pressureLabel === "volatile" || pressureLabel === "rising_fast" ||
-    pressureLabel === "falling_hard"
-  ) {
-    score -= 1;
-  }
-  if (precipLabel === "active_disruption") score -= 1;
-  if (runoffLabel === "elevated" || runoffLabel === "blown_out") score -= 1;
-
-  return score;
-}
-
-function resolveFinesseScore(
-  analysis: SharedConditionAnalysis,
-  context: RecommenderV3Context,
-  pressureLabel: string | null,
   windLabel: string | null,
-  windScore: number | null,
-  lightLabel: string | null,
-  clampedMood: number,
-  clampedPresentation: number,
-): number {
-  let score = 0;
-  const runoffLabel = analysis.norm.normalized.runoff_flow_disruption?.label ??
-    null;
-  const precipLabel =
-    analysis.norm.normalized.precipitation_disruption?.label ?? null;
-  const metabolicContext =
-    analysis.condition_context.temperature_metabolic_context;
-
-  if (lightLabel === "bright" || lightLabel === "glare") score += 1;
-  if (
-    (windLabel === "calm" || windLabel === "light") && (windScore ?? 0) >= 0.55
-  ) score += 1;
-  if (
-    pressureLabel === "rising_slow" ||
-    pressureLabel === "rising_fast" ||
-    pressureLabel === "volatile" ||
-    pressureLabel === "falling_hard"
-  ) {
-    score += 1;
-  }
-  if (analysis.scored.score <= 55) score += 1;
-  if (
-    metabolicContext === "cold_limited" || metabolicContext === "heat_limited"
-  ) score += 1;
-  if (clampedMood <= 0) score += 1;
-  if (clampedPresentation <= 0) score += 1;
-  if (precipLabel === "recent_rain" || precipLabel === "active_disruption") {
-    score += 1;
-  }
-  if (
-    context === "freshwater_river" &&
-    (runoffLabel === "elevated" || runoffLabel === "blown_out")
-  ) score += 1;
-
-  if (lightLabel === "low_light" || lightLabel === "heavy_overcast") score -= 1;
-  if (
-    pressureLabel === "falling_slow" || pressureLabel === "falling_moderate"
-  ) score -= 1;
-  if (analysis.condition_context.temperature_trend === "warming") score -= 1;
-  if (
-    context === "freshwater_lake_pond" &&
-    (windLabel === "moderate" || windLabel === "strong") &&
-    (windScore ?? 0) >= 0.45
-  ) {
-    score -= 1;
-  }
-  if (analysis.scored.score >= 75) score -= 1;
-
-  return score;
+  postureBand: RecommenderV3DailyPayload["posture_band"],
+): boolean {
+  if (postureBand === "suppressed") return false;
+  if (lightLabel === "bright" || lightLabel === "glare") return false;
+  if (context === "freshwater_river" && windLabel === "extreme") return false;
+  if (context === "freshwater_lake_pond" && windLabel === "extreme") return false;
+  return true;
 }
 
-function resolvePaceBias(
-  reaction_window: RecommenderV3TacticalWindow,
-  finesse_window: RecommenderV3TacticalWindow,
-  surface_window: RecommenderV3SurfaceWindow,
-): RecommenderV3PaceBias {
-  if (
-    (reaction_window === "on" || reaction_window === "watch") &&
-    finesse_window === "off"
-  ) {
-    return "fast";
-  }
-  if (
-    (finesse_window === "on" || finesse_window === "watch") &&
-    reaction_window === "off"
-  ) {
-    return "slow";
-  }
-  if (
-    surface_window === "on" && reaction_window === "off" &&
-    finesse_window === "off"
-  ) {
-    return "fast";
-  }
-  return "neutral";
-}
-
-function resolveSurfaceWindow(
-  analysis: SharedConditionAnalysis,
+function resolveSurfaceWindowToday(
   context: RecommenderV3Context,
+  lightLabel: string | null,
   windLabel: string | null,
-  windScore: number | null,
-  lightLabel: string | null,
-  clampedMood: number,
-  clampedPresentation: number,
-): RecommenderV3SurfaceWindow {
-  const highlighted = analysis.timing.highlighted_periods ??
-    [false, false, false, false];
-  const [dawn, , , evening] = highlighted;
-  const shoulderPeriods = dawn || evening;
-  const timingStrength = analysis.timing.timing_strength;
-  const strongTiming = timingStrength === "good" ||
-    timingStrength === "strong" || timingStrength === "very_strong";
-  const lowLight = lightLabel === "low_light" ||
-    lightLabel === "heavy_overcast";
-  const brightSuppression = lightLabel === "bright" || lightLabel === "glare";
-  const coldLimited =
-    analysis.condition_context.temperature_metabolic_context === "cold_limited";
-  const strongRiverWind = context === "freshwater_river" &&
-    windLabel === "strong" && (windScore ?? 0) <= -0.75;
-  const extremeRiverWind = context === "freshwater_river" &&
-    windLabel === "extreme" && (windScore ?? 0) <= -1.0;
-  const calmSurfaceWind = windLabel === "calm" || windLabel === "light";
-  const overcastExtension = !shoulderPeriods &&
-    lowLight &&
-    calmSurfaceWind &&
-    analysis.scored.score >= 55 &&
-    clampedMood >= 0 &&
-    clampedPresentation >= 0;
-
-  if (
-    (!shoulderPeriods && !overcastExtension) ||
-    coldLimited ||
-    brightSuppression ||
-    extremeRiverWind
-  ) {
-    return "off";
-  }
-  if (
-    strongTiming && analysis.scored.score >= 55 && clampedMood >= 0 &&
-    clampedPresentation >= 0
-  ) {
-    return strongRiverWind ? "watch" : "on";
-  }
-  if (
-    analysis.scored.score >= 45 && (strongTiming || lowLight) &&
-    clampedMood >= -0.5
-  ) {
-    return "watch";
-  }
-  return "off";
+  postureBand: RecommenderV3DailyPayload["posture_band"],
+  runoffLabel: string | null,
+): DailySurfaceWindowV3 {
+  if (!surfaceAllowedToday(context, lightLabel, windLabel, postureBand)) return "closed";
+  if (context === "freshwater_river" && runoffLabel === "blown_out") return "closed";
+  if (windLabel === "strong" || windLabel === "extreme") return "closed";
+  return windLabel === "moderate" ? "rippled" : "clean";
 }
 
-function applyTemperatureRules(
-  accumulator: Accumulator,
+function suppressTrueTopwater(
+  surfaceWindow: DailySurfaceWindowV3,
+): boolean {
+  return surfaceWindow === "closed";
+}
+
+function maxUpwardColumnShift(
   analysis: SharedConditionAnalysis,
-  notes: string[],
-  triggered: TriggerKey[],
-) {
-  const context = analysis.condition_context;
-  let touched = false;
-
-  if (context.temperature_metabolic_context === "cold_limited") {
-    adjust(accumulator, { mood: -1, water: -1, presentation: -1 });
-    pushUnique(
-      notes,
-      "Cold-limited conditions pull fish tighter, lower, and less willing.",
-    );
-    touched = true;
-  } else if (context.temperature_metabolic_context === "heat_limited") {
-    adjust(accumulator, { mood: -1, water: -1, presentation: -1 });
-    pushUnique(
-      notes,
-      "Heat-limited conditions tighten fish and reduce roaming willingness.",
-    );
-    touched = true;
-  }
-
-  if (context.temperature_trend === "warming") {
-    adjust(accumulator, { mood: 1, water: 1 });
-    pushUnique(
-      notes,
-      "A warming trend can lift fish slightly and improve willingness.",
-    );
-    touched = true;
-  } else if (context.temperature_trend === "cooling") {
-    adjust(accumulator, { mood: -1, water: -1 });
-    pushUnique(notes, "A cooling trend favors a lower, tighter daily lane.");
-    touched = true;
-  }
-
-  if (context.temperature_shock === "sharp_warmup") {
-    adjust(accumulator, { presentation: 1 });
-    pushUnique(
-      notes,
-      "A sharp warmup can add some visibility need, but not a full aggressive move-up read.",
-    );
-    touched = true;
-  } else if (context.temperature_shock === "sharp_cooldown") {
-    adjust(accumulator, { mood: -1, water: -1, presentation: -1 });
-    pushUnique(
-      notes,
-      "A sharp cooldown pushes the day back toward control and patience.",
-    );
-    touched = true;
-  }
-
-  if (touched) {
-    markTriggered(triggered, "temperature_condition");
-  }
+  postureBand: RecommenderV3DailyPayload["posture_band"],
+): 0 | 1 | 2 {
+  const metabolic = analysis.condition_context.temperature_metabolic_context;
+  const shock = analysis.condition_context.temperature_shock;
+  if (metabolic === "cold_limited" || shock === "sharp_cooldown") return 0;
+  if (postureBand === "aggressive") return 2;
+  if (postureBand === "slightly_aggressive") return 1;
+  return 0;
 }
 
-function applyPressureRules(
-  accumulator: Accumulator,
-  pressureLabel: string | null,
-  pressureScore: number | null,
-  notes: string[],
-  triggered: TriggerKey[],
-) {
-  let touched = false;
-  switch (pressureLabel) {
-    case "falling_slow":
-    case "falling_moderate":
-      adjust(accumulator, { mood: 1, presentation: 1 });
-      if ((pressureScore ?? 0) >= 0.9) {
-        adjust(accumulator, { mood: 1 });
-      }
-      pushUnique(
-        notes,
-        "Pre-front pressure supports more willingness and a stronger look.",
-      );
-      touched = true;
-      break;
-    case "falling_hard":
-    case "volatile":
-    case "rising_fast":
-      adjust(accumulator, { mood: -1, presentation: -1 });
-      pushUnique(
-        notes,
-        "Unstable pressure favors a cleaner, more patient daily read.",
-      );
-      touched = true;
-      break;
-    case "rising_slow":
-      adjust(accumulator, { presentation: -1 });
-      pushUnique(
-        notes,
-        "Slowly rising pressure trims the day toward subtler presentation.",
-      );
-      touched = true;
-      break;
-    default:
-      break;
-  }
-  if (touched) {
-    markTriggered(triggered, "pressure_regime");
-  }
-}
-
-function applyWindRules(
-  accumulator: Accumulator,
-  context: RecommenderV3Context,
-  windLabel: string | null,
-  windScore: number | null,
-  notes: string[],
-  triggered: TriggerKey[],
-) {
-  if (windLabel == null || windScore == null) return;
-  let touched = false;
-
-  if (context === "freshwater_lake_pond") {
-    if ((windLabel === "calm" || windLabel === "light") && windScore >= 0.55) {
-      adjust(accumulator, { presentation: -1 });
-      pushUnique(
-        notes,
-        "Calmer lake water pushes the day toward subtler execution.",
-      );
-      touched = true;
-      markTriggered(triggered, "wind_condition");
-      return;
-    }
-
-    if (
-      (windLabel === "moderate" || windLabel === "strong") && windScore >= 0.45
-    ) {
-      adjust(accumulator, { presentation: 1 });
-      if (windScore >= 0.85) {
-        adjust(accumulator, { mood: 1 });
-      }
-      pushUnique(
-        notes,
-        "Productive chop supports a bolder moving presentation.",
-      );
-      touched = true;
-      markTriggered(triggered, "wind_condition");
-      return;
-    }
-
-    if (
-      (windLabel === "strong" || windLabel === "extreme") && windScore <= -0.75
-    ) {
-      adjust(accumulator, { mood: -1, water: -1, presentation: 1 });
-      pushUnique(
-        notes,
-        "Too much wind lowers comfort and fish position, but still favors added presence.",
-      );
-      touched = true;
-    }
-    if (touched) markTriggered(triggered, "wind_condition");
-    return;
-  }
-
-  if ((windLabel === "calm" || windLabel === "light") && windScore >= 0.55) {
-    adjust(accumulator, { presentation: -1 });
-    pushUnique(
-      notes,
-      "Calmer river conditions still reward a cleaner presentation.",
-    );
-    markTriggered(triggered, "wind_condition");
-    return;
-  }
-
-  if (windLabel === "strong" && windScore <= -0.75) {
-    adjust(accumulator, { mood: -1 });
-    pushUnique(
-      notes,
-      "Strong river wind lowers willingness even if current remains the primary driver.",
-    );
-    touched = true;
-  } else if (windLabel === "extreme" && windScore <= -1.0) {
-    adjust(accumulator, { mood: -1, water: -1 });
-    pushUnique(
-      notes,
-      "Extreme river wind tightens the daily read and lowers fish position slightly.",
-    );
-    touched = true;
-  }
-  if (touched) {
-    markTriggered(triggered, "wind_condition");
-  }
-}
-
-function applyLightRules(
-  accumulator: Accumulator,
-  lightLabel: string | null,
-  notes: string[],
-  triggered: TriggerKey[],
-) {
-  let touched = false;
-  switch (lightLabel) {
-    case "heavy_overcast":
-    case "low_light":
-      adjust(accumulator, { mood: 1, presentation: 1 });
-      pushUnique(notes, "Lower light supports a more assertive daily posture.");
-      touched = true;
-      break;
-    case "glare":
-    case "bright":
-      adjust(accumulator, { presentation: -1 });
-      pushUnique(
-        notes,
-        "Bright overhead light pushes the day toward subtler execution.",
-      );
-      touched = true;
-      break;
-    default:
-      break;
-  }
-  if (touched) {
-    markTriggered(triggered, "light_cloud_condition");
-  }
-}
-
-function applyDisruptionRules(
-  accumulator: Accumulator,
+function maxDownwardColumnShift(
   analysis: SharedConditionAnalysis,
   context: RecommenderV3Context,
-  notes: string[],
-  triggered: TriggerKey[],
-) {
-  if (context === "freshwater_lake_pond") {
-    const precipLabel =
-      analysis.norm.normalized.precipitation_disruption?.label ?? null;
-    const precipScore =
-      analysis.norm.normalized.precipitation_disruption?.score ?? null;
-    if (precipLabel === "active_disruption" || (precipScore ?? 0) <= -1.0) {
-      adjust(accumulator, { mood: -1, water: -1, presentation: -1 });
-      pushUnique(
-        notes,
-        "Active rain disruption should tighten and slow the lake plan.",
-      );
-      markTriggered(triggered, "precipitation_disruption");
-    } else if (precipLabel === "recent_rain" && (precipScore ?? 0) <= -0.5) {
-      adjust(accumulator, { mood: -1, water: -1 });
-      pushUnique(
-        notes,
-        "Recent rain keeps lake fish a bit tighter even if the day stays fishable.",
-      );
-      markTriggered(triggered, "precipitation_disruption");
-    }
-    return;
+  postureBand: RecommenderV3DailyPayload["posture_band"],
+  runoffLabel: string | null,
+): 0 | 1 | 2 {
+  if (context === "freshwater_river" && runoffLabel === "blown_out") return 2;
+  if (postureBand === "suppressed") return 2;
+  if (
+    postureBand === "slightly_suppressed" ||
+    analysis.condition_context.temperature_metabolic_context === "heat_limited" ||
+    analysis.condition_context.temperature_metabolic_context === "cold_limited"
+  ) {
+    return 1;
   }
-
-  const precipLabel =
-    analysis.norm.normalized.precipitation_disruption?.label ?? null;
-  const precipScore =
-    analysis.norm.normalized.precipitation_disruption?.score ?? null;
-  if (precipLabel === "active_disruption" || (precipScore ?? 0) <= -1.0) {
-    adjust(accumulator, { mood: -1, presentation: -1 });
-    pushUnique(
-      notes,
-      "Active river rain disruption should tighten the daily plan even before full runoff change.",
-    );
-    markTriggered(triggered, "precipitation_disruption");
-  } else if (precipLabel === "recent_rain" && (precipScore ?? 0) <= -0.6) {
-    adjust(accumulator, { mood: -1 });
-    pushUnique(
-      notes,
-      "Recent river rain trims willingness ahead of a larger flow shift.",
-    );
-    markTriggered(triggered, "precipitation_disruption");
-  }
-
-  const runoffLabel = analysis.norm.normalized.runoff_flow_disruption?.label ??
-    null;
-  const runoffScore = analysis.norm.normalized.runoff_flow_disruption?.score ??
-    null;
-  switch (runoffLabel) {
-    case "perfect_clear":
-    case "stable":
-      adjust(accumulator, { mood: 1 });
-      pushUnique(
-        notes,
-        "Stable river flow should improve fish willingness without changing the seasonal lane much.",
-      );
-      markTriggered(triggered, "runoff_flow_disruption");
-      break;
-    case "slightly_elevated":
-      adjust(accumulator, { water: 1, presentation: 1 });
-      if ((runoffScore ?? 0) <= -0.6) {
-        adjust(accumulator, { mood: -1 });
-      }
-      pushUnique(
-        notes,
-        "Slightly elevated flow can pull fish toward softer higher-visibility current edges.",
-      );
-      markTriggered(triggered, "runoff_flow_disruption");
-      break;
-    case "elevated":
-      adjust(accumulator, { mood: -1, water: -1, presentation: 1 });
-      pushUnique(
-        notes,
-        "Elevated flow tightens the day, but asks for more presence.",
-      );
-      markTriggered(triggered, "runoff_flow_disruption");
-      break;
-    case "blown_out":
-      adjust(accumulator, { mood: -1, water: -1, presentation: 1 });
-      pushUnique(
-        notes,
-        "Blown-out flow is a tough day that still calls for added visibility and push.",
-      );
-      markTriggered(triggered, "runoff_flow_disruption");
-      break;
-    default:
-      break;
-  }
-}
-
-function applySourceScoreGuardrail(
-  accumulator: Accumulator,
-  sourceScore: number,
-  notes: string[],
-  triggered: TriggerKey[],
-) {
-  if (sourceScore <= 40) {
-    accumulator.mood = Math.min(accumulator.mood, 0);
-    accumulator.water = Math.min(accumulator.water, 0);
-    accumulator.presentation = Math.min(accumulator.presentation, 0);
-    pushUnique(
-      notes,
-      "Poor overall How's Fishing score caps the day from resolving as an upbeat move-up read.",
-    );
-    markTriggered(triggered, "source_score_guardrail");
-  } else if (sourceScore >= 80) {
-    accumulator.mood = Math.max(accumulator.mood, 0);
-    accumulator.water = Math.max(accumulator.water, 0);
-    pushUnique(
-      notes,
-      "Strong overall How's Fishing score keeps the day from collapsing into a suppressed lane.",
-    );
-    markTriggered(triggered, "source_score_guardrail");
-  }
+  return 0;
 }
 
 /**
- * V3 keeps the How's Fishing handoff intentionally compact:
- * - mood nudge
- * - water-column nudge
- * - presentation nudge
- * - bounded tactical windows for reaction, finesse, and pace
- *
- * This function reads only the core freshwater variables already prioritized in
- * How's Fishing and resolves whether today's conditions should open things up,
- * tighten things down, or stay neutral.
+ * Deterministic daily handoff:
+ * - one posture score and posture band
+ * - one presentation-presence result
+ * - one bounded column-shift bias
+ * - explicit guardrails
  */
 export function resolveDailyPayloadV3(
   analysis: SharedConditionAnalysis,
   context: RecommenderV3Context,
+  clarity: "clear" | "stained" | "dirty",
 ): RecommenderV3DailyPayload {
   const pressureLabel = analysis.norm.normalized.pressure_regime?.label ?? null;
-  const pressureScore = analysis.norm.normalized.pressure_regime?.score ?? null;
-  const windScore = analysis.norm.normalized.wind_condition?.score ?? null;
   const windLabel = analysis.norm.normalized.wind_condition?.label ?? null;
-  const lightLabel = analysis.norm.normalized.light_cloud_condition?.label ??
-    null;
-  const accumulator: Accumulator = {
-    mood: 0,
-    water: 0,
-    presentation: 0,
-  };
+  const lightLabel = analysis.norm.normalized.light_cloud_condition?.label ?? null;
+  const precipLabel =
+    analysis.norm.normalized.precipitation_disruption?.label ?? null;
+  const runoffLabel =
+    analysis.norm.normalized.runoff_flow_disruption?.label ?? null;
+
   const notes: string[] = [];
   const triggered: TriggerKey[] = [];
+  const presenceTotals: Record<PresentationStyleV3, number> = {
+    subtle: 0,
+    balanced: 0,
+    bold: 0,
+  };
 
-  applyTemperatureRules(accumulator, analysis, notes, triggered);
-  applyPressureRules(
-    accumulator,
-    pressureLabel,
-    pressureScore,
-    notes,
-    triggered,
+  const metabolic = getPostureContribution(
+    TEMPERATURE_METABOLIC_POSTURE,
+    analysis.condition_context.temperature_metabolic_context,
   );
-  applyWindRules(accumulator, context, windLabel, windScore, notes, triggered);
-  applyLightRules(accumulator, lightLabel, notes, triggered);
-  applyDisruptionRules(accumulator, analysis, context, notes, triggered);
-  applySourceScoreGuardrail(
-    accumulator,
-    analysis.scored.score,
-    notes,
-    triggered,
+  const trend = getPostureContribution(
+    TEMPERATURE_TREND_POSTURE,
+    analysis.condition_context.temperature_trend,
+  );
+  const shock = getPostureContribution(
+    TEMPERATURE_SHOCK_POSTURE,
+    analysis.condition_context.temperature_shock,
+  );
+  const pressure = getPostureContribution(PRESSURE_POSTURE, pressureLabel);
+  const wind = getPostureContribution(
+    context === "freshwater_lake_pond" ? WIND_POSTURE_LAKE : WIND_POSTURE_RIVER,
+    windLabel,
+  );
+  const light = getPostureContribution(LIGHT_POSTURE, lightLabel);
+  const disruption = getPostureContribution(
+    context === "freshwater_lake_pond" ? PRECIP_POSTURE : RUNOFF_POSTURE,
+    context === "freshwater_lake_pond" ? precipLabel : runoffLabel,
   );
 
-  const clampedMood = clamp(accumulator.mood, -1, 2);
-  const clampedWaterColumn = clamp(accumulator.water, -1, 1);
-  const clampedPresentation = clamp(accumulator.presentation, -1, 1);
-  const reactionScore = resolveReactionScore(
-    analysis,
+  const rawPosture = context === "freshwater_lake_pond"
+    ? (
+      metabolic.posture * LAKE_POSTURE_WEIGHTS.temperature +
+      trend.posture * 0.75 +
+      shock.posture * 0.75 +
+      pressure.posture * LAKE_POSTURE_WEIGHTS.pressure +
+      wind.posture * LAKE_POSTURE_WEIGHTS.wind +
+      light.posture * LAKE_POSTURE_WEIGHTS.light +
+      disruption.posture * LAKE_POSTURE_WEIGHTS.disruption
+    )
+    : (
+      metabolic.posture * RIVER_POSTURE_WEIGHTS.temperature +
+      trend.posture * 0.6 +
+      shock.posture * 0.8 +
+      pressure.posture * RIVER_POSTURE_WEIGHTS.pressure +
+      wind.posture * RIVER_POSTURE_WEIGHTS.wind +
+      light.posture * RIVER_POSTURE_WEIGHTS.light +
+      disruption.posture * RIVER_POSTURE_WEIGHTS.runoff
+    );
+
+  const postureScore10 = round1(clamp(5 + rawPosture, 0, 10));
+  const postureBand = resolvePostureBand(postureScore10);
+
+  addPresenceScores(presenceTotals, CLARITY_PRESENCE[clarity]);
+  addPresenceScores(presenceTotals, LIGHT_PRESENCE[lightLabel ?? "mixed"] ?? LIGHT_PRESENCE.mixed);
+  addPresenceScores(
+    presenceTotals,
+    (context === "freshwater_lake_pond"
+      ? WIND_PRESENCE_LAKE[windLabel ?? "light"]
+      : WIND_PRESENCE_RIVER[windLabel ?? "light"]) ??
+      (context === "freshwater_lake_pond"
+        ? WIND_PRESENCE_LAKE.light
+        : WIND_PRESENCE_RIVER.light),
+  );
+  if (context === "freshwater_river") {
+    addPresenceScores(
+      presenceTotals,
+      RUNOFF_PRESENCE[runoffLabel ?? "stable"] ?? RUNOFF_PRESENCE.stable,
+    );
+  } else {
+    addPresenceScores(
+      presenceTotals,
+      PRECIP_PRESENCE[precipLabel ?? "dry_stable"] ?? PRECIP_PRESENCE.dry_stable,
+    );
+  }
+
+  if (postureBand === "suppressed") presenceTotals.subtle += 0.5;
+  if (postureBand === "slightly_suppressed") presenceTotals.subtle += 0.25;
+  if (postureBand === "slightly_aggressive") presenceTotals.bold += 0.25;
+  if (postureBand === "aggressive") presenceTotals.bold += 0.45;
+
+  const presentationPresenceToday = resolvePresentationPresence(presenceTotals);
+  const columnShiftBias = resolveColumnShiftBias(postureBand);
+  const surfaceAllowed = surfaceAllowedToday(
     context,
-    pressureLabel,
-    windLabel,
-    windScore,
     lightLabel,
-    clampedMood,
-    clampedPresentation,
+    windLabel,
+    postureBand,
   );
-  const finesseScore = resolveFinesseScore(
-    analysis,
+  const surfaceWindow = resolveSurfaceWindowToday(
     context,
-    pressureLabel,
-    windLabel,
-    windScore,
     lightLabel,
-    clampedMood,
-    clampedPresentation,
-  );
-  const { reaction_window, finesse_window } = reconcileTacticalWindows(
-    reactionScore,
-    finesseScore,
-  );
-  const surfaceWindow = resolveSurfaceWindow(
-    analysis,
-    context,
     windLabel,
-    windScore,
-    lightLabel,
-    clampedMood,
-    clampedPresentation,
+    postureBand,
+    runoffLabel,
   );
-  const paceBias = resolvePaceBias(
-    reaction_window,
-    finesse_window,
+  const suppressTopwater = suppressTrueTopwater(
     surfaceWindow,
   );
+  const upwardCap = maxUpwardColumnShift(analysis, postureBand);
+  const downwardCap = maxDownwardColumnShift(
+    analysis,
+    context,
+    postureBand,
+    runoffLabel,
+  );
+  const suppressFast = postureBand === "suppressed" ||
+    postureBand === "slightly_suppressed";
+  const highVisibilityNeeded = presentationPresenceToday === "bold";
 
-  if (surfaceWindow !== "off") {
-    pushUnique(
-      notes,
-      surfaceWindow === "on"
-        ? "Timing and light support a real surface or wake window."
-        : "There is at least a watch-level surface window if fish start looking up.",
+  pushUnique(notes, metabolic.note);
+  pushUnique(notes, trend.note);
+  pushUnique(notes, shock.note);
+  pushUnique(notes, pressure.note);
+  pushUnique(notes, wind.note);
+  pushUnique(notes, light.note);
+  pushUnique(notes, disruption.note);
+  pushUnique(notes, CLARITY_PRESENCE[clarity].note);
+
+  markTriggered(
+    triggered,
+    "temperature_metabolic_context",
+    metabolic.posture !== 0,
+  );
+  markTriggered(
+    triggered,
+    "temperature_trend",
+    trend.posture !== 0,
+  );
+  markTriggered(
+    triggered,
+    "temperature_shock",
+    shock.posture !== 0,
+  );
+  markTriggered(
+    triggered,
+    "pressure_regime",
+    pressure.posture !== 0,
+  );
+  markTriggered(
+    triggered,
+    "wind_condition",
+    wind.posture !== 0 || windLabel != null,
+  );
+  markTriggered(
+    triggered,
+    "light_cloud_condition",
+    light.posture !== 0 || lightLabel != null,
+  );
+  if (context === "freshwater_lake_pond") {
+    markTriggered(
+      triggered,
+      "precipitation_disruption",
+      precipLabel != null,
     );
-    markTriggered(triggered, "timing_window");
-  }
-  if (reaction_window !== "off") {
-    pushUnique(
-      notes,
-      reaction_window === "on"
-        ? "Daily cues support moving, search, and reaction-style presentations."
-        : "There is a watch-level reaction lane if fish show willingness to chase.",
+  } else {
+    markTriggered(
+      triggered,
+      "runoff_flow_disruption",
+      runoffLabel != null,
     );
-    markTriggered(triggered, "reaction_window");
-  }
-  if (finesse_window !== "off") {
-    pushUnique(
-      notes,
-      finesse_window === "on"
-        ? "Daily cues support a slower, cleaner finesse posture."
-        : "There is a watch-level finesse lane if fish stay selective.",
-    );
-    markTriggered(triggered, "finesse_window");
-  }
-  if (paceBias !== "neutral") {
-    pushUnique(
-      notes,
-      paceBias === "fast"
-        ? "The day supports a faster overall pace when the seasonal pool allows it."
-        : "The day supports a slower overall pace when the seasonal pool allows it.",
-    );
-    markTriggered(triggered, "pace_bias");
   }
 
   return {
-    mood_nudge: toMoodNudge(clampedMood),
-    water_column_nudge: toWaterColumnNudge(clampedWaterColumn),
-    presentation_nudge: toPresentationNudge(clampedPresentation),
-    surface_window: surfaceWindow,
-    reaction_window,
-    finesse_window,
-    pace_bias: paceBias,
+    posture_score_10: postureScore10,
+    posture_band: postureBand,
+    presentation_presence_today: presentationPresenceToday,
+    column_shift_bias_half_steps: columnShiftBias,
+    max_upward_column_shift_today: upwardCap,
+    max_downward_column_shift_today: downwardCap,
+    surface_allowed_today: surfaceAllowed,
+    suppress_true_topwater: suppressTopwater,
+    surface_window_today: surfaceWindow,
+    suppress_fast_presentations: suppressFast,
+    high_visibility_needed_today: highVisibilityNeeded,
     variables_considered: V3_SCORED_VARIABLE_KEYS_BY_CONTEXT[context],
     variables_triggered: triggered,
     notes,
-    source_score: analysis.scored.score,
-    source_band: analysis.scored.band,
   };
 }

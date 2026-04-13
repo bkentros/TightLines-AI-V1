@@ -1,6 +1,6 @@
-import { assertEquals, assertThrows } from "jsr:@std/assert";
+import { assert, assertEquals, assertThrows } from "jsr:@std/assert";
 import type { RecommenderRequest } from "../contracts/input.ts";
-import { runRecommenderV3 } from "../runRecommenderV3.ts";
+import { computeRecommenderV3 } from "../runRecommenderV3.ts";
 import { resolveDailyPayloadV3 } from "../v3/resolveDailyPayload.ts";
 import { resolveFinalProfileV3 } from "../v3/resolveFinalProfile.ts";
 import { resolveSeasonalRowV3 } from "../v3/seasonal/resolveSeasonalRow.ts";
@@ -20,6 +20,7 @@ function analysis(overrides: Record<string, unknown> = {}) {
     },
     timing: {
       timing_strength: "good",
+      highlighted_periods: [false, false, false, false],
       ...(overrides.timing as object | undefined),
     },
     condition_context: {
@@ -30,9 +31,11 @@ function analysis(overrides: Record<string, unknown> = {}) {
     },
     norm: {
       normalized: {
-        pressure_regime: { label: "recently_stabilizing" },
-        wind_condition: { score: 0 },
-        light_cloud_condition: { label: "mixed_sky" },
+        pressure_regime: { label: "stable_neutral", score: 0 },
+        wind_condition: { label: "light", score: 0.2 },
+        light_cloud_condition: { label: "mixed", score: 0 },
+        precipitation_disruption: { label: "dry_stable", score: 0.1 },
+        runoff_flow_disruption: { label: "stable", score: 0.6 },
         ...((overrides.norm as { normalized?: object } | undefined)
           ?.normalized ?? {}),
       },
@@ -61,14 +64,14 @@ function request(
   };
 }
 
-Deno.test("V3 scope maps legacy freshwater species into the new species list", () => {
+Deno.test("V3 scope maps legacy freshwater species into the rebuilt species list", () => {
   assertEquals(toRecommenderV3Species("largemouth_bass"), "largemouth_bass");
   assertEquals(toRecommenderV3Species("pike_musky"), "northern_pike");
   assertEquals(toRecommenderV3Species("river_trout"), "trout");
   assertEquals(toRecommenderV3Species("redfish"), null);
 });
 
-Deno.test("V3 scope enforces trout as river-only", () => {
+Deno.test("V3 scope still enforces trout as river-only", () => {
   assertThrows(
     () =>
       assertRecommenderV3Scope({
@@ -80,10 +83,9 @@ Deno.test("V3 scope enforces trout as river-only", () => {
   );
 });
 
-Deno.test("V3 daily payload nudges upward on a strong warming low-light day", () => {
+Deno.test("V3 daily payload resolves an aggressive lake posture and bold presence from aligned conditions", () => {
   const payload = resolveDailyPayloadV3(
     analysis({
-      scored: { score: 78, band: "Good" },
       condition_context: {
         temperature_metabolic_context: "neutral",
         temperature_trend: "warming",
@@ -91,81 +93,155 @@ Deno.test("V3 daily payload nudges upward on a strong warming low-light day", ()
       },
       norm: {
         normalized: {
-          pressure_regime: { label: "falling_slow" },
-          wind_condition: { score: -1.2 },
-          light_cloud_condition: { label: "low_light" },
+          pressure_regime: { label: "falling_moderate", score: 1.0 },
+          wind_condition: { label: "moderate", score: 0.8 },
+          light_cloud_condition: { label: "low_light", score: 0.8 },
+          precipitation_disruption: { label: "dry_stable", score: 0.1 },
         },
       },
     }),
     "freshwater_lake_pond",
+    "dirty",
   );
 
-  assertEquals(payload.mood_nudge, "up_2");
-  assertEquals(payload.water_column_nudge, "higher_1");
-  assertEquals(payload.presentation_nudge, "bolder");
+  assertEquals(payload.posture_band, "aggressive");
+  assertEquals(payload.presentation_presence_today, "bold");
+  assertEquals(payload.column_shift_bias_half_steps, -2);
+  assertEquals(payload.surface_allowed_today, true);
+  assertEquals(payload.suppress_true_topwater, false);
+  assertEquals(payload.surface_window_today, "rippled");
 });
 
-Deno.test("V3 foundation shell reuses the canonical region key and core daily payload", () => {
-  const snapshot = runRecommenderV3(request({
-    species: "largemouth_bass",
-    context: "freshwater_river",
-  }));
-
-  assertEquals(snapshot.feature, "recommender_v3");
-  assertEquals(snapshot.species, "largemouth_bass");
-  assertEquals(snapshot.context, "freshwater_river");
-  assertEquals(snapshot.region_key, "appalachian");
-  assertEquals(snapshot.variables_considered, [
-    "temperature_condition",
-    "pressure_regime",
-    "wind_condition",
-    "light_cloud_condition",
-    "runoff_flow_disruption",
-    "timing_window",
-    "reaction_window",
-    "finesse_window",
-    "pace_bias",
-  ]);
-  assertEquals(snapshot.lure_recommendations.length, 3);
-  assertEquals(snapshot.fly_recommendations.length, 3);
-});
-
-Deno.test("V3 foundation keeps clarity in the color layer without changing the resolved water column", () => {
+Deno.test("V3 resolved profile keeps winter low baselines bounded on aggressive days", () => {
   const row = resolveSeasonalRowV3(
-    "smallmouth_bass",
-    "great_lakes_upper_midwest",
-    7,
+    "largemouth_bass",
+    "south_central",
+    12,
     "freshwater_lake_pond",
   );
   const daily = resolveDailyPayloadV3(
     analysis({
-      scored: { score: 74, band: "Good" },
-      timing: {
-        timing_strength: "good",
-        highlighted_periods: [true, false, false, true],
-      },
       condition_context: {
         temperature_metabolic_context: "neutral",
         temperature_trend: "warming",
-        temperature_shock: "none",
+        temperature_shock: "sharp_warmup",
       },
       norm: {
         normalized: {
-          pressure_regime: { label: "falling_slow", score: 0.8 },
-          wind_condition: { label: "light", score: 0.65 },
-          light_cloud_condition: { label: "low_light" },
+          pressure_regime: { label: "falling_moderate", score: 1.0 },
+          wind_condition: { label: "moderate", score: 0.9 },
+          light_cloud_condition: { label: "low_light", score: 0.8 },
+          precipitation_disruption: { label: "dry_stable", score: 0.1 },
         },
       },
     }),
     "freshwater_lake_pond",
+    "stained",
+  );
+  const resolved = resolveFinalProfileV3(row, daily);
+
+  assertEquals(row.typical_seasonal_water_column, "low");
+  assertEquals(resolved.likely_water_column_today, "mid_low");
+  assert(resolved.likely_water_column_today !== "high");
+  assert(resolved.likely_water_column_today !== "high_top");
+});
+
+Deno.test("V3 windy summer lake days suppress true topwater and keep picks inside the seasonal pool", () => {
+  const req = request({
+    location: {
+      latitude: 28.54,
+      longitude: -81.38,
+      state_code: "FL",
+      region_key: "florida",
+      local_date: "2026-07-18",
+      local_timezone: "America/New_York",
+      month: 7,
+    },
+  });
+  const result = computeRecommenderV3(
+    req,
+    analysis({
+      condition_context: {
+        temperature_metabolic_context: "neutral",
+        temperature_trend: "stable",
+        temperature_shock: "none",
+      },
+      norm: {
+        normalized: {
+          pressure_regime: { label: "stable_neutral", score: 0 },
+          wind_condition: { label: "strong", score: -0.9 },
+          light_cloud_condition: { label: "mixed", score: 0 },
+          precipitation_disruption: { label: "dry_stable", score: 0.1 },
+        },
+      },
+    }),
+  );
+  const seasonalIds = new Set([
+    ...Object.keys(result.seasonal_row.seasonal_lure_weights),
+    ...Object.keys(result.seasonal_row.seasonal_fly_weights),
+  ]);
+
+  assertEquals(result.daily_payload.surface_window_today, "closed");
+  assertEquals(result.daily_payload.suppress_true_topwater, true);
+  assert(
+    [...result.lure_recommendations, ...result.fly_recommendations].every(
+      (candidate) => seasonalIds.has(candidate.id),
+    ),
+  );
+  assert(
+    [...result.lure_recommendations, ...result.fly_recommendations].every(
+      (candidate) =>
+        candidate.tactical_lane !== "surface" &&
+        candidate.tactical_lane !== "fly_surface",
+    ),
+  );
+});
+
+Deno.test("V3 calm mixed lake days keep a clean surface window open for finesse-style topwater", () => {
+  const payload = resolveDailyPayloadV3(
+    analysis({
+      condition_context: {
+        temperature_metabolic_context: "neutral",
+        temperature_trend: "stable",
+        temperature_shock: "none",
+      },
+      norm: {
+        normalized: {
+          pressure_regime: { label: "stable_neutral", score: 0 },
+          wind_condition: { label: "light", score: 0.2 },
+          light_cloud_condition: { label: "mixed", score: 0 },
+          precipitation_disruption: { label: "dry_stable", score: 0.1 },
+        },
+      },
+    }),
+    "freshwater_lake_pond",
+    "clear",
   );
 
-  const clear = resolveFinalProfileV3(row, daily, "clear");
-  const stained = resolveFinalProfileV3(row, daily, "stained");
-  const dirty = resolveFinalProfileV3(row, daily, "dirty");
+  assertEquals(payload.surface_allowed_today, true);
+  assertEquals(payload.suppress_true_topwater, false);
+  assertEquals(payload.surface_window_today, "clean");
+});
 
-  assertEquals(clear.final_water_column, stained.final_water_column);
-  assertEquals(stained.final_water_column, dirty.final_water_column);
-  assertEquals(clear.final_presentation_style, stained.final_presentation_style);
-  assertEquals(stained.final_presentation_style, dirty.final_presentation_style);
+Deno.test("V3 foundation output is stable across repeated identical requests", () => {
+  const req = request({
+    species: "smallmouth_bass",
+    context: "freshwater_river",
+    water_clarity: "clear",
+  });
+  const sharedAnalysis = analysis({
+    norm: {
+      normalized: {
+        pressure_regime: { label: "recently_stabilizing", score: 0.25 },
+        wind_condition: { label: "light", score: 0.15 },
+        light_cloud_condition: { label: "mixed", score: 0 },
+        runoff_flow_disruption: { label: "stable", score: 0.8 },
+      },
+    },
+  });
+
+  const a = computeRecommenderV3(req, sharedAnalysis);
+  const b = computeRecommenderV3(req, sharedAnalysis);
+
+  assertEquals(a, b);
 });

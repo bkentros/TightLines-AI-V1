@@ -39,12 +39,23 @@ import {
 
 // ─── Label maps ───────────────────────────────────────────────────────────────
 
+/** Vertical hold (surface → bottom), not shallow vs deep water at the spot. */
 const DEPTH_LANE_LABEL: Record<DepthLane, string> = {
-  surface:     'Surface',
-  upper:       'Upper column',
-  mid:         'Mid column',
-  near_bottom: 'Near bottom',
-  bottom:      'Bottom',
+  surface:     'Surface (film / top)',
+  upper:       'Upper (nearer surface)',
+  mid:         'Mid-column',
+  near_bottom: 'Lower (near bottom)',
+  bottom:      'Bottom contact',
+};
+
+/** Sentence fragment for the lead-pick line — matches recommender engine meaning. */
+const DEPTH_LANE_TARGET_PHRASE: Record<DepthLane, string> = {
+  surface:     'the top of the water column — true surface feeds',
+  upper:
+    'the upper water column — nearer the surface than the bottom (can still be shallow-water flipping)',
+  mid:         'the middle of the water column — between surface and bottom',
+  near_bottom: 'the lower water column, tight to bottom',
+  bottom:      'the bottom — bottom-contact presentations',
 };
 
 const FORAGE_LABEL: Record<ForageMode, string> = {
@@ -55,6 +66,41 @@ const FORAGE_LABEL: Record<ForageMode, string> = {
   leech:       'Leeches',
   surface_prey:'Surface prey',
   mixed:       'Mixed',
+};
+
+const DAILY_POSTURE_LABEL: Record<
+  RecommenderResponse['daily_posture_band'],
+  string
+> = {
+  suppressed: 'Suppressed',
+  slightly_suppressed: 'Slightly Suppressed',
+  neutral: 'Neutral',
+  slightly_aggressive: 'Slightly Aggressive',
+  aggressive: 'Aggressive',
+};
+
+const WATER_COLUMN_DISPLAY: Record<
+  RecommenderResponse['likely_water_column_today'] | RecommenderResponse['typical_seasonal_water_column'],
+  string
+> = {
+  top: 'Top',
+  high_top: 'High / Top',
+  high: 'High',
+  mid_high: 'Mid / High',
+  mid: 'Mid',
+  mid_low: 'Mid / Low',
+  low: 'Low',
+};
+
+const SEASONAL_LOCATION_DISPLAY: Record<
+  RecommenderResponse['typical_seasonal_location'],
+  string
+> = {
+  shallow: 'Shallow',
+  shallow_mid: 'Shallow / Mid-depth',
+  mid: 'Mid-depth',
+  mid_deep: 'Mid-depth / Deep',
+  deep: 'Deep',
 };
 
 const IMAGE_TX = { duration: 200 } as const;
@@ -96,9 +142,9 @@ const MEDAL_COLORS = {
 // ─── Behavior row icons ───────────────────────────────────────────────────────
 
 const BEHAVIOR_ICON: Record<string, { icon: string }> = {
-  'Water column': { icon: 'layers-outline' },
-  'Forage':       { icon: 'fish-outline'   },
-  'Speed':        { icon: 'flash-outline'  },
+  'Where in the water': { icon: 'layers-outline' },
+  Forage: { icon: 'fish-outline' },
+  Speed: { icon: 'flash-outline' },
 };
 
 const ripple = { color: 'rgba(10,22,40,0.08)' };
@@ -292,15 +338,50 @@ export function RecommenderView({ result, style }: Props) {
 
         <View style={styles.cardSectionDivider} />
 
-        {/* ── WATER COLUMN + FORAGE ── */}
+        <View style={styles.cardSection}>
+          <MicroLabel icon="analytics-outline" label="Seasonal & Daily Read" />
+          <View style={styles.summaryGrid}>
+            <View style={styles.summaryCard}>
+              <Text style={styles.summaryLabel}>Daily Posture</Text>
+              <Text style={styles.summaryValue}>
+                {DAILY_POSTURE_LABEL[result.daily_posture_band]}
+              </Text>
+            </View>
+            <View style={styles.summaryCard}>
+              <Text style={styles.summaryLabel}>Typical Seasonal Water Column</Text>
+              <Text style={styles.summaryValue}>
+                {WATER_COLUMN_DISPLAY[result.typical_seasonal_water_column]}
+              </Text>
+            </View>
+            <View style={styles.summaryCard}>
+              <Text style={styles.summaryLabel}>Likely Water Column Today</Text>
+              <Text style={styles.summaryValue}>
+                {WATER_COLUMN_DISPLAY[result.likely_water_column_today]}
+              </Text>
+            </View>
+            <View style={styles.summaryCard}>
+              <Text style={styles.summaryLabel}>Typical Seasonal Fish Location</Text>
+              <Text style={styles.summaryValue}>
+                {SEASONAL_LOCATION_DISPLAY[result.typical_seasonal_location]}
+              </Text>
+            </View>
+          </View>
+        </View>
+
+        <View style={styles.cardSectionDivider} />
+
+        {/* ── VERTICAL POSITION + FORAGE ── */}
         <View style={styles.insightRow}>
           <View style={styles.insightItem}>
             <View style={[styles.insightIconWrap, { backgroundColor: accentColor + '14' }]}>
               <Ionicons name="layers-outline" size={13} color={accentColor} />
             </View>
-            <View>
-              <Text style={styles.microLabelText}>WATER COLUMN</Text>
+            <View style={styles.insightTextCol}>
+              <Text style={styles.microLabelText}>VERTICAL POSITION</Text>
               <Text style={styles.insightValue}>{DEPTH_LANE_LABEL[result.behavior.depth_lane]}</Text>
+              <Text style={styles.insightHint}>
+                Surface to bottom in the water — not whether the hole is deep or shallow overall.
+              </Text>
             </View>
           </View>
           <View style={styles.insightDivider} />
@@ -326,7 +407,7 @@ export function RecommenderView({ result, style }: Props) {
           <Ionicons name="sparkles-outline" size={12} color={accentColor} />
           <Text style={styles.leadPickText}>
             {result.lure_rankings[0]?.display_name && result.fly_rankings[0]?.display_name
-              ? `${result.lure_rankings[0].display_name} & ${result.fly_rankings[0].display_name} are the lead picks. Target the ${DEPTH_LANE_LABEL[result.behavior.depth_lane].toLowerCase()}.`
+              ? `${result.lure_rankings[0].display_name} & ${result.fly_rankings[0].display_name} are the lead picks. Target ${DEPTH_LANE_TARGET_PHRASE[result.behavior.depth_lane]}.`
               : result.primary_pattern_summary ?? ''}
           </Text>
         </View>
@@ -464,6 +545,10 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     gap: 9,
   },
+  insightTextCol: {
+    flex: 1,
+    minWidth: 0,
+  },
   insightIconWrap: {
     width: 28,
     height: 28,
@@ -485,6 +570,13 @@ const styles = StyleSheet.create({
     fontSize: 13,
     color: colors.text,
     marginTop: 3,
+  },
+  insightHint: {
+    fontFamily: fonts.body,
+    fontSize: 10,
+    color: colors.textSecondary,
+    marginTop: 4,
+    lineHeight: 14,
   },
 
   // Lead pick tip
@@ -541,6 +633,33 @@ const styles = StyleSheet.create({
     paddingTop: 11,
     paddingBottom: 11,
     gap: 8,
+  },
+  summaryGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 8,
+  },
+  summaryCard: {
+    width: '48%',
+    backgroundColor: colors.backgroundAlt,
+    borderRadius: radius.lg,
+    borderWidth: 1,
+    borderColor: colors.borderLight,
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+    gap: 4,
+  },
+  summaryLabel: {
+    fontFamily: fonts.bodyBold,
+    fontSize: 10,
+    color: colors.textSecondary,
+    lineHeight: 14,
+  },
+  summaryValue: {
+    fontFamily: fonts.bodySemiBold,
+    fontSize: 13,
+    color: colors.text,
+    lineHeight: 18,
   },
   cardSectionDivider: {
     height: 1,

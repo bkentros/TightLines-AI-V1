@@ -25,18 +25,18 @@ export function computeRecommenderV3(
 ): RecommenderV3Response {
   const { species, context } = assertRecommenderV3Scope(req);
 
-  const dailyPayload = resolveDailyPayloadV3(analysis, context);
+  const dailyPayload = resolveDailyPayloadV3(
+    analysis,
+    context,
+    req.water_clarity,
+  );
   const seasonalRow = resolveSeasonalRowV3(
     species,
     req.location.region_key,
     req.location.month,
     context,
   );
-  const resolvedProfile = resolveFinalProfileV3(
-    seasonalRow,
-    dailyPayload,
-    req.water_clarity,
-  );
+  const resolvedProfile = resolveFinalProfileV3(seasonalRow, dailyPayload);
   const lightLabel = analysis.norm.normalized.light_cloud_condition?.label ?? null;
   const lureRecommendations = scoreLureCandidatesV3(
     seasonalRow,

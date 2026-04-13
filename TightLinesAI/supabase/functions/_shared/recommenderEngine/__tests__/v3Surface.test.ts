@@ -31,13 +31,16 @@ Deno.test("V3 surface returns the current frontend contract for a supported fres
   assertEquals(result.fly_rankings.length, 3);
   assertEquals(result.behavior.behavior_summary.length, 3);
   assert(typeof result.behavior.seasonal_flag === "string");
+  assert(typeof result.daily_posture_band === "string");
+  assert(typeof result.typical_seasonal_water_column === "string");
+  assert(typeof result.likely_water_column_today === "string");
+  assert(typeof result.typical_seasonal_location === "string");
   for (const row of result.behavior.behavior_summary) {
     assert(typeof row.label === "string");
     assert(typeof row.detail === "string");
   }
   assert(typeof result.primary_pattern_summary === "string");
   assert(typeof result.color_of_day === "string");
-  assert(result.confidence.reasons.length > 0);
 
   for (const candidate of [...result.lure_rankings, ...result.fly_rankings]) {
     assert(typeof candidate.display_name === "string");
@@ -111,7 +114,7 @@ Deno.test("V3 surface maps trout and pike through the current response shape", (
   assertEquals(pike.context, "freshwater_lake_pond");
 });
 
-Deno.test("V3 surface includes a seasonal flag that supports confidence reasoning", () => {
+Deno.test("V3 surface exposes rebuilt seasonal and daily water-column fields", () => {
   const winter = runRecommenderV3Surface(request({
     location: {
       latitude: 44.98,
@@ -144,6 +147,10 @@ Deno.test("V3 surface includes a seasonal flag that supports confidence reasonin
 
   assertEquals(winter.behavior.seasonal_flag, "off_season");
   assertEquals(summer.behavior.seasonal_flag, "peak_season");
+  assert(typeof winter.typical_seasonal_water_column === "string");
+  assert(typeof winter.likely_water_column_today === "string");
+  assert(typeof winter.typical_seasonal_location === "string");
+  assert(typeof summer.daily_posture_band === "string");
 });
 
 Deno.test("V3 surface keeps visible recommendation text deterministic for the same request", () => {
@@ -154,4 +161,6 @@ Deno.test("V3 surface keeps visible recommendation text deterministic for the sa
   assertEquals(a.fly_rankings, b.fly_rankings);
   assertEquals(a.primary_pattern_summary, b.primary_pattern_summary);
   assertEquals(a.color_of_day, b.color_of_day);
+  assertEquals(a.daily_posture_band, b.daily_posture_band);
+  assertEquals(a.likely_water_column_today, b.likely_water_column_today);
 });

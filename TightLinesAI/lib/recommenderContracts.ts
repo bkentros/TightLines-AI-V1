@@ -252,12 +252,35 @@ export type RankedFamily = {
   rank_context?: string;
 };
 
-export type RecommenderConfidenceTier = "high" | "medium" | "low";
+export type DailyPostureBand =
+  | "suppressed"
+  | "slightly_suppressed"
+  | "neutral"
+  | "slightly_aggressive"
+  | "aggressive";
 
-export type RecommenderConfidence = {
-  tier: RecommenderConfidenceTier;
-  reasons: string[];
-};
+export type TypicalSeasonalWaterColumn =
+  | "top"
+  | "high"
+  | "mid"
+  | "mid_low"
+  | "low";
+
+export type LikelyWaterColumnToday =
+  | "top"
+  | "high_top"
+  | "high"
+  | "mid_high"
+  | "mid"
+  | "mid_low"
+  | "low";
+
+export type SeasonalLocation =
+  | "shallow"
+  | "shallow_mid"
+  | "mid"
+  | "mid_deep"
+  | "deep";
 
 export type RecommenderResponse = {
   feature: typeof RECOMMENDER_FEATURE;
@@ -270,11 +293,10 @@ export type RecommenderResponse = {
   presentation: PresentationOutput;
   lure_rankings: RankedFamily[];
   fly_rankings: RankedFamily[];
-  timing: {
-    highlighted_periods: [boolean, boolean, boolean, boolean];
-    timing_strength: string;
-  };
-  confidence: RecommenderConfidence;
+  daily_posture_band: DailyPostureBand;
+  typical_seasonal_water_column: TypicalSeasonalWaterColumn;
+  likely_water_column_today: LikelyWaterColumnToday;
+  typical_seasonal_location: SeasonalLocation;
   /** Single condition-driven color direction for the session. */
   color_of_day: string;
   /** Phase 6 target field: top-level guide summary for the overall pattern. */
