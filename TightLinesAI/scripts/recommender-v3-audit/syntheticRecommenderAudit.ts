@@ -1,55 +1,44 @@
 /**
  * Shared neutral analysis + synthetic daily payloads for V3 audit scripts.
  */
-import type { SharedConditionAnalysis } from "../../supabase/functions/_shared/howFishingEngine/analyzeSharedConditions.ts";
 import type {
   DailyPostureBandV3,
+  DailyReactionWindowV3,
   DailySurfaceWindowV3,
+  OpportunityMixModeV3,
   PresentationStyleV3,
   RecommenderV3DailyPayload,
 } from "../../supabase/functions/_shared/recommenderEngine/v3/contracts.ts";
 
-export function coverageNeutralAnalysis(): SharedConditionAnalysis {
-  return {
-    scored: {
-      score: 60,
-      band: "Good",
-      drivers: [],
-      suppressors: [],
-    },
-    timing: {
-      timing_strength: "good",
-      highlighted_periods: [false, false, false, false],
-    },
-    condition_context: {
-      temperature_metabolic_context: "neutral",
-      temperature_trend: "stable",
-      temperature_shock: "none",
-    },
-    norm: {
-      normalized: {
-        pressure_regime: { label: "stable_neutral", score: 0 },
-        wind_condition: { label: "light", score: 0 },
-        light_cloud_condition: { label: "mixed", score: 0 },
-        precipitation_disruption: { label: "dry_stable", score: 0 },
-        runoff_flow_disruption: { label: "stable", score: 0 },
-      },
-    },
-  } as SharedConditionAnalysis;
-}
-
-function postureScoreFromBand(band: DailyPostureBandV3): number {
+function reactionWindowFromBand(
+  band: DailyPostureBandV3,
+): DailyReactionWindowV3 {
   switch (band) {
     case "suppressed":
-      return 2.2;
     case "slightly_suppressed":
-      return 3.6;
-    case "neutral":
-      return 5.1;
-    case "slightly_aggressive":
-      return 7;
+      return "off";
     case "aggressive":
-      return 9;
+      return "on";
+    case "neutral":
+    case "slightly_aggressive":
+    default:
+      return "watch";
+  }
+}
+
+function opportunityMixFromBand(
+  band: DailyPostureBandV3,
+): OpportunityMixModeV3 {
+  switch (band) {
+    case "suppressed":
+    case "slightly_suppressed":
+      return "conservative";
+    case "aggressive":
+      return "aggressive";
+    case "neutral":
+    case "slightly_aggressive":
+    default:
+      return "balanced";
   }
 }
 
@@ -59,49 +48,37 @@ export function buildSyntheticDaily(
   columnBias: -1 | 0 | 1,
   surface: DailySurfaceWindowV3,
 ): RecommenderV3DailyPayload {
-  const posture_score_10 = postureScoreFromBand(band);
   const suppress_fast =
     band === "suppressed" || band === "slightly_suppressed";
-  const reaction_window_today = band === "aggressive" ||
-      band === "slightly_aggressive"
-    ? "on"
-    : suppress_fast
-    ? "off"
-    : "watch";
-  const pace_bias_today = suppress_fast
-    ? "slow"
-    : band === "aggressive"
-    ? "fast"
-    : "neutral";
-
-  const max_up: 0 | 1 | 2 =
-    band === "aggressive" ? 2 : band === "slightly_aggressive" ? 1 : 0;
-  const max_down: 0 | 1 | 2 =
-    band === "suppressed" ? 2 : band === "slightly_suppressed" ? 1 : 0;
-
-  let surface_window_today = surface;
-  let surface_allowed_today = band !== "suppressed";
-  let suppress_true_topwater = false;
-
-  if (surface === "closed") {
-    surface_window_today = "closed";
-    suppress_true_topwater = true;
-  }
+  const reactionWindow = reactionWindowFromBand(band);
+  const opportunityMix = opportunityMixFromBand(band);
+  const presenceShift = presentation === "bold"
+    ? 1
+    : presentation === "subtle"
+    ? -1
+    : 0;
 
   return {
-    posture_score_10,
+    normalized_states: {
+      temperature_metabolic_context: "neutral",
+      temperature_trend: "stable",
+      temperature_shock: "none",
+      pressure_regime: "stable_neutral",
+      wind_condition: "light",
+      light_cloud_condition: "mixed",
+      precipitation_disruption: "dry_stable",
+      runoff_flow_disruption: "stable",
+    },
     posture_band: band,
-    presentation_presence_today: presentation,
-    reaction_window_today,
-    pace_bias_today,
-    column_shift_bias_half_steps: columnBias as -2 | -1 | 0 | 1 | 2,
-    max_upward_column_shift_today: max_up,
-    max_downward_column_shift_today: max_down,
-    surface_allowed_today,
-    suppress_true_topwater,
-    surface_window_today,
+    reaction_window: reactionWindow,
+    surface_window: surface,
+    opportunity_mix: opportunityMix,
+    column_shift: columnBias,
+    pace_shift: suppress_fast ? -1 : band === "aggressive" ? 1 : 0,
+    presence_shift: presenceShift,
+    surface_allowed_today: surface !== "closed" && band !== "suppressed",
     suppress_fast_presentations: suppress_fast,
-    high_visibility_needed_today: presentation === "bold",
+    high_visibility_needed: presentation === "bold",
     variables_considered: [],
     variables_triggered: [],
     notes: [],
@@ -131,8 +108,6 @@ export function allSyntheticDailyPayloads(): readonly RecommenderV3DailyPayload[
   }
   return out;
 }
-
-export const COVERAGE_ANALYSIS = coverageNeutralAnalysis();
 
 export const NEUTRAL_SYNTHETIC_DAILY = buildSyntheticDaily(
   "neutral",

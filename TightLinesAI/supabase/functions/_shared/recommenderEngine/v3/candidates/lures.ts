@@ -135,6 +135,14 @@ function whyHooks(profile: LegacyLureProfile): readonly string[] {
   ];
 }
 
+function howToFishVariants(profile: LegacyLureProfile): readonly [string, string, string] {
+  return profile.how_to_fish_text ?? [
+    `Fish ${profile.display_name.toLowerCase()} around the day's preferred lane with a controlled retrieve.`,
+    `Keep ${profile.display_name.toLowerCase()} in the productive part of the zone and let the fish tell you whether to stay cleaner or more active.`,
+    `Work ${profile.display_name.toLowerCase()} where today's conditions make that lane easiest to fish cleanly.`,
+  ];
+}
+
 function lure(
   profile: LegacyLureProfile,
 ): RecommenderV3ArchetypeProfile {
@@ -164,9 +172,8 @@ function lure(
     current_friendly: CURRENT_FRIENDLY_IDS.has(profile.id) ? true : undefined,
     forage_tags: profile.forage_matches,
     why_hooks: whyHooks(profile),
-    how_to_fish_template:
-      profile.how_to_fish_text?.[0] ??
-      `Fish ${profile.display_name.toLowerCase()} around the day's preferred lane with a controlled retrieve.`,
+    how_to_fish_variants: howToFishVariants(profile),
+    how_to_fish_template: howToFishVariants(profile)[0],
     clarity_strengths: profile.clarity_strengths,
     tactical_lane: profile.tactical_lane,
   };
@@ -178,7 +185,7 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
     display_name: "Weightless Stick Worm",
     gear_mode: "lure",
     family_key: "stick_worm",
-    top3_redundancy_key: "soft_plastic_worm",
+    top3_redundancy_key: "worm",
     preferred_water_columns: ["top", "shallow"],
     preferred_moods: ["negative", "neutral"],
     preferred_presentation_styles: ["subtle"],
@@ -196,7 +203,7 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
     display_name: "Texas-Rigged Stick Worm",
     gear_mode: "lure",
     family_key: "stick_worm",
-    top3_redundancy_key: "soft_plastic_worm",
+    top3_redundancy_key: "worm",
     preferred_water_columns: ["shallow", "mid", "bottom"],
     preferred_moods: ["negative", "neutral", "active"],
     preferred_presentation_styles: ["subtle", "balanced"],
@@ -214,7 +221,7 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
     display_name: "Wacky-Rigged Stick Worm",
     gear_mode: "lure",
     family_key: "stick_worm",
-    top3_redundancy_key: "soft_plastic_worm",
+    top3_redundancy_key: "worm",
     preferred_water_columns: ["top", "shallow", "mid"],
     preferred_moods: ["negative", "neutral"],
     preferred_presentation_styles: ["subtle"],
@@ -232,7 +239,7 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
     display_name: "Carolina-Rigged Stick Worm",
     gear_mode: "lure",
     family_key: "stick_worm",
-    top3_redundancy_key: "soft_plastic_worm",
+    top3_redundancy_key: "worm",
     preferred_water_columns: ["mid", "bottom"],
     preferred_moods: ["negative", "neutral"],
     preferred_presentation_styles: ["subtle", "balanced"],
@@ -250,6 +257,7 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
     display_name: "Shaky-Head Worm",
     gear_mode: "lure",
     family_key: "finesse_worm",
+    top3_redundancy_key: "worm",
     preferred_water_columns: ["mid", "bottom"],
     preferred_moods: ["negative", "neutral"],
     preferred_presentation_styles: ["subtle"],
@@ -267,6 +275,7 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
     display_name: "Drop-Shot Worm",
     gear_mode: "lure",
     family_key: "drop_shot",
+    top3_redundancy_key: "worm",
     preferred_water_columns: ["mid", "bottom"],
     preferred_moods: ["negative", "neutral"],
     preferred_presentation_styles: ["subtle"],

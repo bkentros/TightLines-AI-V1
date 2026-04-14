@@ -295,7 +295,6 @@ export type RecommenderV3DailyPayload = {
   pace_shift: -1 | 0 | 1;
   presence_shift: -1 | 0 | 1;
   surface_allowed_today: boolean;
-  suppress_true_surface: boolean;
   suppress_fast_presentations: boolean;
   high_visibility_needed: boolean;
   variables_considered: readonly string[];
@@ -337,6 +336,7 @@ export type RecommenderV3ArchetypeProfile = {
   current_friendly?: boolean;
   forage_tags: readonly ForageBucketV3[];
   why_hooks: readonly string[];
+  how_to_fish_variants: readonly [string, string, string];
   how_to_fish_template: string;
   clarity_strengths?: readonly WaterClarity[];
   tactical_lane: TacticalLaneV3;

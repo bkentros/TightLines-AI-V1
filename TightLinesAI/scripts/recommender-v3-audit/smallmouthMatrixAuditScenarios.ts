@@ -86,9 +86,9 @@ function greatLakesClearLakeExpectation(focus: string): RecommenderAuditExpectat
     case "fall_transition":
     default:
       return expectation(
-        "Great Lakes fall smallmouth should tighten around jerkbait, swimbait, and hair / blade lanes with clean baitfish colors.",
+        "Great Lakes fall smallmouth should tighten around jerkbait, hair, blade, and controlled baitfish lanes with clean baitfish colors; on colder November days the late-fall finesse-jig lane can still legitimately surface.",
         ["suspending_jerkbait", "paddle_tail_swimbait", "hair_jig"],
-        ["blade_bait", "tube_jig", "slim_minnow_streamer"],
+        ["blade_bait", "tube_jig", "finesse_jig", "slim_minnow_streamer"],
         colorSet("natural", "natural", "bright"),
         ["walking_topwater", "popping_topwater"],
       );
@@ -393,9 +393,9 @@ function ohioDirtyReservoirExpectation(focus: string): RecommenderAuditExpectati
   }
   if (focus === "summer_positioning") {
     return expectation(
-      "Dirty summer smallmouth reservoirs should still use visible baitfish tools, but controlled topwater can take the lead on active windows instead of being trapped as a permanent backup.",
+      "Dirty summer smallmouth reservoirs should still use visible baitfish tools first. Controlled topwater is seasonally viable on open windows, but bright or more restrained days can still push the lead back to crankbait, spinnerbait, tube, or paddle-tail control.",
       ["spinnerbait", "paddle_tail_swimbait", "tube_jig", "walking_topwater"],
-      ["medium_diving_crankbait", "game_changer", "popper_fly"],
+      ["medium_diving_crankbait", "hair_jig", "game_changer", "popper_fly"],
       dirtyColors(),
       ["hollow_body_frog", "compact_flipping_jig"],
     );
@@ -546,17 +546,12 @@ function northernCaliforniaSmbRiverExpectation(focus: string): RecommenderAuditE
 
 function illinoisRiverSmbExpectation(focus: string): RecommenderAuditExpectation {
   if (focus === "spawn_postspawn_transition") {
-    // SPRING_RIVER fires for GLUM [4,5] (mid/neutral/balanced, crawfish primary)
-    // In dirty water: tube_jig(0) gets clarity PENALTY; ned_rig(1) gets dirty BONUS + crawfish forage match
-    // spinnerbait(2) gets dirty BONUS; soft_jerkbait/suspending/squarebill/inline_spinner get PENALTY
-    // paddle_tail_swimbait(6) gets dirty BONUS but no crawfish match
-    // Expected: spinnerbait or ned_rig wins over tube_jig — tube_jig forage bonus may partially offset its clarity penalty
     return expectation(
-      "GLUM dirty river spring smallmouth: tube_jig is penalized in dirty water; spinnerbait and ned_rig both get dirty clarity bonuses (ned_rig also has crawfish forage alignment); paddle_tail_swimbait surfaces as dirty-friendly baitfish option; clear-water finesse tools drop off.",
+      "GLUM dirty river spring smallmouth should still center on tube, spinnerbait, ned rig, and paddle-tail lanes. Dirty water can demote the cleaner options, but eligibility still comes from the spring river pool rather than clarity acting like a hard monthly ban.",
       ["spinnerbait", "ned_rig", "tube_jig", "paddle_tail_swimbait"],
-      ["hair_jig", "clouser_minnow"],
+      ["hair_jig", "clouser_minnow", "inline_spinner"],
       colorSet("natural", "bright", "dark", "natural"),
-      ["suspending_jerkbait", "squarebill_crankbait", "inline_spinner"],
+      ["suspending_jerkbait", "squarebill_crankbait"],
     );
   }
   if (focus === "summer_positioning") {

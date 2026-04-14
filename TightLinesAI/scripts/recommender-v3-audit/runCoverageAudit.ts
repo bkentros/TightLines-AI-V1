@@ -8,6 +8,7 @@ import {
   type RecommenderV3ArchetypeId,
   type RecommenderV3DailyPayload,
   type RecommenderV3RankedArchetype,
+  type RecommenderV3ResolvedProfile,
   type RecommenderV3SeasonalRow,
   type TacticalLaneV3,
 } from "../../supabase/functions/_shared/recommenderEngine/v3/contracts.ts";
@@ -36,7 +37,6 @@ import {
 } from "./archetypeExpectations.ts";
 import {
   allSyntheticDailyPayloads,
-  COVERAGE_ANALYSIS,
 } from "./syntheticRecommenderAudit.ts";
 
 const OUTPUT_JSON =
@@ -202,7 +202,7 @@ function collectRedundancyCollisions(
 function detectTacticalConflict(
   candidates: readonly RecommenderV3RankedArchetype[],
   daily: RecommenderV3DailyPayload,
-  resolved: ReturnType<typeof runRecommenderV3>["resolved_profile"],
+  resolved: RecommenderV3ResolvedProfile,
 ): { reason: string; lanes: string[]; scores: number[] } | null {
   if (candidates.length < 2) return null;
   const top = candidates[0]!;
@@ -222,7 +222,6 @@ function detectTacticalConflict(
     if ((topSurface && bottom) || (topBottom && surface)) {
       if (
         daily.surface_window === "closed" ||
-        daily.suppress_true_surface ||
         resolved.daily_preference.preferred_presence === "subtle" ||
         daily.suppress_fast_presentations
       ) {
@@ -556,7 +555,6 @@ async function main() {
           daily,
           clarity,
           null,
-          COVERAGE_ANALYSIS,
         );
         const flies = scoreFlyCandidatesV3(
           row,
@@ -564,7 +562,6 @@ async function main() {
           daily,
           clarity,
           null,
-          COVERAGE_ANALYSIS,
         );
         const lureLineup = lures.map((candidate) => candidate.id).join(" > ");
         const flyLineup = flies.map((candidate) => candidate.id).join(" > ");

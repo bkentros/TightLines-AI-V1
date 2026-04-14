@@ -120,6 +120,14 @@ function whyHooks(profile: LegacyFlyProfile): readonly string[] {
   ];
 }
 
+function howToFishVariants(profile: LegacyFlyProfile): readonly [string, string, string] {
+  return profile.how_to_fish_text ?? [
+    `Fish ${profile.display_name.toLowerCase()} with a cadence that matches the day's preference.`,
+    `Keep ${profile.display_name.toLowerCase()} in the part of the lane fish can track cleanly today.`,
+    `Work ${profile.display_name.toLowerCase()} with the least extra motion needed to keep it convincing in today's window.`,
+  ];
+}
+
 function fly(
   profile: LegacyFlyProfile,
 ): RecommenderV3ArchetypeProfile {
@@ -149,9 +157,8 @@ function fly(
     current_friendly: CURRENT_FRIENDLY_FLIES.has(profile.id) ? true : undefined,
     forage_tags: profile.forage_matches,
     why_hooks: whyHooks(profile),
-    how_to_fish_template:
-      profile.how_to_fish_text?.[0] ??
-      `Fish ${profile.display_name.toLowerCase()} with a cadence that matches the day's preference.`,
+    how_to_fish_variants: howToFishVariants(profile),
+    how_to_fish_template: howToFishVariants(profile)[0],
     clarity_strengths: profile.clarity_strengths,
     tactical_lane: profile.tactical_lane,
   };

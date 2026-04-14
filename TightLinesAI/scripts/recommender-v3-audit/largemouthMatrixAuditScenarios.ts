@@ -544,11 +544,11 @@ function georgiaHighlandExpectation(focus: string): RecommenderAuditExpectation 
   }
   if (focus === "spawn_postspawn_transition") {
     return expectation(
-      "Georgia highland spawn/postspawn largemouth should lean on target cover with compact jigs and shallow finesse.",
+      "Georgia highland April-to-May largemouth should stay target-oriented first, but this is one of the southern spring windows where a frog can still be seasonally viable when low light and shallow cover line up.",
       ["compact_flipping_jig", "wacky_rigged_stick_worm", "swim_jig"],
-      ["soft_jerkbait", "paddle_tail_swimbait", "woolly_bugger"],
+      ["soft_jerkbait", "paddle_tail_swimbait", "woolly_bugger", "hollow_body_frog"],
       colorSet("natural", "natural", "natural"),
-      ["hollow_body_frog", "squarebill_crankbait"],
+      ["squarebill_crankbait"],
     );
   }
   if (focus === "summer_positioning") {
@@ -710,11 +710,11 @@ function socalReservoirExpectation(focus: string): RecommenderAuditExpectation {
     case "spawn_postspawn_transition":
       // WESTERN_WARM spawns in May; April is PRESPAWN_LAKE with craw-primary, football_jig leads
       return expectation(
-        "April Southern California reservoir largemouth is still building toward spawn; WESTERN_WARM prespawn rows put football jig at the top with craw-first color reads and moving search lanes as backup.",
+        "Southern California spring largemouth should still read prespawn-to-spawn first, but shallow cover and warming water can leave a real frog lane seasonally possible by late April into May even if it should not dominate every day.",
         ["football_jig", "spinnerbait", "suspending_jerkbait"],
-        ["compact_flipping_jig", "swim_jig", "paddle_tail_swimbait"],
+        ["compact_flipping_jig", "swim_jig", "paddle_tail_swimbait", "hollow_body_frog"],
         colorSet("natural", "natural", "natural"),
-        ["hollow_body_frog"],
+        [],
       );
     case "summer_positioning":
       return expectation(
@@ -877,6 +877,14 @@ function gulfDirtyGrassLakeExpectation(focus: string): RecommenderAuditExpectati
         ["paddle_tail_swimbait", "clouser_minnow"],
         colorSet("bright", "natural", "dark"),
         ["suspending_jerkbait", "football_jig", "hollow_body_frog"],
+      );
+    case "spawn_postspawn_transition":
+      return expectation(
+        "Gulf Coast spring grass largemouth should still be shallow-cover and baitfish-friendly first, but by April and especially May a frog can be seasonally viable around emergent grass when the same-day surface gate stays open.",
+        ["compact_flipping_jig", "swim_jig", "spinnerbait", "paddle_tail_swimbait"],
+        ["hollow_body_frog", "frog_fly", "game_changer"],
+        colorSet("bright", "natural", "dark"),
+        ["blade_bait"],
       );
     case "fall_transition":
     default:

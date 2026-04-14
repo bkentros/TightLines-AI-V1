@@ -203,9 +203,9 @@ function pacificNorthwestRiverExpectation(focus: string): RecommenderAuditExpect
   switch (focus) {
     case "winter_control":
       return expectation(
-        "Northwest winter trout should stay controlled around sculpin, bugger, and zonker-style lanes.",
+        "Northwest winter trout should stay controlled around sculpin, bugger, conehead, and zonker-style lanes. The deepest December current windows can legitimately let conehead or blade-bait style control surface without breaking the winter story.",
         ["sculpin_streamer", "woolly_bugger", "zonker_streamer"],
-        ["rabbit_strip_leech", "suspending_jerkbait", "conehead_streamer"],
+        ["rabbit_strip_leech", "suspending_jerkbait", "conehead_streamer", "blade_bait"],
         clearColors(),
         ["mouse_fly", ...defaultDisallowed()],
       );
@@ -330,9 +330,9 @@ function alaskaBigRiverExpectation(focus: string): RecommenderAuditExpectation {
 function idahoRunoffEdgeExpectation(focus: string): RecommenderAuditExpectation {
   if (focus === "spawn_postspawn_transition") {
     return expectation(
-      "A stained runoff edge should push visible sculpin, bugger, and minnow lanes without turning into bass power fishing.",
+      "A stained runoff edge should push visible streamer and minnow lanes without turning into bass power fishing. In the current April Mountain West row, bucktail and inline-spinner support can legitimately surface alongside the sculpin-bugger family.",
       ["sculpin_streamer", "woolly_bugger", "clouser_minnow"],
-      ["slim_minnow_streamer", "inline_spinner", "muddler_sculpin"],
+      ["slim_minnow_streamer", "inline_spinner", "muddler_sculpin", "bucktail_baitfish_streamer"],
       stainedColors(),
       ["mouse_fly", ...defaultDisallowed()],
     );

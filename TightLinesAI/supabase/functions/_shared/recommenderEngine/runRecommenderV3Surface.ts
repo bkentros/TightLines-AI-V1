@@ -44,6 +44,14 @@ function toSurfaceSpecies(species: ReturnType<typeof computeRecommenderV3>["spec
   }
 }
 
+function colorThemeLabel(theme: ReturnType<typeof computeRecommenderV3>["lure_recommendations"][number]["color_theme"]): string {
+  switch (theme) {
+    case "natural": return "Natural";
+    case "dark":    return "Dark";
+    case "bright":  return "Bright";
+  }
+}
+
 function toSurfaceRecommendation(
   candidate: ReturnType<typeof computeRecommenderV3>["lure_recommendations"][number],
 ): RankedRecommendation {
@@ -51,7 +59,7 @@ function toSurfaceRecommendation(
     id: candidate.id,
     display_name: candidate.display_name,
     family_group: candidate.family_group,
-    color_style: candidate.color_recommendations.join(" / "),
+    color_style: colorThemeLabel(candidate.color_theme),
     why_chosen: candidate.why_chosen,
     how_to_fish: candidate.how_to_fish,
     primary_column: candidate.primary_column,
@@ -75,6 +83,15 @@ export function runRecommenderV3Surface(req: RecommenderRequest): RecommenderRes
   };
   const analysis = analyzeSharedConditions(sharedReq);
   const v3 = computeRecommenderV3(req, analysis);
+
+  if (v3.lure_recommendations.length < 3 || v3.fly_recommendations.length < 3) {
+    throw new Error(
+      `V3 engine returned fewer than 3 recommendations for ${v3.species} ` +
+      `in ${v3.region_key} month ${v3.month} ${v3.context}. ` +
+      `Lures: ${v3.lure_recommendations.length}, Flies: ${v3.fly_recommendations.length}.`,
+    );
+  }
+
   const now = new Date();
   const expires = locationLocalMidnightIso(req.location.local_timezone, now);
 

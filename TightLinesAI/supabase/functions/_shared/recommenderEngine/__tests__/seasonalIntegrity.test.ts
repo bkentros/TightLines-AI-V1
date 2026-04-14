@@ -24,6 +24,18 @@ Deno.test("V3 seasonal tables export unique keys with minimum eligible pools", (
         row.eligible_fly_ids.length >= 3,
         `${label} ${row.region_key} m${row.month} ${row.context} needs >= 3 eligible flies`,
       );
+      for (const id of row.primary_lure_ids ?? []) {
+        assert(
+          row.eligible_lure_ids.includes(id),
+          `${label} ${row.region_key} m${row.month} ${row.context} primary lure '${id}' must also be eligible`,
+        );
+      }
+      for (const id of row.primary_fly_ids ?? []) {
+        assert(
+          row.eligible_fly_ids.includes(id),
+          `${label} ${row.region_key} m${row.month} ${row.context} primary fly '${id}' must also be eligible`,
+        );
+      }
     }
   }
 });

@@ -8,12 +8,26 @@ import type { RegionKey } from "../../../howFishingEngine/contracts/region.ts";
 /** Fallback chain: if a region has no seasonal row for the requested species,
  *  try these substitutes in order before giving up. */
 const REGION_FALLBACKS: Partial<Record<RegionKey, RegionKey[]>> = {
+  // original entries (unchanged)
   gulf_coast: ["south_central", "southeast_atlantic"],
   southeast_atlantic: ["south_central", "appalachian"],
   florida: ["gulf_coast", "south_central"],
   mountain_alpine: ["mountain_west", "inland_northwest"],
   alaska: ["pacific_northwest", "inland_northwest"],
   hawaii: ["southern_california", "southwest_desert"],
+  // complete coverage for all 18 canonical regions
+  northeast: ["great_lakes_upper_midwest", "appalachian"],
+  great_lakes_upper_midwest: ["northeast", "midwest_interior"],
+  midwest_interior: ["great_lakes_upper_midwest", "south_central"],
+  south_central: ["southeast_atlantic", "gulf_coast"],
+  mountain_west: ["inland_northwest", "mountain_alpine"],
+  southwest_desert: ["southern_california", "south_central"],
+  southwest_high_desert: ["mountain_west", "southwest_desert"],
+  pacific_northwest: ["inland_northwest", "northern_california"],
+  southern_california: ["southwest_desert", "gulf_coast"],
+  northern_california: ["pacific_northwest", "mountain_west"],
+  appalachian: ["northeast", "southeast_atlantic"],
+  inland_northwest: ["mountain_west", "pacific_northwest"],
 };
 
 export function resolveSeasonalRowV3(

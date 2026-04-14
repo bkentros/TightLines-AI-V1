@@ -37,6 +37,8 @@ type ActualCandidate = {
   tactical_lane: string;
   color_theme: string;
   color_recommendations: string[];
+  why_chosen: string;
+  how_to_fish: string;
 };
 
 type ReviewSheetScenario = {
@@ -93,6 +95,8 @@ function toActualCandidate(candidate: ReturnType<typeof runRecommenderV3>["lure_
     tactical_lane: candidate.tactical_lane,
     color_theme: candidate.color_theme,
     color_recommendations: candidate.color_recommendations,
+    why_chosen: candidate.why_chosen,
+    how_to_fish: candidate.how_to_fish,
   };
 }
 
@@ -204,6 +208,14 @@ function formatCandidateMarkdown(candidate: ActualCandidate): string {
   return `${candidate.display_name} \`${candidate.id}\` | theme: \`${candidate.color_theme}\` | colors: ${
     candidate.color_recommendations.join(", ")
   }`;
+}
+
+function pushCandidateReasoning(lines: string[], label: string, candidates: ActualCandidate[]) {
+  lines.push(`- ${label}:`);
+  for (const candidate of candidates) {
+    lines.push(`- ${candidate.display_name}: ${candidate.why_chosen}`);
+    lines.push(`- ${candidate.display_name} how: ${candidate.how_to_fish}`);
+  }
 }
 
 function toReviewScenario(
@@ -320,7 +332,7 @@ function toReviewScenario(
         `Daily posture: ${raw.daily_payload.posture_band}`,
         `Daily preference: column=${raw.resolved_profile.daily_preference.preferred_column}, pace=${raw.resolved_profile.daily_preference.preferred_pace}, presence=${raw.resolved_profile.daily_preference.preferred_presence}`,
         `Monthly baseline: columns=${raw.seasonal_row.monthly_baseline.allowed_columns.join("/")}, paces=${raw.seasonal_row.monthly_baseline.allowed_paces.join("/")}, presence=${raw.seasonal_row.monthly_baseline.allowed_presence.join("/")}`,
-        `Guardrails: surface_allowed=${raw.daily_payload.surface_allowed_today}, suppress_true_surface=${raw.daily_payload.suppress_true_surface}, suppress_fast_presentations=${raw.daily_payload.suppress_fast_presentations}, high_visibility_needed=${raw.daily_payload.high_visibility_needed}, column_shift=${raw.daily_payload.column_shift}`,
+        `Guardrails: surface_allowed=${raw.daily_payload.surface_allowed_today}, surface_window=${raw.daily_payload.surface_window}, suppress_fast_presentations=${raw.daily_payload.suppress_fast_presentations}, high_visibility_needed=${raw.daily_payload.high_visibility_needed}, column_shift=${raw.daily_payload.column_shift}`,
         `Variables considered: ${raw.variables_considered.join(", ")}`,
         `Variables triggered: ${raw.daily_payload.variables_triggered.join(", ") || "none"}`,
         ...raw.daily_payload.notes.map((note) => `Daily note: ${note}`),
@@ -386,6 +398,8 @@ function formatScenarioMarkdown(
   for (const note of scenario.actual_output.color_notes) lines.push(`- ${note}`);
   lines.push("- Daily profile notes:");
   for (const note of scenario.actual_output.daily_profile_notes) lines.push(`- ${note}`);
+  pushCandidateReasoning(lines, "Lure reasoning", scenario.actual_output.top_3_lures);
+  pushCandidateReasoning(lines, "Fly reasoning", scenario.actual_output.top_3_flies);
   lines.push("");
   lines.push("Review:");
   lines.push("- Precheck flags:");

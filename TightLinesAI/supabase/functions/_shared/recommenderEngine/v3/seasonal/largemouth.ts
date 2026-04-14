@@ -221,6 +221,12 @@ const WINTER_LAKE_FLIES: readonly FlyArchetypeIdV3[] = [
   "woolly_bugger",
   "sculpin_streamer",
   "conehead_streamer",
+  // Baitfish options so the engine has moving-lane alternatives on genuinely
+  // aggressive or semi-aggressive winter days.  Scoring naturally suppresses
+  // these on cold/slow days (fly_baitfish gets no slow-lane bonus; cold_limited
+  // pace/column shifts strongly favor the bottom-contact flies above).
+  "clouser_minnow",
+  "game_changer",
 ];
 
 const PRESPAWN_LAKE_LURES: readonly LureArchetypeIdV3[] = [
@@ -260,6 +266,7 @@ const SPAWN_LAKE_FLIES: readonly FlyArchetypeIdV3[] = [
   "balanced_leech",
   "rabbit_strip_leech",
   "crawfish_streamer",
+  "clouser_minnow",
 ];
 
 const POSTSPAWN_LAKE_LURES: readonly LureArchetypeIdV3[] = [
@@ -296,6 +303,7 @@ const SUMMER_LAKE_LURES: readonly LureArchetypeIdV3[] = [
 ];
 const SUMMER_LAKE_FLIES: readonly FlyArchetypeIdV3[] = [
   "mouse_fly",
+  "frog_fly",
   "articulated_dungeon_streamer",
   "game_changer",
   "clouser_minnow",
@@ -335,6 +343,9 @@ const WINTER_RIVER_FLIES: readonly FlyArchetypeIdV3[] = [
   "woolly_bugger",
   "sculpin_streamer",
   "conehead_streamer",
+  // clouser_minnow is current-friendly and gives the engine a baitfish option
+  // for active windows in river systems; scoring handles the rest.
+  "clouser_minnow",
 ];
 
 const SPRING_RIVER_LURES: readonly LureArchetypeIdV3[] = [
@@ -367,6 +378,8 @@ const SUMMER_RIVER_LURES: readonly LureArchetypeIdV3[] = [
 ];
 const SUMMER_RIVER_FLIES: readonly FlyArchetypeIdV3[] = [
   "mouse_fly",
+  "popper_fly",
+  "frog_fly",
   "clouser_minnow",
   "game_changer",
   "articulated_dungeon_streamer",
@@ -479,13 +492,11 @@ const DIRTY_SUMMER_RIVER_FLIES: readonly FlyArchetypeIdV3[] = [
 ];
 
 const LATE_SUMMER_CLEAR_LAKE_LURES: readonly LureArchetypeIdV3[] = [
-  "wacky_rigged_stick_worm",
-  "weightless_stick_worm",
   "drop_shot_worm",
-  "shaky_head_worm",
-  "texas_rigged_stick_worm",
   "soft_jerkbait",
   "swim_jig",
+  "suspending_jerkbait",
+  "paddle_tail_swimbait",
 ];
 const LATE_SUMMER_CLEAR_LAKE_FLIES: readonly FlyArchetypeIdV3[] = [
   "game_changer",
@@ -506,6 +517,7 @@ const EARLY_FALL_GRASS_LAKE_LURES: readonly LureArchetypeIdV3[] = [
   "squarebill_crankbait",
 ];
 const EARLY_FALL_GRASS_LAKE_FLIES: readonly FlyArchetypeIdV3[] = [
+  "popper_fly",
   "game_changer",
   "clouser_minnow",
   "articulated_baitfish_streamer",
@@ -599,7 +611,6 @@ const SOCAL_MILD_WINTER_RESERVOIR_LURES: readonly LureArchetypeIdV3[] = [
   "suspending_jerkbait",
   "flat_sided_crankbait",
   "drop_shot_worm",
-  "shaky_head_worm",
   "paddle_tail_swimbait",
 ];
 const SOCAL_MILD_WINTER_RESERVOIR_FLIES: readonly FlyArchetypeIdV3[] = [
@@ -826,17 +837,10 @@ const SOUTHEAST_SUMMER_CONTROL_LAKE_FLIES: readonly FlyArchetypeIdV3[] = [
   "clouser_minnow",
 ];
 
-// Minnesota weed-lake summer: swim_jig leads so it wins the frog/jig tiebreak in clear water
-const MN_WEED_LAKE_SUMMER_LURES: readonly LureArchetypeIdV3[] = [
-  "swim_jig",
-  "walking_topwater",
-  "hollow_body_frog",
-  "weightless_stick_worm",
-  "paddle_tail_swimbait",
-  "wacky_rigged_stick_worm",
-  "buzzbait",
-  "prop_bait",
-];
+// Minnesota weed-lake summer: swim_jig leads so it wins the frog/jig tiebreak in clear water.
+// NOTE: this constant is superseded by the inline pool in the great_lakes_upper_midwest July and
+// August overrides below — kept here for reference only.
+// const MN_WEED_LAKE_SUMMER_LURES = [ ... ]
 
 const FLORIDA_WINTER_CONTROL_LAKE_LURES: readonly LureArchetypeIdV3[] = [
   "texas_rigged_soft_plastic_craw",
@@ -938,6 +942,7 @@ const ALABAMA_SUMMER_RIVER_FLIES: readonly FlyArchetypeIdV3[] = [
 
 const SOUTH_CENTRAL_SUMMER_RIVER_LURES: readonly LureArchetypeIdV3[] = [
   "spinnerbait",
+  "paddle_tail_swimbait",
   "compact_flipping_jig",
   "swim_jig",
   "squarebill_crankbait",
@@ -1007,7 +1012,7 @@ const NORTHERN_CLEAR_WINTER_LAKE_LURES: readonly LureArchetypeIdV3[] = [
   "flat_sided_crankbait",
   "football_jig",
   "paddle_tail_swimbait",
-  "shaky_head_worm",
+  "drop_shot_worm",
 ];
 const NORTHERN_CLEAR_PRESPAWN_CRANK_LAKE_LURES: readonly LureArchetypeIdV3[] = [
   "flat_sided_crankbait",
@@ -1042,11 +1047,11 @@ const NORTHERN_CLEAR_SPAWN_LAKE_FLIES: readonly FlyArchetypeIdV3[] = [
 
 const NORTHERN_CLEAR_SUMMER_LAKE_LURES: readonly LureArchetypeIdV3[] = [
   "wacky_rigged_stick_worm",
-  "weightless_stick_worm",
   "drop_shot_worm",
   "soft_jerkbait",
   "swim_jig",
   "paddle_tail_swimbait",
+  "suspending_jerkbait",
 ];
 const NORTHERN_CLEAR_SUMMER_LAKE_FLIES: readonly FlyArchetypeIdV3[] = [
   "game_changer",
@@ -1183,6 +1188,7 @@ const WESTERN_INLAND_REGIONS: readonly RegionKey[] = [
 
 export const LARGEMOUTH_V3_SUPPORTED_REGIONS: readonly RegionKey[] = [
   ...TROPICAL_WARM_REGIONS,
+  ...HAWAII_REGIONS,
   ...SOUTHEAST_WARM_REGIONS,
   ...APPALACHIAN_REGIONS,
   ...SOUTH_CENTRAL_REGIONS,
@@ -2409,17 +2415,6 @@ addMonths(["florida"], "freshwater_lake_pond", [4], {
   primary_fly_archetypes: ["woolly_bugger", "crawfish_streamer"],
   viable_fly_archetypes: FLORIDA_SPAWN_CLEAR_LAKE_FLIES,
 });
-addMonths(["florida"], "freshwater_lake_pond", [5], {
-  base_water_column: "shallow",
-  base_mood: "neutral",
-  base_presentation_style: "balanced",
-  primary_forage: "leech_worm",
-  secondary_forage: "baitfish",
-  primary_lure_archetypes: ["texas_rigged_stick_worm", "hollow_body_frog"],
-  viable_lure_archetypes: FLORIDA_MAY_SHALLOW_COVER_LAKE_LURES,
-  primary_fly_archetypes: ["woolly_bugger", "frog_fly"],
-  viable_fly_archetypes: FLORIDA_POSTSPAWN_SHALLOW_LAKE_FLIES,
-});
 addMonths(["florida"], "freshwater_lake_pond", [7], {
   base_water_column: "shallow",
   base_mood: "active",
@@ -2503,7 +2498,7 @@ addMonths(["south_central"], "freshwater_lake_pond", [1], {
 addMonths(["south_central"], "freshwater_lake_pond", [7], {
   base_water_column: "bottom",
   base_mood: "neutral",
-  base_presentation_style: "bold",
+  base_presentation_style: "balanced",
   primary_forage: "crawfish",
   secondary_forage: "bluegill_perch",
   primary_lure_archetypes: ["compact_flipping_jig", "deep_diving_crankbait"],
@@ -2660,7 +2655,7 @@ addMonths(["northeast"], "freshwater_lake_pond", [4, 5], {
   base_presentation_style: "balanced",
   primary_forage: "crawfish",
   secondary_forage: "baitfish",
-  primary_lure_archetypes: ["weightless_stick_worm", "wacky_rigged_stick_worm"],
+  primary_lure_archetypes: ["weightless_stick_worm", "compact_flipping_jig"],
   viable_lure_archetypes: NORTHERN_CLEAR_SPAWN_LAKE_LURES,
   primary_fly_archetypes: ["woolly_bugger", "clouser_minnow"],
   viable_fly_archetypes: NORTHERN_CLEAR_SPAWN_LAKE_FLIES,
@@ -2671,10 +2666,21 @@ addMonths(["northeast"], "freshwater_lake_pond", [6, 7], {
   base_presentation_style: "subtle",
   primary_forage: "bluegill_perch",
   secondary_forage: "baitfish",
-  primary_lure_archetypes: ["wacky_rigged_stick_worm", "soft_jerkbait"],
+  primary_lure_archetypes: ["wacky_rigged_stick_worm", "swim_jig"],
   viable_lure_archetypes: NORTHERN_CLEAR_SUMMER_LAKE_LURES,
   primary_fly_archetypes: ["game_changer", "woolly_bugger"],
   viable_fly_archetypes: NORTHERN_CLEAR_SUMMER_LAKE_FLIES,
+});
+addMonths(["northeast"], "freshwater_lake_pond", [8], {
+  base_water_column: "mid",
+  base_mood: "neutral",
+  base_presentation_style: "subtle",
+  primary_forage: "baitfish",
+  secondary_forage: "bluegill_perch",
+  primary_lure_archetypes: ["soft_jerkbait", "drop_shot_worm"],
+  viable_lure_archetypes: LATE_SUMMER_CLEAR_LAKE_LURES,
+  primary_fly_archetypes: ["game_changer", "woolly_bugger"],
+  viable_fly_archetypes: LATE_SUMMER_CLEAR_LAKE_FLIES,
 });
 addMonths(["northeast"], "freshwater_lake_pond", [11], {
   base_water_column: "mid",
@@ -2687,13 +2693,27 @@ addMonths(["northeast"], "freshwater_lake_pond", [11], {
   primary_fly_archetypes: ["game_changer", "clouser_minnow"],
   viable_fly_archetypes: NORTHERN_CLEAR_FALL_LAKE_FLIES,
 });
+// Northeast March: water is still mid-40s°F — cold-clear prespawn calls for the same
+// finesse/crankbait window that Great Lakes gets rather than the generic fast-search
+// PRESPAWN_LAKE_LURES that the shared NORTHERN_REGIONS base row would otherwise apply.
+addMonths(["northeast"], "freshwater_lake_pond", [3], {
+  base_water_column: "mid",
+  base_mood: "neutral",
+  base_presentation_style: "subtle",
+  primary_forage: "crawfish",
+  secondary_forage: "baitfish",
+  primary_lure_archetypes: ["flat_sided_crankbait", "suspending_jerkbait"],
+  viable_lure_archetypes: NORTHERN_CLEAR_PRESPAWN_CRANK_LAKE_LURES,
+  primary_fly_archetypes: ["rabbit_strip_leech", "sculpin_streamer"],
+  viable_fly_archetypes: NORTHERN_CLEAR_WINTER_LAKE_FLIES,
+});
 addMonths(["great_lakes_upper_midwest"], "freshwater_lake_pond", [5], {
   base_water_column: "shallow",
   base_mood: "neutral",
   base_presentation_style: "balanced",
   primary_forage: "leech_worm",
   secondary_forage: "baitfish",
-  primary_lure_archetypes: ["weightless_stick_worm", "wacky_rigged_stick_worm"],
+  primary_lure_archetypes: ["weightless_stick_worm", "swim_jig"],
   viable_lure_archetypes: NORTHERN_CLEAR_SPAWN_LAKE_LURES,
   primary_fly_archetypes: ["woolly_bugger", "clouser_minnow"],
   viable_fly_archetypes: NORTHERN_CLEAR_SPAWN_LAKE_FLIES,
@@ -2885,11 +2905,10 @@ addMonths(["great_lakes_upper_midwest"], "freshwater_lake_pond", [7], {
   base_presentation_style: "balanced",
   primary_forage: "baitfish",
   secondary_forage: "bluegill_perch",
-  primary_lure_archetypes: ["swim_jig", "weightless_stick_worm"],
+  primary_lure_archetypes: ["swim_jig", "soft_jerkbait"],
   viable_lure_archetypes: [
     "swim_jig",
     "weightless_stick_worm",
-    "wacky_rigged_stick_worm",
     "paddle_tail_swimbait",
     "soft_jerkbait",
     "hollow_body_frog",
@@ -2915,6 +2934,23 @@ addMonths(["florida"], "freshwater_lake_pond", [5], {
   viable_lure_archetypes: FLORIDA_MAY_SHALLOW_COVER_LAKE_LURES,
   primary_fly_archetypes: ["woolly_bugger", "frog_fly"],
   viable_fly_archetypes: FLORIDA_POSTSPAWN_SHALLOW_LAKE_FLIES,
+});
+addMonths(["pacific_northwest"], "freshwater_lake_pond", [8], {
+  base_water_column: "mid",
+  base_mood: "neutral",
+  base_presentation_style: "balanced",
+  primary_forage: "baitfish",
+  secondary_forage: "bluegill_perch",
+  primary_lure_archetypes: ["swim_jig", "paddle_tail_swimbait"],
+  viable_lure_archetypes: [
+    "swim_jig",
+    "paddle_tail_swimbait",
+    "soft_jerkbait",
+    "hollow_body_frog",
+    "drop_shot_minnow",
+  ],
+  primary_fly_archetypes: ["game_changer", "clouser_minnow"],
+  viable_fly_archetypes: SUMMER_LAKE_FLIES,
 });
 addMonths(["southern_california"], "freshwater_lake_pond", [7], {
   base_water_column: "top",

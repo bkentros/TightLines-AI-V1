@@ -25,6 +25,17 @@ function normalizeLightLabel(label: string | null): string | null {
   return label;
 }
 
+/**
+ * Clamps an integer accumulator to the bounded shift type.
+ * Positive delta → +1, negative delta → -1, zero → 0.
+ * Multiple signals add rather than overwrite each other.
+ */
+function clampToShift(delta: number): -1 | 0 | 1 {
+  if (delta > 0) return 1;
+  if (delta < 0) return -1;
+  return 0;
+}
+
 function pushNote(notes: string[], note: string | null) {
   if (!note) return;
   if (!notes.includes(note)) notes.push(note);
@@ -91,15 +102,13 @@ function resolveSurfaceWindow(
   ) {
     return "closed";
   }
-  if (
-    lightLabel === "low_light"
-  ) {
+  if (lightLabel === "low_light") {
     return windLabel === "moderate" ? "rippled" : "clean";
   }
-  if (
-    lightLabel === "heavy_overcast" ||
-    windLabel === "moderate"
-  ) {
+  if (lightLabel === "heavy_overcast") {
+    return (windLabel === "strong" || windLabel === "extreme") ? "rippled" : "clean";
+  }
+  if (windLabel === "moderate") {
     return "rippled";
   }
   return "rippled";
@@ -123,6 +132,11 @@ function resolveOpportunityMix(
  * - consume normalized upstream states
  * - emit bounded tactical shifts and hard gates
  * - keep the reasoning inspectable
+ *
+ * Shifts use integer accumulators (columnDelta, paceDelta, presenceDelta) that
+ * are clamped to -1/0/1 at the end. Multiple competing signals add rather than
+ * overwrite each other. Strong suppressors (cold_limited, blown-out runoff) use
+ * ±2 so they dominate unless opposed by two or more meaningful signals.
  */
 export function resolveDailyPayloadV3(
   analysis: SharedConditionAnalysis,
@@ -140,88 +154,97 @@ export function resolveDailyPayloadV3(
     analysis.norm.normalized.runoff_flow_disruption?.label ?? null;
 
   let postureScore = 0;
-  let columnShift: -1 | 0 | 1 = 0;
-  let paceShift: -1 | 0 | 1 = 0;
-  let presenceShift: -1 | 0 | 1 = 0;
+  let columnDelta = 0;
+  let paceDelta = 0;
+  let presenceDelta = 0;
 
   const notes: string[] = [];
   const triggered: TriggerKey[] = [];
 
+  // --- Temperature metabolic context ---
+  // cold_limited and heat_limited are biologically distinct:
+  //   cold_limited  = dormant fish; strong suppressor (-2 column weight)
+  //   heat_limited  = thermally stressed fish seeking cooler/deeper water; softer suppressor
   const metabolic = analysis.condition_context.temperature_metabolic_context;
-  if (metabolic === "cold_limited" || metabolic === "heat_limited") {
+  if (metabolic === "cold_limited") {
     postureScore -= 2;
-    paceShift = -1;
-    columnShift = -1;
+    columnDelta -= 2;
+    paceDelta -= 1;
+    pushNote(notes, "Cold metabolism shuts down activity. Slow and low is the only play.");
+    pushTriggered(triggered, "temperature_metabolic_context", true);
+  } else if (metabolic === "heat_limited") {
+    postureScore -= 1;
+    columnDelta -= 1;
+    paceDelta -= 1;
     pushNote(
       notes,
-      "Temperature metabolism suppresses the day and favors slower execution.",
+      "Heat stress moves fish to cooler, deeper water and narrows the feeding window.",
     );
     pushTriggered(triggered, "temperature_metabolic_context", true);
   } else {
     postureScore += 1;
   }
 
+  // --- Temperature trend ---
   if (analysis.condition_context.temperature_trend === "warming") {
     postureScore += 1;
-    columnShift = 1;
-    pushNote(
-      notes,
-      "A warming trend nudges fish slightly higher in the allowed range.",
-    );
+    columnDelta += 1;
+    pushNote(notes, "A warming trend nudges fish slightly higher in the allowed range.");
     pushTriggered(triggered, "temperature_trend", true);
   } else if (analysis.condition_context.temperature_trend === "cooling") {
     postureScore -= 1;
-    columnShift = -1;
-    paceShift = -1;
-    pushNote(
-      notes,
-      "A cooling trend tightens fish and shifts preference lower and slower.",
-    );
+    columnDelta -= 1;
+    paceDelta -= 1;
+    pushNote(notes, "A cooling trend tightens fish and shifts preference lower and slower.");
     pushTriggered(triggered, "temperature_trend", true);
   }
 
+  // --- Temperature shock ---
   if (analysis.condition_context.temperature_shock === "sharp_cooldown") {
     postureScore -= 1;
-    columnShift = -1;
+    columnDelta -= 1;
     pushNote(notes, "A sharp cooldown reinforces a lower daily lane.");
     pushTriggered(triggered, "temperature_shock", true);
   } else if (analysis.condition_context.temperature_shock === "sharp_warmup") {
     postureScore += 1;
-    columnShift = 1;
+    columnDelta += 1;
     pushTriggered(triggered, "temperature_shock", true);
   }
 
+  // --- Pressure regime ---
   if (pressureLabel === "falling_slow" || pressureLabel === "falling_moderate") {
     postureScore += 1;
-    paceShift = 1;
+    paceDelta += 1;
     pushNote(notes, "Falling pressure supports a more willing feeding window.");
     pushTriggered(triggered, "pressure_regime", true);
   } else if (pressureLabel === "rising_fast" || pressureLabel === "volatile") {
     postureScore -= 1;
-    paceShift = -1;
+    paceDelta -= 1;
     pushNote(notes, "Rising or volatile pressure tightens the daily window.");
     pushTriggered(triggered, "pressure_regime", true);
   }
 
+  // --- Light ---
   if (lightLabel === "low_light" || lightLabel === "heavy_overcast") {
     postureScore += 1;
-    if (columnShift < 1) columnShift = 1;
-    if (clarity !== "clear") presenceShift = 1;
+    columnDelta += 1;
+    if (clarity !== "clear") presenceDelta += 1;
     pushNote(notes, "Lower light supports a slightly higher, more open lane.");
     pushTriggered(triggered, "light_cloud_condition", true);
   } else if (lightLabel === "bright" || lightLabel === "glare") {
     postureScore -= 1;
-    if (columnShift > -1) columnShift = -1;
-    if (paceShift > -1) paceShift = -1;
-    if (clarity === "clear") presenceShift = -1;
+    columnDelta -= 1;
+    paceDelta -= 1;
+    if (clarity === "clear") presenceDelta -= 1;
     pushNote(notes, "Bright light trims the day back toward cleaner looks.");
     pushTriggered(triggered, "light_cloud_condition", true);
   }
 
+  // --- Wind ---
   if (windLabel === "moderate") {
     if (context === "freshwater_lake_pond") {
       postureScore += 1;
-      if (clarity !== "clear") presenceShift = 1;
+      if (clarity !== "clear") presenceDelta += 1;
       pushNote(
         notes,
         "Moderate chop improves fishability and supports a stronger moving look.",
@@ -234,9 +257,12 @@ export function resolveDailyPayloadV3(
     pushTriggered(triggered, "wind_condition", true);
   }
 
+  // --- River runoff / Lake precip ---
+  // Blown-out runoff uses ±2 so it dominates the column/pace direction unless
+  // opposed by two or more strong positive signals.
   if (context === "freshwater_river") {
     if (runoffLabel === "slightly_elevated") {
-      presenceShift = 1;
+      presenceDelta += 1;
       pushNote(
         notes,
         "Slightly elevated runoff supports a more visible river presentation.",
@@ -244,9 +270,9 @@ export function resolveDailyPayloadV3(
       pushTriggered(triggered, "runoff_flow_disruption", true);
     } else if (runoffLabel === "elevated" || runoffLabel === "blown_out") {
       postureScore -= 2;
-      columnShift = -1;
-      paceShift = -1;
-      presenceShift = 1;
+      columnDelta -= 2;
+      paceDelta -= 2;
+      presenceDelta += 1;
       pushNote(
         notes,
         "Elevated runoff tightens fish and pulls the day lower and slower.",
@@ -260,23 +286,30 @@ export function resolveDailyPayloadV3(
     pushTriggered(triggered, "precipitation_disruption", true);
     if (precipLabel === "active_disruption") {
       postureScore -= 2;
-      paceShift = -1;
+      paceDelta -= 1;
       pushNote(
         notes,
         "Active precipitation disruption narrows the clean bite window.",
       );
     } else if (precipLabel === "recent_rain") {
       postureScore -= 1;
-      if (clarity !== "clear") presenceShift = 1;
+      if (clarity !== "clear") presenceDelta += 1;
     }
   }
 
+  // --- Clarity-driven presence override (hard rules applied after accumulation) ---
+  // Dirty water always forces presence toward visibility — no signal can override this.
+  // Clear water defaults presence to subtle only when no other signal moved it.
   if (clarity === "dirty") {
-    presenceShift = 1;
+    presenceDelta = Math.max(1, presenceDelta);
     pushNote(notes, "Dirty water demands more visibility.");
-  } else if (clarity === "clear" && presenceShift === 0) {
-    presenceShift = -1;
+  } else if (clarity === "clear" && presenceDelta === 0) {
+    presenceDelta = -1;
   }
+
+  const columnShift = clampToShift(columnDelta);
+  const paceShift = clampToShift(paceDelta);
+  const presenceShift = clampToShift(presenceDelta);
 
   const postureBand = resolvePostureBand(postureScore);
   const reactionWindow = resolveReactionWindow(postureBand, lightLabel, pressureLabel);
@@ -307,7 +340,6 @@ export function resolveDailyPayloadV3(
     pace_shift: paceShift,
     presence_shift: presenceShift,
     surface_allowed_today: surfaceWindow !== "closed",
-    suppress_true_surface: surfaceWindow === "closed",
     suppress_fast_presentations:
       postureBand === "suppressed" || postureBand === "slightly_suppressed",
     high_visibility_needed: clarity === "dirty" || presenceShift === 1,

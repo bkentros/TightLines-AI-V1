@@ -18,7 +18,6 @@ import {
 } from "../../supabase/functions/_shared/recommenderEngine/v3/index.ts";
 import {
   allSyntheticDailyPayloads,
-  COVERAGE_ANALYSIS,
   NEUTRAL_SYNTHETIC_DAILY,
 } from "./syntheticRecommenderAudit.ts";
 
@@ -464,7 +463,6 @@ for (const row of AUDITED_ROWS) {
       NEUTRAL_DAILY,
       clarity,
       LIGHT_BY_CLARITY[clarity],
-      COVERAGE_ANALYSIS,
     );
     const neutralFlies = scoreFlyCandidatesV3(
       row,
@@ -472,7 +470,6 @@ for (const row of AUDITED_ROWS) {
       NEUTRAL_DAILY,
       clarity,
       LIGHT_BY_CLARITY[clarity],
-      COVERAGE_ANALYSIS,
     );
 
     for (const daily of DAILY_PAYLOADS) {
@@ -483,7 +480,6 @@ for (const row of AUDITED_ROWS) {
         daily,
         clarity,
         LIGHT_BY_CLARITY[clarity],
-        COVERAGE_ANALYSIS,
       );
       const flies = scoreFlyCandidatesV3(
         row,
@@ -491,7 +487,6 @@ for (const row of AUDITED_ROWS) {
         daily,
         clarity,
         LIGHT_BY_CLARITY[clarity],
-        COVERAGE_ANALYSIS,
       );
       updateAggregate(
         aggregates.lure,

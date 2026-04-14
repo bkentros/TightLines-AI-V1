@@ -44,7 +44,6 @@ export function computeRecommenderV3(
     dailyPayload,
     req.water_clarity,
     lightLabel,
-    analysis,
   );
   const flyRecommendations = scoreFlyCandidatesV3(
     seasonalRow,
@@ -52,7 +51,6 @@ export function computeRecommenderV3(
     dailyPayload,
     req.water_clarity,
     lightLabel,
-    analysis,
   );
 
   return {
