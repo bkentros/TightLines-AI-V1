@@ -7,6 +7,7 @@ const CONDITION_FIT_SCALE = 2.35;
 const LANE_WEIGHTS: Record<TacticalLaneV3, RecommenderV3ConditionFeatures> = {
   bottom_contact: {
     willingness: -0.44,
+    tempo_bias: -0.46,
     wind_stress: 0.16,
     light_stress: 0.1,
     pressure_stress: 0.12,
@@ -17,6 +18,7 @@ const LANE_WEIGHTS: Record<TacticalLaneV3, RecommenderV3ConditionFeatures> = {
   },
   finesse_subtle: {
     willingness: -0.38,
+    tempo_bias: -0.58,
     wind_stress: 0.22,
     light_stress: 0.28,
     pressure_stress: 0.18,
@@ -27,6 +29,7 @@ const LANE_WEIGHTS: Record<TacticalLaneV3, RecommenderV3ConditionFeatures> = {
   },
   horizontal_search: {
     willingness: 0.32,
+    tempo_bias: 0.5,
     wind_stress: 0.08,
     light_stress: 0.06,
     pressure_stress: -0.08,
@@ -37,6 +40,7 @@ const LANE_WEIGHTS: Record<TacticalLaneV3, RecommenderV3ConditionFeatures> = {
   },
   reaction_mid_column: {
     willingness: 0.36,
+    tempo_bias: 0.66,
     wind_stress: 0.06,
     light_stress: 0.04,
     pressure_stress: -0.14,
@@ -47,6 +51,7 @@ const LANE_WEIGHTS: Record<TacticalLaneV3, RecommenderV3ConditionFeatures> = {
   },
   surface: {
     willingness: 0.52,
+    tempo_bias: 0.34,
     wind_stress: -0.58,
     light_stress: -0.48,
     pressure_stress: -0.12,
@@ -57,6 +62,7 @@ const LANE_WEIGHTS: Record<TacticalLaneV3, RecommenderV3ConditionFeatures> = {
   },
   cover_weedless: {
     willingness: 0.18,
+    tempo_bias: -0.08,
     wind_stress: 0.1,
     light_stress: 0.08,
     pressure_stress: 0.06,
@@ -67,6 +73,7 @@ const LANE_WEIGHTS: Record<TacticalLaneV3, RecommenderV3ConditionFeatures> = {
   },
   pike_big_profile: {
     willingness: 0.28,
+    tempo_bias: 0.48,
     wind_stress: 0.02,
     light_stress: -0.06,
     pressure_stress: -0.1,
@@ -77,6 +84,7 @@ const LANE_WEIGHTS: Record<TacticalLaneV3, RecommenderV3ConditionFeatures> = {
   },
   fly_baitfish: {
     willingness: 0.26,
+    tempo_bias: 0.52,
     wind_stress: 0.08,
     light_stress: 0.04,
     pressure_stress: -0.06,
@@ -87,6 +95,7 @@ const LANE_WEIGHTS: Record<TacticalLaneV3, RecommenderV3ConditionFeatures> = {
   },
   fly_bottom: {
     willingness: -0.4,
+    tempo_bias: -0.48,
     wind_stress: 0.14,
     light_stress: 0.12,
     pressure_stress: 0.14,
@@ -97,13 +106,14 @@ const LANE_WEIGHTS: Record<TacticalLaneV3, RecommenderV3ConditionFeatures> = {
   },
   fly_surface: {
     willingness: 0.45,
+    tempo_bias: 0.24,
     wind_stress: -0.52,
     light_stress: -0.42,
     pressure_stress: -0.1,
     temp_stress: -0.2,
     hydro_stress: -0.1,
     clarity_visibility_push: 0.18,
-    surface_window: 0.82,
+    surface_window: 0.68,
   },
 };
 
@@ -118,7 +128,14 @@ const ID_DELTA: Partial<
   walking_topwater: { light_stress: -0.18, wind_stress: -0.12 },
   popping_topwater: { light_stress: -0.15, clarity_visibility_push: 0.08 },
   popper_fly: { light_stress: -0.14, wind_stress: -0.1 },
-  suspending_jerkbait: { temp_stress: 0.12, willingness: -0.08 },
+  mouse_fly: { light_stress: -0.38, willingness: 0.16, tempo_bias: 0.14 },
+  hair_jig: { tempo_bias: -0.24, surface_window: -0.14 },
+  soft_jerkbait: { tempo_bias: 0.12, surface_window: 0.08 },
+  paddle_tail_swimbait: { tempo_bias: 0.1 },
+  squarebill_crankbait: { tempo_bias: 0.16, surface_window: 0.05 },
+  suspending_jerkbait: { temp_stress: 0.12, willingness: -0.08, tempo_bias: 0.18 },
+  pike_jerkbait: { tempo_bias: 0.18, willingness: 0.08 },
+  pike_bunny_streamer: { tempo_bias: 0.12, light_stress: -0.08 },
   football_jig: { temp_stress: 0.1, willingness: -0.12 },
   drop_shot_worm: { willingness: -0.28, clarity_visibility_push: -0.2 },
   ned_rig: { willingness: -0.26, clarity_visibility_push: -0.22 },
@@ -126,6 +143,7 @@ const ID_DELTA: Partial<
 
 const FEATURE_KEYS = [
   "willingness",
+  "tempo_bias",
   "wind_stress",
   "light_stress",
   "pressure_stress",
@@ -155,6 +173,7 @@ function mergeLaneAndDelta(
   if (!delta) return base;
   return {
     willingness: base.willingness + (delta.willingness ?? 0),
+    tempo_bias: base.tempo_bias + (delta.tempo_bias ?? 0),
     wind_stress: base.wind_stress + (delta.wind_stress ?? 0),
     light_stress: base.light_stress + (delta.light_stress ?? 0),
     pressure_stress: base.pressure_stress + (delta.pressure_stress ?? 0),

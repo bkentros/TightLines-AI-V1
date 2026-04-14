@@ -244,8 +244,7 @@ function detectTacticalConflict(
     }
     if (
       topPace === "fast" && pace === "slow" &&
-      (daily.posture_band === "aggressive" ||
-        daily.posture_band === "slightly_aggressive")
+      daily.pace_bias_today === "fast"
     ) {
       return {
         reason: "slow_vs_fast",

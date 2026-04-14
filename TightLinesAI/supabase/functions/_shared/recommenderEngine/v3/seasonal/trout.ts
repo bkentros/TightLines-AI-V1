@@ -10,8 +10,10 @@ import type {
 import type { RegionKey } from "../../../howFishingEngine/contracts/region.ts";
 import {
   baseSeasonalWaterColumn,
+  finalizeSeasonalRows,
   shiftSeasonalWaterColumn,
   sortEligibleArchetypeIds,
+  upsertSeasonalRow,
 } from "./tuning.ts";
 
 type LegacyWaterColumn = "top" | "shallow" | "mid" | "bottom";
@@ -29,7 +31,7 @@ type LegacySeasonalCore = {
   viable_fly_archetypes: readonly FlyArchetypeIdV3[];
 };
 
-const TROUT_ROWS: RecommenderV3SeasonalRow[] = [];
+const TROUT_ROWS = new Map<string, RecommenderV3SeasonalRow>();
 
 function inRegions(region_key: RegionKey, regions: readonly RegionKey[]): boolean {
   return regions.includes(region_key);
@@ -114,7 +116,7 @@ function addMonths(
 ) {
   for (const region_key of regions) {
     for (const month of months) {
-      TROUT_ROWS.push(toSeasonalRow(region_key, month, core));
+      upsertSeasonalRow(TROUT_ROWS, toSeasonalRow(region_key, month, core));
     }
   }
 }
@@ -805,4 +807,4 @@ addMonths(["alaska"], [7], {
   viable_fly_archetypes: ALASKA_SUMMER_RIVER_FLIES,
 });
 
-export const TROUT_V3_SEASONAL_ROWS = TROUT_ROWS;
+export const TROUT_V3_SEASONAL_ROWS = finalizeSeasonalRows(TROUT_ROWS);

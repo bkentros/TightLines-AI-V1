@@ -1,13 +1,13 @@
 # Largemouth V3 Gold Batch 3 Review Sheet
 
-Generated: 2026-04-04T15:53:47.724Z
+Generated: 2026-04-13T19:19:51.831Z
 Archive bundle generated: 2026-04-04T13:57:26.415Z
 Scenario count: 10
 Contexts: 8 lake/pond, 2 river
 Priority mix: 5 core, 5 secondary
 Completed engine runs: 10/10
 
-This sheet is the scoring surface for the freshwater V3 largemouth audit batch.
+This sheet is the scoring surface for the freshwater V3 recommender audit batch.
 It supports archive-backed engine runs, real top-3 output capture, and lightweight precheck flags before manual scoring.
 
 Scoring rubric:
@@ -49,9 +49,9 @@ Disallowed lanes:
 - blade_bait
 - hollow_body_frog
 Expected color themes:
-- watermelon_natural
-- green_pumpkin_natural
-- natural_baitfish
+- natural
+- natural
+- natural
 
 Archived env summary:
 - Region: florida
@@ -66,35 +66,42 @@ Archived env summary:
 - Sunrise/sunset: 06:57 / 19:53
 
 Actual output:
-- Top 1 lure: Weightless Stick Worm `weightless_stick_worm` | theme: `green_pumpkin_natural` | colors: green pumpkin, green pumpkin blue, pb&j
+- Top 1 lure: Weightless Stick Worm `weightless_stick_worm` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 3 lures:
-- Weightless Stick Worm `weightless_stick_worm` | theme: `green_pumpkin_natural` | colors: green pumpkin, green pumpkin blue, pb&j
-- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Wacky-Rigged Stick Worm `wacky_rigged_stick_worm` | theme: `green_pumpkin_natural` | colors: green pumpkin, green pumpkin blue, pb&j
-- Top 1 fly: Woolly Bugger `woolly_bugger` | theme: `dark_contrast` | colors: black, black/olive, black/purple
+- Weightless Stick Worm `weightless_stick_worm` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Compact Flipping Jig `compact_flipping_jig` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Top 1 fly: Rabbit-Strip Leech `rabbit_strip_leech` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 3 flies:
-- Woolly Bugger `woolly_bugger` | theme: `dark_contrast` | colors: black, black/olive, black/purple
-- Clouser Minnow `clouser_minnow` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Rabbit-Strip Leech `rabbit_strip_leech` | theme: `dark_contrast` | colors: black, black/purple, black/blue
+- Rabbit-Strip Leech `rabbit_strip_leech` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Woolly Bugger `woolly_bugger` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Crawfish Streamer `crawfish_streamer` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Color notes:
-- Weightless Stick Worm: Theme: green pumpkin natural. Try green pumpkin, green pumpkin blue, pb&j.
-- Paddle-Tail Swimbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Wacky-Rigged Stick Worm: Theme: green pumpkin natural. Try green pumpkin, green pumpkin blue, pb&j.
-- Woolly Bugger: Theme: dark contrast. Try black, black/olive, black/purple.
-- Clouser Minnow: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Rabbit-Strip Leech: Theme: dark contrast. Try black, black/purple, black/blue.
+- Color of day: Natural Colors
+- Weightless Stick Worm: natural -> green pumpkin, olive, smoke
+- Compact Flipping Jig: natural -> green pumpkin, olive, smoke
+- Paddle-Tail Swimbait: natural -> green pumpkin, olive, smoke
+- Rabbit-Strip Leech: natural -> green pumpkin, olive, smoke
+- Woolly Bugger: natural -> green pumpkin, olive, smoke
+- Crawfish Streamer: natural -> green pumpkin, olive, smoke
 - Daily profile notes:
-- Shared score: 72 (Good)
-- Daily nudges: mood=up_1, water_column=higher_1, presentation=subtler
-- Resolved profile: water_column=shallow, mood=active, presentation=subtle
-- Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
+- Daily posture: neutral (5.6/10)
+- Presentation presence today: subtle
+- Resolved profile: typical_column=top, likely_column_today=top, seasonal_location=shallow, posture=neutral, presentation=subtle
+- Guardrails: surface_allowed=false, suppress_true_topwater=true, suppress_fast_presentations=false, high_visibility_needed=false, column_shift_half_steps=0
+- Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
+- Variables triggered: temperature_metabolic_context, temperature_trend, wind_condition, light_cloud_condition, precipitation_disruption
+- Daily note: Neutral temperature metabolism keeps the day open to the normal seasonal pattern.
+- Daily note: A warming trend nudges fish into a slightly more willing posture.
+- Daily note: Hard glare keeps fish more cautious and selective.
+- Daily note: Clear water favors a cleaner, subtler presentation.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
-- TOP_COLOR_MATCH:green_pumpkin_natural
+- TOP_COLOR_MATCH:natural,natural
 - Top 1 verdict:
 - Top 3 verdict:
 - seasonal_fit:
@@ -126,15 +133,16 @@ Expected primary lanes:
 - hollow_body_frog
 Acceptable secondary lanes:
 - swim_jig
-- buzzbait_prop_bait
+- buzzbait
+- prop_bait
 - frog_fly
 Disallowed lanes:
-- drop_shot_worm_minnow
+- drop_shot_worm
 - suspending_jerkbait
 Expected color themes:
-- dark_contrast
-- craw_natural
-- frog_natural
+- dark
+- natural
+- natural
 
 Archived env summary:
 - Region: florida
@@ -149,35 +157,41 @@ Archived env summary:
 - Sunrise/sunset: 06:53 / 20:02
 
 Actual output:
-- Top 1 lure: Compact Flipping / Pitching Jig `compact_flipping_jig` | theme: `green_pumpkin_natural` | colors: green pumpkin, green pumpkin blue, pb&j
+- Top 1 lure: Hollow-Body Frog `hollow_body_frog` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Top 3 lures:
-- Compact Flipping / Pitching Jig `compact_flipping_jig` | theme: `green_pumpkin_natural` | colors: green pumpkin, green pumpkin blue, pb&j
-- Bladed Jig `bladed_jig` | theme: `white_shad` | colors: white, white/chartreuse, pearl shad
-- Swim Jig `swim_jig` | theme: `dark_contrast` | colors: black/blue, black/purple, black
-- Top 1 fly: Woolly Bugger `woolly_bugger` | theme: `craw_natural` | colors: brown/orange, rust brown, amber brown
+- Hollow-Body Frog `hollow_body_frog` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Swim Jig `swim_jig` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Spinnerbait `spinnerbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Top 1 fly: Frog Fly `frog_fly` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Top 3 flies:
-- Woolly Bugger `woolly_bugger` | theme: `craw_natural` | colors: brown/orange, rust brown, amber brown
-- Topwater Frog Fly `frog_fly` | theme: `frog_natural` | colors: leopard frog, bullfrog, black frog
-- Game Changer `game_changer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Frog Fly `frog_fly` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Mouse Fly `mouse_fly` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Clouser Minnow `clouser_minnow` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Color notes:
-- Compact Flipping / Pitching Jig: Theme: green pumpkin natural. Try green pumpkin, green pumpkin blue, pb&j.
-- Bladed Jig: Theme: white shad. Try white, white/chartreuse, pearl shad.
-- Swim Jig: Theme: dark contrast. Try black/blue, black/purple, black.
-- Woolly Bugger: Theme: craw natural. Try brown/orange, rust brown, amber brown.
-- Topwater Frog Fly: Theme: frog natural. Try leopard frog, bullfrog, black frog.
-- Game Changer: Theme: white shad. Try white, pearl, white/silver.
+- Color of day: Bright Colors
+- Hollow-Body Frog: bright -> white/chartreuse, chartreuse, firetiger
+- Swim Jig: bright -> white/chartreuse, chartreuse, firetiger
+- Spinnerbait: bright -> white/chartreuse, chartreuse, firetiger
+- Frog Fly: bright -> white/chartreuse, chartreuse, firetiger
+- Mouse Fly: bright -> white/chartreuse, chartreuse, firetiger
+- Clouser Minnow: bright -> white/chartreuse, chartreuse, firetiger
 - Daily profile notes:
-- Shared score: 45 (Fair)
-- Daily nudges: mood=down_1, water_column=lower_1, presentation=neutral
-- Resolved profile: water_column=mid, mood=negative, presentation=bold
-- Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
+- Daily posture: neutral (6.2/10)
+- Presentation presence today: bold
+- Resolved profile: typical_column=high, likely_column_today=high, seasonal_location=shallow_mid, posture=neutral, presentation=bold
+- Guardrails: surface_allowed=true, suppress_true_topwater=false, suppress_fast_presentations=false, high_visibility_needed=true, column_shift_half_steps=0
+- Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
+- Variables triggered: temperature_metabolic_context, wind_condition, light_cloud_condition, precipitation_disruption
+- Daily note: Neutral temperature metabolism keeps the day open to the normal seasonal pattern.
+- Daily note: Moderate chop supports a slightly more open lake posture.
+- Daily note: Dirty water calls for more visibility and presence.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
-- TOP_COLOR_MATCH:craw_natural
+- TOP_COLOR_MATCH:bright,bright
 - Top 1 verdict:
 - Top 3 verdict:
 - seasonal_fit:
@@ -215,9 +229,9 @@ Disallowed lanes:
 - walking_topwater
 - hollow_body_frog
 Expected color themes:
-- green_pumpkin_natural
-- white_shad
-- dark_contrast
+- natural
+- natural
+- dark
 
 Archived env summary:
 - Region: south_central
@@ -232,35 +246,41 @@ Archived env summary:
 - Sunrise/sunset: 07:19 / 17:44
 
 Actual output:
-- Top 1 lure: Suspending Jerkbait `suspending_jerkbait` | theme: `white_shad` | colors: pearl, table rock shad, white/silver
+- Top 1 lure: Football Jig `football_jig` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 lures:
-- Suspending Jerkbait `suspending_jerkbait` | theme: `white_shad` | colors: pearl, table rock shad, white/silver
-- Texas-Rigged Soft-Plastic Craw `texas_rigged_soft_plastic_craw` | theme: `green_pumpkin_natural` | colors: green pumpkin, green pumpkin blue, pb&j
-- Flat-Sided Crankbait `flat_sided_crankbait` | theme: `white_shad` | colors: white, pearl, white/silver
-- Top 1 fly: Rabbit-Strip Leech `rabbit_strip_leech` | theme: `dark_contrast` | colors: black, black/purple, black/blue
+- Football Jig `football_jig` | theme: `dark` | colors: black, black/blue, black/purple
+- Shaky-Head Worm `shaky_head_worm` | theme: `dark` | colors: black, black/blue, black/purple
+- Texas-Rigged Soft-Plastic Craw `texas_rigged_soft_plastic_craw` | theme: `dark` | colors: black, black/blue, black/purple
+- Top 1 fly: Rabbit-Strip Leech `rabbit_strip_leech` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 flies:
-- Rabbit-Strip Leech `rabbit_strip_leech` | theme: `dark_contrast` | colors: black, black/purple, black/blue
-- Woolly Bugger `woolly_bugger` | theme: `dark_contrast` | colors: black, black/olive, black/purple
-- Sculpin Streamer `sculpin_streamer` | theme: `dark_contrast` | colors: black/blue, black/purple, black/red
+- Rabbit-Strip Leech `rabbit_strip_leech` | theme: `dark` | colors: black, black/blue, black/purple
+- Sculpin Streamer `sculpin_streamer` | theme: `dark` | colors: black, black/blue, black/purple
+- Woolly Bugger `woolly_bugger` | theme: `dark` | colors: black, black/blue, black/purple
 - Color notes:
-- Suspending Jerkbait: Theme: white shad. Try pearl, table rock shad, white/silver.
-- Texas-Rigged Soft-Plastic Craw: Theme: green pumpkin natural. Try green pumpkin, green pumpkin blue, pb&j.
-- Flat-Sided Crankbait: Theme: white shad. Try white, pearl, white/silver.
-- Rabbit-Strip Leech: Theme: dark contrast. Try black, black/purple, black/blue.
-- Woolly Bugger: Theme: dark contrast. Try black, black/olive, black/purple.
-- Sculpin Streamer: Theme: dark contrast. Try black/blue, black/purple, black/red.
+- Color of day: Dark Colors
+- Football Jig: dark -> black, black/blue, black/purple
+- Shaky-Head Worm: dark -> black, black/blue, black/purple
+- Texas-Rigged Soft-Plastic Craw: dark -> black, black/blue, black/purple
+- Rabbit-Strip Leech: dark -> black, black/blue, black/purple
+- Sculpin Streamer: dark -> black, black/blue, black/purple
+- Woolly Bugger: dark -> black, black/blue, black/purple
 - Daily profile notes:
-- Shared score: 60 (Good)
-- Daily nudges: mood=neutral, water_column=lower_1, presentation=neutral
-- Resolved profile: water_column=bottom, mood=negative, presentation=subtle
-- Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
+- Daily posture: suppressed (2.4/10)
+- Presentation presence today: balanced
+- Resolved profile: typical_column=low, likely_column_today=low, seasonal_location=deep, posture=suppressed, presentation=balanced
+- Guardrails: surface_allowed=false, suppress_true_topwater=true, suppress_fast_presentations=true, high_visibility_needed=false, column_shift_half_steps=2
+- Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
+- Variables triggered: temperature_metabolic_context, temperature_shock, wind_condition, light_cloud_condition, precipitation_disruption
+- Daily note: Heat-limited metabolism suppresses fish posture and shrinks the reliable lane.
+- Daily note: A sharp warmup can help slightly, but not enough to rewrite the seasonal pattern.
+- Daily note: Stained water supports a balanced presentation with some extra presence.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
-- TOP_COLOR_MATCH:white_shad,dark_contrast
+- TOP_COLOR_MATCH:dark,dark
 - Top 1 verdict:
 - Top 3 verdict:
 - seasonal_fit:
@@ -295,12 +315,12 @@ Acceptable secondary lanes:
 - spinnerbait
 - woolly_bugger
 Disallowed lanes:
-- drop_shot_worm_minnow
+- drop_shot_worm
 - weightless_stick_worm
 Expected color themes:
-- dark_contrast
-- craw_natural
-- bright_contrast
+- dark
+- natural
+- bright
 
 Archived env summary:
 - Region: south_central
@@ -315,35 +335,41 @@ Archived env summary:
 - Sunrise/sunset: 06:28 / 20:28
 
 Actual output:
-- Top 1 lure: Compact Flipping / Pitching Jig `compact_flipping_jig` | theme: `green_pumpkin_natural` | colors: green pumpkin, green pumpkin blue, pb&j
+- Top 1 lure: Texas-Rigged Soft-Plastic Craw `texas_rigged_soft_plastic_craw` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Top 3 lures:
-- Compact Flipping / Pitching Jig `compact_flipping_jig` | theme: `green_pumpkin_natural` | colors: green pumpkin, green pumpkin blue, pb&j
-- Football Jig `football_jig` | theme: `craw_natural` | colors: brown/orange, rust brown, amber brown
-- Deep-Diving Crankbait `deep_diving_crankbait` | theme: `white_shad` | colors: white, pearl, white/silver
-- Top 1 fly: Woolly Bugger `woolly_bugger` | theme: `craw_natural` | colors: brown/orange, rust brown, amber brown
+- Texas-Rigged Soft-Plastic Craw `texas_rigged_soft_plastic_craw` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Compact Flipping Jig `compact_flipping_jig` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Deep-Diving Crankbait `deep_diving_crankbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Top 1 fly: Crawfish Streamer `crawfish_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Top 3 flies:
-- Woolly Bugger `woolly_bugger` | theme: `craw_natural` | colors: brown/orange, rust brown, amber brown
-- Crawfish Streamer `crawfish_streamer` | theme: `craw_natural` | colors: brown/orange, rust brown, amber brown
-- Game Changer `game_changer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Crawfish Streamer `crawfish_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Woolly Bugger `woolly_bugger` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Rabbit-Strip Leech `rabbit_strip_leech` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Color notes:
-- Compact Flipping / Pitching Jig: Theme: green pumpkin natural. Try green pumpkin, green pumpkin blue, pb&j.
-- Football Jig: Theme: craw natural. Try brown/orange, rust brown, amber brown.
-- Deep-Diving Crankbait: Theme: white shad. Try white, pearl, white/silver.
-- Woolly Bugger: Theme: craw natural. Try brown/orange, rust brown, amber brown.
-- Crawfish Streamer: Theme: craw natural. Try brown/orange, rust brown, amber brown.
-- Game Changer: Theme: white shad. Try white, pearl, white/silver.
+- Color of day: Bright Colors
+- Texas-Rigged Soft-Plastic Craw: bright -> white/chartreuse, chartreuse, firetiger
+- Compact Flipping Jig: bright -> white/chartreuse, chartreuse, firetiger
+- Deep-Diving Crankbait: bright -> white/chartreuse, chartreuse, firetiger
+- Crawfish Streamer: bright -> white/chartreuse, chartreuse, firetiger
+- Woolly Bugger: bright -> white/chartreuse, chartreuse, firetiger
+- Rabbit-Strip Leech: bright -> white/chartreuse, chartreuse, firetiger
 - Daily profile notes:
-- Shared score: 74 (Good)
-- Daily nudges: mood=up_1, water_column=higher_1, presentation=subtler
-- Resolved profile: water_column=mid, mood=active, presentation=bold
-- Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
+- Daily posture: neutral (6/10)
+- Presentation presence today: balanced
+- Resolved profile: typical_column=low, likely_column_today=low, seasonal_location=mid_deep, posture=neutral, presentation=balanced
+- Guardrails: surface_allowed=true, suppress_true_topwater=false, suppress_fast_presentations=false, high_visibility_needed=false, column_shift_half_steps=0
+- Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
+- Variables triggered: temperature_metabolic_context, temperature_trend, wind_condition, light_cloud_condition, precipitation_disruption
+- Daily note: Neutral temperature metabolism keeps the day open to the normal seasonal pattern.
+- Daily note: A warming trend nudges fish into a slightly more willing posture.
+- Daily note: Dirty water calls for more visibility and presence.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
-- TOP_COLOR_MATCH:craw_natural
+- TOP_COLOR_MATCH:bright,bright
 - Top 1 verdict:
 - Top 3 verdict:
 - seasonal_fit:
@@ -375,15 +401,16 @@ Expected primary lanes:
 - paddle_tail_swimbait
 Acceptable secondary lanes:
 - football_jig
-- drop_shot_worm_minnow
+- drop_shot_worm
 - clouser_minnow
 Disallowed lanes:
-- buzzbait_prop_bait
+- buzzbait
+- prop_bait
 - hollow_body_frog
 Expected color themes:
-- natural_baitfish
-- white_shad
-- green_pumpkin_natural
+- natural
+- natural
+- natural
 
 Archived env summary:
 - Region: south_central
@@ -398,35 +425,42 @@ Archived env summary:
 - Sunrise/sunset: 07:29 / 17:25
 
 Actual output:
-- Top 1 lure: Flat-Sided Crankbait `flat_sided_crankbait` | theme: `natural_baitfish` | colors: ghost shad, smoke shad, olive shad
+- Top 1 lure: Suspending Jerkbait `suspending_jerkbait` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 3 lures:
-- Flat-Sided Crankbait `flat_sided_crankbait` | theme: `natural_baitfish` | colors: ghost shad, smoke shad, olive shad
-- Football Jig `football_jig` | theme: `green_pumpkin_natural` | colors: green pumpkin, green pumpkin blue, pb&j
-- Suspending Jerkbait `suspending_jerkbait` | theme: `natural_baitfish` | colors: ghost minnow, pro blue, olive shad
-- Top 1 fly: Sculpin Streamer `sculpin_streamer` | theme: `craw_natural` | colors: brown/orange, rust brown, amber brown
+- Suspending Jerkbait `suspending_jerkbait` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Flat-Sided Crankbait `flat_sided_crankbait` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Top 1 fly: Clouser Minnow `clouser_minnow` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 3 flies:
-- Sculpin Streamer `sculpin_streamer` | theme: `craw_natural` | colors: brown/orange, rust brown, amber brown
-- Woolly Bugger `woolly_bugger` | theme: `craw_natural` | colors: brown/orange, rust brown, amber brown
-- Crawfish Streamer `crawfish_streamer` | theme: `green_pumpkin_natural` | colors: green pumpkin, green pumpkin blue, pb&j
+- Clouser Minnow `clouser_minnow` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Crawfish Streamer `crawfish_streamer` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Rabbit-Strip Leech `rabbit_strip_leech` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Color notes:
-- Flat-Sided Crankbait: Theme: natural baitfish. Try ghost shad, smoke shad, olive shad.
-- Football Jig: Theme: green pumpkin natural. Try green pumpkin, green pumpkin blue, pb&j.
-- Suspending Jerkbait: Theme: natural baitfish. Try ghost minnow, pro blue, olive shad.
-- Sculpin Streamer: Theme: craw natural. Try brown/orange, rust brown, amber brown.
-- Woolly Bugger: Theme: craw natural. Try brown/orange, rust brown, amber brown.
-- Crawfish Streamer: Theme: green pumpkin natural. Try green pumpkin, green pumpkin blue, pb&j.
+- Color of day: Natural Colors
+- Suspending Jerkbait: natural -> green pumpkin, olive, smoke
+- Flat-Sided Crankbait: natural -> green pumpkin, olive, smoke
+- Paddle-Tail Swimbait: natural -> green pumpkin, olive, smoke
+- Clouser Minnow: natural -> green pumpkin, olive, smoke
+- Crawfish Streamer: natural -> green pumpkin, olive, smoke
+- Rabbit-Strip Leech: natural -> green pumpkin, olive, smoke
 - Daily profile notes:
-- Shared score: 60 (Good)
-- Daily nudges: mood=up_1, water_column=higher_1, presentation=bolder
-- Resolved profile: water_column=mid, mood=neutral, presentation=subtle
-- Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
+- Daily posture: slightly_aggressive (6.7/10)
+- Presentation presence today: balanced
+- Resolved profile: typical_column=low, likely_column_today=mid_low, seasonal_location=deep, posture=slightly_aggressive, presentation=balanced
+- Guardrails: surface_allowed=true, suppress_true_topwater=false, suppress_fast_presentations=false, high_visibility_needed=false, column_shift_half_steps=-1
+- Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
+- Variables triggered: temperature_metabolic_context, temperature_trend, wind_condition, light_cloud_condition, precipitation_disruption
+- Daily note: Neutral temperature metabolism keeps the day open to the normal seasonal pattern.
+- Daily note: A warming trend nudges fish into a slightly more willing posture.
+- Daily note: Moderate chop supports a slightly more open lake posture.
+- Daily note: Clear water favors a cleaner, subtler presentation.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
-- TOP_COLOR_MATCH:natural_baitfish
+- TOP_COLOR_MATCH:natural,natural
 - Top 1 verdict:
 - Top 3 verdict:
 - seasonal_fit:
@@ -461,12 +495,12 @@ Acceptable secondary lanes:
 - paddle_tail_swimbait
 - game_changer
 Disallowed lanes:
-- drop_shot_worm_minnow
+- drop_shot_worm
 - walking_topwater
 Expected color themes:
-- dark_contrast
-- bright_contrast
-- craw_natural
+- dark
+- bright
+- natural
 
 Archived env summary:
 - Region: gulf_coast
@@ -481,35 +515,43 @@ Archived env summary:
 - Sunrise/sunset: 07:11 / 19:22
 
 Actual output:
-- Top 1 lure: Spinnerbait `spinnerbait` | theme: `bright_contrast` | colors: white/chartreuse, firetiger, chartreuse/white
+- Top 1 lure: Compact Flipping Jig `compact_flipping_jig` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 lures:
-- Spinnerbait `spinnerbait` | theme: `bright_contrast` | colors: white/chartreuse, firetiger, chartreuse/white
-- Compact Flipping / Pitching Jig `compact_flipping_jig` | theme: `green_pumpkin_natural` | colors: green pumpkin, green pumpkin blue, pb&j
-- Bladed Jig `bladed_jig` | theme: `white_shad` | colors: white, white/chartreuse, pearl shad
-- Top 1 fly: Woolly Bugger `woolly_bugger` | theme: `dark_contrast` | colors: black, black/olive, black/purple
+- Compact Flipping Jig `compact_flipping_jig` | theme: `dark` | colors: black, black/blue, black/purple
+- Texas-Rigged Soft-Plastic Craw `texas_rigged_soft_plastic_craw` | theme: `dark` | colors: black, black/blue, black/purple
+- Bladed Jig `bladed_jig` | theme: `dark` | colors: black, black/blue, black/purple
+- Top 1 fly: Woolly Bugger `woolly_bugger` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 flies:
-- Woolly Bugger `woolly_bugger` | theme: `dark_contrast` | colors: black, black/olive, black/purple
-- Clouser Minnow `clouser_minnow` | theme: `bright_contrast` | colors: white/chartreuse, chartreuse/white, firetiger
-- Rabbit-Strip Leech `rabbit_strip_leech` | theme: `dark_contrast` | colors: black, black/purple, black/blue
+- Woolly Bugger `woolly_bugger` | theme: `dark` | colors: black, black/blue, black/purple
+- Rabbit-Strip Leech `rabbit_strip_leech` | theme: `dark` | colors: black, black/blue, black/purple
+- Crawfish Streamer `crawfish_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Color notes:
-- Spinnerbait: Theme: bright contrast. Try white/chartreuse, firetiger, chartreuse/white.
-- Compact Flipping / Pitching Jig: Theme: green pumpkin natural. Try green pumpkin, green pumpkin blue, pb&j.
-- Bladed Jig: Theme: white shad. Try white, white/chartreuse, pearl shad.
-- Woolly Bugger: Theme: dark contrast. Try black, black/olive, black/purple.
-- Clouser Minnow: Theme: bright contrast. Try white/chartreuse, chartreuse/white, firetiger.
-- Rabbit-Strip Leech: Theme: dark contrast. Try black, black/purple, black/blue.
+- Color of day: Dark Colors
+- Compact Flipping Jig: dark -> black, black/blue, black/purple
+- Texas-Rigged Soft-Plastic Craw: dark -> black, black/blue, black/purple
+- Bladed Jig: dark -> black, black/blue, black/purple
+- Woolly Bugger: dark -> black, black/blue, black/purple
+- Rabbit-Strip Leech: dark -> black, black/blue, black/purple
+- Crawfish Streamer: dark -> black, black/blue, black/purple
 - Daily profile notes:
-- Shared score: 37 (Poor)
-- Daily nudges: mood=down_1, water_column=lower_1, presentation=subtler
-- Resolved profile: water_column=mid, mood=negative, presentation=bold
-- Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
+- Daily posture: suppressed (1.9/10)
+- Presentation presence today: balanced
+- Resolved profile: typical_column=top, likely_column_today=high, seasonal_location=shallow, posture=suppressed, presentation=balanced
+- Guardrails: surface_allowed=false, suppress_true_topwater=true, suppress_fast_presentations=true, high_visibility_needed=false, column_shift_half_steps=2
+- Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
+- Variables triggered: temperature_metabolic_context, temperature_shock, wind_condition, light_cloud_condition, precipitation_disruption
+- Daily note: Cold-limited metabolism suppresses fish posture and tightens the bite lane.
+- Daily note: A sharp cooldown suppresses fish posture and lowers confidence in upward movement.
+- Daily note: Moderate chop supports a slightly more open lake posture.
+- Daily note: Bright light trims daily willingness without fully shutting the day down.
+- Daily note: Dirty water calls for more visibility and presence.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
-- TOP_COLOR_MATCH:bright_contrast,dark_contrast
+- TOP_COLOR_MATCH:dark,dark
 - Top 1 verdict:
 - Top 3 verdict:
 - seasonal_fit:
@@ -546,9 +588,9 @@ Acceptable secondary lanes:
 Disallowed lanes:
 - blade_bait
 Expected color themes:
-- natural_baitfish
-- white_shad
-- watermelon_natural
+- natural
+- natural
+- natural
 
 Archived env summary:
 - Region: south_central
@@ -563,35 +605,43 @@ Archived env summary:
 - Sunrise/sunset: 06:03 / 20:14
 
 Actual output:
-- Top 1 lure: Swim Jig `swim_jig` | theme: `white_shad` | colors: white, pearl, white/silver
+- Top 1 lure: Swim Jig `swim_jig` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 lures:
-- Swim Jig `swim_jig` | theme: `white_shad` | colors: white, pearl, white/silver
-- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Soft Jerkbait `soft_jerkbait` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Top 1 fly: Clouser Minnow `clouser_minnow` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Swim Jig `swim_jig` | theme: `dark` | colors: black, black/blue, black/purple
+- Soft Plastic Jerkbait `soft_jerkbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Squarebill Crankbait `squarebill_crankbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Top 1 fly: Game Changer `game_changer` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 flies:
-- Clouser Minnow `clouser_minnow` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Woolly Bugger `woolly_bugger` | theme: `natural_baitfish` | colors: olive, white/olive, gray/white
-- Game Changer `game_changer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Game Changer `game_changer` | theme: `dark` | colors: black, black/blue, black/purple
+- Deceiver `deceiver` | theme: `dark` | colors: black, black/blue, black/purple
+- Clouser Minnow `clouser_minnow` | theme: `dark` | colors: black, black/blue, black/purple
 - Color notes:
-- Swim Jig: Theme: white shad. Try white, pearl, white/silver.
-- Paddle-Tail Swimbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Soft Jerkbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Clouser Minnow: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Woolly Bugger: Theme: natural baitfish. Try olive, white/olive, gray/white.
-- Game Changer: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Color of day: Dark Colors
+- Swim Jig: dark -> black, black/blue, black/purple
+- Soft Plastic Jerkbait: dark -> black, black/blue, black/purple
+- Squarebill Crankbait: dark -> black, black/blue, black/purple
+- Game Changer: dark -> black, black/blue, black/purple
+- Deceiver: dark -> black, black/blue, black/purple
+- Clouser Minnow: dark -> black, black/blue, black/purple
 - Daily profile notes:
-- Shared score: 85 (Excellent)
-- Daily nudges: mood=up_2, water_column=higher_1, presentation=bolder
-- Resolved profile: water_column=shallow, mood=active, presentation=balanced
-- Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
+- Daily posture: slightly_aggressive (7.2/10)
+- Presentation presence today: balanced
+- Resolved profile: typical_column=high, likely_column_today=high_top, seasonal_location=shallow, posture=slightly_aggressive, presentation=balanced
+- Guardrails: surface_allowed=true, suppress_true_topwater=false, suppress_fast_presentations=false, high_visibility_needed=false, column_shift_half_steps=-1
+- Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
+- Variables triggered: temperature_metabolic_context, temperature_trend, wind_condition, light_cloud_condition, precipitation_disruption
+- Daily note: Neutral temperature metabolism keeps the day open to the normal seasonal pattern.
+- Daily note: A warming trend nudges fish into a slightly more willing posture.
+- Daily note: Moderate chop supports a slightly more open lake posture.
+- Daily note: Low light opens the daily posture and supports more willingness.
+- Daily note: Clear water favors a cleaner, subtler presentation.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
-- TOP_COLOR_MATCH:white_shad,natural_baitfish
+- TOP_COLOR_MATCH:dark,dark
 - Top 1 verdict:
 - Top 3 verdict:
 - seasonal_fit:
@@ -628,9 +678,9 @@ Acceptable secondary lanes:
 Disallowed lanes:
 - blade_bait
 Expected color themes:
-- white_shad
-- frog_natural
-- bright_contrast
+- natural
+- natural
+- bright
 
 Archived env summary:
 - Region: great_lakes_upper_midwest
@@ -645,35 +695,40 @@ Archived env summary:
 - Sunrise/sunset: 06:58 / 19:27
 
 Actual output:
-- Top 1 lure: Spinnerbait `spinnerbait` | theme: `bright_contrast` | colors: white/chartreuse, firetiger, chartreuse/white
+- Top 1 lure: Walking Topwater `walking_topwater` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 lures:
-- Spinnerbait `spinnerbait` | theme: `bright_contrast` | colors: white/chartreuse, firetiger, chartreuse/white
-- Suspending Jerkbait `suspending_jerkbait` | theme: `bright_contrast` | colors: clown, firetiger, chartreuse shad
-- Bladed Jig `bladed_jig` | theme: `dark_contrast` | colors: black/blue, black/purple, black
-- Top 1 fly: Game Changer `game_changer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Walking Topwater `walking_topwater` | theme: `dark` | colors: black, black/blue, black/purple
+- Spinnerbait `spinnerbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Squarebill Crankbait `squarebill_crankbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Top 1 fly: Game Changer `game_changer` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 flies:
-- Game Changer `game_changer` | theme: `white_shad` | colors: white, pearl, white/silver
-- Woolly Bugger `woolly_bugger` | theme: `dark_contrast` | colors: black, black/olive, black/purple
-- Articulated Baitfish Streamer `articulated_baitfish_streamer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Game Changer `game_changer` | theme: `dark` | colors: black, black/blue, black/purple
+- Clouser Minnow `clouser_minnow` | theme: `dark` | colors: black, black/blue, black/purple
+- Deceiver `deceiver` | theme: `dark` | colors: black, black/blue, black/purple
 - Color notes:
-- Spinnerbait: Theme: bright contrast. Try white/chartreuse, firetiger, chartreuse/white.
-- Suspending Jerkbait: Theme: bright contrast. Try clown, firetiger, chartreuse shad.
-- Bladed Jig: Theme: dark contrast. Try black/blue, black/purple, black.
-- Game Changer: Theme: white shad. Try white, pearl, white/silver.
-- Woolly Bugger: Theme: dark contrast. Try black, black/olive, black/purple.
-- Articulated Baitfish Streamer: Theme: white shad. Try white, pearl, white/silver.
+- Color of day: Dark Colors
+- Walking Topwater: dark -> black, black/blue, black/purple
+- Spinnerbait: dark -> black, black/blue, black/purple
+- Squarebill Crankbait: dark -> black, black/blue, black/purple
+- Game Changer: dark -> black, black/blue, black/purple
+- Clouser Minnow: dark -> black, black/blue, black/purple
+- Deceiver: dark -> black, black/blue, black/purple
 - Daily profile notes:
-- Shared score: 79 (Good)
-- Daily nudges: mood=neutral, water_column=neutral, presentation=subtler
-- Resolved profile: water_column=shallow, mood=active, presentation=balanced
-- Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
+- Daily posture: neutral (5.7/10)
+- Presentation presence today: balanced
+- Resolved profile: typical_column=high, likely_column_today=high, seasonal_location=shallow_mid, posture=neutral, presentation=balanced
+- Guardrails: surface_allowed=true, suppress_true_topwater=false, suppress_fast_presentations=false, high_visibility_needed=false, column_shift_half_steps=0
+- Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
+- Variables triggered: temperature_metabolic_context, wind_condition, light_cloud_condition, precipitation_disruption
+- Daily note: Neutral temperature metabolism keeps the day open to the normal seasonal pattern.
+- Daily note: Stained water supports a balanced presentation with some extra presence.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
-- TOP_COLOR_MATCH:bright_contrast,white_shad
+- TOP_COLOR_MATCH:dark,dark
 - Top 1 verdict:
 - Top 3 verdict:
 - seasonal_fit:
@@ -708,12 +763,12 @@ Acceptable secondary lanes:
 - texas_rigged_stick_worm
 - clouser_minnow
 Disallowed lanes:
-- drop_shot_worm_minnow
+- drop_shot_worm
 - blade_bait
 Expected color themes:
-- white_shad
-- bright_contrast
-- green_pumpkin_natural
+- natural
+- bright
+- natural
 
 Archived env summary:
 - Region: south_central
@@ -728,35 +783,43 @@ Archived env summary:
 - Sunrise/sunset: 05:48 / 20:05
 
 Actual output:
-- Top 1 lure: Swim Jig `swim_jig` | theme: `white_shad` | colors: white, pearl, white/silver
+- Top 1 lure: Spinnerbait `spinnerbait` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 lures:
-- Swim Jig `swim_jig` | theme: `white_shad` | colors: white, pearl, white/silver
-- Spinnerbait `spinnerbait` | theme: `bright_contrast` | colors: white/chartreuse, firetiger, chartreuse/white
-- Soft Jerkbait `soft_jerkbait` | theme: `bright_contrast` | colors: bubblegum, albino, white/chartreuse
-- Top 1 fly: Clouser Minnow `clouser_minnow` | theme: `bright_contrast` | colors: white/chartreuse, chartreuse/white, firetiger
+- Spinnerbait `spinnerbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Swim Jig `swim_jig` | theme: `dark` | colors: black, black/blue, black/purple
+- Soft Plastic Jerkbait `soft_jerkbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Top 1 fly: Clouser Minnow `clouser_minnow` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 flies:
-- Clouser Minnow `clouser_minnow` | theme: `bright_contrast` | colors: white/chartreuse, chartreuse/white, firetiger
-- Woolly Bugger `woolly_bugger` | theme: `dark_contrast` | colors: black, black/olive, black/purple
-- Game Changer `game_changer` | theme: `white_shad` | colors: white, pearl, white/silver
+- Clouser Minnow `clouser_minnow` | theme: `dark` | colors: black, black/blue, black/purple
+- Game Changer `game_changer` | theme: `dark` | colors: black, black/blue, black/purple
+- Woolly Bugger `woolly_bugger` | theme: `dark` | colors: black, black/blue, black/purple
 - Color notes:
-- Swim Jig: Theme: white shad. Try white, pearl, white/silver.
-- Spinnerbait: Theme: bright contrast. Try white/chartreuse, firetiger, chartreuse/white.
-- Soft Jerkbait: Theme: bright contrast. Try bubblegum, albino, white/chartreuse.
-- Clouser Minnow: Theme: bright contrast. Try white/chartreuse, chartreuse/white, firetiger.
-- Woolly Bugger: Theme: dark contrast. Try black, black/olive, black/purple.
-- Game Changer: Theme: white shad. Try white, pearl, white/silver.
+- Color of day: Dark Colors
+- Spinnerbait: dark -> black, black/blue, black/purple
+- Swim Jig: dark -> black, black/blue, black/purple
+- Soft Plastic Jerkbait: dark -> black, black/blue, black/purple
+- Clouser Minnow: dark -> black, black/blue, black/purple
+- Game Changer: dark -> black, black/blue, black/purple
+- Woolly Bugger: dark -> black, black/blue, black/purple
 - Daily profile notes:
-- Shared score: 67 (Good)
-- Daily nudges: mood=up_2, water_column=higher_1, presentation=subtler
-- Resolved profile: water_column=shallow, mood=active, presentation=balanced
-- Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
+- Daily posture: neutral (6.2/10)
+- Presentation presence today: balanced
+- Resolved profile: typical_column=high, likely_column_today=high, seasonal_location=shallow, posture=neutral, presentation=balanced
+- Guardrails: surface_allowed=false, suppress_true_topwater=true, suppress_fast_presentations=false, high_visibility_needed=false, column_shift_half_steps=0
+- Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
+- Variables triggered: temperature_metabolic_context, temperature_trend, wind_condition, light_cloud_condition, runoff_flow_disruption
+- Daily note: Neutral temperature metabolism keeps the day open to the normal seasonal pattern.
+- Daily note: A warming trend nudges fish into a slightly more willing posture.
+- Daily note: Bright light trims daily willingness without fully shutting the day down.
+- Daily note: Stable river flow supports a reliable seasonal posture.
+- Daily note: Stained water supports a balanced presentation with some extra presence.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
-- TOP_COLOR_MATCH:white_shad,bright_contrast
+- TOP_COLOR_MATCH:dark,dark
 - Top 1 verdict:
 - Top 3 verdict:
 - seasonal_fit:
@@ -794,9 +857,9 @@ Disallowed lanes:
 - walking_topwater
 - blade_bait
 Expected color themes:
-- natural_baitfish
-- white_shad
-- green_pumpkin_natural
+- natural
+- natural
+- natural
 
 Archived env summary:
 - Region: northern_california
@@ -811,35 +874,42 @@ Archived env summary:
 - Sunrise/sunset: 07:07 / 19:20
 
 Actual output:
-- Top 1 lure: Soft Jerkbait `soft_jerkbait` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Top 1 lure: Swim Jig `swim_jig` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 3 lures:
-- Soft Jerkbait `soft_jerkbait` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Swim Jig `swim_jig` | theme: `white_shad` | colors: white, pearl, white/silver
-- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Top 1 fly: Clouser Minnow `clouser_minnow` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Swim Jig `swim_jig` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Soft Plastic Jerkbait `soft_jerkbait` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Squarebill Crankbait `squarebill_crankbait` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Top 1 fly: Clouser Minnow `clouser_minnow` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 3 flies:
-- Clouser Minnow `clouser_minnow` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
-- Woolly Bugger `woolly_bugger` | theme: `natural_baitfish` | colors: olive, white/olive, gray/white
-- Game Changer `game_changer` | theme: `natural_baitfish` | colors: olive/white, shad, smoke shad
+- Clouser Minnow `clouser_minnow` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Game Changer `game_changer` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Articulated Baitfish Streamer `articulated_baitfish_streamer` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Color notes:
-- Soft Jerkbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Swim Jig: Theme: white shad. Try white, pearl, white/silver.
-- Paddle-Tail Swimbait: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Clouser Minnow: Theme: natural baitfish. Try olive/white, shad, smoke shad.
-- Woolly Bugger: Theme: natural baitfish. Try olive, white/olive, gray/white.
-- Game Changer: Theme: natural baitfish. Try olive/white, shad, smoke shad.
+- Color of day: Natural Colors
+- Swim Jig: natural -> green pumpkin, olive, smoke
+- Soft Plastic Jerkbait: natural -> green pumpkin, olive, smoke
+- Squarebill Crankbait: natural -> green pumpkin, olive, smoke
+- Clouser Minnow: natural -> green pumpkin, olive, smoke
+- Game Changer: natural -> green pumpkin, olive, smoke
+- Articulated Baitfish Streamer: natural -> green pumpkin, olive, smoke
 - Daily profile notes:
-- Shared score: 57 (Fair)
-- Daily nudges: mood=up_1, water_column=higher_1, presentation=bolder
-- Resolved profile: water_column=shallow, mood=active, presentation=balanced
-- Variables considered: temperature_condition, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
+- Daily posture: neutral (5.9/10)
+- Presentation presence today: balanced
+- Resolved profile: typical_column=high, likely_column_today=high, seasonal_location=shallow, posture=neutral, presentation=balanced
+- Guardrails: surface_allowed=true, suppress_true_topwater=false, suppress_fast_presentations=false, high_visibility_needed=false, column_shift_half_steps=0
+- Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
+- Variables triggered: temperature_metabolic_context, temperature_trend, wind_condition, light_cloud_condition, runoff_flow_disruption
+- Daily note: Neutral temperature metabolism keeps the day open to the normal seasonal pattern.
+- Daily note: A warming trend nudges fish into a slightly more willing posture.
+- Daily note: Slightly elevated flow can still fish well, but it changes where fish set up.
+- Daily note: Clear water favors a cleaner, subtler presentation.
 
 Review:
 - Precheck flags:
-- TOP1_PRIMARY_HIT
+- TOP1_PRIMARY_MISS
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
-- TOP_COLOR_MATCH:natural_baitfish,natural_baitfish
+- TOP_COLOR_MATCH:natural,natural
 - Top 1 verdict:
 - Top 3 verdict:
 - seasonal_fit:

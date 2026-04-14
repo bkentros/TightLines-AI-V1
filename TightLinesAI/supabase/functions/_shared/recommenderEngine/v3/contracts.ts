@@ -103,6 +103,23 @@ export const DAILY_SURFACE_WINDOWS_V3 = [
 export type DailySurfaceWindowV3 =
   (typeof DAILY_SURFACE_WINDOWS_V3)[number];
 
+export const DAILY_REACTION_WINDOWS_V3 = [
+  "off",
+  "watch",
+  "on",
+] as const;
+
+export type DailyReactionWindowV3 =
+  (typeof DAILY_REACTION_WINDOWS_V3)[number];
+
+export const DAILY_PACE_BIASES_V3 = [
+  "slow",
+  "neutral",
+  "fast",
+] as const;
+
+export type DailyPaceBiasV3 = (typeof DAILY_PACE_BIASES_V3)[number];
+
 export const SEASONAL_LOCATIONS_V3 = [
   "shallow",
   "shallow_mid",
@@ -164,6 +181,8 @@ export type RecommenderV3DailyPayload = {
   posture_score_10: number;
   posture_band: DailyPostureBandV3;
   presentation_presence_today: PresentationStyleV3;
+  reaction_window_today: DailyReactionWindowV3;
+  pace_bias_today: DailyPaceBiasV3;
   /**
    * Desired directional shift in half-steps before seasonal/guardrail clamping.
    * -2 = stronger move up in the column, +2 = stronger move down.
@@ -282,8 +301,6 @@ export type RecommenderV3ArchetypeProfile = {
   preferred_water_columns: readonly ArchetypeWaterColumnV3[];
   preferred_moods: readonly MoodV3[];
   preferred_presentation_styles: readonly PresentationStyleV3[];
-  /** Legacy metadata retained temporarily while archetype profiles are migrated. */
-  preferred_pace_biases?: readonly ("slow" | "neutral" | "fast")[];
   forage_matches: readonly ForageBucketV3[];
   clarity_strengths: readonly WaterClarity[];
   tactical_lane: TacticalLaneV3;

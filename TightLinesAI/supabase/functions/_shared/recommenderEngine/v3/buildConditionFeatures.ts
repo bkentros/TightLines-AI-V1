@@ -9,6 +9,8 @@ import type { RecommenderV3Context, RecommenderV3DailyPayload } from "./contract
 export type RecommenderV3ConditionFeatures = {
   /** From posture_score_10: fish willingness (-1 tight … +1 open). */
   willingness: number;
+  /** -1 = slower/grind cadence day, +1 = active search/reaction cadence day. */
+  tempo_bias: number;
   /** 0 calm … 1 extreme wind (execution stress). */
   wind_stress: number;
   /** 0 soft light … 1 harsh bright/glare for surface/finesse. */
@@ -27,6 +29,11 @@ export type RecommenderV3ConditionFeatures = {
 
 function clamp(value: number, min: number, max: number): number {
   return Math.max(min, Math.min(max, value));
+}
+
+function normalizeLightLabel(label: string | null): string | null {
+  if (label === "mixed_sky") return "mixed";
+  return label;
 }
 
 function windStress(label: string | null): number {
@@ -154,6 +161,18 @@ function surfaceWindowFeature(daily: RecommenderV3DailyPayload): number {
   return 0.95;
 }
 
+function tempoBiasFeature(daily: RecommenderV3DailyPayload): number {
+  switch (daily.pace_bias_today) {
+    case "slow":
+      return -0.85;
+    case "fast":
+      return daily.reaction_window_today === "on" ? 0.95 : 0.7;
+    case "neutral":
+    default:
+      return daily.reaction_window_today === "on" ? 0.35 : 0;
+  }
+}
+
 /**
  * Single source for daily condition features used in lure/fly ranking.
  */
@@ -164,7 +183,9 @@ export function buildConditionFeaturesFromAnalysis(
   context: RecommenderV3Context,
 ): RecommenderV3ConditionFeatures {
   const windLabel = analysis.norm.normalized.wind_condition?.label ?? null;
-  const lightLabel = analysis.norm.normalized.light_cloud_condition?.label ?? null;
+  const lightLabel = normalizeLightLabel(
+    analysis.norm.normalized.light_cloud_condition?.label ?? null,
+  );
   const pressureLabel = analysis.norm.normalized.pressure_regime?.label ?? null;
   const precipLabel =
     analysis.norm.normalized.precipitation_disruption?.label ?? null;
@@ -179,6 +200,7 @@ export function buildConditionFeaturesFromAnalysis(
 
   return {
     willingness,
+    tempo_bias: tempoBiasFeature(daily),
     wind_stress: windStress(windLabel),
     light_stress: lightStress(lightLabel),
     pressure_stress: pressureStress(pressureLabel),

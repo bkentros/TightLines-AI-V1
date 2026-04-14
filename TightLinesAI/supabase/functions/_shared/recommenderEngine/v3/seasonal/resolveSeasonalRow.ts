@@ -40,8 +40,7 @@ export function resolveSeasonalRowV3(
   })();
 
   const findRow = (rk: RegionKey): RecommenderV3SeasonalRow | undefined => {
-    for (let index = seasonalRows.length - 1; index >= 0; index -= 1) {
-      const candidate = seasonalRows[index]!;
+    for (const candidate of seasonalRows) {
       if (
         candidate.species === species &&
         candidate.region_key === rk &&

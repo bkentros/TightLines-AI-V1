@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-10T14:13:21.940Z",
+  "generated_at": "2026-04-14T01:14:13.548Z",
   "total_pairs": 7,
   "total_checks": 14,
   "passed_checks": 14,
@@ -12,12 +12,12 @@
         {
           "label": "Overcast midday opens a bounded surface lane",
           "pass": true,
-          "detail": "left surface=watch; left lure=texas_rigged_stick_worm, swim_jig, hollow_body_frog; left fly=woolly_bugger, game_changer, rabbit_strip_leech"
+          "detail": "left surface=watch; left lure=hollow_body_frog, swim_jig, soft_jerkbait; left fly=frog_fly, game_changer, clouser_minnow"
         },
         {
           "label": "Bright midday suppresses frog options",
           "pass": true,
-          "detail": "right surface=off; right lure=texas_rigged_stick_worm, swim_jig, paddle_tail_swimbait; right fly=woolly_bugger, game_changer, rabbit_strip_leech"
+          "detail": "right surface=off; right lure=swim_jig, soft_jerkbait, paddle_tail_swimbait; right fly=game_changer, clouser_minnow, woolly_bugger"
         }
       ],
       "left": {
@@ -32,32 +32,32 @@
           "surface_window": "watch",
           "reaction_window": "on",
           "finesse_window": "off",
-          "pace_bias": "fast"
+          "pace_bias": "neutral"
         },
         "resolved_profile": {
-          "final_water_column": "shallow",
-          "final_mood": "active",
+          "final_water_column": "top",
+          "final_mood": "slightly_aggressive",
           "final_presentation_style": "balanced"
         },
         "lure_top3": [
-          "texas_rigged_stick_worm",
+          "hollow_body_frog",
           "swim_jig",
-          "hollow_body_frog"
+          "soft_jerkbait"
         ],
         "fly_top3": [
-          "woolly_bugger",
+          "frog_fly",
           "game_changer",
-          "rabbit_strip_leech"
+          "clouser_minnow"
         ],
         "lure_lanes": [
           "cover_weedless",
           "horizontal_search",
-          "cover_weedless"
+          "horizontal_search"
         ],
         "fly_lanes": [
-          "fly_bottom",
+          "fly_surface",
           "fly_baitfish",
-          "fly_bottom"
+          "fly_baitfish"
         ]
       },
       "right": {
@@ -70,32 +70,32 @@
         "water_clarity": "stained",
         "daily_payload": {
           "surface_window": "off",
-          "reaction_window": "watch",
+          "reaction_window": "on",
           "finesse_window": "off",
-          "pace_bias": "fast"
+          "pace_bias": "neutral"
         },
         "resolved_profile": {
-          "final_water_column": "shallow",
-          "final_mood": "active",
+          "final_water_column": "top",
+          "final_mood": "slightly_aggressive",
           "final_presentation_style": "balanced"
         },
         "lure_top3": [
-          "texas_rigged_stick_worm",
           "swim_jig",
+          "soft_jerkbait",
           "paddle_tail_swimbait"
         ],
         "fly_top3": [
-          "woolly_bugger",
           "game_changer",
-          "rabbit_strip_leech"
+          "clouser_minnow",
+          "woolly_bugger"
         ],
         "lure_lanes": [
-          "cover_weedless",
+          "horizontal_search",
           "horizontal_search",
           "horizontal_search"
         ],
         "fly_lanes": [
-          "fly_bottom",
+          "fly_baitfish",
           "fly_baitfish",
           "fly_bottom"
         ]
@@ -108,12 +108,12 @@
         {
           "label": "Winter post-front day resolves to finesse/slow without surface or search noise",
           "pass": true,
-          "detail": "left lanes=bottom_contact, cover_weedless, bottom_contact; pace=slow"
+          "detail": "left lanes=bottom_contact, bottom_contact, cover_weedless; pace=slow"
         },
         {
           "label": "Productive fall day resolves to reaction/fast without bottom drag",
           "pass": true,
-          "detail": "right lanes=horizontal_search, reaction_mid_column, horizontal_search; pace=fast"
+          "detail": "right lanes=reaction_mid_column, reaction_mid_column, horizontal_search; pace=fast"
         }
       ],
       "left": {
@@ -132,23 +132,23 @@
         },
         "resolved_profile": {
           "final_water_column": "bottom",
-          "final_mood": "negative",
+          "final_mood": "suppressed",
           "final_presentation_style": "subtle"
         },
         "lure_top3": [
+          "football_jig",
           "shaky_head_worm",
-          "texas_rigged_soft_plastic_craw",
-          "football_jig"
+          "texas_rigged_soft_plastic_craw"
         ],
         "fly_top3": [
-          "balanced_leech",
+          "rabbit_strip_leech",
           "sculpin_streamer",
-          "rabbit_strip_leech"
+          "balanced_leech"
         ],
         "lure_lanes": [
           "bottom_contact",
-          "cover_weedless",
-          "bottom_contact"
+          "bottom_contact",
+          "cover_weedless"
         ],
         "fly_lanes": [
           "fly_bottom",
@@ -165,28 +165,28 @@
         "month": 10,
         "water_clarity": "clear",
         "daily_payload": {
-          "surface_window": "on",
+          "surface_window": "watch",
           "reaction_window": "on",
           "finesse_window": "off",
           "pace_bias": "fast"
         },
         "resolved_profile": {
           "final_water_column": "shallow",
-          "final_mood": "active",
+          "final_mood": "aggressive",
           "final_presentation_style": "balanced"
         },
         "lure_top3": [
-          "squarebill_crankbait",
           "suspending_jerkbait",
-          "paddle_tail_swimbait"
+          "flat_sided_crankbait",
+          "squarebill_crankbait"
         ],
         "fly_top3": [
-          "clouser_minnow",
           "game_changer",
-          "deceiver"
+          "deceiver",
+          "clouser_minnow"
         ],
         "lure_lanes": [
-          "horizontal_search",
+          "reaction_mid_column",
           "reaction_mid_column",
           "horizontal_search"
         ],
@@ -204,12 +204,12 @@
         {
           "label": "Good low-light summer day keeps surface and topwater available",
           "pass": true,
-          "detail": "left surface=on; lures=buzzbait, hollow_body_frog, swim_jig; flies=frog_fly, game_changer, mouse_fly"
+          "detail": "left surface=on; lures=prop_bait, hollow_body_frog, swim_jig; flies=frog_fly, mouse_fly, game_changer"
         },
         {
           "label": "Heat-limited midday shuts off surface and slows/deepens the day",
           "pass": true,
-          "detail": "right water=mid; lures=swim_jig, compact_flipping_jig, bladed_jig; flies=game_changer, woolly_bugger, clouser_minnow"
+          "detail": "right water=mid; lures=compact_flipping_jig, texas_rigged_stick_worm, bladed_jig; flies=woolly_bugger, clouser_minnow, game_changer"
         }
       ],
       "left": {
@@ -227,19 +227,19 @@
           "pace_bias": "fast"
         },
         "resolved_profile": {
-          "final_water_column": "shallow",
-          "final_mood": "active",
-          "final_presentation_style": "bold"
+          "final_water_column": "top",
+          "final_mood": "slightly_aggressive",
+          "final_presentation_style": "balanced"
         },
         "lure_top3": [
-          "buzzbait",
+          "prop_bait",
           "hollow_body_frog",
           "swim_jig"
         ],
         "fly_top3": [
           "frog_fly",
-          "game_changer",
-          "mouse_fly"
+          "mouse_fly",
+          "game_changer"
         ],
         "lure_lanes": [
           "surface",
@@ -248,8 +248,8 @@
         ],
         "fly_lanes": [
           "fly_surface",
-          "fly_baitfish",
-          "fly_surface"
+          "fly_surface",
+          "fly_baitfish"
         ]
       },
       "right": {
@@ -268,27 +268,27 @@
         },
         "resolved_profile": {
           "final_water_column": "mid",
-          "final_mood": "neutral",
-          "final_presentation_style": "bold"
+          "final_mood": "suppressed",
+          "final_presentation_style": "subtle"
         },
         "lure_top3": [
-          "swim_jig",
           "compact_flipping_jig",
+          "texas_rigged_stick_worm",
           "bladed_jig"
         ],
         "fly_top3": [
-          "game_changer",
           "woolly_bugger",
-          "clouser_minnow"
+          "clouser_minnow",
+          "game_changer"
         ],
         "lure_lanes": [
-          "horizontal_search",
+          "cover_weedless",
           "cover_weedless",
           "horizontal_search"
         ],
         "fly_lanes": [
-          "fly_baitfish",
           "fly_bottom",
+          "fly_baitfish",
           "fly_baitfish"
         ]
       }
@@ -300,12 +300,12 @@
         {
           "label": "Low-light summer smallmouth allows surface options",
           "pass": true,
-          "detail": "left lure lanes=surface, horizontal_search, surface; fly lanes=fly_surface, fly_baitfish, fly_surface"
+          "detail": "left lure lanes=surface, horizontal_search, horizontal_search; fly lanes=fly_surface, fly_surface, fly_baitfish"
         },
         {
           "label": "Bright summer smallmouth removes surface options",
           "pass": true,
-          "detail": "right lure lanes=finesse_subtle, bottom_contact, horizontal_search; fly lanes=fly_baitfish, fly_bottom, fly_baitfish"
+          "detail": "right lure lanes=finesse_subtle, bottom_contact, finesse_subtle; fly lanes=fly_bottom, fly_baitfish, fly_baitfish"
         }
       ],
       "left": {
@@ -323,29 +323,29 @@
           "pace_bias": "fast"
         },
         "resolved_profile": {
-          "final_water_column": "shallow",
-          "final_mood": "active",
-          "final_presentation_style": "bold"
+          "final_water_column": "top",
+          "final_mood": "slightly_aggressive",
+          "final_presentation_style": "balanced"
         },
         "lure_top3": [
-          "popping_topwater",
-          "spinnerbait",
-          "walking_topwater"
+          "walking_topwater",
+          "soft_jerkbait",
+          "paddle_tail_swimbait"
         ],
         "fly_top3": [
+          "mouse_fly",
           "popper_fly",
-          "clouser_minnow",
-          "mouse_fly"
+          "game_changer"
         ],
         "lure_lanes": [
           "surface",
           "horizontal_search",
-          "surface"
+          "horizontal_search"
         ],
         "fly_lanes": [
           "fly_surface",
-          "fly_baitfish",
-          "fly_surface"
+          "fly_surface",
+          "fly_baitfish"
         ]
       },
       "right": {
@@ -358,33 +358,33 @@
         "water_clarity": "clear",
         "daily_payload": {
           "surface_window": "off",
-          "reaction_window": "off",
+          "reaction_window": "watch",
           "finesse_window": "on",
-          "pace_bias": "slow"
+          "pace_bias": "neutral"
         },
         "resolved_profile": {
           "final_water_column": "shallow",
-          "final_mood": "active",
-          "final_presentation_style": "bold"
+          "final_mood": "neutral",
+          "final_presentation_style": "subtle"
         },
         "lure_top3": [
           "hair_jig",
           "tube_jig",
-          "spinnerbait"
+          "drop_shot_minnow"
         ],
         "fly_top3": [
-          "clouser_minnow",
           "woolly_bugger",
-          "game_changer"
+          "game_changer",
+          "clouser_minnow"
         ],
         "lure_lanes": [
           "finesse_subtle",
           "bottom_contact",
-          "horizontal_search"
+          "finesse_subtle"
         ],
         "fly_lanes": [
-          "fly_baitfish",
           "fly_bottom",
+          "fly_baitfish",
           "fly_baitfish"
         ]
       }
@@ -396,12 +396,12 @@
         {
           "label": "Mouse window truly elevates mouse fly",
           "pass": true,
-          "detail": "left surface=on; left fly=mouse_fly, slim_minnow_streamer, clouser_minnow"
+          "detail": "left surface=on; left fly=mouse_fly, zonker_streamer, clouser_minnow"
         },
         {
           "label": "Strong river wind removes the mouse lane",
           "pass": true,
-          "detail": "right surface=watch; right fly=slim_minnow_streamer, clouser_minnow, zonker_streamer"
+          "detail": "right surface=off; right fly=zonker_streamer, clouser_minnow, slim_minnow_streamer"
         }
       ],
       "left": {
@@ -419,18 +419,18 @@
           "pace_bias": "fast"
         },
         "resolved_profile": {
-          "final_water_column": "shallow",
-          "final_mood": "active",
+          "final_water_column": "top",
+          "final_mood": "slightly_aggressive",
           "final_presentation_style": "balanced"
         },
         "lure_top3": [
-          "inline_spinner",
+          "soft_jerkbait",
           "casting_spoon",
-          "soft_jerkbait"
+          "paddle_tail_swimbait"
         ],
         "fly_top3": [
           "mouse_fly",
-          "slim_minnow_streamer",
+          "zonker_streamer",
           "clouser_minnow"
         ],
         "lure_lanes": [
@@ -453,25 +453,25 @@
         "month": 7,
         "water_clarity": "clear",
         "daily_payload": {
-          "surface_window": "watch",
+          "surface_window": "off",
           "reaction_window": "on",
           "finesse_window": "off",
           "pace_bias": "fast"
         },
         "resolved_profile": {
-          "final_water_column": "shallow",
-          "final_mood": "active",
+          "final_water_column": "top",
+          "final_mood": "slightly_aggressive",
           "final_presentation_style": "balanced"
         },
         "lure_top3": [
-          "inline_spinner",
+          "soft_jerkbait",
           "casting_spoon",
-          "soft_jerkbait"
+          "paddle_tail_swimbait"
         ],
         "fly_top3": [
-          "slim_minnow_streamer",
+          "zonker_streamer",
           "clouser_minnow",
-          "zonker_streamer"
+          "slim_minnow_streamer"
         ],
         "lure_lanes": [
           "horizontal_search",
@@ -497,7 +497,7 @@
         {
           "label": "Cold snap slows and deepens with a hair-jig fallback",
           "pass": true,
-          "detail": "right finesse=on; right pace=slow; right water=mid; right lures=inline_spinner, hair_jig, soft_jerkbait"
+          "detail": "right finesse=on; right pace=slow; right water=mid; right lures=hair_jig, paddle_tail_swimbait, soft_jerkbait"
         }
       ],
       "left": {
@@ -509,25 +509,25 @@
         "month": 7,
         "water_clarity": "clear",
         "daily_payload": {
-          "surface_window": "on",
+          "surface_window": "watch",
           "reaction_window": "on",
-          "finesse_window": "off",
+          "finesse_window": "on",
           "pace_bias": "fast"
         },
         "resolved_profile": {
           "final_water_column": "shallow",
-          "final_mood": "active",
-          "final_presentation_style": "balanced"
+          "final_mood": "slightly_aggressive",
+          "final_presentation_style": "subtle"
         },
         "lure_top3": [
-          "inline_spinner",
+          "soft_jerkbait",
           "casting_spoon",
-          "soft_jerkbait"
+          "paddle_tail_swimbait"
         ],
         "fly_top3": [
           "mouse_fly",
           "slim_minnow_streamer",
-          "clouser_minnow"
+          "zonker_streamer"
         ],
         "lure_lanes": [
           "horizontal_search",
@@ -556,28 +556,28 @@
         },
         "resolved_profile": {
           "final_water_column": "mid",
-          "final_mood": "neutral",
-          "final_presentation_style": "balanced"
+          "final_mood": "suppressed",
+          "final_presentation_style": "subtle"
         },
         "lure_top3": [
-          "inline_spinner",
           "hair_jig",
+          "paddle_tail_swimbait",
           "soft_jerkbait"
         ],
         "fly_top3": [
+          "woolly_bugger",
           "muddler_sculpin",
-          "slim_minnow_streamer",
-          "woolly_bugger"
+          "slim_minnow_streamer"
         ],
         "lure_lanes": [
-          "horizontal_search",
           "finesse_subtle",
+          "horizontal_search",
           "horizontal_search"
         ],
         "fly_lanes": [
           "fly_bottom",
-          "fly_baitfish",
-          "fly_bottom"
+          "fly_bottom",
+          "fly_baitfish"
         ]
       }
     },
@@ -588,12 +588,12 @@
         {
           "label": "Low-light pike opens at least one surface-adjacent option",
           "pass": true,
-          "detail": "left lures=large_profile_pike_swimbait, walking_topwater, spinnerbait; left flies=large_articulated_pike_streamer, frog_fly, game_changer"
+          "detail": "left lures=walking_topwater, hollow_body_frog, pike_jerkbait; left flies=mouse_fly, frog_fly, popper_fly"
         },
         {
           "label": "Bright pike day removes surface-adjacent options",
           "pass": true,
-          "detail": "right lures=large_profile_pike_swimbait, spinnerbait, pike_jerkbait; right flies=large_articulated_pike_streamer, game_changer, pike_bunny_streamer"
+          "detail": "right lures=spinnerbait, paddle_tail_swimbait, pike_jerkbait; right flies=large_articulated_pike_streamer, pike_bunny_streamer, game_changer"
         }
       ],
       "left": {
@@ -611,29 +611,29 @@
           "pace_bias": "fast"
         },
         "resolved_profile": {
-          "final_water_column": "shallow",
-          "final_mood": "active",
+          "final_water_column": "top",
+          "final_mood": "slightly_aggressive",
           "final_presentation_style": "balanced"
         },
         "lure_top3": [
-          "large_profile_pike_swimbait",
           "walking_topwater",
-          "spinnerbait"
+          "hollow_body_frog",
+          "pike_jerkbait"
         ],
         "fly_top3": [
-          "large_articulated_pike_streamer",
+          "mouse_fly",
           "frog_fly",
-          "game_changer"
+          "popper_fly"
         ],
         "lure_lanes": [
-          "pike_big_profile",
           "surface",
-          "horizontal_search"
+          "cover_weedless",
+          "pike_big_profile"
         ],
         "fly_lanes": [
-          "pike_big_profile",
           "fly_surface",
-          "fly_baitfish"
+          "fly_surface",
+          "fly_surface"
         ]
       },
       "right": {
@@ -646,34 +646,34 @@
         "water_clarity": "stained",
         "daily_payload": {
           "surface_window": "off",
-          "reaction_window": "off",
-          "finesse_window": "watch",
-          "pace_bias": "slow"
+          "reaction_window": "watch",
+          "finesse_window": "off",
+          "pace_bias": "neutral"
         },
         "resolved_profile": {
           "final_water_column": "shallow",
-          "final_mood": "active",
+          "final_mood": "neutral",
           "final_presentation_style": "balanced"
         },
         "lure_top3": [
-          "large_profile_pike_swimbait",
           "spinnerbait",
+          "paddle_tail_swimbait",
           "pike_jerkbait"
         ],
         "fly_top3": [
           "large_articulated_pike_streamer",
-          "game_changer",
-          "pike_bunny_streamer"
+          "pike_bunny_streamer",
+          "game_changer"
         ],
         "lure_lanes": [
-          "pike_big_profile",
+          "horizontal_search",
           "horizontal_search",
           "pike_big_profile"
         ],
         "fly_lanes": [
           "pike_big_profile",
-          "fly_baitfish",
-          "pike_big_profile"
+          "pike_big_profile",
+          "fly_baitfish"
         ]
       }
     }

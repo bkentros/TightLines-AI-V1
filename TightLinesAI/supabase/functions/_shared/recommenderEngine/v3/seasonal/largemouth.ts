@@ -15,8 +15,10 @@ import type {
 import type { RegionKey } from "../../../howFishingEngine/contracts/region.ts";
 import {
   baseSeasonalWaterColumn,
+  finalizeSeasonalRows,
   shiftSeasonalWaterColumn,
   sortEligibleArchetypeIds,
+  upsertSeasonalRow,
 } from "./tuning.ts";
 
 type LegacyWaterColumn = "top" | "shallow" | "mid" | "bottom";
@@ -34,7 +36,7 @@ type LegacySeasonalCore = {
   viable_fly_archetypes: readonly FlyArchetypeIdV3[];
 };
 
-const LMB_ROWS: RecommenderV3SeasonalRow[] = [];
+const LMB_ROWS = new Map<string, RecommenderV3SeasonalRow>();
 
 function inRegions(region_key: RegionKey, regions: readonly RegionKey[]): boolean {
   return regions.includes(region_key);
@@ -182,7 +184,8 @@ function addMonths(
 ) {
   for (const region_key of regions) {
     for (const month of months) {
-      LMB_ROWS.push(
+      upsertSeasonalRow(
+        LMB_ROWS,
         toSeasonalRow("largemouth_bass", region_key, context, month, core),
       );
     }
@@ -935,6 +938,40 @@ const SOUTH_CENTRAL_FALL_RIVER_FLIES: readonly FlyArchetypeIdV3[] = [
   "articulated_baitfish_streamer",
   "woolly_bugger",
   "deceiver",
+];
+
+const MIDWEST_BACKWATER_PRESPAWN_RIVER_LURES: readonly LureArchetypeIdV3[] = [
+  "spinnerbait",
+  "bladed_jig",
+  "compact_flipping_jig",
+  "swim_jig",
+  "squarebill_crankbait",
+  "soft_jerkbait",
+  "texas_rigged_soft_plastic_craw",
+];
+const MIDWEST_BACKWATER_PRESPAWN_RIVER_FLIES: readonly FlyArchetypeIdV3[] = [
+  "clouser_minnow",
+  "game_changer",
+  "deceiver",
+  "woolly_bugger",
+  "rabbit_strip_leech",
+];
+
+const MIDWEST_BACKWATER_FALL_RIVER_LURES: readonly LureArchetypeIdV3[] = [
+  "compact_flipping_jig",
+  "spinnerbait",
+  "suspending_jerkbait",
+  "bladed_jig",
+  "squarebill_crankbait",
+  "soft_jerkbait",
+  "paddle_tail_swimbait",
+];
+const MIDWEST_BACKWATER_FALL_RIVER_FLIES: readonly FlyArchetypeIdV3[] = [
+  "clouser_minnow",
+  "game_changer",
+  "deceiver",
+  "woolly_bugger",
+  "crawfish_streamer",
 ];
 
 const NORTHERN_CLEAR_WINTER_LAKE_LURES: readonly LureArchetypeIdV3[] = [
@@ -2746,4 +2783,28 @@ addMonths(["southern_california"], "freshwater_lake_pond", [7], {
   viable_fly_archetypes: SUMMER_LAKE_FLIES,
 });
 
-export const LARGEMOUTH_V3_SEASONAL_ROWS = LMB_ROWS;
+// Midwest backwater rivers open earlier than the generic cold-river row.
+addMonths(["midwest_interior"], "freshwater_river", [3], {
+  base_water_column: "shallow",
+  base_mood: "neutral",
+  base_presentation_style: "balanced",
+  primary_forage: "baitfish",
+  secondary_forage: "crawfish",
+  primary_lure_archetypes: ["spinnerbait", "bladed_jig"],
+  viable_lure_archetypes: MIDWEST_BACKWATER_PRESPAWN_RIVER_LURES,
+  primary_fly_archetypes: ["clouser_minnow", "game_changer"],
+  viable_fly_archetypes: MIDWEST_BACKWATER_PRESPAWN_RIVER_FLIES,
+});
+addMonths(["midwest_interior"], "freshwater_river", [11], {
+  base_water_column: "shallow",
+  base_mood: "neutral",
+  base_presentation_style: "balanced",
+  primary_forage: "baitfish",
+  secondary_forage: "crawfish",
+  primary_lure_archetypes: ["compact_flipping_jig", "spinnerbait"],
+  viable_lure_archetypes: MIDWEST_BACKWATER_FALL_RIVER_LURES,
+  primary_fly_archetypes: ["clouser_minnow", "deceiver"],
+  viable_fly_archetypes: MIDWEST_BACKWATER_FALL_RIVER_FLIES,
+});
+
+export const LARGEMOUTH_V3_SEASONAL_ROWS = finalizeSeasonalRows(LMB_ROWS);

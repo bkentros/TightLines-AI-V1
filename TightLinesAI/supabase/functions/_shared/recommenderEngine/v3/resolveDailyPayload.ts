@@ -1,6 +1,8 @@
 import type { SharedConditionAnalysis } from "../../howFishingEngine/analyzeSharedConditions.ts";
 import type { RecommenderV3Context } from "./contracts.ts";
 import {
+  type DailyPaceBiasV3,
+  type DailyReactionWindowV3,
   type DailySurfaceWindowV3,
   type PresentationStyleV3,
   type RecommenderV3DailyPayload,
@@ -45,6 +47,11 @@ function pushUnique(list: string[], note: string | undefined) {
 function markTriggered(list: TriggerKey[], key: TriggerKey, touched: boolean) {
   if (!touched) return;
   if (!list.includes(key)) list.push(key);
+}
+
+function normalizeLightLabel(label: string | null): string | null {
+  if (label === "mixed_sky") return "mixed";
+  return label;
 }
 
 const LAKE_POSTURE_WEIGHTS = {
@@ -472,6 +479,8 @@ function resolveSurfaceWindowToday(
   if (!surfaceAllowedToday(context, lightLabel, windLabel, postureBand)) return "closed";
   if (context === "freshwater_river" && runoffLabel === "blown_out") return "closed";
   if (windLabel === "strong" || windLabel === "extreme") return "closed";
+  if (lightLabel === "heavy_overcast") return "rippled";
+  if (lightLabel === "mixed" && context === "freshwater_river") return "rippled";
   return windLabel === "moderate" ? "rippled" : "clean";
 }
 
@@ -483,13 +492,18 @@ function suppressTrueTopwater(
 
 function maxUpwardColumnShift(
   analysis: SharedConditionAnalysis,
+  context: RecommenderV3Context,
   postureBand: RecommenderV3DailyPayload["posture_band"],
+  lightLabel: string | null,
 ): 0 | 1 | 2 {
   const metabolic = analysis.condition_context.temperature_metabolic_context;
   const shock = analysis.condition_context.temperature_shock;
   if (metabolic === "cold_limited" || shock === "sharp_cooldown") return 0;
   if (postureBand === "aggressive") return 2;
-  if (postureBand === "slightly_aggressive") return 1;
+  if (postureBand === "slightly_aggressive") {
+    if (context === "freshwater_river" && lightLabel === "mixed") return 0;
+    return 1;
+  }
   return 0;
 }
 
@@ -511,6 +525,126 @@ function maxDownwardColumnShift(
   return 0;
 }
 
+function stableHydroWindow(
+  context: RecommenderV3Context,
+  precipLabel: string | null,
+  runoffLabel: string | null,
+): boolean {
+  if (context === "freshwater_lake_pond") {
+    return precipLabel !== "active_disruption";
+  }
+  return runoffLabel === null || runoffLabel === "perfect_clear" ||
+    runoffLabel === "stable" || runoffLabel === "slightly_elevated";
+}
+
+function favorableReactionStack(
+  analysis: SharedConditionAnalysis,
+  context: RecommenderV3Context,
+  pressureLabel: string | null,
+  windLabel: string | null,
+  lightLabel: string | null,
+  precipLabel: string | null,
+  runoffLabel: string | null,
+): boolean {
+  const warming = analysis.condition_context.temperature_trend === "warming" &&
+    analysis.condition_context.temperature_shock !== "sharp_cooldown" &&
+    analysis.condition_context.temperature_metabolic_context !== "cold_limited";
+  const fallingPressure = pressureLabel === "falling_slow" ||
+    pressureLabel === "falling_moderate";
+  const fishableWind = windLabel !== "strong" && windLabel !== "extreme";
+  const supportiveLight = lightLabel === "low_light" ||
+    lightLabel === "heavy_overcast" || lightLabel === "mixed";
+  return warming && fallingPressure && fishableWind && supportiveLight &&
+    stableHydroWindow(context, precipLabel, runoffLabel);
+}
+
+function reactionOpportunityBonus(
+  analysis: SharedConditionAnalysis,
+  context: RecommenderV3Context,
+  pressureLabel: string | null,
+  windLabel: string | null,
+  lightLabel: string | null,
+  precipLabel: string | null,
+  runoffLabel: string | null,
+): number {
+  if (!favorableReactionStack(
+    analysis,
+    context,
+    pressureLabel,
+    windLabel,
+    lightLabel,
+    precipLabel,
+    runoffLabel,
+  )) {
+    return 0;
+  }
+
+  if (context === "freshwater_river") return 0.8;
+  if (lightLabel === "low_light" && windLabel === "moderate") return 0.35;
+  return 0.2;
+}
+
+function resolveReactionWindowToday(
+  analysis: SharedConditionAnalysis,
+  context: RecommenderV3Context,
+  postureBand: RecommenderV3DailyPayload["posture_band"],
+  pressureLabel: string | null,
+  windLabel: string | null,
+  lightLabel: string | null,
+  precipLabel: string | null,
+  runoffLabel: string | null,
+): DailyReactionWindowV3 {
+  if (postureBand === "suppressed" || postureBand === "slightly_suppressed") {
+    return "off";
+  }
+  if (postureBand === "aggressive" || postureBand === "slightly_aggressive") {
+    return "on";
+  }
+  if (favorableReactionStack(
+    analysis,
+    context,
+    pressureLabel,
+    windLabel,
+    lightLabel,
+    precipLabel,
+    runoffLabel,
+  )) {
+    return "on";
+  }
+  if (
+    analysis.condition_context.temperature_trend === "warming" ||
+    pressureLabel === "falling_slow" ||
+    pressureLabel === "falling_moderate"
+  ) {
+    return "watch";
+  }
+  return "watch";
+}
+
+function resolvePaceBiasToday(
+  context: RecommenderV3Context,
+  postureBand: RecommenderV3DailyPayload["posture_band"],
+  reactionWindow: DailyReactionWindowV3,
+  lightLabel: string | null,
+  windLabel: string | null,
+): DailyPaceBiasV3 {
+  if (postureBand === "suppressed" || postureBand === "slightly_suppressed") {
+    return "slow";
+  }
+  if (
+    reactionWindow === "on" &&
+    (
+      postureBand === "aggressive" ||
+      lightLabel === "low_light" ||
+      windLabel === "moderate" ||
+      context === "freshwater_river"
+    )
+  ) {
+    return "fast";
+  }
+  return "neutral";
+}
+
 /**
  * Deterministic daily handoff:
  * - one posture score and posture band
@@ -525,7 +659,9 @@ export function resolveDailyPayloadV3(
 ): RecommenderV3DailyPayload {
   const pressureLabel = analysis.norm.normalized.pressure_regime?.label ?? null;
   const windLabel = analysis.norm.normalized.wind_condition?.label ?? null;
-  const lightLabel = analysis.norm.normalized.light_cloud_condition?.label ?? null;
+  const lightLabel = normalizeLightLabel(
+    analysis.norm.normalized.light_cloud_condition?.label ?? null,
+  );
   const precipLabel =
     analysis.norm.normalized.precipitation_disruption?.label ?? null;
   const runoffLabel =
@@ -582,7 +718,16 @@ export function resolveDailyPayloadV3(
       disruption.posture * RIVER_POSTURE_WEIGHTS.runoff
     );
 
-  const postureScore10 = round1(clamp(5 + rawPosture, 0, 10));
+  const postureOpportunityBonus = reactionOpportunityBonus(
+    analysis,
+    context,
+    pressureLabel,
+    windLabel,
+    lightLabel,
+    precipLabel,
+    runoffLabel,
+  );
+  const postureScore10 = round1(clamp(5 + rawPosture + postureOpportunityBonus, 0, 10));
   const postureBand = resolvePostureBand(postureScore10);
 
   addPresenceScores(presenceTotals, CLARITY_PRESENCE[clarity]);
@@ -614,6 +759,23 @@ export function resolveDailyPayloadV3(
   if (postureBand === "aggressive") presenceTotals.bold += 0.45;
 
   const presentationPresenceToday = resolvePresentationPresence(presenceTotals);
+  const reactionWindow = resolveReactionWindowToday(
+    analysis,
+    context,
+    postureBand,
+    pressureLabel,
+    windLabel,
+    lightLabel,
+    precipLabel,
+    runoffLabel,
+  );
+  const paceBiasToday = resolvePaceBiasToday(
+    context,
+    postureBand,
+    reactionWindow,
+    lightLabel,
+    windLabel,
+  );
   const columnShiftBias = resolveColumnShiftBias(postureBand);
   const surfaceAllowed = surfaceAllowedToday(
     context,
@@ -631,15 +793,19 @@ export function resolveDailyPayloadV3(
   const suppressTopwater = suppressTrueTopwater(
     surfaceWindow,
   );
-  const upwardCap = maxUpwardColumnShift(analysis, postureBand);
+  const upwardCap = maxUpwardColumnShift(
+    analysis,
+    context,
+    postureBand,
+    lightLabel,
+  );
   const downwardCap = maxDownwardColumnShift(
     analysis,
     context,
     postureBand,
     runoffLabel,
   );
-  const suppressFast = postureBand === "suppressed" ||
-    postureBand === "slightly_suppressed";
+  const suppressFast = paceBiasToday === "slow";
   const highVisibilityNeeded = presentationPresenceToday === "bold";
 
   pushUnique(notes, metabolic.note);
@@ -699,6 +865,8 @@ export function resolveDailyPayloadV3(
     posture_score_10: postureScore10,
     posture_band: postureBand,
     presentation_presence_today: presentationPresenceToday,
+    reaction_window_today: reactionWindow,
+    pace_bias_today: paceBiasToday,
     column_shift_bias_half_steps: columnShiftBias,
     max_upward_column_shift_today: upwardCap,
     max_downward_column_shift_today: downwardCap,

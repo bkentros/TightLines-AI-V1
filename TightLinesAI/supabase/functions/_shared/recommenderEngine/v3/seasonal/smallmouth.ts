@@ -11,8 +11,10 @@ import type {
 import type { RegionKey } from "../../../howFishingEngine/contracts/region.ts";
 import {
   baseSeasonalWaterColumn,
+  finalizeSeasonalRows,
   shiftSeasonalWaterColumn,
   sortEligibleArchetypeIds,
+  upsertSeasonalRow,
 } from "./tuning.ts";
 
 type LegacyWaterColumn = "top" | "shallow" | "mid" | "bottom";
@@ -30,7 +32,7 @@ type LegacySeasonalCore = {
   viable_fly_archetypes: readonly FlyArchetypeIdV3[];
 };
 
-const SMB_ROWS: RecommenderV3SeasonalRow[] = [];
+const SMB_ROWS = new Map<string, RecommenderV3SeasonalRow>();
 
 function inRegions(region_key: RegionKey, regions: readonly RegionKey[]): boolean {
   return regions.includes(region_key);
@@ -162,7 +164,8 @@ function addMonths(
 ) {
   for (const region_key of regions) {
     for (const month of months) {
-      SMB_ROWS.push(
+      upsertSeasonalRow(
+        SMB_ROWS,
         toSeasonalRow("smallmouth_bass", region_key, context, month, core),
       );
     }
@@ -1488,4 +1491,4 @@ addMonths(["great_lakes_upper_midwest"], "freshwater_lake_pond", [7], {
   viable_fly_archetypes: GREAT_LAKES_MIDSUMMER_LAKE_FLIES,
 });
 
-export const SMALLMOUTH_V3_SEASONAL_ROWS = SMB_ROWS;
+export const SMALLMOUTH_V3_SEASONAL_ROWS = finalizeSeasonalRows(SMB_ROWS);

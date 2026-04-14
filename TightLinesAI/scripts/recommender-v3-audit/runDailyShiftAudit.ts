@@ -150,9 +150,9 @@ function summarize(caseDef: ScenarioCase): ScenarioSummary {
     water_clarity: result.water_clarity,
     daily_payload: {
       surface_window: auditSurfaceWindow(dp),
-      reaction_window: auditReactionWindow(dp.posture_band),
+      reaction_window: dp.reaction_window_today ?? auditReactionWindow(dp.posture_band),
       finesse_window: auditFinesseWindow(dp.presentation_presence_today),
-      pace_bias: auditPaceBias(dp),
+      pace_bias: dp.pace_bias_today ?? auditPaceBias(dp),
     },
     resolved_profile: {
       final_water_column: simplifyWaterColumn(rp.likely_water_column_today),

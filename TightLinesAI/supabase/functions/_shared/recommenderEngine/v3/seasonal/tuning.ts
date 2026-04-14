@@ -1,4 +1,7 @@
-import type { SeasonalWaterColumnV3 } from "../contracts.ts";
+import type {
+  RecommenderV3SeasonalRow,
+  SeasonalWaterColumnV3,
+} from "../contracts.ts";
 
 export type LegacyWaterColumn = "top" | "shallow" | "mid" | "bottom";
 
@@ -44,4 +47,40 @@ export function sortEligibleArchetypeIds<T extends string>(
   viable: readonly T[],
 ): readonly T[] {
   return [...new Set(viable)].sort((a, b) => a.localeCompare(b));
+}
+
+function seasonalRowKey(row: RecommenderV3SeasonalRow): string {
+  return [row.species, row.region_key, row.month, row.context].join("|");
+}
+
+/**
+ * Seasonal authoring can intentionally override a prior row for the same
+ * species/region/month/context key. Using a keyed registry keeps the exported
+ * tables unique and makes the replacement explicit at construction time.
+ */
+export function upsertSeasonalRow(
+  rows: Map<string, RecommenderV3SeasonalRow>,
+  row: RecommenderV3SeasonalRow,
+): void {
+  rows.set(seasonalRowKey(row), row);
+}
+
+export function finalizeSeasonalRows(
+  rows: Map<string, RecommenderV3SeasonalRow>,
+): readonly RecommenderV3SeasonalRow[] {
+  return [...rows.values()];
+}
+
+export function assertNoDuplicateSeasonalRows(
+  rows: readonly RecommenderV3SeasonalRow[],
+  label: string,
+): void {
+  const seen = new Set<string>();
+  for (const row of rows) {
+    const key = seasonalRowKey(row);
+    if (seen.has(key)) {
+      throw new Error(`${label} contains duplicate seasonal row key '${key}'.`);
+    }
+    seen.add(key);
+  }
 }

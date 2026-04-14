@@ -62,6 +62,17 @@ export function buildSyntheticDaily(
   const posture_score_10 = postureScoreFromBand(band);
   const suppress_fast =
     band === "suppressed" || band === "slightly_suppressed";
+  const reaction_window_today = band === "aggressive" ||
+      band === "slightly_aggressive"
+    ? "on"
+    : suppress_fast
+    ? "off"
+    : "watch";
+  const pace_bias_today = suppress_fast
+    ? "slow"
+    : band === "aggressive"
+    ? "fast"
+    : "neutral";
 
   const max_up: 0 | 1 | 2 =
     band === "aggressive" ? 2 : band === "slightly_aggressive" ? 1 : 0;
@@ -81,6 +92,8 @@ export function buildSyntheticDaily(
     posture_score_10,
     posture_band: band,
     presentation_presence_today: presentation,
+    reaction_window_today,
+    pace_bias_today,
     column_shift_bias_half_steps: columnBias as -2 | -1 | 0 | 1 | 2,
     max_upward_column_shift_today: max_up,
     max_downward_column_shift_today: max_down,
