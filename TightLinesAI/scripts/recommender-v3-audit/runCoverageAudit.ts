@@ -190,7 +190,7 @@ function collectRedundancyCollisions(
     const profile = gear_mode === "lure"
       ? LURE_ARCHETYPES_V3[id as LureArchetypeIdV3]
       : FLY_ARCHETYPES_V3[id as FlyArchetypeIdV3];
-    const key = profile.top3_redundancy_key;
+    const key = profile.family_group;
     if (!key) continue;
     redundancyCounts.set(key, (redundancyCounts.get(key) ?? 0) + 1);
   }
@@ -202,6 +202,7 @@ function collectRedundancyCollisions(
 function detectTacticalConflict(
   candidates: readonly RecommenderV3RankedArchetype[],
   daily: RecommenderV3DailyPayload,
+  resolved: ReturnType<typeof runRecommenderV3>["resolved_profile"],
 ): { reason: string; lanes: string[]; scores: number[] } | null {
   if (candidates.length < 2) return null;
   const top = candidates[0]!;
@@ -220,9 +221,9 @@ function detectTacticalConflict(
 
     if ((topSurface && bottom) || (topBottom && surface)) {
       if (
-        daily.surface_window_today === "closed" ||
-        daily.suppress_true_topwater ||
-        daily.presentation_presence_today === "subtle" ||
+        daily.surface_window === "closed" ||
+        daily.suppress_true_surface ||
+        resolved.daily_preference.preferred_presence === "subtle" ||
         daily.suppress_fast_presentations
       ) {
         return {
@@ -244,7 +245,7 @@ function detectTacticalConflict(
     }
     if (
       topPace === "fast" && pace === "slow" &&
-      daily.pace_bias_today === "fast"
+      resolved.daily_preference.preferred_pace === "fast"
     ) {
       return {
         reason: "slow_vs_fast",
@@ -586,7 +587,11 @@ async function main() {
           }
         }
 
-        const lureConflict = detectTacticalConflict(lures, daily);
+        const lureConflict = detectTacticalConflict(
+          lures,
+          daily,
+          resolved,
+        );
         if (lureConflict) {
           lureConflictStates += 1;
           if (lureConflictExamples.length < 25) {
@@ -605,7 +610,11 @@ async function main() {
           }
         }
 
-        const flyConflict = detectTacticalConflict(flies, daily);
+        const flyConflict = detectTacticalConflict(
+          flies,
+          daily,
+          resolved,
+        );
         if (flyConflict) {
           flyConflictStates += 1;
           if (flyConflictExamples.length < 25) {

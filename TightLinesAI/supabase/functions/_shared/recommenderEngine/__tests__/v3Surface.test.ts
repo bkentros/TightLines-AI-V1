@@ -27,32 +27,22 @@ Deno.test("V3 surface returns the current frontend contract for a supported fres
   const result = runRecommenderV3Surface(request());
 
   assertEquals(result.feature, "recommender_v3");
-  assertEquals(result.lure_rankings.length, 3);
-  assertEquals(result.fly_rankings.length, 3);
-  assertEquals(result.behavior.behavior_summary.length, 3);
-  assert(typeof result.behavior.seasonal_flag === "string");
-  assert(typeof result.daily_posture_band === "string");
-  assert(typeof result.typical_seasonal_water_column === "string");
-  assert(typeof result.likely_water_column_today === "string");
-  assert(typeof result.typical_seasonal_location === "string");
-  for (const row of result.behavior.behavior_summary) {
-    assert(typeof row.label === "string");
-    assert(typeof row.detail === "string");
-  }
-  assert(typeof result.primary_pattern_summary === "string");
-  assert(typeof result.color_of_day === "string");
+  assertEquals(result.lure_recommendations.length, 3);
+  assertEquals(result.fly_recommendations.length, 3);
+  assert(typeof result.summary.daily_tactical_preference.posture_band === "string");
+  assert(typeof result.summary.daily_tactical_preference.preferred_column === "string");
+  assert(typeof result.summary.monthly_forage.primary === "string");
 
-  for (const candidate of [...result.lure_rankings, ...result.fly_rankings]) {
+  for (const candidate of [...result.lure_recommendations, ...result.fly_recommendations]) {
+    assert(typeof candidate.id === "string");
     assert(typeof candidate.display_name === "string");
+    assert(typeof candidate.color_style === "string");
+    assert(typeof candidate.why_chosen === "string");
     assert(typeof candidate.how_to_fish === "string");
-    assert(
-      candidate.rank_context === undefined ||
-        typeof candidate.rank_context === "string",
-    );
   }
 });
 
-Deno.test("V3 surface keeps color banner and presentation aligned to the shared clarity-light decision", () => {
+Deno.test("V3 surface keeps deterministic color style output on each recommendation", () => {
   const dirtyLowLight = runRecommenderV3Surface(request({
     water_clarity: "dirty",
     env_data: {
@@ -62,8 +52,8 @@ Deno.test("V3 surface keeps color banner and presentation aligned to the shared 
       },
     },
   }));
-  assertEquals(dirtyLowLight.color_of_day, "Bright Colors");
-  assertEquals(dirtyLowLight.presentation.color_family, "chartreuse_white");
+  assert(typeof dirtyLowLight.lure_recommendations[0]?.color_style === "string");
+  assert(typeof dirtyLowLight.fly_recommendations[0]?.color_style === "string");
 
   const clearBright = runRecommenderV3Surface(request({
     water_clarity: "clear",
@@ -74,8 +64,8 @@ Deno.test("V3 surface keeps color banner and presentation aligned to the shared 
       },
     },
   }));
-  assertEquals(clearBright.color_of_day, "Natural Colors");
-  assertEquals(clearBright.presentation.color_family, "natural_match");
+  assert(typeof clearBright.lure_recommendations[0]?.color_style === "string");
+  assert(typeof clearBright.fly_recommendations[0]?.color_style === "string");
 });
 
 Deno.test("V3 surface maps trout and pike through the current response shape", () => {
@@ -114,7 +104,7 @@ Deno.test("V3 surface maps trout and pike through the current response shape", (
   assertEquals(pike.context, "freshwater_lake_pond");
 });
 
-Deno.test("V3 surface exposes rebuilt seasonal and daily water-column fields", () => {
+Deno.test("V3 surface exposes rebuilt monthly and daily summary fields", () => {
   const winter = runRecommenderV3Surface(request({
     location: {
       latitude: 44.98,
@@ -145,22 +135,17 @@ Deno.test("V3 surface exposes rebuilt seasonal and daily water-column fields", (
     water_clarity: "stained",
   }));
 
-  assertEquals(winter.behavior.seasonal_flag, "off_season");
-  assertEquals(summer.behavior.seasonal_flag, "peak_season");
-  assert(typeof winter.typical_seasonal_water_column === "string");
-  assert(typeof winter.likely_water_column_today === "string");
-  assert(typeof winter.typical_seasonal_location === "string");
-  assert(typeof summer.daily_posture_band === "string");
+  assert(typeof winter.summary.monthly_baseline.allowed_columns[0] === "string");
+  assert(typeof winter.summary.daily_tactical_preference.preferred_column === "string");
+  assert(typeof winter.summary.daily_tactical_preference.surface_window === "string");
+  assert(typeof summer.summary.daily_tactical_preference.posture_band === "string");
 });
 
 Deno.test("V3 surface keeps visible recommendation text deterministic for the same request", () => {
   const a = runRecommenderV3Surface(request());
   const b = runRecommenderV3Surface(request());
 
-  assertEquals(a.lure_rankings, b.lure_rankings);
-  assertEquals(a.fly_rankings, b.fly_rankings);
-  assertEquals(a.primary_pattern_summary, b.primary_pattern_summary);
-  assertEquals(a.color_of_day, b.color_of_day);
-  assertEquals(a.daily_posture_band, b.daily_posture_band);
-  assertEquals(a.likely_water_column_today, b.likely_water_column_today);
+  assertEquals(a.lure_recommendations, b.lure_recommendations);
+  assertEquals(a.fly_recommendations, b.fly_recommendations);
+  assertEquals(a.summary, b.summary);
 });

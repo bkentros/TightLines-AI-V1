@@ -988,10 +988,6 @@ export default function RecommenderScreen() {
         <RecommenderView
           result={result}
           style={styles.resultView}
-          isRefreshing={isRefreshing}
-          onRefresh={() => {
-            void handleFetch(true);
-          }}
         />
       )}
     </SafeAreaView>

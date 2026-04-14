@@ -10,6 +10,7 @@ import type {
 import type { RegionKey } from "../../../howFishingEngine/contracts/region.ts";
 import {
   baseSeasonalWaterColumn,
+  buildMonthlyBaselineProfile,
   finalizeSeasonalRows,
   shiftSeasonalWaterColumn,
   sortEligibleArchetypeIds,
@@ -23,8 +24,8 @@ type LegacySeasonalCore = {
   base_water_column: LegacyWaterColumn;
   base_mood: LegacyMood;
   base_presentation_style: PresentationStyleV3;
-  primary_forage: RecommenderV3SeasonalRow["primary_forage"];
-  secondary_forage?: RecommenderV3SeasonalRow["secondary_forage"];
+  primary_forage: RecommenderV3SeasonalRow["monthly_baseline"]["primary_forage"];
+  secondary_forage?: RecommenderV3SeasonalRow["monthly_baseline"]["secondary_forage"];
   primary_lure_archetypes?: readonly LureArchetypeIdV3[];
   viable_lure_archetypes: readonly LureArchetypeIdV3[];
   primary_fly_archetypes?: readonly FlyArchetypeIdV3[];
@@ -95,15 +96,26 @@ function toSeasonalRow(
   core: LegacySeasonalCore,
 ): RecommenderV3SeasonalRow {
   const typicalColumn = resolveTroutSeasonalWaterColumn(region_key, month, core);
+  const typicalLocation = resolveTroutSeasonalLocation(month, typicalColumn);
   return {
     species: "trout",
     region_key,
     context: "freshwater_river",
     month,
-    typical_seasonal_water_column: typicalColumn,
-    typical_seasonal_location: resolveTroutSeasonalLocation(month, typicalColumn),
-    primary_forage: core.primary_forage,
-    secondary_forage: core.secondary_forage,
+    monthly_baseline: buildMonthlyBaselineProfile({
+      typical_seasonal_water_column: typicalColumn,
+      typical_seasonal_location: typicalLocation,
+      base_mood: core.base_mood,
+      base_presentation_style: core.base_presentation_style,
+      primary_forage: core.primary_forage,
+      secondary_forage: core.secondary_forage,
+      eligible_archetype_ids: [
+        ...core.viable_lure_archetypes,
+        ...core.viable_fly_archetypes,
+      ],
+    }),
+    primary_lure_ids: core.primary_lure_archetypes,
+    primary_fly_ids: core.primary_fly_archetypes,
     eligible_lure_ids: sortEligibleArchetypeIds(core.viable_lure_archetypes),
     eligible_fly_ids: sortEligibleArchetypeIds(core.viable_fly_archetypes),
   };
@@ -516,9 +528,9 @@ addMonths(WESTERN_CLASSIC_REGIONS, [1, 2], {
   viable_fly_archetypes: WINTER_RIVER_FLIES,
 });
 // Pacific Northwest winter override: woolly-forward pool resolves the
-// sculpin/woolly/rabbit 3-way score tie in woolly's favor, matching
-// PNW prespawn expectations where woolly is a primary lane.
-addMonths(["pacific_northwest"], [1, 2, 3], {
+// sculpin/woolly/rabbit 3-way score tie in woolly's favor on true winter rows,
+// while March falls back to the western prespawn band below.
+addMonths(["pacific_northwest"], [1, 2], {
   base_water_column: "mid",
   base_mood: "negative",
   base_presentation_style: "subtle",
@@ -587,16 +599,16 @@ addMonths(["mountain_west", "inland_northwest"], [7, 8], {
   viable_fly_archetypes: COOL_SUMMER_RIVER_FLIES,
 });
 // Western midsummer mouse window: keep the lure side on realistic trout search
-// tools, but let mouse become a true primary fly lane on the right rivers.
+// tools, but only let mouse become a true primary fly lane on the select
+// western rivers where that late-summer low-light story is strongest.
 addMonths(
-  ["mountain_west", "inland_northwest", "northern_california"],
+  ["mountain_west", "northern_california"],
   [7, 8],
   {
     base_water_column: "shallow",
     base_mood: "active",
-    base_presentation_style: "balanced",
+    base_presentation_style: "subtle",
     primary_forage: "baitfish",
-    secondary_forage: "insect_misc",
     primary_lure_archetypes: ["inline_spinner", "soft_jerkbait"],
     viable_lure_archetypes: COOL_SUMMER_RIVER_LURES,
     primary_fly_archetypes: ["mouse_fly", "slim_minnow_streamer"],

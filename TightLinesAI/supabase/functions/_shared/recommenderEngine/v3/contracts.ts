@@ -6,10 +6,8 @@ import type { WaterClarity } from "../contracts/input.ts";
 /**
  * Freshwater-only V3 contracts.
  *
- * The rebuilt recommender is intentionally compact and deterministic:
- * seasonal rows define what is biologically sensible, then a small daily payload
- * reshuffles that pool using posture, presentation presence, and explicit
- * guardrails.
+ * Monthly biology defines the valid world. Daily conditions then shift the
+ * preferred tactical lane inside that world without guessing outside it.
  */
 
 export const RECOMMENDER_V3_SPECIES = [
@@ -28,18 +26,57 @@ export const RECOMMENDER_V3_CONTEXTS = [
 
 export type RecommenderV3Context = (typeof RECOMMENDER_V3_CONTEXTS)[number];
 
-/** Existing archetype catalogs still profile water-column fit in 4 broad lanes. */
-export const ARCHETYPE_WATER_COLUMNS_V3 = [
+export const TACTICAL_COLUMNS_V3 = [
+  "bottom",
+  "mid",
+  "upper",
+  "surface",
+] as const;
+
+export type TacticalColumnV3 = (typeof TACTICAL_COLUMNS_V3)[number];
+
+export const TACTICAL_PACES_V3 = [
+  "slow",
+  "medium",
+  "fast",
+] as const;
+
+export type TacticalPaceV3 = (typeof TACTICAL_PACES_V3)[number];
+
+export const TACTICAL_PRESENCE_V3 = [
+  "subtle",
+  "moderate",
+  "bold",
+] as const;
+
+export type TacticalPresenceV3 = (typeof TACTICAL_PRESENCE_V3)[number];
+
+export const LEGACY_ARCHETYPE_WATER_COLUMNS_V3 = [
   "top",
   "shallow",
   "mid",
   "bottom",
 ] as const;
 
-export type ArchetypeWaterColumnV3 =
-  (typeof ARCHETYPE_WATER_COLUMNS_V3)[number];
+export type LegacyArchetypeWaterColumnV3 =
+  (typeof LEGACY_ARCHETYPE_WATER_COLUMNS_V3)[number];
 
-/** Seasonal baseline anchors use the explicit 5-state model from the new spec. */
+export const MOODS_V3 = [
+  "negative",
+  "neutral",
+  "active",
+] as const;
+
+export type MoodV3 = (typeof MOODS_V3)[number];
+
+export const PRESENTATION_STYLES_V3 = [
+  "subtle",
+  "balanced",
+  "bold",
+] as const;
+
+export type PresentationStyleV3 = (typeof PRESENTATION_STYLES_V3)[number];
+
 export const SEASONAL_WATER_COLUMNS_V3 = [
   "top",
   "high",
@@ -51,37 +88,15 @@ export const SEASONAL_WATER_COLUMNS_V3 = [
 export type SeasonalWaterColumnV3 =
   (typeof SEASONAL_WATER_COLUMNS_V3)[number];
 
-/** Today's likely bite lane resolves on a 7-step deterministic scale. */
-export const RESOLVED_WATER_COLUMNS_V3 = [
-  "top",
-  "high_top",
-  "high",
-  "mid_high",
+export const SEASONAL_LOCATIONS_V3 = [
+  "shallow",
+  "shallow_mid",
   "mid",
-  "mid_low",
-  "low",
+  "mid_deep",
+  "deep",
 ] as const;
 
-export type ResolvedWaterColumnV3 =
-  (typeof RESOLVED_WATER_COLUMNS_V3)[number];
-
-/** Archetype catalogs already encode fit using these broad posture buckets. */
-export const MOODS_V3 = [
-  "negative",
-  "neutral",
-  "active",
-] as const;
-
-export type MoodV3 = (typeof MOODS_V3)[number];
-
-/** Presence values match the subtle/balanced/bold model locked in the plan. */
-export const PRESENTATION_STYLES_V3 = [
-  "subtle",
-  "balanced",
-  "bold",
-] as const;
-
-export type PresentationStyleV3 = (typeof PRESENTATION_STYLES_V3)[number];
+export type SeasonalLocationV3 = (typeof SEASONAL_LOCATIONS_V3)[number];
 
 export const DAILY_POSTURE_BANDS_V3 = [
   "suppressed",
@@ -112,23 +127,14 @@ export const DAILY_REACTION_WINDOWS_V3 = [
 export type DailyReactionWindowV3 =
   (typeof DAILY_REACTION_WINDOWS_V3)[number];
 
-export const DAILY_PACE_BIASES_V3 = [
-  "slow",
-  "neutral",
-  "fast",
+export const OPPORTUNITY_MIX_MODES_V3 = [
+  "conservative",
+  "balanced",
+  "aggressive",
 ] as const;
 
-export type DailyPaceBiasV3 = (typeof DAILY_PACE_BIASES_V3)[number];
-
-export const SEASONAL_LOCATIONS_V3 = [
-  "shallow",
-  "shallow_mid",
-  "mid",
-  "mid_deep",
-  "deep",
-] as const;
-
-export type SeasonalLocationV3 = (typeof SEASONAL_LOCATIONS_V3)[number];
+export type OpportunityMixModeV3 =
+  (typeof OPPORTUNITY_MIX_MODES_V3)[number];
 
 export const FORAGE_BUCKETS_V3 = [
   "baitfish",
@@ -136,6 +142,7 @@ export const FORAGE_BUCKETS_V3 = [
   "bluegill_perch",
   "leech_worm",
   "insect_misc",
+  "surface_prey",
 ] as const;
 
 export type ForageBucketV3 = (typeof FORAGE_BUCKETS_V3)[number];
@@ -162,42 +169,6 @@ export const V3_SCORED_VARIABLE_KEYS_BY_CONTEXT: Record<
     "light_cloud_condition",
     "runoff_flow_disruption",
   ],
-};
-
-export const RECOMMENDER_V3_GUARDRAIL_KEYS = [
-  "surface_allowed_today",
-  "suppress_true_topwater",
-  "surface_window_today",
-  "max_upward_column_shift_today",
-  "max_downward_column_shift_today",
-  "suppress_fast_presentations",
-  "high_visibility_needed_today",
-] as const;
-
-export type RecommenderV3GuardrailKey =
-  (typeof RECOMMENDER_V3_GUARDRAIL_KEYS)[number];
-
-export type RecommenderV3DailyPayload = {
-  posture_score_10: number;
-  posture_band: DailyPostureBandV3;
-  presentation_presence_today: PresentationStyleV3;
-  reaction_window_today: DailyReactionWindowV3;
-  pace_bias_today: DailyPaceBiasV3;
-  /**
-   * Desired directional shift in half-steps before seasonal/guardrail clamping.
-   * -2 = stronger move up in the column, +2 = stronger move down.
-   */
-  column_shift_bias_half_steps: -2 | -1 | 0 | 1 | 2;
-  max_upward_column_shift_today: 0 | 1 | 2;
-  max_downward_column_shift_today: 0 | 1 | 2;
-  surface_allowed_today: boolean;
-  suppress_true_topwater: boolean;
-  surface_window_today: DailySurfaceWindowV3;
-  suppress_fast_presentations: boolean;
-  high_visibility_needed_today: boolean;
-  variables_considered: readonly string[];
-  variables_triggered: readonly string[];
-  notes: string[];
 };
 
 export const LURE_ARCHETYPE_IDS_V3 = [
@@ -291,22 +262,84 @@ export const TACTICAL_LANES_V3 = [
 
 export type TacticalLaneV3 = (typeof TACTICAL_LANES_V3)[number];
 
+export type RecommenderV3MonthlyBaselineProfile = {
+  allowed_columns: readonly TacticalColumnV3[];
+  column_preference_order: readonly TacticalColumnV3[];
+  allowed_paces: readonly TacticalPaceV3[];
+  pace_preference_order: readonly TacticalPaceV3[];
+  allowed_presence: readonly TacticalPresenceV3[];
+  presence_preference_order: readonly TacticalPresenceV3[];
+  surface_seasonally_possible: boolean;
+  primary_forage: ForageBucketV3;
+  secondary_forage?: ForageBucketV3;
+  typical_seasonal_water_column: SeasonalWaterColumnV3;
+  typical_seasonal_location: SeasonalLocationV3;
+};
+
+export type RecommenderV3DailyPayload = {
+  normalized_states: {
+    temperature_metabolic_context: "cold_limited" | "heat_limited" | "neutral";
+    temperature_trend: string;
+    temperature_shock: string;
+    pressure_regime: string | null;
+    wind_condition: string | null;
+    light_cloud_condition: string | null;
+    precipitation_disruption: string | null;
+    runoff_flow_disruption: string | null;
+  };
+  posture_band: DailyPostureBandV3;
+  reaction_window: DailyReactionWindowV3;
+  surface_window: DailySurfaceWindowV3;
+  opportunity_mix: OpportunityMixModeV3;
+  column_shift: -1 | 0 | 1;
+  pace_shift: -1 | 0 | 1;
+  presence_shift: -1 | 0 | 1;
+  surface_allowed_today: boolean;
+  suppress_true_surface: boolean;
+  suppress_fast_presentations: boolean;
+  high_visibility_needed: boolean;
+  variables_considered: readonly string[];
+  variables_triggered: readonly string[];
+  notes: string[];
+};
+
+export type RecommenderV3DailyTacticalPreference = {
+  preferred_column: TacticalColumnV3;
+  secondary_column?: TacticalColumnV3;
+  column_preference_order: readonly TacticalColumnV3[];
+  preferred_pace: TacticalPaceV3;
+  secondary_pace?: TacticalPaceV3;
+  pace_preference_order: readonly TacticalPaceV3[];
+  preferred_presence: TacticalPresenceV3;
+  secondary_presence?: TacticalPresenceV3;
+  presence_preference_order: readonly TacticalPresenceV3[];
+  surface_allowed_today: boolean;
+  surface_window: DailySurfaceWindowV3;
+  reaction_window: DailyReactionWindowV3;
+  opportunity_mix: OpportunityMixModeV3;
+  notes: readonly string[];
+};
+
 export type RecommenderV3ArchetypeProfile = {
   id: RecommenderV3ArchetypeId;
   display_name: string;
   gear_mode: "lure" | "fly";
-  family_key: string;
-  /** Optional: only use for near-duplicates that should not coexist in the top 3. */
-  top3_redundancy_key?: string;
-  preferred_water_columns: readonly ArchetypeWaterColumnV3[];
-  preferred_moods: readonly MoodV3[];
-  preferred_presentation_styles: readonly PresentationStyleV3[];
-  forage_matches: readonly ForageBucketV3[];
-  clarity_strengths: readonly WaterClarity[];
+  species_allowed: readonly RecommenderV3Species[];
+  water_types_allowed: readonly RecommenderV3Context[];
+  family_group: string;
+  primary_column: TacticalColumnV3;
+  secondary_column?: TacticalColumnV3;
+  pace: TacticalPaceV3;
+  secondary_pace?: TacticalPaceV3;
+  presence: TacticalPresenceV3;
+  secondary_presence?: TacticalPresenceV3;
+  is_surface: boolean;
+  current_friendly?: boolean;
+  forage_tags: readonly ForageBucketV3[];
+  why_hooks: readonly string[];
+  how_to_fish_template: string;
+  clarity_strengths?: readonly WaterClarity[];
   tactical_lane: TacticalLaneV3;
-  /** Optional per-archetype technique line when tactical_lane defaults are too generic. */
-  /** Three variants; `runRecommenderV3Surface` picks one deterministically from the request seed. */
-  how_to_fish_text?: readonly [string, string, string];
 };
 
 export type RecommenderV3SeasonalRow = {
@@ -314,49 +347,50 @@ export type RecommenderV3SeasonalRow = {
   region_key: RegionKey;
   month: number;
   context: RecommenderV3Context;
-  typical_seasonal_water_column: SeasonalWaterColumnV3;
-  typical_seasonal_location: SeasonalLocationV3;
-  primary_forage: ForageBucketV3;
-  secondary_forage?: ForageBucketV3;
-  /** Seasonal eligibility only — equal standing; daily conditions rank within this set. */
+  monthly_baseline: RecommenderV3MonthlyBaselineProfile;
+  primary_lure_ids?: readonly LureArchetypeIdV3[];
+  primary_fly_ids?: readonly FlyArchetypeIdV3[];
   eligible_lure_ids: readonly LureArchetypeIdV3[];
   eligible_fly_ids: readonly FlyArchetypeIdV3[];
 };
 
 export type RecommenderV3ResolvedProfile = {
-  typical_seasonal_water_column: SeasonalWaterColumnV3;
-  likely_water_column_today: ResolvedWaterColumnV3;
-  typical_seasonal_location: SeasonalLocationV3;
-  daily_posture_band: DailyPostureBandV3;
-  presentation_presence_today: PresentationStyleV3;
-  primary_forage: ForageBucketV3;
-  secondary_forage?: ForageBucketV3;
+  monthly_baseline: RecommenderV3MonthlyBaselineProfile;
+  daily_preference: RecommenderV3DailyTacticalPreference;
 };
 
 export type RecommenderV3ScoreBreakdown = {
   code: string;
   value: number;
   detail: string;
-  /** Used by confidence heuristics when present. */
-  direction?: "bonus" | "penalty";
 };
+
+export type RecommenderV3SelectionRole =
+  | "best_match"
+  | "strong_alternate"
+  | "change_up";
 
 export type RecommenderV3RankedArchetype = {
   id: RecommenderV3ArchetypeId;
   display_name: string;
   gear_mode: "lure" | "fly";
-  family_key: string;
+  family_group: string;
+  primary_column: TacticalColumnV3;
+  pace: TacticalPaceV3;
+  presence: TacticalPresenceV3;
+  is_surface: boolean;
   tactical_lane: TacticalLaneV3;
   score: number;
-  water_column_fit: number;
-  posture_fit: number;
-  presentation_fit: number;
-  forage_bonus: number;
-  daily_condition_fit: number;
+  selection_role: RecommenderV3SelectionRole;
+  tactical_fit: number;
+  practicality_fit: number;
+  forage_fit: number;
   clarity_fit: number;
-  guardrail_penalty: number;
+  opportunity_mix_fit: number;
   color_theme: ResolvedColorThemeV3;
   color_recommendations: [string, string, string];
+  why_chosen: string;
+  how_to_fish: string;
   breakdown: RecommenderV3ScoreBreakdown[];
 };
 

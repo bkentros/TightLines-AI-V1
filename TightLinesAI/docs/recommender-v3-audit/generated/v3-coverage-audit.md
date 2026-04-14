@@ -1,6 +1,6 @@
 # V3 Coverage Audit
 
-Generated: 2026-04-14T00:41:42.085Z
+Generated: 2026-04-14T18:10:38.589Z
 
 Seasonal rows audited: 1104
 Synthetic daily states per row: 405
@@ -21,57 +21,57 @@ Synthetic daily states per row: 405
 
 ## Success Targets
 
-Locked top-1 ratio: lure 0.0% / target <= 50.0%, fly 0.2% / target <= 55.0%
-Low daily sensitivity ratio: lure 0.0% / target <= 45.0%, fly 0.2% / target <= 50.0%
-Tactical conflict rate: lure 3.2% / target <= 2.0%, fly 0.0% / target <= 2.0%
-Expectation mismatches: lure 1 / target <= 0, fly 0 / target <= 0
+Locked top-1 ratio: lure 38.3% / target <= 50.0%, fly 64.9% / target <= 55.0%
+Low daily sensitivity ratio: lure 31.4% / target <= 45.0%, fly 55.3% / target <= 50.0%
+Tactical conflict rate: lure 1.6% / target <= 2.0%, fly 1.4% / target <= 2.0%
+Expectation mismatches: lure 10 / target <= 0, fly 5 / target <= 0
 
 ## Locked Top-1 Rows
 
-Lure rows with only one possible top-1 across all synthetic states: 0
-Fly rows with only one possible top-1 across all synthetic states: 2
+Lure rows with only one possible top-1 across all synthetic states: 423
+Fly rows with only one possible top-1 across all synthetic states: 716
 
 ## Low Daily Sensitivity
 
-Lure rows with only one top-1 and at most two ordered top-3 lineups: 0
-Fly rows with only one top-1 and at most two ordered top-3 lineups: 2
+Lure rows with only one top-1 and at most two ordered top-3 lineups: 347
+Fly rows with only one top-1 and at most two ordered top-3 lineups: 611
 
 ## Tactical Conflicts
 
-Lure evaluated states with top-3 pace/story conflicts: 14499
-Fly evaluated states with top-3 pace/story conflicts: 0
+Lure evaluated states with top-3 pace/story conflicts: 7290
+Fly evaluated states with top-3 pace/story conflicts: 6318
 
 ## Library Reachability
 
 Lures never viable: none
-Lures never top 3: none
-Lures never top 1: lipless_crankbait
+Lures never top 3: carolina_rigged_stick_worm, ned_rig, walking_topwater, popping_topwater, buzzbait, prop_bait, hollow_body_frog
+Lures never top 1: weightless_stick_worm, carolina_rigged_stick_worm, ned_rig, medium_diving_crankbait, walking_topwater, popping_topwater, buzzbait, prop_bait, hollow_body_frog, pike_jerkbait
 
 Flies never viable: none
-Flies never top 3: none
-Flies never top 1: none
+Flies never top 3: popper_fly, mouse_fly
+Flies never top 1: articulated_baitfish_streamer, articulated_dungeon_streamer, popper_fly, frog_fly, mouse_fly
 
 ## Intended vs Actual
 
-Lure expectation mismatches: 1
-Fly expectation mismatches: 0
+Lure expectation mismatches: 10
+Fly expectation mismatches: 5
 
 ## Redundancy Collisions
 
-No tagged top-3 redundancy collisions were detected.
+Detected 25 tagged redundancy collisions.
 
 ## Lure Intent Table
 
 | Archetype | Role | Required | Status |
 | --- | --- | --- | --- |
-| weightless_stick_worm | winner_capable | top1 | pass |
+| weightless_stick_worm | winner_capable | top1 | fail |
 | texas_rigged_stick_worm | winner_capable | top1 | pass |
 | wacky_rigged_stick_worm | winner_capable | top1 | pass |
-| carolina_rigged_stick_worm | intentional_low_frequency_specialty | top3 | pass |
+| carolina_rigged_stick_worm | intentional_low_frequency_specialty | top3 | fail |
 | shaky_head_worm | winner_capable | top1 | pass |
 | drop_shot_worm | winner_capable | top1 | pass |
 | drop_shot_minnow | intentional_low_frequency_specialty | top1 | pass |
-| ned_rig | winner_capable | top1 | pass |
+| ned_rig | winner_capable | top1 | fail |
 | tube_jig | winner_capable | top1 | pass |
 | texas_rigged_soft_plastic_craw | winner_capable | top1 | pass |
 | football_jig | winner_capable | top1 | pass |
@@ -87,18 +87,18 @@ No tagged top-3 redundancy collisions were detected.
 | suspending_jerkbait | winner_capable | top1 | pass |
 | squarebill_crankbait | winner_capable | top1 | pass |
 | flat_sided_crankbait | intentional_low_frequency_specialty | top1 | pass |
-| medium_diving_crankbait | intentional_low_frequency_specialty | top1 | pass |
+| medium_diving_crankbait | intentional_low_frequency_specialty | top1 | fail |
 | deep_diving_crankbait | intentional_low_frequency_specialty | top1 | pass |
-| lipless_crankbait | intentional_low_frequency_specialty | top1 | fail |
+| lipless_crankbait | intentional_low_frequency_specialty | top1 | pass |
 | blade_bait | winner_capable | top1 | pass |
 | casting_spoon | winner_capable | top1 | pass |
-| walking_topwater | winner_capable | top1 | pass |
-| popping_topwater | intentional_low_frequency_specialty | top1 | pass |
-| buzzbait | intentional_low_frequency_specialty | top1 | pass |
-| prop_bait | intentional_low_frequency_specialty | top1 | pass |
-| hollow_body_frog | winner_capable | top1 | pass |
+| walking_topwater | winner_capable | top1 | fail |
+| popping_topwater | intentional_low_frequency_specialty | top1 | fail |
+| buzzbait | intentional_low_frequency_specialty | top1 | fail |
+| prop_bait | intentional_low_frequency_specialty | top1 | fail |
+| hollow_body_frog | winner_capable | top1 | fail |
 | large_profile_pike_swimbait | winner_capable | top1 | pass |
-| pike_jerkbait | winner_capable | top1 | pass |
+| pike_jerkbait | winner_capable | top1 | fail |
 
 ## Fly Intent Table
 
@@ -108,8 +108,8 @@ No tagged top-3 redundancy collisions were detected.
 | deceiver | intentional_low_frequency_specialty | top1 | pass |
 | bucktail_baitfish_streamer | intentional_low_frequency_specialty | top1 | pass |
 | slim_minnow_streamer | winner_capable | top1 | pass |
-| articulated_baitfish_streamer | winner_capable | top1 | pass |
-| articulated_dungeon_streamer | winner_capable | top1 | pass |
+| articulated_baitfish_streamer | winner_capable | top1 | fail |
+| articulated_dungeon_streamer | winner_capable | top1 | fail |
 | game_changer | winner_capable | top1 | pass |
 | woolly_bugger | winner_capable | top1 | pass |
 | rabbit_strip_leech | winner_capable | top1 | pass |
@@ -122,7 +122,7 @@ No tagged top-3 redundancy collisions were detected.
 | conehead_streamer | intentional_low_frequency_specialty | top1 | pass |
 | pike_bunny_streamer | winner_capable | top1 | pass |
 | large_articulated_pike_streamer | winner_capable | top1 | pass |
-| popper_fly | winner_capable | top1 | pass |
-| frog_fly | winner_capable | top1 | pass |
-| mouse_fly | intentional_low_frequency_specialty | top1 | pass |
+| popper_fly | winner_capable | top1 | fail |
+| frog_fly | winner_capable | top1 | fail |
+| mouse_fly | intentional_low_frequency_specialty | top1 | fail |
 

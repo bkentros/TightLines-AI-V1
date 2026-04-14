@@ -133,17 +133,16 @@ function dailyContext(raw: ReturnType<typeof runRecommenderV3>): string {
   const triggered = p.variables_triggered.length > 0
     ? ` · fired: ${p.variables_triggered.join("/")}`
     : "";
-  return `posture ${p.posture_band} (${p.posture_score_10}/10) · presence ${p.presentation_presence_today} · surface ${p.surface_window_today}${triggered}`;
+  return `posture ${p.posture_band} · presence ${raw.resolved_profile.daily_preference.preferred_presence} · surface ${p.surface_window}${triggered}`;
 }
 
 function toViewerRec(
   rawRec: ReturnType<typeof runRecommenderV3>["lure_recommendations"][number],
-  surfaceRankings: ReturnType<typeof runRecommenderV3Surface>["lure_rankings"],
+  surfaceRankings: ReturnType<typeof runRecommenderV3Surface>["lure_recommendations"],
   gearMode: "lure" | "fly",
   rank: number,
 ): ViewerRecommendation {
-  // Match surface row by archetype id — gives us the deterministic how_to_fish string.
-  const surfaceFamily = surfaceRankings.find((f) => f.family_id === rawRec.id);
+  const surfaceFamily = surfaceRankings.find((f) => f.id === rawRec.id);
   const howToFish = surfaceFamily?.how_to_fish ?? TECHNIQUE_FROM_LANE[rawRec.tactical_lane] ?? rawRec.tactical_lane;
   const waterColumn = WATER_COLUMN_FROM_LANE[rawRec.tactical_lane] ?? "Mid";
   const shades = rawRec.color_recommendations as [string, string, string];
@@ -158,14 +157,10 @@ function toViewerRec(
     how_to_fish: howToFish,
     water_column: waterColumn,
     score: rawRec.score,
-    water_column_fit: rawRec.water_column_fit,
-    daily_stack:
-      rawRec.posture_fit +
-      rawRec.presentation_fit +
-      rawRec.daily_condition_fit +
-      rawRec.guardrail_penalty,
+    water_column_fit: rawRec.tactical_fit,
+    daily_stack: rawRec.tactical_fit + rawRec.practicality_fit + rawRec.opportunity_mix_fit,
     clarity_fit: rawRec.clarity_fit,
-    forage_bonus: rawRec.forage_bonus,
+    forage_bonus: rawRec.forage_fit,
     rank,
   };
 }
@@ -197,10 +192,10 @@ function buildScenarioResult(
   const month = bundle.location.month;
 
   const lures = raw.lure_recommendations.slice(0, 3).map((rec, i) =>
-    toViewerRec(rec, surface.lure_rankings, "lure", i + 1)
+    toViewerRec(rec, surface.lure_recommendations, "lure", i + 1)
   );
   const flies = raw.fly_recommendations.slice(0, 3).map((rec, i) =>
-    toViewerRec(rec, surface.fly_rankings, "fly", i + 1)
+    toViewerRec(rec, surface.fly_recommendations, "fly", i + 1)
   );
 
   return {

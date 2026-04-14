@@ -1,12 +1,160 @@
 import type {
   FlyArchetypeIdV3,
+  ForageBucketV3,
+  LegacyArchetypeWaterColumnV3,
+  MoodV3,
+  PresentationStyleV3,
   RecommenderV3ArchetypeProfile,
+  RecommenderV3Species,
+  TacticalColumnV3,
+  TacticalLaneV3,
+  TacticalPaceV3,
+  TacticalPresenceV3,
 } from "../contracts.ts";
 
+type LegacyFlyProfile = {
+  id: FlyArchetypeIdV3;
+  display_name: string;
+  gear_mode: "fly";
+  family_key: string;
+  preferred_water_columns: readonly LegacyArchetypeWaterColumnV3[];
+  preferred_moods: readonly MoodV3[];
+  preferred_presentation_styles: readonly PresentationStyleV3[];
+  forage_matches: readonly ForageBucketV3[];
+  clarity_strengths: readonly ("clear" | "stained" | "dirty")[];
+  tactical_lane: TacticalLaneV3;
+  how_to_fish_text?: readonly [string, string, string];
+};
+
+const ALL_FRESHWATER_SPECIES: readonly RecommenderV3Species[] = [
+  "largemouth_bass",
+  "smallmouth_bass",
+  "northern_pike",
+  "trout",
+] as const;
+
+const TRUE_SURFACE_FLIES = new Set<FlyArchetypeIdV3>([
+  "popper_fly",
+  "frog_fly",
+  "mouse_fly",
+]);
+
+const PIKE_ONLY_FLIES = new Set<FlyArchetypeIdV3>([
+  "pike_bunny_streamer",
+  "large_articulated_pike_streamer",
+]);
+
+const CURRENT_FRIENDLY_FLIES = new Set<FlyArchetypeIdV3>([
+  "clouser_minnow",
+  "slim_minnow_streamer",
+  "bucktail_baitfish_streamer",
+  "woolly_bugger",
+  "rabbit_strip_leech",
+  "balanced_leech",
+  "zonker_streamer",
+  "sculpin_streamer",
+  "sculpzilla",
+  "muddler_sculpin",
+  "crawfish_streamer",
+  "conehead_streamer",
+]);
+
+function mapColumn(
+  id: FlyArchetypeIdV3,
+  column: LegacyArchetypeWaterColumnV3,
+): TacticalColumnV3 {
+  if (TRUE_SURFACE_FLIES.has(id)) return "surface";
+  switch (column) {
+    case "top":
+    case "shallow":
+      return "upper";
+    case "mid":
+      return "mid";
+    case "bottom":
+    default:
+      return "bottom";
+  }
+}
+
+function mapPresence(style: PresentationStyleV3): TacticalPresenceV3 {
+  switch (style) {
+    case "subtle":
+      return "subtle";
+    case "bold":
+      return "bold";
+    case "balanced":
+    default:
+      return "moderate";
+  }
+}
+
+function defaultPaceFromLane(lane: TacticalLaneV3): TacticalPaceV3 {
+  switch (lane) {
+    case "fly_bottom":
+      return "slow";
+    case "fly_surface":
+      return "fast";
+    case "fly_baitfish":
+    default:
+      return "medium";
+  }
+}
+
+function secondaryPaceFromLegacy(
+  primary: TacticalPaceV3,
+  moods: readonly MoodV3[],
+): TacticalPaceV3 | undefined {
+  if (primary === "slow") return moods.includes("active") ? "medium" : undefined;
+  if (primary === "medium") {
+    if (moods.includes("negative")) return "slow";
+    if (moods.includes("active")) return "fast";
+    return undefined;
+  }
+  return "medium";
+}
+
+function whyHooks(profile: LegacyFlyProfile): readonly string[] {
+  return [
+    `${profile.display_name} fits a ${profile.tactical_lane.replaceAll("_", " ")} window.`,
+    `${profile.display_name} tracks well when ${profile.forage_matches[0] ?? "forage"} is a realistic meal.`,
+  ];
+}
+
 function fly(
-  profile: RecommenderV3ArchetypeProfile,
+  profile: LegacyFlyProfile,
 ): RecommenderV3ArchetypeProfile {
-  return profile;
+  const columnOrder = profile.preferred_water_columns
+    .map((column) => mapColumn(profile.id, column))
+    .filter((value, index, array) => array.indexOf(value) === index);
+  const presenceOrder = profile.preferred_presentation_styles
+    .map((style) => mapPresence(style))
+    .filter((value, index, array) => array.indexOf(value) === index);
+  const primaryPace = defaultPaceFromLane(profile.tactical_lane);
+  return {
+    id: profile.id,
+    display_name: profile.display_name,
+    gear_mode: "fly",
+    species_allowed: PIKE_ONLY_FLIES.has(profile.id)
+      ? ["northern_pike"]
+      : ALL_FRESHWATER_SPECIES,
+    water_types_allowed: ["freshwater_lake_pond", "freshwater_river"],
+    family_group: profile.family_key,
+    primary_column: columnOrder[0] ?? "mid",
+    secondary_column: columnOrder[1],
+    pace: primaryPace,
+    secondary_pace: secondaryPaceFromLegacy(primaryPace, profile.preferred_moods),
+    presence: presenceOrder[0] ?? "moderate",
+    secondary_presence: presenceOrder[1],
+    is_surface: TRUE_SURFACE_FLIES.has(profile.id),
+    current_friendly: CURRENT_FRIENDLY_FLIES.has(profile.id) ? true : undefined,
+    forage_tags: profile.forage_matches,
+    why_hooks: whyHooks(profile),
+    how_to_fish_template:
+      profile.how_to_fish_text?.[0] ??
+      `Fish ${profile.display_name.toLowerCase()} with a cadence that matches the day's preference.`,
+    clarity_strengths: profile.clarity_strengths,
+    tactical_lane: profile.tactical_lane,
+  };
 }
 
 export const FLY_ARCHETYPES_V3: Record<

@@ -308,7 +308,7 @@ function toReviewScenario(
       top_1_fly: topFlies[0] ?? null,
       top_3_flies: topFlies,
       color_notes: [
-        `Color of day: ${surface.color_of_day}`,
+        `Daily posture: ${surface.summary.daily_tactical_preference.posture_band}`,
         ...topLures.slice(0, 3).map((candidate) =>
           `${candidate.display_name}: ${candidate.color_theme} -> ${candidate.color_recommendations.join(", ")}`
         ),
@@ -317,10 +317,10 @@ function toReviewScenario(
         ),
       ],
       daily_profile_notes: [
-        `Daily posture: ${raw.daily_payload.posture_band} (${raw.daily_payload.posture_score_10}/10)`,
-        `Presentation presence today: ${raw.daily_payload.presentation_presence_today}`,
-        `Resolved profile: typical_column=${raw.resolved_profile.typical_seasonal_water_column}, likely_column_today=${raw.resolved_profile.likely_water_column_today}, seasonal_location=${raw.resolved_profile.typical_seasonal_location}, posture=${raw.resolved_profile.daily_posture_band}, presentation=${raw.resolved_profile.presentation_presence_today}`,
-        `Guardrails: surface_allowed=${raw.daily_payload.surface_allowed_today}, suppress_true_topwater=${raw.daily_payload.suppress_true_topwater}, suppress_fast_presentations=${raw.daily_payload.suppress_fast_presentations}, high_visibility_needed=${raw.daily_payload.high_visibility_needed_today}, column_shift_half_steps=${raw.daily_payload.column_shift_bias_half_steps}`,
+        `Daily posture: ${raw.daily_payload.posture_band}`,
+        `Daily preference: column=${raw.resolved_profile.daily_preference.preferred_column}, pace=${raw.resolved_profile.daily_preference.preferred_pace}, presence=${raw.resolved_profile.daily_preference.preferred_presence}`,
+        `Monthly baseline: columns=${raw.seasonal_row.monthly_baseline.allowed_columns.join("/")}, paces=${raw.seasonal_row.monthly_baseline.allowed_paces.join("/")}, presence=${raw.seasonal_row.monthly_baseline.allowed_presence.join("/")}`,
+        `Guardrails: surface_allowed=${raw.daily_payload.surface_allowed_today}, suppress_true_surface=${raw.daily_payload.suppress_true_surface}, suppress_fast_presentations=${raw.daily_payload.suppress_fast_presentations}, high_visibility_needed=${raw.daily_payload.high_visibility_needed}, column_shift=${raw.daily_payload.column_shift}`,
         `Variables considered: ${raw.variables_considered.join(", ")}`,
         `Variables triggered: ${raw.daily_payload.variables_triggered.join(", ") || "none"}`,
         ...raw.daily_payload.notes.map((note) => `Daily note: ${note}`),

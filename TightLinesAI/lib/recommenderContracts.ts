@@ -165,91 +165,29 @@ export function isRecommenderV3UiContext(context: string): context is EngineCont
 
 // ─── Output types ─────────────────────────────────────────────────────────────
 
-export type ActivityLevel = "inactive" | "low" | "neutral" | "active" | "aggressive";
-export type AggressionLevel = "passive" | "neutral" | "reactive" | "aggressive";
-export type StrikeZone = "narrow" | "moderate" | "wide";
-export type ChaseRadius = "short" | "moderate" | "long";
-export type DepthLane = "surface" | "upper" | "mid" | "near_bottom" | "bottom";
-export type SpeedPreference = "dead_slow" | "slow" | "moderate" | "fast" | "vary";
-export type NoiseLevel = "silent" | "subtle" | "moderate" | "loud";
-export type FlashLevel = "none" | "subtle" | "moderate" | "heavy";
-export type ProfileSize = "slim" | "medium" | "bulky";
-export type TriggerType = "finesse" | "reaction" | "natural_match" | "aggressive";
-export type MotionType =
-  | "steady"
-  | "hop"
-  | "twitch_pause"
-  | "rip"
-  | "sweep"
-  | "walk"
-  | "pop"
-  | "drag"
-  | "swing";
-export type CurrentTechnique =
-  | "uptide_cast"
-  | "cross_current"
-  | "downstream_drift"
-  | "static";
 export type ForageMode =
   | "baitfish"
-  | "shrimp"
-  | "crab"
   | "crawfish"
   | "leech"
-  | "surface_prey"
-  | "mixed";
-export type ColorFamily =
-  | "natural_match"
-  | "shad_silver"
-  | "chartreuse_white"
-  | "gold_amber"
-  | "dark_silhouette"
-  | "craw_pattern"
-  | "shrimp_tan"
-  | "crab_olive"
-  | "flash_heavy";
+  | "bluegill_perch"
+  | "insect_misc"
+  | "surface_prey";
 
-export type BehaviorSummaryRow = {
-  label: string;
-  detail: string;
-};
+export type TacticalColumn = "bottom" | "mid" | "upper" | "surface";
+export type TacticalPace = "slow" | "medium" | "fast";
+export type TacticalPresence = "subtle" | "moderate" | "bold";
 
-export type BehaviorOutput = {
-  activity: ActivityLevel;
-  aggression: AggressionLevel;
-  strike_zone: StrikeZone;
-  chase_radius: ChaseRadius;
-  depth_lane: DepthLane;
-  forage_mode: ForageMode;
-  secondary_forage?: ForageMode;
-  topwater_viable: boolean;
-  speed_preference: SpeedPreference;
-  noise_preference: NoiseLevel;
-  flash_preference: FlashLevel;
-  habitat_tags: string[];
-  behavior_summary: [BehaviorSummaryRow, BehaviorSummaryRow, BehaviorSummaryRow];
-  tidal_note?: string;
-  seasonal_flag?: string;
-};
-
-export type PresentationOutput = {
-  depth_target: DepthLane;
-  speed: SpeedPreference;
-  motion: MotionType;
-  trigger_type: TriggerType;
-  noise: NoiseLevel;
-  flash: FlashLevel;
-  profile: ProfileSize;
-  color_family: ColorFamily;
-  topwater_viable: boolean;
-  current_technique?: CurrentTechnique;
-};
-
-export type RankedFamily = {
-  family_id: string;
+export type RankedRecommendation = {
+  id: string;
   display_name: string;
+  family_group: string;
+  color_style: string;
+  why_chosen: string;
   how_to_fish: string;
-  rank_context?: string;
+  primary_column: TacticalColumn;
+  pace: TacticalPace;
+  presence: TacticalPresence;
+  is_surface: boolean;
 };
 
 export type DailyPostureBand =
@@ -259,28 +197,33 @@ export type DailyPostureBand =
   | "slightly_aggressive"
   | "aggressive";
 
-export type TypicalSeasonalWaterColumn =
-  | "top"
-  | "high"
-  | "mid"
-  | "mid_low"
-  | "low";
+export type DailySurfaceWindow = "closed" | "clean" | "rippled";
+export type OpportunityMixMode = "conservative" | "balanced" | "aggressive";
 
-export type LikelyWaterColumnToday =
-  | "top"
-  | "high_top"
-  | "high"
-  | "mid_high"
-  | "mid"
-  | "mid_low"
-  | "low";
-
-export type SeasonalLocation =
-  | "shallow"
-  | "shallow_mid"
-  | "mid"
-  | "mid_deep"
-  | "deep";
+export type RecommenderSessionSummary = {
+  monthly_forage: {
+    primary: ForageMode;
+    secondary?: ForageMode;
+  };
+  monthly_baseline: {
+    allowed_columns: TacticalColumn[];
+    allowed_paces: TacticalPace[];
+    allowed_presence: TacticalPresence[];
+    surface_seasonally_possible: boolean;
+  };
+  daily_tactical_preference: {
+    posture_band: DailyPostureBand;
+    preferred_column: TacticalColumn;
+    secondary_column?: TacticalColumn;
+    preferred_pace: TacticalPace;
+    secondary_pace?: TacticalPace;
+    preferred_presence: TacticalPresence;
+    secondary_presence?: TacticalPresence;
+    surface_allowed_today: boolean;
+    surface_window: DailySurfaceWindow;
+    opportunity_mix: OpportunityMixMode;
+  };
+};
 
 export type RecommenderResponse = {
   feature: typeof RECOMMENDER_FEATURE;
@@ -289,18 +232,17 @@ export type RecommenderResponse = {
   water_clarity: WaterClarity;
   generated_at: string;
   cache_expires_at: string;
-  behavior: BehaviorOutput;
-  presentation: PresentationOutput;
-  lure_rankings: RankedFamily[];
-  fly_rankings: RankedFamily[];
-  daily_posture_band: DailyPostureBand;
-  typical_seasonal_water_column: TypicalSeasonalWaterColumn;
-  likely_water_column_today: LikelyWaterColumnToday;
-  typical_seasonal_location: SeasonalLocation;
-  /** Single condition-driven color direction for the session. */
-  color_of_day: string;
-  /** Phase 6 target field: top-level guide summary for the overall pattern. */
-  primary_pattern_summary?: string;
+  summary: RecommenderSessionSummary;
+  lure_recommendations: [
+    RankedRecommendation,
+    RankedRecommendation,
+    RankedRecommendation,
+  ];
+  fly_recommendations: [
+    RankedRecommendation,
+    RankedRecommendation,
+    RankedRecommendation,
+  ];
 };
 
 // ─── Request shape (what the frontend sends) ──────────────────────────────────

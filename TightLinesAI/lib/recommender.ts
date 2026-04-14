@@ -91,19 +91,24 @@ const _memCache = new Map<string, CacheEntry>();
 
 /**
  * Guards against stale cached results from older API shapes.
- * - behavior_summary must be [{label,detail}] objects (not plain strings)
- * - color_of_day must be present as a top-level string (added in current shape)
- * - rebuilt V3 posture/column fields must exist
  */
 function isCachedResultValid(result: RecommenderResponse): boolean {
-  const summary = result.behavior?.behavior_summary;
-  if (!Array.isArray(summary) || summary[0] == null) return false;
-  if (typeof (summary[0] as Record<string, unknown>)?.label !== 'string') return false;
-  if (typeof result.color_of_day !== 'string') return false;
-  if (typeof result.daily_posture_band !== 'string') return false;
-  if (typeof result.typical_seasonal_water_column !== 'string') return false;
-  if (typeof result.likely_water_column_today !== 'string') return false;
-  if (typeof result.typical_seasonal_location !== 'string') return false;
+  if (!Array.isArray(result.lure_recommendations) || result.lure_recommendations.length !== 3) {
+    return false;
+  }
+  if (!Array.isArray(result.fly_recommendations) || result.fly_recommendations.length !== 3) {
+    return false;
+  }
+  const first = result.lure_recommendations[0];
+  if (!first || typeof first.id !== 'string' || typeof first.why_chosen !== 'string') {
+    return false;
+  }
+  if (typeof result.summary?.daily_tactical_preference?.posture_band !== 'string') {
+    return false;
+  }
+  if (typeof result.summary?.daily_tactical_preference?.preferred_column !== 'string') {
+    return false;
+  }
   return true;
 }
 
@@ -213,7 +218,8 @@ export async function clearRecommenderCache(): Promise<void> {
         k.startsWith('recommender_v1_') ||
         k.startsWith('recommender_v3_') ||
         k.startsWith('recommender_v4_') ||
-        k.startsWith('recommender_v5_'),
+        k.startsWith('recommender_v5_') ||
+        k.startsWith('recommender_v6_'),
     );
     if (toRemove.length > 0) {
       await AsyncStorage.multiRemove(toRemove);

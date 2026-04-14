@@ -11,6 +11,7 @@ import type {
 import type { RegionKey } from "../../../howFishingEngine/contracts/region.ts";
 import {
   baseSeasonalWaterColumn,
+  buildMonthlyBaselineProfile,
   finalizeSeasonalRows,
   shiftSeasonalWaterColumn,
   sortEligibleArchetypeIds,
@@ -24,8 +25,8 @@ type LegacySeasonalCore = {
   base_water_column: LegacyWaterColumn;
   base_mood: LegacyMood;
   base_presentation_style: PresentationStyleV3;
-  primary_forage: RecommenderV3SeasonalRow["primary_forage"];
-  secondary_forage?: RecommenderV3SeasonalRow["secondary_forage"];
+  primary_forage: RecommenderV3SeasonalRow["monthly_baseline"]["primary_forage"];
+  secondary_forage?: RecommenderV3SeasonalRow["monthly_baseline"]["secondary_forage"];
   primary_lure_archetypes?: readonly LureArchetypeIdV3[];
   viable_lure_archetypes: readonly LureArchetypeIdV3[];
   primary_fly_archetypes?: readonly FlyArchetypeIdV3[];
@@ -138,19 +139,30 @@ function toSeasonalRow(
     month,
     core,
   );
+  const typicalLocation = resolveSmallmouthSeasonalLocation(
+    context,
+    month,
+    typicalColumn,
+  );
   return {
     species,
     region_key,
     context,
     month,
-    typical_seasonal_water_column: typicalColumn,
-    typical_seasonal_location: resolveSmallmouthSeasonalLocation(
-      context,
-      month,
-      typicalColumn,
-    ),
-    primary_forage: core.primary_forage,
-    secondary_forage: core.secondary_forage,
+    monthly_baseline: buildMonthlyBaselineProfile({
+      typical_seasonal_water_column: typicalColumn,
+      typical_seasonal_location: typicalLocation,
+      base_mood: core.base_mood,
+      base_presentation_style: core.base_presentation_style,
+      primary_forage: core.primary_forage,
+      secondary_forage: core.secondary_forage,
+      eligible_archetype_ids: [
+        ...core.viable_lure_archetypes,
+        ...core.viable_fly_archetypes,
+      ],
+    }),
+    primary_lure_ids: core.primary_lure_archetypes,
+    primary_fly_ids: core.primary_fly_archetypes,
     eligible_lure_ids: sortEligibleArchetypeIds(core.viable_lure_archetypes),
     eligible_fly_ids: sortEligibleArchetypeIds(core.viable_fly_archetypes),
   };
@@ -848,17 +860,6 @@ addMonths(["great_lakes_upper_midwest"], "freshwater_lake_pond", [6], {
   viable_lure_archetypes: GREAT_LAKES_POSTSPAWN_LAKE_LURES,
   viable_fly_archetypes: GREAT_LAKES_POSTSPAWN_LAKE_FLIES,
 });
-addMonths(["great_lakes_upper_midwest"], "freshwater_lake_pond", [7], {
-  base_water_column: "shallow",
-  base_mood: "active",
-  base_presentation_style: "subtle",
-  primary_forage: "crawfish",
-  secondary_forage: "baitfish",
-  primary_lure_archetypes: ["hair_jig", "tube_jig"],
-  primary_fly_archetypes: ["clouser_minnow", "woolly_bugger"],
-  viable_lure_archetypes: GREAT_LAKES_CLEAR_SUMMER_LAKE_LURES,
-  viable_fly_archetypes: GREAT_LAKES_CLEAR_SUMMER_LAKE_FLIES,
-});
 addMonths(NORTHERN_COLD_REGIONS, "freshwater_lake_pond", [7], {
   base_water_column: "shallow",
   base_mood: "active",
@@ -1477,16 +1478,17 @@ addMonths(WARM_WESTERN_REGIONS, "freshwater_river", [12], {
   viable_fly_archetypes: WINTER_RIVER_FLIES,
 });
 
-// Great Lakes midsummer clear-lake smallmouth get a more explicit topwater and
-// baitfish-forward override than the broader northern lake rows.
+// Great Lakes midsummer clear-lake smallmouth should stay surface-capable, but
+// July still needs a balanced baitfish/control story rather than a pure
+// topwater month-long baseline.
 addMonths(["great_lakes_upper_midwest"], "freshwater_lake_pond", [7], {
   base_water_column: "shallow",
   base_mood: "active",
-  base_presentation_style: "bold",
+  base_presentation_style: "balanced",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
-  primary_lure_archetypes: ["popping_topwater", "walking_topwater"],
-  primary_fly_archetypes: ["popper_fly", "clouser_minnow"],
+  primary_lure_archetypes: ["walking_topwater", "paddle_tail_swimbait"],
+  primary_fly_archetypes: ["clouser_minnow", "popper_fly"],
   viable_lure_archetypes: GREAT_LAKES_MIDSUMMER_LAKE_LURES,
   viable_fly_archetypes: GREAT_LAKES_MIDSUMMER_LAKE_FLIES,
 });

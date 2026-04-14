@@ -10,11 +10,11 @@ export { runRecommenderV3Surface } from "./runRecommenderV3Surface.ts";
 // Contracts (shared with frontend via separate lib/recommenderContracts.ts)
 export type { RecommenderRequest, WaterClarity } from "./contracts/input.ts";
 export type {
-  RankedFamily,
+  RankedRecommendation,
+  RecommenderSessionSummary,
   RecommenderResponse,
 } from "./contracts/output.ts";
 export { RECOMMENDER_FEATURE } from "./contracts/output.ts";
-export type { BehaviorOutput, BehaviorSummaryRow, PresentationOutput } from "./contracts/behavior.ts";
 export type { SpeciesGroup } from "./contracts/species.ts";
 export { SPECIES_GROUPS, SPECIES_META } from "./contracts/species.ts";
 export type { GearMode, LureFamilyId, FlyFamilyId } from "./contracts/families.ts";
@@ -22,6 +22,7 @@ export {
   RECOMMENDER_V3_FOUNDATION_FEATURE,
   RECOMMENDER_V3_FEATURE,
   RECOMMENDER_V3_CONTEXTS,
+  DAILY_REACTION_WINDOWS_V3,
   DAILY_POSTURE_BANDS_V3,
   RECOMMENDER_V3_SPECIES,
   RECOMMENDER_V3_SPECIES_CONTEXTS,
@@ -29,9 +30,11 @@ export {
   LURE_ARCHETYPE_IDS_V3,
   FLY_ARCHETYPE_IDS_V3,
   TACTICAL_LANES_V3,
-  ARCHETYPE_WATER_COLUMNS_V3,
+  TACTICAL_COLUMNS_V3,
+  TACTICAL_PACES_V3,
+  TACTICAL_PRESENCE_V3,
+  OPPORTUNITY_MIX_MODES_V3,
   SEASONAL_WATER_COLUMNS_V3,
-  RESOLVED_WATER_COLUMNS_V3,
   SEASONAL_LOCATIONS_V3,
   MOODS_V3,
   PRESENTATION_STYLES_V3,
@@ -52,29 +55,36 @@ export {
   scoreFlyCandidatesV3,
 } from "./v3/index.ts";
 export type {
-  ArchetypeWaterColumnV3,
   DailyPostureBandV3,
+  DailyReactionWindowV3,
+  DailySurfaceWindowV3,
   FlyArchetypeIdV3,
   ForageBucketV3,
+  LegacyArchetypeWaterColumnV3,
   LureArchetypeIdV3,
   MoodV3,
+  OpportunityMixModeV3,
   PresentationStyleV3,
   RecommenderV3ArchetypeId,
   RecommenderV3ArchetypeProfile,
   RecommenderV3Context,
   RecommenderV3DailyPayload,
+  RecommenderV3DailyTacticalPreference,
   RecommenderV3RankedArchetype,
   RecommenderV3Response,
   RecommenderV3ScoreBreakdown,
   RecommenderV3FoundationSnapshot,
+  RecommenderV3MonthlyBaselineProfile,
   RecommenderV3ResolvedProfile,
   ResolvedColorThemeV3,
   RecommenderV3SeasonalRow,
-  ResolvedWaterColumnV3,
   SeasonalLocationV3,
   SeasonalWaterColumnV3,
   RecommenderV3Species,
+  TacticalColumnV3,
   TacticalLaneV3,
+  TacticalPaceV3,
+  TacticalPresenceV3,
 } from "./v3/index.ts";
 export type {
   LightBucketV3,

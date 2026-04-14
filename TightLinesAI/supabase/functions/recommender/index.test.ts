@@ -240,9 +240,9 @@ Deno.test("recommender handler returns the public surface contract for valid req
   assertEquals(json.feature, "recommender_v3");
   assertEquals(json.species, "smallmouth_bass");
   assertEquals(json.context, "freshwater_river");
-  assertEquals(json.lure_rankings.length, 3);
-  assertEquals(json.fly_rankings.length, 3);
-  assertEquals(json.behavior.behavior_summary.length, 3);
+  assertEquals(json.lure_recommendations.length, 3);
+  assertEquals(json.fly_recommendations.length, 3);
+  assertEquals(typeof json.summary.daily_tactical_preference.posture_band, "string");
   assertMatch(json.generated_at, /^\d{4}-\d{2}-\d{2}T/);
   assertMatch(json.cache_expires_at, /^\d{4}-\d{2}-\d{2}T/);
   const generated = new Date(json.generated_at).getTime();

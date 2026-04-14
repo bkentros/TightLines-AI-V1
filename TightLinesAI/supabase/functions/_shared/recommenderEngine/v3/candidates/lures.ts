@@ -1,10 +1,175 @@
-import type { RecommenderV3ArchetypeProfile } from "../contracts.ts";
-import type { LureArchetypeIdV3 } from "../contracts.ts";
+import type {
+  LegacyArchetypeWaterColumnV3,
+  LureArchetypeIdV3,
+  MoodV3,
+  PresentationStyleV3,
+  RecommenderV3ArchetypeProfile,
+  RecommenderV3Species,
+  TacticalColumnV3,
+  TacticalPaceV3,
+  TacticalPresenceV3,
+  TacticalLaneV3,
+  ForageBucketV3,
+} from "../contracts.ts";
+
+type LegacyLureProfile = {
+  id: LureArchetypeIdV3;
+  display_name: string;
+  gear_mode: "lure";
+  family_key: string;
+  top3_redundancy_key?: string;
+  preferred_water_columns: readonly LegacyArchetypeWaterColumnV3[];
+  preferred_moods: readonly MoodV3[];
+  preferred_presentation_styles: readonly PresentationStyleV3[];
+  forage_matches: readonly ForageBucketV3[];
+  clarity_strengths: readonly ("clear" | "stained" | "dirty")[];
+  tactical_lane: TacticalLaneV3;
+  how_to_fish_text?: readonly [string, string, string];
+};
+
+const ALL_FRESHWATER_SPECIES: readonly RecommenderV3Species[] = [
+  "largemouth_bass",
+  "smallmouth_bass",
+  "northern_pike",
+  "trout",
+] as const;
+
+const TRUE_SURFACE_IDS = new Set<LureArchetypeIdV3>([
+  "walking_topwater",
+  "popping_topwater",
+  "buzzbait",
+  "prop_bait",
+  "hollow_body_frog",
+]);
+
+const PIKE_ONLY_IDS = new Set<LureArchetypeIdV3>([
+  "large_profile_pike_swimbait",
+  "pike_jerkbait",
+]);
+
+const CURRENT_FRIENDLY_IDS = new Set<LureArchetypeIdV3>([
+  "inline_spinner",
+  "spinnerbait",
+  "bladed_jig",
+  "paddle_tail_swimbait",
+  "soft_jerkbait",
+  "suspending_jerkbait",
+  "squarebill_crankbait",
+  "flat_sided_crankbait",
+  "medium_diving_crankbait",
+  "deep_diving_crankbait",
+  "lipless_crankbait",
+  "blade_bait",
+  "casting_spoon",
+  "walking_topwater",
+  "buzzbait",
+  "prop_bait",
+]);
+
+function mapColumn(
+  id: LureArchetypeIdV3,
+  column: LegacyArchetypeWaterColumnV3,
+): TacticalColumnV3 {
+  if (TRUE_SURFACE_IDS.has(id)) return "surface";
+  switch (column) {
+    case "top":
+    case "shallow":
+      return "upper";
+    case "mid":
+      return "mid";
+    case "bottom":
+    default:
+      return "bottom";
+  }
+}
+
+function mapPresence(style: PresentationStyleV3): TacticalPresenceV3 {
+  switch (style) {
+    case "subtle":
+      return "subtle";
+    case "bold":
+      return "bold";
+    case "balanced":
+    default:
+      return "moderate";
+  }
+}
+
+function defaultPaceFromLane(lane: TacticalLaneV3): TacticalPaceV3 {
+  switch (lane) {
+    case "bottom_contact":
+    case "finesse_subtle":
+      return "slow";
+    case "reaction_mid_column":
+    case "surface":
+    case "pike_big_profile":
+      return "fast";
+    case "horizontal_search":
+    case "cover_weedless":
+    default:
+      return "medium";
+  }
+}
+
+function secondaryPaceFromLegacy(
+  primary: TacticalPaceV3,
+  moods: readonly MoodV3[],
+): TacticalPaceV3 | undefined {
+  if (primary === "slow") {
+    return moods.includes("active") ? "medium" : undefined;
+  }
+  if (primary === "medium") {
+    if (moods.includes("negative")) return "slow";
+    if (moods.includes("active")) return "fast";
+    return undefined;
+  }
+  return moods.includes("neutral") || moods.includes("negative")
+    ? "medium"
+    : undefined;
+}
+
+function whyHooks(profile: LegacyLureProfile): readonly string[] {
+  return [
+    `${profile.display_name} matches a ${profile.tactical_lane.replaceAll("_", " ")} look.`,
+    `${profile.display_name} stays in play when ${profile.forage_matches[0] ?? "the main forage"} is relevant.`,
+  ];
+}
 
 function lure(
-  profile: RecommenderV3ArchetypeProfile,
+  profile: LegacyLureProfile,
 ): RecommenderV3ArchetypeProfile {
-  return profile;
+  const columnOrder = profile.preferred_water_columns
+    .map((column) => mapColumn(profile.id, column))
+    .filter((value, index, array) => array.indexOf(value) === index);
+  const presenceOrder = profile.preferred_presentation_styles
+    .map((style) => mapPresence(style))
+    .filter((value, index, array) => array.indexOf(value) === index);
+  const primaryPace = defaultPaceFromLane(profile.tactical_lane);
+  return {
+    id: profile.id,
+    display_name: profile.display_name,
+    gear_mode: "lure",
+    species_allowed: PIKE_ONLY_IDS.has(profile.id)
+      ? ["northern_pike"]
+      : ALL_FRESHWATER_SPECIES,
+    water_types_allowed: ["freshwater_lake_pond", "freshwater_river"],
+    family_group: profile.top3_redundancy_key ?? profile.family_key,
+    primary_column: columnOrder[0] ?? "mid",
+    secondary_column: columnOrder[1],
+    pace: primaryPace,
+    secondary_pace: secondaryPaceFromLegacy(primaryPace, profile.preferred_moods),
+    presence: presenceOrder[0] ?? "moderate",
+    secondary_presence: presenceOrder[1],
+    is_surface: TRUE_SURFACE_IDS.has(profile.id),
+    current_friendly: CURRENT_FRIENDLY_IDS.has(profile.id) ? true : undefined,
+    forage_tags: profile.forage_matches,
+    why_hooks: whyHooks(profile),
+    how_to_fish_template:
+      profile.how_to_fish_text?.[0] ??
+      `Fish ${profile.display_name.toLowerCase()} around the day's preferred lane with a controlled retrieve.`,
+    clarity_strengths: profile.clarity_strengths,
+    tactical_lane: profile.tactical_lane,
+  };
 }
 
 export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3ArchetypeProfile> = {
@@ -13,7 +178,7 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
     display_name: "Weightless Stick Worm",
     gear_mode: "lure",
     family_key: "stick_worm",
-    top3_redundancy_key: "finesse_stick_worm",
+    top3_redundancy_key: "soft_plastic_worm",
     preferred_water_columns: ["top", "shallow"],
     preferred_moods: ["negative", "neutral"],
     preferred_presentation_styles: ["subtle"],
@@ -31,6 +196,7 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
     display_name: "Texas-Rigged Stick Worm",
     gear_mode: "lure",
     family_key: "stick_worm",
+    top3_redundancy_key: "soft_plastic_worm",
     preferred_water_columns: ["shallow", "mid", "bottom"],
     preferred_moods: ["negative", "neutral", "active"],
     preferred_presentation_styles: ["subtle", "balanced"],
@@ -48,7 +214,7 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
     display_name: "Wacky-Rigged Stick Worm",
     gear_mode: "lure",
     family_key: "stick_worm",
-    top3_redundancy_key: "finesse_stick_worm",
+    top3_redundancy_key: "soft_plastic_worm",
     preferred_water_columns: ["top", "shallow", "mid"],
     preferred_moods: ["negative", "neutral"],
     preferred_presentation_styles: ["subtle"],
@@ -66,6 +232,7 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
     display_name: "Carolina-Rigged Stick Worm",
     gear_mode: "lure",
     family_key: "stick_worm",
+    top3_redundancy_key: "soft_plastic_worm",
     preferred_water_columns: ["mid", "bottom"],
     preferred_moods: ["negative", "neutral"],
     preferred_presentation_styles: ["subtle", "balanced"],

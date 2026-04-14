@@ -11,6 +11,7 @@ import type {
 import type { RegionKey } from "../../../howFishingEngine/contracts/region.ts";
 import {
   baseSeasonalWaterColumn,
+  buildMonthlyBaselineProfile,
   finalizeSeasonalRows,
   shiftSeasonalWaterColumn,
   sortEligibleArchetypeIds,
@@ -24,8 +25,8 @@ type LegacySeasonalCore = {
   base_water_column: LegacyWaterColumn;
   base_mood: LegacyMood;
   base_presentation_style: PresentationStyleV3;
-  primary_forage: RecommenderV3SeasonalRow["primary_forage"];
-  secondary_forage?: RecommenderV3SeasonalRow["secondary_forage"];
+  primary_forage: RecommenderV3SeasonalRow["monthly_baseline"]["primary_forage"];
+  secondary_forage?: RecommenderV3SeasonalRow["monthly_baseline"]["secondary_forage"];
   primary_lure_archetypes?: readonly LureArchetypeIdV3[];
   viable_lure_archetypes: readonly LureArchetypeIdV3[];
   primary_fly_archetypes?: readonly FlyArchetypeIdV3[];
@@ -39,9 +40,10 @@ function inRegions(region_key: RegionKey, regions: readonly RegionKey[]): boolea
 }
 
 function isPikeShallowSeason(region_key: RegionKey, month: number): boolean {
-  if (inRegions(region_key, NORTHERN_CORE_REGIONS)) return [4, 5, 6].includes(month);
-  if (inRegions(region_key, INTERIOR_EDGE_REGIONS)) return [3, 4, 5].includes(month);
-  if (inRegions(region_key, MOUNTAIN_REGIONS)) return [4, 5, 6].includes(month);
+  if (region_key === "alaska") return [5, 6, 7].includes(month);
+  if (inRegions(region_key, NORTHERN_CORE_REGIONS)) return [4, 5, 6, 7].includes(month);
+  if (inRegions(region_key, INTERIOR_EDGE_REGIONS)) return [4, 5].includes(month);
+  if (inRegions(region_key, MOUNTAIN_REGIONS)) return [4, 5, 6, 7].includes(month);
   return [4, 5, 6].includes(month);
 }
 
@@ -115,19 +117,30 @@ function toSeasonalRow(
     month,
     core,
   );
+  const typicalLocation = resolvePikeSeasonalLocation(
+    context,
+    month,
+    typicalColumn,
+  );
   return {
     species,
     region_key,
     context,
     month,
-    typical_seasonal_water_column: typicalColumn,
-    typical_seasonal_location: resolvePikeSeasonalLocation(
-      context,
-      month,
-      typicalColumn,
-    ),
-    primary_forage: core.primary_forage,
-    secondary_forage: core.secondary_forage,
+    monthly_baseline: buildMonthlyBaselineProfile({
+      typical_seasonal_water_column: typicalColumn,
+      typical_seasonal_location: typicalLocation,
+      base_mood: core.base_mood,
+      base_presentation_style: core.base_presentation_style,
+      primary_forage: core.primary_forage,
+      secondary_forage: core.secondary_forage,
+      eligible_archetype_ids: [
+        ...core.viable_lure_archetypes,
+        ...core.viable_fly_archetypes,
+      ],
+    }),
+    primary_lure_ids: core.primary_lure_archetypes,
+    primary_fly_ids: core.primary_fly_archetypes,
     eligible_lure_ids: sortEligibleArchetypeIds(core.viable_lure_archetypes),
     eligible_fly_ids: sortEligibleArchetypeIds(core.viable_fly_archetypes),
   };

@@ -97,12 +97,12 @@ function analysis(overrides: AnalysisInput = {}) {
 }
 
 function auditSurfaceWindow(
-  daily: { surface_allowed_today: boolean; surface_window_today: string },
+  daily: { surface_allowed_today: boolean; surface_window: string },
 ): "on" | "off" | "watch" {
-  if (!daily.surface_allowed_today || daily.surface_window_today === "closed") {
+  if (!daily.surface_allowed_today || daily.surface_window === "closed") {
     return "off";
   }
-  if (daily.surface_window_today === "clean") return "on";
+  if (daily.surface_window === "clean") return "on";
   return "watch";
 }
 
@@ -130,8 +130,8 @@ function auditPaceBias(daily: {
 }
 
 function simplifyWaterColumn(likely: string): "top" | "shallow" | "mid" | "bottom" {
-  if (likely === "top" || likely === "high_top") return "top";
-  if (likely === "high" || likely === "mid_high") return "shallow";
+  if (likely === "top" || likely === "high_top" || likely === "surface") return "top";
+  if (likely === "high" || likely === "mid_high" || likely === "upper") return "shallow";
   if (likely === "mid") return "mid";
   return "bottom";
 }
@@ -150,14 +150,14 @@ function summarize(caseDef: ScenarioCase): ScenarioSummary {
     water_clarity: result.water_clarity,
     daily_payload: {
       surface_window: auditSurfaceWindow(dp),
-      reaction_window: dp.reaction_window_today ?? auditReactionWindow(dp.posture_band),
-      finesse_window: auditFinesseWindow(dp.presentation_presence_today),
-      pace_bias: dp.pace_bias_today ?? auditPaceBias(dp),
+      reaction_window: dp.reaction_window ?? auditReactionWindow(dp.posture_band),
+      finesse_window: auditFinesseWindow(rp.daily_preference.preferred_presence),
+      pace_bias: rp.daily_preference.preferred_pace ?? auditPaceBias(dp),
     },
     resolved_profile: {
-      final_water_column: simplifyWaterColumn(rp.likely_water_column_today),
-      final_mood: rp.daily_posture_band,
-      final_presentation_style: rp.presentation_presence_today,
+      final_water_column: simplifyWaterColumn(rp.daily_preference.preferred_column),
+      final_mood: dp.posture_band,
+      final_presentation_style: rp.daily_preference.preferred_presence,
     },
     lure_top3: result.lure_recommendations.map((candidate) => candidate.id),
     fly_top3: result.fly_recommendations.map((candidate) => candidate.id),

@@ -185,7 +185,15 @@ if (import.meta.main) {
       fly_top3_duplicate_family: duplicateFamilyInTop3(f3),
       variables_triggered: [...dp.variables_triggered],
       posture_band: dp.posture_band,
-      posture_score_10: dp.posture_score_10,
+      posture_score_10: dp.posture_band === "aggressive"
+        ? 9
+        : dp.posture_band === "slightly_aggressive"
+        ? 7
+        : dp.posture_band === "neutral"
+        ? 5
+        : dp.posture_band === "slightly_suppressed"
+        ? 3
+        : 1,
     });
   }
 
