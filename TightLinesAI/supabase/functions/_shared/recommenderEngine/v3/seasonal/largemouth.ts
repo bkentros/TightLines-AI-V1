@@ -1,12 +1,11 @@
 /**
- * Legacy seasonal definitions are converted into the rebuilt deterministic row
- * shape here so the month-by-month species coverage stays intact while the
- * runtime contract uses eligible archetype pools and seasonal anchors.
+ * Largemouth seasonal authoring. Biology and pool intent:
+ * `assets/biology_briefs/largemouth.md`. Seasonal rows use the rebuilt deterministic
+ * shape; the runtime contract uses eligible archetype pools and seasonal anchors.
  */
 import type {
   FlyArchetypeIdV3,
   LureArchetypeIdV3,
-  PresentationStyleV3,
   RecommenderV3Context,
   RecommenderV3SeasonalRow,
   SeasonalLocationV3,
@@ -14,6 +13,7 @@ import type {
 } from "../contracts.ts";
 import type { RegionKey } from "../../../howFishingEngine/contracts/region.ts";
 import {
+  type AuthoredSeasonalCore,
   baseSeasonalWaterColumn,
   buildMonthlyBaselineProfile,
   finalizeSeasonalRows,
@@ -21,21 +21,7 @@ import {
   sortEligibleArchetypeIds,
   upsertSeasonalRow,
 } from "./tuning.ts";
-
-type LegacyWaterColumn = "top" | "shallow" | "mid" | "bottom";
-type LegacyMood = "negative" | "neutral" | "active";
-
-type LegacySeasonalCore = {
-  base_water_column: LegacyWaterColumn;
-  base_mood: LegacyMood;
-  base_presentation_style: PresentationStyleV3;
-  primary_forage: RecommenderV3SeasonalRow["monthly_baseline"]["primary_forage"];
-  secondary_forage?: RecommenderV3SeasonalRow["monthly_baseline"]["secondary_forage"];
-  primary_lure_archetypes?: readonly LureArchetypeIdV3[];
-  viable_lure_archetypes: readonly LureArchetypeIdV3[];
-  primary_fly_archetypes?: readonly FlyArchetypeIdV3[];
-  viable_fly_archetypes: readonly FlyArchetypeIdV3[];
-};
+import { validateSeasonalRows } from "./validateSeasonalRow.ts";
 
 const LMB_ROWS = new Map<string, RecommenderV3SeasonalRow>();
 
@@ -60,7 +46,7 @@ function resolveLargemouthSeasonalWaterColumn(
   region_key: RegionKey,
   context: RecommenderV3Context,
   month: number,
-  core: LegacySeasonalCore,
+  core: AuthoredSeasonalCore,
 ): SeasonalWaterColumnV3 {
   let column = baseSeasonalWaterColumn(core.base_water_column);
 
@@ -151,7 +137,7 @@ function toSeasonalRow(
   region_key: RegionKey,
   context: RecommenderV3Context,
   month: number,
-  core: LegacySeasonalCore,
+  core: AuthoredSeasonalCore,
 ): RecommenderV3SeasonalRow {
   const typicalColumn = resolveLargemouthSeasonalWaterColumn(
     region_key,
@@ -176,10 +162,7 @@ function toSeasonalRow(
       base_presentation_style: core.base_presentation_style,
       primary_forage: core.primary_forage,
       secondary_forage: core.secondary_forage,
-      eligible_archetype_ids: [
-        ...core.viable_lure_archetypes,
-        ...core.viable_fly_archetypes,
-      ],
+      surface_seasonally_possible: core.surface_seasonally_possible,
     }),
     primary_lure_ids: core.primary_lure_archetypes,
     primary_fly_ids: core.primary_fly_archetypes,
@@ -192,7 +175,7 @@ function addMonths(
   regions: readonly RegionKey[],
   context: RecommenderV3Context,
   months: readonly number[],
-  core: LegacySeasonalCore,
+  core: AuthoredSeasonalCore,
 ) {
   for (const region_key of regions) {
     for (const month of months) {
@@ -221,12 +204,9 @@ const WINTER_LAKE_FLIES: readonly FlyArchetypeIdV3[] = [
   "woolly_bugger",
   "sculpin_streamer",
   "conehead_streamer",
-  // Baitfish options so the engine has moving-lane alternatives on genuinely
-  // aggressive or semi-aggressive winter days.  Scoring naturally suppresses
-  // these on cold/slow days (fly_baitfish gets no slow-lane bonus; cold_limited
-  // pace/column shifts strongly favor the bottom-contact flies above).
+  // Single baitfish streamer lane for rare winter windows; avoid a second
+  // aggressive streamer in the sacred pool (see biology brief — northern winter).
   "clouser_minnow",
-  "game_changer",
 ];
 
 const PRESPAWN_LAKE_LURES: readonly LureArchetypeIdV3[] = [
@@ -838,9 +818,27 @@ const SOUTHEAST_SUMMER_CONTROL_LAKE_FLIES: readonly FlyArchetypeIdV3[] = [
 ];
 
 // Minnesota weed-lake summer: swim_jig leads so it wins the frog/jig tiebreak in clear water.
-// NOTE: this constant is superseded by the inline pool in the great_lakes_upper_midwest July and
-// August overrides below — kept here for reference only.
-// const MN_WEED_LAKE_SUMMER_LURES = [ ... ]
+// Aligns with the great_lakes_upper_midwest July midsummer bounded pool (weed-friendly horizontals).
+const MN_WEED_LAKE_SUMMER_LURES: readonly LureArchetypeIdV3[] = [
+  "swim_jig",
+  "weightless_stick_worm",
+  "paddle_tail_swimbait",
+  "soft_jerkbait",
+  "hollow_body_frog",
+  "drop_shot_worm",
+  "suspending_jerkbait",
+];
+
+/** Natural northern weed bite: frog token + subsurface streamers (no mouse hedge). */
+const NORTHERN_WEED_EARLY_SUMMER_LAKE_FLIES: readonly FlyArchetypeIdV3[] = [
+  "frog_fly",
+  "game_changer",
+  "clouser_minnow",
+  "woolly_bugger",
+  "articulated_dungeon_streamer",
+  "deceiver",
+  "rabbit_strip_leech",
+];
 
 const FLORIDA_WINTER_CONTROL_LAKE_LURES: readonly LureArchetypeIdV3[] = [
   "texas_rigged_soft_plastic_craw",
@@ -1011,7 +1009,7 @@ const NORTHERN_CLEAR_WINTER_LAKE_LURES: readonly LureArchetypeIdV3[] = [
   "suspending_jerkbait",
   "flat_sided_crankbait",
   "football_jig",
-  "paddle_tail_swimbait",
+  "blade_bait",
   "drop_shot_worm",
 ];
 const NORTHERN_CLEAR_PRESPAWN_CRANK_LAKE_LURES: readonly LureArchetypeIdV3[] = [
@@ -1026,7 +1024,9 @@ const NORTHERN_CLEAR_WINTER_LAKE_FLIES: readonly FlyArchetypeIdV3[] = [
   "rabbit_strip_leech",
   "woolly_bugger",
   "sculpin_streamer",
-  "game_changer",
+  "balanced_leech",
+  "conehead_streamer",
+  "crawfish_streamer",
 ];
 
 const NORTHERN_CLEAR_SPAWN_LAKE_LURES: readonly LureArchetypeIdV3[] = [
@@ -1052,12 +1052,15 @@ const NORTHERN_CLEAR_SUMMER_LAKE_LURES: readonly LureArchetypeIdV3[] = [
   "swim_jig",
   "paddle_tail_swimbait",
   "suspending_jerkbait",
+  "finesse_jig",
 ];
 const NORTHERN_CLEAR_SUMMER_LAKE_FLIES: readonly FlyArchetypeIdV3[] = [
   "game_changer",
   "clouser_minnow",
   "woolly_bugger",
   "rabbit_strip_leech",
+  "balanced_leech",
+  "articulated_baitfish_streamer",
 ];
 
 const NORTHERN_CLEAR_FALL_LAKE_LURES: readonly LureArchetypeIdV3[] = [
@@ -1200,9 +1203,10 @@ export const LARGEMOUTH_V3_SUPPORTED_REGIONS: readonly RegionKey[] = [
 
 // Tropical warm lake / pond
 addMonths(TROPICAL_WARM_REGIONS, "freshwater_lake_pond", [1], {
+  surface_seasonally_possible: false,
   base_water_column: "bottom",
   base_mood: "negative",
-  base_presentation_style: "subtle",
+  base_presentation_style: "leaning_subtle",
   primary_forage: "crawfish",
   secondary_forage: "baitfish",
   primary_lure_archetypes: ["football_jig", "texas_rigged_soft_plastic_craw"],
@@ -1211,6 +1215,7 @@ addMonths(TROPICAL_WARM_REGIONS, "freshwater_lake_pond", [1], {
   viable_fly_archetypes: WINTER_LAKE_FLIES,
 });
 addMonths(TROPICAL_WARM_REGIONS, "freshwater_lake_pond", [2], {
+  surface_seasonally_possible: false,
   base_water_column: "bottom",
   base_mood: "neutral",
   base_presentation_style: "balanced",
@@ -1222,6 +1227,7 @@ addMonths(TROPICAL_WARM_REGIONS, "freshwater_lake_pond", [2], {
   viable_fly_archetypes: PRESPAWN_LAKE_FLIES,
 });
 addMonths(TROPICAL_WARM_REGIONS, "freshwater_lake_pond", [3], {
+  surface_seasonally_possible: false,
   base_water_column: "mid",
   base_mood: "neutral",
   base_presentation_style: "balanced",
@@ -1233,6 +1239,7 @@ addMonths(TROPICAL_WARM_REGIONS, "freshwater_lake_pond", [3], {
   viable_fly_archetypes: TROPICAL_PRESPAWN_LAKE_FLIES,
 });
 addMonths(TROPICAL_WARM_REGIONS, "freshwater_lake_pond", [4], {
+  surface_seasonally_possible: false,
   base_water_column: "shallow",
   base_mood: "active",
   base_presentation_style: "balanced",
@@ -1244,6 +1251,7 @@ addMonths(TROPICAL_WARM_REGIONS, "freshwater_lake_pond", [4], {
   viable_fly_archetypes: TROPICAL_PRESPAWN_LAKE_FLIES,
 });
 addMonths(TROPICAL_WARM_REGIONS, "freshwater_lake_pond", [5], {
+  surface_seasonally_possible: true,
   base_water_column: "mid",
   base_mood: "active",
   base_presentation_style: "balanced",
@@ -1255,9 +1263,10 @@ addMonths(TROPICAL_WARM_REGIONS, "freshwater_lake_pond", [5], {
   viable_fly_archetypes: TEXAS_SPAWN_TRANSITION_LAKE_FLIES,
 });
 addMonths(TROPICAL_WARM_REGIONS, "freshwater_lake_pond", [6], {
+  surface_seasonally_possible: true,
   base_water_column: "shallow",
   base_mood: "active",
-  base_presentation_style: "bold",
+  base_presentation_style: "leaning_bold",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
   primary_lure_archetypes: ["hollow_body_frog", "swim_jig"],
@@ -1266,9 +1275,10 @@ addMonths(TROPICAL_WARM_REGIONS, "freshwater_lake_pond", [6], {
   viable_fly_archetypes: SUMMER_LAKE_FLIES,
 });
 addMonths(TROPICAL_WARM_REGIONS, "freshwater_lake_pond", [7, 8], {
+  surface_seasonally_possible: true,
   base_water_column: "bottom",
   base_mood: "negative",
-  base_presentation_style: "subtle",
+  base_presentation_style: "leaning_subtle",
   primary_forage: "baitfish",
   secondary_forage: "bluegill_perch",
   primary_lure_archetypes: ["compact_flipping_jig", "football_jig"],
@@ -1277,6 +1287,7 @@ addMonths(TROPICAL_WARM_REGIONS, "freshwater_lake_pond", [7, 8], {
   viable_fly_archetypes: TROPICAL_SUMMER_CONTROL_LAKE_FLIES,
 });
 addMonths(TROPICAL_WARM_REGIONS, "freshwater_lake_pond", [9, 10, 11], {
+  surface_seasonally_possible: true,
   base_water_column: "mid",
   base_mood: "active",
   base_presentation_style: "balanced",
@@ -1288,9 +1299,10 @@ addMonths(TROPICAL_WARM_REGIONS, "freshwater_lake_pond", [9, 10, 11], {
   viable_fly_archetypes: FALL_LAKE_FLIES,
 });
 addMonths(TROPICAL_WARM_REGIONS, "freshwater_lake_pond", [12], {
+  surface_seasonally_possible: false,
   base_water_column: "bottom",
   base_mood: "negative",
-  base_presentation_style: "subtle",
+  base_presentation_style: "leaning_subtle",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
   primary_lure_archetypes: ["football_jig", "texas_rigged_soft_plastic_craw"],
@@ -1301,9 +1313,10 @@ addMonths(TROPICAL_WARM_REGIONS, "freshwater_lake_pond", [12], {
 
 // Tropical warm river
 addMonths(TROPICAL_WARM_REGIONS, "freshwater_river", [1, 2], {
+  surface_seasonally_possible: false,
   base_water_column: "bottom",
   base_mood: "negative",
-  base_presentation_style: "subtle",
+  base_presentation_style: "leaning_subtle",
   primary_forage: "crawfish",
   secondary_forage: "baitfish",
   primary_lure_archetypes: ["compact_flipping_jig", "suspending_jerkbait"],
@@ -1312,6 +1325,7 @@ addMonths(TROPICAL_WARM_REGIONS, "freshwater_river", [1, 2], {
   viable_fly_archetypes: WINTER_RIVER_FLIES,
 });
 addMonths(TROPICAL_WARM_REGIONS, "freshwater_river", [3, 4], {
+  surface_seasonally_possible: false,
   base_water_column: "shallow",
   base_mood: "active",
   base_presentation_style: "balanced",
@@ -1323,6 +1337,7 @@ addMonths(TROPICAL_WARM_REGIONS, "freshwater_river", [3, 4], {
   viable_fly_archetypes: SPRING_RIVER_FLIES,
 });
 addMonths(TROPICAL_WARM_REGIONS, "freshwater_river", [5, 6], {
+  surface_seasonally_possible: false,
   base_water_column: "mid",
   base_mood: "neutral",
   base_presentation_style: "balanced",
@@ -1334,9 +1349,10 @@ addMonths(TROPICAL_WARM_REGIONS, "freshwater_river", [5, 6], {
   viable_fly_archetypes: SPRING_RIVER_FLIES,
 });
 addMonths(TROPICAL_WARM_REGIONS, "freshwater_river", [7, 8], {
+  surface_seasonally_possible: false,
   base_water_column: "mid",
   base_mood: "negative",
-  base_presentation_style: "subtle",
+  base_presentation_style: "leaning_subtle",
   primary_forage: "baitfish",
   secondary_forage: "bluegill_perch",
   primary_lure_archetypes: ["compact_flipping_jig", "spinnerbait"],
@@ -1345,6 +1361,7 @@ addMonths(TROPICAL_WARM_REGIONS, "freshwater_river", [7, 8], {
   viable_fly_archetypes: SOUTH_CENTRAL_SUMMER_RIVER_FLIES,
 });
 addMonths(TROPICAL_WARM_REGIONS, "freshwater_river", [9, 10, 11], {
+  surface_seasonally_possible: true,
   base_water_column: "shallow",
   base_mood: "active",
   base_presentation_style: "balanced",
@@ -1356,9 +1373,10 @@ addMonths(TROPICAL_WARM_REGIONS, "freshwater_river", [9, 10, 11], {
   viable_fly_archetypes: FALL_RIVER_FLIES,
 });
 addMonths(TROPICAL_WARM_REGIONS, "freshwater_river", [12], {
+  surface_seasonally_possible: false,
   base_water_column: "bottom",
   base_mood: "negative",
-  base_presentation_style: "subtle",
+  base_presentation_style: "leaning_subtle",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
   primary_lure_archetypes: ["compact_flipping_jig", "suspending_jerkbait"],
@@ -1370,6 +1388,7 @@ addMonths(TROPICAL_WARM_REGIONS, "freshwater_river", [12], {
 // Hawaii keeps a looser tropical warmwater calendar than Florida and should not
 // inherit Florida's extended spawn and grass-surface assumptions month for month.
 addMonths(HAWAII_REGIONS, "freshwater_lake_pond", [1, 2], {
+  surface_seasonally_possible: false,
   base_water_column: "mid",
   base_mood: "neutral",
   base_presentation_style: "balanced",
@@ -1381,6 +1400,7 @@ addMonths(HAWAII_REGIONS, "freshwater_lake_pond", [1, 2], {
   viable_fly_archetypes: PRESPAWN_LAKE_FLIES,
 });
 addMonths(HAWAII_REGIONS, "freshwater_lake_pond", [3, 4, 5], {
+  surface_seasonally_possible: false,
   base_water_column: "shallow",
   base_mood: "active",
   base_presentation_style: "balanced",
@@ -1392,6 +1412,7 @@ addMonths(HAWAII_REGIONS, "freshwater_lake_pond", [3, 4, 5], {
   viable_fly_archetypes: SPAWN_LAKE_FLIES,
 });
 addMonths(HAWAII_REGIONS, "freshwater_lake_pond", [6, 7, 8], {
+  surface_seasonally_possible: false,
   base_water_column: "mid",
   base_mood: "neutral",
   base_presentation_style: "balanced",
@@ -1403,6 +1424,7 @@ addMonths(HAWAII_REGIONS, "freshwater_lake_pond", [6, 7, 8], {
   viable_fly_archetypes: POSTSPAWN_LAKE_FLIES,
 });
 addMonths(HAWAII_REGIONS, "freshwater_lake_pond", [9, 10], {
+  surface_seasonally_possible: true,
   base_water_column: "mid",
   base_mood: "active",
   base_presentation_style: "balanced",
@@ -1414,9 +1436,10 @@ addMonths(HAWAII_REGIONS, "freshwater_lake_pond", [9, 10], {
   viable_fly_archetypes: FALL_LAKE_FLIES,
 });
 addMonths(HAWAII_REGIONS, "freshwater_lake_pond", [11, 12], {
+  surface_seasonally_possible: false,
   base_water_column: "mid",
   base_mood: "neutral",
-  base_presentation_style: "subtle",
+  base_presentation_style: "leaning_subtle",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
   primary_lure_archetypes: ["football_jig", "suspending_jerkbait"],
@@ -1425,9 +1448,10 @@ addMonths(HAWAII_REGIONS, "freshwater_lake_pond", [11, 12], {
   viable_fly_archetypes: WINTER_LAKE_FLIES,
 });
 addMonths(HAWAII_REGIONS, "freshwater_river", [1, 2], {
+  surface_seasonally_possible: false,
   base_water_column: "bottom",
   base_mood: "neutral",
-  base_presentation_style: "subtle",
+  base_presentation_style: "leaning_subtle",
   primary_forage: "crawfish",
   secondary_forage: "baitfish",
   primary_lure_archetypes: ["compact_flipping_jig", "suspending_jerkbait"],
@@ -1436,6 +1460,7 @@ addMonths(HAWAII_REGIONS, "freshwater_river", [1, 2], {
   viable_fly_archetypes: WINTER_RIVER_FLIES,
 });
 addMonths(HAWAII_REGIONS, "freshwater_river", [3, 4, 5], {
+  surface_seasonally_possible: false,
   base_water_column: "shallow",
   base_mood: "active",
   base_presentation_style: "balanced",
@@ -1447,6 +1472,7 @@ addMonths(HAWAII_REGIONS, "freshwater_river", [3, 4, 5], {
   viable_fly_archetypes: SPRING_RIVER_FLIES,
 });
 addMonths(HAWAII_REGIONS, "freshwater_river", [6, 7, 8], {
+  surface_seasonally_possible: false,
   base_water_column: "mid",
   base_mood: "neutral",
   base_presentation_style: "balanced",
@@ -1458,6 +1484,7 @@ addMonths(HAWAII_REGIONS, "freshwater_river", [6, 7, 8], {
   viable_fly_archetypes: SOUTH_CENTRAL_SUMMER_RIVER_FLIES,
 });
 addMonths(HAWAII_REGIONS, "freshwater_river", [9, 10], {
+  surface_seasonally_possible: true,
   base_water_column: "shallow",
   base_mood: "active",
   base_presentation_style: "balanced",
@@ -1469,9 +1496,10 @@ addMonths(HAWAII_REGIONS, "freshwater_river", [9, 10], {
   viable_fly_archetypes: FALL_RIVER_FLIES,
 });
 addMonths(HAWAII_REGIONS, "freshwater_river", [11, 12], {
+  surface_seasonally_possible: false,
   base_water_column: "bottom",
   base_mood: "neutral",
-  base_presentation_style: "subtle",
+  base_presentation_style: "leaning_subtle",
   primary_forage: "crawfish",
   secondary_forage: "baitfish",
   primary_lure_archetypes: ["compact_flipping_jig", "suspending_jerkbait"],
@@ -1482,9 +1510,10 @@ addMonths(HAWAII_REGIONS, "freshwater_river", [11, 12], {
 
 // Southeast warm lake / pond
 addMonths(SOUTHEAST_WARM_REGIONS, "freshwater_lake_pond", [1], {
+  surface_seasonally_possible: false,
   base_water_column: "bottom",
   base_mood: "negative",
-  base_presentation_style: "subtle",
+  base_presentation_style: "leaning_subtle",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
   primary_lure_archetypes: ["football_jig", "texas_rigged_soft_plastic_craw"],
@@ -1493,6 +1522,7 @@ addMonths(SOUTHEAST_WARM_REGIONS, "freshwater_lake_pond", [1], {
   viable_fly_archetypes: WINTER_LAKE_FLIES,
 });
 addMonths(SOUTHEAST_WARM_REGIONS, "freshwater_lake_pond", [2, 3], {
+  surface_seasonally_possible: false,
   base_water_column: "mid",
   base_mood: "neutral",
   base_presentation_style: "balanced",
@@ -1504,6 +1534,7 @@ addMonths(SOUTHEAST_WARM_REGIONS, "freshwater_lake_pond", [2, 3], {
   viable_fly_archetypes: PRESPAWN_LAKE_FLIES,
 });
 addMonths(SOUTHEAST_WARM_REGIONS, "freshwater_lake_pond", [4, 5], {
+  surface_seasonally_possible: false,
   base_water_column: "shallow",
   base_mood: "active",
   base_presentation_style: "balanced",
@@ -1515,6 +1546,7 @@ addMonths(SOUTHEAST_WARM_REGIONS, "freshwater_lake_pond", [4, 5], {
   viable_fly_archetypes: SPAWN_LAKE_FLIES,
 });
 addMonths(SOUTHEAST_WARM_REGIONS, "freshwater_lake_pond", [5], {
+  surface_seasonally_possible: true,
   base_water_column: "shallow",
   base_mood: "active",
   base_presentation_style: "balanced",
@@ -1526,6 +1558,7 @@ addMonths(SOUTHEAST_WARM_REGIONS, "freshwater_lake_pond", [5], {
   viable_fly_archetypes: SPAWN_LAKE_FLIES,
 });
 addMonths(SOUTHEAST_WARM_REGIONS, "freshwater_lake_pond", [6], {
+  surface_seasonally_possible: false,
   base_water_column: "mid",
   base_mood: "neutral",
   base_presentation_style: "balanced",
@@ -1537,9 +1570,10 @@ addMonths(SOUTHEAST_WARM_REGIONS, "freshwater_lake_pond", [6], {
   viable_fly_archetypes: POSTSPAWN_LAKE_FLIES,
 });
 addMonths(SOUTHEAST_WARM_REGIONS, "freshwater_lake_pond", [7, 8], {
+  surface_seasonally_possible: true,
   base_water_column: "bottom",
   base_mood: "negative",
-  base_presentation_style: "subtle",
+  base_presentation_style: "leaning_subtle",
   primary_forage: "baitfish",
   secondary_forage: "bluegill_perch",
   primary_lure_archetypes: ["compact_flipping_jig", "football_jig"],
@@ -1548,6 +1582,7 @@ addMonths(SOUTHEAST_WARM_REGIONS, "freshwater_lake_pond", [7, 8], {
   viable_fly_archetypes: SOUTHEAST_SUMMER_CONTROL_LAKE_FLIES,
 });
 addMonths(SOUTHEAST_WARM_REGIONS, "freshwater_lake_pond", [9], {
+  surface_seasonally_possible: true,
   base_water_column: "shallow",
   base_mood: "active",
   base_presentation_style: "balanced",
@@ -1559,6 +1594,7 @@ addMonths(SOUTHEAST_WARM_REGIONS, "freshwater_lake_pond", [9], {
   viable_fly_archetypes: EARLY_FALL_GRASS_LAKE_FLIES,
 });
 addMonths(SOUTHEAST_WARM_REGIONS, "freshwater_lake_pond", [10], {
+  surface_seasonally_possible: true,
   base_water_column: "mid",
   base_mood: "active",
   base_presentation_style: "balanced",
@@ -1570,9 +1606,10 @@ addMonths(SOUTHEAST_WARM_REGIONS, "freshwater_lake_pond", [10], {
   viable_fly_archetypes: FALL_LAKE_FLIES,
 });
 addMonths(SOUTHEAST_WARM_REGIONS, "freshwater_lake_pond", [11], {
+  surface_seasonally_possible: false,
   base_water_column: "bottom",
   base_mood: "neutral",
-  base_presentation_style: "subtle",
+  base_presentation_style: "leaning_subtle",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
   primary_lure_archetypes: ["football_jig", "texas_rigged_soft_plastic_craw"],
@@ -1581,9 +1618,10 @@ addMonths(SOUTHEAST_WARM_REGIONS, "freshwater_lake_pond", [11], {
   viable_fly_archetypes: WINTER_LAKE_FLIES,
 });
 addMonths(SOUTHEAST_WARM_REGIONS, "freshwater_lake_pond", [12], {
+  surface_seasonally_possible: false,
   base_water_column: "bottom",
   base_mood: "negative",
-  base_presentation_style: "subtle",
+  base_presentation_style: "leaning_subtle",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
   primary_lure_archetypes: ["football_jig", "texas_rigged_soft_plastic_craw"],
@@ -1594,9 +1632,10 @@ addMonths(SOUTHEAST_WARM_REGIONS, "freshwater_lake_pond", [12], {
 
 // Southeast warm river
 addMonths(SOUTHEAST_WARM_REGIONS, "freshwater_river", [1, 2], {
+  surface_seasonally_possible: false,
   base_water_column: "bottom",
   base_mood: "negative",
-  base_presentation_style: "subtle",
+  base_presentation_style: "leaning_subtle",
   primary_forage: "crawfish",
   secondary_forage: "baitfish",
   primary_lure_archetypes: ["compact_flipping_jig", "suspending_jerkbait"],
@@ -1605,6 +1644,7 @@ addMonths(SOUTHEAST_WARM_REGIONS, "freshwater_river", [1, 2], {
   viable_fly_archetypes: WINTER_RIVER_FLIES,
 });
 addMonths(SOUTHEAST_WARM_REGIONS, "freshwater_river", [3, 4, 5], {
+  surface_seasonally_possible: false,
   base_water_column: "shallow",
   base_mood: "active",
   base_presentation_style: "balanced",
@@ -1616,6 +1656,7 @@ addMonths(SOUTHEAST_WARM_REGIONS, "freshwater_river", [3, 4, 5], {
   viable_fly_archetypes: SPRING_RIVER_FLIES,
 });
 addMonths(SOUTHEAST_WARM_REGIONS, "freshwater_river", [6], {
+  surface_seasonally_possible: false,
   base_water_column: "mid",
   base_mood: "neutral",
   base_presentation_style: "balanced",
@@ -1627,9 +1668,10 @@ addMonths(SOUTHEAST_WARM_REGIONS, "freshwater_river", [6], {
   viable_fly_archetypes: SPRING_RIVER_FLIES,
 });
 addMonths(SOUTHEAST_WARM_REGIONS, "freshwater_river", [7, 8], {
+  surface_seasonally_possible: false,
   base_water_column: "mid",
   base_mood: "negative",
-  base_presentation_style: "subtle",
+  base_presentation_style: "leaning_subtle",
   primary_forage: "baitfish",
   secondary_forage: "bluegill_perch",
   primary_lure_archetypes: ["compact_flipping_jig", "spinnerbait"],
@@ -1638,6 +1680,7 @@ addMonths(SOUTHEAST_WARM_REGIONS, "freshwater_river", [7, 8], {
   viable_fly_archetypes: SOUTH_CENTRAL_SUMMER_RIVER_FLIES,
 });
 addMonths(SOUTHEAST_WARM_REGIONS, "freshwater_river", [9, 10], {
+  surface_seasonally_possible: true,
   base_water_column: "shallow",
   base_mood: "active",
   base_presentation_style: "balanced",
@@ -1649,9 +1692,10 @@ addMonths(SOUTHEAST_WARM_REGIONS, "freshwater_river", [9, 10], {
   viable_fly_archetypes: FALL_RIVER_FLIES,
 });
 addMonths(SOUTHEAST_WARM_REGIONS, "freshwater_river", [11, 12], {
+  surface_seasonally_possible: false,
   base_water_column: "bottom",
   base_mood: "negative",
-  base_presentation_style: "subtle",
+  base_presentation_style: "leaning_subtle",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
   primary_lure_archetypes: ["compact_flipping_jig", "suspending_jerkbait"],
@@ -1662,9 +1706,10 @@ addMonths(SOUTHEAST_WARM_REGIONS, "freshwater_river", [11, 12], {
 
 // Appalachian lake / pond
 addMonths(APPALACHIAN_REGIONS, "freshwater_lake_pond", [1, 2], {
+  surface_seasonally_possible: false,
   base_water_column: "bottom",
   base_mood: "negative",
-  base_presentation_style: "subtle",
+  base_presentation_style: "leaning_subtle",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
   primary_lure_archetypes: ["football_jig", "texas_rigged_soft_plastic_craw"],
@@ -1673,6 +1718,7 @@ addMonths(APPALACHIAN_REGIONS, "freshwater_lake_pond", [1, 2], {
   viable_fly_archetypes: WINTER_LAKE_FLIES,
 });
 addMonths(APPALACHIAN_REGIONS, "freshwater_lake_pond", [3], {
+  surface_seasonally_possible: false,
   base_water_column: "mid",
   base_mood: "neutral",
   base_presentation_style: "balanced",
@@ -1684,9 +1730,10 @@ addMonths(APPALACHIAN_REGIONS, "freshwater_lake_pond", [3], {
   viable_fly_archetypes: PRESPAWN_LAKE_FLIES,
 });
 addMonths(APPALACHIAN_REGIONS, "freshwater_lake_pond", [4], {
+  surface_seasonally_possible: false,
   base_water_column: "mid",
   base_mood: "neutral",
-  base_presentation_style: "subtle",
+  base_presentation_style: "leaning_subtle",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
   primary_lure_archetypes: ["suspending_jerkbait", "wacky_rigged_stick_worm"],
@@ -1695,6 +1742,7 @@ addMonths(APPALACHIAN_REGIONS, "freshwater_lake_pond", [4], {
   viable_fly_archetypes: CLEAR_SPRING_LAKE_FLIES,
 });
 addMonths(APPALACHIAN_REGIONS, "freshwater_lake_pond", [5], {
+  surface_seasonally_possible: false,
   base_water_column: "shallow",
   base_mood: "active",
   base_presentation_style: "balanced",
@@ -1706,6 +1754,7 @@ addMonths(APPALACHIAN_REGIONS, "freshwater_lake_pond", [5], {
   viable_fly_archetypes: SPAWN_LAKE_FLIES,
 });
 addMonths(APPALACHIAN_REGIONS, "freshwater_lake_pond", [6], {
+  surface_seasonally_possible: false,
   base_water_column: "mid",
   base_mood: "neutral",
   base_presentation_style: "balanced",
@@ -1717,9 +1766,10 @@ addMonths(APPALACHIAN_REGIONS, "freshwater_lake_pond", [6], {
   viable_fly_archetypes: POSTSPAWN_LAKE_FLIES,
 });
 addMonths(APPALACHIAN_REGIONS, "freshwater_lake_pond", [7, 8], {
+  surface_seasonally_possible: true,
   base_water_column: "shallow",
   base_mood: "active",
-  base_presentation_style: "bold",
+  base_presentation_style: "leaning_bold",
   primary_forage: "baitfish",
   secondary_forage: "bluegill_perch",
   primary_lure_archetypes: ["hollow_body_frog", "swim_jig"],
@@ -1728,6 +1778,7 @@ addMonths(APPALACHIAN_REGIONS, "freshwater_lake_pond", [7, 8], {
   viable_fly_archetypes: SUMMER_LAKE_FLIES,
 });
 addMonths(APPALACHIAN_REGIONS, "freshwater_lake_pond", [9, 10], {
+  surface_seasonally_possible: true,
   base_water_column: "shallow",
   base_mood: "active",
   base_presentation_style: "balanced",
@@ -1739,9 +1790,10 @@ addMonths(APPALACHIAN_REGIONS, "freshwater_lake_pond", [9, 10], {
   viable_fly_archetypes: FALL_LAKE_FLIES,
 });
 addMonths(APPALACHIAN_REGIONS, "freshwater_lake_pond", [11, 12], {
+  surface_seasonally_possible: false,
   base_water_column: "bottom",
   base_mood: "negative",
-  base_presentation_style: "subtle",
+  base_presentation_style: "leaning_subtle",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
   primary_lure_archetypes: ["football_jig", "texas_rigged_soft_plastic_craw"],
@@ -1752,9 +1804,10 @@ addMonths(APPALACHIAN_REGIONS, "freshwater_lake_pond", [11, 12], {
 
 // Appalachian river
 addMonths(APPALACHIAN_REGIONS, "freshwater_river", [1, 2], {
+  surface_seasonally_possible: false,
   base_water_column: "bottom",
   base_mood: "negative",
-  base_presentation_style: "subtle",
+  base_presentation_style: "leaning_subtle",
   primary_forage: "crawfish",
   secondary_forage: "baitfish",
   primary_lure_archetypes: ["compact_flipping_jig", "suspending_jerkbait"],
@@ -1763,6 +1816,7 @@ addMonths(APPALACHIAN_REGIONS, "freshwater_river", [1, 2], {
   viable_fly_archetypes: WINTER_RIVER_FLIES,
 });
 addMonths(APPALACHIAN_REGIONS, "freshwater_river", [3, 4, 5], {
+  surface_seasonally_possible: false,
   base_water_column: "shallow",
   base_mood: "active",
   base_presentation_style: "balanced",
@@ -1774,6 +1828,7 @@ addMonths(APPALACHIAN_REGIONS, "freshwater_river", [3, 4, 5], {
   viable_fly_archetypes: SPRING_RIVER_FLIES,
 });
 addMonths(APPALACHIAN_REGIONS, "freshwater_river", [6, 7, 8], {
+  surface_seasonally_possible: true,
   base_water_column: "shallow",
   base_mood: "active",
   base_presentation_style: "balanced",
@@ -1785,6 +1840,7 @@ addMonths(APPALACHIAN_REGIONS, "freshwater_river", [6, 7, 8], {
   viable_fly_archetypes: SUMMER_RIVER_FLIES,
 });
 addMonths(APPALACHIAN_REGIONS, "freshwater_river", [9, 10], {
+  surface_seasonally_possible: true,
   base_water_column: "shallow",
   base_mood: "active",
   base_presentation_style: "balanced",
@@ -1796,9 +1852,10 @@ addMonths(APPALACHIAN_REGIONS, "freshwater_river", [9, 10], {
   viable_fly_archetypes: FALL_RIVER_FLIES,
 });
 addMonths(APPALACHIAN_REGIONS, "freshwater_river", [11, 12], {
+  surface_seasonally_possible: false,
   base_water_column: "bottom",
   base_mood: "negative",
-  base_presentation_style: "subtle",
+  base_presentation_style: "leaning_subtle",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
   primary_lure_archetypes: ["compact_flipping_jig", "suspending_jerkbait"],
@@ -1809,9 +1866,10 @@ addMonths(APPALACHIAN_REGIONS, "freshwater_river", [11, 12], {
 
 // South central lake / pond
 addMonths(SOUTH_CENTRAL_REGIONS, "freshwater_lake_pond", [1], {
+  surface_seasonally_possible: false,
   base_water_column: "bottom",
   base_mood: "negative",
-  base_presentation_style: "subtle",
+  base_presentation_style: "leaning_subtle",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
   primary_lure_archetypes: ["football_jig", "texas_rigged_soft_plastic_craw"],
@@ -1820,6 +1878,7 @@ addMonths(SOUTH_CENTRAL_REGIONS, "freshwater_lake_pond", [1], {
   viable_fly_archetypes: WINTER_LAKE_FLIES,
 });
 addMonths(SOUTH_CENTRAL_REGIONS, "freshwater_lake_pond", [2, 3], {
+  surface_seasonally_possible: false,
   base_water_column: "mid",
   base_mood: "neutral",
   base_presentation_style: "balanced",
@@ -1831,9 +1890,10 @@ addMonths(SOUTH_CENTRAL_REGIONS, "freshwater_lake_pond", [2, 3], {
   viable_fly_archetypes: PRESPAWN_LAKE_FLIES,
 });
 addMonths(SOUTH_CENTRAL_REGIONS, "freshwater_lake_pond", [4], {
+  surface_seasonally_possible: false,
   base_water_column: "mid",
   base_mood: "neutral",
-  base_presentation_style: "subtle",
+  base_presentation_style: "leaning_subtle",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
   primary_lure_archetypes: ["suspending_jerkbait", "wacky_rigged_stick_worm"],
@@ -1842,6 +1902,7 @@ addMonths(SOUTH_CENTRAL_REGIONS, "freshwater_lake_pond", [4], {
   viable_fly_archetypes: CLEAR_SPRING_LAKE_FLIES,
 });
 addMonths(SOUTH_CENTRAL_REGIONS, "freshwater_lake_pond", [5], {
+  surface_seasonally_possible: false,
   base_water_column: "mid",
   base_mood: "neutral",
   base_presentation_style: "balanced",
@@ -1853,6 +1914,7 @@ addMonths(SOUTH_CENTRAL_REGIONS, "freshwater_lake_pond", [5], {
   viable_fly_archetypes: POSTSPAWN_LAKE_FLIES,
 });
 addMonths(SOUTH_CENTRAL_REGIONS, "freshwater_lake_pond", [9], {
+  surface_seasonally_possible: true,
   base_water_column: "shallow",
   base_mood: "active",
   base_presentation_style: "balanced",
@@ -1864,6 +1926,7 @@ addMonths(SOUTH_CENTRAL_REGIONS, "freshwater_lake_pond", [9], {
   viable_fly_archetypes: EARLY_FALL_GRASS_LAKE_FLIES,
 });
 addMonths(SOUTH_CENTRAL_REGIONS, "freshwater_lake_pond", [10], {
+  surface_seasonally_possible: true,
   base_water_column: "mid",
   base_mood: "active",
   base_presentation_style: "balanced",
@@ -1875,9 +1938,10 @@ addMonths(SOUTH_CENTRAL_REGIONS, "freshwater_lake_pond", [10], {
   viable_fly_archetypes: FALL_LAKE_FLIES,
 });
 addMonths(SOUTH_CENTRAL_REGIONS, "freshwater_lake_pond", [11], {
+  surface_seasonally_possible: false,
   base_water_column: "mid",
   base_mood: "neutral",
-  base_presentation_style: "subtle",
+  base_presentation_style: "leaning_subtle",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
   primary_lure_archetypes: ["football_jig", "texas_rigged_soft_plastic_craw"],
@@ -1886,9 +1950,10 @@ addMonths(SOUTH_CENTRAL_REGIONS, "freshwater_lake_pond", [11], {
   viable_fly_archetypes: WINTER_LAKE_FLIES,
 });
 addMonths(SOUTH_CENTRAL_REGIONS, "freshwater_lake_pond", [12], {
+  surface_seasonally_possible: false,
   base_water_column: "bottom",
   base_mood: "negative",
-  base_presentation_style: "subtle",
+  base_presentation_style: "leaning_subtle",
   primary_forage: "leech_worm",
   secondary_forage: "crawfish",
   primary_lure_archetypes: ["shaky_head_worm", "football_jig"],
@@ -1899,9 +1964,10 @@ addMonths(SOUTH_CENTRAL_REGIONS, "freshwater_lake_pond", [12], {
 
 // South central river
 addMonths(SOUTH_CENTRAL_REGIONS, "freshwater_river", [1, 2], {
+  surface_seasonally_possible: false,
   base_water_column: "bottom",
   base_mood: "negative",
-  base_presentation_style: "subtle",
+  base_presentation_style: "leaning_subtle",
   primary_forage: "crawfish",
   secondary_forage: "baitfish",
   primary_lure_archetypes: ["compact_flipping_jig", "suspending_jerkbait"],
@@ -1910,6 +1976,7 @@ addMonths(SOUTH_CENTRAL_REGIONS, "freshwater_river", [1, 2], {
   viable_fly_archetypes: WINTER_RIVER_FLIES,
 });
 addMonths(SOUTH_CENTRAL_REGIONS, "freshwater_river", [3, 4], {
+  surface_seasonally_possible: false,
   base_water_column: "shallow",
   base_mood: "active",
   base_presentation_style: "balanced",
@@ -1921,6 +1988,7 @@ addMonths(SOUTH_CENTRAL_REGIONS, "freshwater_river", [3, 4], {
   viable_fly_archetypes: SPRING_RIVER_FLIES,
 });
 addMonths(SOUTH_CENTRAL_REGIONS, "freshwater_river", [5], {
+  surface_seasonally_possible: false,
   base_water_column: "shallow",
   base_mood: "active",
   base_presentation_style: "balanced",
@@ -1932,6 +2000,7 @@ addMonths(SOUTH_CENTRAL_REGIONS, "freshwater_river", [5], {
   viable_fly_archetypes: CURRENT_SEAM_RIVER_FLIES,
 });
 addMonths(SOUTH_CENTRAL_REGIONS, "freshwater_river", [6], {
+  surface_seasonally_possible: true,
   base_water_column: "shallow",
   base_mood: "neutral",
   base_presentation_style: "balanced",
@@ -1943,9 +2012,10 @@ addMonths(SOUTH_CENTRAL_REGIONS, "freshwater_river", [6], {
   viable_fly_archetypes: DIRTY_SUMMER_RIVER_FLIES,
 });
 addMonths(SOUTH_CENTRAL_REGIONS, "freshwater_river", [7, 8], {
+  surface_seasonally_possible: false,
   base_water_column: "bottom",
   base_mood: "negative",
-  base_presentation_style: "subtle",
+  base_presentation_style: "leaning_subtle",
   primary_forage: "crawfish",
   secondary_forage: "bluegill_perch",
   primary_lure_archetypes: ["compact_flipping_jig", "suspending_jerkbait"],
@@ -1954,6 +2024,7 @@ addMonths(SOUTH_CENTRAL_REGIONS, "freshwater_river", [7, 8], {
   viable_fly_archetypes: WINTER_RIVER_FLIES,
 });
 addMonths(SOUTH_CENTRAL_REGIONS, "freshwater_river", [9, 10], {
+  surface_seasonally_possible: true,
   base_water_column: "shallow",
   base_mood: "active",
   base_presentation_style: "balanced",
@@ -1965,9 +2036,10 @@ addMonths(SOUTH_CENTRAL_REGIONS, "freshwater_river", [9, 10], {
   viable_fly_archetypes: FALL_RIVER_FLIES,
 });
 addMonths(SOUTH_CENTRAL_REGIONS, "freshwater_river", [11, 12], {
+  surface_seasonally_possible: false,
   base_water_column: "bottom",
   base_mood: "negative",
-  base_presentation_style: "subtle",
+  base_presentation_style: "leaning_subtle",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
   primary_lure_archetypes: ["compact_flipping_jig", "suspending_jerkbait"],
@@ -1981,9 +2053,10 @@ addMonths([...NORTHERN_REGIONS, ...MIDWEST_REGIONS], "freshwater_lake_pond", [
   1,
   2,
 ], {
+  surface_seasonally_possible: false,
   base_water_column: "bottom",
   base_mood: "negative",
-  base_presentation_style: "subtle",
+  base_presentation_style: "leaning_subtle",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
   primary_lure_archetypes: ["football_jig", "texas_rigged_soft_plastic_craw"],
@@ -1992,6 +2065,7 @@ addMonths([...NORTHERN_REGIONS, ...MIDWEST_REGIONS], "freshwater_lake_pond", [
   viable_fly_archetypes: WINTER_LAKE_FLIES,
 });
 addMonths(NORTHERN_REGIONS, "freshwater_lake_pond", [3, 4, 5], {
+  surface_seasonally_possible: false,
   base_water_column: "mid",
   base_mood: "neutral",
   base_presentation_style: "balanced",
@@ -2003,6 +2077,7 @@ addMonths(NORTHERN_REGIONS, "freshwater_lake_pond", [3, 4, 5], {
   viable_fly_archetypes: PRESPAWN_LAKE_FLIES,
 });
 addMonths(MIDWEST_REGIONS, "freshwater_lake_pond", [3, 4], {
+  surface_seasonally_possible: false,
   base_water_column: "mid",
   base_mood: "neutral",
   base_presentation_style: "balanced",
@@ -2014,6 +2089,7 @@ addMonths(MIDWEST_REGIONS, "freshwater_lake_pond", [3, 4], {
   viable_fly_archetypes: PRESPAWN_LAKE_FLIES,
 });
 addMonths(NORTHERN_REGIONS, "freshwater_lake_pond", [6], {
+  surface_seasonally_possible: false,
   base_water_column: "shallow",
   base_mood: "active",
   base_presentation_style: "balanced",
@@ -2025,6 +2101,7 @@ addMonths(NORTHERN_REGIONS, "freshwater_lake_pond", [6], {
   viable_fly_archetypes: SPAWN_LAKE_FLIES,
 });
 addMonths(MIDWEST_REGIONS, "freshwater_lake_pond", [5, 6], {
+  surface_seasonally_possible: false,
   base_water_column: "shallow",
   base_mood: "active",
   base_presentation_style: "balanced",
@@ -2036,20 +2113,22 @@ addMonths(MIDWEST_REGIONS, "freshwater_lake_pond", [5, 6], {
   viable_fly_archetypes: SPAWN_LAKE_FLIES,
 });
 addMonths(NORTHERN_REGIONS, "freshwater_lake_pond", [7], {
+  surface_seasonally_possible: true,
   base_water_column: "shallow",
-  base_mood: "active",
-  base_presentation_style: "bold",
+  base_mood: "neutral",
+  base_presentation_style: "balanced",
   primary_forage: "baitfish",
   secondary_forage: "bluegill_perch",
-  primary_lure_archetypes: ["hollow_body_frog", "swim_jig"],
-  viable_lure_archetypes: SUMMER_LAKE_LURES,
-  primary_fly_archetypes: ["game_changer", "clouser_minnow"],
-  viable_fly_archetypes: SUMMER_LAKE_FLIES,
+  primary_lure_archetypes: ["swim_jig", "hollow_body_frog"],
+  viable_lure_archetypes: MN_WEED_LAKE_SUMMER_LURES,
+  primary_fly_archetypes: ["game_changer", "frog_fly"],
+  viable_fly_archetypes: NORTHERN_WEED_EARLY_SUMMER_LAKE_FLIES,
 });
 addMonths(NORTHERN_REGIONS, "freshwater_lake_pond", [8], {
+  surface_seasonally_possible: false,
   base_water_column: "mid",
   base_mood: "neutral",
-  base_presentation_style: "subtle",
+  base_presentation_style: "leaning_subtle",
   primary_forage: "bluegill_perch",
   secondary_forage: "baitfish",
   primary_lure_archetypes: ["wacky_rigged_stick_worm", "drop_shot_worm"],
@@ -2058,9 +2137,10 @@ addMonths(NORTHERN_REGIONS, "freshwater_lake_pond", [8], {
   viable_fly_archetypes: LATE_SUMMER_CLEAR_LAKE_FLIES,
 });
 addMonths(MIDWEST_REGIONS, "freshwater_lake_pond", [7, 8], {
+  surface_seasonally_possible: true,
   base_water_column: "shallow",
   base_mood: "active",
-  base_presentation_style: "bold",
+  base_presentation_style: "leaning_bold",
   primary_forage: "baitfish",
   secondary_forage: "bluegill_perch",
   primary_lure_archetypes: ["swim_jig", "hollow_body_frog"],
@@ -2069,9 +2149,10 @@ addMonths(MIDWEST_REGIONS, "freshwater_lake_pond", [7, 8], {
   viable_fly_archetypes: SUMMER_LAKE_FLIES,
 });
 addMonths(NORTHERN_REGIONS, "freshwater_lake_pond", [9, 10], {
+  surface_seasonally_possible: true,
   base_water_column: "shallow",
   base_mood: "active",
-  base_presentation_style: "bold",
+  base_presentation_style: "leaning_bold",
   primary_forage: "baitfish",
   secondary_forage: "bluegill_perch",
   primary_lure_archetypes: ["spinnerbait", "paddle_tail_swimbait"],
@@ -2080,6 +2161,7 @@ addMonths(NORTHERN_REGIONS, "freshwater_lake_pond", [9, 10], {
   viable_fly_archetypes: FALL_LAKE_FLIES,
 });
 addMonths(MIDWEST_REGIONS, "freshwater_lake_pond", [9, 10], {
+  surface_seasonally_possible: true,
   base_water_column: "shallow",
   base_mood: "active",
   base_presentation_style: "balanced",
@@ -2094,9 +2176,10 @@ addMonths([...NORTHERN_REGIONS, ...MIDWEST_REGIONS], "freshwater_lake_pond", [
   11,
   12,
 ], {
+  surface_seasonally_possible: false,
   base_water_column: "bottom",
   base_mood: "negative",
-  base_presentation_style: "subtle",
+  base_presentation_style: "leaning_subtle",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
   primary_lure_archetypes: ["football_jig", "texas_rigged_soft_plastic_craw"],
@@ -2111,9 +2194,10 @@ addMonths([...NORTHERN_REGIONS, ...MIDWEST_REGIONS], "freshwater_river", [
   2,
   3,
 ], {
+  surface_seasonally_possible: false,
   base_water_column: "bottom",
   base_mood: "negative",
-  base_presentation_style: "subtle",
+  base_presentation_style: "leaning_subtle",
   primary_forage: "crawfish",
   secondary_forage: "baitfish",
   primary_lure_archetypes: ["compact_flipping_jig", "suspending_jerkbait"],
@@ -2122,6 +2206,7 @@ addMonths([...NORTHERN_REGIONS, ...MIDWEST_REGIONS], "freshwater_river", [
   viable_fly_archetypes: WINTER_RIVER_FLIES,
 });
 addMonths(NORTHERN_REGIONS, "freshwater_river", [4, 5, 6], {
+  surface_seasonally_possible: false,
   base_water_column: "shallow",
   base_mood: "neutral",
   base_presentation_style: "balanced",
@@ -2133,6 +2218,7 @@ addMonths(NORTHERN_REGIONS, "freshwater_river", [4, 5, 6], {
   viable_fly_archetypes: SPRING_RIVER_FLIES,
 });
 addMonths(MIDWEST_REGIONS, "freshwater_river", [4, 5], {
+  surface_seasonally_possible: false,
   base_water_column: "shallow",
   base_mood: "neutral",
   base_presentation_style: "balanced",
@@ -2144,9 +2230,10 @@ addMonths(MIDWEST_REGIONS, "freshwater_river", [4, 5], {
   viable_fly_archetypes: SPRING_RIVER_FLIES,
 });
 addMonths(NORTHERN_REGIONS, "freshwater_river", [7, 8], {
+  surface_seasonally_possible: true,
   base_water_column: "shallow",
   base_mood: "active",
-  base_presentation_style: "bold",
+  base_presentation_style: "leaning_bold",
   primary_forage: "baitfish",
   secondary_forage: "bluegill_perch",
   primary_lure_archetypes: ["walking_topwater", "swim_jig"],
@@ -2155,9 +2242,10 @@ addMonths(NORTHERN_REGIONS, "freshwater_river", [7, 8], {
   viable_fly_archetypes: SUMMER_RIVER_FLIES,
 });
 addMonths(MIDWEST_REGIONS, "freshwater_river", [6, 7, 8], {
+  surface_seasonally_possible: true,
   base_water_column: "shallow",
   base_mood: "active",
-  base_presentation_style: "bold",
+  base_presentation_style: "leaning_bold",
   primary_forage: "baitfish",
   secondary_forage: "bluegill_perch",
   primary_lure_archetypes: ["swim_jig", "buzzbait"],
@@ -2169,6 +2257,7 @@ addMonths([...NORTHERN_REGIONS, ...MIDWEST_REGIONS], "freshwater_river", [
   9,
   10,
 ], {
+  surface_seasonally_possible: true,
   base_water_column: "shallow",
   base_mood: "active",
   base_presentation_style: "balanced",
@@ -2183,9 +2272,10 @@ addMonths([...NORTHERN_REGIONS, ...MIDWEST_REGIONS], "freshwater_river", [
   11,
   12,
 ], {
+  surface_seasonally_possible: false,
   base_water_column: "bottom",
   base_mood: "negative",
-  base_presentation_style: "subtle",
+  base_presentation_style: "leaning_subtle",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
   primary_lure_archetypes: ["compact_flipping_jig", "suspending_jerkbait"],
@@ -2195,23 +2285,20 @@ addMonths([...NORTHERN_REGIONS, ...MIDWEST_REGIONS], "freshwater_river", [
 });
 
 // Western warm and inland lakes
-addMonths(
-  [...WESTERN_WARM_REGIONS, ...WESTERN_INLAND_REGIONS],
-  "freshwater_lake_pond",
-  [1, 2],
-  {
-    base_water_column: "bottom",
+addMonths([...WESTERN_WARM_REGIONS, ...WESTERN_INLAND_REGIONS], "freshwater_lake_pond", [1, 2], {
+    surface_seasonally_possible: false,
+  base_water_column: "bottom",
     base_mood: "negative",
-    base_presentation_style: "subtle",
+    base_presentation_style: "leaning_subtle",
     primary_forage: "baitfish",
     secondary_forage: "crawfish",
     primary_lure_archetypes: ["football_jig", "texas_rigged_soft_plastic_craw"],
     viable_lure_archetypes: WINTER_LAKE_LURES,
     primary_fly_archetypes: ["woolly_bugger", "balanced_leech"],
     viable_fly_archetypes: WINTER_LAKE_FLIES,
-  },
-);
+  }, );
 addMonths(WESTERN_WARM_REGIONS, "freshwater_lake_pond", [3, 4], {
+  surface_seasonally_possible: false,
   base_water_column: "mid",
   base_mood: "neutral",
   base_presentation_style: "balanced",
@@ -2223,6 +2310,7 @@ addMonths(WESTERN_WARM_REGIONS, "freshwater_lake_pond", [3, 4], {
   viable_fly_archetypes: PRESPAWN_LAKE_FLIES,
 });
 addMonths(WESTERN_INLAND_REGIONS, "freshwater_lake_pond", [3, 4, 5], {
+  surface_seasonally_possible: false,
   base_water_column: "mid",
   base_mood: "neutral",
   base_presentation_style: "balanced",
@@ -2234,6 +2322,7 @@ addMonths(WESTERN_INLAND_REGIONS, "freshwater_lake_pond", [3, 4, 5], {
   viable_fly_archetypes: PRESPAWN_LAKE_FLIES,
 });
 addMonths(WESTERN_WARM_REGIONS, "freshwater_lake_pond", [5], {
+  surface_seasonally_possible: false,
   base_water_column: "shallow",
   base_mood: "active",
   base_presentation_style: "balanced",
@@ -2245,6 +2334,7 @@ addMonths(WESTERN_WARM_REGIONS, "freshwater_lake_pond", [5], {
   viable_fly_archetypes: SPAWN_LAKE_FLIES,
 });
 addMonths(WESTERN_INLAND_REGIONS, "freshwater_lake_pond", [6], {
+  surface_seasonally_possible: false,
   base_water_column: "shallow",
   base_mood: "active",
   base_presentation_style: "balanced",
@@ -2256,6 +2346,7 @@ addMonths(WESTERN_INLAND_REGIONS, "freshwater_lake_pond", [6], {
   viable_fly_archetypes: SPAWN_LAKE_FLIES,
 });
 addMonths(WESTERN_WARM_REGIONS, "freshwater_lake_pond", [6, 7, 8, 9], {
+  surface_seasonally_possible: true,
   base_water_column: "shallow",
   base_mood: "active",
   base_presentation_style: "balanced",
@@ -2267,6 +2358,7 @@ addMonths(WESTERN_WARM_REGIONS, "freshwater_lake_pond", [6, 7, 8, 9], {
   viable_fly_archetypes: SUMMER_LAKE_FLIES,
 });
 addMonths(WESTERN_INLAND_REGIONS, "freshwater_lake_pond", [7, 8, 9], {
+  surface_seasonally_possible: true,
   base_water_column: "shallow",
   base_mood: "active",
   base_presentation_style: "balanced",
@@ -2277,12 +2369,9 @@ addMonths(WESTERN_INLAND_REGIONS, "freshwater_lake_pond", [7, 8, 9], {
   primary_fly_archetypes: ["game_changer", "clouser_minnow"],
   viable_fly_archetypes: SUMMER_LAKE_FLIES,
 });
-addMonths(
-  [...WESTERN_WARM_REGIONS, ...WESTERN_INLAND_REGIONS],
-  "freshwater_lake_pond",
-  [10],
-  {
-    base_water_column: "mid",
+addMonths([...WESTERN_WARM_REGIONS, ...WESTERN_INLAND_REGIONS], "freshwater_lake_pond", [10], {
+    surface_seasonally_possible: true,
+  base_water_column: "mid",
     base_mood: "active",
     base_presentation_style: "balanced",
     primary_forage: "baitfish",
@@ -2291,48 +2380,36 @@ addMonths(
     viable_lure_archetypes: FALL_LAKE_LURES,
     primary_fly_archetypes: ["clouser_minnow", "game_changer"],
     viable_fly_archetypes: FALL_LAKE_FLIES,
-  },
-);
-addMonths(
-  [...WESTERN_WARM_REGIONS, ...WESTERN_INLAND_REGIONS],
-  "freshwater_lake_pond",
-  [11, 12],
-  {
-    base_water_column: "bottom",
+  }, );
+addMonths([...WESTERN_WARM_REGIONS, ...WESTERN_INLAND_REGIONS], "freshwater_lake_pond", [11, 12], {
+    surface_seasonally_possible: false,
+  base_water_column: "bottom",
     base_mood: "negative",
-    base_presentation_style: "subtle",
+    base_presentation_style: "leaning_subtle",
     primary_forage: "baitfish",
     secondary_forage: "crawfish",
     primary_lure_archetypes: ["football_jig", "texas_rigged_soft_plastic_craw"],
     viable_lure_archetypes: WINTER_LAKE_LURES,
     primary_fly_archetypes: ["woolly_bugger", "balanced_leech"],
     viable_fly_archetypes: WINTER_LAKE_FLIES,
-  },
-);
+  }, );
 
 // Western rivers
-addMonths(
-  [...WESTERN_WARM_REGIONS, ...WESTERN_INLAND_REGIONS],
-  "freshwater_river",
-  [1, 2, 3],
-  {
-    base_water_column: "bottom",
+addMonths([...WESTERN_WARM_REGIONS, ...WESTERN_INLAND_REGIONS], "freshwater_river", [1, 2, 3], {
+    surface_seasonally_possible: false,
+  base_water_column: "bottom",
     base_mood: "negative",
-    base_presentation_style: "subtle",
+    base_presentation_style: "leaning_subtle",
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     primary_lure_archetypes: ["compact_flipping_jig", "suspending_jerkbait"],
     viable_lure_archetypes: WINTER_RIVER_LURES,
     primary_fly_archetypes: ["woolly_bugger", "balanced_leech"],
     viable_fly_archetypes: WINTER_RIVER_FLIES,
-  },
-);
-addMonths(
-  [...WESTERN_WARM_REGIONS, ...WESTERN_INLAND_REGIONS],
-  "freshwater_river",
-  [4, 5, 6],
-  {
-    base_water_column: "shallow",
+  }, );
+addMonths([...WESTERN_WARM_REGIONS, ...WESTERN_INLAND_REGIONS], "freshwater_river", [4, 5, 6], {
+    surface_seasonally_possible: false,
+  base_water_column: "shallow",
     base_mood: "neutral",
     base_presentation_style: "balanced",
     primary_forage: "crawfish",
@@ -2341,14 +2418,10 @@ addMonths(
     viable_lure_archetypes: SPRING_RIVER_LURES,
     primary_fly_archetypes: ["clouser_minnow", "woolly_bugger"],
     viable_fly_archetypes: SPRING_RIVER_FLIES,
-  },
-);
-addMonths(
-  [...WESTERN_WARM_REGIONS, ...WESTERN_INLAND_REGIONS],
-  "freshwater_river",
-  [7, 8, 9],
-  {
-    base_water_column: "shallow",
+  }, );
+addMonths([...WESTERN_WARM_REGIONS, ...WESTERN_INLAND_REGIONS], "freshwater_river", [7, 8, 9], {
+    surface_seasonally_possible: true,
+  base_water_column: "shallow",
     base_mood: "active",
     base_presentation_style: "balanced",
     primary_forage: "baitfish",
@@ -2357,14 +2430,10 @@ addMonths(
     viable_lure_archetypes: SUMMER_RIVER_LURES,
     primary_fly_archetypes: ["popper_fly", "game_changer"],
     viable_fly_archetypes: SUMMER_RIVER_FLIES,
-  },
-);
-addMonths(
-  [...WESTERN_WARM_REGIONS, ...WESTERN_INLAND_REGIONS],
-  "freshwater_river",
-  [10],
-  {
-    base_water_column: "shallow",
+  }, );
+addMonths([...WESTERN_WARM_REGIONS, ...WESTERN_INLAND_REGIONS], "freshwater_river", [10], {
+    surface_seasonally_possible: true,
+  base_water_column: "shallow",
     base_mood: "active",
     base_presentation_style: "balanced",
     primary_forage: "baitfish",
@@ -2373,27 +2442,23 @@ addMonths(
     viable_lure_archetypes: FALL_RIVER_LURES,
     primary_fly_archetypes: ["clouser_minnow", "game_changer"],
     viable_fly_archetypes: FALL_RIVER_FLIES,
-  },
-);
-addMonths(
-  [...WESTERN_WARM_REGIONS, ...WESTERN_INLAND_REGIONS],
-  "freshwater_river",
-  [11, 12],
-  {
-    base_water_column: "bottom",
+  }, );
+addMonths([...WESTERN_WARM_REGIONS, ...WESTERN_INLAND_REGIONS], "freshwater_river", [11, 12], {
+    surface_seasonally_possible: false,
+  base_water_column: "bottom",
     base_mood: "negative",
-    base_presentation_style: "subtle",
+    base_presentation_style: "leaning_subtle",
     primary_forage: "baitfish",
     secondary_forage: "crawfish",
     primary_lure_archetypes: ["compact_flipping_jig", "suspending_jerkbait"],
     viable_lure_archetypes: WINTER_RIVER_LURES,
     primary_fly_archetypes: ["woolly_bugger", "balanced_leech"],
     viable_fly_archetypes: WINTER_RIVER_FLIES,
-  },
-);
+  }, );
 
 // Focused largemouth overrides for audited high-value windows.
 addMonths(["florida"], "freshwater_lake_pond", [2], {
+  surface_seasonally_possible: false,
   base_water_column: "mid",
   base_mood: "neutral",
   base_presentation_style: "balanced",
@@ -2405,9 +2470,10 @@ addMonths(["florida"], "freshwater_lake_pond", [2], {
   viable_fly_archetypes: FLORIDA_PRESPAWN_PUSH_LAKE_FLIES,
 });
 addMonths(["florida"], "freshwater_lake_pond", [4], {
+  surface_seasonally_possible: false,
   base_water_column: "shallow",
   base_mood: "neutral",
-  base_presentation_style: "subtle",
+  base_presentation_style: "leaning_subtle",
   primary_forage: "leech_worm",
   secondary_forage: "baitfish",
   primary_lure_archetypes: ["wacky_rigged_stick_worm", "compact_flipping_jig"],
@@ -2416,9 +2482,10 @@ addMonths(["florida"], "freshwater_lake_pond", [4], {
   viable_fly_archetypes: FLORIDA_SPAWN_CLEAR_LAKE_FLIES,
 });
 addMonths(["florida"], "freshwater_lake_pond", [7], {
+  surface_seasonally_possible: true,
   base_water_column: "shallow",
   base_mood: "active",
-  base_presentation_style: "bold",
+  base_presentation_style: "leaning_bold",
   primary_forage: "baitfish",
   secondary_forage: "bluegill_perch",
   primary_lure_archetypes: ["buzzbait", "hollow_body_frog"],
@@ -2427,6 +2494,7 @@ addMonths(["florida"], "freshwater_lake_pond", [7], {
   viable_fly_archetypes: FLORIDA_MIDSUMMER_GRASS_LAKE_FLIES,
 });
 addMonths(["florida"], "freshwater_lake_pond", [8], {
+  surface_seasonally_possible: true,
   base_water_column: "shallow",
   base_mood: "neutral",
   base_presentation_style: "balanced",
@@ -2438,6 +2506,7 @@ addMonths(["florida"], "freshwater_lake_pond", [8], {
   viable_fly_archetypes: FLORIDA_MIDSUMMER_GRASS_LAKE_FLIES,
 });
 addMonths(["florida"], "freshwater_lake_pond", [10], {
+  surface_seasonally_possible: true,
   base_water_column: "shallow",
   base_mood: "active",
   base_presentation_style: "balanced",
@@ -2449,6 +2518,7 @@ addMonths(["florida"], "freshwater_lake_pond", [10], {
   viable_fly_archetypes: FLORIDA_FALL_GRASS_LAKE_FLIES,
 });
 addMonths(["florida"], "freshwater_lake_pond", [12], {
+  surface_seasonally_possible: false,
   base_water_column: "bottom",
   base_mood: "negative",
   base_presentation_style: "balanced",
@@ -2463,6 +2533,7 @@ addMonths(["florida"], "freshwater_lake_pond", [12], {
   viable_fly_archetypes: FLORIDA_WINTER_CONTROL_LAKE_FLIES,
 });
 addMonths(["south_central"], "freshwater_lake_pond", [4], {
+  surface_seasonally_possible: false,
   base_water_column: "shallow",
   base_mood: "neutral",
   base_presentation_style: "balanced",
@@ -2474,6 +2545,7 @@ addMonths(["south_central"], "freshwater_lake_pond", [4], {
   viable_fly_archetypes: SOUTH_CENTRAL_CLEAR_SPRING_LAKE_FLIES,
 });
 addMonths(["south_central"], "freshwater_lake_pond", [6], {
+  surface_seasonally_possible: false,
   base_water_column: "bottom",
   base_mood: "neutral",
   base_presentation_style: "balanced",
@@ -2485,9 +2557,10 @@ addMonths(["south_central"], "freshwater_lake_pond", [6], {
   viable_fly_archetypes: SOUTH_CENTRAL_JUNE_LAKE_FLIES,
 });
 addMonths(["south_central"], "freshwater_lake_pond", [1], {
+  surface_seasonally_possible: false,
   base_water_column: "bottom",
   base_mood: "negative",
-  base_presentation_style: "subtle",
+  base_presentation_style: "leaning_subtle",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
   primary_lure_archetypes: ["football_jig", "suspending_jerkbait"],
@@ -2496,6 +2569,7 @@ addMonths(["south_central"], "freshwater_lake_pond", [1], {
   viable_fly_archetypes: TEXAS_COLD_STAINED_RESERVOIR_FLIES,
 });
 addMonths(["south_central"], "freshwater_lake_pond", [7], {
+  surface_seasonally_possible: false,
   base_water_column: "bottom",
   base_mood: "neutral",
   base_presentation_style: "balanced",
@@ -2507,6 +2581,7 @@ addMonths(["south_central"], "freshwater_lake_pond", [7], {
   viable_fly_archetypes: TEXAS_DIRTY_SUMMER_RESERVOIR_FLIES,
 });
 addMonths(["south_central"], "freshwater_lake_pond", [8], {
+  surface_seasonally_possible: false,
   base_water_column: "bottom",
   base_mood: "neutral",
   base_presentation_style: "balanced",
@@ -2518,6 +2593,7 @@ addMonths(["south_central"], "freshwater_lake_pond", [8], {
   viable_fly_archetypes: TEXAS_SUMMER_RESERVOIR_CONTROL_FLIES,
 });
 addMonths(["south_central"], "freshwater_lake_pond", [9, 10], {
+  surface_seasonally_possible: false,
   base_water_column: "mid",
   base_mood: "neutral",
   base_presentation_style: "balanced",
@@ -2529,6 +2605,7 @@ addMonths(["south_central"], "freshwater_lake_pond", [9, 10], {
   viable_fly_archetypes: SOUTH_CENTRAL_FALL_TRANSITION_LAKE_FLIES,
 });
 addMonths(["south_central"], "freshwater_river", [1], {
+  surface_seasonally_possible: false,
   base_water_column: "bottom",
   base_mood: "negative",
   base_presentation_style: "balanced",
@@ -2540,6 +2617,7 @@ addMonths(["south_central"], "freshwater_river", [1], {
   viable_fly_archetypes: SOUTH_CENTRAL_WINTER_RIVER_FLIES,
 });
 addMonths(["south_central"], "freshwater_river", [2, 4], {
+  surface_seasonally_possible: false,
   base_water_column: "shallow",
   base_mood: "neutral",
   base_presentation_style: "balanced",
@@ -2551,6 +2629,7 @@ addMonths(["south_central"], "freshwater_river", [2, 4], {
   viable_fly_archetypes: SOUTH_CENTRAL_PRESPAWN_RIVER_FLIES,
 });
 addMonths(["south_central"], "freshwater_river", [6, 8], {
+  surface_seasonally_possible: false,
   base_water_column: "shallow",
   base_mood: "neutral",
   base_presentation_style: "balanced",
@@ -2562,6 +2641,7 @@ addMonths(["south_central"], "freshwater_river", [6, 8], {
   viable_fly_archetypes: SOUTH_CENTRAL_SUMMER_RIVER_FLIES,
 });
 addMonths(["south_central"], "freshwater_river", [11], {
+  surface_seasonally_possible: false,
   base_water_column: "shallow",
   base_mood: "active",
   base_presentation_style: "balanced",
@@ -2573,6 +2653,7 @@ addMonths(["south_central"], "freshwater_river", [11], {
   viable_fly_archetypes: SOUTH_CENTRAL_FALL_RIVER_FLIES,
 });
 addMonths(["south_central"], "freshwater_river", [12], {
+  surface_seasonally_possible: false,
   base_water_column: "bottom",
   base_mood: "negative",
   base_presentation_style: "balanced",
@@ -2584,6 +2665,7 @@ addMonths(["south_central"], "freshwater_river", [12], {
   viable_fly_archetypes: SOUTH_CENTRAL_WINTER_RIVER_FLIES,
 });
 addMonths(["south_central"], "freshwater_river", [3], {
+  surface_seasonally_possible: false,
   base_water_column: "shallow",
   base_mood: "active",
   base_presentation_style: "balanced",
@@ -2595,6 +2677,7 @@ addMonths(["south_central"], "freshwater_river", [3], {
   viable_fly_archetypes: CURRENT_SEAM_RIVER_FLIES,
 });
 addMonths(["south_central"], "freshwater_river", [9], {
+  surface_seasonally_possible: false,
   base_water_column: "shallow",
   base_mood: "active",
   base_presentation_style: "balanced",
@@ -2606,6 +2689,7 @@ addMonths(["south_central"], "freshwater_river", [9], {
   viable_fly_archetypes: CURRENT_SEAM_RIVER_FLIES,
 });
 addMonths(["south_central"], "freshwater_river", [7], {
+  surface_seasonally_possible: true,
   base_water_column: "shallow",
   base_mood: "active",
   base_presentation_style: "balanced",
@@ -2617,6 +2701,7 @@ addMonths(["south_central"], "freshwater_river", [7], {
   viable_fly_archetypes: SUMMER_CURRENT_RIVER_FLIES,
 });
 addMonths(["gulf_coast"], "freshwater_lake_pond", [11], {
+  surface_seasonally_possible: true,
   base_water_column: "mid",
   base_mood: "neutral",
   base_presentation_style: "balanced",
@@ -2628,9 +2713,10 @@ addMonths(["gulf_coast"], "freshwater_lake_pond", [11], {
   viable_fly_archetypes: GULF_LATE_FALL_GRASS_LAKE_FLIES,
 });
 addMonths(["gulf_coast"], "freshwater_lake_pond", [3], {
+  surface_seasonally_possible: false,
   base_water_column: "shallow",
   base_mood: "neutral",
-  base_presentation_style: "bold",
+  base_presentation_style: "leaning_bold",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
   primary_lure_archetypes: ["lipless_crankbait", "spinnerbait"],
@@ -2639,9 +2725,10 @@ addMonths(["gulf_coast"], "freshwater_lake_pond", [3], {
   viable_fly_archetypes: GULF_DIRTY_PRESPAWN_GRASS_LAKE_FLIES,
 });
 addMonths(["northeast"], "freshwater_lake_pond", [1, 2], {
+  surface_seasonally_possible: false,
   base_water_column: "bottom",
   base_mood: "negative",
-  base_presentation_style: "subtle",
+  base_presentation_style: "leaning_subtle",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
   primary_lure_archetypes: ["suspending_jerkbait", "flat_sided_crankbait"],
@@ -2650,6 +2737,7 @@ addMonths(["northeast"], "freshwater_lake_pond", [1, 2], {
   viable_fly_archetypes: NORTHERN_CLEAR_WINTER_LAKE_FLIES,
 });
 addMonths(["northeast"], "freshwater_lake_pond", [4, 5], {
+  surface_seasonally_possible: false,
   base_water_column: "shallow",
   base_mood: "neutral",
   base_presentation_style: "balanced",
@@ -2661,20 +2749,22 @@ addMonths(["northeast"], "freshwater_lake_pond", [4, 5], {
   viable_fly_archetypes: NORTHERN_CLEAR_SPAWN_LAKE_FLIES,
 });
 addMonths(["northeast"], "freshwater_lake_pond", [6, 7], {
+  surface_seasonally_possible: false,
   base_water_column: "mid",
-  base_mood: "active",
-  base_presentation_style: "subtle",
+  base_mood: "neutral_subtle",
+  base_presentation_style: "leaning_subtle",
   primary_forage: "bluegill_perch",
   secondary_forage: "baitfish",
-  primary_lure_archetypes: ["wacky_rigged_stick_worm", "swim_jig"],
+  primary_lure_archetypes: ["wacky_rigged_stick_worm", "drop_shot_worm"],
   viable_lure_archetypes: NORTHERN_CLEAR_SUMMER_LAKE_LURES,
-  primary_fly_archetypes: ["game_changer", "woolly_bugger"],
+  primary_fly_archetypes: ["clouser_minnow", "balanced_leech"],
   viable_fly_archetypes: NORTHERN_CLEAR_SUMMER_LAKE_FLIES,
 });
 addMonths(["northeast"], "freshwater_lake_pond", [8], {
+  surface_seasonally_possible: false,
   base_water_column: "mid",
   base_mood: "neutral",
-  base_presentation_style: "subtle",
+  base_presentation_style: "leaning_subtle",
   primary_forage: "baitfish",
   secondary_forage: "bluegill_perch",
   primary_lure_archetypes: ["soft_jerkbait", "drop_shot_worm"],
@@ -2683,6 +2773,7 @@ addMonths(["northeast"], "freshwater_lake_pond", [8], {
   viable_fly_archetypes: LATE_SUMMER_CLEAR_LAKE_FLIES,
 });
 addMonths(["northeast"], "freshwater_lake_pond", [11], {
+  surface_seasonally_possible: true,
   base_water_column: "mid",
   base_mood: "active",
   base_presentation_style: "balanced",
@@ -2697,9 +2788,10 @@ addMonths(["northeast"], "freshwater_lake_pond", [11], {
 // finesse/crankbait window that Great Lakes gets rather than the generic fast-search
 // PRESPAWN_LAKE_LURES that the shared NORTHERN_REGIONS base row would otherwise apply.
 addMonths(["northeast"], "freshwater_lake_pond", [3], {
+  surface_seasonally_possible: false,
   base_water_column: "mid",
   base_mood: "neutral",
-  base_presentation_style: "subtle",
+  base_presentation_style: "leaning_subtle",
   primary_forage: "crawfish",
   secondary_forage: "baitfish",
   primary_lure_archetypes: ["flat_sided_crankbait", "suspending_jerkbait"],
@@ -2708,6 +2800,7 @@ addMonths(["northeast"], "freshwater_lake_pond", [3], {
   viable_fly_archetypes: NORTHERN_CLEAR_WINTER_LAKE_FLIES,
 });
 addMonths(["great_lakes_upper_midwest"], "freshwater_lake_pond", [5], {
+  surface_seasonally_possible: false,
   base_water_column: "shallow",
   base_mood: "neutral",
   base_presentation_style: "balanced",
@@ -2719,9 +2812,10 @@ addMonths(["great_lakes_upper_midwest"], "freshwater_lake_pond", [5], {
   viable_fly_archetypes: NORTHERN_CLEAR_SPAWN_LAKE_FLIES,
 });
 addMonths(["great_lakes_upper_midwest"], "freshwater_lake_pond", [1, 2], {
+  surface_seasonally_possible: false,
   base_water_column: "bottom",
   base_mood: "negative",
-  base_presentation_style: "subtle",
+  base_presentation_style: "leaning_subtle",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
   primary_lure_archetypes: ["suspending_jerkbait", "flat_sided_crankbait"],
@@ -2730,9 +2824,10 @@ addMonths(["great_lakes_upper_midwest"], "freshwater_lake_pond", [1, 2], {
   viable_fly_archetypes: NORTHERN_CLEAR_WINTER_LAKE_FLIES,
 });
 addMonths(["great_lakes_upper_midwest"], "freshwater_lake_pond", [4], {
+  surface_seasonally_possible: false,
   base_water_column: "shallow",
   base_mood: "neutral",
-  base_presentation_style: "subtle",
+  base_presentation_style: "leaning_subtle",
   primary_forage: "leech_worm",
   secondary_forage: "baitfish",
   primary_lure_archetypes: ["weightless_stick_worm", "wacky_rigged_stick_worm"],
@@ -2741,17 +2836,19 @@ addMonths(["great_lakes_upper_midwest"], "freshwater_lake_pond", [4], {
   viable_fly_archetypes: NORTHERN_CLEAR_SPAWN_LAKE_FLIES,
 });
 addMonths(["great_lakes_upper_midwest"], "freshwater_lake_pond", [6, 7], {
+  surface_seasonally_possible: false,
   base_water_column: "mid",
-  base_mood: "neutral",
-  base_presentation_style: "subtle",
+  base_mood: "neutral_subtle",
+  base_presentation_style: "leaning_subtle",
   primary_forage: "leech_worm",
   secondary_forage: "baitfish",
-  primary_lure_archetypes: ["wacky_rigged_stick_worm", "soft_jerkbait"],
+  primary_lure_archetypes: ["wacky_rigged_stick_worm", "drop_shot_worm"],
   viable_lure_archetypes: NORTHERN_CLEAR_SUMMER_LAKE_LURES,
-  primary_fly_archetypes: ["game_changer", "woolly_bugger"],
+  primary_fly_archetypes: ["clouser_minnow", "balanced_leech"],
   viable_fly_archetypes: NORTHERN_CLEAR_SUMMER_LAKE_FLIES,
 });
 addMonths(["great_lakes_upper_midwest"], "freshwater_lake_pond", [8], {
+  surface_seasonally_possible: true,
   base_water_column: "shallow",
   base_mood: "active",
   base_presentation_style: "balanced",
@@ -2763,6 +2860,7 @@ addMonths(["great_lakes_upper_midwest"], "freshwater_lake_pond", [8], {
   viable_fly_archetypes: SUMMER_LAKE_FLIES,
 });
 addMonths(["great_lakes_upper_midwest"], "freshwater_lake_pond", [10], {
+  surface_seasonally_possible: true,
   base_water_column: "shallow",
   base_mood: "active",
   base_presentation_style: "balanced",
@@ -2774,6 +2872,7 @@ addMonths(["great_lakes_upper_midwest"], "freshwater_lake_pond", [10], {
   viable_fly_archetypes: NORTHERN_CLEAR_FALL_LAKE_FLIES,
 });
 addMonths(["great_lakes_upper_midwest"], "freshwater_lake_pond", [11], {
+  surface_seasonally_possible: true,
   base_water_column: "mid",
   base_mood: "active",
   base_presentation_style: "balanced",
@@ -2785,9 +2884,10 @@ addMonths(["great_lakes_upper_midwest"], "freshwater_lake_pond", [11], {
   viable_fly_archetypes: NORTHERN_CLEAR_FALL_LAKE_FLIES,
 });
 addMonths(["south_central"], "freshwater_lake_pond", [11], {
+  surface_seasonally_possible: false,
   base_water_column: "mid",
   base_mood: "neutral",
-  base_presentation_style: "subtle",
+  base_presentation_style: "leaning_subtle",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
   primary_lure_archetypes: ["suspending_jerkbait", "football_jig"],
@@ -2796,9 +2896,10 @@ addMonths(["south_central"], "freshwater_lake_pond", [11], {
   viable_fly_archetypes: SOUTH_CENTRAL_LATEFALL_RESERVOIR_FLIES,
 });
 addMonths(["south_central"], "freshwater_lake_pond", [12], {
+  surface_seasonally_possible: false,
   base_water_column: "bottom",
   base_mood: "negative",
-  base_presentation_style: "subtle",
+  base_presentation_style: "leaning_subtle",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
   primary_lure_archetypes: ["suspending_jerkbait", "football_jig"],
@@ -2807,6 +2908,7 @@ addMonths(["south_central"], "freshwater_lake_pond", [12], {
   viable_fly_archetypes: SOUTH_CENTRAL_LATEFALL_RESERVOIR_FLIES,
 });
 addMonths(["northern_california"], "freshwater_river", [3], {
+  surface_seasonally_possible: false,
   base_water_column: "shallow",
   base_mood: "neutral",
   base_presentation_style: "balanced",
@@ -2818,6 +2920,7 @@ addMonths(["northern_california"], "freshwater_river", [3], {
   viable_fly_archetypes: DELTA_CLEAR_PRESPAWN_RIVER_FLIES,
 });
 addMonths(["northern_california"], "freshwater_river", [11], {
+  surface_seasonally_possible: false,
   base_water_column: "mid",
   base_mood: "neutral",
   base_presentation_style: "balanced",
@@ -2829,6 +2932,7 @@ addMonths(["northern_california"], "freshwater_river", [11], {
   viable_fly_archetypes: DELTA_LATE_FALL_RIVER_FLIES,
 });
 addMonths(["northern_california"], "freshwater_river", [6], {
+  surface_seasonally_possible: true,
   base_water_column: "shallow",
   base_mood: "active",
   base_presentation_style: "balanced",
@@ -2840,6 +2944,7 @@ addMonths(["northern_california"], "freshwater_river", [6], {
   viable_fly_archetypes: DELTA_SUMMER_RIVER_FLIES,
 });
 addMonths(["northern_california"], "freshwater_river", [9], {
+  surface_seasonally_possible: true,
   base_water_column: "shallow",
   base_mood: "active",
   base_presentation_style: "balanced",
@@ -2853,9 +2958,10 @@ addMonths(["northern_california"], "freshwater_river", [9], {
 
 // Florida January: baitfish forage lets suspending beat football jig in this row.
 addMonths(["florida"], "freshwater_lake_pond", [1], {
+  surface_seasonally_possible: false,
   base_water_column: "bottom",
   base_mood: "negative",
-  base_presentation_style: "subtle",
+  base_presentation_style: "leaning_subtle",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
   primary_lure_archetypes: [
@@ -2871,9 +2977,10 @@ addMonths(["florida"], "freshwater_lake_pond", [1], {
 // a flat-sided crank one true late-winter window before the faster baitfish
 // lanes take over.
 addMonths(["great_lakes_upper_midwest"], "freshwater_lake_pond", [3], {
+  surface_seasonally_possible: false,
   base_water_column: "mid",
   base_mood: "neutral",
-  base_presentation_style: "subtle",
+  base_presentation_style: "leaning_subtle",
   primary_forage: "crawfish",
   secondary_forage: "baitfish",
   primary_lure_archetypes: ["flat_sided_crankbait", "suspending_jerkbait"],
@@ -2885,6 +2992,7 @@ addMonths(["great_lakes_upper_midwest"], "freshwater_lake_pond", [3], {
 // South-central October current and shad push: Deceiver gets a real fall chase
 // lane without replacing the broader game-changer pool elsewhere.
 addMonths(["south_central"], "freshwater_river", [10], {
+  surface_seasonally_possible: false,
   base_water_column: "mid",
   base_mood: "active",
   base_presentation_style: "balanced",
@@ -2900,31 +3008,22 @@ addMonths(["south_central"], "freshwater_river", [10], {
 // story available for weed lakes, but avoid forcing open topwater into clearer
 // natural-lake cases that should still resolve subsurface first.
 addMonths(["great_lakes_upper_midwest"], "freshwater_lake_pond", [7], {
+  surface_seasonally_possible: true,
   base_water_column: "mid",
-  base_mood: "active",
+  base_mood: "neutral",
   base_presentation_style: "balanced",
   primary_forage: "baitfish",
   secondary_forage: "bluegill_perch",
   primary_lure_archetypes: ["swim_jig", "soft_jerkbait"],
-  viable_lure_archetypes: [
-    "swim_jig",
-    "weightless_stick_worm",
-    "paddle_tail_swimbait",
-    "soft_jerkbait",
-    "hollow_body_frog",
-  ],
-  primary_fly_archetypes: ["game_changer", "woolly_bugger"],
-  viable_fly_archetypes: [
-    "game_changer",
-    "woolly_bugger",
-    "clouser_minnow",
-    "frog_fly",
-  ],
+  viable_lure_archetypes: MN_WEED_LAKE_SUMMER_LURES,
+  primary_fly_archetypes: ["game_changer", "frog_fly"],
+  viable_fly_archetypes: NORTHERN_WEED_EARLY_SUMMER_LAKE_FLIES,
 });
 
 // Florida May shallow cover: keep the texas-rig winner window intact, but let
 // frog earn real low-light pull as the secondary surface option.
 addMonths(["florida"], "freshwater_lake_pond", [5], {
+  surface_seasonally_possible: true,
   base_water_column: "shallow",
   base_mood: "neutral",
   base_presentation_style: "balanced",
@@ -2936,6 +3035,7 @@ addMonths(["florida"], "freshwater_lake_pond", [5], {
   viable_fly_archetypes: FLORIDA_POSTSPAWN_SHALLOW_LAKE_FLIES,
 });
 addMonths(["pacific_northwest"], "freshwater_lake_pond", [8], {
+  surface_seasonally_possible: true,
   base_water_column: "mid",
   base_mood: "neutral",
   base_presentation_style: "balanced",
@@ -2953,6 +3053,7 @@ addMonths(["pacific_northwest"], "freshwater_lake_pond", [8], {
   viable_fly_archetypes: SUMMER_LAKE_FLIES,
 });
 addMonths(["southern_california"], "freshwater_lake_pond", [7], {
+  surface_seasonally_possible: true,
   base_water_column: "top",
   base_mood: "active",
   base_presentation_style: "balanced",
@@ -2967,9 +3068,10 @@ addMonths(["southern_california"], "freshwater_lake_pond", [7], {
 // Southern California winter largemouth stay more reservoir-like than the
 // broader western winter row and need an explicit finesse/jerkbait pool.
 addMonths(["southern_california"], "freshwater_lake_pond", [1], {
+  surface_seasonally_possible: false,
   base_water_column: "bottom",
   base_mood: "negative",
-  base_presentation_style: "subtle",
+  base_presentation_style: "leaning_subtle",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
   primary_lure_archetypes: ["football_jig", "suspending_jerkbait"],
@@ -2982,6 +3084,7 @@ addMonths(["southern_california"], "freshwater_lake_pond", [1], {
 // surface pool. Keep weed-friendly horizontal options, but remove the open
 // topwater leak that showed up in clear-lake audits.
 addMonths(["great_lakes_upper_midwest"], "freshwater_lake_pond", [8], {
+  surface_seasonally_possible: false,
   base_water_column: "mid",
   base_mood: "neutral",
   base_presentation_style: "balanced",
@@ -3002,6 +3105,7 @@ addMonths(["great_lakes_upper_midwest"], "freshwater_lake_pond", [8], {
 
 // Midwest backwater rivers open earlier than the generic cold-river row.
 addMonths(["midwest_interior"], "freshwater_river", [3], {
+  surface_seasonally_possible: false,
   base_water_column: "shallow",
   base_mood: "neutral",
   base_presentation_style: "balanced",
@@ -3013,6 +3117,7 @@ addMonths(["midwest_interior"], "freshwater_river", [3], {
   viable_fly_archetypes: MIDWEST_BACKWATER_PRESPAWN_RIVER_FLIES,
 });
 addMonths(["midwest_interior"], "freshwater_river", [11], {
+  surface_seasonally_possible: false,
   base_water_column: "shallow",
   base_mood: "neutral",
   base_presentation_style: "balanced",
@@ -3024,4 +3129,8 @@ addMonths(["midwest_interior"], "freshwater_river", [11], {
   viable_fly_archetypes: MIDWEST_BACKWATER_FALL_RIVER_FLIES,
 });
 
-export const LARGEMOUTH_V3_SEASONAL_ROWS = finalizeSeasonalRows(LMB_ROWS);
+export const LARGEMOUTH_V3_SEASONAL_ROWS = (() => {
+  const rows = finalizeSeasonalRows(LMB_ROWS);
+  validateSeasonalRows(rows, "largemouth");
+  return rows;
+})();

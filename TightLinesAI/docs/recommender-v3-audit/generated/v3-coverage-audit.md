@@ -1,6 +1,6 @@
 # V3 Coverage Audit
 
-Generated: 2026-04-14T21:03:38.906Z
+Generated: 2026-04-15T14:06:15.254Z
 
 Seasonal rows audited: 1104
 Synthetic daily states per row: 405
@@ -21,24 +21,24 @@ Synthetic daily states per row: 405
 
 ## Success Targets
 
-Locked top-1 ratio: lure 0.0% / target <= 50.0%, fly 2.5% / target <= 55.0%
-Low daily sensitivity ratio: lure 0.0% / target <= 45.0%, fly 0.0% / target <= 50.0%
-Tactical conflict rate: lure 1.6% / target <= 2.0%, fly 0.0% / target <= 2.0%
+Locked top-1 ratio: lure 0.1% / target <= 50.0%, fly 2.3% / target <= 55.0%
+Low daily sensitivity ratio: lure 0.0% / target <= 45.0%, fly 2.3% / target <= 50.0%
+Tactical conflict rate: lure 1.7% / target <= 2.0%, fly 0.0% / target <= 2.0%
 Expectation mismatches: lure 2 / target <= 0, fly 0 / target <= 0
 
 ## Locked Top-1 Rows
 
-Lure rows with only one possible top-1 across all synthetic states: 0
-Fly rows with only one possible top-1 across all synthetic states: 27
+Lure rows with only one possible top-1 across all synthetic states: 1
+Fly rows with only one possible top-1 across all synthetic states: 25
 
 ## Low Daily Sensitivity
 
 Lure rows with only one top-1 and at most two ordered top-3 lineups: 0
-Fly rows with only one top-1 and at most two ordered top-3 lineups: 0
+Fly rows with only one top-1 and at most two ordered top-3 lineups: 25
 
 ## Tactical Conflicts
 
-Lure evaluated states with top-3 pace/story conflicts: 6966
+Lure evaluated states with top-3 pace/story conflicts: 7614
 Fly evaluated states with top-3 pace/story conflicts: 0
 
 ## Library Reachability

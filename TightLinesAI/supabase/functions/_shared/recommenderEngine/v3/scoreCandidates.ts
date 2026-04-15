@@ -451,18 +451,22 @@ function buildSelectionRoleWhyChosen(
   return `${candidate.why_chosen}${buildSelectionRoleNote(candidate, selectionRole)}`.trim();
 }
 
-function conflictsWithLeadStory(
-  lead: ScoredCandidate,
-  candidate: ScoredCandidate,
+/**
+ * Hard coherence gate between two already-scored archetypes for top-3 lineup.
+ * Exported for focused unit tests (Phase 3 peer conflict behavior).
+ */
+export function peerArchetypesCoherenceConflict(
+  peer: RecommenderV3ArchetypeProfile,
+  candidate: RecommenderV3ArchetypeProfile,
   daily: RecommenderV3DailyPayload,
   resolved: RecommenderV3ResolvedProfile,
 ): boolean {
-  const leadPace = lanePace(lead.profile);
-  const candidatePace = lanePace(candidate.profile);
-  const leadSurface = isSurfaceLane(lead.profile);
-  const candidateSurface = isSurfaceLane(candidate.profile);
-  const leadBottom = isSlowLane(lead.profile);
-  const candidateBottom = isSlowLane(candidate.profile);
+  const leadPace = lanePace(peer);
+  const candidatePace = lanePace(candidate);
+  const leadSurface = isSurfaceLane(peer);
+  const candidateSurface = isSurfaceLane(candidate);
+  const leadBottom = isSlowLane(peer);
+  const candidateBottom = isSlowLane(candidate);
 
   if (
     (leadSurface && candidateBottom) || (leadBottom && candidateSurface)
@@ -489,6 +493,20 @@ function conflictsWithLeadStory(
   }
 
   return false;
+}
+
+function peerScoredCoherenceConflict(
+  peer: ScoredCandidate,
+  candidate: ScoredCandidate,
+  daily: RecommenderV3DailyPayload,
+  resolved: RecommenderV3ResolvedProfile,
+): boolean {
+  return peerArchetypesCoherenceConflict(
+    peer.profile,
+    candidate.profile,
+    daily,
+    resolved,
+  );
 }
 
 function practicalityFit(
@@ -862,10 +880,38 @@ function selectTopThree(
     );
     const bestRemainingRepeatsWormClass = isWormHeavyCandidate(bestRemaining) &&
       selected.some((entry) => isWormHeavyCandidate(entry));
-    const coherentRemaining = remaining.filter((candidate) =>
-      !conflictsWithLeadStory(selected[0]!, candidate, daily, resolved)
-    );
-    const bestCoherentRemaining = coherentRemaining[0] ?? bestRemaining;
+    let coherentRemaining: ScoredCandidate[];
+    if (selected.length === 1) {
+      coherentRemaining = remaining.filter((candidate) =>
+        !peerScoredCoherenceConflict(selected[0]!, candidate, daily, resolved)
+      );
+    } else {
+      const coherentWithAllPeers = remaining.filter((candidate) =>
+        selected.every((peer) =>
+          !peerScoredCoherenceConflict(peer, candidate, daily, resolved)
+        )
+      );
+      coherentRemaining = coherentWithAllPeers.length > 0
+        ? coherentWithAllPeers
+        : remaining.filter((candidate) =>
+          !peerScoredCoherenceConflict(selected[0]!, candidate, daily, resolved)
+        );
+    }
+    const orderedCoherent = [...coherentRemaining].sort(compareScored);
+    let bestCoherentRemaining = orderedCoherent[0] ?? bestRemaining;
+    if (selected.length >= 2) {
+      const pick2Safe = orderedCoherent.find(
+        (c) => !peerScoredCoherenceConflict(selected[1]!, c, daily, resolved),
+      );
+      if (pick2Safe) bestCoherentRemaining = pick2Safe;
+    }
+
+    const changeupPool =
+      selected.length >= 2
+        ? orderedCoherent.filter(
+          (c) => !peerScoredCoherenceConflict(selected[1]!, c, daily, resolved),
+        )
+        : orderedCoherent;
 
     if (selected.length === 1) {
       const diverse = coherentRemaining
@@ -893,7 +939,7 @@ function selectTopThree(
         chosen = bestCoherentRemaining;
       }
     } else {
-      const changeups = coherentRemaining
+      const changeups = changeupPool
         .map((candidate) => ({
           candidate,
           bonus: changeupBonus(candidate, selected, resolved),
@@ -916,13 +962,32 @@ function selectTopThree(
       }
     }
 
+    if (selected.length >= 2) {
+      if (peerScoredCoherenceConflict(selected[1]!, chosen, daily, resolved)) {
+        const rescue = [...remaining].sort(compareScored).find((candidate) =>
+          !peerScoredCoherenceConflict(selected[0]!, candidate, daily, resolved) &&
+          !peerScoredCoherenceConflict(selected[1]!, candidate, daily, resolved)
+        );
+        if (rescue) chosen = rescue;
+      }
+    }
+
     selected.push(chosen);
   }
 
   while (selected.length < 3 && selected.length < sorted.length) {
-    const fallback = sorted.find((candidate) =>
-      !selected.some((chosen) => chosen.profile.id === candidate.profile.id)
-    );
+    const fallback = sorted.find((candidate) => {
+      if (selected.some((chosen) => chosen.profile.id === candidate.profile.id)) {
+        return false;
+      }
+      if (
+        selected.length >= 2 &&
+        peerScoredCoherenceConflict(selected[1]!, candidate, daily, resolved)
+      ) {
+        return false;
+      }
+      return true;
+    });
     if (!fallback) break;
     selected.push(fallback);
   }

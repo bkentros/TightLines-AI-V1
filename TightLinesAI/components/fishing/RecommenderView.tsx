@@ -13,7 +13,9 @@ import { getSpeciesImage } from '../../lib/speciesImages';
 import { getFlyImage } from '../../lib/flyImages';
 import { getLureImage } from '../../lib/lureImages';
 import type {
+  DailySurfaceWindow,
   EngineContext,
+  OpportunityMixMode,
   RankedRecommendation,
   RecommenderResponse,
   TacticalColumn,
@@ -52,6 +54,45 @@ function contextLabel(ctx: EngineContext): string {
     default:
       return 'Freshwater';
   }
+}
+
+function opportunityMixSummarySentence(mix: OpportunityMixMode): string {
+  switch (mix) {
+    case 'conservative':
+      return "Today's setup rewards careful, tighter-window presentations.";
+    case 'balanced':
+      return "Today's setup supports a balanced mix of safe and active looks.";
+    case 'aggressive':
+      return "Today's setup supports more aggressive, search-oriented options.";
+  }
+}
+
+function opportunityMixSectionIntro(mix: OpportunityMixMode): string {
+  switch (mix) {
+    case 'conservative':
+      return "These three stay inside today's tighter feeding window.";
+    case 'balanced':
+      return 'These three give you the best fit, a complementary alternate, and a justified change-up.';
+    case 'aggressive':
+      return "These three lean into today's stronger feeding window while keeping one backup look available.";
+  }
+}
+
+/** Deterministic copy from engine summary only; omits when there is no user-facing surface story. */
+function surfaceContextNote(
+  surfaceAllowedToday: boolean,
+  surfaceWindow: DailySurfaceWindow,
+): string | null {
+  if (!surfaceAllowedToday) {
+    return 'True surface is shut down today.';
+  }
+  if (surfaceWindow === 'clean') {
+    return 'True surface is in play today.';
+  }
+  if (surfaceWindow === 'rippled') {
+    return 'Surface is still in play, but chop favors sturdier surface looks.';
+  }
+  return null;
 }
 
 function SummaryChip({ label, value }: { label: string; value: string }) {
@@ -118,6 +159,10 @@ type Props = {
 
 export function RecommenderView({ result, style }: Props) {
   const speciesImage = getSpeciesImage(result.species);
+  const daily = result.summary.daily_tactical_preference;
+  const mixSummary = opportunityMixSummarySentence(daily.opportunity_mix);
+  const surfaceNote = surfaceContextNote(daily.surface_allowed_today, daily.surface_window);
+  const sectionIntro = opportunityMixSectionIntro(daily.opportunity_mix);
 
   return (
     <ScrollView
@@ -173,8 +218,15 @@ export function RecommenderView({ result, style }: Props) {
           />
           <SummaryChip
             label="Mix"
-            value={result.summary.daily_tactical_preference.opportunity_mix}
+            value={daily.opportunity_mix}
           />
+        </View>
+
+        <View style={styles.contextNotesBlock}>
+          <Text style={styles.contextNoteLine}>{mixSummary}</Text>
+          {surfaceNote ? (
+            <Text style={styles.contextNoteLine}>{surfaceNote}</Text>
+          ) : null}
         </View>
       </View>
 
@@ -183,6 +235,7 @@ export function RecommenderView({ result, style }: Props) {
           <Ionicons name="fish-outline" size={18} color={colors.primary} />
           <Text style={styles.sectionTitle}>Top 3 Lures</Text>
         </View>
+        <Text style={styles.sectionIntro}>{sectionIntro}</Text>
         {result.lure_recommendations.map((item, index) => (
           <RecommendationCard key={item.id} item={item} index={index} mode="lure" />
         ))}
@@ -193,6 +246,7 @@ export function RecommenderView({ result, style }: Props) {
           <Ionicons name="water-outline" size={18} color={colors.primary} />
           <Text style={styles.sectionTitle}>Top 3 Flies</Text>
         </View>
+        <Text style={styles.sectionIntro}>{sectionIntro}</Text>
         {result.fly_recommendations.map((item, index) => (
           <RecommendationCard key={item.id} item={item} index={index} mode="fly" />
         ))}
@@ -245,6 +299,22 @@ const styles = StyleSheet.create({
     color: colors.textSecondary,
     fontFamily: fonts.regular,
     fontSize: 14,
+  },
+  contextNotesBlock: {
+    marginTop: spacing.sm,
+    gap: spacing.xs,
+  },
+  contextNoteLine: {
+    color: colors.textSecondary,
+    fontFamily: fonts.regular,
+    fontSize: 13,
+    lineHeight: 18,
+  },
+  sectionIntro: {
+    color: colors.textSecondary,
+    fontFamily: fonts.regular,
+    fontSize: 13,
+    lineHeight: 18,
   },
   speciesImage: {
     width: 96,

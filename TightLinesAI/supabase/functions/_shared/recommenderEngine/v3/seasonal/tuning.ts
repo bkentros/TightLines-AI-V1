@@ -1,5 +1,7 @@
 import type {
+  FlyArchetypeIdV3,
   ForageBucketV3,
+  LureArchetypeIdV3,
   RecommenderV3ArchetypeId,
   RecommenderV3MonthlyBaselineProfile,
   RecommenderV3SeasonalRow,
@@ -9,9 +11,37 @@ import type {
   TacticalPresenceV3,
 } from "../contracts.ts";
 
-export type LegacyWaterColumn = "top" | "shallow" | "mid" | "bottom";
-export type LegacyMood = "negative" | "neutral" | "active";
-export type LegacyPresentationStyle = "subtle" | "balanced" | "bold";
+/** Authoring-time water column before regional/month shifts. */
+export type AuthoredWaterColumn = "top" | "shallow" | "mid" | "bottom";
+
+export type BaseMood =
+  | "dormant"
+  | "negative"
+  | "neutral_subtle"
+  | "neutral"
+  | "active"
+  | "aggressive";
+
+export type BasePresentationStyle =
+  | "subtle"
+  | "leaning_subtle"
+  | "balanced"
+  | "leaning_bold"
+  | "bold";
+
+export type AuthoredSeasonalCore = {
+  base_water_column: AuthoredWaterColumn;
+  base_mood: BaseMood;
+  base_presentation_style: BasePresentationStyle;
+  primary_forage: RecommenderV3SeasonalRow["monthly_baseline"]["primary_forage"];
+  secondary_forage?: RecommenderV3SeasonalRow["monthly_baseline"]["secondary_forage"];
+  primary_lure_archetypes?: readonly LureArchetypeIdV3[];
+  viable_lure_archetypes: readonly LureArchetypeIdV3[];
+  primary_fly_archetypes?: readonly FlyArchetypeIdV3[];
+  viable_fly_archetypes: readonly FlyArchetypeIdV3[];
+  /** Declared biology: when false, eligible pools must not include surface archetypes. */
+  surface_seasonally_possible: boolean;
+};
 
 const SEASONAL_COLUMN_ORDER: readonly SeasonalWaterColumnV3[] = [
   "low",
@@ -22,7 +52,7 @@ const SEASONAL_COLUMN_ORDER: readonly SeasonalWaterColumnV3[] = [
 ] as const;
 
 export function baseSeasonalWaterColumn(
-  base: LegacyWaterColumn,
+  base: AuthoredWaterColumn,
 ): SeasonalWaterColumnV3 {
   switch (base) {
     case "top":
@@ -57,7 +87,7 @@ export function sortEligibleArchetypeIds<T extends string>(
   return [...new Set(viable)].sort((a, b) => a.localeCompare(b));
 }
 
-const SURFACE_ARCHETYPE_IDS = new Set<RecommenderV3ArchetypeId>([
+export const V3_SURFACE_ARCHETYPE_IDS = new Set<RecommenderV3ArchetypeId>([
   "walking_topwater",
   "popping_topwater",
   "buzzbait",
@@ -68,115 +98,199 @@ const SURFACE_ARCHETYPE_IDS = new Set<RecommenderV3ArchetypeId>([
   "mouse_fly",
 ]);
 
-function uniqueOrdered<T extends string>(values: readonly T[]): readonly T[] {
-  return [...new Set(values)];
-}
-
-function columnPreferenceOrderForSeasonalColumn(
+/** Allowed tactical columns for the resolved seasonal water column and surface biology. */
+export function allowedColumnsForSeasonalColumn(
   column: SeasonalWaterColumnV3,
   surfaceSeasonallyPossible: boolean,
 ): readonly TacticalColumnV3[] {
   switch (column) {
     case "top":
-      return uniqueOrdered(
-        surfaceSeasonallyPossible
-          ? ["surface", "upper", "mid"]
-          : ["upper", "mid", "bottom"],
-      );
+      return surfaceSeasonallyPossible
+        ? ["surface", "upper", "mid"]
+        : ["upper", "mid"];
     case "high":
-      return uniqueOrdered(
-        surfaceSeasonallyPossible
-          ? ["upper", "mid", "surface", "bottom"]
-          : ["upper", "mid", "bottom"],
-      );
+      return surfaceSeasonallyPossible
+        ? ["surface", "upper", "mid"]
+        : ["upper", "mid"];
     case "mid":
-      return uniqueOrdered(
-        surfaceSeasonallyPossible
-          ? ["mid", "upper", "bottom", "surface"]
-          : ["mid", "bottom", "upper"],
-      );
+      return surfaceSeasonallyPossible
+        ? ["surface", "upper", "mid", "bottom"]
+        : ["upper", "mid", "bottom"];
     case "mid_low":
-      return ["bottom", "mid", "upper"];
+      return ["mid", "bottom"];
     case "low":
     default:
       return ["bottom", "mid"];
   }
 }
 
-function pacePreferenceOrderForMood(
-  mood: LegacyMood,
-): readonly TacticalPaceV3[] {
-  switch (mood) {
-    case "negative":
-      return ["slow", "medium"];
-    case "neutral":
-      return ["medium", "slow", "fast"];
-    case "active":
+/**
+ * Preference order for scoring within the monthly allowed column window.
+ * Must be a permutation-style ordering using only values from
+ * `allowedColumnsForSeasonalColumn` (subset, no extras).
+ */
+export function columnPreferenceOrderForSeasonalColumn(
+  column: SeasonalWaterColumnV3,
+  surfaceSeasonallyPossible: boolean,
+): readonly TacticalColumnV3[] {
+  const allowed = new Set(
+    allowedColumnsForSeasonalColumn(column, surfaceSeasonallyPossible),
+  );
+  const pick = (order: readonly TacticalColumnV3[]): readonly TacticalColumnV3[] =>
+    order.filter((c) => allowed.has(c));
+  switch (column) {
+    case "top":
+      return pick(
+        surfaceSeasonallyPossible
+          ? ["surface", "upper", "mid"]
+          : ["upper", "mid"],
+      );
+    case "high":
+      return pick(
+        surfaceSeasonallyPossible
+          ? ["upper", "mid", "surface"]
+          : ["upper", "mid"],
+      );
+    case "mid":
+      return pick(
+        surfaceSeasonallyPossible
+          ? ["mid", "upper", "bottom", "surface"]
+          : ["mid", "bottom", "upper"],
+      );
+    case "mid_low":
+      return pick(["bottom", "mid"]);
+    case "low":
     default:
-      return ["medium", "fast", "slow"];
+      return pick(["bottom", "mid"]);
   }
 }
 
-function presencePreferenceOrderForStyle(
-  style: LegacyPresentationStyle,
+export function allowedPacesForMood(
+  mood: BaseMood,
+): readonly TacticalPaceV3[] {
+  switch (mood) {
+    case "dormant":
+      return ["slow"];
+    case "negative":
+      return ["slow", "medium"];
+    case "neutral_subtle":
+      return ["slow", "medium"];
+    case "neutral":
+      return ["slow", "medium", "fast"];
+    case "active":
+      return ["medium", "fast"];
+    case "aggressive":
+      return ["medium", "fast"];
+    default: {
+      const _x: never = mood;
+      return _x;
+    }
+  }
+}
+
+export function pacePreferenceOrderForMood(
+  mood: BaseMood,
+): readonly TacticalPaceV3[] {
+  const allowed = new Set(allowedPacesForMood(mood));
+  const pick = (order: readonly TacticalPaceV3[]): readonly TacticalPaceV3[] =>
+    order.filter((p) => allowed.has(p));
+  switch (mood) {
+    case "dormant":
+      return pick(["slow"]);
+    case "negative":
+      return pick(["slow", "medium"]);
+    case "neutral_subtle":
+      return pick(["medium", "slow"]);
+    case "neutral":
+      return pick(["medium", "slow", "fast"]);
+    case "active":
+      return pick(["medium", "fast"]);
+    case "aggressive":
+      return pick(["fast", "medium"]);
+    default: {
+      const _x: never = mood;
+      return _x;
+    }
+  }
+}
+
+export function allowedPresenceForStyle(
+  style: BasePresentationStyle,
 ): readonly TacticalPresenceV3[] {
   switch (style) {
     case "subtle":
+      return ["subtle"];
+    case "leaning_subtle":
       return ["subtle", "moderate"];
-    case "bold":
-      return ["bold", "moderate", "subtle"];
     case "balanced":
-    default:
-      return ["moderate", "subtle", "bold"];
+      return ["subtle", "moderate", "bold"];
+    case "leaning_bold":
+      return ["moderate", "bold"];
+    case "bold":
+      return ["bold"];
+    default: {
+      const _x: never = style;
+      return _x;
+    }
   }
 }
 
-function allowedColumnsFromPreference(
-  preference: readonly TacticalColumnV3[],
-): readonly TacticalColumnV3[] {
-  return uniqueOrdered(preference);
-}
-
-function allowedPacesFromPreference(
-  preference: readonly TacticalPaceV3[],
-): readonly TacticalPaceV3[] {
-  return uniqueOrdered(preference);
-}
-
-function allowedPresenceFromPreference(
-  preference: readonly TacticalPresenceV3[],
+export function presencePreferenceOrderForStyle(
+  style: BasePresentationStyle,
 ): readonly TacticalPresenceV3[] {
-  return uniqueOrdered(preference);
+  const allowed = new Set(allowedPresenceForStyle(style));
+  const pick = (order: readonly TacticalPresenceV3[]): readonly TacticalPresenceV3[] =>
+    order.filter((p) => allowed.has(p));
+  switch (style) {
+    case "subtle":
+      return pick(["subtle"]);
+    case "leaning_subtle":
+      return pick(["subtle", "moderate"]);
+    case "balanced":
+      return pick(["moderate", "subtle", "bold"]);
+    case "leaning_bold":
+      return pick(["moderate", "bold"]);
+    case "bold":
+      return pick(["bold"]);
+    default: {
+      const _x: never = style;
+      return _x;
+    }
+  }
 }
 
 export function buildMonthlyBaselineProfile(options: {
   typical_seasonal_water_column: SeasonalWaterColumnV3;
   typical_seasonal_location: RecommenderV3SeasonalRow["monthly_baseline"]["typical_seasonal_location"];
-  base_mood: LegacyMood;
-  base_presentation_style: LegacyPresentationStyle;
+  base_mood: BaseMood;
+  base_presentation_style: BasePresentationStyle;
   primary_forage: ForageBucketV3;
   secondary_forage?: ForageBucketV3;
-  eligible_archetype_ids: readonly RecommenderV3ArchetypeId[];
+  surface_seasonally_possible: boolean;
 }): RecommenderV3MonthlyBaselineProfile {
-  const surfaceSeasonallyPossible = options.eligible_archetype_ids.some((id) =>
-    SURFACE_ARCHETYPE_IDS.has(id)
-  );
-  const columnPreferenceOrder = columnPreferenceOrderForSeasonalColumn(
+  const surfaceSeasonallyPossible = options.surface_seasonally_possible;
+  const allowed_columns = allowedColumnsForSeasonalColumn(
     options.typical_seasonal_water_column,
     surfaceSeasonallyPossible,
   );
-  const pacePreferenceOrder = pacePreferenceOrderForMood(options.base_mood);
-  const presencePreferenceOrder = presencePreferenceOrderForStyle(
+  const column_preference_order = columnPreferenceOrderForSeasonalColumn(
+    options.typical_seasonal_water_column,
+    surfaceSeasonallyPossible,
+  );
+  const allowed_paces = allowedPacesForMood(options.base_mood);
+  const pace_preference_order = pacePreferenceOrderForMood(options.base_mood);
+  const allowed_presence = allowedPresenceForStyle(options.base_presentation_style);
+  const presence_preference_order = presencePreferenceOrderForStyle(
     options.base_presentation_style,
   );
 
   return {
-    allowed_columns: allowedColumnsFromPreference(columnPreferenceOrder),
-    column_preference_order: columnPreferenceOrder,
-    allowed_paces: allowedPacesFromPreference(pacePreferenceOrder),
-    pace_preference_order: pacePreferenceOrder,
-    allowed_presence: allowedPresenceFromPreference(presencePreferenceOrder),
-    presence_preference_order: presencePreferenceOrder,
+    allowed_columns,
+    column_preference_order,
+    allowed_paces,
+    pace_preference_order,
+    allowed_presence,
+    presence_preference_order,
     surface_seasonally_possible: surfaceSeasonallyPossible,
     primary_forage: options.primary_forage,
     secondary_forage: options.secondary_forage,

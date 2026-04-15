@@ -1,8 +1,11 @@
-/** See `largemouth.ts` for the row-conversion strategy used by the rebuilt engine. */
+/**
+ * Northern pike seasonal authoring. Biology and pool intent:
+ * `assets/biology_briefs/pike.md`. Seven-biome labels in comments are authoring
+ * only; runtime `RegionKey` is unchanged.
+ */
 import type {
   FlyArchetypeIdV3,
   LureArchetypeIdV3,
-  PresentationStyleV3,
   RecommenderV3Context,
   RecommenderV3SeasonalRow,
   SeasonalLocationV3,
@@ -10,6 +13,7 @@ import type {
 } from "../contracts.ts";
 import type { RegionKey } from "../../../howFishingEngine/contracts/region.ts";
 import {
+  type AuthoredSeasonalCore,
   baseSeasonalWaterColumn,
   buildMonthlyBaselineProfile,
   finalizeSeasonalRows,
@@ -17,21 +21,7 @@ import {
   sortEligibleArchetypeIds,
   upsertSeasonalRow,
 } from "./tuning.ts";
-
-type LegacyWaterColumn = "top" | "shallow" | "mid" | "bottom";
-type LegacyMood = "negative" | "neutral" | "active";
-
-type LegacySeasonalCore = {
-  base_water_column: LegacyWaterColumn;
-  base_mood: LegacyMood;
-  base_presentation_style: PresentationStyleV3;
-  primary_forage: RecommenderV3SeasonalRow["monthly_baseline"]["primary_forage"];
-  secondary_forage?: RecommenderV3SeasonalRow["monthly_baseline"]["secondary_forage"];
-  primary_lure_archetypes?: readonly LureArchetypeIdV3[];
-  viable_lure_archetypes: readonly LureArchetypeIdV3[];
-  primary_fly_archetypes?: readonly FlyArchetypeIdV3[];
-  viable_fly_archetypes: readonly FlyArchetypeIdV3[];
-};
+import { validateSeasonalRows } from "./validateSeasonalRow.ts";
 
 const PIKE_ROWS = new Map<string, RecommenderV3SeasonalRow>();
 
@@ -51,7 +41,7 @@ function resolvePikeSeasonalWaterColumn(
   region_key: RegionKey,
   context: RecommenderV3Context,
   month: number,
-  core: LegacySeasonalCore,
+  core: AuthoredSeasonalCore,
 ): SeasonalWaterColumnV3 {
   let column = baseSeasonalWaterColumn(core.base_water_column);
 
@@ -109,7 +99,7 @@ function toSeasonalRow(
   region_key: RegionKey,
   context: RecommenderV3Context,
   month: number,
-  core: LegacySeasonalCore,
+  core: AuthoredSeasonalCore,
 ): RecommenderV3SeasonalRow {
   const typicalColumn = resolvePikeSeasonalWaterColumn(
     region_key,
@@ -134,10 +124,7 @@ function toSeasonalRow(
       base_presentation_style: core.base_presentation_style,
       primary_forage: core.primary_forage,
       secondary_forage: core.secondary_forage,
-      eligible_archetype_ids: [
-        ...core.viable_lure_archetypes,
-        ...core.viable_fly_archetypes,
-      ],
+      surface_seasonally_possible: core.surface_seasonally_possible,
     }),
     primary_lure_ids: core.primary_lure_archetypes,
     primary_fly_ids: core.primary_fly_archetypes,
@@ -150,7 +137,7 @@ function addMonths(
   regions: readonly RegionKey[],
   context: RecommenderV3Context,
   months: readonly number[],
-  core: LegacySeasonalCore,
+  core: AuthoredSeasonalCore,
 ) {
   for (const region_key of regions) {
     for (const month of months) {
@@ -162,6 +149,7 @@ function addMonths(
   }
 }
 
+// --- Lure pools ---
 const WINTER_LAKE_LURES: readonly LureArchetypeIdV3[] = [
   "pike_jerkbait",
   "large_profile_pike_swimbait",
@@ -170,6 +158,103 @@ const WINTER_LAKE_LURES: readonly LureArchetypeIdV3[] = [
   "blade_bait",
   "paddle_tail_swimbait",
 ];
+const SPRING_LAKE_LURES: readonly LureArchetypeIdV3[] = [
+  "pike_jerkbait",
+  "large_profile_pike_swimbait",
+  "spinnerbait",
+  "paddle_tail_swimbait",
+  "soft_jerkbait",
+  "suspending_jerkbait",
+];
+/** Jun–Jul northern / mountain: stratified water; no hollow-body / walker hedge. */
+const SUMMER_PEAK_STRATIFIED_LAKE_LURES: readonly LureArchetypeIdV3[] = [
+  "large_profile_pike_swimbait",
+  "pike_jerkbait",
+  "suspending_jerkbait",
+  "spinnerbait",
+  "paddle_tail_swimbait",
+  "blade_bait",
+  "casting_spoon",
+];
+/** Interior Jul–Aug: thermocline / heat; subsurface-only lures. */
+const SUMMER_HOT_INTERIOR_LAKE_LURES: readonly LureArchetypeIdV3[] = [
+  "large_profile_pike_swimbait",
+  "pike_jerkbait",
+  "suspending_jerkbait",
+  "blade_bait",
+  "casting_spoon",
+  "paddle_tail_swimbait",
+  "spinnerbait",
+];
+const SUMMER_SHALLOW_NORTH_MAY_LAKE_LURES: readonly LureArchetypeIdV3[] = [
+  "large_profile_pike_swimbait",
+  "pike_jerkbait",
+  "spinnerbait",
+  "paddle_tail_swimbait",
+  "walking_topwater",
+  "hollow_body_frog",
+  "suspending_jerkbait",
+];
+const FALL_LAKE_LURES: readonly LureArchetypeIdV3[] = [
+  "large_profile_pike_swimbait",
+  "pike_jerkbait",
+  "paddle_tail_swimbait",
+  "spinnerbait",
+  "casting_spoon",
+  "suspending_jerkbait",
+];
+
+const WINTER_RIVER_LURES: readonly LureArchetypeIdV3[] = [
+  "pike_jerkbait",
+  "large_profile_pike_swimbait",
+  "suspending_jerkbait",
+  "casting_spoon",
+  "blade_bait",
+];
+const SPRING_RIVER_LURES: readonly LureArchetypeIdV3[] = [
+  "pike_jerkbait",
+  "spinnerbait",
+  "paddle_tail_swimbait",
+  "soft_jerkbait",
+  "inline_spinner",
+  "large_profile_pike_swimbait",
+];
+const SUMMER_PEAK_STRATIFIED_RIVER_LURES: readonly LureArchetypeIdV3[] = [
+  "pike_jerkbait",
+  "large_profile_pike_swimbait",
+  "suspending_jerkbait",
+  "spinnerbait",
+  "paddle_tail_swimbait",
+  "inline_spinner",
+  "blade_bait",
+];
+const SUMMER_HOT_INTERIOR_RIVER_LURES: readonly LureArchetypeIdV3[] = [
+  "pike_jerkbait",
+  "large_profile_pike_swimbait",
+  "suspending_jerkbait",
+  "spinnerbait",
+  "paddle_tail_swimbait",
+  "inline_spinner",
+  "blade_bait",
+];
+const SUMMER_SHALLOW_NORTH_MAY_RIVER_LURES: readonly LureArchetypeIdV3[] = [
+  "pike_jerkbait",
+  "spinnerbait",
+  "paddle_tail_swimbait",
+  "walking_topwater",
+  "inline_spinner",
+  "large_profile_pike_swimbait",
+];
+const FALL_RIVER_LURES: readonly LureArchetypeIdV3[] = [
+  "large_profile_pike_swimbait",
+  "pike_jerkbait",
+  "paddle_tail_swimbait",
+  "spinnerbait",
+  "casting_spoon",
+  "inline_spinner",
+];
+
+// --- Fly pools (surface IDs only when monthly surface flag is true) ---
 const WINTER_LAKE_FLIES: readonly FlyArchetypeIdV3[] = [
   "pike_bunny_streamer",
   "articulated_dungeon_streamer",
@@ -178,15 +263,6 @@ const WINTER_LAKE_FLIES: readonly FlyArchetypeIdV3[] = [
   "rabbit_strip_leech",
   "zonker_streamer",
   "clouser_minnow",
-];
-
-const SPRING_LAKE_LURES: readonly LureArchetypeIdV3[] = [
-  "pike_jerkbait",
-  "large_profile_pike_swimbait",
-  "spinnerbait",
-  "paddle_tail_swimbait",
-  "soft_jerkbait",
-  "suspending_jerkbait",
 ];
 const SPRING_LAKE_FLIES: readonly FlyArchetypeIdV3[] = [
   "pike_bunny_streamer",
@@ -197,16 +273,25 @@ const SPRING_LAKE_FLIES: readonly FlyArchetypeIdV3[] = [
   "zonker_streamer",
   "articulated_baitfish_streamer",
 ];
-
-const SUMMER_LAKE_LURES: readonly LureArchetypeIdV3[] = [
-  "large_profile_pike_swimbait",
-  "pike_jerkbait",
-  "spinnerbait",
-  "paddle_tail_swimbait",
-  "walking_topwater",
-  "hollow_body_frog",
+const SUMMER_PEAK_STRATIFIED_LAKE_FLIES: readonly FlyArchetypeIdV3[] = [
+  "large_articulated_pike_streamer",
+  "pike_bunny_streamer",
+  "articulated_dungeon_streamer",
+  "game_changer",
+  "articulated_baitfish_streamer",
+  "popper_fly",
+  "deceiver",
 ];
-const SUMMER_LAKE_FLIES: readonly FlyArchetypeIdV3[] = [
+const SUMMER_HOT_INTERIOR_LAKE_FLIES: readonly FlyArchetypeIdV3[] = [
+  "large_articulated_pike_streamer",
+  "pike_bunny_streamer",
+  "articulated_dungeon_streamer",
+  "game_changer",
+  "articulated_baitfish_streamer",
+  "zonker_streamer",
+  "clouser_minnow",
+];
+const SUMMER_SHALLOW_NORTH_MAY_LAKE_FLIES: readonly FlyArchetypeIdV3[] = [
   "large_articulated_pike_streamer",
   "pike_bunny_streamer",
   "articulated_dungeon_streamer",
@@ -214,15 +299,6 @@ const SUMMER_LAKE_FLIES: readonly FlyArchetypeIdV3[] = [
   "popper_fly",
   "frog_fly",
   "mouse_fly",
-];
-
-const FALL_LAKE_LURES: readonly LureArchetypeIdV3[] = [
-  "large_profile_pike_swimbait",
-  "pike_jerkbait",
-  "paddle_tail_swimbait",
-  "spinnerbait",
-  "casting_spoon",
-  "suspending_jerkbait",
 ];
 const FALL_LAKE_FLIES: readonly FlyArchetypeIdV3[] = [
   "large_articulated_pike_streamer",
@@ -234,13 +310,6 @@ const FALL_LAKE_FLIES: readonly FlyArchetypeIdV3[] = [
   "zonker_streamer",
 ];
 
-const WINTER_RIVER_LURES: readonly LureArchetypeIdV3[] = [
-  "pike_jerkbait",
-  "large_profile_pike_swimbait",
-  "suspending_jerkbait",
-  "casting_spoon",
-  "blade_bait",
-];
 const WINTER_RIVER_FLIES: readonly FlyArchetypeIdV3[] = [
   "pike_bunny_streamer",
   "articulated_dungeon_streamer",
@@ -250,15 +319,6 @@ const WINTER_RIVER_FLIES: readonly FlyArchetypeIdV3[] = [
   "clouser_minnow",
   "zonker_streamer",
 ];
-
-const SPRING_RIVER_LURES: readonly LureArchetypeIdV3[] = [
-  "pike_jerkbait",
-  "spinnerbait",
-  "paddle_tail_swimbait",
-  "soft_jerkbait",
-  "inline_spinner",
-  "large_profile_pike_swimbait",
-];
 const SPRING_RIVER_FLIES: readonly FlyArchetypeIdV3[] = [
   "pike_bunny_streamer",
   "articulated_dungeon_streamer",
@@ -266,17 +326,27 @@ const SPRING_RIVER_FLIES: readonly FlyArchetypeIdV3[] = [
   "clouser_minnow",
   "game_changer",
   "articulated_baitfish_streamer",
+  "zonker_streamer",
 ];
-
-const SUMMER_RIVER_LURES: readonly LureArchetypeIdV3[] = [
-  "pike_jerkbait",
-  "spinnerbait",
-  "paddle_tail_swimbait",
-  "walking_topwater",
-  "inline_spinner",
-  "large_profile_pike_swimbait",
+const SUMMER_PEAK_STRATIFIED_RIVER_FLIES: readonly FlyArchetypeIdV3[] = [
+  "large_articulated_pike_streamer",
+  "pike_bunny_streamer",
+  "articulated_dungeon_streamer",
+  "game_changer",
+  "articulated_baitfish_streamer",
+  "popper_fly",
+  "clouser_minnow",
 ];
-const SUMMER_RIVER_FLIES: readonly FlyArchetypeIdV3[] = [
+const SUMMER_HOT_INTERIOR_RIVER_FLIES: readonly FlyArchetypeIdV3[] = [
+  "large_articulated_pike_streamer",
+  "pike_bunny_streamer",
+  "articulated_dungeon_streamer",
+  "game_changer",
+  "articulated_baitfish_streamer",
+  "zonker_streamer",
+  "clouser_minnow",
+];
+const SUMMER_SHALLOW_NORTH_MAY_RIVER_FLIES: readonly FlyArchetypeIdV3[] = [
   "large_articulated_pike_streamer",
   "pike_bunny_streamer",
   "articulated_dungeon_streamer",
@@ -284,15 +354,6 @@ const SUMMER_RIVER_FLIES: readonly FlyArchetypeIdV3[] = [
   "popper_fly",
   "frog_fly",
   "clouser_minnow",
-];
-
-const FALL_RIVER_LURES: readonly LureArchetypeIdV3[] = [
-  "large_profile_pike_swimbait",
-  "pike_jerkbait",
-  "paddle_tail_swimbait",
-  "spinnerbait",
-  "casting_spoon",
-  "inline_spinner",
 ];
 const FALL_RIVER_FLIES: readonly FlyArchetypeIdV3[] = [
   "large_articulated_pike_streamer",
@@ -304,6 +365,7 @@ const FALL_RIVER_FLIES: readonly FlyArchetypeIdV3[] = [
   "clouser_minnow",
 ];
 
+// --- Biome → regions (authoring map) ---
 const NORTHERN_CORE_REGIONS: readonly RegionKey[] = [
   "northeast",
   "great_lakes_upper_midwest",
@@ -326,11 +388,12 @@ export const NORTHERN_PIKE_V3_SUPPORTED_REGIONS: readonly RegionKey[] = [
   ...MOUNTAIN_REGIONS,
 ];
 
-// Northern core lake / pond
+// --- Northern core — lake / pond ---
 addMonths(NORTHERN_CORE_REGIONS, "freshwater_lake_pond", [1, 2], {
+  surface_seasonally_possible: false,
   base_water_column: "mid",
   base_mood: "negative",
-  base_presentation_style: "balanced",
+  base_presentation_style: "leaning_subtle",
   primary_forage: "baitfish",
   secondary_forage: "bluegill_perch",
   primary_lure_archetypes: ["pike_jerkbait", "large_profile_pike_swimbait"],
@@ -339,17 +402,19 @@ addMonths(NORTHERN_CORE_REGIONS, "freshwater_lake_pond", [1, 2], {
   viable_fly_archetypes: WINTER_LAKE_FLIES,
 });
 addMonths(NORTHERN_CORE_REGIONS, "freshwater_lake_pond", [3, 4], {
+  surface_seasonally_possible: false,
   base_water_column: "shallow",
   base_mood: "neutral",
   base_presentation_style: "balanced",
   primary_forage: "baitfish",
   secondary_forage: "bluegill_perch",
   primary_lure_archetypes: ["pike_jerkbait", "large_profile_pike_swimbait"],
-  primary_fly_archetypes: ["pike_bunny_streamer", "articulated_dungeon_streamer"],
+  primary_fly_archetypes: ["pike_bunny_streamer", "large_articulated_pike_streamer"],
   viable_lure_archetypes: SPRING_LAKE_LURES,
   viable_fly_archetypes: SPRING_LAKE_FLIES,
 });
-addMonths(NORTHERN_CORE_REGIONS, "freshwater_lake_pond", [5, 6, 7], {
+addMonths(NORTHERN_CORE_REGIONS, "freshwater_lake_pond", [5], {
+  surface_seasonally_possible: true,
   base_water_column: "shallow",
   base_mood: "active",
   base_presentation_style: "balanced",
@@ -357,13 +422,26 @@ addMonths(NORTHERN_CORE_REGIONS, "freshwater_lake_pond", [5, 6, 7], {
   secondary_forage: "bluegill_perch",
   primary_lure_archetypes: ["large_profile_pike_swimbait", "pike_jerkbait"],
   primary_fly_archetypes: ["large_articulated_pike_streamer", "pike_bunny_streamer"],
-  viable_lure_archetypes: SUMMER_LAKE_LURES,
-  viable_fly_archetypes: SUMMER_LAKE_FLIES,
+  viable_lure_archetypes: SUMMER_SHALLOW_NORTH_MAY_LAKE_LURES,
+  viable_fly_archetypes: SUMMER_SHALLOW_NORTH_MAY_LAKE_FLIES,
+});
+addMonths(NORTHERN_CORE_REGIONS, "freshwater_lake_pond", [6, 7], {
+  surface_seasonally_possible: true,
+  base_water_column: "mid",
+  base_mood: "neutral_subtle",
+  base_presentation_style: "leaning_subtle",
+  primary_forage: "baitfish",
+  secondary_forage: "bluegill_perch",
+  primary_lure_archetypes: ["suspending_jerkbait", "large_profile_pike_swimbait"],
+  primary_fly_archetypes: ["large_articulated_pike_streamer", "pike_bunny_streamer"],
+  viable_lure_archetypes: SUMMER_PEAK_STRATIFIED_LAKE_LURES,
+  viable_fly_archetypes: SUMMER_PEAK_STRATIFIED_LAKE_FLIES,
 });
 addMonths(NORTHERN_CORE_REGIONS, "freshwater_lake_pond", [8, 9, 10], {
+  surface_seasonally_possible: false,
   base_water_column: "mid",
   base_mood: "active",
-  base_presentation_style: "bold",
+  base_presentation_style: "leaning_bold",
   primary_forage: "baitfish",
   secondary_forage: "bluegill_perch",
   primary_lure_archetypes: ["large_profile_pike_swimbait", "pike_jerkbait"],
@@ -372,9 +450,10 @@ addMonths(NORTHERN_CORE_REGIONS, "freshwater_lake_pond", [8, 9, 10], {
   viable_fly_archetypes: FALL_LAKE_FLIES,
 });
 addMonths(NORTHERN_CORE_REGIONS, "freshwater_lake_pond", [11, 12], {
+  surface_seasonally_possible: false,
   base_water_column: "mid",
   base_mood: "neutral",
-  base_presentation_style: "balanced",
+  base_presentation_style: "leaning_subtle",
   primary_forage: "baitfish",
   secondary_forage: "bluegill_perch",
   primary_lure_archetypes: ["pike_jerkbait", "large_profile_pike_swimbait"],
@@ -383,11 +462,12 @@ addMonths(NORTHERN_CORE_REGIONS, "freshwater_lake_pond", [11, 12], {
   viable_fly_archetypes: WINTER_LAKE_FLIES,
 });
 
-// Northern core river
+// --- Northern core — river ---
 addMonths(NORTHERN_CORE_REGIONS, "freshwater_river", [1, 2], {
+  surface_seasonally_possible: false,
   base_water_column: "mid",
   base_mood: "negative",
-  base_presentation_style: "balanced",
+  base_presentation_style: "leaning_subtle",
   primary_forage: "baitfish",
   secondary_forage: "bluegill_perch",
   primary_lure_archetypes: ["pike_jerkbait", "large_profile_pike_swimbait"],
@@ -396,17 +476,19 @@ addMonths(NORTHERN_CORE_REGIONS, "freshwater_river", [1, 2], {
   viable_fly_archetypes: WINTER_RIVER_FLIES,
 });
 addMonths(NORTHERN_CORE_REGIONS, "freshwater_river", [3, 4], {
+  surface_seasonally_possible: false,
   base_water_column: "shallow",
   base_mood: "neutral",
   base_presentation_style: "balanced",
   primary_forage: "baitfish",
   secondary_forage: "bluegill_perch",
   primary_lure_archetypes: ["pike_jerkbait", "spinnerbait"],
-  primary_fly_archetypes: ["pike_bunny_streamer", "articulated_dungeon_streamer"],
+  primary_fly_archetypes: ["pike_bunny_streamer", "large_articulated_pike_streamer"],
   viable_lure_archetypes: SPRING_RIVER_LURES,
   viable_fly_archetypes: SPRING_RIVER_FLIES,
 });
-addMonths(NORTHERN_CORE_REGIONS, "freshwater_river", [5, 6, 7], {
+addMonths(NORTHERN_CORE_REGIONS, "freshwater_river", [5], {
+  surface_seasonally_possible: true,
   base_water_column: "shallow",
   base_mood: "active",
   base_presentation_style: "balanced",
@@ -414,13 +496,26 @@ addMonths(NORTHERN_CORE_REGIONS, "freshwater_river", [5, 6, 7], {
   secondary_forage: "bluegill_perch",
   primary_lure_archetypes: ["pike_jerkbait", "spinnerbait"],
   primary_fly_archetypes: ["large_articulated_pike_streamer", "pike_bunny_streamer"],
-  viable_lure_archetypes: SUMMER_RIVER_LURES,
-  viable_fly_archetypes: SUMMER_RIVER_FLIES,
+  viable_lure_archetypes: SUMMER_SHALLOW_NORTH_MAY_RIVER_LURES,
+  viable_fly_archetypes: SUMMER_SHALLOW_NORTH_MAY_RIVER_FLIES,
+});
+addMonths(NORTHERN_CORE_REGIONS, "freshwater_river", [6, 7], {
+  surface_seasonally_possible: true,
+  base_water_column: "mid",
+  base_mood: "neutral_subtle",
+  base_presentation_style: "leaning_subtle",
+  primary_forage: "baitfish",
+  secondary_forage: "bluegill_perch",
+  primary_lure_archetypes: ["suspending_jerkbait", "pike_jerkbait"],
+  primary_fly_archetypes: ["large_articulated_pike_streamer", "pike_bunny_streamer"],
+  viable_lure_archetypes: SUMMER_PEAK_STRATIFIED_RIVER_LURES,
+  viable_fly_archetypes: SUMMER_PEAK_STRATIFIED_RIVER_FLIES,
 });
 addMonths(NORTHERN_CORE_REGIONS, "freshwater_river", [8, 9, 10], {
+  surface_seasonally_possible: false,
   base_water_column: "mid",
   base_mood: "active",
-  base_presentation_style: "bold",
+  base_presentation_style: "leaning_bold",
   primary_forage: "baitfish",
   secondary_forage: "bluegill_perch",
   primary_lure_archetypes: ["large_profile_pike_swimbait", "pike_jerkbait"],
@@ -429,9 +524,10 @@ addMonths(NORTHERN_CORE_REGIONS, "freshwater_river", [8, 9, 10], {
   viable_fly_archetypes: FALL_RIVER_FLIES,
 });
 addMonths(NORTHERN_CORE_REGIONS, "freshwater_river", [11, 12], {
+  surface_seasonally_possible: false,
   base_water_column: "mid",
   base_mood: "neutral",
-  base_presentation_style: "balanced",
+  base_presentation_style: "leaning_subtle",
   primary_forage: "baitfish",
   secondary_forage: "bluegill_perch",
   primary_lure_archetypes: ["pike_jerkbait", "large_profile_pike_swimbait"],
@@ -440,11 +536,12 @@ addMonths(NORTHERN_CORE_REGIONS, "freshwater_river", [11, 12], {
   viable_fly_archetypes: WINTER_RIVER_FLIES,
 });
 
-// Interior edge lake / pond
+// --- Interior edge — lake / pond (warm-side summer discipline) ---
 addMonths(INTERIOR_EDGE_REGIONS, "freshwater_lake_pond", [1, 2, 3], {
+  surface_seasonally_possible: false,
   base_water_column: "mid",
   base_mood: "negative",
-  base_presentation_style: "balanced",
+  base_presentation_style: "leaning_subtle",
   primary_forage: "baitfish",
   secondary_forage: "bluegill_perch",
   primary_lure_archetypes: ["pike_jerkbait", "large_profile_pike_swimbait"],
@@ -453,31 +550,34 @@ addMonths(INTERIOR_EDGE_REGIONS, "freshwater_lake_pond", [1, 2, 3], {
   viable_fly_archetypes: WINTER_LAKE_FLIES,
 });
 addMonths(INTERIOR_EDGE_REGIONS, "freshwater_lake_pond", [4, 5, 6], {
+  surface_seasonally_possible: false,
   base_water_column: "shallow",
   base_mood: "neutral",
   base_presentation_style: "balanced",
   primary_forage: "baitfish",
   secondary_forage: "bluegill_perch",
   primary_lure_archetypes: ["pike_jerkbait", "large_profile_pike_swimbait"],
-  primary_fly_archetypes: ["pike_bunny_streamer", "articulated_dungeon_streamer"],
+  primary_fly_archetypes: ["pike_bunny_streamer", "large_articulated_pike_streamer"],
   viable_lure_archetypes: SPRING_LAKE_LURES,
   viable_fly_archetypes: SPRING_LAKE_FLIES,
 });
 addMonths(INTERIOR_EDGE_REGIONS, "freshwater_lake_pond", [7, 8], {
-  base_water_column: "shallow",
-  base_mood: "active",
-  base_presentation_style: "balanced",
+  surface_seasonally_possible: false,
+  base_water_column: "bottom",
+  base_mood: "neutral_subtle",
+  base_presentation_style: "leaning_subtle",
   primary_forage: "baitfish",
   secondary_forage: "bluegill_perch",
-  primary_lure_archetypes: ["large_profile_pike_swimbait", "pike_jerkbait"],
-  primary_fly_archetypes: ["large_articulated_pike_streamer", "pike_bunny_streamer"],
-  viable_lure_archetypes: SUMMER_LAKE_LURES,
-  viable_fly_archetypes: SUMMER_LAKE_FLIES,
+  primary_lure_archetypes: ["suspending_jerkbait", "large_profile_pike_swimbait"],
+  primary_fly_archetypes: ["large_articulated_pike_streamer", "articulated_dungeon_streamer"],
+  viable_lure_archetypes: SUMMER_HOT_INTERIOR_LAKE_LURES,
+  viable_fly_archetypes: SUMMER_HOT_INTERIOR_LAKE_FLIES,
 });
 addMonths(INTERIOR_EDGE_REGIONS, "freshwater_lake_pond", [9, 10, 11], {
+  surface_seasonally_possible: false,
   base_water_column: "mid",
   base_mood: "active",
-  base_presentation_style: "bold",
+  base_presentation_style: "leaning_bold",
   primary_forage: "baitfish",
   secondary_forage: "bluegill_perch",
   primary_lure_archetypes: ["large_profile_pike_swimbait", "pike_jerkbait"],
@@ -486,9 +586,10 @@ addMonths(INTERIOR_EDGE_REGIONS, "freshwater_lake_pond", [9, 10, 11], {
   viable_fly_archetypes: FALL_LAKE_FLIES,
 });
 addMonths(INTERIOR_EDGE_REGIONS, "freshwater_lake_pond", [12], {
+  surface_seasonally_possible: false,
   base_water_column: "mid",
   base_mood: "neutral",
-  base_presentation_style: "balanced",
+  base_presentation_style: "leaning_subtle",
   primary_forage: "baitfish",
   secondary_forage: "bluegill_perch",
   primary_lure_archetypes: ["pike_jerkbait", "large_profile_pike_swimbait"],
@@ -497,11 +598,12 @@ addMonths(INTERIOR_EDGE_REGIONS, "freshwater_lake_pond", [12], {
   viable_fly_archetypes: WINTER_LAKE_FLIES,
 });
 
-// Interior edge river
+// --- Interior edge — river ---
 addMonths(INTERIOR_EDGE_REGIONS, "freshwater_river", [1, 2, 3], {
+  surface_seasonally_possible: false,
   base_water_column: "mid",
   base_mood: "negative",
-  base_presentation_style: "balanced",
+  base_presentation_style: "leaning_subtle",
   primary_forage: "baitfish",
   secondary_forage: "bluegill_perch",
   primary_lure_archetypes: ["pike_jerkbait", "large_profile_pike_swimbait"],
@@ -510,31 +612,34 @@ addMonths(INTERIOR_EDGE_REGIONS, "freshwater_river", [1, 2, 3], {
   viable_fly_archetypes: WINTER_RIVER_FLIES,
 });
 addMonths(INTERIOR_EDGE_REGIONS, "freshwater_river", [4, 5, 6], {
+  surface_seasonally_possible: false,
   base_water_column: "shallow",
   base_mood: "neutral",
   base_presentation_style: "balanced",
   primary_forage: "baitfish",
   secondary_forage: "bluegill_perch",
   primary_lure_archetypes: ["pike_jerkbait", "spinnerbait"],
-  primary_fly_archetypes: ["pike_bunny_streamer", "articulated_dungeon_streamer"],
+  primary_fly_archetypes: ["pike_bunny_streamer", "large_articulated_pike_streamer"],
   viable_lure_archetypes: SPRING_RIVER_LURES,
   viable_fly_archetypes: SPRING_RIVER_FLIES,
 });
 addMonths(INTERIOR_EDGE_REGIONS, "freshwater_river", [7, 8], {
-  base_water_column: "shallow",
-  base_mood: "active",
-  base_presentation_style: "balanced",
+  surface_seasonally_possible: false,
+  base_water_column: "bottom",
+  base_mood: "neutral_subtle",
+  base_presentation_style: "leaning_subtle",
   primary_forage: "baitfish",
   secondary_forage: "bluegill_perch",
-  primary_lure_archetypes: ["large_profile_pike_swimbait", "pike_jerkbait"],
-  primary_fly_archetypes: ["large_articulated_pike_streamer", "pike_bunny_streamer"],
-  viable_lure_archetypes: SUMMER_RIVER_LURES,
-  viable_fly_archetypes: SUMMER_RIVER_FLIES,
+  primary_lure_archetypes: ["suspending_jerkbait", "pike_jerkbait"],
+  primary_fly_archetypes: ["large_articulated_pike_streamer", "articulated_dungeon_streamer"],
+  viable_lure_archetypes: SUMMER_HOT_INTERIOR_RIVER_LURES,
+  viable_fly_archetypes: SUMMER_HOT_INTERIOR_RIVER_FLIES,
 });
 addMonths(INTERIOR_EDGE_REGIONS, "freshwater_river", [9, 10, 11], {
+  surface_seasonally_possible: false,
   base_water_column: "mid",
   base_mood: "active",
-  base_presentation_style: "bold",
+  base_presentation_style: "leaning_bold",
   primary_forage: "baitfish",
   secondary_forage: "bluegill_perch",
   primary_lure_archetypes: ["large_profile_pike_swimbait", "pike_jerkbait"],
@@ -543,9 +648,10 @@ addMonths(INTERIOR_EDGE_REGIONS, "freshwater_river", [9, 10, 11], {
   viable_fly_archetypes: FALL_RIVER_FLIES,
 });
 addMonths(INTERIOR_EDGE_REGIONS, "freshwater_river", [12], {
+  surface_seasonally_possible: false,
   base_water_column: "mid",
   base_mood: "negative",
-  base_presentation_style: "balanced",
+  base_presentation_style: "leaning_subtle",
   primary_forage: "baitfish",
   secondary_forage: "bluegill_perch",
   primary_lure_archetypes: ["pike_jerkbait", "large_profile_pike_swimbait"],
@@ -554,11 +660,12 @@ addMonths(INTERIOR_EDGE_REGIONS, "freshwater_river", [12], {
   viable_fly_archetypes: WINTER_RIVER_FLIES,
 });
 
-// Mountain and inland-west pike water
+// --- Mountain / inland-west — lake / pond ---
 addMonths(MOUNTAIN_REGIONS, "freshwater_lake_pond", [1, 2, 3, 12], {
+  surface_seasonally_possible: false,
   base_water_column: "mid",
   base_mood: "negative",
-  base_presentation_style: "balanced",
+  base_presentation_style: "leaning_subtle",
   primary_forage: "baitfish",
   secondary_forage: "bluegill_perch",
   primary_lure_archetypes: ["pike_jerkbait", "large_profile_pike_swimbait"],
@@ -567,31 +674,34 @@ addMonths(MOUNTAIN_REGIONS, "freshwater_lake_pond", [1, 2, 3, 12], {
   viable_fly_archetypes: WINTER_LAKE_FLIES,
 });
 addMonths(MOUNTAIN_REGIONS, "freshwater_lake_pond", [4, 5], {
+  surface_seasonally_possible: false,
   base_water_column: "shallow",
   base_mood: "neutral",
   base_presentation_style: "balanced",
   primary_forage: "baitfish",
   secondary_forage: "bluegill_perch",
   primary_lure_archetypes: ["pike_jerkbait", "large_profile_pike_swimbait"],
-  primary_fly_archetypes: ["pike_bunny_streamer", "articulated_dungeon_streamer"],
+  primary_fly_archetypes: ["pike_bunny_streamer", "large_articulated_pike_streamer"],
   viable_lure_archetypes: SPRING_LAKE_LURES,
   viable_fly_archetypes: SPRING_LAKE_FLIES,
 });
 addMonths(MOUNTAIN_REGIONS, "freshwater_lake_pond", [6, 7, 8], {
-  base_water_column: "shallow",
-  base_mood: "active",
-  base_presentation_style: "balanced",
+  surface_seasonally_possible: true,
+  base_water_column: "mid",
+  base_mood: "neutral",
+  base_presentation_style: "leaning_subtle",
   primary_forage: "baitfish",
   secondary_forage: "bluegill_perch",
-  primary_lure_archetypes: ["large_profile_pike_swimbait", "pike_jerkbait"],
+  primary_lure_archetypes: ["suspending_jerkbait", "large_profile_pike_swimbait"],
   primary_fly_archetypes: ["large_articulated_pike_streamer", "pike_bunny_streamer"],
-  viable_lure_archetypes: SUMMER_LAKE_LURES,
-  viable_fly_archetypes: SUMMER_LAKE_FLIES,
+  viable_lure_archetypes: SUMMER_PEAK_STRATIFIED_LAKE_LURES,
+  viable_fly_archetypes: SUMMER_PEAK_STRATIFIED_LAKE_FLIES,
 });
 addMonths(MOUNTAIN_REGIONS, "freshwater_lake_pond", [9, 10, 11], {
+  surface_seasonally_possible: false,
   base_water_column: "mid",
   base_mood: "active",
-  base_presentation_style: "bold",
+  base_presentation_style: "leaning_bold",
   primary_forage: "baitfish",
   secondary_forage: "bluegill_perch",
   primary_lure_archetypes: ["large_profile_pike_swimbait", "pike_jerkbait"],
@@ -600,10 +710,12 @@ addMonths(MOUNTAIN_REGIONS, "freshwater_lake_pond", [9, 10, 11], {
   viable_fly_archetypes: FALL_LAKE_FLIES,
 });
 
+// --- Mountain / inland-west — river ---
 addMonths(MOUNTAIN_REGIONS, "freshwater_river", [1, 2, 3, 12], {
+  surface_seasonally_possible: false,
   base_water_column: "mid",
   base_mood: "negative",
-  base_presentation_style: "balanced",
+  base_presentation_style: "leaning_subtle",
   primary_forage: "baitfish",
   secondary_forage: "bluegill_perch",
   primary_lure_archetypes: ["pike_jerkbait", "large_profile_pike_swimbait"],
@@ -612,31 +724,34 @@ addMonths(MOUNTAIN_REGIONS, "freshwater_river", [1, 2, 3, 12], {
   viable_fly_archetypes: WINTER_RIVER_FLIES,
 });
 addMonths(MOUNTAIN_REGIONS, "freshwater_river", [4, 5], {
+  surface_seasonally_possible: false,
   base_water_column: "shallow",
   base_mood: "neutral",
   base_presentation_style: "balanced",
   primary_forage: "baitfish",
   secondary_forage: "bluegill_perch",
   primary_lure_archetypes: ["pike_jerkbait", "spinnerbait"],
-  primary_fly_archetypes: ["pike_bunny_streamer", "articulated_dungeon_streamer"],
+  primary_fly_archetypes: ["pike_bunny_streamer", "large_articulated_pike_streamer"],
   viable_lure_archetypes: SPRING_RIVER_LURES,
   viable_fly_archetypes: SPRING_RIVER_FLIES,
 });
 addMonths(MOUNTAIN_REGIONS, "freshwater_river", [6, 7, 8], {
-  base_water_column: "shallow",
-  base_mood: "active",
-  base_presentation_style: "balanced",
+  surface_seasonally_possible: true,
+  base_water_column: "mid",
+  base_mood: "neutral",
+  base_presentation_style: "leaning_subtle",
   primary_forage: "baitfish",
   secondary_forage: "bluegill_perch",
-  primary_lure_archetypes: ["pike_jerkbait", "spinnerbait"],
+  primary_lure_archetypes: ["suspending_jerkbait", "pike_jerkbait"],
   primary_fly_archetypes: ["large_articulated_pike_streamer", "pike_bunny_streamer"],
-  viable_lure_archetypes: SUMMER_RIVER_LURES,
-  viable_fly_archetypes: SUMMER_RIVER_FLIES,
+  viable_lure_archetypes: SUMMER_PEAK_STRATIFIED_RIVER_LURES,
+  viable_fly_archetypes: SUMMER_PEAK_STRATIFIED_RIVER_FLIES,
 });
 addMonths(MOUNTAIN_REGIONS, "freshwater_river", [9, 10, 11], {
+  surface_seasonally_possible: false,
   base_water_column: "mid",
   base_mood: "active",
-  base_presentation_style: "bold",
+  base_presentation_style: "leaning_bold",
   primary_forage: "baitfish",
   secondary_forage: "bluegill_perch",
   primary_lure_archetypes: ["large_profile_pike_swimbait", "pike_jerkbait"],
@@ -645,22 +760,22 @@ addMonths(MOUNTAIN_REGIONS, "freshwater_river", [9, 10, 11], {
   viable_fly_archetypes: FALL_RIVER_FLIES,
 });
 
-// South-central April river push: the dungeon gets one explicit heavy-profile
-// winner window in colored spring water instead of always trailing the softer
-// bunny lane.
+// Narrow override: southern-interior spring river — heavy dungeon lead in colored water.
 addMonths(["south_central"], "freshwater_river", [4], {
+  surface_seasonally_possible: false,
   base_water_column: "mid",
   base_mood: "active",
-  base_presentation_style: "bold",
+  base_presentation_style: "leaning_bold",
   primary_forage: "baitfish",
   secondary_forage: "bluegill_perch",
   primary_lure_archetypes: ["pike_jerkbait", "spinnerbait"],
-  primary_fly_archetypes: [
-    "articulated_dungeon_streamer",
-    "pike_bunny_streamer",
-  ],
+  primary_fly_archetypes: ["articulated_dungeon_streamer", "pike_bunny_streamer"],
   viable_lure_archetypes: SPRING_RIVER_LURES,
   viable_fly_archetypes: SPRING_RIVER_FLIES,
 });
 
-export const NORTHERN_PIKE_V3_SEASONAL_ROWS = finalizeSeasonalRows(PIKE_ROWS);
+export const NORTHERN_PIKE_V3_SEASONAL_ROWS = (() => {
+  const rows = finalizeSeasonalRows(PIKE_ROWS);
+  validateSeasonalRows(rows, "northern pike");
+  return rows;
+})();
