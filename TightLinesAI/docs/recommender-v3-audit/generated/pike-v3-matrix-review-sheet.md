@@ -1,6 +1,6 @@
 # Pike V3 Matrix Review Sheet
 
-Generated: 2026-04-16T02:12:17.695Z
+Generated: 2026-04-16T12:54:11.132Z
 Archive bundle generated: 2026-04-16T02:12:15.680Z
 Scenario count: 48
 Contexts: 32 lake/pond, 16 river
@@ -112,7 +112,7 @@ Review:
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
 - NO_REGION_FALLBACK
-- TOP1_TIE:lure
+- NO_TOP1_TIE
 - EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:bright,bright
 - Top 1 verdict:
@@ -676,10 +676,10 @@ Archived env summary:
 - Sunrise/sunset: 05:37 / 21:10
 
 Actual output:
-- Top 1 lure: Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Top 1 lure: Spinnerbait `spinnerbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Top 3 lures:
-- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Spinnerbait `spinnerbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Suspending Jerkbait `suspending_jerkbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Top 1 fly: Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Top 3 flies:
@@ -688,8 +688,8 @@ Actual output:
 - Deceiver `deceiver` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Color notes:
 - Daily posture: suppressed
-- Paddle-Tail Swimbait: bright -> white/chartreuse, chartreuse, firetiger
 - Spinnerbait: bright -> white/chartreuse, chartreuse, firetiger
+- Paddle-Tail Swimbait: bright -> white/chartreuse, chartreuse, firetiger
 - Suspending Jerkbait: bright -> white/chartreuse, chartreuse, firetiger
 - Articulated Pike Streamer: bright -> white/chartreuse, chartreuse, firetiger
 - Large Rabbit Strip Streamer: bright -> white/chartreuse, chartreuse, firetiger
@@ -708,10 +708,10 @@ Actual output:
 - Daily note: Moderate chop improves fishability and supports a stronger moving look.
 - Daily note: Active precipitation disruption narrows the clean bite window.
 - Lure reasoning:
-- Paddle-Tail Swimbait: With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane.
-- Paddle-Tail Swimbait how: Reel at a steady pace with the rod low so the tail thumps consistently; speed up slightly over bait schools or slow down after a follow. Slow down and lengthen the pause.
-- Spinnerbait: With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different horizontal search look without leaving today's window.
+- Spinnerbait: With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane.
 - Spinnerbait how: Slow-roll it along the bottom edge of cover at a steady pace, keeping the blades just ticking; bump any piece of structure and let it rise. Slow down and lengthen the pause.
+- Paddle-Tail Swimbait: With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different horizontal search look without leaving today's window.
+- Paddle-Tail Swimbait how: Reel at a steady pace with the rod low so the tail thumps consistently; speed up slightly over bait schools or slow down after a follow. Slow down and lengthen the pause.
 - Suspending Jerkbait: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
 - Suspending Jerkbait how: Two or three sharp twitches, then let it suspend perfectly still for a full 3-5 count before the next sequence — the pause is everything. Slow down and lengthen the pause.
 - Fly reasoning:
@@ -728,7 +728,7 @@ Review:
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
 - NO_REGION_FALLBACK
-- TOP1_TIE:lure
+- NO_TOP1_TIE
 - EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:bright,bright
 - Top 1 verdict:
@@ -1342,7 +1342,7 @@ Review:
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
 - NO_REGION_FALLBACK
-- TOP1_TIE:lure,fly
+- NO_TOP1_TIE
 - EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:dark,dark
 - Top 1 verdict:
@@ -1444,7 +1444,7 @@ Review:
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
 - NO_REGION_FALLBACK
-- TOP1_TIE:lure,fly
+- NO_TOP1_TIE
 - EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:natural,natural
 - Top 1 verdict:
@@ -1500,7 +1500,7 @@ Actual output:
 - Top 1 lure: Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 3 lures:
 - Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural` | colors: green pumpkin, olive, smoke
-- Soft Plastic Jerkbait `soft_jerkbait` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Suspending Jerkbait `suspending_jerkbait` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Large Jerkbait `pike_jerkbait` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 1 fly: Large Rabbit Strip Streamer `pike_bunny_streamer` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 3 flies:
@@ -1510,7 +1510,7 @@ Actual output:
 - Color notes:
 - Daily posture: neutral
 - Paddle-Tail Swimbait: natural -> green pumpkin, olive, smoke
-- Soft Plastic Jerkbait: natural -> green pumpkin, olive, smoke
+- Suspending Jerkbait: natural -> green pumpkin, olive, smoke
 - Large Jerkbait: natural -> green pumpkin, olive, smoke
 - Large Rabbit Strip Streamer: natural -> green pumpkin, olive, smoke
 - Articulated Pike Streamer: natural -> green pumpkin, olive, smoke
@@ -1528,8 +1528,8 @@ Actual output:
 - Lure reasoning:
 - Paddle-Tail Swimbait: Heat stress moves fish to cooler, deeper water and narrows the feeding window. The month is still baitfish-forward, and this stays inside that search lane.
 - Paddle-Tail Swimbait how: Reel at a steady pace with the rod low so the tail thumps consistently; speed up slightly over bait schools or slow down after a follow. Slow down and lengthen the pause.
-- Soft Plastic Jerkbait: Heat stress moves fish to cooler, deeper water and narrows the feeding window. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different horizontal search look without leaving today's window.
-- Soft Plastic Jerkbait how: Snap the rod sideways so the bait darts left or right, then drop the rod tip so it glides and sinks on a slack line before the next snap. Slow down and lengthen the pause.
+- Suspending Jerkbait: Heat stress moves fish to cooler, deeper water and narrows the feeding window. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different reaction mid column look without leaving today's window.
+- Suspending Jerkbait how: Jerk, jerk, pause. The bait should dart and glide sideways on each twitch; dial the pause length to water temperature — colder means longer. Slow down and lengthen the pause.
 - Large Jerkbait: Heat stress moves fish to cooler, deeper water and narrows the feeding window. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
 - Large Jerkbait how: Work it erratically with big pulls and deadstops; the key is the pause after the dash, so hold still for at least two seconds before triggering again. Slow down and lengthen the pause.
 - Fly reasoning:
@@ -1546,7 +1546,7 @@ Review:
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
 - NO_REGION_FALLBACK
-- TOP1_TIE:lure
+- NO_TOP1_TIE
 - EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:natural,natural
 - Top 1 verdict:
@@ -1650,7 +1650,7 @@ Review:
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
 - NO_REGION_FALLBACK
-- TOP1_TIE:lure
+- NO_TOP1_TIE
 - EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:dark,dark
 - Top 1 verdict:
@@ -1704,11 +1704,11 @@ Archived env summary:
 - Sunrise/sunset: 05:27 / 20:18
 
 Actual output:
-- Top 1 lure: Hollow-Body Frog `hollow_body_frog` | theme: `dark` | colors: black, black/blue, black/purple
+- Top 1 lure: Walking Topwater `walking_topwater` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 lures:
-- Hollow-Body Frog `hollow_body_frog` | theme: `dark` | colors: black, black/blue, black/purple
 - Walking Topwater `walking_topwater` | theme: `dark` | colors: black, black/blue, black/purple
 - Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Hollow-Body Frog `hollow_body_frog` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 1 fly: Mouse Fly `mouse_fly` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 flies:
 - Mouse Fly `mouse_fly` | theme: `dark` | colors: black, black/blue, black/purple
@@ -1716,9 +1716,9 @@ Actual output:
 - Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Color notes:
 - Daily posture: aggressive
-- Hollow-Body Frog: dark -> black, black/blue, black/purple
 - Walking Topwater: dark -> black, black/blue, black/purple
 - Paddle-Tail Swimbait: dark -> black, black/blue, black/purple
+- Hollow-Body Frog: dark -> black, black/blue, black/purple
 - Mouse Fly: dark -> black, black/blue, black/purple
 - Game Changer: dark -> black, black/blue, black/purple
 - Articulated Pike Streamer: dark -> black, black/blue, black/purple
@@ -1733,12 +1733,12 @@ Actual output:
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Lure reasoning:
-- Hollow-Body Frog: Low disturbance is keeping a true surface lane open today. It keeps the presentation right at the top where the monthly window still allows it.
-- Hollow-Body Frog how: Walk it across mats or over lily pads with short side-to-side twitches; when it enters a gap or open pocket, let it sit for two full seconds before moving. Keep it on top.
-- Walking Topwater: Low disturbance is keeping a true surface lane open today. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different surface look without leaving today's window.
-- Walking Topwater how: Downrod with light wrist flicks to make it dance; the pause between twitches lets fish track and commit, so give it a beat before the next twitch. Keep it on top.
-- Paddle-Tail Swimbait: A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
-- Paddle-Tail Swimbait how: Slow-roll near the bottom on a consistent retrieve; the paddle thumps best just barely above the substrate, so keep the rod tip down and the pace even. Keep it high in the zone.
+- Walking Topwater: Low disturbance is keeping a true surface lane open today. The month is still baitfish-forward, and this stays inside that search lane.
+- Walking Topwater how: Work it with consistent wrist flicks over open water or above grass; keep the cadence smooth and only slow down if you see fish following. Keep it on top.
+- Paddle-Tail Swimbait: A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different horizontal search look without leaving today's window.
+- Paddle-Tail Swimbait how: Swim it at the speed where you feel a steady kick through the rod; use rod angle to change depth without changing retrieve speed. Keep it high in the zone.
+- Hollow-Body Frog: Low disturbance is keeping a true surface lane open today. It keeps the presentation right at the top where the monthly window still allows it. It is the cleaner change-up if the lead look does not convert.
+- Hollow-Body Frog how: Use steady walking cadence across open surface, then slow and pause aggressively when near cover; don't set the hook until you feel the fish pulling. Keep it on top.
 - Fly reasoning:
 - Mouse Fly: Low disturbance is keeping a true surface lane open today. The month is still baitfish-forward, and this stays inside that search lane.
 - Mouse Fly how: Work it with a slow, uninterrupted retrieve across open water; the V-wake is the trigger, so keep it moving at a steady pace and stay alert. Keep it on top.
@@ -1753,7 +1753,7 @@ Review:
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
 - NO_REGION_FALLBACK
-- TOP1_TIE:lure
+- NO_TOP1_TIE
 - EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:dark,dark
 - Top 1 verdict:
@@ -2368,7 +2368,7 @@ Review:
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
 - NO_REGION_FALLBACK
-- TOP1_TIE:lure,fly
+- NO_TOP1_TIE
 - EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:dark,dark
 - Top 1 verdict:
@@ -2472,7 +2472,7 @@ Review:
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
 - NO_REGION_FALLBACK
-- TOP1_TIE:lure,fly
+- NO_TOP1_TIE
 - EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:dark,dark
 - Top 1 verdict:
@@ -3145,16 +3145,16 @@ Actual output:
 - Top 1 fly: Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Top 3 flies:
 - Articulated Pike Streamer `large_articulated_pike_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
-- Clouser Minnow `clouser_minnow` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Large Rabbit Strip Streamer `pike_bunny_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Clouser Minnow `clouser_minnow` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Color notes:
 - Daily posture: suppressed
 - Spinnerbait: bright -> white/chartreuse, chartreuse, firetiger
 - Inline Spinner: bright -> white/chartreuse, chartreuse, firetiger
 - Paddle-Tail Swimbait: bright -> white/chartreuse, chartreuse, firetiger
 - Articulated Pike Streamer: bright -> white/chartreuse, chartreuse, firetiger
-- Clouser Minnow: bright -> white/chartreuse, chartreuse, firetiger
 - Large Rabbit Strip Streamer: bright -> white/chartreuse, chartreuse, firetiger
+- Clouser Minnow: bright -> white/chartreuse, chartreuse, firetiger
 - Daily profile notes:
 - Daily posture: suppressed
 - Seasonal source: region=great_lakes_upper_midwest, fallback_used=false
@@ -3177,10 +3177,10 @@ Actual output:
 - Fly reasoning:
 - Articulated Pike Streamer: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
 - Articulated Pike Streamer how: Long sweeping strips with full pauses; the articulated body coils on the stop and then springs on the next strip — give it the full beat. Slow down and lengthen the pause.
-- Clouser Minnow: With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different fly baitfish look without leaving today's window.
-- Clouser Minnow how: Cast across or slightly downstream, let it jig toward you with short strips so the weighted eyes keep the fly tracking hook-point up. Slow down and lengthen the pause.
-- Large Rabbit Strip Streamer: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Large Rabbit Strip Streamer: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It gives you a different pike big profile look without leaving today's window.
 - Large Rabbit Strip Streamer how: Strip with long, steady pulls so the rabbit hair breathes and the profile stays big; pause after every 2-3 strips to let following pike close. Slow down and lengthen the pause.
+- Clouser Minnow: With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Clouser Minnow how: Cast across or slightly downstream, let it jig toward you with short strips so the weighted eyes keep the fly tracking hook-point up. Slow down and lengthen the pause.
 
 Review:
 - Precheck flags:
@@ -3188,7 +3188,7 @@ Review:
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
 - NO_REGION_FALLBACK
-- TOP1_TIE:fly
+- NO_TOP1_TIE
 - EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:bright,bright
 - Top 1 verdict:
@@ -4204,7 +4204,7 @@ Review:
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
 - NO_REGION_FALLBACK
-- TOP1_TIE:fly
+- NO_TOP1_TIE
 - EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:dark,dark
 - Top 1 verdict:
@@ -4617,7 +4617,7 @@ Review:
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
 - NO_REGION_FALLBACK
-- TOP1_TIE:lure
+- NO_TOP1_TIE
 - EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:natural,natural
 - Top 1 verdict:

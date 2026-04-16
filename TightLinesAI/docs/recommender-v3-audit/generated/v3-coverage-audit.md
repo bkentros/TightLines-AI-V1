@@ -1,6 +1,6 @@
 # V3 Coverage Audit
 
-Generated: 2026-04-15T20:13:21.636Z
+Generated: 2026-04-16T12:54:02.136Z
 
 Seasonal rows audited: 1104
 Synthetic daily states per row: 405
@@ -21,24 +21,24 @@ Synthetic daily states per row: 405
 
 ## Success Targets
 
-Locked top-1 ratio: lure 0.1% / target <= 50.0%, fly 2.4% / target <= 55.0%
-Low daily sensitivity ratio: lure 0.0% / target <= 45.0%, fly 2.4% / target <= 50.0%
+Locked top-1 ratio: lure 0.1% / target <= 50.0%, fly 2.5% / target <= 55.0%
+Low daily sensitivity ratio: lure 0.0% / target <= 45.0%, fly 2.5% / target <= 50.0%
 Tactical conflict rate: lure 1.7% / target <= 2.0%, fly 0.0% / target <= 2.0%
 Expectation mismatches: lure 0 / target <= 0, fly 0 / target <= 0
 
 ## Locked Top-1 Rows
 
 Lure rows with only one possible top-1 across all synthetic states: 1
-Fly rows with only one possible top-1 across all synthetic states: 26
+Fly rows with only one possible top-1 across all synthetic states: 28
 
 ## Low Daily Sensitivity
 
 Lure rows with only one top-1 and at most two ordered top-3 lineups: 0
-Fly rows with only one top-1 and at most two ordered top-3 lineups: 26
+Fly rows with only one top-1 and at most two ordered top-3 lineups: 28
 
 ## Tactical Conflicts
 
-Lure evaluated states with top-3 pace/story conflicts: 7776
+Lure evaluated states with top-3 pace/story conflicts: 7452
 Fly evaluated states with top-3 pace/story conflicts: 0
 
 ## Library Reachability
@@ -49,7 +49,7 @@ Lures never top 1: none
 
 Flies never viable: none
 Flies never top 3: none
-Flies never top 1: none
+Flies never top 1: bucktail_baitfish_streamer, conehead_streamer
 
 ## Intended vs Actual
 
@@ -104,7 +104,7 @@ Detected 25 tagged redundancy collisions.
 | --- | --- | --- | --- |
 | clouser_minnow | winner_capable | top1 | pass |
 | deceiver | intentional_low_frequency_specialty | top1 | pass |
-| bucktail_baitfish_streamer | intentional_low_frequency_specialty | top1 | pass |
+| bucktail_baitfish_streamer | intentional_low_frequency_specialty | top3 | pass |
 | slim_minnow_streamer | winner_capable | top1 | pass |
 | articulated_baitfish_streamer | winner_capable | top1 | pass |
 | articulated_dungeon_streamer | winner_capable | top1 | pass |
@@ -117,7 +117,7 @@ Detected 25 tagged redundancy collisions.
 | sculpzilla | intentional_low_frequency_specialty | top1 | pass |
 | muddler_sculpin | winner_capable | top1 | pass |
 | crawfish_streamer | winner_capable | top1 | pass |
-| conehead_streamer | intentional_low_frequency_specialty | top1 | pass |
+| conehead_streamer | intentional_low_frequency_specialty | top3 | pass |
 | pike_bunny_streamer | winner_capable | top1 | pass |
 | large_articulated_pike_streamer | winner_capable | top1 | pass |
 | popper_fly | winner_capable | top1 | pass |

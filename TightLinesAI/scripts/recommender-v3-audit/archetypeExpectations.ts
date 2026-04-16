@@ -127,7 +127,9 @@ export const FLY_ARCHETYPE_EXPECTATIONS: Record<
     "Core baitfish streamer lane across species and current.",
   ),
   deceiver: specialtyWinner("Longer-profile baitfish streamer lane."),
-  bucktail_baitfish_streamer: specialtyWinner("Sparse baitfish streamer lane."),
+  bucktail_baitfish_streamer: specialtySupport(
+    "Sparse bucktail baitfish lane: credible top-3 in cold/clear minnow windows, rarely owns rank 1 vs slimmer streamers.",
+  ),
   slim_minnow_streamer: winner("Lean baitfish streamer for active fish."),
   articulated_baitfish_streamer: winner("Big articulated baitfish primary."),
   articulated_dungeon_streamer: winner(
@@ -144,7 +146,9 @@ export const FLY_ARCHETYPE_EXPECTATIONS: Record<
   sculpzilla: specialtyWinner("Large sculpin bottom lane."),
   muddler_sculpin: winner("Shallow waking or stripped sculpin lane."),
   crawfish_streamer: winner("Crawfish-specific bottom fly lane."),
-  conehead_streamer: specialtyWinner("Weighted bottom streamer lane."),
+  conehead_streamer: specialtySupport(
+    "Weighted dredge streamer lane: reaches top-3 in deep winter/tailwater reads without requiring a synthetic rank-1 headline.",
+  ),
   pike_bunny_streamer: winner("Large rabbit-strip pike fly primary."),
   large_articulated_pike_streamer: winner(
     "Large articulated pike fly primary.",

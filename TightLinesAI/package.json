@@ -58,6 +58,8 @@
     "audit:recommender:v3:trout:matrix": "deno run --allow-read --allow-write scripts/recommender-v3-audit/generateTroutAuditMatrix.ts",
     "audit:recommender:v3:trout:matrix:archive-env": "deno run --allow-net --allow-read --allow-write scripts/recommender-v3-audit/buildTroutMatrixArchiveEnv.ts",
     "audit:recommender:v3:trout:matrix:run": "deno run --allow-read --allow-write scripts/recommender-v3-audit/runTroutMatrix.ts",
+    "audit:recommender:v3:pike:matrix:run": "deno run --allow-read --allow-write scripts/recommender-v3-audit/runPikeMatrix.ts",
+    "audit:recommender:v3:freshwater:full": "npm run audit:recommender:v3:lmb:matrix:run && npm run audit:recommender:v3:smb:matrix:run && npm run audit:recommender:v3:trout:matrix:run && npm run audit:recommender:v3:pike:matrix:run && deno run --allow-read --allow-write scripts/recommender-v3-audit/analyzeFreshwaterMatrix.ts && npm run audit:recommender:v3:coverage && npm run audit:recommender:v3:daily-shifts",
     "audit:recommender:v3:coverage": "deno run --allow-read --allow-write scripts/recommender-v3-audit/runCoverageAudit.ts",
     "audit:recommender:v3:daily-shifts": "deno run --allow-read --allow-write scripts/recommender-v3-audit/runDailyShiftAudit.ts",
     "audit:how-fishing": "deno run --allow-read --allow-write scripts/audit/run-full-audit.ts",

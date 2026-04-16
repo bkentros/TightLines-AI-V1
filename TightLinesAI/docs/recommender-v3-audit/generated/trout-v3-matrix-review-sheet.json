@@ -1,6 +1,6 @@
 {
   "batch_id": "trout_v3_matrix",
-  "generated_at": "2026-04-15T20:35:00.243Z",
+  "generated_at": "2026-04-16T12:52:47.134Z",
   "archive_bundle_generated_at": "2026-04-15T20:32:34.157Z",
   "scenario_count": 68,
   "score_keys": [
@@ -1102,8 +1102,7 @@
         ],
         "acceptable_secondary_lanes": [
           "sculpin_streamer",
-          "slim_minnow_streamer",
-          "mouse_fly"
+          "slim_minnow_streamer"
         ],
         "disallowed_lanes": [
           "frog_fly",
@@ -1115,6 +1114,9 @@
           "dark",
           "natural",
           "natural"
+        ],
+        "notes": [
+          "Mouse is a rare low-light bank read when the seasonal pool and daily surface gate align; not a matrix-counted specialty reach target."
         ]
       },
       "engine_run_status": "complete",
@@ -1313,8 +1315,7 @@
         ],
         "acceptable_secondary_lanes": [
           "sculpin_streamer",
-          "slim_minnow_streamer",
-          "mouse_fly"
+          "slim_minnow_streamer"
         ],
         "disallowed_lanes": [
           "frog_fly",
@@ -1326,6 +1327,9 @@
           "dark",
           "natural",
           "natural"
+        ],
+        "notes": [
+          "Mouse is a rare low-light bank read when the seasonal pool and daily surface gate align; not a matrix-counted specialty reach target."
         ]
       },
       "engine_run_status": "complete",
@@ -1523,8 +1527,7 @@
         ],
         "acceptable_secondary_lanes": [
           "sculpin_streamer",
-          "slim_minnow_streamer",
-          "mouse_fly"
+          "slim_minnow_streamer"
         ],
         "disallowed_lanes": [
           "frog_fly",
@@ -1536,6 +1539,9 @@
           "dark",
           "natural",
           "natural"
+        ],
+        "notes": [
+          "Mouse is a rare low-light bank read when the seasonal pool and daily surface gate align; not a matrix-counted specialty reach target."
         ]
       },
       "engine_run_status": "complete",
@@ -3654,7 +3660,6 @@
         ],
         "acceptable_secondary_lanes": [
           "woolly_bugger",
-          "mouse_fly",
           "inline_spinner"
         ],
         "disallowed_lanes": [
@@ -3667,6 +3672,9 @@
           "natural",
           "natural",
           "dark"
+        ],
+        "notes": [
+          "Mouse remains an occasional narrow surface read, not a specialty headline counted in matrix reach summaries."
         ]
       },
       "engine_run_status": "complete",
@@ -3867,7 +3875,6 @@
         ],
         "acceptable_secondary_lanes": [
           "woolly_bugger",
-          "mouse_fly",
           "inline_spinner"
         ],
         "disallowed_lanes": [
@@ -3880,6 +3887,9 @@
           "natural",
           "natural",
           "dark"
+        ],
+        "notes": [
+          "Mouse remains an occasional narrow surface read, not a specialty headline counted in matrix reach summaries."
         ]
       },
       "engine_run_status": "complete",
@@ -4080,7 +4090,6 @@
         ],
         "acceptable_secondary_lanes": [
           "woolly_bugger",
-          "mouse_fly",
           "inline_spinner"
         ],
         "disallowed_lanes": [
@@ -4093,6 +4102,9 @@
           "natural",
           "natural",
           "dark"
+        ],
+        "notes": [
+          "Mouse remains an occasional narrow surface read, not a specialty headline counted in matrix reach summaries."
         ]
       },
       "engine_run_status": "complete",
@@ -6205,8 +6217,7 @@
         ],
         "acceptable_secondary_lanes": [
           "clouser_minnow",
-          "woolly_bugger",
-          "mouse_fly"
+          "woolly_bugger"
         ],
         "disallowed_lanes": [
           "frog_fly",
@@ -6218,6 +6229,9 @@
           "natural",
           "natural",
           "bright"
+        ],
+        "notes": [
+          "Mouse is region- and pool-gated in seasonal truth; do not treat it as a matrix specialty quota here."
         ]
       },
       "engine_run_status": "complete",
@@ -6417,8 +6431,7 @@
         ],
         "acceptable_secondary_lanes": [
           "clouser_minnow",
-          "woolly_bugger",
-          "mouse_fly"
+          "woolly_bugger"
         ],
         "disallowed_lanes": [
           "frog_fly",
@@ -6430,6 +6443,9 @@
           "natural",
           "natural",
           "bright"
+        ],
+        "notes": [
+          "Mouse is region- and pool-gated in seasonal truth; do not treat it as a matrix specialty quota here."
         ]
       },
       "engine_run_status": "complete",
@@ -6630,8 +6646,7 @@
         ],
         "acceptable_secondary_lanes": [
           "clouser_minnow",
-          "woolly_bugger",
-          "mouse_fly"
+          "woolly_bugger"
         ],
         "disallowed_lanes": [
           "frog_fly",
@@ -6643,6 +6658,9 @@
           "natural",
           "natural",
           "bright"
+        ],
+        "notes": [
+          "Mouse is region- and pool-gated in seasonal truth; do not treat it as a matrix specialty quota here."
         ]
       },
       "engine_run_status": "complete",
@@ -8757,8 +8775,7 @@
         ],
         "acceptable_secondary_lanes": [
           "woolly_bugger",
-          "inline_spinner",
-          "mouse_fly"
+          "inline_spinner"
         ],
         "disallowed_lanes": [
           "frog_fly",
@@ -8770,6 +8787,9 @@
           "natural",
           "natural",
           "dark"
+        ],
+        "notes": [
+          "Mouse windows are daily- and pool-gated; matrix does not count mouse as an expected specialty reach row."
         ]
       },
       "engine_run_status": "complete",
@@ -8969,8 +8989,7 @@
         ],
         "acceptable_secondary_lanes": [
           "woolly_bugger",
-          "inline_spinner",
-          "mouse_fly"
+          "inline_spinner"
         ],
         "disallowed_lanes": [
           "frog_fly",
@@ -8982,6 +9001,9 @@
           "natural",
           "natural",
           "dark"
+        ],
+        "notes": [
+          "Mouse windows are daily- and pool-gated; matrix does not count mouse as an expected specialty reach row."
         ]
       },
       "engine_run_status": "complete",
@@ -9181,8 +9203,7 @@
         ],
         "acceptable_secondary_lanes": [
           "woolly_bugger",
-          "inline_spinner",
-          "mouse_fly"
+          "inline_spinner"
         ],
         "disallowed_lanes": [
           "frog_fly",
@@ -9194,6 +9215,9 @@
           "natural",
           "natural",
           "dark"
+        ],
+        "notes": [
+          "Mouse windows are daily- and pool-gated; matrix does not count mouse as an expected specialty reach row."
         ]
       },
       "engine_run_status": "complete",

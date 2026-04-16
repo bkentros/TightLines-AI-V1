@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-15T20:12:11.215Z",
+  "generated_at": "2026-04-16T12:54:04.059Z",
   "total_pairs": 7,
   "total_checks": 14,
   "passed_checks": 14,
@@ -391,7 +391,7 @@
     },
     {
       "id": "trout_mouse_vs_river_wind",
-      "label": "Western midsummer trout: mouse window vs strong river wind",
+      "label": "Northern California midsummer trout: mouse window vs strong river wind",
       "checks": [
         {
           "label": "Mouse window truly elevates mouse fly",
@@ -406,10 +406,10 @@
       ],
       "left": {
         "id": "trout_mouse_window",
-        "label": "Western midsummer trout mouse window",
+        "label": "Northern California midsummer trout mouse window",
         "species": "trout",
         "context": "freshwater_river",
-        "region_key": "mountain_west",
+        "region_key": "northern_california",
         "month": 7,
         "water_clarity": "clear",
         "daily_payload": {
@@ -446,10 +446,10 @@
       },
       "right": {
         "id": "trout_mouse_windy",
-        "label": "Western midsummer trout strong river wind",
+        "label": "Northern California midsummer trout strong river wind",
         "species": "trout",
         "context": "freshwater_river",
-        "region_key": "mountain_west",
+        "region_key": "northern_california",
         "month": 7,
         "water_clarity": "clear",
         "daily_payload": {
@@ -497,7 +497,7 @@
         {
           "label": "Cold snap slows and deepens with a hair-jig fallback",
           "pass": true,
-          "detail": "right finesse=on; right pace=medium; right water=mid; right lures=hair_jig, soft_jerkbait, paddle_tail_swimbait"
+          "detail": "right finesse=on; right pace=slow; right water=mid; right lures=hair_jig, paddle_tail_swimbait, soft_jerkbait"
         }
       ],
       "left": {
@@ -520,13 +520,13 @@
           "final_presentation_style": "subtle"
         },
         "lure_top3": [
-          "soft_jerkbait",
           "paddle_tail_swimbait",
+          "soft_jerkbait",
           "inline_spinner"
         ],
         "fly_top3": [
-          "mouse_fly",
           "slim_minnow_streamer",
+          "bucktail_baitfish_streamer",
           "clouser_minnow"
         ],
         "lure_lanes": [
@@ -535,7 +535,7 @@
           "horizontal_search"
         ],
         "fly_lanes": [
-          "fly_surface",
+          "fly_baitfish",
           "fly_baitfish",
           "fly_baitfish"
         ]
@@ -552,7 +552,7 @@
           "surface_window": "off",
           "reaction_window": "off",
           "finesse_window": "on",
-          "pace_bias": "medium"
+          "pace_bias": "slow"
         },
         "resolved_profile": {
           "final_water_column": "mid",
@@ -561,13 +561,13 @@
         },
         "lure_top3": [
           "hair_jig",
-          "soft_jerkbait",
-          "paddle_tail_swimbait"
+          "paddle_tail_swimbait",
+          "soft_jerkbait"
         ],
         "fly_top3": [
+          "woolly_bugger",
           "slim_minnow_streamer",
-          "muddler_sculpin",
-          "clouser_minnow"
+          "muddler_sculpin"
         ],
         "lure_lanes": [
           "finesse_subtle",
@@ -575,9 +575,9 @@
           "horizontal_search"
         ],
         "fly_lanes": [
-          "fly_baitfish",
           "fly_bottom",
-          "fly_baitfish"
+          "fly_baitfish",
+          "fly_bottom"
         ]
       }
     },

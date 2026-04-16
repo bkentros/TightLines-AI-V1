@@ -1,6 +1,6 @@
 # Smallmouth V3 Matrix Review Sheet
 
-Generated: 2026-04-15T20:11:55.771Z
+Generated: 2026-04-16T12:52:44.592Z
 Archive bundle generated: 2026-04-15T20:07:40.957Z
 Scenario count: 83
 Contexts: 36 lake/pond, 47 river

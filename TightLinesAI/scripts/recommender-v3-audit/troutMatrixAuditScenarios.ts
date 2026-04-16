@@ -27,6 +27,7 @@ function expectation(
   acceptable_secondary_lanes: RecommenderV3ArchetypeId[],
   expected_color_lanes: ResolvedColorThemeV3[],
   disallowed_lanes: RecommenderV3ArchetypeId[] = [],
+  notes?: string[],
 ): RecommenderAuditExpectation {
   return {
     seasonal_story,
@@ -34,6 +35,7 @@ function expectation(
     acceptable_secondary_lanes,
     disallowed_lanes,
     expected_color_lanes,
+    ...(notes && notes.length > 0 ? { notes } : {}),
   };
 }
 
@@ -86,9 +88,12 @@ function appalachianTailwaterExpectation(focus: string): RecommenderAuditExpecta
       return expectation(
         "Summer tailwater trout should tighten into controlled sculpin, bugger, and leech lanes, only allowing a mouse as a narrow supporting read.",
         ["muddler_sculpin", "woolly_bugger", "rabbit_strip_leech"],
-        ["sculpin_streamer", "slim_minnow_streamer", "mouse_fly"],
+        ["sculpin_streamer", "slim_minnow_streamer"],
         colorSet("dark", "natural", "natural"),
         defaultDisallowed(),
+        [
+          "Mouse is a rare low-light bank read when the seasonal pool and daily surface gate align; not a matrix-counted specialty reach target.",
+        ],
       );
     case "fall_transition":
     default:
@@ -132,9 +137,12 @@ function northeastFreestoneExpectation(focus: string): RecommenderAuditExpectati
       return expectation(
         "Summer freestone trout should allow clean minnow lanes and one controlled mouse option, but not noisy warmwater surface behavior.",
         ["slim_minnow_streamer", "clouser_minnow", "muddler_sculpin"],
-        ["woolly_bugger", "mouse_fly", "inline_spinner"],
+        ["woolly_bugger", "inline_spinner"],
         clearColors(),
         defaultDisallowed(),
+        [
+          "Mouse remains an occasional narrow surface read, not a specialty headline counted in matrix reach summaries.",
+        ],
       );
     case "fall_transition":
     default:
@@ -183,9 +191,12 @@ function mountainWestRiverExpectation(focus: string): RecommenderAuditExpectatio
       return expectation(
         "Summer western trout should remain streamer-minded with controlled minnow, muddler, and spinner lanes rather than bass-style aggression.",
         ["slim_minnow_streamer", "muddler_sculpin", "inline_spinner"],
-        ["clouser_minnow", "woolly_bugger", "mouse_fly"],
+        ["clouser_minnow", "woolly_bugger"],
         colorSet("natural", "natural", "bright"),
         defaultDisallowed(),
+        [
+          "Mouse is region- and pool-gated in seasonal truth; do not treat it as a matrix specialty quota here.",
+        ],
       );
     case "fall_transition":
     default:
@@ -229,9 +240,12 @@ function pacificNorthwestRiverExpectation(focus: string): RecommenderAuditExpect
       return expectation(
         "Summer northwest trout should stay streamer-minded with low-water restraint, allowing one mouse window only when conditions support it.",
         ["slim_minnow_streamer", "muddler_sculpin", "clouser_minnow"],
-        ["woolly_bugger", "inline_spinner", "mouse_fly"],
+        ["woolly_bugger", "inline_spinner"],
         clearColors(),
         defaultDisallowed(),
+        [
+          "Mouse windows are daily- and pool-gated; matrix does not count mouse as an expected specialty reach row.",
+        ],
       );
     case "fall_transition":
     default:

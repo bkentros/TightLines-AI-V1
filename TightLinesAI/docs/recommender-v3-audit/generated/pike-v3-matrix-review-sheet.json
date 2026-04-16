@@ -1,6 +1,6 @@
 {
   "batch_id": "pike_v3_matrix",
-  "generated_at": "2026-04-16T02:12:17.695Z",
+  "generated_at": "2026-04-16T12:54:11.132Z",
   "archive_bundle_generated_at": "2026-04-16T02:12:15.680Z",
   "scenario_count": 48,
   "score_keys": [
@@ -60,7 +60,7 @@
         "top_1_lure": {
           "id": "blade_bait",
           "display_name": "Blade Bait",
-          "score": 13.3,
+          "score": 13.33,
           "tactical_lane": "reaction_mid_column",
           "color_theme": "bright",
           "color_recommendations": [
@@ -75,7 +75,7 @@
           {
             "id": "blade_bait",
             "display_name": "Blade Bait",
-            "score": 13.3,
+            "score": 13.33,
             "tactical_lane": "reaction_mid_column",
             "color_theme": "bright",
             "color_recommendations": [
@@ -89,7 +89,7 @@
           {
             "id": "paddle_tail_swimbait",
             "display_name": "Paddle-Tail Swimbait",
-            "score": 13.3,
+            "score": 13.29,
             "tactical_lane": "horizontal_search",
             "color_theme": "bright",
             "color_recommendations": [
@@ -103,7 +103,7 @@
           {
             "id": "pike_jerkbait",
             "display_name": "Large Jerkbait",
-            "score": 13.18,
+            "score": 13.19,
             "tactical_lane": "pike_big_profile",
             "color_theme": "bright",
             "color_recommendations": [
@@ -147,7 +147,7 @@
           {
             "id": "pike_bunny_streamer",
             "display_name": "Large Rabbit Strip Streamer",
-            "score": 13.18,
+            "score": 13.19,
             "tactical_lane": "pike_big_profile",
             "color_theme": "bright",
             "color_recommendations": [
@@ -161,7 +161,7 @@
           {
             "id": "rabbit_strip_leech",
             "display_name": "Rabbit-Strip Leech",
-            "score": 11.75,
+            "score": 11.73,
             "tactical_lane": "fly_bottom",
             "color_theme": "bright",
             "color_recommendations": [
@@ -201,7 +201,7 @@
           "TOP3_PRIMARY_PRESENT",
           "NO_DISALLOWED_PRESENT",
           "NO_REGION_FALLBACK",
-          "TOP1_TIE:lure",
+          "NO_TOP1_TIE",
           "EXPLANATION_ALIGNED",
           "TOP_COLOR_MATCH:bright,bright"
         ],
@@ -267,7 +267,7 @@
         "top_1_lure": {
           "id": "blade_bait",
           "display_name": "Blade Bait",
-          "score": 13.3,
+          "score": 13.33,
           "tactical_lane": "reaction_mid_column",
           "color_theme": "bright",
           "color_recommendations": [
@@ -282,7 +282,7 @@
           {
             "id": "blade_bait",
             "display_name": "Blade Bait",
-            "score": 13.3,
+            "score": 13.33,
             "tactical_lane": "reaction_mid_column",
             "color_theme": "bright",
             "color_recommendations": [
@@ -296,7 +296,7 @@
           {
             "id": "paddle_tail_swimbait",
             "display_name": "Paddle-Tail Swimbait",
-            "score": 11.8,
+            "score": 11.79,
             "tactical_lane": "horizontal_search",
             "color_theme": "bright",
             "color_recommendations": [
@@ -310,7 +310,7 @@
           {
             "id": "pike_jerkbait",
             "display_name": "Large Jerkbait",
-            "score": 11.58,
+            "score": 11.59,
             "tactical_lane": "pike_big_profile",
             "color_theme": "bright",
             "color_recommendations": [
@@ -354,7 +354,7 @@
           {
             "id": "rabbit_strip_leech",
             "display_name": "Rabbit-Strip Leech",
-            "score": 13.25,
+            "score": 13.23,
             "tactical_lane": "fly_bottom",
             "color_theme": "bright",
             "color_recommendations": [
@@ -368,7 +368,7 @@
           {
             "id": "pike_bunny_streamer",
             "display_name": "Large Rabbit Strip Streamer",
-            "score": 11.58,
+            "score": 11.59,
             "tactical_lane": "pike_big_profile",
             "color_theme": "bright",
             "color_recommendations": [
@@ -475,7 +475,7 @@
         "top_1_lure": {
           "id": "pike_jerkbait",
           "display_name": "Large Jerkbait",
-          "score": 12.53,
+          "score": 12.54,
           "tactical_lane": "pike_big_profile",
           "color_theme": "dark",
           "color_recommendations": [
@@ -490,7 +490,7 @@
           {
             "id": "pike_jerkbait",
             "display_name": "Large Jerkbait",
-            "score": 12.53,
+            "score": 12.54,
             "tactical_lane": "pike_big_profile",
             "color_theme": "dark",
             "color_recommendations": [
@@ -533,7 +533,7 @@
         "top_1_fly": {
           "id": "pike_bunny_streamer",
           "display_name": "Large Rabbit Strip Streamer",
-          "score": 12.53,
+          "score": 12.54,
           "tactical_lane": "pike_big_profile",
           "color_theme": "dark",
           "color_recommendations": [
@@ -548,7 +548,7 @@
           {
             "id": "pike_bunny_streamer",
             "display_name": "Large Rabbit Strip Streamer",
-            "score": 12.53,
+            "score": 12.54,
             "tactical_lane": "pike_big_profile",
             "color_theme": "dark",
             "color_recommendations": [
@@ -681,7 +681,7 @@
         "top_1_lure": {
           "id": "pike_jerkbait",
           "display_name": "Large Jerkbait",
-          "score": 13.93,
+          "score": 13.94,
           "tactical_lane": "pike_big_profile",
           "color_theme": "dark",
           "color_recommendations": [
@@ -696,7 +696,7 @@
           {
             "id": "pike_jerkbait",
             "display_name": "Large Jerkbait",
-            "score": 13.93,
+            "score": 13.94,
             "tactical_lane": "pike_big_profile",
             "color_theme": "dark",
             "color_recommendations": [
@@ -739,7 +739,7 @@
         "top_1_fly": {
           "id": "pike_bunny_streamer",
           "display_name": "Large Rabbit Strip Streamer",
-          "score": 13.93,
+          "score": 13.94,
           "tactical_lane": "pike_big_profile",
           "color_theme": "dark",
           "color_recommendations": [
@@ -754,7 +754,7 @@
           {
             "id": "pike_bunny_streamer",
             "display_name": "Large Rabbit Strip Streamer",
-            "score": 13.93,
+            "score": 13.94,
             "tactical_lane": "pike_big_profile",
             "color_theme": "dark",
             "color_recommendations": [
@@ -887,7 +887,7 @@
         "top_1_lure": {
           "id": "large_profile_pike_swimbait",
           "display_name": "Large Paddle-Tail Swimbait",
-          "score": 14.13,
+          "score": 14.14,
           "tactical_lane": "pike_big_profile",
           "color_theme": "dark",
           "color_recommendations": [
@@ -902,7 +902,7 @@
           {
             "id": "large_profile_pike_swimbait",
             "display_name": "Large Paddle-Tail Swimbait",
-            "score": 14.13,
+            "score": 14.14,
             "tactical_lane": "pike_big_profile",
             "color_theme": "dark",
             "color_recommendations": [
@@ -945,7 +945,7 @@
         "top_1_fly": {
           "id": "large_articulated_pike_streamer",
           "display_name": "Articulated Pike Streamer",
-          "score": 14.13,
+          "score": 14.14,
           "tactical_lane": "pike_big_profile",
           "color_theme": "dark",
           "color_recommendations": [
@@ -960,7 +960,7 @@
           {
             "id": "large_articulated_pike_streamer",
             "display_name": "Articulated Pike Streamer",
-            "score": 14.13,
+            "score": 14.14,
             "tactical_lane": "pike_big_profile",
             "color_theme": "dark",
             "color_recommendations": [
@@ -1093,7 +1093,7 @@
         "top_1_lure": {
           "id": "walking_topwater",
           "display_name": "Walking Topwater",
-          "score": 16.13,
+          "score": 16.14,
           "tactical_lane": "surface",
           "color_theme": "bright",
           "color_recommendations": [
@@ -1108,7 +1108,7 @@
           {
             "id": "walking_topwater",
             "display_name": "Walking Topwater",
-            "score": 16.13,
+            "score": 16.14,
             "tactical_lane": "surface",
             "color_theme": "bright",
             "color_recommendations": [
@@ -1122,7 +1122,7 @@
           {
             "id": "paddle_tail_swimbait",
             "display_name": "Paddle-Tail Swimbait",
-            "score": 13.3,
+            "score": 13.29,
             "tactical_lane": "horizontal_search",
             "color_theme": "bright",
             "color_recommendations": [
@@ -1136,7 +1136,7 @@
           {
             "id": "suspending_jerkbait",
             "display_name": "Suspending Jerkbait",
-            "score": 13.9,
+            "score": 13.93,
             "tactical_lane": "reaction_mid_column",
             "color_theme": "bright",
             "color_recommendations": [
@@ -1151,7 +1151,7 @@
         "top_1_fly": {
           "id": "popper_fly",
           "display_name": "Popper Fly",
-          "score": 16.15,
+          "score": 16.18,
           "tactical_lane": "fly_surface",
           "color_theme": "bright",
           "color_recommendations": [
@@ -1166,7 +1166,7 @@
           {
             "id": "popper_fly",
             "display_name": "Popper Fly",
-            "score": 16.15,
+            "score": 16.18,
             "tactical_lane": "fly_surface",
             "color_theme": "bright",
             "color_recommendations": [
@@ -1194,7 +1194,7 @@
           {
             "id": "large_articulated_pike_streamer",
             "display_name": "Articulated Pike Streamer",
-            "score": 13.18,
+            "score": 13.19,
             "tactical_lane": "pike_big_profile",
             "color_theme": "bright",
             "color_recommendations": [
@@ -1296,9 +1296,9 @@
       ],
       "actual_output": {
         "top_1_lure": {
-          "id": "paddle_tail_swimbait",
-          "display_name": "Paddle-Tail Swimbait",
-          "score": 10.3,
+          "id": "spinnerbait",
+          "display_name": "Spinnerbait",
+          "score": 10.32,
           "tactical_lane": "horizontal_search",
           "color_theme": "bright",
           "color_recommendations": [
@@ -1307,13 +1307,13 @@
             "firetiger"
           ],
           "why_chosen": "With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane.",
-          "how_to_fish": "Reel at a steady pace with the rod low so the tail thumps consistently; speed up slightly over bait schools or slow down after a follow. Slow down and lengthen the pause."
+          "how_to_fish": "Slow-roll it along the bottom edge of cover at a steady pace, keeping the blades just ticking; bump any piece of structure and let it rise. Slow down and lengthen the pause."
         },
         "top_3_lures": [
           {
-            "id": "paddle_tail_swimbait",
-            "display_name": "Paddle-Tail Swimbait",
-            "score": 10.3,
+            "id": "spinnerbait",
+            "display_name": "Spinnerbait",
+            "score": 10.32,
             "tactical_lane": "horizontal_search",
             "color_theme": "bright",
             "color_recommendations": [
@@ -1322,12 +1322,12 @@
               "firetiger"
             ],
             "why_chosen": "With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane.",
-            "how_to_fish": "Reel at a steady pace with the rod low so the tail thumps consistently; speed up slightly over bait schools or slow down after a follow. Slow down and lengthen the pause."
+            "how_to_fish": "Slow-roll it along the bottom edge of cover at a steady pace, keeping the blades just ticking; bump any piece of structure and let it rise. Slow down and lengthen the pause."
           },
           {
-            "id": "spinnerbait",
-            "display_name": "Spinnerbait",
-            "score": 10.3,
+            "id": "paddle_tail_swimbait",
+            "display_name": "Paddle-Tail Swimbait",
+            "score": 10.29,
             "tactical_lane": "horizontal_search",
             "color_theme": "bright",
             "color_recommendations": [
@@ -1336,12 +1336,12 @@
               "firetiger"
             ],
             "why_chosen": "With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different horizontal search look without leaving today's window.",
-            "how_to_fish": "Slow-roll it along the bottom edge of cover at a steady pace, keeping the blades just ticking; bump any piece of structure and let it rise. Slow down and lengthen the pause."
+            "how_to_fish": "Reel at a steady pace with the rod low so the tail thumps consistently; speed up slightly over bait schools or slow down after a follow. Slow down and lengthen the pause."
           },
           {
             "id": "suspending_jerkbait",
             "display_name": "Suspending Jerkbait",
-            "score": 8.7,
+            "score": 8.73,
             "tactical_lane": "reaction_mid_column",
             "color_theme": "bright",
             "color_recommendations": [
@@ -1356,7 +1356,7 @@
         "top_1_fly": {
           "id": "large_articulated_pike_streamer",
           "display_name": "Articulated Pike Streamer",
-          "score": 10.88,
+          "score": 10.89,
           "tactical_lane": "pike_big_profile",
           "color_theme": "bright",
           "color_recommendations": [
@@ -1371,7 +1371,7 @@
           {
             "id": "large_articulated_pike_streamer",
             "display_name": "Articulated Pike Streamer",
-            "score": 10.88,
+            "score": 10.89,
             "tactical_lane": "pike_big_profile",
             "color_theme": "bright",
             "color_recommendations": [
@@ -1413,8 +1413,8 @@
         ],
         "color_notes": [
           "Daily posture: suppressed",
-          "Paddle-Tail Swimbait: bright -> white/chartreuse, chartreuse, firetiger",
           "Spinnerbait: bright -> white/chartreuse, chartreuse, firetiger",
+          "Paddle-Tail Swimbait: bright -> white/chartreuse, chartreuse, firetiger",
           "Suspending Jerkbait: bright -> white/chartreuse, chartreuse, firetiger",
           "Articulated Pike Streamer: bright -> white/chartreuse, chartreuse, firetiger",
           "Large Rabbit Strip Streamer: bright -> white/chartreuse, chartreuse, firetiger",
@@ -1441,7 +1441,7 @@
           "TOP3_PRIMARY_PRESENT",
           "NO_DISALLOWED_PRESENT",
           "NO_REGION_FALLBACK",
-          "TOP1_TIE:lure",
+          "NO_TOP1_TIE",
           "EXPLANATION_ALIGNED",
           "TOP_COLOR_MATCH:bright,bright"
         ],
@@ -1507,7 +1507,7 @@
         "top_1_lure": {
           "id": "large_profile_pike_swimbait",
           "display_name": "Large Paddle-Tail Swimbait",
-          "score": 13.93,
+          "score": 13.94,
           "tactical_lane": "pike_big_profile",
           "color_theme": "dark",
           "color_recommendations": [
@@ -1522,7 +1522,7 @@
           {
             "id": "large_profile_pike_swimbait",
             "display_name": "Large Paddle-Tail Swimbait",
-            "score": 13.93,
+            "score": 13.94,
             "tactical_lane": "pike_big_profile",
             "color_theme": "dark",
             "color_recommendations": [
@@ -1565,7 +1565,7 @@
         "top_1_fly": {
           "id": "large_articulated_pike_streamer",
           "display_name": "Articulated Pike Streamer",
-          "score": 13.93,
+          "score": 13.94,
           "tactical_lane": "pike_big_profile",
           "color_theme": "dark",
           "color_recommendations": [
@@ -1580,7 +1580,7 @@
           {
             "id": "large_articulated_pike_streamer",
             "display_name": "Articulated Pike Streamer",
-            "score": 13.93,
+            "score": 13.94,
             "tactical_lane": "pike_big_profile",
             "color_theme": "dark",
             "color_recommendations": [
@@ -1713,7 +1713,7 @@
         "top_1_lure": {
           "id": "large_profile_pike_swimbait",
           "display_name": "Large Paddle-Tail Swimbait",
-          "score": 14.13,
+          "score": 14.14,
           "tactical_lane": "pike_big_profile",
           "color_theme": "dark",
           "color_recommendations": [
@@ -1728,7 +1728,7 @@
           {
             "id": "large_profile_pike_swimbait",
             "display_name": "Large Paddle-Tail Swimbait",
-            "score": 14.13,
+            "score": 14.14,
             "tactical_lane": "pike_big_profile",
             "color_theme": "dark",
             "color_recommendations": [
@@ -1771,7 +1771,7 @@
         "top_1_fly": {
           "id": "large_articulated_pike_streamer",
           "display_name": "Articulated Pike Streamer",
-          "score": 14.13,
+          "score": 14.14,
           "tactical_lane": "pike_big_profile",
           "color_theme": "dark",
           "color_recommendations": [
@@ -1786,7 +1786,7 @@
           {
             "id": "large_articulated_pike_streamer",
             "display_name": "Articulated Pike Streamer",
-            "score": 14.13,
+            "score": 14.14,
             "tactical_lane": "pike_big_profile",
             "color_theme": "dark",
             "color_recommendations": [
@@ -1947,7 +1947,7 @@
           {
             "id": "large_profile_pike_swimbait",
             "display_name": "Large Paddle-Tail Swimbait",
-            "score": 14.78,
+            "score": 14.79,
             "tactical_lane": "pike_big_profile",
             "color_theme": "bright",
             "color_recommendations": [
@@ -2005,7 +2005,7 @@
           {
             "id": "large_articulated_pike_streamer",
             "display_name": "Articulated Pike Streamer",
-            "score": 14.78,
+            "score": 14.79,
             "tactical_lane": "pike_big_profile",
             "color_theme": "bright",
             "color_recommendations": [
@@ -2124,7 +2124,7 @@
         "top_1_lure": {
           "id": "blade_bait",
           "display_name": "Blade Bait",
-          "score": 11.75,
+          "score": 11.78,
           "tactical_lane": "reaction_mid_column",
           "color_theme": "dark",
           "color_recommendations": [
@@ -2139,7 +2139,7 @@
           {
             "id": "blade_bait",
             "display_name": "Blade Bait",
-            "score": 11.75,
+            "score": 11.78,
             "tactical_lane": "reaction_mid_column",
             "color_theme": "dark",
             "color_recommendations": [
@@ -2153,7 +2153,7 @@
           {
             "id": "paddle_tail_swimbait",
             "display_name": "Paddle-Tail Swimbait",
-            "score": 10.25,
+            "score": 10.24,
             "tactical_lane": "horizontal_search",
             "color_theme": "dark",
             "color_recommendations": [
@@ -2167,7 +2167,7 @@
           {
             "id": "pike_jerkbait",
             "display_name": "Large Jerkbait",
-            "score": 10.73,
+            "score": 10.74,
             "tactical_lane": "pike_big_profile",
             "color_theme": "dark",
             "color_recommendations": [
@@ -2182,7 +2182,7 @@
         "top_1_fly": {
           "id": "rabbit_strip_leech",
           "display_name": "Rabbit-Strip Leech",
-          "score": 13.25,
+          "score": 13.23,
           "tactical_lane": "fly_bottom",
           "color_theme": "dark",
           "color_recommendations": [
@@ -2197,7 +2197,7 @@
           {
             "id": "rabbit_strip_leech",
             "display_name": "Rabbit-Strip Leech",
-            "score": 13.25,
+            "score": 13.23,
             "tactical_lane": "fly_bottom",
             "color_theme": "dark",
             "color_recommendations": [
@@ -2225,7 +2225,7 @@
           {
             "id": "pike_bunny_streamer",
             "display_name": "Large Rabbit Strip Streamer",
-            "score": 10.73,
+            "score": 10.74,
             "tactical_lane": "pike_big_profile",
             "color_theme": "dark",
             "color_recommendations": [
@@ -2331,7 +2331,7 @@
         "top_1_lure": {
           "id": "blade_bait",
           "display_name": "Blade Bait",
-          "score": 11.95,
+          "score": 11.98,
           "tactical_lane": "reaction_mid_column",
           "color_theme": "bright",
           "color_recommendations": [
@@ -2346,7 +2346,7 @@
           {
             "id": "blade_bait",
             "display_name": "Blade Bait",
-            "score": 11.95,
+            "score": 11.98,
             "tactical_lane": "reaction_mid_column",
             "color_theme": "bright",
             "color_recommendations": [
@@ -2360,7 +2360,7 @@
           {
             "id": "paddle_tail_swimbait",
             "display_name": "Paddle-Tail Swimbait",
-            "score": 10.45,
+            "score": 10.44,
             "tactical_lane": "horizontal_search",
             "color_theme": "bright",
             "color_recommendations": [
@@ -2374,7 +2374,7 @@
           {
             "id": "pike_jerkbait",
             "display_name": "Large Jerkbait",
-            "score": 10.93,
+            "score": 10.94,
             "tactical_lane": "pike_big_profile",
             "color_theme": "bright",
             "color_recommendations": [
@@ -2389,7 +2389,7 @@
         "top_1_fly": {
           "id": "rabbit_strip_leech",
           "display_name": "Rabbit-Strip Leech",
-          "score": 13.45,
+          "score": 13.43,
           "tactical_lane": "fly_bottom",
           "color_theme": "bright",
           "color_recommendations": [
@@ -2404,7 +2404,7 @@
           {
             "id": "rabbit_strip_leech",
             "display_name": "Rabbit-Strip Leech",
-            "score": 13.45,
+            "score": 13.43,
             "tactical_lane": "fly_bottom",
             "color_theme": "bright",
             "color_recommendations": [
@@ -2432,7 +2432,7 @@
           {
             "id": "pike_bunny_streamer",
             "display_name": "Large Rabbit Strip Streamer",
-            "score": 10.93,
+            "score": 10.94,
             "tactical_lane": "pike_big_profile",
             "color_theme": "bright",
             "color_recommendations": [
@@ -2538,7 +2538,7 @@
         "top_1_lure": {
           "id": "blade_bait",
           "display_name": "Blade Bait",
-          "score": 10.45,
+          "score": 10.48,
           "tactical_lane": "reaction_mid_column",
           "color_theme": "dark",
           "color_recommendations": [
@@ -2553,7 +2553,7 @@
           {
             "id": "blade_bait",
             "display_name": "Blade Bait",
-            "score": 10.45,
+            "score": 10.48,
             "tactical_lane": "reaction_mid_column",
             "color_theme": "dark",
             "color_recommendations": [
@@ -2567,7 +2567,7 @@
           {
             "id": "paddle_tail_swimbait",
             "display_name": "Paddle-Tail Swimbait",
-            "score": 10.45,
+            "score": 10.44,
             "tactical_lane": "horizontal_search",
             "color_theme": "dark",
             "color_recommendations": [
@@ -2581,7 +2581,7 @@
           {
             "id": "suspending_jerkbait",
             "display_name": "Suspending Jerkbait",
-            "score": 10.45,
+            "score": 10.46,
             "tactical_lane": "reaction_mid_column",
             "color_theme": "dark",
             "color_recommendations": [
@@ -2596,7 +2596,7 @@
         "top_1_fly": {
           "id": "balanced_leech",
           "display_name": "Balanced Leech",
-          "score": 13.45,
+          "score": 13.47,
           "tactical_lane": "fly_bottom",
           "color_theme": "dark",
           "color_recommendations": [
@@ -2611,7 +2611,7 @@
           {
             "id": "balanced_leech",
             "display_name": "Balanced Leech",
-            "score": 13.45,
+            "score": 13.47,
             "tactical_lane": "fly_bottom",
             "color_theme": "dark",
             "color_recommendations": [
@@ -2625,7 +2625,7 @@
           {
             "id": "rabbit_strip_leech",
             "display_name": "Rabbit-Strip Leech",
-            "score": 13.45,
+            "score": 13.43,
             "tactical_lane": "fly_bottom",
             "color_theme": "dark",
             "color_recommendations": [
@@ -2679,7 +2679,7 @@
           "TOP3_PRIMARY_PRESENT",
           "NO_DISALLOWED_PRESENT",
           "NO_REGION_FALLBACK",
-          "TOP1_TIE:lure,fly",
+          "NO_TOP1_TIE",
           "EXPLANATION_ALIGNED",
           "TOP_COLOR_MATCH:dark,dark"
         ],
@@ -2745,7 +2745,7 @@
         "top_1_lure": {
           "id": "blade_bait",
           "display_name": "Blade Bait",
-          "score": 10.45,
+          "score": 10.48,
           "tactical_lane": "reaction_mid_column",
           "color_theme": "natural",
           "color_recommendations": [
@@ -2760,7 +2760,7 @@
           {
             "id": "blade_bait",
             "display_name": "Blade Bait",
-            "score": 10.45,
+            "score": 10.48,
             "tactical_lane": "reaction_mid_column",
             "color_theme": "natural",
             "color_recommendations": [
@@ -2774,7 +2774,7 @@
           {
             "id": "paddle_tail_swimbait",
             "display_name": "Paddle-Tail Swimbait",
-            "score": 10.45,
+            "score": 10.44,
             "tactical_lane": "horizontal_search",
             "color_theme": "natural",
             "color_recommendations": [
@@ -2788,7 +2788,7 @@
           {
             "id": "suspending_jerkbait",
             "display_name": "Suspending Jerkbait",
-            "score": 10.45,
+            "score": 10.46,
             "tactical_lane": "reaction_mid_column",
             "color_theme": "natural",
             "color_recommendations": [
@@ -2803,7 +2803,7 @@
         "top_1_fly": {
           "id": "balanced_leech",
           "display_name": "Balanced Leech",
-          "score": 13.45,
+          "score": 13.47,
           "tactical_lane": "fly_bottom",
           "color_theme": "natural",
           "color_recommendations": [
@@ -2818,7 +2818,7 @@
           {
             "id": "balanced_leech",
             "display_name": "Balanced Leech",
-            "score": 13.45,
+            "score": 13.47,
             "tactical_lane": "fly_bottom",
             "color_theme": "natural",
             "color_recommendations": [
@@ -2832,7 +2832,7 @@
           {
             "id": "rabbit_strip_leech",
             "display_name": "Rabbit-Strip Leech",
-            "score": 13.45,
+            "score": 13.43,
             "tactical_lane": "fly_bottom",
             "color_theme": "natural",
             "color_recommendations": [
@@ -2885,7 +2885,7 @@
           "TOP3_PRIMARY_PRESENT",
           "NO_DISALLOWED_PRESENT",
           "NO_REGION_FALLBACK",
-          "TOP1_TIE:lure,fly",
+          "NO_TOP1_TIE",
           "EXPLANATION_ALIGNED",
           "TOP_COLOR_MATCH:natural,natural"
         ],
@@ -2951,7 +2951,7 @@
         "top_1_lure": {
           "id": "paddle_tail_swimbait",
           "display_name": "Paddle-Tail Swimbait",
-          "score": 11.95,
+          "score": 11.97,
           "tactical_lane": "horizontal_search",
           "color_theme": "natural",
           "color_recommendations": [
@@ -2966,7 +2966,7 @@
           {
             "id": "paddle_tail_swimbait",
             "display_name": "Paddle-Tail Swimbait",
-            "score": 11.95,
+            "score": 11.97,
             "tactical_lane": "horizontal_search",
             "color_theme": "natural",
             "color_recommendations": [
@@ -2978,23 +2978,23 @@
             "how_to_fish": "Reel at a steady pace with the rod low so the tail thumps consistently; speed up slightly over bait schools or slow down after a follow. Slow down and lengthen the pause."
           },
           {
-            "id": "soft_jerkbait",
-            "display_name": "Soft Plastic Jerkbait",
+            "id": "suspending_jerkbait",
+            "display_name": "Suspending Jerkbait",
             "score": 11.95,
-            "tactical_lane": "horizontal_search",
+            "tactical_lane": "reaction_mid_column",
             "color_theme": "natural",
             "color_recommendations": [
               "green pumpkin",
               "olive",
               "smoke"
             ],
-            "why_chosen": "Heat stress moves fish to cooler, deeper water and narrows the feeding window. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different horizontal search look without leaving today's window.",
-            "how_to_fish": "Snap the rod sideways so the bait darts left or right, then drop the rod tip so it glides and sinks on a slack line before the next snap. Slow down and lengthen the pause."
+            "why_chosen": "Heat stress moves fish to cooler, deeper water and narrows the feeding window. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different reaction mid column look without leaving today's window.",
+            "how_to_fish": "Jerk, jerk, pause. The bait should dart and glide sideways on each twitch; dial the pause length to water temperature — colder means longer. Slow down and lengthen the pause."
           },
           {
             "id": "pike_jerkbait",
             "display_name": "Large Jerkbait",
-            "score": 11.03,
+            "score": 11.04,
             "tactical_lane": "pike_big_profile",
             "color_theme": "natural",
             "color_recommendations": [
@@ -3009,7 +3009,7 @@
         "top_1_fly": {
           "id": "pike_bunny_streamer",
           "display_name": "Large Rabbit Strip Streamer",
-          "score": 11.03,
+          "score": 11.04,
           "tactical_lane": "pike_big_profile",
           "color_theme": "natural",
           "color_recommendations": [
@@ -3024,7 +3024,7 @@
           {
             "id": "pike_bunny_streamer",
             "display_name": "Large Rabbit Strip Streamer",
-            "score": 11.03,
+            "score": 11.04,
             "tactical_lane": "pike_big_profile",
             "color_theme": "natural",
             "color_recommendations": [
@@ -3067,7 +3067,7 @@
         "color_notes": [
           "Daily posture: neutral",
           "Paddle-Tail Swimbait: natural -> green pumpkin, olive, smoke",
-          "Soft Plastic Jerkbait: natural -> green pumpkin, olive, smoke",
+          "Suspending Jerkbait: natural -> green pumpkin, olive, smoke",
           "Large Jerkbait: natural -> green pumpkin, olive, smoke",
           "Large Rabbit Strip Streamer: natural -> green pumpkin, olive, smoke",
           "Articulated Pike Streamer: natural -> green pumpkin, olive, smoke",
@@ -3091,7 +3091,7 @@
           "TOP3_PRIMARY_PRESENT",
           "NO_DISALLOWED_PRESENT",
           "NO_REGION_FALLBACK",
-          "TOP1_TIE:lure",
+          "NO_TOP1_TIE",
           "EXPLANATION_ALIGNED",
           "TOP_COLOR_MATCH:natural,natural"
         ],
@@ -3157,7 +3157,7 @@
         "top_1_lure": {
           "id": "paddle_tail_swimbait",
           "display_name": "Paddle-Tail Swimbait",
-          "score": 10.3,
+          "score": 10.32,
           "tactical_lane": "horizontal_search",
           "color_theme": "dark",
           "color_recommendations": [
@@ -3172,7 +3172,7 @@
           {
             "id": "paddle_tail_swimbait",
             "display_name": "Paddle-Tail Swimbait",
-            "score": 10.3,
+            "score": 10.32,
             "tactical_lane": "horizontal_search",
             "color_theme": "dark",
             "color_recommendations": [
@@ -3186,7 +3186,7 @@
           {
             "id": "soft_jerkbait",
             "display_name": "Soft Plastic Jerkbait",
-            "score": 10.3,
+            "score": 10.29,
             "tactical_lane": "horizontal_search",
             "color_theme": "dark",
             "color_recommendations": [
@@ -3215,7 +3215,7 @@
         "top_1_fly": {
           "id": "pike_bunny_streamer",
           "display_name": "Large Rabbit Strip Streamer",
-          "score": 9.38,
+          "score": 9.39,
           "tactical_lane": "pike_big_profile",
           "color_theme": "dark",
           "color_recommendations": [
@@ -3230,7 +3230,7 @@
           {
             "id": "pike_bunny_streamer",
             "display_name": "Large Rabbit Strip Streamer",
-            "score": 9.38,
+            "score": 9.39,
             "tactical_lane": "pike_big_profile",
             "color_theme": "dark",
             "color_recommendations": [
@@ -3299,7 +3299,7 @@
           "TOP3_PRIMARY_PRESENT",
           "NO_DISALLOWED_PRESENT",
           "NO_REGION_FALLBACK",
-          "TOP1_TIE:lure",
+          "NO_TOP1_TIE",
           "EXPLANATION_ALIGNED",
           "TOP_COLOR_MATCH:dark,dark"
         ],
@@ -3364,38 +3364,24 @@
       ],
       "actual_output": {
         "top_1_lure": {
-          "id": "hollow_body_frog",
-          "display_name": "Hollow-Body Frog",
-          "score": 13.95,
-          "tactical_lane": "cover_weedless",
+          "id": "walking_topwater",
+          "display_name": "Walking Topwater",
+          "score": 13.97,
+          "tactical_lane": "surface",
           "color_theme": "dark",
           "color_recommendations": [
             "black",
             "black/blue",
             "black/purple"
           ],
-          "why_chosen": "Low disturbance is keeping a true surface lane open today. It keeps the presentation right at the top where the monthly window still allows it.",
-          "how_to_fish": "Walk it across mats or over lily pads with short side-to-side twitches; when it enters a gap or open pocket, let it sit for two full seconds before moving. Keep it on top."
+          "why_chosen": "Low disturbance is keeping a true surface lane open today. The month is still baitfish-forward, and this stays inside that search lane.",
+          "how_to_fish": "Work it with consistent wrist flicks over open water or above grass; keep the cadence smooth and only slow down if you see fish following. Keep it on top."
         },
         "top_3_lures": [
           {
-            "id": "hollow_body_frog",
-            "display_name": "Hollow-Body Frog",
-            "score": 13.95,
-            "tactical_lane": "cover_weedless",
-            "color_theme": "dark",
-            "color_recommendations": [
-              "black",
-              "black/blue",
-              "black/purple"
-            ],
-            "why_chosen": "Low disturbance is keeping a true surface lane open today. It keeps the presentation right at the top where the monthly window still allows it.",
-            "how_to_fish": "Walk it across mats or over lily pads with short side-to-side twitches; when it enters a gap or open pocket, let it sit for two full seconds before moving. Keep it on top."
-          },
-          {
             "id": "walking_topwater",
             "display_name": "Walking Topwater",
-            "score": 13.95,
+            "score": 13.97,
             "tactical_lane": "surface",
             "color_theme": "dark",
             "color_recommendations": [
@@ -3403,13 +3389,13 @@
               "black/blue",
               "black/purple"
             ],
-            "why_chosen": "Low disturbance is keeping a true surface lane open today. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different surface look without leaving today's window.",
-            "how_to_fish": "Downrod with light wrist flicks to make it dance; the pause between twitches lets fish track and commit, so give it a beat before the next twitch. Keep it on top."
+            "why_chosen": "Low disturbance is keeping a true surface lane open today. The month is still baitfish-forward, and this stays inside that search lane.",
+            "how_to_fish": "Work it with consistent wrist flicks over open water or above grass; keep the cadence smooth and only slow down if you see fish following. Keep it on top."
           },
           {
             "id": "paddle_tail_swimbait",
             "display_name": "Paddle-Tail Swimbait",
-            "score": 13.3,
+            "score": 13.32,
             "tactical_lane": "horizontal_search",
             "color_theme": "dark",
             "color_recommendations": [
@@ -3417,8 +3403,22 @@
               "black/blue",
               "black/purple"
             ],
-            "why_chosen": "A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.",
-            "how_to_fish": "Slow-roll near the bottom on a consistent retrieve; the paddle thumps best just barely above the substrate, so keep the rod tip down and the pace even. Keep it high in the zone."
+            "why_chosen": "A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different horizontal search look without leaving today's window.",
+            "how_to_fish": "Swim it at the speed where you feel a steady kick through the rod; use rod angle to change depth without changing retrieve speed. Keep it high in the zone."
+          },
+          {
+            "id": "hollow_body_frog",
+            "display_name": "Hollow-Body Frog",
+            "score": 13.96,
+            "tactical_lane": "cover_weedless",
+            "color_theme": "dark",
+            "color_recommendations": [
+              "black",
+              "black/blue",
+              "black/purple"
+            ],
+            "why_chosen": "Low disturbance is keeping a true surface lane open today. It keeps the presentation right at the top where the monthly window still allows it. It is the cleaner change-up if the lead look does not convert.",
+            "how_to_fish": "Use steady walking cadence across open surface, then slow and pause aggressively when near cover; don't set the hook until you feel the fish pulling. Keep it on top."
           }
         ],
         "top_1_fly": {
@@ -3467,7 +3467,7 @@
           {
             "id": "large_articulated_pike_streamer",
             "display_name": "Articulated Pike Streamer",
-            "score": 11.68,
+            "score": 11.69,
             "tactical_lane": "pike_big_profile",
             "color_theme": "dark",
             "color_recommendations": [
@@ -3481,9 +3481,9 @@
         ],
         "color_notes": [
           "Daily posture: aggressive",
-          "Hollow-Body Frog: dark -> black, black/blue, black/purple",
           "Walking Topwater: dark -> black, black/blue, black/purple",
           "Paddle-Tail Swimbait: dark -> black, black/blue, black/purple",
+          "Hollow-Body Frog: dark -> black, black/blue, black/purple",
           "Mouse Fly: dark -> black, black/blue, black/purple",
           "Game Changer: dark -> black, black/blue, black/purple",
           "Articulated Pike Streamer: dark -> black, black/blue, black/purple"
@@ -3506,7 +3506,7 @@
           "TOP3_PRIMARY_PRESENT",
           "NO_DISALLOWED_PRESENT",
           "NO_REGION_FALLBACK",
-          "TOP1_TIE:lure",
+          "NO_TOP1_TIE",
           "EXPLANATION_ALIGNED",
           "TOP_COLOR_MATCH:dark,dark"
         ],
@@ -3573,7 +3573,7 @@
         "top_1_lure": {
           "id": "walking_topwater",
           "display_name": "Walking Topwater",
-          "score": 13.03,
+          "score": 13.04,
           "tactical_lane": "surface",
           "color_theme": "dark",
           "color_recommendations": [
@@ -3588,7 +3588,7 @@
           {
             "id": "walking_topwater",
             "display_name": "Walking Topwater",
-            "score": 13.03,
+            "score": 13.04,
             "tactical_lane": "surface",
             "color_theme": "dark",
             "color_recommendations": [
@@ -3602,7 +3602,7 @@
           {
             "id": "paddle_tail_swimbait",
             "display_name": "Paddle-Tail Swimbait",
-            "score": 11.8,
+            "score": 11.79,
             "tactical_lane": "horizontal_search",
             "color_theme": "dark",
             "color_recommendations": [
@@ -3616,7 +3616,7 @@
           {
             "id": "suspending_jerkbait",
             "display_name": "Suspending Jerkbait",
-            "score": 12.3,
+            "score": 12.33,
             "tactical_lane": "reaction_mid_column",
             "color_theme": "dark",
             "color_recommendations": [
@@ -3631,7 +3631,7 @@
         "top_1_fly": {
           "id": "popper_fly",
           "display_name": "Popper Fly",
-          "score": 13.05,
+          "score": 13.08,
           "tactical_lane": "fly_surface",
           "color_theme": "dark",
           "color_recommendations": [
@@ -3646,7 +3646,7 @@
           {
             "id": "popper_fly",
             "display_name": "Popper Fly",
-            "score": 13.05,
+            "score": 13.08,
             "tactical_lane": "fly_surface",
             "color_theme": "dark",
             "color_recommendations": [
@@ -3674,7 +3674,7 @@
           {
             "id": "large_articulated_pike_streamer",
             "display_name": "Articulated Pike Streamer",
-            "score": 10.08,
+            "score": 10.09,
             "tactical_lane": "pike_big_profile",
             "color_theme": "dark",
             "color_recommendations": [
@@ -3780,7 +3780,7 @@
         "top_1_lure": {
           "id": "suspending_jerkbait",
           "display_name": "Suspending Jerkbait",
-          "score": 12.55,
+          "score": 12.58,
           "tactical_lane": "reaction_mid_column",
           "color_theme": "natural",
           "color_recommendations": [
@@ -3795,7 +3795,7 @@
           {
             "id": "suspending_jerkbait",
             "display_name": "Suspending Jerkbait",
-            "score": 12.55,
+            "score": 12.58,
             "tactical_lane": "reaction_mid_column",
             "color_theme": "natural",
             "color_recommendations": [
@@ -3809,7 +3809,7 @@
           {
             "id": "paddle_tail_swimbait",
             "display_name": "Paddle-Tail Swimbait",
-            "score": 11.95,
+            "score": 11.94,
             "tactical_lane": "horizontal_search",
             "color_theme": "natural",
             "color_recommendations": [
@@ -3838,7 +3838,7 @@
         "top_1_fly": {
           "id": "large_articulated_pike_streamer",
           "display_name": "Articulated Pike Streamer",
-          "score": 11.03,
+          "score": 11.04,
           "tactical_lane": "pike_big_profile",
           "color_theme": "natural",
           "color_recommendations": [
@@ -3853,7 +3853,7 @@
           {
             "id": "large_articulated_pike_streamer",
             "display_name": "Articulated Pike Streamer",
-            "score": 11.03,
+            "score": 11.04,
             "tactical_lane": "pike_big_profile",
             "color_theme": "natural",
             "color_recommendations": [
@@ -3986,7 +3986,7 @@
         "top_1_lure": {
           "id": "large_profile_pike_swimbait",
           "display_name": "Large Paddle-Tail Swimbait",
-          "score": 14.13,
+          "score": 14.14,
           "tactical_lane": "pike_big_profile",
           "color_theme": "natural",
           "color_recommendations": [
@@ -4001,7 +4001,7 @@
           {
             "id": "large_profile_pike_swimbait",
             "display_name": "Large Paddle-Tail Swimbait",
-            "score": 14.13,
+            "score": 14.14,
             "tactical_lane": "pike_big_profile",
             "color_theme": "natural",
             "color_recommendations": [
@@ -4044,7 +4044,7 @@
         "top_1_fly": {
           "id": "large_articulated_pike_streamer",
           "display_name": "Articulated Pike Streamer",
-          "score": 14.13,
+          "score": 14.14,
           "tactical_lane": "pike_big_profile",
           "color_theme": "natural",
           "color_recommendations": [
@@ -4059,7 +4059,7 @@
           {
             "id": "large_articulated_pike_streamer",
             "display_name": "Articulated Pike Streamer",
-            "score": 14.13,
+            "score": 14.14,
             "tactical_lane": "pike_big_profile",
             "color_theme": "natural",
             "color_recommendations": [
@@ -4277,7 +4277,7 @@
           {
             "id": "large_articulated_pike_streamer",
             "display_name": "Articulated Pike Streamer",
-            "score": 14.78,
+            "score": 14.79,
             "tactical_lane": "pike_big_profile",
             "color_theme": "dark",
             "color_recommendations": [
@@ -4396,7 +4396,7 @@
         "top_1_lure": {
           "id": "large_profile_pike_swimbait",
           "display_name": "Large Paddle-Tail Swimbait",
-          "score": 12.53,
+          "score": 12.54,
           "tactical_lane": "pike_big_profile",
           "color_theme": "dark",
           "color_recommendations": [
@@ -4411,7 +4411,7 @@
           {
             "id": "large_profile_pike_swimbait",
             "display_name": "Large Paddle-Tail Swimbait",
-            "score": 12.53,
+            "score": 12.54,
             "tactical_lane": "pike_big_profile",
             "color_theme": "dark",
             "color_recommendations": [
@@ -4454,7 +4454,7 @@
         "top_1_fly": {
           "id": "large_articulated_pike_streamer",
           "display_name": "Articulated Pike Streamer",
-          "score": 12.53,
+          "score": 12.54,
           "tactical_lane": "pike_big_profile",
           "color_theme": "dark",
           "color_recommendations": [
@@ -4469,7 +4469,7 @@
           {
             "id": "large_articulated_pike_streamer",
             "display_name": "Articulated Pike Streamer",
-            "score": 12.53,
+            "score": 12.54,
             "tactical_lane": "pike_big_profile",
             "color_theme": "dark",
             "color_recommendations": [
@@ -4603,7 +4603,7 @@
         "top_1_lure": {
           "id": "blade_bait",
           "display_name": "Blade Bait",
-          "score": 10.45,
+          "score": 10.48,
           "tactical_lane": "reaction_mid_column",
           "color_theme": "dark",
           "color_recommendations": [
@@ -4618,7 +4618,7 @@
           {
             "id": "blade_bait",
             "display_name": "Blade Bait",
-            "score": 10.45,
+            "score": 10.48,
             "tactical_lane": "reaction_mid_column",
             "color_theme": "dark",
             "color_recommendations": [
@@ -4632,7 +4632,7 @@
           {
             "id": "paddle_tail_swimbait",
             "display_name": "Paddle-Tail Swimbait",
-            "score": 10.45,
+            "score": 10.44,
             "tactical_lane": "horizontal_search",
             "color_theme": "dark",
             "color_recommendations": [
@@ -4646,7 +4646,7 @@
           {
             "id": "suspending_jerkbait",
             "display_name": "Suspending Jerkbait",
-            "score": 10.45,
+            "score": 10.46,
             "tactical_lane": "reaction_mid_column",
             "color_theme": "dark",
             "color_recommendations": [
@@ -4661,7 +4661,7 @@
         "top_1_fly": {
           "id": "balanced_leech",
           "display_name": "Balanced Leech",
-          "score": 13.45,
+          "score": 13.47,
           "tactical_lane": "fly_bottom",
           "color_theme": "dark",
           "color_recommendations": [
@@ -4676,7 +4676,7 @@
           {
             "id": "balanced_leech",
             "display_name": "Balanced Leech",
-            "score": 13.45,
+            "score": 13.47,
             "tactical_lane": "fly_bottom",
             "color_theme": "dark",
             "color_recommendations": [
@@ -4690,7 +4690,7 @@
           {
             "id": "rabbit_strip_leech",
             "display_name": "Rabbit-Strip Leech",
-            "score": 13.45,
+            "score": 13.43,
             "tactical_lane": "fly_bottom",
             "color_theme": "dark",
             "color_recommendations": [
@@ -4745,7 +4745,7 @@
           "TOP3_PRIMARY_PRESENT",
           "NO_DISALLOWED_PRESENT",
           "NO_REGION_FALLBACK",
-          "TOP1_TIE:lure,fly",
+          "NO_TOP1_TIE",
           "EXPLANATION_ALIGNED",
           "TOP_COLOR_MATCH:dark,dark"
         ],
@@ -4811,7 +4811,7 @@
         "top_1_lure": {
           "id": "blade_bait",
           "display_name": "Blade Bait",
-          "score": 10.45,
+          "score": 10.48,
           "tactical_lane": "reaction_mid_column",
           "color_theme": "dark",
           "color_recommendations": [
@@ -4826,7 +4826,7 @@
           {
             "id": "blade_bait",
             "display_name": "Blade Bait",
-            "score": 10.45,
+            "score": 10.48,
             "tactical_lane": "reaction_mid_column",
             "color_theme": "dark",
             "color_recommendations": [
@@ -4840,7 +4840,7 @@
           {
             "id": "paddle_tail_swimbait",
             "display_name": "Paddle-Tail Swimbait",
-            "score": 10.45,
+            "score": 10.44,
             "tactical_lane": "horizontal_search",
             "color_theme": "dark",
             "color_recommendations": [
@@ -4854,7 +4854,7 @@
           {
             "id": "suspending_jerkbait",
             "display_name": "Suspending Jerkbait",
-            "score": 10.45,
+            "score": 10.46,
             "tactical_lane": "reaction_mid_column",
             "color_theme": "dark",
             "color_recommendations": [
@@ -4869,7 +4869,7 @@
         "top_1_fly": {
           "id": "balanced_leech",
           "display_name": "Balanced Leech",
-          "score": 13.45,
+          "score": 13.47,
           "tactical_lane": "fly_bottom",
           "color_theme": "dark",
           "color_recommendations": [
@@ -4884,7 +4884,7 @@
           {
             "id": "balanced_leech",
             "display_name": "Balanced Leech",
-            "score": 13.45,
+            "score": 13.47,
             "tactical_lane": "fly_bottom",
             "color_theme": "dark",
             "color_recommendations": [
@@ -4898,7 +4898,7 @@
           {
             "id": "rabbit_strip_leech",
             "display_name": "Rabbit-Strip Leech",
-            "score": 13.45,
+            "score": 13.43,
             "tactical_lane": "fly_bottom",
             "color_theme": "dark",
             "color_recommendations": [
@@ -4953,7 +4953,7 @@
           "TOP3_PRIMARY_PRESENT",
           "NO_DISALLOWED_PRESENT",
           "NO_REGION_FALLBACK",
-          "TOP1_TIE:lure,fly",
+          "NO_TOP1_TIE",
           "EXPLANATION_ALIGNED",
           "TOP_COLOR_MATCH:dark,dark"
         ],
@@ -5048,7 +5048,7 @@
           {
             "id": "pike_jerkbait",
             "display_name": "Large Jerkbait",
-            "score": 13.03,
+            "score": 13.04,
             "tactical_lane": "pike_big_profile",
             "color_theme": "bright",
             "color_recommendations": [
@@ -5120,7 +5120,7 @@
           {
             "id": "pike_bunny_streamer",
             "display_name": "Large Rabbit Strip Streamer",
-            "score": 13.03,
+            "score": 13.04,
             "tactical_lane": "pike_big_profile",
             "color_theme": "bright",
             "color_recommendations": [
@@ -5254,7 +5254,7 @@
           {
             "id": "pike_jerkbait",
             "display_name": "Large Jerkbait",
-            "score": 11.43,
+            "score": 11.44,
             "tactical_lane": "pike_big_profile",
             "color_theme": "bright",
             "color_recommendations": [
@@ -5326,7 +5326,7 @@
           {
             "id": "pike_bunny_streamer",
             "display_name": "Large Rabbit Strip Streamer",
-            "score": 11.43,
+            "score": 11.44,
             "tactical_lane": "pike_big_profile",
             "color_theme": "bright",
             "color_recommendations": [
@@ -5461,7 +5461,7 @@
           {
             "id": "pike_jerkbait",
             "display_name": "Large Jerkbait",
-            "score": 12.38,
+            "score": 12.39,
             "tactical_lane": "pike_big_profile",
             "color_theme": "bright",
             "color_recommendations": [
@@ -5519,7 +5519,7 @@
           {
             "id": "pike_bunny_streamer",
             "display_name": "Large Rabbit Strip Streamer",
-            "score": 12.38,
+            "score": 12.39,
             "tactical_lane": "pike_big_profile",
             "color_theme": "bright",
             "color_recommendations": [
@@ -5668,7 +5668,7 @@
           {
             "id": "pike_jerkbait",
             "display_name": "Large Jerkbait",
-            "score": 13.78,
+            "score": 13.79,
             "tactical_lane": "pike_big_profile",
             "color_theme": "dark",
             "color_recommendations": [
@@ -5682,7 +5682,7 @@
           {
             "id": "paddle_tail_swimbait",
             "display_name": "Paddle-Tail Swimbait",
-            "score": 13.7,
+            "score": 13.72,
             "tactical_lane": "horizontal_search",
             "color_theme": "dark",
             "color_recommendations": [
@@ -5697,7 +5697,7 @@
         "top_1_fly": {
           "id": "pike_bunny_streamer",
           "display_name": "Large Rabbit Strip Streamer",
-          "score": 13.78,
+          "score": 13.79,
           "tactical_lane": "pike_big_profile",
           "color_theme": "dark",
           "color_recommendations": [
@@ -5712,7 +5712,7 @@
           {
             "id": "pike_bunny_streamer",
             "display_name": "Large Rabbit Strip Streamer",
-            "score": 13.78,
+            "score": 13.79,
             "tactical_lane": "pike_big_profile",
             "color_theme": "dark",
             "color_recommendations": [
@@ -5873,7 +5873,7 @@
           {
             "id": "pike_jerkbait",
             "display_name": "Large Jerkbait",
-            "score": 13.98,
+            "score": 13.99,
             "tactical_lane": "pike_big_profile",
             "color_theme": "dark",
             "color_recommendations": [
@@ -5902,7 +5902,7 @@
         "top_1_fly": {
           "id": "large_articulated_pike_streamer",
           "display_name": "Articulated Pike Streamer",
-          "score": 13.98,
+          "score": 13.99,
           "tactical_lane": "pike_big_profile",
           "color_theme": "dark",
           "color_recommendations": [
@@ -5917,7 +5917,7 @@
           {
             "id": "large_articulated_pike_streamer",
             "display_name": "Articulated Pike Streamer",
-            "score": 13.98,
+            "score": 13.99,
             "tactical_lane": "pike_big_profile",
             "color_theme": "dark",
             "color_recommendations": [
@@ -6107,7 +6107,7 @@
         "top_1_fly": {
           "id": "large_articulated_pike_streamer",
           "display_name": "Articulated Pike Streamer",
-          "score": 13.8,
+          "score": 13.84,
           "tactical_lane": "pike_big_profile",
           "color_theme": "dark",
           "color_recommendations": [
@@ -6122,7 +6122,7 @@
           {
             "id": "large_articulated_pike_streamer",
             "display_name": "Articulated Pike Streamer",
-            "score": 13.8,
+            "score": 13.84,
             "tactical_lane": "pike_big_profile",
             "color_theme": "dark",
             "color_recommendations": [
@@ -6150,7 +6150,7 @@
           {
             "id": "pike_bunny_streamer",
             "display_name": "Large Rabbit Strip Streamer",
-            "score": 13.78,
+            "score": 13.8,
             "tactical_lane": "pike_big_profile",
             "color_theme": "dark",
             "color_recommendations": [
@@ -6313,7 +6313,7 @@
         "top_1_fly": {
           "id": "large_articulated_pike_streamer",
           "display_name": "Articulated Pike Streamer",
-          "score": 10.75,
+          "score": 10.79,
           "tactical_lane": "pike_big_profile",
           "color_theme": "bright",
           "color_recommendations": [
@@ -6328,7 +6328,7 @@
           {
             "id": "large_articulated_pike_streamer",
             "display_name": "Articulated Pike Streamer",
-            "score": 10.75,
+            "score": 10.79,
             "tactical_lane": "pike_big_profile",
             "color_theme": "bright",
             "color_recommendations": [
@@ -6340,23 +6340,9 @@
             "how_to_fish": "Long sweeping strips with full pauses; the articulated body coils on the stop and then springs on the next strip — give it the full beat. Slow down and lengthen the pause."
           },
           {
-            "id": "clouser_minnow",
-            "display_name": "Clouser Minnow",
-            "score": 10.75,
-            "tactical_lane": "fly_baitfish",
-            "color_theme": "bright",
-            "color_recommendations": [
-              "white/chartreuse",
-              "chartreuse",
-              "firetiger"
-            ],
-            "why_chosen": "With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different fly baitfish look without leaving today's window.",
-            "how_to_fish": "Cast across or slightly downstream, let it jig toward you with short strips so the weighted eyes keep the fly tracking hook-point up. Slow down and lengthen the pause."
-          },
-          {
             "id": "pike_bunny_streamer",
             "display_name": "Large Rabbit Strip Streamer",
-            "score": 10.73,
+            "score": 10.75,
             "tactical_lane": "pike_big_profile",
             "color_theme": "bright",
             "color_recommendations": [
@@ -6364,8 +6350,22 @@
               "chartreuse",
               "firetiger"
             ],
-            "why_chosen": "With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.",
+            "why_chosen": "With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It gives you a different pike big profile look without leaving today's window.",
             "how_to_fish": "Strip with long, steady pulls so the rabbit hair breathes and the profile stays big; pause after every 2-3 strips to let following pike close. Slow down and lengthen the pause."
+          },
+          {
+            "id": "clouser_minnow",
+            "display_name": "Clouser Minnow",
+            "score": 10.74,
+            "tactical_lane": "fly_baitfish",
+            "color_theme": "bright",
+            "color_recommendations": [
+              "white/chartreuse",
+              "chartreuse",
+              "firetiger"
+            ],
+            "why_chosen": "With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.",
+            "how_to_fish": "Cast across or slightly downstream, let it jig toward you with short strips so the weighted eyes keep the fly tracking hook-point up. Slow down and lengthen the pause."
           }
         ],
         "color_notes": [
@@ -6374,8 +6374,8 @@
           "Inline Spinner: bright -> white/chartreuse, chartreuse, firetiger",
           "Paddle-Tail Swimbait: bright -> white/chartreuse, chartreuse, firetiger",
           "Articulated Pike Streamer: bright -> white/chartreuse, chartreuse, firetiger",
-          "Clouser Minnow: bright -> white/chartreuse, chartreuse, firetiger",
-          "Large Rabbit Strip Streamer: bright -> white/chartreuse, chartreuse, firetiger"
+          "Large Rabbit Strip Streamer: bright -> white/chartreuse, chartreuse, firetiger",
+          "Clouser Minnow: bright -> white/chartreuse, chartreuse, firetiger"
         ],
         "daily_profile_notes": [
           "Daily posture: suppressed",
@@ -6397,7 +6397,7 @@
           "TOP3_PRIMARY_PRESENT",
           "NO_DISALLOWED_PRESENT",
           "NO_REGION_FALLBACK",
-          "TOP1_TIE:fly",
+          "NO_TOP1_TIE",
           "EXPLANATION_ALIGNED",
           "TOP_COLOR_MATCH:bright,bright"
         ],
@@ -6463,7 +6463,7 @@
         "top_1_lure": {
           "id": "large_profile_pike_swimbait",
           "display_name": "Large Paddle-Tail Swimbait",
-          "score": 13.78,
+          "score": 13.79,
           "tactical_lane": "pike_big_profile",
           "color_theme": "dark",
           "color_recommendations": [
@@ -6478,7 +6478,7 @@
           {
             "id": "large_profile_pike_swimbait",
             "display_name": "Large Paddle-Tail Swimbait",
-            "score": 13.78,
+            "score": 13.79,
             "tactical_lane": "pike_big_profile",
             "color_theme": "dark",
             "color_recommendations": [
@@ -6521,7 +6521,7 @@
         "top_1_fly": {
           "id": "large_articulated_pike_streamer",
           "display_name": "Articulated Pike Streamer",
-          "score": 13.78,
+          "score": 13.79,
           "tactical_lane": "pike_big_profile",
           "color_theme": "dark",
           "color_recommendations": [
@@ -6536,7 +6536,7 @@
           {
             "id": "large_articulated_pike_streamer",
             "display_name": "Articulated Pike Streamer",
-            "score": 13.78,
+            "score": 13.79,
             "tactical_lane": "pike_big_profile",
             "color_theme": "dark",
             "color_recommendations": [
@@ -6669,7 +6669,7 @@
         "top_1_lure": {
           "id": "large_profile_pike_swimbait",
           "display_name": "Large Paddle-Tail Swimbait",
-          "score": 13.78,
+          "score": 13.79,
           "tactical_lane": "pike_big_profile",
           "color_theme": "dark",
           "color_recommendations": [
@@ -6684,7 +6684,7 @@
           {
             "id": "large_profile_pike_swimbait",
             "display_name": "Large Paddle-Tail Swimbait",
-            "score": 13.78,
+            "score": 13.79,
             "tactical_lane": "pike_big_profile",
             "color_theme": "dark",
             "color_recommendations": [
@@ -6727,7 +6727,7 @@
         "top_1_fly": {
           "id": "large_articulated_pike_streamer",
           "display_name": "Articulated Pike Streamer",
-          "score": 13.78,
+          "score": 13.79,
           "tactical_lane": "pike_big_profile",
           "color_theme": "dark",
           "color_recommendations": [
@@ -6742,7 +6742,7 @@
           {
             "id": "large_articulated_pike_streamer",
             "display_name": "Articulated Pike Streamer",
-            "score": 13.78,
+            "score": 13.79,
             "tactical_lane": "pike_big_profile",
             "color_theme": "dark",
             "color_recommendations": [
@@ -6873,7 +6873,7 @@
         "top_1_lure": {
           "id": "large_profile_pike_swimbait",
           "display_name": "Large Paddle-Tail Swimbait",
-          "score": 14.65,
+          "score": 14.68,
           "tactical_lane": "pike_big_profile",
           "color_theme": "bright",
           "color_recommendations": [
@@ -6888,7 +6888,7 @@
           {
             "id": "large_profile_pike_swimbait",
             "display_name": "Large Paddle-Tail Swimbait",
-            "score": 14.65,
+            "score": 14.68,
             "tactical_lane": "pike_big_profile",
             "color_theme": "bright",
             "color_recommendations": [
@@ -6960,7 +6960,7 @@
           {
             "id": "large_articulated_pike_streamer",
             "display_name": "Articulated Pike Streamer",
-            "score": 14.65,
+            "score": 14.68,
             "tactical_lane": "pike_big_profile",
             "color_theme": "bright",
             "color_recommendations": [
@@ -7122,7 +7122,7 @@
           {
             "id": "large_profile_pike_swimbait",
             "display_name": "Large Paddle-Tail Swimbait",
-            "score": 13.8,
+            "score": 13.83,
             "tactical_lane": "pike_big_profile",
             "color_theme": "dark",
             "color_recommendations": [
@@ -7137,7 +7137,7 @@
         "top_1_fly": {
           "id": "large_articulated_pike_streamer",
           "display_name": "Articulated Pike Streamer",
-          "score": 13.8,
+          "score": 13.83,
           "tactical_lane": "pike_big_profile",
           "color_theme": "dark",
           "color_recommendations": [
@@ -7152,7 +7152,7 @@
           {
             "id": "large_articulated_pike_streamer",
             "display_name": "Articulated Pike Streamer",
-            "score": 13.8,
+            "score": 13.83,
             "tactical_lane": "pike_big_profile",
             "color_theme": "dark",
             "color_recommendations": [
@@ -7314,7 +7314,7 @@
           {
             "id": "pike_jerkbait",
             "display_name": "Large Jerkbait",
-            "score": 10.78,
+            "score": 10.79,
             "tactical_lane": "pike_big_profile",
             "color_theme": "bright",
             "color_recommendations": [
@@ -7386,7 +7386,7 @@
           {
             "id": "pike_bunny_streamer",
             "display_name": "Large Rabbit Strip Streamer",
-            "score": 10.78,
+            "score": 10.79,
             "tactical_lane": "pike_big_profile",
             "color_theme": "bright",
             "color_recommendations": [
@@ -7491,7 +7491,7 @@
         "top_1_lure": {
           "id": "large_profile_pike_swimbait",
           "display_name": "Large Paddle-Tail Swimbait",
-          "score": 13.93,
+          "score": 13.94,
           "tactical_lane": "pike_big_profile",
           "color_theme": "dark",
           "color_recommendations": [
@@ -7506,7 +7506,7 @@
           {
             "id": "large_profile_pike_swimbait",
             "display_name": "Large Paddle-Tail Swimbait",
-            "score": 13.93,
+            "score": 13.94,
             "tactical_lane": "pike_big_profile",
             "color_theme": "dark",
             "color_recommendations": [
@@ -7549,7 +7549,7 @@
         "top_1_fly": {
           "id": "large_articulated_pike_streamer",
           "display_name": "Articulated Pike Streamer",
-          "score": 13.93,
+          "score": 13.94,
           "tactical_lane": "pike_big_profile",
           "color_theme": "dark",
           "color_recommendations": [
@@ -7564,7 +7564,7 @@
           {
             "id": "large_articulated_pike_streamer",
             "display_name": "Articulated Pike Streamer",
-            "score": 13.93,
+            "score": 13.94,
             "tactical_lane": "pike_big_profile",
             "color_theme": "dark",
             "color_recommendations": [
@@ -7697,7 +7697,7 @@
         "top_1_lure": {
           "id": "spinnerbait",
           "display_name": "Spinnerbait",
-          "score": 15.45,
+          "score": 15.47,
           "tactical_lane": "horizontal_search",
           "color_theme": "bright",
           "color_recommendations": [
@@ -7712,7 +7712,7 @@
           {
             "id": "spinnerbait",
             "display_name": "Spinnerbait",
-            "score": 15.45,
+            "score": 15.47,
             "tactical_lane": "horizontal_search",
             "color_theme": "bright",
             "color_recommendations": [
@@ -7726,7 +7726,7 @@
           {
             "id": "large_profile_pike_swimbait",
             "display_name": "Large Paddle-Tail Swimbait",
-            "score": 14.8,
+            "score": 14.83,
             "tactical_lane": "pike_big_profile",
             "color_theme": "bright",
             "color_recommendations": [
@@ -7740,7 +7740,7 @@
           {
             "id": "pike_jerkbait",
             "display_name": "Large Jerkbait",
-            "score": 14.78,
+            "score": 14.79,
             "tactical_lane": "pike_big_profile",
             "color_theme": "bright",
             "color_recommendations": [
@@ -7784,7 +7784,7 @@
           {
             "id": "large_articulated_pike_streamer",
             "display_name": "Articulated Pike Streamer",
-            "score": 14.8,
+            "score": 14.83,
             "tactical_lane": "pike_big_profile",
             "color_theme": "bright",
             "color_recommendations": [
@@ -7902,7 +7902,7 @@
         "top_1_lure": {
           "id": "large_profile_pike_swimbait",
           "display_name": "Large Paddle-Tail Swimbait",
-          "score": 14.8,
+          "score": 14.83,
           "tactical_lane": "pike_big_profile",
           "color_theme": "bright",
           "color_recommendations": [
@@ -7917,7 +7917,7 @@
           {
             "id": "large_profile_pike_swimbait",
             "display_name": "Large Paddle-Tail Swimbait",
-            "score": 14.8,
+            "score": 14.83,
             "tactical_lane": "pike_big_profile",
             "color_theme": "bright",
             "color_recommendations": [
@@ -7989,7 +7989,7 @@
           {
             "id": "large_articulated_pike_streamer",
             "display_name": "Articulated Pike Streamer",
-            "score": 14.8,
+            "score": 14.83,
             "tactical_lane": "pike_big_profile",
             "color_theme": "bright",
             "color_recommendations": [
@@ -8107,7 +8107,7 @@
         "top_1_lure": {
           "id": "blade_bait",
           "display_name": "Blade Bait",
-          "score": 7.15,
+          "score": 7.18,
           "tactical_lane": "reaction_mid_column",
           "color_theme": "dark",
           "color_recommendations": [
@@ -8122,7 +8122,7 @@
           {
             "id": "blade_bait",
             "display_name": "Blade Bait",
-            "score": 7.15,
+            "score": 7.18,
             "tactical_lane": "reaction_mid_column",
             "color_theme": "dark",
             "color_recommendations": [
@@ -8136,7 +8136,7 @@
           {
             "id": "suspending_jerkbait",
             "display_name": "Suspending Jerkbait",
-            "score": 6.6,
+            "score": 6.61,
             "tactical_lane": "reaction_mid_column",
             "color_theme": "dark",
             "color_recommendations": [
@@ -8150,7 +8150,7 @@
           {
             "id": "large_profile_pike_swimbait",
             "display_name": "Large Paddle-Tail Swimbait",
-            "score": 5.6,
+            "score": 5.62,
             "tactical_lane": "pike_big_profile",
             "color_theme": "dark",
             "color_recommendations": [
@@ -8165,7 +8165,7 @@
         "top_1_fly": {
           "id": "balanced_leech",
           "display_name": "Balanced Leech",
-          "score": 15.05,
+          "score": 15.07,
           "tactical_lane": "fly_bottom",
           "color_theme": "dark",
           "color_recommendations": [
@@ -8180,7 +8180,7 @@
           {
             "id": "balanced_leech",
             "display_name": "Balanced Leech",
-            "score": 15.05,
+            "score": 15.07,
             "tactical_lane": "fly_bottom",
             "color_theme": "dark",
             "color_recommendations": [
@@ -8194,7 +8194,7 @@
           {
             "id": "rabbit_strip_leech",
             "display_name": "Rabbit-Strip Leech",
-            "score": 14.4,
+            "score": 14.38,
             "tactical_lane": "fly_bottom",
             "color_theme": "dark",
             "color_recommendations": [
@@ -8312,7 +8312,7 @@
         "top_1_lure": {
           "id": "suspending_jerkbait",
           "display_name": "Suspending Jerkbait",
-          "score": 7.1,
+          "score": 7.14,
           "tactical_lane": "reaction_mid_column",
           "color_theme": "dark",
           "color_recommendations": [
@@ -8327,7 +8327,7 @@
           {
             "id": "suspending_jerkbait",
             "display_name": "Suspending Jerkbait",
-            "score": 7.1,
+            "score": 7.14,
             "tactical_lane": "reaction_mid_column",
             "color_theme": "dark",
             "color_recommendations": [
@@ -8341,7 +8341,7 @@
           {
             "id": "blade_bait",
             "display_name": "Blade Bait",
-            "score": 6.6,
+            "score": 6.63,
             "tactical_lane": "reaction_mid_column",
             "color_theme": "dark",
             "color_recommendations": [
@@ -8355,7 +8355,7 @@
           {
             "id": "pike_jerkbait",
             "display_name": "Large Jerkbait",
-            "score": 5.58,
+            "score": 5.59,
             "tactical_lane": "pike_big_profile",
             "color_theme": "dark",
             "color_recommendations": [
@@ -8370,7 +8370,7 @@
         "top_1_fly": {
           "id": "balanced_leech",
           "display_name": "Balanced Leech",
-          "score": 14.4,
+          "score": 14.42,
           "tactical_lane": "fly_bottom",
           "color_theme": "dark",
           "color_recommendations": [
@@ -8385,7 +8385,7 @@
           {
             "id": "balanced_leech",
             "display_name": "Balanced Leech",
-            "score": 14.4,
+            "score": 14.42,
             "tactical_lane": "fly_bottom",
             "color_theme": "dark",
             "color_recommendations": [
@@ -8399,7 +8399,7 @@
           {
             "id": "rabbit_strip_leech",
             "display_name": "Rabbit-Strip Leech",
-            "score": 14.4,
+            "score": 14.38,
             "tactical_lane": "fly_bottom",
             "color_theme": "dark",
             "color_recommendations": [
@@ -8453,7 +8453,7 @@
           "TOP3_PRIMARY_PRESENT",
           "NO_DISALLOWED_PRESENT",
           "NO_REGION_FALLBACK",
-          "TOP1_TIE:fly",
+          "NO_TOP1_TIE",
           "EXPLANATION_ALIGNED",
           "TOP_COLOR_MATCH:dark,dark"
         ],
@@ -8519,7 +8519,7 @@
         "top_1_lure": {
           "id": "pike_jerkbait",
           "display_name": "Large Jerkbait",
-          "score": 8.7,
+          "score": 8.73,
           "tactical_lane": "pike_big_profile",
           "color_theme": "bright",
           "color_recommendations": [
@@ -8534,7 +8534,7 @@
           {
             "id": "pike_jerkbait",
             "display_name": "Large Jerkbait",
-            "score": 8.7,
+            "score": 8.73,
             "tactical_lane": "pike_big_profile",
             "color_theme": "bright",
             "color_recommendations": [
@@ -8562,7 +8562,7 @@
           {
             "id": "suspending_jerkbait",
             "display_name": "Suspending Jerkbait",
-            "score": 7.18,
+            "score": 7.19,
             "tactical_lane": "reaction_mid_column",
             "color_theme": "bright",
             "color_recommendations": [
@@ -8577,7 +8577,7 @@
         "top_1_fly": {
           "id": "pike_bunny_streamer",
           "display_name": "Large Rabbit Strip Streamer",
-          "score": 10.9,
+          "score": 10.93,
           "tactical_lane": "pike_big_profile",
           "color_theme": "bright",
           "color_recommendations": [
@@ -8592,7 +8592,7 @@
           {
             "id": "pike_bunny_streamer",
             "display_name": "Large Rabbit Strip Streamer",
-            "score": 10.9,
+            "score": 10.93,
             "tactical_lane": "pike_big_profile",
             "color_theme": "bright",
             "color_recommendations": [
@@ -8728,7 +8728,7 @@
         "top_1_lure": {
           "id": "large_profile_pike_swimbait",
           "display_name": "Large Paddle-Tail Swimbait",
-          "score": 10.75,
+          "score": 10.78,
           "tactical_lane": "pike_big_profile",
           "color_theme": "dark",
           "color_recommendations": [
@@ -8743,7 +8743,7 @@
           {
             "id": "large_profile_pike_swimbait",
             "display_name": "Large Paddle-Tail Swimbait",
-            "score": 10.75,
+            "score": 10.78,
             "tactical_lane": "pike_big_profile",
             "color_theme": "dark",
             "color_recommendations": [
@@ -8815,7 +8815,7 @@
           {
             "id": "large_articulated_pike_streamer",
             "display_name": "Articulated Pike Streamer",
-            "score": 10.75,
+            "score": 10.78,
             "tactical_lane": "pike_big_profile",
             "color_theme": "dark",
             "color_recommendations": [
@@ -8935,7 +8935,7 @@
         "top_1_lure": {
           "id": "large_profile_pike_swimbait",
           "display_name": "Large Paddle-Tail Swimbait",
-          "score": 14.13,
+          "score": 14.14,
           "tactical_lane": "pike_big_profile",
           "color_theme": "bright",
           "color_recommendations": [
@@ -8950,7 +8950,7 @@
           {
             "id": "large_profile_pike_swimbait",
             "display_name": "Large Paddle-Tail Swimbait",
-            "score": 14.13,
+            "score": 14.14,
             "tactical_lane": "pike_big_profile",
             "color_theme": "bright",
             "color_recommendations": [
@@ -8993,7 +8993,7 @@
         "top_1_fly": {
           "id": "large_articulated_pike_streamer",
           "display_name": "Articulated Pike Streamer",
-          "score": 14.13,
+          "score": 14.14,
           "tactical_lane": "pike_big_profile",
           "color_theme": "bright",
           "color_recommendations": [
@@ -9008,7 +9008,7 @@
           {
             "id": "large_articulated_pike_streamer",
             "display_name": "Articulated Pike Streamer",
-            "score": 14.13,
+            "score": 14.14,
             "tactical_lane": "pike_big_profile",
             "color_theme": "bright",
             "color_recommendations": [
@@ -9143,7 +9143,7 @@
         "top_1_lure": {
           "id": "paddle_tail_swimbait",
           "display_name": "Paddle-Tail Swimbait",
-          "score": 13.7,
+          "score": 13.72,
           "tactical_lane": "horizontal_search",
           "color_theme": "natural",
           "color_recommendations": [
@@ -9158,7 +9158,7 @@
           {
             "id": "paddle_tail_swimbait",
             "display_name": "Paddle-Tail Swimbait",
-            "score": 13.7,
+            "score": 13.72,
             "tactical_lane": "horizontal_search",
             "color_theme": "natural",
             "color_recommendations": [
@@ -9172,7 +9172,7 @@
           {
             "id": "soft_jerkbait",
             "display_name": "Soft Plastic Jerkbait",
-            "score": 13.7,
+            "score": 13.69,
             "tactical_lane": "horizontal_search",
             "color_theme": "natural",
             "color_recommendations": [
@@ -9186,7 +9186,7 @@
           {
             "id": "pike_jerkbait",
             "display_name": "Large Jerkbait",
-            "score": 12.28,
+            "score": 12.29,
             "tactical_lane": "pike_big_profile",
             "color_theme": "natural",
             "color_recommendations": [
@@ -9201,7 +9201,7 @@
         "top_1_fly": {
           "id": "pike_bunny_streamer",
           "display_name": "Large Rabbit Strip Streamer",
-          "score": 12.28,
+          "score": 12.29,
           "tactical_lane": "pike_big_profile",
           "color_theme": "natural",
           "color_recommendations": [
@@ -9216,7 +9216,7 @@
           {
             "id": "pike_bunny_streamer",
             "display_name": "Large Rabbit Strip Streamer",
-            "score": 12.28,
+            "score": 12.29,
             "tactical_lane": "pike_big_profile",
             "color_theme": "natural",
             "color_recommendations": [
@@ -9282,7 +9282,7 @@
           "TOP3_PRIMARY_PRESENT",
           "NO_DISALLOWED_PRESENT",
           "NO_REGION_FALLBACK",
-          "TOP1_TIE:lure",
+          "NO_TOP1_TIE",
           "EXPLANATION_ALIGNED",
           "TOP_COLOR_MATCH:natural,natural"
         ],
@@ -9348,7 +9348,7 @@
         "top_1_lure": {
           "id": "paddle_tail_swimbait",
           "display_name": "Paddle-Tail Swimbait",
-          "score": 12.98,
+          "score": 12.99,
           "tactical_lane": "horizontal_search",
           "color_theme": "natural",
           "color_recommendations": [
@@ -9363,7 +9363,7 @@
           {
             "id": "paddle_tail_swimbait",
             "display_name": "Paddle-Tail Swimbait",
-            "score": 12.98,
+            "score": 12.99,
             "tactical_lane": "horizontal_search",
             "color_theme": "natural",
             "color_recommendations": [
@@ -9406,7 +9406,7 @@
         "top_1_fly": {
           "id": "clouser_minnow",
           "display_name": "Clouser Minnow",
-          "score": 11.45,
+          "score": 11.44,
           "tactical_lane": "fly_baitfish",
           "color_theme": "natural",
           "color_recommendations": [
@@ -9421,7 +9421,7 @@
           {
             "id": "clouser_minnow",
             "display_name": "Clouser Minnow",
-            "score": 11.45,
+            "score": 11.44,
             "tactical_lane": "fly_baitfish",
             "color_theme": "natural",
             "color_recommendations": [
@@ -9435,7 +9435,7 @@
           {
             "id": "large_articulated_pike_streamer",
             "display_name": "Articulated Pike Streamer",
-            "score": 10.9,
+            "score": 10.94,
             "tactical_lane": "pike_big_profile",
             "color_theme": "natural",
             "color_recommendations": [
@@ -9582,7 +9582,7 @@
           {
             "id": "large_profile_pike_swimbait",
             "display_name": "Large Paddle-Tail Swimbait",
-            "score": 12.4,
+            "score": 12.43,
             "tactical_lane": "pike_big_profile",
             "color_theme": "natural",
             "color_recommendations": [
@@ -9640,7 +9640,7 @@
           {
             "id": "large_articulated_pike_streamer",
             "display_name": "Articulated Pike Streamer",
-            "score": 12.4,
+            "score": 12.43,
             "tactical_lane": "pike_big_profile",
             "color_theme": "natural",
             "color_recommendations": [
@@ -9759,7 +9759,7 @@
         "top_1_lure": {
           "id": "suspending_jerkbait",
           "display_name": "Suspending Jerkbait",
-          "score": 14.35,
+          "score": 14.38,
           "tactical_lane": "reaction_mid_column",
           "color_theme": "dark",
           "color_recommendations": [
@@ -9774,7 +9774,7 @@
           {
             "id": "suspending_jerkbait",
             "display_name": "Suspending Jerkbait",
-            "score": 14.35,
+            "score": 14.38,
             "tactical_lane": "reaction_mid_column",
             "color_theme": "dark",
             "color_recommendations": [
@@ -9788,7 +9788,7 @@
           {
             "id": "pike_jerkbait",
             "display_name": "Large Jerkbait",
-            "score": 13.03,
+            "score": 13.04,
             "tactical_lane": "pike_big_profile",
             "color_theme": "dark",
             "color_recommendations": [
@@ -9860,7 +9860,7 @@
           {
             "id": "pike_bunny_streamer",
             "display_name": "Large Rabbit Strip Streamer",
-            "score": 13.05,
+            "score": 13.08,
             "tactical_lane": "pike_big_profile",
             "color_theme": "dark",
             "color_recommendations": [

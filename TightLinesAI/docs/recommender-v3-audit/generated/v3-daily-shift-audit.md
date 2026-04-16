@@ -1,6 +1,6 @@
 # V3 Daily Shift Audit
 
-Generated: 2026-04-15T20:12:11.215Z
+Generated: 2026-04-16T12:54:04.059Z
 
 Scenario pairs: 7
 Checks passed: 14/14
@@ -11,7 +11,7 @@ Checks passed: 14/14
 - PASS Largemouth daily posture: winter post-front finesse vs fall reaction
 - PASS Florida July bass: productive low-light vs heat-limited midday
 - PASS Smallmouth summer lake: low-light surface window vs bright restraint
-- PASS Western midsummer trout: mouse window vs strong river wind
+- PASS Northern California midsummer trout: mouse window vs strong river wind
 - PASS Western midsummer trout: warmup vs cold snap
 - PASS Northern pike summer: low-light surface opening vs bright restraint
 
@@ -81,14 +81,14 @@ Checks passed: 14/14
 - PASS Low-light summer smallmouth allows surface options: left lure lanes=surface, horizontal_search, horizontal_search; fly lanes=fly_surface, fly_surface, fly_baitfish
 - PASS Bright summer smallmouth removes surface options: right lure lanes=horizontal_search, finesse_subtle, bottom_contact; fly lanes=fly_baitfish, fly_baitfish, fly_baitfish
 
-### Western midsummer trout: mouse window vs strong river wind
+### Northern California midsummer trout: mouse window vs strong river wind
 
-- Western midsummer trout mouse window
+- Northern California midsummer trout mouse window
   daily: surface=on, reaction=on, finesse=on, pace=fast
   resolved: water=top, mood=aggressive, presentation=subtle
   lure top 3: soft_jerkbait, paddle_tail_swimbait, inline_spinner
   fly top 3: mouse_fly, clouser_minnow, slim_minnow_streamer
-- Western midsummer trout strong river wind
+- Northern California midsummer trout strong river wind
   daily: surface=off, reaction=on, finesse=on, pace=fast
   resolved: water=shallow, mood=aggressive, presentation=subtle
   lure top 3: soft_jerkbait, paddle_tail_swimbait, inline_spinner
@@ -102,16 +102,16 @@ Checks passed: 14/14
 - Western midsummer trout warming day
   daily: surface=watch, reaction=on, finesse=on, pace=fast
   resolved: water=shallow, mood=aggressive, presentation=subtle
-  lure top 3: soft_jerkbait, paddle_tail_swimbait, inline_spinner
-  fly top 3: mouse_fly, slim_minnow_streamer, clouser_minnow
+  lure top 3: paddle_tail_swimbait, soft_jerkbait, inline_spinner
+  fly top 3: slim_minnow_streamer, bucktail_baitfish_streamer, clouser_minnow
 - Western midsummer trout cold snap
-  daily: surface=off, reaction=off, finesse=on, pace=medium
+  daily: surface=off, reaction=off, finesse=on, pace=slow
   resolved: water=mid, mood=suppressed, presentation=subtle
-  lure top 3: hair_jig, soft_jerkbait, paddle_tail_swimbait
-  fly top 3: slim_minnow_streamer, muddler_sculpin, clouser_minnow
+  lure top 3: hair_jig, paddle_tail_swimbait, soft_jerkbait
+  fly top 3: woolly_bugger, slim_minnow_streamer, muddler_sculpin
 
 - PASS Warmup stays shallow and fast: left reaction=on; left pace=fast; left water=shallow
-- PASS Cold snap slows and deepens with a hair-jig fallback: right finesse=on; right pace=medium; right water=mid; right lures=hair_jig, soft_jerkbait, paddle_tail_swimbait
+- PASS Cold snap slows and deepens with a hair-jig fallback: right finesse=on; right pace=slow; right water=mid; right lures=hair_jig, paddle_tail_swimbait, soft_jerkbait
 
 ### Northern pike summer: low-light surface opening vs bright restraint
 

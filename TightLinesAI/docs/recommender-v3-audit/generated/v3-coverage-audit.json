@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-15T20:13:21.636Z",
+  "generated_at": "2026-04-16T12:54:02.136Z",
   "seasonal_rows": 1104,
   "synthetic_states_per_row": 405,
   "scenario_keys_sample": [
@@ -31,7 +31,7 @@
         "pass": true
       },
       "fly": {
-        "actual": 0.0236,
+        "actual": 0.0254,
         "target": 0.55,
         "pass": true
       }
@@ -43,14 +43,14 @@
         "pass": true
       },
       "fly": {
-        "actual": 0.0236,
+        "actual": 0.0254,
         "target": 0.5,
         "pass": true
       }
     },
     "tactical_conflict_rate": {
       "lure": {
-        "actual": 0.0174,
+        "actual": 0.0167,
         "target": 0.02,
         "pass": true
       },
@@ -99,7 +99,7 @@
   },
   "locked_top1_rows": {
     "lure": 1,
-    "fly": 26
+    "fly": 28
   },
   "low_daily_sensitivity_rows": {
     "lure": {
@@ -107,7 +107,7 @@
       "examples": []
     },
     "fly": {
-      "count": 26,
+      "count": 28,
       "examples": [
         {
           "species": "largemouth_bass",
@@ -514,7 +514,7 @@
   },
   "tactical_conflicts": {
     "lure": {
-      "count": 7776,
+      "count": 7452,
       "examples": [
         {
           "species": "largemouth_bass",
@@ -1179,7 +1179,7 @@
         "notes": "Weed-mat and heavy-cover surface lane.",
         "viable_rows": 42,
         "top3_hits": 3147,
-        "top1_hits": 1474,
+        "top1_hits": 1420,
         "actual_best_reach": "top1",
         "status": "pass"
       },
@@ -1243,9 +1243,9 @@
         "role": "winner_capable",
         "required_reach": "top1",
         "notes": "Open-water surface cadence lane.",
-        "viable_rows": 200,
-        "top3_hits": 14056,
-        "top1_hits": 4441,
+        "viable_rows": 198,
+        "top3_hits": 13847,
+        "top1_hits": 4433,
         "actual_best_reach": "top1",
         "status": "pass"
       },
@@ -1267,9 +1267,9 @@
         "role": "winner_capable",
         "required_reach": "top1",
         "notes": "General-purpose baitfish swim lane.",
-        "viable_rows": 829,
-        "top3_hits": 228317,
-        "top1_hits": 67491,
+        "viable_rows": 808,
+        "top3_hits": 223194,
+        "top1_hits": 64531,
         "actual_best_reach": "top1",
         "status": "pass"
       },
@@ -1289,9 +1289,9 @@
         "role": "winner_capable",
         "required_reach": "top1",
         "notes": "Cold-to-cool pause-and-react baitfish lane.",
-        "viable_rows": 814,
-        "top3_hits": 138829,
-        "top1_hits": 41217,
+        "viable_rows": 821,
+        "top3_hits": 143903,
+        "top1_hits": 47485,
         "actual_best_reach": "top1",
         "status": "pass"
       },
@@ -1300,9 +1300,9 @@
         "role": "winner_capable",
         "required_reach": "top1",
         "notes": "Wind-driven horizontal search staple.",
-        "viable_rows": 558,
-        "top3_hits": 114708,
-        "top1_hits": 40999,
+        "viable_rows": 557,
+        "top3_hits": 115542,
+        "top1_hits": 42448,
         "actual_best_reach": "top1",
         "status": "pass"
       },
@@ -1312,8 +1312,8 @@
         "required_reach": "top1",
         "notes": "Cold bottom reaction metal lane.",
         "viable_rows": 413,
-        "top3_hits": 66664,
-        "top1_hits": 30753,
+        "top3_hits": 65866,
+        "top1_hits": 30072,
         "actual_best_reach": "top1",
         "status": "pass"
       },
@@ -1322,9 +1322,9 @@
         "role": "winner_capable",
         "required_reach": "top1",
         "notes": "River search and reaction staple.",
-        "viable_rows": 329,
-        "top3_hits": 65358,
-        "top1_hits": 30595,
+        "viable_rows": 330,
+        "top3_hits": 68711,
+        "top1_hits": 29587,
         "actual_best_reach": "top1",
         "status": "pass"
       },
@@ -1333,9 +1333,9 @@
         "role": "intentional_low_frequency_specialty",
         "required_reach": "top1",
         "notes": "Cold-water finesse baitfish lane.",
-        "viable_rows": 330,
-        "top3_hits": 81287,
-        "top1_hits": 28426,
+        "viable_rows": 313,
+        "top3_hits": 74771,
+        "top1_hits": 24695,
         "actual_best_reach": "top1",
         "status": "pass"
       },
@@ -1534,9 +1534,9 @@
         "role": "intentional_low_frequency_specialty",
         "required_reach": "top1",
         "notes": "Cold-water finesse baitfish lane.",
-        "viable_rows": 330,
-        "top3_hits": 81287,
-        "top1_hits": 28426,
+        "viable_rows": 313,
+        "top3_hits": 74771,
+        "top1_hits": 24695,
         "actual_best_reach": "top1",
         "status": "pass"
       },
@@ -1545,9 +1545,9 @@
         "role": "winner_capable",
         "required_reach": "top1",
         "notes": "River search and reaction staple.",
-        "viable_rows": 329,
-        "top3_hits": 65358,
-        "top1_hits": 30595,
+        "viable_rows": 330,
+        "top3_hits": 68711,
+        "top1_hits": 29587,
         "actual_best_reach": "top1",
         "status": "pass"
       },
@@ -1556,9 +1556,9 @@
         "role": "winner_capable",
         "required_reach": "top1",
         "notes": "Wind-driven horizontal search staple.",
-        "viable_rows": 558,
-        "top3_hits": 114708,
-        "top1_hits": 40999,
+        "viable_rows": 557,
+        "top3_hits": 115542,
+        "top1_hits": 42448,
         "actual_best_reach": "top1",
         "status": "pass"
       },
@@ -1578,9 +1578,9 @@
         "role": "winner_capable",
         "required_reach": "top1",
         "notes": "General-purpose baitfish swim lane.",
-        "viable_rows": 829,
-        "top3_hits": 228317,
-        "top1_hits": 67491,
+        "viable_rows": 808,
+        "top3_hits": 223194,
+        "top1_hits": 64531,
         "actual_best_reach": "top1",
         "status": "pass"
       },
@@ -1589,9 +1589,9 @@
         "role": "winner_capable",
         "required_reach": "top1",
         "notes": "Subsurface darting baitfish lane.",
-        "viable_rows": 434,
-        "top3_hits": 71963,
-        "top1_hits": 10332,
+        "viable_rows": 442,
+        "top3_hits": 74654,
+        "top1_hits": 12447,
         "actual_best_reach": "top1",
         "status": "pass"
       },
@@ -1600,9 +1600,9 @@
         "role": "winner_capable",
         "required_reach": "top1",
         "notes": "Cold-to-cool pause-and-react baitfish lane.",
-        "viable_rows": 814,
-        "top3_hits": 138829,
-        "top1_hits": 41217,
+        "viable_rows": 821,
+        "top3_hits": 143903,
+        "top1_hits": 47485,
         "actual_best_reach": "top1",
         "status": "pass"
       },
@@ -1667,8 +1667,8 @@
         "required_reach": "top1",
         "notes": "Cold bottom reaction metal lane.",
         "viable_rows": 413,
-        "top3_hits": 66664,
-        "top1_hits": 30753,
+        "top3_hits": 65866,
+        "top1_hits": 30072,
         "actual_best_reach": "top1",
         "status": "pass"
       },
@@ -1677,9 +1677,9 @@
         "role": "winner_capable",
         "required_reach": "top1",
         "notes": "Flash search lane in open or current water.",
-        "viable_rows": 315,
-        "top3_hits": 30693,
-        "top1_hits": 4905,
+        "viable_rows": 314,
+        "top3_hits": 29191,
+        "top1_hits": 3972,
         "actual_best_reach": "top1",
         "status": "pass"
       },
@@ -1688,9 +1688,9 @@
         "role": "winner_capable",
         "required_reach": "top1",
         "notes": "Open-water surface cadence lane.",
-        "viable_rows": 200,
-        "top3_hits": 14056,
-        "top1_hits": 4441,
+        "viable_rows": 198,
+        "top3_hits": 13847,
+        "top1_hits": 4433,
         "actual_best_reach": "top1",
         "status": "pass"
       },
@@ -1734,7 +1734,7 @@
         "notes": "Weed-mat and heavy-cover surface lane.",
         "viable_rows": 42,
         "top3_hits": 3147,
-        "top1_hits": 1474,
+        "top1_hits": 1420,
         "actual_best_reach": "top1",
         "status": "pass"
       },
@@ -1744,8 +1744,8 @@
         "required_reach": "top1",
         "notes": "Big-profile pike search lane.",
         "viable_rows": 216,
-        "top3_hits": 45333,
-        "top1_hits": 11811,
+        "top3_hits": 25861,
+        "top1_hits": 7991,
         "actual_best_reach": "top1",
         "status": "pass"
       },
@@ -1755,8 +1755,8 @@
         "required_reach": "top1",
         "notes": "Slash-and-pause pike reaction lane.",
         "viable_rows": 216,
-        "top3_hits": 26424,
-        "top1_hits": 3060,
+        "top3_hits": 48092,
+        "top1_hits": 6423,
         "actual_best_reach": "top1",
         "status": "pass"
       }
@@ -1779,7 +1779,10 @@
   "fly": {
     "never_viable": [],
     "never_top3": [],
-    "never_top1": [],
+    "never_top1": [
+      "bucktail_baitfish_streamer",
+      "conehead_streamer"
+    ],
     "lowest_top3_presence": [
       {
         "id": "sculpzilla",
@@ -1787,8 +1790,8 @@
         "required_reach": "top1",
         "notes": "Large sculpin bottom lane.",
         "viable_rows": 57,
-        "top3_hits": 3012,
-        "top1_hits": 1035,
+        "top3_hits": 4710,
+        "top1_hits": 1038,
         "actual_best_reach": "top1",
         "status": "pass"
       },
@@ -1806,12 +1809,12 @@
       {
         "id": "bucktail_baitfish_streamer",
         "role": "intentional_low_frequency_specialty",
-        "required_reach": "top1",
-        "notes": "Sparse baitfish streamer lane.",
-        "viable_rows": 63,
-        "top3_hits": 12489,
-        "top1_hits": 2007,
-        "actual_best_reach": "top1",
+        "required_reach": "top3",
+        "notes": "Sparse bucktail baitfish lane: credible top-3 in cold/clear minnow windows, rarely owns rank 1 vs slimmer streamers.",
+        "viable_rows": 66,
+        "top3_hits": 12039,
+        "top1_hits": 0,
+        "actual_best_reach": "top3",
         "status": "pass"
       },
       {
@@ -1819,9 +1822,9 @@
         "role": "intentional_low_frequency_specialty",
         "required_reach": "top1",
         "notes": "Surface wake mouse lane in narrow low-light windows.",
-        "viable_rows": 119,
-        "top3_hits": 17548,
-        "top1_hits": 4441,
+        "viable_rows": 117,
+        "top3_hits": 17206,
+        "top1_hits": 4321,
         "actual_best_reach": "top1",
         "status": "pass"
       },
@@ -1831,8 +1834,8 @@
         "required_reach": "top1",
         "notes": "Shallow waking or stripped sculpin lane.",
         "viable_rows": 54,
-        "top3_hits": 17869,
-        "top1_hits": 5325,
+        "top3_hits": 18370,
+        "top1_hits": 7122,
         "actual_best_reach": "top1",
         "status": "pass"
       },
@@ -1841,9 +1844,9 @@
         "role": "winner_capable",
         "required_reach": "top1",
         "notes": "Topwater pop-and-pause fly lane.",
-        "viable_rows": 160,
-        "top3_hits": 20945,
-        "top1_hits": 4968,
+        "viable_rows": 159,
+        "top3_hits": 20785,
+        "top1_hits": 4932,
         "actual_best_reach": "top1",
         "status": "pass"
       },
@@ -1853,8 +1856,8 @@
         "required_reach": "top1",
         "notes": "Longer-profile baitfish streamer lane.",
         "viable_rows": 137,
-        "top3_hits": 32042,
-        "top1_hits": 2601,
+        "top3_hits": 31880,
+        "top1_hits": 2505,
         "actual_best_reach": "top1",
         "status": "pass"
       },
@@ -1863,9 +1866,9 @@
         "role": "winner_capable",
         "required_reach": "top1",
         "notes": "Heavy articulated streamer with added push.",
-        "viable_rows": 444,
-        "top3_hits": 36963,
-        "top1_hits": 1599,
+        "viable_rows": 446,
+        "top3_hits": 37976,
+        "top1_hits": 1569,
         "actual_best_reach": "top1",
         "status": "pass"
       },
@@ -1874,9 +1877,20 @@
         "role": "winner_capable",
         "required_reach": "top1",
         "notes": "Big articulated baitfish primary.",
-        "viable_rows": 387,
-        "top3_hits": 39446,
-        "top1_hits": 12675,
+        "viable_rows": 388,
+        "top3_hits": 40068,
+        "top1_hits": 12810,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
+        "id": "slim_minnow_streamer",
+        "role": "winner_capable",
+        "required_reach": "top1",
+        "notes": "Lean baitfish streamer for active fish.",
+        "viable_rows": 181,
+        "top3_hits": 42803,
+        "top1_hits": 24231,
         "actual_best_reach": "top1",
         "status": "pass"
       },
@@ -1885,9 +1899,9 @@
         "role": "winner_capable",
         "required_reach": "top1",
         "notes": "Slow-pulse leech and sculpin-adjacent lane.",
-        "viable_rows": 449,
-        "top3_hits": 43506,
-        "top1_hits": 6588,
+        "viable_rows": 461,
+        "top3_hits": 47673,
+        "top1_hits": 6570,
         "actual_best_reach": "top1",
         "status": "pass"
       },
@@ -1897,19 +1911,8 @@
         "required_reach": "top1",
         "notes": "Large rabbit-strip pike fly primary.",
         "viable_rows": 216,
-        "top3_hits": 44655,
-        "top1_hits": 2502,
-        "actual_best_reach": "top1",
-        "status": "pass"
-      },
-      {
-        "id": "slim_minnow_streamer",
-        "role": "winner_capable",
-        "required_reach": "top1",
-        "notes": "Lean baitfish streamer for active fish.",
-        "viable_rows": 194,
-        "top3_hits": 48701,
-        "top1_hits": 24432,
+        "top3_hits": 52250,
+        "top1_hits": 14472,
         "actual_best_reach": "top1",
         "status": "pass"
       }
@@ -1920,9 +1923,9 @@
         "role": "winner_capable",
         "required_reach": "top1",
         "notes": "Core baitfish streamer lane across species and current.",
-        "viable_rows": 885,
-        "top3_hits": 250427,
-        "top1_hits": 100152,
+        "viable_rows": 887,
+        "top3_hits": 250119,
+        "top1_hits": 99342,
         "actual_best_reach": "top1",
         "status": "pass"
       },
@@ -1932,8 +1935,8 @@
         "required_reach": "top1",
         "notes": "Generalist subsurface staple.",
         "viable_rows": 816,
-        "top3_hits": 195717,
-        "top1_hits": 94350,
+        "top3_hits": 197142,
+        "top1_hits": 95964,
         "actual_best_reach": "top1",
         "status": "pass"
       },
@@ -1942,9 +1945,9 @@
         "role": "winner_capable",
         "required_reach": "top1",
         "notes": "Broad baitfish-and-pulse streamer lane.",
-        "viable_rows": 676,
-        "top3_hits": 193845,
-        "top1_hits": 71906,
+        "viable_rows": 675,
+        "top3_hits": 193033,
+        "top1_hits": 71378,
         "actual_best_reach": "top1",
         "status": "pass"
       },
@@ -1954,8 +1957,8 @@
         "required_reach": "top1",
         "notes": "Large articulated pike fly primary.",
         "viable_rows": 216,
-        "top3_hits": 59406,
-        "top1_hits": 38421,
+        "top3_hits": 52290,
+        "top1_hits": 27912,
         "actual_best_reach": "top1",
         "status": "pass"
       },
@@ -1965,8 +1968,8 @@
         "required_reach": "top1",
         "notes": "Bottom-scuttling sculpin primary.",
         "viable_rows": 511,
-        "top3_hits": 67356,
-        "top1_hits": 26613,
+        "top3_hits": 67293,
+        "top1_hits": 25695,
         "actual_best_reach": "top1",
         "status": "pass"
       },
@@ -1975,9 +1978,9 @@
         "role": "winner_capable",
         "required_reach": "top1",
         "notes": "Lean baitfish streamer for active fish.",
-        "viable_rows": 194,
-        "top3_hits": 48701,
-        "top1_hits": 24432,
+        "viable_rows": 181,
+        "top3_hits": 42803,
+        "top1_hits": 24231,
         "actual_best_reach": "top1",
         "status": "pass"
       },
@@ -1987,8 +1990,8 @@
         "required_reach": "top1",
         "notes": "Suspended leech/bugger lane for restrained fish.",
         "viable_rows": 392,
-        "top3_hits": 60324,
-        "top1_hits": 20448,
+        "top3_hits": 59712,
+        "top1_hits": 20349,
         "actual_best_reach": "top1",
         "status": "pass"
       },
@@ -2004,13 +2007,24 @@
         "status": "pass"
       },
       {
+        "id": "pike_bunny_streamer",
+        "role": "winner_capable",
+        "required_reach": "top1",
+        "notes": "Large rabbit-strip pike fly primary.",
+        "viable_rows": 216,
+        "top3_hits": 52250,
+        "top1_hits": 14472,
+        "actual_best_reach": "top1",
+        "status": "pass"
+      },
+      {
         "id": "articulated_baitfish_streamer",
         "role": "winner_capable",
         "required_reach": "top1",
         "notes": "Big articulated baitfish primary.",
-        "viable_rows": 387,
-        "top3_hits": 39446,
-        "top1_hits": 12675,
+        "viable_rows": 388,
+        "top3_hits": 40068,
+        "top1_hits": 12810,
         "actual_best_reach": "top1",
         "status": "pass"
       },
@@ -2019,20 +2033,9 @@
         "role": "intentional_low_frequency_specialty",
         "required_reach": "top1",
         "notes": "Rabbit-strip baitfish lane with slower pulse.",
-        "viable_rows": 393,
-        "top3_hits": 53807,
-        "top1_hits": 8562,
-        "actual_best_reach": "top1",
-        "status": "pass"
-      },
-      {
-        "id": "rabbit_strip_leech",
-        "role": "winner_capable",
-        "required_reach": "top1",
-        "notes": "Slow-pulse leech and sculpin-adjacent lane.",
-        "viable_rows": 449,
-        "top3_hits": 43506,
-        "top1_hits": 6588,
+        "viable_rows": 390,
+        "top3_hits": 53150,
+        "top1_hits": 8535,
         "actual_best_reach": "top1",
         "status": "pass"
       },
@@ -2042,8 +2045,8 @@
         "required_reach": "top1",
         "notes": "Shallow waking or stripped sculpin lane.",
         "viable_rows": 54,
-        "top3_hits": 17869,
-        "top1_hits": 5325,
+        "top3_hits": 18370,
+        "top1_hits": 7122,
         "actual_best_reach": "top1",
         "status": "pass"
       }
@@ -2055,9 +2058,9 @@
         "role": "winner_capable",
         "required_reach": "top1",
         "notes": "Core baitfish streamer lane across species and current.",
-        "viable_rows": 885,
-        "top3_hits": 250427,
-        "top1_hits": 100152,
+        "viable_rows": 887,
+        "top3_hits": 250119,
+        "top1_hits": 99342,
         "actual_best_reach": "top1",
         "status": "pass"
       },
@@ -2067,20 +2070,20 @@
         "required_reach": "top1",
         "notes": "Longer-profile baitfish streamer lane.",
         "viable_rows": 137,
-        "top3_hits": 32042,
-        "top1_hits": 2601,
+        "top3_hits": 31880,
+        "top1_hits": 2505,
         "actual_best_reach": "top1",
         "status": "pass"
       },
       {
         "id": "bucktail_baitfish_streamer",
         "role": "intentional_low_frequency_specialty",
-        "required_reach": "top1",
-        "notes": "Sparse baitfish streamer lane.",
-        "viable_rows": 63,
-        "top3_hits": 12489,
-        "top1_hits": 2007,
-        "actual_best_reach": "top1",
+        "required_reach": "top3",
+        "notes": "Sparse bucktail baitfish lane: credible top-3 in cold/clear minnow windows, rarely owns rank 1 vs slimmer streamers.",
+        "viable_rows": 66,
+        "top3_hits": 12039,
+        "top1_hits": 0,
+        "actual_best_reach": "top3",
         "status": "pass"
       },
       {
@@ -2088,9 +2091,9 @@
         "role": "winner_capable",
         "required_reach": "top1",
         "notes": "Lean baitfish streamer for active fish.",
-        "viable_rows": 194,
-        "top3_hits": 48701,
-        "top1_hits": 24432,
+        "viable_rows": 181,
+        "top3_hits": 42803,
+        "top1_hits": 24231,
         "actual_best_reach": "top1",
         "status": "pass"
       },
@@ -2099,9 +2102,9 @@
         "role": "winner_capable",
         "required_reach": "top1",
         "notes": "Big articulated baitfish primary.",
-        "viable_rows": 387,
-        "top3_hits": 39446,
-        "top1_hits": 12675,
+        "viable_rows": 388,
+        "top3_hits": 40068,
+        "top1_hits": 12810,
         "actual_best_reach": "top1",
         "status": "pass"
       },
@@ -2110,9 +2113,9 @@
         "role": "winner_capable",
         "required_reach": "top1",
         "notes": "Heavy articulated streamer with added push.",
-        "viable_rows": 444,
-        "top3_hits": 36963,
-        "top1_hits": 1599,
+        "viable_rows": 446,
+        "top3_hits": 37976,
+        "top1_hits": 1569,
         "actual_best_reach": "top1",
         "status": "pass"
       },
@@ -2121,9 +2124,9 @@
         "role": "winner_capable",
         "required_reach": "top1",
         "notes": "Broad baitfish-and-pulse streamer lane.",
-        "viable_rows": 676,
-        "top3_hits": 193845,
-        "top1_hits": 71906,
+        "viable_rows": 675,
+        "top3_hits": 193033,
+        "top1_hits": 71378,
         "actual_best_reach": "top1",
         "status": "pass"
       },
@@ -2133,8 +2136,8 @@
         "required_reach": "top1",
         "notes": "Generalist subsurface staple.",
         "viable_rows": 816,
-        "top3_hits": 195717,
-        "top1_hits": 94350,
+        "top3_hits": 197142,
+        "top1_hits": 95964,
         "actual_best_reach": "top1",
         "status": "pass"
       },
@@ -2143,9 +2146,9 @@
         "role": "winner_capable",
         "required_reach": "top1",
         "notes": "Slow-pulse leech and sculpin-adjacent lane.",
-        "viable_rows": 449,
-        "top3_hits": 43506,
-        "top1_hits": 6588,
+        "viable_rows": 461,
+        "top3_hits": 47673,
+        "top1_hits": 6570,
         "actual_best_reach": "top1",
         "status": "pass"
       },
@@ -2155,8 +2158,8 @@
         "required_reach": "top1",
         "notes": "Suspended leech/bugger lane for restrained fish.",
         "viable_rows": 392,
-        "top3_hits": 60324,
-        "top1_hits": 20448,
+        "top3_hits": 59712,
+        "top1_hits": 20349,
         "actual_best_reach": "top1",
         "status": "pass"
       },
@@ -2165,9 +2168,9 @@
         "role": "intentional_low_frequency_specialty",
         "required_reach": "top1",
         "notes": "Rabbit-strip baitfish lane with slower pulse.",
-        "viable_rows": 393,
-        "top3_hits": 53807,
-        "top1_hits": 8562,
+        "viable_rows": 390,
+        "top3_hits": 53150,
+        "top1_hits": 8535,
         "actual_best_reach": "top1",
         "status": "pass"
       },
@@ -2177,8 +2180,8 @@
         "required_reach": "top1",
         "notes": "Bottom-scuttling sculpin primary.",
         "viable_rows": 511,
-        "top3_hits": 67356,
-        "top1_hits": 26613,
+        "top3_hits": 67293,
+        "top1_hits": 25695,
         "actual_best_reach": "top1",
         "status": "pass"
       },
@@ -2188,8 +2191,8 @@
         "required_reach": "top1",
         "notes": "Large sculpin bottom lane.",
         "viable_rows": 57,
-        "top3_hits": 3012,
-        "top1_hits": 1035,
+        "top3_hits": 4710,
+        "top1_hits": 1038,
         "actual_best_reach": "top1",
         "status": "pass"
       },
@@ -2199,8 +2202,8 @@
         "required_reach": "top1",
         "notes": "Shallow waking or stripped sculpin lane.",
         "viable_rows": 54,
-        "top3_hits": 17869,
-        "top1_hits": 5325,
+        "top3_hits": 18370,
+        "top1_hits": 7122,
         "actual_best_reach": "top1",
         "status": "pass"
       },
@@ -2218,12 +2221,12 @@
       {
         "id": "conehead_streamer",
         "role": "intentional_low_frequency_specialty",
-        "required_reach": "top1",
-        "notes": "Weighted bottom streamer lane.",
-        "viable_rows": 230,
-        "top3_hits": 58086,
-        "top1_hits": 120,
-        "actual_best_reach": "top1",
+        "required_reach": "top3",
+        "notes": "Weighted dredge streamer lane: reaches top-3 in deep winter/tailwater reads without requiring a synthetic rank-1 headline.",
+        "viable_rows": 228,
+        "top3_hits": 57645,
+        "top1_hits": 0,
+        "actual_best_reach": "top3",
         "status": "pass"
       },
       {
@@ -2232,8 +2235,8 @@
         "required_reach": "top1",
         "notes": "Large rabbit-strip pike fly primary.",
         "viable_rows": 216,
-        "top3_hits": 44655,
-        "top1_hits": 2502,
+        "top3_hits": 52250,
+        "top1_hits": 14472,
         "actual_best_reach": "top1",
         "status": "pass"
       },
@@ -2243,8 +2246,8 @@
         "required_reach": "top1",
         "notes": "Large articulated pike fly primary.",
         "viable_rows": 216,
-        "top3_hits": 59406,
-        "top1_hits": 38421,
+        "top3_hits": 52290,
+        "top1_hits": 27912,
         "actual_best_reach": "top1",
         "status": "pass"
       },
@@ -2253,9 +2256,9 @@
         "role": "winner_capable",
         "required_reach": "top1",
         "notes": "Topwater pop-and-pause fly lane.",
-        "viable_rows": 160,
-        "top3_hits": 20945,
-        "top1_hits": 4968,
+        "viable_rows": 159,
+        "top3_hits": 20785,
+        "top1_hits": 4932,
         "actual_best_reach": "top1",
         "status": "pass"
       },
@@ -2275,9 +2278,9 @@
         "role": "intentional_low_frequency_specialty",
         "required_reach": "top1",
         "notes": "Surface wake mouse lane in narrow low-light windows.",
-        "viable_rows": 119,
-        "top3_hits": 17548,
-        "top1_hits": 4441,
+        "viable_rows": 117,
+        "top3_hits": 17206,
+        "top1_hits": 4321,
         "actual_best_reach": "top1",
         "status": "pass"
       }

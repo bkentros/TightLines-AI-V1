@@ -1,6 +1,6 @@
 # Trout V3 Matrix Review Sheet
 
-Generated: 2026-04-15T20:35:00.243Z
+Generated: 2026-04-16T12:52:47.134Z
 Archive bundle generated: 2026-04-15T20:32:34.157Z
 Scenario count: 68
 Contexts: 0 lake/pond, 68 river
@@ -592,7 +592,6 @@ Expected primary lanes:
 Acceptable secondary lanes:
 - sculpin_streamer
 - slim_minnow_streamer
-- mouse_fly
 Disallowed lanes:
 - frog_fly
 - popper_fly
@@ -602,6 +601,8 @@ Expected color themes:
 - dark
 - natural
 - natural
+Expectation notes:
+- Mouse is a rare low-light bank read when the seasonal pool and daily surface gate align; not a matrix-counted specialty reach target.
 
 Archived env summary:
 - Region: appalachian
@@ -699,7 +700,6 @@ Expected primary lanes:
 Acceptable secondary lanes:
 - sculpin_streamer
 - slim_minnow_streamer
-- mouse_fly
 Disallowed lanes:
 - frog_fly
 - popper_fly
@@ -709,6 +709,8 @@ Expected color themes:
 - dark
 - natural
 - natural
+Expectation notes:
+- Mouse is a rare low-light bank read when the seasonal pool and daily surface gate align; not a matrix-counted specialty reach target.
 
 Archived env summary:
 - Region: appalachian
@@ -805,7 +807,6 @@ Expected primary lanes:
 Acceptable secondary lanes:
 - sculpin_streamer
 - slim_minnow_streamer
-- mouse_fly
 Disallowed lanes:
 - frog_fly
 - popper_fly
@@ -815,6 +816,8 @@ Expected color themes:
 - dark
 - natural
 - natural
+Expectation notes:
+- Mouse is a rare low-light bank read when the seasonal pool and daily surface gate align; not a matrix-counted specialty reach target.
 
 Archived env summary:
 - Region: appalachian
@@ -1895,7 +1898,6 @@ Expected primary lanes:
 - muddler_sculpin
 Acceptable secondary lanes:
 - woolly_bugger
-- mouse_fly
 - inline_spinner
 Disallowed lanes:
 - frog_fly
@@ -1906,6 +1908,8 @@ Expected color themes:
 - natural
 - natural
 - dark
+Expectation notes:
+- Mouse remains an occasional narrow surface read, not a specialty headline counted in matrix reach summaries.
 
 Archived env summary:
 - Region: northeast
@@ -2004,7 +2008,6 @@ Expected primary lanes:
 - muddler_sculpin
 Acceptable secondary lanes:
 - woolly_bugger
-- mouse_fly
 - inline_spinner
 Disallowed lanes:
 - frog_fly
@@ -2015,6 +2018,8 @@ Expected color themes:
 - natural
 - natural
 - dark
+Expectation notes:
+- Mouse remains an occasional narrow surface read, not a specialty headline counted in matrix reach summaries.
 
 Archived env summary:
 - Region: northeast
@@ -2113,7 +2118,6 @@ Expected primary lanes:
 - muddler_sculpin
 Acceptable secondary lanes:
 - woolly_bugger
-- mouse_fly
 - inline_spinner
 Disallowed lanes:
 - frog_fly
@@ -2124,6 +2128,8 @@ Expected color themes:
 - natural
 - natural
 - dark
+Expectation notes:
+- Mouse remains an occasional narrow surface read, not a specialty headline counted in matrix reach summaries.
 
 Archived env summary:
 - Region: northeast
@@ -3199,7 +3205,6 @@ Expected primary lanes:
 Acceptable secondary lanes:
 - clouser_minnow
 - woolly_bugger
-- mouse_fly
 Disallowed lanes:
 - frog_fly
 - popper_fly
@@ -3209,6 +3214,8 @@ Expected color themes:
 - natural
 - natural
 - bright
+Expectation notes:
+- Mouse is region- and pool-gated in seasonal truth; do not treat it as a matrix specialty quota here.
 
 Archived env summary:
 - Region: mountain_west
@@ -3307,7 +3314,6 @@ Expected primary lanes:
 Acceptable secondary lanes:
 - clouser_minnow
 - woolly_bugger
-- mouse_fly
 Disallowed lanes:
 - frog_fly
 - popper_fly
@@ -3317,6 +3323,8 @@ Expected color themes:
 - natural
 - natural
 - bright
+Expectation notes:
+- Mouse is region- and pool-gated in seasonal truth; do not treat it as a matrix specialty quota here.
 
 Archived env summary:
 - Region: mountain_west
@@ -3416,7 +3424,6 @@ Expected primary lanes:
 Acceptable secondary lanes:
 - clouser_minnow
 - woolly_bugger
-- mouse_fly
 Disallowed lanes:
 - frog_fly
 - popper_fly
@@ -3426,6 +3433,8 @@ Expected color themes:
 - natural
 - natural
 - bright
+Expectation notes:
+- Mouse is region- and pool-gated in seasonal truth; do not treat it as a matrix specialty quota here.
 
 Archived env summary:
 - Region: mountain_west
@@ -4503,7 +4512,6 @@ Expected primary lanes:
 Acceptable secondary lanes:
 - woolly_bugger
 - inline_spinner
-- mouse_fly
 Disallowed lanes:
 - frog_fly
 - popper_fly
@@ -4513,6 +4521,8 @@ Expected color themes:
 - natural
 - natural
 - dark
+Expectation notes:
+- Mouse windows are daily- and pool-gated; matrix does not count mouse as an expected specialty reach row.
 
 Archived env summary:
 - Region: pacific_northwest
@@ -4611,7 +4621,6 @@ Expected primary lanes:
 Acceptable secondary lanes:
 - woolly_bugger
 - inline_spinner
-- mouse_fly
 Disallowed lanes:
 - frog_fly
 - popper_fly
@@ -4621,6 +4630,8 @@ Expected color themes:
 - natural
 - natural
 - dark
+Expectation notes:
+- Mouse windows are daily- and pool-gated; matrix does not count mouse as an expected specialty reach row.
 
 Archived env summary:
 - Region: pacific_northwest
@@ -4719,7 +4730,6 @@ Expected primary lanes:
 Acceptable secondary lanes:
 - woolly_bugger
 - inline_spinner
-- mouse_fly
 Disallowed lanes:
 - frog_fly
 - popper_fly
@@ -4729,6 +4739,8 @@ Expected color themes:
 - natural
 - natural
 - dark
+Expectation notes:
+- Mouse windows are daily- and pool-gated; matrix does not count mouse as an expected specialty reach row.
 
 Archived env summary:
 - Region: pacific_northwest

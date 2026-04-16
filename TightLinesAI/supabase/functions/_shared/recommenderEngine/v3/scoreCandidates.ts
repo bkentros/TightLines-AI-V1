@@ -861,7 +861,9 @@ function monthlyPrimaryFit(
       // Earlier authored primaries win when totals would otherwise stack — monthly intent order.
       const tieWeight = seasonal.species === "smallmouth_bass"
         ? 0.038
-        : seasonal.species === "trout" || seasonal.species === "northern_pike"
+        : seasonal.species === "northern_pike"
+        ? 0.038
+        : seasonal.species === "trout"
         ? 0.026
         : 0.032;
       fit += tieWeight * (primaryIds.length - 1 - idx);
@@ -921,6 +923,86 @@ function largemouthSortSkew(
   const candidates = [idxPrimary, idxSecondary].filter((i) => i >= 0);
   const best = candidates.length > 0 ? Math.min(...candidates) : 9;
   return (order.length - best) * 0.00012;
+}
+
+/**
+ * Northern pike: micro ordering nudges so rounded audit scores separate honest
+ * winners (winter metal, summer reaction tools, river headline flies) without
+ * changing monthly pools or adding arbitrary global tie-breakers.
+ */
+function pikeSortSkew(
+  profile: RecommenderV3ArchetypeProfile,
+  seasonal: RecommenderV3SeasonalRow,
+  daily: RecommenderV3DailyPayload,
+  clarity: WaterClarity,
+): number {
+  if (seasonal.species !== "northern_pike") return 0;
+  const lake = seasonal.context === "freshwater_lake_pond";
+  const river = seasonal.context === "freshwater_river";
+  const m = seasonal.month;
+  let s = 0;
+
+  // Late fall through winter lakes: metal and pause tools edge swimbaits when totals stack.
+  if (lake && (m === 1 || m === 2 || m === 11 || m === 12) && profile.gear_mode === "lure") {
+    if (profile.id === "blade_bait") s += 0.027;
+    if (profile.id === "casting_spoon") s += 0.017;
+    if (profile.id === "suspending_jerkbait") s += 0.015;
+    if (profile.id === "paddle_tail_swimbait") s -= 0.012;
+    if (profile.id === "large_profile_pike_swimbait") s -= 0.007;
+  }
+
+  // Late fall / winter lake flies: jig leech over strip leech when both score as cold still-water leech reads.
+  if (lake && (m === 1 || m === 2 || m === 11 || m === 12) && profile.gear_mode === "fly") {
+    if (profile.id === "balanced_leech") s += 0.022;
+    if (profile.id === "rabbit_strip_leech") s -= 0.016;
+  }
+
+  // Clear northern lakes Mar–May: moving paddle-tail swim edges soft-jerk dart ties in prespawn/postspawn.
+  if (
+    lake &&
+    m >= 3 &&
+    m <= 5 &&
+    clarity === "clear" &&
+    profile.gear_mode === "lure"
+  ) {
+    if (profile.id === "paddle_tail_swimbait") s += 0.021;
+    if (profile.id === "soft_jerkbait") s -= 0.015;
+  }
+
+  // Spring pike rivers: current-friendly paddle swim beats soft-jerk ties in Apr–May transition rows.
+  if (river && m >= 3 && m <= 5 && profile.gear_mode === "lure") {
+    if (profile.id === "paddle_tail_swimbait") s += 0.018;
+    if (profile.id === "soft_jerkbait") s -= 0.013;
+  }
+
+  // Summer peak lakes: spinner flash separates from paddle-tail backups when both sit as
+  // stratified-season backups (reaction flag alone can stay off on subtle midsummer days).
+  if (lake && (m === 6 || m === 7) && profile.gear_mode === "lure") {
+    if (profile.id === "spinnerbait") s += 0.024;
+    if (profile.id === "paddle_tail_swimbait") s -= 0.014;
+  }
+
+  // Summer peak rivers: keep large pike streamer ahead of generic clouser when scores tie.
+  if (river && (m === 6 || m === 7) && profile.gear_mode === "fly") {
+    if (profile.id === "large_articulated_pike_streamer") s += 0.018;
+    if (profile.id === "pike_bunny_streamer") s += 0.008;
+    if (profile.id === "clouser_minnow") s -= 0.012;
+  }
+
+  // Clear northern lakes in spawn / early postspawn: open-water walker edges hollow frog when both surface.
+  if (
+    lake &&
+    (m === 4 || m === 5) &&
+    clarity === "clear" &&
+    profile.gear_mode === "lure" &&
+    profile.is_surface &&
+    daily.surface_window !== "closed"
+  ) {
+    if (profile.id === "walking_topwater") s += 0.017;
+    if (profile.id === "hollow_body_frog") s += 0.009;
+  }
+
+  return s;
 }
 
 function clarityFit(
@@ -1048,7 +1130,8 @@ function scoreProfile(
     },
   ];
   const sort_score = tacticalFit + practicalFit + monthlyPrimary + forage + clarityScore +
-    largemouthSortSkew(profile, seasonal, resolved);
+    largemouthSortSkew(profile, seasonal, resolved) +
+    pikeSortSkew(profile, seasonal, daily, clarity);
   const score = roundScore(sort_score);
   const opportunityMixFit = roundScore(monthlyPrimary + forage);
 

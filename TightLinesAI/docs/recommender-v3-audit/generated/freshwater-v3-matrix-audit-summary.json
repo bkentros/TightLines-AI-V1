@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-16T02:12:19.498Z",
+  "generated_at": "2026-04-16T12:54:12.705Z",
   "species": {
     "largemouth_bass": {
       "batch_id": "largemouth_v3_matrix",
@@ -524,7 +524,7 @@
           "unexpected_top3_count": 0
         },
         "mouse_fly": {
-          "expected_count": 12,
+          "expected_count": 0,
           "top3_hit_count": 0,
           "top1_hit_count": 0,
           "unexpected_top3_count": 0
@@ -571,9 +571,9 @@
       "top3_primary_present_count": 48,
       "disallowed_avoidance_count": 48,
       "top_color_match_count": 48,
-      "unique_top1_lure_ids": 8,
+      "unique_top1_lure_ids": 7,
       "unique_top1_fly_ids": 9,
-      "unique_lure_top3_signatures": 32,
+      "unique_lure_top3_signatures": 33,
       "unique_fly_top3_signatures": 24,
       "lure_top1_leaders": [
         {
@@ -585,12 +585,12 @@
           "count": 12
         },
         {
-          "id": "paddle_tail_swimbait",
-          "count": 7
+          "id": "spinnerbait",
+          "count": 8
         },
         {
-          "id": "spinnerbait",
-          "count": 7
+          "id": "paddle_tail_swimbait",
+          "count": 6
         },
         {
           "id": "pike_jerkbait",
@@ -602,11 +602,7 @@
         },
         {
           "id": "walking_topwater",
-          "count": 2
-        },
-        {
-          "id": "hollow_body_frog",
-          "count": 1
+          "count": 3
         }
       ],
       "fly_top1_leaders": [
@@ -673,7 +669,7 @@
         "hollow_body_frog": {
           "expected_count": 2,
           "top3_hit_count": 1,
-          "top1_hit_count": 1,
+          "top1_hit_count": 0,
           "unexpected_top3_count": 0
         },
         "frog_fly": {
@@ -691,7 +687,7 @@
         "walking_topwater": {
           "expected_count": 10,
           "top3_hit_count": 4,
-          "top1_hit_count": 2,
+          "top1_hit_count": 3,
           "unexpected_top3_count": 3
         },
         "buzzbait": {
@@ -714,7 +710,7 @@
         }
       },
       "used_region_fallback_count": 0,
-      "top1_tie_count": 12,
+      "top1_tie_count": 0,
       "explanation_conflict_count": 0,
       "hard_fail_count": 0,
       "soft_fail_count": 0,

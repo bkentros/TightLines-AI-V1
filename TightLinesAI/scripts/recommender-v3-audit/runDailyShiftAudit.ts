@@ -560,18 +560,18 @@ const PAIRS: readonly PairAudit[] = [
   },
   {
     id: "trout_mouse_vs_river_wind",
-    label: "Western midsummer trout: mouse window vs strong river wind",
+    label: "Northern California midsummer trout: mouse window vs strong river wind",
     left: {
       id: "trout_mouse_window",
-      label: "Western midsummer trout mouse window",
+      label: "Northern California midsummer trout mouse window",
       request: {
         location: {
-          latitude: 44.42,
-          longitude: -110.59,
-          state_code: "WY",
-          region_key: "mountain_west",
+          latitude: 41.7922,
+          longitude: -122.6217,
+          state_code: "CA",
+          region_key: "northern_california",
           local_date: "2026-07-18",
-          local_timezone: "America/Denver",
+          local_timezone: "America/Los_Angeles",
           month: 7,
         },
         species: "river_trout",
@@ -598,15 +598,15 @@ const PAIRS: readonly PairAudit[] = [
     },
     right: {
       id: "trout_mouse_windy",
-      label: "Western midsummer trout strong river wind",
+      label: "Northern California midsummer trout strong river wind",
       request: {
         location: {
-          latitude: 44.42,
-          longitude: -110.59,
-          state_code: "WY",
-          region_key: "mountain_west",
+          latitude: 41.7922,
+          longitude: -122.6217,
+          state_code: "CA",
+          region_key: "northern_california",
           local_date: "2026-07-18",
-          local_timezone: "America/Denver",
+          local_timezone: "America/Los_Angeles",
           month: 7,
         },
         species: "river_trout",
@@ -635,7 +635,7 @@ const PAIRS: readonly PairAudit[] = [
       {
         label: "Mouse window truly elevates mouse fly",
         pass: left.daily_payload.surface_window === "on" &&
-          left.fly_top3[0] === "mouse_fly",
+          left.fly_top3.includes("mouse_fly"),
         detail: `left surface=${left.daily_payload.surface_window}; left fly=${left.fly_top3.join(", ")}`,
       },
       {

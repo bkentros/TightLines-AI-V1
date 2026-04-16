@@ -1,6 +1,6 @@
 # Freshwater V3 Matrix Audit Summary
 
-Generated: 2026-04-16T02:12:19.498Z
+Generated: 2026-04-16T12:54:12.705Z
 
 Total scenarios: 309
 Top-1 primary hit rate: 309/309 (100.0%)
@@ -154,7 +154,6 @@ Anchor top-1 primary hit:
 - `trout_matrix_south_central_tailwater`: 4/4 (100.0%)
 
 Specialty reach:
-- `mouse_fly`: expected 12, top3 hits 0, top1 hits 0, unexpected top3 0
 
 Top-1 miss examples:
 - none
@@ -166,14 +165,14 @@ Top-1 miss examples:
 - Top-3 primary present: 48/48 (100.0%)
 - Disallowed avoidance: 48/48 (100.0%)
 - Top color-lane match: 48/48 (100.0%)
-- Variety: 8 unique lure top-1 IDs, 9 unique fly top-1 IDs, 32 lure top-3 signatures, 24 fly top-3 signatures
-- Failure split: 0 hard fails, 0 soft fails, 12 top-1 ties, 0 explanation conflicts, fallback used 0 times
+- Variety: 7 unique lure top-1 IDs, 9 unique fly top-1 IDs, 33 lure top-3 signatures, 24 fly top-3 signatures
+- Failure split: 0 hard fails, 0 soft fails, 0 top-1 ties, 0 explanation conflicts, fallback used 0 times
 
 Top lure leaders:
 - `blade_bait`: 12
 - `large_profile_pike_swimbait`: 12
-- `paddle_tail_swimbait`: 7
-- `spinnerbait`: 7
+- `spinnerbait`: 8
+- `paddle_tail_swimbait`: 6
 - `pike_jerkbait`: 4
 - `suspending_jerkbait`: 3
 Top fly leaders:
@@ -193,10 +192,10 @@ Anchor top-1 primary hit:
 - `pike_matrix_rainy_river_pike`: 12/12 (100.0%)
 
 Specialty reach:
-- `hollow_body_frog`: expected 2, top3 hits 1, top1 hits 1, unexpected top3 0
+- `hollow_body_frog`: expected 2, top3 hits 1, top1 hits 0, unexpected top3 0
 - `frog_fly`: expected 0, top3 hits 0, top1 hits 0, unexpected top3 1
 - `mouse_fly`: expected 1, top3 hits 1, top1 hits 1, unexpected top3 1
-- `walking_topwater`: expected 10, top3 hits 4, top1 hits 2, unexpected top3 3
+- `walking_topwater`: expected 10, top3 hits 4, top1 hits 3, unexpected top3 3
 - `popper_fly`: expected 2, top3 hits 2, top1 hits 2, unexpected top3 1
 
 Top-1 miss examples:
