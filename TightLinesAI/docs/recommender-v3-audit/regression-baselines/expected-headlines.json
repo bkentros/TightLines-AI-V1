@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "description": "Headline caps for committed audit artifacts under docs/recommender-v3-audit/generated/. Regenerate matrix/coverage/daily-shift outputs, then bump values here only when intentionally changing tuning.",
+  "matrix_summary": {
+    "path": "docs/recommender-v3-audit/generated/freshwater-v3-matrix-audit-summary.json",
+    "total_scenarios": 309,
+    "species": {
+      "largemouth_bass": {
+        "scenario_count": 110,
+        "max_top1_tie_count": 9
+      },
+      "smallmouth_bass": {
+        "scenario_count": 83,
+        "max_top1_tie_count": 7
+      },
+      "trout": {
+        "scenario_count": 68,
+        "max_top1_tie_count": 5
+      },
+      "northern_pike": {
+        "scenario_count": 48,
+        "max_top1_tie_count": 5
+      }
+    }
+  },
+  "daily_shift_audit": {
+    "path": "docs/recommender-v3-audit/generated/v3-daily-shift-audit.json",
+    "total_pairs": 7,
+    "total_checks": 14,
+    "min_passed_checks": 14
+  },
+  "coverage_audit": {
+    "path": "docs/recommender-v3-audit/generated/v3-coverage-audit.json",
+    "require_all_success_targets_pass": true,
+    "require_expectation_mismatches_zero": true
+  }
+}

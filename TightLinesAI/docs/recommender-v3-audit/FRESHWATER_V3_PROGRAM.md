@@ -1,5 +1,11 @@
 # Freshwater V3 Audit Program
 
+## Maintainer validation (post-tuning)
+
+For copy-paste commands, artifact layout, pass/fail expectations, and archive refresh workflow, see [MAINTAINER_VALIDATION.md](./MAINTAINER_VALIDATION.md).
+
+For **matrix-clean baseline**, species maintainer notes, tuning philosophy, and the **exception/overrides registry**, see [V3_POST_TUNING_STATE.md](./V3_POST_TUNING_STATE.md).
+
 ## Goal
 
 Tune the freshwater V3 lure/fly recommender until it is:
@@ -215,6 +221,6 @@ Use this loop:
 
 ## Immediate Next Step
 
-Start with a dedicated `largemouth_bass` audit program.
+**Historical:** Largemouth was tuned first and used to harden the shared harness.
 
-That species should be tuned first and most deeply before broader freshwater expansion.
+**Today (post-tuning):** All four freshwater species in scope are matrix-clean; new work should follow [V3_POST_TUNING_STATE.md](./V3_POST_TUNING_STATE.md) (polish, regression protection, targeted fixes) rather than reopening broad multi-species retuning unless audits regress.

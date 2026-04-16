@@ -56,7 +56,8 @@ function cacheKey(
 ): string {
   const dayKey = extractRequestDay(params);
   return [
-    'recommender_v6',
+    // Prefix must change when the edge response contract changes (invalidate stale caches).
+    'recommender_v3',
     params.latitude.toFixed(3),
     params.longitude.toFixed(3),
     params.state_code.toUpperCase(),
@@ -209,18 +210,15 @@ export async function fetchRecommendation(
 
 // ─── Cache invalidation ───────────────────────────────────────────────────────
 
+/** Day-cache namespace: `^recommender_v\\d+_` (matches `cacheKey` and legacy v1–v6+ prefixes). */
+const RECOMMENDER_ASYNC_STORAGE_KEY = /^recommender_v\d+_/;
+
+/** Clears in-memory cache and AsyncStorage keys matching `^recommender_v\\d+_` only. */
 export async function clearRecommenderCache(): Promise<void> {
   _memCache.clear();
   try {
     const keys = await AsyncStorage.getAllKeys();
-    const toRemove = keys.filter(
-      (k) =>
-        k.startsWith('recommender_v1_') ||
-        k.startsWith('recommender_v3_') ||
-        k.startsWith('recommender_v4_') ||
-        k.startsWith('recommender_v5_') ||
-        k.startsWith('recommender_v6_'),
-    );
+    const toRemove = keys.filter((k) => RECOMMENDER_ASYNC_STORAGE_KEY.test(k));
     if (toRemove.length > 0) {
       await AsyncStorage.multiRemove(toRemove);
     }

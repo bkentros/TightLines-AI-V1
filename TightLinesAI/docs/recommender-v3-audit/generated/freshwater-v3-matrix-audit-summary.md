@@ -1,12 +1,23 @@
 # Freshwater V3 Matrix Audit Summary
 
-Generated: 2026-04-16T12:54:12.705Z
+Generated: 2026-04-16T14:19:29.679Z
 
 Total scenarios: 309
 Top-1 primary hit rate: 309/309 (100.0%)
 Top-3 primary present rate: 309/309 (100.0%)
 Disallowed avoidance rate: 309/309 (100.0%)
 Top color-lane match rate: 309/309 (100.0%)
+
+## Reader's guide
+
+- **Primary contract** = the four headline rates above. These are what matrix-clean and regression baselines gate on.
+- **Per-species failure split** = hard/soft review outcomes from the matrix review sheet (distinct from headline rates).
+- **Variety** = diversity of top-1 IDs and top-3 order signatures — useful context, **not** a pass/fail line item.
+- **Top-1 ties** = co-equal scores within authored primaries; tracked separately from primary hits (see tie ceilings in regression baselines).
+- **Explanation conflicts** and **region fallback** = maintainer diagnostics, not primary-lane biology failures.
+- **Specialty block** = surface/frog-adjacent archetypes only; **bonus top-3** counts exploratory top-3 appearances when expectations did not list that id (not a primary-contract miss).
+
+Full field glossary: [V3_AUDIT_INTERPRETATION.md](../V3_AUDIT_INTERPRETATION.md).
 
 ## Species Summaries
 
@@ -18,7 +29,7 @@ Top color-lane match rate: 309/309 (100.0%)
 - Disallowed avoidance: 110/110 (100.0%)
 - Top color-lane match: 110/110 (100.0%)
 - Variety: 12 unique lure top-1 IDs, 9 unique fly top-1 IDs, 73 lure top-3 signatures, 55 fly top-3 signatures
-- Failure split: 0 hard fails, 0 soft fails, 9 top-1 ties, 0 explanation conflicts, fallback used 0 times
+- Failure split (review sheet): 0 hard fails, 0 soft fails; 9 top-1 tie flags; 0 explanation-conflict flags; region fallback used 0 times
 
 Top lure leaders:
 - `football_jig`: 25
@@ -57,14 +68,16 @@ Anchor top-1 primary hit:
 - `lmb_matrix_texas_reservoir`: 12/12 (100.0%)
 - `lmb_matrix_wisconsin_clear_weed_lake`: 4/4 (100.0%)
 
-Specialty reach:
-- `hollow_body_frog`: expected 29, top3 hits 6, top1 hits 3, unexpected top3 0
-- `frog_fly`: expected 5, top3 hits 4, top1 hits 2, unexpected top3 6
-- `mouse_fly`: expected 3, top3 hits 0, top1 hits 0, unexpected top3 3
-- `walking_topwater`: expected 13, top3 hits 0, top1 hits 0, unexpected top3 2
-- `buzzbait`: expected 9, top3 hits 0, top1 hits 0, unexpected top3 0
-- `prop_bait`: expected 6, top3 hits 0, top1 hits 0, unexpected top3 0
-- `popper_fly`: expected 2, top3 hits 0, top1 hits 0, unexpected top3 3
+### Specialty surface / frog diagnostics (non-gating)
+
+Tracked ids: hollow_body_frog, frog_fly, mouse_fly, walking_topwater, buzzbait, prop_bait, popper_fly. **Bonus top-3** = id appears in top-3 when scenario expectation lanes did not list it.
+- `hollow_body_frog`: scenarios expecting 29 | in top-3 when expected 6 | top-1 when expected 3 | bonus top-3 (not in expectation lanes) 0
+- `frog_fly`: scenarios expecting 5 | in top-3 when expected 4 | top-1 when expected 2 | bonus top-3 (not in expectation lanes) 6
+- `mouse_fly`: scenarios expecting 3 | in top-3 when expected 0 | top-1 when expected 0 | bonus top-3 (not in expectation lanes) 3
+- `walking_topwater`: scenarios expecting 13 | in top-3 when expected 0 | top-1 when expected 0 | bonus top-3 (not in expectation lanes) 2
+- `buzzbait`: scenarios expecting 9 | in top-3 when expected 0 | top-1 when expected 0 | bonus top-3 (not in expectation lanes) 0
+- `prop_bait`: scenarios expecting 6 | in top-3 when expected 0 | top-1 when expected 0 | bonus top-3 (not in expectation lanes) 0
+- `popper_fly`: scenarios expecting 2 | in top-3 when expected 0 | top-1 when expected 0 | bonus top-3 (not in expectation lanes) 3
 
 Top-1 miss examples:
 - none
@@ -77,7 +90,7 @@ Top-1 miss examples:
 - Disallowed avoidance: 83/83 (100.0%)
 - Top color-lane match: 83/83 (100.0%)
 - Variety: 10 unique lure top-1 IDs, 12 unique fly top-1 IDs, 58 lure top-3 signatures, 50 fly top-3 signatures
-- Failure split: 0 hard fails, 0 soft fails, 7 top-1 ties, 0 explanation conflicts, fallback used 0 times
+- Failure split (review sheet): 0 hard fails, 0 soft fails; 7 top-1 tie flags; 0 explanation-conflict flags; region fallback used 0 times
 
 Top lure leaders:
 - `tube_jig`: 30
@@ -109,10 +122,12 @@ Anchor top-1 primary hit:
 - `smb_matrix_willamette_river_smb`: 4/4 (100.0%)
 - `smb_matrix_wisconsin_natural_lake`: 4/4 (100.0%)
 
-Specialty reach:
-- `mouse_fly`: expected 0, top3 hits 0, top1 hits 0, unexpected top3 4
-- `walking_topwater`: expected 20, top3 hits 6, top1 hits 2, unexpected top3 1
-- `popper_fly`: expected 12, top3 hits 4, top1 hits 2, unexpected top3 7
+### Specialty surface / frog diagnostics (non-gating)
+
+Tracked ids: hollow_body_frog, frog_fly, mouse_fly, walking_topwater, buzzbait, prop_bait, popper_fly. **Bonus top-3** = id appears in top-3 when scenario expectation lanes did not list it.
+- `mouse_fly`: scenarios expecting 0 | in top-3 when expected 0 | top-1 when expected 0 | bonus top-3 (not in expectation lanes) 4
+- `walking_topwater`: scenarios expecting 20 | in top-3 when expected 6 | top-1 when expected 2 | bonus top-3 (not in expectation lanes) 1
+- `popper_fly`: scenarios expecting 12 | in top-3 when expected 4 | top-1 when expected 2 | bonus top-3 (not in expectation lanes) 7
 
 Top-1 miss examples:
 - none
@@ -125,7 +140,7 @@ Top-1 miss examples:
 - Disallowed avoidance: 68/68 (100.0%)
 - Top color-lane match: 68/68 (100.0%)
 - Variety: 6 unique lure top-1 IDs, 7 unique fly top-1 IDs, 26 lure top-3 signatures, 31 fly top-3 signatures
-- Failure split: 0 hard fails, 0 soft fails, 5 top-1 ties, 0 explanation conflicts, fallback used 0 times
+- Failure split (review sheet): 0 hard fails, 0 soft fails; 5 top-1 tie flags; 0 explanation-conflict flags; region fallback used 0 times
 
 Top lure leaders:
 - `suspending_jerkbait`: 26
@@ -153,7 +168,9 @@ Anchor top-1 primary hit:
 - `trout_matrix_pacific_northwest_river`: 12/12 (100.0%)
 - `trout_matrix_south_central_tailwater`: 4/4 (100.0%)
 
-Specialty reach:
+### Specialty surface / frog diagnostics (non-gating)
+
+Tracked ids: hollow_body_frog, frog_fly, mouse_fly, walking_topwater, buzzbait, prop_bait, popper_fly. **Bonus top-3** = id appears in top-3 when scenario expectation lanes did not list it.
 
 Top-1 miss examples:
 - none
@@ -166,7 +183,7 @@ Top-1 miss examples:
 - Disallowed avoidance: 48/48 (100.0%)
 - Top color-lane match: 48/48 (100.0%)
 - Variety: 7 unique lure top-1 IDs, 9 unique fly top-1 IDs, 33 lure top-3 signatures, 24 fly top-3 signatures
-- Failure split: 0 hard fails, 0 soft fails, 0 top-1 ties, 0 explanation conflicts, fallback used 0 times
+- Failure split (review sheet): 0 hard fails, 0 soft fails; 0 top-1 tie flags; 0 explanation-conflict flags; region fallback used 0 times
 
 Top lure leaders:
 - `blade_bait`: 12
@@ -191,12 +208,14 @@ Anchor top-1 primary hit:
 - `pike_matrix_north_dakota_reservoir`: 4/4 (100.0%)
 - `pike_matrix_rainy_river_pike`: 12/12 (100.0%)
 
-Specialty reach:
-- `hollow_body_frog`: expected 2, top3 hits 1, top1 hits 0, unexpected top3 0
-- `frog_fly`: expected 0, top3 hits 0, top1 hits 0, unexpected top3 1
-- `mouse_fly`: expected 1, top3 hits 1, top1 hits 1, unexpected top3 1
-- `walking_topwater`: expected 10, top3 hits 4, top1 hits 3, unexpected top3 3
-- `popper_fly`: expected 2, top3 hits 2, top1 hits 2, unexpected top3 1
+### Specialty surface / frog diagnostics (non-gating)
+
+Tracked ids: hollow_body_frog, frog_fly, mouse_fly, walking_topwater, buzzbait, prop_bait, popper_fly. **Bonus top-3** = id appears in top-3 when scenario expectation lanes did not list it.
+- `hollow_body_frog`: scenarios expecting 2 | in top-3 when expected 1 | top-1 when expected 0 | bonus top-3 (not in expectation lanes) 0
+- `frog_fly`: scenarios expecting 0 | in top-3 when expected 0 | top-1 when expected 0 | bonus top-3 (not in expectation lanes) 1
+- `mouse_fly`: scenarios expecting 1 | in top-3 when expected 1 | top-1 when expected 1 | bonus top-3 (not in expectation lanes) 1
+- `walking_topwater`: scenarios expecting 10 | in top-3 when expected 4 | top-1 when expected 3 | bonus top-3 (not in expectation lanes) 3
+- `popper_fly`: scenarios expecting 2 | in top-3 when expected 2 | top-1 when expected 2 | bonus top-3 (not in expectation lanes) 1
 
 Top-1 miss examples:
 - none

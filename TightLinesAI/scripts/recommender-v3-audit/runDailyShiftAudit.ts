@@ -892,3 +892,10 @@ await Deno.writeTextFile(OUTPUT_JSON, JSON.stringify(report, null, 2));
 await Deno.writeTextFile(OUTPUT_MARKDOWN, `${markdown}\n`);
 
 console.log(markdown);
+
+if (report.failed_checks > 0) {
+  console.error(
+    `V3 daily shift audit failed: ${report.failed_checks}/${report.total_checks} check(s) did not pass.`,
+  );
+  Deno.exit(1);
+}

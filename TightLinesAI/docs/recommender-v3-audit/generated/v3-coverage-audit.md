@@ -1,6 +1,6 @@
 # V3 Coverage Audit
 
-Generated: 2026-04-16T12:54:02.136Z
+Generated: 2026-04-16T14:22:00.362Z
 
 Seasonal rows audited: 1104
 Synthetic daily states per row: 405
@@ -26,6 +26,15 @@ Low daily sensitivity ratio: lure 0.0% / target <= 45.0%, fly 2.5% / target <= 5
 Tactical conflict rate: lure 1.7% / target <= 2.0%, fly 0.0% / target <= 2.0%
 Expectation mismatches: lure 0 / target <= 0, fly 0 / target <= 0
 
+## Reader's guide
+
+- **CI / contract failures** = any `success_targets` line failing above, or any **expectation mismatch** count above zero (intent table `fail` rows).
+- **Intent table `pass` with low top-1_hits** is normal for `top3_support` and for `intentional_low_frequency_specialty` when `required_reach` is `top3` — not a surface/frog bonus metric.
+- **Library reachability** (`never_viable`, `never_top3`, `never_top1`) summarizes the **synthetic daily × clarity grid** across seasonal rows. It is diagnostic for pool health; it is **not** the archived **matrix** audit (different fixtures).
+- **Redundancy collisions** = tagged top-3 duplication patterns; empty is ideal.
+
+Longer glossary: [V3_AUDIT_INTERPRETATION.md](../V3_AUDIT_INTERPRETATION.md).
+
 ## Locked Top-1 Rows
 
 Lure rows with only one possible top-1 across all synthetic states: 1
@@ -42,6 +51,8 @@ Lure evaluated states with top-3 pace/story conflicts: 7452
 Fly evaluated states with top-3 pace/story conflicts: 0
 
 ## Library Reachability
+
+Synthetic sweep only — compare against matrix results before treating a `never_*` list as a user-facing regression.
 
 Lures never viable: none
 Lures never top 3: none
@@ -98,6 +109,9 @@ Detected 25 tagged redundancy collisions.
 | large_profile_pike_swimbait | winner_capable | top1 | pass |
 | pike_jerkbait | winner_capable | top1 | pass |
 
+
+Columns: **Role** and **Required** come from `archetypeExpectations.ts`. **Status** = synthetic-grid reach vs that contract (`pass` / `fail`). Only `fail` rows contribute to expectation mismatch counts.
+
 ## Fly Intent Table
 
 | Archetype | Role | Required | Status |
@@ -123,4 +137,7 @@ Detected 25 tagged redundancy collisions.
 | popper_fly | winner_capable | top1 | pass |
 | frog_fly | winner_capable | top1 | pass |
 | mouse_fly | intentional_low_frequency_specialty | top1 | pass |
+
+
+Same intent rules as lures. Rarity roles intentionally allow low top-1 frequency when the contract only requires top-3.
 

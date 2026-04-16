@@ -332,7 +332,7 @@ function specialtyLines(summary: SpeciesSummary): string[] {
       data.unexpected_top3_count > 0
     )
     .map(({ id, data }) =>
-      `- \`${id}\`: expected ${data.expected_count}, top3 hits ${data.top3_hit_count}, top1 hits ${data.top1_hit_count}, unexpected top3 ${data.unexpected_top3_count}`
+      `- \`${id}\`: scenarios expecting ${data.expected_count} | in top-3 when expected ${data.top3_hit_count} | top-1 when expected ${data.top1_hit_count} | bonus top-3 (not in expectation lanes) ${data.unexpected_top3_count}`
     );
 }
 
@@ -391,6 +391,17 @@ function toMarkdown(
     `Disallowed avoidance rate: ${totalDisallowed}/${totalScenarios} (${percent(totalDisallowed, totalScenarios)})`,
     `Top color-lane match rate: ${totalColor}/${totalScenarios} (${percent(totalColor, totalScenarios)})`,
     "",
+    "## Reader's guide",
+    "",
+    "- **Primary contract** = the four headline rates above. These are what matrix-clean and regression baselines gate on.",
+    "- **Per-species failure split** = hard/soft review outcomes from the matrix review sheet (distinct from headline rates).",
+    "- **Variety** = diversity of top-1 IDs and top-3 order signatures — useful context, **not** a pass/fail line item.",
+    "- **Top-1 ties** = co-equal scores within authored primaries; tracked separately from primary hits (see tie ceilings in regression baselines).",
+    "- **Explanation conflicts** and **region fallback** = maintainer diagnostics, not primary-lane biology failures.",
+    "- **Specialty block** = surface/frog-adjacent archetypes only; **bonus top-3** counts exploratory top-3 appearances when expectations did not list that id (not a primary-contract miss).",
+    "",
+    "Full field glossary: [V3_AUDIT_INTERPRETATION.md](../V3_AUDIT_INTERPRETATION.md).",
+    "",
     "## Species Summaries",
     "",
   ];
@@ -417,7 +428,7 @@ function toMarkdown(
       `- Variety: ${summary.unique_top1_lure_ids} unique lure top-1 IDs, ${summary.unique_top1_fly_ids} unique fly top-1 IDs, ${summary.unique_lure_top3_signatures} lure top-3 signatures, ${summary.unique_fly_top3_signatures} fly top-3 signatures`,
     );
     lines.push(
-      `- Failure split: ${summary.hard_fail_count} hard fails, ${summary.soft_fail_count} soft fails, ${summary.top1_tie_count} top-1 ties, ${summary.explanation_conflict_count} explanation conflicts, fallback used ${summary.used_region_fallback_count} times`,
+      `- Failure split (review sheet): ${summary.hard_fail_count} hard fails, ${summary.soft_fail_count} soft fails; ${summary.top1_tie_count} top-1 tie flags; ${summary.explanation_conflict_count} explanation-conflict flags; region fallback used ${summary.used_region_fallback_count} times`,
     );
     lines.push("");
     lines.push(...leaderLines("Top lure leaders", summary.lure_top1_leaders));
@@ -426,7 +437,11 @@ function toMarkdown(
     lines.push("Anchor top-1 primary hit:");
     lines.push(...anchorLines(summary));
     lines.push("");
-    lines.push("Specialty reach:");
+    lines.push("### Specialty surface / frog diagnostics (non-gating)");
+    lines.push("");
+    lines.push(
+      "Tracked ids: hollow_body_frog, frog_fly, mouse_fly, walking_topwater, buzzbait, prop_bait, popper_fly. **Bonus top-3** = id appears in top-3 when scenario expectation lanes did not list it.",
+    );
     lines.push(...specialtyLines(summary));
     lines.push("");
     lines.push("Top-1 miss examples:");
@@ -456,6 +471,16 @@ async function main() {
 
   console.log(`Wrote ${OUTPUT_JSON}`);
   console.log(`Wrote ${OUTPUT_MARKDOWN}`);
+
+  const matrixFailed = Object.values(summaries).some(
+    (s) => s.hard_fail_count > 0 || s.soft_fail_count > 0,
+  );
+  if (matrixFailed) {
+    console.error(
+      "Freshwater matrix analysis: one or more species has hard or soft review failures.",
+    );
+    Deno.exit(1);
+  }
 }
 
 if (import.meta.main) {

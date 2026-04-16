@@ -365,6 +365,17 @@ function buildTargetStatus(
   };
 }
 
+function successTargetsAllPass(
+  targets: Record<string, Record<string, TargetStatus>>,
+): boolean {
+  for (const bucket of Object.values(targets)) {
+    for (const status of Object.values(bucket)) {
+      if (!status.pass) return false;
+    }
+  }
+  return true;
+}
+
 function toMarkdown(payload: Record<string, unknown>): string {
   const lure = payload.lure as Record<string, unknown>;
   const fly = payload.fly as Record<string, unknown>;
@@ -453,6 +464,15 @@ function toMarkdown(payload: Record<string, unknown>): string {
       (targets.expectation_mismatches.fly as TargetStatus).target.toFixed(0)
     }`,
     "",
+    "## Reader's guide",
+    "",
+    "- **CI / contract failures** = any `success_targets` line failing above, or any **expectation mismatch** count above zero (intent table `fail` rows).",
+    "- **Intent table `pass` with low top-1_hits** is normal for `top3_support` and for `intentional_low_frequency_specialty` when `required_reach` is `top3` — not a surface/frog bonus metric.",
+    "- **Library reachability** (`never_viable`, `never_top3`, `never_top1`) summarizes the **synthetic daily × clarity grid** across seasonal rows. It is diagnostic for pool health; it is **not** the archived **matrix** audit (different fixtures).",
+    "- **Redundancy collisions** = tagged top-3 duplication patterns; empty is ideal.",
+    "",
+    "Longer glossary: [V3_AUDIT_INTERPRETATION.md](../V3_AUDIT_INTERPRETATION.md).",
+    "",
     "## Locked Top-1 Rows",
     "",
     `Lure rows with only one possible top-1 across all synthetic states: ${locked.lure}`,
@@ -469,6 +489,8 @@ function toMarkdown(payload: Record<string, unknown>): string {
     `Fly evaluated states with top-3 pace/story conflicts: ${conflicts.fly.count}`,
     "",
     "## Library Reachability",
+    "",
+    "Synthetic sweep only — compare against matrix results before treating a `never_*` list as a user-facing regression.",
     "",
     `Lures never viable: ${
       ((lure.never_viable as string[]) ?? []).join(", ") || "none"
@@ -513,10 +535,20 @@ function toMarkdown(payload: Record<string, unknown>): string {
       "Lure Intent Table",
       lure.reachability_by_id as ReachabilityEntry<string>[],
     ),
+    [
+      "",
+      "Columns: **Role** and **Required** come from `archetypeExpectations.ts`. **Status** = synthetic-grid reach vs that contract (`pass` / `fail`). Only `fail` rows contribute to expectation mismatch counts.",
+      "",
+    ].join("\n"),
     ...intentTable(
       "Fly Intent Table",
       fly.reachability_by_id as ReachabilityEntry<string>[],
     ),
+    [
+      "",
+      "Same intent rules as lures. Rarity roles intentionally allow low top-1 frequency when the contract only requires top-3.",
+      "",
+    ].join("\n"),
   ].join("\n");
 }
 
@@ -830,6 +862,11 @@ async function main() {
   await Deno.writeTextFile(OUTPUT_MARKDOWN, `${toMarkdown(payload)}\n`);
   console.log(`Wrote ${OUTPUT_JSON}`);
   console.log(`Wrote ${OUTPUT_MARKDOWN}`);
+
+  if (!successTargetsAllPass(payload.success_targets)) {
+    console.error("V3 coverage audit: one or more success targets exceeded.");
+    Deno.exit(1);
+  }
 }
 
 if (import.meta.main) {

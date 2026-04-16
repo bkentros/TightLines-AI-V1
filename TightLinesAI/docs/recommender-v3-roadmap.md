@@ -18,13 +18,15 @@ This roadmap is the full phased program for finishing V3 species work and then m
 
 We are **not** doing a full recommender rewrite right now.
 
+**Update (post-tuning):** Largemouth, smallmouth, trout, and northern pike are **matrix-clean** on the unified freshwater audit (309 scenarios; see [recommender-v3-audit/V3_POST_TUNING_STATE.md](./recommender-v3-audit/V3_POST_TUNING_STATE.md)). Day-to-day work is **polish and regression protection**, not broad species retuning, unless real failures justify narrow fixes.
+
 We are committing to this path instead:
 
 1. Keep the current V3 architecture in place.
-2. Finish tuning one flagship species on the current engine first.
-3. Use that finished species to define the stable long-term day-state contract.
+2. Use the **now-stable four-species matrix** as the guardrail while evolving the engine.
+3. Use largemouth (and the shared daily contract) as the reference for long-term day-state clarity.
 4. Gradually migrate scoring intent out of hardcoded procedural logic and into declarative lure/fly metadata.
-5. Repeat species-by-species once the architecture and audit process are stable.
+5. Repeat species-by-species only when a **targeted** upgrade is worth the audit cost.
 
 Why this is the right path:
 
@@ -33,8 +35,8 @@ Why this is the right path:
   - daily conditions decide what rises that day
 - We already have audit harnesses that can expose failures and confirm improvements.
 - A full rewrite now would mix architecture risk and calibration risk at the same time.
-- We still have not fully “finished” one flagship freshwater species end-to-end.
-- We need a stable reference species before we decide what the final declarative model must support.
+- The four in-scope freshwater species are **matrix-clean** end-to-end on the unified audit; largemouth remains the **reference** species for day-state behavior, not the only “unfinished” gate.
+- A stable four-species baseline is now available before migrating toward the final declarative model.
 
 ## What V3 Is Doing Today
 
@@ -598,10 +600,14 @@ These tools should remain the core iteration loop:
 
 ### Main commands
 
-From repo root:
+From `TightLinesAI/` (app root):
 
 ```sh
-deno test supabase/functions/_shared/recommenderEngine/__tests__/v3Foundation.test.ts
+deno test --allow-read supabase/functions/_shared/recommenderEngine/__tests__/v3Foundation.test.ts
+deno test --allow-read supabase/functions/_shared/recommenderEngine/__tests__/v3RegressionBaselines.test.ts
+deno test --allow-read supabase/functions/_shared/recommenderEngine/__tests__/v3SeasonalRegressionAnchors.test.ts
+deno test --allow-read supabase/functions/_shared/recommenderEngine/__tests__/v3DailyShiftAnchors.test.ts
+npm run audit:recommender:v3:regression-baselines
 deno run --allow-read --allow-write --allow-env scripts/recommender-v3-audit/runLargemouthMatrix.ts
 deno run --allow-read --allow-write --allow-env scripts/recommender-v3-audit/runLargemouthGoldBatch1.ts
 deno run --allow-read --allow-write --allow-env scripts/recommender-v3-audit/runLargemouthGoldBatch2.ts
@@ -613,9 +619,9 @@ deno run --allow-read --allow-write --allow-env scripts/recommender-v3-audit/run
 
 ## What We Should Not Do
 
-### Do not do a full rewrite before finishing largemouth
+### Do not do a full rewrite while ignoring the matrix-clean baseline
 
-That would erase too much calibration context and make debugging much harder.
+The four freshwater species are already **matrix-clean**; a rewrite without a migration plan would erase calibration context and make debugging much harder.
 
 ### Do not keep piling on opaque procedural tuning forever
 

@@ -46,6 +46,9 @@ how-fishing-live-audit-bundle*.jsonl
 how-fishing-quick-finish*.jsonl
 how-fishing-targeted-audit.jsonl
 
+# Recommender V3 audit scratch copies (canonical files stay committed under docs/recommender-v3-audit/generated/)
+docs/recommender-v3-audit/generated/*.local.*
+
 # Supabase CLI cache
 supabase/.temp/
 

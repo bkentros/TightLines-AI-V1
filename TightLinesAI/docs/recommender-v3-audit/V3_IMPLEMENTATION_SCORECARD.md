@@ -2,6 +2,8 @@
 
 This document locks Phase 1 scope for the freshwater V3 recommender audit.
 
+**Current status:** All four freshwater species are **matrix-clean** at the unified audit baseline; see [V3_POST_TUNING_STATE.md](./V3_POST_TUNING_STATE.md) for numbers, maintainer philosophy, and scoring-exception registry. Rerun commands: [MAINTAINER_VALIDATION.md](./MAINTAINER_VALIDATION.md). Reading coverage vs matrix output: [V3_AUDIT_INTERPRETATION.md](./V3_AUDIT_INTERPRETATION.md).
+
 ## Scope
 
 - Daily conditions must materially change recommendations in a biologically
