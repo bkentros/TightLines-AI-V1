@@ -648,6 +648,7 @@ function scenarioToAuditScenario(scenario: SmallmouthMatrixScenario): ArchivedRe
     context: scenario.context,
     water_clarity: scenario.default_clarity,
     expectation: expectationForScenario(scenario),
+    audit_region_key: scenario.region_key,
   };
 }
 

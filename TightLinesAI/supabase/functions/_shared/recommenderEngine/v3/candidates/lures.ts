@@ -34,6 +34,18 @@ const ALL_FRESHWATER_SPECIES: readonly RecommenderV3Species[] = [
   "trout",
 ] as const;
 
+const BASS_AND_PIKE_SPECIES: readonly RecommenderV3Species[] = [
+  "largemouth_bass",
+  "smallmouth_bass",
+  "northern_pike",
+] as const;
+
+const RIVER_AND_PIKE_SPECIES: readonly RecommenderV3Species[] = [
+  "smallmouth_bass",
+  "northern_pike",
+  "trout",
+] as const;
+
 const TRUE_SURFACE_IDS = new Set<LureArchetypeIdV3>([
   "walking_topwater",
   "popping_topwater",
@@ -45,6 +57,16 @@ const TRUE_SURFACE_IDS = new Set<LureArchetypeIdV3>([
 const PIKE_ONLY_IDS = new Set<LureArchetypeIdV3>([
   "large_profile_pike_swimbait",
   "pike_jerkbait",
+]);
+
+const TROUT_AND_SMALLMOUTH_ONLY_IDS = new Set<LureArchetypeIdV3>([
+  "inline_spinner",
+]);
+
+const WARMWATER_ONLY_IDS = new Set<LureArchetypeIdV3>([
+  "buzzbait",
+  "prop_bait",
+  "hollow_body_frog",
 ]);
 
 const CURRENT_FRIENDLY_IDS = new Set<LureArchetypeIdV3>([
@@ -159,6 +181,10 @@ function lure(
     gear_mode: "lure",
     species_allowed: PIKE_ONLY_IDS.has(profile.id)
       ? ["northern_pike"]
+      : TROUT_AND_SMALLMOUTH_ONLY_IDS.has(profile.id)
+      ? RIVER_AND_PIKE_SPECIES
+      : WARMWATER_ONLY_IDS.has(profile.id)
+      ? BASS_AND_PIKE_SPECIES
       : ALL_FRESHWATER_SPECIES,
     water_types_allowed: ["freshwater_lake_pond", "freshwater_river"],
     family_group: profile.top3_redundancy_key ?? profile.family_key,
@@ -186,24 +212,6 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
     gear_mode: "lure",
     family_key: "stick_worm",
     top3_redundancy_key: "worm",
-    preferred_water_columns: ["top", "shallow"],
-    preferred_moods: ["negative", "neutral"],
-    preferred_presentation_styles: ["subtle"],
-    forage_matches: ["leech_worm"],
-    clarity_strengths: ["clear", "stained"],
-    tactical_lane: "finesse_subtle",
-    how_to_fish_text: [
-      "Cast weightless and let it sink on a slack line; the natural fall is the whole presentation — barely move it and dead-stick with long pauses.",
-      "Pitch it to shallow cover or open water and give it full slack; the slow, nose-down fall is when fish bite, so watch the line carefully.",
-      "Let it sink undisturbed until you feel or see a pickup, then reel down and set; if nothing on the fall, twitch it once and let it settle again.",
-    ],
-  }),
-  texas_rigged_stick_worm: lure({
-    id: "texas_rigged_stick_worm",
-    display_name: "Texas-Rigged Stick Worm",
-    gear_mode: "lure",
-    family_key: "stick_worm",
-    top3_redundancy_key: "worm",
     preferred_water_columns: ["shallow", "mid", "bottom"],
     preferred_moods: ["negative", "neutral", "active"],
     preferred_presentation_styles: ["subtle", "balanced"],
@@ -214,24 +222,6 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
       "Pitch or flip into cover and let it fall straight; after the drop, drag it slowly along the bottom with minimal rod movement before repositioning.",
       "Cast to cover and give it slack on the fall; if nothing bites, drag it along the bottom in slow sweeps and pause any time you feel resistance.",
       "Work it through cover with slow drags and short lifts; the bait should be near the bottom most of the time — resist the urge to hop it aggressively.",
-    ],
-  }),
-  wacky_rigged_stick_worm: lure({
-    id: "wacky_rigged_stick_worm",
-    display_name: "Wacky-Rigged Stick Worm",
-    gear_mode: "lure",
-    family_key: "stick_worm",
-    top3_redundancy_key: "worm",
-    preferred_water_columns: ["top", "shallow", "mid"],
-    preferred_moods: ["negative", "neutral"],
-    preferred_presentation_styles: ["subtle"],
-    forage_matches: ["leech_worm"],
-    clarity_strengths: ["clear", "stained"],
-    tactical_lane: "finesse_subtle",
-    how_to_fish_text: [
-      "Hook through the midsection, let it sink with a slow wobble, then lift and dead-stick with long pauses so both ends flutter.",
-      "Pin the hook through the center and pitch it in; give it complete slack on the fall, then barely move it — the ends flutter with zero effort on a dead-stick.",
-      "Toss it beside cover and watch the line; when it stops falling, shake the rod softly once and pause longer than feels comfortable.",
     ],
   }),
   carolina_rigged_stick_worm: lure({

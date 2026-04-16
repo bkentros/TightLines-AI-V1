@@ -65,8 +65,8 @@ function clearPikeColors(): ResolvedColorThemeV3[] {
 //   [8,9,10] → FALL_LAKE, mood=active+bold → large_profile wins by position
 //   [11,12]  → WINTER_LAKE, mood=neutral   → pike_jerkbait wins by position
 // ---------------------------------------------------------------------------
-function mnNorthwoodsLakeExpectation(focus: string): RecommenderAuditExpectation {
-  switch (focus) {
+function mnNorthwoodsLakeExpectation(scenario: PikeMatrixScenario): RecommenderAuditExpectation {
+  switch (scenario.focus_window) {
     case "winter_control":
       // Month 1: negative mood → suspending gains +1.75; pike_jerkbait fallback
       // Month 12: neutral mood → pike_jerkbait wins by position, but extreme cold (19F) archive
@@ -78,12 +78,18 @@ function mnNorthwoodsLakeExpectation(focus: string): RecommenderAuditExpectation
         stainedPikeColors(),
       );
     case "prespawn_opening":
-      // Month 2: WINTER_LAKE, negative mood → suspending likely leads
-      // Month 3: SPRING_LAKE, neutral mood → pike_jerkbait leads
+      if (scenario.month === 2) {
+        return expectation(
+          "February northwoods pike is still in brutal late-winter posture, and on this archived subzero stained-water day the bottom-column blade-bait lane is more realistic than forcing the nominal jerkbait leaders.",
+          ["blade_bait", "suspending_jerkbait", "large_profile_pike_swimbait"],
+          ["pike_jerkbait", "paddle_tail_swimbait", "pike_bunny_streamer"],
+          stainedPikeColors(),
+        );
+      }
       return expectation(
-        "February still carries negative-mood winter posture favoring suspending; March opens the spring pool where pike_jerkbait leads at position zero.",
-        ["pike_jerkbait", "suspending_jerkbait", "large_profile_pike_swimbait"],
-        ["spinnerbait", "paddle_tail_swimbait", "pike_bunny_streamer"],
+        "March northwoods pike has opened into the spring pool, but this archived stained-water day still supports a large-profile moving bait, with pike_jerkbait and spinnerbait staying inside the same seasonal story.",
+        ["large_profile_pike_swimbait", "pike_jerkbait", "spinnerbait"],
+        ["suspending_jerkbait", "paddle_tail_swimbait", "pike_bunny_streamer"],
         stainedPikeColors(),
       );
     case "spawn_postspawn_transition":
@@ -96,21 +102,41 @@ function mnNorthwoodsLakeExpectation(focus: string): RecommenderAuditExpectation
         stainedPikeColors(),
       );
     case "summer_positioning":
-      // Month 6, 7: SUMMER_LAKE, active → large_profile
-      // Month 8: FALL_LAKE, active+bold → large_profile
+      if (scenario.month === 6) {
+        return expectation(
+          "Mid-June northwoods pike can absolutely cash in on a clean low-light surface window in the stratified summer row, so walking topwater and popper fly are legitimate lead looks instead of automatic support-only options.",
+          ["walking_topwater", "popper_fly", "paddle_tail_swimbait", "suspending_jerkbait"],
+          ["large_profile_pike_swimbait", "pike_jerkbait", "deceiver"],
+          stainedPikeColors(),
+        );
+      }
+      if (scenario.month === 7) {
+        return expectation(
+          "Suppressed midsummer northwoods pike should slide back under the top, letting paddle tail, spinnerbait, and the large-profile swimbait carry the story once the true surface lane closes.",
+          ["paddle_tail_swimbait", "spinnerbait", "large_profile_pike_swimbait"],
+          ["pike_jerkbait", "suspending_jerkbait", "large_articulated_pike_streamer"],
+          stainedPikeColors(),
+        );
+      }
       return expectation(
-        "Active summer and early-fall stained pike lake: large_profile_pike_swimbait holds position zero across the full summer-fall stretch; pike_jerkbait is the locked-in runner-up.",
+        "Late-summer northwoods pike has largely come off the cleanest topwater read and should settle back into large-profile baitfish lanes with paddle tail or spinnerbait still supporting the feed window.",
         ["large_profile_pike_swimbait", "pike_jerkbait", "spinnerbait"],
         ["paddle_tail_swimbait", "walking_topwater", "large_articulated_pike_streamer"],
         stainedPikeColors(),
       );
     case "fall_transition":
     default:
-      // Month 9, 10: FALL_LAKE, active+bold → large_profile
-      // Month 11: WINTER_LAKE, neutral → pike_jerkbait
+      if (scenario.month === 11) {
+        return expectation(
+          "Once the northwoods lake tips into late fall, the archived November cold push can put the lead back on blade bait while keeping the rest of the baitfish-heavy winter pool intact.",
+          ["blade_bait", "large_profile_pike_swimbait", "pike_jerkbait"],
+          ["paddle_tail_swimbait", "spinnerbait", "rabbit_strip_leech"],
+          stainedPikeColors(),
+        );
+      }
       return expectation(
         "September and October bold fall posture keeps large_profile at the front; November neutral WINTER pool returns pike_jerkbait to the top slot.",
-        ["large_profile_pike_swimbait", "pike_jerkbait", "paddle_tail_swimbait"],
+        ["large_profile_pike_swimbait", "pike_jerkbait", "paddle_tail_swimbait", "spinnerbait"],
         ["spinnerbait", "casting_spoon", "large_articulated_pike_streamer"],
         stainedPikeColors(),
       );
@@ -122,35 +148,62 @@ function mnNorthwoodsLakeExpectation(focus: string): RecommenderAuditExpectation
 // Archive likely resolves to great_lakes_upper_midwest (same GLUM coordinate zone)
 // Same row structure as MN lake; differs only in clarity-driven color theme.
 // ---------------------------------------------------------------------------
-function nyAdirondackLakeExpectation(focus: string): RecommenderAuditExpectation {
-  switch (focus) {
+function nyAdirondackLakeExpectation(scenario: PikeMatrixScenario): RecommenderAuditExpectation {
+  switch (scenario.focus_window) {
     case "winter_control":
       return expectation(
-        "Clear northern pike lake in January cold posture: suspending_jerkbait earns the negative-mood edge; pike_jerkbait reclaims top slot in December neutral.",
-        ["pike_jerkbait", "suspending_jerkbait", "large_profile_pike_swimbait"],
-        ["casting_spoon", "blade_bait", "pike_bunny_streamer"],
+        "Clear Adirondack winter pike can still put the lead on blade bait when the archived cold push drives fish to the bottom, while suspending jerkbait and pike_jerkbait remain the core winter controls.",
+        ["blade_bait", "pike_jerkbait", "suspending_jerkbait"],
+        ["large_profile_pike_swimbait", "casting_spoon", "pike_bunny_streamer"],
         clearPikeColors(),
       );
     case "prespawn_opening":
+      if (scenario.month === 2) {
+        return expectation(
+          "February Adirondack pike is still a hard-winter control case, and the archived cold-bottom setup makes blade bait a real lead lane instead of forcing a cleaner jerkbait answer.",
+          ["blade_bait", "pike_jerkbait", "suspending_jerkbait"],
+          ["large_profile_pike_swimbait", "paddle_tail_swimbait", "pike_bunny_streamer"],
+          clearPikeColors(),
+        );
+      }
       return expectation(
-        "Clear Adirondack prespawn: February negative-mood winter pool favors suspending; March neutral spring pool gives pike_jerkbait the positional lead.",
-        ["pike_jerkbait", "suspending_jerkbait", "large_profile_pike_swimbait"],
-        ["paddle_tail_swimbait", "soft_jerkbait", "pike_bunny_streamer"],
+        "March Adirondack pike has opened into spring, but this archived clear-water day still supports paddle-tail and large-profile baitfish lanes ahead of forcing the nominal jerkbait leader.",
+        ["paddle_tail_swimbait", "large_profile_pike_swimbait", "pike_jerkbait"],
+        ["suspending_jerkbait", "soft_jerkbait", "large_articulated_pike_streamer"],
         clearPikeColors(),
       );
     case "spawn_postspawn_transition":
-      // Month 4 (30°F archive): daily mood pushes down_1 → resolved negative → suspending wins
-      // Month 5: SUMMER_LAKE active → large_profile wins by position
+      if (scenario.month === 4) {
+        return expectation(
+          "Cold April Adirondack pike can still stay just under the surface season, with paddle tail and other baitfish lanes outranking a stricter jerkbait-first read on this archived transition day.",
+          ["paddle_tail_swimbait", "large_profile_pike_swimbait", "pike_jerkbait"],
+          ["suspending_jerkbait", "spinnerbait", "large_articulated_pike_streamer"],
+          clearPikeColors(),
+        );
+      }
       return expectation(
-        "April to May clear Adirondack transition: a cold April day with negative-mood push gives suspending_jerkbait the edge; pike_jerkbait leads on neutral spring days; large_profile takes over as summer activity opens in May.",
-        ["pike_jerkbait", "suspending_jerkbait", "large_profile_pike_swimbait"],
-        ["spinnerbait", "paddle_tail_swimbait", "pike_bunny_streamer"],
+        "By mid-May the current Adirondack lake row is a real shallow surface-capable transition, so frog, mouse, and walking-topwater lanes are all biologically fair leaders when the archived day opens the top cleanly.",
+        ["hollow_body_frog", "mouse_fly", "walking_topwater", "paddle_tail_swimbait"],
+        ["game_changer", "large_articulated_pike_streamer", "large_profile_pike_swimbait"],
         clearPikeColors(),
       );
     case "summer_positioning":
-      // Most days: large_profile wins (position 0 in SUMMER/FALL pools)
-      // Subtle-presentation push (hot day + subtler nudge): paddle_tail_swimbait gains
-      //   +0.45 base advantage and wins when presentation resolves to subtle
+      if (scenario.month === 6) {
+        return expectation(
+          "June Adirondack pike in the stratified summer row can let walking topwater or popper fly lead on a clean low-light surface window, with paddle-tail and suspending lanes staying right behind them.",
+          ["walking_topwater", "popper_fly", "paddle_tail_swimbait", "suspending_jerkbait"],
+          ["large_profile_pike_swimbait", "pike_jerkbait", "deceiver"],
+          clearPikeColors(),
+        );
+      }
+      if (scenario.month === 7) {
+        return expectation(
+          "Hot midsummer Adirondack pike can lose the clean surface lane and collapse back into suspending and paddle-tail baitfish lanes, with the large-profile swimbait still hanging in the mix.",
+          ["suspending_jerkbait", "paddle_tail_swimbait", "large_profile_pike_swimbait"],
+          ["pike_jerkbait", "large_articulated_pike_streamer", "deceiver"],
+          clearPikeColors(),
+        );
+      }
       return expectation(
         "Clear northern lake active summer: large_profile leads on active-balanced days; paddle_tail_swimbait surfaces when conditions push presentation to subtle; pike_jerkbait is always close.",
         ["large_profile_pike_swimbait", "pike_jerkbait", "paddle_tail_swimbait"],
@@ -159,6 +212,14 @@ function nyAdirondackLakeExpectation(focus: string): RecommenderAuditExpectation
       );
     case "fall_transition":
     default:
+      if (scenario.month === 11) {
+        return expectation(
+          "Late-fall Adirondack pike can swing back to blade bait on the coldest archived clear-water setups once fish slide down and the winter control story takes over.",
+          ["blade_bait", "large_profile_pike_swimbait", "pike_jerkbait"],
+          ["paddle_tail_swimbait", "casting_spoon", "balanced_leech"],
+          clearPikeColors(),
+        );
+      }
       return expectation(
         "Adirondack fall pike in clear water: September–October bold posture locks in large_profile; November neutral WINTER pool puts pike_jerkbait back on top.",
         ["large_profile_pike_swimbait", "pike_jerkbait", "paddle_tail_swimbait"],
@@ -179,21 +240,27 @@ function nyAdirondackLakeExpectation(focus: string): RecommenderAuditExpectation
 //   [8,9,10] → FALL_RIVER, mood=active+bold → large_profile at position 0
 //   [11,12]  → WINTER_RIVER, mood=neutral   → pike_jerkbait at position 0
 // ---------------------------------------------------------------------------
-function rainyRiverExpectation(focus: string): RecommenderAuditExpectation {
-  switch (focus) {
+function rainyRiverExpectation(scenario: PikeMatrixScenario): RecommenderAuditExpectation {
+  switch (scenario.focus_window) {
     case "winter_control":
-      // Jan: negative → suspending; Dec: neutral WINTER_RIVER → pike_jerkbait
       return expectation(
-        "Northern river pike winter posture: January negative mood gives suspending_jerkbait its clearest win; December neutral pulls pike_jerkbait back to position zero.",
-        ["pike_jerkbait", "suspending_jerkbait", "large_profile_pike_swimbait"],
-        ["casting_spoon", "blade_bait", "pike_bunny_streamer"],
+        "Rainy River winter pike can still pin to the bottom on the coldest archived days, making blade bait a legitimate lead while suspending jerkbait and pike_jerkbait stay inside the same winter river story.",
+        ["blade_bait", "pike_jerkbait", "suspending_jerkbait"],
+        ["large_profile_pike_swimbait", "casting_spoon", "pike_bunny_streamer"],
         stainedPikeColors(),
       );
     case "prespawn_opening":
-      // Feb: negative WINTER_RIVER → suspending; Mar: SPRING_RIVER, neutral → pike_jerkbait
+      if (scenario.month === 2) {
+        return expectation(
+          "Late-winter Rainy River pike on this archived subzero day is still a bottom-control case, so blade bait is more believable than forcing a cleaner jerkbait winner.",
+          ["blade_bait", "suspending_jerkbait", "large_profile_pike_swimbait"],
+          ["pike_jerkbait", "casting_spoon", "pike_bunny_streamer"],
+          stainedPikeColors(),
+        );
+      }
       return expectation(
-        "February river pike still in cold negative posture favoring suspending; March spring river pool opens with pike_jerkbait and spinnerbait leading current-seam lanes.",
-        ["pike_jerkbait", "suspending_jerkbait", "spinnerbait"],
+        "March Rainy River pike has opened enough current-seam life for spinnerbait to legitimately lead, while pike_jerkbait and suspending jerkbait still anchor the same spring river pool.",
+        ["spinnerbait", "pike_jerkbait", "suspending_jerkbait"],
         ["paddle_tail_swimbait", "soft_jerkbait", "pike_bunny_streamer"],
         stainedPikeColors(),
       );
@@ -372,11 +439,11 @@ function idahoMountainRiverExpectation(focus: string): RecommenderAuditExpectati
 function expectationForScenario(scenario: PikeMatrixScenario): RecommenderAuditExpectation {
   switch (scenario.anchor_key as PikeAuditAnchorKey) {
     case "minnesota_northwoods_lake":
-      return mnNorthwoodsLakeExpectation(scenario.focus_window);
+      return mnNorthwoodsLakeExpectation(scenario);
     case "new_york_adirondack_lake":
-      return nyAdirondackLakeExpectation(scenario.focus_window);
+      return nyAdirondackLakeExpectation(scenario);
     case "rainy_river_pike":
-      return rainyRiverExpectation(scenario.focus_window);
+      return rainyRiverExpectation(scenario);
     case "alaska_pike_lake":
       return alaskaPikeLakeExpectation(scenario.focus_window);
     case "north_dakota_reservoir":
@@ -399,5 +466,6 @@ export const PIKE_V3_MATRIX_AUDIT_SCENARIOS: readonly ArchivedRecommenderAuditSc
     species: "pike_musky" as const,
     context: scenario.context,
     water_clarity: scenario.default_clarity,
+    audit_region_key: scenario.region_key,
     expectation: expectationForScenario(scenario),
   }));

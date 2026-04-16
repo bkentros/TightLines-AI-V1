@@ -136,7 +136,7 @@ Expected primary lanes:
 - compact_flipping_jig
 Acceptable secondary lanes:
 - spinnerbait
-- texas_rigged_stick_worm
+- weightless_stick_worm
 - swim_jig
 Disallowed lanes:
 - blade_bait
@@ -315,7 +315,7 @@ Review:
 Expected seasonal story:
 - Clear highland largemouth in spring can still tighten into target cover and shallow finesse on cold, bright days even when baitfish lanes remain seasonally relevant.
 Expected primary lanes:
-- wacky_rigged_stick_worm
+- weightless_stick_worm
 - compact_flipping_jig
 - paddle_tail_swimbait
 Acceptable secondary lanes:
@@ -343,9 +343,9 @@ Archived env summary:
 - Sunrise/sunset: 06:59 / 20:08
 
 Actual output:
-- Top 1 lure: Wacky-Rigged Stick Worm `wacky_rigged_stick_worm` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Top 1 lure: Wacky-Rigged Stick Worm `weightless_stick_worm` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 3 lures:
-- Wacky-Rigged Stick Worm `wacky_rigged_stick_worm` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Wacky-Rigged Stick Worm `weightless_stick_worm` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Compact Flipping Jig `compact_flipping_jig` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 1 fly: Woolly Bugger `woolly_bugger` | theme: `natural` | colors: green pumpkin, olive, smoke
@@ -585,7 +585,7 @@ Review:
 Expected seasonal story:
 - Bluebird summer largemouth should tighten into cleaner, more controlled options.
 Expected primary lanes:
-- wacky_rigged_stick_worm
+- weightless_stick_worm
 - weightless_stick_worm
 - drop_shot_worm
 Acceptable secondary lanes:

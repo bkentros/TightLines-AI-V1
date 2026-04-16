@@ -33,6 +33,12 @@ const ALL_FRESHWATER_SPECIES: readonly RecommenderV3Species[] = [
   "trout",
 ] as const;
 
+const BASS_AND_PIKE_SPECIES: readonly RecommenderV3Species[] = [
+  "largemouth_bass",
+  "smallmouth_bass",
+  "northern_pike",
+] as const;
+
 const TRUE_SURFACE_FLIES = new Set<FlyArchetypeIdV3>([
   "popper_fly",
   "frog_fly",
@@ -42,6 +48,10 @@ const TRUE_SURFACE_FLIES = new Set<FlyArchetypeIdV3>([
 const PIKE_ONLY_FLIES = new Set<FlyArchetypeIdV3>([
   "pike_bunny_streamer",
   "large_articulated_pike_streamer",
+]);
+
+const WARMWATER_SURFACE_ONLY_FLIES = new Set<FlyArchetypeIdV3>([
+  "frog_fly",
 ]);
 
 const CURRENT_FRIENDLY_FLIES = new Set<FlyArchetypeIdV3>([
@@ -144,6 +154,8 @@ function fly(
     gear_mode: "fly",
     species_allowed: PIKE_ONLY_FLIES.has(profile.id)
       ? ["northern_pike"]
+      : WARMWATER_SURFACE_ONLY_FLIES.has(profile.id)
+      ? BASS_AND_PIKE_SPECIES
       : ALL_FRESHWATER_SPECIES,
     water_types_allowed: ["freshwater_lake_pond", "freshwater_river"],
     family_group: profile.family_key,

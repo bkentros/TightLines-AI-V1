@@ -1,4 +1,7 @@
-import { resolveRegionForCoordinates } from "../../supabase/functions/_shared/howFishingEngine/context/resolveRegion.ts";
+import {
+  type ResolvedRegion,
+  resolveRegionForCoordinates,
+} from "../../supabase/functions/_shared/howFishingEngine/context/resolveRegion.ts";
 import { buildSharedEngineRequestFromEnvData } from "../../supabase/functions/_shared/howFishingEngine/request/buildFromEnvData.ts";
 import {
   runRecommenderV3,
@@ -189,6 +192,58 @@ function precheckFlags(
     flags.push("NO_DISALLOWED_PRESENT");
   }
 
+  if (raw.used_region_fallback) {
+    flags.push(`USED_REGION_FALLBACK:${raw.seasonal_source_region_key}`);
+  } else {
+    flags.push("NO_REGION_FALLBACK");
+  }
+
+  const lureTie =
+    raw.lure_recommendations[0] && raw.lure_recommendations[1] &&
+    raw.lure_recommendations[0].score === raw.lure_recommendations[1].score;
+  const flyTie =
+    raw.fly_recommendations[0] && raw.fly_recommendations[1] &&
+    raw.fly_recommendations[0].score === raw.fly_recommendations[1].score;
+  if (lureTie || flyTie) {
+    flags.push(`TOP1_TIE:${[
+      lureTie ? "lure" : null,
+      flyTie ? "fly" : null,
+    ].filter(Boolean).join(",")}`);
+  } else {
+    flags.push("NO_TOP1_TIE");
+  }
+
+  const explanationIssues: string[] = [];
+  const topCandidates = [
+    raw.lure_recommendations[0],
+    raw.fly_recommendations[0],
+  ].filter((candidate): candidate is NonNullable<typeof candidate> => candidate != null);
+  for (const candidate of topCandidates) {
+    const why = candidate.why_chosen.toLowerCase();
+    const mentionsSurface = why.includes("surface") || why.includes("topwater");
+    const isSurfaceCapable = candidate.tactical_lane === "surface" ||
+      candidate.tactical_lane === "fly_surface" ||
+      candidate.id === "hollow_body_frog" ||
+      candidate.id === "frog_fly";
+    if (
+      mentionsSurface &&
+      !isSurfaceCapable
+    ) {
+      explanationIssues.push(`${candidate.id}:surface_claim`);
+    }
+    if (
+      raw.daily_payload.surface_window === "closed" &&
+      mentionsSurface
+    ) {
+      explanationIssues.push(`${candidate.id}:closed_surface_claim`);
+    }
+  }
+  if (explanationIssues.length > 0) {
+    flags.push(`EXPLANATION_CONFLICT:${explanationIssues.join(",")}`);
+  } else {
+    flags.push("EXPLANATION_ALIGNED");
+  }
+
   const validColorThemes = new Set(validColorThemesForClarity(scenario.water_clarity));
   const colorHits = [
     raw.lure_recommendations[0]?.color_theme,
@@ -330,6 +385,7 @@ function toReviewScenario(
       ],
       daily_profile_notes: [
         `Daily posture: ${raw.daily_payload.posture_band}`,
+        `Seasonal source: region=${raw.seasonal_source_region_key}, fallback_used=${raw.used_region_fallback}`,
         `Daily preference: column=${raw.resolved_profile.daily_preference.preferred_column}, pace=${raw.resolved_profile.daily_preference.preferred_pace}, presence=${raw.resolved_profile.daily_preference.preferred_presence}`,
         `Monthly baseline: columns=${raw.seasonal_row.monthly_baseline.allowed_columns.join("/")}, paces=${raw.seasonal_row.monthly_baseline.allowed_paces.join("/")}, presence=${raw.seasonal_row.monthly_baseline.allowed_presence.join("/")}`,
         `Guardrails: surface_allowed=${raw.daily_payload.surface_allowed_today}, surface_window=${raw.daily_payload.surface_window}, suppress_fast_presentations=${raw.daily_payload.suppress_fast_presentations}, high_visibility_needed=${raw.daily_payload.high_visibility_needed}, column_shift=${raw.daily_payload.column_shift}`,
@@ -460,7 +516,12 @@ export async function writeArchiveBundleForBatch(
   async function buildScenarioBundle(
     scenario: ArchivedRecommenderAuditScenario,
   ): Promise<ArchiveScenarioBundle> {
-    const region = resolveRegionForCoordinates(scenario.latitude, scenario.longitude);
+    const region: ResolvedRegion = scenario.audit_region_key != null
+      ? {
+        state_code: scenario.state_code,
+        region_key: scenario.audit_region_key,
+      }
+      : resolveRegionForCoordinates(scenario.latitude, scenario.longitude);
     const month = Number.parseInt(scenario.local_date.slice(5, 7), 10) || 1;
 
     const failed = (error: string): ArchiveScenarioBundle => ({

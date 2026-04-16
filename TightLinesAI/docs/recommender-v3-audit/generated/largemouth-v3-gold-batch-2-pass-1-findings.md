@@ -84,7 +84,7 @@ Affected scenario:
 Current behavior:
 
 - The engine is now in the right shallow spring lane.
-- It still starts with `swim_jig` rather than a more obvious target-fishing opener like `compact_flipping_jig` or `wacky_rigged_stick_worm`.
+- It still starts with `swim_jig` rather than a more obvious target-fishing opener like `compact_flipping_jig` or `weightless_stick_worm`.
 
 What to watch next:
 

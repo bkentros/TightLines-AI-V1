@@ -230,7 +230,7 @@
         ],
         "acceptable_secondary_lanes": [
           "spinnerbait",
-          "texas_rigged_stick_worm",
+          "weightless_stick_worm",
           "swim_jig"
         ],
         "disallowed_lanes": [
@@ -612,7 +612,7 @@
       "expectation": {
         "seasonal_story": "Clear highland largemouth in spring can still tighten into target cover and shallow finesse on cold, bright days even when baitfish lanes remain seasonally relevant.",
         "primary_lanes": [
-          "wacky_rigged_stick_worm",
+          "weightless_stick_worm",
           "compact_flipping_jig",
           "paddle_tail_swimbait"
         ],
@@ -646,7 +646,7 @@
       ],
       "actual_output": {
         "top_1_lure": {
-          "id": "wacky_rigged_stick_worm",
+          "id": "weightless_stick_worm",
           "display_name": "Wacky-Rigged Stick Worm",
           "score": 7.26,
           "tactical_lane": "finesse_subtle",
@@ -659,7 +659,7 @@
         },
         "top_3_lures": [
           {
-            "id": "wacky_rigged_stick_worm",
+            "id": "weightless_stick_worm",
             "display_name": "Wacky-Rigged Stick Worm",
             "score": 7.26,
             "tactical_lane": "finesse_subtle",
@@ -1188,7 +1188,7 @@
       "expectation": {
         "seasonal_story": "Bluebird summer largemouth should tighten into cleaner, more controlled options.",
         "primary_lanes": [
-          "wacky_rigged_stick_worm",
+          "weightless_stick_worm",
           "weightless_stick_worm",
           "drop_shot_worm"
         ],

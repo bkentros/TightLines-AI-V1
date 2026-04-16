@@ -5,6 +5,7 @@ export {
   isRecommenderV3Species,
   RECOMMENDER_V3_SPECIES_CONTEXTS,
   RECOMMENDER_V3_SPECIES_META,
+  toLegacyRecommenderSpecies,
   toRecommenderV3Species,
 } from "./scope.ts";
 export { resolveDailyPayloadV3 } from "./resolveDailyPayload.ts";
@@ -72,6 +73,7 @@ export type {
   RecommenderV3FoundationSnapshot,
   RecommenderV3MonthlyBaselineProfile,
   RecommenderV3RankedArchetype,
+  RecommenderV3ResolvedSeasonalRow,
   RecommenderV3ResolvedProfile,
   RecommenderV3Response,
   RecommenderV3ScoreBreakdown,

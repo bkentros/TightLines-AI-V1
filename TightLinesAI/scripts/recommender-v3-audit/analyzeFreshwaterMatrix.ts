@@ -79,6 +79,11 @@ type SpeciesSummary = {
   fly_top1_leaders: Array<{ id: string; count: number }>;
   anchor_top1_primary_hit: Record<string, { hit: number; total: number }>;
   specialty: Record<string, SpecialtySummary>;
+  used_region_fallback_count: number;
+  top1_tie_count: number;
+  explanation_conflict_count: number;
+  hard_fail_count: number;
+  soft_fail_count: number;
   top1_primary_miss_examples: Array<{
     scenario_id: string;
     label: string;
@@ -191,20 +196,30 @@ function summarizeSheet(sheet: ReviewSheet): SpeciesSummary {
     SPECIALTY_IDS.map((id) => [id, newSpecialtySummary()]),
   ) as Record<string, SpecialtySummary>;
 
+  let analyzedScenarioCount = 0;
   let top1PrimaryHitCount = 0;
   let top3PrimaryPresentCount = 0;
   let disallowedAvoidanceCount = 0;
   let topColorMatchCount = 0;
   let coreCount = 0;
+  let usedRegionFallbackCount = 0;
+  let top1TieCount = 0;
+  let explanationConflictCount = 0;
+  let hardFailCount = 0;
+  let softFailCount = 0;
 
   const top1PrimaryMissExamples: SpeciesSummary["top1_primary_miss_examples"] = [];
   const disallowedExamples: SpeciesSummary["disallowed_examples"] = [];
 
   for (const scenario of sheet.scenarios) {
+    // Pending / failed archive runs have empty outputs and empty flags; skip so hit rates reflect engine quality only.
+    if (scenario.engine_run_status !== "complete") continue;
+
+    analyzedScenarioCount += 1;
     if (scenario.priority === "core") coreCount += 1;
 
     const flags = scenario.review.precheck_flags ?? [];
-    const anchorKey = scenario.scenario_id.replace(/^lmb_matrix_/, "").replace(/_\d{2}$/, "");
+    const anchorKey = scenario.scenario_id.replace(/_\d{2}$/, "");
     anchorTop1PrimaryHit[anchorKey] ??= { hit: 0, total: 0 };
     anchorTop1PrimaryHit[anchorKey].total += 1;
     if (hasFlag(flags, "TOP1_PRIMARY_HIT")) top1PrimaryHitCount += 1;
@@ -212,6 +227,9 @@ function summarizeSheet(sheet: ReviewSheet): SpeciesSummary {
     if (hasFlag(flags, "TOP3_PRIMARY_PRESENT")) top3PrimaryPresentCount += 1;
     if (hasFlag(flags, "NO_DISALLOWED_PRESENT")) disallowedAvoidanceCount += 1;
     if (hasFlagPrefix(flags, "TOP_COLOR_MATCH:")) topColorMatchCount += 1;
+    if (hasFlagPrefix(flags, "USED_REGION_FALLBACK:")) usedRegionFallbackCount += 1;
+    if (hasFlagPrefix(flags, "TOP1_TIE:")) top1TieCount += 1;
+    if (hasFlagPrefix(flags, "EXPLANATION_CONFLICT:")) explanationConflictCount += 1;
 
     const top1LureId = scenario.actual_output.top_1_lure?.id;
     const top1FlyId = scenario.actual_output.top_1_fly?.id;
@@ -239,6 +257,10 @@ function summarizeSheet(sheet: ReviewSheet): SpeciesSummary {
     }
 
     const disallowed = disallowedPresent(flags);
+    const isHardFail = disallowed.length > 0 || hasFlag(flags, "TOP3_PRIMARY_MISSING");
+    const isSoftFail = !isHardFail && !hasFlag(flags, "TOP1_PRIMARY_HIT");
+    if (isHardFail) hardFailCount += 1;
+    if (isSoftFail) softFailCount += 1;
     if (disallowed.length > 0 && disallowedExamples.length < 12) {
       disallowedExamples.push({
         scenario_id: scenario.scenario_id,
@@ -272,9 +294,9 @@ function summarizeSheet(sheet: ReviewSheet): SpeciesSummary {
 
   return {
     batch_id: sheet.batch_id,
-    scenario_count: sheet.scenario_count,
+    scenario_count: analyzedScenarioCount,
     core_count: coreCount,
-    secondary_count: sheet.scenario_count - coreCount,
+    secondary_count: analyzedScenarioCount - coreCount,
     top1_primary_hit_count: top1PrimaryHitCount,
     top3_primary_present_count: top3PrimaryPresentCount,
     disallowed_avoidance_count: disallowedAvoidanceCount,
@@ -287,6 +309,11 @@ function summarizeSheet(sheet: ReviewSheet): SpeciesSummary {
     fly_top1_leaders: topEntries(flyTop1Counts),
     anchor_top1_primary_hit: anchorTop1PrimaryHit,
     specialty,
+    used_region_fallback_count: usedRegionFallbackCount,
+    top1_tie_count: top1TieCount,
+    explanation_conflict_count: explanationConflictCount,
+    hard_fail_count: hardFailCount,
+    soft_fail_count: softFailCount,
     top1_primary_miss_examples: top1PrimaryMissExamples,
     disallowed_examples: disallowedExamples,
   };
@@ -388,6 +415,9 @@ function toMarkdown(
     );
     lines.push(
       `- Variety: ${summary.unique_top1_lure_ids} unique lure top-1 IDs, ${summary.unique_top1_fly_ids} unique fly top-1 IDs, ${summary.unique_lure_top3_signatures} lure top-3 signatures, ${summary.unique_fly_top3_signatures} fly top-3 signatures`,
+    );
+    lines.push(
+      `- Failure split: ${summary.hard_fail_count} hard fails, ${summary.soft_fail_count} soft fails, ${summary.top1_tie_count} top-1 ties, ${summary.explanation_conflict_count} explanation conflicts, fallback used ${summary.used_region_fallback_count} times`,
     );
     lines.push("");
     lines.push(...leaderLines("Top lure leaders", summary.lure_top1_leaders));

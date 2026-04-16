@@ -1,6 +1,6 @@
 {
   "batch_id": "trout_v3_matrix",
-  "generated_at": "2026-04-04T21:03:35.392Z",
+  "generated_at": "2026-04-15T20:32:34.157Z",
   "scenario_count": 68,
   "scenarios": [
     {
@@ -13,7 +13,7 @@
         "state_code": "NC",
         "timezone": "America/New_York",
         "local_date": "2025-01-16",
-        "region_key": "south_central",
+        "region_key": "appalachian",
         "month": 1
       },
       "archive_summary": {
@@ -601,7 +601,7 @@
         "state_code": "NC",
         "timezone": "America/New_York",
         "local_date": "2025-02-19",
-        "region_key": "south_central",
+        "region_key": "appalachian",
         "month": 2
       },
       "archive_summary": {
@@ -1189,7 +1189,7 @@
         "state_code": "NC",
         "timezone": "America/New_York",
         "local_date": "2025-03-20",
-        "region_key": "south_central",
+        "region_key": "appalachian",
         "month": 3
       },
       "archive_summary": {
@@ -1777,7 +1777,7 @@
         "state_code": "NC",
         "timezone": "America/New_York",
         "local_date": "2025-04-16",
-        "region_key": "south_central",
+        "region_key": "appalachian",
         "month": 4
       },
       "archive_summary": {
@@ -2361,7 +2361,7 @@
         "state_code": "NC",
         "timezone": "America/New_York",
         "local_date": "2025-05-15",
-        "region_key": "south_central",
+        "region_key": "appalachian",
         "month": 5
       },
       "archive_summary": {
@@ -2949,7 +2949,7 @@
         "state_code": "NC",
         "timezone": "America/New_York",
         "local_date": "2025-06-18",
-        "region_key": "south_central",
+        "region_key": "appalachian",
         "month": 6
       },
       "archive_summary": {
@@ -3537,7 +3537,7 @@
         "state_code": "NC",
         "timezone": "America/New_York",
         "local_date": "2025-07-16",
-        "region_key": "south_central",
+        "region_key": "appalachian",
         "month": 7
       },
       "archive_summary": {
@@ -4121,7 +4121,7 @@
         "state_code": "NC",
         "timezone": "America/New_York",
         "local_date": "2025-08-14",
-        "region_key": "south_central",
+        "region_key": "appalachian",
         "month": 8
       },
       "archive_summary": {
@@ -4709,7 +4709,7 @@
         "state_code": "NC",
         "timezone": "America/New_York",
         "local_date": "2025-09-17",
-        "region_key": "south_central",
+        "region_key": "appalachian",
         "month": 9
       },
       "archive_summary": {
@@ -5297,7 +5297,7 @@
         "state_code": "NC",
         "timezone": "America/New_York",
         "local_date": "2025-10-15",
-        "region_key": "south_central",
+        "region_key": "appalachian",
         "month": 10
       },
       "archive_summary": {
@@ -5885,7 +5885,7 @@
         "state_code": "NC",
         "timezone": "America/New_York",
         "local_date": "2025-11-12",
-        "region_key": "south_central",
+        "region_key": "appalachian",
         "month": 11
       },
       "archive_summary": {
@@ -6473,7 +6473,7 @@
         "state_code": "NC",
         "timezone": "America/New_York",
         "local_date": "2025-12-10",
-        "region_key": "south_central",
+        "region_key": "appalachian",
         "month": 12
       },
       "archive_summary": {
@@ -7057,7 +7057,7 @@
         "state_code": "PA",
         "timezone": "America/New_York",
         "local_date": "2025-01-16",
-        "region_key": "great_lakes_upper_midwest",
+        "region_key": "northeast",
         "month": 1
       },
       "archive_summary": {
@@ -7645,7 +7645,7 @@
         "state_code": "PA",
         "timezone": "America/New_York",
         "local_date": "2025-02-19",
-        "region_key": "great_lakes_upper_midwest",
+        "region_key": "northeast",
         "month": 2
       },
       "archive_summary": {
@@ -8233,7 +8233,7 @@
         "state_code": "PA",
         "timezone": "America/New_York",
         "local_date": "2025-03-20",
-        "region_key": "great_lakes_upper_midwest",
+        "region_key": "northeast",
         "month": 3
       },
       "archive_summary": {
@@ -8821,7 +8821,7 @@
         "state_code": "PA",
         "timezone": "America/New_York",
         "local_date": "2025-04-16",
-        "region_key": "great_lakes_upper_midwest",
+        "region_key": "northeast",
         "month": 4
       },
       "archive_summary": {
@@ -9405,7 +9405,7 @@
         "state_code": "PA",
         "timezone": "America/New_York",
         "local_date": "2025-05-15",
-        "region_key": "great_lakes_upper_midwest",
+        "region_key": "northeast",
         "month": 5
       },
       "archive_summary": {
@@ -9993,7 +9993,7 @@
         "state_code": "PA",
         "timezone": "America/New_York",
         "local_date": "2025-06-18",
-        "region_key": "great_lakes_upper_midwest",
+        "region_key": "northeast",
         "month": 6
       },
       "archive_summary": {
@@ -10581,7 +10581,7 @@
         "state_code": "PA",
         "timezone": "America/New_York",
         "local_date": "2025-07-16",
-        "region_key": "great_lakes_upper_midwest",
+        "region_key": "northeast",
         "month": 7
       },
       "archive_summary": {
@@ -11169,7 +11169,7 @@
         "state_code": "PA",
         "timezone": "America/New_York",
         "local_date": "2025-08-14",
-        "region_key": "great_lakes_upper_midwest",
+        "region_key": "northeast",
         "month": 8
       },
       "archive_summary": {
@@ -11757,7 +11757,7 @@
         "state_code": "PA",
         "timezone": "America/New_York",
         "local_date": "2025-09-17",
-        "region_key": "great_lakes_upper_midwest",
+        "region_key": "northeast",
         "month": 9
       },
       "archive_summary": {
@@ -12345,7 +12345,7 @@
         "state_code": "PA",
         "timezone": "America/New_York",
         "local_date": "2025-10-15",
-        "region_key": "great_lakes_upper_midwest",
+        "region_key": "northeast",
         "month": 10
       },
       "archive_summary": {
@@ -12933,7 +12933,7 @@
         "state_code": "PA",
         "timezone": "America/New_York",
         "local_date": "2025-11-12",
-        "region_key": "great_lakes_upper_midwest",
+        "region_key": "northeast",
         "month": 11
       },
       "archive_summary": {
@@ -13521,7 +13521,7 @@
         "state_code": "PA",
         "timezone": "America/New_York",
         "local_date": "2025-12-10",
-        "region_key": "great_lakes_upper_midwest",
+        "region_key": "northeast",
         "month": 12
       },
       "archive_summary": {

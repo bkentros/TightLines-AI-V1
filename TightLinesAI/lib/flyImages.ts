@@ -4,9 +4,6 @@
  * Maps fly archetype IDs → local image assets.
  * Images live in: assets/images/flies/
  * All images are 512×512 RGBA PNG with transparent background.
- *
- * NOTE: woolly_bugger is not yet available — add its image to
- * assets/images/flies/woolly_bugger.png and uncomment the line below.
  */
 
 const FLY_IMAGES: Partial<Record<string, ReturnType<typeof require>>> = {
@@ -22,7 +19,7 @@ const FLY_IMAGES: Partial<Record<string, ReturnType<typeof require>>> = {
   game_changer:                     require('../assets/images/flies/game_changer.png'),
 
   // ── Bugger / leech ────────────────────────────────────────────────────────
-  // woolly_bugger:                 require('../assets/images/flies/woolly_bugger.png'),  // image pending
+  woolly_bugger:                    require('../assets/images/flies/woolly_bugger.png'),
   rabbit_strip_leech:               require('../assets/images/flies/rabbit_strip_leech.png'),
   balanced_leech:                   require('../assets/images/flies/balanced_leech.png'),
   zonker_streamer:                  require('../assets/images/flies/zonker_streamer.png'),

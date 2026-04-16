@@ -1,7 +1,7 @@
 # Smallmouth V3 Matrix Review Sheet
 
-Generated: 2026-04-14T19:58:50.703Z
-Archive bundle generated: 2026-04-05T15:44:56.004Z
+Generated: 2026-04-15T20:11:55.771Z
+Archive bundle generated: 2026-04-15T20:07:40.957Z
 Scenario count: 83
 Contexts: 36 lake/pond, 47 river
 Priority mix: 48 core, 35 secondary
@@ -67,10 +67,10 @@ Archived env summary:
 - Sunrise/sunset: 08:10 / 17:26
 
 Actual output:
-- Top 1 lure: Hair Jig `hair_jig` | theme: `dark` | colors: black, black/blue, black/purple
+- Top 1 lure: Tube Jig `tube_jig` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 lures:
-- Hair Jig `hair_jig` | theme: `dark` | colors: black, black/blue, black/purple
 - Tube Jig `tube_jig` | theme: `dark` | colors: black, black/blue, black/purple
+- Hair Jig `hair_jig` | theme: `dark` | colors: black, black/blue, black/purple
 - Suspending Jerkbait `suspending_jerkbait` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 1 fly: Woolly Bugger `woolly_bugger` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 flies:
@@ -79,42 +79,46 @@ Actual output:
 - Conehead Streamer `conehead_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Color notes:
 - Daily posture: aggressive
-- Hair Jig: dark -> black, black/blue, black/purple
 - Tube Jig: dark -> black, black/blue, black/purple
+- Hair Jig: dark -> black, black/blue, black/purple
 - Suspending Jerkbait: dark -> black, black/blue, black/purple
 - Woolly Bugger: dark -> black, black/blue, black/purple
 - Sculpin Streamer: dark -> black, black/blue, black/purple
 - Conehead Streamer: dark -> black, black/blue, black/purple
 - Daily profile notes:
 - Daily posture: aggressive
+- Seasonal source: region=great_lakes_upper_midwest, fallback_used=false
 - Daily preference: column=mid, pace=slow, presence=subtle
-- Monthly baseline: columns=bottom/mid/upper, paces=slow/medium, presence=subtle/moderate
-- Guardrails: surface_allowed=true, suppress_true_surface=false, suppress_fast_presentations=false, high_visibility_needed=false, column_shift=1
+- Monthly baseline: columns=mid/bottom, paces=slow/medium, presence=subtle/moderate
+- Guardrails: surface_allowed=true, surface_window=clean, suppress_fast_presentations=false, high_visibility_needed=false, column_shift=1
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
 - Variables triggered: temperature_trend, light_cloud_condition, wind_condition, precipitation_disruption
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Daily note: Moderate chop improves fishability and supports a stronger moving look.
 - Lure reasoning:
-- Hair Jig: It is one of the lead monthly looks for this exact seasonal window. A warming trend nudges fish slightly higher in the allowed range. Hair Jig stays in play when baitfish is relevant.
-- Hair Jig how: Swing it through current seams or drop it in pockets with minimal movement; let the marabou breathe in place before slowly pulling it along. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
-- Tube Jig: A warming trend nudges fish slightly higher in the allowed range. Tube Jig stays in play when crawfish is relevant. It fits today's mid column preference. It gives you a different bottom contact look without leaving today's window.
-- Tube Jig how: Cast, let it sink, then pop sharply and release line; the tube should corkscrew back to bottom on each drop — keep a watchful eye on the line. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
-- Suspending Jerkbait: The month is still baitfish-forward, and this stays inside that search lane. A warming trend nudges fish slightly higher in the allowed range. Suspending Jerkbait stays in play when baitfish is relevant. It is the cleaner change-up if the lead look does not convert.
-- Suspending Jerkbait how: Work it with wrist snaps, not big sweeps; keep slack in the line between snaps so the bait swings freely, then pause until you see a follow or feel weight. Keep the cadence controlled and add short stalls instead of burning it. Keep it around the middle band of the strike zone. Start on wind-blown edges or the first active cover line and let it cover water.
+- Tube Jig: A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
+- Tube Jig how: Snap the tube off bottom with short pops so it spirals on the fall, then let it glide back down on slack or semi-slack line. Slow down and lengthen the pause.
+- Hair Jig: A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It gives you a different finesse subtle look without leaving today's window.
+- Hair Jig how: Fish it on a tight line at slow speed — the hair works best with tiny line pulses rather than big lifts; let it hang in the current or slack zone. Slow down and lengthen the pause.
+- Suspending Jerkbait: A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Suspending Jerkbait how: Work it with wrist snaps, not big sweeps; keep slack in the line between snaps so the bait swings freely, then pause until you see a follow or feel weight. Slow down and lengthen the pause.
 - Fly reasoning:
-- Woolly Bugger: Woolly Bugger tracks well when leech_worm is a realistic meal. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
-- Woolly Bugger how: Fish it on a dead-drift near the bottom, then come alive with a strip-pause retrieve through prime holding water; let the tail do most of the work. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
-- Sculpin Streamer: Sculpin Streamer tracks well when baitfish is a realistic meal. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It gives you a different fly bottom look without leaving today's window.
-- Sculpin Streamer how: Inch it along the bottom with tight-line strips; sculpin barely swim, so keep the fly close to the substrate and use current for most of the motion. Slow down and leave more dead time between moves. Keep it around the lower part of the productive zone. Keep the presentation clean and resist overworking it.
-- Conehead Streamer: A warming trend nudges fish slightly higher in the allowed range. Conehead Streamer tracks well when baitfish is a realistic meal. It lines up with today's slow pace preference. It is the cleaner change-up if the lead look does not convert.
-- Conehead Streamer how: Cast across or down, let it sink to depth, then strip with a jig-like cadence where the cone tips the fly nose-down on each pause. Slow down and leave more dead time between moves. Keep it around the lower part of the productive zone. Keep the presentation clean and resist overworking it.
+- Woolly Bugger: A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
+- Woolly Bugger how: Let it sink to depth then retrieve with slow hand-twists or short strips; the marabou tail breathes best with long pauses at the end of each pull. Slow down and lengthen the pause.
+- Sculpin Streamer: A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It gives you a different fly bottom look without leaving today's window.
+- Sculpin Streamer how: Cast upstream and mend for a natural drift, then activate with short strips that make the fly bumble over the bottom like a sculpin retreating. Slow down and lengthen the pause.
+- Conehead Streamer: A warming trend nudges fish slightly higher in the allowed range. Conehead Streamer tracks well when baitfish is a realistic meal. It is the cleaner change-up if the lead look does not convert.
+- Conehead Streamer how: Cast across or down, let it sink to depth, then strip with a jig-like cadence where the cone tips the fly nose-down on each pause. Slow down and lengthen the pause.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- NO_TOP1_TIE
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:dark,dark
 - Top 1 verdict:
 - Top 3 verdict:
@@ -169,54 +173,58 @@ Archived env summary:
 - Sunrise/sunset: 07:30 / 18:13
 
 Actual output:
-- Top 1 lure: Hair Jig `hair_jig` | theme: `dark` | colors: black, black/blue, black/purple
+- Top 1 lure: Tube Jig `tube_jig` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 lures:
-- Hair Jig `hair_jig` | theme: `dark` | colors: black, black/blue, black/purple
 - Tube Jig `tube_jig` | theme: `dark` | colors: black, black/blue, black/purple
-- Drop-Shot Minnow `drop_shot_minnow` | theme: `dark` | colors: black, black/blue, black/purple
+- Hair Jig `hair_jig` | theme: `dark` | colors: black, black/blue, black/purple
+- Ned Rig `ned_rig` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 1 fly: Woolly Bugger `woolly_bugger` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 flies:
 - Woolly Bugger `woolly_bugger` | theme: `dark` | colors: black, black/blue, black/purple
-- Sculpin Streamer `sculpin_streamer` | theme: `dark` | colors: black, black/blue, black/purple
-- Conehead Streamer `conehead_streamer` | theme: `dark` | colors: black, black/blue, black/purple
+- Balanced Leech `balanced_leech` | theme: `dark` | colors: black, black/blue, black/purple
+- Crawfish Streamer `crawfish_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Color notes:
 - Daily posture: neutral
-- Hair Jig: dark -> black, black/blue, black/purple
 - Tube Jig: dark -> black, black/blue, black/purple
-- Drop-Shot Minnow: dark -> black, black/blue, black/purple
+- Hair Jig: dark -> black, black/blue, black/purple
+- Ned Rig: dark -> black, black/blue, black/purple
 - Woolly Bugger: dark -> black, black/blue, black/purple
-- Sculpin Streamer: dark -> black, black/blue, black/purple
-- Conehead Streamer: dark -> black, black/blue, black/purple
+- Balanced Leech: dark -> black, black/blue, black/purple
+- Crawfish Streamer: dark -> black, black/blue, black/purple
 - Daily profile notes:
 - Daily posture: neutral
+- Seasonal source: region=great_lakes_upper_midwest, fallback_used=false
 - Daily preference: column=mid, pace=slow, presence=subtle
-- Monthly baseline: columns=bottom/mid/upper, paces=slow/medium, presence=subtle/moderate
-- Guardrails: surface_allowed=true, suppress_true_surface=false, suppress_fast_presentations=false, high_visibility_needed=false, column_shift=1
+- Monthly baseline: columns=upper/mid/bottom, paces=slow/medium/fast, presence=subtle/moderate/bold
+- Guardrails: surface_allowed=true, surface_window=clean, suppress_fast_presentations=false, high_visibility_needed=false, column_shift=0
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
 - Variables triggered: temperature_metabolic_context, temperature_trend, light_cloud_condition, precipitation_disruption
-- Daily note: Temperature metabolism suppresses the day and favors slower execution.
+- Daily note: Cold metabolism shuts down activity. Slow and low is the only play.
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Lure reasoning:
-- Hair Jig: Hair Jig stays in play when baitfish is relevant. Temperature metabolism suppresses the day and favors slower execution. It is one of the lead monthly looks for this exact seasonal window.
-- Hair Jig how: Swing it through current seams or drop it in pockets with minimal movement; let the marabou breathe in place before slowly pulling it along. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
-- Tube Jig: Temperature metabolism suppresses the day and favors slower execution. Tube Jig stays in play when crawfish is relevant. It fits today's mid column preference. It gives you a different bottom contact look without leaving today's window.
-- Tube Jig how: Cast, let it sink, then pop sharply and release line; the tube should corkscrew back to bottom on each drop — keep a watchful eye on the line. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
-- Drop-Shot Minnow: Temperature metabolism suppresses the day and favors slower execution. Drop-Shot Minnow stays in play when baitfish is relevant. It fits today's mid column preference. It is the cleaner change-up if the lead look does not convert.
-- Drop-Shot Minnow how: Hold the weight down and pulse the rod tip lightly; the minnow should quiver in place, then glide a few inches before the next shake. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
+- Tube Jig: Cold metabolism shuts down activity. Slow and low is the only play. It is one of the lead monthly looks for this exact seasonal window.
+- Tube Jig how: Snap the tube off bottom with short pops so it spirals on the fall, then let it glide back down on slack or semi-slack line. Slow down and lengthen the pause.
+- Hair Jig: Cold metabolism shuts down activity. Slow and low is the only play. It stays in the middle band where the seasonal setup is most stable today. It gives you a different finesse subtle look without leaving today's window.
+- Hair Jig how: Fish it on a tight line at slow speed — the hair works best with tiny line pulses rather than big lifts; let it hang in the current or slack zone. Slow down and lengthen the pause.
+- Ned Rig: Cold metabolism shuts down activity. Slow and low is the only play. That keeps a crawfish-first look in the water for the month. It is the cleaner change-up if the lead look does not convert.
+- Ned Rig how: Inch it along with small rod pops and long pauses; the mushroom head keeps it nose-down and upright — let it sit longer than you think is necessary. Slow down and lengthen the pause.
 - Fly reasoning:
-- Woolly Bugger: Woolly Bugger tracks well when leech_worm is a realistic meal. Temperature metabolism suppresses the day and favors slower execution. It is one of the lead monthly looks for this exact seasonal window.
-- Woolly Bugger how: Cast across and swing it on a tight line through the drift, then activate on the hang-down with short strips before lifting. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
-- Sculpin Streamer: Temperature metabolism suppresses the day and favors slower execution. Sculpin Streamer tracks well when baitfish is a realistic meal. It lines up with today's slow pace preference. It gives you a different fly bottom look without leaving today's window.
-- Sculpin Streamer how: Inch it along the bottom with tight-line strips; sculpin barely swim, so keep the fly close to the substrate and use current for most of the motion. Slow down and leave more dead time between moves. Keep it around the lower part of the productive zone. Keep the presentation clean and resist overworking it.
-- Conehead Streamer: Conehead Streamer tracks well when baitfish is a realistic meal. Temperature metabolism suppresses the day and favors slower execution. It lines up with today's slow pace preference. It is the cleaner change-up if the lead look does not convert.
-- Conehead Streamer how: Cast across or down, let it sink to depth, then strip with a jig-like cadence where the cone tips the fly nose-down on each pause. Slow down and leave more dead time between moves. Keep it around the lower part of the productive zone. Keep the presentation clean and resist overworking it.
+- Woolly Bugger: Cold metabolism shuts down activity. Slow and low is the only play. It stays in the middle band where the seasonal setup is most stable today.
+- Woolly Bugger how: Let it sink to depth then retrieve with slow hand-twists or short strips; the marabou tail breathes best with long pauses at the end of each pull. Slow down and lengthen the pause.
+- Balanced Leech: Cold metabolism shuts down activity. Slow and low is the only play. It stays in the middle band where the seasonal setup is most stable today. It gives you a different fly bottom look without leaving today's window.
+- Balanced Leech how: Let it suspend just off bottom or under cover and move it only with tiny strips; the balanced posture is the trigger, not speed. Slow down and lengthen the pause.
+- Crawfish Streamer: Cold metabolism shuts down activity. Slow and low is the only play. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Crawfish Streamer how: Pinch the fly to the bottom and move it in erratic 1-2 inch hops with long pauses; the slower and lower, the better — crawfish don't sprint. Slow down and lengthen the pause.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- NO_TOP1_TIE
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:dark,dark
 - Top 1 verdict:
 - Top 3 verdict:
@@ -271,55 +279,59 @@ Archived env summary:
 - Sunrise/sunset: 07:39 / 19:52
 
 Actual output:
-- Top 1 lure: Hair Jig `hair_jig` | theme: `dark` | colors: black, black/blue, black/purple
+- Top 1 lure: Tube Jig `tube_jig` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 lures:
-- Hair Jig `hair_jig` | theme: `dark` | colors: black, black/blue, black/purple
 - Tube Jig `tube_jig` | theme: `dark` | colors: black, black/blue, black/purple
-- Drop-Shot Minnow `drop_shot_minnow` | theme: `dark` | colors: black, black/blue, black/purple
-- Top 1 fly: Woolly Bugger `woolly_bugger` | theme: `dark` | colors: black, black/blue, black/purple
+- Ned Rig `ned_rig` | theme: `dark` | colors: black, black/blue, black/purple
+- Football Jig `football_jig` | theme: `dark` | colors: black, black/blue, black/purple
+- Top 1 fly: Sculpin Streamer `sculpin_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 flies:
-- Woolly Bugger `woolly_bugger` | theme: `dark` | colors: black, black/blue, black/purple
 - Sculpin Streamer `sculpin_streamer` | theme: `dark` | colors: black, black/blue, black/purple
-- Conehead Streamer `conehead_streamer` | theme: `dark` | colors: black, black/blue, black/purple
+- Woolly Bugger `woolly_bugger` | theme: `dark` | colors: black, black/blue, black/purple
+- Balanced Leech `balanced_leech` | theme: `dark` | colors: black, black/blue, black/purple
 - Color notes:
 - Daily posture: suppressed
-- Hair Jig: dark -> black, black/blue, black/purple
 - Tube Jig: dark -> black, black/blue, black/purple
-- Drop-Shot Minnow: dark -> black, black/blue, black/purple
-- Woolly Bugger: dark -> black, black/blue, black/purple
+- Ned Rig: dark -> black, black/blue, black/purple
+- Football Jig: dark -> black, black/blue, black/purple
 - Sculpin Streamer: dark -> black, black/blue, black/purple
-- Conehead Streamer: dark -> black, black/blue, black/purple
+- Woolly Bugger: dark -> black, black/blue, black/purple
+- Balanced Leech: dark -> black, black/blue, black/purple
 - Daily profile notes:
 - Daily posture: suppressed
-- Daily preference: column=mid, pace=slow, presence=subtle
-- Monthly baseline: columns=bottom/mid/upper, paces=slow/medium, presence=subtle/moderate
-- Guardrails: surface_allowed=false, suppress_true_surface=true, suppress_fast_presentations=true, high_visibility_needed=false, column_shift=1
+- Seasonal source: region=great_lakes_upper_midwest, fallback_used=false
+- Daily preference: column=bottom, pace=slow, presence=subtle
+- Monthly baseline: columns=upper/mid/bottom, paces=slow/medium/fast, presence=subtle/moderate/bold
+- Guardrails: surface_allowed=false, surface_window=closed, suppress_fast_presentations=true, high_visibility_needed=false, column_shift=-1
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
 - Variables triggered: temperature_metabolic_context, temperature_trend, light_cloud_condition, wind_condition, precipitation_disruption
-- Daily note: Temperature metabolism suppresses the day and favors slower execution.
+- Daily note: Cold metabolism shuts down activity. Slow and low is the only play.
 - Daily note: A cooling trend tightens fish and shifts preference lower and slower.
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Daily note: Moderate chop improves fishability and supports a stronger moving look.
 - Lure reasoning:
-- Hair Jig: It is one of the lead monthly looks for this exact seasonal window. With true surface suppressed, this keeps you just under the cleaner active lane. Hair Jig stays in play when baitfish is relevant.
-- Hair Jig how: Cast across, let it sink on a controlled slack line, then swim it back with short pauses so the marabou pulses and collapses. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Let it soak a little longer before each move.
-- Tube Jig: With true surface suppressed, this keeps you just under the cleaner active lane. Tube Jig stays in play when crawfish is relevant. It fits today's mid column preference. It gives you a different bottom contact look without leaving today's window.
-- Tube Jig how: Snap the tube off bottom with short pops so it spirals on the fall, then let it glide back down on slack or semi-slack line. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Let it soak a little longer before each move.
-- Drop-Shot Minnow: It stays in the middle band where the seasonal setup is most stable today. With true surface suppressed, this keeps you just under the cleaner active lane. Drop-Shot Minnow stays in play when baitfish is relevant. It is the cleaner change-up if the lead look does not convert.
-- Drop-Shot Minnow how: Keep the bait just off bottom with tiny shakes and short glides so the minnow hovers naturally in the strike zone. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Let it soak a little longer before each move.
+- Tube Jig: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Tube Jig how: Snap the tube off bottom with short pops so it spirals on the fall, then let it glide back down on slack or semi-slack line. Slow down and lengthen the pause.
+- Ned Rig: With the highest lane shut down, this keeps you just under the cleaner active zone. That keeps a crawfish-first look in the water for the month. It gives you a different bottom contact look without leaving today's window.
+- Ned Rig how: Drag and shake the small head along bottom like a tiny craw — short pulls, let it settle, repeat instead of big hops. Slow down and lengthen the pause.
+- Football Jig: With the highest lane shut down, this keeps you just under the cleaner active zone. That keeps a crawfish-first look in the water for the month. It is the cleaner change-up if the lead look does not convert.
+- Football Jig how: Drag it along hard bottom and ledges so the flat head kicks and rocks; lift only slightly on the pull so the trailer stays near the substrate. Slow down and lengthen the pause.
 - Fly reasoning:
-- Woolly Bugger: Woolly Bugger tracks well when leech_worm is a realistic meal. With true surface suppressed, this keeps you just under the cleaner active lane. It is one of the lead monthly looks for this exact seasonal window.
-- Woolly Bugger how: Let it sink to depth then retrieve with slow hand-twists or short strips; the marabou tail breathes best with long pauses at the end of each pull. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
-- Sculpin Streamer: Sculpin Streamer tracks well when baitfish is a realistic meal. Temperature metabolism suppresses the day and favors slower execution. It is one of the lead monthly looks for this exact seasonal window. It gives you a different fly bottom look without leaving today's window.
-- Sculpin Streamer how: Bump bottom with short strips and let the fly tick along rocks; keep tension so you feel every stop against structure. Slow down and leave more dead time between moves. Keep it around the lower part of the productive zone. Keep the presentation clean and resist overworking it.
-- Conehead Streamer: Temperature metabolism suppresses the day and favors slower execution. Conehead Streamer tracks well when baitfish is a realistic meal. It lines up with today's slow pace preference. It is the cleaner change-up if the lead look does not convert.
-- Conehead Streamer how: Let the cone dig and dart on each strip — medium pulls with pauses so the fly hunts just off the rocks or wood. Slow down and leave more dead time between moves. Keep it around the lower part of the productive zone. Keep the presentation clean and resist overworking it.
+- Sculpin Streamer: A cooling trend tightens fish and shifts preference lower and slower. It is one of the lead monthly looks for this exact seasonal window.
+- Sculpin Streamer how: Bump bottom with short strips and let the fly tick along rocks; keep tension so you feel every stop against structure. Slow down and lengthen the pause.
+- Woolly Bugger: With the highest lane shut down, this keeps you just under the cleaner active zone. It stays low in the zone where this day still wants fish to hold. It gives you a different fly bottom look without leaving today's window.
+- Woolly Bugger how: Let it sink to depth then retrieve with slow hand-twists or short strips; the marabou tail breathes best with long pauses at the end of each pull. Slow down and lengthen the pause.
+- Balanced Leech: With the highest lane shut down, this keeps you just under the cleaner active zone. It stays low in the zone where this day still wants fish to hold. It is the cleaner change-up if the lead look does not convert.
+- Balanced Leech how: Fish it under an indicator or on a slow hand-twist so the fly hovers level and pulses in place rather than diving nose-first. Slow down and lengthen the pause.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- NO_TOP1_TIE
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:dark,dark
 - Top 1 verdict:
 - Top 3 verdict:
@@ -374,55 +386,59 @@ Archived env summary:
 - Sunrise/sunset: 06:49 / 20:27
 
 Actual output:
-- Top 1 lure: Tube Jig `tube_jig` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Top 1 lure: Drop-Shot Worm `drop_shot_worm` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 3 lures:
+- Drop-Shot Worm `drop_shot_worm` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Drop-Shot Minnow `drop_shot_minnow` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Tube Jig `tube_jig` | theme: `natural` | colors: green pumpkin, olive, smoke
-- Football Jig `football_jig` | theme: `natural` | colors: green pumpkin, olive, smoke
-- Hair Jig `hair_jig` | theme: `natural` | colors: green pumpkin, olive, smoke
-- Top 1 fly: Crawfish Streamer `crawfish_streamer` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Top 1 fly: Sculpin Streamer `sculpin_streamer` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 3 flies:
-- Crawfish Streamer `crawfish_streamer` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Sculpin Streamer `sculpin_streamer` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Woolly Bugger `woolly_bugger` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Balanced Leech `balanced_leech` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Color notes:
 - Daily posture: suppressed
+- Drop-Shot Worm: natural -> green pumpkin, olive, smoke
+- Drop-Shot Minnow: natural -> green pumpkin, olive, smoke
 - Tube Jig: natural -> green pumpkin, olive, smoke
-- Football Jig: natural -> green pumpkin, olive, smoke
-- Hair Jig: natural -> green pumpkin, olive, smoke
-- Crawfish Streamer: natural -> green pumpkin, olive, smoke
 - Sculpin Streamer: natural -> green pumpkin, olive, smoke
 - Woolly Bugger: natural -> green pumpkin, olive, smoke
+- Balanced Leech: natural -> green pumpkin, olive, smoke
 - Daily profile notes:
 - Daily posture: suppressed
+- Seasonal source: region=great_lakes_upper_midwest, fallback_used=false
 - Daily preference: column=bottom, pace=slow, presence=subtle
-- Monthly baseline: columns=mid/bottom/upper, paces=medium/slow/fast, presence=moderate/subtle/bold
-- Guardrails: surface_allowed=false, suppress_true_surface=true, suppress_fast_presentations=true, high_visibility_needed=false, column_shift=-1
+- Monthly baseline: columns=upper/mid/bottom, paces=slow/medium/fast, presence=subtle/moderate/bold
+- Guardrails: surface_allowed=false, surface_window=closed, suppress_fast_presentations=true, high_visibility_needed=false, column_shift=-1
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
 - Variables triggered: temperature_metabolic_context, temperature_trend, light_cloud_condition, wind_condition, precipitation_disruption
-- Daily note: Temperature metabolism suppresses the day and favors slower execution.
+- Daily note: Cold metabolism shuts down activity. Slow and low is the only play.
 - Daily note: A cooling trend tightens fish and shifts preference lower and slower.
 - Daily note: Bright light trims the day back toward cleaner looks.
 - Daily note: Moderate chop improves fishability and supports a stronger moving look.
 - Lure reasoning:
-- Tube Jig: Tube Jig stays in play when crawfish is relevant. With true surface suppressed, this keeps you just under the cleaner active lane. It is one of the lead monthly looks for this exact seasonal window.
-- Tube Jig how: Snap the tube off bottom with short pops so it spirals on the fall, then let it glide back down on slack or semi-slack line. Slow down and leave more dead time between moves. Keep it above cover or along the upper edge of the zone. Let it soak a little longer before each move.
-- Football Jig: That keeps a crawfish-first look in the water for the month. With true surface suppressed, this keeps you just under the cleaner active lane. Football Jig stays in play when crawfish is relevant. It gives you a different bottom contact look without leaving today's window.
-- Football Jig how: Drag it along hard bottom and ledges so the flat head kicks and rocks; lift only slightly on the pull so the trailer stays near the substrate. Slow down and leave more dead time between moves. Keep it around the lower part of the productive zone. Let it soak a little longer before each move.
-- Hair Jig: With true surface suppressed, this keeps you just under the cleaner active lane. Hair Jig stays in play when baitfish is relevant. It lines up with today's slow pace preference. It is the cleaner change-up if the lead look does not convert.
-- Hair Jig how: Cast across, let it sink on a controlled slack line, then swim it back with short pauses so the marabou pulses and collapses. Slow down and leave more dead time between moves. Keep it above cover or along the upper edge of the zone. Let it soak a little longer before each move.
+- Drop-Shot Worm: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Drop-Shot Worm how: Hold the weight on the bottom and gently shake the rod tip so the worm quivers in place; move it only a foot or two before letting it settle again. Slow down and lengthen the pause.
+- Drop-Shot Minnow: With the highest lane shut down, this keeps you just under the cleaner active zone. It stays low in the zone where this day still wants fish to hold. It gives you a different finesse subtle look without leaving today's window.
+- Drop-Shot Minnow how: Keep the bait just off bottom with tiny shakes and short glides so the minnow hovers naturally in the strike zone. Slow down and lengthen the pause.
+- Tube Jig: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Tube Jig how: Snap the tube off bottom with short pops so it spirals on the fall, then let it glide back down on slack or semi-slack line. Slow down and lengthen the pause.
 - Fly reasoning:
-- Crawfish Streamer: It is one of the lead monthly looks for this exact seasonal window. Temperature metabolism suppresses the day and favors slower execution. Crawfish Streamer tracks well when crawfish is a realistic meal.
-- Crawfish Streamer how: Tick it along the bottom with short, nervous strips so the claws scratch and flare; keep it close to the substrate and pause after contact with any rock or root. Slow down and leave more dead time between moves. Keep it around the lower part of the productive zone. Keep the presentation clean and resist overworking it.
-- Sculpin Streamer: It is one of the lead monthly looks for this exact seasonal window. Temperature metabolism suppresses the day and favors slower execution. Sculpin Streamer tracks well when baitfish is a realistic meal. It gives you a different fly bottom look without leaving today's window.
-- Sculpin Streamer how: Bump bottom with short strips and let the fly tick along rocks; keep tension so you feel every stop against structure. Slow down and leave more dead time between moves. Keep it around the lower part of the productive zone. Keep the presentation clean and resist overworking it.
-- Woolly Bugger: With true surface suppressed, this keeps you just under the cleaner active lane. Woolly Bugger tracks well when leech_worm is a realistic meal. It fits today's bottom column preference. It is the cleaner change-up if the lead look does not convert.
-- Woolly Bugger how: Let it sink to depth then retrieve with slow hand-twists or short strips; the marabou tail breathes best with long pauses at the end of each pull. Slow down and leave more dead time between moves. Keep it around the lower part of the productive zone. Keep the presentation clean and resist overworking it.
+- Sculpin Streamer: A cooling trend tightens fish and shifts preference lower and slower. It stays low in the zone where this day still wants fish to hold.
+- Sculpin Streamer how: Bump bottom with short strips and let the fly tick along rocks; keep tension so you feel every stop against structure. Slow down and lengthen the pause.
+- Woolly Bugger: With the highest lane shut down, this keeps you just under the cleaner active zone. It stays low in the zone where this day still wants fish to hold. It gives you a different fly bottom look without leaving today's window.
+- Woolly Bugger how: Let it sink to depth then retrieve with slow hand-twists or short strips; the marabou tail breathes best with long pauses at the end of each pull. Slow down and lengthen the pause.
+- Balanced Leech: With the highest lane shut down, this keeps you just under the cleaner active zone. It stays low in the zone where this day still wants fish to hold. It is the cleaner change-up if the lead look does not convert.
+- Balanced Leech how: Fish it under an indicator or on a slow hand-twist so the fly hovers level and pulses in place rather than diving nose-first. Slow down and lengthen the pause.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- TOP1_TIE:fly
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:natural,natural
 - Top 1 verdict:
 - Top 3 verdict:
@@ -485,45 +501,49 @@ Actual output:
 - Top 1 fly: Game Changer `game_changer` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 3 flies:
 - Game Changer `game_changer` | theme: `natural` | colors: green pumpkin, olive, smoke
-- Crawfish Streamer `crawfish_streamer` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Woolly Bugger `woolly_bugger` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Zonker Streamer `zonker_streamer` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Color notes:
 - Daily posture: aggressive
 - Tube Jig: natural -> green pumpkin, olive, smoke
 - Suspending Jerkbait: natural -> green pumpkin, olive, smoke
 - Flat-Sided Crankbait: natural -> green pumpkin, olive, smoke
 - Game Changer: natural -> green pumpkin, olive, smoke
-- Crawfish Streamer: natural -> green pumpkin, olive, smoke
 - Woolly Bugger: natural -> green pumpkin, olive, smoke
+- Zonker Streamer: natural -> green pumpkin, olive, smoke
 - Daily profile notes:
 - Daily posture: aggressive
+- Seasonal source: region=great_lakes_upper_midwest, fallback_used=false
 - Daily preference: column=upper, pace=medium, presence=subtle
-- Monthly baseline: columns=upper/mid/bottom, paces=medium/slow/fast, presence=moderate/subtle/bold
-- Guardrails: surface_allowed=true, suppress_true_surface=false, suppress_fast_presentations=false, high_visibility_needed=false, column_shift=1
+- Monthly baseline: columns=upper/mid, paces=slow/medium/fast, presence=subtle/moderate/bold
+- Guardrails: surface_allowed=true, surface_window=rippled, suppress_fast_presentations=false, high_visibility_needed=false, column_shift=1
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
 - Variables triggered: temperature_trend, wind_condition, precipitation_disruption
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
 - Daily note: Moderate chop improves fishability and supports a stronger moving look.
 - Lure reasoning:
-- Tube Jig: Tube Jig stays in play when crawfish is relevant. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
-- Tube Jig how: Snap the tube off bottom with short pops so it spirals on the fall, then let it glide back down on slack or semi-slack line. Keep a steady medium cadence. Keep it above cover or along the upper edge of the zone. Keep the presentation clean and resist overworking it.
-- Suspending Jerkbait: A warming trend nudges fish slightly higher in the allowed range. Suspending Jerkbait stays in play when baitfish is relevant. It fits today's upper column preference. It gives you a different reaction mid column look without leaving today's window.
-- Suspending Jerkbait how: Jerk, jerk, pause. The bait should dart and glide sideways on each twitch; dial the pause length to water temperature — colder means longer. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Keep the presentation clean and resist overworking it.
-- Flat-Sided Crankbait: It stays high enough in the zone to match the day's more open positioning. A warming trend nudges fish slightly higher in the allowed range. Flat-Sided Crankbait stays in play when baitfish is relevant. It is the cleaner change-up if the lead look does not convert.
-- Flat-Sided Crankbait how: Work it across hard bottom or rock piles with a consistent slow crank, letting the tight shimmy attract finicky fish holding close to structure. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Keep the presentation clean and resist overworking it.
+- Tube Jig: A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
+- Tube Jig how: Snap the tube off bottom with short pops so it spirals on the fall, then let it glide back down on slack or semi-slack line. Keep it high in the zone.
+- Suspending Jerkbait: Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window. It gives you a different reaction mid column look without leaving today's window.
+- Suspending Jerkbait how: Jerk, jerk, pause. The bait should dart and glide sideways on each twitch; dial the pause length to water temperature — colder means longer. Keep it high in the zone.
+- Flat-Sided Crankbait: Moderate chop improves fishability and supports a stronger moving look. It stays high enough in the zone to match the day's more open positioning. It is the cleaner change-up if the lead look does not convert.
+- Flat-Sided Crankbait how: Work it across hard bottom or rock piles with a consistent slow crank, letting the tight shimmy attract finicky fish holding close to structure. Keep it high in the zone.
 - Fly reasoning:
-- Game Changer: A warming trend nudges fish slightly higher in the allowed range. Game Changer tracks well when baitfish is a realistic meal. It fits today's upper column preference.
-- Game Changer how: Use a mix of steady strips and sharp 6-inch twitches so the jointed body swims and stalls; pause when you see a follow. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Keep the presentation clean and resist overworking it.
-- Crawfish Streamer: Crawfish Streamer tracks well when crawfish is a realistic meal. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It gives you a different fly bottom look without leaving today's window.
-- Crawfish Streamer how: Cast upstream and mend for a dead-drift first; then come alive with quick, short strips that make the claw materials flex like a fleeing crawfish. Keep a steady medium cadence. Keep it around the lower part of the productive zone. Keep the presentation clean and resist overworking it.
-- Woolly Bugger: A warming trend nudges fish slightly higher in the allowed range. Woolly Bugger tracks well when leech_worm is a realistic meal. It matches today's subtle presence lane. It is the cleaner change-up if the lead look does not convert.
-- Woolly Bugger how: Fish it on a dead-drift near the bottom, then come alive with a strip-pause retrieve through prime holding water; let the tail do most of the work. Keep a steady medium cadence. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
+- Game Changer: Moderate chop improves fishability and supports a stronger moving look. It stays high enough in the zone to match the day's more open positioning.
+- Game Changer how: Use a mix of steady strips and sharp 6-inch twitches so the jointed body swims and stalls; pause when you see a follow. Keep it high in the zone.
+- Woolly Bugger: A warming trend nudges fish slightly higher in the allowed range. Woolly Bugger tracks well when leech_worm is a realistic meal. It gives you a different fly bottom look without leaving today's window.
+- Woolly Bugger how: Cast across and swing it on a tight line through the drift, then activate on the hang-down with short strips before lifting.
+- Zonker Streamer: Moderate chop improves fishability and supports a stronger moving look. It stays high enough in the zone to match the day's more open positioning. It is the cleaner change-up if the lead look does not convert.
+- Zonker Streamer how: Cast across current and strip steadily through the swing; add a momentary deadstop near structure so the wing collapses and then puffs back out. Keep it high in the zone.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- NO_TOP1_TIE
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:natural,natural
 - Top 1 verdict:
 - Top 3 verdict:
@@ -578,52 +598,56 @@ Archived env summary:
 - Sunrise/sunset: 05:49 / 21:30
 
 Actual output:
-- Top 1 lure: Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Top 1 lure: Soft Plastic Jerkbait `soft_jerkbait` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 lures:
-- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `dark` | colors: black, black/blue, black/purple
 - Soft Plastic Jerkbait `soft_jerkbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `dark` | colors: black, black/blue, black/purple
 - Hair Jig `hair_jig` | theme: `dark` | colors: black, black/blue, black/purple
-- Top 1 fly: Game Changer `game_changer` | theme: `dark` | colors: black, black/blue, black/purple
+- Top 1 fly: Mouse Fly `mouse_fly` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 flies:
-- Game Changer `game_changer` | theme: `dark` | colors: black, black/blue, black/purple
 - Mouse Fly `mouse_fly` | theme: `dark` | colors: black, black/blue, black/purple
-- Zonker Streamer `zonker_streamer` | theme: `dark` | colors: black, black/blue, black/purple
+- Game Changer `game_changer` | theme: `dark` | colors: black, black/blue, black/purple
+- Popper Fly `popper_fly` | theme: `dark` | colors: black, black/blue, black/purple
 - Color notes:
 - Daily posture: slightly_aggressive
-- Paddle-Tail Swimbait: dark -> black, black/blue, black/purple
 - Soft Plastic Jerkbait: dark -> black, black/blue, black/purple
+- Paddle-Tail Swimbait: dark -> black, black/blue, black/purple
 - Hair Jig: dark -> black, black/blue, black/purple
-- Game Changer: dark -> black, black/blue, black/purple
 - Mouse Fly: dark -> black, black/blue, black/purple
-- Zonker Streamer: dark -> black, black/blue, black/purple
+- Game Changer: dark -> black, black/blue, black/purple
+- Popper Fly: dark -> black, black/blue, black/purple
 - Daily profile notes:
 - Daily posture: slightly_aggressive
-- Daily preference: column=upper, pace=medium, presence=subtle
-- Monthly baseline: columns=surface/upper/mid, paces=medium/fast/slow, presence=moderate/subtle/bold
-- Guardrails: surface_allowed=true, suppress_true_surface=false, suppress_fast_presentations=false, high_visibility_needed=false, column_shift=1
+- Seasonal source: region=great_lakes_upper_midwest, fallback_used=false
+- Daily preference: column=surface, pace=medium, presence=subtle
+- Monthly baseline: columns=surface/upper/mid, paces=medium/fast, presence=subtle/moderate/bold
+- Guardrails: surface_allowed=true, surface_window=clean, suppress_fast_presentations=false, high_visibility_needed=false, column_shift=1
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
 - Variables triggered: light_cloud_condition, precipitation_disruption
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Lure reasoning:
-- Paddle-Tail Swimbait: Paddle-Tail Swimbait stays in play when baitfish is relevant. Lower light supports a slightly higher, more open lane. It is one of the lead monthly looks for this exact seasonal window.
-- Paddle-Tail Swimbait how: Swim it at the speed where you feel a steady kick through the rod; use rod angle to change depth without changing retrieve speed. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Keep the presentation clean and resist overworking it.
-- Soft Plastic Jerkbait: It is one of the lead monthly looks for this exact seasonal window. Lower light supports a slightly higher, more open lane. Soft Plastic Jerkbait stays in play when baitfish is relevant. It gives you a different horizontal search look without leaving today's window.
-- Soft Plastic Jerkbait how: Snap the rod sideways so the bait darts left or right, then drop the rod tip so it glides and sinks on a slack line before the next snap. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Keep the presentation clean and resist overworking it.
-- Hair Jig: Lower light supports a slightly higher, more open lane. Hair Jig stays in play when baitfish is relevant. It fits today's upper column preference. It is the cleaner change-up if the lead look does not convert.
-- Hair Jig how: Swing it through current seams or drop it in pockets with minimal movement; let the marabou breathe in place before slowly pulling it along. Keep a steady medium cadence. Keep it above cover or along the upper edge of the zone. Keep the presentation clean and resist overworking it.
+- Soft Plastic Jerkbait: Lower light supports a slightly higher, more open lane. It is one of the lead monthly looks for this exact seasonal window.
+- Soft Plastic Jerkbait how: Work it with a jerk-sink-jerk cadence; keep the line slightly slack between twitches so the bait moves unpredictably, and vary the pause length. Keep it high in the zone.
+- Paddle-Tail Swimbait: Lower light supports a slightly higher, more open lane. It is one of the lead monthly looks for this exact seasonal window. It gives you a different horizontal search look without leaving today's window.
+- Paddle-Tail Swimbait how: Swim it at the speed where you feel a steady kick through the rod; use rod angle to change depth without changing retrieve speed. Keep it high in the zone.
+- Hair Jig: Lower light supports a slightly higher, more open lane. Hair Jig stays in play when baitfish is relevant. It is the cleaner change-up if the lead look does not convert.
+- Hair Jig how: Swing it through current seams or drop it in pockets with minimal movement; let the marabou breathe in place before slowly pulling it along. Keep it high in the zone.
 - Fly reasoning:
-- Game Changer: It is one of the lead monthly looks for this exact seasonal window. Lower light supports a slightly higher, more open lane. Game Changer tracks well when baitfish is a realistic meal.
-- Game Changer how: Use a mix of steady strips and sharp 6-inch twitches so the jointed body swims and stalls; pause when you see a follow. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Keep the presentation clean and resist overworking it.
-- Mouse Fly: Even with a little ripple, the surface lane is still open enough to matter. Mouse Fly tracks well when baitfish is a realistic meal. It lines up with today's medium pace preference. It gives you a different fly surface look without leaving today's window.
-- Mouse Fly how: Swim it on a constant slow retrieve just fast enough to leave a wake; target near-shore edges and structure where big fish expect food to cross. Keep it moving on a steady, fishable cadence. Keep it high and over the surface lane. Keep the presentation clean and resist overworking it.
-- Zonker Streamer: Zonker Streamer tracks well when baitfish is a realistic meal. Lower light supports a slightly higher, more open lane. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
-- Zonker Streamer how: Cast across current and strip steadily through the swing; add a momentary deadstop near structure so the wing collapses and then puffs back out. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Keep the presentation clean and resist overworking it.
+- Mouse Fly: Low disturbance is keeping a true surface lane open today. The month is still baitfish-forward, and this stays inside that search lane.
+- Mouse Fly how: Work it with a slow, uninterrupted retrieve across open water; the V-wake is the trigger, so keep it moving at a steady pace and stay alert. Keep it on top.
+- Game Changer: Lower light supports a slightly higher, more open lane. It is one of the lead monthly looks for this exact seasonal window. It gives you a different fly baitfish look without leaving today's window.
+- Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink. Keep it high in the zone.
+- Popper Fly: Low disturbance is keeping a true surface lane open today. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Popper Fly how: Work it with medium strips that spit and gurgle; slow the cadence near structure and let the fly rest after each pop — target the edge of any surface shadow. Keep it on top.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- NO_TOP1_TIE
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:dark,dark
 - Top 1 verdict:
 - Top 3 verdict:
@@ -681,53 +705,57 @@ Archived env summary:
 - Sunrise/sunset: 06:05 / 21:23
 
 Actual output:
-- Top 1 lure: Hair Jig `hair_jig` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Top 1 lure: Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 3 lures:
+- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Hair Jig `hair_jig` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Tube Jig `tube_jig` | theme: `natural` | colors: green pumpkin, olive, smoke
-- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural` | colors: green pumpkin, olive, smoke
-- Top 1 fly: Woolly Bugger `woolly_bugger` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Top 1 fly: Mouse Fly `mouse_fly` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 3 flies:
-- Woolly Bugger `woolly_bugger` | theme: `natural` | colors: green pumpkin, olive, smoke
-- Game Changer `game_changer` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Mouse Fly `mouse_fly` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Game Changer `game_changer` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Popper Fly `popper_fly` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Color notes:
 - Daily posture: neutral
+- Paddle-Tail Swimbait: natural -> green pumpkin, olive, smoke
 - Hair Jig: natural -> green pumpkin, olive, smoke
 - Tube Jig: natural -> green pumpkin, olive, smoke
-- Paddle-Tail Swimbait: natural -> green pumpkin, olive, smoke
-- Woolly Bugger: natural -> green pumpkin, olive, smoke
-- Game Changer: natural -> green pumpkin, olive, smoke
 - Mouse Fly: natural -> green pumpkin, olive, smoke
+- Game Changer: natural -> green pumpkin, olive, smoke
+- Popper Fly: natural -> green pumpkin, olive, smoke
 - Daily profile notes:
 - Daily posture: neutral
-- Daily preference: column=upper, pace=slow, presence=subtle
-- Monthly baseline: columns=upper/mid/surface/bottom, paces=medium/fast/slow, presence=moderate/subtle/bold
-- Guardrails: surface_allowed=true, suppress_true_surface=false, suppress_fast_presentations=false, high_visibility_needed=false, column_shift=1
+- Seasonal source: region=great_lakes_upper_midwest, fallback_used=false
+- Daily preference: column=upper, pace=medium, presence=subtle
+- Monthly baseline: columns=surface/upper/mid, paces=medium/fast, presence=subtle/moderate/bold
+- Guardrails: surface_allowed=true, surface_window=rippled, suppress_fast_presentations=false, high_visibility_needed=false, column_shift=1
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
 - Variables triggered: temperature_trend, precipitation_disruption
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
 - Daily note: Active precipitation disruption narrows the clean bite window.
 - Lure reasoning:
-- Hair Jig: It stays high enough in the zone to match the day's more open positioning. A warming trend nudges fish slightly higher in the allowed range. Hair Jig stays in play when baitfish is relevant.
-- Hair Jig how: Swing it through current seams or drop it in pockets with minimal movement; let the marabou breathe in place before slowly pulling it along. Slow down and leave more dead time between moves. Keep it above cover or along the upper edge of the zone. Keep the presentation clean and resist overworking it.
-- Tube Jig: A warming trend nudges fish slightly higher in the allowed range. Tube Jig stays in play when crawfish is relevant. It fits today's upper column preference. It gives you a different bottom contact look without leaving today's window.
-- Tube Jig how: Snap the tube off bottom with short pops so it spirals on the fall, then let it glide back down on slack or semi-slack line. Slow down and leave more dead time between moves. Keep it above cover or along the upper edge of the zone. Keep the presentation clean and resist overworking it.
-- Paddle-Tail Swimbait: It is one of the lead monthly looks for this exact seasonal window. A warming trend nudges fish slightly higher in the allowed range. Paddle-Tail Swimbait stays in play when baitfish is relevant. It is the cleaner change-up if the lead look does not convert.
-- Paddle-Tail Swimbait how: Slow-roll near the bottom on a consistent retrieve; the paddle thumps best just barely above the substrate, so keep the rod tip down and the pace even. Keep the cadence controlled and add short stalls instead of burning it. Keep it above cover or along the upper edge of the zone. Keep the presentation clean and resist overworking it.
+- Paddle-Tail Swimbait: Active precipitation disruption narrows the clean bite window. It is one of the lead monthly looks for this exact seasonal window.
+- Paddle-Tail Swimbait how: Reel at a steady pace with the rod low so the tail thumps consistently; speed up slightly over bait schools or slow down after a follow. Keep it high in the zone.
+- Hair Jig: A warming trend nudges fish slightly higher in the allowed range. It stays high enough in the zone to match the day's more open positioning. It gives you a different finesse subtle look without leaving today's window.
+- Hair Jig how: Fish it on a tight line at slow speed — the hair works best with tiny line pulses rather than big lifts; let it hang in the current or slack zone. Keep it high in the zone.
+- Tube Jig: A warming trend nudges fish slightly higher in the allowed range. It stays high enough in the zone to match the day's more open positioning. It is the cleaner change-up if the lead look does not convert.
+- Tube Jig how: Cast, let it sink, then pop sharply and release line; the tube should corkscrew back to bottom on each drop — keep a watchful eye on the line. Keep it high in the zone.
 - Fly reasoning:
-- Woolly Bugger: A warming trend nudges fish slightly higher in the allowed range. Woolly Bugger tracks well when leech_worm is a realistic meal. It lines up with today's slow pace preference.
-- Woolly Bugger how: Fish it on a dead-drift near the bottom, then come alive with a strip-pause retrieve through prime holding water; let the tail do most of the work. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
-- Game Changer: Game Changer tracks well when baitfish is a realistic meal. A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different fly baitfish look without leaving today's window.
-- Game Changer how: Retrieve with medium strips, then occasionally rip hard so the body compresses and then springs apart — pause after each hard strip and hold your nerve. Keep the cadence controlled and add short stalls instead of burning it. Keep it above cover or along the upper edge of the zone. Keep the presentation clean and resist overworking it.
-- Mouse Fly: Mouse Fly tracks well when baitfish is a realistic meal. Even with a little ripple, the surface lane is still open enough to matter. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
-- Mouse Fly how: Swim it on a constant slow retrieve just fast enough to leave a wake; target near-shore edges and structure where big fish expect food to cross. Work it with longer pauses between movements. Keep it high and over the surface lane. Keep the presentation clean and resist overworking it.
+- Mouse Fly: The monthly surface window is still alive today, even with a little ripple on top. The month is still baitfish-forward, and this stays inside that search lane.
+- Mouse Fly how: Cast to structure and retrieve with a steady, slow V-wake strip; vary only slightly in speed and resist the urge to twitch — mice move in straight lines. Keep it on top.
+- Game Changer: Active precipitation disruption narrows the clean bite window. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different fly baitfish look without leaving today's window.
+- Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink. Keep it high in the zone.
+- Popper Fly: The monthly surface window is still alive today, even with a little ripple on top. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Popper Fly how: Work it with medium strips that spit and gurgle; slow the cadence near structure and let the fly rest after each pop — target the edge of any surface shadow. Keep it on top.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- NO_TOP1_TIE
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:natural,natural
 - Top 1 verdict:
 - Top 3 verdict:
@@ -794,7 +822,7 @@ Actual output:
 - Top 3 flies:
 - Woolly Bugger `woolly_bugger` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Balanced Leech `balanced_leech` | theme: `natural` | colors: green pumpkin, olive, smoke
-- Clouser Minnow `clouser_minnow` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Slim Baitfish Streamer `slim_minnow_streamer` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Color notes:
 - Daily posture: slightly_suppressed
 - Hair Jig: natural -> green pumpkin, olive, smoke
@@ -802,35 +830,39 @@ Actual output:
 - Drop-Shot Worm: natural -> green pumpkin, olive, smoke
 - Woolly Bugger: natural -> green pumpkin, olive, smoke
 - Balanced Leech: natural -> green pumpkin, olive, smoke
-- Clouser Minnow: natural -> green pumpkin, olive, smoke
+- Slim Baitfish Streamer: natural -> green pumpkin, olive, smoke
 - Daily profile notes:
 - Daily posture: slightly_suppressed
-- Daily preference: column=mid, pace=slow, presence=subtle
-- Monthly baseline: columns=upper/mid/surface/bottom, paces=medium/fast/slow, presence=subtle/moderate
-- Guardrails: surface_allowed=false, suppress_true_surface=true, suppress_fast_presentations=true, high_visibility_needed=false, column_shift=-1
+- Seasonal source: region=great_lakes_upper_midwest, fallback_used=false
+- Daily preference: column=bottom, pace=slow, presence=subtle
+- Monthly baseline: columns=upper/mid/bottom, paces=slow/medium, presence=subtle/moderate
+- Guardrails: surface_allowed=false, surface_window=closed, suppress_fast_presentations=false, high_visibility_needed=false, column_shift=-1
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
 - Variables triggered: light_cloud_condition, precipitation_disruption
 - Daily note: Bright light trims the day back toward cleaner looks.
 - Lure reasoning:
-- Hair Jig: With true surface suppressed, this keeps you just under the cleaner active lane. Hair Jig stays in play when baitfish is relevant. It fits today's mid column preference.
-- Hair Jig how: Cast across, let it sink on a controlled slack line, then swim it back with short pauses so the marabou pulses and collapses. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Let it soak a little longer before each move.
-- Tube Jig: With true surface suppressed, this keeps you just under the cleaner active lane. Tube Jig stays in play when crawfish is relevant. It fits today's mid column preference. It gives you a different bottom contact look without leaving today's window.
-- Tube Jig how: Snap the tube off bottom with short pops so it spirals on the fall, then let it glide back down on slack or semi-slack line. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Let it soak a little longer before each move.
-- Drop-Shot Worm: Drop-Shot Worm matches a finesse subtle look. With true surface suppressed, this keeps you just under the cleaner active lane. It stays in the middle band where the seasonal setup is most stable today. It is the cleaner change-up if the lead look does not convert.
-- Drop-Shot Worm how: Hold the weight on the bottom and gently shake the rod tip so the worm quivers in place; move it only a foot or two before letting it settle again. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Let it soak a little longer before each move.
+- Hair Jig: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Hair Jig how: Cast across, let it sink on a controlled slack line, then swim it back with short pauses so the marabou pulses and collapses. Slow down and lengthen the pause.
+- Tube Jig: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It gives you a different bottom contact look without leaving today's window.
+- Tube Jig how: Hop it erratically off the bottom with sharp pops, then open the bail slightly so it spirals down freely; strikes happen on that spinning fall. Slow down and lengthen the pause.
+- Drop-Shot Worm: With the highest lane shut down, this keeps you just under the cleaner active zone. It stays low in the zone where this day still wants fish to hold. It is the cleaner change-up if the lead look does not convert.
+- Drop-Shot Worm how: Shake in place with light tension, then pause completely and let the worm hang still; most bites come when the bait barely moves at all. Slow down and lengthen the pause.
 - Fly reasoning:
-- Woolly Bugger: It is one of the lead monthly looks for this exact seasonal window. With true surface suppressed, this keeps you just under the cleaner active lane. Woolly Bugger tracks well when leech_worm is a realistic meal.
-- Woolly Bugger how: Let it sink to depth then retrieve with slow hand-twists or short strips; the marabou tail breathes best with long pauses at the end of each pull. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
-- Balanced Leech: It stays in the middle band where the seasonal setup is most stable today. With true surface suppressed, this keeps you just under the cleaner active lane. Balanced Leech tracks well when leech_worm is a realistic meal. It gives you a different fly bottom look without leaving today's window.
-- Balanced Leech how: Fish it under an indicator or on a slow hand-twist so the fly hovers level and pulses in place rather than diving nose-first. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
-- Clouser Minnow: It is one of the lead monthly looks for this exact seasonal window. With true surface suppressed, this keeps you just under the cleaner active lane. Clouser Minnow tracks well when baitfish is a realistic meal. It is the cleaner change-up if the lead look does not convert.
-- Clouser Minnow how: Cast across or slightly downstream, let it jig toward you with short strips so the weighted eyes keep the fly tracking hook-point up. Keep the cadence controlled and add short stalls instead of burning it. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
+- Woolly Bugger: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Woolly Bugger how: Let it sink to depth then retrieve with slow hand-twists or short strips; the marabou tail breathes best with long pauses at the end of each pull. Slow down and lengthen the pause.
+- Balanced Leech: With the highest lane shut down, this keeps you just under the cleaner active zone. It stays low in the zone where this day still wants fish to hold. It gives you a different fly bottom look without leaving today's window.
+- Balanced Leech how: Let it suspend just off bottom or under cover and move it only with tiny strips; the balanced posture is the trigger, not speed. Slow down and lengthen the pause.
+- Slim Baitfish Streamer: With the highest lane shut down, this keeps you just under the cleaner active zone. Slim Baitfish Streamer tracks well when baitfish is a realistic meal. It is the cleaner change-up if the lead look does not convert.
+- Slim Baitfish Streamer how: Fish it on a dead-drift through seams, then activate with quick strips near holding structure; the slim silhouette works best in clear water at a measured pace. Slow down and lengthen the pause.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- NO_TOP1_TIE
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:natural,natural
 - Top 1 verdict:
 - Top 3 verdict:
@@ -887,53 +919,57 @@ Archived env summary:
 - Sunrise/sunset: 07:18 / 19:47
 
 Actual output:
-- Top 1 lure: Hair Jig `hair_jig` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Top 1 lure: Suspending Jerkbait `suspending_jerkbait` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 3 lures:
-- Hair Jig `hair_jig` | theme: `natural` | colors: green pumpkin, olive, smoke
-- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Suspending Jerkbait `suspending_jerkbait` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Hair Jig `hair_jig` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 1 fly: Slim Baitfish Streamer `slim_minnow_streamer` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 3 flies:
 - Slim Baitfish Streamer `slim_minnow_streamer` | theme: `natural` | colors: green pumpkin, olive, smoke
-- Woolly Bugger `woolly_bugger` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Game Changer `game_changer` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Zonker Streamer `zonker_streamer` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Color notes:
 - Daily posture: slightly_aggressive
-- Hair Jig: natural -> green pumpkin, olive, smoke
-- Paddle-Tail Swimbait: natural -> green pumpkin, olive, smoke
 - Suspending Jerkbait: natural -> green pumpkin, olive, smoke
+- Paddle-Tail Swimbait: natural -> green pumpkin, olive, smoke
+- Hair Jig: natural -> green pumpkin, olive, smoke
 - Slim Baitfish Streamer: natural -> green pumpkin, olive, smoke
-- Woolly Bugger: natural -> green pumpkin, olive, smoke
 - Game Changer: natural -> green pumpkin, olive, smoke
+- Zonker Streamer: natural -> green pumpkin, olive, smoke
 - Daily profile notes:
 - Daily posture: slightly_aggressive
-- Daily preference: column=mid, pace=slow, presence=subtle
-- Monthly baseline: columns=upper/mid/surface/bottom, paces=medium/fast/slow, presence=moderate/subtle/bold
-- Guardrails: surface_allowed=false, suppress_true_surface=true, suppress_fast_presentations=false, high_visibility_needed=false, column_shift=-1
+- Seasonal source: region=great_lakes_upper_midwest, fallback_used=false
+- Daily preference: column=upper, pace=medium, presence=subtle
+- Monthly baseline: columns=surface/upper/mid, paces=medium/fast, presence=subtle/moderate/bold
+- Guardrails: surface_allowed=false, surface_window=closed, suppress_fast_presentations=false, high_visibility_needed=false, column_shift=0
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
 - Variables triggered: temperature_trend, light_cloud_condition, precipitation_disruption
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
 - Daily note: Bright light trims the day back toward cleaner looks.
 - Lure reasoning:
-- Hair Jig: With true surface suppressed, this keeps you just under the cleaner active lane. Hair Jig stays in play when baitfish is relevant. It fits today's mid column preference.
-- Hair Jig how: Swing it through current seams or drop it in pockets with minimal movement; let the marabou breathe in place before slowly pulling it along. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
-- Paddle-Tail Swimbait: With true surface suppressed, this keeps you just under the cleaner active lane. Paddle-Tail Swimbait stays in play when baitfish is relevant. It fits today's mid column preference. It gives you a different horizontal search look without leaving today's window.
-- Paddle-Tail Swimbait how: Swim it at the speed where you feel a steady kick through the rod; use rod angle to change depth without changing retrieve speed. Keep the cadence controlled and add short stalls instead of burning it. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
-- Suspending Jerkbait: With true surface suppressed, this keeps you just under the cleaner active lane. Suspending Jerkbait stays in play when baitfish is relevant. It fits today's mid column preference. It is the cleaner change-up if the lead look does not convert.
-- Suspending Jerkbait how: Jerk, jerk, pause. The bait should dart and glide sideways on each twitch; dial the pause length to water temperature — colder means longer. Keep the cadence controlled and add short stalls instead of burning it. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
+- Suspending Jerkbait: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Suspending Jerkbait how: Two or three sharp twitches, then let it suspend perfectly still for a full 3-5 count before the next sequence — the pause is everything. Keep it high in the zone.
+- Paddle-Tail Swimbait: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It gives you a different horizontal search look without leaving today's window.
+- Paddle-Tail Swimbait how: Swim it at the speed where you feel a steady kick through the rod; use rod angle to change depth without changing retrieve speed. Keep it high in the zone.
+- Hair Jig: With the highest lane shut down, this keeps you just under the cleaner active zone. It stays high enough in the zone to match the day's more open positioning. It is the cleaner change-up if the lead look does not convert.
+- Hair Jig how: Swing it through current seams or drop it in pockets with minimal movement; let the marabou breathe in place before slowly pulling it along. Keep it high in the zone.
 - Fly reasoning:
-- Slim Baitfish Streamer: It is one of the lead monthly looks for this exact seasonal window. With true surface suppressed, this keeps you just under the cleaner active lane. Slim Baitfish Streamer tracks well when baitfish is a realistic meal.
-- Slim Baitfish Streamer how: Retrieve with a mix of short darts and longer glides; the thin profile tracks like a small minnow on a tight line. Keep the cadence controlled and add short stalls instead of burning it. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
-- Woolly Bugger: It stays in the middle band where the seasonal setup is most stable today. With true surface suppressed, this keeps you just under the cleaner active lane. Woolly Bugger tracks well when leech_worm is a realistic meal. It gives you a different fly bottom look without leaving today's window.
-- Woolly Bugger how: Cast across and swing it on a tight line through the drift, then activate on the hang-down with short strips before lifting. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
-- Game Changer: With true surface suppressed, this keeps you just under the cleaner active lane. Game Changer tracks well when baitfish is a realistic meal. It fits today's mid column preference. It is the cleaner change-up if the lead look does not convert.
-- Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink. Keep the cadence controlled and add short stalls instead of burning it. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
+- Slim Baitfish Streamer: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Slim Baitfish Streamer how: Strip with short, quick pulls to make the slim profile dart; pause briefly so it hangs in the current or sinks an inch before the next strip. Keep it high in the zone.
+- Game Changer: With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different fly baitfish look without leaving today's window.
+- Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink. Keep it high in the zone.
+- Zonker Streamer: With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Zonker Streamer how: Cast across current and strip steadily through the swing; add a momentary deadstop near structure so the wing collapses and then puffs back out. Keep it high in the zone.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- NO_TOP1_TIE
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:natural,natural
 - Top 1 verdict:
 - Top 3 verdict:
@@ -990,52 +1026,56 @@ Archived env summary:
 - Sunrise/sunset: 07:53 / 18:55
 
 Actual output:
-- Top 1 lure: Hair Jig `hair_jig` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Top 1 lure: Suspending Jerkbait `suspending_jerkbait` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 3 lures:
-- Hair Jig `hair_jig` | theme: `natural` | colors: green pumpkin, olive, smoke
-- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Suspending Jerkbait `suspending_jerkbait` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Hair Jig `hair_jig` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 1 fly: Slim Baitfish Streamer `slim_minnow_streamer` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 3 flies:
 - Slim Baitfish Streamer `slim_minnow_streamer` | theme: `natural` | colors: green pumpkin, olive, smoke
-- Woolly Bugger `woolly_bugger` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Clouser Minnow `clouser_minnow` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Game Changer `game_changer` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Color notes:
 - Daily posture: neutral
-- Hair Jig: natural -> green pumpkin, olive, smoke
-- Paddle-Tail Swimbait: natural -> green pumpkin, olive, smoke
 - Suspending Jerkbait: natural -> green pumpkin, olive, smoke
+- Paddle-Tail Swimbait: natural -> green pumpkin, olive, smoke
+- Hair Jig: natural -> green pumpkin, olive, smoke
 - Slim Baitfish Streamer: natural -> green pumpkin, olive, smoke
-- Woolly Bugger: natural -> green pumpkin, olive, smoke
+- Clouser Minnow: natural -> green pumpkin, olive, smoke
 - Game Changer: natural -> green pumpkin, olive, smoke
 - Daily profile notes:
 - Daily posture: neutral
-- Daily preference: column=mid, pace=slow, presence=subtle
-- Monthly baseline: columns=upper/mid/surface/bottom, paces=medium/fast/slow, presence=moderate/subtle/bold
-- Guardrails: surface_allowed=true, suppress_true_surface=false, suppress_fast_presentations=false, high_visibility_needed=false, column_shift=-1
+- Seasonal source: region=great_lakes_upper_midwest, fallback_used=false
+- Daily preference: column=mid, pace=medium, presence=subtle
+- Monthly baseline: columns=surface/upper/mid, paces=medium/fast, presence=subtle/moderate/bold
+- Guardrails: surface_allowed=true, surface_window=rippled, suppress_fast_presentations=false, high_visibility_needed=false, column_shift=-1
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
 - Variables triggered: temperature_trend, precipitation_disruption
 - Daily note: A cooling trend tightens fish and shifts preference lower and slower.
 - Lure reasoning:
-- Hair Jig: It stays in the middle band where the seasonal setup is most stable today. A cooling trend tightens fish and shifts preference lower and slower. Hair Jig stays in play when baitfish is relevant.
-- Hair Jig how: Swing it through current seams or drop it in pockets with minimal movement; let the marabou breathe in place before slowly pulling it along. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
-- Paddle-Tail Swimbait: It is one of the lead monthly looks for this exact seasonal window. A cooling trend tightens fish and shifts preference lower and slower. Paddle-Tail Swimbait stays in play when baitfish is relevant. It gives you a different horizontal search look without leaving today's window.
-- Paddle-Tail Swimbait how: Swim it at the speed where you feel a steady kick through the rod; use rod angle to change depth without changing retrieve speed. Keep the cadence controlled and add short stalls instead of burning it. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
-- Suspending Jerkbait: A cooling trend tightens fish and shifts preference lower and slower. Suspending Jerkbait stays in play when baitfish is relevant. It fits today's mid column preference. It is the cleaner change-up if the lead look does not convert.
-- Suspending Jerkbait how: Jerk, jerk, pause. The bait should dart and glide sideways on each twitch; dial the pause length to water temperature — colder means longer. Keep the cadence controlled and add short stalls instead of burning it. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
+- Suspending Jerkbait: A cooling trend tightens fish and shifts preference lower and slower. It is one of the lead monthly looks for this exact seasonal window.
+- Suspending Jerkbait how: Two or three sharp twitches, then let it suspend perfectly still for a full 3-5 count before the next sequence — the pause is everything.
+- Paddle-Tail Swimbait: A cooling trend tightens fish and shifts preference lower and slower. It is one of the lead monthly looks for this exact seasonal window. It gives you a different horizontal search look without leaving today's window.
+- Paddle-Tail Swimbait how: Swim it at the speed where you feel a steady kick through the rod; use rod angle to change depth without changing retrieve speed.
+- Hair Jig: A cooling trend tightens fish and shifts preference lower and slower. It stays in the middle band where the seasonal setup is most stable today. It is the cleaner change-up if the lead look does not convert.
+- Hair Jig how: Swing it through current seams or drop it in pockets with minimal movement; let the marabou breathe in place before slowly pulling it along.
 - Fly reasoning:
-- Slim Baitfish Streamer: Slim Baitfish Streamer tracks well when baitfish is a realistic meal. A cooling trend tightens fish and shifts preference lower and slower. It is one of the lead monthly looks for this exact seasonal window.
-- Slim Baitfish Streamer how: Retrieve with a mix of short darts and longer glides; the thin profile tracks like a small minnow on a tight line. Keep the cadence controlled and add short stalls instead of burning it. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
-- Woolly Bugger: It stays in the middle band where the seasonal setup is most stable today. A cooling trend tightens fish and shifts preference lower and slower. Woolly Bugger tracks well when leech_worm is a realistic meal. It gives you a different fly bottom look without leaving today's window.
-- Woolly Bugger how: Cast across and swing it on a tight line through the drift, then activate on the hang-down with short strips before lifting. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
-- Game Changer: A cooling trend tightens fish and shifts preference lower and slower. Game Changer tracks well when baitfish is a realistic meal. It fits today's mid column preference. It is the cleaner change-up if the lead look does not convert.
-- Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink. Keep the cadence controlled and add short stalls instead of burning it. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
+- Slim Baitfish Streamer: A cooling trend tightens fish and shifts preference lower and slower. It is one of the lead monthly looks for this exact seasonal window.
+- Slim Baitfish Streamer how: Strip with short, quick pulls to make the slim profile dart; pause briefly so it hangs in the current or sinks an inch before the next strip.
+- Clouser Minnow: A cooling trend tightens fish and shifts preference lower and slower. It is one of the lead monthly looks for this exact seasonal window. It gives you a different fly baitfish look without leaving today's window.
+- Clouser Minnow how: Strip in short, consistent pulls so the dumbbell eyes make the fly jig up and down; let it sink between strips to stay hook-point up throughout.
+- Game Changer: A cooling trend tightens fish and shifts preference lower and slower. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Game Changer how: Retrieve with medium strips, then occasionally rip hard so the body compresses and then springs apart — pause after each hard strip and hold your nerve.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- NO_TOP1_TIE
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:natural,natural
 - Top 1 verdict:
 - Top 3 verdict:
@@ -1092,11 +1132,11 @@ Archived env summary:
 - Sunrise/sunset: 07:31 / 17:14
 
 Actual output:
-- Top 1 lure: Finesse Jig `finesse_jig` | theme: `dark` | colors: black, black/blue, black/purple
+- Top 1 lure: Hair Jig `hair_jig` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 lures:
-- Finesse Jig `finesse_jig` | theme: `dark` | colors: black, black/blue, black/purple
-- Tube Jig `tube_jig` | theme: `dark` | colors: black, black/blue, black/purple
 - Hair Jig `hair_jig` | theme: `dark` | colors: black, black/blue, black/purple
+- Suspending Jerkbait `suspending_jerkbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 1 fly: Slim Baitfish Streamer `slim_minnow_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 flies:
 - Slim Baitfish Streamer `slim_minnow_streamer` | theme: `dark` | colors: black, black/blue, black/purple
@@ -1104,42 +1144,46 @@ Actual output:
 - Sculpin Streamer `sculpin_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Color notes:
 - Daily posture: aggressive
-- Finesse Jig: dark -> black, black/blue, black/purple
-- Tube Jig: dark -> black, black/blue, black/purple
 - Hair Jig: dark -> black, black/blue, black/purple
+- Suspending Jerkbait: dark -> black, black/blue, black/purple
+- Paddle-Tail Swimbait: dark -> black, black/blue, black/purple
 - Slim Baitfish Streamer: dark -> black, black/blue, black/purple
 - Woolly Bugger: dark -> black, black/blue, black/purple
 - Sculpin Streamer: dark -> black, black/blue, black/purple
 - Daily profile notes:
 - Daily posture: aggressive
+- Seasonal source: region=great_lakes_upper_midwest, fallback_used=false
 - Daily preference: column=mid, pace=slow, presence=subtle
 - Monthly baseline: columns=bottom/mid, paces=slow/medium, presence=subtle/moderate
-- Guardrails: surface_allowed=true, suppress_true_surface=false, suppress_fast_presentations=false, high_visibility_needed=false, column_shift=1
+- Guardrails: surface_allowed=true, surface_window=clean, suppress_fast_presentations=false, high_visibility_needed=false, column_shift=1
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
 - Variables triggered: temperature_trend, light_cloud_condition, wind_condition, precipitation_disruption
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Daily note: Moderate chop improves fishability and supports a stronger moving look.
 - Lure reasoning:
-- Finesse Jig: It is one of the lead monthly looks for this exact seasonal window. A warming trend nudges fish slightly higher in the allowed range. Finesse Jig stays in play when crawfish is relevant.
-- Finesse Jig how: Drag it with the rod low and barely shake the skirt in place; keep it compact, quiet, and close to bottom the entire retrieve. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
-- Tube Jig: Tube Jig stays in play when crawfish is relevant. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It gives you a different bottom contact look without leaving today's window.
-- Tube Jig how: Cast, let it sink, then pop sharply and release line; the tube should corkscrew back to bottom on each drop — keep a watchful eye on the line. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
-- Hair Jig: It stays in the middle band where the seasonal setup is most stable today. A warming trend nudges fish slightly higher in the allowed range. Hair Jig stays in play when baitfish is relevant. It is the cleaner change-up if the lead look does not convert.
-- Hair Jig how: Swing it through current seams or drop it in pockets with minimal movement; let the marabou breathe in place before slowly pulling it along. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
+- Hair Jig: A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
+- Hair Jig how: Cast across, let it sink on a controlled slack line, then swim it back with short pauses so the marabou pulses and collapses. Slow down and lengthen the pause.
+- Suspending Jerkbait: A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It gives you a different reaction mid column look without leaving today's window.
+- Suspending Jerkbait how: Jerk, jerk, pause. The bait should dart and glide sideways on each twitch; dial the pause length to water temperature — colder means longer. Slow down and lengthen the pause.
+- Paddle-Tail Swimbait: A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Paddle-Tail Swimbait how: Slow-roll near the bottom on a consistent retrieve; the paddle thumps best just barely above the substrate, so keep the rod tip down and the pace even. Slow down and lengthen the pause.
 - Fly reasoning:
-- Slim Baitfish Streamer: Slim Baitfish Streamer tracks well when baitfish is a realistic meal. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
-- Slim Baitfish Streamer how: Fish it on a dead-drift through seams, then activate with quick strips near holding structure; the slim silhouette works best in clear water at a measured pace. Keep the cadence controlled and add short stalls instead of burning it. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
-- Woolly Bugger: A warming trend nudges fish slightly higher in the allowed range. Woolly Bugger tracks well when leech_worm is a realistic meal. It fits today's mid column preference. It gives you a different fly bottom look without leaving today's window.
-- Woolly Bugger how: Fish it on a dead-drift near the bottom, then come alive with a strip-pause retrieve through prime holding water; let the tail do most of the work. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
-- Sculpin Streamer: A warming trend nudges fish slightly higher in the allowed range. Sculpin Streamer tracks well when baitfish is a realistic meal. It lines up with today's slow pace preference. It is the cleaner change-up if the lead look does not convert.
-- Sculpin Streamer how: Inch it along the bottom with tight-line strips; sculpin barely swim, so keep the fly close to the substrate and use current for most of the motion. Slow down and leave more dead time between moves. Keep it around the lower part of the productive zone. Keep the presentation clean and resist overworking it.
+- Slim Baitfish Streamer: A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
+- Slim Baitfish Streamer how: Fish it on a dead-drift through seams, then activate with quick strips near holding structure; the slim silhouette works best in clear water at a measured pace. Slow down and lengthen the pause.
+- Woolly Bugger: A warming trend nudges fish slightly higher in the allowed range. It stays in the middle band where the seasonal setup is most stable today. It gives you a different fly bottom look without leaving today's window.
+- Woolly Bugger how: Cast across and swing it on a tight line through the drift, then activate on the hang-down with short strips before lifting. Slow down and lengthen the pause.
+- Sculpin Streamer: A warming trend nudges fish slightly higher in the allowed range. Sculpin Streamer tracks well when baitfish is a realistic meal. It is the cleaner change-up if the lead look does not convert.
+- Sculpin Streamer how: Inch it along the bottom with tight-line strips; sculpin barely swim, so keep the fly close to the substrate and use current for most of the motion. Slow down and lengthen the pause.
 
 Review:
 - Precheck flags:
-- TOP1_PRIMARY_MISS
+- TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- NO_TOP1_TIE
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:dark,dark
 - Top 1 verdict:
 - Top 3 verdict:
@@ -1196,55 +1240,59 @@ Archived env summary:
 - Sunrise/sunset: 08:04 / 16:58
 
 Actual output:
-- Top 1 lure: Hair Jig `hair_jig` | theme: `dark` | colors: black, black/blue, black/purple
+- Top 1 lure: Suspending Jerkbait `suspending_jerkbait` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 lures:
-- Hair Jig `hair_jig` | theme: `dark` | colors: black, black/blue, black/purple
-- Tube Jig `tube_jig` | theme: `dark` | colors: black, black/blue, black/purple
-- Drop-Shot Minnow `drop_shot_minnow` | theme: `dark` | colors: black, black/blue, black/purple
-- Top 1 fly: Woolly Bugger `woolly_bugger` | theme: `dark` | colors: black, black/blue, black/purple
+- Suspending Jerkbait `suspending_jerkbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Football Jig `football_jig` | theme: `dark` | colors: black, black/blue, black/purple
+- Drop-Shot Worm `drop_shot_worm` | theme: `dark` | colors: black, black/blue, black/purple
+- Top 1 fly: Sculpin Streamer `sculpin_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 flies:
-- Woolly Bugger `woolly_bugger` | theme: `dark` | colors: black, black/blue, black/purple
 - Sculpin Streamer `sculpin_streamer` | theme: `dark` | colors: black, black/blue, black/purple
+- Woolly Bugger `woolly_bugger` | theme: `dark` | colors: black, black/blue, black/purple
 - Conehead Streamer `conehead_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Color notes:
 - Daily posture: slightly_aggressive
-- Hair Jig: dark -> black, black/blue, black/purple
-- Tube Jig: dark -> black, black/blue, black/purple
-- Drop-Shot Minnow: dark -> black, black/blue, black/purple
-- Woolly Bugger: dark -> black, black/blue, black/purple
+- Suspending Jerkbait: dark -> black, black/blue, black/purple
+- Football Jig: dark -> black, black/blue, black/purple
+- Drop-Shot Worm: dark -> black, black/blue, black/purple
 - Sculpin Streamer: dark -> black, black/blue, black/purple
+- Woolly Bugger: dark -> black, black/blue, black/purple
 - Conehead Streamer: dark -> black, black/blue, black/purple
 - Daily profile notes:
 - Daily posture: slightly_aggressive
-- Daily preference: column=mid, pace=slow, presence=subtle
-- Monthly baseline: columns=bottom/mid/upper, paces=slow/medium, presence=subtle/moderate
-- Guardrails: surface_allowed=true, suppress_true_surface=false, suppress_fast_presentations=false, high_visibility_needed=false, column_shift=1
+- Seasonal source: region=great_lakes_upper_midwest, fallback_used=false
+- Daily preference: column=bottom, pace=slow, presence=subtle
+- Monthly baseline: columns=mid/bottom, paces=slow/medium, presence=subtle/moderate
+- Guardrails: surface_allowed=true, surface_window=clean, suppress_fast_presentations=false, high_visibility_needed=false, column_shift=0
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
 - Variables triggered: temperature_metabolic_context, temperature_trend, light_cloud_condition, wind_condition, precipitation_disruption
-- Daily note: Temperature metabolism suppresses the day and favors slower execution.
+- Daily note: Cold metabolism shuts down activity. Slow and low is the only play.
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Daily note: Moderate chop improves fishability and supports a stronger moving look.
 - Lure reasoning:
-- Hair Jig: Hair Jig stays in play when baitfish is relevant. Temperature metabolism suppresses the day and favors slower execution. It is one of the lead monthly looks for this exact seasonal window.
-- Hair Jig how: Swing it through current seams or drop it in pockets with minimal movement; let the marabou breathe in place before slowly pulling it along. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
-- Tube Jig: Tube Jig stays in play when crawfish is relevant. Temperature metabolism suppresses the day and favors slower execution. It is one of the lead monthly looks for this exact seasonal window. It gives you a different bottom contact look without leaving today's window.
-- Tube Jig how: Cast, let it sink, then pop sharply and release line; the tube should corkscrew back to bottom on each drop — keep a watchful eye on the line. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
-- Drop-Shot Minnow: Drop-Shot Minnow stays in play when baitfish is relevant. Temperature metabolism suppresses the day and favors slower execution. It stays in the middle band where the seasonal setup is most stable today. It is the cleaner change-up if the lead look does not convert.
-- Drop-Shot Minnow how: Hold the weight down and pulse the rod tip lightly; the minnow should quiver in place, then glide a few inches before the next shake. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
+- Suspending Jerkbait: A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
+- Suspending Jerkbait how: Work it with wrist snaps, not big sweeps; keep slack in the line between snaps so the bait swings freely, then pause until you see a follow or feel weight. Slow down and lengthen the pause.
+- Football Jig: Cold metabolism shuts down activity. Slow and low is the only play. It stays low in the zone where this day still wants fish to hold. It gives you a different bottom contact look without leaving today's window.
+- Football Jig how: Work it with slow rod sweeps across rocky bottom, letting it tick and grind the structure rather than hop above it. Slow down and lengthen the pause.
+- Drop-Shot Worm: Cold metabolism shuts down activity. Slow and low is the only play. It stays low in the zone where this day still wants fish to hold. It is the cleaner change-up if the lead look does not convert.
+- Drop-Shot Worm how: Shake in place with light tension, then pause completely and let the worm hang still; most bites come when the bait barely moves at all. Slow down and lengthen the pause.
 - Fly reasoning:
-- Woolly Bugger: Temperature metabolism suppresses the day and favors slower execution. Woolly Bugger tracks well when leech_worm is a realistic meal. It fits today's mid column preference.
-- Woolly Bugger how: Cast across and swing it on a tight line through the drift, then activate on the hang-down with short strips before lifting. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
-- Sculpin Streamer: Sculpin Streamer tracks well when baitfish is a realistic meal. Temperature metabolism suppresses the day and favors slower execution. It is one of the lead monthly looks for this exact seasonal window. It gives you a different fly bottom look without leaving today's window.
-- Sculpin Streamer how: Inch it along the bottom with tight-line strips; sculpin barely swim, so keep the fly close to the substrate and use current for most of the motion. Slow down and leave more dead time between moves. Keep it around the lower part of the productive zone. Keep the presentation clean and resist overworking it.
-- Conehead Streamer: Temperature metabolism suppresses the day and favors slower execution. Conehead Streamer tracks well when baitfish is a realistic meal. It lines up with today's slow pace preference. It is the cleaner change-up if the lead look does not convert.
-- Conehead Streamer how: Cast across or down, let it sink to depth, then strip with a jig-like cadence where the cone tips the fly nose-down on each pause. Slow down and leave more dead time between moves. Keep it around the lower part of the productive zone. Keep the presentation clean and resist overworking it.
+- Sculpin Streamer: Cold metabolism shuts down activity. Slow and low is the only play. It is one of the lead monthly looks for this exact seasonal window.
+- Sculpin Streamer how: Bump bottom with short strips and let the fly tick along rocks; keep tension so you feel every stop against structure. Slow down and lengthen the pause.
+- Woolly Bugger: Cold metabolism shuts down activity. Slow and low is the only play. It is one of the lead monthly looks for this exact seasonal window. It gives you a different fly bottom look without leaving today's window.
+- Woolly Bugger how: Cast across and swing it on a tight line through the drift, then activate on the hang-down with short strips before lifting. Slow down and lengthen the pause.
+- Conehead Streamer: Cold metabolism shuts down activity. Slow and low is the only play. It stays low in the zone where this day still wants fish to hold. It is the cleaner change-up if the lead look does not convert.
+- Conehead Streamer how: Cast across or down, let it sink to depth, then strip with a jig-like cadence where the cone tips the fly nose-down on each pause. Slow down and lengthen the pause.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- NO_TOP1_TIE
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:dark,dark
 - Top 1 verdict:
 - Top 3 verdict:
@@ -1300,10 +1348,10 @@ Archived env summary:
 - Sunrise/sunset: 06:55 / 16:55
 
 Actual output:
-- Top 1 lure: Drop-Shot Minnow `drop_shot_minnow` | theme: `dark` | colors: black, black/blue, black/purple
+- Top 1 lure: Tube Jig `tube_jig` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 lures:
-- Drop-Shot Minnow `drop_shot_minnow` | theme: `dark` | colors: black, black/blue, black/purple
-- Football Jig `football_jig` | theme: `dark` | colors: black, black/blue, black/purple
+- Tube Jig `tube_jig` | theme: `dark` | colors: black, black/blue, black/purple
+- Blade Bait `blade_bait` | theme: `dark` | colors: black, black/blue, black/purple
 - Hair Jig `hair_jig` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 1 fly: Sculpin Streamer `sculpin_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 flies:
@@ -1312,41 +1360,45 @@ Actual output:
 - Conehead Streamer `conehead_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Color notes:
 - Daily posture: aggressive
-- Drop-Shot Minnow: dark -> black, black/blue, black/purple
-- Football Jig: dark -> black, black/blue, black/purple
+- Tube Jig: dark -> black, black/blue, black/purple
+- Blade Bait: dark -> black, black/blue, black/purple
 - Hair Jig: dark -> black, black/blue, black/purple
 - Sculpin Streamer: dark -> black, black/blue, black/purple
 - Woolly Bugger: dark -> black, black/blue, black/purple
 - Conehead Streamer: dark -> black, black/blue, black/purple
 - Daily profile notes:
 - Daily posture: aggressive
+- Seasonal source: region=south_central, fallback_used=false
 - Daily preference: column=bottom, pace=slow, presence=moderate
 - Monthly baseline: columns=bottom/mid, paces=slow/medium, presence=subtle/moderate
-- Guardrails: surface_allowed=false, suppress_true_surface=true, suppress_fast_presentations=false, high_visibility_needed=true, column_shift=-1
+- Guardrails: surface_allowed=true, surface_window=rippled, suppress_fast_presentations=false, high_visibility_needed=true, column_shift=0
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
 - Variables triggered: temperature_shock, light_cloud_condition, wind_condition, precipitation_disruption
 - Daily note: Bright light trims the day back toward cleaner looks.
 - Daily note: Moderate chop improves fishability and supports a stronger moving look.
 - Lure reasoning:
-- Drop-Shot Minnow: Drop-Shot Minnow stays in play when baitfish is relevant. With true surface suppressed, this keeps you just under the cleaner active lane. It stays low in the zone where this day still wants fish to hold.
-- Drop-Shot Minnow how: Hold the weight down and pulse the rod tip lightly; the minnow should quiver in place, then glide a few inches before the next shake. Slow down and leave more dead time between moves. Keep it around the lower part of the productive zone. Keep it on a clean, trackable line so fish can find it before the next move.
-- Football Jig: It stays low in the zone where this day still wants fish to hold. With true surface suppressed, this keeps you just under the cleaner active lane. Football Jig stays in play when crawfish is relevant. It gives you a different bottom contact look without leaving today's window.
-- Football Jig how: Work it with slow rod sweeps across rocky bottom, letting it tick and grind the structure rather than hop above it. Slow down and leave more dead time between moves. Keep it around the lower part of the productive zone. Keep it on a clean, trackable line so fish can find it before the next move.
-- Hair Jig: With true surface suppressed, this keeps you just under the cleaner active lane. Hair Jig stays in play when baitfish is relevant. It lines up with today's slow pace preference. It is the cleaner change-up if the lead look does not convert.
-- Hair Jig how: Fish it on a tight line at slow speed — the hair works best with tiny line pulses rather than big lifts; let it hang in the current or slack zone. Slow down and leave more dead time between moves. Keep it above cover or along the upper edge of the zone. Keep it on a clean, trackable line so fish can find it before the next move.
+- Tube Jig: Bright light trims the day back toward cleaner looks. It is one of the lead monthly looks for this exact seasonal window.
+- Tube Jig how: Hop it erratically off the bottom with sharp pops, then open the bail slightly so it spirals down freely; strikes happen on that spinning fall. Slow down and lengthen the pause.
+- Blade Bait: Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different reaction mid column look without leaving today's window.
+- Blade Bait how: Vertical jig it with short, sharp hops over suspended fish; the flutter-fall is the presentation — set hard the moment you feel weight. Slow down and lengthen the pause.
+- Hair Jig: Bright light trims the day back toward cleaner looks. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Hair Jig how: Fish it on a tight line at slow speed — the hair works best with tiny line pulses rather than big lifts; let it hang in the current or slack zone. Slow down and lengthen the pause.
 - Fly reasoning:
-- Sculpin Streamer: It is one of the lead monthly looks for this exact seasonal window. Bright light trims the day back toward cleaner looks. Sculpin Streamer tracks well when baitfish is a realistic meal.
-- Sculpin Streamer how: Cast upstream and mend for a natural drift, then activate with short strips that make the fly bumble over the bottom like a sculpin retreating. Slow down and leave more dead time between moves. Keep it around the lower part of the productive zone. Keep it on a clean, trackable line so fish can find it before the next move.
-- Woolly Bugger: With true surface suppressed, this keeps you just under the cleaner active lane. Woolly Bugger tracks well when leech_worm is a realistic meal. It fits today's bottom column preference. It gives you a different fly bottom look without leaving today's window.
-- Woolly Bugger how: Cast across and swing it on a tight line through the drift, then activate on the hang-down with short strips before lifting. Slow down and leave more dead time between moves. Keep it around the lower part of the productive zone. Keep it on a clean, trackable line so fish can find it before the next move.
-- Conehead Streamer: Reduced visibility supports a stronger profile fish can find more easily. Conehead Streamer tracks well when baitfish is a realistic meal. It fits today's bottom column preference. It is the cleaner change-up if the lead look does not convert.
-- Conehead Streamer how: Strip with consistent medium pulls; the cone keeps the fly diving nose-first on each retrieve, so use pauses to let it hunt and settle before the next strip. Slow down and leave more dead time between moves. Keep it around the lower part of the productive zone. Keep it on a clean, trackable line so fish can find it before the next move.
+- Sculpin Streamer: Bright light trims the day back toward cleaner looks. It is one of the lead monthly looks for this exact seasonal window.
+- Sculpin Streamer how: Cast upstream and mend for a natural drift, then activate with short strips that make the fly bumble over the bottom like a sculpin retreating. Slow down and lengthen the pause.
+- Woolly Bugger: Bright light trims the day back toward cleaner looks. It is one of the lead monthly looks for this exact seasonal window. It gives you a different fly bottom look without leaving today's window.
+- Woolly Bugger how: Cast across and swing it on a tight line through the drift, then activate on the hang-down with short strips before lifting. Slow down and lengthen the pause.
+- Conehead Streamer: Reduced visibility supports a stronger profile fish can find more easily. It stays low in the zone where this day still wants fish to hold. It is the cleaner change-up if the lead look does not convert.
+- Conehead Streamer how: Strip with consistent medium pulls; the cone keeps the fly diving nose-first on each retrieve, so use pauses to let it hunt and settle before the next strip. Slow down and lengthen the pause.
 
 Review:
 - Precheck flags:
-- TOP1_PRIMARY_MISS
+- TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- NO_TOP1_TIE
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:dark,dark
 - Top 1 verdict:
 - Top 3 verdict:
@@ -1402,54 +1454,58 @@ Archived env summary:
 - Sunrise/sunset: 06:27 / 17:31
 
 Actual output:
-- Top 1 lure: Hair Jig `hair_jig` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Top 1 lure: Tube Jig `tube_jig` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Top 3 lures:
-- Hair Jig `hair_jig` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Tube Jig `tube_jig` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
-- Drop-Shot Minnow `drop_shot_minnow` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
-- Top 1 fly: Woolly Bugger `woolly_bugger` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Medium-Diving Crankbait `medium_diving_crankbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Hair Jig `hair_jig` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Top 1 fly: Crawfish Streamer `crawfish_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Top 3 flies:
-- Woolly Bugger `woolly_bugger` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Crawfish Streamer `crawfish_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Clouser Minnow `clouser_minnow` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Sculpin Streamer `sculpin_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
-- Conehead Streamer `conehead_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Color notes:
 - Daily posture: neutral
-- Hair Jig: bright -> white/chartreuse, chartreuse, firetiger
 - Tube Jig: bright -> white/chartreuse, chartreuse, firetiger
-- Drop-Shot Minnow: bright -> white/chartreuse, chartreuse, firetiger
-- Woolly Bugger: bright -> white/chartreuse, chartreuse, firetiger
+- Medium-Diving Crankbait: bright -> white/chartreuse, chartreuse, firetiger
+- Hair Jig: bright -> white/chartreuse, chartreuse, firetiger
+- Crawfish Streamer: bright -> white/chartreuse, chartreuse, firetiger
+- Clouser Minnow: bright -> white/chartreuse, chartreuse, firetiger
 - Sculpin Streamer: bright -> white/chartreuse, chartreuse, firetiger
-- Conehead Streamer: bright -> white/chartreuse, chartreuse, firetiger
 - Daily profile notes:
 - Daily posture: neutral
-- Daily preference: column=mid, pace=slow, presence=moderate
-- Monthly baseline: columns=bottom/mid, paces=slow/medium, presence=subtle/moderate
-- Guardrails: surface_allowed=true, suppress_true_surface=false, suppress_fast_presentations=false, high_visibility_needed=true, column_shift=1
+- Seasonal source: region=south_central, fallback_used=false
+- Daily preference: column=bottom, pace=slow, presence=bold
+- Monthly baseline: columns=upper/mid/bottom, paces=slow/medium/fast, presence=subtle/moderate/bold
+- Guardrails: surface_allowed=true, surface_window=clean, suppress_fast_presentations=false, high_visibility_needed=true, column_shift=-1
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
 - Variables triggered: temperature_metabolic_context, light_cloud_condition, wind_condition, precipitation_disruption
-- Daily note: Temperature metabolism suppresses the day and favors slower execution.
+- Daily note: Cold metabolism shuts down activity. Slow and low is the only play.
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Daily note: Moderate chop improves fishability and supports a stronger moving look.
 - Lure reasoning:
-- Hair Jig: Hair Jig stays in play when baitfish is relevant. Temperature metabolism suppresses the day and favors slower execution. It is one of the lead monthly looks for this exact seasonal window.
-- Hair Jig how: Fish it on a tight line at slow speed — the hair works best with tiny line pulses rather than big lifts; let it hang in the current or slack zone. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep it on a clean, trackable line so fish can find it before the next move.
-- Tube Jig: Temperature metabolism suppresses the day and favors slower execution. Tube Jig stays in play when crawfish is relevant. It fits today's mid column preference. It gives you a different bottom contact look without leaving today's window.
-- Tube Jig how: Hop it erratically off the bottom with sharp pops, then open the bail slightly so it spirals down freely; strikes happen on that spinning fall. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep it on a clean, trackable line so fish can find it before the next move.
-- Drop-Shot Minnow: Temperature metabolism suppresses the day and favors slower execution. Drop-Shot Minnow stays in play when baitfish is relevant. It fits today's mid column preference. It is the cleaner change-up if the lead look does not convert.
-- Drop-Shot Minnow how: Hold the weight down and pulse the rod tip lightly; the minnow should quiver in place, then glide a few inches before the next shake. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep it on a clean, trackable line so fish can find it before the next move.
+- Tube Jig: Cold metabolism shuts down activity. Slow and low is the only play. It is one of the lead monthly looks for this exact seasonal window.
+- Tube Jig how: Hop it erratically off the bottom with sharp pops, then open the bail slightly so it spirals down freely; strikes happen on that spinning fall. Slow down and lengthen the pause.
+- Medium-Diving Crankbait: Moderate chop improves fishability and supports a stronger moving look. Medium-Diving Crankbait stays in play when baitfish is relevant. It gives you a different horizontal search look without leaving today's window.
+- Medium-Diving Crankbait how: Retrieve at a medium pace along depth contours, pausing after any bottom contact so the bait rises before diving back when you resume. Slow down and lengthen the pause.
+- Hair Jig: Cold metabolism shuts down activity. Slow and low is the only play. Hair Jig stays in play when baitfish is relevant. It is the cleaner change-up if the lead look does not convert.
+- Hair Jig how: Fish it on a tight line at slow speed — the hair works best with tiny line pulses rather than big lifts; let it hang in the current or slack zone. Slow down and lengthen the pause.
 - Fly reasoning:
-- Woolly Bugger: Woolly Bugger tracks well when leech_worm is a realistic meal. Temperature metabolism suppresses the day and favors slower execution. It is one of the lead monthly looks for this exact seasonal window.
-- Woolly Bugger how: Cast across and swing it on a tight line through the drift, then activate on the hang-down with short strips before lifting. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep it on a clean, trackable line so fish can find it before the next move.
-- Sculpin Streamer: Temperature metabolism suppresses the day and favors slower execution. Sculpin Streamer tracks well when baitfish is a realistic meal. It lines up with today's slow pace preference. It gives you a different fly bottom look without leaving today's window.
-- Sculpin Streamer how: Cast upstream and mend for a natural drift, then activate with short strips that make the fly bumble over the bottom like a sculpin retreating. Slow down and leave more dead time between moves. Keep it around the lower part of the productive zone. Keep it on a clean, trackable line so fish can find it before the next move.
-- Conehead Streamer: Conehead Streamer tracks well when baitfish is a realistic meal. Reduced visibility supports a stronger profile fish can find more easily. It lines up with today's slow pace preference. It is the cleaner change-up if the lead look does not convert.
-- Conehead Streamer how: Strip with consistent medium pulls; the cone keeps the fly diving nose-first on each retrieve, so use pauses to let it hunt and settle before the next strip. Slow down and leave more dead time between moves. Keep it around the lower part of the productive zone. Keep it on a clean, trackable line so fish can find it before the next move.
+- Crawfish Streamer: Cold metabolism shuts down activity. Slow and low is the only play. It is one of the lead monthly looks for this exact seasonal window.
+- Crawfish Streamer how: Cast upstream and mend for a dead-drift first; then come alive with quick, short strips that make the claw materials flex like a fleeing crawfish. Slow down and lengthen the pause.
+- Clouser Minnow: Moderate chop improves fishability and supports a stronger moving look. It stays low in the zone where this day still wants fish to hold. It gives you a different fly baitfish look without leaving today's window.
+- Clouser Minnow how: Strip in short, consistent pulls so the dumbbell eyes make the fly jig up and down; let it sink between strips to stay hook-point up throughout. Slow down and lengthen the pause.
+- Sculpin Streamer: Cold metabolism shuts down activity. Slow and low is the only play. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Sculpin Streamer how: Cast upstream and mend for a natural drift, then activate with short strips that make the fly bumble over the bottom like a sculpin retreating. Slow down and lengthen the pause.
 
 Review:
 - Precheck flags:
-- TOP1_PRIMARY_MISS
+- TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- NO_TOP1_TIE
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:bright,bright
 - Top 1 verdict:
 - Top 3 verdict:
@@ -1505,54 +1561,58 @@ Archived env summary:
 - Sunrise/sunset: 06:46 / 18:58
 
 Actual output:
-- Top 1 lure: Football Jig `football_jig` | theme: `dark` | colors: black, black/blue, black/purple
+- Top 1 lure: Tube Jig `tube_jig` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 lures:
-- Football Jig `football_jig` | theme: `dark` | colors: black, black/blue, black/purple
 - Tube Jig `tube_jig` | theme: `dark` | colors: black, black/blue, black/purple
 - Hair Jig `hair_jig` | theme: `dark` | colors: black, black/blue, black/purple
-- Top 1 fly: Crawfish Streamer `crawfish_streamer` | theme: `dark` | colors: black, black/blue, black/purple
+- Ned Rig `ned_rig` | theme: `dark` | colors: black, black/blue, black/purple
+- Top 1 fly: Sculpin Streamer `sculpin_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 flies:
-- Crawfish Streamer `crawfish_streamer` | theme: `dark` | colors: black, black/blue, black/purple
-- Clouser Minnow `clouser_minnow` | theme: `dark` | colors: black, black/blue, black/purple
 - Sculpin Streamer `sculpin_streamer` | theme: `dark` | colors: black, black/blue, black/purple
+- Woolly Bugger `woolly_bugger` | theme: `dark` | colors: black, black/blue, black/purple
+- Crawfish Streamer `crawfish_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Color notes:
 - Daily posture: suppressed
-- Football Jig: dark -> black, black/blue, black/purple
 - Tube Jig: dark -> black, black/blue, black/purple
 - Hair Jig: dark -> black, black/blue, black/purple
-- Crawfish Streamer: dark -> black, black/blue, black/purple
-- Clouser Minnow: dark -> black, black/blue, black/purple
+- Ned Rig: dark -> black, black/blue, black/purple
 - Sculpin Streamer: dark -> black, black/blue, black/purple
+- Woolly Bugger: dark -> black, black/blue, black/purple
+- Crawfish Streamer: dark -> black, black/blue, black/purple
 - Daily profile notes:
 - Daily posture: suppressed
+- Seasonal source: region=south_central, fallback_used=false
 - Daily preference: column=bottom, pace=slow, presence=bold
-- Monthly baseline: columns=mid/bottom/upper, paces=medium/slow/fast, presence=moderate/subtle/bold
-- Guardrails: surface_allowed=false, suppress_true_surface=true, suppress_fast_presentations=true, high_visibility_needed=true, column_shift=-1
+- Monthly baseline: columns=upper/mid/bottom, paces=slow/medium/fast, presence=subtle/moderate/bold
+- Guardrails: surface_allowed=false, surface_window=closed, suppress_fast_presentations=true, high_visibility_needed=true, column_shift=-1
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
 - Variables triggered: temperature_metabolic_context, temperature_shock, wind_condition, precipitation_disruption
-- Daily note: Temperature metabolism suppresses the day and favors slower execution.
+- Daily note: Cold metabolism shuts down activity. Slow and low is the only play.
 - Daily note: A sharp cooldown reinforces a lower daily lane.
 - Daily note: Moderate chop improves fishability and supports a stronger moving look.
 - Lure reasoning:
-- Football Jig: With true surface suppressed, this keeps you just under the cleaner active lane. Football Jig stays in play when crawfish is relevant. It fits today's bottom column preference.
-- Football Jig how: Drag it along hard bottom and ledges so the flat head kicks and rocks; lift only slightly on the pull so the trailer stays near the substrate. Slow down and leave more dead time between moves. Keep it around the lower part of the productive zone. Let it soak a little longer before each move.
-- Tube Jig: It is one of the lead monthly looks for this exact seasonal window. With true surface suppressed, this keeps you just under the cleaner active lane. Tube Jig stays in play when crawfish is relevant. It gives you a different bottom contact look without leaving today's window.
-- Tube Jig how: Snap the tube off bottom with short pops so it spirals on the fall, then let it glide back down on slack or semi-slack line. Slow down and leave more dead time between moves. Keep it above cover or along the upper edge of the zone. Let it soak a little longer before each move.
-- Hair Jig: Hair Jig stays in play when baitfish is relevant. With true surface suppressed, this keeps you just under the cleaner active lane. It lines up with today's slow pace preference. It is the cleaner change-up if the lead look does not convert.
-- Hair Jig how: Cast across, let it sink on a controlled slack line, then swim it back with short pauses so the marabou pulses and collapses. Slow down and leave more dead time between moves. Keep it above cover or along the upper edge of the zone. Let it soak a little longer before each move.
+- Tube Jig: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Tube Jig how: Snap the tube off bottom with short pops so it spirals on the fall, then let it glide back down on slack or semi-slack line. Slow down and lengthen the pause.
+- Hair Jig: With the highest lane shut down, this keeps you just under the cleaner active zone. Hair Jig stays in play when baitfish is relevant. It gives you a different finesse subtle look without leaving today's window.
+- Hair Jig how: Cast across, let it sink on a controlled slack line, then swim it back with short pauses so the marabou pulses and collapses. Slow down and lengthen the pause.
+- Ned Rig: With the highest lane shut down, this keeps you just under the cleaner active zone. That keeps a crawfish-first look in the water for the month. It is the cleaner change-up if the lead look does not convert.
+- Ned Rig how: Drag and shake the small head along bottom like a tiny craw — short pulls, let it settle, repeat instead of big hops. Slow down and lengthen the pause.
 - Fly reasoning:
-- Crawfish Streamer: Temperature metabolism suppresses the day and favors slower execution. Crawfish Streamer tracks well when crawfish is a realistic meal. It fits today's bottom column preference.
-- Crawfish Streamer how: Tick it along the bottom with short, nervous strips so the claws scratch and flare; keep it close to the substrate and pause after contact with any rock or root. Slow down and leave more dead time between moves. Keep it around the lower part of the productive zone. Keep it on a clean, trackable line so fish can find it before the next move.
-- Clouser Minnow: With true surface suppressed, this keeps you just under the cleaner active lane. Clouser Minnow tracks well when baitfish is a realistic meal. It fits today's bottom column preference. It gives you a different fly baitfish look without leaving today's window.
-- Clouser Minnow how: Cast across or slightly downstream, let it jig toward you with short strips so the weighted eyes keep the fly tracking hook-point up. Keep the cadence controlled and add short stalls instead of burning it. Keep it around the lower part of the productive zone. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
-- Sculpin Streamer: Temperature metabolism suppresses the day and favors slower execution. Sculpin Streamer tracks well when baitfish is a realistic meal. It fits today's bottom column preference. It is the cleaner change-up if the lead look does not convert.
-- Sculpin Streamer how: Bump bottom with short strips and let the fly tick along rocks; keep tension so you feel every stop against structure. Slow down and leave more dead time between moves. Keep it around the lower part of the productive zone. Keep it on a clean, trackable line so fish can find it before the next move.
+- Sculpin Streamer: A sharp cooldown reinforces a lower daily lane. It is one of the lead monthly looks for this exact seasonal window.
+- Sculpin Streamer how: Bump bottom with short strips and let the fly tick along rocks; keep tension so you feel every stop against structure. Slow down and lengthen the pause.
+- Woolly Bugger: With the highest lane shut down, this keeps you just under the cleaner active zone. It stays low in the zone where this day still wants fish to hold. It gives you a different fly bottom look without leaving today's window.
+- Woolly Bugger how: Let it sink to depth then retrieve with slow hand-twists or short strips; the marabou tail breathes best with long pauses at the end of each pull. Slow down and lengthen the pause.
+- Crawfish Streamer: A sharp cooldown reinforces a lower daily lane. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Crawfish Streamer how: Tick it along the bottom with short, nervous strips so the claws scratch and flare; keep it close to the substrate and pause after contact with any rock or root. Slow down and lengthen the pause.
 
 Review:
 - Precheck flags:
-- TOP1_PRIMARY_MISS
+- TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- NO_TOP1_TIE
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:dark,dark
 - Top 1 verdict:
 - Top 3 verdict:
@@ -1611,49 +1671,53 @@ Actual output:
 - Top 3 lures:
 - Tube Jig `tube_jig` | theme: `dark` | colors: black, black/blue, black/purple
 - Hair Jig `hair_jig` | theme: `dark` | colors: black, black/blue, black/purple
-- Ned Rig `ned_rig` | theme: `dark` | colors: black, black/blue, black/purple
+- Medium-Diving Crankbait `medium_diving_crankbait` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 1 fly: Woolly Bugger `woolly_bugger` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 flies:
 - Woolly Bugger `woolly_bugger` | theme: `dark` | colors: black, black/blue, black/purple
-- Balanced Leech `balanced_leech` | theme: `dark` | colors: black, black/blue, black/purple
-- Crawfish Streamer `crawfish_streamer` | theme: `dark` | colors: black, black/blue, black/purple
+- Game Changer `game_changer` | theme: `dark` | colors: black, black/blue, black/purple
+- Clouser Minnow `clouser_minnow` | theme: `dark` | colors: black, black/blue, black/purple
 - Color notes:
 - Daily posture: slightly_suppressed
 - Tube Jig: dark -> black, black/blue, black/purple
 - Hair Jig: dark -> black, black/blue, black/purple
-- Ned Rig: dark -> black, black/blue, black/purple
+- Medium-Diving Crankbait: dark -> black, black/blue, black/purple
 - Woolly Bugger: dark -> black, black/blue, black/purple
-- Balanced Leech: dark -> black, black/blue, black/purple
-- Crawfish Streamer: dark -> black, black/blue, black/purple
+- Game Changer: dark -> black, black/blue, black/purple
+- Clouser Minnow: dark -> black, black/blue, black/purple
 - Daily profile notes:
 - Daily posture: slightly_suppressed
-- Daily preference: column=mid, pace=slow, presence=subtle
-- Monthly baseline: columns=upper/mid/bottom, paces=medium/slow/fast, presence=moderate/subtle/bold
-- Guardrails: surface_allowed=false, suppress_true_surface=true, suppress_fast_presentations=true, high_visibility_needed=false, column_shift=-1
+- Seasonal source: region=south_central, fallback_used=false
+- Daily preference: column=mid, pace=slow, presence=moderate
+- Monthly baseline: columns=upper/mid, paces=slow/medium/fast, presence=subtle/moderate/bold
+- Guardrails: surface_allowed=false, surface_window=closed, suppress_fast_presentations=false, high_visibility_needed=false, column_shift=-1
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
 - Variables triggered: temperature_trend, light_cloud_condition, precipitation_disruption
 - Daily note: A cooling trend tightens fish and shifts preference lower and slower.
 - Daily note: Bright light trims the day back toward cleaner looks.
 - Lure reasoning:
-- Tube Jig: Tube Jig stays in play when crawfish is relevant. With true surface suppressed, this keeps you just under the cleaner active lane. It is one of the lead monthly looks for this exact seasonal window.
-- Tube Jig how: Snap the tube off bottom with short pops so it spirals on the fall, then let it glide back down on slack or semi-slack line. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Let it soak a little longer before each move.
-- Hair Jig: Hair Jig stays in play when baitfish is relevant. With true surface suppressed, this keeps you just under the cleaner active lane. It stays in the middle band where the seasonal setup is most stable today. It gives you a different finesse subtle look without leaving today's window.
-- Hair Jig how: Cast across, let it sink on a controlled slack line, then swim it back with short pauses so the marabou pulses and collapses. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Let it soak a little longer before each move.
-- Ned Rig: Ned Rig stays in play when crawfish is relevant. With true surface suppressed, this keeps you just under the cleaner active lane. That keeps a crawfish-first look in the water for the month. It is the cleaner change-up if the lead look does not convert.
-- Ned Rig how: Drag and shake the small head along bottom like a tiny craw — short pulls, let it settle, repeat instead of big hops. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Let it soak a little longer before each move.
+- Tube Jig: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Tube Jig how: Snap the tube off bottom with short pops so it spirals on the fall, then let it glide back down on slack or semi-slack line. Slow down and lengthen the pause.
+- Hair Jig: With the highest lane shut down, this keeps you just under the cleaner active zone. It stays in the middle band where the seasonal setup is most stable today. It gives you a different finesse subtle look without leaving today's window.
+- Hair Jig how: Fish it on a tight line at slow speed — the hair works best with tiny line pulses rather than big lifts; let it hang in the current or slack zone. Slow down and lengthen the pause.
+- Medium-Diving Crankbait: With the highest lane shut down, this keeps you just under the cleaner active zone. It stays in the middle band where the seasonal setup is most stable today. It is the cleaner change-up if the lead look does not convert.
+- Medium-Diving Crankbait how: Work it through mid-column structure at steady speed, varying rod angle to bump the lip on rock ledges or submerged debris. Slow down and lengthen the pause.
 - Fly reasoning:
-- Woolly Bugger: With true surface suppressed, this keeps you just under the cleaner active lane. Woolly Bugger tracks well when leech_worm is a realistic meal. It fits today's mid column preference.
-- Woolly Bugger how: Let it sink to depth then retrieve with slow hand-twists or short strips; the marabou tail breathes best with long pauses at the end of each pull. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
-- Balanced Leech: With true surface suppressed, this keeps you just under the cleaner active lane. Balanced Leech tracks well when leech_worm is a realistic meal. It fits today's mid column preference. It gives you a different fly bottom look without leaving today's window.
-- Balanced Leech how: Fish it under an indicator or on a slow hand-twist so the fly hovers level and pulses in place rather than diving nose-first. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
-- Crawfish Streamer: It is one of the lead monthly looks for this exact seasonal window. A cooling trend tightens fish and shifts preference lower and slower. Crawfish Streamer tracks well when crawfish is a realistic meal. It is the cleaner change-up if the lead look does not convert.
-- Crawfish Streamer how: Tick it along the bottom with short, nervous strips so the claws scratch and flare; keep it close to the substrate and pause after contact with any rock or root. Slow down and leave more dead time between moves. Keep it around the lower part of the productive zone. Keep the presentation clean and resist overworking it.
+- Woolly Bugger: With the highest lane shut down, this keeps you just under the cleaner active zone. It stays in the middle band where the seasonal setup is most stable today.
+- Woolly Bugger how: Let it sink to depth then retrieve with slow hand-twists or short strips; the marabou tail breathes best with long pauses at the end of each pull. Slow down and lengthen the pause.
+- Game Changer: With the highest lane shut down, this keeps you just under the cleaner active zone. It stays in the middle band where the seasonal setup is most stable today. It gives you a different fly baitfish look without leaving today's window.
+- Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink. Slow down and lengthen the pause.
+- Clouser Minnow: With the highest lane shut down, this keeps you just under the cleaner active zone. It stays in the middle band where the seasonal setup is most stable today. It is the cleaner change-up if the lead look does not convert.
+- Clouser Minnow how: Cast and let the weighted eyes sink the fly, then retrieve with a strip-pause cadence that makes it dart upward on the strip and dive back on the pause. Slow down and lengthen the pause.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- NO_TOP1_TIE
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:dark,dark
 - Top 1 verdict:
 - Top 3 verdict:
@@ -1708,11 +1772,11 @@ Archived env summary:
 - Sunrise/sunset: 05:35 / 19:48
 
 Actual output:
-- Top 1 lure: Soft Plastic Jerkbait `soft_jerkbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Top 1 lure: Spinnerbait `spinnerbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Top 3 lures:
+- Spinnerbait `spinnerbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Soft Plastic Jerkbait `soft_jerkbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
-- Suspending Jerkbait `suspending_jerkbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
-- Tube Jig `tube_jig` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Top 1 fly: Clouser Minnow `clouser_minnow` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Top 3 flies:
 - Clouser Minnow `clouser_minnow` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
@@ -1720,41 +1784,45 @@ Actual output:
 - Woolly Bugger `woolly_bugger` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Color notes:
 - Daily posture: aggressive
+- Spinnerbait: bright -> white/chartreuse, chartreuse, firetiger
+- Paddle-Tail Swimbait: bright -> white/chartreuse, chartreuse, firetiger
 - Soft Plastic Jerkbait: bright -> white/chartreuse, chartreuse, firetiger
-- Suspending Jerkbait: bright -> white/chartreuse, chartreuse, firetiger
-- Tube Jig: bright -> white/chartreuse, chartreuse, firetiger
 - Clouser Minnow: bright -> white/chartreuse, chartreuse, firetiger
 - Crawfish Streamer: bright -> white/chartreuse, chartreuse, firetiger
 - Woolly Bugger: bright -> white/chartreuse, chartreuse, firetiger
 - Daily profile notes:
 - Daily posture: aggressive
-- Daily preference: column=upper, pace=medium, presence=moderate
-- Monthly baseline: columns=upper/mid/bottom, paces=medium/slow/fast, presence=subtle/moderate
-- Guardrails: surface_allowed=true, suppress_true_surface=false, suppress_fast_presentations=false, high_visibility_needed=true, column_shift=1
+- Seasonal source: region=south_central, fallback_used=false
+- Daily preference: column=upper, pace=medium, presence=bold
+- Monthly baseline: columns=upper/mid, paces=medium/fast, presence=subtle/moderate/bold
+- Guardrails: surface_allowed=true, surface_window=rippled, suppress_fast_presentations=false, high_visibility_needed=true, column_shift=1
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
 - Variables triggered: temperature_shock, light_cloud_condition, wind_condition, precipitation_disruption
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Daily note: Moderate chop improves fishability and supports a stronger moving look.
 - Lure reasoning:
-- Soft Plastic Jerkbait: Lower light supports a slightly higher, more open lane. Soft Plastic Jerkbait stays in play when baitfish is relevant. It fits today's upper column preference.
-- Soft Plastic Jerkbait how: Work it with a jerk-sink-jerk cadence; keep the line slightly slack between twitches so the bait moves unpredictably, and vary the pause length. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Start on wind-blown edges or the first active cover line and let it cover water.
-- Suspending Jerkbait: Lower light supports a slightly higher, more open lane. Suspending Jerkbait stays in play when baitfish is relevant. It fits today's upper column preference. It gives you a different reaction mid column look without leaving today's window.
-- Suspending Jerkbait how: Work it with wrist snaps, not big sweeps; keep slack in the line between snaps so the bait swings freely, then pause until you see a follow or feel weight. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Start on wind-blown edges or the first active cover line and let it cover water.
-- Tube Jig: Tube Jig stays in play when crawfish is relevant. Lower light supports a slightly higher, more open lane. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
-- Tube Jig how: Cast, let it sink, then pop sharply and release line; the tube should corkscrew back to bottom on each drop — keep a watchful eye on the line. Keep a steady medium cadence. Keep it above cover or along the upper edge of the zone. Keep it on a clean, trackable line so fish can find it before the next move.
+- Spinnerbait: Lower light supports a slightly higher, more open lane. It is one of the lead monthly looks for this exact seasonal window.
+- Spinnerbait how: Work it parallel to grass lines or over submerged timber; slow the retrieve near the target and let the head tick the top. Keep it high in the zone.
+- Paddle-Tail Swimbait: Lower light supports a slightly higher, more open lane. It is one of the lead monthly looks for this exact seasonal window. It gives you a different horizontal search look without leaving today's window.
+- Paddle-Tail Swimbait how: Swim it at the speed where you feel a steady kick through the rod; use rod angle to change depth without changing retrieve speed. Keep it high in the zone.
+- Soft Plastic Jerkbait: Lower light supports a slightly higher, more open lane. It stays high enough in the zone to match the day's more open positioning. It is the cleaner change-up if the lead look does not convert.
+- Soft Plastic Jerkbait how: Snap the rod sideways so the bait darts left or right, then drop the rod tip so it glides and sinks on a slack line before the next snap. Keep it high in the zone.
 - Fly reasoning:
-- Clouser Minnow: Lower light supports a slightly higher, more open lane. Clouser Minnow tracks well when baitfish is a realistic meal. It lines up with today's medium pace preference.
-- Clouser Minnow how: Cast and let the weighted eyes sink the fly, then retrieve with a strip-pause cadence that makes it dart upward on the strip and dive back on the pause. Keep it moving on a steady, fishable cadence. Keep it around the middle band of the strike zone. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
-- Crawfish Streamer: Crawfish Streamer tracks well when crawfish is a realistic meal. Lower light supports a slightly higher, more open lane. It is one of the lead monthly looks for this exact seasonal window. It gives you a different fly bottom look without leaving today's window.
-- Crawfish Streamer how: Pinch the fly to the bottom and move it in erratic 1-2 inch hops with long pauses; the slower and lower, the better — crawfish don't sprint. Keep a steady medium cadence. Keep it around the lower part of the productive zone. Keep it on a clean, trackable line so fish can find it before the next move.
-- Woolly Bugger: Lower light supports a slightly higher, more open lane. Woolly Bugger tracks well when leech_worm is a realistic meal. It matches today's moderate presence lane. It is the cleaner change-up if the lead look does not convert.
-- Woolly Bugger how: Fish it on a dead-drift near the bottom, then come alive with a strip-pause retrieve through prime holding water; let the tail do most of the work. Keep a steady medium cadence. Keep it around the middle band of the strike zone. Keep it on a clean, trackable line so fish can find it before the next move.
+- Clouser Minnow: Lower light supports a slightly higher, more open lane. It is one of the lead monthly looks for this exact seasonal window.
+- Clouser Minnow how: Strip in short, consistent pulls so the dumbbell eyes make the fly jig up and down; let it sink between strips to stay hook-point up throughout.
+- Crawfish Streamer: Lower light supports a slightly higher, more open lane. It is one of the lead monthly looks for this exact seasonal window. It gives you a different fly bottom look without leaving today's window.
+- Crawfish Streamer how: Cast upstream and mend for a dead-drift first; then come alive with quick, short strips that make the claw materials flex like a fleeing crawfish. Keep it low in the strike zone.
+- Woolly Bugger: Lower light supports a slightly higher, more open lane. Woolly Bugger tracks well when leech_worm is a realistic meal. It is the cleaner change-up if the lead look does not convert.
+- Woolly Bugger how: Cast across and swing it on a tight line through the drift, then activate on the hang-down with short strips before lifting.
 
 Review:
 - Precheck flags:
-- TOP1_PRIMARY_MISS
+- TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- NO_TOP1_TIE
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:bright,bright
 - Top 1 verdict:
 - Top 3 verdict:
@@ -1810,53 +1878,57 @@ Archived env summary:
 - Sunrise/sunset: 05:24 / 20:09
 
 Actual output:
-- Top 1 lure: Spinnerbait `spinnerbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Top 1 lure: Walking Topwater `walking_topwater` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Top 3 lures:
-- Spinnerbait `spinnerbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Walking Topwater `walking_topwater` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Soft Plastic Jerkbait `soft_jerkbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
-- Top 1 fly: Game Changer `game_changer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Spinnerbait `spinnerbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Top 1 fly: Popper Fly `popper_fly` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Top 3 flies:
-- Game Changer `game_changer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Popper Fly `popper_fly` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Game Changer `game_changer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Mouse Fly `mouse_fly` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Color notes:
 - Daily posture: aggressive
-- Spinnerbait: bright -> white/chartreuse, chartreuse, firetiger
 - Walking Topwater: bright -> white/chartreuse, chartreuse, firetiger
 - Soft Plastic Jerkbait: bright -> white/chartreuse, chartreuse, firetiger
-- Game Changer: bright -> white/chartreuse, chartreuse, firetiger
+- Spinnerbait: bright -> white/chartreuse, chartreuse, firetiger
 - Popper Fly: bright -> white/chartreuse, chartreuse, firetiger
+- Game Changer: bright -> white/chartreuse, chartreuse, firetiger
 - Mouse Fly: bright -> white/chartreuse, chartreuse, firetiger
 - Daily profile notes:
 - Daily posture: aggressive
-- Daily preference: column=upper, pace=medium, presence=bold
-- Monthly baseline: columns=upper/mid/surface/bottom, paces=medium/fast/slow, presence=moderate/subtle/bold
-- Guardrails: surface_allowed=true, suppress_true_surface=false, suppress_fast_presentations=false, high_visibility_needed=true, column_shift=1
+- Seasonal source: region=south_central, fallback_used=false
+- Daily preference: column=surface, pace=medium, presence=bold
+- Monthly baseline: columns=surface/upper/mid, paces=medium/fast, presence=subtle/moderate/bold
+- Guardrails: surface_allowed=true, surface_window=clean, suppress_fast_presentations=false, high_visibility_needed=true, column_shift=1
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
 - Variables triggered: light_cloud_condition, wind_condition, precipitation_disruption
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Daily note: Moderate chop improves fishability and supports a stronger moving look.
 - Lure reasoning:
-- Spinnerbait: Lower light supports a slightly higher, more open lane. Spinnerbait stays in play when baitfish is relevant. It fits today's upper column preference.
-- Spinnerbait how: Cast past the target and retrieve through it, varying speed to find the blade thump fish respond to; hesitate briefly at cover edges. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Start on wind-blown edges or the first active cover line and let it cover water.
-- Walking Topwater: Walking Topwater stays in play when baitfish is relevant. Even with a little ripple, the surface lane is still open enough to matter. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different surface look without leaving today's window.
-- Walking Topwater how: Work it with consistent wrist flicks over open water or above grass; keep the cadence smooth and only slow down if you see fish following. Keep it moving on a steady, fishable cadence. Keep it high and over the surface lane. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
-- Soft Plastic Jerkbait: Lower light supports a slightly higher, more open lane. Soft Plastic Jerkbait stays in play when baitfish is relevant. It fits today's upper column preference. It is the cleaner change-up if the lead look does not convert.
-- Soft Plastic Jerkbait how: Work it with a jerk-sink-jerk cadence; keep the line slightly slack between twitches so the bait moves unpredictably, and vary the pause length. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Start on wind-blown edges or the first active cover line and let it cover water.
+- Walking Topwater: Low disturbance is keeping a true surface lane open today. The month is still baitfish-forward, and this stays inside that search lane.
+- Walking Topwater how: Downrod with light wrist flicks to make it dance; the pause between twitches lets fish track and commit, so give it a beat before the next twitch. Keep it on top.
+- Soft Plastic Jerkbait: Lower light supports a slightly higher, more open lane. It is one of the lead monthly looks for this exact seasonal window. It gives you a different horizontal search look without leaving today's window.
+- Soft Plastic Jerkbait how: Snap the rod sideways so the bait darts left or right, then drop the rod tip so it glides and sinks on a slack line before the next snap. Keep it high in the zone.
+- Spinnerbait: Lower light supports a slightly higher, more open lane. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Spinnerbait how: Work it parallel to grass lines or over submerged timber; slow the retrieve near the target and let the head tick the top. Keep it high in the zone.
 - Fly reasoning:
-- Game Changer: Lower light supports a slightly higher, more open lane. Game Changer tracks well when baitfish is a realistic meal. It fits today's upper column preference.
-- Game Changer how: Retrieve with medium strips, then occasionally rip hard so the body compresses and then springs apart — pause after each hard strip and hold your nerve. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
-- Popper Fly: Popper Fly tracks well when baitfish is a realistic meal. Even with a little ripple, the surface lane is still open enough to matter. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different fly surface look without leaving today's window.
-- Popper Fly how: Work it with medium strips that spit and gurgle; slow the cadence near structure and let the fly rest after each pop — target the edge of any surface shadow. Keep it moving on a steady, fishable cadence. Keep it high and over the surface lane. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
-- Mouse Fly: Mouse Fly tracks well when baitfish is a realistic meal. Even with a little ripple, the surface lane is still open enough to matter. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
-- Mouse Fly how: Work it with a slow, uninterrupted retrieve across open water; the V-wake is the trigger, so keep it moving at a steady pace and stay alert. Keep it moving on a steady, fishable cadence. Keep it high and over the surface lane. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
+- Popper Fly: Low disturbance is keeping a true surface lane open today. The month is still baitfish-forward, and this stays inside that search lane.
+- Popper Fly how: Make a sharp strip-pause to spit water, then wait; the longer the pause in the ring, the more time a fish has to rise and commit. Keep it on top.
+- Game Changer: Lower light supports a slightly higher, more open lane. It is one of the lead monthly looks for this exact seasonal window. It gives you a different fly baitfish look without leaving today's window.
+- Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink. Keep it high in the zone.
+- Mouse Fly: Low disturbance is keeping a true surface lane open today. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Mouse Fly how: Swim it on a constant slow retrieve just fast enough to leave a wake; target near-shore edges and structure where big fish expect food to cross. Keep it on top.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- NO_TOP1_TIE
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:bright,bright
 - Top 1 verdict:
 - Top 3 verdict:
@@ -1916,49 +1988,53 @@ Actual output:
 - Top 3 lures:
 - Spinnerbait `spinnerbait` | theme: `dark` | colors: black, black/blue, black/purple
 - Walking Topwater `walking_topwater` | theme: `dark` | colors: black, black/blue, black/purple
-- Tube Jig `tube_jig` | theme: `dark` | colors: black, black/blue, black/purple
-- Top 1 fly: Articulated Baitfish Streamer `articulated_baitfish_streamer` | theme: `dark` | colors: black, black/blue, black/purple
+- Topwater Popper `popping_topwater` | theme: `dark` | colors: black, black/blue, black/purple
+- Top 1 fly: Popper Fly `popper_fly` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 flies:
-- Articulated Baitfish Streamer `articulated_baitfish_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Popper Fly `popper_fly` | theme: `dark` | colors: black, black/blue, black/purple
 - Game Changer `game_changer` | theme: `dark` | colors: black, black/blue, black/purple
+- Articulated Baitfish Streamer `articulated_baitfish_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Color notes:
 - Daily posture: aggressive
 - Spinnerbait: dark -> black, black/blue, black/purple
 - Walking Topwater: dark -> black, black/blue, black/purple
-- Tube Jig: dark -> black, black/blue, black/purple
-- Articulated Baitfish Streamer: dark -> black, black/blue, black/purple
+- Topwater Popper: dark -> black, black/blue, black/purple
 - Popper Fly: dark -> black, black/blue, black/purple
 - Game Changer: dark -> black, black/blue, black/purple
+- Articulated Baitfish Streamer: dark -> black, black/blue, black/purple
 - Daily profile notes:
 - Daily posture: aggressive
+- Seasonal source: region=south_central, fallback_used=false
 - Daily preference: column=upper, pace=medium, presence=bold
-- Monthly baseline: columns=upper/mid/surface/bottom, paces=medium/fast/slow, presence=moderate/subtle/bold
-- Guardrails: surface_allowed=true, suppress_true_surface=false, suppress_fast_presentations=false, high_visibility_needed=true, column_shift=1
+- Monthly baseline: columns=surface/upper/mid, paces=medium/fast, presence=subtle/moderate/bold
+- Guardrails: surface_allowed=true, surface_window=rippled, suppress_fast_presentations=false, high_visibility_needed=true, column_shift=1
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
 - Variables triggered: temperature_trend, wind_condition, precipitation_disruption
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
 - Daily note: Moderate chop improves fishability and supports a stronger moving look.
 - Lure reasoning:
-- Spinnerbait: The month is still baitfish-forward, and this stays inside that search lane. Reduced visibility supports a stronger profile fish can find more easily. Spinnerbait stays in play when baitfish is relevant.
-- Spinnerbait how: Work it parallel to grass lines or over submerged timber; slow the retrieve near the target and let the head tick the top. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
-- Walking Topwater: Walking Topwater stays in play when baitfish is relevant. Even with a little ripple, the surface lane is still open enough to matter. It is one of the lead monthly looks for this exact seasonal window. It gives you a different surface look without leaving today's window.
-- Walking Topwater how: Downrod with light wrist flicks to make it dance; the pause between twitches lets fish track and commit, so give it a beat before the next twitch. Keep it moving on a steady, fishable cadence. Keep it high and over the surface lane. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
-- Tube Jig: A warming trend nudges fish slightly higher in the allowed range. Tube Jig stays in play when crawfish is relevant. It fits today's upper column preference. It is the cleaner change-up if the lead look does not convert.
-- Tube Jig how: Hop it erratically off the bottom with sharp pops, then open the bail slightly so it spirals down freely; strikes happen on that spinning fall. Keep a steady medium cadence. Keep it above cover or along the upper edge of the zone. Keep it on a clean, trackable line so fish can find it before the next move.
+- Spinnerbait: Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane.
+- Spinnerbait how: Work it parallel to grass lines or over submerged timber; slow the retrieve near the target and let the head tick the top. Keep it high in the zone.
+- Walking Topwater: The monthly surface window is still alive today, even with a little ripple on top. It is one of the lead monthly looks for this exact seasonal window. It gives you a different surface look without leaving today's window.
+- Walking Topwater how: Downrod with light wrist flicks to make it dance; the pause between twitches lets fish track and commit, so give it a beat before the next twitch. Keep it on top.
+- Topwater Popper: The monthly surface window is still alive today, even with a little ripple on top. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Topwater Popper how: Use rhythmic 1-2 pops followed by a pause; target the shadow of any surface feature and let the bait sit still in the ring for a count of three. Keep it on top.
 - Fly reasoning:
-- Articulated Baitfish Streamer: The month is still baitfish-forward, and this stays inside that search lane. Reduced visibility supports a stronger profile fish can find more easily. Articulated Baitfish Streamer tracks well when baitfish is a realistic meal.
-- Articulated Baitfish Streamer how: Work it across current and down with a varied strip cadence; when a fish follows, slow down and kill the retrieve to let the body spiral on the sink. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
-- Popper Fly: Popper Fly tracks well when baitfish is a realistic meal. Even with a little ripple, the surface lane is still open enough to matter. It is one of the lead monthly looks for this exact seasonal window. It gives you a different fly surface look without leaving today's window.
-- Popper Fly how: Make a sharp strip-pause to spit water, then wait; the longer the pause in the ring, the more time a fish has to rise and commit. Keep it moving on a steady, fishable cadence. Keep it high and over the surface lane. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
-- Game Changer: Reduced visibility supports a stronger profile fish can find more easily. Game Changer tracks well when baitfish is a realistic meal. It fits today's upper column preference. It is the cleaner change-up if the lead look does not convert.
-- Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
+- Popper Fly: The monthly surface window is still alive today, even with a little ripple on top. It is one of the lead monthly looks for this exact seasonal window.
+- Popper Fly how: Make a sharp strip-pause to spit water, then wait; the longer the pause in the ring, the more time a fish has to rise and commit. Keep it on top.
+- Game Changer: Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different fly baitfish look without leaving today's window.
+- Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink. Keep it high in the zone.
+- Articulated Baitfish Streamer: Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Articulated Baitfish Streamer how: Work it across current and down with a varied strip cadence; when a fish follows, slow down and kill the retrieve to let the body spiral on the sink. Keep it high in the zone.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- NO_TOP1_TIE
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:dark,dark
 - Top 1 verdict:
 - Top 3 verdict:
@@ -2018,48 +2094,52 @@ Actual output:
 - Top 3 lures:
 - Spinnerbait `spinnerbait` | theme: `dark` | colors: black, black/blue, black/purple
 - Walking Topwater `walking_topwater` | theme: `dark` | colors: black, black/blue, black/purple
-- Tube Jig `tube_jig` | theme: `dark` | colors: black, black/blue, black/purple
-- Top 1 fly: Articulated Baitfish Streamer `articulated_baitfish_streamer` | theme: `dark` | colors: black, black/blue, black/purple
+- Topwater Popper `popping_topwater` | theme: `dark` | colors: black, black/blue, black/purple
+- Top 1 fly: Popper Fly `popper_fly` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 flies:
-- Articulated Baitfish Streamer `articulated_baitfish_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Popper Fly `popper_fly` | theme: `dark` | colors: black, black/blue, black/purple
 - Game Changer `game_changer` | theme: `dark` | colors: black, black/blue, black/purple
+- Articulated Baitfish Streamer `articulated_baitfish_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Color notes:
 - Daily posture: slightly_aggressive
 - Spinnerbait: dark -> black, black/blue, black/purple
 - Walking Topwater: dark -> black, black/blue, black/purple
-- Tube Jig: dark -> black, black/blue, black/purple
-- Articulated Baitfish Streamer: dark -> black, black/blue, black/purple
+- Topwater Popper: dark -> black, black/blue, black/purple
 - Popper Fly: dark -> black, black/blue, black/purple
 - Game Changer: dark -> black, black/blue, black/purple
+- Articulated Baitfish Streamer: dark -> black, black/blue, black/purple
 - Daily profile notes:
 - Daily posture: slightly_aggressive
+- Seasonal source: region=south_central, fallback_used=false
 - Daily preference: column=upper, pace=medium, presence=bold
-- Monthly baseline: columns=upper/mid/surface/bottom, paces=medium/fast/slow, presence=moderate/subtle/bold
-- Guardrails: surface_allowed=true, suppress_true_surface=false, suppress_fast_presentations=false, high_visibility_needed=true, column_shift=1
+- Monthly baseline: columns=surface/upper/mid, paces=medium/fast, presence=subtle/moderate/bold
+- Guardrails: surface_allowed=true, surface_window=rippled, suppress_fast_presentations=false, high_visibility_needed=true, column_shift=1
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
 - Variables triggered: temperature_trend, precipitation_disruption
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
 - Lure reasoning:
-- Spinnerbait: Reduced visibility supports a stronger profile fish can find more easily. Spinnerbait stays in play when baitfish is relevant. It fits today's upper column preference.
-- Spinnerbait how: Work it parallel to grass lines or over submerged timber; slow the retrieve near the target and let the head tick the top. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
-- Walking Topwater: Even with a little ripple, the surface lane is still open enough to matter. Walking Topwater stays in play when baitfish is relevant. It lines up with today's medium pace preference. It gives you a different surface look without leaving today's window.
-- Walking Topwater how: Downrod with light wrist flicks to make it dance; the pause between twitches lets fish track and commit, so give it a beat before the next twitch. Keep it moving on a steady, fishable cadence. Keep it high and over the surface lane. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
-- Tube Jig: Tube Jig stays in play when crawfish is relevant. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
-- Tube Jig how: Hop it erratically off the bottom with sharp pops, then open the bail slightly so it spirals down freely; strikes happen on that spinning fall. Keep a steady medium cadence. Keep it above cover or along the upper edge of the zone. Keep it on a clean, trackable line so fish can find it before the next move.
+- Spinnerbait: Reduced visibility supports a stronger profile fish can find more easily. The month is still baitfish-forward, and this stays inside that search lane.
+- Spinnerbait how: Work it parallel to grass lines or over submerged timber; slow the retrieve near the target and let the head tick the top. Keep it high in the zone.
+- Walking Topwater: The monthly surface window is still alive today, even with a little ripple on top. It is one of the lead monthly looks for this exact seasonal window. It gives you a different surface look without leaving today's window.
+- Walking Topwater how: Downrod with light wrist flicks to make it dance; the pause between twitches lets fish track and commit, so give it a beat before the next twitch. Keep it on top.
+- Topwater Popper: The monthly surface window is still alive today, even with a little ripple on top. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Topwater Popper how: Use rhythmic 1-2 pops followed by a pause; target the shadow of any surface feature and let the bait sit still in the ring for a count of three. Keep it on top.
 - Fly reasoning:
-- Articulated Baitfish Streamer: Articulated Baitfish Streamer tracks well when baitfish is a realistic meal. Reduced visibility supports a stronger profile fish can find more easily. The month is still baitfish-forward, and this stays inside that search lane.
-- Articulated Baitfish Streamer how: Work it across current and down with a varied strip cadence; when a fish follows, slow down and kill the retrieve to let the body spiral on the sink. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
-- Popper Fly: It is one of the lead monthly looks for this exact seasonal window. Even with a little ripple, the surface lane is still open enough to matter. Popper Fly tracks well when baitfish is a realistic meal. It gives you a different fly surface look without leaving today's window.
-- Popper Fly how: Make a sharp strip-pause to spit water, then wait; the longer the pause in the ring, the more time a fish has to rise and commit. Keep it moving on a steady, fishable cadence. Keep it high and over the surface lane. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
-- Game Changer: The month is still baitfish-forward, and this stays inside that search lane. Reduced visibility supports a stronger profile fish can find more easily. Game Changer tracks well when baitfish is a realistic meal. It is the cleaner change-up if the lead look does not convert.
-- Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
+- Popper Fly: The monthly surface window is still alive today, even with a little ripple on top. It is one of the lead monthly looks for this exact seasonal window.
+- Popper Fly how: Make a sharp strip-pause to spit water, then wait; the longer the pause in the ring, the more time a fish has to rise and commit. Keep it on top.
+- Game Changer: Reduced visibility supports a stronger profile fish can find more easily. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different fly baitfish look without leaving today's window.
+- Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink. Keep it high in the zone.
+- Articulated Baitfish Streamer: Reduced visibility supports a stronger profile fish can find more easily. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Articulated Baitfish Streamer how: Work it across current and down with a varied strip cadence; when a fish follows, slow down and kill the retrieve to let the body spiral on the sink. Keep it high in the zone.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- NO_TOP1_TIE
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:dark,dark
 - Top 1 verdict:
 - Top 3 verdict:
@@ -2115,53 +2195,57 @@ Archived env summary:
 - Sunrise/sunset: 06:28 / 18:51
 
 Actual output:
-- Top 1 lure: Hair Jig `hair_jig` | theme: `dark` | colors: black, black/blue, black/purple
+- Top 1 lure: Suspending Jerkbait `suspending_jerkbait` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 lures:
+- Suspending Jerkbait `suspending_jerkbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `dark` | colors: black, black/blue, black/purple
 - Hair Jig `hair_jig` | theme: `dark` | colors: black, black/blue, black/purple
-- Tube Jig `tube_jig` | theme: `dark` | colors: black, black/blue, black/purple
-- Spinnerbait `spinnerbait` | theme: `dark` | colors: black, black/blue, black/purple
-- Top 1 fly: Woolly Bugger `woolly_bugger` | theme: `dark` | colors: black, black/blue, black/purple
+- Top 1 fly: Game Changer `game_changer` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 flies:
-- Woolly Bugger `woolly_bugger` | theme: `dark` | colors: black, black/blue, black/purple
-- Slim Baitfish Streamer `slim_minnow_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Game Changer `game_changer` | theme: `dark` | colors: black, black/blue, black/purple
+- Slim Baitfish Streamer `slim_minnow_streamer` | theme: `dark` | colors: black, black/blue, black/purple
+- Clouser Minnow `clouser_minnow` | theme: `dark` | colors: black, black/blue, black/purple
 - Color notes:
 - Daily posture: slightly_aggressive
+- Suspending Jerkbait: dark -> black, black/blue, black/purple
+- Paddle-Tail Swimbait: dark -> black, black/blue, black/purple
 - Hair Jig: dark -> black, black/blue, black/purple
-- Tube Jig: dark -> black, black/blue, black/purple
-- Spinnerbait: dark -> black, black/blue, black/purple
-- Woolly Bugger: dark -> black, black/blue, black/purple
-- Slim Baitfish Streamer: dark -> black, black/blue, black/purple
 - Game Changer: dark -> black, black/blue, black/purple
+- Slim Baitfish Streamer: dark -> black, black/blue, black/purple
+- Clouser Minnow: dark -> black, black/blue, black/purple
 - Daily profile notes:
 - Daily posture: slightly_aggressive
-- Daily preference: column=mid, pace=slow, presence=moderate
-- Monthly baseline: columns=upper/mid/surface/bottom, paces=medium/fast/slow, presence=moderate/subtle/bold
-- Guardrails: surface_allowed=false, suppress_true_surface=true, suppress_fast_presentations=false, high_visibility_needed=false, column_shift=-1
+- Seasonal source: region=south_central, fallback_used=false
+- Daily preference: column=upper, pace=medium, presence=moderate
+- Monthly baseline: columns=surface/upper/mid, paces=medium/fast, presence=subtle/moderate/bold
+- Guardrails: surface_allowed=false, surface_window=closed, suppress_fast_presentations=false, high_visibility_needed=false, column_shift=0
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
 - Variables triggered: temperature_trend, light_cloud_condition, precipitation_disruption
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
 - Daily note: Bright light trims the day back toward cleaner looks.
 - Lure reasoning:
-- Hair Jig: With true surface suppressed, this keeps you just under the cleaner active lane. Hair Jig stays in play when baitfish is relevant. It fits today's mid column preference.
-- Hair Jig how: Swing it through current seams or drop it in pockets with minimal movement; let the marabou breathe in place before slowly pulling it along. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone.
-- Tube Jig: With true surface suppressed, this keeps you just under the cleaner active lane. Tube Jig stays in play when crawfish is relevant. It fits today's mid column preference. It gives you a different bottom contact look without leaving today's window.
-- Tube Jig how: Cast, let it sink, then pop sharply and release line; the tube should corkscrew back to bottom on each drop — keep a watchful eye on the line. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone.
-- Spinnerbait: With true surface suppressed, this keeps you just under the cleaner active lane. Spinnerbait stays in play when baitfish is relevant. It fits today's mid column preference. It is the cleaner change-up if the lead look does not convert.
-- Spinnerbait how: Slow-roll it along the bottom edge of cover at a steady pace, keeping the blades just ticking; bump any piece of structure and let it rise. Keep the cadence controlled and add short stalls instead of burning it. Keep it around the middle band of the strike zone.
+- Suspending Jerkbait: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Suspending Jerkbait how: Two or three sharp twitches, then let it suspend perfectly still for a full 3-5 count before the next sequence — the pause is everything. Keep it high in the zone.
+- Paddle-Tail Swimbait: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It gives you a different horizontal search look without leaving today's window.
+- Paddle-Tail Swimbait how: Swim it at the speed where you feel a steady kick through the rod; use rod angle to change depth without changing retrieve speed. Keep it high in the zone.
+- Hair Jig: With the highest lane shut down, this keeps you just under the cleaner active zone. It stays high enough in the zone to match the day's more open positioning. It is the cleaner change-up if the lead look does not convert.
+- Hair Jig how: Swing it through current seams or drop it in pockets with minimal movement; let the marabou breathe in place before slowly pulling it along. Keep it high in the zone.
 - Fly reasoning:
-- Woolly Bugger: It stays in the middle band where the seasonal setup is most stable today. With true surface suppressed, this keeps you just under the cleaner active lane. Woolly Bugger tracks well when leech_worm is a realistic meal.
-- Woolly Bugger how: Cast across and swing it on a tight line through the drift, then activate on the hang-down with short strips before lifting. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone.
-- Slim Baitfish Streamer: It is one of the lead monthly looks for this exact seasonal window. With true surface suppressed, this keeps you just under the cleaner active lane. Slim Baitfish Streamer tracks well when baitfish is a realistic meal. It gives you a different fly baitfish look without leaving today's window.
-- Slim Baitfish Streamer how: Retrieve with a mix of short darts and longer glides; the thin profile tracks like a small minnow on a tight line. Keep the cadence controlled and add short stalls instead of burning it. Keep it around the middle band of the strike zone.
-- Game Changer: With true surface suppressed, this keeps you just under the cleaner active lane. Game Changer tracks well when baitfish is a realistic meal. It fits today's mid column preference. It is the cleaner change-up if the lead look does not convert.
-- Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink. Keep the cadence controlled and add short stalls instead of burning it. Keep it around the middle band of the strike zone.
+- Game Changer: With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane.
+- Game Changer how: Use a mix of steady strips and sharp 6-inch twitches so the jointed body swims and stalls; pause when you see a follow. Keep it high in the zone.
+- Slim Baitfish Streamer: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It gives you a different fly baitfish look without leaving today's window.
+- Slim Baitfish Streamer how: Retrieve with a mix of short darts and longer glides; the thin profile tracks like a small minnow on a tight line. Keep it high in the zone.
+- Clouser Minnow: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Clouser Minnow how: Cast and let the weighted eyes sink the fly, then retrieve with a strip-pause cadence that makes it dart upward on the strip and dive back on the pause.
 
 Review:
 - Precheck flags:
-- TOP1_PRIMARY_MISS
+- TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- NO_TOP1_TIE
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:dark,dark
 - Top 1 verdict:
 - Top 3 verdict:
@@ -2217,53 +2301,57 @@ Archived env summary:
 - Sunrise/sunset: 06:52 / 18:10
 
 Actual output:
-- Top 1 lure: Hair Jig `hair_jig` | theme: `dark` | colors: black, black/blue, black/purple
+- Top 1 lure: Suspending Jerkbait `suspending_jerkbait` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 lures:
-- Hair Jig `hair_jig` | theme: `dark` | colors: black, black/blue, black/purple
+- Suspending Jerkbait `suspending_jerkbait` | theme: `dark` | colors: black, black/blue, black/purple
 - Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `dark` | colors: black, black/blue, black/purple
-- Blade Bait `blade_bait` | theme: `dark` | colors: black, black/blue, black/purple
-- Top 1 fly: Woolly Bugger `woolly_bugger` | theme: `dark` | colors: black, black/blue, black/purple
+- Hair Jig `hair_jig` | theme: `dark` | colors: black, black/blue, black/purple
+- Top 1 fly: Game Changer `game_changer` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 flies:
-- Woolly Bugger `woolly_bugger` | theme: `dark` | colors: black, black/blue, black/purple
-- Slim Baitfish Streamer `slim_minnow_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Game Changer `game_changer` | theme: `dark` | colors: black, black/blue, black/purple
+- Zonker Streamer `zonker_streamer` | theme: `dark` | colors: black, black/blue, black/purple
+- Clouser Minnow `clouser_minnow` | theme: `dark` | colors: black, black/blue, black/purple
 - Color notes:
 - Daily posture: slightly_aggressive
-- Hair Jig: dark -> black, black/blue, black/purple
+- Suspending Jerkbait: dark -> black, black/blue, black/purple
 - Paddle-Tail Swimbait: dark -> black, black/blue, black/purple
-- Blade Bait: dark -> black, black/blue, black/purple
-- Woolly Bugger: dark -> black, black/blue, black/purple
-- Slim Baitfish Streamer: dark -> black, black/blue, black/purple
+- Hair Jig: dark -> black, black/blue, black/purple
 - Game Changer: dark -> black, black/blue, black/purple
+- Zonker Streamer: dark -> black, black/blue, black/purple
+- Clouser Minnow: dark -> black, black/blue, black/purple
 - Daily profile notes:
 - Daily posture: slightly_aggressive
-- Daily preference: column=mid, pace=slow, presence=moderate
-- Monthly baseline: columns=upper/mid/surface/bottom, paces=medium/fast/slow, presence=moderate/subtle/bold
-- Guardrails: surface_allowed=false, suppress_true_surface=true, suppress_fast_presentations=false, high_visibility_needed=false, column_shift=-1
+- Seasonal source: region=south_central, fallback_used=false
+- Daily preference: column=upper, pace=medium, presence=moderate
+- Monthly baseline: columns=surface/upper/mid, paces=medium/fast, presence=subtle/moderate/bold
+- Guardrails: surface_allowed=false, surface_window=closed, suppress_fast_presentations=false, high_visibility_needed=false, column_shift=0
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
 - Variables triggered: temperature_trend, light_cloud_condition, precipitation_disruption
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
 - Daily note: Bright light trims the day back toward cleaner looks.
 - Lure reasoning:
-- Hair Jig: With true surface suppressed, this keeps you just under the cleaner active lane. Hair Jig stays in play when baitfish is relevant. It fits today's mid column preference.
-- Hair Jig how: Swing it through current seams or drop it in pockets with minimal movement; let the marabou breathe in place before slowly pulling it along. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone.
-- Paddle-Tail Swimbait: Paddle-Tail Swimbait stays in play when baitfish is relevant. With true surface suppressed, this keeps you just under the cleaner active lane. It is one of the lead monthly looks for this exact seasonal window. It gives you a different horizontal search look without leaving today's window.
-- Paddle-Tail Swimbait how: Swim it at the speed where you feel a steady kick through the rod; use rod angle to change depth without changing retrieve speed. Keep the cadence controlled and add short stalls instead of burning it. Keep it around the middle band of the strike zone.
-- Blade Bait: With true surface suppressed, this keeps you just under the cleaner active lane. Blade Bait stays in play when baitfish is relevant. It fits today's mid column preference. It is the cleaner change-up if the lead look does not convert.
-- Blade Bait how: Vertical jig it with short, sharp hops over suspended fish; the flutter-fall is the presentation — set hard the moment you feel weight. Keep the cadence controlled and add short stalls instead of burning it. Keep it around the middle band of the strike zone.
+- Suspending Jerkbait: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Suspending Jerkbait how: Two or three sharp twitches, then let it suspend perfectly still for a full 3-5 count before the next sequence — the pause is everything. Keep it high in the zone.
+- Paddle-Tail Swimbait: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It gives you a different horizontal search look without leaving today's window.
+- Paddle-Tail Swimbait how: Swim it at the speed where you feel a steady kick through the rod; use rod angle to change depth without changing retrieve speed. Keep it high in the zone.
+- Hair Jig: With the highest lane shut down, this keeps you just under the cleaner active zone. It stays high enough in the zone to match the day's more open positioning. It is the cleaner change-up if the lead look does not convert.
+- Hair Jig how: Swing it through current seams or drop it in pockets with minimal movement; let the marabou breathe in place before slowly pulling it along. Keep it high in the zone.
 - Fly reasoning:
-- Woolly Bugger: It stays in the middle band where the seasonal setup is most stable today. With true surface suppressed, this keeps you just under the cleaner active lane. Woolly Bugger tracks well when leech_worm is a realistic meal.
-- Woolly Bugger how: Cast across and swing it on a tight line through the drift, then activate on the hang-down with short strips before lifting. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone.
-- Slim Baitfish Streamer: With true surface suppressed, this keeps you just under the cleaner active lane. Slim Baitfish Streamer tracks well when baitfish is a realistic meal. It fits today's mid column preference. It gives you a different fly baitfish look without leaving today's window.
-- Slim Baitfish Streamer how: Retrieve with a mix of short darts and longer glides; the thin profile tracks like a small minnow on a tight line. Keep the cadence controlled and add short stalls instead of burning it. Keep it around the middle band of the strike zone.
-- Game Changer: Game Changer tracks well when baitfish is a realistic meal. With true surface suppressed, this keeps you just under the cleaner active lane. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
-- Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink. Keep the cadence controlled and add short stalls instead of burning it. Keep it around the middle band of the strike zone.
+- Game Changer: With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane.
+- Game Changer how: Use a mix of steady strips and sharp 6-inch twitches so the jointed body swims and stalls; pause when you see a follow. Keep it high in the zone.
+- Zonker Streamer: With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different fly baitfish look without leaving today's window.
+- Zonker Streamer how: Retrieve at moderate speed with intentional pauses where the fly sinks and the strip wing breathes; strikes often come as you restart the strip. Keep it high in the zone.
+- Clouser Minnow: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Clouser Minnow how: Cast and let the weighted eyes sink the fly, then retrieve with a strip-pause cadence that makes it dart upward on the strip and dive back on the pause.
 
 Review:
 - Precheck flags:
-- TOP1_PRIMARY_MISS
+- TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- TOP1_TIE:fly
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:dark,dark
 - Top 1 verdict:
 - Top 3 verdict:
@@ -2319,11 +2407,11 @@ Archived env summary:
 - Sunrise/sunset: 06:19 / 16:39
 
 Actual output:
-- Top 1 lure: Blade Bait `blade_bait` | theme: `dark` | colors: black, black/blue, black/purple
+- Top 1 lure: Spinnerbait `spinnerbait` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 lures:
+- Spinnerbait `spinnerbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Tube Jig `tube_jig` | theme: `dark` | colors: black, black/blue, black/purple
 - Blade Bait `blade_bait` | theme: `dark` | colors: black, black/blue, black/purple
-- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `dark` | colors: black, black/blue, black/purple
-- Hair Jig `hair_jig` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 1 fly: Clouser Minnow `clouser_minnow` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 flies:
 - Clouser Minnow `clouser_minnow` | theme: `dark` | colors: black, black/blue, black/purple
@@ -2331,41 +2419,45 @@ Actual output:
 - Game Changer `game_changer` | theme: `dark` | colors: black, black/blue, black/purple
 - Color notes:
 - Daily posture: aggressive
+- Spinnerbait: dark -> black, black/blue, black/purple
+- Tube Jig: dark -> black, black/blue, black/purple
 - Blade Bait: dark -> black, black/blue, black/purple
-- Paddle-Tail Swimbait: dark -> black, black/blue, black/purple
-- Hair Jig: dark -> black, black/blue, black/purple
 - Clouser Minnow: dark -> black, black/blue, black/purple
 - Woolly Bugger: dark -> black, black/blue, black/purple
 - Game Changer: dark -> black, black/blue, black/purple
 - Daily profile notes:
 - Daily posture: aggressive
-- Daily preference: column=bottom, pace=slow, presence=bold
-- Monthly baseline: columns=mid/upper/bottom/surface, paces=medium/slow/fast, presence=moderate/subtle/bold
-- Guardrails: surface_allowed=false, suppress_true_surface=true, suppress_fast_presentations=false, high_visibility_needed=true, column_shift=-1
+- Seasonal source: region=south_central, fallback_used=false
+- Daily preference: column=mid, pace=slow, presence=bold
+- Monthly baseline: columns=upper/mid/bottom, paces=slow/medium/fast, presence=subtle/moderate/bold
+- Guardrails: surface_allowed=true, surface_window=rippled, suppress_fast_presentations=false, high_visibility_needed=true, column_shift=0
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
 - Variables triggered: temperature_shock, light_cloud_condition, wind_condition, precipitation_disruption
 - Daily note: Bright light trims the day back toward cleaner looks.
 - Daily note: Moderate chop improves fishability and supports a stronger moving look.
 - Lure reasoning:
-- Blade Bait: With true surface suppressed, this keeps you just under the cleaner active lane. Blade Bait stays in play when baitfish is relevant. It fits today's bottom column preference.
-- Blade Bait how: Vertical jig it with short, sharp hops over suspended fish; the flutter-fall is the presentation — set hard the moment you feel weight. Keep the cadence controlled and add short stalls instead of burning it. Keep it around the lower part of the productive zone. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
-- Paddle-Tail Swimbait: Paddle-Tail Swimbait stays in play when baitfish is relevant. With true surface suppressed, this keeps you just under the cleaner active lane. It is one of the lead monthly looks for this exact seasonal window. It gives you a different horizontal search look without leaving today's window.
-- Paddle-Tail Swimbait how: Swim it at the speed where you feel a steady kick through the rod; use rod angle to change depth without changing retrieve speed. Keep the cadence controlled and add short stalls instead of burning it. Keep it above cover or along the upper edge of the zone. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
-- Hair Jig: With true surface suppressed, this keeps you just under the cleaner active lane. Hair Jig stays in play when baitfish is relevant. It lines up with today's slow pace preference. It is the cleaner change-up if the lead look does not convert.
-- Hair Jig how: Fish it on a tight line at slow speed — the hair works best with tiny line pulses rather than big lifts; let it hang in the current or slack zone. Slow down and leave more dead time between moves. Keep it above cover or along the upper edge of the zone. Keep it on a clean, trackable line so fish can find it before the next move.
+- Spinnerbait: Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window.
+- Spinnerbait how: Work it parallel to grass lines or over submerged timber; slow the retrieve near the target and let the head tick the top. Slow down and lengthen the pause.
+- Tube Jig: Bright light trims the day back toward cleaner looks. It stays in the middle band where the seasonal setup is most stable today. It gives you a different bottom contact look without leaving today's window.
+- Tube Jig how: Hop it erratically off the bottom with sharp pops, then open the bail slightly so it spirals down freely; strikes happen on that spinning fall. Slow down and lengthen the pause.
+- Blade Bait: Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Blade Bait how: Vertical jig it with short, sharp hops over suspended fish; the flutter-fall is the presentation — set hard the moment you feel weight. Slow down and lengthen the pause.
 - Fly reasoning:
-- Clouser Minnow: It is one of the lead monthly looks for this exact seasonal window. With true surface suppressed, this keeps you just under the cleaner active lane. Clouser Minnow tracks well when baitfish is a realistic meal.
-- Clouser Minnow how: Strip in short, consistent pulls so the dumbbell eyes make the fly jig up and down; let it sink between strips to stay hook-point up throughout. Keep the cadence controlled and add short stalls instead of burning it. Keep it around the lower part of the productive zone. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
-- Woolly Bugger: It stays low in the zone where this day still wants fish to hold. With true surface suppressed, this keeps you just under the cleaner active lane. Woolly Bugger tracks well when leech_worm is a realistic meal. It gives you a different fly bottom look without leaving today's window.
-- Woolly Bugger how: Cast across and swing it on a tight line through the drift, then activate on the hang-down with short strips before lifting. Slow down and leave more dead time between moves. Keep it around the lower part of the productive zone. Keep it on a clean, trackable line so fish can find it before the next move.
-- Game Changer: With true surface suppressed, this keeps you just under the cleaner active lane. Game Changer tracks well when baitfish is a realistic meal. It matches today's bold presence lane. It is the cleaner change-up if the lead look does not convert.
-- Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink. Keep the cadence controlled and add short stalls instead of burning it. Keep it above cover or along the upper edge of the zone. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
+- Clouser Minnow: Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window.
+- Clouser Minnow how: Strip in short, consistent pulls so the dumbbell eyes make the fly jig up and down; let it sink between strips to stay hook-point up throughout. Slow down and lengthen the pause.
+- Woolly Bugger: Bright light trims the day back toward cleaner looks. It stays in the middle band where the seasonal setup is most stable today. It gives you a different fly bottom look without leaving today's window.
+- Woolly Bugger how: Cast across and swing it on a tight line through the drift, then activate on the hang-down with short strips before lifting. Slow down and lengthen the pause.
+- Game Changer: Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink. Slow down and lengthen the pause.
 
 Review:
 - Precheck flags:
-- TOP1_PRIMARY_MISS
+- TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- NO_TOP1_TIE
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:dark,dark
 - Top 1 verdict:
 - Top 3 verdict:
@@ -2421,11 +2513,11 @@ Archived env summary:
 - Sunrise/sunset: 06:46 / 16:30
 
 Actual output:
-- Top 1 lure: Hair Jig `hair_jig` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Top 1 lure: Tube Jig `tube_jig` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Top 3 lures:
-- Hair Jig `hair_jig` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
-- Blade Bait `blade_bait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Tube Jig `tube_jig` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Blade Bait `blade_bait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Hair Jig `hair_jig` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Top 1 fly: Woolly Bugger `woolly_bugger` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Top 3 flies:
 - Woolly Bugger `woolly_bugger` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
@@ -2433,42 +2525,46 @@ Actual output:
 - Sculpin Streamer `sculpin_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Color notes:
 - Daily posture: aggressive
-- Hair Jig: bright -> white/chartreuse, chartreuse, firetiger
-- Blade Bait: bright -> white/chartreuse, chartreuse, firetiger
 - Tube Jig: bright -> white/chartreuse, chartreuse, firetiger
+- Blade Bait: bright -> white/chartreuse, chartreuse, firetiger
+- Hair Jig: bright -> white/chartreuse, chartreuse, firetiger
 - Woolly Bugger: bright -> white/chartreuse, chartreuse, firetiger
 - Conehead Streamer: bright -> white/chartreuse, chartreuse, firetiger
 - Sculpin Streamer: bright -> white/chartreuse, chartreuse, firetiger
 - Daily profile notes:
 - Daily posture: aggressive
+- Seasonal source: region=south_central, fallback_used=false
 - Daily preference: column=mid, pace=slow, presence=moderate
 - Monthly baseline: columns=bottom/mid, paces=slow/medium, presence=subtle/moderate
-- Guardrails: surface_allowed=false, suppress_true_surface=true, suppress_fast_presentations=false, high_visibility_needed=true, column_shift=1
+- Guardrails: surface_allowed=false, surface_window=closed, suppress_fast_presentations=false, high_visibility_needed=true, column_shift=1
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
 - Variables triggered: temperature_trend, light_cloud_condition, wind_condition, precipitation_disruption
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Daily note: Strong wind reduces clean execution.
 - Lure reasoning:
-- Hair Jig: It is one of the lead monthly looks for this exact seasonal window. With true surface suppressed, this keeps you just under the cleaner active lane. Hair Jig stays in play when baitfish is relevant.
-- Hair Jig how: Swing it through current seams or drop it in pockets with minimal movement; let the marabou breathe in place before slowly pulling it along. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep it on a clean, trackable line so fish can find it before the next move.
-- Blade Bait: With true surface suppressed, this keeps you just under the cleaner active lane. Blade Bait stays in play when baitfish is relevant. It fits today's mid column preference. It gives you a different reaction mid column look without leaving today's window.
-- Blade Bait how: Cast and hop it off bottom with quick wrist snaps, counting the flutter back down; strikes usually come on the fall, so stay in contact with semi-tight line. Keep the cadence controlled and add short stalls instead of burning it. Keep it around the middle band of the strike zone. Start on wind-blown edges or the first active cover line and let it cover water.
-- Tube Jig: Tube Jig stays in play when crawfish is relevant. With true surface suppressed, this keeps you just under the cleaner active lane. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
-- Tube Jig how: Cast, let it sink, then pop sharply and release line; the tube should corkscrew back to bottom on each drop — keep a watchful eye on the line. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep it on a clean, trackable line so fish can find it before the next move.
+- Tube Jig: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Tube Jig how: Hop it erratically off the bottom with sharp pops, then open the bail slightly so it spirals down freely; strikes happen on that spinning fall. Slow down and lengthen the pause.
+- Blade Bait: With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different reaction mid column look without leaving today's window.
+- Blade Bait how: Vertical jig it with short, sharp hops over suspended fish; the flutter-fall is the presentation — set hard the moment you feel weight. Slow down and lengthen the pause.
+- Hair Jig: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Hair Jig how: Fish it on a tight line at slow speed — the hair works best with tiny line pulses rather than big lifts; let it hang in the current or slack zone. Slow down and lengthen the pause.
 - Fly reasoning:
-- Woolly Bugger: With true surface suppressed, this keeps you just under the cleaner active lane. Woolly Bugger tracks well when leech_worm is a realistic meal. It fits today's mid column preference.
-- Woolly Bugger how: Fish it on a dead-drift near the bottom, then come alive with a strip-pause retrieve through prime holding water; let the tail do most of the work. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep it on a clean, trackable line so fish can find it before the next move.
-- Conehead Streamer: Reduced visibility supports a stronger profile fish can find more easily. Conehead Streamer tracks well when baitfish is a realistic meal. It lines up with today's slow pace preference. It gives you a different fly bottom look without leaving today's window.
-- Conehead Streamer how: Cast across or down, let it sink to depth, then strip with a jig-like cadence where the cone tips the fly nose-down on each pause. Slow down and leave more dead time between moves. Keep it around the lower part of the productive zone. Keep it on a clean, trackable line so fish can find it before the next move.
-- Sculpin Streamer: It is one of the lead monthly looks for this exact seasonal window. A warming trend nudges fish slightly higher in the allowed range. Sculpin Streamer tracks well when baitfish is a realistic meal. It is the cleaner change-up if the lead look does not convert.
-- Sculpin Streamer how: Inch it along the bottom with tight-line strips; sculpin barely swim, so keep the fly close to the substrate and use current for most of the motion. Slow down and leave more dead time between moves. Keep it around the lower part of the productive zone. Keep it on a clean, trackable line so fish can find it before the next move.
+- Woolly Bugger: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Woolly Bugger how: Cast across and swing it on a tight line through the drift, then activate on the hang-down with short strips before lifting. Slow down and lengthen the pause.
+- Conehead Streamer: Reduced visibility supports a stronger profile fish can find more easily. Conehead Streamer tracks well when baitfish is a realistic meal. It gives you a different fly bottom look without leaving today's window.
+- Conehead Streamer how: Strip with consistent medium pulls; the cone keeps the fly diving nose-first on each retrieve, so use pauses to let it hunt and settle before the next strip. Slow down and lengthen the pause.
+- Sculpin Streamer: A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Sculpin Streamer how: Cast upstream and mend for a natural drift, then activate with short strips that make the fly bumble over the bottom like a sculpin retreating. Slow down and lengthen the pause.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- NO_TOP1_TIE
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:bright,bright
 - Top 1 verdict:
 - Top 3 verdict:
@@ -2526,11 +2622,11 @@ Archived env summary:
 - Sunrise/sunset: 07:45 / 17:52
 
 Actual output:
-- Top 1 lure: Drop-Shot Minnow `drop_shot_minnow` | theme: `dark` | colors: black, black/blue, black/purple
+- Top 1 lure: Tube Jig `tube_jig` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 lures:
-- Drop-Shot Minnow `drop_shot_minnow` | theme: `dark` | colors: black, black/blue, black/purple
-- Hair Jig `hair_jig` | theme: `dark` | colors: black, black/blue, black/purple
 - Tube Jig `tube_jig` | theme: `dark` | colors: black, black/blue, black/purple
+- Hair Jig `hair_jig` | theme: `dark` | colors: black, black/blue, black/purple
+- Blade Bait `blade_bait` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 1 fly: Sculpin Streamer `sculpin_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 flies:
 - Sculpin Streamer `sculpin_streamer` | theme: `dark` | colors: black, black/blue, black/purple
@@ -2538,41 +2634,45 @@ Actual output:
 - Conehead Streamer `conehead_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Color notes:
 - Daily posture: aggressive
-- Drop-Shot Minnow: dark -> black, black/blue, black/purple
-- Hair Jig: dark -> black, black/blue, black/purple
 - Tube Jig: dark -> black, black/blue, black/purple
+- Hair Jig: dark -> black, black/blue, black/purple
+- Blade Bait: dark -> black, black/blue, black/purple
 - Sculpin Streamer: dark -> black, black/blue, black/purple
 - Woolly Bugger: dark -> black, black/blue, black/purple
 - Conehead Streamer: dark -> black, black/blue, black/purple
 - Daily profile notes:
 - Daily posture: aggressive
+- Seasonal source: region=south_central, fallback_used=false
 - Daily preference: column=bottom, pace=slow, presence=subtle
-- Monthly baseline: columns=bottom/mid/upper, paces=slow/medium, presence=subtle/moderate
-- Guardrails: surface_allowed=false, suppress_true_surface=true, suppress_fast_presentations=false, high_visibility_needed=false, column_shift=-1
+- Monthly baseline: columns=mid/bottom, paces=slow/medium, presence=subtle/moderate
+- Guardrails: surface_allowed=true, surface_window=rippled, suppress_fast_presentations=false, high_visibility_needed=false, column_shift=0
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
 - Variables triggered: temperature_trend, light_cloud_condition, wind_condition, runoff_flow_disruption
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
 - Daily note: Bright light trims the day back toward cleaner looks.
 - Lure reasoning:
-- Drop-Shot Minnow: Drop-Shot Minnow stays in play when baitfish is relevant. With true surface suppressed, this keeps you just under the cleaner active lane. It stays low in the zone where this day still wants fish to hold.
-- Drop-Shot Minnow how: Keep the bait just off bottom with tiny shakes and short glides so the minnow hovers naturally in the strike zone. Slow down and leave more dead time between moves. Keep it around the lower part of the productive zone. Keep the presentation clean and resist overworking it.
-- Hair Jig: With true surface suppressed, this keeps you just under the cleaner active lane. Hair Jig stays in play when baitfish is relevant. It lines up with today's slow pace preference. It gives you a different finesse subtle look without leaving today's window.
-- Hair Jig how: Fish it on a tight line at slow speed — the hair works best with tiny line pulses rather than big lifts; let it hang in the current or slack zone. Slow down and leave more dead time between moves. Keep it above cover or along the upper edge of the zone. Keep the presentation clean and resist overworking it.
-- Tube Jig: Tube Jig stays in play when crawfish is relevant. With true surface suppressed, this keeps you just under the cleaner active lane. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
-- Tube Jig how: Hop it erratically off the bottom with sharp pops, then open the bail slightly so it spirals down freely; strikes happen on that spinning fall. Slow down and leave more dead time between moves. Keep it above cover or along the upper edge of the zone. Keep the presentation clean and resist overworking it.
+- Tube Jig: A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
+- Tube Jig how: Snap the tube off bottom with short pops so it spirals on the fall, then let it glide back down on slack or semi-slack line. Slow down and lengthen the pause.
+- Hair Jig: A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It gives you a different finesse subtle look without leaving today's window.
+- Hair Jig how: Fish it on a tight line at slow speed — the hair works best with tiny line pulses rather than big lifts; let it hang in the current or slack zone. Slow down and lengthen the pause.
+- Blade Bait: It stays practical in current seams and river lanes when flow still matters. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Blade Bait how: Cast and hop it off bottom with quick wrist snaps, counting the flutter back down; strikes usually come on the fall, so stay in contact with semi-tight line. Slow down and lengthen the pause.
 - Fly reasoning:
-- Sculpin Streamer: It is one of the lead monthly looks for this exact seasonal window. It stays practical in current seams and river lanes when flow still matters. Sculpin Streamer tracks well when baitfish is a realistic meal.
-- Sculpin Streamer how: Bump bottom with short strips and let the fly tick along rocks; keep tension so you feel every stop against structure. Slow down and leave more dead time between moves. Keep it around the lower part of the productive zone. Keep the presentation clean and resist overworking it.
-- Woolly Bugger: With true surface suppressed, this keeps you just under the cleaner active lane. Woolly Bugger tracks well when leech_worm is a realistic meal. It fits today's bottom column preference. It gives you a different fly bottom look without leaving today's window.
-- Woolly Bugger how: Cast across and swing it on a tight line through the drift, then activate on the hang-down with short strips before lifting. Slow down and leave more dead time between moves. Keep it around the lower part of the productive zone. Keep the presentation clean and resist overworking it.
-- Conehead Streamer: It stays practical in current seams and river lanes when flow still matters. Conehead Streamer tracks well when baitfish is a realistic meal. It fits today's bottom column preference. It is the cleaner change-up if the lead look does not convert.
-- Conehead Streamer how: Cast across or down, let it sink to depth, then strip with a jig-like cadence where the cone tips the fly nose-down on each pause. Slow down and leave more dead time between moves. Keep it around the lower part of the productive zone. Keep the presentation clean and resist overworking it.
+- Sculpin Streamer: It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window.
+- Sculpin Streamer how: Bump bottom with short strips and let the fly tick along rocks; keep tension so you feel every stop against structure. Slow down and lengthen the pause.
+- Woolly Bugger: It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window. It gives you a different fly bottom look without leaving today's window.
+- Woolly Bugger how: Cast across and swing it on a tight line through the drift, then activate on the hang-down with short strips before lifting. Slow down and lengthen the pause.
+- Conehead Streamer: It stays practical in current seams and river lanes when flow still matters. It stays low in the zone where this day still wants fish to hold. It is the cleaner change-up if the lead look does not convert.
+- Conehead Streamer how: Cast across or down, let it sink to depth, then strip with a jig-like cadence where the cone tips the fly nose-down on each pause. Slow down and lengthen the pause.
 
 Review:
 - Precheck flags:
-- TOP1_PRIMARY_MISS
+- TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- NO_TOP1_TIE
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:dark,dark
 - Top 1 verdict:
 - Top 3 verdict:
@@ -2628,54 +2728,58 @@ Archived env summary:
 - Sunrise/sunset: 07:18 / 18:26
 
 Actual output:
-- Top 1 lure: Hair Jig `hair_jig` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Top 1 lure: Tube Jig `tube_jig` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Top 3 lures:
-- Hair Jig `hair_jig` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Tube Jig `tube_jig` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
-- Drop-Shot Minnow `drop_shot_minnow` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
-- Top 1 fly: Woolly Bugger `woolly_bugger` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Spinnerbait `spinnerbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Inline Spinner `inline_spinner` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Top 1 fly: Crawfish Streamer `crawfish_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Top 3 flies:
-- Woolly Bugger `woolly_bugger` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Crawfish Streamer `crawfish_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Clouser Minnow `clouser_minnow` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Sculpin Streamer `sculpin_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
-- Conehead Streamer `conehead_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Color notes:
 - Daily posture: slightly_suppressed
-- Hair Jig: bright -> white/chartreuse, chartreuse, firetiger
 - Tube Jig: bright -> white/chartreuse, chartreuse, firetiger
-- Drop-Shot Minnow: bright -> white/chartreuse, chartreuse, firetiger
-- Woolly Bugger: bright -> white/chartreuse, chartreuse, firetiger
+- Spinnerbait: bright -> white/chartreuse, chartreuse, firetiger
+- Inline Spinner: bright -> white/chartreuse, chartreuse, firetiger
+- Crawfish Streamer: bright -> white/chartreuse, chartreuse, firetiger
+- Clouser Minnow: bright -> white/chartreuse, chartreuse, firetiger
 - Sculpin Streamer: bright -> white/chartreuse, chartreuse, firetiger
-- Conehead Streamer: bright -> white/chartreuse, chartreuse, firetiger
 - Daily profile notes:
 - Daily posture: slightly_suppressed
-- Daily preference: column=mid, pace=slow, presence=moderate
-- Monthly baseline: columns=bottom/mid/upper, paces=slow/medium, presence=subtle/moderate
-- Guardrails: surface_allowed=false, suppress_true_surface=true, suppress_fast_presentations=true, high_visibility_needed=true, column_shift=1
+- Seasonal source: region=south_central, fallback_used=false
+- Daily preference: column=bottom, pace=slow, presence=bold
+- Monthly baseline: columns=upper/mid/bottom, paces=slow/medium/fast, presence=subtle/moderate/bold
+- Guardrails: surface_allowed=true, surface_window=rippled, suppress_fast_presentations=false, high_visibility_needed=true, column_shift=-1
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
 - Variables triggered: temperature_metabolic_context, light_cloud_condition, wind_condition, runoff_flow_disruption
-- Daily note: Temperature metabolism suppresses the day and favors slower execution.
+- Daily note: Cold metabolism shuts down activity. Slow and low is the only play.
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Daily note: Slightly elevated runoff supports a more visible river presentation.
 - Lure reasoning:
-- Hair Jig: With true surface suppressed, this keeps you just under the cleaner active lane. Hair Jig stays in play when baitfish is relevant. It fits today's mid column preference.
-- Hair Jig how: Cast across, let it sink on a controlled slack line, then swim it back with short pauses so the marabou pulses and collapses. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Let it soak a little longer before each move.
-- Tube Jig: With true surface suppressed, this keeps you just under the cleaner active lane. Tube Jig stays in play when crawfish is relevant. It fits today's mid column preference. It gives you a different bottom contact look without leaving today's window.
-- Tube Jig how: Snap the tube off bottom with short pops so it spirals on the fall, then let it glide back down on slack or semi-slack line. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Let it soak a little longer before each move.
-- Drop-Shot Minnow: Drop-Shot Minnow stays in play when baitfish is relevant. With true surface suppressed, this keeps you just under the cleaner active lane. It stays in the middle band where the seasonal setup is most stable today. It is the cleaner change-up if the lead look does not convert.
-- Drop-Shot Minnow how: Keep the bait just off bottom with tiny shakes and short glides so the minnow hovers naturally in the strike zone. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Let it soak a little longer before each move.
+- Tube Jig: Cold metabolism shuts down activity. Slow and low is the only play. It is one of the lead monthly looks for this exact seasonal window.
+- Tube Jig how: Hop it erratically off the bottom with sharp pops, then open the bail slightly so it spirals down freely; strikes happen on that spinning fall. Slow down and lengthen the pause.
+- Spinnerbait: Slightly elevated runoff supports a more visible river presentation. It is one of the lead monthly looks for this exact seasonal window. It gives you a different horizontal search look without leaving today's window.
+- Spinnerbait how: Work it parallel to grass lines or over submerged timber; slow the retrieve near the target and let the head tick the top. Slow down and lengthen the pause.
+- Inline Spinner: Slightly elevated runoff supports a more visible river presentation. Inline Spinner stays in play when baitfish is relevant. It is the cleaner change-up if the lead look does not convert.
+- Inline Spinner how: Use a slow-roll retrieve near bottom or cover edges; occasionally bump into structure to trigger reaction strikes. Slow down and lengthen the pause.
 - Fly reasoning:
-- Woolly Bugger: It is one of the lead monthly looks for this exact seasonal window. With true surface suppressed, this keeps you just under the cleaner active lane. Woolly Bugger tracks well when leech_worm is a realistic meal.
-- Woolly Bugger how: Let it sink to depth then retrieve with slow hand-twists or short strips; the marabou tail breathes best with long pauses at the end of each pull. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep it on a clean, trackable line so fish can find it before the next move.
-- Sculpin Streamer: Sculpin Streamer tracks well when baitfish is a realistic meal. Temperature metabolism suppresses the day and favors slower execution. It is one of the lead monthly looks for this exact seasonal window. It gives you a different fly bottom look without leaving today's window.
-- Sculpin Streamer how: Bump bottom with short strips and let the fly tick along rocks; keep tension so you feel every stop against structure. Slow down and leave more dead time between moves. Keep it around the lower part of the productive zone. Keep it on a clean, trackable line so fish can find it before the next move.
-- Conehead Streamer: Temperature metabolism suppresses the day and favors slower execution. Conehead Streamer tracks well when baitfish is a realistic meal. It lines up with today's slow pace preference. It is the cleaner change-up if the lead look does not convert.
-- Conehead Streamer how: Let the cone dig and dart on each strip — medium pulls with pauses so the fly hunts just off the rocks or wood. Slow down and leave more dead time between moves. Keep it around the lower part of the productive zone. Keep it on a clean, trackable line so fish can find it before the next move.
+- Crawfish Streamer: Slightly elevated runoff supports a more visible river presentation. It is one of the lead monthly looks for this exact seasonal window.
+- Crawfish Streamer how: Cast upstream and mend for a dead-drift first; then come alive with quick, short strips that make the claw materials flex like a fleeing crawfish. Slow down and lengthen the pause.
+- Clouser Minnow: Slightly elevated runoff supports a more visible river presentation. It is one of the lead monthly looks for this exact seasonal window. It gives you a different fly baitfish look without leaving today's window.
+- Clouser Minnow how: Strip in short, consistent pulls so the dumbbell eyes make the fly jig up and down; let it sink between strips to stay hook-point up throughout. Slow down and lengthen the pause.
+- Sculpin Streamer: Slightly elevated runoff supports a more visible river presentation. It stays low in the zone where this day still wants fish to hold. It is the cleaner change-up if the lead look does not convert.
+- Sculpin Streamer how: Cast upstream and mend for a natural drift, then activate with short strips that make the fly bumble over the bottom like a sculpin retreating. Slow down and lengthen the pause.
 
 Review:
 - Precheck flags:
-- TOP1_PRIMARY_MISS
+- TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- NO_TOP1_TIE
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:bright,bright
 - Top 1 verdict:
 - Top 3 verdict:
@@ -2734,52 +2838,56 @@ Actual output:
 - Top 1 lure: Tube Jig `tube_jig` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Top 3 lures:
 - Tube Jig `tube_jig` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Ned Rig `ned_rig` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Spinnerbait `spinnerbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
-- Inline Spinner `inline_spinner` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
-- Top 1 fly: Crawfish Streamer `crawfish_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Top 1 fly: Sculpin Streamer `sculpin_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Top 3 flies:
-- Crawfish Streamer `crawfish_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
-- Clouser Minnow `clouser_minnow` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Sculpin Streamer `sculpin_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Woolly Bugger `woolly_bugger` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Crawfish Streamer `crawfish_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Color notes:
 - Daily posture: suppressed
 - Tube Jig: bright -> white/chartreuse, chartreuse, firetiger
+- Ned Rig: bright -> white/chartreuse, chartreuse, firetiger
 - Spinnerbait: bright -> white/chartreuse, chartreuse, firetiger
-- Inline Spinner: bright -> white/chartreuse, chartreuse, firetiger
-- Crawfish Streamer: bright -> white/chartreuse, chartreuse, firetiger
-- Clouser Minnow: bright -> white/chartreuse, chartreuse, firetiger
 - Sculpin Streamer: bright -> white/chartreuse, chartreuse, firetiger
+- Woolly Bugger: bright -> white/chartreuse, chartreuse, firetiger
+- Crawfish Streamer: bright -> white/chartreuse, chartreuse, firetiger
 - Daily profile notes:
 - Daily posture: suppressed
+- Seasonal source: region=south_central, fallback_used=false
 - Daily preference: column=bottom, pace=slow, presence=bold
-- Monthly baseline: columns=mid/bottom/upper, paces=medium/slow/fast, presence=moderate/subtle/bold
-- Guardrails: surface_allowed=false, suppress_true_surface=true, suppress_fast_presentations=true, high_visibility_needed=true, column_shift=-1
+- Monthly baseline: columns=upper/mid/bottom, paces=slow/medium/fast, presence=subtle/moderate/bold
+- Guardrails: surface_allowed=false, surface_window=closed, suppress_fast_presentations=true, high_visibility_needed=true, column_shift=-1
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
 - Variables triggered: temperature_metabolic_context, temperature_shock, light_cloud_condition, wind_condition, runoff_flow_disruption
-- Daily note: Temperature metabolism suppresses the day and favors slower execution.
+- Daily note: Cold metabolism shuts down activity. Slow and low is the only play.
 - Daily note: A sharp cooldown reinforces a lower daily lane.
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Daily note: Elevated runoff tightens fish and pulls the day lower and slower.
 - Lure reasoning:
-- Tube Jig: It is one of the lead monthly looks for this exact seasonal window. With true surface suppressed, this keeps you just under the cleaner active lane. Tube Jig stays in play when crawfish is relevant.
-- Tube Jig how: Snap the tube off bottom with short pops so it spirals on the fall, then let it glide back down on slack or semi-slack line. Slow down and leave more dead time between moves. Keep it above cover or along the upper edge of the zone. Let it soak a little longer before each move.
-- Spinnerbait: Spinnerbait stays in play when baitfish is relevant. With true surface suppressed, this keeps you just under the cleaner active lane. It is one of the lead monthly looks for this exact seasonal window. It gives you a different horizontal search look without leaving today's window.
-- Spinnerbait how: Slow-roll it along the bottom edge of cover at a steady pace, keeping the blades just ticking; bump any piece of structure and let it rise. Keep the cadence controlled and add short stalls instead of burning it. Keep it above cover or along the upper edge of the zone. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
-- Inline Spinner: With true surface suppressed, this keeps you just under the cleaner active lane. Inline Spinner stays in play when baitfish is relevant. It matches today's bold presence lane. It is the cleaner change-up if the lead look does not convert.
-- Inline Spinner how: Cast and retrieve at a steady clip just fast enough to keep the blade spinning; vary depth with rod angle and speed to find the feeding zone. Keep the cadence controlled and add short stalls instead of burning it. Keep it above cover or along the upper edge of the zone. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
+- Tube Jig: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Tube Jig how: Snap the tube off bottom with short pops so it spirals on the fall, then let it glide back down on slack or semi-slack line. Slow down and lengthen the pause.
+- Ned Rig: With the highest lane shut down, this keeps you just under the cleaner active zone. That keeps a crawfish-first look in the water for the month. It gives you a different bottom contact look without leaving today's window.
+- Ned Rig how: Drag and shake the small head along bottom like a tiny craw — short pulls, let it settle, repeat instead of big hops. Slow down and lengthen the pause.
+- Spinnerbait: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Spinnerbait how: Slow-roll it along the bottom edge of cover at a steady pace, keeping the blades just ticking; bump any piece of structure and let it rise. Slow down and lengthen the pause.
 - Fly reasoning:
-- Crawfish Streamer: Temperature metabolism suppresses the day and favors slower execution. Crawfish Streamer tracks well when crawfish is a realistic meal. It fits today's bottom column preference.
-- Crawfish Streamer how: Tick it along the bottom with short, nervous strips so the claws scratch and flare; keep it close to the substrate and pause after contact with any rock or root. Slow down and leave more dead time between moves. Keep it around the lower part of the productive zone. Keep it on a clean, trackable line so fish can find it before the next move.
-- Clouser Minnow: With true surface suppressed, this keeps you just under the cleaner active lane. Clouser Minnow tracks well when baitfish is a realistic meal. It fits today's bottom column preference. It gives you a different fly baitfish look without leaving today's window.
-- Clouser Minnow how: Cast across or slightly downstream, let it jig toward you with short strips so the weighted eyes keep the fly tracking hook-point up. Keep the cadence controlled and add short stalls instead of burning it. Keep it around the lower part of the productive zone. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
-- Sculpin Streamer: Temperature metabolism suppresses the day and favors slower execution. Sculpin Streamer tracks well when baitfish is a realistic meal. It fits today's bottom column preference. It is the cleaner change-up if the lead look does not convert.
-- Sculpin Streamer how: Bump bottom with short strips and let the fly tick along rocks; keep tension so you feel every stop against structure. Slow down and leave more dead time between moves. Keep it around the lower part of the productive zone. Keep it on a clean, trackable line so fish can find it before the next move.
+- Sculpin Streamer: A sharp cooldown reinforces a lower daily lane. It stays low in the zone where this day still wants fish to hold.
+- Sculpin Streamer how: Bump bottom with short strips and let the fly tick along rocks; keep tension so you feel every stop against structure. Slow down and lengthen the pause.
+- Woolly Bugger: With the highest lane shut down, this keeps you just under the cleaner active zone. It stays low in the zone where this day still wants fish to hold. It gives you a different fly bottom look without leaving today's window.
+- Woolly Bugger how: Let it sink to depth then retrieve with slow hand-twists or short strips; the marabou tail breathes best with long pauses at the end of each pull. Slow down and lengthen the pause.
+- Crawfish Streamer: A sharp cooldown reinforces a lower daily lane. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Crawfish Streamer how: Tick it along the bottom with short, nervous strips so the claws scratch and flare; keep it close to the substrate and pause after contact with any rock or root. Slow down and lengthen the pause.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- TOP1_TIE:fly
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:bright,bright
 - Top 1 verdict:
 - Top 3 verdict:
@@ -2837,51 +2945,55 @@ Actual output:
 - Top 1 lure: Tube Jig `tube_jig` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 lures:
 - Tube Jig `tube_jig` | theme: `dark` | colors: black, black/blue, black/purple
-- Ned Rig `ned_rig` | theme: `dark` | colors: black, black/blue, black/purple
-- Spinnerbait `spinnerbait` | theme: `dark` | colors: black, black/blue, black/purple
-- Top 1 fly: Woolly Bugger `woolly_bugger` | theme: `dark` | colors: black, black/blue, black/purple
+- Soft Plastic Jerkbait `soft_jerkbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Top 1 fly: Clouser Minnow `clouser_minnow` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 flies:
-- Woolly Bugger `woolly_bugger` | theme: `dark` | colors: black, black/blue, black/purple
-- Crawfish Streamer `crawfish_streamer` | theme: `dark` | colors: black, black/blue, black/purple
-- Sculpin Streamer `sculpin_streamer` | theme: `dark` | colors: black, black/blue, black/purple
+- Clouser Minnow `clouser_minnow` | theme: `dark` | colors: black, black/blue, black/purple
+- Zonker Streamer `zonker_streamer` | theme: `dark` | colors: black, black/blue, black/purple
+- Game Changer `game_changer` | theme: `dark` | colors: black, black/blue, black/purple
 - Color notes:
 - Daily posture: suppressed
 - Tube Jig: dark -> black, black/blue, black/purple
-- Ned Rig: dark -> black, black/blue, black/purple
-- Spinnerbait: dark -> black, black/blue, black/purple
-- Woolly Bugger: dark -> black, black/blue, black/purple
-- Crawfish Streamer: dark -> black, black/blue, black/purple
-- Sculpin Streamer: dark -> black, black/blue, black/purple
+- Soft Plastic Jerkbait: dark -> black, black/blue, black/purple
+- Paddle-Tail Swimbait: dark -> black, black/blue, black/purple
+- Clouser Minnow: dark -> black, black/blue, black/purple
+- Zonker Streamer: dark -> black, black/blue, black/purple
+- Game Changer: dark -> black, black/blue, black/purple
 - Daily profile notes:
 - Daily posture: suppressed
-- Daily preference: column=mid, pace=slow, presence=subtle
-- Monthly baseline: columns=upper/mid/bottom, paces=medium/slow/fast, presence=moderate/subtle/bold
-- Guardrails: surface_allowed=false, suppress_true_surface=true, suppress_fast_presentations=true, high_visibility_needed=false, column_shift=-1
+- Seasonal source: region=south_central, fallback_used=false
+- Daily preference: column=mid, pace=medium, presence=subtle
+- Monthly baseline: columns=upper/mid, paces=medium/fast, presence=subtle/moderate/bold
+- Guardrails: surface_allowed=false, surface_window=closed, suppress_fast_presentations=true, high_visibility_needed=false, column_shift=-1
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
 - Variables triggered: temperature_metabolic_context, temperature_trend, light_cloud_condition, runoff_flow_disruption
-- Daily note: Temperature metabolism suppresses the day and favors slower execution.
+- Daily note: Cold metabolism shuts down activity. Slow and low is the only play.
 - Daily note: A cooling trend tightens fish and shifts preference lower and slower.
 - Daily note: Bright light trims the day back toward cleaner looks.
 - Lure reasoning:
-- Tube Jig: With true surface suppressed, this keeps you just under the cleaner active lane. Tube Jig stays in play when crawfish is relevant. It fits today's mid column preference.
-- Tube Jig how: Snap the tube off bottom with short pops so it spirals on the fall, then let it glide back down on slack or semi-slack line. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Let it soak a little longer before each move.
-- Ned Rig: With true surface suppressed, this keeps you just under the cleaner active lane. Ned Rig stays in play when crawfish is relevant. It fits today's mid column preference. It gives you a different bottom contact look without leaving today's window.
-- Ned Rig how: Drag and shake the small head along bottom like a tiny craw — short pulls, let it settle, repeat instead of big hops. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Let it soak a little longer before each move.
-- Spinnerbait: With true surface suppressed, this keeps you just under the cleaner active lane. Spinnerbait stays in play when baitfish is relevant. It fits today's mid column preference. It is the cleaner change-up if the lead look does not convert.
-- Spinnerbait how: Slow-roll it along the bottom edge of cover at a steady pace, keeping the blades just ticking; bump any piece of structure and let it rise. Keep the cadence controlled and add short stalls instead of burning it. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
+- Tube Jig: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Tube Jig how: Snap the tube off bottom with short pops so it spirals on the fall, then let it glide back down on slack or semi-slack line.
+- Soft Plastic Jerkbait: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It gives you a different horizontal search look without leaving today's window.
+- Soft Plastic Jerkbait how: Twitch it with slack in the line so the bait darts and glides erratically; pause and let it sink a few inches between twitches.
+- Paddle-Tail Swimbait: With the highest lane shut down, this keeps you just under the cleaner active zone. It stays in the middle band where the seasonal setup is most stable today. It is the cleaner change-up if the lead look does not convert.
+- Paddle-Tail Swimbait how: Reel at a steady pace with the rod low so the tail thumps consistently; speed up slightly over bait schools or slow down after a follow.
 - Fly reasoning:
-- Woolly Bugger: Woolly Bugger tracks well when leech_worm is a realistic meal. With true surface suppressed, this keeps you just under the cleaner active lane. It stays in the middle band where the seasonal setup is most stable today.
-- Woolly Bugger how: Let it sink to depth then retrieve with slow hand-twists or short strips; the marabou tail breathes best with long pauses at the end of each pull. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
-- Crawfish Streamer: Crawfish Streamer tracks well when crawfish is a realistic meal. Temperature metabolism suppresses the day and favors slower execution. It is one of the lead monthly looks for this exact seasonal window. It gives you a different fly bottom look without leaving today's window.
-- Crawfish Streamer how: Tick it along the bottom with short, nervous strips so the claws scratch and flare; keep it close to the substrate and pause after contact with any rock or root. Slow down and leave more dead time between moves. Keep it around the lower part of the productive zone. Keep the presentation clean and resist overworking it.
-- Sculpin Streamer: Sculpin Streamer tracks well when baitfish is a realistic meal. Temperature metabolism suppresses the day and favors slower execution. It lines up with today's slow pace preference. It is the cleaner change-up if the lead look does not convert.
-- Sculpin Streamer how: Bump bottom with short strips and let the fly tick along rocks; keep tension so you feel every stop against structure. Slow down and leave more dead time between moves. Keep it around the lower part of the productive zone. Keep the presentation clean and resist overworking it.
+- Clouser Minnow: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Clouser Minnow how: Cast across or slightly downstream, let it jig toward you with short strips so the weighted eyes keep the fly tracking hook-point up.
+- Zonker Streamer: With the highest lane shut down, this keeps you just under the cleaner active zone. It stays in the middle band where the seasonal setup is most stable today. It gives you a different fly baitfish look without leaving today's window.
+- Zonker Streamer how: Strip with a mixed pace — a few short darts, then a longer glide; the rabbit wing wraps on fast strips and flares on the pause for a big profile change.
+- Game Changer: With the highest lane shut down, this keeps you just under the cleaner active zone. It stays in the middle band where the seasonal setup is most stable today. It is the cleaner change-up if the lead look does not convert.
+- Game Changer how: Use a mix of steady strips and sharp 6-inch twitches so the jointed body swims and stalls; pause when you see a follow.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- NO_TOP1_TIE
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:dark,dark
 - Top 1 verdict:
 - Top 3 verdict:
@@ -2936,11 +3048,11 @@ Archived env summary:
 - Sunrise/sunset: 06:32 / 20:37
 
 Actual output:
-- Top 1 lure: Spinnerbait `spinnerbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Top 1 lure: Inline Spinner `inline_spinner` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Top 3 lures:
-- Spinnerbait `spinnerbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
-- Squarebill Crankbait `squarebill_crankbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Inline Spinner `inline_spinner` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Squarebill Crankbait `squarebill_crankbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Spinnerbait `spinnerbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Top 1 fly: Game Changer `game_changer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Top 3 flies:
 - Game Changer `game_changer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
@@ -2948,42 +3060,46 @@ Actual output:
 - Zonker Streamer `zonker_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Color notes:
 - Daily posture: aggressive
-- Spinnerbait: bright -> white/chartreuse, chartreuse, firetiger
-- Squarebill Crankbait: bright -> white/chartreuse, chartreuse, firetiger
 - Inline Spinner: bright -> white/chartreuse, chartreuse, firetiger
+- Squarebill Crankbait: bright -> white/chartreuse, chartreuse, firetiger
+- Spinnerbait: bright -> white/chartreuse, chartreuse, firetiger
 - Game Changer: bright -> white/chartreuse, chartreuse, firetiger
 - Clouser Minnow: bright -> white/chartreuse, chartreuse, firetiger
 - Zonker Streamer: bright -> white/chartreuse, chartreuse, firetiger
 - Daily profile notes:
 - Daily posture: aggressive
+- Seasonal source: region=south_central, fallback_used=false
 - Daily preference: column=upper, pace=medium, presence=bold
-- Monthly baseline: columns=upper/mid/bottom, paces=medium/fast/slow, presence=moderate/subtle/bold
-- Guardrails: surface_allowed=true, suppress_true_surface=false, suppress_fast_presentations=false, high_visibility_needed=true, column_shift=1
+- Monthly baseline: columns=upper/mid, paces=medium/fast, presence=subtle/moderate/bold
+- Guardrails: surface_allowed=true, surface_window=rippled, suppress_fast_presentations=false, high_visibility_needed=true, column_shift=1
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
 - Variables triggered: temperature_trend, light_cloud_condition, wind_condition, runoff_flow_disruption
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Daily note: Slightly elevated runoff supports a more visible river presentation.
 - Lure reasoning:
-- Spinnerbait: A warming trend nudges fish slightly higher in the allowed range. Spinnerbait stays in play when baitfish is relevant. It fits today's upper column preference.
-- Spinnerbait how: Cast past the target and retrieve through it, varying speed to find the blade thump fish respond to; hesitate briefly at cover edges. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Start on wind-blown edges or the first active cover line and let it cover water.
-- Squarebill Crankbait: Squarebill Crankbait stays in play when baitfish is relevant. A warming trend nudges fish slightly higher in the allowed range. It stays high enough in the zone to match the day's more open positioning. It gives you a different horizontal search look without leaving today's window.
-- Squarebill Crankbait how: Run it tight to cover at a steady pace; when it hits, give a slight rod pause so the bill pries free and the bait kicks up erratically. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Start on wind-blown edges or the first active cover line and let it cover water.
-- Inline Spinner: A warming trend nudges fish slightly higher in the allowed range. Inline Spinner stays in play when baitfish is relevant. It fits today's upper column preference. It is the cleaner change-up if the lead look does not convert.
-- Inline Spinner how: Cast across current and let the blade flash on a quarter-downstream retrieve; speed up briefly after bumps or short strikes. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Start on wind-blown edges or the first active cover line and let it cover water.
+- Inline Spinner: A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
+- Inline Spinner how: Use a slow-roll retrieve near bottom or cover edges; occasionally bump into structure to trigger reaction strikes. Keep it high in the zone.
+- Squarebill Crankbait: A warming trend nudges fish slightly higher in the allowed range. It stays high enough in the zone to match the day's more open positioning. It gives you a different horizontal search look without leaving today's window.
+- Squarebill Crankbait how: Cast past structure and crank it down, then steer it right into cover; the deflection is the trigger, so don't try to avoid contact. Keep it high in the zone.
+- Spinnerbait: A warming trend nudges fish slightly higher in the allowed range. It stays high enough in the zone to match the day's more open positioning. It is the cleaner change-up if the lead look does not convert.
+- Spinnerbait how: Work it parallel to grass lines or over submerged timber; slow the retrieve near the target and let the head tick the top. Keep it high in the zone.
 - Fly reasoning:
-- Game Changer: A warming trend nudges fish slightly higher in the allowed range. Game Changer tracks well when baitfish is a realistic meal. It fits today's upper column preference.
-- Game Changer how: Retrieve with medium strips, then occasionally rip hard so the body compresses and then springs apart — pause after each hard strip and hold your nerve. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
-- Clouser Minnow: It is one of the lead monthly looks for this exact seasonal window. A warming trend nudges fish slightly higher in the allowed range. Clouser Minnow tracks well when baitfish is a realistic meal. It gives you a different fly baitfish look without leaving today's window.
-- Clouser Minnow how: Cast and let the weighted eyes sink the fly, then retrieve with a strip-pause cadence that makes it dart upward on the strip and dive back on the pause. Keep it moving on a steady, fishable cadence. Keep it around the middle band of the strike zone. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
-- Zonker Streamer: It stays high enough in the zone to match the day's more open positioning. A warming trend nudges fish slightly higher in the allowed range. Zonker Streamer tracks well when baitfish is a realistic meal. It is the cleaner change-up if the lead look does not convert.
-- Zonker Streamer how: Cast across current and strip steadily through the swing; add a momentary deadstop near structure so the wing collapses and then puffs back out. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
+- Game Changer: A warming trend nudges fish slightly higher in the allowed range. It stays high enough in the zone to match the day's more open positioning.
+- Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink. Keep it high in the zone.
+- Clouser Minnow: A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It gives you a different fly baitfish look without leaving today's window.
+- Clouser Minnow how: Strip in short, consistent pulls so the dumbbell eyes make the fly jig up and down; let it sink between strips to stay hook-point up throughout.
+- Zonker Streamer: A warming trend nudges fish slightly higher in the allowed range. It stays high enough in the zone to match the day's more open positioning. It is the cleaner change-up if the lead look does not convert.
+- Zonker Streamer how: Retrieve at moderate speed with intentional pauses where the fly sinks and the strip wing breathes; strikes often come as you restart the strip. Keep it high in the zone.
 
 Review:
 - Precheck flags:
-- TOP1_PRIMARY_MISS
+- TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- NO_TOP1_TIE
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:bright,bright
 - Top 1 verdict:
 - Top 3 verdict:
@@ -3035,8 +3151,8 @@ Archived env summary:
 - Daily high/low: 83 / 68.6 F
 - Daily wind max: 14.2 mph
 - Daily precip: 0.047244094488188976 in
-- Moon phase: n/a
-- Sunrise/sunset: n/a / n/a
+- Moon phase: Waning Gibbous
+- Sunrise/sunset: 06:22 / 20:57
 
 Actual output:
 - Top 1 lure: Inline Spinner `inline_spinner` | theme: `dark` | colors: black, black/blue, black/purple
@@ -3044,47 +3160,51 @@ Actual output:
 - Inline Spinner `inline_spinner` | theme: `dark` | colors: black, black/blue, black/purple
 - Spinnerbait `spinnerbait` | theme: `dark` | colors: black, black/blue, black/purple
 - Walking Topwater `walking_topwater` | theme: `dark` | colors: black, black/blue, black/purple
-- Top 1 fly: Game Changer `game_changer` | theme: `dark` | colors: black, black/blue, black/purple
+- Top 1 fly: Popper Fly `popper_fly` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 flies:
-- Game Changer `game_changer` | theme: `dark` | colors: black, black/blue, black/purple
 - Popper Fly `popper_fly` | theme: `dark` | colors: black, black/blue, black/purple
-- Muddler Minnow `muddler_sculpin` | theme: `dark` | colors: black, black/blue, black/purple
+- Game Changer `game_changer` | theme: `dark` | colors: black, black/blue, black/purple
+- Articulated Baitfish Streamer `articulated_baitfish_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Color notes:
 - Daily posture: slightly_aggressive
 - Inline Spinner: dark -> black, black/blue, black/purple
 - Spinnerbait: dark -> black, black/blue, black/purple
 - Walking Topwater: dark -> black, black/blue, black/purple
-- Game Changer: dark -> black, black/blue, black/purple
 - Popper Fly: dark -> black, black/blue, black/purple
-- Muddler Minnow: dark -> black, black/blue, black/purple
+- Game Changer: dark -> black, black/blue, black/purple
+- Articulated Baitfish Streamer: dark -> black, black/blue, black/purple
 - Daily profile notes:
 - Daily posture: slightly_aggressive
+- Seasonal source: region=south_central, fallback_used=false
 - Daily preference: column=upper, pace=medium, presence=bold
-- Monthly baseline: columns=upper/mid/surface/bottom, paces=medium/fast/slow, presence=moderate/subtle/bold
-- Guardrails: surface_allowed=true, suppress_true_surface=false, suppress_fast_presentations=false, high_visibility_needed=true, column_shift=0
+- Monthly baseline: columns=surface/upper/mid, paces=medium/fast, presence=subtle/moderate/bold
+- Guardrails: surface_allowed=true, surface_window=rippled, suppress_fast_presentations=false, high_visibility_needed=true, column_shift=0
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
 - Variables triggered: wind_condition, runoff_flow_disruption
 - Daily note: Slightly elevated runoff supports a more visible river presentation.
 - Lure reasoning:
-- Inline Spinner: Inline Spinner stays in play when baitfish is relevant. Slightly elevated runoff supports a more visible river presentation. It is one of the lead monthly looks for this exact seasonal window.
-- Inline Spinner how: Use a slow-roll retrieve near bottom or cover edges; occasionally bump into structure to trigger reaction strikes. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
-- Spinnerbait: Slightly elevated runoff supports a more visible river presentation. Spinnerbait stays in play when baitfish is relevant. It fits today's upper column preference. It gives you a different horizontal search look without leaving today's window.
-- Spinnerbait how: Work it parallel to grass lines or over submerged timber; slow the retrieve near the target and let the head tick the top. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
-- Walking Topwater: Walking Topwater stays in play when baitfish is relevant. Even with a little ripple, the surface lane is still open enough to matter. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
-- Walking Topwater how: Downrod with light wrist flicks to make it dance; the pause between twitches lets fish track and commit, so give it a beat before the next twitch. Keep it moving on a steady, fishable cadence. Keep it high and over the surface lane. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
+- Inline Spinner: Slightly elevated runoff supports a more visible river presentation. It is one of the lead monthly looks for this exact seasonal window.
+- Inline Spinner how: Use a slow-roll retrieve near bottom or cover edges; occasionally bump into structure to trigger reaction strikes. Keep it high in the zone.
+- Spinnerbait: Slightly elevated runoff supports a more visible river presentation. It is one of the lead monthly looks for this exact seasonal window. It gives you a different horizontal search look without leaving today's window.
+- Spinnerbait how: Work it parallel to grass lines or over submerged timber; slow the retrieve near the target and let the head tick the top. Keep it high in the zone.
+- Walking Topwater: The monthly surface window is still alive today, even with a little ripple on top. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Walking Topwater how: Downrod with light wrist flicks to make it dance; the pause between twitches lets fish track and commit, so give it a beat before the next twitch. Keep it on top.
 - Fly reasoning:
-- Game Changer: The month is still baitfish-forward, and this stays inside that search lane. Slightly elevated runoff supports a more visible river presentation. Game Changer tracks well when baitfish is a realistic meal.
-- Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
-- Popper Fly: Even with a little ripple, the surface lane is still open enough to matter. Popper Fly tracks well when baitfish is a realistic meal. It lines up with today's medium pace preference. It gives you a different fly surface look without leaving today's window.
-- Popper Fly how: Make a sharp strip-pause to spit water, then wait; the longer the pause in the ring, the more time a fish has to rise and commit. Keep it moving on a steady, fishable cadence. Keep it high and over the surface lane. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
-- Muddler Minnow: It stays high enough in the zone to match the day's more open positioning. Slightly elevated runoff supports a more visible river presentation. Muddler Minnow tracks well when baitfish is a realistic meal. It is the cleaner change-up if the lead look does not convert.
-- Muddler Minnow how: Work it as a swung wet fly in current with minimal stripping; on still water, hop it along the bottom with slow, erratic pulls. Keep a steady medium cadence. Keep it above cover or along the upper edge of the zone. Keep it on a clean, trackable line so fish can find it before the next move.
+- Popper Fly: The monthly surface window is still alive today, even with a little ripple on top. It is one of the lead monthly looks for this exact seasonal window.
+- Popper Fly how: Make a sharp strip-pause to spit water, then wait; the longer the pause in the ring, the more time a fish has to rise and commit. Keep it on top.
+- Game Changer: Slightly elevated runoff supports a more visible river presentation. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different fly baitfish look without leaving today's window.
+- Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink. Keep it high in the zone.
+- Articulated Baitfish Streamer: Slightly elevated runoff supports a more visible river presentation. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Articulated Baitfish Streamer how: Work it across current and down with a varied strip cadence; when a fish follows, slow down and kill the retrieve to let the body spiral on the sink. Keep it high in the zone.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- NO_TOP1_TIE
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:dark,dark
 - Top 1 verdict:
 - Top 3 verdict:
@@ -3136,8 +3256,8 @@ Archived env summary:
 - Daily high/low: 91.8 / 73.7 F
 - Daily wind max: 9.1 mph
 - Daily precip: 0.007874015748031498 in
-- Moon phase: n/a
-- Sunrise/sunset: n/a / n/a
+- Moon phase: Waning Gibbous
+- Sunrise/sunset: 06:34 / 20:54
 
 Actual output:
 - Top 1 lure: Inline Spinner `inline_spinner` | theme: `dark` | colors: black, black/blue, black/purple
@@ -3145,46 +3265,50 @@ Actual output:
 - Inline Spinner `inline_spinner` | theme: `dark` | colors: black, black/blue, black/purple
 - Walking Topwater `walking_topwater` | theme: `dark` | colors: black, black/blue, black/purple
 - Tube Jig `tube_jig` | theme: `dark` | colors: black, black/blue, black/purple
-- Top 1 fly: Muddler Minnow `muddler_sculpin` | theme: `dark` | colors: black, black/blue, black/purple
+- Top 1 fly: Zonker Streamer `zonker_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 flies:
-- Muddler Minnow `muddler_sculpin` | theme: `dark` | colors: black, black/blue, black/purple
 - Zonker Streamer `zonker_streamer` | theme: `dark` | colors: black, black/blue, black/purple
+- Popper Fly `popper_fly` | theme: `dark` | colors: black, black/blue, black/purple
 - Game Changer `game_changer` | theme: `dark` | colors: black, black/blue, black/purple
 - Color notes:
 - Daily posture: aggressive
 - Inline Spinner: dark -> black, black/blue, black/purple
 - Walking Topwater: dark -> black, black/blue, black/purple
 - Tube Jig: dark -> black, black/blue, black/purple
-- Muddler Minnow: dark -> black, black/blue, black/purple
 - Zonker Streamer: dark -> black, black/blue, black/purple
+- Popper Fly: dark -> black, black/blue, black/purple
 - Game Changer: dark -> black, black/blue, black/purple
 - Daily profile notes:
 - Daily posture: aggressive
+- Seasonal source: region=south_central, fallback_used=false
 - Daily preference: column=upper, pace=medium, presence=moderate
-- Monthly baseline: columns=upper/mid/surface/bottom, paces=medium/fast/slow, presence=moderate/subtle/bold
-- Guardrails: surface_allowed=true, suppress_true_surface=false, suppress_fast_presentations=false, high_visibility_needed=false, column_shift=0
+- Monthly baseline: columns=surface/upper/mid, paces=medium/fast, presence=subtle/moderate/bold
+- Guardrails: surface_allowed=true, surface_window=rippled, suppress_fast_presentations=false, high_visibility_needed=false, column_shift=0
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
 - Variables triggered: runoff_flow_disruption
 - Lure reasoning:
-- Inline Spinner: It is one of the lead monthly looks for this exact seasonal window. It stays practical in current seams and river lanes when flow still matters. Inline Spinner stays in play when baitfish is relevant.
-- Inline Spinner how: Cast and retrieve at a steady clip just fast enough to keep the blade spinning; vary depth with rod angle and speed to find the feeding zone. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone.
-- Walking Topwater: Walking Topwater stays in play when baitfish is relevant. Even with a little ripple, the surface lane is still open enough to matter. It is one of the lead monthly looks for this exact seasonal window. It gives you a different surface look without leaving today's window.
-- Walking Topwater how: Downrod with light wrist flicks to make it dance; the pause between twitches lets fish track and commit, so give it a beat before the next twitch. Keep it moving on a steady, fishable cadence. Keep it high and over the surface lane.
-- Tube Jig: Tube Jig stays in play when crawfish is relevant. It fits today's upper column preference. It stays high enough in the zone to match the day's more open positioning. It is the cleaner change-up if the lead look does not convert.
-- Tube Jig how: Snap the tube off bottom with short pops so it spirals on the fall, then let it glide back down on slack or semi-slack line. Keep a steady medium cadence. Keep it above cover or along the upper edge of the zone.
+- Inline Spinner: It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window.
+- Inline Spinner how: Cast and retrieve at a steady clip just fast enough to keep the blade spinning; vary depth with rod angle and speed to find the feeding zone. Keep it high in the zone.
+- Walking Topwater: The monthly surface window is still alive today, even with a little ripple on top. It is one of the lead monthly looks for this exact seasonal window. It gives you a different surface look without leaving today's window.
+- Walking Topwater how: Downrod with light wrist flicks to make it dance; the pause between twitches lets fish track and commit, so give it a beat before the next twitch. Keep it on top.
+- Tube Jig: It stays high enough in the zone to match the day's more open positioning. It fits today's upper column preference. It is the cleaner change-up if the lead look does not convert.
+- Tube Jig how: Cast, let it sink, then pop sharply and release line; the tube should corkscrew back to bottom on each drop — keep a watchful eye on the line. Keep it high in the zone.
 - Fly reasoning:
-- Muddler Minnow: It stays high enough in the zone to match the day's more open positioning. It stays practical in current seams and river lanes when flow still matters. Muddler Minnow tracks well when baitfish is a realistic meal.
-- Muddler Minnow how: Skate or wake it in shallow riffles with short strips, or sink and crawl it along bottom with rod-tip leads so the deer hair pushes water. Keep a steady medium cadence. Keep it above cover or along the upper edge of the zone.
-- Zonker Streamer: Zonker Streamer tracks well when baitfish is a realistic meal. It stays practical in current seams and river lanes when flow still matters. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different fly baitfish look without leaving today's window.
-- Zonker Streamer how: Cast across current and strip steadily through the swing; add a momentary deadstop near structure so the wing collapses and then puffs back out. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone.
-- Game Changer: Game Changer tracks well when baitfish is a realistic meal. It fits today's upper column preference. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
-- Game Changer how: Use a mix of steady strips and sharp 6-inch twitches so the jointed body swims and stalls; pause when you see a follow. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone.
+- Zonker Streamer: It stays practical in current seams and river lanes when flow still matters. The month is still baitfish-forward, and this stays inside that search lane.
+- Zonker Streamer how: Strip with a mixed pace — a few short darts, then a longer glide; the rabbit wing wraps on fast strips and flares on the pause for a big profile change. Keep it high in the zone.
+- Popper Fly: The monthly surface window is still alive today, even with a little ripple on top. It is one of the lead monthly looks for this exact seasonal window. It gives you a different fly surface look without leaving today's window.
+- Popper Fly how: Make a sharp strip-pause to spit water, then wait; the longer the pause in the ring, the more time a fish has to rise and commit. Keep it on top.
+- Game Changer: The month is still baitfish-forward, and this stays inside that search lane. It fits today's upper column preference. It is the cleaner change-up if the lead look does not convert.
+- Game Changer how: Retrieve with medium strips, then occasionally rip hard so the body compresses and then springs apart — pause after each hard strip and hold your nerve. Keep it high in the zone.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- NO_TOP1_TIE
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:dark,dark
 - Top 1 verdict:
 - Top 3 verdict:
@@ -3243,49 +3367,53 @@ Actual output:
 - Top 1 lure: Inline Spinner `inline_spinner` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 lures:
 - Inline Spinner `inline_spinner` | theme: `dark` | colors: black, black/blue, black/purple
-- Tube Jig `tube_jig` | theme: `dark` | colors: black, black/blue, black/purple
 - Spinnerbait `spinnerbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Suspending Jerkbait `suspending_jerkbait` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 1 fly: Clouser Minnow `clouser_minnow` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 flies:
 - Clouser Minnow `clouser_minnow` | theme: `dark` | colors: black, black/blue, black/purple
-- Muddler Minnow `muddler_sculpin` | theme: `dark` | colors: black, black/blue, black/purple
-- Woolly Bugger `woolly_bugger` | theme: `dark` | colors: black, black/blue, black/purple
+- Articulated Baitfish Streamer `articulated_baitfish_streamer` | theme: `dark` | colors: black, black/blue, black/purple
+- Game Changer `game_changer` | theme: `dark` | colors: black, black/blue, black/purple
 - Color notes:
 - Daily posture: slightly_suppressed
 - Inline Spinner: dark -> black, black/blue, black/purple
-- Tube Jig: dark -> black, black/blue, black/purple
 - Spinnerbait: dark -> black, black/blue, black/purple
+- Suspending Jerkbait: dark -> black, black/blue, black/purple
 - Clouser Minnow: dark -> black, black/blue, black/purple
-- Muddler Minnow: dark -> black, black/blue, black/purple
-- Woolly Bugger: dark -> black, black/blue, black/purple
+- Articulated Baitfish Streamer: dark -> black, black/blue, black/purple
+- Game Changer: dark -> black, black/blue, black/purple
 - Daily profile notes:
 - Daily posture: slightly_suppressed
-- Daily preference: column=mid, pace=slow, presence=bold
-- Monthly baseline: columns=upper/mid/surface/bottom, paces=medium/fast/slow, presence=moderate/subtle/bold
-- Guardrails: surface_allowed=false, suppress_true_surface=true, suppress_fast_presentations=true, high_visibility_needed=true, column_shift=-1
+- Seasonal source: region=south_central, fallback_used=false
+- Daily preference: column=mid, pace=medium, presence=bold
+- Monthly baseline: columns=surface/upper/mid, paces=medium/fast, presence=subtle/moderate/bold
+- Guardrails: surface_allowed=false, surface_window=closed, suppress_fast_presentations=false, high_visibility_needed=true, column_shift=-1
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
 - Variables triggered: runoff_flow_disruption
 - Daily note: Elevated runoff tightens fish and pulls the day lower and slower.
 - Lure reasoning:
-- Inline Spinner: With true surface suppressed, this keeps you just under the cleaner active lane. Inline Spinner stays in play when baitfish is relevant. It fits today's mid column preference.
-- Inline Spinner how: Cast and retrieve at a steady clip just fast enough to keep the blade spinning; vary depth with rod angle and speed to find the feeding zone. Keep the cadence controlled and add short stalls instead of burning it. Keep it around the middle band of the strike zone. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
-- Tube Jig: With true surface suppressed, this keeps you just under the cleaner active lane. Tube Jig stays in play when crawfish is relevant. It fits today's mid column preference. It gives you a different bottom contact look without leaving today's window.
-- Tube Jig how: Snap the tube off bottom with short pops so it spirals on the fall, then let it glide back down on slack or semi-slack line. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Let it soak a little longer before each move.
-- Spinnerbait: The month is still baitfish-forward, and this stays inside that search lane. With true surface suppressed, this keeps you just under the cleaner active lane. Spinnerbait stays in play when baitfish is relevant. It is the cleaner change-up if the lead look does not convert.
-- Spinnerbait how: Slow-roll it along the bottom edge of cover at a steady pace, keeping the blades just ticking; bump any piece of structure and let it rise. Keep the cadence controlled and add short stalls instead of burning it. Keep it around the middle band of the strike zone. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
+- Inline Spinner: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Inline Spinner how: Use a slow-roll retrieve near bottom or cover edges; occasionally bump into structure to trigger reaction strikes.
+- Spinnerbait: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It gives you a different horizontal search look without leaving today's window.
+- Spinnerbait how: Work it parallel to grass lines or over submerged timber; slow the retrieve near the target and let the head tick the top.
+- Suspending Jerkbait: With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Suspending Jerkbait how: Jerk, jerk, pause. The bait should dart and glide sideways on each twitch; dial the pause length to water temperature — colder means longer.
 - Fly reasoning:
-- Clouser Minnow: It is one of the lead monthly looks for this exact seasonal window. With true surface suppressed, this keeps you just under the cleaner active lane. Clouser Minnow tracks well when baitfish is a realistic meal.
-- Clouser Minnow how: Cast across or slightly downstream, let it jig toward you with short strips so the weighted eyes keep the fly tracking hook-point up. Keep the cadence controlled and add short stalls instead of burning it. Keep it around the middle band of the strike zone. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
-- Muddler Minnow: Muddler Minnow tracks well when baitfish is a realistic meal. With true surface suppressed, this keeps you just under the cleaner active lane. It stays in the middle band where the seasonal setup is most stable today. It gives you a different fly bottom look without leaving today's window.
-- Muddler Minnow how: Skate or wake it in shallow riffles with short strips, or sink and crawl it along bottom with rod-tip leads so the deer hair pushes water. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep it on a clean, trackable line so fish can find it before the next move.
-- Woolly Bugger: It stays in the middle band where the seasonal setup is most stable today. With true surface suppressed, this keeps you just under the cleaner active lane. Woolly Bugger tracks well when leech_worm is a realistic meal. It is the cleaner change-up if the lead look does not convert.
-- Woolly Bugger how: Let it sink to depth then retrieve with slow hand-twists or short strips; the marabou tail breathes best with long pauses at the end of each pull. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep it on a clean, trackable line so fish can find it before the next move.
+- Clouser Minnow: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Clouser Minnow how: Strip in short, consistent pulls so the dumbbell eyes make the fly jig up and down; let it sink between strips to stay hook-point up throughout.
+- Articulated Baitfish Streamer: With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different fly baitfish look without leaving today's window.
+- Articulated Baitfish Streamer how: Work it across current and down with a varied strip cadence; when a fish follows, slow down and kill the retrieve to let the body spiral on the sink.
+- Game Changer: With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- NO_TOP1_TIE
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:dark,dark
 - Top 1 verdict:
 - Top 3 verdict:
@@ -3341,52 +3469,56 @@ Archived env summary:
 - Sunrise/sunset: 07:22 / 19:43
 
 Actual output:
-- Top 1 lure: Tube Jig `tube_jig` | theme: `dark` | colors: black, black/blue, black/purple
+- Top 1 lure: Suspending Jerkbait `suspending_jerkbait` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 lures:
-- Tube Jig `tube_jig` | theme: `dark` | colors: black, black/blue, black/purple
-- Spinnerbait `spinnerbait` | theme: `dark` | colors: black, black/blue, black/purple
 - Suspending Jerkbait `suspending_jerkbait` | theme: `dark` | colors: black, black/blue, black/purple
-- Top 1 fly: Woolly Bugger `woolly_bugger` | theme: `dark` | colors: black, black/blue, black/purple
+- Spinnerbait `spinnerbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Tube Jig `tube_jig` | theme: `dark` | colors: black, black/blue, black/purple
+- Top 1 fly: Clouser Minnow `clouser_minnow` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 flies:
-- Woolly Bugger `woolly_bugger` | theme: `dark` | colors: black, black/blue, black/purple
-- Slim Baitfish Streamer `slim_minnow_streamer` | theme: `dark` | colors: black, black/blue, black/purple
+- Clouser Minnow `clouser_minnow` | theme: `dark` | colors: black, black/blue, black/purple
 - Game Changer `game_changer` | theme: `dark` | colors: black, black/blue, black/purple
+- Slim Baitfish Streamer `slim_minnow_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Color notes:
 - Daily posture: slightly_aggressive
-- Tube Jig: dark -> black, black/blue, black/purple
-- Spinnerbait: dark -> black, black/blue, black/purple
 - Suspending Jerkbait: dark -> black, black/blue, black/purple
-- Woolly Bugger: dark -> black, black/blue, black/purple
-- Slim Baitfish Streamer: dark -> black, black/blue, black/purple
+- Spinnerbait: dark -> black, black/blue, black/purple
+- Tube Jig: dark -> black, black/blue, black/purple
+- Clouser Minnow: dark -> black, black/blue, black/purple
 - Game Changer: dark -> black, black/blue, black/purple
+- Slim Baitfish Streamer: dark -> black, black/blue, black/purple
 - Daily profile notes:
 - Daily posture: slightly_aggressive
-- Daily preference: column=mid, pace=slow, presence=moderate
-- Monthly baseline: columns=upper/mid/surface/bottom, paces=medium/fast/slow, presence=moderate/subtle/bold
-- Guardrails: surface_allowed=false, suppress_true_surface=true, suppress_fast_presentations=false, high_visibility_needed=false, column_shift=-1
+- Seasonal source: region=south_central, fallback_used=false
+- Daily preference: column=mid, pace=medium, presence=moderate
+- Monthly baseline: columns=surface/upper/mid, paces=medium/fast, presence=subtle/moderate/bold
+- Guardrails: surface_allowed=false, surface_window=closed, suppress_fast_presentations=false, high_visibility_needed=false, column_shift=-1
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
 - Variables triggered: light_cloud_condition, runoff_flow_disruption
 - Daily note: Bright light trims the day back toward cleaner looks.
 - Lure reasoning:
-- Tube Jig: With true surface suppressed, this keeps you just under the cleaner active lane. Tube Jig stays in play when crawfish is relevant. It fits today's mid column preference.
-- Tube Jig how: Cast, let it sink, then pop sharply and release line; the tube should corkscrew back to bottom on each drop — keep a watchful eye on the line. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone.
-- Spinnerbait: With true surface suppressed, this keeps you just under the cleaner active lane. Spinnerbait stays in play when baitfish is relevant. It fits today's mid column preference. It gives you a different horizontal search look without leaving today's window.
-- Spinnerbait how: Slow-roll it along the bottom edge of cover at a steady pace, keeping the blades just ticking; bump any piece of structure and let it rise. Keep the cadence controlled and add short stalls instead of burning it. Keep it around the middle band of the strike zone.
-- Suspending Jerkbait: With true surface suppressed, this keeps you just under the cleaner active lane. Suspending Jerkbait stays in play when baitfish is relevant. It fits today's mid column preference. It is the cleaner change-up if the lead look does not convert.
-- Suspending Jerkbait how: Jerk, jerk, pause. The bait should dart and glide sideways on each twitch; dial the pause length to water temperature — colder means longer. Keep the cadence controlled and add short stalls instead of burning it. Keep it around the middle band of the strike zone.
+- Suspending Jerkbait: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Suspending Jerkbait how: Two or three sharp twitches, then let it suspend perfectly still for a full 3-5 count before the next sequence — the pause is everything.
+- Spinnerbait: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It gives you a different horizontal search look without leaving today's window.
+- Spinnerbait how: Work it parallel to grass lines or over submerged timber; slow the retrieve near the target and let the head tick the top.
+- Tube Jig: With the highest lane shut down, this keeps you just under the cleaner active zone. It stays in the middle band where the seasonal setup is most stable today. It is the cleaner change-up if the lead look does not convert.
+- Tube Jig how: Cast, let it sink, then pop sharply and release line; the tube should corkscrew back to bottom on each drop — keep a watchful eye on the line.
 - Fly reasoning:
-- Woolly Bugger: It stays in the middle band where the seasonal setup is most stable today. With true surface suppressed, this keeps you just under the cleaner active lane. Woolly Bugger tracks well when leech_worm is a realistic meal.
-- Woolly Bugger how: Cast across and swing it on a tight line through the drift, then activate on the hang-down with short strips before lifting. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone.
-- Slim Baitfish Streamer: It is one of the lead monthly looks for this exact seasonal window. With true surface suppressed, this keeps you just under the cleaner active lane. Slim Baitfish Streamer tracks well when baitfish is a realistic meal. It gives you a different fly baitfish look without leaving today's window.
-- Slim Baitfish Streamer how: Retrieve with a mix of short darts and longer glides; the thin profile tracks like a small minnow on a tight line. Keep the cadence controlled and add short stalls instead of burning it. Keep it around the middle band of the strike zone.
-- Game Changer: With true surface suppressed, this keeps you just under the cleaner active lane. Game Changer tracks well when baitfish is a realistic meal. It fits today's mid column preference. It is the cleaner change-up if the lead look does not convert.
-- Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink. Keep the cadence controlled and add short stalls instead of burning it. Keep it around the middle band of the strike zone.
+- Clouser Minnow: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Clouser Minnow how: Cast across or slightly downstream, let it jig toward you with short strips so the weighted eyes keep the fly tracking hook-point up.
+- Game Changer: With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different fly baitfish look without leaving today's window.
+- Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink.
+- Slim Baitfish Streamer: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Slim Baitfish Streamer how: Fish it on a dead-drift through seams, then activate with quick strips near holding structure; the slim silhouette works best in clear water at a measured pace.
 
 Review:
 - Precheck flags:
-- TOP1_PRIMARY_MISS
+- TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- NO_TOP1_TIE
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:dark,dark
 - Top 1 verdict:
 - Top 3 verdict:
@@ -3442,53 +3574,57 @@ Archived env summary:
 - Sunrise/sunset: 07:44 / 19:04
 
 Actual output:
-- Top 1 lure: Blade Bait `blade_bait` | theme: `dark` | colors: black, black/blue, black/purple
+- Top 1 lure: Suspending Jerkbait `suspending_jerkbait` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 lures:
-- Blade Bait `blade_bait` | theme: `dark` | colors: black, black/blue, black/purple
-- Tube Jig `tube_jig` | theme: `dark` | colors: black, black/blue, black/purple
+- Suspending Jerkbait `suspending_jerkbait` | theme: `dark` | colors: black, black/blue, black/purple
 - Spinnerbait `spinnerbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 1 fly: Woolly Bugger `woolly_bugger` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 flies:
 - Woolly Bugger `woolly_bugger` | theme: `dark` | colors: black, black/blue, black/purple
-- Clouser Minnow `clouser_minnow` | theme: `dark` | colors: black, black/blue, black/purple
+- Slim Baitfish Streamer `slim_minnow_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Game Changer `game_changer` | theme: `dark` | colors: black, black/blue, black/purple
 - Color notes:
 - Daily posture: aggressive
-- Blade Bait: dark -> black, black/blue, black/purple
-- Tube Jig: dark -> black, black/blue, black/purple
+- Suspending Jerkbait: dark -> black, black/blue, black/purple
 - Spinnerbait: dark -> black, black/blue, black/purple
+- Paddle-Tail Swimbait: dark -> black, black/blue, black/purple
 - Woolly Bugger: dark -> black, black/blue, black/purple
-- Clouser Minnow: dark -> black, black/blue, black/purple
+- Slim Baitfish Streamer: dark -> black, black/blue, black/purple
 - Game Changer: dark -> black, black/blue, black/purple
 - Daily profile notes:
 - Daily posture: aggressive
-- Daily preference: column=bottom, pace=slow, presence=moderate
-- Monthly baseline: columns=mid/bottom/upper, paces=medium/slow/fast, presence=moderate/subtle/bold
-- Guardrails: surface_allowed=false, suppress_true_surface=true, suppress_fast_presentations=false, high_visibility_needed=false, column_shift=-1
+- Seasonal source: region=south_central, fallback_used=false
+- Daily preference: column=mid, pace=slow, presence=moderate
+- Monthly baseline: columns=upper/mid/bottom, paces=slow/medium/fast, presence=subtle/moderate/bold
+- Guardrails: surface_allowed=true, surface_window=rippled, suppress_fast_presentations=false, high_visibility_needed=false, column_shift=0
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
 - Variables triggered: temperature_trend, light_cloud_condition, wind_condition, runoff_flow_disruption
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
 - Daily note: Bright light trims the day back toward cleaner looks.
 - Lure reasoning:
-- Blade Bait: Blade Bait stays in play when baitfish is relevant. With true surface suppressed, this keeps you just under the cleaner active lane. The month is still baitfish-forward, and this stays inside that search lane.
-- Blade Bait how: Cast and hop it off bottom with quick wrist snaps, counting the flutter back down; strikes usually come on the fall, so stay in contact with semi-tight line. Keep the cadence controlled and add short stalls instead of burning it. Keep it around the lower part of the productive zone.
-- Tube Jig: Tube Jig stays in play when crawfish is relevant. With true surface suppressed, this keeps you just under the cleaner active lane. It lines up with today's slow pace preference. It gives you a different bottom contact look without leaving today's window.
-- Tube Jig how: Hop it erratically off the bottom with sharp pops, then open the bail slightly so it spirals down freely; strikes happen on that spinning fall. Slow down and leave more dead time between moves. Keep it above cover or along the upper edge of the zone.
-- Spinnerbait: Spinnerbait stays in play when baitfish is relevant. With true surface suppressed, this keeps you just under the cleaner active lane. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
-- Spinnerbait how: Slow-roll it along the bottom edge of cover at a steady pace, keeping the blades just ticking; bump any piece of structure and let it rise. Keep the cadence controlled and add short stalls instead of burning it. Keep it above cover or along the upper edge of the zone.
+- Suspending Jerkbait: It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window.
+- Suspending Jerkbait how: Two or three sharp twitches, then let it suspend perfectly still for a full 3-5 count before the next sequence — the pause is everything. Slow down and lengthen the pause.
+- Spinnerbait: It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window. It gives you a different horizontal search look without leaving today's window.
+- Spinnerbait how: Work it parallel to grass lines or over submerged timber; slow the retrieve near the target and let the head tick the top. Slow down and lengthen the pause.
+- Paddle-Tail Swimbait: It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Paddle-Tail Swimbait how: Slow-roll near the bottom on a consistent retrieve; the paddle thumps best just barely above the substrate, so keep the rod tip down and the pace even. Slow down and lengthen the pause.
 - Fly reasoning:
-- Woolly Bugger: With true surface suppressed, this keeps you just under the cleaner active lane. Woolly Bugger tracks well when leech_worm is a realistic meal. It fits today's bottom column preference.
-- Woolly Bugger how: Cast across and swing it on a tight line through the drift, then activate on the hang-down with short strips before lifting. Slow down and leave more dead time between moves. Keep it around the lower part of the productive zone.
-- Clouser Minnow: With true surface suppressed, this keeps you just under the cleaner active lane. Clouser Minnow tracks well when baitfish is a realistic meal. It fits today's bottom column preference. It gives you a different fly baitfish look without leaving today's window.
-- Clouser Minnow how: Cast across or slightly downstream, let it jig toward you with short strips so the weighted eyes keep the fly tracking hook-point up. Keep the cadence controlled and add short stalls instead of burning it. Keep it around the lower part of the productive zone.
-- Game Changer: The month is still baitfish-forward, and this stays inside that search lane. With true surface suppressed, this keeps you just under the cleaner active lane. Game Changer tracks well when baitfish is a realistic meal. It is the cleaner change-up if the lead look does not convert.
-- Game Changer how: Retrieve with medium strips, then occasionally rip hard so the body compresses and then springs apart — pause after each hard strip and hold your nerve. Keep the cadence controlled and add short stalls instead of burning it. Keep it above cover or along the upper edge of the zone.
+- Woolly Bugger: It stays practical in current seams and river lanes when flow still matters. It stays in the middle band where the seasonal setup is most stable today.
+- Woolly Bugger how: Let it sink to depth then retrieve with slow hand-twists or short strips; the marabou tail breathes best with long pauses at the end of each pull. Slow down and lengthen the pause.
+- Slim Baitfish Streamer: It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window. It gives you a different fly baitfish look without leaving today's window.
+- Slim Baitfish Streamer how: Retrieve with a mix of short darts and longer glides; the thin profile tracks like a small minnow on a tight line. Slow down and lengthen the pause.
+- Game Changer: A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Game Changer how: Retrieve with medium strips, then occasionally rip hard so the body compresses and then springs apart — pause after each hard strip and hold your nerve. Slow down and lengthen the pause.
 
 Review:
 - Precheck flags:
-- TOP1_PRIMARY_MISS
+- TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- NO_TOP1_TIE
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:dark,dark
 - Top 1 verdict:
 - Top 3 verdict:
@@ -3544,53 +3680,57 @@ Archived env summary:
 - Sunrise/sunset: 07:10 / 17:35
 
 Actual output:
-- Top 1 lure: Blade Bait `blade_bait` | theme: `dark` | colors: black, black/blue, black/purple
+- Top 1 lure: Suspending Jerkbait `suspending_jerkbait` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 lures:
-- Blade Bait `blade_bait` | theme: `dark` | colors: black, black/blue, black/purple
+- Suspending Jerkbait `suspending_jerkbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Spinnerbait `spinnerbait` | theme: `dark` | colors: black, black/blue, black/purple
 - Hair Jig `hair_jig` | theme: `dark` | colors: black, black/blue, black/purple
-- Inline Spinner `inline_spinner` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 1 fly: Woolly Bugger `woolly_bugger` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 flies:
 - Woolly Bugger `woolly_bugger` | theme: `dark` | colors: black, black/blue, black/purple
+- Slim Baitfish Streamer `slim_minnow_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Sculpin Streamer `sculpin_streamer` | theme: `dark` | colors: black, black/blue, black/purple
-- Balanced Leech `balanced_leech` | theme: `dark` | colors: black, black/blue, black/purple
 - Color notes:
 - Daily posture: aggressive
-- Blade Bait: dark -> black, black/blue, black/purple
+- Suspending Jerkbait: dark -> black, black/blue, black/purple
+- Spinnerbait: dark -> black, black/blue, black/purple
 - Hair Jig: dark -> black, black/blue, black/purple
-- Inline Spinner: dark -> black, black/blue, black/purple
 - Woolly Bugger: dark -> black, black/blue, black/purple
+- Slim Baitfish Streamer: dark -> black, black/blue, black/purple
 - Sculpin Streamer: dark -> black, black/blue, black/purple
-- Balanced Leech: dark -> black, black/blue, black/purple
 - Daily profile notes:
 - Daily posture: aggressive
-- Daily preference: column=bottom, pace=slow, presence=moderate
-- Monthly baseline: columns=mid/bottom/upper, paces=medium/slow/fast, presence=moderate/subtle/bold
-- Guardrails: surface_allowed=false, suppress_true_surface=true, suppress_fast_presentations=false, high_visibility_needed=false, column_shift=-1
+- Seasonal source: region=south_central, fallback_used=false
+- Daily preference: column=mid, pace=slow, presence=moderate
+- Monthly baseline: columns=upper/mid/bottom, paces=slow/medium/fast, presence=subtle/moderate/bold
+- Guardrails: surface_allowed=true, surface_window=rippled, suppress_fast_presentations=false, high_visibility_needed=false, column_shift=0
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
 - Variables triggered: temperature_trend, light_cloud_condition, wind_condition, runoff_flow_disruption
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
 - Daily note: Bright light trims the day back toward cleaner looks.
 - Lure reasoning:
-- Blade Bait: With true surface suppressed, this keeps you just under the cleaner active lane. Blade Bait stays in play when baitfish is relevant. It fits today's bottom column preference.
-- Blade Bait how: Cast and hop it off bottom with quick wrist snaps, counting the flutter back down; strikes usually come on the fall, so stay in contact with semi-tight line. Keep the cadence controlled and add short stalls instead of burning it. Keep it around the lower part of the productive zone.
-- Hair Jig: With true surface suppressed, this keeps you just under the cleaner active lane. Hair Jig stays in play when baitfish is relevant. It lines up with today's slow pace preference. It gives you a different finesse subtle look without leaving today's window.
-- Hair Jig how: Fish it on a tight line at slow speed — the hair works best with tiny line pulses rather than big lifts; let it hang in the current or slack zone. Slow down and leave more dead time between moves. Keep it above cover or along the upper edge of the zone.
-- Inline Spinner: With true surface suppressed, this keeps you just under the cleaner active lane. Inline Spinner stays in play when baitfish is relevant. It matches today's moderate presence lane. It is the cleaner change-up if the lead look does not convert.
-- Inline Spinner how: Cast across current and let the blade flash on a quarter-downstream retrieve; speed up briefly after bumps or short strikes. Keep the cadence controlled and add short stalls instead of burning it. Keep it above cover or along the upper edge of the zone.
+- Suspending Jerkbait: It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window.
+- Suspending Jerkbait how: Two or three sharp twitches, then let it suspend perfectly still for a full 3-5 count before the next sequence — the pause is everything. Slow down and lengthen the pause.
+- Spinnerbait: It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window. It gives you a different horizontal search look without leaving today's window.
+- Spinnerbait how: Work it parallel to grass lines or over submerged timber; slow the retrieve near the target and let the head tick the top. Slow down and lengthen the pause.
+- Hair Jig: A warming trend nudges fish slightly higher in the allowed range. It stays in the middle band where the seasonal setup is most stable today. It is the cleaner change-up if the lead look does not convert.
+- Hair Jig how: Swing it through current seams or drop it in pockets with minimal movement; let the marabou breathe in place before slowly pulling it along. Slow down and lengthen the pause.
 - Fly reasoning:
-- Woolly Bugger: It is one of the lead monthly looks for this exact seasonal window. With true surface suppressed, this keeps you just under the cleaner active lane. Woolly Bugger tracks well when leech_worm is a realistic meal.
-- Woolly Bugger how: Cast across and swing it on a tight line through the drift, then activate on the hang-down with short strips before lifting. Slow down and leave more dead time between moves. Keep it around the lower part of the productive zone.
-- Sculpin Streamer: Sculpin Streamer tracks well when baitfish is a realistic meal. It stays practical in current seams and river lanes when flow still matters. It stays low in the zone where this day still wants fish to hold. It gives you a different fly bottom look without leaving today's window.
-- Sculpin Streamer how: Bump bottom with short strips and let the fly tick along rocks; keep tension so you feel every stop against structure. Slow down and leave more dead time between moves. Keep it around the lower part of the productive zone.
-- Balanced Leech: Balanced Leech tracks well when leech_worm is a realistic meal. With true surface suppressed, this keeps you just under the cleaner active lane. It stays low in the zone where this day still wants fish to hold. It is the cleaner change-up if the lead look does not convert.
-- Balanced Leech how: Count it down to the level you want, then use a very slow strip-pause cadence so the fly hangs horizontally through the zone. Slow down and leave more dead time between moves. Keep it around the lower part of the productive zone.
+- Woolly Bugger: It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window.
+- Woolly Bugger how: Let it sink to depth then retrieve with slow hand-twists or short strips; the marabou tail breathes best with long pauses at the end of each pull. Slow down and lengthen the pause.
+- Slim Baitfish Streamer: It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window. It gives you a different fly baitfish look without leaving today's window.
+- Slim Baitfish Streamer how: Retrieve with a mix of short darts and longer glides; the thin profile tracks like a small minnow on a tight line. Slow down and lengthen the pause.
+- Sculpin Streamer: It stays practical in current seams and river lanes when flow still matters. Sculpin Streamer tracks well when baitfish is a realistic meal. It is the cleaner change-up if the lead look does not convert.
+- Sculpin Streamer how: Inch it along the bottom with tight-line strips; sculpin barely swim, so keep the fly close to the substrate and use current for most of the motion. Slow down and lengthen the pause.
 
 Review:
 - Precheck flags:
-- TOP1_PRIMARY_MISS
-- TOP3_PRIMARY_MISSING
+- TOP1_PRIMARY_HIT
+- TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- NO_TOP1_TIE
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:dark,dark
 - Top 1 verdict:
 - Top 3 verdict:
@@ -3648,53 +3788,57 @@ Archived env summary:
 - Sunrise/sunset: 07:35 / 17:27
 
 Actual output:
-- Top 1 lure: Hair Jig `hair_jig` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Top 1 lure: Tube Jig `tube_jig` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Top 3 lures:
-- Hair Jig `hair_jig` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
-- Blade Bait `blade_bait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Tube Jig `tube_jig` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Blade Bait `blade_bait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Hair Jig `hair_jig` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Top 1 fly: Woolly Bugger `woolly_bugger` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Top 3 flies:
 - Woolly Bugger `woolly_bugger` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
-- Sculpin Streamer `sculpin_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Conehead Streamer `conehead_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Sculpin Streamer `sculpin_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Color notes:
 - Daily posture: aggressive
-- Hair Jig: bright -> white/chartreuse, chartreuse, firetiger
-- Blade Bait: bright -> white/chartreuse, chartreuse, firetiger
 - Tube Jig: bright -> white/chartreuse, chartreuse, firetiger
+- Blade Bait: bright -> white/chartreuse, chartreuse, firetiger
+- Hair Jig: bright -> white/chartreuse, chartreuse, firetiger
 - Woolly Bugger: bright -> white/chartreuse, chartreuse, firetiger
-- Sculpin Streamer: bright -> white/chartreuse, chartreuse, firetiger
 - Conehead Streamer: bright -> white/chartreuse, chartreuse, firetiger
+- Sculpin Streamer: bright -> white/chartreuse, chartreuse, firetiger
 - Daily profile notes:
 - Daily posture: aggressive
+- Seasonal source: region=south_central, fallback_used=false
 - Daily preference: column=mid, pace=slow, presence=moderate
-- Monthly baseline: columns=bottom/mid/upper, paces=slow/medium, presence=subtle/moderate
-- Guardrails: surface_allowed=true, suppress_true_surface=false, suppress_fast_presentations=false, high_visibility_needed=true, column_shift=1
+- Monthly baseline: columns=mid/bottom, paces=slow/medium, presence=subtle/moderate
+- Guardrails: surface_allowed=true, surface_window=rippled, suppress_fast_presentations=false, high_visibility_needed=true, column_shift=1
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
 - Variables triggered: temperature_trend, light_cloud_condition, wind_condition, runoff_flow_disruption
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Lure reasoning:
-- Hair Jig: It is one of the lead monthly looks for this exact seasonal window. A warming trend nudges fish slightly higher in the allowed range. Hair Jig stays in play when baitfish is relevant.
-- Hair Jig how: Swing it through current seams or drop it in pockets with minimal movement; let the marabou breathe in place before slowly pulling it along. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep it on a clean, trackable line so fish can find it before the next move.
-- Blade Bait: A warming trend nudges fish slightly higher in the allowed range. Blade Bait stays in play when baitfish is relevant. It fits today's mid column preference. It gives you a different reaction mid column look without leaving today's window.
-- Blade Bait how: Cast and hop it off bottom with quick wrist snaps, counting the flutter back down; strikes usually come on the fall, so stay in contact with semi-tight line. Keep the cadence controlled and add short stalls instead of burning it. Keep it around the middle band of the strike zone. Start on wind-blown edges or the first active cover line and let it cover water.
-- Tube Jig: Tube Jig stays in play when crawfish is relevant. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
-- Tube Jig how: Cast, let it sink, then pop sharply and release line; the tube should corkscrew back to bottom on each drop — keep a watchful eye on the line. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep it on a clean, trackable line so fish can find it before the next move.
+- Tube Jig: A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
+- Tube Jig how: Hop it erratically off the bottom with sharp pops, then open the bail slightly so it spirals down freely; strikes happen on that spinning fall. Slow down and lengthen the pause.
+- Blade Bait: A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different reaction mid column look without leaving today's window.
+- Blade Bait how: Vertical jig it with short, sharp hops over suspended fish; the flutter-fall is the presentation — set hard the moment you feel weight. Slow down and lengthen the pause.
+- Hair Jig: A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Hair Jig how: Fish it on a tight line at slow speed — the hair works best with tiny line pulses rather than big lifts; let it hang in the current or slack zone. Slow down and lengthen the pause.
 - Fly reasoning:
-- Woolly Bugger: It stays practical in current seams and river lanes when flow still matters. Woolly Bugger tracks well when leech_worm is a realistic meal. It fits today's mid column preference.
-- Woolly Bugger how: Fish it on a dead-drift near the bottom, then come alive with a strip-pause retrieve through prime holding water; let the tail do most of the work. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep it on a clean, trackable line so fish can find it before the next move.
-- Sculpin Streamer: It is one of the lead monthly looks for this exact seasonal window. It stays practical in current seams and river lanes when flow still matters. Sculpin Streamer tracks well when baitfish is a realistic meal. It gives you a different fly bottom look without leaving today's window.
-- Sculpin Streamer how: Inch it along the bottom with tight-line strips; sculpin barely swim, so keep the fly close to the substrate and use current for most of the motion. Slow down and leave more dead time between moves. Keep it around the lower part of the productive zone. Keep it on a clean, trackable line so fish can find it before the next move.
-- Conehead Streamer: Reduced visibility supports a stronger profile fish can find more easily. Conehead Streamer tracks well when baitfish is a realistic meal. It lines up with today's slow pace preference. It is the cleaner change-up if the lead look does not convert.
-- Conehead Streamer how: Cast across or down, let it sink to depth, then strip with a jig-like cadence where the cone tips the fly nose-down on each pause. Slow down and leave more dead time between moves. Keep it around the lower part of the productive zone. Keep it on a clean, trackable line so fish can find it before the next move.
+- Woolly Bugger: It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window.
+- Woolly Bugger how: Cast across and swing it on a tight line through the drift, then activate on the hang-down with short strips before lifting. Slow down and lengthen the pause.
+- Conehead Streamer: Reduced visibility supports a stronger profile fish can find more easily. Conehead Streamer tracks well when baitfish is a realistic meal. It gives you a different fly bottom look without leaving today's window.
+- Conehead Streamer how: Strip with consistent medium pulls; the cone keeps the fly diving nose-first on each retrieve, so use pauses to let it hunt and settle before the next strip. Slow down and lengthen the pause.
+- Sculpin Streamer: It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Sculpin Streamer how: Cast upstream and mend for a natural drift, then activate with short strips that make the fly bumble over the bottom like a sculpin retreating. Slow down and lengthen the pause.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- NO_TOP1_TIE
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:bright,bright
 - Top 1 verdict:
 - Top 3 verdict:
@@ -3737,7 +3881,7 @@ Expected color themes:
 - dark
 
 Archived env summary:
-- Region: great_lakes_upper_midwest
+- Region: northeast
 - Archive weather timezone: America/New_York
 - Noon air temp: 18.4 F
 - Noon pressure: 1010.2 mb
@@ -3749,53 +3893,57 @@ Archived env summary:
 - Sunrise/sunset: 07:33 / 17:06
 
 Actual output:
-- Top 1 lure: Hair Jig `hair_jig` | theme: `dark` | colors: black, black/blue, black/purple
+- Top 1 lure: Tube Jig `tube_jig` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 lures:
-- Hair Jig `hair_jig` | theme: `dark` | colors: black, black/blue, black/purple
 - Tube Jig `tube_jig` | theme: `dark` | colors: black, black/blue, black/purple
-- Drop-Shot Minnow `drop_shot_minnow` | theme: `dark` | colors: black, black/blue, black/purple
-- Top 1 fly: Woolly Bugger `woolly_bugger` | theme: `dark` | colors: black, black/blue, black/purple
+- Hair Jig `hair_jig` | theme: `dark` | colors: black, black/blue, black/purple
+- Drop-Shot Worm `drop_shot_worm` | theme: `dark` | colors: black, black/blue, black/purple
+- Top 1 fly: Sculpin Streamer `sculpin_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 flies:
-- Woolly Bugger `woolly_bugger` | theme: `dark` | colors: black, black/blue, black/purple
 - Sculpin Streamer `sculpin_streamer` | theme: `dark` | colors: black, black/blue, black/purple
+- Woolly Bugger `woolly_bugger` | theme: `dark` | colors: black, black/blue, black/purple
 - Conehead Streamer `conehead_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Color notes:
 - Daily posture: neutral
-- Hair Jig: dark -> black, black/blue, black/purple
 - Tube Jig: dark -> black, black/blue, black/purple
-- Drop-Shot Minnow: dark -> black, black/blue, black/purple
-- Woolly Bugger: dark -> black, black/blue, black/purple
+- Hair Jig: dark -> black, black/blue, black/purple
+- Drop-Shot Worm: dark -> black, black/blue, black/purple
 - Sculpin Streamer: dark -> black, black/blue, black/purple
+- Woolly Bugger: dark -> black, black/blue, black/purple
 - Conehead Streamer: dark -> black, black/blue, black/purple
 - Daily profile notes:
 - Daily posture: neutral
-- Daily preference: column=mid, pace=slow, presence=subtle
-- Monthly baseline: columns=bottom/mid/upper, paces=slow/medium, presence=subtle/moderate
-- Guardrails: surface_allowed=true, suppress_true_surface=false, suppress_fast_presentations=false, high_visibility_needed=false, column_shift=1
+- Seasonal source: region=northeast, fallback_used=false
+- Daily preference: column=bottom, pace=slow, presence=subtle
+- Monthly baseline: columns=mid/bottom, paces=slow/medium, presence=subtle/moderate
+- Guardrails: surface_allowed=true, surface_window=clean, suppress_fast_presentations=false, high_visibility_needed=false, column_shift=-1
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
 - Variables triggered: temperature_metabolic_context, light_cloud_condition, wind_condition, runoff_flow_disruption
-- Daily note: Temperature metabolism suppresses the day and favors slower execution.
+- Daily note: Cold metabolism shuts down activity. Slow and low is the only play.
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Lure reasoning:
-- Hair Jig: Hair Jig stays in play when baitfish is relevant. Temperature metabolism suppresses the day and favors slower execution. It is one of the lead monthly looks for this exact seasonal window.
-- Hair Jig how: Swing it through current seams or drop it in pockets with minimal movement; let the marabou breathe in place before slowly pulling it along. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
-- Tube Jig: It is one of the lead monthly looks for this exact seasonal window. Temperature metabolism suppresses the day and favors slower execution. Tube Jig stays in play when crawfish is relevant. It gives you a different bottom contact look without leaving today's window.
-- Tube Jig how: Cast, let it sink, then pop sharply and release line; the tube should corkscrew back to bottom on each drop — keep a watchful eye on the line. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
-- Drop-Shot Minnow: Temperature metabolism suppresses the day and favors slower execution. Drop-Shot Minnow stays in play when baitfish is relevant. It fits today's mid column preference. It is the cleaner change-up if the lead look does not convert.
-- Drop-Shot Minnow how: Hold the weight down and pulse the rod tip lightly; the minnow should quiver in place, then glide a few inches before the next shake. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
+- Tube Jig: Cold metabolism shuts down activity. Slow and low is the only play. It is one of the lead monthly looks for this exact seasonal window.
+- Tube Jig how: Snap the tube off bottom with short pops so it spirals on the fall, then let it glide back down on slack or semi-slack line. Slow down and lengthen the pause.
+- Hair Jig: Cold metabolism shuts down activity. Slow and low is the only play. It is one of the lead monthly looks for this exact seasonal window. It gives you a different finesse subtle look without leaving today's window.
+- Hair Jig how: Fish it on a tight line at slow speed — the hair works best with tiny line pulses rather than big lifts; let it hang in the current or slack zone. Slow down and lengthen the pause.
+- Drop-Shot Worm: Cold metabolism shuts down activity. Slow and low is the only play. It stays low in the zone where this day still wants fish to hold. It is the cleaner change-up if the lead look does not convert.
+- Drop-Shot Worm how: Shake in place with light tension, then pause completely and let the worm hang still; most bites come when the bait barely moves at all. Slow down and lengthen the pause.
 - Fly reasoning:
-- Woolly Bugger: It stays practical in current seams and river lanes when flow still matters. Woolly Bugger tracks well when leech_worm is a realistic meal. It fits today's mid column preference.
-- Woolly Bugger how: Cast across and swing it on a tight line through the drift, then activate on the hang-down with short strips before lifting. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
-- Sculpin Streamer: It is one of the lead monthly looks for this exact seasonal window. It stays practical in current seams and river lanes when flow still matters. Sculpin Streamer tracks well when baitfish is a realistic meal. It gives you a different fly bottom look without leaving today's window.
-- Sculpin Streamer how: Inch it along the bottom with tight-line strips; sculpin barely swim, so keep the fly close to the substrate and use current for most of the motion. Slow down and leave more dead time between moves. Keep it around the lower part of the productive zone. Keep the presentation clean and resist overworking it.
-- Conehead Streamer: It stays practical in current seams and river lanes when flow still matters. Conehead Streamer tracks well when baitfish is a realistic meal. It lines up with today's slow pace preference. It is the cleaner change-up if the lead look does not convert.
-- Conehead Streamer how: Cast across or down, let it sink to depth, then strip with a jig-like cadence where the cone tips the fly nose-down on each pause. Slow down and leave more dead time between moves. Keep it around the lower part of the productive zone. Keep the presentation clean and resist overworking it.
+- Sculpin Streamer: It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window.
+- Sculpin Streamer how: Bump bottom with short strips and let the fly tick along rocks; keep tension so you feel every stop against structure. Slow down and lengthen the pause.
+- Woolly Bugger: It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window. It gives you a different fly bottom look without leaving today's window.
+- Woolly Bugger how: Cast across and swing it on a tight line through the drift, then activate on the hang-down with short strips before lifting. Slow down and lengthen the pause.
+- Conehead Streamer: It stays practical in current seams and river lanes when flow still matters. It stays low in the zone where this day still wants fish to hold. It is the cleaner change-up if the lead look does not convert.
+- Conehead Streamer how: Cast across or down, let it sink to depth, then strip with a jig-like cadence where the cone tips the fly nose-down on each pause. Slow down and lengthen the pause.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- NO_TOP1_TIE
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:dark,dark
 - Top 1 verdict:
 - Top 3 verdict:
@@ -3839,7 +3987,7 @@ Expected color themes:
 - dark
 
 Archived env summary:
-- Region: great_lakes_upper_midwest
+- Region: northeast
 - Archive weather timezone: America/New_York
 - Noon air temp: 13.6 F
 - Noon pressure: 1030.2 mb
@@ -3851,55 +3999,59 @@ Archived env summary:
 - Sunrise/sunset: 06:58 / 17:49
 
 Actual output:
-- Top 1 lure: Hair Jig `hair_jig` | theme: `dark` | colors: black, black/blue, black/purple
+- Top 1 lure: Tube Jig `tube_jig` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 lures:
-- Hair Jig `hair_jig` | theme: `dark` | colors: black, black/blue, black/purple
 - Tube Jig `tube_jig` | theme: `dark` | colors: black, black/blue, black/purple
-- Blade Bait `blade_bait` | theme: `dark` | colors: black, black/blue, black/purple
-- Top 1 fly: Woolly Bugger `woolly_bugger` | theme: `dark` | colors: black, black/blue, black/purple
+- Inline Spinner `inline_spinner` | theme: `dark` | colors: black, black/blue, black/purple
+- Suspending Jerkbait `suspending_jerkbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Top 1 fly: Clouser Minnow `clouser_minnow` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 flies:
+- Clouser Minnow `clouser_minnow` | theme: `dark` | colors: black, black/blue, black/purple
 - Woolly Bugger `woolly_bugger` | theme: `dark` | colors: black, black/blue, black/purple
-- Sculpin Streamer `sculpin_streamer` | theme: `dark` | colors: black, black/blue, black/purple
-- Conehead Streamer `conehead_streamer` | theme: `dark` | colors: black, black/blue, black/purple
+- Crawfish Streamer `crawfish_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Color notes:
 - Daily posture: neutral
-- Hair Jig: dark -> black, black/blue, black/purple
 - Tube Jig: dark -> black, black/blue, black/purple
-- Blade Bait: dark -> black, black/blue, black/purple
+- Inline Spinner: dark -> black, black/blue, black/purple
+- Suspending Jerkbait: dark -> black, black/blue, black/purple
+- Clouser Minnow: dark -> black, black/blue, black/purple
 - Woolly Bugger: dark -> black, black/blue, black/purple
-- Sculpin Streamer: dark -> black, black/blue, black/purple
-- Conehead Streamer: dark -> black, black/blue, black/purple
+- Crawfish Streamer: dark -> black, black/blue, black/purple
 - Daily profile notes:
 - Daily posture: neutral
-- Daily preference: column=mid, pace=slow, presence=moderate
-- Monthly baseline: columns=bottom/mid/upper, paces=slow/medium, presence=subtle/moderate
-- Guardrails: surface_allowed=true, suppress_true_surface=false, suppress_fast_presentations=false, high_visibility_needed=true, column_shift=1
+- Seasonal source: region=northeast, fallback_used=false
+- Daily preference: column=mid, pace=slow, presence=bold
+- Monthly baseline: columns=upper/mid/bottom, paces=slow/medium/fast, presence=subtle/moderate/bold
+- Guardrails: surface_allowed=true, surface_window=clean, suppress_fast_presentations=false, high_visibility_needed=true, column_shift=0
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
 - Variables triggered: temperature_metabolic_context, temperature_trend, light_cloud_condition, wind_condition, runoff_flow_disruption
-- Daily note: Temperature metabolism suppresses the day and favors slower execution.
+- Daily note: Cold metabolism shuts down activity. Slow and low is the only play.
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Daily note: Slightly elevated runoff supports a more visible river presentation.
 - Lure reasoning:
-- Hair Jig: Hair Jig stays in play when baitfish is relevant. Temperature metabolism suppresses the day and favors slower execution. It is one of the lead monthly looks for this exact seasonal window.
-- Hair Jig how: Fish it on a tight line at slow speed — the hair works best with tiny line pulses rather than big lifts; let it hang in the current or slack zone. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep it on a clean, trackable line so fish can find it before the next move.
-- Tube Jig: Temperature metabolism suppresses the day and favors slower execution. Tube Jig stays in play when crawfish is relevant. It fits today's mid column preference. It gives you a different bottom contact look without leaving today's window.
-- Tube Jig how: Hop it erratically off the bottom with sharp pops, then open the bail slightly so it spirals down freely; strikes happen on that spinning fall. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep it on a clean, trackable line so fish can find it before the next move.
-- Blade Bait: The month is still baitfish-forward, and this stays inside that search lane. Slightly elevated runoff supports a more visible river presentation. Blade Bait stays in play when baitfish is relevant. It is the cleaner change-up if the lead look does not convert.
-- Blade Bait how: Vertical jig it with short, sharp hops over suspended fish; the flutter-fall is the presentation — set hard the moment you feel weight. Keep the cadence controlled and add short stalls instead of burning it. Keep it around the middle band of the strike zone. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
+- Tube Jig: Cold metabolism shuts down activity. Slow and low is the only play. It is one of the lead monthly looks for this exact seasonal window.
+- Tube Jig how: Hop it erratically off the bottom with sharp pops, then open the bail slightly so it spirals down freely; strikes happen on that spinning fall. Slow down and lengthen the pause.
+- Inline Spinner: Slightly elevated runoff supports a more visible river presentation. It stays in the middle band where the seasonal setup is most stable today. It gives you a different horizontal search look without leaving today's window.
+- Inline Spinner how: Use a slow-roll retrieve near bottom or cover edges; occasionally bump into structure to trigger reaction strikes. Slow down and lengthen the pause.
+- Suspending Jerkbait: Slightly elevated runoff supports a more visible river presentation. It stays in the middle band where the seasonal setup is most stable today. It is the cleaner change-up if the lead look does not convert.
+- Suspending Jerkbait how: Jerk, jerk, pause. The bait should dart and glide sideways on each twitch; dial the pause length to water temperature — colder means longer. Slow down and lengthen the pause.
 - Fly reasoning:
-- Woolly Bugger: Woolly Bugger tracks well when leech_worm is a realistic meal. Slightly elevated runoff supports a more visible river presentation. It is one of the lead monthly looks for this exact seasonal window.
-- Woolly Bugger how: Cast across and swing it on a tight line through the drift, then activate on the hang-down with short strips before lifting. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep it on a clean, trackable line so fish can find it before the next move.
-- Sculpin Streamer: Slightly elevated runoff supports a more visible river presentation. Sculpin Streamer tracks well when baitfish is a realistic meal. It lines up with today's slow pace preference. It gives you a different fly bottom look without leaving today's window.
-- Sculpin Streamer how: Cast upstream and mend for a natural drift, then activate with short strips that make the fly bumble over the bottom like a sculpin retreating. Slow down and leave more dead time between moves. Keep it around the lower part of the productive zone. Keep it on a clean, trackable line so fish can find it before the next move.
-- Conehead Streamer: Conehead Streamer tracks well when baitfish is a realistic meal. Slightly elevated runoff supports a more visible river presentation. It lines up with today's slow pace preference. It is the cleaner change-up if the lead look does not convert.
-- Conehead Streamer how: Strip with consistent medium pulls; the cone keeps the fly diving nose-first on each retrieve, so use pauses to let it hunt and settle before the next strip. Slow down and leave more dead time between moves. Keep it around the lower part of the productive zone. Keep it on a clean, trackable line so fish can find it before the next move.
+- Clouser Minnow: Slightly elevated runoff supports a more visible river presentation. It is one of the lead monthly looks for this exact seasonal window.
+- Clouser Minnow how: Strip in short, consistent pulls so the dumbbell eyes make the fly jig up and down; let it sink between strips to stay hook-point up throughout. Slow down and lengthen the pause.
+- Woolly Bugger: Slightly elevated runoff supports a more visible river presentation. It stays in the middle band where the seasonal setup is most stable today. It gives you a different fly bottom look without leaving today's window.
+- Woolly Bugger how: Cast across and swing it on a tight line through the drift, then activate on the hang-down with short strips before lifting. Slow down and lengthen the pause.
+- Crawfish Streamer: Slightly elevated runoff supports a more visible river presentation. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Crawfish Streamer how: Cast upstream and mend for a dead-drift first; then come alive with quick, short strips that make the claw materials flex like a fleeing crawfish. Slow down and lengthen the pause.
 
 Review:
 - Precheck flags:
-- TOP1_PRIMARY_MISS
+- TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- NO_TOP1_TIE
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:dark,dark
 - Top 1 verdict:
 - Top 3 verdict:
@@ -3943,7 +4095,7 @@ Expected color themes:
 - dark
 
 Archived env summary:
-- Region: great_lakes_upper_midwest
+- Region: northeast
 - Archive weather timezone: America/New_York
 - Noon air temp: 52.7 F
 - Noon pressure: 1001.4 mb
@@ -3955,52 +4107,56 @@ Archived env summary:
 - Sunrise/sunset: 07:11 / 19:23
 
 Actual output:
-- Top 1 lure: Hair Jig `hair_jig` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Top 1 lure: Soft Plastic Jerkbait `soft_jerkbait` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 3 lures:
-- Hair Jig `hair_jig` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Soft Plastic Jerkbait `soft_jerkbait` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Tube Jig `tube_jig` | theme: `natural` | colors: green pumpkin, olive, smoke
-- Drop-Shot Minnow `drop_shot_minnow` | theme: `natural` | colors: green pumpkin, olive, smoke
-- Top 1 fly: Woolly Bugger `woolly_bugger` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Suspending Jerkbait `suspending_jerkbait` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Top 1 fly: Zonker Streamer `zonker_streamer` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 3 flies:
-- Woolly Bugger `woolly_bugger` | theme: `natural` | colors: green pumpkin, olive, smoke
-- Sculpin Streamer `sculpin_streamer` | theme: `natural` | colors: green pumpkin, olive, smoke
-- Conehead Streamer `conehead_streamer` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Zonker Streamer `zonker_streamer` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Crawfish Streamer `crawfish_streamer` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Clouser Minnow `clouser_minnow` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Color notes:
 - Daily posture: aggressive
-- Hair Jig: natural -> green pumpkin, olive, smoke
+- Soft Plastic Jerkbait: natural -> green pumpkin, olive, smoke
 - Tube Jig: natural -> green pumpkin, olive, smoke
-- Drop-Shot Minnow: natural -> green pumpkin, olive, smoke
-- Woolly Bugger: natural -> green pumpkin, olive, smoke
-- Sculpin Streamer: natural -> green pumpkin, olive, smoke
-- Conehead Streamer: natural -> green pumpkin, olive, smoke
+- Suspending Jerkbait: natural -> green pumpkin, olive, smoke
+- Zonker Streamer: natural -> green pumpkin, olive, smoke
+- Crawfish Streamer: natural -> green pumpkin, olive, smoke
+- Clouser Minnow: natural -> green pumpkin, olive, smoke
 - Daily profile notes:
 - Daily posture: aggressive
-- Daily preference: column=mid, pace=slow, presence=subtle
-- Monthly baseline: columns=bottom/mid/upper, paces=slow/medium, presence=subtle/moderate
-- Guardrails: surface_allowed=true, suppress_true_surface=false, suppress_fast_presentations=false, high_visibility_needed=false, column_shift=1
+- Seasonal source: region=northeast, fallback_used=false
+- Daily preference: column=upper, pace=medium, presence=subtle
+- Monthly baseline: columns=upper/mid/bottom, paces=slow/medium/fast, presence=subtle/moderate/bold
+- Guardrails: surface_allowed=true, surface_window=rippled, suppress_fast_presentations=false, high_visibility_needed=false, column_shift=1
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
 - Variables triggered: temperature_trend, wind_condition, runoff_flow_disruption
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
 - Lure reasoning:
-- Hair Jig: It is one of the lead monthly looks for this exact seasonal window. A warming trend nudges fish slightly higher in the allowed range. Hair Jig stays in play when baitfish is relevant.
-- Hair Jig how: Swing it through current seams or drop it in pockets with minimal movement; let the marabou breathe in place before slowly pulling it along. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
-- Tube Jig: A warming trend nudges fish slightly higher in the allowed range. Tube Jig stays in play when crawfish is relevant. It fits today's mid column preference. It gives you a different bottom contact look without leaving today's window.
-- Tube Jig how: Cast, let it sink, then pop sharply and release line; the tube should corkscrew back to bottom on each drop — keep a watchful eye on the line. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
-- Drop-Shot Minnow: It stays in the middle band where the seasonal setup is most stable today. A warming trend nudges fish slightly higher in the allowed range. Drop-Shot Minnow stays in play when baitfish is relevant. It is the cleaner change-up if the lead look does not convert.
-- Drop-Shot Minnow how: Hold the weight down and pulse the rod tip lightly; the minnow should quiver in place, then glide a few inches before the next shake. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
+- Soft Plastic Jerkbait: It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window.
+- Soft Plastic Jerkbait how: Twitch it with slack in the line so the bait darts and glides erratically; pause and let it sink a few inches between twitches. Keep it high in the zone.
+- Tube Jig: A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It gives you a different bottom contact look without leaving today's window.
+- Tube Jig how: Hop it erratically off the bottom with sharp pops, then open the bail slightly so it spirals down freely; strikes happen on that spinning fall. Keep it high in the zone.
+- Suspending Jerkbait: It stays practical in current seams and river lanes when flow still matters. It stays high enough in the zone to match the day's more open positioning. It is the cleaner change-up if the lead look does not convert.
+- Suspending Jerkbait how: Work it with wrist snaps, not big sweeps; keep slack in the line between snaps so the bait swings freely, then pause until you see a follow or feel weight. Keep it high in the zone.
 - Fly reasoning:
-- Woolly Bugger: Woolly Bugger tracks well when leech_worm is a realistic meal. It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window.
-- Woolly Bugger how: Cast across and swing it on a tight line through the drift, then activate on the hang-down with short strips before lifting. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
-- Sculpin Streamer: Sculpin Streamer tracks well when baitfish is a realistic meal. It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window. It gives you a different fly bottom look without leaving today's window.
-- Sculpin Streamer how: Inch it along the bottom with tight-line strips; sculpin barely swim, so keep the fly close to the substrate and use current for most of the motion. Slow down and leave more dead time between moves. Keep it around the lower part of the productive zone. Keep the presentation clean and resist overworking it.
-- Conehead Streamer: It stays practical in current seams and river lanes when flow still matters. Conehead Streamer tracks well when baitfish is a realistic meal. It lines up with today's slow pace preference. It is the cleaner change-up if the lead look does not convert.
-- Conehead Streamer how: Cast across or down, let it sink to depth, then strip with a jig-like cadence where the cone tips the fly nose-down on each pause. Slow down and leave more dead time between moves. Keep it around the lower part of the productive zone. Keep the presentation clean and resist overworking it.
+- Zonker Streamer: It stays practical in current seams and river lanes when flow still matters. It stays high enough in the zone to match the day's more open positioning.
+- Zonker Streamer how: Strip with a mixed pace — a few short darts, then a longer glide; the rabbit wing wraps on fast strips and flares on the pause for a big profile change. Keep it high in the zone.
+- Crawfish Streamer: It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window. It gives you a different fly bottom look without leaving today's window.
+- Crawfish Streamer how: Cast upstream and mend for a dead-drift first; then come alive with quick, short strips that make the claw materials flex like a fleeing crawfish. Keep it low in the strike zone.
+- Clouser Minnow: It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Clouser Minnow how: Cast and let the weighted eyes sink the fly, then retrieve with a strip-pause cadence that makes it dart upward on the strip and dive back on the pause.
 
 Review:
 - Precheck flags:
-- TOP1_PRIMARY_MISS
+- TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- NO_TOP1_TIE
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:natural,natural
 - Top 1 verdict:
 - Top 3 verdict:
@@ -4043,7 +4199,7 @@ Expected color themes:
 - dark
 
 Archived env summary:
-- Region: great_lakes_upper_midwest
+- Region: northeast
 - Archive weather timezone: America/New_York
 - Noon air temp: 33.7 F
 - Noon pressure: 1012.2 mb
@@ -4058,52 +4214,56 @@ Actual output:
 - Top 1 lure: Tube Jig `tube_jig` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 lures:
 - Tube Jig `tube_jig` | theme: `dark` | colors: black, black/blue, black/purple
-- Ned Rig `ned_rig` | theme: `dark` | colors: black, black/blue, black/purple
-- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `dark` | colors: black, black/blue, black/purple
-- Top 1 fly: Woolly Bugger `woolly_bugger` | theme: `dark` | colors: black, black/blue, black/purple
+- Hair Jig `hair_jig` | theme: `dark` | colors: black, black/blue, black/purple
+- Soft Plastic Jerkbait `soft_jerkbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Top 1 fly: Clouser Minnow `clouser_minnow` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 flies:
-- Woolly Bugger `woolly_bugger` | theme: `dark` | colors: black, black/blue, black/purple
-- Crawfish Streamer `crawfish_streamer` | theme: `dark` | colors: black, black/blue, black/purple
+- Clouser Minnow `clouser_minnow` | theme: `dark` | colors: black, black/blue, black/purple
+- Zonker Streamer `zonker_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Game Changer `game_changer` | theme: `dark` | colors: black, black/blue, black/purple
 - Color notes:
 - Daily posture: suppressed
 - Tube Jig: dark -> black, black/blue, black/purple
-- Ned Rig: dark -> black, black/blue, black/purple
-- Paddle-Tail Swimbait: dark -> black, black/blue, black/purple
-- Woolly Bugger: dark -> black, black/blue, black/purple
-- Crawfish Streamer: dark -> black, black/blue, black/purple
+- Hair Jig: dark -> black, black/blue, black/purple
+- Soft Plastic Jerkbait: dark -> black, black/blue, black/purple
+- Clouser Minnow: dark -> black, black/blue, black/purple
+- Zonker Streamer: dark -> black, black/blue, black/purple
 - Game Changer: dark -> black, black/blue, black/purple
 - Daily profile notes:
 - Daily posture: suppressed
-- Daily preference: column=upper, pace=slow, presence=subtle
-- Monthly baseline: columns=mid/bottom/upper, paces=medium/slow/fast, presence=moderate/subtle/bold
-- Guardrails: surface_allowed=false, suppress_true_surface=true, suppress_fast_presentations=true, high_visibility_needed=false, column_shift=1
+- Seasonal source: region=northeast, fallback_used=false
+- Daily preference: column=mid, pace=medium, presence=subtle
+- Monthly baseline: columns=upper/mid, paces=medium/fast, presence=subtle/moderate/bold
+- Guardrails: surface_allowed=false, surface_window=closed, suppress_fast_presentations=true, high_visibility_needed=false, column_shift=-1
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
 - Variables triggered: temperature_metabolic_context, temperature_trend, light_cloud_condition, wind_condition, runoff_flow_disruption
-- Daily note: Temperature metabolism suppresses the day and favors slower execution.
+- Daily note: Cold metabolism shuts down activity. Slow and low is the only play.
 - Daily note: A cooling trend tightens fish and shifts preference lower and slower.
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Daily note: Strong wind reduces clean execution.
 - Lure reasoning:
-- Tube Jig: It is one of the lead monthly looks for this exact seasonal window. With true surface suppressed, this keeps you just under the cleaner active lane. Tube Jig stays in play when crawfish is relevant.
-- Tube Jig how: Snap the tube off bottom with short pops so it spirals on the fall, then let it glide back down on slack or semi-slack line. Slow down and leave more dead time between moves. Keep it above cover or along the upper edge of the zone. Let it soak a little longer before each move.
-- Ned Rig: That keeps a crawfish-first look in the water for the month. With true surface suppressed, this keeps you just under the cleaner active lane. Ned Rig stays in play when crawfish is relevant. It gives you a different bottom contact look without leaving today's window.
-- Ned Rig how: Drag and shake the small head along bottom like a tiny craw — short pulls, let it settle, repeat instead of big hops. Slow down and leave more dead time between moves. Keep it above cover or along the upper edge of the zone. Let it soak a little longer before each move.
-- Paddle-Tail Swimbait: It stays high enough in the zone to match the day's more open positioning. With true surface suppressed, this keeps you just under the cleaner active lane. Paddle-Tail Swimbait stays in play when baitfish is relevant. It is the cleaner change-up if the lead look does not convert.
-- Paddle-Tail Swimbait how: Reel at a steady pace with the rod low so the tail thumps consistently; speed up slightly over bait schools or slow down after a follow. Keep the cadence controlled and add short stalls instead of burning it. Keep it above cover or along the upper edge of the zone. Keep the presentation clean and resist overworking it.
+- Tube Jig: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Tube Jig how: Snap the tube off bottom with short pops so it spirals on the fall, then let it glide back down on slack or semi-slack line.
+- Hair Jig: With the highest lane shut down, this keeps you just under the cleaner active zone. It stays in the middle band where the seasonal setup is most stable today. It gives you a different finesse subtle look without leaving today's window.
+- Hair Jig how: Cast across, let it sink on a controlled slack line, then swim it back with short pauses so the marabou pulses and collapses.
+- Soft Plastic Jerkbait: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Soft Plastic Jerkbait how: Twitch it with slack in the line so the bait darts and glides erratically; pause and let it sink a few inches between twitches.
 - Fly reasoning:
-- Woolly Bugger: Woolly Bugger tracks well when leech_worm is a realistic meal. With true surface suppressed, this keeps you just under the cleaner active lane. It lines up with today's slow pace preference.
-- Woolly Bugger how: Let it sink to depth then retrieve with slow hand-twists or short strips; the marabou tail breathes best with long pauses at the end of each pull. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
-- Crawfish Streamer: It is one of the lead monthly looks for this exact seasonal window. Temperature metabolism suppresses the day and favors slower execution. Crawfish Streamer tracks well when crawfish is a realistic meal. It gives you a different fly bottom look without leaving today's window.
-- Crawfish Streamer how: Tick it along the bottom with short, nervous strips so the claws scratch and flare; keep it close to the substrate and pause after contact with any rock or root. Slow down and leave more dead time between moves. Keep it around the lower part of the productive zone. Keep the presentation clean and resist overworking it.
-- Game Changer: Game Changer tracks well when baitfish is a realistic meal. With true surface suppressed, this keeps you just under the cleaner active lane. It stays high enough in the zone to match the day's more open positioning. It is the cleaner change-up if the lead look does not convert.
-- Game Changer how: Use a mix of steady strips and sharp 6-inch twitches so the jointed body swims and stalls; pause when you see a follow. Keep the cadence controlled and add short stalls instead of burning it. Keep it above cover or along the upper edge of the zone. Keep the presentation clean and resist overworking it.
+- Clouser Minnow: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Clouser Minnow how: Cast across or slightly downstream, let it jig toward you with short strips so the weighted eyes keep the fly tracking hook-point up.
+- Zonker Streamer: With the highest lane shut down, this keeps you just under the cleaner active zone. It stays in the middle band where the seasonal setup is most stable today. It gives you a different fly baitfish look without leaving today's window.
+- Zonker Streamer how: Strip with a mixed pace — a few short darts, then a longer glide; the rabbit wing wraps on fast strips and flares on the pause for a big profile change.
+- Game Changer: With the highest lane shut down, this keeps you just under the cleaner active zone. It stays in the middle band where the seasonal setup is most stable today. It is the cleaner change-up if the lead look does not convert.
+- Game Changer how: Use a mix of steady strips and sharp 6-inch twitches so the jointed body swims and stalls; pause when you see a follow.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- NO_TOP1_TIE
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:dark,dark
 - Top 1 verdict:
 - Top 3 verdict:
@@ -4146,7 +4306,7 @@ Expected color themes:
 - dark
 
 Archived env summary:
-- Region: great_lakes_upper_midwest
+- Region: northeast
 - Archive weather timezone: America/New_York
 - Noon air temp: 66.6 F
 - Noon pressure: 1011.2 mb
@@ -4158,11 +4318,11 @@ Archived env summary:
 - Sunrise/sunset: 05:47 / 20:25
 
 Actual output:
-- Top 1 lure: Spinnerbait `spinnerbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Top 1 lure: Inline Spinner `inline_spinner` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 lures:
-- Spinnerbait `spinnerbait` | theme: `dark` | colors: black, black/blue, black/purple
-- Squarebill Crankbait `squarebill_crankbait` | theme: `dark` | colors: black, black/blue, black/purple
 - Inline Spinner `inline_spinner` | theme: `dark` | colors: black, black/blue, black/purple
+- Blade Bait `blade_bait` | theme: `dark` | colors: black, black/blue, black/purple
+- Soft Plastic Jerkbait `soft_jerkbait` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 1 fly: Game Changer `game_changer` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 flies:
 - Game Changer `game_changer` | theme: `dark` | colors: black, black/blue, black/purple
@@ -4170,42 +4330,46 @@ Actual output:
 - Zonker Streamer `zonker_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Color notes:
 - Daily posture: aggressive
-- Spinnerbait: dark -> black, black/blue, black/purple
-- Squarebill Crankbait: dark -> black, black/blue, black/purple
 - Inline Spinner: dark -> black, black/blue, black/purple
+- Blade Bait: dark -> black, black/blue, black/purple
+- Soft Plastic Jerkbait: dark -> black, black/blue, black/purple
 - Game Changer: dark -> black, black/blue, black/purple
 - Clouser Minnow: dark -> black, black/blue, black/purple
 - Zonker Streamer: dark -> black, black/blue, black/purple
 - Daily profile notes:
 - Daily posture: aggressive
+- Seasonal source: region=northeast, fallback_used=false
 - Daily preference: column=upper, pace=medium, presence=bold
-- Monthly baseline: columns=upper/mid/bottom, paces=medium/slow/fast, presence=moderate/subtle/bold
-- Guardrails: surface_allowed=true, suppress_true_surface=false, suppress_fast_presentations=false, high_visibility_needed=true, column_shift=1
+- Monthly baseline: columns=upper/mid, paces=medium/fast, presence=subtle/moderate/bold
+- Guardrails: surface_allowed=true, surface_window=clean, suppress_fast_presentations=false, high_visibility_needed=true, column_shift=1
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
 - Variables triggered: temperature_trend, light_cloud_condition, runoff_flow_disruption
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Daily note: Slightly elevated runoff supports a more visible river presentation.
 - Lure reasoning:
-- Spinnerbait: A warming trend nudges fish slightly higher in the allowed range. Spinnerbait stays in play when baitfish is relevant. It fits today's upper column preference.
-- Spinnerbait how: Cast past the target and retrieve through it, varying speed to find the blade thump fish respond to; hesitate briefly at cover edges. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Start on wind-blown edges or the first active cover line and let it cover water.
-- Squarebill Crankbait: Squarebill Crankbait stays in play when baitfish is relevant. A warming trend nudges fish slightly higher in the allowed range. It stays high enough in the zone to match the day's more open positioning. It gives you a different horizontal search look without leaving today's window.
-- Squarebill Crankbait how: Run it tight to cover at a steady pace; when it hits, give a slight rod pause so the bill pries free and the bait kicks up erratically. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Start on wind-blown edges or the first active cover line and let it cover water.
-- Inline Spinner: A warming trend nudges fish slightly higher in the allowed range. Inline Spinner stays in play when baitfish is relevant. It fits today's upper column preference. It is the cleaner change-up if the lead look does not convert.
-- Inline Spinner how: Cast across current and let the blade flash on a quarter-downstream retrieve; speed up briefly after bumps or short strikes. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Start on wind-blown edges or the first active cover line and let it cover water.
+- Inline Spinner: A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
+- Inline Spinner how: Use a slow-roll retrieve near bottom or cover edges; occasionally bump into structure to trigger reaction strikes. Keep it high in the zone.
+- Blade Bait: A warming trend nudges fish slightly higher in the allowed range. Blade Bait stays in play when baitfish is relevant. It gives you a different reaction mid column look without leaving today's window.
+- Blade Bait how: Vertical jig it with short, sharp hops over suspended fish; the flutter-fall is the presentation — set hard the moment you feel weight.
+- Soft Plastic Jerkbait: A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Soft Plastic Jerkbait how: Snap the rod sideways so the bait darts left or right, then drop the rod tip so it glides and sinks on a slack line before the next snap. Keep it high in the zone.
 - Fly reasoning:
-- Game Changer: A warming trend nudges fish slightly higher in the allowed range. Game Changer tracks well when baitfish is a realistic meal. It fits today's upper column preference.
-- Game Changer how: Retrieve with medium strips, then occasionally rip hard so the body compresses and then springs apart — pause after each hard strip and hold your nerve. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
-- Clouser Minnow: It is one of the lead monthly looks for this exact seasonal window. A warming trend nudges fish slightly higher in the allowed range. Clouser Minnow tracks well when baitfish is a realistic meal. It gives you a different fly baitfish look without leaving today's window.
-- Clouser Minnow how: Cast and let the weighted eyes sink the fly, then retrieve with a strip-pause cadence that makes it dart upward on the strip and dive back on the pause. Keep it moving on a steady, fishable cadence. Keep it around the middle band of the strike zone. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
-- Zonker Streamer: It stays high enough in the zone to match the day's more open positioning. A warming trend nudges fish slightly higher in the allowed range. Zonker Streamer tracks well when baitfish is a realistic meal. It is the cleaner change-up if the lead look does not convert.
-- Zonker Streamer how: Cast across current and strip steadily through the swing; add a momentary deadstop near structure so the wing collapses and then puffs back out. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
+- Game Changer: A warming trend nudges fish slightly higher in the allowed range. It stays high enough in the zone to match the day's more open positioning.
+- Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink. Keep it high in the zone.
+- Clouser Minnow: A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It gives you a different fly baitfish look without leaving today's window.
+- Clouser Minnow how: Strip in short, consistent pulls so the dumbbell eyes make the fly jig up and down; let it sink between strips to stay hook-point up throughout.
+- Zonker Streamer: A warming trend nudges fish slightly higher in the allowed range. It stays high enough in the zone to match the day's more open positioning. It is the cleaner change-up if the lead look does not convert.
+- Zonker Streamer how: Retrieve at moderate speed with intentional pauses where the fly sinks and the strip wing breathes; strikes often come as you restart the strip. Keep it high in the zone.
 
 Review:
 - Precheck flags:
-- TOP1_PRIMARY_MISS
+- TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- NO_TOP1_TIE
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:dark,dark
 - Top 1 verdict:
 - Top 3 verdict:
@@ -4249,7 +4413,7 @@ Expected color themes:
 - natural
 
 Archived env summary:
-- Region: great_lakes_upper_midwest
+- Region: northeast
 - Archive weather timezone: America/New_York
 - Noon air temp: 75.7 F
 - Noon pressure: 1012.1 mb
@@ -4261,53 +4425,57 @@ Archived env summary:
 - Sunrise/sunset: 05:32 / 20:50
 
 Actual output:
-- Top 1 lure: Spinnerbait `spinnerbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Top 1 lure: Squarebill Crankbait `squarebill_crankbait` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 lures:
-- Spinnerbait `spinnerbait` | theme: `dark` | colors: black, black/blue, black/purple
 - Squarebill Crankbait `squarebill_crankbait` | theme: `dark` | colors: black, black/blue, black/purple
-- Inline Spinner `inline_spinner` | theme: `dark` | colors: black, black/blue, black/purple
-- Top 1 fly: Game Changer `game_changer` | theme: `dark` | colors: black, black/blue, black/purple
+- Walking Topwater `walking_topwater` | theme: `dark` | colors: black, black/blue, black/purple
+- Suspending Jerkbait `suspending_jerkbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Top 1 fly: Popper Fly `popper_fly` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 flies:
+- Popper Fly `popper_fly` | theme: `dark` | colors: black, black/blue, black/purple
 - Game Changer `game_changer` | theme: `dark` | colors: black, black/blue, black/purple
 - Clouser Minnow `clouser_minnow` | theme: `dark` | colors: black, black/blue, black/purple
-- Zonker Streamer `zonker_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Color notes:
 - Daily posture: aggressive
-- Spinnerbait: dark -> black, black/blue, black/purple
 - Squarebill Crankbait: dark -> black, black/blue, black/purple
-- Inline Spinner: dark -> black, black/blue, black/purple
+- Walking Topwater: dark -> black, black/blue, black/purple
+- Suspending Jerkbait: dark -> black, black/blue, black/purple
+- Popper Fly: dark -> black, black/blue, black/purple
 - Game Changer: dark -> black, black/blue, black/purple
 - Clouser Minnow: dark -> black, black/blue, black/purple
-- Zonker Streamer: dark -> black, black/blue, black/purple
 - Daily profile notes:
 - Daily posture: aggressive
-- Daily preference: column=upper, pace=medium, presence=bold
-- Monthly baseline: columns=upper/mid/bottom, paces=medium/fast/slow, presence=moderate/subtle/bold
-- Guardrails: surface_allowed=true, suppress_true_surface=false, suppress_fast_presentations=false, high_visibility_needed=true, column_shift=1
+- Seasonal source: region=northeast, fallback_used=false
+- Daily preference: column=surface, pace=medium, presence=moderate
+- Monthly baseline: columns=surface/upper/mid, paces=medium/fast, presence=subtle/moderate
+- Guardrails: surface_allowed=true, surface_window=clean, suppress_fast_presentations=false, high_visibility_needed=true, column_shift=1
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
 - Variables triggered: temperature_shock, light_cloud_condition, runoff_flow_disruption
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Daily note: Slightly elevated runoff supports a more visible river presentation.
 - Lure reasoning:
-- Spinnerbait: Lower light supports a slightly higher, more open lane. Spinnerbait stays in play when baitfish is relevant. It fits today's upper column preference.
-- Spinnerbait how: Cast past the target and retrieve through it, varying speed to find the blade thump fish respond to; hesitate briefly at cover edges. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Start on wind-blown edges or the first active cover line and let it cover water.
-- Squarebill Crankbait: Squarebill Crankbait stays in play when baitfish is relevant. Lower light supports a slightly higher, more open lane. It stays high enough in the zone to match the day's more open positioning. It gives you a different horizontal search look without leaving today's window.
-- Squarebill Crankbait how: Run it tight to cover at a steady pace; when it hits, give a slight rod pause so the bill pries free and the bait kicks up erratically. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Start on wind-blown edges or the first active cover line and let it cover water.
-- Inline Spinner: It stays high enough in the zone to match the day's more open positioning. Lower light supports a slightly higher, more open lane. Inline Spinner stays in play when baitfish is relevant. It is the cleaner change-up if the lead look does not convert.
-- Inline Spinner how: Cast across current and let the blade flash on a quarter-downstream retrieve; speed up briefly after bumps or short strikes. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Start on wind-blown edges or the first active cover line and let it cover water.
+- Squarebill Crankbait: Lower light supports a slightly higher, more open lane. The month is still baitfish-forward, and this stays inside that search lane.
+- Squarebill Crankbait how: Cast past structure and crank it down, then steer it right into cover; the deflection is the trigger, so don't try to avoid contact. Keep it high in the zone.
+- Walking Topwater: Low disturbance is keeping a true surface lane open today. It is one of the lead monthly looks for this exact seasonal window. It gives you a different surface look without leaving today's window.
+- Walking Topwater how: Downrod with light wrist flicks to make it dance; the pause between twitches lets fish track and commit, so give it a beat before the next twitch. Keep it on top.
+- Suspending Jerkbait: Lower light supports a slightly higher, more open lane. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Suspending Jerkbait how: Jerk, jerk, pause. The bait should dart and glide sideways on each twitch; dial the pause length to water temperature — colder means longer. Keep it high in the zone.
 - Fly reasoning:
-- Game Changer: Lower light supports a slightly higher, more open lane. Game Changer tracks well when baitfish is a realistic meal. It fits today's upper column preference.
-- Game Changer how: Retrieve with medium strips, then occasionally rip hard so the body compresses and then springs apart — pause after each hard strip and hold your nerve. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
-- Clouser Minnow: It is one of the lead monthly looks for this exact seasonal window. Lower light supports a slightly higher, more open lane. Clouser Minnow tracks well when baitfish is a realistic meal. It gives you a different fly baitfish look without leaving today's window.
-- Clouser Minnow how: Cast and let the weighted eyes sink the fly, then retrieve with a strip-pause cadence that makes it dart upward on the strip and dive back on the pause. Keep it moving on a steady, fishable cadence. Keep it around the middle band of the strike zone. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
-- Zonker Streamer: It stays high enough in the zone to match the day's more open positioning. Lower light supports a slightly higher, more open lane. Zonker Streamer tracks well when baitfish is a realistic meal. It is the cleaner change-up if the lead look does not convert.
-- Zonker Streamer how: Cast across current and strip steadily through the swing; add a momentary deadstop near structure so the wing collapses and then puffs back out. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
+- Popper Fly: Low disturbance is keeping a true surface lane open today. It is one of the lead monthly looks for this exact seasonal window.
+- Popper Fly how: Make a sharp strip-pause to spit water, then wait; the longer the pause in the ring, the more time a fish has to rise and commit. Keep it on top.
+- Game Changer: Lower light supports a slightly higher, more open lane. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different fly baitfish look without leaving today's window.
+- Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink. Keep it high in the zone.
+- Clouser Minnow: Lower light supports a slightly higher, more open lane. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Clouser Minnow how: Strip in short, consistent pulls so the dumbbell eyes make the fly jig up and down; let it sink between strips to stay hook-point up throughout.
 
 Review:
 - Precheck flags:
-- TOP1_PRIMARY_MISS
+- TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- NO_TOP1_TIE
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:dark,dark
 - Top 1 verdict:
 - Top 3 verdict:
@@ -4351,7 +4519,7 @@ Expected color themes:
 - natural
 
 Archived env summary:
-- Region: great_lakes_upper_midwest
+- Region: northeast
 - Archive weather timezone: America/New_York
 - Noon air temp: 82.6 F
 - Noon pressure: 1015.9 mb
@@ -4363,53 +4531,57 @@ Archived env summary:
 - Sunrise/sunset: 05:47 / 20:45
 
 Actual output:
-- Top 1 lure: Suspending Jerkbait `suspending_jerkbait` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Top 1 lure: Squarebill Crankbait `squarebill_crankbait` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 3 lures:
+- Squarebill Crankbait `squarebill_crankbait` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Suspending Jerkbait `suspending_jerkbait` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Tube Jig `tube_jig` | theme: `natural` | colors: green pumpkin, olive, smoke
-- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 1 fly: Muddler Minnow `muddler_sculpin` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 3 flies:
 - Muddler Minnow `muddler_sculpin` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Popper Fly `popper_fly` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Game Changer `game_changer` | theme: `natural` | colors: green pumpkin, olive, smoke
-- Mouse Fly `mouse_fly` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Color notes:
 - Daily posture: aggressive
+- Squarebill Crankbait: natural -> green pumpkin, olive, smoke
 - Suspending Jerkbait: natural -> green pumpkin, olive, smoke
 - Tube Jig: natural -> green pumpkin, olive, smoke
-- Paddle-Tail Swimbait: natural -> green pumpkin, olive, smoke
 - Muddler Minnow: natural -> green pumpkin, olive, smoke
+- Popper Fly: natural -> green pumpkin, olive, smoke
 - Game Changer: natural -> green pumpkin, olive, smoke
-- Mouse Fly: natural -> green pumpkin, olive, smoke
 - Daily profile notes:
 - Daily posture: aggressive
+- Seasonal source: region=northeast, fallback_used=false
 - Daily preference: column=upper, pace=medium, presence=moderate
-- Monthly baseline: columns=mid/upper/bottom/surface, paces=medium/fast/slow, presence=subtle/moderate
-- Guardrails: surface_allowed=true, suppress_true_surface=false, suppress_fast_presentations=false, high_visibility_needed=true, column_shift=1
+- Monthly baseline: columns=surface/upper/mid/bottom, paces=medium/fast, presence=subtle/moderate
+- Guardrails: surface_allowed=true, surface_window=rippled, suppress_fast_presentations=false, high_visibility_needed=true, column_shift=1
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
 - Variables triggered: temperature_trend, wind_condition, runoff_flow_disruption
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
 - Daily note: Slightly elevated runoff supports a more visible river presentation.
 - Lure reasoning:
-- Suspending Jerkbait: It is one of the lead monthly looks for this exact seasonal window. Slightly elevated runoff supports a more visible river presentation. Suspending Jerkbait stays in play when baitfish is relevant.
-- Suspending Jerkbait how: Jerk, jerk, pause. The bait should dart and glide sideways on each twitch; dial the pause length to water temperature — colder means longer. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
-- Tube Jig: A warming trend nudges fish slightly higher in the allowed range. Tube Jig stays in play when crawfish is relevant. It fits today's upper column preference. It gives you a different bottom contact look without leaving today's window.
-- Tube Jig how: Hop it erratically off the bottom with sharp pops, then open the bail slightly so it spirals down freely; strikes happen on that spinning fall. Keep a steady medium cadence. Keep it above cover or along the upper edge of the zone. Keep it on a clean, trackable line so fish can find it before the next move.
-- Paddle-Tail Swimbait: Slightly elevated runoff supports a more visible river presentation. Paddle-Tail Swimbait stays in play when baitfish is relevant. It fits today's upper column preference. It is the cleaner change-up if the lead look does not convert.
-- Paddle-Tail Swimbait how: Swim it at the speed where you feel a steady kick through the rod; use rod angle to change depth without changing retrieve speed. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
+- Squarebill Crankbait: Slightly elevated runoff supports a more visible river presentation. It is one of the lead monthly looks for this exact seasonal window.
+- Squarebill Crankbait how: Cast past structure and crank it down, then steer it right into cover; the deflection is the trigger, so don't try to avoid contact. Keep it high in the zone.
+- Suspending Jerkbait: Slightly elevated runoff supports a more visible river presentation. It is one of the lead monthly looks for this exact seasonal window. It gives you a different reaction mid column look without leaving today's window.
+- Suspending Jerkbait how: Jerk, jerk, pause. The bait should dart and glide sideways on each twitch; dial the pause length to water temperature — colder means longer. Keep it high in the zone.
+- Tube Jig: A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Tube Jig how: Hop it erratically off the bottom with sharp pops, then open the bail slightly so it spirals down freely; strikes happen on that spinning fall. Keep it high in the zone.
 - Fly reasoning:
-- Muddler Minnow: It is one of the lead monthly looks for this exact seasonal window. Slightly elevated runoff supports a more visible river presentation. Muddler Minnow tracks well when baitfish is a realistic meal.
-- Muddler Minnow how: Work it as a swung wet fly in current with minimal stripping; on still water, hop it along the bottom with slow, erratic pulls. Keep a steady medium cadence. Keep it above cover or along the upper edge of the zone. Keep it on a clean, trackable line so fish can find it before the next move.
-- Game Changer: Slightly elevated runoff supports a more visible river presentation. Game Changer tracks well when baitfish is a realistic meal. It fits today's upper column preference. It gives you a different fly baitfish look without leaving today's window.
-- Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
-- Mouse Fly: Mouse Fly tracks well when baitfish is a realistic meal. Even with a little ripple, the surface lane is still open enough to matter. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
-- Mouse Fly how: Swim it on a constant slow retrieve just fast enough to leave a wake; target near-shore edges and structure where big fish expect food to cross. Keep it moving on a steady, fishable cadence. Keep it high and over the surface lane. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
+- Muddler Minnow: Slightly elevated runoff supports a more visible river presentation. It is one of the lead monthly looks for this exact seasonal window.
+- Muddler Minnow how: Work it as a swung wet fly in current with minimal stripping; on still water, hop it along the bottom with slow, erratic pulls. Keep it high in the zone.
+- Popper Fly: The monthly surface window is still alive today, even with a little ripple on top. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different fly surface look without leaving today's window.
+- Popper Fly how: Make a sharp strip-pause to spit water, then wait; the longer the pause in the ring, the more time a fish has to rise and commit. Keep it on top.
+- Game Changer: Slightly elevated runoff supports a more visible river presentation. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink. Keep it high in the zone.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- NO_TOP1_TIE
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:natural,natural
 - Top 1 verdict:
 - Top 3 verdict:
@@ -4453,7 +4625,7 @@ Expected color themes:
 - natural
 
 Archived env summary:
-- Region: great_lakes_upper_midwest
+- Region: northeast
 - Archive weather timezone: America/New_York
 - Noon air temp: 79.6 F
 - Noon pressure: 1016.1 mb
@@ -4465,53 +4637,57 @@ Archived env summary:
 - Sunrise/sunset: 06:16 / 20:13
 
 Actual output:
-- Top 1 lure: Tube Jig `tube_jig` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Top 1 lure: Suspending Jerkbait `suspending_jerkbait` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 3 lures:
-- Tube Jig `tube_jig` | theme: `natural` | colors: green pumpkin, olive, smoke
-- Inline Spinner `inline_spinner` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Suspending Jerkbait `suspending_jerkbait` | theme: `natural` | colors: green pumpkin, olive, smoke
-- Top 1 fly: Woolly Bugger `woolly_bugger` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Tube Jig `tube_jig` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Top 1 fly: Clouser Minnow `clouser_minnow` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 3 flies:
-- Woolly Bugger `woolly_bugger` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Clouser Minnow `clouser_minnow` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Muddler Minnow `muddler_sculpin` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Slim Baitfish Streamer `slim_minnow_streamer` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Color notes:
 - Daily posture: neutral
-- Tube Jig: natural -> green pumpkin, olive, smoke
-- Inline Spinner: natural -> green pumpkin, olive, smoke
 - Suspending Jerkbait: natural -> green pumpkin, olive, smoke
-- Woolly Bugger: natural -> green pumpkin, olive, smoke
+- Tube Jig: natural -> green pumpkin, olive, smoke
+- Paddle-Tail Swimbait: natural -> green pumpkin, olive, smoke
 - Clouser Minnow: natural -> green pumpkin, olive, smoke
 - Muddler Minnow: natural -> green pumpkin, olive, smoke
+- Slim Baitfish Streamer: natural -> green pumpkin, olive, smoke
 - Daily profile notes:
 - Daily posture: neutral
-- Daily preference: column=bottom, pace=slow, presence=moderate
-- Monthly baseline: columns=mid/upper/bottom/surface, paces=medium/fast/slow, presence=subtle/moderate
-- Guardrails: surface_allowed=false, suppress_true_surface=true, suppress_fast_presentations=false, high_visibility_needed=true, column_shift=-1
+- Seasonal source: region=northeast, fallback_used=false
+- Daily preference: column=bottom, pace=medium, presence=subtle
+- Monthly baseline: columns=surface/upper/mid/bottom, paces=medium/fast, presence=subtle/moderate
+- Guardrails: surface_allowed=false, surface_window=closed, suppress_fast_presentations=false, high_visibility_needed=false, column_shift=-1
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
 - Variables triggered: light_cloud_condition, runoff_flow_disruption
 - Daily note: Bright light trims the day back toward cleaner looks.
 - Daily note: Slightly elevated runoff supports a more visible river presentation.
 - Lure reasoning:
-- Tube Jig: Tube Jig stays in play when crawfish is relevant. With true surface suppressed, this keeps you just under the cleaner active lane. It is one of the lead monthly looks for this exact seasonal window.
-- Tube Jig how: Hop it erratically off the bottom with sharp pops, then open the bail slightly so it spirals down freely; strikes happen on that spinning fall. Slow down and leave more dead time between moves. Keep it above cover or along the upper edge of the zone. Keep it on a clean, trackable line so fish can find it before the next move.
-- Inline Spinner: With true surface suppressed, this keeps you just under the cleaner active lane. Inline Spinner stays in play when baitfish is relevant. It matches today's moderate presence lane. It gives you a different horizontal search look without leaving today's window.
-- Inline Spinner how: Use a slow-roll retrieve near bottom or cover edges; occasionally bump into structure to trigger reaction strikes. Keep the cadence controlled and add short stalls instead of burning it. Keep it above cover or along the upper edge of the zone. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
-- Suspending Jerkbait: It is one of the lead monthly looks for this exact seasonal window. With true surface suppressed, this keeps you just under the cleaner active lane. Suspending Jerkbait stays in play when baitfish is relevant. It is the cleaner change-up if the lead look does not convert.
-- Suspending Jerkbait how: Jerk, jerk, pause. The bait should dart and glide sideways on each twitch; dial the pause length to water temperature — colder means longer. Keep the cadence controlled and add short stalls instead of burning it. Keep it above cover or along the upper edge of the zone. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
+- Suspending Jerkbait: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Suspending Jerkbait how: Two or three sharp twitches, then let it suspend perfectly still for a full 3-5 count before the next sequence — the pause is everything. Keep it high in the zone.
+- Tube Jig: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It gives you a different bottom contact look without leaving today's window.
+- Tube Jig how: Hop it erratically off the bottom with sharp pops, then open the bail slightly so it spirals down freely; strikes happen on that spinning fall. Keep it high in the zone.
+- Paddle-Tail Swimbait: With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Paddle-Tail Swimbait how: Slow-roll near the bottom on a consistent retrieve; the paddle thumps best just barely above the substrate, so keep the rod tip down and the pace even. Keep it high in the zone.
 - Fly reasoning:
-- Woolly Bugger: Woolly Bugger tracks well when leech_worm is a realistic meal. With true surface suppressed, this keeps you just under the cleaner active lane. It stays low in the zone where this day still wants fish to hold.
-- Woolly Bugger how: Cast across and swing it on a tight line through the drift, then activate on the hang-down with short strips before lifting. Slow down and leave more dead time between moves. Keep it around the lower part of the productive zone. Keep it on a clean, trackable line so fish can find it before the next move.
-- Clouser Minnow: It is one of the lead monthly looks for this exact seasonal window. With true surface suppressed, this keeps you just under the cleaner active lane. Clouser Minnow tracks well when baitfish is a realistic meal. It gives you a different fly baitfish look without leaving today's window.
-- Clouser Minnow how: Strip in short, consistent pulls so the dumbbell eyes make the fly jig up and down; let it sink between strips to stay hook-point up throughout. Keep the cadence controlled and add short stalls instead of burning it. Keep it around the lower part of the productive zone. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
-- Muddler Minnow: It is one of the lead monthly looks for this exact seasonal window. With true surface suppressed, this keeps you just under the cleaner active lane. Muddler Minnow tracks well when baitfish is a realistic meal. It is the cleaner change-up if the lead look does not convert.
-- Muddler Minnow how: Work it as a swung wet fly in current with minimal stripping; on still water, hop it along the bottom with slow, erratic pulls. Slow down and leave more dead time between moves. Keep it above cover or along the upper edge of the zone. Keep it on a clean, trackable line so fish can find it before the next move.
+- Clouser Minnow: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Clouser Minnow how: Cast across or slightly downstream, let it jig toward you with short strips so the weighted eyes keep the fly tracking hook-point up. Keep it low in the strike zone.
+- Muddler Minnow: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It gives you a different fly bottom look without leaving today's window.
+- Muddler Minnow how: Work it as a swung wet fly in current with minimal stripping; on still water, hop it along the bottom with slow, erratic pulls. Keep it high in the zone.
+- Slim Baitfish Streamer: With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Slim Baitfish Streamer how: Fish it on a dead-drift through seams, then activate with quick strips near holding structure; the slim silhouette works best in clear water at a measured pace. Keep it high in the zone.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- NO_TOP1_TIE
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:natural,natural
 - Top 1 verdict:
 - Top 3 verdict:
@@ -4555,7 +4731,7 @@ Expected color themes:
 - natural
 
 Archived env summary:
-- Region: great_lakes_upper_midwest
+- Region: northeast
 - Archive weather timezone: America/New_York
 - Noon air temp: 69.6 F
 - Noon pressure: 1020 mb
@@ -4570,7 +4746,7 @@ Actual output:
 - Top 1 lure: Suspending Jerkbait `suspending_jerkbait` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 3 lures:
 - Suspending Jerkbait `suspending_jerkbait` | theme: `natural` | colors: green pumpkin, olive, smoke
-- Spinnerbait `spinnerbait` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Tube Jig `tube_jig` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 1 fly: Slim Baitfish Streamer `slim_minnow_streamer` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 3 flies:
@@ -4580,39 +4756,43 @@ Actual output:
 - Color notes:
 - Daily posture: aggressive
 - Suspending Jerkbait: natural -> green pumpkin, olive, smoke
-- Spinnerbait: natural -> green pumpkin, olive, smoke
+- Paddle-Tail Swimbait: natural -> green pumpkin, olive, smoke
 - Tube Jig: natural -> green pumpkin, olive, smoke
 - Slim Baitfish Streamer: natural -> green pumpkin, olive, smoke
 - Zonker Streamer: natural -> green pumpkin, olive, smoke
 - Game Changer: natural -> green pumpkin, olive, smoke
 - Daily profile notes:
 - Daily posture: aggressive
+- Seasonal source: region=northeast, fallback_used=false
 - Daily preference: column=upper, pace=medium, presence=subtle
-- Monthly baseline: columns=upper/mid/bottom, paces=medium/fast/slow, presence=moderate/subtle/bold
-- Guardrails: surface_allowed=true, suppress_true_surface=false, suppress_fast_presentations=false, high_visibility_needed=false, column_shift=1
+- Monthly baseline: columns=upper/mid, paces=medium/fast, presence=subtle/moderate/bold
+- Guardrails: surface_allowed=true, surface_window=rippled, suppress_fast_presentations=false, high_visibility_needed=false, column_shift=1
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
 - Variables triggered: temperature_trend, runoff_flow_disruption
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
 - Lure reasoning:
-- Suspending Jerkbait: It is one of the lead monthly looks for this exact seasonal window. It stays practical in current seams and river lanes when flow still matters. Suspending Jerkbait stays in play when baitfish is relevant.
-- Suspending Jerkbait how: Jerk, jerk, pause. The bait should dart and glide sideways on each twitch; dial the pause length to water temperature — colder means longer. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Keep the presentation clean and resist overworking it.
-- Spinnerbait: It is one of the lead monthly looks for this exact seasonal window. It stays practical in current seams and river lanes when flow still matters. Spinnerbait stays in play when baitfish is relevant. It gives you a different horizontal search look without leaving today's window.
-- Spinnerbait how: Cast past the target and retrieve through it, varying speed to find the blade thump fish respond to; hesitate briefly at cover edges. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Keep the presentation clean and resist overworking it.
-- Tube Jig: A warming trend nudges fish slightly higher in the allowed range. Tube Jig stays in play when crawfish is relevant. It fits today's upper column preference. It is the cleaner change-up if the lead look does not convert.
-- Tube Jig how: Snap the tube off bottom with short pops so it spirals on the fall, then let it glide back down on slack or semi-slack line. Keep a steady medium cadence. Keep it above cover or along the upper edge of the zone. Keep the presentation clean and resist overworking it.
+- Suspending Jerkbait: It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window.
+- Suspending Jerkbait how: Two or three sharp twitches, then let it suspend perfectly still for a full 3-5 count before the next sequence — the pause is everything. Keep it high in the zone.
+- Paddle-Tail Swimbait: It stays practical in current seams and river lanes when flow still matters. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different horizontal search look without leaving today's window.
+- Paddle-Tail Swimbait how: Swim it at the speed where you feel a steady kick through the rod; use rod angle to change depth without changing retrieve speed. Keep it high in the zone.
+- Tube Jig: A warming trend nudges fish slightly higher in the allowed range. It stays high enough in the zone to match the day's more open positioning. It is the cleaner change-up if the lead look does not convert.
+- Tube Jig how: Cast, let it sink, then pop sharply and release line; the tube should corkscrew back to bottom on each drop — keep a watchful eye on the line. Keep it high in the zone.
 - Fly reasoning:
-- Slim Baitfish Streamer: Slim Baitfish Streamer tracks well when baitfish is a realistic meal. It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window.
-- Slim Baitfish Streamer how: Retrieve with a mix of short darts and longer glides; the thin profile tracks like a small minnow on a tight line. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Keep the presentation clean and resist overworking it.
-- Zonker Streamer: Zonker Streamer tracks well when baitfish is a realistic meal. It stays practical in current seams and river lanes when flow still matters. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different fly baitfish look without leaving today's window.
-- Zonker Streamer how: Cast across current and strip steadily through the swing; add a momentary deadstop near structure so the wing collapses and then puffs back out. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Keep the presentation clean and resist overworking it.
-- Game Changer: The month is still baitfish-forward, and this stays inside that search lane. A warming trend nudges fish slightly higher in the allowed range. Game Changer tracks well when baitfish is a realistic meal. It is the cleaner change-up if the lead look does not convert.
-- Game Changer how: Use a mix of steady strips and sharp 6-inch twitches so the jointed body swims and stalls; pause when you see a follow. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Keep the presentation clean and resist overworking it.
+- Slim Baitfish Streamer: It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window.
+- Slim Baitfish Streamer how: Strip with short, quick pulls to make the slim profile dart; pause briefly so it hangs in the current or sinks an inch before the next strip. Keep it high in the zone.
+- Zonker Streamer: It stays practical in current seams and river lanes when flow still matters. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different fly baitfish look without leaving today's window.
+- Zonker Streamer how: Retrieve at moderate speed with intentional pauses where the fly sinks and the strip wing breathes; strikes often come as you restart the strip. Keep it high in the zone.
+- Game Changer: A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Game Changer how: Retrieve with medium strips, then occasionally rip hard so the body compresses and then springs apart — pause after each hard strip and hold your nerve. Keep it high in the zone.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- NO_TOP1_TIE
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:natural,natural
 - Top 1 verdict:
 - Top 3 verdict:
@@ -4656,7 +4836,7 @@ Expected color themes:
 - natural
 
 Archived env summary:
-- Region: great_lakes_upper_midwest
+- Region: northeast
 - Archive weather timezone: America/New_York
 - Noon air temp: 51.6 F
 - Noon pressure: 1020.5 mb
@@ -4671,7 +4851,7 @@ Actual output:
 - Top 1 lure: Suspending Jerkbait `suspending_jerkbait` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 3 lures:
 - Suspending Jerkbait `suspending_jerkbait` | theme: `natural` | colors: green pumpkin, olive, smoke
-- Spinnerbait `spinnerbait` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Tube Jig `tube_jig` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 1 fly: Slim Baitfish Streamer `slim_minnow_streamer` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 3 flies:
@@ -4681,38 +4861,42 @@ Actual output:
 - Color notes:
 - Daily posture: aggressive
 - Suspending Jerkbait: natural -> green pumpkin, olive, smoke
-- Spinnerbait: natural -> green pumpkin, olive, smoke
+- Paddle-Tail Swimbait: natural -> green pumpkin, olive, smoke
 - Tube Jig: natural -> green pumpkin, olive, smoke
 - Slim Baitfish Streamer: natural -> green pumpkin, olive, smoke
 - Zonker Streamer: natural -> green pumpkin, olive, smoke
 - Game Changer: natural -> green pumpkin, olive, smoke
 - Daily profile notes:
 - Daily posture: aggressive
+- Seasonal source: region=northeast, fallback_used=false
 - Daily preference: column=upper, pace=medium, presence=subtle
-- Monthly baseline: columns=upper/mid/bottom, paces=medium/fast/slow, presence=moderate/subtle/bold
-- Guardrails: surface_allowed=true, suppress_true_surface=false, suppress_fast_presentations=false, high_visibility_needed=false, column_shift=0
+- Monthly baseline: columns=upper/mid, paces=medium/fast, presence=subtle/moderate/bold
+- Guardrails: surface_allowed=true, surface_window=rippled, suppress_fast_presentations=false, high_visibility_needed=false, column_shift=0
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
 - Variables triggered: wind_condition, runoff_flow_disruption
 - Lure reasoning:
-- Suspending Jerkbait: It stays practical in current seams and river lanes when flow still matters. Suspending Jerkbait stays in play when baitfish is relevant. It fits today's upper column preference.
-- Suspending Jerkbait how: Jerk, jerk, pause. The bait should dart and glide sideways on each twitch; dial the pause length to water temperature — colder means longer. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Keep the presentation clean and resist overworking it.
-- Spinnerbait: Spinnerbait stays in play when baitfish is relevant. It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window. It gives you a different horizontal search look without leaving today's window.
-- Spinnerbait how: Cast past the target and retrieve through it, varying speed to find the blade thump fish respond to; hesitate briefly at cover edges. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Keep the presentation clean and resist overworking it.
-- Tube Jig: Tube Jig stays in play when crawfish is relevant. It stays high enough in the zone to match the day's more open positioning. It fits today's upper column preference. It is the cleaner change-up if the lead look does not convert.
-- Tube Jig how: Snap the tube off bottom with short pops so it spirals on the fall, then let it glide back down on slack or semi-slack line. Keep a steady medium cadence. Keep it above cover or along the upper edge of the zone. Keep the presentation clean and resist overworking it.
+- Suspending Jerkbait: It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window.
+- Suspending Jerkbait how: Two or three sharp twitches, then let it suspend perfectly still for a full 3-5 count before the next sequence — the pause is everything. Keep it high in the zone.
+- Paddle-Tail Swimbait: It stays practical in current seams and river lanes when flow still matters. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different horizontal search look without leaving today's window.
+- Paddle-Tail Swimbait how: Swim it at the speed where you feel a steady kick through the rod; use rod angle to change depth without changing retrieve speed. Keep it high in the zone.
+- Tube Jig: It stays high enough in the zone to match the day's more open positioning. It fits today's upper column preference. It is the cleaner change-up if the lead look does not convert.
+- Tube Jig how: Cast, let it sink, then pop sharply and release line; the tube should corkscrew back to bottom on each drop — keep a watchful eye on the line. Keep it high in the zone.
 - Fly reasoning:
-- Slim Baitfish Streamer: It stays practical in current seams and river lanes when flow still matters. Slim Baitfish Streamer tracks well when baitfish is a realistic meal. It fits today's upper column preference.
-- Slim Baitfish Streamer how: Retrieve with a mix of short darts and longer glides; the thin profile tracks like a small minnow on a tight line. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Keep the presentation clean and resist overworking it.
-- Zonker Streamer: It stays practical in current seams and river lanes when flow still matters. Zonker Streamer tracks well when baitfish is a realistic meal. It fits today's upper column preference. It gives you a different fly baitfish look without leaving today's window.
-- Zonker Streamer how: Cast across current and strip steadily through the swing; add a momentary deadstop near structure so the wing collapses and then puffs back out. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Keep the presentation clean and resist overworking it.
-- Game Changer: Game Changer tracks well when baitfish is a realistic meal. The month is still baitfish-forward, and this stays inside that search lane. It fits today's upper column preference. It is the cleaner change-up if the lead look does not convert.
-- Game Changer how: Use a mix of steady strips and sharp 6-inch twitches so the jointed body swims and stalls; pause when you see a follow. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Keep the presentation clean and resist overworking it.
+- Slim Baitfish Streamer: It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window.
+- Slim Baitfish Streamer how: Strip with short, quick pulls to make the slim profile dart; pause briefly so it hangs in the current or sinks an inch before the next strip. Keep it high in the zone.
+- Zonker Streamer: It stays practical in current seams and river lanes when flow still matters. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different fly baitfish look without leaving today's window.
+- Zonker Streamer how: Retrieve at moderate speed with intentional pauses where the fly sinks and the strip wing breathes; strikes often come as you restart the strip. Keep it high in the zone.
+- Game Changer: The month is still baitfish-forward, and this stays inside that search lane. It fits today's upper column preference. It is the cleaner change-up if the lead look does not convert.
+- Game Changer how: Retrieve with medium strips, then occasionally rip hard so the body compresses and then springs apart — pause after each hard strip and hold your nerve. Keep it high in the zone.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- NO_TOP1_TIE
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:natural,natural
 - Top 1 verdict:
 - Top 3 verdict:
@@ -4756,7 +4940,7 @@ Expected color themes:
 - natural
 
 Archived env summary:
-- Region: great_lakes_upper_midwest
+- Region: northeast
 - Archive weather timezone: America/New_York
 - Noon air temp: 38.2 F
 - Noon pressure: 1004.9 mb
@@ -4768,53 +4952,57 @@ Archived env summary:
 - Sunrise/sunset: 06:55 / 16:53
 
 Actual output:
-- Top 1 lure: Hair Jig `hair_jig` | theme: `dark` | colors: black, black/blue, black/purple
+- Top 1 lure: Suspending Jerkbait `suspending_jerkbait` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 lures:
-- Hair Jig `hair_jig` | theme: `dark` | colors: black, black/blue, black/purple
-- Tube Jig `tube_jig` | theme: `dark` | colors: black, black/blue, black/purple
 - Suspending Jerkbait `suspending_jerkbait` | theme: `dark` | colors: black, black/blue, black/purple
-- Top 1 fly: Woolly Bugger `woolly_bugger` | theme: `dark` | colors: black, black/blue, black/purple
+- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Hair Jig `hair_jig` | theme: `dark` | colors: black, black/blue, black/purple
+- Top 1 fly: Slim Baitfish Streamer `slim_minnow_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 flies:
+- Slim Baitfish Streamer `slim_minnow_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Woolly Bugger `woolly_bugger` | theme: `dark` | colors: black, black/blue, black/purple
-- Sculpin Streamer `sculpin_streamer` | theme: `dark` | colors: black, black/blue, black/purple
-- Conehead Streamer `conehead_streamer` | theme: `dark` | colors: black, black/blue, black/purple
+- Clouser Minnow `clouser_minnow` | theme: `dark` | colors: black, black/blue, black/purple
 - Color notes:
 - Daily posture: aggressive
-- Hair Jig: dark -> black, black/blue, black/purple
-- Tube Jig: dark -> black, black/blue, black/purple
 - Suspending Jerkbait: dark -> black, black/blue, black/purple
+- Paddle-Tail Swimbait: dark -> black, black/blue, black/purple
+- Hair Jig: dark -> black, black/blue, black/purple
+- Slim Baitfish Streamer: dark -> black, black/blue, black/purple
 - Woolly Bugger: dark -> black, black/blue, black/purple
-- Sculpin Streamer: dark -> black, black/blue, black/purple
-- Conehead Streamer: dark -> black, black/blue, black/purple
+- Clouser Minnow: dark -> black, black/blue, black/purple
 - Daily profile notes:
 - Daily posture: aggressive
-- Daily preference: column=mid, pace=slow, presence=subtle
-- Monthly baseline: columns=bottom/mid, paces=slow/medium, presence=subtle/moderate
-- Guardrails: surface_allowed=true, suppress_true_surface=false, suppress_fast_presentations=false, high_visibility_needed=false, column_shift=1
+- Seasonal source: region=northeast, fallback_used=false
+- Daily preference: column=upper, pace=medium, presence=subtle
+- Monthly baseline: columns=upper/mid/bottom, paces=slow/medium/fast, presence=subtle/moderate/bold
+- Guardrails: surface_allowed=true, surface_window=clean, suppress_fast_presentations=false, high_visibility_needed=false, column_shift=1
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
 - Variables triggered: temperature_trend, light_cloud_condition, wind_condition, runoff_flow_disruption
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Lure reasoning:
-- Hair Jig: It is one of the lead monthly looks for this exact seasonal window. A warming trend nudges fish slightly higher in the allowed range. Hair Jig stays in play when baitfish is relevant.
-- Hair Jig how: Swing it through current seams or drop it in pockets with minimal movement; let the marabou breathe in place before slowly pulling it along. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
-- Tube Jig: Tube Jig stays in play when crawfish is relevant. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It gives you a different bottom contact look without leaving today's window.
-- Tube Jig how: Cast, let it sink, then pop sharply and release line; the tube should corkscrew back to bottom on each drop — keep a watchful eye on the line. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
-- Suspending Jerkbait: Suspending Jerkbait stays in play when baitfish is relevant. A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
-- Suspending Jerkbait how: Work it with wrist snaps, not big sweeps; keep slack in the line between snaps so the bait swings freely, then pause until you see a follow or feel weight. Keep the cadence controlled and add short stalls instead of burning it. Keep it around the middle band of the strike zone. Start on wind-blown edges or the first active cover line and let it cover water.
+- Suspending Jerkbait: A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
+- Suspending Jerkbait how: Work it with wrist snaps, not big sweeps; keep slack in the line between snaps so the bait swings freely, then pause until you see a follow or feel weight. Keep it high in the zone.
+- Paddle-Tail Swimbait: A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different horizontal search look without leaving today's window.
+- Paddle-Tail Swimbait how: Swim it at the speed where you feel a steady kick through the rod; use rod angle to change depth without changing retrieve speed. Keep it high in the zone.
+- Hair Jig: A warming trend nudges fish slightly higher in the allowed range. It stays high enough in the zone to match the day's more open positioning. It is the cleaner change-up if the lead look does not convert.
+- Hair Jig how: Swing it through current seams or drop it in pockets with minimal movement; let the marabou breathe in place before slowly pulling it along. Keep it high in the zone.
 - Fly reasoning:
-- Woolly Bugger: It stays practical in current seams and river lanes when flow still matters. Woolly Bugger tracks well when leech_worm is a realistic meal. It fits today's mid column preference.
-- Woolly Bugger how: Fish it on a dead-drift near the bottom, then come alive with a strip-pause retrieve through prime holding water; let the tail do most of the work. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
-- Sculpin Streamer: It is one of the lead monthly looks for this exact seasonal window. It stays practical in current seams and river lanes when flow still matters. Sculpin Streamer tracks well when baitfish is a realistic meal. It gives you a different fly bottom look without leaving today's window.
-- Sculpin Streamer how: Inch it along the bottom with tight-line strips; sculpin barely swim, so keep the fly close to the substrate and use current for most of the motion. Slow down and leave more dead time between moves. Keep it around the lower part of the productive zone. Keep the presentation clean and resist overworking it.
-- Conehead Streamer: It stays practical in current seams and river lanes when flow still matters. Conehead Streamer tracks well when baitfish is a realistic meal. It lines up with today's slow pace preference. It is the cleaner change-up if the lead look does not convert.
-- Conehead Streamer how: Cast across or down, let it sink to depth, then strip with a jig-like cadence where the cone tips the fly nose-down on each pause. Slow down and leave more dead time between moves. Keep it around the lower part of the productive zone. Keep the presentation clean and resist overworking it.
+- Slim Baitfish Streamer: A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
+- Slim Baitfish Streamer how: Fish it on a dead-drift through seams, then activate with quick strips near holding structure; the slim silhouette works best in clear water at a measured pace. Keep it high in the zone.
+- Woolly Bugger: It stays practical in current seams and river lanes when flow still matters. Woolly Bugger tracks well when leech_worm is a realistic meal. It gives you a different fly bottom look without leaving today's window.
+- Woolly Bugger how: Cast across and swing it on a tight line through the drift, then activate on the hang-down with short strips before lifting.
+- Clouser Minnow: A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Clouser Minnow how: Cast and let the weighted eyes sink the fly, then retrieve with a strip-pause cadence that makes it dart upward on the strip and dive back on the pause.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- NO_TOP1_TIE
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:dark,dark
 - Top 1 verdict:
 - Top 3 verdict:
@@ -4857,7 +5045,7 @@ Expected color themes:
 - dark
 
 Archived env summary:
-- Region: great_lakes_upper_midwest
+- Region: northeast
 - Archive weather timezone: America/New_York
 - Noon air temp: 33.4 F
 - Noon pressure: 993.9 mb
@@ -4869,29 +5057,30 @@ Archived env summary:
 - Sunrise/sunset: 07:25 / 16:40
 
 Actual output:
-- Top 1 lure: Hair Jig `hair_jig` | theme: `dark` | colors: black, black/blue, black/purple
+- Top 1 lure: Tube Jig `tube_jig` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 lures:
-- Hair Jig `hair_jig` | theme: `dark` | colors: black, black/blue, black/purple
-- Blade Bait `blade_bait` | theme: `dark` | colors: black, black/blue, black/purple
 - Tube Jig `tube_jig` | theme: `dark` | colors: black, black/blue, black/purple
+- Blade Bait `blade_bait` | theme: `dark` | colors: black, black/blue, black/purple
+- Hair Jig `hair_jig` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 1 fly: Woolly Bugger `woolly_bugger` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 flies:
 - Woolly Bugger `woolly_bugger` | theme: `dark` | colors: black, black/blue, black/purple
-- Sculpin Streamer `sculpin_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Conehead Streamer `conehead_streamer` | theme: `dark` | colors: black, black/blue, black/purple
+- Sculpin Streamer `sculpin_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Color notes:
 - Daily posture: aggressive
-- Hair Jig: dark -> black, black/blue, black/purple
-- Blade Bait: dark -> black, black/blue, black/purple
 - Tube Jig: dark -> black, black/blue, black/purple
+- Blade Bait: dark -> black, black/blue, black/purple
+- Hair Jig: dark -> black, black/blue, black/purple
 - Woolly Bugger: dark -> black, black/blue, black/purple
-- Sculpin Streamer: dark -> black, black/blue, black/purple
 - Conehead Streamer: dark -> black, black/blue, black/purple
+- Sculpin Streamer: dark -> black, black/blue, black/purple
 - Daily profile notes:
 - Daily posture: aggressive
+- Seasonal source: region=northeast, fallback_used=false
 - Daily preference: column=mid, pace=slow, presence=moderate
-- Monthly baseline: columns=bottom/mid/upper, paces=slow/medium, presence=subtle/moderate
-- Guardrails: surface_allowed=false, suppress_true_surface=true, suppress_fast_presentations=false, high_visibility_needed=true, column_shift=1
+- Monthly baseline: columns=mid/bottom, paces=slow/medium, presence=subtle/moderate
+- Guardrails: surface_allowed=false, surface_window=closed, suppress_fast_presentations=false, high_visibility_needed=true, column_shift=1
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
 - Variables triggered: temperature_trend, light_cloud_condition, wind_condition, runoff_flow_disruption
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
@@ -4899,25 +5088,28 @@ Actual output:
 - Daily note: Strong wind reduces clean execution.
 - Daily note: Slightly elevated runoff supports a more visible river presentation.
 - Lure reasoning:
-- Hair Jig: It is one of the lead monthly looks for this exact seasonal window. With true surface suppressed, this keeps you just under the cleaner active lane. Hair Jig stays in play when baitfish is relevant.
-- Hair Jig how: Swing it through current seams or drop it in pockets with minimal movement; let the marabou breathe in place before slowly pulling it along. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep it on a clean, trackable line so fish can find it before the next move.
-- Blade Bait: With true surface suppressed, this keeps you just under the cleaner active lane. Blade Bait stays in play when baitfish is relevant. It fits today's mid column preference. It gives you a different reaction mid column look without leaving today's window.
-- Blade Bait how: Cast and hop it off bottom with quick wrist snaps, counting the flutter back down; strikes usually come on the fall, so stay in contact with semi-tight line. Keep the cadence controlled and add short stalls instead of burning it. Keep it around the middle band of the strike zone. Start on wind-blown edges or the first active cover line and let it cover water.
-- Tube Jig: Tube Jig stays in play when crawfish is relevant. With true surface suppressed, this keeps you just under the cleaner active lane. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
-- Tube Jig how: Cast, let it sink, then pop sharply and release line; the tube should corkscrew back to bottom on each drop — keep a watchful eye on the line. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep it on a clean, trackable line so fish can find it before the next move.
+- Tube Jig: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Tube Jig how: Hop it erratically off the bottom with sharp pops, then open the bail slightly so it spirals down freely; strikes happen on that spinning fall. Slow down and lengthen the pause.
+- Blade Bait: With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different reaction mid column look without leaving today's window.
+- Blade Bait how: Vertical jig it with short, sharp hops over suspended fish; the flutter-fall is the presentation — set hard the moment you feel weight. Slow down and lengthen the pause.
+- Hair Jig: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Hair Jig how: Fish it on a tight line at slow speed — the hair works best with tiny line pulses rather than big lifts; let it hang in the current or slack zone. Slow down and lengthen the pause.
 - Fly reasoning:
-- Woolly Bugger: With true surface suppressed, this keeps you just under the cleaner active lane. Woolly Bugger tracks well when leech_worm is a realistic meal. It fits today's mid column preference.
-- Woolly Bugger how: Fish it on a dead-drift near the bottom, then come alive with a strip-pause retrieve through prime holding water; let the tail do most of the work. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep it on a clean, trackable line so fish can find it before the next move.
-- Sculpin Streamer: It is one of the lead monthly looks for this exact seasonal window. Slightly elevated runoff supports a more visible river presentation. Sculpin Streamer tracks well when baitfish is a realistic meal. It gives you a different fly bottom look without leaving today's window.
-- Sculpin Streamer how: Inch it along the bottom with tight-line strips; sculpin barely swim, so keep the fly close to the substrate and use current for most of the motion. Slow down and leave more dead time between moves. Keep it around the lower part of the productive zone. Keep it on a clean, trackable line so fish can find it before the next move.
-- Conehead Streamer: Slightly elevated runoff supports a more visible river presentation. Conehead Streamer tracks well when baitfish is a realistic meal. It lines up with today's slow pace preference. It is the cleaner change-up if the lead look does not convert.
-- Conehead Streamer how: Cast across or down, let it sink to depth, then strip with a jig-like cadence where the cone tips the fly nose-down on each pause. Slow down and leave more dead time between moves. Keep it around the lower part of the productive zone. Keep it on a clean, trackable line so fish can find it before the next move.
+- Woolly Bugger: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Woolly Bugger how: Cast across and swing it on a tight line through the drift, then activate on the hang-down with short strips before lifting. Slow down and lengthen the pause.
+- Conehead Streamer: Slightly elevated runoff supports a more visible river presentation. Conehead Streamer tracks well when baitfish is a realistic meal. It gives you a different fly bottom look without leaving today's window.
+- Conehead Streamer how: Strip with consistent medium pulls; the cone keeps the fly diving nose-first on each retrieve, so use pauses to let it hunt and settle before the next strip. Slow down and lengthen the pause.
+- Sculpin Streamer: Slightly elevated runoff supports a more visible river presentation. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Sculpin Streamer how: Cast upstream and mend for a natural drift, then activate with short strips that make the fly bumble over the bottom like a sculpin retreating. Slow down and lengthen the pause.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- NO_TOP1_TIE
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:dark,dark
 - Top 1 verdict:
 - Top 3 verdict:
@@ -4983,7 +5175,7 @@ Actual output:
 - Game Changer `game_changer` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Balanced Leech `balanced_leech` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Color notes:
-- Daily posture: slightly_suppressed
+- Daily posture: neutral
 - Tube Jig: natural -> green pumpkin, olive, smoke
 - Hair Jig: natural -> green pumpkin, olive, smoke
 - Ned Rig: natural -> green pumpkin, olive, smoke
@@ -4991,35 +5183,39 @@ Actual output:
 - Game Changer: natural -> green pumpkin, olive, smoke
 - Balanced Leech: natural -> green pumpkin, olive, smoke
 - Daily profile notes:
-- Daily posture: slightly_suppressed
+- Daily posture: neutral
+- Seasonal source: region=great_lakes_upper_midwest, fallback_used=false
 - Daily preference: column=upper, pace=slow, presence=subtle
-- Monthly baseline: columns=upper/mid/bottom, paces=medium/slow/fast, presence=moderate/subtle/bold
-- Guardrails: surface_allowed=false, suppress_true_surface=true, suppress_fast_presentations=true, high_visibility_needed=false, column_shift=1
+- Monthly baseline: columns=upper/mid, paces=slow/medium/fast, presence=subtle/moderate/bold
+- Guardrails: surface_allowed=true, surface_window=rippled, suppress_fast_presentations=false, high_visibility_needed=false, column_shift=0
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
 - Variables triggered: temperature_metabolic_context, temperature_trend, wind_condition, precipitation_disruption
-- Daily note: Temperature metabolism suppresses the day and favors slower execution.
+- Daily note: Heat stress moves fish to cooler, deeper water and narrows the feeding window.
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
 - Daily note: Moderate chop improves fishability and supports a stronger moving look.
 - Lure reasoning:
-- Tube Jig: Tube Jig stays in play when crawfish is relevant. With true surface suppressed, this keeps you just under the cleaner active lane. It is one of the lead monthly looks for this exact seasonal window.
-- Tube Jig how: Snap the tube off bottom with short pops so it spirals on the fall, then let it glide back down on slack or semi-slack line. Slow down and leave more dead time between moves. Keep it above cover or along the upper edge of the zone. Let it soak a little longer before each move.
-- Hair Jig: With true surface suppressed, this keeps you just under the cleaner active lane. Hair Jig stays in play when baitfish is relevant. It fits today's upper column preference. It gives you a different finesse subtle look without leaving today's window.
-- Hair Jig how: Cast across, let it sink on a controlled slack line, then swim it back with short pauses so the marabou pulses and collapses. Slow down and leave more dead time between moves. Keep it above cover or along the upper edge of the zone. Let it soak a little longer before each move.
-- Ned Rig: With true surface suppressed, this keeps you just under the cleaner active lane. Ned Rig stays in play when crawfish is relevant. It fits today's upper column preference. It is the cleaner change-up if the lead look does not convert.
-- Ned Rig how: Drag and shake the small head along bottom like a tiny craw — short pulls, let it settle, repeat instead of big hops. Slow down and leave more dead time between moves. Keep it above cover or along the upper edge of the zone. Let it soak a little longer before each move.
+- Tube Jig: Heat stress moves fish to cooler, deeper water and narrows the feeding window. It is one of the lead monthly looks for this exact seasonal window.
+- Tube Jig how: Snap the tube off bottom with short pops so it spirals on the fall, then let it glide back down on slack or semi-slack line. Slow down and lengthen the pause.
+- Hair Jig: Heat stress moves fish to cooler, deeper water and narrows the feeding window. It stays high enough in the zone to match the day's more open positioning. It gives you a different finesse subtle look without leaving today's window.
+- Hair Jig how: Fish it on a tight line at slow speed — the hair works best with tiny line pulses rather than big lifts; let it hang in the current or slack zone. Slow down and lengthen the pause.
+- Ned Rig: Heat stress moves fish to cooler, deeper water and narrows the feeding window. That keeps a crawfish-first look in the water for the month. It is the cleaner change-up if the lead look does not convert.
+- Ned Rig how: Inch it along with small rod pops and long pauses; the mushroom head keeps it nose-down and upright — let it sit longer than you think is necessary. Slow down and lengthen the pause.
 - Fly reasoning:
-- Woolly Bugger: With true surface suppressed, this keeps you just under the cleaner active lane. Woolly Bugger tracks well when leech_worm is a realistic meal. It lines up with today's slow pace preference.
-- Woolly Bugger how: Let it sink to depth then retrieve with slow hand-twists or short strips; the marabou tail breathes best with long pauses at the end of each pull. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
-- Game Changer: It stays high enough in the zone to match the day's more open positioning. With true surface suppressed, this keeps you just under the cleaner active lane. Game Changer tracks well when baitfish is a realistic meal. It gives you a different fly baitfish look without leaving today's window.
-- Game Changer how: Use a mix of steady strips and sharp 6-inch twitches so the jointed body swims and stalls; pause when you see a follow. Keep the cadence controlled and add short stalls instead of burning it. Keep it above cover or along the upper edge of the zone. Keep the presentation clean and resist overworking it.
-- Balanced Leech: With true surface suppressed, this keeps you just under the cleaner active lane. Balanced Leech tracks well when leech_worm is a realistic meal. It lines up with today's slow pace preference. It is the cleaner change-up if the lead look does not convert.
-- Balanced Leech how: Fish it under an indicator or on a slow hand-twist so the fly hovers level and pulses in place rather than diving nose-first. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
+- Woolly Bugger: Heat stress moves fish to cooler, deeper water and narrows the feeding window. Woolly Bugger tracks well when leech_worm is a realistic meal.
+- Woolly Bugger how: Let it sink to depth then retrieve with slow hand-twists or short strips; the marabou tail breathes best with long pauses at the end of each pull. Slow down and lengthen the pause.
+- Game Changer: Heat stress moves fish to cooler, deeper water and narrows the feeding window. It stays high enough in the zone to match the day's more open positioning. It gives you a different fly baitfish look without leaving today's window.
+- Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink. Slow down and lengthen the pause.
+- Balanced Leech: Heat stress moves fish to cooler, deeper water and narrows the feeding window. Balanced Leech tracks well when leech_worm is a realistic meal. It is the cleaner change-up if the lead look does not convert.
+- Balanced Leech how: Count it down to the level you want, then use a very slow strip-pause cadence so the fly hangs horizontally through the zone. Slow down and lengthen the pause.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- NO_TOP1_TIE
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:natural,natural
 - Top 1 verdict:
 - Top 3 verdict:
@@ -5074,11 +5270,11 @@ Archived env summary:
 - Sunrise/sunset: 05:04 / 20:53
 
 Actual output:
-- Top 1 lure: Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Top 1 lure: Soft Plastic Jerkbait `soft_jerkbait` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 lures:
-- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `dark` | colors: black, black/blue, black/purple
 - Soft Plastic Jerkbait `soft_jerkbait` | theme: `dark` | colors: black, black/blue, black/purple
-- Walking Topwater `walking_topwater` | theme: `dark` | colors: black, black/blue, black/purple
+- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Hair Jig `hair_jig` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 1 fly: Mouse Fly `mouse_fly` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 flies:
 - Mouse Fly `mouse_fly` | theme: `dark` | colors: black, black/blue, black/purple
@@ -5086,41 +5282,45 @@ Actual output:
 - Popper Fly `popper_fly` | theme: `dark` | colors: black, black/blue, black/purple
 - Color notes:
 - Daily posture: aggressive
-- Paddle-Tail Swimbait: dark -> black, black/blue, black/purple
 - Soft Plastic Jerkbait: dark -> black, black/blue, black/purple
-- Walking Topwater: dark -> black, black/blue, black/purple
+- Paddle-Tail Swimbait: dark -> black, black/blue, black/purple
+- Hair Jig: dark -> black, black/blue, black/purple
 - Mouse Fly: dark -> black, black/blue, black/purple
 - Game Changer: dark -> black, black/blue, black/purple
 - Popper Fly: dark -> black, black/blue, black/purple
 - Daily profile notes:
 - Daily posture: aggressive
-- Daily preference: column=upper, pace=medium, presence=subtle
-- Monthly baseline: columns=surface/upper/mid, paces=medium/fast/slow, presence=moderate/subtle/bold
-- Guardrails: surface_allowed=true, suppress_true_surface=false, suppress_fast_presentations=false, high_visibility_needed=false, column_shift=1
+- Seasonal source: region=great_lakes_upper_midwest, fallback_used=false
+- Daily preference: column=surface, pace=medium, presence=subtle
+- Monthly baseline: columns=surface/upper/mid, paces=medium/fast, presence=subtle/moderate/bold
+- Guardrails: surface_allowed=true, surface_window=clean, suppress_fast_presentations=false, high_visibility_needed=false, column_shift=1
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
 - Variables triggered: temperature_trend, light_cloud_condition, precipitation_disruption
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Lure reasoning:
-- Paddle-Tail Swimbait: Paddle-Tail Swimbait stays in play when baitfish is relevant. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
-- Paddle-Tail Swimbait how: Slow-roll near the bottom on a consistent retrieve; the paddle thumps best just barely above the substrate, so keep the rod tip down and the pace even. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Start on wind-blown edges or the first active cover line and let it cover water.
-- Soft Plastic Jerkbait: A warming trend nudges fish slightly higher in the allowed range. Soft Plastic Jerkbait stays in play when baitfish is relevant. It fits today's upper column preference. It gives you a different horizontal search look without leaving today's window.
-- Soft Plastic Jerkbait how: Work it with a jerk-sink-jerk cadence; keep the line slightly slack between twitches so the bait moves unpredictably, and vary the pause length. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Start on wind-blown edges or the first active cover line and let it cover water.
-- Walking Topwater: Walking Topwater stays in play when baitfish is relevant. Even with a little ripple, the surface lane is still open enough to matter. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
-- Walking Topwater how: Work it with consistent wrist flicks over open water or above grass; keep the cadence smooth and only slow down if you see fish following. Keep it moving on a steady, fishable cadence. Keep it high and over the surface lane. Keep the presentation clean and resist overworking it.
+- Soft Plastic Jerkbait: A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
+- Soft Plastic Jerkbait how: Work it with a jerk-sink-jerk cadence; keep the line slightly slack between twitches so the bait moves unpredictably, and vary the pause length. Keep it high in the zone.
+- Paddle-Tail Swimbait: A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It gives you a different horizontal search look without leaving today's window.
+- Paddle-Tail Swimbait how: Swim it at the speed where you feel a steady kick through the rod; use rod angle to change depth without changing retrieve speed. Keep it high in the zone.
+- Hair Jig: A warming trend nudges fish slightly higher in the allowed range. Hair Jig stays in play when baitfish is relevant. It is the cleaner change-up if the lead look does not convert.
+- Hair Jig how: Swing it through current seams or drop it in pockets with minimal movement; let the marabou breathe in place before slowly pulling it along. Keep it high in the zone.
 - Fly reasoning:
-- Mouse Fly: Mouse Fly tracks well when baitfish is a realistic meal. Even with a little ripple, the surface lane is still open enough to matter. The month is still baitfish-forward, and this stays inside that search lane.
-- Mouse Fly how: Work it with a slow, uninterrupted retrieve across open water; the V-wake is the trigger, so keep it moving at a steady pace and stay alert. Keep it moving on a steady, fishable cadence. Keep it high and over the surface lane. Keep the presentation clean and resist overworking it.
-- Game Changer: A warming trend nudges fish slightly higher in the allowed range. Game Changer tracks well when baitfish is a realistic meal. It fits today's upper column preference. It gives you a different fly baitfish look without leaving today's window.
-- Game Changer how: Retrieve with medium strips, then occasionally rip hard so the body compresses and then springs apart — pause after each hard strip and hold your nerve. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Keep the presentation clean and resist overworking it.
-- Popper Fly: Popper Fly tracks well when baitfish is a realistic meal. Even with a little ripple, the surface lane is still open enough to matter. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
-- Popper Fly how: Work it with medium strips that spit and gurgle; slow the cadence near structure and let the fly rest after each pop — target the edge of any surface shadow. Keep it moving on a steady, fishable cadence. Keep it high and over the surface lane. Keep the presentation clean and resist overworking it.
+- Mouse Fly: Low disturbance is keeping a true surface lane open today. The month is still baitfish-forward, and this stays inside that search lane.
+- Mouse Fly how: Work it with a slow, uninterrupted retrieve across open water; the V-wake is the trigger, so keep it moving at a steady pace and stay alert. Keep it on top.
+- Game Changer: A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It gives you a different fly baitfish look without leaving today's window.
+- Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink. Keep it high in the zone.
+- Popper Fly: Low disturbance is keeping a true surface lane open today. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Popper Fly how: Work it with medium strips that spit and gurgle; slow the cadence near structure and let the fly rest after each pop — target the edge of any surface shadow. Keep it on top.
 
 Review:
 - Precheck flags:
-- TOP1_PRIMARY_MISS
+- TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- NO_TOP1_TIE
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:dark,dark
 - Top 1 verdict:
 - Top 3 verdict:
@@ -5182,48 +5382,52 @@ Actual output:
 - Hair Jig `hair_jig` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Tube Jig `tube_jig` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural` | colors: green pumpkin, olive, smoke
-- Top 1 fly: Game Changer `game_changer` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Top 1 fly: Slim Baitfish Streamer `slim_minnow_streamer` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 3 flies:
-- Game Changer `game_changer` | theme: `natural` | colors: green pumpkin, olive, smoke
-- Mouse Fly `mouse_fly` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Slim Baitfish Streamer `slim_minnow_streamer` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Woolly Bugger `woolly_bugger` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Game Changer `game_changer` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Color notes:
 - Daily posture: aggressive
 - Hair Jig: natural -> green pumpkin, olive, smoke
 - Tube Jig: natural -> green pumpkin, olive, smoke
 - Paddle-Tail Swimbait: natural -> green pumpkin, olive, smoke
-- Game Changer: natural -> green pumpkin, olive, smoke
-- Mouse Fly: natural -> green pumpkin, olive, smoke
+- Slim Baitfish Streamer: natural -> green pumpkin, olive, smoke
 - Woolly Bugger: natural -> green pumpkin, olive, smoke
+- Game Changer: natural -> green pumpkin, olive, smoke
 - Daily profile notes:
 - Daily posture: aggressive
+- Seasonal source: region=great_lakes_upper_midwest, fallback_used=false
 - Daily preference: column=upper, pace=medium, presence=subtle
-- Monthly baseline: columns=upper/mid/surface/bottom, paces=medium/fast/slow, presence=subtle/moderate
-- Guardrails: surface_allowed=true, suppress_true_surface=false, suppress_fast_presentations=false, high_visibility_needed=false, column_shift=1
+- Monthly baseline: columns=upper/mid/bottom, paces=slow/medium, presence=subtle/moderate
+- Guardrails: surface_allowed=true, surface_window=rippled, suppress_fast_presentations=false, high_visibility_needed=false, column_shift=1
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
 - Variables triggered: temperature_trend, wind_condition, precipitation_disruption
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
 - Daily note: Moderate chop improves fishability and supports a stronger moving look.
 - Lure reasoning:
-- Hair Jig: A warming trend nudges fish slightly higher in the allowed range. Hair Jig stays in play when baitfish is relevant. It fits today's upper column preference.
-- Hair Jig how: Swing it through current seams or drop it in pockets with minimal movement; let the marabou breathe in place before slowly pulling it along. Keep a steady medium cadence. Keep it above cover or along the upper edge of the zone. Keep the presentation clean and resist overworking it.
-- Tube Jig: A warming trend nudges fish slightly higher in the allowed range. Tube Jig stays in play when crawfish is relevant. It fits today's upper column preference. It gives you a different bottom contact look without leaving today's window.
-- Tube Jig how: Snap the tube off bottom with short pops so it spirals on the fall, then let it glide back down on slack or semi-slack line. Keep a steady medium cadence. Keep it above cover or along the upper edge of the zone. Keep the presentation clean and resist overworking it.
-- Paddle-Tail Swimbait: A warming trend nudges fish slightly higher in the allowed range. Paddle-Tail Swimbait stays in play when baitfish is relevant. It fits today's upper column preference. It is the cleaner change-up if the lead look does not convert.
-- Paddle-Tail Swimbait how: Swim it at the speed where you feel a steady kick through the rod; use rod angle to change depth without changing retrieve speed. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Keep the presentation clean and resist overworking it.
+- Hair Jig: A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
+- Hair Jig how: Cast across, let it sink on a controlled slack line, then swim it back with short pauses so the marabou pulses and collapses. Keep it high in the zone.
+- Tube Jig: A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It gives you a different bottom contact look without leaving today's window.
+- Tube Jig how: Hop it erratically off the bottom with sharp pops, then open the bail slightly so it spirals down freely; strikes happen on that spinning fall. Keep it high in the zone.
+- Paddle-Tail Swimbait: Moderate chop improves fishability and supports a stronger moving look. It stays high enough in the zone to match the day's more open positioning. It is the cleaner change-up if the lead look does not convert.
+- Paddle-Tail Swimbait how: Slow-roll near the bottom on a consistent retrieve; the paddle thumps best just barely above the substrate, so keep the rod tip down and the pace even. Keep it high in the zone.
 - Fly reasoning:
-- Game Changer: It stays high enough in the zone to match the day's more open positioning. A warming trend nudges fish slightly higher in the allowed range. Game Changer tracks well when baitfish is a realistic meal.
-- Game Changer how: Use a mix of steady strips and sharp 6-inch twitches so the jointed body swims and stalls; pause when you see a follow. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Keep the presentation clean and resist overworking it.
-- Mouse Fly: Mouse Fly tracks well when baitfish is a realistic meal. Even with a little ripple, the surface lane is still open enough to matter. It lines up with today's medium pace preference. It gives you a different fly surface look without leaving today's window.
-- Mouse Fly how: Swim it on a constant slow retrieve just fast enough to leave a wake; target near-shore edges and structure where big fish expect food to cross. Keep it moving on a steady, fishable cadence. Keep it high and over the surface lane. Keep the presentation clean and resist overworking it.
-- Woolly Bugger: It is one of the lead monthly looks for this exact seasonal window. A warming trend nudges fish slightly higher in the allowed range. Woolly Bugger tracks well when leech_worm is a realistic meal. It is the cleaner change-up if the lead look does not convert.
-- Woolly Bugger how: Fish it on a dead-drift near the bottom, then come alive with a strip-pause retrieve through prime holding water; let the tail do most of the work. Keep a steady medium cadence. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
+- Slim Baitfish Streamer: Moderate chop improves fishability and supports a stronger moving look. It stays high enough in the zone to match the day's more open positioning.
+- Slim Baitfish Streamer how: Strip with short, quick pulls to make the slim profile dart; pause briefly so it hangs in the current or sinks an inch before the next strip. Keep it high in the zone.
+- Woolly Bugger: A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It gives you a different fly bottom look without leaving today's window.
+- Woolly Bugger how: Cast across and swing it on a tight line through the drift, then activate on the hang-down with short strips before lifting.
+- Game Changer: Moderate chop improves fishability and supports a stronger moving look. It stays high enough in the zone to match the day's more open positioning. It is the cleaner change-up if the lead look does not convert.
+- Game Changer how: Retrieve with medium strips, then occasionally rip hard so the body compresses and then springs apart — pause after each hard strip and hold your nerve. Keep it high in the zone.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- NO_TOP1_TIE
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:natural,natural
 - Top 1 verdict:
 - Top 3 verdict:
@@ -5279,10 +5483,10 @@ Archived env summary:
 - Sunrise/sunset: 07:14 / 18:13
 
 Actual output:
-- Top 1 lure: Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Top 1 lure: Suspending Jerkbait `suspending_jerkbait` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 3 lures:
-- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Suspending Jerkbait `suspending_jerkbait` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Hair Jig `hair_jig` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 1 fly: Slim Baitfish Streamer `slim_minnow_streamer` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 3 flies:
@@ -5291,39 +5495,43 @@ Actual output:
 - Zonker Streamer `zonker_streamer` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Color notes:
 - Daily posture: slightly_aggressive
-- Paddle-Tail Swimbait: natural -> green pumpkin, olive, smoke
 - Suspending Jerkbait: natural -> green pumpkin, olive, smoke
+- Paddle-Tail Swimbait: natural -> green pumpkin, olive, smoke
 - Hair Jig: natural -> green pumpkin, olive, smoke
 - Slim Baitfish Streamer: natural -> green pumpkin, olive, smoke
 - Game Changer: natural -> green pumpkin, olive, smoke
 - Zonker Streamer: natural -> green pumpkin, olive, smoke
 - Daily profile notes:
 - Daily posture: slightly_aggressive
+- Seasonal source: region=great_lakes_upper_midwest, fallback_used=false
 - Daily preference: column=upper, pace=medium, presence=subtle
-- Monthly baseline: columns=upper/mid/surface/bottom, paces=medium/fast/slow, presence=moderate/subtle/bold
-- Guardrails: surface_allowed=true, suppress_true_surface=false, suppress_fast_presentations=false, high_visibility_needed=false, column_shift=0
+- Monthly baseline: columns=surface/upper/mid, paces=medium/fast, presence=subtle/moderate/bold
+- Guardrails: surface_allowed=true, surface_window=rippled, suppress_fast_presentations=false, high_visibility_needed=false, column_shift=0
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
 - Variables triggered: precipitation_disruption
 - Lure reasoning:
-- Paddle-Tail Swimbait: It is one of the lead monthly looks for this exact seasonal window. Paddle-Tail Swimbait stays in play when baitfish is relevant. It fits today's upper column preference.
-- Paddle-Tail Swimbait how: Swim it at the speed where you feel a steady kick through the rod; use rod angle to change depth without changing retrieve speed. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Keep the presentation clean and resist overworking it.
-- Suspending Jerkbait: Suspending Jerkbait stays in play when baitfish is relevant. It fits today's upper column preference. It is one of the lead monthly looks for this exact seasonal window. It gives you a different reaction mid column look without leaving today's window.
-- Suspending Jerkbait how: Jerk, jerk, pause. The bait should dart and glide sideways on each twitch; dial the pause length to water temperature — colder means longer. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Keep the presentation clean and resist overworking it.
-- Hair Jig: Hair Jig stays in play when baitfish is relevant. It fits today's upper column preference. It stays high enough in the zone to match the day's more open positioning. It is the cleaner change-up if the lead look does not convert.
-- Hair Jig how: Swing it through current seams or drop it in pockets with minimal movement; let the marabou breathe in place before slowly pulling it along. Keep a steady medium cadence. Keep it above cover or along the upper edge of the zone. Keep the presentation clean and resist overworking it.
+- Suspending Jerkbait: It is one of the lead monthly looks for this exact seasonal window. It fits today's upper column preference.
+- Suspending Jerkbait how: Two or three sharp twitches, then let it suspend perfectly still for a full 3-5 count before the next sequence — the pause is everything. Keep it high in the zone.
+- Paddle-Tail Swimbait: It is one of the lead monthly looks for this exact seasonal window. It fits today's upper column preference. It gives you a different horizontal search look without leaving today's window.
+- Paddle-Tail Swimbait how: Swim it at the speed where you feel a steady kick through the rod; use rod angle to change depth without changing retrieve speed. Keep it high in the zone.
+- Hair Jig: It stays high enough in the zone to match the day's more open positioning. It fits today's upper column preference. It is the cleaner change-up if the lead look does not convert.
+- Hair Jig how: Swing it through current seams or drop it in pockets with minimal movement; let the marabou breathe in place before slowly pulling it along. Keep it high in the zone.
 - Fly reasoning:
-- Slim Baitfish Streamer: It is one of the lead monthly looks for this exact seasonal window. Slim Baitfish Streamer tracks well when baitfish is a realistic meal. It fits today's upper column preference.
-- Slim Baitfish Streamer how: Retrieve with a mix of short darts and longer glides; the thin profile tracks like a small minnow on a tight line. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Keep the presentation clean and resist overworking it.
-- Game Changer: Game Changer tracks well when baitfish is a realistic meal. It fits today's upper column preference. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different fly baitfish look without leaving today's window.
-- Game Changer how: Use a mix of steady strips and sharp 6-inch twitches so the jointed body swims and stalls; pause when you see a follow. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Keep the presentation clean and resist overworking it.
-- Zonker Streamer: Zonker Streamer tracks well when baitfish is a realistic meal. It fits today's upper column preference. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
-- Zonker Streamer how: Cast across current and strip steadily through the swing; add a momentary deadstop near structure so the wing collapses and then puffs back out. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Keep the presentation clean and resist overworking it.
+- Slim Baitfish Streamer: It is one of the lead monthly looks for this exact seasonal window. It fits today's upper column preference.
+- Slim Baitfish Streamer how: Strip with short, quick pulls to make the slim profile dart; pause briefly so it hangs in the current or sinks an inch before the next strip. Keep it high in the zone.
+- Game Changer: The month is still baitfish-forward, and this stays inside that search lane. It fits today's upper column preference. It gives you a different fly baitfish look without leaving today's window.
+- Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink. Keep it high in the zone.
+- Zonker Streamer: The month is still baitfish-forward, and this stays inside that search lane. It fits today's upper column preference. It is the cleaner change-up if the lead look does not convert.
+- Zonker Streamer how: Cast across current and strip steadily through the swing; add a momentary deadstop near structure so the wing collapses and then puffs back out. Keep it high in the zone.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- NO_TOP1_TIE
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:natural,natural
 - Top 1 verdict:
 - Top 3 verdict:
@@ -5382,7 +5590,7 @@ Actual output:
 - Top 1 lure: Tube Jig `tube_jig` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 lures:
 - Tube Jig `tube_jig` | theme: `dark` | colors: black, black/blue, black/purple
-- Medium-Diving Crankbait `medium_diving_crankbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `dark` | colors: black, black/blue, black/purple
 - Hair Jig `hair_jig` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 1 fly: Game Changer `game_changer` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 flies:
@@ -5392,40 +5600,44 @@ Actual output:
 - Color notes:
 - Daily posture: aggressive
 - Tube Jig: dark -> black, black/blue, black/purple
-- Medium-Diving Crankbait: dark -> black, black/blue, black/purple
+- Paddle-Tail Swimbait: dark -> black, black/blue, black/purple
 - Hair Jig: dark -> black, black/blue, black/purple
 - Game Changer: dark -> black, black/blue, black/purple
 - Clouser Minnow: dark -> black, black/blue, black/purple
 - Zonker Streamer: dark -> black, black/blue, black/purple
 - Daily profile notes:
 - Daily posture: aggressive
+- Seasonal source: region=great_lakes_upper_midwest, fallback_used=false
 - Daily preference: column=upper, pace=medium, presence=bold
-- Monthly baseline: columns=mid/bottom/upper, paces=medium/slow/fast, presence=moderate/subtle/bold
-- Guardrails: surface_allowed=true, suppress_true_surface=false, suppress_fast_presentations=false, high_visibility_needed=true, column_shift=1
+- Monthly baseline: columns=upper/mid/bottom, paces=slow/medium/fast, presence=subtle/moderate/bold
+- Guardrails: surface_allowed=true, surface_window=rippled, suppress_fast_presentations=false, high_visibility_needed=true, column_shift=1
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
 - Variables triggered: temperature_trend, wind_condition, precipitation_disruption
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
 - Daily note: Moderate chop improves fishability and supports a stronger moving look.
 - Lure reasoning:
-- Tube Jig: Tube Jig stays in play when crawfish is relevant. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
-- Tube Jig how: Hop it erratically off the bottom with sharp pops, then open the bail slightly so it spirals down freely; strikes happen on that spinning fall. Keep a steady medium cadence. Keep it above cover or along the upper edge of the zone. Keep it on a clean, trackable line so fish can find it before the next move.
-- Medium-Diving Crankbait: Reduced visibility supports a stronger profile fish can find more easily. Medium-Diving Crankbait stays in play when baitfish is relevant. It lines up with today's medium pace preference. It gives you a different horizontal search look without leaving today's window.
-- Medium-Diving Crankbait how: Retrieve at a medium pace along depth contours, pausing after any bottom contact so the bait rises before diving back when you resume. Keep it moving on a steady, fishable cadence. Keep it around the middle band of the strike zone. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
-- Hair Jig: Hair Jig stays in play when baitfish is relevant. A warming trend nudges fish slightly higher in the allowed range. It stays high enough in the zone to match the day's more open positioning. It is the cleaner change-up if the lead look does not convert.
-- Hair Jig how: Fish it on a tight line at slow speed — the hair works best with tiny line pulses rather than big lifts; let it hang in the current or slack zone. Keep a steady medium cadence. Keep it above cover or along the upper edge of the zone. Keep it on a clean, trackable line so fish can find it before the next move.
+- Tube Jig: A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
+- Tube Jig how: Hop it erratically off the bottom with sharp pops, then open the bail slightly so it spirals down freely; strikes happen on that spinning fall. Keep it high in the zone.
+- Paddle-Tail Swimbait: Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window. It gives you a different horizontal search look without leaving today's window.
+- Paddle-Tail Swimbait how: Swim it at the speed where you feel a steady kick through the rod; use rod angle to change depth without changing retrieve speed. Keep it high in the zone.
+- Hair Jig: A warming trend nudges fish slightly higher in the allowed range. It stays high enough in the zone to match the day's more open positioning. It is the cleaner change-up if the lead look does not convert.
+- Hair Jig how: Fish it on a tight line at slow speed — the hair works best with tiny line pulses rather than big lifts; let it hang in the current or slack zone. Keep it high in the zone.
 - Fly reasoning:
-- Game Changer: Reduced visibility supports a stronger profile fish can find more easily. Game Changer tracks well when baitfish is a realistic meal. It fits today's upper column preference.
-- Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
-- Clouser Minnow: Reduced visibility supports a stronger profile fish can find more easily. Clouser Minnow tracks well when baitfish is a realistic meal. It lines up with today's medium pace preference. It gives you a different fly baitfish look without leaving today's window.
-- Clouser Minnow how: Strip in short, consistent pulls so the dumbbell eyes make the fly jig up and down; let it sink between strips to stay hook-point up throughout. Keep it moving on a steady, fishable cadence. Keep it around the middle band of the strike zone. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
-- Zonker Streamer: It stays high enough in the zone to match the day's more open positioning. Reduced visibility supports a stronger profile fish can find more easily. Zonker Streamer tracks well when baitfish is a realistic meal. It is the cleaner change-up if the lead look does not convert.
-- Zonker Streamer how: Retrieve at moderate speed with intentional pauses where the fly sinks and the strip wing breathes; strikes often come as you restart the strip. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
+- Game Changer: Moderate chop improves fishability and supports a stronger moving look. It stays high enough in the zone to match the day's more open positioning.
+- Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink. Keep it high in the zone.
+- Clouser Minnow: Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window. It gives you a different fly baitfish look without leaving today's window.
+- Clouser Minnow how: Strip in short, consistent pulls so the dumbbell eyes make the fly jig up and down; let it sink between strips to stay hook-point up throughout.
+- Zonker Streamer: Moderate chop improves fishability and supports a stronger moving look. It stays high enough in the zone to match the day's more open positioning. It is the cleaner change-up if the lead look does not convert.
+- Zonker Streamer how: Retrieve at moderate speed with intentional pauses where the fly sinks and the strip wing breathes; strikes often come as you restart the strip. Keep it high in the zone.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- NO_TOP1_TIE
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:dark,dark
 - Top 1 verdict:
 - Top 3 verdict:
@@ -5487,47 +5699,51 @@ Actual output:
 - Hair Jig `hair_jig` | theme: `dark` | colors: black, black/blue, black/purple
 - Tube Jig `tube_jig` | theme: `dark` | colors: black, black/blue, black/purple
 - Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `dark` | colors: black, black/blue, black/purple
-- Top 1 fly: Game Changer `game_changer` | theme: `dark` | colors: black, black/blue, black/purple
+- Top 1 fly: Clouser Minnow `clouser_minnow` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 flies:
+- Clouser Minnow `clouser_minnow` | theme: `dark` | colors: black, black/blue, black/purple
+- Woolly Bugger `woolly_bugger` | theme: `dark` | colors: black, black/blue, black/purple
 - Game Changer `game_changer` | theme: `dark` | colors: black, black/blue, black/purple
-- Mouse Fly `mouse_fly` | theme: `dark` | colors: black, black/blue, black/purple
-- Popper Fly `popper_fly` | theme: `dark` | colors: black, black/blue, black/purple
 - Color notes:
 - Daily posture: slightly_aggressive
 - Hair Jig: dark -> black, black/blue, black/purple
 - Tube Jig: dark -> black, black/blue, black/purple
 - Paddle-Tail Swimbait: dark -> black, black/blue, black/purple
+- Clouser Minnow: dark -> black, black/blue, black/purple
+- Woolly Bugger: dark -> black, black/blue, black/purple
 - Game Changer: dark -> black, black/blue, black/purple
-- Mouse Fly: dark -> black, black/blue, black/purple
-- Popper Fly: dark -> black, black/blue, black/purple
 - Daily profile notes:
 - Daily posture: slightly_aggressive
-- Daily preference: column=upper, pace=medium, presence=moderate
-- Monthly baseline: columns=upper/mid/surface/bottom, paces=medium/fast/slow, presence=subtle/moderate
-- Guardrails: surface_allowed=true, suppress_true_surface=false, suppress_fast_presentations=false, high_visibility_needed=true, column_shift=0
+- Seasonal source: region=great_lakes_upper_midwest, fallback_used=false
+- Daily preference: column=mid, pace=medium, presence=moderate
+- Monthly baseline: columns=upper/mid/bottom, paces=slow/medium, presence=subtle/moderate
+- Guardrails: surface_allowed=true, surface_window=rippled, suppress_fast_presentations=false, high_visibility_needed=true, column_shift=0
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
 - Variables triggered: wind_condition, precipitation_disruption
 - Daily note: Moderate chop improves fishability and supports a stronger moving look.
 - Lure reasoning:
-- Hair Jig: Moderate chop improves fishability and supports a stronger moving look. Hair Jig stays in play when baitfish is relevant. It fits today's upper column preference.
-- Hair Jig how: Fish it on a tight line at slow speed — the hair works best with tiny line pulses rather than big lifts; let it hang in the current or slack zone. Keep a steady medium cadence. Keep it above cover or along the upper edge of the zone. Keep it on a clean, trackable line so fish can find it before the next move.
-- Tube Jig: Tube Jig stays in play when crawfish is relevant. Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window. It gives you a different bottom contact look without leaving today's window.
-- Tube Jig how: Hop it erratically off the bottom with sharp pops, then open the bail slightly so it spirals down freely; strikes happen on that spinning fall. Keep a steady medium cadence. Keep it above cover or along the upper edge of the zone. Keep it on a clean, trackable line so fish can find it before the next move.
-- Paddle-Tail Swimbait: Paddle-Tail Swimbait stays in play when baitfish is relevant. Moderate chop improves fishability and supports a stronger moving look. It stays high enough in the zone to match the day's more open positioning. It is the cleaner change-up if the lead look does not convert.
-- Paddle-Tail Swimbait how: Swim it at the speed where you feel a steady kick through the rod; use rod angle to change depth without changing retrieve speed. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
+- Hair Jig: Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window.
+- Hair Jig how: Fish it on a tight line at slow speed — the hair works best with tiny line pulses rather than big lifts; let it hang in the current or slack zone.
+- Tube Jig: Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window. It gives you a different bottom contact look without leaving today's window.
+- Tube Jig how: Hop it erratically off the bottom with sharp pops, then open the bail slightly so it spirals down freely; strikes happen on that spinning fall.
+- Paddle-Tail Swimbait: Moderate chop improves fishability and supports a stronger moving look. It stays in the middle band where the seasonal setup is most stable today. It is the cleaner change-up if the lead look does not convert.
+- Paddle-Tail Swimbait how: Swim it at the speed where you feel a steady kick through the rod; use rod angle to change depth without changing retrieve speed.
 - Fly reasoning:
-- Game Changer: It stays high enough in the zone to match the day's more open positioning. Reduced visibility supports a stronger profile fish can find more easily. Game Changer tracks well when baitfish is a realistic meal.
-- Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
-- Mouse Fly: Even with a little ripple, the surface lane is still open enough to matter. Mouse Fly tracks well when baitfish is a realistic meal. It lines up with today's medium pace preference. It gives you a different fly surface look without leaving today's window.
-- Mouse Fly how: Swim it on a constant slow retrieve just fast enough to leave a wake; target near-shore edges and structure where big fish expect food to cross. Keep it moving on a steady, fishable cadence. Keep it high and over the surface lane. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
-- Popper Fly: Even with a little ripple, the surface lane is still open enough to matter. Popper Fly tracks well when baitfish is a realistic meal. It lines up with today's medium pace preference. It is the cleaner change-up if the lead look does not convert.
-- Popper Fly how: Make a sharp strip-pause to spit water, then wait; the longer the pause in the ring, the more time a fish has to rise and commit. Keep it moving on a steady, fishable cadence. Keep it high and over the surface lane. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
+- Clouser Minnow: Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window.
+- Clouser Minnow how: Strip in short, consistent pulls so the dumbbell eyes make the fly jig up and down; let it sink between strips to stay hook-point up throughout.
+- Woolly Bugger: Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window. It gives you a different fly bottom look without leaving today's window.
+- Woolly Bugger how: Cast across and swing it on a tight line through the drift, then activate on the hang-down with short strips before lifting.
+- Game Changer: Moderate chop improves fishability and supports a stronger moving look. It stays in the middle band where the seasonal setup is most stable today. It is the cleaner change-up if the lead look does not convert.
+- Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- NO_TOP1_TIE
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:dark,dark
 - Top 1 verdict:
 - Top 3 verdict:
@@ -5583,10 +5799,10 @@ Archived env summary:
 - Sunrise/sunset: 07:35 / 18:33
 
 Actual output:
-- Top 1 lure: Spinnerbait `spinnerbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Top 1 lure: Suspending Jerkbait `suspending_jerkbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Top 3 lures:
-- Spinnerbait `spinnerbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
-- Walking Topwater `walking_topwater` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Suspending Jerkbait `suspending_jerkbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Medium-Diving Crankbait `medium_diving_crankbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Top 1 fly: Articulated Baitfish Streamer `articulated_baitfish_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Top 3 flies:
@@ -5595,41 +5811,45 @@ Actual output:
 - Clouser Minnow `clouser_minnow` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Color notes:
 - Daily posture: aggressive
-- Spinnerbait: bright -> white/chartreuse, chartreuse, firetiger
-- Walking Topwater: bright -> white/chartreuse, chartreuse, firetiger
+- Suspending Jerkbait: bright -> white/chartreuse, chartreuse, firetiger
+- Medium-Diving Crankbait: bright -> white/chartreuse, chartreuse, firetiger
 - Paddle-Tail Swimbait: bright -> white/chartreuse, chartreuse, firetiger
 - Articulated Baitfish Streamer: bright -> white/chartreuse, chartreuse, firetiger
 - Game Changer: bright -> white/chartreuse, chartreuse, firetiger
 - Clouser Minnow: bright -> white/chartreuse, chartreuse, firetiger
 - Daily profile notes:
 - Daily posture: aggressive
-- Daily preference: column=upper, pace=medium, presence=bold
-- Monthly baseline: columns=upper/mid/surface/bottom, paces=medium/fast/slow, presence=moderate/subtle/bold
-- Guardrails: surface_allowed=true, suppress_true_surface=false, suppress_fast_presentations=false, high_visibility_needed=true, column_shift=1
+- Seasonal source: region=great_lakes_upper_midwest, fallback_used=false
+- Daily preference: column=surface, pace=medium, presence=bold
+- Monthly baseline: columns=surface/upper/mid, paces=medium/fast, presence=subtle/moderate/bold
+- Guardrails: surface_allowed=true, surface_window=clean, suppress_fast_presentations=false, high_visibility_needed=true, column_shift=1
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
 - Variables triggered: temperature_shock, light_cloud_condition, wind_condition, precipitation_disruption
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Daily note: Moderate chop improves fishability and supports a stronger moving look.
 - Lure reasoning:
-- Spinnerbait: Spinnerbait stays in play when baitfish is relevant. Lower light supports a slightly higher, more open lane. The month is still baitfish-forward, and this stays inside that search lane.
-- Spinnerbait how: Cast past the target and retrieve through it, varying speed to find the blade thump fish respond to; hesitate briefly at cover edges. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Start on wind-blown edges or the first active cover line and let it cover water.
-- Walking Topwater: Even with a little ripple, the surface lane is still open enough to matter. Walking Topwater stays in play when baitfish is relevant. It lines up with today's medium pace preference. It gives you a different surface look without leaving today's window.
-- Walking Topwater how: Work it with consistent wrist flicks over open water or above grass; keep the cadence smooth and only slow down if you see fish following. Keep it moving on a steady, fishable cadence. Keep it high and over the surface lane. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
-- Paddle-Tail Swimbait: Paddle-Tail Swimbait stays in play when baitfish is relevant. Lower light supports a slightly higher, more open lane. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
-- Paddle-Tail Swimbait how: Slow-roll near the bottom on a consistent retrieve; the paddle thumps best just barely above the substrate, so keep the rod tip down and the pace even. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Start on wind-blown edges or the first active cover line and let it cover water.
+- Suspending Jerkbait: Lower light supports a slightly higher, more open lane. It is one of the lead monthly looks for this exact seasonal window.
+- Suspending Jerkbait how: Jerk, jerk, pause. The bait should dart and glide sideways on each twitch; dial the pause length to water temperature — colder means longer. Keep it high in the zone.
+- Medium-Diving Crankbait: Lower light supports a slightly higher, more open lane. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different horizontal search look without leaving today's window.
+- Medium-Diving Crankbait how: Retrieve at a medium pace along depth contours, pausing after any bottom contact so the bait rises before diving back when you resume.
+- Paddle-Tail Swimbait: Lower light supports a slightly higher, more open lane. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Paddle-Tail Swimbait how: Swim it at the speed where you feel a steady kick through the rod; use rod angle to change depth without changing retrieve speed. Keep it high in the zone.
 - Fly reasoning:
-- Articulated Baitfish Streamer: Lower light supports a slightly higher, more open lane. Articulated Baitfish Streamer tracks well when baitfish is a realistic meal. It fits today's upper column preference.
-- Articulated Baitfish Streamer how: Cover water at mid-depth with steady strips; add a hard single rip followed by a full pause to imitate an injured baitfish fleeing and then stopping. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
-- Game Changer: Game Changer tracks well when baitfish is a realistic meal. Lower light supports a slightly higher, more open lane. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different fly baitfish look without leaving today's window.
-- Game Changer how: Retrieve with medium strips, then occasionally rip hard so the body compresses and then springs apart — pause after each hard strip and hold your nerve. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
-- Clouser Minnow: Lower light supports a slightly higher, more open lane. Clouser Minnow tracks well when baitfish is a realistic meal. It lines up with today's medium pace preference. It is the cleaner change-up if the lead look does not convert.
-- Clouser Minnow how: Cast and let the weighted eyes sink the fly, then retrieve with a strip-pause cadence that makes it dart upward on the strip and dive back on the pause. Keep it moving on a steady, fishable cadence. Keep it around the middle band of the strike zone. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
+- Articulated Baitfish Streamer: Lower light supports a slightly higher, more open lane. The month is still baitfish-forward, and this stays inside that search lane.
+- Articulated Baitfish Streamer how: Work it across current and down with a varied strip cadence; when a fish follows, slow down and kill the retrieve to let the body spiral on the sink. Keep it high in the zone.
+- Game Changer: Lower light supports a slightly higher, more open lane. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different fly baitfish look without leaving today's window.
+- Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink. Keep it high in the zone.
+- Clouser Minnow: Lower light supports a slightly higher, more open lane. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Clouser Minnow how: Strip in short, consistent pulls so the dumbbell eyes make the fly jig up and down; let it sink between strips to stay hook-point up throughout.
 
 Review:
 - Precheck flags:
-- TOP1_PRIMARY_MISS
-- TOP3_PRIMARY_MISSING
-- DISALLOWED_PRESENT:walking_topwater
+- TOP1_PRIMARY_HIT
+- TOP3_PRIMARY_PRESENT
+- NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- TOP1_TIE:fly
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:bright,bright
 - Top 1 verdict:
 - Top 3 verdict:
@@ -5685,54 +5905,58 @@ Archived env summary:
 - Sunrise/sunset: 07:16 / 16:49
 
 Actual output:
-- Top 1 lure: Finesse Jig `finesse_jig` | theme: `dark` | colors: black, black/blue, black/purple
+- Top 1 lure: Hair Jig `hair_jig` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 lures:
-- Finesse Jig `finesse_jig` | theme: `dark` | colors: black, black/blue, black/purple
+- Hair Jig `hair_jig` | theme: `dark` | colors: black, black/blue, black/purple
 - Blade Bait `blade_bait` | theme: `dark` | colors: black, black/blue, black/purple
-- Tube Jig `tube_jig` | theme: `dark` | colors: black, black/blue, black/purple
+- Finesse Jig `finesse_jig` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 1 fly: Sculpin Streamer `sculpin_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 flies:
 - Sculpin Streamer `sculpin_streamer` | theme: `dark` | colors: black, black/blue, black/purple
-- Clouser Minnow `clouser_minnow` | theme: `dark` | colors: black, black/blue, black/purple
 - Woolly Bugger `woolly_bugger` | theme: `dark` | colors: black, black/blue, black/purple
+- Rabbit-Strip Leech `rabbit_strip_leech` | theme: `dark` | colors: black, black/blue, black/purple
 - Color notes:
 - Daily posture: aggressive
-- Finesse Jig: dark -> black, black/blue, black/purple
+- Hair Jig: dark -> black, black/blue, black/purple
 - Blade Bait: dark -> black, black/blue, black/purple
-- Tube Jig: dark -> black, black/blue, black/purple
+- Finesse Jig: dark -> black, black/blue, black/purple
 - Sculpin Streamer: dark -> black, black/blue, black/purple
-- Clouser Minnow: dark -> black, black/blue, black/purple
 - Woolly Bugger: dark -> black, black/blue, black/purple
+- Rabbit-Strip Leech: dark -> black, black/blue, black/purple
 - Daily profile notes:
 - Daily posture: aggressive
+- Seasonal source: region=great_lakes_upper_midwest, fallback_used=false
 - Daily preference: column=bottom, pace=slow, presence=moderate
 - Monthly baseline: columns=bottom/mid, paces=slow/medium, presence=subtle/moderate
-- Guardrails: surface_allowed=false, suppress_true_surface=true, suppress_fast_presentations=false, high_visibility_needed=true, column_shift=-1
+- Guardrails: surface_allowed=true, surface_window=rippled, suppress_fast_presentations=false, high_visibility_needed=true, column_shift=0
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
 - Variables triggered: temperature_trend, light_cloud_condition, wind_condition, precipitation_disruption
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
 - Daily note: Bright light trims the day back toward cleaner looks.
 - Daily note: Moderate chop improves fishability and supports a stronger moving look.
 - Lure reasoning:
-- Finesse Jig: With true surface suppressed, this keeps you just under the cleaner active lane. Finesse Jig stays in play when crawfish is relevant. It lines up with today's slow pace preference.
-- Finesse Jig how: Pitch it to light cover or transitions and let it settle fully before moving it; small lifts and long pauses are the whole point. Slow down and leave more dead time between moves. Keep it above cover or along the upper edge of the zone. Keep it on a clean, trackable line so fish can find it before the next move.
-- Blade Bait: With true surface suppressed, this keeps you just under the cleaner active lane. Blade Bait stays in play when baitfish is relevant. It fits today's bottom column preference. It gives you a different reaction mid column look without leaving today's window.
-- Blade Bait how: Vertical jig it with short, sharp hops over suspended fish; the flutter-fall is the presentation — set hard the moment you feel weight. Keep the cadence controlled and add short stalls instead of burning it. Keep it around the lower part of the productive zone. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
-- Tube Jig: With true surface suppressed, this keeps you just under the cleaner active lane. Tube Jig stays in play when crawfish is relevant. It lines up with today's slow pace preference. It is the cleaner change-up if the lead look does not convert.
-- Tube Jig how: Hop it erratically off the bottom with sharp pops, then open the bail slightly so it spirals down freely; strikes happen on that spinning fall. Slow down and leave more dead time between moves. Keep it above cover or along the upper edge of the zone. Keep it on a clean, trackable line so fish can find it before the next move.
+- Hair Jig: A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
+- Hair Jig how: Fish it on a tight line at slow speed — the hair works best with tiny line pulses rather than big lifts; let it hang in the current or slack zone. Slow down and lengthen the pause.
+- Blade Bait: Moderate chop improves fishability and supports a stronger moving look. It stays low in the zone where this day still wants fish to hold. It gives you a different reaction mid column look without leaving today's window.
+- Blade Bait how: Vertical jig it with short, sharp hops over suspended fish; the flutter-fall is the presentation — set hard the moment you feel weight. Slow down and lengthen the pause.
+- Finesse Jig: A warming trend nudges fish slightly higher in the allowed range. That keeps a crawfish-first look in the water for the month. It is the cleaner change-up if the lead look does not convert.
+- Finesse Jig how: Pitch it to light cover or transitions and let it settle fully before moving it; small lifts and long pauses are the whole point. Slow down and lengthen the pause.
 - Fly reasoning:
-- Sculpin Streamer: Sculpin Streamer tracks well when baitfish is a realistic meal. A warming trend nudges fish slightly higher in the allowed range. It stays low in the zone where this day still wants fish to hold.
-- Sculpin Streamer how: Cast upstream and mend for a natural drift, then activate with short strips that make the fly bumble over the bottom like a sculpin retreating. Slow down and leave more dead time between moves. Keep it around the lower part of the productive zone. Keep it on a clean, trackable line so fish can find it before the next move.
-- Clouser Minnow: It is one of the lead monthly looks for this exact seasonal window. With true surface suppressed, this keeps you just under the cleaner active lane. Clouser Minnow tracks well when baitfish is a realistic meal. It gives you a different fly baitfish look without leaving today's window.
-- Clouser Minnow how: Strip in short, consistent pulls so the dumbbell eyes make the fly jig up and down; let it sink between strips to stay hook-point up throughout. Keep the cadence controlled and add short stalls instead of burning it. Keep it around the lower part of the productive zone. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
-- Woolly Bugger: It stays low in the zone where this day still wants fish to hold. With true surface suppressed, this keeps you just under the cleaner active lane. Woolly Bugger tracks well when leech_worm is a realistic meal. It is the cleaner change-up if the lead look does not convert.
-- Woolly Bugger how: Cast across and swing it on a tight line through the drift, then activate on the hang-down with short strips before lifting. Slow down and leave more dead time between moves. Keep it around the lower part of the productive zone. Keep it on a clean, trackable line so fish can find it before the next move.
+- Sculpin Streamer: A warming trend nudges fish slightly higher in the allowed range. It stays low in the zone where this day still wants fish to hold.
+- Sculpin Streamer how: Cast upstream and mend for a natural drift, then activate with short strips that make the fly bumble over the bottom like a sculpin retreating. Slow down and lengthen the pause.
+- Woolly Bugger: A warming trend nudges fish slightly higher in the allowed range. It stays low in the zone where this day still wants fish to hold. It gives you a different fly bottom look without leaving today's window.
+- Woolly Bugger how: Cast across and swing it on a tight line through the drift, then activate on the hang-down with short strips before lifting. Slow down and lengthen the pause.
+- Rabbit-Strip Leech: A warming trend nudges fish slightly higher in the allowed range. It stays low in the zone where this day still wants fish to hold. It is the cleaner change-up if the lead look does not convert.
+- Rabbit-Strip Leech how: Cast and count it down, then use a strip-pause retrieve with exaggerated pauses — the pulse on the stop is when most fish commit. Slow down and lengthen the pause.
 
 Review:
 - Precheck flags:
-- TOP1_PRIMARY_MISS
+- TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- TOP1_TIE:fly
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:dark,dark
 - Top 1 verdict:
 - Top 3 verdict:
@@ -5807,32 +6031,36 @@ Actual output:
 - Woolly Bugger: natural -> green pumpkin, olive, smoke
 - Daily profile notes:
 - Daily posture: slightly_suppressed
+- Seasonal source: region=mountain_west, fallback_used=false
 - Daily preference: column=bottom, pace=slow, presence=subtle
-- Monthly baseline: columns=mid/bottom/upper, paces=medium/slow/fast, presence=moderate/subtle/bold
-- Guardrails: surface_allowed=false, suppress_true_surface=true, suppress_fast_presentations=true, high_visibility_needed=false, column_shift=-1
+- Monthly baseline: columns=upper/mid/bottom, paces=slow/medium/fast, presence=subtle/moderate/bold
+- Guardrails: surface_allowed=true, surface_window=rippled, suppress_fast_presentations=false, high_visibility_needed=false, column_shift=-1
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
 - Variables triggered: temperature_metabolic_context, runoff_flow_disruption
-- Daily note: Temperature metabolism suppresses the day and favors slower execution.
+- Daily note: Cold metabolism shuts down activity. Slow and low is the only play.
 - Lure reasoning:
-- Tube Jig: Tube Jig stays in play when crawfish is relevant. With true surface suppressed, this keeps you just under the cleaner active lane. It is one of the lead monthly looks for this exact seasonal window.
-- Tube Jig how: Snap the tube off bottom with short pops so it spirals on the fall, then let it glide back down on slack or semi-slack line. Slow down and leave more dead time between moves. Keep it above cover or along the upper edge of the zone. Let it soak a little longer before each move.
-- Ned Rig: With true surface suppressed, this keeps you just under the cleaner active lane. Ned Rig stays in play when crawfish is relevant. It lines up with today's slow pace preference. It gives you a different bottom contact look without leaving today's window.
-- Ned Rig how: Drag and shake the small head along bottom like a tiny craw — short pulls, let it settle, repeat instead of big hops. Slow down and leave more dead time between moves. Keep it above cover or along the upper edge of the zone. Let it soak a little longer before each move.
-- Paddle-Tail Swimbait: Paddle-Tail Swimbait stays in play when baitfish is relevant. With true surface suppressed, this keeps you just under the cleaner active lane. It matches today's subtle presence lane. It is the cleaner change-up if the lead look does not convert.
-- Paddle-Tail Swimbait how: Reel at a steady pace with the rod low so the tail thumps consistently; speed up slightly over bait schools or slow down after a follow. Keep the cadence controlled and add short stalls instead of burning it. Keep it above cover or along the upper edge of the zone. Keep the presentation clean and resist overworking it.
+- Tube Jig: Cold metabolism shuts down activity. Slow and low is the only play. It is one of the lead monthly looks for this exact seasonal window.
+- Tube Jig how: Snap the tube off bottom with short pops so it spirals on the fall, then let it glide back down on slack or semi-slack line. Slow down and lengthen the pause.
+- Ned Rig: Cold metabolism shuts down activity. Slow and low is the only play. That keeps a crawfish-first look in the water for the month. It gives you a different bottom contact look without leaving today's window.
+- Ned Rig how: Cast and let it settle fully to the bottom, then drag very slowly with the rod held low; pause between moves so the tail stands upright and wiggles. Slow down and lengthen the pause.
+- Paddle-Tail Swimbait: It stays practical in current seams and river lanes when flow still matters. Paddle-Tail Swimbait stays in play when baitfish is relevant. It is the cleaner change-up if the lead look does not convert.
+- Paddle-Tail Swimbait how: Slow-roll near the bottom on a consistent retrieve; the paddle thumps best just barely above the substrate, so keep the rod tip down and the pace even. Slow down and lengthen the pause.
 - Fly reasoning:
-- Crawfish Streamer: It is one of the lead monthly looks for this exact seasonal window. Temperature metabolism suppresses the day and favors slower execution. Crawfish Streamer tracks well when crawfish is a realistic meal.
-- Crawfish Streamer how: Tick it along the bottom with short, nervous strips so the claws scratch and flare; keep it close to the substrate and pause after contact with any rock or root. Slow down and leave more dead time between moves. Keep it around the lower part of the productive zone. Keep the presentation clean and resist overworking it.
-- Sculpin Streamer: It stays low in the zone where this day still wants fish to hold. Temperature metabolism suppresses the day and favors slower execution. Sculpin Streamer tracks well when baitfish is a realistic meal. It gives you a different fly bottom look without leaving today's window.
-- Sculpin Streamer how: Bump bottom with short strips and let the fly tick along rocks; keep tension so you feel every stop against structure. Slow down and leave more dead time between moves. Keep it around the lower part of the productive zone. Keep the presentation clean and resist overworking it.
-- Woolly Bugger: Woolly Bugger tracks well when leech_worm is a realistic meal. With true surface suppressed, this keeps you just under the cleaner active lane. It stays low in the zone where this day still wants fish to hold. It is the cleaner change-up if the lead look does not convert.
-- Woolly Bugger how: Let it sink to depth then retrieve with slow hand-twists or short strips; the marabou tail breathes best with long pauses at the end of each pull. Slow down and leave more dead time between moves. Keep it around the lower part of the productive zone. Keep the presentation clean and resist overworking it.
+- Crawfish Streamer: It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window.
+- Crawfish Streamer how: Tick it along the bottom with short, nervous strips so the claws scratch and flare; keep it close to the substrate and pause after contact with any rock or root. Slow down and lengthen the pause.
+- Sculpin Streamer: It stays practical in current seams and river lanes when flow still matters. It stays low in the zone where this day still wants fish to hold. It gives you a different fly bottom look without leaving today's window.
+- Sculpin Streamer how: Cast upstream and mend for a natural drift, then activate with short strips that make the fly bumble over the bottom like a sculpin retreating. Slow down and lengthen the pause.
+- Woolly Bugger: It stays practical in current seams and river lanes when flow still matters. It stays low in the zone where this day still wants fish to hold. It is the cleaner change-up if the lead look does not convert.
+- Woolly Bugger how: Fish it on a dead-drift near the bottom, then come alive with a strip-pause retrieve through prime holding water; let the tail do most of the work. Slow down and lengthen the pause.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- NO_TOP1_TIE
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:natural,natural
 - Top 1 verdict:
 - Top 3 verdict:
@@ -5888,53 +6116,57 @@ Archived env summary:
 - Sunrise/sunset: 05:45 / 20:39
 
 Actual output:
-- Top 1 lure: Tube Jig `tube_jig` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Top 1 lure: Soft Plastic Jerkbait `soft_jerkbait` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 3 lures:
-- Tube Jig `tube_jig` | theme: `natural` | colors: green pumpkin, olive, smoke
-- Ned Rig `ned_rig` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Soft Plastic Jerkbait `soft_jerkbait` | theme: `natural` | colors: green pumpkin, olive, smoke
-- Top 1 fly: Woolly Bugger `woolly_bugger` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Suspending Jerkbait `suspending_jerkbait` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Inline Spinner `inline_spinner` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Top 1 fly: Clouser Minnow `clouser_minnow` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 3 flies:
-- Woolly Bugger `woolly_bugger` | theme: `natural` | colors: green pumpkin, olive, smoke
-- Muddler Minnow `muddler_sculpin` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Clouser Minnow `clouser_minnow` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Muddler Minnow `muddler_sculpin` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Zonker Streamer `zonker_streamer` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Color notes:
-- Daily posture: suppressed
-- Tube Jig: natural -> green pumpkin, olive, smoke
-- Ned Rig: natural -> green pumpkin, olive, smoke
+- Daily posture: slightly_suppressed
 - Soft Plastic Jerkbait: natural -> green pumpkin, olive, smoke
-- Woolly Bugger: natural -> green pumpkin, olive, smoke
-- Muddler Minnow: natural -> green pumpkin, olive, smoke
+- Suspending Jerkbait: natural -> green pumpkin, olive, smoke
+- Inline Spinner: natural -> green pumpkin, olive, smoke
 - Clouser Minnow: natural -> green pumpkin, olive, smoke
+- Muddler Minnow: natural -> green pumpkin, olive, smoke
+- Zonker Streamer: natural -> green pumpkin, olive, smoke
 - Daily profile notes:
-- Daily posture: suppressed
-- Daily preference: column=mid, pace=slow, presence=subtle
-- Monthly baseline: columns=surface/upper/mid, paces=medium/fast/slow, presence=bold/moderate/subtle
-- Guardrails: surface_allowed=false, suppress_true_surface=true, suppress_fast_presentations=true, high_visibility_needed=false, column_shift=-1
+- Daily posture: slightly_suppressed
+- Seasonal source: region=mountain_west, fallback_used=false
+- Daily preference: column=mid, pace=medium, presence=moderate
+- Monthly baseline: columns=surface/upper/mid, paces=medium/fast, presence=moderate/bold
+- Guardrails: surface_allowed=false, surface_window=closed, suppress_fast_presentations=false, high_visibility_needed=false, column_shift=-1
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
 - Variables triggered: temperature_metabolic_context, light_cloud_condition, runoff_flow_disruption
-- Daily note: Temperature metabolism suppresses the day and favors slower execution.
+- Daily note: Heat stress moves fish to cooler, deeper water and narrows the feeding window.
 - Daily note: Bright light trims the day back toward cleaner looks.
 - Lure reasoning:
-- Tube Jig: With true surface suppressed, this keeps you just under the cleaner active lane. Tube Jig stays in play when crawfish is relevant. It fits today's mid column preference.
-- Tube Jig how: Snap the tube off bottom with short pops so it spirals on the fall, then let it glide back down on slack or semi-slack line. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Let it soak a little longer before each move.
-- Ned Rig: It stays in the middle band where the seasonal setup is most stable today. With true surface suppressed, this keeps you just under the cleaner active lane. Ned Rig stays in play when crawfish is relevant. It gives you a different bottom contact look without leaving today's window.
-- Ned Rig how: Drag and shake the small head along bottom like a tiny craw — short pulls, let it settle, repeat instead of big hops. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Let it soak a little longer before each move.
-- Soft Plastic Jerkbait: With true surface suppressed, this keeps you just under the cleaner active lane. Soft Plastic Jerkbait stays in play when baitfish is relevant. It fits today's mid column preference. It is the cleaner change-up if the lead look does not convert.
-- Soft Plastic Jerkbait how: Twitch it with slack in the line so the bait darts and glides erratically; pause and let it sink a few inches between twitches. Keep the cadence controlled and add short stalls instead of burning it. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
+- Soft Plastic Jerkbait: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Soft Plastic Jerkbait how: Twitch it with slack in the line so the bait darts and glides erratically; pause and let it sink a few inches between twitches.
+- Suspending Jerkbait: With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different reaction mid column look without leaving today's window.
+- Suspending Jerkbait how: Jerk, jerk, pause. The bait should dart and glide sideways on each twitch; dial the pause length to water temperature — colder means longer.
+- Inline Spinner: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Inline Spinner how: Cast across current and let the blade flash on a quarter-downstream retrieve; speed up briefly after bumps or short strikes.
 - Fly reasoning:
-- Woolly Bugger: Woolly Bugger tracks well when leech_worm is a realistic meal. With true surface suppressed, this keeps you just under the cleaner active lane. It stays in the middle band where the seasonal setup is most stable today.
-- Woolly Bugger how: Let it sink to depth then retrieve with slow hand-twists or short strips; the marabou tail breathes best with long pauses at the end of each pull. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
-- Muddler Minnow: Muddler Minnow tracks well when baitfish is a realistic meal. With true surface suppressed, this keeps you just under the cleaner active lane. It stays in the middle band where the seasonal setup is most stable today. It gives you a different fly bottom look without leaving today's window.
-- Muddler Minnow how: Skate or wake it in shallow riffles with short strips, or sink and crawl it along bottom with rod-tip leads so the deer hair pushes water. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
-- Clouser Minnow: Clouser Minnow tracks well when baitfish is a realistic meal. With true surface suppressed, this keeps you just under the cleaner active lane. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
-- Clouser Minnow how: Cast across or slightly downstream, let it jig toward you with short strips so the weighted eyes keep the fly tracking hook-point up. Keep the cadence controlled and add short stalls instead of burning it. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
+- Clouser Minnow: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Clouser Minnow how: Cast across or slightly downstream, let it jig toward you with short strips so the weighted eyes keep the fly tracking hook-point up.
+- Muddler Minnow: With the highest lane shut down, this keeps you just under the cleaner active zone. It stays in the middle band where the seasonal setup is most stable today. It gives you a different fly bottom look without leaving today's window.
+- Muddler Minnow how: Work it as a swung wet fly in current with minimal stripping; on still water, hop it along the bottom with slow, erratic pulls.
+- Zonker Streamer: With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Zonker Streamer how: Cast across current and strip steadily through the swing; add a momentary deadstop near structure so the wing collapses and then puffs back out.
 
 Review:
 - Precheck flags:
-- TOP1_PRIMARY_MISS
+- TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- NO_TOP1_TIE
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:natural,natural
 - Top 1 verdict:
 - Top 3 verdict:
@@ -5990,53 +6222,57 @@ Archived env summary:
 - Sunrise/sunset: 06:54 / 19:17
 
 Actual output:
-- Top 1 lure: Tube Jig `tube_jig` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Top 1 lure: Suspending Jerkbait `suspending_jerkbait` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 3 lures:
-- Tube Jig `tube_jig` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Suspending Jerkbait `suspending_jerkbait` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Inline Spinner `inline_spinner` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Tube Jig `tube_jig` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 1 fly: Slim Baitfish Streamer `slim_minnow_streamer` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 3 flies:
 - Slim Baitfish Streamer `slim_minnow_streamer` | theme: `natural` | colors: green pumpkin, olive, smoke
-- Woolly Bugger `woolly_bugger` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Game Changer `game_changer` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Clouser Minnow `clouser_minnow` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Color notes:
 - Daily posture: aggressive
-- Tube Jig: natural -> green pumpkin, olive, smoke
 - Suspending Jerkbait: natural -> green pumpkin, olive, smoke
 - Inline Spinner: natural -> green pumpkin, olive, smoke
+- Tube Jig: natural -> green pumpkin, olive, smoke
 - Slim Baitfish Streamer: natural -> green pumpkin, olive, smoke
-- Woolly Bugger: natural -> green pumpkin, olive, smoke
 - Game Changer: natural -> green pumpkin, olive, smoke
+- Clouser Minnow: natural -> green pumpkin, olive, smoke
 - Daily profile notes:
 - Daily posture: aggressive
-- Daily preference: column=mid, pace=slow, presence=subtle
-- Monthly baseline: columns=upper/mid/bottom, paces=medium/fast/slow, presence=moderate/subtle/bold
-- Guardrails: surface_allowed=false, suppress_true_surface=true, suppress_fast_presentations=false, high_visibility_needed=false, column_shift=-1
+- Seasonal source: region=mountain_west, fallback_used=false
+- Daily preference: column=upper, pace=medium, presence=subtle
+- Monthly baseline: columns=upper/mid, paces=medium/fast, presence=subtle/moderate/bold
+- Guardrails: surface_allowed=false, surface_window=closed, suppress_fast_presentations=false, high_visibility_needed=false, column_shift=0
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
 - Variables triggered: temperature_trend, light_cloud_condition, runoff_flow_disruption
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
 - Daily note: Bright light trims the day back toward cleaner looks.
 - Lure reasoning:
-- Tube Jig: It stays in the middle band where the seasonal setup is most stable today. With true surface suppressed, this keeps you just under the cleaner active lane. Tube Jig stays in play when crawfish is relevant.
-- Tube Jig how: Cast, let it sink, then pop sharply and release line; the tube should corkscrew back to bottom on each drop — keep a watchful eye on the line. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
-- Suspending Jerkbait: Suspending Jerkbait stays in play when baitfish is relevant. With true surface suppressed, this keeps you just under the cleaner active lane. It is one of the lead monthly looks for this exact seasonal window. It gives you a different reaction mid column look without leaving today's window.
-- Suspending Jerkbait how: Jerk, jerk, pause. The bait should dart and glide sideways on each twitch; dial the pause length to water temperature — colder means longer. Keep the cadence controlled and add short stalls instead of burning it. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
-- Inline Spinner: Inline Spinner stays in play when baitfish is relevant. With true surface suppressed, this keeps you just under the cleaner active lane. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
-- Inline Spinner how: Cast across current and let the blade flash on a quarter-downstream retrieve; speed up briefly after bumps or short strikes. Keep the cadence controlled and add short stalls instead of burning it. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
+- Suspending Jerkbait: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Suspending Jerkbait how: Two or three sharp twitches, then let it suspend perfectly still for a full 3-5 count before the next sequence — the pause is everything. Keep it high in the zone.
+- Inline Spinner: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It gives you a different horizontal search look without leaving today's window.
+- Inline Spinner how: Use a slow-roll retrieve near bottom or cover edges; occasionally bump into structure to trigger reaction strikes. Keep it high in the zone.
+- Tube Jig: With the highest lane shut down, this keeps you just under the cleaner active zone. It stays high enough in the zone to match the day's more open positioning. It is the cleaner change-up if the lead look does not convert.
+- Tube Jig how: Cast, let it sink, then pop sharply and release line; the tube should corkscrew back to bottom on each drop — keep a watchful eye on the line. Keep it high in the zone.
 - Fly reasoning:
-- Slim Baitfish Streamer: Slim Baitfish Streamer tracks well when baitfish is a realistic meal. With true surface suppressed, this keeps you just under the cleaner active lane. It is one of the lead monthly looks for this exact seasonal window.
-- Slim Baitfish Streamer how: Retrieve with a mix of short darts and longer glides; the thin profile tracks like a small minnow on a tight line. Keep the cadence controlled and add short stalls instead of burning it. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
-- Woolly Bugger: With true surface suppressed, this keeps you just under the cleaner active lane. Woolly Bugger tracks well when leech_worm is a realistic meal. It fits today's mid column preference. It gives you a different fly bottom look without leaving today's window.
-- Woolly Bugger how: Cast across and swing it on a tight line through the drift, then activate on the hang-down with short strips before lifting. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
-- Game Changer: The month is still baitfish-forward, and this stays inside that search lane. With true surface suppressed, this keeps you just under the cleaner active lane. Game Changer tracks well when baitfish is a realistic meal. It is the cleaner change-up if the lead look does not convert.
-- Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink. Keep the cadence controlled and add short stalls instead of burning it. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
+- Slim Baitfish Streamer: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Slim Baitfish Streamer how: Strip with short, quick pulls to make the slim profile dart; pause briefly so it hangs in the current or sinks an inch before the next strip. Keep it high in the zone.
+- Game Changer: With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different fly baitfish look without leaving today's window.
+- Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink. Keep it high in the zone.
+- Clouser Minnow: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Clouser Minnow how: Cast and let the weighted eyes sink the fly, then retrieve with a strip-pause cadence that makes it dart upward on the strip and dive back on the pause.
 
 Review:
 - Precheck flags:
-- TOP1_PRIMARY_MISS
+- TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- NO_TOP1_TIE
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:natural,natural
 - Top 1 verdict:
 - Top 3 verdict:
@@ -6091,10 +6327,10 @@ Archived env summary:
 - Sunrise/sunset: 07:16 / 16:52
 
 Actual output:
-- Top 1 lure: Hair Jig `hair_jig` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Top 1 lure: Tube Jig `tube_jig` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 3 lures:
-- Hair Jig `hair_jig` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Tube Jig `tube_jig` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Hair Jig `hair_jig` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Drop-Shot Minnow `drop_shot_minnow` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 1 fly: Woolly Bugger `woolly_bugger` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 3 flies:
@@ -6103,40 +6339,44 @@ Actual output:
 - Conehead Streamer `conehead_streamer` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Color notes:
 - Daily posture: aggressive
-- Hair Jig: natural -> green pumpkin, olive, smoke
 - Tube Jig: natural -> green pumpkin, olive, smoke
+- Hair Jig: natural -> green pumpkin, olive, smoke
 - Drop-Shot Minnow: natural -> green pumpkin, olive, smoke
 - Woolly Bugger: natural -> green pumpkin, olive, smoke
 - Sculpin Streamer: natural -> green pumpkin, olive, smoke
 - Conehead Streamer: natural -> green pumpkin, olive, smoke
 - Daily profile notes:
 - Daily posture: aggressive
+- Seasonal source: region=mountain_west, fallback_used=false
 - Daily preference: column=mid, pace=slow, presence=subtle
-- Monthly baseline: columns=bottom/mid/upper, paces=slow/medium, presence=subtle/moderate
-- Guardrails: surface_allowed=true, suppress_true_surface=false, suppress_fast_presentations=false, high_visibility_needed=false, column_shift=1
+- Monthly baseline: columns=mid/bottom, paces=slow/medium, presence=subtle/moderate
+- Guardrails: surface_allowed=true, surface_window=rippled, suppress_fast_presentations=false, high_visibility_needed=false, column_shift=1
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
 - Variables triggered: temperature_trend, runoff_flow_disruption
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
 - Lure reasoning:
-- Hair Jig: It is one of the lead monthly looks for this exact seasonal window. A warming trend nudges fish slightly higher in the allowed range. Hair Jig stays in play when baitfish is relevant.
-- Hair Jig how: Swing it through current seams or drop it in pockets with minimal movement; let the marabou breathe in place before slowly pulling it along. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
-- Tube Jig: Tube Jig stays in play when crawfish is relevant. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It gives you a different bottom contact look without leaving today's window.
-- Tube Jig how: Cast, let it sink, then pop sharply and release line; the tube should corkscrew back to bottom on each drop — keep a watchful eye on the line. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
-- Drop-Shot Minnow: Drop-Shot Minnow stays in play when baitfish is relevant. A warming trend nudges fish slightly higher in the allowed range. It stays in the middle band where the seasonal setup is most stable today. It is the cleaner change-up if the lead look does not convert.
-- Drop-Shot Minnow how: Hold the weight down and pulse the rod tip lightly; the minnow should quiver in place, then glide a few inches before the next shake. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
+- Tube Jig: A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
+- Tube Jig how: Snap the tube off bottom with short pops so it spirals on the fall, then let it glide back down on slack or semi-slack line. Slow down and lengthen the pause.
+- Hair Jig: A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It gives you a different finesse subtle look without leaving today's window.
+- Hair Jig how: Fish it on a tight line at slow speed — the hair works best with tiny line pulses rather than big lifts; let it hang in the current or slack zone. Slow down and lengthen the pause.
+- Drop-Shot Minnow: A warming trend nudges fish slightly higher in the allowed range. It stays in the middle band where the seasonal setup is most stable today. It is the cleaner change-up if the lead look does not convert.
+- Drop-Shot Minnow how: Use a subtle shake-pause cadence with the line tight enough to feel the bait; let the minnow suspend and look alive rather than dragging it forward. Slow down and lengthen the pause.
 - Fly reasoning:
-- Woolly Bugger: It stays practical in current seams and river lanes when flow still matters. Woolly Bugger tracks well when leech_worm is a realistic meal. It fits today's mid column preference.
-- Woolly Bugger how: Cast across and swing it on a tight line through the drift, then activate on the hang-down with short strips before lifting. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
-- Sculpin Streamer: It is one of the lead monthly looks for this exact seasonal window. It stays practical in current seams and river lanes when flow still matters. Sculpin Streamer tracks well when baitfish is a realistic meal. It gives you a different fly bottom look without leaving today's window.
-- Sculpin Streamer how: Inch it along the bottom with tight-line strips; sculpin barely swim, so keep the fly close to the substrate and use current for most of the motion. Slow down and leave more dead time between moves. Keep it around the lower part of the productive zone. Keep the presentation clean and resist overworking it.
-- Conehead Streamer: It stays practical in current seams and river lanes when flow still matters. Conehead Streamer tracks well when baitfish is a realistic meal. It lines up with today's slow pace preference. It is the cleaner change-up if the lead look does not convert.
-- Conehead Streamer how: Cast across or down, let it sink to depth, then strip with a jig-like cadence where the cone tips the fly nose-down on each pause. Slow down and leave more dead time between moves. Keep it around the lower part of the productive zone. Keep the presentation clean and resist overworking it.
+- Woolly Bugger: It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window.
+- Woolly Bugger how: Let it sink to depth then retrieve with slow hand-twists or short strips; the marabou tail breathes best with long pauses at the end of each pull. Slow down and lengthen the pause.
+- Sculpin Streamer: It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window. It gives you a different fly bottom look without leaving today's window.
+- Sculpin Streamer how: Cast upstream and mend for a natural drift, then activate with short strips that make the fly bumble over the bottom like a sculpin retreating. Slow down and lengthen the pause.
+- Conehead Streamer: It stays practical in current seams and river lanes when flow still matters. Conehead Streamer tracks well when baitfish is a realistic meal. It is the cleaner change-up if the lead look does not convert.
+- Conehead Streamer how: Cast across or down, let it sink to depth, then strip with a jig-like cadence where the cone tips the fly nose-down on each pause. Slow down and lengthen the pause.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- NO_TOP1_TIE
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:natural,natural
 - Top 1 verdict:
 - Top 3 verdict:
@@ -6195,49 +6435,53 @@ Actual output:
 - Top 3 lures:
 - Tube Jig `tube_jig` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Ned Rig `ned_rig` | theme: `natural` | colors: green pumpkin, olive, smoke
-- Spinnerbait `spinnerbait` | theme: `natural` | colors: green pumpkin, olive, smoke
-- Top 1 fly: Crawfish Streamer `crawfish_streamer` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Top 1 fly: Woolly Bugger `woolly_bugger` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 3 flies:
+- Woolly Bugger `woolly_bugger` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Crawfish Streamer `crawfish_streamer` | theme: `natural` | colors: green pumpkin, olive, smoke
-- Clouser Minnow `clouser_minnow` | theme: `natural` | colors: green pumpkin, olive, smoke
-- Sculpin Streamer `sculpin_streamer` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Game Changer `game_changer` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Color notes:
 - Daily posture: aggressive
 - Tube Jig: natural -> green pumpkin, olive, smoke
 - Ned Rig: natural -> green pumpkin, olive, smoke
-- Spinnerbait: natural -> green pumpkin, olive, smoke
+- Paddle-Tail Swimbait: natural -> green pumpkin, olive, smoke
+- Woolly Bugger: natural -> green pumpkin, olive, smoke
 - Crawfish Streamer: natural -> green pumpkin, olive, smoke
-- Clouser Minnow: natural -> green pumpkin, olive, smoke
-- Sculpin Streamer: natural -> green pumpkin, olive, smoke
+- Game Changer: natural -> green pumpkin, olive, smoke
 - Daily profile notes:
 - Daily posture: aggressive
-- Daily preference: column=bottom, pace=slow, presence=subtle
-- Monthly baseline: columns=mid/bottom/upper, paces=medium/slow/fast, presence=moderate/subtle/bold
-- Guardrails: surface_allowed=false, suppress_true_surface=true, suppress_fast_presentations=false, high_visibility_needed=false, column_shift=-1
+- Seasonal source: region=inland_northwest, fallback_used=false
+- Daily preference: column=mid, pace=slow, presence=subtle
+- Monthly baseline: columns=upper/mid/bottom, paces=slow/medium/fast, presence=subtle/moderate/bold
+- Guardrails: surface_allowed=true, surface_window=rippled, suppress_fast_presentations=false, high_visibility_needed=false, column_shift=0
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
 - Variables triggered: temperature_trend, light_cloud_condition, wind_condition, runoff_flow_disruption
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
 - Daily note: Bright light trims the day back toward cleaner looks.
 - Lure reasoning:
-- Tube Jig: Tube Jig stays in play when crawfish is relevant. With true surface suppressed, this keeps you just under the cleaner active lane. It is one of the lead monthly looks for this exact seasonal window.
-- Tube Jig how: Hop it erratically off the bottom with sharp pops, then open the bail slightly so it spirals down freely; strikes happen on that spinning fall. Slow down and leave more dead time between moves. Keep it above cover or along the upper edge of the zone. Keep the presentation clean and resist overworking it.
-- Ned Rig: That keeps a crawfish-first look in the water for the month. With true surface suppressed, this keeps you just under the cleaner active lane. Ned Rig stays in play when crawfish is relevant. It gives you a different bottom contact look without leaving today's window.
-- Ned Rig how: Inch it along with small rod pops and long pauses; the mushroom head keeps it nose-down and upright — let it sit longer than you think is necessary. Slow down and leave more dead time between moves. Keep it above cover or along the upper edge of the zone. Keep the presentation clean and resist overworking it.
-- Spinnerbait: With true surface suppressed, this keeps you just under the cleaner active lane. Spinnerbait stays in play when baitfish is relevant. It fits today's bottom column preference. It is the cleaner change-up if the lead look does not convert.
-- Spinnerbait how: Slow-roll it along the bottom edge of cover at a steady pace, keeping the blades just ticking; bump any piece of structure and let it rise. Keep the cadence controlled and add short stalls instead of burning it. Keep it above cover or along the upper edge of the zone. Keep the presentation clean and resist overworking it.
+- Tube Jig: A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
+- Tube Jig how: Snap the tube off bottom with short pops so it spirals on the fall, then let it glide back down on slack or semi-slack line. Slow down and lengthen the pause.
+- Ned Rig: A warming trend nudges fish slightly higher in the allowed range. That keeps a crawfish-first look in the water for the month. It gives you a different bottom contact look without leaving today's window.
+- Ned Rig how: Cast and let it settle fully to the bottom, then drag very slowly with the rod held low; pause between moves so the tail stands upright and wiggles. Slow down and lengthen the pause.
+- Paddle-Tail Swimbait: It stays practical in current seams and river lanes when flow still matters. It stays in the middle band where the seasonal setup is most stable today. It is the cleaner change-up if the lead look does not convert.
+- Paddle-Tail Swimbait how: Slow-roll near the bottom on a consistent retrieve; the paddle thumps best just barely above the substrate, so keep the rod tip down and the pace even. Slow down and lengthen the pause.
 - Fly reasoning:
-- Crawfish Streamer: It is one of the lead monthly looks for this exact seasonal window. It stays practical in current seams and river lanes when flow still matters. Crawfish Streamer tracks well when crawfish is a realistic meal.
-- Crawfish Streamer how: Cast upstream and mend for a dead-drift first; then come alive with quick, short strips that make the claw materials flex like a fleeing crawfish. Slow down and leave more dead time between moves. Keep it around the lower part of the productive zone. Keep the presentation clean and resist overworking it.
-- Clouser Minnow: It is one of the lead monthly looks for this exact seasonal window. With true surface suppressed, this keeps you just under the cleaner active lane. Clouser Minnow tracks well when baitfish is a realistic meal. It gives you a different fly baitfish look without leaving today's window.
-- Clouser Minnow how: Cast across or slightly downstream, let it jig toward you with short strips so the weighted eyes keep the fly tracking hook-point up. Keep the cadence controlled and add short stalls instead of burning it. Keep it around the lower part of the productive zone. Keep the presentation clean and resist overworking it.
-- Sculpin Streamer: It stays low in the zone where this day still wants fish to hold. It stays practical in current seams and river lanes when flow still matters. Sculpin Streamer tracks well when baitfish is a realistic meal. It is the cleaner change-up if the lead look does not convert.
-- Sculpin Streamer how: Bump bottom with short strips and let the fly tick along rocks; keep tension so you feel every stop against structure. Slow down and leave more dead time between moves. Keep it around the lower part of the productive zone. Keep the presentation clean and resist overworking it.
+- Woolly Bugger: It stays practical in current seams and river lanes when flow still matters. It stays in the middle band where the seasonal setup is most stable today.
+- Woolly Bugger how: Let it sink to depth then retrieve with slow hand-twists or short strips; the marabou tail breathes best with long pauses at the end of each pull. Slow down and lengthen the pause.
+- Crawfish Streamer: It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window. It gives you a different fly bottom look without leaving today's window.
+- Crawfish Streamer how: Cast upstream and mend for a dead-drift first; then come alive with quick, short strips that make the claw materials flex like a fleeing crawfish. Slow down and lengthen the pause.
+- Game Changer: A warming trend nudges fish slightly higher in the allowed range. It stays in the middle band where the seasonal setup is most stable today. It is the cleaner change-up if the lead look does not convert.
+- Game Changer how: Retrieve with medium strips, then occasionally rip hard so the body compresses and then springs apart — pause after each hard strip and hold your nerve. Slow down and lengthen the pause.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- NO_TOP1_TIE
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:natural,natural
 - Top 1 verdict:
 - Top 3 verdict:
@@ -6293,53 +6537,57 @@ Archived env summary:
 - Sunrise/sunset: 05:19 / 20:45
 
 Actual output:
-- Top 1 lure: Tube Jig `tube_jig` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Top 1 lure: Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 3 lures:
-- Tube Jig `tube_jig` | theme: `natural` | colors: green pumpkin, olive, smoke
-- Inline Spinner `inline_spinner` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural` | colors: green pumpkin, olive, smoke
-- Top 1 fly: Balanced Leech `balanced_leech` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Soft Plastic Jerkbait `soft_jerkbait` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Suspending Jerkbait `suspending_jerkbait` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Top 1 fly: Clouser Minnow `clouser_minnow` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 3 flies:
-- Balanced Leech `balanced_leech` | theme: `natural` | colors: green pumpkin, olive, smoke
-- Woolly Bugger `woolly_bugger` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Clouser Minnow `clouser_minnow` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Muddler Minnow `muddler_sculpin` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Game Changer `game_changer` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Color notes:
 - Daily posture: neutral
-- Tube Jig: natural -> green pumpkin, olive, smoke
-- Inline Spinner: natural -> green pumpkin, olive, smoke
 - Paddle-Tail Swimbait: natural -> green pumpkin, olive, smoke
-- Balanced Leech: natural -> green pumpkin, olive, smoke
-- Woolly Bugger: natural -> green pumpkin, olive, smoke
+- Soft Plastic Jerkbait: natural -> green pumpkin, olive, smoke
+- Suspending Jerkbait: natural -> green pumpkin, olive, smoke
+- Clouser Minnow: natural -> green pumpkin, olive, smoke
 - Muddler Minnow: natural -> green pumpkin, olive, smoke
+- Game Changer: natural -> green pumpkin, olive, smoke
 - Daily profile notes:
 - Daily posture: neutral
-- Daily preference: column=mid, pace=slow, presence=subtle
-- Monthly baseline: columns=upper/mid/surface/bottom, paces=medium/fast/slow, presence=moderate/subtle/bold
-- Guardrails: surface_allowed=false, suppress_true_surface=true, suppress_fast_presentations=false, high_visibility_needed=false, column_shift=-1
+- Seasonal source: region=inland_northwest, fallback_used=false
+- Daily preference: column=mid, pace=medium, presence=subtle
+- Monthly baseline: columns=surface/upper/mid, paces=medium/fast, presence=subtle/moderate
+- Guardrails: surface_allowed=false, surface_window=closed, suppress_fast_presentations=false, high_visibility_needed=false, column_shift=-1
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
 - Variables triggered: temperature_trend, light_cloud_condition, runoff_flow_disruption
 - Daily note: A cooling trend tightens fish and shifts preference lower and slower.
 - Daily note: Bright light trims the day back toward cleaner looks.
 - Lure reasoning:
-- Tube Jig: It stays in the middle band where the seasonal setup is most stable today. With true surface suppressed, this keeps you just under the cleaner active lane. Tube Jig stays in play when crawfish is relevant.
-- Tube Jig how: Cast, let it sink, then pop sharply and release line; the tube should corkscrew back to bottom on each drop — keep a watchful eye on the line. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
-- Inline Spinner: Inline Spinner stays in play when baitfish is relevant. With true surface suppressed, this keeps you just under the cleaner active lane. It is one of the lead monthly looks for this exact seasonal window. It gives you a different horizontal search look without leaving today's window.
-- Inline Spinner how: Cast across current and let the blade flash on a quarter-downstream retrieve; speed up briefly after bumps or short strikes. Keep the cadence controlled and add short stalls instead of burning it. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
-- Paddle-Tail Swimbait: Paddle-Tail Swimbait stays in play when baitfish is relevant. With true surface suppressed, this keeps you just under the cleaner active lane. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
-- Paddle-Tail Swimbait how: Swim it at the speed where you feel a steady kick through the rod; use rod angle to change depth without changing retrieve speed. Keep the cadence controlled and add short stalls instead of burning it. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
+- Paddle-Tail Swimbait: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Paddle-Tail Swimbait how: Reel at a steady pace with the rod low so the tail thumps consistently; speed up slightly over bait schools or slow down after a follow.
+- Soft Plastic Jerkbait: With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different horizontal search look without leaving today's window.
+- Soft Plastic Jerkbait how: Snap the rod sideways so the bait darts left or right, then drop the rod tip so it glides and sinks on a slack line before the next snap.
+- Suspending Jerkbait: With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Suspending Jerkbait how: Work it with wrist snaps, not big sweeps; keep slack in the line between snaps so the bait swings freely, then pause until you see a follow or feel weight.
 - Fly reasoning:
-- Balanced Leech: It stays in the middle band where the seasonal setup is most stable today. With true surface suppressed, this keeps you just under the cleaner active lane. Balanced Leech tracks well when leech_worm is a realistic meal.
-- Balanced Leech how: Let it suspend just off bottom or under cover and move it only with tiny strips; the balanced posture is the trigger, not speed. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
-- Woolly Bugger: With true surface suppressed, this keeps you just under the cleaner active lane. Woolly Bugger tracks well when leech_worm is a realistic meal. It fits today's mid column preference. It gives you a different fly bottom look without leaving today's window.
-- Woolly Bugger how: Cast across and swing it on a tight line through the drift, then activate on the hang-down with short strips before lifting. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
-- Muddler Minnow: Muddler Minnow tracks well when baitfish is a realistic meal. With true surface suppressed, this keeps you just under the cleaner active lane. It stays in the middle band where the seasonal setup is most stable today. It is the cleaner change-up if the lead look does not convert.
-- Muddler Minnow how: Work it as a swung wet fly in current with minimal stripping; on still water, hop it along the bottom with slow, erratic pulls. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
+- Clouser Minnow: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Clouser Minnow how: Cast across or slightly downstream, let it jig toward you with short strips so the weighted eyes keep the fly tracking hook-point up.
+- Muddler Minnow: With the highest lane shut down, this keeps you just under the cleaner active zone. It stays in the middle band where the seasonal setup is most stable today. It gives you a different fly bottom look without leaving today's window.
+- Muddler Minnow how: Work it as a swung wet fly in current with minimal stripping; on still water, hop it along the bottom with slow, erratic pulls.
+- Game Changer: With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Game Changer how: Retrieve with medium strips, then occasionally rip hard so the body compresses and then springs apart — pause after each hard strip and hold your nerve.
 
 Review:
 - Precheck flags:
-- TOP1_PRIMARY_MISS
+- TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- NO_TOP1_TIE
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:natural,natural
 - Top 1 verdict:
 - Top 3 verdict:
@@ -6395,53 +6643,57 @@ Archived env summary:
 - Sunrise/sunset: 06:36 / 19:05
 
 Actual output:
-- Top 1 lure: Drop-Shot Minnow `drop_shot_minnow` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Top 1 lure: Suspending Jerkbait `suspending_jerkbait` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 3 lures:
-- Drop-Shot Minnow `drop_shot_minnow` | theme: `natural` | colors: green pumpkin, olive, smoke
-- Tube Jig `tube_jig` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Suspending Jerkbait `suspending_jerkbait` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Soft Plastic Jerkbait `soft_jerkbait` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 1 fly: Slim Baitfish Streamer `slim_minnow_streamer` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 3 flies:
 - Slim Baitfish Streamer `slim_minnow_streamer` | theme: `natural` | colors: green pumpkin, olive, smoke
-- Woolly Bugger `woolly_bugger` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Game Changer `game_changer` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Clouser Minnow `clouser_minnow` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Color notes:
 - Daily posture: aggressive
-- Drop-Shot Minnow: natural -> green pumpkin, olive, smoke
-- Tube Jig: natural -> green pumpkin, olive, smoke
 - Suspending Jerkbait: natural -> green pumpkin, olive, smoke
+- Paddle-Tail Swimbait: natural -> green pumpkin, olive, smoke
+- Soft Plastic Jerkbait: natural -> green pumpkin, olive, smoke
 - Slim Baitfish Streamer: natural -> green pumpkin, olive, smoke
-- Woolly Bugger: natural -> green pumpkin, olive, smoke
 - Game Changer: natural -> green pumpkin, olive, smoke
+- Clouser Minnow: natural -> green pumpkin, olive, smoke
 - Daily profile notes:
 - Daily posture: aggressive
-- Daily preference: column=mid, pace=slow, presence=subtle
-- Monthly baseline: columns=upper/mid/bottom, paces=medium/fast/slow, presence=moderate/subtle/bold
-- Guardrails: surface_allowed=false, suppress_true_surface=true, suppress_fast_presentations=false, high_visibility_needed=false, column_shift=-1
+- Seasonal source: region=inland_northwest, fallback_used=false
+- Daily preference: column=upper, pace=medium, presence=subtle
+- Monthly baseline: columns=upper/mid, paces=medium/fast, presence=subtle/moderate/bold
+- Guardrails: surface_allowed=false, surface_window=closed, suppress_fast_presentations=false, high_visibility_needed=false, column_shift=0
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
 - Variables triggered: temperature_trend, light_cloud_condition, runoff_flow_disruption
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
 - Daily note: Bright light trims the day back toward cleaner looks.
 - Lure reasoning:
-- Drop-Shot Minnow: Drop-Shot Minnow stays in play when baitfish is relevant. With true surface suppressed, this keeps you just under the cleaner active lane. It stays in the middle band where the seasonal setup is most stable today.
-- Drop-Shot Minnow how: Hold the weight down and pulse the rod tip lightly; the minnow should quiver in place, then glide a few inches before the next shake. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
-- Tube Jig: It stays in the middle band where the seasonal setup is most stable today. With true surface suppressed, this keeps you just under the cleaner active lane. Tube Jig stays in play when crawfish is relevant. It gives you a different bottom contact look without leaving today's window.
-- Tube Jig how: Cast, let it sink, then pop sharply and release line; the tube should corkscrew back to bottom on each drop — keep a watchful eye on the line. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
-- Suspending Jerkbait: Suspending Jerkbait stays in play when baitfish is relevant. With true surface suppressed, this keeps you just under the cleaner active lane. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
-- Suspending Jerkbait how: Jerk, jerk, pause. The bait should dart and glide sideways on each twitch; dial the pause length to water temperature — colder means longer. Keep the cadence controlled and add short stalls instead of burning it. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
+- Suspending Jerkbait: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Suspending Jerkbait how: Two or three sharp twitches, then let it suspend perfectly still for a full 3-5 count before the next sequence — the pause is everything. Keep it high in the zone.
+- Paddle-Tail Swimbait: With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different horizontal search look without leaving today's window.
+- Paddle-Tail Swimbait how: Swim it at the speed where you feel a steady kick through the rod; use rod angle to change depth without changing retrieve speed. Keep it high in the zone.
+- Soft Plastic Jerkbait: With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Soft Plastic Jerkbait how: Work it with a jerk-sink-jerk cadence; keep the line slightly slack between twitches so the bait moves unpredictably, and vary the pause length. Keep it high in the zone.
 - Fly reasoning:
-- Slim Baitfish Streamer: Slim Baitfish Streamer tracks well when baitfish is a realistic meal. With true surface suppressed, this keeps you just under the cleaner active lane. It is one of the lead monthly looks for this exact seasonal window.
-- Slim Baitfish Streamer how: Retrieve with a mix of short darts and longer glides; the thin profile tracks like a small minnow on a tight line. Keep the cadence controlled and add short stalls instead of burning it. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
-- Woolly Bugger: With true surface suppressed, this keeps you just under the cleaner active lane. Woolly Bugger tracks well when leech_worm is a realistic meal. It fits today's mid column preference. It gives you a different fly bottom look without leaving today's window.
-- Woolly Bugger how: Cast across and swing it on a tight line through the drift, then activate on the hang-down with short strips before lifting. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
-- Game Changer: The month is still baitfish-forward, and this stays inside that search lane. With true surface suppressed, this keeps you just under the cleaner active lane. Game Changer tracks well when baitfish is a realistic meal. It is the cleaner change-up if the lead look does not convert.
-- Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink. Keep the cadence controlled and add short stalls instead of burning it. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
+- Slim Baitfish Streamer: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Slim Baitfish Streamer how: Strip with short, quick pulls to make the slim profile dart; pause briefly so it hangs in the current or sinks an inch before the next strip. Keep it high in the zone.
+- Game Changer: With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different fly baitfish look without leaving today's window.
+- Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink. Keep it high in the zone.
+- Clouser Minnow: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Clouser Minnow how: Cast and let the weighted eyes sink the fly, then retrieve with a strip-pause cadence that makes it dart upward on the strip and dive back on the pause.
 
 Review:
 - Precheck flags:
-- TOP1_PRIMARY_MISS
+- TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- NO_TOP1_TIE
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:natural,natural
 - Top 1 verdict:
 - Top 3 verdict:
@@ -6500,49 +6752,53 @@ Actual output:
 - Top 1 lure: Suspending Jerkbait `suspending_jerkbait` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 lures:
 - Suspending Jerkbait `suspending_jerkbait` | theme: `dark` | colors: black, black/blue, black/purple
-- Spinnerbait `spinnerbait` | theme: `dark` | colors: black, black/blue, black/purple
 - Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Tube Jig `tube_jig` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 1 fly: Slim Baitfish Streamer `slim_minnow_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 flies:
 - Slim Baitfish Streamer `slim_minnow_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Game Changer `game_changer` | theme: `dark` | colors: black, black/blue, black/purple
-- Woolly Bugger `woolly_bugger` | theme: `dark` | colors: black, black/blue, black/purple
+- Zonker Streamer `zonker_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Color notes:
 - Daily posture: aggressive
 - Suspending Jerkbait: dark -> black, black/blue, black/purple
-- Spinnerbait: dark -> black, black/blue, black/purple
 - Paddle-Tail Swimbait: dark -> black, black/blue, black/purple
+- Tube Jig: dark -> black, black/blue, black/purple
 - Slim Baitfish Streamer: dark -> black, black/blue, black/purple
 - Game Changer: dark -> black, black/blue, black/purple
-- Woolly Bugger: dark -> black, black/blue, black/purple
+- Zonker Streamer: dark -> black, black/blue, black/purple
 - Daily profile notes:
 - Daily posture: aggressive
+- Seasonal source: region=inland_northwest, fallback_used=false
 - Daily preference: column=upper, pace=medium, presence=subtle
-- Monthly baseline: columns=mid/bottom/upper, paces=medium/slow/fast, presence=moderate/subtle/bold
-- Guardrails: surface_allowed=true, suppress_true_surface=false, suppress_fast_presentations=false, high_visibility_needed=false, column_shift=1
+- Monthly baseline: columns=upper/mid/bottom, paces=slow/medium/fast, presence=subtle/moderate/bold
+- Guardrails: surface_allowed=true, surface_window=clean, suppress_fast_presentations=false, high_visibility_needed=false, column_shift=1
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
 - Variables triggered: light_cloud_condition, runoff_flow_disruption
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Lure reasoning:
-- Suspending Jerkbait: It is one of the lead monthly looks for this exact seasonal window. Lower light supports a slightly higher, more open lane. Suspending Jerkbait stays in play when baitfish is relevant.
-- Suspending Jerkbait how: Work it with wrist snaps, not big sweeps; keep slack in the line between snaps so the bait swings freely, then pause until you see a follow or feel weight. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Start on wind-blown edges or the first active cover line and let it cover water.
-- Spinnerbait: Lower light supports a slightly higher, more open lane. Spinnerbait stays in play when baitfish is relevant. It fits today's upper column preference. It gives you a different horizontal search look without leaving today's window.
-- Spinnerbait how: Cast past the target and retrieve through it, varying speed to find the blade thump fish respond to; hesitate briefly at cover edges. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Start on wind-blown edges or the first active cover line and let it cover water.
-- Paddle-Tail Swimbait: Paddle-Tail Swimbait stays in play when baitfish is relevant. Lower light supports a slightly higher, more open lane. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
-- Paddle-Tail Swimbait how: Slow-roll near the bottom on a consistent retrieve; the paddle thumps best just barely above the substrate, so keep the rod tip down and the pace even. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Start on wind-blown edges or the first active cover line and let it cover water.
+- Suspending Jerkbait: Lower light supports a slightly higher, more open lane. It is one of the lead monthly looks for this exact seasonal window.
+- Suspending Jerkbait how: Work it with wrist snaps, not big sweeps; keep slack in the line between snaps so the bait swings freely, then pause until you see a follow or feel weight. Keep it high in the zone.
+- Paddle-Tail Swimbait: Lower light supports a slightly higher, more open lane. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different horizontal search look without leaving today's window.
+- Paddle-Tail Swimbait how: Swim it at the speed where you feel a steady kick through the rod; use rod angle to change depth without changing retrieve speed. Keep it high in the zone.
+- Tube Jig: Lower light supports a slightly higher, more open lane. It stays high enough in the zone to match the day's more open positioning. It is the cleaner change-up if the lead look does not convert.
+- Tube Jig how: Cast, let it sink, then pop sharply and release line; the tube should corkscrew back to bottom on each drop — keep a watchful eye on the line. Keep it high in the zone.
 - Fly reasoning:
-- Slim Baitfish Streamer: Lower light supports a slightly higher, more open lane. Slim Baitfish Streamer tracks well when baitfish is a realistic meal. It fits today's upper column preference.
-- Slim Baitfish Streamer how: Fish it on a dead-drift through seams, then activate with quick strips near holding structure; the slim silhouette works best in clear water at a measured pace. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Keep the presentation clean and resist overworking it.
-- Game Changer: Game Changer tracks well when baitfish is a realistic meal. Lower light supports a slightly higher, more open lane. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different fly baitfish look without leaving today's window.
-- Game Changer how: Retrieve with medium strips, then occasionally rip hard so the body compresses and then springs apart — pause after each hard strip and hold your nerve. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Keep the presentation clean and resist overworking it.
-- Woolly Bugger: It stays practical in current seams and river lanes when flow still matters. Woolly Bugger tracks well when leech_worm is a realistic meal. It matches today's subtle presence lane. It is the cleaner change-up if the lead look does not convert.
-- Woolly Bugger how: Fish it on a dead-drift near the bottom, then come alive with a strip-pause retrieve through prime holding water; let the tail do most of the work. Keep a steady medium cadence. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
+- Slim Baitfish Streamer: Lower light supports a slightly higher, more open lane. It is one of the lead monthly looks for this exact seasonal window.
+- Slim Baitfish Streamer how: Fish it on a dead-drift through seams, then activate with quick strips near holding structure; the slim silhouette works best in clear water at a measured pace. Keep it high in the zone.
+- Game Changer: Lower light supports a slightly higher, more open lane. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different fly baitfish look without leaving today's window.
+- Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink. Keep it high in the zone.
+- Zonker Streamer: Lower light supports a slightly higher, more open lane. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Zonker Streamer how: Cast across current and strip steadily through the swing; add a momentary deadstop near structure so the wing collapses and then puffs back out. Keep it high in the zone.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- NO_TOP1_TIE
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:dark,dark
 - Top 1 verdict:
 - Top 3 verdict:
@@ -6598,56 +6854,60 @@ Archived env summary:
 - Sunrise/sunset: 06:49 / 20:13
 
 Actual output:
-- Top 1 lure: Hair Jig `hair_jig` | theme: `dark` | colors: black, black/blue, black/purple
+- Top 1 lure: Tube Jig `tube_jig` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 lures:
-- Hair Jig `hair_jig` | theme: `dark` | colors: black, black/blue, black/purple
-- Spinnerbait `spinnerbait` | theme: `dark` | colors: black, black/blue, black/purple
 - Tube Jig `tube_jig` | theme: `dark` | colors: black, black/blue, black/purple
+- Spinnerbait `spinnerbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Hair Jig `hair_jig` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 1 fly: Woolly Bugger `woolly_bugger` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 flies:
 - Woolly Bugger `woolly_bugger` | theme: `dark` | colors: black, black/blue, black/purple
-- Clouser Minnow `clouser_minnow` | theme: `dark` | colors: black, black/blue, black/purple
 - Sculpin Streamer `sculpin_streamer` | theme: `dark` | colors: black, black/blue, black/purple
+- Crawfish Streamer `crawfish_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Color notes:
 - Daily posture: suppressed
-- Hair Jig: dark -> black, black/blue, black/purple
-- Spinnerbait: dark -> black, black/blue, black/purple
 - Tube Jig: dark -> black, black/blue, black/purple
+- Spinnerbait: dark -> black, black/blue, black/purple
+- Hair Jig: dark -> black, black/blue, black/purple
 - Woolly Bugger: dark -> black, black/blue, black/purple
-- Clouser Minnow: dark -> black, black/blue, black/purple
 - Sculpin Streamer: dark -> black, black/blue, black/purple
+- Crawfish Streamer: dark -> black, black/blue, black/purple
 - Daily profile notes:
 - Daily posture: suppressed
+- Seasonal source: region=midwest_interior, fallback_used=false
 - Daily preference: column=bottom, pace=slow, presence=bold
-- Monthly baseline: columns=mid/bottom/upper, paces=medium/slow/fast, presence=moderate/subtle/bold
-- Guardrails: surface_allowed=false, suppress_true_surface=true, suppress_fast_presentations=true, high_visibility_needed=true, column_shift=-1
+- Monthly baseline: columns=upper/mid/bottom, paces=slow/medium/fast, presence=subtle/moderate/bold
+- Guardrails: surface_allowed=false, surface_window=closed, suppress_fast_presentations=true, high_visibility_needed=true, column_shift=-1
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
 - Variables triggered: temperature_metabolic_context, temperature_trend, light_cloud_condition, wind_condition, precipitation_disruption
-- Daily note: Temperature metabolism suppresses the day and favors slower execution.
+- Daily note: Cold metabolism shuts down activity. Slow and low is the only play.
 - Daily note: A cooling trend tightens fish and shifts preference lower and slower.
 - Daily note: Bright light trims the day back toward cleaner looks.
 - Daily note: Moderate chop improves fishability and supports a stronger moving look.
 - Daily note: Dirty water demands more visibility.
 - Lure reasoning:
-- Hair Jig: With true surface suppressed, this keeps you just under the cleaner active lane. Hair Jig stays in play when baitfish is relevant. It lines up with today's slow pace preference.
-- Hair Jig how: Cast across, let it sink on a controlled slack line, then swim it back with short pauses so the marabou pulses and collapses. Slow down and leave more dead time between moves. Keep it above cover or along the upper edge of the zone. Let it soak a little longer before each move.
-- Spinnerbait: With true surface suppressed, this keeps you just under the cleaner active lane. Spinnerbait stays in play when baitfish is relevant. It matches today's bold presence lane. It gives you a different horizontal search look without leaving today's window.
-- Spinnerbait how: Slow-roll it along the bottom edge of cover at a steady pace, keeping the blades just ticking; bump any piece of structure and let it rise. Keep the cadence controlled and add short stalls instead of burning it. Keep it above cover or along the upper edge of the zone. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
-- Tube Jig: Tube Jig stays in play when crawfish is relevant. With true surface suppressed, this keeps you just under the cleaner active lane. It lines up with today's slow pace preference. It is the cleaner change-up if the lead look does not convert.
-- Tube Jig how: Snap the tube off bottom with short pops so it spirals on the fall, then let it glide back down on slack or semi-slack line. Slow down and leave more dead time between moves. Keep it above cover or along the upper edge of the zone. Let it soak a little longer before each move.
+- Tube Jig: With the highest lane shut down, this keeps you just under the cleaner active zone. Tube Jig stays in play when crawfish is relevant.
+- Tube Jig how: Snap the tube off bottom with short pops so it spirals on the fall, then let it glide back down on slack or semi-slack line. Slow down and lengthen the pause.
+- Spinnerbait: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It gives you a different horizontal search look without leaving today's window.
+- Spinnerbait how: Slow-roll it along the bottom edge of cover at a steady pace, keeping the blades just ticking; bump any piece of structure and let it rise. Slow down and lengthen the pause.
+- Hair Jig: With the highest lane shut down, this keeps you just under the cleaner active zone. Hair Jig stays in play when baitfish is relevant. It is the cleaner change-up if the lead look does not convert.
+- Hair Jig how: Cast across, let it sink on a controlled slack line, then swim it back with short pauses so the marabou pulses and collapses. Slow down and lengthen the pause.
 - Fly reasoning:
-- Woolly Bugger: With true surface suppressed, this keeps you just under the cleaner active lane. Woolly Bugger tracks well when leech_worm is a realistic meal. It fits today's bottom column preference.
-- Woolly Bugger how: Let it sink to depth then retrieve with slow hand-twists or short strips; the marabou tail breathes best with long pauses at the end of each pull. Slow down and leave more dead time between moves. Keep it around the lower part of the productive zone. Keep it on a clean, trackable line so fish can find it before the next move.
-- Clouser Minnow: It is one of the lead monthly looks for this exact seasonal window. With true surface suppressed, this keeps you just under the cleaner active lane. Clouser Minnow tracks well when baitfish is a realistic meal. It gives you a different fly baitfish look without leaving today's window.
-- Clouser Minnow how: Cast across or slightly downstream, let it jig toward you with short strips so the weighted eyes keep the fly tracking hook-point up. Keep the cadence controlled and add short stalls instead of burning it. Keep it around the lower part of the productive zone. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
-- Sculpin Streamer: It stays low in the zone where this day still wants fish to hold. Temperature metabolism suppresses the day and favors slower execution. Sculpin Streamer tracks well when baitfish is a realistic meal. It is the cleaner change-up if the lead look does not convert.
-- Sculpin Streamer how: Bump bottom with short strips and let the fly tick along rocks; keep tension so you feel every stop against structure. Slow down and leave more dead time between moves. Keep it around the lower part of the productive zone. Keep it on a clean, trackable line so fish can find it before the next move.
+- Woolly Bugger: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Woolly Bugger how: Let it sink to depth then retrieve with slow hand-twists or short strips; the marabou tail breathes best with long pauses at the end of each pull. Slow down and lengthen the pause.
+- Sculpin Streamer: A cooling trend tightens fish and shifts preference lower and slower. It stays low in the zone where this day still wants fish to hold. It gives you a different fly bottom look without leaving today's window.
+- Sculpin Streamer how: Bump bottom with short strips and let the fly tick along rocks; keep tension so you feel every stop against structure. Slow down and lengthen the pause.
+- Crawfish Streamer: A cooling trend tightens fish and shifts preference lower and slower. It stays low in the zone where this day still wants fish to hold. It is the cleaner change-up if the lead look does not convert.
+- Crawfish Streamer how: Tick it along the bottom with short, nervous strips so the claws scratch and flare; keep it close to the substrate and pause after contact with any rock or root. Slow down and lengthen the pause.
 
 Review:
 - Precheck flags:
-- TOP1_PRIMARY_MISS
+- TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- NO_TOP1_TIE
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:dark,dark
 - Top 1 verdict:
 - Top 3 verdict:
@@ -6724,9 +6984,10 @@ Actual output:
 - Clouser Minnow: bright -> white/chartreuse, chartreuse, firetiger
 - Daily profile notes:
 - Daily posture: aggressive
+- Seasonal source: region=midwest_interior, fallback_used=false
 - Daily preference: column=upper, pace=medium, presence=bold
-- Monthly baseline: columns=upper/mid/bottom, paces=medium/fast/slow, presence=bold/moderate/subtle
-- Guardrails: surface_allowed=true, suppress_true_surface=false, suppress_fast_presentations=false, high_visibility_needed=true, column_shift=1
+- Monthly baseline: columns=upper/mid, paces=medium/fast, presence=moderate/bold
+- Guardrails: surface_allowed=true, surface_window=clean, suppress_fast_presentations=false, high_visibility_needed=true, column_shift=1
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
 - Variables triggered: temperature_trend, light_cloud_condition, wind_condition, precipitation_disruption
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
@@ -6734,25 +6995,28 @@ Actual output:
 - Daily note: Moderate chop improves fishability and supports a stronger moving look.
 - Daily note: Dirty water demands more visibility.
 - Lure reasoning:
-- Spinnerbait: A warming trend nudges fish slightly higher in the allowed range. Spinnerbait stays in play when baitfish is relevant. It fits today's upper column preference.
-- Spinnerbait how: Cast past the target and retrieve through it, varying speed to find the blade thump fish respond to; hesitate briefly at cover edges. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Start on wind-blown edges or the first active cover line and let it cover water.
-- Suspending Jerkbait: The month is still baitfish-forward, and this stays inside that search lane. A warming trend nudges fish slightly higher in the allowed range. Suspending Jerkbait stays in play when baitfish is relevant. It gives you a different reaction mid column look without leaving today's window.
-- Suspending Jerkbait how: Work it with wrist snaps, not big sweeps; keep slack in the line between snaps so the bait swings freely, then pause until you see a follow or feel weight. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Start on wind-blown edges or the first active cover line and let it cover water.
-- Medium-Diving Crankbait: A warming trend nudges fish slightly higher in the allowed range. Medium-Diving Crankbait stays in play when baitfish is relevant. It lines up with today's medium pace preference. It is the cleaner change-up if the lead look does not convert.
-- Medium-Diving Crankbait how: Work it through mid-column structure at steady speed, varying rod angle to bump the lip on rock ledges or submerged debris. Keep it moving on a steady, fishable cadence. Keep it around the middle band of the strike zone. Start on wind-blown edges or the first active cover line and let it cover water.
+- Spinnerbait: A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
+- Spinnerbait how: Work it parallel to grass lines or over submerged timber; slow the retrieve near the target and let the head tick the top. Keep it high in the zone.
+- Suspending Jerkbait: A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different reaction mid column look without leaving today's window.
+- Suspending Jerkbait how: Jerk, jerk, pause. The bait should dart and glide sideways on each twitch; dial the pause length to water temperature — colder means longer. Keep it high in the zone.
+- Medium-Diving Crankbait: A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Medium-Diving Crankbait how: Retrieve at a medium pace along depth contours, pausing after any bottom contact so the bait rises before diving back when you resume.
 - Fly reasoning:
-- Game Changer: A warming trend nudges fish slightly higher in the allowed range. Game Changer tracks well when baitfish is a realistic meal. It fits today's upper column preference.
-- Game Changer how: Retrieve with medium strips, then occasionally rip hard so the body compresses and then springs apart — pause after each hard strip and hold your nerve. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
-- Articulated Baitfish Streamer: The month is still baitfish-forward, and this stays inside that search lane. A warming trend nudges fish slightly higher in the allowed range. Articulated Baitfish Streamer tracks well when baitfish is a realistic meal. It gives you a different fly baitfish look without leaving today's window.
-- Articulated Baitfish Streamer how: Cover water at mid-depth with steady strips; add a hard single rip followed by a full pause to imitate an injured baitfish fleeing and then stopping. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
-- Clouser Minnow: It is one of the lead monthly looks for this exact seasonal window. A warming trend nudges fish slightly higher in the allowed range. Clouser Minnow tracks well when baitfish is a realistic meal. It is the cleaner change-up if the lead look does not convert.
-- Clouser Minnow how: Cast and let the weighted eyes sink the fly, then retrieve with a strip-pause cadence that makes it dart upward on the strip and dive back on the pause. Keep it moving on a steady, fishable cadence. Keep it around the middle band of the strike zone. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
+- Game Changer: A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
+- Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink. Keep it high in the zone.
+- Articulated Baitfish Streamer: A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different fly baitfish look without leaving today's window.
+- Articulated Baitfish Streamer how: Work it across current and down with a varied strip cadence; when a fish follows, slow down and kill the retrieve to let the body spiral on the sink. Keep it high in the zone.
+- Clouser Minnow: A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Clouser Minnow how: Strip in short, consistent pulls so the dumbbell eyes make the fly jig up and down; let it sink between strips to stay hook-point up throughout.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- NO_TOP1_TIE
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:bright,bright
 - Top 1 verdict:
 - Top 3 verdict:
@@ -6809,53 +7073,57 @@ Archived env summary:
 - Sunrise/sunset: 06:41 / 20:32
 
 Actual output:
-- Top 1 lure: Tube Jig `tube_jig` | theme: `dark` | colors: black, black/blue, black/purple
+- Top 1 lure: Spinnerbait `spinnerbait` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 lures:
-- Tube Jig `tube_jig` | theme: `dark` | colors: black, black/blue, black/purple
-- Hair Jig `hair_jig` | theme: `dark` | colors: black, black/blue, black/purple
 - Spinnerbait `spinnerbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Tube Jig `tube_jig` | theme: `dark` | colors: black, black/blue, black/purple
+- Suspending Jerkbait `suspending_jerkbait` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 1 fly: Clouser Minnow `clouser_minnow` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 flies:
 - Clouser Minnow `clouser_minnow` | theme: `dark` | colors: black, black/blue, black/purple
-- Woolly Bugger `woolly_bugger` | theme: `dark` | colors: black, black/blue, black/purple
+- Articulated Baitfish Streamer `articulated_baitfish_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Game Changer `game_changer` | theme: `dark` | colors: black, black/blue, black/purple
 - Color notes:
 - Daily posture: slightly_suppressed
-- Tube Jig: dark -> black, black/blue, black/purple
-- Hair Jig: dark -> black, black/blue, black/purple
 - Spinnerbait: dark -> black, black/blue, black/purple
+- Tube Jig: dark -> black, black/blue, black/purple
+- Suspending Jerkbait: dark -> black, black/blue, black/purple
 - Clouser Minnow: dark -> black, black/blue, black/purple
-- Woolly Bugger: dark -> black, black/blue, black/purple
+- Articulated Baitfish Streamer: dark -> black, black/blue, black/purple
 - Game Changer: dark -> black, black/blue, black/purple
 - Daily profile notes:
 - Daily posture: slightly_suppressed
-- Daily preference: column=mid, pace=slow, presence=bold
-- Monthly baseline: columns=upper/mid/surface/bottom, paces=medium/fast/slow, presence=moderate/subtle/bold
-- Guardrails: surface_allowed=false, suppress_true_surface=true, suppress_fast_presentations=true, high_visibility_needed=true, column_shift=-1
+- Seasonal source: region=midwest_interior, fallback_used=false
+- Daily preference: column=mid, pace=medium, presence=bold
+- Monthly baseline: columns=surface/upper/mid, paces=medium/fast, presence=subtle/moderate/bold
+- Guardrails: surface_allowed=false, surface_window=closed, suppress_fast_presentations=false, high_visibility_needed=true, column_shift=-1
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
 - Variables triggered: light_cloud_condition, precipitation_disruption
 - Daily note: Bright light trims the day back toward cleaner looks.
 - Daily note: Dirty water demands more visibility.
 - Lure reasoning:
-- Tube Jig: With true surface suppressed, this keeps you just under the cleaner active lane. Tube Jig stays in play when crawfish is relevant. It fits today's mid column preference.
-- Tube Jig how: Snap the tube off bottom with short pops so it spirals on the fall, then let it glide back down on slack or semi-slack line. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Let it soak a little longer before each move.
-- Hair Jig: With true surface suppressed, this keeps you just under the cleaner active lane. Hair Jig stays in play when baitfish is relevant. It fits today's mid column preference. It gives you a different finesse subtle look without leaving today's window.
-- Hair Jig how: Cast across, let it sink on a controlled slack line, then swim it back with short pauses so the marabou pulses and collapses. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Let it soak a little longer before each move.
-- Spinnerbait: The month is still baitfish-forward, and this stays inside that search lane. With true surface suppressed, this keeps you just under the cleaner active lane. Spinnerbait stays in play when baitfish is relevant. It is the cleaner change-up if the lead look does not convert.
-- Spinnerbait how: Slow-roll it along the bottom edge of cover at a steady pace, keeping the blades just ticking; bump any piece of structure and let it rise. Keep the cadence controlled and add short stalls instead of burning it. Keep it around the middle band of the strike zone. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
+- Spinnerbait: With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane.
+- Spinnerbait how: Work it parallel to grass lines or over submerged timber; slow the retrieve near the target and let the head tick the top.
+- Tube Jig: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It gives you a different bottom contact look without leaving today's window.
+- Tube Jig how: Hop it erratically off the bottom with sharp pops, then open the bail slightly so it spirals down freely; strikes happen on that spinning fall.
+- Suspending Jerkbait: With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Suspending Jerkbait how: Jerk, jerk, pause. The bait should dart and glide sideways on each twitch; dial the pause length to water temperature — colder means longer.
 - Fly reasoning:
-- Clouser Minnow: It is one of the lead monthly looks for this exact seasonal window. With true surface suppressed, this keeps you just under the cleaner active lane. Clouser Minnow tracks well when baitfish is a realistic meal.
-- Clouser Minnow how: Cast across or slightly downstream, let it jig toward you with short strips so the weighted eyes keep the fly tracking hook-point up. Keep the cadence controlled and add short stalls instead of burning it. Keep it around the middle band of the strike zone. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
-- Woolly Bugger: It stays in the middle band where the seasonal setup is most stable today. With true surface suppressed, this keeps you just under the cleaner active lane. Woolly Bugger tracks well when leech_worm is a realistic meal. It gives you a different fly bottom look without leaving today's window.
-- Woolly Bugger how: Let it sink to depth then retrieve with slow hand-twists or short strips; the marabou tail breathes best with long pauses at the end of each pull. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep it on a clean, trackable line so fish can find it before the next move.
-- Game Changer: With true surface suppressed, this keeps you just under the cleaner active lane. Game Changer tracks well when baitfish is a realistic meal. It fits today's mid column preference. It is the cleaner change-up if the lead look does not convert.
-- Game Changer how: Use a mix of steady strips and sharp 6-inch twitches so the jointed body swims and stalls; pause when you see a follow. Keep the cadence controlled and add short stalls instead of burning it. Keep it around the middle band of the strike zone. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
+- Clouser Minnow: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Clouser Minnow how: Strip in short, consistent pulls so the dumbbell eyes make the fly jig up and down; let it sink between strips to stay hook-point up throughout.
+- Articulated Baitfish Streamer: With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different fly baitfish look without leaving today's window.
+- Articulated Baitfish Streamer how: Work it across current and down with a varied strip cadence; when a fish follows, slow down and kill the retrieve to let the body spiral on the sink.
+- Game Changer: With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- NO_TOP1_TIE
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:dark,dark
 - Top 1 verdict:
 - Top 3 verdict:
@@ -6910,29 +7178,30 @@ Archived env summary:
 - Sunrise/sunset: 07:42 / 17:07
 
 Actual output:
-- Top 1 lure: Hair Jig `hair_jig` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Top 1 lure: Tube Jig `tube_jig` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Top 3 lures:
-- Hair Jig `hair_jig` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Tube Jig `tube_jig` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
-- Drop-Shot Minnow `drop_shot_minnow` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Blade Bait `blade_bait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Hair Jig `hair_jig` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Top 1 fly: Woolly Bugger `woolly_bugger` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Top 3 flies:
 - Woolly Bugger `woolly_bugger` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
-- Sculpin Streamer `sculpin_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Conehead Streamer `conehead_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Sculpin Streamer `sculpin_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Color notes:
 - Daily posture: slightly_aggressive
-- Hair Jig: bright -> white/chartreuse, chartreuse, firetiger
 - Tube Jig: bright -> white/chartreuse, chartreuse, firetiger
-- Drop-Shot Minnow: bright -> white/chartreuse, chartreuse, firetiger
+- Blade Bait: bright -> white/chartreuse, chartreuse, firetiger
+- Hair Jig: bright -> white/chartreuse, chartreuse, firetiger
 - Woolly Bugger: bright -> white/chartreuse, chartreuse, firetiger
-- Sculpin Streamer: bright -> white/chartreuse, chartreuse, firetiger
 - Conehead Streamer: bright -> white/chartreuse, chartreuse, firetiger
+- Sculpin Streamer: bright -> white/chartreuse, chartreuse, firetiger
 - Daily profile notes:
 - Daily posture: slightly_aggressive
+- Seasonal source: region=midwest_interior, fallback_used=false
 - Daily preference: column=mid, pace=slow, presence=moderate
-- Monthly baseline: columns=bottom/mid/upper, paces=slow/medium, presence=subtle/moderate
-- Guardrails: surface_allowed=false, suppress_true_surface=true, suppress_fast_presentations=false, high_visibility_needed=true, column_shift=1
+- Monthly baseline: columns=mid/bottom, paces=slow/medium, presence=subtle/moderate
+- Guardrails: surface_allowed=false, surface_window=closed, suppress_fast_presentations=false, high_visibility_needed=true, column_shift=1
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
 - Variables triggered: temperature_trend, light_cloud_condition, wind_condition, precipitation_disruption
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
@@ -6940,25 +7209,28 @@ Actual output:
 - Daily note: Strong wind reduces clean execution.
 - Daily note: Dirty water demands more visibility.
 - Lure reasoning:
-- Hair Jig: Hair Jig stays in play when baitfish is relevant. With true surface suppressed, this keeps you just under the cleaner active lane. It is one of the lead monthly looks for this exact seasonal window.
-- Hair Jig how: Fish it on a tight line at slow speed — the hair works best with tiny line pulses rather than big lifts; let it hang in the current or slack zone. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep it on a clean, trackable line so fish can find it before the next move.
-- Tube Jig: Tube Jig stays in play when crawfish is relevant. With true surface suppressed, this keeps you just under the cleaner active lane. It is one of the lead monthly looks for this exact seasonal window. It gives you a different bottom contact look without leaving today's window.
-- Tube Jig how: Hop it erratically off the bottom with sharp pops, then open the bail slightly so it spirals down freely; strikes happen on that spinning fall. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep it on a clean, trackable line so fish can find it before the next move.
-- Drop-Shot Minnow: Drop-Shot Minnow stays in play when baitfish is relevant. With true surface suppressed, this keeps you just under the cleaner active lane. It stays in the middle band where the seasonal setup is most stable today. It is the cleaner change-up if the lead look does not convert.
-- Drop-Shot Minnow how: Hold the weight down and pulse the rod tip lightly; the minnow should quiver in place, then glide a few inches before the next shake. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep it on a clean, trackable line so fish can find it before the next move.
+- Tube Jig: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Tube Jig how: Hop it erratically off the bottom with sharp pops, then open the bail slightly so it spirals down freely; strikes happen on that spinning fall. Slow down and lengthen the pause.
+- Blade Bait: With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different reaction mid column look without leaving today's window.
+- Blade Bait how: Vertical jig it with short, sharp hops over suspended fish; the flutter-fall is the presentation — set hard the moment you feel weight. Slow down and lengthen the pause.
+- Hair Jig: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Hair Jig how: Fish it on a tight line at slow speed — the hair works best with tiny line pulses rather than big lifts; let it hang in the current or slack zone. Slow down and lengthen the pause.
 - Fly reasoning:
-- Woolly Bugger: With true surface suppressed, this keeps you just under the cleaner active lane. Woolly Bugger tracks well when leech_worm is a realistic meal. It fits today's mid column preference.
-- Woolly Bugger how: Cast across and swing it on a tight line through the drift, then activate on the hang-down with short strips before lifting. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep it on a clean, trackable line so fish can find it before the next move.
-- Sculpin Streamer: Sculpin Streamer tracks well when baitfish is a realistic meal. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It gives you a different fly bottom look without leaving today's window.
-- Sculpin Streamer how: Cast upstream and mend for a natural drift, then activate with short strips that make the fly bumble over the bottom like a sculpin retreating. Slow down and leave more dead time between moves. Keep it around the lower part of the productive zone. Keep it on a clean, trackable line so fish can find it before the next move.
-- Conehead Streamer: Dirty water demands more visibility. Conehead Streamer tracks well when baitfish is a realistic meal. It lines up with today's slow pace preference. It is the cleaner change-up if the lead look does not convert.
-- Conehead Streamer how: Strip with consistent medium pulls; the cone keeps the fly diving nose-first on each retrieve, so use pauses to let it hunt and settle before the next strip. Slow down and leave more dead time between moves. Keep it around the lower part of the productive zone. Keep it on a clean, trackable line so fish can find it before the next move.
+- Woolly Bugger: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Woolly Bugger how: Cast across and swing it on a tight line through the drift, then activate on the hang-down with short strips before lifting. Slow down and lengthen the pause.
+- Conehead Streamer: Dirty water demands more visibility. Conehead Streamer tracks well when baitfish is a realistic meal. It gives you a different fly bottom look without leaving today's window.
+- Conehead Streamer how: Strip with consistent medium pulls; the cone keeps the fly diving nose-first on each retrieve, so use pauses to let it hunt and settle before the next strip. Slow down and lengthen the pause.
+- Sculpin Streamer: A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Sculpin Streamer how: Cast upstream and mend for a natural drift, then activate with short strips that make the fly bumble over the bottom like a sculpin retreating. Slow down and lengthen the pause.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- NO_TOP1_TIE
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:bright,bright
 - Top 1 verdict:
 - Top 3 verdict:
@@ -7033,32 +7305,36 @@ Actual output:
 - Woolly Bugger: natural -> green pumpkin, olive, smoke
 - Daily profile notes:
 - Daily posture: slightly_aggressive
+- Seasonal source: region=pacific_northwest, fallback_used=false
 - Daily preference: column=bottom, pace=slow, presence=subtle
-- Monthly baseline: columns=mid/bottom/upper, paces=medium/slow/fast, presence=moderate/subtle/bold
-- Guardrails: surface_allowed=false, suppress_true_surface=true, suppress_fast_presentations=false, high_visibility_needed=false, column_shift=-1
+- Monthly baseline: columns=upper/mid/bottom, paces=slow/medium/fast, presence=subtle/moderate/bold
+- Guardrails: surface_allowed=false, surface_window=closed, suppress_fast_presentations=false, high_visibility_needed=false, column_shift=-1
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
 - Variables triggered: light_cloud_condition, runoff_flow_disruption
 - Daily note: Bright light trims the day back toward cleaner looks.
 - Lure reasoning:
-- Tube Jig: With true surface suppressed, this keeps you just under the cleaner active lane. Tube Jig stays in play when crawfish is relevant. It lines up with today's slow pace preference.
-- Tube Jig how: Hop it erratically off the bottom with sharp pops, then open the bail slightly so it spirals down freely; strikes happen on that spinning fall. Slow down and leave more dead time between moves. Keep it above cover or along the upper edge of the zone. Keep the presentation clean and resist overworking it.
-- Ned Rig: Ned Rig stays in play when crawfish is relevant. With true surface suppressed, this keeps you just under the cleaner active lane. That keeps a crawfish-first look in the water for the month. It gives you a different bottom contact look without leaving today's window.
-- Ned Rig how: Inch it along with small rod pops and long pauses; the mushroom head keeps it nose-down and upright — let it sit longer than you think is necessary. Slow down and leave more dead time between moves. Keep it above cover or along the upper edge of the zone. Keep the presentation clean and resist overworking it.
-- Paddle-Tail Swimbait: With true surface suppressed, this keeps you just under the cleaner active lane. Paddle-Tail Swimbait stays in play when baitfish is relevant. It matches today's subtle presence lane. It is the cleaner change-up if the lead look does not convert.
-- Paddle-Tail Swimbait how: Reel at a steady pace with the rod low so the tail thumps consistently; speed up slightly over bait schools or slow down after a follow. Keep the cadence controlled and add short stalls instead of burning it. Keep it above cover or along the upper edge of the zone. Keep the presentation clean and resist overworking it.
+- Tube Jig: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Tube Jig how: Snap the tube off bottom with short pops so it spirals on the fall, then let it glide back down on slack or semi-slack line. Slow down and lengthen the pause.
+- Ned Rig: With the highest lane shut down, this keeps you just under the cleaner active zone. That keeps a crawfish-first look in the water for the month. It gives you a different bottom contact look without leaving today's window.
+- Ned Rig how: Cast and let it settle fully to the bottom, then drag very slowly with the rod held low; pause between moves so the tail stands upright and wiggles. Slow down and lengthen the pause.
+- Paddle-Tail Swimbait: With the highest lane shut down, this keeps you just under the cleaner active zone. Paddle-Tail Swimbait stays in play when baitfish is relevant. It is the cleaner change-up if the lead look does not convert.
+- Paddle-Tail Swimbait how: Slow-roll near the bottom on a consistent retrieve; the paddle thumps best just barely above the substrate, so keep the rod tip down and the pace even. Slow down and lengthen the pause.
 - Fly reasoning:
-- Crawfish Streamer: Crawfish Streamer tracks well when crawfish is a realistic meal. It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window.
-- Crawfish Streamer how: Cast upstream and mend for a dead-drift first; then come alive with quick, short strips that make the claw materials flex like a fleeing crawfish. Slow down and leave more dead time between moves. Keep it around the lower part of the productive zone. Keep the presentation clean and resist overworking it.
-- Sculpin Streamer: Sculpin Streamer tracks well when baitfish is a realistic meal. It stays practical in current seams and river lanes when flow still matters. It stays low in the zone where this day still wants fish to hold. It gives you a different fly bottom look without leaving today's window.
-- Sculpin Streamer how: Bump bottom with short strips and let the fly tick along rocks; keep tension so you feel every stop against structure. Slow down and leave more dead time between moves. Keep it around the lower part of the productive zone. Keep the presentation clean and resist overworking it.
-- Woolly Bugger: It stays low in the zone where this day still wants fish to hold. With true surface suppressed, this keeps you just under the cleaner active lane. Woolly Bugger tracks well when leech_worm is a realistic meal. It is the cleaner change-up if the lead look does not convert.
-- Woolly Bugger how: Cast across and swing it on a tight line through the drift, then activate on the hang-down with short strips before lifting. Slow down and leave more dead time between moves. Keep it around the lower part of the productive zone. Keep the presentation clean and resist overworking it.
+- Crawfish Streamer: It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window.
+- Crawfish Streamer how: Tick it along the bottom with short, nervous strips so the claws scratch and flare; keep it close to the substrate and pause after contact with any rock or root. Slow down and lengthen the pause.
+- Sculpin Streamer: It stays practical in current seams and river lanes when flow still matters. It stays low in the zone where this day still wants fish to hold. It gives you a different fly bottom look without leaving today's window.
+- Sculpin Streamer how: Cast upstream and mend for a natural drift, then activate with short strips that make the fly bumble over the bottom like a sculpin retreating. Slow down and lengthen the pause.
+- Woolly Bugger: With the highest lane shut down, this keeps you just under the cleaner active zone. It stays low in the zone where this day still wants fish to hold. It is the cleaner change-up if the lead look does not convert.
+- Woolly Bugger how: Fish it on a dead-drift near the bottom, then come alive with a strip-pause retrieve through prime holding water; let the tail do most of the work. Slow down and lengthen the pause.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- NO_TOP1_TIE
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:natural,natural
 - Top 1 verdict:
 - Top 3 verdict:
@@ -7117,47 +7393,51 @@ Actual output:
 - Top 3 lures:
 - Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Soft Plastic Jerkbait `soft_jerkbait` | theme: `natural` | colors: green pumpkin, olive, smoke
-- Inline Spinner `inline_spinner` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Suspending Jerkbait `suspending_jerkbait` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 1 fly: Muddler Minnow `muddler_sculpin` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 3 flies:
 - Muddler Minnow `muddler_sculpin` | theme: `natural` | colors: green pumpkin, olive, smoke
-- Mouse Fly `mouse_fly` | theme: `natural` | colors: green pumpkin, olive, smoke
-- Zonker Streamer `zonker_streamer` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Game Changer `game_changer` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Clouser Minnow `clouser_minnow` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Color notes:
 - Daily posture: aggressive
 - Paddle-Tail Swimbait: natural -> green pumpkin, olive, smoke
 - Soft Plastic Jerkbait: natural -> green pumpkin, olive, smoke
-- Inline Spinner: natural -> green pumpkin, olive, smoke
+- Suspending Jerkbait: natural -> green pumpkin, olive, smoke
 - Muddler Minnow: natural -> green pumpkin, olive, smoke
-- Mouse Fly: natural -> green pumpkin, olive, smoke
-- Zonker Streamer: natural -> green pumpkin, olive, smoke
+- Game Changer: natural -> green pumpkin, olive, smoke
+- Clouser Minnow: natural -> green pumpkin, olive, smoke
 - Daily profile notes:
 - Daily posture: aggressive
+- Seasonal source: region=pacific_northwest, fallback_used=false
 - Daily preference: column=upper, pace=medium, presence=subtle
-- Monthly baseline: columns=surface/upper/mid, paces=medium/fast/slow, presence=moderate/subtle/bold
-- Guardrails: surface_allowed=true, suppress_true_surface=false, suppress_fast_presentations=false, high_visibility_needed=false, column_shift=0
+- Monthly baseline: columns=surface/upper/mid, paces=medium/fast, presence=subtle/moderate/bold
+- Guardrails: surface_allowed=true, surface_window=rippled, suppress_fast_presentations=false, high_visibility_needed=false, column_shift=0
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
 - Variables triggered: wind_condition, runoff_flow_disruption
 - Lure reasoning:
-- Paddle-Tail Swimbait: Paddle-Tail Swimbait stays in play when baitfish is relevant. It stays practical in current seams and river lanes when flow still matters. The month is still baitfish-forward, and this stays inside that search lane.
-- Paddle-Tail Swimbait how: Swim it at the speed where you feel a steady kick through the rod; use rod angle to change depth without changing retrieve speed. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Keep the presentation clean and resist overworking it.
-- Soft Plastic Jerkbait: It stays practical in current seams and river lanes when flow still matters. Soft Plastic Jerkbait stays in play when baitfish is relevant. It fits today's upper column preference. It gives you a different horizontal search look without leaving today's window.
-- Soft Plastic Jerkbait how: Snap the rod sideways so the bait darts left or right, then drop the rod tip so it glides and sinks on a slack line before the next snap. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Keep the presentation clean and resist overworking it.
-- Inline Spinner: It is one of the lead monthly looks for this exact seasonal window. It stays practical in current seams and river lanes when flow still matters. Inline Spinner stays in play when baitfish is relevant. It is the cleaner change-up if the lead look does not convert.
-- Inline Spinner how: Cast and retrieve at a steady clip just fast enough to keep the blade spinning; vary depth with rod angle and speed to find the feeding zone. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Keep the presentation clean and resist overworking it.
+- Paddle-Tail Swimbait: It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window.
+- Paddle-Tail Swimbait how: Reel at a steady pace with the rod low so the tail thumps consistently; speed up slightly over bait schools or slow down after a follow. Keep it high in the zone.
+- Soft Plastic Jerkbait: It stays practical in current seams and river lanes when flow still matters. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different horizontal search look without leaving today's window.
+- Soft Plastic Jerkbait how: Snap the rod sideways so the bait darts left or right, then drop the rod tip so it glides and sinks on a slack line before the next snap. Keep it high in the zone.
+- Suspending Jerkbait: It stays practical in current seams and river lanes when flow still matters. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Suspending Jerkbait how: Work it with wrist snaps, not big sweeps; keep slack in the line between snaps so the bait swings freely, then pause until you see a follow or feel weight. Keep it high in the zone.
 - Fly reasoning:
-- Muddler Minnow: It stays high enough in the zone to match the day's more open positioning. It stays practical in current seams and river lanes when flow still matters. Muddler Minnow tracks well when baitfish is a realistic meal.
-- Muddler Minnow how: Skate or wake it in shallow riffles with short strips, or sink and crawl it along bottom with rod-tip leads so the deer hair pushes water. Keep a steady medium cadence. Keep it above cover or along the upper edge of the zone. Keep the presentation clean and resist overworking it.
-- Mouse Fly: Mouse Fly tracks well when baitfish is a realistic meal. Even with a little ripple, the surface lane is still open enough to matter. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different fly surface look without leaving today's window.
-- Mouse Fly how: Swim it on a constant slow retrieve just fast enough to leave a wake; target near-shore edges and structure where big fish expect food to cross. Keep it moving on a steady, fishable cadence. Keep it high and over the surface lane. Keep the presentation clean and resist overworking it.
-- Zonker Streamer: The month is still baitfish-forward, and this stays inside that search lane. It stays practical in current seams and river lanes when flow still matters. Zonker Streamer tracks well when baitfish is a realistic meal. It is the cleaner change-up if the lead look does not convert.
-- Zonker Streamer how: Cast across current and strip steadily through the swing; add a momentary deadstop near structure so the wing collapses and then puffs back out. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Keep the presentation clean and resist overworking it.
+- Muddler Minnow: It stays practical in current seams and river lanes when flow still matters. It stays high enough in the zone to match the day's more open positioning.
+- Muddler Minnow how: Skate or wake it in shallow riffles with short strips, or sink and crawl it along bottom with rod-tip leads so the deer hair pushes water. Keep it high in the zone.
+- Game Changer: The month is still baitfish-forward, and this stays inside that search lane. It fits today's upper column preference. It gives you a different fly baitfish look without leaving today's window.
+- Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink. Keep it high in the zone.
+- Clouser Minnow: It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Clouser Minnow how: Cast and let the weighted eyes sink the fly, then retrieve with a strip-pause cadence that makes it dart upward on the strip and dive back on the pause.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- NO_TOP1_TIE
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:natural,natural
 - Top 1 verdict:
 - Top 3 verdict:
@@ -7212,53 +7492,57 @@ Archived env summary:
 - Sunrise/sunset: 06:52 / 19:20
 
 Actual output:
-- Top 1 lure: Drop-Shot Minnow `drop_shot_minnow` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Top 1 lure: Suspending Jerkbait `suspending_jerkbait` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 3 lures:
-- Drop-Shot Minnow `drop_shot_minnow` | theme: `natural` | colors: green pumpkin, olive, smoke
-- Tube Jig `tube_jig` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Suspending Jerkbait `suspending_jerkbait` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Soft Plastic Jerkbait `soft_jerkbait` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 1 fly: Slim Baitfish Streamer `slim_minnow_streamer` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 3 flies:
 - Slim Baitfish Streamer `slim_minnow_streamer` | theme: `natural` | colors: green pumpkin, olive, smoke
-- Woolly Bugger `woolly_bugger` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Game Changer `game_changer` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Clouser Minnow `clouser_minnow` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Color notes:
 - Daily posture: aggressive
-- Drop-Shot Minnow: natural -> green pumpkin, olive, smoke
-- Tube Jig: natural -> green pumpkin, olive, smoke
 - Suspending Jerkbait: natural -> green pumpkin, olive, smoke
+- Paddle-Tail Swimbait: natural -> green pumpkin, olive, smoke
+- Soft Plastic Jerkbait: natural -> green pumpkin, olive, smoke
 - Slim Baitfish Streamer: natural -> green pumpkin, olive, smoke
-- Woolly Bugger: natural -> green pumpkin, olive, smoke
 - Game Changer: natural -> green pumpkin, olive, smoke
+- Clouser Minnow: natural -> green pumpkin, olive, smoke
 - Daily profile notes:
 - Daily posture: aggressive
-- Daily preference: column=mid, pace=slow, presence=subtle
-- Monthly baseline: columns=upper/mid/bottom, paces=medium/fast/slow, presence=moderate/subtle/bold
-- Guardrails: surface_allowed=false, suppress_true_surface=true, suppress_fast_presentations=false, high_visibility_needed=false, column_shift=-1
+- Seasonal source: region=pacific_northwest, fallback_used=false
+- Daily preference: column=upper, pace=medium, presence=subtle
+- Monthly baseline: columns=upper/mid, paces=medium/fast, presence=subtle/moderate/bold
+- Guardrails: surface_allowed=false, surface_window=closed, suppress_fast_presentations=false, high_visibility_needed=false, column_shift=0
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
 - Variables triggered: temperature_trend, light_cloud_condition, runoff_flow_disruption
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
 - Daily note: Bright light trims the day back toward cleaner looks.
 - Lure reasoning:
-- Drop-Shot Minnow: Drop-Shot Minnow stays in play when baitfish is relevant. With true surface suppressed, this keeps you just under the cleaner active lane. It stays in the middle band where the seasonal setup is most stable today.
-- Drop-Shot Minnow how: Hold the weight down and pulse the rod tip lightly; the minnow should quiver in place, then glide a few inches before the next shake. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
-- Tube Jig: It stays in the middle band where the seasonal setup is most stable today. With true surface suppressed, this keeps you just under the cleaner active lane. Tube Jig stays in play when crawfish is relevant. It gives you a different bottom contact look without leaving today's window.
-- Tube Jig how: Cast, let it sink, then pop sharply and release line; the tube should corkscrew back to bottom on each drop — keep a watchful eye on the line. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
-- Suspending Jerkbait: Suspending Jerkbait stays in play when baitfish is relevant. With true surface suppressed, this keeps you just under the cleaner active lane. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
-- Suspending Jerkbait how: Jerk, jerk, pause. The bait should dart and glide sideways on each twitch; dial the pause length to water temperature — colder means longer. Keep the cadence controlled and add short stalls instead of burning it. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
+- Suspending Jerkbait: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Suspending Jerkbait how: Two or three sharp twitches, then let it suspend perfectly still for a full 3-5 count before the next sequence — the pause is everything. Keep it high in the zone.
+- Paddle-Tail Swimbait: With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different horizontal search look without leaving today's window.
+- Paddle-Tail Swimbait how: Swim it at the speed where you feel a steady kick through the rod; use rod angle to change depth without changing retrieve speed. Keep it high in the zone.
+- Soft Plastic Jerkbait: With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Soft Plastic Jerkbait how: Work it with a jerk-sink-jerk cadence; keep the line slightly slack between twitches so the bait moves unpredictably, and vary the pause length. Keep it high in the zone.
 - Fly reasoning:
-- Slim Baitfish Streamer: Slim Baitfish Streamer tracks well when baitfish is a realistic meal. With true surface suppressed, this keeps you just under the cleaner active lane. It is one of the lead monthly looks for this exact seasonal window.
-- Slim Baitfish Streamer how: Retrieve with a mix of short darts and longer glides; the thin profile tracks like a small minnow on a tight line. Keep the cadence controlled and add short stalls instead of burning it. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
-- Woolly Bugger: With true surface suppressed, this keeps you just under the cleaner active lane. Woolly Bugger tracks well when leech_worm is a realistic meal. It fits today's mid column preference. It gives you a different fly bottom look without leaving today's window.
-- Woolly Bugger how: Cast across and swing it on a tight line through the drift, then activate on the hang-down with short strips before lifting. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
-- Game Changer: The month is still baitfish-forward, and this stays inside that search lane. With true surface suppressed, this keeps you just under the cleaner active lane. Game Changer tracks well when baitfish is a realistic meal. It is the cleaner change-up if the lead look does not convert.
-- Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink. Keep the cadence controlled and add short stalls instead of burning it. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
+- Slim Baitfish Streamer: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Slim Baitfish Streamer how: Strip with short, quick pulls to make the slim profile dart; pause briefly so it hangs in the current or sinks an inch before the next strip. Keep it high in the zone.
+- Game Changer: With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different fly baitfish look without leaving today's window.
+- Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink. Keep it high in the zone.
+- Clouser Minnow: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Clouser Minnow how: Cast and let the weighted eyes sink the fly, then retrieve with a strip-pause cadence that makes it dart upward on the strip and dive back on the pause.
 
 Review:
 - Precheck flags:
-- TOP1_PRIMARY_MISS
+- TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- NO_TOP1_TIE
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:natural,natural
 - Top 1 verdict:
 - Top 3 verdict:
@@ -7317,7 +7601,7 @@ Actual output:
 - Top 3 lures:
 - Spinnerbait `spinnerbait` | theme: `dark` | colors: black, black/blue, black/purple
 - Inline Spinner `inline_spinner` | theme: `dark` | colors: black, black/blue, black/purple
-- Squarebill Crankbait `squarebill_crankbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Blade Bait `blade_bait` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 1 fly: Articulated Baitfish Streamer `articulated_baitfish_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 flies:
 - Articulated Baitfish Streamer `articulated_baitfish_streamer` | theme: `dark` | colors: black, black/blue, black/purple
@@ -7327,40 +7611,44 @@ Actual output:
 - Daily posture: aggressive
 - Spinnerbait: dark -> black, black/blue, black/purple
 - Inline Spinner: dark -> black, black/blue, black/purple
-- Squarebill Crankbait: dark -> black, black/blue, black/purple
+- Blade Bait: dark -> black, black/blue, black/purple
 - Articulated Baitfish Streamer: dark -> black, black/blue, black/purple
 - Game Changer: dark -> black, black/blue, black/purple
 - Clouser Minnow: dark -> black, black/blue, black/purple
 - Daily profile notes:
 - Daily posture: aggressive
+- Seasonal source: region=pacific_northwest, fallback_used=false
 - Daily preference: column=upper, pace=medium, presence=bold
-- Monthly baseline: columns=mid/bottom/upper, paces=medium/slow/fast, presence=moderate/subtle/bold
-- Guardrails: surface_allowed=true, suppress_true_surface=false, suppress_fast_presentations=false, high_visibility_needed=true, column_shift=1
+- Monthly baseline: columns=upper/mid/bottom, paces=slow/medium/fast, presence=subtle/moderate/bold
+- Guardrails: surface_allowed=true, surface_window=clean, suppress_fast_presentations=false, high_visibility_needed=true, column_shift=1
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
 - Variables triggered: temperature_trend, light_cloud_condition, runoff_flow_disruption
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Daily note: Slightly elevated runoff supports a more visible river presentation.
 - Lure reasoning:
-- Spinnerbait: A warming trend nudges fish slightly higher in the allowed range. Spinnerbait stays in play when baitfish is relevant. It fits today's upper column preference.
-- Spinnerbait how: Cast past the target and retrieve through it, varying speed to find the blade thump fish respond to; hesitate briefly at cover edges. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Start on wind-blown edges or the first active cover line and let it cover water.
-- Inline Spinner: Inline Spinner stays in play when baitfish is relevant. A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different horizontal search look without leaving today's window.
-- Inline Spinner how: Cast across current and let the blade flash on a quarter-downstream retrieve; speed up briefly after bumps or short strikes. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Start on wind-blown edges or the first active cover line and let it cover water.
-- Squarebill Crankbait: The month is still baitfish-forward, and this stays inside that search lane. A warming trend nudges fish slightly higher in the allowed range. Squarebill Crankbait stays in play when baitfish is relevant. It is the cleaner change-up if the lead look does not convert.
-- Squarebill Crankbait how: Run it tight to cover at a steady pace; when it hits, give a slight rod pause so the bill pries free and the bait kicks up erratically. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Start on wind-blown edges or the first active cover line and let it cover water.
+- Spinnerbait: A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
+- Spinnerbait how: Work it parallel to grass lines or over submerged timber; slow the retrieve near the target and let the head tick the top. Keep it high in the zone.
+- Inline Spinner: A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different horizontal search look without leaving today's window.
+- Inline Spinner how: Use a slow-roll retrieve near bottom or cover edges; occasionally bump into structure to trigger reaction strikes. Keep it high in the zone.
+- Blade Bait: A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Blade Bait how: Vertical jig it with short, sharp hops over suspended fish; the flutter-fall is the presentation — set hard the moment you feel weight.
 - Fly reasoning:
-- Articulated Baitfish Streamer: A warming trend nudges fish slightly higher in the allowed range. Articulated Baitfish Streamer tracks well when baitfish is a realistic meal. It fits today's upper column preference.
-- Articulated Baitfish Streamer how: Cover water at mid-depth with steady strips; add a hard single rip followed by a full pause to imitate an injured baitfish fleeing and then stopping. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
-- Game Changer: Game Changer tracks well when baitfish is a realistic meal. A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different fly baitfish look without leaving today's window.
-- Game Changer how: Retrieve with medium strips, then occasionally rip hard so the body compresses and then springs apart — pause after each hard strip and hold your nerve. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
-- Clouser Minnow: It is one of the lead monthly looks for this exact seasonal window. A warming trend nudges fish slightly higher in the allowed range. Clouser Minnow tracks well when baitfish is a realistic meal. It is the cleaner change-up if the lead look does not convert.
-- Clouser Minnow how: Cast and let the weighted eyes sink the fly, then retrieve with a strip-pause cadence that makes it dart upward on the strip and dive back on the pause. Keep it moving on a steady, fishable cadence. Keep it around the middle band of the strike zone. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
+- Articulated Baitfish Streamer: A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane.
+- Articulated Baitfish Streamer how: Work it across current and down with a varied strip cadence; when a fish follows, slow down and kill the retrieve to let the body spiral on the sink. Keep it high in the zone.
+- Game Changer: A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different fly baitfish look without leaving today's window.
+- Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink. Keep it high in the zone.
+- Clouser Minnow: A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Clouser Minnow how: Strip in short, consistent pulls so the dumbbell eyes make the fly jig up and down; let it sink between strips to stay hook-point up throughout.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- TOP1_TIE:fly
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:dark,dark
 - Top 1 verdict:
 - Top 3 verdict:
@@ -7415,54 +7703,58 @@ Archived env summary:
 - Sunrise/sunset: 07:13 / 19:25
 
 Actual output:
-- Top 1 lure: Tube Jig `tube_jig` | theme: `dark` | colors: black, black/blue, black/purple
+- Top 1 lure: Spinnerbait `spinnerbait` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 lures:
-- Tube Jig `tube_jig` | theme: `dark` | colors: black, black/blue, black/purple
 - Spinnerbait `spinnerbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Tube Jig `tube_jig` | theme: `dark` | colors: black, black/blue, black/purple
 - Inline Spinner `inline_spinner` | theme: `dark` | colors: black, black/blue, black/purple
-- Top 1 fly: Crawfish Streamer `crawfish_streamer` | theme: `dark` | colors: black, black/blue, black/purple
+- Top 1 fly: Clouser Minnow `clouser_minnow` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 flies:
-- Crawfish Streamer `crawfish_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Clouser Minnow `clouser_minnow` | theme: `dark` | colors: black, black/blue, black/purple
-- Sculpin Streamer `sculpin_streamer` | theme: `dark` | colors: black, black/blue, black/purple
+- Game Changer `game_changer` | theme: `dark` | colors: black, black/blue, black/purple
+- Crawfish Streamer `crawfish_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Color notes:
 - Daily posture: slightly_aggressive
-- Tube Jig: dark -> black, black/blue, black/purple
 - Spinnerbait: dark -> black, black/blue, black/purple
+- Tube Jig: dark -> black, black/blue, black/purple
 - Inline Spinner: dark -> black, black/blue, black/purple
-- Crawfish Streamer: dark -> black, black/blue, black/purple
 - Clouser Minnow: dark -> black, black/blue, black/purple
-- Sculpin Streamer: dark -> black, black/blue, black/purple
+- Game Changer: dark -> black, black/blue, black/purple
+- Crawfish Streamer: dark -> black, black/blue, black/purple
 - Daily profile notes:
 - Daily posture: slightly_aggressive
-- Daily preference: column=bottom, pace=slow, presence=bold
-- Monthly baseline: columns=mid/bottom/upper, paces=medium/slow/fast, presence=moderate/subtle/bold
-- Guardrails: surface_allowed=false, suppress_true_surface=true, suppress_fast_presentations=false, high_visibility_needed=true, column_shift=-1
+- Seasonal source: region=northern_california, fallback_used=false
+- Daily preference: column=mid, pace=slow, presence=bold
+- Monthly baseline: columns=upper/mid/bottom, paces=slow/medium/fast, presence=subtle/moderate/bold
+- Guardrails: surface_allowed=false, surface_window=closed, suppress_fast_presentations=false, high_visibility_needed=true, column_shift=0
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
 - Variables triggered: temperature_trend, light_cloud_condition, runoff_flow_disruption
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Daily note: Elevated runoff tightens fish and pulls the day lower and slower.
 - Lure reasoning:
-- Tube Jig: Tube Jig stays in play when crawfish is relevant. With true surface suppressed, this keeps you just under the cleaner active lane. It is one of the lead monthly looks for this exact seasonal window.
-- Tube Jig how: Hop it erratically off the bottom with sharp pops, then open the bail slightly so it spirals down freely; strikes happen on that spinning fall. Slow down and leave more dead time between moves. Keep it above cover or along the upper edge of the zone. Keep it on a clean, trackable line so fish can find it before the next move.
-- Spinnerbait: Spinnerbait stays in play when baitfish is relevant. With true surface suppressed, this keeps you just under the cleaner active lane. It is one of the lead monthly looks for this exact seasonal window. It gives you a different horizontal search look without leaving today's window.
-- Spinnerbait how: Work it parallel to grass lines or over submerged timber; slow the retrieve near the target and let the head tick the top. Keep the cadence controlled and add short stalls instead of burning it. Keep it above cover or along the upper edge of the zone. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
-- Inline Spinner: With true surface suppressed, this keeps you just under the cleaner active lane. Inline Spinner stays in play when baitfish is relevant. It matches today's bold presence lane. It is the cleaner change-up if the lead look does not convert.
-- Inline Spinner how: Use a slow-roll retrieve near bottom or cover edges; occasionally bump into structure to trigger reaction strikes. Keep the cadence controlled and add short stalls instead of burning it. Keep it above cover or along the upper edge of the zone. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
+- Spinnerbait: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Spinnerbait how: Work it parallel to grass lines or over submerged timber; slow the retrieve near the target and let the head tick the top. Slow down and lengthen the pause.
+- Tube Jig: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It gives you a different bottom contact look without leaving today's window.
+- Tube Jig how: Hop it erratically off the bottom with sharp pops, then open the bail slightly so it spirals down freely; strikes happen on that spinning fall. Slow down and lengthen the pause.
+- Inline Spinner: With the highest lane shut down, this keeps you just under the cleaner active zone. It stays in the middle band where the seasonal setup is most stable today. It is the cleaner change-up if the lead look does not convert.
+- Inline Spinner how: Use a slow-roll retrieve near bottom or cover edges; occasionally bump into structure to trigger reaction strikes. Slow down and lengthen the pause.
 - Fly reasoning:
-- Crawfish Streamer: It is one of the lead monthly looks for this exact seasonal window. Elevated runoff tightens fish and pulls the day lower and slower. Crawfish Streamer tracks well when crawfish is a realistic meal.
-- Crawfish Streamer how: Cast upstream and mend for a dead-drift first; then come alive with quick, short strips that make the claw materials flex like a fleeing crawfish. Slow down and leave more dead time between moves. Keep it around the lower part of the productive zone. Keep it on a clean, trackable line so fish can find it before the next move.
-- Clouser Minnow: Clouser Minnow tracks well when baitfish is a realistic meal. With true surface suppressed, this keeps you just under the cleaner active lane. It is one of the lead monthly looks for this exact seasonal window. It gives you a different fly baitfish look without leaving today's window.
-- Clouser Minnow how: Strip in short, consistent pulls so the dumbbell eyes make the fly jig up and down; let it sink between strips to stay hook-point up throughout. Keep the cadence controlled and add short stalls instead of burning it. Keep it around the lower part of the productive zone. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
-- Sculpin Streamer: It stays low in the zone where this day still wants fish to hold. Elevated runoff tightens fish and pulls the day lower and slower. Sculpin Streamer tracks well when baitfish is a realistic meal. It is the cleaner change-up if the lead look does not convert.
-- Sculpin Streamer how: Cast upstream and mend for a natural drift, then activate with short strips that make the fly bumble over the bottom like a sculpin retreating. Slow down and leave more dead time between moves. Keep it around the lower part of the productive zone. Keep it on a clean, trackable line so fish can find it before the next move.
+- Clouser Minnow: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Clouser Minnow how: Strip in short, consistent pulls so the dumbbell eyes make the fly jig up and down; let it sink between strips to stay hook-point up throughout. Slow down and lengthen the pause.
+- Game Changer: With the highest lane shut down, this keeps you just under the cleaner active zone. It stays in the middle band where the seasonal setup is most stable today. It gives you a different fly baitfish look without leaving today's window.
+- Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink. Slow down and lengthen the pause.
+- Crawfish Streamer: Elevated runoff tightens fish and pulls the day lower and slower. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Crawfish Streamer how: Cast upstream and mend for a dead-drift first; then come alive with quick, short strips that make the claw materials flex like a fleeing crawfish. Slow down and lengthen the pause.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- NO_TOP1_TIE
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:dark,dark
 - Top 1 verdict:
 - Top 3 verdict:
@@ -7526,45 +7818,49 @@ Actual output:
 - Top 1 fly: Balanced Leech `balanced_leech` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 3 flies:
 - Balanced Leech `balanced_leech` | theme: `natural` | colors: green pumpkin, olive, smoke
-- Woolly Bugger `woolly_bugger` | theme: `natural` | colors: green pumpkin, olive, smoke
-- Muddler Minnow `muddler_sculpin` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Clouser Minnow `clouser_minnow` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Game Changer `game_changer` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Color notes:
-- Daily posture: slightly_suppressed
+- Daily posture: neutral
 - Tube Jig: natural -> green pumpkin, olive, smoke
 - Ned Rig: natural -> green pumpkin, olive, smoke
 - Inline Spinner: natural -> green pumpkin, olive, smoke
 - Balanced Leech: natural -> green pumpkin, olive, smoke
-- Woolly Bugger: natural -> green pumpkin, olive, smoke
-- Muddler Minnow: natural -> green pumpkin, olive, smoke
+- Clouser Minnow: natural -> green pumpkin, olive, smoke
+- Game Changer: natural -> green pumpkin, olive, smoke
 - Daily profile notes:
-- Daily posture: slightly_suppressed
+- Daily posture: neutral
+- Seasonal source: region=northern_california, fallback_used=false
 - Daily preference: column=mid, pace=slow, presence=subtle
-- Monthly baseline: columns=surface/upper/mid, paces=medium/fast/slow, presence=moderate/subtle/bold
-- Guardrails: surface_allowed=false, suppress_true_surface=true, suppress_fast_presentations=true, high_visibility_needed=false, column_shift=-1
+- Monthly baseline: columns=upper/mid, paces=slow/medium, presence=subtle/moderate
+- Guardrails: surface_allowed=true, surface_window=rippled, suppress_fast_presentations=false, high_visibility_needed=false, column_shift=-1
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
 - Variables triggered: temperature_metabolic_context, temperature_shock, light_cloud_condition, wind_condition, runoff_flow_disruption
-- Daily note: Temperature metabolism suppresses the day and favors slower execution.
+- Daily note: Heat stress moves fish to cooler, deeper water and narrows the feeding window.
 - Daily note: Bright light trims the day back toward cleaner looks.
 - Lure reasoning:
-- Tube Jig: It stays in the middle band where the seasonal setup is most stable today. With true surface suppressed, this keeps you just under the cleaner active lane. Tube Jig stays in play when crawfish is relevant.
-- Tube Jig how: Snap the tube off bottom with short pops so it spirals on the fall, then let it glide back down on slack or semi-slack line. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Let it soak a little longer before each move.
-- Ned Rig: It stays in the middle band where the seasonal setup is most stable today. With true surface suppressed, this keeps you just under the cleaner active lane. Ned Rig stays in play when crawfish is relevant. It gives you a different bottom contact look without leaving today's window.
-- Ned Rig how: Drag and shake the small head along bottom like a tiny craw — short pulls, let it settle, repeat instead of big hops. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Let it soak a little longer before each move.
-- Inline Spinner: It is one of the lead monthly looks for this exact seasonal window. With true surface suppressed, this keeps you just under the cleaner active lane. Inline Spinner stays in play when baitfish is relevant. It is the cleaner change-up if the lead look does not convert.
-- Inline Spinner how: Cast and retrieve at a steady clip just fast enough to keep the blade spinning; vary depth with rod angle and speed to find the feeding zone. Keep the cadence controlled and add short stalls instead of burning it. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
+- Tube Jig: Heat stress moves fish to cooler, deeper water and narrows the feeding window. It is one of the lead monthly looks for this exact seasonal window.
+- Tube Jig how: Snap the tube off bottom with short pops so it spirals on the fall, then let it glide back down on slack or semi-slack line. Slow down and lengthen the pause.
+- Ned Rig: Heat stress moves fish to cooler, deeper water and narrows the feeding window. It stays in the middle band where the seasonal setup is most stable today. It gives you a different bottom contact look without leaving today's window.
+- Ned Rig how: Cast and let it settle fully to the bottom, then drag very slowly with the rod held low; pause between moves so the tail stands upright and wiggles. Slow down and lengthen the pause.
+- Inline Spinner: Heat stress moves fish to cooler, deeper water and narrows the feeding window. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Inline Spinner how: Cast across current and let the blade flash on a quarter-downstream retrieve; speed up briefly after bumps or short strikes. Slow down and lengthen the pause.
 - Fly reasoning:
-- Balanced Leech: Balanced Leech tracks well when leech_worm is a realistic meal. With true surface suppressed, this keeps you just under the cleaner active lane. It stays in the middle band where the seasonal setup is most stable today.
-- Balanced Leech how: Fish it under an indicator or on a slow hand-twist so the fly hovers level and pulses in place rather than diving nose-first. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
-- Woolly Bugger: Woolly Bugger tracks well when leech_worm is a realistic meal. With true surface suppressed, this keeps you just under the cleaner active lane. It stays in the middle band where the seasonal setup is most stable today. It gives you a different fly bottom look without leaving today's window.
-- Woolly Bugger how: Let it sink to depth then retrieve with slow hand-twists or short strips; the marabou tail breathes best with long pauses at the end of each pull. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
-- Muddler Minnow: With true surface suppressed, this keeps you just under the cleaner active lane. Muddler Minnow tracks well when baitfish is a realistic meal. It fits today's mid column preference. It is the cleaner change-up if the lead look does not convert.
-- Muddler Minnow how: Skate or wake it in shallow riffles with short strips, or sink and crawl it along bottom with rod-tip leads so the deer hair pushes water. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
+- Balanced Leech: It stays practical in current seams and river lanes when flow still matters. It stays in the middle band where the seasonal setup is most stable today.
+- Balanced Leech how: Fish it under an indicator or on a slow hand-twist so the fly hovers level and pulses in place rather than diving nose-first. Slow down and lengthen the pause.
+- Clouser Minnow: Heat stress moves fish to cooler, deeper water and narrows the feeding window. It is one of the lead monthly looks for this exact seasonal window. It gives you a different fly baitfish look without leaving today's window.
+- Clouser Minnow how: Strip in short, consistent pulls so the dumbbell eyes make the fly jig up and down; let it sink between strips to stay hook-point up throughout. Slow down and lengthen the pause.
+- Game Changer: Heat stress moves fish to cooler, deeper water and narrows the feeding window. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Game Changer how: Retrieve with medium strips, then occasionally rip hard so the body compresses and then springs apart — pause after each hard strip and hold your nerve. Slow down and lengthen the pause.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- NO_TOP1_TIE
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:natural,natural
 - Top 1 verdict:
 - Top 3 verdict:
@@ -7628,44 +7924,48 @@ Actual output:
 - Top 1 fly: Balanced Leech `balanced_leech` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 3 flies:
 - Balanced Leech `balanced_leech` | theme: `natural` | colors: green pumpkin, olive, smoke
-- Woolly Bugger `woolly_bugger` | theme: `natural` | colors: green pumpkin, olive, smoke
-- Muddler Minnow `muddler_sculpin` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Sculpin Streamer `sculpin_streamer` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Game Changer `game_changer` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Color notes:
 - Daily posture: aggressive
 - Tube Jig: natural -> green pumpkin, olive, smoke
 - Ned Rig: natural -> green pumpkin, olive, smoke
 - Inline Spinner: natural -> green pumpkin, olive, smoke
 - Balanced Leech: natural -> green pumpkin, olive, smoke
-- Woolly Bugger: natural -> green pumpkin, olive, smoke
-- Muddler Minnow: natural -> green pumpkin, olive, smoke
+- Sculpin Streamer: natural -> green pumpkin, olive, smoke
+- Game Changer: natural -> green pumpkin, olive, smoke
 - Daily profile notes:
 - Daily posture: aggressive
+- Seasonal source: region=northern_california, fallback_used=false
 - Daily preference: column=mid, pace=slow, presence=subtle
-- Monthly baseline: columns=upper/mid/surface/bottom, paces=medium/fast/slow, presence=moderate/subtle/bold
-- Guardrails: surface_allowed=false, suppress_true_surface=true, suppress_fast_presentations=false, high_visibility_needed=false, column_shift=-1
+- Monthly baseline: columns=upper/mid/bottom, paces=slow/medium, presence=subtle/moderate
+- Guardrails: surface_allowed=false, surface_window=closed, suppress_fast_presentations=false, high_visibility_needed=false, column_shift=0
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
 - Variables triggered: temperature_shock, light_cloud_condition, runoff_flow_disruption
 - Daily note: Bright light trims the day back toward cleaner looks.
 - Lure reasoning:
-- Tube Jig: It stays in the middle band where the seasonal setup is most stable today. With true surface suppressed, this keeps you just under the cleaner active lane. Tube Jig stays in play when crawfish is relevant.
-- Tube Jig how: Cast, let it sink, then pop sharply and release line; the tube should corkscrew back to bottom on each drop — keep a watchful eye on the line. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
-- Ned Rig: It stays in the middle band where the seasonal setup is most stable today. With true surface suppressed, this keeps you just under the cleaner active lane. Ned Rig stays in play when crawfish is relevant. It gives you a different bottom contact look without leaving today's window.
-- Ned Rig how: Drag and shake the small head along bottom like a tiny craw — short pulls, let it settle, repeat instead of big hops. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
-- Inline Spinner: It is one of the lead monthly looks for this exact seasonal window. With true surface suppressed, this keeps you just under the cleaner active lane. Inline Spinner stays in play when baitfish is relevant. It is the cleaner change-up if the lead look does not convert.
-- Inline Spinner how: Cast across current and let the blade flash on a quarter-downstream retrieve; speed up briefly after bumps or short strikes. Keep the cadence controlled and add short stalls instead of burning it. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
+- Tube Jig: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Tube Jig how: Snap the tube off bottom with short pops so it spirals on the fall, then let it glide back down on slack or semi-slack line. Slow down and lengthen the pause.
+- Ned Rig: With the highest lane shut down, this keeps you just under the cleaner active zone. It stays in the middle band where the seasonal setup is most stable today. It gives you a different bottom contact look without leaving today's window.
+- Ned Rig how: Cast and let it settle fully to the bottom, then drag very slowly with the rod held low; pause between moves so the tail stands upright and wiggles. Slow down and lengthen the pause.
+- Inline Spinner: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Inline Spinner how: Cast across current and let the blade flash on a quarter-downstream retrieve; speed up briefly after bumps or short strikes. Slow down and lengthen the pause.
 - Fly reasoning:
-- Balanced Leech: With true surface suppressed, this keeps you just under the cleaner active lane. Balanced Leech tracks well when leech_worm is a realistic meal. It fits today's mid column preference.
-- Balanced Leech how: Let it suspend just off bottom or under cover and move it only with tiny strips; the balanced posture is the trigger, not speed. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
-- Woolly Bugger: With true surface suppressed, this keeps you just under the cleaner active lane. Woolly Bugger tracks well when leech_worm is a realistic meal. It fits today's mid column preference. It gives you a different fly bottom look without leaving today's window.
-- Woolly Bugger how: Cast across and swing it on a tight line through the drift, then activate on the hang-down with short strips before lifting. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
-- Muddler Minnow: With true surface suppressed, this keeps you just under the cleaner active lane. Muddler Minnow tracks well when baitfish is a realistic meal. It fits today's mid column preference. It is the cleaner change-up if the lead look does not convert.
-- Muddler Minnow how: Work it as a swung wet fly in current with minimal stripping; on still water, hop it along the bottom with slow, erratic pulls. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
+- Balanced Leech: With the highest lane shut down, this keeps you just under the cleaner active zone. It stays in the middle band where the seasonal setup is most stable today.
+- Balanced Leech how: Fish it under an indicator or on a slow hand-twist so the fly hovers level and pulses in place rather than diving nose-first. Slow down and lengthen the pause.
+- Sculpin Streamer: It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window. It gives you a different fly bottom look without leaving today's window.
+- Sculpin Streamer how: Cast upstream and mend for a natural drift, then activate with short strips that make the fly bumble over the bottom like a sculpin retreating. Slow down and lengthen the pause.
+- Game Changer: With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Game Changer how: Retrieve with medium strips, then occasionally rip hard so the body compresses and then springs apart — pause after each hard strip and hold your nerve. Slow down and lengthen the pause.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- NO_TOP1_TIE
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:natural,natural
 - Top 1 verdict:
 - Top 3 verdict:
@@ -7720,11 +8020,11 @@ Archived env summary:
 - Sunrise/sunset: 07:20 / 18:34
 
 Actual output:
-- Top 1 lure: Blade Bait `blade_bait` | theme: `dark` | colors: black, black/blue, black/purple
+- Top 1 lure: Spinnerbait `spinnerbait` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 lures:
-- Blade Bait `blade_bait` | theme: `dark` | colors: black, black/blue, black/purple
 - Spinnerbait `spinnerbait` | theme: `dark` | colors: black, black/blue, black/purple
-- Tube Jig `tube_jig` | theme: `dark` | colors: black, black/blue, black/purple
+- Blade Bait `blade_bait` | theme: `dark` | colors: black, black/blue, black/purple
+- Inline Spinner `inline_spinner` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 1 fly: Clouser Minnow `clouser_minnow` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 flies:
 - Clouser Minnow `clouser_minnow` | theme: `dark` | colors: black, black/blue, black/purple
@@ -7732,42 +8032,46 @@ Actual output:
 - Game Changer `game_changer` | theme: `dark` | colors: black, black/blue, black/purple
 - Color notes:
 - Daily posture: slightly_aggressive
-- Blade Bait: dark -> black, black/blue, black/purple
 - Spinnerbait: dark -> black, black/blue, black/purple
-- Tube Jig: dark -> black, black/blue, black/purple
+- Blade Bait: dark -> black, black/blue, black/purple
+- Inline Spinner: dark -> black, black/blue, black/purple
 - Clouser Minnow: dark -> black, black/blue, black/purple
 - Woolly Bugger: dark -> black, black/blue, black/purple
 - Game Changer: dark -> black, black/blue, black/purple
 - Daily profile notes:
 - Daily posture: slightly_aggressive
-- Daily preference: column=bottom, pace=slow, presence=bold
-- Monthly baseline: columns=mid/bottom/upper, paces=medium/slow/fast, presence=moderate/subtle/bold
-- Guardrails: surface_allowed=false, suppress_true_surface=true, suppress_fast_presentations=false, high_visibility_needed=true, column_shift=-1
+- Seasonal source: region=northern_california, fallback_used=false
+- Daily preference: column=mid, pace=slow, presence=bold
+- Monthly baseline: columns=upper/mid/bottom, paces=slow/medium/fast, presence=subtle/moderate/bold
+- Guardrails: surface_allowed=false, surface_window=closed, suppress_fast_presentations=false, high_visibility_needed=true, column_shift=0
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
 - Variables triggered: temperature_trend, light_cloud_condition, runoff_flow_disruption
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Daily note: Elevated runoff tightens fish and pulls the day lower and slower.
 - Lure reasoning:
-- Blade Bait: The month is still baitfish-forward, and this stays inside that search lane. With true surface suppressed, this keeps you just under the cleaner active lane. Blade Bait stays in play when baitfish is relevant.
-- Blade Bait how: Vertical jig it with short, sharp hops over suspended fish; the flutter-fall is the presentation — set hard the moment you feel weight. Keep the cadence controlled and add short stalls instead of burning it. Keep it around the lower part of the productive zone. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
-- Spinnerbait: With true surface suppressed, this keeps you just under the cleaner active lane. Spinnerbait stays in play when baitfish is relevant. It matches today's bold presence lane. It gives you a different horizontal search look without leaving today's window.
-- Spinnerbait how: Work it parallel to grass lines or over submerged timber; slow the retrieve near the target and let the head tick the top. Keep the cadence controlled and add short stalls instead of burning it. Keep it above cover or along the upper edge of the zone. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
-- Tube Jig: Tube Jig stays in play when crawfish is relevant. With true surface suppressed, this keeps you just under the cleaner active lane. It lines up with today's slow pace preference. It is the cleaner change-up if the lead look does not convert.
-- Tube Jig how: Hop it erratically off the bottom with sharp pops, then open the bail slightly so it spirals down freely; strikes happen on that spinning fall. Slow down and leave more dead time between moves. Keep it above cover or along the upper edge of the zone. Keep it on a clean, trackable line so fish can find it before the next move.
+- Spinnerbait: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Spinnerbait how: Work it parallel to grass lines or over submerged timber; slow the retrieve near the target and let the head tick the top. Slow down and lengthen the pause.
+- Blade Bait: With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different reaction mid column look without leaving today's window.
+- Blade Bait how: Vertical jig it with short, sharp hops over suspended fish; the flutter-fall is the presentation — set hard the moment you feel weight. Slow down and lengthen the pause.
+- Inline Spinner: With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Inline Spinner how: Use a slow-roll retrieve near bottom or cover edges; occasionally bump into structure to trigger reaction strikes. Slow down and lengthen the pause.
 - Fly reasoning:
-- Clouser Minnow: Clouser Minnow tracks well when baitfish is a realistic meal. With true surface suppressed, this keeps you just under the cleaner active lane. It is one of the lead monthly looks for this exact seasonal window.
-- Clouser Minnow how: Strip in short, consistent pulls so the dumbbell eyes make the fly jig up and down; let it sink between strips to stay hook-point up throughout. Keep the cadence controlled and add short stalls instead of burning it. Keep it around the lower part of the productive zone. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
-- Woolly Bugger: With true surface suppressed, this keeps you just under the cleaner active lane. Woolly Bugger tracks well when leech_worm is a realistic meal. It fits today's bottom column preference. It gives you a different fly bottom look without leaving today's window.
-- Woolly Bugger how: Cast across and swing it on a tight line through the drift, then activate on the hang-down with short strips before lifting. Slow down and leave more dead time between moves. Keep it around the lower part of the productive zone. Keep it on a clean, trackable line so fish can find it before the next move.
-- Game Changer: The month is still baitfish-forward, and this stays inside that search lane. With true surface suppressed, this keeps you just under the cleaner active lane. Game Changer tracks well when baitfish is a realistic meal. It is the cleaner change-up if the lead look does not convert.
-- Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink. Keep the cadence controlled and add short stalls instead of burning it. Keep it above cover or along the upper edge of the zone. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
+- Clouser Minnow: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Clouser Minnow how: Strip in short, consistent pulls so the dumbbell eyes make the fly jig up and down; let it sink between strips to stay hook-point up throughout. Slow down and lengthen the pause.
+- Woolly Bugger: With the highest lane shut down, this keeps you just under the cleaner active zone. It stays in the middle band where the seasonal setup is most stable today. It gives you a different fly bottom look without leaving today's window.
+- Woolly Bugger how: Cast across and swing it on a tight line through the drift, then activate on the hang-down with short strips before lifting. Slow down and lengthen the pause.
+- Game Changer: With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink. Slow down and lengthen the pause.
 
 Review:
 - Precheck flags:
-- TOP1_PRIMARY_MISS
+- TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- NO_TOP1_TIE
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:dark,dark
 - Top 1 verdict:
 - Top 3 verdict:
@@ -7825,52 +8129,56 @@ Actual output:
 - Top 1 lure: Tube Jig `tube_jig` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 lures:
 - Tube Jig `tube_jig` | theme: `dark` | colors: black, black/blue, black/purple
-- Spinnerbait `spinnerbait` | theme: `dark` | colors: black, black/blue, black/purple
-- Squarebill Crankbait `squarebill_crankbait` | theme: `dark` | colors: black, black/blue, black/purple
-- Top 1 fly: Game Changer `game_changer` | theme: `dark` | colors: black, black/blue, black/purple
+- Inline Spinner `inline_spinner` | theme: `dark` | colors: black, black/blue, black/purple
+- Hair Jig `hair_jig` | theme: `dark` | colors: black, black/blue, black/purple
+- Top 1 fly: Clouser Minnow `clouser_minnow` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 flies:
+- Clouser Minnow `clouser_minnow` | theme: `dark` | colors: black, black/blue, black/purple
 - Game Changer `game_changer` | theme: `dark` | colors: black, black/blue, black/purple
-- Woolly Bugger `woolly_bugger` | theme: `dark` | colors: black, black/blue, black/purple
-- Crawfish Streamer `crawfish_streamer` | theme: `dark` | colors: black, black/blue, black/purple
+- Zonker Streamer `zonker_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Color notes:
 - Daily posture: suppressed
 - Tube Jig: dark -> black, black/blue, black/purple
-- Spinnerbait: dark -> black, black/blue, black/purple
-- Squarebill Crankbait: dark -> black, black/blue, black/purple
+- Inline Spinner: dark -> black, black/blue, black/purple
+- Hair Jig: dark -> black, black/blue, black/purple
+- Clouser Minnow: dark -> black, black/blue, black/purple
 - Game Changer: dark -> black, black/blue, black/purple
-- Woolly Bugger: dark -> black, black/blue, black/purple
-- Crawfish Streamer: dark -> black, black/blue, black/purple
+- Zonker Streamer: dark -> black, black/blue, black/purple
 - Daily profile notes:
 - Daily posture: suppressed
-- Daily preference: column=upper, pace=slow, presence=bold
-- Monthly baseline: columns=mid/bottom/upper, paces=medium/slow/fast, presence=moderate/subtle/bold
-- Guardrails: surface_allowed=false, suppress_true_surface=true, suppress_fast_presentations=true, high_visibility_needed=true, column_shift=1
+- Seasonal source: region=northeast, fallback_used=false
+- Daily preference: column=mid, pace=medium, presence=bold
+- Monthly baseline: columns=upper/mid, paces=medium/fast, presence=subtle/moderate/bold
+- Guardrails: surface_allowed=false, surface_window=closed, suppress_fast_presentations=true, high_visibility_needed=true, column_shift=-1
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
 - Variables triggered: temperature_metabolic_context, temperature_trend, light_cloud_condition, wind_condition, runoff_flow_disruption
-- Daily note: Temperature metabolism suppresses the day and favors slower execution.
+- Daily note: Cold metabolism shuts down activity. Slow and low is the only play.
 - Daily note: A cooling trend tightens fish and shifts preference lower and slower.
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Daily note: Slightly elevated runoff supports a more visible river presentation.
 - Lure reasoning:
-- Tube Jig: It is one of the lead monthly looks for this exact seasonal window. With true surface suppressed, this keeps you just under the cleaner active lane. Tube Jig stays in play when crawfish is relevant.
-- Tube Jig how: Snap the tube off bottom with short pops so it spirals on the fall, then let it glide back down on slack or semi-slack line. Slow down and leave more dead time between moves. Keep it above cover or along the upper edge of the zone. Let it soak a little longer before each move.
-- Spinnerbait: Spinnerbait stays in play when baitfish is relevant. With true surface suppressed, this keeps you just under the cleaner active lane. It is one of the lead monthly looks for this exact seasonal window. It gives you a different horizontal search look without leaving today's window.
-- Spinnerbait how: Slow-roll it along the bottom edge of cover at a steady pace, keeping the blades just ticking; bump any piece of structure and let it rise. Keep the cadence controlled and add short stalls instead of burning it. Keep it above cover or along the upper edge of the zone. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
-- Squarebill Crankbait: It stays high enough in the zone to match the day's more open positioning. With true surface suppressed, this keeps you just under the cleaner active lane. Squarebill Crankbait stays in play when baitfish is relevant. It is the cleaner change-up if the lead look does not convert.
-- Squarebill Crankbait how: Bang it directly into wood, rock, or stumps so the squared bill deflects the bait sideways — reaction strikes happen on that ricochet. Keep the cadence controlled and add short stalls instead of burning it. Keep it above cover or along the upper edge of the zone. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
+- Tube Jig: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Tube Jig how: Snap the tube off bottom with short pops so it spirals on the fall, then let it glide back down on slack or semi-slack line.
+- Inline Spinner: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It gives you a different horizontal search look without leaving today's window.
+- Inline Spinner how: Cast and retrieve at a steady clip just fast enough to keep the blade spinning; vary depth with rod angle and speed to find the feeding zone.
+- Hair Jig: With the highest lane shut down, this keeps you just under the cleaner active zone. It stays in the middle band where the seasonal setup is most stable today. It is the cleaner change-up if the lead look does not convert.
+- Hair Jig how: Cast across, let it sink on a controlled slack line, then swim it back with short pauses so the marabou pulses and collapses.
 - Fly reasoning:
-- Game Changer: Game Changer tracks well when baitfish is a realistic meal. With true surface suppressed, this keeps you just under the cleaner active lane. It stays high enough in the zone to match the day's more open positioning.
-- Game Changer how: Use a mix of steady strips and sharp 6-inch twitches so the jointed body swims and stalls; pause when you see a follow. Keep the cadence controlled and add short stalls instead of burning it. Keep it above cover or along the upper edge of the zone. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
-- Woolly Bugger: Woolly Bugger tracks well when leech_worm is a realistic meal. With true surface suppressed, this keeps you just under the cleaner active lane. It lines up with today's slow pace preference. It gives you a different fly bottom look without leaving today's window.
-- Woolly Bugger how: Let it sink to depth then retrieve with slow hand-twists or short strips; the marabou tail breathes best with long pauses at the end of each pull. Slow down and leave more dead time between moves. Keep it around the middle band of the strike zone. Keep it on a clean, trackable line so fish can find it before the next move.
-- Crawfish Streamer: It is one of the lead monthly looks for this exact seasonal window. Temperature metabolism suppresses the day and favors slower execution. Crawfish Streamer tracks well when crawfish is a realistic meal. It is the cleaner change-up if the lead look does not convert.
-- Crawfish Streamer how: Tick it along the bottom with short, nervous strips so the claws scratch and flare; keep it close to the substrate and pause after contact with any rock or root. Slow down and leave more dead time between moves. Keep it around the lower part of the productive zone. Keep it on a clean, trackable line so fish can find it before the next move.
+- Clouser Minnow: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Clouser Minnow how: Cast across or slightly downstream, let it jig toward you with short strips so the weighted eyes keep the fly tracking hook-point up.
+- Game Changer: With the highest lane shut down, this keeps you just under the cleaner active zone. It stays in the middle band where the seasonal setup is most stable today. It gives you a different fly baitfish look without leaving today's window.
+- Game Changer how: Use a mix of steady strips and sharp 6-inch twitches so the jointed body swims and stalls; pause when you see a follow.
+- Zonker Streamer: With the highest lane shut down, this keeps you just under the cleaner active zone. It stays in the middle band where the seasonal setup is most stable today. It is the cleaner change-up if the lead look does not convert.
+- Zonker Streamer how: Strip with a mixed pace — a few short darts, then a longer glide; the rabbit wing wraps on fast strips and flares on the pause for a big profile change.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- NO_TOP1_TIE
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:dark,dark
 - Top 1 verdict:
 - Top 3 verdict:
@@ -7925,11 +8233,11 @@ Archived env summary:
 - Sunrise/sunset: 05:11 / 20:31
 
 Actual output:
-- Top 1 lure: Inline Spinner `inline_spinner` | theme: `dark` | colors: black, black/blue, black/purple
+- Top 1 lure: Walking Topwater `walking_topwater` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 lures:
-- Inline Spinner `inline_spinner` | theme: `dark` | colors: black, black/blue, black/purple
 - Walking Topwater `walking_topwater` | theme: `dark` | colors: black, black/blue, black/purple
-- Spinnerbait `spinnerbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Inline Spinner `inline_spinner` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 1 fly: Popper Fly `popper_fly` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 flies:
 - Popper Fly `popper_fly` | theme: `dark` | colors: black, black/blue, black/purple
@@ -7937,42 +8245,46 @@ Actual output:
 - Clouser Minnow `clouser_minnow` | theme: `dark` | colors: black, black/blue, black/purple
 - Color notes:
 - Daily posture: aggressive
-- Inline Spinner: dark -> black, black/blue, black/purple
 - Walking Topwater: dark -> black, black/blue, black/purple
-- Spinnerbait: dark -> black, black/blue, black/purple
+- Paddle-Tail Swimbait: dark -> black, black/blue, black/purple
+- Inline Spinner: dark -> black, black/blue, black/purple
 - Popper Fly: dark -> black, black/blue, black/purple
 - Game Changer: dark -> black, black/blue, black/purple
 - Clouser Minnow: dark -> black, black/blue, black/purple
 - Daily profile notes:
 - Daily posture: aggressive
-- Daily preference: column=upper, pace=medium, presence=bold
-- Monthly baseline: columns=surface/upper/mid, paces=medium/fast/slow, presence=bold/moderate/subtle
-- Guardrails: surface_allowed=true, suppress_true_surface=false, suppress_fast_presentations=false, high_visibility_needed=true, column_shift=1
+- Seasonal source: region=northeast, fallback_used=false
+- Daily preference: column=surface, pace=medium, presence=moderate
+- Monthly baseline: columns=surface/upper/mid, paces=medium/fast, presence=subtle/moderate
+- Guardrails: surface_allowed=true, surface_window=clean, suppress_fast_presentations=false, high_visibility_needed=true, column_shift=1
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
 - Variables triggered: temperature_trend, light_cloud_condition, runoff_flow_disruption
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Daily note: Slightly elevated runoff supports a more visible river presentation.
 - Lure reasoning:
-- Inline Spinner: It is one of the lead monthly looks for this exact seasonal window. A warming trend nudges fish slightly higher in the allowed range. Inline Spinner stays in play when baitfish is relevant.
-- Inline Spinner how: Cast across current and let the blade flash on a quarter-downstream retrieve; speed up briefly after bumps or short strikes. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Start on wind-blown edges or the first active cover line and let it cover water.
-- Walking Topwater: Walking Topwater stays in play when baitfish is relevant. Even with a little ripple, the surface lane is still open enough to matter. It is one of the lead monthly looks for this exact seasonal window. It gives you a different surface look without leaving today's window.
-- Walking Topwater how: Work it with consistent wrist flicks over open water or above grass; keep the cadence smooth and only slow down if you see fish following. Keep it moving on a steady, fishable cadence. Keep it high and over the surface lane. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
-- Spinnerbait: A warming trend nudges fish slightly higher in the allowed range. Spinnerbait stays in play when baitfish is relevant. It fits today's upper column preference. It is the cleaner change-up if the lead look does not convert.
-- Spinnerbait how: Cast past the target and retrieve through it, varying speed to find the blade thump fish respond to; hesitate briefly at cover edges. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Start on wind-blown edges or the first active cover line and let it cover water.
+- Walking Topwater: Low disturbance is keeping a true surface lane open today. It is one of the lead monthly looks for this exact seasonal window.
+- Walking Topwater how: Downrod with light wrist flicks to make it dance; the pause between twitches lets fish track and commit, so give it a beat before the next twitch. Keep it on top.
+- Paddle-Tail Swimbait: A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It gives you a different horizontal search look without leaving today's window.
+- Paddle-Tail Swimbait how: Swim it at the speed where you feel a steady kick through the rod; use rod angle to change depth without changing retrieve speed. Keep it high in the zone.
+- Inline Spinner: A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Inline Spinner how: Use a slow-roll retrieve near bottom or cover edges; occasionally bump into structure to trigger reaction strikes. Keep it high in the zone.
 - Fly reasoning:
-- Popper Fly: Popper Fly tracks well when baitfish is a realistic meal. Even with a little ripple, the surface lane is still open enough to matter. It is one of the lead monthly looks for this exact seasonal window.
-- Popper Fly how: Work it with medium strips that spit and gurgle; slow the cadence near structure and let the fly rest after each pop — target the edge of any surface shadow. Keep it moving on a steady, fishable cadence. Keep it high and over the surface lane. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
-- Game Changer: A warming trend nudges fish slightly higher in the allowed range. Game Changer tracks well when baitfish is a realistic meal. It fits today's upper column preference. It gives you a different fly baitfish look without leaving today's window.
-- Game Changer how: Retrieve with medium strips, then occasionally rip hard so the body compresses and then springs apart — pause after each hard strip and hold your nerve. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
-- Clouser Minnow: It is one of the lead monthly looks for this exact seasonal window. A warming trend nudges fish slightly higher in the allowed range. Clouser Minnow tracks well when baitfish is a realistic meal. It is the cleaner change-up if the lead look does not convert.
-- Clouser Minnow how: Cast and let the weighted eyes sink the fly, then retrieve with a strip-pause cadence that makes it dart upward on the strip and dive back on the pause. Keep it moving on a steady, fishable cadence. Keep it around the middle band of the strike zone. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
+- Popper Fly: Low disturbance is keeping a true surface lane open today. It is one of the lead monthly looks for this exact seasonal window.
+- Popper Fly how: Make a sharp strip-pause to spit water, then wait; the longer the pause in the ring, the more time a fish has to rise and commit. Keep it on top.
+- Game Changer: A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different fly baitfish look without leaving today's window.
+- Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink. Keep it high in the zone.
+- Clouser Minnow: A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Clouser Minnow how: Strip in short, consistent pulls so the dumbbell eyes make the fly jig up and down; let it sink between strips to stay hook-point up throughout.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- NO_TOP1_TIE
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:dark,dark
 - Top 1 verdict:
 - Top 3 verdict:
@@ -8030,7 +8342,7 @@ Actual output:
 - Top 1 lure: Suspending Jerkbait `suspending_jerkbait` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 3 lures:
 - Suspending Jerkbait `suspending_jerkbait` | theme: `natural` | colors: green pumpkin, olive, smoke
-- Spinnerbait `spinnerbait` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Tube Jig `tube_jig` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 1 fly: Slim Baitfish Streamer `slim_minnow_streamer` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 3 flies:
@@ -8040,38 +8352,42 @@ Actual output:
 - Color notes:
 - Daily posture: aggressive
 - Suspending Jerkbait: natural -> green pumpkin, olive, smoke
-- Spinnerbait: natural -> green pumpkin, olive, smoke
+- Paddle-Tail Swimbait: natural -> green pumpkin, olive, smoke
 - Tube Jig: natural -> green pumpkin, olive, smoke
 - Slim Baitfish Streamer: natural -> green pumpkin, olive, smoke
 - Zonker Streamer: natural -> green pumpkin, olive, smoke
 - Game Changer: natural -> green pumpkin, olive, smoke
 - Daily profile notes:
 - Daily posture: aggressive
+- Seasonal source: region=northeast, fallback_used=false
 - Daily preference: column=upper, pace=medium, presence=subtle
-- Monthly baseline: columns=upper/mid/bottom, paces=medium/fast/slow, presence=moderate/subtle/bold
-- Guardrails: surface_allowed=true, suppress_true_surface=false, suppress_fast_presentations=false, high_visibility_needed=false, column_shift=0
+- Monthly baseline: columns=upper/mid, paces=medium/fast, presence=subtle/moderate/bold
+- Guardrails: surface_allowed=true, surface_window=rippled, suppress_fast_presentations=false, high_visibility_needed=false, column_shift=0
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
 - Variables triggered: runoff_flow_disruption
 - Lure reasoning:
-- Suspending Jerkbait: It is one of the lead monthly looks for this exact seasonal window. It stays practical in current seams and river lanes when flow still matters. Suspending Jerkbait stays in play when baitfish is relevant.
-- Suspending Jerkbait how: Jerk, jerk, pause. The bait should dart and glide sideways on each twitch; dial the pause length to water temperature — colder means longer. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Keep the presentation clean and resist overworking it.
-- Spinnerbait: It is one of the lead monthly looks for this exact seasonal window. It stays practical in current seams and river lanes when flow still matters. Spinnerbait stays in play when baitfish is relevant. It gives you a different horizontal search look without leaving today's window.
-- Spinnerbait how: Cast past the target and retrieve through it, varying speed to find the blade thump fish respond to; hesitate briefly at cover edges. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Keep the presentation clean and resist overworking it.
-- Tube Jig: Tube Jig stays in play when crawfish is relevant. It fits today's upper column preference. It stays high enough in the zone to match the day's more open positioning. It is the cleaner change-up if the lead look does not convert.
-- Tube Jig how: Snap the tube off bottom with short pops so it spirals on the fall, then let it glide back down on slack or semi-slack line. Keep a steady medium cadence. Keep it above cover or along the upper edge of the zone. Keep the presentation clean and resist overworking it.
+- Suspending Jerkbait: It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window.
+- Suspending Jerkbait how: Two or three sharp twitches, then let it suspend perfectly still for a full 3-5 count before the next sequence — the pause is everything. Keep it high in the zone.
+- Paddle-Tail Swimbait: It stays practical in current seams and river lanes when flow still matters. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different horizontal search look without leaving today's window.
+- Paddle-Tail Swimbait how: Swim it at the speed where you feel a steady kick through the rod; use rod angle to change depth without changing retrieve speed. Keep it high in the zone.
+- Tube Jig: It stays high enough in the zone to match the day's more open positioning. It fits today's upper column preference. It is the cleaner change-up if the lead look does not convert.
+- Tube Jig how: Cast, let it sink, then pop sharply and release line; the tube should corkscrew back to bottom on each drop — keep a watchful eye on the line. Keep it high in the zone.
 - Fly reasoning:
-- Slim Baitfish Streamer: Slim Baitfish Streamer tracks well when baitfish is a realistic meal. It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window.
-- Slim Baitfish Streamer how: Retrieve with a mix of short darts and longer glides; the thin profile tracks like a small minnow on a tight line. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Keep the presentation clean and resist overworking it.
-- Zonker Streamer: Zonker Streamer tracks well when baitfish is a realistic meal. It stays practical in current seams and river lanes when flow still matters. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different fly baitfish look without leaving today's window.
-- Zonker Streamer how: Cast across current and strip steadily through the swing; add a momentary deadstop near structure so the wing collapses and then puffs back out. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Keep the presentation clean and resist overworking it.
-- Game Changer: The month is still baitfish-forward, and this stays inside that search lane. Game Changer tracks well when baitfish is a realistic meal. It fits today's upper column preference. It is the cleaner change-up if the lead look does not convert.
-- Game Changer how: Use a mix of steady strips and sharp 6-inch twitches so the jointed body swims and stalls; pause when you see a follow. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Keep the presentation clean and resist overworking it.
+- Slim Baitfish Streamer: It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window.
+- Slim Baitfish Streamer how: Strip with short, quick pulls to make the slim profile dart; pause briefly so it hangs in the current or sinks an inch before the next strip. Keep it high in the zone.
+- Zonker Streamer: It stays practical in current seams and river lanes when flow still matters. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different fly baitfish look without leaving today's window.
+- Zonker Streamer how: Retrieve at moderate speed with intentional pauses where the fly sinks and the strip wing breathes; strikes often come as you restart the strip. Keep it high in the zone.
+- Game Changer: The month is still baitfish-forward, and this stays inside that search lane. It fits today's upper column preference. It is the cleaner change-up if the lead look does not convert.
+- Game Changer how: Retrieve with medium strips, then occasionally rip hard so the body compresses and then springs apart — pause after each hard strip and hold your nerve. Keep it high in the zone.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- NO_TOP1_TIE
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:natural,natural
 - Top 1 verdict:
 - Top 3 verdict:
@@ -8146,33 +8462,37 @@ Actual output:
 - Clouser Minnow: dark -> black, black/blue, black/purple
 - Daily profile notes:
 - Daily posture: aggressive
+- Seasonal source: region=northeast, fallback_used=false
 - Daily preference: column=upper, pace=medium, presence=subtle
-- Monthly baseline: columns=mid/bottom/upper, paces=medium/slow/fast, presence=moderate/subtle/bold
-- Guardrails: surface_allowed=true, suppress_true_surface=false, suppress_fast_presentations=false, high_visibility_needed=false, column_shift=1
+- Monthly baseline: columns=upper/mid/bottom, paces=slow/medium/fast, presence=subtle/moderate/bold
+- Guardrails: surface_allowed=true, surface_window=clean, suppress_fast_presentations=false, high_visibility_needed=false, column_shift=1
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
 - Variables triggered: temperature_trend, light_cloud_condition, runoff_flow_disruption
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Lure reasoning:
-- Suspending Jerkbait: It is one of the lead monthly looks for this exact seasonal window. A warming trend nudges fish slightly higher in the allowed range. Suspending Jerkbait stays in play when baitfish is relevant.
-- Suspending Jerkbait how: Work it with wrist snaps, not big sweeps; keep slack in the line between snaps so the bait swings freely, then pause until you see a follow or feel weight. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Start on wind-blown edges or the first active cover line and let it cover water.
-- Paddle-Tail Swimbait: Paddle-Tail Swimbait stays in play when baitfish is relevant. A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different horizontal search look without leaving today's window.
-- Paddle-Tail Swimbait how: Slow-roll near the bottom on a consistent retrieve; the paddle thumps best just barely above the substrate, so keep the rod tip down and the pace even. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Start on wind-blown edges or the first active cover line and let it cover water.
-- Hair Jig: A warming trend nudges fish slightly higher in the allowed range. Hair Jig stays in play when baitfish is relevant. It fits today's upper column preference. It is the cleaner change-up if the lead look does not convert.
-- Hair Jig how: Swing it through current seams or drop it in pockets with minimal movement; let the marabou breathe in place before slowly pulling it along. Keep a steady medium cadence. Keep it above cover or along the upper edge of the zone. Keep the presentation clean and resist overworking it.
+- Suspending Jerkbait: A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
+- Suspending Jerkbait how: Work it with wrist snaps, not big sweeps; keep slack in the line between snaps so the bait swings freely, then pause until you see a follow or feel weight. Keep it high in the zone.
+- Paddle-Tail Swimbait: A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different horizontal search look without leaving today's window.
+- Paddle-Tail Swimbait how: Swim it at the speed where you feel a steady kick through the rod; use rod angle to change depth without changing retrieve speed. Keep it high in the zone.
+- Hair Jig: A warming trend nudges fish slightly higher in the allowed range. It stays high enough in the zone to match the day's more open positioning. It is the cleaner change-up if the lead look does not convert.
+- Hair Jig how: Swing it through current seams or drop it in pockets with minimal movement; let the marabou breathe in place before slowly pulling it along. Keep it high in the zone.
 - Fly reasoning:
-- Slim Baitfish Streamer: A warming trend nudges fish slightly higher in the allowed range. Slim Baitfish Streamer tracks well when baitfish is a realistic meal. It fits today's upper column preference.
-- Slim Baitfish Streamer how: Fish it on a dead-drift through seams, then activate with quick strips near holding structure; the slim silhouette works best in clear water at a measured pace. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Keep the presentation clean and resist overworking it.
-- Woolly Bugger: It stays practical in current seams and river lanes when flow still matters. Woolly Bugger tracks well when leech_worm is a realistic meal. It matches today's subtle presence lane. It gives you a different fly bottom look without leaving today's window.
-- Woolly Bugger how: Fish it on a dead-drift near the bottom, then come alive with a strip-pause retrieve through prime holding water; let the tail do most of the work. Keep a steady medium cadence. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
-- Clouser Minnow: It is one of the lead monthly looks for this exact seasonal window. A warming trend nudges fish slightly higher in the allowed range. Clouser Minnow tracks well when baitfish is a realistic meal. It is the cleaner change-up if the lead look does not convert.
-- Clouser Minnow how: Cast and let the weighted eyes sink the fly, then retrieve with a strip-pause cadence that makes it dart upward on the strip and dive back on the pause. Keep it moving on a steady, fishable cadence. Keep it around the middle band of the strike zone. Keep the presentation clean and resist overworking it.
+- Slim Baitfish Streamer: A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
+- Slim Baitfish Streamer how: Fish it on a dead-drift through seams, then activate with quick strips near holding structure; the slim silhouette works best in clear water at a measured pace. Keep it high in the zone.
+- Woolly Bugger: It stays practical in current seams and river lanes when flow still matters. Woolly Bugger tracks well when leech_worm is a realistic meal. It gives you a different fly bottom look without leaving today's window.
+- Woolly Bugger how: Cast across and swing it on a tight line through the drift, then activate on the hang-down with short strips before lifting.
+- Clouser Minnow: A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Clouser Minnow how: Cast and let the weighted eyes sink the fly, then retrieve with a strip-pause cadence that makes it dart upward on the strip and dive back on the pause.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- NO_TOP1_TIE
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:dark,dark
 - Top 1 verdict:
 - Top 3 verdict:
@@ -8250,33 +8570,37 @@ Actual output:
 - Sculpin Streamer: bright -> white/chartreuse, chartreuse, firetiger
 - Daily profile notes:
 - Daily posture: slightly_aggressive
+- Seasonal source: region=great_lakes_upper_midwest, fallback_used=false
 - Daily preference: column=bottom, pace=slow, presence=bold
-- Monthly baseline: columns=mid/bottom/upper, paces=medium/slow/fast, presence=moderate/subtle/bold
-- Guardrails: surface_allowed=true, suppress_true_surface=false, suppress_fast_presentations=false, high_visibility_needed=true, column_shift=-1
+- Monthly baseline: columns=upper/mid/bottom, paces=slow/medium/fast, presence=subtle/moderate/bold
+- Guardrails: surface_allowed=true, surface_window=rippled, suppress_fast_presentations=false, high_visibility_needed=true, column_shift=-1
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
 - Variables triggered: temperature_trend, runoff_flow_disruption
 - Daily note: A cooling trend tightens fish and shifts preference lower and slower.
 - Daily note: Dirty water demands more visibility.
 - Lure reasoning:
-- Spinnerbait: Dirty water demands more visibility. Spinnerbait stays in play when baitfish is relevant. It matches today's bold presence lane.
-- Spinnerbait how: Work it parallel to grass lines or over submerged timber; slow the retrieve near the target and let the head tick the top. Keep the cadence controlled and add short stalls instead of burning it. Keep it above cover or along the upper edge of the zone. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
-- Tube Jig: A cooling trend tightens fish and shifts preference lower and slower. Tube Jig stays in play when crawfish is relevant. It lines up with today's slow pace preference. It gives you a different bottom contact look without leaving today's window.
-- Tube Jig how: Hop it erratically off the bottom with sharp pops, then open the bail slightly so it spirals down freely; strikes happen on that spinning fall. Slow down and leave more dead time between moves. Keep it above cover or along the upper edge of the zone. Keep it on a clean, trackable line so fish can find it before the next move.
-- Inline Spinner: Inline Spinner stays in play when baitfish is relevant. Dirty water demands more visibility. It matches today's bold presence lane. It is the cleaner change-up if the lead look does not convert.
-- Inline Spinner how: Use a slow-roll retrieve near bottom or cover edges; occasionally bump into structure to trigger reaction strikes. Keep the cadence controlled and add short stalls instead of burning it. Keep it above cover or along the upper edge of the zone. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
+- Spinnerbait: Dirty water demands more visibility. It is one of the lead monthly looks for this exact seasonal window.
+- Spinnerbait how: Work it parallel to grass lines or over submerged timber; slow the retrieve near the target and let the head tick the top. Slow down and lengthen the pause.
+- Tube Jig: A cooling trend tightens fish and shifts preference lower and slower. It is one of the lead monthly looks for this exact seasonal window. It gives you a different bottom contact look without leaving today's window.
+- Tube Jig how: Hop it erratically off the bottom with sharp pops, then open the bail slightly so it spirals down freely; strikes happen on that spinning fall. Slow down and lengthen the pause.
+- Inline Spinner: Dirty water demands more visibility. Inline Spinner stays in play when baitfish is relevant. It is the cleaner change-up if the lead look does not convert.
+- Inline Spinner how: Use a slow-roll retrieve near bottom or cover edges; occasionally bump into structure to trigger reaction strikes. Slow down and lengthen the pause.
 - Fly reasoning:
-- Crawfish Streamer: Crawfish Streamer tracks well when crawfish is a realistic meal. It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window.
-- Crawfish Streamer how: Cast upstream and mend for a dead-drift first; then come alive with quick, short strips that make the claw materials flex like a fleeing crawfish. Slow down and leave more dead time between moves. Keep it around the lower part of the productive zone. Keep it on a clean, trackable line so fish can find it before the next move.
-- Clouser Minnow: It is one of the lead monthly looks for this exact seasonal window. Dirty water demands more visibility. Clouser Minnow tracks well when baitfish is a realistic meal. It gives you a different fly baitfish look without leaving today's window.
-- Clouser Minnow how: Strip in short, consistent pulls so the dumbbell eyes make the fly jig up and down; let it sink between strips to stay hook-point up throughout. Keep the cadence controlled and add short stalls instead of burning it. Keep it around the lower part of the productive zone. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
-- Sculpin Streamer: Sculpin Streamer tracks well when baitfish is a realistic meal. It stays practical in current seams and river lanes when flow still matters. It stays low in the zone where this day still wants fish to hold. It is the cleaner change-up if the lead look does not convert.
-- Sculpin Streamer how: Cast upstream and mend for a natural drift, then activate with short strips that make the fly bumble over the bottom like a sculpin retreating. Slow down and leave more dead time between moves. Keep it around the lower part of the productive zone. Keep it on a clean, trackable line so fish can find it before the next move.
+- Crawfish Streamer: It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window.
+- Crawfish Streamer how: Cast upstream and mend for a dead-drift first; then come alive with quick, short strips that make the claw materials flex like a fleeing crawfish. Slow down and lengthen the pause.
+- Clouser Minnow: Dirty water demands more visibility. It is one of the lead monthly looks for this exact seasonal window. It gives you a different fly baitfish look without leaving today's window.
+- Clouser Minnow how: Strip in short, consistent pulls so the dumbbell eyes make the fly jig up and down; let it sink between strips to stay hook-point up throughout. Slow down and lengthen the pause.
+- Sculpin Streamer: It stays practical in current seams and river lanes when flow still matters. It stays low in the zone where this day still wants fish to hold. It is the cleaner change-up if the lead look does not convert.
+- Sculpin Streamer how: Cast upstream and mend for a natural drift, then activate with short strips that make the fly bumble over the bottom like a sculpin retreating. Slow down and lengthen the pause.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- NO_TOP1_TIE
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:bright,bright
 - Top 1 verdict:
 - Top 3 verdict:
@@ -8334,52 +8658,56 @@ Actual output:
 - Top 1 lure: Tube Jig `tube_jig` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Top 3 lures:
 - Tube Jig `tube_jig` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
-- Inline Spinner `inline_spinner` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
-- Top 1 fly: Woolly Bugger `woolly_bugger` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Soft Plastic Jerkbait `soft_jerkbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Top 1 fly: Clouser Minnow `clouser_minnow` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Top 3 flies:
-- Woolly Bugger `woolly_bugger` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
-- Muddler Minnow `muddler_sculpin` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Clouser Minnow `clouser_minnow` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Muddler Minnow `muddler_sculpin` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Game Changer `game_changer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Color notes:
 - Daily posture: suppressed
 - Tube Jig: bright -> white/chartreuse, chartreuse, firetiger
-- Inline Spinner: bright -> white/chartreuse, chartreuse, firetiger
 - Paddle-Tail Swimbait: bright -> white/chartreuse, chartreuse, firetiger
-- Woolly Bugger: bright -> white/chartreuse, chartreuse, firetiger
-- Muddler Minnow: bright -> white/chartreuse, chartreuse, firetiger
+- Soft Plastic Jerkbait: bright -> white/chartreuse, chartreuse, firetiger
 - Clouser Minnow: bright -> white/chartreuse, chartreuse, firetiger
+- Muddler Minnow: bright -> white/chartreuse, chartreuse, firetiger
+- Game Changer: bright -> white/chartreuse, chartreuse, firetiger
 - Daily profile notes:
 - Daily posture: suppressed
-- Daily preference: column=bottom, pace=slow, presence=moderate
-- Monthly baseline: columns=mid/upper/bottom/surface, paces=medium/fast/slow, presence=subtle/moderate
-- Guardrails: surface_allowed=false, suppress_true_surface=true, suppress_fast_presentations=true, high_visibility_needed=true, column_shift=-1
+- Seasonal source: region=great_lakes_upper_midwest, fallback_used=false
+- Daily preference: column=bottom, pace=medium, presence=moderate
+- Monthly baseline: columns=surface/upper/mid/bottom, paces=medium/fast, presence=subtle/moderate
+- Guardrails: surface_allowed=false, surface_window=closed, suppress_fast_presentations=true, high_visibility_needed=true, column_shift=-1
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
 - Variables triggered: temperature_metabolic_context, temperature_trend, wind_condition, runoff_flow_disruption
-- Daily note: Temperature metabolism suppresses the day and favors slower execution.
+- Daily note: Heat stress moves fish to cooler, deeper water and narrows the feeding window.
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
 - Daily note: Elevated runoff tightens fish and pulls the day lower and slower.
 - Daily note: Dirty water demands more visibility.
 - Lure reasoning:
-- Tube Jig: With true surface suppressed, this keeps you just under the cleaner active lane. Tube Jig stays in play when crawfish is relevant. It lines up with today's slow pace preference.
-- Tube Jig how: Snap the tube off bottom with short pops so it spirals on the fall, then let it glide back down on slack or semi-slack line. Slow down and leave more dead time between moves. Keep it above cover or along the upper edge of the zone. Let it soak a little longer before each move.
-- Inline Spinner: Inline Spinner stays in play when baitfish is relevant. With true surface suppressed, this keeps you just under the cleaner active lane. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different horizontal search look without leaving today's window.
-- Inline Spinner how: Cast and retrieve at a steady clip just fast enough to keep the blade spinning; vary depth with rod angle and speed to find the feeding zone. Keep the cadence controlled and add short stalls instead of burning it. Keep it above cover or along the upper edge of the zone. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
-- Paddle-Tail Swimbait: With true surface suppressed, this keeps you just under the cleaner active lane. Paddle-Tail Swimbait stays in play when baitfish is relevant. It matches today's moderate presence lane. It is the cleaner change-up if the lead look does not convert.
-- Paddle-Tail Swimbait how: Reel at a steady pace with the rod low so the tail thumps consistently; speed up slightly over bait schools or slow down after a follow. Keep the cadence controlled and add short stalls instead of burning it. Keep it above cover or along the upper edge of the zone. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
+- Tube Jig: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Tube Jig how: Snap the tube off bottom with short pops so it spirals on the fall, then let it glide back down on slack or semi-slack line. Keep it high in the zone.
+- Paddle-Tail Swimbait: With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different horizontal search look without leaving today's window.
+- Paddle-Tail Swimbait how: Reel at a steady pace with the rod low so the tail thumps consistently; speed up slightly over bait schools or slow down after a follow. Keep it high in the zone.
+- Soft Plastic Jerkbait: With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Soft Plastic Jerkbait how: Twitch it with slack in the line so the bait darts and glides erratically; pause and let it sink a few inches between twitches. Keep it high in the zone.
 - Fly reasoning:
-- Woolly Bugger: It stays low in the zone where this day still wants fish to hold. With true surface suppressed, this keeps you just under the cleaner active lane. Woolly Bugger tracks well when leech_worm is a realistic meal.
-- Woolly Bugger how: Let it sink to depth then retrieve with slow hand-twists or short strips; the marabou tail breathes best with long pauses at the end of each pull. Slow down and leave more dead time between moves. Keep it around the lower part of the productive zone. Keep it on a clean, trackable line so fish can find it before the next move.
-- Muddler Minnow: With true surface suppressed, this keeps you just under the cleaner active lane. Muddler Minnow tracks well when baitfish is a realistic meal. It lines up with today's slow pace preference. It gives you a different fly bottom look without leaving today's window.
-- Muddler Minnow how: Skate or wake it in shallow riffles with short strips, or sink and crawl it along bottom with rod-tip leads so the deer hair pushes water. Slow down and leave more dead time between moves. Keep it above cover or along the upper edge of the zone. Keep it on a clean, trackable line so fish can find it before the next move.
-- Clouser Minnow: It is one of the lead monthly looks for this exact seasonal window. With true surface suppressed, this keeps you just under the cleaner active lane. Clouser Minnow tracks well when baitfish is a realistic meal. It is the cleaner change-up if the lead look does not convert.
-- Clouser Minnow how: Cast across or slightly downstream, let it jig toward you with short strips so the weighted eyes keep the fly tracking hook-point up. Keep the cadence controlled and add short stalls instead of burning it. Keep it around the lower part of the productive zone. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
+- Clouser Minnow: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Clouser Minnow how: Cast across or slightly downstream, let it jig toward you with short strips so the weighted eyes keep the fly tracking hook-point up. Keep it low in the strike zone.
+- Muddler Minnow: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It gives you a different fly bottom look without leaving today's window.
+- Muddler Minnow how: Skate or wake it in shallow riffles with short strips, or sink and crawl it along bottom with rod-tip leads so the deer hair pushes water. Keep it high in the zone.
+- Game Changer: With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Game Changer how: Use a mix of steady strips and sharp 6-inch twitches so the jointed body swims and stalls; pause when you see a follow. Keep it high in the zone.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
 - NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- NO_TOP1_TIE
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:bright,bright
 - Top 1 verdict:
 - Top 3 verdict:
@@ -8436,50 +8764,54 @@ Actual output:
 - Top 1 lure: Spinnerbait `spinnerbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Top 3 lures:
 - Spinnerbait `spinnerbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
-- Squarebill Crankbait `squarebill_crankbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Inline Spinner `inline_spinner` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
-- Top 1 fly: Clouser Minnow `clouser_minnow` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Blade Bait `blade_bait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Top 1 fly: Articulated Baitfish Streamer `articulated_baitfish_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Top 3 flies:
-- Clouser Minnow `clouser_minnow` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Articulated Baitfish Streamer `articulated_baitfish_streamer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Game Changer `game_changer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Clouser Minnow `clouser_minnow` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Color notes:
 - Daily posture: aggressive
 - Spinnerbait: bright -> white/chartreuse, chartreuse, firetiger
-- Squarebill Crankbait: bright -> white/chartreuse, chartreuse, firetiger
 - Inline Spinner: bright -> white/chartreuse, chartreuse, firetiger
-- Clouser Minnow: bright -> white/chartreuse, chartreuse, firetiger
+- Blade Bait: bright -> white/chartreuse, chartreuse, firetiger
 - Articulated Baitfish Streamer: bright -> white/chartreuse, chartreuse, firetiger
 - Game Changer: bright -> white/chartreuse, chartreuse, firetiger
+- Clouser Minnow: bright -> white/chartreuse, chartreuse, firetiger
 - Daily profile notes:
 - Daily posture: aggressive
+- Seasonal source: region=great_lakes_upper_midwest, fallback_used=false
 - Daily preference: column=upper, pace=medium, presence=bold
-- Monthly baseline: columns=upper/mid/bottom, paces=medium/fast/slow, presence=moderate/subtle/bold
-- Guardrails: surface_allowed=true, suppress_true_surface=false, suppress_fast_presentations=false, high_visibility_needed=true, column_shift=1
+- Monthly baseline: columns=upper/mid, paces=medium/fast, presence=subtle/moderate/bold
+- Guardrails: surface_allowed=true, surface_window=clean, suppress_fast_presentations=false, high_visibility_needed=true, column_shift=1
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
 - Variables triggered: light_cloud_condition, runoff_flow_disruption
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Daily note: Dirty water demands more visibility.
 - Lure reasoning:
-- Spinnerbait: Spinnerbait stays in play when baitfish is relevant. Lower light supports a slightly higher, more open lane. It is one of the lead monthly looks for this exact seasonal window.
-- Spinnerbait how: Cast past the target and retrieve through it, varying speed to find the blade thump fish respond to; hesitate briefly at cover edges. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Start on wind-blown edges or the first active cover line and let it cover water.
-- Squarebill Crankbait: The month is still baitfish-forward, and this stays inside that search lane. Lower light supports a slightly higher, more open lane. Squarebill Crankbait stays in play when baitfish is relevant. It gives you a different horizontal search look without leaving today's window.
-- Squarebill Crankbait how: Run it tight to cover at a steady pace; when it hits, give a slight rod pause so the bill pries free and the bait kicks up erratically. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Start on wind-blown edges or the first active cover line and let it cover water.
-- Inline Spinner: The month is still baitfish-forward, and this stays inside that search lane. Lower light supports a slightly higher, more open lane. Inline Spinner stays in play when baitfish is relevant. It is the cleaner change-up if the lead look does not convert.
-- Inline Spinner how: Cast across current and let the blade flash on a quarter-downstream retrieve; speed up briefly after bumps or short strikes. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Start on wind-blown edges or the first active cover line and let it cover water.
+- Spinnerbait: Lower light supports a slightly higher, more open lane. It is one of the lead monthly looks for this exact seasonal window.
+- Spinnerbait how: Work it parallel to grass lines or over submerged timber; slow the retrieve near the target and let the head tick the top. Keep it high in the zone.
+- Inline Spinner: Lower light supports a slightly higher, more open lane. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different horizontal search look without leaving today's window.
+- Inline Spinner how: Use a slow-roll retrieve near bottom or cover edges; occasionally bump into structure to trigger reaction strikes. Keep it high in the zone.
+- Blade Bait: Lower light supports a slightly higher, more open lane. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Blade Bait how: Vertical jig it with short, sharp hops over suspended fish; the flutter-fall is the presentation — set hard the moment you feel weight.
 - Fly reasoning:
-- Clouser Minnow: Lower light supports a slightly higher, more open lane. Clouser Minnow tracks well when baitfish is a realistic meal. It lines up with today's medium pace preference.
-- Clouser Minnow how: Cast and let the weighted eyes sink the fly, then retrieve with a strip-pause cadence that makes it dart upward on the strip and dive back on the pause. Keep it moving on a steady, fishable cadence. Keep it around the middle band of the strike zone. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
-- Articulated Baitfish Streamer: Lower light supports a slightly higher, more open lane. Articulated Baitfish Streamer tracks well when baitfish is a realistic meal. It fits today's upper column preference. It gives you a different fly baitfish look without leaving today's window.
-- Articulated Baitfish Streamer how: Cover water at mid-depth with steady strips; add a hard single rip followed by a full pause to imitate an injured baitfish fleeing and then stopping. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
-- Game Changer: Game Changer tracks well when baitfish is a realistic meal. Lower light supports a slightly higher, more open lane. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
-- Game Changer how: Retrieve with medium strips, then occasionally rip hard so the body compresses and then springs apart — pause after each hard strip and hold your nerve. Keep it moving on a steady, fishable cadence. Keep it above cover or along the upper edge of the zone. Make sure fish can track it by keeping it moving on a clean line through the strike zone.
+- Articulated Baitfish Streamer: Lower light supports a slightly higher, more open lane. The month is still baitfish-forward, and this stays inside that search lane.
+- Articulated Baitfish Streamer how: Work it across current and down with a varied strip cadence; when a fish follows, slow down and kill the retrieve to let the body spiral on the sink. Keep it high in the zone.
+- Game Changer: Lower light supports a slightly higher, more open lane. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different fly baitfish look without leaving today's window.
+- Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink. Keep it high in the zone.
+- Clouser Minnow: Lower light supports a slightly higher, more open lane. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Clouser Minnow how: Strip in short, consistent pulls so the dumbbell eyes make the fly jig up and down; let it sink between strips to stay hook-point up throughout.
 
 Review:
 - Precheck flags:
 - TOP1_PRIMARY_HIT
 - TOP3_PRIMARY_PRESENT
-- DISALLOWED_PRESENT:squarebill_crankbait
+- NO_DISALLOWED_PRESENT
+- NO_REGION_FALLBACK
+- TOP1_TIE:fly
+- EXPLANATION_ALIGNED
 - TOP_COLOR_MATCH:bright,bright
 - Top 1 verdict:
 - Top 3 verdict:

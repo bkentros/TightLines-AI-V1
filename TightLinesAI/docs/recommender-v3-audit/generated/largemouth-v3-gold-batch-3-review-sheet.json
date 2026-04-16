@@ -29,7 +29,7 @@
         "seasonal_story": "Clear-water Florida spawn bass should stay shallow and target-oriented, with clean follow-up baitfish lanes instead of a wild topwater jump.",
         "primary_lanes": [
           "weightless_stick_worm",
-          "wacky_rigged_stick_worm",
+          "weightless_stick_worm",
           "compact_flipping_jig"
         ],
         "acceptable_secondary_lanes": [
@@ -1186,7 +1186,7 @@
         ],
         "acceptable_secondary_lanes": [
           "suspending_jerkbait",
-          "wacky_rigged_stick_worm",
+          "weightless_stick_worm",
           "game_changer"
         ],
         "disallowed_lanes": [
@@ -1567,7 +1567,7 @@
         ],
         "acceptable_secondary_lanes": [
           "squarebill_crankbait",
-          "texas_rigged_stick_worm",
+          "weightless_stick_worm",
           "clouser_minnow"
         ],
         "disallowed_lanes": [

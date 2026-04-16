@@ -173,8 +173,6 @@ export const V3_SCORED_VARIABLE_KEYS_BY_CONTEXT: Record<
 
 export const LURE_ARCHETYPE_IDS_V3 = [
   "weightless_stick_worm",
-  "texas_rigged_stick_worm",
-  "wacky_rigged_stick_worm",
   "carolina_rigged_stick_worm",
   "shaky_head_worm",
   "drop_shot_worm",
@@ -354,6 +352,11 @@ export type RecommenderV3SeasonalRow = {
   eligible_fly_ids: readonly FlyArchetypeIdV3[];
 };
 
+export type RecommenderV3ResolvedSeasonalRow = RecommenderV3SeasonalRow & {
+  source_region_key: RegionKey;
+  used_region_fallback: boolean;
+};
+
 export type RecommenderV3ResolvedProfile = {
   monthly_baseline: RecommenderV3MonthlyBaselineProfile;
   daily_preference: RecommenderV3DailyTacticalPreference;
@@ -401,11 +404,13 @@ export type RecommenderV3Response = {
   species: RecommenderV3Species;
   context: RecommenderV3Context;
   region_key: RegionKey;
+  seasonal_source_region_key: RegionKey;
+  used_region_fallback: boolean;
   month: number;
   water_clarity: WaterClarity;
   variables_considered: readonly string[];
   daily_payload: RecommenderV3DailyPayload;
-  seasonal_row: RecommenderV3SeasonalRow;
+  seasonal_row: RecommenderV3ResolvedSeasonalRow;
   resolved_profile: RecommenderV3ResolvedProfile;
   lure_recommendations: RecommenderV3RankedArchetype[];
   fly_recommendations: RecommenderV3RankedArchetype[];

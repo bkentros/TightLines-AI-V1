@@ -67,9 +67,9 @@ function floridaLakeExpectation(
     case "spawn_postspawn_transition":
       if (scenario.month === 5) {
         return expectation(
-          "Florida May postspawn largemouth should still stay shallow and target-oriented, but in the current seasonal pool that means texas-rigged stick worm, swim jig, compact jig, and paddle-tail style follow-ups rather than the older stick-worm-only finesse spread.",
+          "Florida May postspawn largemouth should still stay shallow and target-oriented, and in the current seasonal pool that means a single weedless stick worm, swim jig, compact jig, and paddle-tail style follow-ups rather than the older split stick-worm finesse spread.",
           [
-            "texas_rigged_stick_worm",
+            "weightless_stick_worm",
             "swim_jig",
             "compact_flipping_jig",
             "paddle_tail_swimbait",
@@ -81,7 +81,7 @@ function floridaLakeExpectation(
       }
       return expectation(
         "Florida spawn and immediate postspawn should stay shallow and target-oriented first, with one clean baitfish follow-up lane; hollow-body frog can join only on legitimately open aggressive spring days around shallow cover.",
-        ["weightless_stick_worm", "wacky_rigged_stick_worm", "compact_flipping_jig"],
+        ["weightless_stick_worm", "compact_flipping_jig"],
         ["swim_jig", "paddle_tail_swimbait", "woolly_bugger", "hollow_body_frog"],
         clarity === "clear" ? colorSet("natural", "natural", "natural") : stainedColors(),
         ["blade_bait"],
@@ -91,7 +91,7 @@ function floridaLakeExpectation(
         return expectation(
           "Late-summer Florida largemouth should still lean grass, cover, and surface-adjacent lanes, and this archived August window is one of the cleaner prop-bait opportunities rather than a forced buzz-only read.",
           ["hollow_body_frog", "swim_jig", "buzzbait", "prop_bait"],
-          ["compact_flipping_jig", "texas_rigged_stick_worm", "frog_fly"],
+          ["compact_flipping_jig", "weightless_stick_worm", "frog_fly"],
           clarity === "dirty" ? colorSet("natural", "dark", "natural") : colorSet("natural", "natural", "dark"),
           ["blade_bait", "drop_shot_worm", "suspending_jerkbait"],
         );
@@ -99,7 +99,7 @@ function floridaLakeExpectation(
       return expectation(
         "Early- to midsummer Florida largemouth should lean grass, cover, and aggressive surface-adjacent lanes, but prop bait is still a supporting option until the cleaner late-summer cadence truly opens.",
         ["hollow_body_frog", "swim_jig", "buzzbait"],
-        ["compact_flipping_jig", "texas_rigged_stick_worm", "frog_fly", "prop_bait"],
+        ["compact_flipping_jig", "weightless_stick_worm", "frog_fly", "prop_bait"],
         clarity === "dirty" ? colorSet("natural", "dark", "natural") : colorSet("natural", "natural", "dark"),
         ["blade_bait", "drop_shot_worm", "suspending_jerkbait"],
       );
@@ -139,7 +139,7 @@ function texasReservoirExpectation(
     case "spawn_postspawn_transition":
       return expectation(
         "Texas spawn-to-postspawn largemouth should balance target fishing with one or two clean horizontal follow-up lanes.",
-        ["compact_flipping_jig", "wacky_rigged_stick_worm", "swim_jig"],
+        ["compact_flipping_jig", "weightless_stick_worm", "swim_jig"],
         ["weightless_stick_worm", "paddle_tail_swimbait", "soft_jerkbait"],
         colorSet("natural", "natural", "natural"),
         ["blade_bait", "walking_topwater"],
@@ -237,7 +237,7 @@ function alabamaRiverExpectation(
       return expectation(
         "Summer river largemouth should lean current-edge, shade, and ambush lanes rather than generic lake finesse.",
         ["swim_jig", "spinnerbait", "soft_jerkbait"],
-        ["squarebill_crankbait", "texas_rigged_stick_worm", "clouser_minnow"],
+        ["squarebill_crankbait", "weightless_stick_worm", "clouser_minnow"],
         stainedColors(),
         ["drop_shot_worm", "blade_bait"],
       );
@@ -285,7 +285,6 @@ function newYorkLakeExpectation(scenario: LargemouthMatrixScenario): Recommender
         "Spawn and immediate postspawn in clear northern lakes should lean shallow target-fishing first, with swim jig and finesse worms in the core set; compact jig is allowed to lead on cold, windy April days or when crawfish-and-structure scoring favors a tighter cover read over roaming finesse.",
         [
           "weightless_stick_worm",
-          "wacky_rigged_stick_worm",
           "swim_jig",
           "compact_flipping_jig",
         ],
@@ -301,7 +300,7 @@ function newYorkLakeExpectation(scenario: LargemouthMatrixScenario): Recommender
             "paddle_tail_swimbait",
             "drop_shot_worm",
             "swim_jig",
-            "wacky_rigged_stick_worm",
+            "weightless_stick_worm",
             "walking_topwater",
           ],
           ["hollow_body_frog", "woolly_bugger", "soft_jerkbait"],
@@ -311,11 +310,10 @@ function newYorkLakeExpectation(scenario: LargemouthMatrixScenario): Recommender
       }
       if (scenario.month === 8) {
         return expectation(
-          "Northern GLUM-zone late-summer largemouth on the current northeast seasonal row is a cleaner worm-and-soft-jerkbait story: wacky rig, texas-rigged stick worm, drop-shot, and soft jerkbait should do the heavy lifting, without forcing swim jig or paddle-tail lanes that are no longer in the eligible pool.",
+          "Northern GLUM-zone late-summer largemouth on the current northeast seasonal row is a cleaner worm-and-soft-jerkbait story: the single stick worm, drop-shot, and soft jerkbait should do the heavy lifting, without forcing swim jig or paddle-tail lanes that are no longer in the eligible pool.",
           [
             "soft_jerkbait",
-            "wacky_rigged_stick_worm",
-            "texas_rigged_stick_worm",
+            "weightless_stick_worm",
             "drop_shot_worm",
           ],
           ["weightless_stick_worm", "shaky_head_worm", "carolina_rigged_stick_worm"],
@@ -329,7 +327,7 @@ function newYorkLakeExpectation(scenario: LargemouthMatrixScenario): Recommender
           "paddle_tail_swimbait",
           "drop_shot_worm",
           "swim_jig",
-          "wacky_rigged_stick_worm",
+          "weightless_stick_worm",
         ],
         ["hollow_body_frog", "woolly_bugger", "soft_jerkbait"],
         clearColors(),
@@ -369,7 +367,7 @@ function michiganClearLakeExpectation(scenario: LargemouthMatrixScenario): Recom
     case "spawn_postspawn_transition":
       return expectation(
         "Michigan spawn and immediate postspawn largemouth should stay shallow and target-oriented first, with one clean baitfish follow-up lane.",
-        ["weightless_stick_worm", "wacky_rigged_stick_worm", "swim_jig"],
+        ["weightless_stick_worm", "swim_jig"],
         ["soft_jerkbait", "paddle_tail_swimbait", "woolly_bugger"],
         clearColors(),
         ["blade_bait"],
@@ -377,7 +375,7 @@ function michiganClearLakeExpectation(scenario: LargemouthMatrixScenario): Recom
     case "summer_positioning":
       return expectation(
         "Clear Michigan summer largemouth should favor weed-edge swim-jig, paddle-tail, and finesse lanes first; on this archived subtle clear-water window, true surface baits should not be required.",
-        ["swim_jig", "paddle_tail_swimbait", "wacky_rigged_stick_worm", "drop_shot_worm"],
+        ["swim_jig", "paddle_tail_swimbait", "weightless_stick_worm", "drop_shot_worm"],
         ["soft_jerkbait", "woolly_bugger"],
         clearColors(),
         ["walking_topwater", "buzzbait", "prop_bait", "blade_bait"],
@@ -399,15 +397,15 @@ function wisconsinWeedLakeExpectation(focus: string): RecommenderAuditExpectatio
     case "spawn_postspawn_transition":
       return expectation(
         "Wisconsin postspawn largemouth should still stay shallow and weed-edge oriented, with finesse and swim-jig lanes ahead of offshore or cold-water tools.",
-        ["weightless_stick_worm", "wacky_rigged_stick_worm", "swim_jig"],
+        ["weightless_stick_worm", "swim_jig"],
         ["paddle_tail_swimbait", "soft_jerkbait", "woolly_bugger"],
         clearColors(),
         ["blade_bait"],
       );
     case "summer_positioning":
       return expectation(
-        "Wisconsin clear weed-lake summer largemouth can still rotate between swim jig, weightless/wacky finesse, and one clean surface lane, but suppressed bluebird days should let the finesse worm take over instead of forcing topwater.",
-        ["swim_jig", "weightless_stick_worm", "wacky_rigged_stick_worm", "walking_topwater"],
+        "Wisconsin clear weed-lake summer largemouth can still rotate between swim jig, a single finesse stick worm, and one clean surface lane, but suppressed bluebird days should let the finesse worm take over instead of forcing topwater.",
+        ["swim_jig", "weightless_stick_worm", "walking_topwater"],
         ["hollow_body_frog", "paddle_tail_swimbait"],
         clearColors(),
         ["blade_bait"],
@@ -449,7 +447,7 @@ function illinoisBackwaterRiverExpectation(
       return expectation(
         "Spring Illinois river-backwater largemouth should still fish around wood, eddies, and soft current with moving seam lanes and one controlled backup.",
         ["swim_jig", "spinnerbait", "compact_flipping_jig"],
-        ["soft_jerkbait", "paddle_tail_swimbait", "texas_rigged_stick_worm"],
+        ["soft_jerkbait", "paddle_tail_swimbait", "weightless_stick_worm"],
         stainedColors(),
         ["hollow_body_frog"],
       );
@@ -457,7 +455,7 @@ function illinoisBackwaterRiverExpectation(
       return expectation(
         "Summer Illinois backwater largemouth should absolutely allow slop and ambush tools like frog, swim jig, and spinnerbait before trying to get cute with clean-water finesse.",
         ["hollow_body_frog", "swim_jig", "spinnerbait"],
-        ["buzzbait", "texas_rigged_stick_worm", "frog_fly"],
+        ["buzzbait", "weightless_stick_worm", "frog_fly"],
         colorSet("natural", "dark", "bright"),
         ["drop_shot_worm", "blade_bait"],
       );
@@ -514,14 +512,14 @@ function ohioReservoirExpectation(focus: string): RecommenderAuditExpectation {
       return expectation(
         "Ohio summer reservoir largemouth should lean structure, edge, and mid-depth baitfish lanes over southern-style pure slop and mat fishing.",
         ["swim_jig", "football_jig", "paddle_tail_swimbait"],
-        ["deep_diving_crankbait", "texas_rigged_stick_worm", "game_changer", "hollow_body_frog"],
+        ["deep_diving_crankbait", "weightless_stick_worm", "game_changer", "hollow_body_frog"],
         stainedColors(),
         ["buzzbait", "prop_bait"],
       );
     default:
       return expectation(
         "Ohio spring reservoir largemouth should balance target-fishing first with one clean horizontal baitfish follow-up lane.",
-        ["wacky_rigged_stick_worm", "compact_flipping_jig", "swim_jig"],
+        ["weightless_stick_worm", "compact_flipping_jig", "swim_jig"],
         ["weightless_stick_worm", "paddle_tail_swimbait", "soft_jerkbait"],
         colorSet("natural", "natural", "bright"),
         ["blade_bait", "walking_topwater"],
@@ -545,7 +543,7 @@ function georgiaHighlandExpectation(focus: string): RecommenderAuditExpectation 
   if (focus === "spawn_postspawn_transition") {
     return expectation(
       "Georgia highland April-to-May largemouth should stay target-oriented first, but this is one of the southern spring windows where a frog can still be seasonally viable when low light and shallow cover line up.",
-      ["compact_flipping_jig", "wacky_rigged_stick_worm", "swim_jig"],
+      ["compact_flipping_jig", "weightless_stick_worm", "swim_jig"],
       ["soft_jerkbait", "paddle_tail_swimbait", "woolly_bugger", "hollow_body_frog"],
       colorSet("natural", "natural", "natural"),
       ["squarebill_crankbait"],
@@ -583,7 +581,7 @@ function louisianaGrassExpectation(focus: string): RecommenderAuditExpectation {
       return expectation(
         "Warm southern grass largemouth should still favor visible shallow-cover and baitfish lanes, but the current seasonal pool on this archived neutral June window is more soft-jerkbait, spinnerbait, swim-jig, and medium-crank than true frog-only surface behavior.",
         ["soft_jerkbait", "spinnerbait", "swim_jig", "medium_diving_crankbait"],
-        ["paddle_tail_swimbait", "wacky_rigged_stick_worm", "squarebill_crankbait"],
+        ["paddle_tail_swimbait", "weightless_stick_worm", "squarebill_crankbait"],
         colorSet("natural", "natural", "dark"),
         ["blade_bait"],
       );
@@ -621,7 +619,7 @@ function ozarksExpectation(focus: string): RecommenderAuditExpectation {
       return expectation(
         "Postspawn Ozarks largemouth should allow cleaner shad-following lanes with one controlled backup.",
         ["swim_jig", "paddle_tail_swimbait", "soft_jerkbait"],
-        ["suspending_jerkbait", "wacky_rigged_stick_worm", "game_changer"],
+        ["suspending_jerkbait", "weightless_stick_worm", "game_changer"],
         clearColors(),
         ["blade_bait"],
       );
@@ -642,7 +640,7 @@ function minnesotaExpectation(scenario: LargemouthMatrixScenario): RecommenderAu
     case "spawn_postspawn_transition":
       return expectation(
         "Northern weedline largemouth around spawn/postspawn should stay shallow and target-oriented first.",
-        ["weightless_stick_worm", "wacky_rigged_stick_worm", "swim_jig"],
+        ["weightless_stick_worm", "swim_jig"],
         ["paddle_tail_swimbait", "soft_jerkbait", "woolly_bugger"],
         clearColors(),
         ["blade_bait"],
@@ -651,7 +649,7 @@ function minnesotaExpectation(scenario: LargemouthMatrixScenario): RecommenderAu
       return expectation(
         "Northern weedline summer largemouth should stay weed-edge and bluegill-oriented first, with swim jig and weightless worm leading; these archived July and August windows do not need walking topwater to validate the pattern.",
         ["swim_jig", "weightless_stick_worm"],
-        ["hollow_body_frog", "mouse_fly", "paddle_tail_swimbait", "wacky_rigged_stick_worm"],
+        ["hollow_body_frog", "mouse_fly", "paddle_tail_swimbait", "weightless_stick_worm"],
         colorSet("natural", "natural", "natural"),
         ["blade_bait", "walking_topwater"],
       );
@@ -830,23 +828,23 @@ function northeastMaineLakeExpectation(focus: string): RecommenderAuditExpectati
         ["walking_topwater", "hollow_body_frog"],
       );
     case "spawn_postspawn_transition":
-      // NORTHERN_CLEAR_SPAWN_LAKE [4,5]: weightless_stick_worm(0), wacky, swim_jig, compact_flipping_jig
+      // NORTHERN_CLEAR_SPAWN_LAKE [4,5]: weightless_stick_worm(0), swim_jig, compact_flipping_jig
       // Finesse-spawn posture: stick worms lead on active days, but compact jig wins when
       // crawfish-primary forage scoring edges out the stick worm on pre-spawn structure days
       return expectation(
         "Northeast clear-lake spawn and postspawn largemouth should open with finesse stick-worm lanes first; compact jig surfaces when crawfish-primary forage scoring edges it ahead of stick worms, and soft jerkbait can steal the lead on cleaner warming days that pull fish higher.",
-        ["weightless_stick_worm", "wacky_rigged_stick_worm", "swim_jig", "compact_flipping_jig", "soft_jerkbait"],
+        ["weightless_stick_worm", "swim_jig", "compact_flipping_jig", "soft_jerkbait"],
         ["paddle_tail_swimbait", "woolly_bugger"],
         colorSet("natural", "natural", "natural"),
         ["hollow_body_frog", "blade_bait"],
       );
     case "summer_positioning":
-      // NORTHERN_CLEAR_SUMMER_LAKE [6,7]: wacky_rigged_stick_worm(0), weightless, drop_shot, swim_jig
+      // NORTHERN_CLEAR_SUMMER_LAKE [6,7]: weightless_stick_worm(0), drop_shot, swim_jig
       // bluegill_perch primary forage, base_presentation=subtle
       // On hot bluebird days: active mood + bluegill_perch forage → swim_jig (natural colors) surfaces
       return expectation(
-        "Northeast clear-lake summer largemouth: wacky rig and stick worm lead on subtle days; swim jig with perch/bluegill colors takes over on hot bluebird days when active mood and bluegill_perch forage scoring push horizontal presentations ahead of finesse.",
-        ["wacky_rigged_stick_worm", "weightless_stick_worm", "drop_shot_worm", "swim_jig"],
+        "Northeast clear-lake summer largemouth: the single stick worm leads on subtle days, while swim jig with perch/bluegill colors takes over on hot bluebird days when active mood and bluegill_perch forage scoring push horizontal presentations ahead of finesse.",
+        ["weightless_stick_worm", "drop_shot_worm", "swim_jig"],
         ["soft_jerkbait", "game_changer"],
         colorSet("natural", "natural", "natural", "natural"),
         ["hollow_body_frog", "buzzbait", "prop_bait", "blade_bait"],
@@ -923,7 +921,7 @@ function midwestDirtyBackwaterExpectation(focus: string): RecommenderAuditExpect
       return expectation(
         "Midwest dirty backwater summer: walking topwater and prop bait both drop off in dirty water; popping topwater, buzzbait, hollow body frog, and swim jig carry the real dirty-water surface and cover bonuses.",
         ["popping_topwater", "buzzbait", "hollow_body_frog", "swim_jig"],
-        ["paddle_tail_swimbait", "texas_rigged_stick_worm", "frog_fly"],
+        ["paddle_tail_swimbait", "weightless_stick_worm", "frog_fly"],
         colorSet("bright", "dark", "natural", "natural"),
         ["walking_topwater", "prop_bait", "deep_diving_crankbait", "blade_bait"],
       );

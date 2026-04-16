@@ -73,13 +73,7 @@ export const LURE_ARCHETYPE_EXPECTATIONS: Record<
   RecommenderV3ArchetypeAuditExpectation
 > = {
   weightless_stick_worm: winner(
-    "Shallow clear-water finesse fall for neutral or pressured fish.",
-  ),
-  texas_rigged_stick_worm: winner(
     "Weedless stick-worm cover lane across shallow to mid-depth.",
-  ),
-  wacky_rigged_stick_worm: winner(
-    "Subtle neutral-fish finesse stick-worm lane.",
   ),
   carolina_rigged_stick_worm: specialtySupport(
     "Deeper dragging stick-worm support lane on structure.",

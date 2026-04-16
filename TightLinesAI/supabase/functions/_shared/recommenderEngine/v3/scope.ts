@@ -37,6 +37,13 @@ const LEGACY_TO_V3_SPECIES: Partial<Record<SpeciesGroup, RecommenderV3Species>> 
   river_trout: "trout",
 };
 
+const V3_TO_LEGACY_SPECIES: Record<RecommenderV3Species, SpeciesGroup> = {
+  largemouth_bass: "largemouth_bass",
+  smallmouth_bass: "smallmouth_bass",
+  northern_pike: "pike_musky",
+  trout: "river_trout",
+};
+
 export const RECOMMENDER_V3_SPECIES_CONTEXTS: Record<
   RecommenderV3Species,
   readonly RecommenderV3Context[]
@@ -60,6 +67,12 @@ export function toRecommenderV3Species(
 ): RecommenderV3Species | null {
   if (isRecommenderV3Species(species)) return species;
   return LEGACY_TO_V3_SPECIES[species] ?? null;
+}
+
+export function toLegacyRecommenderSpecies(
+  species: RecommenderV3Species,
+): SpeciesGroup {
+  return V3_TO_LEGACY_SPECIES[species];
 }
 
 export function isContextAllowedForRecommenderV3(

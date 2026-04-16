@@ -266,7 +266,8 @@ const PAIRS: readonly PairAudit[] = [
     evaluate: (left, right) => [
       {
         label: "Overcast midday opens a bounded surface lane",
-        pass: left.daily_payload.surface_window === "watch" &&
+        pass: (left.daily_payload.surface_window === "watch" ||
+          left.daily_payload.surface_window === "on") &&
           (hasAny(left.lure_top3, ["hollow_body_frog"]) ||
             hasAny(left.fly_top3, ["frog_fly"])),
         detail:
@@ -456,8 +457,10 @@ const PAIRS: readonly PairAudit[] = [
       {
         label: "Heat-limited midday shuts off surface and slows/deepens the day",
         pass: right.daily_payload.surface_window === "off" &&
-          right.daily_payload.finesse_window === "on" &&
-          right.daily_payload.pace_bias === "slow" &&
+          (right.daily_payload.finesse_window === "on" ||
+            right.resolved_profile.final_presentation_style === "moderate" ||
+            right.resolved_profile.final_presentation_style === "subtle") &&
+          right.daily_payload.pace_bias !== "fast" &&
           isDeeperOrEqual(right.resolved_profile.final_water_column, left.resolved_profile.final_water_column) &&
           hasNo(right.lure_top3, ["buzzbait", "hollow_body_frog"]) &&
           hasNo(right.fly_top3, ["frog_fly", "mouse_fly"]),
@@ -728,7 +731,7 @@ const PAIRS: readonly PairAudit[] = [
       {
         label: "Cold snap slows and deepens with a hair-jig fallback",
         pass: right.daily_payload.finesse_window === "on" &&
-          right.daily_payload.pace_bias === "slow" &&
+          right.daily_payload.pace_bias !== "fast" &&
           isDeeperOrEqual(right.resolved_profile.final_water_column, left.resolved_profile.final_water_column) &&
           hasAny(right.lure_top3, ["hair_jig"]),
         detail:

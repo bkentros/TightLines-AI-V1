@@ -166,11 +166,12 @@ const SPRING_LAKE_LURES: readonly LureArchetypeIdV3[] = [
   "soft_jerkbait",
   "suspending_jerkbait",
 ];
-/** Jun–Jul northern / mountain: stratified water; no hollow-body / walker hedge. */
+/** Jun–Jul northern / mountain: stratified water; bounded walker lane is allowed in low-light windows. */
 const SUMMER_PEAK_STRATIFIED_LAKE_LURES: readonly LureArchetypeIdV3[] = [
   "large_profile_pike_swimbait",
   "pike_jerkbait",
   "suspending_jerkbait",
+  "walking_topwater",
   "spinnerbait",
   "paddle_tail_swimbait",
   "blade_bait",
@@ -203,6 +204,47 @@ const FALL_LAKE_LURES: readonly LureArchetypeIdV3[] = [
   "casting_spoon",
   "suspending_jerkbait",
 ];
+/** Far-north September: fall movers + early blade tick for cooling basin water. */
+const ALASKA_SEP_FALL_LAKE_LURES: readonly LureArchetypeIdV3[] = [
+  "large_profile_pike_swimbait",
+  "pike_jerkbait",
+  "blade_bait",
+  "paddle_tail_swimbait",
+  "spinnerbait",
+  "casting_spoon",
+  "suspending_jerkbait",
+];
+/** Alaska November: cold basin read — metal/thump before paddle-tail finesse. */
+const ALASKA_NOV_WINTER_LAKE_LURES: readonly LureArchetypeIdV3[] = [
+  "large_profile_pike_swimbait",
+  "pike_jerkbait",
+  "blade_bait",
+  "suspending_jerkbait",
+  "casting_spoon",
+];
+/** North Dakota late-winter reservoir: slow suspend/jerk before paddle shimmies. */
+const ND_FEB_WINTER_LAKE_LURES: readonly LureArchetypeIdV3[] = [
+  "suspending_jerkbait",
+  "pike_jerkbait",
+  "large_profile_pike_swimbait",
+  "casting_spoon",
+  "blade_bait",
+];
+/** North Dakota May: cold-front jerk/suspend story without spinner stealing the headline. */
+const ND_MAY_SPRING_LAKE_LURES: readonly LureArchetypeIdV3[] = [
+  "pike_jerkbait",
+  "suspending_jerkbait",
+  "large_profile_pike_swimbait",
+];
+/** North Dakota August heat: moving bulk in the water column without blade-only cold reads. */
+const ND_AUG_HOT_LAKE_LURES: readonly LureArchetypeIdV3[] = [
+  "large_profile_pike_swimbait",
+  "pike_jerkbait",
+  "paddle_tail_swimbait",
+  "suspending_jerkbait",
+  "spinnerbait",
+  "casting_spoon",
+];
 
 const WINTER_RIVER_LURES: readonly LureArchetypeIdV3[] = [
   "pike_jerkbait",
@@ -223,6 +265,7 @@ const SUMMER_PEAK_STRATIFIED_RIVER_LURES: readonly LureArchetypeIdV3[] = [
   "pike_jerkbait",
   "large_profile_pike_swimbait",
   "suspending_jerkbait",
+  "walking_topwater",
   "spinnerbait",
   "paddle_tail_swimbait",
   "inline_spinner",
@@ -252,6 +295,57 @@ const FALL_RIVER_LURES: readonly LureArchetypeIdV3[] = [
   "spinnerbait",
   "casting_spoon",
   "inline_spinner",
+];
+/** Upper-Midwest moving-water late fall: keep blade/search before flashy inline in current seams. */
+const GLUM_LATEFALL_RIVER_LURES: readonly LureArchetypeIdV3[] = [
+  "large_profile_pike_swimbait",
+  "pike_jerkbait",
+  "paddle_tail_swimbait",
+  "spinnerbait",
+  "casting_spoon",
+  "suspending_jerkbait",
+  "blade_bait",
+];
+/** Rainy-style October: bulk/jerk before bright spinner in cooling current. */
+const GLUM_RIVER_OCT_RIVER_LURES: readonly LureArchetypeIdV3[] = [
+  "large_profile_pike_swimbait",
+  "pike_jerkbait",
+  "paddle_tail_swimbait",
+  "casting_spoon",
+  "suspending_jerkbait",
+  "blade_bait",
+];
+/** GLUM big-river summer: jerk + bulk leads before suspend/inline finesse in stained current. */
+const GLUM_SUMMER_RIVER_LURES: readonly LureArchetypeIdV3[] = [
+  "pike_jerkbait",
+  "large_profile_pike_swimbait",
+  "spinnerbait",
+  "paddle_tail_swimbait",
+  "suspending_jerkbait",
+  "walking_topwater",
+  "inline_spinner",
+  "blade_bait",
+];
+/** Alaska midsummer open-water: compressed window favors thump/search over novelty surface. */
+const ALASKA_MIDSUMMER_SUBSURFACE_LAKE_LURES: readonly LureArchetypeIdV3[] = [
+  "large_profile_pike_swimbait",
+  "pike_jerkbait",
+  "spinnerbait",
+  "paddle_tail_swimbait",
+  "suspending_jerkbait",
+  "blade_bait",
+  "casting_spoon",
+];
+/** Inland NW clear river summer: position-zero jerk before thermocline-style suspend in cold gradient water. */
+const INLAND_NW_SUMMER_RIVER_LURES: readonly LureArchetypeIdV3[] = [
+  "pike_jerkbait",
+  "paddle_tail_swimbait",
+  "spinnerbait",
+  "large_profile_pike_swimbait",
+  "soft_jerkbait",
+  "inline_spinner",
+  "suspending_jerkbait",
+  "blade_bait",
 ];
 
 // --- Fly pools (surface IDs only when monthly surface flag is true) ---
@@ -432,8 +526,8 @@ addMonths(NORTHERN_CORE_REGIONS, "freshwater_lake_pond", [6, 7], {
   base_presentation_style: "leaning_subtle",
   primary_forage: "baitfish",
   secondary_forage: "bluegill_perch",
-  primary_lure_archetypes: ["suspending_jerkbait", "large_profile_pike_swimbait"],
-  primary_fly_archetypes: ["large_articulated_pike_streamer", "pike_bunny_streamer"],
+  primary_lure_archetypes: ["suspending_jerkbait", "walking_topwater", "large_profile_pike_swimbait"],
+  primary_fly_archetypes: ["popper_fly", "large_articulated_pike_streamer", "pike_bunny_streamer"],
   viable_lure_archetypes: SUMMER_PEAK_STRATIFIED_LAKE_LURES,
   viable_fly_archetypes: SUMMER_PEAK_STRATIFIED_LAKE_FLIES,
 });
@@ -692,8 +786,8 @@ addMonths(MOUNTAIN_REGIONS, "freshwater_lake_pond", [6, 7, 8], {
   base_presentation_style: "leaning_subtle",
   primary_forage: "baitfish",
   secondary_forage: "bluegill_perch",
-  primary_lure_archetypes: ["suspending_jerkbait", "large_profile_pike_swimbait"],
-  primary_fly_archetypes: ["large_articulated_pike_streamer", "pike_bunny_streamer"],
+  primary_lure_archetypes: ["suspending_jerkbait", "walking_topwater", "large_profile_pike_swimbait"],
+  primary_fly_archetypes: ["popper_fly", "large_articulated_pike_streamer", "pike_bunny_streamer"],
   viable_lure_archetypes: SUMMER_PEAK_STRATIFIED_LAKE_LURES,
   viable_fly_archetypes: SUMMER_PEAK_STRATIFIED_LAKE_FLIES,
 });
@@ -758,6 +852,168 @@ addMonths(MOUNTAIN_REGIONS, "freshwater_river", [9, 10, 11], {
   primary_fly_archetypes: ["large_articulated_pike_streamer", "pike_bunny_streamer"],
   viable_lure_archetypes: FALL_RIVER_LURES,
   viable_fly_archetypes: FALL_RIVER_FLIES,
+});
+
+// --- Targeted matrix / overlay refinements (applied after biome baselines above) ---
+
+// Rainy River (great_lakes_upper_midwest river): current-seam jerk + bulk through summer; late fall without inline hijack.
+addMonths(["great_lakes_upper_midwest"], "freshwater_river", [6, 7], {
+  surface_seasonally_possible: true,
+  base_water_column: "mid",
+  base_mood: "neutral_subtle",
+  base_presentation_style: "leaning_subtle",
+  primary_forage: "baitfish",
+  secondary_forage: "bluegill_perch",
+  primary_lure_archetypes: ["pike_jerkbait", "large_profile_pike_swimbait", "spinnerbait"],
+  primary_fly_archetypes: ["large_articulated_pike_streamer", "pike_bunny_streamer", "articulated_baitfish_streamer"],
+  viable_lure_archetypes: GLUM_SUMMER_RIVER_LURES,
+  viable_fly_archetypes: SUMMER_PEAK_STRATIFIED_RIVER_FLIES,
+});
+addMonths(["great_lakes_upper_midwest"], "freshwater_river", [10], {
+  surface_seasonally_possible: false,
+  base_water_column: "mid",
+  base_mood: "active",
+  base_presentation_style: "leaning_bold",
+  primary_forage: "baitfish",
+  secondary_forage: "bluegill_perch",
+  primary_lure_archetypes: ["large_profile_pike_swimbait", "pike_jerkbait", "paddle_tail_swimbait"],
+  primary_fly_archetypes: ["large_articulated_pike_streamer", "pike_bunny_streamer", "articulated_baitfish_streamer"],
+  viable_lure_archetypes: GLUM_RIVER_OCT_RIVER_LURES,
+  viable_fly_archetypes: FALL_RIVER_FLIES,
+});
+addMonths(["great_lakes_upper_midwest"], "freshwater_river", [11], {
+  surface_seasonally_possible: false,
+  base_water_column: "mid",
+  base_mood: "active",
+  base_presentation_style: "leaning_bold",
+  primary_forage: "baitfish",
+  secondary_forage: "bluegill_perch",
+  primary_lure_archetypes: ["large_profile_pike_swimbait", "pike_jerkbait", "paddle_tail_swimbait"],
+  primary_fly_archetypes: ["large_articulated_pike_streamer", "pike_bunny_streamer", "articulated_baitfish_streamer"],
+  viable_lure_archetypes: GLUM_LATEFALL_RIVER_LURES,
+  viable_fly_archetypes: FALL_RIVER_FLIES,
+});
+
+// Alaska interior lake overlay: subsurface-first midsummer; cold-shoulder Sep/Nov align with blade + large baits.
+addMonths(["alaska"], "freshwater_lake_pond", [7], {
+  surface_seasonally_possible: false,
+  base_water_column: "mid",
+  base_mood: "active",
+  base_presentation_style: "leaning_bold",
+  primary_forage: "baitfish",
+  secondary_forage: "bluegill_perch",
+  primary_lure_archetypes: ["large_profile_pike_swimbait", "pike_jerkbait", "spinnerbait"],
+  primary_fly_archetypes: ["large_articulated_pike_streamer", "pike_bunny_streamer", "articulated_baitfish_streamer"],
+  viable_lure_archetypes: ALASKA_MIDSUMMER_SUBSURFACE_LAKE_LURES,
+  viable_fly_archetypes: SUMMER_HOT_INTERIOR_LAKE_FLIES,
+});
+addMonths(["alaska"], "freshwater_lake_pond", [9], {
+  surface_seasonally_possible: false,
+  base_water_column: "mid",
+  base_mood: "active",
+  base_presentation_style: "leaning_bold",
+  primary_forage: "baitfish",
+  secondary_forage: "bluegill_perch",
+  primary_lure_archetypes: ["large_profile_pike_swimbait", "pike_jerkbait", "blade_bait"],
+  primary_fly_archetypes: ["large_articulated_pike_streamer", "pike_bunny_streamer", "articulated_baitfish_streamer"],
+  viable_lure_archetypes: ALASKA_SEP_FALL_LAKE_LURES,
+  viable_fly_archetypes: FALL_LAKE_FLIES,
+});
+addMonths(["alaska"], "freshwater_lake_pond", [11], {
+  surface_seasonally_possible: false,
+  base_water_column: "mid",
+  base_mood: "negative",
+  base_presentation_style: "leaning_subtle",
+  primary_forage: "baitfish",
+  secondary_forage: "bluegill_perch",
+  primary_lure_archetypes: ["large_profile_pike_swimbait", "pike_jerkbait", "blade_bait"],
+  primary_fly_archetypes: ["large_articulated_pike_streamer", "pike_bunny_streamer", "balanced_leech"],
+  viable_lure_archetypes: ALASKA_NOV_WINTER_LAKE_LURES,
+  viable_fly_archetypes: WINTER_LAKE_FLIES,
+});
+
+// North Dakota interior reservoir: align cold February, windy May, and heat-compressed August with matrix primaries.
+addMonths(["midwest_interior"], "freshwater_lake_pond", [2], {
+  surface_seasonally_possible: false,
+  base_water_column: "mid",
+  base_mood: "negative",
+  base_presentation_style: "leaning_subtle",
+  primary_forage: "baitfish",
+  secondary_forage: "bluegill_perch",
+  primary_lure_archetypes: ["suspending_jerkbait", "pike_jerkbait", "large_profile_pike_swimbait"],
+  primary_fly_archetypes: ["pike_bunny_streamer", "articulated_dungeon_streamer", "large_articulated_pike_streamer"],
+  viable_lure_archetypes: ND_FEB_WINTER_LAKE_LURES,
+  viable_fly_archetypes: WINTER_LAKE_FLIES,
+});
+addMonths(["midwest_interior"], "freshwater_lake_pond", [5], {
+  surface_seasonally_possible: false,
+  base_water_column: "shallow",
+  base_mood: "neutral",
+  base_presentation_style: "balanced",
+  primary_forage: "baitfish",
+  secondary_forage: "bluegill_perch",
+  primary_lure_archetypes: ["pike_jerkbait", "suspending_jerkbait", "large_profile_pike_swimbait"],
+  primary_fly_archetypes: ["pike_bunny_streamer", "large_articulated_pike_streamer", "articulated_dungeon_streamer"],
+  viable_lure_archetypes: ND_MAY_SPRING_LAKE_LURES,
+  viable_fly_archetypes: SPRING_LAKE_FLIES,
+});
+addMonths(["midwest_interior"], "freshwater_lake_pond", [8], {
+  surface_seasonally_possible: false,
+  base_water_column: "bottom",
+  base_mood: "neutral_subtle",
+  base_presentation_style: "leaning_subtle",
+  primary_forage: "baitfish",
+  secondary_forage: "bluegill_perch",
+  primary_lure_archetypes: ["large_profile_pike_swimbait", "pike_jerkbait", "paddle_tail_swimbait"],
+  primary_fly_archetypes: ["large_articulated_pike_streamer", "articulated_dungeon_streamer", "pike_bunny_streamer"],
+  viable_lure_archetypes: ND_AUG_HOT_LAKE_LURES,
+  viable_fly_archetypes: SUMMER_HOT_INTERIOR_LAKE_FLIES,
+});
+
+// Idaho mountain river overlay: clear-gradient summer/fall/winter primaries without interior-bottom spoon hijacks.
+addMonths(["inland_northwest"], "freshwater_river", [7], {
+  surface_seasonally_possible: true,
+  base_water_column: "mid",
+  base_mood: "neutral",
+  base_presentation_style: "balanced",
+  primary_forage: "baitfish",
+  secondary_forage: "bluegill_perch",
+  primary_lure_archetypes: ["pike_jerkbait", "paddle_tail_swimbait", "spinnerbait"],
+  primary_fly_archetypes: ["large_articulated_pike_streamer", "pike_bunny_streamer", "clouser_minnow"],
+  viable_lure_archetypes: INLAND_NW_SUMMER_RIVER_LURES,
+  viable_fly_archetypes: SUMMER_PEAK_STRATIFIED_RIVER_FLIES,
+});
+addMonths(["inland_northwest"], "freshwater_river", [9], {
+  surface_seasonally_possible: false,
+  base_water_column: "mid",
+  base_mood: "active",
+  base_presentation_style: "leaning_bold",
+  primary_forage: "baitfish",
+  secondary_forage: "bluegill_perch",
+  primary_lure_archetypes: ["large_profile_pike_swimbait", "pike_jerkbait", "paddle_tail_swimbait"],
+  primary_fly_archetypes: ["large_articulated_pike_streamer", "pike_bunny_streamer", "articulated_baitfish_streamer"],
+  viable_lure_archetypes: [
+    "large_profile_pike_swimbait",
+    "pike_jerkbait",
+    "paddle_tail_swimbait",
+    "spinnerbait",
+    "inline_spinner",
+    "soft_jerkbait",
+    "suspending_jerkbait",
+  ],
+  viable_fly_archetypes: FALL_RIVER_FLIES,
+});
+addMonths(["inland_northwest"], "freshwater_river", [12], {
+  surface_seasonally_possible: false,
+  base_water_column: "mid",
+  base_mood: "negative",
+  base_presentation_style: "leaning_subtle",
+  primary_forage: "baitfish",
+  secondary_forage: "bluegill_perch",
+  primary_lure_archetypes: ["suspending_jerkbait", "pike_jerkbait", "large_profile_pike_swimbait"],
+  primary_fly_archetypes: ["pike_bunny_streamer", "articulated_dungeon_streamer", "large_articulated_pike_streamer"],
+  viable_lure_archetypes: WINTER_RIVER_LURES,
+  viable_fly_archetypes: WINTER_RIVER_FLIES,
 });
 
 // Narrow override: southern-interior spring river — heavy dungeon lead in colored water.

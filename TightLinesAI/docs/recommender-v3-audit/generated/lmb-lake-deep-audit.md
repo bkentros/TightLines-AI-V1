@@ -61,7 +61,7 @@ Scenarios run: **286** (skipped 0)
 | blade_bait | 7 | 2.4% | 0.68 | 0.55 | 5.82 |
 | drop_shot_worm | 5 | 1.7% | 2.88 | 0.55 | 6.74 |
 | buzzbait | 3 | 1.0% | 1.20 | 0.55 | 7.30 |
-| wacky_rigged_stick_worm | 2 | 0.7% | 3.18 | 0.55 | 7.46 |
+| weightless_stick_worm | 2 | 0.7% | 3.18 | 0.55 | 7.46 |
 | walking_topwater | 2 | 0.7% | 1.54 | 0.55 | 6.44 |
 | prop_bait | 2 | 0.7% | 1.71 | 0.55 | 6.03 |
 | squarebill_crankbait | 1 | 0.3% | 1.88 | 0.55 | 8.03 |

@@ -141,6 +141,24 @@ Deno.test("V3 surface exposes rebuilt monthly and daily summary fields", () => {
   assert(typeof summer.summary.daily_tactical_preference.posture_band === "string");
 });
 
+Deno.test("V3 surface still preserves legacy species naming while internal V3 keeps provenance", () => {
+  const trout = runRecommenderV3Surface(request({
+    location: {
+      latitude: 30.27,
+      longitude: -81.6,
+      state_code: "FL",
+      region_key: "florida",
+      local_date: "2026-10-05",
+      local_timezone: "America/New_York",
+      month: 10,
+    },
+    species: "river_trout",
+    context: "freshwater_river",
+  }));
+
+  assertEquals(trout.species, "river_trout");
+});
+
 Deno.test("V3 surface keeps visible recommendation text deterministic for the same request", () => {
   const a = runRecommenderV3Surface(request());
   const b = runRecommenderV3Surface(request());

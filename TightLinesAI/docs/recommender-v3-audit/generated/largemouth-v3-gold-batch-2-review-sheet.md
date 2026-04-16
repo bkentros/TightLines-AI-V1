@@ -221,7 +221,7 @@ Expected primary lanes:
 - buzzbait
 Acceptable secondary lanes:
 - prop_bait
-- texas_rigged_stick_worm
+- weightless_stick_worm
 - frog_fly
 Disallowed lanes:
 - blade_bait
@@ -396,7 +396,7 @@ Expected seasonal story:
 - Texas reservoir largemouth in mid-spring should balance shallow target fishing with cleaner baitfish follow-up lanes.
 Expected primary lanes:
 - compact_flipping_jig
-- wacky_rigged_stick_worm
+- weightless_stick_worm
 - swim_jig
 Acceptable secondary lanes:
 - weightless_stick_worm

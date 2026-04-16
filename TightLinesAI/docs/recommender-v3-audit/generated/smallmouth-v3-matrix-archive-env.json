@@ -1,6 +1,6 @@
 {
   "batch_id": "smallmouth_v3_matrix",
-  "generated_at": "2026-04-05T15:44:56.004Z",
+  "generated_at": "2026-04-15T20:07:40.957Z",
   "scenario_count": 83,
   "scenarios": [
     {
@@ -17053,9 +17053,9 @@
         "daily_low_air_temp_f": 68.6,
         "daily_precip_in": 0.047244094488188976,
         "daily_wind_max_mph": 14.2,
-        "moon_phase": null,
-        "sunrise_local": null,
-        "sunset_local": null
+        "moon_phase": "Waning Gibbous",
+        "sunrise_local": "06:22",
+        "sunset_local": "20:57"
       },
       "env_data": {
         "timezone": "America/New_York",
@@ -17207,6 +17207,34 @@
             0,
             0,
             0.03937007874015748
+          ]
+        },
+        "sun": {
+          "sunrise": "06:22",
+          "sunset": "20:57"
+        },
+        "solunar": {
+          "major_periods": [
+            {
+              "start": "06:21",
+              "end": "08:31",
+              "type": "overhead"
+            },
+            {
+              "start": "18:21",
+              "end": "20:31",
+              "type": "underfoot"
+            }
+          ],
+          "minor_periods": [
+            {
+              "start": "00:53",
+              "end": "02:03"
+            },
+            {
+              "start": "12:59",
+              "end": "14:09"
+            }
           ]
         },
         "hourly_air_temp_f": [
@@ -17529,8 +17557,12 @@
         "tide_high_low": null,
         "current_speed_knots_max": null,
         "tide_height_hourly_ft": null,
-        "sunrise_local": null,
-        "sunset_local": null,
+        "sunrise_local": "06:22",
+        "sunset_local": "20:57",
+        "solunar_peak_local": [
+          "06:21",
+          "18:21"
+        ],
         "hourly_air_temp_f": [
           70.4,
           70,
@@ -17609,9 +17641,9 @@
         "daily_low_air_temp_f": 73.7,
         "daily_precip_in": 0.007874015748031498,
         "daily_wind_max_mph": 9.1,
-        "moon_phase": null,
-        "sunrise_local": null,
-        "sunset_local": null
+        "moon_phase": "Waning Gibbous",
+        "sunrise_local": "06:34",
+        "sunset_local": "20:54"
       },
       "env_data": {
         "timezone": "America/New_York",
@@ -17763,6 +17795,30 @@
             0.10629921259842522,
             0.17716535433070868,
             0.08661417322834647
+          ]
+        },
+        "sun": {
+          "sunrise": "06:34",
+          "sunset": "20:54"
+        },
+        "solunar": {
+          "major_periods": [
+            {
+              "start": "05:06",
+              "end": "07:16",
+              "type": "overhead"
+            },
+            {
+              "start": "17:06",
+              "end": "19:16",
+              "type": "underfoot"
+            }
+          ],
+          "minor_periods": [
+            {
+              "start": "11:59",
+              "end": "13:09"
+            }
           ]
         },
         "hourly_air_temp_f": [
@@ -18085,8 +18141,12 @@
         "tide_high_low": null,
         "current_speed_knots_max": null,
         "tide_height_hourly_ft": null,
-        "sunrise_local": null,
-        "sunset_local": null,
+        "sunrise_local": "06:34",
+        "sunset_local": "20:54",
+        "solunar_peak_local": [
+          "05:06",
+          "17:06"
+        ],
         "hourly_air_temp_f": [
           79.6,
           79.2,
@@ -21089,7 +21149,7 @@
         "state_code": "PA",
         "timezone": "America/New_York",
         "local_date": "2025-01-16",
-        "region_key": "great_lakes_upper_midwest",
+        "region_key": "northeast",
         "month": 1
       },
       "archive_summary": {
@@ -21677,7 +21737,7 @@
         "state_code": "PA",
         "timezone": "America/New_York",
         "local_date": "2025-02-19",
-        "region_key": "great_lakes_upper_midwest",
+        "region_key": "northeast",
         "month": 2
       },
       "archive_summary": {
@@ -22265,7 +22325,7 @@
         "state_code": "PA",
         "timezone": "America/New_York",
         "local_date": "2025-03-20",
-        "region_key": "great_lakes_upper_midwest",
+        "region_key": "northeast",
         "month": 3
       },
       "archive_summary": {
@@ -22853,7 +22913,7 @@
         "state_code": "PA",
         "timezone": "America/New_York",
         "local_date": "2025-04-16",
-        "region_key": "great_lakes_upper_midwest",
+        "region_key": "northeast",
         "month": 4
       },
       "archive_summary": {
@@ -23437,7 +23497,7 @@
         "state_code": "PA",
         "timezone": "America/New_York",
         "local_date": "2025-05-15",
-        "region_key": "great_lakes_upper_midwest",
+        "region_key": "northeast",
         "month": 5
       },
       "archive_summary": {
@@ -24025,7 +24085,7 @@
         "state_code": "PA",
         "timezone": "America/New_York",
         "local_date": "2025-06-18",
-        "region_key": "great_lakes_upper_midwest",
+        "region_key": "northeast",
         "month": 6
       },
       "archive_summary": {
@@ -24613,7 +24673,7 @@
         "state_code": "PA",
         "timezone": "America/New_York",
         "local_date": "2025-07-16",
-        "region_key": "great_lakes_upper_midwest",
+        "region_key": "northeast",
         "month": 7
       },
       "archive_summary": {
@@ -25201,7 +25261,7 @@
         "state_code": "PA",
         "timezone": "America/New_York",
         "local_date": "2025-08-14",
-        "region_key": "great_lakes_upper_midwest",
+        "region_key": "northeast",
         "month": 8
       },
       "archive_summary": {
@@ -25789,7 +25849,7 @@
         "state_code": "PA",
         "timezone": "America/New_York",
         "local_date": "2025-09-17",
-        "region_key": "great_lakes_upper_midwest",
+        "region_key": "northeast",
         "month": 9
       },
       "archive_summary": {
@@ -26377,7 +26437,7 @@
         "state_code": "PA",
         "timezone": "America/New_York",
         "local_date": "2025-10-15",
-        "region_key": "great_lakes_upper_midwest",
+        "region_key": "northeast",
         "month": 10
       },
       "archive_summary": {
@@ -26965,7 +27025,7 @@
         "state_code": "PA",
         "timezone": "America/New_York",
         "local_date": "2025-11-12",
-        "region_key": "great_lakes_upper_midwest",
+        "region_key": "northeast",
         "month": 11
       },
       "archive_summary": {
@@ -27553,7 +27613,7 @@
         "state_code": "PA",
         "timezone": "America/New_York",
         "local_date": "2025-12-10",
-        "region_key": "great_lakes_upper_midwest",
+        "region_key": "northeast",
         "month": 12
       },
       "archive_summary": {

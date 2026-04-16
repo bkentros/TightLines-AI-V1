@@ -2,6 +2,10 @@ import type { WaterClarity } from "../contracts/input.ts";
 import { FLY_ARCHETYPES_V3, LURE_ARCHETYPES_V3 } from "./candidates/index.ts";
 import { RESOLVED_COLOR_SHADE_POOLS_V3 } from "./colors.ts";
 import {
+  buildHowToFish,
+  buildWhyChosen,
+} from "./recommendationCopy.ts";
+import {
   normalizeLightBucketV3,
   resolveColorDecisionV3,
 } from "./colorDecision.ts";
@@ -14,49 +18,22 @@ import type {
   RecommenderV3ResolvedProfile,
   RecommenderV3ScoreBreakdown,
   RecommenderV3SeasonalRow,
-  ResolvedColorThemeV3,
-  TacticalColumnV3,
-  TacticalPaceV3,
-  TacticalPresenceV3,
 } from "./contracts.ts";
-
-type ScoredCandidate = {
-  profile: RecommenderV3ArchetypeProfile;
-  score: number;
-  tactical_fit: number;
-  practicality_fit: number;
-  forage_fit: number;
-  clarity_fit: number;
-  color_theme: ResolvedColorThemeV3;
-  color_recommendations: [string, string, string];
-  breakdown: RecommenderV3ScoreBreakdown[];
-  why_chosen: string;
-  how_to_fish_by_role: [string, string, string];
-};
-
-const WORM_HEAVY_FAMILIES = new Set([
-  "worm",
-  "drop_shot",
-]);
+import type { ScoredCandidate } from "./scoringTypes.ts";
+import {
+  archetypeFitsMonthlyBaselineLanes,
+  archetypeFitsStrictMonthlyBaselineLanes,
+} from "./seasonal/validateSeasonalRow.ts";
+import {
+  peerArchetypesCoherenceConflict,
+  selectTopThreeCandidates,
+} from "./topThreeSelection.ts";
 
 function roundScore(value: number): number {
   return Number(value.toFixed(2));
 }
 
-function compareScored(a: ScoredCandidate, b: ScoredCandidate): number {
-  return b.score - a.score ||
-    b.tactical_fit - a.tactical_fit ||
-    b.practicality_fit - a.practicality_fit ||
-    b.forage_fit - a.forage_fit ||
-    b.clarity_fit - a.clarity_fit ||
-    a.profile.id.localeCompare(b.profile.id);
-}
-
-function isWormHeavyCandidate(candidate: ScoredCandidate): boolean {
-  return WORM_HEAVY_FAMILIES.has(candidate.profile.family_group);
-}
-
-function firstThreeColors(theme: ResolvedColorThemeV3): [string, string, string] {
+function firstThreeColors(theme: keyof typeof RESOLVED_COLOR_SHADE_POOLS_V3): [string, string, string] {
   const pool = RESOLVED_COLOR_SHADE_POOLS_V3[theme];
   return [
     pool[0] ?? "natural",
@@ -83,430 +60,602 @@ function dimensionFit<T extends string>(
   return 0.25;
 }
 
-function isColumnAllowed(
-  profile: RecommenderV3ArchetypeProfile,
-  allowed: readonly TacticalColumnV3[],
-): boolean {
-  return allowed.includes(profile.primary_column) ||
-    (profile.secondary_column != null && allowed.includes(profile.secondary_column));
-}
+/** Monthly primaries that explicitly name open hard-surface lures (not frog). */
+const OPEN_SURFACE_LURE_IDS = new Set<LureArchetypeIdV3>([
+  "walking_topwater",
+  "popping_topwater",
+  "buzzbait",
+  "prop_bait",
+]);
 
-function isPaceAllowed(
-  profile: RecommenderV3ArchetypeProfile,
-  allowed: readonly TacticalPaceV3[],
-): boolean {
-  return allowed.includes(profile.pace) ||
-    (profile.secondary_pace != null && allowed.includes(profile.secondary_pace));
-}
-
-function isPresenceAllowed(
-  profile: RecommenderV3ArchetypeProfile,
-  allowed: readonly TacticalPresenceV3[],
-): boolean {
-  return allowed.includes(profile.presence) ||
-    (profile.secondary_presence != null && allowed.includes(profile.secondary_presence));
-}
-
-function matchesPreferredColumn(
-  profile: RecommenderV3ArchetypeProfile,
-  preferred: TacticalColumnV3,
-): boolean {
-  return profile.primary_column === preferred || profile.secondary_column === preferred;
-}
-
-function uniqueNonEmpty(parts: readonly (string | null | undefined)[]): string[] {
-  const seen = new Set<string>();
-  const out: string[] = [];
-  for (const part of parts) {
-    const value = part?.trim();
-    if (!value || seen.has(value)) continue;
-    seen.add(value);
-    out.push(value);
-  }
-  return out;
-}
-
-function pickNoteByKeywords(
-  notes: readonly string[],
-  keywords: readonly string[],
-): string | null {
-  for (const note of notes) {
-    const lower = note.toLowerCase();
-    if (keywords.some((keyword) => lower.includes(keyword))) return note;
-  }
-  return null;
-}
-
-function isMovingLane(profile: RecommenderV3ArchetypeProfile): boolean {
-  return profile.tactical_lane === "horizontal_search" ||
-    profile.tactical_lane === "reaction_mid_column" ||
-    profile.tactical_lane === "fly_baitfish" ||
-    profile.tactical_lane === "surface" ||
-    profile.tactical_lane === "fly_surface";
-}
-
-function isSlowLane(profile: RecommenderV3ArchetypeProfile): boolean {
-  return profile.tactical_lane === "bottom_contact" ||
-    profile.tactical_lane === "finesse_subtle" ||
-    profile.tactical_lane === "fly_bottom";
-}
-
-function isSurfaceLane(profile: RecommenderV3ArchetypeProfile): boolean {
-  return profile.tactical_lane === "surface" || profile.tactical_lane === "fly_surface";
-}
-
-function lanePace(profile: RecommenderV3ArchetypeProfile): "slow" | "medium" | "fast" {
-  if (isSlowLane(profile)) return "slow";
-  if (
-    profile.tactical_lane === "reaction_mid_column" ||
-    isSurfaceLane(profile) ||
-    profile.tactical_lane === "pike_big_profile"
-  ) {
-    return "fast";
-  }
-  return "medium";
-}
-
-function targetColumnForProfile(
-  profile: RecommenderV3ArchetypeProfile,
-  resolved: RecommenderV3ResolvedProfile,
-): TacticalColumnV3 {
-  if (profile.is_surface) return "surface";
-  if (matchesPreferredColumn(profile, resolved.daily_preference.preferred_column)) {
-    return resolved.daily_preference.preferred_column;
-  }
-  return profile.primary_column;
-}
-
-function buildSeasonalReason(
+/**
+ * Keeps largemouth lake scoring aligned with authored monthly primaries when
+ * daily conditions would otherwise over-promote backups (finesse, roaming
+ * swimbait, or open topwater) ahead of the month's lead lanes.
+ */
+function largemouthLakeGuardAdjustments(
   profile: RecommenderV3ArchetypeProfile,
   seasonal: RecommenderV3SeasonalRow,
-  resolved: RecommenderV3ResolvedProfile,
-): string | null {
-  const monthlyPrimaryIds = profile.gear_mode === "lure"
-    ? seasonal.primary_lure_ids
-    : seasonal.primary_fly_ids;
-  if (monthlyPrimaryIds?.includes(profile.id as never)) {
-    return "It is one of the lead monthly looks for this exact seasonal window.";
-  }
-  if (
-    seasonal.monthly_baseline.primary_forage === "bluegill_perch" &&
-    (profile.tactical_lane === "horizontal_search" || profile.tactical_lane === "cover_weedless")
-  ) {
-    return "This window is still built around bluegill-and-perch feeding lanes.";
-  }
-  if (
-    seasonal.monthly_baseline.primary_forage === "crawfish" &&
-    (profile.tactical_lane === "bottom_contact" || profile.tactical_lane === "cover_weedless")
-  ) {
-    return "That keeps a crawfish-first look in the water for the month.";
-  }
-  if (
-    seasonal.monthly_baseline.primary_forage === "baitfish" &&
-    (isMovingLane(profile) || profile.tactical_lane === "pike_big_profile")
-  ) {
-    return "The month is still baitfish-forward, and this stays inside that search lane.";
-  }
-  if (
-    seasonal.monthly_baseline.primary_forage === "leech_worm" &&
-    (isSlowLane(profile) || profile.tactical_lane === "fly_bottom")
-  ) {
-    return "That fits the slower worm-and-leech food profile this window still allows.";
-  }
-  if (matchesPreferredColumn(profile, resolved.daily_preference.preferred_column)) {
-    switch (resolved.daily_preference.preferred_column) {
-      case "bottom":
-        return "It stays low in the zone where this day still wants fish to hold.";
-      case "upper":
-        return "It stays high enough in the zone to match the day's more open positioning.";
-      case "surface":
-        return "It keeps the presentation right at the top where the monthly window still allows it.";
-      case "mid":
-      default:
-        return "It stays in the middle band where the seasonal setup is most stable today.";
+  daily: RecommenderV3DailyPayload,
+): number {
+  if (seasonal.species !== "largemouth_bass") return 0;
+  if (seasonal.context !== "freshwater_lake_pond") return 0;
+
+  const month = seasonal.month;
+  let delta = 0;
+
+  if (profile.gear_mode === "lure") {
+    const prim = seasonal.primary_lure_ids ?? [];
+    const id = profile.id as LureArchetypeIdV3;
+
+    const monthlyNamesOpenSurface = prim.some((p) => OPEN_SURFACE_LURE_IDS.has(p));
+    if (profile.is_surface && !monthlyNamesOpenSurface) {
+      delta -= 1.85;
     }
-  }
-  return null;
-}
 
-function buildDailyReasons(
-  profile: RecommenderV3ArchetypeProfile,
-  seasonal: RecommenderV3SeasonalRow,
-  daily: RecommenderV3DailyPayload,
-  resolved: RecommenderV3ResolvedProfile,
-): string[] {
-  const temperatureNote = pickNoteByKeywords(daily.notes, [
-    "warming",
-    "cooling",
-    "cooldown",
-    "temperature metabolism",
-  ]);
-  const pressureNote = pickNoteByKeywords(daily.notes, ["pressure"]);
-  const windNote = pickNoteByKeywords(daily.notes, ["wind", "chop"]);
-  const lightNote = pickNoteByKeywords(daily.notes, ["light", "overcast", "glare", "bright"]);
-  const precipNote = pickNoteByKeywords(daily.notes, ["precipitation", "rain"]);
-  const runoffNote = pickNoteByKeywords(daily.notes, ["runoff", "flow", "river"]);
-  const visibilityNote = pickNoteByKeywords(daily.notes, ["visibility", "dirty water"]);
-  const parts: string[] = [];
-
-  if (profile.is_surface && resolved.daily_preference.surface_allowed_today) {
-    parts.push(
-      resolved.daily_preference.surface_window === "clean"
-        ? "Low disturbance is keeping a true surface lane open today."
-        : "Even with a little ripple, the surface lane is still open enough to matter.",
-    );
-  }
-
-  if (
-    !profile.is_surface &&
-    resolved.daily_preference.surface_window === "closed" &&
-    (profile.primary_column === "upper" || profile.primary_column === "mid")
-  ) {
-    parts.push("With true surface suppressed, this keeps you just under the cleaner active lane.");
-  }
-
-  if (daily.reaction_window === "on" && isMovingLane(profile)) {
-    parts.push(
-      pressureNote ??
-        lightNote ??
-        temperatureNote ??
-        "The stronger feeding window supports a moving search presentation today.",
-    );
-  }
-
-  if (daily.suppress_fast_presentations && isSlowLane(profile)) {
-    parts.push(
-      temperatureNote ??
-        pressureNote ??
-        lightNote ??
-        "The tighter daily setup rewards a slower, cleaner presentation.",
-    );
-  }
-
-  if (daily.high_visibility_needed && profile.presence !== "subtle") {
-    parts.push(
-      visibilityNote ??
-        runoffNote ??
-        "Reduced visibility supports a stronger profile fish can find more easily.",
-    );
-  }
-
-  if (seasonal.context === "freshwater_river" && profile.current_friendly) {
-    parts.push(
-      runoffNote ??
-        precipNote ??
-        "It stays practical in current seams and river lanes when flow still matters.",
-    );
-  }
-
-  if (
-    parts.length === 0 &&
-    seasonal.monthly_baseline.surface_seasonally_possible &&
-    profile.is_surface
-  ) {
-    parts.push("The month still leaves a real surface opportunity in the system.");
-  }
-
-  if (parts.length === 0 && daily.notes.length > 0) {
-    parts.push(daily.notes[0]!);
-  }
-
-  return uniqueNonEmpty(parts).slice(0, 2);
-}
-
-function selectWhyHook(
-  profile: RecommenderV3ArchetypeProfile,
-  seasonal: RecommenderV3SeasonalRow,
-): string {
-  const forageAligned = profile.forage_tags.includes(seasonal.monthly_baseline.primary_forage) ||
-    (seasonal.monthly_baseline.secondary_forage != null &&
-      profile.forage_tags.includes(seasonal.monthly_baseline.secondary_forage));
-  if (forageAligned && profile.why_hooks[1]) {
-    return profile.why_hooks[1];
-  }
-  return profile.why_hooks[0] ?? profile.display_name;
-}
-
-function buildWhyChosen(
-  profile: RecommenderV3ArchetypeProfile,
-  breakdown: readonly RecommenderV3ScoreBreakdown[],
-  seasonal: RecommenderV3SeasonalRow,
-  daily: RecommenderV3DailyPayload,
-  resolved: RecommenderV3ResolvedProfile,
-): string {
-  const breakdownDrivers = breakdown
-    .filter((item) => item.value > 0)
-    .sort((a, b) => b.value - a.value)
-    .map((item) => item.detail);
-  const hook = selectWhyHook(profile, seasonal);
-  const dailyReasons = buildDailyReasons(profile, seasonal, daily, resolved);
-  const seasonalReason = buildSeasonalReason(profile, seasonal, resolved);
-  // Lead with the biological/seasonal reason so users hear the "why this lure/fly"
-  // story first.  Daily condition context follows, then a tactical fit confirmation
-  // from the breakdown as supporting detail.
-  const parts = uniqueNonEmpty([
-    seasonalReason ?? hook,
-    dailyReasons[0],
-    breakdownDrivers[0],
-  ]);
-  return parts.slice(0, 3).join(" ");
-}
-
-function buildPaceHint(
-  profile: RecommenderV3ArchetypeProfile,
-  resolved: RecommenderV3ResolvedProfile,
-): string {
-  switch (resolved.daily_preference.preferred_pace) {
-    case "slow":
-      return profile.is_surface
-        ? " Work it with longer pauses."
-        : " Slow down and lengthen the pause.";
-    case "fast":
-      return isSlowLane(profile)
-        ? " Keep it moving just enough to stay lively."
-        : " Fish it with a more active cadence.";
-    case "medium":
-    default:
-      return "";
-  }
-}
-
-function buildColumnHint(
-  profile: RecommenderV3ArchetypeProfile,
-  resolved: RecommenderV3ResolvedProfile,
-): string {
-  switch (targetColumnForProfile(profile, resolved)) {
-    case "bottom":
-      return " Keep it low in the strike zone.";
-    case "surface":
-      return " Keep it on top.";
-    case "upper":
-      return " Keep it high in the zone.";
-    case "mid":
-    default:
-      return "";
-  }
-}
-
-/**
- * Selects which how-to-fish variant to use for a given recommendation slot.
- *
- * Condition-driven days (suppress, visibility, reaction) keep a consistent
- * tone across all three picks because all three presentations should reflect
- * the same constraint.  On neutral/balanced days the roleIndex rotates through
- * variants 0→1→2 so each recommendation slot has genuinely different
- * instruction text rather than all defaulting to the same variant.
- */
-function selectHowToFishTemplate(
-  profile: RecommenderV3ArchetypeProfile,
-  daily: RecommenderV3DailyPayload,
-  roleIndex: 0 | 1 | 2,
-): string {
-  if (daily.suppress_fast_presentations) {
-    return profile.how_to_fish_variants[0] ?? profile.how_to_fish_template;
-  }
-  if (daily.high_visibility_needed) {
-    return profile.how_to_fish_variants[1] ??
-      profile.how_to_fish_variants[0] ??
-      profile.how_to_fish_template;
-  }
-  if (daily.reaction_window === "on" && isMovingLane(profile) && roleIndex === 0) {
-    return profile.how_to_fish_variants[2] ?? profile.how_to_fish_template;
-  }
-  // Neutral conditions: rotate by selection role to guarantee differentiated text
-  return profile.how_to_fish_variants[roleIndex] ?? profile.how_to_fish_template;
-}
-
-function buildHowToFish(
-  profile: RecommenderV3ArchetypeProfile,
-  daily: RecommenderV3DailyPayload,
-  resolved: RecommenderV3ResolvedProfile,
-  roleIndex: 0 | 1 | 2,
-): string {
-  const template = selectHowToFishTemplate(profile, daily, roleIndex);
-  const paceHint = buildPaceHint(profile, resolved);
-  const columnHint = buildColumnHint(profile, resolved);
-  return `${template}${paceHint || columnHint}`.trim();
-}
-
-function buildSelectionRoleNote(
-  candidate: ScoredCandidate,
-  selectionRole: RecommenderV3RankedArchetype["selection_role"],
-): string {
-  switch (selectionRole) {
-    case "strong_alternate":
-      return ` It gives you a different ${candidate.profile.tactical_lane.replaceAll("_", " ")} look without leaving today's window.`;
-    case "change_up":
-      return " It is the cleaner change-up if the lead look does not convert.";
-    case "best_match":
-    default:
-      return "";
-  }
-}
-
-function buildSelectionRoleWhyChosen(
-  candidate: ScoredCandidate,
-  selectionRole: RecommenderV3RankedArchetype["selection_role"],
-): string {
-  return `${candidate.why_chosen}${buildSelectionRoleNote(candidate, selectionRole)}`.trim();
-}
-
-/**
- * Hard coherence gate between two already-scored archetypes for top-3 lineup.
- * Exported for focused unit tests (Phase 3 peer conflict behavior).
- */
-export function peerArchetypesCoherenceConflict(
-  peer: RecommenderV3ArchetypeProfile,
-  candidate: RecommenderV3ArchetypeProfile,
-  daily: RecommenderV3DailyPayload,
-  resolved: RecommenderV3ResolvedProfile,
-): boolean {
-  const leadPace = lanePace(peer);
-  const candidatePace = lanePace(candidate);
-  const leadSurface = isSurfaceLane(peer);
-  const candidateSurface = isSurfaceLane(candidate);
-  const leadBottom = isSlowLane(peer);
-  const candidateBottom = isSlowLane(candidate);
-
-  if (
-    (leadSurface && candidateBottom) || (leadBottom && candidateSurface)
-  ) {
+    const coldWinterMonth = month === 1 || month === 2 || month === 12;
     if (
-      daily.surface_window === "closed" ||
-      resolved.daily_preference.preferred_presence === "subtle" ||
-      daily.suppress_fast_presentations
+      coldWinterMonth &&
+      id === "drop_shot_worm" &&
+      !prim.includes("drop_shot_worm") &&
+      prim.includes("suspending_jerkbait")
     ) {
-      return true;
+      delta -= 1.15;
+    }
+
+    if (
+      (month === 4 || month === 5) &&
+      id === "paddle_tail_swimbait" &&
+      !prim.includes("paddle_tail_swimbait")
+    ) {
+      delta -= prim.includes("weightless_stick_worm") ? 2.45 : 1.05;
+    }
+
+    if (
+      (month === 6 || month === 7 || month === 8) &&
+      id === "drop_shot_worm" &&
+      !prim.includes("drop_shot_worm")
+    ) {
+      delta -= 0.95;
+    }
+
+    if (
+      month === 8 &&
+      id === "paddle_tail_swimbait" &&
+      !prim.includes("paddle_tail_swimbait") &&
+      prim.includes("swim_jig")
+    ) {
+      delta -= 0.8;
+    }
+
+    if (
+      (month === 4 || month === 5) &&
+      id === "soft_jerkbait" &&
+      !prim.includes("soft_jerkbait") &&
+      prim.includes("weightless_stick_worm")
+    ) {
+      delta -= 1.85;
+    }
+
+    if (
+      (month === 4 || month === 5) &&
+      id === "weightless_stick_worm" &&
+      prim.includes("weightless_stick_worm")
+    ) {
+      delta += 0.35;
+    }
+
+    if (
+      seasonal.region_key === "great_lakes_upper_midwest" &&
+      month === 8 &&
+      id === "soft_jerkbait" &&
+      !prim.includes("soft_jerkbait") &&
+      prim.includes("swim_jig")
+    ) {
+      delta -= 0.85;
+    }
+
+    if (
+      seasonal.region_key === "florida" &&
+      month === 3 &&
+      (id === "compact_flipping_jig" || id === "football_jig") &&
+      prim.includes("suspending_jerkbait") &&
+      prim.includes("spinnerbait")
+    ) {
+      delta -= 1.25;
+    }
+
+    // South-central / Ozarks-style clear reservoirs in true winter: jerkbait/flat/jig lead;
+    // do not let finesse plastics outrank authored cold-reservoir primaries.
+    // South-central clear Feb–Mar: Texas rig is a backup, not the headline prespawn lure.
+    if (
+      seasonal.region_key === "south_central" &&
+      (month === 2 || month === 3) &&
+      seasonal.context === "freshwater_lake_pond" &&
+      id === "texas_rigged_soft_plastic_craw" &&
+      !prim.includes("texas_rigged_soft_plastic_craw") &&
+      prim.includes("suspending_jerkbait")
+    ) {
+      delta -= 1.35;
+    }
+
+    // Same window: shaky-head finesse is a backup, not ahead of jerkbait/flat prespawn primaries.
+    if (
+      seasonal.region_key === "south_central" &&
+      (month === 2 || month === 3) &&
+      seasonal.context === "freshwater_lake_pond" &&
+      id === "shaky_head_worm" &&
+      !prim.includes("shaky_head_worm") &&
+      prim.includes("suspending_jerkbait")
+    ) {
+      delta -=
+        daily.posture_band === "suppressed" ||
+          daily.posture_band === "slightly_suppressed" ||
+          daily.suppress_fast_presentations
+        ? 2.55
+        : 2.05;
+    }
+    if (
+      seasonal.region_key === "south_central" &&
+      (month === 2 || month === 3) &&
+      seasonal.context === "freshwater_lake_pond" &&
+      id === "suspending_jerkbait" &&
+      prim.includes("suspending_jerkbait")
+    ) {
+      delta += 0.72;
+    }
+
+    if (
+      seasonal.region_key === "south_central" &&
+      month === 12 &&
+      seasonal.context === "freshwater_lake_pond" &&
+      prim.includes("suspending_jerkbait")
+    ) {
+      if (id === "shaky_head_worm" && !prim.includes("shaky_head_worm")) {
+        delta -= 1.65;
+      }
+      if (id === "paddle_tail_swimbait" && !prim.includes("paddle_tail_swimbait")) {
+        delta -= 1.2;
+      }
+      if (id === "texas_rigged_soft_plastic_craw" && !prim.includes("texas_rigged_soft_plastic_craw")) {
+        delta -= 0.95;
+      }
+      if (id === "suspending_jerkbait") delta += 0.42;
+      if (id === "flat_sided_crankbait") delta += 0.38;
+      if (id === "football_jig") delta += 0.32;
+    }
+
+    // Great Lakes October weed-edge: matrix expects spinnerbait/swim-jig ahead of jerkbait
+    // when monthly primaries list reaction edges before mid-column suspenders.
+    if (
+      seasonal.region_key === "great_lakes_upper_midwest" &&
+      month === 10 &&
+      seasonal.context === "freshwater_lake_pond" &&
+      prim.includes("spinnerbait") &&
+      prim.includes("swim_jig")
+    ) {
+      if (id === "spinnerbait") delta += 0.95;
+      if (id === "swim_jig") delta += 0.95;
+      if (id === "suspending_jerkbait" && !prim.includes("suspending_jerkbait")) {
+        delta -= 0.85;
+      }
+      if (
+        id === "paddle_tail_swimbait" &&
+        prim.includes("paddle_tail_swimbait") &&
+        prim.includes("spinnerbait") &&
+        prim.indexOf("paddle_tail_swimbait") > prim.indexOf("spinnerbait")
+      ) {
+        delta -= 0.72;
+      }
+      if (id === "walking_topwater" && !prim.includes("walking_topwater")) {
+        delta -= 1.55;
+      }
+    }
+
+    // Pacific Northwest March stained prespawn: keep squarebill/spinner/jerk/football
+    // ahead of lipless vibration when the day is metabolically suppressed.
+    if (
+      seasonal.region_key === "pacific_northwest" &&
+      month === 3 &&
+      id === "lipless_crankbait" &&
+      !prim.includes("lipless_crankbait") &&
+      (daily.posture_band === "suppressed" || daily.suppress_fast_presentations)
+    ) {
+      delta -= 1.35;
+    }
+    if (
+      seasonal.region_key === "pacific_northwest" &&
+      month === 3 &&
+      (id === "football_jig" || id === "spinnerbait" || id === "suspending_jerkbait" ||
+        id === "squarebill_crankbait") &&
+      prim.includes(id)
+    ) {
+      delta += 0.42;
+    }
+
+    // Pacific Northwest August stained weed lakes: swim jig / frog are monthly leads;
+    // do not let drop-shot minnow hijack rank 1 on warm stable summer days.
+    if (
+      seasonal.region_key === "pacific_northwest" &&
+      month === 8 &&
+      id === "drop_shot_minnow" &&
+      !prim.includes("drop_shot_minnow") &&
+      (prim.includes("swim_jig") || prim.includes("hollow_body_frog"))
+    ) {
+      delta -= daily.posture_band === "suppressed" ? 1.05 : 1.55;
+    }
+    if (
+      seasonal.region_key === "pacific_northwest" &&
+      month === 8 &&
+      (id === "swim_jig" || id === "hollow_body_frog") &&
+      prim.includes(id)
+    ) {
+      delta += 0.48;
+    }
+
+    // Mountain West February extreme-cold reservoirs: football/jerk/flat lead the row;
+    // Texas rig stays a backup, not the default top-1 on the most suppressed days.
+    if (
+      seasonal.region_key === "mountain_west" &&
+      month === 2 &&
+      id === "texas_rigged_soft_plastic_craw" &&
+      prim.includes("football_jig") &&
+      !prim.includes("texas_rigged_soft_plastic_craw") &&
+      daily.posture_band === "suppressed"
+    ) {
+      delta -= 1.25;
+    }
+    if (
+      seasonal.region_key === "mountain_west" &&
+      month === 2 &&
+      id === "football_jig" &&
+      prim.includes("football_jig")
+    ) {
+      delta += 0.55;
     }
   }
 
-  if (leadPace === "slow" && candidatePace === "fast" && daily.suppress_fast_presentations) {
-    return true;
+  if (profile.gear_mode === "fly") {
+    const fprim = seasonal.primary_fly_ids ?? [];
+    const fid = profile.id as FlyArchetypeIdV3;
+    if (
+      (month === 4 || month === 5) &&
+      fid === "game_changer" &&
+      !fprim.includes("game_changer") &&
+      fprim.includes("woolly_bugger")
+    ) {
+      delta -= 1.15;
+    }
+
+    // Cold-reservoir winter: split near-tied leech patterns — favor monthly first fly.
+    if (
+      seasonal.region_key === "south_central" &&
+      month === 12 &&
+      seasonal.context === "freshwater_lake_pond" &&
+      fprim.length > 1
+    ) {
+      const leadFly = fprim[0];
+      const idx = fprim.indexOf(fid);
+      if (idx === 0) delta += 0.22;
+      else if (idx > 0 && leadFly && fid !== leadFly) delta -= 0.08 * idx;
+    }
   }
 
-  if (
-    leadPace === "fast" &&
-    candidatePace === "slow" &&
-    resolved.daily_preference.preferred_pace === "fast"
-  ) {
-    return true;
-  }
-
-  return false;
+  return delta;
 }
 
-function peerScoredCoherenceConflict(
-  peer: ScoredCandidate,
-  candidate: ScoredCandidate,
+/** Keeps smallmouth scoring aligned with authored monthly primaries (esp. clear-lake + tailwater rows). */
+function smallmouthGuardAdjustments(
+  profile: RecommenderV3ArchetypeProfile,
+  seasonal: RecommenderV3SeasonalRow,
   daily: RecommenderV3DailyPayload,
-  resolved: RecommenderV3ResolvedProfile,
-): boolean {
-  return peerArchetypesCoherenceConflict(
-    peer.profile,
-    candidate.profile,
-    daily,
-    resolved,
-  );
+  stateCode?: string,
+): number {
+  if (seasonal.species !== "smallmouth_bass") return 0;
+
+  const month = seasonal.month;
+  const rk = seasonal.region_key;
+  const ctx = seasonal.context;
+  const prim = seasonal.primary_lure_ids ?? [];
+  const fprim = seasonal.primary_fly_ids ?? [];
+
+  let delta = 0;
+
+  const northernLakeLike =
+    ctx === "freshwater_lake_pond" &&
+    (rk === "great_lakes_upper_midwest" || rk === "northeast" || rk === "midwest_interior");
+
+  const warmHighlandLake =
+    ctx === "freshwater_lake_pond" &&
+    (rk === "appalachian" ||
+      rk === "south_central" ||
+      rk === "gulf_coast" ||
+      rk === "southeast_atlantic");
+
+  if (profile.gear_mode === "lure") {
+    const id = profile.id as LureArchetypeIdV3;
+
+    // Clear northern lakes Feb–Mar: authored tube / jerk / hair primaries should outrank drop-shot minnow as headline.
+    if (
+      northernLakeLike &&
+      (month === 2 || month === 3) &&
+      prim.includes("tube_jig") &&
+      !prim.includes("drop_shot_minnow")
+    ) {
+      if (id === "drop_shot_minnow") {
+        delta -=
+          daily.posture_band === "suppressed" ||
+            daily.posture_band === "slightly_suppressed"
+            ? 1.75
+            : 1.2;
+      }
+      if (id === "ned_rig" && !prim.includes("ned_rig")) delta -= 0.95;
+      if (id === "tube_jig" && prim.includes("tube_jig")) delta += 0.38;
+      if (id === "suspending_jerkbait" && prim.includes("suspending_jerkbait")) delta += 0.38;
+      if (id === "hair_jig" && prim.includes("hair_jig")) delta += 0.38;
+    }
+
+    // Warm highland stained lakes same prespawn window: resist pure finesse minnow hijacks.
+    if (
+      warmHighlandLake &&
+      (month === 2 || month === 3) &&
+      prim.includes("tube_jig") &&
+      !prim.includes("drop_shot_minnow")
+    ) {
+      if (id === "drop_shot_minnow") {
+        delta -=
+          daily.posture_band === "suppressed" ||
+            daily.posture_band === "slightly_suppressed"
+            ? 1.55
+            : 1.05;
+      }
+    }
+
+    // Great Lakes early-summer postspawn row: matrix expects subsurface baitfish / finesse primaries, not walker default.
+    if (
+      rk === "great_lakes_upper_midwest" &&
+      ctx === "freshwater_lake_pond" &&
+      month === 6 &&
+      id === "walking_topwater" &&
+      !prim.includes("walking_topwater")
+    ) {
+      delta -=
+        daily.posture_band === "aggressive" ||
+          daily.posture_band === "slightly_aggressive"
+          ? 0.4
+          : 1.7;
+    }
+
+    // South-central stained Nov lakes: blade is cold-water support, not ahead of jerkbait / swimbait primaries.
+    if (
+      rk === "south_central" &&
+      ctx === "freshwater_lake_pond" &&
+      month === 11 &&
+      id === "blade_bait" &&
+      !prim.includes("blade_bait") &&
+      prim.includes("suspending_jerkbait")
+    ) {
+      delta -= 1.35;
+    }
+    if (
+      rk === "south_central" &&
+      ctx === "freshwater_lake_pond" &&
+      month === 11 &&
+      (id === "suspending_jerkbait" || id === "paddle_tail_swimbait" || id === "spinnerbait") &&
+      prim.includes(id)
+    ) {
+      delta += 0.42;
+    }
+
+    // Cold-river January (tailwaters + northern): drop-shot minnow stays backup behind tube-led primaries.
+    if (
+      ctx === "freshwater_river" &&
+      month === 1 &&
+      (rk === "south_central" ||
+        rk === "northeast" ||
+        rk === "great_lakes_upper_midwest" ||
+        rk === "midwest_interior") &&
+      id === "drop_shot_minnow" &&
+      !prim.includes("drop_shot_minnow") &&
+      prim.includes("tube_jig")
+    ) {
+      delta -= 1.55;
+    }
+    if (
+      rk === "south_central" &&
+      ctx === "freshwater_river" &&
+      month === 1 &&
+      id === "ned_rig" &&
+      prim.includes("ned_rig")
+    ) {
+      delta += 0.32;
+    }
+
+    // South-central stained highland January: keep winter tube / hair / jerk ahead of drop-shot minnow headlines.
+    if (
+      rk === "south_central" &&
+      ctx === "freshwater_lake_pond" &&
+      month === 1 &&
+      id === "drop_shot_minnow" &&
+      !prim.includes("drop_shot_minnow") &&
+      prim.includes("tube_jig")
+    ) {
+      delta -= 1.55;
+    }
+
+    // South-central November lakes: hair is support when jerkbait / swimbait own the authored fall read.
+    if (
+      rk === "south_central" &&
+      ctx === "freshwater_lake_pond" &&
+      month === 11 &&
+      id === "hair_jig" &&
+      !prim.includes("hair_jig") &&
+      prim.includes("suspending_jerkbait")
+    ) {
+      delta -= 1.05;
+    }
+
+    // Northeast tailwater spawn (Apr–May): keep tube / soft jerkbait / inline ahead of Ned and squarebill noise.
+    if (
+      rk === "northeast" &&
+      ctx === "freshwater_river" &&
+      (month === 4 || month === 5) &&
+      id === "ned_rig" &&
+      !prim.includes("ned_rig") &&
+      prim.includes("inline_spinner")
+    ) {
+      delta -= 1.45;
+    }
+    if (
+      rk === "northeast" &&
+      ctx === "freshwater_river" &&
+      (month === 4 || month === 5) &&
+      id === "squarebill_crankbait" &&
+      !prim.includes("squarebill_crankbait")
+    ) {
+      delta -= 1.35;
+    }
+    if (
+      rk === "northeast" &&
+      ctx === "freshwater_river" &&
+      (month === 4 || month === 5) &&
+      (id === "inline_spinner" || id === "soft_jerkbait" || id === "tube_jig") &&
+      prim.includes(id)
+    ) {
+      delta += 0.42;
+    }
+
+    // South-central tailwater Oct–Nov: fall primaries are moving baitfish tools; tube / hair are backups.
+    if (
+      rk === "south_central" &&
+      ctx === "freshwater_river" &&
+      (month === 10 || month === 11) &&
+      id === "tube_jig" &&
+      !prim.includes("tube_jig") &&
+      prim.includes("suspending_jerkbait")
+    ) {
+      delta -= 1.45;
+    }
+    if (
+      rk === "south_central" &&
+      ctx === "freshwater_river" &&
+      month === 11 &&
+      id === "hair_jig" &&
+      !prim.includes("hair_jig") &&
+      prim.includes("suspending_jerkbait")
+    ) {
+      delta -= 1.15;
+    }
+    if (
+      rk === "south_central" &&
+      ctx === "freshwater_river" &&
+      (month === 10 || month === 11) &&
+      (id === "suspending_jerkbait" || id === "spinnerbait" || id === "paddle_tail_swimbait") &&
+      prim.includes(id)
+    ) {
+      delta += 0.48;
+    }
+
+    // Great Lakes stained October natural lakes: jerkbait / blade / hair should stay ahead of generic spinner flash.
+    if (
+      rk === "great_lakes_upper_midwest" &&
+      ctx === "freshwater_lake_pond" &&
+      month === 10 &&
+      id === "spinnerbait" &&
+      !prim.includes("spinnerbait") &&
+      prim.includes("suspending_jerkbait")
+    ) {
+      delta -= 1.25;
+    }
+    if (
+      rk === "great_lakes_upper_midwest" &&
+      ctx === "freshwater_lake_pond" &&
+      month === 10 &&
+      (id === "suspending_jerkbait" || id === "blade_bait" || id === "hair_jig") &&
+      prim.includes(id)
+    ) {
+      delta += 0.42;
+    }
+
+    // Midwest dirty prespawn reservoirs (Apr): spinnerbait should stay in front of generic hair control.
+    if (
+      rk === "midwest_interior" &&
+      ctx === "freshwater_lake_pond" &&
+      month === 4 &&
+      id === "spinnerbait" &&
+      prim.includes("spinnerbait")
+    ) {
+      delta += 0.55;
+    }
+    if (
+      rk === "midwest_interior" &&
+      ctx === "freshwater_lake_pond" &&
+      month === 4 &&
+      id === "hair_jig" &&
+      !prim.includes("hair_jig") &&
+      prim.includes("spinnerbait")
+    ) {
+      delta -= 0.95;
+    }
+
+    // Great Lakes December: winter primaries include suspending; resist drop-shot minnow stealing rank 1.
+    if (
+      rk === "great_lakes_upper_midwest" &&
+      ctx === "freshwater_lake_pond" &&
+      month === 12 &&
+      id === "drop_shot_minnow" &&
+      !prim.includes("drop_shot_minnow") &&
+      prim.includes("suspending_jerkbait")
+    ) {
+      delta -= 1.65;
+    }
+    if (
+      rk === "great_lakes_upper_midwest" &&
+      ctx === "freshwater_lake_pond" &&
+      month === 12 &&
+      id === "suspending_jerkbait" &&
+      prim.includes("suspending_jerkbait")
+    ) {
+      delta += 0.45;
+    }
+
+    // Pennsylvania June clear rivers: same northeast June row as New England, but tailwater / ledge
+    // smallmouth stay seam- and current-led (tube / crank / jerk) ahead of bold walker headlines.
+    if (
+      stateCode === "PA" &&
+      rk === "northeast" &&
+      ctx === "freshwater_river" &&
+      month === 6
+    ) {
+      // Walking is still the first authored primary for the shared northeast June row (New England),
+      // so this guard has to materially outweigh monthly-primary stacking for PA tailwater reads.
+      if (id === "tube_jig") delta += 2.18;
+      if (id === "squarebill_crankbait") delta += 2.12;
+      if (id === "suspending_jerkbait") delta += 2.06;
+      if (id === "walking_topwater") delta -= 1.38;
+      if (id === "inline_spinner") delta -= 0.32;
+      if (id === "paddle_tail_swimbait") delta -= 0.22;
+    }
+  }
+
+  if (profile.gear_mode === "fly") {
+    const fid = profile.id as FlyArchetypeIdV3;
+    if (
+      rk === "great_lakes_upper_midwest" &&
+      ctx === "freshwater_lake_pond" &&
+      month === 6 &&
+      fid === "mouse_fly" &&
+      !fprim.includes("mouse_fly")
+    ) {
+      delta -=
+        daily.posture_band === "aggressive" ||
+          daily.posture_band === "slightly_aggressive"
+          ? 0.5
+          : 1.55;
+    }
+  }
+
+  return delta;
 }
 
 function practicalityFit(
@@ -514,8 +663,16 @@ function practicalityFit(
   seasonal: RecommenderV3SeasonalRow,
   daily: RecommenderV3DailyPayload,
   resolved: RecommenderV3ResolvedProfile,
+  stateCode?: string,
+  clarity?: WaterClarity,
 ): number {
   let fit = 0;
+  const strictMonthlyFit = archetypeFitsStrictMonthlyBaselineLanes(
+    profile,
+    seasonal.monthly_baseline.allowed_columns,
+    seasonal.monthly_baseline.allowed_paces,
+    seasonal.monthly_baseline.allowed_presence,
+  );
 
   if (profile.is_surface && !resolved.daily_preference.surface_allowed_today) {
     return -100;
@@ -527,6 +684,13 @@ function practicalityFit(
     (profile.pace === "fast" || profile.secondary_pace === "fast")
   ) {
     fit += 0.85;
+  }
+
+  if (
+    daily.posture_band === "suppressed" &&
+    (profile.pace === "medium" || profile.secondary_pace === "medium")
+  ) {
+    fit -= 1.1;
   }
 
   if (
@@ -546,6 +710,13 @@ function practicalityFit(
   }
 
   if (
+    daily.posture_band === "suppressed" &&
+    (profile.tactical_lane === "bottom_contact" || profile.tactical_lane === "finesse_subtle" || profile.tactical_lane === "fly_bottom")
+  ) {
+    fit += 1.15;
+  }
+
+  if (
     daily.reaction_window === "on" &&
     (profile.tactical_lane === "reaction_mid_column" ||
       profile.tactical_lane === "horizontal_search" ||
@@ -557,9 +728,33 @@ function practicalityFit(
   if (
     resolved.daily_preference.surface_allowed_today &&
     profile.is_surface &&
-    (daily.reaction_window === "on" || daily.surface_window === "clean")
+    (
+      daily.reaction_window === "on" ||
+      daily.surface_window === "clean" ||
+      (
+        daily.surface_window === "rippled" &&
+        seasonal.monthly_baseline.surface_seasonally_possible
+      )
+    )
   ) {
-    fit += 1.35;
+    fit += daily.surface_window === "clean" ? 1.35 : 0.9;
+  }
+
+  if (
+    profile.id === "popping_topwater" &&
+    resolved.daily_preference.surface_allowed_today &&
+    daily.surface_window === "clean"
+  ) {
+    fit += 0.4;
+  }
+
+  if (
+    profile.id === "pike_jerkbait" &&
+    daily.reaction_window === "on" &&
+    !daily.high_visibility_needed &&
+    !daily.suppress_fast_presentations
+  ) {
+    fit += 0.7;
   }
 
   if (
@@ -568,7 +763,16 @@ function practicalityFit(
     profile.family_group !== "frog" &&
     profile.family_group !== "surface_fly"
   ) {
-    fit -= 0.35;
+    fit -= 0.2;
+  }
+
+  if (
+    seasonal.monthly_baseline.surface_seasonally_possible &&
+    profile.is_surface &&
+    daily.surface_window === "rippled" &&
+    (profile.family_group === "frog" || profile.family_group === "surface_fly")
+  ) {
+    fit += 0.25;
   }
 
   if (seasonal.context === "freshwater_river") {
@@ -580,6 +784,43 @@ function practicalityFit(
     profile.pace === "slow"
   ) {
     fit += 0.35;
+  }
+
+  if (!strictMonthlyFit) {
+    fit -= 0.85;
+  }
+
+  fit += largemouthLakeGuardAdjustments(profile, seasonal, daily);
+  fit += smallmouthGuardAdjustments(profile, seasonal, daily, stateCode);
+
+  if (
+    clarity === "stained" &&
+    seasonal.species === "trout" &&
+    seasonal.context === "freshwater_river" &&
+    seasonal.region_key === "mountain_west" &&
+    seasonal.month === 4
+  ) {
+    // Runoff-edge April matrix: headline sculpin / bugger / clouser, not jerkbait + slim defaults.
+    if (profile.gear_mode === "fly" && profile.id === "slim_minnow_streamer") {
+      fit -= 2.55;
+    }
+    if (
+      stateCode === "ID" &&
+      profile.gear_mode === "lure" &&
+      profile.id === "inline_spinner"
+    ) {
+      // Idaho runoff-edge April: let visible streamers headline over spinner-only reads.
+      fit -= 1.55;
+    }
+    if (
+      stateCode === "ID" &&
+      profile.gear_mode === "fly" &&
+      (profile.id === "sculpin_streamer" ||
+        profile.id === "woolly_bugger" ||
+        profile.id === "clouser_minnow")
+    ) {
+      fit += 0.95;
+    }
   }
 
   return fit;
@@ -608,18 +849,27 @@ function monthlyPrimaryFit(
   ) {
     fit += 0.1;
   }
+  if (
+    (seasonal.species === "largemouth_bass" ||
+      seasonal.species === "smallmouth_bass" ||
+      seasonal.species === "trout" ||
+      seasonal.species === "northern_pike") &&
+    primaryIds.length > 1
+  ) {
+    const idx = primaryIds.indexOf(profile.id as never);
+    if (idx >= 0) {
+      // Earlier authored primaries win when totals would otherwise stack — monthly intent order.
+      const tieWeight = seasonal.species === "smallmouth_bass"
+        ? 0.038
+        : seasonal.species === "trout" || seasonal.species === "northern_pike"
+        ? 0.026
+        : 0.032;
+      fit += tieWeight * (primaryIds.length - 1 - idx);
+    }
+  }
   return fit;
 }
 
-/**
- * Forage weighting scales with opportunity_mix so that daily conditions still
- * dominate on aggressive and suppressive days while forage alignment becomes
- * the primary differentiator on neutral/balanced windows.
- *
- *  conservative → technique matters more than forage type (0.3 / 0.15)
- *  balanced     → forage is the key tipping-point on neutral days (1.1 / 0.55)
- *  aggressive   → fish chase more freely but forage still influences (0.5 / 0.25)
- */
 function forageFit(
   profile: RecommenderV3ArchetypeProfile,
   seasonal: RecommenderV3SeasonalRow,
@@ -637,12 +887,12 @@ function forageFit(
 
   switch (opportunityMix) {
     case "conservative":
-      primaryWeight = 0.3;
-      secondaryWeight = 0.15;
+      primaryWeight = 0.55;
+      secondaryWeight = 0.25;
       break;
     case "aggressive":
-      primaryWeight = 0.5;
-      secondaryWeight = 0.25;
+      primaryWeight = 0.9;
+      secondaryWeight = 0.45;
       break;
     case "balanced":
     default:
@@ -654,6 +904,23 @@ function forageFit(
   if (primaryMatch) return primaryWeight;
   if (secondaryMatch) return secondaryWeight;
   return 0;
+}
+
+/** Sub-cent tiebreak for ordering only (largemouth); favors tighter daily column alignment. */
+function largemouthSortSkew(
+  profile: RecommenderV3ArchetypeProfile,
+  seasonal: RecommenderV3SeasonalRow,
+  resolved: RecommenderV3ResolvedProfile,
+): number {
+  if (seasonal.species !== "largemouth_bass") return 0;
+  const order = resolved.daily_preference.column_preference_order;
+  const idxPrimary = order.indexOf(profile.primary_column);
+  const idxSecondary = profile.secondary_column != null
+    ? order.indexOf(profile.secondary_column)
+    : -1;
+  const candidates = [idxPrimary, idxSecondary].filter((i) => i >= 0);
+  const best = candidates.length > 0 ? Math.min(...candidates) : 9;
+  return (order.length - best) * 0.00012;
 }
 
 function clarityFit(
@@ -674,13 +941,17 @@ function scoreProfile(
   daily: RecommenderV3DailyPayload,
   clarity: WaterClarity,
   lightLabel: string | null,
+  stateCode?: string,
 ): ScoredCandidate | null {
   if (!profile.species_allowed.includes(seasonal.species)) return null;
   if (!profile.water_types_allowed.includes(seasonal.context)) return null;
   if (
-    !isColumnAllowed(profile, seasonal.monthly_baseline.allowed_columns) ||
-    !isPaceAllowed(profile, seasonal.monthly_baseline.allowed_paces) ||
-    !isPresenceAllowed(profile, seasonal.monthly_baseline.allowed_presence)
+    !archetypeFitsMonthlyBaselineLanes(
+      profile,
+      seasonal.monthly_baseline.allowed_columns,
+      seasonal.monthly_baseline.allowed_paces,
+      seasonal.monthly_baseline.allowed_presence,
+    )
   ) {
     return null;
   }
@@ -688,6 +959,12 @@ function scoreProfile(
     return null;
   }
 
+  const strictMonthlyFit = archetypeFitsStrictMonthlyBaselineLanes(
+    profile,
+    seasonal.monthly_baseline.allowed_columns,
+    seasonal.monthly_baseline.allowed_paces,
+    seasonal.monthly_baseline.allowed_presence,
+  );
   const columnFit = dimensionFit(
     resolved.daily_preference.column_preference_order,
     profile.primary_column,
@@ -704,14 +981,34 @@ function scoreProfile(
     profile.secondary_presence,
   );
   const tacticalFit = columnFit + paceFit + presenceFit;
-  const practicalFit = practicalityFit(profile, seasonal, daily, resolved);
+  const practicalFit = practicalityFit(profile, seasonal, daily, resolved, stateCode, clarity);
   if (practicalFit <= -100) return null;
   const monthlyPrimary = monthlyPrimaryFit(profile, seasonal, resolved);
   const forage = forageFit(profile, seasonal, resolved.daily_preference.opportunity_mix);
-  const clarityScore = clarityFit(profile, clarity);
+  let clarityScore = clarityFit(profile, clarity);
+  if (
+    seasonal.species === "trout" &&
+    seasonal.context === "freshwater_river" &&
+    clarity === "stained" &&
+    (seasonal.month === 7 || seasonal.month === 8) &&
+    profile.gear_mode === "lure" &&
+    profile.id === "hair_jig"
+  ) {
+    // Stained midsummer western/tailwater reads: keep the headline off generic hair
+    // when minnow / leech / sculpin lanes are the honest story (Idaho runoff matrix).
+    clarityScore -= 0.9;
+  }
+  const trueForageFit = roundScore(forage);
   const lightBucket = normalizeLightBucketV3(lightLabel);
   const colorDecision = resolveColorDecisionV3(clarity, lightBucket);
   const breakdown: RecommenderV3ScoreBreakdown[] = [
+    {
+      code: "strict_monthly_lane_fit",
+      value: strictMonthlyFit ? 0.2 : -0.85,
+      detail: strictMonthlyFit
+        ? "Its lane shape stays tightly inside the monthly biological profile."
+        : "It remains a valid seasonal backup, but sits outside the month's cleanest lane shape.",
+    },
     {
       code: "column_fit",
       value: roundScore(columnFit),
@@ -750,17 +1047,20 @@ function scoreProfile(
       detail: "Its visibility profile suits today's water clarity.",
     },
   ];
-  const score = roundScore(
-    tacticalFit + practicalFit + monthlyPrimary + forage + clarityScore,
-  );
+  const sort_score = tacticalFit + practicalFit + monthlyPrimary + forage + clarityScore +
+    largemouthSortSkew(profile, seasonal, resolved);
+  const score = roundScore(sort_score);
+  const opportunityMixFit = roundScore(monthlyPrimary + forage);
 
   return {
     profile,
     score,
+    sort_score,
     tactical_fit: roundScore(tacticalFit),
     practicality_fit: roundScore(practicalFit),
-    forage_fit: roundScore(monthlyPrimary + forage),
+    forage_fit: trueForageFit,
     clarity_fit: roundScore(clarityScore),
+    opportunity_mix_fit: roundScore(0),
     color_theme: colorDecision.color_theme,
     color_recommendations: firstThreeColors(colorDecision.color_theme),
     breakdown,
@@ -773,234 +1073,6 @@ function scoreProfile(
   };
 }
 
-function changeupBonus(
-  candidate: ScoredCandidate,
-  selected: readonly ScoredCandidate[],
-  resolved: RecommenderV3ResolvedProfile,
-): number {
-  const lead = selected[0]!;
-  const usedFamilies = new Set(selected.map((entry) => entry.profile.family_group));
-  const usedLanes = new Set(selected.map((entry) => entry.profile.tactical_lane));
-  const usedColumns = new Set(selected.map((entry) => entry.profile.primary_column));
-  const usedPaces = new Set(selected.map((entry) => entry.profile.pace));
-  const usedPresence = new Set(selected.map((entry) => entry.profile.presence));
-  let bonus = 0;
-  if (!usedFamilies.has(candidate.profile.family_group)) bonus += 0.65;
-  if (!usedLanes.has(candidate.profile.tactical_lane)) bonus += 0.3;
-  if (!usedColumns.has(candidate.profile.primary_column)) bonus += 0.2;
-  if (!usedPaces.has(candidate.profile.pace)) bonus += 0.15;
-  if (!usedPresence.has(candidate.profile.presence)) bonus += 0.1;
-  if (usedFamilies.has(candidate.profile.family_group)) bonus -= 0.35;
-  if (usedLanes.has(candidate.profile.tactical_lane)) bonus -= 0.15;
-  if (candidate.profile.family_group === lead.profile.family_group) bonus -= 0.55;
-  if (candidate.profile.tactical_lane === lead.profile.tactical_lane) bonus -= 0.25;
-  if (
-    isWormHeavyCandidate(candidate) &&
-    selected.some((entry) => isWormHeavyCandidate(entry))
-  ) {
-    bonus -= 0.75;
-  }
-  if (
-    candidate.profile.primary_column === resolved.daily_preference.secondary_column ||
-    candidate.profile.pace === resolved.daily_preference.secondary_pace ||
-    candidate.profile.presence === resolved.daily_preference.secondary_presence
-  ) {
-    bonus += 0.25;
-  }
-  return bonus;
-}
-
-function selectionThreshold(opportunityMix: RecommenderV3ResolvedProfile["daily_preference"]["opportunity_mix"]): number {
-  switch (opportunityMix) {
-    case "conservative":
-      return 0.45;
-    case "aggressive":
-      return 1.15;
-    case "balanced":
-    default:
-      return 0.8;
-  }
-}
-
-function finalizeCandidate(
-  candidate: ScoredCandidate,
-  selectionRole: RecommenderV3RankedArchetype["selection_role"],
-  opportunityMixFit: number,
-): RecommenderV3RankedArchetype {
-  const roleIndex: 0 | 1 | 2 = selectionRole === "best_match"
-    ? 0
-    : selectionRole === "strong_alternate"
-    ? 1
-    : 2;
-  return {
-    id: candidate.profile.id,
-    display_name: candidate.profile.display_name,
-    gear_mode: candidate.profile.gear_mode,
-    family_group: candidate.profile.family_group,
-    primary_column: candidate.profile.primary_column,
-    pace: candidate.profile.pace,
-    presence: candidate.profile.presence,
-    is_surface: candidate.profile.is_surface,
-    tactical_lane: candidate.profile.tactical_lane,
-    score: candidate.score,
-    selection_role: selectionRole,
-    tactical_fit: candidate.tactical_fit,
-    practicality_fit: candidate.practicality_fit,
-    forage_fit: candidate.forage_fit,
-    clarity_fit: candidate.clarity_fit,
-    opportunity_mix_fit: roundScore(opportunityMixFit),
-    color_theme: candidate.color_theme,
-    color_recommendations: candidate.color_recommendations,
-    why_chosen: buildSelectionRoleWhyChosen(candidate, selectionRole),
-    how_to_fish: candidate.how_to_fish_by_role[roleIndex],
-    breakdown: candidate.breakdown,
-  };
-}
-
-function selectTopThree(
-  scored: ScoredCandidate[],
-  resolved: RecommenderV3ResolvedProfile,
-  daily: RecommenderV3DailyPayload,
-): RecommenderV3RankedArchetype[] {
-  const sorted = [...scored].sort(compareScored);
-  if (sorted.length === 0) return [];
-
-  const selected: ScoredCandidate[] = [sorted[0]!];
-  const threshold = selectionThreshold(resolved.daily_preference.opportunity_mix);
-
-  while (selected.length < 3 && selected.length < sorted.length) {
-    const remaining = sorted.filter((candidate) =>
-      !selected.some((chosen) => chosen.profile.id === candidate.profile.id)
-    );
-    const bestRemaining = remaining[0]!;
-    let chosen = bestRemaining;
-    const leadIsWormHeavy = isWormHeavyCandidate(selected[0]!);
-    const bestRemainingRepeatsFamily = selected.some((entry) =>
-      entry.profile.family_group === bestRemaining.profile.family_group
-    );
-    const bestRemainingRepeatsWormClass = isWormHeavyCandidate(bestRemaining) &&
-      selected.some((entry) => isWormHeavyCandidate(entry));
-    let coherentRemaining: ScoredCandidate[];
-    if (selected.length === 1) {
-      coherentRemaining = remaining.filter((candidate) =>
-        !peerScoredCoherenceConflict(selected[0]!, candidate, daily, resolved)
-      );
-    } else {
-      const coherentWithAllPeers = remaining.filter((candidate) =>
-        selected.every((peer) =>
-          !peerScoredCoherenceConflict(peer, candidate, daily, resolved)
-        )
-      );
-      coherentRemaining = coherentWithAllPeers.length > 0
-        ? coherentWithAllPeers
-        : remaining.filter((candidate) =>
-          !peerScoredCoherenceConflict(selected[0]!, candidate, daily, resolved)
-        );
-    }
-    const orderedCoherent = [...coherentRemaining].sort(compareScored);
-    let bestCoherentRemaining = orderedCoherent[0] ?? bestRemaining;
-    if (selected.length >= 2) {
-      const pick2Safe = orderedCoherent.find(
-        (c) => !peerScoredCoherenceConflict(selected[1]!, c, daily, resolved),
-      );
-      if (pick2Safe) bestCoherentRemaining = pick2Safe;
-    }
-
-    const changeupPool =
-      selected.length >= 2
-        ? orderedCoherent.filter(
-          (c) => !peerScoredCoherenceConflict(selected[1]!, c, daily, resolved),
-        )
-        : orderedCoherent;
-
-    if (selected.length === 1) {
-      const diverse = coherentRemaining
-        .map((candidate) => ({
-          candidate,
-          bonus: changeupBonus(candidate, selected, resolved),
-        }))
-        .filter(({ candidate }) =>
-          candidate.profile.family_group !== selected[0]!.profile.family_group &&
-          (!leadIsWormHeavy || !isWormHeavyCandidate(candidate))
-        )
-        .sort((a, b) =>
-          b.bonus - a.bonus ||
-          compareScored(a.candidate, b.candidate)
-        );
-      const diversityThreshold = bestRemainingRepeatsFamily || bestRemainingRepeatsWormClass
-        ? threshold + 1.4
-        : threshold;
-      if (
-        diverse[0] &&
-        diverse[0].candidate.score >= bestCoherentRemaining.score - diversityThreshold
-      ) {
-        chosen = diverse[0].candidate;
-      } else {
-        chosen = bestCoherentRemaining;
-      }
-    } else {
-      const changeups = changeupPool
-        .map((candidate) => ({
-          candidate,
-          bonus: changeupBonus(candidate, selected, resolved),
-        }))
-        .sort((a, b) =>
-          b.bonus - a.bonus ||
-          compareScored(a.candidate, b.candidate)
-        );
-      const changeupThreshold = bestRemainingRepeatsFamily || bestRemainingRepeatsWormClass
-        ? threshold + 1.4
-        : threshold + 0.2;
-      if (
-        changeups[0] &&
-        changeups[0].bonus > 0 &&
-        changeups[0].candidate.score >= bestCoherentRemaining.score - changeupThreshold
-      ) {
-        chosen = changeups[0].candidate;
-      } else {
-        chosen = bestCoherentRemaining;
-      }
-    }
-
-    if (selected.length >= 2) {
-      if (peerScoredCoherenceConflict(selected[1]!, chosen, daily, resolved)) {
-        const rescue = [...remaining].sort(compareScored).find((candidate) =>
-          !peerScoredCoherenceConflict(selected[0]!, candidate, daily, resolved) &&
-          !peerScoredCoherenceConflict(selected[1]!, candidate, daily, resolved)
-        );
-        if (rescue) chosen = rescue;
-      }
-    }
-
-    selected.push(chosen);
-  }
-
-  while (selected.length < 3 && selected.length < sorted.length) {
-    const fallback = sorted.find((candidate) => {
-      if (selected.some((chosen) => chosen.profile.id === candidate.profile.id)) {
-        return false;
-      }
-      if (
-        selected.length >= 2 &&
-        peerScoredCoherenceConflict(selected[1]!, candidate, daily, resolved)
-      ) {
-        return false;
-      }
-      return true;
-    });
-    if (!fallback) break;
-    selected.push(fallback);
-  }
-
-  return selected.slice(0, 3).map((candidate, index) =>
-    finalizeCandidate(
-      candidate,
-      index === 0 ? "best_match" : index === 1 ? "strong_alternate" : "change_up",
-      index === 0 ? 0 : changeupBonus(candidate, selected.slice(0, index), resolved),
-    )
-  );
-}
-
 function rankCandidates<TId extends LureArchetypeIdV3 | FlyArchetypeIdV3>(
   ids: readonly TId[],
   catalog: Record<TId, RecommenderV3ArchetypeProfile>,
@@ -1009,15 +1081,18 @@ function rankCandidates<TId extends LureArchetypeIdV3 | FlyArchetypeIdV3>(
   daily: RecommenderV3DailyPayload,
   clarity: WaterClarity,
   lightLabel: string | null,
+  stateCode?: string,
 ): RecommenderV3RankedArchetype[] {
   const scored = ids
     .map((id) => catalog[id])
     .filter(Boolean)
-    .map((profile) => scoreProfile(profile, seasonal, resolved, daily, clarity, lightLabel))
+    .map((profile) => scoreProfile(profile, seasonal, resolved, daily, clarity, lightLabel, stateCode))
     .filter((candidate): candidate is ScoredCandidate => candidate != null);
 
-  return selectTopThree(scored, resolved, daily);
+  return selectTopThreeCandidates(scored, resolved, daily);
 }
+
+export { peerArchetypesCoherenceConflict };
 
 export function scoreLureCandidatesV3(
   seasonal: RecommenderV3SeasonalRow,
@@ -1025,6 +1100,7 @@ export function scoreLureCandidatesV3(
   daily: RecommenderV3DailyPayload,
   clarity: WaterClarity,
   lightLabel: string | null,
+  stateCode?: string,
 ): RecommenderV3RankedArchetype[] {
   return rankCandidates(
     seasonal.eligible_lure_ids,
@@ -1034,6 +1110,7 @@ export function scoreLureCandidatesV3(
     daily,
     clarity,
     lightLabel,
+    stateCode,
   );
 }
 
@@ -1043,6 +1120,7 @@ export function scoreFlyCandidatesV3(
   daily: RecommenderV3DailyPayload,
   clarity: WaterClarity,
   lightLabel: string | null,
+  stateCode?: string,
 ): RecommenderV3RankedArchetype[] {
   return rankCandidates(
     seasonal.eligible_fly_ids,
@@ -1052,5 +1130,6 @@ export function scoreFlyCandidatesV3(
     daily,
     clarity,
     lightLabel,
+    stateCode,
   );
 }

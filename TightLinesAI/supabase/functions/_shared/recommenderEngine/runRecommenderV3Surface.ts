@@ -6,8 +6,8 @@ import {
   type RecommenderResponse,
 } from "./contracts/output.ts";
 import { computeRecommenderV3 } from "./runRecommenderV3.ts";
-import { analyzeSharedConditions } from "../howFishingEngine/analyzeSharedConditions.ts";
-import type { SharedEngineRequest } from "../howFishingEngine/contracts/input.ts";
+import { analyzeRecommenderConditions } from "./sharedAnalysis.ts";
+import { toLegacyRecommenderSpecies } from "./v3/scope.ts";
 
 export function locationLocalMidnightIso(timezone: string, now = new Date()): string {
   const formatter = new Intl.DateTimeFormat("en-US", {
@@ -31,17 +31,6 @@ export function locationLocalMidnightIso(timezone: string, now = new Date()): st
   const offsetMillis = localNowUtcMillis - now.getTime();
   const nextLocalMidnightUtcMillis = Date.UTC(y, m - 1, d + 1, 0, 0, 0) - offsetMillis;
   return new Date(nextLocalMidnightUtcMillis).toISOString();
-}
-
-function toSurfaceSpecies(species: ReturnType<typeof computeRecommenderV3>["species"]): SpeciesGroup {
-  switch (species) {
-    case "northern_pike":
-      return "pike_musky";
-    case "trout":
-      return "river_trout";
-    default:
-      return species;
-  }
 }
 
 function colorThemeLabel(theme: ReturnType<typeof computeRecommenderV3>["lure_recommendations"][number]["color_theme"]): string {
@@ -70,18 +59,7 @@ function toSurfaceRecommendation(
 }
 
 export function runRecommenderV3Surface(req: RecommenderRequest): RecommenderResponse {
-  const sharedReq: SharedEngineRequest = {
-    latitude: req.location.latitude,
-    longitude: req.location.longitude,
-    state_code: req.location.state_code,
-    region_key: req.location.region_key,
-    local_date: req.location.local_date,
-    local_timezone: req.location.local_timezone,
-    context: req.context,
-    environment: req.env_data as SharedEngineRequest["environment"],
-    data_coverage: {},
-  };
-  const analysis = analyzeSharedConditions(sharedReq);
+  const analysis = analyzeRecommenderConditions(req);
   const v3 = computeRecommenderV3(req, analysis);
 
   if (v3.lure_recommendations.length < 3 || v3.fly_recommendations.length < 3) {
@@ -97,7 +75,7 @@ export function runRecommenderV3Surface(req: RecommenderRequest): RecommenderRes
 
   return {
     feature: RECOMMENDER_FEATURE,
-    species: toSurfaceSpecies(v3.species),
+    species: toLegacyRecommenderSpecies(v3.species) as SpeciesGroup,
     context: v3.context,
     water_clarity: v3.water_clarity,
     generated_at: now.toISOString(),

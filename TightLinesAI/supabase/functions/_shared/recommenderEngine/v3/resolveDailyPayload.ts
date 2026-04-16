@@ -64,7 +64,7 @@ function resolveReactionWindow(
   pressureLabel: string | null,
 ): DailyReactionWindowV3 {
   if (
-    postureBand === "aggressive" &&
+    (postureBand === "aggressive" || postureBand === "slightly_aggressive") &&
     (
       lightLabel === "low_light" ||
       lightLabel === "heavy_overcast" ||
@@ -95,12 +95,21 @@ function resolveSurfaceWindow(
   ) {
     return "closed";
   }
-  if (
-    lightLabel === "bright" ||
-    lightLabel === "glare" ||
-    postureBand === "slightly_suppressed"
-  ) {
-    return "closed";
+
+  if (postureBand === "slightly_suppressed") {
+    if (
+      (lightLabel === "bright" || lightLabel === "glare") &&
+      (windLabel === "calm" || windLabel === "light" || windLabel == null)
+    ) {
+      return "closed";
+    }
+    return "rippled";
+  }
+
+  if (lightLabel === "bright" || lightLabel === "glare") {
+    return (windLabel === "calm" || windLabel === "light" || windLabel == null)
+      ? "closed"
+      : "rippled";
   }
   if (lightLabel === "low_light") {
     return windLabel === "moderate" ? "rippled" : "clean";
@@ -121,7 +130,7 @@ function resolveOpportunityMix(
   if (postureBand === "aggressive" || reactionWindow === "on") {
     return "aggressive";
   }
-  if (postureBand === "suppressed" || postureBand === "slightly_suppressed") {
+  if (postureBand === "suppressed") {
     return "conservative";
   }
   return "balanced";
@@ -341,7 +350,7 @@ export function resolveDailyPayloadV3(
     presence_shift: presenceShift,
     surface_allowed_today: surfaceWindow !== "closed",
     suppress_fast_presentations:
-      postureBand === "suppressed" || postureBand === "slightly_suppressed",
+      postureBand === "suppressed",
     high_visibility_needed: clarity === "dirty" || presenceShift === 1,
     variables_considered: V3_SCORED_VARIABLE_KEYS_BY_CONTEXT[context],
     variables_triggered: triggered,

@@ -1,5 +1,3 @@
-import { analyzeSharedConditions } from "../howFishingEngine/analyzeSharedConditions.ts";
-import type { SharedEngineRequest } from "../howFishingEngine/contracts/input.ts";
 import type { RecommenderRequest } from "./contracts/input.ts";
 import {
   RECOMMENDER_V3_FEATURE,
@@ -11,6 +9,7 @@ import { resolveSeasonalRowV3 } from "./v3/seasonal/resolveSeasonalRow.ts";
 import { resolveFinalProfileV3 } from "./v3/resolveFinalProfile.ts";
 import { scoreFlyCandidatesV3, scoreLureCandidatesV3 } from "./v3/scoreCandidates.ts";
 import type { SharedConditionAnalysis } from "../howFishingEngine/analyzeSharedConditions.ts";
+import { analyzeRecommenderConditions } from "./sharedAnalysis.ts";
 
 /**
  * Freshwater V3 production path.
@@ -44,6 +43,7 @@ export function computeRecommenderV3(
     dailyPayload,
     req.water_clarity,
     lightLabel,
+    req.location.state_code,
   );
   const flyRecommendations = scoreFlyCandidatesV3(
     seasonalRow,
@@ -51,6 +51,7 @@ export function computeRecommenderV3(
     dailyPayload,
     req.water_clarity,
     lightLabel,
+    req.location.state_code,
   );
 
   return {
@@ -58,6 +59,8 @@ export function computeRecommenderV3(
     species,
     context,
     region_key: req.location.region_key,
+    seasonal_source_region_key: seasonalRow.source_region_key,
+    used_region_fallback: seasonalRow.used_region_fallback,
     month: req.location.month,
     water_clarity: req.water_clarity,
     variables_considered: dailyPayload.variables_considered,
@@ -72,18 +75,6 @@ export function computeRecommenderV3(
 export function runRecommenderV3(
   req: RecommenderRequest,
 ): RecommenderV3Response {
-  const sharedReq: SharedEngineRequest = {
-    latitude: req.location.latitude,
-    longitude: req.location.longitude,
-    state_code: req.location.state_code,
-    region_key: req.location.region_key,
-    local_date: req.location.local_date,
-    local_timezone: req.location.local_timezone,
-    context: req.context,
-    environment: req.env_data as SharedEngineRequest["environment"],
-    data_coverage: {},
-  };
-
-  const analysis = analyzeSharedConditions(sharedReq);
+  const analysis = analyzeRecommenderConditions(req);
   return computeRecommenderV3(req, analysis);
 }

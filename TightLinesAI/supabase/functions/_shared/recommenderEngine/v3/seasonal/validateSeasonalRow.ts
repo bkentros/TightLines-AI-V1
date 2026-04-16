@@ -46,8 +46,26 @@ function assertSubset<T extends string>(
   }
 }
 
-/** True if the archetype overlaps the monthly allowed box on any tactical axis. */
-function archetypeFitsAllowedLanes(
+function archetypeFitsByWeightedBaseline(
+  colOk: boolean,
+  paceOk: boolean,
+  presOk: boolean,
+  p: RecommenderV3ArchetypeProfile,
+): boolean {
+  if (colOk && (paceOk || presOk)) return true;
+  if (p.tactical_lane === "fly_bottom" && (colOk || paceOk || presOk)) return true;
+  if (
+    (p.tactical_lane === "bottom_contact" || p.tactical_lane === "finesse_subtle") &&
+    ((paceOk && presOk) || (presOk && p.primary_column === "bottom"))
+  ) {
+    return true;
+  }
+  if (p.is_surface && colOk) return true;
+  return false;
+}
+
+/** Structural authoring check: any tactical-axis overlap keeps the row valid. */
+export function archetypeFitsMonthlyBaselineLanes(
   p: RecommenderV3ArchetypeProfile,
   allowed_columns: readonly TacticalColumnV3[],
   allowed_paces: readonly TacticalPaceV3[],
@@ -67,14 +85,33 @@ function archetypeFitsAllowedLanes(
   return colOk || paceOk || presOk;
 }
 
+/** Runtime ranking check: prefer column-led tactical fit inside the monthly world. */
+export function archetypeFitsStrictMonthlyBaselineLanes(
+  p: RecommenderV3ArchetypeProfile,
+  allowed_columns: readonly TacticalColumnV3[],
+  allowed_paces: readonly TacticalPaceV3[],
+  allowed_presence: readonly TacticalPresenceV3[],
+): boolean {
+  const colOk =
+    allowed_columns.includes(p.primary_column) ||
+    (p.secondary_column != null &&
+      allowed_columns.includes(p.secondary_column));
+  const paceOk =
+    allowed_paces.includes(p.pace) ||
+    (p.secondary_pace != null && allowed_paces.includes(p.secondary_pace));
+  const presOk =
+    allowed_presence.includes(p.presence) ||
+    (p.secondary_presence != null &&
+      allowed_presence.includes(p.secondary_presence));
+  return archetypeFitsByWeightedBaseline(colOk, paceOk, presOk, p);
+}
+
 /**
  * Structural checks for authored seasonal rows. Invoked at module load.
  *
- * Tactical lane check: each eligible archetype must overlap the monthly
- * allowed column, pace, or presence set on at least one axis (OR). A strict
- * AND across all three rejected many historically authored spawn-shallow rows
- * where resolved `typical_seasonal_water_column` is upper-column biased while
- * classic leech/craw streamers remain bottom-tagged in the fly catalog.
+ * Tactical lane check: structural validation stays intentionally broad so
+ * authored rows can preserve legitimate backup/control lanes. Runtime scoring
+ * applies a stricter column-led preference when ranking inside the seasonal row.
  */
 export function validateSeasonalRows(
   rows: readonly RecommenderV3SeasonalRow[],
@@ -174,7 +211,7 @@ export function validateSeasonalRows(
         );
       }
       if (
-        !archetypeFitsAllowedLanes(
+        !archetypeFitsMonthlyBaselineLanes(
           p,
           baseline.allowed_columns,
           baseline.allowed_paces,
@@ -203,7 +240,7 @@ export function validateSeasonalRows(
         );
       }
       if (
-        !archetypeFitsAllowedLanes(
+        !archetypeFitsMonthlyBaselineLanes(
           p,
           baseline.allowed_columns,
           baseline.allowed_paces,

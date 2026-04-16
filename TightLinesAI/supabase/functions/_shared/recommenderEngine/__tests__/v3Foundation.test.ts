@@ -6,6 +6,7 @@ import { resolveFinalProfileV3 } from "../v3/resolveFinalProfile.ts";
 import { resolveSeasonalRowV3 } from "../v3/seasonal/resolveSeasonalRow.ts";
 import {
   assertRecommenderV3Scope,
+  toLegacyRecommenderSpecies,
   toRecommenderV3Species,
 } from "../v3/scope.ts";
 
@@ -69,6 +70,8 @@ Deno.test("V3 scope maps legacy freshwater species into the rebuilt species list
   assertEquals(toRecommenderV3Species("pike_musky"), "northern_pike");
   assertEquals(toRecommenderV3Species("river_trout"), "trout");
   assertEquals(toRecommenderV3Species("redfish"), null);
+  assertEquals(toLegacyRecommenderSpecies("northern_pike"), "pike_musky");
+  assertEquals(toLegacyRecommenderSpecies("trout"), "river_trout");
 });
 
 Deno.test("V3 scope still enforces trout as river-only", () => {
@@ -199,6 +202,19 @@ Deno.test("V3 windy summer lake days close surface and keep picks inside the sea
       (candidate) => candidate.is_surface === false,
     ),
   );
+});
+
+Deno.test("V3 seasonal resolution exposes fallback provenance when product fallback is used", () => {
+  const row = resolveSeasonalRowV3(
+    "trout",
+    "florida",
+    10,
+    "freshwater_river",
+  );
+
+  assertEquals(row.used_region_fallback, true);
+  assertEquals(row.source_region_key, row.region_key);
+  assert(["gulf_coast", "southeast_atlantic"].includes(row.source_region_key));
 });
 
 Deno.test("V3 results return exactly three lure and fly recommendations with deterministic explanations", () => {

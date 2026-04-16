@@ -1,6 +1,6 @@
 # V3 Coverage Audit
 
-Generated: 2026-04-15T14:06:15.254Z
+Generated: 2026-04-15T20:13:21.636Z
 
 Seasonal rows audited: 1104
 Synthetic daily states per row: 405
@@ -21,31 +21,31 @@ Synthetic daily states per row: 405
 
 ## Success Targets
 
-Locked top-1 ratio: lure 0.1% / target <= 50.0%, fly 2.3% / target <= 55.0%
-Low daily sensitivity ratio: lure 0.0% / target <= 45.0%, fly 2.3% / target <= 50.0%
+Locked top-1 ratio: lure 0.1% / target <= 50.0%, fly 2.4% / target <= 55.0%
+Low daily sensitivity ratio: lure 0.0% / target <= 45.0%, fly 2.4% / target <= 50.0%
 Tactical conflict rate: lure 1.7% / target <= 2.0%, fly 0.0% / target <= 2.0%
-Expectation mismatches: lure 2 / target <= 0, fly 0 / target <= 0
+Expectation mismatches: lure 0 / target <= 0, fly 0 / target <= 0
 
 ## Locked Top-1 Rows
 
 Lure rows with only one possible top-1 across all synthetic states: 1
-Fly rows with only one possible top-1 across all synthetic states: 25
+Fly rows with only one possible top-1 across all synthetic states: 26
 
 ## Low Daily Sensitivity
 
 Lure rows with only one top-1 and at most two ordered top-3 lineups: 0
-Fly rows with only one top-1 and at most two ordered top-3 lineups: 25
+Fly rows with only one top-1 and at most two ordered top-3 lineups: 26
 
 ## Tactical Conflicts
 
-Lure evaluated states with top-3 pace/story conflicts: 7614
+Lure evaluated states with top-3 pace/story conflicts: 7776
 Fly evaluated states with top-3 pace/story conflicts: 0
 
 ## Library Reachability
 
 Lures never viable: none
 Lures never top 3: none
-Lures never top 1: popping_topwater, pike_jerkbait
+Lures never top 1: none
 
 Flies never viable: none
 Flies never top 3: none
@@ -53,7 +53,7 @@ Flies never top 1: none
 
 ## Intended vs Actual
 
-Lure expectation mismatches: 2
+Lure expectation mismatches: 0
 Fly expectation mismatches: 0
 
 ## Redundancy Collisions
@@ -65,8 +65,6 @@ Detected 25 tagged redundancy collisions.
 | Archetype | Role | Required | Status |
 | --- | --- | --- | --- |
 | weightless_stick_worm | winner_capable | top1 | pass |
-| texas_rigged_stick_worm | winner_capable | top1 | pass |
-| wacky_rigged_stick_worm | winner_capable | top1 | pass |
 | carolina_rigged_stick_worm | intentional_low_frequency_specialty | top3 | pass |
 | shaky_head_worm | winner_capable | top1 | pass |
 | drop_shot_worm | winner_capable | top1 | pass |
@@ -93,12 +91,12 @@ Detected 25 tagged redundancy collisions.
 | blade_bait | winner_capable | top1 | pass |
 | casting_spoon | winner_capable | top1 | pass |
 | walking_topwater | winner_capable | top1 | pass |
-| popping_topwater | intentional_low_frequency_specialty | top1 | fail |
+| popping_topwater | intentional_low_frequency_specialty | top1 | pass |
 | buzzbait | intentional_low_frequency_specialty | top1 | pass |
 | prop_bait | intentional_low_frequency_specialty | top1 | pass |
 | hollow_body_frog | winner_capable | top1 | pass |
 | large_profile_pike_swimbait | winner_capable | top1 | pass |
-| pike_jerkbait | winner_capable | top1 | fail |
+| pike_jerkbait | winner_capable | top1 | pass |
 
 ## Fly Intent Table
 

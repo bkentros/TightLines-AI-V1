@@ -1,4 +1,9 @@
-import type { RecommenderV3Context, RecommenderV3SeasonalRow, RecommenderV3Species } from "../contracts.ts";
+import type {
+  RecommenderV3Context,
+  RecommenderV3ResolvedSeasonalRow,
+  RecommenderV3SeasonalRow,
+  RecommenderV3Species,
+} from "../contracts.ts";
 import { LARGEMOUTH_V3_SEASONAL_ROWS } from "./largemouth.ts";
 import { SMALLMOUTH_V3_SEASONAL_ROWS } from "./smallmouth.ts";
 import { NORTHERN_PIKE_V3_SEASONAL_ROWS } from "./pike.ts";
@@ -9,9 +14,9 @@ import type { RegionKey } from "../../../howFishingEngine/contracts/region.ts";
  *  try these substitutes in order before giving up. */
 const REGION_FALLBACKS: Partial<Record<RegionKey, RegionKey[]>> = {
   // original entries (unchanged)
-  gulf_coast: ["south_central", "southeast_atlantic"],
-  southeast_atlantic: ["south_central", "appalachian"],
-  florida: ["gulf_coast", "south_central"],
+  gulf_coast: ["southeast_atlantic", "south_central"],
+  southeast_atlantic: ["appalachian", "south_central"],
+  florida: ["gulf_coast", "southeast_atlantic"],
   mountain_alpine: ["mountain_west", "inland_northwest"],
   alaska: ["pacific_northwest", "inland_northwest"],
   hawaii: ["southern_california", "southwest_desert"],
@@ -19,7 +24,7 @@ const REGION_FALLBACKS: Partial<Record<RegionKey, RegionKey[]>> = {
   northeast: ["great_lakes_upper_midwest", "appalachian"],
   great_lakes_upper_midwest: ["northeast", "midwest_interior"],
   midwest_interior: ["great_lakes_upper_midwest", "south_central"],
-  south_central: ["southeast_atlantic", "gulf_coast"],
+  south_central: ["southeast_atlantic", "appalachian"],
   mountain_west: ["inland_northwest", "mountain_alpine"],
   southwest_desert: ["southern_california", "south_central"],
   southwest_high_desert: ["mountain_west", "southwest_desert"],
@@ -35,7 +40,7 @@ export function resolveSeasonalRowV3(
   region_key: RegionKey,
   month: number,
   context: RecommenderV3Context,
-): RecommenderV3SeasonalRow {
+): RecommenderV3ResolvedSeasonalRow {
   const seasonalRows = (() => {
     switch (species) {
       case "largemouth_bass":
@@ -68,12 +73,16 @@ export function resolveSeasonalRowV3(
   };
 
   let row = findRow(region_key);
+  let source_region_key = region_key;
 
   if (!row) {
     const fallbacks = REGION_FALLBACKS[region_key] ?? [];
     for (const fallback of fallbacks) {
       row = findRow(fallback);
-      if (row) break;
+      if (row) {
+        source_region_key = fallback;
+        break;
+      }
     }
   }
 
@@ -89,5 +98,9 @@ export function resolveSeasonalRowV3(
     );
   }
 
-  return row;
+  return {
+    ...row,
+    source_region_key,
+    used_region_fallback: source_region_key !== region_key,
+  };
 }

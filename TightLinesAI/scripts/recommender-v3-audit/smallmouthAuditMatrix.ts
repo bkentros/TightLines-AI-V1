@@ -111,10 +111,10 @@ export const SMALLMOUTH_AUDIT_ANCHORS: readonly SmallmouthAuditAnchor[] = [
     state_code: "PA",
     timezone: "America/New_York",
     context: "freshwater_river",
-    region_key: "great_lakes_upper_midwest",
+    region_key: "northeast",
     default_clarity: "clear",
     audit_role: "core_monthly",
-    notes: "Clear-river benchmark for northern smallmouth seasonal tightening and baitfish-first behavior within the app's Great Lakes / Upper Midwest region map.",
+    notes: "Northeast clear-river benchmark for Susquehanna-style tailwater smallmouth: tube / Ned / soft jerkbait in spring, seam tools in summer, and disciplined fall baitfish tightening.",
   },
   {
     key: "wisconsin_natural_lake",

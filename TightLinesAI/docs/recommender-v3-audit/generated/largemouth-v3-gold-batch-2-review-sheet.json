@@ -416,7 +416,7 @@
         ],
         "acceptable_secondary_lanes": [
           "prop_bait",
-          "texas_rigged_stick_worm",
+          "weightless_stick_worm",
           "frog_fly"
         ],
         "disallowed_lanes": [
@@ -794,7 +794,7 @@
         "seasonal_story": "Texas reservoir largemouth in mid-spring should balance shallow target fishing with cleaner baitfish follow-up lanes.",
         "primary_lanes": [
           "compact_flipping_jig",
-          "wacky_rigged_stick_worm",
+          "weightless_stick_worm",
           "swim_jig"
         ],
         "acceptable_secondary_lanes": [

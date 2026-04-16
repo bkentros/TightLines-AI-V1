@@ -1,0 +1,547 @@
+{
+  "model_recommendation": "gpt-image-1.5",
+  "image_size": "1024x1024",
+  "background": "transparent",
+  "assets": [
+    {
+      "filename": "lure_weightless_stick_worm.png",
+      "slug": "weightless_stick_worm",
+      "type": "lure",
+      "display_name": "weightless stick worm",
+      "subject_line": "a soft plastic stick worm rigged weightless on a single offset hook, straight slender worm body, simple realistic bass-fishing silhouette",
+      "prompt": "Create a clean transparent-background illustration of weightless stick worm. Use simple shapes, subtle detail, and soft but natural colors. Make it slightly clip-art-like, but not too cartoonish and not overly detailed or overly polished/professional. It should feel modern, approachable, and app-ready, with a strong recognizable silhouette. Subject accuracy matters: this should look like a real, recognized fishing lure, not an invented fantasy design. Centered subject only, no text, no label, no background, no extra objects, no hands, no fishing rod, no scene. The subject should take up about 80% of the width of the square image. Maintain a consistent visual theme across the full asset set. Depict a soft plastic stick worm rigged weightless on a single offset hook, straight slender worm body, simple realistic bass-fishing silhouette. Avoid photorealism, overly painterly rendering, heavy shadows, dramatic scene lighting, extra props, water splashes, packaging, logos, text, labels, multiple objects, background scenery, unrealistic proportions, novelty lure design, fantasy fly materials, and anything that makes the lure or fly look unrecognizable.",
+      "app_filename": "texas_rigged_stick_worm.png",
+      "output_subdir": "lures"
+    },
+    {
+      "filename": "lure_carolina_rigged_stick_worm.png",
+      "slug": "carolina_rigged_stick_worm",
+      "type": "lure",
+      "display_name": "carolina rigged stick worm",
+      "subject_line": "a soft plastic stick worm on a Carolina rig, worm trailing behind a leader with a bullet weight and bead in front, recognizable bass-fishing setup",
+      "prompt": "Create a clean transparent-background illustration of carolina rigged stick worm. Use simple shapes, subtle detail, and soft but natural colors. Make it slightly clip-art-like, but not too cartoonish and not overly detailed or overly polished/professional. It should feel modern, approachable, and app-ready, with a strong recognizable silhouette. Subject accuracy matters: this should look like a real, recognized fishing lure, not an invented fantasy design. Centered subject only, no text, no label, no background, no extra objects, no hands, no fishing rod, no scene. The subject should take up about 80% of the width of the square image. Maintain a consistent visual theme across the full asset set. Depict a soft plastic stick worm on a Carolina rig, worm trailing behind a leader with a bullet weight and bead in front, recognizable bass-fishing setup. Avoid photorealism, overly painterly rendering, heavy shadows, dramatic scene lighting, extra props, water splashes, packaging, logos, text, labels, multiple objects, background scenery, unrealistic proportions, novelty lure design, fantasy fly materials, and anything that makes the lure or fly look unrecognizable.",
+      "app_filename": "carolina_rigged_stick_worm.png",
+      "output_subdir": "lures"
+    },
+    {
+      "filename": "lure_shaky_head_worm.png",
+      "slug": "shaky_head_worm",
+      "type": "lure",
+      "display_name": "shaky head worm",
+      "subject_line": "a finesse worm rigged on a shaky head jig, exposed jighead at the nose with a slim worm standing up behind it",
+      "prompt": "Create a clean transparent-background illustration of shaky head worm. Use simple shapes, subtle detail, and soft but natural colors. Make it slightly clip-art-like, but not too cartoonish and not overly detailed or overly polished/professional. It should feel modern, approachable, and app-ready, with a strong recognizable silhouette. Subject accuracy matters: this should look like a real, recognized fishing lure, not an invented fantasy design. Centered subject only, no text, no label, no background, no extra objects, no hands, no fishing rod, no scene. The subject should take up about 80% of the width of the square image. Maintain a consistent visual theme across the full asset set. Depict a finesse worm rigged on a shaky head jig, exposed jighead at the nose with a slim worm standing up behind it. Avoid photorealism, overly painterly rendering, heavy shadows, dramatic scene lighting, extra props, water splashes, packaging, logos, text, labels, multiple objects, background scenery, unrealistic proportions, novelty lure design, fantasy fly materials, and anything that makes the lure or fly look unrecognizable.",
+      "app_filename": "shaky_head_worm.png",
+      "output_subdir": "lures"
+    },
+    {
+      "filename": "lure_drop_shot_worm.png",
+      "slug": "drop_shot_worm",
+      "type": "lure",
+      "display_name": "drop shot worm",
+      "subject_line": "a slim finesse worm on a drop-shot rig with hook tied above a line and a small drop-shot weight below",
+      "prompt": "Create a clean transparent-background illustration of drop shot worm. Use simple shapes, subtle detail, and soft but natural colors. Make it slightly clip-art-like, but not too cartoonish and not overly detailed or overly polished/professional. It should feel modern, approachable, and app-ready, with a strong recognizable silhouette. Subject accuracy matters: this should look like a real, recognized fishing lure, not an invented fantasy design. Centered subject only, no text, no label, no background, no extra objects, no hands, no fishing rod, no scene. The subject should take up about 80% of the width of the square image. Maintain a consistent visual theme across the full asset set. Depict a slim finesse worm on a drop-shot rig with hook tied above a line and a small drop-shot weight below. Avoid photorealism, overly painterly rendering, heavy shadows, dramatic scene lighting, extra props, water splashes, packaging, logos, text, labels, multiple objects, background scenery, unrealistic proportions, novelty lure design, fantasy fly materials, and anything that makes the lure or fly look unrecognizable.",
+      "app_filename": "drop_shot_worm.png",
+      "output_subdir": "lures"
+    },
+    {
+      "filename": "lure_drop_shot_minnow.png",
+      "slug": "drop_shot_minnow",
+      "type": "lure",
+      "display_name": "drop shot minnow",
+      "subject_line": "a small minnow-shaped soft plastic on a drop-shot rig, hook above and drop-shot weight below, clear finesse profile",
+      "prompt": "Create a clean transparent-background illustration of drop shot minnow. Use simple shapes, subtle detail, and soft but natural colors. Make it slightly clip-art-like, but not too cartoonish and not overly detailed or overly polished/professional. It should feel modern, approachable, and app-ready, with a strong recognizable silhouette. Subject accuracy matters: this should look like a real, recognized fishing lure, not an invented fantasy design. Centered subject only, no text, no label, no background, no extra objects, no hands, no fishing rod, no scene. The subject should take up about 80% of the width of the square image. Maintain a consistent visual theme across the full asset set. Depict a small minnow-shaped soft plastic on a drop-shot rig, hook above and drop-shot weight below, clear finesse profile. Avoid photorealism, overly painterly rendering, heavy shadows, dramatic scene lighting, extra props, water splashes, packaging, logos, text, labels, multiple objects, background scenery, unrealistic proportions, novelty lure design, fantasy fly materials, and anything that makes the lure or fly look unrecognizable.",
+      "app_filename": "drop_shot_minnow.png",
+      "output_subdir": "lures"
+    },
+    {
+      "filename": "lure_ned_rig.png",
+      "slug": "ned_rig",
+      "type": "lure",
+      "display_name": "ned rig",
+      "subject_line": "a short stubby stick-bait style plastic on a mushroom jig head, compact upright finesse bass lure silhouette",
+      "prompt": "Create a clean transparent-background illustration of ned rig. Use simple shapes, subtle detail, and soft but natural colors. Make it slightly clip-art-like, but not too cartoonish and not overly detailed or overly polished/professional. It should feel modern, approachable, and app-ready, with a strong recognizable silhouette. Subject accuracy matters: this should look like a real, recognized fishing lure, not an invented fantasy design. Centered subject only, no text, no label, no background, no extra objects, no hands, no fishing rod, no scene. The subject should take up about 80% of the width of the square image. Maintain a consistent visual theme across the full asset set. Depict a short stubby stick-bait style plastic on a mushroom jig head, compact upright finesse bass lure silhouette. Avoid photorealism, overly painterly rendering, heavy shadows, dramatic scene lighting, extra props, water splashes, packaging, logos, text, labels, multiple objects, background scenery, unrealistic proportions, novelty lure design, fantasy fly materials, and anything that makes the lure or fly look unrecognizable.",
+      "app_filename": "ned_rig.png",
+      "output_subdir": "lures"
+    },
+    {
+      "filename": "lure_tube_jig.png",
+      "slug": "tube_jig",
+      "type": "lure",
+      "display_name": "tube jig",
+      "subject_line": "a hollow tube bait with skirted tentacles rigged on an internal or exposed jig head, classic bass tube profile",
+      "prompt": "Create a clean transparent-background illustration of tube jig. Use simple shapes, subtle detail, and soft but natural colors. Make it slightly clip-art-like, but not too cartoonish and not overly detailed or overly polished/professional. It should feel modern, approachable, and app-ready, with a strong recognizable silhouette. Subject accuracy matters: this should look like a real, recognized fishing lure, not an invented fantasy design. Centered subject only, no text, no label, no background, no extra objects, no hands, no fishing rod, no scene. The subject should take up about 80% of the width of the square image. Maintain a consistent visual theme across the full asset set. Depict a hollow tube bait with skirted tentacles rigged on an internal or exposed jig head, classic bass tube profile. Avoid photorealism, overly painterly rendering, heavy shadows, dramatic scene lighting, extra props, water splashes, packaging, logos, text, labels, multiple objects, background scenery, unrealistic proportions, novelty lure design, fantasy fly materials, and anything that makes the lure or fly look unrecognizable.",
+      "app_filename": "tube_jig.png",
+      "output_subdir": "lures"
+    },
+    {
+      "filename": "lure_texas_rigged_soft_plastic_craw.png",
+      "slug": "texas_rigged_soft_plastic_craw",
+      "type": "lure",
+      "display_name": "texas rigged soft plastic craw",
+      "subject_line": "a soft plastic craw rigged Texas-style with a bullet weight and offset hook, claws and compact craw profile",
+      "prompt": "Create a clean transparent-background illustration of texas rigged soft plastic craw. Use simple shapes, subtle detail, and soft but natural colors. Make it slightly clip-art-like, but not too cartoonish and not overly detailed or overly polished/professional. It should feel modern, approachable, and app-ready, with a strong recognizable silhouette. Subject accuracy matters: this should look like a real, recognized fishing lure, not an invented fantasy design. Centered subject only, no text, no label, no background, no extra objects, no hands, no fishing rod, no scene. The subject should take up about 80% of the width of the square image. Maintain a consistent visual theme across the full asset set. Depict a soft plastic craw rigged Texas-style with a bullet weight and offset hook, claws and compact craw profile. Avoid photorealism, overly painterly rendering, heavy shadows, dramatic scene lighting, extra props, water splashes, packaging, logos, text, labels, multiple objects, background scenery, unrealistic proportions, novelty lure design, fantasy fly materials, and anything that makes the lure or fly look unrecognizable.",
+      "app_filename": "texas_rigged_soft_plastic_craw.png",
+      "output_subdir": "lures"
+    },
+    {
+      "filename": "lure_football_jig.png",
+      "slug": "football_jig",
+      "type": "lure",
+      "display_name": "football jig",
+      "subject_line": "a bass jig with a football-shaped head, weed guard, skirt, and trailer profile",
+      "prompt": "Create a clean transparent-background illustration of football jig. Use simple shapes, subtle detail, and soft but natural colors. Make it slightly clip-art-like, but not too cartoonish and not overly detailed or overly polished/professional. It should feel modern, approachable, and app-ready, with a strong recognizable silhouette. Subject accuracy matters: this should look like a real, recognized fishing lure, not an invented fantasy design. Centered subject only, no text, no label, no background, no extra objects, no hands, no fishing rod, no scene. The subject should take up about 80% of the width of the square image. Maintain a consistent visual theme across the full asset set. Depict a bass jig with a football-shaped head, weed guard, skirt, and trailer profile. Avoid photorealism, overly painterly rendering, heavy shadows, dramatic scene lighting, extra props, water splashes, packaging, logos, text, labels, multiple objects, background scenery, unrealistic proportions, novelty lure design, fantasy fly materials, and anything that makes the lure or fly look unrecognizable.",
+      "app_filename": "football_jig.png",
+      "output_subdir": "lures"
+    },
+    {
+      "filename": "lure_compact_flipping_jig.png",
+      "slug": "compact_flipping_jig",
+      "type": "lure",
+      "display_name": "compact flipping jig",
+      "subject_line": "a compact flipping jig with a stout weed guard, full skirt, heavy hook, and short chunk-style trailer profile",
+      "prompt": "Create a clean transparent-background illustration of compact flipping jig. Use simple shapes, subtle detail, and soft but natural colors. Make it slightly clip-art-like, but not too cartoonish and not overly detailed or overly polished/professional. It should feel modern, approachable, and app-ready, with a strong recognizable silhouette. Subject accuracy matters: this should look like a real, recognized fishing lure, not an invented fantasy design. Centered subject only, no text, no label, no background, no extra objects, no hands, no fishing rod, no scene. The subject should take up about 80% of the width of the square image. Maintain a consistent visual theme across the full asset set. Depict a compact flipping jig with a stout weed guard, full skirt, heavy hook, and short chunk-style trailer profile. Avoid photorealism, overly painterly rendering, heavy shadows, dramatic scene lighting, extra props, water splashes, packaging, logos, text, labels, multiple objects, background scenery, unrealistic proportions, novelty lure design, fantasy fly materials, and anything that makes the lure or fly look unrecognizable.",
+      "app_filename": "compact_flipping_jig.png",
+      "output_subdir": "lures"
+    },
+    {
+      "filename": "lure_finesse_jig.png",
+      "slug": "finesse_jig",
+      "type": "lure",
+      "display_name": "finesse jig",
+      "subject_line": "a smaller finesse bass jig with a compact skirt, weed guard, and subtle trailer profile",
+      "prompt": "Create a clean transparent-background illustration of finesse jig. Use simple shapes, subtle detail, and soft but natural colors. Make it slightly clip-art-like, but not too cartoonish and not overly detailed or overly polished/professional. It should feel modern, approachable, and app-ready, with a strong recognizable silhouette. Subject accuracy matters: this should look like a real, recognized fishing lure, not an invented fantasy design. Centered subject only, no text, no label, no background, no extra objects, no hands, no fishing rod, no scene. The subject should take up about 80% of the width of the square image. Maintain a consistent visual theme across the full asset set. Depict a smaller finesse bass jig with a compact skirt, weed guard, and subtle trailer profile. Avoid photorealism, overly painterly rendering, heavy shadows, dramatic scene lighting, extra props, water splashes, packaging, logos, text, labels, multiple objects, background scenery, unrealistic proportions, novelty lure design, fantasy fly materials, and anything that makes the lure or fly look unrecognizable.",
+      "app_filename": "finesse_jig.png",
+      "output_subdir": "lures"
+    },
+    {
+      "filename": "lure_swim_jig.png",
+      "slug": "swim_jig",
+      "type": "lure",
+      "display_name": "swim jig",
+      "subject_line": "a streamlined swim jig with pointed head, weed guard, skirt, and paddle-tail trailer profile",
+      "prompt": "Create a clean transparent-background illustration of swim jig. Use simple shapes, subtle detail, and soft but natural colors. Make it slightly clip-art-like, but not too cartoonish and not overly detailed or overly polished/professional. It should feel modern, approachable, and app-ready, with a strong recognizable silhouette. Subject accuracy matters: this should look like a real, recognized fishing lure, not an invented fantasy design. Centered subject only, no text, no label, no background, no extra objects, no hands, no fishing rod, no scene. The subject should take up about 80% of the width of the square image. Maintain a consistent visual theme across the full asset set. Depict a streamlined swim jig with pointed head, weed guard, skirt, and paddle-tail trailer profile. Avoid photorealism, overly painterly rendering, heavy shadows, dramatic scene lighting, extra props, water splashes, packaging, logos, text, labels, multiple objects, background scenery, unrealistic proportions, novelty lure design, fantasy fly materials, and anything that makes the lure or fly look unrecognizable.",
+      "app_filename": "swim_jig.png",
+      "output_subdir": "lures"
+    },
+    {
+      "filename": "lure_hair_jig.png",
+      "slug": "hair_jig",
+      "type": "lure",
+      "display_name": "hair jig",
+      "subject_line": "a simple hair jig with sparse bucktail or marabou tied behind a jig head, clean natural silhouette",
+      "prompt": "Create a clean transparent-background illustration of hair jig. Use simple shapes, subtle detail, and soft but natural colors. Make it slightly clip-art-like, but not too cartoonish and not overly detailed or overly polished/professional. It should feel modern, approachable, and app-ready, with a strong recognizable silhouette. Subject accuracy matters: this should look like a real, recognized fishing lure, not an invented fantasy design. Centered subject only, no text, no label, no background, no extra objects, no hands, no fishing rod, no scene. The subject should take up about 80% of the width of the square image. Maintain a consistent visual theme across the full asset set. Depict a simple hair jig with sparse bucktail or marabou tied behind a jig head, clean natural silhouette. Avoid photorealism, overly painterly rendering, heavy shadows, dramatic scene lighting, extra props, water splashes, packaging, logos, text, labels, multiple objects, background scenery, unrealistic proportions, novelty lure design, fantasy fly materials, and anything that makes the lure or fly look unrecognizable.",
+      "app_filename": "hair_jig.png",
+      "output_subdir": "lures"
+    },
+    {
+      "filename": "lure_inline_spinner.png",
+      "slug": "inline_spinner",
+      "type": "lure",
+      "display_name": "inline spinner",
+      "subject_line": "an inline spinner lure with a central wire shaft, spinning blade, body, and treble hook",
+      "prompt": "Create a clean transparent-background illustration of inline spinner. Use simple shapes, subtle detail, and soft but natural colors. Make it slightly clip-art-like, but not too cartoonish and not overly detailed or overly polished/professional. It should feel modern, approachable, and app-ready, with a strong recognizable silhouette. Subject accuracy matters: this should look like a real, recognized fishing lure, not an invented fantasy design. Centered subject only, no text, no label, no background, no extra objects, no hands, no fishing rod, no scene. The subject should take up about 80% of the width of the square image. Maintain a consistent visual theme across the full asset set. Depict an inline spinner lure with a central wire shaft, spinning blade, body, and treble hook. Avoid photorealism, overly painterly rendering, heavy shadows, dramatic scene lighting, extra props, water splashes, packaging, logos, text, labels, multiple objects, background scenery, unrealistic proportions, novelty lure design, fantasy fly materials, and anything that makes the lure or fly look unrecognizable.",
+      "app_filename": "inline_spinner.png",
+      "output_subdir": "lures"
+    },
+    {
+      "filename": "lure_spinnerbait.png",
+      "slug": "spinnerbait",
+      "type": "lure",
+      "display_name": "spinnerbait",
+      "subject_line": "a spinnerbait with bent wire frame, jig head, silicone skirt, and two spinner blades",
+      "prompt": "Create a clean transparent-background illustration of spinnerbait. Use simple shapes, subtle detail, and soft but natural colors. Make it slightly clip-art-like, but not too cartoonish and not overly detailed or overly polished/professional. It should feel modern, approachable, and app-ready, with a strong recognizable silhouette. Subject accuracy matters: this should look like a real, recognized fishing lure, not an invented fantasy design. Centered subject only, no text, no label, no background, no extra objects, no hands, no fishing rod, no scene. The subject should take up about 80% of the width of the square image. Maintain a consistent visual theme across the full asset set. Depict a spinnerbait with bent wire frame, jig head, silicone skirt, and two spinner blades. Avoid photorealism, overly painterly rendering, heavy shadows, dramatic scene lighting, extra props, water splashes, packaging, logos, text, labels, multiple objects, background scenery, unrealistic proportions, novelty lure design, fantasy fly materials, and anything that makes the lure or fly look unrecognizable.",
+      "app_filename": "spinnerbait.png",
+      "output_subdir": "lures"
+    },
+    {
+      "filename": "lure_bladed_jig.png",
+      "slug": "bladed_jig",
+      "type": "lure",
+      "display_name": "bladed jig",
+      "subject_line": "a bladed jig with hexagonal front blade, jig head, skirt, and trailer profile",
+      "prompt": "Create a clean transparent-background illustration of bladed jig. Use simple shapes, subtle detail, and soft but natural colors. Make it slightly clip-art-like, but not too cartoonish and not overly detailed or overly polished/professional. It should feel modern, approachable, and app-ready, with a strong recognizable silhouette. Subject accuracy matters: this should look like a real, recognized fishing lure, not an invented fantasy design. Centered subject only, no text, no label, no background, no extra objects, no hands, no fishing rod, no scene. The subject should take up about 80% of the width of the square image. Maintain a consistent visual theme across the full asset set. Depict a bladed jig with hexagonal front blade, jig head, skirt, and trailer profile. Avoid photorealism, overly painterly rendering, heavy shadows, dramatic scene lighting, extra props, water splashes, packaging, logos, text, labels, multiple objects, background scenery, unrealistic proportions, novelty lure design, fantasy fly materials, and anything that makes the lure or fly look unrecognizable.",
+      "app_filename": "bladed_jig.png",
+      "output_subdir": "lures"
+    },
+    {
+      "filename": "lure_paddle_tail_swimbait.png",
+      "slug": "paddle_tail_swimbait",
+      "type": "lure",
+      "display_name": "paddle tail swimbait",
+      "subject_line": "a soft plastic paddle-tail swimbait with a streamlined baitfish body and thumping paddle tail",
+      "prompt": "Create a clean transparent-background illustration of paddle tail swimbait. Use simple shapes, subtle detail, and soft but natural colors. Make it slightly clip-art-like, but not too cartoonish and not overly detailed or overly polished/professional. It should feel modern, approachable, and app-ready, with a strong recognizable silhouette. Subject accuracy matters: this should look like a real, recognized fishing lure, not an invented fantasy design. Centered subject only, no text, no label, no background, no extra objects, no hands, no fishing rod, no scene. The subject should take up about 80% of the width of the square image. Maintain a consistent visual theme across the full asset set. Depict a soft plastic paddle-tail swimbait with a streamlined baitfish body and thumping paddle tail. Avoid photorealism, overly painterly rendering, heavy shadows, dramatic scene lighting, extra props, water splashes, packaging, logos, text, labels, multiple objects, background scenery, unrealistic proportions, novelty lure design, fantasy fly materials, and anything that makes the lure or fly look unrecognizable.",
+      "app_filename": "paddle_tail_swimbait.png",
+      "output_subdir": "lures"
+    },
+    {
+      "filename": "lure_soft_jerkbait.png",
+      "slug": "soft_jerkbait",
+      "type": "lure",
+      "display_name": "soft jerkbait",
+      "subject_line": "a fluke-style soft jerkbait, slender baitfish-shaped soft plastic rigged on a hook",
+      "prompt": "Create a clean transparent-background illustration of soft jerkbait. Use simple shapes, subtle detail, and soft but natural colors. Make it slightly clip-art-like, but not too cartoonish and not overly detailed or overly polished/professional. It should feel modern, approachable, and app-ready, with a strong recognizable silhouette. Subject accuracy matters: this should look like a real, recognized fishing lure, not an invented fantasy design. Centered subject only, no text, no label, no background, no extra objects, no hands, no fishing rod, no scene. The subject should take up about 80% of the width of the square image. Maintain a consistent visual theme across the full asset set. Depict a fluke-style soft jerkbait, slender baitfish-shaped soft plastic rigged on a hook. Avoid photorealism, overly painterly rendering, heavy shadows, dramatic scene lighting, extra props, water splashes, packaging, logos, text, labels, multiple objects, background scenery, unrealistic proportions, novelty lure design, fantasy fly materials, and anything that makes the lure or fly look unrecognizable.",
+      "app_filename": "soft_jerkbait.png",
+      "output_subdir": "lures"
+    },
+    {
+      "filename": "lure_suspending_jerkbait.png",
+      "slug": "suspending_jerkbait",
+      "type": "lure",
+      "display_name": "suspending jerkbait",
+      "subject_line": "a hard suspending jerkbait with elongated minnow body, diving bill, and trebles",
+      "prompt": "Create a clean transparent-background illustration of suspending jerkbait. Use simple shapes, subtle detail, and soft but natural colors. Make it slightly clip-art-like, but not too cartoonish and not overly detailed or overly polished/professional. It should feel modern, approachable, and app-ready, with a strong recognizable silhouette. Subject accuracy matters: this should look like a real, recognized fishing lure, not an invented fantasy design. Centered subject only, no text, no label, no background, no extra objects, no hands, no fishing rod, no scene. The subject should take up about 80% of the width of the square image. Maintain a consistent visual theme across the full asset set. Depict a hard suspending jerkbait with elongated minnow body, diving bill, and trebles. Avoid photorealism, overly painterly rendering, heavy shadows, dramatic scene lighting, extra props, water splashes, packaging, logos, text, labels, multiple objects, background scenery, unrealistic proportions, novelty lure design, fantasy fly materials, and anything that makes the lure or fly look unrecognizable.",
+      "app_filename": "suspending_jerkbait.png",
+      "output_subdir": "lures"
+    },
+    {
+      "filename": "lure_squarebill_crankbait.png",
+      "slug": "squarebill_crankbait",
+      "type": "lure",
+      "display_name": "squarebill crankbait",
+      "subject_line": "a hard squarebill crankbait with short stout body, square diving bill, and treble hooks",
+      "prompt": "Create a clean transparent-background illustration of squarebill crankbait. Use simple shapes, subtle detail, and soft but natural colors. Make it slightly clip-art-like, but not too cartoonish and not overly detailed or overly polished/professional. It should feel modern, approachable, and app-ready, with a strong recognizable silhouette. Subject accuracy matters: this should look like a real, recognized fishing lure, not an invented fantasy design. Centered subject only, no text, no label, no background, no extra objects, no hands, no fishing rod, no scene. The subject should take up about 80% of the width of the square image. Maintain a consistent visual theme across the full asset set. Depict a hard squarebill crankbait with short stout body, square diving bill, and treble hooks. Avoid photorealism, overly painterly rendering, heavy shadows, dramatic scene lighting, extra props, water splashes, packaging, logos, text, labels, multiple objects, background scenery, unrealistic proportions, novelty lure design, fantasy fly materials, and anything that makes the lure or fly look unrecognizable.",
+      "app_filename": "squarebill_crankbait.png",
+      "output_subdir": "lures"
+    },
+    {
+      "filename": "lure_flat_sided_crankbait.png",
+      "slug": "flat_sided_crankbait",
+      "type": "lure",
+      "display_name": "flat sided crankbait",
+      "subject_line": "a flat-sided crankbait with thin compressed body, small diving bill, and treble hooks",
+      "prompt": "Create a clean transparent-background illustration of flat sided crankbait. Use simple shapes, subtle detail, and soft but natural colors. Make it slightly clip-art-like, but not too cartoonish and not overly detailed or overly polished/professional. It should feel modern, approachable, and app-ready, with a strong recognizable silhouette. Subject accuracy matters: this should look like a real, recognized fishing lure, not an invented fantasy design. Centered subject only, no text, no label, no background, no extra objects, no hands, no fishing rod, no scene. The subject should take up about 80% of the width of the square image. Maintain a consistent visual theme across the full asset set. Depict a flat-sided crankbait with thin compressed body, small diving bill, and treble hooks. Avoid photorealism, overly painterly rendering, heavy shadows, dramatic scene lighting, extra props, water splashes, packaging, logos, text, labels, multiple objects, background scenery, unrealistic proportions, novelty lure design, fantasy fly materials, and anything that makes the lure or fly look unrecognizable.",
+      "app_filename": "flat_sided_crankbait.png",
+      "output_subdir": "lures"
+    },
+    {
+      "filename": "lure_medium_diving_crankbait.png",
+      "slug": "medium_diving_crankbait",
+      "type": "lure",
+      "display_name": "medium diving crankbait",
+      "subject_line": "a medium-diving crankbait with a rounded hardbait body, medium-length bill, and trebles",
+      "prompt": "Create a clean transparent-background illustration of medium diving crankbait. Use simple shapes, subtle detail, and soft but natural colors. Make it slightly clip-art-like, but not too cartoonish and not overly detailed or overly polished/professional. It should feel modern, approachable, and app-ready, with a strong recognizable silhouette. Subject accuracy matters: this should look like a real, recognized fishing lure, not an invented fantasy design. Centered subject only, no text, no label, no background, no extra objects, no hands, no fishing rod, no scene. The subject should take up about 80% of the width of the square image. Maintain a consistent visual theme across the full asset set. Depict a medium-diving crankbait with a rounded hardbait body, medium-length bill, and trebles. Avoid photorealism, overly painterly rendering, heavy shadows, dramatic scene lighting, extra props, water splashes, packaging, logos, text, labels, multiple objects, background scenery, unrealistic proportions, novelty lure design, fantasy fly materials, and anything that makes the lure or fly look unrecognizable.",
+      "app_filename": "medium_diving_crankbait.png",
+      "output_subdir": "lures"
+    },
+    {
+      "filename": "lure_deep_diving_crankbait.png",
+      "slug": "deep_diving_crankbait",
+      "type": "lure",
+      "display_name": "deep diving crankbait",
+      "subject_line": "a deep-diving crankbait with a pronounced long bill, hardbait body, and treble hooks",
+      "prompt": "Create a clean transparent-background illustration of deep diving crankbait. Use simple shapes, subtle detail, and soft but natural colors. Make it slightly clip-art-like, but not too cartoonish and not overly detailed or overly polished/professional. It should feel modern, approachable, and app-ready, with a strong recognizable silhouette. Subject accuracy matters: this should look like a real, recognized fishing lure, not an invented fantasy design. Centered subject only, no text, no label, no background, no extra objects, no hands, no fishing rod, no scene. The subject should take up about 80% of the width of the square image. Maintain a consistent visual theme across the full asset set. Depict a deep-diving crankbait with a pronounced long bill, hardbait body, and treble hooks. Avoid photorealism, overly painterly rendering, heavy shadows, dramatic scene lighting, extra props, water splashes, packaging, logos, text, labels, multiple objects, background scenery, unrealistic proportions, novelty lure design, fantasy fly materials, and anything that makes the lure or fly look unrecognizable.",
+      "app_filename": "deep_diving_crankbait.png",
+      "output_subdir": "lures"
+    },
+    {
+      "filename": "lure_lipless_crankbait.png",
+      "slug": "lipless_crankbait",
+      "type": "lure",
+      "display_name": "lipless crankbait",
+      "subject_line": "a lipless crankbait with a flat-sided baitfish body, no bill, line tie on top, and treble hooks",
+      "prompt": "Create a clean transparent-background illustration of lipless crankbait. Use simple shapes, subtle detail, and soft but natural colors. Make it slightly clip-art-like, but not too cartoonish and not overly detailed or overly polished/professional. It should feel modern, approachable, and app-ready, with a strong recognizable silhouette. Subject accuracy matters: this should look like a real, recognized fishing lure, not an invented fantasy design. Centered subject only, no text, no label, no background, no extra objects, no hands, no fishing rod, no scene. The subject should take up about 80% of the width of the square image. Maintain a consistent visual theme across the full asset set. Depict a lipless crankbait with a flat-sided baitfish body, no bill, line tie on top, and treble hooks. Avoid photorealism, overly painterly rendering, heavy shadows, dramatic scene lighting, extra props, water splashes, packaging, logos, text, labels, multiple objects, background scenery, unrealistic proportions, novelty lure design, fantasy fly materials, and anything that makes the lure or fly look unrecognizable.",
+      "app_filename": "lipless_crankbait.png",
+      "output_subdir": "lures"
+    },
+    {
+      "filename": "lure_blade_bait.png",
+      "slug": "blade_bait",
+      "type": "lure",
+      "display_name": "blade bait",
+      "subject_line": "a metal blade bait with a thin vibrating fish-shaped body and treble hooks",
+      "prompt": "Create a clean transparent-background illustration of blade bait. Use simple shapes, subtle detail, and soft but natural colors. Make it slightly clip-art-like, but not too cartoonish and not overly detailed or overly polished/professional. It should feel modern, approachable, and app-ready, with a strong recognizable silhouette. Subject accuracy matters: this should look like a real, recognized fishing lure, not an invented fantasy design. Centered subject only, no text, no label, no background, no extra objects, no hands, no fishing rod, no scene. The subject should take up about 80% of the width of the square image. Maintain a consistent visual theme across the full asset set. Depict a metal blade bait with a thin vibrating fish-shaped body and treble hooks. Avoid photorealism, overly painterly rendering, heavy shadows, dramatic scene lighting, extra props, water splashes, packaging, logos, text, labels, multiple objects, background scenery, unrealistic proportions, novelty lure design, fantasy fly materials, and anything that makes the lure or fly look unrecognizable.",
+      "app_filename": "blade_bait.png",
+      "output_subdir": "lures"
+    },
+    {
+      "filename": "lure_casting_spoon.png",
+      "slug": "casting_spoon",
+      "type": "lure",
+      "display_name": "casting spoon",
+      "subject_line": "a casting spoon, slightly curved metal spoon lure with a clean reflective body and treble hook",
+      "prompt": "Create a clean transparent-background illustration of casting spoon. Use simple shapes, subtle detail, and soft but natural colors. Make it slightly clip-art-like, but not too cartoonish and not overly detailed or overly polished/professional. It should feel modern, approachable, and app-ready, with a strong recognizable silhouette. Subject accuracy matters: this should look like a real, recognized fishing lure, not an invented fantasy design. Centered subject only, no text, no label, no background, no extra objects, no hands, no fishing rod, no scene. The subject should take up about 80% of the width of the square image. Maintain a consistent visual theme across the full asset set. Depict a casting spoon, slightly curved metal spoon lure with a clean reflective body and treble hook. Avoid photorealism, overly painterly rendering, heavy shadows, dramatic scene lighting, extra props, water splashes, packaging, logos, text, labels, multiple objects, background scenery, unrealistic proportions, novelty lure design, fantasy fly materials, and anything that makes the lure or fly look unrecognizable.",
+      "app_filename": "casting_spoon.png",
+      "output_subdir": "lures"
+    },
+    {
+      "filename": "lure_walking_topwater.png",
+      "slug": "walking_topwater",
+      "type": "lure",
+      "display_name": "walking topwater",
+      "subject_line": "a cigar-shaped topwater walking bait with no diving lip and treble hooks",
+      "prompt": "Create a clean transparent-background illustration of walking topwater. Use simple shapes, subtle detail, and soft but natural colors. Make it slightly clip-art-like, but not too cartoonish and not overly detailed or overly polished/professional. It should feel modern, approachable, and app-ready, with a strong recognizable silhouette. Subject accuracy matters: this should look like a real, recognized fishing lure, not an invented fantasy design. Centered subject only, no text, no label, no background, no extra objects, no hands, no fishing rod, no scene. The subject should take up about 80% of the width of the square image. Maintain a consistent visual theme across the full asset set. Depict a cigar-shaped topwater walking bait with no diving lip and treble hooks. Avoid photorealism, overly painterly rendering, heavy shadows, dramatic scene lighting, extra props, water splashes, packaging, logos, text, labels, multiple objects, background scenery, unrealistic proportions, novelty lure design, fantasy fly materials, and anything that makes the lure or fly look unrecognizable.",
+      "app_filename": "walking_topwater.png",
+      "output_subdir": "lures"
+    },
+    {
+      "filename": "lure_popping_topwater.png",
+      "slug": "popping_topwater",
+      "type": "lure",
+      "display_name": "popping topwater",
+      "subject_line": "a topwater popper with a cupped mouth, compact hardbait body, and treble hooks",
+      "prompt": "Create a clean transparent-background illustration of popping topwater. Use simple shapes, subtle detail, and soft but natural colors. Make it slightly clip-art-like, but not too cartoonish and not overly detailed or overly polished/professional. It should feel modern, approachable, and app-ready, with a strong recognizable silhouette. Subject accuracy matters: this should look like a real, recognized fishing lure, not an invented fantasy design. Centered subject only, no text, no label, no background, no extra objects, no hands, no fishing rod, no scene. The subject should take up about 80% of the width of the square image. Maintain a consistent visual theme across the full asset set. Depict a topwater popper with a cupped mouth, compact hardbait body, and treble hooks. Avoid photorealism, overly painterly rendering, heavy shadows, dramatic scene lighting, extra props, water splashes, packaging, logos, text, labels, multiple objects, background scenery, unrealistic proportions, novelty lure design, fantasy fly materials, and anything that makes the lure or fly look unrecognizable.",
+      "app_filename": "popping_topwater.png",
+      "output_subdir": "lures"
+    },
+    {
+      "filename": "lure_buzzbait.png",
+      "slug": "buzzbait",
+      "type": "lure",
+      "display_name": "buzzbait",
+      "subject_line": "a buzzbait with wire frame, topwater prop blade, jig head, silicone skirt, and single hook",
+      "prompt": "Create a clean transparent-background illustration of buzzbait. Use simple shapes, subtle detail, and soft but natural colors. Make it slightly clip-art-like, but not too cartoonish and not overly detailed or overly polished/professional. It should feel modern, approachable, and app-ready, with a strong recognizable silhouette. Subject accuracy matters: this should look like a real, recognized fishing lure, not an invented fantasy design. Centered subject only, no text, no label, no background, no extra objects, no hands, no fishing rod, no scene. The subject should take up about 80% of the width of the square image. Maintain a consistent visual theme across the full asset set. Depict a buzzbait with wire frame, topwater prop blade, jig head, silicone skirt, and single hook. Avoid photorealism, overly painterly rendering, heavy shadows, dramatic scene lighting, extra props, water splashes, packaging, logos, text, labels, multiple objects, background scenery, unrealistic proportions, novelty lure design, fantasy fly materials, and anything that makes the lure or fly look unrecognizable.",
+      "app_filename": "buzzbait.png",
+      "output_subdir": "lures"
+    },
+    {
+      "filename": "lure_prop_bait.png",
+      "slug": "prop_bait",
+      "type": "lure",
+      "display_name": "prop bait",
+      "subject_line": "a hard topwater prop bait with one or two small propellers and treble hooks",
+      "prompt": "Create a clean transparent-background illustration of prop bait. Use simple shapes, subtle detail, and soft but natural colors. Make it slightly clip-art-like, but not too cartoonish and not overly detailed or overly polished/professional. It should feel modern, approachable, and app-ready, with a strong recognizable silhouette. Subject accuracy matters: this should look like a real, recognized fishing lure, not an invented fantasy design. Centered subject only, no text, no label, no background, no extra objects, no hands, no fishing rod, no scene. The subject should take up about 80% of the width of the square image. Maintain a consistent visual theme across the full asset set. Depict a hard topwater prop bait with one or two small propellers and treble hooks. Avoid photorealism, overly painterly rendering, heavy shadows, dramatic scene lighting, extra props, water splashes, packaging, logos, text, labels, multiple objects, background scenery, unrealistic proportions, novelty lure design, fantasy fly materials, and anything that makes the lure or fly look unrecognizable.",
+      "app_filename": "prop_bait.png",
+      "output_subdir": "lures"
+    },
+    {
+      "filename": "lure_hollow_body_frog.png",
+      "slug": "hollow_body_frog",
+      "type": "lure",
+      "display_name": "hollow body frog",
+      "subject_line": "a hollow-body frog lure with soft collapsible frog body, upward double hook, and realistic frog profile",
+      "prompt": "Create a clean transparent-background illustration of hollow body frog. Use simple shapes, subtle detail, and soft but natural colors. Make it slightly clip-art-like, but not too cartoonish and not overly detailed or overly polished/professional. It should feel modern, approachable, and app-ready, with a strong recognizable silhouette. Subject accuracy matters: this should look like a real, recognized fishing lure, not an invented fantasy design. Centered subject only, no text, no label, no background, no extra objects, no hands, no fishing rod, no scene. The subject should take up about 80% of the width of the square image. Maintain a consistent visual theme across the full asset set. Depict a hollow-body frog lure with soft collapsible frog body, upward double hook, and realistic frog profile. Avoid photorealism, overly painterly rendering, heavy shadows, dramatic scene lighting, extra props, water splashes, packaging, logos, text, labels, multiple objects, background scenery, unrealistic proportions, novelty lure design, fantasy fly materials, and anything that makes the lure or fly look unrecognizable.",
+      "app_filename": "hollow_body_frog.png",
+      "output_subdir": "lures"
+    },
+    {
+      "filename": "lure_large_profile_pike_swimbait.png",
+      "slug": "large_profile_pike_swimbait",
+      "type": "lure",
+      "display_name": "large profile pike swimbait",
+      "subject_line": "a large profile pike swimbait, oversized baitfish body with broad profile and heavy-duty hardware",
+      "prompt": "Create a clean transparent-background illustration of large profile pike swimbait. Use simple shapes, subtle detail, and soft but natural colors. Make it slightly clip-art-like, but not too cartoonish and not overly detailed or overly polished/professional. It should feel modern, approachable, and app-ready, with a strong recognizable silhouette. Subject accuracy matters: this should look like a real, recognized fishing lure, not an invented fantasy design. Centered subject only, no text, no label, no background, no extra objects, no hands, no fishing rod, no scene. The subject should take up about 80% of the width of the square image. Maintain a consistent visual theme across the full asset set. Depict a large profile pike swimbait, oversized baitfish body with broad profile and heavy-duty hardware. Avoid photorealism, overly painterly rendering, heavy shadows, dramatic scene lighting, extra props, water splashes, packaging, logos, text, labels, multiple objects, background scenery, unrealistic proportions, novelty lure design, fantasy fly materials, and anything that makes the lure or fly look unrecognizable.",
+      "app_filename": "large_profile_pike_swimbait.png",
+      "output_subdir": "lures"
+    },
+    {
+      "filename": "lure_pike_jerkbait.png",
+      "slug": "pike_jerkbait",
+      "type": "lure",
+      "display_name": "pike jerkbait",
+      "subject_line": "a large pike jerkbait, elongated hardbait or glider-style profile with strong hardware and big-fish silhouette",
+      "prompt": "Create a clean transparent-background illustration of pike jerkbait. Use simple shapes, subtle detail, and soft but natural colors. Make it slightly clip-art-like, but not too cartoonish and not overly detailed or overly polished/professional. It should feel modern, approachable, and app-ready, with a strong recognizable silhouette. Subject accuracy matters: this should look like a real, recognized fishing lure, not an invented fantasy design. Centered subject only, no text, no label, no background, no extra objects, no hands, no fishing rod, no scene. The subject should take up about 80% of the width of the square image. Maintain a consistent visual theme across the full asset set. Depict a large pike jerkbait, elongated hardbait or glider-style profile with strong hardware and big-fish silhouette. Avoid photorealism, overly painterly rendering, heavy shadows, dramatic scene lighting, extra props, water splashes, packaging, logos, text, labels, multiple objects, background scenery, unrealistic proportions, novelty lure design, fantasy fly materials, and anything that makes the lure or fly look unrecognizable.",
+      "app_filename": "pike_jerkbait.png",
+      "output_subdir": "lures"
+    },
+    {
+      "filename": "fly_clouser_minnow.png",
+      "slug": "clouser_minnow",
+      "type": "fly",
+      "display_name": "clouser minnow",
+      "subject_line": "a Clouser Minnow fly, sparse bucktail baitfish fly with dumbbell eyes and inverted hook-riding profile",
+      "prompt": "Create a clean transparent-background illustration of clouser minnow. Use simple shapes, subtle detail, and soft but natural colors. Make it slightly clip-art-like, but not too cartoonish and not overly detailed or overly polished/professional. It should feel modern, approachable, and app-ready, with a strong recognizable silhouette. Subject accuracy matters: this should look like a real, recognized fishing fly pattern, not an invented fantasy design. Centered subject only, no text, no label, no background, no extra objects, no hands, no fishing rod, no scene. The subject should take up about 80% of the width of the square image. Maintain a consistent visual theme across the full asset set. Depict a Clouser Minnow fly, sparse bucktail baitfish fly with dumbbell eyes and inverted hook-riding profile. Avoid photorealism, overly painterly rendering, heavy shadows, dramatic scene lighting, extra props, water splashes, packaging, logos, text, labels, multiple objects, background scenery, unrealistic proportions, novelty lure design, fantasy fly materials, and anything that makes the lure or fly look unrecognizable.",
+      "app_filename": "clouser_minnow.png",
+      "output_subdir": "flies"
+    },
+    {
+      "filename": "fly_deceiver.png",
+      "slug": "deceiver",
+      "type": "fly",
+      "display_name": "deceiver",
+      "subject_line": "a Deceiver fly, classic long baitfish streamer with layered saddle hackles, slim profile, and natural movement",
+      "prompt": "Create a clean transparent-background illustration of deceiver. Use simple shapes, subtle detail, and soft but natural colors. Make it slightly clip-art-like, but not too cartoonish and not overly detailed or overly polished/professional. It should feel modern, approachable, and app-ready, with a strong recognizable silhouette. Subject accuracy matters: this should look like a real, recognized fishing fly pattern, not an invented fantasy design. Centered subject only, no text, no label, no background, no extra objects, no hands, no fishing rod, no scene. The subject should take up about 80% of the width of the square image. Maintain a consistent visual theme across the full asset set. Depict a Deceiver fly, classic long baitfish streamer with layered saddle hackles, slim profile, and natural movement. Avoid photorealism, overly painterly rendering, heavy shadows, dramatic scene lighting, extra props, water splashes, packaging, logos, text, labels, multiple objects, background scenery, unrealistic proportions, novelty lure design, fantasy fly materials, and anything that makes the lure or fly look unrecognizable.",
+      "app_filename": "deceiver.png",
+      "output_subdir": "flies"
+    },
+    {
+      "filename": "fly_bucktail_baitfish_streamer.png",
+      "slug": "bucktail_baitfish_streamer",
+      "type": "fly",
+      "display_name": "bucktail baitfish streamer",
+      "subject_line": "a bucktail baitfish streamer fly, simple tied bucktail minnow profile with clean tapered silhouette",
+      "prompt": "Create a clean transparent-background illustration of bucktail baitfish streamer. Use simple shapes, subtle detail, and soft but natural colors. Make it slightly clip-art-like, but not too cartoonish and not overly detailed or overly polished/professional. It should feel modern, approachable, and app-ready, with a strong recognizable silhouette. Subject accuracy matters: this should look like a real, recognized fishing fly pattern, not an invented fantasy design. Centered subject only, no text, no label, no background, no extra objects, no hands, no fishing rod, no scene. The subject should take up about 80% of the width of the square image. Maintain a consistent visual theme across the full asset set. Depict a bucktail baitfish streamer fly, simple tied bucktail minnow profile with clean tapered silhouette. Avoid photorealism, overly painterly rendering, heavy shadows, dramatic scene lighting, extra props, water splashes, packaging, logos, text, labels, multiple objects, background scenery, unrealistic proportions, novelty lure design, fantasy fly materials, and anything that makes the lure or fly look unrecognizable.",
+      "app_filename": "bucktail_baitfish_streamer.png",
+      "output_subdir": "flies"
+    },
+    {
+      "filename": "fly_slim_minnow_streamer.png",
+      "slug": "slim_minnow_streamer",
+      "type": "fly",
+      "display_name": "slim minnow streamer",
+      "subject_line": "a slim minnow streamer fly, slender baitfish-shaped streamer with a narrow elongated silhouette",
+      "prompt": "Create a clean transparent-background illustration of slim minnow streamer. Use simple shapes, subtle detail, and soft but natural colors. Make it slightly clip-art-like, but not too cartoonish and not overly detailed or overly polished/professional. It should feel modern, approachable, and app-ready, with a strong recognizable silhouette. Subject accuracy matters: this should look like a real, recognized fishing fly pattern, not an invented fantasy design. Centered subject only, no text, no label, no background, no extra objects, no hands, no fishing rod, no scene. The subject should take up about 80% of the width of the square image. Maintain a consistent visual theme across the full asset set. Depict a slim minnow streamer fly, slender baitfish-shaped streamer with a narrow elongated silhouette. Avoid photorealism, overly painterly rendering, heavy shadows, dramatic scene lighting, extra props, water splashes, packaging, logos, text, labels, multiple objects, background scenery, unrealistic proportions, novelty lure design, fantasy fly materials, and anything that makes the lure or fly look unrecognizable.",
+      "app_filename": "slim_minnow_streamer.png",
+      "output_subdir": "flies"
+    },
+    {
+      "filename": "fly_articulated_baitfish_streamer.png",
+      "slug": "articulated_baitfish_streamer",
+      "type": "fly",
+      "display_name": "articulated baitfish streamer",
+      "subject_line": "an articulated baitfish streamer fly with two connected sections and a flowing baitfish profile",
+      "prompt": "Create a clean transparent-background illustration of articulated baitfish streamer. Use simple shapes, subtle detail, and soft but natural colors. Make it slightly clip-art-like, but not too cartoonish and not overly detailed or overly polished/professional. It should feel modern, approachable, and app-ready, with a strong recognizable silhouette. Subject accuracy matters: this should look like a real, recognized fishing fly pattern, not an invented fantasy design. Centered subject only, no text, no label, no background, no extra objects, no hands, no fishing rod, no scene. The subject should take up about 80% of the width of the square image. Maintain a consistent visual theme across the full asset set. Depict an articulated baitfish streamer fly with two connected sections and a flowing baitfish profile. Avoid photorealism, overly painterly rendering, heavy shadows, dramatic scene lighting, extra props, water splashes, packaging, logos, text, labels, multiple objects, background scenery, unrealistic proportions, novelty lure design, fantasy fly materials, and anything that makes the lure or fly look unrecognizable.",
+      "app_filename": "articulated_baitfish_streamer.png",
+      "output_subdir": "flies"
+    },
+    {
+      "filename": "fly_articulated_dungeon_streamer.png",
+      "slug": "articulated_dungeon_streamer",
+      "type": "fly",
+      "display_name": "articulated dungeon streamer",
+      "subject_line": "an articulated dungeon-style streamer fly with bulky head, broad sculpin-like front, articulated rear section, rubber legs, and strong water-pushing profile",
+      "prompt": "Create a clean transparent-background illustration of articulated dungeon streamer. Use simple shapes, subtle detail, and soft but natural colors. Make it slightly clip-art-like, but not too cartoonish and not overly detailed or overly polished/professional. It should feel modern, approachable, and app-ready, with a strong recognizable silhouette. Subject accuracy matters: this should look like a real, recognized fishing fly pattern, not an invented fantasy design. Centered subject only, no text, no label, no background, no extra objects, no hands, no fishing rod, no scene. The subject should take up about 80% of the width of the square image. Maintain a consistent visual theme across the full asset set. Depict an articulated dungeon-style streamer fly with bulky head, broad sculpin-like front, articulated rear section, rubber legs, and strong water-pushing profile. Avoid photorealism, overly painterly rendering, heavy shadows, dramatic scene lighting, extra props, water splashes, packaging, logos, text, labels, multiple objects, background scenery, unrealistic proportions, novelty lure design, fantasy fly materials, and anything that makes the lure or fly look unrecognizable.",
+      "app_filename": "articulated_dungeon_streamer.png",
+      "output_subdir": "flies"
+    },
+    {
+      "filename": "fly_game_changer.png",
+      "slug": "game_changer",
+      "type": "fly",
+      "display_name": "game changer",
+      "subject_line": "a Game Changer fly, articulated segmented baitfish streamer with many connected body sections and a lifelike swimming baitfish silhouette",
+      "prompt": "Create a clean transparent-background illustration of game changer. Use simple shapes, subtle detail, and soft but natural colors. Make it slightly clip-art-like, but not too cartoonish and not overly detailed or overly polished/professional. It should feel modern, approachable, and app-ready, with a strong recognizable silhouette. Subject accuracy matters: this should look like a real, recognized fishing fly pattern, not an invented fantasy design. Centered subject only, no text, no label, no background, no extra objects, no hands, no fishing rod, no scene. The subject should take up about 80% of the width of the square image. Maintain a consistent visual theme across the full asset set. Depict a Game Changer fly, articulated segmented baitfish streamer with many connected body sections and a lifelike swimming baitfish silhouette. Avoid photorealism, overly painterly rendering, heavy shadows, dramatic scene lighting, extra props, water splashes, packaging, logos, text, labels, multiple objects, background scenery, unrealistic proportions, novelty lure design, fantasy fly materials, and anything that makes the lure or fly look unrecognizable.",
+      "app_filename": "game_changer.png",
+      "output_subdir": "flies"
+    },
+    {
+      "filename": "fly_woolly_bugger.png",
+      "slug": "woolly_bugger",
+      "type": "fly",
+      "display_name": "woolly bugger",
+      "subject_line": "a Woolly Bugger fly, classic marabou-tailed streamer with chenille body and palmered hackle",
+      "prompt": "Create a clean transparent-background illustration of woolly bugger. Use simple shapes, subtle detail, and soft but natural colors. Make it slightly clip-art-like, but not too cartoonish and not overly detailed or overly polished/professional. It should feel modern, approachable, and app-ready, with a strong recognizable silhouette. Subject accuracy matters: this should look like a real, recognized fishing fly pattern, not an invented fantasy design. Centered subject only, no text, no label, no background, no extra objects, no hands, no fishing rod, no scene. The subject should take up about 80% of the width of the square image. Maintain a consistent visual theme across the full asset set. Depict a Woolly Bugger fly, classic marabou-tailed streamer with chenille body and palmered hackle. Avoid photorealism, overly painterly rendering, heavy shadows, dramatic scene lighting, extra props, water splashes, packaging, logos, text, labels, multiple objects, background scenery, unrealistic proportions, novelty lure design, fantasy fly materials, and anything that makes the lure or fly look unrecognizable.",
+      "app_filename": "woolly_bugger.png",
+      "output_subdir": "flies"
+    },
+    {
+      "filename": "fly_rabbit_strip_leech.png",
+      "slug": "rabbit_strip_leech",
+      "type": "fly",
+      "display_name": "rabbit strip leech",
+      "subject_line": "a rabbit strip leech fly, leech-style streamer with a soft rabbit strip tail and flowing simple profile",
+      "prompt": "Create a clean transparent-background illustration of rabbit strip leech. Use simple shapes, subtle detail, and soft but natural colors. Make it slightly clip-art-like, but not too cartoonish and not overly detailed or overly polished/professional. It should feel modern, approachable, and app-ready, with a strong recognizable silhouette. Subject accuracy matters: this should look like a real, recognized fishing fly pattern, not an invented fantasy design. Centered subject only, no text, no label, no background, no extra objects, no hands, no fishing rod, no scene. The subject should take up about 80% of the width of the square image. Maintain a consistent visual theme across the full asset set. Depict a rabbit strip leech fly, leech-style streamer with a soft rabbit strip tail and flowing simple profile. Avoid photorealism, overly painterly rendering, heavy shadows, dramatic scene lighting, extra props, water splashes, packaging, logos, text, labels, multiple objects, background scenery, unrealistic proportions, novelty lure design, fantasy fly materials, and anything that makes the lure or fly look unrecognizable.",
+      "app_filename": "rabbit_strip_leech.png",
+      "output_subdir": "flies"
+    },
+    {
+      "filename": "fly_balanced_leech.png",
+      "slug": "balanced_leech",
+      "type": "fly",
+      "display_name": "balanced leech",
+      "subject_line": "a balanced leech fly tied to ride horizontally, with forward balance point beyond the hook eye and a simple leech body and tail",
+      "prompt": "Create a clean transparent-background illustration of balanced leech. Use simple shapes, subtle detail, and soft but natural colors. Make it slightly clip-art-like, but not too cartoonish and not overly detailed or overly polished/professional. It should feel modern, approachable, and app-ready, with a strong recognizable silhouette. Subject accuracy matters: this should look like a real, recognized fishing fly pattern, not an invented fantasy design. Centered subject only, no text, no label, no background, no extra objects, no hands, no fishing rod, no scene. The subject should take up about 80% of the width of the square image. Maintain a consistent visual theme across the full asset set. Depict a balanced leech fly tied to ride horizontally, with forward balance point beyond the hook eye and a simple leech body and tail. Avoid photorealism, overly painterly rendering, heavy shadows, dramatic scene lighting, extra props, water splashes, packaging, logos, text, labels, multiple objects, background scenery, unrealistic proportions, novelty lure design, fantasy fly materials, and anything that makes the lure or fly look unrecognizable.",
+      "app_filename": "balanced_leech.png",
+      "output_subdir": "flies"
+    },
+    {
+      "filename": "fly_zonker_streamer.png",
+      "slug": "zonker_streamer",
+      "type": "fly",
+      "display_name": "zonker streamer",
+      "subject_line": "a zonker streamer fly with rabbit strip wing over a baitfish-style streamer body",
+      "prompt": "Create a clean transparent-background illustration of zonker streamer. Use simple shapes, subtle detail, and soft but natural colors. Make it slightly clip-art-like, but not too cartoonish and not overly detailed or overly polished/professional. It should feel modern, approachable, and app-ready, with a strong recognizable silhouette. Subject accuracy matters: this should look like a real, recognized fishing fly pattern, not an invented fantasy design. Centered subject only, no text, no label, no background, no extra objects, no hands, no fishing rod, no scene. The subject should take up about 80% of the width of the square image. Maintain a consistent visual theme across the full asset set. Depict a zonker streamer fly with rabbit strip wing over a baitfish-style streamer body. Avoid photorealism, overly painterly rendering, heavy shadows, dramatic scene lighting, extra props, water splashes, packaging, logos, text, labels, multiple objects, background scenery, unrealistic proportions, novelty lure design, fantasy fly materials, and anything that makes the lure or fly look unrecognizable.",
+      "app_filename": "zonker_streamer.png",
+      "output_subdir": "flies"
+    },
+    {
+      "filename": "fly_sculpin_streamer.png",
+      "slug": "sculpin_streamer",
+      "type": "fly",
+      "display_name": "sculpin streamer",
+      "subject_line": "a sculpin streamer fly with broad head, mottled natural look, and bottom-oriented sculpin profile",
+      "prompt": "Create a clean transparent-background illustration of sculpin streamer. Use simple shapes, subtle detail, and soft but natural colors. Make it slightly clip-art-like, but not too cartoonish and not overly detailed or overly polished/professional. It should feel modern, approachable, and app-ready, with a strong recognizable silhouette. Subject accuracy matters: this should look like a real, recognized fishing fly pattern, not an invented fantasy design. Centered subject only, no text, no label, no background, no extra objects, no hands, no fishing rod, no scene. The subject should take up about 80% of the width of the square image. Maintain a consistent visual theme across the full asset set. Depict a sculpin streamer fly with broad head, mottled natural look, and bottom-oriented sculpin profile. Avoid photorealism, overly painterly rendering, heavy shadows, dramatic scene lighting, extra props, water splashes, packaging, logos, text, labels, multiple objects, background scenery, unrealistic proportions, novelty lure design, fantasy fly materials, and anything that makes the lure or fly look unrecognizable.",
+      "app_filename": "sculpin_streamer.png",
+      "output_subdir": "flies"
+    },
+    {
+      "filename": "fly_sculpzilla.png",
+      "slug": "sculpzilla",
+      "type": "fly",
+      "display_name": "sculpzilla",
+      "subject_line": "a Sculpzilla fly, heavily weighted sculpin streamer with broad conehead, rabbit-strip movement, articulated or trailing stinger-hook profile, and bulky sculpin silhouette",
+      "prompt": "Create a clean transparent-background illustration of sculpzilla. Use simple shapes, subtle detail, and soft but natural colors. Make it slightly clip-art-like, but not too cartoonish and not overly detailed or overly polished/professional. It should feel modern, approachable, and app-ready, with a strong recognizable silhouette. Subject accuracy matters: this should look like a real, recognized fishing fly pattern, not an invented fantasy design. Centered subject only, no text, no label, no background, no extra objects, no hands, no fishing rod, no scene. The subject should take up about 80% of the width of the square image. Maintain a consistent visual theme across the full asset set. Depict a Sculpzilla fly, heavily weighted sculpin streamer with broad conehead, rabbit-strip movement, articulated or trailing stinger-hook profile, and bulky sculpin silhouette. Avoid photorealism, overly painterly rendering, heavy shadows, dramatic scene lighting, extra props, water splashes, packaging, logos, text, labels, multiple objects, background scenery, unrealistic proportions, novelty lure design, fantasy fly materials, and anything that makes the lure or fly look unrecognizable.",
+      "app_filename": "sculpzilla.png",
+      "output_subdir": "flies"
+    },
+    {
+      "filename": "fly_muddler_sculpin.png",
+      "slug": "muddler_sculpin",
+      "type": "fly",
+      "display_name": "muddler sculpin",
+      "subject_line": "a muddler sculpin fly with spun deer-hair head, sculpin profile, and compact natural streamer shape",
+      "prompt": "Create a clean transparent-background illustration of muddler sculpin. Use simple shapes, subtle detail, and soft but natural colors. Make it slightly clip-art-like, but not too cartoonish and not overly detailed or overly polished/professional. It should feel modern, approachable, and app-ready, with a strong recognizable silhouette. Subject accuracy matters: this should look like a real, recognized fishing fly pattern, not an invented fantasy design. Centered subject only, no text, no label, no background, no extra objects, no hands, no fishing rod, no scene. The subject should take up about 80% of the width of the square image. Maintain a consistent visual theme across the full asset set. Depict a muddler sculpin fly with spun deer-hair head, sculpin profile, and compact natural streamer shape. Avoid photorealism, overly painterly rendering, heavy shadows, dramatic scene lighting, extra props, water splashes, packaging, logos, text, labels, multiple objects, background scenery, unrealistic proportions, novelty lure design, fantasy fly materials, and anything that makes the lure or fly look unrecognizable.",
+      "app_filename": "muddler_sculpin.png",
+      "output_subdir": "flies"
+    },
+    {
+      "filename": "fly_crawfish_streamer.png",
+      "slug": "crawfish_streamer",
+      "type": "fly",
+      "display_name": "crawfish streamer",
+      "subject_line": "a crawfish streamer fly with a crayfish profile, claws, antennae feelers, and weighted bottom-oriented posture",
+      "prompt": "Create a clean transparent-background illustration of crawfish streamer. Use simple shapes, subtle detail, and soft but natural colors. Make it slightly clip-art-like, but not too cartoonish and not overly detailed or overly polished/professional. It should feel modern, approachable, and app-ready, with a strong recognizable silhouette. Subject accuracy matters: this should look like a real, recognized fishing fly pattern, not an invented fantasy design. Centered subject only, no text, no label, no background, no extra objects, no hands, no fishing rod, no scene. The subject should take up about 80% of the width of the square image. Maintain a consistent visual theme across the full asset set. Depict a crawfish streamer fly with a crayfish profile, claws, antennae feelers, and weighted bottom-oriented posture. Avoid photorealism, overly painterly rendering, heavy shadows, dramatic scene lighting, extra props, water splashes, packaging, logos, text, labels, multiple objects, background scenery, unrealistic proportions, novelty lure design, fantasy fly materials, and anything that makes the lure or fly look unrecognizable.",
+      "app_filename": "crawfish_streamer.png",
+      "output_subdir": "flies"
+    },
+    {
+      "filename": "fly_conehead_streamer.png",
+      "slug": "conehead_streamer",
+      "type": "fly",
+      "display_name": "conehead streamer",
+      "subject_line": "a conehead streamer fly with a metal cone at the front, flowing tail materials, and classic weighted streamer shape",
+      "prompt": "Create a clean transparent-background illustration of conehead streamer. Use simple shapes, subtle detail, and soft but natural colors. Make it slightly clip-art-like, but not too cartoonish and not overly detailed or overly polished/professional. It should feel modern, approachable, and app-ready, with a strong recognizable silhouette. Subject accuracy matters: this should look like a real, recognized fishing fly pattern, not an invented fantasy design. Centered subject only, no text, no label, no background, no extra objects, no hands, no fishing rod, no scene. The subject should take up about 80% of the width of the square image. Maintain a consistent visual theme across the full asset set. Depict a conehead streamer fly with a metal cone at the front, flowing tail materials, and classic weighted streamer shape. Avoid photorealism, overly painterly rendering, heavy shadows, dramatic scene lighting, extra props, water splashes, packaging, logos, text, labels, multiple objects, background scenery, unrealistic proportions, novelty lure design, fantasy fly materials, and anything that makes the lure or fly look unrecognizable.",
+      "app_filename": "conehead_streamer.png",
+      "output_subdir": "flies"
+    },
+    {
+      "filename": "fly_pike_bunny_streamer.png",
+      "slug": "pike_bunny_streamer",
+      "type": "fly",
+      "display_name": "pike bunny streamer",
+      "subject_line": "a pike bunny streamer fly, large rabbit-strip streamer with long flowing profile and pike-sized silhouette",
+      "prompt": "Create a clean transparent-background illustration of pike bunny streamer. Use simple shapes, subtle detail, and soft but natural colors. Make it slightly clip-art-like, but not too cartoonish and not overly detailed or overly polished/professional. It should feel modern, approachable, and app-ready, with a strong recognizable silhouette. Subject accuracy matters: this should look like a real, recognized fishing fly pattern, not an invented fantasy design. Centered subject only, no text, no label, no background, no extra objects, no hands, no fishing rod, no scene. The subject should take up about 80% of the width of the square image. Maintain a consistent visual theme across the full asset set. Depict a pike bunny streamer fly, large rabbit-strip streamer with long flowing profile and pike-sized silhouette. Avoid photorealism, overly painterly rendering, heavy shadows, dramatic scene lighting, extra props, water splashes, packaging, logos, text, labels, multiple objects, background scenery, unrealistic proportions, novelty lure design, fantasy fly materials, and anything that makes the lure or fly look unrecognizable.",
+      "app_filename": "pike_bunny_streamer.png",
+      "output_subdir": "flies"
+    },
+    {
+      "filename": "fly_large_articulated_pike_streamer.png",
+      "slug": "large_articulated_pike_streamer",
+      "type": "fly",
+      "display_name": "large articulated pike streamer",
+      "subject_line": "a large articulated pike streamer fly with multiple sections, oversized predator profile, and flowing synthetic or natural materials",
+      "prompt": "Create a clean transparent-background illustration of large articulated pike streamer. Use simple shapes, subtle detail, and soft but natural colors. Make it slightly clip-art-like, but not too cartoonish and not overly detailed or overly polished/professional. It should feel modern, approachable, and app-ready, with a strong recognizable silhouette. Subject accuracy matters: this should look like a real, recognized fishing fly pattern, not an invented fantasy design. Centered subject only, no text, no label, no background, no extra objects, no hands, no fishing rod, no scene. The subject should take up about 80% of the width of the square image. Maintain a consistent visual theme across the full asset set. Depict a large articulated pike streamer fly with multiple sections, oversized predator profile, and flowing synthetic or natural materials. Avoid photorealism, overly painterly rendering, heavy shadows, dramatic scene lighting, extra props, water splashes, packaging, logos, text, labels, multiple objects, background scenery, unrealistic proportions, novelty lure design, fantasy fly materials, and anything that makes the lure or fly look unrecognizable.",
+      "app_filename": "large_articulated_pike_streamer.png",
+      "output_subdir": "flies"
+    },
+    {
+      "filename": "fly_popper_fly.png",
+      "slug": "popper_fly",
+      "type": "fly",
+      "display_name": "popper fly",
+      "subject_line": "a popper fly with a distinct foam or hard popper head, simple tail, and topwater fly silhouette",
+      "prompt": "Create a clean transparent-background illustration of popper fly. Use simple shapes, subtle detail, and soft but natural colors. Make it slightly clip-art-like, but not too cartoonish and not overly detailed or overly polished/professional. It should feel modern, approachable, and app-ready, with a strong recognizable silhouette. Subject accuracy matters: this should look like a real, recognized fishing fly pattern, not an invented fantasy design. Centered subject only, no text, no label, no background, no extra objects, no hands, no fishing rod, no scene. The subject should take up about 80% of the width of the square image. Maintain a consistent visual theme across the full asset set. Depict a popper fly with a distinct foam or hard popper head, simple tail, and topwater fly silhouette. Avoid photorealism, overly painterly rendering, heavy shadows, dramatic scene lighting, extra props, water splashes, packaging, logos, text, labels, multiple objects, background scenery, unrealistic proportions, novelty lure design, fantasy fly materials, and anything that makes the lure or fly look unrecognizable.",
+      "app_filename": "popper_fly.png",
+      "output_subdir": "flies"
+    },
+    {
+      "filename": "fly_frog_fly.png",
+      "slug": "frog_fly",
+      "type": "fly",
+      "display_name": "frog fly",
+      "subject_line": "a frog fly, topwater bass fly with frog-inspired body shape, legs, and weed-friendly silhouette",
+      "prompt": "Create a clean transparent-background illustration of frog fly. Use simple shapes, subtle detail, and soft but natural colors. Make it slightly clip-art-like, but not too cartoonish and not overly detailed or overly polished/professional. It should feel modern, approachable, and app-ready, with a strong recognizable silhouette. Subject accuracy matters: this should look like a real, recognized fishing fly pattern, not an invented fantasy design. Centered subject only, no text, no label, no background, no extra objects, no hands, no fishing rod, no scene. The subject should take up about 80% of the width of the square image. Maintain a consistent visual theme across the full asset set. Depict a frog fly, topwater bass fly with frog-inspired body shape, legs, and weed-friendly silhouette. Avoid photorealism, overly painterly rendering, heavy shadows, dramatic scene lighting, extra props, water splashes, packaging, logos, text, labels, multiple objects, background scenery, unrealistic proportions, novelty lure design, fantasy fly materials, and anything that makes the lure or fly look unrecognizable.",
+      "app_filename": "frog_fly.png",
+      "output_subdir": "flies"
+    },
+    {
+      "filename": "fly_mouse_fly.png",
+      "slug": "mouse_fly",
+      "type": "fly",
+      "display_name": "mouse fly",
+      "subject_line": "a mouse fly, topwater fly with mouse-shaped body, ears, tail, and simple realistic silhouette",
+      "prompt": "Create a clean transparent-background illustration of mouse fly. Use simple shapes, subtle detail, and soft but natural colors. Make it slightly clip-art-like, but not too cartoonish and not overly detailed or overly polished/professional. It should feel modern, approachable, and app-ready, with a strong recognizable silhouette. Subject accuracy matters: this should look like a real, recognized fishing fly pattern, not an invented fantasy design. Centered subject only, no text, no label, no background, no extra objects, no hands, no fishing rod, no scene. The subject should take up about 80% of the width of the square image. Maintain a consistent visual theme across the full asset set. Depict a mouse fly, topwater fly with mouse-shaped body, ears, tail, and simple realistic silhouette. Avoid photorealism, overly painterly rendering, heavy shadows, dramatic scene lighting, extra props, water splashes, packaging, logos, text, labels, multiple objects, background scenery, unrealistic proportions, novelty lure design, fantasy fly materials, and anything that makes the lure or fly look unrecognizable.",
+      "app_filename": "mouse_fly.png",
+      "output_subdir": "flies"
+    }
+  ]
+}

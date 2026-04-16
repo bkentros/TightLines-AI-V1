@@ -7,9 +7,7 @@
 
 const LURE_IMAGES: Partial<Record<string, ReturnType<typeof require>>> = {
   // ── Stick worms ───────────────────────────────────────────────────────────
-  weightless_stick_worm:            require('../assets/images/lures/weightless_stick_worm.png'),
-  wacky_rigged_stick_worm:          require('../assets/images/lures/wacky_rigged_stick_worm.png'),
-  texas_rigged_stick_worm:          require('../assets/images/lures/texas_rigged_stick_worm.png'),
+  weightless_stick_worm:            require('../assets/images/lures/texas_rigged_stick_worm.png'),
   carolina_rigged_stick_worm:       require('../assets/images/lures/carolina_rigged_stick_worm.png'),
 
   // ── Finesse soft plastics ─────────────────────────────────────────────────

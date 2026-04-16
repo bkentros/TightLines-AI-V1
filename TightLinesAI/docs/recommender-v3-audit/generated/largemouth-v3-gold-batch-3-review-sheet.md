@@ -39,7 +39,7 @@ Expected seasonal story:
 - Clear-water Florida spawn bass should stay shallow and target-oriented, with clean follow-up baitfish lanes instead of a wild topwater jump.
 Expected primary lanes:
 - weightless_stick_worm
-- wacky_rigged_stick_worm
+- weightless_stick_worm
 - compact_flipping_jig
 Acceptable secondary lanes:
 - swim_jig
@@ -583,7 +583,7 @@ Expected primary lanes:
 - swim_jig
 Acceptable secondary lanes:
 - suspending_jerkbait
-- wacky_rigged_stick_worm
+- weightless_stick_worm
 - game_changer
 Disallowed lanes:
 - blade_bait
@@ -760,7 +760,7 @@ Expected primary lanes:
 - soft_jerkbait
 Acceptable secondary lanes:
 - squarebill_crankbait
-- texas_rigged_stick_worm
+- weightless_stick_worm
 - clouser_minnow
 Disallowed lanes:
 - drop_shot_worm
