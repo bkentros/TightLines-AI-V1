@@ -237,6 +237,16 @@ export type FlyArchetypeIdV3 = (typeof FLY_ARCHETYPE_IDS_V3)[number];
 
 export type RecommenderV3ArchetypeId = LureArchetypeIdV3 | FlyArchetypeIdV3;
 
+/** Per-archetype scoring nudge for state-scoped seasonal rows (see resolveSeasonalRowV3). */
+export type StateScopedDeltaV3 = {
+  archetype_id: RecommenderV3ArchetypeId;
+  delta: number;
+  /** When set, the delta applies only if the request matches all specified fields. */
+  when?: {
+    clarity?: WaterClarity;
+  };
+};
+
 export const RESOLVED_COLOR_THEMES_V3 = [
   "natural",
   "dark",
@@ -345,6 +355,12 @@ export type RecommenderV3SeasonalRow = {
   region_key: RegionKey;
   month: number;
   context: RecommenderV3Context;
+  /** Optional US two-letter state code. When set, this row is only selected
+   * when the request's state_code matches. State-scoped rows take priority
+   * over region-scoped rows for the same (species, region_key, month, context). */
+  state_code?: string;
+  /** Optional per-archetype score deltas applied for this row (state-scoped overrides). */
+  state_scoring_adjustments?: readonly StateScopedDeltaV3[];
   monthly_baseline: RecommenderV3MonthlyBaselineProfile;
   primary_lure_ids?: readonly LureArchetypeIdV3[];
   primary_fly_ids?: readonly FlyArchetypeIdV3[];
@@ -355,6 +371,8 @@ export type RecommenderV3SeasonalRow = {
 export type RecommenderV3ResolvedSeasonalRow = RecommenderV3SeasonalRow & {
   source_region_key: RegionKey;
   used_region_fallback: boolean;
+  /** True when resolution matched a state-scoped row (state_code was set on the winner). */
+  used_state_scoped_row: boolean;
 };
 
 export type RecommenderV3ResolvedProfile = {
@@ -373,6 +391,24 @@ export type RecommenderV3SelectionRole =
   | "strong_alternate"
   | "change_up";
 
+/** Mirrors `resolveColorDecisionV3` reason codes (Section 5B); kept here to avoid contracts↔colorDecision cycles. */
+export type RecommenderV3ColorReasonCode =
+  | "clear_bright_natural"
+  | "clear_mixed_natural"
+  | "clear_low_dark"
+  | "stained_bright_dark"
+  | "stained_mixed_dark"
+  | "stained_low_bright"
+  | "dirty_bright_dark"
+  | "dirty_mixed_bright"
+  | "dirty_low_bright";
+
+export type RecommenderV3ColorDecision = {
+  theme: ResolvedColorThemeV3;
+  reason_code: RecommenderV3ColorReasonCode;
+  short_reason: string;
+};
+
 export type RecommenderV3RankedArchetype = {
   id: RecommenderV3ArchetypeId;
   display_name: string;
@@ -389,9 +425,11 @@ export type RecommenderV3RankedArchetype = {
   practicality_fit: number;
   forage_fit: number;
   clarity_fit: number;
-  opportunity_mix_fit: number;
+  /** Post-selection diversity bonus applied in topThreeSelection. Zero for candidates that were not considered as a changeup slot. Not a per-archetype fit score. */
+  diversity_bonus: number;
   color_theme: ResolvedColorThemeV3;
   color_recommendations: [string, string, string];
+  color_decision: RecommenderV3ColorDecision;
   why_chosen: string;
   how_to_fish: string;
   breakdown: RecommenderV3ScoreBreakdown[];
@@ -406,6 +444,7 @@ export type RecommenderV3Response = {
   region_key: RegionKey;
   seasonal_source_region_key: RegionKey;
   used_region_fallback: boolean;
+  used_state_scoped_row: boolean;
   month: number;
   water_clarity: WaterClarity;
   variables_considered: readonly string[];

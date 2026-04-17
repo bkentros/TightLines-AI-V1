@@ -35,62 +35,99 @@ const REGION_FALLBACKS: Partial<Record<RegionKey, RegionKey[]>> = {
   inland_northwest: ["mountain_west", "pacific_northwest"],
 };
 
-export function resolveSeasonalRowV3(
+function seasonalRowsForSpecies(
+  species: RecommenderV3Species,
+): readonly RecommenderV3SeasonalRow[] {
+  switch (species) {
+    case "largemouth_bass":
+      return LARGEMOUTH_V3_SEASONAL_ROWS;
+    case "smallmouth_bass":
+      return SMALLMOUTH_V3_SEASONAL_ROWS;
+    case "trout":
+      return TROUT_V3_SEASONAL_ROWS;
+    case "northern_pike":
+      return NORTHERN_PIKE_V3_SEASONAL_ROWS;
+    default:
+      throw new Error(
+        `V3 currently supports seasonal rows for largemouth_bass, smallmouth_bass, northern_pike, and trout only. Received '${species}'.`,
+      );
+  }
+}
+
+function matchesBase(
+  candidate: RecommenderV3SeasonalRow,
+  species: RecommenderV3Species,
+  rk: RegionKey,
+  month: number,
+  context: RecommenderV3Context,
+): boolean {
+  return (
+    candidate.species === species &&
+    candidate.region_key === rk &&
+    candidate.month === month &&
+    candidate.context === context
+  );
+}
+
+/**
+ * Resolve a seasonal row from an explicit table (tests may pass augmented arrays).
+ * Resolution order within each region: state-scoped row matching `stateCode` first,
+ * then the unscoped row (`state_code` unset). Then REGION_FALLBACKS chain.
+ */
+export function resolveSeasonalRowFromTable(
+  seasonalRows: readonly RecommenderV3SeasonalRow[],
   species: RecommenderV3Species,
   region_key: RegionKey,
   month: number,
   context: RecommenderV3Context,
+  stateCode?: string,
 ): RecommenderV3ResolvedSeasonalRow {
-  const seasonalRows = (() => {
-    switch (species) {
-      case "largemouth_bass":
-        return LARGEMOUTH_V3_SEASONAL_ROWS;
-      case "smallmouth_bass":
-        return SMALLMOUTH_V3_SEASONAL_ROWS;
-      case "trout":
-        return TROUT_V3_SEASONAL_ROWS;
-      case "northern_pike":
-        return NORTHERN_PIKE_V3_SEASONAL_ROWS;
-      default:
-        throw new Error(
-          `V3 currently supports seasonal rows for largemouth_bass, smallmouth_bass, northern_pike, and trout only. Received '${species}'.`,
-        );
+  const findInRegion = (
+    rk: RegionKey,
+  ): { row: RecommenderV3SeasonalRow; used_state_scoped_row: boolean } | undefined => {
+    const st = stateCode?.trim();
+    if (st) {
+      for (const candidate of seasonalRows) {
+        if (
+          matchesBase(candidate, species, rk, month, context) &&
+          candidate.state_code === st
+        ) {
+          return { row: candidate, used_state_scoped_row: true };
+        }
+      }
     }
-  })();
-
-  const findRow = (rk: RegionKey): RecommenderV3SeasonalRow | undefined => {
     for (const candidate of seasonalRows) {
       if (
-        candidate.species === species &&
-        candidate.region_key === rk &&
-        candidate.month === month &&
-        candidate.context === context
+        matchesBase(candidate, species, rk, month, context) &&
+        candidate.state_code == null
       ) {
-        return candidate;
+        return { row: candidate, used_state_scoped_row: false };
       }
     }
     return undefined;
   };
 
-  let row = findRow(region_key);
+  let hit = findInRegion(region_key);
   let source_region_key = region_key;
 
-  if (!row) {
+  if (!hit) {
     const fallbacks = REGION_FALLBACKS[region_key] ?? [];
     for (const fallback of fallbacks) {
-      row = findRow(fallback);
-      if (row) {
+      hit = findInRegion(fallback);
+      if (hit) {
         source_region_key = fallback;
         break;
       }
     }
   }
 
-  if (!row) {
+  if (!hit) {
     throw new Error(
       `No V3 seasonal row found for ${species} in ${region_key}, month ${month}, context ${context}.`,
     );
   }
+
+  const { row, used_state_scoped_row } = hit;
 
   if (row.eligible_lure_ids.length < 3 || row.eligible_fly_ids.length < 3) {
     throw new Error(
@@ -102,5 +139,23 @@ export function resolveSeasonalRowV3(
     ...row,
     source_region_key,
     used_region_fallback: source_region_key !== region_key,
+    used_state_scoped_row,
   };
+}
+
+export function resolveSeasonalRowV3(
+  species: RecommenderV3Species,
+  region_key: RegionKey,
+  month: number,
+  context: RecommenderV3Context,
+  stateCode?: string,
+): RecommenderV3ResolvedSeasonalRow {
+  return resolveSeasonalRowFromTable(
+    seasonalRowsForSpecies(species),
+    species,
+    region_key,
+    month,
+    context,
+    stateCode,
+  );
 }

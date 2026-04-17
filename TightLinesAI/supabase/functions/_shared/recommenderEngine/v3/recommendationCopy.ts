@@ -1,3 +1,4 @@
+import type { WaterClarity } from "../contracts/input.ts";
 import type {
   RecommenderV3ArchetypeProfile,
   RecommenderV3DailyPayload,
@@ -8,6 +9,52 @@ import type {
   TacticalColumnV3,
 } from "./contracts.ts";
 import type { ScoredCandidate } from "./scoringTypes.ts";
+
+const DIVERSITY_WHY_SUFFIX = "It rounds out the lineup with a different look.";
+
+/** Lead phrase for the positive top breakdown driver (Section 5A). */
+export function phraseForTopDriver(
+  code: string | undefined,
+  profile: RecommenderV3ArchetypeProfile,
+  seasonal: RecommenderV3SeasonalRow,
+  _daily: RecommenderV3DailyPayload,
+  _resolved: RecommenderV3ResolvedProfile,
+  waterClarity: WaterClarity,
+): string | null {
+  switch (code) {
+    case "monthly_primary_fit": {
+      const ids = profile.gear_mode === "lure"
+        ? seasonal.primary_lure_ids
+        : seasonal.primary_fly_ids;
+      if (!ids || ids.length <= 1) return null;
+      return "It's one of this month's lead lanes here.";
+    }
+    case "strict_monthly_lane_fit":
+      return "It sits inside this month's authored lane.";
+    case "forage_fit":
+      return "It matches the forage bias this month.";
+    case "practicality_fit":
+      return "It fishes cleanly for today's conditions.";
+    case "column_fit":
+    case "pace_fit":
+    case "presence_fit":
+      return "It matches the column/pace the conditions push toward today.";
+    case "clarity_fit": {
+      switch (waterClarity) {
+        case "clear":
+          return "It reads clean in clear water today.";
+        case "stained":
+          return "It stands out in stained water today.";
+        case "dirty":
+          return "It stays visible in dirty water today.";
+        default:
+          return null;
+      }
+    }
+    default:
+      return null;
+  }
+}
 
 function uniqueNonEmpty(parts: readonly (string | null | undefined)[]): string[] {
   const seen = new Set<string>();
@@ -225,6 +272,8 @@ export function buildWhyChosen(
   seasonal: RecommenderV3SeasonalRow,
   daily: RecommenderV3DailyPayload,
   resolved: RecommenderV3ResolvedProfile,
+  waterClarity: WaterClarity,
+  changeupBonus: number,
 ): string {
   const breakdownDrivers = breakdown
     .filter((item) => item.value > 0)
@@ -236,10 +285,20 @@ export function buildWhyChosen(
   const topDriver = breakdown
     .filter((item) => item.value > 0)
     .sort((a, b) => b.value - a.value)[0];
+  const driverPhrase = phraseForTopDriver(
+    topDriver?.code,
+    profile,
+    seasonal,
+    daily,
+    resolved,
+    waterClarity,
+  );
+  const legacySlot1 = topDriver?.code === "monthly_primary_fit" ||
+      topDriver?.code === "forage_fit"
+    ? seasonalReason ?? hook
+    : dailyReasons[0] ?? seasonalReason ?? hook;
   const parts = uniqueNonEmpty([
-    topDriver?.code === "monthly_primary_fit" || topDriver?.code === "forage_fit"
-      ? seasonalReason ?? hook
-      : dailyReasons[0] ?? seasonalReason ?? hook,
+    driverPhrase ?? legacySlot1,
     topDriver?.code === "practicality_fit" || topDriver?.code === "column_fit" ||
         topDriver?.code === "pace_fit" || topDriver?.code === "presence_fit"
       ? dailyReasons[0] ?? breakdownDrivers[0]
@@ -248,7 +307,14 @@ export function buildWhyChosen(
       ? dailyReasons[0]
       : seasonalReason ?? hook,
   ]);
-  return parts.slice(0, 3).join(" ");
+  let text = parts.slice(0, 3).join(" ");
+  if (
+    changeupBonus > 0 &&
+    !text.toLowerCase().includes("rounds out the lineup")
+  ) {
+    text = `${text} ${DIVERSITY_WHY_SUFFIX}`;
+  }
+  return text.trim();
 }
 
 function buildPaceHint(

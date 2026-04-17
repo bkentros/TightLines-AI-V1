@@ -1,6 +1,6 @@
 # Pike V3 Matrix Review Sheet
 
-Generated: 2026-04-16T13:44:17.272Z
+Generated: 2026-04-17T02:13:19.110Z
 Archive bundle generated: 2026-04-16T02:12:15.680Z
 Scenario count: 48
 Contexts: 32 lake/pond, 16 river
@@ -92,18 +92,18 @@ Actual output:
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Daily note: Moderate chop improves fishability and supports a stronger moving look.
 - Lure reasoning:
-- Blade Bait: A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane.
+- Blade Bait: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane.
 - Blade Bait how: Vertical jig it with short, sharp hops over suspended fish; the flutter-fall is the presentation — set hard the moment you feel weight. Slow down and lengthen the pause.
-- Paddle-Tail Swimbait: A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different horizontal search look without leaving today's window.
+- Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
 - Paddle-Tail Swimbait how: Swim it at the speed where you feel a steady kick through the rod; use rod angle to change depth without changing retrieve speed. Slow down and lengthen the pause.
-- Large Jerkbait: Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Large Jerkbait: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Large Jerkbait how: Rip it hard with two or three sweeps, then kill it completely — let the bait sink or suspend in place while you count three before the next sequence. Slow down and lengthen the pause.
 - Fly reasoning:
-- Clouser Minnow: A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane.
+- Clouser Minnow: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane.
 - Clouser Minnow how: Strip in short, consistent pulls so the dumbbell eyes make the fly jig up and down; let it sink between strips to stay hook-point up throughout. Slow down and lengthen the pause.
-- Large Rabbit Strip Streamer: Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window. It gives you a different pike big profile look without leaving today's window.
+- Large Rabbit Strip Streamer: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different pike big profile look without leaving today's window.
 - Large Rabbit Strip Streamer how: Retrieve at a consistent pace that keeps the fly moving but gives the rabbit strip time to pulse; deadstop near structure to trigger strike reactions. Slow down and lengthen the pause.
-- Rabbit-Strip Leech: A warming trend nudges fish slightly higher in the allowed range. Rabbit-Strip Leech tracks well when leech_worm is a realistic meal. It is the cleaner change-up if the lead look does not convert.
+- Rabbit-Strip Leech: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. Rabbit-Strip Leech tracks well when leech_worm is a realistic meal. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Rabbit-Strip Leech how: Cast and count it down, then use a strip-pause retrieve with exaggerated pauses — the pulse on the stop is when most fish commit. Slow down and lengthen the pause.
 
 Review:
@@ -196,18 +196,18 @@ Actual output:
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Daily note: Moderate chop improves fishability and supports a stronger moving look.
 - Lure reasoning:
-- Blade Bait: A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane.
+- Blade Bait: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane.
 - Blade Bait how: Vertical jig it with short, sharp hops over suspended fish; the flutter-fall is the presentation — set hard the moment you feel weight. Slow down and lengthen the pause.
-- Paddle-Tail Swimbait: A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different horizontal search look without leaving today's window.
+- Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
 - Paddle-Tail Swimbait how: Swim it at the speed where you feel a steady kick through the rod; use rod angle to change depth without changing retrieve speed. Slow down and lengthen the pause.
-- Large Jerkbait: Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Large Jerkbait: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Large Jerkbait how: Rip it hard with two or three sweeps, then kill it completely — let the bait sink or suspend in place while you count three before the next sequence. Slow down and lengthen the pause.
 - Fly reasoning:
-- Clouser Minnow: A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane.
+- Clouser Minnow: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane.
 - Clouser Minnow how: Strip in short, consistent pulls so the dumbbell eyes make the fly jig up and down; let it sink between strips to stay hook-point up throughout. Slow down and lengthen the pause.
-- Rabbit-Strip Leech: Cold metabolism shuts down activity. Slow and low is the only play. It stays low in the zone where this day still wants fish to hold. It gives you a different fly bottom look without leaving today's window.
+- Rabbit-Strip Leech: It matches the column/pace the conditions push toward today. Cold metabolism shuts down activity. Slow and low is the only play. It stays low in the zone where this day still wants fish to hold. It rounds out the lineup with a different look. It gives you a different fly bottom look without leaving today's window.
 - Rabbit-Strip Leech how: Cast and count it down, then use a strip-pause retrieve with exaggerated pauses — the pulse on the stop is when most fish commit. Slow down and lengthen the pause.
-- Large Rabbit Strip Streamer: Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Large Rabbit Strip Streamer: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Large Rabbit Strip Streamer how: Retrieve at a consistent pace that keeps the fly moving but gives the rabbit strip time to pulse; deadstop near structure to trigger strike reactions. Slow down and lengthen the pause.
 
 Review:
@@ -298,18 +298,18 @@ Actual output:
 - Daily note: Cold metabolism shuts down activity. Slow and low is the only play.
 - Daily note: Moderate chop improves fishability and supports a stronger moving look.
 - Lure reasoning:
-- Large Jerkbait: Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window.
+- Large Jerkbait: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window.
 - Large Jerkbait how: Rip it hard with two or three sweeps, then kill it completely — let the bait sink or suspend in place while you count three before the next sequence. Slow down and lengthen the pause.
-- Large Paddle-Tail Swimbait: Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window. It gives you a different pike big profile look without leaving today's window.
+- Large Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different pike big profile look without leaving today's window.
 - Large Paddle-Tail Swimbait how: Work it with long, deliberate sweeps that make the body undulate; pause at the end of each sweep and hold position so following pike can close. Slow down and lengthen the pause.
-- Spinnerbait: Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Spinnerbait: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Spinnerbait how: Work it parallel to grass lines or over submerged timber; slow the retrieve near the target and let the head tick the top. Slow down and lengthen the pause.
 - Fly reasoning:
-- Large Rabbit Strip Streamer: Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window.
+- Large Rabbit Strip Streamer: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window.
 - Large Rabbit Strip Streamer how: Retrieve at a consistent pace that keeps the fly moving but gives the rabbit strip time to pulse; deadstop near structure to trigger strike reactions. Slow down and lengthen the pause.
-- Articulated Dungeon Streamer: Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different fly baitfish look without leaving today's window.
+- Articulated Dungeon Streamer: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
 - Articulated Dungeon Streamer how: Use varied strip lengths with hard pauses after each burst; the fly should surge, then stall and hover like a wounded meal. Slow down and lengthen the pause.
-- Articulated Baitfish Streamer: Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Articulated Baitfish Streamer: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Articulated Baitfish Streamer how: Work it across current and down with a varied strip cadence; when a fish follows, slow down and kill the retrieve to let the body spiral on the sink. Slow down and lengthen the pause.
 
 Review:
@@ -400,18 +400,18 @@ Actual output:
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
 - Daily note: Moderate chop improves fishability and supports a stronger moving look.
 - Lure reasoning:
-- Large Jerkbait: Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window.
+- Large Jerkbait: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window.
 - Large Jerkbait how: Rip it hard with two or three sweeps, then kill it completely — let the bait sink or suspend in place while you count three before the next sequence. Keep it high in the zone.
-- Spinnerbait: Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different horizontal search look without leaving today's window.
+- Spinnerbait: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
 - Spinnerbait how: Work it parallel to grass lines or over submerged timber; slow the retrieve near the target and let the head tick the top. Keep it high in the zone.
-- Large Paddle-Tail Swimbait: Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Large Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Large Paddle-Tail Swimbait how: Work it with long, deliberate sweeps that make the body undulate; pause at the end of each sweep and hold position so following pike can close. Keep it high in the zone.
 - Fly reasoning:
-- Large Rabbit Strip Streamer: Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window.
+- Large Rabbit Strip Streamer: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window.
 - Large Rabbit Strip Streamer how: Retrieve at a consistent pace that keeps the fly moving but gives the rabbit strip time to pulse; deadstop near structure to trigger strike reactions. Keep it high in the zone.
-- Articulated Dungeon Streamer: Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different fly baitfish look without leaving today's window.
+- Articulated Dungeon Streamer: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
 - Articulated Dungeon Streamer how: Use varied strip lengths with hard pauses after each burst; the fly should surge, then stall and hover like a wounded meal.
-- Clouser Minnow: Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Clouser Minnow: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Clouser Minnow how: Strip in short, consistent pulls so the dumbbell eyes make the fly jig up and down; let it sink between strips to stay hook-point up throughout.
 
 Review:
@@ -501,18 +501,18 @@ Actual output:
 - Variables triggered: wind_condition, precipitation_disruption
 - Daily note: Moderate chop improves fishability and supports a stronger moving look.
 - Lure reasoning:
-- Large Paddle-Tail Swimbait: Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window.
+- Large Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window.
 - Large Paddle-Tail Swimbait how: Work it with long, deliberate sweeps that make the body undulate; pause at the end of each sweep and hold position so following pike can close. Keep it high in the zone.
-- Large Jerkbait: Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window. It gives you a different pike big profile look without leaving today's window.
+- Large Jerkbait: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different pike big profile look without leaving today's window.
 - Large Jerkbait how: Rip it hard with two or three sweeps, then kill it completely — let the bait sink or suspend in place while you count three before the next sequence. Keep it high in the zone.
-- Walking Topwater: The monthly surface window is still alive today, even with a little ripple on top. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Walking Topwater: It matches the column/pace the conditions push toward today. The monthly surface window is still alive today, even with a little ripple on top. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Walking Topwater how: Downrod with light wrist flicks to make it dance; the pause between twitches lets fish track and commit, so give it a beat before the next twitch. Keep it on top.
 - Fly reasoning:
-- Articulated Pike Streamer: Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window.
+- Articulated Pike Streamer: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window.
 - Articulated Pike Streamer how: Retrieve with slow, arm-length strips and complete stops; pike follow and commit on the pause, so hold the deadstop for a count of two. Keep it high in the zone.
-- Large Rabbit Strip Streamer: Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window. It gives you a different pike big profile look without leaving today's window.
+- Large Rabbit Strip Streamer: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window. It gives you a different pike big profile look without leaving today's window.
 - Large Rabbit Strip Streamer how: Retrieve at a consistent pace that keeps the fly moving but gives the rabbit strip time to pulse; deadstop near structure to trigger strike reactions. Keep it high in the zone.
-- Game Changer: Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Game Changer: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink. Keep it high in the zone.
 
 Review:
@@ -603,18 +603,18 @@ Actual output:
 - Variables triggered: light_cloud_condition, precipitation_disruption
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Lure reasoning:
-- Walking Topwater: Low disturbance is keeping a true surface lane open today. It is one of the lead monthly looks for this exact seasonal window.
+- Walking Topwater: It matches the column/pace the conditions push toward today. Low disturbance is keeping a true surface lane open today. It is one of the lead monthly looks for this exact seasonal window.
 - Walking Topwater how: Downrod with light wrist flicks to make it dance; the pause between twitches lets fish track and commit, so give it a beat before the next twitch. Keep it on top.
-- Paddle-Tail Swimbait: Lower light supports a slightly higher, more open lane. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different horizontal search look without leaving today's window.
+- Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
 - Paddle-Tail Swimbait how: Swim it at the speed where you feel a steady kick through the rod; use rod angle to change depth without changing retrieve speed. Keep it high in the zone.
-- Suspending Jerkbait: Lower light supports a slightly higher, more open lane. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Suspending Jerkbait: It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Suspending Jerkbait how: Jerk, jerk, pause. The bait should dart and glide sideways on each twitch; dial the pause length to water temperature — colder means longer. Keep it high in the zone.
 - Fly reasoning:
-- Popper Fly: Low disturbance is keeping a true surface lane open today. It is one of the lead monthly looks for this exact seasonal window.
+- Popper Fly: It matches the column/pace the conditions push toward today. Low disturbance is keeping a true surface lane open today. It is one of the lead monthly looks for this exact seasonal window.
 - Popper Fly how: Make a sharp strip-pause to spit water, then wait; the longer the pause in the ring, the more time a fish has to rise and commit. Keep it on top.
-- Deceiver: Lower light supports a slightly higher, more open lane. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different fly baitfish look without leaving today's window.
+- Deceiver: It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
 - Deceiver how: Retrieve with medium-to-long pulls and let the feathers collapse and flare; pause every 3-4 strips to let the profile swell and hang for trailing fish. Keep it high in the zone.
-- Articulated Pike Streamer: Reduced visibility supports a stronger profile fish can find more easily. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Articulated Pike Streamer: It matches the column/pace the conditions push toward today. Reduced visibility supports a stronger profile fish can find more easily. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Articulated Pike Streamer how: Retrieve with slow, arm-length strips and complete stops; pike follow and commit on the pause, so hold the deadstop for a count of two. Keep it high in the zone.
 
 Review:
@@ -708,18 +708,18 @@ Actual output:
 - Daily note: Moderate chop improves fishability and supports a stronger moving look.
 - Daily note: Active precipitation disruption narrows the clean bite window.
 - Lure reasoning:
-- Spinnerbait: With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane.
+- Spinnerbait: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane.
 - Spinnerbait how: Slow-roll it along the bottom edge of cover at a steady pace, keeping the blades just ticking; bump any piece of structure and let it rise. Slow down and lengthen the pause.
-- Paddle-Tail Swimbait: With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different horizontal search look without leaving today's window.
+- Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
 - Paddle-Tail Swimbait how: Reel at a steady pace with the rod low so the tail thumps consistently; speed up slightly over bait schools or slow down after a follow. Slow down and lengthen the pause.
-- Suspending Jerkbait: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Suspending Jerkbait: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Suspending Jerkbait how: Two or three sharp twitches, then let it suspend perfectly still for a full 3-5 count before the next sequence — the pause is everything. Slow down and lengthen the pause.
 - Fly reasoning:
-- Articulated Pike Streamer: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Articulated Pike Streamer: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
 - Articulated Pike Streamer how: Long sweeping strips with full pauses; the articulated body coils on the stop and then springs on the next strip — give it the full beat. Slow down and lengthen the pause.
-- Large Rabbit Strip Streamer: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It gives you a different pike big profile look without leaving today's window.
+- Large Rabbit Strip Streamer: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It gives you a different pike big profile look without leaving today's window.
 - Large Rabbit Strip Streamer how: Strip with long, steady pulls so the rabbit hair breathes and the profile stays big; pause after every 2-3 strips to let following pike close. Slow down and lengthen the pause.
-- Deceiver: With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Deceiver: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Deceiver how: Strip in long, smooth pulls so the saddle feathers breathe; add a pause every few strips for followers to close the gap. Slow down and lengthen the pause.
 
 Review:
@@ -809,18 +809,18 @@ Actual output:
 - Variables triggered: wind_condition, precipitation_disruption
 - Daily note: Moderate chop improves fishability and supports a stronger moving look.
 - Lure reasoning:
-- Large Paddle-Tail Swimbait: Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window.
+- Large Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window.
 - Large Paddle-Tail Swimbait how: Work it with long, deliberate sweeps that make the body undulate; pause at the end of each sweep and hold position so following pike can close.
-- Casting Spoon: Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different reaction mid column look without leaving today's window.
+- Casting Spoon: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different reaction mid column look without leaving today's window.
 - Casting Spoon how: Work it with a lift-and-drop over suspended fish; the concave face spins as it falls — strikes are usually on the drop, so keep a semi-tight line.
-- Spinnerbait: Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Spinnerbait: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Spinnerbait how: Work it parallel to grass lines or over submerged timber; slow the retrieve near the target and let the head tick the top.
 - Fly reasoning:
-- Articulated Pike Streamer: Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window.
+- Articulated Pike Streamer: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window.
 - Articulated Pike Streamer how: Retrieve with slow, arm-length strips and complete stops; pike follow and commit on the pause, so hold the deadstop for a count of two.
-- Articulated Dungeon Streamer: Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different fly baitfish look without leaving today's window.
+- Articulated Dungeon Streamer: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
 - Articulated Dungeon Streamer how: Use varied strip lengths with hard pauses after each burst; the fly should surge, then stall and hover like a wounded meal.
-- Deceiver: Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Deceiver: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Deceiver how: Retrieve with medium-to-long pulls and let the feathers collapse and flare; pause every 3-4 strips to let the profile swell and hang for trailing fish.
 
 Review:
@@ -910,18 +910,18 @@ Actual output:
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
 - Variables triggered: precipitation_disruption
 - Lure reasoning:
-- Large Paddle-Tail Swimbait: It is one of the lead monthly looks for this exact seasonal window. It fits today's mid column preference.
+- Large Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. It fits today's mid column preference. It is one of the lead monthly looks for this exact seasonal window.
 - Large Paddle-Tail Swimbait how: Slow-roll at a steady mid-depth pace; pike follow long before committing, so keep your nerve and don't speed up or stop until the line goes tight.
-- Casting Spoon: The month is still baitfish-forward, and this stays inside that search lane. It fits today's mid column preference. It gives you a different reaction mid column look without leaving today's window.
+- Casting Spoon: It matches the column/pace the conditions push toward today. It fits today's mid column preference. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different reaction mid column look without leaving today's window.
 - Casting Spoon how: Work it with a lift-and-drop over suspended fish; the concave face spins as it falls — strikes are usually on the drop, so keep a semi-tight line.
-- Paddle-Tail Swimbait: The month is still baitfish-forward, and this stays inside that search lane. It fits today's mid column preference. It is the cleaner change-up if the lead look does not convert.
+- Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. It fits today's mid column preference. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Paddle-Tail Swimbait how: Slow-roll near the bottom on a consistent retrieve; the paddle thumps best just barely above the substrate, so keep the rod tip down and the pace even.
 - Fly reasoning:
-- Articulated Pike Streamer: It is one of the lead monthly looks for this exact seasonal window. It fits today's mid column preference.
+- Articulated Pike Streamer: It matches the column/pace the conditions push toward today. It fits today's mid column preference. It is one of the lead monthly looks for this exact seasonal window.
 - Articulated Pike Streamer how: Long sweeping strips with full pauses; the articulated body coils on the stop and then springs on the next strip — give it the full beat.
-- Articulated Dungeon Streamer: The month is still baitfish-forward, and this stays inside that search lane. It fits today's mid column preference. It gives you a different fly baitfish look without leaving today's window.
+- Articulated Dungeon Streamer: It matches the column/pace the conditions push toward today. It fits today's mid column preference. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
 - Articulated Dungeon Streamer how: Use varied strip lengths with hard pauses after each burst; the fly should surge, then stall and hover like a wounded meal.
-- Articulated Baitfish Streamer: The month is still baitfish-forward, and this stays inside that search lane. It fits today's mid column preference. It is the cleaner change-up if the lead look does not convert.
+- Articulated Baitfish Streamer: It matches the column/pace the conditions push toward today. It fits today's mid column preference. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Articulated Baitfish Streamer how: Cover water at mid-depth with steady strips; add a hard single rip followed by a full pause to imitate an injured baitfish fleeing and then stopping.
 
 Review:
@@ -1013,18 +1013,18 @@ Actual output:
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Daily note: Moderate chop improves fishability and supports a stronger moving look.
 - Lure reasoning:
-- Spinnerbait: Lower light supports a slightly higher, more open lane. The month is still baitfish-forward, and this stays inside that search lane.
+- Spinnerbait: It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. The month is still baitfish-forward, and this stays inside that search lane.
 - Spinnerbait how: Work it parallel to grass lines or over submerged timber; slow the retrieve near the target and let the head tick the top. Keep it high in the zone.
-- Large Paddle-Tail Swimbait: Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window. It gives you a different pike big profile look without leaving today's window.
+- Large Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different pike big profile look without leaving today's window.
 - Large Paddle-Tail Swimbait how: Work it with long, deliberate sweeps that make the body undulate; pause at the end of each sweep and hold position so following pike can close. Keep it high in the zone.
-- Large Jerkbait: Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Large Jerkbait: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Large Jerkbait how: Rip it hard with two or three sweeps, then kill it completely — let the bait sink or suspend in place while you count three before the next sequence. Keep it high in the zone.
 - Fly reasoning:
-- Articulated Baitfish Streamer: Lower light supports a slightly higher, more open lane. The month is still baitfish-forward, and this stays inside that search lane.
+- Articulated Baitfish Streamer: It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. The month is still baitfish-forward, and this stays inside that search lane.
 - Articulated Baitfish Streamer how: Work it across current and down with a varied strip cadence; when a fish follows, slow down and kill the retrieve to let the body spiral on the sink. Keep it high in the zone.
-- Articulated Pike Streamer: Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window. It gives you a different pike big profile look without leaving today's window.
+- Articulated Pike Streamer: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different pike big profile look without leaving today's window.
 - Articulated Pike Streamer how: Retrieve with slow, arm-length strips and complete stops; pike follow and commit on the pause, so hold the deadstop for a count of two. Keep it high in the zone.
-- Articulated Dungeon Streamer: Lower light supports a slightly higher, more open lane. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Articulated Dungeon Streamer: It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Articulated Dungeon Streamer how: Use varied strip lengths with hard pauses after each burst; the fly should surge, then stall and hover like a wounded meal.
 
 Review:
@@ -1116,18 +1116,18 @@ Actual output:
 - Daily note: Bright light trims the day back toward cleaner looks.
 - Daily note: Moderate chop improves fishability and supports a stronger moving look.
 - Lure reasoning:
-- Blade Bait: Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane.
+- Blade Bait: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane.
 - Blade Bait how: Vertical jig it with short, sharp hops over suspended fish; the flutter-fall is the presentation — set hard the moment you feel weight. Slow down and lengthen the pause.
-- Paddle-Tail Swimbait: Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different horizontal search look without leaving today's window.
+- Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
 - Paddle-Tail Swimbait how: Swim it at the speed where you feel a steady kick through the rod; use rod angle to change depth without changing retrieve speed. Slow down and lengthen the pause.
-- Large Jerkbait: Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Large Jerkbait: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Large Jerkbait how: Rip it hard with two or three sweeps, then kill it completely — let the bait sink or suspend in place while you count three before the next sequence. Slow down and lengthen the pause.
 - Fly reasoning:
-- Rabbit-Strip Leech: A warming trend nudges fish slightly higher in the allowed range. It stays low in the zone where this day still wants fish to hold.
+- Rabbit-Strip Leech: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It stays low in the zone where this day still wants fish to hold.
 - Rabbit-Strip Leech how: Cast and count it down, then use a strip-pause retrieve with exaggerated pauses — the pulse on the stop is when most fish commit. Slow down and lengthen the pause.
-- Clouser Minnow: Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different fly baitfish look without leaving today's window.
+- Clouser Minnow: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
 - Clouser Minnow how: Strip in short, consistent pulls so the dumbbell eyes make the fly jig up and down; let it sink between strips to stay hook-point up throughout. Slow down and lengthen the pause.
-- Large Rabbit Strip Streamer: Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Large Rabbit Strip Streamer: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Large Rabbit Strip Streamer how: Retrieve at a consistent pace that keeps the fly moving but gives the rabbit strip time to pulse; deadstop near structure to trigger strike reactions. Slow down and lengthen the pause.
 
 Review:
@@ -1219,18 +1219,18 @@ Actual output:
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Daily note: Moderate chop improves fishability and supports a stronger moving look.
 - Lure reasoning:
-- Blade Bait: Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane.
+- Blade Bait: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane.
 - Blade Bait how: Vertical jig it with short, sharp hops over suspended fish; the flutter-fall is the presentation — set hard the moment you feel weight. Slow down and lengthen the pause.
-- Paddle-Tail Swimbait: Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different horizontal search look without leaving today's window.
+- Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
 - Paddle-Tail Swimbait how: Swim it at the speed where you feel a steady kick through the rod; use rod angle to change depth without changing retrieve speed. Slow down and lengthen the pause.
-- Large Jerkbait: Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Large Jerkbait: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Large Jerkbait how: Rip it hard with two or three sweeps, then kill it completely — let the bait sink or suspend in place while you count three before the next sequence. Slow down and lengthen the pause.
 - Fly reasoning:
-- Rabbit-Strip Leech: Cold metabolism shuts down activity. Slow and low is the only play. It stays low in the zone where this day still wants fish to hold.
+- Rabbit-Strip Leech: It matches the column/pace the conditions push toward today. Cold metabolism shuts down activity. Slow and low is the only play. It stays low in the zone where this day still wants fish to hold.
 - Rabbit-Strip Leech how: Cast and count it down, then use a strip-pause retrieve with exaggerated pauses — the pulse on the stop is when most fish commit. Slow down and lengthen the pause.
-- Clouser Minnow: Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different fly baitfish look without leaving today's window.
+- Clouser Minnow: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
 - Clouser Minnow how: Strip in short, consistent pulls so the dumbbell eyes make the fly jig up and down; let it sink between strips to stay hook-point up throughout. Slow down and lengthen the pause.
-- Large Rabbit Strip Streamer: Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Large Rabbit Strip Streamer: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Large Rabbit Strip Streamer how: Retrieve at a consistent pace that keeps the fly moving but gives the rabbit strip time to pulse; deadstop near structure to trigger strike reactions. Slow down and lengthen the pause.
 
 Review:
@@ -1322,18 +1322,18 @@ Actual output:
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Lure reasoning:
-- Blade Bait: Cold metabolism shuts down activity. Slow and low is the only play. The month is still baitfish-forward, and this stays inside that search lane.
+- Blade Bait: It matches the column/pace the conditions push toward today. Cold metabolism shuts down activity. Slow and low is the only play. The month is still baitfish-forward, and this stays inside that search lane.
 - Blade Bait how: Lift with the rod and let the blade flutter back down on a controlled slack line; watch for the tap on the fall and set on anything that interrupts the sink. Slow down and lengthen the pause.
-- Paddle-Tail Swimbait: Cold metabolism shuts down activity. Slow and low is the only play. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different horizontal search look without leaving today's window.
+- Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. Cold metabolism shuts down activity. Slow and low is the only play. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
 - Paddle-Tail Swimbait how: Swim it at the speed where you feel a steady kick through the rod; use rod angle to change depth without changing retrieve speed. Slow down and lengthen the pause.
-- Suspending Jerkbait: Cold metabolism shuts down activity. Slow and low is the only play. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Suspending Jerkbait: It matches the column/pace the conditions push toward today. Cold metabolism shuts down activity. Slow and low is the only play. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Suspending Jerkbait how: Work it with wrist snaps, not big sweeps; keep slack in the line between snaps so the bait swings freely, then pause until you see a follow or feel weight. Slow down and lengthen the pause.
 - Fly reasoning:
-- Balanced Leech: Cold metabolism shuts down activity. Slow and low is the only play. It stays low in the zone where this day still wants fish to hold.
+- Balanced Leech: It matches the column/pace the conditions push toward today. Cold metabolism shuts down activity. Slow and low is the only play. It stays low in the zone where this day still wants fish to hold.
 - Balanced Leech how: Fish it under an indicator or on a slow hand-twist so the fly hovers level and pulses in place rather than diving nose-first. Slow down and lengthen the pause.
-- Rabbit-Strip Leech: Cold metabolism shuts down activity. Slow and low is the only play. It stays low in the zone where this day still wants fish to hold. It gives you a different fly bottom look without leaving today's window.
+- Rabbit-Strip Leech: It matches the column/pace the conditions push toward today. Cold metabolism shuts down activity. Slow and low is the only play. It stays low in the zone where this day still wants fish to hold. It gives you a different fly bottom look without leaving today's window.
 - Rabbit-Strip Leech how: Cast and count it down, then use a strip-pause retrieve with exaggerated pauses — the pulse on the stop is when most fish commit. Slow down and lengthen the pause.
-- Clouser Minnow: Cold metabolism shuts down activity. Slow and low is the only play. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Clouser Minnow: It matches the column/pace the conditions push toward today. Cold metabolism shuts down activity. Slow and low is the only play. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Clouser Minnow how: Cast and let the weighted eyes sink the fly, then retrieve with a strip-pause cadence that makes it dart upward on the strip and dive back on the pause. Slow down and lengthen the pause.
 
 Review:
@@ -1424,18 +1424,18 @@ Actual output:
 - Daily note: Cold metabolism shuts down activity. Slow and low is the only play.
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
 - Lure reasoning:
-- Blade Bait: Cold metabolism shuts down activity. Slow and low is the only play. The month is still baitfish-forward, and this stays inside that search lane.
+- Blade Bait: It matches the column/pace the conditions push toward today. Cold metabolism shuts down activity. Slow and low is the only play. The month is still baitfish-forward, and this stays inside that search lane.
 - Blade Bait how: Lift with the rod and let the blade flutter back down on a controlled slack line; watch for the tap on the fall and set on anything that interrupts the sink. Slow down and lengthen the pause.
-- Paddle-Tail Swimbait: Cold metabolism shuts down activity. Slow and low is the only play. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different horizontal search look without leaving today's window.
+- Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. Cold metabolism shuts down activity. Slow and low is the only play. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
 - Paddle-Tail Swimbait how: Swim it at the speed where you feel a steady kick through the rod; use rod angle to change depth without changing retrieve speed. Slow down and lengthen the pause.
-- Suspending Jerkbait: Cold metabolism shuts down activity. Slow and low is the only play. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Suspending Jerkbait: It matches the column/pace the conditions push toward today. Cold metabolism shuts down activity. Slow and low is the only play. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Suspending Jerkbait how: Work it with wrist snaps, not big sweeps; keep slack in the line between snaps so the bait swings freely, then pause until you see a follow or feel weight. Slow down and lengthen the pause.
 - Fly reasoning:
-- Balanced Leech: Cold metabolism shuts down activity. Slow and low is the only play. It stays low in the zone where this day still wants fish to hold.
+- Balanced Leech: It matches the column/pace the conditions push toward today. Cold metabolism shuts down activity. Slow and low is the only play. It stays low in the zone where this day still wants fish to hold.
 - Balanced Leech how: Fish it under an indicator or on a slow hand-twist so the fly hovers level and pulses in place rather than diving nose-first. Slow down and lengthen the pause.
-- Rabbit-Strip Leech: Cold metabolism shuts down activity. Slow and low is the only play. It stays low in the zone where this day still wants fish to hold. It gives you a different fly bottom look without leaving today's window.
+- Rabbit-Strip Leech: It matches the column/pace the conditions push toward today. Cold metabolism shuts down activity. Slow and low is the only play. It stays low in the zone where this day still wants fish to hold. It gives you a different fly bottom look without leaving today's window.
 - Rabbit-Strip Leech how: Cast and count it down, then use a strip-pause retrieve with exaggerated pauses — the pulse on the stop is when most fish commit. Slow down and lengthen the pause.
-- Clouser Minnow: Cold metabolism shuts down activity. Slow and low is the only play. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Clouser Minnow: It matches the column/pace the conditions push toward today. Cold metabolism shuts down activity. Slow and low is the only play. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Clouser Minnow how: Cast and let the weighted eyes sink the fly, then retrieve with a strip-pause cadence that makes it dart upward on the strip and dive back on the pause. Slow down and lengthen the pause.
 
 Review:
@@ -1526,18 +1526,18 @@ Actual output:
 - Daily note: Heat stress moves fish to cooler, deeper water and narrows the feeding window.
 - Daily note: Moderate chop improves fishability and supports a stronger moving look.
 - Lure reasoning:
-- Paddle-Tail Swimbait: Heat stress moves fish to cooler, deeper water and narrows the feeding window. The month is still baitfish-forward, and this stays inside that search lane.
+- Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. Heat stress moves fish to cooler, deeper water and narrows the feeding window. The month is still baitfish-forward, and this stays inside that search lane.
 - Paddle-Tail Swimbait how: Reel at a steady pace with the rod low so the tail thumps consistently; speed up slightly over bait schools or slow down after a follow. Slow down and lengthen the pause.
-- Suspending Jerkbait: Heat stress moves fish to cooler, deeper water and narrows the feeding window. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different reaction mid column look without leaving today's window.
+- Suspending Jerkbait: It matches the column/pace the conditions push toward today. Heat stress moves fish to cooler, deeper water and narrows the feeding window. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different reaction mid column look without leaving today's window.
 - Suspending Jerkbait how: Jerk, jerk, pause. The bait should dart and glide sideways on each twitch; dial the pause length to water temperature — colder means longer. Slow down and lengthen the pause.
-- Large Jerkbait: Heat stress moves fish to cooler, deeper water and narrows the feeding window. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Large Jerkbait: It matches the column/pace the conditions push toward today. Heat stress moves fish to cooler, deeper water and narrows the feeding window. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Large Jerkbait how: Work it erratically with big pulls and deadstops; the key is the pause after the dash, so hold still for at least two seconds before triggering again. Slow down and lengthen the pause.
 - Fly reasoning:
-- Large Rabbit Strip Streamer: Heat stress moves fish to cooler, deeper water and narrows the feeding window. It is one of the lead monthly looks for this exact seasonal window.
+- Large Rabbit Strip Streamer: It matches the column/pace the conditions push toward today. Heat stress moves fish to cooler, deeper water and narrows the feeding window. It is one of the lead monthly looks for this exact seasonal window.
 - Large Rabbit Strip Streamer how: Strip with long, steady pulls so the rabbit hair breathes and the profile stays big; pause after every 2-3 strips to let following pike close. Slow down and lengthen the pause.
-- Articulated Pike Streamer: Heat stress moves fish to cooler, deeper water and narrows the feeding window. It is one of the lead monthly looks for this exact seasonal window. It gives you a different pike big profile look without leaving today's window.
+- Articulated Pike Streamer: It matches the column/pace the conditions push toward today. Heat stress moves fish to cooler, deeper water and narrows the feeding window. It is one of the lead monthly looks for this exact seasonal window. It gives you a different pike big profile look without leaving today's window.
 - Articulated Pike Streamer how: Retrieve with slow, arm-length strips and complete stops; pike follow and commit on the pause, so hold the deadstop for a count of two. Slow down and lengthen the pause.
-- Game Changer: Heat stress moves fish to cooler, deeper water and narrows the feeding window. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Game Changer: It matches the column/pace the conditions push toward today. Heat stress moves fish to cooler, deeper water and narrows the feeding window. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Game Changer how: Retrieve with medium strips, then occasionally rip hard so the body compresses and then springs apart — pause after each hard strip and hold your nerve. Slow down and lengthen the pause.
 
 Review:
@@ -1630,18 +1630,18 @@ Actual output:
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Daily note: Moderate chop improves fishability and supports a stronger moving look.
 - Lure reasoning:
-- Paddle-Tail Swimbait: With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane.
+- Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane.
 - Paddle-Tail Swimbait how: Reel at a steady pace with the rod low so the tail thumps consistently; speed up slightly over bait schools or slow down after a follow. Slow down and lengthen the pause.
-- Soft Plastic Jerkbait: With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different horizontal search look without leaving today's window.
+- Soft Plastic Jerkbait: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
 - Soft Plastic Jerkbait how: Twitch it with slack in the line so the bait darts and glides erratically; pause and let it sink a few inches between twitches. Slow down and lengthen the pause.
-- Spinnerbait: With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Spinnerbait: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Spinnerbait how: Slow-roll it along the bottom edge of cover at a steady pace, keeping the blades just ticking; bump any piece of structure and let it rise. Slow down and lengthen the pause.
 - Fly reasoning:
-- Large Rabbit Strip Streamer: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Large Rabbit Strip Streamer: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
 - Large Rabbit Strip Streamer how: Strip with long, steady pulls so the rabbit hair breathes and the profile stays big; pause after every 2-3 strips to let following pike close. Slow down and lengthen the pause.
-- Articulated Dungeon Streamer: With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different fly baitfish look without leaving today's window.
+- Articulated Dungeon Streamer: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
 - Articulated Dungeon Streamer how: Strip it with long pulls and full pauses so the articulated profile kicks wide, then hangs and breathes in place. Slow down and lengthen the pause.
-- Clouser Minnow: With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Clouser Minnow: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Clouser Minnow how: Cast across or slightly downstream, let it jig toward you with short strips so the weighted eyes keep the fly tracking hook-point up. Slow down and lengthen the pause.
 
 Review:
@@ -1733,18 +1733,18 @@ Actual output:
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Lure reasoning:
-- Walking Topwater: Low disturbance is keeping a true surface lane open today. The month is still baitfish-forward, and this stays inside that search lane.
+- Walking Topwater: It matches the column/pace the conditions push toward today. Low disturbance is keeping a true surface lane open today. The month is still baitfish-forward, and this stays inside that search lane.
 - Walking Topwater how: Work it with consistent wrist flicks over open water or above grass; keep the cadence smooth and only slow down if you see fish following. Keep it on top.
-- Paddle-Tail Swimbait: A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different horizontal search look without leaving today's window.
+- Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
 - Paddle-Tail Swimbait how: Swim it at the speed where you feel a steady kick through the rod; use rod angle to change depth without changing retrieve speed. Keep it high in the zone.
-- Hollow-Body Frog: Low disturbance is keeping a true surface lane open today. It keeps the presentation right at the top where the monthly window still allows it. It is the cleaner change-up if the lead look does not convert.
+- Hollow-Body Frog: It matches the column/pace the conditions push toward today. Low disturbance is keeping a true surface lane open today. It keeps the presentation right at the top where the monthly window still allows it. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Hollow-Body Frog how: Use steady walking cadence across open surface, then slow and pause aggressively when near cover; don't set the hook until you feel the fish pulling. Keep it on top.
 - Fly reasoning:
-- Mouse Fly: Low disturbance is keeping a true surface lane open today. The month is still baitfish-forward, and this stays inside that search lane.
+- Mouse Fly: It matches the column/pace the conditions push toward today. Low disturbance is keeping a true surface lane open today. The month is still baitfish-forward, and this stays inside that search lane.
 - Mouse Fly how: Work it with a slow, uninterrupted retrieve across open water; the V-wake is the trigger, so keep it moving at a steady pace and stay alert. Keep it on top.
-- Game Changer: A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different fly baitfish look without leaving today's window.
+- Game Changer: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
 - Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink. Keep it high in the zone.
-- Articulated Pike Streamer: A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Articulated Pike Streamer: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Articulated Pike Streamer how: Run it at mid-depth on alternating long and short strips; after a follow, stop completely and let the articulated body collapse before the next strip. Keep it high in the zone.
 
 Review:
@@ -1837,18 +1837,18 @@ Actual output:
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Daily note: Moderate chop improves fishability and supports a stronger moving look.
 - Lure reasoning:
-- Walking Topwater: Low disturbance is keeping a true surface lane open today. It is one of the lead monthly looks for this exact seasonal window.
+- Walking Topwater: It matches the column/pace the conditions push toward today. Low disturbance is keeping a true surface lane open today. It is one of the lead monthly looks for this exact seasonal window.
 - Walking Topwater how: Work it with consistent wrist flicks over open water or above grass; keep the cadence smooth and only slow down if you see fish following. Work it with longer pauses.
-- Paddle-Tail Swimbait: Lower light supports a slightly higher, more open lane. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different horizontal search look without leaving today's window.
+- Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
 - Paddle-Tail Swimbait how: Swim it at the speed where you feel a steady kick through the rod; use rod angle to change depth without changing retrieve speed. Slow down and lengthen the pause.
-- Suspending Jerkbait: Lower light supports a slightly higher, more open lane. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Suspending Jerkbait: It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Suspending Jerkbait how: Work it with wrist snaps, not big sweeps; keep slack in the line between snaps so the bait swings freely, then pause until you see a follow or feel weight. Slow down and lengthen the pause.
 - Fly reasoning:
-- Popper Fly: Low disturbance is keeping a true surface lane open today. It is one of the lead monthly looks for this exact seasonal window.
+- Popper Fly: It matches the column/pace the conditions push toward today. Low disturbance is keeping a true surface lane open today. It is one of the lead monthly looks for this exact seasonal window.
 - Popper Fly how: Work it with medium strips that spit and gurgle; slow the cadence near structure and let the fly rest after each pop — target the edge of any surface shadow. Work it with longer pauses.
-- Deceiver: Lower light supports a slightly higher, more open lane. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different fly baitfish look without leaving today's window.
+- Deceiver: It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
 - Deceiver how: Retrieve with medium-to-long pulls and let the feathers collapse and flare; pause every 3-4 strips to let the profile swell and hang for trailing fish. Slow down and lengthen the pause.
-- Articulated Pike Streamer: Heat stress moves fish to cooler, deeper water and narrows the feeding window. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Articulated Pike Streamer: It matches the column/pace the conditions push toward today. Heat stress moves fish to cooler, deeper water and narrows the feeding window. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Articulated Pike Streamer how: Run it at mid-depth on alternating long and short strips; after a follow, stop completely and let the articulated body collapse before the next strip. Slow down and lengthen the pause.
 
 Review:
@@ -1939,18 +1939,18 @@ Actual output:
 - Daily note: Heat stress moves fish to cooler, deeper water and narrows the feeding window.
 - Daily note: Bright light trims the day back toward cleaner looks.
 - Lure reasoning:
-- Suspending Jerkbait: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Suspending Jerkbait: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
 - Suspending Jerkbait how: Two or three sharp twitches, then let it suspend perfectly still for a full 3-5 count before the next sequence — the pause is everything. Slow down and lengthen the pause.
-- Paddle-Tail Swimbait: With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different horizontal search look without leaving today's window.
+- Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
 - Paddle-Tail Swimbait how: Swim it at the speed where you feel a steady kick through the rod; use rod angle to change depth without changing retrieve speed. Slow down and lengthen the pause.
-- Large Paddle-Tail Swimbait: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Large Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Large Paddle-Tail Swimbait how: Retrieve at a measured pace over weed tops or along the edge; the big profile does the work — don't twitch or jerk, just keep it gliding. Slow down and lengthen the pause.
 - Fly reasoning:
-- Articulated Pike Streamer: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Articulated Pike Streamer: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
 - Articulated Pike Streamer how: Long sweeping strips with full pauses; the articulated body coils on the stop and then springs on the next strip — give it the full beat. Slow down and lengthen the pause.
-- Large Rabbit Strip Streamer: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It gives you a different pike big profile look without leaving today's window.
+- Large Rabbit Strip Streamer: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It gives you a different pike big profile look without leaving today's window.
 - Large Rabbit Strip Streamer how: Retrieve at a consistent pace that keeps the fly moving but gives the rabbit strip time to pulse; deadstop near structure to trigger strike reactions. Slow down and lengthen the pause.
-- Deceiver: With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Deceiver: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Deceiver how: Work it with a steady baitfish swim at medium cadence; slow down near structure and let it breathe on a semi-tight line between strips. Slow down and lengthen the pause.
 
 Review:
@@ -2039,18 +2039,18 @@ Actual output:
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
 - Variables triggered: precipitation_disruption
 - Lure reasoning:
-- Large Paddle-Tail Swimbait: It is one of the lead monthly looks for this exact seasonal window. It fits today's mid column preference.
+- Large Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. It fits today's mid column preference. It is one of the lead monthly looks for this exact seasonal window.
 - Large Paddle-Tail Swimbait how: Slow-roll at a steady mid-depth pace; pike follow long before committing, so keep your nerve and don't speed up or stop until the line goes tight.
-- Casting Spoon: The month is still baitfish-forward, and this stays inside that search lane. It fits today's mid column preference. It gives you a different reaction mid column look without leaving today's window.
+- Casting Spoon: It matches the column/pace the conditions push toward today. It fits today's mid column preference. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different reaction mid column look without leaving today's window.
 - Casting Spoon how: Work it with a lift-and-drop over suspended fish; the concave face spins as it falls — strikes are usually on the drop, so keep a semi-tight line.
-- Paddle-Tail Swimbait: The month is still baitfish-forward, and this stays inside that search lane. It fits today's mid column preference. It is the cleaner change-up if the lead look does not convert.
+- Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. It fits today's mid column preference. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Paddle-Tail Swimbait how: Slow-roll near the bottom on a consistent retrieve; the paddle thumps best just barely above the substrate, so keep the rod tip down and the pace even.
 - Fly reasoning:
-- Articulated Pike Streamer: It is one of the lead monthly looks for this exact seasonal window. It fits today's mid column preference.
+- Articulated Pike Streamer: It matches the column/pace the conditions push toward today. It fits today's mid column preference. It is one of the lead monthly looks for this exact seasonal window.
 - Articulated Pike Streamer how: Long sweeping strips with full pauses; the articulated body coils on the stop and then springs on the next strip — give it the full beat.
-- Articulated Dungeon Streamer: The month is still baitfish-forward, and this stays inside that search lane. It fits today's mid column preference. It gives you a different fly baitfish look without leaving today's window.
+- Articulated Dungeon Streamer: It matches the column/pace the conditions push toward today. It fits today's mid column preference. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
 - Articulated Dungeon Streamer how: Use varied strip lengths with hard pauses after each burst; the fly should surge, then stall and hover like a wounded meal.
-- Articulated Baitfish Streamer: The month is still baitfish-forward, and this stays inside that search lane. It fits today's mid column preference. It is the cleaner change-up if the lead look does not convert.
+- Articulated Baitfish Streamer: It matches the column/pace the conditions push toward today. It fits today's mid column preference. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Articulated Baitfish Streamer how: Cover water at mid-depth with steady strips; add a hard single rip followed by a full pause to imitate an injured baitfish fleeing and then stopping.
 
 Review:
@@ -2141,18 +2141,18 @@ Actual output:
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Lure reasoning:
-- Large Jerkbait: A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
+- Large Jerkbait: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
 - Large Jerkbait how: Use long, hard sweeps with the rod to make the bait dart and glide; pause fully between sweeps so the bait hangs and following fish can catch up. Keep it high in the zone.
-- Paddle-Tail Swimbait: A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different horizontal search look without leaving today's window.
+- Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
 - Paddle-Tail Swimbait how: Swim it at the speed where you feel a steady kick through the rod; use rod angle to change depth without changing retrieve speed. Keep it high in the zone.
-- Suspending Jerkbait: A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Suspending Jerkbait: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Suspending Jerkbait how: Work it with wrist snaps, not big sweeps; keep slack in the line between snaps so the bait swings freely, then pause until you see a follow or feel weight. Keep it high in the zone.
 - Fly reasoning:
-- Deceiver: A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane.
+- Deceiver: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane.
 - Deceiver how: Work it with a steady baitfish swim at medium cadence; slow down near structure and let it breathe on a semi-tight line between strips. Keep it high in the zone.
-- Articulated Pike Streamer: A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It gives you a different pike big profile look without leaving today's window.
+- Articulated Pike Streamer: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different pike big profile look without leaving today's window.
 - Articulated Pike Streamer how: Retrieve with slow, arm-length strips and complete stops; pike follow and commit on the pause, so hold the deadstop for a count of two. Keep it high in the zone.
-- Game Changer: A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Game Changer: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Game Changer how: Retrieve with medium strips, then occasionally rip hard so the body compresses and then springs apart — pause after each hard strip and hold your nerve. Keep it high in the zone.
 
 Review:
@@ -2244,18 +2244,18 @@ Actual output:
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Daily note: Moderate chop improves fishability and supports a stronger moving look.
 - Lure reasoning:
-- Large Paddle-Tail Swimbait: Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window.
+- Large Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window.
 - Large Paddle-Tail Swimbait how: Slow-roll at a steady mid-depth pace; pike follow long before committing, so keep your nerve and don't speed up or stop until the line goes tight. Keep it high in the zone.
-- Casting Spoon: Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different reaction mid column look without leaving today's window.
+- Casting Spoon: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different reaction mid column look without leaving today's window.
 - Casting Spoon how: Work it with a lift-and-drop over suspended fish; the concave face spins as it falls — strikes are usually on the drop, so keep a semi-tight line.
-- Paddle-Tail Swimbait: Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Paddle-Tail Swimbait how: Slow-roll near the bottom on a consistent retrieve; the paddle thumps best just barely above the substrate, so keep the rod tip down and the pace even. Keep it high in the zone.
 - Fly reasoning:
-- Articulated Pike Streamer: Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window.
+- Articulated Pike Streamer: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window.
 - Articulated Pike Streamer how: Long sweeping strips with full pauses; the articulated body coils on the stop and then springs on the next strip — give it the full beat. Keep it high in the zone.
-- Articulated Dungeon Streamer: Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different fly baitfish look without leaving today's window.
+- Articulated Dungeon Streamer: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
 - Articulated Dungeon Streamer how: Use varied strip lengths with hard pauses after each burst; the fly should surge, then stall and hover like a wounded meal.
-- Articulated Baitfish Streamer: Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Articulated Baitfish Streamer: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Articulated Baitfish Streamer how: Cover water at mid-depth with steady strips; add a hard single rip followed by a full pause to imitate an injured baitfish fleeing and then stopping. Keep it high in the zone.
 
 Review:
@@ -2348,18 +2348,18 @@ Actual output:
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Daily note: Moderate chop improves fishability and supports a stronger moving look.
 - Lure reasoning:
-- Blade Bait: Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane.
+- Blade Bait: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane.
 - Blade Bait how: Lift with the rod and let the blade flutter back down on a controlled slack line; watch for the tap on the fall and set on anything that interrupts the sink. Slow down and lengthen the pause.
-- Paddle-Tail Swimbait: Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different horizontal search look without leaving today's window.
+- Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
 - Paddle-Tail Swimbait how: Swim it at the speed where you feel a steady kick through the rod; use rod angle to change depth without changing retrieve speed. Slow down and lengthen the pause.
-- Suspending Jerkbait: Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Suspending Jerkbait: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Suspending Jerkbait how: Work it with wrist snaps, not big sweeps; keep slack in the line between snaps so the bait swings freely, then pause until you see a follow or feel weight. Slow down and lengthen the pause.
 - Fly reasoning:
-- Balanced Leech: Cold metabolism shuts down activity. Slow and low is the only play. It stays low in the zone where this day still wants fish to hold.
+- Balanced Leech: It matches the column/pace the conditions push toward today. Cold metabolism shuts down activity. Slow and low is the only play. It stays low in the zone where this day still wants fish to hold.
 - Balanced Leech how: Fish it under an indicator or on a slow hand-twist so the fly hovers level and pulses in place rather than diving nose-first. Slow down and lengthen the pause.
-- Rabbit-Strip Leech: Cold metabolism shuts down activity. Slow and low is the only play. It stays low in the zone where this day still wants fish to hold. It gives you a different fly bottom look without leaving today's window.
+- Rabbit-Strip Leech: It matches the column/pace the conditions push toward today. Cold metabolism shuts down activity. Slow and low is the only play. It stays low in the zone where this day still wants fish to hold. It gives you a different fly bottom look without leaving today's window.
 - Rabbit-Strip Leech how: Cast and count it down, then use a strip-pause retrieve with exaggerated pauses — the pulse on the stop is when most fish commit. Slow down and lengthen the pause.
-- Clouser Minnow: Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Clouser Minnow: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Clouser Minnow how: Cast and let the weighted eyes sink the fly, then retrieve with a strip-pause cadence that makes it dart upward on the strip and dive back on the pause. Slow down and lengthen the pause.
 
 Review:
@@ -2452,18 +2452,18 @@ Actual output:
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Daily note: Moderate chop improves fishability and supports a stronger moving look.
 - Lure reasoning:
-- Blade Bait: Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane.
+- Blade Bait: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane.
 - Blade Bait how: Lift with the rod and let the blade flutter back down on a controlled slack line; watch for the tap on the fall and set on anything that interrupts the sink. Slow down and lengthen the pause.
-- Paddle-Tail Swimbait: Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different horizontal search look without leaving today's window.
+- Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
 - Paddle-Tail Swimbait how: Swim it at the speed where you feel a steady kick through the rod; use rod angle to change depth without changing retrieve speed. Slow down and lengthen the pause.
-- Suspending Jerkbait: Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Suspending Jerkbait: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Suspending Jerkbait how: Work it with wrist snaps, not big sweeps; keep slack in the line between snaps so the bait swings freely, then pause until you see a follow or feel weight. Slow down and lengthen the pause.
 - Fly reasoning:
-- Balanced Leech: Cold metabolism shuts down activity. Slow and low is the only play. It stays low in the zone where this day still wants fish to hold.
+- Balanced Leech: It matches the column/pace the conditions push toward today. Cold metabolism shuts down activity. Slow and low is the only play. It stays low in the zone where this day still wants fish to hold.
 - Balanced Leech how: Fish it under an indicator or on a slow hand-twist so the fly hovers level and pulses in place rather than diving nose-first. Slow down and lengthen the pause.
-- Rabbit-Strip Leech: Cold metabolism shuts down activity. Slow and low is the only play. It stays low in the zone where this day still wants fish to hold. It gives you a different fly bottom look without leaving today's window.
+- Rabbit-Strip Leech: It matches the column/pace the conditions push toward today. Cold metabolism shuts down activity. Slow and low is the only play. It stays low in the zone where this day still wants fish to hold. It gives you a different fly bottom look without leaving today's window.
 - Rabbit-Strip Leech how: Cast and count it down, then use a strip-pause retrieve with exaggerated pauses — the pulse on the stop is when most fish commit. Slow down and lengthen the pause.
-- Clouser Minnow: Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Clouser Minnow: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Clouser Minnow how: Cast and let the weighted eyes sink the fly, then retrieve with a strip-pause cadence that makes it dart upward on the strip and dive back on the pause. Slow down and lengthen the pause.
 
 Review:
@@ -2554,18 +2554,18 @@ Actual output:
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Lure reasoning:
-- Blade Bait: A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane.
+- Blade Bait: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane.
 - Blade Bait how: Vertical jig it with short, sharp hops over suspended fish; the flutter-fall is the presentation — set hard the moment you feel weight. Slow down and lengthen the pause.
-- Large Jerkbait: Reduced visibility supports a stronger profile fish can find more easily. It is one of the lead monthly looks for this exact seasonal window. It gives you a different pike big profile look without leaving today's window.
+- Large Jerkbait: It matches the column/pace the conditions push toward today. Reduced visibility supports a stronger profile fish can find more easily. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different pike big profile look without leaving today's window.
 - Large Jerkbait how: Rip it hard with two or three sweeps, then kill it completely — let the bait sink or suspend in place while you count three before the next sequence. Slow down and lengthen the pause.
-- Suspending Jerkbait: A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Suspending Jerkbait: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Suspending Jerkbait how: Jerk, jerk, pause. The bait should dart and glide sideways on each twitch; dial the pause length to water temperature — colder means longer. Slow down and lengthen the pause.
 - Fly reasoning:
-- Clouser Minnow: A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane.
+- Clouser Minnow: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane.
 - Clouser Minnow how: Strip in short, consistent pulls so the dumbbell eyes make the fly jig up and down; let it sink between strips to stay hook-point up throughout. Slow down and lengthen the pause.
-- Rabbit-Strip Leech: It stays practical in current seams and river lanes when flow still matters. Rabbit-Strip Leech tracks well when leech_worm is a realistic meal. It gives you a different fly bottom look without leaving today's window.
+- Rabbit-Strip Leech: It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. Rabbit-Strip Leech tracks well when leech_worm is a realistic meal. It rounds out the lineup with a different look. It gives you a different fly bottom look without leaving today's window.
 - Rabbit-Strip Leech how: Cast and count it down, then use a strip-pause retrieve with exaggerated pauses — the pulse on the stop is when most fish commit. Slow down and lengthen the pause.
-- Large Rabbit Strip Streamer: Reduced visibility supports a stronger profile fish can find more easily. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Large Rabbit Strip Streamer: It matches the column/pace the conditions push toward today. Reduced visibility supports a stronger profile fish can find more easily. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Large Rabbit Strip Streamer how: Retrieve at a consistent pace that keeps the fly moving but gives the rabbit strip time to pulse; deadstop near structure to trigger strike reactions. Slow down and lengthen the pause.
 
 Review:
@@ -2657,18 +2657,18 @@ Actual output:
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Lure reasoning:
-- Blade Bait: A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane.
+- Blade Bait: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane.
 - Blade Bait how: Vertical jig it with short, sharp hops over suspended fish; the flutter-fall is the presentation — set hard the moment you feel weight. Slow down and lengthen the pause.
-- Large Jerkbait: Reduced visibility supports a stronger profile fish can find more easily. It is one of the lead monthly looks for this exact seasonal window. It gives you a different pike big profile look without leaving today's window.
+- Large Jerkbait: It matches the column/pace the conditions push toward today. Reduced visibility supports a stronger profile fish can find more easily. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different pike big profile look without leaving today's window.
 - Large Jerkbait how: Rip it hard with two or three sweeps, then kill it completely — let the bait sink or suspend in place while you count three before the next sequence. Slow down and lengthen the pause.
-- Suspending Jerkbait: A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Suspending Jerkbait: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Suspending Jerkbait how: Jerk, jerk, pause. The bait should dart and glide sideways on each twitch; dial the pause length to water temperature — colder means longer. Slow down and lengthen the pause.
 - Fly reasoning:
-- Clouser Minnow: A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane.
+- Clouser Minnow: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane.
 - Clouser Minnow how: Strip in short, consistent pulls so the dumbbell eyes make the fly jig up and down; let it sink between strips to stay hook-point up throughout. Slow down and lengthen the pause.
-- Rabbit-Strip Leech: It stays practical in current seams and river lanes when flow still matters. It stays low in the zone where this day still wants fish to hold. It gives you a different fly bottom look without leaving today's window.
+- Rabbit-Strip Leech: It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It stays low in the zone where this day still wants fish to hold. It rounds out the lineup with a different look. It gives you a different fly bottom look without leaving today's window.
 - Rabbit-Strip Leech how: Cast and count it down, then use a strip-pause retrieve with exaggerated pauses — the pulse on the stop is when most fish commit. Slow down and lengthen the pause.
-- Large Rabbit Strip Streamer: Reduced visibility supports a stronger profile fish can find more easily. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Large Rabbit Strip Streamer: It matches the column/pace the conditions push toward today. Reduced visibility supports a stronger profile fish can find more easily. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Large Rabbit Strip Streamer how: Retrieve at a consistent pace that keeps the fly moving but gives the rabbit strip time to pulse; deadstop near structure to trigger strike reactions. Slow down and lengthen the pause.
 
 Review:
@@ -2760,18 +2760,18 @@ Actual output:
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Daily note: Slightly elevated runoff supports a more visible river presentation.
 - Lure reasoning:
-- Spinnerbait: Slightly elevated runoff supports a more visible river presentation. It is one of the lead monthly looks for this exact seasonal window.
+- Spinnerbait: It matches the column/pace the conditions push toward today. Slightly elevated runoff supports a more visible river presentation. It is one of the lead monthly looks for this exact seasonal window.
 - Spinnerbait how: Work it parallel to grass lines or over submerged timber; slow the retrieve near the target and let the head tick the top. Slow down and lengthen the pause.
-- Large Jerkbait: Slightly elevated runoff supports a more visible river presentation. It is one of the lead monthly looks for this exact seasonal window. It gives you a different pike big profile look without leaving today's window.
+- Large Jerkbait: It matches the column/pace the conditions push toward today. Slightly elevated runoff supports a more visible river presentation. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different pike big profile look without leaving today's window.
 - Large Jerkbait how: Rip it hard with two or three sweeps, then kill it completely — let the bait sink or suspend in place while you count three before the next sequence. Slow down and lengthen the pause.
-- Large Paddle-Tail Swimbait: Slightly elevated runoff supports a more visible river presentation. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Large Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. Slightly elevated runoff supports a more visible river presentation. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Large Paddle-Tail Swimbait how: Work it with long, deliberate sweeps that make the body undulate; pause at the end of each sweep and hold position so following pike can close. Slow down and lengthen the pause.
 - Fly reasoning:
-- Clouser Minnow: Slightly elevated runoff supports a more visible river presentation. The month is still baitfish-forward, and this stays inside that search lane.
+- Clouser Minnow: It matches the column/pace the conditions push toward today. Slightly elevated runoff supports a more visible river presentation. The month is still baitfish-forward, and this stays inside that search lane.
 - Clouser Minnow how: Strip in short, consistent pulls so the dumbbell eyes make the fly jig up and down; let it sink between strips to stay hook-point up throughout. Slow down and lengthen the pause.
-- Large Rabbit Strip Streamer: Slightly elevated runoff supports a more visible river presentation. It is one of the lead monthly looks for this exact seasonal window. It gives you a different pike big profile look without leaving today's window.
+- Large Rabbit Strip Streamer: It matches the column/pace the conditions push toward today. Slightly elevated runoff supports a more visible river presentation. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different pike big profile look without leaving today's window.
 - Large Rabbit Strip Streamer how: Retrieve at a consistent pace that keeps the fly moving but gives the rabbit strip time to pulse; deadstop near structure to trigger strike reactions. Slow down and lengthen the pause.
-- Articulated Dungeon Streamer: Slightly elevated runoff supports a more visible river presentation. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Articulated Dungeon Streamer: It matches the column/pace the conditions push toward today. Slightly elevated runoff supports a more visible river presentation. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Articulated Dungeon Streamer how: Use varied strip lengths with hard pauses after each burst; the fly should surge, then stall and hover like a wounded meal. Slow down and lengthen the pause.
 
 Review:
@@ -2861,18 +2861,18 @@ Actual output:
 - Variables triggered: temperature_trend, wind_condition, runoff_flow_disruption
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
 - Lure reasoning:
-- Spinnerbait: It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window.
+- Spinnerbait: It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window.
 - Spinnerbait how: Slow-roll it along the bottom edge of cover at a steady pace, keeping the blades just ticking; bump any piece of structure and let it rise. Keep it high in the zone.
-- Large Jerkbait: A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It gives you a different pike big profile look without leaving today's window.
+- Large Jerkbait: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different pike big profile look without leaving today's window.
 - Large Jerkbait how: Rip it hard with two or three sweeps, then kill it completely — let the bait sink or suspend in place while you count three before the next sequence. Keep it high in the zone.
-- Paddle-Tail Swimbait: It stays practical in current seams and river lanes when flow still matters. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Paddle-Tail Swimbait how: Slow-roll near the bottom on a consistent retrieve; the paddle thumps best just barely above the substrate, so keep the rod tip down and the pace even. Keep it high in the zone.
 - Fly reasoning:
-- Large Rabbit Strip Streamer: A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
+- Large Rabbit Strip Streamer: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
 - Large Rabbit Strip Streamer how: Strip with long, steady pulls so the rabbit hair breathes and the profile stays big; pause after every 2-3 strips to let following pike close. Keep it high in the zone.
-- Articulated Pike Streamer: A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It gives you a different pike big profile look without leaving today's window.
+- Articulated Pike Streamer: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It gives you a different pike big profile look without leaving today's window.
 - Articulated Pike Streamer how: Retrieve with slow, arm-length strips and complete stops; pike follow and commit on the pause, so hold the deadstop for a count of two. Keep it high in the zone.
-- Zonker Streamer: It stays practical in current seams and river lanes when flow still matters. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Zonker Streamer: It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Zonker Streamer how: Cast across current and strip steadily through the swing; add a momentary deadstop near structure so the wing collapses and then puffs back out. Keep it high in the zone.
 
 Review:
@@ -2962,18 +2962,18 @@ Actual output:
 - Variables triggered: wind_condition, runoff_flow_disruption
 - Daily note: Slightly elevated runoff supports a more visible river presentation.
 - Lure reasoning:
-- Spinnerbait: Slightly elevated runoff supports a more visible river presentation. It is one of the lead monthly looks for this exact seasonal window.
+- Spinnerbait: It matches the column/pace the conditions push toward today. Slightly elevated runoff supports a more visible river presentation. It is one of the lead monthly looks for this exact seasonal window.
 - Spinnerbait how: Work it parallel to grass lines or over submerged timber; slow the retrieve near the target and let the head tick the top. Keep it high in the zone.
-- Large Jerkbait: Slightly elevated runoff supports a more visible river presentation. It is one of the lead monthly looks for this exact seasonal window. It gives you a different pike big profile look without leaving today's window.
+- Large Jerkbait: It matches the column/pace the conditions push toward today. Slightly elevated runoff supports a more visible river presentation. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different pike big profile look without leaving today's window.
 - Large Jerkbait how: Rip it hard with two or three sweeps, then kill it completely — let the bait sink or suspend in place while you count three before the next sequence. Keep it high in the zone.
-- Walking Topwater: The monthly surface window is still alive today, even with a little ripple on top. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Walking Topwater: It matches the column/pace the conditions push toward today. The monthly surface window is still alive today, even with a little ripple on top. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Walking Topwater how: Downrod with light wrist flicks to make it dance; the pause between twitches lets fish track and commit, so give it a beat before the next twitch. Keep it on top.
 - Fly reasoning:
-- Articulated Pike Streamer: Slightly elevated runoff supports a more visible river presentation. It is one of the lead monthly looks for this exact seasonal window.
+- Articulated Pike Streamer: It matches the column/pace the conditions push toward today. Slightly elevated runoff supports a more visible river presentation. It is one of the lead monthly looks for this exact seasonal window.
 - Articulated Pike Streamer how: Retrieve with slow, arm-length strips and complete stops; pike follow and commit on the pause, so hold the deadstop for a count of two. Keep it high in the zone.
-- Frog Fly: The monthly surface window is still alive today, even with a little ripple on top. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different fly surface look without leaving today's window.
+- Frog Fly: It matches the column/pace the conditions push toward today. The monthly surface window is still alive today, even with a little ripple on top. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different fly surface look without leaving today's window.
 - Frog Fly how: Walk it across the surface with alternating rod twitches; slow to a crawl near pad edges and let it rest fully before the next move. Keep it on top.
-- Large Rabbit Strip Streamer: Slightly elevated runoff supports a more visible river presentation. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Large Rabbit Strip Streamer: It matches the column/pace the conditions push toward today. Slightly elevated runoff supports a more visible river presentation. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
 - Large Rabbit Strip Streamer how: Retrieve at a consistent pace that keeps the fly moving but gives the rabbit strip time to pulse; deadstop near structure to trigger strike reactions. Keep it high in the zone.
 
 Review:
@@ -3064,18 +3064,18 @@ Actual output:
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
 - Daily note: Slightly elevated runoff supports a more visible river presentation.
 - Lure reasoning:
-- Spinnerbait: Slightly elevated runoff supports a more visible river presentation. It is one of the lead monthly looks for this exact seasonal window.
+- Spinnerbait: It matches the column/pace the conditions push toward today. Slightly elevated runoff supports a more visible river presentation. It is one of the lead monthly looks for this exact seasonal window.
 - Spinnerbait how: Work it parallel to grass lines or over submerged timber; slow the retrieve near the target and let the head tick the top. Keep it high in the zone.
-- Walking Topwater: The monthly surface window is still alive today, even with a little ripple on top. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different surface look without leaving today's window.
+- Walking Topwater: It matches the column/pace the conditions push toward today. The monthly surface window is still alive today, even with a little ripple on top. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different surface look without leaving today's window.
 - Walking Topwater how: Downrod with light wrist flicks to make it dance; the pause between twitches lets fish track and commit, so give it a beat before the next twitch. Keep it on top.
-- Suspending Jerkbait: Slightly elevated runoff supports a more visible river presentation. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Suspending Jerkbait: It matches the column/pace the conditions push toward today. Slightly elevated runoff supports a more visible river presentation. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Suspending Jerkbait how: Jerk, jerk, pause. The bait should dart and glide sideways on each twitch; dial the pause length to water temperature — colder means longer. Keep it high in the zone.
 - Fly reasoning:
-- Articulated Pike Streamer: Slightly elevated runoff supports a more visible river presentation. It is one of the lead monthly looks for this exact seasonal window.
+- Articulated Pike Streamer: It matches the column/pace the conditions push toward today. Slightly elevated runoff supports a more visible river presentation. It is one of the lead monthly looks for this exact seasonal window.
 - Articulated Pike Streamer how: Retrieve with slow, arm-length strips and complete stops; pike follow and commit on the pause, so hold the deadstop for a count of two. Keep it high in the zone.
-- Popper Fly: The monthly surface window is still alive today, even with a little ripple on top. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different fly surface look without leaving today's window.
+- Popper Fly: It matches the column/pace the conditions push toward today. The monthly surface window is still alive today, even with a little ripple on top. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different fly surface look without leaving today's window.
 - Popper Fly how: Make a sharp strip-pause to spit water, then wait; the longer the pause in the ring, the more time a fish has to rise and commit. Keep it on top.
-- Large Rabbit Strip Streamer: Slightly elevated runoff supports a more visible river presentation. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Large Rabbit Strip Streamer: It matches the column/pace the conditions push toward today. Slightly elevated runoff supports a more visible river presentation. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
 - Large Rabbit Strip Streamer how: Retrieve at a consistent pace that keeps the fly moving but gives the rabbit strip time to pulse; deadstop near structure to trigger strike reactions. Keep it high in the zone.
 
 Review:
@@ -3168,18 +3168,18 @@ Actual output:
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Daily note: Elevated runoff tightens fish and pulls the day lower and slower.
 - Lure reasoning:
-- Spinnerbait: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Spinnerbait: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
 - Spinnerbait how: Slow-roll it along the bottom edge of cover at a steady pace, keeping the blades just ticking; bump any piece of structure and let it rise. Slow down and lengthen the pause.
-- Inline Spinner: With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different horizontal search look without leaving today's window.
+- Inline Spinner: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
 - Inline Spinner how: Cast and retrieve at a steady clip just fast enough to keep the blade spinning; vary depth with rod angle and speed to find the feeding zone. Slow down and lengthen the pause.
-- Paddle-Tail Swimbait: With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Paddle-Tail Swimbait how: Reel at a steady pace with the rod low so the tail thumps consistently; speed up slightly over bait schools or slow down after a follow. Slow down and lengthen the pause.
 - Fly reasoning:
-- Articulated Pike Streamer: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Articulated Pike Streamer: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
 - Articulated Pike Streamer how: Long sweeping strips with full pauses; the articulated body coils on the stop and then springs on the next strip — give it the full beat. Slow down and lengthen the pause.
-- Large Rabbit Strip Streamer: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It gives you a different pike big profile look without leaving today's window.
+- Large Rabbit Strip Streamer: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It gives you a different pike big profile look without leaving today's window.
 - Large Rabbit Strip Streamer how: Strip with long, steady pulls so the rabbit hair breathes and the profile stays big; pause after every 2-3 strips to let following pike close. Slow down and lengthen the pause.
-- Clouser Minnow: With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Clouser Minnow: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Clouser Minnow how: Cast across or slightly downstream, let it jig toward you with short strips so the weighted eyes keep the fly tracking hook-point up. Slow down and lengthen the pause.
 
 Review:
@@ -3270,18 +3270,18 @@ Actual output:
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
 - Daily note: Slightly elevated runoff supports a more visible river presentation.
 - Lure reasoning:
-- Large Paddle-Tail Swimbait: Slightly elevated runoff supports a more visible river presentation. It is one of the lead monthly looks for this exact seasonal window.
+- Large Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. Slightly elevated runoff supports a more visible river presentation. It is one of the lead monthly looks for this exact seasonal window.
 - Large Paddle-Tail Swimbait how: Work it with long, deliberate sweeps that make the body undulate; pause at the end of each sweep and hold position so following pike can close. Keep it high in the zone.
-- Large Jerkbait: Slightly elevated runoff supports a more visible river presentation. It is one of the lead monthly looks for this exact seasonal window. It gives you a different pike big profile look without leaving today's window.
+- Large Jerkbait: It matches the column/pace the conditions push toward today. Slightly elevated runoff supports a more visible river presentation. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different pike big profile look without leaving today's window.
 - Large Jerkbait how: Rip it hard with two or three sweeps, then kill it completely — let the bait sink or suspend in place while you count three before the next sequence. Keep it high in the zone.
-- Inline Spinner: Slightly elevated runoff supports a more visible river presentation. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Inline Spinner: It matches the column/pace the conditions push toward today. Slightly elevated runoff supports a more visible river presentation. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Inline Spinner how: Use a slow-roll retrieve near bottom or cover edges; occasionally bump into structure to trigger reaction strikes. Keep it high in the zone.
 - Fly reasoning:
-- Articulated Pike Streamer: Slightly elevated runoff supports a more visible river presentation. It is one of the lead monthly looks for this exact seasonal window.
+- Articulated Pike Streamer: It matches the column/pace the conditions push toward today. Slightly elevated runoff supports a more visible river presentation. It is one of the lead monthly looks for this exact seasonal window.
 - Articulated Pike Streamer how: Retrieve with slow, arm-length strips and complete stops; pike follow and commit on the pause, so hold the deadstop for a count of two. Keep it high in the zone.
-- Articulated Dungeon Streamer: Slightly elevated runoff supports a more visible river presentation. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different fly baitfish look without leaving today's window.
+- Articulated Dungeon Streamer: It matches the column/pace the conditions push toward today. Slightly elevated runoff supports a more visible river presentation. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
 - Articulated Dungeon Streamer how: Use varied strip lengths with hard pauses after each burst; the fly should surge, then stall and hover like a wounded meal.
-- Deceiver: Slightly elevated runoff supports a more visible river presentation. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Deceiver: It matches the column/pace the conditions push toward today. Slightly elevated runoff supports a more visible river presentation. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Deceiver how: Retrieve with medium-to-long pulls and let the feathers collapse and flare; pause every 3-4 strips to let the profile swell and hang for trailing fish. Keep it high in the zone.
 
 Review:
@@ -3370,18 +3370,18 @@ Actual output:
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
 - Variables triggered: wind_condition, runoff_flow_disruption
 - Lure reasoning:
-- Large Paddle-Tail Swimbait: It is one of the lead monthly looks for this exact seasonal window. It fits today's mid column preference.
+- Large Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. It fits today's mid column preference. It is one of the lead monthly looks for this exact seasonal window.
 - Large Paddle-Tail Swimbait how: Slow-roll at a steady mid-depth pace; pike follow long before committing, so keep your nerve and don't speed up or stop until the line goes tight.
-- Casting Spoon: It stays practical in current seams and river lanes when flow still matters. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different reaction mid column look without leaving today's window.
+- Casting Spoon: It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different reaction mid column look without leaving today's window.
 - Casting Spoon how: Work it with a lift-and-drop over suspended fish; the concave face spins as it falls — strikes are usually on the drop, so keep a semi-tight line.
-- Paddle-Tail Swimbait: It stays practical in current seams and river lanes when flow still matters. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Paddle-Tail Swimbait how: Slow-roll near the bottom on a consistent retrieve; the paddle thumps best just barely above the substrate, so keep the rod tip down and the pace even.
 - Fly reasoning:
-- Articulated Pike Streamer: It is one of the lead monthly looks for this exact seasonal window. It fits today's mid column preference.
+- Articulated Pike Streamer: It matches the column/pace the conditions push toward today. It fits today's mid column preference. It is one of the lead monthly looks for this exact seasonal window.
 - Articulated Pike Streamer how: Long sweeping strips with full pauses; the articulated body coils on the stop and then springs on the next strip — give it the full beat.
-- Articulated Dungeon Streamer: The month is still baitfish-forward, and this stays inside that search lane. It fits today's mid column preference. It gives you a different fly baitfish look without leaving today's window.
+- Articulated Dungeon Streamer: It matches the column/pace the conditions push toward today. It fits today's mid column preference. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
 - Articulated Dungeon Streamer how: Use varied strip lengths with hard pauses after each burst; the fly should surge, then stall and hover like a wounded meal.
-- Articulated Baitfish Streamer: The month is still baitfish-forward, and this stays inside that search lane. It fits today's mid column preference. It is the cleaner change-up if the lead look does not convert.
+- Articulated Baitfish Streamer: It matches the column/pace the conditions push toward today. It fits today's mid column preference. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Articulated Baitfish Streamer how: Cover water at mid-depth with steady strips; add a hard single rip followed by a full pause to imitate an injured baitfish fleeing and then stopping.
 
 Review:
@@ -3472,18 +3472,18 @@ Actual output:
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Daily note: Slightly elevated runoff supports a more visible river presentation.
 - Lure reasoning:
-- Large Paddle-Tail Swimbait: Slightly elevated runoff supports a more visible river presentation. It is one of the lead monthly looks for this exact seasonal window.
+- Large Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. Slightly elevated runoff supports a more visible river presentation. It is one of the lead monthly looks for this exact seasonal window.
 - Large Paddle-Tail Swimbait how: Work it with long, deliberate sweeps that make the body undulate; pause at the end of each sweep and hold position so following pike can close. Keep it high in the zone.
-- Blade Bait: Lower light supports a slightly higher, more open lane. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different reaction mid column look without leaving today's window.
+- Blade Bait: It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different reaction mid column look without leaving today's window.
 - Blade Bait how: Vertical jig it with short, sharp hops over suspended fish; the flutter-fall is the presentation — set hard the moment you feel weight.
-- Paddle-Tail Swimbait: Lower light supports a slightly higher, more open lane. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Paddle-Tail Swimbait how: Swim it at the speed where you feel a steady kick through the rod; use rod angle to change depth without changing retrieve speed. Keep it high in the zone.
 - Fly reasoning:
-- Articulated Baitfish Streamer: Lower light supports a slightly higher, more open lane. It is one of the lead monthly looks for this exact seasonal window.
+- Articulated Baitfish Streamer: It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. It is one of the lead monthly looks for this exact seasonal window.
 - Articulated Baitfish Streamer how: Work it across current and down with a varied strip cadence; when a fish follows, slow down and kill the retrieve to let the body spiral on the sink. Keep it high in the zone.
-- Articulated Pike Streamer: Slightly elevated runoff supports a more visible river presentation. It is one of the lead monthly looks for this exact seasonal window. It gives you a different pike big profile look without leaving today's window.
+- Articulated Pike Streamer: It matches the column/pace the conditions push toward today. Slightly elevated runoff supports a more visible river presentation. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different pike big profile look without leaving today's window.
 - Articulated Pike Streamer how: Retrieve with slow, arm-length strips and complete stops; pike follow and commit on the pause, so hold the deadstop for a count of two. Keep it high in the zone.
-- Articulated Dungeon Streamer: Lower light supports a slightly higher, more open lane. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Articulated Dungeon Streamer: It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Articulated Dungeon Streamer how: Use varied strip lengths with hard pauses after each burst; the fly should surge, then stall and hover like a wounded meal.
 
 Review:
@@ -3574,18 +3574,18 @@ Actual output:
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
 - Daily note: Bright light trims the day back toward cleaner looks.
 - Lure reasoning:
-- Paddle-Tail Swimbait: It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window.
+- Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window.
 - Paddle-Tail Swimbait how: Reel at a steady pace with the rod low so the tail thumps consistently; speed up slightly over bait schools or slow down after a follow.
-- Blade Bait: It stays practical in current seams and river lanes when flow still matters. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different reaction mid column look without leaving today's window.
+- Blade Bait: It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different reaction mid column look without leaving today's window.
 - Blade Bait how: Vertical jig it with short, sharp hops over suspended fish; the flutter-fall is the presentation — set hard the moment you feel weight.
-- Large Paddle-Tail Swimbait: A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Large Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Large Paddle-Tail Swimbait how: Retrieve at a measured pace over weed tops or along the edge; the big profile does the work — don't twitch or jerk, just keep it gliding.
 - Fly reasoning:
-- Articulated Pike Streamer: A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
+- Articulated Pike Streamer: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
 - Articulated Pike Streamer how: Long sweeping strips with full pauses; the articulated body coils on the stop and then springs on the next strip — give it the full beat.
-- Articulated Dungeon Streamer: A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different fly baitfish look without leaving today's window.
+- Articulated Dungeon Streamer: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
 - Articulated Dungeon Streamer how: Use varied strip lengths with hard pauses after each burst; the fly should surge, then stall and hover like a wounded meal.
-- Articulated Baitfish Streamer: A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Articulated Baitfish Streamer: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Articulated Baitfish Streamer how: Cover water at mid-depth with steady strips; add a hard single rip followed by a full pause to imitate an injured baitfish fleeing and then stopping.
 
 Review:
@@ -3676,18 +3676,18 @@ Actual output:
 - Daily note: Cold metabolism shuts down activity. Slow and low is the only play.
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Lure reasoning:
-- Blade Bait: Reduced visibility supports a stronger profile fish can find more easily. The month is still baitfish-forward, and this stays inside that search lane.
+- Blade Bait: It matches the column/pace the conditions push toward today. Reduced visibility supports a stronger profile fish can find more easily. The month is still baitfish-forward, and this stays inside that search lane.
 - Blade Bait how: Vertical jig it with short, sharp hops over suspended fish; the flutter-fall is the presentation — set hard the moment you feel weight. Slow down and lengthen the pause.
-- Large Jerkbait: Reduced visibility supports a stronger profile fish can find more easily. It is one of the lead monthly looks for this exact seasonal window. It gives you a different pike big profile look without leaving today's window.
+- Large Jerkbait: It matches the column/pace the conditions push toward today. Reduced visibility supports a stronger profile fish can find more easily. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different pike big profile look without leaving today's window.
 - Large Jerkbait how: Rip it hard with two or three sweeps, then kill it completely — let the bait sink or suspend in place while you count three before the next sequence. Slow down and lengthen the pause.
-- Suspending Jerkbait: It stays practical in current seams and river lanes when flow still matters. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Suspending Jerkbait: It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Suspending Jerkbait how: Jerk, jerk, pause. The bait should dart and glide sideways on each twitch; dial the pause length to water temperature — colder means longer. Slow down and lengthen the pause.
 - Fly reasoning:
-- Rabbit-Strip Leech: It stays practical in current seams and river lanes when flow still matters. It stays low in the zone where this day still wants fish to hold.
+- Rabbit-Strip Leech: It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It stays low in the zone where this day still wants fish to hold.
 - Rabbit-Strip Leech how: Cast and count it down, then use a strip-pause retrieve with exaggerated pauses — the pulse on the stop is when most fish commit. Slow down and lengthen the pause.
-- Clouser Minnow: Reduced visibility supports a stronger profile fish can find more easily. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different fly baitfish look without leaving today's window.
+- Clouser Minnow: It matches the column/pace the conditions push toward today. Reduced visibility supports a stronger profile fish can find more easily. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
 - Clouser Minnow how: Strip in short, consistent pulls so the dumbbell eyes make the fly jig up and down; let it sink between strips to stay hook-point up throughout. Slow down and lengthen the pause.
-- Large Rabbit Strip Streamer: Reduced visibility supports a stronger profile fish can find more easily. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Large Rabbit Strip Streamer: It matches the column/pace the conditions push toward today. Reduced visibility supports a stronger profile fish can find more easily. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Large Rabbit Strip Streamer how: Retrieve at a consistent pace that keeps the fly moving but gives the rabbit strip time to pulse; deadstop near structure to trigger strike reactions. Slow down and lengthen the pause.
 
 Review:
@@ -3778,18 +3778,18 @@ Actual output:
 - Daily note: Bright light trims the day back toward cleaner looks.
 - Daily note: Moderate chop improves fishability and supports a stronger moving look.
 - Lure reasoning:
-- Large Paddle-Tail Swimbait: Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window.
+- Large Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window.
 - Large Paddle-Tail Swimbait how: Work it with long, deliberate sweeps that make the body undulate; pause at the end of each sweep and hold position so following pike can close. Keep it high in the zone.
-- Large Jerkbait: Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window. It gives you a different pike big profile look without leaving today's window.
+- Large Jerkbait: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different pike big profile look without leaving today's window.
 - Large Jerkbait how: Rip it hard with two or three sweeps, then kill it completely — let the bait sink or suspend in place while you count three before the next sequence. Keep it high in the zone.
-- Walking Topwater: The monthly surface window is still alive today, even with a little ripple on top. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Walking Topwater: It matches the column/pace the conditions push toward today. The monthly surface window is still alive today, even with a little ripple on top. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Walking Topwater how: Downrod with light wrist flicks to make it dance; the pause between twitches lets fish track and commit, so give it a beat before the next twitch. Keep it on top.
 - Fly reasoning:
-- Articulated Pike Streamer: Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window.
+- Articulated Pike Streamer: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window.
 - Articulated Pike Streamer how: Retrieve with slow, arm-length strips and complete stops; pike follow and commit on the pause, so hold the deadstop for a count of two. Keep it high in the zone.
-- Mouse Fly: The monthly surface window is still alive today, even with a little ripple on top. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different fly surface look without leaving today's window.
+- Mouse Fly: It matches the column/pace the conditions push toward today. The monthly surface window is still alive today, even with a little ripple on top. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different fly surface look without leaving today's window.
 - Mouse Fly how: Swim it on a constant slow retrieve just fast enough to leave a wake; target near-shore edges and structure where big fish expect food to cross. Keep it on top.
-- Large Rabbit Strip Streamer: Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Large Rabbit Strip Streamer: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
 - Large Rabbit Strip Streamer how: Retrieve at a consistent pace that keeps the fly moving but gives the rabbit strip time to pulse; deadstop near structure to trigger strike reactions. Keep it high in the zone.
 
 Review:
@@ -3879,18 +3879,18 @@ Actual output:
 - Variables triggered: light_cloud_condition, precipitation_disruption
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Lure reasoning:
-- Spinnerbait: Lower light supports a slightly higher, more open lane. It is one of the lead monthly looks for this exact seasonal window.
+- Spinnerbait: It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. It is one of the lead monthly looks for this exact seasonal window.
 - Spinnerbait how: Work it parallel to grass lines or over submerged timber; slow the retrieve near the target and let the head tick the top. Keep it high in the zone.
-- Large Paddle-Tail Swimbait: Reduced visibility supports a stronger profile fish can find more easily. It is one of the lead monthly looks for this exact seasonal window. It gives you a different pike big profile look without leaving today's window.
+- Large Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. Reduced visibility supports a stronger profile fish can find more easily. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different pike big profile look without leaving today's window.
 - Large Paddle-Tail Swimbait how: Work it with long, deliberate sweeps that make the body undulate; pause at the end of each sweep and hold position so following pike can close. Keep it high in the zone.
-- Large Jerkbait: Reduced visibility supports a stronger profile fish can find more easily. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Large Jerkbait: It matches the column/pace the conditions push toward today. Reduced visibility supports a stronger profile fish can find more easily. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Large Jerkbait how: Rip it hard with two or three sweeps, then kill it completely — let the bait sink or suspend in place while you count three before the next sequence. Keep it high in the zone.
 - Fly reasoning:
-- Articulated Baitfish Streamer: Lower light supports a slightly higher, more open lane. It is one of the lead monthly looks for this exact seasonal window.
+- Articulated Baitfish Streamer: It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. It is one of the lead monthly looks for this exact seasonal window.
 - Articulated Baitfish Streamer how: Work it across current and down with a varied strip cadence; when a fish follows, slow down and kill the retrieve to let the body spiral on the sink. Keep it high in the zone.
-- Articulated Pike Streamer: Reduced visibility supports a stronger profile fish can find more easily. It is one of the lead monthly looks for this exact seasonal window. It gives you a different pike big profile look without leaving today's window.
+- Articulated Pike Streamer: It matches the column/pace the conditions push toward today. Reduced visibility supports a stronger profile fish can find more easily. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different pike big profile look without leaving today's window.
 - Articulated Pike Streamer how: Retrieve with slow, arm-length strips and complete stops; pike follow and commit on the pause, so hold the deadstop for a count of two. Keep it high in the zone.
-- Game Changer: Lower light supports a slightly higher, more open lane. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Game Changer: It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink. Keep it high in the zone.
 
 Review:
@@ -3980,18 +3980,18 @@ Actual output:
 - Variables triggered: light_cloud_condition, precipitation_disruption
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Lure reasoning:
-- Large Paddle-Tail Swimbait: Reduced visibility supports a stronger profile fish can find more easily. It is one of the lead monthly looks for this exact seasonal window.
+- Large Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. Reduced visibility supports a stronger profile fish can find more easily. It is one of the lead monthly looks for this exact seasonal window.
 - Large Paddle-Tail Swimbait how: Work it with long, deliberate sweeps that make the body undulate; pause at the end of each sweep and hold position so following pike can close. Keep it high in the zone.
-- Blade Bait: Lower light supports a slightly higher, more open lane. It is one of the lead monthly looks for this exact seasonal window. It gives you a different reaction mid column look without leaving today's window.
+- Blade Bait: It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different reaction mid column look without leaving today's window.
 - Blade Bait how: Vertical jig it with short, sharp hops over suspended fish; the flutter-fall is the presentation — set hard the moment you feel weight.
-- Spinnerbait: Lower light supports a slightly higher, more open lane. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Spinnerbait: It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Spinnerbait how: Work it parallel to grass lines or over submerged timber; slow the retrieve near the target and let the head tick the top. Keep it high in the zone.
 - Fly reasoning:
-- Articulated Baitfish Streamer: Lower light supports a slightly higher, more open lane. It is one of the lead monthly looks for this exact seasonal window.
+- Articulated Baitfish Streamer: It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. It is one of the lead monthly looks for this exact seasonal window.
 - Articulated Baitfish Streamer how: Work it across current and down with a varied strip cadence; when a fish follows, slow down and kill the retrieve to let the body spiral on the sink. Keep it high in the zone.
-- Articulated Pike Streamer: Reduced visibility supports a stronger profile fish can find more easily. It is one of the lead monthly looks for this exact seasonal window. It gives you a different pike big profile look without leaving today's window.
+- Articulated Pike Streamer: It matches the column/pace the conditions push toward today. Reduced visibility supports a stronger profile fish can find more easily. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different pike big profile look without leaving today's window.
 - Articulated Pike Streamer how: Retrieve with slow, arm-length strips and complete stops; pike follow and commit on the pause, so hold the deadstop for a count of two. Keep it high in the zone.
-- Articulated Dungeon Streamer: Lower light supports a slightly higher, more open lane. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Articulated Dungeon Streamer: It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Articulated Dungeon Streamer how: Use varied strip lengths with hard pauses after each burst; the fly should surge, then stall and hover like a wounded meal.
 
 Review:
@@ -4081,18 +4081,18 @@ Actual output:
 - Variables triggered: temperature_metabolic_context, precipitation_disruption
 - Daily note: Cold metabolism shuts down activity. Slow and low is the only play.
 - Lure reasoning:
-- Blade Bait: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Blade Bait: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
 - Blade Bait how: Lift with the rod and let the blade flutter back down on a controlled slack line; watch for the tap on the fall and set on anything that interrupts the sink. Slow down and lengthen the pause.
-- Suspending Jerkbait: With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different reaction mid column look without leaving today's window.
+- Suspending Jerkbait: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different reaction mid column look without leaving today's window.
 - Suspending Jerkbait how: Two or three sharp twitches, then let it suspend perfectly still for a full 3-5 count before the next sequence — the pause is everything. Slow down and lengthen the pause.
-- Large Paddle-Tail Swimbait: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Large Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Large Paddle-Tail Swimbait how: Slow-roll at a steady mid-depth pace; pike follow long before committing, so keep your nerve and don't speed up or stop until the line goes tight. Slow down and lengthen the pause.
 - Fly reasoning:
-- Balanced Leech: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Balanced Leech: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
 - Balanced Leech how: Fish it under an indicator or on a slow hand-twist so the fly hovers level and pulses in place rather than diving nose-first. Slow down and lengthen the pause.
-- Rabbit-Strip Leech: The tighter daily setup rewards a slower, cleaner presentation. It stays low in the zone where this day still wants fish to hold. It gives you a different fly bottom look without leaving today's window.
+- Rabbit-Strip Leech: It matches the column/pace the conditions push toward today. The tighter daily setup rewards a slower, cleaner presentation. It stays low in the zone where this day still wants fish to hold. It gives you a different fly bottom look without leaving today's window.
 - Rabbit-Strip Leech how: Let it sink to the strike zone then retrieve with long, slow strips; the rabbit hair undulates seductively between pulls, so don't rush the retrieve. Slow down and lengthen the pause.
-- Clouser Minnow: With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Clouser Minnow: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Clouser Minnow how: Cast across or slightly downstream, let it jig toward you with short strips so the weighted eyes keep the fly tracking hook-point up. Slow down and lengthen the pause.
 
 Review:
@@ -4184,18 +4184,18 @@ Actual output:
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
 - Daily note: Bright light trims the day back toward cleaner looks.
 - Lure reasoning:
-- Suspending Jerkbait: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Suspending Jerkbait: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
 - Suspending Jerkbait how: Two or three sharp twitches, then let it suspend perfectly still for a full 3-5 count before the next sequence — the pause is everything. Slow down and lengthen the pause.
-- Blade Bait: With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different reaction mid column look without leaving today's window.
+- Blade Bait: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different reaction mid column look without leaving today's window.
 - Blade Bait how: Lift with the rod and let the blade flutter back down on a controlled slack line; watch for the tap on the fall and set on anything that interrupts the sink. Slow down and lengthen the pause.
-- Large Jerkbait: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Large Jerkbait: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Large Jerkbait how: Use long, hard sweeps with the rod to make the bait dart and glide; pause fully between sweeps so the bait hangs and following fish can catch up. Slow down and lengthen the pause.
 - Fly reasoning:
-- Balanced Leech: With the highest lane shut down, this keeps you just under the cleaner active zone. It stays low in the zone where this day still wants fish to hold.
+- Balanced Leech: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It stays low in the zone where this day still wants fish to hold.
 - Balanced Leech how: Fish it under an indicator or on a slow hand-twist so the fly hovers level and pulses in place rather than diving nose-first. Slow down and lengthen the pause.
-- Rabbit-Strip Leech: A warming trend nudges fish slightly higher in the allowed range. It stays low in the zone where this day still wants fish to hold. It gives you a different fly bottom look without leaving today's window.
+- Rabbit-Strip Leech: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It stays low in the zone where this day still wants fish to hold. It gives you a different fly bottom look without leaving today's window.
 - Rabbit-Strip Leech how: Let it sink to the strike zone then retrieve with long, slow strips; the rabbit hair undulates seductively between pulls, so don't rush the retrieve. Slow down and lengthen the pause.
-- Clouser Minnow: With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Clouser Minnow: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Clouser Minnow how: Cast across or slightly downstream, let it jig toward you with short strips so the weighted eyes keep the fly tracking hook-point up. Slow down and lengthen the pause.
 
 Review:
@@ -4289,18 +4289,18 @@ Actual output:
 - Daily note: Strong wind reduces clean execution.
 - Daily note: Active precipitation disruption narrows the clean bite window.
 - Lure reasoning:
-- Large Jerkbait: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Large Jerkbait: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
 - Large Jerkbait how: Use long, hard sweeps with the rod to make the bait dart and glide; pause fully between sweeps so the bait hangs and following fish can catch up. Slow down and lengthen the pause.
-- Large Paddle-Tail Swimbait: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It gives you a different pike big profile look without leaving today's window.
+- Large Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different pike big profile look without leaving today's window.
 - Large Paddle-Tail Swimbait how: Slow-roll at a steady mid-depth pace; pike follow long before committing, so keep your nerve and don't speed up or stop until the line goes tight. Slow down and lengthen the pause.
-- Suspending Jerkbait: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Suspending Jerkbait: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Suspending Jerkbait how: Two or three sharp twitches, then let it suspend perfectly still for a full 3-5 count before the next sequence — the pause is everything. Slow down and lengthen the pause.
 - Fly reasoning:
-- Large Rabbit Strip Streamer: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Large Rabbit Strip Streamer: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
 - Large Rabbit Strip Streamer how: Strip with long, steady pulls so the rabbit hair breathes and the profile stays big; pause after every 2-3 strips to let following pike close. Slow down and lengthen the pause.
-- Articulated Dungeon Streamer: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It gives you a different fly baitfish look without leaving today's window.
+- Articulated Dungeon Streamer: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
 - Articulated Dungeon Streamer how: Strip it with long pulls and full pauses so the articulated profile kicks wide, then hangs and breathes in place. Slow down and lengthen the pause.
-- Articulated Baitfish Streamer: With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Articulated Baitfish Streamer: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Articulated Baitfish Streamer how: Strip with moderate pulls so the articulated body pulses; mix fast strips with full stops where the fly sinks and the sections hinge naturally. Slow down and lengthen the pause.
 
 Review:
@@ -4392,18 +4392,18 @@ Actual output:
 - Daily note: Bright light trims the day back toward cleaner looks.
 - Daily note: Moderate chop improves fishability and supports a stronger moving look.
 - Lure reasoning:
-- Large Paddle-Tail Swimbait: Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window.
+- Large Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window.
 - Large Paddle-Tail Swimbait how: Work it with long, deliberate sweeps that make the body undulate; pause at the end of each sweep and hold position so following pike can close. Slow down and lengthen the pause.
-- Paddle-Tail Swimbait: Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window. It gives you a different horizontal search look without leaving today's window.
+- Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
 - Paddle-Tail Swimbait how: Swim it at the speed where you feel a steady kick through the rod; use rod angle to change depth without changing retrieve speed. Slow down and lengthen the pause.
-- Casting Spoon: Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Casting Spoon: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Casting Spoon how: Work it with a lift-and-drop over suspended fish; the concave face spins as it falls — strikes are usually on the drop, so keep a semi-tight line. Slow down and lengthen the pause.
 - Fly reasoning:
-- Clouser Minnow: Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane.
+- Clouser Minnow: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane.
 - Clouser Minnow how: Strip in short, consistent pulls so the dumbbell eyes make the fly jig up and down; let it sink between strips to stay hook-point up throughout. Slow down and lengthen the pause.
-- Articulated Pike Streamer: Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window. It gives you a different pike big profile look without leaving today's window.
+- Articulated Pike Streamer: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different pike big profile look without leaving today's window.
 - Articulated Pike Streamer how: Retrieve with slow, arm-length strips and complete stops; pike follow and commit on the pause, so hold the deadstop for a count of two. Slow down and lengthen the pause.
-- Large Rabbit Strip Streamer: Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Large Rabbit Strip Streamer: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
 - Large Rabbit Strip Streamer how: Retrieve at a consistent pace that keeps the fly moving but gives the rabbit strip time to pulse; deadstop near structure to trigger strike reactions. Slow down and lengthen the pause.
 
 Review:
@@ -4496,18 +4496,18 @@ Actual output:
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Daily note: Moderate chop improves fishability and supports a stronger moving look.
 - Lure reasoning:
-- Large Paddle-Tail Swimbait: Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window.
+- Large Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window.
 - Large Paddle-Tail Swimbait how: Work it with long, deliberate sweeps that make the body undulate; pause at the end of each sweep and hold position so following pike can close.
-- Casting Spoon: Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different reaction mid column look without leaving today's window.
+- Casting Spoon: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different reaction mid column look without leaving today's window.
 - Casting Spoon how: Work it with a lift-and-drop over suspended fish; the concave face spins as it falls — strikes are usually on the drop, so keep a semi-tight line.
-- Spinnerbait: Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Spinnerbait: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Spinnerbait how: Work it parallel to grass lines or over submerged timber; slow the retrieve near the target and let the head tick the top.
 - Fly reasoning:
-- Articulated Pike Streamer: Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window.
+- Articulated Pike Streamer: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window.
 - Articulated Pike Streamer how: Retrieve with slow, arm-length strips and complete stops; pike follow and commit on the pause, so hold the deadstop for a count of two.
-- Articulated Dungeon Streamer: Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different fly baitfish look without leaving today's window.
+- Articulated Dungeon Streamer: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
 - Articulated Dungeon Streamer how: Use varied strip lengths with hard pauses after each burst; the fly should surge, then stall and hover like a wounded meal.
-- Deceiver: Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Deceiver: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Deceiver how: Retrieve with medium-to-long pulls and let the feathers collapse and flare; pause every 3-4 strips to let the profile swell and hang for trailing fish.
 
 Review:
@@ -4597,18 +4597,18 @@ Actual output:
 - Variables triggered: temperature_trend, wind_condition, runoff_flow_disruption
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
 - Lure reasoning:
-- Paddle-Tail Swimbait: It stays practical in current seams and river lanes when flow still matters. The month is still baitfish-forward, and this stays inside that search lane.
+- Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. The month is still baitfish-forward, and this stays inside that search lane.
 - Paddle-Tail Swimbait how: Reel at a steady pace with the rod low so the tail thumps consistently; speed up slightly over bait schools or slow down after a follow. Keep it high in the zone.
-- Soft Plastic Jerkbait: It stays practical in current seams and river lanes when flow still matters. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different horizontal search look without leaving today's window.
+- Soft Plastic Jerkbait: It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
 - Soft Plastic Jerkbait how: Snap the rod sideways so the bait darts left or right, then drop the rod tip so it glides and sinks on a slack line before the next snap. Keep it high in the zone.
-- Large Jerkbait: A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Large Jerkbait: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Large Jerkbait how: Work it erratically with big pulls and deadstops; the key is the pause after the dash, so hold still for at least two seconds before triggering again. Keep it high in the zone.
 - Fly reasoning:
-- Large Rabbit Strip Streamer: A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
+- Large Rabbit Strip Streamer: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
 - Large Rabbit Strip Streamer how: Strip with long, steady pulls so the rabbit hair breathes and the profile stays big; pause after every 2-3 strips to let following pike close. Keep it high in the zone.
-- Articulated Pike Streamer: A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It gives you a different pike big profile look without leaving today's window.
+- Articulated Pike Streamer: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It gives you a different pike big profile look without leaving today's window.
 - Articulated Pike Streamer how: Retrieve with slow, arm-length strips and complete stops; pike follow and commit on the pause, so hold the deadstop for a count of two. Keep it high in the zone.
-- Zonker Streamer: It stays practical in current seams and river lanes when flow still matters. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Zonker Streamer: It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Zonker Streamer how: Cast across current and strip steadily through the swing; add a momentary deadstop near structure so the wing collapses and then puffs back out. Keep it high in the zone.
 
 Review:
@@ -4698,18 +4698,18 @@ Actual output:
 - Variables triggered: light_cloud_condition, runoff_flow_disruption
 - Daily note: Bright light trims the day back toward cleaner looks.
 - Lure reasoning:
-- Paddle-Tail Swimbait: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
 - Paddle-Tail Swimbait how: Reel at a steady pace with the rod low so the tail thumps consistently; speed up slightly over bait schools or slow down after a follow. Slow down and lengthen the pause.
-- Soft Plastic Jerkbait: With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different horizontal search look without leaving today's window.
+- Soft Plastic Jerkbait: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
 - Soft Plastic Jerkbait how: Snap the rod sideways so the bait darts left or right, then drop the rod tip so it glides and sinks on a slack line before the next snap. Slow down and lengthen the pause.
-- Suspending Jerkbait: With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Suspending Jerkbait: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Suspending Jerkbait how: Work it with wrist snaps, not big sweeps; keep slack in the line between snaps so the bait swings freely, then pause until you see a follow or feel weight. Slow down and lengthen the pause.
 - Fly reasoning:
-- Clouser Minnow: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Clouser Minnow: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
 - Clouser Minnow how: Cast across or slightly downstream, let it jig toward you with short strips so the weighted eyes keep the fly tracking hook-point up. Slow down and lengthen the pause.
-- Articulated Pike Streamer: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It gives you a different pike big profile look without leaving today's window.
+- Articulated Pike Streamer: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different pike big profile look without leaving today's window.
 - Articulated Pike Streamer how: Retrieve with slow, arm-length strips and complete stops; pike follow and commit on the pause, so hold the deadstop for a count of two. Slow down and lengthen the pause.
-- Articulated Dungeon Streamer: With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Articulated Dungeon Streamer: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Articulated Dungeon Streamer how: Fish it on a sweep-pause cadence near cover and transitions, giving the bulky profile time to hang between strips before moving it again. Slow down and lengthen the pause.
 
 Review:
@@ -4800,18 +4800,18 @@ Actual output:
 - Daily note: Heat stress moves fish to cooler, deeper water and narrows the feeding window.
 - Daily note: Bright light trims the day back toward cleaner looks.
 - Lure reasoning:
-- Paddle-Tail Swimbait: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
 - Paddle-Tail Swimbait how: Reel at a steady pace with the rod low so the tail thumps consistently; speed up slightly over bait schools or slow down after a follow. Keep it high in the zone.
-- Large Paddle-Tail Swimbait: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It gives you a different pike big profile look without leaving today's window.
+- Large Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different pike big profile look without leaving today's window.
 - Large Paddle-Tail Swimbait how: Work it with long, deliberate sweeps that make the body undulate; pause at the end of each sweep and hold position so following pike can close. Keep it high in the zone.
-- Suspending Jerkbait: With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Suspending Jerkbait: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Suspending Jerkbait how: Work it with wrist snaps, not big sweeps; keep slack in the line between snaps so the bait swings freely, then pause until you see a follow or feel weight. Keep it high in the zone.
 - Fly reasoning:
-- Clouser Minnow: With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane.
+- Clouser Minnow: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane.
 - Clouser Minnow how: Cast across or slightly downstream, let it jig toward you with short strips so the weighted eyes keep the fly tracking hook-point up. Keep it low in the strike zone.
-- Articulated Pike Streamer: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It gives you a different pike big profile look without leaving today's window.
+- Articulated Pike Streamer: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different pike big profile look without leaving today's window.
 - Articulated Pike Streamer how: Retrieve with slow, arm-length strips and complete stops; pike follow and commit on the pause, so hold the deadstop for a count of two. Keep it high in the zone.
-- Articulated Dungeon Streamer: With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Articulated Dungeon Streamer: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Articulated Dungeon Streamer how: Fish it on a sweep-pause cadence near cover and transitions, giving the bulky profile time to hang between strips before moving it again.
 
 Review:
@@ -4904,18 +4904,18 @@ Actual output:
 - Daily note: Strong wind reduces clean execution.
 - Daily note: Slightly elevated runoff supports a more visible river presentation.
 - Lure reasoning:
-- Suspending Jerkbait: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Suspending Jerkbait: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
 - Suspending Jerkbait how: Jerk, jerk, pause. The bait should dart and glide sideways on each twitch; dial the pause length to water temperature — colder means longer. Slow down and lengthen the pause.
-- Large Jerkbait: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It gives you a different pike big profile look without leaving today's window.
+- Large Jerkbait: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different pike big profile look without leaving today's window.
 - Large Jerkbait how: Rip it hard with two or three sweeps, then kill it completely — let the bait sink or suspend in place while you count three before the next sequence. Slow down and lengthen the pause.
-- Large Paddle-Tail Swimbait: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Large Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Large Paddle-Tail Swimbait how: Work it with long, deliberate sweeps that make the body undulate; pause at the end of each sweep and hold position so following pike can close. Slow down and lengthen the pause.
 - Fly reasoning:
-- Clouser Minnow: With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane.
+- Clouser Minnow: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane.
 - Clouser Minnow how: Strip in short, consistent pulls so the dumbbell eyes make the fly jig up and down; let it sink between strips to stay hook-point up throughout. Slow down and lengthen the pause.
-- Rabbit-Strip Leech: Slightly elevated runoff supports a more visible river presentation. Rabbit-Strip Leech tracks well when leech_worm is a realistic meal. It gives you a different fly bottom look without leaving today's window.
+- Rabbit-Strip Leech: It matches the column/pace the conditions push toward today. Slightly elevated runoff supports a more visible river presentation. Rabbit-Strip Leech tracks well when leech_worm is a realistic meal. It rounds out the lineup with a different look. It gives you a different fly bottom look without leaving today's window.
 - Rabbit-Strip Leech how: Cast and count it down, then use a strip-pause retrieve with exaggerated pauses — the pulse on the stop is when most fish commit. Slow down and lengthen the pause.
-- Large Rabbit Strip Streamer: With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Large Rabbit Strip Streamer: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Large Rabbit Strip Streamer how: Retrieve at a consistent pace that keeps the fly moving but gives the rabbit strip time to pulse; deadstop near structure to trigger strike reactions. Slow down and lengthen the pause.
 
 Review:

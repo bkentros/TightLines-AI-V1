@@ -40,6 +40,11 @@ type ActualCandidate = {
   tactical_lane: string;
   color_theme: string;
   color_recommendations: string[];
+  color_decision: {
+    theme: string;
+    reason_code: string;
+    short_reason: string;
+  };
   why_chosen: string;
   how_to_fish: string;
 };
@@ -98,6 +103,11 @@ function toActualCandidate(candidate: ReturnType<typeof runRecommenderV3>["lure_
     tactical_lane: candidate.tactical_lane,
     color_theme: candidate.color_theme,
     color_recommendations: candidate.color_recommendations,
+    color_decision: {
+      theme: candidate.color_decision.theme,
+      reason_code: candidate.color_decision.reason_code,
+      short_reason: candidate.color_decision.short_reason,
+    },
     why_chosen: candidate.why_chosen,
     how_to_fish: candidate.how_to_fish,
   };

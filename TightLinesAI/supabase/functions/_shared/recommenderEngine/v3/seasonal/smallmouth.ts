@@ -1847,6 +1847,35 @@ addMonths(["great_lakes_upper_midwest"], "freshwater_lake_pond", [7], {
   viable_fly_archetypes: GREAT_LAKES_MIDSUMMER_LAKE_FLIES,
 });
 
+// Pennsylvania June river: same authored row as northeast June river + state-scoped score deltas (Section 4).
+{
+  const baseKey = [
+    "smallmouth_bass",
+    "northeast",
+    6,
+    "freshwater_river",
+    "",
+  ].join("|");
+  const base = SMB_ROWS.get(baseKey);
+  if (!base) {
+    throw new Error(
+      "Expected smallmouth northeast June river row for PA state override",
+    );
+  }
+  upsertSeasonalRow(SMB_ROWS, {
+    ...base,
+    state_code: "PA",
+    state_scoring_adjustments: [
+      { archetype_id: "tube_jig", delta: 2.18 },
+      { archetype_id: "squarebill_crankbait", delta: 2.12 },
+      { archetype_id: "suspending_jerkbait", delta: 2.06 },
+      { archetype_id: "walking_topwater", delta: -1.38 },
+      { archetype_id: "inline_spinner", delta: -0.32 },
+      { archetype_id: "paddle_tail_swimbait", delta: -0.22 },
+    ],
+  });
+}
+
 export const SMALLMOUTH_V3_SEASONAL_ROWS = (() => {
   const rows = finalizeSeasonalRows(SMB_ROWS);
   validateSeasonalRows(rows, "smallmouth");

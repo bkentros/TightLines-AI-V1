@@ -1,4 +1,8 @@
 import type { SharedConditionAnalysis } from "../../howFishingEngine/analyzeSharedConditions.ts";
+import {
+  type LightLabel,
+  isLightLabel,
+} from "../../howFishingEngine/normalize/normalizeLight.ts";
 import type { WaterClarity } from "../contracts/input.ts";
 import type {
   DailyPostureBandV3,
@@ -19,11 +23,6 @@ type TriggerKey =
   | "light_cloud_condition"
   | "precipitation_disruption"
   | "runoff_flow_disruption";
-
-function normalizeLightLabel(label: string | null): string | null {
-  if (label === "mixed_sky") return "mixed";
-  return label;
-}
 
 /**
  * Clamps an integer accumulator to the bounded shift type.
@@ -60,7 +59,7 @@ function resolvePostureBand(score: number): DailyPostureBandV3 {
 
 function resolveReactionWindow(
   postureBand: DailyPostureBandV3,
-  lightLabel: string | null,
+  lightLabel: LightLabel | null,
   pressureLabel: string | null,
 ): DailyReactionWindowV3 {
   if (
@@ -81,7 +80,7 @@ function resolveReactionWindow(
 }
 
 function resolveSurfaceWindow(
-  lightLabel: string | null,
+  lightLabel: LightLabel | null,
   windLabel: string | null,
   postureBand: DailyPostureBandV3,
   runoffLabel: string | null,
@@ -154,9 +153,10 @@ export function resolveDailyPayloadV3(
 ): RecommenderV3DailyPayload {
   const pressureLabel = analysis.norm.normalized.pressure_regime?.label ?? null;
   const windLabel = analysis.norm.normalized.wind_condition?.label ?? null;
-  const lightLabel = normalizeLightLabel(
-    analysis.norm.normalized.light_cloud_condition?.label ?? null,
-  );
+  const rawLightLabel =
+    analysis.norm.normalized.light_cloud_condition?.label ?? null;
+  const lightLabel: LightLabel | null =
+    rawLightLabel !== null && isLightLabel(rawLightLabel) ? rawLightLabel : null;
   const precipLabel =
     analysis.norm.normalized.precipitation_disruption?.label ?? null;
   const runoffLabel =

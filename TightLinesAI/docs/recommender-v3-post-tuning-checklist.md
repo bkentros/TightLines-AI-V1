@@ -256,3 +256,15 @@ This checklist is complete when:
 - noisy diagnostics are clearly separated from true failures
 - product integration assumptions are confirmed
 - the recommender can be treated as a stable baseline unless real-world testing proves otherwise
+
+## 9-of-10 Ship Checklist
+
+- [ ] `deno check` recommenderEngine + normalize — no errors
+- [ ] `deno test supabase/functions/_shared/recommenderEngine` — 49 passed / 2 failed (both in KNOWN_AUTHORING_ISSUES.md)
+- [ ] `deno test supabase/functions/_shared/howFishingEngine/normalize` — all pass
+- [ ] `npm run audit:recommender:v3:freshwater:validate` — exit 0; headlines match PRE_9OF10_BASELINE.md
+- [ ] `npm run audit:recommender:v3:regression-baselines` — exit 0
+- [ ] Sweep (recommender scope): 0 matches under `TightLinesAI/supabase/functions/_shared/recommenderEngine/` for `stateCode ===`, `opportunity_mix_fit`, `normalizeLightLabel`
+- [ ] Note: `mixed_sky` is a legitimate sky-narration label and `stateCode ===` in `TightLinesAI/lib/locationSearch.ts` is the city-search filter — both expected, not sweep targets
+- [ ] KNOWN_AUTHORING_ISSUES.md reviewed with product owner; shipped with known issues OR fixed before release
+- [ ] Matrix review sheets under docs/recommender-v3-audit/generated/ spot-checked for a freshwater lake and a freshwater river scenario per species (4 species × 2 contexts = 7 spot checks, trout-lake excluded)

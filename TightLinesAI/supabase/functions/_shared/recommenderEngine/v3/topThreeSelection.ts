@@ -1,10 +1,16 @@
+import type { WaterClarity } from "../contracts/input.ts";
 import type {
   RecommenderV3ArchetypeProfile,
   RecommenderV3DailyPayload,
   RecommenderV3RankedArchetype,
   RecommenderV3ResolvedProfile,
+  RecommenderV3SeasonalRow,
 } from "./contracts.ts";
-import { buildSelectionRoleWhyChosen } from "./recommendationCopy.ts";
+import { colorReasonPhraseV3 } from "./colorDecision.ts";
+import {
+  buildSelectionRoleWhyChosen,
+  buildWhyChosen,
+} from "./recommendationCopy.ts";
 import type { ScoredCandidate } from "./scoringTypes.ts";
 
 const WORM_HEAVY_FAMILIES = new Set([
@@ -164,12 +170,17 @@ function selectionThreshold(opportunityMix: RecommenderV3ResolvedProfile["daily_
 function finalizeCandidate(
   candidate: ScoredCandidate,
   selectionRole: RecommenderV3RankedArchetype["selection_role"],
+  seasonal: RecommenderV3SeasonalRow,
+  daily: RecommenderV3DailyPayload,
+  resolved: RecommenderV3ResolvedProfile,
+  waterClarity: WaterClarity,
 ): RecommenderV3RankedArchetype {
   const roleIndex: 0 | 1 | 2 = selectionRole === "best_match"
     ? 0
     : selectionRole === "strong_alternate"
     ? 1
     : 2;
+  const cd = candidate.resolved_color_decision;
   return {
     id: candidate.profile.id,
     display_name: candidate.profile.display_name,
@@ -186,10 +197,29 @@ function finalizeCandidate(
     practicality_fit: candidate.practicality_fit,
     forage_fit: candidate.forage_fit,
     clarity_fit: candidate.clarity_fit,
-    opportunity_mix_fit: roundScore(candidate.opportunity_mix_fit),
+    diversity_bonus: roundScore(candidate.diversity_bonus),
     color_theme: candidate.color_theme,
     color_recommendations: candidate.color_recommendations,
-    why_chosen: buildSelectionRoleWhyChosen(candidate, selectionRole),
+    color_decision: {
+      theme: cd.color_theme,
+      reason_code: cd.reason_code,
+      short_reason: colorReasonPhraseV3(cd.reason_code),
+    },
+    why_chosen: buildSelectionRoleWhyChosen(
+      {
+        ...candidate,
+        why_chosen: buildWhyChosen(
+          candidate.profile,
+          candidate.breakdown,
+          seasonal,
+          daily,
+          resolved,
+          waterClarity,
+          candidate.diversity_bonus,
+        ),
+      },
+      selectionRole,
+    ),
     how_to_fish: candidate.how_to_fish_by_role[roleIndex],
     breakdown: candidate.breakdown,
   };
@@ -199,11 +229,13 @@ export function selectTopThreeCandidates(
   scored: ScoredCandidate[],
   resolved: RecommenderV3ResolvedProfile,
   daily: RecommenderV3DailyPayload,
+  seasonal: RecommenderV3SeasonalRow,
+  waterClarity: WaterClarity,
 ): RecommenderV3RankedArchetype[] {
   const sorted = [...scored].sort(compareScored);
   if (sorted.length === 0) return [];
 
-  const selected: ScoredCandidate[] = [{ ...sorted[0]!, opportunity_mix_fit: 0 }];
+  const selected: ScoredCandidate[] = [{ ...sorted[0]!, diversity_bonus: 0 }];
   const threshold = selectionThreshold(resolved.daily_preference.opportunity_mix);
 
   while (selected.length < 3 && selected.length < sorted.length) {
@@ -211,7 +243,7 @@ export function selectTopThreeCandidates(
       !selected.some((chosen) => chosen.profile.id === candidate.profile.id)
     );
     const bestRemaining = remaining[0]!;
-    let chosen = { ...bestRemaining, opportunity_mix_fit: 0 };
+    let chosen = { ...bestRemaining, diversity_bonus: 0 };
     const leadIsWormHeavy = isWormHeavyCandidate(selected[0]!);
     const bestRemainingRepeatsFamily = selected.some((entry) =>
       entry.profile.family_group === bestRemaining.profile.family_group
@@ -256,7 +288,7 @@ export function selectTopThreeCandidates(
         .map((candidate) => ({
           candidate: {
             ...candidate,
-            opportunity_mix_fit: changeupBonus(candidate, selected, resolved),
+            diversity_bonus: changeupBonus(candidate, selected, resolved),
           },
         }))
         .filter(({ candidate }) =>
@@ -264,7 +296,7 @@ export function selectTopThreeCandidates(
           (!leadIsWormHeavy || !isWormHeavyCandidate(candidate))
         )
         .sort((a, b) =>
-          b.candidate.opportunity_mix_fit - a.candidate.opportunity_mix_fit ||
+          b.candidate.diversity_bonus - a.candidate.diversity_bonus ||
           compareScored(a.candidate, b.candidate)
         );
       const diversityThreshold = bestRemainingRepeatsFamily || bestRemainingRepeatsWormClass
@@ -278,7 +310,7 @@ export function selectTopThreeCandidates(
       } else {
         chosen = {
           ...bestCoherentRemaining,
-          opportunity_mix_fit: changeupBonus(bestCoherentRemaining, selected, resolved),
+          diversity_bonus: changeupBonus(bestCoherentRemaining, selected, resolved),
         };
       }
     } else {
@@ -286,11 +318,11 @@ export function selectTopThreeCandidates(
         .map((candidate) => ({
           candidate: {
             ...candidate,
-            opportunity_mix_fit: changeupBonus(candidate, selected, resolved),
+            diversity_bonus: changeupBonus(candidate, selected, resolved),
           },
         }))
         .sort((a, b) =>
-          b.candidate.opportunity_mix_fit - a.candidate.opportunity_mix_fit ||
+          b.candidate.diversity_bonus - a.candidate.diversity_bonus ||
           compareScored(a.candidate, b.candidate)
         );
       const changeupThreshold = bestRemainingRepeatsFamily || bestRemainingRepeatsWormClass
@@ -298,14 +330,14 @@ export function selectTopThreeCandidates(
         : threshold + 0.2;
       if (
         changeups[0] &&
-        changeups[0].candidate.opportunity_mix_fit > 0 &&
+        changeups[0].candidate.diversity_bonus > 0 &&
         changeups[0].candidate.score >= bestCoherentRemaining.score - changeupThreshold
       ) {
         chosen = changeups[0].candidate;
       } else {
         chosen = {
           ...bestCoherentRemaining,
-          opportunity_mix_fit: changeupBonus(bestCoherentRemaining, selected, resolved),
+          diversity_bonus: changeupBonus(bestCoherentRemaining, selected, resolved),
         };
       }
     }
@@ -319,7 +351,7 @@ export function selectTopThreeCandidates(
         if (rescue) {
           chosen = {
             ...rescue,
-            opportunity_mix_fit: changeupBonus(rescue, selected, resolved),
+            diversity_bonus: changeupBonus(rescue, selected, resolved),
           };
         }
       }
@@ -344,7 +376,7 @@ export function selectTopThreeCandidates(
     if (!fallback) break;
     selected.push({
       ...fallback,
-      opportunity_mix_fit: changeupBonus(fallback, selected, resolved),
+      diversity_bonus: changeupBonus(fallback, selected, resolved),
     });
   }
 
@@ -352,6 +384,10 @@ export function selectTopThreeCandidates(
     finalizeCandidate(
       candidate,
       index === 0 ? "best_match" : index === 1 ? "strong_alternate" : "change_up",
+      seasonal,
+      daily,
+      resolved,
+      waterClarity,
     )
   );
 }

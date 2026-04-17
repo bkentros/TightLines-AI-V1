@@ -158,7 +158,7 @@ function toViewerRec(
     water_column: waterColumn,
     score: rawRec.score,
     water_column_fit: rawRec.tactical_fit,
-    daily_stack: rawRec.tactical_fit + rawRec.practicality_fit + rawRec.opportunity_mix_fit,
+    daily_stack: rawRec.tactical_fit + rawRec.practicality_fit + rawRec.diversity_bonus,
     clarity_fit: rawRec.clarity_fit,
     forage_bonus: rawRec.forage_fit,
     rank,

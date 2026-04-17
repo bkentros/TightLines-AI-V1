@@ -9,7 +9,7 @@
 
 export const EXPECTED_HEADLINES_REL = "docs/recommender-v3-audit/regression-baselines/expected-headlines.json";
 
-type Expected = {
+export type ExpectedHeadlines = {
   matrix_summary: {
     path: string;
     total_scenarios: number;
@@ -31,6 +31,37 @@ type Expected = {
   };
 };
 
+/** Optional bundled audit JSON for callers that cannot use `Deno.readTextFile` (e.g. Deno tests without `--allow-read`). */
+export type RegressionBaselineFixtures = {
+  expected: ExpectedHeadlines;
+  matrix: {
+    species: Record<
+      string,
+      {
+        scenario_count: number;
+        top1_primary_hit_count: number;
+        top3_primary_present_count: number;
+        disallowed_avoidance_count: number;
+        top_color_match_count: number;
+        hard_fail_count: number;
+        soft_fail_count: number;
+        top1_tie_count: number;
+      }
+    >;
+  };
+  daily_shift: {
+    total_pairs: number;
+    total_checks: number;
+    passed_checks: number;
+    failed_checks: number;
+  };
+  coverage: {
+    success_targets: unknown;
+    lure: { expectation_mismatches: unknown[] };
+    fly: { expectation_mismatches: unknown[] };
+  };
+};
+
 function allTargetsPass(node: unknown): boolean {
   if (node && typeof node === "object" && "pass" in (node as object)) {
     return (node as { pass: boolean }).pass === true;
@@ -45,15 +76,20 @@ function allTargetsPass(node: unknown): boolean {
 }
 
 /** Returns empty array when committed audit artifacts match the baseline file. */
-export async function verifyRegressionBaselines(cwd: string): Promise<string[]> {
-  const expected = JSON.parse(
-    await Deno.readTextFile(`${cwd}/${EXPECTED_HEADLINES_REL}`),
-  ) as Expected;
+export async function verifyRegressionBaselines(
+  cwd: string,
+  fixtures?: RegressionBaselineFixtures,
+): Promise<string[]> {
+  const expected = fixtures?.expected ??
+    JSON.parse(
+      await Deno.readTextFile(`${cwd}/${EXPECTED_HEADLINES_REL}`),
+    ) as ExpectedHeadlines;
 
   const errors: string[] = [];
 
   const matrixPath = `${cwd}/${expected.matrix_summary.path}`;
-  const matrix = JSON.parse(await Deno.readTextFile(matrixPath)) as {
+  const matrix = (fixtures?.matrix ??
+    JSON.parse(await Deno.readTextFile(matrixPath))) as {
     species: Record<
       string,
       {
@@ -122,7 +158,8 @@ export async function verifyRegressionBaselines(cwd: string): Promise<string[]> 
   }
 
   const dsPath = `${cwd}/${expected.daily_shift_audit.path}`;
-  const ds = JSON.parse(await Deno.readTextFile(dsPath)) as {
+  const ds = (fixtures?.daily_shift ??
+    JSON.parse(await Deno.readTextFile(dsPath))) as {
     total_pairs: number;
     total_checks: number;
     passed_checks: number;
@@ -148,7 +185,8 @@ export async function verifyRegressionBaselines(cwd: string): Promise<string[]> 
   }
 
   const covPath = `${cwd}/${expected.coverage_audit.path}`;
-  const cov = JSON.parse(await Deno.readTextFile(covPath)) as {
+  const cov = (fixtures?.coverage ??
+    JSON.parse(await Deno.readTextFile(covPath))) as {
     success_targets: unknown;
     lure: { expectation_mismatches: unknown[] };
     fly: { expectation_mismatches: unknown[] };

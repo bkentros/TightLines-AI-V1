@@ -34,6 +34,7 @@ export function computeRecommenderV3(
     req.location.region_key,
     req.location.month,
     context,
+    req.location.state_code ?? undefined,
   );
   const resolvedProfile = resolveFinalProfileV3(seasonalRow, dailyPayload);
   const lightLabel = analysis.norm.normalized.light_cloud_condition?.label ?? null;
@@ -43,7 +44,6 @@ export function computeRecommenderV3(
     dailyPayload,
     req.water_clarity,
     lightLabel,
-    req.location.state_code,
   );
   const flyRecommendations = scoreFlyCandidatesV3(
     seasonalRow,
@@ -51,7 +51,6 @@ export function computeRecommenderV3(
     dailyPayload,
     req.water_clarity,
     lightLabel,
-    req.location.state_code,
   );
 
   return {
@@ -61,6 +60,7 @@ export function computeRecommenderV3(
     region_key: req.location.region_key,
     seasonal_source_region_key: seasonalRow.source_region_key,
     used_region_fallback: seasonalRow.used_region_fallback,
+    used_state_scoped_row: seasonalRow.used_state_scoped_row,
     month: req.location.month,
     water_clarity: req.water_clarity,
     variables_considered: dailyPayload.variables_considered,

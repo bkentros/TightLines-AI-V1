@@ -46,6 +46,7 @@ export {
 export { resolveSeasonalRowV3 } from "./seasonal/resolveSeasonalRow.ts";
 export { resolveFinalProfileV3 } from "./resolveFinalProfile.ts";
 export {
+  colorReasonPhraseV3,
   LIGHT_BUCKETS_V3,
   normalizeLightBucketV3,
   resolveColorDecisionV3,
@@ -67,6 +68,8 @@ export type {
   PresentationStyleV3,
   RecommenderV3ArchetypeId,
   RecommenderV3ArchetypeProfile,
+  RecommenderV3ColorDecision,
+  RecommenderV3ColorReasonCode,
   RecommenderV3Context,
   RecommenderV3DailyPayload,
   RecommenderV3DailyTacticalPreference,

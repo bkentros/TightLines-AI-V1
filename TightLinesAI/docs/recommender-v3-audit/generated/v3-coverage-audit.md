@@ -1,6 +1,6 @@
 # V3 Coverage Audit
 
-Generated: 2026-04-16T14:22:00.362Z
+Generated: 2026-04-17T02:14:45.089Z
 
 Seasonal rows audited: 1104
 Synthetic daily states per row: 405

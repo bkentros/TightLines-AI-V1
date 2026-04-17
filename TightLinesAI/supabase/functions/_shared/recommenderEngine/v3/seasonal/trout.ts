@@ -904,6 +904,29 @@ addMonths(["pacific_northwest"], [12], {
   viable_fly_archetypes: PNW_WINTER_RIVER_FLIES,
 });
 
+// Idaho April mountain-west river: clone regional row + stained-only state deltas (Section 4).
+{
+  const baseKey = ["trout", "mountain_west", 4, "freshwater_river", ""].join(
+    "|",
+  );
+  const base = TROUT_ROWS.get(baseKey);
+  if (!base) {
+    throw new Error(
+      "Expected trout mountain_west April river row for ID state override",
+    );
+  }
+  upsertSeasonalRow(TROUT_ROWS, {
+    ...base,
+    state_code: "ID",
+    state_scoring_adjustments: [
+      { archetype_id: "inline_spinner", delta: -1.55, when: { clarity: "stained" } },
+      { archetype_id: "sculpin_streamer", delta: 0.95, when: { clarity: "stained" } },
+      { archetype_id: "woolly_bugger", delta: 0.95, when: { clarity: "stained" } },
+      { archetype_id: "clouser_minnow", delta: 0.95, when: { clarity: "stained" } },
+    ],
+  });
+}
+
 export const TROUT_V3_SEASONAL_ROWS = (() => {
   const rows = finalizeSeasonalRows(TROUT_ROWS);
   validateSeasonalRows(rows, "trout");

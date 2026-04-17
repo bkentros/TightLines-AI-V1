@@ -10,7 +10,13 @@ import type {
   TacticalPresenceV3,
 } from "../contracts.ts";
 function rowKey(row: RecommenderV3SeasonalRow): string {
-  return [row.species, row.region_key, row.month, row.context].join("|");
+  return [
+    row.species,
+    row.region_key,
+    row.month,
+    row.context,
+    row.state_code ?? "",
+  ].join("|");
 }
 
 function assertNoDupes<T extends string>(

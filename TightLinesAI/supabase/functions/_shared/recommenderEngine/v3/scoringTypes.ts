@@ -3,6 +3,7 @@ import type {
   RecommenderV3ScoreBreakdown,
   ResolvedColorThemeV3,
 } from "./contracts.ts";
+import type { ResolvedColorDecisionV3 } from "./colorDecision.ts";
 
 export type ScoredCandidate = {
   profile: RecommenderV3ArchetypeProfile;
@@ -14,10 +15,14 @@ export type ScoredCandidate = {
   practicality_fit: number;
   forage_fit: number;
   clarity_fit: number;
-  opportunity_mix_fit: number;
+  /** Post-selection diversity bonus applied in topThreeSelection. Zero for candidates that were not considered as a changeup slot. Not a per-archetype fit score. */
+  diversity_bonus: number;
   color_theme: ResolvedColorThemeV3;
   color_recommendations: [string, string, string];
+  /** Same object as used for `color_theme` / pools; carried for RankedArchetype `color_decision` (Section 5B). */
+  resolved_color_decision: ResolvedColorDecisionV3;
   breakdown: RecommenderV3ScoreBreakdown[];
+  /** Provisional copy; `selectTopThreeCandidates` rewrites from `diversity_bonus` + role note. */
   why_chosen: string;
   how_to_fish_by_role: [string, string, string];
 };

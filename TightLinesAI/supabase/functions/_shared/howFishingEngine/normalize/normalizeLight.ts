@@ -2,6 +2,24 @@ import type { EngineContext, VariableState } from "../contracts/mod.ts";
 import { isCoastalFamilyContext } from "../contracts/context.ts";
 import { clampEngineScore, pieceLinear } from "../score/engineScoreMath.ts";
 
+/** Every `label` value `normalizeLight` can emit today (see assignments below). */
+export const LIGHT_LABELS = [
+  "glare",
+  "bright",
+  "mixed",
+  "low_light",
+  "heavy_overcast",
+] as const;
+
+export type LightLabel = (typeof LIGHT_LABELS)[number];
+
+export function isLightLabel(value: unknown): value is LightLabel {
+  return typeof value === "string" &&
+    (LIGHT_LABELS as readonly string[]).includes(value);
+}
+
+export type LightVariableState = VariableState & { label: LightLabel };
+
 /**
  * Cloud-cover / light — tapered piecewise ramps (freshwater penalizes bright sun;
  * coastal neutralizes 0–69% per marine norms).
@@ -15,7 +33,7 @@ export function normalizeLight(
   cloudPct: number | null | undefined,
   context: EngineContext,
   opts?: { temperatureBandLabel?: string },
-): VariableState | null {
+): LightVariableState | null {
   if (cloudPct == null || Number.isNaN(cloudPct)) return null;
   const c = Math.max(0, Math.min(100, cloudPct));
 
@@ -79,5 +97,5 @@ export function normalizeLight(
     ? `${rounded}% cloud — ${mixedHint}`
     : `${rounded}% cloud`;
 
-  return { label, score, detail };
+  return { label, score, detail } satisfies LightVariableState;
 }

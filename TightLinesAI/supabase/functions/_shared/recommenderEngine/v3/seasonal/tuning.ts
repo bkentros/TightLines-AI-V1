@@ -300,7 +300,13 @@ export function buildMonthlyBaselineProfile(options: {
 }
 
 function seasonalRowKey(row: RecommenderV3SeasonalRow): string {
-  return [row.species, row.region_key, row.month, row.context].join("|");
+  return [
+    row.species,
+    row.region_key,
+    row.month,
+    row.context,
+    row.state_code ?? "",
+  ].join("|");
 }
 
 /**

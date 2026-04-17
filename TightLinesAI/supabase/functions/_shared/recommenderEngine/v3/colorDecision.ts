@@ -78,3 +78,25 @@ export function resolveColorDecisionV3(
     reason_code,
   };
 }
+
+const COLOR_REASON_PHRASES: Record<
+  ResolvedColorDecisionV3["reason_code"],
+  string
+> = {
+  clear_bright_natural: "Clear water + bright sun — go natural.",
+  clear_mixed_natural: "Clear water + mixed light — stay natural.",
+  clear_low_dark: "Clear water + low light — a darker profile reads best.",
+  stained_bright_dark: "Stained water + bright sun — a dark silhouette pops.",
+  stained_mixed_dark: "Stained water + mixed light — dark profile still leads.",
+  stained_low_bright: "Stained water + low light — bright/chartreuse stands out.",
+  dirty_bright_dark: "Dirty water + bright sun — dark silhouette reads first.",
+  dirty_mixed_bright: "Dirty water + mixed light — bright profile reaches farther.",
+  dirty_low_bright: "Dirty water + low light — bright/chartreuse is visible.",
+};
+
+/** One sentence per `reason_code` (Section 5B product copy — verbatim). */
+export function colorReasonPhraseV3(
+  reasonCode: ResolvedColorDecisionV3["reason_code"],
+): string {
+  return COLOR_REASON_PHRASES[reasonCode];
+}
