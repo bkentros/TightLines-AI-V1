@@ -1,3 +1,10 @@
+/**
+ * Recommender — polished results report.
+ * Visual language lifted from How's Fishing (RebuildReportView): tinted hero card,
+ * band-style badge, chip rows over a divider, icon-box section headers,
+ * rank medallions, and accent-bar reason boxes. Theme-only tokens.
+ */
+
 import React from 'react';
 import {
   ScrollView,
@@ -43,6 +50,18 @@ const PRESENCE_LABEL: Record<TacticalPresence, string> = {
   subtle: 'Subtle',
   moderate: 'Moderate',
   bold: 'Bold',
+};
+
+const MIX_CONFIG: Record<OpportunityMixMode, {
+  label: string;
+  color: string;
+  bg: string;
+  border: string;
+  icon: keyof typeof Ionicons.glyphMap;
+}> = {
+  aggressive:   { label: 'Aggressive', color: '#2E6F40', bg: '#E6F5EB', border: '#2E6F4030', icon: 'flame' },
+  balanced:     { label: 'Balanced',   color: '#3A8A54', bg: '#EEF8F2', border: '#3A8A5428', icon: 'thumbs-up' },
+  conservative: { label: 'Conservative', color: '#C29B2A', bg: '#FDF6E8', border: '#C29B2A28', icon: 'partly-sunny-outline' },
 };
 
 function contextLabel(ctx: EngineContext): string {
@@ -95,6 +114,14 @@ function surfaceContextNote(
   return null;
 }
 
+function toTitleCase(raw: string): string {
+  return raw
+    .split(/[\s_]+/)
+    .filter(Boolean)
+    .map((w) => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())
+    .join(' ');
+}
+
 function SummaryChip({ label, value }: { label: string; value: string }) {
   return (
     <View style={styles.chip}>
@@ -104,49 +131,74 @@ function SummaryChip({ label, value }: { label: string; value: string }) {
   );
 }
 
-function RecommendationCard(
-  { item, index, mode }: { item: RankedRecommendation; index: number; mode: 'lure' | 'fly' },
-) {
+function RecommendationCard({
+  item,
+  index,
+  mode,
+}: {
+  item: RankedRecommendation;
+  index: number;
+  mode: 'lure' | 'fly';
+}) {
   const image = mode === 'lure' ? getLureImage(item.id) : getFlyImage(item.id);
 
   return (
     <View style={styles.card}>
+      {/* Top row: rank medallion + title + surface indicator */}
       <View style={styles.cardTopRow}>
-        <View style={styles.rankPill}>
-          <Text style={styles.rankPillText}>#{index + 1}</Text>
+        <View style={styles.rankMedal}>
+          <Text style={styles.rankMedalText}>{index + 1}</Text>
         </View>
-        <Text style={styles.cardTitle}>{item.display_name}</Text>
+        <View style={styles.cardTitleWrap}>
+          <Text style={styles.cardTitle} numberOfLines={2}>{item.display_name}</Text>
+          <Text style={styles.cardSubtitle}>
+            {toTitleCase(item.family_group)} · {toTitleCase(item.color_style)}
+          </Text>
+        </View>
       </View>
 
+      {/* Image band — on soft mint canvas so lures/flies read cleanly */}
       {image ? (
-        <ExpoImage
-          source={image}
-          style={styles.cardImage}
-          contentFit="contain"
-          transition={IMAGE_TX}
-          cachePolicy="memory-disk"
-        />
+        <View style={styles.cardImageWrap}>
+          <ExpoImage
+            source={image}
+            style={styles.cardImage}
+            contentFit="contain"
+            transition={IMAGE_TX}
+            cachePolicy="memory-disk"
+          />
+        </View>
       ) : null}
 
-      <View style={styles.metaRow}>
-        <SummaryChip label="Color" value={item.color_style} />
-        <SummaryChip label="Family" value={item.family_group.replaceAll('_', ' ')} />
-      </View>
-
-      <View style={styles.metaRow}>
+      {/* Tactical meta — three compact chips on a single row */}
+      <View style={styles.cardMetaRow}>
         <SummaryChip label="Column" value={COLUMN_LABEL[item.primary_column]} />
         <SummaryChip label="Pace" value={PACE_LABEL[item.pace]} />
         <SummaryChip label="Presence" value={PRESENCE_LABEL[item.presence]} />
       </View>
 
-      <View style={styles.reasonBox}>
-        <Text style={styles.reasonLabel}>Why chosen</Text>
-        <Text style={styles.reasonText}>{item.why_chosen}</Text>
+      {/* Divider — same rhythm as How's Fishing reason separator */}
+      <View style={styles.reasonSep}>
+        <View style={styles.reasonSepLine} />
+        <Text style={styles.reasonSepLabel}>Why & How</Text>
+        <View style={styles.reasonSepLine} />
       </View>
 
-      <View style={styles.reasonBox}>
-        <Text style={styles.reasonLabel}>How to fish</Text>
-        <Text style={styles.reasonText}>{item.how_to_fish}</Text>
+      {/* Reason blocks — tipCard accent-bar idiom */}
+      <View style={styles.reasonBlock}>
+        <View style={styles.reasonBar} />
+        <View style={styles.reasonBody}>
+          <Text style={styles.reasonLabel}>Why chosen</Text>
+          <Text style={styles.reasonText}>{item.why_chosen}</Text>
+        </View>
+      </View>
+
+      <View style={styles.reasonBlock}>
+        <View style={[styles.reasonBar, styles.reasonBarSoft]} />
+        <View style={styles.reasonBody}>
+          <Text style={[styles.reasonLabel, styles.reasonLabelSoft]}>How to fish</Text>
+          <Text style={styles.reasonText}>{item.how_to_fish}</Text>
+        </View>
       </View>
     </View>
   );
@@ -160,6 +212,7 @@ type Props = {
 export function RecommenderView({ result, style }: Props) {
   const speciesImage = getSpeciesImage(result.species);
   const daily = result.summary.daily_tactical_preference;
+  const mix = MIX_CONFIG[daily.opportunity_mix];
   const mixSummary = opportunityMixSummarySentence(daily.opportunity_mix);
   const surfaceNote = surfaceContextNote(daily.surface_allowed_today, daily.surface_window);
   const sectionIntro = opportunityMixSectionIntro(daily.opportunity_mix);
@@ -170,21 +223,28 @@ export function RecommenderView({ result, style }: Props) {
       contentContainerStyle={styles.content}
       showsVerticalScrollIndicator={false}
     >
-      <View style={styles.headerCard}>
-        <View style={styles.headerTopRow}>
-          <View style={styles.headerTextWrap}>
-            <Text style={styles.eyebrow}>Lure & Fly Recommender</Text>
-            <Text style={styles.title}>
-              {SPECIES_DISPLAY[result.species]} · {contextLabel(result.context)}
+      {/* ═══════════════════════════════════════════════════
+          HERO — mirrors How's Fishing scoreCard language
+      ═══════════════════════════════════════════════════ */}
+      <View style={[styles.heroCard, { backgroundColor: mix.bg, borderColor: mix.border }]}>
+        <View style={styles.heroTopRow}>
+          <View style={styles.heroLeft}>
+            <View style={[styles.mixBadge, { backgroundColor: mix.color }]}>
+              <Ionicons name={mix.icon} size={11} color="#FFF" />
+              <Text style={styles.mixBadgeText}>{mix.label}</Text>
+            </View>
+            <Text style={styles.heroEyebrow}>Lure & Fly Plan</Text>
+            <Text style={styles.heroTitle}>
+              {SPECIES_DISPLAY[result.species]}
             </Text>
-            <Text style={styles.subtitle}>
-              Water clarity: {WATER_CLARITY_LABELS[result.water_clarity]}
+            <Text style={styles.heroSubtitle}>
+              {contextLabel(result.context)} · {WATER_CLARITY_LABELS[result.water_clarity]} water
             </Text>
           </View>
           {speciesImage ? (
             <ExpoImage
               source={speciesImage}
-              style={styles.speciesImage}
+              style={styles.heroSpeciesImage}
               contentFit="contain"
               transition={IMAGE_TX}
               cachePolicy="memory-disk"
@@ -192,61 +252,80 @@ export function RecommenderView({ result, style }: Props) {
           ) : null}
         </View>
 
-        <View style={styles.metaRow}>
-          <SummaryChip
-            label="Primary forage"
-            value={result.summary.monthly_forage.primary.replaceAll('_', ' ')}
-          />
-          <SummaryChip
-            label="Daily column"
-            value={COLUMN_LABEL[result.summary.daily_tactical_preference.preferred_column]}
-          />
-          <SummaryChip
-            label="Daily pace"
-            value={PACE_LABEL[result.summary.daily_tactical_preference.preferred_pace]}
-          />
+        <View style={styles.heroDivider} />
+
+        <Text style={styles.heroSummary}>{mixSummary}</Text>
+        {surfaceNote ? <Text style={styles.heroNote}>{surfaceNote}</Text> : null}
+      </View>
+
+      {/* ═══════════════════════════════════════════════════
+          DAILY TACTICAL PREFERENCE — chip summary card
+      ═══════════════════════════════════════════════════ */}
+      <View style={styles.card}>
+        <View style={styles.sectionHeaderRow}>
+          <View style={[styles.sectionIconBox, { backgroundColor: colors.primaryMist }]}>
+            <Ionicons name="stats-chart" size={14} color={colors.primary} />
+          </View>
+          <Text style={styles.sectionHeaderTitle}>Today's Preference</Text>
         </View>
 
-        <View style={styles.metaRow}>
+        <View style={styles.cardMetaRow}>
           <SummaryChip
-            label="Daily presence"
-            value={PRESENCE_LABEL[result.summary.daily_tactical_preference.preferred_presence]}
+            label="Forage"
+            value={toTitleCase(result.summary.monthly_forage.primary)}
+          />
+          <SummaryChip
+            label="Column"
+            value={COLUMN_LABEL[daily.preferred_column]}
+          />
+          <SummaryChip
+            label="Pace"
+            value={PACE_LABEL[daily.preferred_pace]}
+          />
+        </View>
+        <View style={styles.cardMetaRow}>
+          <SummaryChip
+            label="Presence"
+            value={PRESENCE_LABEL[daily.preferred_presence]}
           />
           <SummaryChip
             label="Surface"
-            value={result.summary.daily_tactical_preference.surface_allowed_today ? 'Open' : 'Closed'}
+            value={daily.surface_allowed_today ? 'Open' : 'Closed'}
           />
-          <SummaryChip
-            label="Mix"
-            value={daily.opportunity_mix}
-          />
-        </View>
-
-        <View style={styles.contextNotesBlock}>
-          <Text style={styles.contextNoteLine}>{mixSummary}</Text>
-          {surfaceNote ? (
-            <Text style={styles.contextNoteLine}>{surfaceNote}</Text>
-          ) : null}
         </View>
       </View>
 
-      <View style={styles.section}>
+      {/* ═══════════════════════════════════════════════════
+          TOP 3 LURES
+      ═══════════════════════════════════════════════════ */}
+      <View style={styles.sectionGroup}>
         <View style={styles.sectionHeader}>
-          <Ionicons name="fish-outline" size={18} color={colors.primary} />
-          <Text style={styles.sectionTitle}>Top 3 Lures</Text>
+          <View style={styles.sectionEyebrowRow}>
+            <View style={styles.sectionEyebrowLine} />
+            <Ionicons name="fish-outline" size={12} color={colors.primary} />
+            <Text style={styles.sectionEyebrowText}>TOP 3 LURES</Text>
+            <View style={styles.sectionEyebrowLine} />
+          </View>
+          <Text style={styles.sectionIntro}>{sectionIntro}</Text>
         </View>
-        <Text style={styles.sectionIntro}>{sectionIntro}</Text>
         {result.lure_recommendations.map((item, index) => (
           <RecommendationCard key={item.id} item={item} index={index} mode="lure" />
         ))}
       </View>
 
-      <View style={styles.section}>
+      {/* ═══════════════════════════════════════════════════
+          TOP 3 FLIES
+      ═══════════════════════════════════════════════════ */}
+      <View style={styles.sectionGroup}>
         <View style={styles.sectionHeader}>
-          <Ionicons name="water-outline" size={18} color={colors.primary} />
-          <Text style={styles.sectionTitle}>Top 3 Flies</Text>
+          <View style={styles.sectionEyebrowRow}>
+            <View style={styles.sectionEyebrowLine} />
+            <Ionicons name="water-outline" size={12} color={colors.primary} />
+            <Text style={styles.sectionEyebrowText}>TOP 3 FLIES</Text>
+            <View style={styles.sectionEyebrowLine} />
+          </View>
+          <Text style={styles.sectionIntro}>{sectionIntro}</Text>
         </View>
-        <Text style={styles.sectionIntro}>{sectionIntro}</Text>
         {result.fly_recommendations.map((item, index) => (
           <RecommendationCard key={item.id} item={item} index={index} mode="fly" />
         ))}
@@ -255,159 +334,303 @@ export function RecommenderView({ result, style }: Props) {
   );
 }
 
+// ─── Styles ───────────────────────────────────────────────────────────────────
+
 const styles = StyleSheet.create({
   root: {
     flex: 1,
     backgroundColor: colors.background,
   },
   content: {
-    padding: spacing.md,
-    gap: spacing.lg,
-    paddingBottom: spacing.xl,
+    paddingHorizontal: 20,
+    paddingTop: spacing.sm,
+    paddingBottom: spacing.xxl,
+    gap: spacing.md,
   },
-  headerCard: {
-    backgroundColor: colors.card,
-    borderRadius: radius.xl,
-    padding: spacing.md,
-    borderWidth: 1,
-    borderColor: colors.border,
-    ...shadows.sm,
+
+  // ── Hero card (mirrors How's Fishing scoreCard) ───────────────
+  heroCard: {
+    borderRadius: radius.lg,
+    padding: spacing.md + 4,
+    borderWidth: 1.5,
+    ...shadows.lg,
   },
-  headerTopRow: {
+  heroTopRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'flex-start',
     gap: spacing.md,
-    marginBottom: spacing.md,
   },
-  headerTextWrap: {
+  heroLeft: {
     flex: 1,
     gap: spacing.xs,
   },
-  eyebrow: {
-    color: colors.primary,
-    fontFamily: fonts.medium,
-    fontSize: 12,
+  mixBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
+    alignSelf: 'flex-start',
+    paddingHorizontal: spacing.sm + 4,
+    paddingVertical: spacing.xs + 2,
+    borderRadius: radius.full,
+    marginBottom: spacing.xs,
+  },
+  mixBadgeText: {
+    fontFamily: fonts.bodyBold,
+    fontSize: 11,
+    color: '#FFF',
+    letterSpacing: 0.4,
     textTransform: 'uppercase',
-    letterSpacing: 0.8,
   },
-  title: {
+  heroEyebrow: {
+    fontFamily: fonts.bodyBold,
+    fontSize: 11,
+    color: colors.textSecondary,
+    letterSpacing: 1.0,
+    textTransform: 'uppercase',
+  },
+  heroTitle: {
+    fontFamily: fonts.serifBold,
+    fontSize: 26,
     color: colors.text,
-    fontFamily: fonts.bold,
-    fontSize: 24,
+    letterSpacing: -0.5,
+    lineHeight: 30,
   },
-  subtitle: {
-    color: colors.textSecondary,
-    fontFamily: fonts.regular,
-    fontSize: 14,
-  },
-  contextNotesBlock: {
-    marginTop: spacing.sm,
-    gap: spacing.xs,
-  },
-  contextNoteLine: {
-    color: colors.textSecondary,
-    fontFamily: fonts.regular,
+  heroSubtitle: {
+    fontFamily: fonts.bodyMedium,
     fontSize: 13,
-    lineHeight: 18,
-  },
-  sectionIntro: {
     color: colors.textSecondary,
-    fontFamily: fonts.regular,
-    fontSize: 13,
-    lineHeight: 18,
+    letterSpacing: 0.1,
   },
-  speciesImage: {
+  heroSpeciesImage: {
     width: 96,
     height: 96,
   },
-  section: {
-    gap: spacing.md,
+  heroDivider: {
+    height: 1,
+    backgroundColor: colors.border,
+    marginTop: spacing.md,
+    marginBottom: spacing.sm + 2,
   },
-  sectionHeader: {
+  heroSummary: {
+    fontFamily: fonts.bodyMedium,
+    fontSize: 14,
+    color: colors.text,
+    lineHeight: 21,
+  },
+  heroNote: {
+    fontFamily: fonts.body,
+    fontSize: 13,
+    color: colors.textSecondary,
+    lineHeight: 19,
+    marginTop: spacing.xs,
+  },
+
+  // ── Generic card (mirrors How's Fishing card) ─────────────────
+  card: {
+    backgroundColor: colors.surface,
+    borderRadius: radius.lg,
+    padding: spacing.md + 2,
+    borderWidth: 1,
+    borderColor: colors.border,
+    gap: spacing.sm + 2,
+    ...shadows.md,
+  },
+
+  // Section header rows INSIDE a card (icon box + uppercase label)
+  sectionHeaderRow: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: spacing.sm,
+    marginBottom: spacing.xs,
   },
-  sectionTitle: {
-    color: colors.text,
-    fontFamily: fonts.bold,
-    fontSize: 20,
+  sectionIconBox: {
+    width: 30,
+    height: 30,
+    borderRadius: radius.sm,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  card: {
-    backgroundColor: colors.card,
-    borderRadius: radius.lg,
-    borderWidth: 1,
-    borderColor: colors.border,
-    padding: spacing.md,
-    gap: spacing.md,
-    ...shadows.sm,
+  sectionHeaderTitle: {
+    fontFamily: fonts.bodyBold,
+    fontSize: 12,
+    color: colors.textSecondary,
+    textTransform: 'uppercase',
+    letterSpacing: 0.8,
+    flex: 1,
   },
+
+  // ── Section group header (Dashboard sectionDividerRow idiom) ──
+  sectionGroup: {
+    gap: spacing.sm + 4,
+    marginTop: spacing.xs,
+  },
+  sectionHeader: {
+    gap: spacing.xs + 2,
+    marginBottom: spacing.xs,
+  },
+  sectionEyebrowRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+  },
+  sectionEyebrowLine: {
+    flex: 1,
+    height: 1,
+    backgroundColor: colors.borderLight,
+  },
+  sectionEyebrowText: {
+    fontFamily: fonts.bodyBold,
+    fontSize: 10,
+    color: colors.primary,
+    letterSpacing: 1.4,
+  },
+  sectionIntro: {
+    fontFamily: fonts.body,
+    fontSize: 13,
+    color: colors.textSecondary,
+    lineHeight: 19,
+    textAlign: 'center',
+    paddingHorizontal: spacing.sm,
+  },
+
+  // ── Recommendation card ───────────────────────────────────────
   cardTopRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: spacing.sm,
+    gap: spacing.sm + 2,
   },
-  rankPill: {
-    paddingHorizontal: spacing.sm,
-    paddingVertical: 4,
-    borderRadius: radius.round,
-    backgroundColor: 'rgba(31, 107, 190, 0.12)',
+  rankMedal: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    backgroundColor: colors.primary,
+    alignItems: 'center',
+    justifyContent: 'center',
+    ...shadows.sm,
   },
-  rankPillText: {
-    color: colors.primary,
-    fontFamily: fonts.bold,
-    fontSize: 12,
+  rankMedalText: {
+    fontFamily: fonts.serifBold,
+    fontSize: 15,
+    color: '#FFF',
+  },
+  cardTitleWrap: {
+    flex: 1,
+    gap: 2,
   },
   cardTitle: {
-    flex: 1,
+    fontFamily: fonts.serifBold,
+    fontSize: 17,
     color: colors.text,
-    fontFamily: fonts.bold,
-    fontSize: 18,
+    letterSpacing: -0.3,
+    lineHeight: 22,
+  },
+  cardSubtitle: {
+    fontFamily: fonts.bodyMedium,
+    fontSize: 12,
+    color: colors.textMuted,
+    letterSpacing: 0.1,
+  },
+  cardImageWrap: {
+    backgroundColor: colors.primaryMist + '55',
+    borderRadius: radius.md,
+    paddingVertical: spacing.sm + 2,
+    paddingHorizontal: spacing.sm,
+    borderWidth: 1,
+    borderColor: colors.borderLight,
   },
   cardImage: {
     width: '100%',
-    height: 140,
+    height: 130,
   },
-  metaRow: {
+  cardMetaRow: {
     flexDirection: 'row',
-    flexWrap: 'wrap',
     gap: spacing.sm,
   },
+
+  // ── Chip (mirrors How's Fishing chip rhythm) ──────────────────
   chip: {
+    flex: 1,
     paddingHorizontal: spacing.sm,
-    paddingVertical: spacing.xs,
-    borderRadius: radius.md,
+    paddingVertical: spacing.xs + 2,
+    borderRadius: radius.sm,
     borderWidth: 1,
-    borderColor: colors.border,
-    backgroundColor: colors.background,
+    borderColor: colors.borderLight,
+    backgroundColor: colors.backgroundAlt,
     gap: 2,
+    alignItems: 'flex-start',
   },
   chipLabel: {
-    color: colors.textSecondary,
-    fontFamily: fonts.medium,
-    fontSize: 11,
+    fontFamily: fonts.bodyBold,
+    fontSize: 9,
+    color: colors.textMuted,
     textTransform: 'uppercase',
-    letterSpacing: 0.5,
+    letterSpacing: 0.8,
   },
   chipValue: {
-    color: colors.text,
-    fontFamily: fonts.medium,
+    fontFamily: fonts.bodySemiBold,
     fontSize: 13,
+    color: colors.text,
+    letterSpacing: -0.1,
   },
-  reasonBox: {
-    gap: spacing.xs,
+
+  // ── Reason separator (mirrors How's Fishing reasonSep) ────────
+  reasonSep: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.sm,
+    marginTop: 2,
+    marginBottom: 2,
+  },
+  reasonSepLine: {
+    flex: 1,
+    height: 1,
+    backgroundColor: colors.borderLight,
+  },
+  reasonSepLabel: {
+    fontFamily: fonts.bodyBold,
+    fontSize: 10,
+    color: colors.textMuted,
+    textTransform: 'uppercase',
+    letterSpacing: 0.8,
+  },
+
+  // ── Reason block (mirrors How's Fishing tipCard accent bar) ───
+  reasonBlock: {
+    flexDirection: 'row',
+    gap: spacing.sm + 2,
+    alignItems: 'flex-start',
+  },
+  reasonBar: {
+    width: 3,
+    borderRadius: 2,
+    backgroundColor: colors.primary,
+    alignSelf: 'stretch',
+    minHeight: 20,
+    opacity: 0.7,
+  },
+  reasonBarSoft: {
+    backgroundColor: colors.primaryLight,
+    opacity: 0.55,
+  },
+  reasonBody: {
+    flex: 1,
+    gap: 2,
   },
   reasonLabel: {
+    fontFamily: fonts.bodyBold,
+    fontSize: 10,
     color: colors.primary,
-    fontFamily: fonts.bold,
-    fontSize: 13,
     textTransform: 'uppercase',
-    letterSpacing: 0.5,
+    letterSpacing: 1.0,
+  },
+  reasonLabelSoft: {
+    color: colors.primaryLight,
   },
   reasonText: {
-    color: colors.text,
-    fontFamily: fonts.regular,
+    fontFamily: fonts.body,
     fontSize: 14,
-    lineHeight: 20,
+    color: colors.text,
+    lineHeight: 21,
   },
 });

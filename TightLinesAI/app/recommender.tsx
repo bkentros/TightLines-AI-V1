@@ -268,15 +268,30 @@ function pressureTrendInfo(trend: string): { label: string; color: string } | nu
 
 // ─── Setup sub-components ─────────────────────────────────────────────────────
 
-/** Floats above each section card — step pill + guiding question */
-function StepQuestion({ step, label, question }: { step: number; label: string; question: string }) {
+/**
+ * Section header — matches the Dashboard `sectionDividerRow` language
+ * (line · icon · uppercase label · line) with a serif headline directly below.
+ * Keeps the builder rhythm aligned with the rest of the app.
+ */
+function SectionHeader({
+  step,
+  eyebrow,
+  title,
+}: {
+  step: number;
+  eyebrow: string;
+  title: string;
+}) {
   return (
-    <View style={styles.stepQuestion}>
-      <View style={styles.stepQuestionAccent} />
-      <View style={styles.stepQuestionBody}>
-        <Text style={styles.stepQuestionLabel}>{`0${step}  ·  ${label.toUpperCase()}`}</Text>
-        <Text style={styles.stepQuestionText}>{question}</Text>
+    <View style={styles.sectionHeader}>
+      <View style={styles.sectionEyebrowRow}>
+        <View style={styles.sectionEyebrowLine} />
+        <Text style={styles.sectionEyebrowStep}>{`STEP 0${step}`}</Text>
+        <View style={styles.sectionEyebrowDot} />
+        <Text style={styles.sectionEyebrowLabel}>{eyebrow}</Text>
+        <View style={styles.sectionEyebrowLine} />
       </View>
+      <Text style={styles.sectionTitle}>{title}</Text>
     </View>
   );
 }
@@ -793,7 +808,7 @@ export default function RecommenderScreen() {
         </Pressable>
 
         <Text style={styles.navTitle} numberOfLines={1} ellipsizeMode="tail">
-          Lure & Fly Recommender
+          What to Throw
         </Text>
 
         {/* Region pill — only in setup, right side */}
@@ -840,15 +855,17 @@ export default function RecommenderScreen() {
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps="handled"
         >
-          {/* Hero headline */}
+          {/* Hero headline — mirrors Dashboard brand row rhythm */}
           <View style={styles.heroHeader}>
-            <View style={styles.heroAccent}>
-              <View style={styles.heroAccentLine} />
-              <Ionicons name="fish-outline" size={13} color={colors.primary} />
-              <View style={styles.heroAccentLine} />
+            <View style={styles.heroBadge}>
+              <Ionicons name="sparkles" size={11} color={colors.primary} />
+              <Text style={styles.heroBadgeText}>Lure & Fly Recommender</Text>
             </View>
             <Text style={styles.heroTitle}>
-              {"Pick the right lure or fly\nfor where you’re fishing now."}
+              Pick the right lure or fly
+            </Text>
+            <Text style={styles.heroSubtitle}>
+              Tailored to today's conditions and your water.
             </Text>
           </View>
 
@@ -862,17 +879,8 @@ export default function RecommenderScreen() {
             </View>
           )}
 
-          {/* Decorative bridge — separates hero from the step cards */}
-          <View style={styles.sectionBridge}>
-            <View style={styles.sectionBridgeLine} />
-            <Ionicons name="fish-outline" size={12} color={colors.primary + '70'} />
-            <Text style={styles.sectionBridgeText}>3 quick questions</Text>
-            <Ionicons name="fish-outline" size={12} color={colors.primary + '70'} style={{ transform: [{ scaleX: -1 }] }} />
-            <View style={styles.sectionBridgeLine} />
-          </View>
-
           {/* 01 — Target Species */}
-          <StepQuestion step={1} label="Target Species" question="Click your target species." />
+          <SectionHeader step={1} eyebrow="Target Species" title="What are you after?" />
           <View style={styles.sectionCard}>
             <SpeciesGrid
               allOptions={allSpeciesForState}
@@ -891,7 +899,7 @@ export default function RecommenderScreen() {
           </View>
 
           {/* 02 — Body of Water */}
-          <StepQuestion step={2} label="Body of Water" question="Where are you fishing today?" />
+          <SectionHeader step={2} eyebrow="Body of Water" title="Where are you fishing?" />
           <View style={styles.sectionCard}>
             <ContextSelector
               allOptions={allContextsForState}
@@ -908,7 +916,7 @@ export default function RecommenderScreen() {
           </View>
 
           {/* 03 — Water Clarity */}
-          <StepQuestion step={3} label="Water Clarity" question="How's the water looking today?" />
+          <SectionHeader step={3} eyebrow="Water Clarity" title="How's the water today?" />
           <View style={styles.sectionCard}>
             <ClaritySelector
               selected={clarity}
@@ -918,28 +926,30 @@ export default function RecommenderScreen() {
           </View>
 
           {/* CTA */}
-          <Pressable
-            style={({ pressed }) => [
-              styles.ctaBtn,
-              { backgroundColor: isReady ? accentColor : colors.disabled },
-              isReady && shadows.md,
-              Platform.OS === 'ios' && pressed && isReady && { opacity: 0.92 },
-            ]}
-            disabled={!isReady}
-            onPress={() => {
-              if (!isReady) return;
-              hapticImpact(ImpactFeedbackStyle.Medium);
-              handleFetch(false);
-            }}
-            android_ripple={isReady ? { color: 'rgba(255,255,255,0.25)' } : undefined}
-          >
-            <Text style={styles.ctaBtnText}>Build plan</Text>
-            <Ionicons name="arrow-forward" size={18} color="#fff" />
-          </Pressable>
+          <View style={styles.ctaWrap}>
+            <Pressable
+              style={({ pressed }) => [
+                styles.ctaBtn,
+                { backgroundColor: isReady ? accentColor : colors.disabled },
+                isReady && shadows.md,
+                Platform.OS === 'ios' && pressed && isReady && { opacity: 0.92 },
+              ]}
+              disabled={!isReady}
+              onPress={() => {
+                if (!isReady) return;
+                hapticImpact(ImpactFeedbackStyle.Medium);
+                handleFetch(false);
+              }}
+              android_ripple={isReady ? { color: 'rgba(255,255,255,0.25)' } : undefined}
+            >
+              <Text style={styles.ctaBtnText}>Build plan</Text>
+              <Ionicons name="arrow-forward" size={18} color="#fff" />
+            </Pressable>
 
-          <Text style={styles.setupDisclaimer}>
-            Lure and fly recommendations are based around your location&apos;s seasonal characteristics, influence from daily conditions, and water clarity.
-          </Text>
+            <Text style={styles.setupDisclaimer}>
+              Recommendations are based on your location's seasonal baseline, today's conditions, and water clarity.
+            </Text>
+          </View>
         </ScrollView>
       )}
 
@@ -1043,10 +1053,10 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   setupContent: {
-    paddingHorizontal: spacing.md,
+    paddingHorizontal: 20,
     paddingTop: spacing.sm,
-    paddingBottom: 64,
-    gap: 14,
+    paddingBottom: spacing.xxl,
+    gap: spacing.md,
   },
 
   // Region pill (in nav header)
@@ -1059,57 +1069,73 @@ const styles = StyleSheet.create({
     borderRadius: radius.full,
     backgroundColor: colors.surface,
     borderWidth: 1,
-    borderColor: colors.borderLight,
+    borderColor: colors.border,
   },
   regionPillText: {
-    fontFamily: fonts.bodySemiBold,
-    fontSize: 12,
-    color: colors.primaryLight,
+    fontFamily: fonts.bodyBold,
+    fontSize: 11,
+    color: colors.primary,
+    letterSpacing: 0.4,
   },
 
-  // Hero headline
+  // Hero headline — Dashboard heroCard language
   heroHeader: {
     alignItems: 'center',
-    paddingHorizontal: spacing.sm,
-    paddingTop: spacing.xs,
-    paddingBottom: 4,
-    gap: 10,
+    paddingTop: spacing.sm,
+    paddingBottom: spacing.xs,
+    gap: spacing.xs + 2,
   },
-  heroAccent: {
+  heroBadge: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
+    gap: 5,
+    backgroundColor: colors.primaryMist,
+    paddingHorizontal: spacing.sm + 2,
+    paddingVertical: 4,
+    borderRadius: radius.full,
+    marginBottom: spacing.xs,
   },
-  heroAccentLine: {
-    flex: 1,
-    height: 1,
-    backgroundColor: colors.primaryMistDark,
-    maxWidth: 44,
+  heroBadgeText: {
+    fontFamily: fonts.bodySemiBold,
+    fontSize: 11,
+    color: colors.primary,
+    letterSpacing: 0.3,
   },
   heroTitle: {
     fontFamily: fonts.serifBold,
-    fontSize: 24,
+    fontSize: 26,
     color: colors.text,
     textAlign: 'center',
     lineHeight: 32,
-    letterSpacing: -0.4,
+    letterSpacing: -0.5,
+  },
+  heroSubtitle: {
+    fontFamily: fonts.bodyItalic,
+    fontSize: 14,
+    color: colors.textMuted,
+    textAlign: 'center',
+    lineHeight: 20,
+    letterSpacing: 0.1,
   },
 
-  // Warning
+  // Warning — soft alert matching the Dashboard tint system
   warningBanner: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
+    gap: spacing.sm,
     backgroundColor: colors.reportScoreYellowBg,
-    borderRadius: radius.lg,
+    borderRadius: radius.md,
     paddingHorizontal: spacing.md,
-    paddingVertical: spacing.sm,
+    paddingVertical: spacing.sm + 2,
+    borderWidth: 1,
+    borderColor: colors.reportScoreYellow + '22',
   },
   warningText: {
     flex: 1,
-    fontFamily: fonts.body,
+    fontFamily: fonts.bodyMedium,
     fontSize: 13,
     color: colors.reportScoreYellow,
+    lineHeight: 18,
   },
 
   // Off-screen image preloader
@@ -1125,138 +1151,86 @@ const styles = StyleSheet.create({
     height: 1,
   },
 
-  // Page title
-  pageTitle: {
-    fontFamily: fonts.serifBold,
-    fontSize: 26,
-    color: colors.text,
-    letterSpacing: -0.5,
-    textAlign: 'center',
-    marginBottom: -4,
-  },
-
-  // Section card — each step gets its own floating white card
+  // Section card — calm white surface, matching Dashboard heroCard / How's Fishing card
   sectionCard: {
     backgroundColor: colors.surface,
-    borderRadius: radius.xl,
-    padding: spacing.md,
-    gap: 10,
-    borderWidth: 1.5,
-    borderColor: colors.primary + '55',
-    shadowColor: '#253D2C',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.05,
-    shadowRadius: 12,
-    elevation: 2,
+    borderRadius: radius.lg,
+    padding: spacing.md + 2,
+    gap: spacing.sm + 2,
+    borderWidth: 1,
+    borderColor: colors.border,
+    ...shadows.md,
   },
 
-  // Decorative bridge between hero and section cards
-  sectionBridge: {
+  // Section header — Dashboard sectionDividerRow + serif title below
+  sectionHeader: {
+    gap: spacing.xs + 2,
+    marginTop: spacing.sm,
+    marginBottom: -spacing.xs,
+    paddingHorizontal: 2,
+  },
+  sectionEyebrowRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
-    paddingVertical: 4,
-    paddingHorizontal: 4,
+    gap: 6,
   },
-  sectionBridgeLine: {
+  sectionEyebrowLine: {
     flex: 1,
     height: 1,
     backgroundColor: colors.borderLight,
   },
-  sectionBridgeText: {
-    fontFamily: fonts.body,
-    fontSize: 11,
-    color: colors.textMuted,
-    letterSpacing: 0.6,
-    textTransform: 'uppercase' as const,
-  },
-
-  // Step question — floats above each section card
-  stepQuestion: {
-    flexDirection: 'row',
-    alignItems: 'stretch',
-    gap: 11,
-    paddingHorizontal: 2,
-    marginBottom: -4,
-  },
-  stepQuestionAccent: {
-    width: 3,
-    borderRadius: 99,
-    backgroundColor: colors.primary,
-  },
-  stepQuestionBody: {
-    gap: 3,
-    paddingVertical: 2,
-  },
-  stepQuestionLabel: {
+  sectionEyebrowStep: {
     fontFamily: fonts.bodyBold,
     fontSize: 10,
-    color: colors.primaryLight,
+    color: colors.primary,
     letterSpacing: 1.4,
-    textTransform: 'uppercase' as const,
   },
-  stepQuestionText: {
+  sectionEyebrowDot: {
+    width: 3,
+    height: 3,
+    borderRadius: 99,
+    backgroundColor: colors.primary + '55',
+  },
+  sectionEyebrowLabel: {
+    fontFamily: fonts.bodyBold,
+    fontSize: 10,
+    color: colors.textMuted,
+    letterSpacing: 1.4,
+    textTransform: 'uppercase',
+  },
+  sectionTitle: {
     fontFamily: fonts.serifBold,
-    fontSize: 19,
+    fontSize: 20,
     color: colors.text,
     letterSpacing: -0.3,
-    lineHeight: 24,
-  },
-
-  // Sections
-  sectionLabelRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 10,
-  },
-  sectionStep: {
-    fontFamily: fonts.bodyBold,
-    fontSize: 16,
-    color: colors.primaryDark,
-    letterSpacing: 0.5,
-  },
-  sectionLabelDivider: {
-    width: 1.5,
-    height: 15,
-    backgroundColor: colors.primaryMistDark,
-  },
-  sectionLabel: {
-    fontFamily: fonts.bodyBold,
-    fontSize: 14,
-    color: colors.primaryDark,
-    letterSpacing: 1.6,
+    lineHeight: 26,
+    textAlign: 'center',
   },
 
   // Species grid
   speciesGrid: {
-    gap: 10,
+    gap: spacing.sm + 2,
   },
   speciesRow: {
     flexDirection: 'row',
-    gap: 10,
+    gap: spacing.sm + 2,
   },
-  // No fixed height — card auto-sizes to fishAreaHeight (inline) + footer
+  // Selection tiles — unified treatment across species, context, clarity
   speciesCard: {
     flex: 1,
-    borderRadius: radius.xl,
+    borderRadius: radius.md,
     backgroundColor: colors.background,
     overflow: 'hidden',
-    borderWidth: 1.5,
-    borderColor: colors.borderLight,
-    shadowColor: '#253D2C',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.07,
-    shadowRadius: 10,
-    elevation: 2,
+    borderWidth: 1,
+    borderColor: colors.border,
+    ...shadows.sm,
   },
   speciesCardActive: {
     borderColor: colors.primary,
     borderWidth: 2,
-    shadowOpacity: 0.14,
-    shadowRadius: 16,
-    elevation: 4,
+    backgroundColor: colors.primaryMist,
+    ...shadows.md,
   },
-  // width: '100%' + explicit height (set inline from prop) = reliable image sizing in RN
   speciesFishArea: {
     width: '100%',
   },
@@ -1266,36 +1240,32 @@ const styles = StyleSheet.create({
   },
   speciesNameFooter: {
     backgroundColor: colors.surface,
-    paddingHorizontal: 14,
-    paddingVertical: 13,
+    paddingHorizontal: spacing.sm + 4,
+    paddingVertical: spacing.sm + 4,
     alignItems: 'center',
     borderTopWidth: 1,
     borderTopColor: colors.borderLight,
   },
   speciesCardText: {
     fontFamily: fonts.bodySemiBold,
-    fontSize: 15,
+    fontSize: 14,
     color: colors.text,
     textAlign: 'center',
+    letterSpacing: -0.1,
   },
   speciesCheckBadge: {
     position: 'absolute',
-    top: 10,
-    right: 10,
-    width: 26,
-    height: 26,
+    top: spacing.sm,
+    right: spacing.sm,
+    width: 24,
+    height: 24,
     borderRadius: 99,
     backgroundColor: colors.primary,
     alignItems: 'center',
     justifyContent: 'center',
-    shadowColor: '#253D2C',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
-    elevation: 2,
+    ...shadows.sm,
   },
-  // Shared disabled overlay — grey hue over species and water-type cards
-  // when they are incompatible with the current selection.
+  // Shared disabled overlay — soft mint tint over incompatible cards
   cardDisabledOverlay: {
     position: 'absolute',
     top: 0,
@@ -1303,28 +1273,23 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
     backgroundColor: 'rgba(180,195,183,0.52)',
-    borderRadius: radius.xl,
+    borderRadius: radius.md,
   },
 
-  // Body of Water — image cards (same pattern as species cards)
+  // Body of Water — same treatment as species tiles
   contextRow: {
     flexDirection: 'row',
-    gap: 10,
+    gap: spacing.sm + 2,
   },
   contextCard: {
     flex: 1,
-    borderRadius: radius.xl,
+    borderRadius: radius.md,
     backgroundColor: colors.background,
     overflow: 'hidden',
-    borderWidth: 1.5,
-    borderColor: colors.borderLight,
-    shadowColor: '#253D2C',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.07,
-    shadowRadius: 8,
-    elevation: 2,
+    borderWidth: 1,
+    borderColor: colors.border,
+    ...shadows.sm,
   },
-  // aspectRatio: 1.5 matches the 600×400 (3:2) source images — ensures full image shows
   contextImageArea: {
     width: '100%',
     aspectRatio: 1.5,
@@ -1335,47 +1300,44 @@ const styles = StyleSheet.create({
   },
   contextNameFooter: {
     backgroundColor: colors.surface,
-    paddingHorizontal: 14,
-    paddingVertical: 11,
+    paddingHorizontal: spacing.sm + 4,
+    paddingVertical: spacing.sm + 2,
     alignItems: 'center',
     borderTopWidth: 1,
     borderTopColor: colors.borderLight,
   },
   contextCardText: {
-    fontFamily: fonts.bodyMedium,
-    fontSize: 15,
+    fontFamily: fonts.bodySemiBold,
+    fontSize: 14,
     color: colors.text,
+    letterSpacing: -0.1,
   },
   contextCheckBadge: {
     position: 'absolute',
-    top: 8,
-    right: 8,
-    width: 24,
-    height: 24,
+    top: spacing.sm,
+    right: spacing.sm,
+    width: 22,
+    height: 22,
     borderRadius: 99,
     alignItems: 'center',
     justifyContent: 'center',
+    ...shadows.sm,
   },
 
-  // Water clarity — image cards (3-col)
+  // Water clarity — 3-col, same treatment as species/context tiles
   clarityRow: {
     flexDirection: 'row',
-    gap: 10,
+    gap: spacing.sm + 2,
   },
   clarityCard: {
     flex: 1,
-    borderRadius: radius.xl,
+    borderRadius: radius.md,
     backgroundColor: colors.background,
     overflow: 'hidden',
-    borderWidth: 1.5,
-    borderColor: colors.borderLight,
-    shadowColor: '#253D2C',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.07,
-    shadowRadius: 8,
-    elevation: 2,
+    borderWidth: 1,
+    borderColor: colors.border,
+    ...shadows.sm,
   },
-  // cover for underwater scenes — fills the card nicely for tall-ish crops
   clarityImageArea: {
     width: '100%',
     aspectRatio: 1.2,
@@ -1386,32 +1348,35 @@ const styles = StyleSheet.create({
   },
   clarityNameFooter: {
     backgroundColor: colors.surface,
-    paddingHorizontal: 8,
-    paddingVertical: 9,
+    paddingHorizontal: spacing.sm,
+    paddingVertical: spacing.sm,
     alignItems: 'center',
     borderTopWidth: 1,
     borderTopColor: colors.borderLight,
-    gap: 1,
+    gap: 2,
   },
   clarityCardTitle: {
     fontFamily: fonts.bodySemiBold,
     fontSize: 13,
+    letterSpacing: -0.1,
   },
   clarityCardSub: {
     fontFamily: fonts.body,
     fontSize: 10,
     color: colors.textMuted,
     textAlign: 'center',
+    letterSpacing: 0.1,
   },
   clarityCheck: {
     position: 'absolute',
     top: 6,
     right: 6,
-    width: 18,
-    height: 18,
+    width: 20,
+    height: 20,
     borderRadius: 99,
     alignItems: 'center',
     justifyContent: 'center',
+    ...shadows.sm,
   },
 
   // Validation note
@@ -1422,39 +1387,33 @@ const styles = StyleSheet.create({
     lineHeight: 18,
   },
 
-  // Inline hint above CTA
-  setupHint: {
-    fontFamily: fonts.body,
-    fontSize: 13,
-    color: colors.textMuted,
-    textAlign: 'center',
-    lineHeight: 19,
-    marginTop: -4,
+  // CTA — matches How's Fishing generateBtn (rounded md, shadow md)
+  ctaWrap: {
+    marginTop: spacing.sm,
+    gap: spacing.sm + 2,
   },
-
-  // CTA — pill shaped, taller, premium
   ctaBtn: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 10,
-    paddingVertical: 19,
-    borderRadius: radius.full,
+    gap: spacing.sm,
+    paddingVertical: spacing.md,
+    borderRadius: radius.md,
+    minHeight: 54,
   },
   ctaBtnText: {
-    fontFamily: fonts.bodySemiBold,
-    fontSize: 17,
-    color: '#fff',
+    fontFamily: fonts.bodyBold,
+    fontSize: 16,
+    color: colors.textOnPrimary,
     letterSpacing: 0.2,
   },
   setupDisclaimer: {
-    fontFamily: fonts.bodySemiBold,
+    fontFamily: fonts.body,
     fontSize: 12,
-    color: colors.primaryDark,
+    color: colors.textMuted,
     textAlign: 'center',
     lineHeight: 18,
     paddingHorizontal: spacing.sm,
-    marginTop: -2,
   },
 
   // Loading / error
