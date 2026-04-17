@@ -122,12 +122,12 @@ function toSeasonalRow(
   month: number,
   core: AuthoredSeasonalCore,
 ): RecommenderV3SeasonalRow {
-  const typicalColumn = resolveSmallmouthSeasonalWaterColumn(
-    region_key,
-    context,
-    month,
-    core,
-  );
+  // Optional authoring override bypasses the region-month resolver (e.g. the
+  // smallmouth spawn-window +1 shift). Use only when a specific cell needs to
+  // expose the full column window directly — see
+  // `docs/audits/recommender-v3/_correction_plan.md` §2.2.
+  const typicalColumn = core.typical_seasonal_water_column_override ??
+    resolveSmallmouthSeasonalWaterColumn(region_key, context, month, core);
   const typicalLocation = resolveSmallmouthSeasonalLocation(
     context,
     month,
@@ -1538,7 +1538,25 @@ addMonths(["midwest_interior"], "freshwater_river", [7, 8], {
   viable_lure_archetypes: MIDWEST_DIRTY_SUMMER_RIVER_LURES,
   viable_fly_archetypes: MIDWEST_DIRTY_SUMMER_RIVER_FLIES,
 });
-addMonths(["great_lakes_upper_midwest"], "freshwater_river", [7, 8], {
+// July GLUM river is split out so a post-front bluebird day can shift the
+// daily pace preference to `slow`. Base mood is `neutral` (allowed paces
+// = [slow, medium, fast], preference = [medium, slow, fast]) which preserves
+// the normal medium/fast read while unlocking slow as a daily-shift
+// destination for post-front / heat-stall days. See
+// `docs/audits/recommender-v3/_correction_plan.md` §2.1.
+addMonths(["great_lakes_upper_midwest"], "freshwater_river", [7], {
+  surface_seasonally_possible: true,
+  base_water_column: "mid",
+  base_mood: "neutral",
+  base_presentation_style: "leaning_subtle",
+  primary_forage: "baitfish",
+  secondary_forage: "crawfish",
+  primary_lure_archetypes: ["tube_jig", "suspending_jerkbait"],
+  primary_fly_archetypes: ["clouser_minnow", "muddler_sculpin"],
+  viable_lure_archetypes: GREAT_LAKES_CLEAR_SUMMER_RIVER_LURES,
+  viable_fly_archetypes: GREAT_LAKES_CLEAR_SUMMER_RIVER_FLIES,
+});
+addMonths(["great_lakes_upper_midwest"], "freshwater_river", [8], {
   surface_seasonally_possible: true,
   base_water_column: "mid",
   base_mood: "active",
@@ -1672,11 +1690,24 @@ addMonths(WESTERN_MIXED_REGIONS, "freshwater_river", [6, 7, 8, 9], {
   viable_lure_archetypes: SUMMER_RIVER_LURES,
   viable_fly_archetypes: SUMMER_RIVER_FLIES,
 });
+// Mountain-west smallmouth in June covers a wide transition window:
+// late/cold snowmelt runoff, post-spawn recovery, and high-sun post-front
+// edges all happen in the same month. The row is intentionally authored to
+// expose all three axes across their full range so the daily-shift layer can
+// pick either a cold-water finesse read (bottom/slow/subtle, e.g. `ned_rig`)
+// or a post-front aggressive read (upper-mid/medium-fast/bold, e.g.
+// `inline_spinner`) depending on conditions. `typical_seasonal_water_column`
+// is pinned to `mid` (full 4-column allowed window with surface open) via the
+// optional override so the spawn-window +1 shift doesn't clamp the row up
+// and out of the bottom lane. See
+// `docs/audits/recommender-v3/_correction_plan.md` §2.2 and
+// `docs/audits/recommender-v3/_lane_fit_diagnostics.md`.
 addMonths(["mountain_west"], "freshwater_river", [6], {
   surface_seasonally_possible: true,
-  base_water_column: "shallow",
-  base_mood: "active",
-  base_presentation_style: "leaning_bold",
+  base_water_column: "mid",
+  typical_seasonal_water_column_override: "mid",
+  base_mood: "neutral",
+  base_presentation_style: "balanced",
   primary_forage: "baitfish",
   secondary_forage: "crawfish",
   primary_lure_archetypes: ["soft_jerkbait", "inline_spinner"],

@@ -857,7 +857,25 @@ addMonths(MOUNTAIN_REGIONS, "freshwater_river", [9, 10, 11], {
 // --- Targeted matrix / overlay refinements (applied after biome baselines above) ---
 
 // Rainy River (great_lakes_upper_midwest river): current-seam jerk + bulk through summer; late fall without inline hijack.
-addMonths(["great_lakes_upper_midwest"], "freshwater_river", [6, 7], {
+// June is split out so presence preference leads with moderate/bold and keeps
+// subtle as a secondary fallback — stained-water post-spawn pike on weed
+// edges want flash/displacement first, with a subtle option available for
+// lockjaw days. Style `balanced_leaning_bold` gives allowed_presence =
+// [subtle, moderate, bold] and preference order moderate → bold → subtle.
+// See `docs/audits/recommender-v3/_correction_plan.md` §2.3.
+addMonths(["great_lakes_upper_midwest"], "freshwater_river", [6], {
+  surface_seasonally_possible: true,
+  base_water_column: "mid",
+  base_mood: "neutral_subtle",
+  base_presentation_style: "balanced_leaning_bold",
+  primary_forage: "baitfish",
+  secondary_forage: "bluegill_perch",
+  primary_lure_archetypes: ["pike_jerkbait", "large_profile_pike_swimbait", "spinnerbait"],
+  primary_fly_archetypes: ["large_articulated_pike_streamer", "pike_bunny_streamer", "articulated_baitfish_streamer"],
+  viable_lure_archetypes: GLUM_SUMMER_RIVER_LURES,
+  viable_fly_archetypes: SUMMER_PEAK_STRATIFIED_RIVER_FLIES,
+});
+addMonths(["great_lakes_upper_midwest"], "freshwater_river", [7], {
   surface_seasonally_possible: true,
   base_water_column: "mid",
   base_mood: "neutral_subtle",

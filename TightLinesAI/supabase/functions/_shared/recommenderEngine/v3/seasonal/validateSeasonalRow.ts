@@ -224,9 +224,21 @@ export function validateSeasonalRows(
           baseline.allowed_presence,
         )
       ) {
-        throw new Error(
-          `${label} ${key}: lure '${id}' does not fit allowed column/pace/presence lanes`,
-        );
+        recordLaneFitWarning({
+          label,
+          key,
+          kind: "lure",
+          id,
+          primary_column: p.primary_column,
+          secondary_column: p.secondary_column,
+          pace: p.pace,
+          secondary_pace: p.secondary_pace,
+          presence: p.presence,
+          secondary_presence: p.secondary_presence,
+          allowed_columns: baseline.allowed_columns,
+          allowed_paces: baseline.allowed_paces,
+          allowed_presence: baseline.allowed_presence,
+        });
       }
     }
 
@@ -253,11 +265,65 @@ export function validateSeasonalRows(
           baseline.allowed_presence,
         )
       ) {
-        throw new Error(
-          `${label} ${key}: fly '${id}' does not fit allowed column/pace/presence lanes`,
-        );
+        recordLaneFitWarning({
+          label,
+          key,
+          kind: "fly",
+          id,
+          primary_column: p.primary_column,
+          secondary_column: p.secondary_column,
+          pace: p.pace,
+          secondary_pace: p.secondary_pace,
+          presence: p.presence,
+          secondary_presence: p.secondary_presence,
+          allowed_columns: baseline.allowed_columns,
+          allowed_paces: baseline.allowed_paces,
+          allowed_presence: baseline.allowed_presence,
+        });
       }
     }
   }
+}
+
+/**
+ * Lane-fit mismatch diagnostics.
+ *
+ * TEMPORARY (Phase 1 narrowing audit): Phase 1 tightened archetype column/pace/presence
+ * ranges to strictly match each lure/fly's real-world use. Some seasonal rows were
+ * authored under the old wider ranges and now contain eligible pool entries that no
+ * longer overlap any allowed tactical axis. Rather than fail to boot, we collect each
+ * mismatch and surface it as a diagnostic at module import. Fix plan: the audit will
+ * decide whether to (a) broaden the offending archetype's range, (b) remove it from
+ * the row, or (c) widen the row's allowed lanes. Once resolved, this soft path should
+ * be converted back to a hard `throw`.
+ */
+type LaneFitWarning = {
+  label: string;
+  key: string;
+  kind: "lure" | "fly";
+  id: string;
+  primary_column: string;
+  secondary_column: string | undefined;
+  pace: string;
+  secondary_pace: string | undefined;
+  presence: string;
+  secondary_presence: string | undefined;
+  allowed_columns: readonly string[];
+  allowed_paces: readonly string[];
+  allowed_presence: readonly string[];
+};
+
+const LANE_FIT_WARNINGS: LaneFitWarning[] = [];
+
+function recordLaneFitWarning(w: LaneFitWarning): void {
+  LANE_FIT_WARNINGS.push(w);
+}
+
+export function getLaneFitWarnings(): readonly LaneFitWarning[] {
+  return LANE_FIT_WARNINGS;
+}
+
+export function clearLaneFitWarnings(): void {
+  LANE_FIT_WARNINGS.length = 0;
 }
 

@@ -36,40 +36,18 @@ function isWormHeavyCandidate(candidate: ScoredCandidate): boolean {
   return WORM_HEAVY_FAMILIES.has(candidate.profile.family_group);
 }
 
-function isSlowLane(profile: RecommenderV3ArchetypeProfile): boolean {
-  return profile.tactical_lane === "bottom_contact" ||
-    profile.tactical_lane === "finesse_subtle" ||
-    profile.tactical_lane === "fly_bottom";
-}
-
-function isSurfaceLane(profile: RecommenderV3ArchetypeProfile): boolean {
-  return profile.tactical_lane === "surface" || profile.tactical_lane === "fly_surface";
-}
-
-function lanePace(profile: RecommenderV3ArchetypeProfile): "slow" | "medium" | "fast" {
-  if (isSlowLane(profile)) return "slow";
-  if (
-    profile.tactical_lane === "reaction_mid_column" ||
-    isSurfaceLane(profile) ||
-    profile.tactical_lane === "pike_big_profile"
-  ) {
-    return "fast";
-  }
-  return "medium";
-}
-
 export function peerArchetypesCoherenceConflict(
   peer: RecommenderV3ArchetypeProfile,
   candidate: RecommenderV3ArchetypeProfile,
   daily: RecommenderV3DailyPayload,
   resolved: RecommenderV3ResolvedProfile,
 ): boolean {
-  const leadPace = lanePace(peer);
-  const candidatePace = lanePace(candidate);
-  const leadSurface = isSurfaceLane(peer);
-  const candidateSurface = isSurfaceLane(candidate);
-  const leadBottom = isSlowLane(peer);
-  const candidateBottom = isSlowLane(candidate);
+  const leadPace = peer.pace;
+  const candidatePace = candidate.pace;
+  const leadSurface = peer.is_surface;
+  const candidateSurface = candidate.is_surface;
+  const leadBottom = peer.primary_column === "bottom";
+  const candidateBottom = candidate.primary_column === "bottom";
 
   if (
     (leadSurface && candidateBottom) || (leadBottom && candidateSurface)
@@ -125,6 +103,11 @@ function changeupBonus(
   const usedPresence = new Set(selected.map((entry) => entry.profile.presence));
   let bonus = 0;
   if (!usedFamilies.has(candidate.profile.family_group)) bonus += 0.65;
+  // Lane-diversity term (cf. `docs/audits/recommender-v3/_correction_plan.md`
+  // §3.3). The asymmetric +0.3 reward / -0.15 penalty makes tactical-lane
+  // variety a meaningful trio signal alongside family-group variety, so the
+  // trio does not collapse to three picks from the same lane when their
+  // family_group differs but lane shape is identical.
   if (!usedLanes.has(candidate.profile.tactical_lane)) bonus += 0.3;
   if (!usedColumns.has(candidate.profile.primary_column)) bonus += 0.2;
   if (!usedPaces.has(candidate.profile.pace)) bonus += 0.15;
@@ -148,7 +131,7 @@ function changeupBonus(
   }
   if (
     resolved.daily_preference.surface_allowed_today &&
-    (candidate.profile.tactical_lane === "surface" || candidate.profile.tactical_lane === "fly_surface")
+    candidate.profile.is_surface
   ) {
     bonus += resolved.daily_preference.surface_window === "clean" ? 0.45 : 0.3;
   }

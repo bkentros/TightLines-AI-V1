@@ -1,30 +1,41 @@
+import {
+  TACTICAL_COLUMNS_V3,
+  TACTICAL_PACES_V3,
+  TACTICAL_PRESENCE_V3,
+} from "../contracts.ts";
 import type {
-  LegacyArchetypeWaterColumnV3,
+  ForageBucketV3,
   LureArchetypeIdV3,
-  MoodV3,
-  PresentationStyleV3,
   RecommenderV3ArchetypeProfile,
   RecommenderV3Species,
   TacticalColumnV3,
+  TacticalLaneV3,
   TacticalPaceV3,
   TacticalPresenceV3,
-  TacticalLaneV3,
-  ForageBucketV3,
 } from "../contracts.ts";
 
-type LegacyLureProfile = {
+/**
+ * Authored input for a lure archetype. The tactical ranges
+ * (`column_range`, `pace_range`, `presence_range`) are the single source
+ * of truth for how this tool behaves in the water. Primaries and
+ * secondaries on the resolved profile are derived from `range[0]` and
+ * `range[1]` respectively. `is_surface` is derived from the primary
+ * column being `"surface"`. See the recommender audit plan for the
+ * ordering convention (primary → legitimate secondary → occasional
+ * tertiary).
+ */
+type LureAuthoredProfile = {
   id: LureArchetypeIdV3;
   display_name: string;
-  gear_mode: "lure";
   family_key: string;
   top3_redundancy_key?: string;
-  preferred_water_columns: readonly LegacyArchetypeWaterColumnV3[];
-  preferred_moods: readonly MoodV3[];
-  preferred_presentation_styles: readonly PresentationStyleV3[];
+  column_range: readonly TacticalColumnV3[];
+  pace_range: readonly TacticalPaceV3[];
+  presence_range: readonly TacticalPresenceV3[];
   forage_matches: readonly ForageBucketV3[];
   clarity_strengths: readonly ("clear" | "stained" | "dirty")[];
   tactical_lane: TacticalLaneV3;
-  how_to_fish_text?: readonly [string, string, string];
+  how_to_fish_text: readonly [string, string, string];
 };
 
 const ALL_FRESHWATER_SPECIES: readonly RecommenderV3Species[] = [
@@ -45,14 +56,6 @@ const RIVER_AND_PIKE_SPECIES: readonly RecommenderV3Species[] = [
   "northern_pike",
   "trout",
 ] as const;
-
-const TRUE_SURFACE_IDS = new Set<LureArchetypeIdV3>([
-  "walking_topwater",
-  "popping_topwater",
-  "buzzbait",
-  "prop_bait",
-  "hollow_body_frog",
-]);
 
 const PIKE_ONLY_IDS = new Set<LureArchetypeIdV3>([
   "large_profile_pike_swimbait",
@@ -88,151 +91,145 @@ const CURRENT_FRIENDLY_IDS = new Set<LureArchetypeIdV3>([
   "prop_bait",
 ]);
 
-function mapColumn(
+function assertRangeShape<T extends string>(
+  archetypeId: string,
+  kind: "column" | "pace" | "presence",
+  range: readonly T[],
+  allowedValues: readonly T[],
+): void {
+  if (range.length < 1 || range.length > 3) {
+    throw new Error(
+      `[recommender v3] archetype "${archetypeId}" ${kind}_range must have 1-3 entries (got ${range.length}).`,
+    );
+  }
+  const seen = new Set<T>();
+  for (const value of range) {
+    if (!allowedValues.includes(value)) {
+      throw new Error(
+        `[recommender v3] archetype "${archetypeId}" ${kind}_range contains invalid entry "${value}".`,
+      );
+    }
+    if (seen.has(value)) {
+      throw new Error(
+        `[recommender v3] archetype "${archetypeId}" ${kind}_range has duplicate entry "${value}".`,
+      );
+    }
+    seen.add(value);
+  }
+}
+
+function assertColumnShape(
+  archetypeId: string,
+  range: readonly TacticalColumnV3[],
+): void {
+  assertRangeShape(archetypeId, "column", range, TACTICAL_COLUMNS_V3);
+  if (range[0] === "surface" && range.length !== 1) {
+    throw new Error(
+      `[recommender v3] archetype "${archetypeId}" column_range: when primary is "surface", range must be ["surface"] only.`,
+    );
+  }
+  for (let i = 1; i < range.length; i++) {
+    if (range[i] === "surface") {
+      throw new Error(
+        `[recommender v3] archetype "${archetypeId}" column_range: "surface" is only valid at index 0.`,
+      );
+    }
+  }
+}
+
+function resolveSpeciesAllowed(
   id: LureArchetypeIdV3,
-  column: LegacyArchetypeWaterColumnV3,
-): TacticalColumnV3 {
-  if (TRUE_SURFACE_IDS.has(id)) return "surface";
-  switch (column) {
-    case "top":
-    case "shallow":
-      return "upper";
-    case "mid":
-      return "mid";
-    case "bottom":
-    default:
-      return "bottom";
-  }
+): readonly RecommenderV3Species[] {
+  if (PIKE_ONLY_IDS.has(id)) return ["northern_pike"];
+  if (TROUT_AND_SMALLMOUTH_ONLY_IDS.has(id)) return RIVER_AND_PIKE_SPECIES;
+  if (WARMWATER_ONLY_IDS.has(id)) return BASS_AND_PIKE_SPECIES;
+  return ALL_FRESHWATER_SPECIES;
 }
 
-function mapPresence(style: PresentationStyleV3): TacticalPresenceV3 {
-  switch (style) {
-    case "subtle":
-      return "subtle";
-    case "bold":
-      return "bold";
-    case "balanced":
-    default:
-      return "moderate";
-  }
-}
-
-function defaultPaceFromLane(lane: TacticalLaneV3): TacticalPaceV3 {
-  switch (lane) {
-    case "bottom_contact":
-    case "finesse_subtle":
-      return "slow";
-    case "reaction_mid_column":
-    case "surface":
-    case "pike_big_profile":
-      return "fast";
-    case "horizontal_search":
-    case "cover_weedless":
-    default:
-      return "medium";
-  }
-}
-
-function secondaryPaceFromLegacy(
-  primary: TacticalPaceV3,
-  moods: readonly MoodV3[],
-): TacticalPaceV3 | undefined {
-  if (primary === "slow") {
-    return moods.includes("active") ? "medium" : undefined;
-  }
-  if (primary === "medium") {
-    if (moods.includes("negative")) return "slow";
-    if (moods.includes("active")) return "fast";
-    return undefined;
-  }
-  return moods.includes("neutral") || moods.includes("negative")
-    ? "medium"
-    : undefined;
-}
-
-function whyHooks(profile: LegacyLureProfile): readonly string[] {
+function whyHooks(profile: LureAuthoredProfile): readonly string[] {
   return [
     `${profile.display_name} matches a ${profile.tactical_lane.replaceAll("_", " ")} look.`,
     `${profile.display_name} stays in play when ${profile.forage_matches[0] ?? "the main forage"} is relevant.`,
   ];
 }
 
-function howToFishVariants(profile: LegacyLureProfile): readonly [string, string, string] {
-  return profile.how_to_fish_text ?? [
-    `Fish ${profile.display_name.toLowerCase()} around the day's preferred lane with a controlled retrieve.`,
-    `Keep ${profile.display_name.toLowerCase()} in the productive part of the zone and let the fish tell you whether to stay cleaner or more active.`,
-    `Work ${profile.display_name.toLowerCase()} where today's conditions make that lane easiest to fish cleanly.`,
-  ];
-}
+function lure(profile: LureAuthoredProfile): RecommenderV3ArchetypeProfile {
+  assertColumnShape(profile.id, profile.column_range);
+  assertRangeShape(profile.id, "pace", profile.pace_range, TACTICAL_PACES_V3);
+  assertRangeShape(
+    profile.id,
+    "presence",
+    profile.presence_range,
+    TACTICAL_PRESENCE_V3,
+  );
 
-function lure(
-  profile: LegacyLureProfile,
-): RecommenderV3ArchetypeProfile {
-  const columnOrder = profile.preferred_water_columns
-    .map((column) => mapColumn(profile.id, column))
-    .filter((value, index, array) => array.indexOf(value) === index);
-  const presenceOrder = profile.preferred_presentation_styles
-    .map((style) => mapPresence(style))
-    .filter((value, index, array) => array.indexOf(value) === index);
-  const primaryPace = defaultPaceFromLane(profile.tactical_lane);
+  const primaryColumn = profile.column_range[0]!;
+  const primaryPace = profile.pace_range[0]!;
+  const primaryPresence = profile.presence_range[0]!;
+
   return {
     id: profile.id,
     display_name: profile.display_name,
     gear_mode: "lure",
-    species_allowed: PIKE_ONLY_IDS.has(profile.id)
-      ? ["northern_pike"]
-      : TROUT_AND_SMALLMOUTH_ONLY_IDS.has(profile.id)
-      ? RIVER_AND_PIKE_SPECIES
-      : WARMWATER_ONLY_IDS.has(profile.id)
-      ? BASS_AND_PIKE_SPECIES
-      : ALL_FRESHWATER_SPECIES,
+    species_allowed: resolveSpeciesAllowed(profile.id),
     water_types_allowed: ["freshwater_lake_pond", "freshwater_river"],
     family_group: profile.top3_redundancy_key ?? profile.family_key,
-    primary_column: columnOrder[0] ?? "mid",
-    secondary_column: columnOrder[1],
+    column_range: profile.column_range,
+    pace_range: profile.pace_range,
+    presence_range: profile.presence_range,
+    primary_column: primaryColumn,
+    secondary_column: profile.column_range[1],
     pace: primaryPace,
-    secondary_pace: secondaryPaceFromLegacy(primaryPace, profile.preferred_moods),
-    presence: presenceOrder[0] ?? "moderate",
-    secondary_presence: presenceOrder[1],
-    is_surface: TRUE_SURFACE_IDS.has(profile.id),
+    secondary_pace: profile.pace_range[1],
+    presence: primaryPresence,
+    secondary_presence: profile.presence_range[1],
+    is_surface: primaryColumn === "surface",
     current_friendly: CURRENT_FRIENDLY_IDS.has(profile.id) ? true : undefined,
     forage_tags: profile.forage_matches,
     why_hooks: whyHooks(profile),
-    how_to_fish_variants: howToFishVariants(profile),
-    how_to_fish_template: howToFishVariants(profile)[0],
+    how_to_fish_variants: profile.how_to_fish_text,
+    how_to_fish_template: profile.how_to_fish_text[0],
     clarity_strengths: profile.clarity_strengths,
     tactical_lane: profile.tactical_lane,
   };
 }
 
-export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3ArchetypeProfile> = {
+export const LURE_ARCHETYPES_V3: Record<
+  LureArchetypeIdV3,
+  RecommenderV3ArchetypeProfile
+> = {
   weightless_stick_worm: lure({
     id: "weightless_stick_worm",
     display_name: "Weightless Stick Worm",
-    gear_mode: "lure",
     family_key: "stick_worm",
     top3_redundancy_key: "worm",
-    preferred_water_columns: ["shallow", "mid", "bottom"],
-    preferred_moods: ["negative", "neutral", "active"],
-    preferred_presentation_styles: ["subtle", "balanced"],
+    // Authored upper/mid/bottom: the bait's signature action is the slow,
+    // shimmying horizontal fall through the upper and middle column. It can
+    // legitimately reach bottom in shallow cover as a tertiary, but the lead
+    // technique is a fall-through retrieve, not a bottom drag.
+    column_range: ["upper", "mid", "bottom"],
+    pace_range: ["medium", "slow"],
+    presence_range: ["subtle", "moderate"],
     forage_matches: ["leech_worm"],
     clarity_strengths: ["clear", "stained", "dirty"],
     tactical_lane: "cover_weedless",
+    // Variants kept in the upper/mid fall-through zone consistent with
+    // primary_column=upper; bottom-drag prose previously here clashed with
+    // the archetype's authored column and with column hints.
     how_to_fish_text: [
-      "Pitch or flip into cover and let it fall straight; after the drop, drag it slowly along the bottom with minimal rod movement before repositioning.",
-      "Cast to cover and give it slack on the fall; if nothing bites, drag it along the bottom in slow sweeps and pause any time you feel resistance.",
-      "Work it through cover with slow drags and short lifts; the bait should be near the bottom most of the time — resist the urge to hop it aggressively.",
+      "Pitch or skip it tight to cover and let it glide on a slack line — most hits come on the slow shimmying fall through the upper column; reset after each fall and fish the next pocket.",
+      "Cast to shade lines and feed slack on the fall so the bait shimmies naturally through the upper/mid column; if it reaches cover without a bite, lift it free and re-pitch rather than dragging.",
+      "Work shallow cover with short pitches and slack-line falls; let the bait hang motionless for a beat after each fall, then lift and re-present — keep it in the fall zone, not on the bottom.",
     ],
   }),
   carolina_rigged_stick_worm: lure({
     id: "carolina_rigged_stick_worm",
     display_name: "Carolina-Rigged Stick Worm",
-    gear_mode: "lure",
     family_key: "stick_worm",
     top3_redundancy_key: "worm",
-    preferred_water_columns: ["mid", "bottom"],
-    preferred_moods: ["negative", "neutral"],
-    preferred_presentation_styles: ["subtle", "balanced"],
+    column_range: ["mid", "bottom"],
+    pace_range: ["slow"],
+    presence_range: ["subtle", "moderate"],
     forage_matches: ["leech_worm", "baitfish"],
     clarity_strengths: ["clear", "stained"],
     tactical_lane: "bottom_contact",
@@ -245,12 +242,11 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
   shaky_head_worm: lure({
     id: "shaky_head_worm",
     display_name: "Shaky-Head Worm",
-    gear_mode: "lure",
     family_key: "finesse_worm",
     top3_redundancy_key: "worm",
-    preferred_water_columns: ["mid", "bottom"],
-    preferred_moods: ["negative", "neutral"],
-    preferred_presentation_styles: ["subtle"],
+    column_range: ["mid", "bottom"],
+    pace_range: ["slow"],
+    presence_range: ["subtle"],
     forage_matches: ["leech_worm"],
     clarity_strengths: ["clear", "stained", "dirty"],
     tactical_lane: "bottom_contact",
@@ -263,12 +259,11 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
   drop_shot_worm: lure({
     id: "drop_shot_worm",
     display_name: "Drop-Shot Worm",
-    gear_mode: "lure",
     family_key: "drop_shot",
     top3_redundancy_key: "worm",
-    preferred_water_columns: ["mid", "bottom"],
-    preferred_moods: ["negative", "neutral"],
-    preferred_presentation_styles: ["subtle"],
+    column_range: ["mid", "bottom"],
+    pace_range: ["slow"],
+    presence_range: ["subtle"],
     forage_matches: ["leech_worm"],
     clarity_strengths: ["clear", "stained"],
     tactical_lane: "finesse_subtle",
@@ -281,11 +276,10 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
   drop_shot_minnow: lure({
     id: "drop_shot_minnow",
     display_name: "Drop-Shot Minnow",
-    gear_mode: "lure",
     family_key: "drop_shot",
-    preferred_water_columns: ["mid", "bottom"],
-    preferred_moods: ["negative", "neutral", "active"],
-    preferred_presentation_styles: ["subtle", "balanced"],
+    column_range: ["mid", "bottom"],
+    pace_range: ["slow", "medium"],
+    presence_range: ["subtle", "moderate"],
     forage_matches: ["baitfish"],
     clarity_strengths: ["clear", "stained"],
     tactical_lane: "finesse_subtle",
@@ -298,11 +292,10 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
   ned_rig: lure({
     id: "ned_rig",
     display_name: "Ned Rig",
-    gear_mode: "lure",
     family_key: "ned_rig",
-    preferred_water_columns: ["shallow", "mid", "bottom"],
-    preferred_moods: ["negative", "neutral"],
-    preferred_presentation_styles: ["subtle"],
+    column_range: ["upper", "mid", "bottom"],
+    pace_range: ["slow"],
+    presence_range: ["subtle"],
     forage_matches: ["crawfish", "leech_worm"],
     clarity_strengths: ["clear", "stained", "dirty"],
     tactical_lane: "bottom_contact",
@@ -315,11 +308,10 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
   tube_jig: lure({
     id: "tube_jig",
     display_name: "Tube Jig",
-    gear_mode: "lure",
     family_key: "tube",
-    preferred_water_columns: ["shallow", "mid", "bottom"],
-    preferred_moods: ["negative", "neutral", "active"],
-    preferred_presentation_styles: ["subtle", "balanced"],
+    column_range: ["upper", "mid", "bottom"],
+    pace_range: ["slow", "medium"],
+    presence_range: ["subtle", "moderate"],
     forage_matches: ["crawfish", "baitfish"],
     clarity_strengths: ["clear", "stained"],
     tactical_lane: "bottom_contact",
@@ -332,11 +324,10 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
   texas_rigged_soft_plastic_craw: lure({
     id: "texas_rigged_soft_plastic_craw",
     display_name: "Texas-Rigged Soft-Plastic Craw",
-    gear_mode: "lure",
     family_key: "soft_craw",
-    preferred_water_columns: ["bottom"],
-    preferred_moods: ["negative", "neutral", "active"],
-    preferred_presentation_styles: ["subtle", "balanced"],
+    column_range: ["bottom"],
+    pace_range: ["medium", "slow"],
+    presence_range: ["subtle", "moderate"],
     forage_matches: ["crawfish"],
     clarity_strengths: ["clear", "stained", "dirty"],
     tactical_lane: "cover_weedless",
@@ -349,11 +340,10 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
   football_jig: lure({
     id: "football_jig",
     display_name: "Football Jig",
-    gear_mode: "lure",
     family_key: "jig",
-    preferred_water_columns: ["mid", "bottom"],
-    preferred_moods: ["negative", "neutral", "active"],
-    preferred_presentation_styles: ["balanced", "bold"],
+    column_range: ["mid", "bottom"],
+    pace_range: ["slow", "medium"],
+    presence_range: ["moderate", "bold"],
     forage_matches: ["crawfish", "bluegill_perch"],
     clarity_strengths: ["clear", "stained", "dirty"],
     tactical_lane: "bottom_contact",
@@ -366,11 +356,10 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
   compact_flipping_jig: lure({
     id: "compact_flipping_jig",
     display_name: "Compact Flipping Jig",
-    gear_mode: "lure",
     family_key: "jig",
-    preferred_water_columns: ["shallow", "mid", "bottom"],
-    preferred_moods: ["negative", "neutral", "active"],
-    preferred_presentation_styles: ["balanced", "bold"],
+    column_range: ["upper", "mid", "bottom"],
+    pace_range: ["medium", "slow"],
+    presence_range: ["moderate", "bold"],
     forage_matches: ["crawfish", "bluegill_perch"],
     clarity_strengths: ["clear", "stained", "dirty"],
     tactical_lane: "cover_weedless",
@@ -383,11 +372,10 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
   finesse_jig: lure({
     id: "finesse_jig",
     display_name: "Finesse Jig",
-    gear_mode: "lure",
     family_key: "jig",
-    preferred_water_columns: ["shallow", "mid", "bottom"],
-    preferred_moods: ["negative", "neutral"],
-    preferred_presentation_styles: ["subtle", "balanced"],
+    column_range: ["upper", "mid", "bottom"],
+    pace_range: ["slow"],
+    presence_range: ["subtle", "moderate"],
     forage_matches: ["crawfish", "bluegill_perch"],
     clarity_strengths: ["clear", "stained"],
     tactical_lane: "bottom_contact",
@@ -400,11 +388,10 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
   swim_jig: lure({
     id: "swim_jig",
     display_name: "Swim Jig",
-    gear_mode: "lure",
     family_key: "jig",
-    preferred_water_columns: ["shallow", "mid"],
-    preferred_moods: ["neutral", "active"],
-    preferred_presentation_styles: ["balanced", "bold"],
+    column_range: ["upper", "mid"],
+    pace_range: ["medium", "fast"],
+    presence_range: ["moderate", "bold"],
     forage_matches: ["baitfish", "bluegill_perch"],
     clarity_strengths: ["clear", "stained", "dirty"],
     tactical_lane: "horizontal_search",
@@ -417,11 +404,10 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
   hair_jig: lure({
     id: "hair_jig",
     display_name: "Hair Jig",
-    gear_mode: "lure",
     family_key: "hair_jig",
-    preferred_water_columns: ["shallow", "mid", "bottom"],
-    preferred_moods: ["negative", "neutral", "active"],
-    preferred_presentation_styles: ["subtle", "balanced"],
+    column_range: ["upper", "mid", "bottom"],
+    pace_range: ["slow", "medium"],
+    presence_range: ["subtle", "moderate"],
     forage_matches: ["baitfish", "leech_worm", "crawfish"],
     clarity_strengths: ["clear", "stained"],
     tactical_lane: "finesse_subtle",
@@ -434,28 +420,30 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
   inline_spinner: lure({
     id: "inline_spinner",
     display_name: "Inline Spinner",
-    gear_mode: "lure",
     family_key: "spinner",
-    preferred_water_columns: ["shallow", "mid"],
-    preferred_moods: ["neutral", "active"],
-    preferred_presentation_styles: ["balanced", "bold"],
+    column_range: ["upper", "mid"],
+    pace_range: ["medium", "fast"],
+    presence_range: ["moderate", "bold"],
     forage_matches: ["baitfish", "insect_misc"],
     clarity_strengths: ["clear", "stained"],
     tactical_lane: "horizontal_search",
+    // All three variants stay inside the authored mid/upper column so copy
+    // never contradicts the archetype's lane. The prior variant[1] told
+    // anglers to "slow-roll near bottom", which read as a bottom-contact
+    // technique and clashed with both primary_column=mid and column hints.
     how_to_fish_text: [
       "Cast and retrieve at a steady clip just fast enough to keep the blade spinning; vary depth with rod angle and speed to find the feeding zone.",
-      "Use a slow-roll retrieve near bottom or cover edges; occasionally bump into structure to trigger reaction strikes.",
+      "Cast parallel to cover edges and retrieve with a steady pace that keeps the blade thumping; slow a half-beat near cover, then speed back up once it clears.",
       "Cast across current and let the blade flash on a quarter-downstream retrieve; speed up briefly after bumps or short strikes.",
     ],
   }),
   spinnerbait: lure({
     id: "spinnerbait",
     display_name: "Spinnerbait",
-    gear_mode: "lure",
     family_key: "spinnerbait",
-    preferred_water_columns: ["shallow", "mid"],
-    preferred_moods: ["neutral", "active"],
-    preferred_presentation_styles: ["balanced", "bold"],
+    column_range: ["upper", "mid"],
+    pace_range: ["medium", "fast"],
+    presence_range: ["moderate", "bold"],
     forage_matches: ["baitfish"],
     clarity_strengths: ["stained", "dirty"],
     tactical_lane: "horizontal_search",
@@ -468,11 +456,10 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
   bladed_jig: lure({
     id: "bladed_jig",
     display_name: "Bladed Jig",
-    gear_mode: "lure",
     family_key: "bladed_jig",
-    preferred_water_columns: ["shallow", "mid"],
-    preferred_moods: ["neutral", "active"],
-    preferred_presentation_styles: ["balanced", "bold"],
+    column_range: ["upper", "mid"],
+    pace_range: ["medium", "fast"],
+    presence_range: ["moderate", "bold"],
     forage_matches: ["baitfish", "bluegill_perch"],
     clarity_strengths: ["stained", "dirty"],
     tactical_lane: "horizontal_search",
@@ -485,11 +472,10 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
   paddle_tail_swimbait: lure({
     id: "paddle_tail_swimbait",
     display_name: "Paddle-Tail Swimbait",
-    gear_mode: "lure",
     family_key: "swimbait",
-    preferred_water_columns: ["shallow", "mid"],
-    preferred_moods: ["neutral", "active"],
-    preferred_presentation_styles: ["subtle", "balanced"],
+    column_range: ["upper", "mid"],
+    pace_range: ["medium", "fast"],
+    presence_range: ["subtle", "moderate"],
     forage_matches: ["baitfish", "bluegill_perch"],
     clarity_strengths: ["clear", "stained", "dirty"],
     tactical_lane: "horizontal_search",
@@ -502,11 +488,10 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
   soft_jerkbait: lure({
     id: "soft_jerkbait",
     display_name: "Soft Plastic Jerkbait",
-    gear_mode: "lure",
     family_key: "soft_jerkbait",
-    preferred_water_columns: ["top", "shallow", "mid"],
-    preferred_moods: ["neutral", "active"],
-    preferred_presentation_styles: ["subtle", "balanced"],
+    column_range: ["upper", "mid"],
+    pace_range: ["medium", "fast"],
+    presence_range: ["subtle", "moderate"],
     forage_matches: ["baitfish"],
     clarity_strengths: ["clear", "stained"],
     tactical_lane: "horizontal_search",
@@ -519,11 +504,10 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
   suspending_jerkbait: lure({
     id: "suspending_jerkbait",
     display_name: "Suspending Jerkbait",
-    gear_mode: "lure",
     family_key: "jerkbait",
-    preferred_water_columns: ["shallow", "mid"],
-    preferred_moods: ["negative", "neutral", "active"],
-    preferred_presentation_styles: ["subtle", "balanced"],
+    column_range: ["upper", "mid"],
+    pace_range: ["fast", "medium"],
+    presence_range: ["subtle", "moderate"],
     forage_matches: ["baitfish"],
     clarity_strengths: ["clear", "stained"],
     tactical_lane: "reaction_mid_column",
@@ -536,11 +520,10 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
   squarebill_crankbait: lure({
     id: "squarebill_crankbait",
     display_name: "Squarebill Crankbait",
-    gear_mode: "lure",
     family_key: "crankbait",
-    preferred_water_columns: ["shallow"],
-    preferred_moods: ["neutral", "active"],
-    preferred_presentation_styles: ["balanced", "bold"],
+    column_range: ["upper"],
+    pace_range: ["medium", "fast"],
+    presence_range: ["moderate", "bold"],
     forage_matches: ["baitfish", "crawfish", "bluegill_perch"],
     clarity_strengths: ["clear", "stained", "dirty"],
     tactical_lane: "horizontal_search",
@@ -553,11 +536,10 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
   flat_sided_crankbait: lure({
     id: "flat_sided_crankbait",
     display_name: "Flat-Sided Crankbait",
-    gear_mode: "lure",
     family_key: "crankbait",
-    preferred_water_columns: ["shallow", "mid"],
-    preferred_moods: ["negative", "neutral"],
-    preferred_presentation_styles: ["subtle", "balanced"],
+    column_range: ["upper", "mid"],
+    pace_range: ["fast", "medium"],
+    presence_range: ["subtle", "moderate"],
     forage_matches: ["baitfish", "crawfish"],
     clarity_strengths: ["clear", "stained"],
     tactical_lane: "reaction_mid_column",
@@ -570,11 +552,10 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
   medium_diving_crankbait: lure({
     id: "medium_diving_crankbait",
     display_name: "Medium-Diving Crankbait",
-    gear_mode: "lure",
     family_key: "crankbait",
-    preferred_water_columns: ["mid"],
-    preferred_moods: ["neutral", "active"],
-    preferred_presentation_styles: ["balanced", "bold"],
+    column_range: ["mid"],
+    pace_range: ["medium", "fast"],
+    presence_range: ["moderate", "bold"],
     forage_matches: ["baitfish", "crawfish"],
     clarity_strengths: ["clear", "stained", "dirty"],
     tactical_lane: "horizontal_search",
@@ -587,11 +568,10 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
   deep_diving_crankbait: lure({
     id: "deep_diving_crankbait",
     display_name: "Deep-Diving Crankbait",
-    gear_mode: "lure",
     family_key: "crankbait",
-    preferred_water_columns: ["mid", "bottom"],
-    preferred_moods: ["neutral", "active"],
-    preferred_presentation_styles: ["balanced", "bold"],
+    column_range: ["mid", "bottom"],
+    pace_range: ["medium", "fast"],
+    presence_range: ["moderate", "bold"],
     forage_matches: ["baitfish", "crawfish"],
     clarity_strengths: ["clear", "stained"],
     tactical_lane: "horizontal_search",
@@ -604,11 +584,10 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
   lipless_crankbait: lure({
     id: "lipless_crankbait",
     display_name: "Lipless Crankbait",
-    gear_mode: "lure",
     family_key: "lipless",
-    preferred_water_columns: ["shallow", "mid"],
-    preferred_moods: ["neutral", "active"],
-    preferred_presentation_styles: ["balanced", "bold"],
+    column_range: ["upper", "mid"],
+    pace_range: ["medium", "fast"],
+    presence_range: ["moderate", "bold"],
     forage_matches: ["baitfish", "crawfish"],
     clarity_strengths: ["stained", "dirty"],
     tactical_lane: "horizontal_search",
@@ -621,11 +600,10 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
   blade_bait: lure({
     id: "blade_bait",
     display_name: "Blade Bait",
-    gear_mode: "lure",
     family_key: "blade_bait",
-    preferred_water_columns: ["mid", "bottom"],
-    preferred_moods: ["negative", "neutral"],
-    preferred_presentation_styles: ["balanced", "bold"],
+    column_range: ["mid", "bottom"],
+    pace_range: ["fast", "medium"],
+    presence_range: ["moderate", "bold"],
     forage_matches: ["baitfish"],
     clarity_strengths: ["clear", "stained"],
     tactical_lane: "reaction_mid_column",
@@ -638,11 +616,10 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
   casting_spoon: lure({
     id: "casting_spoon",
     display_name: "Casting Spoon",
-    gear_mode: "lure",
     family_key: "spoon",
-    preferred_water_columns: ["mid"],
-    preferred_moods: ["neutral", "active"],
-    preferred_presentation_styles: ["balanced", "bold"],
+    column_range: ["mid"],
+    pace_range: ["fast", "medium"],
+    presence_range: ["moderate", "bold"],
     forage_matches: ["baitfish"],
     clarity_strengths: ["clear", "stained", "dirty"],
     tactical_lane: "reaction_mid_column",
@@ -655,12 +632,11 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
   walking_topwater: lure({
     id: "walking_topwater",
     display_name: "Walking Topwater",
-    gear_mode: "lure",
     family_key: "topwater",
     top3_redundancy_key: "open_topwater",
-    preferred_water_columns: ["top"],
-    preferred_moods: ["neutral", "active"],
-    preferred_presentation_styles: ["balanced", "bold"],
+    column_range: ["surface"],
+    pace_range: ["fast", "medium"],
+    presence_range: ["moderate", "bold"],
     forage_matches: ["baitfish", "bluegill_perch"],
     clarity_strengths: ["clear", "stained"],
     tactical_lane: "surface",
@@ -673,12 +649,11 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
   popping_topwater: lure({
     id: "popping_topwater",
     display_name: "Topwater Popper",
-    gear_mode: "lure",
     family_key: "topwater",
     top3_redundancy_key: "open_topwater",
-    preferred_water_columns: ["top"],
-    preferred_moods: ["neutral", "active"],
-    preferred_presentation_styles: ["balanced", "bold"],
+    column_range: ["surface"],
+    pace_range: ["fast", "medium"],
+    presence_range: ["moderate", "bold"],
     forage_matches: ["baitfish", "bluegill_perch"],
     clarity_strengths: ["clear", "stained", "dirty"],
     tactical_lane: "surface",
@@ -691,12 +666,11 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
   buzzbait: lure({
     id: "buzzbait",
     display_name: "Buzzbait",
-    gear_mode: "lure",
     family_key: "topwater",
     top3_redundancy_key: "open_topwater",
-    preferred_water_columns: ["top"],
-    preferred_moods: ["active"],
-    preferred_presentation_styles: ["bold"],
+    column_range: ["surface"],
+    pace_range: ["fast"],
+    presence_range: ["bold"],
     forage_matches: ["baitfish", "bluegill_perch"],
     clarity_strengths: ["stained", "dirty"],
     tactical_lane: "surface",
@@ -709,12 +683,11 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
   prop_bait: lure({
     id: "prop_bait",
     display_name: "Prop Bait",
-    gear_mode: "lure",
     family_key: "topwater",
     top3_redundancy_key: "open_topwater",
-    preferred_water_columns: ["top"],
-    preferred_moods: ["neutral", "active"],
-    preferred_presentation_styles: ["subtle", "balanced"],
+    column_range: ["surface"],
+    pace_range: ["fast", "medium"],
+    presence_range: ["subtle", "moderate"],
     forage_matches: ["baitfish", "bluegill_perch"],
     clarity_strengths: ["clear", "stained"],
     tactical_lane: "surface",
@@ -727,11 +700,10 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
   hollow_body_frog: lure({
     id: "hollow_body_frog",
     display_name: "Hollow-Body Frog",
-    gear_mode: "lure",
     family_key: "frog",
-    preferred_water_columns: ["top", "shallow"],
-    preferred_moods: ["neutral", "active"],
-    preferred_presentation_styles: ["balanced", "bold"],
+    column_range: ["surface"],
+    pace_range: ["medium", "fast"],
+    presence_range: ["moderate", "bold"],
     forage_matches: ["bluegill_perch", "baitfish"],
     clarity_strengths: ["stained", "dirty", "clear"],
     tactical_lane: "cover_weedless",
@@ -744,11 +716,10 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
   large_profile_pike_swimbait: lure({
     id: "large_profile_pike_swimbait",
     display_name: "Large Paddle-Tail Swimbait",
-    gear_mode: "lure",
     family_key: "pike_swimbait",
-    preferred_water_columns: ["shallow", "mid"],
-    preferred_moods: ["neutral", "active"],
-    preferred_presentation_styles: ["balanced", "bold"],
+    column_range: ["upper", "mid"],
+    pace_range: ["fast", "medium"],
+    presence_range: ["moderate", "bold"],
     forage_matches: ["baitfish", "bluegill_perch"],
     clarity_strengths: ["clear", "stained", "dirty"],
     tactical_lane: "pike_big_profile",
@@ -761,11 +732,10 @@ export const LURE_ARCHETYPES_V3: Record<LureArchetypeIdV3, RecommenderV3Archetyp
   pike_jerkbait: lure({
     id: "pike_jerkbait",
     display_name: "Large Jerkbait",
-    gear_mode: "lure",
     family_key: "pike_jerkbait",
-    preferred_water_columns: ["shallow", "mid"],
-    preferred_moods: ["neutral", "active"],
-    preferred_presentation_styles: ["balanced", "bold"],
+    column_range: ["upper", "mid"],
+    pace_range: ["fast", "medium"],
+    presence_range: ["moderate", "bold"],
     forage_matches: ["baitfish", "bluegill_perch"],
     clarity_strengths: ["clear", "stained", "dirty"],
     tactical_lane: "pike_big_profile",

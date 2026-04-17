@@ -429,8 +429,23 @@ addMonths(COLD_CLASSIC_REGIONS, [1, 2], {
   primary_fly_archetypes: ["sculpin_streamer", "woolly_bugger"],
   viable_fly_archetypes: WINTER_RIVER_FLIES,
 });
-addMonths(COLD_CLASSIC_REGIONS, [3, 4], {
+addMonths(COLD_CLASSIC_REGIONS, [3], {
   surface_seasonally_possible: false,
+  base_water_column: "mid",
+  base_mood: "neutral",
+  base_presentation_style: "balanced",
+  primary_forage: "baitfish",
+  secondary_forage: "leech_worm",
+  primary_lure_archetypes: ["inline_spinner", "suspending_jerkbait"],
+  viable_lure_archetypes: SPRING_RIVER_LURES,
+  primary_fly_archetypes: ["woolly_bugger", "slim_minnow_streamer"],
+  viable_fly_archetypes: SLIM_MINNOW_SPRING_RIVER_FLIES,
+});
+addMonths(COLD_CLASSIC_REGIONS, [4], {
+  // April opens the in-season surface window for trout streamers (mouse_fly,
+  // popper_fly). The daily `surface_window` gate still closes surface on
+  // cold/stormy days, so this flag only removes the hard seasonal block.
+  surface_seasonally_possible: true,
   base_water_column: "mid",
   base_mood: "neutral",
   base_presentation_style: "balanced",
@@ -442,7 +457,7 @@ addMonths(COLD_CLASSIC_REGIONS, [3, 4], {
   viable_fly_archetypes: SLIM_MINNOW_SPRING_RIVER_FLIES,
 });
 addMonths(COLD_CLASSIC_REGIONS, [5], {
-  surface_seasonally_possible: false,
+  surface_seasonally_possible: true,
   base_water_column: "mid",
   base_mood: "active",
   base_presentation_style: "balanced",
@@ -454,7 +469,7 @@ addMonths(COLD_CLASSIC_REGIONS, [5], {
   viable_fly_archetypes: SLIM_MINNOW_SPRING_RIVER_FLIES,
 });
 addMonths(["northeast"], [5], {
-  surface_seasonally_possible: false,
+  surface_seasonally_possible: true,
   base_water_column: "mid",
   base_mood: "active",
   base_presentation_style: "balanced",
@@ -466,7 +481,7 @@ addMonths(["northeast"], [5], {
   viable_fly_archetypes: NORTHEAST_MAY_FREESTONE_FLIES,
 });
 addMonths(COLD_CLASSIC_REGIONS, [6, 7], {
-  surface_seasonally_possible: false,
+  surface_seasonally_possible: true,
   base_water_column: "shallow",
   base_mood: "active",
   base_presentation_style: "balanced",
@@ -478,7 +493,7 @@ addMonths(COLD_CLASSIC_REGIONS, [6, 7], {
   viable_fly_archetypes: COOL_SUMMER_RIVER_FLIES,
 });
 addMonths(["alaska"], [6], {
-  surface_seasonally_possible: false,
+  surface_seasonally_possible: true,
   base_water_column: "shallow",
   base_mood: "active",
   base_presentation_style: "balanced",
@@ -490,7 +505,7 @@ addMonths(["alaska"], [6], {
   viable_fly_archetypes: ALASKA_JUNE_RIVER_FLIES,
 });
 addMonths(["alaska"], [7], {
-  surface_seasonally_possible: false,
+  surface_seasonally_possible: true,
   base_water_column: "mid",
   base_mood: "active",
   base_presentation_style: "balanced",
@@ -502,7 +517,7 @@ addMonths(["alaska"], [7], {
   viable_fly_archetypes: ALASKA_SUMMER_RIVER_FLIES,
 });
 addMonths(COLD_CLASSIC_REGIONS, [8], {
-  surface_seasonally_possible: false,
+  surface_seasonally_possible: true,
   base_water_column: "mid",
   base_mood: "neutral",
   base_presentation_style: "leaning_subtle",
@@ -513,7 +528,19 @@ addMonths(COLD_CLASSIC_REGIONS, [8], {
   primary_fly_archetypes: ["slim_minnow_streamer", "clouser_minnow"],
   viable_fly_archetypes: COOL_SUMMER_RIVER_FLIES,
 });
-addMonths(COLD_CLASSIC_REGIONS, [9, 10, 11], {
+addMonths(COLD_CLASSIC_REGIONS, [9, 10], {
+  surface_seasonally_possible: true,
+  base_water_column: "mid",
+  base_mood: "active",
+  base_presentation_style: "balanced",
+  primary_forage: "baitfish",
+  secondary_forage: "leech_worm",
+  primary_lure_archetypes: ["suspending_jerkbait", "inline_spinner"],
+  viable_lure_archetypes: FALL_RIVER_LURES,
+  primary_fly_archetypes: ["articulated_baitfish_streamer", "game_changer"],
+  viable_fly_archetypes: FALL_RIVER_FLIES_SUBSURFACE,
+});
+addMonths(COLD_CLASSIC_REGIONS, [11], {
   surface_seasonally_possible: false,
   base_water_column: "mid",
   base_mood: "active",
@@ -538,7 +565,7 @@ addMonths(["alaska"], [11], {
   viable_fly_archetypes: WINTER_RIVER_FLIES,
 });
 addMonths(["northeast"], [10], {
-  surface_seasonally_possible: false,
+  surface_seasonally_possible: true,
   base_water_column: "mid",
   base_mood: "active",
   base_presentation_style: "balanced",
@@ -550,7 +577,7 @@ addMonths(["northeast"], [10], {
   viable_fly_archetypes: FALL_RIVER_FLIES_SUBSURFACE,
 });
 addMonths(["great_lakes_upper_midwest"], [10], {
-  surface_seasonally_possible: false,
+  surface_seasonally_possible: true,
   base_water_column: "mid",
   base_mood: "active",
   base_presentation_style: "balanced",
@@ -647,7 +674,7 @@ addMonths(["pacific_northwest"], [2], {
   primary_fly_archetypes: ["slim_minnow_streamer", "woolly_bugger", "sculpin_streamer"],
   viable_fly_archetypes: SPRING_RIVER_FLIES,
 });
-addMonths(WESTERN_CLASSIC_REGIONS, [3, 4, 5], {
+addMonths(WESTERN_CLASSIC_REGIONS, [3], {
   surface_seasonally_possible: false,
   base_water_column: "mid",
   base_mood: "neutral",
@@ -659,8 +686,20 @@ addMonths(WESTERN_CLASSIC_REGIONS, [3, 4, 5], {
   primary_fly_archetypes: ["clouser_minnow", "slim_minnow_streamer"],
   viable_fly_archetypes: SPRING_RIVER_FLIES,
 });
+addMonths(WESTERN_CLASSIC_REGIONS, [4, 5], {
+  surface_seasonally_possible: true,
+  base_water_column: "mid",
+  base_mood: "neutral",
+  base_presentation_style: "balanced",
+  primary_forage: "baitfish",
+  secondary_forage: "leech_worm",
+  primary_lure_archetypes: ["inline_spinner", "suspending_jerkbait"],
+  viable_lure_archetypes: SPRING_RIVER_LURES,
+  primary_fly_archetypes: ["clouser_minnow", "slim_minnow_streamer"],
+  viable_fly_archetypes: SPRING_RIVER_FLIES,
+});
 addMonths(["mountain_west"], [5], {
-  surface_seasonally_possible: false,
+  surface_seasonally_possible: true,
   base_water_column: "mid",
   base_mood: "neutral",
   base_presentation_style: "balanced",
@@ -672,7 +711,7 @@ addMonths(["mountain_west"], [5], {
   viable_fly_archetypes: WESTERN_SPRING_RIVER_FLIES,
 });
 addMonths(WESTERN_CLASSIC_REGIONS, [6], {
-  surface_seasonally_possible: false,
+  surface_seasonally_possible: true,
   base_water_column: "shallow",
   base_mood: "active",
   base_presentation_style: "balanced",
@@ -684,7 +723,7 @@ addMonths(WESTERN_CLASSIC_REGIONS, [6], {
   viable_fly_archetypes: COOL_SUMMER_RIVER_FLIES,
 });
 addMonths(WESTERN_CLASSIC_REGIONS, [7, 8], {
-  surface_seasonally_possible: false,
+  surface_seasonally_possible: true,
   base_water_column: "mid",
   base_mood: "neutral",
   base_presentation_style: "leaning_subtle",
@@ -696,7 +735,7 @@ addMonths(WESTERN_CLASSIC_REGIONS, [7, 8], {
   viable_fly_archetypes: COOL_SUMMER_RIVER_FLIES,
 });
 addMonths(["pacific_northwest"], [7, 8], {
-  surface_seasonally_possible: false,
+  surface_seasonally_possible: true,
   base_water_column: "mid",
   base_mood: "neutral",
   base_presentation_style: "leaning_subtle",
@@ -708,7 +747,7 @@ addMonths(["pacific_northwest"], [7, 8], {
   viable_fly_archetypes: COOL_SUMMER_RIVER_FLIES,
 });
 addMonths(["mountain_west", "inland_northwest"], [7, 8], {
-  surface_seasonally_possible: false,
+  surface_seasonally_possible: true,
   base_water_column: "mid",
   base_mood: "neutral",
   base_presentation_style: "balanced",
@@ -731,7 +770,19 @@ addMonths(["northern_california"], [7, 8], {
   primary_fly_archetypes: ["mouse_fly", "slim_minnow_streamer"],
   viable_fly_archetypes: MOUSE_SUMMER_RIVER_FLIES,
 });
-addMonths(WESTERN_CLASSIC_REGIONS, [9, 10, 11], {
+addMonths(WESTERN_CLASSIC_REGIONS, [9, 10], {
+  surface_seasonally_possible: true,
+  base_water_column: "mid",
+  base_mood: "active",
+  base_presentation_style: "balanced",
+  primary_forage: "baitfish",
+  secondary_forage: "leech_worm",
+  primary_lure_archetypes: ["suspending_jerkbait", "inline_spinner"],
+  viable_lure_archetypes: FALL_RIVER_LURES,
+  primary_fly_archetypes: ["articulated_baitfish_streamer", "game_changer"],
+  viable_fly_archetypes: FALL_RIVER_FLIES_SUBSURFACE,
+});
+addMonths(WESTERN_CLASSIC_REGIONS, [11], {
   surface_seasonally_possible: false,
   base_water_column: "mid",
   base_mood: "active",
@@ -806,7 +857,7 @@ addMonths(WARM_TAILWATER_REGIONS, [3], {
   viable_fly_archetypes: SLIM_MINNOW_SPRING_RIVER_FLIES,
 });
 addMonths(WARM_TAILWATER_REGIONS, [4, 5], {
-  surface_seasonally_possible: false,
+  surface_seasonally_possible: true,
   base_water_column: "mid",
   base_mood: "active",
   base_presentation_style: "balanced",
@@ -818,7 +869,7 @@ addMonths(WARM_TAILWATER_REGIONS, [4, 5], {
   viable_fly_archetypes: SLIM_MINNOW_SPRING_RIVER_FLIES,
 });
 addMonths(WARM_TAILWATER_REGIONS, [6], {
-  surface_seasonally_possible: false,
+  surface_seasonally_possible: true,
   base_water_column: "mid",
   base_mood: "neutral",
   base_presentation_style: "balanced",
@@ -830,7 +881,7 @@ addMonths(WARM_TAILWATER_REGIONS, [6], {
   viable_fly_archetypes: TAILWATER_SUMMER_RIVER_FLIES,
 });
 addMonths(WARM_TAILWATER_REGIONS, [7, 8], {
-  surface_seasonally_possible: false,
+  surface_seasonally_possible: true,
   base_water_column: "mid",
   base_mood: "neutral_subtle",
   base_presentation_style: "leaning_subtle",
@@ -841,7 +892,19 @@ addMonths(WARM_TAILWATER_REGIONS, [7, 8], {
   primary_fly_archetypes: ["muddler_sculpin", "woolly_bugger", "rabbit_strip_leech"],
   viable_fly_archetypes: TAILWATER_SUMMER_RIVER_FLIES,
 });
-addMonths(WARM_TAILWATER_REGIONS, [9, 10, 11], {
+addMonths(WARM_TAILWATER_REGIONS, [9, 10], {
+  surface_seasonally_possible: true,
+  base_water_column: "mid",
+  base_mood: "active",
+  base_presentation_style: "balanced",
+  primary_forage: "baitfish",
+  secondary_forage: "leech_worm",
+  primary_lure_archetypes: ["suspending_jerkbait", "inline_spinner"],
+  viable_lure_archetypes: FALL_RIVER_LURES,
+  primary_fly_archetypes: ["articulated_baitfish_streamer", "game_changer"],
+  viable_fly_archetypes: FALL_RIVER_FLIES_SUBSURFACE,
+});
+addMonths(WARM_TAILWATER_REGIONS, [11], {
   surface_seasonally_possible: false,
   base_water_column: "mid",
   base_mood: "active",
@@ -868,7 +931,7 @@ addMonths(WARM_TAILWATER_REGIONS, [12], {
 
 // --- narrow regional overrides (brief § western_inland / northern_temperate nuance) ---
 addMonths(["mountain_west"], [4], {
-  surface_seasonally_possible: false,
+  surface_seasonally_possible: true,
   base_water_column: "mid",
   base_mood: "neutral",
   base_presentation_style: "leaning_subtle",
@@ -880,7 +943,7 @@ addMonths(["mountain_west"], [4], {
   viable_fly_archetypes: MOUNTAIN_WEST_APRIL_RIVER_FLIES,
 });
 addMonths(["southwest_high_desert"], [8], {
-  surface_seasonally_possible: false,
+  surface_seasonally_possible: true,
   base_water_column: "bottom",
   base_mood: "neutral",
   base_presentation_style: "balanced",

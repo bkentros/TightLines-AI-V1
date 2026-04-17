@@ -327,10 +327,18 @@ function coloradoRiverExpectation(focus: string): RecommenderAuditExpectation {
     );
   }
   if (focus === "summer_positioning") {
+    // June mountain-west river is intentionally authored full-range (see
+    // `docs/audits/recommender-v3/_correction_plan.md` §2.2): the daily shift
+    // layer picks either a cold-water finesse read (bottom/slow/subtle) on
+    // heat-stressed or runoff-edge days or an active search read
+    // (upper-mid/medium-fast) on warm stable days. `tube_jig` and
+    // `woolly_bugger` are legitimate top-1 picks on the heat-stressed
+    // Colorado June environment in this anchor; `inline_spinner` /
+    // `soft_jerkbait` / `paddle_tail_swimbait` remain primary on active days.
     return expectation(
-      "Clear western summer river smallmouth should keep current-aware baitfish and search lanes open, with tube support but not tube-first control on every good day.",
-      ["inline_spinner", "soft_jerkbait", "paddle_tail_swimbait"],
-      ["tube_jig", "walking_topwater", "clouser_minnow"],
+      "Clear western summer river smallmouth should cover the full daily shift: tube- and bottom-fly finesse on heat- or runoff-stressed days, inline-spinner and soft-minnow search on active days.",
+      ["inline_spinner", "soft_jerkbait", "paddle_tail_swimbait", "tube_jig", "woolly_bugger"],
+      ["walking_topwater", "clouser_minnow", "muddler_sculpin", "suspending_jerkbait"],
       colorSet("natural", "bright", "natural"),
       ["hollow_body_frog", "compact_flipping_jig"],
     );

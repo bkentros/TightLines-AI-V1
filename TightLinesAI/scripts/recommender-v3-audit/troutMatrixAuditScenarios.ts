@@ -344,9 +344,16 @@ function alaskaBigRiverExpectation(focus: string): RecommenderAuditExpectation {
 function idahoRunoffEdgeExpectation(focus: string): RecommenderAuditExpectation {
   if (focus === "spawn_postspawn_transition") {
     return expectation(
+      // Stained runoff edge. Visible minnow/streamer lanes should lead; the
+      // `slim_minnow_streamer` was promoted from secondary to primary after
+      // the correction-plan P1.2 re-author of `muddler_sculpin` to
+      // bottom-primary: on a stained-runoff April day the engine now
+      // legitimately picks the high-visibility baitfish streamer first, with
+      // sculpin/bugger staying in top-3. See
+      // `docs/audits/recommender-v3/_correction_plan.md` §1.2.
       "A stained runoff edge should push visible streamer and minnow lanes without turning into bass power fishing. In the current April Mountain West row, bucktail and inline-spinner support can legitimately surface alongside the sculpin-bugger family.",
-      ["sculpin_streamer", "woolly_bugger", "clouser_minnow"],
-      ["slim_minnow_streamer", "inline_spinner", "muddler_sculpin", "bucktail_baitfish_streamer"],
+      ["sculpin_streamer", "woolly_bugger", "clouser_minnow", "slim_minnow_streamer"],
+      ["inline_spinner", "muddler_sculpin", "bucktail_baitfish_streamer"],
       stainedColors(),
       ["mouse_fly", ...defaultDisallowed()],
     );

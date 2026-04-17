@@ -1,6 +1,6 @@
 # Freshwater V3 Matrix Audit Summary
 
-Generated: 2026-04-17T02:13:20.878Z
+Generated: 2026-04-17T18:35:26.257Z
 
 Total scenarios: 309
 Top-1 primary hit rate: 309/309 (100.0%)
@@ -28,7 +28,7 @@ Full field glossary: [V3_AUDIT_INTERPRETATION.md](../V3_AUDIT_INTERPRETATION.md)
 - Top-3 primary present: 110/110 (100.0%)
 - Disallowed avoidance: 110/110 (100.0%)
 - Top color-lane match: 110/110 (100.0%)
-- Variety: 12 unique lure top-1 IDs, 9 unique fly top-1 IDs, 73 lure top-3 signatures, 55 fly top-3 signatures
+- Variety: 12 unique lure top-1 IDs, 9 unique fly top-1 IDs, 74 lure top-3 signatures, 56 fly top-3 signatures
 - Failure split (review sheet): 0 hard fails, 0 soft fails; 9 top-1 tie flags; 0 explanation-conflict flags; region fallback used 0 times
 
 Top lure leaders:
@@ -40,11 +40,11 @@ Top lure leaders:
 - `compact_flipping_jig`: 9
 Top fly leaders:
 - `woolly_bugger`: 39
-- `game_changer`: 38
+- `game_changer`: 37
 - `clouser_minnow`: 14
 - `rabbit_strip_leech`: 9
 - `balanced_leech`: 4
-- `crawfish_streamer`: 2
+- `frog_fly`: 3
 
 Anchor top-1 primary hit:
 - `lmb_matrix_alabama_river`: 12/12 (100.0%)
@@ -72,7 +72,7 @@ Anchor top-1 primary hit:
 
 Tracked ids: hollow_body_frog, frog_fly, mouse_fly, walking_topwater, buzzbait, prop_bait, popper_fly. **Bonus top-3** = id appears in top-3 when scenario expectation lanes did not list it.
 - `hollow_body_frog`: scenarios expecting 29 | in top-3 when expected 6 | top-1 when expected 3 | bonus top-3 (not in expectation lanes) 0
-- `frog_fly`: scenarios expecting 5 | in top-3 when expected 4 | top-1 when expected 2 | bonus top-3 (not in expectation lanes) 6
+- `frog_fly`: scenarios expecting 5 | in top-3 when expected 4 | top-1 when expected 3 | bonus top-3 (not in expectation lanes) 7
 - `mouse_fly`: scenarios expecting 3 | in top-3 when expected 0 | top-1 when expected 0 | bonus top-3 (not in expectation lanes) 3
 - `walking_topwater`: scenarios expecting 13 | in top-3 when expected 0 | top-1 when expected 0 | bonus top-3 (not in expectation lanes) 2
 - `buzzbait`: scenarios expecting 9 | in top-3 when expected 0 | top-1 when expected 0 | bonus top-3 (not in expectation lanes) 0
@@ -89,23 +89,23 @@ Top-1 miss examples:
 - Top-3 primary present: 83/83 (100.0%)
 - Disallowed avoidance: 83/83 (100.0%)
 - Top color-lane match: 83/83 (100.0%)
-- Variety: 10 unique lure top-1 IDs, 12 unique fly top-1 IDs, 58 lure top-3 signatures, 50 fly top-3 signatures
+- Variety: 10 unique lure top-1 IDs, 11 unique fly top-1 IDs, 59 lure top-3 signatures, 49 fly top-3 signatures
 - Failure split (review sheet): 0 hard fails, 0 soft fails; 7 top-1 tie flags; 0 explanation-conflict flags; region fallback used 0 times
 
 Top lure leaders:
-- `tube_jig`: 30
+- `tube_jig`: 31
 - `suspending_jerkbait`: 20
-- `spinnerbait`: 11
+- `spinnerbait`: 10
 - `hair_jig`: 5
 - `inline_spinner`: 5
-- `soft_jerkbait`: 4
+- `paddle_tail_swimbait`: 3
 Top fly leaders:
-- `clouser_minnow`: 16
+- `woolly_bugger`: 16
+- `clouser_minnow`: 14
 - `slim_minnow_streamer`: 14
-- `woolly_bugger`: 14
 - `sculpin_streamer`: 9
-- `game_changer`: 7
-- `popper_fly`: 6
+- `game_changer`: 8
+- `popper_fly`: 7
 
 Anchor top-1 primary hit:
 - `smb_matrix_colorado_river`: 4/4 (100.0%)
@@ -126,8 +126,8 @@ Anchor top-1 primary hit:
 
 Tracked ids: hollow_body_frog, frog_fly, mouse_fly, walking_topwater, buzzbait, prop_bait, popper_fly. **Bonus top-3** = id appears in top-3 when scenario expectation lanes did not list it.
 - `mouse_fly`: scenarios expecting 0 | in top-3 when expected 0 | top-1 when expected 0 | bonus top-3 (not in expectation lanes) 4
-- `walking_topwater`: scenarios expecting 20 | in top-3 when expected 6 | top-1 when expected 2 | bonus top-3 (not in expectation lanes) 1
-- `popper_fly`: scenarios expecting 12 | in top-3 when expected 4 | top-1 when expected 2 | bonus top-3 (not in expectation lanes) 7
+- `walking_topwater`: scenarios expecting 20 | in top-3 when expected 6 | top-1 when expected 3 | bonus top-3 (not in expectation lanes) 1
+- `popper_fly`: scenarios expecting 12 | in top-3 when expected 5 | top-1 when expected 3 | bonus top-3 (not in expectation lanes) 7
 
 Top-1 miss examples:
 - none
@@ -139,22 +139,22 @@ Top-1 miss examples:
 - Top-3 primary present: 68/68 (100.0%)
 - Disallowed avoidance: 68/68 (100.0%)
 - Top color-lane match: 68/68 (100.0%)
-- Variety: 6 unique lure top-1 IDs, 7 unique fly top-1 IDs, 26 lure top-3 signatures, 31 fly top-3 signatures
-- Failure split (review sheet): 0 hard fails, 0 soft fails; 5 top-1 tie flags; 0 explanation-conflict flags; region fallback used 0 times
+- Variety: 7 unique lure top-1 IDs, 7 unique fly top-1 IDs, 26 lure top-3 signatures, 30 fly top-3 signatures
+- Failure split (review sheet): 0 hard fails, 0 soft fails; 4 top-1 tie flags; 0 explanation-conflict flags; region fallback used 0 times
 
 Top lure leaders:
-- `suspending_jerkbait`: 26
+- `suspending_jerkbait`: 25
 - `inline_spinner`: 23
 - `hair_jig`: 10
 - `blade_bait`: 3
 - `paddle_tail_swimbait`: 3
 - `soft_jerkbait`: 3
 Top fly leaders:
-- `slim_minnow_streamer`: 30
-- `woolly_bugger`: 14
-- `clouser_minnow`: 7
+- `slim_minnow_streamer`: 32
+- `woolly_bugger`: 12
+- `muddler_sculpin`: 7
 - `sculpin_streamer`: 7
-- `muddler_sculpin`: 6
+- `clouser_minnow`: 6
 - `articulated_baitfish_streamer`: 3
 
 Anchor top-1 primary hit:
@@ -182,7 +182,7 @@ Top-1 miss examples:
 - Top-3 primary present: 48/48 (100.0%)
 - Disallowed avoidance: 48/48 (100.0%)
 - Top color-lane match: 48/48 (100.0%)
-- Variety: 7 unique lure top-1 IDs, 9 unique fly top-1 IDs, 33 lure top-3 signatures, 24 fly top-3 signatures
+- Variety: 7 unique lure top-1 IDs, 9 unique fly top-1 IDs, 34 lure top-3 signatures, 24 fly top-3 signatures
 - Failure split (review sheet): 0 hard fails, 0 soft fails; 0 top-1 tie flags; 0 explanation-conflict flags; region fallback used 0 times
 
 Top lure leaders:
@@ -211,10 +211,10 @@ Anchor top-1 primary hit:
 ### Specialty surface / frog diagnostics (non-gating)
 
 Tracked ids: hollow_body_frog, frog_fly, mouse_fly, walking_topwater, buzzbait, prop_bait, popper_fly. **Bonus top-3** = id appears in top-3 when scenario expectation lanes did not list it.
-- `hollow_body_frog`: scenarios expecting 2 | in top-3 when expected 1 | top-1 when expected 0 | bonus top-3 (not in expectation lanes) 0
-- `frog_fly`: scenarios expecting 0 | in top-3 when expected 0 | top-1 when expected 0 | bonus top-3 (not in expectation lanes) 1
+- `hollow_body_frog`: scenarios expecting 2 | in top-3 when expected 2 | top-1 when expected 0 | bonus top-3 (not in expectation lanes) 1
+- `frog_fly`: scenarios expecting 0 | in top-3 when expected 0 | top-1 when expected 0 | bonus top-3 (not in expectation lanes) 2
 - `mouse_fly`: scenarios expecting 1 | in top-3 when expected 1 | top-1 when expected 1 | bonus top-3 (not in expectation lanes) 1
-- `walking_topwater`: scenarios expecting 10 | in top-3 when expected 4 | top-1 when expected 3 | bonus top-3 (not in expectation lanes) 3
+- `walking_topwater`: scenarios expecting 10 | in top-3 when expected 4 | top-1 when expected 3 | bonus top-3 (not in expectation lanes) 2
 - `popper_fly`: scenarios expecting 2 | in top-3 when expected 2 | top-1 when expected 2 | bonus top-3 (not in expectation lanes) 1
 
 Top-1 miss examples:

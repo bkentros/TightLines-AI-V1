@@ -1,6 +1,6 @@
 # Smallmouth V3 Matrix Review Sheet
 
-Generated: 2026-04-17T02:13:14.908Z
+Generated: 2026-04-17T18:35:19.527Z
 Archive bundle generated: 2026-04-15T20:07:40.957Z
 Scenario count: 83
 Contexts: 36 lake/pond, 47 river
@@ -97,18 +97,18 @@ Actual output:
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Daily note: Moderate chop improves fishability and supports a stronger moving look.
 - Lure reasoning:
-- Tube Jig: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
+- Tube Jig: This is today's top overall read. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
 - Tube Jig how: Snap the tube off bottom with short pops so it spirals on the fall, then let it glide back down on slack or semi-slack line. Slow down and lengthen the pause.
-- Hair Jig: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different finesse subtle look without leaving today's window.
+- Hair Jig: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different finesse subtle look without leaving today's window.
 - Hair Jig how: Fish it on a tight line at slow speed — the hair works best with tiny line pulses rather than big lifts; let it hang in the current or slack zone. Slow down and lengthen the pause.
-- Suspending Jerkbait: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Suspending Jerkbait: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Suspending Jerkbait how: Work it with wrist snaps, not big sweeps; keep slack in the line between snaps so the bait swings freely, then pause until you see a follow or feel weight. Slow down and lengthen the pause.
 - Fly reasoning:
-- Woolly Bugger: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
+- Woolly Bugger: This is today's top overall read. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
 - Woolly Bugger how: Let it sink to depth then retrieve with slow hand-twists or short strips; the marabou tail breathes best with long pauses at the end of each pull. Slow down and lengthen the pause.
-- Sculpin Streamer: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different fly bottom look without leaving today's window.
+- Sculpin Streamer: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different fly bottom look without leaving today's window.
 - Sculpin Streamer how: Cast upstream and mend for a natural drift, then activate with short strips that make the fly bumble over the bottom like a sculpin retreating. Slow down and lengthen the pause.
-- Conehead Streamer: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. Conehead Streamer tracks well when baitfish is a realistic meal. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Conehead Streamer: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. Conehead Streamer tracks well when baitfish is a realistic meal. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Conehead Streamer how: Cast across or down, let it sink to depth, then strip with a jig-like cadence where the cone tips the fly nose-down on each pause. Slow down and lengthen the pause.
 
 Review:
@@ -203,18 +203,18 @@ Actual output:
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Lure reasoning:
-- Tube Jig: It matches the column/pace the conditions push toward today. Cold metabolism shuts down activity. Slow and low is the only play. It is one of the lead monthly looks for this exact seasonal window.
+- Tube Jig: This is today's top overall read. It matches the column/pace the conditions push toward today. Cold metabolism shuts down activity. Slow and low is the only play. It is one of the lead monthly looks for this exact seasonal window.
 - Tube Jig how: Snap the tube off bottom with short pops so it spirals on the fall, then let it glide back down on slack or semi-slack line. Slow down and lengthen the pause.
-- Hair Jig: It matches the column/pace the conditions push toward today. Cold metabolism shuts down activity. Slow and low is the only play. It stays in the middle band where the seasonal setup is most stable today. It rounds out the lineup with a different look. It gives you a different finesse subtle look without leaving today's window.
+- Hair Jig: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. Cold metabolism shuts down activity. Slow and low is the only play. It stays in the middle band where the seasonal setup is most stable today. It rounds out the lineup with a different look. It gives you a different finesse subtle look without leaving today's window.
 - Hair Jig how: Fish it on a tight line at slow speed — the hair works best with tiny line pulses rather than big lifts; let it hang in the current or slack zone. Slow down and lengthen the pause.
-- Ned Rig: It matches the column/pace the conditions push toward today. Cold metabolism shuts down activity. Slow and low is the only play. That keeps a crawfish-first look in the water for the month. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Ned Rig: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. Cold metabolism shuts down activity. Slow and low is the only play. That keeps a crawfish-first look in the water for the month. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Ned Rig how: Inch it along with small rod pops and long pauses; the mushroom head keeps it nose-down and upright — let it sit longer than you think is necessary. Slow down and lengthen the pause.
 - Fly reasoning:
-- Woolly Bugger: It matches the column/pace the conditions push toward today. Cold metabolism shuts down activity. Slow and low is the only play. It stays in the middle band where the seasonal setup is most stable today.
+- Woolly Bugger: This is today's top overall read. It matches the column/pace the conditions push toward today. Cold metabolism shuts down activity. Slow and low is the only play. It stays in the middle band where the seasonal setup is most stable today.
 - Woolly Bugger how: Let it sink to depth then retrieve with slow hand-twists or short strips; the marabou tail breathes best with long pauses at the end of each pull. Slow down and lengthen the pause.
-- Balanced Leech: It matches the column/pace the conditions push toward today. Cold metabolism shuts down activity. Slow and low is the only play. It stays in the middle band where the seasonal setup is most stable today. It gives you a different fly bottom look without leaving today's window.
+- Balanced Leech: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. Cold metabolism shuts down activity. Slow and low is the only play. It stays in the middle band where the seasonal setup is most stable today. It gives you a different fly bottom look without leaving today's window.
 - Balanced Leech how: Let it suspend just off bottom or under cover and move it only with tiny strips; the balanced posture is the trigger, not speed. Slow down and lengthen the pause.
-- Crawfish Streamer: It matches the column/pace the conditions push toward today. Cold metabolism shuts down activity. Slow and low is the only play. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Crawfish Streamer: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. Cold metabolism shuts down activity. Slow and low is the only play. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Crawfish Streamer how: Pinch the fly to the bottom and move it in erratic 1-2 inch hops with long pauses; the slower and lower, the better — crawfish don't sprint. Slow down and lengthen the pause.
 
 Review:
@@ -310,18 +310,18 @@ Actual output:
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Daily note: Moderate chop improves fishability and supports a stronger moving look.
 - Lure reasoning:
-- Tube Jig: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Tube Jig: This is today's top overall read. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
 - Tube Jig how: Snap the tube off bottom with short pops so it spirals on the fall, then let it glide back down on slack or semi-slack line. Slow down and lengthen the pause.
-- Ned Rig: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. That keeps a crawfish-first look in the water for the month. It rounds out the lineup with a different look. It gives you a different bottom contact look without leaving today's window.
+- Ned Rig: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. That keeps a crawfish-first look in the water for the month. It rounds out the lineup with a different look. It gives you a different bottom contact look without leaving today's window.
 - Ned Rig how: Drag and shake the small head along bottom like a tiny craw — short pulls, let it settle, repeat instead of big hops. Slow down and lengthen the pause.
-- Football Jig: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. That keeps a crawfish-first look in the water for the month. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Football Jig: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. That keeps a crawfish-first look in the water for the month. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Football Jig how: Drag it along hard bottom and ledges so the flat head kicks and rocks; lift only slightly on the pull so the trailer stays near the substrate. Slow down and lengthen the pause.
 - Fly reasoning:
-- Sculpin Streamer: It matches the column/pace the conditions push toward today. A cooling trend tightens fish and shifts preference lower and slower. It is one of the lead monthly looks for this exact seasonal window.
+- Sculpin Streamer: This is today's top overall read. It matches the column/pace the conditions push toward today. A cooling trend tightens fish and shifts preference lower and slower. It is one of the lead monthly looks for this exact seasonal window.
 - Sculpin Streamer how: Bump bottom with short strips and let the fly tick along rocks; keep tension so you feel every stop against structure. Slow down and lengthen the pause.
-- Woolly Bugger: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It stays low in the zone where this day still wants fish to hold. It rounds out the lineup with a different look. It gives you a different fly bottom look without leaving today's window.
+- Woolly Bugger: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It stays low in the zone where this day still wants fish to hold. It rounds out the lineup with a different look. It gives you a different fly bottom look without leaving today's window.
 - Woolly Bugger how: Let it sink to depth then retrieve with slow hand-twists or short strips; the marabou tail breathes best with long pauses at the end of each pull. Slow down and lengthen the pause.
-- Balanced Leech: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It stays low in the zone where this day still wants fish to hold. It is the cleaner change-up if the lead look does not convert.
+- Balanced Leech: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It stays low in the zone where this day still wants fish to hold. It is the cleaner change-up if the lead look does not convert.
 - Balanced Leech how: Fish it under an indicator or on a slow hand-twist so the fly hovers level and pulses in place rather than diving nose-first. Slow down and lengthen the pause.
 
 Review:
@@ -417,18 +417,18 @@ Actual output:
 - Daily note: Bright light trims the day back toward cleaner looks.
 - Daily note: Moderate chop improves fishability and supports a stronger moving look.
 - Lure reasoning:
-- Drop-Shot Worm: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Drop-Shot Worm: This is today's top overall read. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
 - Drop-Shot Worm how: Hold the weight on the bottom and gently shake the rod tip so the worm quivers in place; move it only a foot or two before letting it settle again. Slow down and lengthen the pause.
-- Drop-Shot Minnow: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It stays low in the zone where this day still wants fish to hold. It gives you a different finesse subtle look without leaving today's window.
+- Drop-Shot Minnow: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It stays low in the zone where this day still wants fish to hold. It gives you a different finesse subtle look without leaving today's window.
 - Drop-Shot Minnow how: Keep the bait just off bottom with tiny shakes and short glides so the minnow hovers naturally in the strike zone. Slow down and lengthen the pause.
-- Tube Jig: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Tube Jig: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Tube Jig how: Snap the tube off bottom with short pops so it spirals on the fall, then let it glide back down on slack or semi-slack line. Slow down and lengthen the pause.
 - Fly reasoning:
-- Sculpin Streamer: It matches the column/pace the conditions push toward today. A cooling trend tightens fish and shifts preference lower and slower. It stays low in the zone where this day still wants fish to hold.
+- Sculpin Streamer: This is today's top overall read. It matches the column/pace the conditions push toward today. A cooling trend tightens fish and shifts preference lower and slower. It stays low in the zone where this day still wants fish to hold.
 - Sculpin Streamer how: Bump bottom with short strips and let the fly tick along rocks; keep tension so you feel every stop against structure. Slow down and lengthen the pause.
-- Woolly Bugger: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It stays low in the zone where this day still wants fish to hold. It rounds out the lineup with a different look. It gives you a different fly bottom look without leaving today's window.
+- Woolly Bugger: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It stays low in the zone where this day still wants fish to hold. It rounds out the lineup with a different look. It gives you a different fly bottom look without leaving today's window.
 - Woolly Bugger how: Let it sink to depth then retrieve with slow hand-twists or short strips; the marabou tail breathes best with long pauses at the end of each pull. Slow down and lengthen the pause.
-- Balanced Leech: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It stays low in the zone where this day still wants fish to hold. It is the cleaner change-up if the lead look does not convert.
+- Balanced Leech: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It stays low in the zone where this day still wants fish to hold. It is the cleaner change-up if the lead look does not convert.
 - Balanced Leech how: Fish it under an indicator or on a slow hand-twist so the fly hovers level and pulses in place rather than diving nose-first. Slow down and lengthen the pause.
 
 Review:
@@ -522,18 +522,18 @@ Actual output:
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
 - Daily note: Moderate chop improves fishability and supports a stronger moving look.
 - Lure reasoning:
-- Tube Jig: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
+- Tube Jig: This is today's top overall read. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
 - Tube Jig how: Snap the tube off bottom with short pops so it spirals on the fall, then let it glide back down on slack or semi-slack line. Keep it high in the zone.
-- Suspending Jerkbait: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different reaction mid column look without leaving today's window.
+- Suspending Jerkbait: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different reaction mid column look without leaving today's window.
 - Suspending Jerkbait how: Jerk, jerk, pause. The bait should dart and glide sideways on each twitch; dial the pause length to water temperature — colder means longer. Keep it high in the zone.
-- Flat-Sided Crankbait: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. It stays high enough in the zone to match the day's more open positioning. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Flat-Sided Crankbait: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. It stays high enough in the zone to match the day's more open positioning. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Flat-Sided Crankbait how: Work it across hard bottom or rock piles with a consistent slow crank, letting the tight shimmy attract finicky fish holding close to structure. Keep it high in the zone.
 - Fly reasoning:
-- Game Changer: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. It stays high enough in the zone to match the day's more open positioning.
+- Game Changer: This is today's top overall read. It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. It stays high enough in the zone to match the day's more open positioning.
 - Game Changer how: Use a mix of steady strips and sharp 6-inch twitches so the jointed body swims and stalls; pause when you see a follow. Keep it high in the zone.
-- Woolly Bugger: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. Woolly Bugger tracks well when leech_worm is a realistic meal. It rounds out the lineup with a different look. It gives you a different fly bottom look without leaving today's window.
+- Woolly Bugger: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. Woolly Bugger tracks well when leech_worm is a realistic meal. It rounds out the lineup with a different look. It gives you a different fly bottom look without leaving today's window.
 - Woolly Bugger how: Cast across and swing it on a tight line through the drift, then activate on the hang-down with short strips before lifting.
-- Zonker Streamer: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. It stays high enough in the zone to match the day's more open positioning. It is the cleaner change-up if the lead look does not convert.
+- Zonker Streamer: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. It stays high enough in the zone to match the day's more open positioning. It is the cleaner change-up if the lead look does not convert.
 - Zonker Streamer how: Cast across current and strip steadily through the swing; add a momentary deadstop near structure so the wing collapses and then puffs back out. Keep it high in the zone.
 
 Review:
@@ -626,18 +626,18 @@ Actual output:
 - Variables triggered: light_cloud_condition, precipitation_disruption
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Lure reasoning:
-- Soft Plastic Jerkbait: It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. It is one of the lead monthly looks for this exact seasonal window.
+- Soft Plastic Jerkbait: This is today's top overall read. It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. It is one of the lead monthly looks for this exact seasonal window.
 - Soft Plastic Jerkbait how: Work it with a jerk-sink-jerk cadence; keep the line slightly slack between twitches so the bait moves unpredictably, and vary the pause length. Keep it high in the zone.
-- Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
+- Paddle-Tail Swimbait: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
 - Paddle-Tail Swimbait how: Swim it at the speed where you feel a steady kick through the rod; use rod angle to change depth without changing retrieve speed. Keep it high in the zone.
-- Hair Jig: It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. Hair Jig stays in play when baitfish is relevant. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Hair Jig: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. Hair Jig stays in play when baitfish is relevant. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Hair Jig how: Swing it through current seams or drop it in pockets with minimal movement; let the marabou breathe in place before slowly pulling it along. Keep it high in the zone.
 - Fly reasoning:
-- Mouse Fly: It matches the column/pace the conditions push toward today. Low disturbance is keeping a true surface lane open today. The month is still baitfish-forward, and this stays inside that search lane.
+- Mouse Fly: This is today's top overall read. It matches the column/pace the conditions push toward today. Low disturbance is keeping a true surface lane open today. The month is still baitfish-forward, and this stays inside that search lane.
 - Mouse Fly how: Work it with a slow, uninterrupted retrieve across open water; the V-wake is the trigger, so keep it moving at a steady pace and stay alert. Keep it on top.
-- Game Changer: It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
+- Game Changer: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
 - Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink. Keep it high in the zone.
-- Popper Fly: It matches the column/pace the conditions push toward today. Low disturbance is keeping a true surface lane open today. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Popper Fly: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. Low disturbance is keeping a true surface lane open today. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
 - Popper Fly how: Work it with medium strips that spit and gurgle; slow the cadence near structure and let the fly rest after each pop — target the edge of any surface shadow. Keep it on top.
 
 Review:
@@ -709,7 +709,7 @@ Actual output:
 - Top 3 lures:
 - Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Hair Jig `hair_jig` | theme: `natural` | colors: green pumpkin, olive, smoke
-- Tube Jig `tube_jig` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Soft Plastic Jerkbait `soft_jerkbait` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 1 fly: Mouse Fly `mouse_fly` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 3 flies:
 - Mouse Fly `mouse_fly` | theme: `natural` | colors: green pumpkin, olive, smoke
@@ -719,7 +719,7 @@ Actual output:
 - Daily posture: neutral
 - Paddle-Tail Swimbait: natural -> green pumpkin, olive, smoke
 - Hair Jig: natural -> green pumpkin, olive, smoke
-- Tube Jig: natural -> green pumpkin, olive, smoke
+- Soft Plastic Jerkbait: natural -> green pumpkin, olive, smoke
 - Mouse Fly: natural -> green pumpkin, olive, smoke
 - Game Changer: natural -> green pumpkin, olive, smoke
 - Popper Fly: natural -> green pumpkin, olive, smoke
@@ -734,18 +734,18 @@ Actual output:
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
 - Daily note: Active precipitation disruption narrows the clean bite window.
 - Lure reasoning:
-- Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. Active precipitation disruption narrows the clean bite window. It is one of the lead monthly looks for this exact seasonal window.
+- Paddle-Tail Swimbait: This is today's top overall read. It matches the column/pace the conditions push toward today. Active precipitation disruption narrows the clean bite window. It is one of the lead monthly looks for this exact seasonal window.
 - Paddle-Tail Swimbait how: Reel at a steady pace with the rod low so the tail thumps consistently; speed up slightly over bait schools or slow down after a follow. Keep it high in the zone.
-- Hair Jig: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It stays high enough in the zone to match the day's more open positioning. It rounds out the lineup with a different look. It gives you a different finesse subtle look without leaving today's window.
+- Hair Jig: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It stays high enough in the zone to match the day's more open positioning. It rounds out the lineup with a different look. It gives you a different finesse subtle look without leaving today's window.
 - Hair Jig how: Fish it on a tight line at slow speed — the hair works best with tiny line pulses rather than big lifts; let it hang in the current or slack zone. Keep it high in the zone.
-- Tube Jig: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It stays high enough in the zone to match the day's more open positioning. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
-- Tube Jig how: Cast, let it sink, then pop sharply and release line; the tube should corkscrew back to bottom on each drop — keep a watchful eye on the line. Keep it high in the zone.
+- Soft Plastic Jerkbait: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. Active precipitation disruption narrows the clean bite window. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Soft Plastic Jerkbait how: Work it with a jerk-sink-jerk cadence; keep the line slightly slack between twitches so the bait moves unpredictably, and vary the pause length. Keep it high in the zone.
 - Fly reasoning:
-- Mouse Fly: It matches the column/pace the conditions push toward today. The monthly surface window is still alive today, even with a little ripple on top. The month is still baitfish-forward, and this stays inside that search lane.
+- Mouse Fly: This is today's top overall read. It matches the column/pace the conditions push toward today. The monthly surface window is still alive today, even with a little ripple on top. The month is still baitfish-forward, and this stays inside that search lane.
 - Mouse Fly how: Cast to structure and retrieve with a steady, slow V-wake strip; vary only slightly in speed and resist the urge to twitch — mice move in straight lines. Keep it on top.
-- Game Changer: It matches the column/pace the conditions push toward today. Active precipitation disruption narrows the clean bite window. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
+- Game Changer: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. Active precipitation disruption narrows the clean bite window. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
 - Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink. Keep it high in the zone.
-- Popper Fly: It matches the column/pace the conditions push toward today. The monthly surface window is still alive today, even with a little ripple on top. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Popper Fly: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. The monthly surface window is still alive today, even with a little ripple on top. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
 - Popper Fly how: Work it with medium strips that spit and gurgle; slow the cadence near structure and let the fly rest after each pop — target the edge of any surface shadow. Keep it on top.
 
 Review:
@@ -841,18 +841,18 @@ Actual output:
 - Variables triggered: light_cloud_condition, precipitation_disruption
 - Daily note: Bright light trims the day back toward cleaner looks.
 - Lure reasoning:
-- Hair Jig: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Hair Jig: This is today's top overall read. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
 - Hair Jig how: Cast across, let it sink on a controlled slack line, then swim it back with short pauses so the marabou pulses and collapses. Slow down and lengthen the pause.
-- Tube Jig: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different bottom contact look without leaving today's window.
+- Tube Jig: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different bottom contact look without leaving today's window.
 - Tube Jig how: Hop it erratically off the bottom with sharp pops, then open the bail slightly so it spirals down freely; strikes happen on that spinning fall. Slow down and lengthen the pause.
-- Drop-Shot Worm: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It stays low in the zone where this day still wants fish to hold. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Drop-Shot Worm: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It stays low in the zone where this day still wants fish to hold. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Drop-Shot Worm how: Shake in place with light tension, then pause completely and let the worm hang still; most bites come when the bait barely moves at all. Slow down and lengthen the pause.
 - Fly reasoning:
-- Woolly Bugger: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Woolly Bugger: This is today's top overall read. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
 - Woolly Bugger how: Let it sink to depth then retrieve with slow hand-twists or short strips; the marabou tail breathes best with long pauses at the end of each pull. Slow down and lengthen the pause.
-- Balanced Leech: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It stays low in the zone where this day still wants fish to hold. It gives you a different fly bottom look without leaving today's window.
+- Balanced Leech: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It stays low in the zone where this day still wants fish to hold. It gives you a different fly bottom look without leaving today's window.
 - Balanced Leech how: Let it suspend just off bottom or under cover and move it only with tiny strips; the balanced posture is the trigger, not speed. Slow down and lengthen the pause.
-- Slim Baitfish Streamer: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. Slim Baitfish Streamer tracks well when baitfish is a realistic meal. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Slim Baitfish Streamer: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. Slim Baitfish Streamer tracks well when baitfish is a realistic meal. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Slim Baitfish Streamer how: Fish it on a dead-drift through seams, then activate with quick strips near holding structure; the slim silhouette works best in clear water at a measured pace. Slow down and lengthen the pause.
 
 Review:
@@ -948,18 +948,18 @@ Actual output:
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
 - Daily note: Bright light trims the day back toward cleaner looks.
 - Lure reasoning:
-- Suspending Jerkbait: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
-- Suspending Jerkbait how: Two or three sharp twitches, then let it suspend perfectly still for a full 3-5 count before the next sequence — the pause is everything. Keep it high in the zone.
-- Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
+- Suspending Jerkbait: This is today's top overall read. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Suspending Jerkbait how: Two or three sharp twitches, then let it suspend perfectly still for a full 3-5 count before the next sequence — the pause is everything.
+- Paddle-Tail Swimbait: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
 - Paddle-Tail Swimbait how: Swim it at the speed where you feel a steady kick through the rod; use rod angle to change depth without changing retrieve speed. Keep it high in the zone.
-- Hair Jig: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It stays high enough in the zone to match the day's more open positioning. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Hair Jig: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It stays high enough in the zone to match the day's more open positioning. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Hair Jig how: Swing it through current seams or drop it in pockets with minimal movement; let the marabou breathe in place before slowly pulling it along. Keep it high in the zone.
 - Fly reasoning:
-- Slim Baitfish Streamer: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Slim Baitfish Streamer: This is today's top overall read. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
 - Slim Baitfish Streamer how: Strip with short, quick pulls to make the slim profile dart; pause briefly so it hangs in the current or sinks an inch before the next strip. Keep it high in the zone.
-- Game Changer: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
+- Game Changer: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
 - Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink. Keep it high in the zone.
-- Zonker Streamer: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Zonker Streamer: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Zonker Streamer how: Cast across current and strip steadily through the swing; add a momentary deadstop near structure so the wing collapses and then puffs back out. Keep it high in the zone.
 
 Review:
@@ -1054,18 +1054,18 @@ Actual output:
 - Variables triggered: temperature_trend, precipitation_disruption
 - Daily note: A cooling trend tightens fish and shifts preference lower and slower.
 - Lure reasoning:
-- Suspending Jerkbait: It matches the column/pace the conditions push toward today. A cooling trend tightens fish and shifts preference lower and slower. It is one of the lead monthly looks for this exact seasonal window.
+- Suspending Jerkbait: This is today's top overall read. It matches the column/pace the conditions push toward today. A cooling trend tightens fish and shifts preference lower and slower. It is one of the lead monthly looks for this exact seasonal window.
 - Suspending Jerkbait how: Two or three sharp twitches, then let it suspend perfectly still for a full 3-5 count before the next sequence — the pause is everything.
-- Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. A cooling trend tightens fish and shifts preference lower and slower. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
+- Paddle-Tail Swimbait: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. A cooling trend tightens fish and shifts preference lower and slower. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
 - Paddle-Tail Swimbait how: Swim it at the speed where you feel a steady kick through the rod; use rod angle to change depth without changing retrieve speed.
-- Hair Jig: It matches the column/pace the conditions push toward today. A cooling trend tightens fish and shifts preference lower and slower. It stays in the middle band where the seasonal setup is most stable today. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Hair Jig: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. A cooling trend tightens fish and shifts preference lower and slower. It stays in the middle band where the seasonal setup is most stable today. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Hair Jig how: Swing it through current seams or drop it in pockets with minimal movement; let the marabou breathe in place before slowly pulling it along.
 - Fly reasoning:
-- Slim Baitfish Streamer: It matches the column/pace the conditions push toward today. A cooling trend tightens fish and shifts preference lower and slower. It is one of the lead monthly looks for this exact seasonal window.
+- Slim Baitfish Streamer: This is today's top overall read. It matches the column/pace the conditions push toward today. A cooling trend tightens fish and shifts preference lower and slower. It is one of the lead monthly looks for this exact seasonal window.
 - Slim Baitfish Streamer how: Strip with short, quick pulls to make the slim profile dart; pause briefly so it hangs in the current or sinks an inch before the next strip.
-- Clouser Minnow: It matches the column/pace the conditions push toward today. A cooling trend tightens fish and shifts preference lower and slower. It is one of the lead monthly looks for this exact seasonal window. It gives you a different fly baitfish look without leaving today's window.
+- Clouser Minnow: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. A cooling trend tightens fish and shifts preference lower and slower. It is one of the lead monthly looks for this exact seasonal window. It gives you a different fly baitfish look without leaving today's window.
 - Clouser Minnow how: Strip in short, consistent pulls so the dumbbell eyes make the fly jig up and down; let it sink between strips to stay hook-point up throughout.
-- Game Changer: It matches the column/pace the conditions push toward today. A cooling trend tightens fish and shifts preference lower and slower. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Game Changer: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. A cooling trend tightens fish and shifts preference lower and slower. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Game Changer how: Retrieve with medium strips, then occasionally rip hard so the body compresses and then springs apart — pause after each hard strip and hold your nerve.
 
 Review:
@@ -1162,18 +1162,18 @@ Actual output:
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Daily note: Moderate chop improves fishability and supports a stronger moving look.
 - Lure reasoning:
-- Hair Jig: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
+- Hair Jig: This is today's top overall read. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
 - Hair Jig how: Cast across, let it sink on a controlled slack line, then swim it back with short pauses so the marabou pulses and collapses. Slow down and lengthen the pause.
-- Suspending Jerkbait: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different reaction mid column look without leaving today's window.
+- Suspending Jerkbait: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different reaction mid column look without leaving today's window.
 - Suspending Jerkbait how: Jerk, jerk, pause. The bait should dart and glide sideways on each twitch; dial the pause length to water temperature — colder means longer. Slow down and lengthen the pause.
-- Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Paddle-Tail Swimbait: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Paddle-Tail Swimbait how: Slow-roll near the bottom on a consistent retrieve; the paddle thumps best just barely above the substrate, so keep the rod tip down and the pace even. Slow down and lengthen the pause.
 - Fly reasoning:
-- Slim Baitfish Streamer: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
+- Slim Baitfish Streamer: This is today's top overall read. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
 - Slim Baitfish Streamer how: Fish it on a dead-drift through seams, then activate with quick strips near holding structure; the slim silhouette works best in clear water at a measured pace. Slow down and lengthen the pause.
-- Woolly Bugger: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It stays in the middle band where the seasonal setup is most stable today. It rounds out the lineup with a different look. It gives you a different fly bottom look without leaving today's window.
+- Woolly Bugger: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It stays in the middle band where the seasonal setup is most stable today. It rounds out the lineup with a different look. It gives you a different fly bottom look without leaving today's window.
 - Woolly Bugger how: Cast across and swing it on a tight line through the drift, then activate on the hang-down with short strips before lifting. Slow down and lengthen the pause.
-- Sculpin Streamer: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. Sculpin Streamer tracks well when baitfish is a realistic meal. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Sculpin Streamer: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. Sculpin Streamer tracks well when baitfish is a realistic meal. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Sculpin Streamer how: Inch it along the bottom with tight-line strips; sculpin barely swim, so keep the fly close to the substrate and use current for most of the motion. Slow down and lengthen the pause.
 
 Review:
@@ -1271,18 +1271,18 @@ Actual output:
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Daily note: Moderate chop improves fishability and supports a stronger moving look.
 - Lure reasoning:
-- Suspending Jerkbait: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
+- Suspending Jerkbait: This is today's top overall read. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
 - Suspending Jerkbait how: Work it with wrist snaps, not big sweeps; keep slack in the line between snaps so the bait swings freely, then pause until you see a follow or feel weight. Slow down and lengthen the pause.
-- Football Jig: It matches the column/pace the conditions push toward today. Cold metabolism shuts down activity. Slow and low is the only play. It stays low in the zone where this day still wants fish to hold. It rounds out the lineup with a different look. It gives you a different bottom contact look without leaving today's window.
+- Football Jig: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. Cold metabolism shuts down activity. Slow and low is the only play. It stays low in the zone where this day still wants fish to hold. It rounds out the lineup with a different look. It gives you a different bottom contact look without leaving today's window.
 - Football Jig how: Work it with slow rod sweeps across rocky bottom, letting it tick and grind the structure rather than hop above it. Slow down and lengthen the pause.
-- Drop-Shot Worm: It matches the column/pace the conditions push toward today. Cold metabolism shuts down activity. Slow and low is the only play. It stays low in the zone where this day still wants fish to hold. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Drop-Shot Worm: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. Cold metabolism shuts down activity. Slow and low is the only play. It stays low in the zone where this day still wants fish to hold. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Drop-Shot Worm how: Shake in place with light tension, then pause completely and let the worm hang still; most bites come when the bait barely moves at all. Slow down and lengthen the pause.
 - Fly reasoning:
-- Sculpin Streamer: It matches the column/pace the conditions push toward today. Cold metabolism shuts down activity. Slow and low is the only play. It is one of the lead monthly looks for this exact seasonal window.
+- Sculpin Streamer: This is today's top overall read. It matches the column/pace the conditions push toward today. Cold metabolism shuts down activity. Slow and low is the only play. It is one of the lead monthly looks for this exact seasonal window.
 - Sculpin Streamer how: Bump bottom with short strips and let the fly tick along rocks; keep tension so you feel every stop against structure. Slow down and lengthen the pause.
-- Woolly Bugger: It matches the column/pace the conditions push toward today. Cold metabolism shuts down activity. Slow and low is the only play. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different fly bottom look without leaving today's window.
+- Woolly Bugger: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. Cold metabolism shuts down activity. Slow and low is the only play. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different fly bottom look without leaving today's window.
 - Woolly Bugger how: Cast across and swing it on a tight line through the drift, then activate on the hang-down with short strips before lifting. Slow down and lengthen the pause.
-- Conehead Streamer: It matches the column/pace the conditions push toward today. Cold metabolism shuts down activity. Slow and low is the only play. It stays low in the zone where this day still wants fish to hold. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Conehead Streamer: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. Cold metabolism shuts down activity. Slow and low is the only play. It stays low in the zone where this day still wants fish to hold. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Conehead Streamer how: Cast across or down, let it sink to depth, then strip with a jig-like cadence where the cone tips the fly nose-down on each pause. Slow down and lengthen the pause.
 
 Review:
@@ -1377,18 +1377,18 @@ Actual output:
 - Daily note: Bright light trims the day back toward cleaner looks.
 - Daily note: Moderate chop improves fishability and supports a stronger moving look.
 - Lure reasoning:
-- Tube Jig: It matches the column/pace the conditions push toward today. Bright light trims the day back toward cleaner looks. It is one of the lead monthly looks for this exact seasonal window.
+- Tube Jig: This is today's top overall read. It matches the column/pace the conditions push toward today. Bright light trims the day back toward cleaner looks. It is one of the lead monthly looks for this exact seasonal window.
 - Tube Jig how: Hop it erratically off the bottom with sharp pops, then open the bail slightly so it spirals down freely; strikes happen on that spinning fall. Slow down and lengthen the pause.
-- Blade Bait: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different reaction mid column look without leaving today's window.
+- Blade Bait: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different reaction mid column look without leaving today's window.
 - Blade Bait how: Vertical jig it with short, sharp hops over suspended fish; the flutter-fall is the presentation — set hard the moment you feel weight. Slow down and lengthen the pause.
-- Hair Jig: It matches the column/pace the conditions push toward today. Bright light trims the day back toward cleaner looks. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Hair Jig: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. Bright light trims the day back toward cleaner looks. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Hair Jig how: Fish it on a tight line at slow speed — the hair works best with tiny line pulses rather than big lifts; let it hang in the current or slack zone. Slow down and lengthen the pause.
 - Fly reasoning:
-- Sculpin Streamer: It matches the column/pace the conditions push toward today. Bright light trims the day back toward cleaner looks. It is one of the lead monthly looks for this exact seasonal window.
+- Sculpin Streamer: This is today's top overall read. It matches the column/pace the conditions push toward today. Bright light trims the day back toward cleaner looks. It is one of the lead monthly looks for this exact seasonal window.
 - Sculpin Streamer how: Cast upstream and mend for a natural drift, then activate with short strips that make the fly bumble over the bottom like a sculpin retreating. Slow down and lengthen the pause.
-- Woolly Bugger: It matches the column/pace the conditions push toward today. Bright light trims the day back toward cleaner looks. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different fly bottom look without leaving today's window.
+- Woolly Bugger: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. Bright light trims the day back toward cleaner looks. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different fly bottom look without leaving today's window.
 - Woolly Bugger how: Cast across and swing it on a tight line through the drift, then activate on the hang-down with short strips before lifting. Slow down and lengthen the pause.
-- Conehead Streamer: It matches the column/pace the conditions push toward today. Reduced visibility supports a stronger profile fish can find more easily. It stays low in the zone where this day still wants fish to hold. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Conehead Streamer: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. Reduced visibility supports a stronger profile fish can find more easily. It stays low in the zone where this day still wants fish to hold. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Conehead Streamer how: Strip with consistent medium pulls; the cone keeps the fly diving nose-first on each retrieve, so use pauses to let it hunt and settle before the next strip. Slow down and lengthen the pause.
 
 Review:
@@ -1484,18 +1484,18 @@ Actual output:
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Daily note: Moderate chop improves fishability and supports a stronger moving look.
 - Lure reasoning:
-- Tube Jig: It matches the column/pace the conditions push toward today. Cold metabolism shuts down activity. Slow and low is the only play. It is one of the lead monthly looks for this exact seasonal window.
+- Tube Jig: This is today's top overall read. It matches the column/pace the conditions push toward today. Cold metabolism shuts down activity. Slow and low is the only play. It is one of the lead monthly looks for this exact seasonal window.
 - Tube Jig how: Hop it erratically off the bottom with sharp pops, then open the bail slightly so it spirals down freely; strikes happen on that spinning fall. Slow down and lengthen the pause.
-- Medium-Diving Crankbait: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. Medium-Diving Crankbait stays in play when baitfish is relevant. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
+- Medium-Diving Crankbait: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. Medium-Diving Crankbait stays in play when baitfish is relevant. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
 - Medium-Diving Crankbait how: Retrieve at a medium pace along depth contours, pausing after any bottom contact so the bait rises before diving back when you resume. Slow down and lengthen the pause.
-- Hair Jig: It matches the column/pace the conditions push toward today. Cold metabolism shuts down activity. Slow and low is the only play. Hair Jig stays in play when baitfish is relevant. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Hair Jig: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. Cold metabolism shuts down activity. Slow and low is the only play. It can still drop into today's lower zone when the moment calls for it. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Hair Jig how: Fish it on a tight line at slow speed — the hair works best with tiny line pulses rather than big lifts; let it hang in the current or slack zone. Slow down and lengthen the pause.
 - Fly reasoning:
-- Crawfish Streamer: It matches the column/pace the conditions push toward today. Cold metabolism shuts down activity. Slow and low is the only play. It is one of the lead monthly looks for this exact seasonal window.
+- Crawfish Streamer: This is today's top overall read. It matches the column/pace the conditions push toward today. Cold metabolism shuts down activity. Slow and low is the only play. It is one of the lead monthly looks for this exact seasonal window.
 - Crawfish Streamer how: Cast upstream and mend for a dead-drift first; then come alive with quick, short strips that make the claw materials flex like a fleeing crawfish. Slow down and lengthen the pause.
-- Clouser Minnow: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. It stays low in the zone where this day still wants fish to hold. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
+- Clouser Minnow: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. It stays low in the zone where this day still wants fish to hold. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
 - Clouser Minnow how: Strip in short, consistent pulls so the dumbbell eyes make the fly jig up and down; let it sink between strips to stay hook-point up throughout. Slow down and lengthen the pause.
-- Sculpin Streamer: It matches the column/pace the conditions push toward today. Cold metabolism shuts down activity. Slow and low is the only play. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Sculpin Streamer: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. Cold metabolism shuts down activity. Slow and low is the only play. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
 - Sculpin Streamer how: Cast upstream and mend for a natural drift, then activate with short strips that make the fly bumble over the bottom like a sculpin retreating. Slow down and lengthen the pause.
 
 Review:
@@ -1591,18 +1591,18 @@ Actual output:
 - Daily note: A sharp cooldown reinforces a lower daily lane.
 - Daily note: Moderate chop improves fishability and supports a stronger moving look.
 - Lure reasoning:
-- Tube Jig: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Tube Jig: This is today's top overall read. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
 - Tube Jig how: Snap the tube off bottom with short pops so it spirals on the fall, then let it glide back down on slack or semi-slack line. Slow down and lengthen the pause.
-- Hair Jig: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. Hair Jig stays in play when baitfish is relevant. It rounds out the lineup with a different look. It gives you a different finesse subtle look without leaving today's window.
+- Hair Jig: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It can still drop into today's lower zone when the moment calls for it. It rounds out the lineup with a different look. It gives you a different finesse subtle look without leaving today's window.
 - Hair Jig how: Cast across, let it sink on a controlled slack line, then swim it back with short pauses so the marabou pulses and collapses. Slow down and lengthen the pause.
-- Ned Rig: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. That keeps a crawfish-first look in the water for the month. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Ned Rig: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. That keeps a crawfish-first look in the water for the month. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Ned Rig how: Drag and shake the small head along bottom like a tiny craw — short pulls, let it settle, repeat instead of big hops. Slow down and lengthen the pause.
 - Fly reasoning:
-- Sculpin Streamer: It matches the column/pace the conditions push toward today. A sharp cooldown reinforces a lower daily lane. It is one of the lead monthly looks for this exact seasonal window.
+- Sculpin Streamer: This is today's top overall read. It matches the column/pace the conditions push toward today. A sharp cooldown reinforces a lower daily lane. It is one of the lead monthly looks for this exact seasonal window.
 - Sculpin Streamer how: Bump bottom with short strips and let the fly tick along rocks; keep tension so you feel every stop against structure. Slow down and lengthen the pause.
-- Woolly Bugger: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It stays low in the zone where this day still wants fish to hold. It rounds out the lineup with a different look. It gives you a different fly bottom look without leaving today's window.
+- Woolly Bugger: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It stays low in the zone where this day still wants fish to hold. It rounds out the lineup with a different look. It gives you a different fly bottom look without leaving today's window.
 - Woolly Bugger how: Let it sink to depth then retrieve with slow hand-twists or short strips; the marabou tail breathes best with long pauses at the end of each pull. Slow down and lengthen the pause.
-- Crawfish Streamer: It matches the column/pace the conditions push toward today. A sharp cooldown reinforces a lower daily lane. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Crawfish Streamer: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. A sharp cooldown reinforces a lower daily lane. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
 - Crawfish Streamer how: Tick it along the bottom with short, nervous strips so the claws scratch and flare; keep it close to the substrate and pause after contact with any rock or root. Slow down and lengthen the pause.
 
 Review:
@@ -1696,18 +1696,18 @@ Actual output:
 - Daily note: A cooling trend tightens fish and shifts preference lower and slower.
 - Daily note: Bright light trims the day back toward cleaner looks.
 - Lure reasoning:
-- Tube Jig: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Tube Jig: This is today's top overall read. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
 - Tube Jig how: Snap the tube off bottom with short pops so it spirals on the fall, then let it glide back down on slack or semi-slack line. Slow down and lengthen the pause.
-- Hair Jig: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It stays in the middle band where the seasonal setup is most stable today. It rounds out the lineup with a different look. It gives you a different finesse subtle look without leaving today's window.
+- Hair Jig: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It stays in the middle band where the seasonal setup is most stable today. It rounds out the lineup with a different look. It gives you a different finesse subtle look without leaving today's window.
 - Hair Jig how: Fish it on a tight line at slow speed — the hair works best with tiny line pulses rather than big lifts; let it hang in the current or slack zone. Slow down and lengthen the pause.
-- Medium-Diving Crankbait: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It stays in the middle band where the seasonal setup is most stable today. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Medium-Diving Crankbait: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It stays in the middle band where the seasonal setup is most stable today. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Medium-Diving Crankbait how: Work it through mid-column structure at steady speed, varying rod angle to bump the lip on rock ledges or submerged debris. Slow down and lengthen the pause.
 - Fly reasoning:
-- Woolly Bugger: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It stays in the middle band where the seasonal setup is most stable today.
+- Woolly Bugger: This is today's top overall read. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It stays in the middle band where the seasonal setup is most stable today.
 - Woolly Bugger how: Let it sink to depth then retrieve with slow hand-twists or short strips; the marabou tail breathes best with long pauses at the end of each pull. Slow down and lengthen the pause.
-- Game Changer: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It stays in the middle band where the seasonal setup is most stable today. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
+- Game Changer: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It stays in the middle band where the seasonal setup is most stable today. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
 - Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink. Slow down and lengthen the pause.
-- Clouser Minnow: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It stays in the middle band where the seasonal setup is most stable today. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Clouser Minnow: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It stays in the middle band where the seasonal setup is most stable today. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Clouser Minnow how: Cast and let the weighted eyes sink the fly, then retrieve with a strip-pause cadence that makes it dart upward on the strip and dive back on the pause. Slow down and lengthen the pause.
 
 Review:
@@ -1801,18 +1801,18 @@ Actual output:
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Daily note: Moderate chop improves fishability and supports a stronger moving look.
 - Lure reasoning:
-- Spinnerbait: It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. It is one of the lead monthly looks for this exact seasonal window.
+- Spinnerbait: This is today's top overall read. It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. It is one of the lead monthly looks for this exact seasonal window.
 - Spinnerbait how: Work it parallel to grass lines or over submerged timber; slow the retrieve near the target and let the head tick the top. Keep it high in the zone.
-- Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
+- Paddle-Tail Swimbait: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
 - Paddle-Tail Swimbait how: Swim it at the speed where you feel a steady kick through the rod; use rod angle to change depth without changing retrieve speed. Keep it high in the zone.
-- Soft Plastic Jerkbait: It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. It stays high enough in the zone to match the day's more open positioning. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Soft Plastic Jerkbait: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. It stays high enough in the zone to match the day's more open positioning. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Soft Plastic Jerkbait how: Snap the rod sideways so the bait darts left or right, then drop the rod tip so it glides and sinks on a slack line before the next snap. Keep it high in the zone.
 - Fly reasoning:
-- Clouser Minnow: It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. It is one of the lead monthly looks for this exact seasonal window.
+- Clouser Minnow: This is today's top overall read. It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. It is one of the lead monthly looks for this exact seasonal window.
 - Clouser Minnow how: Strip in short, consistent pulls so the dumbbell eyes make the fly jig up and down; let it sink between strips to stay hook-point up throughout.
-- Crawfish Streamer: It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different fly bottom look without leaving today's window.
+- Crawfish Streamer: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different fly bottom look without leaving today's window.
 - Crawfish Streamer how: Cast upstream and mend for a dead-drift first; then come alive with quick, short strips that make the claw materials flex like a fleeing crawfish. Keep it low in the strike zone.
-- Woolly Bugger: It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. Woolly Bugger tracks well when leech_worm is a realistic meal. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Woolly Bugger: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. Woolly Bugger tracks well when leech_worm is a realistic meal. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Woolly Bugger how: Cast across and swing it on a tight line through the drift, then activate on the hang-down with short strips before lifting.
 
 Review:
@@ -1907,18 +1907,18 @@ Actual output:
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Daily note: Moderate chop improves fishability and supports a stronger moving look.
 - Lure reasoning:
-- Walking Topwater: It matches the column/pace the conditions push toward today. Low disturbance is keeping a true surface lane open today. The month is still baitfish-forward, and this stays inside that search lane.
+- Walking Topwater: This is today's top overall read. It matches the column/pace the conditions push toward today. Low disturbance is keeping a true surface lane open today. The month is still baitfish-forward, and this stays inside that search lane.
 - Walking Topwater how: Downrod with light wrist flicks to make it dance; the pause between twitches lets fish track and commit, so give it a beat before the next twitch. Keep it on top.
-- Soft Plastic Jerkbait: It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
+- Soft Plastic Jerkbait: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
 - Soft Plastic Jerkbait how: Snap the rod sideways so the bait darts left or right, then drop the rod tip so it glides and sinks on a slack line before the next snap. Keep it high in the zone.
-- Spinnerbait: It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Spinnerbait: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Spinnerbait how: Work it parallel to grass lines or over submerged timber; slow the retrieve near the target and let the head tick the top. Keep it high in the zone.
 - Fly reasoning:
-- Popper Fly: It matches the column/pace the conditions push toward today. Low disturbance is keeping a true surface lane open today. The month is still baitfish-forward, and this stays inside that search lane.
+- Popper Fly: This is today's top overall read. It matches the column/pace the conditions push toward today. Low disturbance is keeping a true surface lane open today. The month is still baitfish-forward, and this stays inside that search lane.
 - Popper Fly how: Make a sharp strip-pause to spit water, then wait; the longer the pause in the ring, the more time a fish has to rise and commit. Keep it on top.
-- Game Changer: It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
+- Game Changer: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
 - Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink. Keep it high in the zone.
-- Mouse Fly: It matches the column/pace the conditions push toward today. Low disturbance is keeping a true surface lane open today. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Mouse Fly: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. Low disturbance is keeping a true surface lane open today. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
 - Mouse Fly how: Swim it on a constant slow retrieve just fast enough to leave a wake; target near-shore edges and structure where big fish expect food to cross. Keep it on top.
 
 Review:
@@ -1984,10 +1984,10 @@ Archived env summary:
 - Sunrise/sunset: 05:37 / 20:05
 
 Actual output:
-- Top 1 lure: Spinnerbait `spinnerbait` | theme: `dark` | colors: black, black/blue, black/purple
+- Top 1 lure: Walking Topwater `walking_topwater` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 lures:
-- Spinnerbait `spinnerbait` | theme: `dark` | colors: black, black/blue, black/purple
 - Walking Topwater `walking_topwater` | theme: `dark` | colors: black, black/blue, black/purple
+- Spinnerbait `spinnerbait` | theme: `dark` | colors: black, black/blue, black/purple
 - Topwater Popper `popping_topwater` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 1 fly: Popper Fly `popper_fly` | theme: `dark` | colors: black, black/blue, black/purple
 - Top 3 flies:
@@ -1996,8 +1996,8 @@ Actual output:
 - Articulated Baitfish Streamer `articulated_baitfish_streamer` | theme: `dark` | colors: black, black/blue, black/purple
 - Color notes:
 - Daily posture: aggressive
-- Spinnerbait: dark -> black, black/blue, black/purple
 - Walking Topwater: dark -> black, black/blue, black/purple
+- Spinnerbait: dark -> black, black/blue, black/purple
 - Topwater Popper: dark -> black, black/blue, black/purple
 - Popper Fly: dark -> black, black/blue, black/purple
 - Game Changer: dark -> black, black/blue, black/purple
@@ -2013,18 +2013,18 @@ Actual output:
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
 - Daily note: Moderate chop improves fishability and supports a stronger moving look.
 - Lure reasoning:
-- Spinnerbait: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane.
-- Spinnerbait how: Work it parallel to grass lines or over submerged timber; slow the retrieve near the target and let the head tick the top. Keep it high in the zone.
-- Walking Topwater: It matches the column/pace the conditions push toward today. The monthly surface window is still alive today, even with a little ripple on top. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different surface look without leaving today's window.
+- Walking Topwater: This is today's top overall read. It matches the column/pace the conditions push toward today. The monthly surface window is still alive today, even with a little ripple on top. It is one of the lead monthly looks for this exact seasonal window.
 - Walking Topwater how: Downrod with light wrist flicks to make it dance; the pause between twitches lets fish track and commit, so give it a beat before the next twitch. Keep it on top.
-- Topwater Popper: It matches the column/pace the conditions push toward today. The monthly surface window is still alive today, even with a little ripple on top. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Spinnerbait: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
+- Spinnerbait how: Work it parallel to grass lines or over submerged timber; slow the retrieve near the target and let the head tick the top. Keep it high in the zone.
+- Topwater Popper: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. The monthly surface window is still alive today, even with a little ripple on top. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
 - Topwater Popper how: Use rhythmic 1-2 pops followed by a pause; target the shadow of any surface feature and let the bait sit still in the ring for a count of three. Keep it on top.
 - Fly reasoning:
-- Popper Fly: It matches the column/pace the conditions push toward today. The monthly surface window is still alive today, even with a little ripple on top. It is one of the lead monthly looks for this exact seasonal window.
+- Popper Fly: This is today's top overall read. It matches the column/pace the conditions push toward today. The monthly surface window is still alive today, even with a little ripple on top. It is one of the lead monthly looks for this exact seasonal window.
 - Popper Fly how: Make a sharp strip-pause to spit water, then wait; the longer the pause in the ring, the more time a fish has to rise and commit. Keep it on top.
-- Game Changer: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
+- Game Changer: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
 - Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink. Keep it high in the zone.
-- Articulated Baitfish Streamer: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Articulated Baitfish Streamer: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Articulated Baitfish Streamer how: Work it across current and down with a varied strip cadence; when a fish follows, slow down and kill the retrieve to let the body spiral on the sink. Keep it high in the zone.
 
 Review:
@@ -2118,18 +2118,18 @@ Actual output:
 - Variables triggered: temperature_trend, precipitation_disruption
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
 - Lure reasoning:
-- Spinnerbait: It matches the column/pace the conditions push toward today. Reduced visibility supports a stronger profile fish can find more easily. The month is still baitfish-forward, and this stays inside that search lane.
+- Spinnerbait: This is today's top overall read. It matches the column/pace the conditions push toward today. Reduced visibility supports a stronger profile fish can find more easily. The month is still baitfish-forward, and this stays inside that search lane.
 - Spinnerbait how: Work it parallel to grass lines or over submerged timber; slow the retrieve near the target and let the head tick the top. Keep it high in the zone.
-- Walking Topwater: It matches the column/pace the conditions push toward today. The monthly surface window is still alive today, even with a little ripple on top. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different surface look without leaving today's window.
+- Walking Topwater: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. The monthly surface window is still alive today, even with a little ripple on top. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different surface look without leaving today's window.
 - Walking Topwater how: Downrod with light wrist flicks to make it dance; the pause between twitches lets fish track and commit, so give it a beat before the next twitch. Keep it on top.
-- Topwater Popper: It matches the column/pace the conditions push toward today. The monthly surface window is still alive today, even with a little ripple on top. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Topwater Popper: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. The monthly surface window is still alive today, even with a little ripple on top. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Topwater Popper how: Use rhythmic 1-2 pops followed by a pause; target the shadow of any surface feature and let the bait sit still in the ring for a count of three. Keep it on top.
 - Fly reasoning:
-- Popper Fly: It matches the column/pace the conditions push toward today. The monthly surface window is still alive today, even with a little ripple on top. It is one of the lead monthly looks for this exact seasonal window.
+- Popper Fly: This is today's top overall read. It matches the column/pace the conditions push toward today. The monthly surface window is still alive today, even with a little ripple on top. It is one of the lead monthly looks for this exact seasonal window.
 - Popper Fly how: Make a sharp strip-pause to spit water, then wait; the longer the pause in the ring, the more time a fish has to rise and commit. Keep it on top.
-- Game Changer: It matches the column/pace the conditions push toward today. Reduced visibility supports a stronger profile fish can find more easily. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
+- Game Changer: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. Reduced visibility supports a stronger profile fish can find more easily. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
 - Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink. Keep it high in the zone.
-- Articulated Baitfish Streamer: It matches the column/pace the conditions push toward today. Reduced visibility supports a stronger profile fish can find more easily. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Articulated Baitfish Streamer: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. Reduced visibility supports a stronger profile fish can find more easily. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Articulated Baitfish Streamer how: Work it across current and down with a varied strip cadence; when a fish follows, slow down and kill the retrieve to let the body spiral on the sink. Keep it high in the zone.
 
 Review:
@@ -2224,18 +2224,18 @@ Actual output:
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
 - Daily note: Bright light trims the day back toward cleaner looks.
 - Lure reasoning:
-- Suspending Jerkbait: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
-- Suspending Jerkbait how: Two or three sharp twitches, then let it suspend perfectly still for a full 3-5 count before the next sequence — the pause is everything. Keep it high in the zone.
-- Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
+- Suspending Jerkbait: This is today's top overall read. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Suspending Jerkbait how: Two or three sharp twitches, then let it suspend perfectly still for a full 3-5 count before the next sequence — the pause is everything.
+- Paddle-Tail Swimbait: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
 - Paddle-Tail Swimbait how: Swim it at the speed where you feel a steady kick through the rod; use rod angle to change depth without changing retrieve speed. Keep it high in the zone.
-- Hair Jig: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It stays high enough in the zone to match the day's more open positioning. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Hair Jig: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It stays high enough in the zone to match the day's more open positioning. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Hair Jig how: Swing it through current seams or drop it in pockets with minimal movement; let the marabou breathe in place before slowly pulling it along. Keep it high in the zone.
 - Fly reasoning:
-- Game Changer: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane.
+- Game Changer: This is today's top overall read. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane.
 - Game Changer how: Use a mix of steady strips and sharp 6-inch twitches so the jointed body swims and stalls; pause when you see a follow. Keep it high in the zone.
-- Slim Baitfish Streamer: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
+- Slim Baitfish Streamer: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
 - Slim Baitfish Streamer how: Retrieve with a mix of short darts and longer glides; the thin profile tracks like a small minnow on a tight line. Keep it high in the zone.
-- Clouser Minnow: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Clouser Minnow: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
 - Clouser Minnow how: Cast and let the weighted eyes sink the fly, then retrieve with a strip-pause cadence that makes it dart upward on the strip and dive back on the pause.
 
 Review:
@@ -2330,18 +2330,18 @@ Actual output:
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
 - Daily note: Bright light trims the day back toward cleaner looks.
 - Lure reasoning:
-- Suspending Jerkbait: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
-- Suspending Jerkbait how: Two or three sharp twitches, then let it suspend perfectly still for a full 3-5 count before the next sequence — the pause is everything. Keep it high in the zone.
-- Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
+- Suspending Jerkbait: This is today's top overall read. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Suspending Jerkbait how: Two or three sharp twitches, then let it suspend perfectly still for a full 3-5 count before the next sequence — the pause is everything.
+- Paddle-Tail Swimbait: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
 - Paddle-Tail Swimbait how: Swim it at the speed where you feel a steady kick through the rod; use rod angle to change depth without changing retrieve speed. Keep it high in the zone.
-- Hair Jig: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It stays high enough in the zone to match the day's more open positioning. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Hair Jig: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It stays high enough in the zone to match the day's more open positioning. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Hair Jig how: Swing it through current seams or drop it in pockets with minimal movement; let the marabou breathe in place before slowly pulling it along. Keep it high in the zone.
 - Fly reasoning:
-- Game Changer: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane.
+- Game Changer: This is today's top overall read. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane.
 - Game Changer how: Use a mix of steady strips and sharp 6-inch twitches so the jointed body swims and stalls; pause when you see a follow. Keep it high in the zone.
-- Zonker Streamer: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
+- Zonker Streamer: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
 - Zonker Streamer how: Retrieve at moderate speed with intentional pauses where the fly sinks and the strip wing breathes; strikes often come as you restart the strip. Keep it high in the zone.
-- Clouser Minnow: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Clouser Minnow: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Clouser Minnow how: Cast and let the weighted eyes sink the fly, then retrieve with a strip-pause cadence that makes it dart upward on the strip and dive back on the pause.
 
 Review:
@@ -2436,18 +2436,18 @@ Actual output:
 - Daily note: Bright light trims the day back toward cleaner looks.
 - Daily note: Moderate chop improves fishability and supports a stronger moving look.
 - Lure reasoning:
-- Spinnerbait: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window.
+- Spinnerbait: This is today's top overall read. It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window.
 - Spinnerbait how: Work it parallel to grass lines or over submerged timber; slow the retrieve near the target and let the head tick the top. Slow down and lengthen the pause.
-- Tube Jig: It matches the column/pace the conditions push toward today. Bright light trims the day back toward cleaner looks. It stays in the middle band where the seasonal setup is most stable today. It rounds out the lineup with a different look. It gives you a different bottom contact look without leaving today's window.
+- Tube Jig: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. Bright light trims the day back toward cleaner looks. It stays in the middle band where the seasonal setup is most stable today. It rounds out the lineup with a different look. It gives you a different bottom contact look without leaving today's window.
 - Tube Jig how: Hop it erratically off the bottom with sharp pops, then open the bail slightly so it spirals down freely; strikes happen on that spinning fall. Slow down and lengthen the pause.
-- Blade Bait: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Blade Bait: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Blade Bait how: Vertical jig it with short, sharp hops over suspended fish; the flutter-fall is the presentation — set hard the moment you feel weight. Slow down and lengthen the pause.
 - Fly reasoning:
-- Clouser Minnow: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window.
+- Clouser Minnow: This is today's top overall read. It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window.
 - Clouser Minnow how: Strip in short, consistent pulls so the dumbbell eyes make the fly jig up and down; let it sink between strips to stay hook-point up throughout. Slow down and lengthen the pause.
-- Woolly Bugger: It matches the column/pace the conditions push toward today. Bright light trims the day back toward cleaner looks. It stays in the middle band where the seasonal setup is most stable today. It rounds out the lineup with a different look. It gives you a different fly bottom look without leaving today's window.
+- Woolly Bugger: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. Bright light trims the day back toward cleaner looks. It stays in the middle band where the seasonal setup is most stable today. It rounds out the lineup with a different look. It gives you a different fly bottom look without leaving today's window.
 - Woolly Bugger how: Cast across and swing it on a tight line through the drift, then activate on the hang-down with short strips before lifting. Slow down and lengthen the pause.
-- Game Changer: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Game Changer: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink. Slow down and lengthen the pause.
 
 Review:
@@ -2543,18 +2543,18 @@ Actual output:
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Daily note: Strong wind reduces clean execution.
 - Lure reasoning:
-- Tube Jig: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Tube Jig: This is today's top overall read. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
 - Tube Jig how: Hop it erratically off the bottom with sharp pops, then open the bail slightly so it spirals down freely; strikes happen on that spinning fall. Slow down and lengthen the pause.
-- Blade Bait: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different reaction mid column look without leaving today's window.
+- Blade Bait: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different reaction mid column look without leaving today's window.
 - Blade Bait how: Vertical jig it with short, sharp hops over suspended fish; the flutter-fall is the presentation — set hard the moment you feel weight. Slow down and lengthen the pause.
-- Hair Jig: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Hair Jig: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Hair Jig how: Fish it on a tight line at slow speed — the hair works best with tiny line pulses rather than big lifts; let it hang in the current or slack zone. Slow down and lengthen the pause.
 - Fly reasoning:
-- Woolly Bugger: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Woolly Bugger: This is today's top overall read. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
 - Woolly Bugger how: Cast across and swing it on a tight line through the drift, then activate on the hang-down with short strips before lifting. Slow down and lengthen the pause.
-- Conehead Streamer: It matches the column/pace the conditions push toward today. Reduced visibility supports a stronger profile fish can find more easily. Conehead Streamer tracks well when baitfish is a realistic meal. It rounds out the lineup with a different look. It gives you a different fly bottom look without leaving today's window.
+- Conehead Streamer: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. Reduced visibility supports a stronger profile fish can find more easily. Conehead Streamer tracks well when baitfish is a realistic meal. It rounds out the lineup with a different look. It gives you a different fly bottom look without leaving today's window.
 - Conehead Streamer how: Strip with consistent medium pulls; the cone keeps the fly diving nose-first on each retrieve, so use pauses to let it hunt and settle before the next strip. Slow down and lengthen the pause.
-- Sculpin Streamer: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Sculpin Streamer: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Sculpin Streamer how: Cast upstream and mend for a natural drift, then activate with short strips that make the fly bumble over the bottom like a sculpin retreating. Slow down and lengthen the pause.
 
 Review:
@@ -2651,18 +2651,18 @@ Actual output:
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
 - Daily note: Bright light trims the day back toward cleaner looks.
 - Lure reasoning:
-- Tube Jig: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
+- Tube Jig: This is today's top overall read. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
 - Tube Jig how: Snap the tube off bottom with short pops so it spirals on the fall, then let it glide back down on slack or semi-slack line. Slow down and lengthen the pause.
-- Hair Jig: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different finesse subtle look without leaving today's window.
+- Hair Jig: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different finesse subtle look without leaving today's window.
 - Hair Jig how: Fish it on a tight line at slow speed — the hair works best with tiny line pulses rather than big lifts; let it hang in the current or slack zone. Slow down and lengthen the pause.
-- Blade Bait: It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Blade Bait: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Blade Bait how: Cast and hop it off bottom with quick wrist snaps, counting the flutter back down; strikes usually come on the fall, so stay in contact with semi-tight line. Slow down and lengthen the pause.
 - Fly reasoning:
-- Sculpin Streamer: It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window.
+- Sculpin Streamer: This is today's top overall read. It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window.
 - Sculpin Streamer how: Bump bottom with short strips and let the fly tick along rocks; keep tension so you feel every stop against structure. Slow down and lengthen the pause.
-- Woolly Bugger: It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different fly bottom look without leaving today's window.
+- Woolly Bugger: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different fly bottom look without leaving today's window.
 - Woolly Bugger how: Cast across and swing it on a tight line through the drift, then activate on the hang-down with short strips before lifting. Slow down and lengthen the pause.
-- Conehead Streamer: It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It stays low in the zone where this day still wants fish to hold. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Conehead Streamer: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It stays low in the zone where this day still wants fish to hold. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Conehead Streamer how: Cast across or down, let it sink to depth, then strip with a jig-like cadence where the cone tips the fly nose-down on each pause. Slow down and lengthen the pause.
 
 Review:
@@ -2758,18 +2758,18 @@ Actual output:
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Daily note: Slightly elevated runoff supports a more visible river presentation.
 - Lure reasoning:
-- Tube Jig: It matches the column/pace the conditions push toward today. Cold metabolism shuts down activity. Slow and low is the only play. It is one of the lead monthly looks for this exact seasonal window.
+- Tube Jig: This is today's top overall read. It matches the column/pace the conditions push toward today. Cold metabolism shuts down activity. Slow and low is the only play. It is one of the lead monthly looks for this exact seasonal window.
 - Tube Jig how: Hop it erratically off the bottom with sharp pops, then open the bail slightly so it spirals down freely; strikes happen on that spinning fall. Slow down and lengthen the pause.
-- Spinnerbait: It matches the column/pace the conditions push toward today. Slightly elevated runoff supports a more visible river presentation. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
+- Spinnerbait: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. Slightly elevated runoff supports a more visible river presentation. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
 - Spinnerbait how: Work it parallel to grass lines or over submerged timber; slow the retrieve near the target and let the head tick the top. Slow down and lengthen the pause.
-- Inline Spinner: It matches the column/pace the conditions push toward today. Slightly elevated runoff supports a more visible river presentation. Inline Spinner stays in play when baitfish is relevant. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
-- Inline Spinner how: Use a slow-roll retrieve near bottom or cover edges; occasionally bump into structure to trigger reaction strikes. Slow down and lengthen the pause.
+- Inline Spinner: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. Slightly elevated runoff supports a more visible river presentation. Inline Spinner stays in play when baitfish is relevant. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Inline Spinner how: Cast parallel to cover edges and retrieve with a steady pace that keeps the blade thumping; slow a half-beat near cover, then speed back up once it clears. Slow down and lengthen the pause.
 - Fly reasoning:
-- Crawfish Streamer: It matches the column/pace the conditions push toward today. Slightly elevated runoff supports a more visible river presentation. It is one of the lead monthly looks for this exact seasonal window.
+- Crawfish Streamer: This is today's top overall read. It matches the column/pace the conditions push toward today. Slightly elevated runoff supports a more visible river presentation. It is one of the lead monthly looks for this exact seasonal window.
 - Crawfish Streamer how: Cast upstream and mend for a dead-drift first; then come alive with quick, short strips that make the claw materials flex like a fleeing crawfish. Slow down and lengthen the pause.
-- Clouser Minnow: It matches the column/pace the conditions push toward today. Slightly elevated runoff supports a more visible river presentation. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
+- Clouser Minnow: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. Slightly elevated runoff supports a more visible river presentation. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
 - Clouser Minnow how: Strip in short, consistent pulls so the dumbbell eyes make the fly jig up and down; let it sink between strips to stay hook-point up throughout. Slow down and lengthen the pause.
-- Sculpin Streamer: It matches the column/pace the conditions push toward today. Slightly elevated runoff supports a more visible river presentation. It stays low in the zone where this day still wants fish to hold. It is the cleaner change-up if the lead look does not convert.
+- Sculpin Streamer: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. Slightly elevated runoff supports a more visible river presentation. It stays low in the zone where this day still wants fish to hold. It is the cleaner change-up if the lead look does not convert.
 - Sculpin Streamer how: Cast upstream and mend for a natural drift, then activate with short strips that make the fly bumble over the bottom like a sculpin retreating. Slow down and lengthen the pause.
 
 Review:
@@ -2866,18 +2866,18 @@ Actual output:
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Daily note: Elevated runoff tightens fish and pulls the day lower and slower.
 - Lure reasoning:
-- Tube Jig: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Tube Jig: This is today's top overall read. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
 - Tube Jig how: Snap the tube off bottom with short pops so it spirals on the fall, then let it glide back down on slack or semi-slack line. Slow down and lengthen the pause.
-- Ned Rig: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. That keeps a crawfish-first look in the water for the month. It rounds out the lineup with a different look. It gives you a different bottom contact look without leaving today's window.
+- Ned Rig: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. That keeps a crawfish-first look in the water for the month. It rounds out the lineup with a different look. It gives you a different bottom contact look without leaving today's window.
 - Ned Rig how: Drag and shake the small head along bottom like a tiny craw — short pulls, let it settle, repeat instead of big hops. Slow down and lengthen the pause.
-- Spinnerbait: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Spinnerbait: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Spinnerbait how: Slow-roll it along the bottom edge of cover at a steady pace, keeping the blades just ticking; bump any piece of structure and let it rise. Slow down and lengthen the pause.
 - Fly reasoning:
-- Sculpin Streamer: It matches the column/pace the conditions push toward today. A sharp cooldown reinforces a lower daily lane. It stays low in the zone where this day still wants fish to hold.
+- Sculpin Streamer: This is today's top overall read. It matches the column/pace the conditions push toward today. A sharp cooldown reinforces a lower daily lane. It stays low in the zone where this day still wants fish to hold.
 - Sculpin Streamer how: Bump bottom with short strips and let the fly tick along rocks; keep tension so you feel every stop against structure. Slow down and lengthen the pause.
-- Woolly Bugger: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It stays low in the zone where this day still wants fish to hold. It rounds out the lineup with a different look. It gives you a different fly bottom look without leaving today's window.
+- Woolly Bugger: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It stays low in the zone where this day still wants fish to hold. It rounds out the lineup with a different look. It gives you a different fly bottom look without leaving today's window.
 - Woolly Bugger how: Let it sink to depth then retrieve with slow hand-twists or short strips; the marabou tail breathes best with long pauses at the end of each pull. Slow down and lengthen the pause.
-- Crawfish Streamer: It matches the column/pace the conditions push toward today. A sharp cooldown reinforces a lower daily lane. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Crawfish Streamer: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. A sharp cooldown reinforces a lower daily lane. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
 - Crawfish Streamer how: Tick it along the bottom with short, nervous strips so the claws scratch and flare; keep it close to the substrate and pause after contact with any rock or root. Slow down and lengthen the pause.
 
 Review:
@@ -2972,18 +2972,18 @@ Actual output:
 - Daily note: A cooling trend tightens fish and shifts preference lower and slower.
 - Daily note: Bright light trims the day back toward cleaner looks.
 - Lure reasoning:
-- Tube Jig: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Tube Jig: This is today's top overall read. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
 - Tube Jig how: Snap the tube off bottom with short pops so it spirals on the fall, then let it glide back down on slack or semi-slack line.
-- Soft Plastic Jerkbait: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
+- Soft Plastic Jerkbait: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
 - Soft Plastic Jerkbait how: Twitch it with slack in the line so the bait darts and glides erratically; pause and let it sink a few inches between twitches.
-- Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It stays in the middle band where the seasonal setup is most stable today. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Paddle-Tail Swimbait: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It stays in the middle band where the seasonal setup is most stable today. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Paddle-Tail Swimbait how: Reel at a steady pace with the rod low so the tail thumps consistently; speed up slightly over bait schools or slow down after a follow.
 - Fly reasoning:
-- Clouser Minnow: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Clouser Minnow: This is today's top overall read. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
 - Clouser Minnow how: Cast across or slightly downstream, let it jig toward you with short strips so the weighted eyes keep the fly tracking hook-point up.
-- Zonker Streamer: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It stays in the middle band where the seasonal setup is most stable today. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
+- Zonker Streamer: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It stays in the middle band where the seasonal setup is most stable today. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
 - Zonker Streamer how: Strip with a mixed pace — a few short darts, then a longer glide; the rabbit wing wraps on fast strips and flares on the pause for a big profile change.
-- Game Changer: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It stays in the middle band where the seasonal setup is most stable today. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Game Changer: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It stays in the middle band where the seasonal setup is most stable today. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Game Changer how: Use a mix of steady strips and sharp 6-inch twitches so the jointed body swims and stalls; pause when you see a follow.
 
 Review:
@@ -3078,18 +3078,18 @@ Actual output:
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Daily note: Slightly elevated runoff supports a more visible river presentation.
 - Lure reasoning:
-- Inline Spinner: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
-- Inline Spinner how: Use a slow-roll retrieve near bottom or cover edges; occasionally bump into structure to trigger reaction strikes. Keep it high in the zone.
-- Squarebill Crankbait: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It stays high enough in the zone to match the day's more open positioning. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
+- Inline Spinner: This is today's top overall read. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
+- Inline Spinner how: Cast parallel to cover edges and retrieve with a steady pace that keeps the blade thumping; slow a half-beat near cover, then speed back up once it clears. Keep it high in the zone.
+- Squarebill Crankbait: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It stays high enough in the zone to match the day's more open positioning. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
 - Squarebill Crankbait how: Cast past structure and crank it down, then steer it right into cover; the deflection is the trigger, so don't try to avoid contact. Keep it high in the zone.
-- Spinnerbait: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It stays high enough in the zone to match the day's more open positioning. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Spinnerbait: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It stays high enough in the zone to match the day's more open positioning. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Spinnerbait how: Work it parallel to grass lines or over submerged timber; slow the retrieve near the target and let the head tick the top. Keep it high in the zone.
 - Fly reasoning:
-- Game Changer: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It stays high enough in the zone to match the day's more open positioning.
+- Game Changer: This is today's top overall read. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It stays high enough in the zone to match the day's more open positioning.
 - Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink. Keep it high in the zone.
-- Clouser Minnow: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
+- Clouser Minnow: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
 - Clouser Minnow how: Strip in short, consistent pulls so the dumbbell eyes make the fly jig up and down; let it sink between strips to stay hook-point up throughout.
-- Zonker Streamer: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It stays high enough in the zone to match the day's more open positioning. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Zonker Streamer: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It stays high enough in the zone to match the day's more open positioning. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Zonker Streamer how: Retrieve at moderate speed with intentional pauses where the fly sinks and the strip wing breathes; strikes often come as you restart the strip. Keep it high in the zone.
 
 Review:
@@ -3183,18 +3183,18 @@ Actual output:
 - Variables triggered: wind_condition, runoff_flow_disruption
 - Daily note: Slightly elevated runoff supports a more visible river presentation.
 - Lure reasoning:
-- Inline Spinner: It matches the column/pace the conditions push toward today. Slightly elevated runoff supports a more visible river presentation. It is one of the lead monthly looks for this exact seasonal window.
-- Inline Spinner how: Use a slow-roll retrieve near bottom or cover edges; occasionally bump into structure to trigger reaction strikes. Keep it high in the zone.
-- Spinnerbait: It matches the column/pace the conditions push toward today. Slightly elevated runoff supports a more visible river presentation. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
+- Inline Spinner: This is today's top overall read. It matches the column/pace the conditions push toward today. Slightly elevated runoff supports a more visible river presentation. It is one of the lead monthly looks for this exact seasonal window.
+- Inline Spinner how: Cast parallel to cover edges and retrieve with a steady pace that keeps the blade thumping; slow a half-beat near cover, then speed back up once it clears. Keep it high in the zone.
+- Spinnerbait: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. Slightly elevated runoff supports a more visible river presentation. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
 - Spinnerbait how: Work it parallel to grass lines or over submerged timber; slow the retrieve near the target and let the head tick the top. Keep it high in the zone.
-- Walking Topwater: It matches the column/pace the conditions push toward today. The monthly surface window is still alive today, even with a little ripple on top. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Walking Topwater: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. The monthly surface window is still alive today, even with a little ripple on top. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Walking Topwater how: Downrod with light wrist flicks to make it dance; the pause between twitches lets fish track and commit, so give it a beat before the next twitch. Keep it on top.
 - Fly reasoning:
-- Popper Fly: It matches the column/pace the conditions push toward today. The monthly surface window is still alive today, even with a little ripple on top. It is one of the lead monthly looks for this exact seasonal window.
+- Popper Fly: This is today's top overall read. It matches the column/pace the conditions push toward today. The monthly surface window is still alive today, even with a little ripple on top. It is one of the lead monthly looks for this exact seasonal window.
 - Popper Fly how: Make a sharp strip-pause to spit water, then wait; the longer the pause in the ring, the more time a fish has to rise and commit. Keep it on top.
-- Game Changer: It matches the column/pace the conditions push toward today. Slightly elevated runoff supports a more visible river presentation. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
+- Game Changer: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. Slightly elevated runoff supports a more visible river presentation. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
 - Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink. Keep it high in the zone.
-- Articulated Baitfish Streamer: It matches the column/pace the conditions push toward today. Slightly elevated runoff supports a more visible river presentation. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Articulated Baitfish Streamer: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. Slightly elevated runoff supports a more visible river presentation. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Articulated Baitfish Streamer how: Work it across current and down with a varied strip cadence; when a fish follows, slow down and kill the retrieve to let the body spiral on the sink. Keep it high in the zone.
 
 Review:
@@ -3287,18 +3287,18 @@ Actual output:
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
 - Variables triggered: runoff_flow_disruption
 - Lure reasoning:
-- Inline Spinner: It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window.
+- Inline Spinner: This is today's top overall read. It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window.
 - Inline Spinner how: Cast and retrieve at a steady clip just fast enough to keep the blade spinning; vary depth with rod angle and speed to find the feeding zone. Keep it high in the zone.
-- Walking Topwater: It matches the column/pace the conditions push toward today. The monthly surface window is still alive today, even with a little ripple on top. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different surface look without leaving today's window.
+- Walking Topwater: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. The monthly surface window is still alive today, even with a little ripple on top. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different surface look without leaving today's window.
 - Walking Topwater how: Downrod with light wrist flicks to make it dance; the pause between twitches lets fish track and commit, so give it a beat before the next twitch. Keep it on top.
-- Tube Jig: It matches the column/pace the conditions push toward today. It fits today's upper column preference. It stays high enough in the zone to match the day's more open positioning. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Tube Jig: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. It leads on today's preferred upper column. It stays high enough in the zone to match the day's more open positioning. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Tube Jig how: Cast, let it sink, then pop sharply and release line; the tube should corkscrew back to bottom on each drop — keep a watchful eye on the line. Keep it high in the zone.
 - Fly reasoning:
-- Zonker Streamer: It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. The month is still baitfish-forward, and this stays inside that search lane.
+- Zonker Streamer: This is today's top overall read. It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. The month is still baitfish-forward, and this stays inside that search lane.
 - Zonker Streamer how: Strip with a mixed pace — a few short darts, then a longer glide; the rabbit wing wraps on fast strips and flares on the pause for a big profile change. Keep it high in the zone.
-- Popper Fly: It matches the column/pace the conditions push toward today. The monthly surface window is still alive today, even with a little ripple on top. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different fly surface look without leaving today's window.
+- Popper Fly: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. The monthly surface window is still alive today, even with a little ripple on top. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different fly surface look without leaving today's window.
 - Popper Fly how: Make a sharp strip-pause to spit water, then wait; the longer the pause in the ring, the more time a fish has to rise and commit. Keep it on top.
-- Game Changer: It matches the column/pace the conditions push toward today. It fits today's upper column preference. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Game Changer: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. It leads on today's preferred upper column. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Game Changer how: Retrieve with medium strips, then occasionally rip hard so the body compresses and then springs apart — pause after each hard strip and hold your nerve. Keep it high in the zone.
 
 Review:
@@ -3392,18 +3392,18 @@ Actual output:
 - Variables triggered: runoff_flow_disruption
 - Daily note: Elevated runoff tightens fish and pulls the day lower and slower.
 - Lure reasoning:
-- Inline Spinner: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
-- Inline Spinner how: Use a slow-roll retrieve near bottom or cover edges; occasionally bump into structure to trigger reaction strikes.
-- Spinnerbait: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
+- Inline Spinner: This is today's top overall read. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Inline Spinner how: Cast parallel to cover edges and retrieve with a steady pace that keeps the blade thumping; slow a half-beat near cover, then speed back up once it clears.
+- Spinnerbait: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
 - Spinnerbait how: Work it parallel to grass lines or over submerged timber; slow the retrieve near the target and let the head tick the top.
-- Suspending Jerkbait: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Suspending Jerkbait: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Suspending Jerkbait how: Jerk, jerk, pause. The bait should dart and glide sideways on each twitch; dial the pause length to water temperature — colder means longer.
 - Fly reasoning:
-- Clouser Minnow: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Clouser Minnow: This is today's top overall read. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
 - Clouser Minnow how: Strip in short, consistent pulls so the dumbbell eyes make the fly jig up and down; let it sink between strips to stay hook-point up throughout.
-- Articulated Baitfish Streamer: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different fly baitfish look without leaving today's window.
+- Articulated Baitfish Streamer: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different fly baitfish look without leaving today's window.
 - Articulated Baitfish Streamer how: Work it across current and down with a varied strip cadence; when a fish follows, slow down and kill the retrieve to let the body spiral on the sink.
-- Game Changer: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Game Changer: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink.
 
 Review:
@@ -3497,18 +3497,18 @@ Actual output:
 - Variables triggered: light_cloud_condition, runoff_flow_disruption
 - Daily note: Bright light trims the day back toward cleaner looks.
 - Lure reasoning:
-- Suspending Jerkbait: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Suspending Jerkbait: This is today's top overall read. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
 - Suspending Jerkbait how: Two or three sharp twitches, then let it suspend perfectly still for a full 3-5 count before the next sequence — the pause is everything.
-- Spinnerbait: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
+- Spinnerbait: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
 - Spinnerbait how: Work it parallel to grass lines or over submerged timber; slow the retrieve near the target and let the head tick the top.
-- Tube Jig: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It stays in the middle band where the seasonal setup is most stable today. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Tube Jig: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It stays in the middle band where the seasonal setup is most stable today. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Tube Jig how: Cast, let it sink, then pop sharply and release line; the tube should corkscrew back to bottom on each drop — keep a watchful eye on the line.
 - Fly reasoning:
-- Clouser Minnow: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Clouser Minnow: This is today's top overall read. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
 - Clouser Minnow how: Cast across or slightly downstream, let it jig toward you with short strips so the weighted eyes keep the fly tracking hook-point up.
-- Game Changer: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
+- Game Changer: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
 - Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink.
-- Slim Baitfish Streamer: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Slim Baitfish Streamer: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
 - Slim Baitfish Streamer how: Fish it on a dead-drift through seams, then activate with quick strips near holding structure; the slim silhouette works best in clear water at a measured pace.
 
 Review:
@@ -3603,18 +3603,18 @@ Actual output:
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
 - Daily note: Bright light trims the day back toward cleaner looks.
 - Lure reasoning:
-- Suspending Jerkbait: It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window.
+- Suspending Jerkbait: This is today's top overall read. It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window.
 - Suspending Jerkbait how: Two or three sharp twitches, then let it suspend perfectly still for a full 3-5 count before the next sequence — the pause is everything. Slow down and lengthen the pause.
-- Spinnerbait: It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
+- Spinnerbait: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
 - Spinnerbait how: Work it parallel to grass lines or over submerged timber; slow the retrieve near the target and let the head tick the top. Slow down and lengthen the pause.
-- Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Paddle-Tail Swimbait: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Paddle-Tail Swimbait how: Slow-roll near the bottom on a consistent retrieve; the paddle thumps best just barely above the substrate, so keep the rod tip down and the pace even. Slow down and lengthen the pause.
 - Fly reasoning:
-- Woolly Bugger: It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It stays in the middle band where the seasonal setup is most stable today.
+- Woolly Bugger: This is today's top overall read. It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It stays in the middle band where the seasonal setup is most stable today.
 - Woolly Bugger how: Let it sink to depth then retrieve with slow hand-twists or short strips; the marabou tail breathes best with long pauses at the end of each pull. Slow down and lengthen the pause.
-- Slim Baitfish Streamer: It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
+- Slim Baitfish Streamer: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
 - Slim Baitfish Streamer how: Retrieve with a mix of short darts and longer glides; the thin profile tracks like a small minnow on a tight line. Slow down and lengthen the pause.
-- Game Changer: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Game Changer: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Game Changer how: Retrieve with medium strips, then occasionally rip hard so the body compresses and then springs apart — pause after each hard strip and hold your nerve. Slow down and lengthen the pause.
 
 Review:
@@ -3709,18 +3709,18 @@ Actual output:
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
 - Daily note: Bright light trims the day back toward cleaner looks.
 - Lure reasoning:
-- Suspending Jerkbait: It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window.
+- Suspending Jerkbait: This is today's top overall read. It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window.
 - Suspending Jerkbait how: Two or three sharp twitches, then let it suspend perfectly still for a full 3-5 count before the next sequence — the pause is everything. Slow down and lengthen the pause.
-- Spinnerbait: It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
+- Spinnerbait: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
 - Spinnerbait how: Work it parallel to grass lines or over submerged timber; slow the retrieve near the target and let the head tick the top. Slow down and lengthen the pause.
-- Hair Jig: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It stays in the middle band where the seasonal setup is most stable today. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Hair Jig: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It stays in the middle band where the seasonal setup is most stable today. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Hair Jig how: Swing it through current seams or drop it in pockets with minimal movement; let the marabou breathe in place before slowly pulling it along. Slow down and lengthen the pause.
 - Fly reasoning:
-- Woolly Bugger: It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window.
+- Woolly Bugger: This is today's top overall read. It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window.
 - Woolly Bugger how: Let it sink to depth then retrieve with slow hand-twists or short strips; the marabou tail breathes best with long pauses at the end of each pull. Slow down and lengthen the pause.
-- Slim Baitfish Streamer: It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
+- Slim Baitfish Streamer: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
 - Slim Baitfish Streamer how: Retrieve with a mix of short darts and longer glides; the thin profile tracks like a small minnow on a tight line. Slow down and lengthen the pause.
-- Sculpin Streamer: It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. Sculpin Streamer tracks well when baitfish is a realistic meal. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Sculpin Streamer: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. Sculpin Streamer tracks well when baitfish is a realistic meal. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Sculpin Streamer how: Inch it along the bottom with tight-line strips; sculpin barely swim, so keep the fly close to the substrate and use current for most of the motion. Slow down and lengthen the pause.
 
 Review:
@@ -3817,18 +3817,18 @@ Actual output:
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Lure reasoning:
-- Tube Jig: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
+- Tube Jig: This is today's top overall read. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
 - Tube Jig how: Hop it erratically off the bottom with sharp pops, then open the bail slightly so it spirals down freely; strikes happen on that spinning fall. Slow down and lengthen the pause.
-- Blade Bait: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different reaction mid column look without leaving today's window.
+- Blade Bait: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different reaction mid column look without leaving today's window.
 - Blade Bait how: Vertical jig it with short, sharp hops over suspended fish; the flutter-fall is the presentation — set hard the moment you feel weight. Slow down and lengthen the pause.
-- Hair Jig: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Hair Jig: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Hair Jig how: Fish it on a tight line at slow speed — the hair works best with tiny line pulses rather than big lifts; let it hang in the current or slack zone. Slow down and lengthen the pause.
 - Fly reasoning:
-- Woolly Bugger: It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window.
+- Woolly Bugger: This is today's top overall read. It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window.
 - Woolly Bugger how: Cast across and swing it on a tight line through the drift, then activate on the hang-down with short strips before lifting. Slow down and lengthen the pause.
-- Conehead Streamer: It matches the column/pace the conditions push toward today. Reduced visibility supports a stronger profile fish can find more easily. Conehead Streamer tracks well when baitfish is a realistic meal. It rounds out the lineup with a different look. It gives you a different fly bottom look without leaving today's window.
+- Conehead Streamer: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. Reduced visibility supports a stronger profile fish can find more easily. Conehead Streamer tracks well when baitfish is a realistic meal. It rounds out the lineup with a different look. It gives you a different fly bottom look without leaving today's window.
 - Conehead Streamer how: Strip with consistent medium pulls; the cone keeps the fly diving nose-first on each retrieve, so use pauses to let it hunt and settle before the next strip. Slow down and lengthen the pause.
-- Sculpin Streamer: It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Sculpin Streamer: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Sculpin Streamer how: Cast upstream and mend for a natural drift, then activate with short strips that make the fly bumble over the bottom like a sculpin retreating. Slow down and lengthen the pause.
 
 Review:
@@ -3922,18 +3922,18 @@ Actual output:
 - Daily note: Cold metabolism shuts down activity. Slow and low is the only play.
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Lure reasoning:
-- Tube Jig: It matches the column/pace the conditions push toward today. Cold metabolism shuts down activity. Slow and low is the only play. It is one of the lead monthly looks for this exact seasonal window.
+- Tube Jig: This is today's top overall read. It matches the column/pace the conditions push toward today. Cold metabolism shuts down activity. Slow and low is the only play. It is one of the lead monthly looks for this exact seasonal window.
 - Tube Jig how: Snap the tube off bottom with short pops so it spirals on the fall, then let it glide back down on slack or semi-slack line. Slow down and lengthen the pause.
-- Hair Jig: It matches the column/pace the conditions push toward today. Cold metabolism shuts down activity. Slow and low is the only play. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different finesse subtle look without leaving today's window.
+- Hair Jig: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. Cold metabolism shuts down activity. Slow and low is the only play. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different finesse subtle look without leaving today's window.
 - Hair Jig how: Fish it on a tight line at slow speed — the hair works best with tiny line pulses rather than big lifts; let it hang in the current or slack zone. Slow down and lengthen the pause.
-- Drop-Shot Worm: It matches the column/pace the conditions push toward today. Cold metabolism shuts down activity. Slow and low is the only play. It stays low in the zone where this day still wants fish to hold. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Drop-Shot Worm: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. Cold metabolism shuts down activity. Slow and low is the only play. It stays low in the zone where this day still wants fish to hold. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Drop-Shot Worm how: Shake in place with light tension, then pause completely and let the worm hang still; most bites come when the bait barely moves at all. Slow down and lengthen the pause.
 - Fly reasoning:
-- Sculpin Streamer: It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window.
+- Sculpin Streamer: This is today's top overall read. It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window.
 - Sculpin Streamer how: Bump bottom with short strips and let the fly tick along rocks; keep tension so you feel every stop against structure. Slow down and lengthen the pause.
-- Woolly Bugger: It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different fly bottom look without leaving today's window.
+- Woolly Bugger: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different fly bottom look without leaving today's window.
 - Woolly Bugger how: Cast across and swing it on a tight line through the drift, then activate on the hang-down with short strips before lifting. Slow down and lengthen the pause.
-- Conehead Streamer: It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It stays low in the zone where this day still wants fish to hold. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Conehead Streamer: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It stays low in the zone where this day still wants fish to hold. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Conehead Streamer how: Cast across or down, let it sink to depth, then strip with a jig-like cadence where the cone tips the fly nose-down on each pause. Slow down and lengthen the pause.
 
 Review:
@@ -4030,18 +4030,18 @@ Actual output:
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Daily note: Slightly elevated runoff supports a more visible river presentation.
 - Lure reasoning:
-- Tube Jig: It matches the column/pace the conditions push toward today. Cold metabolism shuts down activity. Slow and low is the only play. It is one of the lead monthly looks for this exact seasonal window.
+- Tube Jig: This is today's top overall read. It matches the column/pace the conditions push toward today. Cold metabolism shuts down activity. Slow and low is the only play. It is one of the lead monthly looks for this exact seasonal window.
 - Tube Jig how: Hop it erratically off the bottom with sharp pops, then open the bail slightly so it spirals down freely; strikes happen on that spinning fall. Slow down and lengthen the pause.
-- Inline Spinner: It matches the column/pace the conditions push toward today. Slightly elevated runoff supports a more visible river presentation. It stays in the middle band where the seasonal setup is most stable today. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
-- Inline Spinner how: Use a slow-roll retrieve near bottom or cover edges; occasionally bump into structure to trigger reaction strikes. Slow down and lengthen the pause.
-- Suspending Jerkbait: It matches the column/pace the conditions push toward today. Slightly elevated runoff supports a more visible river presentation. It stays in the middle band where the seasonal setup is most stable today. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Inline Spinner: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. Slightly elevated runoff supports a more visible river presentation. It stays in the middle band where the seasonal setup is most stable today. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
+- Inline Spinner how: Cast parallel to cover edges and retrieve with a steady pace that keeps the blade thumping; slow a half-beat near cover, then speed back up once it clears. Slow down and lengthen the pause.
+- Suspending Jerkbait: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. Slightly elevated runoff supports a more visible river presentation. It stays in the middle band where the seasonal setup is most stable today. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Suspending Jerkbait how: Jerk, jerk, pause. The bait should dart and glide sideways on each twitch; dial the pause length to water temperature — colder means longer. Slow down and lengthen the pause.
 - Fly reasoning:
-- Clouser Minnow: It matches the column/pace the conditions push toward today. Slightly elevated runoff supports a more visible river presentation. It is one of the lead monthly looks for this exact seasonal window.
+- Clouser Minnow: This is today's top overall read. It matches the column/pace the conditions push toward today. Slightly elevated runoff supports a more visible river presentation. It is one of the lead monthly looks for this exact seasonal window.
 - Clouser Minnow how: Strip in short, consistent pulls so the dumbbell eyes make the fly jig up and down; let it sink between strips to stay hook-point up throughout. Slow down and lengthen the pause.
-- Woolly Bugger: It matches the column/pace the conditions push toward today. Slightly elevated runoff supports a more visible river presentation. It stays in the middle band where the seasonal setup is most stable today. It rounds out the lineup with a different look. It gives you a different fly bottom look without leaving today's window.
+- Woolly Bugger: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. Slightly elevated runoff supports a more visible river presentation. It stays in the middle band where the seasonal setup is most stable today. It rounds out the lineup with a different look. It gives you a different fly bottom look without leaving today's window.
 - Woolly Bugger how: Cast across and swing it on a tight line through the drift, then activate on the hang-down with short strips before lifting. Slow down and lengthen the pause.
-- Crawfish Streamer: It matches the column/pace the conditions push toward today. Slightly elevated runoff supports a more visible river presentation. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Crawfish Streamer: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. Slightly elevated runoff supports a more visible river presentation. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Crawfish Streamer how: Cast upstream and mend for a dead-drift first; then come alive with quick, short strips that make the claw materials flex like a fleeing crawfish. Slow down and lengthen the pause.
 
 Review:
@@ -4135,18 +4135,18 @@ Actual output:
 - Variables triggered: temperature_trend, wind_condition, runoff_flow_disruption
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
 - Lure reasoning:
-- Soft Plastic Jerkbait: It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window.
+- Soft Plastic Jerkbait: This is today's top overall read. It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window.
 - Soft Plastic Jerkbait how: Twitch it with slack in the line so the bait darts and glides erratically; pause and let it sink a few inches between twitches. Keep it high in the zone.
-- Tube Jig: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different bottom contact look without leaving today's window.
-- Tube Jig how: Hop it erratically off the bottom with sharp pops, then open the bail slightly so it spirals down freely; strikes happen on that spinning fall. Keep it high in the zone.
-- Suspending Jerkbait: It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It stays high enough in the zone to match the day's more open positioning. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Tube Jig: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different bottom contact look without leaving today's window.
+- Tube Jig how: Snap the tube off bottom with short pops so it spirals on the fall, then let it glide back down on slack or semi-slack line. Keep it high in the zone.
+- Suspending Jerkbait: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It stays high enough in the zone to match the day's more open positioning. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Suspending Jerkbait how: Work it with wrist snaps, not big sweeps; keep slack in the line between snaps so the bait swings freely, then pause until you see a follow or feel weight. Keep it high in the zone.
 - Fly reasoning:
-- Zonker Streamer: It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It stays high enough in the zone to match the day's more open positioning.
+- Zonker Streamer: This is today's top overall read. It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It stays high enough in the zone to match the day's more open positioning.
 - Zonker Streamer how: Strip with a mixed pace — a few short darts, then a longer glide; the rabbit wing wraps on fast strips and flares on the pause for a big profile change. Keep it high in the zone.
-- Crawfish Streamer: It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different fly bottom look without leaving today's window.
+- Crawfish Streamer: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different fly bottom look without leaving today's window.
 - Crawfish Streamer how: Cast upstream and mend for a dead-drift first; then come alive with quick, short strips that make the claw materials flex like a fleeing crawfish. Keep it low in the strike zone.
-- Clouser Minnow: It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Clouser Minnow: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Clouser Minnow how: Cast and let the weighted eyes sink the fly, then retrieve with a strip-pause cadence that makes it dart upward on the strip and dive back on the pause.
 
 Review:
@@ -4242,18 +4242,18 @@ Actual output:
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Daily note: Strong wind reduces clean execution.
 - Lure reasoning:
-- Tube Jig: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Tube Jig: This is today's top overall read. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
 - Tube Jig how: Snap the tube off bottom with short pops so it spirals on the fall, then let it glide back down on slack or semi-slack line.
-- Hair Jig: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It stays in the middle band where the seasonal setup is most stable today. It rounds out the lineup with a different look. It gives you a different finesse subtle look without leaving today's window.
+- Hair Jig: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It stays in the middle band where the seasonal setup is most stable today. It rounds out the lineup with a different look. It gives you a different finesse subtle look without leaving today's window.
 - Hair Jig how: Cast across, let it sink on a controlled slack line, then swim it back with short pauses so the marabou pulses and collapses.
-- Soft Plastic Jerkbait: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Soft Plastic Jerkbait: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Soft Plastic Jerkbait how: Twitch it with slack in the line so the bait darts and glides erratically; pause and let it sink a few inches between twitches.
 - Fly reasoning:
-- Clouser Minnow: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Clouser Minnow: This is today's top overall read. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
 - Clouser Minnow how: Cast across or slightly downstream, let it jig toward you with short strips so the weighted eyes keep the fly tracking hook-point up.
-- Zonker Streamer: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It stays in the middle band where the seasonal setup is most stable today. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
+- Zonker Streamer: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It stays in the middle band where the seasonal setup is most stable today. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
 - Zonker Streamer how: Strip with a mixed pace — a few short darts, then a longer glide; the rabbit wing wraps on fast strips and flares on the pause for a big profile change.
-- Game Changer: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It stays in the middle band where the seasonal setup is most stable today. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Game Changer: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It stays in the middle band where the seasonal setup is most stable today. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Game Changer how: Use a mix of steady strips and sharp 6-inch twitches so the jointed body swims and stalls; pause when you see a follow.
 
 Review:
@@ -4348,18 +4348,18 @@ Actual output:
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Daily note: Slightly elevated runoff supports a more visible river presentation.
 - Lure reasoning:
-- Inline Spinner: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
-- Inline Spinner how: Use a slow-roll retrieve near bottom or cover edges; occasionally bump into structure to trigger reaction strikes. Keep it high in the zone.
-- Blade Bait: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. Blade Bait stays in play when baitfish is relevant. It rounds out the lineup with a different look. It gives you a different reaction mid column look without leaving today's window.
+- Inline Spinner: This is today's top overall read. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
+- Inline Spinner how: Cast parallel to cover edges and retrieve with a steady pace that keeps the blade thumping; slow a half-beat near cover, then speed back up once it clears. Keep it high in the zone.
+- Blade Bait: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. Blade Bait stays in play when baitfish is relevant. It rounds out the lineup with a different look. It gives you a different reaction mid column look without leaving today's window.
 - Blade Bait how: Vertical jig it with short, sharp hops over suspended fish; the flutter-fall is the presentation — set hard the moment you feel weight.
-- Soft Plastic Jerkbait: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Soft Plastic Jerkbait: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Soft Plastic Jerkbait how: Snap the rod sideways so the bait darts left or right, then drop the rod tip so it glides and sinks on a slack line before the next snap. Keep it high in the zone.
 - Fly reasoning:
-- Game Changer: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It stays high enough in the zone to match the day's more open positioning.
+- Game Changer: This is today's top overall read. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It stays high enough in the zone to match the day's more open positioning.
 - Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink. Keep it high in the zone.
-- Clouser Minnow: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
+- Clouser Minnow: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
 - Clouser Minnow how: Strip in short, consistent pulls so the dumbbell eyes make the fly jig up and down; let it sink between strips to stay hook-point up throughout.
-- Zonker Streamer: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It stays high enough in the zone to match the day's more open positioning. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Zonker Streamer: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It stays high enough in the zone to match the day's more open positioning. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Zonker Streamer how: Retrieve at moderate speed with intentional pauses where the fly sinks and the strip wing breathes; strikes often come as you restart the strip. Keep it high in the zone.
 
 Review:
@@ -4454,18 +4454,18 @@ Actual output:
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Daily note: Slightly elevated runoff supports a more visible river presentation.
 - Lure reasoning:
-- Squarebill Crankbait: It fishes cleanly for today's conditions. Lower light supports a slightly higher, more open lane. The month is still baitfish-forward, and this stays inside that search lane.
+- Squarebill Crankbait: This is today's top overall read. It fishes cleanly for today's conditions. Lower light supports a slightly higher, more open lane. The month is still baitfish-forward, and this stays inside that search lane.
 - Squarebill Crankbait how: Cast past structure and crank it down, then steer it right into cover; the deflection is the trigger, so don't try to avoid contact. Keep it high in the zone.
-- Walking Topwater: It matches the column/pace the conditions push toward today. Low disturbance is keeping a true surface lane open today. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different surface look without leaving today's window.
+- Walking Topwater: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. Low disturbance is keeping a true surface lane open today. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different surface look without leaving today's window.
 - Walking Topwater how: Downrod with light wrist flicks to make it dance; the pause between twitches lets fish track and commit, so give it a beat before the next twitch. Keep it on top.
-- Suspending Jerkbait: It fishes cleanly for today's conditions. Lower light supports a slightly higher, more open lane. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Suspending Jerkbait: Rounding out the trio as a change-up angle. It fishes cleanly for today's conditions. Lower light supports a slightly higher, more open lane. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Suspending Jerkbait how: Jerk, jerk, pause. The bait should dart and glide sideways on each twitch; dial the pause length to water temperature — colder means longer. Keep it high in the zone.
 - Fly reasoning:
-- Popper Fly: It matches the column/pace the conditions push toward today. Low disturbance is keeping a true surface lane open today. It is one of the lead monthly looks for this exact seasonal window.
+- Popper Fly: This is today's top overall read. It matches the column/pace the conditions push toward today. Low disturbance is keeping a true surface lane open today. It is one of the lead monthly looks for this exact seasonal window.
 - Popper Fly how: Make a sharp strip-pause to spit water, then wait; the longer the pause in the ring, the more time a fish has to rise and commit. Keep it on top.
-- Game Changer: It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
+- Game Changer: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
 - Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink. Keep it high in the zone.
-- Clouser Minnow: It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Clouser Minnow: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Clouser Minnow how: Strip in short, consistent pulls so the dumbbell eyes make the fly jig up and down; let it sink between strips to stay hook-point up throughout.
 
 Review:
@@ -4536,19 +4536,19 @@ Actual output:
 - Squarebill Crankbait `squarebill_crankbait` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Suspending Jerkbait `suspending_jerkbait` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Tube Jig `tube_jig` | theme: `natural` | colors: green pumpkin, olive, smoke
-- Top 1 fly: Muddler Minnow `muddler_sculpin` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Top 1 fly: Game Changer `game_changer` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 3 flies:
-- Muddler Minnow `muddler_sculpin` | theme: `natural` | colors: green pumpkin, olive, smoke
-- Popper Fly `popper_fly` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Game Changer `game_changer` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Popper Fly `popper_fly` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Slim Baitfish Streamer `slim_minnow_streamer` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Color notes:
 - Daily posture: aggressive
 - Squarebill Crankbait: natural -> green pumpkin, olive, smoke
 - Suspending Jerkbait: natural -> green pumpkin, olive, smoke
 - Tube Jig: natural -> green pumpkin, olive, smoke
-- Muddler Minnow: natural -> green pumpkin, olive, smoke
-- Popper Fly: natural -> green pumpkin, olive, smoke
 - Game Changer: natural -> green pumpkin, olive, smoke
+- Popper Fly: natural -> green pumpkin, olive, smoke
+- Slim Baitfish Streamer: natural -> green pumpkin, olive, smoke
 - Daily profile notes:
 - Daily posture: aggressive
 - Seasonal source: region=northeast, fallback_used=false
@@ -4560,19 +4560,19 @@ Actual output:
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
 - Daily note: Slightly elevated runoff supports a more visible river presentation.
 - Lure reasoning:
-- Squarebill Crankbait: It matches the column/pace the conditions push toward today. Slightly elevated runoff supports a more visible river presentation. It is one of the lead monthly looks for this exact seasonal window.
+- Squarebill Crankbait: This is today's top overall read. It matches the column/pace the conditions push toward today. Slightly elevated runoff supports a more visible river presentation. It is one of the lead monthly looks for this exact seasonal window.
 - Squarebill Crankbait how: Cast past structure and crank it down, then steer it right into cover; the deflection is the trigger, so don't try to avoid contact. Keep it high in the zone.
-- Suspending Jerkbait: It matches the column/pace the conditions push toward today. Slightly elevated runoff supports a more visible river presentation. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different reaction mid column look without leaving today's window.
+- Suspending Jerkbait: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. Slightly elevated runoff supports a more visible river presentation. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different reaction mid column look without leaving today's window.
 - Suspending Jerkbait how: Jerk, jerk, pause. The bait should dart and glide sideways on each twitch; dial the pause length to water temperature — colder means longer. Keep it high in the zone.
-- Tube Jig: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
-- Tube Jig how: Hop it erratically off the bottom with sharp pops, then open the bail slightly so it spirals down freely; strikes happen on that spinning fall. Keep it high in the zone.
+- Tube Jig: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Tube Jig how: Snap the tube off bottom with short pops so it spirals on the fall, then let it glide back down on slack or semi-slack line. Keep it high in the zone.
 - Fly reasoning:
-- Muddler Minnow: It matches the column/pace the conditions push toward today. Slightly elevated runoff supports a more visible river presentation. It is one of the lead monthly looks for this exact seasonal window.
-- Muddler Minnow how: Work it as a swung wet fly in current with minimal stripping; on still water, hop it along the bottom with slow, erratic pulls. Keep it high in the zone.
-- Popper Fly: It matches the column/pace the conditions push toward today. The monthly surface window is still alive today, even with a little ripple on top. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different fly surface look without leaving today's window.
-- Popper Fly how: Make a sharp strip-pause to spit water, then wait; the longer the pause in the ring, the more time a fish has to rise and commit. Keep it on top.
-- Game Changer: It matches the column/pace the conditions push toward today. Slightly elevated runoff supports a more visible river presentation. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Game Changer: This is today's top overall read. It matches the column/pace the conditions push toward today. Slightly elevated runoff supports a more visible river presentation. The month is still baitfish-forward, and this stays inside that search lane.
 - Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink. Keep it high in the zone.
+- Popper Fly: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. The monthly surface window is still alive today, even with a little ripple on top. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different fly surface look without leaving today's window.
+- Popper Fly how: Make a sharp strip-pause to spit water, then wait; the longer the pause in the ring, the more time a fish has to rise and commit. Keep it on top.
+- Slim Baitfish Streamer: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. Slightly elevated runoff supports a more visible river presentation. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Slim Baitfish Streamer how: Retrieve with a mix of short darts and longer glides; the thin profile tracks like a small minnow on a tight line. Keep it high in the zone.
 
 Review:
 - Precheck flags:
@@ -4666,18 +4666,18 @@ Actual output:
 - Daily note: Bright light trims the day back toward cleaner looks.
 - Daily note: Slightly elevated runoff supports a more visible river presentation.
 - Lure reasoning:
-- Suspending Jerkbait: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
-- Suspending Jerkbait how: Two or three sharp twitches, then let it suspend perfectly still for a full 3-5 count before the next sequence — the pause is everything. Keep it high in the zone.
-- Tube Jig: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different bottom contact look without leaving today's window.
-- Tube Jig how: Hop it erratically off the bottom with sharp pops, then open the bail slightly so it spirals down freely; strikes happen on that spinning fall. Keep it high in the zone.
-- Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
-- Paddle-Tail Swimbait how: Slow-roll near the bottom on a consistent retrieve; the paddle thumps best just barely above the substrate, so keep the rod tip down and the pace even. Keep it high in the zone.
+- Suspending Jerkbait: This is today's top overall read. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Suspending Jerkbait how: Two or three sharp twitches, then let it suspend perfectly still for a full 3-5 count before the next sequence — the pause is everything.
+- Tube Jig: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different bottom contact look without leaving today's window.
+- Tube Jig how: Hop it erratically off the bottom with sharp pops, then open the bail slightly so it spirals down freely; strikes happen on that spinning fall.
+- Paddle-Tail Swimbait: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Paddle-Tail Swimbait how: Slow-roll near the bottom on a consistent retrieve; the paddle thumps best just barely above the substrate, so keep the rod tip down and the pace even.
 - Fly reasoning:
-- Clouser Minnow: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Clouser Minnow: This is today's top overall read. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
 - Clouser Minnow how: Cast across or slightly downstream, let it jig toward you with short strips so the weighted eyes keep the fly tracking hook-point up. Keep it low in the strike zone.
-- Muddler Minnow: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different fly bottom look without leaving today's window.
-- Muddler Minnow how: Work it as a swung wet fly in current with minimal stripping; on still water, hop it along the bottom with slow, erratic pulls. Keep it high in the zone.
-- Slim Baitfish Streamer: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Muddler Minnow: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. Slightly elevated runoff supports a more visible river presentation. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different fly bottom look without leaving today's window.
+- Muddler Minnow how: Work it as a swung wet fly in current with minimal stripping; on still water, hop it along the bottom with slow, erratic pulls.
+- Slim Baitfish Streamer: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
 - Slim Baitfish Streamer how: Fish it on a dead-drift through seams, then activate with quick strips near holding structure; the slim silhouette works best in clear water at a measured pace. Keep it high in the zone.
 
 Review:
@@ -4771,18 +4771,18 @@ Actual output:
 - Variables triggered: temperature_trend, runoff_flow_disruption
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
 - Lure reasoning:
-- Suspending Jerkbait: It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window.
-- Suspending Jerkbait how: Two or three sharp twitches, then let it suspend perfectly still for a full 3-5 count before the next sequence — the pause is everything. Keep it high in the zone.
-- Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
+- Suspending Jerkbait: This is today's top overall read. It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window.
+- Suspending Jerkbait how: Two or three sharp twitches, then let it suspend perfectly still for a full 3-5 count before the next sequence — the pause is everything.
+- Paddle-Tail Swimbait: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
 - Paddle-Tail Swimbait how: Swim it at the speed where you feel a steady kick through the rod; use rod angle to change depth without changing retrieve speed. Keep it high in the zone.
-- Tube Jig: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It stays high enough in the zone to match the day's more open positioning. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Tube Jig: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It stays high enough in the zone to match the day's more open positioning. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Tube Jig how: Cast, let it sink, then pop sharply and release line; the tube should corkscrew back to bottom on each drop — keep a watchful eye on the line. Keep it high in the zone.
 - Fly reasoning:
-- Slim Baitfish Streamer: It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window.
+- Slim Baitfish Streamer: This is today's top overall read. It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window.
 - Slim Baitfish Streamer how: Strip with short, quick pulls to make the slim profile dart; pause briefly so it hangs in the current or sinks an inch before the next strip. Keep it high in the zone.
-- Zonker Streamer: It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
+- Zonker Streamer: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
 - Zonker Streamer how: Retrieve at moderate speed with intentional pauses where the fly sinks and the strip wing breathes; strikes often come as you restart the strip. Keep it high in the zone.
-- Game Changer: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Game Changer: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Game Changer how: Retrieve with medium strips, then occasionally rip hard so the body compresses and then springs apart — pause after each hard strip and hold your nerve. Keep it high in the zone.
 
 Review:
@@ -4875,18 +4875,18 @@ Actual output:
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
 - Variables triggered: wind_condition, runoff_flow_disruption
 - Lure reasoning:
-- Suspending Jerkbait: It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window.
-- Suspending Jerkbait how: Two or three sharp twitches, then let it suspend perfectly still for a full 3-5 count before the next sequence — the pause is everything. Keep it high in the zone.
-- Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
+- Suspending Jerkbait: This is today's top overall read. It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window.
+- Suspending Jerkbait how: Two or three sharp twitches, then let it suspend perfectly still for a full 3-5 count before the next sequence — the pause is everything.
+- Paddle-Tail Swimbait: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
 - Paddle-Tail Swimbait how: Swim it at the speed where you feel a steady kick through the rod; use rod angle to change depth without changing retrieve speed. Keep it high in the zone.
-- Tube Jig: It matches the column/pace the conditions push toward today. It fits today's upper column preference. It stays high enough in the zone to match the day's more open positioning. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Tube Jig: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. It leads on today's preferred upper column. It stays high enough in the zone to match the day's more open positioning. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Tube Jig how: Cast, let it sink, then pop sharply and release line; the tube should corkscrew back to bottom on each drop — keep a watchful eye on the line. Keep it high in the zone.
 - Fly reasoning:
-- Slim Baitfish Streamer: It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window.
+- Slim Baitfish Streamer: This is today's top overall read. It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window.
 - Slim Baitfish Streamer how: Strip with short, quick pulls to make the slim profile dart; pause briefly so it hangs in the current or sinks an inch before the next strip. Keep it high in the zone.
-- Zonker Streamer: It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
+- Zonker Streamer: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
 - Zonker Streamer how: Retrieve at moderate speed with intentional pauses where the fly sinks and the strip wing breathes; strikes often come as you restart the strip. Keep it high in the zone.
-- Game Changer: It matches the column/pace the conditions push toward today. It fits today's upper column preference. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Game Changer: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. It leads on today's preferred upper column. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Game Changer how: Retrieve with medium strips, then occasionally rip hard so the body compresses and then springs apart — pause after each hard strip and hold your nerve. Keep it high in the zone.
 
 Review:
@@ -4981,18 +4981,18 @@ Actual output:
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Lure reasoning:
-- Suspending Jerkbait: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
+- Suspending Jerkbait: This is today's top overall read. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
 - Suspending Jerkbait how: Work it with wrist snaps, not big sweeps; keep slack in the line between snaps so the bait swings freely, then pause until you see a follow or feel weight. Keep it high in the zone.
-- Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
+- Paddle-Tail Swimbait: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
 - Paddle-Tail Swimbait how: Swim it at the speed where you feel a steady kick through the rod; use rod angle to change depth without changing retrieve speed. Keep it high in the zone.
-- Hair Jig: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It stays high enough in the zone to match the day's more open positioning. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Hair Jig: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It stays high enough in the zone to match the day's more open positioning. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Hair Jig how: Swing it through current seams or drop it in pockets with minimal movement; let the marabou breathe in place before slowly pulling it along. Keep it high in the zone.
 - Fly reasoning:
-- Slim Baitfish Streamer: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
+- Slim Baitfish Streamer: This is today's top overall read. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
 - Slim Baitfish Streamer how: Fish it on a dead-drift through seams, then activate with quick strips near holding structure; the slim silhouette works best in clear water at a measured pace. Keep it high in the zone.
-- Woolly Bugger: It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. Woolly Bugger tracks well when leech_worm is a realistic meal. It rounds out the lineup with a different look. It gives you a different fly bottom look without leaving today's window.
+- Woolly Bugger: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. Woolly Bugger tracks well when leech_worm is a realistic meal. It rounds out the lineup with a different look. It gives you a different fly bottom look without leaving today's window.
 - Woolly Bugger how: Cast across and swing it on a tight line through the drift, then activate on the hang-down with short strips before lifting.
-- Clouser Minnow: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Clouser Minnow: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
 - Clouser Minnow how: Cast and let the weighted eyes sink the fly, then retrieve with a strip-pause cadence that makes it dart upward on the strip and dive back on the pause.
 
 Review:
@@ -5088,18 +5088,18 @@ Actual output:
 - Daily note: Strong wind reduces clean execution.
 - Daily note: Slightly elevated runoff supports a more visible river presentation.
 - Lure reasoning:
-- Tube Jig: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Tube Jig: This is today's top overall read. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
 - Tube Jig how: Hop it erratically off the bottom with sharp pops, then open the bail slightly so it spirals down freely; strikes happen on that spinning fall. Slow down and lengthen the pause.
-- Blade Bait: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different reaction mid column look without leaving today's window.
+- Blade Bait: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different reaction mid column look without leaving today's window.
 - Blade Bait how: Vertical jig it with short, sharp hops over suspended fish; the flutter-fall is the presentation — set hard the moment you feel weight. Slow down and lengthen the pause.
-- Hair Jig: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Hair Jig: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Hair Jig how: Fish it on a tight line at slow speed — the hair works best with tiny line pulses rather than big lifts; let it hang in the current or slack zone. Slow down and lengthen the pause.
 - Fly reasoning:
-- Woolly Bugger: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Woolly Bugger: This is today's top overall read. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
 - Woolly Bugger how: Cast across and swing it on a tight line through the drift, then activate on the hang-down with short strips before lifting. Slow down and lengthen the pause.
-- Conehead Streamer: It matches the column/pace the conditions push toward today. Slightly elevated runoff supports a more visible river presentation. Conehead Streamer tracks well when baitfish is a realistic meal. It rounds out the lineup with a different look. It gives you a different fly bottom look without leaving today's window.
+- Conehead Streamer: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. Slightly elevated runoff supports a more visible river presentation. Conehead Streamer tracks well when baitfish is a realistic meal. It rounds out the lineup with a different look. It gives you a different fly bottom look without leaving today's window.
 - Conehead Streamer how: Strip with consistent medium pulls; the cone keeps the fly diving nose-first on each retrieve, so use pauses to let it hunt and settle before the next strip. Slow down and lengthen the pause.
-- Sculpin Streamer: It matches the column/pace the conditions push toward today. Slightly elevated runoff supports a more visible river presentation. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Sculpin Streamer: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. Slightly elevated runoff supports a more visible river presentation. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Sculpin Streamer how: Cast upstream and mend for a natural drift, then activate with short strips that make the fly bumble over the bottom like a sculpin retreating. Slow down and lengthen the pause.
 
 Review:
@@ -5194,18 +5194,18 @@ Actual output:
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
 - Daily note: Moderate chop improves fishability and supports a stronger moving look.
 - Lure reasoning:
-- Tube Jig: It matches the column/pace the conditions push toward today. Heat stress moves fish to cooler, deeper water and narrows the feeding window. It is one of the lead monthly looks for this exact seasonal window.
+- Tube Jig: This is today's top overall read. It matches the column/pace the conditions push toward today. Heat stress moves fish to cooler, deeper water and narrows the feeding window. It is one of the lead monthly looks for this exact seasonal window.
 - Tube Jig how: Snap the tube off bottom with short pops so it spirals on the fall, then let it glide back down on slack or semi-slack line. Slow down and lengthen the pause.
-- Hair Jig: It matches the column/pace the conditions push toward today. Heat stress moves fish to cooler, deeper water and narrows the feeding window. It stays high enough in the zone to match the day's more open positioning. It rounds out the lineup with a different look. It gives you a different finesse subtle look without leaving today's window.
+- Hair Jig: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. Heat stress moves fish to cooler, deeper water and narrows the feeding window. It stays high enough in the zone to match the day's more open positioning. It rounds out the lineup with a different look. It gives you a different finesse subtle look without leaving today's window.
 - Hair Jig how: Fish it on a tight line at slow speed — the hair works best with tiny line pulses rather than big lifts; let it hang in the current or slack zone. Slow down and lengthen the pause.
-- Ned Rig: It matches the column/pace the conditions push toward today. Heat stress moves fish to cooler, deeper water and narrows the feeding window. That keeps a crawfish-first look in the water for the month. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Ned Rig: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. Heat stress moves fish to cooler, deeper water and narrows the feeding window. That keeps a crawfish-first look in the water for the month. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Ned Rig how: Inch it along with small rod pops and long pauses; the mushroom head keeps it nose-down and upright — let it sit longer than you think is necessary. Slow down and lengthen the pause.
 - Fly reasoning:
-- Woolly Bugger: It matches the column/pace the conditions push toward today. Heat stress moves fish to cooler, deeper water and narrows the feeding window. Woolly Bugger tracks well when leech_worm is a realistic meal.
+- Woolly Bugger: This is today's top overall read. It matches the column/pace the conditions push toward today. Heat stress moves fish to cooler, deeper water and narrows the feeding window. Woolly Bugger tracks well when leech_worm is a realistic meal.
 - Woolly Bugger how: Let it sink to depth then retrieve with slow hand-twists or short strips; the marabou tail breathes best with long pauses at the end of each pull. Slow down and lengthen the pause.
-- Game Changer: It matches the column/pace the conditions push toward today. Heat stress moves fish to cooler, deeper water and narrows the feeding window. It stays high enough in the zone to match the day's more open positioning. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
+- Game Changer: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. Heat stress moves fish to cooler, deeper water and narrows the feeding window. It stays high enough in the zone to match the day's more open positioning. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
 - Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink. Slow down and lengthen the pause.
-- Balanced Leech: It matches the column/pace the conditions push toward today. Heat stress moves fish to cooler, deeper water and narrows the feeding window. Balanced Leech tracks well when leech_worm is a realistic meal. It is the cleaner change-up if the lead look does not convert.
+- Balanced Leech: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. Heat stress moves fish to cooler, deeper water and narrows the feeding window. Balanced Leech tracks well when leech_worm is a realistic meal. It is the cleaner change-up if the lead look does not convert.
 - Balanced Leech how: Count it down to the level you want, then use a very slow strip-pause cadence so the fly hangs horizontally through the zone. Slow down and lengthen the pause.
 
 Review:
@@ -5299,18 +5299,18 @@ Actual output:
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Lure reasoning:
-- Soft Plastic Jerkbait: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
+- Soft Plastic Jerkbait: This is today's top overall read. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
 - Soft Plastic Jerkbait how: Work it with a jerk-sink-jerk cadence; keep the line slightly slack between twitches so the bait moves unpredictably, and vary the pause length. Keep it high in the zone.
-- Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
+- Paddle-Tail Swimbait: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
 - Paddle-Tail Swimbait how: Swim it at the speed where you feel a steady kick through the rod; use rod angle to change depth without changing retrieve speed. Keep it high in the zone.
-- Hair Jig: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. Hair Jig stays in play when baitfish is relevant. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Hair Jig: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. Hair Jig stays in play when baitfish is relevant. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Hair Jig how: Swing it through current seams or drop it in pockets with minimal movement; let the marabou breathe in place before slowly pulling it along. Keep it high in the zone.
 - Fly reasoning:
-- Mouse Fly: It matches the column/pace the conditions push toward today. Low disturbance is keeping a true surface lane open today. The month is still baitfish-forward, and this stays inside that search lane.
+- Mouse Fly: This is today's top overall read. It matches the column/pace the conditions push toward today. Low disturbance is keeping a true surface lane open today. The month is still baitfish-forward, and this stays inside that search lane.
 - Mouse Fly how: Work it with a slow, uninterrupted retrieve across open water; the V-wake is the trigger, so keep it moving at a steady pace and stay alert. Keep it on top.
-- Game Changer: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
+- Game Changer: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
 - Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink. Keep it high in the zone.
-- Popper Fly: It matches the column/pace the conditions push toward today. Low disturbance is keeping a true surface lane open today. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
+- Popper Fly: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. Low disturbance is keeping a true surface lane open today. The month is still baitfish-forward, and this stays inside that search lane. It is the cleaner change-up if the lead look does not convert.
 - Popper Fly how: Work it with medium strips that spit and gurgle; slow the cadence near structure and let the fly rest after each pop — target the edge of any surface shadow. Keep it on top.
 
 Review:
@@ -5406,18 +5406,18 @@ Actual output:
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
 - Daily note: Moderate chop improves fishability and supports a stronger moving look.
 - Lure reasoning:
-- Hair Jig: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
+- Hair Jig: This is today's top overall read. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
 - Hair Jig how: Cast across, let it sink on a controlled slack line, then swim it back with short pauses so the marabou pulses and collapses. Keep it high in the zone.
-- Tube Jig: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different bottom contact look without leaving today's window.
-- Tube Jig how: Hop it erratically off the bottom with sharp pops, then open the bail slightly so it spirals down freely; strikes happen on that spinning fall. Keep it high in the zone.
-- Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. It stays high enough in the zone to match the day's more open positioning. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
-- Paddle-Tail Swimbait how: Slow-roll near the bottom on a consistent retrieve; the paddle thumps best just barely above the substrate, so keep the rod tip down and the pace even. Keep it high in the zone.
+- Tube Jig: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different bottom contact look without leaving today's window.
+- Tube Jig how: Snap the tube off bottom with short pops so it spirals on the fall, then let it glide back down on slack or semi-slack line. Keep it high in the zone.
+- Paddle-Tail Swimbait: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. It stays high enough in the zone to match the day's more open positioning. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Paddle-Tail Swimbait how: Reel at a steady pace with the rod low so the tail thumps consistently; speed up slightly over bait schools or slow down after a follow. Keep it high in the zone.
 - Fly reasoning:
-- Slim Baitfish Streamer: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. It stays high enough in the zone to match the day's more open positioning.
+- Slim Baitfish Streamer: This is today's top overall read. It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. It stays high enough in the zone to match the day's more open positioning.
 - Slim Baitfish Streamer how: Strip with short, quick pulls to make the slim profile dart; pause briefly so it hangs in the current or sinks an inch before the next strip. Keep it high in the zone.
-- Woolly Bugger: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different fly bottom look without leaving today's window.
+- Woolly Bugger: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different fly bottom look without leaving today's window.
 - Woolly Bugger how: Cast across and swing it on a tight line through the drift, then activate on the hang-down with short strips before lifting.
-- Game Changer: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. It stays high enough in the zone to match the day's more open positioning. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Game Changer: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. It stays high enough in the zone to match the day's more open positioning. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Game Changer how: Retrieve with medium strips, then occasionally rip hard so the body compresses and then springs apart — pause after each hard strip and hold your nerve. Keep it high in the zone.
 
 Review:
@@ -5510,18 +5510,18 @@ Actual output:
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, precipitation_disruption
 - Variables triggered: precipitation_disruption
 - Lure reasoning:
-- Suspending Jerkbait: It matches the column/pace the conditions push toward today. It fits today's upper column preference. It is one of the lead monthly looks for this exact seasonal window.
-- Suspending Jerkbait how: Two or three sharp twitches, then let it suspend perfectly still for a full 3-5 count before the next sequence — the pause is everything. Keep it high in the zone.
-- Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. It fits today's upper column preference. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
+- Suspending Jerkbait: This is today's top overall read. It matches the column/pace the conditions push toward today. It leads on today's preferred upper column. It is one of the lead monthly looks for this exact seasonal window.
+- Suspending Jerkbait how: Jerk, jerk, pause. The bait should dart and glide sideways on each twitch; dial the pause length to water temperature — colder means longer. Keep it high in the zone.
+- Paddle-Tail Swimbait: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. It leads on today's preferred upper column. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
 - Paddle-Tail Swimbait how: Swim it at the speed where you feel a steady kick through the rod; use rod angle to change depth without changing retrieve speed. Keep it high in the zone.
-- Hair Jig: It matches the column/pace the conditions push toward today. It fits today's upper column preference. It stays high enough in the zone to match the day's more open positioning. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Hair Jig: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. It leads on today's preferred upper column. It stays high enough in the zone to match the day's more open positioning. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Hair Jig how: Swing it through current seams or drop it in pockets with minimal movement; let the marabou breathe in place before slowly pulling it along. Keep it high in the zone.
 - Fly reasoning:
-- Slim Baitfish Streamer: It matches the column/pace the conditions push toward today. It fits today's upper column preference. It is one of the lead monthly looks for this exact seasonal window.
+- Slim Baitfish Streamer: This is today's top overall read. It matches the column/pace the conditions push toward today. It leads on today's preferred upper column. It is one of the lead monthly looks for this exact seasonal window.
 - Slim Baitfish Streamer how: Strip with short, quick pulls to make the slim profile dart; pause briefly so it hangs in the current or sinks an inch before the next strip. Keep it high in the zone.
-- Game Changer: It matches the column/pace the conditions push toward today. It fits today's upper column preference. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
+- Game Changer: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. It leads on today's preferred upper column. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
 - Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink. Keep it high in the zone.
-- Zonker Streamer: It matches the column/pace the conditions push toward today. It fits today's upper column preference. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Zonker Streamer: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. It leads on today's preferred upper column. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Zonker Streamer how: Cast across current and strip steadily through the swing; add a momentary deadstop near structure so the wing collapses and then puffs back out. Keep it high in the zone.
 
 Review:
@@ -5616,18 +5616,18 @@ Actual output:
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
 - Daily note: Moderate chop improves fishability and supports a stronger moving look.
 - Lure reasoning:
-- Tube Jig: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
-- Tube Jig how: Hop it erratically off the bottom with sharp pops, then open the bail slightly so it spirals down freely; strikes happen on that spinning fall. Keep it high in the zone.
-- Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
+- Tube Jig: This is today's top overall read. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
+- Tube Jig how: Snap the tube off bottom with short pops so it spirals on the fall, then let it glide back down on slack or semi-slack line. Keep it high in the zone.
+- Paddle-Tail Swimbait: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
 - Paddle-Tail Swimbait how: Swim it at the speed where you feel a steady kick through the rod; use rod angle to change depth without changing retrieve speed. Keep it high in the zone.
-- Hair Jig: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It stays high enough in the zone to match the day's more open positioning. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Hair Jig: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It stays high enough in the zone to match the day's more open positioning. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Hair Jig how: Fish it on a tight line at slow speed — the hair works best with tiny line pulses rather than big lifts; let it hang in the current or slack zone. Keep it high in the zone.
 - Fly reasoning:
-- Game Changer: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. It stays high enough in the zone to match the day's more open positioning.
+- Game Changer: This is today's top overall read. It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. It stays high enough in the zone to match the day's more open positioning.
 - Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink. Keep it high in the zone.
-- Clouser Minnow: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
+- Clouser Minnow: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
 - Clouser Minnow how: Strip in short, consistent pulls so the dumbbell eyes make the fly jig up and down; let it sink between strips to stay hook-point up throughout.
-- Zonker Streamer: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. It stays high enough in the zone to match the day's more open positioning. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Zonker Streamer: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. It stays high enough in the zone to match the day's more open positioning. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Zonker Streamer how: Retrieve at moderate speed with intentional pauses where the fly sinks and the strip wing breathes; strikes often come as you restart the strip. Keep it high in the zone.
 
 Review:
@@ -5722,18 +5722,18 @@ Actual output:
 - Variables triggered: wind_condition, precipitation_disruption
 - Daily note: Moderate chop improves fishability and supports a stronger moving look.
 - Lure reasoning:
-- Hair Jig: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window.
+- Hair Jig: This is today's top overall read. It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window.
 - Hair Jig how: Fish it on a tight line at slow speed — the hair works best with tiny line pulses rather than big lifts; let it hang in the current or slack zone.
-- Tube Jig: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different bottom contact look without leaving today's window.
+- Tube Jig: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different bottom contact look without leaving today's window.
 - Tube Jig how: Hop it erratically off the bottom with sharp pops, then open the bail slightly so it spirals down freely; strikes happen on that spinning fall.
-- Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. It stays in the middle band where the seasonal setup is most stable today. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Paddle-Tail Swimbait: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. It stays in the middle band where the seasonal setup is most stable today. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Paddle-Tail Swimbait how: Swim it at the speed where you feel a steady kick through the rod; use rod angle to change depth without changing retrieve speed.
 - Fly reasoning:
-- Clouser Minnow: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window.
+- Clouser Minnow: This is today's top overall read. It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window.
 - Clouser Minnow how: Strip in short, consistent pulls so the dumbbell eyes make the fly jig up and down; let it sink between strips to stay hook-point up throughout.
-- Woolly Bugger: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different fly bottom look without leaving today's window.
+- Woolly Bugger: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different fly bottom look without leaving today's window.
 - Woolly Bugger how: Cast across and swing it on a tight line through the drift, then activate on the hang-down with short strips before lifting.
-- Game Changer: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. It stays in the middle band where the seasonal setup is most stable today. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Game Changer: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. It stays in the middle band where the seasonal setup is most stable today. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink.
 
 Review:
@@ -5828,18 +5828,18 @@ Actual output:
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Daily note: Moderate chop improves fishability and supports a stronger moving look.
 - Lure reasoning:
-- Suspending Jerkbait: It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. It is one of the lead monthly looks for this exact seasonal window.
+- Suspending Jerkbait: This is today's top overall read. It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. It is one of the lead monthly looks for this exact seasonal window.
 - Suspending Jerkbait how: Jerk, jerk, pause. The bait should dart and glide sideways on each twitch; dial the pause length to water temperature — colder means longer. Keep it high in the zone.
-- Medium-Diving Crankbait: It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
+- Medium-Diving Crankbait: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
 - Medium-Diving Crankbait how: Retrieve at a medium pace along depth contours, pausing after any bottom contact so the bait rises before diving back when you resume.
-- Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Paddle-Tail Swimbait: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Paddle-Tail Swimbait how: Swim it at the speed where you feel a steady kick through the rod; use rod angle to change depth without changing retrieve speed. Keep it high in the zone.
 - Fly reasoning:
-- Articulated Baitfish Streamer: It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. The month is still baitfish-forward, and this stays inside that search lane.
+- Articulated Baitfish Streamer: This is today's top overall read. It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. The month is still baitfish-forward, and this stays inside that search lane.
 - Articulated Baitfish Streamer how: Work it across current and down with a varied strip cadence; when a fish follows, slow down and kill the retrieve to let the body spiral on the sink. Keep it high in the zone.
-- Game Changer: It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
+- Game Changer: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
 - Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink. Keep it high in the zone.
-- Clouser Minnow: It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Clouser Minnow: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
 - Clouser Minnow how: Strip in short, consistent pulls so the dumbbell eyes make the fly jig up and down; let it sink between strips to stay hook-point up throughout.
 
 Review:
@@ -5935,18 +5935,18 @@ Actual output:
 - Daily note: Bright light trims the day back toward cleaner looks.
 - Daily note: Moderate chop improves fishability and supports a stronger moving look.
 - Lure reasoning:
-- Hair Jig: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
+- Hair Jig: This is today's top overall read. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
 - Hair Jig how: Fish it on a tight line at slow speed — the hair works best with tiny line pulses rather than big lifts; let it hang in the current or slack zone. Slow down and lengthen the pause.
-- Blade Bait: It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. It stays low in the zone where this day still wants fish to hold. It rounds out the lineup with a different look. It gives you a different reaction mid column look without leaving today's window.
+- Blade Bait: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. Moderate chop improves fishability and supports a stronger moving look. It stays low in the zone where this day still wants fish to hold. It rounds out the lineup with a different look. It gives you a different reaction mid column look without leaving today's window.
 - Blade Bait how: Vertical jig it with short, sharp hops over suspended fish; the flutter-fall is the presentation — set hard the moment you feel weight. Slow down and lengthen the pause.
-- Finesse Jig: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. That keeps a crawfish-first look in the water for the month. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Finesse Jig: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. That keeps a crawfish-first look in the water for the month. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Finesse Jig how: Pitch it to light cover or transitions and let it settle fully before moving it; small lifts and long pauses are the whole point. Slow down and lengthen the pause.
 - Fly reasoning:
-- Sculpin Streamer: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It stays low in the zone where this day still wants fish to hold.
+- Sculpin Streamer: This is today's top overall read. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It stays low in the zone where this day still wants fish to hold.
 - Sculpin Streamer how: Cast upstream and mend for a natural drift, then activate with short strips that make the fly bumble over the bottom like a sculpin retreating. Slow down and lengthen the pause.
-- Woolly Bugger: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It stays low in the zone where this day still wants fish to hold. It rounds out the lineup with a different look. It gives you a different fly bottom look without leaving today's window.
+- Woolly Bugger: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It stays low in the zone where this day still wants fish to hold. It rounds out the lineup with a different look. It gives you a different fly bottom look without leaving today's window.
 - Woolly Bugger how: Cast across and swing it on a tight line through the drift, then activate on the hang-down with short strips before lifting. Slow down and lengthen the pause.
-- Rabbit-Strip Leech: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It stays low in the zone where this day still wants fish to hold. It is the cleaner change-up if the lead look does not convert.
+- Rabbit-Strip Leech: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It stays low in the zone where this day still wants fish to hold. It is the cleaner change-up if the lead look does not convert.
 - Rabbit-Strip Leech how: Cast and count it down, then use a strip-pause retrieve with exaggerated pauses — the pulse on the stop is when most fish commit. Slow down and lengthen the pause.
 
 Review:
@@ -6039,18 +6039,18 @@ Actual output:
 - Variables triggered: temperature_metabolic_context, runoff_flow_disruption
 - Daily note: Cold metabolism shuts down activity. Slow and low is the only play.
 - Lure reasoning:
-- Tube Jig: It matches the column/pace the conditions push toward today. Cold metabolism shuts down activity. Slow and low is the only play. It is one of the lead monthly looks for this exact seasonal window.
+- Tube Jig: This is today's top overall read. It matches the column/pace the conditions push toward today. Cold metabolism shuts down activity. Slow and low is the only play. It is one of the lead monthly looks for this exact seasonal window.
 - Tube Jig how: Snap the tube off bottom with short pops so it spirals on the fall, then let it glide back down on slack or semi-slack line. Slow down and lengthen the pause.
-- Ned Rig: It matches the column/pace the conditions push toward today. Cold metabolism shuts down activity. Slow and low is the only play. That keeps a crawfish-first look in the water for the month. It rounds out the lineup with a different look. It gives you a different bottom contact look without leaving today's window.
+- Ned Rig: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. Cold metabolism shuts down activity. Slow and low is the only play. That keeps a crawfish-first look in the water for the month. It rounds out the lineup with a different look. It gives you a different bottom contact look without leaving today's window.
 - Ned Rig how: Cast and let it settle fully to the bottom, then drag very slowly with the rod held low; pause between moves so the tail stands upright and wiggles. Slow down and lengthen the pause.
-- Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. Paddle-Tail Swimbait stays in play when baitfish is relevant. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Paddle-Tail Swimbait: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. Paddle-Tail Swimbait stays in play when baitfish is relevant. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Paddle-Tail Swimbait how: Slow-roll near the bottom on a consistent retrieve; the paddle thumps best just barely above the substrate, so keep the rod tip down and the pace even. Slow down and lengthen the pause.
 - Fly reasoning:
-- Crawfish Streamer: It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window.
+- Crawfish Streamer: This is today's top overall read. It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window.
 - Crawfish Streamer how: Tick it along the bottom with short, nervous strips so the claws scratch and flare; keep it close to the substrate and pause after contact with any rock or root. Slow down and lengthen the pause.
-- Sculpin Streamer: It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It stays low in the zone where this day still wants fish to hold. It gives you a different fly bottom look without leaving today's window.
+- Sculpin Streamer: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It stays low in the zone where this day still wants fish to hold. It gives you a different fly bottom look without leaving today's window.
 - Sculpin Streamer how: Cast upstream and mend for a natural drift, then activate with short strips that make the fly bumble over the bottom like a sculpin retreating. Slow down and lengthen the pause.
-- Woolly Bugger: It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It stays low in the zone where this day still wants fish to hold. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Woolly Bugger: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It stays low in the zone where this day still wants fish to hold. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Woolly Bugger how: Fish it on a dead-drift near the bottom, then come alive with a strip-pause retrieve through prime holding water; let the tail do most of the work. Slow down and lengthen the pause.
 
 Review:
@@ -6086,15 +6086,18 @@ Review:
 - Engine status: complete
 
 Expected seasonal story:
-- Clear western summer river smallmouth should keep current-aware baitfish and search lanes open, with tube support but not tube-first control on every good day.
+- Clear western summer river smallmouth should cover the full daily shift: tube- and bottom-fly finesse on heat- or runoff-stressed days, inline-spinner and soft-minnow search on active days.
 Expected primary lanes:
 - inline_spinner
 - soft_jerkbait
 - paddle_tail_swimbait
-Acceptable secondary lanes:
 - tube_jig
+- woolly_bugger
+Acceptable secondary lanes:
 - walking_topwater
 - clouser_minnow
+- muddler_sculpin
+- suspending_jerkbait
 Disallowed lanes:
 - hollow_body_frog
 - compact_flipping_jig
@@ -6116,48 +6119,48 @@ Archived env summary:
 - Sunrise/sunset: 05:45 / 20:39
 
 Actual output:
-- Top 1 lure: Soft Plastic Jerkbait `soft_jerkbait` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Top 1 lure: Tube Jig `tube_jig` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 3 lures:
+- Tube Jig `tube_jig` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Soft Plastic Jerkbait `soft_jerkbait` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Suspending Jerkbait `suspending_jerkbait` | theme: `natural` | colors: green pumpkin, olive, smoke
-- Inline Spinner `inline_spinner` | theme: `natural` | colors: green pumpkin, olive, smoke
-- Top 1 fly: Clouser Minnow `clouser_minnow` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Top 1 fly: Woolly Bugger `woolly_bugger` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 3 flies:
-- Clouser Minnow `clouser_minnow` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Woolly Bugger `woolly_bugger` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Muddler Minnow `muddler_sculpin` | theme: `natural` | colors: green pumpkin, olive, smoke
-- Zonker Streamer `zonker_streamer` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Clouser Minnow `clouser_minnow` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Color notes:
 - Daily posture: slightly_suppressed
+- Tube Jig: natural -> green pumpkin, olive, smoke
 - Soft Plastic Jerkbait: natural -> green pumpkin, olive, smoke
 - Suspending Jerkbait: natural -> green pumpkin, olive, smoke
-- Inline Spinner: natural -> green pumpkin, olive, smoke
-- Clouser Minnow: natural -> green pumpkin, olive, smoke
+- Woolly Bugger: natural -> green pumpkin, olive, smoke
 - Muddler Minnow: natural -> green pumpkin, olive, smoke
-- Zonker Streamer: natural -> green pumpkin, olive, smoke
+- Clouser Minnow: natural -> green pumpkin, olive, smoke
 - Daily profile notes:
 - Daily posture: slightly_suppressed
 - Seasonal source: region=mountain_west, fallback_used=false
-- Daily preference: column=mid, pace=medium, presence=moderate
-- Monthly baseline: columns=surface/upper/mid, paces=medium/fast, presence=moderate/bold
+- Daily preference: column=bottom, pace=slow, presence=subtle
+- Monthly baseline: columns=surface/upper/mid/bottom, paces=slow/medium/fast, presence=subtle/moderate/bold
 - Guardrails: surface_allowed=false, surface_window=closed, suppress_fast_presentations=false, high_visibility_needed=false, column_shift=-1
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
 - Variables triggered: temperature_metabolic_context, light_cloud_condition, runoff_flow_disruption
 - Daily note: Heat stress moves fish to cooler, deeper water and narrows the feeding window.
 - Daily note: Bright light trims the day back toward cleaner looks.
 - Lure reasoning:
-- Soft Plastic Jerkbait: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
-- Soft Plastic Jerkbait how: Twitch it with slack in the line so the bait darts and glides erratically; pause and let it sink a few inches between twitches.
-- Suspending Jerkbait: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different reaction mid column look without leaving today's window.
-- Suspending Jerkbait how: Jerk, jerk, pause. The bait should dart and glide sideways on each twitch; dial the pause length to water temperature — colder means longer.
-- Inline Spinner: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
-- Inline Spinner how: Cast across current and let the blade flash on a quarter-downstream retrieve; speed up briefly after bumps or short strikes.
+- Tube Jig: This is today's top overall read. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It can still drop into today's lower zone when the moment calls for it.
+- Tube Jig how: Snap the tube off bottom with short pops so it spirals on the fall, then let it glide back down on slack or semi-slack line. Slow down and lengthen the pause.
+- Soft Plastic Jerkbait: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
+- Soft Plastic Jerkbait how: Snap the rod sideways so the bait darts left or right, then drop the rod tip so it glides and sinks on a slack line before the next snap. Slow down and lengthen the pause.
+- Suspending Jerkbait: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Suspending Jerkbait how: Work it with wrist snaps, not big sweeps; keep slack in the line between snaps so the bait swings freely, then pause until you see a follow or feel weight. Slow down and lengthen the pause.
 - Fly reasoning:
-- Clouser Minnow: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
-- Clouser Minnow how: Cast across or slightly downstream, let it jig toward you with short strips so the weighted eyes keep the fly tracking hook-point up.
-- Muddler Minnow: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It stays in the middle band where the seasonal setup is most stable today. It rounds out the lineup with a different look. It gives you a different fly bottom look without leaving today's window.
-- Muddler Minnow how: Work it as a swung wet fly in current with minimal stripping; on still water, hop it along the bottom with slow, erratic pulls.
-- Zonker Streamer: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
-- Zonker Streamer how: Cast across current and strip steadily through the swing; add a momentary deadstop near structure so the wing collapses and then puffs back out.
+- Woolly Bugger: This is today's top overall read. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It stays low in the zone where this day still wants fish to hold.
+- Woolly Bugger how: Let it sink to depth then retrieve with slow hand-twists or short strips; the marabou tail breathes best with long pauses at the end of each pull. Slow down and lengthen the pause.
+- Muddler Minnow: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It stays low in the zone where this day still wants fish to hold. It rounds out the lineup with a different look. It gives you a different fly bottom look without leaving today's window.
+- Muddler Minnow how: Work it as a swung wet fly in current with minimal stripping; on still water, hop it along the bottom with slow, erratic pulls. Slow down and lengthen the pause.
+- Clouser Minnow: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Clouser Minnow how: Cast and let the weighted eyes sink the fly, then retrieve with a strip-pause cadence that makes it dart upward on the strip and dive back on the pause. Slow down and lengthen the pause.
 
 Review:
 - Precheck flags:
@@ -6251,18 +6254,18 @@ Actual output:
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
 - Daily note: Bright light trims the day back toward cleaner looks.
 - Lure reasoning:
-- Suspending Jerkbait: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
-- Suspending Jerkbait how: Two or three sharp twitches, then let it suspend perfectly still for a full 3-5 count before the next sequence — the pause is everything. Keep it high in the zone.
-- Inline Spinner: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
-- Inline Spinner how: Use a slow-roll retrieve near bottom or cover edges; occasionally bump into structure to trigger reaction strikes. Keep it high in the zone.
-- Tube Jig: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It stays high enough in the zone to match the day's more open positioning. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Suspending Jerkbait: This is today's top overall read. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Suspending Jerkbait how: Two or three sharp twitches, then let it suspend perfectly still for a full 3-5 count before the next sequence — the pause is everything.
+- Inline Spinner: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
+- Inline Spinner how: Cast parallel to cover edges and retrieve with a steady pace that keeps the blade thumping; slow a half-beat near cover, then speed back up once it clears. Keep it high in the zone.
+- Tube Jig: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It stays high enough in the zone to match the day's more open positioning. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Tube Jig how: Cast, let it sink, then pop sharply and release line; the tube should corkscrew back to bottom on each drop — keep a watchful eye on the line. Keep it high in the zone.
 - Fly reasoning:
-- Slim Baitfish Streamer: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Slim Baitfish Streamer: This is today's top overall read. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
 - Slim Baitfish Streamer how: Strip with short, quick pulls to make the slim profile dart; pause briefly so it hangs in the current or sinks an inch before the next strip. Keep it high in the zone.
-- Game Changer: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
+- Game Changer: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
 - Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink. Keep it high in the zone.
-- Clouser Minnow: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Clouser Minnow: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
 - Clouser Minnow how: Cast and let the weighted eyes sink the fly, then retrieve with a strip-pause cadence that makes it dart upward on the strip and dive back on the pause.
 
 Review:
@@ -6355,18 +6358,18 @@ Actual output:
 - Variables triggered: temperature_trend, runoff_flow_disruption
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
 - Lure reasoning:
-- Tube Jig: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
+- Tube Jig: This is today's top overall read. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
 - Tube Jig how: Snap the tube off bottom with short pops so it spirals on the fall, then let it glide back down on slack or semi-slack line. Slow down and lengthen the pause.
-- Hair Jig: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different finesse subtle look without leaving today's window.
+- Hair Jig: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different finesse subtle look without leaving today's window.
 - Hair Jig how: Fish it on a tight line at slow speed — the hair works best with tiny line pulses rather than big lifts; let it hang in the current or slack zone. Slow down and lengthen the pause.
-- Drop-Shot Minnow: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It stays in the middle band where the seasonal setup is most stable today. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Drop-Shot Minnow: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It stays in the middle band where the seasonal setup is most stable today. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Drop-Shot Minnow how: Use a subtle shake-pause cadence with the line tight enough to feel the bait; let the minnow suspend and look alive rather than dragging it forward. Slow down and lengthen the pause.
 - Fly reasoning:
-- Woolly Bugger: It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window.
+- Woolly Bugger: This is today's top overall read. It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window.
 - Woolly Bugger how: Let it sink to depth then retrieve with slow hand-twists or short strips; the marabou tail breathes best with long pauses at the end of each pull. Slow down and lengthen the pause.
-- Sculpin Streamer: It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different fly bottom look without leaving today's window.
+- Sculpin Streamer: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different fly bottom look without leaving today's window.
 - Sculpin Streamer how: Cast upstream and mend for a natural drift, then activate with short strips that make the fly bumble over the bottom like a sculpin retreating. Slow down and lengthen the pause.
-- Conehead Streamer: It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. Conehead Streamer tracks well when baitfish is a realistic meal. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Conehead Streamer: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. Conehead Streamer tracks well when baitfish is a realistic meal. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Conehead Streamer how: Cast across or down, let it sink to depth, then strip with a jig-like cadence where the cone tips the fly nose-down on each pause. Slow down and lengthen the pause.
 
 Review:
@@ -6460,18 +6463,18 @@ Actual output:
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
 - Daily note: Bright light trims the day back toward cleaner looks.
 - Lure reasoning:
-- Tube Jig: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
+- Tube Jig: This is today's top overall read. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
 - Tube Jig how: Snap the tube off bottom with short pops so it spirals on the fall, then let it glide back down on slack or semi-slack line. Slow down and lengthen the pause.
-- Ned Rig: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. That keeps a crawfish-first look in the water for the month. It rounds out the lineup with a different look. It gives you a different bottom contact look without leaving today's window.
+- Ned Rig: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. That keeps a crawfish-first look in the water for the month. It rounds out the lineup with a different look. It gives you a different bottom contact look without leaving today's window.
 - Ned Rig how: Cast and let it settle fully to the bottom, then drag very slowly with the rod held low; pause between moves so the tail stands upright and wiggles. Slow down and lengthen the pause.
-- Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It stays in the middle band where the seasonal setup is most stable today. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Paddle-Tail Swimbait: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It stays in the middle band where the seasonal setup is most stable today. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Paddle-Tail Swimbait how: Slow-roll near the bottom on a consistent retrieve; the paddle thumps best just barely above the substrate, so keep the rod tip down and the pace even. Slow down and lengthen the pause.
 - Fly reasoning:
-- Woolly Bugger: It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It stays in the middle band where the seasonal setup is most stable today.
+- Woolly Bugger: This is today's top overall read. It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It stays in the middle band where the seasonal setup is most stable today.
 - Woolly Bugger how: Let it sink to depth then retrieve with slow hand-twists or short strips; the marabou tail breathes best with long pauses at the end of each pull. Slow down and lengthen the pause.
-- Crawfish Streamer: It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different fly bottom look without leaving today's window.
+- Crawfish Streamer: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different fly bottom look without leaving today's window.
 - Crawfish Streamer how: Cast upstream and mend for a dead-drift first; then come alive with quick, short strips that make the claw materials flex like a fleeing crawfish. Slow down and lengthen the pause.
-- Game Changer: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It stays in the middle band where the seasonal setup is most stable today. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Game Changer: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It stays in the middle band where the seasonal setup is most stable today. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Game Changer how: Retrieve with medium strips, then occasionally rip hard so the body compresses and then springs apart — pause after each hard strip and hold your nerve. Slow down and lengthen the pause.
 
 Review:
@@ -6566,18 +6569,18 @@ Actual output:
 - Daily note: A cooling trend tightens fish and shifts preference lower and slower.
 - Daily note: Bright light trims the day back toward cleaner looks.
 - Lure reasoning:
-- Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Paddle-Tail Swimbait: This is today's top overall read. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
 - Paddle-Tail Swimbait how: Reel at a steady pace with the rod low so the tail thumps consistently; speed up slightly over bait schools or slow down after a follow.
-- Soft Plastic Jerkbait: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
+- Soft Plastic Jerkbait: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
 - Soft Plastic Jerkbait how: Snap the rod sideways so the bait darts left or right, then drop the rod tip so it glides and sinks on a slack line before the next snap.
-- Suspending Jerkbait: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Suspending Jerkbait: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Suspending Jerkbait how: Work it with wrist snaps, not big sweeps; keep slack in the line between snaps so the bait swings freely, then pause until you see a follow or feel weight.
 - Fly reasoning:
-- Clouser Minnow: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Clouser Minnow: This is today's top overall read. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
 - Clouser Minnow how: Cast across or slightly downstream, let it jig toward you with short strips so the weighted eyes keep the fly tracking hook-point up.
-- Muddler Minnow: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It stays in the middle band where the seasonal setup is most stable today. It rounds out the lineup with a different look. It gives you a different fly bottom look without leaving today's window.
+- Muddler Minnow: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It stays in the middle band where the seasonal setup is most stable today. It rounds out the lineup with a different look. It gives you a different fly bottom look without leaving today's window.
 - Muddler Minnow how: Work it as a swung wet fly in current with minimal stripping; on still water, hop it along the bottom with slow, erratic pulls.
-- Game Changer: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Game Changer: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Game Changer how: Retrieve with medium strips, then occasionally rip hard so the body compresses and then springs apart — pause after each hard strip and hold your nerve.
 
 Review:
@@ -6672,18 +6675,18 @@ Actual output:
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
 - Daily note: Bright light trims the day back toward cleaner looks.
 - Lure reasoning:
-- Suspending Jerkbait: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
-- Suspending Jerkbait how: Two or three sharp twitches, then let it suspend perfectly still for a full 3-5 count before the next sequence — the pause is everything. Keep it high in the zone.
-- Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
+- Suspending Jerkbait: This is today's top overall read. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Suspending Jerkbait how: Two or three sharp twitches, then let it suspend perfectly still for a full 3-5 count before the next sequence — the pause is everything.
+- Paddle-Tail Swimbait: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
 - Paddle-Tail Swimbait how: Swim it at the speed where you feel a steady kick through the rod; use rod angle to change depth without changing retrieve speed. Keep it high in the zone.
-- Soft Plastic Jerkbait: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Soft Plastic Jerkbait: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Soft Plastic Jerkbait how: Work it with a jerk-sink-jerk cadence; keep the line slightly slack between twitches so the bait moves unpredictably, and vary the pause length. Keep it high in the zone.
 - Fly reasoning:
-- Slim Baitfish Streamer: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Slim Baitfish Streamer: This is today's top overall read. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
 - Slim Baitfish Streamer how: Strip with short, quick pulls to make the slim profile dart; pause briefly so it hangs in the current or sinks an inch before the next strip. Keep it high in the zone.
-- Game Changer: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
+- Game Changer: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
 - Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink. Keep it high in the zone.
-- Clouser Minnow: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Clouser Minnow: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
 - Clouser Minnow how: Cast and let the weighted eyes sink the fly, then retrieve with a strip-pause cadence that makes it dart upward on the strip and dive back on the pause.
 
 Review:
@@ -6777,18 +6780,18 @@ Actual output:
 - Variables triggered: light_cloud_condition, runoff_flow_disruption
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Lure reasoning:
-- Suspending Jerkbait: It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. It is one of the lead monthly looks for this exact seasonal window.
+- Suspending Jerkbait: This is today's top overall read. It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. It is one of the lead monthly looks for this exact seasonal window.
 - Suspending Jerkbait how: Work it with wrist snaps, not big sweeps; keep slack in the line between snaps so the bait swings freely, then pause until you see a follow or feel weight. Keep it high in the zone.
-- Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
+- Paddle-Tail Swimbait: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
 - Paddle-Tail Swimbait how: Swim it at the speed where you feel a steady kick through the rod; use rod angle to change depth without changing retrieve speed. Keep it high in the zone.
-- Tube Jig: It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. It stays high enough in the zone to match the day's more open positioning. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Tube Jig: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. It stays high enough in the zone to match the day's more open positioning. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Tube Jig how: Cast, let it sink, then pop sharply and release line; the tube should corkscrew back to bottom on each drop — keep a watchful eye on the line. Keep it high in the zone.
 - Fly reasoning:
-- Slim Baitfish Streamer: It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. It is one of the lead monthly looks for this exact seasonal window.
+- Slim Baitfish Streamer: This is today's top overall read. It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. It is one of the lead monthly looks for this exact seasonal window.
 - Slim Baitfish Streamer how: Fish it on a dead-drift through seams, then activate with quick strips near holding structure; the slim silhouette works best in clear water at a measured pace. Keep it high in the zone.
-- Game Changer: It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
+- Game Changer: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
 - Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink. Keep it high in the zone.
-- Zonker Streamer: It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Zonker Streamer: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Zonker Streamer how: Cast across current and strip steadily through the swing; add a momentary deadstop near structure so the wing collapses and then puffs back out. Keep it high in the zone.
 
 Review:
@@ -6886,18 +6889,18 @@ Actual output:
 - Daily note: Moderate chop improves fishability and supports a stronger moving look.
 - Daily note: Dirty water demands more visibility.
 - Lure reasoning:
-- Tube Jig: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. Tube Jig stays in play when crawfish is relevant.
+- Tube Jig: This is today's top overall read. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It can still drop into today's lower zone when the moment calls for it.
 - Tube Jig how: Snap the tube off bottom with short pops so it spirals on the fall, then let it glide back down on slack or semi-slack line. Slow down and lengthen the pause.
-- Spinnerbait: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
+- Spinnerbait: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
 - Spinnerbait how: Slow-roll it along the bottom edge of cover at a steady pace, keeping the blades just ticking; bump any piece of structure and let it rise. Slow down and lengthen the pause.
-- Hair Jig: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. Hair Jig stays in play when baitfish is relevant. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Hair Jig: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It can still drop into today's lower zone when the moment calls for it. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Hair Jig how: Cast across, let it sink on a controlled slack line, then swim it back with short pauses so the marabou pulses and collapses. Slow down and lengthen the pause.
 - Fly reasoning:
-- Woolly Bugger: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Woolly Bugger: This is today's top overall read. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
 - Woolly Bugger how: Let it sink to depth then retrieve with slow hand-twists or short strips; the marabou tail breathes best with long pauses at the end of each pull. Slow down and lengthen the pause.
-- Sculpin Streamer: It matches the column/pace the conditions push toward today. A cooling trend tightens fish and shifts preference lower and slower. It stays low in the zone where this day still wants fish to hold. It rounds out the lineup with a different look. It gives you a different fly bottom look without leaving today's window.
+- Sculpin Streamer: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. A cooling trend tightens fish and shifts preference lower and slower. It stays low in the zone where this day still wants fish to hold. It rounds out the lineup with a different look. It gives you a different fly bottom look without leaving today's window.
 - Sculpin Streamer how: Bump bottom with short strips and let the fly tick along rocks; keep tension so you feel every stop against structure. Slow down and lengthen the pause.
-- Crawfish Streamer: It matches the column/pace the conditions push toward today. A cooling trend tightens fish and shifts preference lower and slower. It stays low in the zone where this day still wants fish to hold. It is the cleaner change-up if the lead look does not convert.
+- Crawfish Streamer: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. A cooling trend tightens fish and shifts preference lower and slower. It stays low in the zone where this day still wants fish to hold. It is the cleaner change-up if the lead look does not convert.
 - Crawfish Streamer how: Tick it along the bottom with short, nervous strips so the claws scratch and flare; keep it close to the substrate and pause after contact with any rock or root. Slow down and lengthen the pause.
 
 Review:
@@ -6995,18 +6998,18 @@ Actual output:
 - Daily note: Moderate chop improves fishability and supports a stronger moving look.
 - Daily note: Dirty water demands more visibility.
 - Lure reasoning:
-- Spinnerbait: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
+- Spinnerbait: This is today's top overall read. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
 - Spinnerbait how: Work it parallel to grass lines or over submerged timber; slow the retrieve near the target and let the head tick the top. Keep it high in the zone.
-- Suspending Jerkbait: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different reaction mid column look without leaving today's window.
+- Suspending Jerkbait: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different reaction mid column look without leaving today's window.
 - Suspending Jerkbait how: Jerk, jerk, pause. The bait should dart and glide sideways on each twitch; dial the pause length to water temperature — colder means longer. Keep it high in the zone.
-- Medium-Diving Crankbait: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Medium-Diving Crankbait: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Medium-Diving Crankbait how: Retrieve at a medium pace along depth contours, pausing after any bottom contact so the bait rises before diving back when you resume.
 - Fly reasoning:
-- Game Changer: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
+- Game Changer: This is today's top overall read. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
 - Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink. Keep it high in the zone.
-- Articulated Baitfish Streamer: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
+- Articulated Baitfish Streamer: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
 - Articulated Baitfish Streamer how: Work it across current and down with a varied strip cadence; when a fish follows, slow down and kill the retrieve to let the body spiral on the sink. Keep it high in the zone.
-- Clouser Minnow: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Clouser Minnow: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
 - Clouser Minnow how: Strip in short, consistent pulls so the dumbbell eyes make the fly jig up and down; let it sink between strips to stay hook-point up throughout.
 
 Review:
@@ -7102,18 +7105,18 @@ Actual output:
 - Daily note: Bright light trims the day back toward cleaner looks.
 - Daily note: Dirty water demands more visibility.
 - Lure reasoning:
-- Spinnerbait: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane.
+- Spinnerbait: This is today's top overall read. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane.
 - Spinnerbait how: Work it parallel to grass lines or over submerged timber; slow the retrieve near the target and let the head tick the top.
-- Tube Jig: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different bottom contact look without leaving today's window.
-- Tube Jig how: Hop it erratically off the bottom with sharp pops, then open the bail slightly so it spirals down freely; strikes happen on that spinning fall.
-- Suspending Jerkbait: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Tube Jig: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different bottom contact look without leaving today's window.
+- Tube Jig how: Snap the tube off bottom with short pops so it spirals on the fall, then let it glide back down on slack or semi-slack line.
+- Suspending Jerkbait: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Suspending Jerkbait how: Jerk, jerk, pause. The bait should dart and glide sideways on each twitch; dial the pause length to water temperature — colder means longer.
 - Fly reasoning:
-- Clouser Minnow: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Clouser Minnow: This is today's top overall read. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
 - Clouser Minnow how: Strip in short, consistent pulls so the dumbbell eyes make the fly jig up and down; let it sink between strips to stay hook-point up throughout.
-- Articulated Baitfish Streamer: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different fly baitfish look without leaving today's window.
+- Articulated Baitfish Streamer: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It gives you a different fly baitfish look without leaving today's window.
 - Articulated Baitfish Streamer how: Work it across current and down with a varied strip cadence; when a fish follows, slow down and kill the retrieve to let the body spiral on the sink.
-- Game Changer: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Game Changer: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink.
 
 Review:
@@ -7209,18 +7212,18 @@ Actual output:
 - Daily note: Strong wind reduces clean execution.
 - Daily note: Dirty water demands more visibility.
 - Lure reasoning:
-- Tube Jig: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Tube Jig: This is today's top overall read. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
 - Tube Jig how: Hop it erratically off the bottom with sharp pops, then open the bail slightly so it spirals down freely; strikes happen on that spinning fall. Slow down and lengthen the pause.
-- Blade Bait: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different reaction mid column look without leaving today's window.
+- Blade Bait: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different reaction mid column look without leaving today's window.
 - Blade Bait how: Vertical jig it with short, sharp hops over suspended fish; the flutter-fall is the presentation — set hard the moment you feel weight. Slow down and lengthen the pause.
-- Hair Jig: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Hair Jig: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Hair Jig how: Fish it on a tight line at slow speed — the hair works best with tiny line pulses rather than big lifts; let it hang in the current or slack zone. Slow down and lengthen the pause.
 - Fly reasoning:
-- Woolly Bugger: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Woolly Bugger: This is today's top overall read. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
 - Woolly Bugger how: Cast across and swing it on a tight line through the drift, then activate on the hang-down with short strips before lifting. Slow down and lengthen the pause.
-- Conehead Streamer: It matches the column/pace the conditions push toward today. Dirty water demands more visibility. Conehead Streamer tracks well when baitfish is a realistic meal. It rounds out the lineup with a different look. It gives you a different fly bottom look without leaving today's window.
+- Conehead Streamer: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. Dirty water demands more visibility. Conehead Streamer tracks well when baitfish is a realistic meal. It rounds out the lineup with a different look. It gives you a different fly bottom look without leaving today's window.
 - Conehead Streamer how: Strip with consistent medium pulls; the cone keeps the fly diving nose-first on each retrieve, so use pauses to let it hunt and settle before the next strip. Slow down and lengthen the pause.
-- Sculpin Streamer: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Sculpin Streamer: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Sculpin Streamer how: Cast upstream and mend for a natural drift, then activate with short strips that make the fly bumble over the bottom like a sculpin retreating. Slow down and lengthen the pause.
 
 Review:
@@ -7313,18 +7316,18 @@ Actual output:
 - Variables triggered: light_cloud_condition, runoff_flow_disruption
 - Daily note: Bright light trims the day back toward cleaner looks.
 - Lure reasoning:
-- Tube Jig: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Tube Jig: This is today's top overall read. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
 - Tube Jig how: Snap the tube off bottom with short pops so it spirals on the fall, then let it glide back down on slack or semi-slack line. Slow down and lengthen the pause.
-- Ned Rig: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. That keeps a crawfish-first look in the water for the month. It rounds out the lineup with a different look. It gives you a different bottom contact look without leaving today's window.
+- Ned Rig: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. That keeps a crawfish-first look in the water for the month. It rounds out the lineup with a different look. It gives you a different bottom contact look without leaving today's window.
 - Ned Rig how: Cast and let it settle fully to the bottom, then drag very slowly with the rod held low; pause between moves so the tail stands upright and wiggles. Slow down and lengthen the pause.
-- Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. Paddle-Tail Swimbait stays in play when baitfish is relevant. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Paddle-Tail Swimbait: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. Paddle-Tail Swimbait stays in play when baitfish is relevant. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Paddle-Tail Swimbait how: Slow-roll near the bottom on a consistent retrieve; the paddle thumps best just barely above the substrate, so keep the rod tip down and the pace even. Slow down and lengthen the pause.
 - Fly reasoning:
-- Crawfish Streamer: It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window.
+- Crawfish Streamer: This is today's top overall read. It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window.
 - Crawfish Streamer how: Tick it along the bottom with short, nervous strips so the claws scratch and flare; keep it close to the substrate and pause after contact with any rock or root. Slow down and lengthen the pause.
-- Sculpin Streamer: It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It stays low in the zone where this day still wants fish to hold. It gives you a different fly bottom look without leaving today's window.
+- Sculpin Streamer: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It stays low in the zone where this day still wants fish to hold. It gives you a different fly bottom look without leaving today's window.
 - Sculpin Streamer how: Cast upstream and mend for a natural drift, then activate with short strips that make the fly bumble over the bottom like a sculpin retreating. Slow down and lengthen the pause.
-- Woolly Bugger: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It stays low in the zone where this day still wants fish to hold. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Woolly Bugger: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It stays low in the zone where this day still wants fish to hold. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Woolly Bugger how: Fish it on a dead-drift near the bottom, then come alive with a strip-pause retrieve through prime holding water; let the tail do most of the work. Slow down and lengthen the pause.
 
 Review:
@@ -7394,9 +7397,9 @@ Actual output:
 - Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Soft Plastic Jerkbait `soft_jerkbait` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Suspending Jerkbait `suspending_jerkbait` | theme: `natural` | colors: green pumpkin, olive, smoke
-- Top 1 fly: Muddler Minnow `muddler_sculpin` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Top 1 fly: Popper Fly `popper_fly` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Top 3 flies:
-- Muddler Minnow `muddler_sculpin` | theme: `natural` | colors: green pumpkin, olive, smoke
+- Popper Fly `popper_fly` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Game Changer `game_changer` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Clouser Minnow `clouser_minnow` | theme: `natural` | colors: green pumpkin, olive, smoke
 - Color notes:
@@ -7404,7 +7407,7 @@ Actual output:
 - Paddle-Tail Swimbait: natural -> green pumpkin, olive, smoke
 - Soft Plastic Jerkbait: natural -> green pumpkin, olive, smoke
 - Suspending Jerkbait: natural -> green pumpkin, olive, smoke
-- Muddler Minnow: natural -> green pumpkin, olive, smoke
+- Popper Fly: natural -> green pumpkin, olive, smoke
 - Game Changer: natural -> green pumpkin, olive, smoke
 - Clouser Minnow: natural -> green pumpkin, olive, smoke
 - Daily profile notes:
@@ -7416,18 +7419,18 @@ Actual output:
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
 - Variables triggered: wind_condition, runoff_flow_disruption
 - Lure reasoning:
-- Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window.
+- Paddle-Tail Swimbait: This is today's top overall read. It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window.
 - Paddle-Tail Swimbait how: Reel at a steady pace with the rod low so the tail thumps consistently; speed up slightly over bait schools or slow down after a follow. Keep it high in the zone.
-- Soft Plastic Jerkbait: It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
+- Soft Plastic Jerkbait: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
 - Soft Plastic Jerkbait how: Snap the rod sideways so the bait darts left or right, then drop the rod tip so it glides and sinks on a slack line before the next snap. Keep it high in the zone.
-- Suspending Jerkbait: It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Suspending Jerkbait: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Suspending Jerkbait how: Work it with wrist snaps, not big sweeps; keep slack in the line between snaps so the bait swings freely, then pause until you see a follow or feel weight. Keep it high in the zone.
 - Fly reasoning:
-- Muddler Minnow: It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It stays high enough in the zone to match the day's more open positioning.
-- Muddler Minnow how: Skate or wake it in shallow riffles with short strips, or sink and crawl it along bottom with rod-tip leads so the deer hair pushes water. Keep it high in the zone.
-- Game Changer: It matches the column/pace the conditions push toward today. It fits today's upper column preference. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
+- Popper Fly: This is today's top overall read. It matches the column/pace the conditions push toward today. The monthly surface window is still alive today, even with a little ripple on top. It is one of the lead monthly looks for this exact seasonal window.
+- Popper Fly how: Pop once with a short strip, let the rings settle for two seconds, then pop again; in calm conditions, longer pauses are always better. Keep it on top.
+- Game Changer: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. It leads on today's preferred upper column. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
 - Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink. Keep it high in the zone.
-- Clouser Minnow: It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Clouser Minnow: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Clouser Minnow how: Cast and let the weighted eyes sink the fly, then retrieve with a strip-pause cadence that makes it dart upward on the strip and dive back on the pause.
 
 Review:
@@ -7521,18 +7524,18 @@ Actual output:
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
 - Daily note: Bright light trims the day back toward cleaner looks.
 - Lure reasoning:
-- Suspending Jerkbait: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
-- Suspending Jerkbait how: Two or three sharp twitches, then let it suspend perfectly still for a full 3-5 count before the next sequence — the pause is everything. Keep it high in the zone.
-- Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
+- Suspending Jerkbait: This is today's top overall read. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Suspending Jerkbait how: Two or three sharp twitches, then let it suspend perfectly still for a full 3-5 count before the next sequence — the pause is everything.
+- Paddle-Tail Swimbait: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
 - Paddle-Tail Swimbait how: Swim it at the speed where you feel a steady kick through the rod; use rod angle to change depth without changing retrieve speed. Keep it high in the zone.
-- Soft Plastic Jerkbait: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Soft Plastic Jerkbait: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Soft Plastic Jerkbait how: Work it with a jerk-sink-jerk cadence; keep the line slightly slack between twitches so the bait moves unpredictably, and vary the pause length. Keep it high in the zone.
 - Fly reasoning:
-- Slim Baitfish Streamer: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Slim Baitfish Streamer: This is today's top overall read. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
 - Slim Baitfish Streamer how: Strip with short, quick pulls to make the slim profile dart; pause briefly so it hangs in the current or sinks an inch before the next strip. Keep it high in the zone.
-- Game Changer: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
+- Game Changer: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
 - Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink. Keep it high in the zone.
-- Clouser Minnow: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Clouser Minnow: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
 - Clouser Minnow how: Cast and let the weighted eyes sink the fly, then retrieve with a strip-pause cadence that makes it dart upward on the strip and dive back on the pause.
 
 Review:
@@ -7627,18 +7630,18 @@ Actual output:
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Daily note: Slightly elevated runoff supports a more visible river presentation.
 - Lure reasoning:
-- Spinnerbait: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
+- Spinnerbait: This is today's top overall read. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
 - Spinnerbait how: Work it parallel to grass lines or over submerged timber; slow the retrieve near the target and let the head tick the top. Keep it high in the zone.
-- Inline Spinner: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
-- Inline Spinner how: Use a slow-roll retrieve near bottom or cover edges; occasionally bump into structure to trigger reaction strikes. Keep it high in the zone.
-- Blade Bait: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Inline Spinner: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
+- Inline Spinner how: Cast parallel to cover edges and retrieve with a steady pace that keeps the blade thumping; slow a half-beat near cover, then speed back up once it clears. Keep it high in the zone.
+- Blade Bait: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Blade Bait how: Vertical jig it with short, sharp hops over suspended fish; the flutter-fall is the presentation — set hard the moment you feel weight.
 - Fly reasoning:
-- Articulated Baitfish Streamer: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane.
+- Articulated Baitfish Streamer: This is today's top overall read. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane.
 - Articulated Baitfish Streamer how: Work it across current and down with a varied strip cadence; when a fish follows, slow down and kill the retrieve to let the body spiral on the sink. Keep it high in the zone.
-- Game Changer: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
+- Game Changer: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
 - Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink. Keep it high in the zone.
-- Clouser Minnow: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Clouser Minnow: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
 - Clouser Minnow how: Strip in short, consistent pulls so the dumbbell eyes make the fly jig up and down; let it sink between strips to stay hook-point up throughout.
 
 Review:
@@ -7733,18 +7736,18 @@ Actual output:
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Daily note: Elevated runoff tightens fish and pulls the day lower and slower.
 - Lure reasoning:
-- Spinnerbait: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Spinnerbait: This is today's top overall read. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
 - Spinnerbait how: Work it parallel to grass lines or over submerged timber; slow the retrieve near the target and let the head tick the top. Slow down and lengthen the pause.
-- Tube Jig: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different bottom contact look without leaving today's window.
+- Tube Jig: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different bottom contact look without leaving today's window.
 - Tube Jig how: Hop it erratically off the bottom with sharp pops, then open the bail slightly so it spirals down freely; strikes happen on that spinning fall. Slow down and lengthen the pause.
-- Inline Spinner: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It stays in the middle band where the seasonal setup is most stable today. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
-- Inline Spinner how: Use a slow-roll retrieve near bottom or cover edges; occasionally bump into structure to trigger reaction strikes. Slow down and lengthen the pause.
+- Inline Spinner: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It stays in the middle band where the seasonal setup is most stable today. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Inline Spinner how: Cast parallel to cover edges and retrieve with a steady pace that keeps the blade thumping; slow a half-beat near cover, then speed back up once it clears. Slow down and lengthen the pause.
 - Fly reasoning:
-- Clouser Minnow: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Clouser Minnow: This is today's top overall read. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
 - Clouser Minnow how: Strip in short, consistent pulls so the dumbbell eyes make the fly jig up and down; let it sink between strips to stay hook-point up throughout. Slow down and lengthen the pause.
-- Game Changer: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It stays in the middle band where the seasonal setup is most stable today. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
+- Game Changer: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It stays in the middle band where the seasonal setup is most stable today. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
 - Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink. Slow down and lengthen the pause.
-- Crawfish Streamer: It matches the column/pace the conditions push toward today. Elevated runoff tightens fish and pulls the day lower and slower. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Crawfish Streamer: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. Elevated runoff tightens fish and pulls the day lower and slower. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Crawfish Streamer how: Cast upstream and mend for a dead-drift first; then come alive with quick, short strips that make the claw materials flex like a fleeing crawfish. Slow down and lengthen the pause.
 
 Review:
@@ -7839,18 +7842,18 @@ Actual output:
 - Daily note: Heat stress moves fish to cooler, deeper water and narrows the feeding window.
 - Daily note: Bright light trims the day back toward cleaner looks.
 - Lure reasoning:
-- Tube Jig: It matches the column/pace the conditions push toward today. Heat stress moves fish to cooler, deeper water and narrows the feeding window. It is one of the lead monthly looks for this exact seasonal window.
+- Tube Jig: This is today's top overall read. It matches the column/pace the conditions push toward today. Heat stress moves fish to cooler, deeper water and narrows the feeding window. It is one of the lead monthly looks for this exact seasonal window.
 - Tube Jig how: Snap the tube off bottom with short pops so it spirals on the fall, then let it glide back down on slack or semi-slack line. Slow down and lengthen the pause.
-- Ned Rig: It matches the column/pace the conditions push toward today. Heat stress moves fish to cooler, deeper water and narrows the feeding window. It stays in the middle band where the seasonal setup is most stable today. It rounds out the lineup with a different look. It gives you a different bottom contact look without leaving today's window.
+- Ned Rig: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. Heat stress moves fish to cooler, deeper water and narrows the feeding window. It stays in the middle band where the seasonal setup is most stable today. It rounds out the lineup with a different look. It gives you a different bottom contact look without leaving today's window.
 - Ned Rig how: Cast and let it settle fully to the bottom, then drag very slowly with the rod held low; pause between moves so the tail stands upright and wiggles. Slow down and lengthen the pause.
-- Inline Spinner: It matches the column/pace the conditions push toward today. Heat stress moves fish to cooler, deeper water and narrows the feeding window. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Inline Spinner: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. Heat stress moves fish to cooler, deeper water and narrows the feeding window. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Inline Spinner how: Cast across current and let the blade flash on a quarter-downstream retrieve; speed up briefly after bumps or short strikes. Slow down and lengthen the pause.
 - Fly reasoning:
-- Balanced Leech: It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It stays in the middle band where the seasonal setup is most stable today.
+- Balanced Leech: This is today's top overall read. It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It stays in the middle band where the seasonal setup is most stable today.
 - Balanced Leech how: Fish it under an indicator or on a slow hand-twist so the fly hovers level and pulses in place rather than diving nose-first. Slow down and lengthen the pause.
-- Clouser Minnow: It matches the column/pace the conditions push toward today. Heat stress moves fish to cooler, deeper water and narrows the feeding window. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
+- Clouser Minnow: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. Heat stress moves fish to cooler, deeper water and narrows the feeding window. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
 - Clouser Minnow how: Strip in short, consistent pulls so the dumbbell eyes make the fly jig up and down; let it sink between strips to stay hook-point up throughout. Slow down and lengthen the pause.
-- Game Changer: It matches the column/pace the conditions push toward today. Heat stress moves fish to cooler, deeper water and narrows the feeding window. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Game Changer: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. Heat stress moves fish to cooler, deeper water and narrows the feeding window. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Game Changer how: Retrieve with medium strips, then occasionally rip hard so the body compresses and then springs apart — pause after each hard strip and hold your nerve. Slow down and lengthen the pause.
 
 Review:
@@ -7944,18 +7947,18 @@ Actual output:
 - Variables triggered: temperature_shock, light_cloud_condition, runoff_flow_disruption
 - Daily note: Bright light trims the day back toward cleaner looks.
 - Lure reasoning:
-- Tube Jig: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Tube Jig: This is today's top overall read. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
 - Tube Jig how: Snap the tube off bottom with short pops so it spirals on the fall, then let it glide back down on slack or semi-slack line. Slow down and lengthen the pause.
-- Ned Rig: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It stays in the middle band where the seasonal setup is most stable today. It rounds out the lineup with a different look. It gives you a different bottom contact look without leaving today's window.
+- Ned Rig: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It stays in the middle band where the seasonal setup is most stable today. It rounds out the lineup with a different look. It gives you a different bottom contact look without leaving today's window.
 - Ned Rig how: Cast and let it settle fully to the bottom, then drag very slowly with the rod held low; pause between moves so the tail stands upright and wiggles. Slow down and lengthen the pause.
-- Inline Spinner: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Inline Spinner: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Inline Spinner how: Cast across current and let the blade flash on a quarter-downstream retrieve; speed up briefly after bumps or short strikes. Slow down and lengthen the pause.
 - Fly reasoning:
-- Balanced Leech: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It stays in the middle band where the seasonal setup is most stable today.
+- Balanced Leech: This is today's top overall read. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It stays in the middle band where the seasonal setup is most stable today.
 - Balanced Leech how: Fish it under an indicator or on a slow hand-twist so the fly hovers level and pulses in place rather than diving nose-first. Slow down and lengthen the pause.
-- Sculpin Streamer: It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different fly bottom look without leaving today's window.
+- Sculpin Streamer: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different fly bottom look without leaving today's window.
 - Sculpin Streamer how: Cast upstream and mend for a natural drift, then activate with short strips that make the fly bumble over the bottom like a sculpin retreating. Slow down and lengthen the pause.
-- Game Changer: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Game Changer: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Game Changer how: Retrieve with medium strips, then occasionally rip hard so the body compresses and then springs apart — pause after each hard strip and hold your nerve. Slow down and lengthen the pause.
 
 Review:
@@ -8050,18 +8053,18 @@ Actual output:
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Daily note: Elevated runoff tightens fish and pulls the day lower and slower.
 - Lure reasoning:
-- Spinnerbait: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Spinnerbait: This is today's top overall read. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
 - Spinnerbait how: Work it parallel to grass lines or over submerged timber; slow the retrieve near the target and let the head tick the top. Slow down and lengthen the pause.
-- Blade Bait: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different reaction mid column look without leaving today's window.
+- Blade Bait: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different reaction mid column look without leaving today's window.
 - Blade Bait how: Vertical jig it with short, sharp hops over suspended fish; the flutter-fall is the presentation — set hard the moment you feel weight. Slow down and lengthen the pause.
-- Inline Spinner: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
-- Inline Spinner how: Use a slow-roll retrieve near bottom or cover edges; occasionally bump into structure to trigger reaction strikes. Slow down and lengthen the pause.
+- Inline Spinner: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Inline Spinner how: Cast parallel to cover edges and retrieve with a steady pace that keeps the blade thumping; slow a half-beat near cover, then speed back up once it clears. Slow down and lengthen the pause.
 - Fly reasoning:
-- Clouser Minnow: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Clouser Minnow: This is today's top overall read. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
 - Clouser Minnow how: Strip in short, consistent pulls so the dumbbell eyes make the fly jig up and down; let it sink between strips to stay hook-point up throughout. Slow down and lengthen the pause.
-- Woolly Bugger: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It stays in the middle band where the seasonal setup is most stable today. It rounds out the lineup with a different look. It gives you a different fly bottom look without leaving today's window.
+- Woolly Bugger: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It stays in the middle band where the seasonal setup is most stable today. It rounds out the lineup with a different look. It gives you a different fly bottom look without leaving today's window.
 - Woolly Bugger how: Cast across and swing it on a tight line through the drift, then activate on the hang-down with short strips before lifting. Slow down and lengthen the pause.
-- Game Changer: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Game Changer: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink. Slow down and lengthen the pause.
 
 Review:
@@ -8157,18 +8160,18 @@ Actual output:
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Daily note: Slightly elevated runoff supports a more visible river presentation.
 - Lure reasoning:
-- Tube Jig: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Tube Jig: This is today's top overall read. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
 - Tube Jig how: Snap the tube off bottom with short pops so it spirals on the fall, then let it glide back down on slack or semi-slack line.
-- Inline Spinner: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
+- Inline Spinner: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
 - Inline Spinner how: Cast and retrieve at a steady clip just fast enough to keep the blade spinning; vary depth with rod angle and speed to find the feeding zone.
-- Hair Jig: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It stays in the middle band where the seasonal setup is most stable today. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Hair Jig: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It stays in the middle band where the seasonal setup is most stable today. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Hair Jig how: Cast across, let it sink on a controlled slack line, then swim it back with short pauses so the marabou pulses and collapses.
 - Fly reasoning:
-- Clouser Minnow: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Clouser Minnow: This is today's top overall read. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
 - Clouser Minnow how: Cast across or slightly downstream, let it jig toward you with short strips so the weighted eyes keep the fly tracking hook-point up.
-- Game Changer: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It stays in the middle band where the seasonal setup is most stable today. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
+- Game Changer: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It stays in the middle band where the seasonal setup is most stable today. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
 - Game Changer how: Use a mix of steady strips and sharp 6-inch twitches so the jointed body swims and stalls; pause when you see a follow.
-- Zonker Streamer: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It stays in the middle band where the seasonal setup is most stable today. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Zonker Streamer: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It stays in the middle band where the seasonal setup is most stable today. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Zonker Streamer how: Strip with a mixed pace — a few short darts, then a longer glide; the rabbit wing wraps on fast strips and flares on the pause for a big profile change.
 
 Review:
@@ -8263,18 +8266,18 @@ Actual output:
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Daily note: Slightly elevated runoff supports a more visible river presentation.
 - Lure reasoning:
-- Walking Topwater: It matches the column/pace the conditions push toward today. Low disturbance is keeping a true surface lane open today. It is one of the lead monthly looks for this exact seasonal window.
+- Walking Topwater: This is today's top overall read. It matches the column/pace the conditions push toward today. Low disturbance is keeping a true surface lane open today. It is one of the lead monthly looks for this exact seasonal window.
 - Walking Topwater how: Downrod with light wrist flicks to make it dance; the pause between twitches lets fish track and commit, so give it a beat before the next twitch. Keep it on top.
-- Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
+- Paddle-Tail Swimbait: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
 - Paddle-Tail Swimbait how: Swim it at the speed where you feel a steady kick through the rod; use rod angle to change depth without changing retrieve speed. Keep it high in the zone.
-- Inline Spinner: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
-- Inline Spinner how: Use a slow-roll retrieve near bottom or cover edges; occasionally bump into structure to trigger reaction strikes. Keep it high in the zone.
+- Inline Spinner: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Inline Spinner how: Cast parallel to cover edges and retrieve with a steady pace that keeps the blade thumping; slow a half-beat near cover, then speed back up once it clears. Keep it high in the zone.
 - Fly reasoning:
-- Popper Fly: It matches the column/pace the conditions push toward today. Low disturbance is keeping a true surface lane open today. It is one of the lead monthly looks for this exact seasonal window.
+- Popper Fly: This is today's top overall read. It matches the column/pace the conditions push toward today. Low disturbance is keeping a true surface lane open today. It is one of the lead monthly looks for this exact seasonal window.
 - Popper Fly how: Make a sharp strip-pause to spit water, then wait; the longer the pause in the ring, the more time a fish has to rise and commit. Keep it on top.
-- Game Changer: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
+- Game Changer: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
 - Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink. Keep it high in the zone.
-- Clouser Minnow: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Clouser Minnow: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Clouser Minnow how: Strip in short, consistent pulls so the dumbbell eyes make the fly jig up and down; let it sink between strips to stay hook-point up throughout.
 
 Review:
@@ -8366,18 +8369,18 @@ Actual output:
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
 - Variables triggered: runoff_flow_disruption
 - Lure reasoning:
-- Suspending Jerkbait: It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window.
-- Suspending Jerkbait how: Two or three sharp twitches, then let it suspend perfectly still for a full 3-5 count before the next sequence — the pause is everything. Keep it high in the zone.
-- Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
+- Suspending Jerkbait: This is today's top overall read. It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window.
+- Suspending Jerkbait how: Two or three sharp twitches, then let it suspend perfectly still for a full 3-5 count before the next sequence — the pause is everything.
+- Paddle-Tail Swimbait: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
 - Paddle-Tail Swimbait how: Swim it at the speed where you feel a steady kick through the rod; use rod angle to change depth without changing retrieve speed. Keep it high in the zone.
-- Tube Jig: It matches the column/pace the conditions push toward today. It fits today's upper column preference. It stays high enough in the zone to match the day's more open positioning. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Tube Jig: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. It leads on today's preferred upper column. It stays high enough in the zone to match the day's more open positioning. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Tube Jig how: Cast, let it sink, then pop sharply and release line; the tube should corkscrew back to bottom on each drop — keep a watchful eye on the line. Keep it high in the zone.
 - Fly reasoning:
-- Slim Baitfish Streamer: It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window.
+- Slim Baitfish Streamer: This is today's top overall read. It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window.
 - Slim Baitfish Streamer how: Strip with short, quick pulls to make the slim profile dart; pause briefly so it hangs in the current or sinks an inch before the next strip. Keep it high in the zone.
-- Zonker Streamer: It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
+- Zonker Streamer: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
 - Zonker Streamer how: Retrieve at moderate speed with intentional pauses where the fly sinks and the strip wing breathes; strikes often come as you restart the strip. Keep it high in the zone.
-- Game Changer: It matches the column/pace the conditions push toward today. It fits today's upper column preference. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Game Changer: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. It leads on today's preferred upper column. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Game Changer how: Retrieve with medium strips, then occasionally rip hard so the body compresses and then springs apart — pause after each hard strip and hold your nerve. Keep it high in the zone.
 
 Review:
@@ -8471,18 +8474,18 @@ Actual output:
 - Daily note: A warming trend nudges fish slightly higher in the allowed range.
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Lure reasoning:
-- Suspending Jerkbait: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
+- Suspending Jerkbait: This is today's top overall read. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
 - Suspending Jerkbait how: Work it with wrist snaps, not big sweeps; keep slack in the line between snaps so the bait swings freely, then pause until you see a follow or feel weight. Keep it high in the zone.
-- Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
+- Paddle-Tail Swimbait: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
 - Paddle-Tail Swimbait how: Swim it at the speed where you feel a steady kick through the rod; use rod angle to change depth without changing retrieve speed. Keep it high in the zone.
-- Hair Jig: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It stays high enough in the zone to match the day's more open positioning. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Hair Jig: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It stays high enough in the zone to match the day's more open positioning. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Hair Jig how: Swing it through current seams or drop it in pockets with minimal movement; let the marabou breathe in place before slowly pulling it along. Keep it high in the zone.
 - Fly reasoning:
-- Slim Baitfish Streamer: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
+- Slim Baitfish Streamer: This is today's top overall read. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window.
 - Slim Baitfish Streamer how: Fish it on a dead-drift through seams, then activate with quick strips near holding structure; the slim silhouette works best in clear water at a measured pace. Keep it high in the zone.
-- Woolly Bugger: It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. Woolly Bugger tracks well when leech_worm is a realistic meal. It rounds out the lineup with a different look. It gives you a different fly bottom look without leaving today's window.
+- Woolly Bugger: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. Woolly Bugger tracks well when leech_worm is a realistic meal. It rounds out the lineup with a different look. It gives you a different fly bottom look without leaving today's window.
 - Woolly Bugger how: Cast across and swing it on a tight line through the drift, then activate on the hang-down with short strips before lifting.
-- Clouser Minnow: It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Clouser Minnow: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
 - Clouser Minnow how: Cast and let the weighted eyes sink the fly, then retrieve with a strip-pause cadence that makes it dart upward on the strip and dive back on the pause.
 
 Review:
@@ -8579,18 +8582,18 @@ Actual output:
 - Daily note: A cooling trend tightens fish and shifts preference lower and slower.
 - Daily note: Dirty water demands more visibility.
 - Lure reasoning:
-- Spinnerbait: It matches the column/pace the conditions push toward today. Dirty water demands more visibility. It is one of the lead monthly looks for this exact seasonal window.
+- Spinnerbait: This is today's top overall read. It matches the column/pace the conditions push toward today. Dirty water demands more visibility. It is one of the lead monthly looks for this exact seasonal window.
 - Spinnerbait how: Work it parallel to grass lines or over submerged timber; slow the retrieve near the target and let the head tick the top. Slow down and lengthen the pause.
-- Tube Jig: It matches the column/pace the conditions push toward today. A cooling trend tightens fish and shifts preference lower and slower. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different bottom contact look without leaving today's window.
+- Tube Jig: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. A cooling trend tightens fish and shifts preference lower and slower. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different bottom contact look without leaving today's window.
 - Tube Jig how: Hop it erratically off the bottom with sharp pops, then open the bail slightly so it spirals down freely; strikes happen on that spinning fall. Slow down and lengthen the pause.
-- Inline Spinner: It matches the column/pace the conditions push toward today. Dirty water demands more visibility. Inline Spinner stays in play when baitfish is relevant. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
-- Inline Spinner how: Use a slow-roll retrieve near bottom or cover edges; occasionally bump into structure to trigger reaction strikes. Slow down and lengthen the pause.
+- Inline Spinner: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. Dirty water demands more visibility. Inline Spinner stays in play when baitfish is relevant. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Inline Spinner how: Cast parallel to cover edges and retrieve with a steady pace that keeps the blade thumping; slow a half-beat near cover, then speed back up once it clears. Slow down and lengthen the pause.
 - Fly reasoning:
-- Crawfish Streamer: It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window.
+- Crawfish Streamer: This is today's top overall read. It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It is one of the lead monthly looks for this exact seasonal window.
 - Crawfish Streamer how: Cast upstream and mend for a dead-drift first; then come alive with quick, short strips that make the claw materials flex like a fleeing crawfish. Slow down and lengthen the pause.
-- Clouser Minnow: It matches the column/pace the conditions push toward today. Dirty water demands more visibility. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
+- Clouser Minnow: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. Dirty water demands more visibility. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
 - Clouser Minnow how: Strip in short, consistent pulls so the dumbbell eyes make the fly jig up and down; let it sink between strips to stay hook-point up throughout. Slow down and lengthen the pause.
-- Sculpin Streamer: It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It stays low in the zone where this day still wants fish to hold. It is the cleaner change-up if the lead look does not convert.
+- Sculpin Streamer: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. It stays practical in current seams and river lanes when flow still matters. It stays low in the zone where this day still wants fish to hold. It is the cleaner change-up if the lead look does not convert.
 - Sculpin Streamer how: Cast upstream and mend for a natural drift, then activate with short strips that make the fly bumble over the bottom like a sculpin retreating. Slow down and lengthen the pause.
 
 Review:
@@ -8658,26 +8661,26 @@ Actual output:
 - Top 1 lure: Tube Jig `tube_jig` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Top 3 lures:
 - Tube Jig `tube_jig` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Inline Spinner `inline_spinner` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Paddle-Tail Swimbait `paddle_tail_swimbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
-- Soft Plastic Jerkbait `soft_jerkbait` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
-- Top 1 fly: Clouser Minnow `clouser_minnow` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Top 1 fly: Woolly Bugger `woolly_bugger` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Top 3 flies:
-- Clouser Minnow `clouser_minnow` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Woolly Bugger `woolly_bugger` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Muddler Minnow `muddler_sculpin` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
-- Game Changer `game_changer` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
+- Clouser Minnow `clouser_minnow` | theme: `bright` | colors: white/chartreuse, chartreuse, firetiger
 - Color notes:
 - Daily posture: suppressed
 - Tube Jig: bright -> white/chartreuse, chartreuse, firetiger
+- Inline Spinner: bright -> white/chartreuse, chartreuse, firetiger
 - Paddle-Tail Swimbait: bright -> white/chartreuse, chartreuse, firetiger
-- Soft Plastic Jerkbait: bright -> white/chartreuse, chartreuse, firetiger
-- Clouser Minnow: bright -> white/chartreuse, chartreuse, firetiger
+- Woolly Bugger: bright -> white/chartreuse, chartreuse, firetiger
 - Muddler Minnow: bright -> white/chartreuse, chartreuse, firetiger
-- Game Changer: bright -> white/chartreuse, chartreuse, firetiger
+- Clouser Minnow: bright -> white/chartreuse, chartreuse, firetiger
 - Daily profile notes:
 - Daily posture: suppressed
 - Seasonal source: region=great_lakes_upper_midwest, fallback_used=false
-- Daily preference: column=bottom, pace=medium, presence=moderate
-- Monthly baseline: columns=surface/upper/mid/bottom, paces=medium/fast, presence=subtle/moderate
+- Daily preference: column=bottom, pace=slow, presence=moderate
+- Monthly baseline: columns=surface/upper/mid/bottom, paces=slow/medium/fast, presence=subtle/moderate
 - Guardrails: surface_allowed=false, surface_window=closed, suppress_fast_presentations=true, high_visibility_needed=true, column_shift=-1
 - Variables considered: temperature_metabolic_context, temperature_trend, temperature_shock, pressure_regime, wind_condition, light_cloud_condition, runoff_flow_disruption
 - Variables triggered: temperature_metabolic_context, temperature_trend, wind_condition, runoff_flow_disruption
@@ -8686,19 +8689,19 @@ Actual output:
 - Daily note: Elevated runoff tightens fish and pulls the day lower and slower.
 - Daily note: Dirty water demands more visibility.
 - Lure reasoning:
-- Tube Jig: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
-- Tube Jig how: Snap the tube off bottom with short pops so it spirals on the fall, then let it glide back down on slack or semi-slack line. Keep it high in the zone.
-- Paddle-Tail Swimbait: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
-- Paddle-Tail Swimbait how: Reel at a steady pace with the rod low so the tail thumps consistently; speed up slightly over bait schools or slow down after a follow. Keep it high in the zone.
-- Soft Plastic Jerkbait: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
-- Soft Plastic Jerkbait how: Twitch it with slack in the line so the bait darts and glides erratically; pause and let it sink a few inches between twitches. Keep it high in the zone.
+- Tube Jig: This is today's top overall read. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
+- Tube Jig how: Snap the tube off bottom with short pops so it spirals on the fall, then let it glide back down on slack or semi-slack line. Slow down and lengthen the pause.
+- Inline Spinner: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
+- Inline Spinner how: Cast and retrieve at a steady clip just fast enough to keep the blade spinning; vary depth with rod angle and speed to find the feeding zone. Slow down and lengthen the pause.
+- Paddle-Tail Swimbait: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Paddle-Tail Swimbait how: Reel at a steady pace with the rod low so the tail thumps consistently; speed up slightly over bait schools or slow down after a follow. Slow down and lengthen the pause.
 - Fly reasoning:
-- Clouser Minnow: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window.
-- Clouser Minnow how: Cast across or slightly downstream, let it jig toward you with short strips so the weighted eyes keep the fly tracking hook-point up. Keep it low in the strike zone.
-- Muddler Minnow: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different fly bottom look without leaving today's window.
-- Muddler Minnow how: Skate or wake it in shallow riffles with short strips, or sink and crawl it along bottom with rod-tip leads so the deer hair pushes water. Keep it high in the zone.
-- Game Changer: It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
-- Game Changer how: Use a mix of steady strips and sharp 6-inch twitches so the jointed body swims and stalls; pause when you see a follow. Keep it high in the zone.
+- Woolly Bugger: This is today's top overall read. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It stays low in the zone where this day still wants fish to hold.
+- Woolly Bugger how: Let it sink to depth then retrieve with slow hand-twists or short strips; the marabou tail breathes best with long pauses at the end of each pull. Slow down and lengthen the pause.
+- Muddler Minnow: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. A warming trend nudges fish slightly higher in the allowed range. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It gives you a different fly bottom look without leaving today's window.
+- Muddler Minnow how: Sink and crawl it along bottom with rod-tip leads so the deer hair pushes water, or swing it through soft seams on a tight line. Slow down and lengthen the pause.
+- Clouser Minnow: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. With the highest lane shut down, this keeps you just under the cleaner active zone. It is one of the lead monthly looks for this exact seasonal window. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Clouser Minnow how: Cast across or slightly downstream, let it jig toward you with short strips so the weighted eyes keep the fly tracking hook-point up. Slow down and lengthen the pause.
 
 Review:
 - Precheck flags:
@@ -8790,18 +8793,18 @@ Actual output:
 - Daily note: Lower light supports a slightly higher, more open lane.
 - Daily note: Dirty water demands more visibility.
 - Lure reasoning:
-- Spinnerbait: It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. It is one of the lead monthly looks for this exact seasonal window.
+- Spinnerbait: This is today's top overall read. It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. It is one of the lead monthly looks for this exact seasonal window.
 - Spinnerbait how: Work it parallel to grass lines or over submerged timber; slow the retrieve near the target and let the head tick the top. Keep it high in the zone.
-- Inline Spinner: It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
-- Inline Spinner how: Use a slow-roll retrieve near bottom or cover edges; occasionally bump into structure to trigger reaction strikes. Keep it high in the zone.
-- Blade Bait: It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
+- Inline Spinner: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different horizontal search look without leaving today's window.
+- Inline Spinner how: Cast parallel to cover edges and retrieve with a steady pace that keeps the blade thumping; slow a half-beat near cover, then speed back up once it clears. Keep it high in the zone.
+- Blade Bait: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It is the cleaner change-up if the lead look does not convert.
 - Blade Bait how: Vertical jig it with short, sharp hops over suspended fish; the flutter-fall is the presentation — set hard the moment you feel weight.
 - Fly reasoning:
-- Articulated Baitfish Streamer: It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. The month is still baitfish-forward, and this stays inside that search lane.
+- Articulated Baitfish Streamer: This is today's top overall read. It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. The month is still baitfish-forward, and this stays inside that search lane.
 - Articulated Baitfish Streamer how: Work it across current and down with a varied strip cadence; when a fish follows, slow down and kill the retrieve to let the body spiral on the sink. Keep it high in the zone.
-- Game Changer: It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
+- Game Changer: Behind today's lead look, this stays inside the day's window. It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. The month is still baitfish-forward, and this stays inside that search lane. It rounds out the lineup with a different look. It gives you a different fly baitfish look without leaving today's window.
 - Game Changer how: Strip with alternating long and short pulls so the articulated body undulates differently each time; kill the retrieve if you see a fish following and let it sink. Keep it high in the zone.
-- Clouser Minnow: It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
+- Clouser Minnow: Rounding out the trio as a change-up angle. It matches the column/pace the conditions push toward today. Lower light supports a slightly higher, more open lane. It is one of the lead monthly looks for this exact seasonal window. It is the cleaner change-up if the lead look does not convert.
 - Clouser Minnow how: Strip in short, consistent pulls so the dumbbell eyes make the fly jig up and down; let it sink between strips to stay hook-point up throughout.
 
 Review:

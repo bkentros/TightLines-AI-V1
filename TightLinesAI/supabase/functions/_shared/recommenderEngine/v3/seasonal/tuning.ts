@@ -26,6 +26,12 @@ export type BasePresentationStyle =
   | "subtle"
   | "leaning_subtle"
   | "balanced"
+  // Full presence set (subtle/moderate/bold) with preference order
+  // moderate → bold → subtle. Use for rows where the expected read is
+  // "moderate/bold primary, subtle as a safety backstop" — e.g. stained-water
+  // pike summer rivers (post-spawn weed edges) where the biology wants flash
+  // and displacement first, with a subtle fallback for lockjaw days.
+  | "balanced_leaning_bold"
   | "leaning_bold"
   | "bold";
 
@@ -41,6 +47,15 @@ export type AuthoredSeasonalCore = {
   viable_fly_archetypes: readonly FlyArchetypeIdV3[];
   /** Declared biology: when false, eligible pools must not include surface archetypes. */
   surface_seasonally_possible: boolean;
+  /**
+   * Optional explicit override for the row's `typical_seasonal_water_column`.
+   * When set, bypasses the species-specific seasonal column resolver (e.g. the
+   * smallmouth spawn-window +1 shift). Use sparingly — only when a specific
+   * region/month/context cell intentionally needs to expose the full column
+   * window rather than the region-default behavior. See
+   * `docs/audits/recommender-v3/_correction_plan.md` §2.2.
+   */
+  typical_seasonal_water_column_override?: SeasonalWaterColumnV3;
 };
 
 const SEASONAL_COLUMN_ORDER: readonly SeasonalWaterColumnV3[] = [
@@ -224,6 +239,8 @@ export function allowedPresenceForStyle(
       return ["subtle", "moderate"];
     case "balanced":
       return ["subtle", "moderate", "bold"];
+    case "balanced_leaning_bold":
+      return ["subtle", "moderate", "bold"];
     case "leaning_bold":
       return ["moderate", "bold"];
     case "bold":
@@ -248,6 +265,8 @@ export function presencePreferenceOrderForStyle(
       return pick(["subtle", "moderate"]);
     case "balanced":
       return pick(["moderate", "subtle", "bold"]);
+    case "balanced_leaning_bold":
+      return pick(["moderate", "bold", "subtle"]);
     case "leaning_bold":
       return pick(["moderate", "bold"]);
     case "bold":

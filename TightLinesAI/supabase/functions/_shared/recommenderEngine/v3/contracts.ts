@@ -51,24 +51,6 @@ export const TACTICAL_PRESENCE_V3 = [
 
 export type TacticalPresenceV3 = (typeof TACTICAL_PRESENCE_V3)[number];
 
-export const LEGACY_ARCHETYPE_WATER_COLUMNS_V3 = [
-  "top",
-  "shallow",
-  "mid",
-  "bottom",
-] as const;
-
-export type LegacyArchetypeWaterColumnV3 =
-  (typeof LEGACY_ARCHETYPE_WATER_COLUMNS_V3)[number];
-
-export const MOODS_V3 = [
-  "negative",
-  "neutral",
-  "active",
-] as const;
-
-export type MoodV3 = (typeof MOODS_V3)[number];
-
 export const PRESENTATION_STYLES_V3 = [
   "subtle",
   "balanced",
@@ -334,12 +316,33 @@ export type RecommenderV3ArchetypeProfile = {
   species_allowed: readonly RecommenderV3Species[];
   water_types_allowed: readonly RecommenderV3Context[];
   family_group: string;
+  /**
+   * Authored source of truth for where in the water column this archetype
+   * operates, in order of how often a guide would reach for it there.
+   * range[0] = primary usage, range[1] = legitimate secondary, range[2] =
+   * occasional tertiary. Length 1–3, no duplicates. `surface` is only valid
+   * at index 0 for true surface archetypes and must not appear elsewhere.
+   */
+  column_range: readonly TacticalColumnV3[];
+  /** Authored source of truth for retrieve pace. Same ordering convention
+   * and length/dup rules as `column_range`. */
+  pace_range: readonly TacticalPaceV3[];
+  /** Authored source of truth for visual/motion presence. Same ordering
+   * convention and length/dup rules as `column_range`. */
+  presence_range: readonly TacticalPresenceV3[];
+  /** Derived from `column_range[0]`. Kept for scorer + surface readers. */
   primary_column: TacticalColumnV3;
+  /** Derived from `column_range[1]` when present. */
   secondary_column?: TacticalColumnV3;
+  /** Derived from `pace_range[0]`. */
   pace: TacticalPaceV3;
+  /** Derived from `pace_range[1]` when present. */
   secondary_pace?: TacticalPaceV3;
+  /** Derived from `presence_range[0]`. */
   presence: TacticalPresenceV3;
+  /** Derived from `presence_range[1]` when present. */
   secondary_presence?: TacticalPresenceV3;
+  /** Derived from `column_range[0] === "surface"`. */
   is_surface: boolean;
   current_friendly?: boolean;
   forage_tags: readonly ForageBucketV3[];

@@ -67,6 +67,37 @@ function dimensionFit<T extends string>(
   return 0.25;
 }
 
+/**
+ * Build a fit-aware detail string for `column_fit` / `pace_fit` / `presence_fit`
+ * breakdown entries. The prior implementation used a single generic line ("It
+ * fits today's X preference.") regardless of whether the archetype was a
+ * primary match (4.0), a secondary match (2.5), tertiary (1.25), quaternary
+ * (0.25), or a hard miss (-2.5). That read as identical confident language on
+ * days where the archetype actually contradicts the preferred axis.
+ *
+ * Branch by the numeric fit value — the scale (4.0 / 2.5 / 1.25 / 0.25 / -2.5)
+ * comes straight from `dimensionFit`.
+ */
+function dimensionDetail(
+  axis: "column" | "pace" | "presence",
+  fitValue: number,
+  preferred: string,
+): string {
+  if (fitValue >= 3.5) {
+    return `It leads on today's preferred ${preferred} ${axis}.`;
+  }
+  if (fitValue >= 2.0) {
+    return `Its secondary ${axis} overlaps today's preferred ${preferred} ${axis}.`;
+  }
+  if (fitValue >= 1.0) {
+    return `It touches today's ${preferred} ${axis} as a tertiary look rather than a lead.`;
+  }
+  if (fitValue > -1.0) {
+    return `It has only marginal overlap with today's preferred ${preferred} ${axis}.`;
+  }
+  return `Its ${axis} profile pulls against today's preferred ${preferred} ${axis}.`;
+}
+
 /** State-scoped seasonal row deltas (applied inside practicality fit for score parity). */
 function stateScoringAdjustmentsDelta(
   profile: RecommenderV3ArchetypeProfile,
@@ -166,6 +197,20 @@ function practicalityFit(
     fit += daily.surface_window === "clean" ? 1.35 : 0.9;
   }
 
+  // Surface reservation for aggressive-mix days with an open surface window.
+  // Keeps a visible lane in play even when the main surface bonus above did
+  // not fire (e.g. rippled non-seasonal days). Intentionally small relative
+  // to the primary surface bonus (1.35 clean / 0.9 otherwise) so conservative
+  // days are not perturbed. See
+  // `docs/audits/recommender-v3/_correction_plan.md` §3.2.
+  if (
+    resolved.daily_preference.surface_allowed_today &&
+    profile.is_surface &&
+    daily.opportunity_mix === "aggressive"
+  ) {
+    fit += 0.3;
+  }
+
   if (
     profile.id === "popping_topwater" &&
     resolved.daily_preference.surface_allowed_today &&
@@ -214,6 +259,25 @@ function practicalityFit(
 
   if (!strictMonthlyFit) {
     fit -= 0.85;
+  }
+
+  // Deep-structure reinforcement for summer deep largemouth days. When the
+  // seasonal row lives in the mid_deep/deep band and the daily preference
+  // resolves to a bottom read, small-but-meaningful delta keeps the
+  // bottom_contact family honest in the trio (e.g. football jig, deep
+  // crankbait on ledges) instead of letting mid-column searches drift up.
+  // Gated to largemouth_bass and kept small so it does not perturb shallower
+  // bands or other species. See
+  // `docs/audits/recommender-v3/_correction_plan.md` §3.4.
+  if (
+    seasonal.species === "largemouth_bass" &&
+    (seasonal.monthly_baseline.typical_seasonal_location === "mid_deep" ||
+      seasonal.monthly_baseline.typical_seasonal_location === "deep") &&
+    resolved.daily_preference.preferred_column === "bottom" &&
+    profile.primary_column === "bottom" &&
+    profile.tactical_lane === "bottom_contact"
+  ) {
+    fit += 0.3;
   }
 
   fit += largemouthLakeGuardAdjustments(profile, seasonal, daily);
@@ -507,20 +571,29 @@ function scoreProfile(
     {
       code: "column_fit",
       value: roundScore(columnFit),
-      detail:
-        `It fits today's ${resolved.daily_preference.preferred_column} column preference.`,
+      detail: dimensionDetail(
+        "column",
+        columnFit,
+        resolved.daily_preference.preferred_column,
+      ),
     },
     {
       code: "pace_fit",
       value: roundScore(paceFit),
-      detail:
-        `It lines up with today's ${resolved.daily_preference.preferred_pace} pace preference.`,
+      detail: dimensionDetail(
+        "pace",
+        paceFit,
+        resolved.daily_preference.preferred_pace,
+      ),
     },
     {
       code: "presence_fit",
       value: roundScore(presenceFit),
-      detail:
-        `It matches today's ${resolved.daily_preference.preferred_presence} presence lane.`,
+      detail: dimensionDetail(
+        "presence",
+        presenceFit,
+        resolved.daily_preference.preferred_presence,
+      ),
     },
     {
       code: "practicality_fit",

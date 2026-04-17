@@ -11,8 +11,10 @@ import type {
   OpportunityMixModeV3,
   RecommenderV3Context,
   RecommenderV3DailyPayload,
+  RecommenderV3Species,
 } from "./contracts.ts";
 import { V3_SCORED_VARIABLE_KEYS_BY_CONTEXT } from "./contracts.ts";
+import { resolveRecommenderMetabolicContext } from "./speciesMetabolicContext.ts";
 
 type TriggerKey =
   | "temperature_metabolic_context"
@@ -146,10 +148,23 @@ function resolveOpportunityMix(
  * overwrite each other. Strong suppressors (cold_limited, blown-out runoff) use
  * ±2 so they dominate unless opposed by two or more meaningful signals.
  */
+export type ResolveDailyPayloadV3Options = {
+  /**
+   * Species key. When provided with a usable `water_temp_f`, the metabolic
+   * context is classified against species-specific thresholds instead of the
+   * upstream air-temperature band classifier. Omitting either value falls
+   * back to `analysis.condition_context.temperature_metabolic_context`.
+   */
+  species?: RecommenderV3Species | null;
+  /** Raw measured water temperature in °F, preferred signal for species-based metabolic context. */
+  water_temp_f?: number | null;
+};
+
 export function resolveDailyPayloadV3(
   analysis: SharedConditionAnalysis,
   context: RecommenderV3Context,
   clarity: WaterClarity,
+  options: ResolveDailyPayloadV3Options = {},
 ): RecommenderV3DailyPayload {
   const pressureLabel = analysis.norm.normalized.pressure_regime?.label ?? null;
   const windLabel = analysis.norm.normalized.wind_condition?.label ?? null;
@@ -174,7 +189,17 @@ export function resolveDailyPayloadV3(
   // cold_limited and heat_limited are biologically distinct:
   //   cold_limited  = dormant fish; strong suppressor (-2 column weight)
   //   heat_limited  = thermally stressed fish seeking cooler/deeper water; softer suppressor
-  const metabolic = analysis.condition_context.temperature_metabolic_context;
+  //
+  // When a species key and raw water temperature are provided, we override the
+  // upstream air-based classification with species-specific water-temp thresholds
+  // (see `speciesMetabolicContext.ts`). This fixes bass-tuned thresholds
+  // misclassifying pike/trout day reads. Falls back to the upstream value when
+  // species or water temp is missing, preserving backward compatibility.
+  const metabolic = resolveRecommenderMetabolicContext(
+    analysis.condition_context.temperature_metabolic_context,
+    options.species ?? null,
+    options.water_temp_f ?? null,
+  );
   if (metabolic === "cold_limited") {
     postureScore -= 2;
     columnDelta -= 2;
@@ -316,6 +341,23 @@ export function resolveDailyPayloadV3(
     presenceDelta = -1;
   }
 
+  // --- Warmwater bass pace-upshift guard (<65°F water) ---
+  // Largemouth and smallmouth bass metabolism below ~65°F water cannot
+  // biologically support a net pace upshift — even strong cues like falling
+  // pressure or sharp warmup should not push the day toward `fast`. We cap
+  // the net `paceDelta` at 0 for bass under 65°F so downshifts (cold-stall,
+  // cooling trend, bright light, etc.) still fire normally but upshifts are
+  // neutralized. Pike and trout are colder-water species and are not
+  // affected. See `docs/audits/recommender-v3/_correction_plan.md` §3.1.
+  const bassPaceGuardApplies =
+    (options.species === "largemouth_bass" ||
+      options.species === "smallmouth_bass") &&
+    options.water_temp_f != null &&
+    options.water_temp_f < 65;
+  if (bassPaceGuardApplies && paceDelta > 0) {
+    paceDelta = 0;
+  }
+
   const columnShift = clampToShift(columnDelta);
   const paceShift = clampToShift(paceDelta);
   const presenceShift = clampToShift(presenceDelta);
@@ -332,7 +374,7 @@ export function resolveDailyPayloadV3(
 
   return {
     normalized_states: {
-      temperature_metabolic_context: analysis.condition_context.temperature_metabolic_context,
+      temperature_metabolic_context: metabolic,
       temperature_trend: analysis.condition_context.temperature_trend,
       temperature_shock: analysis.condition_context.temperature_shock,
       pressure_regime: pressureLabel,

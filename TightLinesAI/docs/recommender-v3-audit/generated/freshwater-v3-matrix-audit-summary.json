@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-17T02:13:20.878Z",
+  "generated_at": "2026-04-17T18:35:26.257Z",
   "species": {
     "largemouth_bass": {
       "batch_id": "largemouth_v3_matrix",
@@ -12,8 +12,8 @@
       "top_color_match_count": 110,
       "unique_top1_lure_ids": 12,
       "unique_top1_fly_ids": 9,
-      "unique_lure_top3_signatures": 73,
-      "unique_fly_top3_signatures": 55,
+      "unique_lure_top3_signatures": 74,
+      "unique_fly_top3_signatures": 56,
       "lure_top1_leaders": [
         {
           "id": "football_jig",
@@ -55,7 +55,7 @@
         },
         {
           "id": "game_changer",
-          "count": 38
+          "count": 37
         },
         {
           "id": "clouser_minnow",
@@ -70,11 +70,11 @@
           "count": 4
         },
         {
-          "id": "crawfish_streamer",
-          "count": 2
+          "id": "frog_fly",
+          "count": 3
         },
         {
-          "id": "frog_fly",
+          "id": "crawfish_streamer",
           "count": 2
         },
         {
@@ -174,8 +174,8 @@
         "frog_fly": {
           "expected_count": 5,
           "top3_hit_count": 4,
-          "top1_hit_count": 2,
-          "unexpected_top3_count": 6
+          "top1_hit_count": 3,
+          "unexpected_top3_count": 7
         },
         "mouse_fly": {
           "expected_count": 3,
@@ -226,13 +226,13 @@
       "disallowed_avoidance_count": 83,
       "top_color_match_count": 83,
       "unique_top1_lure_ids": 10,
-      "unique_top1_fly_ids": 12,
-      "unique_lure_top3_signatures": 58,
-      "unique_fly_top3_signatures": 50,
+      "unique_top1_fly_ids": 11,
+      "unique_lure_top3_signatures": 59,
+      "unique_fly_top3_signatures": 49,
       "lure_top1_leaders": [
         {
           "id": "tube_jig",
-          "count": 30
+          "count": 31
         },
         {
           "id": "suspending_jerkbait",
@@ -240,7 +240,7 @@
         },
         {
           "id": "spinnerbait",
-          "count": 11
+          "count": 10
         },
         {
           "id": "hair_jig",
@@ -251,29 +251,29 @@
           "count": 5
         },
         {
-          "id": "soft_jerkbait",
-          "count": 4
-        },
-        {
           "id": "paddle_tail_swimbait",
           "count": 3
         },
         {
-          "id": "squarebill_crankbait",
-          "count": 2
+          "id": "soft_jerkbait",
+          "count": 3
+        },
+        {
+          "id": "walking_topwater",
+          "count": 3
         }
       ],
       "fly_top1_leaders": [
         {
-          "id": "clouser_minnow",
+          "id": "woolly_bugger",
           "count": 16
         },
         {
-          "id": "slim_minnow_streamer",
+          "id": "clouser_minnow",
           "count": 14
         },
         {
-          "id": "woolly_bugger",
+          "id": "slim_minnow_streamer",
           "count": 14
         },
         {
@@ -282,11 +282,11 @@
         },
         {
           "id": "game_changer",
-          "count": 7
+          "count": 8
         },
         {
           "id": "popper_fly",
-          "count": 6
+          "count": 7
         },
         {
           "id": "crawfish_streamer",
@@ -373,7 +373,7 @@
         "walking_topwater": {
           "expected_count": 20,
           "top3_hit_count": 6,
-          "top1_hit_count": 2,
+          "top1_hit_count": 3,
           "unexpected_top3_count": 1
         },
         "buzzbait": {
@@ -390,8 +390,8 @@
         },
         "popper_fly": {
           "expected_count": 12,
-          "top3_hit_count": 4,
-          "top1_hit_count": 2,
+          "top3_hit_count": 5,
+          "top1_hit_count": 3,
           "unexpected_top3_count": 7
         }
       },
@@ -412,14 +412,14 @@
       "top3_primary_present_count": 68,
       "disallowed_avoidance_count": 68,
       "top_color_match_count": 68,
-      "unique_top1_lure_ids": 6,
+      "unique_top1_lure_ids": 7,
       "unique_top1_fly_ids": 7,
       "unique_lure_top3_signatures": 26,
-      "unique_fly_top3_signatures": 31,
+      "unique_fly_top3_signatures": 30,
       "lure_top1_leaders": [
         {
           "id": "suspending_jerkbait",
-          "count": 26
+          "count": 25
         },
         {
           "id": "inline_spinner",
@@ -440,19 +440,23 @@
         {
           "id": "soft_jerkbait",
           "count": 3
+        },
+        {
+          "id": "casting_spoon",
+          "count": 1
         }
       ],
       "fly_top1_leaders": [
         {
           "id": "slim_minnow_streamer",
-          "count": 30
+          "count": 32
         },
         {
           "id": "woolly_bugger",
-          "count": 14
+          "count": 12
         },
         {
-          "id": "clouser_minnow",
+          "id": "muddler_sculpin",
           "count": 7
         },
         {
@@ -460,7 +464,7 @@
           "count": 7
         },
         {
-          "id": "muddler_sculpin",
+          "id": "clouser_minnow",
           "count": 6
         },
         {
@@ -555,7 +559,7 @@
         }
       },
       "used_region_fallback_count": 0,
-      "top1_tie_count": 5,
+      "top1_tie_count": 4,
       "explanation_conflict_count": 0,
       "hard_fail_count": 0,
       "soft_fail_count": 0,
@@ -573,7 +577,7 @@
       "top_color_match_count": 48,
       "unique_top1_lure_ids": 7,
       "unique_top1_fly_ids": 9,
-      "unique_lure_top3_signatures": 33,
+      "unique_lure_top3_signatures": 34,
       "unique_fly_top3_signatures": 24,
       "lure_top1_leaders": [
         {
@@ -668,15 +672,15 @@
       "specialty": {
         "hollow_body_frog": {
           "expected_count": 2,
-          "top3_hit_count": 1,
+          "top3_hit_count": 2,
           "top1_hit_count": 0,
-          "unexpected_top3_count": 0
+          "unexpected_top3_count": 1
         },
         "frog_fly": {
           "expected_count": 0,
           "top3_hit_count": 0,
           "top1_hit_count": 0,
-          "unexpected_top3_count": 1
+          "unexpected_top3_count": 2
         },
         "mouse_fly": {
           "expected_count": 1,
@@ -688,7 +692,7 @@
           "expected_count": 10,
           "top3_hit_count": 4,
           "top1_hit_count": 3,
-          "unexpected_top3_count": 3
+          "unexpected_top3_count": 2
         },
         "buzzbait": {
           "expected_count": 0,

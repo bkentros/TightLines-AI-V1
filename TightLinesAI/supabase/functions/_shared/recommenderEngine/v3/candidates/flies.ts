@@ -1,9 +1,11 @@
+import {
+  TACTICAL_COLUMNS_V3,
+  TACTICAL_PACES_V3,
+  TACTICAL_PRESENCE_V3,
+} from "../contracts.ts";
 import type {
   FlyArchetypeIdV3,
   ForageBucketV3,
-  LegacyArchetypeWaterColumnV3,
-  MoodV3,
-  PresentationStyleV3,
   RecommenderV3ArchetypeProfile,
   RecommenderV3Species,
   TacticalColumnV3,
@@ -12,18 +14,26 @@ import type {
   TacticalPresenceV3,
 } from "../contracts.ts";
 
-type LegacyFlyProfile = {
+/**
+ * Authored input for a fly archetype. The tactical ranges
+ * (`column_range`, `pace_range`, `presence_range`) are the single source
+ * of truth for how this fly behaves in the water. Primaries and
+ * secondaries on the resolved profile are derived from `range[0]` and
+ * `range[1]` respectively. `is_surface` is derived from the primary
+ * column being `"surface"`. See the recommender audit plan for the
+ * ordering convention.
+ */
+type FlyAuthoredProfile = {
   id: FlyArchetypeIdV3;
   display_name: string;
-  gear_mode: "fly";
   family_key: string;
-  preferred_water_columns: readonly LegacyArchetypeWaterColumnV3[];
-  preferred_moods: readonly MoodV3[];
-  preferred_presentation_styles: readonly PresentationStyleV3[];
+  column_range: readonly TacticalColumnV3[];
+  pace_range: readonly TacticalPaceV3[];
+  presence_range: readonly TacticalPresenceV3[];
   forage_matches: readonly ForageBucketV3[];
   clarity_strengths: readonly ("clear" | "stained" | "dirty")[];
   tactical_lane: TacticalLaneV3;
-  how_to_fish_text?: readonly [string, string, string];
+  how_to_fish_text: readonly [string, string, string];
 };
 
 const ALL_FRESHWATER_SPECIES: readonly RecommenderV3Species[] = [
@@ -38,12 +48,6 @@ const BASS_AND_PIKE_SPECIES: readonly RecommenderV3Species[] = [
   "smallmouth_bass",
   "northern_pike",
 ] as const;
-
-const TRUE_SURFACE_FLIES = new Set<FlyArchetypeIdV3>([
-  "popper_fly",
-  "frog_fly",
-  "mouse_fly",
-]);
 
 const PIKE_ONLY_FLIES = new Set<FlyArchetypeIdV3>([
   "pike_bunny_streamer",
@@ -69,108 +73,103 @@ const CURRENT_FRIENDLY_FLIES = new Set<FlyArchetypeIdV3>([
   "conehead_streamer",
 ]);
 
-function mapColumn(
+function assertRangeShape<T extends string>(
+  archetypeId: string,
+  kind: "column" | "pace" | "presence",
+  range: readonly T[],
+  allowedValues: readonly T[],
+): void {
+  if (range.length < 1 || range.length > 3) {
+    throw new Error(
+      `[recommender v3] archetype "${archetypeId}" ${kind}_range must have 1-3 entries (got ${range.length}).`,
+    );
+  }
+  const seen = new Set<T>();
+  for (const value of range) {
+    if (!allowedValues.includes(value)) {
+      throw new Error(
+        `[recommender v3] archetype "${archetypeId}" ${kind}_range contains invalid entry "${value}".`,
+      );
+    }
+    if (seen.has(value)) {
+      throw new Error(
+        `[recommender v3] archetype "${archetypeId}" ${kind}_range has duplicate entry "${value}".`,
+      );
+    }
+    seen.add(value);
+  }
+}
+
+function assertColumnShape(
+  archetypeId: string,
+  range: readonly TacticalColumnV3[],
+): void {
+  assertRangeShape(archetypeId, "column", range, TACTICAL_COLUMNS_V3);
+  if (range[0] === "surface" && range.length !== 1) {
+    throw new Error(
+      `[recommender v3] archetype "${archetypeId}" column_range: when primary is "surface", range must be ["surface"] only.`,
+    );
+  }
+  for (let i = 1; i < range.length; i++) {
+    if (range[i] === "surface") {
+      throw new Error(
+        `[recommender v3] archetype "${archetypeId}" column_range: "surface" is only valid at index 0.`,
+      );
+    }
+  }
+}
+
+function resolveSpeciesAllowed(
   id: FlyArchetypeIdV3,
-  column: LegacyArchetypeWaterColumnV3,
-): TacticalColumnV3 {
-  if (TRUE_SURFACE_FLIES.has(id)) return "surface";
-  switch (column) {
-    case "top":
-    case "shallow":
-      return "upper";
-    case "mid":
-      return "mid";
-    case "bottom":
-    default:
-      return "bottom";
-  }
+): readonly RecommenderV3Species[] {
+  if (PIKE_ONLY_FLIES.has(id)) return ["northern_pike"];
+  if (WARMWATER_SURFACE_ONLY_FLIES.has(id)) return BASS_AND_PIKE_SPECIES;
+  return ALL_FRESHWATER_SPECIES;
 }
 
-function mapPresence(style: PresentationStyleV3): TacticalPresenceV3 {
-  switch (style) {
-    case "subtle":
-      return "subtle";
-    case "bold":
-      return "bold";
-    case "balanced":
-    default:
-      return "moderate";
-  }
-}
-
-function defaultPaceFromLane(lane: TacticalLaneV3): TacticalPaceV3 {
-  switch (lane) {
-    case "fly_bottom":
-      return "slow";
-    case "fly_surface":
-      return "fast";
-    case "fly_baitfish":
-    default:
-      return "medium";
-  }
-}
-
-function secondaryPaceFromLegacy(
-  primary: TacticalPaceV3,
-  moods: readonly MoodV3[],
-): TacticalPaceV3 | undefined {
-  if (primary === "slow") return moods.includes("active") ? "medium" : undefined;
-  if (primary === "medium") {
-    if (moods.includes("negative")) return "slow";
-    if (moods.includes("active")) return "fast";
-    return undefined;
-  }
-  return "medium";
-}
-
-function whyHooks(profile: LegacyFlyProfile): readonly string[] {
+function whyHooks(profile: FlyAuthoredProfile): readonly string[] {
   return [
     `${profile.display_name} fits a ${profile.tactical_lane.replaceAll("_", " ")} window.`,
     `${profile.display_name} tracks well when ${profile.forage_matches[0] ?? "forage"} is a realistic meal.`,
   ];
 }
 
-function howToFishVariants(profile: LegacyFlyProfile): readonly [string, string, string] {
-  return profile.how_to_fish_text ?? [
-    `Fish ${profile.display_name.toLowerCase()} with a cadence that matches the day's preference.`,
-    `Keep ${profile.display_name.toLowerCase()} in the part of the lane fish can track cleanly today.`,
-    `Work ${profile.display_name.toLowerCase()} with the least extra motion needed to keep it convincing in today's window.`,
-  ];
-}
+function fly(profile: FlyAuthoredProfile): RecommenderV3ArchetypeProfile {
+  assertColumnShape(profile.id, profile.column_range);
+  assertRangeShape(profile.id, "pace", profile.pace_range, TACTICAL_PACES_V3);
+  assertRangeShape(
+    profile.id,
+    "presence",
+    profile.presence_range,
+    TACTICAL_PRESENCE_V3,
+  );
 
-function fly(
-  profile: LegacyFlyProfile,
-): RecommenderV3ArchetypeProfile {
-  const columnOrder = profile.preferred_water_columns
-    .map((column) => mapColumn(profile.id, column))
-    .filter((value, index, array) => array.indexOf(value) === index);
-  const presenceOrder = profile.preferred_presentation_styles
-    .map((style) => mapPresence(style))
-    .filter((value, index, array) => array.indexOf(value) === index);
-  const primaryPace = defaultPaceFromLane(profile.tactical_lane);
+  const primaryColumn = profile.column_range[0]!;
+  const primaryPace = profile.pace_range[0]!;
+  const primaryPresence = profile.presence_range[0]!;
+
   return {
     id: profile.id,
     display_name: profile.display_name,
     gear_mode: "fly",
-    species_allowed: PIKE_ONLY_FLIES.has(profile.id)
-      ? ["northern_pike"]
-      : WARMWATER_SURFACE_ONLY_FLIES.has(profile.id)
-      ? BASS_AND_PIKE_SPECIES
-      : ALL_FRESHWATER_SPECIES,
+    species_allowed: resolveSpeciesAllowed(profile.id),
     water_types_allowed: ["freshwater_lake_pond", "freshwater_river"],
     family_group: profile.family_key,
-    primary_column: columnOrder[0] ?? "mid",
-    secondary_column: columnOrder[1],
+    column_range: profile.column_range,
+    pace_range: profile.pace_range,
+    presence_range: profile.presence_range,
+    primary_column: primaryColumn,
+    secondary_column: profile.column_range[1],
     pace: primaryPace,
-    secondary_pace: secondaryPaceFromLegacy(primaryPace, profile.preferred_moods),
-    presence: presenceOrder[0] ?? "moderate",
-    secondary_presence: presenceOrder[1],
-    is_surface: TRUE_SURFACE_FLIES.has(profile.id),
+    secondary_pace: profile.pace_range[1],
+    presence: primaryPresence,
+    secondary_presence: profile.presence_range[1],
+    is_surface: primaryColumn === "surface",
     current_friendly: CURRENT_FRIENDLY_FLIES.has(profile.id) ? true : undefined,
     forage_tags: profile.forage_matches,
     why_hooks: whyHooks(profile),
-    how_to_fish_variants: howToFishVariants(profile),
-    how_to_fish_template: howToFishVariants(profile)[0],
+    how_to_fish_variants: profile.how_to_fish_text,
+    how_to_fish_template: profile.how_to_fish_text[0],
     clarity_strengths: profile.clarity_strengths,
     tactical_lane: profile.tactical_lane,
   };
@@ -183,11 +182,10 @@ export const FLY_ARCHETYPES_V3: Record<
   clouser_minnow: fly({
     id: "clouser_minnow",
     display_name: "Clouser Minnow",
-    gear_mode: "fly",
     family_key: "baitfish_streamer",
-    preferred_water_columns: ["mid", "bottom"],
-    preferred_moods: ["neutral", "active"],
-    preferred_presentation_styles: ["balanced", "bold"],
+    column_range: ["mid", "bottom"],
+    pace_range: ["medium", "fast"],
+    presence_range: ["moderate", "bold"],
     forage_matches: ["baitfish"],
     clarity_strengths: ["clear", "stained", "dirty"],
     tactical_lane: "fly_baitfish",
@@ -200,11 +198,10 @@ export const FLY_ARCHETYPES_V3: Record<
   deceiver: fly({
     id: "deceiver",
     display_name: "Deceiver",
-    gear_mode: "fly",
     family_key: "baitfish_streamer",
-    preferred_water_columns: ["shallow", "mid"],
-    preferred_moods: ["active"],
-    preferred_presentation_styles: ["balanced", "bold"],
+    column_range: ["upper", "mid"],
+    pace_range: ["medium", "fast"],
+    presence_range: ["moderate", "bold"],
     forage_matches: ["baitfish"],
     clarity_strengths: ["clear", "stained"],
     tactical_lane: "fly_baitfish",
@@ -217,11 +214,10 @@ export const FLY_ARCHETYPES_V3: Record<
   bucktail_baitfish_streamer: fly({
     id: "bucktail_baitfish_streamer",
     display_name: "Bucktail Streamer",
-    gear_mode: "fly",
     family_key: "baitfish_streamer",
-    preferred_water_columns: ["shallow", "mid"],
-    preferred_moods: ["negative", "neutral"],
-    preferred_presentation_styles: ["subtle"],
+    column_range: ["upper", "mid"],
+    pace_range: ["medium", "slow"],
+    presence_range: ["subtle"],
     forage_matches: ["baitfish"],
     clarity_strengths: ["clear", "stained"],
     tactical_lane: "fly_baitfish",
@@ -234,11 +230,10 @@ export const FLY_ARCHETYPES_V3: Record<
   slim_minnow_streamer: fly({
     id: "slim_minnow_streamer",
     display_name: "Slim Baitfish Streamer",
-    gear_mode: "fly",
     family_key: "baitfish_streamer",
-    preferred_water_columns: ["shallow", "mid"],
-    preferred_moods: ["negative", "neutral"],
-    preferred_presentation_styles: ["subtle"],
+    column_range: ["upper", "mid"],
+    pace_range: ["medium", "slow"],
+    presence_range: ["subtle"],
     forage_matches: ["baitfish"],
     clarity_strengths: ["clear", "stained"],
     tactical_lane: "fly_baitfish",
@@ -251,11 +246,10 @@ export const FLY_ARCHETYPES_V3: Record<
   articulated_baitfish_streamer: fly({
     id: "articulated_baitfish_streamer",
     display_name: "Articulated Baitfish Streamer",
-    gear_mode: "fly",
     family_key: "baitfish_streamer",
-    preferred_water_columns: ["shallow", "mid"],
-    preferred_moods: ["active"],
-    preferred_presentation_styles: ["bold"],
+    column_range: ["upper", "mid"],
+    pace_range: ["medium", "fast"],
+    presence_range: ["bold"],
     forage_matches: ["baitfish"],
     clarity_strengths: ["clear", "stained"],
     tactical_lane: "fly_baitfish",
@@ -268,11 +262,10 @@ export const FLY_ARCHETYPES_V3: Record<
   articulated_dungeon_streamer: fly({
     id: "articulated_dungeon_streamer",
     display_name: "Articulated Dungeon Streamer",
-    gear_mode: "fly",
     family_key: "articulated_streamer",
-    preferred_water_columns: ["mid"],
-    preferred_moods: ["active"],
-    preferred_presentation_styles: ["bold"],
+    column_range: ["mid"],
+    pace_range: ["medium", "fast"],
+    presence_range: ["bold"],
     forage_matches: ["baitfish", "bluegill_perch", "crawfish"],
     clarity_strengths: ["clear", "stained", "dirty"],
     tactical_lane: "fly_baitfish",
@@ -285,11 +278,10 @@ export const FLY_ARCHETYPES_V3: Record<
   game_changer: fly({
     id: "game_changer",
     display_name: "Game Changer",
-    gear_mode: "fly",
     family_key: "articulated_streamer",
-    preferred_water_columns: ["shallow", "mid"],
-    preferred_moods: ["active"],
-    preferred_presentation_styles: ["balanced", "bold"],
+    column_range: ["upper", "mid"],
+    pace_range: ["medium", "fast"],
+    presence_range: ["moderate", "bold"],
     forage_matches: ["baitfish", "bluegill_perch"],
     clarity_strengths: ["clear", "stained"],
     tactical_lane: "fly_baitfish",
@@ -302,11 +294,10 @@ export const FLY_ARCHETYPES_V3: Record<
   woolly_bugger: fly({
     id: "woolly_bugger",
     display_name: "Woolly Bugger",
-    gear_mode: "fly",
     family_key: "bugger_leech",
-    preferred_water_columns: ["mid", "bottom"],
-    preferred_moods: ["negative", "neutral"],
-    preferred_presentation_styles: ["subtle", "balanced"],
+    column_range: ["mid", "bottom"],
+    pace_range: ["slow"],
+    presence_range: ["subtle", "moderate"],
     forage_matches: ["leech_worm", "baitfish", "crawfish"],
     clarity_strengths: ["clear", "stained", "dirty"],
     tactical_lane: "fly_bottom",
@@ -319,11 +310,10 @@ export const FLY_ARCHETYPES_V3: Record<
   rabbit_strip_leech: fly({
     id: "rabbit_strip_leech",
     display_name: "Rabbit-Strip Leech",
-    gear_mode: "fly",
     family_key: "bugger_leech",
-    preferred_water_columns: ["bottom"],
-    preferred_moods: ["negative", "neutral"],
-    preferred_presentation_styles: ["subtle", "balanced"],
+    column_range: ["bottom"],
+    pace_range: ["slow"],
+    presence_range: ["subtle", "moderate"],
     forage_matches: ["leech_worm", "baitfish"],
     clarity_strengths: ["clear", "stained", "dirty"],
     tactical_lane: "fly_bottom",
@@ -336,11 +326,10 @@ export const FLY_ARCHETYPES_V3: Record<
   balanced_leech: fly({
     id: "balanced_leech",
     display_name: "Balanced Leech",
-    gear_mode: "fly",
     family_key: "bugger_leech",
-    preferred_water_columns: ["mid", "bottom"],
-    preferred_moods: ["negative", "neutral"],
-    preferred_presentation_styles: ["subtle"],
+    column_range: ["mid", "bottom"],
+    pace_range: ["slow"],
+    presence_range: ["subtle"],
     forage_matches: ["leech_worm", "baitfish"],
     clarity_strengths: ["clear", "stained", "dirty"],
     tactical_lane: "fly_bottom",
@@ -353,11 +342,10 @@ export const FLY_ARCHETYPES_V3: Record<
   zonker_streamer: fly({
     id: "zonker_streamer",
     display_name: "Zonker Streamer",
-    gear_mode: "fly",
     family_key: "bugger_leech",
-    preferred_water_columns: ["shallow", "mid"],
-    preferred_moods: ["neutral"],
-    preferred_presentation_styles: ["balanced"],
+    column_range: ["upper", "mid"],
+    pace_range: ["medium"],
+    presence_range: ["moderate"],
     forage_matches: ["baitfish", "leech_worm"],
     clarity_strengths: ["clear", "stained"],
     tactical_lane: "fly_baitfish",
@@ -370,11 +358,10 @@ export const FLY_ARCHETYPES_V3: Record<
   sculpin_streamer: fly({
     id: "sculpin_streamer",
     display_name: "Sculpin Streamer",
-    gear_mode: "fly",
     family_key: "bottom_streamer",
-    preferred_water_columns: ["bottom"],
-    preferred_moods: ["negative", "neutral"],
-    preferred_presentation_styles: ["subtle", "balanced"],
+    column_range: ["bottom"],
+    pace_range: ["slow"],
+    presence_range: ["subtle", "moderate"],
     forage_matches: ["baitfish", "crawfish"],
     clarity_strengths: ["clear", "stained", "dirty"],
     tactical_lane: "fly_bottom",
@@ -387,11 +374,10 @@ export const FLY_ARCHETYPES_V3: Record<
   sculpzilla: fly({
     id: "sculpzilla",
     display_name: "Sculpzilla",
-    gear_mode: "fly",
     family_key: "bottom_streamer",
-    preferred_water_columns: ["bottom"],
-    preferred_moods: ["neutral", "active"],
-    preferred_presentation_styles: ["balanced", "bold"],
+    column_range: ["bottom"],
+    pace_range: ["slow", "medium"],
+    presence_range: ["moderate", "bold"],
     forage_matches: ["baitfish", "crawfish"],
     clarity_strengths: ["clear", "stained", "dirty"],
     tactical_lane: "fly_bottom",
@@ -404,16 +390,19 @@ export const FLY_ARCHETYPES_V3: Record<
   muddler_sculpin: fly({
     id: "muddler_sculpin",
     display_name: "Muddler Minnow",
-    gear_mode: "fly",
     family_key: "bottom_streamer",
-    preferred_water_columns: ["shallow", "mid"],
-    preferred_moods: ["negative", "neutral", "active"],
-    preferred_presentation_styles: ["balanced"],
+    // Authored as bottom-primary/mid-secondary to match `tactical_lane: "fly_bottom"`
+    // and the dominant how_to_fish variants (sink-and-crawl, hop along bottom,
+    // swung wet through current). Upper is a legitimate tertiary (skated/waked
+    // in shallow riffles) but not the lead column.
+    column_range: ["bottom", "mid", "upper"],
+    pace_range: ["slow", "medium"],
+    presence_range: ["moderate"],
     forage_matches: ["baitfish", "crawfish", "insect_misc"],
     clarity_strengths: ["clear", "stained"],
     tactical_lane: "fly_bottom",
     how_to_fish_text: [
-      "Skate or wake it in shallow riffles with short strips, or sink and crawl it along bottom with rod-tip leads so the deer hair pushes water.",
+      "Sink and crawl it along bottom with rod-tip leads so the deer hair pushes water, or swing it through soft seams on a tight line.",
       "Work it as a swung wet fly in current with minimal stripping; on still water, hop it along the bottom with slow, erratic pulls.",
       "Cast across and let current animate the fly; add a slow retrieve in lakes and ponds, using rod dips to make the deer hair head push water and dive.",
     ],
@@ -421,11 +410,10 @@ export const FLY_ARCHETYPES_V3: Record<
   crawfish_streamer: fly({
     id: "crawfish_streamer",
     display_name: "Crawfish Streamer",
-    gear_mode: "fly",
     family_key: "bottom_streamer",
-    preferred_water_columns: ["bottom"],
-    preferred_moods: ["negative", "neutral", "active"],
-    preferred_presentation_styles: ["subtle", "balanced"],
+    column_range: ["bottom"],
+    pace_range: ["slow", "medium"],
+    presence_range: ["subtle", "moderate"],
     forage_matches: ["crawfish"],
     clarity_strengths: ["clear", "stained", "dirty"],
     tactical_lane: "fly_bottom",
@@ -438,11 +426,10 @@ export const FLY_ARCHETYPES_V3: Record<
   conehead_streamer: fly({
     id: "conehead_streamer",
     display_name: "Conehead Streamer",
-    gear_mode: "fly",
     family_key: "weighted_streamer",
-    preferred_water_columns: ["bottom"],
-    preferred_moods: ["negative", "neutral"],
-    preferred_presentation_styles: ["balanced"],
+    column_range: ["bottom"],
+    pace_range: ["slow"],
+    presence_range: ["moderate"],
     forage_matches: ["baitfish", "leech_worm", "crawfish"],
     clarity_strengths: ["clear", "stained", "dirty"],
     tactical_lane: "fly_bottom",
@@ -455,11 +442,10 @@ export const FLY_ARCHETYPES_V3: Record<
   pike_bunny_streamer: fly({
     id: "pike_bunny_streamer",
     display_name: "Large Rabbit Strip Streamer",
-    gear_mode: "fly",
     family_key: "pike_streamer",
-    preferred_water_columns: ["shallow", "mid"],
-    preferred_moods: ["neutral", "active"],
-    preferred_presentation_styles: ["balanced", "bold"],
+    column_range: ["upper", "mid"],
+    pace_range: ["medium", "fast"],
+    presence_range: ["moderate", "bold"],
     forage_matches: ["baitfish", "bluegill_perch"],
     clarity_strengths: ["clear", "stained", "dirty"],
     tactical_lane: "pike_big_profile",
@@ -472,11 +458,10 @@ export const FLY_ARCHETYPES_V3: Record<
   large_articulated_pike_streamer: fly({
     id: "large_articulated_pike_streamer",
     display_name: "Articulated Pike Streamer",
-    gear_mode: "fly",
     family_key: "pike_streamer",
-    preferred_water_columns: ["shallow", "mid"],
-    preferred_moods: ["neutral", "active"],
-    preferred_presentation_styles: ["balanced", "bold"],
+    column_range: ["upper", "mid"],
+    pace_range: ["medium", "fast"],
+    presence_range: ["moderate", "bold"],
     forage_matches: ["baitfish", "bluegill_perch"],
     clarity_strengths: ["clear", "stained", "dirty"],
     tactical_lane: "pike_big_profile",
@@ -489,11 +474,10 @@ export const FLY_ARCHETYPES_V3: Record<
   popper_fly: fly({
     id: "popper_fly",
     display_name: "Popper Fly",
-    gear_mode: "fly",
     family_key: "surface_fly",
-    preferred_water_columns: ["top"],
-    preferred_moods: ["neutral", "active"],
-    preferred_presentation_styles: ["balanced", "bold"],
+    column_range: ["surface"],
+    pace_range: ["fast", "medium"],
+    presence_range: ["moderate", "bold"],
     forage_matches: ["baitfish", "bluegill_perch", "insect_misc"],
     clarity_strengths: ["clear", "stained", "dirty"],
     tactical_lane: "fly_surface",
@@ -506,11 +490,10 @@ export const FLY_ARCHETYPES_V3: Record<
   frog_fly: fly({
     id: "frog_fly",
     display_name: "Frog Fly",
-    gear_mode: "fly",
     family_key: "surface_fly",
-    preferred_water_columns: ["top", "shallow"],
-    preferred_moods: ["neutral", "active"],
-    preferred_presentation_styles: ["balanced", "bold"],
+    column_range: ["surface"],
+    pace_range: ["fast", "medium"],
+    presence_range: ["moderate", "bold"],
     forage_matches: ["bluegill_perch", "baitfish"],
     clarity_strengths: ["clear", "stained", "dirty"],
     tactical_lane: "fly_surface",
@@ -523,11 +506,10 @@ export const FLY_ARCHETYPES_V3: Record<
   mouse_fly: fly({
     id: "mouse_fly",
     display_name: "Mouse Fly",
-    gear_mode: "fly",
     family_key: "surface_fly",
-    preferred_water_columns: ["top", "shallow"],
-    preferred_moods: ["neutral", "active"],
-    preferred_presentation_styles: ["subtle", "balanced"],
+    column_range: ["surface"],
+    pace_range: ["fast", "medium"],
+    presence_range: ["subtle", "moderate"],
     forage_matches: ["baitfish", "insect_misc"],
     clarity_strengths: ["clear", "stained", "dirty"],
     tactical_lane: "fly_surface",

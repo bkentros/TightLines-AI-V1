@@ -24,10 +24,21 @@ export function computeRecommenderV3(
 ): RecommenderV3Response {
   const { species, context } = assertRecommenderV3Scope(req);
 
+  const waterTempRaw = (req.env_data as { measured_water_temp_f?: unknown } | undefined)
+    ?.measured_water_temp_f;
+  const measuredWaterTempF =
+    typeof waterTempRaw === "number" && Number.isFinite(waterTempRaw)
+      ? waterTempRaw
+      : null;
+
   const dailyPayload = resolveDailyPayloadV3(
     analysis,
     context,
     req.water_clarity,
+    {
+      species,
+      water_temp_f: measuredWaterTempF,
+    },
   );
   const seasonalRow = resolveSeasonalRowV3(
     species,
