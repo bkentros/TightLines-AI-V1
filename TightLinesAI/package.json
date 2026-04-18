@@ -28,6 +28,7 @@
     "start:dev-client:ngrok": "bash scripts/start-metro-ngrok.sh",
     "generate:us-city-index": "node scripts/generate-us-city-index.mjs",
     "generate:recommender-gating": "tsx scripts/generate-recommender-gating.ts",
+    "audit:catalog-gaps": "deno run -A scripts/catalog-gap-analysis-v4.ts",
     "audit:recommender:v3:lmb:matrix": "deno run --allow-read --allow-write scripts/recommender-v3-audit/generateLargemouthAuditMatrix.ts",
     "audit:recommender:v3:lmb:matrix:archive-env": "deno run --allow-net --allow-read --allow-write scripts/recommender-v3-audit/buildLargemouthMatrixArchiveEnv.ts",
     "audit:recommender:v3:lmb:matrix:run": "deno run --allow-read --allow-write scripts/recommender-v3-audit/runLargemouthMatrix.ts",
