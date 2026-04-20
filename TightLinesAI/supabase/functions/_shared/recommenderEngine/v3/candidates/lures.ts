@@ -15,21 +15,36 @@ import type {
 } from "../contracts.ts";
 
 /**
- * Authored input for a lure archetype. The tactical ranges
- * (`column_range`, `pace_range`, `presence_range`) are the single source
- * of truth for how this tool behaves in the water. Primaries and
- * secondaries on the resolved profile are derived from `range[0]` and
- * `range[1]` respectively. `is_surface` is derived from the primary
- * column being `"surface"`. See the recommender audit plan for the
- * ordering convention (primary → legitimate secondary → occasional
- * tertiary).
+ * Authored input for a lure archetype.
+ *
+ * Column authoring rules (credibility-first):
+ * - `primary_column` is the single water-column zone the lure actually lives
+ *   in for most anglers, most of the time. It is what the UI chip shows, and
+ *   it is what the scorer rewards as a primary column match.
+ * - `secondary_column` is authored ONLY when the lure genuinely has a second
+ *   working zone (e.g. a spinnerbait slow-rolled mid vs. burned upper). It is
+ *   a fishing fact, not a scoring padding. Most archetypes do not need one.
+ * - Surface lures must set `primary_column: "surface"` and must not set a
+ *   secondary column.
+ * - `bottom_contact`, `fly_bottom`, `cover_weedless` (non-surface) lanes must
+ *   have `primary_column` in {"bottom"} — the catalog's hard credibility rail.
+ *
+ * The factory derives `column_range` as `[primary_column, ...(secondary_column ? [secondary_column] : [])]`
+ * for downstream code that still reads a range, but there is no longer a
+ * third (tertiary) column anywhere in the system.
+ *
+ * Pace and presence keep their existing `range` authoring (primary + optional
+ * secondary, same rules). We did not touch those in this pass because the
+ * credibility problem we fixed was specifically about the displayed column
+ * not matching the lure's real zone.
  */
 type LureAuthoredProfile = {
   id: LureArchetypeIdV3;
   display_name: string;
   family_key: string;
   top3_redundancy_key?: string;
-  column_range: readonly TacticalColumnV3[];
+  primary_column: TacticalColumnV3;
+  secondary_column?: TacticalColumnV3;
   pace_range: readonly TacticalPaceV3[];
   presence_range: readonly TacticalPresenceV3[];
   forage_matches: readonly ForageBucketV3[];
@@ -91,9 +106,22 @@ const CURRENT_FRIENDLY_IDS = new Set<LureArchetypeIdV3>([
   "prop_bait",
 ]);
 
+/**
+ * Lanes whose credibility hard-requires a specific primary column.
+ * Keeps authors from re-introducing the "bass jig shown as upper" class of bug.
+ */
+const LANE_REQUIRED_PRIMARY_COLUMN: Partial<
+  Record<TacticalLaneV3, TacticalColumnV3>
+> = {
+  bottom_contact: "bottom",
+  fly_bottom: "bottom",
+  surface: "surface",
+  fly_surface: "surface",
+};
+
 function assertRangeShape<T extends string>(
   archetypeId: string,
-  kind: "column" | "pace" | "presence",
+  kind: "pace" | "presence",
   range: readonly T[],
   allowedValues: readonly T[],
 ): void {
@@ -118,22 +146,39 @@ function assertRangeShape<T extends string>(
   }
 }
 
-function assertColumnShape(
+function assertColumnAuthoring(
   archetypeId: string,
-  range: readonly TacticalColumnV3[],
+  primary: TacticalColumnV3,
+  secondary: TacticalColumnV3 | undefined,
+  lane: TacticalLaneV3,
 ): void {
-  assertRangeShape(archetypeId, "column", range, TACTICAL_COLUMNS_V3);
-  if (range[0] === "surface" && range.length !== 1) {
+  if (!TACTICAL_COLUMNS_V3.includes(primary)) {
     throw new Error(
-      `[recommender v3] archetype "${archetypeId}" column_range: when primary is "surface", range must be ["surface"] only.`,
+      `[recommender v3] archetype "${archetypeId}" primary_column "${primary}" is not a valid tactical column.`,
     );
   }
-  for (let i = 1; i < range.length; i++) {
-    if (range[i] === "surface") {
+  if (secondary != null) {
+    if (!TACTICAL_COLUMNS_V3.includes(secondary)) {
       throw new Error(
-        `[recommender v3] archetype "${archetypeId}" column_range: "surface" is only valid at index 0.`,
+        `[recommender v3] archetype "${archetypeId}" secondary_column "${secondary}" is not a valid tactical column.`,
       );
     }
+    if (secondary === primary) {
+      throw new Error(
+        `[recommender v3] archetype "${archetypeId}" secondary_column duplicates primary_column ("${primary}").`,
+      );
+    }
+    if (primary === "surface" || secondary === "surface") {
+      throw new Error(
+        `[recommender v3] archetype "${archetypeId}" surface lures must have primary_column="surface" and no secondary_column.`,
+      );
+    }
+  }
+  const required = LANE_REQUIRED_PRIMARY_COLUMN[lane];
+  if (required != null && primary !== required) {
+    throw new Error(
+      `[recommender v3] archetype "${archetypeId}" tactical_lane "${lane}" requires primary_column="${required}" (got "${primary}").`,
+    );
   }
 }
 
@@ -154,7 +199,12 @@ function whyHooks(profile: LureAuthoredProfile): readonly string[] {
 }
 
 function lure(profile: LureAuthoredProfile): RecommenderV3ArchetypeProfile {
-  assertColumnShape(profile.id, profile.column_range);
+  assertColumnAuthoring(
+    profile.id,
+    profile.primary_column,
+    profile.secondary_column,
+    profile.tactical_lane,
+  );
   assertRangeShape(profile.id, "pace", profile.pace_range, TACTICAL_PACES_V3);
   assertRangeShape(
     profile.id,
@@ -163,9 +213,11 @@ function lure(profile: LureAuthoredProfile): RecommenderV3ArchetypeProfile {
     TACTICAL_PRESENCE_V3,
   );
 
-  const primaryColumn = profile.column_range[0]!;
   const primaryPace = profile.pace_range[0]!;
   const primaryPresence = profile.presence_range[0]!;
+  const columnRange: readonly TacticalColumnV3[] = profile.secondary_column
+    ? [profile.primary_column, profile.secondary_column]
+    : [profile.primary_column];
 
   return {
     id: profile.id,
@@ -174,16 +226,16 @@ function lure(profile: LureAuthoredProfile): RecommenderV3ArchetypeProfile {
     species_allowed: resolveSpeciesAllowed(profile.id),
     water_types_allowed: ["freshwater_lake_pond", "freshwater_river"],
     family_group: profile.top3_redundancy_key ?? profile.family_key,
-    column_range: profile.column_range,
+    column_range: columnRange,
     pace_range: profile.pace_range,
     presence_range: profile.presence_range,
-    primary_column: primaryColumn,
-    secondary_column: profile.column_range[1],
+    primary_column: profile.primary_column,
+    secondary_column: profile.secondary_column,
     pace: primaryPace,
     secondary_pace: profile.pace_range[1],
     presence: primaryPresence,
     secondary_presence: profile.presence_range[1],
-    is_surface: primaryColumn === "surface",
+    is_surface: profile.primary_column === "surface",
     current_friendly: CURRENT_FRIENDLY_IDS.has(profile.id) ? true : undefined,
     forage_tags: profile.forage_matches,
     why_hooks: whyHooks(profile),
@@ -203,19 +255,16 @@ export const LURE_ARCHETYPES_V3: Record<
     display_name: "Weightless Stick Worm",
     family_key: "stick_worm",
     top3_redundancy_key: "worm",
-    // Authored upper/mid/bottom: the bait's signature action is the slow,
-    // shimmying horizontal fall through the upper and middle column. It can
-    // legitimately reach bottom in shallow cover as a tertiary, but the lead
-    // technique is a fall-through retrieve, not a bottom drag.
-    column_range: ["upper", "mid", "bottom"],
+    // Signature action is the slow shimmying horizontal fall through the
+    // upper/mid column. It is not a bottom drag — the lane is cover_weedless
+    // and the how_to_fish variants all describe a fall-through retrieve.
+    primary_column: "upper",
+    secondary_column: "mid",
     pace_range: ["medium", "slow"],
     presence_range: ["subtle", "moderate"],
     forage_matches: ["leech_worm"],
     clarity_strengths: ["clear", "stained", "dirty"],
     tactical_lane: "cover_weedless",
-    // Variants kept in the upper/mid fall-through zone consistent with
-    // primary_column=upper; bottom-drag prose previously here clashed with
-    // the archetype's authored column and with column hints.
     how_to_fish_text: [
       "Pitch or skip it tight to cover and let it glide on a slack line — most hits come on the slow shimmying fall through the upper column; reset after each fall and fish the next pocket.",
       "Cast to shade lines and feed slack on the fall so the bait shimmies naturally through the upper/mid column; if it reaches cover without a bite, lift it free and re-pitch rather than dragging.",
@@ -227,7 +276,7 @@ export const LURE_ARCHETYPES_V3: Record<
     display_name: "Carolina-Rigged Stick Worm",
     family_key: "stick_worm",
     top3_redundancy_key: "worm",
-    column_range: ["mid", "bottom"],
+    primary_column: "bottom",
     pace_range: ["slow"],
     presence_range: ["subtle", "moderate"],
     forage_matches: ["leech_worm", "baitfish"],
@@ -244,7 +293,7 @@ export const LURE_ARCHETYPES_V3: Record<
     display_name: "Shaky-Head Worm",
     family_key: "finesse_worm",
     top3_redundancy_key: "worm",
-    column_range: ["mid", "bottom"],
+    primary_column: "bottom",
     pace_range: ["slow"],
     presence_range: ["subtle"],
     forage_matches: ["leech_worm"],
@@ -261,7 +310,10 @@ export const LURE_ARCHETYPES_V3: Record<
     display_name: "Drop-Shot Worm",
     family_key: "drop_shot",
     top3_redundancy_key: "worm",
-    column_range: ["mid", "bottom"],
+    // Drop-shot suspends the worm just off the bottom — the presentation lives
+    // in the mid band above the weight, with the weight itself on the bottom.
+    primary_column: "mid",
+    secondary_column: "bottom",
     pace_range: ["slow"],
     presence_range: ["subtle"],
     forage_matches: ["leech_worm"],
@@ -277,7 +329,8 @@ export const LURE_ARCHETYPES_V3: Record<
     id: "drop_shot_minnow",
     display_name: "Drop-Shot Minnow",
     family_key: "drop_shot",
-    column_range: ["mid", "bottom"],
+    primary_column: "mid",
+    secondary_column: "bottom",
     pace_range: ["slow", "medium"],
     presence_range: ["subtle", "moderate"],
     forage_matches: ["baitfish"],
@@ -293,7 +346,7 @@ export const LURE_ARCHETYPES_V3: Record<
     id: "ned_rig",
     display_name: "Ned Rig",
     family_key: "ned_rig",
-    column_range: ["upper", "mid", "bottom"],
+    primary_column: "bottom",
     pace_range: ["slow"],
     presence_range: ["subtle"],
     forage_matches: ["crawfish", "leech_worm"],
@@ -309,7 +362,7 @@ export const LURE_ARCHETYPES_V3: Record<
     id: "tube_jig",
     display_name: "Tube Jig",
     family_key: "tube",
-    column_range: ["upper", "mid", "bottom"],
+    primary_column: "bottom",
     pace_range: ["slow", "medium"],
     presence_range: ["subtle", "moderate"],
     forage_matches: ["crawfish", "baitfish"],
@@ -325,7 +378,7 @@ export const LURE_ARCHETYPES_V3: Record<
     id: "texas_rigged_soft_plastic_craw",
     display_name: "Texas-Rigged Soft-Plastic Craw",
     family_key: "soft_craw",
-    column_range: ["bottom"],
+    primary_column: "bottom",
     pace_range: ["medium", "slow"],
     presence_range: ["subtle", "moderate"],
     forage_matches: ["crawfish"],
@@ -341,7 +394,7 @@ export const LURE_ARCHETYPES_V3: Record<
     id: "football_jig",
     display_name: "Football Jig",
     family_key: "jig",
-    column_range: ["mid", "bottom"],
+    primary_column: "bottom",
     pace_range: ["slow", "medium"],
     presence_range: ["moderate", "bold"],
     forage_matches: ["crawfish", "bluegill_perch"],
@@ -357,7 +410,7 @@ export const LURE_ARCHETYPES_V3: Record<
     id: "compact_flipping_jig",
     display_name: "Compact Flipping Jig",
     family_key: "jig",
-    column_range: ["upper", "mid", "bottom"],
+    primary_column: "bottom",
     pace_range: ["medium", "slow"],
     presence_range: ["moderate", "bold"],
     forage_matches: ["crawfish", "bluegill_perch"],
@@ -373,7 +426,7 @@ export const LURE_ARCHETYPES_V3: Record<
     id: "finesse_jig",
     display_name: "Finesse Jig",
     family_key: "jig",
-    column_range: ["upper", "mid", "bottom"],
+    primary_column: "bottom",
     pace_range: ["slow"],
     presence_range: ["subtle", "moderate"],
     forage_matches: ["crawfish", "bluegill_perch"],
@@ -389,7 +442,10 @@ export const LURE_ARCHETYPES_V3: Record<
     id: "swim_jig",
     display_name: "Swim Jig",
     family_key: "jig",
-    column_range: ["upper", "mid"],
+    // Mid-column steady swim over cover is the lead; shallow burn just under
+    // the surface in grass is a legitimate secondary.
+    primary_column: "mid",
+    secondary_column: "upper",
     pace_range: ["medium", "fast"],
     presence_range: ["moderate", "bold"],
     forage_matches: ["baitfish", "bluegill_perch"],
@@ -405,7 +461,11 @@ export const LURE_ARCHETYPES_V3: Record<
     id: "hair_jig",
     display_name: "Hair Jig",
     family_key: "hair_jig",
-    column_range: ["upper", "mid", "bottom"],
+    // Hair jigs are a finesse mid-water swim/swing for smallmouth, trout, and
+    // pike. In cold-water bass / winter smallmouth presentations they drop to
+    // the bottom and get dragged — that is the legitimate secondary zone.
+    primary_column: "mid",
+    secondary_column: "bottom",
     pace_range: ["slow", "medium"],
     presence_range: ["subtle", "moderate"],
     forage_matches: ["baitfish", "leech_worm", "crawfish"],
@@ -421,16 +481,13 @@ export const LURE_ARCHETYPES_V3: Record<
     id: "inline_spinner",
     display_name: "Inline Spinner",
     family_key: "spinner",
-    column_range: ["upper", "mid"],
+    primary_column: "mid",
+    secondary_column: "upper",
     pace_range: ["medium", "fast"],
     presence_range: ["moderate", "bold"],
     forage_matches: ["baitfish", "insect_misc"],
     clarity_strengths: ["clear", "stained"],
     tactical_lane: "horizontal_search",
-    // All three variants stay inside the authored mid/upper column so copy
-    // never contradicts the archetype's lane. The prior variant[1] told
-    // anglers to "slow-roll near bottom", which read as a bottom-contact
-    // technique and clashed with both primary_column=mid and column hints.
     how_to_fish_text: [
       "Cast and retrieve at a steady clip just fast enough to keep the blade spinning; vary depth with rod angle and speed to find the feeding zone.",
       "Cast parallel to cover edges and retrieve with a steady pace that keeps the blade thumping; slow a half-beat near cover, then speed back up once it clears.",
@@ -441,7 +498,10 @@ export const LURE_ARCHETYPES_V3: Record<
     id: "spinnerbait",
     display_name: "Spinnerbait",
     family_key: "spinnerbait",
-    column_range: ["upper", "mid"],
+    // Slow-roll through mid-column cover is the headline; burning or bulging
+    // just under the surface is a real secondary presentation.
+    primary_column: "mid",
+    secondary_column: "upper",
     pace_range: ["medium", "fast"],
     presence_range: ["moderate", "bold"],
     forage_matches: ["baitfish"],
@@ -457,7 +517,8 @@ export const LURE_ARCHETYPES_V3: Record<
     id: "bladed_jig",
     display_name: "Bladed Jig",
     family_key: "bladed_jig",
-    column_range: ["upper", "mid"],
+    primary_column: "mid",
+    secondary_column: "upper",
     pace_range: ["medium", "fast"],
     presence_range: ["moderate", "bold"],
     forage_matches: ["baitfish", "bluegill_perch"],
@@ -473,7 +534,8 @@ export const LURE_ARCHETYPES_V3: Record<
     id: "paddle_tail_swimbait",
     display_name: "Paddle-Tail Swimbait",
     family_key: "swimbait",
-    column_range: ["upper", "mid"],
+    primary_column: "mid",
+    secondary_column: "upper",
     pace_range: ["medium", "fast"],
     presence_range: ["subtle", "moderate"],
     forage_matches: ["baitfish", "bluegill_perch"],
@@ -489,7 +551,8 @@ export const LURE_ARCHETYPES_V3: Record<
     id: "soft_jerkbait",
     display_name: "Soft Plastic Jerkbait",
     family_key: "soft_jerkbait",
-    column_range: ["upper", "mid"],
+    primary_column: "mid",
+    secondary_column: "upper",
     pace_range: ["medium", "fast"],
     presence_range: ["subtle", "moderate"],
     forage_matches: ["baitfish"],
@@ -505,7 +568,8 @@ export const LURE_ARCHETYPES_V3: Record<
     id: "suspending_jerkbait",
     display_name: "Suspending Jerkbait",
     family_key: "jerkbait",
-    column_range: ["upper", "mid"],
+    primary_column: "mid",
+    secondary_column: "upper",
     pace_range: ["fast", "medium"],
     presence_range: ["subtle", "moderate"],
     forage_matches: ["baitfish"],
@@ -521,7 +585,9 @@ export const LURE_ARCHETYPES_V3: Record<
     id: "squarebill_crankbait",
     display_name: "Squarebill Crankbait",
     family_key: "crankbait",
-    column_range: ["upper"],
+    // Shallow diving bait — primary column is the upper band, bouncing off
+    // shallow cover. No legitimate second column.
+    primary_column: "upper",
     pace_range: ["medium", "fast"],
     presence_range: ["moderate", "bold"],
     forage_matches: ["baitfish", "crawfish", "bluegill_perch"],
@@ -537,7 +603,8 @@ export const LURE_ARCHETYPES_V3: Record<
     id: "flat_sided_crankbait",
     display_name: "Flat-Sided Crankbait",
     family_key: "crankbait",
-    column_range: ["upper", "mid"],
+    primary_column: "mid",
+    secondary_column: "upper",
     pace_range: ["fast", "medium"],
     presence_range: ["subtle", "moderate"],
     forage_matches: ["baitfish", "crawfish"],
@@ -553,7 +620,7 @@ export const LURE_ARCHETYPES_V3: Record<
     id: "medium_diving_crankbait",
     display_name: "Medium-Diving Crankbait",
     family_key: "crankbait",
-    column_range: ["mid"],
+    primary_column: "mid",
     pace_range: ["medium", "fast"],
     presence_range: ["moderate", "bold"],
     forage_matches: ["baitfish", "crawfish"],
@@ -569,7 +636,10 @@ export const LURE_ARCHETYPES_V3: Record<
     id: "deep_diving_crankbait",
     display_name: "Deep-Diving Crankbait",
     family_key: "crankbait",
-    column_range: ["mid", "bottom"],
+    // Deep cranks are designed to dig the bottom on deep structure and come
+    // through mid on the retrieve up. Primary = bottom, secondary = mid.
+    primary_column: "bottom",
+    secondary_column: "mid",
     pace_range: ["medium", "fast"],
     presence_range: ["moderate", "bold"],
     forage_matches: ["baitfish", "crawfish"],
@@ -585,7 +655,8 @@ export const LURE_ARCHETYPES_V3: Record<
     id: "lipless_crankbait",
     display_name: "Lipless Crankbait",
     family_key: "lipless",
-    column_range: ["upper", "mid"],
+    primary_column: "mid",
+    secondary_column: "upper",
     pace_range: ["medium", "fast"],
     presence_range: ["moderate", "bold"],
     forage_matches: ["baitfish", "crawfish"],
@@ -601,7 +672,10 @@ export const LURE_ARCHETYPES_V3: Record<
     id: "blade_bait",
     display_name: "Blade Bait",
     family_key: "blade_bait",
-    column_range: ["mid", "bottom"],
+    // Vertical jigged off the bottom for cold-water suspended fish; primary
+    // is the bottom lift, secondary is the mid-column flutter on the fall.
+    primary_column: "bottom",
+    secondary_column: "mid",
     pace_range: ["fast", "medium"],
     presence_range: ["moderate", "bold"],
     forage_matches: ["baitfish"],
@@ -617,7 +691,7 @@ export const LURE_ARCHETYPES_V3: Record<
     id: "casting_spoon",
     display_name: "Casting Spoon",
     family_key: "spoon",
-    column_range: ["mid"],
+    primary_column: "mid",
     pace_range: ["fast", "medium"],
     presence_range: ["moderate", "bold"],
     forage_matches: ["baitfish"],
@@ -634,7 +708,7 @@ export const LURE_ARCHETYPES_V3: Record<
     display_name: "Walking Topwater",
     family_key: "topwater",
     top3_redundancy_key: "open_topwater",
-    column_range: ["surface"],
+    primary_column: "surface",
     pace_range: ["fast", "medium"],
     presence_range: ["moderate", "bold"],
     forage_matches: ["baitfish", "bluegill_perch"],
@@ -651,7 +725,7 @@ export const LURE_ARCHETYPES_V3: Record<
     display_name: "Topwater Popper",
     family_key: "topwater",
     top3_redundancy_key: "open_topwater",
-    column_range: ["surface"],
+    primary_column: "surface",
     pace_range: ["fast", "medium"],
     presence_range: ["moderate", "bold"],
     forage_matches: ["baitfish", "bluegill_perch"],
@@ -668,7 +742,7 @@ export const LURE_ARCHETYPES_V3: Record<
     display_name: "Buzzbait",
     family_key: "topwater",
     top3_redundancy_key: "open_topwater",
-    column_range: ["surface"],
+    primary_column: "surface",
     pace_range: ["fast"],
     presence_range: ["bold"],
     forage_matches: ["baitfish", "bluegill_perch"],
@@ -685,7 +759,7 @@ export const LURE_ARCHETYPES_V3: Record<
     display_name: "Prop Bait",
     family_key: "topwater",
     top3_redundancy_key: "open_topwater",
-    column_range: ["surface"],
+    primary_column: "surface",
     pace_range: ["fast", "medium"],
     presence_range: ["subtle", "moderate"],
     forage_matches: ["baitfish", "bluegill_perch"],
@@ -701,7 +775,7 @@ export const LURE_ARCHETYPES_V3: Record<
     id: "hollow_body_frog",
     display_name: "Hollow-Body Frog",
     family_key: "frog",
-    column_range: ["surface"],
+    primary_column: "surface",
     pace_range: ["medium", "fast"],
     presence_range: ["moderate", "bold"],
     forage_matches: ["bluegill_perch", "baitfish"],
@@ -717,7 +791,8 @@ export const LURE_ARCHETYPES_V3: Record<
     id: "large_profile_pike_swimbait",
     display_name: "Large Paddle-Tail Swimbait",
     family_key: "pike_swimbait",
-    column_range: ["upper", "mid"],
+    primary_column: "mid",
+    secondary_column: "upper",
     pace_range: ["fast", "medium"],
     presence_range: ["moderate", "bold"],
     forage_matches: ["baitfish", "bluegill_perch"],
@@ -733,7 +808,8 @@ export const LURE_ARCHETYPES_V3: Record<
     id: "pike_jerkbait",
     display_name: "Large Jerkbait",
     family_key: "pike_jerkbait",
-    column_range: ["upper", "mid"],
+    primary_column: "mid",
+    secondary_column: "upper",
     pace_range: ["fast", "medium"],
     presence_range: ["moderate", "bold"],
     forage_matches: ["baitfish", "bluegill_perch"],

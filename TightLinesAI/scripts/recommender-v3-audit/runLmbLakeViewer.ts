@@ -15,11 +15,11 @@
  *     scripts/recommender-v3-audit/runLmbLakeViewer.ts
  */
 
+import type { RecommenderRequest } from "../../supabase/functions/_shared/recommenderEngine/contracts/input.ts";
 import {
   runRecommenderV3,
   runRecommenderV3Surface,
-  type RecommenderRequest,
-} from "../../supabase/functions/_shared/recommenderEngine/index.ts";
+} from "../../supabase/functions/_shared/recommenderEngine/legacyV3.ts";
 import type { ArchiveBatchBundle, ArchiveScenarioBundle } from "./archiveBundle.ts";
 import { LMB_LAKE_VIEWER_SCENARIOS } from "./lmbLakeViewerScenarios.ts";
 

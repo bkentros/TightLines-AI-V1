@@ -1,37 +1,17 @@
+/**
+ * **Legacy only** — adapts `computeRecommenderV3` → **RecommenderResponse** (`feature: "recommender_v3"`).
+ * Production uses `runRecommenderRebuildSurface`; keep this for scripts and regression tooling.
+ */
+
 import type { SpeciesGroup } from "./contracts/species.ts";
 import type { RecommenderRequest } from "./contracts/input.ts";
-import {
-  RECOMMENDER_FEATURE,
-  type RankedRecommendation,
-  type RecommenderResponse,
-} from "./contracts/output.ts";
+import { type RankedRecommendation, type RecommenderResponse } from "./contracts/output.ts";
 import { computeRecommenderV3 } from "./runRecommenderV3.ts";
+import { locationLocalMidnightIso } from "./runRecommenderRebuildSurface.ts";
 import { analyzeRecommenderConditions } from "./sharedAnalysis.ts";
 import { toLegacyRecommenderSpecies } from "./v3/scope.ts";
 
-export function locationLocalMidnightIso(timezone: string, now = new Date()): string {
-  const formatter = new Intl.DateTimeFormat("en-US", {
-    timeZone: timezone,
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
-    hour12: false,
-  });
-  const parts = Object.fromEntries(formatter.formatToParts(now).map((p) => [p.type, p.value]));
-  const y = Number(parts.year);
-  const m = Number(parts.month);
-  const d = Number(parts.day);
-  const hh = Number(parts.hour);
-  const mm = Number(parts.minute);
-  const ss = Number(parts.second);
-  const localNowUtcMillis = Date.UTC(y, m - 1, d, hh, mm, ss);
-  const offsetMillis = localNowUtcMillis - now.getTime();
-  const nextLocalMidnightUtcMillis = Date.UTC(y, m - 1, d + 1, 0, 0, 0) - offsetMillis;
-  return new Date(nextLocalMidnightUtcMillis).toISOString();
-}
+export { locationLocalMidnightIso };
 
 function colorThemeLabel(theme: ReturnType<typeof computeRecommenderV3>["lure_recommendations"][number]["color_theme"]): string {
   switch (theme) {
@@ -74,7 +54,7 @@ export function runRecommenderV3Surface(req: RecommenderRequest): RecommenderRes
   const expires = locationLocalMidnightIso(req.location.local_timezone, now);
 
   return {
-    feature: RECOMMENDER_FEATURE,
+    feature: "recommender_v3",
     species: toLegacyRecommenderSpecies(v3.species) as SpeciesGroup,
     context: v3.context,
     water_clarity: v3.water_clarity,

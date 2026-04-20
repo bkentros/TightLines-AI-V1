@@ -3,7 +3,10 @@ import type {
   RecommenderAuditExpectation,
   RecommenderAuditRegionPriority,
 } from "../recommenderCalibrationScenarios.ts";
-import type { ResolvedColorThemeV3, RecommenderV3ArchetypeId } from "../../supabase/functions/_shared/recommenderEngine/index.ts";
+import type {
+  ResolvedColorThemeV3,
+  RecommenderV3ArchetypeId,
+} from "../../supabase/functions/_shared/recommenderEngine/v3/contracts.ts";
 import { LARGEMOUTH_FULL_AUDIT_MATRIX, type LargemouthAuditAnchorKey, type LargemouthMatrixScenario } from "./largemouthAuditMatrix.ts";
 
 function priorityFor(role: LargemouthMatrixScenario["matrix_role"]): RecommenderAuditRegionPriority {

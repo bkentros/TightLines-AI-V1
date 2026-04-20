@@ -3,12 +3,12 @@ import {
   resolveRegionForCoordinates,
 } from "../../supabase/functions/_shared/howFishingEngine/context/resolveRegion.ts";
 import { buildSharedEngineRequestFromEnvData } from "../../supabase/functions/_shared/howFishingEngine/request/buildFromEnvData.ts";
+import type { RecommenderRequest } from "../../supabase/functions/_shared/recommenderEngine/contracts/input.ts";
 import {
   runRecommenderV3,
   runRecommenderV3Surface,
-  type RecommenderRequest,
-} from "../../supabase/functions/_shared/recommenderEngine/index.ts";
-import type { RecommenderV3ArchetypeId } from "../../supabase/functions/_shared/recommenderEngine/index.ts";
+} from "../../supabase/functions/_shared/recommenderEngine/legacyV3.ts";
+import type { RecommenderV3ArchetypeId } from "../../supabase/functions/_shared/recommenderEngine/v3/contracts.ts";
 import type {
   ArchivedRecommenderAuditScenario,
   RecommenderAuditScoreKey,

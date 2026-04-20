@@ -10,8 +10,11 @@ import { NORTHERN_PIKE_V3_SEASONAL_ROWS } from "./pike.ts";
 import { TROUT_V3_SEASONAL_ROWS } from "./trout.ts";
 import type { RegionKey } from "../../../howFishingEngine/contracts/region.ts";
 
-/** Fallback chain: if a region has no seasonal row for the requested species,
- *  try these substitutes in order before giving up. */
+/**
+ * Legacy v3-only: borrow another region's row when the requested region has no authored row.
+ * The rebuilt engine must **not** use geographic fallbacks (`tightlines_recommender_architecture_clean.md`).
+ * Do not extend this map for new regions — fix authoring or wait for cutover.
+ */
 const REGION_FALLBACKS: Partial<Record<RegionKey, RegionKey[]>> = {
   // original entries (unchanged)
   gulf_coast: ["southeast_atlantic", "south_central"],

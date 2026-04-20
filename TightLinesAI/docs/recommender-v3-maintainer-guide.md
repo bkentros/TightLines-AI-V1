@@ -1,6 +1,8 @@
 # Recommender V3 — Maintainer Guide
 
-This document is the **forward-looking** onboarding path for engineers changing the freshwater V3 recommender. Historical rebuild context lives in [recommender-v3-nine-of-ten-plan.md](recommender-v3-nine-of-ten-plan.md); read that once for background, then use this guide for day-to-day work.
+This document describes **legacy v3** internals (audits, regression tests, and offline tooling import `recommenderEngine/legacyV3.ts`). **The live Edge recommender** is `runRecommenderRebuildSurface` — see [`tightlines_recommender_architecture_clean.md`](./tightlines_recommender_architecture_clean.md) before large changes.
+
+Historical tuning context: [recommender-v3-nine-of-ten-plan.md](recommender-v3-nine-of-ten-plan.md).
 
 ---
 

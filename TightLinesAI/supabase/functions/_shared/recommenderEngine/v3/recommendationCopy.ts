@@ -116,23 +116,18 @@ function matchesPreferredColumn(
  * Tier of an archetype's column overlap with the day's preferred column.
  * - `"primary"`   → `profile.primary_column === preferred`
  * - `"secondary"` → `profile.secondary_column === preferred`
- * - `"tertiary"`  → `profile.column_range[2]` (authored tertiary) matches the preferred column
  * - `null`        → no overlap
  *
- * Tertiary matches used to be silently dropped (`matchesPreferredColumn`
- * returned `false` for them); per
- * `docs/audits/recommender-v3/_correction_plan.md` §3.5 tertiary overlaps now
- * fire a softer hint so the copy layer can still cite the overlap without
- * claiming the archetype leads with that column.
+ * With authored primary/secondary as the single source of truth there is no
+ * "tertiary" column slot anymore — copy that used to fire on a tertiary match
+ * would have been claiming reach the archetype does not actually have.
  */
 function preferredColumnMatchTier(
   profile: RecommenderV3ArchetypeProfile,
   preferred: TacticalColumnV3,
-): "primary" | "secondary" | "tertiary" | null {
+): "primary" | "secondary" | null {
   if (profile.primary_column === preferred) return "primary";
   if (profile.secondary_column === preferred) return "secondary";
-  const tertiary = profile.column_range[2];
-  if (tertiary != null && tertiary === preferred) return "tertiary";
   return null;
 }
 
@@ -141,10 +136,15 @@ function targetColumnForProfile(
   resolved: RecommenderV3ResolvedProfile,
 ): TacticalColumnV3 {
   if (profile.is_surface) return "surface";
-  // Primary, secondary, or tertiary column all satisfy "the archetype can
-  // legitimately reach today's preferred column" — return the day's preferred
-  // column so downstream copy lands inside that zone.
-  if (preferredColumnMatchTier(profile, resolved.daily_preference.preferred_column) != null) {
+  // If the archetype's authored primary/secondary reaches today's preferred
+  // column, copy can honestly land in that zone; otherwise copy stays in the
+  // archetype's own lead zone.
+  if (
+    preferredColumnMatchTier(
+      profile,
+      resolved.daily_preference.preferred_column,
+    ) != null
+  ) {
     return resolved.daily_preference.preferred_column;
   }
   return profile.primary_column;
@@ -227,22 +227,6 @@ function buildSeasonalReason(
       case "mid":
       default:
         return "It stays in the middle band where the seasonal setup is most stable today.";
-    }
-  }
-  if (columnTier === "tertiary") {
-    // Softer hint: the archetype can still reach today's preferred column,
-    // but not as its lead zone. Matches the §3.5 intent — tertiary overlap
-    // is real but deserves a hedged sentence, not a primary-strength claim.
-    switch (resolved.daily_preference.preferred_column) {
-      case "bottom":
-        return "It can still drop into today's lower zone when the moment calls for it.";
-      case "upper":
-        return "It can still work today's higher zone when a more open read opens up.";
-      case "mid":
-        return "It can still cover the mid band today even though that is not its lead zone.";
-      case "surface":
-      default:
-        return null;
     }
   }
   return null;

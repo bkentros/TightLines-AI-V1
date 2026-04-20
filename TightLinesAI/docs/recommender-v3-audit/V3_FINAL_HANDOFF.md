@@ -1,5 +1,7 @@
 # Recommender V3 — Final handoff (post-tuning)
 
+> **Historical:** Written after the freshwater V3 tuning era. **Production Edge today:** `runRecommenderRebuildSurface` (see [`tightlines_recommender_architecture_clean.md`](../tightlines_recommender_architecture_clean.md)). Legacy v3 remains for audits via `recommenderEngine/legacyV3.ts`.
+
 Single closeout doc for **Section 6** of the post-tuning checklist. Deep detail lives elsewhere—**link, do not duplicate**.
 
 | Topic | Canonical doc |
@@ -41,7 +43,7 @@ Freshwater V3 **largemouth_bass**, **smallmouth_bass**, **river_trout** (engine 
 
 - Matrix-clean headline contract for **309** combined scenarios.
 - **0** hard/soft matrix review failures; **14/14** daily-shift checks; coverage **intent mismatches 0**.
-- Single production path: Edge **`recommender`** → **`runRecommenderV3Surface`** → **`computeRecommenderV3`**.
+- **At handoff time**, single production path was Edge **`recommender`** → **`runRecommenderV3Surface`** → **`computeRecommenderV3`**. **Post-rebuild production:** **`runRecommenderRebuildSurface`**.
 - Regression harness (Deno tests + `verifyRegressionBaselines` + full validate npm script).
 - Maintainer docs: interpretation, integration, regression anchors, this handoff.
 
@@ -55,7 +57,7 @@ Freshwater V3 **largemouth_bass**, **smallmouth_bass**, **river_trout** (engine 
 
 - **Seasonal** `addMonths` override blocks and **scoring guards** called out in [V3_POST_TUNING_STATE.md](./V3_POST_TUNING_STATE.md) §4 (exception registry)—without rerunning full validation.
 - **`archetypeExpectations.ts`** intent rows without a coverage-driven reason and audit rerun.
-- **Public response shape** from `runRecommenderV3Surface` without coordinated **client** + **cache prefix** updates (see [V3_PRODUCT_INTEGRATION.md](./V3_PRODUCT_INTEGRATION.md)).
+- **Public response shape** (legacy v3 or rebuild) without coordinated **client** + **cache prefix** updates (see [V3_PRODUCT_INTEGRATION.md](./V3_PRODUCT_INTEGRATION.md)).
 
 ---
 

@@ -1,11 +1,27 @@
 /**
- * recommenderEngine public API
- * Import from here — not from individual engine files.
+ * recommenderEngine — public barrel (Supabase Edge + tests)
+ *
+ * **Production (Phase 6 cutover):** `supabase/functions/recommender/index.ts` calls
+ * `runRecommenderRebuildSurface` → `rebuild/**` + generated seasonal rows from
+ * `data/seasonal-matrix/*.csv`. No region fallback; missing rows surface as
+ * `SeasonalRowMissingError` → HTTP 422 `seasonal_row_missing`.
+ *
+ * **Legacy v3 (`v3/**`, `runRecommenderV3*`)** is not re-exported from this barrel. Import
+ * `supabase/functions/_shared/recommenderEngine/legacyV3.ts` in scripts and v3-only tests.
+ *
+ * **v4 engine subtree (`./v4/engine/**` outside rebuild):** experimental / diagnostic; not wired
+ * to production.
+ *
+ * **Authoring:** `data/seasonal-matrix/*.csv` → `npm run gen:seasonal-rows-v4` → `v4/seasonal/generated`.
  */
 
-// Engine entry points
-export { runRecommenderV3 } from "./runRecommenderV3.ts";
-export { runRecommenderV3Surface } from "./runRecommenderV3Surface.ts";
+// Engine entry points — production edge uses rebuild Surface adapter
+export { runRecommenderRebuildSurface } from "./runRecommenderRebuildSurface.ts";
+export { computeRecommenderRebuild } from "./rebuild/runRecommenderRebuild.ts";
+export {
+  hasSeasonalRowRebuild,
+  SeasonalRowMissingError,
+} from "./rebuild/seasonalResolve.ts";
 
 // Contracts (shared with frontend via separate lib/recommenderContracts.ts)
 export type { RecommenderRequest, WaterClarity } from "./contracts/input.ts";

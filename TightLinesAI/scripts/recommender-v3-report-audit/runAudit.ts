@@ -12,7 +12,7 @@
  *   docs/audits/recommender-v3/<species>/_summary.md
  */
 
-import { runRecommenderV3 } from "../../supabase/functions/_shared/recommenderEngine/index.ts";
+import { runRecommenderV3 } from "../../supabase/functions/_shared/recommenderEngine/legacyV3.ts";
 import { getLaneFitWarnings } from "../../supabase/functions/_shared/recommenderEngine/v3/seasonal/validateSeasonalRow.ts";
 import { SMALLMOUTH_SCENARIO_SET } from "./scenarios/smallmouth.ts";
 import { LARGEMOUTH_SCENARIO_SET } from "./scenarios/largemouth.ts";

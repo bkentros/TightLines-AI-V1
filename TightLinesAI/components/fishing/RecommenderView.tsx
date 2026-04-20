@@ -89,11 +89,11 @@ function opportunityMixSummarySentence(mix: OpportunityMixMode): string {
 function opportunityMixSectionIntro(mix: OpportunityMixMode): string {
   switch (mix) {
     case 'conservative':
-      return "These three stay inside today's tighter feeding window.";
+      return "These picks stay inside today's tighter feeding window.";
     case 'balanced':
-      return 'These three give you the best fit, a complementary alternate, and a justified change-up.';
+      return 'These picks aim for best fit, a complementary alternate, and a justified change-up when inventory allows.';
     case 'aggressive':
-      return "These three lean into today's stronger feeding window while keeping one backup look available.";
+      return "These picks lean into today's stronger feeding window while keeping backup looks when available.";
   }
 }
 
@@ -170,7 +170,7 @@ function RecommendationCard({
         </View>
       ) : null}
 
-      {/* Tactical meta — three compact chips on a single row */}
+      {/* Tactical meta — compact chips */}
       <View style={styles.cardMetaRow}>
         <SummaryChip label="Column" value={COLUMN_LABEL[item.primary_column]} />
         <SummaryChip label="Pace" value={PACE_LABEL[item.pace]} />
@@ -296,14 +296,14 @@ export function RecommenderView({ result, style }: Props) {
       </View>
 
       {/* ═══════════════════════════════════════════════════
-          TOP 3 LURES
+          Lure recommendations (up to 3)
       ═══════════════════════════════════════════════════ */}
       <View style={styles.sectionGroup}>
         <View style={styles.sectionHeader}>
           <View style={styles.sectionEyebrowRow}>
             <View style={styles.sectionEyebrowLine} />
             <Ionicons name="fish-outline" size={12} color={colors.primary} />
-            <Text style={styles.sectionEyebrowText}>TOP 3 LURES</Text>
+            <Text style={styles.sectionEyebrowText}>LURE PICKS</Text>
             <View style={styles.sectionEyebrowLine} />
           </View>
           <Text style={styles.sectionIntro}>{sectionIntro}</Text>
@@ -314,14 +314,14 @@ export function RecommenderView({ result, style }: Props) {
       </View>
 
       {/* ═══════════════════════════════════════════════════
-          TOP 3 FLIES
+          Fly recommendations (up to 3)
       ═══════════════════════════════════════════════════ */}
       <View style={styles.sectionGroup}>
         <View style={styles.sectionHeader}>
           <View style={styles.sectionEyebrowRow}>
             <View style={styles.sectionEyebrowLine} />
             <Ionicons name="water-outline" size={12} color={colors.primary} />
-            <Text style={styles.sectionEyebrowText}>TOP 3 FLIES</Text>
+            <Text style={styles.sectionEyebrowText}>FLY PICKS</Text>
             <View style={styles.sectionEyebrowLine} />
           </View>
           <Text style={styles.sectionIntro}>{sectionIntro}</Text>

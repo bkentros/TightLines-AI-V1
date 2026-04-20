@@ -30,7 +30,7 @@ export {
   TACTICAL_PRESENCE_V3,
   V3_SCORED_VARIABLE_KEYS_BY_CONTEXT,
 } from "./contracts.ts";
-export { RESOLVED_COLOR_SHADE_POOLS_V3 } from "./colors.ts";
+export { RESOLVED_COLOR_SHADE_POOLS_V3 } from "../v4/colors.ts";
 export { FLY_ARCHETYPES_V3, LURE_ARCHETYPES_V3 } from "./candidates/index.ts";
 export {
   LARGEMOUTH_V3_SEASONAL_ROWS,
@@ -49,7 +49,7 @@ export {
   LIGHT_BUCKETS_V3,
   normalizeLightBucketV3,
   resolveColorDecisionV3,
-} from "./colorDecision.ts";
+} from "../v4/colorDecision.ts";
 export {
   scoreFlyCandidatesV3,
   scoreLureCandidatesV3,
@@ -90,4 +90,4 @@ export type {
 export type {
   LightBucketV3,
   ResolvedColorDecisionV3,
-} from "./colorDecision.ts";
+} from "../v4/colorDecision.ts";

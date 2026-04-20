@@ -7,7 +7,7 @@ import {
   normalizeLightBucketV3,
   resolveColorDecisionV3,
   type ResolvedColorDecisionV3,
-} from "./colorDecision.ts";
+} from "../v4/colorDecision.ts";
 
 Deno.test("colorReasonPhraseV3: non-empty for every reason_code", () => {
   const codes: ResolvedColorDecisionV3["reason_code"][] = [

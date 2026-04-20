@@ -128,7 +128,10 @@ Deno.test("buildWhyChosen: forage_fit lead phrase", () => {
     "clear",
     0,
   );
-  assert(out.includes("It matches the forage bias this month."));
+  assert(
+    out.includes("imitates the month's") || out.includes("matches the secondary"),
+    `expected forage_fit lead from phraseForTopDriver, got: ${out}`,
+  );
 });
 
 Deno.test("buildWhyChosen: practicality_fit lead phrase", () => {

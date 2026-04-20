@@ -161,6 +161,9 @@ function recommenderErrorMessage(error: unknown, species: SpeciesGroup, context:
   if (msg === 'unsupported_recommender_scope') {
     return 'This recommender currently supports freshwater largemouth, smallmouth, northern pike, and trout only.';
   }
+  if (msg === 'seasonal_row_missing') {
+    return 'There is no published seasonal baseline for this spot, month, and water type. Try another month, switch lake vs river, or move your pin.';
+  }
   if (msg === 'state_resolution_failed') {
     return 'We could not verify your state from this location. Move the pin or refresh location before building a plan.';
   }

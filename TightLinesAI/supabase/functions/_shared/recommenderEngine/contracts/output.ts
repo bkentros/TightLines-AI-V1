@@ -11,7 +11,13 @@ import type {
   TacticalPresenceV3,
 } from "../v3/contracts.ts";
 
-export const RECOMMENDER_FEATURE = "recommender_v3" as const;
+/** Active production feature id (deterministic rebuild engine). */
+export const RECOMMENDER_FEATURE = "recommender_rebuild" as const;
+
+/** Legacy id still accepted for cache validation; v3-only scripts may surface this id. */
+export type RecommenderFeatureId =
+  | typeof RECOMMENDER_FEATURE
+  | "recommender_v3";
 
 export type RankedRecommendation = {
   id: string;
@@ -52,13 +58,13 @@ export type RecommenderSessionSummary = {
 };
 
 export type RecommenderResponse = {
-  feature: typeof RECOMMENDER_FEATURE;
+  feature: RecommenderFeatureId;
   species: SpeciesGroup;
   context: EngineContext;
   water_clarity: WaterClarity;
   generated_at: string;
   cache_expires_at: string;
   summary: RecommenderSessionSummary;
-  lure_recommendations: [RankedRecommendation, RankedRecommendation, RankedRecommendation];
-  fly_recommendations: [RankedRecommendation, RankedRecommendation, RankedRecommendation];
+  lure_recommendations: RankedRecommendation[];
+  fly_recommendations: RankedRecommendation[];
 };

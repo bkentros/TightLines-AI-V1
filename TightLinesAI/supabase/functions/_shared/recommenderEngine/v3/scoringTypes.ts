@@ -3,7 +3,7 @@ import type {
   RecommenderV3ScoreBreakdown,
   ResolvedColorThemeV3,
 } from "./contracts.ts";
-import type { ResolvedColorDecisionV3 } from "./colorDecision.ts";
+import type { ResolvedColorDecisionV3 } from "../v4/colorDecision.ts";
 
 export type ScoredCandidate = {
   profile: RecommenderV3ArchetypeProfile;

@@ -6,7 +6,7 @@ import type {
   RecommenderV3ResolvedProfile,
   RecommenderV3SeasonalRow,
 } from "./contracts.ts";
-import { colorReasonPhraseV3 } from "./colorDecision.ts";
+import { colorReasonPhraseV3 } from "../v4/colorDecision.ts";
 import {
   buildSelectionRoleWhyChosen,
   buildWhyChosen,

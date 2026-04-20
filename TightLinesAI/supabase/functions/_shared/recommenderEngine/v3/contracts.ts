@@ -317,22 +317,22 @@ export type RecommenderV3ArchetypeProfile = {
   water_types_allowed: readonly RecommenderV3Context[];
   family_group: string;
   /**
-   * Authored source of truth for where in the water column this archetype
-   * operates, in order of how often a guide would reach for it there.
-   * range[0] = primary usage, range[1] = legitimate secondary, range[2] =
-   * occasional tertiary. Length 1–3, no duplicates. `surface` is only valid
-   * at index 0 for true surface archetypes and must not appear elsewhere.
+   * Populated by the archetype factory from the authored `primary_column`
+   * (and `secondary_column` when present). Always length 1 or 2 — the catalog
+   * no longer carries a tertiary column slot. Kept on the resolved profile as
+   * a convenience for downstream readers that want to enumerate both zones.
    */
   column_range: readonly TacticalColumnV3[];
-  /** Authored source of truth for retrieve pace. Same ordering convention
-   * and length/dup rules as `column_range`. */
+  /** Authored source of truth for retrieve pace. range[0] = primary usage,
+   * range[1] = legitimate secondary. Length 1–3, no duplicates. */
   pace_range: readonly TacticalPaceV3[];
   /** Authored source of truth for visual/motion presence. Same ordering
-   * convention and length/dup rules as `column_range`. */
+   * convention and length/dup rules as `pace_range`. */
   presence_range: readonly TacticalPresenceV3[];
-  /** Derived from `column_range[0]`. Kept for scorer + surface readers. */
+  /** Authored fishing-fact lead column. Drives UI display and scoring. */
   primary_column: TacticalColumnV3;
-  /** Derived from `column_range[1]` when present. */
+  /** Authored second working column when (and only when) the archetype
+   * legitimately fishes two zones. Most archetypes do not have one. */
   secondary_column?: TacticalColumnV3;
   /** Derived from `pace_range[0]`. */
   pace: TacticalPaceV3;
@@ -342,7 +342,7 @@ export type RecommenderV3ArchetypeProfile = {
   presence: TacticalPresenceV3;
   /** Derived from `presence_range[1]` when present. */
   secondary_presence?: TacticalPresenceV3;
-  /** Derived from `column_range[0] === "surface"`. */
+  /** Derived from `primary_column === "surface"`. */
   is_surface: boolean;
   current_friendly?: boolean;
   forage_tags: readonly ForageBucketV3[];

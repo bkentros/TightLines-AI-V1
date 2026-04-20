@@ -12,11 +12,13 @@ import type { SharedConditionAnalysis } from "../howFishingEngine/analyzeSharedC
 import { analyzeRecommenderConditions } from "./sharedAnalysis.ts";
 
 /**
- * Freshwater V3 production path.
+ * Legacy freshwater v3 engine (weighted scoring + tournament selection).
  *
- * Seasonal rows define eligible lure/fly pools; shared How's Fishing analysis
- * and daily payload drive ranking inside those pools (condition features,
- * column/posture/presentation fit, clarity, guardrails).
+ * **Not** the production path: the Edge recommender calls `runRecommenderRebuildSurface`.
+ * This module remains for `runRecommenderV3Surface`, offline audits, calibration scripts, and
+ * v3 regression tests. Canonical architecture: `docs/tightlines_recommender_architecture_clean.md`.
+ *
+ * Seasonal rows define pools; How's Fishing analysis and daily payload drive ranking.
  */
 export function computeRecommenderV3(
   req: RecommenderRequest,

@@ -1,11 +1,11 @@
 import type { EngineContext } from "../supabase/functions/_shared/howFishingEngine/contracts/context.ts";
 import type { RegionKey } from "../supabase/functions/_shared/howFishingEngine/contracts/region.ts";
+import type { WaterClarity } from "../supabase/functions/_shared/recommenderEngine/contracts/input.ts";
+import type { SpeciesGroup } from "../supabase/functions/_shared/recommenderEngine/contracts/species.ts";
 import type {
   ResolvedColorThemeV3,
   RecommenderV3ArchetypeId,
-  SpeciesGroup,
-  WaterClarity,
-} from "../supabase/functions/_shared/recommenderEngine/index.ts";
+} from "../supabase/functions/_shared/recommenderEngine/v3/contracts.ts";
 
 export type RecommenderAuditSpecies =
   | "largemouth_bass"

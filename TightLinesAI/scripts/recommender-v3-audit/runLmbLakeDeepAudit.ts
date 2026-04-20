@@ -19,10 +19,8 @@
  *   docs/recommender-v3-audit/generated/lmb-lake-deep-audit.md
  */
 
-import {
-  runRecommenderV3,
-  type RecommenderRequest,
-} from "../../supabase/functions/_shared/recommenderEngine/index.ts";
+import type { RecommenderRequest } from "../../supabase/functions/_shared/recommenderEngine/contracts/input.ts";
+import { runRecommenderV3 } from "../../supabase/functions/_shared/recommenderEngine/legacyV3.ts";
 import type { ArchiveBatchBundle, ArchiveScenarioBundle } from "./archiveBundle.ts";
 import { LMB_LAKE_VIEWER_SCENARIOS } from "./lmbLakeViewerScenarios.ts";
 

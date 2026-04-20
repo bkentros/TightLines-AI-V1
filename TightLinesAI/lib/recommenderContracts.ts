@@ -2,11 +2,14 @@
  * Recommender frontend contracts — mirror of backend output types.
  * These are copy-typed here so the frontend has no dependency on the
  * Deno/edge-function module system.
+ *
+ * Backend entry: `supabase/functions/recommender/index.ts` — deterministic rebuild (`recommender_rebuild`).
+ * Architecture plan: `docs/tightlines_recommender_architecture_clean.md`.
  */
 
 import { STATE_SPECIES_CONTEXTS as GENERATED_STATE_SPECIES_CONTEXTS } from './generated/recommenderStateSpecies';
 
-export const RECOMMENDER_FEATURE = "recommender_v3" as const;
+export const RECOMMENDER_FEATURE = "recommender_rebuild" as const;
 
 export type SpeciesGroup =
   | "largemouth_bass"
@@ -169,6 +172,7 @@ export type ForageMode =
   | "baitfish"
   | "crawfish"
   | "leech"
+  | "leech_worm"
   | "bluegill_perch"
   | "insect_misc"
   | "surface_prey";
@@ -225,24 +229,20 @@ export type RecommenderSessionSummary = {
   };
 };
 
+export type RecommenderFeatureId =
+  | typeof RECOMMENDER_FEATURE
+  | "recommender_v3";
+
 export type RecommenderResponse = {
-  feature: typeof RECOMMENDER_FEATURE;
+  feature: RecommenderFeatureId;
   species: SpeciesGroup;
   context: EngineContext;
   water_clarity: WaterClarity;
   generated_at: string;
   cache_expires_at: string;
   summary: RecommenderSessionSummary;
-  lure_recommendations: [
-    RankedRecommendation,
-    RankedRecommendation,
-    RankedRecommendation,
-  ];
-  fly_recommendations: [
-    RankedRecommendation,
-    RankedRecommendation,
-    RankedRecommendation,
-  ];
+  lure_recommendations: RankedRecommendation[];
+  fly_recommendations: RankedRecommendation[];
 };
 
 // ─── Request shape (what the frontend sends) ──────────────────────────────────

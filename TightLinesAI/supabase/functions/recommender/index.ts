@@ -4,6 +4,10 @@
  * Deterministic, species-first lure/fly recommender.
  * No LLM. No external AI calls. Pure engine compute.
  *
+ * **Live runtime:** auth + subscription gate + validation here; recommendation math is
+ * `runRecommenderRebuildSurface` → deterministic rebuild (`recommenderEngine/rebuild/**`) using
+ * Phase 2–4 seasonal rows and v4 archetype catalogs. Legacy v3 code remains for offline scripts only.
+ *
  * Required POST body:
  *   latitude       number
  *   longitude      number
@@ -32,7 +36,8 @@ import {
   type SpeciesGroup,
   type WaterClarity,
   isContextAllowedForRecommenderV3,
-  runRecommenderV3Surface,
+  runRecommenderRebuildSurface,
+  SeasonalRowMissingError,
   toRecommenderV3Species,
   isSpeciesValidForState,
 } from "../_shared/recommenderEngine/index.ts";
@@ -226,9 +231,6 @@ export async function handleRecommenderRequest(
   const { engineReq } = buildRecommenderEngineRequest(body);
 
   // ── Run recommender ───────────────────────────────────────────────────────
-  // The recommender is now a freshwater V3-only flagship path. We keep the
-  // current frontend response shape, but all fish logic, seasonal tables,
-  // and scoring come from V3.
   let result;
   try {
     const v3Species = toRecommenderV3Species(engineReq.species);
@@ -240,8 +242,15 @@ export async function handleRecommenderRequest(
       );
     }
 
-    result = runRecommenderV3Surface(engineReq);
+    result = runRecommenderRebuildSurface(engineReq);
   } catch (err) {
+    if (err instanceof SeasonalRowMissingError) {
+      return jsonError(
+        "No seasonal biology row exists for this region, month, and water type. Try another month, switch lake vs river, or adjust your pin — or this combination may need authoring.",
+        "seasonal_row_missing",
+        422,
+      );
+    }
     const msg = err instanceof Error ? err.message : "Engine error";
     console.error("[recommender] engine error:", msg);
     return jsonError("Engine computation failed", "engine_error", 500);

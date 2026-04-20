@@ -65,7 +65,7 @@ Do **not** remove or flatten without rerunning `npm run audit:recommender:v3:fre
 |---------------|-------------------------|
 | `v3Foundation.test.ts` | Scope, daily aggressive payload, monthly clamp, **Florida July windy lake** surface closed + pool-bound picks, trout region fallback provenance, top-3 + copy fields. |
 | `peerCoherenceTopThree.test.ts` | Peer coherence pick 2 vs 3 on **windy summer lake** (same family as foundation windy test). |
-| `v3Surface.test.ts` | Public surface contract smoke. |
+| `rebuildSurfaceContract.test.ts` | Rebuild surface contract smoke (production Edge shape). |
 | **New (Section 3)** | See `v3RegressionBaselines.test.ts`, `v3DailyShiftAnchors.test.ts`, `v3SeasonalRegressionAnchors.test.ts` — daily-shift conviction, headline JSON caps, pike April river seasonal lead, optional coverage headline. |
 
 Low-value tests deliberately **not** added: per-archetype score deltas, duplicate `resolveSeasonalRowV3` for every month, or string-matching `why_chosen` copy.

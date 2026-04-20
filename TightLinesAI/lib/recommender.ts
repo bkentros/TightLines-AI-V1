@@ -57,7 +57,7 @@ function cacheKey(
   const dayKey = extractRequestDay(params);
   return [
     // Prefix must change when the edge response contract changes (invalidate stale caches).
-    'recommender_v3',
+    'recommender_rebuild',
     params.latitude.toFixed(3),
     params.longitude.toFixed(3),
     params.state_code.toUpperCase(),
@@ -94,10 +94,18 @@ const _memCache = new Map<string, CacheEntry>();
  * Guards against stale cached results from older API shapes.
  */
 function isCachedResultValid(result: RecommenderResponse): boolean {
-  if (!Array.isArray(result.lure_recommendations) || result.lure_recommendations.length !== 3) {
+  if (
+    !Array.isArray(result.lure_recommendations) ||
+    result.lure_recommendations.length < 1 ||
+    result.lure_recommendations.length > 3
+  ) {
     return false;
   }
-  if (!Array.isArray(result.fly_recommendations) || result.fly_recommendations.length !== 3) {
+  if (
+    !Array.isArray(result.fly_recommendations) ||
+    result.fly_recommendations.length < 1 ||
+    result.fly_recommendations.length > 3
+  ) {
     return false;
   }
   const first = result.lure_recommendations[0];

@@ -1,6 +1,6 @@
 import type { EngineContext } from "../../supabase/functions/_shared/howFishingEngine/contracts/context.ts";
 import type { RegionKey } from "../../supabase/functions/_shared/howFishingEngine/contracts/region.ts";
-import type { WaterClarity } from "../../supabase/functions/_shared/recommenderEngine/index.ts";
+import type { WaterClarity } from "../../supabase/functions/_shared/recommenderEngine/contracts/input.ts";
 
 export type LargemouthAuditAnchorKey =
   | "florida_lake"

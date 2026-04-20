@@ -8,12 +8,12 @@
  */
 import type { WaterClarity } from "../../contracts/input.ts";
 import { FLY_ARCHETYPES_V3, LURE_ARCHETYPES_V3 } from "../candidates/index.ts";
-import { RESOLVED_COLOR_SHADE_POOLS_V3 } from "../colors.ts";
+import { RESOLVED_COLOR_SHADE_POOLS_V3 } from "../../v4/colors.ts";
 import { buildHowToFish, buildWhyChosen } from "../recommendationCopy.ts";
 import {
   normalizeLightBucketV3,
   resolveColorDecisionV3,
-} from "../colorDecision.ts";
+} from "../../v4/colorDecision.ts";
 import type {
   FlyArchetypeIdV3,
   LureArchetypeIdV3,
@@ -49,53 +49,65 @@ function firstThreeColors(
   ];
 }
 
+/**
+ * Score an archetype's authored primary/secondary axis value against the day's
+ * preferred-to-least-preferred order for that axis.
+ *
+ * Simplified to three buckets so credibility always wins:
+ * - +3.0 when the archetype's primary value IS the day's preferred value.
+ * - +1.5 when the archetype's primary OR secondary is the day's secondary.
+ * - −2.0 when neither primary nor secondary overlap the top two preferences.
+ *
+ * This replaces the earlier 4.0/2.5/1.25/0.25/-2.5 ladder that quietly rewarded
+ * archetypes for listing a column (or pace/presence) they do not actually fish
+ * — the source of the "bass jig shown as upper" class of bug. With authored
+ * primary/secondary as the single source of truth, there is no third/fourth
+ * slot to reward.
+ */
 function dimensionFit<T extends string>(
   order: readonly T[],
   primary: T,
   secondary?: T,
 ): number {
-  const primaryIndex = order.indexOf(primary);
-  const secondaryIndex = secondary ? order.indexOf(secondary) : -1;
-  const bestIndex = [primaryIndex, secondaryIndex]
-    .filter((value) => value >= 0)
-    .sort((a, b) => a - b)[0];
+  const preferred = order[0];
+  const preferredSecondary = order[1];
 
-  if (bestIndex == null) return -2.5;
-  if (bestIndex === 0) return 4;
-  if (bestIndex === 1) return 2.5;
-  if (bestIndex === 2) return 1.25;
-  return 0.25;
+  if (preferred != null && primary === preferred) return 3;
+  if (preferred != null && secondary != null && secondary === preferred) {
+    return 1.5;
+  }
+  if (preferredSecondary != null && primary === preferredSecondary) {
+    return 1.5;
+  }
+  if (
+    preferredSecondary != null &&
+    secondary != null &&
+    secondary === preferredSecondary
+  ) {
+    return 1.5;
+  }
+  return -2;
 }
 
 /**
  * Build a fit-aware detail string for `column_fit` / `pace_fit` / `presence_fit`
- * breakdown entries. The prior implementation used a single generic line ("It
- * fits today's X preference.") regardless of whether the archetype was a
- * primary match (4.0), a secondary match (2.5), tertiary (1.25), quaternary
- * (0.25), or a hard miss (-2.5). That read as identical confident language on
- * days where the archetype actually contradicts the preferred axis.
- *
- * Branch by the numeric fit value — the scale (4.0 / 2.5 / 1.25 / 0.25 / -2.5)
- * comes straight from `dimensionFit`.
+ * breakdown entries. Mirrors the three-bucket scale returned by `dimensionFit`:
+ * - 3.0  → primary match (lead alignment)
+ * - 1.5  → secondary match (overlaps today's top-two preference)
+ * - -2.0 → neither primary nor secondary overlap
  */
 function dimensionDetail(
   axis: "column" | "pace" | "presence",
   fitValue: number,
   preferred: string,
 ): string {
-  if (fitValue >= 3.5) {
+  if (fitValue >= 2.5) {
     return `It leads on today's preferred ${preferred} ${axis}.`;
   }
-  if (fitValue >= 2.0) {
+  if (fitValue >= 1.0) {
     return `Its secondary ${axis} overlaps today's preferred ${preferred} ${axis}.`;
   }
-  if (fitValue >= 1.0) {
-    return `It touches today's ${preferred} ${axis} as a tertiary look rather than a lead.`;
-  }
-  if (fitValue > -1.0) {
-    return `It has only marginal overlap with today's preferred ${preferred} ${axis}.`;
-  }
-  return `Its ${axis} profile pulls against today's preferred ${preferred} ${axis}.`;
+  return `Its ${axis} profile does not overlap today's preferred ${preferred} ${axis}.`;
 }
 
 /** State-scoped seasonal row deltas (applied inside practicality fit for score parity). */

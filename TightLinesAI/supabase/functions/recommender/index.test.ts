@@ -1,9 +1,9 @@
-import { assertEquals, assertMatch } from "jsr:@std/assert";
+import { assert, assertEquals, assertMatch } from "jsr:@std/assert";
 import {
   buildRecommenderEngineRequest,
   handleRecommenderRequest,
 } from "./index.ts";
-import { locationLocalMidnightIso } from "../_shared/recommenderEngine/runRecommenderV3Surface.ts";
+import { locationLocalMidnightIso } from "../_shared/recommenderEngine/runRecommenderRebuildSurface.ts";
 
 function makeRequest(body: Record<string, unknown>, headers: HeadersInit = {}): Request {
   return new Request("https://example.com/functions/v1/recommender", {
@@ -237,11 +237,11 @@ Deno.test("recommender handler returns the public surface contract for valid req
 
   assertEquals(response.status, 200);
   const json = await response.json();
-  assertEquals(json.feature, "recommender_v3");
+  assertEquals(json.feature, "recommender_rebuild");
   assertEquals(json.species, "smallmouth_bass");
   assertEquals(json.context, "freshwater_river");
-  assertEquals(json.lure_recommendations.length, 3);
-  assertEquals(json.fly_recommendations.length, 3);
+  assert(json.lure_recommendations.length >= 1 && json.lure_recommendations.length <= 3);
+  assert(json.fly_recommendations.length >= 1 && json.fly_recommendations.length <= 3);
   assertEquals(typeof json.summary.daily_tactical_preference.posture_band, "string");
   assertMatch(json.generated_at, /^\d{4}-\d{2}-\d{2}T/);
   assertMatch(json.cache_expires_at, /^\d{4}-\d{2}-\d{2}T/);

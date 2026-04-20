@@ -15,19 +15,20 @@ import type {
 } from "../contracts.ts";
 
 /**
- * Authored input for a fly archetype. The tactical ranges
- * (`column_range`, `pace_range`, `presence_range`) are the single source
- * of truth for how this fly behaves in the water. Primaries and
- * secondaries on the resolved profile are derived from `range[0]` and
- * `range[1]` respectively. `is_surface` is derived from the primary
- * column being `"surface"`. See the recommender audit plan for the
- * ordering convention.
+ * Authored input for a fly archetype. Same column-authoring rules as lures:
+ * `primary_column` is the single fishing-fact zone; `secondary_column` is
+ * optional and only authored when the fly genuinely has a second working
+ * zone. Surface flies must set `primary_column: "surface"` and must not set a
+ * secondary. Flies in this catalog are streamer-only (including weighted
+ * leech / sculpin / crawfish patterns) per product direction — no nymphs,
+ * dries, emergers, or terrestrials.
  */
 type FlyAuthoredProfile = {
   id: FlyArchetypeIdV3;
   display_name: string;
   family_key: string;
-  column_range: readonly TacticalColumnV3[];
+  primary_column: TacticalColumnV3;
+  secondary_column?: TacticalColumnV3;
   pace_range: readonly TacticalPaceV3[];
   presence_range: readonly TacticalPresenceV3[];
   forage_matches: readonly ForageBucketV3[];
@@ -73,9 +74,18 @@ const CURRENT_FRIENDLY_FLIES = new Set<FlyArchetypeIdV3>([
   "conehead_streamer",
 ]);
 
+const LANE_REQUIRED_PRIMARY_COLUMN: Partial<
+  Record<TacticalLaneV3, TacticalColumnV3>
+> = {
+  bottom_contact: "bottom",
+  fly_bottom: "bottom",
+  surface: "surface",
+  fly_surface: "surface",
+};
+
 function assertRangeShape<T extends string>(
   archetypeId: string,
-  kind: "column" | "pace" | "presence",
+  kind: "pace" | "presence",
   range: readonly T[],
   allowedValues: readonly T[],
 ): void {
@@ -100,22 +110,39 @@ function assertRangeShape<T extends string>(
   }
 }
 
-function assertColumnShape(
+function assertColumnAuthoring(
   archetypeId: string,
-  range: readonly TacticalColumnV3[],
+  primary: TacticalColumnV3,
+  secondary: TacticalColumnV3 | undefined,
+  lane: TacticalLaneV3,
 ): void {
-  assertRangeShape(archetypeId, "column", range, TACTICAL_COLUMNS_V3);
-  if (range[0] === "surface" && range.length !== 1) {
+  if (!TACTICAL_COLUMNS_V3.includes(primary)) {
     throw new Error(
-      `[recommender v3] archetype "${archetypeId}" column_range: when primary is "surface", range must be ["surface"] only.`,
+      `[recommender v3] archetype "${archetypeId}" primary_column "${primary}" is not a valid tactical column.`,
     );
   }
-  for (let i = 1; i < range.length; i++) {
-    if (range[i] === "surface") {
+  if (secondary != null) {
+    if (!TACTICAL_COLUMNS_V3.includes(secondary)) {
       throw new Error(
-        `[recommender v3] archetype "${archetypeId}" column_range: "surface" is only valid at index 0.`,
+        `[recommender v3] archetype "${archetypeId}" secondary_column "${secondary}" is not a valid tactical column.`,
       );
     }
+    if (secondary === primary) {
+      throw new Error(
+        `[recommender v3] archetype "${archetypeId}" secondary_column duplicates primary_column ("${primary}").`,
+      );
+    }
+    if (primary === "surface" || secondary === "surface") {
+      throw new Error(
+        `[recommender v3] archetype "${archetypeId}" surface flies must have primary_column="surface" and no secondary_column.`,
+      );
+    }
+  }
+  const required = LANE_REQUIRED_PRIMARY_COLUMN[lane];
+  if (required != null && primary !== required) {
+    throw new Error(
+      `[recommender v3] archetype "${archetypeId}" tactical_lane "${lane}" requires primary_column="${required}" (got "${primary}").`,
+    );
   }
 }
 
@@ -135,7 +162,12 @@ function whyHooks(profile: FlyAuthoredProfile): readonly string[] {
 }
 
 function fly(profile: FlyAuthoredProfile): RecommenderV3ArchetypeProfile {
-  assertColumnShape(profile.id, profile.column_range);
+  assertColumnAuthoring(
+    profile.id,
+    profile.primary_column,
+    profile.secondary_column,
+    profile.tactical_lane,
+  );
   assertRangeShape(profile.id, "pace", profile.pace_range, TACTICAL_PACES_V3);
   assertRangeShape(
     profile.id,
@@ -144,9 +176,11 @@ function fly(profile: FlyAuthoredProfile): RecommenderV3ArchetypeProfile {
     TACTICAL_PRESENCE_V3,
   );
 
-  const primaryColumn = profile.column_range[0]!;
   const primaryPace = profile.pace_range[0]!;
   const primaryPresence = profile.presence_range[0]!;
+  const columnRange: readonly TacticalColumnV3[] = profile.secondary_column
+    ? [profile.primary_column, profile.secondary_column]
+    : [profile.primary_column];
 
   return {
     id: profile.id,
@@ -155,16 +189,16 @@ function fly(profile: FlyAuthoredProfile): RecommenderV3ArchetypeProfile {
     species_allowed: resolveSpeciesAllowed(profile.id),
     water_types_allowed: ["freshwater_lake_pond", "freshwater_river"],
     family_group: profile.family_key,
-    column_range: profile.column_range,
+    column_range: columnRange,
     pace_range: profile.pace_range,
     presence_range: profile.presence_range,
-    primary_column: primaryColumn,
-    secondary_column: profile.column_range[1],
+    primary_column: profile.primary_column,
+    secondary_column: profile.secondary_column,
     pace: primaryPace,
     secondary_pace: profile.pace_range[1],
     presence: primaryPresence,
     secondary_presence: profile.presence_range[1],
-    is_surface: primaryColumn === "surface",
+    is_surface: profile.primary_column === "surface",
     current_friendly: CURRENT_FRIENDLY_FLIES.has(profile.id) ? true : undefined,
     forage_tags: profile.forage_matches,
     why_hooks: whyHooks(profile),
@@ -183,7 +217,10 @@ export const FLY_ARCHETYPES_V3: Record<
     id: "clouser_minnow",
     display_name: "Clouser Minnow",
     family_key: "baitfish_streamer",
-    column_range: ["mid", "bottom"],
+    // Dumbbell eyes jig the fly mid-to-bottom; the retrieve lives in the mid
+    // band and drops toward bottom between strips.
+    primary_column: "mid",
+    secondary_column: "bottom",
     pace_range: ["medium", "fast"],
     presence_range: ["moderate", "bold"],
     forage_matches: ["baitfish"],
@@ -199,7 +236,8 @@ export const FLY_ARCHETYPES_V3: Record<
     id: "deceiver",
     display_name: "Deceiver",
     family_key: "baitfish_streamer",
-    column_range: ["upper", "mid"],
+    primary_column: "mid",
+    secondary_column: "upper",
     pace_range: ["medium", "fast"],
     presence_range: ["moderate", "bold"],
     forage_matches: ["baitfish"],
@@ -215,7 +253,8 @@ export const FLY_ARCHETYPES_V3: Record<
     id: "bucktail_baitfish_streamer",
     display_name: "Bucktail Streamer",
     family_key: "baitfish_streamer",
-    column_range: ["upper", "mid"],
+    primary_column: "mid",
+    secondary_column: "upper",
     pace_range: ["medium", "slow"],
     presence_range: ["subtle"],
     forage_matches: ["baitfish"],
@@ -231,7 +270,8 @@ export const FLY_ARCHETYPES_V3: Record<
     id: "slim_minnow_streamer",
     display_name: "Slim Baitfish Streamer",
     family_key: "baitfish_streamer",
-    column_range: ["upper", "mid"],
+    primary_column: "mid",
+    secondary_column: "upper",
     pace_range: ["medium", "slow"],
     presence_range: ["subtle"],
     forage_matches: ["baitfish"],
@@ -247,7 +287,8 @@ export const FLY_ARCHETYPES_V3: Record<
     id: "articulated_baitfish_streamer",
     display_name: "Articulated Baitfish Streamer",
     family_key: "baitfish_streamer",
-    column_range: ["upper", "mid"],
+    primary_column: "mid",
+    secondary_column: "upper",
     pace_range: ["medium", "fast"],
     presence_range: ["bold"],
     forage_matches: ["baitfish"],
@@ -263,7 +304,7 @@ export const FLY_ARCHETYPES_V3: Record<
     id: "articulated_dungeon_streamer",
     display_name: "Articulated Dungeon Streamer",
     family_key: "articulated_streamer",
-    column_range: ["mid"],
+    primary_column: "mid",
     pace_range: ["medium", "fast"],
     presence_range: ["bold"],
     forage_matches: ["baitfish", "bluegill_perch", "crawfish"],
@@ -279,7 +320,8 @@ export const FLY_ARCHETYPES_V3: Record<
     id: "game_changer",
     display_name: "Game Changer",
     family_key: "articulated_streamer",
-    column_range: ["upper", "mid"],
+    primary_column: "mid",
+    secondary_column: "upper",
     pace_range: ["medium", "fast"],
     presence_range: ["moderate", "bold"],
     forage_matches: ["baitfish", "bluegill_perch"],
@@ -295,7 +337,11 @@ export const FLY_ARCHETYPES_V3: Record<
     id: "woolly_bugger",
     display_name: "Woolly Bugger",
     family_key: "bugger_leech",
-    column_range: ["mid", "bottom"],
+    // Lane is fly_bottom; the dominant presentation is a sink-and-strip along
+    // the bottom. Swinging through current holds the fly in the mid band as a
+    // legitimate secondary.
+    primary_column: "bottom",
+    secondary_column: "mid",
     pace_range: ["slow"],
     presence_range: ["subtle", "moderate"],
     forage_matches: ["leech_worm", "baitfish", "crawfish"],
@@ -311,7 +357,7 @@ export const FLY_ARCHETYPES_V3: Record<
     id: "rabbit_strip_leech",
     display_name: "Rabbit-Strip Leech",
     family_key: "bugger_leech",
-    column_range: ["bottom"],
+    primary_column: "bottom",
     pace_range: ["slow"],
     presence_range: ["subtle", "moderate"],
     forage_matches: ["leech_worm", "baitfish"],
@@ -327,7 +373,11 @@ export const FLY_ARCHETYPES_V3: Record<
     id: "balanced_leech",
     display_name: "Balanced Leech",
     family_key: "bugger_leech",
-    column_range: ["mid", "bottom"],
+    // Suspends horizontally under an indicator, most often set to hang just
+    // above the bottom in cold-water still-water work. Mid is a legitimate
+    // secondary when fish are holding suspended off structure.
+    primary_column: "bottom",
+    secondary_column: "mid",
     pace_range: ["slow"],
     presence_range: ["subtle"],
     forage_matches: ["leech_worm", "baitfish"],
@@ -343,7 +393,8 @@ export const FLY_ARCHETYPES_V3: Record<
     id: "zonker_streamer",
     display_name: "Zonker Streamer",
     family_key: "bugger_leech",
-    column_range: ["upper", "mid"],
+    primary_column: "mid",
+    secondary_column: "upper",
     pace_range: ["medium"],
     presence_range: ["moderate"],
     forage_matches: ["baitfish", "leech_worm"],
@@ -359,7 +410,7 @@ export const FLY_ARCHETYPES_V3: Record<
     id: "sculpin_streamer",
     display_name: "Sculpin Streamer",
     family_key: "bottom_streamer",
-    column_range: ["bottom"],
+    primary_column: "bottom",
     pace_range: ["slow"],
     presence_range: ["subtle", "moderate"],
     forage_matches: ["baitfish", "crawfish"],
@@ -375,7 +426,7 @@ export const FLY_ARCHETYPES_V3: Record<
     id: "sculpzilla",
     display_name: "Sculpzilla",
     family_key: "bottom_streamer",
-    column_range: ["bottom"],
+    primary_column: "bottom",
     pace_range: ["slow", "medium"],
     presence_range: ["moderate", "bold"],
     forage_matches: ["baitfish", "crawfish"],
@@ -391,11 +442,11 @@ export const FLY_ARCHETYPES_V3: Record<
     id: "muddler_sculpin",
     display_name: "Muddler Minnow",
     family_key: "bottom_streamer",
-    // Authored as bottom-primary/mid-secondary to match `tactical_lane: "fly_bottom"`
-    // and the dominant how_to_fish variants (sink-and-crawl, hop along bottom,
-    // swung wet through current). Upper is a legitimate tertiary (skated/waked
-    // in shallow riffles) but not the lead column.
-    column_range: ["bottom", "mid", "upper"],
+    // Classic sink-and-crawl / swung-wet fly. Primary zone is bottom; mid is
+    // a legitimate swung-wet secondary. The skated/waked shallow presentation
+    // is real but uncommon enough that we do not expose it as a second zone.
+    primary_column: "bottom",
+    secondary_column: "mid",
     pace_range: ["slow", "medium"],
     presence_range: ["moderate"],
     forage_matches: ["baitfish", "crawfish", "insect_misc"],
@@ -411,7 +462,7 @@ export const FLY_ARCHETYPES_V3: Record<
     id: "crawfish_streamer",
     display_name: "Crawfish Streamer",
     family_key: "bottom_streamer",
-    column_range: ["bottom"],
+    primary_column: "bottom",
     pace_range: ["slow", "medium"],
     presence_range: ["subtle", "moderate"],
     forage_matches: ["crawfish"],
@@ -427,7 +478,7 @@ export const FLY_ARCHETYPES_V3: Record<
     id: "conehead_streamer",
     display_name: "Conehead Streamer",
     family_key: "weighted_streamer",
-    column_range: ["bottom"],
+    primary_column: "bottom",
     pace_range: ["slow"],
     presence_range: ["moderate"],
     forage_matches: ["baitfish", "leech_worm", "crawfish"],
@@ -443,7 +494,8 @@ export const FLY_ARCHETYPES_V3: Record<
     id: "pike_bunny_streamer",
     display_name: "Large Rabbit Strip Streamer",
     family_key: "pike_streamer",
-    column_range: ["upper", "mid"],
+    primary_column: "mid",
+    secondary_column: "upper",
     pace_range: ["medium", "fast"],
     presence_range: ["moderate", "bold"],
     forage_matches: ["baitfish", "bluegill_perch"],
@@ -459,7 +511,8 @@ export const FLY_ARCHETYPES_V3: Record<
     id: "large_articulated_pike_streamer",
     display_name: "Articulated Pike Streamer",
     family_key: "pike_streamer",
-    column_range: ["upper", "mid"],
+    primary_column: "mid",
+    secondary_column: "upper",
     pace_range: ["medium", "fast"],
     presence_range: ["moderate", "bold"],
     forage_matches: ["baitfish", "bluegill_perch"],
@@ -475,7 +528,7 @@ export const FLY_ARCHETYPES_V3: Record<
     id: "popper_fly",
     display_name: "Popper Fly",
     family_key: "surface_fly",
-    column_range: ["surface"],
+    primary_column: "surface",
     pace_range: ["fast", "medium"],
     presence_range: ["moderate", "bold"],
     forage_matches: ["baitfish", "bluegill_perch", "insect_misc"],
@@ -491,7 +544,7 @@ export const FLY_ARCHETYPES_V3: Record<
     id: "frog_fly",
     display_name: "Frog Fly",
     family_key: "surface_fly",
-    column_range: ["surface"],
+    primary_column: "surface",
     pace_range: ["fast", "medium"],
     presence_range: ["moderate", "bold"],
     forage_matches: ["bluegill_perch", "baitfish"],
@@ -507,7 +560,7 @@ export const FLY_ARCHETYPES_V3: Record<
     id: "mouse_fly",
     display_name: "Mouse Fly",
     family_key: "surface_fly",
-    column_range: ["surface"],
+    primary_column: "surface",
     pace_range: ["fast", "medium"],
     presence_range: ["subtle", "moderate"],
     forage_matches: ["baitfish", "insect_misc"],

@@ -11,10 +11,8 @@
 
 import type { RegionKey } from "../../supabase/functions/_shared/howFishingEngine/contracts/region.ts";
 import type { EngineContext } from "../../supabase/functions/_shared/howFishingEngine/contracts/context.ts";
-import type {
-  SpeciesGroup,
-  WaterClarity,
-} from "../../supabase/functions/_shared/recommenderEngine/index.ts";
+import type { WaterClarity } from "../../supabase/functions/_shared/recommenderEngine/contracts/input.ts";
+import type { SpeciesGroup } from "../../supabase/functions/_shared/recommenderEngine/contracts/species.ts";
 import type { SharedEngineRequest } from "../../supabase/functions/_shared/howFishingEngine/contracts/input.ts";
 
 export type ReportAuditSpecies =

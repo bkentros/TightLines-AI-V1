@@ -1,17 +1,21 @@
 # Recommender V3 — Product integration (post-tuning)
 
+> **Historical:** This note describes the **pre-rebuild** Edge path (`runRecommenderV3Surface`). **Production today:** `supabase/functions/recommender/index.ts` calls **`runRecommenderRebuildSurface`**. Legacy v3 remains for audits and offline tooling (`recommenderEngine/legacyV3.ts`).
+
 Internal note for **Section 5** of the post-tuning checklist: how the tuned freshwater V3 stack reaches the app, what the product layer may assume, and how to decide **engine vs UX** when something looks wrong.
 
 Related: [V3_POST_TUNING_STATE.md](./V3_POST_TUNING_STATE.md) (baseline), [V3_AUDIT_INTERPRETATION.md](./V3_AUDIT_INTERPRETATION.md) (audit reading), [MAINTAINER_VALIDATION.md](./MAINTAINER_VALIDATION.md) (commands), [V3_REGRESSION_ANCHORS.md](./V3_REGRESSION_ANCHORS.md) (CI gates).
 
 ---
 
-## 5.1 Integration surface (single V3 path)
+## 5.1 Integration surface (single V3 path — historical)
+
+**When this note was written**, the matrix below described the stack. **Today:** Edge **`recommender`** calls **`runRecommenderRebuildSurface`**; legacy v3 is audits/tooling via `legacyV3.ts`.
 
 | Layer | Path | Notes |
 |--------|------|--------|
-| **Edge** | `supabase/functions/recommender/index.ts` | Validates input, state×species gate, then **`runRecommenderV3Surface(engineReq)`** only. No alternate engine or legacy scorer. |
-| **Engine** | `runRecommenderV3Surface` → `computeRecommenderV3` | All seasonal rows, scoring, and top-3 selection live under `supabase/functions/_shared/recommenderEngine/`. |
+| **Edge** (historical) | `supabase/functions/recommender/index.ts` | Previously called **`runRecommenderV3Surface(engineReq)`** only. |
+| **Engine** (historical) | `runRecommenderV3Surface` → `computeRecommenderV3` | Scoring lived under `supabase/functions/_shared/recommenderEngine/`. |
 | **Client** | `lib/recommender.ts` → `invokeEdgeFunction('recommender', …)` | POST body matches edge `buildRecommenderEngineRequest` expectations. |
 
 **Species keys (important):**
@@ -44,7 +48,7 @@ Do **not** change the client to expect `northern_pike` in JSON without updating 
 ### Considered “done” for this phase
 
 - Four-species **matrix-clean** baseline (see post-tuning state doc).
-- **Single** production recommender path through **`runRecommenderV3Surface`**.
+- **At tuning closeout**, single production path through **`runRecommenderV3Surface`** (superseded by **`runRecommenderRebuildSurface`**).
 - Regression harness: `npm run audit:recommender:v3:freshwater:validate`, `npm run audit:recommender:v3:regression-baselines`, and targeted Deno tests under `supabase/functions/_shared/recommenderEngine/__tests__/`.
 
 ### Reopen **tuning** (engine / seasonal / scoring) when
@@ -63,7 +67,7 @@ Do **not** change the client to expect `northern_pike` in JSON without updating 
 1. `cd TightLinesAI && npm run audit:recommender:v3:freshwater:validate`
 2. `cd TightLinesAI && npm run audit:recommender:v3:regression-baselines`
 3. `cd TightLinesAI && deno test --allow-read supabase/functions/recommender/index.test.ts`
-4. `cd TightLinesAI && deno test --allow-read supabase/functions/_shared/recommenderEngine/__tests__/v3Foundation.test.ts supabase/functions/_shared/recommenderEngine/__tests__/v3Surface.test.ts`
+4. `cd TightLinesAI && deno test --allow-read supabase/functions/_shared/recommenderEngine/__tests__/v3Foundation.test.ts supabase/functions/_shared/recommenderEngine/__tests__/rebuildSurfaceContract.test.ts`
 
 Optional: manual smoke on device for the recommender screen (four species, lake + river where gated).
 

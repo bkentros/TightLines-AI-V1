@@ -1,0 +1,37 @@
+# Recommender v4 — CSV ↔ generated seasonal rows (§17.4 F6)
+name: seasonal-matrix
+
+on:
+  pull_request:
+    paths:
+      - "TightLinesAI/data/seasonal-matrix/**"
+      - "TightLinesAI/scripts/generate-seasonal-rows-v4.ts"
+      - "TightLinesAI/scripts/check-seasonal-matrix-consistency.ts"
+      - "TightLinesAI/scripts/lib/seasonalMatrixV4/**"
+      - "TightLinesAI/supabase/functions/_shared/recommenderEngine/v4/seasonal/generated/**"
+      - "TightLinesAI/supabase/functions/_shared/recommenderEngine/v4/candidates/**"
+      - "TightLinesAI/supabase/functions/_shared/recommenderEngine/v4/contracts.ts"
+  push:
+    branches: [main, master]
+    paths:
+      - "TightLinesAI/data/seasonal-matrix/**"
+      - "TightLinesAI/scripts/generate-seasonal-rows-v4.ts"
+      - "TightLinesAI/scripts/check-seasonal-matrix-consistency.ts"
+      - "TightLinesAI/scripts/lib/seasonalMatrixV4/**"
+      - "TightLinesAI/supabase/functions/_shared/recommenderEngine/v4/seasonal/generated/**"
+      - "TightLinesAI/supabase/functions/_shared/recommenderEngine/v4/candidates/**"
+      - "TightLinesAI/supabase/functions/_shared/recommenderEngine/v4/contracts.ts"
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: TightLinesAI
+    steps:
+      - uses: actions/checkout@v4
+      - uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+      - name: Seasonal matrix consistency
+        run: npm run check:seasonal-matrix

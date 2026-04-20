@@ -6,7 +6,7 @@ import type {
 import type {
   ResolvedColorThemeV3,
   RecommenderV3ArchetypeId,
-} from "../../supabase/functions/_shared/recommenderEngine/index.ts";
+} from "../../supabase/functions/_shared/recommenderEngine/v3/contracts.ts";
 import {
   TROUT_FULL_AUDIT_MATRIX,
   type TroutAuditAnchorKey,
