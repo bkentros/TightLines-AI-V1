@@ -9,7 +9,6 @@ import { SURFACE_FLY_IDS_V4 } from "../v4/contracts.ts";
 import { FLY_ARCHETYPES_V4 } from "../v4/candidates/flies.ts";
 import { LURE_ARCHETYPES_V4 } from "../v4/candidates/lures.ts";
 import { pickHowToFish } from "../v4/engine/buildCopy.ts";
-import { COLUMN_ORDER, paceIndex } from "./constants.ts";
 import type { TacticalColumn, TacticalPace } from "../v4/contracts.ts";
 import type { TargetProfile } from "./shapeProfiles.ts";
 
@@ -42,27 +41,6 @@ function stableSortKey(parts: string[], rng: () => number): number {
   return (h >>> 0) + rng();
 }
 
-function adjacentPace(a: TacticalPace, b: TacticalPace): boolean {
-  return Math.abs(paceIndex(a) - paceIndex(b)) === 1;
-}
-
-function adjacentColumnsForTier(
-  col: TacticalColumn,
-  envelope: ReadonlySet<TacticalColumn>,
-): TacticalColumn[] {
-  const idx = COLUMN_ORDER.indexOf(col);
-  const out: TacticalColumn[] = [];
-  if (idx > 0) {
-    const c = COLUMN_ORDER[idx - 1]!;
-    if (envelope.has(c)) out.push(c);
-  }
-  if (idx < COLUMN_ORDER.length - 1) {
-    const c = COLUMN_ORDER[idx + 1]!;
-    if (envelope.has(c)) out.push(c);
-  }
-  return out;
-}
-
 function inEnvelope(
   cand: ArchetypeProfileV4,
   row: SeasonalRowV4,
@@ -71,33 +49,21 @@ function inEnvelope(
     row.pace_range.includes(cand.primary_pace);
 }
 
-function tierRank(
+/** Exact slot fit only: same column as the profile; pace via primary or secondary only. */
+function exactSlotFitTier(
   profile: TargetProfile,
   cand: ArchetypeProfileV4,
   row: SeasonalRowV4,
-): number | null {
+): 1 | 2 | null {
   if (!inEnvelope(cand, row)) return null;
 
-  const env = new Set<TacticalColumn>(row.column_range as TacticalColumn[]);
   const pc = profile.column;
   const pp = profile.pace;
+  if (cand.column !== pc) return null;
 
-  if (cand.column === pc && cand.primary_pace === pp) return 1;
-  if (
-    cand.column === pc && cand.secondary_pace != null &&
-    cand.secondary_pace === pp
-  ) return 2;
-  if (cand.column === pc && adjacentPace(cand.primary_pace, pp)) return 3;
-
-  const adj = adjacentColumnsForTier(pc, env);
-  if (adj.includes(cand.column) && cand.primary_pace === pp) return 4;
-  if (
-    adj.includes(cand.column) &&
-    (cand.secondary_pace === pp ||
-      adjacentPace(cand.primary_pace, pp))
-  ) return 5;
-
-  return 6;
+  if (cand.primary_pace === pp) return 1;
+  if (cand.secondary_pace != null && cand.secondary_pace === pp) return 2;
+  return null;
 }
 
 function forageBonus(
@@ -182,7 +148,7 @@ export function selectArchetypesForSide(args: {
 
     for (const cand of candidates) {
       if (pickedIds.has(cand.id)) continue;
-      const t = tierRank(profile, cand, row);
+      const t = exactSlotFitTier(profile, cand, row);
       if (t == null) continue;
 
       const famPenalty = picked.some((p) => p.family_group === cand.family_group)

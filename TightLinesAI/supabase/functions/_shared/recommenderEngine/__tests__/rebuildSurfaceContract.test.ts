@@ -120,16 +120,20 @@ Deno.test("rebuild surface: card column is archetype profile; pace/presence foll
     const prof = eng.profiles[i];
     assert(prof != null);
     const lure = r.lure_recommendations[i]!;
-    const fly = r.fly_recommendations[i]!;
     const lureArc = eng.lureArchetypes[i]!;
-    const flyArc = eng.flyArchetypes[i]!;
     assertEquals(lure.primary_column, lureArc.column);
-    assertEquals(fly.primary_column, flyArc.column);
     assertEquals(lure.pace, prof.pace);
+    assertEquals(lure.presence, presenceFromPace(prof.pace));
+  }
+
+  for (let i = 0; i < r.fly_recommendations.length; i++) {
+    const prof = eng.profiles[i];
+    assert(prof != null);
+    const fly = r.fly_recommendations[i]!;
+    const flyArc = eng.flyArchetypes[i]!;
+    assertEquals(fly.primary_column, flyArc.column);
     assertEquals(fly.pace, prof.pace);
-    const wantPresence = presenceFromPace(prof.pace);
-    assertEquals(lure.presence, wantPresence);
-    assertEquals(fly.presence, wantPresence);
+    assertEquals(fly.presence, presenceFromPace(prof.pace));
   }
 
   assert(typeof r.summary.session_color_theme_label === "string");

@@ -255,7 +255,7 @@ This layer takes the target profiles and selects real lures and flies.
 
 It uses:
 - hard gating
-- best-fit tiers
+- exact slot fit (strict column + pace)
 - family diversity
 - forage alignment when possible
 - deterministic seeded tie-breaking
@@ -274,7 +274,6 @@ Runtime seasonal lookup grain:
 - region
 - month
 - water type
-- optional state-specific override if needed
 
 ### Authoring model
 Seasonal rows remain **region-authored**.
@@ -350,27 +349,36 @@ One row exists per:
 - region
 - month
 - water type
-- optional state-specific override where justified
 
 ### Each row defines
-- `columnMin`
-- `columnMax`
-- `columnAnchor`
-- `paceMin`
-- `paceMax`
-- `paceAnchor`
-- `surfaceSeasonAllowed`
-- `primaryForage`
-- optional `secondaryForage`
+- `column_range`
+- `column_baseline`
+- `pace_range`
+- `pace_baseline`
+- `surface_seasonally_possible`
+- `primary_forage`
+- optional `secondary_forage`
+- `primary_lure_ids`
+- `primary_fly_ids`
+- optional `excluded_lure_ids`
+- optional `excluded_fly_ids`
+
+Implementation note:
+- `column_range` is the legal seasonal column set
+- `column_baseline` is the neutral center-of-gravity column for shaping
+- `pace_range` is the legal seasonal pace set
+- `pace_baseline` is the neutral center-of-gravity pace for shaping
 
 ### Seasonal row rules
-- `columnAnchor` must be inside the legal column range
-- `columnAnchor` must never be `surface`
-- `paceAnchor` must be inside the legal pace range
-- `columnMin` is the true seasonal floor; upward expansion is controlled by `columnMax`
-- `paceMin` is the true seasonal floor; upward expansion is controlled by `paceMax`
-- `primaryForage` must not equal `secondaryForage`
+- `column_baseline` must be inside the legal column range
+- `column_baseline` must never be `surface`
+- `pace_baseline` must be inside the legal pace range
+- `bottom` must remain inside every legal column range
+- `slow` must remain inside every legal pace range
+- `primary_forage` must not equal `secondary_forage`
 - `surface_prey` is not used as a seasonal-row forage value
+- `primary_lure_ids` and `primary_fly_ids` are row-authored shortlist bindings, not optional decoration
+- `excluded_*` fields should be rare and only used when they remove a biologically contradictory item that would otherwise pass catalog gating
 
 ### Coverage rule
 Every supported runtime context must have an authored seasonal row.
@@ -390,10 +398,11 @@ The seasonal dataset must be machine-validatable.
 At minimum, validation must confirm:
 - full supported-context coverage
 - no fallback rows
-- `columnAnchor` is inside range and is not `surface`
-- `paceAnchor` is inside range
+- `column_baseline` is inside range and is not `surface`
+- `pace_baseline` is inside range
 - `paceSecondary`, when present on an item, is adjacent to `pacePrimary`
-- `primaryForage` does not equal `secondaryForage`
+- `primary_forage` does not equal `secondary_forage`
+- row-authored primary/excluded ids only reference valid catalog ids for that side
 
 ---
 
@@ -404,7 +413,7 @@ Seasonal rows are biological claims, not filler data.
 ### Core rules
 - Biology first, inventory second
 - Narrow when honest, wide when honest
-- The anchor is the neutral center of gravity
+- The baseline is the neutral center of gravity
 - Adjacent months may legitimately share values
 - Real region differences must be preserved
 - Do not widen rows just to give the engine more options
@@ -426,9 +435,12 @@ Template-sharing is a deduplication tool, not a disguised geography abstraction.
 
 The daily regime comes from the How’s Fishing score.
 
-- **suppressive** if score <= 3.5
-- **aggressive** if score >= 7.0
+- **suppressive** if score <= 3.5 on the How's Fishing 1-10 scale
+- **aggressive** if score >= 7.0 on the How's Fishing 1-10 scale
 - **neutral** otherwise
+
+Implementation note:
+The live rebuild receives the How's Fishing score on a 10-100 scale and converts it back to the 1-10 thresholds above before assigning the regime.
 
 The regime does not replace seasonal logic.
 It shapes the day relative to the seasonal anchors.
@@ -510,6 +522,9 @@ Do not invent illegal pace values for visual variety.
 ### Wind metric
 Use **mean wind from 5:00 AM to 9:00 PM local time**.
 
+Implementation note:
+The live rebuild computes this from the hourly wind grid when available and otherwise falls back to the daily wind value after unit normalization.
+
 ### Surface block threshold
 If `surface` is inside the legal seasonal column range and mean wind from 5:00 AM to 9:00 PM is **greater than 14 mph**:
 - `surfaceBlocked = true`
@@ -565,27 +580,36 @@ Filter candidates by:
 - side
 - species eligibility
 - water-type eligibility
+- water-clarity eligibility
 - topwater block
+- row-authored primary shortlist membership (`primary_lure_ids` / `primary_fly_ids`)
+- any row-authored exclusions that still remain after catalog tightening
 
-### Best-fit tier system
-Do not choose loosely from the full legal pool.
+### Exact slot fit (strict column + pace)
+Do not choose loosely from the full legal pool or from “nearby” lanes.
 
-For a target profile like `upper / fast`, rank candidates in this order:
+For each slot’s target profile (e.g. `upper / fast`), a candidate may fill that slot only if:
 
-- Tier 1: exact column + exact primary pace
-- Tier 2: exact column + exact secondary pace
-- Tier 3: exact column + adjacent pace
-- Tier 4: adjacent column + exact primary pace
-- Tier 5: adjacent column + exact secondary or adjacent pace
-- Tier 6: any candidate still inside the seasonal envelope, only if all higher tiers are empty
+- its **column** equals the profile column exactly, and
+- the profile **pace** matches either `primary_pace` or `secondary_pace` on that item (secondary must be an exact match to the slot pace — not adjacent).
 
-The engine chooses only from the **highest non-empty tier**.
+Candidates must still sit inside the seasonal envelope (`column_range` / `pace_range` on the row) as enforced before slot matching.
 
-### Variety inside the tier
-Inside the highest non-empty tier, prefer:
+If no candidate satisfies that slot exactly, **stop filling further slots on that side** and return fewer picks. Do not fall back to adjacent column, adjacent pace, or any other in-envelope-only rescue.
+
+Important:
+- Slot matching happens only inside the hard-gated shortlist for that row and side
+- The live rebuild does **not** scan the full catalog at runtime
+- Lure and fly sides share the same three target profiles, but each side fills slots independently — counts may differ if one side has fewer exact-fit items
+
+### Variety inside the exact-fit pool
+Among candidates that satisfy the slot exactly, prefer:
+
 1. forage alignment, if useful and available
 2. family diversity
 3. deterministic seeded rotation / tie-breaking
+
+When both primary and secondary match the slot pace, prefer the **primary pace** match as the tighter fit (implementation ranks that ahead of secondary-only).
 
 The engine should not randomly choose from all legal items.
 
@@ -640,6 +664,58 @@ At least one recommendation per side should align with the row’s seasonal fora
 
 This is an alignment rule.
 It must not override hard gating or biological fit.
+
+---
+
+## Current runtime output
+
+The live rebuild returns a stable app-facing response through `runRecommenderRebuildSurface`.
+
+### Session-level summary currently exposed
+- species
+- water type
+- water clarity
+- monthly primary forage
+- optional monthly secondary forage
+- session color theme label
+- legal seasonal columns / paces
+- surface seasonality flag
+- current daily preference:
+  - posture band
+  - preferred column / pace / presence
+  - optional secondary column / pace / presence
+  - surface open / closed today
+  - opportunity mix
+
+### Per recommendation currently exposed
+- item id
+- display name
+- family group
+- session color style
+- why chosen
+- how to fish
+- item-authored column
+- engine-selected pace
+- engine-derived presence
+- surface flag
+
+Important:
+- displayed `column` reflects the item's authored profile
+- displayed `pace` reflects the pace the engine selected for that slot
+- displayed `presence` is derived from that selected pace
+
+### Missing seasonal row behavior
+If a gated runtime request has no authored seasonal row for its exact:
+- species
+- region
+- month
+- water type
+
+the live Edge function returns:
+- HTTP `422`
+- error code `seasonal_row_missing`
+
+This is intentional and distinct from a generic engine failure.
 
 ---
 
