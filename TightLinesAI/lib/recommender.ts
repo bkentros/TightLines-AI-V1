@@ -57,7 +57,7 @@ function cacheKey(
   const dayKey = extractRequestDay(params);
   return [
     // Prefix must change when the edge response contract changes (invalidate stale caches).
-    'recommender_rebuild',
+    'recommender_rebuild_tacv1',
     params.latitude.toFixed(3),
     params.longitude.toFixed(3),
     params.state_code.toUpperCase(),

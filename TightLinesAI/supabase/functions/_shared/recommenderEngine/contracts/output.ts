@@ -37,6 +37,8 @@ export type RecommenderSessionSummary = {
     primary: ForageBucketV3;
     secondary?: ForageBucketV3;
   };
+  /** Rebuild: single session color theme from `resolveColorDecisionV3` (same basis as per-card `color_style`). Omitted by legacy v3 surface. */
+  session_color_theme_label?: string;
   monthly_baseline: {
     allowed_columns: TacticalColumnV3[];
     allowed_paces: TacticalPaceV3[];

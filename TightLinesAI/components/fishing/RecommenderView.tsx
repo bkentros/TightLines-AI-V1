@@ -240,6 +240,11 @@ export function RecommenderView({ result, style }: Props) {
             <Text style={styles.heroSubtitle}>
               {contextLabel(result.context)} · {WATER_CLARITY_LABELS[result.water_clarity]} water
             </Text>
+            {result.summary.session_color_theme_label ? (
+              <Text style={styles.heroColorTheme}>
+                {result.summary.session_color_theme_label} color emphasis
+              </Text>
+            ) : null}
           </View>
           {speciesImage ? (
             <ExpoImage
@@ -401,6 +406,13 @@ const styles = StyleSheet.create({
     fontSize: 13,
     color: colors.textSecondary,
     letterSpacing: 0.1,
+  },
+  heroColorTheme: {
+    fontFamily: fonts.bodyMedium,
+    fontSize: 12,
+    color: colors.textMuted,
+    marginTop: 2,
+    letterSpacing: 0.05,
   },
   heroSpeciesImage: {
     width: 96,

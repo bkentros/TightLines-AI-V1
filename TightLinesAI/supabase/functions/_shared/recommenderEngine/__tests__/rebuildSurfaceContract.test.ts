@@ -5,6 +5,9 @@
 import { assert, assertEquals } from "jsr:@std/assert";
 import { runRecommenderRebuildSurface } from "../index.ts";
 import type { RecommenderRequest } from "../contracts/input.ts";
+import { analyzeRecommenderConditions } from "../sharedAnalysis.ts";
+import { computeRecommenderRebuild } from "../rebuild/runRecommenderRebuild.ts";
+import { presenceFromPace } from "../rebuild/selectSide.ts";
 
 function request(
   overrides: Partial<RecommenderRequest> = {},
@@ -106,6 +109,31 @@ Deno.test("rebuild surface maps trout and pike through the current response shap
   assertEquals(trout.context, "freshwater_river");
   assertEquals(pike.species, "pike_musky");
   assertEquals(pike.context, "freshwater_lake_pond");
+});
+
+Deno.test("rebuild surface: card column is archetype profile; pace/presence follow engine slot", () => {
+  const req = request();
+  const r = runRecommenderRebuildSurface(req);
+  const eng = computeRecommenderRebuild(req, analyzeRecommenderConditions(req));
+
+  for (let i = 0; i < r.lure_recommendations.length; i++) {
+    const prof = eng.profiles[i];
+    assert(prof != null);
+    const lure = r.lure_recommendations[i]!;
+    const fly = r.fly_recommendations[i]!;
+    const lureArc = eng.lureArchetypes[i]!;
+    const flyArc = eng.flyArchetypes[i]!;
+    assertEquals(lure.primary_column, lureArc.column);
+    assertEquals(fly.primary_column, flyArc.column);
+    assertEquals(lure.pace, prof.pace);
+    assertEquals(fly.pace, prof.pace);
+    const wantPresence = presenceFromPace(prof.pace);
+    assertEquals(lure.presence, wantPresence);
+    assertEquals(fly.presence, wantPresence);
+  }
+
+  assert(typeof r.summary.session_color_theme_label === "string");
+  assertEquals(r.summary.session_color_theme_label, r.lure_recommendations[0]?.color_style);
 });
 
 Deno.test("rebuild surface exposes monthly and daily summary fields", () => {

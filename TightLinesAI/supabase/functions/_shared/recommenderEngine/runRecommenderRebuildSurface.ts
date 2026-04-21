@@ -117,11 +117,16 @@ export function runRecommenderRebuildSurface(req: RecommenderRequest): Recommend
   const toRanked = (
     archetypes: typeof eng.lureArchetypes,
   ): RankedRecommendation[] =>
-    archetypes.map((a) => {
+    archetypes.map((a, i) => {
+      const targetProfile = eng.profiles[i];
+      if (!targetProfile) {
+        throw new Error("rebuild surface: missing target profile for recommendation slot");
+      }
       const core = archetypeToRankedFields({
         archetype: a,
         water_clarity: req.water_clarity,
         row: eng.row,
+        targetProfile,
       });
       return {
         ...core,
@@ -164,6 +169,7 @@ export function runRecommenderRebuildSurface(req: RecommenderRequest): Recommend
           ? forageToV3(eng.row.secondary_forage)
           : undefined,
       },
+      session_color_theme_label: colorThemeLabel(colorDecision.color_theme),
       monthly_baseline: {
         allowed_columns: [...eng.row.column_range] as TacticalColumnV3[],
         allowed_paces: [...eng.row.pace_range] as TacticalPaceV3[],

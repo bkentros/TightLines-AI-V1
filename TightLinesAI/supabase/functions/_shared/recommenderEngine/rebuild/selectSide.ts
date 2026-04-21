@@ -215,6 +215,8 @@ export function archetypeToRankedFields(args: {
   archetype: ArchetypeProfileV4;
   water_clarity: WaterClarity;
   row: SeasonalRowV4;
+  /** Today's tactical slot — drives displayed pace and presence; column stays archetype-authored. */
+  targetProfile: TargetProfile;
 }): {
   id: string;
   display_name: string;
@@ -226,13 +228,15 @@ export function archetypeToRankedFields(args: {
   presence: "subtle" | "moderate" | "bold";
   is_surface: boolean;
 } {
-  const { archetype, water_clarity, row } = args;
+  const { archetype, water_clarity, row, targetProfile } = args;
   const how = pickHowToFish(archetype, water_clarity);
+  const slotCol = targetProfile.column;
+  const slotPace = targetProfile.pace;
   const why =
-    `${archetype.display_name} fits the ${archetype.column} / ${archetype.primary_pace} lane` +
+    `Chosen for today's ${slotPace} pace (${slotCol} slot). ${archetype.display_name} targets the ${archetype.column} column.` +
     (row.primary_forage
-      ? ` while ${labelForage(row.primary_forage)} patterns matter.`
-      : ".");
+      ? ` ${labelForage(row.primary_forage)} patterns matter this month.`
+      : "");
 
   return {
     id: archetype.id,
@@ -241,8 +245,8 @@ export function archetypeToRankedFields(args: {
     why_chosen: why,
     how_to_fish: how,
     primary_column: archetype.column,
-    pace: archetype.primary_pace,
-    presence: presenceFromPace(archetype.primary_pace),
+    pace: slotPace,
+    presence: presenceFromPace(slotPace),
     is_surface: archetype.is_surface,
   };
 }

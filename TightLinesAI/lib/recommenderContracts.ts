@@ -209,6 +209,8 @@ export type RecommenderSessionSummary = {
     primary: ForageMode;
     secondary?: ForageMode;
   };
+  /** Rebuild responses: Natural / Dark / Bright — aligns with card `color_style`. */
+  session_color_theme_label?: string;
   monthly_baseline: {
     allowed_columns: TacticalColumn[];
     allowed_paces: TacticalPace[];
