@@ -192,6 +192,8 @@ export type RankedRecommendation = {
   pace: TacticalPace;
   presence: TacticalPresence;
   is_surface: boolean;
+  /** Rebuild: which shared daily tactical slot (0–2) this pick satisfied. */
+  source_slot_index?: number;
 };
 
 export type DailyPostureBand =

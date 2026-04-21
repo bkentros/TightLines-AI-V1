@@ -8,6 +8,7 @@ import type { ArchetypeProfileV4, SeasonalRowV4 } from "../v4/contracts.ts";
 import { analyzeRecommenderConditions } from "../sharedAnalysis.ts";
 import { computeRecommenderRebuild } from "../rebuild/runRecommenderRebuild.ts";
 import { selectArchetypesForSide } from "../rebuild/selectSide.ts";
+import { runRecommenderRebuildSurface } from "../index.ts";
 import type { TargetProfile } from "../rebuild/shapeProfiles.ts";
 
 function baseRow(overrides: Partial<SeasonalRowV4> = {}): SeasonalRowV4 {
@@ -151,6 +152,43 @@ Deno.test("rebuild: each lure/fly pick matches exact slot column+pace for its in
   for (const pick of eng.flySlotPicks) {
     assertArchetypeMatchesSlot(pick.archetype, pick.profile);
   }
+});
+
+Deno.test("rebuild surface: ranked fly rows carry source_slot_index in slot order", () => {
+  const req: RecommenderRequest = {
+    location: {
+      latitude: 28.06,
+      longitude: -82.29,
+      state_code: "FL",
+      region_key: "florida",
+      local_date: "2026-04-21",
+      local_timezone: "America/New_York",
+      month: 4,
+    },
+    species: "largemouth_bass",
+    context: "freshwater_river",
+    water_clarity: "dirty",
+    env_data: {
+      timezone: "America/New_York",
+      hourly: { wind_speed_mph: Array(24).fill(5) },
+    },
+  };
+  const res = runRecommenderRebuildSurface(req);
+  assert(res.fly_recommendations.length >= 1);
+  for (let i = 0; i < res.fly_recommendations.length; i++) {
+    const f = res.fly_recommendations[i]!;
+    assert(f.source_slot_index !== undefined);
+    assert(f.source_slot_index >= 0 && f.source_slot_index <= 2);
+  }
+  for (let i = 1; i < res.fly_recommendations.length; i++) {
+    assert(
+      res.fly_recommendations[i]!.source_slot_index! >
+        res.fly_recommendations[i - 1]!.source_slot_index!,
+    );
+  }
+  // First rendered card is display rank 0 (gold in UI); if slot 0/1 had no fly, origin is later.
+  const f0 = res.fly_recommendations[0]!;
+  assert(f0.source_slot_index! >= 0);
 });
 
 Deno.test("rebuild: Florida LMB river returns flies when early shared slots are fly-thin", () => {

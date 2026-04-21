@@ -16,6 +16,8 @@ import type { TargetProfile } from "./shapeProfiles.ts";
 export type RebuildSlotPick = {
   archetype: ArchetypeProfileV4;
   profile: TargetProfile;
+  /** 0-based index into the shared 3 `TargetProfile` slots this pick matched (may skip earlier slots). */
+  source_slot_index: number;
 };
 
 function mulberry32(a: number): () => number {
@@ -178,7 +180,7 @@ export function selectArchetypesForSide(args: {
     );
 
     const chosen = tierPool[0]!.cand;
-    picked.push({ archetype: chosen, profile });
+    picked.push({ archetype: chosen, profile, source_slot_index: slot });
     pickedIds.add(chosen.id);
   }
 

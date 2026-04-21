@@ -119,7 +119,7 @@ export function runRecommenderRebuildSurface(req: RecommenderRequest): Recommend
   const colorPhrase = colorReasonPhraseV3(colorDecision.reason_code);
 
   const toRanked = (picks: RebuildSlotPick[]): RankedRecommendation[] =>
-    picks.map(({ archetype, profile }) => {
+    picks.map(({ archetype, profile, source_slot_index }) => {
       const core = archetypeToRankedFields({
         archetype,
         water_clarity: req.water_clarity,
@@ -133,6 +133,7 @@ export function runRecommenderRebuildSurface(req: RecommenderRequest): Recommend
         presence: core.presence as TacticalPresenceV3,
         color_style: colorThemeLabel(colorDecision.color_theme),
         why_chosen: `${colorPhrase} ${core.why_chosen}`,
+        source_slot_index,
       };
     });
 

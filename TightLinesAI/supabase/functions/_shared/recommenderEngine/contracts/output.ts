@@ -30,6 +30,8 @@ export type RankedRecommendation = {
   pace: TacticalPaceV3;
   presence: TacticalPresenceV3;
   is_surface: boolean;
+  /** Rebuild: which shared daily tactical slot (0–2) this pick satisfied. Omitted by legacy v3 surface. */
+  source_slot_index?: number;
 };
 
 export type RecommenderSessionSummary = {

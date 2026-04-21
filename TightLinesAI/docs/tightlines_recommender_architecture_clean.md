@@ -698,11 +698,15 @@ The live rebuild returns a stable app-facing response through `runRecommenderReb
 - engine-selected pace
 - engine-derived presence
 - surface flag
+- optional `source_slot_index` (0–2): which shared daily tactical **profile slot** this pick satisfied when the rebuild engine filled that slot (present on rebuild responses; omitted on legacy v3 surfaces)
 
 Important:
 - displayed `column` reflects the item's authored profile
 - displayed `pace` reflects the pace the engine selected for that slot
 - displayed `presence` is derived from that selected pace
+
+### Thin lists and presentation order
+Recommendation arrays contain **only real picks** (no padding). The client may show medals **Gold / Silver / Bronze** by **array order** (first pick = Gold, …) so short lists never leave a visual “hole” where an earlier slot had no item. When a pick satisfied a **later** tactical slot because earlier slots had no eligible item on that side, `source_slot_index` preserves that fact; the app may surface it subtly (e.g. “Daily slot 3 of 3”) without changing medal order or per-card pace/column truth.
 
 ### Missing seasonal row behavior
 If a gated runtime request has no authored seasonal row for its exact:

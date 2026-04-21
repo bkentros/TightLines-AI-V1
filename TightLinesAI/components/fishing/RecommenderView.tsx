@@ -11,7 +11,9 @@
  *   • paper palette (ink / paperLight / forest / gold / red / walnut)
  *   • Fraunces display for titles, DM Sans for UI, mono for counters
  *   • 2px ink borders + 2px hard shadows
- *   • medal badges (gold/silver/bronze) derived from rank (1/2/3)
+ *   • medal badges (gold/silver/bronze) from **display order** (first card = gold, …)
+ *     so thin lists compress visually; optional `source_slot_index` labels when a
+ *     card matched a later daily tactical slot
  *   • WaterColumnDiagram mirrors the FinFindr tackle card
  *   • "Why chosen" and "How to fish" are preserved verbatim from the engine
  */
@@ -302,6 +304,12 @@ function TackleCard({
             {String(index + 1).padStart(2, '0')} / {String(totalCount).padStart(2, '0')}
           </Text>
         </View>
+        {item.source_slot_index != null &&
+        item.source_slot_index !== index ? (
+          <Text style={styles.slotTruth} numberOfLines={1}>
+            DAILY SLOT {item.source_slot_index + 1} OF 3
+          </Text>
+        ) : null}
       </View>
     </View>
   );
@@ -982,6 +990,15 @@ const styles = StyleSheet.create({
     color: paper.ink,
     opacity: 0.45,
     letterSpacing: 1.2,
+  },
+  slotTruth: {
+    fontFamily: paperFonts.mono,
+    fontSize: 9,
+    color: paper.ink,
+    opacity: 0.38,
+    letterSpacing: 1.4,
+    marginTop: 4,
+    textAlign: 'right',
   },
 
   // ── Water column diagram ─────────────────────────────────────────────
