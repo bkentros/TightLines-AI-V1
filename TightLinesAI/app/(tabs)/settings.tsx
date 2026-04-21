@@ -457,7 +457,8 @@ export default function SettingsScreen() {
                 <Text style={styles.ownerSectionTitle}>DEVELOPER</Text>
                 <Text style={styles.ownerSectionHint}>
                   Clear saved How&apos;s Fishing reports (today and forecast days), 7-day outlook chips,
-                  and the live conditions cache. Open Home or How&apos;s Fishing again to regenerate.
+                  live conditions cache, and cached lure/fly recommender results for the day. Open Home,
+                  How&apos;s Fishing, or the recommender again to regenerate.
                 </Text>
                 <Pressable
                   style={({ pressed }) => [
@@ -469,7 +470,7 @@ export default function SettingsScreen() {
                     if (clearingCaches) return;
                     Alert.alert(
                       'Clear local caches?',
-                      "Removes this device's cached reports and outlook data. You'll fetch fresh data the next time you load Home or generate a report.",
+                      "Removes this device's cached How's Fishing reports, outlook chips, live conditions, and recommender lure/fly results. You'll fetch fresh data the next time you load Home, generate a report, or open the recommender.",
                       [
                         { text: 'Cancel', style: 'cancel' },
                         {
@@ -481,7 +482,7 @@ export default function SettingsScreen() {
                               await clearOwnerFishCaches();
                               Alert.alert(
                                 'Caches cleared',
-                                'Go to Home or How\'s Fishing to load new data.',
+                                'Go to Home, How\'s Fishing, or the recommender to load new data.',
                               );
                             } catch {
                               Alert.alert('Could not clear', 'Try again in a moment.');
@@ -501,7 +502,7 @@ export default function SettingsScreen() {
                     <>
                       <Ionicons name="trash-outline" size={16} color={paper.paper} />
                       <Text style={styles.ownerClearBtnText}>
-                        CLEAR FISH REPORT CACHES
+                        CLEAR FISHING DATA CACHES
                       </Text>
                     </>
                   )}

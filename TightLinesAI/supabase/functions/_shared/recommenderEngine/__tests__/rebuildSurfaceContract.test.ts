@@ -34,8 +34,11 @@ Deno.test("rebuild surface returns the current frontend contract for a supported
   const result = runRecommenderRebuildSurface(request());
 
   assertEquals(result.feature, "recommender_rebuild");
-  assert(result.lure_recommendations.length >= 1 && result.lure_recommendations.length <= 3);
-  assert(result.fly_recommendations.length >= 1 && result.fly_recommendations.length <= 3);
+  assert(result.lure_recommendations.length >= 0 && result.lure_recommendations.length <= 3);
+  assert(result.fly_recommendations.length >= 0 && result.fly_recommendations.length <= 3);
+  assert(
+    result.lure_recommendations.length + result.fly_recommendations.length >= 1,
+  );
   assert(typeof result.summary.daily_tactical_preference.posture_band === "string");
   assert(typeof result.summary.daily_tactical_preference.preferred_column === "string");
   assert(typeof result.summary.monthly_forage.primary === "string");
@@ -59,8 +62,12 @@ Deno.test("rebuild surface keeps deterministic color style output on each recomm
       },
     },
   }));
-  assert(typeof dirtyLowLight.lure_recommendations[0]?.color_style === "string");
-  assert(typeof dirtyLowLight.fly_recommendations[0]?.color_style === "string");
+  if (dirtyLowLight.lure_recommendations.length > 0) {
+    assert(typeof dirtyLowLight.lure_recommendations[0]!.color_style === "string");
+  }
+  if (dirtyLowLight.fly_recommendations.length > 0) {
+    assert(typeof dirtyLowLight.fly_recommendations[0]!.color_style === "string");
+  }
 
   const clearBright = runRecommenderRebuildSurface(request({
     water_clarity: "clear",
@@ -71,8 +78,12 @@ Deno.test("rebuild surface keeps deterministic color style output on each recomm
       },
     },
   }));
-  assert(typeof clearBright.lure_recommendations[0]?.color_style === "string");
-  assert(typeof clearBright.fly_recommendations[0]?.color_style === "string");
+  if (clearBright.lure_recommendations.length > 0) {
+    assert(typeof clearBright.lure_recommendations[0]!.color_style === "string");
+  }
+  if (clearBright.fly_recommendations.length > 0) {
+    assert(typeof clearBright.fly_recommendations[0]!.color_style === "string");
+  }
 });
 
 Deno.test("rebuild surface maps trout and pike through the current response shape", () => {
@@ -117,27 +128,25 @@ Deno.test("rebuild surface: card column is archetype profile; pace/presence foll
   const eng = computeRecommenderRebuild(req, analyzeRecommenderConditions(req));
 
   for (let i = 0; i < r.lure_recommendations.length; i++) {
-    const prof = eng.profiles[i];
-    assert(prof != null);
+    const pick = eng.lureSlotPicks[i]!;
     const lure = r.lure_recommendations[i]!;
-    const lureArc = eng.lureArchetypes[i]!;
-    assertEquals(lure.primary_column, lureArc.column);
-    assertEquals(lure.pace, prof.pace);
-    assertEquals(lure.presence, presenceFromPace(prof.pace));
+    assertEquals(lure.primary_column, pick.archetype.column);
+    assertEquals(lure.pace, pick.profile.pace);
+    assertEquals(lure.presence, presenceFromPace(pick.profile.pace));
   }
 
   for (let i = 0; i < r.fly_recommendations.length; i++) {
-    const prof = eng.profiles[i];
-    assert(prof != null);
+    const pick = eng.flySlotPicks[i]!;
     const fly = r.fly_recommendations[i]!;
-    const flyArc = eng.flyArchetypes[i]!;
-    assertEquals(fly.primary_column, flyArc.column);
-    assertEquals(fly.pace, prof.pace);
-    assertEquals(fly.presence, presenceFromPace(prof.pace));
+    assertEquals(fly.primary_column, pick.archetype.column);
+    assertEquals(fly.pace, pick.profile.pace);
+    assertEquals(fly.presence, presenceFromPace(pick.profile.pace));
   }
 
   assert(typeof r.summary.session_color_theme_label === "string");
-  assertEquals(r.summary.session_color_theme_label, r.lure_recommendations[0]?.color_style);
+  const firstStyled = r.lure_recommendations[0] ?? r.fly_recommendations[0];
+  assert(firstStyled != null);
+  assertEquals(r.summary.session_color_theme_label, firstStyled.color_style);
 });
 
 Deno.test("rebuild surface exposes monthly and daily summary fields", () => {

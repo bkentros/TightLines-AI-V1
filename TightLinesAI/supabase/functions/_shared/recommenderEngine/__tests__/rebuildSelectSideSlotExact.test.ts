@@ -83,7 +83,7 @@ Deno.test("selectSide: secondary_pace exact match fills slot", () => {
     surfaceBlocked: false,
     seedBase: "t-sec-pace",
   });
-  assertEquals(out.map((x) => x.id), ["weightless_stick_worm"]);
+  assertEquals(out.map((p) => p.archetype.id), ["weightless_stick_worm"]);
 });
 
 Deno.test("selectSide: stops when later slot has no exact fit (no drift)", () => {
@@ -103,7 +103,7 @@ Deno.test("selectSide: stops when later slot has no exact fit (no drift)", () =>
     seedBase: "t-thin",
   });
   assertEquals(out.length, 1);
-  assertEquals(out[0]!.id, "drop_shot_worm");
+  assertEquals(out[0]!.archetype.id, "drop_shot_worm");
 });
 
 Deno.test("selectSide: deterministic duplicate runs", () => {
@@ -145,10 +145,37 @@ Deno.test("rebuild: each lure/fly pick matches exact slot column+pace for its in
     req,
     analyzeRecommenderConditions(req),
   );
-  for (let i = 0; i < eng.lureArchetypes.length; i++) {
-    assertArchetypeMatchesSlot(eng.lureArchetypes[i]!, eng.profiles[i]!);
+  for (const pick of eng.lureSlotPicks) {
+    assertArchetypeMatchesSlot(pick.archetype, pick.profile);
   }
-  for (let i = 0; i < eng.flyArchetypes.length; i++) {
-    assertArchetypeMatchesSlot(eng.flyArchetypes[i]!, eng.profiles[i]!);
+  for (const pick of eng.flySlotPicks) {
+    assertArchetypeMatchesSlot(pick.archetype, pick.profile);
   }
+});
+
+Deno.test("rebuild: Florida LMB river returns flies when early shared slots are fly-thin", () => {
+  const req: RecommenderRequest = {
+    location: {
+      latitude: 28.06,
+      longitude: -82.29,
+      state_code: "FL",
+      region_key: "florida",
+      local_date: "2026-04-21",
+      local_timezone: "America/New_York",
+      month: 4,
+    },
+    species: "largemouth_bass",
+    context: "freshwater_river",
+    water_clarity: "dirty",
+    env_data: {
+      timezone: "America/New_York",
+      hourly: { wind_speed_mph: Array(24).fill(5) },
+    },
+  };
+  const eng = computeRecommenderRebuild(
+    req,
+    analyzeRecommenderConditions(req),
+  );
+  assert(eng.lureSlotPicks.length >= 1, "expected at least one lure");
+  assert(eng.flySlotPicks.length >= 1, "expected at least one fly after slot-skip");
 });

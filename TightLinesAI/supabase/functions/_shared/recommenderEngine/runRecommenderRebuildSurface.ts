@@ -28,7 +28,11 @@ import {
 import type { SeasonalRowV4 } from "./v4/contracts.ts";
 import type { TacticalColumn, TacticalPace } from "./v4/contracts.ts";
 import { computeRecommenderRebuild } from "./rebuild/runRecommenderRebuild.ts";
-import { archetypeToRankedFields, presenceFromPace } from "./rebuild/selectSide.ts";
+import {
+  archetypeToRankedFields,
+  presenceFromPace,
+  type RebuildSlotPick,
+} from "./rebuild/selectSide.ts";
 import type { DailyRegime } from "./rebuild/shapeProfiles.ts";
 
 export function locationLocalMidnightIso(timezone: string, now = new Date()): string {
@@ -114,19 +118,13 @@ export function runRecommenderRebuildSurface(req: RecommenderRequest): Recommend
   const colorDecision = resolveColorDecisionV3(req.water_clarity, bucket);
   const colorPhrase = colorReasonPhraseV3(colorDecision.reason_code);
 
-  const toRanked = (
-    archetypes: typeof eng.lureArchetypes,
-  ): RankedRecommendation[] =>
-    archetypes.map((a, i) => {
-      const targetProfile = eng.profiles[i];
-      if (!targetProfile) {
-        throw new Error("rebuild surface: missing target profile for recommendation slot");
-      }
+  const toRanked = (picks: RebuildSlotPick[]): RankedRecommendation[] =>
+    picks.map(({ archetype, profile }) => {
       const core = archetypeToRankedFields({
-        archetype: a,
+        archetype,
         water_clarity: req.water_clarity,
         row: eng.row,
-        targetProfile,
+        targetProfile: profile,
       });
       return {
         ...core,
@@ -189,7 +187,7 @@ export function runRecommenderRebuildSurface(req: RecommenderRequest): Recommend
         opportunity_mix: mapOpportunityMix(eng.regime),
       },
     },
-    lure_recommendations: toRanked(eng.lureArchetypes),
-    fly_recommendations: toRanked(eng.flyArchetypes),
+    lure_recommendations: toRanked(eng.lureSlotPicks),
+    fly_recommendations: toRanked(eng.flySlotPicks),
   };
 }

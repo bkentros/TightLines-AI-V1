@@ -595,7 +595,7 @@ For each slot’s target profile (e.g. `upper / fast`), a candidate may fill tha
 
 Candidates must still sit inside the seasonal envelope (`column_range` / `pace_range` on the row) as enforced before slot matching.
 
-If no candidate satisfies that slot exactly, **stop filling further slots on that side** and return fewer picks. Do not fall back to adjacent column, adjacent pace, or any other in-envelope-only rescue.
+If no candidate satisfies a given slot exactly on that side, **skip that slot** and **continue** to the next ranked profile slot. Returned picks are only exact fits; each recommendation card carries the **target profile (pace/presence) of the slot it actually filled**, so lure and fly lists can be shorter than three and may omit earlier slots when that side has no inventory for them. Do not fall back to adjacent column, adjacent pace, or any other in-envelope-only rescue.
 
 Important:
 - Slot matching happens only inside the hard-gated shortlist for that row and side

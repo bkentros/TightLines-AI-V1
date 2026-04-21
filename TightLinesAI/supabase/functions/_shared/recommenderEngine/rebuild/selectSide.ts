@@ -12,6 +12,12 @@ import { pickHowToFish } from "../v4/engine/buildCopy.ts";
 import type { TacticalColumn, TacticalPace } from "../v4/contracts.ts";
 import type { TargetProfile } from "./shapeProfiles.ts";
 
+/** One filled recommendation: exact-fit archetype plus the target profile it satisfied. */
+export type RebuildSlotPick = {
+  archetype: ArchetypeProfileV4;
+  profile: TargetProfile;
+};
+
 function mulberry32(a: number): () => number {
   return function () {
     let t = (a += 0x6d2b79f5);
@@ -92,7 +98,7 @@ export function selectArchetypesForSide(args: {
   profiles: TargetProfile[];
   surfaceBlocked: boolean;
   seedBase: string;
-}): ArchetypeProfileV4[] {
+}): RebuildSlotPick[] {
   const {
     side,
     row,
@@ -135,7 +141,7 @@ export function selectArchetypesForSide(args: {
     return true;
   }
 
-  const picked: ArchetypeProfileV4[] = [];
+  const picked: RebuildSlotPick[] = [];
   const pickedIds = new Set<string>();
 
   for (let slot = 0; slot < profiles.length; slot++) {
@@ -151,7 +157,9 @@ export function selectArchetypesForSide(args: {
       const t = exactSlotFitTier(profile, cand, row);
       if (t == null) continue;
 
-      const famPenalty = picked.some((p) => p.family_group === cand.family_group)
+      const famPenalty = picked.some((p) =>
+          p.archetype.family_group === cand.family_group
+        )
         ? 1
         : 0;
       const bonus = forageBonus(cand, row);
@@ -161,7 +169,7 @@ export function selectArchetypesForSide(args: {
       ranked.push({ cand, tier: t, sort });
     }
 
-    if (ranked.length === 0) break;
+    if (ranked.length === 0) continue;
 
     const bestTier = Math.min(...ranked.map((r) => r.tier));
     const tierPool = ranked.filter((r) => r.tier === bestTier);
@@ -170,7 +178,7 @@ export function selectArchetypesForSide(args: {
     );
 
     const chosen = tierPool[0]!.cand;
-    picked.push(chosen);
+    picked.push({ archetype: chosen, profile });
     pickedIds.add(chosen.id);
   }
 

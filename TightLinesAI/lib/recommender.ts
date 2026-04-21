@@ -17,6 +17,7 @@ import type {
   SpeciesGroup,
   WaterClarity,
 } from './recommenderContracts';
+import { RECOMMENDER_FEATURE } from './recommenderContracts';
 
 const COORD_THRESHOLD = 0.01;
 
@@ -56,8 +57,8 @@ function cacheKey(
 ): string {
   const dayKey = extractRequestDay(params);
   return [
-    // Prefix must change when the edge response contract changes (invalidate stale caches).
-    'recommender_rebuild_tacv1',
+    // Prefix must change when the edge response contract or selection rules change.
+    'recommender_rebuild_tacv2',
     params.latitude.toFixed(3),
     params.longitude.toFixed(3),
     params.state_code.toUpperCase(),
@@ -94,23 +95,16 @@ const _memCache = new Map<string, CacheEntry>();
  * Guards against stale cached results from older API shapes.
  */
 function isCachedResultValid(result: RecommenderResponse): boolean {
-  if (
-    !Array.isArray(result.lure_recommendations) ||
-    result.lure_recommendations.length < 1 ||
-    result.lure_recommendations.length > 3
-  ) {
-    return false;
-  }
-  if (
-    !Array.isArray(result.fly_recommendations) ||
-    result.fly_recommendations.length < 1 ||
-    result.fly_recommendations.length > 3
-  ) {
-    return false;
-  }
-  const first = result.lure_recommendations[0];
-  if (!first || typeof first.id !== 'string' || typeof first.why_chosen !== 'string') {
-    return false;
+  if (result.feature !== RECOMMENDER_FEATURE) return false;
+  const lures = result.lure_recommendations;
+  const flies = result.fly_recommendations;
+  if (!Array.isArray(lures) || !Array.isArray(flies)) return false;
+  if (lures.length > 3 || flies.length > 3) return false;
+  if (lures.length + flies.length < 1) return false;
+  for (const rec of [...lures, ...flies]) {
+    if (!rec || typeof rec.id !== 'string' || typeof rec.why_chosen !== 'string') {
+      return false;
+    }
   }
   if (typeof result.summary?.daily_tactical_preference?.posture_band !== 'string') {
     return false;
@@ -170,6 +164,7 @@ async function setCachedResult(
   params: RecommenderCallParams,
   result: RecommenderResponse,
 ): Promise<void> {
+  if (!isCachedResultValid(result)) return;
   const dayKey = extractRequestDay(params);
   const key = cacheKey(params);
   const entry: CacheEntry = {
@@ -218,10 +213,10 @@ export async function fetchRecommendation(
 
 // ─── Cache invalidation ───────────────────────────────────────────────────────
 
-/** Day-cache namespace: `^recommender_v\\d+_` (matches `cacheKey` and legacy v1–v6+ prefixes). */
-const RECOMMENDER_ASYNC_STORAGE_KEY = /^recommender_v\d+_/;
+/** AsyncStorage keys owned by this module (`cacheKey` + legacy `recommender_v*` prefixes). */
+const RECOMMENDER_ASYNC_STORAGE_KEY = /^recommender_/;
 
-/** Clears in-memory cache and AsyncStorage keys matching `^recommender_v\\d+_` only. */
+/** Clears in-memory cache and all AsyncStorage keys under the recommender namespace. */
 export async function clearRecommenderCache(): Promise<void> {
   _memCache.clear();
   try {

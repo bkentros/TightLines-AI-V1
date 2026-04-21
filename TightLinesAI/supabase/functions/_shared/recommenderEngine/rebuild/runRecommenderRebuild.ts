@@ -2,7 +2,6 @@ import type { SharedConditionAnalysis } from "../../howFishingEngine/analyzeShar
 import type { RecommenderRequest } from "../contracts/input.ts";
 import { assertRecommenderV3Scope } from "../v3/scope.ts";
 import type { SeasonalRowV4 } from "../v4/contracts.ts";
-import type { ArchetypeProfileV4 } from "../v4/contracts.ts";
 import { resolveSeasonalRowRebuild } from "./seasonalResolve.ts";
 import { meanDaylightWindMph } from "./wind.ts";
 import {
@@ -12,7 +11,7 @@ import {
   type DailyRegime,
   type TargetProfile,
 } from "./shapeProfiles.ts";
-import { selectArchetypesForSide } from "./selectSide.ts";
+import { selectArchetypesForSide, type RebuildSlotPick } from "./selectSide.ts";
 
 export type RebuildEngineResult = {
   row: SeasonalRowV4;
@@ -21,8 +20,8 @@ export type RebuildEngineResult = {
   daylightWindMph: number;
   howsScore: number;
   profiles: TargetProfile[];
-  lureArchetypes: ArchetypeProfileV4[];
-  flyArchetypes: ArchetypeProfileV4[];
+  lureSlotPicks: RebuildSlotPick[];
+  flySlotPicks: RebuildSlotPick[];
 };
 
 export function computeRecommenderRebuild(
@@ -54,7 +53,7 @@ export function computeRecommenderRebuild(
   const seedBase =
     `${req.location.local_date}|${req.location.region_key}|${species}|${context}|${req.water_clarity}`;
 
-  const lureArchetypes = selectArchetypesForSide({
+  const lureSlotPicks = selectArchetypesForSide({
     side: "lure",
     row,
     species,
@@ -65,7 +64,7 @@ export function computeRecommenderRebuild(
     seedBase,
   });
 
-  const flyArchetypes = selectArchetypesForSide({
+  const flySlotPicks = selectArchetypesForSide({
     side: "fly",
     row,
     species,
@@ -83,7 +82,7 @@ export function computeRecommenderRebuild(
     daylightWindMph,
     howsScore,
     profiles,
-    lureArchetypes,
-    flyArchetypes,
+    lureSlotPicks,
+    flySlotPicks,
   };
 }
