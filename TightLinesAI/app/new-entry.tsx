@@ -1,3 +1,11 @@
+/**
+ * New Entry — FinFindr paper language.
+ *
+ * Visual migration only. All form fields, catch-count state, conditions toggle,
+ * and Select-driven dropdowns remain identical to the pre-migration version.
+ * Wiring this form into real persistence is a future pass.
+ */
+
 import { useState } from 'react';
 import {
   View,
@@ -11,7 +19,14 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import Select from '../components/Select';
-import { colors, fonts, spacing, radius } from '../lib/theme';
+import {
+  paper,
+  paperFonts,
+  paperRadius,
+  paperShadows,
+  paperSpacing,
+} from '../lib/theme';
+import { PaperBackground, SectionEyebrow } from '../components/paper';
 
 const BODY_OPTIONS = [
   'River', 'Lake', 'Pond', 'Surf / Beach',
@@ -44,307 +59,493 @@ export default function NewEntryScreen() {
   const [release, setRelease] = useState<string | null>('Released');
 
   return (
-    <KeyboardAvoidingView
-      style={styles.flex}
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-    >
-      <ScrollView
-        style={styles.scroll}
-        contentContainerStyle={styles.content}
-        showsVerticalScrollIndicator={false}
-        keyboardShouldPersistTaps="handled"
+    <PaperBackground>
+      <KeyboardAvoidingView
+        style={styles.flex}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       >
-        {/* Voice Log button */}
-        <Pressable
-          style={({ pressed }) => [styles.voiceBtn, pressed && styles.voiceBtnPressed]}
+        <ScrollView
+          style={styles.scroll}
+          contentContainerStyle={styles.content}
+          showsVerticalScrollIndicator={false}
+          keyboardShouldPersistTaps="handled"
         >
-          <Ionicons name="mic" size={18} color={colors.sage} />
-          <Text style={styles.voiceBtnText}>Voice Log</Text>
-          <Text style={styles.voiceBtnHint}>Tap to speak your trip details</Text>
-        </Pressable>
-
-        {/* ─── Trip Details ─── */}
-        <Text style={styles.section}>Trip Details</Text>
-
-        <View style={styles.row}>
-          <View style={styles.half}>
-            <Text style={styles.label}>Date</Text>
-            <TextInput style={styles.input} placeholder="Today" placeholderTextColor={colors.textMuted} />
+          <View style={styles.eyebrowRow}>
+            <SectionEyebrow dashes size={11} color={paper.red}>
+              FINFINDR · NEW ENTRY
+            </SectionEyebrow>
           </View>
-          <View style={styles.half}>
-            <Text style={styles.label}>Duration</Text>
-            <TextInput style={styles.input} placeholder="e.g. 4 hrs" placeholderTextColor={colors.textMuted} />
-          </View>
-        </View>
 
-        {/* Location */}
-        <Text style={styles.section}>Location</Text>
-
-        <View style={styles.field}>
-          <TextInput style={styles.input} placeholder="e.g. Tampa Bay Inshore" placeholderTextColor={colors.textMuted} />
-        </View>
-
-        <Pressable style={({ pressed }) => [styles.syncBtn, pressed && styles.pressed]}>
-          <Ionicons name="location" size={16} color={colors.textLight} />
-          <Text style={styles.syncText}>Sync Location</Text>
-        </Pressable>
-
-        {/* Water */}
-        <Text style={styles.section}>Water</Text>
-
-        <View style={styles.field}>
-          <Text style={styles.label}>Body of Water</Text>
-          <Select value={body} options={BODY_OPTIONS} placeholder="Select" onSelect={setBody} />
-        </View>
-
-        <View style={styles.row}>
-          <View style={styles.half}>
-            <Text style={styles.label}>Water Type</Text>
-            <Select value={waterType} options={WATER_TYPE_OPTIONS} placeholder="Type" onSelect={setWaterType} />
-          </View>
-          <View style={styles.half}>
-            <Text style={styles.label}>Clarity</Text>
-            <Select value={clarity} options={CLARITY_OPTIONS} placeholder="Clarity" onSelect={setClarity} />
-          </View>
-        </View>
-
-        <View style={styles.field}>
-          <Text style={styles.label}>Water Temp (°F)<Text style={styles.opt}> · Optional</Text></Text>
-          <TextInput style={styles.input} placeholder="e.g. 72" placeholderTextColor={colors.textMuted} keyboardType="numeric" />
-        </View>
-
-        {/* Conditions */}
-        <Pressable
-          style={styles.condToggle}
-          onPress={() => setShowConditions(!showConditions)}
-        >
-          <Text style={styles.condToggleText}>
-            Weather & Conditions
+          <Text style={styles.heroTitle}>Log the trip.</Text>
+          <Text style={styles.heroLede}>
+            Capture what you caught, where, and under what conditions — the
+            field notes that make future reports smarter.
           </Text>
-          <Ionicons
-            name={showConditions ? 'chevron-up' : 'chevron-down'}
-            size={16}
-            color={colors.sage}
+
+          {/* Voice Log button */}
+          <Pressable
+            style={({ pressed }) => [
+              styles.voiceBtn,
+              pressed && styles.voiceBtnPressed,
+            ]}
+          >
+            <Ionicons name="mic" size={16} color={paper.forest} />
+            <Text style={styles.voiceBtnText}>VOICE LOG</Text>
+            <Text style={styles.voiceBtnHint}>
+              Tap to speak your trip details
+            </Text>
+          </Pressable>
+
+          {/* Trip Details */}
+          <Text style={styles.section}>Trip details.</Text>
+
+          <View style={styles.row}>
+            <View style={styles.half}>
+              <Text style={styles.label}>DATE</Text>
+              <TextInput
+                style={styles.input}
+                placeholder="Today"
+                placeholderTextColor={paper.ink + '70'}
+              />
+            </View>
+            <View style={styles.half}>
+              <Text style={styles.label}>DURATION</Text>
+              <TextInput
+                style={styles.input}
+                placeholder="e.g. 4 hrs"
+                placeholderTextColor={paper.ink + '70'}
+              />
+            </View>
+          </View>
+
+          {/* Location */}
+          <Text style={styles.section}>Location.</Text>
+          <View style={styles.field}>
+            <TextInput
+              style={styles.input}
+              placeholder="e.g. Tampa Bay Inshore"
+              placeholderTextColor={paper.ink + '70'}
+            />
+          </View>
+          <Pressable
+            style={({ pressed }) => [
+              styles.syncBtn,
+              pressed && styles.syncBtnPressed,
+            ]}
+          >
+            <Ionicons name="location" size={14} color={paper.paper} />
+            <Text style={styles.syncText}>SYNC LOCATION</Text>
+          </Pressable>
+
+          {/* Water */}
+          <Text style={styles.section}>Water.</Text>
+
+          <View style={styles.field}>
+            <Text style={styles.label}>BODY OF WATER</Text>
+            <Select
+              value={body}
+              options={BODY_OPTIONS}
+              placeholder="Select"
+              onSelect={setBody}
+            />
+          </View>
+
+          <View style={styles.row}>
+            <View style={styles.half}>
+              <Text style={styles.label}>WATER TYPE</Text>
+              <Select
+                value={waterType}
+                options={WATER_TYPE_OPTIONS}
+                placeholder="Type"
+                onSelect={setWaterType}
+              />
+            </View>
+            <View style={styles.half}>
+              <Text style={styles.label}>CLARITY</Text>
+              <Select
+                value={clarity}
+                options={CLARITY_OPTIONS}
+                placeholder="Clarity"
+                onSelect={setClarity}
+              />
+            </View>
+          </View>
+
+          <View style={styles.field}>
+            <Text style={styles.label}>
+              WATER TEMP (°F)
+              <Text style={styles.opt}> · OPTIONAL</Text>
+            </Text>
+            <TextInput
+              style={styles.input}
+              placeholder="e.g. 72"
+              placeholderTextColor={paper.ink + '70'}
+              keyboardType="numeric"
+            />
+          </View>
+
+          {/* Conditions toggle */}
+          <Pressable
+            style={styles.condToggle}
+            onPress={() => setShowConditions(!showConditions)}
+          >
+            <Text style={styles.condToggleText}>Weather & conditions</Text>
+            <Ionicons
+              name={showConditions ? 'chevron-up' : 'chevron-down'}
+              size={16}
+              color={paper.ink}
+            />
+          </Pressable>
+
+          {showConditions && (
+            <View style={styles.condSection}>
+              <View style={styles.row}>
+                <View style={styles.half}>
+                  <Text style={styles.label}>AIR TEMP (°F)</Text>
+                  <TextInput
+                    style={styles.input}
+                    placeholder="72"
+                    placeholderTextColor={paper.ink + '70'}
+                    keyboardType="numeric"
+                  />
+                </View>
+                <View style={styles.half}>
+                  <Text style={styles.label}>WIND (MPH)</Text>
+                  <TextInput
+                    style={styles.input}
+                    placeholder="8"
+                    placeholderTextColor={paper.ink + '70'}
+                    keyboardType="numeric"
+                  />
+                </View>
+              </View>
+              <View style={styles.row}>
+                <View style={styles.half}>
+                  <Text style={styles.label}>WIND DIR</Text>
+                  <Select
+                    value={windDir}
+                    options={WIND_DIR_OPTIONS}
+                    placeholder="Dir"
+                    onSelect={setWindDir}
+                  />
+                </View>
+                <View style={styles.half}>
+                  <Text style={styles.label}>PRESSURE</Text>
+                  <Select
+                    value={pressure}
+                    options={PRESSURE_OPTIONS}
+                    placeholder="Trend"
+                    onSelect={setPressure}
+                  />
+                </View>
+              </View>
+              <View style={styles.row}>
+                <View style={styles.half}>
+                  <Text style={styles.label}>CLOUD COVER</Text>
+                  <Select
+                    value={cloud}
+                    options={CLOUD_OPTIONS}
+                    placeholder="Cover"
+                    onSelect={setCloud}
+                  />
+                </View>
+                <View style={styles.half}>
+                  <Text style={styles.label}>TIDE</Text>
+                  <Select
+                    value={tide}
+                    options={TIDE_OPTIONS}
+                    placeholder="Tide"
+                    onSelect={setTide}
+                  />
+                </View>
+              </View>
+              <View style={styles.field}>
+                <Text style={styles.label}>MOON PHASE</Text>
+                <Select
+                  value={moon}
+                  options={MOON_OPTIONS}
+                  placeholder="Moon"
+                  onSelect={setMoon}
+                />
+              </View>
+            </View>
+          )}
+
+          {/* Catches */}
+          <Text style={styles.section}>Catches.</Text>
+
+          {Array.from({ length: catchCount }).map((_, i) => (
+            <View key={i} style={styles.catchCard}>
+              <Text style={styles.catchNum}>CATCH {i + 1}</Text>
+              <View style={styles.row}>
+                <View style={styles.half}>
+                  <Text style={styles.label}>SPECIES</Text>
+                  <TextInput
+                    style={styles.input}
+                    placeholder="e.g. Redfish"
+                    placeholderTextColor={paper.ink + '70'}
+                  />
+                </View>
+                <View style={styles.half}>
+                  <Text style={styles.label}>SIZE</Text>
+                  <TextInput
+                    style={styles.input}
+                    placeholder='e.g. 26"'
+                    placeholderTextColor={paper.ink + '70'}
+                  />
+                </View>
+              </View>
+              <View style={styles.row}>
+                <View style={styles.half}>
+                  <Text style={styles.label}>LURE / FLY</Text>
+                  <TextInput
+                    style={styles.input}
+                    placeholder="e.g. White Paddle Tail"
+                    placeholderTextColor={paper.ink + '70'}
+                  />
+                </View>
+                <View style={styles.half}>
+                  <Text style={styles.label}>STATUS</Text>
+                  <Select
+                    value={release}
+                    options={RELEASE_OPTIONS}
+                    placeholder="Status"
+                    onSelect={setRelease}
+                  />
+                </View>
+              </View>
+            </View>
+          ))}
+
+          <Pressable
+            style={styles.addCatch}
+            onPress={() => setCatchCount(catchCount + 1)}
+          >
+            <Ionicons name="add-circle-outline" size={16} color={paper.forest} />
+            <Text style={styles.addCatchText}>ADD ANOTHER CATCH</Text>
+          </Pressable>
+
+          {/* Notes */}
+          <Text style={styles.section}>Notes.</Text>
+          <TextInput
+            style={[styles.input, styles.textArea]}
+            placeholder="Any notes about the trip..."
+            placeholderTextColor={paper.ink + '70'}
+            multiline
+            numberOfLines={3}
+            textAlignVertical="top"
           />
-        </Pressable>
 
-        {showConditions && (
-          <View style={styles.condSection}>
-            <View style={styles.row}>
-              <View style={styles.half}>
-                <Text style={styles.label}>Air Temp (°F)</Text>
-                <TextInput style={styles.input} placeholder="72" placeholderTextColor={colors.textMuted} keyboardType="numeric" />
-              </View>
-              <View style={styles.half}>
-                <Text style={styles.label}>Wind (mph)</Text>
-                <TextInput style={styles.input} placeholder="8" placeholderTextColor={colors.textMuted} keyboardType="numeric" />
-              </View>
-            </View>
-            <View style={styles.row}>
-              <View style={styles.half}>
-                <Text style={styles.label}>Wind Dir</Text>
-                <Select value={windDir} options={WIND_DIR_OPTIONS} placeholder="Dir" onSelect={setWindDir} />
-              </View>
-              <View style={styles.half}>
-                <Text style={styles.label}>Pressure</Text>
-                <Select value={pressure} options={PRESSURE_OPTIONS} placeholder="Trend" onSelect={setPressure} />
-              </View>
-            </View>
-            <View style={styles.row}>
-              <View style={styles.half}>
-                <Text style={styles.label}>Cloud Cover</Text>
-                <Select value={cloud} options={CLOUD_OPTIONS} placeholder="Cover" onSelect={setCloud} />
-              </View>
-              <View style={styles.half}>
-                <Text style={styles.label}>Tide</Text>
-                <Select value={tide} options={TIDE_OPTIONS} placeholder="Tide" onSelect={setTide} />
-              </View>
-            </View>
-            <View style={styles.field}>
-              <Text style={styles.label}>Moon Phase</Text>
-              <Select value={moon} options={MOON_OPTIONS} placeholder="Moon" onSelect={setMoon} />
-            </View>
-          </View>
-        )}
-
-        {/* Catches */}
-        <Text style={styles.section}>Catches</Text>
-
-        {Array.from({ length: catchCount }).map((_, i) => (
-          <View key={i} style={styles.catchCard}>
-            <Text style={styles.catchNum}>Catch {i + 1}</Text>
-            <View style={styles.row}>
-              <View style={styles.half}>
-                <Text style={styles.label}>Species</Text>
-                <TextInput style={styles.input} placeholder="e.g. Redfish" placeholderTextColor={colors.textMuted} />
-              </View>
-              <View style={styles.half}>
-                <Text style={styles.label}>Size</Text>
-                <TextInput style={styles.input} placeholder='e.g. 26"' placeholderTextColor={colors.textMuted} />
-              </View>
-            </View>
-            <View style={styles.row}>
-              <View style={styles.half}>
-                <Text style={styles.label}>Lure / Fly</Text>
-                <TextInput style={styles.input} placeholder="e.g. White Paddle Tail" placeholderTextColor={colors.textMuted} />
-              </View>
-              <View style={styles.half}>
-                <Text style={styles.label}>Status</Text>
-                <Select value={release} options={RELEASE_OPTIONS} placeholder="Status" onSelect={setRelease} />
-              </View>
-            </View>
-          </View>
-        ))}
-
-        <Pressable
-          style={styles.addCatch}
-          onPress={() => setCatchCount(catchCount + 1)}
-        >
-          <Ionicons name="add-circle-outline" size={18} color={colors.sage} />
-          <Text style={styles.addCatchText}>Add Another Catch</Text>
-        </Pressable>
-
-        {/* Notes */}
-        <Text style={styles.section}>Notes</Text>
-        <TextInput
-          style={[styles.input, styles.textArea]}
-          placeholder="Any notes about the trip..."
-          placeholderTextColor={colors.textMuted}
-          multiline
-          numberOfLines={3}
-          textAlignVertical="top"
-        />
-
-        {/* Save */}
-        <Pressable style={({ pressed }) => [styles.saveBtn, pressed && styles.pressed]}>
-          <Text style={styles.saveText}>Save Entry</Text>
-        </Pressable>
-      </ScrollView>
-    </KeyboardAvoidingView>
+          {/* Save */}
+          <Pressable
+            style={({ pressed }) => [
+              styles.saveBtn,
+              pressed && styles.saveBtnPressed,
+            ]}
+          >
+            <Text style={styles.saveText}>SAVE ENTRY</Text>
+          </Pressable>
+        </ScrollView>
+      </KeyboardAvoidingView>
+    </PaperBackground>
   );
 }
 
 const styles = StyleSheet.create({
   flex: { flex: 1 },
-  scroll: { flex: 1, backgroundColor: colors.background },
-  content: { padding: spacing.lg, paddingBottom: spacing.xxl + 20 },
-  pressed: { opacity: 0.8 },
+  scroll: { flex: 1 },
+  content: {
+    paddingHorizontal: paperSpacing.lg,
+    paddingTop: paperSpacing.sm,
+    paddingBottom: paperSpacing.xxl + 20,
+  },
 
-  /* Voice button */
+  eyebrowRow: { marginBottom: paperSpacing.md },
+  heroTitle: {
+    fontFamily: paperFonts.display,
+    fontSize: 30,
+    color: paper.ink,
+    fontWeight: '700',
+    letterSpacing: -1,
+    lineHeight: 34,
+  },
+  heroLede: {
+    fontFamily: paperFonts.displayItalic,
+    fontSize: 14,
+    color: paper.ink,
+    opacity: 0.7,
+    lineHeight: 20,
+    marginBottom: paperSpacing.lg,
+  },
+
   voiceBtn: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: spacing.sm,
-    backgroundColor: colors.sageLight,
-    borderRadius: radius.md,
-    paddingVertical: spacing.md - 2,
-    paddingHorizontal: spacing.md,
-    marginBottom: spacing.lg,
-    borderWidth: 1,
-    borderColor: colors.sage + '30',
+    gap: paperSpacing.sm,
+    backgroundColor: paper.paperLight,
+    borderRadius: paperRadius.card,
+    borderWidth: 1.5,
+    borderColor: paper.ink,
+    paddingVertical: paperSpacing.sm + 4,
+    paddingHorizontal: paperSpacing.md,
+    marginBottom: paperSpacing.lg,
   },
-  voiceBtnPressed: { backgroundColor: colors.sage + '20' },
+  voiceBtnPressed: { backgroundColor: paper.paperDark },
   voiceBtnText: {
-    fontSize: 15,
-    fontWeight: '600',
-    color: colors.sage,
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 11,
+    color: paper.forest,
+    letterSpacing: 2.4,
   },
   voiceBtnHint: {
     flex: 1,
+    fontFamily: paperFonts.displayItalic,
     fontSize: 12,
-    color: colors.textMuted,
+    color: paper.ink,
+    opacity: 0.6,
     textAlign: 'right',
   },
 
-  /* Manual form */
   section: {
-    fontFamily: fonts.serif,
-    fontSize: 18,
-    color: colors.text,
-    marginBottom: spacing.md,
-    marginTop: spacing.sm,
+    fontFamily: paperFonts.display,
+    fontSize: 20,
+    color: paper.ink,
+    fontWeight: '700',
+    letterSpacing: -0.4,
+    marginBottom: paperSpacing.sm,
+    marginTop: paperSpacing.sm,
   },
-  field: { marginBottom: spacing.md },
-  label: { fontSize: 13, fontWeight: '500', color: colors.textSecondary, marginBottom: 6 },
-  opt: { fontWeight: '400', fontStyle: 'italic', color: colors.textMuted },
+
+  field: { marginBottom: paperSpacing.md },
+  label: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 10,
+    color: paper.ink,
+    opacity: 0.75,
+    letterSpacing: 1.6,
+    marginBottom: 6,
+  },
+  opt: {
+    fontFamily: paperFonts.displayItalic,
+    fontWeight: '400',
+    color: paper.ink,
+    opacity: 0.5,
+    letterSpacing: 1.2,
+  },
+
   input: {
-    backgroundColor: colors.surface,
-    borderRadius: radius.md,
-    borderWidth: StyleSheet.hairlineWidth,
-    borderColor: colors.border,
-    paddingHorizontal: spacing.md,
-    paddingVertical: spacing.sm + 4,
+    backgroundColor: paper.paperLight,
+    borderRadius: paperRadius.card,
+    borderWidth: 1.5,
+    borderColor: paper.ink,
+    paddingHorizontal: paperSpacing.md,
+    paddingVertical: paperSpacing.sm + 4,
+    fontFamily: paperFonts.body,
     fontSize: 15,
-    color: colors.text,
+    color: paper.ink,
   },
-  textArea: { minHeight: 72, paddingTop: spacing.sm + 4 },
-  row: { flexDirection: 'row', gap: spacing.sm, marginBottom: spacing.md },
+  textArea: { minHeight: 80, paddingTop: paperSpacing.sm + 4 },
+  row: {
+    flexDirection: 'row',
+    gap: paperSpacing.sm,
+    marginBottom: paperSpacing.md,
+  },
   half: { flex: 1 },
 
   syncBtn: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: spacing.sm,
-    backgroundColor: colors.sage,
-    borderRadius: radius.md,
-    paddingVertical: spacing.sm + 2,
-    marginBottom: spacing.lg,
+    gap: paperSpacing.xs + 2,
+    backgroundColor: paper.forest,
+    borderWidth: 1.5,
+    borderColor: paper.ink,
+    borderRadius: paperRadius.card,
+    paddingVertical: paperSpacing.sm + 2,
+    marginBottom: paperSpacing.lg,
+    ...paperShadows.hard,
   },
-  syncText: { fontSize: 14, fontWeight: '600', color: colors.textLight },
+  syncBtnPressed: { backgroundColor: paper.forestDk },
+  syncText: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 11,
+    color: paper.paper,
+    letterSpacing: 2.2,
+  },
 
   condToggle: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    backgroundColor: colors.surface,
-    borderRadius: radius.md,
-    padding: spacing.md,
-    marginBottom: spacing.md,
-    borderWidth: StyleSheet.hairlineWidth,
-    borderColor: colors.border,
+    backgroundColor: paper.paperLight,
+    borderRadius: paperRadius.card,
+    padding: paperSpacing.md,
+    marginBottom: paperSpacing.md,
+    borderWidth: 1.5,
+    borderColor: paper.ink,
   },
-  condToggleText: { fontFamily: fonts.serif, fontSize: 15, color: colors.text },
+  condToggleText: {
+    fontFamily: paperFonts.display,
+    fontSize: 15,
+    color: paper.ink,
+    letterSpacing: -0.2,
+  },
   condSection: {
-    backgroundColor: colors.surface,
-    borderRadius: radius.md,
-    padding: spacing.md,
-    marginBottom: spacing.lg,
-    borderWidth: StyleSheet.hairlineWidth,
-    borderColor: colors.border,
+    backgroundColor: paper.paperLight,
+    borderRadius: paperRadius.card,
+    padding: paperSpacing.md,
+    marginBottom: paperSpacing.lg,
+    borderWidth: 1.5,
+    borderColor: paper.ink,
   },
 
-  /* Catches */
+  // Catches
   catchCard: {
-    backgroundColor: colors.surface,
-    borderRadius: radius.md,
-    padding: spacing.md,
-    marginBottom: spacing.sm,
-    borderWidth: StyleSheet.hairlineWidth,
-    borderColor: colors.border,
+    backgroundColor: paper.paperLight,
+    borderRadius: paperRadius.card,
+    padding: paperSpacing.md,
+    marginBottom: paperSpacing.sm,
+    borderWidth: 1.5,
+    borderColor: paper.ink,
+    ...paperShadows.hard,
   },
   catchNum: {
-    fontFamily: fonts.serif,
-    fontSize: 14,
-    color: colors.sage,
-    marginBottom: spacing.sm,
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 10,
+    color: paper.forest,
+    letterSpacing: 2.2,
+    marginBottom: paperSpacing.sm,
   },
   addCatch: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: spacing.sm,
-    paddingVertical: spacing.md,
-    marginBottom: spacing.md,
+    gap: paperSpacing.xs + 2,
+    paddingVertical: paperSpacing.md,
+    marginBottom: paperSpacing.md,
   },
-  addCatchText: { fontSize: 14, fontWeight: '500', color: colors.sage },
+  addCatchText: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 11,
+    color: paper.forest,
+    letterSpacing: 2,
+  },
 
   saveBtn: {
-    backgroundColor: colors.sage,
-    borderRadius: radius.md,
-    paddingVertical: spacing.md,
+    backgroundColor: paper.forest,
+    borderWidth: 2,
+    borderColor: paper.ink,
+    borderRadius: paperRadius.card,
+    paddingVertical: paperSpacing.md,
     alignItems: 'center',
-    marginTop: spacing.sm,
+    marginTop: paperSpacing.sm,
+    ...paperShadows.hard,
   },
-  saveText: { fontSize: 16, fontWeight: '600', color: colors.textLight },
+  saveBtnPressed: { backgroundColor: paper.forestDk },
+  saveText: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 12,
+    color: paper.paper,
+    letterSpacing: 2.8,
+  },
 });

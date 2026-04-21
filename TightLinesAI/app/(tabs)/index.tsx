@@ -1,19 +1,81 @@
+/**
+ * Home screen — FinFindr paper-UI migration (Phase 1).
+ *
+ * Visual layer: FinFindr "paper/ink" design system (see `components/paper/*`
+ * and the `paper*` tokens in `lib/theme.ts`). Every piece of business logic,
+ * store wiring, navigation, and gating was intentionally preserved from the
+ * prior implementation — only the JSX render tree and StyleSheet changed.
+ *
+ * Preserved behaviors (DO NOT regress):
+ *   - GPS permission probe + reverse geocode label.
+ *   - `useDevTestingStore`'s `ignoreGps` dev switch.
+ *   - Saved-location store wiring with custom-pin precedence.
+ *   - `useEnvStore.loadEnv` auto-refresh on focus / app resume.
+ *   - `getForecastScores` 7-day fetch + cache invalidation on location change.
+ *   - Cached mean-across-contexts score from `getCurrentMultiRebuild` /
+ *     `getCachedMultiRebuild`, refreshed on focus so freshly generated reports
+ *     update the hero number without a re-fetch.
+ *   - Subscription gating via `getEffectiveTier` / `canUseAIFeatures`.
+ *   - Location picker modal + Subscribe prompt surface.
+ *   - Navigation handlers pass exactly the same query params as before, so
+ *     `/how-fishing` and `/recommender` keep their existing deep-link contracts.
+ */
+
 import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
-import { AppState, type AppStateStatus, View, Text, StyleSheet, ScrollView, Pressable, Image, Dimensions } from 'react-native';
+import {
+  AppState,
+  type AppStateStatus,
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  Pressable,
+  Dimensions,
+} from 'react-native';
 
-const LOGO = require('../../assets/images/fish/new_logo.png');
-
-// Calendar sizing — 6 cards + 5 gaps must fit inside content width (screen - 40px padding)
 const SCREEN_W = Dimensions.get('window').width;
-const CAL_GAP = 6;
-const CAL_CARD_W = Math.floor((SCREEN_W - 40 - CAL_GAP * 5) / 6);
+// Home content padding (edge) + internal gutter between forecast tiles.
+const HOME_H_PADDING = 20;
+const FORECAST_GAP = 8;
+/**
+ * Forecast grid is laid out as 6 fixed-width tiles inside a horizontal
+ * ScrollView. On phones where 6 tiles would be cramped, we let the user scroll
+ * instead of forcing a narrow column.
+ */
+const FORECAST_COLS_FIT = 6;
+const FORECAST_TILE_W = Math.max(
+  58,
+  Math.floor((SCREEN_W - HOME_H_PADDING * 2 - FORECAST_GAP * (FORECAST_COLS_FIT - 1)) / FORECAST_COLS_FIT),
+);
+
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { useFocusEffect } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import * as Location from 'expo-location';
-import { colors, fonts, spacing, radius, shadows } from '../../lib/theme';
-import { LiveConditionsWidget } from '../../components/LiveConditionsWidget';
+import {
+  paper,
+  paperFonts,
+  paperSpacing,
+  paperRadius,
+  paperShadows,
+  paperBorders,
+  paperTier,
+  paperTierForScore,
+  paperBandForScore,
+  type PaperTier,
+  type PaperScoreBand,
+} from '../../lib/theme';
+import {
+  LiveConditionsPaperCard,
+  SectionEyebrow,
+  TierPill,
+  MedalBadge,
+  PaperCard,
+  PaperBackground,
+  LurePopper,
+  TopographicLines,
+} from '../../components/paper';
 import { SubscribePrompt } from '../../components/SubscribePrompt';
 import { LocationPickerModal } from '../../components/LocationPickerModal';
 import { useAuthStore } from '../../store/authStore';
@@ -28,7 +90,6 @@ import {
   invalidateForecastCache,
   formatScoreDisplay,
   meanDayScore,
-  scoreColor,
   type DayForecastScore,
 } from '../../lib/forecastScores';
 import { recordRecentLocation } from '../../lib/recentLocations';
@@ -50,7 +111,6 @@ export default function HomeScreen() {
     useCustom,
     setSavedLocation,
     clearSavedLocation,
-    setUseCustom,
     load: loadLocationStore,
   } = useLocationStore();
   const appStateRef = useRef<AppStateStatus>(AppState.currentState);
@@ -66,14 +126,23 @@ export default function HomeScreen() {
   const [forecastDays, setForecastDays] = useState<DayForecastScore[] | null>(null);
   const [forecastCoastalEligible, setForecastCoastalEligible] = useState<boolean | null>(null);
   const [forecastLoading, setForecastLoading] = useState(false);
+  /**
+   * 7-day high/low arrays from the forecast snapshot. These live under
+   * `snapshot_env.weather.temp_7day_high / temp_7day_low` as 21-element
+   * arrays where index 14 is "today" (the array covers past+today+future).
+   * We snapshot them so the forecast tiles can render hi/lo without having
+   * to drill into the full result elsewhere.
+   */
+  const [forecastHighs, setForecastHighs] = useState<number[] | null>(null);
+  const [forecastLows, setForecastLows] = useState<number[] | null>(null);
 
   // ── Active coordinates and label ──────────────────────────────────────────
   // Priority: saved custom pin > DEV ignoreGps (no coords) > GPS
-  // Dev: ignore GPS simulates missing location until the user taps "Use my GPS" in the picker.
   //
-  // Memoize `{ lat, lon }` so the reference is stable when values are unchanged. A fresh object
-  // every render breaks useFocusEffect / useCallback deps and causes an infinite loop (loadEnv →
-  // re-render → new coords ref → focus effect re-runs → loadEnv).
+  // Memoize so the reference is stable when values are unchanged. A fresh
+  // object every render would break useFocusEffect / useCallback deps and
+  // cause an infinite loop (loadEnv → re-render → new coords ref → focus
+  // effect re-runs → loadEnv).
   const coords = useMemo(() => {
     if (useCustom && savedLocation) {
       return { lat: savedLocation.lat, lon: savedLocation.lon };
@@ -94,7 +163,6 @@ export default function HomeScreen() {
       ? savedLocation.label
       : gpsLocationLabel ?? 'Current location';
 
-  // GPS label for use in the picker ("you are here" context)
   const gpsLabel = gpsLocationLabel ?? 'Current location';
   const envMatchesCoords =
     coords != null &&
@@ -146,7 +214,7 @@ export default function HomeScreen() {
           });
         }
       } catch {
-        // Silently fail
+        // Silently fail — widget will show the "enable location" state.
       }
     })();
     return () => { cancelled = true; };
@@ -156,7 +224,6 @@ export default function HomeScreen() {
     if (__DEV__) loadDevTesting();
   }, [loadDevTesting]);
 
-  // Load persisted location preference on mount
   useEffect(() => {
     loadLocationStore();
   }, [loadLocationStore]);
@@ -201,12 +268,10 @@ export default function HomeScreen() {
     setCachedScore(display);
   }, [coords?.lat, coords?.lon, locationCoastalEligible]);
 
-  // Read cached multi-tab mean — matches How's Fishing tabs (same contexts as meanDayScore).
   useEffect(() => {
     void loadCachedReportMean();
   }, [loadCachedReportMean]);
 
-  // Refresh when returning from How's Fishing so the hero reflects freshly generated tabs.
   useFocusEffect(
     useCallback(() => {
       void loadCachedReportMean();
@@ -229,18 +294,22 @@ export default function HomeScreen() {
       if (result) {
         setForecastDays(result.forecast);
         setForecastCoastalEligible(Boolean(result.snapshot_env?.coastal));
+        const w = result.snapshot_env?.weather;
+        setForecastHighs(w?.temp_7day_high ?? null);
+        setForecastLows(w?.temp_7day_low ?? null);
       }
     } catch {
       if (mySeq === forecastFetchSeq.current) {
         setForecastDays(null);
         setForecastCoastalEligible(null);
+        setForecastHighs(null);
+        setForecastLows(null);
       }
     } finally {
       if (mySeq === forecastFetchSeq.current) setForecastLoading(false);
     }
   }, [coords?.lat, coords?.lon]);
 
-  // Load 7-day forecast scores — stable until fishing-location midnight.
   useEffect(() => {
     void loadForecastScores();
     return () => {
@@ -265,8 +334,6 @@ export default function HomeScreen() {
     useCallback(() => {
       refreshLiveConditions();
       void loadForecastScores();
-      // Refresh the cached score when user returns to the home tab,
-      // so a newly-generated report immediately updates the displayed number.
       if (coords) {
         const contexts = howFishingMultiContexts(locationCoastalEligible);
         const inMemory = getCurrentMultiRebuild(coords.lat, coords.lon);
@@ -298,21 +365,23 @@ export default function HomeScreen() {
 
   // ── Location picker handlers ──────────────────────────────────────────────
 
-  const handleLocationSelect = useCallback(async (loc: { lat: number; lon: number; label: string }) => {
-    // Invalidate forecast cache for the OLD location before switching
-    if (coords) invalidateForecastCache(coords.lat, coords.lon);
-    await recordRecentLocation({ lat: loc.lat, lon: loc.lon, label: loc.label });
-    await setSavedLocation(loc);
-    setShowLocationPicker(false);
-    // Clear stale forecast/score data — fresh data will load via useEffect deps
-    setForecastDays(null);
-    setForecastCoastalEligible(null);
-    setCachedScore(null);
-    setCachedMeanRaw(null);
-    // Immediately load env for the new location
-    const units = profile?.preferred_units ?? 'imperial';
-    loadEnv(loc.lat, loc.lon, { units });
-  }, [coords, setSavedLocation, profile?.preferred_units, loadEnv]);
+  const handleLocationSelect = useCallback(
+    async (loc: { lat: number; lon: number; label: string }) => {
+      if (coords) invalidateForecastCache(coords.lat, coords.lon);
+      await recordRecentLocation({ lat: loc.lat, lon: loc.lon, label: loc.label });
+      await setSavedLocation(loc);
+      setShowLocationPicker(false);
+      setForecastDays(null);
+      setForecastCoastalEligible(null);
+      setForecastHighs(null);
+      setForecastLows(null);
+      setCachedScore(null);
+      setCachedMeanRaw(null);
+      const units = profile?.preferred_units ?? 'imperial';
+      loadEnv(loc.lat, loc.lon, { units });
+    },
+    [coords, setSavedLocation, profile?.preferred_units, loadEnv],
+  );
 
   const handleUseGPS = useCallback(async () => {
     if (coords && useCustom) invalidateForecastCache(coords.lat, coords.lon);
@@ -323,6 +392,8 @@ export default function HomeScreen() {
     setShowLocationPicker(false);
     setForecastDays(null);
     setForecastCoastalEligible(null);
+    setForecastHighs(null);
+    setForecastLows(null);
     setCachedScore(null);
     setCachedMeanRaw(null);
     try {
@@ -386,783 +457,959 @@ export default function HomeScreen() {
   const combinedOutlookScore = (day: DayForecastScore): number =>
     meanDayScore(day, locationCoastalEligible);
 
-  const getQualityLabel = (raw: number): string => {
-    if (raw >= 80) return 'EXCELLENT';
-    if (raw >= 60) return 'GOOD';
-    if (raw >= 40) return 'FAIR';
-    return 'POOR';
-  };
-
   const heroScore =
     cachedMeanRaw != null ? formatScoreDisplay(cachedMeanRaw) : cachedScore;
+  // Tier drives ONLY the color treatment (3-bucket red/yellow/green). The
+  // human-readable verdict is derived separately from `paperBandForScore`
+  // so the word always agrees with the number — "Excellent" is reserved
+  // for 8.0+, matching the engine's `bandFromScore` thresholds.
+  const heroTierKey: PaperTier | null =
+    cachedMeanRaw != null ? paperTierForScore(cachedMeanRaw / 10) : null;
+  const heroBand: PaperScoreBand | null =
+    cachedMeanRaw != null ? paperBandForScore(cachedMeanRaw / 10) : null;
+  const heroTierLabel = heroBand
+    ? `${bandBullet(heroBand)} ${heroBand.toUpperCase()}`
+    : null;
+
   const forecastDisplayDays = forecastDays?.filter((day) => day.day_offset > 0) ?? [];
 
-  const getGreeting = () => {
+  const greeting = (() => {
     const h = new Date().getHours();
-    if (h < 5) return 'Up early';
-    if (h < 12) return 'Good morning';
-    if (h < 17) return 'Good afternoon';
-    if (h < 21) return 'Good evening';
-    return 'Evening';
-  };
+    if (h < 5) return 'UP EARLY, ANGLER';
+    if (h < 12) return 'GOOD MORNING, ANGLER';
+    if (h < 17) return 'GOOD AFTERNOON, ANGLER';
+    if (h < 21) return 'GOOD EVENING, ANGLER';
+    return 'EVENING, ANGLER';
+  })();
+
+  /**
+   * Hero messaging.
+   *
+   * Before the user has a generated report for today, we show the recruitment
+   * line ("LET'S FIND YOUR BITE."). As soon as `cachedMeanRaw` becomes
+   * non-null (meaning a cached multi-report exists for *today's* coordinates
+   * — see `loadCachedReportMean`) we swap in a tier-colored line that calls
+   * out today's quality.
+   *
+   * We keep the structure as
+   *   `Today's a <tier phrase>.`
+   *   `Today looks <tier phrase>.`
+   * so the tier phrase is a predictable last-two-word slot that can be
+   * rendered in a brand color via the welcomeHeadline renderer.
+   */
+  /**
+   * Headline phrase is keyed to the engine band so the hero copy matches
+   * the numeric verdict. "Prime day" is reserved for Excellent (8.0+);
+   * Good (6.0–7.9) gets softer "solid" language; Fair and Poor each get
+   * their own honest framing.
+   */
+  const heroHeadlineParts = useMemo<{
+    leading: string;
+    accent: string | null;
+    tailPunct: string;
+  }>(() => {
+    switch (heroBand) {
+      case 'Excellent':
+        return { leading: "Today's a", accent: 'prime day', tailPunct: '.' };
+      case 'Good':
+        return { leading: "Today's looking", accent: 'solid', tailPunct: '.' };
+      case 'Fair':
+        return { leading: 'Today looks', accent: 'fair', tailPunct: '.' };
+      case 'Poor':
+        return { leading: 'A tough', accent: 'day ahead', tailPunct: '.' };
+      default:
+        return { leading: "LET'S FIND YOUR", accent: 'BITE', tailPunct: '.' };
+    }
+  }, [heroBand]);
+
+  const heroHeadlineIsUppercase = heroBand == null;
+
+  const heroAccentColor =
+    heroTierKey === 'green' ? paper.forest :
+    heroTierKey === 'yellow' ? paper.goldDk :
+    heroTierKey === 'red' ? paper.redDk :
+    paper.red;
+
+  const heroSubline =
+    heroBand === 'Excellent'
+      ? 'Prime window — get on the water.'
+      : heroBand === 'Good'
+      ? 'A solid day to fish — play your windows right.'
+      : heroBand === 'Fair'
+      ? 'Pick your window carefully — the bite is narrow.'
+      : heroBand === 'Poor'
+      ? 'Tough conditions — patience and slow presentations.'
+      : 'Tap into today’s report for the full picture.';
 
   return (
     <SafeAreaView style={styles.safe} edges={['top']}>
-      <ScrollView
-        style={styles.scroll}
-        contentContainerStyle={styles.content}
-        showsVerticalScrollIndicator={false}
-      >
-        {/* ─── Header ─── */}
-        <View style={styles.header}>
-          {/* Row 1: FinFindr left — location pill right, perfectly baseline-aligned */}
-          <View style={styles.headerTopRow}>
-            <View style={styles.brandRow}>
-              <Image source={LOGO} style={styles.brandLogo} resizeMode="contain" />
-              <Text style={styles.brand}>FinFindr</Text>
+      <PaperBackground style={styles.pageBg}>
+        <ScrollView
+          style={styles.scroll}
+          contentContainerStyle={styles.content}
+          showsVerticalScrollIndicator={false}
+        >
+          {/*
+            Header — matches the reference:
+              header { display: flex; justify-content: space-between;
+                       align-items: flex-end }
+            Wordmark + tagline on the left, location pin + LIVE stacked on
+            the right at the same baseline as the wordmark.
+          */}
+          <View style={styles.header}>
+            <View style={styles.headerLeft}>
+              <Text style={styles.brandWordmark}>
+                FINFINDR<Text style={styles.brandDot}>.</Text>
+              </Text>
+              <Text style={styles.brandTagline}>YOUR FISHING COMPANION</Text>
             </View>
             <Pressable
               style={({ pressed }) => [
-                styles.locationRow,
-                pressed && styles.locationRowPressed,
+                styles.headerRight,
+                pressed && { opacity: 0.7 },
               ]}
               onPress={() => setShowLocationPicker(true)}
+              hitSlop={8}
             >
-              <Ionicons
-                name={useCustom && savedLocation ? 'pin' : 'locate-outline'}
-                size={12}
-                color={useCustom && savedLocation ? colors.primary : colors.textMuted}
-              />
-              <Text style={styles.locationRowLabel} numberOfLines={1} ellipsizeMode="tail">
-                {locationLabel}
-              </Text>
-              {useCustom && savedLocation ? (
-                <View style={styles.locationCustomChip}>
-                  <Text style={styles.locationCustomChipText}>Custom</Text>
-                </View>
-              ) : (
-                <View style={styles.locationGpsChip}>
-                  <Text style={styles.locationGpsChipText}>GPS</Text>
-                </View>
-              )}
-              <Ionicons name="chevron-down" size={10} color={colors.textMuted} />
+              <View style={styles.headerLocationLine}>
+                <Ionicons
+                  name={useCustom && savedLocation ? 'pin' : 'location-outline'}
+                  size={13}
+                  color={paper.ink}
+                />
+                <Text
+                  style={styles.headerLocationText}
+                  numberOfLines={1}
+                  ellipsizeMode="tail"
+                >
+                  {locationLabel}
+                </Text>
+                <Ionicons
+                  name="chevron-down"
+                  size={10}
+                  color={paper.ink}
+                  style={{ opacity: 0.5 }}
+                />
+              </View>
+              <View style={styles.headerLiveLine}>
+                <View style={styles.liveDot} />
+                <Text style={styles.liveLabel}>LIVE</Text>
+              </View>
             </Pressable>
           </View>
 
-          {/* Full-width green accent line — clean visual break */}
-          <View style={styles.headerLine} />
-
-          {/* Tagline centered */}
-          <Text style={styles.greeting}>We help you find more fins.</Text>
-        </View>
-
-        {/* ─── Location Picker Modal ─── */}
-        <LocationPickerModal
-          visible={showLocationPicker}
-          currentLabel={useCustom && savedLocation ? savedLocation.label : gpsLabel}
-          isUsingCustom={useCustom && savedLocation != null}
-          savedLocation={useCustom && savedLocation ? savedLocation : null}
-          onSelect={handleLocationSelect}
-          onUseGPS={handleUseGPS}
-          onClose={() => setShowLocationPicker(false)}
-        />
-
-        {/* ─── 7-Day Forecast Calendar ─── */}
-        {coords && (forecastLoading || forecastDisplayDays.length > 0) && (
-          <View style={styles.calendarSection}>
-            <View style={styles.calendarHeader}>
-              <View style={styles.calendarTitleRow}>
-                <Ionicons name="calendar-outline" size={12} color={colors.primary} />
-                <Text style={styles.calendarTitle}>Forecast Ahead</Text>
-              </View>
-              <Text style={styles.calendarHint}>Tap any day</Text>
-            </View>
-            <ScrollView
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              contentContainerStyle={styles.calendarRow}
+          {/* ─── Greeting hero ─── */}
+          <View style={styles.welcome}>
+            <SectionEyebrow size={10} tracking={3.5}>
+              {greeting}
+            </SectionEyebrow>
+            <Text
+              style={[
+                styles.welcomeHeadline,
+                heroHeadlineIsUppercase && styles.welcomeHeadlineUpper,
+              ]}
             >
-              {forecastLoading && !forecastDays
-                ? Array.from({ length: 6 }).map((_, i) => (
-                    <View key={i} style={[styles.calendarDay, styles.calendarDaySkeleton]} />
-                  ))
-                : forecastDisplayDays.map((day) => {
-                    const raw = combinedOutlookScore(day);
-                    const display = formatScoreDisplay(raw);
-                    const color = scoreColor(raw);
-                    const quality = getQualityLabel(raw);
-                    return (
-                      <Pressable
-                        key={day.date}
-                        style={({ pressed }) => [
-                          styles.calendarDay,
-                          pressed && styles.calendarDayPressed,
-                        ]}
-                        onPress={() => {
-                          if (!hasSubscription) {
-                            setShowSubscribePrompt(true);
-                            return;
-                          }
-                          if (!coords) return;
-                          router.push({
-                            pathname: '/how-fishing',
-                            params: {
-                              lat: String(coords.lat),
-                              lon: String(coords.lon),
-                              location_label: locationLabel,
-                              day_offset: String(day.day_offset),
-                              target_date: day.date,
-                            },
-                          });
-                        }}
-                      >
-                        <Text style={styles.calendarDayLabel}>{day.day_label}</Text>
-                        <Text style={styles.calendarDateNum}>{day.month_day}</Text>
-                        <View style={styles.calendarScoreWrap}>
-                          <Text style={[styles.calendarScore, { color }]}>{display}</Text>
-                        </View>
-                        <Text style={[styles.calendarQuality, { color }]}>{quality}</Text>
-                        <View style={[styles.calendarBar, { backgroundColor: color }]} />
-                      </Pressable>
-                    );
-                  })}
-            </ScrollView>
-          </View>
-        )}
-
-        {/* ─── Hero: How's Fishing Right Now? ─── */}
-        <Pressable
-          style={({ pressed }) => [
-            styles.heroCard,
-            pressed && styles.heroCardPressed,
-          ]}
-          onPress={handleHowFishingPress}
-        >
-          <View style={styles.heroContent}>
-            <View style={styles.heroLeft}>
-              <View style={styles.heroBadge}>
-                <Ionicons name="sparkles" size={10} color={colors.primary} />
-                <Text style={styles.heroBadgeText}>AI-Enhanced</Text>
-              </View>
-              <Text style={styles.heroTitle} numberOfLines={1} adjustsFontSizeToFit>{"How's Fishing Right Now?"}</Text>
-              <Text style={styles.heroSubtitle}>
-                Real-time conditions, timing, and strategy
+              {heroHeadlineParts.leading}{' '}
+              <Text style={{ color: heroAccentColor }}>
+                {heroHeadlineParts.accent}
               </Text>
+              {heroHeadlineParts.tailPunct}
+            </Text>
+            <Text style={styles.welcomeSubline}>{heroSubline}</Text>
+          </View>
+
+          {/*
+            Live Conditions — wrapped in a positioned band so the subtle
+            topographic contours (wavy lines) sit behind it and bleed a
+            little above the card, matching where the reference's `<pattern
+            id="topo">` clusters on the page.
+          */}
+          <View style={styles.liveConditionsBand}>
+            <TopographicLines
+              style={styles.liveConditionsBandLines}
+              count={5}
+            />
+            <LiveConditionsPaperCard
+              latitude={coords?.lat}
+              longitude={coords?.lon}
+              onRequestLocation={__DEV__ && ignoreGps ? undefined : handleRequestLocation}
+              onPress={handleHowFishingPress}
+            />
+          </View>
+
+          {/* ─── Week Ahead forecast ─── */}
+          {coords && (forecastLoading || forecastDisplayDays.length > 0) && (
+            <View style={styles.forecastSection}>
+              <View style={styles.forecastHeader}>
+                <View style={styles.forecastHeaderLeft}>
+                  <Text style={styles.forecastEyebrow}>THE WEEK AHEAD</Text>
+                  <Text style={styles.forecastSub}>
+                    next {forecastDisplayDays.length || 6} days
+                  </Text>
+                </View>
+                <Text style={styles.forecastMeta}>TAP ANY DAY</Text>
+              </View>
+              <ScrollView
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                contentContainerStyle={styles.forecastRow}
+              >
+                {forecastLoading && !forecastDays
+                  ? Array.from({ length: FORECAST_COLS_FIT }).map((_, i) => (
+                      <View
+                        key={i}
+                        style={[styles.forecastTile, styles.forecastTileSkeleton]}
+                      />
+                    ))
+                  : forecastDisplayDays.map((day) => {
+                      const raw = combinedOutlookScore(day);
+                      const tier = paperTierForScore(raw / 10);
+                      const tierColors = paperTier[tier];
+                      const display = formatScoreDisplay(raw);
+                      // Convert "Tmrw"/"Mon"/"Tue"/… into the FinFindr's
+                      // tight uppercase abbreviations ("TMRW", "MON"…).
+                      const dayLabelAbbrev = abbreviateDayLabel(day.day_label);
+                      // 7-day temperature snapshot: index 14 = today, so
+                      // index (14 + day_offset) gives the forecast day.
+                      const idx = 14 + day.day_offset;
+                      const hi = forecastHighs?.[idx];
+                      const lo = forecastLows?.[idx];
+                      return (
+                        <Pressable
+                          key={day.date}
+                          style={({ pressed }) => [
+                            styles.forecastTile,
+                            pressed && styles.forecastTilePressed,
+                          ]}
+                          onPress={() => {
+                            if (!hasSubscription) {
+                              setShowSubscribePrompt(true);
+                              return;
+                            }
+                            if (!coords) return;
+                            router.push({
+                              pathname: '/how-fishing',
+                              params: {
+                                lat: String(coords.lat),
+                                lon: String(coords.lon),
+                                location_label: locationLabel,
+                                day_offset: String(day.day_offset),
+                                target_date: day.date,
+                              },
+                            });
+                          }}
+                        >
+                          <View
+                            style={[
+                              styles.forecastTileHeader,
+                              { backgroundColor: tierColors.bg },
+                            ]}
+                          >
+                            <Text
+                              style={[
+                                styles.forecastTileDay,
+                                { color: tierColors.fg },
+                              ]}
+                              numberOfLines={1}
+                            >
+                              {dayLabelAbbrev}
+                            </Text>
+                          </View>
+                          <View style={styles.forecastTileBody}>
+                            <Text style={styles.forecastTileDate}>
+                              {day.month_day}
+                            </Text>
+                            <Text
+                              style={[
+                                styles.forecastTileScore,
+                                { color: tierColors.bg },
+                              ]}
+                              numberOfLines={1}
+                              adjustsFontSizeToFit
+                              minimumFontScale={0.8}
+                            >
+                              {display}
+                            </Text>
+                            {(hi != null || lo != null) && (
+                              <View style={styles.forecastTileHiLo}>
+                                <Text style={styles.forecastTileHi} numberOfLines={1}>
+                                  {hi != null ? `${Math.round(hi)}°` : '—'}
+                                </Text>
+                                <Text style={styles.forecastTileDivider}>/</Text>
+                                <Text style={styles.forecastTileLo} numberOfLines={1}>
+                                  {lo != null ? `${Math.round(lo)}°` : '—'}
+                                </Text>
+                              </View>
+                            )}
+                          </View>
+                        </Pressable>
+                      );
+                    })}
+              </ScrollView>
             </View>
-            <View style={styles.heroRight}>
-              <View style={styles.heroPulseOuter}>
-                <View style={styles.heroPulseInner}>
-                  <Ionicons name="pulse" size={24} color={colors.primary} />
+          )}
+
+          {/* ─── Where to next ─── */}
+          <View style={styles.destinationsHeader}>
+            <SectionEyebrow color={paper.ink} size={10} tracking={3}>
+              WHERE TO NEXT?
+            </SectionEyebrow>
+          </View>
+
+          <View style={styles.ctaRow}>
+            {/* HOW'S FISHING NOW */}
+            <Pressable
+              style={({ pressed }) => [styles.ctaCard, pressed && styles.ctaCardPressed]}
+              onPress={handleHowFishingPress}
+            >
+              <View style={styles.ctaCardBody}>
+                <View style={[styles.ctaBadge, { backgroundColor: paper.forest }]}>
+                  <Ionicons name="pulse" size={20} color={paper.paper} />
+                </View>
+                <Text style={styles.ctaTitle}>
+                  HOW&rsquo;S{'\n'}
+                  <Text style={{ color: paper.forest }}>FISHING</Text>{'\n'}
+                  NOW?
+                </Text>
+                <Text style={styles.ctaBody}>
+                  Today&apos;s score, best times, and a pro tip for the day.
+                </Text>
+
+                {heroScore !== null && heroTierKey ? (
+                  <View style={styles.ctaScoreRow}>
+                    <Text
+                      style={[
+                        styles.ctaScoreNum,
+                        {
+                          color:
+                            heroTierKey === 'green' ? paper.forest :
+                            heroTierKey === 'yellow' ? paper.goldDk :
+                            paper.redDk,
+                        },
+                      ]}
+                    >
+                      {heroScore}
+                    </Text>
+                    <Text style={styles.ctaScoreUnit}>/ 10</Text>
+                    {heroTierLabel && (
+                      <TierPill
+                        tier={heroTierKey}
+                        label={heroTierLabel}
+                        style={{ marginLeft: 4 }}
+                      />
+                    )}
+                  </View>
+                ) : (
+                  <View style={styles.ctaNoReport}>
+                    <View style={styles.ctaNoReportDashes}>
+                      <Text style={styles.ctaNoReportDashesText}>— — — —</Text>
+                    </View>
+                    <Text style={styles.ctaNoReportCaption}>
+                      no report yet for today
+                    </Text>
+                  </View>
+                )}
+              </View>
+
+              <View style={styles.ctaFooter}>
+                <View style={styles.ctaFooterBtn}>
+                  <Text style={styles.ctaFooterBtnText}>VIEW REPORT</Text>
+                  <Text style={styles.ctaFooterBtnArrow}>→</Text>
                 </View>
               </View>
-              {heroScore !== null && (
-                <Text style={styles.heroScoreNum}>{heroScore}</Text>
-              )}
-            </View>
-          </View>
-          <View style={styles.heroFooter}>
-            <Text style={styles.heroFooterText}>View today's report</Text>
-            <Ionicons name="arrow-forward" size={16} color={colors.primary} />
-          </View>
-        </Pressable>
+            </Pressable>
 
-        {/* ─── Recommender Card ─── */}
-        <Pressable
-          style={({ pressed }) => [
-            styles.recommenderCard,
-            pressed && styles.recommenderCardPressed,
-          ]}
-          onPress={handleRecommenderPress}
-        >
-          <View style={styles.recommenderAccentBar} />
-          <View style={styles.recommenderBody}>
-            <View style={styles.recommenderLeft}>
-              <View style={styles.recommenderIconWrap}>
-                <Ionicons name="fish-outline" size={18} color={colors.primary} />
-              </View>
-              <View style={styles.recommenderTextBlock}>
-                <Text style={styles.recommenderTitle}>What to Throw</Text>
-                <Text style={styles.recommenderSubtitle}>
-                  Top lures & flies for your target species
+            {/* WHAT TO THROW */}
+            <Pressable
+              style={({ pressed }) => [styles.ctaCard, pressed && styles.ctaCardPressed]}
+              onPress={handleRecommenderPress}
+            >
+              <View style={styles.ctaCardBody}>
+                <View style={[styles.ctaBadge, { backgroundColor: paper.gold }]}>
+                  <LurePopper size={28} color={paper.ink} outline={paper.ink} />
+                </View>
+                <Text style={styles.ctaTitle}>
+                  WHAT TO{'\n'}
+                  <Text style={{ color: paper.goldDk }}>THROW</Text>?
                 </Text>
-              </View>
-            </View>
-            <Ionicons name="chevron-forward" size={18} color={colors.textMuted} />
-          </View>
-        </Pressable>
-
-        {/* ─── Water Reader Card ─── */}
-        <Pressable
-          style={({ pressed }) => [
-            styles.recommenderCard,
-            pressed && styles.recommenderCardPressed,
-          ]}
-          onPress={() => {/* placeholder — page coming soon */}}
-        >
-          <View style={[styles.recommenderAccentBar, { backgroundColor: colors.waterBlue }]} />
-          <View style={styles.recommenderBody}>
-            <View style={styles.recommenderLeft}>
-              <View style={[styles.recommenderIconWrap, { backgroundColor: colors.waterBlue + '18' }]}>
-                <Ionicons name="scan-outline" size={18} color={colors.waterBlue} />
-              </View>
-              <View style={styles.recommenderTextBlock}>
-                <Text style={styles.recommenderTitle}>Water Reader</Text>
-                <Text style={styles.recommenderSubtitle} numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.75}>
-                  Identify where to fish in your lake or pond
+                <Text style={styles.ctaBody}>
+                  Three lures, three flies — ranked for today&apos;s conditions.
                 </Text>
+
+                <View style={styles.ctaMedalRow}>
+                  <View style={styles.ctaMedalStack}>
+                    <MedalBadge tier="gold" size={26} />
+                    <MedalBadge tier="silver" size={26} style={{ marginLeft: -6 }} />
+                    <MedalBadge tier="bronze" size={26} style={{ marginLeft: -6 }} />
+                  </View>
+                  <Text style={styles.ctaMedalCaption}>6 picks, ranked</Text>
+                </View>
               </View>
-            </View>
-            <Ionicons name="chevron-forward" size={18} color={colors.textMuted} />
+
+              <View style={styles.ctaFooter}>
+                <View style={styles.ctaFooterBtn}>
+                  <Text style={styles.ctaFooterBtnText}>OPEN TACKLE BOX</Text>
+                  <Text style={styles.ctaFooterBtnArrow}>→</Text>
+                </View>
+              </View>
+            </Pressable>
           </View>
-        </Pressable>
 
-        <SubscribePrompt
-          visible={showSubscribePrompt}
-          onDismiss={() => setShowSubscribePrompt(false)}
-          onViewPlans={() => {
-            setShowSubscribePrompt(false);
-            router.push('/subscribe');
-          }}
-        />
+          {/* ─── Water Reader (preserved stub, restyled) ─── */}
+          <Pressable
+            style={({ pressed }) => [styles.waterReaderCard, pressed && { opacity: 0.9 }]}
+            onPress={() => {
+              /* placeholder — page coming soon */
+            }}
+          >
+            <PaperCard tint={paper.paperLight} corners cornerColor={paper.ink}>
+              <View style={styles.waterReaderBody}>
+                <View style={[styles.ctaBadge, { backgroundColor: paper.walnut }]}>
+                  <Ionicons name="scan-outline" size={18} color={paper.paper} />
+                </View>
+                <View style={styles.waterReaderText}>
+                  <Text style={styles.waterReaderTitle}>WATER READER</Text>
+                  <Text style={styles.waterReaderSub}>
+                    Identify where to fish in your lake or pond.
+                  </Text>
+                </View>
+                <View style={styles.comingSoonChip}>
+                  <Text style={styles.comingSoonChipText}>SOON</Text>
+                </View>
+              </View>
+            </PaperCard>
+          </Pressable>
 
-        {/* ─── Live Conditions section label ─── */}
-        <View style={styles.sectionDividerRow}>
-          <View style={styles.sectionDividerLine} />
-          <Ionicons name="radio-outline" size={11} color={colors.primary} />
-          <Text style={styles.sectionDividerText}>LIVE CONDITIONS</Text>
-          <View style={styles.sectionDividerLine} />
-        </View>
+          {/* ─── Footer rule ─── */}
+          <View style={styles.footer}>
+            <Text style={styles.footerLeft}>FINFINDR</Text>
+            <Text style={styles.footerRight}>MADE FOR THE WATER</Text>
+          </View>
 
-        {/* ─── Live Conditions ─── */}
-        <LiveConditionsWidget
-          latitude={coords?.lat}
-          longitude={coords?.lon}
-          locationLabel={locationLabel}
-          onRequestLocation={
-            __DEV__ && ignoreGps ? undefined : handleRequestLocation
-          }
-          onPress={handleHowFishingPress}
-        />
-
-        {/* ─── Tagline ─── */}
-        <View style={styles.taglineRow}>
-          <View style={styles.taglineLine} />
-          <Ionicons name="fish-outline" size={12} color={colors.textMuted} style={{ opacity: 0.5 }} />
-          <Text style={styles.tagline}>Tight lines start with better intel.</Text>
-          <Ionicons name="fish-outline" size={12} color={colors.textMuted} style={{ opacity: 0.5 }} />
-          <View style={styles.taglineLine} />
-        </View>
-      </ScrollView>
+          {/* Modals — preserved as-is. */}
+          <LocationPickerModal
+            visible={showLocationPicker}
+            currentLabel={useCustom && savedLocation ? savedLocation.label : gpsLabel}
+            isUsingCustom={useCustom && savedLocation != null}
+            savedLocation={useCustom && savedLocation ? savedLocation : null}
+            onSelect={handleLocationSelect}
+            onUseGPS={handleUseGPS}
+            onClose={() => setShowLocationPicker(false)}
+          />
+          <SubscribePrompt
+            visible={showSubscribePrompt}
+            onDismiss={() => setShowSubscribePrompt(false)}
+            onViewPlans={() => {
+              setShowSubscribePrompt(false);
+              router.push('/subscribe');
+            }}
+          />
+        </ScrollView>
+      </PaperBackground>
     </SafeAreaView>
   );
 }
 
+/**
+ * Converts the backend's day labels ("Today", "Tmrw", "Mon", …) into the
+ * FinFindr shell's tight uppercase abbreviations ("TMRW", "MON", …). We can't
+ * just uppercase, since "Tmrw" renders as "TMRW" already but "Mon" should
+ * also drop to the weekday short form.
+ */
+function abbreviateDayLabel(label: string): string {
+  const clean = label.trim().toUpperCase();
+  if (clean === 'TODAY') return 'TODAY';
+  if (clean === 'TMRW' || clean === 'TOMORROW') return 'TMRW';
+  // Backend day_label is already "Mon"/"Tue"/…; uppercasing is the abbrev.
+  return clean.slice(0, 3);
+}
+
+/**
+ * Compact glyph that accompanies the band word in the hero chip, echoing
+ * the existing "●/◐/○" visual grammar but mapped to the 4-band engine
+ * truth (Excellent/Good = filled, Fair = half-filled, Poor = empty).
+ */
+function bandBullet(band: PaperScoreBand): string {
+  switch (band) {
+    case 'Excellent':
+      return '●';
+    case 'Good':
+      return '●';
+    case 'Fair':
+      return '◐';
+    case 'Poor':
+      return '○';
+  }
+}
+
 const styles = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: colors.background },
+  safe: { flex: 1, backgroundColor: paper.paper },
+  pageBg: { flex: 1 },
   scroll: { flex: 1 },
-  content: { paddingHorizontal: 20, paddingBottom: spacing.xxl },
+  content: {
+    paddingHorizontal: HOME_H_PADDING,
+    paddingBottom: 48,
+  },
 
-  /* Header */
-  header: { paddingTop: spacing.xl, marginBottom: spacing.lg },
-  headerTopRow: {
+  /* ─── Header (wordmark left, location/LIVE right) ─── */
+  header: {
     flexDirection: 'row',
-    alignItems: 'center',
     justifyContent: 'space-between',
+    alignItems: 'flex-end',
+    paddingTop: paperSpacing.md + 4,
+    marginBottom: paperSpacing.lg,
   },
-  headerLine: {
-    height: 2,
-    borderRadius: 99,
-    backgroundColor: colors.primary,
-    opacity: 0.45,
-    marginTop: 8,
-    marginBottom: 8,
+  headerLeft: {
+    flex: 1,
+    paddingRight: paperSpacing.sm,
   },
-  brandRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: spacing.sm + 2,
+  headerRight: {
+    alignItems: 'flex-end',
+    paddingBottom: 2,
   },
-  brandLogo: {
-    width: 44,
-    height: 44,
-  },
-  brand: {
-    fontFamily: fonts.serifBold,
-    fontSize: 30,
-    color: colors.text,
-    letterSpacing: -0.3,
-  },
-  greeting: {
-    fontFamily: fonts.bodyItalic,
-    fontSize: 15,
-    color: colors.textMuted,
-    lineHeight: 22,
-    marginBottom: 10,
-    letterSpacing: 0.1,
-    textAlign: 'center',
-  },
-
-  /* Location Row */
-  locationRow: {
+  headerLocationLine: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 6,
-    alignSelf: 'center',
-    paddingVertical: 6,
-    paddingHorizontal: 10,
-    backgroundColor: colors.surface,
-    borderRadius: radius.full,
-    borderWidth: 1,
-    borderColor: colors.border,
-    maxWidth: 210,
+    marginBottom: 4,
   },
-  locationRowPressed: {
-    backgroundColor: colors.primaryMist,
-    borderColor: colors.primary + '40',
+  headerLocationText: {
+    fontFamily: paperFonts.bodySemiBold,
+    fontSize: 13,
+    color: paper.ink,
+    letterSpacing: 0.1,
+    maxWidth: 180,
   },
-  locationRowLabel: {
-    fontFamily: fonts.bodySemiBold,
-    fontSize: 12,
-    color: colors.text,
-    maxWidth: 120,
-  },
-  locationCustomChip: {
-    backgroundColor: colors.primary + '18',
-    borderRadius: 5,
-    paddingHorizontal: 5,
-    paddingVertical: 1,
-  },
-  locationCustomChipText: {
-    fontFamily: fonts.bodyBold,
-    fontSize: 9,
-    color: colors.primary,
-    textTransform: 'uppercase',
-    letterSpacing: 0.5,
-  },
-  locationGpsChip: {
-    backgroundColor: colors.backgroundAlt,
-    borderRadius: 5,
-    paddingHorizontal: 5,
-    paddingVertical: 1,
-  },
-  locationGpsChipText: {
-    fontFamily: fonts.bodyBold,
-    fontSize: 9,
-    color: colors.textMuted,
-    textTransform: 'uppercase',
-    letterSpacing: 0.5,
-  },
-
-  /* Hero Card — How's Fishing */
-  heroCard: {
-    backgroundColor: colors.surface,
-    borderRadius: radius.xl,
-    padding: 14,
-    marginBottom: spacing.md,
-    borderWidth: 1.5,
-    borderColor: colors.primaryMistDark,
-    ...shadows.lg,
-  },
-  heroCardPressed: {
-    backgroundColor: colors.primaryMist,
-    transform: [{ scale: 0.985 }],
-  },
-  heroContent: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
-    marginBottom: spacing.sm,
-  },
-  heroLeft: { flex: 1, paddingRight: spacing.md },
-  heroBadge: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 4,
-    backgroundColor: colors.primaryMist,
-    paddingHorizontal: spacing.sm + 2,
-    paddingVertical: 3,
-    borderRadius: radius.full,
-    alignSelf: 'flex-start',
-    marginBottom: spacing.sm + 2,
-  },
-  heroBadgeText: {
-    fontFamily: fonts.bodySemiBold,
-    fontSize: 11,
-    color: colors.primary,
-    letterSpacing: 0.3,
-  },
-  heroTitle: {
-    fontFamily: fonts.serifBold,
-    fontSize: 18,
-    color: colors.text,
-    lineHeight: 24,
-    marginBottom: spacing.xs + 2,
-    letterSpacing: -0.2,
-  },
-  heroSubtitle: {
-    fontFamily: fonts.body,
-    fontSize: 14,
-    color: colors.textSecondary,
-    lineHeight: 20,
-  },
-  heroRight: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingTop: spacing.sm,
-  },
-  heroPulseOuter: {
-    width: 48,
-    height: 48,
-    borderRadius: 24,
-    backgroundColor: colors.primaryMist,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  heroPulseInner: {
-    width: 32,
-    height: 32,
-    borderRadius: 16,
-    backgroundColor: colors.primaryLight,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  heroScoreNum: {
-    fontFamily: fonts.serifBold,
-    fontSize: 17,
-    color: colors.primary,
-    opacity: 0.75,
-    textAlign: 'center',
-    marginTop: 6,
-    letterSpacing: 0.2,
-  },
-  heroFooter: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingTop: spacing.md,
-    borderTopWidth: 1,
-    borderTopColor: colors.border,
-  },
-  heroFooterText: {
-    fontFamily: fonts.bodySemiBold,
-    fontSize: 14,
-    color: colors.primary,
-  },
-
-  /* 7-Day Forecast Calendar */
-  calendarSection: {
-    marginBottom: spacing.md,
-  },
-  calendarHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginBottom: spacing.sm + 2,
-  },
-  calendarTitleRow: {
+  headerLiveLine: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 5,
   },
-  calendarTitle: {
-    fontFamily: fonts.bodyBold,
-    fontSize: 11,
-    color: colors.textMuted,
-    textTransform: 'uppercase',
-    letterSpacing: 1.2,
+  brandWordmark: {
+    fontFamily: paperFonts.display,
+    fontSize: 38,
+    letterSpacing: -1.3,
+    color: paper.ink,
+    fontWeight: '700',
+    lineHeight: 38,
   },
-  calendarHint: {
-    fontFamily: fonts.body,
-    fontSize: 11,
-    color: colors.textMuted,
-  },
-  calendarRow: {
-    gap: CAL_GAP,
-  },
-  calendarDay: {
-    width: CAL_CARD_W,
-    paddingTop: 9,
-    paddingHorizontal: 4,
-    paddingBottom: 0,
-    backgroundColor: colors.surface,
-    borderRadius: radius.md,
-    borderWidth: 1,
-    borderColor: colors.border,
-    alignItems: 'center',
-    overflow: 'hidden',
-    ...shadows.sm,
-  },
-  calendarDayToday: {
-    borderColor: colors.primary + '55',
-    backgroundColor: colors.primaryMist,
-  },
-  calendarDayPressed: {
-    opacity: 0.72,
-    transform: [{ scale: 0.95 }],
-  },
-  calendarDaySkeleton: {
-    height: 104,
-    backgroundColor: colors.border,
-    opacity: 0.35,
-  },
-  calendarDayLabel: {
-    fontFamily: fonts.bodyBold,
+  brandDot: { color: paper.red },
+  brandTagline: {
+    fontFamily: paperFonts.bodyMedium,
     fontSize: 9,
-    color: colors.textMuted,
-    textTransform: 'uppercase',
-    letterSpacing: 0.5,
-    textAlign: 'center',
+    letterSpacing: 2.6,
+    color: paper.ink,
+    opacity: 0.55,
+    marginTop: 6,
+    fontWeight: '500',
   },
-  calendarDayLabelToday: {
-    color: colors.primary,
+  liveDot: {
+    width: 6,
+    height: 6,
+    borderRadius: 3,
+    backgroundColor: paper.moss,
   },
-  calendarDateNum: {
-    fontFamily: fonts.body,
-    fontSize: 10,
-    color: colors.textSecondary,
-    textAlign: 'center',
-    marginTop: 1,
-    marginBottom: 4,
-  },
-  calendarDateNumToday: {
-    color: colors.text,
-    fontFamily: fonts.bodySemiBold,
-  },
-  calendarScoreWrap: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 3,
-  },
-  calendarScore: {
-    fontFamily: fonts.serifBold,
-    fontSize: 21,
-    letterSpacing: -0.4,
-    textAlign: 'center',
-  },
-  calendarQuality: {
-    fontFamily: fonts.bodyBold,
-    fontSize: 7,
-    textTransform: 'uppercase',
-    letterSpacing: 0.7,
-    textAlign: 'center',
-    marginBottom: 7,
-  },
-  calendarBar: {
-    width: '100%',
-    height: 4,
+  liveLabel: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 9,
+    letterSpacing: 2.5,
+    color: paper.forestDk,
+    fontWeight: '700',
   },
 
-  /* Section Header */
-  sectionHeader: {
+  /* ─── Live Conditions band (hosts the topographic contour hint) ─── */
+  liveConditionsBand: {
+    position: 'relative',
+    // The contour lines extend ~32px above the card so the hint bleeds a
+    // little into the empty paper above the card, matching the reference.
+    paddingTop: 32,
+    marginTop: -32,
+  },
+  liveConditionsBandLines: {
+    top: 0,
+    bottom: paperSpacing.lg,
+  },
+
+  /* ─── Welcome hero ─── */
+  welcome: {
+    alignItems: 'center',
+    marginBottom: paperSpacing.lg,
+    paddingVertical: paperSpacing.sm,
+  },
+  welcomeHeadline: {
+    fontFamily: paperFonts.display,
+    fontSize: 36,
+    lineHeight: 40,
+    textAlign: 'center',
+    letterSpacing: -1.4,
+    color: paper.ink,
+    fontWeight: '700',
+    marginTop: 12,
+  },
+  welcomeHeadlineUpper: {
+    textTransform: 'uppercase',
+  },
+  welcomeSubline: {
+    fontFamily: paperFonts.displayItalic,
+    fontStyle: 'italic',
+    fontSize: 14,
+    color: paper.ink,
+    opacity: 0.75,
+    textAlign: 'center',
+    marginTop: 10,
+    maxWidth: 320,
+    lineHeight: 20,
+  },
+
+  /* ─── Forecast ─── */
+  forecastSection: {
+    marginBottom: paperSpacing.lg,
+  },
+  forecastHeader: {
     flexDirection: 'row',
-    alignItems: 'center',
-    gap: spacing.sm + 2,
-    marginTop: spacing.lg,
-    marginBottom: spacing.md,
+    justifyContent: 'space-between',
+    alignItems: 'flex-end',
+    marginBottom: paperSpacing.sm,
+    paddingBottom: paperSpacing.xs + 2,
+    borderBottomWidth: 1.5,
+    borderBottomColor: paper.ink,
   },
-  sectionTitle: {
-    fontFamily: fonts.bodyBold,
+  forecastHeaderLeft: {
+    flexDirection: 'row',
+    alignItems: 'baseline',
+    gap: paperSpacing.sm + 2,
+  },
+  forecastEyebrow: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 10,
+    letterSpacing: 3,
+    color: paper.ink,
+    fontWeight: '700',
+  },
+  forecastSub: {
+    fontFamily: paperFonts.displayItalic,
+    fontStyle: 'italic',
     fontSize: 11,
-    color: colors.textMuted,
-    textTransform: 'uppercase',
-    letterSpacing: 1.2,
-  },
-  sectionLine: {
-    flex: 1,
-    height: 1,
-    backgroundColor: colors.border,
-  },
-
-  /* Feature Cards */
-  tiles: { gap: spacing.md },
-  featureCard: {
-    backgroundColor: colors.surface,
-    borderRadius: radius.md,
-    padding: 18,
-    borderWidth: 1,
-    borderColor: colors.border,
-    ...shadows.md,
-  },
-  featureCardPressed: {
-    backgroundColor: colors.surfacePressed,
-    transform: [{ scale: 0.985 }],
-  },
-  featureCardDisabled: {
-    backgroundColor: colors.surface,
-    borderRadius: radius.md,
-    padding: 18,
-    borderWidth: 1,
-    borderColor: colors.border,
+    color: paper.ink,
     opacity: 0.55,
   },
-  featureTop: {
+  forecastMeta: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 9,
+    letterSpacing: 1.5,
+    color: paper.ink,
+    opacity: 0.55,
+  },
+  forecastRow: {
+    gap: FORECAST_GAP,
+    paddingRight: 2,
+  },
+  forecastTile: {
+    width: FORECAST_TILE_W,
+    backgroundColor: paper.paperLight,
+    borderRadius: paperRadius.card,
+    overflow: 'hidden',
+    ...paperBorders.card,
+    ...paperShadows.hard,
+  },
+  forecastTilePressed: {
+    transform: [{ translateY: 1 }],
+  },
+  forecastTileSkeleton: {
+    height: 128,
+    backgroundColor: paper.inkHairSoft,
+    opacity: 0.4,
+  },
+  forecastTileHeader: {
+    paddingHorizontal: 6,
+    paddingVertical: 5,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderBottomWidth: 1.5,
+    borderBottomColor: paper.ink,
+  },
+  forecastTileDay: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 10,
+    letterSpacing: 1.8,
+    fontWeight: '700',
+    textAlign: 'center',
+  },
+  forecastTileBody: {
+    paddingHorizontal: 6,
+    paddingTop: 8,
+    paddingBottom: 10,
+    alignItems: 'center',
+  },
+  forecastTileDate: {
+    fontFamily: paperFonts.metaMono,
+    fontSize: 9.5,
+    letterSpacing: 0.4,
+    color: paper.ink,
+    opacity: 0.55,
+    marginBottom: 4,
+  },
+  forecastTileScore: {
+    fontFamily: paperFonts.monoBold,
+    fontSize: 26,
+    letterSpacing: -1.5,
+    fontWeight: '700',
+    lineHeight: 28,
+    textAlign: 'center',
+  },
+  forecastTileHiLo: {
+    flexDirection: 'row',
+    alignItems: 'baseline',
+    justifyContent: 'center',
+    marginTop: 6,
+    paddingTop: 5,
+    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopColor: paper.ink,
+    width: '100%',
+  },
+  forecastTileHi: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 11,
+    color: paper.ink,
+    fontWeight: '700',
+  },
+  forecastTileDivider: {
+    fontFamily: paperFonts.body,
+    fontSize: 10,
+    color: paper.ink,
+    opacity: 0.4,
+    marginHorizontal: 3,
+  },
+  forecastTileLo: {
+    fontFamily: paperFonts.body,
+    fontSize: 11,
+    color: paper.ink,
+    opacity: 0.6,
+  },
+
+  /* ─── Destinations header ─── */
+  destinationsHeader: {
+    alignItems: 'center',
+    marginBottom: paperSpacing.sm + 2,
+    marginTop: paperSpacing.xs,
+  },
+
+  /* ─── CTA cards ─── */
+  ctaRow: {
+    flexDirection: 'row',
+    alignItems: 'stretch',
+    gap: paperSpacing.sm + 2,
+    marginBottom: paperSpacing.lg,
+  },
+  /**
+   * CTA cards are laid out as a column with `justifyContent: 'space-between'`
+   * so the footer (View Report / Open Tackle Box button) naturally sits at
+   * the bottom of the card, regardless of how much vertical content the body
+   * takes. `ctaCardBody` holds everything above the footer.
+   */
+  ctaCard: {
+    flex: 1,
+    backgroundColor: paper.paperLight,
+    borderRadius: paperRadius.card,
+    padding: paperSpacing.md + 2,
+    ...paperBorders.card,
+    ...paperShadows.hard,
+    minHeight: 300,
+    justifyContent: 'space-between',
+  },
+  ctaCardBody: {
+    flexGrow: 1,
+  },
+  ctaCardPressed: {
+    transform: [{ translateY: 1 }],
+  },
+  ctaBadge: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    borderWidth: 2,
+    borderColor: paper.ink,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: paperSpacing.sm + 2,
+    ...paperShadows.hard,
+  },
+  ctaTitle: {
+    fontFamily: paperFonts.display,
+    fontSize: 22,
+    fontWeight: '700',
+    lineHeight: 22,
+    letterSpacing: -0.8,
+    color: paper.ink,
+  },
+  ctaBody: {
+    fontFamily: paperFonts.body,
+    fontSize: 12.5,
+    color: paper.ink,
+    opacity: 0.75,
+    marginTop: 10,
+    lineHeight: 18,
+  },
+  ctaScoreRow: {
+    flexDirection: 'row',
+    alignItems: 'baseline',
+    gap: 6,
+    marginTop: paperSpacing.md,
+    flexWrap: 'wrap',
+  },
+  ctaScoreNum: {
+    fontFamily: paperFonts.monoBold,
+    fontSize: 28,
+    fontWeight: '700',
+    letterSpacing: -1.2,
+    lineHeight: 30,
+  },
+  ctaScoreUnit: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 10,
+    letterSpacing: 2,
+    color: paper.ink,
+    opacity: 0.55,
+    fontWeight: '700',
+  },
+  ctaMedalRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    marginTop: paperSpacing.md,
+  },
+  ctaMedalStack: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  ctaMedalCaption: {
+    fontFamily: paperFonts.displayItalic,
+    fontStyle: 'italic',
+    fontSize: 11,
+    color: paper.ink,
+    opacity: 0.7,
+    flexShrink: 1,
+  },
+  ctaNoReport: {
+    marginTop: paperSpacing.md,
+  },
+  ctaNoReportDashes: {
+    marginBottom: 2,
+  },
+  ctaNoReportDashesText: {
+    fontFamily: paperFonts.monoBold,
+    fontSize: 20,
+    letterSpacing: 2,
+    color: paper.ink,
+    opacity: 0.3,
+  },
+  ctaNoReportCaption: {
+    fontFamily: paperFonts.displayItalic,
+    fontStyle: 'italic',
+    fontSize: 11,
+    color: paper.ink,
+    opacity: 0.6,
+  },
+  ctaFooter: {
+    marginTop: paperSpacing.md,
+    paddingTop: paperSpacing.sm + 2,
+    borderTopWidth: 1,
+    borderTopColor: paper.inkHair,
+    borderStyle: 'dashed',
+  },
+  ctaFooterBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    alignSelf: 'flex-start',
+    paddingHorizontal: 10,
+    paddingVertical: 7,
+    borderWidth: 1.5,
+    borderColor: paper.ink,
+    borderRadius: paperRadius.chip,
+  },
+  ctaFooterBtnText: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 10.5,
+    letterSpacing: 2,
+    color: paper.ink,
+    fontWeight: '700',
+  },
+  ctaFooterBtnArrow: {
+    fontFamily: paperFonts.body,
+    fontSize: 14,
+    color: paper.ink,
+    lineHeight: 14,
+    marginTop: -2,
+  },
+
+  /* ─── Water Reader stub ─── */
+  waterReaderCard: {
+    marginBottom: paperSpacing.lg,
+  },
+  waterReaderBody: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: paperSpacing.md,
+    paddingHorizontal: paperSpacing.md,
+    paddingVertical: paperSpacing.md,
+  },
+  waterReaderText: {
+    flex: 1,
+  },
+  waterReaderTitle: {
+    fontFamily: paperFonts.display,
+    fontSize: 16,
+    letterSpacing: -0.4,
+    color: paper.ink,
+    fontWeight: '700',
+  },
+  waterReaderSub: {
+    fontFamily: paperFonts.body,
+    fontSize: 12,
+    color: paper.ink,
+    opacity: 0.7,
+    marginTop: 2,
+  },
+  comingSoonChip: {
+    backgroundColor: paper.gold,
+    borderWidth: 1.5,
+    borderColor: paper.ink,
+    borderRadius: paperRadius.chip,
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+  },
+  comingSoonChipText: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 9,
+    letterSpacing: 2,
+    color: paper.ink,
+    fontWeight: '700',
+  },
+
+  /* ─── Footer ─── */
+  footer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: spacing.sm + 4,
+    marginTop: paperSpacing.lg,
+    paddingTop: paperSpacing.md,
+    borderTopWidth: 1.5,
+    borderTopColor: paper.ink,
   },
-  featureIconWrap: {
-    width: 44,
-    height: 44,
-    borderRadius: 14,
-    alignItems: 'center',
-    justifyContent: 'center',
+  footerLeft: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 10,
+    letterSpacing: 2.5,
+    color: paper.ink,
+    opacity: 0.55,
+    fontWeight: '600',
   },
-  featureArrow: {
-    width: 32,
-    height: 32,
-    borderRadius: 16,
-    backgroundColor: colors.backgroundAlt,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  featureTitle: {
-    fontFamily: fonts.serif,
-    fontSize: 18,
-    color: colors.text,
-    marginBottom: spacing.xs,
-  },
-  featureTitleDisabled: {
-    fontFamily: fonts.serif,
-    fontSize: 18,
-    color: colors.text,
-    marginBottom: spacing.xs,
-  },
-  featureDesc: {
-    fontFamily: fonts.body,
-    fontSize: 13,
-    lineHeight: 19,
-    color: colors.textSecondary,
-  },
-  featureDescDisabled: {
-    fontFamily: fonts.body,
-    fontSize: 13,
-    lineHeight: 19,
-    color: colors.textSecondary,
-  },
-  aiBadge: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 4,
-    alignSelf: 'flex-start',
-    marginTop: spacing.sm + 4,
-    paddingHorizontal: spacing.sm + 2,
-    paddingVertical: 4,
-    borderRadius: radius.sm,
-  },
-  aiBadgeText: {
-    fontFamily: fonts.bodySemiBold,
-    fontSize: 11,
-    letterSpacing: 0.2,
-  },
-  comingSoonPill: {
-    backgroundColor: colors.plannerYellow,
-    paddingHorizontal: spacing.sm + 2,
-    paddingVertical: 4,
-    borderRadius: radius.sm,
-  },
-  comingSoonText: {
-    fontFamily: fonts.bodyBold,
-    fontSize: 11,
-    color: '#FFFFFF',
-    letterSpacing: 0.2,
-  },
-  // Section divider (before Live Conditions)
-  sectionDividerRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 6,
-    marginBottom: spacing.sm,
-    marginTop: spacing.xs,
-  },
-  sectionDividerLine: {
-    flex: 1,
-    height: 1,
-    backgroundColor: colors.borderLight,
-  },
-  sectionDividerText: {
-    fontFamily: fonts.bodyBold,
-    fontSize: 9,
-    color: colors.primary,
-    letterSpacing: 1.2,
-  },
-
-  // Tagline row
-  taglineRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 7,
-    marginTop: spacing.xxl,
-    marginBottom: spacing.md,
-    paddingHorizontal: spacing.sm,
-  },
-  taglineLine: {
-    flex: 1,
-    height: 1,
-    backgroundColor: colors.borderLight,
-  },
-  tagline: {
-    fontFamily: fonts.bodyItalic,
-    fontSize: 12,
-    color: colors.textMuted,
-    textAlign: 'center',
-    flexShrink: 1,
-  },
-
-  // ── Recommender card ──────────────────────────────────────────────────────
-  recommenderCard: {
-    backgroundColor: colors.surface,
-    borderRadius: radius.md,
-    overflow: 'hidden',
-    borderWidth: 1,
-    borderColor: colors.border,
-    flexDirection: 'row',
-    marginBottom: spacing.md,
-    ...shadows.sm,
-  },
-  recommenderCardPressed: {
-    backgroundColor: colors.surfacePressed,
-    transform: [{ scale: 0.985 }],
-  },
-  recommenderAccentBar: {
-    width: 4,
-    backgroundColor: colors.primary,
-  },
-  recommenderBody: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: spacing.md,
-    paddingVertical: spacing.md,
-    gap: spacing.sm,
-  },
-  recommenderLeft: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: spacing.sm,
-  },
-  recommenderIconWrap: {
-    width: 38,
-    height: 38,
-    borderRadius: radius.sm,
-    backgroundColor: colors.primaryMist,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  recommenderTextBlock: {
-    flex: 1,
-  },
-  recommenderTitle: {
-    fontFamily: fonts.serifBold,
-    fontSize: 16,
-    color: colors.text,
-    marginBottom: 2,
-  },
-  recommenderSubtitle: {
-    fontFamily: fonts.body,
-    fontSize: 13,
-    color: colors.textSecondary,
-    lineHeight: 18,
+  footerRight: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 10,
+    letterSpacing: 2,
+    color: paper.ink,
+    opacity: 0.55,
   },
 });

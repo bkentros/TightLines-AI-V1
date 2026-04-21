@@ -1,9 +1,16 @@
+/**
+ * Reset-password screen — FinFindr paper language.
+ *
+ * Used as the landing target of the reset-password email link. Password
+ * update logic (supabase.auth.updateUser) and success navigation are
+ * unchanged.
+ */
+
 import { useState } from 'react';
 import {
   View,
   Text,
   StyleSheet,
-  TextInput,
   Pressable,
   KeyboardAvoidingView,
   Platform,
@@ -12,8 +19,19 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
-import { colors, fonts, spacing, radius } from '../../lib/theme';
+import {
+  paper,
+  paperFonts,
+  paperSpacing,
+} from '../../lib/theme';
 import { supabase } from '../../lib/supabase';
+import { PaperBackground } from '../../components/paper';
+import {
+  AuthField,
+  AuthHeader,
+  AuthPrimaryButton,
+  AuthStatusCard,
+} from '../../components/paper/auth';
 
 export default function ResetPasswordScreen() {
   const router = useRouter();
@@ -48,79 +66,76 @@ export default function ResetPasswordScreen() {
 
   if (done) {
     return (
-      <SafeAreaView style={styles.safe} edges={['top', 'bottom']}>
-        <View style={styles.doneContainer}>
-          <View style={styles.iconWrap}>
-            <Ionicons name="checkmark-circle" size={48} color={colors.sage} />
+      <PaperBackground>
+        <SafeAreaView style={styles.safe} edges={['top', 'bottom']}>
+          <View style={styles.doneContainer}>
+            <AuthStatusCard
+              iconName="checkmark-circle"
+              title="Password updated"
+            >
+              <Text style={styles.doneBody}>
+                Your password has been reset successfully.
+              </Text>
+            </AuthStatusCard>
+
+            <View style={{ marginTop: paperSpacing.md }}>
+              <AuthPrimaryButton
+                label="Sign in"
+                onPress={() => router.replace('/(auth)/sign-in')}
+              />
+            </View>
           </View>
-          <Text style={styles.doneTitle}>Password updated</Text>
-          <Text style={styles.doneBody}>
-            Your password has been reset successfully.
-          </Text>
-          <Pressable
-            style={({ pressed }) => [styles.btn, pressed && styles.btnPressed]}
-            onPress={() => router.replace('/(auth)/sign-in')}
-          >
-            <Text style={styles.btnText}>Sign In</Text>
-          </Pressable>
-        </View>
-      </SafeAreaView>
+        </SafeAreaView>
+      </PaperBackground>
     );
   }
 
   return (
-    <SafeAreaView style={styles.safe} edges={['top', 'bottom']}>
-      <KeyboardAvoidingView
-        style={styles.kav}
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      >
-        <View style={styles.container}>
-          <View style={styles.header}>
-            <Text style={styles.title}>Set new password</Text>
-            <Text style={styles.subtitle}>
-              Choose a strong password for your account.
-            </Text>
-          </View>
+    <PaperBackground>
+      <SafeAreaView style={styles.safe} edges={['top', 'bottom']}>
+        <KeyboardAvoidingView
+          style={styles.kav}
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        >
+          <View style={styles.container}>
+            <AuthHeader
+              eyebrow="— FINFINDR · NEW PASSWORD —"
+              title={'Set a new\npassword.'}
+              subtitle="Choose a strong password for your FinFindr account."
+            />
 
-          <View style={styles.fields}>
-            <View style={styles.field}>
-              <Text style={styles.label}>New Password</Text>
-              <View style={styles.passwordRow}>
-                <TextInput
-                  style={[styles.input, styles.passwordInput]}
-                  value={password}
-                  onChangeText={setPassword}
-                  placeholder="At least 8 characters"
-                  placeholderTextColor={colors.textMuted}
-                  secureTextEntry={!showPassword}
-                  autoCapitalize="none"
-                  autoCorrect={false}
-                  textContentType="newPassword"
-                  returnKeyType="next"
-                  autoFocus
-                />
-                <Pressable
-                  onPress={() => setShowPassword((v) => !v)}
-                  style={styles.eyeBtn}
-                  hitSlop={8}
-                >
-                  <Ionicons
-                    name={showPassword ? 'eye-off-outline' : 'eye-outline'}
-                    size={20}
-                    color={colors.textMuted}
-                  />
-                </Pressable>
-              </View>
-            </View>
+            <View style={styles.fields}>
+              <AuthField
+                label="New password"
+                value={password}
+                onChangeText={setPassword}
+                placeholder="At least 8 characters"
+                secureTextEntry={!showPassword}
+                autoCapitalize="none"
+                autoCorrect={false}
+                textContentType="newPassword"
+                returnKeyType="next"
+                autoFocus
+                reserveTrailingSpace
+                trailing={
+                  <Pressable
+                    onPress={() => setShowPassword((v) => !v)}
+                    hitSlop={8}
+                  >
+                    <Ionicons
+                      name={showPassword ? 'eye-off-outline' : 'eye-outline'}
+                      size={18}
+                      color={paper.ink}
+                    />
+                  </Pressable>
+                }
+              />
 
-            <View style={styles.field}>
-              <Text style={styles.label}>Confirm Password</Text>
-              <TextInput
-                style={styles.input}
+              <AuthField
+                label="Confirm password"
                 value={confirmPassword}
                 onChangeText={setConfirmPassword}
                 placeholder="Re-enter your password"
-                placeholderTextColor={colors.textMuted}
                 secureTextEntry={!showPassword}
                 autoCapitalize="none"
                 autoCorrect={false}
@@ -129,111 +144,46 @@ export default function ResetPasswordScreen() {
                 onSubmitEditing={handleReset}
               />
             </View>
-          </View>
 
-          <Pressable
-            style={({ pressed }) => [
-              styles.btn,
-              pressed && styles.btnPressed,
-              loading && styles.btnDisabled,
-            ]}
-            onPress={handleReset}
-            disabled={loading}
-          >
-            <Text style={styles.btnText}>
-              {loading ? 'Updating…' : 'Update Password'}
-            </Text>
-          </Pressable>
-        </View>
-      </KeyboardAvoidingView>
-    </SafeAreaView>
+            <AuthPrimaryButton
+              label="Update password"
+              loading={loading}
+              loadingLabel="UPDATING…"
+              onPress={handleReset}
+            />
+          </View>
+        </KeyboardAvoidingView>
+      </SafeAreaView>
+    </PaperBackground>
   );
 }
 
 const styles = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: colors.background },
+  safe: { flex: 1 },
   kav: { flex: 1 },
   container: {
     flex: 1,
-    paddingHorizontal: spacing.lg,
-    paddingBottom: spacing.xxl,
-    paddingTop: spacing.xxl,
+    paddingHorizontal: paperSpacing.lg,
+    paddingTop: paperSpacing.xl + paperSpacing.lg,
+    paddingBottom: paperSpacing.xl + paperSpacing.lg,
+    gap: paperSpacing.xl,
   },
-
-  header: { marginBottom: spacing.xl },
-  title: {
-    fontFamily: fonts.serif,
-    fontSize: 30,
-    color: colors.text,
-    marginBottom: spacing.xs,
+  fields: {
+    gap: paperSpacing.md,
   },
-  subtitle: { fontSize: 15, color: colors.textSecondary, lineHeight: 22 },
-
-  fields: { gap: spacing.md, marginBottom: spacing.lg },
-  field: { gap: spacing.xs + 2 },
-  label: {
-    fontSize: 13,
-    fontWeight: '600',
-    color: colors.textSecondary,
-    letterSpacing: 0.2,
-  },
-  input: {
-    backgroundColor: colors.surface,
-    borderRadius: radius.md,
-    borderWidth: 1.5,
-    borderColor: colors.border,
-    paddingHorizontal: spacing.md,
-    paddingVertical: spacing.md - 2,
-    fontSize: 16,
-    color: colors.text,
-  },
-  passwordRow: { position: 'relative' },
-  passwordInput: { paddingRight: 48 },
-  eyeBtn: {
-    position: 'absolute',
-    right: spacing.md,
-    top: 0,
-    bottom: 0,
-    justifyContent: 'center',
-  },
-
-  btn: {
-    backgroundColor: colors.sage,
-    borderRadius: radius.md,
-    paddingVertical: spacing.md,
-    alignItems: 'center',
-  },
-  btnPressed: { backgroundColor: colors.sageDark },
-  btnDisabled: { opacity: 0.6 },
-  btnText: { fontSize: 16, fontWeight: '600', color: colors.textLight },
 
   doneContainer: {
     flex: 1,
-    alignItems: 'center',
     justifyContent: 'center',
-    paddingHorizontal: spacing.lg,
-  },
-  iconWrap: {
-    width: 88,
-    height: 88,
-    borderRadius: 44,
-    backgroundColor: colors.sageLight,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: spacing.xl,
-  },
-  doneTitle: {
-    fontFamily: fonts.serif,
-    fontSize: 28,
-    color: colors.text,
-    marginBottom: spacing.md,
-    textAlign: 'center',
+    paddingHorizontal: paperSpacing.lg,
   },
   doneBody: {
-    fontSize: 15,
-    color: colors.textSecondary,
+    fontFamily: paperFonts.body,
+    fontSize: 14,
+    color: paper.ink,
+    opacity: 0.75,
     textAlign: 'center',
-    lineHeight: 23,
-    marginBottom: spacing.xl,
+    lineHeight: 21,
+    marginTop: paperSpacing.xs,
   },
 });

@@ -145,7 +145,7 @@ export default function OnboardingStep3() {
           <Text style={styles.title}>Location access</Text>
           <View style={styles.accentLine} />
           <Text style={styles.subtitle}>
-            TightLines AI automatically syncs your GPS location before each
+            FinFindr automatically syncs your GPS location before each
             recommendation — pulling real-time weather, tides, and moon data
             for where you actually are.
           </Text>

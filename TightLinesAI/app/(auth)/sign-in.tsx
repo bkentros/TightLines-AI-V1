@@ -1,10 +1,18 @@
+/**
+ * Sign-in screen — FinFindr paper language.
+ *
+ * Visual migration only. Auth behavior is identical to the previous version:
+ *   - email/password via `signInWithEmail`
+ *   - Apple Sign-In via `signInWithApple`
+ *   - error alerts, session storage, and profile fetch unchanged
+ */
+
 import { useState } from 'react';
 import {
   View,
-  Text,
   StyleSheet,
-  TextInput,
   Pressable,
+  Text,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
@@ -15,9 +23,23 @@ import { useRouter } from 'expo-router';
 import * as AppleAuthentication from 'expo-apple-authentication';
 import * as Crypto from 'expo-crypto';
 import { Ionicons } from '@expo/vector-icons';
-import { colors, fonts, spacing, radius } from '../../lib/theme';
+import {
+  paper,
+  paperFonts,
+  paperRadius,
+  paperSpacing,
+} from '../../lib/theme';
 import { signInWithEmail, signInWithApple } from '../../lib/auth';
 import { useAuthStore } from '../../store/authStore';
+import { PaperBackground } from '../../components/paper';
+import {
+  AuthBackButton,
+  AuthDivider,
+  AuthField,
+  AuthHeader,
+  AuthPrimaryButton,
+  AuthTextLink,
+} from '../../components/paper/auth';
 
 export default function SignInScreen() {
   const router = useRouter();
@@ -94,39 +116,33 @@ export default function SignInScreen() {
   };
 
   return (
-    <SafeAreaView style={styles.safe} edges={['top', 'bottom']}>
-      <KeyboardAvoidingView
-        style={styles.kav}
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      >
-        <ScrollView
-          contentContainerStyle={styles.scroll}
-          keyboardShouldPersistTaps="handled"
-          showsVerticalScrollIndicator={false}
+    <PaperBackground>
+      <SafeAreaView style={styles.safe} edges={['top', 'bottom']}>
+        <KeyboardAvoidingView
+          style={styles.kav}
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         >
-          {/* Header */}
-          <View style={styles.header}>
-            <Pressable
-              onPress={() => router.back()}
-              style={styles.backBtn}
-              hitSlop={12}
-            >
-              <Ionicons name="chevron-back" size={22} color={colors.text} />
-            </Pressable>
-            <Text style={styles.title}>Welcome back</Text>
-            <Text style={styles.subtitle}>Sign in to your account</Text>
-          </View>
+          <ScrollView
+            contentContainerStyle={styles.scroll}
+            keyboardShouldPersistTaps="handled"
+            showsVerticalScrollIndicator={false}
+          >
+            <View style={styles.topSection}>
+              <AuthBackButton onPress={() => router.back()} />
 
-          {/* Form */}
-          <View style={styles.form}>
-            <View style={styles.field}>
-              <Text style={styles.label}>Email</Text>
-              <TextInput
-                style={styles.input}
+              <AuthHeader
+                eyebrow="— FINFINDR · SIGN IN —"
+                title={'Welcome\nback.'}
+                subtitle="Sign in to pick up your log, reports, and tackle recommendations right where you left them."
+              />
+            </View>
+
+            <View style={styles.form}>
+              <AuthField
+                label="Email"
                 value={email}
                 onChangeText={setEmail}
                 placeholder="you@example.com"
-                placeholderTextColor={colors.textMuted}
                 keyboardType="email-address"
                 autoCapitalize="none"
                 autoCorrect={false}
@@ -134,175 +150,114 @@ export default function SignInScreen() {
                 textContentType="emailAddress"
                 returnKeyType="next"
               />
+
+              <AuthField
+                label="Password"
+                value={password}
+                onChangeText={setPassword}
+                placeholder="Your password"
+                secureTextEntry={!showPassword}
+                autoCapitalize="none"
+                autoCorrect={false}
+                autoComplete="password"
+                textContentType="password"
+                returnKeyType="done"
+                onSubmitEditing={handleSignIn}
+                reserveTrailingSpace
+                trailing={
+                  <Pressable
+                    onPress={() => setShowPassword((v) => !v)}
+                    hitSlop={8}
+                  >
+                    <Ionicons
+                      name={showPassword ? 'eye-off-outline' : 'eye-outline'}
+                      size={18}
+                      color={paper.ink}
+                    />
+                  </Pressable>
+                }
+              />
+
+              <Pressable
+                style={styles.forgotLink}
+                onPress={() => router.push('/(auth)/forgot-password')}
+                hitSlop={8}
+              >
+                <Text style={styles.forgotText}>FORGOT PASSWORD?</Text>
+              </Pressable>
             </View>
 
-            <View style={styles.field}>
-              <Text style={styles.label}>Password</Text>
-              <View style={styles.passwordRow}>
-                <TextInput
-                  style={[styles.input, styles.passwordInput]}
-                  value={password}
-                  onChangeText={setPassword}
-                  placeholder="Your password"
-                  placeholderTextColor={colors.textMuted}
-                  secureTextEntry={!showPassword}
-                  autoCapitalize="none"
-                  autoCorrect={false}
-                  autoComplete="password"
-                  textContentType="password"
-                  returnKeyType="done"
-                  onSubmitEditing={handleSignIn}
-                />
-                <Pressable
-                  onPress={() => setShowPassword((v) => !v)}
-                  style={styles.eyeBtn}
-                  hitSlop={8}
-                >
-                  <Ionicons
-                    name={showPassword ? 'eye-off-outline' : 'eye-outline'}
-                    size={20}
-                    color={colors.textMuted}
+            <View style={styles.actions}>
+              <AuthPrimaryButton
+                label="Sign in"
+                loading={loading}
+                loadingLabel="SIGNING IN…"
+                onPress={handleSignIn}
+              />
+
+              {Platform.OS === 'ios' && (
+                <>
+                  <AuthDivider />
+
+                  <AppleAuthentication.AppleAuthenticationButton
+                    buttonType={
+                      AppleAuthentication.AppleAuthenticationButtonType.SIGN_IN
+                    }
+                    buttonStyle={
+                      AppleAuthentication.AppleAuthenticationButtonStyle.BLACK
+                    }
+                    cornerRadius={paperRadius.card}
+                    style={styles.appleBtn}
+                    onPress={handleAppleSignIn}
                   />
-                </Pressable>
-              </View>
+                </>
+              )}
+
+              <AuthTextLink
+                leadText="Don't have an account?"
+                linkText="CREATE ONE"
+                onPress={() => router.replace('/(auth)/sign-up')}
+              />
             </View>
-
-            <Pressable
-              style={styles.forgotLink}
-              onPress={() => router.push('/(auth)/forgot-password')}
-            >
-              <Text style={styles.forgotText}>Forgot password?</Text>
-            </Pressable>
-          </View>
-
-          {/* Actions */}
-          <View style={styles.actions}>
-            <Pressable
-              style={({ pressed }) => [
-                styles.btn,
-                styles.btnPrimary,
-                pressed && styles.btnPrimaryPressed,
-                loading && styles.btnDisabled,
-              ]}
-              onPress={handleSignIn}
-              disabled={loading}
-            >
-              <Text style={styles.btnPrimaryText}>
-                {loading ? 'Signing in…' : 'Sign In'}
-              </Text>
-            </Pressable>
-
-            {Platform.OS === 'ios' && (
-              <>
-                <View style={styles.dividerRow}>
-                  <View style={styles.dividerLine} />
-                  <Text style={styles.dividerText}>or</Text>
-                  <View style={styles.dividerLine} />
-                </View>
-
-                <AppleAuthentication.AppleAuthenticationButton
-                  buttonType={
-                    AppleAuthentication.AppleAuthenticationButtonType.SIGN_IN
-                  }
-                  buttonStyle={
-                    AppleAuthentication.AppleAuthenticationButtonStyle.BLACK
-                  }
-                  cornerRadius={radius.md}
-                  style={styles.appleBtn}
-                  onPress={handleAppleSignIn}
-                />
-              </>
-            )}
-
-            <Pressable
-              style={styles.switchLink}
-              onPress={() => router.replace('/(auth)/sign-up')}
-            >
-              <Text style={styles.switchText}>
-                Don't have an account?{' '}
-                <Text style={styles.switchTextBold}>Create one</Text>
-              </Text>
-            </Pressable>
-          </View>
-        </ScrollView>
-      </KeyboardAvoidingView>
-    </SafeAreaView>
+          </ScrollView>
+        </KeyboardAvoidingView>
+      </SafeAreaView>
+    </PaperBackground>
   );
 }
 
 const styles = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: colors.background },
+  safe: { flex: 1 },
   kav: { flex: 1 },
   scroll: {
     flexGrow: 1,
-    paddingHorizontal: spacing.lg,
-    paddingBottom: spacing.xxl,
+    paddingHorizontal: paperSpacing.lg,
+    paddingBottom: paperSpacing.xl + paperSpacing.lg,
+    paddingTop: paperSpacing.md,
     justifyContent: 'space-between',
+    gap: paperSpacing.xl,
   },
-
-  header: { paddingTop: spacing.md, marginBottom: spacing.xl },
-  backBtn: { marginBottom: spacing.lg },
-  title: {
-    fontFamily: fonts.serif,
-    fontSize: 30,
-    color: colors.text,
-    marginBottom: spacing.xs,
+  topSection: {
+    gap: paperSpacing.xl,
   },
-  subtitle: { fontSize: 15, color: colors.textSecondary },
-
-  form: { gap: spacing.md, marginBottom: spacing.xl },
-  field: { gap: spacing.xs + 2 },
-  label: {
-    fontSize: 13,
-    fontWeight: '600',
-    color: colors.textSecondary,
-    letterSpacing: 0.2,
+  form: {
+    gap: paperSpacing.md,
   },
-  input: {
-    backgroundColor: colors.surface,
-    borderRadius: radius.md,
-    borderWidth: 1.5,
-    borderColor: colors.border,
-    paddingHorizontal: spacing.md,
-    paddingVertical: spacing.md - 2,
-    fontSize: 16,
-    color: colors.text,
+  forgotLink: {
+    alignSelf: 'flex-end',
+    paddingVertical: 4,
   },
-  passwordRow: { position: 'relative' },
-  passwordInput: { paddingRight: 48 },
-  eyeBtn: {
-    position: 'absolute',
-    right: spacing.md,
-    top: 0,
-    bottom: 0,
-    justifyContent: 'center',
+  forgotText: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 10,
+    color: paper.forest,
+    letterSpacing: 2.4,
   },
-  forgotLink: { alignSelf: 'flex-end' },
-  forgotText: { fontSize: 13, color: colors.sage, fontWeight: '500' },
-
-  actions: { gap: spacing.sm },
-  btn: {
-    borderRadius: radius.md,
-    paddingVertical: spacing.md,
-    alignItems: 'center',
+  actions: {
+    gap: paperSpacing.sm,
   },
-  btnPrimary: { backgroundColor: colors.sage },
-  btnPrimaryPressed: { backgroundColor: colors.sageDark },
-  btnPrimaryText: { fontSize: 16, fontWeight: '600', color: colors.textLight },
-  btnDisabled: { opacity: 0.6 },
-
-  dividerRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: spacing.sm,
-    marginVertical: spacing.xs,
+  appleBtn: {
+    height: 52,
+    width: '100%',
   },
-  dividerLine: { flex: 1, height: 1, backgroundColor: colors.border },
-  dividerText: { fontSize: 13, color: colors.textMuted },
-
-  appleBtn: { height: 50, width: '100%' },
-
-  switchLink: { alignItems: 'center', paddingTop: spacing.sm },
-  switchText: { fontSize: 14, color: colors.textSecondary },
-  switchTextBold: { fontWeight: '600', color: colors.sage },
 });

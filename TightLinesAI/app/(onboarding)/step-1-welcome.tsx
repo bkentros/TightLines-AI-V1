@@ -68,7 +68,7 @@ export default function OnboardingStep1() {
           <View style={styles.logoWrap}>
             <Ionicons name="fish" size={32} color={colors.sage} />
           </View>
-          <Text style={styles.title}>Welcome to{'\n'}TightLines AI</Text>
+          <Text style={styles.title}>Welcome to{'\n'}FINFINDR</Text>
           <View style={styles.accentLine} />
           <Text style={styles.subtitle}>
             Your AI fishing companion. Let's get you set up so we can

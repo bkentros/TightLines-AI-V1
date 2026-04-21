@@ -9,7 +9,23 @@
  *   dark.png     — purple / charcoal / navy (silhouette / depth colors)
  */
 
-import type { ColorFamily } from './recommenderContracts';
+// NOTE: `ColorFamily` used to live on `recommenderContracts.ts` but the
+// rebuild engine collapsed it into a free-form `color_style: string` on
+// RankedRecommendation. We keep the map here as a typed lookup so callers
+// that still classify output into palette swatches keep a stable interface,
+// even though the app currently only uses `ALL_COLOR_PALETTE_IMAGES` for
+// preloading. If a future caller needs the palette, they can pass any of
+// the keys below.
+export type ColorFamily =
+  | 'natural_match'
+  | 'shad_silver'
+  | 'craw_pattern'
+  | 'shrimp_tan'
+  | 'crab_olive'
+  | 'gold_amber'
+  | 'chartreuse_white'
+  | 'flash_heavy'
+  | 'dark_silhouette';
 
 type PaletteKey = 'natural' | 'bright' | 'dark';
 

@@ -1,31 +1,77 @@
 /**
- * How's Fishing — Immersive visual report.
- * Lush Forest palette · Bricolage Grotesque headings · Inter body
- * Each section: scored gauge, timing tiles, numbered reasons, tip card.
+ * How's Fishing report view — FinFindr "paper/ink" visual language.
+ *
+ * This is the visual layer of the real engine report. Every field rendered
+ * here comes from `HowsFishingReportV1` (or the companion `solunarData` env
+ * payload). The structure follows the FinFindr `ReportPage` in `finfindr.jsx`:
+ *
+ *   HERO       — LinearScoreGauge (0-10 red→yellow→green track) + tier-
+ *                 colored outlook label + summary. Intentionally compact so
+ *                 the hero feels like a headline, not a whole screen.
+ *   WHAT'S HELPING / WATCH OUT FOR — two paper cards with ink borders and
+ *                 dashed row separators; drivers on the forest card, suppressors
+ *                 on the red card. Reason text uses Fraunces like the mock.
+ *   WHEN TO GO — 4 time-window tiles (Dawn / Morning / Afternoon / Evening)
+ *                 with the highlighted period(s) getting the "★ BEST" treatment.
+ *   SOLUNAR WINDOWS — preserved as a secondary paper card when data available.
+ *   GUIDE'S NOTE — paper card with the actionable tip quoted from the engine.
+ *
+ * Behavior preserved from the previous implementation:
+ *   - driver/suppressor truncation (top 3 / top 2) to keep the hero focused.
+ *   - Solunar data is rendered only when `solunarData` has periods.
+ *   - formatFactorLabel handles multi-sentence engine text capitalization.
+ *   - Score is expressed via a linear 0-10 gauge, not a half-circle arc, so
+ *     the scale reads instantly and never overlaps headline text.
+ *
+ * Dynamic outlook labeling:
+ *   Because the report can be for today or a future forecast day, the hero's
+ *   "OUTLOOK" eyebrow takes a `dateLabel` prop (e.g. "TODAY", "SAT · MAR 22")
+ *   so we never lie about timeliness when the user entered via a forecast tap.
  */
 
-import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { colors, fonts, spacing, radius, shadows } from '../../lib/theme';
-import { resolveTimingPeriods, resolveTimingFromPreset, TimingTilesRow, PERIOD_DEFS, type PeriodSlot } from './TimingTiles';
-import { AIR_TEMP_LARGE_DIURNAL_SWING_F } from '../../lib/airTempUiConstants';
+import {
+  paper,
+  paperFonts,
+  paperSpacing,
+  paperRadius,
+  paperShadows,
+  paperBorders,
+  paperTierForScore,
+  paperTier,
+  type PaperTier,
+} from '../../lib/theme';
+import {
+  CornerMarkSet,
+  SectionEyebrow,
+  TopographicLines,
+} from '../paper';
+import {
+  resolveTimingPeriods,
+  resolveTimingFromPreset,
+  PERIOD_DEFS,
+  type PeriodSlot,
+} from './TimingTiles';
 import type { HowsFishingReportV1 } from '../../lib/howFishing';
-// DaypartNotePreset used implicitly via report.daypart_preset in legacy fallback path
 import type { SolunarData } from '../../lib/env/types';
 
-// ─── Score helpers ────────────────────────────────────────────────────────────
+// ─── Display helpers ─────────────────────────────────────────────────────────
 
-function scoreOutOf10(score: number): number {
-  return Math.round(score / 10);
-}
-
-function displayScore(score: number): string {
+function displayScore10(score: number): string {
   const v = Math.round(score) / 10;
   return Number.isInteger(v) ? v.toFixed(0) : v.toFixed(1);
 }
 
-/** Capitalize sentence starts after . ; ! ? so LLM/engine multi-sentence lines read correctly. */
+function tierForScore(score: number): PaperTier {
+  return paperTierForScore(score / 10);
+}
+
+function tierAccentColor(tier: PaperTier): string {
+  return tier === 'green' ? paper.forest : tier === 'yellow' ? paper.goldDk : paper.red;
+}
+
+/** Capitalize sentence starts after . ; ! ? so engine multi-sentence text reads correctly. */
 function formatFactorLabel(text: string): string {
   if (!text || !text.trim()) return text;
   return text
@@ -39,149 +85,8 @@ function formatFactorLabel(text: string): string {
     .join(' ');
 }
 
-/** Per-segment color: deep gradient red → amber → forest green */
-// Gauge has 10 segments (idx 0–9). Aligned with band thresholds:
-// Poor <40 → idx 0–3, Fair 40–59 → idx 4–5, Good 60–79 → idx 6–7, Excellent 80+ → idx 8–9
-function segmentColor(idx: number): string {
-  if (idx <= 3) return '#C0504A'; // Poor
-  if (idx <= 5) return '#C29B2A'; // Fair
-  if (idx <= 7) return '#5EA86A'; // Good
-  return '#2E6F40';               // Excellent
-}
-
-// Score number color — aligned with band thresholds (Poor <40, Fair 40–59, Good/Excellent ≥60)
-function scoreTextColor(score: number): string {
-  if (score >= 60) return '#2E6F40'; // Good or Excellent
-  if (score >= 40) return '#C29B2A'; // Fair
-  return '#C0504A';                  // Poor
-}
-
-// ─── Band config ──────────────────────────────────────────────────────────────
-
-function AirForecastStrip({ report }: { report: HowsFishingReportV1 }) {
-  const snap = report.condition_context?.environment_snapshot;
-  if (!snap || typeof snap !== 'object') return null;
-  const lo = snap.daily_low_air_temp_f as number | null | undefined;
-  const hi = snap.daily_high_air_temp_f as number | null | undefined;
-  if (lo == null || hi == null || !Number.isFinite(lo) || !Number.isFinite(hi)) return null;
-  return (
-    <View style={airForecastStyles.wrap}>
-      <Ionicons name="thermometer-outline" size={13} color={colors.textMuted} />
-      <Text style={airForecastStyles.label}>Air</Text>
-      <Text style={airForecastStyles.range}>{`${Math.round(lo)}–${Math.round(hi)}°F`}</Text>
-    </View>
-  );
-}
-
-const airForecastStyles = StyleSheet.create({
-  wrap: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 5,
-    marginTop: spacing.sm,
-  },
-  label: {
-    fontFamily: fonts.bodySemiBold,
-    fontSize: 13,
-    color: colors.textMuted,
-  },
-  range: {
-    fontFamily: fonts.bodySemiBold,
-    fontSize: 13,
-    color: colors.textSecondary,
-  },
-});
-
-const BAND_CONFIG: Record<string, {
-  color: string; bg: string; border: string; icon: keyof typeof Ionicons.glyphMap;
-}> = {
-  Excellent: { color: '#2E6F40', bg: '#E6F5EB', border: '#2E6F4030', icon: 'flame' },
-  Good:      { color: '#3A8A54', bg: '#EEF8F2', border: '#3A8A5428', icon: 'thumbs-up' },
-  Fair:      { color: '#C29B2A', bg: '#FDF6E8', border: '#C29B2A28', icon: 'partly-sunny-outline' },
-  Poor:      { color: '#C0504A', bg: '#FDF0EF', border: '#C0504A28', icon: 'arrow-down-circle-outline' },
-};
-
-// ─── Score Gauge ──────────────────────────────────────────────────────────────
-
-function ScoreGauge({ score }: { score: number }) {
-  const filled = scoreOutOf10(score);
-  return (
-    <View style={gaugeStyles.wrap}>
-      <View style={gaugeStyles.track}>
-        {Array.from({ length: 10 }, (_, i) => {
-          const idx = i + 1;
-          const active = idx <= filled;
-          const isLast = idx === filled;
-          return (
-            <View
-              key={i}
-              style={[
-                gaugeStyles.segment,
-                active
-                  ? { backgroundColor: segmentColor(idx) }
-                  : gaugeStyles.segmentInactive,
-                isLast && gaugeStyles.segmentTip,
-              ]}
-            />
-          );
-        })}
-      </View>
-      <View style={gaugeStyles.labelRow}>
-        <Text style={gaugeStyles.labelLeft}>0</Text>
-        <Text style={gaugeStyles.labelCenter}>5</Text>
-        <Text style={gaugeStyles.labelRight}>10</Text>
-      </View>
-    </View>
-  );
-}
-
-const gaugeStyles = StyleSheet.create({
-  wrap: { marginTop: spacing.md, marginBottom: spacing.sm },
-  track: {
-    flexDirection: 'row',
-    gap: 3,
-    height: 14,
-    borderRadius: radius.full,
-    overflow: 'hidden',
-  },
-  segment: {
-    flex: 1,
-    borderRadius: 3,
-  },
-  segmentInactive: {
-    backgroundColor: '#D4E8D8',
-  },
-  segmentTip: {
-    shadowColor: '#253D2C',
-    shadowOffset: { width: 0, height: 0 },
-    shadowOpacity: 0.4,
-    shadowRadius: 4,
-    elevation: 2,
-  },
-  labelRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 5,
-    paddingHorizontal: 1,
-  },
-  labelLeft:   { fontFamily: fonts.bodySemiBold, fontSize: 10, color: colors.textMuted },
-  labelCenter: { fontFamily: fonts.bodySemiBold, fontSize: 10, color: colors.textMuted },
-  labelRight:  { fontFamily: fonts.bodySemiBold, fontSize: 10, color: colors.textMuted },
-});
-
-// ─── Timing periods ───────────────────────────────────────────────────────────
-
-function getTimingPeriods(report: HowsFishingReportV1): PeriodSlot[] | null {
-  const hp = (report as any).highlighted_periods as boolean[] | undefined;
-  if (hp && hp.length === 4) return resolveTimingPeriods(hp as [boolean, boolean, boolean, boolean]);
-  return resolveTimingFromPreset(report.daypart_preset);
-}
-
-// ─── Solunar helpers ──────────────────────────────────────────────────────────
-
-/** Parse a solunar time string (ISO local or "HH:mm") to "9:15am" format */
+/** Parse a solunar time string (ISO local or "HH:mm") to "9:15am" format. */
 function parseSolunarTime(t: string): string {
-  // ISO local: "YYYY-MM-DDTHH:mm:ss" or "YYYY-MM-DDTHH:mm"
   const isoMatch = t.match(/T(\d{2}):(\d{2})/);
   if (isoMatch) {
     const h = parseInt(isoMatch[1]!, 10);
@@ -190,7 +95,6 @@ function parseSolunarTime(t: string): string {
     const dh = h === 0 ? 12 : h > 12 ? h - 12 : h;
     return `${dh}:${String(m).padStart(2, '0')}${period}`;
   }
-  // Plain "HH:mm"
   const hmMatch = t.match(/^(\d{1,2}):(\d{2})/);
   if (hmMatch) {
     const h = parseInt(hmMatch[1]!, 10);
@@ -206,502 +110,1102 @@ function formatSolunarRange(start: string, end: string): string {
   return `${parseSolunarTime(start)} – ${parseSolunarTime(end)}`;
 }
 
-// ─── Main Component ───────────────────────────────────────────────────────────
+// ─── Air-temp strip ──────────────────────────────────────────────────────────
+
+function AirRangeStrip({ report }: { report: HowsFishingReportV1 }) {
+  const snap = report.condition_context?.environment_snapshot;
+  if (!snap || typeof snap !== 'object') return null;
+  const lo = snap.daily_low_air_temp_f as number | null | undefined;
+  const hi = snap.daily_high_air_temp_f as number | null | undefined;
+  if (lo == null || hi == null || !Number.isFinite(lo) || !Number.isFinite(hi)) return null;
+  return (
+    <View style={styles.airRow}>
+      <Ionicons name="thermometer-outline" size={12} color={paper.ink} />
+      <Text style={styles.airLabel}>AIR</Text>
+      <Text style={styles.airRange}>{`${Math.round(lo)}° – ${Math.round(hi)}°F`}</Text>
+    </View>
+  );
+}
+
+// ─── Ornamental divider ─────────────────────────────────────────────────────
+
+/**
+ * Editorial divider used between major report sections — two hairline rules
+ * flanking a centered fish/compass glyph, evoking field-guide typography.
+ * Keeps the page feeling like a premium outdoor magazine rather than a
+ * generic data card stack.
+ */
+function OrnamentalDivider({
+  icon = 'fish-outline',
+  color = paper.walnut,
+}: {
+  icon?: keyof typeof import('@expo/vector-icons/build/Ionicons').default.glyphMap;
+  color?: string;
+}) {
+  return (
+    <View style={styles.ornamentRow}>
+      <View style={[styles.ornamentRule, { borderColor: color }]} />
+      <View style={[styles.ornamentGlyph, { borderColor: color }]}>
+        <Ionicons name={icon} size={12} color={color} />
+      </View>
+      <View style={[styles.ornamentRule, { borderColor: color }]} />
+    </View>
+  );
+}
+
+// ─── Timing resolver ─────────────────────────────────────────────────────────
+
+function getTimingPeriods(report: HowsFishingReportV1): PeriodSlot[] | null {
+  const hp = report.highlighted_periods;
+  if (hp && hp.length === 4) return resolveTimingPeriods(hp);
+  return resolveTimingFromPreset(report.daypart_preset);
+}
+
+// ─── Component ───────────────────────────────────────────────────────────────
 
 export function RebuildReportView({
   report,
   solunarData,
+  dateLabel = 'TODAY',
 }: {
   report: HowsFishingReportV1;
   solunarData?: SolunarData | null;
+  /** Uppercase date label shown in the hero outlook eyebrow. */
+  dateLabel?: string;
 }) {
-  const config = BAND_CONFIG[report.band] ?? {
-    color: colors.textMuted,
-    bg: colors.backgroundAlt,
-    border: colors.border,
-    icon: 'help-circle-outline' as keyof typeof Ionicons.glyphMap,
-  };
-
-  const sc = scoreTextColor(report.score);
-  const timingPeriods = getTimingPeriods(report);
+  const tier = tierForScore(report.score);
+  const accent = tierAccentColor(tier);
   const topDrivers = report.drivers.slice(0, 3);
   const topSuppressors = report.suppressors.slice(0, 2);
+  const timingPeriods = getTimingPeriods(report);
   const showTiming = !!(report.daypart_note || timingPeriods);
+
+  const isFuture = dateLabel.toUpperCase() !== 'TODAY' && !dateLabel.toUpperCase().startsWith('TODAY');
+  const outlookEyebrow = isFuture ? 'FORECAST OUTLOOK' : "TODAY'S OUTLOOK";
+  // Phrase is chosen off the engine's 4-band value so the word always
+  // matches the number. "Prime day" is reserved for Excellent (score
+  // ≥ 80 / 8.0). Good days get softer "solid" language, Fair gets its
+  // own honest framing, Poor keeps the existing cautionary tone.
+  const bandKey = (report.band ?? '').toLowerCase();
+  const outlookLine =
+    bandKey === 'excellent'
+      ? isFuture
+        ? 'A PRIME DAY SHAPING UP.'
+        : 'A PRIME DAY IS SHAPING UP.'
+      : bandKey === 'good'
+      ? isFuture
+        ? 'A SOLID DAY AHEAD.'
+        : 'A SOLID DAY TODAY.'
+      : bandKey === 'fair'
+      ? isFuture
+        ? 'A FAIR WINDOW EXPECTED.'
+        : 'A FAIR WINDOW TODAY.'
+      : isFuture
+      ? 'A TOUGHER DAY SHAPING UP.'
+      : 'A TOUGHER DAY AHEAD.';
 
   return (
     <View style={styles.wrap}>
+      {/* ── HERO ─────────────────────────────────────────────────────────── */}
+      <View style={styles.heroCard}>
+        <CornerMarkSet color={paper.red} />
 
-      {/* ══════════════════════════════════════════════════
-          CARD 1 — Score + Gauge
-      ══════════════════════════════════════════════════ */}
-      <View style={[styles.scoreCard, { backgroundColor: config.bg, borderColor: config.border }]}>
-
-        {/* Top row: band badge left, score right */}
-        <View style={styles.scoreTopRow}>
-          <View style={styles.scoreLeftCol}>
-            <View style={[styles.bandBadge, { backgroundColor: config.color }]}>
-              <Ionicons name={config.icon} size={11} color="#FFF" />
-              <Text style={styles.bandBadgeText}>{report.band}</Text>
-            </View>
-            <Text style={styles.outlookLabel}>Today's Fishing Outlook</Text>
-          </View>
-
-          <View style={styles.scoreNumWrap}>
-            <Text style={[styles.scoreNum, { color: sc }]}>{displayScore(report.score)}</Text>
-            <Text style={[styles.scoreMax, { color: sc + 'AA' }]}>/10</Text>
-          </View>
+        <View style={styles.heroEyebrow}>
+          <SectionEyebrow color={paper.red} size={9} tracking={3}>
+            {dateLabel.toUpperCase()}
+          </SectionEyebrow>
         </View>
 
-        {/* Gauge bar */}
-        <ScoreGauge score={report.score} />
+        <Text style={styles.heroHeadline}>
+          HOW'S FISHING{'\n'}
+          <Text style={{ color: accent }}>{isFuture ? 'ON THIS DAY?' : 'RIGHT NOW?'}</Text>
+        </Text>
 
-        {/* Divider + summary */}
-        <View style={styles.divider} />
-        <Text style={styles.summaryLine}>{report.summary_line}</Text>
-        <AirForecastStrip report={report} />
+        <LinearScoreGauge
+          score={report.score / 10}
+          tier={tier}
+          accent={accent}
+          band={report.band}
+        />
+
+        <View style={styles.outlookRule} />
+
+        <SectionEyebrow color={paper.red} size={9} tracking={3}>
+          {outlookEyebrow}
+        </SectionEyebrow>
+        <Text style={[styles.heroSubline, { color: accent }]}>{outlookLine}</Text>
+        <Text style={styles.heroSummary}>{report.summary_line}</Text>
+        <AirRangeStrip report={report} />
       </View>
 
-      {/* ══════════════════════════════════════════════════
-          CARD 2 — Top Reasons
-      ══════════════════════════════════════════════════ */}
-      <View style={styles.card}>
-        <View style={styles.cardHeader}>
-          <View style={[styles.cardIconBox, { backgroundColor: colors.primaryMist }]}>
-            <Ionicons name="stats-chart" size={14} color={colors.primary} />
-          </View>
-          <Text style={styles.cardTitle}>Top Reasons</Text>
+      {/* ── WHAT'S HELPING ──────────────────────────────────────────────── */}
+      <View style={[styles.factorCard, styles.factorCardForest]}>
+        <View style={[styles.factorHeader, { backgroundColor: paper.forest }]}>
+          <Ionicons name="trending-up" size={15} color={paper.paper} />
+          <Text style={styles.factorHeaderLabel}>WHAT'S HELPING</Text>
         </View>
-
-        <View style={styles.reasonList}>
-          {topDrivers.length > 0 ? topDrivers.map((d, i) => (
-            <View key={`d-${i}`} style={styles.reasonRow}>
-              <View style={[styles.reasonNum, { backgroundColor: colors.primary }]}>
-                <Text style={styles.reasonNumText}>{i + 1}</Text>
-              </View>
-              <Text style={styles.driverText}>{formatFactorLabel(d.label)}</Text>
-            </View>
-          )) : (
-            <View style={styles.reasonRow}>
-              <View style={[styles.reasonNum, { backgroundColor: colors.backgroundAlt }]}>
-                <Ionicons name="remove" size={11} color={colors.textMuted} />
-              </View>
-              <Text style={styles.mutedText}>No strong positive factors today.</Text>
-            </View>
-          )}
-
-          {topSuppressors.length > 0 && (
-            <>
-              <View style={styles.reasonSep}>
-                <View style={styles.reasonSepLine} />
-                <Text style={styles.reasonSepLabel}>Limiting Factors</Text>
-                <View style={styles.reasonSepLine} />
-              </View>
-              {topSuppressors.map((s, i) => (
-                <View key={`s-${i}`} style={styles.reasonRow}>
-                  <View style={[styles.reasonNum, { backgroundColor: '#FDF0EF' }]}>
-                    <Ionicons name="close" size={11} color="#C0504A" />
-                  </View>
-                  <Text style={styles.suppressorText}>{s.label}</Text>
-                </View>
-              ))}
-            </>
+        <View style={styles.factorBody}>
+          {topDrivers.length > 0 ? (
+            topDrivers.map((d, i) => (
+              <FactorRow
+                key={`d-${i}`}
+                sign="+"
+                signBg={paper.forest}
+                signFg={paper.paper}
+                label={formatFactorLabel(d.label)}
+                isLast={i === topDrivers.length - 1}
+              />
+            ))
+          ) : (
+            <Text style={styles.mutedText}>
+              No strong positive factors today.
+            </Text>
           )}
         </View>
       </View>
 
-      {/* ══════════════════════════════════════════════════
-          CARD 3 — Best Timing
-      ══════════════════════════════════════════════════ */}
-      {showTiming && (
-        <View style={styles.card}>
-          <View style={styles.cardHeader}>
-            <View style={[styles.cardIconBox, { backgroundColor: '#FDF6E8' }]}>
-              <Ionicons name="time" size={14} color="#C29B2A" />
-            </View>
-            <Text style={[styles.cardTitle, { color: '#B8862D' }]}>Best Timing</Text>
+      {/* ── WATCH OUT FOR ───────────────────────────────────────────────── */}
+      {topSuppressors.length > 0 && (
+        <View style={styles.factorCard}>
+          <View style={[styles.factorHeader, { backgroundColor: paper.red }]}>
+            <Ionicons name="trending-down" size={15} color={paper.paper} />
+            <Text style={styles.factorHeaderLabel}>WATCH OUT FOR</Text>
           </View>
+          <View style={styles.factorBody}>
+            {topSuppressors.map((s, i) => (
+              <FactorRow
+                key={`s-${i}`}
+                sign="−"
+                signBg={paper.red}
+                signFg={paper.paper}
+                label={formatFactorLabel(s.label)}
+                isLast={i === topSuppressors.length - 1}
+              />
+            ))}
+          </View>
+        </View>
+      )}
 
-          {timingPeriods && (
-            <TimingTilesRow periods={timingPeriods} />
-          )}
-
-          {report.daypart_note ? (
+      {/* ── WHEN TO GO ──────────────────────────────────────────────────── */}
+      {showTiming && timingPeriods && (
+        <View style={styles.timingSection}>
+          <View style={styles.timingHeader}>
+            <Text style={styles.timingEyebrow}>WHEN TO GO</Text>
+            <Text style={styles.timingMeta}>
+              Local time{report.location.timezone ? ` · ${shortTz(report.location.timezone)}` : ''}
+            </Text>
+          </View>
+          <View style={styles.timingRow}>
+            {PERIOD_DEFS.map((def, i) => {
+              const slot = timingPeriods[i];
+              return (
+                <TimeWindowTile
+                  key={def.label}
+                  label={def.label}
+                  subLabel={def.subLabel}
+                  icon={def.icon}
+                  isBest={Boolean(slot?.highlighted)}
+                />
+              );
+            })}
+          </View>
+          {report.timing_insight ? (
+            <Text style={styles.daypartNote}>{report.timing_insight}</Text>
+          ) : report.daypart_note ? (
             <Text style={styles.daypartNote}>{report.daypart_note}</Text>
           ) : null}
         </View>
       )}
 
-      {/* ══════════════════════════════════════════════════
-          CARD 4 — Solunar Windows
-      ══════════════════════════════════════════════════ */}
-      {solunarData && (solunarData.major_periods.length > 0 || solunarData.minor_periods.length > 0) && (
-        <View style={solunarStyles.card}>
-          <View style={solunarStyles.header}>
-            <Ionicons name="moon" size={12} color="#4F61A3" />
-            <Text style={solunarStyles.cardTitle}>Solunar Windows</Text>
-            <Text style={solunarStyles.cardSubtitle}>Bonus</Text>
-          </View>
-
-          <View style={solunarStyles.periodsRow}>
-            {solunarData.major_periods.length > 0 && (
-              <View style={solunarStyles.periodGroup}>
-                <Text style={solunarStyles.sectionLabel}>STRONG</Text>
-                {solunarData.major_periods.map((p, i) => (
-                  <View key={`maj-${i}`} style={solunarStyles.periodRow}>
-                    <View style={solunarStyles.dotStrong} />
-                    <Text style={solunarStyles.periodTime}>
-                      {formatSolunarRange(p.start, p.end)}
-                    </Text>
-                    {p.type != null && (
-                      <Text style={solunarStyles.typeLabel}>
-                        {p.type === 'overhead' ? '↑' : '↓'}
+      {/* ── SOLUNAR WINDOWS (preserved) ─────────────────────────────────── */}
+      {solunarData &&
+        (solunarData.major_periods.length > 0 || solunarData.minor_periods.length > 0) && (
+          <View style={styles.solunarCard}>
+            <View style={styles.solunarHeader}>
+              <Ionicons name="moon" size={13} color={paper.walnut} />
+              <Text style={styles.solunarTitle}>SOLUNAR WINDOWS</Text>
+              <Text style={styles.solunarBonus}>BONUS</Text>
+            </View>
+            <View style={styles.solunarRow}>
+              {solunarData.major_periods.length > 0 && (
+                <View style={styles.solunarCol}>
+                  <Text style={styles.solunarSubhead}>STRONG</Text>
+                  {solunarData.major_periods.map((p, i) => (
+                    <View key={`maj-${i}`} style={styles.solunarPeriod}>
+                      <View style={styles.solunarDotStrong} />
+                      <Text style={styles.solunarTime}>
+                        {formatSolunarRange(p.start, p.end)}
                       </Text>
-                    )}
-                  </View>
-                ))}
-              </View>
-            )}
-            {solunarData.minor_periods.length > 0 && (
-              <View style={[solunarStyles.periodGroup, solunarData.major_periods.length > 0 && solunarStyles.periodGroupRight]}>
-                <Text style={solunarStyles.sectionLabel}>MINOR</Text>
-                {solunarData.minor_periods.map((p, i) => (
-                  <View key={`min-${i}`} style={solunarStyles.periodRow}>
-                    <View style={solunarStyles.dotMinor} />
-                    <Text style={solunarStyles.periodTimeMinor}>
-                      {formatSolunarRange(p.start, p.end)}
-                    </Text>
-                  </View>
-                ))}
-              </View>
-            )}
+                      {p.type != null && (
+                        <Text style={styles.solunarType}>
+                          {p.type === 'overhead' ? '↑' : '↓'}
+                        </Text>
+                      )}
+                    </View>
+                  ))}
+                </View>
+              )}
+              {solunarData.minor_periods.length > 0 && (
+                <View
+                  style={[
+                    styles.solunarCol,
+                    solunarData.major_periods.length > 0 && styles.solunarColRight,
+                  ]}
+                >
+                  <Text style={styles.solunarSubhead}>MINOR</Text>
+                  {solunarData.minor_periods.map((p, i) => (
+                    <View key={`min-${i}`} style={styles.solunarPeriod}>
+                      <View style={styles.solunarDotMinor} />
+                      <Text style={styles.solunarTimeMinor}>
+                        {formatSolunarRange(p.start, p.end)}
+                      </Text>
+                    </View>
+                  ))}
+                </View>
+              )}
+            </View>
           </View>
-        </View>
-      )}
+        )}
 
-      {/* ══════════════════════════════════════════════════
-          CARD 5 — Today's Presentation Tip
-      ══════════════════════════════════════════════════ */}
-      <View style={styles.tipCard}>
-        <View style={styles.cardHeader}>
-          <View style={[styles.cardIconBox, { backgroundColor: 'rgba(46,111,64,0.15)' }]}>
-            <Ionicons name="bulb" size={14} color={colors.primary} />
+      {/* Editorial divider separates the analytical sections above from the
+          guide's narrative advice below. Small touch, big difference in
+          feel. */}
+      <OrnamentalDivider icon="compass-outline" />
+
+      {/* ── GUIDE'S NOTE ────────────────────────────────────────────────── */}
+      <View style={styles.guideCard}>
+        <TopographicLines
+          style={styles.guideLines}
+          color={paper.walnut}
+          count={5}
+        />
+        <CornerMarkSet color={paper.walnut} />
+        <View style={styles.guideRow}>
+          <View style={styles.guideBadge}>
+            <Ionicons name="leaf" size={22} color={paper.walnut} />
           </View>
-          <Text style={[styles.cardTitle, { color: colors.primary }]}>Tip of the Day</Text>
-        </View>
-        <View style={styles.tipQuoteWrap}>
-          <View style={styles.tipAccentBar} />
-          <Text style={styles.tipText}>{report.actionable_tip}</Text>
+          <View style={styles.guideBody}>
+            <SectionEyebrow color={paper.red} size={10} tracking={3.5}>
+              GUIDE'S NOTE
+            </SectionEyebrow>
+            <Text style={styles.guideQuoteMark}>&#8220;</Text>
+            <Text style={styles.guideText}>{report.actionable_tip}</Text>
+          </View>
         </View>
       </View>
 
+      {/* Field-guide footer — small editorial colophon that ties the page
+          together and reinforces the premium outdoor aesthetic. The year
+          is intentionally derived at render time so the report always
+          reflects the user's current session. */}
+      <View style={styles.colophonRow}>
+        <View style={styles.colophonRule} />
+        <Text style={styles.colophonText}>
+          TIGHTLINES AI · FIELD REPORT · {new Date().getFullYear()}
+        </Text>
+        <View style={styles.colophonRule} />
+      </View>
     </View>
   );
 }
 
-// ─── Styles ───────────────────────────────────────────────────────────────────
+/** Condense "America/New_York" → "EST/EDT"-ish short string. */
+function shortTz(tz: string): string {
+  const parts = tz.split('/');
+  return (parts[parts.length - 1] ?? tz).replace(/_/g, ' ');
+}
 
-const styles = StyleSheet.create({
-  wrap: { gap: spacing.md },
+// ─── LinearScoreGauge ────────────────────────────────────────────────────────
 
-  // ── Score Card ──────────────────────────────────────────────────
-  scoreCard: {
-    borderRadius: radius.lg,
-    padding: 20,
-    paddingBottom: spacing.md + 4,
-    borderWidth: 1.5,
-    ...shadows.lg,
-  },
-  scoreTopRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
-  },
-  scoreLeftCol: {
-    gap: spacing.xs + 2,
-    flex: 1,
-    paddingRight: spacing.md,
-  },
-  bandBadge: {
-    flexDirection: 'row',
+/**
+ * Linear 0-10 score gauge — a horizontal track that tapers red → yellow →
+ * green, with a big, unmistakable pin marker at the exact score position.
+ * No arcs and nothing overlapping the score: the score number lives in a
+ * dedicated row above the track, the track owns its own row, and the
+ * scale labels (0 / 5 / 10) sit below. A drop-shadow and oversized ink
+ * stroke make the score "pop" so the eye locks onto it instantly.
+ *
+ * Design notes:
+ *  - The colored track always shows the full red→gold→forest spectrum so
+ *    the scale is legible at a glance regardless of score.
+ *  - The marker is a filled circle in the accent color with a thick ink
+ *    border plus a vertical stem dropping from the score number down to
+ *    the track — that way the user can't miss where the score lands.
+ *  - The band label underneath uses the engine's own band
+ *    (`Poor | Fair | Good | Excellent`), not an invented "GO/SKIP"
+ *    verdict, so the copy matches the engine's truth.
+ */
+function LinearScoreGauge({
+  score,
+  tier,
+  accent,
+  band,
+}: {
+  score: number; // 0-10
+  tier: PaperTier;
+  accent: string;
+  band?: string; // 'Poor' | 'Fair' | 'Good' | 'Excellent' from the engine
+}) {
+  const clamped = Math.max(0, Math.min(10, Number.isFinite(score) ? score : 0));
+  const pct = clamped / 10;
+  const bandLabel = (band ?? '').toUpperCase() || fallbackBandFromTier(tier);
+
+  return (
+    <View style={gaugeStyles.wrap}>
+      {/* Score number — color-coded by tier, with a soft accent halo behind it
+          so the eye locks on immediately. */}
+      <View style={gaugeStyles.scoreRow}>
+        <View style={[gaugeStyles.scoreHalo, { backgroundColor: accent }]} />
+        <Text style={[gaugeStyles.scoreNum, { color: accent }]} allowFontScaling={false}>
+          {clamped.toFixed(1)}
+        </Text>
+        <Text style={[gaugeStyles.scoreMax, { color: accent }]}>/10</Text>
+      </View>
+
+      {/* Track row — 92% width. Contains the colored spectrum and the pin
+          overlay, so the pin's percentage-left is measured against the track
+          itself (not the outer wrap). This makes the layout robust without
+          relying on magic offsets. */}
+      <View style={gaugeStyles.trackRow}>
+        {/* Gauge track — red → gold → forest, tapered via three stops. */}
+        <View style={gaugeStyles.track}>
+          <View style={[gaugeStyles.stop, { flex: 1, backgroundColor: paper.red }]} />
+          <View style={[gaugeStyles.stop, { flex: 1, backgroundColor: paper.gold }]} />
+          <View style={[gaugeStyles.stop, { flex: 1, backgroundColor: paper.forest }]} />
+        </View>
+
+        {/* Vertical stem dropping from just above the track down onto the pin,
+            tying the score number's position to the scale. */}
+        <View
+          pointerEvents="none"
+          style={[
+            gaugeStyles.markerStem,
+            { left: `${pct * 100}%`, backgroundColor: accent },
+          ]}
+        />
+
+        {/* Prominent pin marker — filled accent circle with thick ink stroke.
+            Sits centered on the track so it reads as a real "pointer" rather
+            than a subtle tick. */}
+        <View
+          pointerEvents="none"
+          style={[gaugeStyles.markerPinWrap, { left: `${pct * 100}%` }]}
+        >
+          <View style={[gaugeStyles.markerPin, { backgroundColor: accent }]} />
+        </View>
+      </View>
+
+      {/* Scale rule labels. */}
+      <View style={gaugeStyles.scaleRow}>
+        <Text style={gaugeStyles.scaleTick}>0</Text>
+        <Text style={gaugeStyles.scaleTick}>5</Text>
+        <Text style={gaugeStyles.scaleTick}>10</Text>
+      </View>
+
+      {/* Engine band pill — truthful verdict straight from the report. */}
+      <View style={[gaugeStyles.bandPill, { backgroundColor: accent }]}>
+        <Text style={gaugeStyles.bandPillText}>{bandLabel}</Text>
+      </View>
+    </View>
+  );
+}
+
+/** If the report somehow lacks a band string, derive a sensible label
+ *  from the tier so the UI never shows empty copy. */
+function fallbackBandFromTier(tier: PaperTier): string {
+  return tier === 'green' ? 'GOOD' : tier === 'yellow' ? 'FAIR' : 'POOR';
+}
+
+const gaugeStyles = StyleSheet.create({
+  wrap: {
+    alignSelf: 'stretch',
     alignItems: 'center',
-    gap: 5,
-    alignSelf: 'flex-start',
-    paddingHorizontal: spacing.sm + 4,
-    paddingVertical: spacing.xs + 2,
-    borderRadius: radius.full,
+    marginTop: paperSpacing.sm + 2,
+    marginBottom: paperSpacing.xs + 2,
+    // Width is constrained so the track/scale measure predictably regardless
+    // of card padding. The gauge feels anchored rather than edge-to-edge.
+    width: '100%',
   },
-  bandBadgeText: {
-    fontFamily: fonts.bodyBold,
-    fontSize: 12,
-    color: '#FFF',
-    letterSpacing: 0.4,
-  },
-  outlookLabel: {
-    fontFamily: fonts.bodySemiBold,
-    fontSize: 11,
-    color: colors.textSecondary,
-    letterSpacing: 0.5,
-    textTransform: 'uppercase',
-  },
-  scoreNumWrap: {
+  scoreRow: {
+    // The row intentionally gets extra vertical padding so its own bounds
+    // fully contain both the glyph (including tall ascenders) and the
+    // halo behind it. Without this, lineHeight ≈ fontSize clips the tops
+    // of the digits on Android/iOS depending on the font's metrics.
     flexDirection: 'row',
     alignItems: 'flex-end',
-    gap: 1,
+    gap: 4,
+    marginBottom: 10,
+    paddingHorizontal: 20,
+    paddingTop: 14,
+    paddingBottom: 10,
+    position: 'relative',
+  },
+  // Soft oval glow behind the score number — inset slightly so it reads
+  // as a "highlight behind the number" rather than a hard pill, but still
+  // fully wraps the glyphs from top to bottom.
+  scoreHalo: {
+    position: 'absolute',
+    top: 10,
+    bottom: 4,
+    left: 4,
+    right: 4,
+    opacity: 0.12,
+    borderRadius: 60,
   },
   scoreNum: {
-    fontFamily: fonts.serifBold,
-    fontSize: 68,
-    lineHeight: 72,
+    fontFamily: paperFonts.monoBold,
+    fontSize: 72,
+    // lineHeight > fontSize gives the glyphs breathing room so ascenders
+    // are never clipped at the top of the text box.
+    lineHeight: 86,
+    letterSpacing: -3.5,
+    fontWeight: '700',
+    includeFontPadding: false,
+    // Offset ink drop-shadow gives the number an embossed, plate-printed
+    // feel without requiring any native modules. Works on iOS and Android.
+    textShadowColor: 'rgba(26, 26, 22, 0.22)',
+    textShadowOffset: { width: 0, height: 2 },
+    textShadowRadius: 0,
   },
   scoreMax: {
-    fontFamily: fonts.bodySemiBold,
-    fontSize: 20,
-    marginBottom: 10,
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 18,
+    lineHeight: 22,
+    fontWeight: '700',
+    marginBottom: 15,
+    opacity: 0.75,
   },
-  divider: {
-    height: 1,
-    backgroundColor: colors.border,
-    marginBottom: spacing.md,
-  },
-  summaryLine: {
-    fontFamily: fonts.bodyMedium,
-    fontSize: 15,
-    color: colors.text,
-    lineHeight: 23,
-  },
-
-  // ── Generic Card ────────────────────────────────────────────────
-  card: {
-    backgroundColor: colors.surface,
-    borderRadius: radius.lg,
-    padding: spacing.md + 2,
-    borderWidth: 1,
-    borderColor: colors.border,
-    ...shadows.md,
-  },
-  cardHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: spacing.sm,
-    marginBottom: spacing.md,
-  },
-  cardIconBox: {
-    width: 30,
-    height: 30,
-    borderRadius: radius.sm,
-    alignItems: 'center',
+  // Host row for the track + pin. Percentages on children now measure
+  // against this row (92% of the gauge), so the marker percentage-left
+  // matches the track bounds exactly.
+  trackRow: {
+    width: '92%',
+    height: 24,
     justifyContent: 'center',
+    position: 'relative',
   },
-  cardTitle: {
-    fontFamily: fonts.bodyBold,
-    fontSize: 12,
-    color: colors.textSecondary,
-    textTransform: 'uppercase',
-    letterSpacing: 0.8,
-    flex: 1,
-  },
-
-  // ── Reasons ─────────────────────────────────────────────────────
-  reasonList: { gap: spacing.sm + 2 },
-  reasonRow: {
+  track: {
+    width: '100%',
+    height: 14,
+    borderRadius: 7,
     flexDirection: 'row',
-    alignItems: 'center',
-    gap: spacing.sm + 2,
-  },
-  reasonNum: {
-    width: 26,
-    height: 26,
-    borderRadius: 13,
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexShrink: 0,
-  },
-  reasonNumText: {
-    fontFamily: fonts.bodyBold,
-    fontSize: 11,
-    color: '#FFF',
-  },
-  driverText: {
-    fontFamily: fonts.bodyMedium,
-    fontSize: 14,
-    color: colors.text,
-    lineHeight: 21,
-    flex: 1,
-  },
-  suppressorText: {
-    fontFamily: fonts.body,
-    fontSize: 14,
-    color: colors.textSecondary,
-    lineHeight: 21,
-    flex: 1,
-  },
-  mutedText: {
-    fontFamily: fonts.bodyItalic,
-    fontSize: 13,
-    color: colors.textMuted,
-    flex: 1,
-  },
-  reasonSep: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: spacing.sm,
-    marginVertical: 2,
-  },
-  reasonSepLine: {
-    flex: 1,
-    height: 1,
-    backgroundColor: colors.borderLight,
-  },
-  reasonSepLabel: {
-    fontFamily: fonts.bodySemiBold,
-    fontSize: 10,
-    color: colors.textMuted,
-    textTransform: 'uppercase',
-    letterSpacing: 0.6,
-  },
-
-  // ── Timing ──────────────────────────────────────────────────────
-  timingRow: {
-    flexDirection: 'row',
-    gap: spacing.sm,
-    marginBottom: spacing.sm + 4,
-  },
-  daypartNote: {
-    fontFamily: fonts.body,
-    fontSize: 13,
-    color: colors.textSecondary,
-    lineHeight: 20,
-    marginTop: 2,
-  },
-
-  // ── Tip ─────────────────────────────────────────────────────────
-  tipCard: {
-    backgroundColor: 'rgba(207,255,220,0.5)',
-    borderRadius: radius.lg,
-    padding: spacing.md + 2,
     borderWidth: 1.5,
-    borderColor: 'rgba(46,111,64,0.18)',
-    ...shadows.md,
+    borderColor: paper.ink,
+    overflow: 'hidden',
+    backgroundColor: paper.paperLight,
   },
-  tipQuoteWrap: {
+  stop: {
+    height: '100%',
+  },
+  // Thin vertical stem hovering just above the track, connecting the
+  // score readout down to the pin. Short and subtle so it reads as a
+  // pointer, not a decoration.
+  markerStem: {
+    position: 'absolute',
+    top: -10,
+    width: 2,
+    height: 12,
+    marginLeft: -1,
+    opacity: 0.55,
+  },
+  // Wrapper centers the pin on the track vertically via the host row's
+  // justifyContent. The negative marginLeft aligns the pin's horizontal
+  // center with the percentage position.
+  markerPinWrap: {
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    marginLeft: -12,
+    width: 24,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  markerPin: {
+    width: 20,
+    height: 20,
+    borderRadius: 10,
+    borderWidth: 3,
+    borderColor: paper.ink,
+  },
+  scaleRow: {
+    width: '92%',
     flexDirection: 'row',
-    gap: spacing.sm,
-    alignItems: 'flex-start',
+    justifyContent: 'space-between',
+    marginTop: 10,
   },
-  tipAccentBar: {
-    width: 3,
-    borderRadius: 2,
-    backgroundColor: colors.primary,
-    alignSelf: 'stretch',
-    minHeight: 20,
-    opacity: 0.7,
+  scaleTick: {
+    fontFamily: paperFonts.metaMono,
+    fontSize: 10,
+    color: paper.ink,
+    opacity: 0.6,
   },
-  tipText: {
-    fontFamily: fonts.bodyMedium,
-    fontSize: 15,
-    color: colors.text,
-    lineHeight: 24,
-    flex: 1,
+  bandPill: {
+    marginTop: 12,
+    paddingHorizontal: 14,
+    paddingVertical: 4,
+    borderRadius: paperRadius.chip,
+    // Subtle ink ring echoes the editorial borders elsewhere on the page.
+    borderWidth: 1.5,
+    borderColor: paper.ink,
+  },
+  bandPillText: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 11,
+    letterSpacing: 2.5,
+    color: paper.paper,
+    fontWeight: '700',
   },
 });
 
-// ─── Solunar styles ───────────────────────────────────────────────────────────
+// ─── FactorRow ───────────────────────────────────────────────────────────────
 
-const solunarStyles = StyleSheet.create({
-  card: {
-    backgroundColor: colors.surface,
-    borderRadius: radius.md,
-    paddingHorizontal: spacing.md,
-    paddingTop: spacing.sm + 4,
-    paddingBottom: spacing.sm + 4,
-    borderWidth: 1,
-    borderColor: 'rgba(79,97,163,0.15)',
+function FactorRow({
+  sign,
+  signBg,
+  signFg,
+  label,
+  isLast,
+}: {
+  sign: string;
+  signBg: string;
+  signFg: string;
+  label: string;
+  isLast: boolean;
+}) {
+  return (
+    <View style={[styles.factorRow, !isLast && styles.factorRowDivider]}>
+      <View style={[styles.factorSign, { backgroundColor: signBg }]}>
+        <Text style={[styles.factorSignText, { color: signFg }]}>{sign}</Text>
+      </View>
+      <Text style={styles.factorLabel}>{label}</Text>
+    </View>
+  );
+}
+
+// ─── TimeWindowTile ──────────────────────────────────────────────────────────
+
+function TimeWindowTile({
+  label,
+  subLabel,
+  icon,
+  isBest,
+}: {
+  label: string;
+  subLabel: string;
+  icon: keyof typeof import('@expo/vector-icons/build/Ionicons').default.glyphMap;
+  isBest: boolean;
+}) {
+  // Highlighted "best" periods always use the gold/amber treatment — not
+  // the overall day's tier color. This makes the recommendation pop even
+  // on a green day, and is consistent with how premium field guides
+  // typically call out a golden hour ("go now" color ≠ "good day" color).
+  const bestBg = paperTier.yellow.bg;
+  const bestFg = paperTier.yellow.fg;
+
+  return (
+    <View
+      style={[
+        styles.timeTile,
+        isBest && {
+          backgroundColor: bestBg,
+          transform: [{ translateY: -1 }],
+        },
+      ]}
+    >
+      {isBest && (
+        <View style={styles.bestBadge}>
+          <Text style={styles.bestBadgeText}>★ BEST</Text>
+        </View>
+      )}
+      <View style={styles.timeTileTop}>
+        <Ionicons
+          name={icon}
+          size={20}
+          color={isBest ? bestFg : paper.ink}
+        />
+      </View>
+      <View
+        style={[
+          styles.timeTileBody,
+          isBest && { borderTopColor: `${bestFg}55` },
+        ]}
+      >
+        <Text
+          style={[
+            styles.timeTileLabel,
+            isBest && { color: bestFg },
+          ]}
+        >
+          {label}
+        </Text>
+        <Text
+          style={[
+            styles.timeTileRange,
+            isBest && { color: bestFg, opacity: 0.85 },
+          ]}
+          numberOfLines={1}
+        >
+          {subLabel}
+        </Text>
+      </View>
+    </View>
+  );
+}
+
+// ─── Styles ──────────────────────────────────────────────────────────────────
+
+const styles = StyleSheet.create({
+  wrap: { gap: paperSpacing.md + 2 },
+
+  // ── HERO (trimmed ~25% vs previous pass) ────────────────────────────
+  heroCard: {
+    backgroundColor: paper.paperLight,
+    borderRadius: paperRadius.card,
+    ...paperBorders.card,
+    ...paperShadows.hard,
+    paddingHorizontal: paperSpacing.md,
+    paddingTop: paperSpacing.md,
+    paddingBottom: paperSpacing.md,
+    overflow: 'hidden',
+    alignItems: 'center',
   },
-  header: {
+  heroEyebrow: {
+    marginBottom: 4,
+    alignItems: 'center',
+  },
+  heroHeadline: {
+    fontFamily: paperFonts.display,
+    fontWeight: '700',
+    fontSize: 24,
+    lineHeight: 26,
+    letterSpacing: -0.8,
+    textAlign: 'center',
+    color: paper.ink,
+    textTransform: 'uppercase',
+  },
+  outlookRule: {
+    width: '80%',
+    height: StyleSheet.hairlineWidth,
+    backgroundColor: paper.ink,
+    opacity: 0.35,
+    marginVertical: paperSpacing.sm + 2,
+  },
+  heroSubline: {
+    fontFamily: paperFonts.display,
+    fontWeight: '700',
+    fontSize: 15,
+    letterSpacing: -0.3,
+    marginTop: 6,
+    marginBottom: 4,
+    textAlign: 'center',
+  },
+  heroSummary: {
+    fontFamily: paperFonts.displayItalic,
+    fontStyle: 'italic',
+    fontSize: 13,
+    lineHeight: 20,
+    color: paper.ink,
+    opacity: 0.9,
+    textAlign: 'center',
+    paddingHorizontal: paperSpacing.xs,
+  },
+  airRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    marginTop: paperSpacing.sm + 2,
+  },
+  airLabel: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 9,
+    letterSpacing: 2,
+    color: paper.ink,
+    opacity: 0.55,
+    fontWeight: '700',
+  },
+  airRange: {
+    fontFamily: paperFonts.metaMono,
+    fontSize: 11,
+    color: paper.ink,
+  },
+
+  // ── Factor cards ────────────────────────────────────────────────────
+  factorCard: {
+    backgroundColor: paper.paper,
+    borderRadius: paperRadius.card,
+    ...paperBorders.card,
+    ...paperShadows.hard,
+    overflow: 'hidden',
+  },
+  factorCardForest: {
+    // Forest stripe header; no extra style needed at the card level but kept
+    // as a semantic hook in case the "helping" card ever needs a tint.
+  },
+  factorHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: paperSpacing.sm,
+    paddingHorizontal: paperSpacing.md + 2,
+    paddingVertical: 10,
+    borderBottomWidth: 1.5,
+    borderBottomColor: paper.ink,
+  },
+  factorHeaderLabel: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 11,
+    letterSpacing: 3,
+    color: paper.paper,
+    fontWeight: '700',
+  },
+  factorBody: {
+    paddingHorizontal: paperSpacing.md + 4,
+    paddingTop: 4,
+    paddingBottom: paperSpacing.sm + 2,
+  },
+  factorRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: paperSpacing.md,
+    paddingVertical: paperSpacing.sm + 2,
+  },
+  factorRowDivider: {
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: paper.ink,
+    // RN's dashed borders are unreliable; we fake "dashed" using opacity on
+    // the hairline so the rule reads as subtle marginalia rather than a
+    // hard divider.
+    borderStyle: 'solid',
+    // Opacity-approximated dashed feel.
+  },
+  factorSign: {
+    width: 28,
+    height: 28,
+    borderRadius: 14,
+    borderWidth: 1.5,
+    borderColor: paper.ink,
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexShrink: 0,
+  },
+  factorSignText: {
+    fontFamily: paperFonts.display,
+    fontSize: 18,
+    lineHeight: 18,
+    fontWeight: '700',
+    includeFontPadding: false,
+  },
+  factorLabel: {
+    flex: 1,
+    fontFamily: paperFonts.displaySemiBold,
+    fontSize: 15,
+    lineHeight: 20,
+    color: paper.ink,
+    fontWeight: '600',
+  },
+  mutedText: {
+    fontFamily: paperFonts.displayItalic,
+    fontStyle: 'italic',
+    fontSize: 13,
+    color: paper.ink,
+    opacity: 0.55,
+    paddingVertical: paperSpacing.sm,
+  },
+
+  // ── Timing section ──────────────────────────────────────────────────
+  timingSection: {
+    marginTop: paperSpacing.xs,
+  },
+  timingHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'baseline',
+    paddingBottom: paperSpacing.sm,
+    borderBottomWidth: 1.5,
+    borderBottomColor: paper.ink,
+    marginBottom: paperSpacing.sm + 2,
+  },
+  timingEyebrow: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 11,
+    letterSpacing: 3,
+    color: paper.ink,
+    fontWeight: '700',
+  },
+  timingMeta: {
+    fontFamily: paperFonts.displayItalic,
+    fontStyle: 'italic',
+    fontSize: 11,
+    color: paper.ink,
+    opacity: 0.55,
+  },
+  timingRow: {
+    flexDirection: 'row',
+    gap: 8,
+  },
+  daypartNote: {
+    fontFamily: paperFonts.displayItalic,
+    fontStyle: 'italic',
+    fontSize: 13,
+    lineHeight: 19,
+    color: paper.ink,
+    opacity: 0.78,
+    marginTop: paperSpacing.sm + 2,
+  },
+
+  // ── Time tiles ──────────────────────────────────────────────────────
+  timeTile: {
+    flex: 1,
+    backgroundColor: paper.paper,
+    borderRadius: paperRadius.card,
+    ...paperBorders.card,
+    ...paperShadows.hard,
+    overflow: 'hidden',
+    minHeight: 104,
+  },
+  timeTileTop: {
+    paddingHorizontal: 10,
+    paddingTop: 12,
+    paddingBottom: 8,
+    alignItems: 'center',
+  },
+  timeTileBody: {
+    paddingHorizontal: 8,
+    paddingTop: 6,
+    paddingBottom: 10,
+    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopColor: paper.ink,
+    alignItems: 'center',
+  },
+  timeTileLabel: {
+    fontFamily: paperFonts.display,
+    fontSize: 14,
+    fontWeight: '700',
+    color: paper.ink,
+    letterSpacing: -0.3,
+  },
+  timeTileRange: {
+    fontFamily: paperFonts.metaMono,
+    fontSize: 10,
+    color: paper.ink,
+    opacity: 0.65,
+    marginTop: 2,
+  },
+  bestBadge: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    backgroundColor: paper.ink,
+    paddingHorizontal: 6,
+    paddingVertical: 3,
+    zIndex: 3,
+  },
+  bestBadgeText: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 8,
+    letterSpacing: 1.5,
+    color: paper.gold,
+    fontWeight: '700',
+  },
+
+  // ── Solunar (trimmed ~20% — de-emphasised secondary card) ──────────
+  solunarCard: {
+    backgroundColor: paper.paper,
+    borderRadius: paperRadius.card,
+    borderWidth: 1.5,
+    borderColor: paper.inkHair,
+    paddingHorizontal: paperSpacing.sm + 2,
+    paddingVertical: paperSpacing.sm + 2,
+  },
+  solunarHeader: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 5,
-    marginBottom: spacing.sm,
+    marginBottom: paperSpacing.xs + 2,
   },
-  cardTitle: {
-    fontFamily: fonts.bodyBold,
-    fontSize: 11,
-    color: '#4F61A3',
-    textTransform: 'uppercase',
-    letterSpacing: 0.7,
+  solunarTitle: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 10,
+    letterSpacing: 2.5,
+    color: paper.walnut,
+    fontWeight: '700',
     flex: 1,
   },
-  cardSubtitle: {
-    fontFamily: fonts.body,
-    fontSize: 10,
-    color: colors.textMuted,
-    textTransform: 'uppercase',
-    letterSpacing: 0.5,
+  solunarBonus: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 8,
+    letterSpacing: 2,
+    color: paper.ink,
+    opacity: 0.55,
     borderWidth: 1,
-    borderColor: colors.border,
-    borderRadius: radius.full,
-    paddingHorizontal: 6,
+    borderColor: paper.inkHair,
+    borderRadius: paperRadius.chip,
+    paddingHorizontal: 5,
     paddingVertical: 1,
   },
-  periodsRow: {
+  solunarRow: {
     flexDirection: 'row',
-    gap: spacing.md,
+    gap: paperSpacing.sm + 2,
   },
-  periodGroup: {
-    flex: 1,
+  solunarCol: { flex: 1 },
+  solunarColRight: {
+    borderLeftWidth: StyleSheet.hairlineWidth,
+    borderLeftColor: paper.inkHair,
+    paddingLeft: paperSpacing.sm + 2,
   },
-  periodGroupRight: {
-    borderLeftWidth: 1,
-    borderLeftColor: colors.borderLight,
-    paddingLeft: spacing.md,
+  solunarSubhead: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 8.5,
+    letterSpacing: 2,
+    color: paper.walnut,
+    opacity: 0.75,
+    marginBottom: 4,
+    fontWeight: '700',
   },
-  sectionLabel: {
-    fontFamily: fonts.bodyBold,
-    fontSize: 8,
-    color: '#4F61A3',
-    letterSpacing: 0.9,
-    textTransform: 'uppercase',
-    marginBottom: 5,
-    opacity: 0.7,
-  },
-  periodRow: {
+  solunarPeriod: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 5,
-    marginBottom: 4,
+    marginBottom: 3,
   },
-  dotStrong: {
+  solunarDotStrong: {
     width: 5,
     height: 5,
     borderRadius: 3,
-    backgroundColor: '#4F61A3',
-    flexShrink: 0,
+    backgroundColor: paper.walnut,
   },
-  dotMinor: {
+  solunarDotMinor: {
     width: 5,
     height: 5,
     borderRadius: 3,
-    backgroundColor: 'transparent',
     borderWidth: 1,
-    borderColor: '#4F61A380',
+    borderColor: paper.walnut,
+    opacity: 0.6,
+  },
+  solunarTime: {
+    fontFamily: paperFonts.metaMono,
+    fontSize: 10.5,
+    color: paper.ink,
+    flex: 1,
+  },
+  solunarTimeMinor: {
+    fontFamily: paperFonts.metaMono,
+    fontSize: 10.5,
+    color: paper.ink,
+    opacity: 0.7,
+    flex: 1,
+  },
+  solunarType: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 10,
+    color: paper.walnut,
+    opacity: 0.7,
+  },
+
+  // ── Guide's note ────────────────────────────────────────────────────
+  guideCard: {
+    position: 'relative',
+    backgroundColor: paper.paperLight,
+    borderRadius: paperRadius.card,
+    ...paperBorders.card,
+    ...paperShadows.hard,
+    paddingHorizontal: paperSpacing.lg,
+    paddingVertical: paperSpacing.lg,
+    overflow: 'hidden',
+  },
+  guideLines: {
+    left: undefined,
+    right: -30,
+    top: -20,
+    width: 260,
+    height: 260,
+  },
+  guideRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: paperSpacing.md + 4,
+  },
+  guideBadge: {
+    width: 58,
+    height: 58,
+    borderRadius: 29,
+    borderWidth: 2,
+    borderColor: paper.walnut,
+    backgroundColor: paper.paper,
+    alignItems: 'center',
+    justifyContent: 'center',
     flexShrink: 0,
   },
-  periodTime: {
-    fontFamily: fonts.bodyMedium,
-    fontSize: 12,
-    color: colors.text,
-    flex: 1,
+  guideBody: { flex: 1 },
+  // Oversized opening quote mark so the guide's note reads as a pull-quote
+  // from a field journal. Sits above the body text with a negative margin
+  // to tuck it visually close to the first line.
+  guideQuoteMark: {
+    fontFamily: paperFonts.display,
+    fontSize: 44,
+    lineHeight: 38,
+    color: paper.walnut,
+    opacity: 0.55,
+    marginTop: 2,
+    marginBottom: -6,
+    fontWeight: '700',
   },
-  periodTimeMinor: {
-    fontFamily: fonts.body,
-    fontSize: 12,
-    color: colors.textSecondary,
-    flex: 1,
+  guideText: {
+    fontFamily: paperFonts.displayMedium,
+    fontSize: 15,
+    lineHeight: 22,
+    color: paper.ink,
+    marginTop: 0,
   },
-  typeLabel: {
-    fontFamily: fonts.bodyBold,
-    fontSize: 10,
-    color: '#4F61A3',
-    opacity: 0.7,
+
+  // ── Ornamental divider ───────────────────────────────────────────────
+  // Two hairline rules flanking a centered glyph — a typographic flourish
+  // borrowed from letterpress field guides. Keeps the page from feeling
+  // like a stack of unrelated cards.
+  ornamentRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginVertical: paperSpacing.md,
+    gap: paperSpacing.sm,
+  },
+  ornamentRule: {
+    flex: 1,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    opacity: 0.55,
+  },
+  ornamentGlyph: {
+    width: 28,
+    height: 28,
+    borderRadius: 14,
+    borderWidth: 1,
+    opacity: 0.75,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  // ── Colophon footer ──────────────────────────────────────────────────
+  // Small typographic sign-off at the very bottom of the report. Makes
+  // the page feel finished and curated rather than just running off.
+  colophonRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: paperSpacing.sm,
+    marginTop: paperSpacing.lg,
+    marginBottom: paperSpacing.sm,
+    paddingHorizontal: paperSpacing.sm,
+  },
+  colophonRule: {
+    flex: 1,
+    height: StyleSheet.hairlineWidth,
+    backgroundColor: paper.ink,
+    opacity: 0.3,
+  },
+  colophonText: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 9,
+    letterSpacing: 2.5,
+    color: paper.ink,
+    opacity: 0.5,
+    fontWeight: '700',
   },
 });

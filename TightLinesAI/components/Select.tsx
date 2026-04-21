@@ -8,7 +8,13 @@ import {
   ScrollView,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { colors, spacing, radius } from '../lib/theme';
+import {
+  paper,
+  paperFonts,
+  paperRadius,
+  paperShadows,
+  paperSpacing,
+} from '../lib/theme';
 
 interface SelectProps {
   value: string | null;
@@ -42,7 +48,7 @@ export default function Select({
         <Text style={[styles.text, !value && styles.placeholder]}>
           {value ?? placeholder}
         </Text>
-        <Ionicons name="chevron-down" size={16} color={colors.textMuted} />
+        <Ionicons name="chevron-down" size={16} color={paper.ink} />
       </Pressable>
 
       <Modal visible={open} transparent animationType="slide">
@@ -56,7 +62,6 @@ export default function Select({
               showsVerticalScrollIndicator={false}
               bounces={false}
             >
-              {/* N/A option */}
               <Pressable
                 style={[styles.option, value === 'N/A' && styles.optionActive]}
                 onPress={() => pick('N/A')}
@@ -70,7 +75,7 @@ export default function Select({
                   N/A
                 </Text>
                 {value === 'N/A' && (
-                  <Ionicons name="checkmark" size={18} color={colors.sage} />
+                  <Ionicons name="checkmark" size={18} color={paper.forest} />
                 )}
               </Pressable>
 
@@ -97,7 +102,7 @@ export default function Select({
                     <Ionicons
                       name="checkmark"
                       size={18}
-                      color={colors.sage}
+                      color={paper.forest}
                     />
                   )}
                 </Pressable>
@@ -105,10 +110,13 @@ export default function Select({
             </ScrollView>
 
             <Pressable
-              style={styles.cancelBtn}
+              style={({ pressed }) => [
+                styles.cancelBtn,
+                pressed && styles.cancelBtnPressed,
+              ]}
               onPress={() => setOpen(false)}
             >
-              <Text style={styles.cancelText}>Cancel</Text>
+              <Text style={styles.cancelText}>CANCEL</Text>
             </Pressable>
           </View>
         </View>
@@ -122,23 +130,25 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    backgroundColor: colors.surface,
-    borderRadius: radius.md,
-    borderWidth: StyleSheet.hairlineWidth,
-    borderColor: colors.border,
-    paddingHorizontal: spacing.md,
-    paddingVertical: spacing.md - 2,
+    backgroundColor: paper.paperLight,
+    borderRadius: paperRadius.card,
+    borderWidth: 1.5,
+    borderColor: paper.ink,
+    paddingHorizontal: paperSpacing.md,
+    paddingVertical: paperSpacing.sm + 4,
     minHeight: 44,
   },
   triggerPressed: {
-    backgroundColor: colors.surfacePressed,
+    backgroundColor: paper.paperDark,
   },
   text: {
+    fontFamily: paperFonts.body,
     fontSize: 15,
-    color: colors.text,
+    color: paper.ink,
   },
   placeholder: {
-    color: colors.textMuted,
+    color: paper.ink,
+    opacity: 0.5,
   },
   overlay: {
     flex: 1,
@@ -146,69 +156,83 @@ const styles = StyleSheet.create({
   },
   backdrop: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(0,0,0,0.35)',
+    backgroundColor: 'rgba(28, 36, 25, 0.45)',
   },
   sheet: {
-    backgroundColor: colors.surface,
+    backgroundColor: paper.paper,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
+    borderTopWidth: 2,
+    borderLeftWidth: 2,
+    borderRightWidth: 2,
+    borderColor: paper.ink,
     paddingBottom: 34,
     maxHeight: '55%',
+    ...paperShadows.hard,
   },
   handle: {
-    width: 36,
+    width: 40,
     height: 4,
     borderRadius: 2,
-    backgroundColor: colors.border,
+    backgroundColor: paper.ink,
+    opacity: 0.3,
     alignSelf: 'center',
-    marginTop: spacing.sm + 2,
-    marginBottom: spacing.md,
+    marginTop: paperSpacing.sm + 2,
+    marginBottom: paperSpacing.md,
   },
   title: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: colors.text,
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 11,
+    color: paper.ink,
     textAlign: 'center',
-    marginBottom: spacing.md,
+    letterSpacing: 2.4,
+    marginBottom: paperSpacing.md,
   },
   list: {
-    paddingHorizontal: spacing.lg,
+    paddingHorizontal: paperSpacing.lg,
   },
   option: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingVertical: spacing.md - 2,
-    paddingHorizontal: spacing.sm,
-    borderRadius: radius.sm,
+    paddingVertical: paperSpacing.sm + 2,
+    paddingHorizontal: paperSpacing.sm,
+    borderRadius: paperRadius.chip,
   },
   optionActive: {
-    backgroundColor: colors.sageLight,
+    backgroundColor: paper.paperDark,
   },
   optionText: {
+    fontFamily: paperFonts.body,
     fontSize: 16,
-    color: colors.text,
+    color: paper.ink,
   },
   optionTextActive: {
-    color: colors.sage,
-    fontWeight: '500',
+    color: paper.forest,
+    fontFamily: paperFonts.bodyBold,
   },
   separator: {
-    height: StyleSheet.hairlineWidth,
-    backgroundColor: colors.divider,
-    marginVertical: spacing.xs,
+    height: 1,
+    backgroundColor: paper.inkHair,
+    marginVertical: paperSpacing.xs,
   },
   cancelBtn: {
     alignItems: 'center',
-    paddingVertical: spacing.md,
-    marginTop: spacing.sm,
-    marginHorizontal: spacing.lg,
-    borderRadius: radius.md,
-    backgroundColor: colors.background,
+    paddingVertical: paperSpacing.md - 2,
+    marginTop: paperSpacing.sm,
+    marginHorizontal: paperSpacing.lg,
+    borderRadius: paperRadius.card,
+    borderWidth: 1.5,
+    borderColor: paper.ink,
+    backgroundColor: paper.paperLight,
+  },
+  cancelBtnPressed: {
+    backgroundColor: paper.paperDark,
   },
   cancelText: {
-    fontSize: 16,
-    fontWeight: '500',
-    color: colors.textSecondary,
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 11,
+    color: paper.ink,
+    letterSpacing: 2.2,
   },
 });

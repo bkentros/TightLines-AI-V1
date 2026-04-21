@@ -1,25 +1,93 @@
+/**
+ * Tab bar — FinFindr paper chrome.
+ *
+ * Warm paper background, 1.5px ink top rule, uppercase DM Sans labels with
+ * the FinFindr editorial letter-spacing, and a small forest underline rule
+ * under the active tab so the active state reads without fighting the
+ * Home / report / recommender screens above.
+ *
+ * Behavior-only pass: nothing about routing, protected routes, or tab
+ * configuration changed — only styling + a thin wrapper around each icon
+ * to render the active indicator.
+ */
+
 import { Tabs } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { colors, shadows } from '../../lib/theme';
+import {
+  paper,
+  paperFonts,
+  paperSpacing,
+} from '../../lib/theme';
+
+function TabIcon({
+  iconName,
+  iconNameActive,
+  color,
+  focused,
+}: {
+  iconName: keyof typeof Ionicons.glyphMap;
+  iconNameActive: keyof typeof Ionicons.glyphMap;
+  color: string;
+  focused: boolean;
+}) {
+  return (
+    <View style={styles.tabIconWrap}>
+      <Ionicons
+        name={focused ? iconNameActive : iconName}
+        size={22}
+        color={color}
+      />
+      <View
+        style={[
+          styles.activeRule,
+          focused && styles.activeRuleActive,
+        ]}
+      />
+    </View>
+  );
+}
+
+function TabLabel({ label, color, focused }: {
+  label: string;
+  color: string;
+  focused: boolean;
+}) {
+  return (
+    <Text
+      style={[
+        styles.tabLabel,
+        { color },
+        focused && styles.tabLabelFocused,
+      ]}
+    >
+      {label}
+    </Text>
+  );
+}
 
 export default function TabLayout() {
   const insets = useSafeAreaInsets();
-  const tabBarHeight = 52 + insets.bottom;
+  // 58px bar body + safe-area inset — a hair taller than the old 52 to give
+  // the FinFindr letter-spacing on labels room to breathe.
+  const tabBarHeight = 58 + insets.bottom;
 
   return (
     <Tabs
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: colors.tabActive,
-        tabBarInactiveTintColor: colors.tabInactive,
+        tabBarActiveTintColor: paper.forest,
+        tabBarInactiveTintColor: 'rgba(28,36,25,0.55)',
         tabBarStyle: [
           styles.tabBar,
           { height: tabBarHeight, paddingBottom: insets.bottom },
         ],
-        tabBarLabelStyle: styles.tabLabel,
         tabBarItemStyle: styles.tabItem,
+        // Label handled manually via tabBarLabel so we control the
+        // Fraunces/DM Sans mix exactly the way the rest of the paper
+        // system does.
+        tabBarShowLabel: true,
       }}
     >
       <Tabs.Screen
@@ -27,20 +95,32 @@ export default function TabLayout() {
         options={{
           title: 'Home',
           tabBarIcon: ({ color, focused }) => (
-            <View style={focused ? styles.activeIconWrap : undefined}>
-              <Ionicons name={focused ? 'compass' : 'compass-outline'} size={22} color={color} />
-            </View>
+            <TabIcon
+              iconName="compass-outline"
+              iconNameActive="compass"
+              color={color}
+              focused={focused}
+            />
+          ),
+          tabBarLabel: ({ color, focused }) => (
+            <TabLabel label="HOME" color={color} focused={focused} />
           ),
         }}
       />
       <Tabs.Screen
         name="log"
         options={{
-          title: 'My Log',
+          title: 'Log',
           tabBarIcon: ({ color, focused }) => (
-            <View style={focused ? styles.activeIconWrap : undefined}>
-              <Ionicons name={focused ? 'book' : 'book-outline'} size={22} color={color} />
-            </View>
+            <TabIcon
+              iconName="book-outline"
+              iconNameActive="book"
+              color={color}
+              focused={focused}
+            />
+          ),
+          tabBarLabel: ({ color, focused }) => (
+            <TabLabel label="LOG" color={color} focused={focused} />
           ),
         }}
       />
@@ -49,9 +129,15 @@ export default function TabLayout() {
         options={{
           title: 'Settings',
           tabBarIcon: ({ color, focused }) => (
-            <View style={focused ? styles.activeIconWrap : undefined}>
-              <Ionicons name={focused ? 'settings' : 'settings-outline'} size={22} color={color} />
-            </View>
+            <TabIcon
+              iconName="settings-outline"
+              iconNameActive="settings"
+              color={color}
+              focused={focused}
+            />
+          ),
+          tabBarLabel: ({ color, focused }) => (
+            <TabLabel label="SETTINGS" color={color} focused={focused} />
           ),
         }}
       />
@@ -61,25 +147,43 @@ export default function TabLayout() {
 
 const styles = StyleSheet.create({
   tabBar: {
-    backgroundColor: colors.tabBar,
-    borderTopColor: colors.borderLight,
-    borderTopWidth: StyleSheet.hairlineWidth,
-    paddingTop: 4,
-    ...shadows.sm,
-  },
-  tabLabel: {
-    fontSize: 11,
-    fontWeight: '600',
-    letterSpacing: 0.2,
-    marginTop: 2,
+    backgroundColor: paper.paper,
+    borderTopColor: paper.ink,
+    borderTopWidth: 1.5,
+    // Paper system does not use drop shadows on the footer; it uses the
+    // ink rule to separate from content above.
+    elevation: 0,
+    shadowOpacity: 0,
+    paddingTop: 6,
   },
   tabItem: {
     paddingTop: 2,
   },
-  activeIconWrap: {
-    backgroundColor: colors.primaryMist,
-    borderRadius: 12,
-    paddingHorizontal: 12,
-    paddingVertical: 4,
+  tabIconWrap: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 3,
+  },
+  // Small forest-green rule shown under the active tab's icon. Inactive
+  // tabs render an invisible spacer of the same height so icons don't
+  // jump on focus change.
+  activeRule: {
+    width: 22,
+    height: 2,
+    borderRadius: 1,
+    backgroundColor: 'transparent',
+    marginTop: 2,
+  },
+  activeRuleActive: {
+    backgroundColor: paper.forest,
+  },
+  tabLabel: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 9.5,
+    letterSpacing: 2.2,
+    marginTop: paperSpacing.xs - 2,
+  },
+  tabLabelFocused: {
+    color: paper.forest,
   },
 });

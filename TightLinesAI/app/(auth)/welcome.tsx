@@ -1,8 +1,15 @@
+/**
+ * Welcome / landing screen — FinFindr paper language.
+ *
+ * Behavior is unchanged from the previous TightLines-era version: email
+ * sign-up, email sign-in, and Apple Sign-In routes all still trigger the
+ * same handlers against the same auth store. Only visuals changed.
+ */
+
 import {
   View,
   Text,
   StyleSheet,
-  Pressable,
   Platform,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -10,45 +17,25 @@ import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import * as AppleAuthentication from 'expo-apple-authentication';
 import * as Crypto from 'expo-crypto';
-import { colors, fonts, spacing, radius } from '../../lib/theme';
+import {
+  paper,
+  paperFonts,
+  paperRadius,
+  paperShadows,
+  paperSpacing,
+} from '../../lib/theme';
 import { signInWithApple } from '../../lib/auth';
 import { useAuthStore } from '../../store/authStore';
-
-function BrandMark() {
-  const tick = { backgroundColor: colors.sage, borderRadius: 1 as const };
-  return (
-    <View style={markStyles.wrap}>
-      <View style={markStyles.ring} />
-      <View style={[markStyles.tickH, tick, markStyles.tickN]} />
-      <View style={[markStyles.tickV, tick, markStyles.tickE]} />
-      <View style={[markStyles.tickH, tick, markStyles.tickS]} />
-      <View style={[markStyles.tickV, tick, markStyles.tickW]} />
-      <Ionicons name="fish" size={18} color={colors.sage} />
-    </View>
-  );
-}
-
-const MARK = 38;
-const markStyles = StyleSheet.create({
-  wrap: {
-    width: MARK,
-    height: MARK,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  ring: {
-    ...StyleSheet.absoluteFillObject,
-    borderRadius: MARK / 2,
-    borderWidth: 2,
-    borderColor: colors.sage,
-  },
-  tickH: { position: 'absolute', width: 7, height: 2 },
-  tickV: { position: 'absolute', width: 2, height: 7 },
-  tickN: { top: -1, alignSelf: 'center' },
-  tickS: { bottom: -1, alignSelf: 'center' },
-  tickE: { right: -1 },
-  tickW: { left: -1 },
-});
+import {
+  PaperBackground,
+  CornerMarkSet,
+  TopographicLines,
+} from '../../components/paper';
+import {
+  AuthPrimaryButton,
+  AuthSecondaryButton,
+  AuthDivider,
+} from '../../components/paper/auth';
 
 export default function WelcomeScreen() {
   const router = useRouter();
@@ -89,178 +76,209 @@ export default function WelcomeScreen() {
         err instanceof Error &&
         err.message.includes('ERR_REQUEST_CANCELED')
       ) {
-        return; // User cancelled — do nothing
+        return;
       }
       console.error('Apple Sign-In error:', err);
     }
   };
 
   return (
-    <SafeAreaView style={styles.safe} edges={['top', 'bottom']}>
-      <View style={styles.container}>
-        {/* Brand */}
-        <View style={styles.brandSection}>
-          <BrandMark />
-          <Text style={styles.wordmark}>TightLines AI</Text>
-          <View style={styles.accentLine} />
-          <Text style={styles.tagline}>
-            Tight lines start with better intel.
-          </Text>
-        </View>
+    <PaperBackground>
+      <SafeAreaView style={styles.safe} edges={['top', 'bottom']}>
+        <View style={styles.container}>
+          {/* Brand hero — ink-framed paper panel with topo lines and gold corners. */}
+          <View style={styles.hero}>
+            <TopographicLines
+              style={styles.heroTopo}
+              color={paper.walnut}
+              count={7}
+            />
+            <CornerMarkSet color={paper.gold} size={16} thickness={2} inset={10} />
 
-        {/* Value props */}
-        <View style={styles.valueProps}>
-          {[
-            { icon: 'fish-outline', text: 'AI-powered lure & fly recommendations' },
-            { icon: 'camera-outline', text: 'Water Reader — analyze any body of water' },
-            { icon: 'mic-outline', text: 'Voice-to-text fishing log' },
-          ].map((item) => (
-            <View key={item.icon} style={styles.valueProp}>
-              <Ionicons name={item.icon as any} size={18} color={colors.sage} />
-              <Text style={styles.valuePropText}>{item.text}</Text>
-            </View>
-          ))}
-        </View>
+            <Text style={styles.eyebrow}>EST. FIELD GUIDE</Text>
+            <Text style={styles.brandMark}>FINFINDR.</Text>
+            <View style={styles.brandRule} />
+            <Text style={styles.tagline}>
+              Tight lines start with better intel.
+            </Text>
+          </View>
 
-        {/* CTAs */}
-        <View style={styles.actions}>
-          <Pressable
-            style={({ pressed }) => [
-              styles.btn,
-              styles.btnPrimary,
-              pressed && styles.btnPrimaryPressed,
-            ]}
-            onPress={() => router.push('/(auth)/sign-up')}
-          >
-            <Text style={styles.btnPrimaryText}>Create Account</Text>
-          </Pressable>
-
-          <Pressable
-            style={({ pressed }) => [
-              styles.btn,
-              styles.btnSecondary,
-              pressed && styles.btnSecondaryPressed,
-            ]}
-            onPress={() => router.push('/(auth)/sign-in')}
-          >
-            <Text style={styles.btnSecondaryText}>Sign In</Text>
-          </Pressable>
-
-          {Platform.OS === 'ios' && (
-            <>
-              <View style={styles.dividerRow}>
-                <View style={styles.dividerLine} />
-                <Text style={styles.dividerText}>or</Text>
-                <View style={styles.dividerLine} />
+          {/* Value props — editorial bullet list */}
+          <View style={styles.valueProps}>
+            {[
+              { icon: 'fish-outline', text: 'AI-powered lure & fly recommendations' },
+              { icon: 'camera-outline', text: 'Water Reader — analyze any body of water' },
+              { icon: 'mic-outline', text: 'Voice-to-text fishing log' },
+            ].map((item) => (
+              <View key={item.icon} style={styles.valueProp}>
+                <View style={styles.valueIconWrap}>
+                  <Ionicons name={item.icon as any} size={16} color={paper.forest} />
+                </View>
+                <Text style={styles.valuePropText}>{item.text}</Text>
               </View>
+            ))}
+          </View>
 
-              <AppleAuthentication.AppleAuthenticationButton
-                buttonType={
-                  AppleAuthentication.AppleAuthenticationButtonType.SIGN_IN
-                }
-                buttonStyle={
-                  AppleAuthentication.AppleAuthenticationButtonStyle.BLACK
-                }
-                cornerRadius={radius.md}
-                style={styles.appleBtn}
-                onPress={handleAppleSignIn}
-              />
-            </>
-          )}
+          {/* CTAs */}
+          <View style={styles.actions}>
+            <AuthPrimaryButton
+              label="Create account"
+              onPress={() => router.push('/(auth)/sign-up')}
+            />
+
+            <AuthSecondaryButton
+              label="Sign in"
+              onPress={() => router.push('/(auth)/sign-in')}
+            />
+
+            {Platform.OS === 'ios' && (
+              <>
+                <AuthDivider />
+
+                <AppleAuthentication.AppleAuthenticationButton
+                  buttonType={
+                    AppleAuthentication.AppleAuthenticationButtonType.SIGN_IN
+                  }
+                  buttonStyle={
+                    AppleAuthentication.AppleAuthenticationButtonStyle.BLACK
+                  }
+                  cornerRadius={paperRadius.card}
+                  style={styles.appleBtn}
+                  onPress={handleAppleSignIn}
+                />
+              </>
+            )}
+          </View>
+
+          {/* Footer mark */}
+          <View style={styles.footerRow}>
+            <Text style={styles.footerText}>FINFINDR</Text>
+            <Text style={styles.footerMono}>MADE FOR THE WATER</Text>
+          </View>
         </View>
-      </View>
-    </SafeAreaView>
+      </SafeAreaView>
+    </PaperBackground>
   );
 }
 
 const styles = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: colors.background },
+  safe: { flex: 1 },
   container: {
     flex: 1,
-    paddingHorizontal: spacing.lg,
+    paddingHorizontal: paperSpacing.lg,
+    paddingBottom: paperSpacing.lg,
     justifyContent: 'space-between',
-    paddingBottom: spacing.lg,
   },
 
-  brandSection: {
+  hero: {
+    position: 'relative',
+    marginTop: paperSpacing.xl,
+    paddingVertical: paperSpacing.xl,
+    paddingHorizontal: paperSpacing.lg,
     alignItems: 'center',
-    paddingTop: spacing.xxl + spacing.lg,
-    gap: spacing.sm,
+    backgroundColor: paper.paperLight,
+    borderWidth: 2,
+    borderColor: paper.ink,
+    borderRadius: paperRadius.card,
+    overflow: 'hidden',
+    ...paperShadows.hard,
   },
-  wordmark: {
-    fontFamily: fonts.serif,
-    fontSize: 36,
-    color: colors.text,
-    letterSpacing: 0.5,
-    marginTop: spacing.sm,
+  heroTopo: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    opacity: 0.4,
   },
-  accentLine: {
-    width: 48,
+  eyebrow: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 10.5,
+    color: paper.red,
+    letterSpacing: 3,
+    zIndex: 1,
+  },
+  brandMark: {
+    fontFamily: paperFonts.display,
+    fontSize: 54,
+    color: paper.ink,
+    letterSpacing: -2,
+    fontWeight: '700',
+    marginTop: 6,
+    zIndex: 1,
+  },
+  brandRule: {
+    width: 56,
     height: 3,
-    backgroundColor: colors.sage,
-    borderRadius: 2,
+    backgroundColor: paper.forest,
+    marginTop: 10,
+    borderRadius: 1,
+    zIndex: 1,
   },
   tagline: {
+    fontFamily: paperFonts.displayItalic,
     fontSize: 15,
-    color: colors.textSecondary,
-    fontStyle: 'italic',
-    fontFamily: fonts.serif,
+    color: paper.ink,
+    opacity: 0.75,
+    marginTop: 10,
+    textAlign: 'center',
+    zIndex: 1,
   },
 
   valueProps: {
-    gap: spacing.md,
-    paddingHorizontal: spacing.sm,
+    gap: paperSpacing.sm + 2,
   },
   valueProp: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: spacing.md,
-    backgroundColor: colors.surface,
-    borderRadius: radius.md,
-    padding: spacing.md,
-    borderWidth: 1,
-    borderColor: colors.border,
+    gap: paperSpacing.md,
+    backgroundColor: paper.paper,
+    borderRadius: paperRadius.card,
+    padding: paperSpacing.md,
+    borderWidth: 1.5,
+    borderColor: paper.ink,
+  },
+  valueIconWrap: {
+    width: 34,
+    height: 34,
+    borderRadius: 17,
+    backgroundColor: paper.paperLight,
+    borderWidth: 1.5,
+    borderColor: paper.ink,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   valuePropText: {
-    fontSize: 14,
-    color: colors.text,
-    fontWeight: '500',
     flex: 1,
+    fontFamily: paperFonts.bodyMedium,
+    fontSize: 14,
+    color: paper.ink,
   },
 
-  actions: { gap: spacing.sm },
-  btn: {
-    borderRadius: radius.md,
-    paddingVertical: spacing.md,
-    alignItems: 'center',
-  },
-  btnPrimary: { backgroundColor: colors.sage },
-  btnPrimaryPressed: { backgroundColor: colors.sageDark },
-  btnPrimaryText: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: colors.textLight,
-  },
-  btnSecondary: {
-    backgroundColor: colors.surface,
-    borderWidth: 1.5,
-    borderColor: colors.border,
-  },
-  btnSecondaryPressed: { backgroundColor: colors.surfacePressed },
-  btnSecondaryText: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: colors.text,
-  },
+  actions: { gap: paperSpacing.sm },
+  appleBtn: { height: 52, width: '100%' },
 
-  dividerRow: {
+  footerRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: spacing.sm,
-    marginVertical: spacing.xs,
+    justifyContent: 'space-between',
+    borderTopWidth: 1.5,
+    borderTopColor: paper.ink,
+    paddingTop: paperSpacing.sm + 2,
+    marginTop: paperSpacing.sm,
   },
-  dividerLine: { flex: 1, height: 1, backgroundColor: colors.border },
-  dividerText: { fontSize: 13, color: colors.textMuted },
-
-  appleBtn: { height: 50, width: '100%' },
+  footerText: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 10,
+    color: paper.ink,
+    opacity: 0.55,
+    letterSpacing: 2.8,
+  },
+  footerMono: {
+    fontFamily: paperFonts.mono,
+    fontSize: 10,
+    color: paper.ink,
+    opacity: 0.55,
+    letterSpacing: 2.4,
+  },
 });

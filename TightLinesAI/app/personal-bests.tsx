@@ -1,3 +1,10 @@
+/**
+ * Personal Bests — FinFindr paper language.
+ *
+ * Visual migration only. Filters, routing into log-detail, and data remain
+ * identical to the previous screen (still using mock records).
+ */
+
 import { useState } from 'react';
 import {
   View,
@@ -8,7 +15,14 @@ import {
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
-import { colors, fonts, spacing, radius } from '../lib/theme';
+import {
+  paper,
+  paperFonts,
+  paperRadius,
+  paperShadows,
+  paperSpacing,
+} from '../lib/theme';
+import { PaperBackground, SectionEyebrow } from '../components/paper';
 
 interface PBRecord {
   id: string;
@@ -64,181 +78,254 @@ export default function PersonalBestsScreen() {
     : PB_DATA;
 
   return (
-    <ScrollView
-      style={styles.scroll}
-      contentContainerStyle={styles.content}
-      showsVerticalScrollIndicator={false}
-    >
-      {/* Filter pills */}
-      <View style={styles.filterRow}>
-        <Pressable
-          style={[styles.filterPill, !selectedSpecies && styles.filterPillActive]}
-          onPress={() => setSelectedSpecies(null)}
-        >
-          <Text style={[styles.filterText, !selectedSpecies && styles.filterTextActive]}>
-            All ({PB_DATA.length})
-          </Text>
-        </Pressable>
-        {allSpecies.map((s) => (
+    <PaperBackground>
+      <ScrollView
+        style={styles.scroll}
+        contentContainerStyle={styles.content}
+        showsVerticalScrollIndicator={false}
+      >
+        <View style={styles.eyebrowRow}>
+          <SectionEyebrow dashes size={11} color={paper.gold}>
+            FINFINDR · THE RECORDS
+          </SectionEyebrow>
+        </View>
+
+        <Text style={styles.heroTitle}>Personal bests.</Text>
+        <Text style={styles.heroLede}>
+          Your biggest fish by species — earned, measured, and filed for the
+          record.
+        </Text>
+
+        {/* Filter pills */}
+        <View style={styles.filterRow}>
           <Pressable
-            key={s}
-            style={[
-              styles.filterPill,
-              selectedSpecies === s && styles.filterPillActive,
-            ]}
-            onPress={() => setSelectedSpecies(s)}
+            style={[styles.filterPill, !selectedSpecies && styles.filterPillActive]}
+            onPress={() => setSelectedSpecies(null)}
           >
             <Text
               style={[
                 styles.filterText,
-                selectedSpecies === s && styles.filterTextActive,
+                !selectedSpecies && styles.filterTextActive,
               ]}
             >
-              {s}
+              ALL ({PB_DATA.length})
             </Text>
           </Pressable>
-        ))}
-      </View>
-
-      {/* PB Cards */}
-      {filtered.map((pb, idx) => (
-        <Pressable
-          key={pb.id}
-          style={({ pressed }) => [
-            styles.pbCard,
-            idx === 0 && styles.pbCardTop,
-            pressed && styles.pbCardPressed,
-          ]}
-          onPress={() =>
-            router.push({
-              pathname: '/log-detail',
-              params: { id: pb.logId },
-            })
-          }
-        >
-          <View style={styles.pbHeader}>
-            <View style={styles.pbHeaderLeft}>
-              <Ionicons
-                name="trophy"
-                size={16}
-                color={idx === 0 && !selectedSpecies ? colors.gold : colors.warmTan}
-              />
-              <Text style={styles.pbSpecies}>{pb.species}</Text>
-            </View>
-            <Ionicons name="chevron-forward" size={16} color={colors.textMuted} />
-          </View>
-
-          <View style={styles.pbStatsRow}>
-            <Text style={styles.pbStat}>{pb.size}</Text>
-            <View style={styles.pbDot} />
-            <Text style={styles.pbStat}>{pb.weight}</Text>
-          </View>
-
-          <Text style={styles.pbMeta}>
-            {pb.location} · {pb.date}
-          </Text>
-          <Text style={styles.pbConditions}>{pb.conditions}</Text>
-        </Pressable>
-      ))}
-
-      {filtered.length === 0 && (
-        <View style={styles.empty}>
-          <Ionicons name="fish-outline" size={32} color={colors.textMuted} />
-          <Text style={styles.emptyText}>No personal bests yet for this species</Text>
+          {allSpecies.map((s) => (
+            <Pressable
+              key={s}
+              style={[
+                styles.filterPill,
+                selectedSpecies === s && styles.filterPillActive,
+              ]}
+              onPress={() => setSelectedSpecies(s)}
+            >
+              <Text
+                style={[
+                  styles.filterText,
+                  selectedSpecies === s && styles.filterTextActive,
+                ]}
+              >
+                {s.toUpperCase()}
+              </Text>
+            </Pressable>
+          ))}
         </View>
-      )}
-    </ScrollView>
+
+        {/* PB Cards */}
+        {filtered.map((pb, idx) => {
+          const isTop = idx === 0 && !selectedSpecies;
+          return (
+            <Pressable
+              key={pb.id}
+              style={({ pressed }) => [
+                styles.pbCard,
+                isTop && styles.pbCardTop,
+                pressed && styles.pbCardPressed,
+              ]}
+              onPress={() =>
+                router.push({
+                  pathname: '/log-detail',
+                  params: { id: pb.logId },
+                })
+              }
+            >
+              {isTop ? <View style={styles.goldRule} /> : null}
+              <View style={styles.pbHeader}>
+                <View style={styles.pbHeaderLeft}>
+                  <Ionicons
+                    name="trophy"
+                    size={14}
+                    color={isTop ? paper.gold : paper.ink}
+                  />
+                  <Text style={styles.pbSpecies}>{pb.species}</Text>
+                </View>
+                <Ionicons name="chevron-forward" size={14} color={paper.ink} />
+              </View>
+
+              <View style={styles.pbStatsRow}>
+                <Text style={styles.pbStat}>{pb.size}</Text>
+                <View style={styles.pbDot} />
+                <Text style={styles.pbStat}>{pb.weight}</Text>
+              </View>
+
+              <Text style={styles.pbMeta}>
+                {pb.location.toUpperCase()} · {pb.date.toUpperCase()}
+              </Text>
+              <Text style={styles.pbConditions}>{pb.conditions}</Text>
+            </Pressable>
+          );
+        })}
+
+        {filtered.length === 0 && (
+          <View style={styles.empty}>
+            <Ionicons name="fish-outline" size={28} color={paper.ink} />
+            <Text style={styles.emptyText}>
+              No personal bests yet for this species.
+            </Text>
+          </View>
+        )}
+      </ScrollView>
+    </PaperBackground>
   );
 }
 
 const styles = StyleSheet.create({
-  scroll: { flex: 1, backgroundColor: colors.background },
-  content: { padding: spacing.lg, paddingBottom: spacing.xxl },
+  scroll: { flex: 1 },
+  content: {
+    paddingHorizontal: paperSpacing.lg,
+    paddingTop: paperSpacing.sm,
+    paddingBottom: paperSpacing.xxl,
+  },
 
-  /* Filters */
+  eyebrowRow: { marginBottom: paperSpacing.md },
+  heroTitle: {
+    fontFamily: paperFonts.display,
+    fontSize: 34,
+    color: paper.ink,
+    fontWeight: '700',
+    letterSpacing: -1,
+    lineHeight: 38,
+    marginBottom: paperSpacing.xs,
+  },
+  heroLede: {
+    fontFamily: paperFonts.displayItalic,
+    fontSize: 14,
+    color: paper.ink,
+    opacity: 0.7,
+    lineHeight: 20,
+    marginBottom: paperSpacing.lg,
+  },
+
+  // Filters
   filterRow: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: spacing.sm,
-    marginBottom: spacing.lg,
+    gap: paperSpacing.xs + 2,
+    marginBottom: paperSpacing.lg,
   },
   filterPill: {
-    paddingHorizontal: spacing.md,
-    paddingVertical: spacing.sm - 1,
-    borderRadius: radius.lg,
-    backgroundColor: colors.surface,
-    borderWidth: StyleSheet.hairlineWidth,
-    borderColor: colors.border,
+    paddingHorizontal: paperSpacing.sm + 2,
+    paddingVertical: 6,
+    borderRadius: paperRadius.chip,
+    backgroundColor: paper.paperLight,
+    borderWidth: 1.5,
+    borderColor: paper.ink,
   },
-  filterPillActive: {
-    backgroundColor: colors.sage,
-    borderColor: colors.sage,
+  filterPillActive: { backgroundColor: paper.ink },
+  filterText: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 10,
+    color: paper.ink,
+    letterSpacing: 1.8,
   },
-  filterText: { fontSize: 13, fontWeight: '500', color: colors.textSecondary },
-  filterTextActive: { color: colors.textLight },
+  filterTextActive: { color: paper.paper },
 
-  /* Cards */
+  // Cards
   pbCard: {
-    backgroundColor: colors.surface,
-    borderRadius: radius.md,
-    padding: spacing.md,
-    marginBottom: spacing.sm,
-    borderWidth: StyleSheet.hairlineWidth,
-    borderColor: colors.border,
+    position: 'relative',
+    backgroundColor: paper.paperLight,
+    borderRadius: paperRadius.card,
+    borderWidth: 1.5,
+    borderColor: paper.ink,
+    padding: paperSpacing.md,
+    marginBottom: paperSpacing.sm,
+    ...paperShadows.hard,
   },
   pbCardTop: {
-    borderWidth: 1,
-    borderColor: colors.gold + '35',
+    paddingLeft: paperSpacing.md + 6,
   },
-  pbCardPressed: { backgroundColor: colors.surfacePressed },
+  pbCardPressed: { backgroundColor: paper.paperDark },
+  goldRule: {
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    bottom: 0,
+    width: 4,
+    backgroundColor: paper.gold,
+  },
   pbHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: spacing.sm,
+    marginBottom: paperSpacing.xs,
   },
-  pbHeaderLeft: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm },
+  pbHeaderLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: paperSpacing.xs + 2,
+  },
   pbSpecies: {
-    fontFamily: fonts.serif,
-    fontSize: 17,
-    color: colors.text,
+    fontFamily: paperFonts.display,
+    fontSize: 18,
+    color: paper.ink,
+    fontWeight: '700',
+    letterSpacing: -0.3,
   },
   pbStatsRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: spacing.sm,
-    marginBottom: spacing.xs,
+    gap: paperSpacing.sm,
+    marginBottom: paperSpacing.xs - 1,
   },
   pbStat: {
+    fontFamily: paperFonts.mono,
     fontSize: 15,
-    fontWeight: '600',
-    color: colors.sage,
-    fontVariant: ['tabular-nums'],
+    color: paper.forest,
+    letterSpacing: 0.3,
   },
   pbDot: {
     width: 3,
     height: 3,
     borderRadius: 1.5,
-    backgroundColor: colors.textMuted,
+    backgroundColor: paper.ink,
+    opacity: 0.5,
   },
   pbMeta: {
-    fontSize: 12,
-    color: colors.textSecondary,
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 10,
+    color: paper.ink,
+    opacity: 0.65,
+    letterSpacing: 1.4,
     marginBottom: 2,
   },
   pbConditions: {
-    fontSize: 11,
-    color: colors.textMuted,
+    fontFamily: paperFonts.displayItalic,
+    fontSize: 12,
+    color: paper.ink,
+    opacity: 0.65,
   },
 
-  /* Empty */
+  // Empty
   empty: {
     alignItems: 'center',
-    paddingTop: spacing.xxl,
-    gap: spacing.sm,
+    paddingTop: paperSpacing.xxl,
+    gap: paperSpacing.sm,
   },
   emptyText: {
+    fontFamily: paperFonts.displayItalic,
     fontSize: 14,
-    color: colors.textMuted,
+    color: paper.ink,
+    opacity: 0.7,
   },
 });

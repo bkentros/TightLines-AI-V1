@@ -31,7 +31,24 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter, useLocalSearchParams } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import * as Location from 'expo-location';
-import { colors, fonts, spacing, radius, shadows } from '../lib/theme';
+import {
+  colors,
+  fonts,
+  spacing,
+  radius,
+  shadows,
+  paper,
+  paperFonts,
+  paperSpacing,
+  paperRadius,
+  paperShadows,
+} from '../lib/theme';
+import {
+  PaperBackground,
+  SectionEyebrow,
+  CornerMarkSet,
+  TopographicLines,
+} from '../components/paper';
 import { getSpeciesImage } from '../lib/speciesImages';
 import { getWatertypeImage, ALL_WATERTYPE_IMAGES } from '../lib/watertypeImages';
 import { getWaterclarityImage, ALL_WATERCLARITY_IMAGES } from '../lib/waterclarityImages';
@@ -54,7 +71,6 @@ import {
   SPECIES_DISPLAY,
   RECOMMENDER_V3_UI_CONTEXTS,
   RECOMMENDER_V3_UI_SPECIES,
-  WATER_CLARITY_LABELS,
   getRecommenderSpeciesForState,
   getRecommenderContextsForState,
   getRecommenderContextsForStateSpecies,
@@ -85,8 +101,10 @@ const ENGINE_CONTEXTS: EngineContext[] = [
 
 function contextLabel(ctx: EngineContext): string {
   switch (ctx) {
-    case 'freshwater_lake_pond':  return 'Lake';
-    case 'freshwater_river':      return 'River';
+    case 'freshwater_lake_pond':    return 'Lake / Pond';
+    case 'freshwater_river':        return 'River / Stream';
+    case 'coastal':                 return 'Coastal';
+    case 'coastal_flats_estuary':   return 'Flats / Estuary';
     default: return 'Freshwater';
   }
 }
@@ -269,58 +287,169 @@ function pressureTrendInfo(trend: string): { label: string; color: string } | nu
   }
 }
 
-// ─── Setup sub-components ─────────────────────────────────────────────────────
+// ─── Wizard sub-components (paper / FinFindr tackle language) ────────────────
 
 /**
- * Section header — matches the Dashboard `sectionDividerRow` language
- * (line · icon · uppercase label · line) with a serif headline directly below.
- * Keeps the builder rhythm aligned with the rest of the app.
+ * Species subtitle — a Latin-ish tag that mirrors the FinFindr tackle card
+ * mock. Purely editorial and safe to show across regions since it's derived
+ * from the species identity, not location data.
  */
-function SectionHeader({
-  step,
-  eyebrow,
-  title,
+const SPECIES_SUBTITLE: Record<SpeciesGroup, string> = {
+  largemouth_bass: 'M. salmoides',
+  smallmouth_bass: 'M. dolomieu',
+  pike_musky:      'Esox lucius',
+  river_trout:     'Salmonidae',
+  walleye:         'S. vitreus',
+  redfish:         'S. ocellatus',
+  snook:           'C. undecimalis',
+  seatrout:        'C. nebulosus',
+  striped_bass:    'M. saxatilis',
+  tarpon:          'M. atlanticus',
+};
+
+/**
+ * One-liner copy shown under each water-type card. These mirror the
+ * FinFindr reference phrasing ("still water…", "moving water…") and are
+ * adapted for the two coastal contexts the engine supports, so the flow
+ * stays truthful if a state adds them in the future.
+ */
+function contextSubtitle(ctx: EngineContext): string {
+  switch (ctx) {
+    case 'freshwater_lake_pond':
+      return 'Still water — reservoirs, ponds, lakes';
+    case 'freshwater_river':
+      return 'Moving water — rivers, creeks, tailwaters';
+    case 'coastal':
+      return 'Saltwater shorelines — surf, piers, jetties';
+    case 'coastal_flats_estuary':
+      return 'Inshore flats, bays, and estuaries';
+    default:
+      return '';
+  }
+}
+
+/** Visibility subtitle shown under each clarity card — matches the mock. */
+const CLARITY_SUBTITLE: Record<WaterClarity, string> = {
+  clear:   'Visibility 4+ feet',
+  stained: 'Visibility 1–3 feet',
+  dirty:   'Visibility under 1 foot',
+};
+
+// ─── Wizard step progress ────────────────────────────────────────────────────
+
+/**
+ * Editorial 3-step progress bar — each step is a paper tile with an ink
+ * border and a numbered / checkmark medallion. The active step gets a
+ * red medallion; completed steps fill forest and swap to a check.
+ *
+ * Matches the FinFindr `tackleStep` progress grid one-for-one in
+ * proportion and affordance, adapted for React Native flex layout.
+ */
+function WizardStepProgress({
+  current,
+  onJumpToStep,
+  allowJumpToStep,
 }: {
-  step: number;
-  eyebrow: string;
-  title: string;
+  current: 1 | 2 | 3;
+  /** Tapping a completed step jumps back to it; active/pending tiles ignore taps. */
+  onJumpToStep: (step: 1 | 2 | 3) => void;
+  allowJumpToStep: (step: 1 | 2 | 3) => boolean;
 }) {
+  const steps: { num: 1 | 2 | 3; label: string }[] = [
+    { num: 1, label: 'SPECIES' },
+    { num: 2, label: 'WATER' },
+    { num: 3, label: 'CLARITY' },
+  ];
   return (
-    <View style={styles.sectionHeader}>
-      <View style={styles.sectionEyebrowRow}>
-        <View style={styles.sectionEyebrowLine} />
-        <Text style={styles.sectionEyebrowStep}>{`STEP 0${step}`}</Text>
-        <View style={styles.sectionEyebrowDot} />
-        <Text style={styles.sectionEyebrowLabel}>{eyebrow}</Text>
-        <View style={styles.sectionEyebrowLine} />
-      </View>
-      <Text style={styles.sectionTitle}>{title}</Text>
+    <View style={wizardStyles.progressRow}>
+      {steps.map((step) => {
+        const isActive = current === step.num;
+        const isDone = current > step.num;
+        const canTap = !isActive && allowJumpToStep(step.num);
+        return (
+          <Pressable
+            key={step.num}
+            style={({ pressed }) => [
+              wizardStyles.progressTile,
+              isDone && wizardStyles.progressTileDone,
+              isActive && wizardStyles.progressTileActive,
+              canTap && pressed && { opacity: 0.85 },
+            ]}
+            onPress={() => {
+              if (!canTap) return;
+              hapticSelection();
+              onJumpToStep(step.num);
+            }}
+            disabled={!canTap}
+          >
+            <View
+              style={[
+                wizardStyles.progressBadge,
+                isDone && wizardStyles.progressBadgeDone,
+                isActive && wizardStyles.progressBadgeActive,
+              ]}
+            >
+              {isDone ? (
+                <Ionicons name="checkmark" size={14} color={paper.forest} />
+              ) : (
+                <Text
+                  style={[
+                    wizardStyles.progressBadgeNum,
+                    isActive && { color: paper.paper },
+                  ]}
+                >
+                  {step.num}
+                </Text>
+              )}
+            </View>
+            <View style={{ minWidth: 0, flexShrink: 1 }}>
+              <Text
+                style={[
+                  wizardStyles.progressEyebrow,
+                  isDone && { color: paper.paper, opacity: 0.8 },
+                ]}
+              >
+                STEP {step.num}
+              </Text>
+              <Text
+                style={[
+                  wizardStyles.progressLabel,
+                  isDone && { color: paper.paper },
+                ]}
+                numberOfLines={1}
+              >
+                {step.label}
+              </Text>
+            </View>
+          </Pressable>
+        );
+      })}
     </View>
   );
 }
 
-// ─── Species Card ─────────────────────────────────────────────────────────────
+// ─── Species card (paper) ────────────────────────────────────────────────────
 
 function SpeciesCard({
   sp,
   isActive,
   isDisabled,
   onSelect,
-  fishAreaHeight,
+  cardHeight,
 }: {
   sp: SpeciesGroup;
   isActive: boolean;
   isDisabled: boolean;
   onSelect: (s: SpeciesGroup) => void;
-  fishAreaHeight: number;
+  cardHeight: number;
 }) {
   const img = getSpeciesImage(sp);
   return (
     <Pressable
       style={({ pressed }) => [
-        styles.speciesCard,
-        isActive && styles.speciesCardActive,
-        Platform.OS === 'ios' && pressed && !isDisabled && { opacity: 0.88 },
+        wizardStyles.speciesCard,
+        isActive && wizardStyles.speciesCardActive,
+        Platform.OS === 'ios' && pressed && !isDisabled && !isActive && { opacity: 0.9 },
       ]}
       onPress={() => {
         if (isDisabled) return;
@@ -330,38 +459,41 @@ function SpeciesCard({
       android_ripple={isDisabled ? undefined : RIPPLE}
       disabled={isDisabled}
     >
-      <View style={[styles.speciesFishArea, { height: fishAreaHeight }]}>
+      <View style={[wizardStyles.speciesImageArea, { height: cardHeight }]}>
         {img && (
           <ExpoImage
             source={img}
-            style={styles.speciesImage}
+            style={wizardStyles.speciesImage}
             contentFit="contain"
             transition={IMG_IN}
             cachePolicy="memory-disk"
           />
         )}
       </View>
-      <View style={styles.speciesNameFooter}>
-        <Text style={styles.speciesCardText} numberOfLines={1} ellipsizeMode="tail">
+      <View style={wizardStyles.speciesFooter}>
+        <Text style={wizardStyles.speciesTitle} numberOfLines={1} ellipsizeMode="tail">
           {SPECIES_DISPLAY[sp]}
+        </Text>
+        <Text style={wizardStyles.speciesSubtitle} numberOfLines={1} ellipsizeMode="tail">
+          {SPECIES_SUBTITLE[sp]}
         </Text>
       </View>
       {isActive && (
-        <View style={styles.speciesCheckBadge}>
-          <Ionicons name="checkmark" size={13} color="#fff" />
+        <View style={wizardStyles.selectBadge}>
+          <Ionicons name="checkmark" size={13} color={paper.paper} />
         </View>
       )}
-      {isDisabled && <View style={styles.cardDisabledOverlay} pointerEvents="none" />}
+      {isDisabled && (
+        <View style={wizardStyles.cardDisabledOverlay} pointerEvents="none" />
+      )}
     </Pressable>
   );
 }
 
-// ─── Species Grid ─────────────────────────────────────────────────────────────
-
-function fishAreaHeightForCount(count: number): number {
-  if (count === 1) return 160; // was 200 → −20%
-  if (count === 2) return 128; // was 160 → −20%
-  return 104;                  // was 130 → −20%
+function speciesCardHeightForCount(count: number): number {
+  if (count <= 1) return 170;
+  if (count === 2) return 150;
+  return 128;
 }
 
 function SpeciesGrid({
@@ -370,23 +502,24 @@ function SpeciesGrid({
   selected,
   onSelect,
 }: {
-  allOptions: SpeciesGroup[];      // every species for this state — always rendered
-  availableOptions: SpeciesGroup[]; // subset compatible with current water-type selection
+  allOptions: SpeciesGroup[];
+  availableOptions: SpeciesGroup[];
   selected: SpeciesGroup | null;
   onSelect: (s: SpeciesGroup) => void;
 }) {
-  // Base size on the full allOptions count so cards never resize when a selection greys some out
-  const fishAreaHeight = fishAreaHeightForCount(allOptions.length);
+  // Base the image-area height on the full `allOptions` count so cards never
+  // resize when a selection greys some out — keeps the grid stable.
+  const cardHeight = speciesCardHeightForCount(allOptions.length);
 
   if (allOptions.length === 1) {
     return (
-      <View style={styles.speciesGrid}>
+      <View style={wizardStyles.speciesGrid}>
         <SpeciesCard
           sp={allOptions[0]}
           isActive={selected === allOptions[0]}
           isDisabled={!availableOptions.includes(allOptions[0])}
           onSelect={onSelect}
-          fishAreaHeight={fishAreaHeight}
+          cardHeight={cardHeight}
         />
       </View>
     );
@@ -398,9 +531,9 @@ function SpeciesGrid({
   }
 
   return (
-    <View style={styles.speciesGrid}>
+    <View style={wizardStyles.speciesGrid}>
       {rows.map((row, rowIdx) => (
-        <View key={rowIdx} style={styles.speciesRow}>
+        <View key={rowIdx} style={wizardStyles.speciesRow}>
           {row.map((sp) => (
             <SpeciesCard
               key={sp}
@@ -408,7 +541,7 @@ function SpeciesGrid({
               isActive={selected === sp}
               isDisabled={!availableOptions.includes(sp)}
               onSelect={onSelect}
-              fishAreaHeight={fishAreaHeight}
+              cardHeight={cardHeight}
             />
           ))}
           {row.length === 1 && <View style={{ flex: 1 }} />}
@@ -418,23 +551,21 @@ function SpeciesGrid({
   );
 }
 
-// ─── Context selector (Body of Water) — image cards ──────────────────────────
+// ─── Context selector (paper) ────────────────────────────────────────────────
 
 function ContextSelector({
   allOptions,
   availableOptions,
   selected,
   onSelect,
-  accentColor,
 }: {
-  allOptions: EngineContext[];      // every water type for this state — always rendered
-  availableOptions: EngineContext[]; // subset compatible with selected species
+  allOptions: EngineContext[];
+  availableOptions: EngineContext[];
   selected: EngineContext | null;
   onSelect: (v: EngineContext) => void;
-  accentColor: string;
 }) {
   return (
-    <View style={styles.contextRow}>
+    <View style={wizardStyles.contextGrid}>
       {allOptions.map((opt) => {
         const isActive = selected === opt;
         const isDisabled = !availableOptions.includes(opt);
@@ -443,9 +574,9 @@ function ContextSelector({
           <Pressable
             key={opt}
             style={({ pressed }) => [
-              styles.contextCard,
-              isActive && { borderColor: accentColor, borderWidth: 2 },
-              Platform.OS === 'ios' && pressed && !isDisabled && { opacity: 0.88 },
+              wizardStyles.contextCard,
+              isActive && wizardStyles.contextCardActive,
+              Platform.OS === 'ios' && pressed && !isDisabled && !isActive && { opacity: 0.9 },
             ]}
             onPress={() => {
               if (isDisabled) return;
@@ -455,32 +586,31 @@ function ContextSelector({
             android_ripple={isDisabled ? undefined : RIPPLE}
             disabled={isDisabled}
           >
-            <View style={styles.contextImageArea}>
+            <View style={wizardStyles.contextImageArea}>
               {img && (
                 <ExpoImage
                   source={img}
-                  style={styles.contextCardImage}
+                  style={wizardStyles.contextImage}
                   contentFit="contain"
                   transition={IMG_IN}
                   cachePolicy="memory-disk"
                 />
               )}
             </View>
-            <View style={styles.contextNameFooter}>
-              <Text
-                style={[styles.contextCardText, isActive && { color: accentColor, fontFamily: fonts.bodySemiBold }]}
-                numberOfLines={1}
-                ellipsizeMode="tail"
-              >
-                {contextLabel(opt)}
-              </Text>
-            </View>
+            <Text style={wizardStyles.contextTitle} numberOfLines={1} ellipsizeMode="tail">
+              {contextLabel(opt)}
+            </Text>
+            <Text style={wizardStyles.contextSubtitle} numberOfLines={2} ellipsizeMode="tail">
+              {contextSubtitle(opt)}
+            </Text>
             {isActive && (
-              <View style={[styles.contextCheckBadge, { backgroundColor: accentColor }]}>
-                <Ionicons name="checkmark" size={12} color="#fff" />
+              <View style={wizardStyles.selectBadge}>
+                <Ionicons name="checkmark" size={13} color={paper.paper} />
               </View>
             )}
-            {isDisabled && <View style={styles.cardDisabledOverlay} pointerEvents="none" />}
+            {isDisabled && (
+              <View style={wizardStyles.cardDisabledOverlay} pointerEvents="none" />
+            )}
           </Pressable>
         );
       })}
@@ -488,35 +618,33 @@ function ContextSelector({
   );
 }
 
-// ─── Clarity selector — image cards ──────────────────────────────────────────
+// ─── Clarity selector (paper) ────────────────────────────────────────────────
 
 function ClaritySelector({
   selected,
   onSelect,
-  accentColor,
 }: {
   selected: WaterClarity | null;
   onSelect: (c: WaterClarity) => void;
-  accentColor: string;
 }) {
-  const options: { value: WaterClarity; label: string; sub: string }[] = [
-    { value: 'clear',   label: 'Clear',   sub: 'High visibility' },
-    { value: 'stained', label: 'Stained', sub: 'Tinted water' },
-    { value: 'dirty',   label: 'Murky',   sub: 'Low visibility' },
+  const options: { value: WaterClarity; label: string }[] = [
+    { value: 'clear',   label: 'Clear'   },
+    { value: 'stained', label: 'Stained' },
+    { value: 'dirty',   label: 'Murky'   },
   ];
 
   return (
-    <View style={styles.clarityRow}>
-      {options.map(({ value, label, sub }) => {
+    <View style={wizardStyles.clarityGrid}>
+      {options.map(({ value, label }) => {
         const isActive = selected === value;
         const img = getWaterclarityImage(value);
         return (
           <Pressable
             key={value}
             style={({ pressed }) => [
-              styles.clarityCard,
-              isActive && { borderColor: accentColor, borderWidth: 2 },
-              Platform.OS === 'ios' && pressed && { opacity: 0.88 },
+              wizardStyles.clarityCard,
+              isActive && wizardStyles.clarityCardActive,
+              Platform.OS === 'ios' && pressed && !isActive && { opacity: 0.9 },
             ]}
             onPress={() => {
               hapticSelection();
@@ -524,33 +652,24 @@ function ClaritySelector({
             }}
             android_ripple={RIPPLE}
           >
-            <View style={styles.clarityImageArea}>
+            <View style={wizardStyles.clarityImageArea}>
               <ExpoImage
                 source={img}
-                style={styles.clarityCardImage}
+                style={wizardStyles.clarityImage}
                 contentFit="cover"
                 transition={IMG_IN}
                 cachePolicy="memory-disk"
               />
             </View>
-            <View style={styles.clarityNameFooter}>
-              <Text
-                style={[styles.clarityCardTitle, { color: isActive ? accentColor : colors.text }]}
-                numberOfLines={1}
-              >
-                {label}
-              </Text>
-              <Text
-                style={[styles.clarityCardSub, isActive && { color: accentColor + 'BB' }]}
-                numberOfLines={2}
-                ellipsizeMode="tail"
-              >
-                {sub}
-              </Text>
-            </View>
+            <Text style={wizardStyles.clarityTitle} numberOfLines={1}>
+              {label}
+            </Text>
+            <Text style={wizardStyles.claritySubtitle} numberOfLines={2} ellipsizeMode="tail">
+              {CLARITY_SUBTITLE[value]}
+            </Text>
             {isActive && (
-              <View style={[styles.clarityCheck, { backgroundColor: accentColor }]}>
-                <Ionicons name="checkmark" size={9} color="#fff" />
+              <View style={wizardStyles.selectBadge}>
+                <Ionicons name="checkmark" size={13} color={paper.paper} />
               </View>
             )}
           </Pressable>
@@ -604,6 +723,26 @@ export default function RecommenderScreen() {
   const [result, setResult] = useState<RecommenderResponse | null>(null);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [isRefreshing, setIsRefreshing] = useState(false);
+
+  // ─── Wizard step (setup phase only) ──────────────────────────────────────
+  // `wizardStep` is purely a UI convenience; the underlying selection state
+  // (`species`, `context`, `clarity`) is still the source of truth for
+  // readiness/build-plan. Whenever we come back to the setup screen (initial
+  // mount, or bounce from result/error), we reset the wizard to step 1.
+  type WizardStep = 1 | 2 | 3;
+  const [wizardStep, setWizardStep] = useState<WizardStep>(1);
+  useEffect(() => {
+    if (screenState === 'setup') {
+      setWizardStep((prev) => {
+        // If we're on step 2 but species got wiped (state-change invalidation),
+        // or on step 3 but species/context got wiped, bounce back rather than
+        // letting the user sit on an empty step.
+        if (prev === 2 && !species) return 1;
+        if (prev === 3 && (!species || !context)) return species ? 2 : 1;
+        return prev;
+      });
+    }
+  }, [screenState, species, context]);
 
   // Each image in ALL_PRELOAD_IMAGES is rendered off-screen at 1×1px.
   // onLoad / onError fires when the native image pipeline finishes decoding it.
@@ -787,15 +926,12 @@ export default function RecommenderScreen() {
         ))}
       </View>
 
-      {/* Nav header */}
-      <View style={[
-        styles.navHeader,
-        screenState === 'setup' && styles.navHeaderBorderless,
-      ]}>
+      {/* Nav header — FinFindr paper language, shared across every state. */}
+      <View style={wizardStyles.navHeader}>
         <Pressable
           style={({ pressed }) => [
-            styles.backBtn,
-            Platform.OS === 'ios' && pressed && { opacity: 0.6 },
+            wizardStyles.navIconButton,
+            Platform.OS === 'ios' && pressed && { opacity: 0.7 },
           ]}
           onPress={() => {
             if (screenState === 'result' || screenState === 'error') {
@@ -807,193 +943,326 @@ export default function RecommenderScreen() {
           hitSlop={12}
           android_ripple={RIPPLE}
         >
-          <Ionicons name="chevron-back" size={24} color={colors.text} />
+          <Ionicons name="chevron-back" size={14} color={paper.ink} />
+          <Text style={wizardStyles.navIconButtonText}>
+            {screenState === 'result' || screenState === 'error' ? 'SETUP' : 'BACK'}
+          </Text>
         </Pressable>
 
-        <Text style={styles.navTitle} numberOfLines={1} ellipsizeMode="tail">
-          What to Throw
-        </Text>
+        <View style={wizardStyles.navTitleWrap} pointerEvents="none">
+          <Text style={wizardStyles.navEyebrow}>FINFINDR</Text>
+          <Text style={wizardStyles.navTitle} numberOfLines={1} ellipsizeMode="tail">
+            WHAT TO THROW
+          </Text>
+        </View>
 
-        {/* Region pill — only in setup, right side */}
-        {screenState === 'setup' && (
-          <View style={styles.navRight}>
-            {resolvingRegion ? (
-              <ActivityIndicator size="small" color={colors.textMuted} style={{ transform: [{ scale: 0.7 }] }} />
-            ) : stateCode ? (
-              <View style={styles.regionPill}>
-                <Ionicons name="location" size={11} color={colors.primaryLight} />
-                <Text style={styles.regionPillText}>{stateCode}</Text>
-              </View>
-            ) : null}
-          </View>
-        )}
+        {/* Right slot — state pill during setup, reset affordance on result. */}
+        <View style={wizardStyles.navRight}>
+          {screenState === 'setup' && (resolvingRegion ? (
+            <ActivityIndicator
+              size="small"
+              color={paper.ink}
+              style={{ transform: [{ scale: 0.7 }] }}
+            />
+          ) : stateCode ? (
+            <View style={wizardStyles.navStatePill}>
+              <Ionicons name="location" size={10} color={paper.ink} />
+              <Text style={wizardStyles.navStatePillText}>{stateCode}</Text>
+            </View>
+          ) : null)}
 
-        {screenState === 'result' && (
-          <Pressable
-            style={({ pressed }) => [styles.resetBtn, Platform.OS === 'ios' && pressed && { opacity: 0.6 }]}
-            onPress={() => {
-              hapticSelection();
-              handleReset();
-            }}
-            hitSlop={12}
-            android_ripple={RIPPLE}
-          >
-            <Ionicons name="options-outline" size={22} color={colors.textSecondary} />
-          </Pressable>
-        )}
+          {screenState === 'result' && (
+            <Pressable
+              style={({ pressed }) => [
+                wizardStyles.navIconButton,
+                Platform.OS === 'ios' && pressed && { opacity: 0.7 },
+              ]}
+              onPress={() => {
+                hapticSelection();
+                handleReset();
+              }}
+              hitSlop={12}
+              android_ripple={RIPPLE}
+            >
+              <Ionicons name="options-outline" size={14} color={paper.ink} />
+              <Text style={wizardStyles.navIconButtonText}>EDIT</Text>
+            </Pressable>
+          )}
+        </View>
       </View>
 
       {/* ── Setup: waiting for images ── */}
       {screenState === 'setup' && !setupImagesReady && (
-        <View style={styles.centerState}>
-          <ActivityIndicator size="large" color={accentColor} />
-        </View>
+        <PaperBackground style={{ flex: 1 }}>
+          <View style={styles.centerState}>
+            <ActivityIndicator size="large" color={paper.forest} />
+          </View>
+        </PaperBackground>
       )}
 
-      {/* ── Setup form ── */}
-      {screenState === 'setup' && setupImagesReady && (
-        <ScrollView
-          style={styles.setupScroll}
-          contentContainerStyle={styles.setupContent}
-          showsVerticalScrollIndicator={false}
-          keyboardShouldPersistTaps="handled"
-        >
-          {/* Hero headline — mirrors Dashboard brand row rhythm */}
-          <View style={styles.heroHeader}>
-            <View style={styles.heroBadge}>
-              <Ionicons name="sparkles" size={11} color={colors.primary} />
-              <Text style={styles.heroBadgeText}>Lure & Fly Recommender</Text>
-            </View>
-            <Text style={styles.heroTitle}>
-              Pick the right lure or fly
-            </Text>
-            <Text style={styles.heroSubtitle}>
-              Tailored to today's conditions and your water.
-            </Text>
-          </View>
+      {/* ── Setup form (FinFindr tackle wizard) ── */}
+      {screenState === 'setup' && setupImagesReady && (() => {
+        const stepConfig: { num: 1 | 2 | 3; question: string; caption: string }[] = [
+          { num: 1, question: 'What are you after?',       caption: 'Pick a target species.' },
+          { num: 2, question: 'Where are you fishing?',    caption: 'Pick the body of water you are on.' },
+          { num: 3, question: "How's the water today?",    caption: 'Pick the clarity you are seeing.' },
+        ];
+        const current = stepConfig[wizardStep - 1];
 
-          {/* Location warning — only when no coords */}
-          {!hasCoords && (
-            <View style={styles.warningBanner}>
-              <Ionicons name="location-outline" size={14} color={colors.reportScoreYellow} />
-              <Text style={styles.warningText}>
-                Add a location for today&apos;s conditions.
-              </Text>
-            </View>
-          )}
+        const canContinue =
+          wizardStep === 1 ? species !== null && availableSpecies.includes(species)
+          : wizardStep === 2 ? context !== null && availableContexts.includes(context)
+          : clarity !== null;
 
-          {/* 01 — Target Species */}
-          <SectionHeader step={1} eyebrow="Target Species" title="What are you after?" />
-          <View style={styles.sectionCard}>
-            <SpeciesGrid
-              allOptions={allSpeciesForState}
-              availableOptions={availableSpecies}
-              selected={species}
-              onSelect={(sp) => {
-                setSpecies(sp);
-                if (context) {
-                  const validCtxs = stateCode
-                    ? getRecommenderContextsForStateSpecies(stateCode, sp)
-                    : defaultContextsForSpecies(sp);
-                  if (!validCtxs.includes(context)) setContext(null);
-                }
-              }}
-            />
-          </View>
+        const allowJumpToStep = (step: 1 | 2 | 3) => {
+          if (step === 1) return true;
+          if (step === 2) return species !== null && availableSpecies.includes(species);
+          return species !== null && context !== null;
+        };
 
-          {/* 02 — Body of Water */}
-          <SectionHeader step={2} eyebrow="Body of Water" title="Where are you fishing?" />
-          <View style={styles.sectionCard}>
-            <ContextSelector
-              allOptions={allContextsForState}
-              availableOptions={availableContexts}
-              selected={context}
-              onSelect={setContext}
-              accentColor={accentColor}
-            />
-            {availableContexts.length === 0 && species && (
-              <Text style={styles.validationNote}>
-                No water types available for {SPECIES_DISPLAY[species]} in this region.
-              </Text>
-            )}
-          </View>
+        const handleBack = () => {
+          if (wizardStep === 1) {
+            router.back();
+            return;
+          }
+          hapticSelection();
+          setWizardStep((prev) => (prev === 3 ? 2 : 1));
+        };
 
-          {/* 03 — Water Clarity */}
-          <SectionHeader step={3} eyebrow="Water Clarity" title="How's the water today?" />
-          <View style={styles.sectionCard}>
-            <ClaritySelector
-              selected={clarity}
-              onSelect={setClarity}
-              accentColor={accentColor}
-            />
-          </View>
+        const handleContinueOrSubmit = () => {
+          if (!canContinue) return;
+          if (wizardStep < 3) {
+            hapticSelection();
+            setWizardStep((prev) => (prev === 1 ? 2 : 3));
+            return;
+          }
+          if (!isReady) return;
+          hapticImpact(ImpactFeedbackStyle.Medium);
+          handleFetch(false);
+        };
 
-          {/* CTA */}
-          <View style={styles.ctaWrap}>
-            <Pressable
-              style={({ pressed }) => [
-                styles.ctaBtn,
-                { backgroundColor: isReady ? accentColor : colors.disabled },
-                isReady && shadows.md,
-                Platform.OS === 'ios' && pressed && isReady && { opacity: 0.92 },
-              ]}
-              disabled={!isReady}
-              onPress={() => {
-                if (!isReady) return;
-                hapticImpact(ImpactFeedbackStyle.Medium);
-                handleFetch(false);
-              }}
-              android_ripple={isReady ? { color: 'rgba(255,255,255,0.25)' } : undefined}
+        const contextInvalidNote =
+          wizardStep === 2 && species && availableContexts.length === 0
+            ? `No water types available for ${SPECIES_DISPLAY[species]} in this region.`
+            : null;
+
+        return (
+          <PaperBackground style={{ flex: 1 }}>
+            <ScrollView
+              style={styles.setupScroll}
+              contentContainerStyle={wizardStyles.scrollContent}
+              showsVerticalScrollIndicator={false}
+              keyboardShouldPersistTaps="handled"
             >
-              <Text style={styles.ctaBtnText}>Build plan</Text>
-              <Ionicons name="arrow-forward" size={18} color="#fff" />
-            </Pressable>
+              {/* Hero — FinFindr tackle setup language */}
+              <View style={wizardStyles.hero}>
+                <SectionEyebrow>TACKLE BOX SETUP</SectionEyebrow>
+                <Text style={wizardStyles.heroTitle} allowFontScaling={false}>
+                  LET'S DIAL IN{'\n'}
+                  <Text style={wizardStyles.heroTitleAccent}>YOUR PICKS.</Text>
+                </Text>
+                <Text style={wizardStyles.heroSubtitle}>
+                  Three quick questions and we'll rank the best lures and flies for today.
+                </Text>
+              </View>
 
-            <Text style={styles.setupDisclaimer}>
-              Recommendations are based on your location's seasonal baseline, today's conditions, and water clarity.
-            </Text>
-          </View>
-        </ScrollView>
-      )}
+              {/* Location warning — only when no coords */}
+              {!hasCoords && (
+                <View style={wizardStyles.warningBanner}>
+                  <Ionicons name="location-outline" size={14} color={paper.red} />
+                  <Text style={wizardStyles.warningText}>
+                    Add a location on the home screen for today's conditions.
+                  </Text>
+                </View>
+              )}
+
+              {/* Step progress */}
+              <WizardStepProgress
+                current={wizardStep}
+                onJumpToStep={setWizardStep}
+                allowJumpToStep={allowJumpToStep}
+              />
+
+              {/* Step content card */}
+              <View style={wizardStyles.stepCard}>
+                <TopographicLines
+                  style={StyleSheet.absoluteFill}
+                  color={paper.forestDk}
+                  count={4}
+                />
+                <CornerMarkSet color={paper.red} inset={10} size={12} />
+
+                <View style={wizardStyles.stepCardHeader}>
+                  <Text style={wizardStyles.stepCardEyebrow}>
+                    STEP {wizardStep} OF 3
+                  </Text>
+                  <Text style={wizardStyles.stepCardTitle} allowFontScaling={false}>
+                    {current.question}
+                  </Text>
+                  <Text style={wizardStyles.stepCardCaption}>
+                    {current.caption}
+                  </Text>
+                </View>
+
+                {wizardStep === 1 && (
+                  <SpeciesGrid
+                    allOptions={allSpeciesForState}
+                    availableOptions={availableSpecies}
+                    selected={species}
+                    onSelect={(sp) => {
+                      setSpecies(sp);
+                      if (context) {
+                        const validCtxs = stateCode
+                          ? getRecommenderContextsForStateSpecies(stateCode, sp)
+                          : defaultContextsForSpecies(sp);
+                        if (!validCtxs.includes(context)) setContext(null);
+                      }
+                    }}
+                  />
+                )}
+
+                {wizardStep === 2 && (
+                  <>
+                    <ContextSelector
+                      allOptions={allContextsForState}
+                      availableOptions={availableContexts}
+                      selected={context}
+                      onSelect={setContext}
+                    />
+                    {contextInvalidNote && (
+                      <Text style={wizardStyles.validationNote}>
+                        {contextInvalidNote}
+                      </Text>
+                    )}
+                  </>
+                )}
+
+                {wizardStep === 3 && (
+                  <ClaritySelector
+                    selected={clarity}
+                    onSelect={setClarity}
+                  />
+                )}
+              </View>
+
+              {/* Readiness hint on the last step only — so users understand
+                  what's blocking the final CTA (e.g. location not resolved). */}
+              {wizardStep === 3 && !isReady && setupHint && (
+                <Text style={wizardStyles.readinessHint}>{setupHint}</Text>
+              )}
+
+              {/* Wizard actions */}
+              <View style={wizardStyles.actionsRow}>
+                <Pressable
+                  style={({ pressed }) => [
+                    wizardStyles.backButton,
+                    Platform.OS === 'ios' && pressed && { opacity: 0.85 },
+                  ]}
+                  onPress={handleBack}
+                  android_ripple={{ color: 'rgba(10,22,40,0.08)' }}
+                  hitSlop={8}
+                >
+                  <Ionicons name="chevron-back" size={14} color={paper.ink} />
+                  <Text style={wizardStyles.backButtonText}>
+                    {wizardStep === 1 ? 'CANCEL' : 'BACK'}
+                  </Text>
+                </Pressable>
+
+                <Pressable
+                  style={({ pressed }) => [
+                    wizardStyles.continueButton,
+                    !canContinue && wizardStyles.continueButtonDisabled,
+                    wizardStep === 3 && canContinue && isReady && wizardStyles.continueButtonFinal,
+                    Platform.OS === 'ios' && pressed && canContinue && { opacity: 0.9 },
+                  ]}
+                  onPress={handleContinueOrSubmit}
+                  disabled={!canContinue || (wizardStep === 3 && !isReady)}
+                  android_ripple={
+                    canContinue ? { color: 'rgba(255,255,255,0.18)' } : undefined
+                  }
+                >
+                  <Text
+                    style={[
+                      wizardStyles.continueButtonText,
+                      !canContinue && wizardStyles.continueButtonTextDisabled,
+                    ]}
+                  >
+                    {wizardStep === 3 ? 'GENERATE PICKS' : 'CONTINUE'}
+                  </Text>
+                  <Ionicons
+                    name="arrow-forward"
+                    size={16}
+                    color={canContinue ? paper.paper : paper.ink}
+                  />
+                </Pressable>
+              </View>
+
+              <Text style={wizardStyles.disclaimer}>
+                Recommendations use your location's seasonal baseline, today's midnight conditions, and water clarity.
+              </Text>
+            </ScrollView>
+          </PaperBackground>
+        );
+      })()}
 
       {/* ── Loading ── */}
       {screenState === 'loading' && (
-        <View style={styles.loadingWrap}>
-          <RecommenderLoadingSkeleton />
-          <View style={styles.loadingOverlay} pointerEvents="none">
-            <ActivityIndicator size="small" color={accentColor} />
-            <Text style={styles.loadingCaption}>Matching lures & flies…</Text>
+        <PaperBackground style={{ flex: 1 }}>
+          <View style={styles.loadingWrap}>
+            <RecommenderLoadingSkeleton />
+            <View style={styles.loadingOverlay} pointerEvents="none">
+              <ActivityIndicator size="small" color={paper.forest} />
+              <Text style={wizardStyles.loadingCaption}>
+                MATCHING LURES &amp; FLIES…
+              </Text>
+            </View>
           </View>
-        </View>
+        </PaperBackground>
       )}
 
       {/* ── Error ── */}
       {screenState === 'error' && (
-        <View style={styles.centerState}>
-          <Ionicons name="alert-circle-outline" size={40} color={colors.reportScoreRed} />
-          <Text style={styles.errorTitle}>Could not build your plan</Text>
-          <Text style={styles.errorMsg}>{errorMsg}</Text>
-          <Pressable
-            style={({ pressed }) => [styles.retryBtn, Platform.OS === 'ios' && pressed && { opacity: 0.88 }]}
-            onPress={() => {
-              hapticImpact(ImpactFeedbackStyle.Light);
-              handleFetch(true);
-            }}
-            android_ripple={RIPPLE}
-          >
-            <Text style={styles.retryBtnText}>Try again</Text>
-          </Pressable>
-          <Pressable
-            style={({ pressed }) => [styles.secondaryBtn, Platform.OS === 'ios' && pressed && { opacity: 0.88 }]}
-            onPress={() => {
-              hapticSelection();
-              handleReset();
-            }}
-            android_ripple={RIPPLE}
-          >
-            <Text style={styles.secondaryBtnText}>Back to setup</Text>
-          </Pressable>
-        </View>
+        <PaperBackground style={{ flex: 1 }}>
+          <View style={wizardStyles.errorState}>
+            <View style={wizardStyles.errorBadge}>
+              <Ionicons name="alert" size={22} color={paper.paper} />
+            </View>
+            <Text style={wizardStyles.errorTitle}>
+              COULD NOT BUILD YOUR PLAN
+            </Text>
+            <Text style={wizardStyles.errorBody}>{errorMsg}</Text>
+            <View style={wizardStyles.errorActions}>
+              <Pressable
+                style={({ pressed }) => [
+                  wizardStyles.errorPrimary,
+                  Platform.OS === 'ios' && pressed && { opacity: 0.9 },
+                ]}
+                onPress={() => {
+                  hapticImpact(ImpactFeedbackStyle.Light);
+                  handleFetch(true);
+                }}
+                android_ripple={{ color: 'rgba(255,255,255,0.18)' }}
+              >
+                <Text style={wizardStyles.errorPrimaryText}>TRY AGAIN</Text>
+                <Ionicons name="refresh" size={14} color={paper.paper} />
+              </Pressable>
+              <Pressable
+                style={({ pressed }) => [
+                  wizardStyles.errorSecondary,
+                  Platform.OS === 'ios' && pressed && { opacity: 0.85 },
+                ]}
+                onPress={() => {
+                  hapticSelection();
+                  handleReset();
+                }}
+                android_ripple={RIPPLE}
+              >
+                <Ionicons name="chevron-back" size={12} color={paper.ink} />
+                <Text style={wizardStyles.errorSecondaryText}>BACK TO SETUP</Text>
+              </Pressable>
+            </View>
+          </View>
+        </PaperBackground>
       )}
 
       {/* ── Result ── */}
@@ -1012,7 +1281,9 @@ export default function RecommenderScreen() {
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-    backgroundColor: colors.background,
+    // Paper canvas, so the nav header + every sub-state sits on the same
+    // warm surface and transitions don't flash white.
+    backgroundColor: paper.paper,
   },
 
   // Nav
@@ -1485,5 +1756,613 @@ const styles = StyleSheet.create({
   // Result
   resultView: {
     flex: 1,
+  },
+});
+
+// ─── Wizard styles ───────────────────────────────────────────────────────────
+// Paper / FinFindr tackle-setup language. Sits alongside the legacy `styles`
+// block because the wizard lives only in the setup phase — the loading /
+// error / result phases still use the original system.
+
+const wizardStyles = StyleSheet.create({
+  // ─── Shared nav header (paper language) ─────────────────────────────────
+  navHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: paperSpacing.md,
+    paddingTop: paperSpacing.sm,
+    paddingBottom: paperSpacing.sm,
+    backgroundColor: paper.paper,
+    borderBottomWidth: 1,
+    borderBottomColor: paper.inkHairSoft,
+    gap: paperSpacing.sm,
+  },
+  navTitleWrap: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: paperSpacing.sm,
+    bottom: paperSpacing.sm,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  navEyebrow: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 8.5,
+    color: paper.red,
+    letterSpacing: 2.6,
+  },
+  navTitle: {
+    fontFamily: paperFonts.display,
+    fontSize: 14,
+    color: paper.ink,
+    letterSpacing: -0.2,
+    marginTop: 1,
+  },
+  navIconButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+    borderWidth: 1.5,
+    borderColor: paper.ink,
+    borderRadius: paperRadius.chip,
+    backgroundColor: 'transparent',
+  },
+  navIconButtonText: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 10,
+    color: paper.ink,
+    letterSpacing: 2.2,
+  },
+  navRight: {
+    minWidth: 62,
+    alignItems: 'flex-end',
+  },
+  navStatePill: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    paddingHorizontal: 9,
+    paddingVertical: 5,
+    borderWidth: 1.5,
+    borderColor: paper.ink,
+    borderRadius: paperRadius.chip,
+    backgroundColor: paper.paperLight,
+  },
+  navStatePillText: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 10,
+    color: paper.ink,
+    letterSpacing: 1.6,
+  },
+
+  scrollContent: {
+    paddingHorizontal: paperSpacing.lg,
+    paddingTop: paperSpacing.sm,
+    paddingBottom: paperSpacing.xl + paperSpacing.md,
+    gap: paperSpacing.md,
+  },
+
+  // Hero
+  hero: {
+    alignItems: 'center',
+    paddingTop: paperSpacing.xs,
+    paddingBottom: paperSpacing.sm,
+    gap: paperSpacing.xs,
+  },
+  heroTitle: {
+    fontFamily: paperFonts.display,
+    fontSize: 34,
+    color: paper.ink,
+    textAlign: 'center',
+    lineHeight: 36,
+    letterSpacing: -1,
+    textTransform: 'uppercase',
+    marginTop: 6,
+  },
+  heroTitleAccent: {
+    color: paper.forest,
+  },
+  heroSubtitle: {
+    fontFamily: paperFonts.displayItalic,
+    fontSize: 14,
+    color: paper.ink,
+    opacity: 0.75,
+    textAlign: 'center',
+    lineHeight: 20,
+    marginTop: 4,
+    paddingHorizontal: paperSpacing.sm,
+  },
+
+  // Warning banner
+  warningBanner: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: paperSpacing.sm,
+    backgroundColor: paper.paperLight,
+    borderWidth: 1.5,
+    borderColor: paper.red,
+    borderRadius: paperRadius.chip,
+    paddingHorizontal: paperSpacing.md,
+    paddingVertical: paperSpacing.sm,
+  },
+  warningText: {
+    flex: 1,
+    fontFamily: paperFonts.body,
+    fontSize: 12,
+    color: paper.ink,
+    lineHeight: 17,
+  },
+
+  // Step progress — three paper tiles in a row
+  progressRow: {
+    flexDirection: 'row',
+    gap: 8,
+    marginTop: paperSpacing.xs,
+    marginBottom: paperSpacing.sm,
+  },
+  progressTile: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+    borderWidth: 2,
+    borderColor: paper.ink,
+    borderRadius: paperRadius.card,
+    backgroundColor: paper.paper,
+  },
+  progressTileActive: {
+    backgroundColor: paper.paperLight,
+    ...paperShadows.hard,
+  },
+  progressTileDone: {
+    backgroundColor: paper.forest,
+    borderColor: paper.ink,
+  },
+  progressBadge: {
+    width: 26,
+    height: 26,
+    borderRadius: 13,
+    borderWidth: 1.5,
+    borderColor: paper.ink,
+    backgroundColor: 'transparent',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexShrink: 0,
+  },
+  progressBadgeActive: {
+    backgroundColor: paper.red,
+    borderColor: paper.ink,
+  },
+  progressBadgeDone: {
+    backgroundColor: paper.paper,
+    borderColor: paper.paper,
+  },
+  progressBadgeNum: {
+    fontFamily: paperFonts.display,
+    fontSize: 13,
+    color: paper.ink,
+    includeFontPadding: false,
+  },
+  progressEyebrow: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 8.5,
+    color: paper.ink,
+    opacity: 0.6,
+    letterSpacing: 2,
+  },
+  progressLabel: {
+    fontFamily: paperFonts.display,
+    fontSize: 12,
+    color: paper.ink,
+    letterSpacing: -0.2,
+    marginTop: 1,
+  },
+
+  // Step content card
+  stepCard: {
+    backgroundColor: paper.paperLight,
+    borderWidth: 2,
+    borderColor: paper.ink,
+    borderRadius: paperRadius.card,
+    paddingVertical: paperSpacing.lg,
+    paddingHorizontal: paperSpacing.md,
+    gap: paperSpacing.md,
+    overflow: 'hidden',
+    ...paperShadows.hard,
+  },
+  stepCardHeader: {
+    alignItems: 'center',
+    gap: 6,
+    paddingBottom: paperSpacing.xs,
+  },
+  stepCardEyebrow: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 10,
+    color: paper.red,
+    letterSpacing: 2.6,
+  },
+  stepCardTitle: {
+    fontFamily: paperFonts.display,
+    fontSize: 24,
+    color: paper.ink,
+    letterSpacing: -0.6,
+    textAlign: 'center',
+    lineHeight: 28,
+  },
+  stepCardCaption: {
+    fontFamily: paperFonts.displayItalic,
+    fontSize: 13,
+    color: paper.ink,
+    opacity: 0.7,
+    textAlign: 'center',
+    lineHeight: 18,
+  },
+
+  // Species grid
+  speciesGrid: {
+    gap: 12,
+  },
+  speciesRow: {
+    flexDirection: 'row',
+    gap: 12,
+  },
+  speciesCard: {
+    flex: 1,
+    backgroundColor: paper.paper,
+    borderWidth: 2,
+    borderColor: paper.ink,
+    borderRadius: paperRadius.card,
+    overflow: 'hidden',
+    position: 'relative',
+    ...paperShadows.hard,
+  },
+  speciesCardActive: {
+    borderColor: paper.red,
+    backgroundColor: paper.paperLight,
+    ...paperShadows.lift,
+  },
+  speciesImageArea: {
+    width: '100%',
+    backgroundColor: paper.paper,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderBottomWidth: 2,
+    borderBottomColor: paper.ink,
+  },
+  speciesImage: {
+    width: '92%',
+    height: '92%',
+  },
+  speciesFooter: {
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+    alignItems: 'center',
+    gap: 2,
+  },
+  speciesTitle: {
+    fontFamily: paperFonts.display,
+    fontSize: 14,
+    color: paper.ink,
+    letterSpacing: -0.2,
+    textAlign: 'center',
+  },
+  speciesSubtitle: {
+    fontFamily: paperFonts.displayItalic,
+    fontSize: 10,
+    color: paper.ink,
+    opacity: 0.6,
+    textAlign: 'center',
+  },
+
+  // Context (water-type) grid
+  contextGrid: {
+    flexDirection: 'row',
+    gap: 14,
+    flexWrap: 'wrap',
+  },
+  contextCard: {
+    flex: 1,
+    minWidth: '46%',
+    backgroundColor: paper.paper,
+    borderWidth: 2,
+    borderColor: paper.ink,
+    borderRadius: paperRadius.card,
+    paddingHorizontal: 18,
+    paddingTop: 22,
+    paddingBottom: 18,
+    alignItems: 'center',
+    position: 'relative',
+    ...paperShadows.hard,
+  },
+  contextCardActive: {
+    borderColor: paper.red,
+    backgroundColor: paper.paperLight,
+    ...paperShadows.lift,
+  },
+  contextImageArea: {
+    width: '100%',
+    aspectRatio: 1.5,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 10,
+  },
+  contextImage: {
+    width: '88%',
+    height: '88%',
+  },
+  contextTitle: {
+    fontFamily: paperFonts.display,
+    fontSize: 18,
+    color: paper.ink,
+    letterSpacing: -0.3,
+    textAlign: 'center',
+  },
+  contextSubtitle: {
+    fontFamily: paperFonts.displayItalic,
+    fontSize: 11,
+    color: paper.ink,
+    opacity: 0.65,
+    textAlign: 'center',
+    marginTop: 4,
+    lineHeight: 15,
+  },
+
+  // Clarity grid
+  clarityGrid: {
+    flexDirection: 'row',
+    gap: 10,
+  },
+  clarityCard: {
+    flex: 1,
+    backgroundColor: paper.paper,
+    borderWidth: 2,
+    borderColor: paper.ink,
+    borderRadius: paperRadius.card,
+    paddingHorizontal: 8,
+    paddingTop: 14,
+    paddingBottom: 12,
+    alignItems: 'center',
+    position: 'relative',
+    ...paperShadows.hard,
+  },
+  clarityCardActive: {
+    borderColor: paper.red,
+    backgroundColor: paper.paperLight,
+    ...paperShadows.lift,
+  },
+  clarityImageArea: {
+    width: 68,
+    height: 68,
+    borderRadius: 6,
+    borderWidth: 2,
+    borderColor: paper.ink,
+    overflow: 'hidden',
+    marginBottom: 10,
+  },
+  clarityImage: {
+    width: '100%',
+    height: '100%',
+  },
+  clarityTitle: {
+    fontFamily: paperFonts.display,
+    fontSize: 15,
+    color: paper.ink,
+    letterSpacing: -0.2,
+    textAlign: 'center',
+  },
+  claritySubtitle: {
+    fontFamily: paperFonts.displayItalic,
+    fontSize: 10,
+    color: paper.ink,
+    opacity: 0.65,
+    textAlign: 'center',
+    marginTop: 3,
+    lineHeight: 13,
+  },
+
+  // Shared select badge
+  selectBadge: {
+    position: 'absolute',
+    top: 10,
+    right: 10,
+    width: 26,
+    height: 26,
+    borderRadius: 13,
+    backgroundColor: paper.red,
+    borderWidth: 2,
+    borderColor: paper.ink,
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 3,
+  },
+  cardDisabledOverlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(232,223,201,0.62)',
+  },
+
+  // Validation notes / readiness hint
+  validationNote: {
+    fontFamily: paperFonts.displayItalic,
+    fontSize: 12,
+    color: paper.red,
+    textAlign: 'center',
+    paddingHorizontal: paperSpacing.sm,
+    lineHeight: 17,
+  },
+  readinessHint: {
+    fontFamily: paperFonts.displayItalic,
+    fontSize: 12,
+    color: paper.ink,
+    opacity: 0.65,
+    textAlign: 'center',
+    paddingHorizontal: paperSpacing.md,
+    lineHeight: 17,
+    marginTop: -paperSpacing.xs,
+  },
+
+  // Actions
+  actionsRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    gap: 12,
+    marginTop: paperSpacing.xs,
+  },
+  backButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    paddingHorizontal: 16,
+    paddingVertical: 11,
+    borderWidth: 2,
+    borderColor: paper.ink,
+    borderRadius: paperRadius.chip,
+    backgroundColor: paper.paper,
+  },
+  backButtonText: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 11,
+    color: paper.ink,
+    letterSpacing: 2.4,
+  },
+  continueButton: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 8,
+    paddingHorizontal: 20,
+    paddingVertical: 12,
+    borderWidth: 2,
+    borderColor: paper.ink,
+    borderRadius: paperRadius.chip,
+    backgroundColor: paper.forest,
+    ...paperShadows.hard,
+  },
+  continueButtonFinal: {
+    backgroundColor: paper.forest,
+  },
+  continueButtonDisabled: {
+    backgroundColor: paper.paper,
+    ...paperShadows.hard,
+  },
+  continueButtonText: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 12,
+    color: paper.paper,
+    letterSpacing: 2.6,
+  },
+  continueButtonTextDisabled: {
+    color: paper.ink,
+    opacity: 0.45,
+  },
+
+  disclaimer: {
+    fontFamily: paperFonts.displayItalic,
+    fontSize: 11,
+    color: paper.ink,
+    opacity: 0.55,
+    textAlign: 'center',
+    paddingHorizontal: paperSpacing.sm,
+    lineHeight: 16,
+    marginTop: paperSpacing.xs,
+  },
+
+  // ─── Loading caption (field-guide tone) ───────────────────────────────
+  loadingCaption: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 10,
+    color: paper.ink,
+    letterSpacing: 3,
+    opacity: 0.7,
+    textAlign: 'center',
+  },
+
+  // ─── Error state (paper) ──────────────────────────────────────────────
+  errorState: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: paperSpacing.xl,
+    gap: paperSpacing.sm,
+  },
+  errorBadge: {
+    width: 56,
+    height: 56,
+    borderRadius: 28,
+    backgroundColor: paper.red,
+    borderWidth: 2,
+    borderColor: paper.ink,
+    alignItems: 'center',
+    justifyContent: 'center',
+    ...paperShadows.hard,
+  },
+  errorTitle: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 12,
+    color: paper.red,
+    letterSpacing: 2.8,
+    textAlign: 'center',
+    marginTop: paperSpacing.xs,
+  },
+  errorBody: {
+    fontFamily: paperFonts.displayItalic,
+    fontSize: 14,
+    color: paper.ink,
+    textAlign: 'center',
+    lineHeight: 20,
+    paddingHorizontal: paperSpacing.sm,
+    opacity: 0.8,
+  },
+  errorActions: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: paperSpacing.sm,
+    marginTop: paperSpacing.sm,
+  },
+  errorPrimary: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    paddingHorizontal: 18,
+    paddingVertical: 11,
+    backgroundColor: paper.forest,
+    borderWidth: 2,
+    borderColor: paper.ink,
+    borderRadius: paperRadius.chip,
+    ...paperShadows.hard,
+  },
+  errorPrimaryText: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 11,
+    color: paper.paper,
+    letterSpacing: 2.4,
+  },
+  errorSecondary: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    paddingHorizontal: 14,
+    paddingVertical: 10,
+    backgroundColor: paper.paper,
+    borderWidth: 1.5,
+    borderColor: paper.ink,
+    borderRadius: paperRadius.chip,
+  },
+  errorSecondaryText: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 11,
+    color: paper.ink,
+    letterSpacing: 2.2,
   },
 });

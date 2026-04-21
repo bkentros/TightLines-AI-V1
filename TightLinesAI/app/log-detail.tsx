@@ -1,6 +1,20 @@
+/**
+ * Log Detail — FinFindr paper language.
+ *
+ * Visual migration only. Still using mock trip data (no live fetch wiring),
+ * but the layout, actions, and share/feedback controls are preserved.
+ */
+
 import { View, Text, StyleSheet, ScrollView, Pressable } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { colors, fonts, spacing, radius } from '../lib/theme';
+import {
+  paper,
+  paperFonts,
+  paperRadius,
+  paperShadows,
+  paperSpacing,
+} from '../lib/theme';
+import { PaperBackground, SectionEyebrow } from '../components/paper';
 
 const MOCK_TRIP = {
   location: 'Tampa Bay Inshore',
@@ -53,112 +67,120 @@ export default function LogDetailScreen() {
   const t = MOCK_TRIP;
 
   return (
-    <ScrollView
-      style={styles.scroll}
-      contentContainerStyle={styles.content}
-      showsVerticalScrollIndicator={false}
-    >
-      {/* Header */}
-      <View style={styles.header}>
-        <Text style={styles.location}>{t.location}</Text>
-        <Text style={styles.dateLine}>
-          {t.date} · {t.start} – {t.end} ({t.duration})
-        </Text>
-      </View>
-
-      {/* Conditions */}
-      <Text style={styles.section}>Conditions</Text>
-      <View style={styles.condGrid}>
-        <CondTile icon="thermometer-outline" label="Air" value={t.conditions.temp} />
-        <CondTile icon="water-outline" label="Water" value={t.conditions.waterTemp} />
-        <CondTile icon="flag-outline" label="Wind" value={t.conditions.wind} />
-        <CondTile icon="trending-down" label="Pressure" value={t.conditions.pressure} />
-      </View>
-      <View style={styles.condRow}>
-        <CondPill icon="cloud-outline" text={t.conditions.sky} />
-        <CondPill icon="water-outline" text={`Tide: ${t.conditions.tide}`} />
-        <CondPill icon="moon-outline" text={t.conditions.moon} />
-        <CondPill icon="eye-outline" text={t.conditions.clarity} />
-      </View>
-
-      {/* Catches */}
-      <View style={styles.catchesHeader}>
-        <Text style={styles.section}>
-          Catches ({t.catches.length})
-        </Text>
-      </View>
-
-      {t.catches.map((c, i) => (
-        <View key={c.id} style={styles.catchCard}>
-          <View style={styles.catchTop}>
-            <View style={styles.catchNum}>
-              <Text style={styles.catchNumText}>{i + 1}</Text>
-            </View>
-            <View style={styles.catchInfo}>
-              <Text style={styles.catchSpecies}>{c.species}</Text>
-              <Text style={styles.catchMeta}>
-                {c.size} · {c.status}
-              </Text>
-            </View>
-            <Text style={styles.catchTime}>{c.time}</Text>
-          </View>
-          <View style={styles.catchLureRow}>
-            <Ionicons name="color-wand-outline" size={13} color={colors.textMuted} />
-            <Text style={styles.catchLure}>{c.lure}</Text>
-          </View>
+    <PaperBackground>
+      <ScrollView
+        style={styles.scroll}
+        contentContainerStyle={styles.content}
+        showsVerticalScrollIndicator={false}
+      >
+        {/* Header */}
+        <View style={styles.eyebrowRow}>
+          <SectionEyebrow dashes size={11} color={paper.red}>
+            FINFINDR · TRIP RECORD
+          </SectionEyebrow>
         </View>
-      ))}
 
-      {/* Notes */}
-      {t.notes && (
-        <>
-          <Text style={styles.section}>Notes</Text>
-          <View style={styles.notesCard}>
-            <Text style={styles.notesText}>{t.notes}</Text>
-          </View>
-        </>
-      )}
-
-      {/* AI Context */}
-      {t.fromAI && (
-        <View style={styles.aiContext}>
-          <View style={styles.aiContextHeader}>
-            <Ionicons name="sparkles" size={14} color={colors.sage} />
-            <Text style={styles.aiContextTitle}>AI Recommendation Linked</Text>
-          </View>
-          <Text style={styles.aiContextSub}>
-            This trip was logged from an AI recommendation session.
+        <View style={styles.header}>
+          <Text style={styles.location}>{t.location}.</Text>
+          <Text style={styles.dateLine}>
+            {t.date.toUpperCase()} · {t.start} – {t.end} ({t.duration.toUpperCase()})
           </Text>
-          <View style={styles.feedbackRow}>
-            <Text style={styles.feedbackLabel}>
-              Did this recommendation help?
-            </Text>
-            <View style={styles.feedbackBtns}>
-              <Pressable style={styles.feedbackBtn} hitSlop={8}>
-                <Ionicons name="thumbs-up-outline" size={18} color={colors.sage} />
-              </Pressable>
-              <Pressable style={styles.feedbackBtn} hitSlop={8}>
-                <Ionicons name="thumbs-down-outline" size={18} color={colors.stone} />
-              </Pressable>
+        </View>
+
+        {/* Conditions grid */}
+        <Text style={styles.section}>Conditions.</Text>
+        <View style={styles.condGrid}>
+          <CondTile icon="thermometer-outline" label="AIR" value={t.conditions.temp} />
+          <CondTile icon="water-outline" label="WATER" value={t.conditions.waterTemp} />
+          <CondTile icon="flag-outline" label="WIND" value={t.conditions.wind} />
+          <CondTile icon="trending-down" label="PRESSURE" value={t.conditions.pressure} />
+        </View>
+        <View style={styles.condRow}>
+          <CondPill icon="cloud-outline" text={t.conditions.sky} />
+          <CondPill icon="water-outline" text={`Tide: ${t.conditions.tide}`} />
+          <CondPill icon="moon-outline" text={t.conditions.moon} />
+          <CondPill icon="eye-outline" text={t.conditions.clarity} />
+        </View>
+
+        {/* Catches */}
+        <Text style={styles.section}>
+          Catches <Text style={styles.sectionCount}>({t.catches.length})</Text>
+        </Text>
+
+        {t.catches.map((c, i) => (
+          <View key={c.id} style={styles.catchCard}>
+            <View style={styles.catchTop}>
+              <View style={styles.catchNum}>
+                <Text style={styles.catchNumText}>{i + 1}</Text>
+              </View>
+              <View style={styles.catchInfo}>
+                <Text style={styles.catchSpecies}>{c.species}</Text>
+                <Text style={styles.catchMeta}>
+                  {c.size} · {c.status.toUpperCase()}
+                </Text>
+              </View>
+              <Text style={styles.catchTime}>{c.time}</Text>
+            </View>
+            <View style={styles.catchLureRow}>
+              <Ionicons name="color-wand-outline" size={12} color={paper.ink} />
+              <Text style={styles.catchLure}>{c.lure}</Text>
             </View>
           </View>
-        </View>
-      )}
+        ))}
 
-      {/* Share */}
-      <Pressable style={({ pressed }) => [styles.shareBtn, pressed && { opacity: 0.8 }]}>
-        <Ionicons name="share-outline" size={18} color={colors.sage} />
-        <Text style={styles.shareBtnText}>Share to Community Feed</Text>
-      </Pressable>
-    </ScrollView>
+        {/* Notes */}
+        {t.notes ? (
+          <>
+            <Text style={styles.section}>Notes.</Text>
+            <View style={styles.notesCard}>
+              <Text style={styles.notesText}>{t.notes}</Text>
+            </View>
+          </>
+        ) : null}
+
+        {/* AI Context */}
+        {t.fromAI ? (
+          <View style={styles.aiContext}>
+            <View style={styles.aiContextHeader}>
+              <Ionicons name="sparkles" size={13} color={paper.gold} />
+              <Text style={styles.aiContextTitle}>AI RECOMMENDATION LINKED</Text>
+            </View>
+            <Text style={styles.aiContextSub}>
+              This trip was logged from an AI recommendation session.
+            </Text>
+            <View style={styles.feedbackRow}>
+              <Text style={styles.feedbackLabel}>
+                Did this recommendation help?
+              </Text>
+              <View style={styles.feedbackBtns}>
+                <Pressable style={styles.feedbackBtn} hitSlop={8}>
+                  <Ionicons name="thumbs-up-outline" size={18} color={paper.forest} />
+                </Pressable>
+                <Pressable style={styles.feedbackBtn} hitSlop={8}>
+                  <Ionicons name="thumbs-down-outline" size={18} color={paper.red} />
+                </Pressable>
+              </View>
+            </View>
+          </View>
+        ) : null}
+
+        {/* Share */}
+        <Pressable style={({ pressed }) => [styles.shareBtn, pressed && styles.shareBtnPressed]}>
+          <Ionicons name="share-outline" size={16} color={paper.ink} />
+          <Text style={styles.shareBtnText}>SHARE TO COMMUNITY FEED</Text>
+        </Pressable>
+      </ScrollView>
+    </PaperBackground>
   );
 }
 
 function CondTile({ icon, label, value }: { icon: string; label: string; value: string }) {
   return (
     <View style={styles.condTile}>
-      <Ionicons name={icon as any} size={14} color={colors.stone} />
-      <Text style={styles.condTileValue}>{value}</Text>
+      <Ionicons name={icon as any} size={13} color={paper.ink} />
+      <Text style={styles.condTileValue} numberOfLines={1}>
+        {value}
+      </Text>
       <Text style={styles.condTileLabel}>{label}</Text>
     </View>
   );
@@ -167,107 +189,259 @@ function CondTile({ icon, label, value }: { icon: string; label: string; value: 
 function CondPill({ icon, text }: { icon: string; text: string }) {
   return (
     <View style={styles.condPill}>
-      <Ionicons name={icon as any} size={11} color={colors.textSecondary} />
+      <Ionicons name={icon as any} size={11} color={paper.ink} />
       <Text style={styles.condPillText}>{text}</Text>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  scroll: { flex: 1, backgroundColor: colors.background },
-  content: { padding: spacing.lg, paddingBottom: spacing.xxl },
+  scroll: { flex: 1 },
+  content: {
+    paddingHorizontal: paperSpacing.lg,
+    paddingTop: paperSpacing.sm,
+    paddingBottom: paperSpacing.xxl,
+  },
 
-  /* Header */
-  header: { marginBottom: spacing.lg },
-  location: { fontFamily: fonts.serif, fontSize: 24, color: colors.text },
-  dateLine: { fontSize: 14, color: colors.textSecondary, marginTop: spacing.xs },
+  eyebrowRow: { marginBottom: paperSpacing.md },
+
+  // Header
+  header: { marginBottom: paperSpacing.lg },
+  location: {
+    fontFamily: paperFonts.display,
+    fontSize: 30,
+    color: paper.ink,
+    fontWeight: '700',
+    letterSpacing: -1,
+    lineHeight: 34,
+  },
+  dateLine: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 11,
+    color: paper.ink,
+    opacity: 0.7,
+    letterSpacing: 1.6,
+    marginTop: paperSpacing.xs,
+  },
 
   section: {
-    fontFamily: fonts.serif, fontSize: 18, color: colors.text,
-    marginBottom: spacing.md, marginTop: spacing.sm,
+    fontFamily: paperFonts.display,
+    fontSize: 22,
+    color: paper.ink,
+    fontWeight: '700',
+    letterSpacing: -0.5,
+    marginBottom: paperSpacing.sm,
+    marginTop: paperSpacing.xs,
+  },
+  sectionCount: {
+    fontFamily: paperFonts.displayItalic,
+    fontSize: 18,
+    color: paper.ink,
+    opacity: 0.55,
+    fontWeight: '400',
   },
 
-  /* Conditions */
+  // Conditions grid
   condGrid: {
-    flexDirection: 'row', gap: spacing.sm, marginBottom: spacing.sm,
+    flexDirection: 'row',
+    gap: paperSpacing.xs + 2,
+    marginBottom: paperSpacing.sm,
   },
   condTile: {
-    flex: 1, alignItems: 'center',
-    backgroundColor: colors.surface, borderRadius: radius.sm,
-    paddingVertical: spacing.sm + 2, gap: 3,
-    borderWidth: StyleSheet.hairlineWidth, borderColor: colors.border,
+    flex: 1,
+    alignItems: 'center',
+    backgroundColor: paper.paperLight,
+    borderRadius: paperRadius.card,
+    borderWidth: 1.5,
+    borderColor: paper.ink,
+    paddingVertical: paperSpacing.sm + 2,
+    gap: 3,
   },
-  condTileValue: { fontSize: 13, fontWeight: '600', color: colors.text, fontVariant: ['tabular-nums'] },
-  condTileLabel: { fontSize: 10, color: colors.textMuted },
+  condTileValue: {
+    fontFamily: paperFonts.mono,
+    fontSize: 12,
+    color: paper.ink,
+    letterSpacing: 0.2,
+  },
+  condTileLabel: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 9,
+    color: paper.ink,
+    opacity: 0.6,
+    letterSpacing: 1.8,
+  },
   condRow: {
-    flexDirection: 'row', flexWrap: 'wrap',
-    gap: spacing.sm, marginBottom: spacing.lg,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: paperSpacing.xs + 2,
+    marginBottom: paperSpacing.lg,
   },
   condPill: {
-    flexDirection: 'row', alignItems: 'center', gap: 4,
-    backgroundColor: colors.surface, borderRadius: radius.sm,
-    paddingHorizontal: spacing.sm + 2, paddingVertical: spacing.xs + 1,
-    borderWidth: StyleSheet.hairlineWidth, borderColor: colors.border,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    backgroundColor: paper.paperLight,
+    borderRadius: paperRadius.chip,
+    borderWidth: 1.5,
+    borderColor: paper.ink,
+    paddingHorizontal: paperSpacing.sm + 2,
+    paddingVertical: 4,
   },
-  condPillText: { fontSize: 11, color: colors.textSecondary },
+  condPillText: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 10,
+    color: paper.ink,
+    letterSpacing: 1.2,
+  },
 
-  /* Catches */
-  catchesHeader: {
-    flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center',
-  },
+  // Catches
   catchCard: {
-    backgroundColor: colors.surface, borderRadius: radius.md,
-    padding: spacing.md, marginBottom: spacing.sm,
-    borderWidth: StyleSheet.hairlineWidth, borderColor: colors.border,
+    backgroundColor: paper.paperLight,
+    borderRadius: paperRadius.card,
+    borderWidth: 1.5,
+    borderColor: paper.ink,
+    padding: paperSpacing.md,
+    marginBottom: paperSpacing.sm,
+    ...paperShadows.hard,
   },
-  catchTop: { flexDirection: 'row', alignItems: 'center' },
+  catchTop: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
   catchNum: {
-    width: 24, height: 24, borderRadius: 12,
-    backgroundColor: colors.sage, alignItems: 'center', justifyContent: 'center',
-    marginRight: spacing.sm,
+    width: 26,
+    height: 26,
+    borderRadius: 13,
+    backgroundColor: paper.ink,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: paperSpacing.sm,
   },
-  catchNumText: { fontSize: 12, fontWeight: '700', color: colors.textLight },
+  catchNumText: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 12,
+    color: paper.paper,
+    letterSpacing: 0.4,
+  },
   catchInfo: { flex: 1 },
-  catchSpecies: { fontFamily: fonts.serif, fontSize: 15, color: colors.text },
-  catchMeta: { fontSize: 12, color: colors.textSecondary, marginTop: 1 },
-  catchTime: { fontSize: 12, color: colors.textMuted },
+  catchSpecies: {
+    fontFamily: paperFonts.display,
+    fontSize: 16,
+    color: paper.ink,
+    letterSpacing: -0.3,
+  },
+  catchMeta: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 10,
+    color: paper.ink,
+    opacity: 0.6,
+    letterSpacing: 1.4,
+    marginTop: 2,
+  },
+  catchTime: {
+    fontFamily: paperFonts.mono,
+    fontSize: 11,
+    color: paper.ink,
+    opacity: 0.65,
+  },
   catchLureRow: {
-    flexDirection: 'row', alignItems: 'center', gap: spacing.sm,
-    marginTop: spacing.sm, paddingTop: spacing.sm,
-    borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: colors.divider,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: paperSpacing.sm,
+    marginTop: paperSpacing.sm,
+    paddingTop: paperSpacing.sm,
+    borderTopWidth: 1,
+    borderTopColor: paper.inkHair,
   },
-  catchLure: { fontSize: 13, color: colors.textSecondary },
+  catchLure: {
+    fontFamily: paperFonts.displayItalic,
+    fontSize: 13,
+    color: paper.ink,
+    opacity: 0.8,
+  },
 
-  /* Notes */
+  // Notes
   notesCard: {
-    backgroundColor: colors.surface, borderRadius: radius.md,
-    padding: spacing.md, marginBottom: spacing.lg,
-    borderWidth: StyleSheet.hairlineWidth, borderColor: colors.border,
+    backgroundColor: paper.paperLight,
+    borderRadius: paperRadius.card,
+    borderWidth: 1.5,
+    borderColor: paper.ink,
+    padding: paperSpacing.md,
+    marginBottom: paperSpacing.lg,
+    ...paperShadows.hard,
   },
-  notesText: { fontSize: 14, lineHeight: 21, color: colors.textSecondary, fontStyle: 'italic' },
+  notesText: {
+    fontFamily: paperFonts.displayItalic,
+    fontSize: 14,
+    lineHeight: 21,
+    color: paper.ink,
+    opacity: 0.85,
+  },
 
-  /* AI Context */
+  // AI Context
   aiContext: {
-    backgroundColor: colors.surface, borderRadius: radius.md,
-    padding: spacing.md, marginBottom: spacing.lg,
-    borderWidth: 1, borderColor: colors.sageLight,
+    backgroundColor: paper.paperLight,
+    borderRadius: paperRadius.card,
+    borderWidth: 1.5,
+    borderColor: paper.ink,
+    padding: paperSpacing.md,
+    marginBottom: paperSpacing.lg,
+    ...paperShadows.hard,
   },
-  aiContextHeader: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm, marginBottom: spacing.xs },
-  aiContextTitle: { fontFamily: fonts.serif, fontSize: 14, color: colors.sage },
-  aiContextSub: { fontSize: 12, color: colors.textSecondary, marginBottom: spacing.md },
+  aiContextHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: paperSpacing.xs + 2,
+    marginBottom: paperSpacing.xs,
+  },
+  aiContextTitle: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 10.5,
+    color: paper.goldDk,
+    letterSpacing: 2.4,
+  },
+  aiContextSub: {
+    fontFamily: paperFonts.displayItalic,
+    fontSize: 12.5,
+    color: paper.ink,
+    opacity: 0.7,
+    marginBottom: paperSpacing.md,
+  },
   feedbackRow: {
-    flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
-    paddingTop: spacing.sm, borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: colors.divider,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingTop: paperSpacing.sm,
+    borderTopWidth: 1,
+    borderTopColor: paper.inkHair,
   },
-  feedbackLabel: { fontSize: 12, color: colors.textMuted, fontStyle: 'italic' },
-  feedbackBtns: { flexDirection: 'row', gap: spacing.lg },
-  feedbackBtn: { padding: spacing.xs },
+  feedbackLabel: {
+    fontFamily: paperFonts.displayItalic,
+    fontSize: 12,
+    color: paper.ink,
+    opacity: 0.7,
+  },
+  feedbackBtns: { flexDirection: 'row', gap: paperSpacing.lg },
+  feedbackBtn: { padding: paperSpacing.xs },
 
-  /* Share */
+  // Share
   shareBtn: {
-    flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
-    gap: spacing.sm, backgroundColor: colors.sageLight,
-    borderRadius: radius.md, paddingVertical: spacing.md,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: paperSpacing.sm,
+    backgroundColor: paper.paperLight,
+    borderWidth: 2,
+    borderColor: paper.ink,
+    borderRadius: paperRadius.card,
+    paddingVertical: paperSpacing.md - 2,
+    ...paperShadows.hard,
   },
-  shareBtnText: { fontSize: 14, fontWeight: '600', color: colors.sage },
+  shareBtnPressed: { backgroundColor: paper.paperDark },
+  shareBtnText: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 11,
+    color: paper.ink,
+    letterSpacing: 2.4,
+  },
 });

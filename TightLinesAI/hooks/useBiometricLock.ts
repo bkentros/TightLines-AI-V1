@@ -54,7 +54,7 @@ export function useBiometricLock() {
         biometricLocked.current = true;
 
         const result = await LocalAuthentication.authenticateAsync({
-          promptMessage: 'Unlock TightLines AI',
+          promptMessage: 'Unlock FinFindr',
           fallbackLabel: 'Use Passcode',
           cancelLabel: 'Sign Out',
           disableDeviceFallback: false,

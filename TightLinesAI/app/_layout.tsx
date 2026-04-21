@@ -16,10 +16,30 @@ import {
   Inter_600SemiBold,
   Inter_700Bold,
 } from '@expo-google-fonts/inter';
+import {
+  Fraunces_500Medium,
+  Fraunces_500Medium_Italic,
+  Fraunces_600SemiBold,
+  Fraunces_700Bold,
+} from '@expo-google-fonts/fraunces';
+import {
+  DMSans_400Regular,
+  DMSans_500Medium,
+  DMSans_600SemiBold,
+  DMSans_700Bold,
+} from '@expo-google-fonts/dm-sans';
+import {
+  SpaceMono_400Regular,
+  SpaceMono_700Bold,
+} from '@expo-google-fonts/space-mono';
+import {
+  JetBrainsMono_500Medium,
+  JetBrainsMono_600SemiBold,
+} from '@expo-google-fonts/jetbrains-mono';
 import { supabase } from '../lib/supabase';
 import { useAuthStore } from '../store/authStore';
 import { useBiometricLock } from '../hooks/useBiometricLock';
-import { colors, fonts } from '../lib/theme';
+import { paper, paperFonts } from '../lib/theme';
 
 /**
  * Determines where the user should be based on auth + onboarding state.
@@ -70,6 +90,18 @@ export default function RootLayout() {
     Inter_500Medium,
     Inter_600SemiBold,
     Inter_700Bold,
+    Fraunces_500Medium,
+    Fraunces_500Medium_Italic,
+    Fraunces_600SemiBold,
+    Fraunces_700Bold,
+    DMSans_400Regular,
+    DMSans_500Medium,
+    DMSans_600SemiBold,
+    DMSans_700Bold,
+    SpaceMono_400Regular,
+    SpaceMono_700Bold,
+    JetBrainsMono_500Medium,
+    JetBrainsMono_600SemiBold,
   });
 
   // Hydrate session from AsyncStorage on mount
@@ -197,7 +229,7 @@ export default function RootLayout() {
       <>
         <StatusBar style="dark" />
         <View style={styles.bootScreen}>
-          <Text style={styles.bootTitle}>TightLines AI</Text>
+          <Text style={styles.bootTitle}>FINFINDR</Text>
           <Text style={styles.bootSubtitle}>Loading your app…</Text>
         </View>
       </>
@@ -209,15 +241,15 @@ export default function RootLayout() {
       <StatusBar style="dark" />
       <Stack
         screenOptions={{
-          headerStyle: { backgroundColor: colors.background },
-          headerTintColor: colors.primary,
+          headerStyle: { backgroundColor: paper.paper },
+          headerTintColor: paper.ink,
           headerTitleStyle: {
-            fontFamily: fonts.serif,
+            fontFamily: paperFonts.display,
             fontSize: 17,
-            color: colors.text,
+            color: paper.ink,
           },
           headerShadowVisible: false,
-          contentStyle: { backgroundColor: colors.background },
+          contentStyle: { backgroundColor: paper.paper },
           headerBackTitle: '',
         }}
       >
@@ -254,17 +286,21 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: colors.background,
+    backgroundColor: paper.paper,
     paddingHorizontal: 24,
   },
   bootTitle: {
-    fontSize: 32,
+    fontFamily: paperFonts.display,
+    fontSize: 34,
     fontWeight: '700',
-    color: colors.text,
+    color: paper.ink,
+    letterSpacing: -0.5,
     marginBottom: 8,
   },
   bootSubtitle: {
-    fontSize: 16,
-    color: colors.textMuted,
+    fontFamily: paperFonts.displayItalic,
+    fontSize: 14,
+    color: paper.ink,
+    opacity: 0.65,
   },
 });

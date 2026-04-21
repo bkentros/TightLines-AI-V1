@@ -1,9 +1,16 @@
+/**
+ * Sign-up screen — FinFindr paper language.
+ *
+ * All validation, rate-limit, duplicate-account handling, and navigation
+ * behavior are preserved exactly from the previous version. Only the
+ * presentation layer was migrated.
+ */
+
 import { useState, useEffect, useRef } from 'react';
 import {
   View,
   Text,
   StyleSheet,
-  TextInput,
   Pressable,
   KeyboardAvoidingView,
   Platform,
@@ -14,8 +21,20 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
-import { colors, fonts, spacing, radius } from '../../lib/theme';
+import {
+  paper,
+  paperFonts,
+  paperSpacing,
+} from '../../lib/theme';
 import { signUpWithEmail } from '../../lib/auth';
+import { PaperBackground } from '../../components/paper';
+import {
+  AuthBackButton,
+  AuthField,
+  AuthHeader,
+  AuthPrimaryButton,
+  AuthTextLink,
+} from '../../components/paper/auth';
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -100,14 +119,12 @@ export default function SignUpScreen() {
     };
   }, []);
 
-  // Real-time confirm password match
   const handleConfirmChange = (value: string) => {
     setConfirmPassword(value);
     if (!value) { setConfirmStatus('idle'); return; }
     setConfirmStatus(value === password ? 'valid' : 'invalid');
   };
 
-  // Also re-evaluate confirm when password changes
   const handlePasswordChange = (value: string) => {
     setPassword(value);
     if (confirmPassword) {
@@ -213,17 +230,6 @@ export default function SignUpScreen() {
     }
   };
 
-  // Derived border colors
-  const emailBorderColor =
-    emailStatus === 'valid' ? colors.sage :
-    emailStatus === 'invalid' ? '#E05C5C' :
-    colors.border;
-
-  const confirmBorderColor =
-    confirmStatus === 'valid' ? colors.sage :
-    confirmStatus === 'invalid' ? '#E05C5C' :
-    colors.border;
-
   const canSubmit =
     cooldownSeconds === 0 &&
     emailStatus === 'valid' &&
@@ -233,247 +239,169 @@ export default function SignUpScreen() {
 
   const cooldownLabel =
     cooldownSeconds > 0
-      ? `Try again in ${Math.floor(cooldownSeconds / 60)}:${(cooldownSeconds % 60).toString().padStart(2, '0')}`
+      ? `TRY AGAIN IN ${Math.floor(cooldownSeconds / 60)}:${(cooldownSeconds % 60).toString().padStart(2, '0')}`
       : null;
 
   return (
-    <SafeAreaView style={styles.safe} edges={['top', 'bottom']}>
-      <KeyboardAvoidingView
-        style={styles.kav}
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      >
-        <ScrollView
-          contentContainerStyle={styles.scroll}
-          keyboardShouldPersistTaps="handled"
-          showsVerticalScrollIndicator={false}
+    <PaperBackground>
+      <SafeAreaView style={styles.safe} edges={['top', 'bottom']}>
+        <KeyboardAvoidingView
+          style={styles.kav}
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         >
-          {/* Header */}
-          <View style={styles.header}>
-            <Pressable onPress={() => router.back()} style={styles.backBtn} hitSlop={12}>
-              <Ionicons name="chevron-back" size={22} color={colors.text} />
-            </Pressable>
-            <Text style={styles.title}>Create account</Text>
-            <Text style={styles.subtitle}>
-              Join TightLines AI and start catching more fish.
-            </Text>
-          </View>
+          <ScrollView
+            contentContainerStyle={styles.scroll}
+            keyboardShouldPersistTaps="handled"
+            showsVerticalScrollIndicator={false}
+          >
+            <View style={styles.topSection}>
+              <AuthBackButton onPress={() => router.back()} />
 
-          {/* Form */}
-          <View style={styles.form}>
-
-            {/* Email */}
-            <View style={styles.field}>
-              <Text style={styles.label}>Email</Text>
-              <View style={styles.inputRow}>
-                <TextInput
-                  style={[styles.input, styles.inputWithIcon, { borderColor: emailBorderColor }]}
-                  value={email}
-                  onChangeText={handleEmailChange}
-                  placeholder="you@example.com"
-                  placeholderTextColor={colors.textMuted}
-                  keyboardType="email-address"
-                  autoCapitalize="none"
-                  autoCorrect={false}
-                  autoComplete="email"
-                  textContentType="emailAddress"
-                  returnKeyType="next"
-                />
-                <View style={styles.inputIcon}>
-                  {emailStatus === 'valid' && (
-                    <Ionicons name="checkmark-circle" size={20} color={colors.sage} />
-                  )}
-                  {emailStatus === 'invalid' && (
-                    <Ionicons name="close-circle" size={20} color="#E05C5C" />
-                  )}
-                </View>
-              </View>
-              {emailStatus === 'invalid' && emailError ? (
-                <Text style={styles.fieldError}>{emailError}</Text>
-              ) : null}
+              <AuthHeader
+                eyebrow="— FINFINDR · NEW ACCOUNT —"
+                title={'Create\naccount.'}
+                subtitle="Join FinFindr and start catching more fish with AI-driven intel for every cast."
+              />
             </View>
 
-            {/* Password */}
-            <View style={styles.field}>
-              <Text style={styles.label}>Password</Text>
-              <View style={styles.passwordRow}>
-                <TextInput
-                  style={[styles.input, styles.passwordInput]}
-                  value={password}
-                  onChangeText={handlePasswordChange}
-                  placeholder="At least 8 characters"
-                  placeholderTextColor={colors.textMuted}
-                  secureTextEntry={!showPassword}
-                  autoCapitalize="none"
-                  autoCorrect={false}
-                  autoComplete="new-password"
-                  textContentType="newPassword"
-                  returnKeyType="next"
-                />
-                <Pressable onPress={() => setShowPassword((v) => !v)} style={styles.eyeBtn} hitSlop={8}>
-                  <Ionicons
-                    name={showPassword ? 'eye-off-outline' : 'eye-outline'}
-                    size={20}
-                    color={colors.textMuted}
-                  />
-                </Pressable>
-              </View>
-            </View>
+            <View style={styles.form}>
+              <AuthField
+                label="Email"
+                value={email}
+                onChangeText={handleEmailChange}
+                placeholder="you@example.com"
+                keyboardType="email-address"
+                autoCapitalize="none"
+                autoCorrect={false}
+                autoComplete="email"
+                textContentType="emailAddress"
+                returnKeyType="next"
+                status={emailStatus === 'idle' ? undefined : emailStatus}
+                errorText={emailStatus === 'invalid' ? emailError : undefined}
+              />
 
-            {/* Confirm Password */}
-            <View style={styles.field}>
-              <Text style={styles.label}>Confirm Password</Text>
-              <View style={styles.passwordRow}>
-                <TextInput
-                  style={[
-                    styles.input,
-                    styles.passwordInput,
-                    { borderColor: confirmBorderColor },
-                  ]}
-                  value={confirmPassword}
-                  onChangeText={handleConfirmChange}
-                  placeholder="Re-enter your password"
-                  placeholderTextColor={colors.textMuted}
-                  secureTextEntry={!showConfirm}
-                  autoCapitalize="none"
-                  autoCorrect={false}
-                  autoComplete="new-password"
-                  textContentType="newPassword"
-                  returnKeyType="done"
-                  onSubmitEditing={handleSignUp}
-                />
-                <Pressable onPress={() => setShowConfirm((v) => !v)} style={styles.eyeBtn} hitSlop={8}>
-                  {confirmStatus === 'valid' ? (
-                    <Ionicons name="checkmark-circle" size={20} color={colors.sage} />
-                  ) : confirmStatus === 'invalid' ? (
-                    <Ionicons name="close-circle" size={20} color="#E05C5C" />
-                  ) : (
+              <AuthField
+                label="Password"
+                value={password}
+                onChangeText={handlePasswordChange}
+                placeholder="At least 8 characters"
+                secureTextEntry={!showPassword}
+                autoCapitalize="none"
+                autoCorrect={false}
+                autoComplete="new-password"
+                textContentType="newPassword"
+                returnKeyType="next"
+                reserveTrailingSpace
+                trailing={
+                  <Pressable
+                    onPress={() => setShowPassword((v) => !v)}
+                    hitSlop={8}
+                  >
                     <Ionicons
-                      name={showConfirm ? 'eye-off-outline' : 'eye-outline'}
-                      size={20}
-                      color={colors.textMuted}
+                      name={showPassword ? 'eye-off-outline' : 'eye-outline'}
+                      size={18}
+                      color={paper.ink}
                     />
-                  )}
-                </Pressable>
-              </View>
-              {confirmStatus === 'invalid' && (
-                <Text style={styles.fieldError}>Passwords do not match</Text>
-              )}
-              {confirmStatus === 'valid' && (
-                <Text style={styles.fieldSuccess}>Passwords match</Text>
-              )}
+                  </Pressable>
+                }
+              />
+
+              <AuthField
+                label="Confirm password"
+                value={confirmPassword}
+                onChangeText={handleConfirmChange}
+                placeholder="Re-enter your password"
+                secureTextEntry={!showConfirm}
+                autoCapitalize="none"
+                autoCorrect={false}
+                autoComplete="new-password"
+                textContentType="newPassword"
+                returnKeyType="done"
+                onSubmitEditing={handleSignUp}
+                status={confirmStatus === 'idle' ? undefined : confirmStatus}
+                errorText={confirmStatus === 'invalid' ? 'Passwords do not match' : undefined}
+                successText={confirmStatus === 'valid' ? 'Passwords match' : undefined}
+                reserveTrailingSpace
+                trailing={
+                  <Pressable
+                    onPress={() => setShowConfirm((v) => !v)}
+                    hitSlop={8}
+                  >
+                    {confirmStatus === 'valid' ? (
+                      <Ionicons name="checkmark-circle" size={18} color={paper.forest} />
+                    ) : confirmStatus === 'invalid' ? (
+                      <Ionicons name="close-circle" size={18} color={paper.red} />
+                    ) : (
+                      <Ionicons
+                        name={showConfirm ? 'eye-off-outline' : 'eye-outline'}
+                        size={18}
+                        color={paper.ink}
+                      />
+                    )}
+                  </Pressable>
+                }
+              />
+
+              <Text style={styles.tosText}>
+                By creating an account you agree to our{' '}
+                <Text style={styles.tosLink}>Terms of Service</Text> and{' '}
+                <Text style={styles.tosLink}>Privacy Policy</Text>.
+              </Text>
             </View>
 
-            <Text style={styles.tosText}>
-              By creating an account you agree to our{' '}
-              <Text style={styles.tosLink}>Terms of Service</Text> and{' '}
-              <Text style={styles.tosLink}>Privacy Policy</Text>.
-            </Text>
-          </View>
+            <View style={styles.actions}>
+              <AuthPrimaryButton
+                label={cooldownLabel ?? 'Create account'}
+                loading={loading}
+                loadingLabel="CREATING ACCOUNT…"
+                disabled={!canSubmit}
+                onPress={handleSignUp}
+              />
 
-          {/* Action */}
-          <View style={styles.actions}>
-            <Pressable
-              style={({ pressed }) => [
-                styles.btn,
-                styles.btnPrimary,
-                pressed && canSubmit && styles.btnPrimaryPressed,
-                (!canSubmit || loading) && styles.btnDisabled,
-              ]}
-              onPress={handleSignUp}
-              disabled={!canSubmit || loading}
-            >
-              <Text style={styles.btnPrimaryText}>
-                {loading ? 'Creating account…' : cooldownLabel ?? 'Create Account'}
-              </Text>
-            </Pressable>
-
-            <Pressable style={styles.switchLink} onPress={() => router.replace('/(auth)/sign-in')}>
-              <Text style={styles.switchText}>
-                Already have an account?{' '}
-                <Text style={styles.switchTextBold}>Sign in</Text>
-              </Text>
-            </Pressable>
-          </View>
-        </ScrollView>
-      </KeyboardAvoidingView>
-    </SafeAreaView>
+              <AuthTextLink
+                leadText="Already have an account?"
+                linkText="SIGN IN"
+                onPress={() => router.replace('/(auth)/sign-in')}
+              />
+            </View>
+          </ScrollView>
+        </KeyboardAvoidingView>
+      </SafeAreaView>
+    </PaperBackground>
   );
 }
 
 const styles = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: colors.background },
+  safe: { flex: 1 },
   kav: { flex: 1 },
   scroll: {
     flexGrow: 1,
-    paddingHorizontal: spacing.lg,
-    paddingBottom: spacing.xxl,
-    justifyContent: 'space-between',
+    paddingHorizontal: paperSpacing.lg,
+    paddingBottom: paperSpacing.xl + paperSpacing.lg,
+    paddingTop: paperSpacing.md,
+    gap: paperSpacing.xl,
   },
-
-  header: { paddingTop: spacing.md, marginBottom: spacing.xl },
-  backBtn: { marginBottom: spacing.lg },
-  title: {
-    fontFamily: fonts.serif,
-    fontSize: 30,
-    color: colors.text,
-    marginBottom: spacing.xs,
+  topSection: {
+    gap: paperSpacing.xl,
   },
-  subtitle: { fontSize: 15, color: colors.textSecondary },
-
-  form: { gap: spacing.md, marginBottom: spacing.xl },
-  field: { gap: spacing.xs + 2 },
-  label: {
-    fontSize: 13,
-    fontWeight: '600',
-    color: colors.textSecondary,
-    letterSpacing: 0.2,
+  form: {
+    gap: paperSpacing.md,
   },
-  input: {
-    backgroundColor: colors.surface,
-    borderRadius: radius.md,
-    borderWidth: 1.5,
-    borderColor: colors.border,
-    paddingHorizontal: spacing.md,
-    paddingVertical: spacing.md - 2,
-    fontSize: 16,
-    color: colors.text,
+  tosText: {
+    fontFamily: paperFonts.displayItalic,
+    fontSize: 12.5,
+    color: paper.ink,
+    opacity: 0.65,
+    lineHeight: 18,
+    marginTop: paperSpacing.xs,
   },
-  inputRow: { position: 'relative' },
-  inputWithIcon: { paddingRight: 48 },
-  inputIcon: {
-    position: 'absolute',
-    right: spacing.md,
-    top: 0,
-    bottom: 0,
-    justifyContent: 'center',
+  tosLink: {
+    fontFamily: paperFonts.bodyBold,
+    color: paper.forest,
+    opacity: 1,
+    letterSpacing: 0.3,
   },
-  passwordRow: { position: 'relative' },
-  passwordInput: { paddingRight: 48 },
-  eyeBtn: {
-    position: 'absolute',
-    right: spacing.md,
-    top: 0,
-    bottom: 0,
-    justifyContent: 'center',
+  actions: {
+    gap: paperSpacing.sm,
   },
-  fieldError: { fontSize: 12, color: '#E05C5C', marginTop: 2 },
-  fieldSuccess: { fontSize: 12, color: colors.sage, marginTop: 2 },
-
-  tosText: { fontSize: 12, color: colors.textMuted, lineHeight: 18 },
-  tosLink: { color: colors.sage, fontWeight: '500' },
-
-  actions: { gap: spacing.sm },
-  btn: {
-    borderRadius: radius.md,
-    paddingVertical: spacing.md,
-    alignItems: 'center',
-  },
-  btnPrimary: { backgroundColor: colors.sage },
-  btnPrimaryPressed: { backgroundColor: colors.sageDark },
-  btnPrimaryText: { fontSize: 16, fontWeight: '600', color: colors.textLight },
-  btnDisabled: { opacity: 0.45 },
-
-  switchLink: { alignItems: 'center', paddingTop: spacing.sm },
-  switchText: { fontSize: 14, color: colors.textSecondary },
-  switchTextBold: { fontWeight: '600', color: colors.sage },
 });
