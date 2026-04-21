@@ -5,6 +5,10 @@
  * exact city/state handling, request cancellation, and cached results so the
  * picker feels fast and reliable for U.S. city lookup.
  *
+ * Visual system: FinFindr paper/ink (matches Home, How's Fishing, Recommender,
+ * My Log, Settings, Auth). Behavior, props, and data flow are unchanged from
+ * the previous version — this is a pure visual migration.
+ *
  * Props:
  *   visible       — controls modal visibility
  *   currentLabel  — currently active location label (shown as context)
@@ -25,10 +29,17 @@ import {
   ActivityIndicator,
   KeyboardAvoidingView,
   Platform,
+  ScrollView,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { colors, fonts, spacing, radius } from '../lib/theme';
+import {
+  paper,
+  paperFonts,
+  paperSpacing,
+  paperRadius,
+  paperShadows,
+} from '../lib/theme';
 import type { SavedLocation } from '../store/locationStore';
 import { getRecentLocations, type RecentLocation } from '../lib/recentLocations';
 import { searchUsCities, type PlaceResult } from '../lib/locationSearch';
@@ -146,40 +157,64 @@ export function LocationPickerModal({
       onRequestClose={onClose}
     >
       <KeyboardAvoidingView
-        style={{ flex: 1 }}
+        style={{ flex: 1, backgroundColor: paper.paper }}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       >
         <View style={[styles.container, { paddingTop: insets.top > 0 ? 8 : 16 }]}>
 
           {/* ── Header ── */}
           <View style={styles.header}>
-            <View style={{ width: 32 }} />
-            <Text style={styles.title}>Fishing Location</Text>
-            <Pressable onPress={onClose} hitSlop={12} style={styles.closeBtn}>
-              <Ionicons name="close" size={22} color={colors.textMuted} />
-            </Pressable>
+            <View style={styles.headerSide} />
+            <View style={styles.headerTitleWrap} pointerEvents="none">
+              <Text style={styles.eyebrow}>FINFINDR · LOCATION</Text>
+              <Text style={styles.title}>Fishing Location</Text>
+            </View>
+            <View style={styles.headerSide}>
+              <Pressable
+                onPress={onClose}
+                hitSlop={12}
+                style={({ pressed }) => [
+                  styles.closeBtn,
+                  pressed && styles.closeBtnPressed,
+                ]}
+                accessibilityRole="button"
+                accessibilityLabel="Close"
+              >
+                <Ionicons name="close" size={18} color={paper.ink} />
+              </Pressable>
+            </View>
           </View>
 
           {/* ── Search Input ── */}
           <View style={styles.searchWrap}>
-            <Ionicons name="search-outline" size={17} color={colors.textMuted} style={styles.searchIcon} />
+            <Ionicons
+              name="search-outline"
+              size={16}
+              color={paper.ink}
+              style={styles.searchIcon}
+            />
             <TextInput
               ref={inputRef}
               style={styles.searchInput}
               placeholder="Search any city…"
-              placeholderTextColor={colors.textMuted}
+              placeholderTextColor={paper.inkSoft}
               value={query}
               onChangeText={handleQueryChange}
               autoFocus
               autoCorrect={false}
               autoCapitalize="words"
               returnKeyType="search"
+              selectionColor={paper.forest}
             />
             {loading ? (
-              <ActivityIndicator size="small" color={colors.primary} style={{ marginRight: 12 }} />
+              <ActivityIndicator
+                size="small"
+                color={paper.ink}
+                style={{ marginRight: 12 }}
+              />
             ) : query.length > 0 ? (
               <Pressable onPress={handleClear} hitSlop={10} style={styles.clearBtn}>
-                <Ionicons name="close-circle" size={18} color={colors.textMuted} />
+                <Ionicons name="close" size={16} color={paper.ink} />
               </Pressable>
             ) : null}
           </View>
@@ -188,60 +223,43 @@ export function LocationPickerModal({
           <Pressable
             style={({ pressed }) => [
               styles.gpsRow,
-              pressed && styles.gpsRowPressed,
               !isUsingCustom && styles.gpsRowActive,
+              pressed && styles.gpsRowPressed,
             ]}
             onPress={onUseGPS}
           >
-            <View style={[styles.gpsIconWrap, !isUsingCustom && styles.gpsIconWrapActive]}>
+            <View
+              style={[
+                styles.gpsIconWrap,
+                !isUsingCustom && styles.gpsIconWrapActive,
+              ]}
+            >
               <Ionicons
                 name="locate"
-                size={18}
-                color={isUsingCustom ? colors.primary : colors.textOnPrimary}
+                size={16}
+                color={!isUsingCustom ? paper.textOnForest : paper.ink}
               />
             </View>
             <View style={styles.gpsTextWrap}>
-              <Text style={[styles.gpsLabel, !isUsingCustom && styles.gpsLabelActive]}>
-                Use my GPS location
-              </Text>
+              <Text style={styles.gpsLabel}>Use my GPS location</Text>
               <Text style={styles.gpsSub}>
-                {isUsingCustom ? 'Switch back to real-time GPS position' : `Active — ${currentLabel}`}
+                {isUsingCustom
+                  ? 'Switch back to real-time GPS position'
+                  : `Active — ${currentLabel}`}
               </Text>
             </View>
             {!isUsingCustom && (
               <View style={styles.activePill}>
-                <Text style={styles.activePillText}>Active</Text>
+                <Text style={styles.activePillText}>ACTIVE</Text>
               </View>
             )}
           </Pressable>
 
-          {showRecent && (
-            <View style={styles.recentSection}>
-              <Text style={styles.recentSectionHead}>Recent locations</Text>
-              {recentLocations.map((r) => (
-                <Pressable
-                  key={`${r.lat}_${r.lon}_${r.label}`}
-                  style={({ pressed }) => [
-                    styles.recentRow,
-                    pressed && styles.resultRowPressed,
-                  ]}
-                  onPress={() => onSelect({ lat: r.lat, lon: r.lon, label: r.label })}
-                >
-                  <View style={styles.resultIconWrap}>
-                    <Ionicons name="time-outline" size={15} color={colors.primary} />
-                  </View>
-                  <View style={styles.resultTextWrap}>
-                    <Text style={styles.resultLabel}>{r.label}</Text>
-                    <Text style={styles.resultSub}>Tap to use</Text>
-                  </View>
-                  <Ionicons name="chevron-forward" size={15} color={colors.border} />
-                </Pressable>
-              ))}
-            </View>
-          )}
-
-          <View style={styles.divider}>
+          {/* ── Divider ── */}
+          <View style={styles.dividerWrap}>
+            <View style={styles.dividerRule} />
             <Text style={styles.dividerLabel}>OR SEARCH A CITY</Text>
+            <View style={styles.dividerRule} />
           </View>
 
           {/* ── Results ── */}
@@ -251,75 +269,150 @@ export function LocationPickerModal({
               keyExtractor={(item) => `${item.lat}_${item.lon}`}
               keyboardShouldPersistTaps="handled"
               style={styles.resultsList}
+              contentContainerStyle={styles.resultsListContent}
+              ItemSeparatorComponent={() => <View style={styles.resultSep} />}
               renderItem={({ item }) => (
                 <Pressable
                   style={({ pressed }) => [
                     styles.resultRow,
                     pressed && styles.resultRowPressed,
                   ]}
-                  onPress={() => onSelect({ lat: item.lat, lon: item.lon, label: item.label })}
+                  onPress={() =>
+                    onSelect({ lat: item.lat, lon: item.lon, label: item.label })
+                  }
                 >
                   <View style={styles.resultIconWrap}>
-                    <Ionicons name="pin" size={15} color={colors.primary} />
+                    <Ionicons name="pin" size={14} color={paper.ink} />
                   </View>
                   <View style={styles.resultTextWrap}>
-                    <Text style={styles.resultLabel}>{item.label}</Text>
-                    <Text style={styles.resultSub}>United States</Text>
+                    <Text style={styles.resultLabel} numberOfLines={1}>
+                      {item.label}
+                    </Text>
+                    <Text style={styles.resultSub}>UNITED STATES</Text>
                   </View>
-                  <Ionicons name="chevron-forward" size={15} color={colors.border} />
+                  <Ionicons name="chevron-forward" size={14} color={paper.ink} />
                 </Pressable>
               )}
             />
           )}
 
-          {/* ── Currently pinned custom location ── */}
-          {showCurrentCustom && savedLocation && (
-            <Pressable
-              style={({ pressed }) => [
-                styles.currentCustomWrap,
-                pressed && styles.currentCustomWrapPressed,
-              ]}
-              onPress={() => onSelect(savedLocation)}
+          {/* ── Recents + pinned (when no query) ── */}
+          {!showResults && (
+            <ScrollView
+              style={styles.scrollBody}
+              contentContainerStyle={styles.scrollBodyContent}
+              keyboardShouldPersistTaps="handled"
+              showsVerticalScrollIndicator={false}
             >
-              <Text style={styles.currentCustomHead}>Pinned Location — tap to activate</Text>
-              <View style={styles.currentCustomRow}>
-                <Ionicons name="pin" size={16} color={colors.primary} />
-                <Text style={styles.currentCustomLabel}>{currentLabel}</Text>
-                <Ionicons name="chevron-forward" size={14} color={colors.primary} />
-              </View>
-              <Text style={styles.currentCustomSub}>
-                Search above to pin a different city, or tap "Use my GPS location" to switch back.
-              </Text>
-            </Pressable>
-          )}
+              {showRecent && (
+                <View style={styles.recentSection}>
+                  <Text style={styles.recentSectionHead}>RECENT LOCATIONS</Text>
+                  <View style={styles.recentList}>
+                    {recentLocations.map((r, i) => (
+                      <React.Fragment key={`${r.lat}_${r.lon}_${r.label}`}>
+                        {i > 0 && <View style={styles.resultSep} />}
+                        <Pressable
+                          style={({ pressed }) => [
+                            styles.recentRow,
+                            pressed && styles.resultRowPressed,
+                          ]}
+                          onPress={() =>
+                            onSelect({ lat: r.lat, lon: r.lon, label: r.label })
+                          }
+                        >
+                          <View style={styles.resultIconWrap}>
+                            <Ionicons
+                              name="time-outline"
+                              size={14}
+                              color={paper.ink}
+                            />
+                          </View>
+                          <View style={styles.resultTextWrap}>
+                            <Text style={styles.resultLabel} numberOfLines={1}>
+                              {r.label}
+                            </Text>
+                            <Text style={styles.resultSub}>TAP TO USE</Text>
+                          </View>
+                          <Ionicons
+                            name="chevron-forward"
+                            size={14}
+                            color={paper.ink}
+                          />
+                        </Pressable>
+                      </React.Fragment>
+                    ))}
+                  </View>
+                </View>
+              )}
 
-          {/* ── Hint when no query ── */}
-          {showHint && (
-            <View style={styles.hintWrap}>
-              <Ionicons name="map-outline" size={32} color={colors.border} style={{ marginBottom: 8 }} />
-              <Text style={styles.hintTitle}>Planning a fishing trip?</Text>
-              <Text style={styles.hintSub}>
-                Search any US city to see conditions and the 7-day outlook for that location.
-              </Text>
-            </View>
-          )}
+              {/* ── Currently pinned custom location ── */}
+              {showCurrentCustom && savedLocation && (
+                <Pressable
+                  style={({ pressed }) => [
+                    styles.currentCustomWrap,
+                    pressed && styles.currentCustomWrapPressed,
+                  ]}
+                  onPress={() => onSelect(savedLocation)}
+                >
+                  <Text style={styles.currentCustomHead}>
+                    PINNED LOCATION — TAP TO ACTIVATE
+                  </Text>
+                  <View style={styles.currentCustomRow}>
+                    <Ionicons name="pin" size={16} color={paper.ink} />
+                    <Text style={styles.currentCustomLabel} numberOfLines={1}>
+                      {currentLabel}
+                    </Text>
+                    <Ionicons
+                      name="chevron-forward"
+                      size={14}
+                      color={paper.ink}
+                    />
+                  </View>
+                  <Text style={styles.currentCustomSub}>
+                    Search above to pin a different city, or tap “Use my GPS
+                    location” to switch back.
+                  </Text>
+                </Pressable>
+              )}
 
-          {/* ── Empty results ── */}
-          {showEmpty && (
-            <View style={styles.hintWrap}>
-              <Text style={styles.hintTitle}>No results for "{query}"</Text>
-              <Text style={styles.hintSub}>Try a different spelling or a nearby city.</Text>
-            </View>
-          )}
+              {/* ── Hint when no query and no custom pinned ── */}
+              {showHint && (
+                <View style={styles.hintWrap}>
+                  <Ionicons
+                    name="map-outline"
+                    size={28}
+                    color={paper.ink}
+                    style={{ marginBottom: 10, opacity: 0.5 }}
+                  />
+                  <Text style={styles.hintTitle}>Planning a fishing trip?</Text>
+                  <Text style={styles.hintSub}>
+                    Search any U.S. city to see conditions and the 7-day outlook
+                    for that location.
+                  </Text>
+                </View>
+              )}
 
-          {/* ── Network error ── */}
-          {error && (
-            <View style={styles.hintWrap}>
-              <Text style={styles.hintTitle}>Search unavailable</Text>
-              <Text style={styles.hintSub}>Check your connection and try again.</Text>
-            </View>
-          )}
+              {/* ── Empty results ── */}
+              {showEmpty && (
+                <View style={styles.hintWrap}>
+                  <Text style={styles.hintTitle}>No results for “{query}”</Text>
+                  <Text style={styles.hintSub}>
+                    Try a different spelling or a nearby city.
+                  </Text>
+                </View>
+              )}
 
+              {/* ── Network error ── */}
+              {error && (
+                <View style={styles.hintWrap}>
+                  <Text style={styles.hintTitle}>Search unavailable</Text>
+                  <Text style={styles.hintSub}>
+                    Check your connection and try again.
+                  </Text>
+                </View>
+              )}
+            </ScrollView>
+          )}
         </View>
       </KeyboardAvoidingView>
     </Modal>
@@ -327,64 +420,91 @@ export function LocationPickerModal({
 }
 
 // ---------------------------------------------------------------------------
-// Styles
+// Styles — FinFindr paper/ink language
 // ---------------------------------------------------------------------------
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.background,
+    backgroundColor: paper.paper,
   },
 
   /* Header */
   header: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: 20,
-    paddingBottom: 14,
-    borderBottomWidth: 1,
-    borderBottomColor: colors.border,
+    paddingHorizontal: paperSpacing.lg,
+    paddingBottom: paperSpacing.md,
+    borderBottomWidth: 1.5,
+    borderBottomColor: paper.ink,
+  },
+  headerSide: {
+    width: 44,
+    alignItems: 'flex-end',
+    justifyContent: 'center',
+  },
+  headerTitleWrap: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  eyebrow: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 9.5,
+    color: paper.ink,
+    letterSpacing: 2.2,
+    marginBottom: 2,
+    opacity: 0.75,
   },
   title: {
-    fontFamily: fonts.serif,
-    fontSize: 18,
-    fontWeight: '700',
-    color: colors.text,
+    fontFamily: paperFonts.display,
+    fontSize: 20,
+    color: paper.ink,
     textAlign: 'center',
-    flex: 1,
+    letterSpacing: -0.2,
   },
   closeBtn: {
     width: 32,
     height: 32,
     alignItems: 'center',
     justifyContent: 'center',
+    borderWidth: 1.5,
+    borderColor: paper.ink,
+    borderRadius: paperRadius.card,
+    backgroundColor: paper.paperLight,
+  },
+  closeBtnPressed: {
+    backgroundColor: paper.paperDark,
   },
 
   /* Search */
   searchWrap: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: colors.surface,
-    borderRadius: radius.md,
-    borderWidth: 1,
-    borderColor: colors.border,
-    marginHorizontal: 16,
-    marginTop: 14,
+    backgroundColor: paper.paperLight,
+    borderRadius: paperRadius.card,
+    borderWidth: 2,
+    borderColor: paper.ink,
+    marginHorizontal: paperSpacing.lg,
+    marginTop: paperSpacing.md,
     paddingLeft: 12,
-    paddingRight: 4,
-    height: 48,
+    paddingRight: 6,
+    height: 46,
+    ...paperShadows.hard,
   },
   searchIcon: { marginRight: 8 },
   searchInput: {
     flex: 1,
-    fontFamily: fonts.body,
-    fontSize: 16,
-    color: colors.text,
+    fontFamily: paperFonts.body,
+    fontSize: 15,
+    color: paper.ink,
     paddingVertical: 0,
   },
   clearBtn: {
-    padding: 8,
+    width: 28,
+    height: 28,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 
   /* GPS Row */
@@ -392,198 +512,237 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 12,
-    marginHorizontal: 16,
-    marginTop: 12,
-    padding: 14,
-    backgroundColor: colors.surface,
-    borderRadius: radius.md,
-    borderWidth: 1,
-    borderColor: colors.border,
+    marginHorizontal: paperSpacing.lg,
+    marginTop: paperSpacing.md,
+    paddingVertical: 12,
+    paddingHorizontal: 14,
+    backgroundColor: paper.paperLight,
+    borderRadius: paperRadius.card,
+    borderWidth: 2,
+    borderColor: paper.ink,
   },
   gpsRowActive: {
-    borderColor: colors.primary + '40',
-    backgroundColor: colors.primaryMist,
+    backgroundColor: paper.forest,
   },
   gpsRowPressed: {
-    opacity: 0.75,
+    opacity: 0.85,
   },
   gpsIconWrap: {
-    width: 38,
-    height: 38,
-    borderRadius: 12,
-    backgroundColor: colors.primaryMist,
+    width: 34,
+    height: 34,
+    borderRadius: paperRadius.card,
+    backgroundColor: paper.paperDark,
+    borderWidth: 1.5,
+    borderColor: paper.ink,
     alignItems: 'center',
     justifyContent: 'center',
   },
   gpsIconWrapActive: {
-    backgroundColor: colors.primary,
+    backgroundColor: paper.paperLight,
   },
   gpsTextWrap: { flex: 1 },
   gpsLabel: {
-    fontFamily: fonts.bodySemiBold,
+    fontFamily: paperFonts.displaySemiBold,
     fontSize: 15,
-    color: colors.text,
+    color: paper.ink,
     marginBottom: 2,
   },
-  gpsLabelActive: {
-    color: colors.primaryDark,
-  },
   gpsSub: {
-    fontFamily: fonts.body,
-    fontSize: 12,
-    color: colors.textMuted,
-    lineHeight: 16,
+    fontFamily: paperFonts.body,
+    fontSize: 11.5,
+    color: paper.ink,
+    opacity: 0.72,
+    lineHeight: 15,
   },
   activePill: {
-    backgroundColor: colors.primary,
-    borderRadius: 8,
-    paddingHorizontal: 8,
+    backgroundColor: paper.gold,
+    borderWidth: 1.5,
+    borderColor: paper.ink,
+    borderRadius: paperRadius.chip,
+    paddingHorizontal: 7,
     paddingVertical: 3,
   },
   activePillText: {
-    fontFamily: fonts.bodySemiBold,
-    fontSize: 10,
-    color: colors.textOnPrimary,
-    letterSpacing: 0.3,
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 9,
+    color: paper.ink,
+    letterSpacing: 1.4,
   },
 
   /* Divider with label */
-  divider: {
+  dividerWrap: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginHorizontal: 16,
-    marginTop: 18,
-    marginBottom: 4,
-    gap: 8,
+    marginHorizontal: paperSpacing.lg,
+    marginTop: paperSpacing.lg,
+    marginBottom: paperSpacing.sm,
+    gap: 10,
+  },
+  dividerRule: {
+    flex: 1,
+    height: 1,
+    backgroundColor: paper.inkHair,
   },
   dividerLabel: {
-    fontFamily: fonts.bodyBold,
-    fontSize: 10,
-    color: colors.textMuted,
-    letterSpacing: 1,
-    textTransform: 'uppercase',
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 9.5,
+    color: paper.ink,
+    letterSpacing: 2.2,
+    opacity: 0.75,
   },
 
+  /* Scroll body for recents / pinned / hints */
+  scrollBody: { flex: 1 },
+  scrollBodyContent: {
+    paddingBottom: paperSpacing.xl,
+  },
+
+  /* Recent */
   recentSection: {
-    marginHorizontal: 16,
-    marginTop: 4,
-    marginBottom: 4,
+    marginHorizontal: paperSpacing.lg,
+    marginTop: paperSpacing.sm,
   },
   recentSectionHead: {
-    fontFamily: fonts.bodyBold,
-    fontSize: 10,
-    color: colors.textMuted,
-    letterSpacing: 1,
-    textTransform: 'uppercase',
-    marginBottom: 8,
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 9.5,
+    color: paper.ink,
+    letterSpacing: 2.2,
+    marginBottom: paperSpacing.sm,
+    opacity: 0.75,
+  },
+  recentList: {
+    backgroundColor: paper.paperLight,
+    borderWidth: 2,
+    borderColor: paper.ink,
+    borderRadius: paperRadius.card,
+    overflow: 'hidden',
   },
   recentRow: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 12,
+    paddingHorizontal: 14,
     paddingVertical: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: colors.borderLight,
   },
 
   /* Results list */
   resultsList: {
-    marginTop: 4,
+    flex: 1,
+    marginHorizontal: paperSpacing.lg,
+  },
+  resultsListContent: {
+    backgroundColor: paper.paperLight,
+    borderWidth: 2,
+    borderColor: paper.ink,
+    borderRadius: paperRadius.card,
+    overflow: 'hidden',
+    paddingBottom: 0,
   },
   resultRow: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 12,
-    paddingHorizontal: 16,
-    paddingVertical: 14,
-    borderBottomWidth: 1,
-    borderBottomColor: colors.borderLight,
+    paddingHorizontal: 14,
+    paddingVertical: 12,
   },
   resultRowPressed: {
-    backgroundColor: colors.primaryMist,
+    backgroundColor: paper.paperDark,
+  },
+  resultSep: {
+    height: 1,
+    backgroundColor: paper.inkHair,
+    marginHorizontal: 14,
   },
   resultIconWrap: {
-    width: 32,
-    height: 32,
-    borderRadius: 10,
-    backgroundColor: colors.primaryMist,
+    width: 30,
+    height: 30,
+    borderRadius: paperRadius.card,
+    backgroundColor: paper.paperDark,
+    borderWidth: 1.5,
+    borderColor: paper.ink,
     alignItems: 'center',
     justifyContent: 'center',
   },
   resultTextWrap: { flex: 1 },
   resultLabel: {
-    fontFamily: fonts.bodySemiBold,
+    fontFamily: paperFonts.displaySemiBold,
     fontSize: 15,
-    color: colors.text,
-    marginBottom: 1,
+    color: paper.ink,
+    marginBottom: 2,
   },
   resultSub: {
-    fontFamily: fonts.body,
-    fontSize: 12,
-    color: colors.textMuted,
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 9,
+    color: paper.ink,
+    letterSpacing: 1.4,
+    opacity: 0.65,
   },
 
   /* Currently pinned location */
   currentCustomWrap: {
-    margin: 16,
+    marginHorizontal: paperSpacing.lg,
+    marginTop: paperSpacing.sm,
     padding: 14,
-    backgroundColor: colors.surface,
-    borderRadius: radius.md,
-    borderWidth: 1,
-    borderColor: colors.primary + '30',
+    backgroundColor: paper.paperLight,
+    borderRadius: paperRadius.card,
+    borderWidth: 2,
+    borderColor: paper.ink,
+    ...paperShadows.hard,
   },
   currentCustomWrapPressed: {
-    backgroundColor: colors.primaryMist,
-    borderColor: colors.primary + '60',
+    backgroundColor: paper.paperDark,
   },
   currentCustomHead: {
-    fontFamily: fonts.bodyBold,
-    fontSize: 10,
-    color: colors.primary,
-    textTransform: 'uppercase',
-    letterSpacing: 1,
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 9.5,
+    color: paper.ink,
+    letterSpacing: 2.2,
     marginBottom: 8,
+    opacity: 0.75,
   },
   currentCustomRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
-    gap: 6,
+    gap: 8,
     marginBottom: 8,
   },
   currentCustomLabel: {
-    fontFamily: fonts.bodySemiBold,
-    fontSize: 16,
-    color: colors.text,
+    fontFamily: paperFonts.display,
+    fontSize: 18,
+    color: paper.ink,
     flex: 1,
+    letterSpacing: -0.2,
   },
   currentCustomSub: {
-    fontFamily: fonts.body,
-    fontSize: 13,
-    color: colors.textMuted,
-    lineHeight: 18,
+    fontFamily: paperFonts.body,
+    fontSize: 12.5,
+    color: paper.ink,
+    opacity: 0.72,
+    lineHeight: 17,
   },
 
   /* Hint / empty states */
   hintWrap: {
-    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingHorizontal: 32,
-    paddingBottom: 60,
+    paddingHorizontal: paperSpacing.xl,
+    paddingTop: paperSpacing.xxl,
+    paddingBottom: paperSpacing.xl,
   },
   hintTitle: {
-    fontFamily: fonts.serif,
+    fontFamily: paperFonts.display,
     fontSize: 18,
-    color: colors.text,
+    color: paper.ink,
     textAlign: 'center',
     marginBottom: 8,
+    letterSpacing: -0.2,
   },
   hintSub: {
-    fontFamily: fonts.body,
-    fontSize: 14,
-    color: colors.textMuted,
+    fontFamily: paperFonts.body,
+    fontSize: 13.5,
+    color: paper.ink,
+    opacity: 0.72,
     textAlign: 'center',
-    lineHeight: 20,
+    lineHeight: 19,
   },
 });
