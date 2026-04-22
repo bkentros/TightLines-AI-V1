@@ -21,10 +21,9 @@ const FLY_IMAGES: Partial<Record<string, ReturnType<typeof require>>> = {
   // ── Bugger / leech ────────────────────────────────────────────────────────
   woolly_bugger:                    require('../assets/images/flies/woolly_bugger.png'),
   rabbit_strip_leech:               require('../assets/images/flies/rabbit_strip_leech.png'),
-  /** Leech variants — reuse rabbit leech art until dedicated assets ship. */
-  jighead_marabou_leech:            require('../assets/images/flies/rabbit_strip_leech.png'),
-  lead_eye_leech:                   require('../assets/images/flies/rabbit_strip_leech.png'),
-  feather_jig_leech:                require('../assets/images/flies/rabbit_strip_leech.png'),
+  jighead_marabou_leech:            require('../assets/images/flies/jighead_marabou_leech.png'),
+  lead_eye_leech:                   require('../assets/images/flies/lead_eye_leech.png'),
+  feather_jig_leech:                require('../assets/images/flies/feather_jig_leech.png'),
   balanced_leech:                   require('../assets/images/flies/balanced_leech.png'),
   zonker_streamer:                  require('../assets/images/flies/zonker_streamer.png'),
 
