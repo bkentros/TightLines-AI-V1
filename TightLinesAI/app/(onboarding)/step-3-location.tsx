@@ -95,8 +95,8 @@ export default function OnboardingStep3() {
     if (locationStatus === 'idle') {
       // They haven't tried yet — ask them to try or skip
       Alert.alert(
-        'Location not set',
-        'You can allow location now or tap "Skip" to continue without it.',
+        'Location not set yet',
+        'You can use your current location now or skip and add a spot later.',
       );
       return;
     }
@@ -145,17 +145,16 @@ export default function OnboardingStep3() {
           <Text style={styles.title}>Location access</Text>
           <View style={styles.accentLine} />
           <Text style={styles.subtitle}>
-            FinFindr automatically syncs your GPS location before each
-            recommendation — pulling real-time weather, tides, and moon data
-            for where you actually are.
+            FinFindr can use your current spot for reports and tackle picks,
+            including weather, tide where available, and moon data.
           </Text>
 
           {/* Benefits */}
           <View style={styles.benefits}>
             {[
-              'Auto-fills weather, tide & solunar data',
-              'Personalizes recommendations to your exact region',
-              'Powers the Live Conditions widget on your dashboard',
+              'Pulls weather, tide, and moon details',
+              'Tailors reads to the water near you',
+              'Powers live conditions on Home',
             ].map((b) => (
               <View key={b} style={styles.benefit}>
                 <Ionicons
@@ -176,7 +175,7 @@ export default function OnboardingStep3() {
             />
             <Text style={styles.privacyText}>
               Your exact coordinates are never shared. Location data is used
-              only to fetch environmental data on your behalf.
+              only to fetch conditions for your spot.
             </Text>
           </View>
         </View>
@@ -200,7 +199,7 @@ export default function OnboardingStep3() {
                 color={colors.warmTan}
               />
               <Text style={styles.deniedText}>
-                Location denied — you can enable it later in iOS Settings.
+                Location denied. You can turn it on later in Settings.
               </Text>
             </View>
           )}
@@ -219,7 +218,7 @@ export default function OnboardingStep3() {
               <Text style={styles.locationBtnText}>
                 {locationStatus === 'requesting'
                   ? 'Requesting…'
-                  : 'Allow Location'}
+                  : 'Use Current Location'}
               </Text>
             </Pressable>
           )}
@@ -240,8 +239,8 @@ export default function OnboardingStep3() {
               {saving
                 ? 'Setting up your account…'
                 : locationGranted
-                  ? 'Get Started'
-                  : "Skip for now"}
+                  ? 'Start Fishing'
+                  : 'Skip for now'}
             </Text>
             {!saving && (
               <Ionicons

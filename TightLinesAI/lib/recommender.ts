@@ -58,7 +58,7 @@ function cacheKey(
   const dayKey = extractRequestDay(params);
   return [
     // Prefix must change when the edge response contract or selection rules change.
-    'recommender_rebuild_tacv2',
+    'recommender_rebuild_tacv2_copyv1',
     params.latitude.toFixed(3),
     params.longitude.toFixed(3),
     params.state_code.toUpperCase(),

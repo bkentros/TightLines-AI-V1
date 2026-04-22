@@ -97,10 +97,26 @@ function humiditySubLabel(pct: number): string {
 
 function skyMoodLine(pct: number | undefined): string {
   if (pct == null) return '';
-  if (pct <= 15) return 'perfect for the morning bite';
-  if (pct <= 35) return 'soft light on the water';
-  if (pct <= 65) return 'diffused light, steady bite';
-  return 'overcast — fish will stay shallow';
+  if (pct <= 15) return 'bright and clear on the water';
+  if (pct <= 35) return 'some sun, some cover';
+  if (pct <= 65) return 'cloud cover softens the light';
+  return 'overcast can stretch the bite';
+}
+
+function friendlyConditionsError(message: string): string {
+  const lower = message.toLowerCase();
+  if (lower.includes('please wait')) {
+    return 'Conditions are refreshing too often. Give it a moment and try again.';
+  }
+  if (
+    lower.includes('network') ||
+    lower.includes('fetch') ||
+    lower.includes('server') ||
+    lower.includes('timeout')
+  ) {
+    return 'Could not load conditions for this spot. Check your connection and try again.';
+  }
+  return message;
 }
 
 export interface LiveConditionsPaperCardProps {
@@ -144,7 +160,7 @@ export function LiveConditionsPaperCard({
     try {
       await onRequestLocation();
     } catch {
-      Alert.alert('Could not get location', 'Please enable location in Settings or check your connection.');
+      Alert.alert('Could not get location', 'Enable location in Settings or check your connection.');
     } finally {
       setLocationSyncing(false);
     }
@@ -164,7 +180,7 @@ export function LiveConditionsPaperCard({
           <Text style={styles.eyebrow}>RIGHT NOW</Text>
           <Text style={styles.emptyHeadline}>Set your spot.</Text>
           <Text style={styles.emptyBody}>
-            We need a location to pull real‑time wind, pressure, and tide data.
+            Add a location to read wind, pressure, sky, and tide where available.
           </Text>
           {onRequestLocation && (
             <Pressable
@@ -205,8 +221,8 @@ export function LiveConditionsPaperCard({
         <CornerMarkSet color={paper.red} />
         <View style={styles.emptyState}>
           <Text style={styles.eyebrow}>RIGHT NOW</Text>
-          <Text style={styles.emptyHeadline}>Couldn&apos;t reach the wire.</Text>
-          <Text style={styles.emptyBody}>{error}</Text>
+          <Text style={styles.emptyHeadline}>Couldn&apos;t load conditions.</Text>
+          <Text style={styles.emptyBody}>{friendlyConditionsError(error)}</Text>
           <Pressable
             style={({ pressed }) => [styles.locationBtn, pressed && { opacity: 0.85 }]}
             onPress={() => loadEnv(latitude!, longitude!, { units, forceRefresh: true })}
@@ -373,7 +389,7 @@ export function LiveConditionsPaperCard({
       {/* Error banner for rate-limits or recoverable errors. */}
       {error && (isRateLimit || env) && (
         <View style={styles.banner}>
-          <Text style={styles.bannerText}>{error}</Text>
+          <Text style={styles.bannerText}>{friendlyConditionsError(error)}</Text>
         </View>
       )}
     </>

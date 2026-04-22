@@ -1,7 +1,7 @@
 /**
  * Subscribe Prompt — shown when unsubscribed user taps a gated feature
  *
- * Generic "Subscribe to use this feature" message with View plans CTA.
+ * Generic locked-feature message with View plans CTA.
  * Reusable for How's Fishing, Recommender, Water Reader, etc.
  */
 
@@ -37,9 +37,9 @@ export function SubscribePrompt({
             <Ionicons name="close" size={22} color={colors.textMuted} />
           </Pressable>
           <Ionicons name="lock-closed" size={40} color={colors.sage} style={styles.icon} />
-          <Text style={styles.title}>Subscribe to use this feature</Text>
+          <Text style={styles.title}>Unlock this feature</Text>
           <Text style={styles.message}>
-            Unlock AI-powered recommendations, weather analysis, and more with a subscription.
+            Get full fishing reads, tackle picks, and planning tools built for your water.
           </Text>
           {onViewPlans && (
             <Pressable

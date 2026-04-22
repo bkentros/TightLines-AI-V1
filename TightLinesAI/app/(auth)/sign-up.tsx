@@ -260,7 +260,7 @@ export default function SignUpScreen() {
               <AuthHeader
                 eyebrow="— FINFINDR · NEW ACCOUNT —"
                 title={'Create\naccount.'}
-                subtitle="Join FinFindr and start catching more fish with AI-driven intel for every cast."
+                subtitle="Set up your reports and tackle picks before your next trip."
               />
             </View>
 

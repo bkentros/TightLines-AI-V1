@@ -81,7 +81,7 @@ export function HowFishingLoadingSkeleton() {
 
         <View style={styles.heroEyebrow}>
           <SectionEyebrow color={paper.red} size={9} tracking={3}>
-            BUILDING REPORT
+            READING CONDITIONS
           </SectionEyebrow>
         </View>
 
@@ -116,7 +116,7 @@ export function HowFishingLoadingSkeleton() {
         <View style={styles.outlookRule} />
 
         <SectionEyebrow color={paper.red} size={9} tracking={3}>
-          {"TODAY'S OUTLOOK"}
+          {"TODAY'S READ"}
         </SectionEyebrow>
         <Bone style={styles.heroSublineBone} />
         <Bone style={styles.heroSummaryBone} />

@@ -30,8 +30,8 @@ export default function SubscribeScreen() {
 
           <Text style={styles.title}>Subscribe.</Text>
           <Text style={styles.lede}>
-            Unlock unlimited How&apos;s Fishing reports, the full tackle recommender,
-            and every signal the engine can read.
+            Unlock unlimited fishing reads, the full tackle recommender,
+            and planning tools built around your conditions.
           </Text>
 
           <View style={styles.planCard}>
@@ -44,7 +44,7 @@ export default function SubscribeScreen() {
               </View>
             </View>
             <Text style={styles.planHint}>
-              Core daily reports, tackle picks, and your full catch log.
+              Daily fishing reads and tackle picks for the water you fish most.
             </Text>
           </View>
 
@@ -59,8 +59,8 @@ export default function SubscribeScreen() {
               </View>
             </View>
             <Text style={styles.planHint}>
-              Everything in Angler plus the water reader, multi-day planning,
-              and premium guide notes.
+              Everything in Angler plus Water Reader, multi-day planning,
+              and deeper guide notes.
             </Text>
           </View>
 

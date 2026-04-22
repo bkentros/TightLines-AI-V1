@@ -510,13 +510,13 @@ export default function HomeScreen() {
   }>(() => {
     switch (heroBand) {
       case 'Excellent':
-        return { leading: "Today's a", accent: 'prime day', tailPunct: '.' };
+        return { leading: "Today's a", accent: 'great day', tailPunct: '.' };
       case 'Good':
-        return { leading: "Today's looking", accent: 'solid', tailPunct: '.' };
+        return { leading: 'Looks like a', accent: 'solid day', tailPunct: '.' };
       case 'Fair':
-        return { leading: 'Today looks', accent: 'fair', tailPunct: '.' };
+        return { leading: 'A mixed', accent: 'day ahead', tailPunct: '.' };
       case 'Poor':
-        return { leading: 'A tough', accent: 'day ahead', tailPunct: '.' };
+        return { leading: 'Tougher', accent: 'water today', tailPunct: '.' };
       default:
         return { leading: "LET'S FIND YOUR", accent: 'BITE', tailPunct: '.' };
     }
@@ -532,14 +532,14 @@ export default function HomeScreen() {
 
   const heroSubline =
     heroBand === 'Excellent'
-      ? 'Prime window — get on the water.'
+      ? 'The day is giving you plenty to work with.'
       : heroBand === 'Good'
-      ? 'A solid day to fish — play your windows right.'
+      ? 'Worth fishing. Pick your window and go.'
       : heroBand === 'Fair'
-      ? 'Pick your window carefully — the bite is narrow.'
+      ? 'There is a bite to find, but timing matters.'
       : heroBand === 'Poor'
-      ? 'Tough conditions — patience and slow presentations.'
-      : 'Tap into today’s report for the full picture.';
+      ? 'Keep it patient and make each cast count.'
+      : "Check today's conditions, then make your move.";
 
   return (
     <SafeAreaView style={styles.safe} edges={['top']}>
@@ -647,7 +647,7 @@ export default function HomeScreen() {
                     next {forecastDisplayDays.length || 6} days
                   </Text>
                 </View>
-                <Text style={styles.forecastMeta}>TAP ANY DAY</Text>
+                <Text style={styles.forecastMeta}>PICK A DAY</Text>
               </View>
               <ScrollView
                 horizontal
@@ -785,7 +785,7 @@ export default function HomeScreen() {
                   NOW?
                 </Text>
                 <Text style={styles.ctaBody}>
-                  Today&apos;s score, best times, and a pro tip for the day.
+                  Today&apos;s score, best windows, and a straight answer before you go.
                 </Text>
 
                 {heroScore !== null && heroTierKey ? (
@@ -818,7 +818,7 @@ export default function HomeScreen() {
                       <Text style={styles.ctaNoReportDashesText}>— — — —</Text>
                     </View>
                     <Text style={styles.ctaNoReportCaption}>
-                      no report yet for today
+                      ready when you are
                     </Text>
                   </View>
                 )}
@@ -826,7 +826,7 @@ export default function HomeScreen() {
 
               <View style={styles.ctaFooter}>
                 <View style={styles.ctaFooterBtn}>
-                  <Text style={styles.ctaFooterBtnText}>VIEW REPORT</Text>
+                  <Text style={styles.ctaFooterBtnText}>CHECK TODAY</Text>
                   <Text style={styles.ctaFooterBtnArrow}>→</Text>
                 </View>
               </View>
@@ -846,7 +846,7 @@ export default function HomeScreen() {
                   <Text style={{ color: paper.goldDk }}>THROW</Text>?
                 </Text>
                 <Text style={styles.ctaBody}>
-                  Three lures, three flies — ranked for today&apos;s conditions.
+                  Three lures and three flies, picked for today&apos;s conditions.
                 </Text>
 
                 <View style={styles.ctaMedalRow}>
@@ -883,7 +883,7 @@ export default function HomeScreen() {
                 <View style={styles.waterReaderText}>
                   <Text style={styles.waterReaderTitle}>WATER READER</Text>
                   <Text style={styles.waterReaderSub}>
-                    Identify where to fish in your lake or pond.
+                    Photo-based water clues for lakes and ponds.
                   </Text>
                 </View>
                 <View style={styles.comingSoonChip}>

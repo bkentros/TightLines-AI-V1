@@ -8,18 +8,18 @@ import { useAuthStore } from '../../store/authStore';
 const FEATURES = [
   {
     icon: 'fish-outline',
-    title: 'AI-Powered Recommendations',
-    desc: 'Get ranked lure and fly suggestions tuned to real-time weather, tides, and solunar data.',
+    title: 'Condition-Based Picks',
+    desc: 'Get ranked lure and fly suggestions tuned to weather, tide where available, and seasonal patterns.',
   },
   {
     icon: 'scan-outline',
     title: 'Water Reader',
-    desc: 'Upload a photo, satellite image, or depth chart — AI marks exactly where to fish and how.',
+    desc: 'Use photos or maps to spot structure, cover, and likely holding water.',
   },
   {
-    icon: 'mic-outline',
-    title: 'Voice Fishing Log',
-    desc: "Speak naturally mid-trip. The app fills out your catch log automatically — zero manual entry.",
+    icon: 'calendar-outline',
+    title: 'Trip Planning',
+    desc: 'Check the week ahead so you can pick better windows before you go.',
   },
 ];
 
@@ -71,8 +71,8 @@ export default function OnboardingStep1() {
           <Text style={styles.title}>Welcome to{'\n'}FINFINDR</Text>
           <View style={styles.accentLine} />
           <Text style={styles.subtitle}>
-            Your AI fishing companion. Let's get you set up so we can
-            personalize your first recommendation.
+            Your fishing companion. Let&apos;s get your first read and tackle picks
+            set up around the water you fish.
           </Text>
         </View>
 

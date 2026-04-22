@@ -144,7 +144,7 @@ export default function SettingsScreen() {
       if (status !== 'granted') {
         Alert.alert(
           'Location permission needed',
-          'Allow location access to auto-fill your home region, or enter it manually below.',
+          'Allow location access to fill in your home water region, or enter it manually below.',
         );
         return;
       }
@@ -159,7 +159,7 @@ export default function SettingsScreen() {
         if (geo.city) setHomeCity(geo.city);
       }
     } catch {
-      Alert.alert('Could not get location', 'Please enter your home region manually.');
+      Alert.alert('Could not find your location', 'Please enter your home water region manually.');
     } finally {
       setLocationLoading(false);
     }
@@ -189,7 +189,7 @@ export default function SettingsScreen() {
 
       if (error) throw error;
       setProfile(data as UserProfile);
-      Alert.alert('Saved', 'Your preferences have been updated.');
+      Alert.alert('Saved', 'Your fishing preferences have been updated.');
     } catch (err) {
       console.error(err);
       Alert.alert('Could not save', 'Please try again.');
@@ -240,7 +240,7 @@ export default function SettingsScreen() {
             </View>
             <Text style={styles.title}>Settings.</Text>
             <Text style={styles.subtitle}>
-              Edit your preferences. These personalize your AI recommendations.
+              Tune the basics FinFindr uses for your reports and tackle picks.
             </Text>
 
             {/* Username (read-only) */}
@@ -248,7 +248,7 @@ export default function SettingsScreen() {
               <Text style={styles.sectionLabel}>USERNAME</Text>
               <Text style={styles.readOnlyValue}>@{profile.username}</Text>
               <Text style={styles.sectionHint}>
-                Public — visible on your profile and catch feed. Cannot be changed here.
+                Public on your profile. Cannot be changed here.
               </Text>
             </View>
 
@@ -268,7 +268,7 @@ export default function SettingsScreen() {
 
             {/* Fishing Mode */}
             <View style={styles.section}>
-              <Text style={styles.sectionLabel}>FISHING MODE</Text>
+              <Text style={styles.sectionLabel}>PREFERRED GEAR</Text>
               <View style={styles.modeRow}>
                 {FISHING_MODES.map((mode) => {
                   const active = fishingMode === mode.value;
@@ -299,7 +299,7 @@ export default function SettingsScreen() {
 
             {/* Target Species */}
             <View style={styles.section}>
-              <Text style={styles.sectionLabel}>FAVORITE TARGET SPECIES</Text>
+              <Text style={styles.sectionLabel}>FAVORITE SPECIES</Text>
               <View style={styles.chipGrid}>
                 {SPECIES_LIST.map((species) => {
                   const active = selectedSpecies.includes(species);
@@ -323,7 +323,7 @@ export default function SettingsScreen() {
             {/* Home Region */}
             <View style={styles.section}>
               <View style={styles.sectionLabelRow}>
-                <Text style={styles.sectionLabel}>HOME REGION</Text>
+                <Text style={styles.sectionLabel}>HOME WATER REGION</Text>
                 <Pressable
                   style={({ pressed }) => [
                     styles.locationAutoBtn,
@@ -339,7 +339,7 @@ export default function SettingsScreen() {
                     <Ionicons name="location-outline" size={13} color={paper.forest} />
                   )}
                   <Text style={styles.locationAutoBtnText}>
-                    {locationLoading ? 'DETECTING…' : 'USE MY LOCATION'}
+                    {locationLoading ? 'FINDING…' : 'USE CURRENT LOCATION'}
                   </Text>
                 </Pressable>
               </View>

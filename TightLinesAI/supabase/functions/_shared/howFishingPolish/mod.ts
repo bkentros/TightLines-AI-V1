@@ -5,9 +5,9 @@
 import {
   applyConditionContextToEngineVerdict,
   compositeScoreActivityTier,
-  pickTipFocusFromEngine,
   type EngineContext,
   type HowsFishingReport,
+  pickTipFocusFromEngine,
 } from "../howFishingEngine/index.ts";
 import type { NarrationPayload } from "../howFishingEngine/contracts/mod.ts";
 import type { SharedEngineRequest } from "../howFishingEngine/contracts/input.ts";
@@ -15,7 +15,8 @@ import type { TipFocusLane } from "../howFishingEngine/narration/buildNarrationB
 
 export type { TipFocusLane };
 
-export const REBUILD_LLM_SYSTEM = `You are the voice of TightLines AI — a confident, experienced fishing guide. You give every angler an honest, specific read — not a polished summary.
+export const REBUILD_LLM_SYSTEM =
+  `You are the voice of FinFindr — a confident, experienced fishing guide. You give every angler an honest, specific read — not a polished summary.
 
 Voice and tone:
 - Direct and confident. Never hedge. Never say "might want to consider," "stay flexible," or "adjust if conditions shift."
@@ -127,6 +128,7 @@ When condition_context.thermal_air_narration_plain is present, air-temperature c
 Non-negotiable rules:
 - Output valid JSON only: {"summary_line":"...","actionable_tip":"..."}
 - Keep each field at or under 220 characters.
+- Never expose internal language to users: no "engine", "model", "baseline", "slot", "target", "variable", "driver", "suppressor", or "confidence".
 - Never invent species behavior, spawning claims, structure, bait, exact depths, or habitat details not implied by the payload. When engine_verdict includes normalized_variable_scores and environment_snapshot, treat them as ground truth for translating conditions — do not guess drivers or magnitudes beyond those structures.
 - Never invent exact time slots or hourly windows. Broad timing language in summary_line only when payload supports it.
 - Treat the engine score as truth. Never contradict driver/suppressor logic.
@@ -148,9 +150,13 @@ export const LLM_OUTPUT_COST_PER_M_USD = 4.5;
  * Estimated USD for one polish completion from reported token counts.
  * OpenAI’s real invoice can differ (cached input, tier, promos); treat as budget tracking only.
  */
-export function estimatePolishCostUsd(promptTokens: number, completionTokens: number): number {
+export function estimatePolishCostUsd(
+  promptTokens: number,
+  completionTokens: number,
+): number {
   return (
-    promptTokens * LLM_INPUT_COST_PER_M_USD + completionTokens * LLM_OUTPUT_COST_PER_M_USD
+    promptTokens * LLM_INPUT_COST_PER_M_USD +
+    completionTokens * LLM_OUTPUT_COST_PER_M_USD
   ) / 1_000_000;
 }
 
@@ -281,7 +287,10 @@ export function mergeEngineEnvironmentIntoEnvData(
     const v = environment[k];
     if (v != null && v !== "") out[k as string] = v as unknown;
   }
-  if (Array.isArray(environment.solunar_peak_local) && environment.solunar_peak_local.length > 0) {
+  if (
+    Array.isArray(environment.solunar_peak_local) &&
+    environment.solunar_peak_local.length > 0
+  ) {
     out.solunar_peak_local = environment.solunar_peak_local;
   }
   return out;
@@ -297,7 +306,11 @@ function inferDailyMeanFromSevenDay(
   const th = ww.temp_7day_high as number[] | undefined;
   const tl = ww.temp_7day_low as number[] | undefined;
   if (!th?.length || !tl?.length) return null;
-  const idx = Math.min(Math.max(0, 14 + dayOffset), th.length - 1, tl.length - 1);
+  const idx = Math.min(
+    Math.max(0, 14 + dayOffset),
+    th.length - 1,
+    tl.length - 1,
+  );
   const hi = th[idx];
   const lo = tl[idx];
   if (hi == null || lo == null) return null;
@@ -308,16 +321,18 @@ function inferDailyMeanFromSevenDay(
  * Merge nested get-environment / mapArchive shape with flat keys for LLM conditions block.
  * Prefer daily_mean_air_temp_f (what temperature scoring uses) over a single noon scalar.
  */
-export function buildWeatherSnapshot(envData?: Record<string, unknown> | null): Record<string, unknown> | null {
+export function buildWeatherSnapshot(
+  envData?: Record<string, unknown> | null,
+): Record<string, unknown> | null {
   if (!envData) return null;
   const snap: Record<string, unknown> = {};
   const w = envData.weather;
   const ww = w && typeof w === "object" ? (w as Record<string, unknown>) : null;
 
-  const dayOff =
-    typeof envData.polish_day_offset === "number" && Number.isFinite(envData.polish_day_offset)
-      ? Math.max(0, Math.floor(envData.polish_day_offset))
-      : 0;
+  const dayOff = typeof envData.polish_day_offset === "number" &&
+      Number.isFinite(envData.polish_day_offset)
+    ? Math.max(0, Math.floor(envData.polish_day_offset))
+    : 0;
   const inferredDaily = inferDailyMeanFromSevenDay(envData, dayOff);
 
   let temp: number | null = null;
@@ -340,28 +355,43 @@ export function buildWeatherSnapshot(envData?: Record<string, unknown> | null): 
     snap.air_temp_basis = tempBasis;
   }
 
-  const wind = envData.wind_speed_mph ?? (ww?.wind_speed != null ? Number(ww.wind_speed) : null);
+  const wind = envData.wind_speed_mph ??
+    (ww?.wind_speed != null ? Number(ww.wind_speed) : null);
   if (wind != null) snap.wind_mph = Math.round(Number(wind));
 
   if (envData.wind_direction != null) snap.wind_dir = envData.wind_direction;
 
-  const cloud = envData.cloud_cover_pct ?? (ww?.cloud_cover != null ? Number(ww.cloud_cover) : null);
+  const cloud = envData.cloud_cover_pct ??
+    (ww?.cloud_cover != null ? Number(ww.cloud_cover) : null);
   if (cloud != null) snap.cloud_pct = Math.round(Number(cloud));
 
-  if (envData.precip_24h_in != null) snap.rain_24h_in = Number(Number(envData.precip_24h_in).toFixed(2));
-  if (envData.precip_72h_in != null) snap.rain_72h_in = Number(Number(envData.precip_72h_in).toFixed(2));
-  if (envData.precip_7d_in != null) snap.rain_7d_in = Number(Number(envData.precip_7d_in).toFixed(2));
+  if (envData.precip_24h_in != null) {
+    snap.rain_24h_in = Number(Number(envData.precip_24h_in).toFixed(2));
+  }
+  if (envData.precip_72h_in != null) {
+    snap.rain_72h_in = Number(Number(envData.precip_72h_in).toFixed(2));
+  }
+  if (envData.precip_7d_in != null) {
+    snap.rain_7d_in = Number(Number(envData.precip_7d_in).toFixed(2));
+  }
 
   const sun = envData.sun as Record<string, unknown> | undefined;
-  if (typeof envData.sunrise_local === "string") snap.sunrise = envData.sunrise_local;
-  else if (sun && typeof sun.sunrise === "string") snap.sunrise = sun.sunrise;
-  if (typeof envData.sunset_local === "string") snap.sunset = envData.sunset_local;
-  else if (sun && typeof sun.sunset === "string") snap.sunset = sun.sunset;
+  if (typeof envData.sunrise_local === "string") {
+    snap.sunrise = envData.sunrise_local;
+  } else if (sun && typeof sun.sunrise === "string") snap.sunrise = sun.sunrise;
+  if (typeof envData.sunset_local === "string") {
+    snap.sunset = envData.sunset_local;
+  } else if (sun && typeof sun.sunset === "string") snap.sunset = sun.sunset;
 
-  if (Array.isArray(envData.solunar_peak_local) && (envData.solunar_peak_local as unknown[]).length > 0) {
+  if (
+    Array.isArray(envData.solunar_peak_local) &&
+    (envData.solunar_peak_local as unknown[]).length > 0
+  ) {
     snap.solunar_peaks = envData.solunar_peak_local;
   } else {
-    const solunar = envData.solunar as { major_periods?: Array<{ start?: string }> } | undefined;
+    const solunar = envData.solunar as {
+      major_periods?: Array<{ start?: string }>;
+    } | undefined;
     const peaks = solunar?.major_periods
       ?.map((p) => p.start)
       .filter((s): s is string => typeof s === "string" && s.length > 0);
@@ -371,7 +401,9 @@ export function buildWeatherSnapshot(envData?: Record<string, unknown> | null): 
   return Object.keys(snap).length > 0 ? snap : null;
 }
 
-export function driverToFact(d: { variable: string; effect: string; label: string }): string {
+export function driverToFact(
+  d: { variable: string; effect: string; label: string },
+): string {
   const varName = d.variable
     .replace(/_condition|_regime|_disruption|_movement/g, "")
     .replace(/_/g, " ");
@@ -397,7 +429,9 @@ export type PolishPromptMeta = {
 
 /** Exact-match labels that read like score bands or audit tags — omit &lt;location&gt; to avoid awkward opens ("Excellent, excellent …"). */
 const PLACEHOLDER_LOCATION_TOKENS = new Set(
-  ["excellent", "good", "fair", "poor", "prime", "coverage"].map((s) => s.toLowerCase()),
+  ["excellent", "good", "fair", "poor", "prime", "coverage"].map((s) =>
+    s.toLowerCase()
+  ),
 );
 
 /**
@@ -462,7 +496,11 @@ export function buildPolishUserMessage(
     locationCtx ? `<location>${locationCtx}</location>` : "",
     localDate ? `<date>${localDate}</date>` : "",
     seasonLabel ? `<season>${seasonLabel}</season>` : "",
-    `<coordinates_hint>Internal only — do not quote numbers in summary_line. ${report.location.latitude.toFixed(3)}, ${report.location.longitude.toFixed(3)} (${report.location.region_key})</coordinates_hint>`,
+    `<coordinates_hint>Internal only — do not quote numbers in summary_line. ${
+      report.location.latitude.toFixed(3)
+    }, ${
+      report.location.longitude.toFixed(3)
+    } (${report.location.region_key})</coordinates_hint>`,
     "<context_guide>",
     contextGuide(narration.context),
     "</context_guide>",
@@ -470,34 +508,43 @@ export function buildPolishUserMessage(
     "The next field is for summary_line broad timing language ONLY. actionable_tip must NEVER reference it.",
     `daypart_preset: ${narration.daypart_preset}`,
     `timing_anchor_driver: ${narration.timing_anchor_driver}`,
-    `recommended_fishing_dayparts: ${JSON.stringify(narration.highlighted_dayparts_for_narration)}`,
-    report.daypart_note ? `engine_timing_note: ${report.daypart_note}` : "engine_timing_note: null",
+    `recommended_fishing_dayparts: ${
+      JSON.stringify(narration.highlighted_dayparts_for_narration)
+    }`,
+    report.daypart_note
+      ? `engine_timing_note: ${report.daypart_note}`
+      : "engine_timing_note: null",
     "If engine_timing_note ever disagrees with recommended_fishing_dayparts on which clock buckets matter, recommended_fishing_dayparts wins for summary_line timing claims.",
     "</timing_for_summary_only>",
     "<tip_hard_scope>",
     "See system RULE #2. Tip = one of: offering size/profile, retrieval method, speed/aggression, finesse vs power — ONLY.",
     "</tip_hard_scope>",
     "<payload>",
-    JSON.stringify({
-      location_name: locationCtx,
-      date: localDate,
-      season: seasonLabel,
-      water_type: narration.display_context_label,
-      score_out_of_10: scoreOutOfTen,
-      band: narration.band,
-      assigned_tip_focus_lane: tipFocus.lane,
-      timing_anchor_driver: narration.timing_anchor_driver,
-      timing_strength: narration.timing_strength ?? null,
-      engine_tip_seed: narration.actionable_tip_seed,
-      engine_summary_seed: narration.summary_line_seed,
-      engine_verdict: engineVerdict,
-      recommended_fishing_dayparts: narration.highlighted_dayparts_for_narration,
-      whats_helping: narration.drivers.map(driverToFact),
-      whats_hurting: narration.suppressors.map(driverToFact),
-      data_confidence: narration.reliability,
-      data_gap_details: gapDetails,
-      ...(weatherSnap ? { conditions: weatherSnap } : {}),
-    }, null, 2),
+    JSON.stringify(
+      {
+        location_name: locationCtx,
+        date: localDate,
+        season: seasonLabel,
+        water_type: narration.display_context_label,
+        score_out_of_10: scoreOutOfTen,
+        band: narration.band,
+        assigned_tip_focus_lane: tipFocus.lane,
+        timing_anchor_driver: narration.timing_anchor_driver,
+        timing_strength: narration.timing_strength ?? null,
+        engine_tip_seed: narration.actionable_tip_seed,
+        engine_summary_seed: narration.summary_line_seed,
+        engine_verdict: engineVerdict,
+        recommended_fishing_dayparts:
+          narration.highlighted_dayparts_for_narration,
+        whats_helping: narration.drivers.map(driverToFact),
+        whats_hurting: narration.suppressors.map(driverToFact),
+        data_confidence: narration.reliability,
+        data_gap_details: gapDetails,
+        ...(weatherSnap ? { conditions: weatherSnap } : {}),
+      },
+      null,
+      2,
+    ),
     "</payload>",
     "<output_contract>",
     "conditions.air_temp_f is the air temperature (°F) the engine used for scoring: prefer daily mean when air_temp_basis is daily_mean_engine or daily_mean_inferred_high_low; otherwise a single observation. Verbal temperature in summary_line must match this number within a few degrees — do not invent a different temp.",
@@ -552,17 +599,19 @@ export async function polishReportCopyOpenAI(
   } = {},
 ): Promise<PolishResult | null> {
   const rng = opts.rng ?? defaultPolishRandom();
-  const diversitySeed = opts.diversitySeed ?? narrationDiversitySeed(report, opts.localDate ?? null);
-  const { user_message, assigned_tip_focus_lane, opener_angle, voice_mode } = buildPolishUserMessage(
-    narration,
-    report,
-    diversitySeed,
-    rng,
-    opts.locationName,
-    opts.localDate,
-    opts.envData,
-    report.condition_context ?? null,
-  );
+  const diversitySeed = opts.diversitySeed ??
+    narrationDiversitySeed(report, opts.localDate ?? null);
+  const { user_message, assigned_tip_focus_lane, opener_angle, voice_mode } =
+    buildPolishUserMessage(
+      narration,
+      report,
+      diversitySeed,
+      rng,
+      opts.locationName,
+      opts.localDate,
+      opts.envData,
+      report.condition_context ?? null,
+    );
 
   const res = await fetch("https://api.openai.com/v1/chat/completions", {
     method: "POST",
@@ -587,7 +636,9 @@ export async function polishReportCopyOpenAI(
 
   if (!res.ok) {
     const errBody = await res.text().catch(() => "");
-    console.error(`howFishingPolish OpenAI HTTP ${res.status}: ${errBody.slice(0, 240)}`);
+    console.error(
+      `howFishingPolish OpenAI HTTP ${res.status}: ${errBody.slice(0, 240)}`,
+    );
     return null;
   }
   const json = await res.json() as {
@@ -599,9 +650,16 @@ export async function polishReportCopyOpenAI(
   const inT = json.usage?.prompt_tokens ?? 0;
   const outT = json.usage?.completion_tokens ?? 0;
   try {
-    const p = JSON.parse(text) as { summary_line?: string; actionable_tip?: string };
-    const summary = typeof p.summary_line === "string" ? p.summary_line.slice(0, 280) : "";
-    const tip = typeof p.actionable_tip === "string" ? p.actionable_tip.slice(0, 280) : "";
+    const p = JSON.parse(text) as {
+      summary_line?: string;
+      actionable_tip?: string;
+    };
+    const summary = typeof p.summary_line === "string"
+      ? p.summary_line.slice(0, 280)
+      : "";
+    const tip = typeof p.actionable_tip === "string"
+      ? p.actionable_tip.slice(0, 280)
+      : "";
     if (summary && tip) {
       const base: PolishResult = {
         summary,
@@ -622,4 +680,3 @@ export async function polishReportCopyOpenAI(
   }
   return null;
 }
-

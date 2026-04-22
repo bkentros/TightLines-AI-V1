@@ -151,7 +151,7 @@ export default function OnboardingStep2() {
       if (status !== 'granted') {
         Alert.alert(
           'Location permission needed',
-          'Allow location access to auto-fill your home region, or enter it manually below.',
+          'Allow location access to fill in your home water region, or enter it manually below.',
         );
         return;
       }
@@ -169,7 +169,7 @@ export default function OnboardingStep2() {
         if (geo.city) setHomeCity(geo.city);
       }
     } catch {
-      Alert.alert('Could not get location', 'Please enter your home region manually.');
+      Alert.alert('Could not find your location', 'Please enter your home water region manually.');
     } finally {
       setLocationLoading(false);
     }
@@ -276,14 +276,14 @@ export default function OnboardingStep2() {
 
           <Text style={styles.title}>Your preferences</Text>
           <Text style={styles.subtitle}>
-            This personalizes your very first AI recommendation.
+            These basics help shape your first fishing read.
           </Text>
 
           {/* Username */}
           <View style={styles.section}>
             <Text style={styles.sectionLabel}>Username</Text>
             <Text style={styles.sectionHint}>
-              Public — visible on your profile and catch feed
+              Public on your profile
             </Text>
             <View style={styles.usernameRow}>
               <TextInput
@@ -346,7 +346,7 @@ export default function OnboardingStep2() {
 
           {/* Fishing Mode */}
           <View style={styles.section}>
-            <Text style={styles.sectionLabel}>Fishing Mode</Text>
+            <Text style={styles.sectionLabel}>Preferred Gear</Text>
             <View style={styles.modeRow}>
               {FISHING_MODES.map((mode) => (
                 <Pressable
@@ -386,7 +386,7 @@ export default function OnboardingStep2() {
               <Text style={styles.optional}>(optional)</Text>
             </Text>
             <Text style={styles.sectionHint}>
-              Pre-fills your first AI recommendation. Skip if you fish everything.
+              Helps tailor your first tackle picks. Skip if you fish everything.
             </Text>
             <View style={styles.chipGrid}>
               {SPECIES_LIST.map((species) => {
@@ -411,7 +411,7 @@ export default function OnboardingStep2() {
           {/* Home Region */}
           <View style={styles.section}>
             <View style={styles.sectionLabelRow}>
-              <Text style={styles.sectionLabel}>Home Region</Text>
+              <Text style={styles.sectionLabel}>Home Water Region</Text>
               <Pressable
                 style={({ pressed }) => [
                   styles.locationAutoBtn,
@@ -427,7 +427,7 @@ export default function OnboardingStep2() {
                   <Ionicons name="location-outline" size={14} color={colors.sage} />
                 )}
                 <Text style={styles.locationAutoBtnText}>
-                  {locationLoading ? 'Detecting…' : 'Use My Location'}
+                  {locationLoading ? 'Finding…' : 'Use Current Location'}
                 </Text>
               </Pressable>
             </View>

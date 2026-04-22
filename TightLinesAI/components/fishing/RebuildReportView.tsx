@@ -181,7 +181,7 @@ export function RebuildReportView({
   const showTiming = !!(report.daypart_note || timingPeriods);
 
   const isFuture = dateLabel.toUpperCase() !== 'TODAY' && !dateLabel.toUpperCase().startsWith('TODAY');
-  const outlookEyebrow = isFuture ? 'FORECAST OUTLOOK' : "TODAY'S OUTLOOK";
+  const outlookEyebrow = isFuture ? 'FORECAST READ' : "TODAY'S READ";
   // Phrase is chosen off the engine's 4-band value so the word always
   // matches the number. "Prime day" is reserved for Excellent (score
   // ≥ 80 / 8.0). Good days get softer "solid" language, Fair gets its
@@ -258,7 +258,7 @@ export function RebuildReportView({
             ))
           ) : (
             <Text style={styles.mutedText}>
-              No strong positive factors today.
+              No clear edge stands out today.
             </Text>
           )}
         </View>
@@ -401,7 +401,7 @@ export function RebuildReportView({
       <View style={styles.colophonRow}>
         <View style={styles.colophonRule} />
         <Text style={styles.colophonText}>
-          TIGHTLINES AI · FIELD REPORT · {new Date().getFullYear()}
+          FINFINDR · FISHING READ · {new Date().getFullYear()}
         </Text>
         <View style={styles.colophonRule} />
       </View>

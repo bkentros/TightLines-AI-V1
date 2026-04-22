@@ -65,7 +65,7 @@ const OPENERS: Record<ScoreBand, readonly string[]> = {
     "This is a mixed day overall.",
     "The day is workable, but it will take some adjustment.",
     "You can fish this day, but you will need to stay sharp.",
-    "The report is balanced enough to fish, but not easy enough to coast through.",
+    "The read is balanced enough to fish, but not easy enough to coast through.",
     "This is a fair day, not an easy one.",
     "The setup gives you a chance, but not much room for mistakes.",
     "This is a day for patience and good decisions.",
@@ -81,7 +81,7 @@ const OPENERS: Record<ScoreBand, readonly string[]> = {
     "This is the kind of day that asks for patience.",
     "The day does not offer much easy upside.",
     "This setup is making you earn it today.",
-    "The engine sees more problems than help here.",
+    "There are more problems than help here.",
     "This is a tougher read from top to bottom.",
     "The day does not offer many free advantages.",
   ],
@@ -137,12 +137,12 @@ const NEGATIVE_TEMPLATES_STRONG = [
 
 const NEUTRAL_CLOSERS = [
   "No one factor is dominating the day.",
-  "Nothing is taking over the report by itself.",
+  "Nothing is taking over the read by itself.",
   "This is a balanced day more than a dramatic one.",
   "The details matter more than one big factor today.",
   "The day is not being carried or sunk by one obvious thing.",
   "This is more about execution than one major condition edge.",
-  "No single variable stands above the rest.",
+  "No single factor stands above the rest.",
   "It is a broad, balanced setup rather than a sharp one.",
 ] as const;
 
@@ -175,18 +175,18 @@ const CONTEXT_TOUCHES: Record<EngineContext, readonly string[]> = {
 
 const RELIABILITY_CLOSERS: Record<"medium" | "low", readonly string[]> = {
   medium: [
-    "This is still a usable read, just a little broader than the cleanest version of the report.",
+    "This is still a useful read, just a little broader than the clearest cases.",
     "The call is still useful, but lean on the main signals more than fine detail.",
     "The read is still solid, just a touch broader than the most precise cases.",
     "This is a trustworthy read, but it is better as direction than over-precision.",
-    "The main setup is still useful here, even if the report should stay a little broad.",
+    "The main setup is still useful here, even if the read should stay a little broad.",
   ],
   low: [
     "Key inputs were limited, so treat this as a broad read rather than a precise one.",
-    "The report still points you in the right direction, but the precision is looser than normal.",
+    "The read still points you in the right direction, but the precision is looser than normal.",
     "Important inputs were thinner than usual, so this is more directional than exact today.",
-    "This remains useful, but the engine is working with a wider margin than usual.",
-    "The report still helps, but it should be read as broad guidance today.",
+    "This remains useful, but leave yourself more room to adjust than usual.",
+    "The read still helps, but it should be treated as broad guidance today.",
   ],
 };
 
@@ -293,7 +293,9 @@ export function listSummaryCopyForAudit(): string[] {
   ];
 }
 
-function contributionStrength(factor: SummaryFactor | undefined): SummaryStrength {
+function contributionStrength(
+  factor: SummaryFactor | undefined,
+): SummaryStrength {
   const weighted = Math.abs(factor?.weightedContribution ?? 0);
   if (weighted >= 18) return "strong";
   if (weighted >= 9) return "moderate";
@@ -309,20 +311,19 @@ function temperaturePhrase(
   const shock = breakdown?.shock_label ?? "none";
   const band = breakdown?.band_label ?? null;
 
-  const reason =
-    shock === "sharp_warmup"
-      ? "after a fast warmup"
-      : shock === "sharp_cooldown"
-        ? "after a fast cooldown"
-        : band === "near_optimal"
-          ? "with the day sitting close to the better range"
-          : band === "very_warm"
-            ? "with the day running warmer than the seasonal range"
-            : band === "very_cold" || band === "cool"
-              ? "with the day running colder than the seasonal range"
-              : band === "warm"
-                ? "with the day a little warmer than the seasonal sweet spot"
-                : "";
+  const reason = shock === "sharp_warmup"
+    ? "after a fast warmup"
+    : shock === "sharp_cooldown"
+    ? "after a fast cooldown"
+    : band === "near_optimal"
+    ? "with the day sitting close to the better range"
+    : band === "very_warm"
+    ? "with the day running warmer than the seasonal range"
+    : band === "very_cold" || band === "cool"
+    ? "with the day running colder than the seasonal range"
+    : band === "warm"
+    ? "with the day a little warmer than the seasonal sweet spot"
+    : "";
 
   if (role === "driver") {
     if (strength === "strong") {
@@ -342,17 +343,17 @@ function temperaturePhrase(
 
   if (strength === "strong") {
     return reason
-      ? `temperature is a real limiter ${reason}`
-      : "temperature is the clearest limiter";
+      ? `temperature is a real problem ${reason}`
+      : "temperature is the clearest problem";
   }
   if (strength === "moderate") {
     return reason
-      ? `temperature is a noticeable headwind ${reason}`
-      : "temperature is a noticeable headwind";
+      ? `temperature is working against you ${reason}`
+      : "temperature is working against you";
   }
   return reason
-    ? `temperature is only a small headwind ${reason}`
-    : "temperature is only a small headwind";
+    ? `temperature is only working against you a little ${reason}`
+    : "temperature is only working against you a little";
 }
 
 function genericFactorPhrase(
@@ -364,14 +365,20 @@ function genericFactorPhrase(
   const noun = buildVariableSummaryLabel(factor.variable, context, role);
 
   if (role === "driver") {
-    if (strength === "strong") return `${noun} is doing more than anything else to help`;
-    if (strength === "moderate") return `${noun} is one of the clearer positives`;
+    if (strength === "strong") {
+      return `${noun} is doing more than anything else to help`;
+    }
+    if (strength === "moderate") {
+      return `${noun} is one of the clearer positives`;
+    }
     return `${noun} is helping a bit`;
   }
 
-  if (strength === "strong") return `${noun} is the main thing holding the day back`;
-  if (strength === "moderate") return `${noun} is a noticeable headwind`;
-  return `${noun} is only a small drag on the day`;
+  if (strength === "strong") {
+    return `${noun} is the main thing holding the day back`;
+  }
+  if (strength === "moderate") return `${noun} is clearly working against you`;
+  return `${noun} is only working against you a little`;
 }
 
 function buildFactorPhrase(
@@ -389,8 +396,12 @@ function buildFactorPhrase(
 export function buildReportSummaryLine(input: ReportSummaryInput): string {
   const { band, reliability, drivers, suppressors, seed, context } = input;
   const opener = pickDeterministic(OPENERS[band], seed, "summary:opener");
-  const driver = drivers[0] ? buildFactorPhrase(drivers[0], context, "driver") : null;
-  const suppressor = suppressors[0] ? buildFactorPhrase(suppressors[0], context, "suppressor") : null;
+  const driver = drivers[0]
+    ? buildFactorPhrase(drivers[0], context, "driver")
+    : null;
+  const suppressor = suppressors[0]
+    ? buildFactorPhrase(suppressors[0], context, "suppressor")
+    : null;
   const driverStrength = contributionStrength(drivers[0]);
   const suppressorStrength = contributionStrength(suppressors[0]);
 
@@ -409,8 +420,9 @@ export function buildReportSummaryLine(input: ReportSummaryInput): string {
       ),
     );
   } else if (driver) {
-    const templates =
-      driverStrength === "slight" ? POSITIVE_TEMPLATES_SOFT : POSITIVE_TEMPLATES_STRONG;
+    const templates = driverStrength === "slight"
+      ? POSITIVE_TEMPLATES_SOFT
+      : POSITIVE_TEMPLATES_STRONG;
     parts.push(
       normalizeSurfaceSentence(
         pickDeterministic(templates, seed, "summary:positive")
@@ -418,8 +430,9 @@ export function buildReportSummaryLine(input: ReportSummaryInput): string {
       ),
     );
   } else if (suppressor) {
-    const templates =
-      suppressorStrength === "slight" ? NEGATIVE_TEMPLATES_SOFT : NEGATIVE_TEMPLATES_STRONG;
+    const templates = suppressorStrength === "slight"
+      ? NEGATIVE_TEMPLATES_SOFT
+      : NEGATIVE_TEMPLATES_STRONG;
     parts.push(
       normalizeSurfaceSentence(
         pickDeterministic(templates, seed, "summary:negative")

@@ -174,19 +174,19 @@ function recommenderErrorMessage(error: unknown, species: SpeciesGroup, context:
       ? error.message
       : 'Something went wrong. Please try again.';
   if (msg === 'species_not_available') {
-    return `${SPECIES_DISPLAY[species]} isn't available in this region for ${contextLabel(context)}. Try a different species or context.`;
+    return `${SPECIES_DISPLAY[species]} is not supported here for ${contextLabel(context)} yet. Try a different species or water type.`;
   }
   if (msg === 'unsupported_recommender_scope') {
-    return 'This recommender currently supports freshwater largemouth, smallmouth, northern pike, and trout only.';
+    return 'Right now, FinFindr supports freshwater largemouth, smallmouth, northern pike, and trout.';
   }
   if (msg === 'seasonal_row_missing') {
-    return 'There is no published seasonal baseline for this spot, month, and water type. Try another month, switch lake vs river, or move your pin.';
+    return 'We do not have seasonal guidance for this spot, month, and water type yet. Try another water type or move your pin nearby.';
   }
   if (msg === 'state_resolution_failed') {
-    return 'We could not verify your state from this location. Move the pin or refresh location before building a plan.';
+    return 'We could not read the state for this spot. Move the pin or refresh your location before building a plan.';
   }
   if (msg === 'daily_snapshot_unavailable') {
-    return 'We could not load today\'s midnight conditions snapshot. Please try again in a moment.';
+    return 'We could not load today\'s conditions for this spot. Please try again in a moment.';
   }
   return msg;
 }
@@ -201,24 +201,24 @@ function readinessMessage(args: {
 }): string | null {
   const { hasCoords, resolvingRegion, stateCode, species, context, clarity } = args;
   if (!hasCoords) {
-    return 'Add a location first so we can verify your state and pull today\'s conditions.';
+    return 'Add a location first so today\'s local conditions can shape your picks.';
   }
   if (resolvingRegion) {
-    return 'Verifying your state so we only show valid species and water types.';
+    return 'Checking your spot so we only show species and water types that fit.';
   }
   if (!stateCode) {
-    return 'We need a verified state from your location before we can build your plan.';
+    return 'We need a readable location before we can build your tackle plan.';
   }
   if (!species) {
-    return 'Choose your target species so we can lock in the seasonal baseline.';
+    return 'Choose the species you are fishing for so we can match the season.';
   }
   if (!context) {
-    return 'Choose the body of water so we can use the right behavior model.';
+    return 'Choose the type of water you are fishing so the picks fit the spot.';
   }
   if (!clarity) {
-    return 'Choose water clarity so the visibility and color guidance stay accurate.';
+    return 'Choose water clarity so color and profile guidance stay accurate.';
   }
-  return 'When you run or refresh this, we use today\'s midnight conditions snapshot so the plan stays stable all day.';
+  return 'When you run or refresh this, today\'s conditions keep your picks steady all day.';
 }
 
 function getTodaySnapshotRequest(
@@ -316,13 +316,13 @@ const SPECIES_SUBTITLE: Record<SpeciesGroup, string> = {
 function contextSubtitle(ctx: EngineContext): string {
   switch (ctx) {
     case 'freshwater_lake_pond':
-      return 'Still water — reservoirs, ponds, lakes';
+      return 'Still water: lakes, ponds, reservoirs';
     case 'freshwater_river':
-      return 'Moving water — rivers, creeks, tailwaters';
+      return 'Moving water: rivers, creeks, tailwaters';
     case 'coastal':
-      return 'Saltwater shorelines — surf, piers, jetties';
+      return 'Inshore saltwater: beaches, piers, jetties';
     case 'coastal_flats_estuary':
-      return 'Inshore flats, bays, and estuaries';
+      return 'Shallow inshore: flats, marshes, estuaries';
     default:
       return '';
   }
@@ -1003,8 +1003,8 @@ export default function RecommenderScreen() {
       {/* ── Setup form (FinFindr tackle wizard) ── */}
       {screenState === 'setup' && setupImagesReady && (() => {
         const stepConfig: { num: 1 | 2 | 3; question: string; caption: string }[] = [
-          { num: 1, question: 'What are you after?',       caption: 'Pick a target species.' },
-          { num: 2, question: 'Where are you fishing?',    caption: 'Pick the body of water you are on.' },
+          { num: 1, question: 'What are you after?',       caption: 'Pick the species you are fishing for.' },
+          { num: 2, question: 'Where are you fishing?',    caption: 'Pick the type of water you are on.' },
           { num: 3, question: "How's the water today?",    caption: 'Pick the clarity you are seeing.' },
         ];
         const current = stepConfig[wizardStep - 1];
@@ -1043,7 +1043,7 @@ export default function RecommenderScreen() {
 
         const contextInvalidNote =
           wizardStep === 2 && species && availableContexts.length === 0
-            ? `No water types available for ${SPECIES_DISPLAY[species]} in this region.`
+            ? `No supported water types for ${SPECIES_DISPLAY[species]} in this region yet.`
             : null;
 
         return (
@@ -1071,7 +1071,7 @@ export default function RecommenderScreen() {
                 <View style={wizardStyles.warningBanner}>
                   <Ionicons name="location-outline" size={14} color={paper.red} />
                   <Text style={wizardStyles.warningText}>
-                    Add a location on the home screen for today's conditions.
+                    Add a location on Home so today's conditions can be used.
                   </Text>
                 </View>
               )}
@@ -1198,7 +1198,7 @@ export default function RecommenderScreen() {
               </View>
 
               <Text style={wizardStyles.disclaimer}>
-                Recommendations use your location's seasonal baseline, today's midnight conditions, and water clarity.
+                Picks use your location, season, today's conditions, and water clarity.
               </Text>
             </ScrollView>
           </PaperBackground>

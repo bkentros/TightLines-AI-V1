@@ -34,7 +34,7 @@ export default function HowFishingResultsRedirect() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Loading report...</Text>
+      <Text style={styles.text}>Loading your fishing read...</Text>
     </View>
   );
 }

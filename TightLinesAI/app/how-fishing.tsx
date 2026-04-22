@@ -91,8 +91,36 @@ const TAB_CONFIG: { key: EngineContextKey; label: string; icon: keyof typeof Ion
   { key: 'freshwater_lake_pond', label: 'LAKE / POND', icon: 'water' },
   { key: 'freshwater_river', label: 'RIVER', icon: 'git-merge-outline' },
   { key: 'coastal', label: 'INSHORE', icon: 'boat-outline' },
-  { key: 'coastal_flats_estuary', label: 'FLATS / EST', icon: 'resize-outline' },
+  { key: 'coastal_flats_estuary', label: 'FLATS', icon: 'resize-outline' },
 ];
+
+const TAB_ERROR_LABEL: Record<EngineContextKey, string> = {
+  freshwater_lake_pond: 'lake or pond',
+  freshwater_river: 'river',
+  coastal: 'inshore',
+  coastal_flats_estuary: 'flats or estuary',
+};
+
+function friendlyHowFishingError(message: string): string {
+  const lower = message.toLowerCase();
+  if (
+    lower.includes('engine_context') ||
+    lower.includes('invalid response') ||
+    lower.includes('hows_fishing_rebuild')
+  ) {
+    return 'We could not build a clean fishing read for this spot. Try again from Home.';
+  }
+  if (lower.includes('subscribe')) {
+    return 'A subscription is needed to use this feature.';
+  }
+  if (lower.includes('coastal reports')) {
+    return 'Coastal reads are only available where coastal conditions are supported.';
+  }
+  if (lower.includes('env_data') || lower.includes('live conditions')) {
+    return "We could not load today's conditions for this spot.";
+  }
+  return message;
+}
 
 /* ─── Location helpers ──────────────────────────────────────────────────── */
 
@@ -288,7 +316,7 @@ export default function HowFishingScreen() {
           );
         }
       } catch {
-        if (!cancelled) setAnalysisError('Unable to load live conditions.');
+        if (!cancelled) setAnalysisError("We could not load today's conditions.");
       } finally {
         if (!cancelled) setEnvLoading(false);
       }
@@ -390,17 +418,20 @@ export default function HowFishingScreen() {
 
       const multi = result as HowFishingRebuildMultiBundle;
       if (!multi || multi.feature !== 'hows_fishing_rebuild_v1' || !multi.reports) {
-        throw new Error('Invalid response from server');
+        throw new Error('We could not build a clean fishing read for this spot. Try again from Home.');
       }
 
       const bundles = multi.reports as Record<EngineContextKey, HowFishingRebuildBundle>;
       const tabWithReport = firstContextWithReport(bundles, availableContexts);
       if (!tabWithReport) {
-        const failed = multi.failed_contexts?.join(', ') ?? '';
+        const failed = multi.failed_contexts
+          ?.map((ctx) => TAB_ERROR_LABEL[ctx as EngineContextKey] ?? null)
+          .filter(Boolean)
+          .join(', ') ?? '';
         throw new Error(
           failed
-            ? `Reports failed for: ${failed}. Try again from the home screen.`
-            : 'No fishing report was returned for this location. Try again from the home screen.',
+            ? `Could not build a read for ${failed}. Try again from Home.`
+            : 'No fishing read came back for this spot. Try again from Home.',
         );
       }
       if (isForecastDay && targetDate) {
@@ -413,9 +444,10 @@ export default function HowFishingScreen() {
       setActiveTab(tabWithReport);
       setMultiBundles(bundles);
     } catch (err) {
-      const msg = err instanceof Error ? err.message : 'Something went wrong.';
+      const rawMsg = err instanceof Error ? err.message : 'Something went wrong.';
+      const msg = friendlyHowFishingError(rawMsg);
       setAnalysisError(msg);
-      Alert.alert('Unable to generate reports', msg);
+      Alert.alert('Could not build your fishing read', msg);
     } finally {
       setAnalysisLoading(false);
     }
@@ -484,9 +516,9 @@ export default function HowFishingScreen() {
             <View style={styles.noLocationIcon}>
               <Ionicons name="location-outline" size={28} color={paper.ink} />
             </View>
-            <Text style={styles.messageTitle}>LOCATION REQUIRED</Text>
+            <Text style={styles.messageTitle}>ADD A LOCATION</Text>
             <Text style={styles.messageSub}>
-              How's Fishing needs your location so we can pull live conditions and build your report.
+              Add your spot so we can read today's conditions for the water near you.
             </Text>
             <Pressable
               style={({ pressed }) => [styles.primaryBtn, pressed && styles.primaryBtnPressed]}
@@ -502,8 +534,7 @@ export default function HowFishingScreen() {
 
   /* ── Confirmation / Generate surface ─────────────────────────────── */
   if (!multiBundles) {
-    // While the engine pulls conditions and assembles the bundle we render
-    // the full report skeleton so the eventual result lands in the exact
+    // While conditions load, render the final layout shell so the result lands in the exact
     // same layout the user is already looking at.
     if (analysisLoading) {
       return (
@@ -526,7 +557,7 @@ export default function HowFishingScreen() {
               <View style={styles.loadingOverlay} pointerEvents="none">
                 <ActivityIndicator size="small" color={paper.forest} />
                 <Text style={styles.loadingCaption}>
-                  BUILDING YOUR REPORT
+                  READING CONDITIONS
                   {availableContexts.length > 1
                     ? ` · ${availableContexts.length} WATER TYPES`
                     : ''}
@@ -556,7 +587,7 @@ export default function HowFishingScreen() {
                 <CornerMarkSet color={paper.red} />
 
                 <SectionEyebrow color={paper.red} size={10} tracking={3.5}>
-                  {isForecastDay ? 'FORECAST' : "TODAY'S REPORT"}
+                  {isForecastDay ? 'FORECAST READ' : "TODAY'S READ"}
                 </SectionEyebrow>
 
                 <Text style={styles.confirmTitle}>
@@ -591,7 +622,7 @@ export default function HowFishingScreen() {
                 >
                   <Ionicons name="sparkles" size={14} color={paper.paper} />
                   <Text style={styles.generateBtnText}>
-                    {isForecastDay ? 'GENERATE FORECAST REPORT' : "GENERATE TODAY'S REPORT"}
+                    {isForecastDay ? 'BUILD FORECAST READ' : "BUILD TODAY'S READ"}
                   </Text>
                 </Pressable>
 
@@ -678,7 +709,7 @@ export default function HowFishingScreen() {
             />
           ) : (
             <View style={styles.noReportCard}>
-              <Text style={styles.noReportText}>Report unavailable for this water type.</Text>
+              <Text style={styles.noReportText}>No read available for this water type.</Text>
             </View>
           )}
         </ScrollView>
@@ -721,7 +752,7 @@ function TopLevelHeader({
         </Text>
         {generatedAt ? (
           <Text style={headerStyles.metaTime} numberOfLines={1}>
-            {`Generated ${generatedAt}`}
+            {`Updated ${generatedAt}`}
           </Text>
         ) : null}
       </View>

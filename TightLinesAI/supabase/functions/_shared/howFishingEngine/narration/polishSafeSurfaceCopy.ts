@@ -36,7 +36,9 @@ function trimSurfaceLine(text: string, maxLen: number): string {
 /**
  * Same logic as buildNarrationBrief `formatTimingSection`, condensed for UI (single line).
  */
-export function buildDeterministicTimingInsight(report: HowsFishingReport): string {
+export function buildDeterministicTimingInsight(
+  report: HowsFishingReport,
+): string {
   const periods = report.highlighted_periods;
   const note = report.daypart_note;
 
@@ -45,21 +47,26 @@ export function buildDeterministicTimingInsight(report: HowsFishingReport): stri
     const avoided = DAYPART_NAMES.filter((_, i) => !periods[i]);
     if (best.length === 4) {
       return trimSurfaceLine(
-        note ?? "Fishable throughout the day. No strong timing edge stands out.",
+        note ??
+          "Fishable throughout the day. No strong timing advantage stands out.",
         200,
       );
     }
     if (best.length > 0) {
       const bestStr = best.join(" and ");
-      const avoidStr =
-        avoided.length > 0 && avoided.length <= 2
-          ? ` Weaker: ${avoided.join(" and ")}.`
-          : "";
-      const base = `Best windows: ${bestStr}.${avoidStr}${note ? ` ${note}` : ""}`;
+      const avoidStr = avoided.length > 0 && avoided.length <= 2
+        ? ` Lower priority: ${avoided.join(" and ")}.`
+        : "";
+      const base = `Best times: ${bestStr}.${avoidStr}${
+        note ? ` ${note}` : ""
+      }`;
       return trimSurfaceLine(base, 200);
     }
   }
-  return trimSurfaceLine(note ?? "No strong timing edge stands out. Stay flexible.", 200);
+  return trimSurfaceLine(
+    note ?? "No strong timing advantage stands out. Stay flexible.",
+    200,
+  );
 }
 
 const SOLUNAR_PRESENT = [
@@ -77,8 +84,11 @@ export function listSurfaceCopyForAudit(): string[] {
   return [...SOLUNAR_PRESENT, ...SOLUNAR_QUIET];
 }
 
-export function buildDeterministicSolunarNote(report: HowsFishingReport): string | null {
-  const count = report.condition_context?.environment_snapshot.solunar_peak_count ?? null;
+export function buildDeterministicSolunarNote(
+  report: HowsFishingReport,
+): string | null {
+  const count =
+    report.condition_context?.environment_snapshot.solunar_peak_count ?? null;
   const seed = [
     report.context,
     report.location.region_key,

@@ -216,7 +216,7 @@ Deno.test("slight temperature suppressor uses proportional warmup wording", () =
     }],
     seed: "clarkston-temp-soft-wording",
   });
-  assertStringIncludes(out.toLowerCase(), "small headwind");
+  assertStringIncludes(out.toLowerCase(), "working against you a little");
   assertStringIncludes(out.toLowerCase(), "fast warmup");
   assertEquals(out.toLowerCase().includes("making things harder"), false, out);
 });
@@ -248,7 +248,11 @@ Deno.test("light temperature suppressor picks thermal edge tip instead of harsh 
     },
     "clarkston-temp-soft-tip",
   );
-  assertEquals(out.actionable_tip.toLowerCase().includes("easy meal"), false, out.actionable_tip);
+  assertEquals(
+    out.actionable_tip.toLowerCase().includes("easy meal"),
+    false,
+    out.actionable_tip,
+  );
 });
 
 function assertCleanCopy(line: string) {
@@ -280,6 +284,16 @@ function assertCleanCopy(line: string) {
       "bonus column",
       "from the engine",
       "usable edge",
+      "engine",
+      "model",
+      "baseline",
+      "variable",
+      "target zone",
+      "prime window",
+      "timing edge",
+      "thermal",
+      "headwind",
+      "data's thin",
     ]
   ) {
     assertEquals(
@@ -311,5 +325,34 @@ Deno.test("timing copy banks stay concise and grammatically normalized", () => {
 Deno.test("surface copy banks stay concise and grammatically normalized", () => {
   for (const line of listSurfaceCopyForAudit()) {
     assertCleanCopy(line);
+  }
+});
+
+Deno.test("driver label templates avoid internal or over-technical phrases", async () => {
+  const source = await Deno.readTextFile(
+    new URL("../score/driverLabels.ts", import.meta.url),
+  );
+  for (
+    const banned of [
+      "on the model",
+      "baseline",
+      "target zone",
+      "thermal",
+      "thermals",
+      "composite",
+      "cfs",
+      "barometric",
+      "hydrology",
+      "heroics",
+      "free conveyor belt",
+      "micro-current",
+      "engine sees",
+    ]
+  ) {
+    assertEquals(
+      source.toLowerCase().includes(banned),
+      false,
+      `driver label source contains "${banned}"`,
+    );
   }
 });

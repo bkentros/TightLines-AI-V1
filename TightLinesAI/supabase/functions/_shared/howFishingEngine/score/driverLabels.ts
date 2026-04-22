@@ -6,7 +6,10 @@
  * before executing the engine; the seed is hashed to an index offset.
  */
 
-import type { ScoredVariableKey, SharedNormalizedOutput } from "../contracts/mod.ts";
+import type {
+  ScoredVariableKey,
+  SharedNormalizedOutput,
+} from "../contracts/mod.ts";
 import { engineScoreTier } from "./engineScoreMath.ts";
 
 let _pickOffset = -1; // -1 = unseeded (use Math.random)
@@ -41,25 +44,25 @@ function temperatureDriverLabel(t: NonNullable<Norm["temperature"]>): string {
   if (tier === 2) {
     if (band === "warm") {
       return pick([
-        "Air temps are running warm for the calendar — metabolism and forage activity tend to stay up.",
-        "Above-average warmth today; expect fish to be distributed in their summer-style haunts.",
-        "Heat budget is on the high side of normal — good for aggressive feeders if oxygen stays solid.",
-        "Warm-side readings: think faster retrieves and shallower patrol zones than on a cool snap.",
-        "Thermals favor an active bite as long as you avoid the hottest flat-water midday lull.",
+        "Air temps are running warm for the calendar, which can keep fish and forage more active.",
+        "Above-average warmth today; expect fish to spread out more than they would after a cold snap.",
+        "Warmth is on the high side of normal — good for aggressive feeders if oxygen stays solid.",
+        "Warm temperatures point toward faster retrieves than you would use on a cool snap.",
+        "Warmth favors an active bite as long as you avoid the hottest flat-water lull.",
       ]);
     }
     if (band === "optimal") {
       return pick([
-        "Water-adjacent air temps sit in the seasonal sweet spot — a classic \"no excuses\" thermal window.",
-        "You’re inside the comfort band most species prefer today; turnover stress is minimal.",
-        "Thermal picture is textbook: not too hot, not too cold for this time of year.",
-        "Temps line up with what guides call the money zone for this month.",
-        "Stable, season-appropriate warmth — fish shouldn’t be thermally shocked or sluggish.",
+        "Air temps sit in a strong seasonal range for fishing today.",
+        "You’re inside a comfortable temperature range for most species today.",
+        "Temperature is in a clean range: not too hot and not too cold for this time of year.",
+        "Temps line up well for this month.",
+        "Stable, season-appropriate warmth should keep fish from getting sluggish.",
       ]);
     }
     return pick([
-      "Temperature is a clear net positive on the model — one of the stronger green lights today.",
-      "The thermal stack is doing real work for the score; plan around normal seasonal patterns.",
+      "Temperature is clearly helping today.",
+      "Temperature is one of the better parts of the day, so plan around normal seasonal patterns.",
       "Warm/cool balance lands on the helpful side — use it to pick depth and pace confidently.",
     ]);
   }
@@ -67,29 +70,29 @@ function temperatureDriverLabel(t: NonNullable<Norm["temperature"]>): string {
     if (band === "warm" || band === "optimal") {
       return pick([
         "Temps are cooperative — not flashy, but they’re tilting the odds toward an active bite.",
-        "Thermal conditions read friendly; you’ll still want to match depth to the sun/wind combo.",
-        "Air-side warmth is in your corner without being extreme — a steady, fishable baseline.",
+        "Temperature is friendly; you’ll still want to match depth to the sun and wind.",
+        "Air-side warmth is in your corner without being extreme.",
         "Seasonal temperatures are behaving; treat it as a quiet helper behind flashier factors.",
       ]);
     }
     if (band === "near_optimal") {
       return pick([
         "Temperature is close to the seasonal comfort band — modestly helpful, but not fully open yet.",
-        "Thermals are near the better window and offering a small lift without becoming the whole story.",
-        "Temperature is trending toward the seasonal target zone — useful, but still a secondary helper.",
+        "Temperature is near the better window and offering a small lift without becoming the whole story.",
+        "Temperature is trending toward a better range — useful, but still a secondary helper.",
       ]);
     }
     if (band === "cool" && trend === "warming") {
       return pick([
         "It’s cool now but warming through the day — fish often respond as the water creeps up.",
         "A warming trend off a cool morning can unlock mid-day movement; watch shallow transitions.",
-        "Cool start, rising mercury: classic setup for improving feeds after the chill bleeds off.",
-        "Temps are climbing from a cool baseline — patience early, opportunity as warmth builds.",
+        "A cool start with rising temps can improve the bite after the chill bleeds off.",
+        "Temps are climbing from a cool start — patience early, opportunity as warmth builds.",
       ]);
     }
     return pick([
-      "Temperature nudges the score upward — a mild tailwind, not the headline story.",
-      "Thermals are a modest plus; pair them with light, wind, and flow for the full read.",
+      "Temperature gives the day a small lift, but it is not the headline story.",
+      "Temperature is a modest plus; pair it with light, wind, and flow for the full read.",
       "Slight positive on temperature — enough to notice, not enough to ignore other factors.",
     ]);
   }
@@ -97,69 +100,69 @@ function temperatureDriverLabel(t: NonNullable<Norm["temperature"]>): string {
     if (band === "near_optimal") {
       return pick([
         "Temperature is close to the seasonal window, but it is not pushing the day strongly either way.",
-        "Thermals are near the better range without becoming a decisive factor in the report.",
-        "Temperature sits near the seasonal target band, but other variables matter more today.",
+        "Temperature is near the better range without becoming the whole story.",
+        "Temperature sits near the seasonal range, but other conditions matter more today.",
       ]);
     }
     if (band === "very_warm") {
       return pick([
         "It’s genuinely hot — dissolved oxygen and shade lines start to matter more than usual.",
-        "Extreme warmth: expect mid-day slowdowns unless you find current, depth, or turbidity.",
-        "Heat spike readings; target low-light windows and moving water when possible.",
-        "Very warm air mass — fish may compress into cooler refuges until conditions ease.",
+        "Extreme warmth: expect mid-day slowdowns unless you find current, depth, or stained water.",
+        "Heat is high today; focus on low-light windows and moving water when possible.",
+        "Very warm air mass — fish may tuck into cooler water until conditions ease.",
       ]);
     }
     return pick([
-      "Temperature sits neutral on the model — neither carrying nor dragging the composite.",
-      "Thermals are middle-of-the-road; you’ll lean on other variables for the real story.",
-      "No strong thermal signal today — treat temp as background noise, not a decision driver.",
+      "Temperature sits neutral today — neither clearly helping nor hurting.",
+      "Temperature is middle-of-the-road; you’ll lean on other conditions for the real story.",
+      "No strong temperature signal today — treat it as background, not the main decision.",
     ]);
   }
   if (tier === -1) {
     if (band === "near_optimal") {
       return pick([
         "Temperature is close to the seasonal window, but still a shade off the better bite.",
-        "Thermals are near the right zone without fully landing in it, so the bite can stay a little tight.",
+        "Temperature is close to the right range without fully landing in it, so the bite can stay a little tight.",
         "Temperature is almost where you want it, but still limiting just enough to matter.",
       ]);
     }
     if (band === "cool") {
       return pick([
-        "Below-average cool — metabolisms dip; slower presentations and deeper staging are common.",
+        "Below-average cool can slow fish down; slower presentations are usually safer.",
         "Chilly for the date: fish can feel tentative until a warm spell or sun hits the water.",
-        "Cool-side temps are a light headwind — not a lockout, but expect shorter feeding windows.",
+        "Cool-side temps work against you a little, so expect shorter feeding windows.",
         "Air is running cold; look for the warmest water you can find (sun pockets, inflows, depth).",
       ]);
     }
     if (band === "very_warm") {
       return pick([
         "Heat is past the productive band — stress and lethargy can outweigh forage opportunity.",
-        "Too-warm readings: the bite often hinges on dawn, dusk, and shaded or aerated water.",
-        "Thermal stress risk is elevated; prioritize oxygen and temperature breaks over aggression.",
+        "Too-warm temperatures: the bite often hinges on dawn, dusk, and shaded or aerated water.",
+        "Heat stress risk is elevated; prioritize cooler, better-oxygenated water over aggression.",
       ]);
     }
     return pick([
       "Temperature is a small negative — enough to factor into depth and retrieve speed.",
-      "Thermals lean against you mildly; compensate with timing and high-percentage water.",
+      "Temperature leans against you mildly; compensate with timing and high-percentage water.",
     ]);
   }
   // tier === -2
   if (band === "very_cold") {
     return pick([
-      "Well below seasonal norms — tough thermal conditions; pick the warmest stable water available.",
+      "Well below seasonal norms — tough cold conditions; pick the warmest stable water available.",
       "Deep cold: fish move slow and tight — finesse or live-bait patience is the call.",
-      "Frigid readings dominate; safety and realistic catch expectations matter as much as tactics.",
+      "Frigid temperatures dominate; safety and realistic expectations matter as much as tactics.",
     ]);
   }
   if (band === "very_warm") {
     return pick([
-      "Extreme heat is suppressing the score — survival mode beats feeding mode for many fish.",
-      "Blistering thermal picture; narrow your windows to low light and high-oxygen zones.",
+      "Extreme heat is working hard against you — survival mode beats feeding mode for many fish.",
+      "Blistering heat; narrow your windows to low light and high-oxygen zones.",
     ]);
   }
   return pick([
-    "Temperature is a major drag on today’s composite — plan around the least hostile part of the day.",
-    "Thermals are working hard against you; other factors need to overperform to compensate.",
+    "Temperature is working hard against you today — plan around the least difficult part of the day.",
+    "Temperature is working hard against you; other factors need to overperform to compensate.",
   ]);
 }
 
@@ -167,61 +170,61 @@ function pressureDriverLabel(p: NonNullable<Norm["pressure_regime"]>): string {
   switch (p.label) {
     case "falling_slow":
       return pick([
-        "Barometer is easing downward slowly — the classic \"fish feel it coming\" pre-front window.",
+        'Barometer is easing downward slowly — the classic "fish feel it coming" pre-front window.',
         "Gentle pressure fall often correlates with confident feeding ahead of a weak change.",
-        "Slow drop in mercury: subtle instability that many fisheries read as a green light.",
-        "Soft falling pressure — enough movement to turn heads without a shock to the system.",
+        "Slow pressure drop can give the bite a useful push.",
+        "Soft falling pressure — enough movement to help without a hard weather change.",
       ]);
     case "falling_moderate":
       return pick([
         "Steady pressure drop with a real front attached — expect a feed-up before the blow.",
-        "Moderate fall: barometric slope is meaningful; hit stable structure before the shift peaks.",
-        "Frontal approach signature — fish commonly chew on the leading edge of the gradient.",
+        "Moderate pressure fall can create a useful pre-front feeding window.",
+        "A front is approaching — fish often feed before the main weather change arrives.",
         "Pressure tracing a clean downtrend; treat it as momentum building toward a weather change.",
       ]);
     case "falling_hard":
       return pick([
-        "Pressure cliff — a hard front is moving fast; bites can vaporize once the crash lands.",
-        "Rapid barometric collapse: prioritize the calm-before and expect shutdown during peak change.",
-        "Violent falloff in pressure — shocky conditions; tight windows, high stakes.",
-        "Steep gradient today; aggression often evaporates until things flatten out again.",
+        "Pressure is dropping fast as a hard front moves in; fish the calm before the worst of it.",
+        "A rapid pressure drop can make the window short. Prioritize the calmer part of the change.",
+        "Steep pressure fall today; expect tight windows and be ready to adjust.",
+        "Pressure is changing sharply today; aggression often fades until things flatten out again.",
       ]);
     case "rising_slow":
       return pick([
         "Pressure recovering gradually post-front — stability returns and fish settle back into rhythm.",
-        "Slow rise: post-storm mend mode; bites rebuild as barometric noise fades.",
-        "Gentle rebound in mercury — patience pays as barotrauma-like stress eases.",
+        "Slow rise after weather: bites can rebuild as conditions calm down.",
+        "Gentle pressure rebound — patience pays as fish settle back in.",
         "Measured pressure recovery — not instant magic, but the trend is your friend.",
       ]);
     case "rising_fast":
       return pick([
-        "Barometer snapped upward — fish can go fussy while they recalibrate to the new baseline.",
+        "Pressure snapped upward — fish can get selective while things settle.",
         "Fast rise often means a pause in the bite until the new pressure plateaus.",
-        "Sharp recovery slope: expect selective, finicky bites until the new baseline settles.",
+        "Sharp pressure recovery: expect selective, finicky bites until things settle.",
         "Quick jump in pressure — presentation subtlety and repeat casts beat power fishing.",
       ]);
     case "volatile":
       return pick([
-        "Mixed barometric signals over the last 24 hours — short windows; stick to high-percentage spots.",
-        "Pressure has been swinging back and forth — commitment windows shrink; avoid spreading thin.",
+        "Mixed pressure signals over the last 24 hours — short windows; stick to high-percentage spots.",
+        "Pressure has been swinging back and forth — feeding windows shrink; avoid spreading thin.",
         "Back-and-forth pressure history: quality beats quantity; patient, focused fishing wins.",
         "Choppy pressure record today — find sheltered, stable water and stay put longer than usual.",
       ]);
     case "stable_neutral":
       return pick([
-        "Barometer is flat — no big atmospheric story; other variables carry more weight.",
+        "Pressure is flat — no big weather story; other conditions carry more weight.",
         "Stable pressure removes drama; you’re not fighting a front, just local conditions.",
-        "Mercury holding steady — neither helper nor villain on its own.",
-        "Neutral pressure regime: lean on wind, light, temperature, and flow for edges.",
+        "Pressure is holding steady — neither helper nor problem on its own.",
+        "Neutral pressure: lean on wind, light, temperature, and flow for your clues.",
       ]);
     case "recently_stabilizing":
       return pick([
-        "Pressure was jumpy but has settled down lately — the worst atmospheric noise may be behind you.",
+        "Pressure was jumpy but has settled down lately — the worst of the weather swing may be behind you.",
         "Post-front settling signal — conditions look calmer now than they did earlier in the cycle.",
-        "Barometer is flattening after earlier swings — fish often re-engage once the chaos fades.",
+        "Pressure is flattening after earlier swings — fish often re-engage once the chaos fades.",
       ]);
     default:
-      return `Pressure regime: ${p.label.replace(/_/g, " ")}.`;
+      return "Pressure is not giving a clean signal today.";
   }
 }
 
@@ -247,7 +250,7 @@ export function labelForDriver(key: ScoredVariableKey, norm: Norm): string {
           "Glass-calm surface — stealth presentations and spooky fish become the main puzzle.",
           "Dead flat wind: long casts and light line beat heavy hardware.",
           "Mirror water — every ripple is yours; finesse and patience rule.",
-          "Calm air — great for sight-fishing and precise drifts, poor for masking noise.",
+          "Calm air — great for sight-fishing and precise drifts, but it will not hide sloppy casts.",
         ]);
       }
       if (wt === 1) {
@@ -270,14 +273,14 @@ export function labelForDriver(key: ScoredVariableKey, norm: Norm): string {
         return pick([
           "Breeze is picking up — positioning and cast timing matter more than lure choice.",
           "Windy enough to skew drifts; use banks, points, and lee pockets strategically.",
-          "Building wind — heavier tackle and shorter casts often outperform hero long bombs.",
+          "Building wind — heavier tackle and shorter casts often beat forcing long casts.",
           "Air is getting pushy; expect harder boat control and more bow in the line.",
         ]);
       }
       return pick([
         "Strong wind dominates the day — safety and spot selection trump optimism.",
         "Heavy air — look for leeward shores, channels, and breaks that knock the chop down.",
-        "Gale-ish conditions on the model — fewer fishable windows, higher consequence.",
+        "Very strong wind today — fewer fishable windows and more safety concerns.",
       ]);
     }
     case "light_cloud_condition": {
@@ -286,14 +289,14 @@ export function labelForDriver(key: ScoredVariableKey, norm: Norm): string {
       if (lt === 2) {
         return pick([
           "Heavy cloud deck — low light often pulls predators shallow and extends morning behavior.",
-          "Dark sky filter: UV drops, silhouettes matter, and fish roam more freely.",
+          "Dark sky filter: light drops, silhouettes matter, and fish roam more freely.",
           "Solid overcast — think aggressive retrieves and visible profiles in the upper water.",
           "Low-light ceiling — prime time can stretch well past normal sunny-hour rules.",
         ]);
       }
       if (lt === 1) {
         return pick([
-          "Useful cloud cover — enough shade to keep fish honest without full blackout vibes.",
+          "Useful cloud cover — enough shade to help without making visibility difficult.",
           "Softened sunlight — good for wary fish and longer feeding moods.",
           "Clouds are helping — not storm-gray, just enough diffusion to spread activity.",
           "Broken to solid mid-cloud — a dependable light-quality boost.",
@@ -302,7 +305,7 @@ export function labelForDriver(key: ScoredVariableKey, norm: Norm): string {
       if (lt === 0) {
         return pick([
           "Light is average for the date — no major glare or shade story.",
-          "Sky conditions are middle-of-the-pack; neither a superpower nor a penalty.",
+          "Sky conditions are middle-of-the-pack; neither a major help nor a problem.",
           "Sun/cloud mix is ordinary — pattern around structure and forage, not light tricks.",
         ]);
       }
@@ -314,9 +317,9 @@ export function labelForDriver(key: ScoredVariableKey, norm: Norm): string {
         ]);
       }
       return pick([
-        "Harsh light — harsh shadows; expect deep, tight, or turbid refuges to hold fish.",
+        "Harsh light — harsh shadows; expect fish to hold deeper, tighter, or in stained water.",
         "Extreme brightness — short strike windows and picky fish are common.",
-        "Blinding surface glare — finesse under cover beats open-water hero shots.",
+        "Blinding surface glare — finesse under cover beats forcing open-water shots.",
       ]);
     }
     case "precipitation_disruption": {
@@ -324,16 +327,16 @@ export function labelForDriver(key: ScoredVariableKey, norm: Norm): string {
       const prt = engineScoreTier(pr.score);
       if (prt === 2) {
         return pick([
-          "Extended dry spell — flows often clear and stabilize; fish settle into predictable lies.",
-          "Long clear stretch — minimal runoff noise, good for pattern repetition.",
-          "Dry pattern dominance — water chemistry and clarity tend toward the friendly side.",
+          "Extended dry spell — flows often clear and stabilize; fish settle into predictable water.",
+          "Long clear stretch — minimal runoff disruption, good for repeating a pattern.",
+          "Dry stretch — clarity and comfort tend toward the friendly side.",
         ]);
       }
       if (prt === 1) {
         return pick([
-          "Dry, settled regime — no rain drama muddying the picture.",
-          "Precipitation isn’t in play — one less variable to second-guess.",
-          "Quiet hydrology day — clarity and comfort usually hold steady.",
+          "Dry, settled weather — no rain making the water harder to read.",
+          "Rain is not in play — one less thing to second-guess.",
+          "Quiet flow day — clarity and comfort usually hold steady.",
         ]);
       }
       if (prt === 0) {
@@ -345,15 +348,15 @@ export function labelForDriver(key: ScoredVariableKey, norm: Norm): string {
       }
       if (prt === -1) {
         return pick([
-          "Recent rain is shifting stain, flow, and forage location — old waypoints may lie.",
-          "Runoff tint creeping in — edges and current seams become high-percentage.",
+          "Recent rain is shifting stain, flow, and forage location — yesterday’s spots may not fish the same.",
+          "Runoff tint is creeping in — softer edges and cleaner water become higher percentage.",
           "Freshwater input is changing the look of the water; follow the mud line.",
         ]);
       }
       return pick([
         "Active or heavy precip — safety aside, fish can go weird until energy passes.",
-        "Significant wet weather signal — turnover in clarity and temperature layers is likely.",
-        "Big water disruption from rain/snow — postpone heroics until things normalize.",
+        "Significant wet weather signal — clarity and temperature can change quickly.",
+        "Big water disruption from rain or snow — keep expectations realistic until things normalize.",
       ]);
     }
     case "runoff_flow_disruption": {
@@ -362,28 +365,28 @@ export function labelForDriver(key: ScoredVariableKey, norm: Norm): string {
       if (rt === 2) {
         return pick([
           "Flows are prime — clear, wadable or floatable, with habitat in textbook shape.",
-          "River reads like a brochure: ideal cfs/clarity combo for this time of year.",
+          "River conditions look clean: strong flow and clarity for this time of year.",
           "Runoff picture is clean and stable — spend time fishing, not guessing.",
         ]);
       }
       if (rt === 1) {
         return pick([
-          "Flows are fishable and mostly clear — normal seasonal river math applies.",
+          "Flows are fishable and mostly clear — normal seasonal river tactics should translate.",
           "Healthy flow band — not blown out, not skinny; standard tactics should translate.",
-          "Hydrology is cooperative — wading and crossing stay reasonable with care.",
+          "Flow is cooperative — wading and crossing stay reasonable with care.",
         ]);
       }
       if (rt === 0) {
         return pick([
-          "Elevated but workable flows — heavier water, tighter lies, more current seams.",
+          "Elevated but workable flows — heavier water, tighter holding spots, more current breaks.",
           "Mid-high stage — fish hug slower water; expect closer quarters than at low water.",
           "Flows have some push — adjust weight and drift depth to stay in the bite.",
         ]);
       }
       return pick([
         "High or dirty flows dominate — tough wading, tough visibility, picky fish.",
-        "Runoff stress is real — focus on soft banks, backwaters, and major confluence dilution.",
-        "Blown river conditions on the model — patience or a plan B watershed wins.",
+        "Runoff stress is real — focus on softer banks, backwaters, and cleaner inflows.",
+        "Blown river conditions today — patience or a plan B waterbody wins.",
       ]);
     }
     case "tide_current_movement": {
@@ -391,8 +394,8 @@ export function labelForDriver(key: ScoredVariableKey, norm: Norm): string {
       if (ti.score >= 1.2) {
         return pick([
           "Strong tidal exchange — current is moving nutrients and disorienting prey; lean into it.",
-          "Big water movement day — stage on seams, rips, and pinch points where speed changes.",
-          "Healthy tidal engine — timing the push or drain matters more than lure color.",
+          "Big water movement day — set up where speed changes and bait gets pushed.",
+          "Healthy tide movement — timing the push or drain matters more than lure color.",
         ]);
       }
       if (ti.score >= 0.2) {
@@ -404,8 +407,8 @@ export function labelForDriver(key: ScoredVariableKey, norm: Norm): string {
       }
       return pick([
         "Weak tide slack — less current to concentrate fish; structure and bait become critical.",
-        "Flat tidal picture — you’re not getting a free conveyor belt; precision beats hope.",
-        "Minimal exchange — look for micro-current, wind-driven chop, or inlet flow instead.",
+        "Flat tidal picture — precision matters more because current is not doing much for you.",
+        "Minimal exchange — look for small current, wind-driven chop, or inlet flow instead.",
       ]);
     }
     default:

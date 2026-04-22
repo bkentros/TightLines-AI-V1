@@ -2,15 +2,18 @@ import type { WaterClarity } from "../contracts/input.ts";
 import type {
   ArchetypeProfileV4,
   FlyArchetypeIdV4,
-  ForageBucket,
   SeasonalRowV4,
 } from "../v4/contracts.ts";
 import { SURFACE_FLY_IDS_V4 } from "../v4/contracts.ts";
 import { FLY_ARCHETYPES_V4 } from "../v4/candidates/flies.ts";
 import { LURE_ARCHETYPES_V4 } from "../v4/candidates/lures.ts";
-import { pickHowToFish } from "../v4/engine/buildCopy.ts";
 import type { TacticalColumn, TacticalPace } from "../v4/contracts.ts";
 import type { TargetProfile } from "./shapeProfiles.ts";
+import {
+  buildHowToFishCopy,
+  buildWhyChosenCopy,
+  copyVariantIndex,
+} from "./copy.ts";
 import {
   recentHistoryPenalty,
   type RecentRecommendationHistoryEntry,
@@ -104,7 +107,9 @@ function clarityBonus(
   return cand.clarity_strengths.includes(water_clarity) ? 20 : 0;
 }
 
-export function presenceFromPace(p: TacticalPace): "subtle" | "moderate" | "bold" {
+export function presenceFromPace(
+  p: TacticalPace,
+): "subtle" | "moderate" | "bold" {
   if (p === "slow") return "subtle";
   if (p === "medium") return "moderate";
   return "bold";
@@ -233,10 +238,10 @@ export function selectArchetypesForSide(args: {
 
 export function archetypeToRankedFields(args: {
   archetype: ArchetypeProfileV4;
-  water_clarity: WaterClarity;
   row: SeasonalRowV4;
   /** Today's tactical slot — drives displayed pace and presence; column stays archetype-authored. */
   targetProfile: TargetProfile;
+  copySeed: string;
 }): {
   id: string;
   display_name: string;
@@ -248,15 +253,18 @@ export function archetypeToRankedFields(args: {
   presence: "subtle" | "moderate" | "bold";
   is_surface: boolean;
 } {
-  const { archetype, water_clarity, row, targetProfile } = args;
-  const how = pickHowToFish(archetype, water_clarity);
-  const slotCol = targetProfile.column;
-  const slotPace = targetProfile.pace;
-  const why =
-    `Chosen for today's ${slotPace} pace (${slotCol} slot). ${archetype.display_name} targets the ${archetype.column} column.` +
-    (row.primary_forage
-      ? ` ${labelForage(row.primary_forage)} patterns matter this month.`
-      : "");
+  const { archetype, row, targetProfile, copySeed } = args;
+  const why = buildWhyChosenCopy({
+    archetype,
+    row,
+    targetProfile,
+    variant: copyVariantIndex(copySeed, "why"),
+  });
+  const how = buildHowToFishCopy({
+    archetype,
+    targetProfile,
+    variant: copyVariantIndex(copySeed, "how"),
+  });
 
   return {
     id: archetype.id,
@@ -265,25 +273,8 @@ export function archetypeToRankedFields(args: {
     why_chosen: why,
     how_to_fish: how,
     primary_column: archetype.column,
-    pace: slotPace,
-    presence: presenceFromPace(slotPace),
+    pace: targetProfile.pace,
+    presence: presenceFromPace(targetProfile.pace),
     is_surface: archetype.is_surface,
   };
-}
-
-function labelForage(f: ForageBucket): string {
-  switch (f) {
-    case "crawfish":
-      return "crawfish";
-    case "baitfish":
-      return "baitfish";
-    case "bluegill_perch":
-      return "bluegill/perch";
-    case "leech_worm":
-      return "leech/worm";
-    case "insect_misc":
-      return "insect";
-    case "surface_prey":
-      return "surface prey";
-  }
 }

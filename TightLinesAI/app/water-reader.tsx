@@ -37,7 +37,7 @@ const ZONES = [
     id: 1,
     name: 'Deep Pool at River Bend',
     why: 'Classic holding water where the current carves a deep outside bend. Fish stack up here to rest and ambush prey.',
-    how: 'Position upstream and drift through the seam where fast water meets slow. Work head to tailout.',
+    how: 'Start upstream and drift through the edge where fast water meets slow. Work from the head of the pool toward the tailout.',
     suggestions: [
       'Woolly Bugger — strip through the deepest section',
       'Pheasant Tail Nymph — dead drift along the seam',
@@ -47,8 +47,8 @@ const ZONES = [
   {
     id: 2,
     name: 'Riffle Run — Current Seam',
-    why: 'Active feeding lane where oxygenated water funnels food into a concentrated drift.',
-    how: 'Cast upstream into the riffle and drift through the transition zone. Seam between fast and slow water is the strike zone.',
+    why: 'A riffle can push oxygen and food into one lane, which makes it a natural feeding area.',
+    how: 'Cast upstream and let the bait or fly drift through the softer edge below the riffle.',
     suggestions: [
       'Elk Hair Caddis — dead drift through the riffle',
       'Gold Spoon — cast across and retrieve through the seam',
@@ -59,7 +59,7 @@ const ZONES = [
     id: 3,
     name: 'Submerged Timber & Grass Line',
     why: 'Structure-rich ambush zone with fallen timber creating current breaks and shade.',
-    how: 'Approach quietly from downstream. Precise casts tight to timber, work slowly through structure.',
+    how: 'Move in quietly and make controlled casts tight to the cover. Work slowly so the bait stays in the strike zone.',
     suggestions: [
       'Chatterbait — slow roll parallel to the timber',
       'Jerkbait — pause-and-twitch near structure edges',
@@ -69,7 +69,7 @@ const ZONES = [
 ];
 
 const SUMMARY =
-  'This stretch shows classic holding structure with pools, riffles, and timber cover. The bend creates depth variation and current seams that concentrate food and provide ambush points. Focus on transitions between fast and slow water.';
+  'This stretch has a useful mix of depth, current, and cover. Focus on edges where fast water slows down, then check the timber and grass for ambush fish.';
 
 export default function WaterReaderScreen() {
   const [mode, setMode] = useState<'conventional' | 'fly'>('conventional');
@@ -104,9 +104,9 @@ export default function WaterReaderScreen() {
         {/* Upload */}
         <Pressable style={({ pressed }) => [styles.upload, pressed && styles.pressed]}>
           <Ionicons name="camera-outline" size={34} color={colors.sage} />
-          <Text style={styles.uploadTitle}>Tap to Upload a Photo</Text>
+          <Text style={styles.uploadTitle}>Add a Water Photo</Text>
           <Text style={styles.uploadSub}>
-            Photos · Satellite Images · Depth Charts
+            Photos · maps · depth charts
           </Text>
         </Pressable>
 
@@ -130,12 +130,12 @@ export default function WaterReaderScreen() {
           </Pressable>
         </View>
 
-        {/* ─── Location & Conditions ─── */}
-        <Text style={styles.section}>Location & Conditions</Text>
+        {/* ─── Spot conditions ─── */}
+        <Text style={styles.section}>Spot Conditions</Text>
 
         <Pressable style={({ pressed }) => [styles.syncBtn, pressed && styles.pressed]}>
           <Ionicons name="location" size={18} color={colors.textLight} />
-          <Text style={styles.syncBtnText}>Sync My Location</Text>
+          <Text style={styles.syncBtnText}>Use Current Location</Text>
         </Pressable>
 
         <Pressable
@@ -143,7 +143,7 @@ export default function WaterReaderScreen() {
           onPress={() => setShowManual(!showManual)}
         >
           <Text style={styles.manualToggleText}>
-            {showManual ? 'Hide manual entry' : "Can't sync? Enter manually"}
+            {showManual ? 'Hide manual entry' : 'Enter conditions manually'}
           </Text>
           <Ionicons
             name={showManual ? 'chevron-up' : 'chevron-down'}
@@ -178,7 +178,7 @@ export default function WaterReaderScreen() {
                 <Select value={windDir} options={WIND_DIR_OPTIONS} placeholder="Direction" onSelect={setWindDir} />
               </View>
               <View style={styles.half}>
-                <Text style={styles.label}>Pressure</Text>
+                <Text style={styles.label}>Pressure Trend</Text>
                 <Select value={pressure} options={PRESSURE_OPTIONS} placeholder="Trend" onSelect={setPressure} />
               </View>
             </View>
@@ -194,7 +194,7 @@ export default function WaterReaderScreen() {
             </View>
             <View style={styles.row}>
               <View style={styles.half}>
-                <Text style={styles.label}>Tide Phase</Text>
+                <Text style={styles.label}>Tide Stage</Text>
                 <Select value={tide} options={TIDE_OPTIONS} placeholder="Tide" onSelect={setTide} />
               </View>
               <View style={styles.half}>
@@ -205,8 +205,8 @@ export default function WaterReaderScreen() {
           </View>
         )}
 
-        {/* ─── About This Water ─── */}
-        <Text style={styles.section}>About This Water</Text>
+        {/* ─── About this spot ─── */}
+        <Text style={styles.section}>About This Spot</Text>
 
         <View style={styles.field}>
           <Text style={styles.label}>Target Species</Text>
@@ -215,7 +215,7 @@ export default function WaterReaderScreen() {
 
         <View style={styles.field}>
           <Text style={styles.label}>Body of Water</Text>
-          <Select value={body} options={BODY_OPTIONS} placeholder="Select body of water" onSelect={setBody} />
+          <Select value={body} options={BODY_OPTIONS} placeholder="Choose water" onSelect={setBody} />
         </View>
 
         <View style={styles.row}>
@@ -238,11 +238,11 @@ export default function WaterReaderScreen() {
           </View>
           <View style={styles.half}>
             <Text style={styles.label}>
-              Describe Water<Text style={styles.opt}> · Optional</Text>
+              Describe the Water<Text style={styles.opt}> · Optional</Text>
             </Text>
             <TextInput
               style={[styles.input, { minHeight: 44 }]}
-              placeholder="e.g. Deep bend…"
+              placeholder="e.g. Deep outside bend, grass edge"
               placeholderTextColor={colors.textMuted}
               multiline
             />
@@ -252,14 +252,14 @@ export default function WaterReaderScreen() {
         {/* CTA */}
         <Pressable style={({ pressed }) => [styles.cta, pressed && styles.pressed]}>
           <Ionicons name="eye-outline" size={18} color={colors.textLight} />
-          <Text style={styles.ctaText}>Analyze Water</Text>
+          <Text style={styles.ctaText}>Read This Water</Text>
         </Pressable>
 
         {/* ═══ Results ═══ */}
         <View style={styles.results}>
           <View style={styles.resultsDivider}>
             <View style={styles.divLine} />
-            <Text style={styles.divLabel}>Results Preview</Text>
+            <Text style={styles.divLabel}>Preview</Text>
             <View style={styles.divLine} />
           </View>
 
@@ -267,7 +267,7 @@ export default function WaterReaderScreen() {
           <View style={styles.overlayArea}>
             <Ionicons name="image-outline" size={44} color={colors.border} />
             <Text style={styles.overlayText}>
-              Your uploaded image with AI zone overlays will appear here
+              Your uploaded image with marked fishing zones will appear here.
             </Text>
             <View style={styles.markers}>
               {[1, 2, 3].map((n) => (
@@ -282,7 +282,7 @@ export default function WaterReaderScreen() {
           <View style={styles.summaryCard}>
             <View style={styles.summaryHeader}>
               <Ionicons name="analytics-outline" size={15} color={colors.sage} />
-              <Text style={styles.summaryTitle}>Water Analysis</Text>
+              <Text style={styles.summaryTitle}>Water Read</Text>
             </View>
             <Text style={styles.summaryText}>{SUMMARY}</Text>
           </View>

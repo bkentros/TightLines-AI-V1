@@ -5,8 +5,8 @@
 import type { SpeciesGroup } from "./contracts/species.ts";
 import type { RecommenderRequest } from "./contracts/input.ts";
 import {
-  RECOMMENDER_FEATURE,
   type RankedRecommendation,
+  RECOMMENDER_FEATURE,
   type RecommenderResponse,
 } from "./contracts/output.ts";
 import { analyzeRecommenderConditions } from "./sharedAnalysis.ts";
@@ -21,7 +21,6 @@ import type {
   TacticalPresenceV3,
 } from "./v3/contracts.ts";
 import {
-  colorReasonPhraseV3,
   normalizeLightBucketV3,
   resolveColorDecisionV3,
 } from "./v4/colorDecision.ts";
@@ -38,7 +37,10 @@ import {
 } from "./rebuild/selectSide.ts";
 import type { DailyRegime } from "./rebuild/shapeProfiles.ts";
 
-export function locationLocalMidnightIso(timezone: string, now = new Date()): string {
+export function locationLocalMidnightIso(
+  timezone: string,
+  now = new Date(),
+): string {
   const formatter = new Intl.DateTimeFormat("en-US", {
     timeZone: timezone,
     year: "numeric",
@@ -49,7 +51,9 @@ export function locationLocalMidnightIso(timezone: string, now = new Date()): st
     second: "2-digit",
     hour12: false,
   });
-  const parts = Object.fromEntries(formatter.formatToParts(now).map((p) => [p.type, p.value]));
+  const parts = Object.fromEntries(
+    formatter.formatToParts(now).map((p) => [p.type, p.value]),
+  );
   const y = Number(parts.year);
   const m = Number(parts.month);
   const d = Number(parts.day);
@@ -58,7 +62,8 @@ export function locationLocalMidnightIso(timezone: string, now = new Date()): st
   const ss = Number(parts.second);
   const localNowUtcMillis = Date.UTC(y, m - 1, d, hh, mm, ss);
   const offsetMillis = localNowUtcMillis - now.getTime();
-  const nextLocalMidnightUtcMillis = Date.UTC(y, m - 1, d + 1, 0, 0, 0) - offsetMillis;
+  const nextLocalMidnightUtcMillis = Date.UTC(y, m - 1, d + 1, 0, 0, 0) -
+    offsetMillis;
   return new Date(nextLocalMidnightUtcMillis).toISOString();
 }
 
@@ -118,19 +123,29 @@ export function runRecommenderRebuildSurface(
   const analysis = analyzeRecommenderConditions(req);
   const eng = computeRecommenderRebuild(req, analysis, options);
 
-  const lightLabel =
-    analysis.norm.normalized.light_cloud_condition?.label ?? null;
+  const lightLabel = analysis.norm.normalized.light_cloud_condition?.label ??
+    null;
   const bucket = normalizeLightBucketV3(lightLabel);
   const colorDecision = resolveColorDecisionV3(req.water_clarity, bucket);
-  const colorPhrase = colorReasonPhraseV3(colorDecision.reason_code);
 
   const toRanked = (picks: RebuildSlotPick[]): RankedRecommendation[] =>
     picks.map(({ archetype, profile, source_slot_index }) => {
+      const copySeed = [
+        options.userSeed ?? "shared",
+        req.location.local_date,
+        req.location.region_key,
+        req.context,
+        req.water_clarity,
+        archetype.id,
+        profile.column,
+        profile.pace,
+        String(source_slot_index),
+      ].join("|");
       const core = archetypeToRankedFields({
         archetype,
-        water_clarity: req.water_clarity,
         row: eng.row,
         targetProfile: profile,
+        copySeed,
       });
       return {
         ...core,
@@ -138,7 +153,7 @@ export function runRecommenderRebuildSurface(
         pace: pace(core.pace as TacticalPace),
         presence: core.presence as TacticalPresenceV3,
         color_style: colorThemeLabel(colorDecision.color_theme),
-        why_chosen: `${colorPhrase} ${core.why_chosen}`,
+        why_chosen: core.why_chosen,
         source_slot_index,
       };
     });
@@ -147,8 +162,7 @@ export function runRecommenderRebuildSurface(
   const p0 = profiles[0]!;
   const p1 = profiles[1];
 
-  const surfaceAllowedToday =
-    eng.row.column_range.includes("surface") &&
+  const surfaceAllowedToday = eng.row.column_range.includes("surface") &&
     eng.row.surface_seasonally_possible &&
     !eng.surfaceBlocked;
 

@@ -11,9 +11,9 @@
  *
  * Props:
  *   visible       — controls modal visibility
- *   currentLabel  — currently active location label (shown as context)
+ *   currentLabel  — currently active location label
  *   onSelect      — called with { lat, lon, label } when user picks a city
- *   onUseGPS      — called when user taps "Use my GPS location"
+ *   onUseGPS      — called when user taps "Use my current location"
  *   onClose       — called when user dismisses without selecting
  */
 
@@ -166,8 +166,8 @@ export function LocationPickerModal({
           <View style={styles.header}>
             <View style={styles.headerSide} />
             <View style={styles.headerTitleWrap} pointerEvents="none">
-              <Text style={styles.eyebrow}>FINFINDR · LOCATION</Text>
-              <Text style={styles.title}>Fishing Location</Text>
+              <Text style={styles.eyebrow}>FINFINDR · SPOT</Text>
+              <Text style={styles.title}>Choose Your Spot</Text>
             </View>
             <View style={styles.headerSide}>
               <Pressable
@@ -196,7 +196,7 @@ export function LocationPickerModal({
             <TextInput
               ref={inputRef}
               style={styles.searchInput}
-              placeholder="Search any city…"
+              placeholder="Search a city or town…"
               placeholderTextColor={paper.inkSoft}
               value={query}
               onChangeText={handleQueryChange}
@@ -241,11 +241,11 @@ export function LocationPickerModal({
               />
             </View>
             <View style={styles.gpsTextWrap}>
-              <Text style={styles.gpsLabel}>Use my GPS location</Text>
+              <Text style={styles.gpsLabel}>Use my current location</Text>
               <Text style={styles.gpsSub}>
                 {isUsingCustom
-                  ? 'Switch back to real-time GPS position'
-                  : `Active — ${currentLabel}`}
+                  ? 'Use where you are right now'
+                  : `Fishing near ${currentLabel}`}
               </Text>
             </View>
             {!isUsingCustom && (
@@ -258,7 +258,7 @@ export function LocationPickerModal({
           {/* ── Divider ── */}
           <View style={styles.dividerWrap}>
             <View style={styles.dividerRule} />
-            <Text style={styles.dividerLabel}>OR SEARCH A CITY</Text>
+            <Text style={styles.dividerLabel}>OR PICK A CITY</Text>
             <View style={styles.dividerRule} />
           </View>
 
@@ -288,7 +288,7 @@ export function LocationPickerModal({
                     <Text style={styles.resultLabel} numberOfLines={1}>
                       {item.label}
                     </Text>
-                    <Text style={styles.resultSub}>UNITED STATES</Text>
+                    <Text style={styles.resultSub}>USE THIS SPOT</Text>
                   </View>
                   <Ionicons name="chevron-forward" size={14} color={paper.ink} />
                 </Pressable>
@@ -306,7 +306,7 @@ export function LocationPickerModal({
             >
               {showRecent && (
                 <View style={styles.recentSection}>
-                  <Text style={styles.recentSectionHead}>RECENT LOCATIONS</Text>
+                  <Text style={styles.recentSectionHead}>RECENT SPOTS</Text>
                   <View style={styles.recentList}>
                     {recentLocations.map((r, i) => (
                       <React.Fragment key={`${r.lat}_${r.lon}_${r.label}`}>
@@ -331,7 +331,7 @@ export function LocationPickerModal({
                             <Text style={styles.resultLabel} numberOfLines={1}>
                               {r.label}
                             </Text>
-                            <Text style={styles.resultSub}>TAP TO USE</Text>
+                            <Text style={styles.resultSub}>USE THIS SPOT</Text>
                           </View>
                           <Ionicons
                             name="chevron-forward"
@@ -355,7 +355,7 @@ export function LocationPickerModal({
                   onPress={() => onSelect(savedLocation)}
                 >
                   <Text style={styles.currentCustomHead}>
-                    PINNED LOCATION — TAP TO ACTIVATE
+                    PINNED SPOT
                   </Text>
                   <View style={styles.currentCustomRow}>
                     <Ionicons name="pin" size={16} color={paper.ink} />
@@ -369,8 +369,8 @@ export function LocationPickerModal({
                     />
                   </View>
                   <Text style={styles.currentCustomSub}>
-                    Search above to pin a different city, or tap “Use my GPS
-                    location” to switch back.
+                    Search above to pin a different city, or use your current
+                    location.
                   </Text>
                 </Pressable>
               )}
@@ -386,8 +386,8 @@ export function LocationPickerModal({
                   />
                   <Text style={styles.hintTitle}>Planning a fishing trip?</Text>
                   <Text style={styles.hintSub}>
-                    Search any U.S. city to see conditions and the 7-day outlook
-                    for that location.
+                    Search a U.S. city to check conditions and the 7-day
+                    fishing outlook there.
                   </Text>
                 </View>
               )}
@@ -395,9 +395,9 @@ export function LocationPickerModal({
               {/* ── Empty results ── */}
               {showEmpty && (
                 <View style={styles.hintWrap}>
-                  <Text style={styles.hintTitle}>No results for “{query}”</Text>
+                  <Text style={styles.hintTitle}>No matching spots for “{query}”</Text>
                   <Text style={styles.hintSub}>
-                    Try a different spelling or a nearby city.
+                    Try a nearby city or check the spelling.
                   </Text>
                 </View>
               )}
@@ -405,7 +405,7 @@ export function LocationPickerModal({
               {/* ── Network error ── */}
               {error && (
                 <View style={styles.hintWrap}>
-                  <Text style={styles.hintTitle}>Search unavailable</Text>
+                  <Text style={styles.hintTitle}>Could not search right now</Text>
                   <Text style={styles.hintSub}>
                     Check your connection and try again.
                   </Text>

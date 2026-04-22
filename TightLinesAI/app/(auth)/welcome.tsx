@@ -95,20 +95,20 @@ export default function WelcomeScreen() {
             />
             <CornerMarkSet color={paper.gold} size={16} thickness={2} inset={10} />
 
-            <Text style={styles.eyebrow}>EST. FIELD GUIDE</Text>
+            <Text style={styles.eyebrow}>FIELD GUIDE</Text>
             <Text style={styles.brandMark}>FINFINDR.</Text>
             <View style={styles.brandRule} />
             <Text style={styles.tagline}>
-              Tight lines start with better intel.
+              Find the bite before you head out.
             </Text>
           </View>
 
           {/* Value props — editorial bullet list */}
           <View style={styles.valueProps}>
             {[
-              { icon: 'fish-outline', text: 'AI-powered lure & fly recommendations' },
-              { icon: 'camera-outline', text: 'Water Reader — analyze any body of water' },
-              { icon: 'mic-outline', text: 'Voice-to-text fishing log' },
+              { icon: 'fish-outline', text: "Lure and fly picks for today's conditions" },
+              { icon: 'calendar-outline', text: '7-day fishing outlooks for planning trips' },
+              { icon: 'camera-outline', text: 'Water Reader for structure, cover, and holding water' },
             ].map((item) => (
               <View key={item.icon} style={styles.valueProp}>
                 <View style={styles.valueIconWrap}>

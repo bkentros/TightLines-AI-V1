@@ -1,4 +1,7 @@
-import type { HowsFishingReport, SharedEngineRequest } from "./contracts/mod.ts";
+import type {
+  HowsFishingReport,
+  SharedEngineRequest,
+} from "./contracts/mod.ts";
 import { DISPLAY_CONTEXT_LABEL } from "./contracts/mod.ts";
 import { buildSharedNormalizedOutput } from "./normalize/buildNormalized.ts";
 import { scoreDay } from "./score/scoreDay.ts";
@@ -25,10 +28,12 @@ function reliabilityNote(tier: "high" | "medium" | "low"): string | null {
   if (tier === "medium") {
     return "Today's outlook is still usable, but the read is a little broader than the cleanest cases.";
   }
-  return "Today's report is broader than usual because some key inputs were limited.";
+  return "Today's read is broader than usual because some key inputs were limited.";
 }
 
-export function runHowFishingReport(req: SharedEngineRequest): HowsFishingReport {
+export function runHowFishingReport(
+  req: SharedEngineRequest,
+): HowsFishingReport {
   const analysis = analyzeSharedConditions(req);
   const { norm, scored, timing, condition_context } = analysis;
   const reliability = norm.reliability;
@@ -83,7 +88,9 @@ export function runHowFishingReport(req: SharedEngineRequest): HowsFishingReport
       context: req.context,
       reliability,
       drivers: scored.drivers.map((c) => {
-        const normVar = condition_context.normalized_variable_scores.find((v) => v.variable_key === c.key);
+        const normVar = condition_context.normalized_variable_scores.find((v) =>
+          v.variable_key === c.key
+        );
         return {
           variable: c.key,
           weightedContribution: c.weightedContribution,
@@ -93,7 +100,9 @@ export function runHowFishingReport(req: SharedEngineRequest): HowsFishingReport
         };
       }),
       suppressors: scored.suppressors.map((c) => {
-        const normVar = condition_context.normalized_variable_scores.find((v) => v.variable_key === c.key);
+        const normVar = condition_context.normalized_variable_scores.find((v) =>
+          v.variable_key === c.key
+        );
         return {
           variable: c.key,
           weightedContribution: c.weightedContribution,

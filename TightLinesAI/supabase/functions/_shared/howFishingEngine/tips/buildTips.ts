@@ -80,7 +80,7 @@ const VISIBILITY_NATURAL_TIPS = [
   "Make the bait look easy to believe. Smaller or more natural usually beats loud or exaggerated today.",
   "Avoid too much extra flash or motion. A simple, believable retrieve is the better starting point.",
   "The clearer look today favors subtle over flashy. Scale the profile down a touch and keep the cadence calm.",
-  "Let realism win today: natural size, natural movement, and no extra drama in the retrieve.",
+  "Let realism win today: natural size, natural movement, and no extra snap in the retrieve.",
 ] as const;
 
 const PRESSURE_SLOW_TIPS = [
@@ -104,14 +104,14 @@ const COLD_SLOW_TIPS = [
   "Take a little size and a lot of speed out of the presentation today.",
   "Let the bait rest longer than feels natural. Cold fish often eat during the quiet part of the retrieve.",
   "Use a slower, tighter cadence today. Small moves and long pauses are more likely to get a real look.",
-  "This is not a speed day. Keep the bait in the zone and let the pause do most of the work.",
+  "This is not a speed day. Keep the bait in front of fish and let the pause do most of the work.",
   "Make the retrieve easy to finish: slower, smaller, and more patient from start to end.",
   "In the cold, the cleaner move is usually a reduced profile and a longer pause between each action.",
 ] as const;
 
 const HEAT_EASY_TIPS = [
   "Make the bait easier to eat today: slightly smaller profile, smoother retrieve, and longer pauses.",
-  "A compact, easy meal is the better look in warm, stressful conditions. Slow the bait down and let it hang.",
+  "A smaller, easier bait is the better look in warm, stressful conditions. Slow it down and let it hang.",
   "Reduce the amount of work the fish has to do. A smaller profile and steadier pace usually beat a big, fast presentation.",
   "When heat is the problem, simplify the bait: less speed, less bulk, and more time between movements.",
   "A calm, easy retrieve makes more sense than an aggressive one today. Think smooth and patient.",
@@ -119,32 +119,32 @@ const HEAT_EASY_TIPS = [
   "This is a good day to take some urgency out of the retrieve. Let the bait look easy to catch.",
   "Fish slower than normal and keep the profile simple. Warm, stressed fish usually do not want to chase a lot.",
   "A smoother cadence and a slightly simpler profile are both worth trying today.",
-  "Think easy meal, not reaction bait: controlled speed, softer moves, and longer pauses.",
+  "Think controlled bait, not reaction bait: steady speed, softer moves, and longer pauses.",
 ] as const;
 
 const THERMAL_EDGE_TIPS = [
-  "Temperature is close but not fully helping, so start with a slightly slower, cleaner presentation than your default.",
-  "Keep the retrieve controlled and repeatable today. Conditions are close enough that small thermal misses matter.",
+  "Temperature is close but not fully helping, so start slightly slower and cleaner than usual.",
+  "Keep the retrieve controlled and repeatable today. Small changes in speed can matter.",
   "This is a good day to stay just a touch more patient than normal: clean pace, softer moves, and no wasted action.",
   "Do not force the presentation. A smooth, slightly slower retrieve is the better starting point when temperature is only close.",
   "Start simple and controlled today. The temperature window is close enough that overworking the bait can cost you.",
   "A measured presentation makes sense here: steady contact, modest pace, and pauses long enough to feel intentional.",
-  "Keep the bait easy to track and easy to trust. Temperature is near the zone, but not helping enough for a busy retrieve.",
-  "Go one step more controlled than an all-green day: clean cadence, light adjustments, and no extra speed.",
+  "Keep the bait easy to track and easy to trust. Temperature is close, but not helpful enough for a busy retrieve.",
+  "Go one step more controlled than usual: clean cadence, light adjustments, and no extra speed.",
 ] as const;
 
 const ACTIVE_CADENCE_TIPS = [
   "Start with a more active retrieve today. A steady medium pace is a better starting point than dragging it too slowly.",
   "Let the bait move with some intent. Fish are more likely to respond to a cleaner, more active cadence today.",
-  "Do not over-finesse the first pass. A confident, steady retrieve is a better starting point here.",
+  "Do not get too delicate on the first pass. A confident, steady retrieve is a better starting point here.",
   "This is a good day to keep the bait moving instead of pausing too long between actions.",
   "Fish with a little more pace than normal. A bait that moves with purpose should get more attention today.",
-  "Try a medium, consistent retrieve before you slow all the way down. The fish look willing to move today.",
+  "Try a medium, consistent retrieve before you slow all the way down. Fish should be willing to move today.",
   "A cleaner, more active cadence makes sense today. Let the bait travel and trust the movement.",
   "Start one gear faster than your conservative setting and only slow down if the water tells you to.",
-  "This looks more like a controlled movement day than a dead-stick day.",
+  "This looks more like a controlled movement day than a long-pause day.",
   "Keep the bait lively enough to get noticed. Today favors commitment more than hesitation.",
-  "Use a steadier retrieve and shorter pauses. The fish look more ready to meet the bait than wait on it.",
+  "Use a steadier retrieve and shorter pauses. Fish should be more willing to meet the bait than wait on it.",
   "A smooth, active cadence is the clearer first choice today over a slow, stop-heavy presentation.",
 ] as const;
 
@@ -152,7 +152,7 @@ const GENERAL_PRESENTATION_TIPS = [
   "Start with a steady, simple retrieve and change only one thing at a time: speed, pause length, or profile.",
   "Keep the presentation easy to repeat today. A clean, consistent retrieve tells you more than constant changes.",
   "Begin with a middle-of-the-road presentation and make small adjustments instead of big jumps.",
-  "Fish a clean, steady cadence first. If you need to adjust, change one variable and keep the rest the same.",
+  "Fish a clean, steady cadence first. If you need to adjust, change one thing and keep the rest the same.",
   "This is a good day to keep the retrieve simple, repeatable, and easy to read.",
   "Pick one clear presentation and stay with it long enough to learn something before changing it.",
   "Use a presentation you can repeat well: controlled speed, clear pauses, and no extra wasted movement.",
@@ -163,12 +163,12 @@ const GENERAL_PRESENTATION_TIPS = [
 
 const BALANCED_PRESENTATION_TIPS = [
   "Keep the presentation clean and repeatable: moderate pace, clear pauses, and a profile that looks easy to trust.",
-  "On a balanced day, a simple medium-speed retrieve is a better starting point than something extreme.",
+  "With a balanced read, a simple medium-speed retrieve is a better starting point than something extreme.",
   "Try a clean, controlled presentation first and let the fish tell you whether to speed up, slow down, or downsize.",
   "This is a day for a simple bait path and small adjustments, not dramatic changes every few casts.",
-  "Stay with a believable presentation long enough to evaluate it. Balanced days reward patience more than constant changes.",
+  "Stay with a believable presentation long enough to evaluate it. This kind of day rewards patience more than constant changes.",
   "A moderate profile and a clean, steady cadence are both good starting choices today.",
-  "Keep the bait easy to follow and easy to repeat. Balanced days usually reward clarity over creativity.",
+  "Keep the bait easy to follow and easy to repeat. This kind of day usually rewards clarity over creativity.",
   "The better move today is a calm, dependable presentation rather than something extreme on either end.",
 ] as const;
 
@@ -206,20 +206,25 @@ export function buildActionableTip(
   const tempScore = norm.temperature?.final_score ?? null;
   const tempShock = norm.temperature?.shock_label ?? "none";
   const pressureLabel = norm.pressure_regime?.label ?? null;
-  const tempPenaltyIsLight =
-    topSuppressor?.key === "temperature_condition" &&
+  const tempPenaltyIsLight = topSuppressor?.key === "temperature_condition" &&
     tempScore != null &&
     tempScore > -0.6;
-  const tempHelpIsLight =
-    topDriver?.key === "temperature_condition" &&
+  const tempHelpIsLight = topDriver?.key === "temperature_condition" &&
     tempScore != null &&
     tempScore < 0.9;
 
-  if (isCoastalFamilyContext(context) && (norm.tide_current_movement?.score ?? 0) >= 1.5) {
+  if (
+    isCoastalFamilyContext(context) &&
+    (norm.tide_current_movement?.score ?? 0) >= 1.5
+  ) {
     actionable_tip = pick(CURRENT_SWEEP_TIPS, seed, "current_sweep");
     actionable_tip_tag = "presentation_current_sweep";
   } else if (topSuppressor?.key === "wind_condition") {
-    actionable_tip = pick(CONTACT_CONTROL_TIPS, seed, "contact_control_negative_wind");
+    actionable_tip = pick(
+      CONTACT_CONTROL_TIPS,
+      seed,
+      "contact_control_negative_wind",
+    );
     actionable_tip_tag = "presentation_contact_control";
   } else if (
     topSuppressor?.key === "precipitation_disruption" ||
@@ -228,7 +233,11 @@ export function buildActionableTip(
     actionable_tip = pick(VISIBILITY_LOUD_TIPS, seed, "visibility_loud");
     actionable_tip_tag = "presentation_visibility_profile";
   } else if (topSuppressor?.key === "light_cloud_condition") {
-    actionable_tip = pick(VISIBILITY_NATURAL_TIPS, seed, "visibility_natural_bright");
+    actionable_tip = pick(
+      VISIBILITY_NATURAL_TIPS,
+      seed,
+      "visibility_natural_bright",
+    );
     actionable_tip_tag = "presentation_visibility_profile";
   } else if (topSuppressor?.key === "pressure_regime") {
     actionable_tip = pick(PRESSURE_SLOW_TIPS, seed, "pressure_slow");
@@ -249,28 +258,52 @@ export function buildActionableTip(
     actionable_tip_tag = "presentation_slow_subtle";
   } else if (topDriver?.key === "temperature_condition") {
     if (tempHelpIsLight) {
-      actionable_tip = pick(BALANCED_PRESENTATION_TIPS, seed, "balanced_temp_light");
+      actionable_tip = pick(
+        BALANCED_PRESENTATION_TIPS,
+        seed,
+        "balanced_temp_light",
+      );
       actionable_tip_tag = "presentation_general";
     } else {
-      actionable_tip = pick(ACTIVE_CADENCE_TIPS, seed, "active_cadence_temperature");
+      actionable_tip = pick(
+        ACTIVE_CADENCE_TIPS,
+        seed,
+        "active_cadence_temperature",
+      );
       actionable_tip_tag = "presentation_active_cadence";
     }
   } else if (topDriver?.key === "pressure_regime") {
     if (pressureLabel === "rising_slow" || pressureLabel === "rising_fast") {
-      actionable_tip = pick(PRESSURE_SLOW_TIPS, seed, "pressure_slow_positive_rise");
+      actionable_tip = pick(
+        PRESSURE_SLOW_TIPS,
+        seed,
+        "pressure_slow_positive_rise",
+      );
       actionable_tip_tag = "presentation_slow_subtle";
     } else {
-      actionable_tip = pick(ACTIVE_CADENCE_TIPS, seed, "active_cadence_pressure");
+      actionable_tip = pick(
+        ACTIVE_CADENCE_TIPS,
+        seed,
+        "active_cadence_pressure",
+      );
       actionable_tip_tag = "presentation_active_cadence";
     }
   } else if (topDriver?.key === "light_cloud_condition") {
     actionable_tip = pick(ACTIVE_CADENCE_TIPS, seed, "active_cadence_light");
     actionable_tip_tag = "presentation_active_cadence";
   } else if (topDriver?.key === "precipitation_disruption") {
-    actionable_tip = pick(VISIBILITY_NATURAL_TIPS, seed, "visibility_natural_dry");
+    actionable_tip = pick(
+      VISIBILITY_NATURAL_TIPS,
+      seed,
+      "visibility_natural_dry",
+    );
     actionable_tip_tag = "presentation_visibility_profile";
   } else if (topDriver?.key === "wind_condition") {
-    actionable_tip = pick(CONTACT_CONTROL_TIPS, seed, "contact_control_positive_wind");
+    actionable_tip = pick(
+      CONTACT_CONTROL_TIPS,
+      seed,
+      "contact_control_positive_wind",
+    );
     actionable_tip_tag = "presentation_contact_control";
   } else if (topDriver?.key === "tide_current_movement") {
     actionable_tip = pick(CURRENT_SWEEP_TIPS, seed, "current_sweep_driver");
@@ -280,5 +313,8 @@ export function buildActionableTip(
     actionable_tip_tag = "presentation_general";
   }
 
-  return { actionable_tip: normalizeTipText(actionable_tip), actionable_tip_tag };
+  return {
+    actionable_tip: normalizeTipText(actionable_tip),
+    actionable_tip_tag,
+  };
 }

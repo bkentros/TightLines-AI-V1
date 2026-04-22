@@ -1,21 +1,19 @@
 /**
  * RecommenderView — FinFindr "What to Throw Today" experience.
  *
- * This component is pure presentation. It renders the *real* engine output
- * returned by the recommender edge function: lure + fly recommendations,
- * tactical preference, and session color theme. No data is faked; if the
- * engine returns fewer than 3 items for a list, we render exactly what's
- * there ("truthful thin output").
+ * This component is pure presentation. It renders the real lure + fly
+ * recommendations, daily preference, and session color theme returned by the
+ * recommender. No data is faked; if fewer than 3 items are returned for a list,
+ * we render exactly what's there.
  *
  * Visual language:
  *   • paper palette (ink / paperLight / forest / gold / red / walnut)
  *   • Fraunces display for titles, DM Sans for UI, mono for counters
  *   • 2px ink borders + 2px hard shadows
  *   • medal badges (gold/silver/bronze) from **display order** (first card = gold, …)
- *     so thin lists compress visually; optional `source_slot_index` labels when a
- *     card matched a later daily tactical slot
+ *     so thin lists compress visually
  *   • WaterColumnDiagram mirrors the FinFindr tackle card
- *   • "Why chosen" and "How to fish" are preserved verbatim from the engine
+ *   • "Why this" and "How to fish" are preserved verbatim from the response
  */
 
 import React from 'react';
@@ -60,7 +58,7 @@ import { SPECIES_DISPLAY, WATER_CLARITY_LABELS } from '../../lib/recommenderCont
 
 const IMAGE_TX = { duration: 200 } as const;
 
-// ─── Display labels (engine tokens → UI strings) ──────────────────────────
+// ─── Display labels (response tokens → UI strings) ─────────────────────────
 
 const COLUMN_LABEL: Record<TacticalColumn, string> = {
   bottom: 'Bottom',
@@ -84,9 +82,9 @@ const PRESENCE_LABEL: Record<TacticalPresence, string> = {
 };
 
 const MIX_LABEL: Record<OpportunityMixMode, string> = {
-  aggressive: 'Aggressive',
+  aggressive: 'Active',
   balanced: 'Balanced',
-  conservative: 'Conservative',
+  conservative: 'Careful',
 };
 
 // Latin-ish subtitle shown under the species hero — no new data invented,
@@ -104,9 +102,8 @@ const SPECIES_SUBTITLE: Record<SpeciesGroup, string> = {
   tarpon: 'M. ATLANTICUS',
 };
 
-// Tri-swatch palette keyed by the rebuild engine's session theme label
-// ("Natural" | "Dark" | "Bright"). We map the label to three representative
-// paint chips that evoke the archetype — not fake recommendations.
+// Tri-swatch palette keyed by the session theme label ("Natural" | "Dark" |
+// "Bright"). We map the label to representative paint chips.
 const THEME_SWATCHES: Record<string, string[]> = {
   Natural: ['#6B5537', '#2E4A2A', '#8B7355'],
   Dark: ['#241B12', '#3A2E22', '#4A3826'],
@@ -135,11 +132,11 @@ function clarityLabelUpper(clarity: RecommenderResponse['water_clarity']): strin
 function opportunityMixSummarySentence(mix: OpportunityMixMode): string {
   switch (mix) {
     case 'conservative':
-      return "Today's setup rewards careful, tighter-window presentations.";
+      return "Today's setup favors careful, controlled presentations.";
     case 'balanced':
-      return "Today's setup supports a balanced mix of safe and active looks.";
+      return "Today's setup supports a balanced mix of steady and active looks.";
     case 'aggressive':
-      return "Today's setup supports more aggressive, search-oriented options.";
+      return "Today's setup supports active, search-oriented presentations.";
   }
 }
 
@@ -147,10 +144,10 @@ function surfaceContextNote(
   surfaceAllowedToday: boolean,
   surfaceWindow: DailySurfaceWindow,
 ): string | null {
-  if (!surfaceAllowedToday) return 'True surface is shut down today.';
-  if (surfaceWindow === 'clean') return 'True surface is in play today.';
+  if (!surfaceAllowedToday) return 'Subsurface is the better read today.';
+  if (surfaceWindow === 'clean') return 'Surface is in play today.';
   if (surfaceWindow === 'rippled') {
-    return 'Surface is still in play, but chop favors sturdier surface looks.';
+    return 'Surface is possible, but chop favors sturdier topwater looks.';
   }
   return null;
 }
@@ -281,7 +278,7 @@ function TackleCard({
           </View>
           <View style={styles.metaDivider} />
           <View style={styles.metaCell}>
-            <Text style={styles.metaLabel}>PRESENCE</Text>
+            <Text style={styles.metaLabel}>ACTION</Text>
             <Text style={styles.metaValue} numberOfLines={1}>
               {PRESENCE_LABEL[item.presence]}
             </Text>
@@ -290,8 +287,8 @@ function TackleCard({
 
         <WaterColumnDiagram active={item.primary_column} />
 
-        {/* Why chosen */}
-        <Text style={styles.reasonEyebrow}>— WHY CHOSEN</Text>
+        {/* Why this */}
+        <Text style={styles.reasonEyebrow}>— WHY THIS</Text>
         <Text style={styles.reasonBody}>{item.why_chosen}</Text>
 
         {/* How to fish */}
@@ -304,12 +301,6 @@ function TackleCard({
             {String(index + 1).padStart(2, '0')} / {String(totalCount).padStart(2, '0')}
           </Text>
         </View>
-        {item.source_slot_index != null &&
-        item.source_slot_index !== index ? (
-          <Text style={styles.slotTruth} numberOfLines={1}>
-            DAILY SLOT {item.source_slot_index + 1} OF 3
-          </Text>
-        ) : null}
       </View>
     </View>
   );
@@ -332,7 +323,7 @@ function SectionDivider({
   if (totalCount === 0) {
     countCopy = 'NO PICKS TODAY';
   } else if (count < totalCount) {
-    countCopy = `${count} PICK${count === 1 ? '' : 'S'} (SCALED BACK)`;
+    countCopy = `${count} BEST PICK${count === 1 ? '' : 'S'}`;
   } else {
     countCopy = `${count === 3 ? 'THREE' : count} PICK${count === 1 ? '' : 'S'}`;
   }
@@ -409,8 +400,7 @@ export function RecommenderView({ result, style }: Props) {
                 <Text style={styles.heroTitleLine}> TODAY.</Text>
               </View>
               <Text style={styles.heroLede}>
-                Ranked picks dialed to today's conditions — tuned to wind,
-                clarity, pressure, and your target species.
+                Ranked lures and flies for today's conditions.
               </Text>
             </View>
 
@@ -439,7 +429,7 @@ export function RecommenderView({ result, style }: Props) {
           {/* Targeting / Colors tiles (real data) */}
           <View style={styles.heroTileRow}>
             <View style={styles.heroTile}>
-              <Text style={styles.heroTileLabel}>TARGETING</Text>
+              <Text style={styles.heroTileLabel}>SPECIES</Text>
               <Text style={styles.heroTileValue} numberOfLines={1}>
                 {speciesDisplay}
               </Text>
@@ -463,17 +453,17 @@ export function RecommenderView({ result, style }: Props) {
                   </Text>
                 </View>
                 <Text style={styles.heroTileSub} numberOfLines={1}>
-                  {MIX_LABEL[daily.opportunity_mix].toUpperCase()} POSTURE
+                  {MIX_LABEL[daily.opportunity_mix].toUpperCase()} APPROACH
                 </Text>
               </View>
             ) : (
               <View style={styles.heroTile}>
-                <Text style={styles.heroTileLabel}>POSTURE</Text>
+                <Text style={styles.heroTileLabel}>APPROACH</Text>
                 <Text style={styles.heroTileValue} numberOfLines={1}>
                   {MIX_LABEL[daily.opportunity_mix]}
                 </Text>
                 <Text style={styles.heroTileSub} numberOfLines={1}>
-                  {daily.surface_allowed_today ? 'SURFACE OPEN' : 'SURFACE CLOSED'}
+                  {daily.surface_allowed_today ? 'SURFACE IN PLAY' : 'SUBSURFACE FAVORED'}
                 </Text>
               </View>
             )}
@@ -494,7 +484,7 @@ export function RecommenderView({ result, style }: Props) {
 
         {/* ══════════════════════════════════════════════
              DAILY TACTICAL PREFERENCE — quick-read chip card
-             Kept because real engine output lives here.
+             Real daily preference values.
            ══════════════════════════════════════════════ */}
         <View style={styles.preferenceCard}>
           <Text style={styles.preferenceHeader}>— TODAY&apos;S PREFERENCE</Text>
@@ -518,7 +508,7 @@ export function RecommenderView({ result, style }: Props) {
               </Text>
             </View>
             <View style={styles.preferenceChip}>
-              <Text style={styles.preferenceChipLabel}>PRESENCE</Text>
+              <Text style={styles.preferenceChipLabel}>ACTION</Text>
               <Text style={styles.preferenceChipValue} numberOfLines={1}>
                 {PRESENCE_LABEL[daily.preferred_presence]}
               </Text>
@@ -541,9 +531,8 @@ export function RecommenderView({ result, style }: Props) {
             <View style={styles.emptyState}>
               <Text style={styles.emptyEyebrow}>NO LURE PICKS</Text>
               <Text style={styles.emptyBody}>
-                The engine couldn&apos;t confidently recommend any lures for
-                today&apos;s conditions. Conditions and inventory can change —
-                check back later in the day.
+                No strong lure picks for this setup. Try again when conditions
+                shift.
               </Text>
             </View>
           ) : (
@@ -991,16 +980,6 @@ const styles = StyleSheet.create({
     opacity: 0.45,
     letterSpacing: 1.2,
   },
-  slotTruth: {
-    fontFamily: paperFonts.mono,
-    fontSize: 9,
-    color: paper.ink,
-    opacity: 0.38,
-    letterSpacing: 1.4,
-    marginTop: 4,
-    textAlign: 'right',
-  },
-
   // ── Water column diagram ─────────────────────────────────────────────
   columnDiagram: {
     flexDirection: 'row',
