@@ -85,6 +85,21 @@ function forageBonus(
   return b;
 }
 
+/**
+ * Soft clarity preference.
+ *
+ * `clarity_strengths` is a ranking signal, not an eligibility gate: items that
+ * list today's clarity get a small bonus, items that don't remain fully
+ * eligible. Sized below `forageBonus`'s primary-forage weight (100) so forage
+ * alignment still outranks clarity preference.
+ */
+function clarityBonus(
+  cand: ArchetypeProfileV4,
+  water_clarity: WaterClarity,
+): number {
+  return cand.clarity_strengths.includes(water_clarity) ? 20 : 0;
+}
+
 export function presenceFromPace(p: TacticalPace): "subtle" | "moderate" | "bold" {
   if (p === "slow") return "subtle";
   if (p === "medium") return "moderate";
@@ -130,7 +145,8 @@ export function selectArchetypesForSide(args: {
     if (c.gear_mode !== side) return false;
     if (!c.species_allowed.includes(species)) return false;
     if (!c.water_types_allowed.includes(context)) return false;
-    if (!c.clarity_strengths.includes(water_clarity)) return false;
+    // NOTE: `clarity_strengths` is intentionally NOT a hard gate; it applies
+    // as a soft ranking preference in the per-slot sort (see `clarityBonus`).
     if (!allowedIds.has(c.id)) return false;
     if (excluded.has(c.id)) return false;
 
@@ -164,7 +180,7 @@ export function selectArchetypesForSide(args: {
         )
         ? 1
         : 0;
-      const bonus = forageBonus(cand, row);
+      const bonus = forageBonus(cand, row) + clarityBonus(cand, water_clarity);
       const sort = bonus * 10 - famPenalty * 5 +
         stableSortKey([cand.id, String(t)], rng);
 

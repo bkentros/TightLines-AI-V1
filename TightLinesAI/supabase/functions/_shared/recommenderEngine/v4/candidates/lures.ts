@@ -515,7 +515,8 @@ export const LURE_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     primary_pace: "slow",
     secondary_pace: "medium",
     forage_tags: ["surface_prey"],
-    clarity_strengths: ["stained", "dirty"],
+    /** Same rationale as `frog_fly`: hollow frogs shine in stain, but clear vegetated lakes are honest frog water. */
+    clarity_strengths: ["clear", "stained", "dirty"],
     species_allowed: ["largemouth_bass", "northern_pike"],
     water_types_allowed: [L],
     how_to_fish_variants: [

@@ -580,10 +580,11 @@ Filter candidates by:
 - side
 - species eligibility
 - water-type eligibility
-- water-clarity eligibility
 - topwater block
 - row-authored primary shortlist membership (`primary_lure_ids` / `primary_fly_ids`)
 - any row-authored exclusions that still remain after catalog tightening
+
+Note: `clarity_strengths` is **not** a hard gate. It is a soft ranking preference applied during per-slot selection (see "Exact slot fit" below) — candidates remain eligible regardless of today's clarity, but clarity-matching items receive a small ranking bonus.
 
 ### Exact slot fit (strict column + pace)
 Do not choose loosely from the full legal pool or from “nearby” lanes.

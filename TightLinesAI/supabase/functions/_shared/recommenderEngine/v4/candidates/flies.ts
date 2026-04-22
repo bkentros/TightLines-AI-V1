@@ -350,7 +350,8 @@ export const FLY_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     primary_pace: "slow",
     secondary_pace: "medium",
     forage_tags: ["surface_prey"],
-    clarity_strengths: ["stained", "dirty"],
+    /** Stained/dirty are peak realism over cover; clear stays eligible — pads/vegetation break sightlines like stain does open water. */
+    clarity_strengths: ["clear", "stained", "dirty"],
     species_allowed: ["largemouth_bass", "northern_pike"],
     water_types_allowed: [L],
     how_to_fish_variants: [
