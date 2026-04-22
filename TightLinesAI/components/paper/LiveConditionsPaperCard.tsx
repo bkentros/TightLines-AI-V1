@@ -218,23 +218,10 @@ export function LiveConditionsPaperCard({
     );
   }
 
-  // ── Still loading with no cached data: spinner state ─────────────────────
+  // ── Still loading with no cached data: render a skeleton that mirrors
+  // the final card layout so the content lands in place without a jump.
   if (isLoading && !envData) {
-    return (
-      <View style={styles.card}>
-        <CompassRose
-          size={200}
-          opacity={0.07}
-          style={{ right: -50, top: -50 }}
-        />
-        <CornerMarkSet color={paper.red} />
-        <View style={styles.emptyState}>
-          <Text style={styles.eyebrow}>RIGHT NOW</Text>
-          <ActivityIndicator size="small" color={paper.ink} />
-          <Text style={styles.emptyBody}>Pulling live conditions…</Text>
-        </View>
-      </View>
-    );
+    return <LiveConditionsSkeletonCard />;
   }
 
   const env = envData as EnvironmentData | null;
@@ -464,6 +451,74 @@ function Divider() {
   );
 }
 
+function Bone({ style }: { style?: object }) {
+  return <View style={[styles.bone, style]} />;
+}
+
+function SkeletonTile({ iconTint }: { iconTint?: string }) {
+  return (
+    <View style={styles.tile}>
+      <View
+        style={[
+          styles.skeletonTileIcon,
+          { backgroundColor: iconTint ?? paper.red, opacity: 0.28 },
+        ]}
+      />
+      <Bone style={styles.skeletonTileLabel} />
+      <Bone style={styles.skeletonTileValue} />
+      <Bone style={styles.skeletonTileSub} />
+    </View>
+  );
+}
+
+/** Skeleton placeholder that mirrors the final card shape while the env
+ *  payload is in flight. Keeps the marginalia (compass, corner marks,
+ *  freshness row) so the transition to real data feels seamless. */
+function LiveConditionsSkeletonCard() {
+  return (
+    <View style={styles.card}>
+      <CompassRose
+        size={240}
+        opacity={0.09}
+        style={{ right: -60, top: -60 }}
+      />
+      <SwimmingFish bottom={14} />
+      <CornerMarkSet color={paper.red} />
+
+      <View style={styles.freshnessRow}>
+        <Text style={styles.metaText}>REFRESHING</Text>
+        <View style={[styles.refreshBtn, { opacity: 0.4 }]}>
+          <Ionicons name="refresh" size={13} color={paper.ink} />
+        </View>
+      </View>
+
+      <View style={styles.mainRow}>
+        <View style={styles.mainLeft}>
+          <Text style={styles.eyebrow}>RIGHT NOW</Text>
+          <Bone style={styles.skeletonSkyLine1} />
+          <Bone style={styles.skeletonSkyLine2} />
+          <Bone style={styles.skeletonMood} />
+        </View>
+        <View style={styles.mainRight}>
+          <Bone style={styles.skeletonTemp} />
+          <Bone style={styles.skeletonTempCaption} />
+        </View>
+      </View>
+
+      <View style={styles.tilesRule} />
+      <View style={styles.tiles}>
+        <SkeletonTile />
+        <Divider />
+        <SkeletonTile />
+        <Divider />
+        <SkeletonTile />
+        <Divider />
+        <SkeletonTile />
+      </View>
+    </View>
+  );
+}
+
 const styles = StyleSheet.create({
   card: {
     backgroundColor: paper.paperLight,
@@ -646,6 +701,65 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: 6,
+  },
+
+  // ── Skeleton bones (for the in-flight loading state) ─────────────────
+  bone: {
+    backgroundColor: paper.inkHair,
+    borderRadius: paperRadius.chip,
+    opacity: 0.6,
+  },
+  skeletonSkyLine1: {
+    height: 22,
+    width: '85%',
+    marginBottom: 6,
+    borderRadius: 4,
+  },
+  skeletonSkyLine2: {
+    height: 22,
+    width: '55%',
+    borderRadius: 4,
+  },
+  skeletonMood: {
+    height: 11,
+    width: '70%',
+    marginTop: 8,
+    opacity: 0.45,
+  },
+  skeletonTemp: {
+    height: 58,
+    width: 110,
+    borderRadius: 6,
+    marginBottom: 4,
+  },
+  skeletonTempCaption: {
+    height: 9,
+    width: 28,
+    opacity: 0.45,
+    alignSelf: 'flex-end',
+  },
+  skeletonTileIcon: {
+    width: 14,
+    height: 14,
+    borderRadius: 3,
+    marginBottom: 6,
+  },
+  skeletonTileLabel: {
+    height: 9,
+    width: '70%',
+    opacity: 0.55,
+    marginBottom: 4,
+  },
+  skeletonTileValue: {
+    height: 14,
+    width: '55%',
+    marginVertical: 2,
+  },
+  skeletonTileSub: {
+    height: 9,
+    width: '60%',
+    opacity: 0.4,
+    marginTop: 3,
   },
 
   emptyState: {
