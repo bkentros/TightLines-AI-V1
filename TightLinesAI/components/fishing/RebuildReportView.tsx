@@ -43,6 +43,7 @@ import {
   type PaperTier,
 } from '../../lib/theme';
 import {
+  CornerMark,
   CornerMarkSet,
   SectionEyebrow,
   TopographicLines,
@@ -208,12 +209,23 @@ export function RebuildReportView({
     <View style={styles.wrap}>
       {/* ── HERO ─────────────────────────────────────────────────────────── */}
       <View style={styles.heroCard}>
-        <CornerMarkSet color={paper.red} />
+        {/* Only bottom corner marks — the top ones would collide with the
+            masthead band, and the page-corner brackets at the bottom give
+            the hero a premium editorial "page" frame without fighting
+            the masthead above. */}
+        <CornerMark position="bl" color={paper.red} inset={10} />
+        <CornerMark position="br" color={paper.red} inset={10} />
 
-        <View style={styles.heroEyebrow}>
-          <SectionEyebrow color={paper.red} size={9} tracking={3}>
+        {/* Newspaper-style masthead — date lives here so the card reads
+            like the headline page of a broadsheet rather than another
+            section card. Two hairline rules top/bottom give it the
+            ruled-masthead feel. */}
+        <View style={styles.heroMasthead}>
+          <View style={[styles.heroMastheadRule, styles.heroMastheadTop]} />
+          <SectionEyebrow color={paper.red} size={9.5} tracking={3.2}>
             {dateLabel.toUpperCase()}
           </SectionEyebrow>
+          <View style={[styles.heroMastheadRule, styles.heroMastheadBottom]} />
         </View>
 
         <Text style={styles.heroHeadline}>
@@ -228,7 +240,11 @@ export function RebuildReportView({
           band={report.band}
         />
 
-        <View style={styles.outlookRule} />
+        <View style={styles.outlookRule}>
+          <View style={styles.outlookRuleLine} />
+          <Text style={styles.outlookRuleGlyph}>◆</Text>
+          <View style={styles.outlookRuleLine} />
+        </View>
 
         <SectionEyebrow color={paper.red} size={9} tracking={3}>
           {outlookEyebrow}
@@ -757,57 +773,106 @@ function TimeWindowTile({
 const styles = StyleSheet.create({
   wrap: { gap: paperSpacing.md + 2 },
 
-  // ── HERO (trimmed ~25% vs previous pass) ────────────────────────────
+  // ── HERO — true headline card ───────────────────────────────────────
+  //
+  // We want the hero to clearly out-rank the factor/timing/solunar
+  // cards below it. Versus the old hero, this one:
+  //   • uses a lighter paper fill with a subtle warm undertone so the
+  //     forest/red factor headers below read as supporting material
+  //   • thickens the ink border to 3px (vs 2px on the rest) and pairs
+  //     it with a deeper "lift" shadow so it sits a step above the page
+  //   • introduces a ruled "masthead" band at the top where the date
+  //     lives, giving it newspaper-grade hierarchy
+  //   • scales the headline and gauge up, and adds more breathing room
   heroCard: {
     backgroundColor: paper.paperLight,
     borderRadius: paperRadius.card,
-    ...paperBorders.card,
-    ...paperShadows.hard,
-    paddingHorizontal: paperSpacing.md,
-    paddingTop: paperSpacing.md,
-    paddingBottom: paperSpacing.md,
+    borderWidth: 3,
+    borderColor: paper.ink,
+    ...paperShadows.lift,
+    paddingHorizontal: paperSpacing.lg - 2,
+    paddingTop: 0,
+    paddingBottom: paperSpacing.lg - 4,
+    marginBottom: paperSpacing.sm,
     overflow: 'hidden',
     alignItems: 'center',
   },
+  heroMasthead: {
+    alignSelf: 'stretch',
+    backgroundColor: paper.paperDark,
+    borderBottomWidth: 2,
+    borderBottomColor: paper.ink,
+    paddingVertical: 8,
+    marginHorizontal: -(paperSpacing.lg - 2),
+    marginBottom: paperSpacing.md,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  heroMastheadRule: {
+    position: 'absolute',
+    left: 10,
+    right: 10,
+    height: StyleSheet.hairlineWidth,
+    backgroundColor: paper.ink,
+    opacity: 0.45,
+  },
+  heroMastheadTop: { top: 3 },
+  heroMastheadBottom: { bottom: 3 },
   heroEyebrow: {
-    marginBottom: 4,
+    marginBottom: paperSpacing.sm - 2,
     alignItems: 'center',
   },
   heroHeadline: {
     fontFamily: paperFonts.display,
     fontWeight: '700',
-    fontSize: 24,
-    lineHeight: 26,
-    letterSpacing: -0.8,
+    fontSize: 30,
+    lineHeight: 32,
+    letterSpacing: -1.1,
     textAlign: 'center',
     color: paper.ink,
     textTransform: 'uppercase',
+    marginBottom: paperSpacing.md,
   },
   outlookRule: {
-    width: '80%',
+    alignSelf: 'stretch',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 6,
+    marginTop: paperSpacing.md - 2,
+    marginBottom: paperSpacing.sm + 2,
+  },
+  outlookRuleLine: {
+    flex: 1,
     height: StyleSheet.hairlineWidth,
     backgroundColor: paper.ink,
-    opacity: 0.35,
-    marginVertical: paperSpacing.sm + 2,
+    opacity: 0.4,
+  },
+  outlookRuleGlyph: {
+    fontFamily: paperFonts.display,
+    fontSize: 12,
+    color: paper.ink,
+    opacity: 0.55,
+    letterSpacing: 3,
   },
   heroSubline: {
     fontFamily: paperFonts.display,
     fontWeight: '700',
-    fontSize: 15,
+    fontSize: 17,
     letterSpacing: -0.3,
-    marginTop: 6,
-    marginBottom: 4,
+    marginTop: 8,
+    marginBottom: 6,
     textAlign: 'center',
   },
   heroSummary: {
     fontFamily: paperFonts.displayItalic,
     fontStyle: 'italic',
-    fontSize: 13,
-    lineHeight: 20,
+    fontSize: 14,
+    lineHeight: 21,
     color: paper.ink,
-    opacity: 0.9,
+    opacity: 0.88,
     textAlign: 'center',
-    paddingHorizontal: paperSpacing.xs,
+    paddingHorizontal: paperSpacing.sm,
   },
   airRow: {
     flexDirection: 'row',
