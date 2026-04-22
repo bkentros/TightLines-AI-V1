@@ -656,10 +656,23 @@ export default function HomeScreen() {
               >
                 {forecastLoading && !forecastDays
                   ? Array.from({ length: FORECAST_COLS_FIT }).map((_, i) => (
-                      <View
-                        key={i}
-                        style={[styles.forecastTile, styles.forecastTileSkeleton]}
-                      />
+                      <View key={i} style={styles.forecastTile}>
+                        <View
+                          style={[
+                            styles.forecastTileHeader,
+                            styles.forecastTileHeaderSkeleton,
+                          ]}
+                        >
+                          <View style={styles.forecastTileDayBone} />
+                        </View>
+                        <View style={styles.forecastTileBody}>
+                          <View style={styles.forecastTileDateBone} />
+                          <View style={styles.forecastTileScoreBone} />
+                          <View style={styles.forecastTileHiLo}>
+                            <View style={styles.forecastTileHiLoBone} />
+                          </View>
+                        </View>
+                      </View>
                     ))
                   : forecastDisplayDays.map((day) => {
                       const raw = combinedOutlookScore(day);
@@ -1115,10 +1128,39 @@ const styles = StyleSheet.create({
   forecastTilePressed: {
     transform: [{ translateY: 1 }],
   },
-  forecastTileSkeleton: {
-    height: 128,
+  forecastTileHeaderSkeleton: {
     backgroundColor: paper.inkHairSoft,
-    opacity: 0.4,
+    opacity: 0.7,
+    paddingVertical: 8,
+  },
+  forecastTileDayBone: {
+    height: 10,
+    width: 30,
+    borderRadius: 2,
+    backgroundColor: paper.inkHair,
+    opacity: 0.7,
+  },
+  forecastTileDateBone: {
+    height: 9,
+    width: 30,
+    borderRadius: 2,
+    backgroundColor: paper.inkHair,
+    opacity: 0.5,
+    marginBottom: 6,
+  },
+  forecastTileScoreBone: {
+    height: 24,
+    width: 36,
+    borderRadius: 4,
+    backgroundColor: paper.inkHair,
+    opacity: 0.55,
+  },
+  forecastTileHiLoBone: {
+    height: 9,
+    width: 40,
+    borderRadius: 2,
+    backgroundColor: paper.inkHair,
+    opacity: 0.45,
   },
   forecastTileHeader: {
     paddingHorizontal: 6,

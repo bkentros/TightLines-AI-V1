@@ -4,4 +4,5 @@
  */
 
 export { CondensedLoadingView } from './CondensedLoadingView';
+export { HowFishingLoadingSkeleton } from './HowFishingLoadingSkeleton';
 export { RebuildReportView } from './RebuildReportView';

@@ -40,6 +40,7 @@ import { useEnvStore } from '../store/envStore';
 import type { EnvironmentData } from '../lib/env/types';
 import { oceanCoastalZoneLabel } from '../lib/coastalProximity';
 import { RebuildReportView } from '../components/fishing/RebuildReportView';
+import { HowFishingLoadingSkeleton } from '../components/fishing/HowFishingLoadingSkeleton';
 import {
   PaperBackground,
   CornerMarkSet,
@@ -501,6 +502,43 @@ export default function HowFishingScreen() {
 
   /* ── Confirmation / Generate surface ─────────────────────────────── */
   if (!multiBundles) {
+    // While the engine pulls conditions and assembles the bundle we render
+    // the full report skeleton so the eventual result lands in the exact
+    // same layout the user is already looking at.
+    if (analysisLoading) {
+      return (
+        <SafeAreaView style={styles.safe} edges={['top']}>
+          <PaperBackground style={styles.background}>
+            <TopLevelHeader
+              dateLabel={heroDateLabel}
+              locationLabel={locationLabel}
+              onBack={() => router.back()}
+            />
+            <View style={styles.loadingWrap}>
+              <ScrollView
+                style={styles.scroll}
+                contentContainerStyle={styles.reportContent}
+                showsVerticalScrollIndicator={false}
+                scrollEnabled={false}
+              >
+                <HowFishingLoadingSkeleton />
+              </ScrollView>
+              <View style={styles.loadingOverlay} pointerEvents="none">
+                <ActivityIndicator size="small" color={paper.forest} />
+                <Text style={styles.loadingCaption}>
+                  BUILDING YOUR REPORT
+                  {availableContexts.length > 1
+                    ? ` · ${availableContexts.length} WATER TYPES`
+                    : ''}
+                  …
+                </Text>
+              </View>
+            </View>
+          </PaperBackground>
+        </SafeAreaView>
+      );
+    }
+
     return (
       <SafeAreaView style={styles.safe} edges={['top']}>
         <PaperBackground style={styles.background}>
@@ -513,19 +551,7 @@ export default function HowFishingScreen() {
           <View style={styles.confirmOuter}>
             <TopographicLines style={styles.confirmLines} count={5} />
 
-            {analysisLoading ? (
-              <View style={styles.confirmCard}>
-                <CornerMarkSet color={paper.red} />
-                <View style={styles.loadingHub}>
-                  <ActivityIndicator size="small" color={paper.ink} />
-                </View>
-                <Text style={styles.confirmTitle}>BUILDING YOUR REPORT</Text>
-                <Text style={styles.confirmSub}>
-                  Pulling live conditions for {availableContexts.length} water type
-                  {availableContexts.length > 1 ? 's' : ''}…
-                </Text>
-              </View>
-            ) : showConfirm ? (
+            {showConfirm ? (
               <View style={styles.confirmCard}>
                 <CornerMarkSet color={paper.red} />
 
@@ -917,16 +943,25 @@ const styles = StyleSheet.create({
     color: paper.ink,
     fontWeight: '700',
   },
-  loadingHub: {
-    width: 56,
-    height: 56,
-    borderRadius: 28,
-    borderWidth: 2,
-    borderColor: paper.ink,
-    backgroundColor: paper.paper,
+  loadingWrap: {
+    flex: 1,
+    position: 'relative',
+  },
+  loadingOverlay: {
+    ...StyleSheet.absoluteFillObject,
+    justifyContent: 'flex-end',
     alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: paperSpacing.sm,
+    paddingBottom: paperSpacing.xl + paperSpacing.md,
+    gap: paperSpacing.sm,
+  },
+  loadingCaption: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 11,
+    letterSpacing: 2,
+    color: paper.ink,
+    opacity: 0.75,
+    textAlign: 'center',
+    fontWeight: '700',
   },
   generateBtn: {
     flexDirection: 'row',
