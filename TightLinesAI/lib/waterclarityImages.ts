@@ -4,9 +4,12 @@
  * Central map from WaterClarity → local image asset.
  *
  * Images live in:  assets/images/waterclarity/
- *   clear.png    — glass clear water
- *   stained.png  — tea / green tint
- *   murky.png    — 2 ft or less visibility
+ *   clear.png    — WaterClarity "clear"
+ *   stained.png  — "stained"
+ *   murky.png    — "dirty" (UI label: Murky — see WATER_CLARITY_LABELS)
+ *
+ * Regenerate (field-guide style):
+ *   deno run -A scripts/generate-recommender-waterclarity-images.ts
  */
 
 import type { WaterClarity } from './recommenderContracts';
