@@ -116,6 +116,8 @@ export const FLY_ARCHETYPE_IDS_V4 = [
   "articulated_baitfish_streamer",
   "articulated_dungeon_streamer",
   "game_changer",
+  "jighead_marabou_leech",
+  "lead_eye_leech",
   "woolly_bugger",
   "rabbit_strip_leech",
   "balanced_leech",
@@ -128,8 +130,11 @@ export const FLY_ARCHETYPE_IDS_V4 = [
   "pike_bunny_streamer",
   "large_articulated_pike_streamer",
   "unweighted_baitfish_streamer",
+  "baitfish_slider_fly",
   "popper_fly",
+  "deer_hair_slider",
   "frog_fly",
+  "feather_jig_leech",
   "mouse_fly",
 ] as const;
 
@@ -137,7 +142,12 @@ export type FlyArchetypeIdV4 = (typeof FLY_ARCHETYPE_IDS_V4)[number];
 
 export type ArchetypeIdV4 = LureArchetypeIdV4 | FlyArchetypeIdV4;
 
-export const SURFACE_FLY_IDS_V4 = ["popper_fly", "frog_fly", "mouse_fly"] as const;
+export const SURFACE_FLY_IDS_V4 = [
+  "popper_fly",
+  "deer_hair_slider",
+  "frog_fly",
+  "mouse_fly",
+] as const;
 export type SurfaceFlyIdV4 = (typeof SURFACE_FLY_IDS_V4)[number];
 
 // ── §16.3 Archetype profile ─────────────────────────────────────────────────

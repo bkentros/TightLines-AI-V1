@@ -6,6 +6,9 @@
  * Images live in:  assets/images/watertype/
  *   lake.png    — used for freshwater_lake_pond
  *   river.png   — used for freshwater_river
+ *
+ * Regenerate (field-guide style, same pipeline as species/tackle):
+ *   deno run -A scripts/generate-recommender-watertype-images.ts
  */
 
 import type { EngineContext } from './recommenderContracts';

@@ -24,10 +24,10 @@ Deno.test("catalog: lure count and id set match Appendix A / contracts (36)", ()
   }
 });
 
-Deno.test("catalog: fly count and id set match Appendix A / contracts (22)", () => {
-  assertEquals(FLY_ARCHETYPES_V4.length, 22);
+Deno.test("catalog: fly count and id set match Appendix A / contracts (27)", () => {
+  assertEquals(FLY_ARCHETYPES_V4.length, 27);
   const ids = new Set(FLY_ARCHETYPES_V4.map((x) => x.id));
-  assertEquals(ids.size, 22);
+  assertEquals(ids.size, 27);
   for (const id of FLY_ARCHETYPE_IDS_V4) {
     assert(ids.has(id), `missing fly ${id}`);
   }
@@ -39,7 +39,7 @@ Deno.test("catalog: fly count and id set match Appendix A / contracts (22)", () 
   }
 });
 
-Deno.test("P13: only popper_fly, frog_fly, mouse_fly may have fly column surface", () => {
+Deno.test("P13: only SURFACE_FLY_IDS_V4 entries may use fly column surface", () => {
   const surfaceSet = new Set(SURFACE_FLY_IDS_V4 as readonly string[]);
   for (const f of FLY_ARCHETYPES_V4) {
     if (f.column === "surface") {
@@ -52,9 +52,13 @@ Deno.test("P13: only popper_fly, frog_fly, mouse_fly may have fly column surface
 
 Deno.test("G7: surface-fly species allowances on authored catalog", () => {
   for (const f of FLY_ARCHETYPES_V4) {
-    if (f.id === "popper_fly") {
+    if (f.id === "popper_fly" || f.id === "deer_hair_slider") {
       for (const s of f.species_allowed) {
-        assert(s === "largemouth_bass" || s === "smallmouth_bass", `popper_fly species ${s}`);
+        assert(
+          s === "largemouth_bass" || s === "smallmouth_bass" || s === "northern_pike" ||
+            s === "trout",
+          `${f.id} species ${s}`,
+        );
       }
     } else if (f.id === "frog_fly") {
       for (const s of f.species_allowed) {
@@ -165,12 +169,12 @@ Deno.test("G7: invalid popper species on synthetic input throws", () => {
         secondary_pace: "slow",
         forage_tags: ["surface_prey", "bluegill_perch"],
         clarity_strengths: ["clear", "stained"],
-        species_allowed: ["northern_pike"],
+        species_allowed: ["largemouth_bass", "invalid_species" as "largemouth_bass"],
         water_types_allowed: ["freshwater_lake_pond"],
         how_to_fish_variants: ["a", "b", "c"],
       }),
     Error,
-    "popper_fly species_allowed must be bass only",
+    "popper_fly species_allowed must be largemouth_bass",
   );
 });
 

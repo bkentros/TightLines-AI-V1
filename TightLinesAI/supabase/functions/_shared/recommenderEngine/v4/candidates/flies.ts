@@ -6,8 +6,8 @@ const L = "freshwater_lake_pond" as const satisfies EngineContext;
 const R = "freshwater_river" as const satisfies EngineContext;
 
 /**
- * Full 22-fly catalog — Appendix A §22.2 (authoritative) + backlog §3.1
- * addition `unweighted_baitfish_streamer` (LMB/SMB/pike upper-column).
+ * Full warmwater/trout fly catalog — Appendix A §22.2 (authoritative) plus
+ * targeted post-cutover additions for mainstream exact-fit breadth.
  * `display_name` and `how_to_fish_variants` from v3 where the id existed.
  */
 export const FLY_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
@@ -103,7 +103,7 @@ export const FLY_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     secondary_pace: "medium",
     forage_tags: ["baitfish", "bluegill_perch"],
     clarity_strengths: ["stained", "dirty"],
-    species_allowed: ["largemouth_bass", "northern_pike", "trout"],
+    species_allowed: ["smallmouth_bass", "largemouth_bass", "northern_pike", "trout"],
     water_types_allowed: [L, R],
     how_to_fish_variants: [
       "Strip it with long pulls and full pauses so the articulated profile kicks wide, then hangs and breathes in place.",
@@ -136,7 +136,7 @@ export const FLY_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     secondary_pace: "medium",
     forage_tags: ["leech_worm"],
     clarity_strengths: ["clear", "stained", "dirty"],
-    species_allowed: ["smallmouth_bass", "largemouth_bass", "trout"],
+    species_allowed: ["smallmouth_bass", "largemouth_bass", "northern_pike", "trout"],
     water_types_allowed: [L, R],
     how_to_fish_variants: [
       "Let it sink to depth then retrieve with slow hand-twists or short strips; the marabou tail breathes best with long pauses at the end of each pull.",
@@ -150,6 +150,7 @@ export const FLY_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     family_group: "leech_family",
     column: "bottom",
     primary_pace: "slow",
+    secondary_pace: "medium",
     forage_tags: ["leech_worm", "baitfish"],
     clarity_strengths: ["stained", "dirty"],
     species_allowed: ["smallmouth_bass", "largemouth_bass", "northern_pike", "trout"],
@@ -158,6 +159,56 @@ export const FLY_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
       "Let it sink to the strike zone then retrieve with long, slow strips; the rabbit hair undulates seductively between pulls, so don't rush the retrieve.",
       "Cast and count it down, then use a strip-pause retrieve with exaggerated pauses — the pulse on the stop is when most fish commit.",
       "Swim it slowly through deeper pockets and woody structure; the rabbit strip breathes on a semi-tight line, so use the absolute minimum retrieve speed.",
+    ],
+  }),
+  fly({
+    id: "jighead_marabou_leech",
+    display_name: "Jighead Marabou Leech",
+    family_group: "leech_family",
+    column: "bottom",
+    primary_pace: "slow",
+    secondary_pace: "medium",
+    forage_tags: ["leech_worm", "baitfish"],
+    clarity_strengths: ["clear", "stained", "dirty"],
+    species_allowed: ["largemouth_bass", "smallmouth_bass", "northern_pike", "trout"],
+    water_types_allowed: [L, R],
+    how_to_fish_variants: [
+      "Count it down to the bottom third, then crawl with slow 3–6 inch pulls and long pauses so the marabou pulses without lifting the fly out of the strike zone.",
+      "Hop it along hard bottom and transitions with short lifts and dead drops; most bites come as the jighead ticks back down on a tight line.",
+      "Dead-drift or swing through current, then tighten and strip just enough to make the head hunt along the substrate like a dislodged leech.",
+    ],
+  }),
+  fly({
+    id: "lead_eye_leech",
+    display_name: "Lead-Eye Leech",
+    family_group: "leech_family",
+    column: "bottom",
+    primary_pace: "slow",
+    forage_tags: ["leech_worm"],
+    clarity_strengths: ["clear", "stained", "dirty"],
+    species_allowed: ["largemouth_bass", "smallmouth_bass", "northern_pike", "trout"],
+    water_types_allowed: [L, R],
+    how_to_fish_variants: [
+      "Fish it deep and slow with hand-twist retrieves or micro-strips so the lead eye keeps the fly tracking hook-up along the bottom.",
+      "Drag and pause across silty flats and outside weed edges; let the fly settle after each pull so the slim profile breathes in place.",
+      "Tick wood and rock with short pulls just strong enough to clear snags, then stall — lethargic winter bass often eat on the stall.",
+    ],
+  }),
+  fly({
+    id: "feather_jig_leech",
+    display_name: "Feather Jig Leech",
+    family_group: "leech_family",
+    column: "bottom",
+    primary_pace: "medium",
+    secondary_pace: "slow",
+    forage_tags: ["leech_worm", "baitfish"],
+    clarity_strengths: ["clear", "stained", "dirty"],
+    species_allowed: ["largemouth_bass", "smallmouth_bass", "northern_pike", "trout"],
+    water_types_allowed: [L, R],
+    how_to_fish_variants: [
+      "Swim it with steady medium strips along bottom transitions so the feather collar pulses without leaving the lower third of the water column.",
+      "Rip it free from grass with a sharp strip, then kill it — the jig hook rides point-up and the feathers breathe on the drop for followers.",
+      "Probe current breaks and wood with a lift-fall cadence; keep each lift short so the fly stays in the bottom lane where lethargic bass expect meals.",
     ],
   }),
   fly({
@@ -326,6 +377,23 @@ export const FLY_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     ],
   }),
   fly({
+    id: "baitfish_slider_fly",
+    display_name: "Baitfish Slider Fly",
+    family_group: "streamer_slider",
+    column: "upper",
+    primary_pace: "medium",
+    secondary_pace: "fast",
+    forage_tags: ["baitfish", "bluegill_perch"],
+    clarity_strengths: ["clear", "stained", "dirty"],
+    species_allowed: ["largemouth_bass", "smallmouth_bass", "northern_pike"],
+    water_types_allowed: [L, R],
+    how_to_fish_variants: [
+      "Fish it high in the column with brisk strips so the sparse head throws a little wake, then let it glide just under the film before the next pull.",
+      "Strip it fast over grass lines and shallow cover, but kill it after each burst so the fly slides and hangs high where looking-up fish can track it.",
+      "Work it as a fast dart-and-glide baitfish look around banks, pads, and seam edges; the fly should stay high and never dig deeper than the upper lane.",
+    ],
+  }),
+  fly({
     id: "popper_fly",
     display_name: "Popper Fly",
     family_group: "fly_popper",
@@ -334,12 +402,29 @@ export const FLY_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     secondary_pace: "slow",
     forage_tags: ["surface_prey", "bluegill_perch"],
     clarity_strengths: ["clear", "stained"],
-    species_allowed: ["largemouth_bass", "smallmouth_bass"],
+    species_allowed: ["largemouth_bass", "smallmouth_bass", "northern_pike", "trout"],
     water_types_allowed: [L, R],
     how_to_fish_variants: [
       "Pop once with a short strip, let the rings settle for two seconds, then pop again; in calm conditions, longer pauses are always better.",
       "Make a sharp strip-pause to spit water, then wait; the longer the pause in the ring, the more time a fish has to rise and commit.",
       "Work it with medium strips that spit and gurgle; slow the cadence near structure and let the fly rest after each pop — target the edge of any surface shadow.",
+    ],
+  }),
+  fly({
+    id: "deer_hair_slider",
+    display_name: "Deer Hair Slider",
+    family_group: "fly_slider",
+    column: "surface",
+    primary_pace: "medium",
+    secondary_pace: "fast",
+    forage_tags: ["surface_prey", "baitfish"],
+    clarity_strengths: ["clear", "stained", "dirty"],
+    species_allowed: ["largemouth_bass", "smallmouth_bass", "northern_pike", "trout"],
+    water_types_allowed: [L, R],
+    how_to_fish_variants: [
+      "Skitter it with short, quick strips so it wakes and slides across the film, then let it stall for a beat before moving it again.",
+      "Work it with brisk strips over shallow cover and bankside shade; the fly should slash just under the film and leave a visible V-wake.",
+      "Strip fast enough to make it wake and skate, then pause long enough for followers to close; this is the louder, more urgent surface option when fish are willing to chase.",
     ],
   }),
   fly({

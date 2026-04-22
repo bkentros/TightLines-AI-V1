@@ -29,12 +29,6 @@ def detect_repo_root() -> Path:
 
 DEFAULT_REPO_ROOT = detect_repo_root()
 
-# App-specific filename exceptions from image registry files.
-FILENAME_OVERRIDES = {
-    ("lure", "weightless_stick_worm"): "texas_rigged_stick_worm.png",
-}
-
-
 def load_prompts(path: Path):
     with path.open("r", encoding="utf-8") as f:
         data = json.load(f)
@@ -43,7 +37,7 @@ def load_prompts(path: Path):
 
 def resolve_output_path(asset: dict, lures_dir: Path, flies_dir: Path) -> Path:
     out_dir = lures_dir if asset["type"] == "lure" else flies_dir
-    filename = asset.get("app_filename") or FILENAME_OVERRIDES.get((asset["type"], asset["slug"]), f"{asset['slug']}.png")
+    filename = asset.get("app_filename") or f"{asset['slug']}.png"
     return out_dir / filename
 
 

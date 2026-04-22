@@ -27,7 +27,10 @@ import {
 } from "./v4/colorDecision.ts";
 import type { SeasonalRowV4 } from "./v4/contracts.ts";
 import type { TacticalColumn, TacticalPace } from "./v4/contracts.ts";
-import { computeRecommenderRebuild } from "./rebuild/runRecommenderRebuild.ts";
+import {
+  computeRecommenderRebuild,
+  type RebuildSelectionOptions,
+} from "./rebuild/runRecommenderRebuild.ts";
 import {
   archetypeToRankedFields,
   presenceFromPace,
@@ -108,9 +111,12 @@ function pace(p: TacticalPace): RankedRecommendation["pace"] {
   return p as RankedRecommendation["pace"];
 }
 
-export function runRecommenderRebuildSurface(req: RecommenderRequest): RecommenderResponse {
+export function runRecommenderRebuildSurface(
+  req: RecommenderRequest,
+  options: RebuildSelectionOptions = {},
+): RecommenderResponse {
   const analysis = analyzeRecommenderConditions(req);
-  const eng = computeRecommenderRebuild(req, analysis);
+  const eng = computeRecommenderRebuild(req, analysis, options);
 
   const lightLabel =
     analysis.norm.normalized.light_cloud_condition?.label ?? null;

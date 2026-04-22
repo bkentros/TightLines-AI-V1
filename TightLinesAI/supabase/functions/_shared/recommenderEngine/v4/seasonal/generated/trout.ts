@@ -19,8 +19,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "leech_worm",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
 },
 
   {
@@ -35,8 +35,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "leech_worm",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
 },
 
   {
@@ -51,8 +51,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "leech_worm",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
 },
 
   {
@@ -67,8 +67,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "leech_worm",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
 },
 
   {
@@ -83,8 +83,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
 },
 
   {
@@ -99,8 +99,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","buzzbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer","popper_fly","deer_hair_slider","mouse_fly"] as const,
 },
 
   {
@@ -115,8 +115,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","buzzbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer","popper_fly","deer_hair_slider","mouse_fly"] as const,
 },
 
   {
@@ -131,8 +131,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","buzzbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer","popper_fly","deer_hair_slider","mouse_fly"] as const,
 },
 
   {
@@ -147,8 +147,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
 },
 
   {
@@ -163,8 +163,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
 },
 
   {
@@ -179,8 +179,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "leech_worm",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
 },
 
   {
@@ -195,8 +195,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "leech_worm",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
 },
 
   {
@@ -211,8 +211,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "leech_worm",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
 },
 
   {
@@ -227,8 +227,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "leech_worm",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
 },
 
   {
@@ -243,8 +243,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
 },
 
   {
@@ -259,8 +259,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
 },
 
   {
@@ -275,8 +275,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","buzzbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer","popper_fly","deer_hair_slider","mouse_fly"] as const,
 },
 
   {
@@ -291,8 +291,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","buzzbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer","popper_fly","deer_hair_slider","mouse_fly"] as const,
 },
 
   {
@@ -307,8 +307,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","buzzbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer","popper_fly","deer_hair_slider","mouse_fly"] as const,
 },
 
   {
@@ -323,8 +323,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","buzzbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer","popper_fly","deer_hair_slider","mouse_fly"] as const,
 },
 
   {
@@ -339,8 +339,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","buzzbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer","popper_fly","deer_hair_slider","mouse_fly"] as const,
 },
 
   {
@@ -355,8 +355,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
 },
 
   {
@@ -371,8 +371,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
 },
 
   {
@@ -387,8 +387,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "leech_worm",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
 },
 
   {
@@ -403,8 +403,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "leech_worm",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
 },
 
   {
@@ -419,8 +419,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "leech_worm",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
 },
 
   {
@@ -435,8 +435,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer"] as const,
 },
 
   {
@@ -451,8 +451,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
 },
 
   {
@@ -467,8 +467,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
 },
 
   {
@@ -483,8 +483,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","buzzbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer","popper_fly","deer_hair_slider","mouse_fly"] as const,
 },
 
   {
@@ -499,8 +499,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","buzzbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer","popper_fly","deer_hair_slider","mouse_fly"] as const,
 },
 
   {
@@ -515,8 +515,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","buzzbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer","popper_fly","deer_hair_slider","mouse_fly"] as const,
 },
 
   {
@@ -531,8 +531,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","buzzbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer","popper_fly","deer_hair_slider","mouse_fly"] as const,
 },
 
   {
@@ -547,8 +547,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
 },
 
   {
@@ -563,8 +563,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer"] as const,
 },
 
   {
@@ -579,8 +579,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "leech_worm",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
 },
 
   {
@@ -595,8 +595,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "leech_worm",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
 },
 
   {
@@ -611,8 +611,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "leech_worm",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
 },
 
   {
@@ -627,8 +627,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
 },
 
   {
@@ -643,8 +643,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
 },
 
   {
@@ -659,8 +659,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
 },
 
   {
@@ -675,8 +675,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","buzzbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer","popper_fly","deer_hair_slider","mouse_fly"] as const,
 },
 
   {
@@ -691,8 +691,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","buzzbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer","popper_fly","deer_hair_slider","mouse_fly"] as const,
 },
 
   {
@@ -707,8 +707,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","buzzbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer","popper_fly","deer_hair_slider","mouse_fly"] as const,
 },
 
   {
@@ -723,8 +723,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","buzzbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer","popper_fly","deer_hair_slider","mouse_fly"] as const,
 },
 
   {
@@ -739,8 +739,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
 },
 
   {
@@ -755,8 +755,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
 },
 
   {
@@ -771,8 +771,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "leech_worm",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
 },
 
   {
@@ -787,8 +787,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "leech_worm",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
 },
 
   {
@@ -803,8 +803,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "leech_worm",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
 },
 
   {
@@ -819,8 +819,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer"] as const,
 },
 
   {
@@ -835,8 +835,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
 },
 
   {
@@ -851,8 +851,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
 },
 
   {
@@ -867,8 +867,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","buzzbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer","popper_fly","deer_hair_slider","mouse_fly"] as const,
 },
 
   {
@@ -883,8 +883,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","buzzbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer","popper_fly","deer_hair_slider","mouse_fly"] as const,
 },
 
   {
@@ -899,8 +899,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","buzzbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer","popper_fly","deer_hair_slider","mouse_fly"] as const,
 },
 
   {
@@ -915,8 +915,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","buzzbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer","popper_fly","deer_hair_slider","mouse_fly"] as const,
 },
 
   {
@@ -931,8 +931,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
 },
 
   {
@@ -947,8 +947,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer"] as const,
 },
 
   {
@@ -963,8 +963,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "leech_worm",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
 },
 
   {
@@ -979,8 +979,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "leech_worm",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
 },
 
   {
@@ -995,8 +995,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "leech_worm",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
 },
 
   {
@@ -1011,8 +1011,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "leech_worm",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
 },
 
   {
@@ -1027,8 +1027,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "leech_worm",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
 },
 
   {
@@ -1043,8 +1043,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "leech_worm",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer"] as const,
 },
 
   {
@@ -1059,8 +1059,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
 },
 
   {
@@ -1075,8 +1075,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","buzzbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer","popper_fly","deer_hair_slider","mouse_fly"] as const,
 },
 
   {
@@ -1091,8 +1091,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","buzzbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer","popper_fly","deer_hair_slider","mouse_fly"] as const,
 },
 
   {
@@ -1107,8 +1107,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
 },
 
   {
@@ -1123,8 +1123,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
 },
 
   {
@@ -1139,8 +1139,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "leech_worm",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
 },
 
   {
@@ -1155,8 +1155,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "leech_worm",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
 },
 
   {
@@ -1171,8 +1171,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "leech_worm",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
 },
 
   {
@@ -1187,8 +1187,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "leech_worm",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
 },
 
   {
@@ -1203,8 +1203,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
 },
 
   {
@@ -1219,8 +1219,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
 },
 
   {
@@ -1235,8 +1235,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
 },
 
   {
@@ -1251,8 +1251,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","buzzbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer","popper_fly","deer_hair_slider","mouse_fly"] as const,
 },
 
   {
@@ -1267,8 +1267,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","buzzbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer","popper_fly","deer_hair_slider","mouse_fly"] as const,
 },
 
   {
@@ -1283,8 +1283,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","buzzbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer","popper_fly","deer_hair_slider","mouse_fly"] as const,
 },
 
   {
@@ -1299,8 +1299,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","buzzbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer","popper_fly","deer_hair_slider","mouse_fly"] as const,
 },
 
   {
@@ -1315,8 +1315,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
 },
 
   {
@@ -1331,8 +1331,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
 },
 
   {
@@ -1347,8 +1347,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "leech_worm",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
 },
 
   {
@@ -1363,8 +1363,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "leech_worm",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
 },
 
   {
@@ -1379,8 +1379,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "leech_worm",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
 },
 
   {
@@ -1395,8 +1395,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer"] as const,
 },
 
   {
@@ -1411,8 +1411,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
 },
 
   {
@@ -1427,8 +1427,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
 },
 
   {
@@ -1443,8 +1443,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","buzzbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer","popper_fly","deer_hair_slider","mouse_fly"] as const,
 },
 
   {
@@ -1459,8 +1459,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","buzzbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer","popper_fly","deer_hair_slider","mouse_fly"] as const,
 },
 
   {
@@ -1475,8 +1475,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","buzzbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer","popper_fly","deer_hair_slider","mouse_fly"] as const,
 },
 
   {
@@ -1491,8 +1491,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","buzzbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer","popper_fly","deer_hair_slider","mouse_fly"] as const,
 },
 
   {
@@ -1507,8 +1507,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
 },
 
   {
@@ -1523,8 +1523,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer"] as const,
 },
 
   {
@@ -1539,8 +1539,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "leech_worm",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
 },
 
   {
@@ -1555,8 +1555,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer"] as const,
 },
 
   {
@@ -1571,8 +1571,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer"] as const,
 },
 
   {
@@ -1587,8 +1587,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
 },
 
   {
@@ -1603,8 +1603,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
 },
 
   {
@@ -1619,8 +1619,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","buzzbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer","popper_fly","deer_hair_slider","mouse_fly"] as const,
 },
 
   {
@@ -1635,8 +1635,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","buzzbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer","popper_fly","deer_hair_slider","mouse_fly"] as const,
 },
 
   {
@@ -1651,8 +1651,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","buzzbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer","popper_fly","deer_hair_slider","mouse_fly"] as const,
 },
 
   {
@@ -1667,8 +1667,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","buzzbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer","popper_fly","deer_hair_slider","mouse_fly"] as const,
 },
 
   {
@@ -1683,8 +1683,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","buzzbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer","popper_fly","deer_hair_slider","mouse_fly"] as const,
 },
 
   {
@@ -1699,8 +1699,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
 },
 
   {
@@ -1715,8 +1715,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer"] as const,
 },
 
   {
@@ -1731,8 +1731,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
 },
 
   {
@@ -1747,8 +1747,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
 },
 
   {
@@ -1763,8 +1763,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
 },
 
   {
@@ -1779,8 +1779,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
 },
 
   {
@@ -1795,8 +1795,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
 },
 
   {
@@ -1811,8 +1811,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
 },
 
   {
@@ -1827,8 +1827,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","buzzbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer","popper_fly","deer_hair_slider","mouse_fly"] as const,
 },
 
   {
@@ -1843,8 +1843,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","buzzbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer","popper_fly","deer_hair_slider","mouse_fly"] as const,
 },
 
   {
@@ -1859,8 +1859,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","buzzbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer","popper_fly","deer_hair_slider","mouse_fly"] as const,
 },
 
   {
@@ -1875,8 +1875,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","buzzbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer","popper_fly","deer_hair_slider","mouse_fly"] as const,
 },
 
   {
@@ -1891,8 +1891,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
 },
 
   {
@@ -1907,8 +1907,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer"] as const,
 },
 
   {
@@ -1923,8 +1923,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
 },
 
   {
@@ -1939,8 +1939,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer"] as const,
 },
 
   {
@@ -1955,8 +1955,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer"] as const,
 },
 
   {
@@ -1971,8 +1971,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
 },
 
   {
@@ -1987,8 +1987,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
 },
 
   {
@@ -2003,8 +2003,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","buzzbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer","popper_fly","deer_hair_slider","mouse_fly"] as const,
 },
 
   {
@@ -2019,8 +2019,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","buzzbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer","popper_fly","deer_hair_slider","mouse_fly"] as const,
 },
 
   {
@@ -2035,8 +2035,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","buzzbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer","popper_fly","deer_hair_slider","mouse_fly"] as const,
 },
 
   {
@@ -2051,8 +2051,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","buzzbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer","popper_fly","deer_hair_slider","mouse_fly"] as const,
 },
 
   {
@@ -2067,8 +2067,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","buzzbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer","popper_fly","deer_hair_slider","mouse_fly"] as const,
 },
 
   {
@@ -2083,8 +2083,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
 },
 
   {
@@ -2099,8 +2099,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
 },
 
   {
@@ -2115,8 +2115,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
 },
 
   {
@@ -2131,8 +2131,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "leech_worm",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
 },
 
   {
@@ -2147,8 +2147,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "leech_worm",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
 },
 
   {
@@ -2163,8 +2163,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
 },
 
   {
@@ -2179,8 +2179,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
 },
 
   {
@@ -2195,8 +2195,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","buzzbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer","popper_fly","deer_hair_slider","mouse_fly"] as const,
 },
 
   {
@@ -2211,8 +2211,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","buzzbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer","popper_fly","deer_hair_slider","mouse_fly"] as const,
 },
 
   {
@@ -2227,8 +2227,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","buzzbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer","popper_fly","deer_hair_slider","mouse_fly"] as const,
 },
 
   {
@@ -2243,8 +2243,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","buzzbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer","popper_fly","deer_hair_slider","mouse_fly"] as const,
 },
 
   {
@@ -2259,8 +2259,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","buzzbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer","popper_fly","deer_hair_slider","mouse_fly"] as const,
 },
 
   {
@@ -2275,8 +2275,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
 },
 
   {
@@ -2291,8 +2291,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
 },
 
   {
@@ -2307,8 +2307,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "leech_worm",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
 },
 
   {
@@ -2323,8 +2323,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer"] as const,
 },
 
   {
@@ -2339,8 +2339,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer"] as const,
 },
 
   {
@@ -2355,8 +2355,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
 },
 
   {
@@ -2371,8 +2371,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
 },
 
   {
@@ -2387,8 +2387,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","buzzbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer","popper_fly","deer_hair_slider","mouse_fly"] as const,
 },
 
   {
@@ -2403,8 +2403,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","buzzbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer","popper_fly","deer_hair_slider","mouse_fly"] as const,
 },
 
   {
@@ -2419,8 +2419,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","buzzbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer","popper_fly","deer_hair_slider","mouse_fly"] as const,
 },
 
   {
@@ -2435,8 +2435,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","buzzbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer","popper_fly","deer_hair_slider","mouse_fly"] as const,
 },
 
   {
@@ -2451,8 +2451,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","buzzbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer","popper_fly","deer_hair_slider","mouse_fly"] as const,
 },
 
   {
@@ -2467,8 +2467,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
 },
 
   {
@@ -2483,8 +2483,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer"] as const,
 },
 
   {
@@ -2499,8 +2499,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
 },
 
   {
@@ -2515,8 +2515,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer"] as const,
 },
 
   {
@@ -2531,8 +2531,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer"] as const,
 },
 
   {
@@ -2547,8 +2547,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
 },
 
   {
@@ -2563,8 +2563,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
 },
 
   {
@@ -2579,8 +2579,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","buzzbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer","popper_fly","deer_hair_slider","mouse_fly"] as const,
 },
 
   {
@@ -2595,8 +2595,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","buzzbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer","popper_fly","deer_hair_slider","mouse_fly"] as const,
 },
 
   {
@@ -2611,8 +2611,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","buzzbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer","popper_fly","deer_hair_slider","mouse_fly"] as const,
 },
 
   {
@@ -2627,8 +2627,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","buzzbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer","popper_fly","deer_hair_slider","mouse_fly"] as const,
 },
 
   {
@@ -2643,8 +2643,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","buzzbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer","popper_fly","deer_hair_slider","mouse_fly"] as const,
 },
 
   {
@@ -2659,8 +2659,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
 },
 
   {
@@ -2675,8 +2675,8 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","slim_minnow_streamer"] as const,
 },
 
   {
@@ -2691,7 +2691,7 @@ export const TROUT_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "leech_worm",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait"] as const,
-    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
+    primary_lure_ids: ["hair_jig","casting_spoon","inline_spinner","suspending_jerkbait","blade_bait","tube_jig","ned_rig","spinnerbait","lipless_crankbait"] as const,
+    primary_fly_ids: ["muddler_sculpin","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","woolly_bugger","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","game_changer","zonker_streamer","crawfish_streamer"] as const,
 }
 ] as const;

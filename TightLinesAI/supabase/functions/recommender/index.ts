@@ -41,6 +41,10 @@ import {
   toRecommenderV3Species,
   isSpeciesValidForState,
 } from "../_shared/recommenderEngine/index.ts";
+import {
+  loadRecentRecommendationHistory,
+  persistRecommendationHistory,
+} from "./recentHistory.ts";
 
 const VALID_WATER_CLARITY: WaterClarity[] = ["clear", "stained", "dirty"];
 
@@ -242,7 +246,29 @@ export async function handleRecommenderRequest(
       );
     }
 
-    result = runRecommenderRebuildSurface(engineReq);
+    const recentHistory = await loadRecentRecommendationHistory({
+      supabase,
+      userId: user.id,
+      localDate: engineReq.location.local_date,
+      species: engineReq.species,
+      regionKey: engineReq.location.region_key,
+      waterType: engineReq.context,
+    });
+
+    result = runRecommenderRebuildSurface(engineReq, {
+      userSeed: user.id,
+      recentHistory,
+    });
+
+    await persistRecommendationHistory({
+      supabase,
+      userId: user.id,
+      localDate: engineReq.location.local_date,
+      species: engineReq.species,
+      regionKey: engineReq.location.region_key,
+      waterType: engineReq.context,
+      result,
+    });
   } catch (err) {
     if (err instanceof SeasonalRowMissingError) {
       return jsonError(

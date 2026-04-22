@@ -51,7 +51,7 @@ Deno.test("lure() throws on duplicate primary/secondary pace (G2)", () => {
   );
 });
 
-Deno.test("fly() throws when surface column is not popper/frog/mouse (G2/P13)", () => {
+Deno.test("fly() throws when surface column is not a SURFACE_FLY_IDS_V4 id (G2/P13)", () => {
   assertThrows(
     () =>
       fly({
@@ -63,7 +63,7 @@ Deno.test("fly() throws when surface column is not popper/frog/mouse (G2/P13)", 
   );
 });
 
-Deno.test("popper_fly: rejects northern_pike in species_allowed (G7)", () => {
+Deno.test("popper_fly: rejects invalid species token in species_allowed (G7)", () => {
   assertThrows(
     () =>
       fly({
@@ -72,12 +72,12 @@ Deno.test("popper_fly: rejects northern_pike in species_allowed (G7)", () => {
         column: "surface",
         primary_pace: "medium",
         secondary_pace: "slow",
-        species_allowed: ["largemouth_bass", "northern_pike"],
+        species_allowed: ["largemouth_bass", "invalid_species" as "largemouth_bass"],
         forage_tags: ["surface_prey", "bluegill_perch"],
         clarity_strengths: ["clear", "stained"],
       }),
     Error,
-    "popper_fly species_allowed must be bass only",
+    "popper_fly species_allowed must be largemouth_bass",
   );
 });
 
@@ -136,14 +136,14 @@ Deno.test("mouse_fly: rejects pike-only species_allowed (G7)", () => {
   );
 });
 
-Deno.test("popper_fly: accepts bass-only surface fly", () => {
+Deno.test("popper_fly: accepts bass, pike, and/or trout surface fly (G7)", () => {
   const p = fly({
     ...baseFly,
     id: "popper_fly",
     column: "surface",
     primary_pace: "medium",
     secondary_pace: "slow",
-    species_allowed: ["largemouth_bass", "smallmouth_bass"],
+    species_allowed: ["largemouth_bass", "smallmouth_bass", "northern_pike", "trout"],
     forage_tags: ["surface_prey", "bluegill_perch"],
     clarity_strengths: ["clear", "stained"],
     water_types_allowed: ["freshwater_lake_pond", "freshwater_river"],

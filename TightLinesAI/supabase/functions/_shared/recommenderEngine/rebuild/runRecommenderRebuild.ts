@@ -12,6 +12,7 @@ import {
   type TargetProfile,
 } from "./shapeProfiles.ts";
 import { selectArchetypesForSide, type RebuildSlotPick } from "./selectSide.ts";
+import type { RecentRecommendationHistoryEntry } from "./recentHistory.ts";
 
 export type RebuildEngineResult = {
   row: SeasonalRowV4;
@@ -24,9 +25,15 @@ export type RebuildEngineResult = {
   flySlotPicks: RebuildSlotPick[];
 };
 
+export type RebuildSelectionOptions = {
+  userSeed?: string;
+  recentHistory?: readonly RecentRecommendationHistoryEntry[];
+};
+
 export function computeRecommenderRebuild(
   req: RecommenderRequest,
   analysis: SharedConditionAnalysis,
+  options: RebuildSelectionOptions = {},
 ): RebuildEngineResult {
   const { species, context } = assertRecommenderV3Scope(req);
 
@@ -50,8 +57,9 @@ export function computeRecommenderRebuild(
 
   const profiles = buildTargetProfiles({ row, regime, surfaceBlocked });
 
+  const seedScope = options.userSeed ?? "shared";
   const seedBase =
-    `${req.location.local_date}|${req.location.region_key}|${species}|${context}|${req.water_clarity}`;
+    `${seedScope}|${req.location.local_date}|${req.location.region_key}|${species}|${context}|${req.water_clarity}`;
 
   const lureSlotPicks = selectArchetypesForSide({
     side: "lure",
@@ -62,6 +70,8 @@ export function computeRecommenderRebuild(
     profiles,
     surfaceBlocked,
     seedBase,
+    currentLocalDate: req.location.local_date,
+    recentHistory: options.recentHistory,
   });
 
   const flySlotPicks = selectArchetypesForSide({
@@ -73,6 +83,8 @@ export function computeRecommenderRebuild(
     profiles,
     surfaceBlocked,
     seedBase,
+    currentLocalDate: req.location.local_date,
+    recentHistory: options.recentHistory,
   });
 
   return {

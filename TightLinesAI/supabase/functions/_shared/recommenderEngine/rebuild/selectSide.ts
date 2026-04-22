@@ -11,6 +11,10 @@ import { LURE_ARCHETYPES_V4 } from "../v4/candidates/lures.ts";
 import { pickHowToFish } from "../v4/engine/buildCopy.ts";
 import type { TacticalColumn, TacticalPace } from "../v4/contracts.ts";
 import type { TargetProfile } from "./shapeProfiles.ts";
+import {
+  recentHistoryPenalty,
+  type RecentRecommendationHistoryEntry,
+} from "./recentHistory.ts";
 
 /** One filled recommendation: exact-fit archetype plus the target profile it satisfied. */
 export type RebuildSlotPick = {
@@ -115,6 +119,8 @@ export function selectArchetypesForSide(args: {
   profiles: TargetProfile[];
   surfaceBlocked: boolean;
   seedBase: string;
+  currentLocalDate?: string;
+  recentHistory?: readonly RecentRecommendationHistoryEntry[];
 }): RebuildSlotPick[] {
   const {
     side,
@@ -125,6 +131,8 @@ export function selectArchetypesForSide(args: {
     profiles,
     surfaceBlocked,
     seedBase,
+    currentLocalDate = "",
+    recentHistory = [],
   } = args;
 
   const catalog = side === "lure" ? LURE_ARCHETYPES_V4 : FLY_ARCHETYPES_V4;
@@ -167,8 +175,13 @@ export function selectArchetypesForSide(args: {
     const rng = mulberry32(hashSeed(`${seedBase}|${side}|${slot}`));
 
     const candidates = catalog.filter(passesGate);
-    const ranked: { cand: ArchetypeProfileV4; tier: number; sort: number }[] =
-      [];
+    const ranked: {
+      cand: ArchetypeProfileV4;
+      tier: number;
+      preference: number;
+      familyPenalty: number;
+      stableKey: number;
+    }[] = [];
 
     for (const cand of candidates) {
       if (pickedIds.has(cand.id)) continue;
@@ -180,11 +193,23 @@ export function selectArchetypesForSide(args: {
         )
         ? 1
         : 0;
-      const bonus = forageBonus(cand, row) + clarityBonus(cand, water_clarity);
-      const sort = bonus * 10 - famPenalty * 5 +
-        stableSortKey([cand.id, String(t)], rng);
+      const preference = forageBonus(cand, row) +
+        clarityBonus(cand, water_clarity) -
+        recentHistoryPenalty({
+          archetypeId: cand.id,
+          side,
+          currentLocalDate,
+          recentHistory,
+        });
+      const stableKey = stableSortKey([cand.id, String(t)], rng);
 
-      ranked.push({ cand, tier: t, sort });
+      ranked.push({
+        cand,
+        tier: t,
+        preference,
+        familyPenalty: famPenalty,
+        stableKey,
+      });
     }
 
     if (ranked.length === 0) continue;
@@ -192,7 +217,10 @@ export function selectArchetypesForSide(args: {
     const bestTier = Math.min(...ranked.map((r) => r.tier));
     const tierPool = ranked.filter((r) => r.tier === bestTier);
     tierPool.sort((a, b) =>
-      b.sort - a.sort || a.cand.id.localeCompare(b.cand.id)
+      b.preference - a.preference ||
+      a.familyPenalty - b.familyPenalty ||
+      b.stableKey - a.stableKey ||
+      a.cand.id.localeCompare(b.cand.id)
     );
 
     const chosen = tierPool[0]!.cand;

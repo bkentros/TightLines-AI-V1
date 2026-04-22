@@ -100,11 +100,14 @@ function validateSurfaceFlySpeciesGate(id: FlyArchetypeIdV4, species_allowed: re
   if (!(SURFACE_FLY_IDS_V4 as readonly string[]).includes(id)) return;
 
   const surfaceId = id as SurfaceFlyIdV4;
-  if (surfaceId === "popper_fly") {
+  if (surfaceId === "popper_fly" || surfaceId === "deer_hair_slider") {
     for (const s of species_allowed) {
-      if (s !== "largemouth_bass" && s !== "smallmouth_bass") {
+      if (
+        s !== "largemouth_bass" && s !== "smallmouth_bass" &&
+        s !== "northern_pike" && s !== "trout"
+      ) {
         throw new Error(
-          `[recommender v4] popper_fly species_allowed must be bass only (G7/P23); got: ${species_allowed.join(", ")}.`,
+          `[recommender v4] ${surfaceId} species_allowed must be largemouth_bass, smallmouth_bass, northern_pike, and/or trout only (G7/P23); got: ${species_allowed.join(", ")}.`,
         );
       }
     }

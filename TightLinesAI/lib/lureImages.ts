@@ -7,7 +7,7 @@
 
 const LURE_IMAGES: Partial<Record<string, ReturnType<typeof require>>> = {
   // ── Stick worms ───────────────────────────────────────────────────────────
-  weightless_stick_worm:            require('../assets/images/lures/texas_rigged_stick_worm.png'),
+  weightless_stick_worm:            require('../assets/images/lures/weightless_stick_worm.png'),
   carolina_rigged_stick_worm:       require('../assets/images/lures/carolina_rigged_stick_worm.png'),
 
   // ── Finesse soft plastics ─────────────────────────────────────────────────
@@ -56,6 +56,9 @@ const LURE_IMAGES: Partial<Record<string, ReturnType<typeof require>>> = {
   // ── Pike / musky ──────────────────────────────────────────────────────────
   large_profile_pike_swimbait:      require('../assets/images/lures/large_profile_pike_swimbait.png'),
   pike_jerkbait:                    require('../assets/images/lures/pike_jerkbait.png'),
+  large_bucktail_spinner:           require('../assets/images/lures/large_bucktail_spinner.png'),
+  large_pike_topwater:              require('../assets/images/lures/large_pike_topwater.png'),
+  pike_jig_and_plastic:             require('../assets/images/lures/pike_jig_and_plastic.png'),
 };
 
 /** Returns the image for a lure archetype, or null if not yet available. */

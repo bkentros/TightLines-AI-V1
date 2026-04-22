@@ -62,18 +62,45 @@ function mockClient(options: {
         error: options.authError ?? null,
       }),
     },
-    from: () => ({
-      select: () => ({
-        eq: () => ({
-          single: async () => ({
-            data:
-              options.subscriptionTier === undefined
-                ? null
-                : { subscription_tier: options.subscriptionTier },
+    from: (table: string) => {
+      if (table === "profiles") {
+        return {
+          select: () => ({
+            eq: () => ({
+              single: async () => ({
+                data:
+                  options.subscriptionTier === undefined
+                    ? null
+                    : { subscription_tier: options.subscriptionTier },
+              }),
+            }),
           }),
-        }),
-      }),
-    }),
+        };
+      }
+
+      if (table === "recommender_recent_history") {
+        return {
+          select: () => ({
+            eq: () => ({
+              eq: () => ({
+                eq: () => ({
+                  eq: () => ({
+                    lt: () => ({
+                      gte: () => ({
+                        order: async () => ({ data: [], error: null }),
+                      }),
+                    }),
+                  }),
+                }),
+              }),
+            }),
+          }),
+          upsert: async () => ({ error: null }),
+        };
+      }
+
+      throw new Error(`unexpected table ${table}`);
+    },
   };
 }
 

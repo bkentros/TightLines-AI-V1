@@ -3,12 +3,11 @@
  *
  * Central map from SpeciesGroup → local image asset.
  *
- * Drop fish PNGs into:  assets/images/fish/
- * File names must match exactly:
- *   largemouth_bass.png
- *   smallmouth_bass.png
- *   pike_musky.png
- *   river_trout.png
+ * Fish PNGs:  assets/images/fish/
+ *   largemouth_bass.png, smallmouth_bass.png, pike_musky.png, river_trout.png
+ *
+ * Regenerate (field-guide style):
+ *   deno run -A scripts/generate-recommender-species-fish-images.ts
  */
 
 import type { SpeciesGroup } from './recommenderContracts';
