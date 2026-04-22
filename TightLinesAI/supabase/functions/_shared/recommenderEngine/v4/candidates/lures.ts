@@ -449,7 +449,7 @@ export const LURE_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     primary_pace: "medium",
     forage_tags: ["surface_prey", "baitfish"],
     clarity_strengths: ["clear", "stained"],
-    species_allowed: ["largemouth_bass", "smallmouth_bass"],
+    species_allowed: ["largemouth_bass", "smallmouth_bass", "trout"],
     water_types_allowed: [L, R],
     how_to_fish_variants: [
       "Sweep the rod tip side to side in short, rhythmic twitches while reeling in just enough slack — the bait should walk in a steady side-to-side waddle.",
@@ -466,7 +466,7 @@ export const LURE_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     secondary_pace: "slow",
     forage_tags: ["surface_prey"],
     clarity_strengths: ["clear", "stained"],
-    species_allowed: ["largemouth_bass", "smallmouth_bass"],
+    species_allowed: ["largemouth_bass", "smallmouth_bass", "trout"],
     water_types_allowed: [L, R],
     how_to_fish_variants: [
       "Pop sharply with the rod tip, let the rings settle, then pop again — give it a 2-3 second pause after each spit so fish can locate and attack.",

@@ -67,6 +67,7 @@ export const FLY_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     family_group: "streamer_sparse",
     column: "upper",
     primary_pace: "medium",
+    secondary_pace: "fast",
     forage_tags: ["baitfish"],
     clarity_strengths: ["clear"],
     species_allowed: ["smallmouth_bass", "trout"],
@@ -368,7 +369,7 @@ export const FLY_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     secondary_pace: "slow",
     forage_tags: ["baitfish", "bluegill_perch"],
     clarity_strengths: ["clear", "stained"],
-    species_allowed: ["largemouth_bass", "smallmouth_bass", "northern_pike"],
+    species_allowed: ["largemouth_bass", "smallmouth_bass", "northern_pike", "trout"],
     water_types_allowed: [L, R],
     how_to_fish_variants: [
       "Fish it on a floating line with a medium strip so the unweighted body tracks just under the film, pushing a subtle V-wake for fish looking up.",
@@ -385,7 +386,7 @@ export const FLY_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     secondary_pace: "fast",
     forage_tags: ["baitfish", "bluegill_perch"],
     clarity_strengths: ["clear", "stained", "dirty"],
-    species_allowed: ["largemouth_bass", "smallmouth_bass", "northern_pike"],
+    species_allowed: ["largemouth_bass", "smallmouth_bass", "northern_pike", "trout"],
     water_types_allowed: [L, R],
     how_to_fish_variants: [
       "Fish it high in the column with brisk strips so the sparse head throws a little wake, then let it glide just under the film before the next pull.",

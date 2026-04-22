@@ -32,6 +32,11 @@
  *   OPENAI_API_KEY='sk-…' deno run -A "/Users/brandonkentros/TightLines AI V1/TightLinesAI/scripts/generate-recommender-tackle-images.ts" \\
  *     --kind=flies --id=unweighted_baitfish_streamer --model=gpt-image-1.5 --background=transparent
  *
+ * Leech trio (dedicated tiles; each writes assets/images/flies/<id>.png):
+ *   …same deno prefix… --kind=flies --id=jighead_marabou_leech --model=gpt-image-1.5 --background=transparent
+ *   …same deno prefix… --kind=flies --id=lead_eye_leech --model=gpt-image-1.5 --background=transparent
+ *   …same deno prefix… --kind=flies --id=feather_jig_leech --model=gpt-image-1.5 --background=transparent
+ *
  * Model note: `gpt-image-2` still benefits from transparency wording in the prompt, but true
  * alpha needs `background: "transparent"` on a model that supports it (e.g. `gpt-image-1.5`).
  */
