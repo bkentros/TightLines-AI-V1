@@ -44,6 +44,7 @@ import {
   type PaperTier,
 } from '../../lib/theme';
 import {
+  CornerMark,
   CornerMarkSet,
   SectionEyebrow,
   TopographicLines,
@@ -209,7 +210,29 @@ export function RebuildReportView({
     <View style={styles.wrap}>
       {/* ── HERO ─────────────────────────────────────────────────────────── */}
       <View style={styles.heroCard}>
-        <CornerMarkSet color={paper.red} />
+        {/* Tier-colored top band — a magazine-style masthead stripe that
+            declares the hero as the page's headline, not just another card. */}
+        <View
+          pointerEvents="none"
+          style={[styles.heroTopBand, { backgroundColor: accent }]}
+        />
+
+        {/* Faint topographic watermark tinted to the tier accent — adds
+            editorial depth without competing with the score. */}
+        <TopographicLines
+          style={styles.heroTopoLines}
+          color={accent}
+          count={4}
+        />
+
+        {/* Three corner marks — the top-right is intentionally absent so the
+            verdict stamp can live there as the card's single asymmetric
+            detail, like a hand-applied seal on a field report. */}
+        <CornerMark position="tl" color={paper.red} />
+        <CornerMark position="bl" color={paper.red} />
+        <CornerMark position="br" color={paper.red} />
+
+        <VerdictStamp accent={accent} tier={tier} band={report.band} />
 
         <View style={styles.heroEyebrow}>
           <SectionEyebrow color={paper.red} size={9} tracking={3}>
@@ -235,7 +258,15 @@ export function RebuildReportView({
           {outlookEyebrow}
         </SectionEyebrow>
         <Text style={[styles.heroSubline, { color: accent }]}>{outlookLine}</Text>
-        <Text style={styles.heroSummary}>{report.summary_line}</Text>
+
+        {/* Pull-quote summary — wider leading + italic serif + tier-colored
+            left rule make the engine's one-liner read like an editor's
+            lede, not a caption. */}
+        <View style={styles.heroSummaryWrap}>
+          <View style={[styles.heroSummaryRule, { backgroundColor: accent }]} />
+          <Text style={styles.heroSummary}>{report.summary_line}</Text>
+        </View>
+
         <AirRangeStrip report={report} />
       </View>
 
@@ -416,6 +447,66 @@ function shortTz(tz: string): string {
   return (parts[parts.length - 1] ?? tz).replace(/_/g, ' ');
 }
 
+// ─── VerdictStamp ────────────────────────────────────────────────────────────
+
+/**
+ * Hand-stamped verdict seal in the top-right of the hero card. A double
+ * ink-stroked rectangle, rotated a few degrees, in the tier accent color.
+ * For Excellent days a leading star stamps in too, so "★ EXCELLENT" reads
+ * as the report's rubber-stamped verdict. The double-border + rotation is
+ * the cheapest way to evoke a real rubber stamp without any assets.
+ */
+function VerdictStamp({
+  accent,
+  tier,
+  band,
+}: {
+  accent: string;
+  tier: PaperTier;
+  band?: string;
+}) {
+  const label = (band ?? '').toUpperCase() || fallbackBandFromTier(tier);
+  const isPeak = tier === 'green' && label === 'EXCELLENT';
+  return (
+    <View
+      pointerEvents="none"
+      style={[stampStyles.outer, { borderColor: accent }]}
+    >
+      <View style={[stampStyles.inner, { borderColor: accent }]}>
+        <Text style={[stampStyles.text, { color: accent }]}>
+          {isPeak ? '★ ' : ''}
+          {label}
+        </Text>
+      </View>
+    </View>
+  );
+}
+
+const stampStyles = StyleSheet.create({
+  outer: {
+    position: 'absolute',
+    top: 14,
+    right: 14,
+    transform: [{ rotate: '-6deg' }],
+    borderWidth: 1.6,
+    padding: 2,
+    backgroundColor: 'transparent',
+    // Sit above topo watermark + top band.
+    zIndex: 5,
+  },
+  inner: {
+    borderWidth: 0.8,
+    paddingHorizontal: 7,
+    paddingVertical: 2,
+  },
+  text: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 10,
+    letterSpacing: 2.2,
+    fontWeight: '700',
+  },
+});
+
 // ─── LinearScoreGauge ────────────────────────────────────────────────────────
 
 /**
@@ -425,16 +516,6 @@ function shortTz(tz: string): string {
  * dedicated row above the track, the track owns its own row, and the
  * scale labels (0 / 5 / 10) sit below. A drop-shadow and oversized ink
  * stroke make the score "pop" so the eye locks onto it instantly.
- *
- * Design notes:
- *  - The colored track always shows the full red→gold→forest spectrum so
- *    the scale is legible at a glance regardless of score.
- *  - The marker is a filled circle in the accent color with a thick ink
- *    border plus a vertical stem dropping from the score number down to
- *    the track — that way the user can't miss where the score lands.
- *  - The band label underneath uses the engine's own band
- *    (`Poor | Fair | Good | Excellent`), not an invented "GO/SKIP"
- *    verdict, so the copy matches the engine's truth.
  */
 function LinearScoreGauge({
   score,
@@ -601,11 +682,11 @@ const gaugeStyles = StyleSheet.create({
   },
   scoreNum: {
     fontFamily: paperFonts.monoBold,
-    fontSize: 72,
+    fontSize: 84,
     // lineHeight > fontSize gives the glyphs breathing room so ascenders
     // are never clipped at the top of the text box.
-    lineHeight: 86,
-    letterSpacing: -3.5,
+    lineHeight: 100,
+    letterSpacing: -4,
     fontWeight: '700',
     includeFontPadding: false,
     // Offset ink drop-shadow gives the number an embossed, plate-printed
@@ -811,10 +892,29 @@ const styles = StyleSheet.create({
     ...paperBorders.card,
     ...paperShadows.hard,
     paddingHorizontal: paperSpacing.md,
-    paddingTop: paperSpacing.md,
+    // Extra top padding to clear the tier-colored top band.
+    paddingTop: paperSpacing.md + 4,
     paddingBottom: paperSpacing.md,
     overflow: 'hidden',
     alignItems: 'center',
+    // Relative so the absolute top band / topo / stamp children anchor here.
+    position: 'relative',
+  },
+  // The masthead stripe — sits inside the clipped card (borderRadius +
+  // overflow: 'hidden') so its top edge follows the card's rounded corners.
+  heroTopBand: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    height: 5,
+  },
+  // Absolute fill for the tier-tinted topographic contours behind the content.
+  heroTopoLines: {
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
   },
   heroEyebrow: {
     marginBottom: 4,
@@ -843,18 +943,36 @@ const styles = StyleSheet.create({
     fontSize: 15,
     letterSpacing: -0.3,
     marginTop: 6,
-    marginBottom: 4,
+    marginBottom: 6,
     textAlign: 'center',
   },
+  // Pull-quote wrapper — narrower than the card so the italic line reads
+  // like a lede, not a caption. The accent rule sits to the left of the
+  // first line so the color ties back to the score.
+  heroSummaryWrap: {
+    flexDirection: 'row',
+    alignItems: 'stretch',
+    alignSelf: 'center',
+    maxWidth: 320,
+    paddingHorizontal: paperSpacing.xs,
+    marginTop: 2,
+  },
+  heroSummaryRule: {
+    width: 2.5,
+    borderRadius: 1,
+    marginRight: 10,
+    opacity: 0.85,
+  },
   heroSummary: {
+    flex: 1,
     fontFamily: paperFonts.displayItalic,
     fontStyle: 'italic',
-    fontSize: 13,
-    lineHeight: 20,
+    fontSize: 14.5,
+    lineHeight: 22,
     color: paper.ink,
     opacity: 0.9,
-    textAlign: 'center',
-    paddingHorizontal: paperSpacing.xs,
+    textAlign: 'left',
+    letterSpacing: -0.1,
   },
   airRow: {
     flexDirection: 'row',
