@@ -131,7 +131,7 @@ export const FLY_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
   fly({
     id: "woolly_bugger",
     display_name: "Woolly Bugger",
-    family_group: "leech_family",
+    family_group: "bugger_streamer",
     column: "mid",
     primary_pace: "slow",
     secondary_pace: "medium",

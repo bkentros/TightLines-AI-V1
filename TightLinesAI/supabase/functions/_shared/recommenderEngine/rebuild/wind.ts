@@ -2,11 +2,7 @@ import {
   hourlyPointsTo24ArrayForLocalDate,
 } from "../../howFishingEngine/request/hourlyLocalDay.ts";
 
-function num(x: unknown): number | null {
-  if (x == null) return null;
-  const n = Number(x);
-  return Number.isFinite(n) ? n : null;
-}
+export type WindBand = "calm" | "breezy" | "windy";
 
 /** Convert wind speed to mph using `weather.wind_speed_unit` when present. */
 function windToMph(speed: number | null, windUnitRaw: unknown): number | null {
@@ -16,9 +12,15 @@ function windToMph(speed: number | null, windUnitRaw: unknown): number | null {
   return speed;
 }
 
+export function windBandFromDaylightWindMph(daylightWindMph: number): WindBand {
+  if (daylightWindMph < 6) return "calm";
+  if (daylightWindMph < 12) return "breezy";
+  return "windy";
+}
+
 /**
  * Mean wind speed (mph) from 5:00 AM through 9:00 PM **local** time on `local_date`.
- * Uses hourly samples when sufficient; falls back to scalar `weather.wind_speed`.
+ * Uses hourly samples only; returns 0 when hourly daylight samples are unavailable.
  */
 export function meanDaylightWindMph(args: {
   env_data: Record<string, unknown>;
@@ -58,6 +60,5 @@ export function meanDaylightWindMph(args: {
     }
   }
 
-  const fallback = windToMph(num(w?.wind_speed), windUnit);
-  return fallback ?? 0;
+  return 0;
 }

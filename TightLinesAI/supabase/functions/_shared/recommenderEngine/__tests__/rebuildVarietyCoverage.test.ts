@@ -104,7 +104,11 @@ Deno.test("selectSide: Appalachian June pike lake now fills a 3-fly lake trio", 
   assertEquals(picks.length, 3);
   assertEquals(picks[0]!.archetype.id, "deer_hair_slider");
   assertEquals(picks[1]!.archetype.column, "mid");
-  assertEquals(picks[2]!.archetype.id, "rabbit_strip_leech");
+  assertEquals(picks[2]!.archetype.column, "bottom");
+  assert(
+    picks[2]!.archetype.primary_pace === "medium" ||
+      picks[2]!.archetype.secondary_pace === "medium",
+  );
 });
 
 Deno.test("selectSide: recent-history cooldown rotates away from yesterday's exact-fit fly when alternatives exist", () => {

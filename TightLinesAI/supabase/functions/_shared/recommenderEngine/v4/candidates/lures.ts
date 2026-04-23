@@ -251,7 +251,7 @@ export const LURE_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     secondary_pace: "slow",
     forage_tags: ["baitfish", "bluegill_perch"],
     clarity_strengths: ["stained", "dirty"],
-    species_allowed: ["largemouth_bass", "smallmouth_bass", "northern_pike", "trout"],
+    species_allowed: ["largemouth_bass", "smallmouth_bass", "northern_pike"],
     water_types_allowed: [L, R],
     how_to_fish_variants: [
       "Slow-roll it along the bottom edge of cover at a steady pace, keeping the blades just ticking; bump any piece of structure and let it rise.",
@@ -483,7 +483,7 @@ export const LURE_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     secondary_pace: "medium",
     forage_tags: ["surface_prey", "baitfish"],
     clarity_strengths: ["stained", "dirty"],
-    species_allowed: ["largemouth_bass", "smallmouth_bass", "northern_pike", "trout"],
+    species_allowed: ["largemouth_bass", "smallmouth_bass", "northern_pike"],
     water_types_allowed: [L, R],
     how_to_fish_variants: [
       "Start the retrieve as soon as it hits the water; keep the blade just breaking the surface and never stop reeling until the bait is at the boat.",
@@ -595,7 +595,7 @@ export const LURE_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
   }),
   lure({
     id: "pike_jig_and_plastic",
-    display_name: "Pike Jig and Plastic",
+    display_name: "Paddle Tail Pike Jig",
     family_group: "pike_jig",
     column: "bottom",
     primary_pace: "slow",

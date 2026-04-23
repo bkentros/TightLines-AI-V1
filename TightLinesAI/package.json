@@ -36,6 +36,7 @@
     "gen:seasonal-rows-v4": "deno run -A scripts/generate-seasonal-rows-v4.ts",
     "check:seasonal-matrix": "deno run -A scripts/check-seasonal-matrix-consistency.ts",
     "audit:eligibility": "deno run -A scripts/audit-eligibility-by-region-v4.ts",
+    "audit:recommender:v4:exposure": "deno run -A scripts/audit-recommender-v4-exposure.ts",
     "audit:recommender:v3:lmb:matrix": "deno run --allow-read --allow-write scripts/recommender-v3-audit/generateLargemouthAuditMatrix.ts",
     "audit:recommender:v3:lmb:matrix:archive-env": "deno run --allow-net --allow-read --allow-write scripts/recommender-v3-audit/buildLargemouthMatrixArchiveEnv.ts",
     "audit:recommender:v3:lmb:matrix:run": "deno run --allow-read --allow-write scripts/recommender-v3-audit/runLargemouthMatrix.ts",

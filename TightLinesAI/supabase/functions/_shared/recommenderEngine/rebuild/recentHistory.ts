@@ -13,37 +13,26 @@ function daysBetweenIsoDates(a: string, b: string): number | null {
   return Math.round((utcB - utcA) / 86_400_000);
 }
 
-function recencyWeight(daysAgo: number): number {
-  if (daysAgo <= 1) return 70;
-  if (daysAgo <= 3) return 45;
-  if (daysAgo <= 7) return 25;
-  return 0;
-}
-
 /**
- * Soft anti-repetition penalty.
- *
- * Recent history only nudges ranking away from repeats. It never blocks an
- * archetype outright, so genuinely thin exact-fit pools can still repeat the
- * best item when there is no honest alternative.
+ * Structural anti-repetition flag.
+ * Recent history narrows a finalist pool only when at least one non-recent
+ * exact-fit finalist exists; thin pools can still repeat an honest fit.
  */
-export function recentHistoryPenalty(args: {
+export function isRecentlyShown(args: {
   archetypeId: string;
   side: GearMode;
   currentLocalDate: string;
   recentHistory: readonly RecentRecommendationHistoryEntry[];
-}): number {
+}): boolean {
   const { archetypeId, side, currentLocalDate, recentHistory } = args;
 
-  let total = 0;
   for (const entry of recentHistory) {
     if (entry.gear_mode !== side) continue;
     if (entry.archetype_id !== archetypeId) continue;
 
     const daysAgo = daysBetweenIsoDates(entry.local_date, currentLocalDate);
     if (daysAgo == null || daysAgo <= 0) continue;
-    total += recencyWeight(daysAgo);
+    if (daysAgo <= 7) return true;
   }
-
-  return Math.min(total, 90);
+  return false;
 }

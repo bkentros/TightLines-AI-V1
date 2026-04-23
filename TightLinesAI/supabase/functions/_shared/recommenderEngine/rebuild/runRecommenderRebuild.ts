@@ -3,22 +3,33 @@ import type { RecommenderRequest } from "../contracts/input.ts";
 import { assertRecommenderV3Scope } from "../v3/scope.ts";
 import type { SeasonalRowV4 } from "../v4/contracts.ts";
 import { resolveSeasonalRowRebuild } from "./seasonalResolve.ts";
-import { meanDaylightWindMph } from "./wind.ts";
+import {
+  meanDaylightWindMph,
+  type WindBand,
+  windBandFromDaylightWindMph,
+} from "./wind.ts";
 import {
   buildTargetProfiles,
   computeSurfaceBlocked,
-  regimeFromHowsScore,
   type DailyRegime,
+  regimeFromHowsScore,
   type TargetProfile,
 } from "./shapeProfiles.ts";
-import { selectArchetypesForSide, type RebuildSlotPick } from "./selectSide.ts";
+import { type RebuildSlotPick, selectArchetypesForSide } from "./selectSide.ts";
 import type { RecentRecommendationHistoryEntry } from "./recentHistory.ts";
+import type {
+  FlyDailyConditionState,
+  LureDailyConditionState,
+} from "./conditionWindows.ts";
 
 export type RebuildEngineResult = {
   row: SeasonalRowV4;
   regime: DailyRegime;
   surfaceBlocked: boolean;
   daylightWindMph: number;
+  windBand: WindBand;
+  lureConditionState: LureDailyConditionState;
+  flyConditionState: FlyDailyConditionState;
   howsScore: number;
   profiles: TargetProfile[];
   lureSlotPicks: RebuildSlotPick[];
@@ -54,8 +65,33 @@ export function computeRecommenderRebuild(
   });
 
   const surfaceBlocked = computeSurfaceBlocked({ row, daylightWindMph });
+  const windBand = windBandFromDaylightWindMph(daylightWindMph);
 
   const profiles = buildTargetProfiles({ row, regime, surfaceBlocked });
+  const surfaceAllowedToday = row.column_range.includes("surface") &&
+    row.surface_seasonally_possible &&
+    !surfaceBlocked;
+  const surfaceSlotPresent = profiles.some((profile) =>
+    profile.column === "surface"
+  );
+  const lureConditionState: LureDailyConditionState = {
+    regime,
+    water_clarity: req.water_clarity,
+    surface_allowed_today: surfaceAllowedToday,
+    surface_slot_present: surfaceSlotPresent,
+    daylight_wind_mph: daylightWindMph,
+    wind_band: windBand,
+  };
+  const flyConditionState: FlyDailyConditionState = {
+    regime,
+    surface_allowed_today: surfaceAllowedToday,
+    surface_slot_present: surfaceSlotPresent,
+    daylight_wind_mph: daylightWindMph,
+    wind_band: windBand,
+    species,
+    context,
+    month: req.location.month,
+  };
 
   const seedScope = options.userSeed ?? "shared";
   const seedBase =
@@ -72,6 +108,7 @@ export function computeRecommenderRebuild(
     seedBase,
     currentLocalDate: req.location.local_date,
     recentHistory: options.recentHistory,
+    lureConditionState,
   });
 
   const flySlotPicks = selectArchetypesForSide({
@@ -85,6 +122,7 @@ export function computeRecommenderRebuild(
     seedBase,
     currentLocalDate: req.location.local_date,
     recentHistory: options.recentHistory,
+    flyConditionState,
   });
 
   return {
@@ -92,6 +130,9 @@ export function computeRecommenderRebuild(
     regime,
     surfaceBlocked,
     daylightWindMph,
+    windBand,
+    lureConditionState,
+    flyConditionState,
     howsScore,
     profiles,
     lureSlotPicks,

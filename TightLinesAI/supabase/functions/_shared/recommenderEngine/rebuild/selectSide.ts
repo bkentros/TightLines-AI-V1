@@ -15,9 +15,19 @@ import {
   copyVariantIndex,
 } from "./copy.ts";
 import {
-  recentHistoryPenalty,
+  isRecentlyShown,
   type RecentRecommendationHistoryEntry,
 } from "./recentHistory.ts";
+import {
+  activeFlyConditionWindow,
+  activeLureConditionWindow,
+  type FlyConditionWindowId,
+  flyConditionWindowMatches,
+  type FlyDailyConditionState,
+  type LureConditionWindowId,
+  lureConditionWindowMatches,
+  type LureDailyConditionState,
+} from "./conditionWindows.ts";
 
 /** One filled recommendation: exact-fit archetype plus the target profile it satisfied. */
 export type RebuildSlotPick = {
@@ -27,14 +37,25 @@ export type RebuildSlotPick = {
   source_slot_index: number;
 };
 
-function mulberry32(a: number): () => number {
-  return function () {
-    let t = (a += 0x6d2b79f5);
-    t = Math.imul(t ^ (t >>> 15), t | 1);
-    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
-    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-  };
-}
+type Side = "lure" | "fly";
+type SlotIndex = 0 | 1 | 2;
+
+export const CLARITY_SPECIALIST_WHITELIST: Readonly<
+  Record<Side, Partial<Record<string, readonly WaterClarity[]>>>
+> = {
+  lure: {
+    spinnerbait: ["stained", "dirty"],
+    bladed_jig: ["stained", "dirty"],
+    lipless_crankbait: ["stained", "dirty"],
+    suspending_jerkbait: ["clear"],
+  },
+  fly: {
+    slim_minnow_streamer: ["clear"],
+    unweighted_baitfish_streamer: ["clear"],
+    articulated_dungeon_streamer: ["stained", "dirty"],
+    rabbit_strip_leech: ["stained", "dirty"],
+  },
+};
 
 function hashSeed(s: string): number {
   let h = 2166136261 >>> 0;
@@ -45,15 +66,76 @@ function hashSeed(s: string): number {
   return h >>> 0;
 }
 
-function stableSortKey(parts: string[], rng: () => number): number {
-  let h = 2166136261 >>> 0;
-  for (const p of parts) {
-    for (let i = 0; i < p.length; i++) {
-      h ^= p.charCodeAt(i)!;
-      h = Math.imul(h, 16777619);
-    }
-  }
-  return (h >>> 0) + rng();
+function slotFromSeed(seed: string): SlotIndex {
+  return (hashSeed(seed) % 3) as SlotIndex;
+}
+
+export function forageDesignatedSlot(args: {
+  seedBase: string;
+  side: Side;
+}): SlotIndex {
+  return slotFromSeed(
+    `finalist-pool|forage-slot|${args.seedBase}|${args.side}`,
+  );
+}
+
+export function clarityDesignatedSlot(args: {
+  seedBase: string;
+  side: Side;
+  forageSlot?: SlotIndex;
+}): SlotIndex {
+  const forageSlot = args.forageSlot ??
+    forageDesignatedSlot({ seedBase: args.seedBase, side: args.side });
+  const initial = slotFromSeed(
+    `finalist-pool|clarity-slot|${args.seedBase}|${args.side}`,
+  );
+  if (initial !== forageSlot) return initial;
+
+  const alternateOffset =
+    (hashSeed(`finalist-pool|clarity-alt|${args.seedBase}|${args.side}`) % 2) +
+    1;
+  return ((forageSlot + alternateOffset) % 3) as SlotIndex;
+}
+
+export function conditionDesignatedSlot(args: {
+  seedBase: string;
+  side: Side;
+  forageSlot?: SlotIndex;
+  claritySlot?: SlotIndex;
+}): SlotIndex {
+  const forageSlot = args.forageSlot ??
+    forageDesignatedSlot({ seedBase: args.seedBase, side: args.side });
+  const claritySlot = args.claritySlot ??
+    clarityDesignatedSlot({
+      seedBase: args.seedBase,
+      side: args.side,
+      forageSlot,
+    });
+  const initial = slotFromSeed(
+    `finalist-pool|condition-slot|${args.seedBase}|${args.side}`,
+  );
+  if (initial !== forageSlot && initial !== claritySlot) return initial;
+
+  const openSlots = ([0, 1, 2] as const).filter((slot) =>
+    slot !== forageSlot && slot !== claritySlot
+  );
+  return openSlots[
+    hashSeed(`finalist-pool|condition-alt|${args.seedBase}|${args.side}`) %
+    openSlots.length
+  ]!;
+}
+
+export function finalistChoiceKey(args: {
+  seedBase: string;
+  side: Side;
+  slot: number;
+  candidateId: string;
+  tier: 1 | 2;
+}): number {
+  const { seedBase, side, slot, candidateId, tier } = args;
+  return hashSeed(
+    `finalist-pool|choice|${seedBase}|${side}|s${slot}|t${tier}|id:${candidateId}`,
+  );
 }
 
 function inEnvelope(
@@ -81,30 +163,20 @@ function exactSlotFitTier(
   return null;
 }
 
-function forageBonus(
+function matchesPrimaryForage(
   cand: ArchetypeProfileV4,
   row: SeasonalRowV4,
-): number {
-  let b = 0;
-  const tags = cand.forage_tags;
-  if (tags.includes(row.primary_forage)) b += 100;
-  if (row.secondary_forage && tags.includes(row.secondary_forage)) b += 50;
-  return b;
+): boolean {
+  return cand.forage_tags.includes(row.primary_forage);
 }
 
-/**
- * Soft clarity preference.
- *
- * `clarity_strengths` is a ranking signal, not an eligibility gate: items that
- * list today's clarity get a small bonus, items that don't remain fully
- * eligible. Sized below `forageBonus`'s primary-forage weight (100) so forage
- * alignment still outranks clarity preference.
- */
-function clarityBonus(
+function clarityWhitelistAllows(
+  side: Side,
   cand: ArchetypeProfileV4,
   water_clarity: WaterClarity,
-): number {
-  return cand.clarity_strengths.includes(water_clarity) ? 20 : 0;
+): boolean {
+  const allowed = CLARITY_SPECIALIST_WHITELIST[side][cand.id];
+  return allowed != null && allowed.includes(water_clarity);
 }
 
 export function presenceFromPace(
@@ -115,8 +187,32 @@ export function presenceFromPace(
   return "bold";
 }
 
+export type RebuildSlotSelectionTrace = {
+  side: Side;
+  slot: number;
+  source_slot_index: number;
+  profile: TargetProfile;
+  forageSlot: SlotIndex;
+  claritySlot: SlotIndex;
+  bestTier?: 1 | 2;
+  eligibleExactCount: number;
+  tierPoolCount: number;
+  afterPickedIdsCount: number;
+  familyNarrowed: boolean;
+  forageNarrowed: boolean;
+  clarityNarrowed: boolean;
+  conditionNarrowed: boolean;
+  conditionSlot: SlotIndex;
+  conditionWindow: LureConditionWindowId | FlyConditionWindowId | null;
+  conditionCandidateIds: readonly string[];
+  recencyNarrowed: boolean;
+  clarityWhitelistCandidateIds: readonly string[];
+  finalistIds: readonly string[];
+  chosenId?: string;
+};
+
 export function selectArchetypesForSide(args: {
-  side: "lure" | "fly";
+  side: Side;
   row: SeasonalRowV4;
   species: SeasonalRowV4["species"];
   context: SeasonalRowV4["water_type"];
@@ -126,6 +222,9 @@ export function selectArchetypesForSide(args: {
   seedBase: string;
   currentLocalDate?: string;
   recentHistory?: readonly RecentRecommendationHistoryEntry[];
+  lureConditionState?: LureDailyConditionState;
+  flyConditionState?: FlyDailyConditionState;
+  onSlotTrace?: (trace: RebuildSlotSelectionTrace) => void;
 }): RebuildSlotPick[] {
   const {
     side,
@@ -138,6 +237,9 @@ export function selectArchetypesForSide(args: {
     seedBase,
     currentLocalDate = "",
     recentHistory = [],
+    lureConditionState,
+    flyConditionState,
+    onSlotTrace,
   } = args;
 
   const catalog = side === "lure" ? LURE_ARCHETYPES_V4 : FLY_ARCHETYPES_V4;
@@ -158,8 +260,6 @@ export function selectArchetypesForSide(args: {
     if (c.gear_mode !== side) return false;
     if (!c.species_allowed.includes(species)) return false;
     if (!c.water_types_allowed.includes(context)) return false;
-    // NOTE: `clarity_strengths` is intentionally NOT a hard gate; it applies
-    // as a soft ranking preference in the per-slot sort (see `clarityBonus`).
     if (!allowedIds.has(c.id)) return false;
     if (excluded.has(c.id)) return false;
 
@@ -174,63 +274,188 @@ export function selectArchetypesForSide(args: {
 
   const picked: RebuildSlotPick[] = [];
   const pickedIds = new Set<string>();
+  const pickedFamilies = new Set<string>();
+  const forageSlot = forageDesignatedSlot({ seedBase, side });
+  const claritySlot = clarityDesignatedSlot({ seedBase, side, forageSlot });
+  const conditionSlot = conditionDesignatedSlot({
+    seedBase,
+    side,
+    forageSlot,
+    claritySlot,
+  });
+  const activeConditionWindow = side === "lure"
+    ? (lureConditionState != null
+      ? activeLureConditionWindow(lureConditionState)
+      : null)
+    : (flyConditionState != null
+      ? activeFlyConditionWindow(flyConditionState)
+      : null);
+  const activeConditionMatches = activeConditionWindow == null
+    ? null
+    : side === "lure"
+    ? lureConditionWindowMatches(activeConditionWindow as LureConditionWindowId)
+    : flyConditionWindowMatches(activeConditionWindow as FlyConditionWindowId);
 
   for (let slot = 0; slot < profiles.length; slot++) {
     const profile = profiles[slot]!;
-    const rng = mulberry32(hashSeed(`${seedBase}|${side}|${slot}`));
 
-    const candidates = catalog.filter(passesGate);
-    const ranked: {
+    const exactFits: {
       cand: ArchetypeProfileV4;
-      tier: number;
-      preference: number;
-      familyPenalty: number;
-      stableKey: number;
+      tier: 1 | 2;
     }[] = [];
 
-    for (const cand of candidates) {
-      if (pickedIds.has(cand.id)) continue;
+    for (const cand of catalog.filter(passesGate)) {
       const t = exactSlotFitTier(profile, cand, row);
-      if (t == null) continue;
-
-      const famPenalty = picked.some((p) =>
-          p.archetype.family_group === cand.family_group
-        )
-        ? 1
-        : 0;
-      const preference = forageBonus(cand, row) +
-        clarityBonus(cand, water_clarity) -
-        recentHistoryPenalty({
-          archetypeId: cand.id,
-          side,
-          currentLocalDate,
-          recentHistory,
-        });
-      const stableKey = stableSortKey([cand.id, String(t)], rng);
-
-      ranked.push({
-        cand,
-        tier: t,
-        preference,
-        familyPenalty: famPenalty,
-        stableKey,
-      });
+      if (t != null) exactFits.push({ cand, tier: t });
     }
 
-    if (ranked.length === 0) continue;
+    if (exactFits.length === 0) {
+      onSlotTrace?.({
+        side,
+        slot,
+        source_slot_index: slot,
+        profile,
+        forageSlot,
+        claritySlot,
+        eligibleExactCount: 0,
+        tierPoolCount: 0,
+        afterPickedIdsCount: 0,
+        familyNarrowed: false,
+        forageNarrowed: false,
+        clarityNarrowed: false,
+        conditionNarrowed: false,
+        conditionSlot,
+        conditionWindow: activeConditionWindow,
+        conditionCandidateIds: [],
+        recencyNarrowed: false,
+        clarityWhitelistCandidateIds: [],
+        finalistIds: [],
+      });
+      continue;
+    }
 
-    const bestTier = Math.min(...ranked.map((r) => r.tier));
-    const tierPool = ranked.filter((r) => r.tier === bestTier);
-    tierPool.sort((a, b) =>
-      b.preference - a.preference ||
-      a.familyPenalty - b.familyPenalty ||
-      b.stableKey - a.stableKey ||
-      a.cand.id.localeCompare(b.cand.id)
+    const bestTier = Math.min(...exactFits.map((r) => r.tier)) as 1 | 2;
+    const tierPool = exactFits.filter((r) => r.tier === bestTier);
+    let finalistPool = tierPool.filter((r) => !pickedIds.has(r.cand.id));
+    const afterPickedIdsCount = finalistPool.length;
+
+    let familyNarrowed = false;
+    const unusedFamilyPool = finalistPool.filter((r) =>
+      !pickedFamilies.has(r.cand.family_group)
     );
+    if (unusedFamilyPool.length > 0) {
+      finalistPool = unusedFamilyPool;
+      familyNarrowed = true;
+    }
 
-    const chosen = tierPool[0]!.cand;
+    let forageNarrowed = false;
+    if (slot === forageSlot) {
+      const foragePool = finalistPool.filter((r) =>
+        matchesPrimaryForage(r.cand, row)
+      );
+      if (
+        foragePool.length > 0 && foragePool.length < finalistPool.length
+      ) {
+        finalistPool = foragePool;
+        forageNarrowed = true;
+      }
+    }
+
+    let clarityNarrowed = false;
+    const clarityWhitelistCandidateIds = finalistPool
+      .filter((r) => CLARITY_SPECIALIST_WHITELIST[side][r.cand.id] != null)
+      .map((r) => r.cand.id);
+    if (slot === claritySlot && clarityWhitelistCandidateIds.length > 0) {
+      const clarityPool = finalistPool.filter((r) =>
+        clarityWhitelistAllows(side, r.cand, water_clarity)
+      );
+      if (clarityPool.length > 0) {
+        finalistPool = clarityPool;
+        clarityNarrowed = true;
+      }
+    }
+
+    let conditionNarrowed = false;
+    const conditionCandidateIds = activeConditionMatches == null
+      ? []
+      : finalistPool
+        .filter((r) => activeConditionMatches.has(r.cand.id))
+        .map((r) => r.cand.id);
+    if (
+      slot === conditionSlot &&
+      activeConditionMatches != null &&
+      conditionCandidateIds.length > 0
+    ) {
+      finalistPool = finalistPool.filter((r) =>
+        activeConditionMatches.has(r.cand.id)
+      );
+      conditionNarrowed = true;
+    }
+
+    let recencyNarrowed = false;
+    const nonRecentPool = finalistPool.filter((r) =>
+      !isRecentlyShown({
+        archetypeId: r.cand.id,
+        side,
+        currentLocalDate,
+        recentHistory,
+      })
+    );
+    if (
+      nonRecentPool.length > 0 && nonRecentPool.length < finalistPool.length
+    ) {
+      finalistPool = nonRecentPool;
+      recencyNarrowed = true;
+    }
+
+    finalistPool.sort((a, b) => {
+      const ka = finalistChoiceKey({
+        seedBase,
+        side,
+        slot,
+        candidateId: a.cand.id,
+        tier: a.tier,
+      });
+      const kb = finalistChoiceKey({
+        seedBase,
+        side,
+        slot,
+        candidateId: b.cand.id,
+        tier: b.tier,
+      });
+      if (ka !== kb) return kb - ka;
+      return a.cand.id.localeCompare(b.cand.id);
+    });
+
+    const chosen = finalistPool[0]?.cand;
+    onSlotTrace?.({
+      side,
+      slot,
+      source_slot_index: slot,
+      profile,
+      forageSlot,
+      claritySlot,
+      bestTier,
+      eligibleExactCount: exactFits.length,
+      tierPoolCount: tierPool.length,
+      afterPickedIdsCount,
+      familyNarrowed,
+      forageNarrowed,
+      clarityNarrowed,
+      conditionNarrowed,
+      conditionSlot,
+      conditionWindow: activeConditionWindow,
+      conditionCandidateIds,
+      recencyNarrowed,
+      clarityWhitelistCandidateIds,
+      finalistIds: finalistPool.map((r) => r.cand.id),
+      chosenId: chosen?.id,
+    });
+
+    if (!chosen) continue;
     picked.push({ archetype: chosen, profile, source_slot_index: slot });
     pickedIds.add(chosen.id);
+    pickedFamilies.add(chosen.family_group);
   }
 
   return picked;

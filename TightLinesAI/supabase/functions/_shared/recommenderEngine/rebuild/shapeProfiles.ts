@@ -1,9 +1,6 @@
 import type { SeasonalRowV4 } from "../v4/contracts.ts";
 import type { TacticalColumn, TacticalPace } from "../v4/contracts.ts";
-import {
-  legalColumnChain,
-  paceIndex,
-} from "./constants.ts";
+import { legalColumnChain, paceIndex } from "./constants.ts";
 
 export type DailyRegime = "aggressive" | "neutral" | "suppressive";
 
@@ -58,10 +55,15 @@ function rankThreeColumns(args: {
 
   const deepest = legalOrdered[0]!;
   const shallowest = legalOrdered[legalOrdered.length - 1]!;
-  const anchor = legalOrdered.includes(anchorCol) ? anchorCol : legalOrdered[0]!;
+  const anchor = legalOrdered.includes(anchorCol)
+    ? anchorCol
+    : legalOrdered[0]!;
 
   const shallow = shallowColumn(anchor, legalOrdered);
   const deep = deepColumn(anchor, legalOrdered);
+  const surfaceLegal = legalOrdered.includes("surface");
+  const surfaceCanLead = surfaceLegal && anchor === "upper" &&
+    regime === "aggressive";
 
   if (regime === "neutral") {
     const r1 = anchor;
@@ -71,9 +73,15 @@ function rankThreeColumns(args: {
   }
 
   if (regime === "aggressive") {
-    const r1 = shallowest;
+    if (surfaceCanLead) {
+      return ["surface", "upper", deepColumn("upper", legalOrdered) ?? anchor];
+    }
+
+    const nonSurface = legalOrdered.filter((c) => c !== "surface");
+    const shallowestNonSurface = nonSurface[nonSurface.length - 1] ?? anchor;
+    const r1 = shallowestNonSurface;
     const r2 = anchor;
-    const r3 = deep ?? anchor;
+    const r3 = surfaceLegal ? "surface" : deep ?? anchor;
     return [r1, r2, r3];
   }
 
@@ -105,7 +113,7 @@ function clampPaceToLegal(
 function paceTripleForRegime(args: {
   anchor: TacticalPace;
   regime: DailyRegime;
-  legal: readonly TacticalPace[],
+  legal: readonly TacticalPace[];
 }): [TacticalPace, TacticalPace, TacticalPace] {
   const { anchor, regime, legal } = args;
 
@@ -143,9 +151,9 @@ function paceTripleForRegime(args: {
       p2 = "medium";
       p3 = "medium";
     } else {
-      p1 = "medium";
+      p1 = "slow";
       p2 = "slow";
-      p3 = "medium";
+      p3 = "slow";
     }
   } else {
     // slow anchor
@@ -173,6 +181,12 @@ function paceTripleForRegime(args: {
 
 export type TargetProfile = { column: TacticalColumn; pace: TacticalPace };
 
+function rowHasSlowSurfaceSpecialist(row: SeasonalRowV4): boolean {
+  return row.primary_lure_ids.includes("hollow_body_frog") ||
+    row.primary_fly_ids.includes("frog_fly") ||
+    row.primary_fly_ids.includes("mouse_fly");
+}
+
 export function buildTargetProfiles(args: {
   row: SeasonalRowV4;
   regime: DailyRegime;
@@ -194,11 +208,18 @@ export function buildTargetProfiles(args: {
     legal: row.pace_range,
   });
 
-  return [
+  const profiles = [
     { column: c1, pace: p1 },
     { column: c2, pace: p2 },
     { column: c3, pace: p3 },
   ];
+
+  return profiles.map((profile) =>
+    profile.column === "surface" && row.pace_range.includes("slow") &&
+      rowHasSlowSurfaceSpecialist(row)
+      ? { ...profile, pace: "slow" }
+      : profile
+  );
 }
 
 /** Surface is wind-blocked only when seasonally legal and daylight mean wind > 14 mph */
