@@ -1,4 +1,4 @@
-import { useState, useEffect, useLayoutEffect, useCallback, useMemo } from 'react';
+import { useState, useEffect, useLayoutEffect, useCallback, useMemo, useRef } from 'react';
 import {
   View,
   Text,
@@ -8,6 +8,9 @@ import {
   Alert,
   ActivityIndicator,
   RefreshControl,
+  useWindowDimensions,
+  type NativeScrollEvent,
+  type NativeSyntheticEvent,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter, useLocalSearchParams } from 'expo-router';
@@ -263,6 +266,12 @@ export default function HowFishingScreen() {
   const [refreshing, setRefreshing] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
 
+  // Horizontal pager ref + width for swipe-between-contexts. The pager only
+  // renders when there are ≥2 available tabs; otherwise we keep the simpler
+  // single-vertical-scroll path.
+  const pagerRef = useRef<ScrollView>(null);
+  const { width: windowWidth } = useWindowDimensions();
+
   // Keep the active tab valid when availableContexts shrinks (e.g. coastal drop).
   useEffect(() => {
     setActiveTab((prev) =>
@@ -277,6 +286,31 @@ export default function HowFishingScreen() {
     const next = firstContextWithReport(multiBundles, availableContexts);
     if (next) setActiveTab(next);
   }, [multiBundles, activeTab, availableContexts]);
+
+  // Keep the horizontal pager's scroll position synced with `activeTab` when
+  // it changes from a tab tap (or from a programmatic jump above). If the
+  // change came from a swipe, the pager is already at the right x so this is
+  // a no-op.
+  const activeTabIndex = availableTabs.findIndex((t) => t.key === activeTab);
+  useEffect(() => {
+    if (availableTabs.length < 2) return;
+    if (activeTabIndex < 0) return;
+    pagerRef.current?.scrollTo({
+      x: activeTabIndex * windowWidth,
+      y: 0,
+      animated: true,
+    });
+  }, [activeTabIndex, availableTabs.length, windowWidth]);
+
+  const handlePagerMomentumEnd = useCallback(
+    (e: NativeSyntheticEvent<NativeScrollEvent>) => {
+      if (availableTabs.length < 2 || windowWidth <= 0) return;
+      const idx = Math.round(e.nativeEvent.contentOffset.x / windowWidth);
+      const next = availableTabs[idx]?.key;
+      if (next && next !== activeTab) setActiveTab(next);
+    },
+    [availableTabs, windowWidth, activeTab],
+  );
 
   // Load env + geocode on mount
   useEffect(() => {
@@ -689,30 +723,88 @@ export default function HowFishingScreen() {
           </View>
         )}
 
-        <ScrollView
-          style={styles.scroll}
-          contentContainerStyle={styles.reportContent}
-          refreshControl={
-            <RefreshControl
-              refreshing={refreshing}
-              onRefresh={handleRefresh}
-              tintColor={paper.ink}
-            />
-          }
-          showsVerticalScrollIndicator={false}
-        >
-          {activeBundle ? (
-            <RebuildReportView
-              report={activeBundle.report}
-              solunarData={env?.solunar}
-              dateLabel={heroDateLabel}
-            />
-          ) : (
-            <View style={styles.noReportCard}>
-              <Text style={styles.noReportText}>No read available for this water type.</Text>
-            </View>
-          )}
-        </ScrollView>
+        {availableTabs.length > 1 ? (
+          <ScrollView
+            ref={pagerRef}
+            horizontal
+            pagingEnabled
+            showsHorizontalScrollIndicator={false}
+            onMomentumScrollEnd={handlePagerMomentumEnd}
+            scrollEventThrottle={16}
+            style={styles.pager}
+            // Disable bounce on iOS so the first/last page doesn't rubber-band
+            // past the edge — keeps the page boundaries crisp.
+            bounces={false}
+            // iOS-only: lock the gesture to one axis so vertical scrolls inside
+            // a page don't accidentally drag the pager sideways.
+            directionalLockEnabled
+            // Ensure we start anchored on the active tab's page.
+            contentOffset={{
+              x: Math.max(0, activeTabIndex) * windowWidth,
+              y: 0,
+            }}
+          >
+            {availableTabs.map((t) => {
+              const bundle = multiBundles?.[t.key] ?? null;
+              return (
+                <View key={t.key} style={{ width: windowWidth }}>
+                  <ScrollView
+                    style={styles.scroll}
+                    contentContainerStyle={styles.reportContent}
+                    refreshControl={
+                      <RefreshControl
+                        refreshing={refreshing}
+                        onRefresh={handleRefresh}
+                        tintColor={paper.ink}
+                      />
+                    }
+                    showsVerticalScrollIndicator={false}
+                    nestedScrollEnabled
+                  >
+                    {bundle ? (
+                      <RebuildReportView
+                        report={bundle.report}
+                        solunarData={env?.solunar}
+                        dateLabel={heroDateLabel}
+                      />
+                    ) : (
+                      <View style={styles.noReportCard}>
+                        <Text style={styles.noReportText}>
+                          No read available for this water type.
+                        </Text>
+                      </View>
+                    )}
+                  </ScrollView>
+                </View>
+              );
+            })}
+          </ScrollView>
+        ) : (
+          <ScrollView
+            style={styles.scroll}
+            contentContainerStyle={styles.reportContent}
+            refreshControl={
+              <RefreshControl
+                refreshing={refreshing}
+                onRefresh={handleRefresh}
+                tintColor={paper.ink}
+              />
+            }
+            showsVerticalScrollIndicator={false}
+          >
+            {activeBundle ? (
+              <RebuildReportView
+                report={activeBundle.report}
+                solunarData={env?.solunar}
+                dateLabel={heroDateLabel}
+              />
+            ) : (
+              <View style={styles.noReportCard}>
+                <Text style={styles.noReportText}>No read available for this water type.</Text>
+              </View>
+            )}
+          </ScrollView>
+        )}
       </PaperBackground>
     </SafeAreaView>
   );
@@ -838,6 +930,7 @@ const styles = StyleSheet.create({
   safe: { flex: 1, backgroundColor: paper.paper },
   background: { flex: 1 },
   scroll: { flex: 1 },
+  pager: { flex: 1 },
   reportContent: {
     paddingHorizontal: paperSpacing.lg,
     paddingBottom: paperSpacing.xxl,

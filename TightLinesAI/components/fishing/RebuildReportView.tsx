@@ -29,7 +29,8 @@
  *   so we never lie about timeliness when the user entered via a forecast tap.
  */
 
-import { View, Text, StyleSheet } from 'react-native';
+import { useEffect, useRef, useState } from 'react';
+import { View, Text, StyleSheet, Animated, Easing } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import {
   paper,
@@ -450,6 +451,50 @@ function LinearScoreGauge({
   const pct = clamped / 10;
   const bandLabel = (band ?? '').toUpperCase() || fallbackBandFromTier(tier);
 
+  // Animated reveal: pin slides from 0 → pct, digits count up in sync, band
+  // pill fades in once the pin has nearly settled. Keeps the report's first
+  // impression feeling resolved rather than stamped.
+  const progress = useRef(new Animated.Value(0)).current;
+  const bandOpacity = useRef(new Animated.Value(0)).current;
+  const [displayScore, setDisplayScore] = useState('0.0');
+
+  useEffect(() => {
+    progress.setValue(0);
+    bandOpacity.setValue(0);
+    setDisplayScore('0.0');
+
+    const listenerId = progress.addListener(({ value }) => {
+      setDisplayScore((value * 10).toFixed(1));
+    });
+
+    Animated.parallel([
+      Animated.timing(progress, {
+        toValue: pct,
+        duration: 750,
+        easing: Easing.out(Easing.cubic),
+        useNativeDriver: false,
+      }),
+      Animated.timing(bandOpacity, {
+        toValue: 1,
+        duration: 260,
+        delay: 520,
+        easing: Easing.out(Easing.quad),
+        useNativeDriver: true,
+      }),
+    ]).start(() => {
+      setDisplayScore(clamped.toFixed(1));
+    });
+
+    return () => {
+      progress.removeListener(listenerId);
+    };
+  }, [pct, clamped, progress, bandOpacity]);
+
+  const leftInterp = progress.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['0%', '100%'],
+  });
+
   return (
     <View style={gaugeStyles.wrap}>
       {/* Score number — color-coded by tier, with a soft accent halo behind it
@@ -457,7 +502,7 @@ function LinearScoreGauge({
       <View style={gaugeStyles.scoreRow}>
         <View style={[gaugeStyles.scoreHalo, { backgroundColor: accent }]} />
         <Text style={[gaugeStyles.scoreNum, { color: accent }]} allowFontScaling={false}>
-          {clamped.toFixed(1)}
+          {displayScore}
         </Text>
         <Text style={[gaugeStyles.scoreMax, { color: accent }]}>/10</Text>
       </View>
@@ -476,23 +521,23 @@ function LinearScoreGauge({
 
         {/* Vertical stem dropping from just above the track down onto the pin,
             tying the score number's position to the scale. */}
-        <View
+        <Animated.View
           pointerEvents="none"
           style={[
             gaugeStyles.markerStem,
-            { left: `${pct * 100}%`, backgroundColor: accent },
+            { left: leftInterp, backgroundColor: accent },
           ]}
         />
 
         {/* Prominent pin marker — filled accent circle with thick ink stroke.
             Sits centered on the track so it reads as a real "pointer" rather
             than a subtle tick. */}
-        <View
+        <Animated.View
           pointerEvents="none"
-          style={[gaugeStyles.markerPinWrap, { left: `${pct * 100}%` }]}
+          style={[gaugeStyles.markerPinWrap, { left: leftInterp }]}
         >
           <View style={[gaugeStyles.markerPin, { backgroundColor: accent }]} />
-        </View>
+        </Animated.View>
       </View>
 
       {/* Scale rule labels. */}
@@ -503,9 +548,11 @@ function LinearScoreGauge({
       </View>
 
       {/* Engine band pill — truthful verdict straight from the report. */}
-      <View style={[gaugeStyles.bandPill, { backgroundColor: accent }]}>
+      <Animated.View
+        style={[gaugeStyles.bandPill, { backgroundColor: accent, opacity: bandOpacity }]}
+      >
         <Text style={gaugeStyles.bandPillText}>{bandLabel}</Text>
-      </View>
+      </Animated.View>
     </View>
   );
 }

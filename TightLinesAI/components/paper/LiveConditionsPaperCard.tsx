@@ -25,6 +25,7 @@
  *     rendering "—" most of the time).
  */
 
+import type { ReactNode } from 'react';
 import { useEffect, useState } from 'react';
 import {
   ActivityIndicator,
@@ -73,6 +74,80 @@ function cloudSkyLabel(pct: number): string {
   if (pct <= 35) return 'Partly Cloudy';
   if (pct <= 65) return 'Cloudy';
   return 'Overcast';
+}
+
+function skyIconName(pct: number | undefined): keyof typeof Ionicons.glyphMap | null {
+  if (pct == null) return null;
+  if (pct <= 15) return 'sunny-outline';
+  if (pct <= 35) return 'partly-sunny-outline';
+  if (pct <= 65) return 'cloud-outline';
+  return 'cloudy-outline';
+}
+
+/**
+ * Pure-View moon-phase glyph — no SVG dependency. Renders a dark base disc
+ * with an offset light disc overlay; the offset is derived from illumination
+ * and waxing/waning, so every crescent/gibbous/half lands correctly.
+ *
+ *   offset = size * (1 − 2t),  where t = illum/2 when waxing, 1 − illum/2 when waning.
+ *
+ * At t=0 (new): offset = +size → light fully off-screen right, disc reads dark.
+ * At t=0.25 (first quarter): offset = +size/2 → light covers right half.
+ * At t=0.5 (full): offset = 0 → fully light.
+ * At t=0.75 (last quarter): offset = −size/2 → light covers left half.
+ * At t=1 (new): offset = −size → fully dark again.
+ */
+function MoonGlyph({
+  illumination,
+  phase,
+  size = 14,
+}: {
+  illumination?: number;
+  phase?: string;
+  size?: number;
+}) {
+  const illum = illumination != null && Number.isFinite(illumination)
+    ? Math.max(0, Math.min(1, illumination))
+    : 0.5;
+  const p = (phase ?? '').toLowerCase();
+  const isNew = p.includes('new') || illum <= 0.03;
+  const isFull = p.includes('full') || illum >= 0.97;
+  const isWaning = p.includes('waning') || p.includes('last quarter');
+
+  let offset: number;
+  if (isNew) offset = size;
+  else if (isFull) offset = 0;
+  else {
+    const t = isWaning ? 1 - illum / 2 : illum / 2;
+    offset = size * (1 - 2 * t);
+  }
+
+  return (
+    <View
+      style={{
+        width: size,
+        height: size,
+        borderRadius: size / 2,
+        backgroundColor: paper.ink,
+        borderWidth: 1,
+        borderColor: paper.red,
+        overflow: 'hidden',
+        marginBottom: 6,
+      }}
+    >
+      <View
+        style={{
+          position: 'absolute',
+          left: offset,
+          top: 0,
+          width: size,
+          height: size,
+          borderRadius: size / 2,
+          backgroundColor: paper.paper,
+        }}
+      />
+    </View>
+  );
 }
 
 function pressureTrendWord(
@@ -251,6 +326,7 @@ export function LiveConditionsPaperCard({
   const ageLabel = fetchedAt ? (ageMin < 1 ? 'JUST NOW' : `${ageMin}M AGO`) : null;
 
   const sky = w ? cloudSkyLabel(w.cloud_cover) : '—';
+  const skyIcon = skyIconName(w?.cloud_cover);
   const mood = skyMoodLine(w?.cloud_cover);
   const airTemp = w?.temperature != null ? Math.round(w.temperature) : null;
 
@@ -329,9 +405,19 @@ export function LiveConditionsPaperCard({
       <View style={styles.mainRow}>
         <View style={styles.mainLeft}>
           <Text style={styles.eyebrow}>RIGHT NOW</Text>
-          <Text style={styles.skyHeadline} numberOfLines={2}>
-            {sky}
-          </Text>
+          <View style={styles.skyHeadlineRow}>
+            {skyIcon && (
+              <Ionicons
+                name={skyIcon}
+                size={20}
+                color={paper.red}
+                style={styles.skyHeadlineIcon}
+              />
+            )}
+            <Text style={styles.skyHeadline} numberOfLines={2}>
+              {sky}
+            </Text>
+          </View>
           {!!mood && <Text style={styles.skyMood}>{mood}</Text>}
         </View>
         <View style={styles.mainRight}>
@@ -380,6 +466,13 @@ export function LiveConditionsPaperCard({
         <Divider />
         <MetricTile
           icon="moon-outline"
+          glyph={
+            <MoonGlyph
+              illumination={moon?.illumination}
+              phase={moon?.phase}
+              size={14}
+            />
+          }
           label="MOON"
           value={moonIllum}
           sub={moonSub}
@@ -410,12 +503,14 @@ export function LiveConditionsPaperCard({
 
 function MetricTile({
   icon,
+  glyph,
   label,
   value,
   unit,
   sub,
 }: {
   icon: keyof typeof Ionicons.glyphMap;
+  glyph?: ReactNode;
   label: string;
   value: string;
   unit?: string;
@@ -423,7 +518,11 @@ function MetricTile({
 }) {
   return (
     <View style={styles.tile}>
-      <Ionicons name={icon} size={14} color={paper.red} style={{ marginBottom: 6 }} />
+      {glyph ? (
+        <View style={styles.tileGlyphSlot}>{glyph}</View>
+      ) : (
+        <Ionicons name={icon} size={14} color={paper.red} style={{ marginBottom: 6 }} />
+      )}
       <Text style={styles.tileLabel}>{label}</Text>
       <View style={styles.tileValueRow}>
         <Text style={styles.tileValue} numberOfLines={1}>
@@ -609,6 +708,15 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
     minWidth: 130,
   },
+  skyHeadlineRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flexWrap: 'wrap',
+  },
+  skyHeadlineIcon: {
+    marginRight: 6,
+    marginBottom: 2,
+  },
   skyHeadline: {
     fontFamily: paperFonts.display,
     fontWeight: '700',
@@ -616,6 +724,7 @@ const styles = StyleSheet.create({
     lineHeight: 28,
     color: paper.ink,
     letterSpacing: -0.6,
+    flexShrink: 1,
   },
   skyMood: {
     fontFamily: paperFonts.displayItalic,
@@ -675,6 +784,13 @@ const styles = StyleSheet.create({
   tile: {
     flex: 1,
     paddingHorizontal: 6,
+  },
+  // Slot that replaces the Ionicons icon with a custom glyph (e.g. MoonGlyph).
+  // Matches the icon's marginBottom so the label lines up across tiles.
+  tileGlyphSlot: {
+    height: 14,
+    justifyContent: 'center',
+    alignItems: 'flex-start',
   },
   tileLabel: {
     fontFamily: paperFonts.bodyBold,
