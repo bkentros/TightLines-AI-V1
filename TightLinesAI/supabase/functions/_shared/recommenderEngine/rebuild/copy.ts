@@ -1,7 +1,6 @@
 import type {
   ArchetypeIdV4,
   ArchetypeProfileV4,
-  ForageBucket,
   SeasonalRowV4,
   TacticalColumn,
   TacticalPace,
@@ -27,49 +26,41 @@ export function copyVariantIndex(
   return (hashSeed(`${seed}|${field}`) % 3) as 0 | 1 | 2;
 }
 
-function columnLabel(c: TacticalColumn): string {
+function columnZoneLabel(c: TacticalColumn): string {
   switch (c) {
     case "bottom":
-      return "bottom";
+      return "bottom zone";
     case "mid":
-      return "mid-column";
+      return "middle of the water column";
     case "upper":
-      return "upper column";
+      return "upper water column";
     case "surface":
       return "surface";
   }
 }
 
-function forageLabel(f: ForageBucket): string {
-  switch (f) {
-    case "crawfish":
-      return "crawfish";
-    case "baitfish":
-      return "baitfish";
-    case "bluegill_perch":
-      return "bluegill/perch";
-    case "leech_worm":
-      return "leech/worm";
-    case "insect_misc":
-      return "insect";
-    case "surface_prey":
-      return "surface prey";
+function columnPlacementPhrase(c: TacticalColumn): string {
+  switch (c) {
+    case "bottom":
+      return "in the bottom zone";
+    case "mid":
+      return "in the middle of the water column";
+    case "upper":
+      return "in the upper water column";
+    case "surface":
+      return "on the surface";
   }
 }
 
-function seasonalFitPhrase(
-  archetype: ArchetypeProfileV4,
-  row: SeasonalRowV4,
-): string {
-  if (archetype.forage_tags.includes(row.primary_forage)) {
-    return `matches this month's ${forageLabel(row.primary_forage)} focus`;
+function paceLabel(p: TacticalPace): string {
+  switch (p) {
+    case "slow":
+      return "a slow pace";
+    case "medium":
+      return "a steady medium pace";
+    case "fast":
+      return "a fast reaction pace";
   }
-  if (
-    row.secondary_forage && archetype.forage_tags.includes(row.secondary_forage)
-  ) {
-    return `fits the secondary ${forageLabel(row.secondary_forage)} forage`;
-  }
-  return `stays inside this month's approved ${archetype.gear_mode} set`;
 }
 
 export function buildWhyChosenCopy(args: {
@@ -78,16 +69,15 @@ export function buildWhyChosenCopy(args: {
   targetProfile: TargetProfile;
   variant: 0 | 1 | 2;
 }): string {
-  const { archetype, row, targetProfile, variant } = args;
-  const pace = targetProfile.pace;
-  const dayColumn = columnLabel(targetProfile.column);
-  const archetypeColumn = columnLabel(archetype.column);
-  const fit = seasonalFitPhrase(archetype, row);
+  const { archetype, targetProfile, variant } = args;
+  const pace = paceLabel(targetProfile.pace);
+  const column = columnZoneLabel(targetProfile.column);
+  const placement = columnPlacementPhrase(targetProfile.column);
 
   const variants: CopyVariants = [
-    `Fits today's ${pace} ${dayColumn} presentation and ${fit}.`,
-    `${archetype.display_name} gives today's ${pace} ${archetypeColumn} presentation.`,
-    `A good fit for today's ${pace} pace and ${archetypeColumn} zone.`,
+    `Fits the ${column} today and works best at ${pace}.`,
+    `${archetype.display_name} keeps you ${placement}; fish it at ${pace}.`,
+    `Chosen for the ${column}, with ${pace} matching today's bite.`,
   ];
 
   return variants[variant];

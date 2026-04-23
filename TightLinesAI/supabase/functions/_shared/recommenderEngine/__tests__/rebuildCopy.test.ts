@@ -89,7 +89,8 @@ Deno.test("rebuild copy: why and how use the selected pace, including secondary 
 });
 
 Deno.test("rebuild copy: generated card copy avoids internal wording", () => {
-  const banned = /\b(engine|slot|target|selected|baseline|model|diagnostic)\b/i;
+  const banned =
+    /\b(engine|slot|target|selected|baseline|model|diagnostic|forage|focus|approved|presentation)\b/i;
 
   for (const archetype of catalog) {
     for (const pace of pacesFor(archetype)) {
@@ -114,6 +115,78 @@ Deno.test("rebuild copy: generated card copy avoids internal wording", () => {
         assert(
           !banned.test(how),
           `${archetype.id} how leaks internal wording: ${how}`,
+        );
+      }
+    }
+  }
+});
+
+Deno.test("rebuild copy: why copy keeps pace and column distinct", () => {
+  const badBlend =
+    /\b(slow|medium|fast)\s+(bottom|mid-column|middle|upper|surface)\s+presentation\b/i;
+
+  for (const archetype of catalog) {
+    for (const pace of pacesFor(archetype)) {
+      for (const variant of [0, 1, 2] as const) {
+        const why = buildWhyChosenCopy({
+          archetype,
+          row: row(archetype),
+          targetProfile: { column: archetype.column, pace },
+          variant,
+        });
+        assert(
+          !badBlend.test(why),
+          `${archetype.id} blends pace/column ambiguously: ${why}`,
+        );
+        assert(
+          !/\bpresentation\b/i.test(why),
+          `${archetype.id} uses vague presentation wording: ${why}`,
+        );
+        assert(
+          /\b(bottom zone|middle of the water column|upper water column|surface)\b/
+            .test(why),
+          `${archetype.id} why should name the depth zone clearly: ${why}`,
+        );
+        assert(
+          /\b(slow pace|steady medium pace|fast reaction pace)\b/.test(why),
+          `${archetype.id} why should name the retrieve pace clearly: ${why}`,
+        );
+      }
+    }
+  }
+});
+
+Deno.test("rebuild copy: leech archetypes do not claim baitfish alignment", () => {
+  const leechIds = new Set([
+    "jighead_marabou_leech",
+    "lead_eye_leech",
+    "woolly_bugger",
+    "rabbit_strip_leech",
+    "balanced_leech",
+    "feather_jig_leech",
+  ]);
+
+  for (const archetype of FLY_ARCHETYPES_V4) {
+    if (!leechIds.has(archetype.id)) continue;
+    assert(
+      !archetype.forage_tags.includes("baitfish"),
+      `${archetype.id} should not carry baitfish forage credit`,
+    );
+    for (const pace of pacesFor(archetype)) {
+      for (const variant of [0, 1, 2] as const) {
+        const why = buildWhyChosenCopy({
+          archetype,
+          row: {
+            ...row(archetype),
+            primary_forage: "baitfish",
+            secondary_forage: "bluegill_perch",
+          },
+          targetProfile: { column: archetype.column, pace },
+          variant,
+        });
+        assert(
+          !/\bbaitfish\b/i.test(why),
+          `${archetype.id} should not cite baitfish in why copy: ${why}`,
         );
       }
     }
