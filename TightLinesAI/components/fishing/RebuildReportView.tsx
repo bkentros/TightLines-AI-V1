@@ -41,6 +41,8 @@ import {
   paperBorders,
   paperTierForScore,
   paperTier,
+  scoreAccentColor,
+  scoreTextOnColor,
   type PaperTier,
 } from '../../lib/theme';
 import {
@@ -69,8 +71,18 @@ function tierForScore(score: number): PaperTier {
   return paperTierForScore(score / 10);
 }
 
-function tierAccentColor(tier: PaperTier): string {
-  return tier === 'green' ? paper.forest : tier === 'yellow' ? paper.goldDk : paper.red;
+/**
+ * Tapered accent color for a /100 score. Delegates to the shared theme helper
+ * so the hero gauge, numeric value, band pill, and topo watermark stay in
+ * lock-step with the forecast tiles (which also key off `scoreAccentColor`).
+ *
+ * This replaces the prior 3-tier (red/gold/forest) mapping so that a 3.1 and
+ * a 2.0 read as visibly different depths of red, a 4.2 reads as a deeper
+ * "struggling fair" than a 5.5, and an 8.5 pulls away from a 6.5 instead of
+ * landing in the same forest bucket.
+ */
+function accentForScore100(score100: number): string {
+  return scoreAccentColor(score100 / 10);
 }
 
 /** Capitalize sentence starts after . ; ! ? so engine multi-sentence text reads correctly. */
@@ -176,7 +188,7 @@ export function RebuildReportView({
   dateLabel?: string;
 }) {
   const tier = tierForScore(report.score);
-  const accent = tierAccentColor(tier);
+  const accent = accentForScore100(report.score);
   const topDrivers = report.drivers.slice(0, 3);
   const topSuppressors = report.suppressors.slice(0, 2);
   const timingPeriods = getTimingPeriods(report);
@@ -249,6 +261,7 @@ export function RebuildReportView({
           score={report.score / 10}
           tier={tier}
           accent={accent}
+          accentText={scoreTextOnColor(report.score / 10)}
           band={report.band}
         />
 
@@ -521,11 +534,15 @@ function LinearScoreGauge({
   score,
   tier,
   accent,
+  accentText,
   band,
 }: {
   score: number; // 0-10
   tier: PaperTier;
   accent: string;
+  /** Text color to use on top of the accent (for the band pill). Cream on
+   *  most stops, ink on the bright-gold 5.0-5.9 zone. */
+  accentText: string;
   band?: string; // 'Poor' | 'Fair' | 'Good' | 'Excellent' from the engine
 }) {
   const clamped = Math.max(0, Math.min(10, Number.isFinite(score) ? score : 0));
@@ -593,11 +610,21 @@ function LinearScoreGauge({
           itself (not the outer wrap). This makes the layout robust without
           relying on magic offsets. */}
       <View style={gaugeStyles.trackRow}>
-        {/* Gauge track — red → gold → forest, tapered via three stops. */}
+        {/* Gauge track — 8-stop tapered spectrum that mirrors `scoreAccentColor`.
+            Each segment's flex is proportional to the score range it covers
+            (so 0-2.5 takes 2.5× the width of a 1-point stop, and the 8-10
+            forestDk stop takes 2×). The pin's x-position on this track now
+            lands on the exact color the score digit uses, which keeps the
+            hero card visually coherent at any score. */}
         <View style={gaugeStyles.track}>
-          <View style={[gaugeStyles.stop, { flex: 1, backgroundColor: paper.red }]} />
-          <View style={[gaugeStyles.stop, { flex: 1, backgroundColor: paper.gold }]} />
-          <View style={[gaugeStyles.stop, { flex: 1, backgroundColor: paper.forest }]} />
+          <View style={[gaugeStyles.stop, { flex: 2.5, backgroundColor: paper.redDk }]} />
+          <View style={[gaugeStyles.stop, { flex: 0.8, backgroundColor: paper.red }]} />
+          <View style={[gaugeStyles.stop, { flex: 0.7, backgroundColor: paper.rust }]} />
+          <View style={[gaugeStyles.stop, { flex: 1.0, backgroundColor: paper.goldDk }]} />
+          <View style={[gaugeStyles.stop, { flex: 1.0, backgroundColor: paper.gold }]} />
+          <View style={[gaugeStyles.stop, { flex: 1.0, backgroundColor: paper.moss }]} />
+          <View style={[gaugeStyles.stop, { flex: 1.0, backgroundColor: paper.forest }]} />
+          <View style={[gaugeStyles.stop, { flex: 2.0, backgroundColor: paper.forestDk }]} />
         </View>
 
         {/* Vertical stem dropping from just above the track down onto the pin,
@@ -632,7 +659,7 @@ function LinearScoreGauge({
       <Animated.View
         style={[gaugeStyles.bandPill, { backgroundColor: accent, opacity: bandOpacity }]}
       >
-        <Text style={gaugeStyles.bandPillText}>{bandLabel}</Text>
+        <Text style={[gaugeStyles.bandPillText, { color: accentText }]}>{bandLabel}</Text>
       </Animated.View>
     </View>
   );

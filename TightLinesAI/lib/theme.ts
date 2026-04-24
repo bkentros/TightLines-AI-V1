@@ -173,8 +173,10 @@ export const paper = {
   forestDk: '#1E3418',
   forestWarm: '#2A3F26',
   moss: '#5B7A3E',
+  mossDk: '#4A6630',
   red: '#C8352C',
   redDk: '#9B2822',
+  rust: '#CC6A22',
   gold: '#E8A02E',
   goldDk: '#B87818',
   walnut: '#3A2E22',
@@ -312,4 +314,58 @@ export function paperBandForScore(score10: number): PaperScoreBand {
   if (score10 >= 6) return 'Good';
   if (score10 >= 4) return 'Fair';
   return 'Poor';
+}
+
+/**
+ * Tapered score-accent palette. Returns a background/foreground/label triple
+ * that varies smoothly from deep red at the bottom of the 0-10 range through
+ * rust + gold in the middle to deep forest at the top. The red→yellow→green
+ * arc is preserved, but with more resolution than the 3-way `paperTier` so
+ * that adjacent scores read visibly different (e.g. a 3.1 vs a 2.0).
+ *
+ * Stops (inclusive lower bound):
+ *   ≥ 8.0 → forestDk   (deep excellent)
+ *   ≥ 7.0 → forest     (excellent / strong good)
+ *   ≥ 6.0 → moss       (solid good)
+ *   ≥ 5.0 → gold       (bright fair — the pivot point)
+ *   ≥ 4.0 → goldDk     (deep fair)
+ *   ≥ 3.3 → rust       (weak fair / borderline poor)
+ *   ≥ 2.5 → red        (poor)
+ *   else  → redDk      (deep poor)
+ *
+ * Note: labels (Poor/Fair/Good/Excellent) come from `paperBandForScore` —
+ * this helper only controls the color swatch so the numeric value gets a
+ * more nuanced tint than the 3-tier mapping alone can provide.
+ */
+export interface PaperScoreStyle {
+  bg: string;
+  fg: string;
+  band: PaperScoreBand;
+}
+
+export function scoreAccentColor(score10: number): string {
+  if (!Number.isFinite(score10)) return paper.goldDk;
+  if (score10 >= 8) return paper.forestDk;
+  if (score10 >= 7) return paper.forest;
+  if (score10 >= 6) return paper.moss;
+  if (score10 >= 5) return paper.gold;
+  if (score10 >= 4) return paper.goldDk;
+  if (score10 >= 3.3) return paper.rust;
+  if (score10 >= 2.5) return paper.red;
+  return paper.redDk;
+}
+
+export function scoreTextOnColor(score10: number): string {
+  if (!Number.isFinite(score10)) return paper.textOnGold;
+  // Bright gold (5.0-5.9) needs ink text for contrast. Everything else uses cream.
+  if (score10 >= 5 && score10 < 6) return paper.textOnGold;
+  return paper.textOnForest;
+}
+
+export function paperScoreStyle(score10: number): PaperScoreStyle {
+  return {
+    bg: scoreAccentColor(score10),
+    fg: scoreTextOnColor(score10),
+    band: paperBandForScore(score10),
+  };
 }
