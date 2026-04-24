@@ -63,6 +63,8 @@ import {
   paperTier,
   paperTierForScore,
   paperBandForScore,
+  scoreAccentColor,
+  scoreTextOnColor,
   type PaperTier,
   type PaperScoreBand,
 } from '../../lib/theme';
@@ -524,11 +526,12 @@ export default function HomeScreen() {
 
   const heroHeadlineIsUppercase = heroBand == null;
 
+  // Tapered accent keyed off the actual cached score (not the 3-bucket tier),
+  // so the welcome headline highlight and the CTA score numeral below both
+  // match the forecast-tile palette one row down. Falls back to `paper.red`
+  // only when no cached score exists yet.
   const heroAccentColor =
-    heroTierKey === 'green' ? paper.forest :
-    heroTierKey === 'yellow' ? paper.goldDk :
-    heroTierKey === 'red' ? paper.redDk :
-    paper.red;
+    cachedMeanRaw != null ? scoreAccentColor(cachedMeanRaw / 10) : paper.red;
 
   const heroSubline =
     heroBand === 'Excellent'
@@ -676,8 +679,16 @@ export default function HomeScreen() {
                     ))
                   : forecastDisplayDays.map((day) => {
                       const raw = combinedOutlookScore(day);
-                      const tier = paperTierForScore(raw / 10);
-                      const tierColors = paperTier[tier];
+                      // Tapered color per-score (0-10 resolution) — the
+                      // 3-way paperTier only produced red/yellow/green, which
+                      // made every Fair-band day look identical even when
+                      // the actual scores spanned 4.0 → 5.9. `scoreAccentColor`
+                      // returns one of eight stops so a 4.2 reads visibly
+                      // darker than a 5.8, matching the hero gauge on
+                      // How's Fishing.
+                      const score10 = raw / 10;
+                      const tileBg = scoreAccentColor(score10);
+                      const tileFg = scoreTextOnColor(score10);
                       const display = formatScoreDisplay(raw);
                       // Convert "Tmrw"/"Mon"/"Tue"/… into the FinFindr's
                       // tight uppercase abbreviations ("TMRW", "MON"…).
@@ -715,13 +726,13 @@ export default function HomeScreen() {
                           <View
                             style={[
                               styles.forecastTileHeader,
-                              { backgroundColor: tierColors.bg },
+                              { backgroundColor: tileBg },
                             ]}
                           >
                             <Text
                               style={[
                                 styles.forecastTileDay,
-                                { color: tierColors.fg },
+                                { color: tileFg },
                               ]}
                               numberOfLines={1}
                             >
@@ -735,7 +746,7 @@ export default function HomeScreen() {
                             <Text
                               style={[
                                 styles.forecastTileScore,
-                                { color: tierColors.bg },
+                                { color: tileBg },
                               ]}
                               numberOfLines={1}
                               adjustsFontSizeToFit
@@ -793,12 +804,7 @@ export default function HomeScreen() {
                     <Text
                       style={[
                         styles.ctaScoreNum,
-                        {
-                          color:
-                            heroTierKey === 'green' ? paper.forest :
-                            heroTierKey === 'yellow' ? paper.goldDk :
-                            paper.redDk,
-                        },
+                        { color: heroAccentColor },
                       ]}
                     >
                       {heroScore}
