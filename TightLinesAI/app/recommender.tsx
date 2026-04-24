@@ -795,11 +795,14 @@ export default function RecommenderScreen() {
     }
   }, [context, stateCode, species]);
 
-  // All species/contexts for the current state — these drive what cards are rendered.
-  // We never remove cards from the grid; instead we grey out incompatible ones below.
-  const allSpeciesForState: SpeciesGroup[] = stateCode
-    ? getRecommenderSpeciesForState(stateCode)
-    : RECOMMENDER_V3_UI_SPECIES;
+  // Species cards always show the full UI roster (LMB / SMB / Pike / Trout).
+  // We don't hide species that aren't supported in the user's state — instead
+  // they render greyed-out in `SpeciesGrid`, mirroring how the context step
+  // already shows both Lake/Pond and River but greys the one that doesn't
+  // apply to the selected species. Keeps the "what's available here?"
+  // surface discoverable so someone in a LMB-only state still sees that
+  // trout/pike/smallmouth exist in the product.
+  const allSpeciesForState: SpeciesGroup[] = RECOMMENDER_V3_UI_SPECIES;
 
   const allContextsForState: EngineContext[] = stateCode
     ? getRecommenderContextsForState(stateCode)
@@ -1046,6 +1049,15 @@ export default function RecommenderScreen() {
             ? `No supported water types for ${SPECIES_DISPLAY[species]} in this region yet.`
             : null;
 
+        // Step 1 mirror: now that we render all 4 species cards everywhere
+        // and grey out unsupported ones, surface a line when the selected
+        // region doesn't back any of them yet — otherwise the grid reads
+        // as "all disabled" with no explanation of why.
+        const speciesInvalidNote =
+          wizardStep === 1 && stateCode && availableSpecies.length === 0
+            ? 'No supported species for this region yet — check back as coverage expands.'
+            : null;
+
         return (
           <PaperBackground style={{ flex: 1 }}>
             <ScrollView
@@ -1105,20 +1117,27 @@ export default function RecommenderScreen() {
                 </View>
 
                 {wizardStep === 1 && (
-                  <SpeciesGrid
-                    allOptions={allSpeciesForState}
-                    availableOptions={availableSpecies}
-                    selected={species}
-                    onSelect={(sp) => {
-                      setSpecies(sp);
-                      if (context) {
-                        const validCtxs = stateCode
-                          ? getRecommenderContextsForStateSpecies(stateCode, sp)
-                          : defaultContextsForSpecies(sp);
-                        if (!validCtxs.includes(context)) setContext(null);
-                      }
-                    }}
-                  />
+                  <>
+                    <SpeciesGrid
+                      allOptions={allSpeciesForState}
+                      availableOptions={availableSpecies}
+                      selected={species}
+                      onSelect={(sp) => {
+                        setSpecies(sp);
+                        if (context) {
+                          const validCtxs = stateCode
+                            ? getRecommenderContextsForStateSpecies(stateCode, sp)
+                            : defaultContextsForSpecies(sp);
+                          if (!validCtxs.includes(context)) setContext(null);
+                        }
+                      }}
+                    />
+                    {speciesInvalidNote && (
+                      <Text style={wizardStyles.validationNote}>
+                        {speciesInvalidNote}
+                      </Text>
+                    )}
+                  </>
                 )}
 
                 {wizardStep === 2 && (
