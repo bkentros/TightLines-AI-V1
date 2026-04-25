@@ -1,0 +1,211 @@
+/**
+ * Canonical Water Reader backbone contracts for the current identity/search
+ * and availability phase. Keep the app mirror in `lib/waterReaderContracts.ts`
+ * aligned with this file.
+ */
+
+export const WATERBODY_SEARCH_FEATURE = "waterbody_search_v1" as const;
+export const WATERBODY_SOURCE_VALIDATION_FEATURE = "waterbody_source_validation_v1" as const;
+
+export const WATERBODY_TYPES = ["lake", "pond", "reservoir"] as const;
+export type WaterbodyType = (typeof WATERBODY_TYPES)[number];
+
+export const WATER_READER_SOURCE_MODES = ["best_available", "aerial", "depth"] as const;
+export type WaterReaderSourceMode = (typeof WATER_READER_SOURCE_MODES)[number];
+
+export type ResolvedWaterReaderSourceMode = Exclude<WaterReaderSourceMode, "best_available">;
+
+export const WATER_READER_DATA_TIERS = [
+  "full_depth_aerial",
+  "depth_only",
+  "aerial_only",
+  "chart_aligned_depth",
+  "polygon_only",
+] as const;
+export type WaterReaderDataTier = (typeof WATER_READER_DATA_TIERS)[number];
+
+export const SOURCE_REVIEW_STATUSES = [
+  "unreviewed",
+  "allowed",
+  "restricted",
+  "blocked",
+] as const;
+export type SourceReviewStatus = (typeof SOURCE_REVIEW_STATUSES)[number];
+
+export const SOURCE_FETCH_VALIDATION_STATUSES = [
+  "unvalidated",
+  "reachable",
+  "unreachable",
+  "unsupported",
+  "blocked",
+] as const;
+export type SourceFetchValidationStatus = (typeof SOURCE_FETCH_VALIDATION_STATUSES)[number];
+
+export const SOURCE_LAKE_MATCH_STATUSES = [
+  "unknown",
+  "matched",
+  "ambiguous",
+  "mismatched",
+] as const;
+export type SourceLakeMatchStatus = (typeof SOURCE_LAKE_MATCH_STATUSES)[number];
+
+export const SOURCE_USABILITY_STATUSES = [
+  "unknown",
+  "usable",
+  "needs_review",
+  "not_usable",
+] as const;
+export type SourceUsabilityStatus = (typeof SOURCE_USABILITY_STATUSES)[number];
+
+export const WATERBODY_AVAILABILITY_LABELS = [
+  "aerial_available",
+  "depth_available",
+  "both_available",
+  "limited",
+  "blocked",
+] as const;
+export type WaterbodyAvailabilityLabel = (typeof WATERBODY_AVAILABILITY_LABELS)[number];
+
+export const WATERBODY_SOURCE_STATUS_VALUES = ["ready", "partial", "limited", "blocked"] as const;
+export type WaterbodySourceStatus = (typeof WATERBODY_SOURCE_STATUS_VALUES)[number];
+
+export type WaterReaderConfidence = "high" | "medium" | "low";
+export type WaterbodySourceDepthKind = "machine_readable" | "chart_image" | "none";
+export type WaterbodySourceApprovalStatus = "approved" | "pending_review" | "rejected";
+export type WaterbodySourcePathType =
+  | "service_root"
+  | "feature_query"
+  | "download"
+  | "document"
+  | "image";
+export type SourceValidationRequestMethod = "head" | "get";
+export type SourceValidationScope = "source_path" | "provider_health";
+
+export interface WaterbodyGeometryBackbone {
+  type: "MultiPolygon";
+  coordinates: number[][][][];
+}
+
+export interface WaterbodyIdentity {
+  lakeId: string;
+  canonicalName: string;
+  normalizedName: string;
+  state: string;
+  county?: string | null;
+  waterbodyType: WaterbodyType;
+  region?: string | null;
+  centroid: {
+    lat: number;
+    lon: number;
+  };
+  geometry?: WaterbodyGeometryBackbone | null;
+  externalSource?: string | null;
+  externalId?: string | null;
+}
+
+export interface WaterbodyAvailability {
+  lakeId: string;
+  canonicalName: string;
+  state: string;
+  county?: string | null;
+  dataTier: WaterReaderDataTier;
+  aerialAvailable: boolean;
+  depthMachineReadableAvailable: boolean;
+  depthChartImageAvailable: boolean;
+  bothAvailable: boolean;
+  availableSourceModes: ResolvedWaterReaderSourceMode[];
+  bestAvailableMode: ResolvedWaterReaderSourceMode | null;
+  sourceStatus: WaterbodySourceStatus;
+  availability: WaterbodyAvailabilityLabel;
+  confidence: WaterReaderConfidence;
+  confidenceReasons: string[];
+}
+
+export interface WaterbodySearchResult {
+  lakeId: string;
+  name: string;
+  state: string;
+  county?: string | null;
+  waterbodyType: WaterbodyType;
+  surfaceAreaAcres?: number | null;
+  centroid: {
+    lat: number;
+    lon: number;
+  };
+  dataTier: WaterReaderDataTier;
+  aerialAvailable: boolean;
+  depthAvailable: boolean;
+  depthUsabilityStatus: "usable" | "needs_review" | "unavailable";
+  availability: WaterbodyAvailabilityLabel;
+  sourceStatus: WaterbodySourceStatus;
+  bestAvailableMode: ResolvedWaterReaderSourceMode | null;
+  confidence: WaterReaderConfidence;
+}
+
+export interface WaterbodySearchResponse {
+  feature: typeof WATERBODY_SEARCH_FEATURE;
+  query: string;
+  state?: string | null;
+  results: WaterbodySearchResult[];
+}
+
+export interface ReviewedSourcePath {
+  linkId: string;
+  lakeId: string;
+  sourceId: string;
+  providerName: string;
+  sourceMode: ResolvedWaterReaderSourceMode;
+  depthSourceKind: WaterbodySourceDepthKind;
+  sourcePath: string;
+  sourcePathType: WaterbodySourcePathType;
+  approvalStatus: WaterbodySourceApprovalStatus;
+  reviewStatus: SourceReviewStatus;
+  canFetch: boolean;
+  lakeMatchStatus: SourceLakeMatchStatus;
+  usabilityStatus: SourceUsabilityStatus;
+  providerHealthUrl?: string | null;
+}
+
+export interface WaterbodySourceFetchValidationResult {
+  linkId: string;
+  lakeId: string;
+  sourceMode: ResolvedWaterReaderSourceMode;
+  depthSourceKind: WaterbodySourceDepthKind;
+  status: SourceFetchValidationStatus;
+  checkedAtISO: string;
+  scope: "source_path";
+  requestMethod: SourceValidationRequestMethod;
+  targetUrl: string;
+  httpStatus?: number | null;
+  error?: string | null;
+  sourcePath: string;
+  providerName: string;
+}
+
+export interface SourceProviderHealthValidationResult {
+  sourceId: string;
+  providerName: string;
+  providerHealthUrl: string;
+  status: SourceFetchValidationStatus;
+  checkedAtISO: string;
+  scope: "provider_health";
+  requestMethod: SourceValidationRequestMethod;
+  httpStatus?: number | null;
+  error?: string | null;
+}
+
+export interface WaterbodySourceValidationResponse {
+  feature: typeof WATERBODY_SOURCE_VALIDATION_FEATURE;
+  lakeId: string;
+  results: WaterbodySourceFetchValidationResult[];
+}
+
+export function isWaterbodyType(value: string): value is WaterbodyType {
+  return (WATERBODY_TYPES as readonly string[]).includes(value);
+}
+
+export function isResolvedWaterReaderSourceMode(
+  value: string,
+): value is ResolvedWaterReaderSourceMode {
+  return value === "aerial" || value === "depth";
+}

@@ -28,6 +28,7 @@
     "start:dev-client:ngrok": "bash scripts/start-metro-ngrok.sh",
     "generate:us-city-index": "node scripts/generate-us-city-index.mjs",
     "generate:recommender-gating": "tsx scripts/generate-recommender-gating.ts",
+    "ingest:water-reader:3dhp": "deno run --allow-net --allow-read --allow-write --allow-run=python3 scripts/water-reader-ingest-3dhp.ts",
     "audit:catalog-gaps": "deno run -A scripts/catalog-gap-analysis-v4.ts",
     "gen:recommender-tackle-images": "deno run -A scripts/generate-recommender-tackle-images.ts",
     "gen:recommender-species-fish-images": "deno run -A scripts/generate-recommender-species-fish-images.ts",

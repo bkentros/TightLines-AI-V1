@@ -49,6 +49,9 @@ how-fishing-targeted-audit.jsonl
 # Recommender V3 audit scratch copies (canonical files stay committed under docs/recommender-v3-audit/generated/)
 docs/recommender-v3-audit/generated/*.local.*
 
+# Water Reader ingest scratch (national chunk SQL can be very large)
+tmp/water-reader/
+
 # Supabase CLI cache
 supabase/.temp/
 
