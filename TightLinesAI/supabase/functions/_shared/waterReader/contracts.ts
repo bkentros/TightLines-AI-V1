@@ -7,6 +7,14 @@
 export const WATERBODY_SEARCH_FEATURE = "waterbody_search_v1" as const;
 export const WATERBODY_SOURCE_VALIDATION_FEATURE = "waterbody_source_validation_v1" as const;
 
+/** POST body scope for `waterbody-source-validation` (internal key). Defaults to lake link validation when omitted. */
+export const WATERBODY_SOURCE_VALIDATION_BODY_SCOPES = [
+  "lake_links",
+  "aerial_provider_policy",
+] as const;
+export type WaterbodySourceValidationBodyScope =
+  (typeof WATERBODY_SOURCE_VALIDATION_BODY_SCOPES)[number];
+
 export const WATERBODY_TYPES = ["lake", "pond", "reservoir"] as const;
 export type WaterbodyType = (typeof WATERBODY_TYPES)[number];
 
@@ -200,6 +208,15 @@ export interface WaterbodySourceValidationResponse {
   results: WaterbodySourceFetchValidationResult[];
 }
 
+/** Response when `validationScope: "aerial_provider_policy"` (no lakeId). */
+export interface AerialProviderPolicyValidationResponse {
+  feature: typeof WATERBODY_SOURCE_VALIDATION_FEATURE;
+  validationScope: "aerial_provider_policy";
+  policyKey: string;
+  policyId: string;
+  result: SourceProviderHealthValidationResult;
+}
+
 export function isWaterbodyType(value: string): value is WaterbodyType {
   return (WATERBODY_TYPES as readonly string[]).includes(value);
 }
@@ -208,4 +225,10 @@ export function isResolvedWaterReaderSourceMode(
   value: string,
 ): value is ResolvedWaterReaderSourceMode {
   return value === "aerial" || value === "depth";
+}
+
+export function isWaterbodySourceValidationBodyScope(
+  value: string,
+): value is WaterbodySourceValidationBodyScope {
+  return (WATERBODY_SOURCE_VALIDATION_BODY_SCOPES as readonly string[]).includes(value);
 }

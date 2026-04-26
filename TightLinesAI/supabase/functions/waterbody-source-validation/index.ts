@@ -4,8 +4,10 @@ import {
   WATERBODY_SOURCE_VALIDATION_FEATURE,
   assertInternalWaterReaderRequest,
   isResolvedWaterReaderSourceMode,
+  isWaterbodySourceValidationBodyScope,
   type ReviewedSourcePath,
   validateApprovedSourcePath,
+  validateSourceProviderHealth,
 } from "../_shared/waterReader/index.ts";
 
 function corsHeaders() {
@@ -45,6 +47,21 @@ interface SourceLinkRow {
   metadata: Record<string, unknown> | null;
 }
 
+interface AerialPolicyRow {
+  id: string;
+  policy_key: string;
+  source_id: string;
+  is_enabled: boolean;
+  approval_status: string;
+  provider_health_target_url: string | null;
+}
+
+interface SourceRegistryHealthRow {
+  id: string;
+  provider_name: string;
+  provider_health_check_url: string | null;
+}
+
 Deno.serve(async (req: Request) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { status: 204, headers: corsHeaders() });
@@ -67,6 +84,105 @@ Deno.serve(async (req: Request) => {
     body = await req.json();
   } catch {
     return jsonError("Invalid JSON body", "invalid_body", 400);
+  }
+
+  const rawScope = typeof body.validationScope === "string" ? body.validationScope.trim() : "";
+  if (rawScope && !isWaterbodySourceValidationBodyScope(rawScope)) {
+    return jsonError("validationScope must be lake_links or aerial_provider_policy", "invalid_scope", 400);
+  }
+
+  if (rawScope === "aerial_provider_policy") {
+    const policyKey = typeof body.policyKey === "string" ? body.policyKey.trim() : "";
+    if (!policyKey) {
+      return jsonError("policyKey is required for aerial_provider_policy scope", "invalid_policy_key", 400);
+    }
+
+    const { data: policyRow, error: policyError } = await supabase
+      .from("water_reader_aerial_provider_policies")
+      .select("id, policy_key, source_id, is_enabled, approval_status, provider_health_target_url")
+      .eq("policy_key", policyKey)
+      .maybeSingle();
+
+    if (policyError) {
+      console.error("[waterbody-source-validation] aerial policy query failed", policyError);
+      return jsonError("Failed to load aerial provider policy", "validation_failed", 500);
+    }
+    if (!policyRow) {
+      return jsonError("Aerial provider policy not found", "policy_not_found", 404);
+    }
+
+    const policy = policyRow as AerialPolicyRow;
+
+    const isApprovedEnabled = policy.is_enabled === true && policy.approval_status === "approved";
+    const allowProdProbe = body.allowApprovedEnabledPolicyProbe === true;
+    if (isApprovedEnabled && !allowProdProbe) {
+      return jsonError(
+        "Refusing to probe enabled+approved policy without allowApprovedEnabledPolicyProbe: true",
+        "policy_probe_forbidden",
+        403,
+      );
+    }
+
+    const { data: sourceRow, error: sourceError } = await supabase
+      .from("source_registry")
+      .select("id, provider_name, provider_health_check_url")
+      .eq("id", policy.source_id)
+      .maybeSingle();
+
+    if (sourceError) {
+      console.error("[waterbody-source-validation] registry query failed (policy)", sourceError);
+      return jsonError("Failed to load source registry row", "validation_failed", 500);
+    }
+    if (!sourceRow) {
+      return jsonError("Source registry row for policy not found", "source_not_found", 404);
+    }
+
+    const source = sourceRow as SourceRegistryHealthRow;
+    const override = policy.provider_health_target_url?.trim() ?? "";
+    const fallback = source.provider_health_check_url?.trim() ?? "";
+    const probeUrl = override.length > 0 ? override : fallback;
+    if (!probeUrl) {
+      return jsonError(
+        "No provider health URL: set provider_health_target_url on the policy or provider_health_check_url on source_registry",
+        "no_health_url",
+        400,
+      );
+    }
+
+    const result = await validateSourceProviderHealth({
+      sourceId: source.id,
+      providerName: source.provider_name,
+      providerHealthUrl: probeUrl,
+    });
+
+    const { error: updateError } = await supabase
+      .from("water_reader_aerial_provider_policies")
+      .update({
+        provider_health_status: result.status,
+        provider_health_method: result.requestMethod,
+        provider_health_target_url: result.providerHealthUrl,
+        provider_health_checked_at: result.checkedAtISO,
+        provider_health_http_status: result.httpStatus ?? null,
+        provider_health_error: result.error ?? null,
+        updated_at: result.checkedAtISO,
+      })
+      .eq("id", policy.id);
+
+    if (updateError) {
+      console.error("[waterbody-source-validation] aerial policy health update failed", updateError);
+      return jsonError("Failed to persist aerial policy health", "validation_failed", 500);
+    }
+
+    return new Response(
+      JSON.stringify({
+        feature: WATERBODY_SOURCE_VALIDATION_FEATURE,
+        validationScope: "aerial_provider_policy",
+        policyKey: policy.policy_key,
+        policyId: policy.id,
+        result,
+      }),
+      { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders() } },
+    );
   }
 
   const lakeId = typeof body.lakeId === "string" ? body.lakeId.trim() : "";
