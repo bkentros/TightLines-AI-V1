@@ -1,0 +1,1704 @@
+{
+  "generated_at": "2026-04-25T16:56:57.566Z",
+  "count": 40,
+  "layer": "https://arcgis.metc.state.mn.us/server/rest/services/GDRS/DNR_water_lake_bathymetric_contours/FeatureServer/0/query",
+  "status_counts": {
+    "unique": 16,
+    "multi": 18,
+    "too_many": 0,
+    "none": 6
+  },
+  "disclaimer": "Draft only — not inserted. Human review required for lake_match_status, homonyms, multi-basin aggregates, and Edge + GeoJSON smoke per row.",
+  "candidates": [
+    {
+      "waterbody_id": "e6eaba82-6e58-4701-8a5d-0a2d3ae6247a",
+      "canonical_name": "Lower Red Lake",
+      "county_name": "Beltrami",
+      "surface_area_acres": 164696.56,
+      "matching_evidence": "USGS 3DHP waterbody_index identity: state MN, county Beltrami; DNR contour rows matched via no successful LIKE probe.",
+      "dowlknum_resolution": {
+        "status": "none",
+        "pairs": [],
+        "arcgis_where_used": ""
+      },
+      "source_path": null,
+      "fetch_validation_url": null,
+      "expected_geometry_types": [
+        "LineString",
+        "MultiLineString"
+      ],
+      "expected_property_fields": [
+        "DEPTH",
+        "abs_depth",
+        "DOWLKNUM",
+        "LAKE_NAME",
+        "OBJECTID"
+      ],
+      "review_notes": [
+        "Seeded from waterbody_index (MN, by area); pilot + Douglas Lake Mary fixture excluded.",
+        "ArcGIS token attempts (in order): Lower Red Lake → Lower Red",
+        "Disambiguate with county Beltrami — DNR layer does not expose county on this query; review homonyms (e.g. Pelican Lake).",
+        "No contours matched — may lack DNR coverage or need different LAKE_NAME token."
+      ]
+    },
+    {
+      "waterbody_id": "16b60db7-bbf1-473d-890d-ad0a883d3a46",
+      "canonical_name": "Upper Red Lake",
+      "county_name": "Beltrami",
+      "surface_area_acres": 119322.99,
+      "matching_evidence": "USGS 3DHP waterbody_index identity: state MN, county Beltrami; DNR contour rows matched via no successful LIKE probe.",
+      "dowlknum_resolution": {
+        "status": "none",
+        "pairs": [],
+        "arcgis_where_used": ""
+      },
+      "source_path": null,
+      "fetch_validation_url": null,
+      "expected_geometry_types": [
+        "LineString",
+        "MultiLineString"
+      ],
+      "expected_property_fields": [
+        "DEPTH",
+        "abs_depth",
+        "DOWLKNUM",
+        "LAKE_NAME",
+        "OBJECTID"
+      ],
+      "review_notes": [
+        "Seeded from waterbody_index (MN, by area); pilot + Douglas Lake Mary fixture excluded.",
+        "ArcGIS token attempts (in order): Upper Red Lake → Upper Red",
+        "Disambiguate with county Beltrami — DNR layer does not expose county on this query; review homonyms (e.g. Pelican Lake).",
+        "No contours matched — may lack DNR coverage or need different LAKE_NAME token."
+      ]
+    },
+    {
+      "waterbody_id": "e2cc18cf-c397-4c41-8876-fe6d053bb23a",
+      "canonical_name": "Lake Winnibigoshish",
+      "county_name": "Cass",
+      "surface_area_acres": 55762.11,
+      "matching_evidence": "USGS 3DHP waterbody_index identity: state MN, county Cass; DNR contour rows matched via DOWLKNUM IN ('11014700','31085000').",
+      "dowlknum_resolution": {
+        "status": "multi",
+        "pairs": [
+          {
+            "dowlknum": "11014700",
+            "lake_name": "Winnibigoshish"
+          },
+          {
+            "dowlknum": "31085000",
+            "lake_name": "Little Winnibigoshish"
+          }
+        ],
+        "arcgis_where_used": "DOWLKNUM IN ('11014700','31085000')"
+      },
+      "source_path": "https://arcgis.metc.state.mn.us/server/rest/services/GDRS/DNR_water_lake_bathymetric_contours/FeatureServer/0/query?f=geojson&returnGeometry=true&returnNullGeometry=false&outFields=DEPTH%2CDOWLKNUM%2CLAKE_NAME%2COBJECTID%2Cabs_depth&outSR=4326&resultRecordCount=4000&where=DOWLKNUM+IN+%28%2711014700%27%2C%2731085000%27%29",
+      "fetch_validation_url": "https://arcgis.metc.state.mn.us/server/rest/services/GDRS/DNR_water_lake_bathymetric_contours/FeatureServer/0/query?f=pjson&returnGeometry=false&returnCountOnly=true&outFields=OBJECTID&where=DOWLKNUM+IN+%28%2711014700%27%2C%2731085000%27%29",
+      "expected_geometry_types": [
+        "LineString",
+        "MultiLineString"
+      ],
+      "expected_property_fields": [
+        "DEPTH",
+        "abs_depth",
+        "DOWLKNUM",
+        "LAKE_NAME",
+        "OBJECTID"
+      ],
+      "review_notes": [
+        "Seeded from waterbody_index (MN, by area); pilot + Douglas Lake Mary fixture excluded.",
+        "ArcGIS token attempts (in order): Lake Winnibigoshish → Winnibigoshish",
+        "Disambiguate with county Cass — DNR layer does not expose county on this query; review homonyms (e.g. Pelican Lake).",
+        "Multiple DOWLKNUM in one system — verify all basins belong to this named water (compare to pilot Minnetonka / Leech pattern)."
+      ]
+    },
+    {
+      "waterbody_id": "b3d239c8-d51a-4716-bb97-c9a9061c8820",
+      "canonical_name": "Rainy Lake",
+      "county_name": "St. Louis",
+      "surface_area_acres": 45770.21,
+      "matching_evidence": "USGS 3DHP waterbody_index identity: state MN, county St. Louis; DNR contour rows matched via DOWLKNUM='69069400'.",
+      "dowlknum_resolution": {
+        "status": "unique",
+        "pairs": [
+          {
+            "dowlknum": "69069400",
+            "lake_name": "Rainy"
+          }
+        ],
+        "arcgis_where_used": "DOWLKNUM='69069400'"
+      },
+      "source_path": "https://arcgis.metc.state.mn.us/server/rest/services/GDRS/DNR_water_lake_bathymetric_contours/FeatureServer/0/query?f=geojson&returnGeometry=true&returnNullGeometry=false&outFields=DEPTH%2CDOWLKNUM%2CLAKE_NAME%2COBJECTID%2Cabs_depth&outSR=4326&resultRecordCount=4000&where=DOWLKNUM%3D%2769069400%27",
+      "fetch_validation_url": "https://arcgis.metc.state.mn.us/server/rest/services/GDRS/DNR_water_lake_bathymetric_contours/FeatureServer/0/query?f=pjson&returnGeometry=false&returnCountOnly=true&outFields=OBJECTID&where=DOWLKNUM%3D%2769069400%27",
+      "expected_geometry_types": [
+        "LineString",
+        "MultiLineString"
+      ],
+      "expected_property_fields": [
+        "DEPTH",
+        "abs_depth",
+        "DOWLKNUM",
+        "LAKE_NAME",
+        "OBJECTID"
+      ],
+      "review_notes": [
+        "Seeded from waterbody_index (MN, by area); pilot + Douglas Lake Mary fixture excluded.",
+        "ArcGIS token attempts (in order): Rainy Lake → Rainy",
+        "Disambiguate with county St. Louis — DNR layer does not expose county on this query; review homonyms (e.g. Pelican Lake)."
+      ]
+    },
+    {
+      "waterbody_id": "c526a066-c174-4f0b-83bf-95d5fd125e84",
+      "canonical_name": "Vermilion Lake",
+      "county_name": "St. Louis",
+      "surface_area_acres": 38886.28,
+      "matching_evidence": "USGS 3DHP waterbody_index identity: state MN, county St. Louis; DNR contour rows matched via DOWLKNUM IN ('69037801','69037802','69060800').",
+      "dowlknum_resolution": {
+        "status": "multi",
+        "pairs": [
+          {
+            "dowlknum": "69037801",
+            "lake_name": "East Vermilion"
+          },
+          {
+            "dowlknum": "69037802",
+            "lake_name": "West Vermilion"
+          },
+          {
+            "dowlknum": "69060800",
+            "lake_name": "Little Vermilion"
+          }
+        ],
+        "arcgis_where_used": "DOWLKNUM IN ('69037801','69037802','69060800')"
+      },
+      "source_path": "https://arcgis.metc.state.mn.us/server/rest/services/GDRS/DNR_water_lake_bathymetric_contours/FeatureServer/0/query?f=geojson&returnGeometry=true&returnNullGeometry=false&outFields=DEPTH%2CDOWLKNUM%2CLAKE_NAME%2COBJECTID%2Cabs_depth&outSR=4326&resultRecordCount=4000&where=DOWLKNUM+IN+%28%2769037801%27%2C%2769037802%27%2C%2769060800%27%29",
+      "fetch_validation_url": "https://arcgis.metc.state.mn.us/server/rest/services/GDRS/DNR_water_lake_bathymetric_contours/FeatureServer/0/query?f=pjson&returnGeometry=false&returnCountOnly=true&outFields=OBJECTID&where=DOWLKNUM+IN+%28%2769037801%27%2C%2769037802%27%2C%2769060800%27%29",
+      "expected_geometry_types": [
+        "LineString",
+        "MultiLineString"
+      ],
+      "expected_property_fields": [
+        "DEPTH",
+        "abs_depth",
+        "DOWLKNUM",
+        "LAKE_NAME",
+        "OBJECTID"
+      ],
+      "review_notes": [
+        "Seeded from waterbody_index (MN, by area); pilot + Douglas Lake Mary fixture excluded.",
+        "ArcGIS token attempts (in order): Vermilion Lake → Vermilion",
+        "Disambiguate with county St. Louis — DNR layer does not expose county on this query; review homonyms (e.g. Pelican Lake).",
+        "Multiple DOWLKNUM in one system — verify all basins belong to this named water (compare to pilot Minnetonka / Leech pattern)."
+      ]
+    },
+    {
+      "waterbody_id": "7e7e2cbf-08d0-4835-9243-56ddc4112024",
+      "canonical_name": "Kabetogama Lake",
+      "county_name": "St. Louis",
+      "surface_area_acres": 22331.41,
+      "matching_evidence": "USGS 3DHP waterbody_index identity: state MN, county St. Louis; DNR contour rows matched via DOWLKNUM='69084500'.",
+      "dowlknum_resolution": {
+        "status": "unique",
+        "pairs": [
+          {
+            "dowlknum": "69084500",
+            "lake_name": "Kabetogama"
+          }
+        ],
+        "arcgis_where_used": "DOWLKNUM='69084500'"
+      },
+      "source_path": "https://arcgis.metc.state.mn.us/server/rest/services/GDRS/DNR_water_lake_bathymetric_contours/FeatureServer/0/query?f=geojson&returnGeometry=true&returnNullGeometry=false&outFields=DEPTH%2CDOWLKNUM%2CLAKE_NAME%2COBJECTID%2Cabs_depth&outSR=4326&resultRecordCount=4000&where=DOWLKNUM%3D%2769084500%27",
+      "fetch_validation_url": "https://arcgis.metc.state.mn.us/server/rest/services/GDRS/DNR_water_lake_bathymetric_contours/FeatureServer/0/query?f=pjson&returnGeometry=false&returnCountOnly=true&outFields=OBJECTID&where=DOWLKNUM%3D%2769084500%27",
+      "expected_geometry_types": [
+        "LineString",
+        "MultiLineString"
+      ],
+      "expected_property_fields": [
+        "DEPTH",
+        "abs_depth",
+        "DOWLKNUM",
+        "LAKE_NAME",
+        "OBJECTID"
+      ],
+      "review_notes": [
+        "Seeded from waterbody_index (MN, by area); pilot + Douglas Lake Mary fixture excluded.",
+        "ArcGIS token attempts (in order): Kabetogama Lake → Kabetogama",
+        "Disambiguate with county St. Louis — DNR layer does not expose county on this query; review homonyms (e.g. Pelican Lake)."
+      ]
+    },
+    {
+      "waterbody_id": "eda43456-7606-4c58-9f65-d46f513401dd",
+      "canonical_name": "Cass Lake",
+      "county_name": "Cass",
+      "surface_area_acres": 20695.57,
+      "matching_evidence": "USGS 3DHP waterbody_index identity: state MN, county Cass; DNR contour rows matched via DOWLKNUM IN ('04003000','86024700').",
+      "dowlknum_resolution": {
+        "status": "multi",
+        "pairs": [
+          {
+            "dowlknum": "04003000",
+            "lake_name": "Cass"
+          },
+          {
+            "dowlknum": "86024700",
+            "lake_name": "Unnamed (Cassidy)"
+          }
+        ],
+        "arcgis_where_used": "DOWLKNUM IN ('04003000','86024700')"
+      },
+      "source_path": "https://arcgis.metc.state.mn.us/server/rest/services/GDRS/DNR_water_lake_bathymetric_contours/FeatureServer/0/query?f=geojson&returnGeometry=true&returnNullGeometry=false&outFields=DEPTH%2CDOWLKNUM%2CLAKE_NAME%2COBJECTID%2Cabs_depth&outSR=4326&resultRecordCount=4000&where=DOWLKNUM+IN+%28%2704003000%27%2C%2786024700%27%29",
+      "fetch_validation_url": "https://arcgis.metc.state.mn.us/server/rest/services/GDRS/DNR_water_lake_bathymetric_contours/FeatureServer/0/query?f=pjson&returnGeometry=false&returnCountOnly=true&outFields=OBJECTID&where=DOWLKNUM+IN+%28%2704003000%27%2C%2786024700%27%29",
+      "expected_geometry_types": [
+        "LineString",
+        "MultiLineString"
+      ],
+      "expected_property_fields": [
+        "DEPTH",
+        "abs_depth",
+        "DOWLKNUM",
+        "LAKE_NAME",
+        "OBJECTID"
+      ],
+      "review_notes": [
+        "Seeded from waterbody_index (MN, by area); pilot + Douglas Lake Mary fixture excluded.",
+        "ArcGIS token attempts (in order): Cass Lake → Cass",
+        "Disambiguate with county Cass — DNR layer does not expose county on this query; review homonyms (e.g. Pelican Lake).",
+        "Multiple DOWLKNUM in one system — verify all basins belong to this named water (compare to pilot Minnetonka / Leech pattern)."
+      ]
+    },
+    {
+      "waterbody_id": "3377223d-f060-4374-b55a-410d80b6429a",
+      "canonical_name": "Lac la Croix",
+      "county_name": "St. Louis",
+      "surface_area_acres": 14169.02,
+      "matching_evidence": "USGS 3DHP waterbody_index identity: state MN, county St. Louis; DNR contour rows matched via no successful LIKE probe.",
+      "dowlknum_resolution": {
+        "status": "none",
+        "pairs": [],
+        "arcgis_where_used": ""
+      },
+      "source_path": null,
+      "fetch_validation_url": null,
+      "expected_geometry_types": [
+        "LineString",
+        "MultiLineString"
+      ],
+      "expected_property_fields": [
+        "DEPTH",
+        "abs_depth",
+        "DOWLKNUM",
+        "LAKE_NAME",
+        "OBJECTID"
+      ],
+      "review_notes": [
+        "Seeded from waterbody_index (MN, by area); pilot + Douglas Lake Mary fixture excluded.",
+        "ArcGIS token attempts (in order): Lac la Croix",
+        "Disambiguate with county St. Louis — DNR layer does not expose county on this query; review homonyms (e.g. Pelican Lake).",
+        "No contours matched — may lack DNR coverage or need different LAKE_NAME token."
+      ]
+    },
+    {
+      "waterbody_id": "74af9d87-8e97-4293-9f55-e12da922086f",
+      "canonical_name": "Otter Tail Lake",
+      "county_name": "Otter Tail",
+      "surface_area_acres": 14024.71,
+      "matching_evidence": "USGS 3DHP waterbody_index identity: state MN, county Otter Tail; DNR contour rows matched via DOWLKNUM='56024200'.",
+      "dowlknum_resolution": {
+        "status": "unique",
+        "pairs": [
+          {
+            "dowlknum": "56024200",
+            "lake_name": "Otter Tail"
+          }
+        ],
+        "arcgis_where_used": "DOWLKNUM='56024200'"
+      },
+      "source_path": "https://arcgis.metc.state.mn.us/server/rest/services/GDRS/DNR_water_lake_bathymetric_contours/FeatureServer/0/query?f=geojson&returnGeometry=true&returnNullGeometry=false&outFields=DEPTH%2CDOWLKNUM%2CLAKE_NAME%2COBJECTID%2Cabs_depth&outSR=4326&resultRecordCount=4000&where=DOWLKNUM%3D%2756024200%27",
+      "fetch_validation_url": "https://arcgis.metc.state.mn.us/server/rest/services/GDRS/DNR_water_lake_bathymetric_contours/FeatureServer/0/query?f=pjson&returnGeometry=false&returnCountOnly=true&outFields=OBJECTID&where=DOWLKNUM%3D%2756024200%27",
+      "expected_geometry_types": [
+        "LineString",
+        "MultiLineString"
+      ],
+      "expected_property_fields": [
+        "DEPTH",
+        "abs_depth",
+        "DOWLKNUM",
+        "LAKE_NAME",
+        "OBJECTID"
+      ],
+      "review_notes": [
+        "Seeded from waterbody_index (MN, by area); pilot + Douglas Lake Mary fixture excluded.",
+        "ArcGIS token attempts (in order): Otter Tail Lake → Otter Tail",
+        "Disambiguate with county Otter Tail — DNR layer does not expose county on this query; review homonyms (e.g. Pelican Lake)."
+      ]
+    },
+    {
+      "waterbody_id": "4a1aa75b-60d6-4dfe-bb7c-3cdf9953653d",
+      "canonical_name": "Namakan Lake",
+      "county_name": "St. Louis",
+      "surface_area_acres": 12158.66,
+      "matching_evidence": "USGS 3DHP waterbody_index identity: state MN, county St. Louis; DNR contour rows matched via DOWLKNUM='69069300'.",
+      "dowlknum_resolution": {
+        "status": "unique",
+        "pairs": [
+          {
+            "dowlknum": "69069300",
+            "lake_name": "Namakan"
+          }
+        ],
+        "arcgis_where_used": "DOWLKNUM='69069300'"
+      },
+      "source_path": "https://arcgis.metc.state.mn.us/server/rest/services/GDRS/DNR_water_lake_bathymetric_contours/FeatureServer/0/query?f=geojson&returnGeometry=true&returnNullGeometry=false&outFields=DEPTH%2CDOWLKNUM%2CLAKE_NAME%2COBJECTID%2Cabs_depth&outSR=4326&resultRecordCount=4000&where=DOWLKNUM%3D%2769069300%27",
+      "fetch_validation_url": "https://arcgis.metc.state.mn.us/server/rest/services/GDRS/DNR_water_lake_bathymetric_contours/FeatureServer/0/query?f=pjson&returnGeometry=false&returnCountOnly=true&outFields=OBJECTID&where=DOWLKNUM%3D%2769069300%27",
+      "expected_geometry_types": [
+        "LineString",
+        "MultiLineString"
+      ],
+      "expected_property_fields": [
+        "DEPTH",
+        "abs_depth",
+        "DOWLKNUM",
+        "LAKE_NAME",
+        "OBJECTID"
+      ],
+      "review_notes": [
+        "Seeded from waterbody_index (MN, by area); pilot + Douglas Lake Mary fixture excluded.",
+        "ArcGIS token attempts (in order): Namakan Lake → Namakan",
+        "Disambiguate with county St. Louis — DNR layer does not expose county on this query; review homonyms (e.g. Pelican Lake)."
+      ]
+    },
+    {
+      "waterbody_id": "c5cd9331-8fe0-4317-a828-1d2e334a423e",
+      "canonical_name": "Big Stone Lake",
+      "county_name": "Big Stone",
+      "surface_area_acres": 11889.23,
+      "matching_evidence": "USGS 3DHP waterbody_index identity: state MN, county Big Stone; DNR contour rows matched via DOWLKNUM='06015200'.",
+      "dowlknum_resolution": {
+        "status": "unique",
+        "pairs": [
+          {
+            "dowlknum": "06015200",
+            "lake_name": "Big Stone"
+          }
+        ],
+        "arcgis_where_used": "DOWLKNUM='06015200'"
+      },
+      "source_path": "https://arcgis.metc.state.mn.us/server/rest/services/GDRS/DNR_water_lake_bathymetric_contours/FeatureServer/0/query?f=geojson&returnGeometry=true&returnNullGeometry=false&outFields=DEPTH%2CDOWLKNUM%2CLAKE_NAME%2COBJECTID%2Cabs_depth&outSR=4326&resultRecordCount=4000&where=DOWLKNUM%3D%2706015200%27",
+      "fetch_validation_url": "https://arcgis.metc.state.mn.us/server/rest/services/GDRS/DNR_water_lake_bathymetric_contours/FeatureServer/0/query?f=pjson&returnGeometry=false&returnCountOnly=true&outFields=OBJECTID&where=DOWLKNUM%3D%2706015200%27",
+      "expected_geometry_types": [
+        "LineString",
+        "MultiLineString"
+      ],
+      "expected_property_fields": [
+        "DEPTH",
+        "abs_depth",
+        "DOWLKNUM",
+        "LAKE_NAME",
+        "OBJECTID"
+      ],
+      "review_notes": [
+        "Seeded from waterbody_index (MN, by area); pilot + Douglas Lake Mary fixture excluded.",
+        "ArcGIS token attempts (in order): Big Stone Lake → Big Stone",
+        "Disambiguate with county Big Stone — DNR layer does not expose county on this query; review homonyms (e.g. Pelican Lake)."
+      ]
+    },
+    {
+      "waterbody_id": "cc8ab3b8-e5a3-497b-9ec0-6b9ee0040ec9",
+      "canonical_name": "Pelican Lake",
+      "county_name": "St. Louis",
+      "surface_area_acres": 11465.94,
+      "matching_evidence": "USGS 3DHP waterbody_index identity: state MN, county St. Louis; DNR contour rows matched via DOWLKNUM IN ('18030800','18035100','26000200','56078600','61011100','69084100','73011800','86003100').",
+      "dowlknum_resolution": {
+        "status": "multi",
+        "pairs": [
+          {
+            "dowlknum": "18030800",
+            "lake_name": "Pelican"
+          },
+          {
+            "dowlknum": "18035100",
+            "lake_name": "Little Pelican"
+          },
+          {
+            "dowlknum": "26000200",
+            "lake_name": "Pelican"
+          },
+          {
+            "dowlknum": "56078600",
+            "lake_name": "Pelican"
+          },
+          {
+            "dowlknum": "61011100",
+            "lake_name": "Pelican"
+          },
+          {
+            "dowlknum": "69084100",
+            "lake_name": "Pelican"
+          },
+          {
+            "dowlknum": "73011800",
+            "lake_name": "Pelican"
+          },
+          {
+            "dowlknum": "86003100",
+            "lake_name": "Pelican"
+          }
+        ],
+        "arcgis_where_used": "DOWLKNUM IN ('18030800','18035100','26000200','56078600','61011100','69084100','73011800','86003100')"
+      },
+      "source_path": "https://arcgis.metc.state.mn.us/server/rest/services/GDRS/DNR_water_lake_bathymetric_contours/FeatureServer/0/query?f=geojson&returnGeometry=true&returnNullGeometry=false&outFields=DEPTH%2CDOWLKNUM%2CLAKE_NAME%2COBJECTID%2Cabs_depth&outSR=4326&resultRecordCount=4000&where=DOWLKNUM+IN+%28%2718030800%27%2C%2718035100%27%2C%2726000200%27%2C%2756078600%27%2C%2761011100%27%2C%2769084100%27%2C%2773011800%27%2C%2786003100%27%29",
+      "fetch_validation_url": "https://arcgis.metc.state.mn.us/server/rest/services/GDRS/DNR_water_lake_bathymetric_contours/FeatureServer/0/query?f=pjson&returnGeometry=false&returnCountOnly=true&outFields=OBJECTID&where=DOWLKNUM+IN+%28%2718030800%27%2C%2718035100%27%2C%2726000200%27%2C%2756078600%27%2C%2761011100%27%2C%2769084100%27%2C%2773011800%27%2C%2786003100%27%29",
+      "expected_geometry_types": [
+        "LineString",
+        "MultiLineString"
+      ],
+      "expected_property_fields": [
+        "DEPTH",
+        "abs_depth",
+        "DOWLKNUM",
+        "LAKE_NAME",
+        "OBJECTID"
+      ],
+      "review_notes": [
+        "Seeded from waterbody_index (MN, by area); pilot + Douglas Lake Mary fixture excluded.",
+        "ArcGIS token attempts (in order): Pelican Lake → Pelican",
+        "Disambiguate with county St. Louis — DNR layer does not expose county on this query; review homonyms (e.g. Pelican Lake).",
+        "Multiple DOWLKNUM in one system — verify all basins belong to this named water (compare to pilot Minnetonka / Leech pattern)."
+      ]
+    },
+    {
+      "waterbody_id": "30569d9f-9e79-41b5-a9da-ef1714fe16ab",
+      "canonical_name": "Lake Traverse",
+      "county_name": "Traverse",
+      "surface_area_acres": 10747.48,
+      "matching_evidence": "USGS 3DHP waterbody_index identity: state MN, county Traverse; DNR contour rows matched via DOWLKNUM='78002500'.",
+      "dowlknum_resolution": {
+        "status": "unique",
+        "pairs": [
+          {
+            "dowlknum": "78002500",
+            "lake_name": "Traverse"
+          }
+        ],
+        "arcgis_where_used": "DOWLKNUM='78002500'"
+      },
+      "source_path": "https://arcgis.metc.state.mn.us/server/rest/services/GDRS/DNR_water_lake_bathymetric_contours/FeatureServer/0/query?f=geojson&returnGeometry=true&returnNullGeometry=false&outFields=DEPTH%2CDOWLKNUM%2CLAKE_NAME%2COBJECTID%2Cabs_depth&outSR=4326&resultRecordCount=4000&where=DOWLKNUM%3D%2778002500%27",
+      "fetch_validation_url": "https://arcgis.metc.state.mn.us/server/rest/services/GDRS/DNR_water_lake_bathymetric_contours/FeatureServer/0/query?f=pjson&returnGeometry=false&returnCountOnly=true&outFields=OBJECTID&where=DOWLKNUM%3D%2778002500%27",
+      "expected_geometry_types": [
+        "LineString",
+        "MultiLineString"
+      ],
+      "expected_property_fields": [
+        "DEPTH",
+        "abs_depth",
+        "DOWLKNUM",
+        "LAKE_NAME",
+        "OBJECTID"
+      ],
+      "review_notes": [
+        "Seeded from waterbody_index (MN, by area); pilot + Douglas Lake Mary fixture excluded.",
+        "ArcGIS token attempts (in order): Lake Traverse → Traverse",
+        "Disambiguate with county Traverse — DNR layer does not expose county on this query; review homonyms (e.g. Pelican Lake)."
+      ]
+    },
+    {
+      "waterbody_id": "0e2557f8-1db7-42e5-ae08-6449a2a5fa48",
+      "canonical_name": "Swan Lake",
+      "county_name": "Nicollet",
+      "surface_area_acres": 10095,
+      "matching_evidence": "USGS 3DHP waterbody_index identity: state MN, county Nicollet; DNR contour rows matched via DOWLKNUM IN ('31006701','31006702','31026000','47002500','47003800','52003400','56078100','77002300','77003400').",
+      "dowlknum_resolution": {
+        "status": "multi",
+        "pairs": [
+          {
+            "dowlknum": "31006701",
+            "lake_name": "Swan (West Bay)"
+          },
+          {
+            "dowlknum": "31006702",
+            "lake_name": "Swan (Main Basin)"
+          },
+          {
+            "dowlknum": "31026000",
+            "lake_name": "White Swan"
+          },
+          {
+            "dowlknum": "47002500",
+            "lake_name": "Little Swan"
+          },
+          {
+            "dowlknum": "47003800",
+            "lake_name": "Big Swan"
+          },
+          {
+            "dowlknum": "52003400",
+            "lake_name": "Swan"
+          },
+          {
+            "dowlknum": "56078100",
+            "lake_name": "Swan"
+          },
+          {
+            "dowlknum": "77002300",
+            "lake_name": "Big Swan"
+          },
+          {
+            "dowlknum": "77003400",
+            "lake_name": "Little Swan"
+          }
+        ],
+        "arcgis_where_used": "DOWLKNUM IN ('31006701','31006702','31026000','47002500','47003800','52003400','56078100','77002300','77003400')"
+      },
+      "source_path": "https://arcgis.metc.state.mn.us/server/rest/services/GDRS/DNR_water_lake_bathymetric_contours/FeatureServer/0/query?f=geojson&returnGeometry=true&returnNullGeometry=false&outFields=DEPTH%2CDOWLKNUM%2CLAKE_NAME%2COBJECTID%2Cabs_depth&outSR=4326&resultRecordCount=4000&where=DOWLKNUM+IN+%28%2731006701%27%2C%2731006702%27%2C%2731026000%27%2C%2747002500%27%2C%2747003800%27%2C%2752003400%27%2C%2756078100%27%2C%2777002300%27%2C%2777003400%27%29",
+      "fetch_validation_url": "https://arcgis.metc.state.mn.us/server/rest/services/GDRS/DNR_water_lake_bathymetric_contours/FeatureServer/0/query?f=pjson&returnGeometry=false&returnCountOnly=true&outFields=OBJECTID&where=DOWLKNUM+IN+%28%2731006701%27%2C%2731006702%27%2C%2731026000%27%2C%2747002500%27%2C%2747003800%27%2C%2752003400%27%2C%2756078100%27%2C%2777002300%27%2C%2777003400%27%29",
+      "expected_geometry_types": [
+        "LineString",
+        "MultiLineString"
+      ],
+      "expected_property_fields": [
+        "DEPTH",
+        "abs_depth",
+        "DOWLKNUM",
+        "LAKE_NAME",
+        "OBJECTID"
+      ],
+      "review_notes": [
+        "Seeded from waterbody_index (MN, by area); pilot + Douglas Lake Mary fixture excluded.",
+        "ArcGIS token attempts (in order): Swan Lake → Swan",
+        "Disambiguate with county Nicollet — DNR layer does not expose county on this query; review homonyms (e.g. Pelican Lake).",
+        "Multiple DOWLKNUM in one system — verify all basins belong to this named water (compare to pilot Minnetonka / Leech pattern)."
+      ]
+    },
+    {
+      "waterbody_id": "82a33243-38e7-44aa-9867-e2484d045153",
+      "canonical_name": "Gull Lake",
+      "county_name": "Cass",
+      "surface_area_acres": 9902.75,
+      "matching_evidence": "USGS 3DHP waterbody_index identity: state MN, county Cass; DNR contour rows matched via DOWLKNUM IN ('04012000','11021800','11030500').",
+      "dowlknum_resolution": {
+        "status": "multi",
+        "pairs": [
+          {
+            "dowlknum": "04012000",
+            "lake_name": "Gull"
+          },
+          {
+            "dowlknum": "11021800",
+            "lake_name": "Upper Gull"
+          },
+          {
+            "dowlknum": "11030500",
+            "lake_name": "Gull"
+          }
+        ],
+        "arcgis_where_used": "DOWLKNUM IN ('04012000','11021800','11030500')"
+      },
+      "source_path": "https://arcgis.metc.state.mn.us/server/rest/services/GDRS/DNR_water_lake_bathymetric_contours/FeatureServer/0/query?f=geojson&returnGeometry=true&returnNullGeometry=false&outFields=DEPTH%2CDOWLKNUM%2CLAKE_NAME%2COBJECTID%2Cabs_depth&outSR=4326&resultRecordCount=4000&where=DOWLKNUM+IN+%28%2704012000%27%2C%2711021800%27%2C%2711030500%27%29",
+      "fetch_validation_url": "https://arcgis.metc.state.mn.us/server/rest/services/GDRS/DNR_water_lake_bathymetric_contours/FeatureServer/0/query?f=pjson&returnGeometry=false&returnCountOnly=true&outFields=OBJECTID&where=DOWLKNUM+IN+%28%2704012000%27%2C%2711021800%27%2C%2711030500%27%29",
+      "expected_geometry_types": [
+        "LineString",
+        "MultiLineString"
+      ],
+      "expected_property_fields": [
+        "DEPTH",
+        "abs_depth",
+        "DOWLKNUM",
+        "LAKE_NAME",
+        "OBJECTID"
+      ],
+      "review_notes": [
+        "Seeded from waterbody_index (MN, by area); pilot + Douglas Lake Mary fixture excluded.",
+        "ArcGIS token attempts (in order): Gull Lake → Gull",
+        "Disambiguate with county Cass — DNR layer does not expose county on this query; review homonyms (e.g. Pelican Lake).",
+        "Multiple DOWLKNUM in one system — verify all basins belong to this named water (compare to pilot Minnetonka / Leech pattern)."
+      ]
+    },
+    {
+      "waterbody_id": "dbae3bbc-5449-40a3-9695-d8a7a200297a",
+      "canonical_name": "Bowstring Lake",
+      "county_name": "Itasca",
+      "surface_area_acres": 9195.53,
+      "matching_evidence": "USGS 3DHP waterbody_index identity: state MN, county Itasca; DNR contour rows matched via DOWLKNUM IN ('31075800','31081300').",
+      "dowlknum_resolution": {
+        "status": "multi",
+        "pairs": [
+          {
+            "dowlknum": "31075800",
+            "lake_name": "Little Bowstring"
+          },
+          {
+            "dowlknum": "31081300",
+            "lake_name": "Bowstring"
+          }
+        ],
+        "arcgis_where_used": "DOWLKNUM IN ('31075800','31081300')"
+      },
+      "source_path": "https://arcgis.metc.state.mn.us/server/rest/services/GDRS/DNR_water_lake_bathymetric_contours/FeatureServer/0/query?f=geojson&returnGeometry=true&returnNullGeometry=false&outFields=DEPTH%2CDOWLKNUM%2CLAKE_NAME%2COBJECTID%2Cabs_depth&outSR=4326&resultRecordCount=4000&where=DOWLKNUM+IN+%28%2731075800%27%2C%2731081300%27%29",
+      "fetch_validation_url": "https://arcgis.metc.state.mn.us/server/rest/services/GDRS/DNR_water_lake_bathymetric_contours/FeatureServer/0/query?f=pjson&returnGeometry=false&returnCountOnly=true&outFields=OBJECTID&where=DOWLKNUM+IN+%28%2731075800%27%2C%2731081300%27%29",
+      "expected_geometry_types": [
+        "LineString",
+        "MultiLineString"
+      ],
+      "expected_property_fields": [
+        "DEPTH",
+        "abs_depth",
+        "DOWLKNUM",
+        "LAKE_NAME",
+        "OBJECTID"
+      ],
+      "review_notes": [
+        "Seeded from waterbody_index (MN, by area); pilot + Douglas Lake Mary fixture excluded.",
+        "ArcGIS token attempts (in order): Bowstring Lake → Bowstring",
+        "Disambiguate with county Itasca — DNR layer does not expose county on this query; review homonyms (e.g. Pelican Lake).",
+        "Multiple DOWLKNUM in one system — verify all basins belong to this named water (compare to pilot Minnetonka / Leech pattern)."
+      ]
+    },
+    {
+      "waterbody_id": "a6f3494a-50bc-4385-945d-56eb348a0adc",
+      "canonical_name": "Pelican Lake",
+      "county_name": "Crow Wing",
+      "surface_area_acres": 8421.85,
+      "matching_evidence": "USGS 3DHP waterbody_index identity: state MN, county Crow Wing; DNR contour rows matched via DOWLKNUM IN ('18030800','18035100','26000200','56078600','61011100','69084100','73011800','86003100').",
+      "dowlknum_resolution": {
+        "status": "multi",
+        "pairs": [
+          {
+            "dowlknum": "18030800",
+            "lake_name": "Pelican"
+          },
+          {
+            "dowlknum": "18035100",
+            "lake_name": "Little Pelican"
+          },
+          {
+            "dowlknum": "26000200",
+            "lake_name": "Pelican"
+          },
+          {
+            "dowlknum": "56078600",
+            "lake_name": "Pelican"
+          },
+          {
+            "dowlknum": "61011100",
+            "lake_name": "Pelican"
+          },
+          {
+            "dowlknum": "69084100",
+            "lake_name": "Pelican"
+          },
+          {
+            "dowlknum": "73011800",
+            "lake_name": "Pelican"
+          },
+          {
+            "dowlknum": "86003100",
+            "lake_name": "Pelican"
+          }
+        ],
+        "arcgis_where_used": "DOWLKNUM IN ('18030800','18035100','26000200','56078600','61011100','69084100','73011800','86003100')"
+      },
+      "source_path": "https://arcgis.metc.state.mn.us/server/rest/services/GDRS/DNR_water_lake_bathymetric_contours/FeatureServer/0/query?f=geojson&returnGeometry=true&returnNullGeometry=false&outFields=DEPTH%2CDOWLKNUM%2CLAKE_NAME%2COBJECTID%2Cabs_depth&outSR=4326&resultRecordCount=4000&where=DOWLKNUM+IN+%28%2718030800%27%2C%2718035100%27%2C%2726000200%27%2C%2756078600%27%2C%2761011100%27%2C%2769084100%27%2C%2773011800%27%2C%2786003100%27%29",
+      "fetch_validation_url": "https://arcgis.metc.state.mn.us/server/rest/services/GDRS/DNR_water_lake_bathymetric_contours/FeatureServer/0/query?f=pjson&returnGeometry=false&returnCountOnly=true&outFields=OBJECTID&where=DOWLKNUM+IN+%28%2718030800%27%2C%2718035100%27%2C%2726000200%27%2C%2756078600%27%2C%2761011100%27%2C%2769084100%27%2C%2773011800%27%2C%2786003100%27%29",
+      "expected_geometry_types": [
+        "LineString",
+        "MultiLineString"
+      ],
+      "expected_property_fields": [
+        "DEPTH",
+        "abs_depth",
+        "DOWLKNUM",
+        "LAKE_NAME",
+        "OBJECTID"
+      ],
+      "review_notes": [
+        "Seeded from waterbody_index (MN, by area); pilot + Douglas Lake Mary fixture excluded.",
+        "ArcGIS token attempts (in order): Pelican Lake → Pelican",
+        "Disambiguate with county Crow Wing — DNR layer does not expose county on this query; review homonyms (e.g. Pelican Lake).",
+        "Multiple DOWLKNUM in one system — verify all basins belong to this named water (compare to pilot Minnetonka / Leech pattern)."
+      ]
+    },
+    {
+      "waterbody_id": "08861f79-5154-4225-bfd5-f754c9e511f8",
+      "canonical_name": "Lake Minnewaska",
+      "county_name": "Pope",
+      "surface_area_acres": 7995.28,
+      "matching_evidence": "USGS 3DHP waterbody_index identity: state MN, county Pope; DNR contour rows matched via DOWLKNUM='61013000'.",
+      "dowlknum_resolution": {
+        "status": "unique",
+        "pairs": [
+          {
+            "dowlknum": "61013000",
+            "lake_name": "Minnewaska"
+          }
+        ],
+        "arcgis_where_used": "DOWLKNUM='61013000'"
+      },
+      "source_path": "https://arcgis.metc.state.mn.us/server/rest/services/GDRS/DNR_water_lake_bathymetric_contours/FeatureServer/0/query?f=geojson&returnGeometry=true&returnNullGeometry=false&outFields=DEPTH%2CDOWLKNUM%2CLAKE_NAME%2COBJECTID%2Cabs_depth&outSR=4326&resultRecordCount=4000&where=DOWLKNUM%3D%2761013000%27",
+      "fetch_validation_url": "https://arcgis.metc.state.mn.us/server/rest/services/GDRS/DNR_water_lake_bathymetric_contours/FeatureServer/0/query?f=pjson&returnGeometry=false&returnCountOnly=true&outFields=OBJECTID&where=DOWLKNUM%3D%2761013000%27",
+      "expected_geometry_types": [
+        "LineString",
+        "MultiLineString"
+      ],
+      "expected_property_fields": [
+        "DEPTH",
+        "abs_depth",
+        "DOWLKNUM",
+        "LAKE_NAME",
+        "OBJECTID"
+      ],
+      "review_notes": [
+        "Seeded from waterbody_index (MN, by area); pilot + Douglas Lake Mary fixture excluded.",
+        "ArcGIS token attempts (in order): Lake Minnewaska → Minnewaska",
+        "Disambiguate with county Pope — DNR layer does not expose county on this query; review homonyms (e.g. Pelican Lake)."
+      ]
+    },
+    {
+      "waterbody_id": "b73f5d8b-d815-4864-866b-547a9a588d3a",
+      "canonical_name": "Birch Lake",
+      "county_name": "Lake",
+      "surface_area_acres": 7554.23,
+      "matching_evidence": "USGS 3DHP waterbody_index identity: state MN, county Lake; DNR contour rows matched via DOWLKNUM IN ('01020600','03035200','11041200','16024700','69000300','71005700','77008400','77008402','77008900','86006600','86011600').",
+      "dowlknum_resolution": {
+        "status": "multi",
+        "pairs": [
+          {
+            "dowlknum": "01020600",
+            "lake_name": "Birch"
+          },
+          {
+            "dowlknum": "03035200",
+            "lake_name": "Birch"
+          },
+          {
+            "dowlknum": "11041200",
+            "lake_name": "Birch"
+          },
+          {
+            "dowlknum": "16024700",
+            "lake_name": "Birch"
+          },
+          {
+            "dowlknum": "69000300",
+            "lake_name": "Birch"
+          },
+          {
+            "dowlknum": "71005700",
+            "lake_name": "Birch"
+          },
+          {
+            "dowlknum": "77008400",
+            "lake_name": "Big Birch"
+          },
+          {
+            "dowlknum": "77008402",
+            "lake_name": "Big Birch (S portion)"
+          },
+          {
+            "dowlknum": "77008900",
+            "lake_name": "Little Birch"
+          },
+          {
+            "dowlknum": "86006600",
+            "lake_name": "Birch"
+          },
+          {
+            "dowlknum": "86011600",
+            "lake_name": "Birch"
+          }
+        ],
+        "arcgis_where_used": "DOWLKNUM IN ('01020600','03035200','11041200','16024700','69000300','71005700','77008400','77008402','77008900','86006600','86011600')"
+      },
+      "source_path": "https://arcgis.metc.state.mn.us/server/rest/services/GDRS/DNR_water_lake_bathymetric_contours/FeatureServer/0/query?f=geojson&returnGeometry=true&returnNullGeometry=false&outFields=DEPTH%2CDOWLKNUM%2CLAKE_NAME%2COBJECTID%2Cabs_depth&outSR=4326&resultRecordCount=4000&where=DOWLKNUM+IN+%28%2701020600%27%2C%2703035200%27%2C%2711041200%27%2C%2716024700%27%2C%2769000300%27%2C%2771005700%27%2C%2777008400%27%2C%2777008402%27%2C%2777008900%27%2C%2786006600%27%2C%2786011600%27%29",
+      "fetch_validation_url": "https://arcgis.metc.state.mn.us/server/rest/services/GDRS/DNR_water_lake_bathymetric_contours/FeatureServer/0/query?f=pjson&returnGeometry=false&returnCountOnly=true&outFields=OBJECTID&where=DOWLKNUM+IN+%28%2701020600%27%2C%2703035200%27%2C%2711041200%27%2C%2716024700%27%2C%2769000300%27%2C%2771005700%27%2C%2777008400%27%2C%2777008402%27%2C%2777008900%27%2C%2786006600%27%2C%2786011600%27%29",
+      "expected_geometry_types": [
+        "LineString",
+        "MultiLineString"
+      ],
+      "expected_property_fields": [
+        "DEPTH",
+        "abs_depth",
+        "DOWLKNUM",
+        "LAKE_NAME",
+        "OBJECTID"
+      ],
+      "review_notes": [
+        "Seeded from waterbody_index (MN, by area); pilot + Douglas Lake Mary fixture excluded.",
+        "ArcGIS token attempts (in order): Birch Lake → Birch",
+        "Disambiguate with county Lake — DNR layer does not expose county on this query; review homonyms (e.g. Pelican Lake).",
+        "Multiple DOWLKNUM in one system — verify all basins belong to this named water (compare to pilot Minnetonka / Leech pattern)."
+      ]
+    },
+    {
+      "waterbody_id": "503b79ae-4aeb-48da-add7-628a285a505e",
+      "canonical_name": "Dead Lake",
+      "county_name": "Otter Tail",
+      "surface_area_acres": 7463.32,
+      "matching_evidence": "USGS 3DHP waterbody_index identity: state MN, county Otter Tail; DNR contour rows matched via DOWLKNUM IN ('29011000','31062200','41002100','56038300').",
+      "dowlknum_resolution": {
+        "status": "multi",
+        "pairs": [
+          {
+            "dowlknum": "29011000",
+            "lake_name": "Dead"
+          },
+          {
+            "dowlknum": "31062200",
+            "lake_name": "Dead Horse"
+          },
+          {
+            "dowlknum": "41002100",
+            "lake_name": "Dead Coon"
+          },
+          {
+            "dowlknum": "56038300",
+            "lake_name": "Dead"
+          }
+        ],
+        "arcgis_where_used": "DOWLKNUM IN ('29011000','31062200','41002100','56038300')"
+      },
+      "source_path": "https://arcgis.metc.state.mn.us/server/rest/services/GDRS/DNR_water_lake_bathymetric_contours/FeatureServer/0/query?f=geojson&returnGeometry=true&returnNullGeometry=false&outFields=DEPTH%2CDOWLKNUM%2CLAKE_NAME%2COBJECTID%2Cabs_depth&outSR=4326&resultRecordCount=4000&where=DOWLKNUM+IN+%28%2729011000%27%2C%2731062200%27%2C%2741002100%27%2C%2756038300%27%29",
+      "fetch_validation_url": "https://arcgis.metc.state.mn.us/server/rest/services/GDRS/DNR_water_lake_bathymetric_contours/FeatureServer/0/query?f=pjson&returnGeometry=false&returnCountOnly=true&outFields=OBJECTID&where=DOWLKNUM+IN+%28%2729011000%27%2C%2731062200%27%2C%2741002100%27%2C%2756038300%27%29",
+      "expected_geometry_types": [
+        "LineString",
+        "MultiLineString"
+      ],
+      "expected_property_fields": [
+        "DEPTH",
+        "abs_depth",
+        "DOWLKNUM",
+        "LAKE_NAME",
+        "OBJECTID"
+      ],
+      "review_notes": [
+        "Seeded from waterbody_index (MN, by area); pilot + Douglas Lake Mary fixture excluded.",
+        "ArcGIS token attempts (in order): Dead Lake → Dead",
+        "Disambiguate with county Otter Tail — DNR layer does not expose county on this query; review homonyms (e.g. Pelican Lake).",
+        "Multiple DOWLKNUM in one system — verify all basins belong to this named water (compare to pilot Minnetonka / Leech pattern)."
+      ]
+    },
+    {
+      "waterbody_id": "061d2c6e-cd49-405a-8a4f-75f0c64031a1",
+      "canonical_name": "Trout Lake",
+      "county_name": "St. Louis",
+      "surface_area_acres": 7374.86,
+      "matching_evidence": "USGS 3DHP waterbody_index identity: state MN, county St. Louis; DNR contour rows matched via DOWLKNUM IN ('16004900','18021800','18031500','31021600','31041000','69049800','69068200').",
+      "dowlknum_resolution": {
+        "status": "multi",
+        "pairs": [
+          {
+            "dowlknum": "16004900",
+            "lake_name": "Trout"
+          },
+          {
+            "dowlknum": "18021800",
+            "lake_name": "Trout"
+          },
+          {
+            "dowlknum": "18031500",
+            "lake_name": "Big Trout"
+          },
+          {
+            "dowlknum": "31021600",
+            "lake_name": "Trout"
+          },
+          {
+            "dowlknum": "31041000",
+            "lake_name": "Trout"
+          },
+          {
+            "dowlknum": "69049800",
+            "lake_name": "Trout"
+          },
+          {
+            "dowlknum": "69068200",
+            "lake_name": "Little Trout"
+          }
+        ],
+        "arcgis_where_used": "DOWLKNUM IN ('16004900','18021800','18031500','31021600','31041000','69049800','69068200')"
+      },
+      "source_path": "https://arcgis.metc.state.mn.us/server/rest/services/GDRS/DNR_water_lake_bathymetric_contours/FeatureServer/0/query?f=geojson&returnGeometry=true&returnNullGeometry=false&outFields=DEPTH%2CDOWLKNUM%2CLAKE_NAME%2COBJECTID%2Cabs_depth&outSR=4326&resultRecordCount=4000&where=DOWLKNUM+IN+%28%2716004900%27%2C%2718021800%27%2C%2718031500%27%2C%2731021600%27%2C%2731041000%27%2C%2769049800%27%2C%2769068200%27%29",
+      "fetch_validation_url": "https://arcgis.metc.state.mn.us/server/rest/services/GDRS/DNR_water_lake_bathymetric_contours/FeatureServer/0/query?f=pjson&returnGeometry=false&returnCountOnly=true&outFields=OBJECTID&where=DOWLKNUM+IN+%28%2716004900%27%2C%2718021800%27%2C%2718031500%27%2C%2731021600%27%2C%2731041000%27%2C%2769049800%27%2C%2769068200%27%29",
+      "expected_geometry_types": [
+        "LineString",
+        "MultiLineString"
+      ],
+      "expected_property_fields": [
+        "DEPTH",
+        "abs_depth",
+        "DOWLKNUM",
+        "LAKE_NAME",
+        "OBJECTID"
+      ],
+      "review_notes": [
+        "Seeded from waterbody_index (MN, by area); pilot + Douglas Lake Mary fixture excluded.",
+        "ArcGIS token attempts (in order): Trout Lake → Trout",
+        "Disambiguate with county St. Louis — DNR layer does not expose county on this query; review homonyms (e.g. Pelican Lake).",
+        "Multiple DOWLKNUM in one system — verify all basins belong to this named water (compare to pilot Minnetonka / Leech pattern)."
+      ]
+    },
+    {
+      "waterbody_id": "04066abc-9ef3-4707-bad2-e7afe4fb8202",
+      "canonical_name": "Nett Lake",
+      "county_name": "Koochiching",
+      "surface_area_acres": 7274.78,
+      "matching_evidence": "USGS 3DHP waterbody_index identity: state MN, county Koochiching; DNR contour rows matched via DOWLKNUM='02005200'.",
+      "dowlknum_resolution": {
+        "status": "unique",
+        "pairs": [
+          {
+            "dowlknum": "02005200",
+            "lake_name": "Netta"
+          }
+        ],
+        "arcgis_where_used": "DOWLKNUM='02005200'"
+      },
+      "source_path": "https://arcgis.metc.state.mn.us/server/rest/services/GDRS/DNR_water_lake_bathymetric_contours/FeatureServer/0/query?f=geojson&returnGeometry=true&returnNullGeometry=false&outFields=DEPTH%2CDOWLKNUM%2CLAKE_NAME%2COBJECTID%2Cabs_depth&outSR=4326&resultRecordCount=4000&where=DOWLKNUM%3D%2702005200%27",
+      "fetch_validation_url": "https://arcgis.metc.state.mn.us/server/rest/services/GDRS/DNR_water_lake_bathymetric_contours/FeatureServer/0/query?f=pjson&returnGeometry=false&returnCountOnly=true&outFields=OBJECTID&where=DOWLKNUM%3D%2702005200%27",
+      "expected_geometry_types": [
+        "LineString",
+        "MultiLineString"
+      ],
+      "expected_property_fields": [
+        "DEPTH",
+        "abs_depth",
+        "DOWLKNUM",
+        "LAKE_NAME",
+        "OBJECTID"
+      ],
+      "review_notes": [
+        "Seeded from waterbody_index (MN, by area); pilot + Douglas Lake Mary fixture excluded.",
+        "ArcGIS token attempts (in order): Nett Lake → Nett",
+        "Disambiguate with county Koochiching — DNR layer does not expose county on this query; review homonyms (e.g. Pelican Lake)."
+      ]
+    },
+    {
+      "waterbody_id": "0c8f5a80-b9bd-419e-a137-7f0a8809de56",
+      "canonical_name": "Burntside Lake",
+      "county_name": "St. Louis",
+      "surface_area_acres": 7210.89,
+      "matching_evidence": "USGS 3DHP waterbody_index identity: state MN, county St. Louis; DNR contour rows matched via DOWLKNUM='69011800'.",
+      "dowlknum_resolution": {
+        "status": "unique",
+        "pairs": [
+          {
+            "dowlknum": "69011800",
+            "lake_name": "Burntside"
+          }
+        ],
+        "arcgis_where_used": "DOWLKNUM='69011800'"
+      },
+      "source_path": "https://arcgis.metc.state.mn.us/server/rest/services/GDRS/DNR_water_lake_bathymetric_contours/FeatureServer/0/query?f=geojson&returnGeometry=true&returnNullGeometry=false&outFields=DEPTH%2CDOWLKNUM%2CLAKE_NAME%2COBJECTID%2Cabs_depth&outSR=4326&resultRecordCount=4000&where=DOWLKNUM%3D%2769011800%27",
+      "fetch_validation_url": "https://arcgis.metc.state.mn.us/server/rest/services/GDRS/DNR_water_lake_bathymetric_contours/FeatureServer/0/query?f=pjson&returnGeometry=false&returnCountOnly=true&outFields=OBJECTID&where=DOWLKNUM%3D%2769011800%27",
+      "expected_geometry_types": [
+        "LineString",
+        "MultiLineString"
+      ],
+      "expected_property_fields": [
+        "DEPTH",
+        "abs_depth",
+        "DOWLKNUM",
+        "LAKE_NAME",
+        "OBJECTID"
+      ],
+      "review_notes": [
+        "Seeded from waterbody_index (MN, by area); pilot + Douglas Lake Mary fixture excluded.",
+        "ArcGIS token attempts (in order): Burntside Lake → Burntside",
+        "Disambiguate with county St. Louis — DNR layer does not expose county on this query; review homonyms (e.g. Pelican Lake)."
+      ]
+    },
+    {
+      "waterbody_id": "e440abb6-1c70-4f47-8566-9c37ac53f682",
+      "canonical_name": "Saganaga Lake",
+      "county_name": "Cook",
+      "surface_area_acres": 7064.5,
+      "matching_evidence": "USGS 3DHP waterbody_index identity: state MN, county Cook; DNR contour rows matched via no successful LIKE probe.",
+      "dowlknum_resolution": {
+        "status": "none",
+        "pairs": [],
+        "arcgis_where_used": ""
+      },
+      "source_path": null,
+      "fetch_validation_url": null,
+      "expected_geometry_types": [
+        "LineString",
+        "MultiLineString"
+      ],
+      "expected_property_fields": [
+        "DEPTH",
+        "abs_depth",
+        "DOWLKNUM",
+        "LAKE_NAME",
+        "OBJECTID"
+      ],
+      "review_notes": [
+        "Seeded from waterbody_index (MN, by area); pilot + Douglas Lake Mary fixture excluded.",
+        "ArcGIS token attempts (in order): Saganaga Lake → Saganaga",
+        "Disambiguate with county Cook — DNR layer does not expose county on this query; review homonyms (e.g. Pelican Lake).",
+        "No contours matched — may lack DNR coverage or need different LAKE_NAME token."
+      ]
+    },
+    {
+      "waterbody_id": "d4e87dea-35a5-4b42-a536-d92506721456",
+      "canonical_name": "Pokegama Lake",
+      "county_name": "Itasca",
+      "surface_area_acres": 6633.56,
+      "matching_evidence": "USGS 3DHP waterbody_index identity: state MN, county Itasca; DNR contour rows matched via DOWLKNUM IN ('31053201','31053202','58014200').",
+      "dowlknum_resolution": {
+        "status": "multi",
+        "pairs": [
+          {
+            "dowlknum": "31053201",
+            "lake_name": "Pokegama (Main Bay)"
+          },
+          {
+            "dowlknum": "31053202",
+            "lake_name": "Pokegama (Wendigo)"
+          },
+          {
+            "dowlknum": "58014200",
+            "lake_name": "Pokegama"
+          }
+        ],
+        "arcgis_where_used": "DOWLKNUM IN ('31053201','31053202','58014200')"
+      },
+      "source_path": "https://arcgis.metc.state.mn.us/server/rest/services/GDRS/DNR_water_lake_bathymetric_contours/FeatureServer/0/query?f=geojson&returnGeometry=true&returnNullGeometry=false&outFields=DEPTH%2CDOWLKNUM%2CLAKE_NAME%2COBJECTID%2Cabs_depth&outSR=4326&resultRecordCount=4000&where=DOWLKNUM+IN+%28%2731053201%27%2C%2731053202%27%2C%2758014200%27%29",
+      "fetch_validation_url": "https://arcgis.metc.state.mn.us/server/rest/services/GDRS/DNR_water_lake_bathymetric_contours/FeatureServer/0/query?f=pjson&returnGeometry=false&returnCountOnly=true&outFields=OBJECTID&where=DOWLKNUM+IN+%28%2731053201%27%2C%2731053202%27%2C%2758014200%27%29",
+      "expected_geometry_types": [
+        "LineString",
+        "MultiLineString"
+      ],
+      "expected_property_fields": [
+        "DEPTH",
+        "abs_depth",
+        "DOWLKNUM",
+        "LAKE_NAME",
+        "OBJECTID"
+      ],
+      "review_notes": [
+        "Seeded from waterbody_index (MN, by area); pilot + Douglas Lake Mary fixture excluded.",
+        "ArcGIS token attempts (in order): Pokegama Lake → Pokegama",
+        "Disambiguate with county Itasca — DNR layer does not expose county on this query; review homonyms (e.g. Pelican Lake).",
+        "Multiple DOWLKNUM in one system — verify all basins belong to this named water (compare to pilot Minnetonka / Leech pattern)."
+      ]
+    },
+    {
+      "waterbody_id": "1a0306c4-bef7-499c-8b8f-4f483b5e594e",
+      "canonical_name": "Lake Bemidji",
+      "county_name": "Beltrami",
+      "surface_area_acres": 6573.37,
+      "matching_evidence": "USGS 3DHP waterbody_index identity: state MN, county Beltrami; DNR contour rows matched via DOWLKNUM IN ('03023400','04013002').",
+      "dowlknum_resolution": {
+        "status": "multi",
+        "pairs": [
+          {
+            "dowlknum": "03023400",
+            "lake_name": "Little Bemidji"
+          },
+          {
+            "dowlknum": "04013002",
+            "lake_name": "Bemidji (main lake)"
+          }
+        ],
+        "arcgis_where_used": "DOWLKNUM IN ('03023400','04013002')"
+      },
+      "source_path": "https://arcgis.metc.state.mn.us/server/rest/services/GDRS/DNR_water_lake_bathymetric_contours/FeatureServer/0/query?f=geojson&returnGeometry=true&returnNullGeometry=false&outFields=DEPTH%2CDOWLKNUM%2CLAKE_NAME%2COBJECTID%2Cabs_depth&outSR=4326&resultRecordCount=4000&where=DOWLKNUM+IN+%28%2703023400%27%2C%2704013002%27%29",
+      "fetch_validation_url": "https://arcgis.metc.state.mn.us/server/rest/services/GDRS/DNR_water_lake_bathymetric_contours/FeatureServer/0/query?f=pjson&returnGeometry=false&returnCountOnly=true&outFields=OBJECTID&where=DOWLKNUM+IN+%28%2703023400%27%2C%2704013002%27%29",
+      "expected_geometry_types": [
+        "LineString",
+        "MultiLineString"
+      ],
+      "expected_property_fields": [
+        "DEPTH",
+        "abs_depth",
+        "DOWLKNUM",
+        "LAKE_NAME",
+        "OBJECTID"
+      ],
+      "review_notes": [
+        "Seeded from waterbody_index (MN, by area); pilot + Douglas Lake Mary fixture excluded.",
+        "ArcGIS token attempts (in order): Lake Bemidji → Bemidji",
+        "Disambiguate with county Beltrami — DNR layer does not expose county on this query; review homonyms (e.g. Pelican Lake).",
+        "Multiple DOWLKNUM in one system — verify all basins belong to this named water (compare to pilot Minnetonka / Leech pattern)."
+      ]
+    },
+    {
+      "waterbody_id": "6059b6b0-6e06-4049-84a5-303105da14f3",
+      "canonical_name": "Thief Lake",
+      "county_name": "Marshall",
+      "surface_area_acres": 6498.13,
+      "matching_evidence": "USGS 3DHP waterbody_index identity: state MN, county Marshall; DNR contour rows matched via DOWLKNUM='45000100'.",
+      "dowlknum_resolution": {
+        "status": "unique",
+        "pairs": [
+          {
+            "dowlknum": "45000100",
+            "lake_name": "Thief"
+          }
+        ],
+        "arcgis_where_used": "DOWLKNUM='45000100'"
+      },
+      "source_path": "https://arcgis.metc.state.mn.us/server/rest/services/GDRS/DNR_water_lake_bathymetric_contours/FeatureServer/0/query?f=geojson&returnGeometry=true&returnNullGeometry=false&outFields=DEPTH%2CDOWLKNUM%2CLAKE_NAME%2COBJECTID%2Cabs_depth&outSR=4326&resultRecordCount=4000&where=DOWLKNUM%3D%2745000100%27",
+      "fetch_validation_url": "https://arcgis.metc.state.mn.us/server/rest/services/GDRS/DNR_water_lake_bathymetric_contours/FeatureServer/0/query?f=pjson&returnGeometry=false&returnCountOnly=true&outFields=OBJECTID&where=DOWLKNUM%3D%2745000100%27",
+      "expected_geometry_types": [
+        "LineString",
+        "MultiLineString"
+      ],
+      "expected_property_fields": [
+        "DEPTH",
+        "abs_depth",
+        "DOWLKNUM",
+        "LAKE_NAME",
+        "OBJECTID"
+      ],
+      "review_notes": [
+        "Seeded from waterbody_index (MN, by area); pilot + Douglas Lake Mary fixture excluded.",
+        "ArcGIS token attempts (in order): Thief Lake → Thief",
+        "Disambiguate with county Marshall — DNR layer does not expose county on this query; review homonyms (e.g. Pelican Lake)."
+      ]
+    },
+    {
+      "waterbody_id": "bd44fd0f-e92c-4893-a307-241600ed6b95",
+      "canonical_name": "Lake Osakis",
+      "county_name": "Todd",
+      "surface_area_acres": 6341.47,
+      "matching_evidence": "USGS 3DHP waterbody_index identity: state MN, county Todd; DNR contour rows matched via DOWLKNUM='77021500'.",
+      "dowlknum_resolution": {
+        "status": "unique",
+        "pairs": [
+          {
+            "dowlknum": "77021500",
+            "lake_name": "Osakis"
+          }
+        ],
+        "arcgis_where_used": "DOWLKNUM='77021500'"
+      },
+      "source_path": "https://arcgis.metc.state.mn.us/server/rest/services/GDRS/DNR_water_lake_bathymetric_contours/FeatureServer/0/query?f=geojson&returnGeometry=true&returnNullGeometry=false&outFields=DEPTH%2CDOWLKNUM%2CLAKE_NAME%2COBJECTID%2Cabs_depth&outSR=4326&resultRecordCount=4000&where=DOWLKNUM%3D%2777021500%27",
+      "fetch_validation_url": "https://arcgis.metc.state.mn.us/server/rest/services/GDRS/DNR_water_lake_bathymetric_contours/FeatureServer/0/query?f=pjson&returnGeometry=false&returnCountOnly=true&outFields=OBJECTID&where=DOWLKNUM%3D%2777021500%27",
+      "expected_geometry_types": [
+        "LineString",
+        "MultiLineString"
+      ],
+      "expected_property_fields": [
+        "DEPTH",
+        "abs_depth",
+        "DOWLKNUM",
+        "LAKE_NAME",
+        "OBJECTID"
+      ],
+      "review_notes": [
+        "Seeded from waterbody_index (MN, by area); pilot + Douglas Lake Mary fixture excluded.",
+        "ArcGIS token attempts (in order): Lake Osakis → Osakis",
+        "Disambiguate with county Todd — DNR layer does not expose county on this query; review homonyms (e.g. Pelican Lake)."
+      ]
+    },
+    {
+      "waterbody_id": "9fe91eb1-12b2-4353-863b-37029871509e",
+      "canonical_name": "Big Sandy Lake",
+      "county_name": "Aitkin",
+      "surface_area_acres": 6335.04,
+      "matching_evidence": "USGS 3DHP waterbody_index identity: state MN, county Aitkin; DNR contour rows matched via DOWLKNUM='01006200'.",
+      "dowlknum_resolution": {
+        "status": "unique",
+        "pairs": [
+          {
+            "dowlknum": "01006200",
+            "lake_name": "Big Sandy"
+          }
+        ],
+        "arcgis_where_used": "DOWLKNUM='01006200'"
+      },
+      "source_path": "https://arcgis.metc.state.mn.us/server/rest/services/GDRS/DNR_water_lake_bathymetric_contours/FeatureServer/0/query?f=geojson&returnGeometry=true&returnNullGeometry=false&outFields=DEPTH%2CDOWLKNUM%2CLAKE_NAME%2COBJECTID%2Cabs_depth&outSR=4326&resultRecordCount=4000&where=DOWLKNUM%3D%2701006200%27",
+      "fetch_validation_url": "https://arcgis.metc.state.mn.us/server/rest/services/GDRS/DNR_water_lake_bathymetric_contours/FeatureServer/0/query?f=pjson&returnGeometry=false&returnCountOnly=true&outFields=OBJECTID&where=DOWLKNUM%3D%2701006200%27",
+      "expected_geometry_types": [
+        "LineString",
+        "MultiLineString"
+      ],
+      "expected_property_fields": [
+        "DEPTH",
+        "abs_depth",
+        "DOWLKNUM",
+        "LAKE_NAME",
+        "OBJECTID"
+      ],
+      "review_notes": [
+        "Seeded from waterbody_index (MN, by area); pilot + Douglas Lake Mary fixture excluded.",
+        "ArcGIS token attempts (in order): Big Sandy Lake → Big Sandy",
+        "Disambiguate with county Aitkin — DNR layer does not expose county on this query; review homonyms (e.g. Pelican Lake)."
+      ]
+    },
+    {
+      "waterbody_id": "581e7d6f-0d92-41ad-b30c-6dad09598d15",
+      "canonical_name": "North Long Lake",
+      "county_name": "Crow Wing",
+      "surface_area_acres": 6132.91,
+      "matching_evidence": "USGS 3DHP waterbody_index identity: state MN, county Crow Wing; DNR contour rows matched via DOWLKNUM='18037200'.",
+      "dowlknum_resolution": {
+        "status": "unique",
+        "pairs": [
+          {
+            "dowlknum": "18037200",
+            "lake_name": "North Long"
+          }
+        ],
+        "arcgis_where_used": "DOWLKNUM='18037200'"
+      },
+      "source_path": "https://arcgis.metc.state.mn.us/server/rest/services/GDRS/DNR_water_lake_bathymetric_contours/FeatureServer/0/query?f=geojson&returnGeometry=true&returnNullGeometry=false&outFields=DEPTH%2CDOWLKNUM%2CLAKE_NAME%2COBJECTID%2Cabs_depth&outSR=4326&resultRecordCount=4000&where=DOWLKNUM%3D%2718037200%27",
+      "fetch_validation_url": "https://arcgis.metc.state.mn.us/server/rest/services/GDRS/DNR_water_lake_bathymetric_contours/FeatureServer/0/query?f=pjson&returnGeometry=false&returnCountOnly=true&outFields=OBJECTID&where=DOWLKNUM%3D%2718037200%27",
+      "expected_geometry_types": [
+        "LineString",
+        "MultiLineString"
+      ],
+      "expected_property_fields": [
+        "DEPTH",
+        "abs_depth",
+        "DOWLKNUM",
+        "LAKE_NAME",
+        "OBJECTID"
+      ],
+      "review_notes": [
+        "Seeded from waterbody_index (MN, by area); pilot + Douglas Lake Mary fixture excluded.",
+        "ArcGIS token attempts (in order): North Long Lake → North Long",
+        "Disambiguate with county Crow Wing — DNR layer does not expose county on this query; review homonyms (e.g. Pelican Lake)."
+      ]
+    },
+    {
+      "waterbody_id": "0226c8d6-4134-4771-9de0-9d30e2cd0227",
+      "canonical_name": "Island Lake Reservoir",
+      "county_name": "St. Louis",
+      "surface_area_acres": 5976,
+      "matching_evidence": "USGS 3DHP waterbody_index identity: state MN, county St. Louis; DNR contour rows matched via no successful LIKE probe.",
+      "dowlknum_resolution": {
+        "status": "none",
+        "pairs": [],
+        "arcgis_where_used": ""
+      },
+      "source_path": null,
+      "fetch_validation_url": null,
+      "expected_geometry_types": [
+        "LineString",
+        "MultiLineString"
+      ],
+      "expected_property_fields": [
+        "DEPTH",
+        "abs_depth",
+        "DOWLKNUM",
+        "LAKE_NAME",
+        "OBJECTID"
+      ],
+      "review_notes": [
+        "Seeded from waterbody_index (MN, by area); pilot + Douglas Lake Mary fixture excluded.",
+        "ArcGIS token attempts (in order): Island Lake Reservoir",
+        "Disambiguate with county St. Louis — DNR layer does not expose county on this query; review homonyms (e.g. Pelican Lake).",
+        "No contours matched — may lack DNR coverage or need different LAKE_NAME token."
+      ]
+    },
+    {
+      "waterbody_id": "49d4a4c7-6174-43d1-a239-680a8677f5d1",
+      "canonical_name": "Lake Miltona",
+      "county_name": "Douglas",
+      "surface_area_acres": 5690.34,
+      "matching_evidence": "USGS 3DHP waterbody_index identity: state MN, county Douglas; DNR contour rows matched via DOWLKNUM='21008300'.",
+      "dowlknum_resolution": {
+        "status": "unique",
+        "pairs": [
+          {
+            "dowlknum": "21008300",
+            "lake_name": "Miltona"
+          }
+        ],
+        "arcgis_where_used": "DOWLKNUM='21008300'"
+      },
+      "source_path": "https://arcgis.metc.state.mn.us/server/rest/services/GDRS/DNR_water_lake_bathymetric_contours/FeatureServer/0/query?f=geojson&returnGeometry=true&returnNullGeometry=false&outFields=DEPTH%2CDOWLKNUM%2CLAKE_NAME%2COBJECTID%2Cabs_depth&outSR=4326&resultRecordCount=4000&where=DOWLKNUM%3D%2721008300%27",
+      "fetch_validation_url": "https://arcgis.metc.state.mn.us/server/rest/services/GDRS/DNR_water_lake_bathymetric_contours/FeatureServer/0/query?f=pjson&returnGeometry=false&returnCountOnly=true&outFields=OBJECTID&where=DOWLKNUM%3D%2721008300%27",
+      "expected_geometry_types": [
+        "LineString",
+        "MultiLineString"
+      ],
+      "expected_property_fields": [
+        "DEPTH",
+        "abs_depth",
+        "DOWLKNUM",
+        "LAKE_NAME",
+        "OBJECTID"
+      ],
+      "review_notes": [
+        "Seeded from waterbody_index (MN, by area); pilot + Douglas Lake Mary fixture excluded.",
+        "ArcGIS token attempts (in order): Lake Miltona → Miltona",
+        "Disambiguate with county Douglas — DNR layer does not expose county on this query; review homonyms (e.g. Pelican Lake)."
+      ]
+    },
+    {
+      "waterbody_id": "cd4c5b6b-a1d6-4fab-ab64-417074515d28",
+      "canonical_name": "Woman Lake",
+      "county_name": "Cass",
+      "surface_area_acres": 5536.4,
+      "matching_evidence": "USGS 3DHP waterbody_index identity: state MN, county Cass; DNR contour rows matched via DOWLKNUM IN ('11020102','11026500').",
+      "dowlknum_resolution": {
+        "status": "multi",
+        "pairs": [
+          {
+            "dowlknum": "11020102",
+            "lake_name": "Woman (main lake)"
+          },
+          {
+            "dowlknum": "11026500",
+            "lake_name": "Little Woman"
+          }
+        ],
+        "arcgis_where_used": "DOWLKNUM IN ('11020102','11026500')"
+      },
+      "source_path": "https://arcgis.metc.state.mn.us/server/rest/services/GDRS/DNR_water_lake_bathymetric_contours/FeatureServer/0/query?f=geojson&returnGeometry=true&returnNullGeometry=false&outFields=DEPTH%2CDOWLKNUM%2CLAKE_NAME%2COBJECTID%2Cabs_depth&outSR=4326&resultRecordCount=4000&where=DOWLKNUM+IN+%28%2711020102%27%2C%2711026500%27%29",
+      "fetch_validation_url": "https://arcgis.metc.state.mn.us/server/rest/services/GDRS/DNR_water_lake_bathymetric_contours/FeatureServer/0/query?f=pjson&returnGeometry=false&returnCountOnly=true&outFields=OBJECTID&where=DOWLKNUM+IN+%28%2711020102%27%2C%2711026500%27%29",
+      "expected_geometry_types": [
+        "LineString",
+        "MultiLineString"
+      ],
+      "expected_property_fields": [
+        "DEPTH",
+        "abs_depth",
+        "DOWLKNUM",
+        "LAKE_NAME",
+        "OBJECTID"
+      ],
+      "review_notes": [
+        "Seeded from waterbody_index (MN, by area); pilot + Douglas Lake Mary fixture excluded.",
+        "ArcGIS token attempts (in order): Woman Lake → Woman",
+        "Disambiguate with county Cass — DNR layer does not expose county on this query; review homonyms (e.g. Pelican Lake).",
+        "Multiple DOWLKNUM in one system — verify all basins belong to this named water (compare to pilot Minnetonka / Leech pattern)."
+      ]
+    },
+    {
+      "waterbody_id": "5edd434d-7339-4ef2-9d12-8e432c452099",
+      "canonical_name": "West Battle Lake",
+      "county_name": "Otter Tail",
+      "surface_area_acres": 5514.9,
+      "matching_evidence": "USGS 3DHP waterbody_index identity: state MN, county Otter Tail; DNR contour rows matched via DOWLKNUM='56023900'.",
+      "dowlknum_resolution": {
+        "status": "unique",
+        "pairs": [
+          {
+            "dowlknum": "56023900",
+            "lake_name": "West Battle"
+          }
+        ],
+        "arcgis_where_used": "DOWLKNUM='56023900'"
+      },
+      "source_path": "https://arcgis.metc.state.mn.us/server/rest/services/GDRS/DNR_water_lake_bathymetric_contours/FeatureServer/0/query?f=geojson&returnGeometry=true&returnNullGeometry=false&outFields=DEPTH%2CDOWLKNUM%2CLAKE_NAME%2COBJECTID%2Cabs_depth&outSR=4326&resultRecordCount=4000&where=DOWLKNUM%3D%2756023900%27",
+      "fetch_validation_url": "https://arcgis.metc.state.mn.us/server/rest/services/GDRS/DNR_water_lake_bathymetric_contours/FeatureServer/0/query?f=pjson&returnGeometry=false&returnCountOnly=true&outFields=OBJECTID&where=DOWLKNUM%3D%2756023900%27",
+      "expected_geometry_types": [
+        "LineString",
+        "MultiLineString"
+      ],
+      "expected_property_fields": [
+        "DEPTH",
+        "abs_depth",
+        "DOWLKNUM",
+        "LAKE_NAME",
+        "OBJECTID"
+      ],
+      "review_notes": [
+        "Seeded from waterbody_index (MN, by area); pilot + Douglas Lake Mary fixture excluded.",
+        "ArcGIS token attempts (in order): West Battle Lake → West Battle",
+        "Disambiguate with county Otter Tail — DNR layer does not expose county on this query; review homonyms (e.g. Pelican Lake)."
+      ]
+    },
+    {
+      "waterbody_id": "3cbee1ba-1684-4570-b36e-26954fc22701",
+      "canonical_name": "Lake Lida",
+      "county_name": "Otter Tail",
+      "surface_area_acres": 5424.21,
+      "matching_evidence": "USGS 3DHP waterbody_index identity: state MN, county Otter Tail; DNR contour rows matched via DOWLKNUM IN ('56074701','56074702').",
+      "dowlknum_resolution": {
+        "status": "multi",
+        "pairs": [
+          {
+            "dowlknum": "56074701",
+            "lake_name": "North Lida"
+          },
+          {
+            "dowlknum": "56074702",
+            "lake_name": "South Lida"
+          }
+        ],
+        "arcgis_where_used": "DOWLKNUM IN ('56074701','56074702')"
+      },
+      "source_path": "https://arcgis.metc.state.mn.us/server/rest/services/GDRS/DNR_water_lake_bathymetric_contours/FeatureServer/0/query?f=geojson&returnGeometry=true&returnNullGeometry=false&outFields=DEPTH%2CDOWLKNUM%2CLAKE_NAME%2COBJECTID%2Cabs_depth&outSR=4326&resultRecordCount=4000&where=DOWLKNUM+IN+%28%2756074701%27%2C%2756074702%27%29",
+      "fetch_validation_url": "https://arcgis.metc.state.mn.us/server/rest/services/GDRS/DNR_water_lake_bathymetric_contours/FeatureServer/0/query?f=pjson&returnGeometry=false&returnCountOnly=true&outFields=OBJECTID&where=DOWLKNUM+IN+%28%2756074701%27%2C%2756074702%27%29",
+      "expected_geometry_types": [
+        "LineString",
+        "MultiLineString"
+      ],
+      "expected_property_fields": [
+        "DEPTH",
+        "abs_depth",
+        "DOWLKNUM",
+        "LAKE_NAME",
+        "OBJECTID"
+      ],
+      "review_notes": [
+        "Seeded from waterbody_index (MN, by area); pilot + Douglas Lake Mary fixture excluded.",
+        "ArcGIS token attempts (in order): Lake Lida → Lida",
+        "Disambiguate with county Otter Tail — DNR layer does not expose county on this query; review homonyms (e.g. Pelican Lake).",
+        "Multiple DOWLKNUM in one system — verify all basins belong to this named water (compare to pilot Minnetonka / Leech pattern)."
+      ]
+    },
+    {
+      "waterbody_id": "30da2dbc-1e36-4e3c-98c3-e43785107bb8",
+      "canonical_name": "Crooked Lake",
+      "county_name": "Lake",
+      "surface_area_acres": 5233.69,
+      "matching_evidence": "USGS 3DHP waterbody_index identity: state MN, county Lake; DNR contour rows matched via DOWLKNUM IN ('02008400','11049400','18004101','18004102','29010101','29010102','29010103','31019300','31054300','31080900','38002401','38002402','73000600').",
+      "dowlknum_resolution": {
+        "status": "multi",
+        "pairs": [
+          {
+            "dowlknum": "02008400",
+            "lake_name": "Crooked"
+          },
+          {
+            "dowlknum": "11049400",
+            "lake_name": "Crooked"
+          },
+          {
+            "dowlknum": "18004101",
+            "lake_name": "Crooked (Sugar Bay)"
+          },
+          {
+            "dowlknum": "18004102",
+            "lake_name": "Crooked (Main Bay)"
+          },
+          {
+            "dowlknum": "29010101",
+            "lake_name": "East Crooked"
+          },
+          {
+            "dowlknum": "29010102",
+            "lake_name": "Middle Crooked"
+          },
+          {
+            "dowlknum": "29010103",
+            "lake_name": "West Crooked"
+          },
+          {
+            "dowlknum": "31019300",
+            "lake_name": "Crooked"
+          },
+          {
+            "dowlknum": "31054300",
+            "lake_name": "Crooked"
+          },
+          {
+            "dowlknum": "31080900",
+            "lake_name": "Crooked"
+          },
+          {
+            "dowlknum": "38002401",
+            "lake_name": "Crooked (East Bay)"
+          },
+          {
+            "dowlknum": "38002402",
+            "lake_name": "Crooked (West Bay)"
+          },
+          {
+            "dowlknum": "73000600",
+            "lake_name": "Crooked"
+          }
+        ],
+        "arcgis_where_used": "DOWLKNUM IN ('02008400','11049400','18004101','18004102','29010101','29010102','29010103','31019300','31054300','31080900','38002401','38002402','73000600')"
+      },
+      "source_path": "https://arcgis.metc.state.mn.us/server/rest/services/GDRS/DNR_water_lake_bathymetric_contours/FeatureServer/0/query?f=geojson&returnGeometry=true&returnNullGeometry=false&outFields=DEPTH%2CDOWLKNUM%2CLAKE_NAME%2COBJECTID%2Cabs_depth&outSR=4326&resultRecordCount=4000&where=DOWLKNUM+IN+%28%2702008400%27%2C%2711049400%27%2C%2718004101%27%2C%2718004102%27%2C%2729010101%27%2C%2729010102%27%2C%2729010103%27%2C%2731019300%27%2C%2731054300%27%2C%2731080900%27%2C%2738002401%27%2C%2738002402%27%2C%2773000600%27%29",
+      "fetch_validation_url": "https://arcgis.metc.state.mn.us/server/rest/services/GDRS/DNR_water_lake_bathymetric_contours/FeatureServer/0/query?f=pjson&returnGeometry=false&returnCountOnly=true&outFields=OBJECTID&where=DOWLKNUM+IN+%28%2702008400%27%2C%2711049400%27%2C%2718004101%27%2C%2718004102%27%2C%2729010101%27%2C%2729010102%27%2C%2729010103%27%2C%2731019300%27%2C%2731054300%27%2C%2731080900%27%2C%2738002401%27%2C%2738002402%27%2C%2773000600%27%29",
+      "expected_geometry_types": [
+        "LineString",
+        "MultiLineString"
+      ],
+      "expected_property_fields": [
+        "DEPTH",
+        "abs_depth",
+        "DOWLKNUM",
+        "LAKE_NAME",
+        "OBJECTID"
+      ],
+      "review_notes": [
+        "Seeded from waterbody_index (MN, by area); pilot + Douglas Lake Mary fixture excluded.",
+        "ArcGIS token attempts (in order): Crooked Lake → Crooked",
+        "Disambiguate with county Lake — DNR layer does not expose county on this query; review homonyms (e.g. Pelican Lake).",
+        "Multiple DOWLKNUM in one system — verify all basins belong to this named water (compare to pilot Minnetonka / Leech pattern)."
+      ]
+    },
+    {
+      "waterbody_id": "402a4605-bea4-4e59-8bd1-6a9f435bfcc5",
+      "canonical_name": "Rush Lake",
+      "county_name": "Otter Tail",
+      "surface_area_acres": 5158.08,
+      "matching_evidence": "USGS 3DHP waterbody_index identity: state MN, county Otter Tail; DNR contour rows matched via DOWLKNUM IN ('13006901','13006902','18031100','29031000','31051400','56014100','56076002','71014700').",
+      "dowlknum_resolution": {
+        "status": "multi",
+        "pairs": [
+          {
+            "dowlknum": "13006901",
+            "lake_name": "East Rush"
+          },
+          {
+            "dowlknum": "13006902",
+            "lake_name": "West Rush"
+          },
+          {
+            "dowlknum": "18031100",
+            "lake_name": "Rush"
+          },
+          {
+            "dowlknum": "29031000",
+            "lake_name": "Brush"
+          },
+          {
+            "dowlknum": "31051400",
+            "lake_name": "Brush Shanty"
+          },
+          {
+            "dowlknum": "56014100",
+            "lake_name": "Rush"
+          },
+          {
+            "dowlknum": "56076002",
+            "lake_name": "Rush-Lizzie(south portion"
+          },
+          {
+            "dowlknum": "71014700",
+            "lake_name": "Rush"
+          }
+        ],
+        "arcgis_where_used": "DOWLKNUM IN ('13006901','13006902','18031100','29031000','31051400','56014100','56076002','71014700')"
+      },
+      "source_path": "https://arcgis.metc.state.mn.us/server/rest/services/GDRS/DNR_water_lake_bathymetric_contours/FeatureServer/0/query?f=geojson&returnGeometry=true&returnNullGeometry=false&outFields=DEPTH%2CDOWLKNUM%2CLAKE_NAME%2COBJECTID%2Cabs_depth&outSR=4326&resultRecordCount=4000&where=DOWLKNUM+IN+%28%2713006901%27%2C%2713006902%27%2C%2718031100%27%2C%2729031000%27%2C%2731051400%27%2C%2756014100%27%2C%2756076002%27%2C%2771014700%27%29",
+      "fetch_validation_url": "https://arcgis.metc.state.mn.us/server/rest/services/GDRS/DNR_water_lake_bathymetric_contours/FeatureServer/0/query?f=pjson&returnGeometry=false&returnCountOnly=true&outFields=OBJECTID&where=DOWLKNUM+IN+%28%2713006901%27%2C%2713006902%27%2C%2718031100%27%2C%2729031000%27%2C%2731051400%27%2C%2756014100%27%2C%2756076002%27%2C%2771014700%27%29",
+      "expected_geometry_types": [
+        "LineString",
+        "MultiLineString"
+      ],
+      "expected_property_fields": [
+        "DEPTH",
+        "abs_depth",
+        "DOWLKNUM",
+        "LAKE_NAME",
+        "OBJECTID"
+      ],
+      "review_notes": [
+        "Seeded from waterbody_index (MN, by area); pilot + Douglas Lake Mary fixture excluded.",
+        "ArcGIS token attempts (in order): Rush Lake → Rush",
+        "Disambiguate with county Otter Tail — DNR layer does not expose county on this query; review homonyms (e.g. Pelican Lake).",
+        "Multiple DOWLKNUM in one system — verify all basins belong to this named water (compare to pilot Minnetonka / Leech pattern)."
+      ]
+    },
+    {
+      "waterbody_id": "5480866d-dc65-4011-aa01-fcf56d7ee9c8",
+      "canonical_name": "Tenmile Lake",
+      "county_name": "Cass",
+      "surface_area_acres": 5024.39,
+      "matching_evidence": "USGS 3DHP waterbody_index identity: state MN, county Cass; DNR contour rows matched via no successful LIKE probe.",
+      "dowlknum_resolution": {
+        "status": "none",
+        "pairs": [],
+        "arcgis_where_used": ""
+      },
+      "source_path": null,
+      "fetch_validation_url": null,
+      "expected_geometry_types": [
+        "LineString",
+        "MultiLineString"
+      ],
+      "expected_property_fields": [
+        "DEPTH",
+        "abs_depth",
+        "DOWLKNUM",
+        "LAKE_NAME",
+        "OBJECTID"
+      ],
+      "review_notes": [
+        "Seeded from waterbody_index (MN, by area); pilot + Douglas Lake Mary fixture excluded.",
+        "ArcGIS token attempts (in order): Tenmile Lake → Tenmile",
+        "Disambiguate with county Cass — DNR layer does not expose county on this query; review homonyms (e.g. Pelican Lake).",
+        "No contours matched — may lack DNR coverage or need different LAKE_NAME token."
+      ]
+    },
+    {
+      "waterbody_id": "c8713c7e-c1ab-498a-9dfb-967e7ed63070",
+      "canonical_name": "Big Pine Lake",
+      "county_name": "Otter Tail",
+      "surface_area_acres": 4710.82,
+      "matching_evidence": "USGS 3DHP waterbody_index identity: state MN, county Otter Tail; DNR contour rows matched via DOWLKNUM IN ('01015700','56013000','58013800').",
+      "dowlknum_resolution": {
+        "status": "multi",
+        "pairs": [
+          {
+            "dowlknum": "01015700",
+            "lake_name": "Big Pine"
+          },
+          {
+            "dowlknum": "56013000",
+            "lake_name": "Big Pine"
+          },
+          {
+            "dowlknum": "58013800",
+            "lake_name": "Big Pine"
+          }
+        ],
+        "arcgis_where_used": "DOWLKNUM IN ('01015700','56013000','58013800')"
+      },
+      "source_path": "https://arcgis.metc.state.mn.us/server/rest/services/GDRS/DNR_water_lake_bathymetric_contours/FeatureServer/0/query?f=geojson&returnGeometry=true&returnNullGeometry=false&outFields=DEPTH%2CDOWLKNUM%2CLAKE_NAME%2COBJECTID%2Cabs_depth&outSR=4326&resultRecordCount=4000&where=DOWLKNUM+IN+%28%2701015700%27%2C%2756013000%27%2C%2758013800%27%29",
+      "fetch_validation_url": "https://arcgis.metc.state.mn.us/server/rest/services/GDRS/DNR_water_lake_bathymetric_contours/FeatureServer/0/query?f=pjson&returnGeometry=false&returnCountOnly=true&outFields=OBJECTID&where=DOWLKNUM+IN+%28%2701015700%27%2C%2756013000%27%2C%2758013800%27%29",
+      "expected_geometry_types": [
+        "LineString",
+        "MultiLineString"
+      ],
+      "expected_property_fields": [
+        "DEPTH",
+        "abs_depth",
+        "DOWLKNUM",
+        "LAKE_NAME",
+        "OBJECTID"
+      ],
+      "review_notes": [
+        "Seeded from waterbody_index (MN, by area); pilot + Douglas Lake Mary fixture excluded.",
+        "ArcGIS token attempts (in order): Big Pine Lake → Big Pine",
+        "Disambiguate with county Otter Tail — DNR layer does not expose county on this query; review homonyms (e.g. Pelican Lake).",
+        "Multiple DOWLKNUM in one system — verify all basins belong to this named water (compare to pilot Minnetonka / Leech pattern)."
+      ]
+    },
+    {
+      "waterbody_id": "b9b12161-8b3e-4666-8eb3-1803651270a8",
+      "canonical_name": "Snowbank Lake",
+      "county_name": "Lake",
+      "surface_area_acres": 4605.55,
+      "matching_evidence": "USGS 3DHP waterbody_index identity: state MN, county Lake; DNR contour rows matched via DOWLKNUM='38052900'.",
+      "dowlknum_resolution": {
+        "status": "unique",
+        "pairs": [
+          {
+            "dowlknum": "38052900",
+            "lake_name": "Snowbank"
+          }
+        ],
+        "arcgis_where_used": "DOWLKNUM='38052900'"
+      },
+      "source_path": "https://arcgis.metc.state.mn.us/server/rest/services/GDRS/DNR_water_lake_bathymetric_contours/FeatureServer/0/query?f=geojson&returnGeometry=true&returnNullGeometry=false&outFields=DEPTH%2CDOWLKNUM%2CLAKE_NAME%2COBJECTID%2Cabs_depth&outSR=4326&resultRecordCount=4000&where=DOWLKNUM%3D%2738052900%27",
+      "fetch_validation_url": "https://arcgis.metc.state.mn.us/server/rest/services/GDRS/DNR_water_lake_bathymetric_contours/FeatureServer/0/query?f=pjson&returnGeometry=false&returnCountOnly=true&outFields=OBJECTID&where=DOWLKNUM%3D%2738052900%27",
+      "expected_geometry_types": [
+        "LineString",
+        "MultiLineString"
+      ],
+      "expected_property_fields": [
+        "DEPTH",
+        "abs_depth",
+        "DOWLKNUM",
+        "LAKE_NAME",
+        "OBJECTID"
+      ],
+      "review_notes": [
+        "Seeded from waterbody_index (MN, by area); pilot + Douglas Lake Mary fixture excluded.",
+        "ArcGIS token attempts (in order): Snowbank Lake → Snowbank",
+        "Disambiguate with county Lake — DNR layer does not expose county on this query; review homonyms (e.g. Pelican Lake)."
+      ]
+    }
+  ]
+}

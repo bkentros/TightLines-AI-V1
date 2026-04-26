@@ -8,6 +8,8 @@ import type {
 export interface ValidateApprovedSourcePathOptions {
   timeoutMs?: number;
   fetchImpl?: typeof fetch;
+  /** When set, reachability HEAD/GET uses this URL instead of `link.sourcePath` (lighter probe). */
+  validationFetchUrl?: string;
 }
 
 function nowIso(): string {
@@ -97,8 +99,12 @@ export async function validateApprovedSourcePath(
     return blockedResult(link, "Source rights do not allow fetch.");
   }
 
+  const probeUrlString = (options.validationFetchUrl?.trim().length
+    ? options.validationFetchUrl!.trim()
+    : link.sourcePath);
+
   let url: URL;
-  const targetUrl = link.sourcePath;
+  const targetUrl = probeUrlString;
   try {
     url = new URL(targetUrl);
   } catch {

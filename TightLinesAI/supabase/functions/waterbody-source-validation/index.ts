@@ -42,6 +42,7 @@ interface SourceLinkRow {
   approval_status: ReviewedSourcePath["approvalStatus"];
   lake_match_status: ReviewedSourcePath["lakeMatchStatus"];
   usability_status: ReviewedSourcePath["usabilityStatus"];
+  metadata: Record<string, unknown> | null;
 }
 
 Deno.serve(async (req: Request) => {
@@ -81,7 +82,7 @@ Deno.serve(async (req: Request) => {
   let linksQuery = supabase
     .from("waterbody_source_links")
     .select(
-      "id, waterbody_id, source_id, source_mode, depth_source_kind, coverage_status, source_path, source_path_type, approval_status, lake_match_status, usability_status",
+      "id, waterbody_id, source_id, source_mode, depth_source_kind, coverage_status, source_path, source_path_type, approval_status, lake_match_status, usability_status, metadata",
     )
     .eq("waterbody_id", lakeId);
   if (requestedMode) {
@@ -127,6 +128,11 @@ Deno.serve(async (req: Request) => {
       continue;
     }
 
+    const rawValidation = link.metadata?.fetch_validation_url;
+    const validationFetchUrl = typeof rawValidation === "string" && rawValidation.trim().length > 0
+      ? rawValidation.trim()
+      : undefined;
+
     const result = await validateApprovedSourcePath({
       linkId: link.id,
       lakeId: link.waterbody_id,
@@ -141,14 +147,14 @@ Deno.serve(async (req: Request) => {
       canFetch: source.can_fetch,
       lakeMatchStatus: link.lake_match_status,
       usabilityStatus: link.usability_status,
-    });
+    }, { validationFetchUrl });
 
     results.push(result);
 
     const updatePayload = {
       fetch_validation_status: result.status,
       fetch_validation_method: result.requestMethod,
-      fetch_validation_target_url: result.targetUrl,
+      source_path_validation_target_url: result.targetUrl,
       fetch_validation_checked_at: result.checkedAtISO,
       fetch_validation_http_status: result.httpStatus ?? null,
       fetch_validation_error: result.error ?? null,

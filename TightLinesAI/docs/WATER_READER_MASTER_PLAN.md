@@ -61,6 +61,76 @@ These decisions are locked unless the product direction changes intentionally.
 11. **Report persistence is conditional on source rights.**
     - If source rights allow persistent derived or rendered output, reports may be saved.
     - If rights are unclear or disallow storage, reports should remain on-demand only.
+    - Operational detail: **§0.4** (default on-demand storage; what may or may not be stored).
+
+---
+
+## 0.4 Source policy — rights, scraping, storage, and availability
+
+This section is **normative** for all Water Reader source expansion (depth, aerial, and future evidence types). It sits alongside locked decisions (especially **§0 item 11**) and **§2** core principles. If engineering choices conflict with this policy, **stop and reconcile the plan first**—do not “ship first, rights later.”
+
+### 0.4.1 Eligibility bar
+
+A source (or concrete `source_path`) may be used in production only if it is:
+
+1. **Verified** — reviewed and recorded in the source registry / linkage workflow (not ad-hoc URLs in app code).
+2. **Free of unacceptable legal risk** — terms of use, license, and attribution obligations are understood and acceptable to the product; when in doubt, treat as **not usable**.
+3. **Legally usable for the intended operation** — including automated server-side fetch, on-demand use in a commercial app, and any storage described in **§0.4.4**; “public on the web” is **not** sufficient.
+4. **Reliable enough to trust** — official or well-maintained endpoints, stable identifiers, and honest reachability; flaky or undocumented scrapes do not qualify.
+5. **Free for the intended V1 use unless explicitly approved otherwise** — Water Reader V1 source expansion should use free-to-access / free-to-use sources by default. Do not add paid-license datasets, paid API plans, proprietary subscriptions, “personal use only” sources, or usage that creates hidden per-report fees unless Brandon explicitly approves a commercial data arrangement and the registry records the terms.
+
+### 0.4.2 Scraping and scale
+
+- **Do not scrape arbitrary websites** — no HTML parsing, headless browsing, or bulk download of third-party pages unless that pattern is **explicitly** approved under this policy **and** legal review for that provider.
+- **Review before scale** — human/source review and registry approval come **before** high-volume fetching, crawling, or background ingestion. Probes (single-lake validation, smoke tests, operator scripts) are allowed **only** on already-approved paths or narrow discovery sandboxes that do **not** write durable asset caches.
+- **Prefer APIs and official open data** — REST/Feature services, file downloads hosted by agencies, and documented open-data catalogs are the default discovery targets.
+- **Respect provider controls** — approved automation must follow provider terms, attribution requirements, documented rate limits, robots/access restrictions, login requirements, and anti-bulk protections. Do not bypass login walls, CAPTCHA, blocked endpoints, throttling, or other access controls.
+
+### 0.4.3 Approved source classes (examples)
+
+Approved **classes** include, when rights and reliability checks pass:
+
+- **Official state and federal GIS / open-data portals** (e.g. agency ArcGIS REST services, documented download pages).
+- **Natural-resource / DNR bathymetry or depth products** explicitly offered for public use under known terms.
+- **Official chart or bathymetry libraries** where redistribution and automated access are clearly allowed.
+- **Public-domain or clearly licensed open aerial imagery** (e.g. certain government orthoimagery programs) when **license, attribution, and technical use** (including tiling and on-demand vs cache) are explicit.
+
+Each **instance** still requires registry entry, attribution text, validation rules, and per-waterbody linkage where applicable.
+
+### 0.4.4 Disallowed source classes (non-exhaustive)
+
+Unless product and legal explicitly reclassify them:
+
+- **Proprietary chart or mapping platforms** with restrictive ToS, unknown API rights, or “personal / non-commercial only” terms.
+- **Random third-party fishing or map sites** with unclear ownership, no stable API, or unknown redistribution rules.
+- **Any source that forbids or effectively blocks** the intended automated use (robots prohibitions, login walls, CAPTCHA-gated bulk access, rate abuse, etc.).
+- **User-submitted or crowdsourced geometry** as authoritative bathymetry without a separate curation and rights model.
+
+### 0.4.5 Default storage posture
+
+- **Default: on-demand fetch only** — the system stores **how** to reach approved evidence (URLs, query parameters, provider keys in secrets, validation status), not necessarily the heavy payloads.
+- **Store metadata and source links first** — registry rows, `waterbody_source_links`, reachability/match/usability fields, attribution strings, license pointers, and **matching evidence** (e.g. DOWLKNUM, basin IDs, reviewer notes).
+- **Do not store by default** — original chart images, full-resolution satellite mosaics, bulk normalized geospatial extracts, derived structure features, vectorized “fish zones,” or rendered report tiles **unless** a written rights decision explicitly permits that storage tier for that provider.
+
+When rights **do** allow persistence, record the allowance in registry metadata (flags + notes) so engineers and agents do not guess.
+
+### 0.4.6 Client vs server
+
+- **Mobile app storage stays small** — prefer identifiers, light metadata, and ephemeral render buffers; avoid shipping large static caches of imagery or depth inside the app bundle.
+- **Heavy assets stay server-side** (or provider-side) and are fetched **on demand** under the same rights constraints; any server cache is also governed by **§0.4.5**.
+
+### 0.4.7 National aerial
+
+- **National aerial is a coverage/policy problem**, not a goal of hand-entering thousands of per-lake aerial URLs.
+- Rollout must go through an **approved national (or regional) provider policy**: one or a small number of registry entries, clear attribution, rate and caching rules, and honest `best_available` behavior—not ad-hoc link rows per lake except where a **documented exception** (e.g. a pilot) is intentional and reviewed.
+
+### 0.4.8 Depth and evidence expansion at scale
+
+- **Provider-by-provider** — add or extend **one provider / dataset family at a time** (e.g. a state contours layer), with registry + validation + linkage patterns proven before the next provider.
+- **Automated matching where safe** — deterministic joins (stable IDs, unambiguous basin keys) and scripted candidate generation are encouraged **after** the provider is approved.
+- **Manual review for ambiguous cases only** — border waters, multi-basin lakes, generic names, fragment splits, and policy flags require human review and explicit `waterbody_id` linkage; do not bulk auto-insert from naive name/county joins.
+- **Do not scale by tiny manual batches forever** — small reviewed batches are acceptable to prove a provider pattern, but the intended production path is provider-level automation: source review → registry entry → deterministic matcher → candidate classification → smoke validation → Edge validation → bulk insert for high-confidence matches. Human review should handle ambiguous or policy-risk rows, not every ordinary lake.
+- **Lake-match correctness beats coverage count** — a lake may become `depth_available` only when the source path is reviewed, reachable, lake-matched, and technically usable for that exact waterbody. If the matcher cannot confidently separate homonyms, basin fragments, border waters, or provider naming quirks, leave the row out until reviewed.
 
 ---
 
@@ -71,6 +141,7 @@ This section summarizes the current implementation state so a new agent can quic
 ### 0.5.1 Planning status
 
 - `WATER_READER_MASTER_PLAN.md` is now the active source of truth.
+- **Source rights, scraping, storage, and availability** are defined in **§0.4**; treat that section as mandatory reading before new source expansion.
 - Water Reader product boundaries have been clarified:
   - lake/pond only
   - species limited to largemouth bass, smallmouth bass, and pike
@@ -233,7 +304,7 @@ Current Water Reader backbone files:
 Important status distinction:
 
 - **In repo:** schema, functions, contracts, ingest generator, and docs
-- **Proven live (target Supabase):** applied Water Reader schema, promoted regional 3DHP import, full national 3DHP named standing-water identity import, `search_waterbodies` RPC with area + centroid disambiguation (see 0.5.13–0.5.16); `waterbody-search` edge function may still be undeployed
+- **Proven live (target Supabase):** applied Water Reader schema, promoted regional 3DHP import, full national 3DHP named standing-water identity import, `search_waterbodies` RPC with area + centroid disambiguation (see 0.5.13–0.5.16); `waterbody-search` and `waterbody-source-validation` edge functions deployed (see 0.5.17)
 - **Not built:** source attachment at scale, aerial/depth extraction, scoring, overlays, renderer, frontend Water Reader report flow, daily conditions
 
 ### 0.5.11 Known cleanup and deployment notes
@@ -517,8 +588,8 @@ Verification:
 - `Mud Lake` in Minnesota demonstrates same-name/same-county duplicates distinguishable by acreage and centroid.
 - `Mississippi River` returns no disallowed river result.
 - Searches for `river`, `stream`, and `canal` return only allowed `lake`, `pond`, or `reservoir` typed rows, or no rows.
-- All `125,802` promoted national rows currently resolve as `polygon_only` / `limited`.
-- False availability counts are `0`: no aerial, no depth, and no non-limited source status has been claimed for the imported national rows.
+- Most of the `125,802` promoted national rows still resolve as `polygon_only` / `limited` until reviewed sources are attached and validated (exceptions: MN DNR depth pilot lakes and small backbone fixtures — see 0.5.17).
+- **National aerial** availability is not attached. **National depth** coverage is not claimed; only reviewed, lake-matched, reachable, usable links may move a row off polygon-only for depth.
 
 Duplicate audit:
 
@@ -538,12 +609,134 @@ Current Water Reader status after national load:
 - **Complete enough for next phase:** national named lake/pond/reservoir identity search backbone
 - **Still not complete:** reviewed source coverage, aerial availability attachment, depth availability attachment, feature extraction, scoring, overlays, renderer, Water Reader UI, daily conditions
 
-Next recommended phase:
+Next recommended phase (sequencing intent — not all steps are complete):
 
 1. attach low-risk reviewed source availability to the national index, starting with a national/default aerial path if rights and usage are clear
 2. begin state-by-state source discovery for machine-readable bathymetry/depth assets
 3. keep each source path reviewed, reachable, lake-matched, and usable before it can affect availability
 4. only after source coverage is credible should Water Reader move into extraction and scoring
+
+**Execution focus (2026-04):** Step (2) is **in progress** for **Minnesota** via reviewed **MN DNR** bathymetric contour links (pilot + expansion batches). **National/default aerial** is still **not** a product-attached layer in the sense of 0.5.17 (search for “Not attached”); do not assume NAIP or other broad aerial is cleared for national rollout from this backbone work alone.
+
+### 0.5.17 Current backbone state — search, Edge functions, Minnesota DNR depth pilot
+
+**National identity and search**
+
+- The national named lake/pond/reservoir identity load is in the target Supabase project; `search_waterbodies` supports area + centroid disambiguation as documented in 0.5.14–0.5.16.
+
+**Edge functions (target project)**
+
+- `waterbody-search` — deployed (authenticated / subscription-gated per product settings).
+- `waterbody-source-validation` — deployed with **internal** auth via `WATER_READER_INTERNAL_KEY` (`--no-verify-jwt`); mutates per-link validation columns only for requested `lakeId` / `sourceMode`.
+
+**Minnesota DNR depth pilot (six lakes)**
+
+- **Matching rules:** `docs/water_reader_mn_dnr_depth_pilot_matching_spec.md`
+- **Migrations (repo):** `20260425163000_water_reader_mn_dnr_depth_pilot.sql` (links), `20260425204500_water_reader_mn_dnr_pilot_usable_source_paths.sql` (usable GeoJSON `source_path` + count-only validation URLs).
+- Six USGS-indexed Minnesota lakes have approved `waterbody_source_links` to the DNR bathymetric contours layer (`mn_dnr_bathymetric_contours` registry key).
+- Each link stores a **usable** GeoJSON `source_path` (`f=geojson`, `returnGeometry=true`, `outSR=4326`, depth-related `outFields`) and a **light** `metadata.fetch_validation_url` (`returnCountOnly=true`) for reachability probes.
+- **On-demand only:** registry storage / derived-feature caching flags remain off for this source; no extraction, scoring, overlays, or renderer consume these geometries yet.
+- **Non-mutating verification:** `npm run check:water-reader:mn-dnr-pilot-geojson` (Deno) hits the public ArcGIS endpoints and is safe for routine CI.
+- **Mutating verification:** `npm run ops:water-reader:mn-dnr-pilot-validate-edge` (or GitHub **Actions → Run workflow** `water-reader-mn-dnr-pilot-edge-validation`) requires `WATER_READER_INTERNAL_KEY` (+ `SUPABASE_URL` or `EXPO_PUBLIC_SUPABASE_URL`). **Do not** wire this to untrusted pull-request CI.
+
+**Minnesota DNR depth expansion — reviewed twelve lakes (applied)**
+
+- **Migrations:** `20260425213000_water_reader_mn_dnr_depth_expansion_12.sql` inserts twelve `waterbody_source_links` rows using **explicit `waterbody_id` values** from `docs/water_reader_mn_dnr_expansion_reviewed_insert_proposal.json` (not a name/county join), so USGS multi-fragment rows cannot fan out duplicates. `20260426120000_water_reader_mn_dnr_expansion_12_burntside_duplicate_cleanup.sql` deletes three erroneous Burntside links if an earlier name/county join had already run in a database.
+- **Lakes (proposal `ready_for_insert` only):** Otter Tail, Minnewaska, Osakis, Miltona, Traverse, Nett, Burntside, Thief, Big Sandy, North Long (Crow Wing), West Battle, Snowbank — same DOWLKNUM-scoped GeoJSON URLs as the pilot pattern; `metadata.on_demand_only = true`; no storage or derived-caching claims.
+- **North Long Lake:** insert-time homonym check — single MN `waterbody_index` row matches the proposal lake id; DNR sample for DOWLKNUM `18037200` shows `LAKE_NAME` consistent with that basin (metadata records the check).
+- **Non-mutating verification:** `npm run check:water-reader:mn-dnr-proposal-geojson` (twelve proposal URLs).
+- **Mutating verification (expansion only):** `npm run ops:water-reader:mn-dnr-expansion-validate-edge` with the same secrets as the pilot script (`WATER_READER_INTERNAL_KEY` + `SUPABASE_URL` / `EXPO_PUBLIC_SUPABASE_URL`, mirrored from Supabase Edge secrets — see `.env.example`). This POSTs `waterbody-source-validation` per expansion lake and persists `fetch_validation_*` on each link. The header must be **`x-water-reader-internal-key`** with a value that **exactly matches** the `WATER_READER_INTERNAL_KEY` secret on the deployed function; otherwise the API returns **403** (`forbidden` / “reserved for internal Water Reader infrastructure”) and nothing is updated. After rotating the Edge secret, confirm the **same Supabase project** as `SUPABASE_URL` (ref in URL), secret name **`WATER_READER_INTERNAL_KEY`**, and paste the value **verbatim** into `.env` (characters like `+` must not be altered). Optional: set **`MN_DNR_EXPANSION_LOG_JSON=1`** when running the npm script to print each successful response body (JSON) after the summary line.
+- **Validated expansion (target DB, 2026-04):** All twelve expansion links have `fetch_validation_status = reachable` with **HTTP 200** on each count-only `metadata.fetch_validation_url` (same probe the Edge function uses). **`waterbody-source-validation` Edge-attested closure (2026-04-26):** ops run `MN_DNR_EXPANSION_LOG_JSON=1 npm run ops:water-reader:mn-dnr-expansion-validate-edge` completed **12/12** lakes with function HTTP **200**, each `results[].status === "reachable"`, probe `httpStatus` **200**, and `fetch_validation_checked_at` refreshed (batch window **~17:01–17:02Z** UTC on first closure; re-runs update timestamps idempotently). `waterbody_availability_snapshot` shows **`depth_only`**, **`depth_available`**, **`ready`**, and **`depth_machine_readable_available = true`** for each of the twelve lake ids. **Batch-2 (six lakes, 2026-04):** migration `20260426171211_water_reader_mn_dnr_depth_expansion_batch2_6.sql` from `docs/water_reader_mn_dnr_expansion_reviewed_insert_proposal_batch2.json`; Edge `npm run ops:water-reader:mn-dnr-expansion-batch2-validate-edge` (or `MN_DNR_EXPANSION_BATCH=batch2` with the expansion validate script) attested **6/6** reachable. After batch-2 closure, **MN and national** machine-readable depth-ready totals (snapshot: `data_tier = depth_only`, `availability = depth_available`, `source_status = ready`) are **25** (six pilot + twelve expansion + six batch-2 + Lake Mary Douglas fixture). Excluded proposal lakes (e.g. Rainy, Namakan, Kabetogama, Big Stone, Red, Pelican) still have **no** new `mn_dnr_bathymetric_contours` depth links; only **MN** index rows carry that provider’s depth links.
+- **Excluded candidates** (ambiguous, border-policy, no-match, reject from **batch-1 and batch-2 expansion proposals**) must not receive links unless a **new** reviewed proposal and migration say so; Rainy Lake and other non-ready rows remain without new MN DNR depth attachments.
+
+**Protected secrets (verify):**
+
+- Supabase Edge: `WATER_READER_INTERNAL_KEY` must be set for `waterbody-source-validation` (confirm with `supabase secrets list --project-ref <ref>` — name present; value is never printed).
+- Local / GitHub Actions: operators mirror `SUPABASE_URL` and `WATER_READER_INTERNAL_KEY` into `.env` (see `.env.example`) or encrypted repo secrets for manual workflows only.
+- Pilot links in the target DB should show `fetch_validation_status = reachable` after a successful ops run (HTTP 200 on the count probe).
+
+**Expansion draft (generator input):** `docs/water_reader_mn_dnr_expansion_batch_candidate.json` — regenerate with `npm run build:water-reader:mn-dnr-expansion-candidates` after editing `scripts/data/mn_dnr_expansion_seed_waterbodies.json`. Rows need human review (especially `none` / multi-basin / homonym cases) before any migration.
+
+**Reviewed insert proposal (human-reviewed short list):** `docs/water_reader_mn_dnr_expansion_reviewed_insert_proposal.json` — classifications for all 40 seed lakes and the **12-lake** `ready_for_insert` list applied via `20260425213000_water_reader_mn_dnr_depth_expansion_12.sql`. GeoJSON smoke: `npm run check:water-reader:mn-dnr-proposal-geojson`. Per-lake **`reachable`** validation is required before snapshots count depth; expansion rows have completed that step in the target project. Operators should still keep `WATER_READER_INTERNAL_KEY` in local `.env` for routine `ops:water-reader:mn-dnr-expansion-validate-edge` / pilot runs (re-runs are idempotent).
+
+**Not attached**
+
+- No **national** aerial availability layer. NAIP or other broad aerial paths remain out of scope until rights and usage are explicit.
+
+**Broader Minnesota expansion**
+
+- A 20–50 lake batch (or statewide attachment) remains **gated** on ops (rate limits, monitoring), legal/ToS review, and continued honesty checks (GeoJSON smoke + Edge validation per batch), not on identity/search gaps.
+- **Batch-2 (closed, 2026-04):** Draft candidates: `docs/water_reader_mn_dnr_expansion_batch2_candidate.json` (27 lakes). Reviewed proposal: `docs/water_reader_mn_dnr_expansion_reviewed_insert_proposal_batch2.json` — only the **6** `ready_for_insert` rows were migrated (`20260426171211_water_reader_mn_dnr_depth_expansion_batch2_6.sql`). **2** `needs_manual_review`, **7** `ambiguous_multi_match`, **10** `no_dnr_match_found`, **2** `reject` rows were **not** linked. Non-mutating check: `MN_DNR_PROPOSAL_JSON=docs/water_reader_mn_dnr_expansion_reviewed_insert_proposal_batch2.json npm run check:water-reader:mn-dnr-proposal-geojson-batch2`. Edge attestation: `npm run ops:water-reader:mn-dnr-expansion-batch2-validate-edge`. **Detroit Lake (Becker):** pre-insert SQL confirmed a **single** MN `waterbody_index` row matching the proposal `waterbody_id` for “Detroit Lake” / Becker (homonym risk cleared for the index). **Brule Lake (Cook):** single index row; metadata records **BWCA-adjacent** caution for product/legal review. Match quality in the batch-2 **candidate** slice did **not** support a 20–50 `ready_for_insert` list; larger batches still need better seeds or manual DOWLKNUM resolution.
+
+### 0.5.18 New-agent handoff — Water Reader backbone (source availability)
+
+Use this section **instead of chat history**. If anything here disagrees with the database, **trust an audited query on the target project** and then update this plan.
+
+**Mode**
+
+- Water Reader is in **foundation / source-availability backbone** mode only.
+- **Do not** build or ship: extraction, scoring, overlays, renderer, frontend flows, daily conditions, or recommender handoff until this plan explicitly moves phase.
+
+**Verified counts (target DB, after batch-2 Edge attestation, 2026-04)**
+
+- **25** rows meet the snapshot filter used in ops reporting: `depth_machine_readable_available = true`, `data_tier = 'depth_only'`, `availability = 'depth_available'`, `source_status = 'ready'`.
+- **Breakdown (intended composition):** 6 MN DNR **pilot** + 12 MN DNR **expansion batch-1** + 6 MN DNR **expansion batch-2** + **1** Douglas County **Lake Mary** backbone **fixture** (`external_id = lake_mary_douglas_mn` in `20260424133337_water_reader_waterbody_backbone.sql`). National and MN totals match **25** because only these rows carry honest, reviewed, reachable MN DNR machine-readable depth in the current registry posture.
+- **Not counted here:** lakes that remain `polygon_only` / `limited`; excluded expansion candidates (ambiguous, border, no-match, reject); any unaudited state.
+
+**MN DNR is the only active real-world machine-readable depth expansion**
+
+- Registry key: `mn_dnr_bathymetric_contours`.
+- All inserted MN DNR depth links: **`metadata.on_demand_only = true`**; no storage or derived-feature caching claims for these paths; rights posture is **on-demand** until product/legal says otherwise.
+
+**Canonical files (repo)**
+
+| Purpose | Path |
+|--------|------|
+| This plan (source of truth) | `docs/WATER_READER_MASTER_PLAN.md` |
+| Pilot matching rules | `docs/water_reader_mn_dnr_depth_pilot_matching_spec.md` |
+| Expansion batch-1 proposal | `docs/water_reader_mn_dnr_expansion_reviewed_insert_proposal.json` |
+| Expansion batch-2 proposal | `docs/water_reader_mn_dnr_expansion_reviewed_insert_proposal_batch2.json` |
+| Batch-1 candidate generator output (regenerate via script) | `docs/water_reader_mn_dnr_expansion_batch_candidate.json` |
+| Batch-2 candidate generator output | `docs/water_reader_mn_dnr_expansion_batch2_candidate.json` |
+| Batch-1 seed | `scripts/data/mn_dnr_expansion_seed_waterbodies.json` |
+| Batch-2 seed | `scripts/data/mn_dnr_expansion_seed_waterbodies_batch2.json` |
+
+**Migrations (repo filenames — MN DNR depth)**
+
+- `20260425163000_water_reader_mn_dnr_depth_pilot.sql`
+- `20260425204500_water_reader_mn_dnr_pilot_usable_source_paths.sql`
+- `20260425213000_water_reader_mn_dnr_depth_expansion_12.sql`
+- `20260426120000_water_reader_mn_dnr_expansion_12_burntside_duplicate_cleanup.sql`
+- `20260426171211_water_reader_mn_dnr_depth_expansion_batch2_6.sql`
+
+**npm scripts (run from `TightLinesAI/`)**
+
+- Pilot GeoJSON smoke: `npm run check:water-reader:mn-dnr-pilot-geojson`
+- Batch-1 proposal GeoJSON smoke: `npm run check:water-reader:mn-dnr-proposal-geojson`
+- Batch-2 proposal GeoJSON smoke: `npm run check:water-reader:mn-dnr-proposal-geojson-batch2`
+- Pilot Edge validation (mutating): `npm run ops:water-reader:mn-dnr-pilot-validate-edge`
+- Expansion batch-1 Edge validation: `npm run ops:water-reader:mn-dnr-expansion-validate-edge`
+- Expansion batch-2 Edge validation: `npm run ops:water-reader:mn-dnr-expansion-batch2-validate-edge` (or `MN_DNR_EXPANSION_BATCH=batch2` with the same expansion script)
+- Regenerate batch-1 candidates: `npm run build:water-reader:mn-dnr-expansion-candidates`
+- Regenerate batch-2 candidates: `npm run build:water-reader:mn-dnr-expansion-candidates-batch2`
+
+**Ingest scratch (do not commit)**
+
+- `tmp/water-reader/` is listed in `.gitignore`. Generated national/regional SQL chunks may exist locally; they are **operational scratch**, not part of the reviewed backbone handoff.
+
+**Supabase CLI caveat**
+
+- If `supabase db push` reports migration version mismatches between **remote** `schema_migrations` and **local** `supabase/migrations/` filenames, resolve with the normal repair/pull workflow — do not re-apply MN DNR insert SQL blindly.
+
+**Next recommended step**
+
+- **Minnesota DNR batch-3 planning:** new seed of MN `waterbody_index` rows **excluding** any lake that already has an `mn_dnr_bathymetric_contours` depth link; regenerate candidates; conservative classification; reviewed `ready_for_insert` proposal; GeoJSON smoke; **separate** explicit-`waterbody_id` migration + Edge attestation per batch. Match quality may be low; short lists are acceptable.
+
+**Do not do next (without a new product decision)**
+
+- Attach **national/default aerial** or broaden NAIP usage beyond current fixtures/policy.
+- Insert links for ambiguous, border-policy, no-match, or rejected proposal rows without a **new** human-reviewed proposal.
+- Implement extraction, scoring, map overlays, report renderer, Water Reader UI, daily conditions, or recommender integration.
 
 ---
 
@@ -604,6 +797,7 @@ The result should feel like:
    - Daily conditions must not become a dependency for the baseline report path.
 
 8. **Source rights govern fetch, storage, feature extraction, and caching.**
+   - Normative defaults and examples: **§0.4** (scraping, approved/disallowed classes, on-demand storage, client vs server).
    - If rights are unclear, FinFindr should not store reusable assets or derived features.
    - Google imagery/content must not be the analysis or cached-derivation foundation.
    - Unreviewed depth sources must not count as V1 reusable depth intelligence.
@@ -622,7 +816,8 @@ The result should feel like:
    - Depth mode must only use reviewed and approved depth evidence.
 
 12. **Cache intelligence, not fixed final screenshots.**
-   - Cache the lake index, rights decisions, normalized approved assets, extracted features, candidate zones, and reusable scoring layers when allowed.
+   - Default posture: **on-demand fetch**; durable caches of heavy assets or derived features only when **§0.4** and registry flags explicitly allow it.
+   - Cache the lake index, rights decisions, and—**when allowed**—normalized approved assets, extracted features, candidate zones, and reusable scoring layers.
    - Final reports stay on-demand because species, month, access mode, source mode, and source availability can change the result.
 
 13. **Best-available is the product strategy.**

@@ -1,0 +1,27 @@
+# Water Reader — MN DNR pilot Edge validation (mutates DB validation columns)
+#
+# Protected: manual dispatch only. Do not add pull_request / push triggers.
+# Required repo secrets: SUPABASE_URL, WATER_READER_INTERNAL_KEY
+#
+# CI-safe, non-mutating check: TightLinesAI `npm run check:water-reader:mn-dnr-pilot-geojson`
+name: water-reader-mn-dnr-pilot-edge-validation
+
+on:
+  workflow_dispatch:
+
+jobs:
+  validate-pilot-depth-links:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: TightLinesAI
+    steps:
+      - uses: actions/checkout@v4
+      - uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+      - name: Run waterbody-source-validation for six pilot lake IDs
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          WATER_READER_INTERNAL_KEY: ${{ secrets.WATER_READER_INTERNAL_KEY }}
+        run: deno run -A scripts/water-reader-mn-dnr-pilot-edge-validation.ts

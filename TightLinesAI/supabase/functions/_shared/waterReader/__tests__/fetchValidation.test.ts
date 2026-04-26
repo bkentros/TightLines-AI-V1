@@ -90,6 +90,27 @@ Deno.test("validateApprovedSourcePath validates the actual source path even when
   assertEquals(requestedUrls, ["https://example.com/lakes/lake-mary-depth-map.pdf"]);
 });
 
+Deno.test("validateApprovedSourcePath can probe validationFetchUrl while preserving sourcePath in result", async () => {
+  const requestedUrls: string[] = [];
+  const result = await validateApprovedSourcePath(
+    buildLink({
+      sourcePath: "https://example.com/data/full?heavy=1",
+    }),
+    {
+      validationFetchUrl: "https://example.com/probe/light?count=1",
+      fetchImpl: async (url) => {
+        requestedUrls.push(String(url));
+        return new Response(null, { status: 200 });
+      },
+    },
+  );
+
+  assertEquals(result.status, "reachable");
+  assertEquals(result.targetUrl, "https://example.com/probe/light?count=1");
+  assertEquals(result.sourcePath, "https://example.com/data/full?heavy=1");
+  assertEquals(requestedUrls, ["https://example.com/probe/light?count=1"]);
+});
+
 Deno.test("validateApprovedSourcePath returns unreachable for failed responses", async () => {
   const result = await validateApprovedSourcePath(buildLink({}), {
     fetchImpl: async () => new Response("missing", { status: 404 }),
