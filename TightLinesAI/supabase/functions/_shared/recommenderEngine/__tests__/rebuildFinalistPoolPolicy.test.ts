@@ -1,5 +1,5 @@
 /**
- * Rebuild finalist-pool policy: structural narrowing, not peer scoring.
+ * Rebuild finalist-pool policy: hard gates plus weighted soft scoring.
  */
 import { assert, assertEquals, assertNotEquals } from "jsr:@std/assert";
 import type { SeasonalRowV4 } from "../v4/contracts.ts";
@@ -84,7 +84,7 @@ Deno.test("designated clarity slot is deterministic and differs from forage slot
   );
 });
 
-Deno.test("forage narrows only the deterministic forage slot", () => {
+Deno.test("forage boosts compatible candidates without narrowing a slot", () => {
   const seedBase = "forage-policy";
   const forageSlot = forageDesignatedSlot({ seedBase, side: "lure" });
   const row = baseRow({
@@ -112,17 +112,23 @@ Deno.test("forage narrows only the deterministic forage slot", () => {
   });
 
   assertEquals(out.length, 1);
-  const shaped = traces.filter((t) => t.forageNarrowed);
-  assertEquals(shaped.length, 1);
-  assertEquals(shaped[0]!.slot, forageSlot);
+  const shaped = traces.filter((t) =>
+    t.candidateScores.some((score) =>
+      score.reasons.includes("primary_forage:+14")
+    )
+  );
+  assert(shaped.length >= 1);
+  assertEquals(traces.some((t) => t.forageNarrowed), false);
   assert(
-    shaped[0]!.finalistIds.every((id) =>
-      ["shaky_head_worm", "ned_rig", "finesse_jig"].includes(id)
-    ),
+    shaped[0]!.candidateScores
+      .filter((score) => score.reasons.includes("primary_forage:+14"))
+      .every((score) =>
+        ["shaky_head_worm", "ned_rig", "finesse_jig"].includes(score.id)
+      ),
   );
 });
 
-Deno.test("forage ignores secondary forage matches", () => {
+Deno.test("secondary forage is a smaller score boost, not a hard filter", () => {
   const seedBase = "forage-primary-only";
   const forageSlot = forageDesignatedSlot({ seedBase, side: "lure" });
   const row = baseRow({
@@ -151,9 +157,16 @@ Deno.test("forage ignores secondary forage matches", () => {
 
   assertEquals(out.length, 1);
   assertEquals(traces.filter((t) => t.forageNarrowed).length, 0);
+  assert(
+    traces.some((t) =>
+      t.candidateScores.some((score) =>
+        score.reasons.includes("secondary_forage:+6")
+      )
+    ),
+  );
 });
 
-Deno.test("forage only narrows on a strict primary-forage subset", () => {
+Deno.test("forage subset stays in the weighted pool instead of monopolizing it", () => {
   const seedBase = "forage-strict-subset";
   const forageSlot = forageDesignatedSlot({ seedBase, side: "lure" });
   const row = baseRow({
@@ -180,9 +193,16 @@ Deno.test("forage only narrows on a strict primary-forage subset", () => {
 
   assertEquals(out.length, 1);
   assertEquals(traces.filter((t) => t.forageNarrowed).length, 0);
+  assert(
+    traces.some((t) =>
+      t.candidateScores.some((score) =>
+        score.reasons.includes("primary_forage:+14")
+      )
+    ),
+  );
 });
 
-Deno.test("clarity narrows only whitelisted archetypes on its deterministic slot", () => {
+Deno.test("clarity specialists receive score bonuses without hard-locking selection", () => {
   const seedBase = "clarity-policy";
   const forageSlot = forageDesignatedSlot({ seedBase, side: "lure" });
   const claritySlot = clarityDesignatedSlot({
@@ -215,10 +235,22 @@ Deno.test("clarity narrows only whitelisted archetypes on its deterministic slot
   });
 
   assertEquals(out.length, 1);
-  const shaped = traces.filter((t) => t.clarityNarrowed);
-  assertEquals(shaped.length, 1);
-  assertEquals(shaped[0]!.slot, claritySlot);
-  assertEquals(shaped[0]!.finalistIds, ["suspending_jerkbait"]);
+  assertEquals(traces.some((t) => t.clarityNarrowed), false);
+  const clarityTrace = traces.find((t) =>
+    t.clarityWhitelistCandidateIds.includes("suspending_jerkbait")
+  );
+  assert(clarityTrace);
+  assert(
+    clarityTrace.candidateScores.some((score) =>
+      score.id === "suspending_jerkbait" &&
+      score.reasons.includes("clarity_specialist:+10")
+    ),
+  );
+  assert(
+    clarityTrace.candidateScores.some((score) =>
+      score.id !== "suspending_jerkbait"
+    ),
+  );
   assertEquals(
     CLARITY_SPECIALIST_WHITELIST.lure.suspending_jerkbait,
     ["clear"],
@@ -261,5 +293,5 @@ Deno.test("recency structurally narrows away from a recent finalist when alterna
 
   assertEquals(cooled.length, 1);
   assertNotEquals(cooled[0]!.archetype.id, baseline[0]!.archetype.id);
-  assert(traces.some((trace) => trace.recencyNarrowed));
+  assert(traces.some((trace) => trace.recentHistoryPenaltyApplied));
 });

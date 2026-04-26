@@ -4,7 +4,10 @@
  */
 import { assert, assertEquals } from "jsr:@std/assert";
 import { LARGEMOUTH_BASS_SEASONAL_ROWS_V4 } from "../v4/seasonal/generated/largemouth_bass.ts";
-import { selectArchetypesForSide } from "../rebuild/selectSide.ts";
+import {
+  type RebuildSlotSelectionTrace,
+  selectArchetypesForSide,
+} from "../rebuild/selectSide.ts";
 
 Deno.test("generated row: Florida Apr lake includes frog_fly and hollow_body_frog in primaries", () => {
   const row = LARGEMOUTH_BASS_SEASONAL_ROWS_V4.find((r) =>
@@ -23,12 +26,13 @@ Deno.test("generated row: Florida Apr lake includes frog_fly and hollow_body_fro
   );
 });
 
-Deno.test("selectSide: frog_fly eligible in clear water when on shortlist (surface / slow)", () => {
+Deno.test("selectSide: frog_fly remains in the weighted pool when on shortlist", () => {
   const row = LARGEMOUTH_BASS_SEASONAL_ROWS_V4.find((r) =>
     r.region_key === "florida" &&
     r.month === 4 &&
     r.water_type === "freshwater_lake_pond"
   )!;
+  const traces: RebuildSlotSelectionTrace[] = [];
   const out = selectArchetypesForSide({
     side: "fly",
     row,
@@ -38,9 +42,17 @@ Deno.test("selectSide: frog_fly eligible in clear water when on shortlist (surfa
     profiles: [{ column: "surface", pace: "slow" }],
     surfaceBlocked: false,
     seedBase: "t-fl-clear-frog",
+    onSlotTrace: (trace) => traces.push(trace),
   });
   assertEquals(out.length, 1);
-  assertEquals(out[0]!.archetype.id, "frog_fly");
+  assert(
+    traces.some((trace) =>
+      trace.finalistIds.includes("frog_fly") &&
+      trace.candidateScores.some((score) =>
+        score.id === "frog_fly" && score.score > 0
+      )
+    ),
+  );
 });
 
 Deno.test("selectSide: hollow_body_frog eligible in clear water when on shortlist", () => {

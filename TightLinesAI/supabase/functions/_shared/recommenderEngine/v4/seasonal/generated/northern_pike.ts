@@ -148,7 +148,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: false,
     primary_lure_ids: ["pike_jig_and_plastic","casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","blade_bait","tube_jig","spinnerbait","deep_diving_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -164,7 +164,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: false,
     primary_lure_ids: ["casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","pike_jig_and_plastic","blade_bait","tube_jig","spinnerbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -180,7 +180,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: true,
     primary_lure_ids: ["pike_jig_and_plastic","casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","large_pike_topwater","blade_bait","tube_jig","spinnerbait","buzzbait","deep_diving_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","frog_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","frog_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -196,7 +196,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: true,
     primary_lure_ids: ["casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","pike_jig_and_plastic","blade_bait","tube_jig","spinnerbait","buzzbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","popper_fly","deer_hair_slider"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","popper_fly","deer_hair_slider","foam_gurgler_fly","pike_flash_fly"] as const,
 },
 
   {
@@ -212,7 +212,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: true,
     primary_lure_ids: ["pike_jig_and_plastic","casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","large_pike_topwater","blade_bait","tube_jig","spinnerbait","buzzbait","deep_diving_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","frog_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","frog_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -228,7 +228,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: true,
     primary_lure_ids: ["casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","pike_jig_and_plastic","blade_bait","tube_jig","spinnerbait","buzzbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","popper_fly","deer_hair_slider"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","popper_fly","deer_hair_slider","foam_gurgler_fly","pike_flash_fly"] as const,
 },
 
   {
@@ -244,7 +244,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: true,
     primary_lure_ids: ["pike_jig_and_plastic","casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","large_pike_topwater","blade_bait","tube_jig","spinnerbait","buzzbait","deep_diving_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","frog_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","frog_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -260,7 +260,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: true,
     primary_lure_ids: ["casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","pike_jig_and_plastic","blade_bait","tube_jig","spinnerbait","buzzbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","popper_fly","deer_hair_slider"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","popper_fly","deer_hair_slider","foam_gurgler_fly","pike_flash_fly"] as const,
 },
 
   {
@@ -276,7 +276,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: false,
     primary_lure_ids: ["pike_jig_and_plastic","casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","blade_bait","tube_jig","spinnerbait","deep_diving_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -292,7 +292,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: false,
     primary_lure_ids: ["casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","pike_jig_and_plastic","blade_bait","tube_jig","spinnerbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -500,7 +500,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: false,
     primary_lure_ids: ["pike_jig_and_plastic","casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","blade_bait","tube_jig","spinnerbait","deep_diving_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -516,7 +516,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: false,
     primary_lure_ids: ["casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","pike_jig_and_plastic","blade_bait","tube_jig","spinnerbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -532,7 +532,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: true,
     primary_lure_ids: ["pike_jig_and_plastic","casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","large_pike_topwater","blade_bait","tube_jig","spinnerbait","buzzbait","deep_diving_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","frog_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","frog_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -548,7 +548,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: false,
     primary_lure_ids: ["casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","pike_jig_and_plastic","blade_bait","tube_jig","spinnerbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -564,7 +564,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: true,
     primary_lure_ids: ["pike_jig_and_plastic","casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","large_pike_topwater","blade_bait","tube_jig","spinnerbait","buzzbait","deep_diving_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","frog_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","frog_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -580,7 +580,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: true,
     primary_lure_ids: ["casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","pike_jig_and_plastic","blade_bait","tube_jig","spinnerbait","buzzbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","popper_fly","deer_hair_slider"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","popper_fly","deer_hair_slider","foam_gurgler_fly","pike_flash_fly"] as const,
 },
 
   {
@@ -660,7 +660,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: false,
     primary_lure_ids: ["pike_jig_and_plastic","casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","blade_bait","tube_jig","spinnerbait","deep_diving_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -676,7 +676,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: false,
     primary_lure_ids: ["casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","pike_jig_and_plastic","blade_bait","tube_jig","spinnerbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -692,7 +692,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: false,
     primary_lure_ids: ["pike_jig_and_plastic","casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","blade_bait","tube_jig","spinnerbait","deep_diving_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -708,7 +708,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: false,
     primary_lure_ids: ["casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","pike_jig_and_plastic","blade_bait","tube_jig","spinnerbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -884,7 +884,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: false,
     primary_lure_ids: ["pike_jig_and_plastic","casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","blade_bait","tube_jig","spinnerbait","deep_diving_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -900,7 +900,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: false,
     primary_lure_ids: ["casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","pike_jig_and_plastic","blade_bait","tube_jig","spinnerbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -916,7 +916,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: false,
     primary_lure_ids: ["pike_jig_and_plastic","casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","blade_bait","tube_jig","spinnerbait","deep_diving_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -932,7 +932,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: false,
     primary_lure_ids: ["casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","pike_jig_and_plastic","blade_bait","tube_jig","spinnerbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -948,7 +948,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: true,
     primary_lure_ids: ["pike_jig_and_plastic","casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","large_pike_topwater","blade_bait","tube_jig","spinnerbait","buzzbait","deep_diving_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","frog_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","frog_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -964,7 +964,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: true,
     primary_lure_ids: ["casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","pike_jig_and_plastic","blade_bait","tube_jig","spinnerbait","buzzbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","popper_fly","deer_hair_slider"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","popper_fly","deer_hair_slider","foam_gurgler_fly","pike_flash_fly"] as const,
 },
 
   {
@@ -980,7 +980,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: true,
     primary_lure_ids: ["pike_jig_and_plastic","casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","large_pike_topwater","blade_bait","tube_jig","spinnerbait","buzzbait","deep_diving_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","frog_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","frog_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -996,7 +996,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: true,
     primary_lure_ids: ["casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","pike_jig_and_plastic","blade_bait","tube_jig","spinnerbait","buzzbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","popper_fly","deer_hair_slider"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","popper_fly","deer_hair_slider","foam_gurgler_fly","pike_flash_fly"] as const,
 },
 
   {
@@ -1012,7 +1012,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: false,
     primary_lure_ids: ["pike_jig_and_plastic","casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","blade_bait","tube_jig","spinnerbait","deep_diving_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -1028,7 +1028,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: false,
     primary_lure_ids: ["casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","pike_jig_and_plastic","blade_bait","tube_jig","spinnerbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -1044,7 +1044,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: false,
     primary_lure_ids: ["pike_jig_and_plastic","casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","blade_bait","tube_jig","spinnerbait","deep_diving_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -1060,7 +1060,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: false,
     primary_lure_ids: ["casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","pike_jig_and_plastic","blade_bait","tube_jig","spinnerbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -1076,7 +1076,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: false,
     primary_lure_ids: ["pike_jig_and_plastic","casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","blade_bait","tube_jig","spinnerbait","deep_diving_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -1092,7 +1092,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: false,
     primary_lure_ids: ["casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","pike_jig_and_plastic","blade_bait","tube_jig","spinnerbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -1268,7 +1268,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: false,
     primary_lure_ids: ["pike_jig_and_plastic","casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","blade_bait","tube_jig","spinnerbait","deep_diving_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -1284,7 +1284,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: false,
     primary_lure_ids: ["casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","pike_jig_and_plastic","blade_bait","tube_jig","spinnerbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -1300,7 +1300,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: false,
     primary_lure_ids: ["pike_jig_and_plastic","casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","blade_bait","tube_jig","spinnerbait","deep_diving_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -1316,7 +1316,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: false,
     primary_lure_ids: ["casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","pike_jig_and_plastic","blade_bait","tube_jig","spinnerbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -1332,7 +1332,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: true,
     primary_lure_ids: ["pike_jig_and_plastic","casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","large_pike_topwater","blade_bait","tube_jig","spinnerbait","buzzbait","deep_diving_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","frog_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","frog_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -1348,7 +1348,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: true,
     primary_lure_ids: ["casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","pike_jig_and_plastic","blade_bait","tube_jig","spinnerbait","buzzbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","popper_fly","deer_hair_slider"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","popper_fly","deer_hair_slider","foam_gurgler_fly","pike_flash_fly"] as const,
 },
 
   {
@@ -1364,7 +1364,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: true,
     primary_lure_ids: ["pike_jig_and_plastic","casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","large_pike_topwater","blade_bait","tube_jig","spinnerbait","buzzbait","deep_diving_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","frog_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","frog_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -1380,7 +1380,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: true,
     primary_lure_ids: ["casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","pike_jig_and_plastic","blade_bait","tube_jig","spinnerbait","buzzbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","popper_fly","deer_hair_slider"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","popper_fly","deer_hair_slider","foam_gurgler_fly","pike_flash_fly"] as const,
 },
 
   {
@@ -1396,7 +1396,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: false,
     primary_lure_ids: ["pike_jig_and_plastic","casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","blade_bait","tube_jig","spinnerbait","deep_diving_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -1412,7 +1412,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: false,
     primary_lure_ids: ["casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","pike_jig_and_plastic","blade_bait","tube_jig","spinnerbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -1428,7 +1428,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: false,
     primary_lure_ids: ["pike_jig_and_plastic","casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","blade_bait","tube_jig","spinnerbait","deep_diving_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -1444,7 +1444,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: false,
     primary_lure_ids: ["casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","pike_jig_and_plastic","blade_bait","tube_jig","spinnerbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -1460,7 +1460,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: false,
     primary_lure_ids: ["pike_jig_and_plastic","casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","blade_bait","tube_jig","spinnerbait","deep_diving_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -1476,7 +1476,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: false,
     primary_lure_ids: ["casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","pike_jig_and_plastic","blade_bait","tube_jig","spinnerbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -1652,7 +1652,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: false,
     primary_lure_ids: ["pike_jig_and_plastic","casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","blade_bait","tube_jig","spinnerbait","deep_diving_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -1668,7 +1668,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: false,
     primary_lure_ids: ["casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","pike_jig_and_plastic","blade_bait","tube_jig","spinnerbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -1684,7 +1684,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: true,
     primary_lure_ids: ["pike_jig_and_plastic","casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","large_pike_topwater","blade_bait","tube_jig","spinnerbait","buzzbait","deep_diving_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","frog_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","frog_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -1700,7 +1700,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: false,
     primary_lure_ids: ["casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","pike_jig_and_plastic","blade_bait","tube_jig","spinnerbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -1716,7 +1716,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: true,
     primary_lure_ids: ["pike_jig_and_plastic","casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","large_pike_topwater","blade_bait","tube_jig","spinnerbait","buzzbait","deep_diving_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","frog_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","frog_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -1732,7 +1732,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: true,
     primary_lure_ids: ["casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","pike_jig_and_plastic","blade_bait","tube_jig","spinnerbait","buzzbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","popper_fly","deer_hair_slider"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","popper_fly","deer_hair_slider","foam_gurgler_fly","pike_flash_fly"] as const,
 },
 
   {
@@ -1812,7 +1812,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: false,
     primary_lure_ids: ["pike_jig_and_plastic","casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","blade_bait","tube_jig","spinnerbait","deep_diving_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -1828,7 +1828,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: false,
     primary_lure_ids: ["casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","pike_jig_and_plastic","blade_bait","tube_jig","spinnerbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -1844,7 +1844,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: false,
     primary_lure_ids: ["pike_jig_and_plastic","casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","blade_bait","tube_jig","spinnerbait","deep_diving_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -1860,7 +1860,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: false,
     primary_lure_ids: ["casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","pike_jig_and_plastic","blade_bait","tube_jig","spinnerbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -2068,7 +2068,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: false,
     primary_lure_ids: ["pike_jig_and_plastic","casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","blade_bait","tube_jig","spinnerbait","deep_diving_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -2084,7 +2084,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: false,
     primary_lure_ids: ["casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","pike_jig_and_plastic","blade_bait","tube_jig","spinnerbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -2100,7 +2100,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: true,
     primary_lure_ids: ["pike_jig_and_plastic","casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","large_pike_topwater","blade_bait","tube_jig","spinnerbait","buzzbait","deep_diving_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","frog_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","frog_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -2116,7 +2116,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: true,
     primary_lure_ids: ["casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","pike_jig_and_plastic","blade_bait","tube_jig","spinnerbait","buzzbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","popper_fly","deer_hair_slider"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","popper_fly","deer_hair_slider","foam_gurgler_fly","pike_flash_fly"] as const,
 },
 
   {
@@ -2132,7 +2132,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: true,
     primary_lure_ids: ["pike_jig_and_plastic","casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","large_pike_topwater","blade_bait","tube_jig","spinnerbait","buzzbait","deep_diving_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","frog_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","frog_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -2148,7 +2148,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: true,
     primary_lure_ids: ["casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","pike_jig_and_plastic","blade_bait","tube_jig","spinnerbait","buzzbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","popper_fly","deer_hair_slider"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","popper_fly","deer_hair_slider","foam_gurgler_fly","pike_flash_fly"] as const,
 },
 
   {
@@ -2164,7 +2164,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: true,
     primary_lure_ids: ["pike_jig_and_plastic","casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","large_pike_topwater","blade_bait","tube_jig","spinnerbait","buzzbait","deep_diving_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","frog_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","frog_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -2180,7 +2180,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: true,
     primary_lure_ids: ["casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","pike_jig_and_plastic","blade_bait","tube_jig","spinnerbait","buzzbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","popper_fly","deer_hair_slider"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","popper_fly","deer_hair_slider","foam_gurgler_fly","pike_flash_fly"] as const,
 },
 
   {
@@ -2196,7 +2196,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: false,
     primary_lure_ids: ["pike_jig_and_plastic","casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","blade_bait","tube_jig","spinnerbait","deep_diving_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -2212,7 +2212,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: false,
     primary_lure_ids: ["casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","pike_jig_and_plastic","blade_bait","tube_jig","spinnerbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -2420,7 +2420,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: false,
     primary_lure_ids: ["pike_jig_and_plastic","casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","blade_bait","tube_jig","spinnerbait","deep_diving_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -2436,7 +2436,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: false,
     primary_lure_ids: ["casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","pike_jig_and_plastic","blade_bait","tube_jig","spinnerbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -2452,7 +2452,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: false,
     primary_lure_ids: ["pike_jig_and_plastic","casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","blade_bait","tube_jig","spinnerbait","deep_diving_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -2468,7 +2468,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: false,
     primary_lure_ids: ["casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","pike_jig_and_plastic","blade_bait","tube_jig","spinnerbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -2484,7 +2484,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: true,
     primary_lure_ids: ["pike_jig_and_plastic","casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","large_pike_topwater","blade_bait","tube_jig","spinnerbait","buzzbait","deep_diving_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","frog_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","frog_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -2500,7 +2500,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: true,
     primary_lure_ids: ["casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","pike_jig_and_plastic","blade_bait","tube_jig","spinnerbait","buzzbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","popper_fly","deer_hair_slider"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","popper_fly","deer_hair_slider","foam_gurgler_fly","pike_flash_fly"] as const,
 },
 
   {
@@ -2516,7 +2516,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: true,
     primary_lure_ids: ["pike_jig_and_plastic","casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","large_pike_topwater","blade_bait","tube_jig","spinnerbait","buzzbait","deep_diving_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","frog_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","frog_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -2532,7 +2532,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: true,
     primary_lure_ids: ["casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","pike_jig_and_plastic","blade_bait","tube_jig","spinnerbait","buzzbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","popper_fly","deer_hair_slider"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","popper_fly","deer_hair_slider","foam_gurgler_fly","pike_flash_fly"] as const,
 },
 
   {
@@ -2548,7 +2548,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: false,
     primary_lure_ids: ["pike_jig_and_plastic","casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","blade_bait","tube_jig","spinnerbait","deep_diving_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -2564,7 +2564,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: false,
     primary_lure_ids: ["casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","pike_jig_and_plastic","blade_bait","tube_jig","spinnerbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -2580,7 +2580,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: false,
     primary_lure_ids: ["pike_jig_and_plastic","casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","blade_bait","tube_jig","spinnerbait","deep_diving_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -2596,7 +2596,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: false,
     primary_lure_ids: ["casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","pike_jig_and_plastic","blade_bait","tube_jig","spinnerbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -2612,7 +2612,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: false,
     primary_lure_ids: ["pike_jig_and_plastic","casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","blade_bait","tube_jig","spinnerbait","deep_diving_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -2628,7 +2628,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: false,
     primary_lure_ids: ["casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","pike_jig_and_plastic","blade_bait","tube_jig","spinnerbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -2804,7 +2804,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: false,
     primary_lure_ids: ["pike_jig_and_plastic","casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","blade_bait","tube_jig","spinnerbait","deep_diving_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -2820,7 +2820,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: false,
     primary_lure_ids: ["casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","pike_jig_and_plastic","blade_bait","tube_jig","spinnerbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -2836,7 +2836,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: false,
     primary_lure_ids: ["pike_jig_and_plastic","casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","blade_bait","tube_jig","spinnerbait","deep_diving_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -2852,7 +2852,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: false,
     primary_lure_ids: ["casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","pike_jig_and_plastic","blade_bait","tube_jig","spinnerbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -2868,7 +2868,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: true,
     primary_lure_ids: ["pike_jig_and_plastic","casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","large_pike_topwater","blade_bait","tube_jig","spinnerbait","buzzbait","deep_diving_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","frog_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","frog_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -2884,7 +2884,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: true,
     primary_lure_ids: ["casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","pike_jig_and_plastic","blade_bait","tube_jig","spinnerbait","buzzbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","popper_fly","deer_hair_slider"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","popper_fly","deer_hair_slider","foam_gurgler_fly","pike_flash_fly"] as const,
 },
 
   {
@@ -2900,7 +2900,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: true,
     primary_lure_ids: ["pike_jig_and_plastic","casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","large_pike_topwater","blade_bait","tube_jig","spinnerbait","buzzbait","deep_diving_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","frog_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","frog_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -2916,7 +2916,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: true,
     primary_lure_ids: ["casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","pike_jig_and_plastic","blade_bait","tube_jig","spinnerbait","buzzbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","popper_fly","deer_hair_slider"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","popper_fly","deer_hair_slider","foam_gurgler_fly","pike_flash_fly"] as const,
 },
 
   {
@@ -2932,7 +2932,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: false,
     primary_lure_ids: ["pike_jig_and_plastic","casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","blade_bait","tube_jig","spinnerbait","deep_diving_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -2948,7 +2948,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: false,
     primary_lure_ids: ["casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","pike_jig_and_plastic","blade_bait","tube_jig","spinnerbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -2964,7 +2964,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: false,
     primary_lure_ids: ["pike_jig_and_plastic","casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","blade_bait","tube_jig","spinnerbait","deep_diving_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -2980,7 +2980,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: false,
     primary_lure_ids: ["casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","pike_jig_and_plastic","blade_bait","tube_jig","spinnerbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -2996,7 +2996,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: false,
     primary_lure_ids: ["pike_jig_and_plastic","casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","blade_bait","tube_jig","spinnerbait","deep_diving_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -3012,7 +3012,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: false,
     primary_lure_ids: ["casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","pike_jig_and_plastic","blade_bait","tube_jig","spinnerbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -3188,7 +3188,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: true,
     primary_lure_ids: ["pike_jig_and_plastic","casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","large_pike_topwater","blade_bait","tube_jig","spinnerbait","buzzbait","deep_diving_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","frog_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","frog_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -3204,7 +3204,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: false,
     primary_lure_ids: ["casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","pike_jig_and_plastic","blade_bait","tube_jig","spinnerbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -3220,7 +3220,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: true,
     primary_lure_ids: ["pike_jig_and_plastic","casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","large_pike_topwater","blade_bait","tube_jig","spinnerbait","buzzbait","deep_diving_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","frog_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","frog_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -3236,7 +3236,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: false,
     primary_lure_ids: ["casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","pike_jig_and_plastic","blade_bait","tube_jig","spinnerbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -3380,7 +3380,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: false,
     primary_lure_ids: ["pike_jig_and_plastic","casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","blade_bait","tube_jig","spinnerbait","deep_diving_crankbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {
@@ -3396,7 +3396,7 @@ export const NORTHERN_PIKE_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: false,
     primary_lure_ids: ["casting_spoon","large_bucktail_spinner","large_profile_pike_swimbait","pike_jerkbait","pike_jig_and_plastic","blade_bait","tube_jig","spinnerbait","soft_jerkbait","squarebill_crankbait","flat_sided_crankbait","inline_spinner","lipless_crankbait"] as const,
-    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger"] as const,
+    primary_fly_ids: ["articulated_dungeon_streamer","large_articulated_pike_streamer","pike_bunny_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","deceiver","game_changer","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","woolly_bugger","pike_flash_fly"] as const,
 },
 
   {

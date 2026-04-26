@@ -1,6 +1,6 @@
 /**
- * Strict exact slot fit for rebuild `selectArchetypesForSide` — column + pace
- * (primary or secondary_pace only); no adjacent drift.
+ * Strict column fit for rebuild `selectArchetypesForSide`; pace is exact or
+ * adjacent-compatible under Pass 2 weighted selection.
  */
 import { assert, assertEquals } from "jsr:@std/assert";
 import type { RecommenderRequest } from "../contracts/input.ts";
@@ -35,8 +35,17 @@ function assertArchetypeMatchesSlot(
 ): void {
   assertEquals(a.column, p.column);
   const paceOk = a.primary_pace === p.pace ||
-    (a.secondary_pace != null && a.secondary_pace === p.pace);
-  assert(paceOk, `expected slot pace ${p.pace} via primary or secondary`);
+    (a.secondary_pace != null && a.secondary_pace === p.pace) ||
+    Math.abs(
+        ["slow", "medium", "fast"].indexOf(a.primary_pace) -
+          ["slow", "medium", "fast"].indexOf(p.pace),
+      ) === 1 ||
+    (a.secondary_pace != null &&
+      Math.abs(
+          ["slow", "medium", "fast"].indexOf(a.secondary_pace) -
+            ["slow", "medium", "fast"].indexOf(p.pace),
+        ) === 1);
+  assert(paceOk, `expected slot pace ${p.pace} via exact or adjacent pace`);
 }
 
 Deno.test("selectSide: no adjacent-column fill — mid lure cannot fill upper slot", () => {
@@ -57,7 +66,7 @@ Deno.test("selectSide: no adjacent-column fill — mid lure cannot fill upper sl
   assertEquals(out.length, 0);
 });
 
-Deno.test("selectSide: no adjacent-pace fill", () => {
+Deno.test("selectSide: adjacent pace can fill a slot", () => {
   const row = baseRow({ primary_lure_ids: ["weightless_stick_worm"] });
   const out = selectArchetypesForSide({
     side: "lure",
@@ -68,6 +77,25 @@ Deno.test("selectSide: no adjacent-pace fill", () => {
     profiles: [{ column: "upper", pace: "fast" }],
     surfaceBlocked: false,
     seedBase: "t-adj-pace",
+  });
+  assertEquals(out.map((p) => p.archetype.id), ["weightless_stick_worm"]);
+});
+
+Deno.test("selectSide: slow primary pace does not satisfy a fast slot without an adjacent secondary", () => {
+  const row = baseRow({
+    species: "largemouth_bass",
+    water_type: "freshwater_lake_pond",
+    primary_lure_ids: ["carolina_rigged_stick_worm"],
+  });
+  const out = selectArchetypesForSide({
+    side: "lure",
+    row,
+    species: "largemouth_bass",
+    context: "freshwater_lake_pond",
+    water_clarity: "clear",
+    profiles: [{ column: "bottom", pace: "fast" }],
+    surfaceBlocked: false,
+    seedBase: "t-slow-fast",
   });
   assertEquals(out.length, 0);
 });
@@ -215,5 +243,8 @@ Deno.test("rebuild: Florida LMB river returns flies when early shared slots are 
     analyzeRecommenderConditions(req),
   );
   assert(eng.lureSlotPicks.length >= 1, "expected at least one lure");
-  assert(eng.flySlotPicks.length >= 1, "expected at least one fly after slot-skip");
+  assert(
+    eng.flySlotPicks.length >= 1,
+    "expected at least one fly after slot-skip",
+  );
 });

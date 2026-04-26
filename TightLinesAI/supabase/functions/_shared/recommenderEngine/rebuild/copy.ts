@@ -375,10 +375,14 @@ export const HOW_COPY_BY_ARCHETYPE_ID: Record<ArchetypeIdV4, PaceCopy> = {
   large_articulated_pike_streamer: flyStrip,
   unweighted_baitfish_streamer: flyStrip,
   baitfish_slider_fly: flyStrip,
+  warmwater_crawfish_fly: flyBottom,
+  warmwater_worm_fly: flyBottom,
   popper_fly: flySurface,
   deer_hair_slider: flySurface,
+  foam_gurgler_fly: flySurface,
   frog_fly: flySurface,
   feather_jig_leech: flyLeech,
+  pike_flash_fly: flyStrip,
   mouse_fly: flySurface,
 };
 

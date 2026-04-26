@@ -23,7 +23,12 @@ export type RecommenderV4Species = (typeof RECOMMENDER_V4_SPECIES)[number];
 
 // ── §16.1 Tactical enums ────────────────────────────────────────────────────
 
-export const TACTICAL_COLUMNS_V4 = ["bottom", "mid", "upper", "surface"] as const;
+export const TACTICAL_COLUMNS_V4 = [
+  "bottom",
+  "mid",
+  "upper",
+  "surface",
+] as const;
 export type TacticalColumn = (typeof TACTICAL_COLUMNS_V4)[number];
 
 export const TACTICAL_PACES_V4 = ["slow", "medium", "fast"] as const;
@@ -131,10 +136,14 @@ export const FLY_ARCHETYPE_IDS_V4 = [
   "large_articulated_pike_streamer",
   "unweighted_baitfish_streamer",
   "baitfish_slider_fly",
+  "warmwater_crawfish_fly",
+  "warmwater_worm_fly",
   "popper_fly",
   "deer_hair_slider",
+  "foam_gurgler_fly",
   "frog_fly",
   "feather_jig_leech",
+  "pike_flash_fly",
   "mouse_fly",
 ] as const;
 
@@ -145,6 +154,7 @@ export type ArchetypeIdV4 = LureArchetypeIdV4 | FlyArchetypeIdV4;
 export const SURFACE_FLY_IDS_V4 = [
   "popper_fly",
   "deer_hair_slider",
+  "foam_gurgler_fly",
   "frog_fly",
   "mouse_fly",
 ] as const;
@@ -159,6 +169,8 @@ export type ArchetypeProfileV4 = {
   species_allowed: readonly RecommenderV4Species[];
   water_types_allowed: readonly EngineContext[];
   family_group: string;
+  /** Internal diversity bucket for selection; not exposed on API responses (Pass 1). */
+  presentation_group: string;
   column: TacticalColumn;
   primary_pace: TacticalPace;
   secondary_pace?: TacticalPace;
@@ -208,7 +220,11 @@ export type DailyPayloadV4 = {
 
 export type ResolvedTacticsV4 = {
   today_columns: readonly TacticalColumn[];
-  column_distribution: readonly [TacticalColumn, TacticalColumn, TacticalColumn];
+  column_distribution: readonly [
+    TacticalColumn,
+    TacticalColumn,
+    TacticalColumn,
+  ];
   pace_distribution: readonly [TacticalPace, TacticalPace, TacticalPace];
 };
 
@@ -247,6 +263,14 @@ export type RecommenderResponseV4 = {
   generated_at: string;
   cache_expires_at: string;
   summary: RecommenderSummaryV4;
-  lure_recommendations: [RankedRecommendationV4, RankedRecommendationV4, RankedRecommendationV4];
-  fly_recommendations: [RankedRecommendationV4, RankedRecommendationV4, RankedRecommendationV4];
+  lure_recommendations: [
+    RankedRecommendationV4,
+    RankedRecommendationV4,
+    RankedRecommendationV4,
+  ];
+  fly_recommendations: [
+    RankedRecommendationV4,
+    RankedRecommendationV4,
+    RankedRecommendationV4,
+  ];
 };

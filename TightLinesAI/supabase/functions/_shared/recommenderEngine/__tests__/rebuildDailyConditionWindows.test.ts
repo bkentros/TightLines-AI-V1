@@ -88,6 +88,18 @@ function hourlyWindForUtcDate(
   }));
 }
 
+function hasConditionBoost(
+  trace: RebuildSlotSelectionTrace,
+  id: string,
+  window: string,
+  weight: number,
+): boolean {
+  return trace.candidateScores.some((score) =>
+    score.id === id &&
+    score.reasons.includes(`condition_window:${window}:+${weight}`)
+  );
+}
+
 Deno.test("daily wind: mean uses local 5 AM through 9 PM hourly samples", () => {
   const mean = meanDaylightWindMph({
     env_data: {
@@ -237,7 +249,7 @@ Deno.test("fly condition slot is deterministic and avoids forage and clarity slo
   );
 });
 
-Deno.test("surface condition window narrows only an existing surface finalist lane", () => {
+Deno.test("surface condition window scores matching lures without narrowing the pool", () => {
   const seedBase = "surface-window";
   const forageSlot = forageDesignatedSlot({ seedBase, side: "lure" });
   const claritySlot = clarityDesignatedSlot({
@@ -278,12 +290,32 @@ Deno.test("surface condition window narrows only an existing surface finalist la
   });
 
   assertEquals(picks.length, 1);
-  assertEquals(picks[0]!.archetype.id, "walking_topwater");
-  const shaped = traces.filter((trace) => trace.conditionNarrowed);
-  assertEquals(shaped.length, 1);
-  assertEquals(shaped[0]!.slot, conditionSlot);
-  assertEquals(shaped[0]!.conditionWindow, "surface_commitment_window");
-  assert(shaped[0]!.finalistIds.every((id) => id === "walking_topwater"));
+  const shaped = traces[conditionSlot]!;
+  assertEquals(shaped.conditionNarrowed, false);
+  assertEquals(shaped.conditionWindow, "surface_commitment_window");
+  assert(
+    shaped.conditionCandidateIds.every((id) =>
+      ["walking_topwater", "popping_topwater", "prop_bait", "buzzbait"]
+        .includes(id)
+    ),
+  );
+  assert(
+    hasConditionBoost(
+      shaped,
+      "walking_topwater",
+      "surface_commitment_window",
+      24,
+    ),
+  );
+  assert(
+    hasConditionBoost(
+      shaped,
+      "popping_topwater",
+      "surface_commitment_window",
+      24,
+    ),
+  );
+  assert(shaped.finalistIds.includes("prop_bait"));
 });
 
 Deno.test("surface condition window does nothing when no surface slot is present", () => {
@@ -309,7 +341,97 @@ Deno.test("surface condition window does nothing when no surface slot is present
   assertEquals(traces.some((trace) => trace.conditionNarrowed), false);
 });
 
-Deno.test("trout mouse window narrows only a true summer trout river mouse lane", () => {
+Deno.test("wind reaction lure window boosts reaction baits without hard-removing other mid options", () => {
+  const row = baseRow({
+    primary_lure_ids: [
+      "spinnerbait",
+      "bladed_jig",
+      "lipless_crankbait",
+      "paddle_tail_swimbait",
+      "swim_jig",
+      "suspending_jerkbait",
+    ],
+  });
+  const traces: RebuildSlotSelectionTrace[] = [];
+
+  const picks = selectArchetypesForSide({
+    side: "lure",
+    row,
+    species: row.species,
+    context: row.water_type,
+    water_clarity: "stained",
+    profiles: [{ column: "mid", pace: "medium" }],
+    surfaceBlocked: false,
+    seedBase: "wind-reaction-weighted",
+    lureConditionState: conditionState({
+      regime: "neutral",
+      wind_band: "windy",
+      daylight_wind_mph: 16,
+    }),
+    onSlotTrace: (trace) => traces.push(trace),
+  });
+
+  assertEquals(picks.length, 1);
+  const trace = traces[0]!;
+  assertEquals(trace.conditionNarrowed, false);
+  assertEquals(trace.conditionWindow, "wind_reaction_window");
+  assert(trace.conditionCandidateIds.includes("spinnerbait"));
+  assert(trace.conditionCandidateIds.includes("bladed_jig"));
+  assert(trace.conditionCandidateIds.includes("lipless_crankbait"));
+  assert(hasConditionBoost(trace, "spinnerbait", "wind_reaction_window", 28));
+  assert(
+    hasConditionBoost(trace, "lipless_crankbait", "wind_reaction_window", 28),
+  );
+  assert(trace.finalistIds.includes("paddle_tail_swimbait"));
+  assert(trace.finalistIds.includes("swim_jig"));
+});
+
+Deno.test("clear subtle lure window boosts multiple subtle clear-water tools without guaranteeing suspending jerkbait", () => {
+  const row = baseRow({
+    primary_lure_ids: [
+      "suspending_jerkbait",
+      "drop_shot_minnow",
+      "drop_shot_worm",
+      "paddle_tail_swimbait",
+    ],
+  });
+  const traces: RebuildSlotSelectionTrace[] = [];
+
+  const picks = selectArchetypesForSide({
+    side: "lure",
+    row,
+    species: row.species,
+    context: row.water_type,
+    water_clarity: "clear",
+    profiles: [{ column: "mid", pace: "medium" }],
+    surfaceBlocked: false,
+    seedBase: "clear-subtle-weighted",
+    lureConditionState: conditionState({
+      regime: "neutral",
+      water_clarity: "clear",
+      wind_band: "calm",
+      daylight_wind_mph: 4,
+    }),
+    onSlotTrace: (trace) => traces.push(trace),
+  });
+
+  assertEquals(picks.length, 1);
+  const trace = traces[0]!;
+  assertEquals(trace.conditionNarrowed, false);
+  assertEquals(trace.conditionWindow, "clear_subtle_window");
+  assert(trace.conditionCandidateIds.includes("suspending_jerkbait"));
+  assert(trace.conditionCandidateIds.includes("drop_shot_minnow"));
+  assert(trace.conditionCandidateIds.includes("drop_shot_worm"));
+  assert(
+    hasConditionBoost(trace, "suspending_jerkbait", "clear_subtle_window", 22),
+  );
+  assert(
+    hasConditionBoost(trace, "drop_shot_minnow", "clear_subtle_window", 22),
+  );
+  assert(trace.finalistIds.includes("paddle_tail_swimbait"));
+});
+
+Deno.test("trout mouse window boosts mouse without hard-locking the lane", () => {
   const seedBase = "trout-mouse-window";
   const forageSlot = forageDesignatedSlot({ seedBase, side: "fly" });
   const claritySlot = clarityDesignatedSlot({
@@ -360,15 +482,52 @@ Deno.test("trout mouse window narrows only a true summer trout river mouse lane"
   });
 
   assertEquals(picks.length, 1);
-  assertEquals(picks[0]!.archetype.id, "mouse_fly");
-  const shaped = traces.filter((trace) => trace.conditionNarrowed);
-  assertEquals(shaped.length, 1);
-  assertEquals(shaped[0]!.slot, conditionSlot);
-  assertEquals(shaped[0]!.conditionWindow, "trout_mouse_window");
-  assertEquals(shaped[0]!.finalistIds, ["mouse_fly"]);
+  const shaped = traces[conditionSlot]!;
+  assertEquals(shaped.conditionNarrowed, false);
+  assertEquals(shaped.conditionWindow, "trout_mouse_window");
+  assert(shaped.conditionCandidateIds.includes("mouse_fly"));
+  assert(
+    hasConditionBoost(shaped, "mouse_fly", "trout_mouse_window", 36),
+  );
 });
 
-Deno.test("surface commitment fly window narrows only an existing surface finalist lane", () => {
+Deno.test("trout mouse window is inactive outside trout river summer calm surface context", () => {
+  assertEquals(
+    activeFlyConditionWindow(
+      flyConditionState({
+        species: "trout",
+        context: "freshwater_river",
+        month: 5,
+        wind_band: "calm",
+      }),
+    ),
+    "surface_commitment_fly_window",
+  );
+  assertEquals(
+    activeFlyConditionWindow(
+      flyConditionState({
+        species: "trout",
+        context: "freshwater_river",
+        month: 7,
+        wind_band: "breezy",
+      }),
+    ),
+    "surface_commitment_fly_window",
+  );
+  assertEquals(
+    activeFlyConditionWindow(
+      flyConditionState({
+        species: "largemouth_bass",
+        context: "freshwater_lake_pond",
+        month: 7,
+        wind_band: "calm",
+      }),
+    ),
+    "surface_commitment_fly_window",
+  );
+});
+
+Deno.test("surface commitment fly window scores matching flies without narrowing", () => {
   const seedBase = "surface-fly-window";
   const forageSlot = forageDesignatedSlot({ seedBase, side: "fly" });
   const claritySlot = clarityDesignatedSlot({
@@ -409,18 +568,25 @@ Deno.test("surface commitment fly window narrows only an existing surface finali
   });
 
   assertEquals(picks.length, 1);
-  const shaped = traces.filter((trace) => trace.conditionNarrowed);
-  assertEquals(shaped.length, 1);
-  assertEquals(shaped[0]!.slot, conditionSlot);
-  assertEquals(shaped[0]!.conditionWindow, "surface_commitment_fly_window");
+  const shaped = traces[conditionSlot]!;
+  assertEquals(shaped.conditionNarrowed, false);
+  assertEquals(shaped.conditionWindow, "surface_commitment_fly_window");
   assert(
-    shaped[0]!.finalistIds.every((id) =>
+    shaped.conditionCandidateIds.every((id) =>
       ["popper_fly", "frog_fly", "deer_hair_slider"].includes(id)
+    ),
+  );
+  assert(
+    shaped.candidateScores.some((score) =>
+      score.id === "frog_fly" &&
+      score.reasons.includes(
+        "condition_window:surface_commitment_fly_window:+24",
+      )
     ),
   );
 });
 
-Deno.test("fly condition windows shape at most one pick and do not stack", () => {
+Deno.test("fly condition windows apply one active bonus and do not narrow", () => {
   const seedBase = "fly-condition-single-slot";
   const forageSlot = forageDesignatedSlot({ seedBase, side: "fly" });
   const claritySlot = clarityDesignatedSlot({
@@ -470,7 +636,13 @@ Deno.test("fly condition windows shape at most one pick and do not stack", () =>
     onSlotTrace: (trace) => traces.push(trace),
   });
 
-  assertEquals(traces.filter((trace) => trace.conditionNarrowed).length, 1);
+  assertEquals(traces.filter((trace) => trace.conditionNarrowed).length, 0);
+  assert(
+    traces.some((trace) =>
+      trace.conditionWindow === "trout_mouse_window" &&
+      hasConditionBoost(trace, "mouse_fly", "trout_mouse_window", 36)
+    ),
+  );
 });
 
 Deno.test("lure condition state alone does not alter fly selections", () => {

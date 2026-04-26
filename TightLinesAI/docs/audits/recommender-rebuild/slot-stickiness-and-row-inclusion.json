@@ -1,0 +1,2724 @@
+{
+  "generated_at": "2026-04-26T16:40:43.455Z",
+  "date_count": 30,
+  "contexts": [
+    {
+      "id": "florida_lmb_lake_warm_stained_surface",
+      "label": "Florida LMB lake/pond warm stained surface",
+      "species": "largemouth_bass",
+      "water_type": "freshwater_lake_pond",
+      "preferred_regions": [
+        "florida"
+      ],
+      "month": 8,
+      "clarity": "stained",
+      "regime": "aggressive",
+      "wind_band": "calm",
+      "start_date": "2026-08-01",
+      "surface_focus": true
+    },
+    {
+      "id": "gulf_lmb_lake_warm_stained_surface",
+      "label": "Gulf Coast LMB lake/pond warm stained surface",
+      "species": "largemouth_bass",
+      "water_type": "freshwater_lake_pond",
+      "preferred_regions": [
+        "gulf_coast",
+        "southeast_atlantic"
+      ],
+      "month": 8,
+      "clarity": "stained",
+      "regime": "aggressive",
+      "wind_band": "calm",
+      "start_date": "2026-08-01",
+      "surface_focus": true
+    },
+    {
+      "id": "lmb_river_warm",
+      "label": "LMB river warm context",
+      "species": "largemouth_bass",
+      "water_type": "freshwater_river",
+      "preferred_regions": [
+        "gulf_coast",
+        "southeast_atlantic",
+        "appalachian"
+      ],
+      "month": 7,
+      "clarity": "stained",
+      "regime": "neutral",
+      "wind_band": "breezy",
+      "start_date": "2026-07-01"
+    },
+    {
+      "id": "smallmouth_lake_summer",
+      "label": "Smallmouth lake/pond summer context",
+      "species": "smallmouth_bass",
+      "water_type": "freshwater_lake_pond",
+      "preferred_regions": [
+        "great_lakes_upper_midwest",
+        "northeast"
+      ],
+      "month": 7,
+      "clarity": "clear",
+      "regime": "neutral",
+      "wind_band": "breezy",
+      "start_date": "2026-07-01"
+    },
+    {
+      "id": "smallmouth_river_summer",
+      "label": "Smallmouth river summer context",
+      "species": "smallmouth_bass",
+      "water_type": "freshwater_river",
+      "preferred_regions": [
+        "great_lakes_upper_midwest",
+        "appalachian"
+      ],
+      "month": 7,
+      "clarity": "clear",
+      "regime": "neutral",
+      "wind_band": "breezy",
+      "start_date": "2026-07-01"
+    },
+    {
+      "id": "pike_lake_summer",
+      "label": "Pike lake/pond summer context",
+      "species": "northern_pike",
+      "water_type": "freshwater_lake_pond",
+      "preferred_regions": [
+        "great_lakes_upper_midwest",
+        "midwest_interior"
+      ],
+      "month": 7,
+      "clarity": "stained",
+      "regime": "neutral",
+      "wind_band": "breezy",
+      "start_date": "2026-07-01"
+    },
+    {
+      "id": "pike_river_summer",
+      "label": "Pike river summer context",
+      "species": "northern_pike",
+      "water_type": "freshwater_river",
+      "preferred_regions": [
+        "great_lakes_upper_midwest",
+        "midwest_interior"
+      ],
+      "month": 7,
+      "clarity": "stained",
+      "regime": "neutral",
+      "wind_band": "breezy",
+      "start_date": "2026-07-01"
+    },
+    {
+      "id": "trout_river_summer",
+      "label": "Trout river summer context",
+      "species": "trout",
+      "water_type": "freshwater_river",
+      "preferred_regions": [
+        "mountain_west",
+        "mountain_alpine",
+        "northeast"
+      ],
+      "month": 7,
+      "clarity": "clear",
+      "regime": "neutral",
+      "wind_band": "calm",
+      "start_date": "2026-07-01"
+    },
+    {
+      "id": "cold_winter_bass_lake",
+      "label": "Cold winter bass lake/pond context",
+      "species": "largemouth_bass",
+      "water_type": "freshwater_lake_pond",
+      "preferred_regions": [
+        "appalachian",
+        "midwest_interior"
+      ],
+      "month": 1,
+      "clarity": "clear",
+      "regime": "suppressive",
+      "wind_band": "breezy",
+      "start_date": "2026-01-01",
+      "winter": true
+    },
+    {
+      "id": "cold_winter_trout_river",
+      "label": "Cold winter trout river context",
+      "species": "trout",
+      "water_type": "freshwater_river",
+      "preferred_regions": [
+        "mountain_west",
+        "mountain_alpine",
+        "northeast"
+      ],
+      "month": 1,
+      "clarity": "clear",
+      "regime": "suppressive",
+      "wind_band": "breezy",
+      "start_date": "2026-01-01",
+      "winter": true
+    }
+  ],
+  "slot_stickiness": [
+    {
+      "context_id": "florida_lmb_lake_warm_stained_surface",
+      "label": "Florida LMB lake/pond warm stained surface",
+      "row_key": "largemouth_bass|florida|freshwater_lake_pond|8",
+      "clarity": "stained",
+      "regime": "aggressive",
+      "wind_band": "calm",
+      "date_count": 30,
+      "lure": {
+        "side": "lure",
+        "classification": "healthy_rotation",
+        "slot_metrics": [
+          {
+            "slot": 1,
+            "unique_pick_count": 3,
+            "same_pick_rate_pct": 58.62,
+            "presentation_group_unique_count": 2,
+            "family_group_unique_count": 2,
+            "variety_rescue_used_count": 0,
+            "forage_boost_count": 30,
+            "clarity_boost_count": 30,
+            "condition_window_boost_count": 0,
+            "top_picks": [
+              {
+                "id": "flat_sided_crankbait",
+                "count": 13
+              },
+              {
+                "id": "soft_jerkbait",
+                "count": 9
+              },
+              {
+                "id": "squarebill_crankbait",
+                "count": 8
+              }
+            ]
+          },
+          {
+            "slot": 2,
+            "unique_pick_count": 7,
+            "same_pick_rate_pct": 10.34,
+            "presentation_group_unique_count": 6,
+            "family_group_unique_count": 7,
+            "variety_rescue_used_count": 0,
+            "forage_boost_count": 30,
+            "clarity_boost_count": 30,
+            "condition_window_boost_count": 0,
+            "top_picks": [
+              {
+                "id": "paddle_tail_swimbait",
+                "count": 6
+              },
+              {
+                "id": "suspending_jerkbait",
+                "count": 6
+              },
+              {
+                "id": "bladed_jig",
+                "count": 5
+              },
+              {
+                "id": "drop_shot_minnow",
+                "count": 4
+              },
+              {
+                "id": "swim_jig",
+                "count": 4
+              }
+            ]
+          },
+          {
+            "slot": 3,
+            "unique_pick_count": 3,
+            "same_pick_rate_pct": 37.93,
+            "presentation_group_unique_count": 2,
+            "family_group_unique_count": 3,
+            "variety_rescue_used_count": 0,
+            "forage_boost_count": 16,
+            "clarity_boost_count": 30,
+            "condition_window_boost_count": 30,
+            "top_picks": [
+              {
+                "id": "hollow_body_frog",
+                "count": 14
+              },
+              {
+                "id": "walking_topwater",
+                "count": 11
+              },
+              {
+                "id": "buzzbait",
+                "count": 5
+              }
+            ]
+          }
+        ],
+        "full_triple_unique_count": 23,
+        "full_triple_repeat_rate_pct": 23.33,
+        "adjacent_full_triple_repeat_rate_pct": 0,
+        "first_two_unique_count": 18,
+        "first_two_repeat_rate_pct": 40,
+        "same_first_two_while_slot3_rotates": false
+      },
+      "fly": {
+        "side": "fly",
+        "classification": "fly_side_structural_thinness_review",
+        "slot_metrics": [
+          {
+            "slot": 1,
+            "unique_pick_count": 2,
+            "same_pick_rate_pct": 55.17,
+            "presentation_group_unique_count": 2,
+            "family_group_unique_count": 2,
+            "variety_rescue_used_count": 0,
+            "forage_boost_count": 30,
+            "clarity_boost_count": 30,
+            "condition_window_boost_count": 0,
+            "top_picks": [
+              {
+                "id": "baitfish_slider_fly",
+                "count": 21
+              },
+              {
+                "id": "unweighted_baitfish_streamer",
+                "count": 9
+              }
+            ]
+          },
+          {
+            "slot": 2,
+            "unique_pick_count": 6,
+            "same_pick_rate_pct": 20.69,
+            "presentation_group_unique_count": 3,
+            "family_group_unique_count": 5,
+            "variety_rescue_used_count": 0,
+            "forage_boost_count": 22,
+            "clarity_boost_count": 30,
+            "condition_window_boost_count": 0,
+            "top_picks": [
+              {
+                "id": "articulated_dungeon_streamer",
+                "count": 9
+              },
+              {
+                "id": "woolly_bugger",
+                "count": 8
+              },
+              {
+                "id": "clouser_minnow",
+                "count": 5
+              },
+              {
+                "id": "articulated_baitfish_streamer",
+                "count": 3
+              },
+              {
+                "id": "game_changer",
+                "count": 3
+              }
+            ]
+          },
+          {
+            "slot": 3,
+            "unique_pick_count": 3,
+            "same_pick_rate_pct": 48.28,
+            "presentation_group_unique_count": 3,
+            "family_group_unique_count": 3,
+            "variety_rescue_used_count": 0,
+            "forage_boost_count": 19,
+            "clarity_boost_count": 30,
+            "condition_window_boost_count": 30,
+            "top_picks": [
+              {
+                "id": "deer_hair_slider",
+                "count": 11
+              },
+              {
+                "id": "frog_fly",
+                "count": 11
+              },
+              {
+                "id": "popper_fly",
+                "count": 8
+              }
+            ]
+          }
+        ],
+        "full_triple_unique_count": 17,
+        "full_triple_repeat_rate_pct": 43.33,
+        "adjacent_full_triple_repeat_rate_pct": 0,
+        "first_two_unique_count": 8,
+        "first_two_repeat_rate_pct": 73.33,
+        "same_first_two_while_slot3_rotates": false
+      },
+      "frog_summary": {
+        "context_id": "florida_lmb_lake_warm_stained_surface",
+        "southern_lmb_surface_context": true,
+        "surface_slot_dates": 30,
+        "frog_candidate_rate_pct": 100,
+        "frog_finalist_rate_pct": 100,
+        "frog_pick_rate_pct": 66.67
+      }
+    },
+    {
+      "context_id": "gulf_lmb_lake_warm_stained_surface",
+      "label": "Gulf Coast LMB lake/pond warm stained surface",
+      "row_key": "largemouth_bass|gulf_coast|freshwater_lake_pond|8",
+      "clarity": "stained",
+      "regime": "aggressive",
+      "wind_band": "calm",
+      "date_count": 30,
+      "lure": {
+        "side": "lure",
+        "classification": "healthy_rotation",
+        "slot_metrics": [
+          {
+            "slot": 1,
+            "unique_pick_count": 3,
+            "same_pick_rate_pct": 48.28,
+            "presentation_group_unique_count": 2,
+            "family_group_unique_count": 2,
+            "variety_rescue_used_count": 0,
+            "forage_boost_count": 30,
+            "clarity_boost_count": 30,
+            "condition_window_boost_count": 0,
+            "top_picks": [
+              {
+                "id": "squarebill_crankbait",
+                "count": 15
+              },
+              {
+                "id": "flat_sided_crankbait",
+                "count": 8
+              },
+              {
+                "id": "soft_jerkbait",
+                "count": 7
+              }
+            ]
+          },
+          {
+            "slot": 2,
+            "unique_pick_count": 7,
+            "same_pick_rate_pct": 24.14,
+            "presentation_group_unique_count": 6,
+            "family_group_unique_count": 7,
+            "variety_rescue_used_count": 0,
+            "forage_boost_count": 30,
+            "clarity_boost_count": 30,
+            "condition_window_boost_count": 0,
+            "top_picks": [
+              {
+                "id": "bladed_jig",
+                "count": 10
+              },
+              {
+                "id": "spinnerbait",
+                "count": 6
+              },
+              {
+                "id": "swim_jig",
+                "count": 5
+              },
+              {
+                "id": "paddle_tail_swimbait",
+                "count": 3
+              },
+              {
+                "id": "suspending_jerkbait",
+                "count": 3
+              }
+            ]
+          },
+          {
+            "slot": 3,
+            "unique_pick_count": 3,
+            "same_pick_rate_pct": 34.48,
+            "presentation_group_unique_count": 2,
+            "family_group_unique_count": 3,
+            "variety_rescue_used_count": 0,
+            "forage_boost_count": 18,
+            "clarity_boost_count": 30,
+            "condition_window_boost_count": 30,
+            "top_picks": [
+              {
+                "id": "walking_topwater",
+                "count": 14
+              },
+              {
+                "id": "hollow_body_frog",
+                "count": 12
+              },
+              {
+                "id": "buzzbait",
+                "count": 4
+              }
+            ]
+          }
+        ],
+        "full_triple_unique_count": 23,
+        "full_triple_repeat_rate_pct": 23.33,
+        "adjacent_full_triple_repeat_rate_pct": 3.45,
+        "first_two_unique_count": 15,
+        "first_two_repeat_rate_pct": 50,
+        "same_first_two_while_slot3_rotates": false
+      },
+      "fly": {
+        "side": "fly",
+        "classification": "fly_side_structural_thinness_review",
+        "slot_metrics": [
+          {
+            "slot": 1,
+            "unique_pick_count": 2,
+            "same_pick_rate_pct": 44.83,
+            "presentation_group_unique_count": 2,
+            "family_group_unique_count": 2,
+            "variety_rescue_used_count": 0,
+            "forage_boost_count": 30,
+            "clarity_boost_count": 30,
+            "condition_window_boost_count": 0,
+            "top_picks": [
+              {
+                "id": "baitfish_slider_fly",
+                "count": 17
+              },
+              {
+                "id": "unweighted_baitfish_streamer",
+                "count": 13
+              }
+            ]
+          },
+          {
+            "slot": 2,
+            "unique_pick_count": 6,
+            "same_pick_rate_pct": 13.79,
+            "presentation_group_unique_count": 3,
+            "family_group_unique_count": 5,
+            "variety_rescue_used_count": 0,
+            "forage_boost_count": 23,
+            "clarity_boost_count": 30,
+            "condition_window_boost_count": 0,
+            "top_picks": [
+              {
+                "id": "articulated_dungeon_streamer",
+                "count": 11
+              },
+              {
+                "id": "woolly_bugger",
+                "count": 7
+              },
+              {
+                "id": "deceiver",
+                "count": 5
+              },
+              {
+                "id": "clouser_minnow",
+                "count": 4
+              },
+              {
+                "id": "game_changer",
+                "count": 2
+              }
+            ]
+          },
+          {
+            "slot": 3,
+            "unique_pick_count": 3,
+            "same_pick_rate_pct": 27.59,
+            "presentation_group_unique_count": 3,
+            "family_group_unique_count": 3,
+            "variety_rescue_used_count": 0,
+            "forage_boost_count": 22,
+            "clarity_boost_count": 30,
+            "condition_window_boost_count": 30,
+            "top_picks": [
+              {
+                "id": "deer_hair_slider",
+                "count": 12
+              },
+              {
+                "id": "popper_fly",
+                "count": 10
+              },
+              {
+                "id": "frog_fly",
+                "count": 8
+              }
+            ]
+          }
+        ],
+        "full_triple_unique_count": 17,
+        "full_triple_repeat_rate_pct": 43.33,
+        "adjacent_full_triple_repeat_rate_pct": 3.45,
+        "first_two_unique_count": 8,
+        "first_two_repeat_rate_pct": 73.33,
+        "same_first_two_while_slot3_rotates": false
+      },
+      "frog_summary": {
+        "context_id": "gulf_lmb_lake_warm_stained_surface",
+        "southern_lmb_surface_context": true,
+        "surface_slot_dates": 30,
+        "frog_candidate_rate_pct": 100,
+        "frog_finalist_rate_pct": 100,
+        "frog_pick_rate_pct": 53.33
+      }
+    },
+    {
+      "context_id": "lmb_river_warm",
+      "label": "LMB river warm context",
+      "row_key": "largemouth_bass|gulf_coast|freshwater_river|7",
+      "clarity": "stained",
+      "regime": "neutral",
+      "wind_band": "breezy",
+      "date_count": 30,
+      "lure": {
+        "side": "lure",
+        "classification": "healthy_rotation",
+        "slot_metrics": [
+          {
+            "slot": 1,
+            "unique_pick_count": 8,
+            "same_pick_rate_pct": 6.9,
+            "presentation_group_unique_count": 6,
+            "family_group_unique_count": 8,
+            "variety_rescue_used_count": 0,
+            "forage_boost_count": 30,
+            "clarity_boost_count": 30,
+            "condition_window_boost_count": 0,
+            "top_picks": [
+              {
+                "id": "swim_jig",
+                "count": 6
+              },
+              {
+                "id": "bladed_jig",
+                "count": 5
+              },
+              {
+                "id": "suspending_jerkbait",
+                "count": 5
+              },
+              {
+                "id": "lipless_crankbait",
+                "count": 4
+              },
+              {
+                "id": "medium_diving_crankbait",
+                "count": 4
+              }
+            ]
+          },
+          {
+            "slot": 2,
+            "unique_pick_count": 3,
+            "same_pick_rate_pct": 37.93,
+            "presentation_group_unique_count": 2,
+            "family_group_unique_count": 2,
+            "variety_rescue_used_count": 0,
+            "forage_boost_count": 30,
+            "clarity_boost_count": 30,
+            "condition_window_boost_count": 0,
+            "top_picks": [
+              {
+                "id": "soft_jerkbait",
+                "count": 14
+              },
+              {
+                "id": "flat_sided_crankbait",
+                "count": 10
+              },
+              {
+                "id": "squarebill_crankbait",
+                "count": 6
+              }
+            ]
+          },
+          {
+            "slot": 3,
+            "unique_pick_count": 3,
+            "same_pick_rate_pct": 44.83,
+            "presentation_group_unique_count": 3,
+            "family_group_unique_count": 3,
+            "variety_rescue_used_count": 0,
+            "forage_boost_count": 30,
+            "clarity_boost_count": 30,
+            "condition_window_boost_count": 0,
+            "top_picks": [
+              {
+                "id": "tube_jig",
+                "count": 12
+              },
+              {
+                "id": "blade_bait",
+                "count": 10
+              },
+              {
+                "id": "compact_flipping_jig",
+                "count": 8
+              }
+            ]
+          }
+        ],
+        "full_triple_unique_count": 24,
+        "full_triple_repeat_rate_pct": 20,
+        "adjacent_full_triple_repeat_rate_pct": 0,
+        "first_two_unique_count": 14,
+        "first_two_repeat_rate_pct": 53.33,
+        "same_first_two_while_slot3_rotates": false
+      },
+      "fly": {
+        "side": "fly",
+        "classification": "fly_side_structural_thinness_review",
+        "slot_metrics": [
+          {
+            "slot": 1,
+            "unique_pick_count": 6,
+            "same_pick_rate_pct": 13.79,
+            "presentation_group_unique_count": 3,
+            "family_group_unique_count": 5,
+            "variety_rescue_used_count": 0,
+            "forage_boost_count": 24,
+            "clarity_boost_count": 30,
+            "condition_window_boost_count": 0,
+            "top_picks": [
+              {
+                "id": "articulated_baitfish_streamer",
+                "count": 7
+              },
+              {
+                "id": "deceiver",
+                "count": 6
+              },
+              {
+                "id": "woolly_bugger",
+                "count": 6
+              },
+              {
+                "id": "articulated_dungeon_streamer",
+                "count": 5
+              },
+              {
+                "id": "game_changer",
+                "count": 4
+              }
+            ]
+          },
+          {
+            "slot": 2,
+            "unique_pick_count": 2,
+            "same_pick_rate_pct": 75.86,
+            "presentation_group_unique_count": 2,
+            "family_group_unique_count": 2,
+            "variety_rescue_used_count": 0,
+            "forage_boost_count": 30,
+            "clarity_boost_count": 30,
+            "condition_window_boost_count": 0,
+            "top_picks": [
+              {
+                "id": "baitfish_slider_fly",
+                "count": 24
+              },
+              {
+                "id": "unweighted_baitfish_streamer",
+                "count": 6
+              }
+            ]
+          },
+          {
+            "slot": 3,
+            "unique_pick_count": 4,
+            "same_pick_rate_pct": 13.79,
+            "presentation_group_unique_count": 1,
+            "family_group_unique_count": 1,
+            "variety_rescue_used_count": 0,
+            "forage_boost_count": 0,
+            "clarity_boost_count": 30,
+            "condition_window_boost_count": 0,
+            "top_picks": [
+              {
+                "id": "lead_eye_leech",
+                "count": 11
+              },
+              {
+                "id": "jighead_marabou_leech",
+                "count": 9
+              },
+              {
+                "id": "rabbit_strip_leech",
+                "count": 7
+              },
+              {
+                "id": "feather_jig_leech",
+                "count": 3
+              }
+            ]
+          }
+        ],
+        "full_triple_unique_count": 18,
+        "full_triple_repeat_rate_pct": 40,
+        "adjacent_full_triple_repeat_rate_pct": 3.45,
+        "first_two_unique_count": 8,
+        "first_two_repeat_rate_pct": 73.33,
+        "same_first_two_while_slot3_rotates": false
+      },
+      "frog_summary": {
+        "context_id": "lmb_river_warm",
+        "southern_lmb_surface_context": false,
+        "surface_slot_dates": 0,
+        "frog_candidate_rate_pct": 0,
+        "frog_finalist_rate_pct": 0,
+        "frog_pick_rate_pct": 0
+      }
+    },
+    {
+      "context_id": "smallmouth_lake_summer",
+      "label": "Smallmouth lake/pond summer context",
+      "row_key": "smallmouth_bass|great_lakes_upper_midwest|freshwater_lake_pond|7",
+      "clarity": "clear",
+      "regime": "neutral",
+      "wind_band": "breezy",
+      "date_count": 30,
+      "lure": {
+        "side": "lure",
+        "classification": "healthy_rotation",
+        "slot_metrics": [
+          {
+            "slot": 1,
+            "unique_pick_count": 9,
+            "same_pick_rate_pct": 3.45,
+            "presentation_group_unique_count": 6,
+            "family_group_unique_count": 9,
+            "variety_rescue_used_count": 0,
+            "forage_boost_count": 30,
+            "clarity_boost_count": 15,
+            "condition_window_boost_count": 8,
+            "top_picks": [
+              {
+                "id": "bladed_jig",
+                "count": 5
+              },
+              {
+                "id": "spinnerbait",
+                "count": 5
+              },
+              {
+                "id": "suspending_jerkbait",
+                "count": 5
+              },
+              {
+                "id": "drop_shot_minnow",
+                "count": 3
+              },
+              {
+                "id": "paddle_tail_swimbait",
+                "count": 3
+              }
+            ]
+          },
+          {
+            "slot": 2,
+            "unique_pick_count": 3,
+            "same_pick_rate_pct": 34.48,
+            "presentation_group_unique_count": 2,
+            "family_group_unique_count": 2,
+            "variety_rescue_used_count": 0,
+            "forage_boost_count": 30,
+            "clarity_boost_count": 21,
+            "condition_window_boost_count": 14,
+            "top_picks": [
+              {
+                "id": "soft_jerkbait",
+                "count": 14
+              },
+              {
+                "id": "squarebill_crankbait",
+                "count": 9
+              },
+              {
+                "id": "flat_sided_crankbait",
+                "count": 7
+              }
+            ]
+          },
+          {
+            "slot": 3,
+            "unique_pick_count": 8,
+            "same_pick_rate_pct": 6.9,
+            "presentation_group_unique_count": 5,
+            "family_group_unique_count": 6,
+            "variety_rescue_used_count": 0,
+            "forage_boost_count": 30,
+            "clarity_boost_count": 30,
+            "condition_window_boost_count": 0,
+            "top_picks": [
+              {
+                "id": "ned_rig",
+                "count": 6
+              },
+              {
+                "id": "blade_bait",
+                "count": 5
+              },
+              {
+                "id": "texas_rigged_soft_plastic_craw",
+                "count": 5
+              },
+              {
+                "id": "tube_jig",
+                "count": 4
+              },
+              {
+                "id": "finesse_jig",
+                "count": 3
+              }
+            ]
+          }
+        ],
+        "full_triple_unique_count": 25,
+        "full_triple_repeat_rate_pct": 16.67,
+        "adjacent_full_triple_repeat_rate_pct": 0,
+        "first_two_unique_count": 13,
+        "first_two_repeat_rate_pct": 56.67,
+        "same_first_two_while_slot3_rotates": false
+      },
+      "fly": {
+        "side": "fly",
+        "classification": "fly_side_structural_thinness_review",
+        "slot_metrics": [
+          {
+            "slot": 1,
+            "unique_pick_count": 7,
+            "same_pick_rate_pct": 20.69,
+            "presentation_group_unique_count": 3,
+            "family_group_unique_count": 5,
+            "variety_rescue_used_count": 0,
+            "forage_boost_count": 26,
+            "clarity_boost_count": 24,
+            "condition_window_boost_count": 0,
+            "top_picks": [
+              {
+                "id": "clouser_minnow",
+                "count": 7
+              },
+              {
+                "id": "deceiver",
+                "count": 5
+              },
+              {
+                "id": "zonker_streamer",
+                "count": 5
+              },
+              {
+                "id": "woolly_bugger",
+                "count": 4
+              },
+              {
+                "id": "articulated_baitfish_streamer",
+                "count": 3
+              }
+            ]
+          },
+          {
+            "slot": 2,
+            "unique_pick_count": 2,
+            "same_pick_rate_pct": 86.21,
+            "presentation_group_unique_count": 2,
+            "family_group_unique_count": 2,
+            "variety_rescue_used_count": 0,
+            "forage_boost_count": 30,
+            "clarity_boost_count": 30,
+            "condition_window_boost_count": 0,
+            "top_picks": [
+              {
+                "id": "baitfish_slider_fly",
+                "count": 28
+              },
+              {
+                "id": "unweighted_baitfish_streamer",
+                "count": 2
+              }
+            ]
+          },
+          {
+            "slot": 3,
+            "unique_pick_count": 5,
+            "same_pick_rate_pct": 24.14,
+            "presentation_group_unique_count": 2,
+            "family_group_unique_count": 2,
+            "variety_rescue_used_count": 0,
+            "forage_boost_count": 9,
+            "clarity_boost_count": 27,
+            "condition_window_boost_count": 0,
+            "top_picks": [
+              {
+                "id": "warmwater_crawfish_fly",
+                "count": 9
+              },
+              {
+                "id": "lead_eye_leech",
+                "count": 7
+              },
+              {
+                "id": "feather_jig_leech",
+                "count": 6
+              },
+              {
+                "id": "jighead_marabou_leech",
+                "count": 5
+              },
+              {
+                "id": "rabbit_strip_leech",
+                "count": 3
+              }
+            ]
+          }
+        ],
+        "full_triple_unique_count": 23,
+        "full_triple_repeat_rate_pct": 23.33,
+        "adjacent_full_triple_repeat_rate_pct": 3.45,
+        "first_two_unique_count": 9,
+        "first_two_repeat_rate_pct": 70,
+        "same_first_two_while_slot3_rotates": false
+      },
+      "frog_summary": {
+        "context_id": "smallmouth_lake_summer",
+        "southern_lmb_surface_context": false,
+        "surface_slot_dates": 0,
+        "frog_candidate_rate_pct": 0,
+        "frog_finalist_rate_pct": 0,
+        "frog_pick_rate_pct": 0
+      }
+    },
+    {
+      "context_id": "smallmouth_river_summer",
+      "label": "Smallmouth river summer context",
+      "row_key": "smallmouth_bass|great_lakes_upper_midwest|freshwater_river|7",
+      "clarity": "clear",
+      "regime": "neutral",
+      "wind_band": "breezy",
+      "date_count": 30,
+      "lure": {
+        "side": "lure",
+        "classification": "healthy_rotation",
+        "slot_metrics": [
+          {
+            "slot": 1,
+            "unique_pick_count": 9,
+            "same_pick_rate_pct": 6.9,
+            "presentation_group_unique_count": 7,
+            "family_group_unique_count": 9,
+            "variety_rescue_used_count": 0,
+            "forage_boost_count": 30,
+            "clarity_boost_count": 14,
+            "condition_window_boost_count": 3,
+            "top_picks": [
+              {
+                "id": "spinnerbait",
+                "count": 7
+              },
+              {
+                "id": "bladed_jig",
+                "count": 4
+              },
+              {
+                "id": "casting_spoon",
+                "count": 4
+              },
+              {
+                "id": "medium_diving_crankbait",
+                "count": 4
+              },
+              {
+                "id": "lipless_crankbait",
+                "count": 3
+              }
+            ]
+          },
+          {
+            "slot": 2,
+            "unique_pick_count": 3,
+            "same_pick_rate_pct": 37.93,
+            "presentation_group_unique_count": 2,
+            "family_group_unique_count": 2,
+            "variety_rescue_used_count": 0,
+            "forage_boost_count": 30,
+            "clarity_boost_count": 21,
+            "condition_window_boost_count": 16,
+            "top_picks": [
+              {
+                "id": "soft_jerkbait",
+                "count": 16
+              },
+              {
+                "id": "squarebill_crankbait",
+                "count": 9
+              },
+              {
+                "id": "flat_sided_crankbait",
+                "count": 5
+              }
+            ]
+          },
+          {
+            "slot": 3,
+            "unique_pick_count": 6,
+            "same_pick_rate_pct": 37.93,
+            "presentation_group_unique_count": 4,
+            "family_group_unique_count": 5,
+            "variety_rescue_used_count": 0,
+            "forage_boost_count": 30,
+            "clarity_boost_count": 30,
+            "condition_window_boost_count": 0,
+            "top_picks": [
+              {
+                "id": "texas_rigged_soft_plastic_craw",
+                "count": 9
+              },
+              {
+                "id": "ned_rig",
+                "count": 7
+              },
+              {
+                "id": "hair_jig",
+                "count": 6
+              },
+              {
+                "id": "blade_bait",
+                "count": 3
+              },
+              {
+                "id": "tube_jig",
+                "count": 3
+              }
+            ]
+          }
+        ],
+        "full_triple_unique_count": 24,
+        "full_triple_repeat_rate_pct": 20,
+        "adjacent_full_triple_repeat_rate_pct": 0,
+        "first_two_unique_count": 15,
+        "first_two_repeat_rate_pct": 50,
+        "same_first_two_while_slot3_rotates": false
+      },
+      "fly": {
+        "side": "fly",
+        "classification": "fly_side_structural_thinness_review",
+        "slot_metrics": [
+          {
+            "slot": 1,
+            "unique_pick_count": 9,
+            "same_pick_rate_pct": 17.24,
+            "presentation_group_unique_count": 3,
+            "family_group_unique_count": 5,
+            "variety_rescue_used_count": 0,
+            "forage_boost_count": 26,
+            "clarity_boost_count": 24,
+            "condition_window_boost_count": 0,
+            "top_picks": [
+              {
+                "id": "conehead_streamer",
+                "count": 5
+              },
+              {
+                "id": "articulated_baitfish_streamer",
+                "count": 4
+              },
+              {
+                "id": "deceiver",
+                "count": 4
+              },
+              {
+                "id": "game_changer",
+                "count": 4
+              },
+              {
+                "id": "woolly_bugger",
+                "count": 4
+              }
+            ]
+          },
+          {
+            "slot": 2,
+            "unique_pick_count": 3,
+            "same_pick_rate_pct": 79.31,
+            "presentation_group_unique_count": 2,
+            "family_group_unique_count": 3,
+            "variety_rescue_used_count": 0,
+            "forage_boost_count": 30,
+            "clarity_boost_count": 30,
+            "condition_window_boost_count": 0,
+            "top_picks": [
+              {
+                "id": "baitfish_slider_fly",
+                "count": 27
+              },
+              {
+                "id": "slim_minnow_streamer",
+                "count": 2
+              },
+              {
+                "id": "unweighted_baitfish_streamer",
+                "count": 1
+              }
+            ]
+          },
+          {
+            "slot": 3,
+            "unique_pick_count": 8,
+            "same_pick_rate_pct": 27.59,
+            "presentation_group_unique_count": 3,
+            "family_group_unique_count": 3,
+            "variety_rescue_used_count": 0,
+            "forage_boost_count": 16,
+            "clarity_boost_count": 27,
+            "condition_window_boost_count": 0,
+            "top_picks": [
+              {
+                "id": "muddler_sculpin",
+                "count": 7
+              },
+              {
+                "id": "jighead_marabou_leech",
+                "count": 6
+              },
+              {
+                "id": "crawfish_streamer",
+                "count": 4
+              },
+              {
+                "id": "lead_eye_leech",
+                "count": 4
+              },
+              {
+                "id": "sculpin_streamer",
+                "count": 4
+              }
+            ]
+          }
+        ],
+        "full_triple_unique_count": 27,
+        "full_triple_repeat_rate_pct": 10,
+        "adjacent_full_triple_repeat_rate_pct": 0,
+        "first_two_unique_count": 11,
+        "first_two_repeat_rate_pct": 63.33,
+        "same_first_two_while_slot3_rotates": false
+      },
+      "frog_summary": {
+        "context_id": "smallmouth_river_summer",
+        "southern_lmb_surface_context": false,
+        "surface_slot_dates": 0,
+        "frog_candidate_rate_pct": 0,
+        "frog_finalist_rate_pct": 0,
+        "frog_pick_rate_pct": 0
+      }
+    },
+    {
+      "context_id": "pike_lake_summer",
+      "label": "Pike lake/pond summer context",
+      "row_key": "northern_pike|great_lakes_upper_midwest|freshwater_lake_pond|7",
+      "clarity": "stained",
+      "regime": "neutral",
+      "wind_band": "breezy",
+      "date_count": 30,
+      "lure": {
+        "side": "lure",
+        "classification": "healthy_rotation",
+        "slot_metrics": [
+          {
+            "slot": 1,
+            "unique_pick_count": 7,
+            "same_pick_rate_pct": 24.14,
+            "presentation_group_unique_count": 5,
+            "family_group_unique_count": 7,
+            "variety_rescue_used_count": 0,
+            "forage_boost_count": 30,
+            "clarity_boost_count": 30,
+            "condition_window_boost_count": 0,
+            "top_picks": [
+              {
+                "id": "lipless_crankbait",
+                "count": 8
+              },
+              {
+                "id": "large_bucktail_spinner",
+                "count": 6
+              },
+              {
+                "id": "casting_spoon",
+                "count": 4
+              },
+              {
+                "id": "inline_spinner",
+                "count": 4
+              },
+              {
+                "id": "spinnerbait",
+                "count": 4
+              }
+            ]
+          },
+          {
+            "slot": 2,
+            "unique_pick_count": 3,
+            "same_pick_rate_pct": 37.93,
+            "presentation_group_unique_count": 2,
+            "family_group_unique_count": 2,
+            "variety_rescue_used_count": 0,
+            "forage_boost_count": 30,
+            "clarity_boost_count": 30,
+            "condition_window_boost_count": 0,
+            "top_picks": [
+              {
+                "id": "soft_jerkbait",
+                "count": 16
+              },
+              {
+                "id": "squarebill_crankbait",
+                "count": 11
+              },
+              {
+                "id": "flat_sided_crankbait",
+                "count": 3
+              }
+            ]
+          },
+          {
+            "slot": 3,
+            "unique_pick_count": 4,
+            "same_pick_rate_pct": 27.59,
+            "presentation_group_unique_count": 4,
+            "family_group_unique_count": 4,
+            "variety_rescue_used_count": 0,
+            "forage_boost_count": 30,
+            "clarity_boost_count": 30,
+            "condition_window_boost_count": 0,
+            "top_picks": [
+              {
+                "id": "pike_jig_and_plastic",
+                "count": 11
+              },
+              {
+                "id": "tube_jig",
+                "count": 8
+              },
+              {
+                "id": "blade_bait",
+                "count": 7
+              },
+              {
+                "id": "deep_diving_crankbait",
+                "count": 4
+              }
+            ]
+          }
+        ],
+        "full_triple_unique_count": 24,
+        "full_triple_repeat_rate_pct": 20,
+        "adjacent_full_triple_repeat_rate_pct": 0,
+        "first_two_unique_count": 14,
+        "first_two_repeat_rate_pct": 53.33,
+        "same_first_two_while_slot3_rotates": false
+      },
+      "fly": {
+        "side": "fly",
+        "classification": "fly_side_structural_thinness_review",
+        "slot_metrics": [
+          {
+            "slot": 1,
+            "unique_pick_count": 7,
+            "same_pick_rate_pct": 10.34,
+            "presentation_group_unique_count": 4,
+            "family_group_unique_count": 5,
+            "variety_rescue_used_count": 0,
+            "forage_boost_count": 26,
+            "clarity_boost_count": 30,
+            "condition_window_boost_count": 0,
+            "top_picks": [
+              {
+                "id": "game_changer",
+                "count": 6
+              },
+              {
+                "id": "large_articulated_pike_streamer",
+                "count": 6
+              },
+              {
+                "id": "articulated_dungeon_streamer",
+                "count": 4
+              },
+              {
+                "id": "clouser_minnow",
+                "count": 4
+              },
+              {
+                "id": "pike_bunny_streamer",
+                "count": 4
+              }
+            ]
+          },
+          {
+            "slot": 2,
+            "unique_pick_count": 3,
+            "same_pick_rate_pct": 44.83,
+            "presentation_group_unique_count": 3,
+            "family_group_unique_count": 3,
+            "variety_rescue_used_count": 0,
+            "forage_boost_count": 30,
+            "clarity_boost_count": 30,
+            "condition_window_boost_count": 0,
+            "top_picks": [
+              {
+                "id": "baitfish_slider_fly",
+                "count": 16
+              },
+              {
+                "id": "pike_flash_fly",
+                "count": 9
+              },
+              {
+                "id": "unweighted_baitfish_streamer",
+                "count": 5
+              }
+            ]
+          },
+          {
+            "slot": 3,
+            "unique_pick_count": 4,
+            "same_pick_rate_pct": 24.14,
+            "presentation_group_unique_count": 1,
+            "family_group_unique_count": 1,
+            "variety_rescue_used_count": 0,
+            "forage_boost_count": 0,
+            "clarity_boost_count": 30,
+            "condition_window_boost_count": 0,
+            "top_picks": [
+              {
+                "id": "feather_jig_leech",
+                "count": 9
+              },
+              {
+                "id": "rabbit_strip_leech",
+                "count": 8
+              },
+              {
+                "id": "lead_eye_leech",
+                "count": 7
+              },
+              {
+                "id": "jighead_marabou_leech",
+                "count": 6
+              }
+            ]
+          }
+        ],
+        "full_triple_unique_count": 23,
+        "full_triple_repeat_rate_pct": 23.33,
+        "adjacent_full_triple_repeat_rate_pct": 0,
+        "first_two_unique_count": 16,
+        "first_two_repeat_rate_pct": 46.67,
+        "same_first_two_while_slot3_rotates": false
+      },
+      "frog_summary": {
+        "context_id": "pike_lake_summer",
+        "southern_lmb_surface_context": false,
+        "surface_slot_dates": 0,
+        "frog_candidate_rate_pct": 0,
+        "frog_finalist_rate_pct": 0,
+        "frog_pick_rate_pct": 0
+      }
+    },
+    {
+      "context_id": "pike_river_summer",
+      "label": "Pike river summer context",
+      "row_key": "northern_pike|great_lakes_upper_midwest|freshwater_river|7",
+      "clarity": "stained",
+      "regime": "neutral",
+      "wind_band": "breezy",
+      "date_count": 30,
+      "lure": {
+        "side": "lure",
+        "classification": "healthy_rotation",
+        "slot_metrics": [
+          {
+            "slot": 1,
+            "unique_pick_count": 7,
+            "same_pick_rate_pct": 13.79,
+            "presentation_group_unique_count": 5,
+            "family_group_unique_count": 7,
+            "variety_rescue_used_count": 0,
+            "forage_boost_count": 30,
+            "clarity_boost_count": 30,
+            "condition_window_boost_count": 0,
+            "top_picks": [
+              {
+                "id": "large_bucktail_spinner",
+                "count": 8
+              },
+              {
+                "id": "large_profile_pike_swimbait",
+                "count": 6
+              },
+              {
+                "id": "spinnerbait",
+                "count": 6
+              },
+              {
+                "id": "pike_jerkbait",
+                "count": 5
+              },
+              {
+                "id": "inline_spinner",
+                "count": 2
+              }
+            ]
+          },
+          {
+            "slot": 2,
+            "unique_pick_count": 3,
+            "same_pick_rate_pct": 27.59,
+            "presentation_group_unique_count": 2,
+            "family_group_unique_count": 2,
+            "variety_rescue_used_count": 0,
+            "forage_boost_count": 30,
+            "clarity_boost_count": 30,
+            "condition_window_boost_count": 0,
+            "top_picks": [
+              {
+                "id": "squarebill_crankbait",
+                "count": 14
+              },
+              {
+                "id": "soft_jerkbait",
+                "count": 11
+              },
+              {
+                "id": "flat_sided_crankbait",
+                "count": 5
+              }
+            ]
+          },
+          {
+            "slot": 3,
+            "unique_pick_count": 3,
+            "same_pick_rate_pct": 41.38,
+            "presentation_group_unique_count": 3,
+            "family_group_unique_count": 3,
+            "variety_rescue_used_count": 0,
+            "forage_boost_count": 30,
+            "clarity_boost_count": 30,
+            "condition_window_boost_count": 0,
+            "top_picks": [
+              {
+                "id": "pike_jig_and_plastic",
+                "count": 14
+              },
+              {
+                "id": "blade_bait",
+                "count": 10
+              },
+              {
+                "id": "tube_jig",
+                "count": 6
+              }
+            ]
+          }
+        ],
+        "full_triple_unique_count": 25,
+        "full_triple_repeat_rate_pct": 16.67,
+        "adjacent_full_triple_repeat_rate_pct": 0,
+        "first_two_unique_count": 14,
+        "first_two_repeat_rate_pct": 53.33,
+        "same_first_two_while_slot3_rotates": false
+      },
+      "fly": {
+        "side": "fly",
+        "classification": "fly_side_structural_thinness_review",
+        "slot_metrics": [
+          {
+            "slot": 1,
+            "unique_pick_count": 9,
+            "same_pick_rate_pct": 6.9,
+            "presentation_group_unique_count": 4,
+            "family_group_unique_count": 6,
+            "variety_rescue_used_count": 0,
+            "forage_boost_count": 26,
+            "clarity_boost_count": 30,
+            "condition_window_boost_count": 0,
+            "top_picks": [
+              {
+                "id": "pike_bunny_streamer",
+                "count": 5
+              },
+              {
+                "id": "articulated_dungeon_streamer",
+                "count": 4
+              },
+              {
+                "id": "bucktail_baitfish_streamer",
+                "count": 4
+              },
+              {
+                "id": "deceiver",
+                "count": 4
+              },
+              {
+                "id": "woolly_bugger",
+                "count": 4
+              }
+            ]
+          },
+          {
+            "slot": 2,
+            "unique_pick_count": 3,
+            "same_pick_rate_pct": 51.72,
+            "presentation_group_unique_count": 3,
+            "family_group_unique_count": 3,
+            "variety_rescue_used_count": 0,
+            "forage_boost_count": 30,
+            "clarity_boost_count": 30,
+            "condition_window_boost_count": 0,
+            "top_picks": [
+              {
+                "id": "pike_flash_fly",
+                "count": 16
+              },
+              {
+                "id": "baitfish_slider_fly",
+                "count": 9
+              },
+              {
+                "id": "unweighted_baitfish_streamer",
+                "count": 5
+              }
+            ]
+          },
+          {
+            "slot": 3,
+            "unique_pick_count": 4,
+            "same_pick_rate_pct": 17.24,
+            "presentation_group_unique_count": 1,
+            "family_group_unique_count": 1,
+            "variety_rescue_used_count": 0,
+            "forage_boost_count": 0,
+            "clarity_boost_count": 30,
+            "condition_window_boost_count": 0,
+            "top_picks": [
+              {
+                "id": "rabbit_strip_leech",
+                "count": 9
+              },
+              {
+                "id": "feather_jig_leech",
+                "count": 8
+              },
+              {
+                "id": "jighead_marabou_leech",
+                "count": 8
+              },
+              {
+                "id": "lead_eye_leech",
+                "count": 5
+              }
+            ]
+          }
+        ],
+        "full_triple_unique_count": 24,
+        "full_triple_repeat_rate_pct": 20,
+        "adjacent_full_triple_repeat_rate_pct": 0,
+        "first_two_unique_count": 18,
+        "first_two_repeat_rate_pct": 40,
+        "same_first_two_while_slot3_rotates": false
+      },
+      "frog_summary": {
+        "context_id": "pike_river_summer",
+        "southern_lmb_surface_context": false,
+        "surface_slot_dates": 0,
+        "frog_candidate_rate_pct": 0,
+        "frog_finalist_rate_pct": 0,
+        "frog_pick_rate_pct": 0
+      }
+    },
+    {
+      "context_id": "trout_river_summer",
+      "label": "Trout river summer context",
+      "row_key": "trout|mountain_west|freshwater_river|7",
+      "clarity": "clear",
+      "regime": "neutral",
+      "wind_band": "calm",
+      "date_count": 30,
+      "lure": {
+        "side": "lure",
+        "classification": "healthy_rotation",
+        "slot_metrics": [
+          {
+            "slot": 1,
+            "unique_pick_count": 4,
+            "same_pick_rate_pct": 20.69,
+            "presentation_group_unique_count": 4,
+            "family_group_unique_count": 4,
+            "variety_rescue_used_count": 0,
+            "forage_boost_count": 30,
+            "clarity_boost_count": 23,
+            "condition_window_boost_count": 6,
+            "top_picks": [
+              {
+                "id": "casting_spoon",
+                "count": 10
+              },
+              {
+                "id": "inline_spinner",
+                "count": 7
+              },
+              {
+                "id": "lipless_crankbait",
+                "count": 7
+              },
+              {
+                "id": "suspending_jerkbait",
+                "count": 6
+              }
+            ]
+          },
+          {
+            "slot": 2,
+            "unique_pick_count": 3,
+            "same_pick_rate_pct": 27.59,
+            "presentation_group_unique_count": 2,
+            "family_group_unique_count": 2,
+            "variety_rescue_used_count": 0,
+            "forage_boost_count": 30,
+            "clarity_boost_count": 19,
+            "condition_window_boost_count": 12,
+            "top_picks": [
+              {
+                "id": "soft_jerkbait",
+                "count": 12
+              },
+              {
+                "id": "squarebill_crankbait",
+                "count": 11
+              },
+              {
+                "id": "flat_sided_crankbait",
+                "count": 7
+              }
+            ]
+          },
+          {
+            "slot": 3,
+            "unique_pick_count": 3,
+            "same_pick_rate_pct": 44.83,
+            "presentation_group_unique_count": 2,
+            "family_group_unique_count": 2,
+            "variety_rescue_used_count": 0,
+            "forage_boost_count": 30,
+            "clarity_boost_count": 30,
+            "condition_window_boost_count": 0,
+            "top_picks": [
+              {
+                "id": "hair_jig",
+                "count": 11
+              },
+              {
+                "id": "ned_rig",
+                "count": 10
+              },
+              {
+                "id": "tube_jig",
+                "count": 9
+              }
+            ]
+          }
+        ],
+        "full_triple_unique_count": 16,
+        "full_triple_repeat_rate_pct": 46.67,
+        "adjacent_full_triple_repeat_rate_pct": 6.9,
+        "first_two_unique_count": 9,
+        "first_two_repeat_rate_pct": 70,
+        "same_first_two_while_slot3_rotates": false
+      },
+      "fly": {
+        "side": "fly",
+        "classification": "needs_selector_weight_review",
+        "slot_metrics": [
+          {
+            "slot": 1,
+            "unique_pick_count": 8,
+            "same_pick_rate_pct": 3.45,
+            "presentation_group_unique_count": 3,
+            "family_group_unique_count": 5,
+            "variety_rescue_used_count": 0,
+            "forage_boost_count": 30,
+            "clarity_boost_count": 22,
+            "condition_window_boost_count": 0,
+            "top_picks": [
+              {
+                "id": "bucktail_baitfish_streamer",
+                "count": 7
+              },
+              {
+                "id": "articulated_baitfish_streamer",
+                "count": 5
+              },
+              {
+                "id": "game_changer",
+                "count": 5
+              },
+              {
+                "id": "articulated_dungeon_streamer",
+                "count": 3
+              },
+              {
+                "id": "clouser_minnow",
+                "count": 3
+              }
+            ]
+          },
+          {
+            "slot": 2,
+            "unique_pick_count": 3,
+            "same_pick_rate_pct": 79.31,
+            "presentation_group_unique_count": 2,
+            "family_group_unique_count": 3,
+            "variety_rescue_used_count": 0,
+            "forage_boost_count": 30,
+            "clarity_boost_count": 30,
+            "condition_window_boost_count": 0,
+            "top_picks": [
+              {
+                "id": "baitfish_slider_fly",
+                "count": 26
+              },
+              {
+                "id": "slim_minnow_streamer",
+                "count": 2
+              },
+              {
+                "id": "unweighted_baitfish_streamer",
+                "count": 2
+              }
+            ]
+          },
+          {
+            "slot": 3,
+            "unique_pick_count": 7,
+            "same_pick_rate_pct": 13.79,
+            "presentation_group_unique_count": 2,
+            "family_group_unique_count": 2,
+            "variety_rescue_used_count": 0,
+            "forage_boost_count": 30,
+            "clarity_boost_count": 17,
+            "condition_window_boost_count": 0,
+            "top_picks": [
+              {
+                "id": "sculpzilla",
+                "count": 8
+              },
+              {
+                "id": "lead_eye_leech",
+                "count": 6
+              },
+              {
+                "id": "feather_jig_leech",
+                "count": 5
+              },
+              {
+                "id": "rabbit_strip_leech",
+                "count": 5
+              },
+              {
+                "id": "muddler_sculpin",
+                "count": 3
+              }
+            ]
+          }
+        ],
+        "full_triple_unique_count": 22,
+        "full_triple_repeat_rate_pct": 26.67,
+        "adjacent_full_triple_repeat_rate_pct": 3.45,
+        "first_two_unique_count": 10,
+        "first_two_repeat_rate_pct": 66.67,
+        "same_first_two_while_slot3_rotates": false
+      },
+      "frog_summary": {
+        "context_id": "trout_river_summer",
+        "southern_lmb_surface_context": false,
+        "surface_slot_dates": 0,
+        "frog_candidate_rate_pct": 0,
+        "frog_finalist_rate_pct": 0,
+        "frog_pick_rate_pct": 0
+      }
+    },
+    {
+      "context_id": "cold_winter_bass_lake",
+      "label": "Cold winter bass lake/pond context",
+      "row_key": "largemouth_bass|appalachian|freshwater_lake_pond|1",
+      "clarity": "clear",
+      "regime": "suppressive",
+      "wind_band": "breezy",
+      "date_count": 30,
+      "lure": {
+        "side": "lure",
+        "classification": "healthy_rotation",
+        "slot_metrics": [
+          {
+            "slot": 1,
+            "unique_pick_count": 10,
+            "same_pick_rate_pct": 13.79,
+            "presentation_group_unique_count": 5,
+            "family_group_unique_count": 6,
+            "variety_rescue_used_count": 0,
+            "forage_boost_count": 27,
+            "clarity_boost_count": 28,
+            "condition_window_boost_count": 0,
+            "top_picks": [
+              {
+                "id": "finesse_jig",
+                "count": 5
+              },
+              {
+                "id": "football_jig",
+                "count": 5
+              },
+              {
+                "id": "blade_bait",
+                "count": 3
+              },
+              {
+                "id": "deep_diving_crankbait",
+                "count": 3
+              },
+              {
+                "id": "shaky_head_worm",
+                "count": 3
+              }
+            ]
+          },
+          {
+            "slot": 2,
+            "unique_pick_count": 7,
+            "same_pick_rate_pct": 6.9,
+            "presentation_group_unique_count": 5,
+            "family_group_unique_count": 6,
+            "variety_rescue_used_count": 0,
+            "forage_boost_count": 30,
+            "clarity_boost_count": 30,
+            "condition_window_boost_count": 0,
+            "top_picks": [
+              {
+                "id": "tube_jig",
+                "count": 8
+              },
+              {
+                "id": "carolina_rigged_stick_worm",
+                "count": 7
+              },
+              {
+                "id": "blade_bait",
+                "count": 5
+              },
+              {
+                "id": "deep_diving_crankbait",
+                "count": 4
+              },
+              {
+                "id": "football_jig",
+                "count": 3
+              }
+            ]
+          },
+          {
+            "slot": 3,
+            "unique_pick_count": 10,
+            "same_pick_rate_pct": 20.69,
+            "presentation_group_unique_count": 5,
+            "family_group_unique_count": 6,
+            "variety_rescue_used_count": 0,
+            "forage_boost_count": 28,
+            "clarity_boost_count": 28,
+            "condition_window_boost_count": 0,
+            "top_picks": [
+              {
+                "id": "carolina_rigged_stick_worm",
+                "count": 8
+              },
+              {
+                "id": "blade_bait",
+                "count": 5
+              },
+              {
+                "id": "ned_rig",
+                "count": 4
+              },
+              {
+                "id": "deep_diving_crankbait",
+                "count": 3
+              },
+              {
+                "id": "tube_jig",
+                "count": 3
+              }
+            ]
+          }
+        ],
+        "full_triple_unique_count": 30,
+        "full_triple_repeat_rate_pct": 0,
+        "adjacent_full_triple_repeat_rate_pct": 0,
+        "first_two_unique_count": 23,
+        "first_two_repeat_rate_pct": 23.33,
+        "same_first_two_while_slot3_rotates": false
+      },
+      "fly": {
+        "side": "fly",
+        "classification": "honest_narrow_winter_lane",
+        "slot_metrics": [
+          {
+            "slot": 1,
+            "unique_pick_count": 4,
+            "same_pick_rate_pct": 17.24,
+            "presentation_group_unique_count": 1,
+            "family_group_unique_count": 1,
+            "variety_rescue_used_count": 0,
+            "forage_boost_count": 0,
+            "clarity_boost_count": 21,
+            "condition_window_boost_count": 0,
+            "top_picks": [
+              {
+                "id": "rabbit_strip_leech",
+                "count": 9
+              },
+              {
+                "id": "lead_eye_leech",
+                "count": 8
+              },
+              {
+                "id": "jighead_marabou_leech",
+                "count": 7
+              },
+              {
+                "id": "feather_jig_leech",
+                "count": 6
+              }
+            ]
+          },
+          {
+            "slot": 2,
+            "unique_pick_count": 4,
+            "same_pick_rate_pct": 13.79,
+            "presentation_group_unique_count": 1,
+            "family_group_unique_count": 1,
+            "variety_rescue_used_count": 0,
+            "forage_boost_count": 0,
+            "clarity_boost_count": 20,
+            "condition_window_boost_count": 0,
+            "top_picks": [
+              {
+                "id": "rabbit_strip_leech",
+                "count": 10
+              },
+              {
+                "id": "jighead_marabou_leech",
+                "count": 8
+              },
+              {
+                "id": "feather_jig_leech",
+                "count": 7
+              },
+              {
+                "id": "lead_eye_leech",
+                "count": 5
+              }
+            ]
+          },
+          {
+            "slot": 3,
+            "unique_pick_count": 4,
+            "same_pick_rate_pct": 10.34,
+            "presentation_group_unique_count": 1,
+            "family_group_unique_count": 1,
+            "variety_rescue_used_count": 0,
+            "forage_boost_count": 0,
+            "clarity_boost_count": 25,
+            "condition_window_boost_count": 0,
+            "top_picks": [
+              {
+                "id": "lead_eye_leech",
+                "count": 10
+              },
+              {
+                "id": "jighead_marabou_leech",
+                "count": 8
+              },
+              {
+                "id": "feather_jig_leech",
+                "count": 7
+              },
+              {
+                "id": "rabbit_strip_leech",
+                "count": 5
+              }
+            ]
+          }
+        ],
+        "full_triple_unique_count": 16,
+        "full_triple_repeat_rate_pct": 46.67,
+        "adjacent_full_triple_repeat_rate_pct": 0,
+        "first_two_unique_count": 11,
+        "first_two_repeat_rate_pct": 63.33,
+        "same_first_two_while_slot3_rotates": false
+      },
+      "frog_summary": {
+        "context_id": "cold_winter_bass_lake",
+        "southern_lmb_surface_context": false,
+        "surface_slot_dates": 0,
+        "frog_candidate_rate_pct": 0,
+        "frog_finalist_rate_pct": 0,
+        "frog_pick_rate_pct": 0
+      }
+    },
+    {
+      "context_id": "cold_winter_trout_river",
+      "label": "Cold winter trout river context",
+      "row_key": "trout|mountain_west|freshwater_river|1",
+      "clarity": "clear",
+      "regime": "suppressive",
+      "wind_band": "breezy",
+      "date_count": 30,
+      "lure": {
+        "side": "lure",
+        "classification": "honest_narrow_winter_lane",
+        "slot_metrics": [
+          {
+            "slot": 1,
+            "unique_pick_count": 3,
+            "same_pick_rate_pct": 31.03,
+            "presentation_group_unique_count": 2,
+            "family_group_unique_count": 2,
+            "variety_rescue_used_count": 0,
+            "forage_boost_count": 30,
+            "clarity_boost_count": 30,
+            "condition_window_boost_count": 0,
+            "top_picks": [
+              {
+                "id": "hair_jig",
+                "count": 10
+              },
+              {
+                "id": "ned_rig",
+                "count": 10
+              },
+              {
+                "id": "tube_jig",
+                "count": 10
+              }
+            ]
+          },
+          {
+            "slot": 2,
+            "unique_pick_count": 3,
+            "same_pick_rate_pct": 48.28,
+            "presentation_group_unique_count": 2,
+            "family_group_unique_count": 2,
+            "variety_rescue_used_count": 0,
+            "forage_boost_count": 30,
+            "clarity_boost_count": 30,
+            "condition_window_boost_count": 0,
+            "top_picks": [
+              {
+                "id": "hair_jig",
+                "count": 20
+              },
+              {
+                "id": "ned_rig",
+                "count": 5
+              },
+              {
+                "id": "tube_jig",
+                "count": 5
+              }
+            ]
+          },
+          {
+            "slot": 3,
+            "unique_pick_count": 1,
+            "same_pick_rate_pct": 100,
+            "presentation_group_unique_count": 1,
+            "family_group_unique_count": 1,
+            "variety_rescue_used_count": 30,
+            "forage_boost_count": 30,
+            "clarity_boost_count": 30,
+            "condition_window_boost_count": 0,
+            "top_picks": [
+              {
+                "id": "blade_bait",
+                "count": 30
+              }
+            ]
+          }
+        ],
+        "full_triple_unique_count": 4,
+        "full_triple_repeat_rate_pct": 86.67,
+        "adjacent_full_triple_repeat_rate_pct": 20.69,
+        "first_two_unique_count": 4,
+        "first_two_repeat_rate_pct": 86.67,
+        "same_first_two_while_slot3_rotates": false
+      },
+      "fly": {
+        "side": "fly",
+        "classification": "healthy_rotation",
+        "slot_metrics": [
+          {
+            "slot": 1,
+            "unique_pick_count": 8,
+            "same_pick_rate_pct": 20.69,
+            "presentation_group_unique_count": 3,
+            "family_group_unique_count": 3,
+            "variety_rescue_used_count": 0,
+            "forage_boost_count": 26,
+            "clarity_boost_count": 22,
+            "condition_window_boost_count": 0,
+            "top_picks": [
+              {
+                "id": "lead_eye_leech",
+                "count": 9
+              },
+              {
+                "id": "rabbit_strip_leech",
+                "count": 6
+              },
+              {
+                "id": "crawfish_streamer",
+                "count": 4
+              },
+              {
+                "id": "jighead_marabou_leech",
+                "count": 3
+              },
+              {
+                "id": "feather_jig_leech",
+                "count": 2
+              }
+            ]
+          },
+          {
+            "slot": 2,
+            "unique_pick_count": 8,
+            "same_pick_rate_pct": 27.59,
+            "presentation_group_unique_count": 3,
+            "family_group_unique_count": 3,
+            "variety_rescue_used_count": 0,
+            "forage_boost_count": 22,
+            "clarity_boost_count": 22,
+            "condition_window_boost_count": 0,
+            "top_picks": [
+              {
+                "id": "crawfish_streamer",
+                "count": 8
+              },
+              {
+                "id": "sculpzilla",
+                "count": 6
+              },
+              {
+                "id": "muddler_sculpin",
+                "count": 4
+              },
+              {
+                "id": "jighead_marabou_leech",
+                "count": 3
+              },
+              {
+                "id": "lead_eye_leech",
+                "count": 3
+              }
+            ]
+          },
+          {
+            "slot": 3,
+            "unique_pick_count": 5,
+            "same_pick_rate_pct": 41.38,
+            "presentation_group_unique_count": 3,
+            "family_group_unique_count": 3,
+            "variety_rescue_used_count": 0,
+            "forage_boost_count": 12,
+            "clarity_boost_count": 25,
+            "condition_window_boost_count": 0,
+            "top_picks": [
+              {
+                "id": "crawfish_streamer",
+                "count": 18
+              },
+              {
+                "id": "sculpin_streamer",
+                "count": 5
+              },
+              {
+                "id": "sculpzilla",
+                "count": 5
+              },
+              {
+                "id": "jighead_marabou_leech",
+                "count": 1
+              },
+              {
+                "id": "muddler_sculpin",
+                "count": 1
+              }
+            ]
+          }
+        ],
+        "full_triple_unique_count": 20,
+        "full_triple_repeat_rate_pct": 33.33,
+        "adjacent_full_triple_repeat_rate_pct": 3.45,
+        "first_two_unique_count": 18,
+        "first_two_repeat_rate_pct": 40,
+        "same_first_two_while_slot3_rotates": false
+      },
+      "frog_summary": {
+        "context_id": "cold_winter_trout_river",
+        "southern_lmb_surface_context": false,
+        "surface_slot_dates": 0,
+        "frog_candidate_rate_pct": 0,
+        "frog_finalist_rate_pct": 0,
+        "frog_pick_rate_pct": 0
+      }
+    }
+  ],
+  "row_inclusion": [
+    {
+      "id": "warmwater_crawfish_fly",
+      "display_name": "Warmwater Crawfish Fly",
+      "authored_row_count": 172,
+      "eligible_not_authored_count": 548,
+      "recommended_row_count": 0,
+      "not_recommended_count": 548,
+      "recommendation_groups": [],
+      "sample_recommended_rows": [],
+      "sample_not_recommended_rows": [
+        {
+          "row_key": "largemouth_bass|appalachian|freshwater_lake_pond|1",
+          "current_lane_presentation_groups": 1,
+          "reason": "cold-month craw posture",
+          "improves_macro_diversity": true
+        },
+        {
+          "row_key": "largemouth_bass|appalachian|freshwater_river|1",
+          "current_lane_presentation_groups": 1,
+          "reason": "cold-month craw posture",
+          "improves_macro_diversity": true
+        },
+        {
+          "row_key": "largemouth_bass|appalachian|freshwater_lake_pond|2",
+          "current_lane_presentation_groups": 1,
+          "reason": "cold-month craw posture",
+          "improves_macro_diversity": true
+        },
+        {
+          "row_key": "largemouth_bass|appalachian|freshwater_river|2",
+          "current_lane_presentation_groups": 1,
+          "reason": "cold-month craw posture",
+          "improves_macro_diversity": true
+        },
+        {
+          "row_key": "largemouth_bass|appalachian|freshwater_lake_pond|3",
+          "current_lane_presentation_groups": 1,
+          "reason": "cold-month craw posture",
+          "improves_macro_diversity": true
+        },
+        {
+          "row_key": "largemouth_bass|appalachian|freshwater_river|3",
+          "current_lane_presentation_groups": 1,
+          "reason": "cold-month craw posture",
+          "improves_macro_diversity": true
+        },
+        {
+          "row_key": "largemouth_bass|appalachian|freshwater_lake_pond|5",
+          "current_lane_presentation_groups": 1,
+          "reason": "row forage does not include crawfish",
+          "improves_macro_diversity": true
+        },
+        {
+          "row_key": "largemouth_bass|appalachian|freshwater_lake_pond|6",
+          "current_lane_presentation_groups": 1,
+          "reason": "row forage does not include crawfish",
+          "improves_macro_diversity": true
+        },
+        {
+          "row_key": "largemouth_bass|appalachian|freshwater_river|6",
+          "current_lane_presentation_groups": 1,
+          "reason": "row forage does not include crawfish",
+          "improves_macro_diversity": true
+        },
+        {
+          "row_key": "largemouth_bass|appalachian|freshwater_lake_pond|7",
+          "current_lane_presentation_groups": 1,
+          "reason": "row forage does not include crawfish",
+          "improves_macro_diversity": true
+        },
+        {
+          "row_key": "largemouth_bass|appalachian|freshwater_river|7",
+          "current_lane_presentation_groups": 1,
+          "reason": "row forage does not include crawfish",
+          "improves_macro_diversity": true
+        },
+        {
+          "row_key": "largemouth_bass|appalachian|freshwater_lake_pond|8",
+          "current_lane_presentation_groups": 1,
+          "reason": "row forage does not include crawfish",
+          "improves_macro_diversity": true
+        },
+        {
+          "row_key": "largemouth_bass|appalachian|freshwater_river|8",
+          "current_lane_presentation_groups": 1,
+          "reason": "row forage does not include crawfish",
+          "improves_macro_diversity": true
+        },
+        {
+          "row_key": "largemouth_bass|appalachian|freshwater_lake_pond|9",
+          "current_lane_presentation_groups": 1,
+          "reason": "row forage does not include crawfish",
+          "improves_macro_diversity": true
+        },
+        {
+          "row_key": "largemouth_bass|appalachian|freshwater_lake_pond|11",
+          "current_lane_presentation_groups": 1,
+          "reason": "cold-month craw posture",
+          "improves_macro_diversity": true
+        },
+        {
+          "row_key": "largemouth_bass|appalachian|freshwater_river|11",
+          "current_lane_presentation_groups": 1,
+          "reason": "cold-month craw posture",
+          "improves_macro_diversity": true
+        }
+      ]
+    },
+    {
+      "id": "warmwater_worm_fly",
+      "display_name": "Worm Fly",
+      "authored_row_count": 0,
+      "eligible_not_authored_count": 720,
+      "recommended_row_count": 0,
+      "not_recommended_count": 720,
+      "recommendation_groups": [],
+      "sample_recommended_rows": [],
+      "sample_not_recommended_rows": [
+        {
+          "row_key": "largemouth_bass|appalachian|freshwater_lake_pond|1",
+          "current_lane_presentation_groups": 1,
+          "reason": "row forage does not include leech_worm",
+          "improves_macro_diversity": true
+        },
+        {
+          "row_key": "largemouth_bass|appalachian|freshwater_river|1",
+          "current_lane_presentation_groups": 1,
+          "reason": "row forage does not include leech_worm",
+          "improves_macro_diversity": true
+        },
+        {
+          "row_key": "largemouth_bass|appalachian|freshwater_lake_pond|2",
+          "current_lane_presentation_groups": 1,
+          "reason": "row forage does not include leech_worm",
+          "improves_macro_diversity": true
+        },
+        {
+          "row_key": "largemouth_bass|appalachian|freshwater_river|2",
+          "current_lane_presentation_groups": 1,
+          "reason": "row forage does not include leech_worm",
+          "improves_macro_diversity": true
+        },
+        {
+          "row_key": "largemouth_bass|appalachian|freshwater_lake_pond|3",
+          "current_lane_presentation_groups": 1,
+          "reason": "row forage does not include leech_worm",
+          "improves_macro_diversity": true
+        },
+        {
+          "row_key": "largemouth_bass|appalachian|freshwater_river|3",
+          "current_lane_presentation_groups": 1,
+          "reason": "row forage does not include leech_worm",
+          "improves_macro_diversity": true
+        },
+        {
+          "row_key": "largemouth_bass|appalachian|freshwater_lake_pond|4",
+          "current_lane_presentation_groups": 2,
+          "reason": "row forage does not include leech_worm",
+          "improves_macro_diversity": true
+        },
+        {
+          "row_key": "largemouth_bass|appalachian|freshwater_river|4",
+          "current_lane_presentation_groups": 2,
+          "reason": "row forage does not include leech_worm",
+          "improves_macro_diversity": true
+        },
+        {
+          "row_key": "largemouth_bass|appalachian|freshwater_lake_pond|5",
+          "current_lane_presentation_groups": 1,
+          "reason": "row forage does not include leech_worm",
+          "improves_macro_diversity": true
+        },
+        {
+          "row_key": "largemouth_bass|appalachian|freshwater_river|5",
+          "current_lane_presentation_groups": 2,
+          "reason": "row forage does not include leech_worm",
+          "improves_macro_diversity": true
+        },
+        {
+          "row_key": "largemouth_bass|appalachian|freshwater_lake_pond|6",
+          "current_lane_presentation_groups": 1,
+          "reason": "row forage does not include leech_worm",
+          "improves_macro_diversity": true
+        },
+        {
+          "row_key": "largemouth_bass|appalachian|freshwater_river|6",
+          "current_lane_presentation_groups": 1,
+          "reason": "row forage does not include leech_worm",
+          "improves_macro_diversity": true
+        },
+        {
+          "row_key": "largemouth_bass|appalachian|freshwater_lake_pond|7",
+          "current_lane_presentation_groups": 1,
+          "reason": "row forage does not include leech_worm",
+          "improves_macro_diversity": true
+        },
+        {
+          "row_key": "largemouth_bass|appalachian|freshwater_river|7",
+          "current_lane_presentation_groups": 1,
+          "reason": "row forage does not include leech_worm",
+          "improves_macro_diversity": true
+        },
+        {
+          "row_key": "largemouth_bass|appalachian|freshwater_lake_pond|8",
+          "current_lane_presentation_groups": 1,
+          "reason": "row forage does not include leech_worm",
+          "improves_macro_diversity": true
+        },
+        {
+          "row_key": "largemouth_bass|appalachian|freshwater_river|8",
+          "current_lane_presentation_groups": 1,
+          "reason": "row forage does not include leech_worm",
+          "improves_macro_diversity": true
+        }
+      ]
+    },
+    {
+      "id": "foam_gurgler_fly",
+      "display_name": "Foam Gurgler",
+      "authored_row_count": 247,
+      "eligible_not_authored_count": 68,
+      "recommended_row_count": 0,
+      "not_recommended_count": 68,
+      "recommendation_groups": [],
+      "sample_recommended_rows": [],
+      "sample_not_recommended_rows": [
+        {
+          "row_key": "largemouth_bass|appalachian|freshwater_lake_pond|10",
+          "current_lane_presentation_groups": 1,
+          "reason": "outside warm surface window",
+          "improves_macro_diversity": true
+        },
+        {
+          "row_key": "largemouth_bass|florida|freshwater_lake_pond|2",
+          "current_lane_presentation_groups": 3,
+          "reason": "outside warm surface window",
+          "improves_macro_diversity": false
+        },
+        {
+          "row_key": "largemouth_bass|florida|freshwater_lake_pond|3",
+          "current_lane_presentation_groups": 3,
+          "reason": "outside warm surface window",
+          "improves_macro_diversity": false
+        },
+        {
+          "row_key": "largemouth_bass|florida|freshwater_lake_pond|4",
+          "current_lane_presentation_groups": 3,
+          "reason": "outside warm surface window",
+          "improves_macro_diversity": false
+        },
+        {
+          "row_key": "largemouth_bass|florida|freshwater_lake_pond|5",
+          "current_lane_presentation_groups": 3,
+          "reason": "warm surface row",
+          "improves_macro_diversity": false
+        },
+        {
+          "row_key": "largemouth_bass|florida|freshwater_lake_pond|6",
+          "current_lane_presentation_groups": 3,
+          "reason": "warm surface row",
+          "improves_macro_diversity": false
+        },
+        {
+          "row_key": "largemouth_bass|florida|freshwater_lake_pond|7",
+          "current_lane_presentation_groups": 3,
+          "reason": "warm surface row",
+          "improves_macro_diversity": false
+        },
+        {
+          "row_key": "largemouth_bass|florida|freshwater_lake_pond|8",
+          "current_lane_presentation_groups": 3,
+          "reason": "warm surface row",
+          "improves_macro_diversity": false
+        },
+        {
+          "row_key": "largemouth_bass|florida|freshwater_lake_pond|9",
+          "current_lane_presentation_groups": 3,
+          "reason": "warm surface row",
+          "improves_macro_diversity": false
+        },
+        {
+          "row_key": "largemouth_bass|florida|freshwater_lake_pond|10",
+          "current_lane_presentation_groups": 3,
+          "reason": "outside warm surface window",
+          "improves_macro_diversity": false
+        },
+        {
+          "row_key": "largemouth_bass|florida|freshwater_river|10",
+          "current_lane_presentation_groups": 2,
+          "reason": "outside warm surface window",
+          "improves_macro_diversity": true
+        },
+        {
+          "row_key": "largemouth_bass|florida|freshwater_lake_pond|11",
+          "current_lane_presentation_groups": 1,
+          "reason": "outside warm surface window",
+          "improves_macro_diversity": true
+        },
+        {
+          "row_key": "largemouth_bass|gulf_coast|freshwater_lake_pond|4",
+          "current_lane_presentation_groups": 3,
+          "reason": "outside warm surface window",
+          "improves_macro_diversity": false
+        },
+        {
+          "row_key": "largemouth_bass|gulf_coast|freshwater_lake_pond|5",
+          "current_lane_presentation_groups": 3,
+          "reason": "warm surface row",
+          "improves_macro_diversity": false
+        },
+        {
+          "row_key": "largemouth_bass|gulf_coast|freshwater_lake_pond|6",
+          "current_lane_presentation_groups": 3,
+          "reason": "warm surface row",
+          "improves_macro_diversity": false
+        },
+        {
+          "row_key": "largemouth_bass|gulf_coast|freshwater_lake_pond|7",
+          "current_lane_presentation_groups": 3,
+          "reason": "warm surface row",
+          "improves_macro_diversity": false
+        }
+      ]
+    },
+    {
+      "id": "pike_flash_fly",
+      "display_name": "Pike Flash Fly",
+      "authored_row_count": 102,
+      "eligible_not_authored_count": 18,
+      "recommended_row_count": 0,
+      "not_recommended_count": 18,
+      "recommendation_groups": [],
+      "sample_recommended_rows": [],
+      "sample_not_recommended_rows": [
+        {
+          "row_key": "northern_pike|appalachian|freshwater_lake_pond|3",
+          "current_lane_presentation_groups": 2,
+          "reason": "cold-month pike row",
+          "improves_macro_diversity": true
+        },
+        {
+          "row_key": "northern_pike|appalachian|freshwater_river|3",
+          "current_lane_presentation_groups": 2,
+          "reason": "cold-month pike row",
+          "improves_macro_diversity": true
+        },
+        {
+          "row_key": "northern_pike|great_lakes_upper_midwest|freshwater_lake_pond|3",
+          "current_lane_presentation_groups": 2,
+          "reason": "cold-month pike row",
+          "improves_macro_diversity": true
+        },
+        {
+          "row_key": "northern_pike|great_lakes_upper_midwest|freshwater_river|3",
+          "current_lane_presentation_groups": 2,
+          "reason": "cold-month pike row",
+          "improves_macro_diversity": true
+        },
+        {
+          "row_key": "northern_pike|inland_northwest|freshwater_lake_pond|3",
+          "current_lane_presentation_groups": 2,
+          "reason": "cold-month pike row",
+          "improves_macro_diversity": true
+        },
+        {
+          "row_key": "northern_pike|inland_northwest|freshwater_river|3",
+          "current_lane_presentation_groups": 2,
+          "reason": "cold-month pike row",
+          "improves_macro_diversity": true
+        },
+        {
+          "row_key": "northern_pike|midwest_interior|freshwater_lake_pond|3",
+          "current_lane_presentation_groups": 2,
+          "reason": "cold-month pike row",
+          "improves_macro_diversity": true
+        },
+        {
+          "row_key": "northern_pike|midwest_interior|freshwater_river|3",
+          "current_lane_presentation_groups": 2,
+          "reason": "cold-month pike row",
+          "improves_macro_diversity": true
+        },
+        {
+          "row_key": "northern_pike|mountain_west|freshwater_lake_pond|3",
+          "current_lane_presentation_groups": 2,
+          "reason": "cold-month pike row",
+          "improves_macro_diversity": true
+        },
+        {
+          "row_key": "northern_pike|mountain_west|freshwater_river|3",
+          "current_lane_presentation_groups": 2,
+          "reason": "cold-month pike row",
+          "improves_macro_diversity": true
+        },
+        {
+          "row_key": "northern_pike|northeast|freshwater_lake_pond|3",
+          "current_lane_presentation_groups": 2,
+          "reason": "cold-month pike row",
+          "improves_macro_diversity": true
+        },
+        {
+          "row_key": "northern_pike|northeast|freshwater_river|3",
+          "current_lane_presentation_groups": 2,
+          "reason": "cold-month pike row",
+          "improves_macro_diversity": true
+        },
+        {
+          "row_key": "northern_pike|south_central|freshwater_lake_pond|1",
+          "current_lane_presentation_groups": 2,
+          "reason": "cold-month pike row",
+          "improves_macro_diversity": true
+        },
+        {
+          "row_key": "northern_pike|south_central|freshwater_lake_pond|2",
+          "current_lane_presentation_groups": 2,
+          "reason": "cold-month pike row",
+          "improves_macro_diversity": true
+        },
+        {
+          "row_key": "northern_pike|south_central|freshwater_lake_pond|3",
+          "current_lane_presentation_groups": 2,
+          "reason": "cold-month pike row",
+          "improves_macro_diversity": true
+        },
+        {
+          "row_key": "northern_pike|south_central|freshwater_river|3",
+          "current_lane_presentation_groups": 2,
+          "reason": "cold-month pike row",
+          "improves_macro_diversity": true
+        }
+      ]
+    }
+  ]
+}

@@ -21,6 +21,7 @@ import {
 import {
   activeFlyConditionWindow,
   activeLureConditionWindow,
+  conditionWindowWeight,
   type FlyConditionWindowId,
   flyConditionWindowMatches,
   type FlyDailyConditionState,
@@ -28,6 +29,7 @@ import {
   lureConditionWindowMatches,
   type LureDailyConditionState,
 } from "./conditionWindows.ts";
+import { paceIndex } from "./constants.ts";
 
 /** One filled recommendation: exact-fit archetype plus the target profile it satisfied. */
 export type RebuildSlotPick = {
@@ -138,6 +140,18 @@ export function finalistChoiceKey(args: {
   );
 }
 
+function weightedChoiceKey(args: {
+  seedBase: string;
+  side: Side;
+  slot: number;
+  candidateId: string;
+}): number {
+  const { seedBase, side, slot, candidateId } = args;
+  return hashSeed(
+    `weighted-choice|${seedBase}|${side}|s${slot}|id:${candidateId}`,
+  );
+}
+
 function inEnvelope(
   cand: ArchetypeProfileV4,
   row: SeasonalRowV4,
@@ -146,21 +160,149 @@ function inEnvelope(
     row.pace_range.includes(cand.primary_pace);
 }
 
-/** Exact slot fit only: same column as the profile; pace via primary or secondary only. */
-function exactSlotFitTier(
+type PaceCompatibility = {
+  reason:
+    | "primary_pace_exact"
+    | "secondary_pace_exact"
+    | "primary_pace_adjacent"
+    | "secondary_pace_adjacent";
+  score: number;
+};
+
+export type CandidateScoreTrace = {
+  id: string;
+  score: number;
+  reasons: readonly string[];
+};
+
+type ScoredCandidate = {
+  cand: ArchetypeProfileV4;
+  score: number;
+  reasons: string[];
+  pool: "authored_row" | "catalog_valid_rotation";
+};
+
+type WeightedCandidate = ScoredCandidate & {
+  selectionWeight: number;
+};
+
+const SELECTION_SCORE = {
+  base: 100,
+  primaryPaceExact: 30,
+  secondaryPaceExact: 22,
+  primaryPaceAdjacent: 12,
+  secondaryPaceAdjacent: 8,
+  primaryForage: 14,
+  secondaryForage: 6,
+  clarityStrength: 8,
+  claritySpecialist: 10,
+  unusedPresentationGroup: 28,
+  repeatedPresentationGroup: -80,
+  unusedFamilyGroup: 8,
+  repeatedFamilyGroup: -20,
+  recentArchetype: -45,
+  recentPresentationGroup: -25,
+  varietyRescuePresentationGroup: 90,
+  varietyRescueFamilyGroup: 28,
+  authoredRowPreferred: 34,
+  catalogFallbackPenalty: -24,
+} as const;
+
+const SEASONALLY_AUTHORED_FLY_IDS_REQUIRING_ROW_AUTH = new Set<string>([
+  "warmwater_crawfish_fly",
+  "warmwater_worm_fly",
+  "foam_gurgler_fly",
+  "pike_flash_fly",
+]);
+
+function paceCompatibility(
   profile: TargetProfile,
   cand: ArchetypeProfileV4,
   row: SeasonalRowV4,
-): 1 | 2 | null {
+): PaceCompatibility | null {
   if (!inEnvelope(cand, row)) return null;
 
   const pc = profile.column;
   const pp = profile.pace;
   if (cand.column !== pc) return null;
 
-  if (cand.primary_pace === pp) return 1;
-  if (cand.secondary_pace != null && cand.secondary_pace === pp) return 2;
+  if (cand.primary_pace === pp) {
+    return {
+      reason: "primary_pace_exact",
+      score: SELECTION_SCORE.primaryPaceExact,
+    };
+  }
+  if (cand.secondary_pace != null && cand.secondary_pace === pp) {
+    return {
+      reason: "secondary_pace_exact",
+      score: SELECTION_SCORE.secondaryPaceExact,
+    };
+  }
+  if (Math.abs(paceIndex(cand.primary_pace) - paceIndex(pp)) === 1) {
+    return {
+      reason: "primary_pace_adjacent",
+      score: SELECTION_SCORE.primaryPaceAdjacent,
+    };
+  }
+  if (
+    cand.secondary_pace != null &&
+    Math.abs(paceIndex(cand.secondary_pace) - paceIndex(pp)) === 1
+  ) {
+    return {
+      reason: "secondary_pace_adjacent",
+      score: SELECTION_SCORE.secondaryPaceAdjacent,
+    };
+  }
   return null;
+}
+
+function weightedChoice(args: {
+  seedBase: string;
+  side: Side;
+  slot: number;
+  candidates: readonly WeightedCandidate[];
+}): WeightedCandidate | undefined {
+  const ordered = [...args.candidates].sort((a, b) => {
+    const ka = weightedChoiceKey({
+      seedBase: args.seedBase,
+      side: args.side,
+      slot: args.slot,
+      candidateId: a.cand.id,
+    });
+    const kb = weightedChoiceKey({
+      seedBase: args.seedBase,
+      side: args.side,
+      slot: args.slot,
+      candidateId: b.cand.id,
+    });
+    if (ka !== kb) return kb - ka;
+    return a.cand.id.localeCompare(b.cand.id);
+  });
+  const totalWeight = ordered.reduce((sum, r) => sum + r.selectionWeight, 0);
+  if (totalWeight <= 0) return undefined;
+
+  let threshold = hashSeed(
+    `weighted-choice-threshold|${args.seedBase}|${args.side}|s${args.slot}`,
+  ) % totalWeight;
+  for (const candidate of ordered) {
+    if (threshold < candidate.selectionWeight) return candidate;
+    threshold -= candidate.selectionWeight;
+  }
+  return ordered[ordered.length - 1];
+}
+
+function withPositiveSelectionWeights(
+  candidates: readonly ScoredCandidate[],
+): WeightedCandidate[] {
+  if (candidates.length === 0) return [];
+
+  const minScore = Math.min(...candidates.map((r) => r.score));
+  return candidates.map((candidate) => ({
+    ...candidate,
+    selectionWeight: candidate.score > 0
+      ? candidate.score
+      : candidate.score - minScore + 1,
+  }));
 }
 
 function matchesPrimaryForage(
@@ -196,6 +338,7 @@ export type RebuildSlotSelectionTrace = {
   claritySlot: SlotIndex;
   bestTier?: 1 | 2;
   eligibleExactCount: number;
+  eligibleCandidateCount: number;
   tierPoolCount: number;
   afterPickedIdsCount: number;
   familyNarrowed: boolean;
@@ -206,7 +349,15 @@ export type RebuildSlotSelectionTrace = {
   conditionWindow: LureConditionWindowId | FlyConditionWindowId | null;
   conditionCandidateIds: readonly string[];
   recencyNarrowed: boolean;
+  presentationGroupNarrowed: boolean;
+  varietyRescueUsed?: boolean;
+  varietyRescueReasons?: readonly string[];
+  varietyRescuePoolStage?:
+    | "same_column_same_pace"
+    | "same_column_adjacent_pace";
+  recentHistoryPenaltyApplied: boolean;
   clarityWhitelistCandidateIds: readonly string[];
+  candidateScores: readonly CandidateScoreTrace[];
   finalistIds: readonly string[];
   chosenId?: string;
 };
@@ -256,11 +407,10 @@ export function selectArchetypesForSide(args: {
     SURFACE_FLY_IDS_V4 as readonly string[],
   );
 
-  function passesGate(c: ArchetypeProfileV4): boolean {
+  function passesHardGate(c: ArchetypeProfileV4): boolean {
     if (c.gear_mode !== side) return false;
     if (!c.species_allowed.includes(species)) return false;
     if (!c.water_types_allowed.includes(context)) return false;
-    if (!allowedIds.has(c.id)) return false;
     if (excluded.has(c.id)) return false;
 
     if (surfaceBlocked) {
@@ -272,9 +422,19 @@ export function selectArchetypesForSide(args: {
     return true;
   }
 
+  function passesAuthoredGate(c: ArchetypeProfileV4): boolean {
+    return passesHardGate(c) && allowedIds.has(c.id);
+  }
+
+  function passesCatalogFallbackSeasonalGate(c: ArchetypeProfileV4): boolean {
+    if (side !== "fly") return true;
+    return !SEASONALLY_AUTHORED_FLY_IDS_REQUIRING_ROW_AUTH.has(c.id);
+  }
+
   const picked: RebuildSlotPick[] = [];
   const pickedIds = new Set<string>();
   const pickedFamilies = new Set<string>();
+  const pickedPresentationGroups = new Set<string>();
   const forageSlot = forageDesignatedSlot({ seedBase, side });
   const claritySlot = clarityDesignatedSlot({ seedBase, side, forageSlot });
   const conditionSlot = conditionDesignatedSlot({
@@ -296,20 +456,385 @@ export function selectArchetypesForSide(args: {
     ? lureConditionWindowMatches(activeConditionWindow as LureConditionWindowId)
     : flyConditionWindowMatches(activeConditionWindow as FlyConditionWindowId);
 
+  const catalogById = new Map<string, ArchetypeProfileV4>(
+    catalog.map((c) => [c.id, c]),
+  );
+  const recentPresentationGroups = new Set<string>();
+  for (const entry of recentHistory) {
+    const historical = catalogById.get(entry.archetype_id);
+    if (historical == null) continue;
+    if (
+      isRecentlyShown({
+        archetypeId: historical.id,
+        side,
+        currentLocalDate,
+        recentHistory,
+      })
+    ) {
+      recentPresentationGroups.add(historical.presentation_group);
+    }
+  }
+
+  function scoreCandidate(args: {
+    cand: ArchetypeProfileV4;
+    pace: PaceCompatibility;
+    pool: ScoredCandidate["pool"];
+    rescueReasons?: readonly string[];
+    rescueBoostMultiplier?: number;
+    applyPoolPreference?: boolean;
+  }): ScoredCandidate {
+    const {
+      cand,
+      pace,
+      pool,
+      rescueReasons = [],
+      rescueBoostMultiplier = 1,
+      applyPoolPreference = false,
+    } = args;
+    let score = SELECTION_SCORE.base + pace.score;
+    const reasons = [
+      `base:+${SELECTION_SCORE.base}`,
+      `${pace.reason}:+${pace.score}`,
+      pool === "authored_row"
+        ? (applyPoolPreference
+          ? `preferred_pool:authored_row:+${SELECTION_SCORE.authoredRowPreferred}`
+          : "preferred_pool:authored_row")
+        : (applyPoolPreference
+          ? `fallback_pool:catalog_valid_rotation:${SELECTION_SCORE.catalogFallbackPenalty}`
+          : "fallback_pool:catalog_valid_rotation"),
+      ...rescueReasons,
+    ];
+
+    if (applyPoolPreference && pool === "authored_row") {
+      score += SELECTION_SCORE.authoredRowPreferred;
+    } else if (applyPoolPreference) {
+      score += SELECTION_SCORE.catalogFallbackPenalty;
+    }
+
+    if (matchesPrimaryForage(cand, row)) {
+      score += SELECTION_SCORE.primaryForage;
+      reasons.push(`primary_forage:+${SELECTION_SCORE.primaryForage}`);
+    }
+    if (
+      row.secondary_forage != null &&
+      cand.forage_tags.includes(row.secondary_forage)
+    ) {
+      score += SELECTION_SCORE.secondaryForage;
+      reasons.push(`secondary_forage:+${SELECTION_SCORE.secondaryForage}`);
+    }
+    if (cand.clarity_strengths.includes(water_clarity)) {
+      score += SELECTION_SCORE.clarityStrength;
+      reasons.push(`clarity_strength:+${SELECTION_SCORE.clarityStrength}`);
+    }
+    if (clarityWhitelistAllows(side, cand, water_clarity)) {
+      score += SELECTION_SCORE.claritySpecialist;
+      reasons.push(
+        `clarity_specialist:+${SELECTION_SCORE.claritySpecialist}`,
+      );
+    }
+    if (
+      activeConditionWindow != null && activeConditionMatches?.has(cand.id)
+    ) {
+      const conditionScore = conditionWindowWeight(activeConditionWindow);
+      score += conditionScore;
+      reasons.push(
+        `condition_window:${activeConditionWindow}:+${conditionScore}`,
+      );
+    }
+    if (pickedPresentationGroups.has(cand.presentation_group)) {
+      score += SELECTION_SCORE.repeatedPresentationGroup;
+      reasons.push(
+        `presentation_group_repeat:${SELECTION_SCORE.repeatedPresentationGroup}`,
+      );
+    } else {
+      score += SELECTION_SCORE.unusedPresentationGroup;
+      reasons.push(
+        `presentation_group_unused:+${SELECTION_SCORE.unusedPresentationGroup}`,
+      );
+      if (rescueReasons.includes("variety_rescue:presentation_group")) {
+        const boost = Math.round(
+          SELECTION_SCORE.varietyRescuePresentationGroup *
+            rescueBoostMultiplier,
+        );
+        score += boost;
+        reasons.push(`variety_rescue_presentation_group_boost:+${boost}`);
+      }
+    }
+    if (pickedFamilies.has(cand.family_group)) {
+      score += SELECTION_SCORE.repeatedFamilyGroup;
+      reasons.push(
+        `family_group_repeat:${SELECTION_SCORE.repeatedFamilyGroup}`,
+      );
+    } else {
+      score += SELECTION_SCORE.unusedFamilyGroup;
+      reasons.push(
+        `family_group_unused:+${SELECTION_SCORE.unusedFamilyGroup}`,
+      );
+      if (rescueReasons.includes("variety_rescue:family_group")) {
+        const boost = Math.round(
+          SELECTION_SCORE.varietyRescueFamilyGroup * rescueBoostMultiplier,
+        );
+        score += boost;
+        reasons.push(`variety_rescue_family_group_boost:+${boost}`);
+      }
+    }
+    if (
+      isRecentlyShown({
+        archetypeId: cand.id,
+        side,
+        currentLocalDate,
+        recentHistory,
+      })
+    ) {
+      score += SELECTION_SCORE.recentArchetype;
+      reasons.push(`recent_archetype:${SELECTION_SCORE.recentArchetype}`);
+    }
+    if (recentPresentationGroups.has(cand.presentation_group)) {
+      score += SELECTION_SCORE.recentPresentationGroup;
+      reasons.push(
+        `recent_presentation_group:${SELECTION_SCORE.recentPresentationGroup}`,
+      );
+    }
+
+    return { cand, score, reasons, pool };
+  }
+
+  function exactPaceCompatibility(
+    profile: TargetProfile,
+    cand: ArchetypeProfileV4,
+  ): PaceCompatibility | null {
+    const pace = paceCompatibility(profile, cand, row);
+    if (
+      pace?.reason === "primary_pace_exact" ||
+      pace?.reason === "secondary_pace_exact"
+    ) {
+      return pace;
+    }
+    return null;
+  }
+
+  function adjacentPaceCompatibility(
+    profile: TargetProfile,
+    cand: ArchetypeProfileV4,
+  ): PaceCompatibility | null {
+    const pace = paceCompatibility(profile, cand, row);
+    if (
+      pace?.reason === "primary_pace_adjacent" ||
+      pace?.reason === "secondary_pace_adjacent"
+    ) {
+      return pace;
+    }
+    return null;
+  }
+
+  function avoidsRepeatedOffense(
+    cand: ArchetypeProfileV4,
+    repeatedPresentationGroup: boolean,
+    repeatedFamilyGroup: boolean,
+  ): boolean {
+    if (
+      repeatedPresentationGroup &&
+      pickedPresentationGroups.has(cand.presentation_group)
+    ) {
+      return false;
+    }
+    if (repeatedFamilyGroup && pickedFamilies.has(cand.family_group)) {
+      return false;
+    }
+    return true;
+  }
+
+  function buildRescuePool(args: {
+    profile: TargetProfile;
+    stage: "same_column_same_pace" | "same_column_adjacent_pace";
+    repeatedPresentationGroup: boolean;
+    repeatedFamilyGroup: boolean;
+    rescueReasons: readonly string[];
+    rescueBoostMultiplier: number;
+  }): ScoredCandidate[] {
+    const compatibility = args.stage === "same_column_same_pace"
+      ? exactPaceCompatibility
+      : adjacentPaceCompatibility;
+
+    const bestById = new Map<string, ScoredCandidate>();
+    for (const cand of catalog) {
+      if (!passesHardGate(cand)) continue;
+      if (pickedIds.has(cand.id)) continue;
+      const authoredRowCandidate = allowedIds.has(cand.id);
+      if (!authoredRowCandidate && !passesCatalogFallbackSeasonalGate(cand)) {
+        continue;
+      }
+      if (
+        !avoidsRepeatedOffense(
+          cand,
+          args.repeatedPresentationGroup,
+          args.repeatedFamilyGroup,
+        )
+      ) {
+        continue;
+      }
+      const pace = compatibility(args.profile, cand);
+      if (pace == null) continue;
+      const scored = scoreCandidate({
+        cand,
+        pace,
+        pool: authoredRowCandidate ? "authored_row" : "catalog_valid_rotation",
+        rescueReasons: args.rescueReasons,
+        rescueBoostMultiplier: args.rescueBoostMultiplier,
+        applyPoolPreference: true,
+      });
+      const existing = bestById.get(cand.id);
+      if (existing == null || scored.score > existing.score) {
+        bestById.set(cand.id, scored);
+      }
+    }
+    return [...bestById.values()];
+  }
+
+  function uniqueScoredCandidates(
+    candidates: readonly ScoredCandidate[],
+  ): ScoredCandidate[] {
+    const byId = new Map<string, ScoredCandidate>();
+    for (const candidate of candidates) {
+      const existing = byId.get(candidate.cand.id);
+      if (existing == null || candidate.score > existing.score) {
+        byId.set(candidate.cand.id, candidate);
+      }
+    }
+    return [...byId.values()];
+  }
+
   for (let slot = 0; slot < profiles.length; slot++) {
     const profile = profiles[slot]!;
 
-    const exactFits: {
-      cand: ArchetypeProfileV4;
-      tier: 1 | 2;
-    }[] = [];
+    const compatibleCandidates: ScoredCandidate[] = [];
+    let eligibleExactCount = 0;
 
-    for (const cand of catalog.filter(passesGate)) {
-      const t = exactSlotFitTier(profile, cand, row);
-      if (t != null) exactFits.push({ cand, tier: t });
+    for (const cand of catalog.filter(passesAuthoredGate)) {
+      const pace = paceCompatibility(profile, cand, row);
+      if (pace == null) continue;
+
+      if (
+        pace.reason === "primary_pace_exact" ||
+        pace.reason === "secondary_pace_exact"
+      ) {
+        eligibleExactCount += 1;
+      }
+
+      compatibleCandidates.push(
+        scoreCandidate({ cand, pace, pool: "authored_row" }),
+      );
     }
 
-    if (exactFits.length === 0) {
+    const availablePool = compatibleCandidates.filter((r) =>
+      !pickedIds.has(r.cand.id)
+    );
+    const afterPickedIdsCount = availablePool.length;
+    const positivePool = availablePool.filter((r) => r.score > 0);
+    const nonRepeatedPositivePool = positivePool.filter((r) =>
+      !pickedPresentationGroups.has(r.cand.presentation_group)
+    );
+    const nonRepeatedFallbackPool = availablePool.filter((r) =>
+      !pickedPresentationGroups.has(r.cand.presentation_group)
+    );
+    const fallbackPool = nonRepeatedFallbackPool.length > 0
+      ? nonRepeatedFallbackPool
+      : availablePool;
+    const rawFinalistPool = nonRepeatedPositivePool.length > 0
+      ? nonRepeatedPositivePool
+      : positivePool.length > 0
+      ? positivePool
+      : fallbackPool;
+    const presentationGroupNarrowed = (nonRepeatedPositivePool.length > 0 &&
+      nonRepeatedPositivePool.length < positivePool.length) ||
+      (positivePool.length === 0 &&
+        nonRepeatedFallbackPool.length > 0 &&
+        nonRepeatedFallbackPool.length < availablePool.length);
+    const finalistPool = withPositiveSelectionWeights(rawFinalistPool);
+    const chosen = weightedChoice({
+      seedBase,
+      side,
+      slot,
+      candidates: finalistPool,
+    })?.cand;
+    const chosenRepeatsPresentationGroup = chosen != null &&
+      pickedPresentationGroups.has(chosen.presentation_group);
+    const chosenRepeatsFamilyGroup = chosen != null &&
+      pickedFamilies.has(chosen.family_group);
+    const exactHasNonRepeatingAlternative = availablePool.some((candidate) =>
+      chosen != null &&
+      candidate.cand.id !== chosen.id &&
+      avoidsRepeatedOffense(
+        candidate.cand,
+        chosenRepeatsPresentationGroup,
+        chosenRepeatsFamilyGroup,
+      )
+    );
+    const rescueReasons = [
+      ...(chosenRepeatsPresentationGroup
+        ? ["variety_rescue:presentation_group"]
+        : []),
+      ...(chosenRepeatsFamilyGroup ? ["variety_rescue:family_group"] : []),
+    ];
+    const shouldTryRescue = slot >= 2 &&
+      chosen != null &&
+      rescueReasons.length > 0 &&
+      !exactHasNonRepeatingAlternative;
+    let rescuePoolStage:
+      | "same_column_same_pace"
+      | "same_column_adjacent_pace"
+      | undefined;
+    let rescueFinalistPool: WeightedCandidate[] = [];
+    let rescueChosen: ArchetypeProfileV4 | undefined;
+    if (shouldTryRescue) {
+      const rescueBoostMultiplier = slot >= 2 ? 1.35 : 1;
+      for (
+        const stage of [
+          "same_column_same_pace",
+          "same_column_adjacent_pace",
+        ] as const
+      ) {
+        const pool = buildRescuePool({
+          profile,
+          stage,
+          repeatedPresentationGroup: chosenRepeatsPresentationGroup,
+          repeatedFamilyGroup: chosenRepeatsFamilyGroup,
+          rescueReasons,
+          rescueBoostMultiplier,
+        });
+        if (pool.length === 0) continue;
+        rescuePoolStage = stage;
+        rescueFinalistPool = withPositiveSelectionWeights(pool);
+        rescueChosen = weightedChoice({
+          seedBase,
+          side,
+          slot,
+          candidates: rescueFinalistPool,
+        })?.cand;
+        if (rescueChosen != null) break;
+      }
+    }
+    const finalChosen = rescueChosen ?? chosen;
+    const traceCandidates = uniqueScoredCandidates([
+      ...compatibleCandidates,
+      ...rescueFinalistPool,
+    ]);
+    const candidateScores = traceCandidates
+      .map((r) => ({ id: r.cand.id, score: r.score, reasons: r.reasons }))
+      .sort((a, b) => a.id.localeCompare(b.id));
+    const conditionCandidateIds = activeConditionMatches == null
+      ? []
+      : traceCandidates
+        .filter((r) => activeConditionMatches.has(r.cand.id))
+        .map((r) => r.cand.id);
+    const clarityWhitelistCandidateIds = compatibleCandidates
+      .filter((r) => CLARITY_SPECIALIST_WHITELIST[side][r.cand.id] != null)
+      .map((r) => r.cand.id);
+    const recentHistoryPenaltyApplied = compatibleCandidates.some((r) =>
+      r.reasons.some((reason) => reason.startsWith("recent_"))
+    );
+
+    if (compatibleCandidates.length === 0) {
       onSlotTrace?.({
         side,
         slot,
@@ -317,7 +842,8 @@ export function selectArchetypesForSide(args: {
         profile,
         forageSlot,
         claritySlot,
-        eligibleExactCount: 0,
+        eligibleExactCount,
+        eligibleCandidateCount: 0,
         tierPoolCount: 0,
         afterPickedIdsCount: 0,
         familyNarrowed: false,
@@ -328,106 +854,16 @@ export function selectArchetypesForSide(args: {
         conditionWindow: activeConditionWindow,
         conditionCandidateIds: [],
         recencyNarrowed: false,
+        presentationGroupNarrowed: false,
+        varietyRescueUsed: false,
+        recentHistoryPenaltyApplied: false,
         clarityWhitelistCandidateIds: [],
+        candidateScores: [],
         finalistIds: [],
       });
       continue;
     }
 
-    const bestTier = Math.min(...exactFits.map((r) => r.tier)) as 1 | 2;
-    const tierPool = exactFits.filter((r) => r.tier === bestTier);
-    let finalistPool = tierPool.filter((r) => !pickedIds.has(r.cand.id));
-    const afterPickedIdsCount = finalistPool.length;
-
-    let familyNarrowed = false;
-    const unusedFamilyPool = finalistPool.filter((r) =>
-      !pickedFamilies.has(r.cand.family_group)
-    );
-    if (unusedFamilyPool.length > 0) {
-      finalistPool = unusedFamilyPool;
-      familyNarrowed = true;
-    }
-
-    let forageNarrowed = false;
-    if (slot === forageSlot) {
-      const foragePool = finalistPool.filter((r) =>
-        matchesPrimaryForage(r.cand, row)
-      );
-      if (
-        foragePool.length > 0 && foragePool.length < finalistPool.length
-      ) {
-        finalistPool = foragePool;
-        forageNarrowed = true;
-      }
-    }
-
-    let clarityNarrowed = false;
-    const clarityWhitelistCandidateIds = finalistPool
-      .filter((r) => CLARITY_SPECIALIST_WHITELIST[side][r.cand.id] != null)
-      .map((r) => r.cand.id);
-    if (slot === claritySlot && clarityWhitelistCandidateIds.length > 0) {
-      const clarityPool = finalistPool.filter((r) =>
-        clarityWhitelistAllows(side, r.cand, water_clarity)
-      );
-      if (clarityPool.length > 0) {
-        finalistPool = clarityPool;
-        clarityNarrowed = true;
-      }
-    }
-
-    let conditionNarrowed = false;
-    const conditionCandidateIds = activeConditionMatches == null
-      ? []
-      : finalistPool
-        .filter((r) => activeConditionMatches.has(r.cand.id))
-        .map((r) => r.cand.id);
-    if (
-      slot === conditionSlot &&
-      activeConditionMatches != null &&
-      conditionCandidateIds.length > 0
-    ) {
-      finalistPool = finalistPool.filter((r) =>
-        activeConditionMatches.has(r.cand.id)
-      );
-      conditionNarrowed = true;
-    }
-
-    let recencyNarrowed = false;
-    const nonRecentPool = finalistPool.filter((r) =>
-      !isRecentlyShown({
-        archetypeId: r.cand.id,
-        side,
-        currentLocalDate,
-        recentHistory,
-      })
-    );
-    if (
-      nonRecentPool.length > 0 && nonRecentPool.length < finalistPool.length
-    ) {
-      finalistPool = nonRecentPool;
-      recencyNarrowed = true;
-    }
-
-    finalistPool.sort((a, b) => {
-      const ka = finalistChoiceKey({
-        seedBase,
-        side,
-        slot,
-        candidateId: a.cand.id,
-        tier: a.tier,
-      });
-      const kb = finalistChoiceKey({
-        seedBase,
-        side,
-        slot,
-        candidateId: b.cand.id,
-        tier: b.tier,
-      });
-      if (ka !== kb) return kb - ka;
-      return a.cand.id.localeCompare(b.cand.id);
-    });
-
-    const chosen = finalistPool[0]?.cand;
     onSlotTrace?.({
       side,
       slot,
@@ -435,27 +871,37 @@ export function selectArchetypesForSide(args: {
       profile,
       forageSlot,
       claritySlot,
-      bestTier,
-      eligibleExactCount: exactFits.length,
-      tierPoolCount: tierPool.length,
+      eligibleExactCount,
+      eligibleCandidateCount: compatibleCandidates.length,
+      tierPoolCount: positivePool.length,
       afterPickedIdsCount,
-      familyNarrowed,
-      forageNarrowed,
-      clarityNarrowed,
-      conditionNarrowed,
+      familyNarrowed: false,
+      forageNarrowed: false,
+      clarityNarrowed: false,
+      conditionNarrowed: false,
       conditionSlot,
       conditionWindow: activeConditionWindow,
       conditionCandidateIds,
-      recencyNarrowed,
+      recencyNarrowed: false,
+      presentationGroupNarrowed,
+      varietyRescueUsed: rescueChosen != null,
+      varietyRescueReasons: rescueChosen != null ? rescueReasons : [],
+      varietyRescuePoolStage: rescueChosen != null
+        ? rescuePoolStage
+        : undefined,
+      recentHistoryPenaltyApplied,
       clarityWhitelistCandidateIds,
-      finalistIds: finalistPool.map((r) => r.cand.id),
-      chosenId: chosen?.id,
+      candidateScores,
+      finalistIds: (rescueChosen != null ? rescueFinalistPool : finalistPool)
+        .map((r) => r.cand.id),
+      chosenId: finalChosen?.id,
     });
 
-    if (!chosen) continue;
-    picked.push({ archetype: chosen, profile, source_slot_index: slot });
-    pickedIds.add(chosen.id);
-    pickedFamilies.add(chosen.family_group);
+    if (!finalChosen) continue;
+    picked.push({ archetype: finalChosen, profile, source_slot_index: slot });
+    pickedIds.add(finalChosen.id);
+    pickedFamilies.add(finalChosen.family_group);
+    pickedPresentationGroups.add(finalChosen.presentation_group);
   }
 
   return picked;

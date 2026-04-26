@@ -94,9 +94,9 @@ Deno.test("surfaceFlySpeciesGate: trout never admits frog_fly when lake/surface/
   assertEquals(pool.some((a) => a.id === "frog_fly"), false);
 });
 
-Deno.test("surfaceFlySpeciesGate: trout never admits popper_fly when surface/medium/clear match popper dims (G7 / §20.6)", () => {
+Deno.test("surfaceFlySpeciesGate: trout admits popper_fly when surface/medium/clear match catalog dims (G7)", () => {
   const popper = fly("popper_fly");
-  assertEquals(popper.species_allowed.includes("trout"), false);
+  assertEquals(popper.species_allowed.includes("trout"), true);
   const row: SeasonalRowV4 = {
     species: "trout",
     region_key: "inland_northwest",
@@ -120,5 +120,5 @@ Deno.test("surfaceFlySpeciesGate: trout never admits popper_fly when surface/med
     "trout",
     "freshwater_lake_pond",
   );
-  assertEquals(pool.some((a) => a.id === "popper_fly"), false);
+  assertEquals(pool.some((a) => a.id === "popper_fly"), true);
 });

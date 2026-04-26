@@ -43,15 +43,24 @@ const WINDOW_MATCHES: Record<
 > = {
   surface_commitment_window: [
     "walking_topwater",
+    "popping_topwater",
     "buzzbait",
+    "prop_bait",
     "hollow_body_frog",
+    "large_pike_topwater",
   ],
   wind_reaction_window: [
     "spinnerbait",
     "bladed_jig",
     "lipless_crankbait",
   ],
-  clear_subtle_window: ["suspending_jerkbait"],
+  clear_subtle_window: [
+    "suspending_jerkbait",
+    "soft_jerkbait",
+    "drop_shot_minnow",
+    "drop_shot_worm",
+    "weightless_stick_worm",
+  ],
 };
 
 const FLY_WINDOW_MATCHES: Record<
@@ -77,6 +86,32 @@ export const FLY_CONDITION_WINDOW_PRIORITY: readonly FlyConditionWindowId[] = [
   "trout_mouse_window",
   "surface_commitment_fly_window",
 ];
+
+export const LURE_CONDITION_WINDOW_WEIGHTS: Record<
+  LureConditionWindowId,
+  number
+> = {
+  surface_commitment_window: 24,
+  wind_reaction_window: 28,
+  clear_subtle_window: 22,
+};
+
+export const FLY_CONDITION_WINDOW_WEIGHTS: Record<
+  FlyConditionWindowId,
+  number
+> = {
+  trout_mouse_window: 36,
+  surface_commitment_fly_window: 24,
+};
+
+export function conditionWindowWeight(
+  window: LureConditionWindowId | FlyConditionWindowId,
+): number {
+  if (window in LURE_CONDITION_WINDOW_WEIGHTS) {
+    return LURE_CONDITION_WINDOW_WEIGHTS[window as LureConditionWindowId];
+  }
+  return FLY_CONDITION_WINDOW_WEIGHTS[window as FlyConditionWindowId];
+}
 
 export function lureConditionWindowMatches(
   window: LureConditionWindowId,
