@@ -53,6 +53,42 @@ Deno.test("rebuild copy: every archetype supported pace has three how-to-fish va
   }
 });
 
+Deno.test("rebuild copy: every archetype has distinct why and how variants", () => {
+  for (const archetype of catalog) {
+    const whyVariants = ([0, 1, 2] as const).map((variant) =>
+      buildWhyChosenCopy({
+        archetype,
+        row: row(archetype),
+        targetProfile: {
+          column: archetype.column,
+          pace: archetype.primary_pace,
+        },
+        variant,
+      })
+    );
+    assertEquals(
+      new Set(whyVariants).size,
+      3,
+      `${archetype.id} why variants should be distinct`,
+    );
+
+    for (const pace of pacesFor(archetype)) {
+      const howVariants = ([0, 1, 2] as const).map((variant) =>
+        buildHowToFishCopy({
+          archetype,
+          targetProfile: { column: archetype.column, pace },
+          variant,
+        })
+      );
+      assertEquals(
+        new Set(howVariants).size,
+        3,
+        `${archetype.id} ${pace} how variants should be distinct`,
+      );
+    }
+  }
+});
+
 Deno.test("rebuild copy: why and how use the selected pace, including secondary pace", () => {
   const swimJig = LURE_ARCHETYPES_V4.find((a) => a.id === "swim_jig")!;
   const mediumProfile = { column: swimJig.column, pace: "medium" as const };
