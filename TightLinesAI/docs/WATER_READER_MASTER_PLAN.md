@@ -292,6 +292,10 @@ Current Water Reader backbone files:
   - USGS TNM **USGSNAIPPlus** ImageServer `source_registry` row + national policy row seeded **`is_enabled = false`** in repo; **production (V1)** uses **`is_enabled = true`** for CONUS-first **source availability** after ops enable (see 0.5.17)
 - `supabase/migrations/20260427210000_water_reader_usgs_tnm_conus_coverage_exclusions.sql`
   - CONUS-first **`coverage.exclude_state_codes`** (`AK`, `HI`, `PR`, `GU`, `MP`); SQL keeps **`is_enabled = false`** — production **`is_enabled = true`** is a **separate** ops step (applied on V1; see §0.5.17)
+- `supabase/migrations/20260427220000_water_reader_search_short_specific_token_guard.sql`
+  - live V1 search stabilization for state-first autocomplete; keeps short generic inputs such as `lake O`, `Oak`, and `lake oakland` in Michigan inside the Edge/PostgREST timeout by using state-scoped bounded search and late availability enrichment.
+- `supabase/migrations/20260427224000_water_reader_search_preview_bbox.sql`
+  - adds preview-only geometry-envelope bbox fields to the search RPC for aerial source-preview framing; this is not analysis or overlay geometry.
 - `supabase/migrations/20260424145528_water_reader_national_ingest_backbone.sql`
   - private ingest-run tables, county boundary staging, 3DHP waterbody staging, optional GNIS alias staging, and promotion function
 - `scripts/water-reader-ingest-3dhp.ts`
@@ -310,7 +314,7 @@ Current Water Reader backbone files:
 Important status distinction:
 
 - **In repo:** schema, functions, contracts, ingest generator, and docs
-- **Proven live (target Supabase):** applied Water Reader schema, promoted regional 3DHP import, full national 3DHP named standing-water identity import, `search_waterbodies` RPC with area + centroid disambiguation (see 0.5.13–0.5.16); `waterbody-search` and `waterbody-source-validation` edge functions deployed (see 0.5.17)
+- **Proven live (target Supabase):** applied Water Reader schema, promoted regional 3DHP import, full national 3DHP named standing-water identity import, state-scoped `search_waterbodies` RPC with area + centroid disambiguation, short-autocomplete stabilization, and preview-only bbox fields (see 0.5.13–0.5.17, 0.5.19); `waterbody-search` and `waterbody-source-validation` edge functions deployed (see 0.5.17)
 - **Not built:** source attachment at scale, aerial/depth extraction, scoring, overlays, renderer, full Water Reader report flow, daily conditions
 - **In repo (app working tree, not a deployment claim):** non-interactive USGS TNM NAIP Plus **source preview** — **§0.5.19**
 
@@ -321,6 +325,7 @@ Important status distinction:
 - `waterbody-search` currently blocks free-tier users. Confirm whether this is desired for internal testing and launch gating before using frontend search as the only verification path.
 - The app mirror `lib/waterReaderContracts.ts` is intentionally narrower than the edge-function contracts right now. Keep it aligned for public search response fields as the app uses more Water Reader APIs.
 - National 3DHP import should be treated as an operational data load, not as a normal app request path.
+- Current unrelated dirty-tree items, when last recorded here, are fly PNG asset edits and untracked legacy `202603*` migrations; do not treat those as Water Reader search/previewBbox work.
 
 ### 0.5.12 Pre-national-load validation checklist
 
@@ -630,10 +635,13 @@ Next recommended phase (sequencing intent — not all steps are complete):
 **National identity and search**
 
 - The national named lake/pond/reservoir identity load is in the target Supabase project; `search_waterbodies` supports area + centroid disambiguation as documented in 0.5.14–0.5.16.
+- **V1 search UX is state-first autocomplete:** the user must choose a state before lake/pond/reservoir autocomplete runs, and app search requests are state-scoped for speed and reliability.
+- Live short-autocomplete fixes are applied for Michigan examples such as `lake O`, `Oak`, and `lake oakland`; these stay in the bounded search path before availability enrichment, rather than expanding to broad national/name scans.
 
 **Edge functions (target project)**
 
 - `waterbody-search` — deployed (authenticated / subscription-gated per product settings).
+- `waterbody-search` returns `previewBbox` for search results when a valid geometry-derived preview envelope is available; the app treats it as source-preview framing only.
 - `waterbody-source-validation` — deployed with **internal** auth via `WATER_READER_INTERNAL_KEY` (`--no-verify-jwt`); mutates per-link validation columns only for requested `lakeId` / `sourceMode`.
 
 **Minnesota DNR depth pilot (six lakes)**
@@ -767,10 +775,11 @@ Use this section **instead of chat history**. If anything here disagrees with th
 **What exists in the working tree**
 
 - Home **Water Reader** card navigates to **`/water-reader`** (`app/water-reader.tsx`).
-- **Waterbody search** uses the existing **`searchWaterbodies`** client (subscription-gated Edge `waterbody-search`).
+- **Waterbody search** uses the existing **`searchWaterbodies`** client (subscription-gated Edge `waterbody-search`) in the V1 **state-first** UX: a state must be selected before lake/pond/reservoir autocomplete runs, and requests are state-scoped.
+- Live autocomplete behavior has been stabilized for short state-scoped inputs such as Michigan `lake O`, `Oak`, and `lake oakland`.
 - A **single** `exportImage` request to **`USGSNAIPPlus` ImageServer** runs **only after explicit tap** on a search result (not while typing, not for unselected rows).
 - Helper URL/bbox logic: `lib/usgsTnmAerialSnapshot.ts` (CONUS policy exclusions; conservative state-code normalization).
-- Current preview framing is a **centroid + surface-area heuristic** only; it can cut off large or irregular lakes and is not suitable for final overlay/analysis framing.
+- Current preview framing uses `previewBbox` from `waterbody-search` when valid, then falls back to the older **centroid + surface-area heuristic** if the bbox is missing or invalid.
 - Preview is shown with **`expo-image`** and **`cachePolicy="none"`** (no disk cache policy — not a substitute for §0.4 **legal** storage review).
 - Required **USGS / National Geospatial Program** attribution is shown with the snapshot area.
 - **Honest fallbacks** when policy excludes the state, source flags disallow aerial, centroid/bbox is invalid, request errors, or a **~28s** client timeout elapses.
@@ -779,8 +788,8 @@ Use this section **instead of chat history**. If anything here disagrees with th
 
 - **Source preview only** — no feature extraction, no scoring, no fish-zone overlays, no interactive map library, no report renderer, no daily conditions, no recommender integration.
 - **No persistent imagery** / mosaics / derived rasters in app storage; no product claim that **`aerial_available`** equals a **built** national map.
-- Future preview framing should return a backend/RPC **geometry-derived preview bbox** (for example `ST_Envelope(geometry)` with conservative padding/clamping). Final overlays and analysis must use true waterbody geometry/bounds, not centroid+area heuristics.
-- This preview-framing improvement does **not** change imagery storage/cache permissions.
+- `previewBbox` is a backend/RPC **geometry-derived preview envelope** with conservative padding/clamping. It is **preview-only** and must not be treated as analysis-ready polygon/geometry, overlay bounds, extraction input, scoring evidence, or final Water Reader report geometry.
+- This preview-framing improvement does **not** change imagery storage/cache permissions; the USGS aerial preview remains non-interactive and source-preview-only.
 - **Deployment** of any app build to TestFlight, Play, or production is **out of scope** of this plan entry unless **separately** recorded as shipped.
 
 **Next checkpoints (QA / design)**
