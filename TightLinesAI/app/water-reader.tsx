@@ -24,6 +24,7 @@ import {
   USGS_TNM_ATTRIBUTION,
   wgs84BboxFromCentroidAcres,
 } from '../lib/usgsTnmAerialSnapshot';
+import { planAerialReadTiles, type Wgs84Bbox } from '../lib/waterReaderAerialTilePlan';
 
 const SNAPSHOT_TIMEOUT_MS = 28_000;
 const SEARCH_DEBOUNCE_MS = 400;
@@ -125,6 +126,15 @@ function selectionSummaryLine(r: WaterbodySearchResult): string {
 
 function selectionSubLine(r: WaterbodySearchResult): string {
   return resultSecondaryLine(r);
+}
+
+function formatBbox(bbox: Wgs84Bbox): string {
+  return [
+    bbox.minLon.toFixed(5),
+    bbox.minLat.toFixed(5),
+    bbox.maxLon.toFixed(5),
+    bbox.maxLat.toFixed(5),
+  ].join(', ');
 }
 
 export default function WaterReaderScreen() {
@@ -335,6 +345,7 @@ export default function WaterReaderScreen() {
     (stateCode && US_STATE_OPTIONS.find((o) => o.code === stateCode)?.name) || 'this state';
   const showResultsPanel =
     !selected && stateCode && (qTrim.length >= 2 || searching || (searchError != null && qTrim.length >= 2));
+  const aerialTilePlan = selected ? planAerialReadTiles(selected) : null;
 
   return (
     <KeyboardAvoidingView
@@ -504,6 +515,68 @@ export default function WaterReaderScreen() {
             <Text style={styles.attrSmall}>{USGS_TNM_ATTRIBUTION}</Text>
           )}
         </View>
+
+        <View style={styles.planningSection}>
+          <Text style={styles.section}>Aerial read planning preview</Text>
+          {!selected && (
+            <Text style={styles.muted}>Select a waterbody to see the deterministic tile plan prototype.</Text>
+          )}
+          {selected && !aerialTilePlan && (
+            <Text style={styles.fallback}>
+              Planning preview unavailable because this waterbody does not have a valid bbox or centroid.
+            </Text>
+          )}
+          {selected && aerialTilePlan && (
+            <View style={styles.planningCard}>
+              <Text style={styles.prototypeBadge}>Prototype only</Text>
+              <Text style={styles.prototypeCopy}>
+                Planning proof only — no imagery analysis, no depth, no fish-zone scoring.
+              </Text>
+              <Text style={styles.prototypeCopy}>
+                These tiles are deterministic bbox plans and mock visible-category labels, not fishing recommendations.
+              </Text>
+
+              <View style={styles.planMetaBlock}>
+                <Text style={styles.planMetaLabel}>Whole-lake context bbox</Text>
+                <Text style={styles.planBboxText}>{formatBbox(aerialTilePlan.contextBbox)}</Text>
+                <Text style={styles.planMetaHint}>
+                  Source: {aerialTilePlan.source === 'previewBbox' ? 'geometry preview bbox' : 'centroid/acres fallback'} · Close tiles: {aerialTilePlan.closeTiles.length} · Overlap: {Math.round(aerialTilePlan.overlapRatio * 100)}%
+                </Text>
+              </View>
+
+              <View style={styles.tileSchematic}>
+                {aerialTilePlan.closeTiles.map((tile) => (
+                  <View
+                    key={`tile-schematic-${tile.id}`}
+                    style={[
+                      styles.tileSchematicBox,
+                      {
+                        left: `${(tile.col / aerialTilePlan.gridCols) * 100}%`,
+                        top: `${(tile.row / aerialTilePlan.gridRows) * 100}%`,
+                        width: `${100 / aerialTilePlan.gridCols}%`,
+                        height: `${100 / aerialTilePlan.gridRows}%`,
+                      },
+                    ]}
+                  >
+                    <Text style={styles.tileSchematicText}>{tile.id}</Text>
+                  </View>
+                ))}
+              </View>
+
+              <View style={styles.tileList}>
+                {aerialTilePlan.closeTiles.map((tile) => (
+                  <View key={tile.id} style={styles.tileCard}>
+                    <View style={styles.tileHeader}>
+                      <Text style={styles.tileTitle}>Tile {tile.id}</Text>
+                      <Text style={styles.tileCategory}>{tile.prototypeVisibleCategory}</Text>
+                    </View>
+                    <Text style={styles.tileBboxText}>{formatBbox(tile.bbox)}</Text>
+                  </View>
+                ))}
+              </View>
+            </View>
+          )}
+        </View>
       </ScrollView>
 
       <Modal
@@ -633,6 +706,7 @@ const styles = StyleSheet.create({
   resultLine: { fontSize: 15, color: colors.text, lineHeight: 20 },
   resultMeta: { fontSize: 11, color: colors.textMuted, marginTop: 4, lineHeight: 16 },
   snapshotSection: { marginTop: spacing.xl },
+  planningSection: { marginTop: spacing.xl },
   muted: { fontSize: 13, color: colors.textMuted },
   fallback: {
     fontSize: 14,
@@ -671,6 +745,85 @@ const styles = StyleSheet.create({
     color: colors.textMuted,
     marginTop: spacing.sm,
     lineHeight: 14,
+  },
+  planningCard: {
+    backgroundColor: colors.surface,
+    borderRadius: radius.md,
+    borderWidth: StyleSheet.hairlineWidth,
+    borderColor: colors.border,
+    padding: spacing.md,
+    gap: spacing.sm,
+  },
+  prototypeBadge: {
+    alignSelf: 'flex-start',
+    paddingHorizontal: spacing.sm,
+    paddingVertical: 4,
+    borderRadius: radius.sm,
+    backgroundColor: colors.backgroundAlt,
+    color: colors.textSecondary,
+    fontSize: 11,
+    fontWeight: '700',
+    textTransform: 'uppercase',
+    letterSpacing: 0.5,
+  },
+  prototypeCopy: {
+    fontSize: 12,
+    color: colors.textSecondary,
+    lineHeight: 18,
+  },
+  planMetaBlock: {
+    marginTop: spacing.xs,
+    paddingTop: spacing.sm,
+    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopColor: colors.border,
+  },
+  planMetaLabel: { fontSize: 12, color: colors.textMuted, marginBottom: 4 },
+  planBboxText: { fontSize: 12, color: colors.text, fontFamily: 'SpaceMono_400Regular', lineHeight: 18 },
+  planMetaHint: { fontSize: 11, color: colors.textMuted, marginTop: 4, lineHeight: 16 },
+  tileSchematic: {
+    height: 160,
+    marginTop: spacing.sm,
+    borderRadius: radius.md,
+    borderWidth: StyleSheet.hairlineWidth,
+    borderColor: colors.border,
+    backgroundColor: colors.backgroundAlt,
+    overflow: 'hidden',
+    position: 'relative',
+  },
+  tileSchematicBox: {
+    position: 'absolute',
+    width: '32%',
+    height: '40%',
+    borderRadius: radius.sm,
+    borderWidth: 1,
+    borderColor: colors.sage,
+    backgroundColor: 'rgba(107, 126, 86, 0.14)',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  tileSchematicText: { color: colors.text, fontSize: 13, fontWeight: '700' },
+  tileList: { gap: spacing.sm, marginTop: spacing.xs },
+  tileCard: {
+    borderRadius: radius.sm,
+    borderWidth: StyleSheet.hairlineWidth,
+    borderColor: colors.border,
+    padding: spacing.sm,
+    backgroundColor: colors.background,
+  },
+  tileHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: spacing.sm,
+  },
+  tileTitle: { fontSize: 13, color: colors.text, fontWeight: '700' },
+  tileCategory: { flex: 1, textAlign: 'right', fontSize: 12, color: colors.textSecondary },
+  tileBboxText: {
+    marginTop: 4,
+    fontSize: 11,
+    color: colors.textMuted,
+    fontFamily: 'SpaceMono_400Regular',
+    lineHeight: 16,
   },
   modalWrap: { flex: 1, backgroundColor: colors.background, paddingTop: 8 },
   modalHeader: {
