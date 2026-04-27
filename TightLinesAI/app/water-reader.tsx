@@ -9,6 +9,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   ActivityIndicator,
+  Modal,
 } from 'react-native';
 import { Image as ExpoImage } from 'expo-image';
 import { colors, fonts, spacing, radius } from '../lib/theme';
@@ -25,7 +26,34 @@ import {
 } from '../lib/usgsTnmAerialSnapshot';
 
 const SNAPSHOT_TIMEOUT_MS = 28_000;
-const SEARCH_DEBOUNCE_MS = 450;
+const SEARCH_DEBOUNCE_MS = 400;
+const SEARCH_RESULT_LIMIT = 16;
+
+const STATE_NAME_TO_CODE: Record<string, string> = {
+  Alabama: 'AL', Alaska: 'AK', Arizona: 'AZ', Arkansas: 'AR',
+  California: 'CA', Colorado: 'CO', Connecticut: 'CT', Delaware: 'DE',
+  Florida: 'FL', Georgia: 'GA', Hawaii: 'HI', Idaho: 'ID',
+  Illinois: 'IL', Indiana: 'IN', Iowa: 'IA', Kansas: 'KS',
+  Kentucky: 'KY', Louisiana: 'LA', Maine: 'ME', Maryland: 'MD',
+  Massachusetts: 'MA', Michigan: 'MI', Minnesota: 'MN', Mississippi: 'MS',
+  Missouri: 'MO', Montana: 'MT', Nebraska: 'NE', Nevada: 'NV',
+  'New Hampshire': 'NH', 'New Jersey': 'NJ', 'New Mexico': 'NM', 'New York': 'NY',
+  'North Carolina': 'NC', 'North Dakota': 'ND', Ohio: 'OH', Oklahoma: 'OK',
+  Oregon: 'OR', Pennsylvania: 'PA', 'Rhode Island': 'RI', 'South Carolina': 'SC',
+  'South Dakota': 'SD', Tennessee: 'TN', Texas: 'TX', Utah: 'UT',
+  Vermont: 'VT', Virginia: 'VA', Washington: 'WA', 'West Virginia': 'WV',
+  Wisconsin: 'WI', Wyoming: 'WY',
+};
+
+const US_STATE_OPTIONS = Object.entries(STATE_NAME_TO_CODE)
+  .map(([name, code]) => ({ name, code }))
+  .sort((a, b) => a.name.localeCompare(b.name));
+
+function stateDisplayLabel(code: string | null): string {
+  if (!code) return 'Choose a state';
+  const row = US_STATE_OPTIONS.find((o) => o.code === code);
+  return row ? `${row.name} (${row.code})` : code;
+}
 
 type AerialPhase = 'idle' | 'loading' | 'loaded' | 'timeout' | 'error' | 'blocked';
 
@@ -37,31 +65,72 @@ function formatAvailability(r: WaterbodySearchResult): string {
   return parts.join(' + ');
 }
 
-/** Map Edge/client errors to honest, specific copy (no generic "Search failed"). */
+function parseEdgeErrorMessage(raw: string): { surface: string; details?: string } {
+  if (raw.includes('|details:')) {
+    const [a, b] = raw.split('|details:');
+    return { surface: a, details: b };
+  }
+  return { surface: raw };
+}
+
 function userFacingSearchError(e: unknown): string {
   const raw = e instanceof Error ? e.message : String(e);
-  const m = raw.toLowerCase();
+  const { surface, details = '' } = parseEdgeErrorMessage(raw);
+  const m = (surface + ' ' + details).toLowerCase();
   if (m.includes('not signed in') || m.includes('sign in')) {
     return 'Sign in to search waterbodies.';
   }
   if (m.includes('subscribe') || m.includes('subscription')) {
     return 'Waterbody search requires an active subscription.';
   }
-  if (m.includes('unauthorized') || raw === 'Unauthorized') {
+  if (m.includes('unauthorized') || surface === 'Unauthorized') {
     return 'Session invalid. Sign in again to search.';
   }
-  if (m.includes('failed to search waterbodies') || m.includes('search_failed')) {
-    return 'Search is temporarily unavailable. Try again in a moment.';
-  }
-  if (m.includes('network') || m.includes('fetch')) {
+  if (m.includes('network') || m.includes('fetch') || m.includes('network request failed')) {
     return 'Network error. Check connection and try again.';
   }
-  return raw;
+  if (
+    details.includes('statement timeout') ||
+    details.includes('canceling statement') ||
+    m.includes('57014')
+  ) {
+    return 'Search timed out. Try a more specific name.';
+  }
+  if (
+    surface.toLowerCase().includes('failed to search waterbodies') ||
+    m.includes('search_failed') ||
+    m.includes('500')
+  ) {
+    if (details && !details.toLowerCase().includes('timeout')) {
+      return `Search failed (${details.length > 120 ? 'try again' : details})`;
+    }
+    return "We couldn't run that search. Please try again.";
+  }
+  return surface.length < 200 ? surface : "We couldn't run that search.";
+}
+
+function resultPrimaryLine(r: WaterbodySearchResult): string {
+  const co = r.county ? ` — ${r.county} County` : '';
+  return `${r.name}${co} · ${r.waterbodyType}`;
+}
+
+function resultSecondaryLine(r: WaterbodySearchResult): string {
+  return `${formatAvailability(r)} · ${r.sourceStatus} · ${r.availability}`;
+}
+
+function selectionSummaryLine(r: WaterbodySearchResult): string {
+  const co = r.county ? ` · ${r.county} County` : '';
+  return `${r.name}${co} · ${r.state} · ${r.waterbodyType}`;
+}
+
+function selectionSubLine(r: WaterbodySearchResult): string {
+  return resultSecondaryLine(r);
 }
 
 export default function WaterReaderScreen() {
+  const [stateCode, setStateCode] = useState<string | null>(null);
+  const [stateModalOpen, setStateModalOpen] = useState(false);
   const [query, setQuery] = useState('');
-  const [stateFilter, setStateFilter] = useState('');
   const [searching, setSearching] = useState(false);
   const [searchError, setSearchError] = useState<string | null>(null);
   const [searchEmpty, setSearchEmpty] = useState(false);
@@ -88,45 +157,28 @@ export default function WaterReaderScreen() {
     [],
   );
 
-  /** New query/state invalidates previous selection and preview. */
   useEffect(() => {
     setSelected(null);
-  }, [query, stateFilter]);
+  }, [stateCode]);
 
-  const getStateParamForSearch = useCallback((): { ok: true; state?: string } | { ok: false; reason: string } => {
-    const st = stateFilter.trim();
-    if (st.length === 0) return { ok: true, state: undefined };
-    if (st.length === 1) {
-      return { ok: false, reason: 'Enter a 2-letter state (e.g. MI) or leave state blank.' };
-    }
-    if (st.length === 2) {
-      const n = normalizeUsWaterbodyStateCode(st);
-      if (n == null) {
-        return {
-          ok: false,
-          reason: 'State code not recognized. Use a 2-letter U.S. code (e.g. MI) or leave blank.',
-        };
-      }
-      return { ok: true, state: n };
-    }
-    return { ok: false, reason: 'State filter must be two letters (e.g. MI) or blank.' };
-  }, [stateFilter]);
+  const onQueryChange = useCallback((t: string) => {
+    setQuery(t);
+  }, []);
 
   const runSearch = useCallback(
     async (requestId: number) => {
       const q = query.trim();
-      if (q.length < 2) {
+      if (!stateCode) {
         setResults([]);
         setSearchEmpty(false);
         setSearchError(null);
         setSearching(false);
         return;
       }
-      const sp = getStateParamForSearch();
-      if (!sp.ok) {
-        setSearchError(sp.reason);
+      if (q.length < 2) {
         setResults([]);
         setSearchEmpty(false);
+        setSearchError(null);
         setSearching(false);
         return;
       }
@@ -136,8 +188,8 @@ export default function WaterReaderScreen() {
       try {
         const res = await searchWaterbodies({
           query: q,
-          state: sp.state,
-          limit: 15,
+          state: stateCode,
+          limit: SEARCH_RESULT_LIMIT,
         });
         if (searchRequestId.current !== requestId) return;
         setResults(res.results);
@@ -156,22 +208,21 @@ export default function WaterReaderScreen() {
         }
       }
     },
-    [query, getStateParamForSearch],
+    [query, stateCode],
   );
 
   useEffect(() => {
-    const q = query.trim();
-    if (q.length < 2) {
+    if (!stateCode) {
       setResults([]);
       setSearchError(null);
       setSearchEmpty(false);
       setSearching(false);
       return;
     }
-    const sp = getStateParamForSearch();
-    if (!sp.ok) {
-      setSearchError(sp.reason);
+    const q = query.trim();
+    if (q.length < 2) {
       setResults([]);
+      setSearchError(null);
       setSearchEmpty(false);
       setSearching(false);
       return;
@@ -182,22 +233,24 @@ export default function WaterReaderScreen() {
       void runSearch(id);
     }, SEARCH_DEBOUNCE_MS);
     return () => clearTimeout(t);
-  }, [query, stateFilter, getStateParamForSearch, runSearch]);
+  }, [query, stateCode, runSearch]);
 
-  const refreshSearch = useCallback(() => {
-    const sp = getStateParamForSearch();
-    const q = query.trim();
-    if (q.length < 2) {
-      setSearchError('Type at least 2 characters.');
-      return;
-    }
-    if (!sp.ok) {
-      setSearchError(sp.reason);
-      return;
-    }
-    const id = ++searchRequestId.current;
-    void runSearch(id);
-  }, [query, getStateParamForSearch, runSearch]);
+  const onPickResult = useCallback((r: WaterbodySearchResult) => {
+    setSelected(r);
+  }, []);
+
+  const onChangeState = useCallback(() => {
+    setStateCode(null);
+    setQuery('');
+    setResults([]);
+    setSearchError(null);
+    setSearchEmpty(false);
+    setStateModalOpen(true);
+  }, []);
+
+  const onChangeLake = useCallback(() => {
+    setSelected(null);
+  }, []);
 
   useEffect(() => {
     loadGenerationRef.current += 1;
@@ -274,6 +327,12 @@ export default function WaterReaderScreen() {
     setAerialPhase('error');
   }, []);
 
+  const qTrim = query.trim();
+  const stateNameForEmpty =
+    (stateCode && US_STATE_OPTIONS.find((o) => o.code === stateCode)?.name) || 'this state';
+  const showResultsPanel =
+    !selected && stateCode && (qTrim.length >= 2 || searching || (searchError != null && qTrim.length >= 2));
+
   return (
     <KeyboardAvoidingView
       style={styles.flex}
@@ -286,98 +345,118 @@ export default function WaterReaderScreen() {
         keyboardShouldPersistTaps="handled"
       >
         <Text style={styles.disclaimer}>
-          On-demand USGS ortho source preview (lake, pond, reservoir lookup). Not fishing advice, a
-          finished product, or a structural readout — a single on-screen fetch where policy allows.
+          USGS ortho preview (lake, pond, reservoir). One on-demand fetch; not fishing advice.
         </Text>
 
         <Text style={styles.section}>Find a waterbody</Text>
-        <Text style={styles.hint}>
-          Type at least 2 characters; results update as you type. You can use natural name order
-          (e.g. “Lake Oakland” or “Oakland Lake”).
-        </Text>
-        <View style={styles.row}>
-          <TextInput
-            style={[styles.input, styles.inputGrow]}
-            placeholder="Lake name (type to search)"
-            placeholderTextColor={colors.textMuted}
-            value={query}
-            onChangeText={setQuery}
-            autoCorrect={false}
-            autoCapitalize="words"
-            accessibilityLabel="Waterbody name search"
-          />
-        </View>
-        <View style={styles.row}>
-          <TextInput
-            style={[styles.input, styles.inputGrow]}
-            placeholder="State optional (e.g. MI)"
-            placeholderTextColor={colors.textMuted}
-            value={stateFilter}
-            onChangeText={(t) => setStateFilter(t.toUpperCase().replace(/[^A-Z]/g, ''))}
-            autoCorrect={false}
-            autoCapitalize="characters"
-            maxLength={2}
-            accessibilityLabel="Optional two-letter state filter"
-          />
-          <Pressable
-            style={({ pressed }) => [styles.searchBtn, pressed && styles.pressed]}
-            onPress={refreshSearch}
-            disabled={searching}
-            accessibilityLabel="Refresh search"
-          >
-            {searching ? (
-              <ActivityIndicator color={colors.textLight} size="small" />
-            ) : (
-              <Text style={styles.searchBtnText}>Refresh</Text>
-            )}
-          </Pressable>
-        </View>
-        {searching && (
-          <View style={styles.searchingRow}>
-            <ActivityIndicator size="small" color={colors.sage} />
-            <Text style={styles.searchingText}>Searching…</Text>
-          </View>
-        )}
-        {searchError && <Text style={styles.warn}>{searchError}</Text>}
-        {searchEmpty && !searchError && !searching && (
-          <Text style={styles.info}>
-            No matching lakes. Try different spelling, a shorter search, or adjust the state filter.
-          </Text>
-        )}
 
-        {results.length > 0 && (
-          <>
-            <Text style={styles.sectionMuted}>Tap a result to select</Text>
-            {results.map((r) => (
-              <Pressable
-                key={r.lakeId}
-                style={({ pressed }) => [
-                  styles.resultRow,
-                  selected?.lakeId === r.lakeId && styles.resultRowSelected,
-                  pressed && styles.pressed,
-                ]}
-                onPress={() => setSelected(r)}
-              >
-                <Text style={styles.resultTitle}>
-                  {r.name}
-                  <Text style={styles.resultMeta}>
-                    {' '}
-                    · {r.state}
-                    {r.county ? ` · ${r.county}` : ''} · {r.waterbodyType}
-                  </Text>
+        <View style={styles.combobox}>
+          <Text style={styles.inputLabel}>State</Text>
+          <Pressable
+            style={({ pressed }) => [styles.stateButton, pressed && styles.pressed]}
+            onPress={() => setStateModalOpen(true)}
+            accessibilityLabel="Select U.S. state"
+          >
+            <Text style={styles.stateButtonText} numberOfLines={1}>
+              {stateDisplayLabel(stateCode)}
+            </Text>
+            <Text style={styles.stateChevron}>˅</Text>
+          </Pressable>
+
+          {!stateCode && (
+            <Text style={styles.calmHint}>Choose a state to start.</Text>
+          )}
+
+          {stateCode && (
+            <>
+              <Text style={styles.inputLabel}>Lake, pond, or reservoir</Text>
+              <TextInput
+                style={styles.searchInput}
+                placeholder="Name (2+ characters)…"
+                placeholderTextColor={colors.textMuted}
+                value={query}
+                onChangeText={onQueryChange}
+                autoCorrect={false}
+                autoCapitalize="words"
+                accessibilityLabel="Waterbody name search"
+                editable={!selected}
+                pointerEvents={selected ? 'none' : 'auto'}
+              />
+            </>
+          )}
+
+          {stateCode && selected && (
+            <View style={styles.selectedSummary}>
+              <View style={styles.selectedSummaryText}>
+                <Text style={styles.selectedTitle} numberOfLines={2}>
+                  {selectionSummaryLine(selected)}
                 </Text>
-                <Text style={styles.resultSub}>
-                  Source availability: {formatAvailability(r)} · {r.availability} · {r.sourceStatus}
+                <Text style={styles.selectedSub} numberOfLines={2}>
+                  {selectionSubLine(selected)}
                 </Text>
-              </Pressable>
-            ))}
-          </>
-        )}
+                <View style={styles.selectedActions}>
+                  <Pressable
+                    onPress={onChangeState}
+                    style={({ pressed }) => [styles.linkBtn, pressed && styles.pressed]}
+                  >
+                    <Text style={styles.linkBtnText}>Change state</Text>
+                  </Pressable>
+                  <Text style={styles.actionSep}>·</Text>
+                  <Pressable
+                    onPress={onChangeLake}
+                    style={({ pressed }) => [styles.linkBtn, pressed && styles.pressed]}
+                  >
+                    <Text style={styles.linkBtnText}>Change lake</Text>
+                  </Pressable>
+                </View>
+              </View>
+            </View>
+          )}
+
+          {showResultsPanel && (
+            <View style={styles.dropdown}>
+              {searching && (
+                <View style={styles.inlineLoading}>
+                  <ActivityIndicator size="small" color={colors.sage} />
+                  <Text style={styles.searchingText}>Searching…</Text>
+                </View>
+              )}
+              {searchError && <Text style={styles.dropdownError}>{searchError}</Text>}
+              {searchEmpty && !searchError && !searching && (
+                <Text style={styles.dropdownEmpty}>
+                  {`No matching lakes in ${stateNameForEmpty}. Try another spelling.`}
+                </Text>
+              )}
+              {!searching && results.length > 0 && (
+                <ScrollView
+                  style={styles.dropdownList}
+                  keyboardShouldPersistTaps="handled"
+                  nestedScrollEnabled
+                >
+                  {results.map((r) => (
+                    <Pressable
+                      key={r.lakeId}
+                      style={({ pressed }) => [styles.resultRow, pressed && styles.pressed]}
+                      onPress={() => onPickResult(r)}
+                    >
+                      <Text style={styles.resultLine} numberOfLines={2}>
+                        {resultPrimaryLine(r)}
+                      </Text>
+                      <Text style={styles.resultMeta} numberOfLines={2}>
+                        {resultSecondaryLine(r)}
+                      </Text>
+                    </Pressable>
+                  ))}
+                </ScrollView>
+              )}
+            </View>
+          )}
+        </View>
 
         <View style={styles.snapshotSection}>
           <Text style={styles.section}>Aerial source preview</Text>
           {!selected && (
-            <Text style={styles.muted}>Select a waterbody from the list above to load a one-time preview.</Text>
+            <Text style={styles.muted}>Select a state, pick a waterbody, then a one-time preview can load here.</Text>
           )}
           {selected && aerialPhase === 'blocked' && (
             <Text style={styles.fallback}>
@@ -423,6 +502,44 @@ export default function WaterReaderScreen() {
           )}
         </View>
       </ScrollView>
+
+      <Modal
+        visible={stateModalOpen}
+        animationType="slide"
+        presentationStyle="pageSheet"
+        onRequestClose={() => setStateModalOpen(false)}
+      >
+        <View style={styles.modalWrap}>
+          <View style={styles.modalHeader}>
+            <Text style={styles.modalTitle}>Select state</Text>
+            <Pressable
+              onPress={() => setStateModalOpen(false)}
+              style={({ pressed }) => [styles.modalClose, pressed && styles.pressed]}
+            >
+              <Text style={styles.modalCloseText}>Done</Text>
+            </Pressable>
+          </View>
+          <ScrollView style={styles.modalList} keyboardShouldPersistTaps="handled">
+            {US_STATE_OPTIONS.map((o) => (
+              <Pressable
+                key={o.code}
+                style={({ pressed }) => [styles.stateRow, pressed && styles.pressed]}
+                onPress={() => {
+                  setStateCode(o.code);
+                  setStateModalOpen(false);
+                  setQuery('');
+                  setResults([]);
+                  setSearchError(null);
+                }}
+              >
+                <Text style={styles.stateRowText}>
+                  {o.name} ({o.code})
+                </Text>
+              </Pressable>
+            ))}
+          </ScrollView>
+        </View>
+      </Modal>
     </KeyboardAvoidingView>
   );
 }
@@ -432,15 +549,9 @@ const styles = StyleSheet.create({
   scroll: { flex: 1, backgroundColor: colors.background },
   content: { padding: spacing.lg, paddingBottom: spacing.xxl + 32 },
   disclaimer: {
-    fontSize: 13,
-    lineHeight: 19,
-    color: colors.textSecondary,
-    marginBottom: spacing.lg,
-  },
-  hint: {
     fontSize: 12,
     lineHeight: 17,
-    color: colors.textMuted,
+    color: colors.textSecondary,
     marginBottom: spacing.md,
   },
   section: {
@@ -449,60 +560,75 @@ const styles = StyleSheet.create({
     color: colors.text,
     marginBottom: spacing.sm,
   },
-  sectionMuted: {
-    fontSize: 14,
-    fontWeight: '600',
-    color: colors.textMuted,
-    marginTop: spacing.md,
-    marginBottom: spacing.sm,
-  },
-  row: { flexDirection: 'row', gap: spacing.sm, marginBottom: spacing.sm, alignItems: 'center' },
-  input: {
+  combobox: { marginBottom: spacing.md, zIndex: 20 },
+  inputLabel: { fontSize: 12, color: colors.textMuted, marginBottom: 6, marginTop: spacing.sm },
+  stateButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     backgroundColor: colors.surface,
     borderRadius: radius.md,
     borderWidth: StyleSheet.hairlineWidth,
     borderColor: colors.border,
     paddingHorizontal: spacing.md,
     paddingVertical: spacing.sm + 4,
-    fontSize: 15,
+  },
+  stateButtonText: { flex: 1, fontSize: 16, color: colors.text, marginRight: spacing.sm },
+  stateChevron: { fontSize: 12, color: colors.textMuted },
+  calmHint: { fontSize: 13, color: colors.textSecondary, marginTop: spacing.sm, lineHeight: 19 },
+  searchInput: {
+    backgroundColor: colors.surface,
+    borderRadius: radius.md,
+    borderWidth: StyleSheet.hairlineWidth,
+    borderColor: colors.border,
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.sm + 4,
+    fontSize: 16,
     color: colors.text,
   },
-  inputGrow: { flex: 1 },
-  searchBtn: {
-    backgroundColor: colors.sage,
-    paddingHorizontal: spacing.md,
-    paddingVertical: spacing.md - 2,
+  selectedSummary: {
+    marginTop: spacing.sm,
+    backgroundColor: colors.surface,
     borderRadius: radius.md,
-    minWidth: 88,
-    alignItems: 'center',
-    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: colors.sage,
+    padding: spacing.md,
   },
-  searchBtnText: { fontSize: 14, fontWeight: '600', color: colors.textLight },
+  selectedSummaryText: { flex: 1, minWidth: 0 },
+  selectedTitle: { fontFamily: fonts.serif, fontSize: 16, color: colors.text, lineHeight: 22 },
+  selectedSub: { fontSize: 12, color: colors.textMuted, marginTop: 4, lineHeight: 17 },
+  selectedActions: { flexDirection: 'row', alignItems: 'center', marginTop: 10, gap: 6 },
+  linkBtn: { paddingVertical: 4 },
+  linkBtnText: { fontSize: 14, color: colors.sage, fontWeight: '600' },
+  actionSep: { color: colors.textMuted, fontSize: 14 },
   pressed: { opacity: 0.85 },
-  searchingRow: {
+  dropdown: {
+    marginTop: spacing.xs,
+    backgroundColor: colors.surface,
+    borderRadius: radius.md,
+    borderWidth: StyleSheet.hairlineWidth,
+    borderColor: colors.border,
+    maxHeight: 320,
+    overflow: 'hidden',
+  },
+  inlineLoading: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: spacing.sm,
-    marginBottom: spacing.sm,
+    padding: spacing.md,
   },
   searchingText: { fontSize: 13, color: colors.textSecondary },
-  warn: { color: colors.reportScoreRed, fontSize: 13, marginBottom: spacing.sm },
-  info: { fontSize: 13, color: colors.textSecondary, marginBottom: spacing.sm, lineHeight: 19 },
+  dropdownError: { color: colors.reportScoreRed, fontSize: 13, padding: spacing.md, paddingBottom: 0 },
+  dropdownEmpty: { fontSize: 13, color: colors.textSecondary, padding: spacing.md, lineHeight: 19 },
+  dropdownList: { maxHeight: 220 },
   resultRow: {
-    backgroundColor: colors.surface,
-    borderRadius: radius.md,
-    padding: spacing.md,
-    marginBottom: spacing.sm,
-    borderWidth: StyleSheet.hairlineWidth,
-    borderColor: colors.border,
+    paddingVertical: spacing.sm,
+    paddingHorizontal: spacing.md,
+    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopColor: colors.border,
   },
-  resultRowSelected: {
-    borderColor: colors.sage,
-    borderWidth: 2,
-  },
-  resultTitle: { fontFamily: fonts.serif, fontSize: 16, color: colors.text },
-  resultMeta: { fontSize: 14, fontWeight: '400', color: colors.textSecondary },
-  resultSub: { fontSize: 12, color: colors.textMuted, marginTop: 4 },
+  resultLine: { fontSize: 15, color: colors.text, lineHeight: 20 },
+  resultMeta: { fontSize: 11, color: colors.textMuted, marginTop: 4, lineHeight: 16 },
   snapshotSection: { marginTop: spacing.xl },
   muted: { fontSize: 13, color: colors.textMuted },
   fallback: {
@@ -543,4 +669,25 @@ const styles = StyleSheet.create({
     marginTop: spacing.sm,
     lineHeight: 14,
   },
+  modalWrap: { flex: 1, backgroundColor: colors.background, paddingTop: 8 },
+  modalHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: spacing.lg,
+    paddingBottom: spacing.sm,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: colors.border,
+  },
+  modalTitle: { fontFamily: fonts.serif, fontSize: 18, color: colors.text },
+  modalClose: { padding: spacing.sm },
+  modalCloseText: { fontSize: 16, color: colors.sage, fontWeight: '600' },
+  modalList: { flex: 1 },
+  stateRow: {
+    paddingVertical: 14,
+    paddingHorizontal: spacing.lg,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: colors.border,
+  },
+  stateRowText: { fontSize: 16, color: colors.text },
 });
