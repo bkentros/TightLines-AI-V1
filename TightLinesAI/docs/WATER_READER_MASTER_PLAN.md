@@ -217,13 +217,13 @@ The following major pieces are still not built:
 - species x region x month zone-selection logic
 - deterministic `fish here` overlay logic
 - rendered Water Reader map output
-- Water Reader frontend flow
+- full Water Reader report / marked-map **frontend flow** (see **§0.5.19** for the separate **minimal** in-app source preview that exists in the repo working tree)
 - late-stage daily-condition integration
 
 So the project is currently in:
 
-- **foundation/backbone stage**, not
-- **user-ready Water Reader feature stage**
+- **foundation/backbone stage** (plus a **non-interactive aerial source preview** screen only — **§0.5.19**), not
+- **user-ready full Water Reader feature stage** (structured report, zones, renderer)
 
 ### 0.5.6 Current recommended next step
 
@@ -311,7 +311,8 @@ Important status distinction:
 
 - **In repo:** schema, functions, contracts, ingest generator, and docs
 - **Proven live (target Supabase):** applied Water Reader schema, promoted regional 3DHP import, full national 3DHP named standing-water identity import, `search_waterbodies` RPC with area + centroid disambiguation (see 0.5.13–0.5.16); `waterbody-search` and `waterbody-source-validation` edge functions deployed (see 0.5.17)
-- **Not built:** source attachment at scale, aerial/depth extraction, scoring, overlays, renderer, frontend Water Reader report flow, daily conditions
+- **Not built:** source attachment at scale, aerial/depth extraction, scoring, overlays, renderer, full Water Reader report flow, daily conditions
+- **In repo (app working tree, not a deployment claim):** non-interactive USGS TNM NAIP Plus **source preview** — **§0.5.19**
 
 ### 0.5.11 Known cleanup and deployment notes
 
@@ -688,7 +689,7 @@ Use this section **instead of chat history**. If anything here disagrees with th
 **Mode**
 
 - Water Reader is in **foundation / source-availability backbone** mode only.
-- **Do not** build or ship: extraction, scoring, overlays, renderer, frontend flows, daily conditions, or recommender handoff until this plan explicitly moves phase.
+- **Do not** build or ship: extraction, scoring, overlays, renderer, full Water Reader **report** frontend flows, daily conditions, or recommender handoff until this plan explicitly moves phase (the **minimal** `/water-reader` **source preview** in **§0.5.19** is **not** that phase shift).
 
 **Verified counts (target DB, after batch-2 Edge attestation, 2026-04)**
 
@@ -756,8 +757,35 @@ Use this section **instead of chat history**. If anything here disagrees with th
 
 - Broaden aerial **beyond** the **approved CONUS-first USGS TNM** policy path (**`usgs_tnm_naip_plus` / `usgs_tnm_naip_plus_national`**) — e.g. extra national providers, MapServer basemap as policy source, or **Esri NAIP** as **national policy** **`source_id`**.
 - Remove or shrink **`coverage.exclude_state_codes`** (**`AK`**, **`HI`**, **`PR`**, **`GU`**, **`MP`**) without **coverage QA** and explicit approval (snapshot would then claim policy-aerial where product has not signed off).
-- Add **imagery storage**, **extraction**, **scoring**, **map overlays**, **report renderer**, **Water Reader UI**, **daily conditions**, or **recommender** integration without **§0.4.5** / registry-flag / product approval (**`aerial_available`** is **source availability** only today).
+- Add **imagery storage**, **extraction**, **scoring**, **map overlays**, **report renderer**, **full Water Reader report UI**, **daily conditions**, or **recommender** integration without **§0.4.5** / registry-flag / product approval (**`aerial_available`** is **source availability** only today).
 - Insert links for ambiguous, border-policy, no-match, or rejected proposal rows without a **new** human-reviewed proposal.
+
+### 0.5.19 In-app USGS TNM NAIP Plus source preview (working tree)
+
+**Status (repo evidence only — not a claim that a store/build was published):** The FinFindr app **in this repo** includes a first **non-interactive**, **on-demand** **USGS The National Map** **ortho source preview** path for Water Reader — **source availability / display only**, not a finished “map product,” zone readout, scoring output, or recommender handoff.
+
+**What exists in the working tree**
+
+- Home **Water Reader** card navigates to **`/water-reader`** (`app/water-reader.tsx`).
+- **Waterbody search** uses the existing **`searchWaterbodies`** client (subscription-gated Edge `waterbody-search`).
+- A **single** `exportImage` request to **`USGSNAIPPlus` ImageServer** runs **only after explicit tap** on a search result (not while typing, not for unselected rows).
+- Helper URL/bbox logic: `lib/usgsTnmAerialSnapshot.ts` (CONUS policy exclusions; conservative state-code normalization).
+- Preview is shown with **`expo-image`** and **`cachePolicy="none"`** (no disk cache policy — not a substitute for §0.4 **legal** storage review).
+- Required **USGS / National Geospatial Program** attribution is shown with the snapshot area.
+- **Honest fallbacks** when policy excludes the state, source flags disallow aerial, centroid/bbox is invalid, request errors, or a **~28s** client timeout elapses.
+
+**Explicit limits (unchanged from backbone posture)**
+
+- **Source preview only** — no feature extraction, no scoring, no fish-zone overlays, no interactive map library, no report renderer, no daily conditions, no recommender integration.
+- **No persistent imagery** / mosaics / derived rasters in app storage; no product claim that **`aerial_available`** equals a **built** national map.
+- **Deployment** of any app build to TestFlight, Play, or production is **out of scope** of this plan entry unless **separately** recorded as shipped.
+
+**Next checkpoints (QA / design)**
+
+- **Device QA** with a **subscribed** account: end-to-end search → select → USGS load latency and fallbacks.
+- **Slow network / error** UX review (timeout vs error strings).
+- **Platform note:** confirm **`expo-image`** + **`cachePolicy="none"`** behavior on target iOS/Android builds matches expectations (transient memory decode may still occur).
+- **Product/design:** if **interactive** pan/zoom or tiled map UX is required later, treat as a **separate** approval/design pass (not implied by this preview).
 
 ---
 

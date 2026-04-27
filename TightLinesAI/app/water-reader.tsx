@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import {
   View,
   Text,
@@ -8,92 +8,170 @@ import {
   TextInput,
   KeyboardAvoidingView,
   Platform,
+  ActivityIndicator,
 } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
-import Select from '../components/Select';
+import { Image as ExpoImage } from 'expo-image';
 import { colors, fonts, spacing, radius } from '../lib/theme';
+import { searchWaterbodies } from '../lib/waterReader';
+import type { WaterbodySearchResult } from '../lib/waterReaderContracts';
+import {
+  buildNaipPlusExportImageUrl,
+  isValidWgs84Bbox,
+  isValidWgs84Centroid,
+  normalizeUsWaterbodyStateCode,
+  stateExcludedFromConusAerial,
+  USGS_TNM_ATTRIBUTION,
+  wgs84BboxFromCentroidAcres,
+} from '../lib/usgsTnmAerialSnapshot';
 
-/* ─── Option lists ─── */
-const BODY_OPTIONS = [
-  'River', 'Lake', 'Pond', 'Surf / Beach',
-  'Inshore Flats', 'Offshore', 'Creek', 'Reservoir',
-];
-const WATER_TYPE_OPTIONS = ['Freshwater', 'Saltwater', 'Brackish'];
-const CLARITY_OPTIONS = ['Clear', 'Stained', 'Murky', 'Muddy'];
-const BOTTOM_OPTIONS = ['Grassy', 'Sandy', 'Rocky', 'Muddy', 'Mixed'];
-const WIND_DIR_OPTIONS = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'];
-const PRESSURE_OPTIONS = ['Rising', 'Stable', 'Falling'];
-const CLOUD_OPTIONS = ['Clear', 'Partly Cloudy', 'Mostly Cloudy', 'Overcast'];
-const PRECIP_OPTIONS = ['None', 'Light Rain', 'Rain', 'Heavy Rain', 'Snow'];
-const TIDE_OPTIONS = ['Rising', 'High', 'Falling', 'Low'];
-const MOON_OPTIONS = [
-  'New Moon', 'Waxing Crescent', 'First Quarter', 'Waxing Gibbous',
-  'Full Moon', 'Waning Gibbous', 'Last Quarter', 'Waning Crescent',
-];
+const SNAPSHOT_TIMEOUT_MS = 28_000;
 
-/* ─── Mock results ─── */
-const ZONES = [
-  {
-    id: 1,
-    name: 'Deep Pool at River Bend',
-    why: 'Classic holding water where the current carves a deep outside bend. Fish stack up here to rest and ambush prey.',
-    how: 'Start upstream and drift through the edge where fast water meets slow. Work from the head of the pool toward the tailout.',
-    suggestions: [
-      'Woolly Bugger — strip through the deepest section',
-      'Pheasant Tail Nymph — dead drift along the seam',
-      'White Paddle Tail — slow roll the deeper edges',
-    ],
-  },
-  {
-    id: 2,
-    name: 'Riffle Run — Current Seam',
-    why: 'A riffle can push oxygen and food into one lane, which makes it a natural feeding area.',
-    how: 'Cast upstream and let the bait or fly drift through the softer edge below the riffle.',
-    suggestions: [
-      'Elk Hair Caddis — dead drift through the riffle',
-      'Gold Spoon — cast across and retrieve through the seam',
-      'Ned Rig — hop along the bottom at the tailout',
-    ],
-  },
-  {
-    id: 3,
-    name: 'Submerged Timber & Grass Line',
-    why: 'Structure-rich ambush zone with fallen timber creating current breaks and shade.',
-    how: 'Move in quietly and make controlled casts tight to the cover. Work slowly so the bait stays in the strike zone.',
-    suggestions: [
-      'Chatterbait — slow roll parallel to the timber',
-      'Jerkbait — pause-and-twitch near structure edges',
-      'Streamer — swing through pocket water behind logs',
-    ],
-  },
-];
+type AerialPhase = "idle" | "loading" | "loaded" | "timeout" | "error" | "blocked";
 
-const SUMMARY =
-  'This stretch has a useful mix of depth, current, and cover. Focus on edges where fast water slows down, then check the timber and grass for ambush fish.';
+function formatAvailability(r: WaterbodySearchResult): string {
+  const parts: string[] = [];
+  if (r.aerialAvailable) parts.push("aerial");
+  if (r.depthAvailable) parts.push("depth");
+  if (parts.length === 0) return "limited / none";
+  return parts.join(" + ");
+}
 
 export default function WaterReaderScreen() {
-  const [mode, setMode] = useState<'conventional' | 'fly'>('conventional');
-  const [expandedZone, setExpandedZone] = useState<number | null>(1);
-  const [showManual, setShowManual] = useState(false);
+  const [query, setQuery] = useState("");
+  const [stateFilter, setStateFilter] = useState("");
+  const [searching, setSearching] = useState(false);
+  const [searchError, setSearchError] = useState<string | null>(null);
+  const [results, setResults] = useState<WaterbodySearchResult[]>([]);
+  const [selected, setSelected] = useState<WaterbodySearchResult | null>(null);
 
-  // Conditions (manual)
-  const [windDir, setWindDir] = useState<string | null>(null);
-  const [pressure, setPressure] = useState<string | null>(null);
-  const [cloud, setCloud] = useState<string | null>(null);
-  const [precip, setPrecip] = useState<string | null>(null);
-  const [tide, setTide] = useState<string | null>(null);
-  const [moon, setMoon] = useState<string | null>(null);
+  const [aerialPhase, setAerialPhase] = useState<AerialPhase>("idle");
+  /** Active export only after validation; `gen` pairs image callbacks to this request. */
+  const [aerialLoad, setAerialLoad] = useState<{ gen: number; uri: string } | null>(null);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const loadGenerationRef = useRef(0);
 
-  // Spot
-  const [body, setBody] = useState<string | null>(null);
-  const [waterType, setWaterType] = useState<string | null>(null);
-  const [clarity, setClarity] = useState<string | null>(null);
-  const [bottom, setBottom] = useState<string | null>(null);
+  const clearSnapshotTimer = () => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
+    }
+  };
+
+  useEffect(
+    () => () => {
+      clearSnapshotTimer();
+    },
+    [],
+  );
+
+  const runSearch = useCallback(async () => {
+    const q = query.trim();
+    if (q.length < 2) {
+      setSearchError("Type at least 2 characters.");
+      return;
+    }
+    setSearching(true);
+    setSearchError(null);
+    try {
+      const st = stateFilter.trim();
+      const res = await searchWaterbodies({
+        query: q,
+        state: st.length > 0 ? st.toUpperCase() : undefined,
+        limit: 15,
+      });
+      setResults(res.results);
+    } catch (e) {
+      const msg = e instanceof Error ? e.message : "Search failed.";
+      setSearchError(
+        msg.includes("Subscribe") || msg.includes("subscription")
+          ? "Waterbody search requires an active subscription."
+          : msg,
+      );
+      setResults([]);
+    } finally {
+      setSearching(false);
+    }
+  }, [query, stateFilter]);
+
+  useEffect(() => {
+    loadGenerationRef.current += 1;
+    clearSnapshotTimer();
+    setAerialPhase("idle");
+    setAerialLoad(null);
+
+    const onSnapshotCleanup = () => {
+      clearSnapshotTimer();
+      loadGenerationRef.current += 1;
+    };
+
+    if (!selected) {
+      return onSnapshotCleanup;
+    }
+
+    const lat = selected.centroid?.lat;
+    const lon = selected.centroid?.lon;
+    const st = normalizeUsWaterbodyStateCode(String(selected.state ?? ""));
+
+    const eligible =
+      selected.aerialAvailable === true &&
+      st != null &&
+      !stateExcludedFromConusAerial(st) &&
+      isValidWgs84Centroid(typeof lat === "number" ? lat : NaN, typeof lon === "number" ? lon : NaN);
+
+    if (!eligible) {
+      setAerialPhase("blocked");
+      return onSnapshotCleanup;
+    }
+
+    const bbox = wgs84BboxFromCentroidAcres(
+      lat!,
+      lon!,
+      selected.surfaceAreaAcres ?? undefined,
+    );
+    if (!isValidWgs84Bbox(bbox)) {
+      setAerialPhase("blocked");
+      return onSnapshotCleanup;
+    }
+    const url = buildNaipPlusExportImageUrl(bbox, { size: 512 });
+    if (!url) {
+      setAerialPhase("blocked");
+      return onSnapshotCleanup;
+    }
+
+    const myGen = ++loadGenerationRef.current;
+
+    setAerialPhase("loading");
+    setAerialLoad({ gen: myGen, uri: url });
+
+    clearSnapshotTimer();
+    timeoutRef.current = setTimeout(() => {
+      if (loadGenerationRef.current !== myGen) return;
+      loadGenerationRef.current += 1;
+      setAerialLoad(null);
+      setAerialPhase("timeout");
+    }, SNAPSHOT_TIMEOUT_MS);
+
+    return onSnapshotCleanup;
+  }, [selected]);
+
+  const onSnapshotLoaded = useCallback((generation: number) => {
+    if (loadGenerationRef.current !== generation) return;
+    clearSnapshotTimer();
+    setAerialPhase("loaded");
+  }, []);
+
+  const onSnapshotError = useCallback((generation: number) => {
+    if (loadGenerationRef.current !== generation) return;
+    clearSnapshotTimer();
+    loadGenerationRef.current += 1;
+    setAerialLoad(null);
+    setAerialPhase("error");
+  }, []);
 
   return (
     <KeyboardAvoidingView
       style={styles.flex}
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
       <ScrollView
         style={styles.scroll}
@@ -101,231 +179,127 @@ export default function WaterReaderScreen() {
         showsVerticalScrollIndicator={false}
         keyboardShouldPersistTaps="handled"
       >
-        {/* Upload */}
-        <Pressable style={({ pressed }) => [styles.upload, pressed && styles.pressed]}>
-          <Ionicons name="camera-outline" size={34} color={colors.sage} />
-          <Text style={styles.uploadTitle}>Add a Water Photo</Text>
-          <Text style={styles.uploadSub}>
-            Photos · maps · depth charts
-          </Text>
-        </Pressable>
+        <Text style={styles.disclaimer}>
+          On-demand USGS ortho source preview (lake, pond, reservoir lookup). Not fishing advice, a
+          finished product, or a structural readout — a single on-screen fetch where policy allows.
+        </Text>
 
-        {/* Mode */}
-        <View style={styles.toggle}>
+        <Text style={styles.section}>Find a waterbody</Text>
+        <View style={styles.row}>
+          <TextInput
+            style={[styles.input, styles.inputGrow]}
+            placeholder="Name (min 2 characters)"
+            placeholderTextColor={colors.textMuted}
+            value={query}
+            onChangeText={setQuery}
+            autoCorrect={false}
+            autoCapitalize="words"
+          />
+        </View>
+        <View style={styles.row}>
+          <TextInput
+            style={[styles.input, styles.inputGrow]}
+            placeholder="State (optional, e.g. MN)"
+            placeholderTextColor={colors.textMuted}
+            value={stateFilter}
+            onChangeText={setStateFilter}
+            autoCorrect={false}
+            autoCapitalize="characters"
+            maxLength={2}
+          />
           <Pressable
-            style={[styles.toggleOpt, mode === 'conventional' && styles.toggleActive]}
-            onPress={() => setMode('conventional')}
+            style={({ pressed }) => [styles.searchBtn, pressed && styles.pressed]}
+            onPress={() => void runSearch()}
+            disabled={searching}
           >
-            <Text style={[styles.toggleText, mode === 'conventional' && styles.toggleTextActive]}>
-              Conventional
-            </Text>
-          </Pressable>
-          <Pressable
-            style={[styles.toggleOpt, mode === 'fly' && styles.toggleActive]}
-            onPress={() => setMode('fly')}
-          >
-            <Text style={[styles.toggleText, mode === 'fly' && styles.toggleTextActive]}>
-              Fly Fishing
-            </Text>
+            {searching ? (
+              <ActivityIndicator color={colors.textLight} size="small" />
+            ) : (
+              <Text style={styles.searchBtnText}>Search</Text>
+            )}
           </Pressable>
         </View>
+        {searchError && <Text style={styles.warn}>{searchError}</Text>}
 
-        {/* ─── Spot conditions ─── */}
-        <Text style={styles.section}>Spot Conditions</Text>
-
-        <Pressable style={({ pressed }) => [styles.syncBtn, pressed && styles.pressed]}>
-          <Ionicons name="location" size={18} color={colors.textLight} />
-          <Text style={styles.syncBtnText}>Use Current Location</Text>
-        </Pressable>
-
-        <Pressable
-          style={styles.manualToggle}
-          onPress={() => setShowManual(!showManual)}
-        >
-          <Text style={styles.manualToggleText}>
-            {showManual ? 'Hide manual entry' : 'Enter conditions manually'}
-          </Text>
-          <Ionicons
-            name={showManual ? 'chevron-up' : 'chevron-down'}
-            size={16}
-            color={colors.sage}
-          />
-        </Pressable>
-
-        {showManual && (
-          <View style={styles.manualSection}>
-            <View style={styles.field}>
-              <Text style={styles.label}>Location</Text>
-              <TextInput
-                style={styles.input}
-                placeholder="e.g. Tampa Bay, FL"
-                placeholderTextColor={colors.textMuted}
-              />
-            </View>
-            <View style={styles.row}>
-              <View style={styles.half}>
-                <Text style={styles.label}>Air Temp (°F)</Text>
-                <TextInput style={styles.input} placeholder="72" placeholderTextColor={colors.textMuted} keyboardType="numeric" />
-              </View>
-              <View style={styles.half}>
-                <Text style={styles.label}>Wind Speed (mph)</Text>
-                <TextInput style={styles.input} placeholder="8" placeholderTextColor={colors.textMuted} keyboardType="numeric" />
-              </View>
-            </View>
-            <View style={styles.row}>
-              <View style={styles.half}>
-                <Text style={styles.label}>Wind Direction</Text>
-                <Select value={windDir} options={WIND_DIR_OPTIONS} placeholder="Direction" onSelect={setWindDir} />
-              </View>
-              <View style={styles.half}>
-                <Text style={styles.label}>Pressure Trend</Text>
-                <Select value={pressure} options={PRESSURE_OPTIONS} placeholder="Trend" onSelect={setPressure} />
-              </View>
-            </View>
-            <View style={styles.row}>
-              <View style={styles.half}>
-                <Text style={styles.label}>Cloud Cover</Text>
-                <Select value={cloud} options={CLOUD_OPTIONS} placeholder="Cover" onSelect={setCloud} />
-              </View>
-              <View style={styles.half}>
-                <Text style={styles.label}>Precipitation</Text>
-                <Select value={precip} options={PRECIP_OPTIONS} placeholder="Precip" onSelect={setPrecip} />
-              </View>
-            </View>
-            <View style={styles.row}>
-              <View style={styles.half}>
-                <Text style={styles.label}>Tide Stage</Text>
-                <Select value={tide} options={TIDE_OPTIONS} placeholder="Tide" onSelect={setTide} />
-              </View>
-              <View style={styles.half}>
-                <Text style={styles.label}>Moon Phase</Text>
-                <Select value={moon} options={MOON_OPTIONS} placeholder="Moon" onSelect={setMoon} />
-              </View>
-            </View>
-          </View>
+        {results.length > 0 && (
+          <>
+            <Text style={styles.sectionMuted}>Results — tap one row</Text>
+            {results.map((r) => (
+              <Pressable
+                key={r.lakeId}
+                style={({ pressed }) => [
+                  styles.resultRow,
+                  selected?.lakeId === r.lakeId && styles.resultRowSelected,
+                  pressed && styles.pressed,
+                ]}
+                onPress={() => setSelected(r)}
+              >
+                <Text style={styles.resultTitle}>
+                  {r.name}
+                  <Text style={styles.resultMeta}>
+                    {" "}
+                    · {r.state}
+                    {r.county ? ` · ${r.county}` : ""} · {r.waterbodyType}
+                  </Text>
+                </Text>
+                <Text style={styles.resultSub}>
+                  Source availability: {formatAvailability(r)} · {r.availability} ·{" "}
+                  {r.sourceStatus}
+                </Text>
+              </Pressable>
+            ))}
+          </>
         )}
 
-        {/* ─── About this spot ─── */}
-        <Text style={styles.section}>About This Spot</Text>
-
-        <View style={styles.field}>
-          <Text style={styles.label}>Target Species</Text>
-          <TextInput style={styles.input} placeholder="e.g. Redfish, Trout" placeholderTextColor={colors.textMuted} />
-        </View>
-
-        <View style={styles.field}>
-          <Text style={styles.label}>Body of Water</Text>
-          <Select value={body} options={BODY_OPTIONS} placeholder="Choose water" onSelect={setBody} />
-        </View>
-
-        <View style={styles.row}>
-          <View style={styles.half}>
-            <Text style={styles.label}>Water Type</Text>
-            <Select value={waterType} options={WATER_TYPE_OPTIONS} placeholder="Type" onSelect={setWaterType} />
-          </View>
-          <View style={styles.half}>
-            <Text style={styles.label}>Water Clarity</Text>
-            <Select value={clarity} options={CLARITY_OPTIONS} placeholder="Clarity" onSelect={setClarity} />
-          </View>
-        </View>
-
-        <View style={styles.row}>
-          <View style={styles.half}>
-            <Text style={styles.label}>
-              Bottom / Structure<Text style={styles.opt}> · Optional</Text>
+        <View style={styles.snapshotSection}>
+          <Text style={styles.section}>Aerial source preview</Text>
+          {!selected && (
+            <Text style={styles.muted}>Select a waterbody above to load a one-time preview.</Text>
+          )}
+          {selected && aerialPhase === "blocked" && (
+            <Text style={styles.fallback}>
+              Aerial source preview unavailable for this selected waterbody.
             </Text>
-            <Select value={bottom} options={BOTTOM_OPTIONS} placeholder="Bottom" onSelect={setBottom} />
-          </View>
-          <View style={styles.half}>
-            <Text style={styles.label}>
-              Describe the Water<Text style={styles.opt}> · Optional</Text>
-            </Text>
-            <TextInput
-              style={[styles.input, { minHeight: 44 }]}
-              placeholder="e.g. Deep outside bend, grass edge"
-              placeholderTextColor={colors.textMuted}
-              multiline
-            />
-          </View>
-        </View>
-
-        {/* CTA */}
-        <Pressable style={({ pressed }) => [styles.cta, pressed && styles.pressed]}>
-          <Ionicons name="eye-outline" size={18} color={colors.textLight} />
-          <Text style={styles.ctaText}>Read This Water</Text>
-        </Pressable>
-
-        {/* ═══ Results ═══ */}
-        <View style={styles.results}>
-          <View style={styles.resultsDivider}>
-            <View style={styles.divLine} />
-            <Text style={styles.divLabel}>Preview</Text>
-            <View style={styles.divLine} />
-          </View>
-
-          {/* Overlay placeholder */}
-          <View style={styles.overlayArea}>
-            <Ionicons name="image-outline" size={44} color={colors.border} />
-            <Text style={styles.overlayText}>
-              Your uploaded image with marked fishing zones will appear here.
-            </Text>
-            <View style={styles.markers}>
-              {[1, 2, 3].map((n) => (
-                <View key={n} style={styles.marker}>
-                  <Text style={styles.markerText}>{n}</Text>
-                </View>
-              ))}
+          )}
+          {selected && aerialPhase === "loading" && (
+            <View style={styles.loadingBox}>
+              <ActivityIndicator size="large" color={colors.sage} />
+              <Text style={styles.loadingText}>Loading imagery from USGS (often 10s+)…</Text>
             </View>
-          </View>
-
-          {/* Summary */}
-          <View style={styles.summaryCard}>
-            <View style={styles.summaryHeader}>
-              <Ionicons name="analytics-outline" size={15} color={colors.sage} />
-              <Text style={styles.summaryTitle}>Water Read</Text>
-            </View>
-            <Text style={styles.summaryText}>{SUMMARY}</Text>
-          </View>
-
-          {/* Zones */}
-          <Text style={styles.zonesTitle}>Target Zones</Text>
-          {ZONES.map((z) => (
-            <Pressable
-              key={z.id}
-              style={styles.zoneCard}
-              onPress={() => setExpandedZone(expandedZone === z.id ? null : z.id)}
-            >
-              <View style={styles.zoneHeader}>
-                <View style={styles.zoneBadge}>
-                  <Text style={styles.zoneBadgeText}>{z.id}</Text>
-                </View>
-                <Text style={styles.zoneName}>{z.name}</Text>
-                <Ionicons
-                  name={expandedZone === z.id ? 'chevron-up' : 'chevron-down'}
-                  size={18}
-                  color={colors.stone}
+          )}
+          {selected && aerialPhase === "timeout" && (
+            <Text style={styles.fallback}>
+              Aerial source preview unavailable for this selected waterbody (request timed out).
+            </Text>
+          )}
+          {selected && aerialPhase === "error" && (
+            <Text style={styles.fallback}>
+              Aerial source preview unavailable for this selected waterbody (request error).
+            </Text>
+          )}
+          {selected &&
+            aerialLoad &&
+            (aerialPhase === "loading" || aerialPhase === "loaded") && (
+              <View style={styles.imageWrap}>
+                <ExpoImage
+                  key={aerialLoad.gen}
+                  source={{ uri: aerialLoad.uri }}
+                  style={styles.snapshotImage}
+                  contentFit="contain"
+                  cachePolicy="none"
+                  recyclingKey={String(aerialLoad.gen)}
+                  accessibilityLabel="USGS TNM NAIP Plus on-demand ortho source preview for selected waterbody centroid"
+                  onLoad={() => onSnapshotLoaded(aerialLoad.gen)}
+                  onError={() => onSnapshotError(aerialLoad.gen)}
                 />
               </View>
-              <Text style={styles.zoneWhy}>{z.why}</Text>
-              {expandedZone === z.id && (
-                <View style={styles.zoneExpanded}>
-                  <View style={{ marginBottom: spacing.md }}>
-                    <Text style={styles.zoneDetailLabel}>How to Fish</Text>
-                    <Text style={styles.zoneDetailText}>{z.how}</Text>
-                  </View>
-                  <Text style={styles.zoneDetailLabel}>
-                    {mode === 'fly' ? 'Recommended Flies' : 'Recommended Lures'}
-                  </Text>
-                  {z.suggestions.map((s, i) => (
-                    <View key={i} style={styles.suggRow}>
-                      <View style={styles.suggDot} />
-                      <Text style={styles.suggText}>{s}</Text>
-                    </View>
-                  ))}
-                </View>
-              )}
-            </Pressable>
-          ))}
+            )}
+          {selected && aerialPhase === "loaded" && (
+            <Text style={styles.attr}>{USGS_TNM_ATTRIBUTION}</Text>
+          )}
+          {selected && aerialPhase === "loading" && (
+            <Text style={styles.attrSmall}>{USGS_TNM_ATTRIBUTION}</Text>
+          )}
         </View>
       </ScrollView>
     </KeyboardAvoidingView>
@@ -335,135 +309,103 @@ export default function WaterReaderScreen() {
 const styles = StyleSheet.create({
   flex: { flex: 1 },
   scroll: { flex: 1, backgroundColor: colors.background },
-  content: { padding: spacing.lg, paddingBottom: spacing.xxl + 20 },
-  pressed: { opacity: 0.8 },
-
-  /* Upload */
-  upload: {
-    alignItems: 'center', justifyContent: 'center',
-    backgroundColor: colors.surface, borderRadius: radius.lg,
-    padding: spacing.xl, marginBottom: spacing.lg,
-    borderWidth: 1.5, borderColor: colors.sage + '40', borderStyle: 'dashed',
-    minHeight: 150,
+  content: { padding: spacing.lg, paddingBottom: spacing.xxl + 32 },
+  disclaimer: {
+    fontSize: 13,
+    lineHeight: 19,
+    color: colors.textSecondary,
+    marginBottom: spacing.lg,
   },
-  uploadTitle: { fontFamily: fonts.serif, fontSize: 16, color: colors.text, marginTop: spacing.md },
-  uploadSub: { fontSize: 12, color: colors.textMuted, marginTop: spacing.xs },
-
-  /* Toggle */
-  toggle: {
-    flexDirection: 'row', backgroundColor: colors.divider,
-    borderRadius: radius.md, padding: 3, marginBottom: spacing.lg,
+  section: {
+    fontFamily: fonts.serif,
+    fontSize: 18,
+    color: colors.text,
+    marginBottom: spacing.sm,
   },
-  toggleOpt: {
-    flex: 1, paddingVertical: spacing.sm + 2, alignItems: 'center',
-    borderRadius: radius.md - 2,
+  sectionMuted: {
+    fontSize: 14,
+    fontWeight: "600",
+    color: colors.textMuted,
+    marginTop: spacing.md,
+    marginBottom: spacing.sm,
   },
-  toggleActive: {
-    backgroundColor: colors.surface,
-    shadowColor: '#000', shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.06, shadowRadius: 4, elevation: 1,
-  },
-  toggleText: { fontSize: 14, fontWeight: '600', color: colors.textMuted },
-  toggleTextActive: { color: colors.text },
-
-  /* Section */
-  section: { fontFamily: fonts.serif, fontSize: 18, color: colors.text, marginBottom: spacing.md },
-
-  /* Sync */
-  syncBtn: {
-    flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
-    gap: spacing.sm, backgroundColor: colors.sage,
-    borderRadius: radius.md, paddingVertical: spacing.md - 2, marginBottom: spacing.sm,
-  },
-  syncBtnText: { fontSize: 15, fontWeight: '600', color: colors.textLight },
-  manualToggle: {
-    flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
-    gap: spacing.xs, marginBottom: spacing.lg,
-  },
-  manualToggleText: { fontSize: 13, color: colors.sage },
-
-  manualSection: {
-    backgroundColor: colors.surface, borderRadius: radius.md,
-    padding: spacing.md, marginBottom: spacing.lg,
-    borderWidth: StyleSheet.hairlineWidth, borderColor: colors.border,
-  },
-
-  /* Fields */
-  field: { marginBottom: spacing.md },
-  label: { fontSize: 13, fontWeight: '500', color: colors.textSecondary, marginBottom: 6 },
-  opt: { fontWeight: '400', fontStyle: 'italic', color: colors.textMuted },
+  row: { flexDirection: "row", gap: spacing.sm, marginBottom: spacing.sm, alignItems: "center" },
   input: {
-    backgroundColor: colors.surface, borderRadius: radius.md,
-    borderWidth: StyleSheet.hairlineWidth, borderColor: colors.border,
-    paddingHorizontal: spacing.md, paddingVertical: spacing.sm + 4,
-    fontSize: 15, color: colors.text,
+    backgroundColor: colors.surface,
+    borderRadius: radius.md,
+    borderWidth: StyleSheet.hairlineWidth,
+    borderColor: colors.border,
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.sm + 4,
+    fontSize: 15,
+    color: colors.text,
   },
-  row: { flexDirection: 'row', gap: spacing.sm, marginBottom: spacing.md },
-  half: { flex: 1 },
-
-  /* CTA */
-  cta: {
-    flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
-    gap: spacing.sm, backgroundColor: colors.sage,
-    borderRadius: radius.md, paddingVertical: spacing.md, marginTop: spacing.sm,
+  inputGrow: { flex: 1 },
+  searchBtn: {
+    backgroundColor: colors.sage,
+    paddingHorizontal: spacing.lg,
+    paddingVertical: spacing.md - 2,
+    borderRadius: radius.md,
+    minWidth: 96,
+    alignItems: "center",
+    justifyContent: "center",
   },
-  ctaText: { fontSize: 16, fontWeight: '600', color: colors.textLight },
-
-  /* Results */
-  results: { marginTop: spacing.xl },
-  resultsDivider: { flexDirection: 'row', alignItems: 'center', marginBottom: spacing.lg },
-  divLine: { flex: 1, height: StyleSheet.hairlineWidth, backgroundColor: colors.border },
-  divLabel: { fontSize: 12, color: colors.textMuted, marginHorizontal: spacing.md, fontStyle: 'italic' },
-
-  overlayArea: {
-    backgroundColor: colors.surface, borderRadius: radius.md,
-    alignItems: 'center', justifyContent: 'center',
-    minHeight: 200, padding: spacing.lg, marginBottom: spacing.lg,
-    borderWidth: StyleSheet.hairlineWidth, borderColor: colors.border,
+  searchBtnText: { fontSize: 15, fontWeight: "600", color: colors.textLight },
+  pressed: { opacity: 0.85 },
+  warn: { color: colors.reportScoreRed, fontSize: 13, marginBottom: spacing.sm },
+  resultRow: {
+    backgroundColor: colors.surface,
+    borderRadius: radius.md,
+    padding: spacing.md,
+    marginBottom: spacing.sm,
+    borderWidth: StyleSheet.hairlineWidth,
+    borderColor: colors.border,
   },
-  overlayText: { fontSize: 13, color: colors.textMuted, textAlign: 'center', marginTop: spacing.md, lineHeight: 18 },
-  markers: { flexDirection: 'row', gap: spacing.lg, marginTop: spacing.lg },
-  marker: {
-    width: 30, height: 30, borderRadius: 15,
-    backgroundColor: colors.sage + '30', borderWidth: 2,
-    borderColor: colors.sage, alignItems: 'center', justifyContent: 'center',
+  resultRowSelected: {
+    borderColor: colors.sage,
+    borderWidth: 2,
   },
-  markerText: { fontSize: 13, fontWeight: '700', color: colors.sage },
-
-  summaryCard: {
-    backgroundColor: colors.surface, borderRadius: radius.md,
-    padding: spacing.md, marginBottom: spacing.lg,
-    borderWidth: StyleSheet.hairlineWidth, borderColor: colors.border,
+  resultTitle: { fontFamily: fonts.serif, fontSize: 16, color: colors.text },
+  resultMeta: { fontSize: 14, fontWeight: "400", color: colors.textSecondary },
+  resultSub: { fontSize: 12, color: colors.textMuted, marginTop: 4 },
+  snapshotSection: { marginTop: spacing.xl },
+  muted: { fontSize: 13, color: colors.textMuted },
+  fallback: {
+    fontSize: 14,
+    color: colors.textSecondary,
+    lineHeight: 20,
+    marginTop: spacing.sm,
   },
-  summaryHeader: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm, marginBottom: spacing.sm },
-  summaryTitle: { fontFamily: fonts.serif, fontSize: 15, fontWeight: '700', color: colors.sage },
-  summaryText: { fontSize: 13, lineHeight: 20, color: colors.textSecondary, fontStyle: 'italic' },
-
-  zonesTitle: { fontFamily: fonts.serif, fontSize: 17, fontWeight: '700', color: colors.text, marginBottom: spacing.md },
-  zoneCard: {
-    backgroundColor: colors.surface, borderRadius: radius.md,
-    padding: spacing.md, marginBottom: spacing.md,
-    borderWidth: StyleSheet.hairlineWidth, borderColor: colors.border,
+  loadingBox: {
+    alignItems: "center",
+    paddingVertical: spacing.xl,
+    gap: spacing.md,
   },
-  zoneHeader: { flexDirection: 'row', alignItems: 'center', marginBottom: spacing.sm },
-  zoneBadge: {
-    width: 24, height: 24, borderRadius: 12,
-    backgroundColor: colors.sage, alignItems: 'center', justifyContent: 'center',
-    marginRight: spacing.sm,
+  loadingText: { fontSize: 13, color: colors.textSecondary, textAlign: "center" },
+  imageWrap: {
+    marginTop: spacing.md,
+    backgroundColor: colors.surface,
+    borderRadius: radius.md,
+    borderWidth: StyleSheet.hairlineWidth,
+    borderColor: colors.border,
+    overflow: "hidden",
+    minHeight: 220,
   },
-  zoneBadgeText: { fontSize: 12, fontWeight: '700', color: colors.textLight },
-  zoneName: { fontFamily: fonts.serif, fontSize: 14, color: colors.text, flex: 1 },
-  zoneWhy: { fontSize: 12, lineHeight: 18, color: colors.textSecondary },
-  zoneExpanded: {
-    marginTop: spacing.md, paddingTop: spacing.md,
-    borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: colors.divider,
+  snapshotImage: {
+    width: "100%",
+    height: 280,
+    backgroundColor: colors.backgroundAlt,
   },
-  zoneDetailLabel: {
-    fontSize: 13, fontWeight: '700', color: colors.sage,
-    letterSpacing: 0.3, marginBottom: spacing.xs,
+  attr: {
+    fontSize: 11,
+    color: colors.textMuted,
+    marginTop: spacing.md,
+    lineHeight: 16,
   },
-  zoneDetailText: { fontSize: 13, lineHeight: 19, color: colors.textSecondary },
-  suggRow: { flexDirection: 'row', alignItems: 'flex-start', gap: spacing.sm, marginTop: spacing.xs + 2 },
-  suggDot: { width: 5, height: 5, borderRadius: 2.5, backgroundColor: colors.sage, marginTop: 5 },
-  suggText: { fontSize: 12, lineHeight: 17, color: colors.textSecondary, flex: 1 },
+  attrSmall: {
+    fontSize: 10,
+    color: colors.textMuted,
+    marginTop: spacing.sm,
+    lineHeight: 14,
+  },
 });

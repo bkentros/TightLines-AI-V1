@@ -877,9 +877,7 @@ export default function HomeScreen() {
           {/* ─── Water Reader (preserved stub, restyled) ─── */}
           <Pressable
             style={({ pressed }) => [styles.waterReaderCard, pressed && { opacity: 0.9 }]}
-            onPress={() => {
-              /* placeholder — page coming soon */
-            }}
+            onPress={() => router.push('/water-reader')}
           >
             <PaperCard tint={paper.paperLight} corners cornerColor={paper.ink}>
               <View style={styles.waterReaderBody}>
@@ -893,7 +891,7 @@ export default function HomeScreen() {
                   </Text>
                 </View>
                 <View style={styles.comingSoonChip}>
-                  <Text style={styles.comingSoonChipText}>SOON</Text>
+                  <Text style={styles.comingSoonChipText}>PREVIEW</Text>
                 </View>
               </View>
             </PaperCard>
