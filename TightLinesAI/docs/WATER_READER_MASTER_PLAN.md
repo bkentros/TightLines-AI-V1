@@ -27,9 +27,10 @@ These decisions are locked unless the product direction changes intentionally.
    - Sample or regional data may be used during development.
    - Launch acceptance requires national named-lake/named-pond coverage.
 
-4. **`best_available` is the default source mode.**
-   - If both aerial and depth are available, the user may switch modes.
-   - Switching modes changes the actual report, not just the basemap.
+4. **Current launch direction is aerial-first.**
+   - Water Reader V1 execution is now focused on the approved USGS TNM aerial path as the first usable read mode.
+   - Depth is deferred from the first launch engine/report path.
+   - The UI may show **Depth Chart Read — Coming Soon** when depth exists or is planned, but it must not imply depth is currently powering the read.
 
 5. **Aerial and depth are separate evidence engines.**
    - This plan uses `aerial` as the internal term for the satellite-style public imagery mode.
@@ -37,10 +38,11 @@ These decisions are locked unless the product direction changes intentionally.
    - Depth mode identifies underwater structure from real depth evidence.
    - Aerial mode must not infer real depth structure.
 
-6. **Depth mode uses reviewed and approved sources only in V1.**
+6. **Depth mode is a future confidence upgrade, not a current V1 dependency.**
    - Random or unreviewed websites do not count as V1 depth intelligence.
    - Machine-readable depth is the primary depth path.
    - Approved aligned chart-image depth is a secondary fallback tier.
+   - Do not block aerial-only V1 on state-by-state depth chart expansion.
 
 7. **Profiles are keyed by species x region x month.**
    - Monthly logic is preferred over coarse seasonal buckets.
@@ -227,18 +229,18 @@ So the project is currently in:
 
 ### 0.5.6 Current recommended next step
 
-The real national named-waterbody identity index now exists in the target database. The next step is no longer to design, prove, or execute the national identity ingest layer; it is to begin honest source coverage work against the real national waterbody backbone.
+The real national named-waterbody identity index now exists in the target database. The next step is no longer to design, prove, or execute the national identity ingest layer; it is to turn the approved aerial source path into a transparent aerial-only Water Reader V1 read. State-by-state depth expansion is deferred until the aerial V1 proves product traction or product/legal explicitly reopens depth work.
 
 Recommended order:
 
 1. preserve the national identity load verification and final counts in this plan
 2. keep Water Reader in foundation/backbone mode
-3. continue honest **source availability** work (**CONUS-first USGS TNM** aerial policy is **live** for snapshot/`aerial_available` — not map/report UX); expand reviewed **depth** and any future aerial paths under §0.4
-4. begin state-by-state discovery for machine-readable bathymetry/depth sources
+3. continue honest **source availability** work (**CONUS-first USGS TNM** aerial policy is **live** for snapshot/`aerial_available` — not a finished read engine)
+4. build the aerial-only V1 read path before resuming state-by-state machine-readable bathymetry/depth expansion
 5. preserve the existing trust model: sources must be reviewed, reachable, lake-matched, and usable before they count as available
-6. defer extraction, scoring, overlays, renderer, frontend report screens, and daily conditions until identity and source availability are both honest
+6. defer depth, daily conditions, recommender handoff, and any depth-chart rendering/extraction; if an aerial overlay/read is built, it must stay limited to visible/geometry-backed characteristics and state its confidence limits
 
-Do **not** jump into fish-zone scoring, overlays, report rendering, or daily-condition logic before **depth and any future evidence** are reviewed and product approves **§0.4.5** storage/UI work — **national `aerial_available` from USGS TNM** is **not** that approval.
+Do **not** jump into depth-chart extraction, depth-backed scoring, depth overlays, or daily-condition logic. The next product move is an **aerial-only, medium-confidence** read that uses approved USGS TNM imagery and clearly says it does **not** include visual depth/bathymetry.
 
 ### 0.5.7 National ingest backbone added
 
@@ -799,6 +801,26 @@ Use this section **instead of chat history**. If anything here disagrees with th
 - **Platform note:** confirm **`expo-image`** + **`cachePolicy="none"`** behavior on target iOS/Android builds matches expectations (transient memory decode may still occur).
 - **Product/design:** if **interactive** pan/zoom or tiled map UX is required later, treat as a **separate** approval/design pass (not implied by this preview).
 
+### 0.5.20 Aerial-only V1 execution direction
+
+**Status:** Depth chart work is intentionally deferred for the first usable Water Reader read. The immediate product target is an **aerial-only** read using the approved USGS TNM source path.
+
+**Why:** USGS TNM provides broad CONUS aerial availability with a cleaner rights posture than state-by-state depth sources. Depth remains strategically important for high-confidence reads, but legal/source review, lake matching, and ingestion would slow the first usable V1.
+
+**UI requirement:** The UI may show **Depth Chart Read — Coming Soon** or equivalent disabled copy. This must be presented as a future capability, not as a current source mode that can power a read.
+
+**Aerial-output transparency requirement:** Any aerial-only output or overlay must state that it does **not** use visual depth, contours, bathymetry, humps, ledges, basins, drop-offs, or depth breaks. It may identify only visible or geometry-backed characteristics such as:
+
+- shoreline shape and complexity
+- points, coves, pockets, islands, neckdowns, inlets/outlets
+- visible vegetation or surface cover where credible
+- docks, shade, access-adjacent structure, and other visible features
+- waterbody geometry context from approved polygon/bounds data
+
+**Confidence:** Aerial-only reads should generally be **medium confidence** at most. High confidence is reserved for future reads that combine aerial evidence with approved, correctly matched, legally usable, machine-readable depth/bathymetry or an explicitly approved equivalent.
+
+**Still not built:** This direction does not ship a read engine, scoring model, fish-zone overlay, renderer, daily conditions, recommender handoff, imagery storage, or depth-chart processing by itself. It only sets the next execution target.
+
 ---
 
 ## 1. Product definition
@@ -881,10 +903,11 @@ The result should feel like:
    - Cache the lake index, rights decisions, and—**when allowed**—normalized approved assets, extracted features, candidate zones, and reusable scoring layers.
    - Final reports stay on-demand because species, month, access mode, source mode, and source availability can change the result.
 
-13. **Best-available is the product strategy.**
+13. **Best-available remains the long-term product strategy.**
    - Not every lake will have the same intelligence level.
    - The product succeeds if it gives the user the strongest legally usable report path available for that lake, then says how strong that path is.
    - Machine-readable depth outranks chart-aligned depth when both are credible.
+   - For the first public Water Reader read, **aerial-only** is acceptable when the output is transparent that no visual depth/bathymetry was used.
 
 ---
 
@@ -903,18 +926,17 @@ Water Reader V1 must support:
 - access modes:
   - shore
   - boat
-- source modes:
-  - `best_available`
+- source mode for first launch:
   - `aerial`
-  - `depth`
+  - disabled/coming-soon depth affordance only
 - baseline species x region x month profiles
 - hybrid source strategy:
   - pre-index waterbody and source metadata nationally
   - ingest and normalize approved public assets when allowed
-  - fetch approved depth/chart assets on demand when storage is not allowed or not yet worth pre-ingesting
+  - defer depth/chart fetch and use until product/legal reopens depth work
 - source availability display before report generation
-- aerial mode MVP
-- depth mode for approved and technically usable depth sources
+- aerial-only mode MVP
+- transparent depth limitation copy
 - deterministic zone scoring
 - rendered map overlay
 - confidence and source attribution
@@ -926,14 +948,14 @@ These defaults are non-negotiable for V1:
 
 - Water Reader is a named-lake/named-pond feature, not a freeform image-analysis feature.
 - Water Reader is a `where to start` feature first, not a full-session planner.
-- `best_available` is the default source mode.
-- If both aerial and depth are available, the user may switch between them.
-- Switching between `aerial` and `depth` is a report-mode change, not just a basemap change.
+- `aerial` is the first launch source mode.
+- Depth chart/read may be shown as **Coming Soon**, but it is disabled and must not drive current output.
+- Future switching between `aerial` and `depth` remains valid after depth is legally/technically approved, but it is not a first-launch requirement.
 - `Depth available` only counts if FinFindr can legally and technically produce a credible aligned report from that source.
 - Public aerial imagery is the default national visual layer, with graceful fallback if a fetch fails.
-- Machine-readable depth is the primary depth path; chart-aligned depth is a secondary fallback tier.
+- Machine-readable depth is the preferred future depth path; chart-aligned depth is a later secondary fallback tier.
 - Baseline reports must stand on structure, species, season, access mode, and source confidence alone.
-- Aerial reports must stay independent from depth assumptions.
+- Aerial reports must stay independent from depth assumptions and must explicitly say no visual depth/bathymetry was used.
 - Core report output is map-first with zone legend explanations; no top-level summary is required.
 
 ### 3.3 Late-V1 completion layer
@@ -1085,14 +1107,14 @@ Additional rule:
    - waterbody type when helpful
    - source availability or data-tier badge when known
 4. User selects the correct lake.
-5. App shows available source modes and current best-available status.
+5. App shows **Aerial Read** as the first launch mode when available and may show **Depth Chart Read — Coming Soon** as a disabled future mode.
 6. User selects species.
 7. User selects shore or boat.
-8. App defaults to `best_available`.
-9. If both aerial and depth are available, user may switch source mode.
+8. App defaults to `aerial` for first launch.
+9. Depth source-mode switching is deferred until reviewed depth sources are legally and technically approved for the intended use.
 10. App uses date to resolve month/season, plus region and location context automatically.
 11. Water Reader generates the report.
-12. User receives a map-first report with 3-5 zones, color-coded legend entries, confidence, and limitations.
+12. User receives a map-first aerial report with 3-5 zones, color-coded legend entries, confidence, and explicit limitations that depth/bathymetry was not used.
 
 ### 5.1.1 Duplicate-name behavior
 
@@ -1104,11 +1126,12 @@ The user should see all matching named lakes/ponds and choose the intended one.
 
 ### 5.1.2 Source-mode choice behavior
 
-If only one source mode is available:
+For first launch:
 
-- Water Reader uses that mode directly
+- Water Reader uses `aerial` when an approved aerial path is available.
+- Depth appears only as a disabled **Coming Soon** mode.
 
-If both are available:
+Future behavior after depth is reopened and approved:
 
 - Water Reader defaults to `best_available`
 - the user may switch between `aerial` and `depth`
@@ -1219,6 +1242,8 @@ Example user-facing labels:
 
 ### 7.2 Confidence model
 
+**Planning status:** This section defines the future read/report confidence model only. The current app remains source selection + non-interactive source preview; no read engine, extraction, overlays, scoring, fish zones, renderer, daily-condition layer, or recommender handoff is built yet.
+
 Every report must include a confidence level:
 
 - `high`
@@ -1238,10 +1263,25 @@ Confidence is determined by:
 ### 7.3 Confidence behavior
 
 - Polygon-only reports are always low confidence.
-- Aerial-only reports can be medium confidence, but must not speak like depth is known.
-- Depth-backed reports can be high confidence when source quality is strong.
-- Chart-image depth reports should usually be medium unless the alignment and quality are exceptionally strong.
+- Aerial-only reads can be useful and may reach medium confidence, but must not speak like depth is known.
+- Aerial + approved machine-readable depth/bathymetry is the intended high-confidence path when the source is legally usable, correctly matched, reliably retrievable, and technically trustworthy.
+- Aerial + chart-image/PDF depth is not automatically high confidence; confidence can increase only after legal approval, correct lake matching, reliable georeferencing/alignment, and reliable extraction are proven.
+- Depth-only reads are lower or specialized confidence unless product later defines a depth-only report mode that can stand without aerial context.
+- Neither aerial nor depth means no Water Reader read should be generated (`unavailable` / no read), not a low-confidence guess.
 - Any report with weak source evidence must explain why confidence is reduced.
+
+### 7.4 High-confidence prerequisites
+
+High confidence must require all of the following:
+
+- correct lake identity and no unresolved same-name/source ambiguity
+- source legally approved for the intended use
+- reliable source retrieval
+- reliable waterbody geometry/bounds for the operation being performed
+- trustworthy machine-readable depth or an approved equivalent evidence tier
+- source match and usability status reviewed enough to support the claim
+
+Near-term source expansion should prioritize legally approved machine-readable state sources before chart-image/PDF extraction. Chart images can remain a secondary path, but they should not be used to inflate confidence until rights, matching, georeferencing, and extraction quality are proven.
 
 ---
 
@@ -2008,11 +2048,12 @@ Water Reader full V1 is complete after **Phase 11** if:
 V1 is successful if a user can:
 
 1. search a named lake or pond
-2. see which source modes are available
-3. run `best_available` or choose `aerial`/`depth` when supported
-4. get 3-5 deterministic zones with a clean overlay and honest confidence
-5. see the report change meaningfully by species, access mode, month/season, and source evidence
-6. see the report shift modestly with daily conditions without changing the baseline identity of the feature
+2. see that aerial read is available where USGS TNM policy supports it
+3. see **Depth Chart Read — Coming Soon** when appropriate without being able to run a depth-backed read yet
+4. run an aerial-only read
+5. get 3-5 deterministic zones with a clean overlay and honest medium-confidence limitations
+6. see the report change meaningfully by species, access mode, month/season, and visible/geometry-backed aerial evidence
+7. understand clearly that depth/bathymetry was not used
 
 ---
 
@@ -2021,14 +2062,15 @@ V1 is successful if a user can:
 - [ ] National waterbody search is live.
 - [ ] Full national named lake/pond index is live.
 - [ ] Lakes show honest source availability.
-- [ ] `best_available` is the default mode.
+- [ ] Aerial-only is the first launch mode.
+- [ ] Depth Chart Read appears only as disabled/coming-soon copy.
 - [ ] Baseline species-season profiles are live for all supported species.
 - [ ] Water Reader works as a standalone `where to start` engine.
 - [ ] Aerial mode is usable nationally where public aerial is available.
 - [ ] Aerial mode uses visible/geometry-backed cues only and does not infer true depth structure.
-- [ ] Depth mode works for approved and usable sources.
-- [ ] Depth mode uses reviewed/approved sources only.
-- [ ] Machine-readable depth is preferred over chart-aligned depth when both are credible.
+- [ ] Aerial output explicitly says visual depth/bathymetry was not used.
+- [ ] Depth mode is deferred from first launch and cannot be run.
+- [ ] Machine-readable depth remains documented as the preferred future depth path.
 - [ ] Shore reports include `Access not verified`.
 - [ ] Aerial mode never invents underwater structure.
 - [ ] Blocked or unreviewed sources do not drive reusable extraction.
