@@ -5,6 +5,7 @@
  */
 
 export const WATERBODY_SEARCH_FEATURE = "waterbody_search_v1" as const;
+export const WATERBODY_AERIAL_TILE_PLAN_FEATURE = "waterbody_aerial_tile_plan_v1" as const;
 export const WATERBODY_SOURCE_VALIDATION_FEATURE = "waterbody_source_validation_v1" as const;
 
 /** POST body scope for `waterbody-source-validation` (internal key). Defaults to lake link validation when omitted. */
@@ -94,6 +95,35 @@ export interface WaterbodyPreviewBbox {
   minLat: number;
   maxLon: number;
   maxLat: number;
+}
+
+export type AerialTilePlanLabel =
+  | "shoreline_candidate"
+  | "inlet_outlet_candidate"
+  | "narrow_arm_candidate"
+  | "open_water_context";
+
+export interface AerialTilePlanTile {
+  id: number;
+  bbox: WaterbodyPreviewBbox;
+  priority: number;
+  label: AerialTilePlanLabel;
+  waterFraction?: number;
+  shorelineScore?: number;
+}
+
+export interface AerialTilePlan {
+  contextBbox: WaterbodyPreviewBbox;
+  tiles: AerialTilePlanTile[];
+  source: "serverGeometry";
+  maxCloseTiles: number;
+  prototypeOnly: true;
+}
+
+export interface AerialTilePlanResponse {
+  feature: typeof WATERBODY_AERIAL_TILE_PLAN_FEATURE;
+  lakeId: string;
+  plan: AerialTilePlan | null;
 }
 
 export interface WaterbodyGeometryBackbone {

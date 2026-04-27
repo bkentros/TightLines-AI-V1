@@ -13,8 +13,8 @@ import {
 } from 'react-native';
 import { Image as ExpoImage } from 'expo-image';
 import { colors, fonts, spacing, radius } from '../lib/theme';
-import { searchWaterbodies } from '../lib/waterReader';
-import type { WaterbodySearchResult } from '../lib/waterReaderContracts';
+import { fetchWaterbodyAerialTilePlan, searchWaterbodies } from '../lib/waterReader';
+import type { AerialTilePlan, AerialTilePlanLabel, WaterbodySearchResult } from '../lib/waterReaderContracts';
 import {
   buildNaipPlusExportImageUrl,
   isValidWgs84Bbox,
@@ -59,6 +59,7 @@ function stateDisplayLabel(code: string | null): string {
 }
 
 type AerialPhase = 'idle' | 'loading' | 'loaded' | 'timeout' | 'error' | 'blocked';
+type TilePlanPhase = 'idle' | 'loading' | 'loaded' | 'error';
 type ImageryProofPhase = 'loading' | 'loaded' | 'timeout' | 'error';
 
 interface ImageryProofImage {
@@ -149,6 +150,16 @@ function formatBbox(bbox: Wgs84Bbox): string {
   ].join(', ');
 }
 
+function sourceLabel(source: string): string {
+  if (source === 'serverGeometry') return 'server geometry tile plan';
+  if (source === 'previewBbox') return 'geometry preview bbox';
+  return 'centroid/acres fallback';
+}
+
+function labelDisplay(label: AerialTilePlanLabel): string {
+  return label.replace(/_/g, ' ');
+}
+
 export default function WaterReaderScreen() {
   const [stateCode, setStateCode] = useState<string | null>(null);
   const [stateModalOpen, setStateModalOpen] = useState(false);
@@ -161,6 +172,9 @@ export default function WaterReaderScreen() {
 
   const [aerialPhase, setAerialPhase] = useState<AerialPhase>('idle');
   const [aerialLoad, setAerialLoad] = useState<{ gen: number; uri: string } | null>(null);
+  const [serverTilePlanPhase, setServerTilePlanPhase] = useState<TilePlanPhase>('idle');
+  const [serverTilePlan, setServerTilePlan] = useState<AerialTilePlan | null>(null);
+  const [serverTilePlanError, setServerTilePlanError] = useState<string | null>(null);
   const [imageryProofImages, setImageryProofImages] = useState<ImageryProofImage[] | null>(null);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const proofTimeoutRefs = useRef<Record<string, ReturnType<typeof setTimeout>>>({});
@@ -201,7 +215,39 @@ export default function WaterReaderScreen() {
 
   useEffect(() => {
     setImageryProofImages(null);
+    setServerTilePlan(null);
+    setServerTilePlanError(null);
+    setServerTilePlanPhase('idle');
     clearProofTimers();
+  }, [selected]);
+
+  useEffect(() => {
+    if (!selected || selected.aerialAvailable !== true) return;
+
+    let cancelled = false;
+    setServerTilePlanPhase('loading');
+    setServerTilePlanError(null);
+
+    void fetchWaterbodyAerialTilePlan({
+      lakeId: selected.lakeId,
+      maxCloseTiles: IMAGERY_PROOF_CLOSE_TILE_LIMIT,
+    }).then((response) => {
+      if (cancelled) return;
+      setServerTilePlan(response.plan);
+      setServerTilePlanPhase(response.plan ? 'loaded' : 'error');
+      setServerTilePlanError(response.plan ? null : 'No server geometry tile plan returned.');
+      setImageryProofImages(null);
+      clearProofTimers();
+    }).catch((e) => {
+      if (cancelled) return;
+      setServerTilePlan(null);
+      setServerTilePlanPhase('error');
+      setServerTilePlanError(e instanceof Error ? e.message : 'Server geometry tile plan unavailable.');
+    });
+
+    return () => {
+      cancelled = true;
+    };
   }, [selected]);
 
   const onQueryChange = useCallback((t: string) => {
@@ -385,7 +431,24 @@ export default function WaterReaderScreen() {
     (stateCode && US_STATE_OPTIONS.find((o) => o.code === stateCode)?.name) || 'this state';
   const showResultsPanel =
     !selected && stateCode && (qTrim.length >= 2 || searching || (searchError != null && qTrim.length >= 2));
-  const aerialTilePlan = selected ? planAerialReadTiles(selected) : null;
+  const fallbackAerialTilePlan = selected ? planAerialReadTiles(selected) : null;
+  const serverDisplayTilePlan = serverTilePlan
+    ? {
+        contextBbox: serverTilePlan.contextBbox,
+        closeTiles: serverTilePlan.tiles.map((tile, index) => ({
+          id: tile.id,
+          row: 0,
+          col: index,
+          bbox: tile.bbox,
+          prototypeVisibleCategory: labelDisplay(tile.label),
+        })),
+        gridRows: 1,
+        gridCols: Math.max(1, serverTilePlan.tiles.length),
+        overlapRatio: 0,
+        source: serverTilePlan.source,
+      }
+    : null;
+  const aerialTilePlan = serverDisplayTilePlan ?? fallbackAerialTilePlan;
   const canLoadImageryProof = selected != null && aerialTilePlan != null;
 
   const onLoadImageryProof = useCallback(() => {
@@ -622,8 +685,18 @@ export default function WaterReaderScreen() {
                 <Text style={styles.planMetaLabel}>Whole-lake context bbox</Text>
                 <Text style={styles.planBboxText}>{formatBbox(aerialTilePlan.contextBbox)}</Text>
                 <Text style={styles.planMetaHint}>
-                  Source: {aerialTilePlan.source === 'previewBbox' ? 'geometry preview bbox' : 'centroid/acres fallback'} · Close tiles: {aerialTilePlan.closeTiles.length} · Overlap: {Math.round(aerialTilePlan.overlapRatio * 100)}%
+                  Source: {sourceLabel(aerialTilePlan.source)} · Close tiles: {aerialTilePlan.closeTiles.length} · Overlap: {Math.round(aerialTilePlan.overlapRatio * 100)}%
                 </Text>
+                {serverTilePlanPhase === 'loading' && (
+                  <Text style={styles.planMetaHint}>
+                    Loading server geometry tile plan metadata. Falling back to the client bbox grid until it is available.
+                  </Text>
+                )}
+                {serverTilePlanPhase === 'error' && serverTilePlanError && (
+                  <Text style={styles.planMetaHint}>
+                    Server geometry tile plan unavailable; prototype is using the client bbox-grid fallback.
+                  </Text>
+                )}
               </View>
 
               <View style={styles.tileSchematic}>
