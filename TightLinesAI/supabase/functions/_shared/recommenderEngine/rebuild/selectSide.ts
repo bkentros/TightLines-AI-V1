@@ -206,6 +206,8 @@ const SELECTION_SCORE = {
   varietyRescueFamilyGroup: 28,
   authoredRowPreferred: 34,
   catalogFallbackPenalty: -24,
+  smallmouthBassSpeciesConfidence: 14,
+  troutRiverSpeciesConfidence: 10,
 } as const;
 
 const SEASONALLY_AUTHORED_FLY_IDS_REQUIRING_ROW_AUTH = new Set<string>([
@@ -213,6 +215,50 @@ const SEASONALLY_AUTHORED_FLY_IDS_REQUIRING_ROW_AUTH = new Set<string>([
   "warmwater_worm_fly",
   "foam_gurgler_fly",
   "pike_flash_fly",
+]);
+
+const SMALLMOUTH_BASS_CONFIDENCE_LURE_IDS = new Set<string>([
+  "tube_jig",
+  "ned_rig",
+  "suspending_jerkbait",
+  "drop_shot_minnow",
+  "soft_jerkbait",
+  "football_jig",
+  "finesse_jig",
+  "texas_rigged_soft_plastic_craw",
+  "paddle_tail_swimbait",
+]);
+
+const SMALLMOUTH_BASS_WIND_CONFIDENCE_LURE_IDS = new Set<string>([
+  "spinnerbait",
+]);
+
+const SMALLMOUTH_BASS_CONFIDENCE_FLY_IDS = new Set<string>([
+  "warmwater_crawfish_fly",
+  "crawfish_streamer",
+  "sculpin_streamer",
+  "muddler_sculpin",
+  "woolly_bugger",
+  "clouser_minnow",
+  "baitfish_slider_fly",
+]);
+
+const TROUT_RIVER_CONFIDENCE_LURE_IDS = new Set<string>([
+  "hair_jig",
+  "casting_spoon",
+  "inline_spinner",
+  "suspending_jerkbait",
+  "soft_jerkbait",
+]);
+
+const TROUT_RIVER_CONFIDENCE_FLY_IDS = new Set<string>([
+  "muddler_sculpin",
+  "sculpin_streamer",
+  "sculpzilla",
+  "woolly_bugger",
+  "slim_minnow_streamer",
+  "unweighted_baitfish_streamer",
+  "rabbit_strip_leech",
 ]);
 
 function paceCompatibility(
@@ -319,6 +365,35 @@ function clarityWhitelistAllows(
 ): boolean {
   const allowed = CLARITY_SPECIALIST_WHITELIST[side][cand.id];
   return allowed != null && allowed.includes(water_clarity);
+}
+
+function smallmouthBassConfidenceApplies(args: {
+  side: Side;
+  cand: ArchetypeProfileV4;
+  species: SeasonalRowV4["species"];
+  activeConditionWindow: LureConditionWindowId | FlyConditionWindowId | null;
+}): boolean {
+  if (args.species !== "smallmouth_bass") return false;
+  if (args.side === "fly") {
+    return SMALLMOUTH_BASS_CONFIDENCE_FLY_IDS.has(args.cand.id);
+  }
+  return SMALLMOUTH_BASS_CONFIDENCE_LURE_IDS.has(args.cand.id) ||
+    (SMALLMOUTH_BASS_WIND_CONFIDENCE_LURE_IDS.has(args.cand.id) &&
+      args.activeConditionWindow === "wind_reaction_window");
+}
+
+function troutRiverConfidenceApplies(args: {
+  side: Side;
+  cand: ArchetypeProfileV4;
+  species: SeasonalRowV4["species"];
+  context: SeasonalRowV4["water_type"];
+}): boolean {
+  if (args.species !== "trout" || args.context !== "freshwater_river") {
+    return false;
+  }
+  return args.side === "lure"
+    ? TROUT_RIVER_CONFIDENCE_LURE_IDS.has(args.cand.id)
+    : TROUT_RIVER_CONFIDENCE_FLY_IDS.has(args.cand.id);
 }
 
 export function presenceFromPace(
@@ -539,6 +614,32 @@ export function selectArchetypesForSide(args: {
       score += conditionScore;
       reasons.push(
         `condition_window:${activeConditionWindow}:+${conditionScore}`,
+      );
+    }
+    if (
+      smallmouthBassConfidenceApplies({
+        side,
+        cand,
+        species,
+        activeConditionWindow,
+      })
+    ) {
+      score += SELECTION_SCORE.smallmouthBassSpeciesConfidence;
+      reasons.push(
+        `species_confidence:smallmouth_bass:+${SELECTION_SCORE.smallmouthBassSpeciesConfidence}`,
+      );
+    }
+    if (
+      troutRiverConfidenceApplies({
+        side,
+        cand,
+        species,
+        context,
+      })
+    ) {
+      score += SELECTION_SCORE.troutRiverSpeciesConfidence;
+      reasons.push(
+        `species_confidence:trout_river:+${SELECTION_SCORE.troutRiverSpeciesConfidence}`,
       );
     }
     if (pickedPresentationGroups.has(cand.presentation_group)) {

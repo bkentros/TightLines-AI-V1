@@ -99,6 +99,7 @@ export const LURE_ARCHETYPE_IDS_V4 = [
   "lipless_crankbait",
   "blade_bait",
   "casting_spoon",
+  "small_floating_trout_plug",
   "walking_topwater",
   "popping_topwater",
   "buzzbait",

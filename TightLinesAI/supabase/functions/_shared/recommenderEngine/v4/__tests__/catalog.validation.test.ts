@@ -27,10 +27,10 @@ function hasDuplicates(values: readonly string[]): boolean {
   return new Set(values).size !== values.length;
 }
 
-Deno.test("catalog: lure count and id set match Appendix A / contracts (36)", () => {
-  assertEquals(LURE_ARCHETYPES_V4.length, 36);
+Deno.test("catalog: lure count and id set match Appendix A / contracts (37)", () => {
+  assertEquals(LURE_ARCHETYPES_V4.length, 37);
   const ids = new Set(LURE_ARCHETYPES_V4.map((x) => x.id));
-  assertEquals(ids.size, 36);
+  assertEquals(ids.size, 37);
   for (const id of LURE_ARCHETYPE_IDS_V4) {
     assert(ids.has(id), `missing lure ${id}`);
   }
@@ -40,6 +40,23 @@ Deno.test("catalog: lure count and id set match Appendix A / contracts (36)", ()
       `unexpected lure id ${id}`,
     );
   }
+});
+
+Deno.test("trout river quality: small_floating_trout_plug is trout-only river surface", () => {
+  const plug = LURE_ARCHETYPES_V4.find((lure) =>
+    lure.id === "small_floating_trout_plug"
+  );
+  assert(plug, "expected small_floating_trout_plug in lure catalog");
+  assertEquals(plug.display_name, "Small Floating Trout Plug");
+  assertEquals(plug.species_allowed, ["trout"]);
+  assertEquals(plug.water_types_allowed, ["freshwater_river"]);
+  assertEquals(plug.column, "surface");
+  assertEquals(plug.primary_pace, "medium");
+  assertEquals(plug.secondary_pace, "slow");
+  assertEquals(plug.is_surface, true);
+  assert(plug.family_group.trim().length > 0);
+  assert(plug.presentation_group.trim().length > 0);
+  assertEquals(plug.how_to_fish_variants.length, 3);
 });
 
 Deno.test("catalog: fly count and id set match Appendix A / contracts (31)", () => {
@@ -193,6 +210,62 @@ Deno.test("Pass 5: catalog species and water allowances are valid, unique, and n
         `${p.id} invalid water type ${waterType}`,
       );
     }
+  }
+});
+
+Deno.test("SMB quality: casting_spoon is pike/trout only, not bass", () => {
+  const spoon = LURE_ARCHETYPES_V4.find((lure) => lure.id === "casting_spoon");
+  assert(spoon, "expected casting_spoon in lure catalog");
+  assert(
+    !spoon.species_allowed.includes("largemouth_bass"),
+    "casting_spoon should not be LMB eligible",
+  );
+  assert(
+    !spoon.species_allowed.includes("smallmouth_bass"),
+    "casting_spoon should not be SMB eligible",
+  );
+  assert(spoon.species_allowed.includes("northern_pike"));
+  assert(spoon.species_allowed.includes("trout"));
+});
+
+Deno.test("trout river quality: ned_rig remains trout eligible, other bass-coded target lures are not", () => {
+  const nedRig = LURE_ARCHETYPES_V4.find((candidate) =>
+    candidate.id === "ned_rig"
+  );
+  assert(nedRig, "expected ned_rig in lure catalog");
+  assert(nedRig.species_allowed.includes("trout"));
+  assertEquals(nedRig.species_allowed, [
+    "largemouth_bass",
+    "smallmouth_bass",
+    "trout",
+  ]);
+
+  const expectedSpeciesById = new Map<LureArchetypeIdV4, readonly string[]>([
+    ["tube_jig", ["largemouth_bass", "smallmouth_bass", "northern_pike"]],
+    [
+      "squarebill_crankbait",
+      ["largemouth_bass", "smallmouth_bass", "northern_pike"],
+    ],
+    [
+      "flat_sided_crankbait",
+      ["largemouth_bass", "smallmouth_bass", "northern_pike"],
+    ],
+    [
+      "lipless_crankbait",
+      ["largemouth_bass", "smallmouth_bass", "northern_pike"],
+    ],
+    ["walking_topwater", ["largemouth_bass", "smallmouth_bass"]],
+    ["popping_topwater", ["largemouth_bass", "smallmouth_bass"]],
+  ]);
+
+  for (const [id, expectedSpecies] of expectedSpeciesById) {
+    const lure = LURE_ARCHETYPES_V4.find((candidate) => candidate.id === id);
+    assert(lure, `expected ${id} in lure catalog`);
+    assert(
+      !lure.species_allowed.includes("trout"),
+      `${id} should not be trout eligible`,
+    );
+    assertEquals(lure.species_allowed, expectedSpecies);
   }
 });
 

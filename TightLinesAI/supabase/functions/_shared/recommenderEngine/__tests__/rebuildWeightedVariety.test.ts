@@ -1,6 +1,8 @@
 import { assert, assertEquals } from "jsr:@std/assert";
 import type { SeasonalRowV4 } from "../v4/contracts.ts";
 import { LARGEMOUTH_BASS_SEASONAL_ROWS_V4 } from "../v4/seasonal/generated/largemouth_bass.ts";
+import { SMALLMOUTH_BASS_SEASONAL_ROWS_V4 } from "../v4/seasonal/generated/smallmouth_bass.ts";
+import { TROUT_SEASONAL_ROWS_V4 } from "../v4/seasonal/generated/trout.ts";
 import {
   type RebuildSlotSelectionTrace,
   selectArchetypesForSide,
@@ -23,6 +25,26 @@ function baseRow(overrides: Partial<SeasonalRowV4> = {}): SeasonalRowV4 {
     primary_fly_ids: ["clouser_minnow"],
     ...overrides,
   };
+}
+
+function greatLakesSmbLakeMayRow(): SeasonalRowV4 {
+  const row = SMALLMOUTH_BASS_SEASONAL_ROWS_V4.find((r) =>
+    r.region_key === "great_lakes_upper_midwest" &&
+    r.water_type === "freshwater_lake_pond" &&
+    r.month === 5
+  );
+  assert(row, "expected Great Lakes Upper Midwest SMB May lake row");
+  return row;
+}
+
+function troutRiverRow(region: string, month: number): SeasonalRowV4 {
+  const row = TROUT_SEASONAL_ROWS_V4.find((r) =>
+    r.region_key === region &&
+    r.water_type === "freshwater_river" &&
+    r.month === month
+  );
+  assert(row, `expected ${region} trout river row for month ${month}`);
+  return row;
 }
 
 Deno.test("weighted selection: identical context produces identical picks", () => {
@@ -528,6 +550,406 @@ Deno.test("weighted selection: rescue does not pull seasonally authored new flie
   assert(picks.every((pick) => !newFlyIds.has(pick.archetype.id)));
   assert(
     traces[2]!.candidateScores.every((score) => !newFlyIds.has(score.id)),
+  );
+});
+
+Deno.test("SMB confidence: clear Great Lakes SMB lake traces trusted lure reasons", () => {
+  const row = greatLakesSmbLakeMayRow();
+  const traces: RebuildSlotSelectionTrace[] = [];
+  const picks = selectArchetypesForSide({
+    side: "lure",
+    row,
+    species: row.species,
+    context: row.water_type,
+    water_clarity: "clear",
+    profiles: [
+      { column: "mid", pace: "medium" },
+      { column: "upper", pace: "medium" },
+      { column: "bottom", pace: "slow" },
+    ],
+    surfaceBlocked: false,
+    seedBase: "smb-confidence-clear-great-lakes",
+    currentLocalDate: "2026-05-15",
+    onSlotTrace: (trace) => traces.push(trace),
+  });
+
+  assertEquals(picks.length, 3);
+  const trustedIds = new Set([
+    "suspending_jerkbait",
+    "soft_jerkbait",
+    "football_jig",
+    "finesse_jig",
+    "ned_rig",
+    "tube_jig",
+    "paddle_tail_swimbait",
+  ]);
+  const trustedScores = traces.flatMap((trace) =>
+    trace.candidateScores.filter((score) => trustedIds.has(score.id))
+  );
+  assert(trustedScores.length > 0, "expected trusted SMB lure candidates");
+  assert(
+    trustedScores.some((score) =>
+      score.reasons.includes("species_confidence:smallmouth_bass:+14")
+    ),
+    "expected species confidence trace reason on trusted SMB lures",
+  );
+  assert(
+    trustedScores.some((score) =>
+      score.reasons.includes("clarity_strength:+8") ||
+      score.reasons.includes("clarity_specialist:+10")
+    ),
+    "expected clear-water reasons on trusted SMB lure candidates",
+  );
+});
+
+Deno.test("SMB confidence: soft bonus still rotates adjacent dates", () => {
+  const row = greatLakesSmbLakeMayRow();
+  const signatures = new Set<string>();
+  for (let day = 15; day <= 21; day++) {
+    const localDate = `2026-05-${day}`;
+    const picks = selectArchetypesForSide({
+      side: "lure",
+      row,
+      species: row.species,
+      context: row.water_type,
+      water_clarity: "clear",
+      profiles: [
+        { column: "mid", pace: "medium" },
+        { column: "upper", pace: "medium" },
+        { column: "bottom", pace: "slow" },
+      ],
+      surfaceBlocked: false,
+      seedBase:
+        `smb-confidence-rotation|${localDate}|great_lakes_upper_midwest|smallmouth_bass|freshwater_lake_pond|clear`,
+      currentLocalDate: localDate,
+    });
+    signatures.add(picks.map((pick) => pick.archetype.id).join("|"));
+  }
+
+  assert(signatures.size > 1, "species confidence should not hard-lock output");
+});
+
+Deno.test("SMB confidence: does not override column/pace, surface block, or exclusions", () => {
+  const row = baseRow({
+    species: "smallmouth_bass",
+    region_key: "great_lakes_upper_midwest",
+    month: 5,
+    water_type: "freshwater_lake_pond",
+    column_range: ["bottom", "mid", "surface"],
+    pace_range: ["slow", "medium"],
+    primary_forage: "crawfish",
+    secondary_forage: "baitfish",
+    surface_seasonally_possible: true,
+    primary_lure_ids: [
+      "ned_rig",
+      "tube_jig",
+      "football_jig",
+      "finesse_jig",
+      "walking_topwater",
+    ],
+    excluded_lure_ids: ["ned_rig"],
+  });
+  const traces: RebuildSlotSelectionTrace[] = [];
+  const picks = selectArchetypesForSide({
+    side: "lure",
+    row,
+    species: row.species,
+    context: row.water_type,
+    water_clarity: "clear",
+    profiles: [
+      { column: "bottom", pace: "slow" },
+      { column: "surface", pace: "medium" },
+      { column: "upper", pace: "medium" },
+    ],
+    surfaceBlocked: true,
+    seedBase: "smb-confidence-hard-gates",
+    currentLocalDate: "2026-05-15",
+    onSlotTrace: (trace) => traces.push(trace),
+  });
+
+  assert(picks.every((pick) => pick.archetype.id !== "ned_rig"));
+  assert(picks.every((pick) => !pick.archetype.is_surface));
+  assert(
+    traces[2]!.candidateScores.every((score) => score.id !== "soft_jerkbait"),
+    "upper-column soft_jerkbait should not be compatible with bottom/mid row",
+  );
+  assertEquals(traces[1]!.eligibleCandidateCount, 0);
+});
+
+Deno.test("trout river confidence: applies only to trout river lure and fly candidates", () => {
+  const row = troutRiverRow("mountain_west", 5);
+  const lureTraces: RebuildSlotSelectionTrace[] = [];
+  const flyTraces: RebuildSlotSelectionTrace[] = [];
+  const reason = "species_confidence:trout_river:+10";
+
+  const lurePicks = selectArchetypesForSide({
+    side: "lure",
+    row,
+    species: row.species,
+    context: row.water_type,
+    water_clarity: "clear",
+    profiles: [
+      { column: "bottom", pace: "slow" },
+      { column: "mid", pace: "medium" },
+      { column: "upper", pace: "medium" },
+    ],
+    surfaceBlocked: false,
+    seedBase: "trout-river-confidence-lures",
+    currentLocalDate: "2026-05-08",
+    onSlotTrace: (trace) => lureTraces.push(trace),
+  });
+  const flyPicks = selectArchetypesForSide({
+    side: "fly",
+    row,
+    species: row.species,
+    context: row.water_type,
+    water_clarity: "clear",
+    profiles: [
+      { column: "bottom", pace: "slow" },
+      { column: "mid", pace: "medium" },
+      { column: "upper", pace: "medium" },
+    ],
+    surfaceBlocked: false,
+    seedBase: "trout-river-confidence-flies",
+    currentLocalDate: "2026-05-08",
+    onSlotTrace: (trace) => flyTraces.push(trace),
+  });
+
+  assertEquals(lurePicks.length, 3);
+  assertEquals(flyPicks.length, 3);
+  const boostedLureIds = new Set([
+    "hair_jig",
+    "casting_spoon",
+    "inline_spinner",
+    "suspending_jerkbait",
+    "soft_jerkbait",
+  ]);
+  const boostedFlyIds = new Set([
+    "muddler_sculpin",
+    "sculpin_streamer",
+    "sculpzilla",
+    "woolly_bugger",
+    "slim_minnow_streamer",
+    "unweighted_baitfish_streamer",
+    "rabbit_strip_leech",
+  ]);
+  const lureScores = lureTraces.flatMap((trace) =>
+    trace.candidateScores.filter((score) => boostedLureIds.has(score.id))
+  );
+  const flyScores = flyTraces.flatMap((trace) =>
+    trace.candidateScores.filter((score) => boostedFlyIds.has(score.id))
+  );
+
+  assert(lureScores.length > 0, "expected boosted trout lure candidates");
+  assert(flyScores.length > 0, "expected boosted trout fly candidates");
+  assert(
+    lureScores.some((score) => score.reasons.includes(reason)),
+    "expected trout-river confidence reason on boosted lures",
+  );
+  assert(
+    flyScores.some((score) => score.reasons.includes(reason)),
+    "expected trout-river confidence reason on boosted flies",
+  );
+});
+
+Deno.test("trout river confidence: does not apply to trout lake/pond or other species", () => {
+  const reason = "species_confidence:trout_river:+10";
+  const troutLakeRow = baseRow({
+    species: "trout",
+    region_key: "great_lakes_upper_midwest",
+    water_type: "freshwater_lake_pond",
+    month: 5,
+    column_range: ["mid", "upper"],
+    pace_range: ["medium"],
+    primary_forage: "baitfish",
+    secondary_forage: undefined,
+    surface_seasonally_possible: false,
+    primary_lure_ids: [
+      "casting_spoon",
+      "inline_spinner",
+      "suspending_jerkbait",
+      "soft_jerkbait",
+    ],
+  });
+  const nonTroutRows: SeasonalRowV4[] = [
+    baseRow({
+      species: "largemouth_bass",
+      region_key: "florida",
+      water_type: "freshwater_lake_pond",
+      primary_lure_ids: ["suspending_jerkbait", "soft_jerkbait"],
+    }),
+    baseRow({
+      species: "smallmouth_bass",
+      region_key: "great_lakes_upper_midwest",
+      water_type: "freshwater_river",
+      primary_lure_ids: ["hair_jig", "soft_jerkbait", "inline_spinner"],
+    }),
+    baseRow({
+      species: "northern_pike",
+      region_key: "great_lakes_upper_midwest",
+      water_type: "freshwater_river",
+      primary_lure_ids: ["casting_spoon", "inline_spinner", "soft_jerkbait"],
+    }),
+  ];
+
+  for (const row of [troutLakeRow, ...nonTroutRows]) {
+    const traces: RebuildSlotSelectionTrace[] = [];
+    selectArchetypesForSide({
+      side: "lure",
+      row,
+      species: row.species,
+      context: row.water_type,
+      water_clarity: "clear",
+      profiles: [
+        { column: "bottom", pace: "slow" },
+        { column: "mid", pace: "medium" },
+        { column: "upper", pace: "medium" },
+      ],
+      surfaceBlocked: false,
+      seedBase:
+        `trout-river-confidence-negative|${row.species}|${row.water_type}`,
+      currentLocalDate: "2026-05-08",
+      onSlotTrace: (trace) => traces.push(trace),
+    });
+    assert(
+      traces.every((trace) =>
+        trace.candidateScores.every((score) => !score.reasons.includes(reason))
+      ),
+      `did not expect trout-river confidence for ${row.species}/${row.water_type}`,
+    );
+  }
+});
+
+Deno.test("trout river confidence: hard gates and variety remain intact", () => {
+  const row = {
+    ...troutRiverRow("appalachian", 8),
+    excluded_lure_ids: ["hair_jig"] as const,
+  };
+  const signatures = new Set<string>();
+  const reason = "species_confidence:trout_river:+10";
+
+  for (let day = 14; day <= 20; day++) {
+    const localDate = `2026-08-${day}`;
+    const traces: RebuildSlotSelectionTrace[] = [];
+    const picks = selectArchetypesForSide({
+      side: "lure",
+      row,
+      species: row.species,
+      context: row.water_type,
+      water_clarity: "clear",
+      profiles: [
+        { column: "bottom", pace: "slow" },
+        { column: "mid", pace: "medium" },
+        { column: "surface", pace: "medium" },
+      ],
+      surfaceBlocked: true,
+      seedBase:
+        `trout-river-confidence-gates|${localDate}|appalachian|trout|freshwater_river|clear`,
+      currentLocalDate: localDate,
+      onSlotTrace: (trace) => traces.push(trace),
+    });
+
+    assertEquals(
+      new Set(picks.map((pick) => pick.archetype.id)).size,
+      picks.length,
+    );
+    assert(
+      picks.every((pick) => pick.archetype.species_allowed.includes("trout")),
+    );
+    assert(
+      picks.every((pick) =>
+        pick.archetype.water_types_allowed.includes("freshwater_river")
+      ),
+    );
+    assert(picks.every((pick) => !pick.archetype.is_surface));
+    assert(picks.every((pick) => pick.archetype.id !== "hair_jig"));
+    assert(
+      traces.every((trace) =>
+        trace.candidateScores.every((score) => score.id !== "hair_jig")
+      ),
+    );
+    assert(
+      traces.flatMap((trace) => trace.candidateScores).some((score) =>
+        score.reasons.includes(reason)
+      ),
+      "expected at least one legal boosted candidate to be scored",
+    );
+    signatures.add(picks.map((pick) => pick.archetype.id).join("|"));
+  }
+
+  assert(signatures.size > 1, "trout confidence should not hard-lock dates");
+});
+
+Deno.test("trout river confidence: mouse and surface blocking behavior stay legal", () => {
+  const row = troutRiverRow("appalachian", 8);
+  const openFlyTraces: RebuildSlotSelectionTrace[] = [];
+  const blockedFlyTraces: RebuildSlotSelectionTrace[] = [];
+  const profiles = [
+    { column: "upper" as const, pace: "medium" as const },
+    { column: "mid" as const, pace: "medium" as const },
+    { column: "surface" as const, pace: "medium" as const },
+  ];
+  const openPicks = selectArchetypesForSide({
+    side: "fly",
+    row,
+    species: row.species,
+    context: row.water_type,
+    water_clarity: "clear",
+    profiles,
+    surfaceBlocked: false,
+    seedBase: "trout-river-confidence-mouse-open",
+    currentLocalDate: "2026-08-07",
+    flyConditionState: {
+      regime: "aggressive",
+      surface_allowed_today: true,
+      surface_slot_present: true,
+      daylight_wind_mph: 2,
+      wind_band: "calm",
+      species: "trout",
+      context: "freshwater_river",
+      month: 8,
+    },
+    onSlotTrace: (trace) => openFlyTraces.push(trace),
+  });
+  const blockedPicks = selectArchetypesForSide({
+    side: "fly",
+    row,
+    species: row.species,
+    context: row.water_type,
+    water_clarity: "clear",
+    profiles,
+    surfaceBlocked: true,
+    seedBase: "trout-river-confidence-mouse-blocked",
+    currentLocalDate: "2026-08-14",
+    flyConditionState: {
+      regime: "aggressive",
+      surface_allowed_today: false,
+      surface_slot_present: false,
+      daylight_wind_mph: 22,
+      wind_band: "windy",
+      species: "trout",
+      context: "freshwater_river",
+      month: 8,
+    },
+    onSlotTrace: (trace) => blockedFlyTraces.push(trace),
+  });
+
+  assert(
+    openFlyTraces.some((trace) =>
+      trace.candidateScores.some((score) => score.id === "mouse_fly") ||
+      trace.finalistIds.includes("mouse_fly")
+    ),
+    "surface-open summer trout river should keep mouse visible",
+  );
+  assert(
+    openPicks.every((pick) => pick.archetype.species_allowed.includes("trout")),
+  );
+  assert(blockedPicks.every((pick) => !pick.archetype.is_surface));
+  assert(
+    blockedFlyTraces.every((trace) =>
+      trace.candidateScores.every((score) => score.id !== "mouse_fly")
+    ),
+    "surface-blocked trout river should not score mouse candidates",
   );
 });
 

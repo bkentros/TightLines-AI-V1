@@ -1,6 +1,6 @@
 # Recommender rebuild - final scenario QA
 
-Generated: **2026-04-26T16:40:40.881Z**
+Generated: **2026-04-27T15:43:44.513Z**
 
 ## Executive Conclusion
 
@@ -79,41 +79,41 @@ The representative QA pass found no determinism, eligibility, duplicate-ID, surf
 
 - Row: `smallmouth_bass|great_lakes_upper_midwest|freshwater_lake_pond|7`.
 - Expected: Smallmouth lake output should include craw/tube/ned/jig logic and allow the new warmwater crawfish fly to appear.
-- Rotation: lure triples 7/7, fly triples 6/7; lure first-two 6, fly first-two 5.
-- Condition influence: lure chosen 5/21 active traces; fly chosen 0/21 active traces.
-- Special signals: frogs candidate/finalist/pick 0/0/0; crawfish fly picks 1; pike flash fly picks 0; mouse window/picks 0/0.
+- Rotation: lure triples 6/7, fly triples 5/7; lure first-two 5, fly first-two 4.
+- Condition influence: lure chosen 6/21 active traces; fly chosen 0/21 active traces.
+- Special signals: frogs candidate/finalist/pick 0/0/0; crawfish fly picks 2; pike flash fly picks 0; mouse window/picks 0/0.
 - Crawfish forage is authored on this row.
 - Warmwater crawfish fly visibility is a key row-inclusion check.
-- warmwater_crawfish_fly picked on 1/7 dates.
+- warmwater_crawfish_fly picked on 2/7 dates.
 
 | Date | Lures | Flies | Surface blocked |
 | --- | --- | --- | --- |
-| 2026-07-10 | bladed_jig, soft_jerkbait, football_jig | articulated_baitfish_streamer, baitfish_slider_fly, feather_jig_leech | no |
-| 2026-07-11 | paddle_tail_swimbait, flat_sided_crankbait, ned_rig | woolly_bugger, unweighted_baitfish_streamer, warmwater_crawfish_fly | no |
-| 2026-07-12 | paddle_tail_swimbait, squarebill_crankbait, blade_bait | zonker_streamer, baitfish_slider_fly, rabbit_strip_leech | no |
-| 2026-07-13 | suspending_jerkbait, flat_sided_crankbait, carolina_rigged_stick_worm | game_changer, baitfish_slider_fly, feather_jig_leech | no |
-| 2026-07-14 | swim_jig, soft_jerkbait, finesse_jig | game_changer, baitfish_slider_fly, jighead_marabou_leech | no |
-| 2026-07-15 | suspending_jerkbait, squarebill_crankbait, football_jig | articulated_baitfish_streamer, baitfish_slider_fly, feather_jig_leech | no |
-| 2026-07-16 | swim_jig, soft_jerkbait, texas_rigged_soft_plastic_craw | deceiver, baitfish_slider_fly, jighead_marabou_leech | no |
+| 2026-07-10 | spinnerbait, soft_jerkbait, deep_diving_crankbait | articulated_baitfish_streamer, baitfish_slider_fly, jighead_marabou_leech | no |
+| 2026-07-11 | bladed_jig, soft_jerkbait, finesse_jig | woolly_bugger, baitfish_slider_fly, warmwater_crawfish_fly | no |
+| 2026-07-12 | bladed_jig, soft_jerkbait, finesse_jig | articulated_baitfish_streamer, baitfish_slider_fly, feather_jig_leech | no |
+| 2026-07-13 | lipless_crankbait, soft_jerkbait, blade_bait | clouser_minnow, baitfish_slider_fly, jighead_marabou_leech | no |
+| 2026-07-14 | suspending_jerkbait, squarebill_crankbait, texas_rigged_soft_plastic_craw | deceiver, baitfish_slider_fly, jighead_marabou_leech | no |
+| 2026-07-15 | spinnerbait, squarebill_crankbait, ned_rig | articulated_baitfish_streamer, baitfish_slider_fly, jighead_marabou_leech | no |
+| 2026-07-16 | suspending_jerkbait, squarebill_crankbait, football_jig | woolly_bugger, baitfish_slider_fly, warmwater_crawfish_fly | no |
 
 ### Smallmouth summer river
 
 - Row: `smallmouth_bass|great_lakes_upper_midwest|freshwater_river|7`.
 - Expected: River-valid smallmouth craw/sculpin/baitfish presentations should appear without lake-only oddities.
-- Rotation: lure triples 7/7, fly triples 6/7; lure first-two 7, fly first-two 5.
+- Rotation: lure triples 7/7, fly triples 7/7; lure first-two 6, fly first-two 6.
 - Condition influence: lure chosen 4/21 active traces; fly chosen 0/21 active traces.
 - Special signals: frogs candidate/finalist/pick 0/0/0; crawfish fly picks 0; pike flash fly picks 0; mouse window/picks 0/0.
 - River smallmouth flies should stay within river-eligible streamers/craw/sculpin logic.
 
 | Date | Lures | Flies | Surface blocked |
 | --- | --- | --- | --- |
-| 2026-07-17 | spinnerbait, flat_sided_crankbait, texas_rigged_soft_plastic_craw | bucktail_baitfish_streamer, baitfish_slider_fly, feather_jig_leech | no |
-| 2026-07-18 | lipless_crankbait, soft_jerkbait, finesse_jig | woolly_bugger, slim_minnow_streamer, sculpin_streamer | no |
-| 2026-07-19 | suspending_jerkbait, flat_sided_crankbait, tube_jig | articulated_baitfish_streamer, baitfish_slider_fly, jighead_marabou_leech | no |
-| 2026-07-20 | swim_jig, squarebill_crankbait, tube_jig | deceiver, baitfish_slider_fly, lead_eye_leech | no |
-| 2026-07-21 | medium_diving_crankbait, soft_jerkbait, ned_rig | deceiver, baitfish_slider_fly, lead_eye_leech | no |
-| 2026-07-22 | suspending_jerkbait, squarebill_crankbait, blade_bait | articulated_dungeon_streamer, slim_minnow_streamer, rabbit_strip_leech | no |
-| 2026-07-23 | casting_spoon, flat_sided_crankbait, ned_rig | bucktail_baitfish_streamer, baitfish_slider_fly, jighead_marabou_leech | no |
+| 2026-07-17 | medium_diving_crankbait, soft_jerkbait, tube_jig | bucktail_baitfish_streamer, baitfish_slider_fly, sculpzilla | no |
+| 2026-07-18 | lipless_crankbait, soft_jerkbait, tube_jig | game_changer, baitfish_slider_fly, muddler_sculpin | no |
+| 2026-07-19 | suspending_jerkbait, flat_sided_crankbait, texas_rigged_soft_plastic_craw | deceiver, baitfish_slider_fly, rabbit_strip_leech | no |
+| 2026-07-20 | medium_diving_crankbait, soft_jerkbait, ned_rig | articulated_dungeon_streamer, baitfish_slider_fly, crawfish_streamer | no |
+| 2026-07-21 | inline_spinner, squarebill_crankbait, finesse_jig | zonker_streamer, baitfish_slider_fly, sculpzilla | no |
+| 2026-07-22 | bladed_jig, squarebill_crankbait, blade_bait | zonker_streamer, baitfish_slider_fly, lead_eye_leech | no |
+| 2026-07-23 | spinnerbait, flat_sided_crankbait, texas_rigged_soft_plastic_craw | woolly_bugger, baitfish_slider_fly, muddler_sculpin | no |
 
 ### Northern pike summer lake/pond baitfish/perch
 
@@ -160,60 +160,60 @@ The representative QA pass found no determinism, eligibility, duplicate-ID, surf
 
 - Row: `trout|mountain_west|freshwater_river|7`.
 - Expected: Clear/calm trout should lean subtle and trout-appropriate; no warmwater bass/pike flies.
-- Rotation: lure triples 6/7, fly triples 7/7; lure first-two 5, fly first-two 5.
-- Condition influence: lure chosen 6/21 active traces; fly chosen 0/21 active traces.
+- Rotation: lure triples 5/7, fly triples 6/7; lure first-two 3, fly first-two 4.
+- Condition influence: lure chosen 9/21 active traces; fly chosen 0/21 active traces.
 - Special signals: frogs candidate/finalist/pick 0/0/0; crawfish fly picks 0; pike flash fly picks 0; mouse window/picks 0/0.
 - Clear subtle lure window should be visible where matching lures exist.
 - Warmwater fly IDs must not appear.
 
 | Date | Lures | Flies | Surface blocked |
 | --- | --- | --- | --- |
-| 2026-07-04 | inline_spinner, soft_jerkbait, tube_jig | articulated_baitfish_streamer, baitfish_slider_fly, feather_jig_leech | no |
-| 2026-07-05 | casting_spoon, soft_jerkbait, tube_jig | woolly_bugger, baitfish_slider_fly, sculpzilla | no |
-| 2026-07-06 | inline_spinner, soft_jerkbait, tube_jig | bucktail_baitfish_streamer, baitfish_slider_fly, muddler_sculpin | no |
-| 2026-07-07 | inline_spinner, flat_sided_crankbait, tube_jig | bucktail_baitfish_streamer, baitfish_slider_fly, sculpzilla | no |
-| 2026-07-08 | suspending_jerkbait, squarebill_crankbait, ned_rig | zonker_streamer, baitfish_slider_fly, sculpin_streamer | no |
-| 2026-07-09 | lipless_crankbait, soft_jerkbait, hair_jig | conehead_streamer, baitfish_slider_fly, sculpzilla | no |
-| 2026-07-10 | lipless_crankbait, soft_jerkbait, tube_jig | zonker_streamer, baitfish_slider_fly, muddler_sculpin | no |
+| 2026-07-04 | casting_spoon, soft_jerkbait, hair_jig | conehead_streamer, baitfish_slider_fly, sculpzilla | no |
+| 2026-07-05 | suspending_jerkbait, soft_jerkbait, hair_jig | woolly_bugger, slim_minnow_streamer, sculpin_streamer | no |
+| 2026-07-06 | inline_spinner, soft_jerkbait, hair_jig | bucktail_baitfish_streamer, baitfish_slider_fly, muddler_sculpin | no |
+| 2026-07-07 | suspending_jerkbait, soft_jerkbait, hair_jig | conehead_streamer, baitfish_slider_fly, jighead_marabou_leech | no |
+| 2026-07-08 | inline_spinner, soft_jerkbait, ned_rig | conehead_streamer, baitfish_slider_fly, jighead_marabou_leech | no |
+| 2026-07-09 | casting_spoon, soft_jerkbait, hair_jig | conehead_streamer, baitfish_slider_fly, sculpin_streamer | no |
+| 2026-07-10 | casting_spoon, soft_jerkbait, ned_rig | zonker_streamer, baitfish_slider_fly, feather_jig_leech | no |
 
 ### Trout summer river mouse/topwater window
 
 - Row: `trout|mountain_west|freshwater_river|7`.
 - Expected: Mouse/topwater fly condition logic should visibly influence finalist or pick sets without invalid warmwater leakage.
-- Rotation: lure triples 7/7, fly triples 7/7; lure first-two 5, fly first-two 6.
-- Condition influence: lure chosen 7/21 active traces; fly chosen 2/21 active traces.
+- Rotation: lure triples 2/7, fly triples 6/7; lure first-two 2, fly first-two 4.
+- Condition influence: lure chosen 0/21 active traces; fly chosen 2/21 active traces.
 - Special signals: frogs candidate/finalist/pick 0/0/0; crawfish fly picks 0; pike flash fly picks 0; mouse window/picks 7/2.
 - Mouse fly condition window should be active when a surface slot is present.
 - trout_mouse_window active on 7/7 dates; mouse_fly picked on 2/7 dates.
 
 | Date | Lures | Flies | Surface blocked |
 | --- | --- | --- | --- |
-| 2026-07-11 | squarebill_crankbait, casting_spoon, popping_topwater | unweighted_baitfish_streamer, articulated_dungeon_streamer, popper_fly | no |
-| 2026-07-12 | squarebill_crankbait, casting_spoon, walking_topwater | slim_minnow_streamer, woolly_bugger, popper_fly | no |
-| 2026-07-13 | soft_jerkbait, inline_spinner, popping_topwater | slim_minnow_streamer, articulated_dungeon_streamer, popper_fly | no |
-| 2026-07-14 | flat_sided_crankbait, inline_spinner, walking_topwater | baitfish_slider_fly, bucktail_baitfish_streamer, mouse_fly | no |
-| 2026-07-15 | squarebill_crankbait, inline_spinner, walking_topwater | baitfish_slider_fly, conehead_streamer, deer_hair_slider | no |
-| 2026-07-16 | soft_jerkbait, casting_spoon, walking_topwater | unweighted_baitfish_streamer, woolly_bugger, mouse_fly | no |
-| 2026-07-17 | flat_sided_crankbait, inline_spinner, popping_topwater | slim_minnow_streamer, articulated_dungeon_streamer, deer_hair_slider | no |
+| 2026-07-11 | soft_jerkbait, inline_spinner, small_floating_trout_plug | unweighted_baitfish_streamer, woolly_bugger, popper_fly | no |
+| 2026-07-12 | soft_jerkbait, inline_spinner, small_floating_trout_plug | unweighted_baitfish_streamer, articulated_dungeon_streamer, popper_fly | no |
+| 2026-07-13 | soft_jerkbait, casting_spoon, small_floating_trout_plug | unweighted_baitfish_streamer, woolly_bugger, popper_fly | no |
+| 2026-07-14 | soft_jerkbait, inline_spinner, small_floating_trout_plug | unweighted_baitfish_streamer, woolly_bugger, mouse_fly | no |
+| 2026-07-15 | soft_jerkbait, inline_spinner, small_floating_trout_plug | baitfish_slider_fly, articulated_baitfish_streamer, deer_hair_slider | no |
+| 2026-07-16 | soft_jerkbait, casting_spoon, small_floating_trout_plug | unweighted_baitfish_streamer, articulated_dungeon_streamer, mouse_fly | no |
+| 2026-07-17 | soft_jerkbait, inline_spinner, small_floating_trout_plug | baitfish_slider_fly, game_changer, deer_hair_slider | no |
 
 ### Cold winter trout river
 
 - Row: `trout|mountain_west|freshwater_river|1`.
 - Expected: Cold trout output can be narrower if it stays seasonally and species credible.
-- Rotation: lure triples 4/7, fly triples 5/7; lure first-two 4, fly first-two 5.
+- Rotation: lure triples 5/7, fly triples 7/7; lure first-two 5, fly first-two 7.
 - Condition influence: lure chosen 0/21 active traces; fly chosen 0/21 active traces.
 - Special signals: frogs candidate/finalist/pick 0/0/0; crawfish fly picks 0; pike flash fly picks 0; mouse window/picks 0/0.
 - Do not force variety at the expense of cold-water posture.
 
 | Date | Lures | Flies | Surface blocked |
 | --- | --- | --- | --- |
-| 2026-01-12 | tube_jig, hair_jig, blade_bait | muddler_sculpin, jighead_marabou_leech, crawfish_streamer | no |
-| 2026-01-13 | tube_jig, hair_jig, blade_bait | crawfish_streamer, jighead_marabou_leech, sculpin_streamer | no |
-| 2026-01-14 | tube_jig, hair_jig, blade_bait | sculpzilla, lead_eye_leech, crawfish_streamer | no |
-| 2026-01-15 | hair_jig, ned_rig, blade_bait | sculpzilla, lead_eye_leech, crawfish_streamer | no |
-| 2026-01-16 | ned_rig, hair_jig, blade_bait | muddler_sculpin, jighead_marabou_leech, crawfish_streamer | no |
-| 2026-01-17 | hair_jig, tube_jig, blade_bait | crawfish_streamer, sculpzilla, rabbit_strip_leech | no |
-| 2026-01-18 | ned_rig, hair_jig, blade_bait | lead_eye_leech, crawfish_streamer, sculpzilla | no |
+| 2026-01-12 | ned_rig, hair_jig, blade_bait | crawfish_streamer, lead_eye_leech, sculpin_streamer | no |
+| 2026-01-13 | hair_jig, blade_bait, ned_rig | sculpin_streamer, feather_jig_leech, crawfish_streamer | no |
+| 2026-01-14 | hair_jig, blade_bait, ned_rig | muddler_sculpin, rabbit_strip_leech, crawfish_streamer | no |
+| 2026-01-15 | blade_bait, hair_jig, ned_rig | muddler_sculpin, feather_jig_leech, crawfish_streamer | no |
+| 2026-01-16 | ned_rig, hair_jig, blade_bait | crawfish_streamer, rabbit_strip_leech, sculpzilla | no |
+| 2026-01-17 | ned_rig, blade_bait, hair_jig | muddler_sculpin, jighead_marabou_leech, crawfish_streamer | no |
+| 2026-01-18 | blade_bait, ned_rig, hair_jig | rabbit_strip_leech, crawfish_streamer, sculpin_streamer | no |
 
 ## Daily Condition Influence
 

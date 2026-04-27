@@ -6,7 +6,8 @@ const L = "freshwater_lake_pond" as const satisfies EngineContext;
 const R = "freshwater_river" as const satisfies EngineContext;
 
 /**
- * Full 36-lure catalog — values per Appendix A §22.1 (authoritative).
+ * Full 37-lure catalog — values per Appendix A §22.1 (authoritative),
+ * plus a focused trout river surface plug added during recommender QA tuning.
  * `display_name` and `how_to_fish_variants` carried from v3 where the id existed;
  * the three new pike archetypes use how_to_fish text adapted from v3 `inline_spinner`,
  * `walking_topwater`, and `football_jig` respectively (Appendix does not specify copy).
@@ -22,7 +23,7 @@ export const LURE_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     secondary_pace: "slow",
     forage_tags: ["leech_worm"],
     clarity_strengths: ["clear", "stained", "dirty"],
-    species_allowed: ["largemouth_bass", "smallmouth_bass"],
+    species_allowed: ["largemouth_bass", "smallmouth_bass", "trout"],
     water_types_allowed: [L, R],
     how_to_fish_variants: [
       "Pitch or skip it tight to cover and let it glide on a slack line — most hits come on the slow shimmying fall through the upper column; reset after each fall and fish the next pocket.",
@@ -90,7 +91,7 @@ export const LURE_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     primary_pace: "slow",
     forage_tags: ["baitfish"],
     clarity_strengths: ["clear", "stained"],
-    species_allowed: ["largemouth_bass", "smallmouth_bass", "trout"],
+    species_allowed: ["largemouth_bass", "smallmouth_bass"],
     water_types_allowed: [L, R],
     how_to_fish_variants: [
       "Keep the bait just off bottom with tiny shakes and short glides so the minnow hovers naturally in the strike zone.",
@@ -125,7 +126,11 @@ export const LURE_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     secondary_pace: "medium",
     forage_tags: ["crawfish", "baitfish"],
     clarity_strengths: ["clear", "stained"],
-    species_allowed: ["largemouth_bass", "smallmouth_bass", "northern_pike", "trout"],
+    species_allowed: [
+      "largemouth_bass",
+      "smallmouth_bass",
+      "northern_pike",
+    ],
     water_types_allowed: [L, R],
     how_to_fish_variants: [
       "Snap the tube off bottom with short pops so it spirals on the fall, then let it glide back down on slack or semi-slack line.",
@@ -320,7 +325,12 @@ export const LURE_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     secondary_pace: "slow",
     forage_tags: ["baitfish"],
     clarity_strengths: ["clear", "stained"],
-    species_allowed: ["largemouth_bass", "smallmouth_bass", "northern_pike", "trout"],
+    species_allowed: [
+      "largemouth_bass",
+      "smallmouth_bass",
+      "northern_pike",
+      "trout",
+    ],
     water_types_allowed: [L, R],
     how_to_fish_variants: [
       "Twitch it with slack in the line so the bait darts and glides erratically; pause and let it sink a few inches between twitches.",
@@ -355,7 +365,11 @@ export const LURE_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     secondary_pace: "fast",
     forage_tags: ["baitfish", "bluegill_perch"],
     clarity_strengths: ["stained", "dirty"],
-    species_allowed: ["largemouth_bass", "smallmouth_bass", "northern_pike", "trout"],
+    species_allowed: [
+      "largemouth_bass",
+      "smallmouth_bass",
+      "northern_pike",
+    ],
     water_types_allowed: [L, R],
     how_to_fish_variants: [
       "Bang it directly into wood, rock, or stumps so the squared bill deflects the bait sideways — reaction strikes happen on that ricochet.",
@@ -372,7 +386,11 @@ export const LURE_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     primary_pace: "medium",
     forage_tags: ["baitfish"],
     clarity_strengths: ["clear", "stained"],
-    species_allowed: ["largemouth_bass", "smallmouth_bass", "northern_pike", "trout"],
+    species_allowed: [
+      "largemouth_bass",
+      "smallmouth_bass",
+      "northern_pike",
+    ],
     water_types_allowed: [L, R],
     how_to_fish_variants: [
       "Reel at a slow-to-medium pace; the tight wobble transmits through the line — slow down when you feel the bait tick structure.",
@@ -424,7 +442,11 @@ export const LURE_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     secondary_pace: "fast",
     forage_tags: ["baitfish", "crawfish"],
     clarity_strengths: ["stained", "dirty"],
-    species_allowed: ["largemouth_bass", "smallmouth_bass", "northern_pike", "trout"],
+    species_allowed: [
+      "largemouth_bass",
+      "smallmouth_bass",
+      "northern_pike",
+    ],
     water_types_allowed: [L, R],
     how_to_fish_variants: [
       "Yo-yo it through open water: rip up sharply, let it flutter and sink on a semi-slack line, then rip again; vary fall depth by watching the line angle.",
@@ -442,7 +464,12 @@ export const LURE_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     secondary_pace: "medium",
     forage_tags: ["baitfish"],
     clarity_strengths: ["clear", "stained", "dirty"],
-    species_allowed: ["largemouth_bass", "smallmouth_bass", "northern_pike", "trout"],
+    species_allowed: [
+      "largemouth_bass",
+      "smallmouth_bass",
+      "northern_pike",
+      "trout",
+    ],
     water_types_allowed: [L, R],
     how_to_fish_variants: [
       "Lift with the rod and let the blade flutter back down on a controlled slack line; watch for the tap on the fall and set on anything that interrupts the sink.",
@@ -459,12 +486,30 @@ export const LURE_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     primary_pace: "medium",
     forage_tags: ["baitfish"],
     clarity_strengths: ["clear", "stained"],
-    species_allowed: ["largemouth_bass", "smallmouth_bass", "northern_pike", "trout"],
+    species_allowed: ["northern_pike", "trout"],
     water_types_allowed: [L, R],
     how_to_fish_variants: [
       "Cast, let it flutter to depth, then reel with a rhythmic rise-and-fall so the flashing face covers the full water column; vary sink time to find the depth.",
       "Work it with a lift-and-drop over suspended fish; the concave face spins as it falls — strikes are usually on the drop, so keep a semi-tight line.",
       "Retrieve with a wobbly, wandering cadence by mixing speed; bump into cover and let it flutter down beside structure on the pause.",
+    ],
+  }),
+  lure({
+    id: "small_floating_trout_plug",
+    display_name: "Small Floating Trout Plug",
+    family_group: "trout_plug",
+    presentation_group: "trout_surface_plug",
+    column: "surface",
+    primary_pace: "medium",
+    secondary_pace: "slow",
+    forage_tags: ["surface_prey", "baitfish"],
+    clarity_strengths: ["clear", "stained"],
+    species_allowed: ["trout"],
+    water_types_allowed: [R],
+    how_to_fish_variants: [
+      "Cast upstream or quartering across, let the plug drift tight to current edges, then twitch just enough to make it wake and dive an inch before floating back up.",
+      "Work it along undercut banks and soft seams with short rod-tip taps; pause between twitches so the bait rises like a stunned minnow or terrestrial struggling on top.",
+      "Drift it through pocket water on a semi-tight line, adding small pulls to make it wobble, then let it float naturally through the next lane before recasting.",
     ],
   }),
   lure({
@@ -476,7 +521,7 @@ export const LURE_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     primary_pace: "medium",
     forage_tags: ["surface_prey", "baitfish"],
     clarity_strengths: ["clear", "stained"],
-    species_allowed: ["largemouth_bass", "smallmouth_bass", "trout"],
+    species_allowed: ["largemouth_bass", "smallmouth_bass"],
     water_types_allowed: [L, R],
     how_to_fish_variants: [
       "Sweep the rod tip side to side in short, rhythmic twitches while reeling in just enough slack — the bait should walk in a steady side-to-side waddle.",
@@ -494,7 +539,7 @@ export const LURE_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     secondary_pace: "slow",
     forage_tags: ["surface_prey"],
     clarity_strengths: ["clear", "stained"],
-    species_allowed: ["largemouth_bass", "smallmouth_bass", "trout"],
+    species_allowed: ["largemouth_bass", "smallmouth_bass"],
     water_types_allowed: [L, R],
     how_to_fish_variants: [
       "Pop sharply with the rod tip, let the rings settle, then pop again — give it a 2-3 second pause after each spit so fish can locate and attack.",

@@ -45,7 +45,9 @@ Deno.test(
       const colAllowsSurface = row.column_range.includes("surface");
       assert(
         row.surface_seasonally_possible === colAllowsSurface,
-        `${rowKey(row)}: surface_seasonally_possible (${row.surface_seasonally_possible}) vs column_range includes surface (${colAllowsSurface})`,
+        `${
+          rowKey(row)
+        }: surface_seasonally_possible (${row.surface_seasonally_possible}) vs column_range includes surface (${colAllowsSurface})`,
       );
     }
   },
@@ -53,12 +55,24 @@ Deno.test(
 
 Deno.test("generated seasonal: minimum primary pool sizes + primary ids stay inside pools", () => {
   for (const row of ALL_ROWS) {
-    assert(row.primary_lure_ids.length >= 3, `${rowKey(row)} needs >= 3 primary lures`);
-    assert(row.primary_fly_ids.length >= 3, `${rowKey(row)} needs >= 3 primary flies`);
+    assert(
+      row.primary_lure_ids.length >= 3,
+      `${rowKey(row)} needs >= 3 primary lures`,
+    );
+    assert(
+      row.primary_fly_ids.length >= 3,
+      `${rowKey(row)} needs >= 3 primary flies`,
+    );
     const lureSet = new Set(row.primary_lure_ids);
     const flySet = new Set(row.primary_fly_ids);
-    assert(lureSet.size === row.primary_lure_ids.length, `${rowKey(row)} duplicate lure ids`);
-    assert(flySet.size === row.primary_fly_ids.length, `${rowKey(row)} duplicate fly ids`);
+    assert(
+      lureSet.size === row.primary_lure_ids.length,
+      `${rowKey(row)} duplicate lure ids`,
+    );
+    assert(
+      flySet.size === row.primary_fly_ids.length,
+      `${rowKey(row)} duplicate fly ids`,
+    );
   }
 });
 
@@ -76,17 +90,123 @@ Deno.test("generated seasonal: southern warm-season LMB lake surface rows includ
     row.surface_seasonally_possible
   );
 
-  assert(rows.length > 0, "expected southern warm-season LMB lake surface rows");
+  assert(
+    rows.length > 0,
+    "expected southern warm-season LMB lake surface rows",
+  );
   for (const row of rows) {
     assert(
       row.primary_lure_ids.includes("hollow_body_frog"),
-      `${rowKey(row)} should include hollow_body_frog when southern warm-season lake surface is possible`,
+      `${
+        rowKey(row)
+      } should include hollow_body_frog when southern warm-season lake surface is possible`,
     );
     assert(
       row.primary_fly_ids.includes("frog_fly"),
-      `${rowKey(row)} should include frog_fly when southern warm-season lake surface fly fishing is honest`,
+      `${
+        rowKey(row)
+      } should include frog_fly when southern warm-season lake surface fly fishing is honest`,
     );
   }
+});
+
+Deno.test("generated seasonal: LMB/SMB rows do not author casting_spoon", () => {
+  const bassRows = [
+    ...LARGEMOUTH_BASS_SEASONAL_ROWS_V4,
+    ...SMALLMOUTH_BASS_SEASONAL_ROWS_V4,
+  ];
+  for (const row of bassRows) {
+    assert(
+      !row.primary_lure_ids.includes("casting_spoon"),
+      `${rowKey(row)} should not include casting_spoon`,
+    );
+  }
+});
+
+Deno.test("generated seasonal: trout rows do not author removed bass-coded target lures", () => {
+  const removedTroutLureIds = new Set<string>([
+    "tube_jig",
+    "squarebill_crankbait",
+    "flat_sided_crankbait",
+    "lipless_crankbait",
+    "walking_topwater",
+    "popping_topwater",
+  ]);
+  for (const row of TROUT_SEASONAL_ROWS_V4) {
+    for (const lureId of row.primary_lure_ids) {
+      assert(
+        !removedTroutLureIds.has(lureId),
+        `${rowKey(row)} should not include ${lureId}`,
+      );
+    }
+  }
+});
+
+Deno.test("generated seasonal: trout river repair lures are scoped to honest row geometry", () => {
+  let nedRigRows = 0;
+  let bladeBaitRows = 0;
+  let troutPlugRows = 0;
+  for (const row of TROUT_SEASONAL_ROWS_V4) {
+    const hasNedRig = row.primary_lure_ids.includes("ned_rig");
+    const hasBladeBait = row.primary_lure_ids.includes("blade_bait");
+    const hasTroutPlug = row.primary_lure_ids.includes(
+      "small_floating_trout_plug",
+    );
+    if (hasNedRig) {
+      nedRigRows++;
+      assert(
+        row.water_type === "freshwater_river",
+        `${rowKey(row)} ned_rig should stay scoped to trout river rows`,
+      );
+    }
+    if (hasBladeBait) {
+      bladeBaitRows++;
+      assert(
+        row.water_type === "freshwater_river",
+        `${rowKey(row)} blade_bait should stay scoped to trout river rows`,
+      );
+      assert(
+        row.column_range.includes("bottom"),
+        `${rowKey(row)} blade bottom`,
+      );
+      assert(
+        row.pace_range.includes("slow") || row.pace_range.includes("medium"),
+        `${rowKey(row)} blade slow/medium`,
+      );
+      assert(
+        [1, 2, 3, 4, 10, 11, 12].includes(row.month),
+        `${rowKey(row)} blade cold/shoulder month`,
+      );
+    }
+    if (hasTroutPlug) {
+      troutPlugRows++;
+      assert(
+        row.water_type === "freshwater_river",
+        `${rowKey(row)} trout plug should stay scoped to trout river rows`,
+      );
+      assert(
+        row.surface_seasonally_possible,
+        `${rowKey(row)} trout plug needs surface seasonally possible`,
+      );
+      assert(
+        row.column_range.includes("surface"),
+        `${rowKey(row)} trout plug needs surface column`,
+      );
+      assert(
+        [5, 6, 7, 8, 9].includes(row.month),
+        `${rowKey(row)} trout plug warm/surface month`,
+      );
+    }
+  }
+  assert(nedRigRows > 0, "expected generated trout rows to include ned_rig");
+  assert(
+    bladeBaitRows > 0,
+    "expected cold/shoulder trout rows to include blade_bait",
+  );
+  assert(
+    troutPlugRows > 0,
+    "expected warm surface trout rows to include small_floating_trout_plug",
+  );
 });
 
 Deno.test("generated seasonal: surface flies respect catalog species and water eligibility", () => {
@@ -98,11 +218,15 @@ Deno.test("generated seasonal: surface flies respect catalog species and water e
       assert(fly, `${rowKey(row)} unknown fly id ${flyId}`);
       assert(
         fly.species_allowed.includes(row.species),
-        `${rowKey(row)} includes surface fly ${flyId} not allowed for ${row.species}`,
+        `${
+          rowKey(row)
+        } includes surface fly ${flyId} not allowed for ${row.species}`,
       );
       assert(
         fly.water_types_allowed.includes(row.water_type),
-        `${rowKey(row)} includes surface fly ${flyId} not allowed for ${row.water_type}`,
+        `${
+          rowKey(row)
+        } includes surface fly ${flyId} not allowed for ${row.water_type}`,
       );
     }
   }
@@ -115,7 +239,9 @@ Deno.test("generated seasonal: primary lure ids respect catalog water eligibilit
       assert(lure, `${rowKey(row)} unknown lure id ${lureId}`);
       assert(
         lure.water_types_allowed.includes(row.water_type),
-        `${rowKey(row)} includes lure ${lureId} not allowed for ${row.water_type}`,
+        `${
+          rowKey(row)
+        } includes lure ${lureId} not allowed for ${row.water_type}`,
       );
     }
   }

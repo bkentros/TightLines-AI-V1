@@ -19,7 +19,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -35,7 +35,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -51,7 +51,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -67,7 +67,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -83,7 +83,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -99,7 +99,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -115,7 +115,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","warmwater_crawfish_fly"] as const,
 },
 
@@ -131,7 +131,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly"] as const,
 },
 
@@ -147,7 +147,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","weightless_stick_worm"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","weightless_stick_worm"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","warmwater_crawfish_fly"] as const,
 },
 
@@ -163,7 +163,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","weightless_stick_worm"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","weightless_stick_worm"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly"] as const,
 },
 
@@ -179,7 +179,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","weightless_stick_worm","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","weightless_stick_worm","buzzbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","warmwater_crawfish_fly","foam_gurgler_fly"] as const,
 },
 
@@ -195,7 +195,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","weightless_stick_worm","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","weightless_stick_worm","buzzbait"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","foam_gurgler_fly"] as const,
 },
 
@@ -211,7 +211,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "crawfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","warmwater_crawfish_fly","foam_gurgler_fly"] as const,
 },
 
@@ -227,7 +227,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","foam_gurgler_fly"] as const,
 },
 
@@ -243,7 +243,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "crawfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","warmwater_crawfish_fly","foam_gurgler_fly"] as const,
 },
 
@@ -259,7 +259,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","foam_gurgler_fly"] as const,
 },
 
@@ -275,7 +275,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","warmwater_crawfish_fly","foam_gurgler_fly"] as const,
 },
 
@@ -291,7 +291,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","foam_gurgler_fly"] as const,
 },
 
@@ -307,7 +307,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","warmwater_crawfish_fly"] as const,
 },
 
@@ -323,7 +323,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly"] as const,
 },
 
@@ -339,7 +339,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -355,7 +355,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -371,7 +371,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -387,7 +387,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -403,7 +403,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "crawfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -419,7 +419,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -435,7 +435,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "crawfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -451,7 +451,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -467,7 +467,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "crawfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -483,7 +483,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -499,7 +499,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","warmwater_crawfish_fly"] as const,
 },
 
@@ -515,7 +515,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -531,7 +531,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","weightless_stick_worm"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","weightless_stick_worm"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","warmwater_crawfish_fly"] as const,
 },
 
@@ -547,7 +547,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly"] as const,
 },
 
@@ -563,7 +563,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","weightless_stick_worm","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","weightless_stick_worm","buzzbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","warmwater_crawfish_fly","foam_gurgler_fly"] as const,
 },
 
@@ -579,7 +579,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","weightless_stick_worm"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","weightless_stick_worm"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly"] as const,
 },
 
@@ -595,7 +595,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "crawfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","warmwater_crawfish_fly","foam_gurgler_fly"] as const,
 },
 
@@ -611,7 +611,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","foam_gurgler_fly"] as const,
 },
 
@@ -627,7 +627,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "crawfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","warmwater_crawfish_fly","foam_gurgler_fly"] as const,
 },
 
@@ -643,7 +643,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","foam_gurgler_fly"] as const,
 },
 
@@ -659,7 +659,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","warmwater_crawfish_fly","foam_gurgler_fly"] as const,
 },
 
@@ -675,7 +675,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","foam_gurgler_fly"] as const,
 },
 
@@ -691,7 +691,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","warmwater_crawfish_fly"] as const,
 },
 
@@ -707,7 +707,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly"] as const,
 },
 
@@ -723,7 +723,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -739,7 +739,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -755,7 +755,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "crawfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -771,7 +771,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -787,7 +787,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -803,7 +803,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -819,7 +819,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -835,7 +835,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -851,7 +851,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly"] as const,
 },
 
@@ -867,7 +867,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -883,7 +883,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","weightless_stick_worm"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","weightless_stick_worm"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","warmwater_crawfish_fly"] as const,
 },
 
@@ -899,7 +899,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly"] as const,
 },
 
@@ -915,7 +915,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","weightless_stick_worm","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","weightless_stick_worm","buzzbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","warmwater_crawfish_fly","foam_gurgler_fly"] as const,
 },
 
@@ -931,7 +931,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","weightless_stick_worm"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","weightless_stick_worm"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly"] as const,
 },
 
@@ -947,7 +947,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "crawfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","warmwater_crawfish_fly","foam_gurgler_fly"] as const,
 },
 
@@ -963,7 +963,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","weightless_stick_worm","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","weightless_stick_worm","buzzbait"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","foam_gurgler_fly"] as const,
 },
 
@@ -979,7 +979,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "crawfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","warmwater_crawfish_fly","foam_gurgler_fly"] as const,
 },
 
@@ -995,7 +995,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "crawfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","foam_gurgler_fly"] as const,
 },
 
@@ -1011,7 +1011,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "crawfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","warmwater_crawfish_fly","foam_gurgler_fly"] as const,
 },
 
@@ -1027,7 +1027,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "crawfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","foam_gurgler_fly"] as const,
 },
 
@@ -1043,7 +1043,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","warmwater_crawfish_fly"] as const,
 },
 
@@ -1059,7 +1059,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","foam_gurgler_fly"] as const,
 },
 
@@ -1075,7 +1075,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","warmwater_crawfish_fly"] as const,
 },
 
@@ -1091,7 +1091,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly"] as const,
 },
 
@@ -1107,7 +1107,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -1123,7 +1123,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -1139,7 +1139,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -1155,7 +1155,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -1171,7 +1171,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "crawfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -1187,7 +1187,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -1203,7 +1203,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "crawfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -1219,7 +1219,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -1235,7 +1235,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "crawfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -1251,7 +1251,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -1267,7 +1267,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","warmwater_crawfish_fly"] as const,
 },
 
@@ -1283,7 +1283,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -1299,7 +1299,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","weightless_stick_worm"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","weightless_stick_worm"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","warmwater_crawfish_fly"] as const,
 },
 
@@ -1315,7 +1315,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly"] as const,
 },
 
@@ -1331,7 +1331,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","weightless_stick_worm","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","weightless_stick_worm","buzzbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","warmwater_crawfish_fly","foam_gurgler_fly"] as const,
 },
 
@@ -1347,7 +1347,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","weightless_stick_worm"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","weightless_stick_worm"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly"] as const,
 },
 
@@ -1363,7 +1363,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "crawfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","warmwater_crawfish_fly","foam_gurgler_fly"] as const,
 },
 
@@ -1379,7 +1379,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","foam_gurgler_fly"] as const,
 },
 
@@ -1395,7 +1395,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "crawfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","warmwater_crawfish_fly","foam_gurgler_fly"] as const,
 },
 
@@ -1411,7 +1411,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","foam_gurgler_fly"] as const,
 },
 
@@ -1427,7 +1427,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","warmwater_crawfish_fly","foam_gurgler_fly"] as const,
 },
 
@@ -1443,7 +1443,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","foam_gurgler_fly"] as const,
 },
 
@@ -1459,7 +1459,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","warmwater_crawfish_fly"] as const,
 },
 
@@ -1475,7 +1475,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly"] as const,
 },
 
@@ -1491,7 +1491,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -1507,7 +1507,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -1523,7 +1523,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "crawfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -1539,7 +1539,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -1555,7 +1555,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -1571,7 +1571,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -1587,7 +1587,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -1603,7 +1603,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -1619,7 +1619,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -1635,7 +1635,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -1651,7 +1651,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","warmwater_crawfish_fly"] as const,
 },
 
@@ -1667,7 +1667,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly"] as const,
 },
 
@@ -1683,7 +1683,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","weightless_stick_worm"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","weightless_stick_worm"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","warmwater_crawfish_fly"] as const,
 },
 
@@ -1699,7 +1699,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","weightless_stick_worm"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","weightless_stick_worm"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly"] as const,
 },
 
@@ -1715,7 +1715,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","weightless_stick_worm","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","weightless_stick_worm","buzzbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","warmwater_crawfish_fly","foam_gurgler_fly"] as const,
 },
 
@@ -1731,7 +1731,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","weightless_stick_worm","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","weightless_stick_worm","buzzbait"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","foam_gurgler_fly"] as const,
 },
 
@@ -1747,7 +1747,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "crawfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","warmwater_crawfish_fly","foam_gurgler_fly"] as const,
 },
 
@@ -1763,7 +1763,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","foam_gurgler_fly"] as const,
 },
 
@@ -1779,7 +1779,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "crawfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","warmwater_crawfish_fly","foam_gurgler_fly"] as const,
 },
 
@@ -1795,7 +1795,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","foam_gurgler_fly"] as const,
 },
 
@@ -1811,7 +1811,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","warmwater_crawfish_fly","foam_gurgler_fly"] as const,
 },
 
@@ -1827,7 +1827,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","foam_gurgler_fly"] as const,
 },
 
@@ -1843,7 +1843,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","warmwater_crawfish_fly"] as const,
 },
 
@@ -1859,7 +1859,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly"] as const,
 },
 
@@ -1875,7 +1875,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -1891,7 +1891,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -1907,7 +1907,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -1923,7 +1923,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -1939,7 +1939,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "crawfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -1955,7 +1955,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -1971,7 +1971,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "crawfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -1987,7 +1987,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -2003,7 +2003,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "crawfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -2019,7 +2019,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -2035,7 +2035,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","warmwater_crawfish_fly"] as const,
 },
 
@@ -2051,7 +2051,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -2067,7 +2067,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","weightless_stick_worm"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","weightless_stick_worm"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","warmwater_crawfish_fly"] as const,
 },
 
@@ -2083,7 +2083,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly"] as const,
 },
 
@@ -2099,7 +2099,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","weightless_stick_worm","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","weightless_stick_worm","buzzbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","warmwater_crawfish_fly","foam_gurgler_fly"] as const,
 },
 
@@ -2115,7 +2115,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","weightless_stick_worm"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","weightless_stick_worm"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly"] as const,
 },
 
@@ -2131,7 +2131,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "crawfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","warmwater_crawfish_fly","foam_gurgler_fly"] as const,
 },
 
@@ -2147,7 +2147,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","foam_gurgler_fly"] as const,
 },
 
@@ -2163,7 +2163,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "crawfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","warmwater_crawfish_fly","foam_gurgler_fly"] as const,
 },
 
@@ -2179,7 +2179,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","foam_gurgler_fly"] as const,
 },
 
@@ -2195,7 +2195,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","warmwater_crawfish_fly","foam_gurgler_fly"] as const,
 },
 
@@ -2211,7 +2211,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","foam_gurgler_fly"] as const,
 },
 
@@ -2227,7 +2227,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","warmwater_crawfish_fly"] as const,
 },
 
@@ -2243,7 +2243,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly"] as const,
 },
 
@@ -2259,7 +2259,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -2275,7 +2275,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -2291,7 +2291,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "crawfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -2307,7 +2307,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -2323,7 +2323,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "crawfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -2339,7 +2339,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -2355,7 +2355,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "crawfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -2371,7 +2371,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -2387,7 +2387,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "crawfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -2403,7 +2403,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -2419,7 +2419,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","warmwater_crawfish_fly"] as const,
 },
 
@@ -2435,7 +2435,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -2451,7 +2451,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","weightless_stick_worm"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","weightless_stick_worm"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","warmwater_crawfish_fly"] as const,
 },
 
@@ -2467,7 +2467,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly"] as const,
 },
 
@@ -2483,7 +2483,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","weightless_stick_worm","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","weightless_stick_worm","buzzbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","warmwater_crawfish_fly","foam_gurgler_fly"] as const,
 },
 
@@ -2499,7 +2499,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","weightless_stick_worm"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","weightless_stick_worm"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly"] as const,
 },
 
@@ -2515,7 +2515,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "crawfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","warmwater_crawfish_fly","foam_gurgler_fly"] as const,
 },
 
@@ -2531,7 +2531,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","foam_gurgler_fly"] as const,
 },
 
@@ -2547,7 +2547,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "crawfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","warmwater_crawfish_fly","foam_gurgler_fly"] as const,
 },
 
@@ -2563,7 +2563,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","foam_gurgler_fly"] as const,
 },
 
@@ -2579,7 +2579,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","warmwater_crawfish_fly","foam_gurgler_fly"] as const,
 },
 
@@ -2595,7 +2595,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","foam_gurgler_fly"] as const,
 },
 
@@ -2611,7 +2611,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","warmwater_crawfish_fly"] as const,
 },
 
@@ -2627,7 +2627,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly"] as const,
 },
 
@@ -2643,7 +2643,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -2659,7 +2659,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -2675,7 +2675,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "crawfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -2691,7 +2691,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -2707,7 +2707,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -2723,7 +2723,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -2739,7 +2739,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -2755,7 +2755,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -2771,7 +2771,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -2787,7 +2787,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -2803,7 +2803,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","warmwater_crawfish_fly"] as const,
 },
 
@@ -2819,7 +2819,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly"] as const,
 },
 
@@ -2835,7 +2835,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","weightless_stick_worm"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","weightless_stick_worm"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","warmwater_crawfish_fly"] as const,
 },
 
@@ -2851,7 +2851,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","weightless_stick_worm"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","weightless_stick_worm"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly"] as const,
 },
 
@@ -2867,7 +2867,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","weightless_stick_worm","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","weightless_stick_worm","buzzbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","warmwater_crawfish_fly","foam_gurgler_fly"] as const,
 },
 
@@ -2883,7 +2883,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","weightless_stick_worm","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","weightless_stick_worm","buzzbait"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","foam_gurgler_fly"] as const,
 },
 
@@ -2899,7 +2899,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "crawfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","warmwater_crawfish_fly","foam_gurgler_fly"] as const,
 },
 
@@ -2915,7 +2915,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","foam_gurgler_fly"] as const,
 },
 
@@ -2931,7 +2931,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "crawfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","warmwater_crawfish_fly","foam_gurgler_fly"] as const,
 },
 
@@ -2947,7 +2947,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","foam_gurgler_fly"] as const,
 },
 
@@ -2963,7 +2963,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","warmwater_crawfish_fly","foam_gurgler_fly"] as const,
 },
 
@@ -2979,7 +2979,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","foam_gurgler_fly"] as const,
 },
 
@@ -2995,7 +2995,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","warmwater_crawfish_fly"] as const,
 },
 
@@ -3011,7 +3011,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly"] as const,
 },
 
@@ -3027,7 +3027,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -3043,7 +3043,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -3059,7 +3059,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -3075,7 +3075,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -3091,7 +3091,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "crawfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -3107,7 +3107,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -3123,7 +3123,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "crawfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -3139,7 +3139,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -3155,7 +3155,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "crawfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -3171,7 +3171,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -3187,7 +3187,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","warmwater_crawfish_fly"] as const,
 },
 
@@ -3203,7 +3203,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -3219,7 +3219,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","weightless_stick_worm"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","weightless_stick_worm"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","warmwater_crawfish_fly"] as const,
 },
 
@@ -3235,7 +3235,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly"] as const,
 },
 
@@ -3251,7 +3251,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","weightless_stick_worm","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","weightless_stick_worm","buzzbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","warmwater_crawfish_fly","foam_gurgler_fly"] as const,
 },
 
@@ -3267,7 +3267,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","weightless_stick_worm"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","weightless_stick_worm"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly"] as const,
 },
 
@@ -3283,7 +3283,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "crawfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","warmwater_crawfish_fly","foam_gurgler_fly"] as const,
 },
 
@@ -3299,7 +3299,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","foam_gurgler_fly"] as const,
 },
 
@@ -3315,7 +3315,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "crawfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","warmwater_crawfish_fly","foam_gurgler_fly"] as const,
 },
 
@@ -3331,7 +3331,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","foam_gurgler_fly"] as const,
 },
 
@@ -3347,7 +3347,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","warmwater_crawfish_fly","foam_gurgler_fly"] as const,
 },
 
@@ -3363,7 +3363,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","foam_gurgler_fly"] as const,
 },
 
@@ -3379,7 +3379,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","warmwater_crawfish_fly"] as const,
 },
 
@@ -3395,7 +3395,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly"] as const,
 },
 
@@ -3411,7 +3411,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -3427,7 +3427,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -3443,7 +3443,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "crawfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -3459,7 +3459,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -3475,7 +3475,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -3491,7 +3491,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -3507,7 +3507,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -3523,7 +3523,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -3539,7 +3539,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly"] as const,
 },
 
@@ -3555,7 +3555,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -3571,7 +3571,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","weightless_stick_worm"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","weightless_stick_worm"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","warmwater_crawfish_fly"] as const,
 },
 
@@ -3587,7 +3587,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly"] as const,
 },
 
@@ -3603,7 +3603,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","weightless_stick_worm","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","weightless_stick_worm","buzzbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","warmwater_crawfish_fly","foam_gurgler_fly"] as const,
 },
 
@@ -3619,7 +3619,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","weightless_stick_worm"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","weightless_stick_worm"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly"] as const,
 },
 
@@ -3635,7 +3635,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "crawfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","warmwater_crawfish_fly","foam_gurgler_fly"] as const,
 },
 
@@ -3651,7 +3651,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","weightless_stick_worm","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","weightless_stick_worm","buzzbait"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","foam_gurgler_fly"] as const,
 },
 
@@ -3667,7 +3667,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "crawfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","warmwater_crawfish_fly","foam_gurgler_fly"] as const,
 },
 
@@ -3683,7 +3683,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "crawfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","foam_gurgler_fly"] as const,
 },
 
@@ -3699,7 +3699,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "crawfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","warmwater_crawfish_fly","foam_gurgler_fly"] as const,
 },
 
@@ -3715,7 +3715,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "crawfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","foam_gurgler_fly"] as const,
 },
 
@@ -3731,7 +3731,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","warmwater_crawfish_fly"] as const,
 },
 
@@ -3747,7 +3747,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","foam_gurgler_fly"] as const,
 },
 
@@ -3763,7 +3763,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","warmwater_crawfish_fly"] as const,
 },
 
@@ -3779,7 +3779,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly"] as const,
 },
 
@@ -3795,7 +3795,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -3811,7 +3811,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -3827,7 +3827,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -3843,7 +3843,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -3859,7 +3859,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -3875,7 +3875,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -3891,7 +3891,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -3907,7 +3907,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -3923,7 +3923,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly"] as const,
 },
 
@@ -3939,7 +3939,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -3955,7 +3955,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","weightless_stick_worm"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","weightless_stick_worm"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","warmwater_crawfish_fly"] as const,
 },
 
@@ -3971,7 +3971,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly"] as const,
 },
 
@@ -3987,7 +3987,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","weightless_stick_worm","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","weightless_stick_worm","buzzbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","warmwater_crawfish_fly","foam_gurgler_fly"] as const,
 },
 
@@ -4003,7 +4003,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","weightless_stick_worm"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","weightless_stick_worm"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly"] as const,
 },
 
@@ -4019,7 +4019,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "crawfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","warmwater_crawfish_fly","foam_gurgler_fly"] as const,
 },
 
@@ -4035,7 +4035,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","weightless_stick_worm","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","weightless_stick_worm","buzzbait"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","foam_gurgler_fly"] as const,
 },
 
@@ -4051,7 +4051,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "crawfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","warmwater_crawfish_fly","foam_gurgler_fly"] as const,
 },
 
@@ -4067,7 +4067,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "crawfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","foam_gurgler_fly"] as const,
 },
 
@@ -4083,7 +4083,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "crawfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","warmwater_crawfish_fly","foam_gurgler_fly"] as const,
 },
 
@@ -4099,7 +4099,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "crawfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","foam_gurgler_fly"] as const,
 },
 
@@ -4115,7 +4115,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","warmwater_crawfish_fly"] as const,
 },
 
@@ -4131,7 +4131,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","foam_gurgler_fly"] as const,
 },
 
@@ -4147,7 +4147,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","warmwater_crawfish_fly"] as const,
 },
 
@@ -4163,7 +4163,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly"] as const,
 },
 
@@ -4179,7 +4179,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -4195,7 +4195,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -4211,7 +4211,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -4227,7 +4227,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -4243,7 +4243,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -4259,7 +4259,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -4275,7 +4275,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -4291,7 +4291,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -4307,7 +4307,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly"] as const,
 },
 
@@ -4323,7 +4323,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -4339,7 +4339,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","weightless_stick_worm"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","weightless_stick_worm"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","warmwater_crawfish_fly"] as const,
 },
 
@@ -4355,7 +4355,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly"] as const,
 },
 
@@ -4371,7 +4371,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","weightless_stick_worm","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","weightless_stick_worm","buzzbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","warmwater_crawfish_fly","foam_gurgler_fly"] as const,
 },
 
@@ -4387,7 +4387,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","weightless_stick_worm"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","weightless_stick_worm"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly"] as const,
 },
 
@@ -4403,7 +4403,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "crawfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","warmwater_crawfish_fly","foam_gurgler_fly"] as const,
 },
 
@@ -4419,7 +4419,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","weightless_stick_worm","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","weightless_stick_worm","buzzbait"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","foam_gurgler_fly"] as const,
 },
 
@@ -4435,7 +4435,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "crawfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","warmwater_crawfish_fly","foam_gurgler_fly"] as const,
 },
 
@@ -4451,7 +4451,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "crawfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","foam_gurgler_fly"] as const,
 },
 
@@ -4467,7 +4467,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "crawfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","warmwater_crawfish_fly","foam_gurgler_fly"] as const,
 },
 
@@ -4483,7 +4483,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "crawfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","foam_gurgler_fly"] as const,
 },
 
@@ -4499,7 +4499,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","warmwater_crawfish_fly"] as const,
 },
 
@@ -4515,7 +4515,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","foam_gurgler_fly"] as const,
 },
 
@@ -4531,7 +4531,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","warmwater_crawfish_fly"] as const,
 },
 
@@ -4547,7 +4547,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly"] as const,
 },
 
@@ -4563,7 +4563,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -4579,7 +4579,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -4595,7 +4595,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -4611,7 +4611,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -4627,7 +4627,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -4643,7 +4643,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -4659,7 +4659,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -4675,7 +4675,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -4691,7 +4691,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly"] as const,
 },
 
@@ -4707,7 +4707,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -4723,7 +4723,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","weightless_stick_worm"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","weightless_stick_worm"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","warmwater_crawfish_fly"] as const,
 },
 
@@ -4739,7 +4739,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly"] as const,
 },
 
@@ -4755,7 +4755,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","weightless_stick_worm","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","weightless_stick_worm","buzzbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","warmwater_crawfish_fly","foam_gurgler_fly"] as const,
 },
 
@@ -4771,7 +4771,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","weightless_stick_worm"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","weightless_stick_worm"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly"] as const,
 },
 
@@ -4787,7 +4787,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "crawfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","warmwater_crawfish_fly","foam_gurgler_fly"] as const,
 },
 
@@ -4803,7 +4803,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","weightless_stick_worm","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","weightless_stick_worm","buzzbait"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","foam_gurgler_fly"] as const,
 },
 
@@ -4819,7 +4819,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "crawfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","warmwater_crawfish_fly","foam_gurgler_fly"] as const,
 },
 
@@ -4835,7 +4835,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "crawfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","foam_gurgler_fly"] as const,
 },
 
@@ -4851,7 +4851,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "crawfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","warmwater_crawfish_fly","foam_gurgler_fly"] as const,
 },
 
@@ -4867,7 +4867,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "crawfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","foam_gurgler_fly"] as const,
 },
 
@@ -4883,7 +4883,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","warmwater_crawfish_fly"] as const,
 },
 
@@ -4899,7 +4899,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","foam_gurgler_fly"] as const,
 },
 
@@ -4915,7 +4915,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","warmwater_crawfish_fly"] as const,
 },
 
@@ -4931,7 +4931,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly"] as const,
 },
 
@@ -4947,7 +4947,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -4963,7 +4963,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -4979,7 +4979,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -4995,7 +4995,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -5011,7 +5011,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -5027,7 +5027,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -5043,7 +5043,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -5059,7 +5059,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -5075,7 +5075,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -5091,7 +5091,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -5107,7 +5107,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","warmwater_crawfish_fly"] as const,
 },
 
@@ -5123,7 +5123,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly"] as const,
 },
 
@@ -5139,7 +5139,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","weightless_stick_worm"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","weightless_stick_worm"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","warmwater_crawfish_fly"] as const,
 },
 
@@ -5155,7 +5155,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","weightless_stick_worm"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","weightless_stick_worm"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly"] as const,
 },
 
@@ -5171,7 +5171,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","weightless_stick_worm","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","weightless_stick_worm","buzzbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","warmwater_crawfish_fly","foam_gurgler_fly"] as const,
 },
 
@@ -5187,7 +5187,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","weightless_stick_worm","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","weightless_stick_worm","buzzbait"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","foam_gurgler_fly"] as const,
 },
 
@@ -5203,7 +5203,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "crawfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","warmwater_crawfish_fly","foam_gurgler_fly"] as const,
 },
 
@@ -5219,7 +5219,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","foam_gurgler_fly"] as const,
 },
 
@@ -5235,7 +5235,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "crawfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","warmwater_crawfish_fly","foam_gurgler_fly"] as const,
 },
 
@@ -5251,7 +5251,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","foam_gurgler_fly"] as const,
 },
 
@@ -5267,7 +5267,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","warmwater_crawfish_fly","foam_gurgler_fly"] as const,
 },
 
@@ -5283,7 +5283,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","foam_gurgler_fly"] as const,
 },
 
@@ -5299,7 +5299,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","warmwater_crawfish_fly"] as const,
 },
 
@@ -5315,7 +5315,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","slim_minnow_streamer","unweighted_baitfish_streamer","baitfish_slider_fly"] as const,
 },
 
@@ -5331,7 +5331,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -5347,7 +5347,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -5363,7 +5363,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","finesse_jig","football_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 },
 
@@ -5379,7 +5379,7 @@ export const SMALLMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "crawfish",
     secondary_forage: "baitfish",
     surface_seasonally_possible: false,
-    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","casting_spoon","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
+    primary_lure_ids: ["blade_bait","finesse_jig","hair_jig","ned_rig","texas_rigged_soft_plastic_craw","tube_jig","drop_shot_minnow","bladed_jig","inline_spinner","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","shaky_head_worm"] as const,
     primary_fly_ids: ["crawfish_streamer","muddler_sculpin","sculpin_streamer","sculpzilla","articulated_dungeon_streamer","articulated_baitfish_streamer","bucktail_baitfish_streamer","clouser_minnow","conehead_streamer","deceiver","game_changer","zonker_streamer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech"] as const,
 }
 ] as const;

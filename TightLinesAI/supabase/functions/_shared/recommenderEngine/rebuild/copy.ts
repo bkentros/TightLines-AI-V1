@@ -199,6 +199,11 @@ export const WHY_NOTES_BY_ARCHETYPE_ID: Record<ArchetypeIdV4, WhyNotes> = {
     "it can be counted down to fish using the middle of the water column",
     "it works for cruising fish that respond to flash and speed changes",
   ],
+  small_floating_trout_plug: [
+    "it gives trout a small waking surface meal without bass-style commotion",
+    "it matches minnows or terrestrials struggling in warm river current",
+    "it can drift naturally, twitch, and rise back up in shallow trout lanes",
+  ],
   walking_topwater: [
     "it draws fish up with a side-to-side surface meal",
     "it covers open water and edges without sitting in one place",
@@ -661,6 +666,24 @@ const flySurface: PaceCopy = {
   ],
 };
 
+const troutPlugSurface: PaceCopy = {
+  slow: [
+    "Drift it naturally through soft edges, then give one small twitch and let it float back up.",
+    "Cast upstream, keep light tension, and pause it beside shade, banks, or current breaks.",
+    "Let it wake quietly on the drift and add only enough rod-tip movement to keep it alive.",
+  ],
+  medium: [
+    "Twitch it across current seams with short pauses so it dives shallow and rises again.",
+    "Work it beside banks and pocket-water edges with a steady twitch-pause cadence.",
+    "Cover surface lanes with controlled pulls, then stop it where trout can track and commit.",
+  ],
+  fast: [
+    "Skitter it quickly across broken water, then kill it beside the best holding pocket.",
+    "Use faster twitches to draw attention, but pause immediately after any swirl or follow.",
+    "Move it briskly through riffle edges and slow it as soon as it enters softer water.",
+  ],
+};
+
 export const HOW_COPY_BY_ARCHETYPE_ID: Record<ArchetypeIdV4, PaceCopy> = {
   weightless_stick_worm: softFall,
   carolina_rigged_stick_worm: bottomDrag,
@@ -688,6 +711,7 @@ export const HOW_COPY_BY_ARCHETYPE_ID: Record<ArchetypeIdV4, PaceCopy> = {
   lipless_crankbait: crankRetrieve,
   blade_bait: bladeLift,
   casting_spoon: swimMid,
+  small_floating_trout_plug: troutPlugSurface,
   walking_topwater: surfaceWalk,
   popping_topwater: surfacePop,
   buzzbait: surfaceWalk,
