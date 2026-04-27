@@ -821,6 +821,38 @@ Use this section **instead of chat history**. If anything here disagrees with th
 
 **Still not built:** This direction does not ship a read engine, scoring model, fish-zone overlay, renderer, daily conditions, recommender handoff, imagery storage, or depth-chart processing by itself. It only sets the next execution target.
 
+### 0.5.21 Aerial-read visual foundation — tile planning and imagery proof
+
+**Status:** The repo and target Supabase project now include the first aerial-read visual foundation, still explicitly marked as prototype/proof-only.
+
+**Client tile planning proof (`b0f0d37`):**
+
+- `lib/waterReaderAerialTilePlan.ts` creates deterministic whole-lake + close-tile bbox plans from `previewBbox` or the centroid/area fallback.
+- The proof is metadata-only: no imagery fetch, no scoring, no fish-zone output.
+
+**On-demand imagery retrieval proof (`1673321`):**
+
+- `/water-reader` includes a user-triggered proof button that fetches one whole-lake context image plus up to three close-tile images.
+- Fetching is explicit-tap only, capped, uses USGS `exportImage`, and displays images with `expo-image` `cachePolicy="none"`.
+- The proof UI says no analysis, no depth, no fish-zone scoring, and no storage.
+
+**Server geometry tile plan (`e5a4e4d`):**
+
+- Migration `20260427231500_water_reader_aerial_tile_plan.sql` and Edge function `waterbody-aerial-tile-plan` are shipped.
+- Target project **`hsesngprhpgajyfbrwbf`** has migration **`water_reader_aerial_tile_plan`** applied as version **`20260427222257`**.
+- Edge function **`waterbody-aerial-tile-plan`** is deployed and live-verified for Lake Oakland MI, Lake Charlevoix MI, and Mille Lacs MN.
+- The endpoint returns only `contextBbox`, close-tile bboxes, labels, priorities, and `prototypeOnly: true`; it does **not** return polygon/full geometry and does **not** fetch imagery.
+- The app prefers server geometry-derived tile plans and falls back to the local bbox-grid prototype if needed.
+
+**User QA after imagery proof:**
+
+- Lake Thonotosassa FL: fast, clear, three close panes loaded and felt useful.
+- Lake Oakland MI: loaded, but earlier client-grid close tiles could be too zoomed out or land-heavy.
+- Mille Lacs MN and Lake Charlevoix MI: fast/useful but showed stripe/seam-like imagery artifacts in some tiles.
+- Server geometry tile planning was added to improve tile relevance; artifact handling is still not built.
+
+**Next target:** Add an image-quality assessment slice for fetched aerial proof images before any visible-feature detection or fish-zone scoring. Quality should track load status, duration, blank/no-data suspicion, seam/stripe artifact suspicion where feasible, and a simple `good` / `fair` / `poor` / `failed` visibility label. This remains proof-only and must not produce real fishing recommendations.
+
 ---
 
 ## 1. Product definition
