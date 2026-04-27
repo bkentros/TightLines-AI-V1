@@ -56,15 +56,19 @@ export async function invokeEdgeFunction<TResponse>(
         url: `${supabaseUrl}/functions/v1/${functionName}`,
       });
     }
-    const message =
-      parsed &&
-      typeof parsed === 'object' &&
-      'error' in parsed &&
-      typeof (parsed as { error?: unknown }).error === 'string'
-        ? (parsed as { error: string }).error
-        : typeof parsed === 'string' && parsed
-          ? parsed
-          : `Edge Function returned ${response.status}`;
+    const message = (() => {
+      if (typeof parsed === 'string' && parsed) return parsed;
+      if (parsed && typeof parsed === 'object') {
+        const o = parsed as { message?: unknown; error?: unknown };
+        if (typeof o.message === 'string' && o.message.length > 0) {
+          return o.message;
+        }
+        if (typeof o.error === 'string' && o.error.length > 0) {
+          return o.error;
+        }
+      }
+      return `Edge Function returned ${response.status}`;
+    })();
     throw new Error(message);
   }
 
