@@ -89,6 +89,13 @@ export type WaterbodySourcePathType =
 export type SourceValidationRequestMethod = "head" | "get";
 export type SourceValidationScope = "source_path" | "provider_health";
 
+export interface WaterbodyPreviewBbox {
+  minLon: number;
+  minLat: number;
+  maxLon: number;
+  maxLat: number;
+}
+
 export interface WaterbodyGeometryBackbone {
   type: "MultiPolygon";
   coordinates: number[][][][];
@@ -140,6 +147,8 @@ export interface WaterbodySearchResult {
     lat: number;
     lon: number;
   };
+  /** Preview framing only. Final analysis/overlays must use true waterbody geometry. */
+  previewBbox?: WaterbodyPreviewBbox | null;
   dataTier: WaterReaderDataTier;
   aerialAvailable: boolean;
   depthAvailable: boolean;

@@ -29,6 +29,10 @@ interface SearchRow {
   surface_area_acres: number | null;
   centroid_lat: number;
   centroid_lon: number;
+  preview_bbox_min_lon: number | null;
+  preview_bbox_min_lat: number | null;
+  preview_bbox_max_lon: number | null;
+  preview_bbox_max_lat: number | null;
   data_tier: WaterbodySearchResult["dataTier"];
   aerial_available: boolean;
   depth_available: boolean;
@@ -37,6 +41,28 @@ interface SearchRow {
   source_status: WaterbodySearchResult["sourceStatus"];
   best_available_mode: WaterbodySearchResult["bestAvailableMode"];
   confidence: WaterbodySearchResult["confidence"];
+}
+
+function mapPreviewBbox(row: SearchRow): WaterbodySearchResult["previewBbox"] {
+  const minLon = row.preview_bbox_min_lon;
+  const minLat = row.preview_bbox_min_lat;
+  const maxLon = row.preview_bbox_max_lon;
+  const maxLat = row.preview_bbox_max_lat;
+  if (
+    typeof minLon !== "number" ||
+    typeof minLat !== "number" ||
+    typeof maxLon !== "number" ||
+    typeof maxLat !== "number" ||
+    !Number.isFinite(minLon) ||
+    !Number.isFinite(minLat) ||
+    !Number.isFinite(maxLon) ||
+    !Number.isFinite(maxLat) ||
+    minLon >= maxLon ||
+    minLat >= maxLat
+  ) {
+    return null;
+  }
+  return { minLon, minLat, maxLon, maxLat };
 }
 
 function mapRow(row: SearchRow): WaterbodySearchResult {
@@ -51,6 +77,7 @@ function mapRow(row: SearchRow): WaterbodySearchResult {
       lat: row.centroid_lat,
       lon: row.centroid_lon,
     },
+    previewBbox: mapPreviewBbox(row),
     dataTier: row.data_tier,
     aerialAvailable: row.aerial_available,
     depthAvailable: row.depth_available,

@@ -41,6 +41,13 @@ export type WaterbodySourcePathType =
   | "image";
 export type SourceValidationRequestMethod = "head" | "get";
 
+export interface WaterbodyPreviewBbox {
+  minLon: number;
+  minLat: number;
+  maxLon: number;
+  maxLat: number;
+}
+
 export interface WaterbodySearchResult {
   lakeId: string;
   name: string;
@@ -52,6 +59,8 @@ export interface WaterbodySearchResult {
     lat: number;
     lon: number;
   };
+  /** Preview framing only. Final analysis/overlays must use true waterbody geometry. */
+  previewBbox?: WaterbodyPreviewBbox | null;
   dataTier: WaterReaderDataTier;
   aerialAvailable: boolean;
   depthAvailable: boolean;

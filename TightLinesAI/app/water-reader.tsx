@@ -282,11 +282,14 @@ export default function WaterReaderScreen() {
       return onSnapshotCleanup;
     }
 
-    const bbox = wgs84BboxFromCentroidAcres(
-      lat!,
-      lon!,
-      selected.surfaceAreaAcres ?? undefined,
-    );
+    const previewBbox = selected.previewBbox;
+    const bbox = previewBbox && isValidWgs84Bbox(previewBbox)
+      ? previewBbox
+      : wgs84BboxFromCentroidAcres(
+          lat!,
+          lon!,
+          selected.surfaceAreaAcres ?? undefined,
+        );
     if (!isValidWgs84Bbox(bbox)) {
       setAerialPhase('blocked');
       return onSnapshotCleanup;
