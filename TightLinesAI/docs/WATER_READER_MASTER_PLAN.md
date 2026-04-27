@@ -770,6 +770,7 @@ Use this section **instead of chat history**. If anything here disagrees with th
 - **Waterbody search** uses the existing **`searchWaterbodies`** client (subscription-gated Edge `waterbody-search`).
 - A **single** `exportImage` request to **`USGSNAIPPlus` ImageServer** runs **only after explicit tap** on a search result (not while typing, not for unselected rows).
 - Helper URL/bbox logic: `lib/usgsTnmAerialSnapshot.ts` (CONUS policy exclusions; conservative state-code normalization).
+- Current preview framing is a **centroid + surface-area heuristic** only; it can cut off large or irregular lakes and is not suitable for final overlay/analysis framing.
 - Preview is shown with **`expo-image`** and **`cachePolicy="none"`** (no disk cache policy — not a substitute for §0.4 **legal** storage review).
 - Required **USGS / National Geospatial Program** attribution is shown with the snapshot area.
 - **Honest fallbacks** when policy excludes the state, source flags disallow aerial, centroid/bbox is invalid, request errors, or a **~28s** client timeout elapses.
@@ -778,6 +779,8 @@ Use this section **instead of chat history**. If anything here disagrees with th
 
 - **Source preview only** — no feature extraction, no scoring, no fish-zone overlays, no interactive map library, no report renderer, no daily conditions, no recommender integration.
 - **No persistent imagery** / mosaics / derived rasters in app storage; no product claim that **`aerial_available`** equals a **built** national map.
+- Future preview framing should return a backend/RPC **geometry-derived preview bbox** (for example `ST_Envelope(geometry)` with conservative padding/clamping). Final overlays and analysis must use true waterbody geometry/bounds, not centroid+area heuristics.
+- This preview-framing improvement does **not** change imagery storage/cache permissions.
 - **Deployment** of any app build to TestFlight, Play, or production is **out of scope** of this plan entry unless **separately** recorded as shipped.
 
 **Next checkpoints (QA / design)**
