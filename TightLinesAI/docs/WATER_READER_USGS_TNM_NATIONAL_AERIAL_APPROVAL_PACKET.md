@@ -1,9 +1,9 @@
 # Water Reader — USGS The National Map (TNM) national aerial — approval packet
 
 **Audience:** Brandon, legal, product.  
-**Status:** **Brandon-approved** conservative on-demand use of **USGS-hosted** TNM orthoimagery endpoints (see §8). **National/default aerial is still gated:** no `water_reader_aerial_provider_policies` row may be **`is_enabled = true`** until an explicit product launch decision. **Esri-hosted NAIP** (`esri_naip_public`) is **not** approved as national default.  
-**Product source of truth:** `WATER_READER_MASTER_PLAN.md` (§0.4, §0.4.7).  
-**Current production:** registry + **disabled** policy are applied on V1 as ops allow; **CONUS-first** exclusions (**`AK`, `HI`, `PR`, `GU`, `MP`**) are merged via **`20260427210000_water_reader_usgs_tnm_conus_coverage_exclusions.sql`** before any enable. **National/default aerial** remains off until **`is_enabled = true`**.
+**Status:** **Brandon-approved** conservative on-demand use of **USGS-hosted** TNM orthoimagery (see §8). **Launch (source availability):** In **production (V1)**, policy **`usgs_tnm_naip_plus_national`** is **`is_enabled = true`** (**CONUS-first**); **`coverage.exclude_state_codes`** = **`["AK","HI","PR","GU","MP"]`**. At enable, **`waterbody_availability_snapshot.aerial_available`** = **122,314**; **0** excluded-region policy-aerial violations. This documents **honest aerial source-path availability** in the snapshot — **not** a built satellite map, Water Reader report flow, extraction, scoring, overlays, renderer, daily conditions, or recommender. **Esri-hosted NAIP** (`esri_naip_public`) is **not** the national policy source.  
+**Product source of truth:** `WATER_READER_MASTER_PLAN.md` (§0.4, §0.4.7, §0.5.17).  
+**Current production:** registry + **enabled** CONUS-first policy (ops `UPDATE` after migrations); storage/cache flags on **`source_registry`** unchanged (**no** new persistence tier).
 
 ---
 
@@ -15,7 +15,7 @@
 | NAIP-oriented overlay (dynamic) | **NAIP Plus** — per USGS, includes **1 m NAIP** | Listed under Theme Overlays via **National Map Services** directory |
 
 **Service directory (official):** [The National Map Services](https://apps.nationalmap.gov/services/)  
-**ImageServer family (operational; NAIP + HRO mix per USGS service metadata):** e.g. `https://imagery.nationalmap.gov/arcgis/rest/services/USGSNAIPPlus/ImageServer` — **confirm exact production URL and layer metadata in USGS directory before binding.**
+**ImageServer family (operational; NAIP + HRO mix per USGS service metadata):** `https://imagery.nationalmap.gov/arcgis/rest/services/USGSNAIPPlus/ImageServer` — **bound in V1** as registry `usgs_tnm_naip_plus` / policy `usgs_tnm_naip_plus_national` (**CONUS-first** source availability; not report/map UX).
 
 **Not in scope for this packet:** Esri-hosted NAIP mirrors (separate third-party terms).
 
@@ -71,9 +71,9 @@ Until explicitly approved in writing for a given tier:
 
 ### 6.1 CONUS-first launch posture (product)
 
-- **Decision:** First policy-driven footprint is **CONUS-oriented**: **`water_reader_aerial_provider_policies.coverage.exclude_state_codes`** includes **`AK`**, **`HI`**, **`PR`**, **`GU`**, **`MP`** until explicit coverage QA clears them.
-- **Mechanism:** Migration **`20260427210000_water_reader_usgs_tnm_conus_coverage_exclusions.sql`** merges those codes into **`coverage`** while preserving other jsonb keys; **`is_enabled` stays `false`** in that migration.
-- **After QA:** Shrink or clear exclusions via a follow-up migration/ops update when product/legal agree TNM claims are honest for excluded regions.
+- **Decision:** Policy-driven footprint is **CONUS-oriented**: **`coverage.exclude_state_codes`** = **`["AK","HI","PR","GU","MP"]`** until coverage QA may clear them.
+- **Mechanism:** Migration **`20260427210000_water_reader_usgs_tnm_conus_coverage_exclusions.sql`** merges exclusions into **`coverage`** and keeps **`is_enabled = false`**; **production enable** (**`is_enabled = true`**) was a **separate** guarded ops step after health probe — **source availability only**.
+- **After QA:** Shrink or clear exclusions via follow-up migration/ops update when product/legal agree TNM claims are honest for excluded regions.
 
 ---
 
@@ -91,8 +91,9 @@ Until explicitly approved in writing for a given tier:
 | **Recorded approval** | **Brandon** approved **conservative Water Reader V1** use of **USGS-hosted** The National Map **aerial/orthoimagery** services as an **on-demand** aerial provider, with **required attribution**, **conservative request rates**, **no bulk download/scraping**, and **no persistent storage** of original imagery, mosaics, normalized rasters, derived features, rendered report tiles, or fish-zone outputs **unless separately approved**. |
 | **Date** | **2026-04-26** |
 | **Explicitly not approved** | **Esri-hosted NAIP** as national/default aerial (`esri_naip_public` remains **fixture-only** for this product story). |
-| **Still gated** | **Do not** set national policy **`is_enabled = true`** or treat national aerial as **product-attached** until a **separate launch** decision. **Outside counsel** may still refine automated scale or future storage tiers; engineering pauses if that conflicts with §3–§4. |
-| **CONUS-first exclusions** | Until coverage QA, **`exclude_state_codes`** = **`["AK","HI","PR","GU","MP"]`** (see §6.1). |
+| **Source availability launch** | **Brandon approved** enabling **`is_enabled = true`** for **`usgs_tnm_naip_plus_national`** in **V1** for **CONUS-first** availability only (**122,314** `aerial_available` at launch). **Not authorized:** storage, extraction, scoring, overlays, renderer, frontend report, daily conditions, recommender (see §14). |
+| **Outside counsel / scale** | May still refine automated scale or future **storage** tiers; engineering pauses if that conflicts with §3–§4. |
+| **CONUS-first exclusions** | **`exclude_state_codes`** = **`["AK","HI","PR","GU","MP"]`** until QA clears them (see §6.1). |
 
 **Prior template (superseded for Brandon scope above):**
 
@@ -106,12 +107,12 @@ Until explicitly approved in writing for a given tier:
 
 ## 9. Production activation steps (**only after** written approval)
 
-**Registry + disabled policy:** Repo migration seeds **`source_registry`** (`usgs_tnm_naip_plus`) and a **`water_reader_aerial_provider_policies`** row with **`is_enabled = false`** and **`approval_status = approved`** (matches Brandon §8 product approval; **does not** turn on national aerial). **Apply staging/local first**; production only when ops approves.
+**Repo:** Migrations seed **`source_registry`** (`usgs_tnm_naip_plus`) and policy **`usgs_tnm_naip_plus_national`** (**`is_enabled = false`** in SQL files); **CONUS exclusions** merged by **`20260427210000_…sql`**.
 
 1. Add/update **`source_registry`** row: `source_type = aerial_imagery`, **`source_format = arcgis_image_server`** for USGS **`USGSNAIPPlus`** ImageServer on **`imagery.nationalmap.gov`** (see §1 and official REST directory). **`provider_health_check_url`** = `.../ImageServer?f=pjson`, **`license_url`** = TNM terms FAQ, **`can_store_*` = false**, **`can_cache_rendered_output` = false**. **MapServer basemaps** still require a **separate** `source_format` migration if ever chosen.
-2. Insert **`water_reader_aerial_provider_policies`** row: **`is_enabled = false`** until launch; **`approval_status`** reflects product sign-off (**`approved`** once Brandon scope in §8 is recorded).
-3. Run internal **`waterbody-source-validation`** policy probe (`aerial_provider_policy`); confirm **`provider_health_status = reachable`** before any enablement discussion.
-4. **`is_enabled = true`** only after **explicit** national-aerial launch decision; monitor availability view and Edge health.
+2. Insert/update **`water_reader_aerial_provider_policies`** row; **`approval_status`** reflects product sign-off (**`approved`** per §8).
+3. Run internal **`waterbody-source-validation`** policy probe (`aerial_provider_policy`); confirm **`provider_health_status = reachable`** before enable.
+4. **`is_enabled = true`** only after **explicit** launch approval — **done for V1 CONUS-first source availability** (§8). **Does not** ship report/map product behavior. Monitor availability view, USGS health, and Edge.
 5. **Do not** use **`esri_naip_public`** as the national policy **`source_id`** unless Esri path is separately approved.
 
 ---
@@ -145,5 +146,16 @@ Until explicitly approved in writing for a given tier:
 
 ## 13. Next step
 
-- **Engineering:** Apply **`20260426230100_…`** then **`20260427210000_water_reader_usgs_tnm_conus_coverage_exclusions.sql`** on **staging**, simulate CONUS exclusions, then apply to **production** when approved; run policy health probe; **do not** set **`is_enabled = true`** until explicit launch.  
+- **Engineering / ops:** Monitor **USGS** reachability and **`waterbody_availability_snapshot`**; policy probes on **enabled** approved policies require **`allowApprovedEnabledPolicyProbe: true`** in the validation body. **Rollback:** set **`is_enabled = false`** if needed (see §10).  
 - **Legal/ops:** Optional counsel pass on sustained scale; contact USGS TNM support if production volume warrants.
+
+---
+
+## 14. Launch outcome — source availability only (record)
+
+| Item | Record |
+|------|--------|
+| **What shipped** | **`waterbody_availability_snapshot`** reflects **CONUS-first** USGS TNM **aerial source availability** for policy-eligible rows; policy **`usgs_tnm_naip_plus_national`** **`is_enabled = true`** (V1). |
+| **Launch metric** | **`aerial_available` true:** **122,314** (with exclusions **AK, HI, PR, GU, MP**; **0** policy-aerial rows in excluded regions at audit). |
+| **What did not ship** | **No** imagery **storage** tier, **extraction**, **scoring**, **overlays**, **renderer**, **Water Reader frontend report**, **daily conditions**, or **recommender** handoff — unchanged by this launch. |
+| **Wording** | Prefer **“source availability”** / **“availability snapshot”** — avoid implying a **finished satellite view** or **report UX** exists solely because **`aerial_available`** is true. |
