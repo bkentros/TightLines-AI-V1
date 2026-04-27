@@ -1,9 +1,9 @@
 # Water Reader — USGS The National Map (TNM) national aerial — approval packet
 
 **Audience:** Brandon, legal, product.  
-**Status:** Review only — **no** national/default aerial is approved by this document.  
+**Status:** **Brandon-approved** conservative on-demand use of **USGS-hosted** TNM orthoimagery endpoints (see §8). **National/default aerial is still gated:** no `water_reader_aerial_provider_policies` row may be **`is_enabled = true`** until an explicit product launch decision. **Esri-hosted NAIP** (`esri_naip_public`) is **not** approved as national default.  
 **Product source of truth:** `WATER_READER_MASTER_PLAN.md` (§0.4, §0.4.7).  
-**Current production:** `water_reader_aerial_provider_policies` exists; **0** rows; **Esri `esri_naip_public` remains fixture-only**, not the national default.
+**Current production:** apply registry + **disabled** policy migration on staging/local first; production only when separately approved.
 
 ---
 
@@ -80,6 +80,15 @@ Until explicitly approved in writing for a given tier:
 
 ## 8. Legal / product decision (record outcome here)
 
+| Decision | Detail |
+|----------|--------|
+| **Recorded approval** | **Brandon** approved **conservative Water Reader V1** use of **USGS-hosted** The National Map **aerial/orthoimagery** services as an **on-demand** aerial provider, with **required attribution**, **conservative request rates**, **no bulk download/scraping**, and **no persistent storage** of original imagery, mosaics, normalized rasters, derived features, rendered report tiles, or fish-zone outputs **unless separately approved**. |
+| **Date** | **2026-04-26** |
+| **Explicitly not approved** | **Esri-hosted NAIP** as national/default aerial (`esri_naip_public` remains **fixture-only** for this product story). |
+| **Still gated** | **Do not** set national policy **`is_enabled = true`** or treat national aerial as **product-attached** until a **separate launch** decision. **Outside counsel** may still refine automated scale or future storage tiers; engineering pauses if that conflicts with §3–§4. |
+
+**Prior template (superseded for Brandon scope above):**
+
 | Option | When to use |
 |--------|-------------|
 | **Approved** | Counsel + product agree TNM FAQ and credits support **intended commercial on-demand use** and **default no-persistence** posture; endpoints and attribution finalized. |
@@ -90,12 +99,12 @@ Until explicitly approved in writing for a given tier:
 
 ## 9. Production activation steps (**only after** written approval)
 
-**No step below is authorized until §8 is “Approved.”**
+**Registry + disabled policy:** Repo migration seeds **`source_registry`** (`usgs_tnm_naip_plus`) and a **`water_reader_aerial_provider_policies`** row with **`is_enabled = false`** and **`approval_status = approved`** (matches Brandon §8 product approval; **does not** turn on national aerial). **Apply staging/local first**; production only when ops approves.
 
-1. Add **`source_registry`** row (migration or controlled ops): `source_type = aerial_imagery`. **If the chosen USGS endpoint is an ArcGIS ImageServer** (e.g. TNM NAIP-oriented ImageServer), set **`source_format = arcgis_image_server`** (this value exists in the current schema). **`provider_health_check_url`** = service `?f=pjson` (or USGS-documented health target), **`attribution_text`**, **`license_url`** = TNM terms FAQ URL, **`can_store_*` = false** until a separate storage decision. **If product/legal instead chooses the USGSImageryOnly MapServer (tiled basemap),** today’s `source_registry.source_format` **has no MapServer enum** — engineering must **add and review** a schema-compatible `source_format` (via migration) **or** pick another **explicit** registry representation; **do not** use a generic `arcgis` / MapServer placeholder that the schema does not support.
-2. Insert **`water_reader_aerial_provider_policies`** row: **`is_enabled = false`**, **`approval_status = pending_review`**, **`policy_key`** stable, **`coverage`** JSON (e.g. `exclude_state_codes` for any region excluded until verified).
-3. Run internal **`waterbody-source-validation`** policy probe; set **`approval_status = approved`** only after legal/product.
-4. **`is_enabled = true`** only after explicit launch decision; monitor availability view and Edge health.
+1. Add/update **`source_registry`** row: `source_type = aerial_imagery`, **`source_format = arcgis_image_server`** for USGS **`USGSNAIPPlus`** ImageServer on **`imagery.nationalmap.gov`** (see §1 and official REST directory). **`provider_health_check_url`** = `.../ImageServer?f=pjson`, **`license_url`** = TNM terms FAQ, **`can_store_*` = false**, **`can_cache_rendered_output` = false**. **MapServer basemaps** still require a **separate** `source_format` migration if ever chosen.
+2. Insert **`water_reader_aerial_provider_policies`** row: **`is_enabled = false`** until launch; **`approval_status`** reflects product sign-off (**`approved`** once Brandon scope in §8 is recorded).
+3. Run internal **`waterbody-source-validation`** policy probe (`aerial_provider_policy`); confirm **`provider_health_status = reachable`** before any enablement discussion.
+4. **`is_enabled = true`** only after **explicit** national-aerial launch decision; monitor availability view and Edge health.
 5. **Do not** use **`esri_naip_public`** as the national policy **`source_id`** unless Esri path is separately approved.
 
 ---
@@ -113,8 +122,8 @@ Until explicitly approved in writing for a given tier:
 
 ## 11. Recommendation (non-legal)
 
-- **Treat as “needs counsel”** until counsel confirms the **TNM public-domain FAQ** fully covers **FinFindr’s commercial, automated, on-demand** pattern and any **future** persistence.
-- **Technically prefer USGS-hosted TNM** endpoints over Esri mirrors for a **single federal license story**, unless Esri is explicitly approved.
+- **Brandon scope (§8) is recorded** for **USGS-hosted TNM** on-demand use; **outside counsel** may still refine scale or storage tiers.
+- **Technically prefer USGS-hosted TNM** endpoints over Esri mirrors for the **national** story unless Esri is explicitly approved.
 
 ---
 
@@ -129,5 +138,5 @@ Until explicitly approved in writing for a given tier:
 
 ## 13. Next step
 
-- **Brandon/legal:** Mark §8 **Approved / Not approved / Needs counsel** and date.  
-- **Engineering (only after approval):** Execute §9 using **migrations + internal validation**; keep **`water_reader_aerial_provider_policies`** rows **disabled** until sign-off.
+- **Engineering:** Apply **`20260426230100_water_reader_usgs_tnm_registry_and_aerial_policy.sql`** on **staging/local**; run policy health probe; **do not** enable policy until launch.  
+- **Legal/ops:** Optional counsel pass on sustained scale; contact USGS TNM support if production volume warrants.

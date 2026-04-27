@@ -288,6 +288,8 @@ Current Water Reader backbone files:
   - path-specific validation cleanup and provider-health separation
 - `supabase/migrations/20260426220000_water_reader_aerial_provider_policies.sql`
   - optional national/regional aerial **provider policy** table + snapshot OR; ships empty/disabled (see §0.5.17)
+- `supabase/migrations/20260426230100_water_reader_usgs_tnm_registry_and_aerial_policy.sql`
+  - USGS TNM **USGSNAIPPlus** ImageServer `source_registry` row + **disabled** national policy seed (`is_enabled = false`; Brandon-approved scope in TNM packet §8)
 - `supabase/migrations/20260424145528_water_reader_national_ingest_backbone.sql`
   - private ingest-run tables, county boundary staging, 3DHP waterbody staging, optional GNIS alias staging, and promotion function
 - `scripts/water-reader-ingest-3dhp.ts`
@@ -591,7 +593,7 @@ Verification:
 - `Mississippi River` returns no disallowed river result.
 - Searches for `river`, `stream`, and `canal` return only allowed `lake`, `pond`, or `reservoir` typed rows, or no rows.
 - Most of the `125,802` promoted national rows still resolve as `polygon_only` / `limited` until reviewed sources are attached and validated (exceptions: MN DNR depth pilot lakes and small backbone fixtures — see 0.5.17).
-- **National aerial** availability is not attached. **National depth** coverage is not claimed; only reviewed, lake-matched, reachable, usable links may move a row off polygon-only for depth.
+- **National aerial** is **not** product-attached via policy (**`is_enabled` stays false** until launch) even though **USGS TNM** on-demand use is **Brandon-approved** (see `WATER_READER_USGS_TNM_NATIONAL_AERIAL_APPROVAL_PACKET.md` §8). **National depth** coverage is not claimed; only reviewed, lake-matched, reachable, usable links may move a row off polygon-only for depth.
 
 Duplicate audit:
 
@@ -618,7 +620,7 @@ Next recommended phase (sequencing intent — not all steps are complete):
 3. keep each source path reviewed, reachable, lake-matched, and usable before it can affect availability
 4. only after source coverage is credible should Water Reader move into extraction and scoring
 
-**Execution focus (2026-04):** Step (2) is **in progress** for **Minnesota** via reviewed **MN DNR** bathymetric contour links (pilot + expansion batches). **National/default aerial** is still **not** a product-attached layer in the sense of 0.5.17 (search for “Not attached”); do not assume NAIP or other broad aerial is cleared for national rollout from this backbone work alone.
+**Execution focus (2026-04):** Step (2) is **in progress** for **Minnesota** via reviewed **MN DNR** bathymetric contour links (pilot + expansion batches). **USGS TNM** orthoimagery (ImageServer) is **approved for conservative on-demand use** (§8 in the TNM approval packet), but **national/default aerial remains off** until a **`water_reader_aerial_provider_policies`** row is **`is_enabled = true`**. **Esri-hosted NAIP** is **not** the national default.
 
 ### 0.5.17 Current backbone state — search, Edge functions, Minnesota DNR depth pilot
 
@@ -661,13 +663,13 @@ Next recommended phase (sequencing intent — not all steps are complete):
 
 **Reviewed insert proposal (human-reviewed short list):** `docs/water_reader_mn_dnr_expansion_reviewed_insert_proposal.json` — classifications for all 40 seed lakes and the **12-lake** `ready_for_insert` list applied via `20260425213000_water_reader_mn_dnr_depth_expansion_12.sql`. GeoJSON smoke: `npm run check:water-reader:mn-dnr-proposal-geojson`. Per-lake **`reachable`** validation is required before snapshots count depth; expansion rows have completed that step in the target project. Operators should still keep `WATER_READER_INTERNAL_KEY` in local `.env` for routine `ops:water-reader:mn-dnr-expansion-validate-edge` / pilot runs (re-runs are idempotent).
 
-**Not attached**
+**Not attached (product sense)**
 
-- No **national** aerial availability layer. NAIP or other broad aerial paths remain out of scope until rights and usage are explicit.
+- No **national** aerial row in `waterbody_availability_snapshot` from **policy** until **`is_enabled = true`** and provider health is **reachable**. **USGS TNM** registry + **disabled** policy row are seeded in repo (migration `20260426230100_water_reader_usgs_tnm_registry_and_aerial_policy.sql`) for staging/local verification; **production apply is gated**.
 
-**Aerial provider policy (schema hook only — not a product attachment)**
+**Aerial provider policy (schema hook — disabled national seed)**
 
-- Migration `20260426220000_water_reader_aerial_provider_policies.sql` adds `public.water_reader_aerial_provider_policies`: references `source_registry`, **`is_enabled` default false**, **`approval_status` default `pending_review`**, provider-health fields, **`coverage` jsonb** (e.g. `exclude_state_codes`). **No rows are seeded** in repo migrations. Future **national/regional** aerial can use this **instead of** 125k per-lake aerial links only after **legal/product approval**, a vetted registry row, and **reachable** policy provider health; attribution/license/storage stay on **`source_registry`**. **`esri_naip_public` remains fixture-only**, not national default; **USGS TNM** still needs human/legal signoff before any production enable. Until then, **national/default aerial remains unattached**.
+- Migration `20260426220000_water_reader_aerial_provider_policies.sql` adds `public.water_reader_aerial_provider_policies`: references `source_registry`, **`is_enabled` default false**, **`approval_status` default `pending_review`**, provider-health fields, **`coverage` jsonb** (e.g. `exclude_state_codes`). Migration **`20260426230100_water_reader_usgs_tnm_registry_and_aerial_policy.sql`** adds **`source_registry`** `usgs_tnm_naip_plus` (USGS **`USGSNAIPPlus`** ImageServer on **`imagery.nationalmap.gov`**, `source_format = arcgis_image_server`) and one policy row: **`is_enabled = false`**, **`approval_status = approved`** (Brandon product approval in TNM packet §8 — **not** a launch enable). Attribution/license/storage flags stay on **`source_registry`**; all **`can_store_*`** and **`can_cache_rendered_output`** remain **false**. **`esri_naip_public` remains fixture-only**, not national default.
 - **Internal policy health validation (`waterbody-source-validation`):** POST body `{ "validationScope": "aerial_provider_policy", "policyKey": "<policy_key>" }` with header **`x-water-reader-internal-key`** (same secret as lake-path validation). Probes only **`water_reader_aerial_provider_policies.provider_health_target_url`** or, if null, **`source_registry.provider_health_check_url`** (no `source_path` / imagery payloads). Updates **only** policy provider-health columns; **no `lakeId`**. When **`validationScope` is omitted**, existing **lake-link** validation is unchanged (default). Probing an **enabled** policy that is also **`approval_status = approved`** requires **`"allowApprovedEnabledPolicyProbe": true`** in the body. This path **does not** approve, attach, or enable **national/default aerial** by itself.
 
 **Broader Minnesota expansion**
@@ -711,6 +713,7 @@ Use this section **instead of chat history**. If anything here disagrees with th
 **Migrations (repo filenames — aerial policy hook)**
 
 - `20260426220000_water_reader_aerial_provider_policies.sql` — `water_reader_aerial_provider_policies` + snapshot update; **no seeded enabled policy**
+- `20260426230100_water_reader_usgs_tnm_registry_and_aerial_policy.sql` — USGS TNM registry + **disabled** national policy (`is_enabled = false`)
 
 **Migrations (repo filenames — MN DNR depth)**
 
