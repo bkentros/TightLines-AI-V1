@@ -27,6 +27,8 @@ import {
 import { planAerialReadTiles, type Wgs84Bbox } from '../lib/waterReaderAerialTilePlan';
 
 const SNAPSHOT_TIMEOUT_MS = 28_000;
+const IMAGERY_PROOF_TIMEOUT_MS = 28_000;
+const IMAGERY_PROOF_CLOSE_TILE_LIMIT = 3;
 const SEARCH_DEBOUNCE_MS = 400;
 const SEARCH_RESULT_LIMIT = 16;
 
@@ -57,6 +59,16 @@ function stateDisplayLabel(code: string | null): string {
 }
 
 type AerialPhase = 'idle' | 'loading' | 'loaded' | 'timeout' | 'error' | 'blocked';
+type ImageryProofPhase = 'loading' | 'loaded' | 'timeout' | 'error';
+
+interface ImageryProofImage {
+  key: string;
+  label: string;
+  bbox: Wgs84Bbox;
+  uri: string;
+  phase: ImageryProofPhase;
+  prototypeVisibleCategory?: string;
+}
 
 function formatAvailability(r: WaterbodySearchResult): string {
   const parts: string[] = [];
@@ -149,7 +161,9 @@ export default function WaterReaderScreen() {
 
   const [aerialPhase, setAerialPhase] = useState<AerialPhase>('idle');
   const [aerialLoad, setAerialLoad] = useState<{ gen: number; uri: string } | null>(null);
+  const [imageryProofImages, setImageryProofImages] = useState<ImageryProofImage[] | null>(null);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const proofTimeoutRefs = useRef<Record<string, ReturnType<typeof setTimeout>>>({});
   const loadGenerationRef = useRef(0);
   const searchRequestId = useRef(0);
 
@@ -160,9 +174,23 @@ export default function WaterReaderScreen() {
     }
   };
 
+  const clearProofTimer = (key: string) => {
+    if (proofTimeoutRefs.current[key]) {
+      clearTimeout(proofTimeoutRefs.current[key]);
+      delete proofTimeoutRefs.current[key];
+    }
+  };
+
+  const clearProofTimers = () => {
+    for (const key of Object.keys(proofTimeoutRefs.current)) {
+      clearProofTimer(key);
+    }
+  };
+
   useEffect(
     () => () => {
       clearSnapshotTimer();
+      clearProofTimers();
     },
     [],
   );
@@ -170,6 +198,11 @@ export default function WaterReaderScreen() {
   useEffect(() => {
     setSelected(null);
   }, [stateCode]);
+
+  useEffect(() => {
+    setImageryProofImages(null);
+    clearProofTimers();
+  }, [selected]);
 
   const onQueryChange = useCallback((t: string) => {
     setQuery(t);
@@ -340,12 +373,61 @@ export default function WaterReaderScreen() {
     setAerialPhase('error');
   }, []);
 
+  const updateImageryProofPhase = useCallback((key: string, phase: ImageryProofPhase) => {
+    clearProofTimer(key);
+    setImageryProofImages((current) =>
+      current?.map((image) => (image.key === key ? { ...image, phase } : image)) ?? null,
+    );
+  }, []);
+
   const qTrim = query.trim();
   const stateNameForEmpty =
     (stateCode && US_STATE_OPTIONS.find((o) => o.code === stateCode)?.name) || 'this state';
   const showResultsPanel =
     !selected && stateCode && (qTrim.length >= 2 || searching || (searchError != null && qTrim.length >= 2));
   const aerialTilePlan = selected ? planAerialReadTiles(selected) : null;
+  const canLoadImageryProof = selected != null && aerialTilePlan != null;
+
+  const onLoadImageryProof = useCallback(() => {
+    if (!aerialTilePlan) return;
+
+    clearProofTimers();
+    const contextUri = buildNaipPlusExportImageUrl(aerialTilePlan.contextBbox, { size: 512 });
+    const images: ImageryProofImage[] = contextUri
+      ? [{
+          key: 'context',
+          label: 'Whole-lake context',
+          bbox: aerialTilePlan.contextBbox,
+          uri: contextUri,
+          phase: 'loading',
+        }]
+      : [];
+
+    for (const tile of aerialTilePlan.closeTiles.slice(0, IMAGERY_PROOF_CLOSE_TILE_LIMIT)) {
+      const uri = buildNaipPlusExportImageUrl(tile.bbox, { size: 512 });
+      if (!uri) continue;
+      images.push({
+        key: `tile-${tile.id}`,
+        label: `Close tile ${tile.id}`,
+        bbox: tile.bbox,
+        uri,
+        phase: 'loading',
+        prototypeVisibleCategory: tile.prototypeVisibleCategory,
+      });
+    }
+
+    setImageryProofImages(images);
+  }, [aerialTilePlan]);
+
+  useEffect(() => {
+    if (!imageryProofImages) return;
+    for (const image of imageryProofImages) {
+      if (image.phase !== 'loading' || proofTimeoutRefs.current[image.key]) continue;
+      proofTimeoutRefs.current[image.key] = setTimeout(() => {
+        updateImageryProofPhase(image.key, 'timeout');
+      }, IMAGERY_PROOF_TIMEOUT_MS);
+    }
+  }, [imageryProofImages, updateImageryProofPhase]);
 
   return (
     <KeyboardAvoidingView
@@ -573,6 +655,73 @@ export default function WaterReaderScreen() {
                     <Text style={styles.tileBboxText}>{formatBbox(tile.bbox)}</Text>
                   </View>
                 ))}
+              </View>
+
+              <View style={styles.imageryProofBlock}>
+                <Text style={styles.planMetaLabel}>Imagery retrieval proof only</Text>
+                <Text style={styles.prototypeCopy}>
+                  No analysis, no depth, no fish-zone scoring. Images are fetched on demand and not stored.
+                </Text>
+                <Pressable
+                  onPress={onLoadImageryProof}
+                  disabled={!canLoadImageryProof}
+                  style={({ pressed }) => [
+                    styles.proofButton,
+                    pressed && styles.pressed,
+                    !canLoadImageryProof && styles.proofButtonDisabled,
+                  ]}
+                >
+                  <Text style={styles.proofButtonText}>Load close-up imagery proof</Text>
+                </Pressable>
+                <Text style={styles.planMetaHint}>
+                  Request budget for this proof: whole-lake context + up to {IMAGERY_PROOF_CLOSE_TILE_LIMIT} close tiles at 512px. This does not cache imagery.
+                </Text>
+
+                {imageryProofImages && (
+                  <View style={styles.proofImageList}>
+                    {imageryProofImages.map((image) => (
+                      <View key={image.key} style={styles.proofImageCard}>
+                        <View style={styles.tileHeader}>
+                          <Text style={styles.tileTitle}>{image.label}</Text>
+                          <Text style={styles.proofStatus}>{image.phase}</Text>
+                        </View>
+                        {image.prototypeVisibleCategory && (
+                          <Text style={styles.tileCategoryInline}>
+                            Mock planning category: {image.prototypeVisibleCategory}
+                          </Text>
+                        )}
+                        <Text style={styles.tileBboxText}>{formatBbox(image.bbox)}</Text>
+                        <View style={styles.proofImageWrap}>
+                          {(image.phase === 'loading' || image.phase === 'loaded') && (
+                            <ExpoImage
+                              source={{ uri: image.uri }}
+                              style={styles.proofImage}
+                              contentFit="cover"
+                              cachePolicy="none"
+                              recyclingKey={image.key}
+                              accessibilityLabel={`${image.label} USGS imagery retrieval proof`}
+                              onLoad={() => updateImageryProofPhase(image.key, 'loaded')}
+                              onError={() => updateImageryProofPhase(image.key, 'error')}
+                            />
+                          )}
+                          {image.phase === 'loading' && (
+                            <View style={styles.proofLoadingOverlay}>
+                              <ActivityIndicator size="small" color={colors.sage} />
+                              <Text style={styles.proofLoadingText}>Loading on-demand image…</Text>
+                            </View>
+                          )}
+                          {image.phase === 'timeout' && (
+                            <Text style={styles.proofFallback}>This proof image timed out.</Text>
+                          )}
+                          {image.phase === 'error' && (
+                            <Text style={styles.proofFallback}>This proof image could not load.</Text>
+                          )}
+                        </View>
+                      </View>
+                    ))}
+                    <Text style={styles.attrSmall}>{USGS_TNM_ATTRIBUTION}</Text>
+                  </View>
+                )}
               </View>
             </View>
           )}
@@ -824,6 +973,86 @@ const styles = StyleSheet.create({
     color: colors.textMuted,
     fontFamily: 'SpaceMono_400Regular',
     lineHeight: 16,
+  },
+  imageryProofBlock: {
+    marginTop: spacing.sm,
+    paddingTop: spacing.md,
+    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopColor: colors.border,
+    gap: spacing.sm,
+  },
+  proofButton: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: colors.sage,
+    borderRadius: radius.md,
+    paddingVertical: spacing.sm + 4,
+    paddingHorizontal: spacing.md,
+  },
+  proofButtonDisabled: {
+    backgroundColor: colors.disabled,
+  },
+  proofButtonText: {
+    color: colors.textOnPrimary,
+    fontSize: 14,
+    fontWeight: '700',
+  },
+  proofImageList: {
+    gap: spacing.md,
+    marginTop: spacing.sm,
+  },
+  proofImageCard: {
+    borderRadius: radius.sm,
+    borderWidth: StyleSheet.hairlineWidth,
+    borderColor: colors.border,
+    backgroundColor: colors.background,
+    padding: spacing.sm,
+  },
+  proofStatus: {
+    fontSize: 11,
+    color: colors.textMuted,
+    textTransform: 'uppercase',
+    letterSpacing: 0.4,
+  },
+  tileCategoryInline: {
+    marginTop: 4,
+    fontSize: 12,
+    color: colors.textSecondary,
+    lineHeight: 17,
+  },
+  proofImageWrap: {
+    minHeight: 180,
+    marginTop: spacing.sm,
+    borderRadius: radius.sm,
+    borderWidth: StyleSheet.hairlineWidth,
+    borderColor: colors.border,
+    backgroundColor: colors.backgroundAlt,
+    overflow: 'hidden',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  proofImage: {
+    width: '100%',
+    height: 220,
+    backgroundColor: colors.backgroundAlt,
+  },
+  proofLoadingOverlay: {
+    ...StyleSheet.absoluteFillObject,
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: spacing.sm,
+    backgroundColor: 'rgba(242, 250, 244, 0.78)',
+  },
+  proofLoadingText: {
+    fontSize: 12,
+    color: colors.textSecondary,
+  },
+  proofFallback: {
+    padding: spacing.md,
+    fontSize: 13,
+    color: colors.textSecondary,
+    lineHeight: 18,
+    textAlign: 'center',
   },
   modalWrap: { flex: 1, backgroundColor: colors.background, paddingTop: 8 },
   modalHeader: {
