@@ -3,7 +3,7 @@
 **Audience:** Brandon, legal, product.  
 **Status:** **Brandon-approved** conservative on-demand use of **USGS-hosted** TNM orthoimagery endpoints (see §8). **National/default aerial is still gated:** no `water_reader_aerial_provider_policies` row may be **`is_enabled = true`** until an explicit product launch decision. **Esri-hosted NAIP** (`esri_naip_public`) is **not** approved as national default.  
 **Product source of truth:** `WATER_READER_MASTER_PLAN.md` (§0.4, §0.4.7).  
-**Current production:** apply registry + **disabled** policy migration on staging/local first; production only when separately approved.
+**Current production:** registry + **disabled** policy are applied on V1 as ops allow; **CONUS-first** exclusions (**`AK`, `HI`, `PR`, `GU`, `MP`**) are merged via **`20260427210000_water_reader_usgs_tnm_conus_coverage_exclusions.sql`** before any enable. **National/default aerial** remains off until **`is_enabled = true`**.
 
 ---
 
@@ -69,6 +69,12 @@ Until explicitly approved in writing for a given tier:
 - **Scale / source mix:** Imagery FAQ states services use **different sources depending on view scale**; **NAIP Plus** is cited as including **1 m NAIP** ([imagery services FAQ](https://www.usgs.gov/faqs/what-are-urls-imagery-services-national-map-and-are-they-cached-or-dynamic)).
 - **AK / HI / territories:** Treat coverage, vintage, and source mix as **not assumed uniform** until confirmed from **service metadata** and USGS/USDA product documentation for each region.
 
+### 6.1 CONUS-first launch posture (product)
+
+- **Decision:** First policy-driven footprint is **CONUS-oriented**: **`water_reader_aerial_provider_policies.coverage.exclude_state_codes`** includes **`AK`**, **`HI`**, **`PR`**, **`GU`**, **`MP`** until explicit coverage QA clears them.
+- **Mechanism:** Migration **`20260427210000_water_reader_usgs_tnm_conus_coverage_exclusions.sql`** merges those codes into **`coverage`** while preserving other jsonb keys; **`is_enabled` stays `false`** in that migration.
+- **After QA:** Shrink or clear exclusions via a follow-up migration/ops update when product/legal agree TNM claims are honest for excluded regions.
+
 ---
 
 ## 7. Rate limits / operational caveats
@@ -86,6 +92,7 @@ Until explicitly approved in writing for a given tier:
 | **Date** | **2026-04-26** |
 | **Explicitly not approved** | **Esri-hosted NAIP** as national/default aerial (`esri_naip_public` remains **fixture-only** for this product story). |
 | **Still gated** | **Do not** set national policy **`is_enabled = true`** or treat national aerial as **product-attached** until a **separate launch** decision. **Outside counsel** may still refine automated scale or future storage tiers; engineering pauses if that conflicts with §3–§4. |
+| **CONUS-first exclusions** | Until coverage QA, **`exclude_state_codes`** = **`["AK","HI","PR","GU","MP"]`** (see §6.1). |
 
 **Prior template (superseded for Brandon scope above):**
 
@@ -138,5 +145,5 @@ Until explicitly approved in writing for a given tier:
 
 ## 13. Next step
 
-- **Engineering:** Apply **`20260426230100_water_reader_usgs_tnm_registry_and_aerial_policy.sql`** on **staging/local**; run policy health probe; **do not** enable policy until launch.  
+- **Engineering:** Apply **`20260426230100_…`** then **`20260427210000_water_reader_usgs_tnm_conus_coverage_exclusions.sql`** on **staging**, simulate CONUS exclusions, then apply to **production** when approved; run policy health probe; **do not** set **`is_enabled = true`** until explicit launch.  
 - **Legal/ops:** Optional counsel pass on sustained scale; contact USGS TNM support if production volume warrants.
