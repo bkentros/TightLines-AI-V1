@@ -860,6 +860,8 @@ Use this section **instead of chat history**. If anything here disagrees with th
 - Explicit **non-assessment** (decode-only honesty): stripes/seams, clarity, shoreline read support, and true blank/no-data **without pixel access** — not evaluated on-device; UI stays **proof-only** (not analysis, not a read, no depth/bathymetry, no fish-zone scoring).
 - **Constraints preserved:** aerial-first context only; **USGS TNM NAIP Plus** client `exportImage` only — **no server-side imagery fetch**; **no caching/persistence/export** of source tiles; **aerial-only proof ceiling** remains **low** or **moderate** — **never high**.
 
+**Runtime QA (product / speed):** Across Thonotosassa FL, Oakland MI, Lake Charlevoix MI, and Mille Lacs MN, aerial proof fetch speed has been acceptable during development; close-up tiles remain useful for internal/debug evaluation and should not be primary end-user UI. **Future target:** pinch/zoom on one whole-waterbody map, with internal engine views used only when needed. The in-app **mock result layout preview** is **layout-only**, **UI-only**, **not** a read, **not** analysis from imagery, **not** structure/depth inference, **not** fishing advice.
+
 ---
 
 ## 1. Product definition

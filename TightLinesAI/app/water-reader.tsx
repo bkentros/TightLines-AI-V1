@@ -36,6 +36,15 @@ const SNAPSHOT_TIMEOUT_MS = 28_000;
 const IMAGERY_PROOF_TIMEOUT_MS = 28_000;
 const IMAGERY_PROOF_EXPORT_PX = 512;
 const IMAGERY_PROOF_CLOSE_TILE_LIMIT = 3;
+
+/** Percent-based layout mocks only — not derived from imagery, structure, depth, or analysis */
+const MOCK_LAYOUT_PREVIEW_ZONES = [
+  { label: 'Mock zone A', reason: 'Example zone label placement', topPct: 12, leftPct: 18, widthPct: 26, heightPct: 20 },
+  { label: 'Mock zone B', reason: 'Example whole-map annotation', topPct: 38, leftPct: 52, widthPct: 24, heightPct: 22 },
+  { label: 'Mock zone C', reason: 'Example where-to-start note format', topPct: 58, leftPct: 12, widthPct: 30, heightPct: 18 },
+  { label: 'Mock zone D', reason: 'Example caption placement', topPct: 22, leftPct: 58, widthPct: 22, heightPct: 28 },
+  { label: 'Mock zone E', reason: 'Example secondary callout placement', topPct: 72, leftPct: 48, widthPct: 28, heightPct: 16 },
+];
 const SEARCH_DEBOUNCE_MS = 400;
 const SEARCH_RESULT_LIMIT = 16;
 
@@ -207,6 +216,7 @@ export default function WaterReaderScreen() {
   const imageryProofRunIdRef = useRef(0);
   const loadGenerationRef = useRef(0);
   const searchRequestId = useRef(0);
+  const [devProofExpanded, setDevProofExpanded] = useState(false);
 
   const clearSnapshotTimer = () => {
     if (timeoutRef.current) {
@@ -507,18 +517,8 @@ export default function WaterReaderScreen() {
     clearProofTimers();
     imageryProofRunIdRef.current += 1;
     const proofRunId = imageryProofRunIdRef.current;
-    const contextUri = buildNaipPlusExportImageUrl(aerialTilePlan.contextBbox, { size: IMAGERY_PROOF_EXPORT_PX });
-    const images: ImageryProofImage[] = contextUri
-      ? [{
-          key: 'context',
-          label: 'Whole-lake context',
-          bbox: aerialTilePlan.contextBbox,
-          uri: contextUri,
-          phase: 'loading',
-          proofRunId,
-          loadStartedAtMs: Date.now(),
-        }]
-      : [];
+    /** Whole-lake imagery is proved in Lake aerial preview; proof run loads close tiles only. */
+    const images: ImageryProofImage[] = [];
 
     for (const tile of aerialTilePlan.closeTiles.slice(0, IMAGERY_PROOF_CLOSE_TILE_LIMIT)) {
       const uri = buildNaipPlusExportImageUrl(tile.bbox, { size: IMAGERY_PROOF_EXPORT_PX });
@@ -561,7 +561,8 @@ export default function WaterReaderScreen() {
         keyboardShouldPersistTaps="handled"
       >
         <Text style={styles.disclaimer}>
-          USGS ortho preview (lake, pond, reservoir). One on-demand fetch; not fishing advice.
+          USGS ortho preview — whole-waterbody aerial view comes first — one-time on-demand fetch; not fishing
+          advice, not automated structure detection.
         </Text>
 
         <Text style={styles.section}>Find a waterbody</Text>
@@ -670,13 +671,16 @@ export default function WaterReaderScreen() {
         </View>
 
         <View style={styles.snapshotSection}>
-          <Text style={styles.section}>Aerial source preview</Text>
+          <Text style={styles.section}>Lake aerial preview (whole-waterbody)</Text>
           {!selected && (
-            <Text style={styles.muted}>Select a state, pick a waterbody, then a one-time preview can load here.</Text>
+            <Text style={styles.muted}>
+              Select a state, pick a waterbody, then a one-time USGS aerial preview loads here — your primary lake
+              context.
+            </Text>
           )}
           {selected && aerialPhase === 'blocked' && (
             <Text style={styles.fallback}>
-              Aerial source preview unavailable for this selected waterbody.
+              USGS aerial source preview unavailable for this selected waterbody.
             </Text>
           )}
           {selected && aerialPhase === 'loading' && (
@@ -687,12 +691,12 @@ export default function WaterReaderScreen() {
           )}
           {selected && aerialPhase === 'timeout' && (
             <Text style={styles.fallback}>
-              Aerial source preview unavailable for this selected waterbody (request timed out).
+              USGS aerial source preview unavailable for this selected waterbody (request timed out).
             </Text>
           )}
           {selected && aerialPhase === 'error' && (
             <Text style={styles.fallback}>
-              Aerial source preview unavailable for this selected waterbody (request error).
+              USGS aerial source preview unavailable for this selected waterbody (request error).
             </Text>
           )}
           {selected && aerialLoad && (aerialPhase === 'loading' || aerialPhase === 'loaded') && (
@@ -704,7 +708,7 @@ export default function WaterReaderScreen() {
                 contentFit="contain"
                 cachePolicy="none"
                 recyclingKey={String(aerialLoad.gen)}
-                accessibilityLabel="USGS TNM NAIP Plus on-demand ortho source preview for selected waterbody centroid"
+                accessibilityLabel="USGS TNM NAIP Plus whole-waterbody on-demand ortho source preview for selected waterbody"
                 onLoad={() => onSnapshotLoaded(aerialLoad.gen)}
                 onError={() => onSnapshotError(aerialLoad.gen)}
               />
@@ -718,158 +722,240 @@ export default function WaterReaderScreen() {
           )}
         </View>
 
+        {selected && (
+          <View style={styles.mockFutureSection}>
+            <Text style={styles.section}>Mock result layout preview (not a real read)</Text>
+            <Text style={styles.mockNegative}>
+              Layout-only placeholders on top of fetched proof imagery — not Water Reader analysis, not an automated
+              read, not shore/boat scouting output, no depth or bathymetry, no fish-zone scoring, no recommendations, not
+              fishing advice.
+            </Text>
+            <Text style={styles.prototypeCopy}>
+              This screen section shows typography and overlay placement only. Future target: pinch/zoom on one
+              whole-waterbody map, with internal engine views used only when needed. Nothing here evaluates structure,
+              depth, or cover from pixels.
+            </Text>
+            {aerialPhase === 'loaded' && aerialLoad ? (
+              <View style={styles.mockCanvasWrap}>
+                <View style={styles.mockCanvasInner}>
+                  <ExpoImage
+                    source={{ uri: aerialLoad.uri }}
+                    style={styles.mockCanvasImage}
+                    contentFit="cover"
+                    cachePolicy="none"
+                    accessibilityLabel="Layout preview only — rectangles are not detected structure or zones"
+                  />
+                  {MOCK_LAYOUT_PREVIEW_ZONES.map((z, i) => (
+                    <View
+                      key={`mock-zone-${String(i)}`}
+                      accessibilityElementsHidden
+                      importantForAccessibility="no-hide-descendants"
+                      pointerEvents="none"
+                      style={[
+                        styles.mockHighlight,
+                        {
+                          top: `${z.topPct}%`,
+                          left: `${z.leftPct}%`,
+                          width: `${z.widthPct}%`,
+                          height: `${z.heightPct}%`,
+                        },
+                      ]}
+                    />
+                  ))}
+                </View>
+                <View style={styles.mockLegendList}>
+                  {MOCK_LAYOUT_PREVIEW_ZONES.map((z, i) => (
+                    <View key={`mock-caption-${String(i)}`} style={styles.mockLegendRow}>
+                      <Text style={styles.mockLegendTitle}>{z.label}</Text>
+                      <Text style={styles.mockLegendReason}>{z.reason}</Text>
+                    </View>
+                  ))}
+                </View>
+              </View>
+            ) : (
+              <View style={styles.mockPlaceholder}>
+                <Text style={styles.mockPlaceholderTitle}>Placeholder — load whole-lake preview above</Text>
+                <Text style={styles.mockPlaceholderBody}>
+                  When the aerial preview finishes loading above, rectangles and captions show example layout spacing only
+                  — not a Water Reader output and not inferred from imagery.
+                </Text>
+              </View>
+            )}
+            <Text style={styles.seamNote}>
+              Visible seam or line streaks often come from source imagery mosaics (NAIP footprints and joins). Those
+              edge artifacts are not automatically detected by this prototype.
+            </Text>
+            <Text style={styles.attrSmall}>{USGS_TNM_ATTRIBUTION}</Text>
+          </View>
+        )}
+
         <View style={styles.planningSection}>
-          <Text style={styles.section}>Aerial read planning preview</Text>
+          <Text style={styles.section}>Aerial read planning (deterministic bbox plan)</Text>
           {!selected && (
-            <Text style={styles.muted}>Select a waterbody to see the deterministic tile plan prototype.</Text>
+            <Text style={styles.muted}>
+              Select a waterbody for where-to-start tiling plans (planning geometry only — not a read engine).
+            </Text>
           )}
           {selected && !aerialTilePlan && (
             <Text style={styles.fallback}>
-              Planning preview unavailable because this waterbody does not have a valid bbox or centroid.
+              Planning unavailable because this waterbody does not have a valid bbox or centroid.
             </Text>
           )}
           {selected && aerialTilePlan && (
-            <View style={styles.planningCard}>
+            <View style={styles.planningCardOuter}>
               <Text style={styles.prototypeBadge}>Prototype only</Text>
               <Text style={styles.prototypeCopy}>
-                Planning proof only — no imagery analysis, no depth, no fish-zone scoring.
+                Planning proof — no imagery inference, no depth, no scoring. Bounding boxes organize future engine work —
+                labels are placeholders, not recommendations.
               </Text>
-              <Text style={styles.prototypeCopy}>
-                These tiles are deterministic bbox plans and mock visible-category labels, not fishing recommendations.
-              </Text>
-
               <View style={styles.planMetaBlock}>
-                <Text style={styles.planMetaLabel}>Whole-lake context bbox</Text>
+                <Text style={styles.planMetaLabel}>Whole-waterbody context bbox</Text>
                 <Text style={styles.planBboxText}>{formatBbox(aerialTilePlan.contextBbox)}</Text>
                 <Text style={styles.planMetaHint}>
-                  Source: {sourceLabel(aerialTilePlan.source)} · Close tiles: {aerialTilePlan.closeTiles.length} · Overlap: {Math.round(aerialTilePlan.overlapRatio * 100)}%
+                  Source: {sourceLabel(aerialTilePlan.source)} · Close tiles planned: {aerialTilePlan.closeTiles.length}{' '}
+                  · Overlap: {Math.round(aerialTilePlan.overlapRatio * 100)}%
                 </Text>
                 {serverTilePlanPhase === 'loading' && (
                   <Text style={styles.planMetaHint}>
-                    Loading server geometry tile plan metadata. Falling back to the client bbox grid until it is available.
+                    Loading server geometry tile plan metadata. Using client bbox grid until ready.
                   </Text>
                 )}
                 {serverTilePlanPhase === 'error' && serverTilePlanError && (
-                  <Text style={styles.planMetaHint}>
-                    Server geometry tile plan unavailable; prototype is using the client bbox-grid fallback.
-                  </Text>
+                  <Text style={styles.planMetaHint}>Server geometry tile plan unavailable; using bbox-grid fallback.</Text>
                 )}
               </View>
 
-              <View style={styles.tileSchematic}>
-                {aerialTilePlan.closeTiles.map((tile) => (
-                  <View
-                    key={`tile-schematic-${tile.id}`}
-                    style={[
-                      styles.tileSchematicBox,
-                      {
-                        left: `${(tile.col / aerialTilePlan.gridCols) * 100}%`,
-                        top: `${(tile.row / aerialTilePlan.gridRows) * 100}%`,
-                        width: `${100 / aerialTilePlan.gridCols}%`,
-                        height: `${100 / aerialTilePlan.gridRows}%`,
-                      },
-                    ]}
-                  >
-                    <Text style={styles.tileSchematicText}>{tile.id}</Text>
-                  </View>
-                ))}
-              </View>
+              <Pressable
+                onPress={() => setDevProofExpanded((e) => !e)}
+                style={({ pressed }) => [styles.devProofToggle, pressed && styles.pressed]}
+                accessibilityRole="button"
+                accessibilityState={{ expanded: devProofExpanded }}
+              >
+                <Text style={styles.devProofToggleTitle}>Developer proof details · debug imagery tiles</Text>
+                <Text style={styles.devProofChevron}>{devProofExpanded ? '▼' : '▶'}</Text>
+              </Pressable>
+              {!devProofExpanded && (
+                <Text style={styles.devProofCollapsedHint}>Close-up tiles and retrieval metadata for engineering QA.</Text>
+              )}
 
-              <View style={styles.tileList}>
-                {aerialTilePlan.closeTiles.map((tile) => (
-                  <View key={tile.id} style={styles.tileCard}>
-                    <View style={styles.tileHeader}>
-                      <Text style={styles.tileTitle}>Tile {tile.id}</Text>
-                      <Text style={styles.tileCategory}>{tile.prototypeVisibleCategory}</Text>
-                    </View>
-                    <Text style={styles.tileBboxText}>{formatBbox(tile.bbox)}</Text>
-                  </View>
-                ))}
-              </View>
-
-              <View style={styles.imageryProofBlock}>
-                <Text style={styles.planMetaLabel}>Imagery retrieval proof only</Text>
-                <Text style={styles.prototypeCopy}>
-                  Imagery quality lines below are retrieval / decode signals only — not an analysis, not a read, no depth, no fish-zone scoring. USGS TNM NAIP Plus only; on demand; not stored.
-                </Text>
-                <Pressable
-                  onPress={onLoadImageryProof}
-                  disabled={!canLoadImageryProof}
-                  style={({ pressed }) => [
-                    styles.proofButton,
-                    pressed && styles.pressed,
-                    !canLoadImageryProof && styles.proofButtonDisabled,
-                  ]}
-                >
-                  <Text style={styles.proofButtonText}>Load close-up imagery proof</Text>
-                </Pressable>
-                <Text style={styles.planMetaHint}>
-                  Request budget for this proof: whole-lake context + up to {IMAGERY_PROOF_CLOSE_TILE_LIMIT} close tiles at {IMAGERY_PROOF_EXPORT_PX}px. This does not cache imagery.
-                </Text>
-
-                {imageryProofImages && (
-                  <View style={styles.proofImageList}>
-                    {imageryProofImages.map((image) => (
-                      <View key={image.key} style={styles.proofImageCard}>
-                        <View style={styles.tileHeader}>
-                          <Text style={styles.tileTitle}>{image.label}</Text>
-                          <Text style={styles.proofStatus}>{image.phase}</Text>
-                        </View>
-                        {image.prototypeVisibleCategory && (
-                          <Text style={styles.tileCategoryInline}>
-                            Mock planning category: {image.prototypeVisibleCategory}
-                          </Text>
-                        )}
-                        <Text style={styles.tileBboxText}>{formatBbox(image.bbox)}</Text>
-                        <View style={styles.proofImageWrap}>
-                          {(image.phase === 'loading' || image.phase === 'loaded') && (
-                            <ExpoImage
-                              source={{ uri: image.uri }}
-                              style={styles.proofImage}
-                              contentFit="cover"
-                              cachePolicy="none"
-                              recyclingKey={`${image.key}-${image.proofRunId}`}
-                              accessibilityLabel={`${image.label} USGS imagery retrieval proof`}
-                              onLoad={(e) =>
-                                finalizeImageryProofImage(
-                                  image.key,
-                                  image.proofRunId,
-                                  'loaded',
-                                  intrinsicFromProofImageLoadEvent(e),
-                                )}
-                              onError={() =>
-                                finalizeImageryProofImage(image.key, image.proofRunId, 'error', null)}
-                            />
-                          )}
-                          {image.phase === 'loading' && (
-                            <View style={styles.proofLoadingOverlay}>
-                              <ActivityIndicator size="small" color={colors.sage} />
-                              <Text style={styles.proofLoadingText}>Loading on-demand image…</Text>
-                            </View>
-                          )}
-                          {image.phase === 'timeout' && (
-                            <Text style={styles.proofFallback}>This proof image timed out.</Text>
-                          )}
-                          {image.phase === 'error' && (
-                            <Text style={styles.proofFallback}>This proof image could not load.</Text>
-                          )}
-                        </View>
-                        {image.quality && (
-                          <View style={styles.proofQualityBlock}>
-                            <Text style={styles.proofQualityTitle}>Imagery quality (proof only)</Text>
-                            {summarizeProofQualityForUi(image.quality).map((line, idx) => (
-                              <Text key={`${image.key}-q-${idx}`} style={styles.proofQualityLine}>
-                                {line}
-                              </Text>
-                            ))}
-                          </View>
-                        )}
+              {devProofExpanded && (
+                <>
+                  <View style={styles.tileSchematic}>
+                    {aerialTilePlan.closeTiles.map((tile) => (
+                      <View
+                        key={`tile-schematic-${tile.id}`}
+                        style={[
+                          styles.tileSchematicBox,
+                          {
+                            left: `${(tile.col / aerialTilePlan.gridCols) * 100}%`,
+                            top: `${(tile.row / aerialTilePlan.gridRows) * 100}%`,
+                            width: `${100 / aerialTilePlan.gridCols}%`,
+                            height: `${100 / aerialTilePlan.gridRows}%`,
+                          },
+                        ]}
+                      >
+                        <Text style={styles.tileSchematicText}>{tile.id}</Text>
                       </View>
                     ))}
-                    <Text style={styles.attrSmall}>{USGS_TNM_ATTRIBUTION}</Text>
                   </View>
-                )}
-              </View>
+
+                  <View style={styles.tileList}>
+                    {aerialTilePlan.closeTiles.map((tile) => (
+                      <View key={tile.id} style={styles.tileCard}>
+                        <View style={styles.tileHeader}>
+                          <Text style={styles.tileTitle}>Tile {tile.id}</Text>
+                          <Text style={styles.tileCategory}>{tile.prototypeVisibleCategory}</Text>
+                        </View>
+                        <Text style={styles.tileBboxText}>{formatBbox(tile.bbox)}</Text>
+                      </View>
+                    ))}
+                  </View>
+
+                  <View style={styles.imageryProofBlock}>
+                    <Text style={styles.planMetaLabel}>Imagery retrieval proof (debug — close-ups only)</Text>
+                    <Text style={styles.prototypeCopy}>
+                      Whole-lake view is proved above — this retrieves up to{' '}
+                      {IMAGERY_PROOF_CLOSE_TILE_LIMIT} USGS TNM NAIP Plus close tiles on demand ({IMAGERY_PROOF_EXPORT_PX}
+                      px each). Retrieval / decode signals only — not analysis, no storage.
+                    </Text>
+                    <Pressable
+                      onPress={onLoadImageryProof}
+                      disabled={!canLoadImageryProof}
+                      style={({ pressed }) => [
+                        styles.proofButton,
+                        pressed && styles.pressed,
+                        !canLoadImageryProof && styles.proofButtonDisabled,
+                      ]}
+                    >
+                      <Text style={styles.proofButtonText}>Load close-up imagery tiles (debug proof)</Text>
+                    </Pressable>
+                    <Text style={styles.planMetaHint}>Does not cache imagery locally.</Text>
+
+                    {imageryProofImages && imageryProofImages.length > 0 && (
+                      <View style={styles.proofImageList}>
+                        {imageryProofImages.map((image) => (
+                          <View key={image.key} style={styles.proofImageCard}>
+                            <View style={styles.tileHeader}>
+                              <Text style={styles.tileTitle}>{image.label}</Text>
+                              <Text style={styles.proofStatus}>{image.phase}</Text>
+                            </View>
+                            {image.prototypeVisibleCategory && (
+                              <Text style={styles.tileCategoryInline}>
+                                Mock planning category: {image.prototypeVisibleCategory}
+                              </Text>
+                            )}
+                            <Text style={styles.tileBboxText}>{formatBbox(image.bbox)}</Text>
+                            <View style={styles.proofImageWrap}>
+                              {(image.phase === 'loading' || image.phase === 'loaded') && (
+                                <ExpoImage
+                                  source={{ uri: image.uri }}
+                                  style={styles.proofImage}
+                                  contentFit="cover"
+                                  cachePolicy="none"
+                                  recyclingKey={`${image.key}-${image.proofRunId}`}
+                                  accessibilityLabel={`${image.label} USGS imagery retrieval proof`}
+                                  onLoad={(e) =>
+                                    finalizeImageryProofImage(
+                                      image.key,
+                                      image.proofRunId,
+                                      'loaded',
+                                      intrinsicFromProofImageLoadEvent(e),
+                                    )}
+                                  onError={() =>
+                                    finalizeImageryProofImage(image.key, image.proofRunId, 'error', null)}
+                                />
+                              )}
+                              {image.phase === 'loading' && (
+                                <View style={styles.proofLoadingOverlay}>
+                                  <ActivityIndicator size="small" color={colors.sage} />
+                                  <Text style={styles.proofLoadingText}>Loading on-demand tile…</Text>
+                                </View>
+                              )}
+                              {image.phase === 'timeout' && (
+                                <Text style={styles.proofFallback}>This proof tile timed out.</Text>
+                              )}
+                              {image.phase === 'error' && (
+                                <Text style={styles.proofFallback}>This proof tile could not load.</Text>
+                              )}
+                            </View>
+                            {image.quality && (
+                              <View style={styles.proofQualityBlock}>
+                                <Text style={styles.proofQualityTitle}>Tile signal (decode metadata only)</Text>
+                                {summarizeProofQualityForUi(image.quality).map((line, idx) => (
+                                  <Text key={`${image.key}-q-${idx}`} style={styles.proofQualityLine}>
+                                    {line}
+                                  </Text>
+                                ))}
+                              </View>
+                            )}
+                          </View>
+                        ))}
+                        <Text style={styles.attrSmall}>{USGS_TNM_ATTRIBUTION}</Text>
+                      </View>
+                    )}
+                  </View>
+                </>
+              )}
             </View>
           )}
         </View>
@@ -1042,7 +1128,89 @@ const styles = StyleSheet.create({
     marginTop: spacing.sm,
     lineHeight: 14,
   },
-  planningCard: {
+  mockFutureSection: {
+    marginTop: spacing.xl,
+    gap: spacing.sm,
+  },
+  mockNegative: {
+    fontSize: 12,
+    lineHeight: 18,
+    color: colors.textSecondary,
+    padding: spacing.sm,
+    borderRadius: radius.sm,
+    backgroundColor: colors.backgroundAlt,
+    borderWidth: StyleSheet.hairlineWidth,
+    borderColor: colors.border,
+  },
+  mockCanvasWrap: {
+    marginTop: spacing.sm,
+    gap: spacing.md,
+  },
+  mockCanvasInner: {
+    borderRadius: radius.md,
+    borderWidth: StyleSheet.hairlineWidth,
+    borderColor: colors.border,
+    overflow: 'hidden',
+    height: 268,
+    backgroundColor: colors.backgroundAlt,
+    position: 'relative',
+  },
+  mockCanvasImage: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: colors.backgroundAlt,
+  },
+  mockHighlight: {
+    position: 'absolute',
+    borderRadius: radius.sm,
+    borderWidth: 2,
+    borderColor: colors.sage,
+    backgroundColor: 'rgba(107, 126, 86, 0.12)',
+  },
+  mockLegendList: { gap: spacing.sm },
+  mockLegendRow: {
+    paddingVertical: 4,
+    paddingHorizontal: 2,
+    borderLeftWidth: 3,
+    borderLeftColor: colors.sage,
+    paddingLeft: spacing.sm,
+  },
+  mockLegendTitle: {
+    fontSize: 12,
+    fontWeight: '700',
+    color: colors.text,
+  },
+  mockLegendReason: {
+    fontSize: 11,
+    color: colors.textSecondary,
+    lineHeight: 16,
+    marginTop: 2,
+  },
+  mockPlaceholder: {
+    marginTop: spacing.sm,
+    padding: spacing.md,
+    borderRadius: radius.md,
+    borderWidth: StyleSheet.hairlineWidth,
+    borderColor: colors.border,
+    backgroundColor: colors.surface,
+  },
+  mockPlaceholderTitle: {
+    fontSize: 13,
+    fontWeight: '700',
+    color: colors.text,
+    marginBottom: 4,
+  },
+  mockPlaceholderBody: {
+    fontSize: 12,
+    color: colors.textSecondary,
+    lineHeight: 18,
+  },
+  seamNote: {
+    fontSize: 11,
+    color: colors.textMuted,
+    lineHeight: 16,
+    marginTop: spacing.xs,
+  },
+  planningCardOuter: {
     backgroundColor: colors.surface,
     borderRadius: radius.md,
     borderWidth: StyleSheet.hairlineWidth,
@@ -1066,6 +1234,35 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: colors.textSecondary,
     lineHeight: 18,
+  },
+  devProofToggle: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: spacing.md,
+    marginTop: spacing.md,
+    paddingVertical: spacing.sm,
+    paddingHorizontal: spacing.sm,
+    borderRadius: radius.sm,
+    borderWidth: StyleSheet.hairlineWidth,
+    borderColor: colors.border,
+    backgroundColor: colors.background,
+  },
+  devProofToggleTitle: {
+    flex: 1,
+    fontSize: 13,
+    fontWeight: '700',
+    color: colors.text,
+  },
+  devProofChevron: {
+    fontSize: 14,
+    color: colors.textMuted,
+  },
+  devProofCollapsedHint: {
+    fontSize: 11,
+    color: colors.textMuted,
+    marginTop: spacing.xs,
+    lineHeight: 16,
   },
   planMetaBlock: {
     marginTop: spacing.xs,
