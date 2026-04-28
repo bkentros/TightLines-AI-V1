@@ -864,6 +864,8 @@ Use this section **instead of chat history**. If anything here disagrees with th
 
 **Aerial-only read result contract (types only):** See `lib/waterReaderResultContracts.ts` for a future **`WaterReaderAerialOnlyReadResult`** payload shape (`aerial_only` mode, TNM identifiers, attribution, capped `low` | `moderate` confidence, required limitations acknowledging no depth/bathymetry/contours, **`WaterReaderAerialReadZones3To5`** = exactly 3–5 normalized overlay zones). This is **documentation by types** for a hypothetical engine boundary — **not** an implemented read engine, not scoring/inference/export, until explicitly built.
 
+**Contract prototype stub (`lib/waterReaderMockResult.ts`):** **`buildWaterReaderAerialOnlyStubResult`** generates a deterministic, attribution-stamped **`WaterReaderAerialOnlyReadResult`** so the **`/water-reader`** mock layout preview aligns with the contract. It performs **no** analysis, inference, scoring, imagery inspection, caching, persistence, export, recommendations, fish-zone logic, or depth/contour use — **prototype wiring only**, not an engine.
+
 ---
 
 ## 1. Product definition

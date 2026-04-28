@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   View,
   Text,
@@ -31,20 +31,12 @@ import {
   wgs84BboxFromCentroidAcres,
 } from '../lib/usgsTnmAerialSnapshot';
 import { planAerialReadTiles, type Wgs84Bbox } from '../lib/waterReaderAerialTilePlan';
+import { buildWaterReaderAerialOnlyStubResult } from '../lib/waterReaderMockResult';
 
 const SNAPSHOT_TIMEOUT_MS = 28_000;
 const IMAGERY_PROOF_TIMEOUT_MS = 28_000;
 const IMAGERY_PROOF_EXPORT_PX = 512;
 const IMAGERY_PROOF_CLOSE_TILE_LIMIT = 3;
-
-/** Percent-based layout mocks only — not derived from imagery, structure, depth, or analysis */
-const MOCK_LAYOUT_PREVIEW_ZONES = [
-  { label: 'Mock zone A', reason: 'Example zone label placement', topPct: 12, leftPct: 18, widthPct: 26, heightPct: 20 },
-  { label: 'Mock zone B', reason: 'Example whole-map annotation', topPct: 38, leftPct: 52, widthPct: 24, heightPct: 22 },
-  { label: 'Mock zone C', reason: 'Example where-to-start note format', topPct: 58, leftPct: 12, widthPct: 30, heightPct: 18 },
-  { label: 'Mock zone D', reason: 'Example caption placement', topPct: 22, leftPct: 58, widthPct: 22, heightPct: 28 },
-  { label: 'Mock zone E', reason: 'Example secondary callout placement', topPct: 72, leftPct: 48, widthPct: 28, heightPct: 16 },
-];
 const SEARCH_DEBOUNCE_MS = 400;
 const SEARCH_RESULT_LIMIT = 16;
 
@@ -511,6 +503,11 @@ export default function WaterReaderScreen() {
   const aerialTilePlan = serverDisplayTilePlan ?? fallbackAerialTilePlan;
   const canLoadImageryProof = selected != null && aerialTilePlan != null;
 
+  const contractStubPreview = useMemo(
+    () => (selected ? buildWaterReaderAerialOnlyStubResult(selected, serverTilePlan) : null),
+    [selected, serverTilePlan],
+  );
+
   const onLoadImageryProof = useCallback(() => {
     if (!aerialTilePlan) return;
 
@@ -731,11 +728,12 @@ export default function WaterReaderScreen() {
               fishing advice.
             </Text>
             <Text style={styles.prototypeCopy}>
-              This screen section shows typography and overlay placement only. Future target: pinch/zoom on one
-              whole-waterbody map, with internal engine views used only when needed. Nothing here evaluates structure,
-              depth, or cover from pixels.
+              This layout uses a prototype result payload so we can test map overlays before the engine exists —
+              typography and overlay placement exercises only — layout-only, not a real read, no recommendations,
+              no imagery inference, and no depth, bathymetry, or contours. Future target: pinch/zoom on one
+              whole-waterbody map, with internal engine views used only when needed.
             </Text>
-            {aerialPhase === 'loaded' && aerialLoad ? (
+            {aerialPhase === 'loaded' && aerialLoad && contractStubPreview ? (
               <View style={styles.mockCanvasWrap}>
                 <View style={styles.mockCanvasInner}>
                   <ExpoImage
@@ -745,29 +743,29 @@ export default function WaterReaderScreen() {
                     cachePolicy="none"
                     accessibilityLabel="Layout preview only — rectangles are not detected structure or zones"
                   />
-                  {MOCK_LAYOUT_PREVIEW_ZONES.map((z, i) => (
+                  {contractStubPreview.zones.map((zone) => (
                     <View
-                      key={`mock-zone-${String(i)}`}
+                      key={zone.id}
                       accessibilityElementsHidden
                       importantForAccessibility="no-hide-descendants"
                       pointerEvents="none"
                       style={[
                         styles.mockHighlight,
                         {
-                          top: `${z.topPct}%`,
-                          left: `${z.leftPct}%`,
-                          width: `${z.widthPct}%`,
-                          height: `${z.heightPct}%`,
+                          top: `${zone.overlayRect.y * 100}%`,
+                          left: `${zone.overlayRect.x * 100}%`,
+                          width: `${zone.overlayRect.w * 100}%`,
+                          height: `${zone.overlayRect.h * 100}%`,
                         },
                       ]}
                     />
                   ))}
                 </View>
                 <View style={styles.mockLegendList}>
-                  {MOCK_LAYOUT_PREVIEW_ZONES.map((z, i) => (
-                    <View key={`mock-caption-${String(i)}`} style={styles.mockLegendRow}>
-                      <Text style={styles.mockLegendTitle}>{z.label}</Text>
-                      <Text style={styles.mockLegendReason}>{z.reason}</Text>
+                  {contractStubPreview.zones.map((zone) => (
+                    <View key={`${zone.id}-caption`} style={styles.mockLegendRow}>
+                      <Text style={styles.mockLegendTitle}>{zone.label}</Text>
+                      <Text style={styles.mockLegendReason}>{zone.humanExplanation}</Text>
                     </View>
                   ))}
                 </View>
