@@ -862,6 +862,8 @@ Use this section **instead of chat history**. If anything here disagrees with th
 
 **Runtime QA (product / speed):** Across Thonotosassa FL, Oakland MI, Lake Charlevoix MI, and Mille Lacs MN, aerial proof fetch speed has been acceptable during development; close-up tiles remain useful for internal/debug evaluation and should not be primary end-user UI. **Future target:** pinch/zoom on one whole-waterbody map, with internal engine views used only when needed. The in-app **mock result layout preview** is **layout-only**, **UI-only**, **not** a read, **not** analysis from imagery, **not** structure/depth inference, **not** fishing advice.
 
+**Aerial-only read result contract (types only):** See `lib/waterReaderResultContracts.ts` for a future **`WaterReaderAerialOnlyReadResult`** payload shape (`aerial_only` mode, TNM identifiers, attribution, capped `low` | `moderate` confidence, required limitations acknowledging no depth/bathymetry/contours, **`WaterReaderAerialReadZones3To5`** = exactly 3–5 normalized overlay zones). This is **documentation by types** for a hypothetical engine boundary — **not** an implemented read engine, not scoring/inference/export, until explicitly built.
+
 ---
 
 ## 1. Product definition
