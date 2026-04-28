@@ -16,6 +16,12 @@ import { colors, fonts, spacing, radius } from '../lib/theme';
 import { fetchWaterbodyAerialTilePlan, searchWaterbodies } from '../lib/waterReader';
 import type { AerialTilePlan, AerialTilePlanLabel, WaterbodySearchResult } from '../lib/waterReaderContracts';
 import {
+  assessImageryProofTile,
+  summarizeProofQualityForUi,
+  type ImageryProofQualityReport,
+  type ImageryProofTerminalPhase,
+} from '../lib/waterReaderImageryQualityProof';
+import {
   buildNaipPlusExportImageUrl,
   isValidWgs84Bbox,
   isValidWgs84Centroid,
@@ -28,6 +34,7 @@ import { planAerialReadTiles, type Wgs84Bbox } from '../lib/waterReaderAerialTil
 
 const SNAPSHOT_TIMEOUT_MS = 28_000;
 const IMAGERY_PROOF_TIMEOUT_MS = 28_000;
+const IMAGERY_PROOF_EXPORT_PX = 512;
 const IMAGERY_PROOF_CLOSE_TILE_LIMIT = 3;
 const SEARCH_DEBOUNCE_MS = 400;
 const SEARCH_RESULT_LIMIT = 16;
@@ -68,7 +75,26 @@ interface ImageryProofImage {
   bbox: Wgs84Bbox;
   uri: string;
   phase: ImageryProofPhase;
+  proofRunId: number;
+  loadStartedAtMs: number;
+  quality?: ImageryProofQualityReport;
   prototypeVisibleCategory?: string;
+}
+
+function proofTimeoutSlotKey(proofRunId: number, imageKey: string): string {
+  return `${proofRunId}::${imageKey}`;
+}
+
+function intrinsicFromProofImageLoadEvent(e: {
+  nativeEvent?: { source?: { width?: number; height?: number } };
+  source?: { width?: number; height?: number };
+}): { width: number; height: number } | null {
+  const w = e.nativeEvent?.source?.width ?? e.source?.width;
+  const h = e.nativeEvent?.source?.height ?? e.source?.height;
+  if (typeof w === 'number' && typeof h === 'number' && Number.isFinite(w) && Number.isFinite(h)) {
+    return { width: w, height: h };
+  }
+  return null;
 }
 
 function formatAvailability(r: WaterbodySearchResult): string {
@@ -178,6 +204,7 @@ export default function WaterReaderScreen() {
   const [imageryProofImages, setImageryProofImages] = useState<ImageryProofImage[] | null>(null);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const proofTimeoutRefs = useRef<Record<string, ReturnType<typeof setTimeout>>>({});
+  const imageryProofRunIdRef = useRef(0);
   const loadGenerationRef = useRef(0);
   const searchRequestId = useRef(0);
 
@@ -419,12 +446,35 @@ export default function WaterReaderScreen() {
     setAerialPhase('error');
   }, []);
 
-  const updateImageryProofPhase = useCallback((key: string, phase: ImageryProofPhase) => {
-    clearProofTimer(key);
-    setImageryProofImages((current) =>
-      current?.map((image) => (image.key === key ? { ...image, phase } : image)) ?? null,
-    );
-  }, []);
+  const finalizeImageryProofImage = useCallback(
+    (
+      key: string,
+      proofRunId: number,
+      phase: ImageryProofTerminalPhase,
+      intrinsic: { width: number; height: number } | null,
+    ) => {
+      const slot = proofTimeoutSlotKey(proofRunId, key);
+      clearProofTimer(slot);
+      const finishedAtMs = Date.now();
+      setImageryProofImages((current) => {
+        if (!current) return null;
+        return current.map((image) => {
+          if (image.key !== key) return image;
+          if (image.proofRunId !== proofRunId) return image;
+          if (image.phase !== 'loading') return image;
+          const report = assessImageryProofTile({
+            phase,
+            loadStartedAtMs: image.loadStartedAtMs,
+            finishedAtMs,
+            expectedExportPx: IMAGERY_PROOF_EXPORT_PX,
+            intrinsic,
+          });
+          return { ...image, phase, quality: report };
+        });
+      });
+    },
+    [],
+  );
 
   const qTrim = query.trim();
   const stateNameForEmpty =
@@ -455,7 +505,9 @@ export default function WaterReaderScreen() {
     if (!aerialTilePlan) return;
 
     clearProofTimers();
-    const contextUri = buildNaipPlusExportImageUrl(aerialTilePlan.contextBbox, { size: 512 });
+    imageryProofRunIdRef.current += 1;
+    const proofRunId = imageryProofRunIdRef.current;
+    const contextUri = buildNaipPlusExportImageUrl(aerialTilePlan.contextBbox, { size: IMAGERY_PROOF_EXPORT_PX });
     const images: ImageryProofImage[] = contextUri
       ? [{
           key: 'context',
@@ -463,11 +515,13 @@ export default function WaterReaderScreen() {
           bbox: aerialTilePlan.contextBbox,
           uri: contextUri,
           phase: 'loading',
+          proofRunId,
+          loadStartedAtMs: Date.now(),
         }]
       : [];
 
     for (const tile of aerialTilePlan.closeTiles.slice(0, IMAGERY_PROOF_CLOSE_TILE_LIMIT)) {
-      const uri = buildNaipPlusExportImageUrl(tile.bbox, { size: 512 });
+      const uri = buildNaipPlusExportImageUrl(tile.bbox, { size: IMAGERY_PROOF_EXPORT_PX });
       if (!uri) continue;
       images.push({
         key: `tile-${tile.id}`,
@@ -475,6 +529,8 @@ export default function WaterReaderScreen() {
         bbox: tile.bbox,
         uri,
         phase: 'loading',
+        proofRunId,
+        loadStartedAtMs: Date.now(),
         prototypeVisibleCategory: tile.prototypeVisibleCategory,
       });
     }
@@ -485,12 +541,13 @@ export default function WaterReaderScreen() {
   useEffect(() => {
     if (!imageryProofImages) return;
     for (const image of imageryProofImages) {
-      if (image.phase !== 'loading' || proofTimeoutRefs.current[image.key]) continue;
-      proofTimeoutRefs.current[image.key] = setTimeout(() => {
-        updateImageryProofPhase(image.key, 'timeout');
+      const slot = proofTimeoutSlotKey(image.proofRunId, image.key);
+      if (image.phase !== 'loading' || proofTimeoutRefs.current[slot]) continue;
+      proofTimeoutRefs.current[slot] = setTimeout(() => {
+        finalizeImageryProofImage(image.key, image.proofRunId, 'timeout', null);
       }, IMAGERY_PROOF_TIMEOUT_MS);
     }
-  }, [imageryProofImages, updateImageryProofPhase]);
+  }, [imageryProofImages, finalizeImageryProofImage]);
 
   return (
     <KeyboardAvoidingView
@@ -733,7 +790,7 @@ export default function WaterReaderScreen() {
               <View style={styles.imageryProofBlock}>
                 <Text style={styles.planMetaLabel}>Imagery retrieval proof only</Text>
                 <Text style={styles.prototypeCopy}>
-                  No analysis, no depth, no fish-zone scoring. Images are fetched on demand and not stored.
+                  Imagery quality lines below are retrieval / decode signals only — not an analysis, not a read, no depth, no fish-zone scoring. USGS TNM NAIP Plus only; on demand; not stored.
                 </Text>
                 <Pressable
                   onPress={onLoadImageryProof}
@@ -747,7 +804,7 @@ export default function WaterReaderScreen() {
                   <Text style={styles.proofButtonText}>Load close-up imagery proof</Text>
                 </Pressable>
                 <Text style={styles.planMetaHint}>
-                  Request budget for this proof: whole-lake context + up to {IMAGERY_PROOF_CLOSE_TILE_LIMIT} close tiles at 512px. This does not cache imagery.
+                  Request budget for this proof: whole-lake context + up to {IMAGERY_PROOF_CLOSE_TILE_LIMIT} close tiles at {IMAGERY_PROOF_EXPORT_PX}px. This does not cache imagery.
                 </Text>
 
                 {imageryProofImages && (
@@ -771,10 +828,17 @@ export default function WaterReaderScreen() {
                               style={styles.proofImage}
                               contentFit="cover"
                               cachePolicy="none"
-                              recyclingKey={image.key}
+                              recyclingKey={`${image.key}-${image.proofRunId}`}
                               accessibilityLabel={`${image.label} USGS imagery retrieval proof`}
-                              onLoad={() => updateImageryProofPhase(image.key, 'loaded')}
-                              onError={() => updateImageryProofPhase(image.key, 'error')}
+                              onLoad={(e) =>
+                                finalizeImageryProofImage(
+                                  image.key,
+                                  image.proofRunId,
+                                  'loaded',
+                                  intrinsicFromProofImageLoadEvent(e),
+                                )}
+                              onError={() =>
+                                finalizeImageryProofImage(image.key, image.proofRunId, 'error', null)}
                             />
                           )}
                           {image.phase === 'loading' && (
@@ -790,6 +854,16 @@ export default function WaterReaderScreen() {
                             <Text style={styles.proofFallback}>This proof image could not load.</Text>
                           )}
                         </View>
+                        {image.quality && (
+                          <View style={styles.proofQualityBlock}>
+                            <Text style={styles.proofQualityTitle}>Imagery quality (proof only)</Text>
+                            {summarizeProofQualityForUi(image.quality).map((line, idx) => (
+                              <Text key={`${image.key}-q-${idx}`} style={styles.proofQualityLine}>
+                                {line}
+                              </Text>
+                            ))}
+                          </View>
+                        )}
                       </View>
                     ))}
                     <Text style={styles.attrSmall}>{USGS_TNM_ATTRIBUTION}</Text>
@@ -1126,6 +1200,26 @@ const styles = StyleSheet.create({
     color: colors.textSecondary,
     lineHeight: 18,
     textAlign: 'center',
+  },
+  proofQualityBlock: {
+    marginTop: spacing.sm,
+    paddingTop: spacing.sm,
+    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopColor: colors.border,
+    gap: 4,
+  },
+  proofQualityTitle: {
+    fontSize: 11,
+    fontWeight: '700',
+    color: colors.textMuted,
+    textTransform: 'uppercase',
+    letterSpacing: 0.4,
+    marginBottom: 2,
+  },
+  proofQualityLine: {
+    fontSize: 11,
+    color: colors.textSecondary,
+    lineHeight: 16,
   },
   modalWrap: { flex: 1, backgroundColor: colors.background, paddingTop: 8 },
   modalHeader: {

@@ -849,9 +849,16 @@ Use this section **instead of chat history**. If anything here disagrees with th
 - Lake Thonotosassa FL: fast, clear, three close panes loaded and felt useful.
 - Lake Oakland MI: loaded, but earlier client-grid close tiles could be too zoomed out or land-heavy.
 - Mille Lacs MN and Lake Charlevoix MI: fast/useful but showed stripe/seam-like imagery artifacts in some tiles.
-- Server geometry tile planning was added to improve tile relevance; artifact handling is still not built.
+- Server geometry tile planning was added to improve tile relevance; **automatic** stripe/seam/clarity/blank detection is still not built (the proof layer below labels those as not evaluated on-device).
 
-**Next target:** Add an image-quality assessment slice for fetched aerial proof images before any visible-feature detection or fish-zone scoring. Quality should track load status, duration, blank/no-data suspicion, seam/stripe artifact suspicion where feasible, and a simple `good` / `fair` / `poor` / `failed` visibility label. This remains proof-only and must not produce real fishing recommendations.
+**Image-quality proof layer (client-only retrieval/decode metadata — done in repo):**
+
+- Fires only after the user-triggered **imagery retrieval proof** path on `/water-reader`; implementation: `lib/waterReaderImageryQualityProof.ts` and the proof block in `app/water-reader.tsx`.
+- Records per tile: **load outcome** (loaded / error / timeout), **elapsed duration**, and **intrinsic dimensions** when the native image `onLoad` reports finite width/height (including `0`).
+- Distinguishes **missing intrinsic metadata** (not available from the native event — not elevated blank/no-data suspicion) from **degenerate reported dimensions** (non-positive or below the small-size threshold — elevated *decode-metadata* suspicion only, not a claim of true blank imagery).
+- **Proof-run guard** (`proofRunId` + per-run timeout slot keys): stale load/error/timeout from an older proof run cannot finalize the current tiles or cancel the current run’s timers when tile keys are reused.
+- Explicit **non-assessment** (decode-only honesty): stripes/seams, clarity, shoreline read support, and true blank/no-data **without pixel access** — not evaluated on-device; UI stays **proof-only** (not analysis, not a read, no depth/bathymetry, no fish-zone scoring).
+- **Constraints preserved:** aerial-first context only; **USGS TNM NAIP Plus** client `exportImage` only — **no server-side imagery fetch**; **no caching/persistence/export** of source tiles; **aerial-only proof ceiling** remains **low** or **moderate** — **never high**.
 
 ---
 
