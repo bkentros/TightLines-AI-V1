@@ -48,3 +48,11 @@ yarn-error.*
 .cursor/
 .claude/
 node_modules/.deno/
+
+# Python (offline tooling, local scripts)
+__pycache__/
+*.py[cod]
+
+# Generated local asset backups / logs
+TightLinesAI/assets/images/_backups/
+TightLinesAI/scripts/_tackle-gen-full.log

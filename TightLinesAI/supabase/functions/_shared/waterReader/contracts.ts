@@ -6,6 +6,9 @@
 
 export const WATERBODY_SEARCH_FEATURE = "waterbody_search_v1" as const;
 export const WATERBODY_AERIAL_TILE_PLAN_FEATURE = "waterbody_aerial_tile_plan_v1" as const;
+/** Transient RPC-backed geometry candidate hints (`plan_waterbody_aerial_geometry_candidates`) — no polygons in payload. */
+export const WATERBODY_AERIAL_GEOMETRY_CANDIDATES_FEATURE =
+  "waterbody_aerial_geometry_candidates_v1" as const;
 export const WATERBODY_SOURCE_VALIDATION_FEATURE = "waterbody_source_validation_v1" as const;
 
 /** POST body scope for `waterbody-source-validation` (internal key). Defaults to lake link validation when omitted. */
@@ -124,6 +127,51 @@ export interface AerialTilePlanResponse {
   feature: typeof WATERBODY_AERIAL_TILE_PLAN_FEATURE;
   lakeId: string;
   plan: AerialTilePlan | null;
+}
+
+/** Matches `public.plan_waterbody_aerial_geometry_candidates` surface — polygon geometry never included. */
+export type AerialGeometryCandidateFeatureTag =
+  | "shoreline_complexity"
+  | "coverage_distribution";
+
+export type AerialGeometryCandidateSource = "geometry_candidate";
+
+/** Narrow codes emitted by the geometry-candidates RPC for Water Reader overlays (contract-aligned). */
+export type AerialGeometryCandidateReasonCode =
+  | "shoreline_area_geometry_context"
+  | "map_region_callout";
+
+export interface WaterbodyAerialGeometryCandidateRow {
+  lakeId: string;
+  name: string;
+  state: string;
+  county: string | null;
+  waterbodyType: WaterbodyType;
+  contextBbox: WaterbodyPreviewBbox;
+  candidateId: number;
+  featureTag: AerialGeometryCandidateFeatureTag;
+  candidateSource: AerialGeometryCandidateSource;
+  reasonCode: AerialGeometryCandidateReasonCode;
+  anchorLon: number;
+  anchorLat: number;
+  normalizedAnchorX: number;
+  normalizedAnchorY: number;
+  overlayX: number;
+  overlayY: number;
+  overlayW: number;
+  overlayH: number;
+  baseScore: number;
+  /** QA flags/counts from SQL (`geometry_qa` jsonb); opaque metadata only. */
+  geometryQa: Record<string, unknown>;
+  requestedMonth: number | null;
+}
+
+export interface WaterbodyAerialGeometryCandidatesResponse {
+  feature: typeof WATERBODY_AERIAL_GEOMETRY_CANDIDATES_FEATURE;
+  lakeId: string;
+  month: number | null;
+  maxZones: number;
+  candidates: WaterbodyAerialGeometryCandidateRow[];
 }
 
 export interface WaterbodyGeometryBackbone {

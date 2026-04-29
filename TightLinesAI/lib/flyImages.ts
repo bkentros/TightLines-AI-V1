@@ -3,7 +3,7 @@
  *
  * Maps fly archetype IDs → local image assets.
  * Images live in: assets/images/flies/
- * All images are 512×512 RGBA PNG with transparent background.
+ * Target: square RGBA PNG (e.g. 1024×1024) with transparent background for UI.
  */
 
 const FLY_IMAGES: Partial<Record<string, ReturnType<typeof require>>> = {
@@ -32,6 +32,8 @@ const FLY_IMAGES: Partial<Record<string, ReturnType<typeof require>>> = {
   sculpzilla:                       require('../assets/images/flies/sculpzilla.png'),
   muddler_sculpin:                  require('../assets/images/flies/muddler_sculpin.png'),
   crawfish_streamer:                require('../assets/images/flies/crawfish_streamer.png'),
+  warmwater_crawfish_fly:           require('../assets/images/flies/warmwater_crawfish_fly.png'),
+  warmwater_worm_fly:               require('../assets/images/flies/warmwater_worm_fly.png'),
   conehead_streamer:                require('../assets/images/flies/conehead_streamer.png'),
 
   // ── Pike streamers ────────────────────────────────────────────────────────
@@ -43,8 +45,10 @@ const FLY_IMAGES: Partial<Record<string, ReturnType<typeof require>>> = {
   // ── Surface flies ─────────────────────────────────────────────────────────
   popper_fly:                       require('../assets/images/flies/popper_fly.png'),
   deer_hair_slider:                 require('../assets/images/flies/deer_hair_slider.png'),
+  foam_gurgler_fly:                 require('../assets/images/flies/foam_gurgler_fly.png'),
   frog_fly:                         require('../assets/images/flies/frog_fly.png'),
   mouse_fly:                        require('../assets/images/flies/mouse_fly.png'),
+  pike_flash_fly:                   require('../assets/images/flies/pike_flash_fly.png'),
 };
 
 /** Returns the image for a fly archetype, or null if not yet available. */

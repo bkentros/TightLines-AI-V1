@@ -1,12 +1,17 @@
 # FinFindr Water Reader — Master Plan
 
-**Purpose:** This is the single active source of truth for the Water Reader feature.
+> **Current engine note (2026-04-28):** For active Water Reader engine rebuild work, use
+> [`WATER_READER_CURRENT_ENGINE_PLAN.md`](./WATER_READER_CURRENT_ENGINE_PLAN.md) as the controlling plan.
+> This master plan remains important historical/source/legal context, but older geometry-grid, rectangle-overlay,
+> and live SQL-only detector notes are superseded for current implementation.
+
+**Purpose:** Historical master plan and source/legal context for the Water Reader feature. For current engine execution, see `WATER_READER_CURRENT_ENGINE_PLAN.md`.
 
 **Audience:** Brandon, future developers, and AI coding agents.
 
-**Status:** Active master plan for Water Reader V1 and near-term expansion.
+**Status:** Historical master plan plus source/legal context. Current engine work is controlled by `WATER_READER_CURRENT_ENGINE_PLAN.md`.
 
-**Replaces:** `WATER_READER_ARCHITECTURE.md` and `WATER_READER_BUILD_PLAN.md` as active planning documents. Those files remain in the repo only as historical reference and must not be used as the execution plan.
+**Former planning docs removed:** `WATER_READER_ARCHITECTURE.md` and `WATER_READER_BUILD_PLAN.md` were obsolete execution plans and have been removed to prevent future agents from following the superseded path.
 
 ---
 
@@ -646,6 +651,12 @@ Next recommended phase (sequencing intent — not all steps are complete):
 - `waterbody-search` returns `previewBbox` for search results when a valid geometry-derived preview envelope is available; the app treats it as source-preview framing only.
 - `waterbody-source-validation` — deployed with **internal** auth via `WATER_READER_INTERNAL_KEY` (`--no-verify-jwt`); mutates per-link validation columns only for requested `lakeId` / `sourceMode`.
 
+**App project validation — geometry-candidate RPC / Edge (FinFindr)**
+
+- **Authoritative Supabase project** for the shipped client (`EXPO_PUBLIC_SUPABASE_URL`): project ref **`hsesngprhpgajyfbrwbf`**. Alternate databases used only for temporary staging/proofs must **not** supply canonical **`lakeId`** values for docs, prompts, or automated validation tied to this app.
+- **`waterbody_index.id`** is **environment-specific**. Do **not** reuse UUIDs copied from another Supabase project—a smoke UUID from elsewhere often resolves to **no row** here (RPC returns zero candidates first because **`waterbody_index`** does not contain that id), which can be mistaken for an eligibility bug.
+- **`public.plan_waterbody_aerial_geometry_candidates`** — latest app-DB `CREATE OR REPLACE` was applied from **`20260428213000_water_reader_shoreline_candidate_blended_engine.sql`** after earlier coarse-grid / shoreline-sampling iterations (**`20260427233000`**, **`20260428204500`**, **`20260428171734`**). This whole RPC/Edge path is now **engineering/dev-only** for current engine work; visual testing showed rectangle output was not product-credible. Current implementation direction is controlled by **`docs/WATER_READER_CURRENT_ENGINE_PLAN.md`**: offline vector audit first, arcs/anchors before any product renderer. Validate only against **`waterbody_index` ids that exist on this project**. Treat QA **`lakeId`** values as **fixtures**, not constants across databases.
+
 **Minnesota DNR depth pilot (six lakes)**
 
 - **Matching rules:** `docs/water_reader_mn_dnr_depth_pilot_matching_spec.md`
@@ -860,29 +871,140 @@ Use this section **instead of chat history**. If anything here disagrees with th
 - Explicit **non-assessment** (decode-only honesty): stripes/seams, clarity, shoreline read support, and true blank/no-data **without pixel access** — not evaluated on-device; UI stays **proof-only** (not analysis, not a read, no depth/bathymetry, no fish-zone scoring).
 - **Constraints preserved:** aerial-first context only; **USGS TNM NAIP Plus** client `exportImage` only — **no server-side imagery fetch**; **no caching/persistence/export** of source tiles; **aerial-only proof ceiling** remains **low** or **moderate** — **never high**.
 
-**Runtime QA (product / speed):** Across Thonotosassa FL, Oakland MI, Lake Charlevoix MI, and Mille Lacs MN, aerial proof fetch speed has been acceptable during development; close-up tiles remain useful for internal/debug evaluation and should not be primary end-user UI. **Future target:** pinch/zoom on one whole-waterbody map, with internal engine views used only when needed. The in-app **mock result layout preview** is **layout-only**, **UI-only**, **not** a read, **not** analysis from imagery, **not** structure/depth inference, **not** fishing advice.
+**Runtime QA (product / speed):** Across Thonotosassa FL, Oakland MI, Lake Charlevoix MI, and Mille Lacs MN, aerial proof fetch speed has been acceptable during development; close-up tiles remain useful for internal/debug evaluation and should not be primary end-user UI. **Future target:** pinch/zoom on one whole-waterbody map, with internal engine views used only when needed. While the Water Reader analysis rebuild is offline, **`/water-reader`** does **not** render any in-app rectangle/mock read preview — only whole-lake USGS preview, attribution, tile-plan/debug proof UI, and a rebuild placeholder.
 
 **Aerial-only read result contract (types only):** See `lib/waterReaderResultContracts.ts` for a future **`WaterReaderAerialOnlyReadResult`** payload shape (`aerial_only` mode, TNM identifiers, attribution, capped `low` | `moderate` confidence, required limitations acknowledging no depth/bathymetry/contours, **`WaterReaderAerialReadZones3To5`** = exactly 3–5 normalized overlay zones). This is **documentation by types** for a hypothetical engine boundary — **not** an implemented read engine, not scoring/inference/export, until explicitly built.
 
-**Contract prototype stub (`lib/waterReaderMockResult.ts`):** **`buildWaterReaderAerialOnlyStubResult`** generates a deterministic, attribution-stamped **`WaterReaderAerialOnlyReadResult`** so the **`/water-reader`** mock layout preview aligns with the contract. It performs **no** analysis, inference, scoring, imagery inspection, caching, persistence, export, recommendations, fish-zone logic, or depth/contour use — **prototype wiring only**, not an engine.
+### 0.5.22 Deterministic aerial V1 engine direction (agreed)
+
+**Status:** Product/engine direction for the first real read path — **documentation only** until implemented. Aligned with **`WaterReaderAerialOnlyReadResult`** (`lib/waterReaderResultContracts.ts`) as the deterministic render envelope (no free-form AI narrator in V1).
+
+1. **User-facing output label — “Best Starting Areas.”** Do not label the first read as a proprietary internal term in primary UI.
+2. **Internal synthesis concept — “High-Confluence Areas”:** engine logic may treat these as places where **lake geometry**, **later** **aerial-visible / aerial-safe cues** (when legitimately layered), and **month-weighted** structure priorities overlap. This framing is engineering vocabulary; proofs and copy must remain source-honest.
+3. **Access mode:** V1 hides **boat vs shore** selection initially. Interpret output as **lake-wide** priorities suited to boat/kayak/general open-water framing — **no** implication of shoreline, public/private, or legal/public access readiness.
+4. **Species breadth:** First engine pass targets broad **freshwater gamefish** context — **species-specific** tuning deferred.
+5. **Seasonality:** Prefer **smooth, month-by-month weighted** influence — avoid hard switches at calendar-season boundaries **and avoid drastic flips across month edges**. **Region-specific** month-calibration models deferred until after the baseline behaves.
+6. **Geometry-first execution:** Candidate geometry features include **points, coves/pockets, neckdowns**, **islands / inside turns** where polygons support credible geometry reads, **shoreline complexity** — all from approved waterbody/lake-boundary context. **Do not** claim depth breaks, humps, stratified-depth features, offshore bottom structure, thermoclines, or any subsurface fishing-structure claim without **approved depth-mode** evidence merged under policy.
+7. **Visible cues (desired, later):** Add only **after geometry-first is stable.** Requires explicit handling for **alignment**, ortho **artifacts/stripes/seams**, and **honest labeling** — no overclaiming from pixels alone.
+8. **Deterministic surface:** Persist rendering and explanatory copy deterministically via **`WaterReaderAerialOnlyReadResult`** fields (reason codes, confidence, limitations, zones). Summary/legend strings should derive from those fields — **no** unconstrained prose narrator in **V1**.
+
+### 0.5.23 Deterministic aerial V1 engine design (spec)
+
+**Status:** Executable design intent for engineers — **documentation only**; no engine implementation is implied shipped by this subsection. Narrower than **`§1` long-term vision**; must stay consistent with **`§0.5.22`**.
+
+#### Purpose
+
+- Emit **exactly five** user-facing **“Best Starting Areas”** (internal scoring may still refer to **High-Confluence Areas**).
+- **Broad freshwater gamefish** — no species-specific tuning in this slice.
+- **Lake-wide** framing appropriate to **boat / kayak / general open-water** starts — **no** shore/boat UI, **no** shoreline **public/private/legal access** claims.
+- **No** depth, bathymetry, contours, or subsurface “structure” vocabulary in output unless **§0.4** / depth mode is later approved and implemented separately.
+
+#### Inputs (required + optional)
+
+| Input | Source / notes |
+| --- | --- |
+| Waterbody identity | Search/backbone `lakeId`, name, state, county, `waterbodyType` (see `WaterbodySearchResult`). |
+| Policy / registry | USGS TNM NAIP Plus registry + national policy key (see **`WR_REGISTRY_USGS_TNM_NAIP_PLUS`**, **`WR_POLICY_USGS_TNM_NAIP_PLUS_NATIONAL`** in **`lib/waterReaderResultContracts.ts`**). |
+| Lake boundary geometry | Prefer authoritative polygon for the **`waterbody_id`** when available server-side for engine use; **`previewBbox` / centroid+acres** remain allowable **framing/fallback** for preview (**§0.5.21**) until full geometry ingestion per lake. |
+| Tile plan (`contextBbox`, ordered close tiles + labels) | From **`waterbody-aerial-tile-plan`** Edge (DB-backed) **or** client **`planAerialReadTiles`** (`lib/waterReaderAerialTilePlan.ts`). **Planning metadata only** for candidate placement — tiles do **not** imply orthophoto semantic classification in V1. |
+| **`contextBbox` / preview bbox** | Whole-lake **WGS84** envelope for normalization and raster alignment. |
+| **Current month** | Integer **`1–12`** in caller’s locale calendar (document assumption: user-facing month bucket; **no** hemisphere-specific tuning in V1). |
+| **Future:** image-quality decode metadata | Hooks from **`lib/waterReaderImageryQualityProof.ts`** — **unused in V1 engine scoring** until Phase C. |
+| **Excluded in V1** | Depth rasters, bathymetry vectors, contour layers, temperature, dissolved oxygen, any ML vision embedding of orthophotos. |
+
+#### Geometry-first feature catalog (implementation vocabulary)
+
+Each feature is detected **only** from **2D lake-boundary / water-polygon** analysis (or conservative proxies when only bbox is available). Assign each candidate a **feature tag** for scoring and for mapping to conservative **`WaterReaderAerialZoneReasonCode`** values in **`lib/waterReaderResultContracts.ts`**.
+
+| Feature | Operational definition (sketch) |
+| --- | --- |
+| **Point / protrusion** | High local shoreline curvature/bearing change along outer polygon; small **convex** neck of water landward of point (map geometry, not a “fish point” claim). |
+| **Cove / pocket** | Concave embayment: high **indentation distance / mouth width** ratio vs baseline shoreline step. |
+| **Neckdown / constriction** | Local **min width** of the **narrow water connection** between two shoreline lobes or between shore and island **without** claiming thalweg depth. |
+| **Island / inside turn** | Closed or near-closed **water ring** around an island land polygon; “inside turn” = concave water path along island perimeter. |
+| **Shoreline complexity** | Quantized **sinuosity** or cumulative turn angle per arc length — boosts diverse edge habitat **geometry** only. |
+| **Large-region coverage** | Penalize selecting all five candidates from one embayment: require **minimum great-circle or normalized-map separation** between candidate **anchor** points (see **Diversity** below). |
+
+When only **`contextBbox`** is available (no polygon yet), **degrade** to **grid- or vertex-sampled proxy points** along bbox edges with **lower feature confidence** and **prefer `visible_boundary_context_uncertain` / `map_region_callout`** reason codes — never invent features.
+
+#### Month-by-month structural weighting (12 rows, smooth)
+
+Apply a **structural multiplier** **`m ∈ [0.85, 1.00]`** by integer calendar month. **Do not** apply hard season boundaries; all transitions are **per-month row lookup** (optional future work: linear blend between adjacent months for sub-month timestamps — **not required** for V1).
+
+| Month | `m` | Aerial-honesty note (product, not science claim) |
+| --- | --- | --- |
+| Jan | 0.88 | Cold-water periods often correlate with depth/temperature structure **not modeled** here — keep **read + zone confidence** biased **low**. |
+| Feb | 0.88 | Same as Jan. |
+| Mar | 0.90 | Early spring instability — avoid **moderate** unless geometry signal is strong. |
+| Apr | 0.94 | Warming shallows **may** matter — still **no** thermal data in V1; geometry-only modest lift. |
+| May | 0.98 | Higher seasonal weighting for shoreline / nearshore geometry vs mid-lake — still **geometry + month** only (no depth, no thermal data). |
+| Jun | 1.00 | Baseline reference month. |
+| Jul | 1.00 | Same. |
+| Aug | 0.99 | Late summer stratification / depth refuge **not** observed — optionally cap **`moderate`** share. |
+| Sep | 0.98 | Fall turnover / depth repositioning **not** observed — tighten wording in limitations. |
+| Oct | 0.95 | Same caution as Sep. |
+| Nov | 0.90 | Pre-winter moves often depth-led — reinforce **low** default confidence. |
+| Dec | 0.88 | Same as winter rows. |
+
+**Smoothness rule:** Adjacent months must not differ by more than **~0.04** in **`m`** without product review (table above satisfies this). **Region-specific rows** deferred (**§0.5.22**).
+
+#### Scoring model (deterministic additive, top 5)
+
+- **Base feature score:** For each geometry candidate **`i`**, **`S_i = Σ_f ( w_f × f_{i,f} )`** where **`f_{i,f} ∈ [0,1]`** are normalized detectors (explicit formulas TBD per feature), **`w_f`** are documented constants (example sketch: points **0.18**, coves **0.22**, neckdowns **0.20**, island turns **0.18**, complexity **0.12**, remainder overlap/distribution **0.10** — **sums to 1.0**, tunable offline).
+- **Month gate:** **`S'_i = S_i × m(month)`**.
+- **Diversity penalty:** Let **`d(i,j)`** be normalized separation of candidate anchors on **`contextBbox` →** **unit overlay** plane. Subtract **`Σ_{j≠i} λ / (d(i,j)+ε)`** with small **`λ>0`** (suppresses stacking five zones in one embayment). Clip negatives at **0**.
+- **Ranking:** Sort **`S''`** descending; apply **NMS-style** pruning: iteratively accept next highest if **`d` to accepted set ≥ threshold** **`T_sep`** else skip (fill up to five or fall back next).
+- **Count:** **`WaterReaderAerialReadZones3To5`** — **target five** zones; allow **fallback to three–four** only if **`T_sep`** or geometry yield insufficient candidates (**must** widen limitations string when shortfall).
+- **Confidence mapping:** Output confidence is only **low** or **moderate** (never **high**, per contract). Zone confidence **moderate** only if **`S''`** is above a calibrated floor **and** **`m ≥ 0.94`**; else **low**. Overall read **moderate** only if **≥3** zones are **moderate** **and** **`m ≥ 0.96`**; otherwise **low**.
+- **Explainability:** No LLM narration — deterministic strings from (**reasonCode**, **`S''` quantized bucket**, **`m`** bucket, limitations template).
+
+#### Output envelope mapping (`WaterReaderAerialOnlyReadResult`)
+
+- **`waterbody`** ← identity slice; **`sourceMode: 'aerial_only'`**; **`imagerySource`** literals per contract; **`attribution`** ← **`USGS_TNM_ATTRIBUTION`** (same constant as whole-lake / proof paths in `lib/usgsTnmAerialSnapshot.ts`).
+- **`zones`:** Exactly **five** summaries in V1 nominal path — each **`overlayRect`** in **`normalized_planar_whole_waterbody_overlay_01`** (**derive** from **`contextBbox` →** **unit square** of whole-lake map render).
+- **Reason code selection:** Map feature tag → closest enum among **`waterbody_geometry_context`**, **`shoreline_area_geometry_context`**, **`map_region_callout`**, **`visible_boundary_context_uncertain`**, **`operator_review_placeholder`** (last reserved for shortfall / degenerate geometry).
+- **`humanExplanation`:** Template **A** + feature tag + month bucket + score bucket — **no** fish-catch promises, **no** access, **no** depth.
+- **`evidence`:** **`depthEvidenceUsed: false`**, **`bathymetryEvidenceUsed: false`**; **`visibleImageryHypothesisUsed: false`** remains **structural** until a future contract version lifts it (see Phase C note below); **`geometryBackedCue: true`** only when polygon-derived.
+- **`limitations`:** Must include **no depth/bathymetry/contours**, **no pixel AI**, **no shoreline access**, **no exact fish location**, **orthophoto alignment limits** if relevant, **Google imagery prohibited** for analysis (**§0.4** / **§2**).
+
+#### Hard guardrails (non-negotiable)
+
+- **Never** label depth breaks, humps, **stratified-depth features**, **offshore bottom structure**, thermoclines, or **any** subsurface fishing-structure claim **without** approved depth-mode pipeline — **geometry + month** only.
+- **Never** imply public/private shoreline, legal trespass boundaries, or **exact** fish coordinates.
+- **Never** **`high`** confidence.
+- **No** default **caching/persistence/export** of orthophotos or **derived fish-zone rasters** beyond **§0.4** allowances.
+- **Visible-cue** layers **inactive** until **geometry-first** QA passes — **§0.5.22** ordering.
+
+#### Implementation phases
+
+| Phase | Scope |
+| --- | --- |
+| **A — Geometry candidate generator** | Deterministic extraction of labeled candidates + scores from polygon/bbox (decoupled from any app UI — unit tests / headless first). |
+| **B — Renderer + contract mapping** | Map candidates → **`WaterReaderAerialOnlyReadResult`**; deterministic legend; ship read behind feature flag **or** progressive rollout. |
+| **C — Optional visible cue assist** | Only after **alignment**, **stripe/seam** honesty, ortho resolution checks; still **additive** bounded weights atop geometry score; contract + policy must authorize any non-`false` ortho hypothesis flags. |
+| **D — Species + access modes** | Shore/boat pickers + species overlays — deferred per **`§1` full-product** lane. |
+
+*Phase C note:* The current contract literal **`visibleImageryHypothesisUsed: false`** is fixed until **`WR_AERIAL_ONLY_RESULT_CONTRACT_ID`** (or successor) expands the type and policy permits ortho-hypothesis stamping.
 
 ---
 
 ## 1. Product definition
 
-**Water Reader helps an angler search a named U.S. lake or pond, choose species and shore/boat mode, then receive a clean marked-up map showing the highest-probability starting zones, why those zones matter, and how confident FinFindr is in those recommendations.**
+**Note — V1 slice vs this section:** **§1** below describes the broader Water Reader **product vision** and roadmap. For the **current aerial-only V1 engine implementation**, **§0.5.22 is controlling**: user-facing **“Best Starting Areas,”** broad **freshwater gamefish** context (not species-picker-first), **no** shore/boat mode selection initially, deterministic **`WaterReaderAerialOnlyReadResult`** rendering (**no** free-form AI narrator in **V1**), **no** aerial depth/bathymetry/contour reliance, **no** public/private or legal shoreline **access** readiness claims. The prose that follows stays the north star—**species + shore/boat** are **full-product / later** milestones, not the immediate V1 aerial engine slice unless §0.5.22 is updated.
 
-This is FinFindr's flagship feature because it combines:
+**Long-term product vision:** Water Reader helps an angler search a named U.S. lake or pond; in the **full-product** experience (**not** yet the aerial-only V1 flow in §0.5.22), the user **also chooses species** and **shore vs boat mode**, then receives a clean marked-up map showing the highest-probability starting zones, why those zones matter, and how confident FinFindr is in those recommendations.
+
+This is FinFindr's flagship feature because **at maturity** it combines:
 
 - lake/pond structure
-- species and season
-- shore vs boat context
+- species and season (**full-product emphasis**; aerial-only **V1** uses month-weighted, broad freshwater gamefish context per §0.5.22)
+- shore vs boat context (**later / full-product framing**; §0.5.22 hides the picker initially)
 - source quality
 - presentation logic
 
-The result should feel like:
+The full-product promise should feel like:
 
-> Search a lake, choose species, choose shore or boat, then get a premium fishing map that tells you where to start and why.
+> Search a lake, choose species, choose shore or boat, then get a premium fishing map that tells you where to start and why. **(Deferred for the aerial-only V1 read path—see §0.5.22.)**
 
 ---
 
@@ -899,10 +1021,11 @@ The result should feel like:
    - National coverage means named-lake search coverage first, not perfect depth parity in every state.
    - Every lake should have an honest best-available report path, even when data quality varies.
 
-3. **Deterministic engine decides. Renderer draws. AI explains.**
+3. **Deterministic engine decides. Renderer draws. Deterministic templates explain (aerial-only V1).**
    - The engine chooses zones from structured evidence.
    - The renderer draws the chosen geometry.
-   - The LLM may explain the report, but may not invent structure, zones, or certainty.
+   - **Current aerial-only V1 (§0.5.22 / §0.5.23):** Copy, legend, and **`humanExplanation`** strings are **deterministic** — composed from reason codes, confidence, limitations, and scored buckets — **no free-form AI narrator** on the read surface.
+   - **Long-term / full product:** Constrained models **may** elaborate phrasing **only** without inventing structure, zones, or certainty (see later phases); until then, treat **“AI explains”** as **non-applicable** to V1 delivery.
 
 4. **Baseline species-season logic is the foundation of Water Reader.**
    - Water Reader should first work as a standalone where-to-start engine.
@@ -2133,4 +2256,4 @@ V1 is successful if a user can:
 
 ## 15. Architecture mantra
 
-> **The baseline deterministic engine decides. The renderer draws. AI explains. Source rights control what can be fetched, stored, derived, and cached.**
+> **The baseline deterministic engine decides. The renderer draws. Deterministic templates explain for aerial-only V1.** **Source rights control what can be fetched, stored, derived, and cached.** *Constrained AI narration (if any) is long-term / full-product only—not the aerial-only V1 read surface (**§2** principle 3).*

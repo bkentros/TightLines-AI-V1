@@ -1,0 +1,9 @@
+{
+  "_comment": "Editable seed for the geometry audit CLI. Do not assume UUIDs match across Supabase projects; use filters or replace ids after validating in your project. The audit query does not filter on is_searchable—only these filters/ids and --limit apply.",
+  "filters": {
+    "state_code": "MI",
+    "name_contains": null,
+    "waterbody_types": ["lake", "pond", "reservoir"]
+  },
+  "ids": []
+}

@@ -5,6 +5,8 @@
 
 export const WATERBODY_SEARCH_FEATURE = "waterbody_search_v1" as const;
 export const WATERBODY_AERIAL_TILE_PLAN_FEATURE = "waterbody_aerial_tile_plan_v1" as const;
+export const WATERBODY_AERIAL_GEOMETRY_CANDIDATES_FEATURE =
+  "waterbody_aerial_geometry_candidates_v1" as const;
 
 export type WaterbodyType = "lake" | "pond" | "reservoir";
 export type WaterReaderSourceMode = "best_available" | "aerial" | "depth";
@@ -76,6 +78,48 @@ export interface AerialTilePlanResponse {
   feature: typeof WATERBODY_AERIAL_TILE_PLAN_FEATURE;
   lakeId: string;
   plan: AerialTilePlan | null;
+}
+
+export type AerialGeometryCandidateFeatureTag =
+  | "shoreline_complexity"
+  | "coverage_distribution";
+
+export type AerialGeometryCandidateSource = "geometry_candidate";
+
+export type AerialGeometryCandidateReasonCode =
+  | "shoreline_area_geometry_context"
+  | "map_region_callout";
+
+export interface WaterbodyAerialGeometryCandidateRow {
+  lakeId: string;
+  name: string;
+  state: string;
+  county: string | null;
+  waterbodyType: WaterbodyType;
+  contextBbox: WaterbodyPreviewBbox;
+  candidateId: number;
+  featureTag: AerialGeometryCandidateFeatureTag;
+  candidateSource: AerialGeometryCandidateSource;
+  reasonCode: AerialGeometryCandidateReasonCode;
+  anchorLon: number;
+  anchorLat: number;
+  normalizedAnchorX: number;
+  normalizedAnchorY: number;
+  overlayX: number;
+  overlayY: number;
+  overlayW: number;
+  overlayH: number;
+  baseScore: number;
+  geometryQa: Record<string, unknown>;
+  requestedMonth: number | null;
+}
+
+export interface WaterbodyAerialGeometryCandidatesResponse {
+  feature: typeof WATERBODY_AERIAL_GEOMETRY_CANDIDATES_FEATURE;
+  lakeId: string;
+  month: number | null;
+  maxZones: number;
+  candidates: WaterbodyAerialGeometryCandidateRow[];
 }
 
 export interface WaterbodySearchResult {

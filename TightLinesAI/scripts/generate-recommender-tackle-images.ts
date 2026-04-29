@@ -1,80 +1,69 @@
 /**
- * Batch-generate recommender tackle PNGs via OpenAI Images API (GPT Image family).
+ * Batch-generate recommender tackle PNGs via OpenAI Images API (`gpt-image-2` by default).
  *
- * Sources of truth for *which* items to render:
- *   `supabase/functions/_shared/recommenderEngine/v4/candidates/lures.ts`
- *   `supabase/functions/_shared/recommenderEngine/v4/candidates/flies.ts`
+ * Prompt wording lives in `scripts/data/recommenderTackleImageManifest.ts` (FinFindr paper
+ * vibe: accurate tackle, not clip art, not hyper-scientific plates).
  *
- * ── One terminal paste (replace the key only; works from any directory) ───────
+ * Transparency: `gpt-image-2` does **not** support API `background: "transparent"`.
+ * This script asks for a flat solid “paper” backdrop (see `CHROMA_KEY_HEX`), then you run
+ * `scripts/strip-recommender-tackle-backgrounds.sh` (rembg) for true RGBA — see
+ * `scripts/RECOMMENDER_TACKLE_IMAGES.md`.
  *
- *   OPENAI_API_KEY='sk-…YOUR_KEY…' deno run -A "/Users/brandonkentros/TightLines AI V1/TightLinesAI/scripts/generate-recommender-tackle-images.ts"
- *
- * Default model is `gpt-image-2` (GPT Image 2, API changelog April 2026). OpenAI may require
- * [organization verification](https://platform.openai.com/settings/organization/general) for it;
- * if you get 403, verify there (wait up to ~15 min) or temporarily use e.g. `--model=gpt-image-1.5`.
- *
- * The field-guide image prompt is built inside this file (per archetype); you do not paste it separately.
+ * Full reset (backup + delete existing PNGs + regenerate all 68), from TightLinesAI/:
+ *   npm run gen:recommender-tackle-images:replace
+ *   (loads OPENAI_API_KEY from .env via --env-file; or export OPENAI_API_KEY manually.)
  *
  * Options:
- *   --dry-run              Print prompts + paths only
- *   --skip-existing        Skip if output PNG already exists
- *   --kind=lures|flies|all (default: all)
- *   --id=<archetype_id>    Only this id (e.g. weightless_stick_worm)
- *   --limit=<n>            Stop after n generations (after filters)
- *   --model=<id>           Default: gpt-image-2
+ *   --dry-run
+ *   --skip-existing
+ *   --replace-catalog      Backup lures/ + flies/ PNGs, delete them, then generate (requires full `all` run, no `--id`)
+ *   --kind=lures|flies|all
+ *   --id=<archetype_id>
+ *   --limit=<n>
+ *   --model=<id>         default gpt-image-2
  *   --quality=low|medium|high|auto
- *   --size=1024x1024       Square recommended for app tiles
- *   --delay-ms=1200        Pause between successful API calls
- *   --background=opaque|transparent|auto   Passed to Images API when set. OpenAI documents
- *     that `gpt-image-2` does not support `transparent`; use `gpt-image-1.5` for PNG alpha.
- *
- * Regenerate one fly with API transparency (example — use full path, not an ellipsis):
- *   OPENAI_API_KEY='sk-…' deno run -A "/Users/brandonkentros/TightLines AI V1/TightLinesAI/scripts/generate-recommender-tackle-images.ts" \\
- *     --kind=flies --id=unweighted_baitfish_streamer --model=gpt-image-1.5 --background=transparent
- *
- * Leech trio (dedicated tiles; each writes assets/images/flies/<id>.png):
- *   …same deno prefix… --kind=flies --id=jighead_marabou_leech --model=gpt-image-1.5 --background=transparent
- *   …same deno prefix… --kind=flies --id=lead_eye_leech --model=gpt-image-1.5 --background=transparent
- *   …same deno prefix… --kind=flies --id=feather_jig_leech --model=gpt-image-1.5 --background=transparent
- *
- * Model note: `gpt-image-2` still benefits from transparency wording in the prompt, but true
- * alpha needs `background: "transparent"` on a model that supports it (e.g. `gpt-image-1.5`).
+ *   --size=1024x1024
+ *   --delay-ms=1200
+ *   --background=opaque|transparent|auto   (transparent disallowed for gpt-image-2)
  */
 
 import { LURE_ARCHETYPES_V4 } from "../supabase/functions/_shared/recommenderEngine/v4/candidates/lures.ts";
 import { FLY_ARCHETYPES_V4 } from "../supabase/functions/_shared/recommenderEngine/v4/candidates/flies.ts";
 import type { ArchetypeProfileV4 } from "../supabase/functions/_shared/recommenderEngine/v4/contracts.ts";
-
-// ── Prompt template (placeholders filled per item) ─────────────────────────
-
-const PROMPT_TEMPLATE = `Create a modern field-guide specimen illustration of {DISPLAY_NAME}, an accurate real fishing {LURE_OR_FLY}. The style should be semi-realistic, tactile, and app-ready: crisp side-profile silhouette, subtle inked outline, soft natural shading, muted outdoor colors, and realistic tackle materials. It should feel like a premium illustrated plate from a vintage fishing field guide, adapted for a modern mobile app.
-
-Centered single object, transparent background, no text, no scene, no hands, no packaging, no water, no rod. The object should fill about 82% of the square canvas and be fully visible. Accuracy matters: {SUBJECT_LINE}.
-
-Avoid photorealistic ecommerce photography, cartoon clip art, childish mascot styling, fantasy lure designs, glossy ad lighting, heavy shadows, extra objects, labels, logos, and over-saturated colors.`;
+import {
+  BACKGROUND_BLOCK,
+  COMPOSITION_BLOCK,
+  NEGATIVE_BLOCK,
+  SHARED_STYLE_BLOCK,
+  getTacklePromptEntry,
+} from "./data/recommenderTackleImageManifest.ts";
 
 type Kind = "lure" | "fly";
 
-function humanizeSnake(s: string): string {
-  return s.replace(/_/g, " ");
-}
-
-function subjectLine(profile: ArchetypeProfileV4, kind: Kind): string {
-  const fam = humanizeSnake(profile.family_group);
-  const col = profile.column;
-  const forage = profile.forage_tags.map(humanizeSnake).join(", ");
-  const base =
-    `Depict a standard, recognizable ${kind} anglers actually buy and fish: correct proportions, hardware where typical (hooks, line tie, blades, lips, skirts, trailers, fibers, dumbbell eyes, cone/bead, etc. as appropriate). ` +
-    `Category: ${fam}. Primary water column: ${col}. Forage cues the pattern imitates: ${forage}.`;
-  return base;
-}
-
 function buildPrompt(profile: ArchetypeProfileV4, kind: Kind): string {
+  const entry = getTacklePromptEntry(profile.id);
+  if (!entry || entry.kind !== kind) {
+    throw new Error(
+      `Missing manifest entry for ${kind} id=${profile.id}. Update scripts/data/recommenderTackleImageManifest.ts`,
+    );
+  }
   const lureOrFly = kind === "lure" ? "lure" : "fly";
-  return PROMPT_TEMPLATE
-    .replaceAll("{DISPLAY_NAME}", profile.display_name)
-    .replaceAll("{LURE_OR_FLY}", lureOrFly)
-    .replaceAll("{SUBJECT_LINE}", subjectLine(profile, kind));
+  return [
+    `Create one app-ready illustration of: ${profile.display_name} (real ${lureOrFly} anglers use).`,
+    "",
+    SHARED_STYLE_BLOCK,
+    "",
+    COMPOSITION_BLOCK,
+    "",
+    BACKGROUND_BLOCK,
+    "",
+    NEGATIVE_BLOCK,
+    "",
+    "Anatomy & construction (priority — must match this):",
+    entry.anatomy,
+    "",
+    `Context (secondary only): fishing category ${profile.family_group.replace(/_/g, " ")}; water column ${profile.column}; imitates ${profile.forage_tags.join("/").replace(/_/g, " ")}.`,
+  ].join("\n");
 }
 
 function outUrl(kind: Kind, id: string): URL {
@@ -82,9 +71,14 @@ function outUrl(kind: Kind, id: string): URL {
   return new URL(`../assets/images/${folder}/${id}.png`, import.meta.url);
 }
 
+function assetsSubdir(sub: "lures" | "flies"): URL {
+  return new URL(`../assets/images/${sub}/`, import.meta.url);
+}
+
 type Cli = {
   dryRun: boolean;
   skipExisting: boolean;
+  replaceCatalog: boolean;
   kind: "all" | "lures" | "flies";
   id: string | null;
   limit: number | null;
@@ -92,7 +86,6 @@ type Cli = {
   quality: string;
   size: string;
   delayMs: number;
-  /** When set, sent as `background` on images/generations (opaque | transparent | auto). */
   background: "opaque" | "transparent" | "auto" | null;
 };
 
@@ -104,6 +97,7 @@ function parseArgs(argv: string[]): Cli {
   };
   const dryRun = argv.includes("--dry-run");
   const skipExisting = argv.includes("--skip-existing");
+  const replaceCatalog = argv.includes("--replace-catalog");
   const kindRaw = get("--kind=");
   const kind =
     kindRaw === "lures" || kindRaw === "flies" ? kindRaw : "all";
@@ -118,6 +112,7 @@ function parseArgs(argv: string[]): Cli {
   return {
     dryRun,
     skipExisting,
+    replaceCatalog,
     kind,
     id,
     limit: limit != null && Number.isFinite(limit) ? limit : null,
@@ -152,10 +147,10 @@ async function generateImage(
     let hint = "";
     if (/billing|hard limit|quota|insufficient/i.test(msg)) {
       hint =
-        " This is your OpenAI account billing/cap (not this script). In https://platform.openai.com/settings/organization/billing raise or remove the monthly hard limit, add a payment method, or buy credits, then retry.";
+        " Billing/credits: https://platform.openai.com/settings/organization/billing";
     } else if (/must be verified|verify organization/i.test(msg)) {
       hint =
-        " GPT Image 2 (`gpt-image-2`) requires a verified API organization. Complete verification at https://platform.openai.com/settings/organization/general — or rerun with `--model=gpt-image-1.5` (older GPT Image) if your org already has access.";
+        " Organization verification: https://platform.openai.com/settings/organization/general";
     }
     throw new Error(`OpenAI images/generations ${res.status}: ${msg}${hint}`);
   }
@@ -176,21 +171,62 @@ async function sleep(ms: number): Promise<void> {
   await new Promise((r) => setTimeout(r, ms));
 }
 
+function backupStamp(): string {
+  return new Date().toISOString().replace(/[:.]/g, "-").slice(0, 19);
+}
+
+async function backupAndClearPngFolders(args: {
+  dryRun: boolean;
+  backupRoot: URL;
+}): Promise<void> {
+  const { dryRun, backupRoot } = args;
+  for (const name of ["lures", "flies"] as const) {
+    const src = assetsSubdir(name);
+    const dest = new URL(`${name}/`, backupRoot.href);
+    try {
+      await Deno.mkdir(src, { recursive: true });
+    } catch {
+      /* exists */
+    }
+    const files: string[] = [];
+    for await (const e of Deno.readDir(src)) {
+      if (e.isFile && e.name.endsWith(".png")) files.push(e.name);
+    }
+    if (files.length === 0) continue;
+    if (dryRun) {
+      console.log(`[dry-run] Would backup ${files.length} file(s) from ${name}/ to ${dest.pathname}`);
+      continue;
+    }
+    await Deno.mkdir(dest, { recursive: true });
+    for (const fn of files) {
+      await Deno.copyFile(new URL(fn, src.href), new URL(fn, dest.href));
+    }
+    console.log(`Backed up ${files.length} ${name} PNG(s) → ${dest.pathname}`);
+    for (const fn of files) {
+      await Deno.remove(new URL(fn, src.href));
+    }
+    console.log(`Removed original ${name} PNG(s) from assets folder.`);
+  }
+}
+
 async function main(): Promise<void> {
   const cli = parseArgs(Deno.args);
   const apiKeyRaw = Deno.env.get("OPENAI_API_KEY")?.trim();
   if (!cli.dryRun && !apiKeyRaw) {
-    console.error("Missing OPENAI_API_KEY in environment (not required for --dry-run).");
+    console.error("Missing OPENAI_API_KEY (optional for --dry-run only).");
     Deno.exit(1);
   }
-  /** Set when not in dry-run (validated above). */
   const apiKey = apiKeyRaw as string;
 
   if (cli.background === "transparent" && cli.model === "gpt-image-2") {
     console.error(
-      "OpenAI does not support background: transparent with gpt-image-2. " +
-        "Re-run with e.g. --model=gpt-image-1.5 --background=transparent",
+      "gpt-image-2 does not support transparent backgrounds in the API. Omit --background (opaque), then run scripts/strip-recommender-tackle-backgrounds.sh — see RECOMMENDER_TACKLE_IMAGES.md.",
     );
+    Deno.exit(1);
+  }
+
+  if (cli.replaceCatalog && (cli.id != null || cli.kind !== "all")) {
+    console.error("--replace-catalog applies only to a full catalog run (default --kind=all, no --id).");
     Deno.exit(1);
   }
 
@@ -208,16 +244,41 @@ async function main(): Promise<void> {
     }
   }
 
+  for (const { kind, profile } of jobs) {
+    try {
+      buildPrompt(profile, kind);
+    } catch (e) {
+      console.error(e instanceof Error ? e.message : e);
+      Deno.exit(1);
+    }
+  }
+
   const filtered = jobs.filter((j) => (cli.id ? j.profile.id === cli.id : true));
   if (filtered.length === 0) {
     console.error(cli.id ? `No archetype matched id=${cli.id}` : "No jobs.");
     Deno.exit(1);
   }
 
+  if (cli.replaceCatalog) {
+    const backupRoot = new URL(
+      `../assets/images/_backups/tackle-${backupStamp()}/`,
+      import.meta.url,
+    );
+    console.log(`\n→ --replace-catalog: backup + remove existing PNGs first`);
+    await backupAndClearPngFolders({ dryRun: cli.dryRun, backupRoot });
+  }
+
+  let effectiveBg = cli.background;
+  if (effectiveBg == null && cli.model === "gpt-image-2") {
+    effectiveBg = "opaque";
+  }
+
   console.log(
-    `\n→ images/generations model: ${cli.model}` +
-      (cli.model === "gpt-image-2" ? " (GPT Image 2)" : "") +
-      (cli.background ? `, background: ${cli.background}` : ""),
+    `\n→ model: ${cli.model}` +
+      (effectiveBg ? `, background: ${effectiveBg}` : ""),
+  );
+  console.log(
+    "→ After generation: run strip-recommender-tackle-backgrounds.sh for RGBA (gpt-image-2 cannot output true transparency).",
   );
 
   let done = 0;
@@ -225,7 +286,7 @@ async function main(): Promise<void> {
     if (cli.limit != null && done >= cli.limit) break;
 
     const dest = outUrl(kind, profile.id);
-    if (cli.skipExisting) {
+    if (cli.skipExisting && !cli.replaceCatalog) {
       try {
         await Deno.stat(dest);
         console.log(`SKIP (exists): ${profile.id} → ${dest.pathname}`);
@@ -237,7 +298,7 @@ async function main(): Promise<void> {
 
     const prompt = buildPrompt(profile, kind);
     console.log(`\n── ${kind.toUpperCase()} ${profile.id} ──`);
-    console.log(prompt.slice(0, 200) + (prompt.length > 200 ? "…" : ""));
+    console.log(prompt.slice(0, 220) + (prompt.length > 220 ? "…" : ""));
 
     if (cli.dryRun) {
       console.log(`[dry-run] would write: ${dest.pathname}`);
@@ -245,8 +306,6 @@ async function main(): Promise<void> {
       continue;
     }
 
-    // GPT Image models (gpt-image-2, etc.) always return base64 in `b64_json`;
-    // do not send `response_format` — it is only for dall-e-2/3 and triggers 400.
     const body: Record<string, unknown> = {
       model: cli.model,
       prompt,
@@ -254,8 +313,8 @@ async function main(): Promise<void> {
       size: cli.size,
       quality: cli.quality,
     };
-    if (cli.background != null) {
-      body.background = cli.background;
+    if (effectiveBg != null) {
+      body.background = effectiveBg;
     }
 
     let bytes: Uint8Array;
@@ -282,9 +341,7 @@ async function main(): Promise<void> {
   }
 
   console.log(`\nDone. ${done} image(s) processed.`);
-  console.log(
-    "If you added new archetype PNGs, ensure `lib/lureImages.ts` / `lib/flyImages.ts` include `require()` entries for those ids.",
-  );
+  console.log("Next: scripts/strip-recommender-tackle-backgrounds.sh (transparent PNGs).");
 }
 
 await main();

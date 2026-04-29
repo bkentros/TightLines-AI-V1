@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import {
   View,
   Text,
@@ -13,7 +13,10 @@ import {
 } from 'react-native';
 import { Image as ExpoImage } from 'expo-image';
 import { colors, fonts, spacing, radius } from '../lib/theme';
-import { fetchWaterbodyAerialTilePlan, searchWaterbodies } from '../lib/waterReader';
+import {
+  fetchWaterbodyAerialTilePlan,
+  searchWaterbodies,
+} from '../lib/waterReader';
 import type { AerialTilePlan, AerialTilePlanLabel, WaterbodySearchResult } from '../lib/waterReaderContracts';
 import {
   assessImageryProofTile,
@@ -31,7 +34,6 @@ import {
   wgs84BboxFromCentroidAcres,
 } from '../lib/usgsTnmAerialSnapshot';
 import { planAerialReadTiles, type Wgs84Bbox } from '../lib/waterReaderAerialTilePlan';
-import { buildWaterReaderAerialOnlyStubResult } from '../lib/waterReaderMockResult';
 
 const SNAPSHOT_TIMEOUT_MS = 28_000;
 const IMAGERY_PROOF_TIMEOUT_MS = 28_000;
@@ -503,11 +505,6 @@ export default function WaterReaderScreen() {
   const aerialTilePlan = serverDisplayTilePlan ?? fallbackAerialTilePlan;
   const canLoadImageryProof = selected != null && aerialTilePlan != null;
 
-  const contractStubPreview = useMemo(
-    () => (selected ? buildWaterReaderAerialOnlyStubResult(selected, serverTilePlan) : null),
-    [selected, serverTilePlan],
-  );
-
   const onLoadImageryProof = useCallback(() => {
     if (!aerialTilePlan) return;
 
@@ -720,75 +717,21 @@ export default function WaterReaderScreen() {
         </View>
 
         {selected && (
-          <View style={styles.mockFutureSection}>
-            <Text style={styles.section}>Mock result layout preview (not a real read)</Text>
-            <Text style={styles.mockNegative}>
-              Layout-only placeholders on top of fetched proof imagery — not Water Reader analysis, not an automated
-              read, not shore/boat scouting output, no depth or bathymetry, no fish-zone scoring, no recommendations, not
-              fishing advice.
+          <View style={styles.rebuildPlaceholderSection}>
+            <Text style={styles.section}>Water Reader analysis rebuild</Text>
+            <Text style={styles.rebuildPlaceholderLead}>
+              Aerial preview is available now. Analysis output is temporarily disabled while the shoreline geometry engine is being
+              rebuilt and visually audited (offline tooling — not shown in this app yet).
             </Text>
-            <Text style={styles.prototypeCopy}>
-              This layout uses a prototype result payload so we can test map overlays before the engine exists —
-              typography and overlay placement exercises only — layout-only, not a real read, no recommendations,
-              no imagery inference, and no depth, bathymetry, or contours. Future target: pinch/zoom on one
-              whole-waterbody map, with internal engine views used only when needed.
+            <Text style={styles.rebuildPlaceholderMuted}>
+              This screen does not provide recommendations, fish zones, depth, shoreline access, automated “reads,” or
+              high-confidence structure output. Use the whole-lake USGS preview above for context only.
             </Text>
-            {aerialPhase === 'loaded' && aerialLoad && contractStubPreview ? (
-              <View style={styles.mockCanvasWrap}>
-                <View style={styles.mockCanvasInner}>
-                  <ExpoImage
-                    source={{ uri: aerialLoad.uri }}
-                    style={styles.mockCanvasImage}
-                    contentFit="cover"
-                    cachePolicy="none"
-                    accessibilityLabel="Layout preview only — rectangles are not detected structure or zones"
-                  />
-                  {contractStubPreview.zones.map((zone) => (
-                    <View
-                      key={zone.id}
-                      accessibilityElementsHidden
-                      importantForAccessibility="no-hide-descendants"
-                      pointerEvents="none"
-                      style={[
-                        styles.mockHighlight,
-                        {
-                          top: `${zone.overlayRect.y * 100}%`,
-                          left: `${zone.overlayRect.x * 100}%`,
-                          width: `${zone.overlayRect.w * 100}%`,
-                          height: `${zone.overlayRect.h * 100}%`,
-                        },
-                      ]}
-                    />
-                  ))}
-                </View>
-                <View style={styles.mockLegendList}>
-                  {contractStubPreview.zones.map((zone) => (
-                    <View key={`${zone.id}-caption`} style={styles.mockLegendRow}>
-                      <Text style={styles.mockLegendTitle}>{zone.label}</Text>
-                      <Text style={styles.mockLegendReason}>{zone.humanExplanation}</Text>
-                    </View>
-                  ))}
-                </View>
-              </View>
-            ) : (
-              <View style={styles.mockPlaceholder}>
-                <Text style={styles.mockPlaceholderTitle}>Placeholder — load whole-lake preview above</Text>
-                <Text style={styles.mockPlaceholderBody}>
-                  When the aerial preview finishes loading above, rectangles and captions show example layout spacing only
-                  — not a Water Reader output and not inferred from imagery.
-                </Text>
-              </View>
-            )}
-            <Text style={styles.seamNote}>
-              Visible seam or line streaks often come from source imagery mosaics (NAIP footprints and joins). Those
-              edge artifacts are not automatically detected by this prototype.
-            </Text>
-            <Text style={styles.attrSmall}>{USGS_TNM_ATTRIBUTION}</Text>
           </View>
         )}
 
         <View style={styles.planningSection}>
-          <Text style={styles.section}>Aerial read planning (deterministic bbox plan)</Text>
+          <Text style={styles.section}>Aerial read planning (bbox tiling preview)</Text>
           {!selected && (
             <Text style={styles.muted}>
               Select a waterbody for where-to-start tiling plans (planning geometry only — not a read engine).
@@ -899,7 +842,7 @@ export default function WaterReaderScreen() {
                             </View>
                             {image.prototypeVisibleCategory && (
                               <Text style={styles.tileCategoryInline}>
-                                Mock planning category: {image.prototypeVisibleCategory}
+                                Planning label (debug): {image.prototypeVisibleCategory}
                               </Text>
                             )}
                             <Text style={styles.tileBboxText}>{formatBbox(image.bbox)}</Text>
@@ -1126,87 +1069,24 @@ const styles = StyleSheet.create({
     marginTop: spacing.sm,
     lineHeight: 14,
   },
-  mockFutureSection: {
+  rebuildPlaceholderSection: {
     marginTop: spacing.xl,
-    gap: spacing.sm,
-  },
-  mockNegative: {
-    fontSize: 12,
-    lineHeight: 18,
-    color: colors.textSecondary,
-    padding: spacing.sm,
-    borderRadius: radius.sm,
-    backgroundColor: colors.backgroundAlt,
-    borderWidth: StyleSheet.hairlineWidth,
-    borderColor: colors.border,
-  },
-  mockCanvasWrap: {
-    marginTop: spacing.sm,
-    gap: spacing.md,
-  },
-  mockCanvasInner: {
-    borderRadius: radius.md,
-    borderWidth: StyleSheet.hairlineWidth,
-    borderColor: colors.border,
-    overflow: 'hidden',
-    height: 268,
-    backgroundColor: colors.backgroundAlt,
-    position: 'relative',
-  },
-  mockCanvasImage: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: colors.backgroundAlt,
-  },
-  mockHighlight: {
-    position: 'absolute',
-    borderRadius: radius.sm,
-    borderWidth: 2,
-    borderColor: colors.sage,
-    backgroundColor: 'rgba(107, 126, 86, 0.12)',
-  },
-  mockLegendList: { gap: spacing.sm },
-  mockLegendRow: {
-    paddingVertical: 4,
-    paddingHorizontal: 2,
-    borderLeftWidth: 3,
-    borderLeftColor: colors.sage,
-    paddingLeft: spacing.sm,
-  },
-  mockLegendTitle: {
-    fontSize: 12,
-    fontWeight: '700',
-    color: colors.text,
-  },
-  mockLegendReason: {
-    fontSize: 11,
-    color: colors.textSecondary,
-    lineHeight: 16,
-    marginTop: 2,
-  },
-  mockPlaceholder: {
-    marginTop: spacing.sm,
     padding: spacing.md,
     borderRadius: radius.md,
     borderWidth: StyleSheet.hairlineWidth,
     borderColor: colors.border,
     backgroundColor: colors.surface,
+    gap: spacing.sm,
   },
-  mockPlaceholderTitle: {
-    fontSize: 13,
-    fontWeight: '700',
+  rebuildPlaceholderLead: {
+    fontSize: 14,
     color: colors.text,
-    marginBottom: 4,
+    lineHeight: 21,
   },
-  mockPlaceholderBody: {
+  rebuildPlaceholderMuted: {
     fontSize: 12,
     color: colors.textSecondary,
     lineHeight: 18,
-  },
-  seamNote: {
-    fontSize: 11,
-    color: colors.textMuted,
-    lineHeight: 16,
-    marginTop: spacing.xs,
   },
   planningCardOuter: {
     backgroundColor: colors.surface,

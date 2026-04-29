@@ -45,6 +45,7 @@ const LURE_IMAGES: Partial<Record<string, ReturnType<typeof require>>> = {
   // ── Metal / spoons ────────────────────────────────────────────────────────
   blade_bait:                       require('../assets/images/lures/blade_bait.png'),
   casting_spoon:                    require('../assets/images/lures/casting_spoon.png'),
+  small_floating_trout_plug:        require('../assets/images/lures/small_floating_trout_plug.png'),
 
   // ── Topwater ──────────────────────────────────────────────────────────────
   walking_topwater:                 require('../assets/images/lures/walking_topwater.png'),
