@@ -1,125 +1,21 @@
 /**
- * Canonical Water Reader backbone contracts mirror.
- * Keep aligned with `supabase/functions/_shared/waterReader/contracts.ts`.
+ * Water Reader V1 polygon/search contracts.
+ * Keep aligned with `supabase/functions/_shared/waterReader/contracts.ts` for shared search fields.
  */
 
 export const WATERBODY_SEARCH_FEATURE = "waterbody_search_v1" as const;
-export const WATERBODY_AERIAL_TILE_PLAN_FEATURE = "waterbody_aerial_tile_plan_v1" as const;
-export const WATERBODY_AERIAL_GEOMETRY_CANDIDATES_FEATURE =
-  "waterbody_aerial_geometry_candidates_v1" as const;
 
 export type WaterbodyType = "lake" | "pond" | "reservoir";
-export type WaterReaderSourceMode = "best_available" | "aerial" | "depth";
-export type ResolvedWaterReaderSourceMode = "aerial" | "depth";
-export type WaterReaderDataTier =
-  | "full_depth_aerial"
-  | "depth_only"
-  | "aerial_only"
-  | "chart_aligned_depth"
-  | "polygon_only";
-export type SourceReviewStatus = "unreviewed" | "allowed" | "restricted" | "blocked";
-export type SourceFetchValidationStatus =
-  | "unvalidated"
-  | "reachable"
-  | "unreachable"
-  | "unsupported"
-  | "blocked";
-export type SourceLakeMatchStatus = "unknown" | "matched" | "ambiguous" | "mismatched";
-export type SourceUsabilityStatus = "unknown" | "usable" | "needs_review" | "not_usable";
-export type WaterbodyAvailabilityLabel =
-  | "aerial_available"
-  | "depth_available"
-  | "both_available"
-  | "limited"
-  | "blocked";
+export type WaterReaderDataTier = "polygon_only";
+export type WaterbodyAvailabilityLabel = "polygon_available" | "limited" | "blocked";
 export type WaterbodySourceStatus = "ready" | "partial" | "limited" | "blocked";
-export type WaterReaderConfidence = "high" | "medium" | "low";
-export type WaterbodySourceDepthKind = "machine_readable" | "chart_image" | "none";
-export type WaterbodySourceApprovalStatus = "approved" | "pending_review" | "rejected";
-export type WaterbodySourcePathType =
-  | "service_root"
-  | "feature_query"
-  | "download"
-  | "document"
-  | "image";
-export type SourceValidationRequestMethod = "head" | "get";
+export type WaterReaderConfidence = "medium" | "low";
 
 export interface WaterbodyPreviewBbox {
   minLon: number;
   minLat: number;
   maxLon: number;
   maxLat: number;
-}
-
-export type AerialTilePlanLabel =
-  | "shoreline_candidate"
-  | "inlet_outlet_candidate"
-  | "narrow_arm_candidate"
-  | "open_water_context";
-
-export interface AerialTilePlanTile {
-  id: number;
-  bbox: WaterbodyPreviewBbox;
-  priority: number;
-  label: AerialTilePlanLabel;
-  waterFraction?: number;
-  shorelineScore?: number;
-}
-
-export interface AerialTilePlan {
-  contextBbox: WaterbodyPreviewBbox;
-  tiles: AerialTilePlanTile[];
-  source: "serverGeometry";
-  maxCloseTiles: number;
-  prototypeOnly: true;
-}
-
-export interface AerialTilePlanResponse {
-  feature: typeof WATERBODY_AERIAL_TILE_PLAN_FEATURE;
-  lakeId: string;
-  plan: AerialTilePlan | null;
-}
-
-export type AerialGeometryCandidateFeatureTag =
-  | "shoreline_complexity"
-  | "coverage_distribution";
-
-export type AerialGeometryCandidateSource = "geometry_candidate";
-
-export type AerialGeometryCandidateReasonCode =
-  | "shoreline_area_geometry_context"
-  | "map_region_callout";
-
-export interface WaterbodyAerialGeometryCandidateRow {
-  lakeId: string;
-  name: string;
-  state: string;
-  county: string | null;
-  waterbodyType: WaterbodyType;
-  contextBbox: WaterbodyPreviewBbox;
-  candidateId: number;
-  featureTag: AerialGeometryCandidateFeatureTag;
-  candidateSource: AerialGeometryCandidateSource;
-  reasonCode: AerialGeometryCandidateReasonCode;
-  anchorLon: number;
-  anchorLat: number;
-  normalizedAnchorX: number;
-  normalizedAnchorY: number;
-  overlayX: number;
-  overlayY: number;
-  overlayW: number;
-  overlayH: number;
-  baseScore: number;
-  geometryQa: Record<string, unknown>;
-  requestedMonth: number | null;
-}
-
-export interface WaterbodyAerialGeometryCandidatesResponse {
-  feature: typeof WATERBODY_AERIAL_GEOMETRY_CANDIDATES_FEATURE;
-  lakeId: string;
-  month: number | null;
-  maxZones: number;
-  candidates: WaterbodyAerialGeometryCandidateRow[];
 }
 
 export interface WaterbodySearchResult {
@@ -133,16 +29,15 @@ export interface WaterbodySearchResult {
     lat: number;
     lon: number;
   };
-  /** Preview framing only. Final analysis/overlays must use true waterbody geometry. */
+  /** Preview framing only. Final analysis/overlays must use true stored waterbody polygon geometry. */
   previewBbox?: WaterbodyPreviewBbox | null;
-  dataTier: WaterReaderDataTier;
-  aerialAvailable: boolean;
-  depthAvailable: boolean;
-  depthUsabilityStatus: "usable" | "needs_review" | "unavailable";
-  availability: WaterbodyAvailabilityLabel;
+  dataTier: WaterReaderDataTier | string;
+  depthAvailable?: boolean;
+  depthUsabilityStatus?: "usable" | "needs_review" | "unavailable";
+  availability: WaterbodyAvailabilityLabel | string;
   sourceStatus: WaterbodySourceStatus;
-  bestAvailableMode: ResolvedWaterReaderSourceMode | null;
-  confidence: WaterReaderConfidence;
+  bestAvailableMode?: string | null;
+  confidence: WaterReaderConfidence | string;
 }
 
 export interface WaterbodySearchResponse {

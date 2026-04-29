@@ -1,44 +1,20 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  Pressable,
-  TextInput,
-  KeyboardAvoidingView,
-  Platform,
   ActivityIndicator,
+  KeyboardAvoidingView,
   Modal,
+  Platform,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
 } from 'react-native';
-import { Image as ExpoImage } from 'expo-image';
-import { colors, fonts, spacing, radius } from '../lib/theme';
-import {
-  fetchWaterbodyAerialTilePlan,
-  searchWaterbodies,
-} from '../lib/waterReader';
-import type { AerialTilePlan, AerialTilePlanLabel, WaterbodySearchResult } from '../lib/waterReaderContracts';
-import {
-  assessImageryProofTile,
-  summarizeProofQualityForUi,
-  type ImageryProofQualityReport,
-  type ImageryProofTerminalPhase,
-} from '../lib/waterReaderImageryQualityProof';
-import {
-  buildNaipPlusExportImageUrl,
-  isValidWgs84Bbox,
-  isValidWgs84Centroid,
-  normalizeUsWaterbodyStateCode,
-  stateExcludedFromConusAerial,
-  USGS_TNM_ATTRIBUTION,
-  wgs84BboxFromCentroidAcres,
-} from '../lib/usgsTnmAerialSnapshot';
-import { planAerialReadTiles, type Wgs84Bbox } from '../lib/waterReaderAerialTilePlan';
+import { colors, fonts, radius, spacing } from '../lib/theme';
+import { searchWaterbodies } from '../lib/waterReader';
+import type { WaterbodySearchResult } from '../lib/waterReaderContracts';
 
-const SNAPSHOT_TIMEOUT_MS = 28_000;
-const IMAGERY_PROOF_TIMEOUT_MS = 28_000;
-const IMAGERY_PROOF_EXPORT_PX = 512;
-const IMAGERY_PROOF_CLOSE_TILE_LIMIT = 3;
 const SEARCH_DEBOUNCE_MS = 400;
 const SEARCH_RESULT_LIMIT = 16;
 
@@ -68,50 +44,10 @@ function stateDisplayLabel(code: string | null): string {
   return row ? `${row.name} (${row.code})` : code;
 }
 
-type AerialPhase = 'idle' | 'loading' | 'loaded' | 'timeout' | 'error' | 'blocked';
-type TilePlanPhase = 'idle' | 'loading' | 'loaded' | 'error';
-type ImageryProofPhase = 'loading' | 'loaded' | 'timeout' | 'error';
-
-interface ImageryProofImage {
-  key: string;
-  label: string;
-  bbox: Wgs84Bbox;
-  uri: string;
-  phase: ImageryProofPhase;
-  proofRunId: number;
-  loadStartedAtMs: number;
-  quality?: ImageryProofQualityReport;
-  prototypeVisibleCategory?: string;
-}
-
-function proofTimeoutSlotKey(proofRunId: number, imageKey: string): string {
-  return `${proofRunId}::${imageKey}`;
-}
-
-function intrinsicFromProofImageLoadEvent(e: {
-  nativeEvent?: { source?: { width?: number; height?: number } };
-  source?: { width?: number; height?: number };
-}): { width: number; height: number } | null {
-  const w = e.nativeEvent?.source?.width ?? e.source?.width;
-  const h = e.nativeEvent?.source?.height ?? e.source?.height;
-  if (typeof w === 'number' && typeof h === 'number' && Number.isFinite(w) && Number.isFinite(h)) {
-    return { width: w, height: h };
-  }
-  return null;
-}
-
-function formatAvailability(r: WaterbodySearchResult): string {
-  const parts: string[] = [];
-  if (r.aerialAvailable) parts.push('aerial');
-  if (r.depthAvailable) parts.push('depth');
-  if (parts.length === 0) return 'limited / none';
-  return parts.join(' + ');
-}
-
 function parseEdgeErrorMessage(raw: string): { surface: string; details?: string } {
   if (raw.includes('|details:')) {
-    const [a, b] = raw.split('|details:');
-    return { surface: a, details: b };
+    const [surface, details] = raw.split('|details:');
+    return { surface, details };
   }
   return { surface: raw };
 }
@@ -119,74 +55,37 @@ function parseEdgeErrorMessage(raw: string): { surface: string; details?: string
 function userFacingSearchError(e: unknown): string {
   const raw = e instanceof Error ? e.message : String(e);
   const { surface, details = '' } = parseEdgeErrorMessage(raw);
-  const m = (surface + ' ' + details).toLowerCase();
-  if (m.includes('not signed in') || m.includes('sign in')) {
-    return 'Sign in to search waterbodies.';
-  }
-  if (m.includes('subscribe') || m.includes('subscription')) {
-    return 'Waterbody search requires an active subscription.';
-  }
-  if (m.includes('unauthorized') || surface === 'Unauthorized') {
-    return 'Session invalid. Sign in again to search.';
-  }
+  const m = `${surface} ${details}`.toLowerCase();
+  if (m.includes('not signed in') || m.includes('sign in')) return 'Sign in to search waterbodies.';
+  if (m.includes('subscribe') || m.includes('subscription')) return 'Waterbody search requires an active subscription.';
+  if (m.includes('unauthorized') || surface === 'Unauthorized') return 'Session invalid. Sign in again to search.';
   if (m.includes('network') || m.includes('fetch') || m.includes('network request failed')) {
     return 'Network error. Check connection and try again.';
   }
-  if (
-    details.includes('statement timeout') ||
-    details.includes('canceling statement') ||
-    m.includes('57014')
-  ) {
+  if (details.includes('statement timeout') || details.includes('canceling statement') || m.includes('57014')) {
     return 'Search timed out. Try a more specific name.';
   }
-  if (
-    surface.toLowerCase().includes('failed to search waterbodies') ||
-    m.includes('search_failed') ||
-    m.includes('500')
-  ) {
-    if (details && !details.toLowerCase().includes('timeout')) {
-      return `Search failed (${details.length > 120 ? 'try again' : details})`;
-    }
-    return "We couldn't run that search. Please try again.";
+  if (surface.toLowerCase().includes('failed to search waterbodies') || m.includes('search_failed') || m.includes('500')) {
+    return details && !details.toLowerCase().includes('timeout')
+      ? `Search failed (${details.length > 120 ? 'try again' : details})`
+      : "We couldn't run that search. Please try again.";
   }
   return surface.length < 200 ? surface : "We couldn't run that search.";
 }
 
 function resultPrimaryLine(r: WaterbodySearchResult): string {
-  const co = r.county ? ` — ${r.county} County` : '';
-  return `${r.name}${co} · ${r.waterbodyType}`;
+  const county = r.county ? ` - ${r.county} County` : '';
+  return `${r.name}${county} · ${r.waterbodyType}`;
 }
 
 function resultSecondaryLine(r: WaterbodySearchResult): string {
-  return `${formatAvailability(r)} · ${r.sourceStatus} · ${r.availability}`;
+  const acres = typeof r.surfaceAreaAcres === 'number' ? ` · ${Math.round(r.surfaceAreaAcres).toLocaleString()} acres` : '';
+  return `${r.state} · polygon source ${r.sourceStatus}${acres}`;
 }
 
 function selectionSummaryLine(r: WaterbodySearchResult): string {
-  const co = r.county ? ` · ${r.county} County` : '';
-  return `${r.name}${co} · ${r.state} · ${r.waterbodyType}`;
-}
-
-function selectionSubLine(r: WaterbodySearchResult): string {
-  return resultSecondaryLine(r);
-}
-
-function formatBbox(bbox: Wgs84Bbox): string {
-  return [
-    bbox.minLon.toFixed(5),
-    bbox.minLat.toFixed(5),
-    bbox.maxLon.toFixed(5),
-    bbox.maxLat.toFixed(5),
-  ].join(', ');
-}
-
-function sourceLabel(source: string): string {
-  if (source === 'serverGeometry') return 'server geometry tile plan';
-  if (source === 'previewBbox') return 'geometry preview bbox';
-  return 'centroid/acres fallback';
-}
-
-function labelDisplay(label: AerialTilePlanLabel): string {
-  return label.replace(/_/g, ' ');
+  const county = r.county ? ` · ${r.county} County` : '';
+  return `${r.name}${county} · ${r.state} · ${r.waterbodyType}`;
 }
 
 export default function WaterReaderScreen() {
@@ -198,104 +97,16 @@ export default function WaterReaderScreen() {
   const [searchEmpty, setSearchEmpty] = useState(false);
   const [results, setResults] = useState<WaterbodySearchResult[]>([]);
   const [selected, setSelected] = useState<WaterbodySearchResult | null>(null);
-
-  const [aerialPhase, setAerialPhase] = useState<AerialPhase>('idle');
-  const [aerialLoad, setAerialLoad] = useState<{ gen: number; uri: string } | null>(null);
-  const [serverTilePlanPhase, setServerTilePlanPhase] = useState<TilePlanPhase>('idle');
-  const [serverTilePlan, setServerTilePlan] = useState<AerialTilePlan | null>(null);
-  const [serverTilePlanError, setServerTilePlanError] = useState<string | null>(null);
-  const [imageryProofImages, setImageryProofImages] = useState<ImageryProofImage[] | null>(null);
-  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const proofTimeoutRefs = useRef<Record<string, ReturnType<typeof setTimeout>>>({});
-  const imageryProofRunIdRef = useRef(0);
-  const loadGenerationRef = useRef(0);
   const searchRequestId = useRef(0);
-  const [devProofExpanded, setDevProofExpanded] = useState(false);
-
-  const clearSnapshotTimer = () => {
-    if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current);
-      timeoutRef.current = null;
-    }
-  };
-
-  const clearProofTimer = (key: string) => {
-    if (proofTimeoutRefs.current[key]) {
-      clearTimeout(proofTimeoutRefs.current[key]);
-      delete proofTimeoutRefs.current[key];
-    }
-  };
-
-  const clearProofTimers = () => {
-    for (const key of Object.keys(proofTimeoutRefs.current)) {
-      clearProofTimer(key);
-    }
-  };
-
-  useEffect(
-    () => () => {
-      clearSnapshotTimer();
-      clearProofTimers();
-    },
-    [],
-  );
 
   useEffect(() => {
     setSelected(null);
   }, [stateCode]);
 
-  useEffect(() => {
-    setImageryProofImages(null);
-    setServerTilePlan(null);
-    setServerTilePlanError(null);
-    setServerTilePlanPhase('idle');
-    clearProofTimers();
-  }, [selected]);
-
-  useEffect(() => {
-    if (!selected || selected.aerialAvailable !== true) return;
-
-    let cancelled = false;
-    setServerTilePlanPhase('loading');
-    setServerTilePlanError(null);
-
-    void fetchWaterbodyAerialTilePlan({
-      lakeId: selected.lakeId,
-      maxCloseTiles: IMAGERY_PROOF_CLOSE_TILE_LIMIT,
-    }).then((response) => {
-      if (cancelled) return;
-      setServerTilePlan(response.plan);
-      setServerTilePlanPhase(response.plan ? 'loaded' : 'error');
-      setServerTilePlanError(response.plan ? null : 'No server geometry tile plan returned.');
-      setImageryProofImages(null);
-      clearProofTimers();
-    }).catch((e) => {
-      if (cancelled) return;
-      setServerTilePlan(null);
-      setServerTilePlanPhase('error');
-      setServerTilePlanError(e instanceof Error ? e.message : 'Server geometry tile plan unavailable.');
-    });
-
-    return () => {
-      cancelled = true;
-    };
-  }, [selected]);
-
-  const onQueryChange = useCallback((t: string) => {
-    setQuery(t);
-  }, []);
-
   const runSearch = useCallback(
     async (requestId: number) => {
       const q = query.trim();
-      if (!stateCode) {
-        setResults([]);
-        setSearchEmpty(false);
-        setSearchError(null);
-        setSearching(false);
-        return;
-      }
-      if (q.length < 2) {
+      if (!stateCode || q.length < 2) {
         setResults([]);
         setSearchEmpty(false);
         setSearchError(null);
@@ -306,41 +117,25 @@ export default function WaterReaderScreen() {
       setSearchError(null);
       setSearchEmpty(false);
       try {
-        const res = await searchWaterbodies({
-          query: q,
-          state: stateCode,
-          limit: SEARCH_RESULT_LIMIT,
-        });
+        const res = await searchWaterbodies({ query: q, state: stateCode, limit: SEARCH_RESULT_LIMIT });
         if (searchRequestId.current !== requestId) return;
         setResults(res.results);
         setSearchEmpty(res.results.length === 0);
-        if (res.results.length === 0) {
-          setSearchError(null);
-        }
       } catch (e) {
         if (searchRequestId.current !== requestId) return;
         setSearchError(userFacingSearchError(e));
         setResults([]);
         setSearchEmpty(false);
       } finally {
-        if (searchRequestId.current === requestId) {
-          setSearching(false);
-        }
+        if (searchRequestId.current === requestId) setSearching(false);
       }
     },
     [query, stateCode],
   );
 
   useEffect(() => {
-    if (!stateCode) {
-      setResults([]);
-      setSearchError(null);
-      setSearchEmpty(false);
-      setSearching(false);
-      return;
-    }
     const q = query.trim();
-    if (q.length < 2) {
+    if (!stateCode || q.length < 2) {
       setResults([]);
       setSearchError(null);
       setSearchEmpty(false);
@@ -355,10 +150,6 @@ export default function WaterReaderScreen() {
     return () => clearTimeout(t);
   }, [query, stateCode, runSearch]);
 
-  const onPickResult = useCallback((r: WaterbodySearchResult) => {
-    setSelected(r);
-  }, []);
-
   const onChangeState = useCallback(() => {
     setStateCode(null);
     setQuery('');
@@ -368,186 +159,13 @@ export default function WaterReaderScreen() {
     setStateModalOpen(true);
   }, []);
 
-  const onChangeLake = useCallback(() => {
-    setSelected(null);
-  }, []);
-
-  useEffect(() => {
-    loadGenerationRef.current += 1;
-    clearSnapshotTimer();
-    setAerialPhase('idle');
-    setAerialLoad(null);
-
-    const onSnapshotCleanup = () => {
-      clearSnapshotTimer();
-      loadGenerationRef.current += 1;
-    };
-
-    if (!selected) {
-      return onSnapshotCleanup;
-    }
-
-    const lat = selected.centroid?.lat;
-    const lon = selected.centroid?.lon;
-    const st = normalizeUsWaterbodyStateCode(String(selected.state ?? ''));
-
-    const eligible =
-      selected.aerialAvailable === true &&
-      st != null &&
-      !stateExcludedFromConusAerial(st) &&
-      isValidWgs84Centroid(typeof lat === 'number' ? lat : NaN, typeof lon === 'number' ? lon : NaN);
-
-    if (!eligible) {
-      setAerialPhase('blocked');
-      return onSnapshotCleanup;
-    }
-
-    const previewBbox = selected.previewBbox;
-    const bbox = previewBbox && isValidWgs84Bbox(previewBbox)
-      ? previewBbox
-      : wgs84BboxFromCentroidAcres(
-          lat!,
-          lon!,
-          selected.surfaceAreaAcres ?? undefined,
-        );
-    if (!isValidWgs84Bbox(bbox)) {
-      setAerialPhase('blocked');
-      return onSnapshotCleanup;
-    }
-    const url = buildNaipPlusExportImageUrl(bbox, { size: 512 });
-    if (!url) {
-      setAerialPhase('blocked');
-      return onSnapshotCleanup;
-    }
-
-    const myGen = ++loadGenerationRef.current;
-
-    setAerialPhase('loading');
-    setAerialLoad({ gen: myGen, uri: url });
-
-    clearSnapshotTimer();
-    timeoutRef.current = setTimeout(() => {
-      if (loadGenerationRef.current !== myGen) return;
-      loadGenerationRef.current += 1;
-      setAerialLoad(null);
-      setAerialPhase('timeout');
-    }, SNAPSHOT_TIMEOUT_MS);
-
-    return onSnapshotCleanup;
-  }, [selected]);
-
-  const onSnapshotLoaded = useCallback((generation: number) => {
-    if (loadGenerationRef.current !== generation) return;
-    clearSnapshotTimer();
-    setAerialPhase('loaded');
-  }, []);
-
-  const onSnapshotError = useCallback((generation: number) => {
-    if (loadGenerationRef.current !== generation) return;
-    clearSnapshotTimer();
-    loadGenerationRef.current += 1;
-    setAerialLoad(null);
-    setAerialPhase('error');
-  }, []);
-
-  const finalizeImageryProofImage = useCallback(
-    (
-      key: string,
-      proofRunId: number,
-      phase: ImageryProofTerminalPhase,
-      intrinsic: { width: number; height: number } | null,
-    ) => {
-      const slot = proofTimeoutSlotKey(proofRunId, key);
-      clearProofTimer(slot);
-      const finishedAtMs = Date.now();
-      setImageryProofImages((current) => {
-        if (!current) return null;
-        return current.map((image) => {
-          if (image.key !== key) return image;
-          if (image.proofRunId !== proofRunId) return image;
-          if (image.phase !== 'loading') return image;
-          const report = assessImageryProofTile({
-            phase,
-            loadStartedAtMs: image.loadStartedAtMs,
-            finishedAtMs,
-            expectedExportPx: IMAGERY_PROOF_EXPORT_PX,
-            intrinsic,
-          });
-          return { ...image, phase, quality: report };
-        });
-      });
-    },
-    [],
-  );
-
-  const qTrim = query.trim();
+  const showResultsPanel =
+    !selected && stateCode && (query.trim().length >= 2 || searching || (searchError != null && query.trim().length >= 2));
   const stateNameForEmpty =
     (stateCode && US_STATE_OPTIONS.find((o) => o.code === stateCode)?.name) || 'this state';
-  const showResultsPanel =
-    !selected && stateCode && (qTrim.length >= 2 || searching || (searchError != null && qTrim.length >= 2));
-  const fallbackAerialTilePlan = selected ? planAerialReadTiles(selected) : null;
-  const serverDisplayTilePlan = serverTilePlan
-    ? {
-        contextBbox: serverTilePlan.contextBbox,
-        closeTiles: serverTilePlan.tiles.map((tile, index) => ({
-          id: tile.id,
-          row: 0,
-          col: index,
-          bbox: tile.bbox,
-          prototypeVisibleCategory: labelDisplay(tile.label),
-        })),
-        gridRows: 1,
-        gridCols: Math.max(1, serverTilePlan.tiles.length),
-        overlapRatio: 0,
-        source: serverTilePlan.source,
-      }
-    : null;
-  const aerialTilePlan = serverDisplayTilePlan ?? fallbackAerialTilePlan;
-  const canLoadImageryProof = selected != null && aerialTilePlan != null;
-
-  const onLoadImageryProof = useCallback(() => {
-    if (!aerialTilePlan) return;
-
-    clearProofTimers();
-    imageryProofRunIdRef.current += 1;
-    const proofRunId = imageryProofRunIdRef.current;
-    /** Whole-lake imagery is proved in Lake aerial preview; proof run loads close tiles only. */
-    const images: ImageryProofImage[] = [];
-
-    for (const tile of aerialTilePlan.closeTiles.slice(0, IMAGERY_PROOF_CLOSE_TILE_LIMIT)) {
-      const uri = buildNaipPlusExportImageUrl(tile.bbox, { size: IMAGERY_PROOF_EXPORT_PX });
-      if (!uri) continue;
-      images.push({
-        key: `tile-${tile.id}`,
-        label: `Close tile ${tile.id}`,
-        bbox: tile.bbox,
-        uri,
-        phase: 'loading',
-        proofRunId,
-        loadStartedAtMs: Date.now(),
-        prototypeVisibleCategory: tile.prototypeVisibleCategory,
-      });
-    }
-
-    setImageryProofImages(images);
-  }, [aerialTilePlan]);
-
-  useEffect(() => {
-    if (!imageryProofImages) return;
-    for (const image of imageryProofImages) {
-      const slot = proofTimeoutSlotKey(image.proofRunId, image.key);
-      if (image.phase !== 'loading' || proofTimeoutRefs.current[slot]) continue;
-      proofTimeoutRefs.current[slot] = setTimeout(() => {
-        finalizeImageryProofImage(image.key, image.proofRunId, 'timeout', null);
-      }, IMAGERY_PROOF_TIMEOUT_MS);
-    }
-  }, [imageryProofImages, finalizeImageryProofImage]);
 
   return (
-    <KeyboardAvoidingView
-      style={styles.flex}
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-    >
+    <KeyboardAvoidingView style={styles.flex} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
       <ScrollView
         style={styles.scroll}
         contentContainerStyle={styles.content}
@@ -555,8 +173,8 @@ export default function WaterReaderScreen() {
         keyboardShouldPersistTaps="handled"
       >
         <Text style={styles.disclaimer}>
-          USGS ortho preview — whole-waterbody aerial view comes first — one-time on-demand fetch; not fishing
-          advice, not automated structure detection.
+          Polygon-only Water Reader V1. Uses public-domain hydrography polygons for geometry context. No source
+          photos, depth charts, seasonal logic, species logic, or fishing-spot claims.
         </Text>
 
         <Text style={styles.section}>Find a waterbody</Text>
@@ -574,19 +192,17 @@ export default function WaterReaderScreen() {
             <Text style={styles.stateChevron}>˅</Text>
           </Pressable>
 
-          {!stateCode && (
-            <Text style={styles.calmHint}>Choose a state to start.</Text>
-          )}
+          {!stateCode && <Text style={styles.calmHint}>Choose a state to start.</Text>}
 
           {stateCode && (
             <>
               <Text style={styles.inputLabel}>Lake, pond, or reservoir</Text>
               <TextInput
                 style={styles.searchInput}
-                placeholder="Name (2+ characters)…"
+                placeholder="Name (2+ characters)..."
                 placeholderTextColor={colors.textMuted}
                 value={query}
-                onChangeText={onQueryChange}
+                onChangeText={setQuery}
                 autoCorrect={false}
                 autoCapitalize="words"
                 accessibilityLabel="Waterbody name search"
@@ -603,20 +219,14 @@ export default function WaterReaderScreen() {
                   {selectionSummaryLine(selected)}
                 </Text>
                 <Text style={styles.selectedSub} numberOfLines={2}>
-                  {selectionSubLine(selected)}
+                  {resultSecondaryLine(selected)}
                 </Text>
                 <View style={styles.selectedActions}>
-                  <Pressable
-                    onPress={onChangeState}
-                    style={({ pressed }) => [styles.linkBtn, pressed && styles.pressed]}
-                  >
+                  <Pressable onPress={onChangeState} style={({ pressed }) => [styles.linkBtn, pressed && styles.pressed]}>
                     <Text style={styles.linkBtnText}>Change state</Text>
                   </Pressable>
                   <Text style={styles.actionSep}>·</Text>
-                  <Pressable
-                    onPress={onChangeLake}
-                    style={({ pressed }) => [styles.linkBtn, pressed && styles.pressed]}
-                  >
+                  <Pressable onPress={() => setSelected(null)} style={({ pressed }) => [styles.linkBtn, pressed && styles.pressed]}>
                     <Text style={styles.linkBtnText}>Change lake</Text>
                   </Pressable>
                 </View>
@@ -629,26 +239,20 @@ export default function WaterReaderScreen() {
               {searching && (
                 <View style={styles.inlineLoading}>
                   <ActivityIndicator size="small" color={colors.sage} />
-                  <Text style={styles.searchingText}>Searching…</Text>
+                  <Text style={styles.searchingText}>Searching...</Text>
                 </View>
               )}
               {searchError && <Text style={styles.dropdownError}>{searchError}</Text>}
               {searchEmpty && !searchError && !searching && (
-                <Text style={styles.dropdownEmpty}>
-                  {`No matching lakes in ${stateNameForEmpty}. Try another spelling.`}
-                </Text>
+                <Text style={styles.dropdownEmpty}>{`No matching lakes in ${stateNameForEmpty}. Try another spelling.`}</Text>
               )}
               {!searching && results.length > 0 && (
-                <ScrollView
-                  style={styles.dropdownList}
-                  keyboardShouldPersistTaps="handled"
-                  nestedScrollEnabled
-                >
+                <ScrollView style={styles.dropdownList} keyboardShouldPersistTaps="handled" nestedScrollEnabled>
                   {results.map((r) => (
                     <Pressable
                       key={r.lakeId}
                       style={({ pressed }) => [styles.resultRow, pressed && styles.pressed]}
-                      onPress={() => onPickResult(r)}
+                      onPress={() => setSelected(r)}
                     >
                       <Text style={styles.resultLine} numberOfLines={2}>
                         {resultPrimaryLine(r)}
@@ -664,278 +268,61 @@ export default function WaterReaderScreen() {
           )}
         </View>
 
-        <View style={styles.snapshotSection}>
-          <Text style={styles.section}>Lake aerial preview (whole-waterbody)</Text>
+        <View style={styles.mapSection}>
+          <Text style={styles.section}>Vector lake map</Text>
           {!selected && (
             <Text style={styles.muted}>
-              Select a state, pick a waterbody, then a one-time USGS aerial preview loads here — your primary lake
-              context.
+              Select a waterbody to frame the polygon-only map. Highlighted structure zones will come from polygon
+              geometry only.
             </Text>
           )}
-          {selected && aerialPhase === 'blocked' && (
-            <Text style={styles.fallback}>
-              USGS aerial source preview unavailable for this selected waterbody.
-            </Text>
-          )}
-          {selected && aerialPhase === 'loading' && (
-            <View style={styles.loadingBox}>
-              <ActivityIndicator size="large" color={colors.sage} />
-              <Text style={styles.loadingText}>Loading imagery from USGS (often 10s+)…</Text>
+          {selected && (
+            <View style={styles.placeholderCard}>
+              <Text style={styles.placeholderTitle}>Polygon renderer pending</Text>
+              <Text style={styles.placeholderCopy}>
+                Search is connected. The next V1 slice retrieves the selected hydrography polygon and runs the
+                polygon-only structure detector before rendering 3-5 branded vector zones.
+              </Text>
             </View>
-          )}
-          {selected && aerialPhase === 'timeout' && (
-            <Text style={styles.fallback}>
-              USGS aerial source preview unavailable for this selected waterbody (request timed out).
-            </Text>
-          )}
-          {selected && aerialPhase === 'error' && (
-            <Text style={styles.fallback}>
-              USGS aerial source preview unavailable for this selected waterbody (request error).
-            </Text>
-          )}
-          {selected && aerialLoad && (aerialPhase === 'loading' || aerialPhase === 'loaded') && (
-            <View style={styles.imageWrap}>
-              <ExpoImage
-                key={aerialLoad.gen}
-                source={{ uri: aerialLoad.uri }}
-                style={styles.snapshotImage}
-                contentFit="contain"
-                cachePolicy="none"
-                recyclingKey={String(aerialLoad.gen)}
-                accessibilityLabel="USGS TNM NAIP Plus whole-waterbody on-demand ortho source preview for selected waterbody"
-                onLoad={() => onSnapshotLoaded(aerialLoad.gen)}
-                onError={() => onSnapshotError(aerialLoad.gen)}
-              />
-            </View>
-          )}
-          {selected && aerialPhase === 'loaded' && (
-            <Text style={styles.attr}>{USGS_TNM_ATTRIBUTION}</Text>
-          )}
-          {selected && aerialPhase === 'loading' && (
-            <Text style={styles.attrSmall}>{USGS_TNM_ATTRIBUTION}</Text>
           )}
         </View>
 
         {selected && (
-          <View style={styles.rebuildPlaceholderSection}>
-            <Text style={styles.section}>Water Reader analysis rebuild</Text>
-            <Text style={styles.rebuildPlaceholderLead}>
-              Aerial preview is available now. Analysis output is temporarily disabled while the shoreline geometry engine is being
-              rebuilt and visually audited (offline tooling — not shown in this app yet).
-            </Text>
-            <Text style={styles.rebuildPlaceholderMuted}>
-              This screen does not provide recommendations, fish zones, depth, shoreline access, automated “reads,” or
-              high-confidence structure output. Use the whole-lake USGS preview above for context only.
+          <View style={styles.limitsSection}>
+            <Text style={styles.section}>V1 guardrails</Text>
+            <Text style={styles.limitCopy}>
+              This version will not use source photos, depth charts, species behavior, month, weather, or conditions.
+              Output is a conservative geometry preview, not fishing advice or exact GPS guidance.
             </Text>
           </View>
         )}
-
-        <View style={styles.planningSection}>
-          <Text style={styles.section}>Aerial read planning (bbox tiling preview)</Text>
-          {!selected && (
-            <Text style={styles.muted}>
-              Select a waterbody for where-to-start tiling plans (planning geometry only — not a read engine).
-            </Text>
-          )}
-          {selected && !aerialTilePlan && (
-            <Text style={styles.fallback}>
-              Planning unavailable because this waterbody does not have a valid bbox or centroid.
-            </Text>
-          )}
-          {selected && aerialTilePlan && (
-            <View style={styles.planningCardOuter}>
-              <Text style={styles.prototypeBadge}>Prototype only</Text>
-              <Text style={styles.prototypeCopy}>
-                Planning proof — no imagery inference, no depth, no scoring. Bounding boxes organize future engine work —
-                labels are placeholders, not recommendations.
-              </Text>
-              <View style={styles.planMetaBlock}>
-                <Text style={styles.planMetaLabel}>Whole-waterbody context bbox</Text>
-                <Text style={styles.planBboxText}>{formatBbox(aerialTilePlan.contextBbox)}</Text>
-                <Text style={styles.planMetaHint}>
-                  Source: {sourceLabel(aerialTilePlan.source)} · Close tiles planned: {aerialTilePlan.closeTiles.length}{' '}
-                  · Overlap: {Math.round(aerialTilePlan.overlapRatio * 100)}%
-                </Text>
-                {serverTilePlanPhase === 'loading' && (
-                  <Text style={styles.planMetaHint}>
-                    Loading server geometry tile plan metadata. Using client bbox grid until ready.
-                  </Text>
-                )}
-                {serverTilePlanPhase === 'error' && serverTilePlanError && (
-                  <Text style={styles.planMetaHint}>Server geometry tile plan unavailable; using bbox-grid fallback.</Text>
-                )}
-              </View>
-
-              <Pressable
-                onPress={() => setDevProofExpanded((e) => !e)}
-                style={({ pressed }) => [styles.devProofToggle, pressed && styles.pressed]}
-                accessibilityRole="button"
-                accessibilityState={{ expanded: devProofExpanded }}
-              >
-                <Text style={styles.devProofToggleTitle}>Developer proof details · debug imagery tiles</Text>
-                <Text style={styles.devProofChevron}>{devProofExpanded ? '▼' : '▶'}</Text>
-              </Pressable>
-              {!devProofExpanded && (
-                <Text style={styles.devProofCollapsedHint}>Close-up tiles and retrieval metadata for engineering QA.</Text>
-              )}
-
-              {devProofExpanded && (
-                <>
-                  <View style={styles.tileSchematic}>
-                    {aerialTilePlan.closeTiles.map((tile) => (
-                      <View
-                        key={`tile-schematic-${tile.id}`}
-                        style={[
-                          styles.tileSchematicBox,
-                          {
-                            left: `${(tile.col / aerialTilePlan.gridCols) * 100}%`,
-                            top: `${(tile.row / aerialTilePlan.gridRows) * 100}%`,
-                            width: `${100 / aerialTilePlan.gridCols}%`,
-                            height: `${100 / aerialTilePlan.gridRows}%`,
-                          },
-                        ]}
-                      >
-                        <Text style={styles.tileSchematicText}>{tile.id}</Text>
-                      </View>
-                    ))}
-                  </View>
-
-                  <View style={styles.tileList}>
-                    {aerialTilePlan.closeTiles.map((tile) => (
-                      <View key={tile.id} style={styles.tileCard}>
-                        <View style={styles.tileHeader}>
-                          <Text style={styles.tileTitle}>Tile {tile.id}</Text>
-                          <Text style={styles.tileCategory}>{tile.prototypeVisibleCategory}</Text>
-                        </View>
-                        <Text style={styles.tileBboxText}>{formatBbox(tile.bbox)}</Text>
-                      </View>
-                    ))}
-                  </View>
-
-                  <View style={styles.imageryProofBlock}>
-                    <Text style={styles.planMetaLabel}>Imagery retrieval proof (debug — close-ups only)</Text>
-                    <Text style={styles.prototypeCopy}>
-                      Whole-lake view is proved above — this retrieves up to{' '}
-                      {IMAGERY_PROOF_CLOSE_TILE_LIMIT} USGS TNM NAIP Plus close tiles on demand ({IMAGERY_PROOF_EXPORT_PX}
-                      px each). Retrieval / decode signals only — not analysis, no storage.
-                    </Text>
-                    <Pressable
-                      onPress={onLoadImageryProof}
-                      disabled={!canLoadImageryProof}
-                      style={({ pressed }) => [
-                        styles.proofButton,
-                        pressed && styles.pressed,
-                        !canLoadImageryProof && styles.proofButtonDisabled,
-                      ]}
-                    >
-                      <Text style={styles.proofButtonText}>Load close-up imagery tiles (debug proof)</Text>
-                    </Pressable>
-                    <Text style={styles.planMetaHint}>Does not cache imagery locally.</Text>
-
-                    {imageryProofImages && imageryProofImages.length > 0 && (
-                      <View style={styles.proofImageList}>
-                        {imageryProofImages.map((image) => (
-                          <View key={image.key} style={styles.proofImageCard}>
-                            <View style={styles.tileHeader}>
-                              <Text style={styles.tileTitle}>{image.label}</Text>
-                              <Text style={styles.proofStatus}>{image.phase}</Text>
-                            </View>
-                            {image.prototypeVisibleCategory && (
-                              <Text style={styles.tileCategoryInline}>
-                                Planning label (debug): {image.prototypeVisibleCategory}
-                              </Text>
-                            )}
-                            <Text style={styles.tileBboxText}>{formatBbox(image.bbox)}</Text>
-                            <View style={styles.proofImageWrap}>
-                              {(image.phase === 'loading' || image.phase === 'loaded') && (
-                                <ExpoImage
-                                  source={{ uri: image.uri }}
-                                  style={styles.proofImage}
-                                  contentFit="cover"
-                                  cachePolicy="none"
-                                  recyclingKey={`${image.key}-${image.proofRunId}`}
-                                  accessibilityLabel={`${image.label} USGS imagery retrieval proof`}
-                                  onLoad={(e) =>
-                                    finalizeImageryProofImage(
-                                      image.key,
-                                      image.proofRunId,
-                                      'loaded',
-                                      intrinsicFromProofImageLoadEvent(e),
-                                    )}
-                                  onError={() =>
-                                    finalizeImageryProofImage(image.key, image.proofRunId, 'error', null)}
-                                />
-                              )}
-                              {image.phase === 'loading' && (
-                                <View style={styles.proofLoadingOverlay}>
-                                  <ActivityIndicator size="small" color={colors.sage} />
-                                  <Text style={styles.proofLoadingText}>Loading on-demand tile…</Text>
-                                </View>
-                              )}
-                              {image.phase === 'timeout' && (
-                                <Text style={styles.proofFallback}>This proof tile timed out.</Text>
-                              )}
-                              {image.phase === 'error' && (
-                                <Text style={styles.proofFallback}>This proof tile could not load.</Text>
-                              )}
-                            </View>
-                            {image.quality && (
-                              <View style={styles.proofQualityBlock}>
-                                <Text style={styles.proofQualityTitle}>Tile signal (decode metadata only)</Text>
-                                {summarizeProofQualityForUi(image.quality).map((line, idx) => (
-                                  <Text key={`${image.key}-q-${idx}`} style={styles.proofQualityLine}>
-                                    {line}
-                                  </Text>
-                                ))}
-                              </View>
-                            )}
-                          </View>
-                        ))}
-                        <Text style={styles.attrSmall}>{USGS_TNM_ATTRIBUTION}</Text>
-                      </View>
-                    )}
-                  </View>
-                </>
-              )}
-            </View>
-          )}
-        </View>
       </ScrollView>
 
-      <Modal
-        visible={stateModalOpen}
-        animationType="slide"
-        presentationStyle="pageSheet"
-        onRequestClose={() => setStateModalOpen(false)}
-      >
-        <View style={styles.modalWrap}>
+      <Modal visible={stateModalOpen} animationType="slide" presentationStyle="pageSheet" onRequestClose={() => setStateModalOpen(false)}>
+        <View style={styles.modalRoot}>
           <View style={styles.modalHeader}>
-            <Text style={styles.modalTitle}>Select state</Text>
-            <Pressable
-              onPress={() => setStateModalOpen(false)}
-              style={({ pressed }) => [styles.modalClose, pressed && styles.pressed]}
-            >
-              <Text style={styles.modalCloseText}>Done</Text>
+            <Text style={styles.modalTitle}>Choose a state</Text>
+            <Pressable onPress={() => setStateModalOpen(false)} style={({ pressed }) => [styles.doneBtn, pressed && styles.pressed]}>
+              <Text style={styles.doneText}>Done</Text>
             </Pressable>
           </View>
-          <ScrollView style={styles.modalList} keyboardShouldPersistTaps="handled">
-            {US_STATE_OPTIONS.map((o) => (
-              <Pressable
-                key={o.code}
-                style={({ pressed }) => [styles.stateRow, pressed && styles.pressed]}
-                onPress={() => {
-                  setStateCode(o.code);
-                  setStateModalOpen(false);
-                  setQuery('');
-                  setResults([]);
-                  setSearchError(null);
-                }}
-              >
-                <Text style={styles.stateRowText}>
-                  {o.name} ({o.code})
-                </Text>
-              </Pressable>
-            ))}
+          <ScrollView contentContainerStyle={styles.stateList}>
+            {US_STATE_OPTIONS.map((option) => {
+              const active = option.code === stateCode;
+              return (
+                <Pressable
+                  key={option.code}
+                  style={({ pressed }) => [styles.stateRow, active && styles.stateRowActive, pressed && styles.pressed]}
+                  onPress={() => {
+                    setStateCode(option.code);
+                    setStateModalOpen(false);
+                  }}
+                >
+                  <Text style={[styles.stateRowText, active && styles.stateRowTextActive]}>{option.name}</Text>
+                  <Text style={[styles.stateRowCode, active && styles.stateRowTextActive]}>{option.code}</Text>
+                </Pressable>
+              );
+            })}
           </ScrollView>
         </View>
       </Modal>
@@ -944,14 +331,18 @@ export default function WaterReaderScreen() {
 }
 
 const styles = StyleSheet.create({
-  flex: { flex: 1 },
-  scroll: { flex: 1, backgroundColor: colors.background },
-  content: { padding: spacing.lg, paddingBottom: spacing.xxl + 32 },
+  flex: { flex: 1, backgroundColor: colors.background },
+  scroll: { flex: 1 },
+  content: { padding: spacing.lg, paddingBottom: spacing.xl * 2 },
   disclaimer: {
-    fontSize: 12,
-    lineHeight: 17,
+    borderRadius: radius.md,
+    borderWidth: StyleSheet.hairlineWidth,
+    borderColor: colors.border,
+    backgroundColor: colors.surface,
+    padding: spacing.md,
     color: colors.textSecondary,
-    marginBottom: spacing.md,
+    lineHeight: 19,
+    marginBottom: spacing.lg,
   },
   section: {
     fontFamily: fonts.serif,
@@ -959,362 +350,110 @@ const styles = StyleSheet.create({
     color: colors.text,
     marginBottom: spacing.sm,
   },
-  combobox: { marginBottom: spacing.md, zIndex: 20 },
-  inputLabel: { fontSize: 12, color: colors.textMuted, marginBottom: 6, marginTop: spacing.sm },
+  combobox: {
+    borderRadius: radius.md,
+    borderWidth: StyleSheet.hairlineWidth,
+    borderColor: colors.border,
+    backgroundColor: colors.surface,
+    padding: spacing.md,
+    zIndex: 10,
+  },
+  inputLabel: {
+    fontSize: 12,
+    color: colors.textSecondary,
+    marginBottom: 6,
+    marginTop: spacing.sm,
+  },
   stateButton: {
+    minHeight: 48,
+    borderRadius: radius.sm,
+    borderWidth: StyleSheet.hairlineWidth,
+    borderColor: colors.border,
+    paddingHorizontal: spacing.md,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    backgroundColor: colors.surface,
-    borderRadius: radius.md,
-    borderWidth: StyleSheet.hairlineWidth,
-    borderColor: colors.border,
-    paddingHorizontal: spacing.md,
-    paddingVertical: spacing.sm + 4,
+    backgroundColor: colors.background,
   },
-  stateButtonText: { flex: 1, fontSize: 16, color: colors.text, marginRight: spacing.sm },
-  stateChevron: { fontSize: 12, color: colors.textMuted },
-  calmHint: { fontSize: 13, color: colors.textSecondary, marginTop: spacing.sm, lineHeight: 19 },
+  stateButtonText: { color: colors.text, fontWeight: '700', flex: 1 },
+  stateChevron: { color: colors.textSecondary, marginLeft: spacing.sm },
+  calmHint: { marginTop: spacing.sm, color: colors.textSecondary, fontSize: 13 },
   searchInput: {
-    backgroundColor: colors.surface,
-    borderRadius: radius.md,
+    minHeight: 48,
+    borderRadius: radius.sm,
     borderWidth: StyleSheet.hairlineWidth,
     borderColor: colors.border,
     paddingHorizontal: spacing.md,
-    paddingVertical: spacing.sm + 4,
-    fontSize: 16,
     color: colors.text,
+    backgroundColor: colors.background,
   },
   selectedSummary: {
-    marginTop: spacing.sm,
-    backgroundColor: colors.surface,
-    borderRadius: radius.md,
-    borderWidth: 1,
-    borderColor: colors.sage,
+    marginTop: spacing.md,
+    borderRadius: radius.sm,
+    backgroundColor: colors.backgroundAlt,
     padding: spacing.md,
   },
-  selectedSummaryText: { flex: 1, minWidth: 0 },
-  selectedTitle: { fontFamily: fonts.serif, fontSize: 16, color: colors.text, lineHeight: 22 },
-  selectedSub: { fontSize: 12, color: colors.textMuted, marginTop: 4, lineHeight: 17 },
-  selectedActions: { flexDirection: 'row', alignItems: 'center', marginTop: 10, gap: 6 },
-  linkBtn: { paddingVertical: 4 },
-  linkBtnText: { fontSize: 14, color: colors.sage, fontWeight: '600' },
-  actionSep: { color: colors.textMuted, fontSize: 14 },
-  pressed: { opacity: 0.85 },
+  selectedSummaryText: { flex: 1 },
+  selectedTitle: { color: colors.text, fontWeight: '800', fontSize: 15 },
+  selectedSub: { color: colors.textSecondary, marginTop: 4, fontSize: 13 },
+  selectedActions: { flexDirection: 'row', alignItems: 'center', marginTop: spacing.sm },
+  linkBtn: { paddingVertical: 4, paddingHorizontal: 2 },
+  linkBtnText: { color: colors.sage, fontWeight: '800' },
+  actionSep: { marginHorizontal: spacing.sm, color: colors.textMuted },
   dropdown: {
-    marginTop: spacing.xs,
-    backgroundColor: colors.surface,
-    borderRadius: radius.md,
-    borderWidth: StyleSheet.hairlineWidth,
-    borderColor: colors.border,
-    maxHeight: 320,
-    overflow: 'hidden',
-  },
-  inlineLoading: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: spacing.sm,
-    padding: spacing.md,
-  },
-  searchingText: { fontSize: 13, color: colors.textSecondary },
-  dropdownError: { color: colors.reportScoreRed, fontSize: 13, padding: spacing.md, paddingBottom: 0 },
-  dropdownEmpty: { fontSize: 13, color: colors.textSecondary, padding: spacing.md, lineHeight: 19 },
-  dropdownList: { maxHeight: 220 },
-  resultRow: {
-    paddingVertical: spacing.sm,
-    paddingHorizontal: spacing.md,
-    borderTopWidth: StyleSheet.hairlineWidth,
-    borderTopColor: colors.border,
-  },
-  resultLine: { fontSize: 15, color: colors.text, lineHeight: 20 },
-  resultMeta: { fontSize: 11, color: colors.textMuted, marginTop: 4, lineHeight: 16 },
-  snapshotSection: { marginTop: spacing.xl },
-  planningSection: { marginTop: spacing.xl },
-  muted: { fontSize: 13, color: colors.textMuted },
-  fallback: {
-    fontSize: 14,
-    color: colors.textSecondary,
-    lineHeight: 20,
     marginTop: spacing.sm,
-  },
-  loadingBox: {
-    alignItems: 'center',
-    paddingVertical: spacing.xl,
-    gap: spacing.md,
-  },
-  loadingText: { fontSize: 13, color: colors.textSecondary, textAlign: 'center' },
-  imageWrap: {
-    marginTop: spacing.md,
-    backgroundColor: colors.surface,
-    borderRadius: radius.md,
-    borderWidth: StyleSheet.hairlineWidth,
-    borderColor: colors.border,
-    overflow: 'hidden',
-    minHeight: 220,
-  },
-  snapshotImage: {
-    width: '100%',
-    height: 280,
-    backgroundColor: colors.backgroundAlt,
-  },
-  attr: {
-    fontSize: 11,
-    color: colors.textMuted,
-    marginTop: spacing.md,
-    lineHeight: 16,
-  },
-  attrSmall: {
-    fontSize: 10,
-    color: colors.textMuted,
-    marginTop: spacing.sm,
-    lineHeight: 14,
-  },
-  rebuildPlaceholderSection: {
-    marginTop: spacing.xl,
-    padding: spacing.md,
-    borderRadius: radius.md,
-    borderWidth: StyleSheet.hairlineWidth,
-    borderColor: colors.border,
-    backgroundColor: colors.surface,
-    gap: spacing.sm,
-  },
-  rebuildPlaceholderLead: {
-    fontSize: 14,
-    color: colors.text,
-    lineHeight: 21,
-  },
-  rebuildPlaceholderMuted: {
-    fontSize: 12,
-    color: colors.textSecondary,
-    lineHeight: 18,
-  },
-  planningCardOuter: {
-    backgroundColor: colors.surface,
-    borderRadius: radius.md,
-    borderWidth: StyleSheet.hairlineWidth,
-    borderColor: colors.border,
-    padding: spacing.md,
-    gap: spacing.sm,
-  },
-  prototypeBadge: {
-    alignSelf: 'flex-start',
-    paddingHorizontal: spacing.sm,
-    paddingVertical: 4,
-    borderRadius: radius.sm,
-    backgroundColor: colors.backgroundAlt,
-    color: colors.textSecondary,
-    fontSize: 11,
-    fontWeight: '700',
-    textTransform: 'uppercase',
-    letterSpacing: 0.5,
-  },
-  prototypeCopy: {
-    fontSize: 12,
-    color: colors.textSecondary,
-    lineHeight: 18,
-  },
-  devProofToggle: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    gap: spacing.md,
-    marginTop: spacing.md,
-    paddingVertical: spacing.sm,
-    paddingHorizontal: spacing.sm,
     borderRadius: radius.sm,
     borderWidth: StyleSheet.hairlineWidth,
     borderColor: colors.border,
     backgroundColor: colors.background,
+    overflow: 'hidden',
   },
-  devProofToggleTitle: {
-    flex: 1,
-    fontSize: 13,
-    fontWeight: '700',
-    color: colors.text,
-  },
-  devProofChevron: {
-    fontSize: 14,
-    color: colors.textMuted,
-  },
-  devProofCollapsedHint: {
-    fontSize: 11,
-    color: colors.textMuted,
-    marginTop: spacing.xs,
-    lineHeight: 16,
-  },
-  planMetaBlock: {
-    marginTop: spacing.xs,
-    paddingTop: spacing.sm,
-    borderTopWidth: StyleSheet.hairlineWidth,
-    borderTopColor: colors.border,
-  },
-  planMetaLabel: { fontSize: 12, color: colors.textMuted, marginBottom: 4 },
-  planBboxText: { fontSize: 12, color: colors.text, fontFamily: 'SpaceMono_400Regular', lineHeight: 18 },
-  planMetaHint: { fontSize: 11, color: colors.textMuted, marginTop: 4, lineHeight: 16 },
-  tileSchematic: {
-    height: 160,
-    marginTop: spacing.sm,
+  dropdownList: { maxHeight: 260 },
+  resultRow: { padding: spacing.md, borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: colors.border },
+  resultLine: { color: colors.text, fontWeight: '800' },
+  resultMeta: { color: colors.textSecondary, marginTop: 4, fontSize: 12 },
+  inlineLoading: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm, padding: spacing.md },
+  searchingText: { color: colors.textSecondary },
+  dropdownError: { color: colors.reportScoreRed, padding: spacing.md },
+  dropdownEmpty: { color: colors.textSecondary, padding: spacing.md },
+  mapSection: { marginTop: spacing.lg },
+  muted: { color: colors.textSecondary, lineHeight: 20 },
+  placeholderCard: {
     borderRadius: radius.md,
     borderWidth: StyleSheet.hairlineWidth,
     borderColor: colors.border,
-    backgroundColor: colors.backgroundAlt,
-    overflow: 'hidden',
-    position: 'relative',
-  },
-  tileSchematicBox: {
-    position: 'absolute',
-    width: '32%',
-    height: '40%',
-    borderRadius: radius.sm,
-    borderWidth: 1,
-    borderColor: colors.sage,
-    backgroundColor: 'rgba(107, 126, 86, 0.14)',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  tileSchematicText: { color: colors.text, fontSize: 13, fontWeight: '700' },
-  tileList: { gap: spacing.sm, marginTop: spacing.xs },
-  tileCard: {
-    borderRadius: radius.sm,
-    borderWidth: StyleSheet.hairlineWidth,
-    borderColor: colors.border,
-    padding: spacing.sm,
-    backgroundColor: colors.background,
-  },
-  tileHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    gap: spacing.sm,
-  },
-  tileTitle: { fontSize: 13, color: colors.text, fontWeight: '700' },
-  tileCategory: { flex: 1, textAlign: 'right', fontSize: 12, color: colors.textSecondary },
-  tileBboxText: {
-    marginTop: 4,
-    fontSize: 11,
-    color: colors.textMuted,
-    fontFamily: 'SpaceMono_400Regular',
-    lineHeight: 16,
-  },
-  imageryProofBlock: {
-    marginTop: spacing.sm,
-    paddingTop: spacing.md,
-    borderTopWidth: StyleSheet.hairlineWidth,
-    borderTopColor: colors.border,
-    gap: spacing.sm,
-  },
-  proofButton: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: colors.sage,
-    borderRadius: radius.md,
-    paddingVertical: spacing.sm + 4,
-    paddingHorizontal: spacing.md,
-  },
-  proofButtonDisabled: {
-    backgroundColor: colors.disabled,
-  },
-  proofButtonText: {
-    color: colors.textOnPrimary,
-    fontSize: 14,
-    fontWeight: '700',
-  },
-  proofImageList: {
-    gap: spacing.md,
-    marginTop: spacing.sm,
-  },
-  proofImageCard: {
-    borderRadius: radius.sm,
-    borderWidth: StyleSheet.hairlineWidth,
-    borderColor: colors.border,
-    backgroundColor: colors.background,
-    padding: spacing.sm,
-  },
-  proofStatus: {
-    fontSize: 11,
-    color: colors.textMuted,
-    textTransform: 'uppercase',
-    letterSpacing: 0.4,
-  },
-  tileCategoryInline: {
-    marginTop: 4,
-    fontSize: 12,
-    color: colors.textSecondary,
-    lineHeight: 17,
-  },
-  proofImageWrap: {
-    minHeight: 180,
-    marginTop: spacing.sm,
-    borderRadius: radius.sm,
-    borderWidth: StyleSheet.hairlineWidth,
-    borderColor: colors.border,
-    backgroundColor: colors.backgroundAlt,
-    overflow: 'hidden',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  proofImage: {
-    width: '100%',
-    height: 220,
-    backgroundColor: colors.backgroundAlt,
-  },
-  proofLoadingOverlay: {
-    ...StyleSheet.absoluteFillObject,
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: spacing.sm,
-    backgroundColor: 'rgba(242, 250, 244, 0.78)',
-  },
-  proofLoadingText: {
-    fontSize: 12,
-    color: colors.textSecondary,
-  },
-  proofFallback: {
+    backgroundColor: colors.surface,
     padding: spacing.md,
-    fontSize: 13,
-    color: colors.textSecondary,
-    lineHeight: 18,
-    textAlign: 'center',
   },
-  proofQualityBlock: {
-    marginTop: spacing.sm,
-    paddingTop: spacing.sm,
-    borderTopWidth: StyleSheet.hairlineWidth,
-    borderTopColor: colors.border,
-    gap: 4,
-  },
-  proofQualityTitle: {
-    fontSize: 11,
-    fontWeight: '700',
-    color: colors.textMuted,
-    textTransform: 'uppercase',
-    letterSpacing: 0.4,
-    marginBottom: 2,
-  },
-  proofQualityLine: {
-    fontSize: 11,
-    color: colors.textSecondary,
-    lineHeight: 16,
-  },
-  modalWrap: { flex: 1, backgroundColor: colors.background, paddingTop: 8 },
+  placeholderTitle: { fontFamily: fonts.serif, fontSize: 16, color: colors.text },
+  placeholderCopy: { marginTop: spacing.xs, color: colors.textSecondary, lineHeight: 20 },
+  limitsSection: { marginTop: spacing.lg },
+  limitCopy: { color: colors.textSecondary, lineHeight: 20 },
+  modalRoot: { flex: 1, backgroundColor: colors.background },
   modalHeader: {
+    paddingHorizontal: spacing.lg,
+    paddingVertical: spacing.md,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: colors.border,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingHorizontal: spacing.lg,
-    paddingBottom: spacing.sm,
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: colors.border,
   },
-  modalTitle: { fontFamily: fonts.serif, fontSize: 18, color: colors.text },
-  modalClose: { padding: spacing.sm },
-  modalCloseText: { fontSize: 16, color: colors.sage, fontWeight: '600' },
-  modalList: { flex: 1 },
+  modalTitle: { fontFamily: fonts.serif, fontSize: 20, color: colors.text },
+  doneBtn: { padding: spacing.sm },
+  doneText: { color: colors.sage, fontWeight: '800' },
+  stateList: { padding: spacing.md },
   stateRow: {
-    paddingVertical: 14,
-    paddingHorizontal: spacing.lg,
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: colors.border,
+    minHeight: 48,
+    paddingHorizontal: spacing.md,
+    borderRadius: radius.sm,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
-  stateRowText: { fontSize: 16, color: colors.text },
+  stateRowActive: { backgroundColor: colors.surface },
+  stateRowText: { color: colors.text, fontSize: 16 },
+  stateRowCode: { color: colors.textSecondary, fontWeight: '800' },
+  stateRowTextActive: { color: colors.sage },
+  pressed: { opacity: 0.65 },
 });

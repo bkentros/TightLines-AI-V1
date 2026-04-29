@@ -12,7 +12,7 @@
  *     --bbox -97.5,43.4,-89.0,49.4 \
  *     --limit 5000
  *
- * National chunked rollout (same ingest run id, OBJECTID ranges; see docs/WATER_READER_MASTER_PLAN.md 0.5.15):
+ * National chunked rollout (same ingest run id, OBJECTID ranges; see docs/WATER_READER_V1_POLYGON_BUILD_PLAN.md):
  *   export INGEST_RUN_ID="$(uuidgen | tr '[:upper:]' '[:lower:]')"
  *   deno run ... --out tmp/water-reader/national/000-counties.sql --include-counties --skip-waterbodies \
  *     --skip-promote --ingest-run-id "$INGEST_RUN_ID" --target-scope national
