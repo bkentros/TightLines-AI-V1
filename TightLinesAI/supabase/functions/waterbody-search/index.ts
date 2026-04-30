@@ -41,6 +41,11 @@ interface SearchRow {
   source_status: WaterbodySearchResult["sourceStatus"];
   best_available_mode: WaterbodySearchResult["bestAvailableMode"];
   confidence: WaterbodySearchResult["confidence"];
+  water_reader_support_status: WaterbodySearchResult["waterReaderSupportStatus"];
+  water_reader_support_reason: string;
+  has_polygon_geometry: boolean;
+  polygon_area_acres: number | null;
+  polygon_qa_flags: string[] | null;
 }
 
 function mapPreviewBbox(row: SearchRow): WaterbodySearchResult["previewBbox"] {
@@ -86,6 +91,11 @@ function mapRow(row: SearchRow): WaterbodySearchResult {
     sourceStatus: row.source_status,
     bestAvailableMode: row.best_available_mode,
     confidence: row.confidence,
+    waterReaderSupportStatus: row.water_reader_support_status,
+    waterReaderSupportReason: row.water_reader_support_reason,
+    hasPolygonGeometry: row.has_polygon_geometry,
+    polygonAreaAcres: row.polygon_area_acres,
+    polygonQaFlags: row.polygon_qa_flags ?? [],
   };
 }
 

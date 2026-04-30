@@ -5,6 +5,7 @@
  */
 
 export const WATERBODY_SEARCH_FEATURE = "waterbody_search_v1" as const;
+export const WATERBODY_POLYGON_FEATURE = "waterbody_polygon_v1" as const;
 export const WATERBODY_AERIAL_TILE_PLAN_FEATURE = "waterbody_aerial_tile_plan_v1" as const;
 /** Transient RPC-backed geometry candidate hints (`plan_waterbody_aerial_geometry_candidates`) — no polygons in payload. */
 export const WATERBODY_AERIAL_GEOMETRY_CANDIDATES_FEATURE =
@@ -214,6 +215,12 @@ export interface WaterbodyAvailability {
   confidenceReasons: string[];
 }
 
+export type WaterReaderPolygonSupportStatus =
+  | "supported"
+  | "limited"
+  | "needs_review"
+  | "not_supported";
+
 export interface WaterbodySearchResult {
   lakeId: string;
   name: string;
@@ -235,6 +242,12 @@ export interface WaterbodySearchResult {
   sourceStatus: WaterbodySourceStatus;
   bestAvailableMode: ResolvedWaterReaderSourceMode | null;
   confidence: WaterReaderConfidence;
+  /** Polygon V1: derived from `waterbody_index.geometry` only (not aerial/depth). */
+  waterReaderSupportStatus: WaterReaderPolygonSupportStatus;
+  waterReaderSupportReason: string;
+  hasPolygonGeometry: boolean;
+  polygonAreaAcres?: number | null;
+  polygonQaFlags: string[];
 }
 
 export interface WaterbodySearchResponse {
@@ -242,6 +255,39 @@ export interface WaterbodySearchResponse {
   query: string;
   state?: string | null;
   results: WaterbodySearchResult[];
+}
+
+export interface WaterbodyPolygonGeoJson {
+  type: "Polygon" | "MultiPolygon";
+  coordinates: unknown;
+}
+
+export interface WaterbodyPolygonResponse {
+  feature: typeof WATERBODY_POLYGON_FEATURE;
+  lakeId: string;
+  name: string;
+  state: string;
+  county?: string | null;
+  waterbodyType: WaterbodyType;
+  centroid: {
+    lat: number;
+    lon: number;
+  };
+  bbox: WaterbodyPreviewBbox | null;
+  areaSqM?: number | null;
+  areaAcres?: number | null;
+  perimeterM?: number | null;
+  geojson: WaterbodyPolygonGeoJson | null;
+  sourceDataset?: string | null;
+  sourceFeatureId?: string | null;
+  sourceSummary?: Record<string, unknown> | null;
+  geometryIsValid: boolean;
+  geometryValidityDetail?: string | null;
+  componentCount: number;
+  interiorRingCount: number;
+  waterReaderSupportStatus: WaterReaderPolygonSupportStatus;
+  waterReaderSupportReason: string;
+  polygonQaFlags: string[];
 }
 
 export interface ReviewedSourcePath {

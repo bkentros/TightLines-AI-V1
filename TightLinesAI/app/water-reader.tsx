@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   ActivityIndicator,
   KeyboardAvoidingView,
@@ -12,8 +12,15 @@ import {
   View,
 } from 'react-native';
 import { colors, fonts, radius, spacing } from '../lib/theme';
-import { searchWaterbodies } from '../lib/waterReader';
-import type { WaterbodySearchResult } from '../lib/waterReaderContracts';
+import { fetchWaterbodyPolygon, searchWaterbodies } from '../lib/waterReader';
+import { LakePolygonSilhouette, type LakeZoneLayoutPayload } from '../components/water-reader/LakePolygonSilhouette';
+import { detectWaterReaderGeometryCandidates } from '../lib/waterReaderGeometryDetector';
+import type {
+  WaterbodyPolygonResponse,
+  WaterbodySearchResult,
+  WaterReaderGeometryCandidate,
+  WaterReaderPolygonSupportStatus,
+} from '../lib/waterReaderContracts';
 
 const SEARCH_DEBOUNCE_MS = 400;
 const SEARCH_RESULT_LIMIT = 16;
@@ -52,6 +59,21 @@ function parseEdgeErrorMessage(raw: string): { surface: string; details?: string
   return { surface: raw };
 }
 
+function userFacingPolygonError(e: unknown): string {
+  const raw = e instanceof Error ? e.message : String(e);
+  const { surface, details = '' } = parseEdgeErrorMessage(raw);
+  const m = `${surface} ${details}`.toLowerCase();
+  if (m.includes('not signed in') || m.includes('sign in')) return 'Sign in to load the polygon.';
+  if (m.includes('subscribe') || m.includes('subscription')) return 'An active subscription is required to load the polygon.';
+  if (m.includes('unauthorized') || surface === 'Unauthorized') return 'Session invalid. Sign in again.';
+  if (m.includes('network') || m.includes('fetch') || m.includes('network request failed')) {
+    return 'Network error loading polygon. Try again.';
+  }
+  if (m.includes('not_found') || surface.toLowerCase().includes('not found')) return 'This waterbody was not found.';
+  if (m.includes('polygon_fetch_failed') || m.includes('500')) return 'Could not load polygon. Try again.';
+  return surface.length < 200 ? surface : 'Could not load polygon.';
+}
+
 function userFacingSearchError(e: unknown): string {
   const raw = e instanceof Error ? e.message : String(e);
   const { surface, details = '' } = parseEdgeErrorMessage(raw);
@@ -73,14 +95,52 @@ function userFacingSearchError(e: unknown): string {
   return surface.length < 200 ? surface : "We couldn't run that search.";
 }
 
+function canOpenWaterReaderRead(r: WaterbodySearchResult): boolean {
+  return r.waterReaderSupportStatus === 'supported' || r.waterReaderSupportStatus === 'limited';
+}
+
+function supportChipLabel(status: WaterReaderPolygonSupportStatus): string {
+  switch (status) {
+    case 'supported':
+      return 'Supported';
+    case 'limited':
+      return 'Limited';
+    case 'needs_review':
+      return 'Needs review';
+    case 'not_supported':
+      return 'Not supported';
+    default:
+      return 'Unknown';
+  }
+}
+
+function supportChipStyle(status: WaterReaderPolygonSupportStatus) {
+  switch (status) {
+    case 'supported':
+      return styles.chipSupported;
+    case 'limited':
+      return styles.chipLimited;
+    case 'needs_review':
+      return styles.chipReview;
+    case 'not_supported':
+    default:
+      return styles.chipBlocked;
+  }
+}
+
 function resultPrimaryLine(r: WaterbodySearchResult): string {
   const county = r.county ? ` - ${r.county} County` : '';
   return `${r.name}${county} · ${r.waterbodyType}`;
 }
 
 function resultSecondaryLine(r: WaterbodySearchResult): string {
-  const acres = typeof r.surfaceAreaAcres === 'number' ? ` · ${Math.round(r.surfaceAreaAcres).toLocaleString()} acres` : '';
-  return `${r.state} · polygon source ${r.sourceStatus}${acres}`;
+  const acres =
+    typeof r.polygonAreaAcres === 'number'
+      ? ` · ${Math.round(r.polygonAreaAcres).toLocaleString()} poly acres`
+      : typeof r.surfaceAreaAcres === 'number'
+        ? ` · ${Math.round(r.surfaceAreaAcres).toLocaleString()} acres (index)`
+        : '';
+  return `${r.state}${acres}`;
 }
 
 function selectionSummaryLine(r: WaterbodySearchResult): string {
@@ -98,10 +158,45 @@ export default function WaterReaderScreen() {
   const [results, setResults] = useState<WaterbodySearchResult[]>([]);
   const [selected, setSelected] = useState<WaterbodySearchResult | null>(null);
   const searchRequestId = useRef(0);
+  const polygonRequestId = useRef(0);
+  const [polygonLoading, setPolygonLoading] = useState(false);
+  const [polygonError, setPolygonError] = useState<string | null>(null);
+  const [polygonPayload, setPolygonPayload] = useState<WaterbodyPolygonResponse | null>(null);
+  const [lakeZoneLayout, setLakeZoneLayout] = useState<LakeZoneLayoutPayload>({
+    layoutReady: false,
+    renderedCandidateIds: [],
+  });
 
   useEffect(() => {
     setSelected(null);
   }, [stateCode]);
+
+  useEffect(() => {
+    if (!selected || !canOpenWaterReaderRead(selected)) {
+      polygonRequestId.current += 1;
+      setPolygonLoading(false);
+      setPolygonError(null);
+      setPolygonPayload(null);
+      return;
+    }
+    const reqId = ++polygonRequestId.current;
+    setPolygonLoading(true);
+    setPolygonError(null);
+    setPolygonPayload(null);
+    const lakeId = selected.lakeId;
+    void (async () => {
+      try {
+        const res = await fetchWaterbodyPolygon({ lakeId });
+        if (polygonRequestId.current !== reqId) return;
+        setPolygonPayload(res);
+      } catch (e) {
+        if (polygonRequestId.current !== reqId) return;
+        setPolygonError(userFacingPolygonError(e));
+      } finally {
+        if (polygonRequestId.current === reqId) setPolygonLoading(false);
+      }
+    })();
+  }, [selected]);
 
   const runSearch = useCallback(
     async (requestId: number) => {
@@ -150,6 +245,14 @@ export default function WaterReaderScreen() {
     return () => clearTimeout(t);
   }, [query, stateCode, runSearch]);
 
+  const onLakeZoneLayoutChange = useCallback((payload: LakeZoneLayoutPayload) => {
+    setLakeZoneLayout(payload);
+  }, []);
+
+  useEffect(() => {
+    setLakeZoneLayout({ layoutReady: false, renderedCandidateIds: [] });
+  }, [polygonPayload?.geojson]);
+
   const onChangeState = useCallback(() => {
     setStateCode(null);
     setQuery('');
@@ -164,6 +267,21 @@ export default function WaterReaderScreen() {
   const stateNameForEmpty =
     (stateCode && US_STATE_OPTIONS.find((o) => o.code === stateCode)?.name) || 'this state';
 
+  const geometryCandidates: WaterReaderGeometryCandidate[] = useMemo(
+    () => detectWaterReaderGeometryCandidates(polygonPayload?.geojson),
+    [polygonPayload?.geojson],
+  );
+  const visibleGeometryCandidates = useMemo(() => {
+    if (!lakeZoneLayout.layoutReady) return [];
+    const ids = new Set(lakeZoneLayout.renderedCandidateIds);
+    return geometryCandidates.filter((c) => ids.has(c.candidateId));
+  }, [geometryCandidates, lakeZoneLayout.layoutReady, lakeZoneLayout.renderedCandidateIds]);
+  const geometryLimited =
+    polygonPayload?.geojson != null &&
+    lakeZoneLayout.layoutReady &&
+    visibleGeometryCandidates.length > 0 &&
+    visibleGeometryCandidates.length < 3;
+
   return (
     <KeyboardAvoidingView style={styles.flex} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
       <ScrollView
@@ -173,8 +291,9 @@ export default function WaterReaderScreen() {
         keyboardShouldPersistTaps="handled"
       >
         <Text style={styles.disclaimer}>
-          Polygon-only Water Reader V1. Uses public-domain hydrography polygons for geometry context. No source
-          photos, depth charts, seasonal logic, species logic, or fishing-spot claims.
+          Polygon-only Water Reader V1 uses public-domain hydrography outlines for shape context. Below, generic
+          approaches are educational—they are not exact locations, not a guarantee of results, and not based on depth,
+          species, season, or weather. No source imagery or fishing-spot claims.
         </Text>
 
         <Text style={styles.section}>Find a waterbody</Text>
@@ -221,6 +340,12 @@ export default function WaterReaderScreen() {
                 <Text style={styles.selectedSub} numberOfLines={2}>
                   {resultSecondaryLine(selected)}
                 </Text>
+                <View style={[styles.supportChip, supportChipStyle(selected.waterReaderSupportStatus), styles.selectedChip]}>
+                  <Text style={styles.supportChipText}>{supportChipLabel(selected.waterReaderSupportStatus)}</Text>
+                </View>
+                <Text style={styles.selectedReason} numberOfLines={3}>
+                  {selected.waterReaderSupportReason}
+                </Text>
                 <View style={styles.selectedActions}>
                   <Pressable onPress={onChangeState} style={({ pressed }) => [styles.linkBtn, pressed && styles.pressed]}>
                     <Text style={styles.linkBtnText}>Change state</Text>
@@ -248,20 +373,39 @@ export default function WaterReaderScreen() {
               )}
               {!searching && results.length > 0 && (
                 <ScrollView style={styles.dropdownList} keyboardShouldPersistTaps="handled" nestedScrollEnabled>
-                  {results.map((r) => (
-                    <Pressable
-                      key={r.lakeId}
-                      style={({ pressed }) => [styles.resultRow, pressed && styles.pressed]}
-                      onPress={() => setSelected(r)}
-                    >
-                      <Text style={styles.resultLine} numberOfLines={2}>
-                        {resultPrimaryLine(r)}
-                      </Text>
-                      <Text style={styles.resultMeta} numberOfLines={2}>
-                        {resultSecondaryLine(r)}
-                      </Text>
-                    </Pressable>
-                  ))}
+                  {results.map((r) => {
+                    const open = canOpenWaterReaderRead(r);
+                    return (
+                      <Pressable
+                        key={r.lakeId}
+                        style={({ pressed }) => [
+                          styles.resultRow,
+                          !open && styles.resultRowDisabled,
+                          pressed && open && styles.pressed,
+                        ]}
+                        onPress={() => {
+                          if (canOpenWaterReaderRead(r)) setSelected(r);
+                        }}
+                      >
+                        <View style={styles.resultRowTop}>
+                          <Text style={[styles.resultLine, styles.resultLineFlex]} numberOfLines={2}>
+                            {resultPrimaryLine(r)}
+                          </Text>
+                          <View style={[styles.supportChip, supportChipStyle(r.waterReaderSupportStatus)]}>
+                            <Text style={styles.supportChipText}>{supportChipLabel(r.waterReaderSupportStatus)}</Text>
+                          </View>
+                        </View>
+                        <Text style={styles.resultMeta} numberOfLines={2}>
+                          {resultSecondaryLine(r)}
+                        </Text>
+                        {!open && (
+                          <Text style={styles.resultBlockedHint} numberOfLines={2}>
+                            Water Reader read not available for this row.
+                          </Text>
+                        )}
+                      </Pressable>
+                    );
+                  })}
                 </ScrollView>
               )}
             </View>
@@ -272,17 +416,89 @@ export default function WaterReaderScreen() {
           <Text style={styles.section}>Vector lake map</Text>
           {!selected && (
             <Text style={styles.muted}>
-              Select a waterbody to frame the polygon-only map. Highlighted structure zones will come from polygon
-              geometry only.
+              Select a supported or limited waterbody to see its hydrography silhouette. This is vector-only public
+              data, not satellite imagery.
             </Text>
           )}
           {selected && (
             <View style={styles.placeholderCard}>
-              <Text style={styles.placeholderTitle}>Polygon renderer pending</Text>
-              <Text style={styles.placeholderCopy}>
-                Search is connected. The next V1 slice retrieves the selected hydrography polygon and runs the
-                polygon-only structure detector before rendering 3-5 branded vector zones.
-              </Text>
+              {polygonLoading && (
+                <View style={styles.inlineLoading}>
+                  <ActivityIndicator size="small" color={colors.sage} />
+                  <Text style={styles.placeholderCopy}>Loading polygon from the server…</Text>
+                </View>
+              )}
+              {!polygonLoading && polygonError != null && (
+                <>
+                  <Text style={styles.placeholderTitle}>Polygon unavailable</Text>
+                  <Text style={styles.polygonErrorText}>{polygonError}</Text>
+                </>
+              )}
+              {!polygonLoading && polygonError == null && polygonPayload != null && (
+                <>
+                  <LakePolygonSilhouette
+                    geojson={polygonPayload.geojson}
+                    candidates={geometryCandidates}
+                    areaAcres={polygonPayload.areaAcres}
+                    onZoneLayoutChange={onLakeZoneLayoutChange}
+                  />
+                  {geometryCandidates.length > 0 && !lakeZoneLayout.layoutReady && (
+                    <Text style={styles.zoneSizingHint}>Sizing zones to map…</Text>
+                  )}
+                  {lakeZoneLayout.layoutReady &&
+                    geometryCandidates.length > 0 &&
+                    visibleGeometryCandidates.length === 0 && (
+                    <Text style={styles.zoneSizingHint}>
+                      Shoreline cues could not be drawn as patches at this size; open on a wider view if needed.
+                    </Text>
+                  )}
+                  <View style={styles.mapMetaRow}>
+                    <View style={[styles.supportChip, supportChipStyle(polygonPayload.waterReaderSupportStatus)]}>
+                      <Text style={styles.supportChipText}>
+                        {supportChipLabel(polygonPayload.waterReaderSupportStatus)}
+                      </Text>
+                    </View>
+                    <Text style={styles.mapMetaAcres}>
+                      {typeof polygonPayload.areaAcres === 'number'
+                        ? `~${Math.round(polygonPayload.areaAcres).toLocaleString()} acres (hydrography)`
+                        : '—'}
+                    </Text>
+                  </View>
+                  <Text style={styles.placeholderCopy}>
+                    Zone colors match the cards. Patches sit in shoreline space and are clipped to the hydrography
+                    outline—shape cues only, not imagery or on-water references.
+                  </Text>
+                  {geometryLimited && (
+                    <Text style={styles.geometryLimitedNote}>
+                      Fewer than three distinct shoreline cues passed the prototype filters for this outline. That can
+                      happen on simpler shapes; nothing is padded in to hit a quota.
+                    </Text>
+                  )}
+                  {visibleGeometryCandidates.length > 0 && (
+                    <View style={styles.candidateList}>
+                      <Text style={styles.candidateListTitle}>Shoreline shape prompts (educational)</Text>
+                      {visibleGeometryCandidates.map((c) => (
+                        <View key={c.candidateId} style={styles.candidateCard}>
+                          <View style={styles.candidateCardHeader}>
+                            <View
+                              style={[
+                                styles.candidateSwatch,
+                                { backgroundColor: c.zoneFillRgba, borderColor: c.zoneStrokeRgba },
+                              ]}
+                              accessibilityLabel={`Zone color for ${c.featureLabel}`}
+                            />
+                            <Text style={styles.candidateLabel}>{c.featureLabel}</Text>
+                          </View>
+                          <Text style={styles.candidateWhyLabel}>Why flagged</Text>
+                          <Text style={styles.candidateBody}>{c.identifiedBecause}</Text>
+                          <Text style={styles.candidateHowLabel}>How to fish it</Text>
+                          <Text style={styles.candidateSub}>{c.howToFishIt}</Text>
+                        </View>
+                      ))}
+                    </View>
+                  )}
+                </>
+              )}
             </View>
           )}
         </View>
@@ -291,8 +507,9 @@ export default function WaterReaderScreen() {
           <View style={styles.limitsSection}>
             <Text style={styles.section}>V1 guardrails</Text>
             <Text style={styles.limitCopy}>
-              This version will not use source photos, depth charts, species behavior, month, weather, or conditions.
-              Output is a conservative geometry preview, not fishing advice or exact GPS guidance.
+              This version stays on visible shoreline shape from hydrography only. It does not use photos, depth,
+              species rules, season, or weather. “How to fish it” suggests broad, optional tactics tied to the
+              outline—use them as study ideas, not as precise positions or promises.
             </Text>
           </View>
         )}
@@ -396,6 +613,8 @@ const styles = StyleSheet.create({
   selectedSummaryText: { flex: 1 },
   selectedTitle: { color: colors.text, fontWeight: '800', fontSize: 15 },
   selectedSub: { color: colors.textSecondary, marginTop: 4, fontSize: 13 },
+  selectedChip: { alignSelf: 'flex-start', marginTop: spacing.sm },
+  selectedReason: { color: colors.textMuted, fontSize: 12, marginTop: spacing.xs, lineHeight: 16 },
   selectedActions: { flexDirection: 'row', alignItems: 'center', marginTop: spacing.sm },
   linkBtn: { paddingVertical: 4, paddingHorizontal: 2 },
   linkBtnText: { color: colors.sage, fontWeight: '800' },
@@ -409,6 +628,21 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   dropdownList: { maxHeight: 260 },
+  resultRowTop: { flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'space-between', gap: spacing.sm },
+  resultLineFlex: { flex: 1, minWidth: 0 },
+  resultRowDisabled: { opacity: 0.55 },
+  resultBlockedHint: { color: colors.textMuted, fontSize: 11, marginTop: 4 },
+  supportChip: {
+    borderRadius: radius.sm,
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderWidth: StyleSheet.hairlineWidth,
+  },
+  supportChipText: { fontSize: 11, fontWeight: '800' },
+  chipSupported: { backgroundColor: colors.surface, borderColor: colors.sage },
+  chipLimited: { backgroundColor: colors.surface, borderColor: colors.textSecondary },
+  chipReview: { backgroundColor: colors.surface, borderColor: '#b8860b' },
+  chipBlocked: { backgroundColor: colors.backgroundAlt, borderColor: colors.border },
   resultRow: { padding: spacing.md, borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: colors.border },
   resultLine: { color: colors.text, fontWeight: '800' },
   resultMeta: { color: colors.textSecondary, marginTop: 4, fontSize: 12 },
@@ -427,6 +661,68 @@ const styles = StyleSheet.create({
   },
   placeholderTitle: { fontFamily: fonts.serif, fontSize: 16, color: colors.text },
   placeholderCopy: { marginTop: spacing.xs, color: colors.textSecondary, lineHeight: 20 },
+  zoneSizingHint: { marginTop: spacing.xs, color: colors.textMuted, fontSize: 12, lineHeight: 17 },
+  polygonErrorText: { marginTop: spacing.sm, color: colors.reportScoreRed, lineHeight: 20 },
+  mapMetaRow: {
+    marginTop: spacing.md,
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    alignSelf: 'stretch',
+  },
+  mapMetaAcres: {
+    color: colors.textSecondary,
+    fontSize: 13,
+    marginTop: spacing.xs,
+    alignSelf: 'stretch',
+  },
+  geometryLimitedNote: {
+    marginTop: spacing.sm,
+    color: colors.textMuted,
+    fontSize: 12,
+    lineHeight: 17,
+    fontStyle: 'italic',
+  },
+  candidateList: { marginTop: spacing.md, alignSelf: 'stretch' },
+  candidateListTitle: {
+    fontFamily: fonts.serif,
+    fontSize: 15,
+    color: colors.text,
+    marginBottom: spacing.sm,
+  },
+  candidateCard: {
+    borderRadius: radius.sm,
+    borderWidth: StyleSheet.hairlineWidth,
+    borderColor: colors.border,
+    backgroundColor: colors.backgroundAlt,
+    padding: spacing.md,
+    marginBottom: spacing.sm,
+  },
+  candidateCardHeader: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm, marginBottom: spacing.xs },
+  candidateSwatch: {
+    width: 16,
+    height: 16,
+    borderRadius: 5,
+    borderWidth: StyleSheet.hairlineWidth * 2,
+  },
+  candidateLabel: { flex: 1, color: colors.text, fontWeight: '700', fontSize: 14 },
+  candidateWhyLabel: {
+    marginTop: spacing.xs,
+    fontSize: 11,
+    fontWeight: '700',
+    color: colors.textMuted,
+    textTransform: 'uppercase',
+    letterSpacing: 0.4,
+  },
+  candidateBody: { color: colors.textSecondary, lineHeight: 18, fontSize: 13 },
+  candidateHowLabel: {
+    marginTop: spacing.xs,
+    fontSize: 11,
+    fontWeight: '700',
+    color: colors.textMuted,
+    textTransform: 'uppercase',
+    letterSpacing: 0.4,
+  },
+  candidateSub: { marginTop: 2, color: colors.textMuted, lineHeight: 17, fontSize: 12 },
   limitsSection: { marginTop: spacing.lg },
   limitCopy: { color: colors.textSecondary, lineHeight: 20 },
   modalRoot: { flex: 1, backgroundColor: colors.background },

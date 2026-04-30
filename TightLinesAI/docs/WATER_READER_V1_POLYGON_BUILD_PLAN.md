@@ -567,3 +567,157 @@ Water Reader V1 is ready when:
 - coverage audit is understood
 - regression fixture set passes
 - no satellite/NAIP/CV/depth product path is active
+
+## Current Implementation Handoff - 2026-04-30
+
+This section records the current state for the next mastermind / builder agent pair. Treat the rest of this document as controlling architecture. Treat this section as the active implementation handoff.
+
+### Workflow Roles
+
+Brandon is the middle man. The mastermind agent should steer the feature, inspect actual code/results, and provide one unambiguous builder prompt at a time. The builder agent should make scoped changes and return minimal output only:
+
+- files changed
+- validation run
+- blockers
+- short result summary
+
+The mastermind must not blindly trust builder summaries. Validate important claims against the repo and QA artifacts.
+
+### Implemented Runtime Slices
+
+The polygon-only vertical slice now exists:
+
+- `waterbody-search` exposes polygon support fields and UI support chips.
+- `waterbody-polygon` fetches selected waterbody GeoJSON by `lakeId`.
+- `fetchWaterbodyPolygon` wires the app to the selected polygon endpoint.
+- `LakePolygonSilhouette` renders a vector lake shape with clipped zone overlays.
+- `waterReaderGeometryDetector` produces a ranked candidate pool from polygon geometry only.
+- `waterReaderLakeZoneLayout` converts candidates into visible zone shapes and rejects unsafe display zones.
+- `scripts/water-reader-detector-qa.ts` runs live QA against the current Supabase-backed polygon endpoint and can export SVG review sheets.
+
+Current QA command:
+
+```bash
+npm run qa:water-reader-detector -- --audit-neckdowns --export-zone-svg
+```
+
+SVG exports are written to:
+
+```text
+tmp/water-reader-neckdown-audit/
+```
+
+Do not commit generated SVGs.
+
+### Current Feature Classes
+
+Current detector / UI classes:
+
+- `shoreline_point`
+- `shoreline_bend`
+- `pocket_edge`
+- `long_bank`
+- `neckdown`
+
+Keep the class set small until reliability is high. Future classes that may become reliable from polygons alone:
+
+- island edge, using interior rings / holes
+- narrow channel or passage, only when opposite-shore geometry is strong
+- long bank, only when the arc is clearly low-curvature and display geometry can hug the bank
+
+Avoid guessed inlets/outlets until trusted hydrography line/point context is available. Do not infer depth-related structures.
+
+### Current QA Matrix
+
+The active nine-lake visual QA matrix is:
+
+- Torch Lake, MI
+- Glen Lake, Leelanau County, MI
+- Houghton Lake, MI
+- Higgins Lake, MI
+- Crystal Lake, Benzie County, MI
+- Elk Lake, MI
+- Burt Lake, MI
+- Mullett Lake, MI
+- Lake Charlevoix, MI
+
+Strict expectations currently used by the QA script:
+
+- Torch Lake: no visible neckdown
+- Glen Lake: visible neckdown
+- Houghton Lake: no visible neckdown
+
+Observe-only lakes should not fail CI just because a neckdown appears or not, but visible output must still be reviewed.
+
+### Current Visual Findings
+
+Latest human review says the larger candidate pool is a major improvement, but non-neck zone placement still needs precision.
+
+What is working:
+
+- Glen Lake neckdown is good and should be preserved.
+- Lake Charlevoix neckdown is acceptable / plausible and should be preserved unless evidence says otherwise.
+- Mullett, Burt, Elk, Houghton improved after expanding the candidate pool.
+- Some pocket/point zones now wrap features well, especially the good purple/green examples on Charlevoix and Mullett.
+
+Current problems to fix:
+
+- Some non-neck ovals still sit too far off the bank and barely touch shoreline.
+- Some zones span too much local lake width on big or skinny lakes.
+- Torch Lake still has oversized middle/lower zones; the purple zone should hug the left shoreline more and the yellow/brown zone should not span the entire lake width.
+- Lake Charlevoix has one dark-blue zone that spans too much width; the purple point-like zone is a good example of the desired wrap.
+- Crystal Lake is acceptable but some zones should hug shoreline more and show less oval.
+- Higgins Lake is the weakest current output: one neck/opening cue is not represented well, one zone is too open-water, and several zones barely touch shoreline.
+- Houghton Lake should never show a dead-center open-water zone.
+- Elk Lake output is generally solid but should try to identify the upper-left cove/inlet-like shoreline feature if polygon geometry supports it.
+- Burt Lake recovered, but should still surface obvious point/pocket structure rather than only broad pocket-like zones.
+
+### Current Strategic Direction
+
+Do not return to tiny shards or shoreline ribbons. Smooth clipped oval/capsule regions are acceptable if they:
+
+- are visibly attached to the shoreline cue
+- stay entirely clipped inside water
+- do not bridge across the local lake width
+- are broad enough to communicate a general fishing area
+- remain separable and card-matchable
+
+The fast path is not broad visual tweaking. The fast path is to make the engine choose and place zones by explicit geometry rules:
+
+1. Generate a large geographically diverse candidate pool.
+2. Validate each candidate with hard geometry safety gates.
+3. Prefer 4-5 visible zones when the lake has enough shoreline character.
+4. Reject or reshape zones that are open-water, cross-lake, off-bank, or redundant.
+5. Keep neckdown logic separate from non-neck shoreline cues.
+
+### Current Builder Focus
+
+The next builder should not rebuild everything. Focus on non-neck placement quality:
+
+- Keep the larger detector pool.
+- Keep Glen and Charlevoix neckdowns.
+- Add stronger shoreline-hug placement for non-neck zones.
+- Add a local shoreline-contact target so ovals are intentionally centered near the bank-side cue, not deep in basin water.
+- Cap non-neck zone depth by local water width more aggressively on slender or narrow cross-sections.
+- Prefer shaping smaller / more bank-attached zones over suppressing too many zones.
+- Preserve a 4-5 visible-zone target for normal lakes when safe.
+
+Important: the goal is not to be conservative to the point of showing 1-2 zones. Most real named lakes should produce 4-5 broad but credible geometry zones when the polygon has enough shoreline variation.
+
+### Recommended Next Builder Prompt Theme
+
+Ask the builder for a focused "shoreline-hug placement pass":
+
+- Keep current candidate-pool expansion.
+- For non-neck zones, compute a desired shoreline-contact ratio and a bank-side center.
+- Recenter ovals toward the shoreline cue when contact is weak.
+- Shrink only the inward depth, not necessarily the along-shore length, when a zone spans too much width.
+- Add QA diagnostics for:
+  - `zone_recentred_to_shoreline`
+  - `zone_inward_depth_capped`
+  - `suppressed_weak_shoreline_contact`
+- Preserve visible-zone counts unless a zone is truly unsafe.
+
+### Screenshots
+
+The next mastermind should review Brandon's latest nine SVG screenshots if available. They are valuable because the numerical QA currently passes while some visual placement remains wrong. Include the screenshots in the kickoff if possible.

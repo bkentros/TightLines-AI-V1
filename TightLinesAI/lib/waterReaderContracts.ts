@@ -4,6 +4,7 @@
  */
 
 export const WATERBODY_SEARCH_FEATURE = "waterbody_search_v1" as const;
+export const WATERBODY_POLYGON_FEATURE = "waterbody_polygon_v1" as const;
 
 export type WaterbodyType = "lake" | "pond" | "reservoir";
 export type WaterReaderDataTier = "polygon_only";
@@ -17,6 +18,12 @@ export interface WaterbodyPreviewBbox {
   maxLon: number;
   maxLat: number;
 }
+
+export type WaterReaderPolygonSupportStatus =
+  | "supported"
+  | "limited"
+  | "needs_review"
+  | "not_supported";
 
 export interface WaterbodySearchResult {
   lakeId: string;
@@ -38,6 +45,12 @@ export interface WaterbodySearchResult {
   sourceStatus: WaterbodySourceStatus;
   bestAvailableMode?: string | null;
   confidence: WaterReaderConfidence | string;
+  /** Polygon V1: derived from `waterbody_index.geometry` only (not aerial/depth). */
+  waterReaderSupportStatus: WaterReaderPolygonSupportStatus;
+  waterReaderSupportReason: string;
+  hasPolygonGeometry: boolean;
+  polygonAreaAcres?: number | null;
+  polygonQaFlags: string[];
 }
 
 export interface WaterbodySearchResponse {
@@ -45,4 +58,119 @@ export interface WaterbodySearchResponse {
   query: string;
   state?: string | null;
   results: WaterbodySearchResult[];
+}
+
+export interface WaterbodyPolygonGeoJson {
+  type: "Polygon" | "MultiPolygon";
+  coordinates: unknown;
+}
+
+export type WaterReaderGeometryFeatureClass =
+  | 'shoreline_point'
+  | 'shoreline_bend'
+  | 'long_bank'
+  | 'pocket_edge'
+  | 'neckdown';
+
+/**
+ * Shoreline-local frame for map patches (internal geometry only; never show lon/lat in UI).
+ */
+export interface WaterReaderDisplayPatch {
+  shoreLon: number;
+  shoreLat: number;
+  /** Unit along-shore step in deg-equivalent (paired with patchAlongDeg). */
+  alongDLon: number;
+  alongDLat: number;
+  /** Unit toward interior in deg-equivalent (paired with patchInwardDeg). */
+  inwardDLon: number;
+  inwardDLat: number;
+  patchAlongDeg: number;
+  patchInwardDeg: number;
+}
+
+/** Opposing shoreline endpoints for a neck pinch (geometry-only; not shown as GPS in UI). */
+export interface WaterReaderNeckCorridor {
+  shoreALon: number;
+  shoreALat: number;
+  shoreBLon: number;
+  shoreBLat: number;
+}
+
+export interface WaterReaderNeckMetrics {
+  relDiag: number;
+  lobeContrast: number;
+  pinchToMedian: number;
+}
+
+/**
+ * Local shoreline ribbon window on the primary open exterior ring (detector-local indices).
+ * Layout prefers ringCenter + halfSpan so the sampled arc is unambiguous around the cue.
+ */
+export interface WaterReaderShoreRibbonArc {
+  /** Full-ring vertex index at the cue (center of the ribbon window). */
+  ringCenter: number;
+  /** Half-span in full-ring steps; sampled arc has 2*halfSpan+1 vertices along forward wrap. */
+  halfSpan: number;
+  /** Inclusive endpoints (center ± halfSpan, mod ring length); redundant with center/halfSpan. */
+  ringFrom: number;
+  ringTo: number;
+}
+
+/**
+ * Prototype shoreline-shape cue from polygon geometry only (V1). Not fishing advice.
+ */
+export interface WaterReaderGeometryCandidate {
+  candidateId: number;
+  rank: number;
+  featureClass: WaterReaderGeometryFeatureClass;
+  featureLabel: string;
+  anchorLon: number;
+  anchorLat: number;
+  displayPatch: WaterReaderDisplayPatch;
+  zoneFillRgba: string;
+  zoneStrokeRgba: string;
+  /** Short arc on the primary exterior ring for shoreline-following ribbons (non-neck). */
+  shoreRibbonArc?: WaterReaderShoreRibbonArc;
+  /** When featureClass is neckdown: pinch line on the primary ring for corridor rendering. */
+  neckCorridor?: WaterReaderNeckCorridor;
+  /** Detector neck quality metrics (layout gating). */
+  neckMetrics?: WaterReaderNeckMetrics;
+  /** 0–1 within hydrography bbox (display aid; not a GPS claim). */
+  normX: number;
+  normY: number;
+  /** Short geometry-only reason this cue was flagged. */
+  identifiedBecause: string;
+  /** Short generic on-water approach (not a spot or depth claim). */
+  howToFishIt: string;
+  /** Dev/QA summaries only — omit from UI; no coordinates. */
+  diagnosticSummary?: string;
+  qaFlags: string[];
+}
+
+export interface WaterbodyPolygonResponse {
+  feature: typeof WATERBODY_POLYGON_FEATURE;
+  lakeId: string;
+  name: string;
+  state: string;
+  county?: string | null;
+  waterbodyType: WaterbodyType;
+  centroid: {
+    lat: number;
+    lon: number;
+  };
+  bbox: WaterbodyPreviewBbox | null;
+  areaSqM?: number | null;
+  areaAcres?: number | null;
+  perimeterM?: number | null;
+  geojson: WaterbodyPolygonGeoJson | null;
+  sourceDataset?: string | null;
+  sourceFeatureId?: string | null;
+  sourceSummary?: Record<string, unknown> | null;
+  geometryIsValid: boolean;
+  geometryValidityDetail?: string | null;
+  componentCount: number;
+  interiorRingCount: number;
+  waterReaderSupportStatus: WaterReaderPolygonSupportStatus;
+  waterReaderSupportReason: string;
+  polygonQaFlags: string[];
 }
