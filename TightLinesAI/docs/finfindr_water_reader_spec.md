@@ -278,7 +278,7 @@ Apply Conflict Resolution rules (next section) only after all candidates have be
 
 ### Recommended Libraries
 
-Implementation language may be TypeScript or Python, but the engine must expose deterministic structured output to the app.
+The v1 implementation is TypeScript under `lib/water-reader-engine/`. Future scripts may generate QA artifacts, but app-facing engine logic must stay in TypeScript and expose deterministic structured output to the app.
 
 Recommended Python stack if implemented as an offline/server geometry service:
 
@@ -383,13 +383,13 @@ Five groups. Each US state (excluding Alaska and Hawaii — out of scope for v1)
 - **Spring:** one zone on the back-facing side of the secondary point (see Position Definitions).
 - **Summer:** one zone on the mouth-facing side.
 - **Fall:** one zone on the mouth-facing side.
-- **Winter:** skip — too unreliable without depth data.
+- **Winter:** one conservative point-adjacent transition zone using the parent cove orientation. Do not auto-skip a valid secondary point solely because it is winter; suppress only if no hard-invariant-valid point-adjacent placement can be produced.
 
 ### Coves and Pockets
 - **Spring:** one zone at the back of the cove against the back shoreline.
 - **Summer:** one zone at each point of the cove mouth. If a cove's mouth has only one geometrically distinct point (one side gradual with irregularity score below 0.3 on the 0–1 scale), place only one summer zone at the distinct mouth point.
 - **Fall:** one zone on whichever cove shoreline (left or right) has the higher irregularity score, anchored at the cove fall midpoint (see Position Definitions).
-- **Winter:** skip — unreliable without depth data and seasonal fish-position certainty.
+- **Winter:** one conservative cove-mouth or near-mouth transition zone. Do not auto-skip a valid cove solely because it is winter; use the strongest hard-invariant-valid mouth/inner-wall placement and conservative copy.
 
 ### Necks / Pinch Points
 - **All seasons:** one shoreline-shoulder zone on each shoreline endpoint of the narrowest segment. Do not place a center oval in the throat of the neck.
@@ -456,7 +456,7 @@ Every rendered zone must pass these invariants after placement and before number
 - **50-500 acres (medium lake):** 3-5 visible zones
 - **> 500 acres (large lake/reservoir):** 4-6 visible zones
 
-The engine may detect more internal feature candidates than it displays. The visible output should feel curated and premium, not crowded. Additional internal candidates may be retained for diagnostics, QA, or later product surfaces, but they must not be rendered on the primary map unless they fit the visible cap and all Zone Acceptance Invariants.
+The engine may detect more internal feature candidates than it displays. The visible output should feel curated and premium, not crowded. Additional internal candidates may be retained for diagnostics, QA, or later product surfaces. The nominal cap guides curation and renderer emphasis, but it must not hide a selected valid physical feature; the engine may exceed the cap to preserve one hard-invariant-valid zone or confluence representation for each selected physical feature.
 
 **Priority order.** Zones from higher-priority features still sort first in diagnostics, legend ordering, and renderer emphasis, but priority must not hide valid lower-priority physical structure. **Paired structural features are all-or-nothing as feature units:** necks, saddles, and dams should render both shoulders/corners when selected. If their paired zones overlap, preserve the pair and assign a `structure_confluence` group rather than suppressing the feature. Main lake points prefer the full seasonal rule, but may degrade to one valid point-adjacent zone when the full pair/tip-plus-side set fails hard invariants.
 
@@ -626,8 +626,8 @@ Confluence should not look like accidental stacked debug ovals. The production r
 ### Output Pipeline
 - Engine produces a structured output object (polygon coordinates, zone list with positions/colors/numbers, legend entries, metadata).
 - Renderer is a pure function: same input always produces same SVG output.
-- Use `svgwrite` library or direct string templating; either is fine.
-- For PNG output (social sharing, App Store screenshots), convert SVG to PNG via `cairosvg`.
+- Use direct TypeScript SVG string generation or React/React Native SVG primitives; either is fine if output is deterministic.
+- For PNG output (social sharing, App Store screenshots, QA thumbnails), use the repo's established Node/Playwright or equivalent TypeScript-compatible conversion path unless a separate tooling decision is explicitly made.
 
 ---
 
