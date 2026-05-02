@@ -54,6 +54,9 @@ tmp/water-reader/
 
 # Water Reader dev QA exports (neckdown SVG audit)
 tmp/water-reader-neckdown-audit/
+tmp/water-reader-engine-feature-review/
+tmp/water-reader-engine-feature-review-preview/
+tmp/water-reader-engine-zone-review/
 
 # Supabase CLI cache
 supabase/.temp/
