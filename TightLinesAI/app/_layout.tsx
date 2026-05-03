@@ -276,6 +276,7 @@ export default function RootLayout() {
           name="how-fishing-results"
           options={{ title: 'Your Report', headerRight: () => null }}
         />
+        <Stack.Screen name="analytics" options={{ title: 'Analytics' }} />
       </Stack>
     </>
   );

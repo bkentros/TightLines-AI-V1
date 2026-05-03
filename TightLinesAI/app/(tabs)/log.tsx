@@ -230,6 +230,29 @@ export default function LogScreen() {
             </View>
           </View>
 
+          <Pressable
+            style={({ pressed }) => [
+              styles.analyticsCard,
+              pressed && styles.analyticsCardPressed,
+            ]}
+            onPress={() => router.push('/analytics')}
+          >
+            <View style={styles.analyticsGoldRule} />
+            <View style={styles.analyticsCardInner}>
+              <View style={styles.analyticsCardLeft}>
+                <Ionicons name="stats-chart" size={14} color={paper.forest} />
+                <Text style={styles.analyticsCardLabel}>ANALYTICS</Text>
+              </View>
+              <View style={styles.analyticsCardRight}>
+                <Text style={styles.analyticsCardHint}>Totals & rankings</Text>
+                <Ionicons name="chevron-forward" size={14} color={paper.ink} />
+              </View>
+            </View>
+            <Text style={styles.analyticsCardSub}>
+              Catch counts, species, tackle, and places from your log.
+            </Text>
+          </Pressable>
+
           {/* Personal Bests — editorial preview card */}
           <Pressable
             style={({ pressed }) => [
@@ -572,6 +595,66 @@ const styles = StyleSheet.create({
     height: 28,
     backgroundColor: paper.ink,
     opacity: 0.25,
+  },
+
+  analyticsCard: {
+    position: 'relative',
+    backgroundColor: paper.paperLight,
+    borderWidth: 1.5,
+    borderColor: paper.ink,
+    borderRadius: paperRadius.card,
+    paddingVertical: paperSpacing.md,
+    paddingHorizontal: paperSpacing.md,
+    paddingLeft: paperSpacing.md + 6,
+    marginBottom: paperSpacing.md,
+    ...paperShadows.hard,
+  },
+  analyticsCardPressed: {
+    backgroundColor: paper.paperDark,
+  },
+  analyticsGoldRule: {
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    bottom: 0,
+    width: 4,
+    backgroundColor: paper.forest,
+  },
+  analyticsCardInner: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: paperSpacing.xs,
+  },
+  analyticsCardLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: paperSpacing.xs + 2,
+  },
+  analyticsCardRight: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: paperSpacing.xs + 2,
+  },
+  analyticsCardLabel: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 10,
+    color: paper.forest,
+    letterSpacing: 2.6,
+  },
+  analyticsCardHint: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 10,
+    color: paper.ink,
+    opacity: 0.7,
+    letterSpacing: 1.4,
+  },
+  analyticsCardSub: {
+    fontFamily: paperFonts.displayItalic,
+    fontSize: 12,
+    color: paper.ink,
+    opacity: 0.72,
+    lineHeight: 17,
   },
 
   // Personal Bests card
