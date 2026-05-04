@@ -2,9 +2,16 @@ import { createClient } from '@supabase/supabase-js';
 import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'fs';
 import { join, resolve } from 'path';
 import {
+  buildWaterReaderDisplayModel,
+  buildWaterReaderLegend,
+  buildWaterReaderProductionSvg,
   detectWaterReaderFeatures,
   placeWaterReaderZones,
   preprocessWaterReaderGeometry,
+  waterReaderLegendForbiddenPhraseHits,
+  type WaterReaderDisplayModel,
+  type WaterReaderLegendEntry,
+  type WaterReaderProductionSvgResult,
   type WaterReaderSeason,
   type PointM,
   type RingM,
@@ -22,6 +29,7 @@ import type {
 
 const OUT_DIR = 'tmp/water-reader-engine-zone-review';
 const SEARCH_LIMIT = 48;
+const APP_RENDERER_MAP_WIDTH = 420;
 const SVG_W = 960;
 const HEADER_H = 88;
 const PAD = 34;
@@ -128,7 +136,49 @@ type SummaryRow = {
   zoneDiagnostics: WaterReaderZonePlacementResult['diagnostics'];
   confluenceGroupCount: number;
   confluenceGroups: WaterReaderZonePlacementResult['diagnostics']['confluenceGroups'];
+  displayedEntryCount: number;
+  displayedStandaloneCount: number;
+  displayedConfluenceCount: number;
+  retainedNotDisplayedCount: number;
+  displayLegendEntryCount: number;
+  displayCap: number;
+  displayCapExceeded: boolean;
+  displayCapPressure: boolean;
+  diversityPressure: boolean;
+  repeatedLegendTitleMaxCount: number;
+  repeatedLegendTitleMaxTitle: string;
+  featureClassDisplayCounts: Record<string, number>;
+  placementKindDisplayCounts: Record<string, number>;
+  retainedFeatureClassCounts: Record<string, number>;
+  retainedPlacementKindCounts: Record<string, number>;
+  placementSemanticIds: string[];
+  anchorSemanticIds: string[];
+  fallbackAnchorSemanticIds: string[];
+  semanticAnchorMismatchCount: number;
+  labelSemanticRiskCount: number;
+  splitSourceFeatureCount: number;
+  multiZoneStandaloneEntryViolationCount: number;
+  legendEntryCount: number;
+  legendConfluenceCount: number;
+  legendTransitionWarningCount: number;
+  legendForbiddenHits: string[];
   recoveredFallbackCount: number;
+  productionSvgFile: string;
+  rendererWarningCount: number;
+  rendererWarnings: string[];
+  renderedNumberCount: number;
+  calloutLabelCount: number;
+  retainedRenderedCount: number;
+  appWidthProductionSvgFile: string;
+  appWidthRendererWarningCount: number;
+  appWidthRendererWarnings: string[];
+  appWidthRenderedNumberCount: number;
+  appWidthCalloutLabelCount: number;
+  appWidthRetainedRenderedCount: number;
+  appWidthSvgViewBox: string;
+  pointZoneNearLargeLakeMinimumCount: number;
+  constrictionMinorAxisWidthCappedCount: number;
+  constrictionZoneLargeForConnectorReviewCount: number;
   qaFlags: string[];
   svgFile: string;
   jsonFile: string;
@@ -294,7 +344,49 @@ function summaryCsv(rows: SummaryRow[]): string {
     'dropped_zone_diagnostics',
     'confluence_group_count',
     'confluence_groups',
+    'displayed_entry_count',
+    'displayed_standalone_count',
+    'displayed_confluence_count',
+    'retained_not_displayed_count',
+    'display_legend_entry_count',
+    'display_cap',
+    'display_cap_exceeded',
+    'display_cap_pressure',
+    'diversity_pressure',
+    'repeated_legend_title_max_count',
+    'repeated_legend_title_max_title',
+    'feature_class_display_counts',
+    'placement_kind_display_counts',
+    'retained_feature_class_counts',
+    'retained_placement_kind_counts',
+    'placement_semantic_ids',
+    'anchor_semantic_ids',
+    'fallback_anchor_semantic_ids',
+    'semantic_anchor_mismatch_count',
+    'label_semantic_risk_count',
+    'split_source_feature_count',
+    'multi_zone_standalone_entry_violation_count',
+    'legend_entry_count',
+    'legend_confluence_count',
+    'legend_transition_warning_count',
+    'legend_forbidden_hits',
     'recovered_fallback_count',
+    'production_svg_file',
+    'renderer_warning_count',
+    'renderer_warnings',
+    'rendered_number_count',
+    'callout_label_count',
+    'retained_rendered_count',
+    'app_width_production_svg_file',
+    'app_width_renderer_warning_count',
+    'app_width_renderer_warnings',
+    'app_width_rendered_number_count',
+    'app_width_callout_label_count',
+    'app_width_retained_rendered_count',
+    'app_width_svg_view_box',
+    'point_zone_near_large_lake_minimum_count',
+    'constriction_minor_axis_width_capped_count',
+    'constriction_zone_large_for_connector_review_count',
     'qa_flags',
     'svg_file',
     'json_file',
@@ -319,7 +411,49 @@ function summaryCsv(rows: SummaryRow[]): string {
       row.droppedZoneDiagnostics,
       row.confluenceGroupCount,
       row.confluenceGroups,
+      row.displayedEntryCount,
+      row.displayedStandaloneCount,
+      row.displayedConfluenceCount,
+      row.retainedNotDisplayedCount,
+      row.displayLegendEntryCount,
+      row.displayCap,
+      row.displayCapExceeded,
+      row.displayCapPressure,
+      row.diversityPressure,
+      row.repeatedLegendTitleMaxCount,
+      row.repeatedLegendTitleMaxTitle,
+      row.featureClassDisplayCounts,
+      row.placementKindDisplayCounts,
+      row.retainedFeatureClassCounts,
+      row.retainedPlacementKindCounts,
+      row.placementSemanticIds.join('|'),
+      row.anchorSemanticIds.join('|'),
+      row.fallbackAnchorSemanticIds.join('|'),
+      row.semanticAnchorMismatchCount,
+      row.labelSemanticRiskCount,
+      row.splitSourceFeatureCount,
+      row.multiZoneStandaloneEntryViolationCount,
+      row.legendEntryCount,
+      row.legendConfluenceCount,
+      row.legendTransitionWarningCount,
+      row.legendForbiddenHits.join('|'),
       row.recoveredFallbackCount,
+      row.productionSvgFile,
+      row.rendererWarningCount,
+      row.rendererWarnings.join('|'),
+      row.renderedNumberCount,
+      row.calloutLabelCount,
+      row.retainedRenderedCount,
+      row.appWidthProductionSvgFile,
+      row.appWidthRendererWarningCount,
+      row.appWidthRendererWarnings.join('|'),
+      row.appWidthRenderedNumberCount,
+      row.appWidthCalloutLabelCount,
+      row.appWidthRetainedRenderedCount,
+      row.appWidthSvgViewBox,
+      row.pointZoneNearLargeLakeMinimumCount,
+      row.constrictionMinorAxisWidthCappedCount,
+      row.constrictionZoneLargeForConnectorReviewCount,
       row.qaFlags.join('|'),
       row.svgFile,
       row.jsonFile,
@@ -340,6 +474,10 @@ function recoveredFallbackCount(zones: WaterReaderPlacedZone[]): number {
   return zones.filter((zone) => zone.diagnostics.fallbackPlacementUsed === true).length;
 }
 
+function zoneQaFlagCount(zones: WaterReaderPlacedZone[], flag: string): number {
+  return zones.filter((zone) => zone.qaFlags.includes(flag)).length;
+}
+
 function coverageCounts(zoneResult: WaterReaderZonePlacementResult): Record<string, number> {
   const counts: Record<string, number> = {};
   for (const coverage of zoneResult.diagnostics.featureCoverage) {
@@ -347,6 +485,164 @@ function coverageCounts(zoneResult: WaterReaderZonePlacementResult): Record<stri
     counts[coverage.reason] = (counts[coverage.reason] ?? 0) + 1;
   }
   return counts;
+}
+
+function legendForbiddenHits(legend: WaterReaderLegendEntry[]): string[] {
+  return [...new Set(legend.flatMap((entry) =>
+    waterReaderLegendForbiddenPhraseHits([entry.title, entry.body, entry.transitionWarning ?? ''].join(' ')),
+  ))].sort((a, b) => a.localeCompare(b));
+}
+
+function maxRepeatedLegendTitle(legend: WaterReaderLegendEntry[]): { title: string; count: number } {
+  const counts: Record<string, number> = {};
+  for (const entry of legend) counts[entry.title] = (counts[entry.title] ?? 0) + 1;
+  return Object.entries(counts).reduce(
+    (best, [title, count]) => count > best.count || (count === best.count && title.localeCompare(best.title) < 0)
+      ? { title, count }
+      : best,
+    { title: '', count: 0 },
+  );
+}
+
+function entryValueCounts(
+  entries: Array<{ featureClasses: string[]; placementKinds: string[] }>,
+  key: 'featureClasses' | 'placementKinds',
+): Record<string, number> {
+  const counts: Record<string, number> = {};
+  for (const entry of entries) {
+    for (const value of entry[key]) counts[value] = (counts[value] ?? 0) + 1;
+  }
+  return counts;
+}
+
+function semanticIdsForDisplayedZones(displayModel: ReturnType<typeof buildWaterReaderDisplayModel>, key: 'placementSemanticId' | 'anchorSemanticId'): string[] {
+  return [...new Set(displayModel.displayedEntries.flatMap((entry) =>
+    entry.zones.map((zone) => zone[key]).filter((value): value is string => Boolean(value)),
+  ))].sort((a, b) => a.localeCompare(b));
+}
+
+function fallbackAnchorSemanticIds(displayModel: ReturnType<typeof buildWaterReaderDisplayModel>): string[] {
+  return [...new Set(displayModel.displayedEntries.flatMap((entry) =>
+    entry.zones
+      .filter((zone) => zone.diagnostics.fallbackPlacementUsed === true)
+      .map((zone) => zone.anchorSemanticId)
+      .filter((value): value is string => Boolean(value)),
+  ))].sort((a, b) => a.localeCompare(b));
+}
+
+function semanticAnchorMismatchCount(displayModel: ReturnType<typeof buildWaterReaderDisplayModel>): number {
+  return displayModel.displayedEntries.flatMap((entry) => entry.zones).filter((zone) => (
+    zone.diagnostics.fallbackPlacementUsed === true &&
+    Boolean(zone.placementSemanticId) &&
+    Boolean(zone.anchorSemanticId) &&
+    zone.placementSemanticId !== zone.anchorSemanticId
+  )).length;
+}
+
+function labelSemanticRiskCount(displayModel: ReturnType<typeof buildWaterReaderDisplayModel>): number {
+  return displayModel.displayedEntries.flatMap((entry) => entry.zones.map((zone) => ({ zone, title: entry.legend?.title ?? '' }))).filter(({ zone, title }) => {
+    const anchor = zone.anchorSemanticId ?? '';
+    if (zone.placementKind === 'cove_back' && anchor !== 'cove_back_primary' && title.includes('Back Shoreline')) return true;
+    if (zone.placementKind === 'cove_irregular_side' && anchor.startsWith('cove_mouth_') && title.includes('Irregular Side')) return true;
+    if (zone.placementKind === 'main_point_open_water' && anchor !== 'main_point_open_water_area' && title.includes('Open-Water Side')) return true;
+    if (zone.placementKind === 'island_mainland' && anchor !== 'island_mainland_primary' && title.includes('Mainland-Facing Edge')) return true;
+    if (zone.placementKind === 'island_open_water' && anchor !== 'island_open_water_area' && title.includes('Open-Water Edge')) return true;
+    if (
+      zone.placementKind === 'island_endpoint' &&
+      anchor !== 'island_endpoint_a' &&
+      anchor !== 'island_endpoint_b' &&
+      anchor !== 'shoreline_frame_recovery' &&
+      title.includes('Island End')
+    ) return true;
+    if (
+      (zone.placementKind === 'secondary_point_back' || zone.placementKind === 'secondary_point_mouth') &&
+      !anchor.endsWith('_true') &&
+      (title.includes('Back-Facing Side') || title.includes('Mouth-Facing Side'))
+    ) return true;
+    return false;
+  }).length;
+}
+
+function diversityPressure(
+  displayModel: ReturnType<typeof buildWaterReaderDisplayModel>,
+  repeatedLegend: { title: string; count: number },
+  featureClassDisplayCounts: Record<string, number>,
+  placementKindDisplayCounts: Record<string, number>,
+): boolean {
+  const displayedCount = displayModel.displayedEntries.length;
+  return (
+    repeatedLegend.count >= 4 ||
+    Math.max(0, ...Object.values(featureClassDisplayCounts)) >= Math.max(4, displayedCount - 1) ||
+    Math.max(0, ...Object.values(placementKindDisplayCounts)) >= Math.max(4, displayedCount - 1)
+  );
+}
+
+function legendCopySummary(rows: SummaryRow[]) {
+  return {
+    legendEntryCount: rows.reduce((sum, row) => sum + row.legendEntryCount, 0),
+    legendConfluenceCount: rows.reduce((sum, row) => sum + row.legendConfluenceCount, 0),
+    legendTransitionWarningCount: rows.reduce((sum, row) => sum + row.legendTransitionWarningCount, 0),
+    rowsWithForbiddenHits: rows
+      .filter((row) => row.legendForbiddenHits.length > 0)
+      .map((row) => ({
+        lakeLabel: row.lakeLabel,
+        season: row.season,
+        jsonFile: row.jsonFile,
+        hits: row.legendForbiddenHits,
+      })),
+  };
+}
+
+function displayModelSummary(rows: SummaryRow[]) {
+  return {
+    displayedEntryCount: rows.reduce((sum, row) => sum + row.displayedEntryCount, 0),
+    displayedStandaloneCount: rows.reduce((sum, row) => sum + row.displayedStandaloneCount, 0),
+    displayedConfluenceCount: rows.reduce((sum, row) => sum + row.displayedConfluenceCount, 0),
+    retainedNotDisplayedCount: rows.reduce((sum, row) => sum + row.retainedNotDisplayedCount, 0),
+    displayLegendEntryCount: rows.reduce((sum, row) => sum + row.displayLegendEntryCount, 0),
+    splitSourceFeatureCount: rows.reduce((sum, row) => sum + row.splitSourceFeatureCount, 0),
+    multiZoneStandaloneEntryViolationCount: rows.reduce((sum, row) => sum + row.multiZoneStandaloneEntryViolationCount, 0),
+    capExceededRows: rows
+      .filter((row) => row.displayCapExceeded)
+      .map((row) => ({
+        lakeLabel: row.lakeLabel,
+        season: row.season,
+        displayCap: row.displayCap,
+        displayedEntryCount: row.displayedEntryCount,
+        retainedNotDisplayedCount: row.retainedNotDisplayedCount,
+        splitSourceFeatureCount: row.splitSourceFeatureCount,
+        multiZoneStandaloneEntryViolationCount: row.multiZoneStandaloneEntryViolationCount,
+        jsonFile: row.jsonFile,
+      })),
+  };
+}
+
+function rendererSummary(rows: SummaryRow[]) {
+  return {
+    rendererWarningCount: rows.reduce((sum, row) => sum + row.rendererWarningCount, 0),
+    renderedNumberCount: rows.reduce((sum, row) => sum + row.renderedNumberCount, 0),
+    retainedRenderedCount: rows.reduce((sum, row) => sum + row.retainedRenderedCount, 0),
+    appWidthRendererWarningCount: rows.reduce((sum, row) => sum + row.appWidthRendererWarningCount, 0),
+    appWidthRenderedNumberCount: rows.reduce((sum, row) => sum + row.appWidthRenderedNumberCount, 0),
+    appWidthRetainedRenderedCount: rows.reduce((sum, row) => sum + row.appWidthRetainedRenderedCount, 0),
+    rowsWithWarnings: rows
+      .filter((row) => row.rendererWarningCount > 0)
+      .map((row) => ({
+        lakeLabel: row.lakeLabel,
+        season: row.season,
+        productionSvgFile: row.productionSvgFile,
+        warnings: row.rendererWarnings,
+      })),
+    appWidthRowsWithWarnings: rows
+      .filter((row) => row.appWidthRendererWarningCount > 0)
+      .map((row) => ({
+        lakeLabel: row.lakeLabel,
+        season: row.season,
+        productionSvgFile: row.appWidthProductionSvgFile,
+        warnings: row.appWidthRendererWarnings,
+        viewBox: row.appWidthSvgViewBox,
+      })),
+  };
 }
 
 function bboxForPreprocess(preprocess: WaterReaderPreprocessResult, zones: WaterReaderPlacedZone[] = []) {
@@ -564,15 +860,26 @@ function buildSvg(params: {
 `;
 }
 
-function zoneDebug(zone: WaterReaderPlacedZone) {
+function zoneDebug(zone: WaterReaderPlacedZone, longestDimensionM?: number) {
+  const confluenceGroupId = typeof zone.diagnostics.structureConfluenceGroupId === 'string'
+    ? zone.diagnostics.structureConfluenceGroupId
+    : null;
   return {
     zoneId: zone.zoneId,
     sourceFeatureId: zone.sourceFeatureId,
     featureClass: zone.featureClass,
     placementKind: zone.placementKind,
+    placementSemanticId: zone.placementSemanticId ?? null,
+    anchorSemanticId: zone.anchorSemanticId ?? null,
+    confluenceGroupId,
+    confluenceStrength: zone.diagnostics.structureConfluenceStrength ?? null,
+    confluenceMemberCount: zone.diagnostics.structureConfluenceMemberCount ?? null,
     visibleWaterFraction: zone.visibleWaterFraction,
     outsideOvalBoundaryFraction: zone.diagnostics.outsideOvalBoundaryFraction ?? null,
     majorAxisM: zone.majorAxisM,
+    majorAxisPctOfLakeLongestDimension: longestDimensionM && longestDimensionM > 0
+      ? (zone.majorAxisM / longestDimensionM) * 100
+      : null,
     minorAxisM: zone.minorAxisM,
     qaFlags: zone.qaFlags,
     diagnostics: zone.diagnostics,
@@ -591,6 +898,11 @@ function debugJson(params: {
   preprocess: WaterReaderPreprocessResult;
   features: WaterReaderDetectedFeature[];
   zoneResult: WaterReaderZonePlacementResult;
+  legend: WaterReaderLegendEntry[];
+  displayModel: WaterReaderDisplayModel;
+  productionSvgResult: WaterReaderProductionSvgResult | null;
+  appWidthProductionSvgResult: WaterReaderProductionSvgResult | null;
+  legendForbiddenHits: string[];
 }) {
   return {
     lakeLabel: params.matrixCase.label,
@@ -611,7 +923,29 @@ function debugJson(params: {
     selectedFeatureIds: params.zoneResult.diagnostics.selectedFeatureIds,
     suppressedCandidateFeatures: params.zoneResult.diagnostics.featureCoverage.filter((coverage) => !coverage.producedVisibleZones),
     candidateFeatures: params.features,
-    zones: params.zoneResult.zones.map(zoneDebug),
+    zones: params.zoneResult.zones.map((zone) => zoneDebug(zone, params.preprocess.metrics?.longestDimensionM)),
+    legend: params.legend,
+    displayModel: params.displayModel,
+    displayEntries: params.displayModel.displayedEntries,
+    displayLegendEntries: params.displayModel.displayLegendEntries,
+    retainedEntries: params.displayModel.retainedEntries,
+    displaySelectionUnits: params.displayModel.displaySelectionUnits,
+    displaySummary: params.displayModel.summary,
+    splitSourceFeatureIds: params.displayModel.splitSourceFeatureIds,
+    productionRenderer: params.productionSvgResult ? {
+      warnings: params.productionSvgResult.warnings,
+      summary: params.productionSvgResult.summary,
+    } : null,
+    appWidthProductionRenderer: params.appWidthProductionSvgResult ? {
+      warnings: params.appWidthProductionSvgResult.warnings,
+      summary: params.appWidthProductionSvgResult.summary,
+    } : null,
+    legendSummary: {
+      entryCount: params.legend.length,
+      confluenceCount: params.legend.filter((entry) => entry.isConfluence).length,
+      transitionWarningCount: params.legend.filter((entry) => entry.transitionWarning).length,
+      forbiddenHits: params.legendForbiddenHits,
+    },
   };
 }
 
@@ -697,13 +1031,55 @@ async function main() {
       const preprocess = addTiming(timings, 'preprocessMs', () => preprocessWaterReaderGeometry(input));
       const features = addTiming(timings, 'featureMs', () => detectWaterReaderFeatures(preprocess, input));
       const zoneResult = addTiming(timings, 'zoneMs', () => placeWaterReaderZones(preprocess, features, input, { allowUniversalFallback: false }));
+      const legend = buildWaterReaderLegend(zoneResult, { state: input.state, currentDate: input.currentDate });
+      const displayModel = buildWaterReaderDisplayModel(zoneResult, legend, {
+        acreage,
+        longestDimensionM: preprocess.metrics?.longestDimensionM,
+      });
+      const productionSvgResult = options.writeSvg
+        ? buildWaterReaderProductionSvg(displayModel, {
+          lakePolygon: preprocess.primaryPolygon,
+          title: poly.name ?? matrixCase.label,
+          subtitle: `${zoneResult.season} | ${matrixCase.label}`,
+        })
+        : null;
+      const appWidthProductionSvgResult = options.writeSvg
+        ? buildWaterReaderProductionSvg(displayModel, {
+          lakePolygon: preprocess.primaryPolygon,
+          title: poly.name ?? matrixCase.label,
+          subtitle: `${zoneResult.season} | ${matrixCase.label}`,
+          mapWidth: APP_RENDERER_MAP_WIDTH,
+        })
+        : null;
+      const forbiddenHits = legendForbiddenHits(legend);
+      const repeatedLegend = maxRepeatedLegendTitle(displayModel.displayLegendEntries);
+      const featureClassDisplayCounts = entryValueCounts(displayModel.displayedEntries, 'featureClasses');
+      const placementKindDisplayCounts = entryValueCounts(displayModel.displayedEntries, 'placementKinds');
+      const retainedFeatureClassCounts = entryValueCounts(displayModel.retainedEntries, 'featureClasses');
+      const retainedPlacementKindCounts = entryValueCounts(displayModel.retainedEntries, 'placementKinds');
+      const placementSemanticIds = semanticIdsForDisplayedZones(displayModel, 'placementSemanticId');
+      const anchorSemanticIds = semanticIdsForDisplayedZones(displayModel, 'anchorSemanticId');
+      const fallbackAnchorIds = fallbackAnchorSemanticIds(displayModel);
+      const semanticAnchorMismatch = semanticAnchorMismatchCount(displayModel);
+      const labelSemanticRisk = labelSemanticRiskCount(displayModel);
+      const displayCapPressure = displayModel.retainedEntries.length > 0;
+      const diversityPressureFlag = diversityPressure(
+        displayModel,
+        repeatedLegend,
+        featureClassDisplayCounts,
+        placementKindDisplayCounts,
+      );
 
       const slug = slugFilePart(matrixCase.label);
       const seasonDir = join(absOut, seasonReview.season);
       mkdirSync(seasonDir, { recursive: true });
       const svgFile = `${slug}-zones.svg`;
+      const productionSvgFile = `${slug}-water-reader-production.svg`;
+      const appWidthProductionSvgFile = `${slug}-water-reader-production-app.svg`;
       const jsonFile = `${slug}-zones-debug.json`;
       const svgPath = options.writeSvg ? `${outputDir}/${seasonReview.season}/${svgFile}` : '';
+      const productionSvgPath = options.writeSvg ? `${outputDir}/${seasonReview.season}/${productionSvgFile}` : '';
+      const appWidthProductionSvgPath = options.writeSvg ? `${outputDir}/${seasonReview.season}/${appWidthProductionSvgFile}` : '';
       const counts = zoneCounts(zoneResult.zones);
       const coverage = coverageCounts(zoneResult);
       const suppressedCandidateFeatures = zoneResult.diagnostics.suppressedFeatureCount;
@@ -727,7 +1103,49 @@ async function main() {
         zoneDiagnostics: zoneResult.diagnostics,
         confluenceGroupCount: zoneResult.diagnostics.confluenceGroupCount,
         confluenceGroups: zoneResult.diagnostics.confluenceGroups,
+        displayedEntryCount: displayModel.summary.displayedEntryCount,
+        displayedStandaloneCount: displayModel.summary.displayedStandaloneCount,
+        displayedConfluenceCount: displayModel.summary.displayedConfluenceCount,
+        retainedNotDisplayedCount: displayModel.summary.retainedNotDisplayedCount,
+        displayLegendEntryCount: displayModel.summary.displayLegendEntryCount,
+        displayCap: displayModel.displayCap,
+        displayCapExceeded: displayModel.capExceeded,
+        displayCapPressure,
+        diversityPressure: diversityPressureFlag,
+        repeatedLegendTitleMaxCount: repeatedLegend.count,
+        repeatedLegendTitleMaxTitle: repeatedLegend.title,
+        featureClassDisplayCounts,
+        placementKindDisplayCounts,
+        retainedFeatureClassCounts,
+        retainedPlacementKindCounts,
+        placementSemanticIds,
+        anchorSemanticIds,
+        fallbackAnchorSemanticIds: fallbackAnchorIds,
+        semanticAnchorMismatchCount: semanticAnchorMismatch,
+        labelSemanticRiskCount: labelSemanticRisk,
+        splitSourceFeatureCount: displayModel.summary.splitSourceFeatureCount,
+        multiZoneStandaloneEntryViolationCount: displayModel.summary.multiZoneStandaloneEntryViolationCount,
+        legendEntryCount: legend.length,
+        legendConfluenceCount: legend.filter((entry) => entry.isConfluence).length,
+        legendTransitionWarningCount: legend.filter((entry) => entry.transitionWarning).length,
+        legendForbiddenHits: forbiddenHits,
         recoveredFallbackCount: recoveredFallbackCount(zoneResult.zones),
+        productionSvgFile: productionSvgPath,
+        rendererWarningCount: productionSvgResult?.summary.warningCount ?? 0,
+        rendererWarnings: productionSvgResult?.warnings.map((warning) => warning.code) ?? [],
+        renderedNumberCount: productionSvgResult?.summary.renderedNumberCount ?? 0,
+        calloutLabelCount: productionSvgResult?.summary.calloutLabelCount ?? 0,
+        retainedRenderedCount: productionSvgResult?.summary.retainedRenderedCount ?? 0,
+        appWidthProductionSvgFile: appWidthProductionSvgPath,
+        appWidthRendererWarningCount: appWidthProductionSvgResult?.summary.warningCount ?? 0,
+        appWidthRendererWarnings: appWidthProductionSvgResult?.warnings.map((warning) => warning.code) ?? [],
+        appWidthRenderedNumberCount: appWidthProductionSvgResult?.summary.renderedNumberCount ?? 0,
+        appWidthCalloutLabelCount: appWidthProductionSvgResult?.summary.calloutLabelCount ?? 0,
+        appWidthRetainedRenderedCount: appWidthProductionSvgResult?.summary.retainedRenderedCount ?? 0,
+        appWidthSvgViewBox: appWidthProductionSvgResult?.summary.viewBox ?? '',
+        pointZoneNearLargeLakeMinimumCount: zoneQaFlagCount(zoneResult.zones, 'point_zone_near_large_lake_minimum'),
+        constrictionMinorAxisWidthCappedCount: zoneQaFlagCount(zoneResult.zones, 'constriction_minor_axis_width_capped'),
+        constrictionZoneLargeForConnectorReviewCount: zoneQaFlagCount(zoneResult.zones, 'constriction_zone_large_for_connector_review'),
         qaFlags: [...preprocess.qaFlags, ...zoneResult.qaFlags],
         svgFile: svgPath,
         jsonFile: `${outputDir}/${seasonReview.season}/${jsonFile}`,
@@ -736,10 +1154,12 @@ async function main() {
       addTiming(timings, 'writeMs', () => {
         if (options.writeSvg) {
           writeFileSync(join(seasonDir, svgFile), buildSvg({ label: matrixCase.label, poly, preprocess, features, zoneResult }), 'utf8');
+          if (productionSvgResult) writeFileSync(join(seasonDir, productionSvgFile), productionSvgResult.svg, 'utf8');
+          if (appWidthProductionSvgResult) writeFileSync(join(seasonDir, appWidthProductionSvgFile), appWidthProductionSvgResult.svg, 'utf8');
         }
         writeFileSync(
           join(seasonDir, jsonFile),
-          `${JSON.stringify(debugJson({ matrixCase, row, poly, preprocess, features, zoneResult }), null, 2)}\n`,
+          `${JSON.stringify(debugJson({ matrixCase, row, poly, preprocess, features, zoneResult, legend, displayModel, productionSvgResult, appWidthProductionSvgResult, legendForbiddenHits: forbiddenHits }), null, 2)}\n`,
           'utf8',
         );
       });
@@ -751,6 +1171,40 @@ async function main() {
         selectedFeatures: zoneResult.diagnostics.selectedFeatureCount,
         suppressedFeatures: zoneResult.diagnostics.suppressedFeatureCount,
         zones: zoneResult.zones.length,
+        displayedEntries: displayModel.summary.displayedEntryCount,
+        displayLegendEntries: displayModel.summary.displayLegendEntryCount,
+        retainedNotDisplayed: displayModel.summary.retainedNotDisplayedCount,
+        displayCap: displayModel.displayCap,
+        displayCapExceeded: displayModel.capExceeded,
+        displayCapPressure,
+        diversityPressure: diversityPressureFlag,
+        repeatedLegendTitleMaxCount: repeatedLegend.count,
+        repeatedLegendTitleMaxTitle: repeatedLegend.title,
+        featureClassDisplayCounts,
+        placementKindDisplayCounts,
+        retainedFeatureClassCounts,
+        retainedPlacementKindCounts,
+        placementSemanticIds,
+        anchorSemanticIds,
+        fallbackAnchorSemanticIds: fallbackAnchorIds,
+        semanticAnchorMismatchCount: semanticAnchorMismatch,
+        labelSemanticRiskCount: labelSemanticRisk,
+        splitSourceFeatures: displayModel.summary.splitSourceFeatureCount,
+        multiZoneStandaloneEntryViolations: displayModel.summary.multiZoneStandaloneEntryViolationCount,
+        productionSvgFile: options.writeSvg ? `${seasonReview.season}/${productionSvgFile}` : null,
+        rendererWarnings: productionSvgResult?.summary.warningCount ?? 0,
+        renderedNumbers: productionSvgResult?.summary.renderedNumberCount ?? 0,
+        calloutLabels: productionSvgResult?.summary.calloutLabelCount ?? 0,
+        appWidthProductionSvgFile: options.writeSvg ? `${seasonReview.season}/${appWidthProductionSvgFile}` : null,
+        appWidthRendererWarnings: appWidthProductionSvgResult?.summary.warningCount ?? 0,
+        appWidthRendererWarningCodes: appWidthProductionSvgResult?.warnings.map((warning) => warning.code) ?? [],
+        appWidthRenderedNumbers: appWidthProductionSvgResult?.summary.renderedNumberCount ?? 0,
+        appWidthCalloutLabels: appWidthProductionSvgResult?.summary.calloutLabelCount ?? 0,
+        appWidthSvgViewBox: appWidthProductionSvgResult?.summary.viewBox ?? null,
+        legendEntries: legend.length,
+        legendConfluenceEntries: summary.legendConfluenceCount,
+        legendTransitionWarnings: summary.legendTransitionWarningCount,
+        legendForbiddenHits: forbiddenHits,
         suppressedCandidateFeatures,
         files: { svgFile: options.writeSvg ? `${seasonReview.season}/${svgFile}` : null, jsonFile: `${seasonReview.season}/${jsonFile}` },
       }));
@@ -772,10 +1226,17 @@ async function main() {
         writeSvg: options.writeSvg,
       },
       seasonReviews: seasonReviews.map((item) => ({ season: item.season, reviewDate: item.date.toISOString() })),
+      displayModelSummary: displayModelSummary(rows),
+      rendererSummary: rendererSummary(rows),
+      legendCopySummary: legendCopySummary(rows),
       lakes: rows,
     }, null, 2)}\n`,
     'utf8',
   );
+  const copySummary = legendCopySummary(rows);
+  if (copySummary.rowsWithForbiddenHits.length > 0) {
+    throw new Error(`Forbidden legend copy detected: ${JSON.stringify(copySummary.rowsWithForbiddenHits)}`);
+  }
   timings.totalMs = Date.now() - totalStart;
   if (options.timings) {
     console.log(timingLine(timings));

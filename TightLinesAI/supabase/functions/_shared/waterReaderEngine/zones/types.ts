@@ -1,4 +1,4 @@
-import type { PointM, RingM, WaterReaderFeatureClass, WaterReaderSeason, WaterReaderSeasonGroup } from '../contracts';
+import type { PointM, RingM, WaterReaderFeatureClass, WaterReaderSeason, WaterReaderSeasonGroup } from '../contracts.ts';
 
 export type WaterReaderZonePlacementKind =
   | 'neck_shoulder'

@@ -1,12 +1,12 @@
-import type { PointM, PolygonM, RingM, WaterReaderEngineInput, WaterReaderPreprocessResult, WaterReaderSeason } from '../contracts';
-import { distanceM } from '../metrics';
-import { lookupWaterReaderSeason } from '../seasons';
+import type { PointM, PolygonM, RingM, WaterReaderEngineInput, WaterReaderPreprocessResult, WaterReaderSeason } from '../contracts.ts';
+import { distanceM } from '../metrics.ts';
+import { lookupWaterReaderSeason } from '../seasons.ts';
 import {
   lerpPoint,
   nearestPointOnRing,
   pointInWaterOrBoundary,
   ringCentroid,
-} from '../features/validation';
+} from '../features/validation.ts';
 import type {
   WaterReaderCoveFeature,
   WaterReaderDamFeature,
@@ -15,9 +15,9 @@ import type {
   WaterReaderNeckFeature,
   WaterReaderPointFeature,
   WaterReaderSaddleFeature,
-} from '../features/types';
-import { featureZonePriority, featureZoneScore, visibleZoneCap, zoneDraftSort } from './priority';
-import { materializeZoneDraft, violatesZoneCrowding, zonesOverlap } from './invariants';
+} from '../features/types.ts';
+import { featureZonePriority, featureZoneScore, visibleZoneCap, zoneDraftSort } from './priority.ts';
+import { materializeZoneDraft, violatesZoneCrowding, zonesOverlap } from './invariants.ts';
 import type {
   WaterReaderPlacedZone,
   WaterReaderFeatureZoneCoverage,
@@ -29,7 +29,7 @@ import type {
   WaterReaderZonePlacementOptions,
   WaterReaderZonePlacementResult,
   WaterReaderZonePlacementSemanticId,
-} from './types';
+} from './types.ts';
 
 const ASPECT_RATIO = 1.6;
 const OFFSET_FACTORS = [0, 0.03, 0.06, 0.09, 0.12, 0.16, 0.2, 0.25, 0.32, 0.4] as const;

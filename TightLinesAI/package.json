@@ -34,6 +34,8 @@
     "qa:water-reader-engine-feature-review": "node --env-file=.env ./node_modules/tsx/dist/cli.mjs scripts/water-reader-engine-feature-review.ts",
     "qa:water-reader-engine-zone-smoke": "node --env-file=.env ./node_modules/tsx/dist/cli.mjs scripts/water-reader-engine-zone-smoke.ts",
     "qa:water-reader-engine-zone-review": "node --env-file=.env ./node_modules/tsx/dist/cli.mjs scripts/water-reader-engine-zone-review.ts",
+    "qa:water-reader-app-integration-smoke": "node --env-file=.env ./node_modules/tsx/dist/cli.mjs scripts/water-reader-app-integration-smoke.ts",
+    "build:water-reader-read-cache": "node --env-file=.env ./node_modules/tsx/dist/cli.mjs scripts/water-reader-build-read-cache.ts",
     "ingest:water-reader:3dhp": "deno run --allow-net --allow-read --allow-write --allow-run=python3 scripts/water-reader-ingest-3dhp.ts",
     "check:water-reader:mn-dnr-pilot-geojson": "deno run -A scripts/water-reader-mn-dnr-pilot-geojson-smoke.ts",
     "ops:water-reader:mn-dnr-pilot-validate-edge": "deno run -A scripts/water-reader-mn-dnr-pilot-edge-validation.ts",

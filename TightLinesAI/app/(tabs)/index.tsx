@@ -887,7 +887,7 @@ export default function HomeScreen() {
                 <View style={styles.waterReaderText}>
                   <Text style={styles.waterReaderTitle}>WATER READER</Text>
                   <Text style={styles.waterReaderSub}>
-                    Photo-based water clues for lakes and ponds.
+                    Polygon geometry structure zones for lakes and ponds.
                   </Text>
                 </View>
                 <View style={styles.comingSoonChip}>

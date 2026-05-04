@@ -6,4 +6,7 @@ export * from './seasons';
 export * from './ingest';
 export * from './features';
 export * from './zones';
+export * from './legend';
+export * from './display-model';
+export * from './rendering';
 export * from './debug/cues';

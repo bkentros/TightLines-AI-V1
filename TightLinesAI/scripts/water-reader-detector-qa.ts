@@ -12,6 +12,8 @@ import type {
   WaterbodyPreviewBbox,
   WaterbodySearchResponse,
   WaterbodySearchResult,
+  WaterReaderGeometryCandidate,
+  WaterReaderGeometryFeatureClass,
 } from '../lib/waterReaderContracts';
 import { detectWaterReaderGeometryCandidates } from '../lib/waterReaderGeometryDetector';
 import {
@@ -22,6 +24,8 @@ import {
 import {
   computeSilhouetteTransform,
   LAKE_SILHOUETTE,
+  primaryPolygonExteriorAndHoles,
+  projectLonLatToSilhouetteSvg,
   ringToSubpath,
   ringsFromGeoJson,
   type SilhouetteTransform,
@@ -318,6 +322,128 @@ function lakeOutlinePathD(geojson: WaterbodyPolygonGeoJson, t: SilhouetteTransfo
   return d;
 }
 
+function openExteriorVertices(geojson: WaterbodyPolygonGeoJson): number[][] | null {
+  const pr = primaryPolygonExteriorAndHoles(geojson);
+  const ext = pr?.exterior as number[][] | undefined;
+  if (!ext || ext.length < 3) return null;
+  const r = ext.filter(
+    (p) => Array.isArray(p) && p.length >= 2 && typeof p[0] === 'number' && typeof p[1] === 'number',
+  ) as number[][];
+  if (r.length < 3) return null;
+  const a = r[0];
+  const b = r[r.length - 1];
+  if (a && b && a[0] === b[0] && a[1] === b[1]) return r.slice(0, -1);
+  return r;
+}
+
+/** Forward window covering center±halfSpan on closed ring vertex indices (detector / layout convention). */
+function ribbonWindowVerts(ring: number[][], ringCenter: number, halfSpan: number): number[][] {
+  const n = ring.length;
+  if (n < 2) return [];
+  const hMax = Math.max(0, Math.floor((n - 1) / 2));
+  const h = Math.max(0, Math.min(halfSpan, hMax));
+  const c = ((ringCenter % n) + n) % n;
+  if (h === 0) return [ring[c]!];
+  const start = (c - h + n) % n;
+  const count = Math.min(n, 2 * h + 1);
+  const pts: number[][] = [];
+  for (let k = 0; k < count; k++) {
+    pts.push(ring[(start + k) % n]!);
+  }
+  return pts;
+}
+
+function polylineLonLatSvgD(ptsLonLat: number[][], transform: SilhouetteTransform): string | null {
+  if (ptsLonLat.length === 0) return null;
+  const p0 = ptsLonLat[0];
+  if (!p0 || p0.length < 2) return null;
+  const s0 = projectLonLatToSilhouetteSvg(p0[0]!, p0[1]!, transform);
+  let d = `M ${s0.x.toFixed(2)} ${s0.y.toFixed(2)}`;
+  for (let i = 1; i < ptsLonLat.length; i++) {
+    const p = ptsLonLat[i];
+    if (!p || p.length < 2) continue;
+    const s = projectLonLatToSilhouetteSvg(p[0]!, p[1]!, transform);
+    d += ` L ${s.x.toFixed(2)} ${s.y.toFixed(2)}`;
+  }
+  return d;
+}
+
+function abbrevFeatureClass(fc: WaterReaderGeometryFeatureClass): string {
+  switch (fc) {
+    case 'shoreline_point':
+      return 'point';
+    case 'pocket_edge':
+      return 'pocket';
+    case 'shoreline_bend':
+      return 'bend';
+    case 'long_bank':
+      return 'bank';
+    case 'neckdown':
+      return 'neck';
+    default:
+      return String(fc).slice(0, 6);
+  }
+}
+
+function clampNum(n: number, lo: number, hi: number): number {
+  return Math.max(lo, Math.min(hi, n));
+}
+
+function buildQaShoreCueLayer(params: {
+  patches: LakeRenderedPatch[];
+  visibleCandidates: WaterReaderGeometryCandidate[];
+  geojson: WaterbodyPolygonGeoJson;
+  transform: SilhouetteTransform;
+}): string {
+  const { patches, visibleCandidates, geojson, transform } = params;
+  const ring = openExteriorVertices(geojson);
+  if (!ring) return '';
+
+  let out = '';
+  const byId = new Map(visibleCandidates.map((c) => [c.candidateId, c] as const));
+
+  for (const p of patches) {
+    const cand = byId.get(p.candidateId);
+    if (!cand) continue;
+
+    if (cand.featureClass === 'neckdown' && cand.neckCorridor) {
+      const cor = cand.neckCorridor;
+      const a = projectLonLatToSilhouetteSvg(cor.shoreALon, cor.shoreALat, transform);
+      const b = projectLonLatToSilhouetteSvg(cor.shoreBLon, cor.shoreBLat, transform);
+      out += `<circle cx="${a.x.toFixed(2)}" cy="${a.y.toFixed(2)}" r="3" fill="#991b1b" stroke="#fff" stroke-width="1" opacity="0.92" />`;
+      out += `<circle cx="${b.x.toFixed(2)}" cy="${b.y.toFixed(2)}" r="3" fill="#991b1b" stroke="#fff" stroke-width="1" opacity="0.92" />`;
+      out += `<line x1="${a.x.toFixed(2)}" y1="${a.y.toFixed(2)}" x2="${b.x.toFixed(2)}" y2="${b.y.toFixed(2)}" stroke="#991b1b" stroke-opacity="0.55" stroke-width="1.1" stroke-dasharray="3 3" />`;
+      const lx = Math.min(a.x, b.x) + Math.abs(a.x - b.x) * 0.42;
+      const ly = Math.min(a.y, b.y) - 11;
+      out += `<text x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" font-size="8" font-family="system-ui,Segoe UI,sans-serif" fill="#3b0a0a" font-weight="600">${escapeXmlText(`${p.rank} neck`)}</text>`;
+      continue;
+    }
+
+    const dp = cand.displayPatch;
+    const s = projectLonLatToSilhouetteSvg(dp.shoreLon, dp.shoreLat, transform);
+
+    const arcLonLat =
+      cand.shoreRibbonArc != null
+        ? ribbonWindowVerts(ring, cand.shoreRibbonArc.ringCenter, cand.shoreRibbonArc.halfSpan)
+        : [];
+
+    const arcD = arcLonLat.length >= 2 ? polylineLonLatSvgD(arcLonLat, transform) : null;
+    if (arcD) {
+      out += `<path d="${escapeXmlText(arcD)}" fill="none" stroke="rgba(217,119,6,0.95)" stroke-width="2.2" stroke-linecap="round" />`;
+    }
+
+    const dotStroke = cand.featureClass === 'pocket_edge' ? '#0f766e' : '#b45309';
+    out += `<circle cx="${s.x.toFixed(2)}" cy="${s.y.toFixed(2)}" r="3.25" fill="rgba(255,255,255,0.9)" stroke="${dotStroke}" stroke-width="1.4" opacity="1" />`;
+
+    const label = `${p.rank} ${abbrevFeatureClass(cand.featureClass)}`;
+    const tx = clampNum(s.x + 7, 4, PHONE_W - 52);
+    const ty = clampNum(s.y - 8, 4, LAKE_SILHOUETTE.CANVAS_H - 10);
+    out += `<text x="${tx.toFixed(1)}" y="${ty.toFixed(1)}" font-size="8" font-family="system-ui,Segoe UI,sans-serif" fill="#1f2937" font-weight="600">${escapeXmlText(label)}</text>`;
+  }
+
+  return out;
+}
+
 function patchZoneSvg(p: LakeRenderedPatch, highlightNeck: boolean): string {
   if (p.zonePathD) {
     const sw = highlightNeck ? 1.6 : 1.05;
@@ -334,10 +460,12 @@ function buildZoneAuditSvg(params: {
   geojson: WaterbodyPolygonGeoJson;
   transform: SilhouetteTransform;
   patches: LakeRenderedPatch[];
+  visibleCandidates: WaterReaderGeometryCandidate[];
   lakeTitle: string;
   subtitle: string | null;
 }): string {
-  const { width, canvasH, headerH, geojson, transform, patches, lakeTitle, subtitle } = params;
+  const { width, canvasH, headerH, geojson, transform, patches, visibleCandidates, lakeTitle, subtitle } =
+    params;
   const totalH = headerH + canvasH;
   const lakeD = lakeOutlinePathD(geojson, transform);
   const necks = patches.filter((p) => p.featureClass === 'neckdown');
@@ -345,6 +473,15 @@ function buildZoneAuditSvg(params: {
   let zones = '';
   for (const p of rest) zones += patchZoneSvg(p, false);
   for (const p of necks) zones += patchZoneSvg(p, true);
+
+  const qaCueLayer = EXPORT_ZONE_SVG
+    ? buildQaShoreCueLayer({
+        patches,
+        visibleCandidates,
+        geojson,
+        transform,
+      })
+    : '';
 
   const mid = subtitle
     ? escapeXmlText(subtitle)
@@ -363,6 +500,7 @@ function buildZoneAuditSvg(params: {
   <g transform="translate(0 ${headerH})">
     <path d="${lakeD}" fill="#c5ddf0" fill-rule="evenodd" stroke="#2a5f87" stroke-width="1.25" />
     <g clip-path="url(#wrQaLakeClip)">${zones}</g>
+    <g>${qaCueLayer}</g>
   </g>
 </svg>
 `;
@@ -669,6 +807,7 @@ async function main() {
         geojson: gj,
         transform,
         patches,
+        visibleCandidates,
         lakeTitle: poly.name ?? label,
         subtitle,
       });

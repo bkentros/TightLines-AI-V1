@@ -93,6 +93,25 @@ function ringCentroidLonLat(ring: number[][]): [number, number] {
   return [sx / r.length, sy / r.length];
 }
 
+/** Shoelace on exterior in projected planar coords (scaled lon × cos(lat0), lat); sign encodes winding. */
+function ringSignedPlanarArea(ring: number[][], lat0: number): number {
+  const r = openRing(ring);
+  const cosL = Math.cos((lat0 * Math.PI) / 180) || 1;
+  if (r.length < 3) return 0;
+  let s = 0;
+  for (let i = 0; i < r.length; i++) {
+    const p0 = r[i];
+    const p1 = r[(i + 1) % r.length];
+    if (!p0 || !p1) continue;
+    const x0 = p0[0]! * cosL;
+    const y0 = p0[1]!;
+    const x1 = p1[0]! * cosL;
+    const y1 = p1[1]!;
+    s += x0 * y1 - x1 * y0;
+  }
+  return s * 0.5;
+}
+
 function nudgeInside(
   lon: number,
   lat: number,
@@ -679,6 +698,9 @@ export function detectWaterReaderGeometryCandidates(
   const nRing = r.length;
   const lat0 = r.reduce((s, p) => s + p[1], 0) / r.length;
   const [cLon, cLat] = ringCentroidLonLat(exterior);
+  /** Flip turn sign when exterior winding would swap convex/concave roles. */
+  const turnSign =
+    ringSignedPlanarArea(exterior, lat0) >= 0 ? 1 : -1;
 
   const idxs = subsampleIndices(r.length, MAX_SAMPLE);
   const pts: [number, number][] = idxs.map((i) => toXY(r[i]![0], r[i]![1], lat0));
@@ -696,7 +718,7 @@ export function detectWaterReaderGeometryCandidates(
     const a = turns[(i - 1 + n) % n]!;
     const b = turns[i]!;
     const c = turns[(i + 1) % n]!;
-    return (a + b + c) / 3;
+    return ((a + b + c) / 3) * turnSign;
   });
 
   const raw: RawCand[] = [];
@@ -863,6 +885,7 @@ export function detectWaterReaderGeometryCandidates(
       };
     }
     const qaFlags: string[] = ['prototype_geometry_only', 'hydrography_polygon', ...nudged.qaFlags];
+    if (turnSign < 0) qaFlags.push('polygon_exterior_turns_sign_normalized');
     if (c.cls === 'neckdown') qaFlags.push('neckdown_geometry_heuristic');
     if (idxs.length < r.length) qaFlags.push('subsampled_shoreline');
     if (holes.length > 0) qaFlags.push('interior_rings_excluded_from_water');

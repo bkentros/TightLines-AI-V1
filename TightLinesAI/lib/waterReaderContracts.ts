@@ -5,6 +5,7 @@
 
 export const WATERBODY_SEARCH_FEATURE = "waterbody_search_v1" as const;
 export const WATERBODY_POLYGON_FEATURE = "waterbody_polygon_v1" as const;
+export const WATER_READER_READ_FEATURE = "water_reader_read_v1" as const;
 
 export type WaterbodyType = "lake" | "pond" | "reservoir";
 export type WaterReaderDataTier = "polygon_only";
@@ -24,6 +25,8 @@ export type WaterReaderPolygonSupportStatus =
   | "limited"
   | "needs_review"
   | "not_supported";
+
+export type WaterReaderEngineSupportStatus = WaterReaderPolygonSupportStatus;
 
 export interface WaterbodySearchResult {
   lakeId: string;
@@ -173,4 +176,97 @@ export interface WaterbodyPolygonResponse {
   waterReaderSupportStatus: WaterReaderPolygonSupportStatus;
   waterReaderSupportReason: string;
   polygonQaFlags: string[];
+}
+
+export type WaterReaderRenderWarningCode =
+  | "missing_lake_polygon"
+  | "invalid_geometry"
+  | "missing_zone_path"
+  | "missing_label_anchor"
+  | "display_legend_count_mismatch"
+  | "legend_overflow_risk";
+
+export interface WaterReaderRenderWarning {
+  code: WaterReaderRenderWarningCode;
+  message: string;
+  entryId?: string;
+  zoneId?: string;
+}
+
+export interface WaterReaderRenderSummary {
+  displayedEntryCount: number;
+  renderedNumberCount: number;
+  calloutLabelCount: number;
+  renderedStandaloneCount: number;
+  renderedConfluenceCount: number;
+  displayLegendEntryCount: number;
+  retainedRenderedCount: number;
+  warningCount: number;
+  mapBottomY: number;
+  firstLegendRowY: number;
+  mapLegendGap: number;
+  width: number;
+  height: number;
+  viewBox: string;
+}
+
+export interface WaterReaderProductionSvgResult {
+  svg: string;
+  warnings: WaterReaderRenderWarning[];
+  summary: WaterReaderRenderSummary;
+}
+
+export interface WaterReaderReadRequest {
+  lakeId: string;
+  currentDate?: string;
+}
+
+export interface WaterReaderReadTimingDiagnostics {
+  fetchMs: number;
+  cacheMs?: number;
+  preprocessMs: number;
+  featuresMs: number;
+  zonesMs: number;
+  legendMs: number;
+  displayMs: number;
+  renderMs: number;
+  totalMs: number;
+}
+
+export interface WaterReaderReadResponse {
+  feature: typeof WATER_READER_READ_FEATURE;
+  lakeId: string;
+  name: string;
+  state: string;
+  county?: string | null;
+  waterbodyType: WaterbodyType | string;
+  centroid: {
+    lat: number;
+    lon: number;
+  };
+  bbox: WaterbodyPreviewBbox | null;
+  areaSqM?: number | null;
+  areaAcres?: number | null;
+  perimeterM?: number | null;
+  geometryIsValid: boolean;
+  geometryValidityDetail?: string | null;
+  componentCount: number;
+  interiorRingCount: number;
+  waterReaderSupportStatus: WaterReaderPolygonSupportStatus;
+  waterReaderSupportReason: string;
+  polygonQaFlags: string[];
+  engineSupportStatus: WaterReaderEngineSupportStatus;
+  engineSupportReason: string;
+  displayedEntryCount: number;
+  retainedEntryCount: number;
+  rendererWarningCount: number;
+  season: string;
+  seasonGroup?: string | null;
+  productionSvgResult: WaterReaderProductionSvgResult | null;
+  fallbackMessage: string | null;
+  cacheStatus?: "hit" | "miss";
+  seasonContextKey?: string;
+  mapWidth?: number;
+  engineVersion?: string;
+  timings?: WaterReaderReadTimingDiagnostics;
 }

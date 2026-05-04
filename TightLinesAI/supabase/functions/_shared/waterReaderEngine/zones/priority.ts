@@ -1,5 +1,5 @@
-import type { WaterReaderDetectedFeature } from '../features/types';
-import type { WaterReaderZoneDraft } from './types';
+import type { WaterReaderDetectedFeature } from '../features/types.ts';
+import type { WaterReaderZoneDraft } from './types.ts';
 
 export function featureZonePriority(feature: WaterReaderDetectedFeature): number {
   switch (feature.featureClass) {

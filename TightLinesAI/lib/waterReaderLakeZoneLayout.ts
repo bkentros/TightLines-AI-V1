@@ -113,6 +113,9 @@ export type LakeZoneLayoutDiagnosticsSummary = {
   bridgeSuppressed: number;
   bankSideCap: number;
   bankSideFallbackUsed: number;
+  recentredToShoreline: number;
+  inwardDepthCapped: number;
+  weakShorelineContactSuppressed: number;
 };
 
 type LayoutDiagCounters = LakeZoneLayoutDiagnosticsSummary;
@@ -505,6 +508,24 @@ function pathDFromSmoothPatch(params: {
   ].join(' ');
 }
 
+function smoothPatchEllipsePoint(
+  cx: number,
+  cy: number,
+  alongX: number,
+  alongY: number,
+  crossX: number,
+  crossY: number,
+  rx: number,
+  ry: number,
+  cosTheta: number,
+  sinTheta: number,
+): { x: number; y: number } {
+  return {
+    x: cx + alongX * rx * cosTheta + crossX * ry * sinTheta,
+    y: cy + alongY * rx * cosTheta + crossY * ry * sinTheta,
+  };
+}
+
 function waterCoverageForSmoothPatch(params: {
   cx: number;
   cy: number;
@@ -533,6 +554,177 @@ function waterCoverageForSmoothPatch(params: {
     }
   }
   return total > 0 ? inside / total : 0;
+}
+
+/** Fraction of ellipse (interior + boundary samples) lying in primary water before clip; indicates shore merge vs open-water oval. */
+function smoothPatchWaterVisibleFracDense(params: {
+  cx: number;
+  cy: number;
+  alongX: number;
+  alongY: number;
+  crossX: number;
+  crossY: number;
+  rx: number;
+  ry: number;
+  transform: SilhouetteTransform;
+  exterior: number[][];
+  holes: number[][][];
+}): number {
+  const {
+    cx,
+    cy,
+    alongX,
+    alongY,
+    crossX,
+    crossY,
+    rx,
+    ry,
+    transform,
+    exterior,
+    holes,
+  } = params;
+  const grid = [-0.82, -0.58, -0.35, -0.12, 0.12, 0.35, 0.58, 0.82];
+  let inW = 0;
+  let tot = 0;
+  for (const a of grid) {
+    for (const b of grid) {
+      if (a * a + b * b > 1) continue;
+      tot++;
+      const x = cx + alongX * rx * a + crossX * ry * b;
+      const y = cy + alongY * rx * a + crossY * ry * b;
+      const ll = lonLatFromSvgPoint(x, y, transform);
+      if (pointInPrimaryWater(ll.lon, ll.lat, exterior, holes)) inW++;
+    }
+  }
+  for (let i = 0; i < 72; i++) {
+    tot++;
+    const th = (i / 72) * Math.PI * 2;
+    const ct = Math.cos(th);
+    const st = Math.sin(th);
+    const { x, y } = smoothPatchEllipsePoint(cx, cy, alongX, alongY, crossX, crossY, rx, ry, ct, st);
+    const ll = lonLatFromSvgPoint(x, y, transform);
+    if (pointInPrimaryWater(ll.lon, ll.lat, exterior, holes)) inW++;
+  }
+  return tot > 0 ? inW / tot : 1;
+}
+
+type ShoreMergeAnalysis = {
+  footprint: { minInward: number; maxInward: number; span: number };
+  waterFrac: number;
+  bankLandBoundaryHits: number;
+};
+
+function analyzeSmoothPatchShoreMerge(params: {
+  shoreX: number;
+  shoreY: number;
+  inwardX: number;
+  inwardY: number;
+  cx: number;
+  cy: number;
+  alongX: number;
+  alongY: number;
+  crossX: number;
+  crossY: number;
+  rx: number;
+  ry: number;
+  transform: SilhouetteTransform;
+  exterior: number[][];
+  holes: number[][][];
+}): ShoreMergeAnalysis {
+  const footprint = smoothPatchLocalWidthFootprint({
+    shoreX: params.shoreX,
+    shoreY: params.shoreY,
+    inwardX: params.inwardX,
+    inwardY: params.inwardY,
+    cx: params.cx,
+    cy: params.cy,
+    ux: params.alongX,
+    uy: params.alongY,
+    vx: params.crossX,
+    vy: params.crossY,
+    rx: params.rx,
+    ry: params.ry,
+  });
+  let bestTheta = 0;
+  let minProj = Infinity;
+  for (let i = 0; i < 72; i++) {
+    const th = (i / 72) * Math.PI * 2;
+    const ct = Math.cos(th);
+    const st = Math.sin(th);
+    const { x, y } = smoothPatchEllipsePoint(
+      params.cx,
+      params.cy,
+      params.alongX,
+      params.alongY,
+      params.crossX,
+      params.crossY,
+      params.rx,
+      params.ry,
+      ct,
+      st,
+    );
+    const proj =
+      (x - params.shoreX) * params.inwardX + (y - params.shoreY) * params.inwardY;
+    if (proj < minProj) {
+      minProj = proj;
+      bestTheta = th;
+    }
+  }
+  let bankLandBoundaryHits = 0;
+  for (const d of [-0.2, -0.12, -0.055, 0, 0.055, 0.12, 0.2]) {
+    const th = bestTheta + d;
+    const ct = Math.cos(th);
+    const st = Math.sin(th);
+    const { x, y } = smoothPatchEllipsePoint(
+      params.cx,
+      params.cy,
+      params.alongX,
+      params.alongY,
+      params.crossX,
+      params.crossY,
+      params.rx,
+      params.ry,
+      ct,
+      st,
+    );
+    const ll = lonLatFromSvgPoint(x, y, params.transform);
+    if (!pointInPrimaryWater(ll.lon, ll.lat, params.exterior, params.holes)) bankLandBoundaryHits++;
+  }
+  const waterFrac = smoothPatchWaterVisibleFracDense(params);
+  return { footprint, waterFrac, bankLandBoundaryHits };
+}
+
+function mergeMinInwardCeilingPx(cls: WaterReaderGeometryFeatureClass): number {
+  return cls === 'long_bank' ? -2 : -3;
+}
+
+function smoothPatchPassesVisibleMerge(params: {
+  shoreMerge: ShoreMergeAnalysis;
+  cls: WaterReaderGeometryFeatureClass;
+  minLakeDim: number;
+  rx: number;
+  ry: number;
+}): boolean {
+  const { shoreMerge, cls, minLakeDim, rx, ry } = params;
+  const { footprint, waterFrac, bankLandBoundaryHits } = shoreMerge;
+  const mergeCeil = mergeMinInwardCeilingPx(cls);
+  if (footprint.minInward > mergeCeil) return false;
+
+  const minor = Math.min(rx, ry);
+  /** Narrow/smaller cues: allow a little more visible oval, but never a full open-water blob. */
+  const awkward = minor <= 11.5 || (minLakeDim > 180 && minor <= 13);
+  const hiFrac = awkward ? 0.78 : 0.75;
+  if (waterFrac > hiFrac) return false;
+  if (waterFrac < 0.34) return false;
+
+  switch (cls) {
+    case 'pocket_edge':
+    case 'shoreline_point':
+    case 'shoreline_bend':
+      return bankLandBoundaryHits >= 3;
+    default:
+      return bankLandBoundaryHits >= 2;
+  }
 }
 
 function estimateLocalWaterWidthPx(params: {
@@ -573,41 +765,42 @@ function applyLocalWaterWidthCap(params: {
   if (localWaterWidthPx == null) return shape;
   const slender = slenderness >= 3.2;
   const verySlender = slenderness >= 5.5;
+  /** Tighter bank-first caps: shallow inward depth and limited along-shore span vs local width. */
   const limits =
     cls === 'long_bank'
       ? {
-          rx: verySlender ? 0.52 : slender ? 0.66 : 0.84,
-          ry: verySlender ? 0.14 : 0.18,
-          offset: verySlender ? 0.18 : 0.22,
-          minRx: verySlender ? 26 : 30,
-          minRy: verySlender ? 6 : 7,
-          minOffset: verySlender ? 6 : 7,
+          rx: verySlender ? 0.44 : slender ? 0.56 : 0.72,
+          ry: verySlender ? 0.12 : slender ? 0.14 : 0.16,
+          offset: verySlender ? 0.14 : slender ? 0.17 : 0.2,
+          minRx: verySlender ? 24 : 28,
+          minRy: verySlender ? 5.5 : 6.5,
+          minOffset: verySlender ? 5.5 : 6.5,
         }
       : cls === 'pocket_edge'
         ? {
-            rx: verySlender ? 0.38 : slender ? 0.46 : 0.66,
-            ry: verySlender ? 0.16 : slender ? 0.2 : 0.26,
-            offset: verySlender ? 0.22 : slender ? 0.26 : 0.3,
-            minRx: verySlender ? 18 : 20,
-            minRy: verySlender ? 7 : 8,
-            minOffset: verySlender ? 6 : 7,
+            rx: verySlender ? 0.34 : slender ? 0.42 : 0.58,
+            ry: verySlender ? 0.14 : slender ? 0.17 : 0.22,
+            offset: verySlender ? 0.18 : slender ? 0.22 : 0.26,
+            minRx: verySlender ? 17 : 19,
+            minRy: verySlender ? 6.5 : 7.5,
+            minOffset: verySlender ? 5.5 : 6.5,
           }
         : cls === 'shoreline_bend'
           ? {
-              rx: verySlender ? 0.36 : slender ? 0.44 : 0.74,
-              ry: verySlender ? 0.17 : slender ? 0.21 : 0.3,
-              offset: verySlender ? 0.24 : slender ? 0.28 : 0.32,
-              minRx: verySlender ? 21 : 23,
-              minRy: verySlender ? 7 : 8,
-              minOffset: verySlender ? 6 : 7,
+              rx: verySlender ? 0.32 : slender ? 0.4 : 0.64,
+              ry: verySlender ? 0.15 : slender ? 0.18 : 0.25,
+              offset: verySlender ? 0.2 : slender ? 0.24 : 0.28,
+              minRx: verySlender ? 20 : 22,
+              minRy: verySlender ? 6.5 : 7.5,
+              minOffset: verySlender ? 5.5 : 6.5,
             }
           : {
-              rx: verySlender ? 0.34 : slender ? 0.42 : 0.78,
-              ry: verySlender ? 0.17 : slender ? 0.2 : 0.32,
-              offset: verySlender ? 0.24 : slender ? 0.28 : 0.33,
-              minRx: verySlender ? 19 : 21,
-              minRy: verySlender ? 7 : 8,
-              minOffset: verySlender ? 6 : 7,
+              rx: verySlender ? 0.3 : slender ? 0.38 : 0.66,
+              ry: verySlender ? 0.145 : slender ? 0.17 : 0.26,
+              offset: verySlender ? 0.2 : slender ? 0.24 : 0.28,
+              minRx: verySlender ? 18 : 20,
+              minRy: verySlender ? 6.5 : 7.5,
+              minOffset: verySlender ? 5.5 : 6.5,
             };
   const cappedRy = Math.min(shape.ry, Math.max(limits.minRy, localWaterWidthPx * limits.ry));
   const cappedCenterOffset = Math.min(
@@ -660,6 +853,50 @@ function smoothPatchLocalWidthFootprint(params: {
   return { minInward, maxInward, span: maxInward - minInward };
 }
 
+/** Class caps on inward depth (maxInward) and total inward span vs local perpendicular water width. */
+function classFootprintFracLimits(cls: WaterReaderGeometryFeatureClass): {
+  maxDepthFrac: number;
+  maxSpanFrac: number;
+} {
+  switch (cls) {
+    case 'long_bank':
+      return { maxDepthFrac: 0.2, maxSpanFrac: 0.41 };
+    case 'shoreline_bend':
+      return { maxDepthFrac: 0.3, maxSpanFrac: 0.53 };
+    case 'shoreline_point':
+      return { maxDepthFrac: 0.28, maxSpanFrac: 0.51 };
+    case 'pocket_edge':
+      return { maxDepthFrac: 0.36, maxSpanFrac: 0.56 };
+    default:
+      return { maxDepthFrac: 0.3, maxSpanFrac: 0.52 };
+  }
+}
+
+/** True when footprint exceeds class depth/span fractions of local water width. */
+function smoothPatchViolatesFootprintFracs(params: {
+  shoreX: number;
+  shoreY: number;
+  inwardX: number;
+  inwardY: number;
+  cx: number;
+  cy: number;
+  ux: number;
+  uy: number;
+  vx: number;
+  vy: number;
+  rx: number;
+  ry: number;
+  cls: WaterReaderGeometryFeatureClass;
+  localWaterWidthPx: number | null;
+}): boolean {
+  const { cls, localWaterWidthPx } = params;
+  if (localWaterWidthPx == null || localWaterWidthPx <= 0) return false;
+  const { maxDepthFrac, maxSpanFrac } = classFootprintFracLimits(cls);
+  const footprint = smoothPatchLocalWidthFootprint(params);
+  const W = localWaterWidthPx;
+  return footprint.maxInward > W * maxDepthFrac || footprint.span > W * maxSpanFrac;
+}
+
 function smoothPatchBridgesLocalWidth(params: {
   cls: WaterReaderGeometryFeatureClass;
   shoreX: number;
@@ -676,14 +913,279 @@ function smoothPatchBridgesLocalWidth(params: {
   ry: number;
   localWaterWidthPx: number | null;
 }): boolean {
-  const { cls, localWaterWidthPx } = params;
-  if (localWaterWidthPx == null || localWaterWidthPx <= 0) return false;
-  const footprint = smoothPatchLocalWidthFootprint(params);
-  const maxFrac =
-    cls === 'pocket_edge' ? 0.72 : cls === 'long_bank' ? 0.7 : cls === 'shoreline_bend' ? 0.68 : 0.66;
-  const spanFrac =
-    cls === 'pocket_edge' ? 0.68 : cls === 'long_bank' ? 0.64 : cls === 'shoreline_bend' ? 0.62 : 0.6;
-  return footprint.maxInward > localWaterWidthPx * maxFrac || footprint.span > localWaterWidthPx * spanFrac;
+  return smoothPatchViolatesFootprintFracs(params);
+}
+
+function ellipseAabbCorners(params: {
+  cx: number;
+  cy: number;
+  alongX: number;
+  alongY: number;
+  crossX: number;
+  crossY: number;
+  rx: number;
+  ry: number;
+}): PatchAabb {
+  const { cx, cy, alongX, alongY, crossX, crossY, rx, ry } = params;
+  const aabb: PatchAabb = {
+    minX: Infinity,
+    maxX: -Infinity,
+    minY: Infinity,
+    maxY: -Infinity,
+  };
+  for (const q of [
+    { x: cx + alongX * rx, y: cy + alongY * rx },
+    { x: cx - alongX * rx, y: cy - alongY * rx },
+    { x: cx + crossX * ry, y: cy + crossY * ry },
+    { x: cx - crossX * ry, y: cy - crossY * ry },
+  ]) {
+    expandAabb(aabb, q.x, q.y);
+  }
+  return aabb;
+}
+
+function minRyRxFloorForClass(cls: WaterReaderGeometryFeatureClass): { minRy: number; minRx: number } {
+  switch (cls) {
+    case 'long_bank':
+      return { minRy: 4.8, minRx: 15 };
+    case 'pocket_edge':
+      return { minRy: 6, minRx: 11 };
+    case 'shoreline_bend':
+      return { minRy: 6.2, minRx: 12 };
+    case 'shoreline_point':
+      return { minRy: 6.2, minRx: 12 };
+    default:
+      return { minRy: 6, minRx: 12 };
+  }
+}
+
+/**
+ * Nudge ellipse toward shoreline merge: ellipse crosses polygon boundary so unclipped water fraction is bounded (~37–82%).
+ */
+function recenterSmoothPatchToShoreline(params: {
+  shoreX: number;
+  shoreY: number;
+  inwardX: number;
+  inwardY: number;
+  alongX: number;
+  alongY: number;
+  crossX: number;
+  crossY: number;
+  cx: number;
+  cy: number;
+  rx: number;
+  ry: number;
+  cls: WaterReaderGeometryFeatureClass;
+  localWaterWidthPx: number | null;
+  minLakeDim: number;
+  transform: SilhouetteTransform;
+  exterior: number[][];
+  holes: number[][][];
+  coverageMin: number;
+  warnings: string[];
+  diag?: LayoutDiagCounters;
+}): {
+  cx: number;
+  cy: number;
+  rx: number;
+  ry: number;
+  coverage: number;
+  zonePathD: string;
+  aabb: PatchAabb;
+} | null {
+  const {
+    shoreX,
+    shoreY,
+    inwardX,
+    inwardY,
+    alongX,
+    alongY,
+    crossX,
+    crossY,
+    transform,
+    exterior,
+    holes,
+    cls,
+    localWaterWidthPx,
+    minLakeDim,
+    coverageMin,
+    warnings,
+    diag,
+  } = params;
+
+  let { cx, cy, rx, ry } = params;
+  let { maxDepthFrac, maxSpanFrac } = classFootprintFracLimits(cls);
+  maxDepthFrac *= 1.02;
+  maxSpanFrac *= 1.02;
+  const { minRy, minRx } = minRyRxFloorForClass(cls);
+  const mergeCeil = mergeMinInwardCeilingPx(cls);
+  let inwardCapped = false;
+  let recentred = false;
+
+  function mergeOk(): boolean {
+    const shoreMerge = analyzeSmoothPatchShoreMerge({
+      shoreX,
+      shoreY,
+      inwardX,
+      inwardY,
+      cx,
+      cy,
+      alongX,
+      alongY,
+      crossX,
+      crossY,
+      rx,
+      ry,
+      transform,
+      exterior,
+      holes,
+    });
+    return smoothPatchPassesVisibleMerge({ shoreMerge, cls, minLakeDim, rx, ry });
+  }
+
+  for (let iter = 0; iter < 34; iter++) {
+    let fp = smoothPatchLocalWidthFootprint({
+      shoreX,
+      shoreY,
+      inwardX,
+      inwardY,
+      cx,
+      cy,
+      ux: alongX,
+      uy: alongY,
+      vx: crossX,
+      vy: crossY,
+      rx,
+      ry,
+    });
+
+    let coverageProbe = waterCoverageForSmoothPatch({
+      cx,
+      cy,
+      ux: alongX,
+      uy: alongY,
+      vx: crossX,
+      vy: crossY,
+      rx,
+      ry,
+      transform,
+      exterior,
+      holes,
+    });
+
+    const widthViolates =
+      localWaterWidthPx != null &&
+      localWaterWidthPx > 0 &&
+      (fp.maxInward > localWaterWidthPx * maxDepthFrac || fp.span > localWaterWidthPx * maxSpanFrac);
+    const needsShoreBias = fp.minInward > mergeCeil || !mergeOk();
+
+    if (!widthViolates && coverageProbe >= coverageMin && mergeOk()) break;
+
+    if (widthViolates && ry >= minRy * 1.02) {
+      ry *= 0.9;
+      inwardCapped = true;
+      if (ry < minRy * 1.08) rx *= 0.94;
+      continue;
+    }
+    if (widthViolates && rx >= minRx * 1.04) {
+      rx *= 0.92;
+      inwardCapped = true;
+      continue;
+    }
+
+    if (coverageProbe < coverageMin || needsShoreBias) {
+      const gap = fp.minInward - mergeCeil;
+      const shift = clamp(
+        Math.max(gap > 0 ? gap + 0.95 : 0.55, coverageProbe < coverageMin ? 0.66 : 0),
+        0.45,
+        9,
+      );
+      let moved = false;
+      for (const stepFrac of [1, 0.72, 0.5, 0.33, 0.18] as const) {
+        const ncx = cx - inwardX * shift * stepFrac;
+        const ncy = cy - inwardY * shift * stepFrac;
+        const ll = lonLatFromSvgPoint(ncx, ncy, transform);
+        if (!pointInPrimaryWater(ll.lon, ll.lat, exterior, holes)) continue;
+        cx = ncx;
+        cy = ncy;
+        recentred = true;
+        moved = true;
+        break;
+      }
+      if (!moved) {
+        if (ry >= minRy * 1.02) {
+          ry *= 0.92;
+          inwardCapped = true;
+        }
+        if (rx > minRx * 1.04) rx *= 0.95;
+      }
+      continue;
+    }
+    break;
+  }
+
+  let coverage = waterCoverageForSmoothPatch({
+    cx,
+    cy,
+    ux: alongX,
+    uy: alongY,
+    vx: crossX,
+    vy: crossY,
+    rx,
+    ry,
+    transform,
+    exterior,
+    holes,
+  });
+  const shoreMerge = analyzeSmoothPatchShoreMerge({
+    shoreX,
+    shoreY,
+    inwardX,
+    inwardY,
+    cx,
+    cy,
+    alongX,
+    alongY,
+    crossX,
+    crossY,
+    rx,
+    ry,
+    transform,
+    exterior,
+    holes,
+  });
+
+  if (coverage < coverageMin || !smoothPatchPassesVisibleMerge({ shoreMerge, cls, minLakeDim, rx, ry })) {
+    return null;
+  }
+
+  if (inwardCapped) {
+    warnings.push('zone_inward_depth_capped');
+    if (diag) diag.inwardDepthCapped++;
+  }
+  if (recentred) {
+    warnings.push('zone_recentred_to_shoreline');
+    if (diag) diag.recentredToShoreline++;
+  }
+
+  return {
+    cx,
+    cy,
+    rx,
+    ry,
+    coverage,
+    zonePathD: pathDFromSmoothPatch({
+      cx,
+      cy,
+      ux: alongX,
+      uy: alongY,
+      vx: crossX,
+      vy: crossY,
+      rx,
+      ry,
+    }),
+    aabb: ellipseAabbCorners({ cx, cy, alongX, alongY, crossX, crossY, rx, ry }),
+  };
 }
 
 function minDistShoreCueToEllipseBoundary(params: {
@@ -709,7 +1211,57 @@ function minDistShoreCueToEllipseBoundary(params: {
   return best;
 }
 
-type NonNeckAcceptFail = 'no_shoreline_contact' | 'open_water_zone' | 'max_inward_span';
+/** Non-neck only: passes when ellipse straddles shoreline (minInward past merge plane, waterFrac not “full oval”, bank land hits). */
+function smoothPatchVisiblyClipsShoreline(params: {
+  shoreX: number;
+  shoreY: number;
+  inwardX: number;
+  inwardY: number;
+  cx: number;
+  cy: number;
+  alongX: number;
+  alongY: number;
+  crossX: number;
+  crossY: number;
+  rx: number;
+  ry: number;
+  cls: WaterReaderGeometryFeatureClass;
+  minLakeDim: number;
+  transform: SilhouetteTransform;
+  exterior: number[][];
+  holes: number[][][];
+}): boolean {
+  const shoreMerge = analyzeSmoothPatchShoreMerge({
+    shoreX: params.shoreX,
+    shoreY: params.shoreY,
+    inwardX: params.inwardX,
+    inwardY: params.inwardY,
+    cx: params.cx,
+    cy: params.cy,
+    alongX: params.alongX,
+    alongY: params.alongY,
+    crossX: params.crossX,
+    crossY: params.crossY,
+    rx: params.rx,
+    ry: params.ry,
+    transform: params.transform,
+    exterior: params.exterior,
+    holes: params.holes,
+  });
+  return smoothPatchPassesVisibleMerge({
+    shoreMerge,
+    cls: params.cls,
+    minLakeDim: params.minLakeDim,
+    rx: params.rx,
+    ry: params.ry,
+  });
+}
+
+type NonNeckAcceptFail =
+  | 'no_shoreline_contact'
+  | 'open_water_zone'
+  | 'max_inward_span'
+  | 'weak_shoreline_contact';
 
 function validateNonNeckZoneAcceptance(params: {
   cx: number;
@@ -781,33 +1333,62 @@ function validateNonNeckZoneAcceptance(params: {
   });
   const contactScale =
     cls === 'pocket_edge'
-      ? 0.95
+      ? 0.78
       : cls === 'shoreline_bend'
-        ? 0.62
+        ? 0.48
         : cls === 'long_bank'
-          ? 0.52
-          : 0.6;
-  const contactMax = Math.max(10, contactScale * Math.min(rx, ry));
+          ? 0.4
+          : 0.48;
+  const contactMax = Math.max(8, contactScale * Math.min(rx, ry));
   let contactSoftCap = contactMax;
   if (cls === 'pocket_edge' && coverage >= coverageMin + 0.018) {
-    contactSoftCap = contactMax * 1.48;
-  } else if (cls === 'shoreline_bend' && coverage >= coverageMin + 0.042) {
     contactSoftCap = contactMax * 1.22;
+  } else if (cls === 'shoreline_bend' && coverage >= coverageMin + 0.042) {
+    contactSoftCap = contactMax * 1.08;
   }
   if (distCueToEllipse > contactSoftCap) {
-    return { ok: false, reason: 'no_shoreline_contact' };
+    return { ok: false, reason: 'weak_shoreline_contact' };
+  }
+
+  if (
+    !smoothPatchVisiblyClipsShoreline({
+      shoreX,
+      shoreY,
+      inwardX,
+      inwardY,
+      cx,
+      cy,
+      alongX,
+      alongY,
+      crossX,
+      crossY,
+      rx,
+      ry,
+      cls,
+      minLakeDim,
+      transform,
+      exterior,
+      holes,
+    })
+  ) {
+    return { ok: false, reason: 'weak_shoreline_contact' };
   }
 
   const drift = Math.hypot(cx - shoreX, cy - shoreY);
   const charSize = Math.max(rx, ry);
   const minor = Math.min(rx, ry);
+  const inwardAlign = Math.abs((cx - shoreX) * inwardX + (cy - shoreY) * inwardY);
+  const bankLike = inwardAlign >= drift * 0.76 - 0.5;
+  if (!bankLike && drift > minor * 1.06) {
+    return { ok: false, reason: 'weak_shoreline_contact' };
+  }
   const nominalReach = minor + charSize * 0.38;
   let driftMax: number;
   if (localWaterWidthPx != null && localWaterWidthPx > 0) {
-    const driftBoost = cls === 'shoreline_point' ? 1.14 : cls === 'pocket_edge' ? 1.04 : 1;
+    const driftBoost = cls === 'shoreline_point' ? 1.06 : cls === 'pocket_edge' ? 0.98 : 1;
     driftMax = Math.min(
-      localWaterWidthPx * 0.58 * driftBoost,
-      Math.max(nominalReach * 1.68, charSize * 1.38 * driftBoost, minor * 2.48),
+      localWaterWidthPx * 0.48 * driftBoost,
+      Math.max(nominalReach * 1.45, charSize * 1.22 * driftBoost, minor * 2.12),
     );
   } else {
     driftMax = Math.max(nominalReach * 1.52, charSize * 1.28);
@@ -823,9 +1404,9 @@ function validateNonNeckZoneAcceptance(params: {
     const dCent = Math.hypot(cx - lakeCentroidSvg.x, cy - lakeCentroidSvg.y);
     const pullToBasin = dCent / Math.max(drift, 1e-6);
     if (
-      pullToBasin < 0.86 &&
-      drift > localWaterWidthPx * 0.29 &&
-      drift > minor * 1.72
+      pullToBasin < 1.05 &&
+      drift > localWaterWidthPx * 0.21 &&
+      drift > minor * 1.35
     ) {
       return { ok: false, reason: 'open_water_zone' };
     }
@@ -846,26 +1427,9 @@ function validateNonNeckZoneAcceptance(params: {
       rx,
       ry,
     });
-    const maxSpanFrac =
-      cls === 'pocket_edge'
-        ? 0.66
-        : cls === 'long_bank'
-          ? 0.62
-          : cls === 'shoreline_bend'
-            ? 0.64
-            : cls === 'shoreline_point'
-              ? 0.65
-              : 0.62;
-    const maxDepthFrac =
-      cls === 'pocket_edge'
-        ? 0.68
-        : cls === 'long_bank'
-          ? 0.64
-          : cls === 'shoreline_bend'
-            ? 0.66
-            : cls === 'shoreline_point'
-              ? 0.67
-              : 0.64;
+    const { maxDepthFrac: maxDepthFracLim, maxSpanFrac: maxSpanFracLim } = classFootprintFracLimits(cls);
+    const maxSpanFrac = maxSpanFracLim * 0.98;
+    const maxDepthFrac = maxDepthFracLim * 0.98;
     if (
       footprint.span > localWaterWidthPx * maxSpanFrac ||
       footprint.maxInward > localWaterWidthPx * maxDepthFrac
@@ -885,6 +1449,8 @@ function warnForNonNeckReject(reason: NonNeckAcceptFail): string {
       return 'suppressed_open_water_zone';
     case 'max_inward_span':
       return 'suppressed_zone_bridges_local_width';
+    case 'weak_shoreline_contact':
+      return 'suppressed_weak_shoreline_contact';
   }
 }
 
@@ -902,6 +1468,8 @@ function tryBankSideFallbackRibbon(params: {
   minLakeDim: number;
   coverageMin: number;
   lakeCentroidSvg: { x: number; y: number };
+  warnings: string[];
+  diag?: LayoutDiagCounters;
 }): {
   cx: number;
   cy: number;
@@ -924,6 +1492,8 @@ function tryBankSideFallbackRibbon(params: {
     minLakeDim,
     coverageMin,
     lakeCentroidSvg,
+    warnings,
+    diag,
   } = params;
 
   const wRef =
@@ -944,31 +1514,31 @@ function tryBankSideFallbackRibbon(params: {
   let ry: number;
   switch (cls) {
     case 'shoreline_point':
-      rx = clamp(wRef * 0.255, 13, 21);
+      rx = clamp(wRef * 0.268, 14, 24);
       ry = rx * 0.66;
       break;
     case 'pocket_edge':
-      rx = clamp(wRef * 0.235, 11, 19);
+      rx = clamp(wRef * 0.248, 12, 21);
       ry = rx * 0.56;
       break;
     case 'shoreline_bend':
-      rx = clamp(wRef * 0.285, 14, 24);
+      rx = clamp(wRef * 0.298, 15, 26);
       ry = rx * 0.44;
       break;
     case 'long_bank':
-      rx = clamp(wRef * 0.36, 16, 32);
-      ry = clamp(wRef * 0.1, 5.5, 10);
+      rx = clamp(wRef * 0.39, 18, 36);
+      ry = clamp(wRef * 0.105, 5.5, 10.5);
       break;
     default:
-      rx = clamp(wRef * 0.25, 12, 20);
+      rx = clamp(wRef * 0.26, 13, 22);
       ry = rx * 0.62;
   }
 
-  rx = Math.min(rx, wRef * 0.44);
-  ry = Math.min(ry, wRef * 0.2);
+  rx = Math.min(rx, wRef * 0.5);
+  ry = Math.min(ry, wRef * 0.21);
   if (cls === 'pocket_edge' || cls === 'shoreline_point') {
-    rx *= 0.87;
-    ry *= 0.87;
+    rx *= 0.9;
+    ry *= 0.9;
   }
 
   for (const inwardFrac of inwardFracCandidates) {
@@ -1024,24 +1594,34 @@ function tryBankSideFallbackRibbon(params: {
         continue;
       }
 
-      const coverage = waterCoverageForSmoothPatch({
+      const polished = recenterSmoothPatchToShoreline({
+        shoreX: shore.x,
+        shoreY: shore.y,
+        inwardX: inward.x,
+        inwardY: inward.y,
+        alongX: along.x,
+        alongY: along.y,
+        crossX: cross.x,
+        crossY: cross.y,
         cx,
         cy,
-        ux: along.x,
-        uy: along.y,
-        vx: cross.x,
-        vy: cross.y,
         rx: rxS,
         ry: ryS,
+        cls,
+        localWaterWidthPx,
+        minLakeDim,
         transform,
         exterior,
         holes,
+        coverageMin,
+        warnings,
+        diag,
       });
-      if (coverage < coverageMin) continue;
+      if (!polished) continue;
 
       const accept = validateNonNeckZoneAcceptance({
-        cx,
-        cy,
+        cx: polished.cx,
+        cy: polished.cy,
         shoreX: shore.x,
         shoreY: shore.y,
         alongX: along.x,
@@ -1050,9 +1630,9 @@ function tryBankSideFallbackRibbon(params: {
         crossY: cross.y,
         inwardX: inward.x,
         inwardY: inward.y,
-        rx: rxS,
-        ry: ryS,
-        coverage,
+        rx: polished.rx,
+        ry: polished.ry,
+        coverage: polished.coverage,
         coverageMin,
         transform,
         exterior,
@@ -1064,38 +1644,14 @@ function tryBankSideFallbackRibbon(params: {
       });
       if (!accept.ok) continue;
 
-      const aabb: PatchAabb = {
-        minX: Infinity,
-        maxX: -Infinity,
-        minY: Infinity,
-        maxY: -Infinity,
-      };
-      for (const q of [
-        { x: cx + along.x * rxS, y: cy + along.y * rxS },
-        { x: cx - along.x * rxS, y: cy - along.y * rxS },
-        { x: cx + cross.x * ryS, y: cy + cross.y * ryS },
-        { x: cx - cross.x * ryS, y: cy - cross.y * ryS },
-      ]) {
-        expandAabb(aabb, q.x, q.y);
-      }
-
       return {
-        cx,
-        cy,
-        rx: rxS,
-        ry: ryS,
-        coverage,
-        aabb,
-        zonePathD: pathDFromSmoothPatch({
-          cx,
-          cy,
-          ux: along.x,
-          uy: along.y,
-          vx: cross.x,
-          vy: cross.y,
-          rx: rxS,
-          ry: ryS,
-        }),
+        cx: polished.cx,
+        cy: polished.cy,
+        rx: polished.rx,
+        ry: polished.ry,
+        coverage: polished.coverage,
+        aabb: polished.aabb,
+        zonePathD: polished.zonePathD,
       };
     }
   }
@@ -1130,7 +1686,10 @@ function buildShoreRibbonPatch(
     x: (centroidSvg.x - shore.x) / toCenterLen,
     y: (centroidSvg.y - shore.y) / toCenterLen,
   };
-  const cross = perpendicular(along);
+  let cross = perpendicular(along);
+  if (cross.x * inward.x + cross.y * inward.y < 0) {
+    cross = { x: -cross.x, y: -cross.y };
+  }
   const localWaterWidthPx = estimateLocalWaterWidthPx({
     shoreX: shore.x,
     shoreY: shore.y,
@@ -1166,41 +1725,45 @@ function buildShoreRibbonPatch(
   } | null = null;
   let bridgeSuppressed = false;
 
-  const anchorDirs = [inward, toCenter].filter((dir, i, arr) => {
-    if (i === 0) return true;
-    return Math.abs(dir.x * arr[0]!.x + dir.y * arr[0]!.y) < 0.97;
-  });
-
-  const anchorStepsPrimary =
+  const bankOffsetSteps: readonly number[] =
     cls === 'pocket_edge'
-      ? ([0.24, 0.42, 0.72, 1, 1.35, 0.46, 0.28] as const)
-      : ([1.35, 1, 0.72, 0.46, 0.28] as const);
+      ? [0.12, 0.18, 0.26, 0.34, 0.44, 0.56, 0.72, 0.9, 1.06]
+      : [0.1, 0.14, 0.2, 0.28, 0.38, 0.52, 0.66, 0.82, 1];
 
   const anchorCenters: { cx: number; cy: number; reduced: boolean }[] = [];
-  for (const dir of anchorDirs) {
-    for (const anchorStep of anchorStepsPrimary) {
-      anchorCenters.push({
-        cx: shore.x + dir.x * shape.centerOffset * anchorStep,
-        cy: shore.y + dir.y * shape.centerOffset * anchorStep,
-        reduced: anchorStep !== 1 || dir !== inward,
-      });
-    }
+  for (const t of bankOffsetSteps) {
+    anchorCenters.push({
+      cx: shore.x + inward.x * shape.centerOffset * t,
+      cy: shore.y + inward.y * shape.centerOffset * t,
+      reduced: t > 0.42,
+    });
   }
   const anchorSvg = projectLonLatToSilhouetteSvg(c.anchorLon, c.anchorLat, transform);
   anchorCenters.push(
     { cx: anchorSvg.x, cy: anchorSvg.y, reduced: true },
     {
-      cx: anchorSvg.x + toCenter.x * shape.centerOffset * 0.38,
-      cy: anchorSvg.y + toCenter.y * shape.centerOffset * 0.38,
+      cx: anchorSvg.x + inward.x * shape.centerOffset * 0.12,
+      cy: anchorSvg.y + inward.y * shape.centerOffset * 0.12,
       reduced: true,
     },
   );
+
+  const inwardToCenterDot = inward.x * toCenter.x + inward.y * toCenter.y;
+  if (inwardToCenterDot >= 0.9) {
+    for (const t of [0.12, 0.2, 0.26] as const) {
+      anchorCenters.push({
+        cx: shore.x + toCenter.x * shape.centerOffset * t,
+        cy: shore.y + toCenter.y * shape.centerOffset * t,
+        reduced: true,
+      });
+    }
+  }
 
   for (const anchorCenter of anchorCenters) {
     const { cx, cy } = anchorCenter;
     const centerLl = lonLatFromSvgPoint(cx, cy, transform);
     if (!pointInPrimaryWater(centerLl.lon, centerLl.lat, exterior, holes)) continue;
-      for (const sizeStep of [1, 0.82, 0.66]) {
+    for (const sizeStep of [1, 0.82, 0.66]) {
         let rx = shape.rx * sizeStep;
         let ry = shape.ry * sizeStep;
         let bridgeReduced = false;
@@ -1267,38 +1830,40 @@ function buildShoreRibbonPatch(
         });
         if (coverage < shape.coverageMin) continue;
 
-        const aabb: PatchAabb = {
-          minX: Infinity,
-          maxX: -Infinity,
-          minY: Infinity,
-          maxY: -Infinity,
-        };
-        for (const q of [
-          { x: cx + along.x * rx, y: cy + along.y * rx },
-          { x: cx - along.x * rx, y: cy - along.y * rx },
-          { x: cx + cross.x * ry, y: cy + cross.y * ry },
-          { x: cx - cross.x * ry, y: cy - cross.y * ry },
-        ]) {
-          expandAabb(aabb, q.x, q.y);
-        }
-        chosen = {
+        const polished = recenterSmoothPatchToShoreline({
+          shoreX: shore.x,
+          shoreY: shore.y,
+          inwardX: inward.x,
+          inwardY: inward.y,
+          alongX: along.x,
+          alongY: along.y,
+          crossX: cross.x,
+          crossY: cross.y,
           cx,
           cy,
           rx,
           ry,
-          aabb,
+          cls,
+          localWaterWidthPx,
+          minLakeDim,
+          transform,
+          exterior,
+          holes,
+          coverageMin: shape.coverageMin,
+          warnings,
+          diag,
+        });
+        if (!polished) continue;
+
+        chosen = {
+          cx: polished.cx,
+          cy: polished.cy,
+          rx: polished.rx,
+          ry: polished.ry,
+          aabb: polished.aabb,
           reduced: anchorCenter.reduced || sizeStep < 1 || bridgeReduced,
-          coverage,
-          zonePathD: pathDFromSmoothPatch({
-            cx,
-            cy,
-            ux: along.x,
-            uy: along.y,
-            vx: cross.x,
-            vy: cross.y,
-            rx,
-            ry,
-          }),
+          coverage: polished.coverage,
+          zonePathD: polished.zonePathD,
         };
         break;
       }
@@ -1363,6 +1928,8 @@ function buildShoreRibbonPatch(
     minLakeDim,
     coverageMin: shape.coverageMin,
     lakeCentroidSvg: centroidSvg,
+    warnings,
+    diag,
   });
   if (fbChosen) {
     warnings.push('zone_bank_side_fallback_used');
@@ -1407,6 +1974,7 @@ function buildShoreRibbonPatch(
     if (diag) {
       if (primaryReject === 'no_shoreline_contact') diag.noShorelineContact++;
       else if (primaryReject === 'open_water_zone') diag.openWaterZone++;
+      else if (primaryReject === 'weak_shoreline_contact') diag.weakShorelineContactSuppressed++;
       else diag.bridgeSuppressed++;
     }
   }
@@ -1465,14 +2033,16 @@ function patchCorridorForNeck(
   const lineLen = Math.hypot(dx, dy) || 1e-9;
   const chord = { x: dx / lineLen, y: dy / lineLen };
   const passage = perpendicular(chord);
+  const majorAxis = strongPinch ? passage : chord;
+  const minorAxis = strongPinch ? chord : passage;
   const mx = (a.x + b.x) / 2;
   const my = (a.y + b.y) / 2;
   const baseMajor = strongPinch
     ? Math.min(Math.max(pinchDist * 2.35, 28), cap * 0.58)
-    : Math.min(Math.max(pinchDist * 0.92, 9), cap * 0.17);
+    : Math.min(Math.max(pinchDist * 0.64, 13), cap * 0.46);
   const baseMinor = strongPinch
     ? Math.min(Math.max(pinchDist * 0.58, 8.5), cap * 0.18)
-    : Math.min(Math.max(pinchDist * 0.28, 4.8), cap * 0.08);
+    : Math.min(Math.max(pinchDist * 0.2, 5.2), cap * 0.11);
 
   let chosen:
     | {
@@ -1490,17 +2060,17 @@ function patchCorridorForNeck(
     const coverage = waterCoverageForSmoothPatch({
       cx: mx,
       cy: my,
-      ux: passage.x,
-      uy: passage.y,
-      vx: chord.x,
-      vy: chord.y,
+      ux: majorAxis.x,
+      uy: majorAxis.y,
+      vx: minorAxis.x,
+      vy: minorAxis.y,
       rx,
       ry,
       transform,
       exterior,
       holes,
     });
-    if (coverage < (strongPinch ? 0.34 : 0.28)) continue;
+    if (coverage < (strongPinch ? 0.34 : 0.3)) continue;
     const aabb: PatchAabb = {
       minX: Infinity,
       maxX: -Infinity,
@@ -1508,10 +2078,10 @@ function patchCorridorForNeck(
       maxY: -Infinity,
     };
     for (const q of [
-      { x: mx + passage.x * rx, y: my + passage.y * rx },
-      { x: mx - passage.x * rx, y: my - passage.y * rx },
-      { x: mx + chord.x * ry, y: my + chord.y * ry },
-      { x: mx - chord.x * ry, y: my - chord.y * ry },
+      { x: mx + majorAxis.x * rx, y: my + majorAxis.y * rx },
+      { x: mx - majorAxis.x * rx, y: my - majorAxis.y * rx },
+      { x: mx + minorAxis.x * ry, y: my + minorAxis.y * ry },
+      { x: mx - minorAxis.x * ry, y: my - minorAxis.y * ry },
     ]) {
       expandAabb(aabb, q.x, q.y);
     }
@@ -1523,10 +2093,10 @@ function patchCorridorForNeck(
       zonePathD: pathDFromSmoothPatch({
         cx: mx,
         cy: my,
-        ux: passage.x,
-        uy: passage.y,
-        vx: chord.x,
-        vy: chord.y,
+        ux: majorAxis.x,
+        uy: majorAxis.y,
+        vx: minorAxis.x,
+        vy: minorAxis.y,
         rx,
         ry,
       }),
@@ -1548,7 +2118,7 @@ function patchCorridorForNeck(
     cy: my,
     rx: chosen.rx,
     ry: chosen.ry,
-    rotationDeg: (Math.atan2(passage.y, passage.x) * 180) / Math.PI,
+    rotationDeg: (Math.atan2(majorAxis.y, majorAxis.x) * 180) / Math.PI,
     fill: c.zoneFillRgba,
     stroke: c.zoneStrokeRgba,
     aabb: chosen.aabb,
@@ -1590,6 +2160,22 @@ function layoutPatchForCandidate(
   );
 }
 
+function wouldCreateNonNeckCluster(
+  kept: LakeRenderedPatch[],
+  patch: LakeRenderedPatch,
+  minLakeDim: number,
+): boolean {
+  if (patch.featureClass === 'neckdown') return false;
+  const clusterRadius = Math.max(minLakeDim * 0.22, 42);
+  let nearbyNonNeck = 0;
+  for (const k of kept) {
+    if (k.featureClass === 'neckdown') continue;
+    if (Math.hypot(patch.cx - k.cx, patch.cy - k.cy) <= clusterRadius) nearbyNonNeck++;
+    if (nearbyNonNeck >= 2) return true;
+  }
+  return false;
+}
+
 function selectGreedyNonOverlapping(
   sorted: WaterReaderGeometryCandidate[],
   ring: number[][],
@@ -1628,6 +2214,10 @@ function selectGreedyNonOverlapping(
     if (!patch) continue;
     let clash = false;
     let clustered = false;
+    if (wouldCreateNonNeckCluster(kept, patch, minLakeDim)) {
+      warnings.push('suppressed_clustered_zone');
+      continue;
+    }
     for (const k of kept) {
       if (patchPairOverlapMinFrac(patch, k) >= overlapDropThreshold(patch, k)) {
         clash = true;
@@ -1674,6 +2264,9 @@ export function computeRenderedLakePatches(
     bridgeSuppressed: 0,
     bankSideCap: 0,
     bankSideFallbackUsed: 0,
+    recentredToShoreline: 0,
+    inwardDepthCapped: 0,
+    weakShorelineContactSuppressed: 0,
   };
   if (!transform || candidates.length === 0 || width <= 0 || canvasHeight <= 0 || !geojson) {
     return { patches: [], warnings, layoutDiagnostics };
