@@ -884,27 +884,43 @@ The 50-lake loop should assume the remaining primary work is product tuning, not
 ### Tuning Process
 
 1. **Select a test set of 50 lakes** with deliberate variety:
-   - Size mix: 10 small ponds (< 100 acres), 25 medium lakes (100–1000 acres), 15 large reservoirs (> 1000 acres).
-   - Region mix: at least 5 lakes from each of the 5 regional season groups.
-   - Complexity mix: simple round ponds, multi-armed reservoirs, lakes with islands, lakes with obvious dams, lakes that are mostly featureless.
-   - Include at least 10 lakes that the founder personally knows well (ground-truth reference).
+   - The primary 50-lake set must be chosen from a candidate pool, not by convenience alone. Generate candidate metrics first, then select the final list.
+   - Size mix target: 8 small/simple ponds (< 100 acres), 12 medium ordinary lakes (100–1,000 acres), 10 large natural lakes, 8 complex multi-basin lakes, 4 island-heavy lakes, 4 cove/arm-heavy reservoirs, and at least 4 founder-reference lakes. A lake may satisfy multiple complexity tags, but each selected lake must list why it was included.
+   - Region mix target: 10 lakes per regional season group where possible. Minimum acceptable coverage is at least 5 lakes from each of the 5 regional season groups.
+   - State mix target: use numerous states. Do not let Michigan or any one familiar region dominate the matrix unless explicitly running a regional sub-pass.
+   - Complexity mix must include simple round ponds, mostly featureless ponds, multi-armed reservoirs, lakes with islands, lakes with obvious narrow channels, lakes with cove-heavy shorelines, lakes with strong main-lake points, lakes with dams when metadata supports them, and large irregular lakes that create display-cap pressure.
+   - Include at least 10 lakes that the founder personally knows well as ground-truth references.
+   - Record candidate-pool metrics before final selection: acreage, state, season group, polygon vertex count, exterior complexity score, hole/island count, detected feature counts by class, cove count, point count, neck/saddle count, dam count, support status, and whether the lake is expected to be sparse, ordinary, complex, or cap-pressure heavy.
 
-2. **Build a repeatable review artifact command** that produces, for every test lake:
+2. **Run all four seasons for every selected lake.**
+   - The 50-lake tuning matrix is 50 lakes x 4 seasons = 200 rows.
+   - Use stable non-transition dates for the main matrix so seasonal output represents the core season rather than transition copy. Recommended dates:
+     - Deep South: spring Feb 15, summer Jun 15, fall Oct 31, winter Dec 20.
+     - South: spring Apr 1, summer Jul 15, fall Oct 15, winter Jan 15.
+     - Baseline: spring Apr 15, summer Jul 15, fall Oct 15, winter Jan 15.
+     - North: spring May 15, summer Aug 1, fall Oct 15, winter Jan 15.
+     - Mild Coastal / Desert: spring Apr 1, summer Jul 15, fall Oct 15, winter Dec 28.
+   - After the main 200-row pass is stable, run a smaller transition-window pass on representative lakes to review warning copy and seasonal edge behavior.
+
+3. **Build a repeatable review artifact command** that produces, for every test lake and season:
    - a CSV review matrix with one row per lake and columns for detected feature counts, visible zone counts, visible feature classes, suppressed feature classes, warnings, support status, and pass/fail review notes
    - an SVG review sheet showing the lake polygon, detected feature cues, shoreline anchors, unclipped oval outlines, clipped visible zones, zone numbers, and legend text
+   - a production SVG at the default review width and a production app-width SVG at `mapWidth: 420`
    - PNG thumbnails rendered from the SVGs so the agent and founder can visually inspect the same map output side by side
    - a JSON artifact containing raw candidates, feature attributes, placement metrics, zone acceptance invariant results, and suppression reasons
    - display-model ranking diagnostics, including rows where display ranking falls back to representative major-axis size because richer feature metrics are unavailable
 
-3. **Build a review tool or script output** that displays each test lake with:
+4. **Build a review tool or script output** that displays each test lake with:
    - The lake polygon.
    - All detected features overlaid (color-coded by type).
    - Feature cue geometry overlaid, including point tips and side slopes, cove mouths and backs, neck/saddle opposing shoreline endpoints, island endpoints, and dam corners.
    - All placed zones overlaid.
    - Unclipped oval outlines or debug outlines so reviewers can confirm that every zone visibly merges into shoreline before clipping.
    - The current legend output.
+   - Full-size production SVG and app-width production SVG side by side.
+   - Displayed and retained entries side by side so cap-pressure decisions can be audited.
 
-4. **Agent + founder visual review.** The agent must open the actual rendered SVG/PNG artifacts and inspect them visually. The founder reviews the same artifacts side by side. The agent must not rely only on script pass/fail output or builder summaries.
+5. **Agent + founder visual review.** The agent must open the actual rendered SVG/PNG artifacts and inspect them visually. The founder reviews the same artifacts side by side. The agent must not rely only on script pass/fail output or builder summaries.
    For each lake, the agent must answer:
    - Are the detected physical features semantically correct?
    - Are any important obvious features missed?
@@ -917,7 +933,7 @@ The 50-lake loop should assume the remaining primary work is product tuning, not
    - Does the displayed set feel curated, or is it dominated by one feature family such as main-lake points?
    - Would this map feel trustworthy if shown to a real angler unfamiliar with the implementation?
 
-5. **Manually mark each lake** in the CSV/review matrix:
+6. **Manually mark each lake-season row** in the CSV/review matrix:
    - False positives (engine labeled a feature that isn't really there).
    - False negatives (engine missed a feature that should have been detected).
    - Misplaced zones (zone is in the wrong location for the feature/season).
@@ -926,8 +942,29 @@ The 50-lake loop should assume the remaining primary work is product tuning, not
    - Feature-class semantic failures.
    - Cluster/crowding failures.
    - Copy/legend language failures.
+   - Zone-sizing failures.
+   - App-width renderer failures.
+   - Display-cap or diversity failures.
+   - Performance/build-time outliers.
 
-6. **Adjust thresholds based on patterns:**
+7. **Zone-sizing visual audit.** For every feature class represented in the 50-lake set, verify both numeric diagnostics and visual proportionality:
+   - Main-lake point zones should cover the selected point side, tip, or broad-water/open-water side without swallowing an entire bay or shrinking to an unreadable sliver. On large lakes, point zones should not look like tiny decorative marks unless the source point is physically small.
+   - Cove back, back-pocket, inner-shoreline, mouth, and irregular-side zones should look proportional to cove depth, mouth width, and side-path length. They must not jump across the mouth, fill the entire cove unless explicitly represented as a broad recovery, or imply a true back when anchored on a side.
+   - Neck and saddle zones must remain shoreline shoulders. They must not become center-throat blobs, bridge the passage, or look like generic open-water marks.
+   - Island zones must remain tied to the island edge. Micro-island endpoint zones may be small, but they must remain readable and anchored to the intended endpoint/edge.
+   - Dam corner zones must be proportional to the mapped dam segment and corner geometry. They must not appear as broad shoreline zones unless the dam geometry itself is broad.
+   - Confluence areas must look intentional and compact. If confluence visually becomes a crowded cluster rather than one readable structure area, tune grouping or renderer presentation by pattern.
+   - Compare `majorAxisM`, `majorAxisPctOfLakeLongestDimension`, feature-specific size ratios, visible-water fraction, and QA sizing flags against the actual SVG. Numeric pass alone is not enough.
+   - Mark a zone-sizing failure when a zone is technically valid but visually too small to see, too large for the feature, detached-looking, or disproportionate compared with neighboring features.
+
+8. **Performance audit.** The 50-lake loop must measure performance as a build-system concern:
+   - Report slowest rows by total build time and by phase: polygon fetch, preprocessing, feature detection, placement, legend/display, rendering, and cache write when available.
+   - Separate offline cache-builder acceptability from live request-path acceptability. Heavy rows may be acceptable for offline/queued generation and unacceptable for Edge/on-device generation.
+   - Any row over 60 seconds total build time should be flagged for investigation. Any repeated feature-detection hotspot across lake shapes should be diagnosed by pattern.
+   - Renderer time should remain small relative to feature detection and placement. If renderer time becomes material, inspect legend height, SVG complexity, and app-width output.
+   - Performance tuning must not reduce geometry quality by dropping valid features silently. If limits are needed, they must produce diagnostics and retained/suppressed reasons.
+
+9. **Adjust thresholds based on patterns:**
    - If false positives cluster at certain confidence scores, raise the confidence threshold.
    - If false negatives cluster at certain protrusion lengths, lower the protrusion threshold for the relevant lake size band.
    - If zone placements consistently look wrong on a feature type, revisit that feature's placement rule.
@@ -938,8 +975,10 @@ The 50-lake loop should assume the remaining primary work is product tuning, not
    - If app-width renderer warnings cluster around large or complex lakes, tune the display model, legend density, or renderer presentation by pattern. The renderer must still not move, resize, suppress, merge, or reinterpret engine decisions.
    - If broad-water recovery, back-pocket recovery, shoreline recovery, or other recovery labels appear too often, diagnose whether the primary anchor definition is too strict, the hard invariants are too tight, or the underlying feature detection is weak. Do not rename recovery labels back to exact labels to make output look cleaner.
    - If cap pressure repeatedly retains only one feature family, tune ranking/diversity using structural metrics. Do not delete retained entries to make the matrix look cleaner.
+   - If zone sizing repeatedly looks too small or too large by feature class, tune class-specific natural sizing formulas or clamps by pattern. Do not tune sizes per lake.
+   - If app-width SVG warnings repeatedly come from tall legends, tune display policy, legend density, or cap/diversity policy before changing geometry.
 
-7. **Re-run the engine and repeat** until at least 80% of test lakes pass review without significant issues.
+10. **Re-run the engine and repeat** until at least 80% of test lakes pass review without significant issues.
 
 ### Tuning Signals To Track
 
