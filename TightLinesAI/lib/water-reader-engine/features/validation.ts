@@ -1,23 +1,35 @@
 import type { PointM, PolygonM, RingM } from '../contracts';
-import { bboxM, distanceM } from '../metrics';
+import { bboxM } from '../metrics';
+import { MultiRingSpatialIndex, RingSpatialIndex, distancePointToSegmentM, nearestPointOnSegmentM } from '../spatial';
+
+const ringIndexCache = new WeakMap<RingM, RingSpatialIndex>();
+const polygonBoundaryIndexCache = new WeakMap<PolygonM, MultiRingSpatialIndex>();
+const polygonWaterIndexCache = new WeakMap<PolygonM, PolygonWaterIndex>();
+
+type PolygonWaterIndex = {
+  exterior: RingSpatialIndex;
+  holes: Array<{
+    ring: RingM;
+    index: RingSpatialIndex;
+    bounds: { minX: number; minY: number; maxX: number; maxY: number };
+  }>;
+};
 
 export function pointInWaterOrBoundary(point: PointM, polygon: PolygonM, toleranceM = 1e-6): boolean {
-  if (distanceToPolygonBoundary(point, polygon) <= toleranceM) return true;
-  if (!pointInRing(point, polygon.exterior)) return false;
-  return !polygon.holes.some((hole) => pointInRing(point, hole) && distanceToRing(point, hole) > toleranceM);
+  const water = polygonWaterIndex(polygon);
+  if (water.exterior.contains(point)) {
+    for (const hole of water.holes) {
+      if (!pointInBounds(point, hole.bounds)) continue;
+      if (!hole.index.contains(point)) continue;
+      return hole.index.distanceToBoundary(point) <= toleranceM;
+    }
+    return true;
+  }
+  return water.exterior.distanceToBoundary(point) <= toleranceM;
 }
 
 export function pointInRing(point: PointM, ring: RingM): boolean {
-  let inside = false;
-  for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) {
-    const a = ring[i]!;
-    const b = ring[j]!;
-    const crosses = (a.y > point.y) !== (b.y > point.y);
-    if (!crosses) continue;
-    const xAtY = ((b.x - a.x) * (point.y - a.y)) / (b.y - a.y || 1e-12) + a.x;
-    if (point.x < xAtY) inside = !inside;
-  }
-  return inside;
+  return ringIndex(ring).contains(point);
 }
 
 export function segmentSamplesInsideWater(a: PointM, b: PointM, polygon: PolygonM, samples: number, toleranceM: number): boolean {
@@ -109,44 +121,25 @@ export function validateCoveWaterInterior(params: {
 }
 
 export function nearestPointOnRing(point: PointM, ring: RingM): PointM {
-  let best = ring[0] ?? point;
-  let bestDistance = Infinity;
-  for (let i = 0; i < ring.length; i++) {
-    const candidate = nearestPointOnSegment(point, ring[i]!, ring[(i + 1) % ring.length]!);
-    const d = distanceM(point, candidate);
-    if (d < bestDistance) {
-      bestDistance = d;
-      best = candidate;
-    }
-  }
-  return best;
+  if (ring.length === 0) return point;
+  return ringIndex(ring).nearestPoint(point);
 }
 
 export function distanceToRing(point: PointM, ring: RingM): number {
-  let best = Infinity;
-  for (let i = 0; i < ring.length; i++) {
-    best = Math.min(best, pointToSegmentDistance(point, ring[i]!, ring[(i + 1) % ring.length]!));
-  }
-  return best === Infinity ? 0 : best;
+  if (ring.length === 0) return 0;
+  return ringIndex(ring).distanceToBoundary(point);
 }
 
 export function distanceToPolygonBoundary(point: PointM, polygon: PolygonM): number {
-  let best = distanceToRing(point, polygon.exterior);
-  for (const hole of polygon.holes) best = Math.min(best, distanceToRing(point, hole));
-  return best;
+  return polygonBoundaryIndex(polygon).distanceToBoundary(point);
 }
 
 export function nearestPointOnSegment(p: PointM, a: PointM, b: PointM): PointM {
-  const dx = b.x - a.x;
-  const dy = b.y - a.y;
-  const len2 = dx * dx + dy * dy;
-  if (len2 === 0) return a;
-  const t = Math.max(0, Math.min(1, ((p.x - a.x) * dx + (p.y - a.y) * dy) / len2));
-  return { x: a.x + dx * t, y: a.y + dy * t };
+  return nearestPointOnSegmentM(p, a, b);
 }
 
 export function pointToSegmentDistance(p: PointM, a: PointM, b: PointM): number {
-  return distanceM(p, nearestPointOnSegment(p, a, b));
+  return distancePointToSegmentM(p, a, b);
 }
 
 export function lerpPoint(a: PointM, b: PointM, t: number): PointM {
@@ -162,4 +155,51 @@ export function ringCentroid(ring: RingM): PointM {
     y += point.y;
   }
   return { x: x / ring.length, y: y / ring.length };
+}
+
+function ringIndex(ring: RingM): RingSpatialIndex {
+  const cached = ringIndexCache.get(ring);
+  if (cached) return cached;
+  const index = new RingSpatialIndex(ring);
+  ringIndexCache.set(ring, index);
+  return index;
+}
+
+function polygonBoundaryIndex(polygon: PolygonM): MultiRingSpatialIndex {
+  const cached = polygonBoundaryIndexCache.get(polygon);
+  if (cached) return cached;
+  const index = new MultiRingSpatialIndex([polygon.exterior, ...polygon.holes]);
+  polygonBoundaryIndexCache.set(polygon, index);
+  return index;
+}
+
+function polygonWaterIndex(polygon: PolygonM): PolygonWaterIndex {
+  const cached = polygonWaterIndexCache.get(polygon);
+  if (cached) return cached;
+  const index: PolygonWaterIndex = {
+    exterior: ringIndex(polygon.exterior),
+    holes: polygon.holes.map((ring) => ({
+      ring,
+      index: ringIndex(ring),
+      bounds: expandedBounds(bboxM(ring), 1e-6),
+    })),
+  };
+  polygonWaterIndexCache.set(polygon, index);
+  return index;
+}
+
+function pointInBounds(point: PointM, bounds: { minX: number; minY: number; maxX: number; maxY: number }): boolean {
+  return point.x >= bounds.minX && point.x <= bounds.maxX && point.y >= bounds.minY && point.y <= bounds.maxY;
+}
+
+function expandedBounds(
+  bounds: { minX: number; minY: number; maxX: number; maxY: number },
+  pad: number,
+): { minX: number; minY: number; maxX: number; maxY: number } {
+  return {
+    minX: bounds.minX - pad,
+    minY: bounds.minY - pad,
+    maxX: bounds.maxX + pad,
+    maxY: bounds.maxY + pad,
+  };
 }

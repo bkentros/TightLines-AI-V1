@@ -248,6 +248,8 @@ export interface WaterbodySearchResult {
   hasPolygonGeometry: boolean;
   polygonAreaAcres?: number | null;
   polygonQaFlags: string[];
+  sameNameStateCandidateCount?: number;
+  isAmbiguousNameInState?: boolean;
 }
 
 export interface WaterbodySearchResponse {

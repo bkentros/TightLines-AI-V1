@@ -26,6 +26,14 @@ type WidthFeatureCandidate = {
   metrics: Record<string, number | string | boolean | null>;
 };
 
+type WaterMask = {
+  mask: Uint8Array;
+  nx: number;
+  ny: number;
+  bounds: { minX: number; minY: number; maxX: number; maxY: number };
+  cellSizeM: number;
+};
+
 export function detectNeckAndSaddleCandidates(preprocess: WaterReaderPreprocessResult): {
   necks: WaterReaderNeckCandidate[];
   saddles: WaterReaderSaddleCandidate[];
@@ -44,15 +52,16 @@ export function detectNeckAndSaddleCandidates(preprocess: WaterReaderPreprocessR
   ];
   if (centerline.length < 4) return { necks: [], saddles: [] };
   const searchDistanceM = clamp(metrics.longestDimensionM * 0.12, 60, 800);
+  const centerlineIndex = new RasterCellSpatialIndex(centerline, Math.max(raster.cellSizeM * 2, searchDistanceM * 0.25));
   const raw = centerline
-    .filter((cell) => isLocalWidthMinimum(cell, centerline, searchDistanceM * 0.35, cell.axis ?? principal))
+    .filter((cell) => isLocalWidthMinimum(cell, centerlineIndex, searchDistanceM * 0.35, cell.axis ?? principal))
     .sort((a, b) => a.widthM - b.widthM);
 
   const selected: WidthFeatureCandidate[] = [];
   for (const cell of raw) {
     if (selected.some((candidate) => distanceM(candidate.center, cell.center) < metrics.longestDimensionM * 0.08)) continue;
     const axis = cell.axis ?? principal;
-    const expansion = expansionRatios(cell, centerline, axis, searchDistanceM);
+    const expansion = expansionRatios(cell, centerlineIndex, axis, searchDistanceM);
     if (!Number.isFinite(expansion.left) || !Number.isFinite(expansion.right)) continue;
     if (expansion.left < 1.45 || expansion.right < 1.45) continue;
     const endpoints = opposingShoreEndpoints(cell.center, polygon);
@@ -134,19 +143,129 @@ function rasterizeWaterMask(polygon: PolygonM, longestDimensionM: number): {
   }
   const nx = Math.max(1, Math.ceil((bounds.maxX - bounds.minX) / cellSizeM));
   const ny = Math.max(1, Math.ceil((bounds.maxY - bounds.minY) / cellSizeM));
+  const waterMask = buildWaterMask({ polygon, bounds, nx, ny, cellSizeM });
+  const distanceCells = chamferDistanceToLand(waterMask.mask, nx, ny);
   const waterCells: RasterCell[] = [];
-  for (let iy = 0; iy < ny; iy++) {
-    for (let ix = 0; ix < nx; ix++) {
-      const center = {
-        x: bounds.minX + (ix + 0.5) * cellSizeM,
-        y: bounds.minY + (iy + 0.5) * cellSizeM,
-      };
-      if (!pointInWater(center, polygon)) continue;
-      const distanceToShoreM = distanceToBoundary(center, polygon);
-      waterCells.push({ ix, iy, center, distanceToShoreM, widthM: distanceToShoreM * 2 });
-    }
+  for (let index = 0; index < waterMask.mask.length; index++) {
+    if (waterMask.mask[index] !== 1) continue;
+    const ix = index % nx;
+    const iy = Math.floor(index / nx);
+    const center = {
+      x: bounds.minX + (ix + 0.5) * cellSizeM,
+      y: bounds.minY + (iy + 0.5) * cellSizeM,
+    };
+    const distanceToShoreM = Math.max(cellSizeM * 0.5, distanceCells[index]! * cellSizeM);
+    waterCells.push({ ix, iy, center, distanceToShoreM, widthM: distanceToShoreM * 2 });
   }
   return { waterCells, cellSizeM };
+}
+
+function buildWaterMask(params: {
+  polygon: PolygonM;
+  bounds: WaterMask['bounds'];
+  nx: number;
+  ny: number;
+  cellSizeM: number;
+}): WaterMask {
+  const { polygon, bounds, nx, ny, cellSizeM } = params;
+  const mask = new Uint8Array(nx * ny);
+  for (let iy = 0; iy < ny; iy++) {
+    const y = bounds.minY + (iy + 0.5) * cellSizeM;
+    for (const [startX, endX] of scanlineIntervals(polygon.exterior, y)) {
+      fillMaskInterval(mask, bounds, nx, iy, cellSizeM, startX, endX, 1);
+    }
+    for (const hole of polygon.holes) {
+      for (const [startX, endX] of scanlineIntervals(hole, y)) {
+        fillMaskInterval(mask, bounds, nx, iy, cellSizeM, startX, endX, 0);
+      }
+    }
+  }
+  return { mask, nx, ny, bounds, cellSizeM };
+}
+
+function scanlineIntervals(ring: RingM, y: number): Array<[number, number]> {
+  const xs: number[] = [];
+  for (let i = 0; i < ring.length; i++) {
+    const a = ring[i]!;
+    const b = ring[(i + 1) % ring.length]!;
+    if ((a.y > y) === (b.y > y)) continue;
+    const x = ((b.x - a.x) * (y - a.y)) / (b.y - a.y || 1e-12) + a.x;
+    if (Number.isFinite(x)) xs.push(x);
+  }
+  xs.sort((a, b) => a - b);
+  const intervals: Array<[number, number]> = [];
+  for (let i = 0; i + 1 < xs.length; i += 2) {
+    const start = xs[i]!;
+    const end = xs[i + 1]!;
+    if (end > start) intervals.push([start, end]);
+  }
+  return intervals;
+}
+
+function fillMaskInterval(
+  mask: Uint8Array,
+  bounds: WaterMask['bounds'],
+  nx: number,
+  iy: number,
+  cellSizeM: number,
+  startX: number,
+  endX: number,
+  value: 0 | 1,
+) {
+  const startIx = Math.max(0, Math.ceil((startX - bounds.minX) / cellSizeM - 0.5));
+  const endIx = Math.min(nx - 1, Math.floor((endX - bounds.minX) / cellSizeM - 0.5));
+  for (let ix = startIx; ix <= endIx; ix++) mask[iy * nx + ix] = value;
+}
+
+function chamferDistanceToLand(mask: Uint8Array, nx: number, ny: number): Float64Array {
+  const distances = new Float64Array(mask.length);
+  const diagonal = Math.SQRT2;
+  for (let iy = 0; iy < ny; iy++) {
+    for (let ix = 0; ix < nx; ix++) {
+      const index = iy * nx + ix;
+      distances[index] = mask[index] === 1 && ix > 0 && iy > 0 && ix < nx - 1 && iy < ny - 1 ? Infinity : 0;
+    }
+  }
+  for (let iy = 0; iy < ny; iy++) {
+    for (let ix = 0; ix < nx; ix++) {
+      const index = iy * nx + ix;
+      if (distances[index] === 0) continue;
+      relaxDistance(distances, nx, ny, ix, iy, -1, 0, 1);
+      relaxDistance(distances, nx, ny, ix, iy, 0, -1, 1);
+      relaxDistance(distances, nx, ny, ix, iy, -1, -1, diagonal);
+      relaxDistance(distances, nx, ny, ix, iy, 1, -1, diagonal);
+    }
+  }
+  for (let iy = ny - 1; iy >= 0; iy--) {
+    for (let ix = nx - 1; ix >= 0; ix--) {
+      const index = iy * nx + ix;
+      if (distances[index] === 0) continue;
+      relaxDistance(distances, nx, ny, ix, iy, 1, 0, 1);
+      relaxDistance(distances, nx, ny, ix, iy, 0, 1, 1);
+      relaxDistance(distances, nx, ny, ix, iy, 1, 1, diagonal);
+      relaxDistance(distances, nx, ny, ix, iy, -1, 1, diagonal);
+    }
+  }
+  return distances;
+}
+
+function relaxDistance(
+  distances: Float64Array,
+  nx: number,
+  ny: number,
+  ix: number,
+  iy: number,
+  dx: number,
+  dy: number,
+  weight: number,
+) {
+  const ox = ix + dx;
+  const oy = iy + dy;
+  if (ox < 0 || oy < 0 || ox >= nx || oy >= ny) return;
+  const index = iy * nx + ix;
+  const other = oy * nx + ox;
+  const candidate = distances[other]! + weight;
+  if (candidate < distances[index]!) distances[index] = candidate;
 }
 
 function medialAxisLikeCells(cells: RasterCell[], cellSizeM: number): RasterCell[] {
@@ -215,9 +334,14 @@ function principalAxis(bounds: { minX: number; minY: number; maxX: number; maxY:
   return bounds.maxX - bounds.minX >= bounds.maxY - bounds.minY ? 'x' : 'y';
 }
 
-function isLocalWidthMinimum(cell: RasterCell, cells: RasterCell[], radiusM: number, axis: 'x' | 'y'): boolean {
+function isLocalWidthMinimum(cell: RasterCell, cells: RasterCellSpatialIndex, radiusM: number, axis: 'x' | 'y'): boolean {
   const centerProjection = axis === 'x' ? cell.center.x : cell.center.y;
-  const neighbors = cells.filter((other) => {
+  const neighbors = cells.query({
+    minX: axis === 'x' ? centerProjection - radiusM : cell.center.x - radiusM * 0.45,
+    maxX: axis === 'x' ? centerProjection + radiusM : cell.center.x + radiusM * 0.45,
+    minY: axis === 'x' ? cell.center.y - radiusM * 0.45 : centerProjection - radiusM,
+    maxY: axis === 'x' ? cell.center.y + radiusM * 0.45 : centerProjection + radiusM,
+  }).filter((other) => {
     const p = axis === 'x' ? other.center.x : other.center.y;
     const cross = axis === 'x' ? Math.abs(other.center.y - cell.center.y) : Math.abs(other.center.x - cell.center.x);
     return Math.abs(p - centerProjection) <= radiusM && cross <= radiusM * 0.45;
@@ -227,14 +351,24 @@ function isLocalWidthMinimum(cell: RasterCell, cells: RasterCell[], radiusM: num
   return cell.widthM <= minWidth * 1.08;
 }
 
-function expansionRatios(cell: RasterCell, cells: RasterCell[], axis: 'x' | 'y', searchDistanceM: number): {
+function expansionRatios(cell: RasterCell, cells: RasterCellSpatialIndex, axis: 'x' | 'y', searchDistanceM: number): {
   left: number;
   right: number;
 } {
   const centerProjection = axis === 'x' ? cell.center.x : cell.center.y;
   const crossCenter = axis === 'x' ? cell.center.y : cell.center.x;
   const sideMax = (dir: -1 | 1) => {
+    const minProjection = centerProjection + searchDistanceM * 0.25 * dir;
+    const maxProjection = centerProjection + searchDistanceM * dir;
+    const rangeMin = Math.min(minProjection, maxProjection);
+    const rangeMax = Math.max(minProjection, maxProjection);
     const widths = cells
+      .query({
+        minX: axis === 'x' ? rangeMin : crossCenter - searchDistanceM * 0.55,
+        maxX: axis === 'x' ? rangeMax : crossCenter + searchDistanceM * 0.55,
+        minY: axis === 'x' ? crossCenter - searchDistanceM * 0.55 : rangeMin,
+        maxY: axis === 'x' ? crossCenter + searchDistanceM * 0.55 : rangeMax,
+      })
       .filter((other) => {
         const projection = axis === 'x' ? other.center.x : other.center.y;
         const cross = axis === 'x' ? other.center.y : other.center.x;
@@ -245,6 +379,66 @@ function expansionRatios(cell: RasterCell, cells: RasterCell[], axis: 'x' | 'y',
     return widths.length > 0 ? Math.max(...widths) / Math.max(cell.widthM, 1e-9) : NaN;
   };
   return { left: sideMax(-1), right: sideMax(1) };
+}
+
+class RasterCellSpatialIndex {
+  private readonly cellSizeM: number;
+  private readonly minX: number;
+  private readonly minY: number;
+  private readonly buckets = new Map<string, RasterCell[]>();
+
+  constructor(cells: RasterCell[], cellSizeM: number) {
+    this.cellSizeM = Math.max(1, cellSizeM);
+    let minX = Infinity;
+    let minY = Infinity;
+    for (const cell of cells) {
+      minX = Math.min(minX, cell.center.x);
+      minY = Math.min(minY, cell.center.y);
+    }
+    this.minX = minX === Infinity ? 0 : minX;
+    this.minY = minY === Infinity ? 0 : minY;
+    for (const cell of cells) {
+      const key = this.keyForPoint(cell.center);
+      const bucket = this.buckets.get(key);
+      if (bucket) bucket.push(cell);
+      else this.buckets.set(key, [cell]);
+    }
+  }
+
+  query(bounds: { minX: number; minY: number; maxX: number; maxY: number }): RasterCell[] {
+    const minIx = this.ix(bounds.minX);
+    const maxIx = this.ix(bounds.maxX);
+    const minIy = this.iy(bounds.minY);
+    const maxIy = this.iy(bounds.maxY);
+    const out: RasterCell[] = [];
+    for (let ix = minIx; ix <= maxIx; ix++) {
+      for (let iy = minIy; iy <= maxIy; iy++) {
+        for (const cell of this.buckets.get(`${ix}:${iy}`) ?? []) {
+          if (
+            cell.center.x >= bounds.minX &&
+            cell.center.x <= bounds.maxX &&
+            cell.center.y >= bounds.minY &&
+            cell.center.y <= bounds.maxY
+          ) {
+            out.push(cell);
+          }
+        }
+      }
+    }
+    return out;
+  }
+
+  private keyForPoint(point: PointM): string {
+    return `${this.ix(point.x)}:${this.iy(point.y)}`;
+  }
+
+  private ix(x: number): number {
+    return Math.floor((x - this.minX) / this.cellSizeM);
+  }
+
+  private iy(y: number): number {
+    return Math.floor((y - this.minY) / this.cellSizeM);
+  }
 }
 
 function opposingShoreEndpoints(center: PointM, polygon: PolygonM): { a: PointM; b: PointM } | null {
@@ -258,47 +452,6 @@ function opposingShoreEndpoints(center: PointM, polygon: PolygonM): { a: PointM;
   const negative = rayRingIntersection(center, { x: -dir.x, y: -dir.y }, polygon.exterior);
   if (positive && negative) return { a: positive, b: negative };
   return null;
-}
-
-function pointInWater(point: PointM, polygon: PolygonM): boolean {
-  if (!pointInRing(point, polygon.exterior)) return false;
-  return !polygon.holes.some((hole) => pointInRing(point, hole));
-}
-
-function pointInRing(point: PointM, ring: RingM): boolean {
-  let inside = false;
-  for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) {
-    const a = ring[i]!;
-    const b = ring[j]!;
-    const crosses = (a.y > point.y) !== (b.y > point.y);
-    if (!crosses) continue;
-    const xAtY = ((b.x - a.x) * (point.y - a.y)) / (b.y - a.y || 1e-12) + a.x;
-    if (point.x < xAtY) inside = !inside;
-  }
-  return inside;
-}
-
-function distanceToBoundary(point: PointM, polygon: PolygonM): number {
-  let best = Infinity;
-  for (const ring of [polygon.exterior, ...polygon.holes]) {
-    for (let i = 0; i < ring.length; i++) {
-      best = Math.min(best, pointToSegmentDistance(point, ring[i]!, ring[(i + 1) % ring.length]!));
-    }
-  }
-  return best === Infinity ? 0 : best;
-}
-
-function pointToSegmentDistance(p: PointM, a: PointM, b: PointM): number {
-  return distanceM(p, nearestPointOnSegment(p, a, b));
-}
-
-function nearestPointOnSegment(p: PointM, a: PointM, b: PointM): PointM {
-  const dx = b.x - a.x;
-  const dy = b.y - a.y;
-  const len2 = dx * dx + dy * dy;
-  if (len2 === 0) return a;
-  const t = clamp(((p.x - a.x) * dx + (p.y - a.y) * dy) / len2, 0, 1);
-  return { x: a.x + dx * t, y: a.y + dy * t };
 }
 
 function rayRingIntersection(origin: PointM, dir: PointM, ring: RingM): PointM | null {

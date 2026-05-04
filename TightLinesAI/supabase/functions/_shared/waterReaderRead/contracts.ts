@@ -16,6 +16,19 @@ export const WATER_READER_APP_SVG_WIDTH = 420;
 export const WATER_READER_ENGINE_VERSION = "water-reader-engine-v1" as const;
 
 export type WaterReaderReadCacheStatus = "hit" | "miss";
+export type WaterReaderReadCacheWriteStatus = "stored" | "failed" | "skipped";
+
+export interface WaterReaderReadOperationalDiagnostics {
+  code: string;
+  message: string;
+  heavyGenerationStatus?: "not_configured" | "failed" | "timeout" | "routed" | "not_heavy";
+  heavyGenerationReason?: string | null;
+  workerHttpStatus?: number | null;
+  workerElapsedMs?: number | null;
+  runtimeGeoJsonBytes?: number | null;
+  originalVertexCount?: number | null;
+  runtimeVertexCount?: number | null;
+}
 
 export interface WaterReaderReadRequest {
   lakeId: string;
@@ -24,6 +37,7 @@ export interface WaterReaderReadRequest {
 
 export interface WaterReaderReadTimingDiagnostics {
   fetchMs: number;
+  metadataMs?: number;
   cacheMs?: number;
   preprocessMs: number;
   featuresMs: number;
@@ -56,6 +70,12 @@ export interface WaterReaderReadResponse {
   waterReaderSupportStatus: WaterReaderPolygonSupportStatus;
   waterReaderSupportReason: string;
   polygonQaFlags: string[];
+  originalVertexCount?: number | null;
+  runtimeVertexCount?: number | null;
+  runtimeComponentCount?: number | null;
+  runtimeInteriorRingCount?: number | null;
+  runtimeSimplified?: boolean | null;
+  runtimeSimplificationTolerance?: number | null;
   engineSupportStatus: WaterReaderEngineSupportStatus;
   engineSupportReason: string;
   displayedEntryCount: number;
@@ -66,6 +86,9 @@ export interface WaterReaderReadResponse {
   productionSvgResult: WaterReaderProductionSvgResult | null;
   fallbackMessage: string | null;
   cacheStatus?: WaterReaderReadCacheStatus;
+  cacheWriteStatus?: WaterReaderReadCacheWriteStatus;
+  cacheWriteError?: string | null;
+  operationalDiagnostics?: WaterReaderReadOperationalDiagnostics | null;
   seasonContextKey?: string;
   mapWidth?: number;
   engineVersion?: string;
@@ -94,6 +117,12 @@ export interface WaterbodyPolygonForWaterReaderRead {
   waterReaderSupportStatus: WaterReaderPolygonSupportStatus;
   waterReaderSupportReason: string;
   polygonQaFlags: string[];
+  originalVertexCount?: number | null;
+  runtimeVertexCount?: number | null;
+  runtimeComponentCount?: number | null;
+  runtimeInteriorRingCount?: number | null;
+  runtimeSimplified?: boolean | null;
+  runtimeSimplificationTolerance?: number | null;
 }
 
 export interface WaterReaderSeasonContext {

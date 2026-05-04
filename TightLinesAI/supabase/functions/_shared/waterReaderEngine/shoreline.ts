@@ -1,5 +1,6 @@
 import type { PointM, RingM } from './contracts.ts';
 import { distanceM } from './metrics.ts';
+import { farthestPairIndicesByHull } from './spatial.ts';
 
 export function clamp(n: number, min: number, max: number): number {
   return Math.max(min, Math.min(max, n));
@@ -23,9 +24,13 @@ export function resampleClosedRingByArcLength(ring: RingM, spacingM: number): Ri
   const perimeter = closedRingLength(clean);
   if (perimeter <= 0) return clean;
   const sampleCount = Math.max(3, Math.round(perimeter / spacingM));
+  const cumulative = cumulativeClosedDistances(clean);
   const out: RingM = [];
+  let segmentIndex = 0;
   for (let i = 0; i < sampleCount; i++) {
-    out.push(pointAtClosedRingDistance(clean, (i * perimeter) / sampleCount));
+    const target = (i * perimeter) / sampleCount;
+    while (segmentIndex < clean.length - 1 && cumulative[segmentIndex + 1]! < target) segmentIndex++;
+    out.push(pointAtClosedRingDistance(clean, cumulative, target, segmentIndex));
   }
   return out;
 }
@@ -50,17 +55,20 @@ export function smoothClosedRingByArcLength(ring: RingM, sigmaM: number): RingM 
   const perimeter = cumulative[cumulative.length - 1] ?? 0;
   if (perimeter <= 0) return clean;
   const radius = sigmaM * 3;
+  const extended = buildExtendedDistanceIndex(clean, cumulative, perimeter);
   return clean.map((point, i) => {
     const baseD = cumulative[i]!;
     let wx = 0;
     let wy = 0;
     let wt = 0;
-    for (let j = 0; j < clean.length; j++) {
-      const d = circularArcDistance(baseD, cumulative[j]!, perimeter);
-      if (d > radius) continue;
+    const start = lowerBound(extended.distances, baseD + perimeter - radius);
+    const end = upperBound(extended.distances, baseD + perimeter + radius);
+    for (let k = start; k < end; k++) {
+      const d = Math.abs(extended.distances[k]! - (baseD + perimeter));
       const w = Math.exp(-(d * d) / (2 * sigmaM * sigmaM));
-      wx += clean[j]!.x * w;
-      wy += clean[j]!.y * w;
+      const sample = clean[extended.indices[k]!]!;
+      wx += sample.x * w;
+      wy += sample.y * w;
       wt += w;
     }
     return wt > 0 ? { x: wx / wt, y: wy / wt } : point;
@@ -90,22 +98,17 @@ function cumulativeClosedDistances(ring: RingM): number[] {
   return cumulative;
 }
 
-function pointAtClosedRingDistance(ring: RingM, distance: number): PointM {
-  let remaining = distance;
-  for (let i = 0; i < ring.length; i++) {
-    const a = ring[i]!;
-    const b = ring[(i + 1) % ring.length]!;
-    const segLen = distanceM(a, b);
-    if (remaining <= segLen || i === ring.length - 1) {
-      const t = segLen > 0 ? remaining / segLen : 0;
-      return {
-        x: a.x + (b.x - a.x) * t,
-        y: a.y + (b.y - a.y) * t,
-      };
-    }
-    remaining -= segLen;
-  }
-  return ring[0]!;
+function pointAtClosedRingDistance(ring: RingM, cumulative: number[], distance: number, segmentIndex: number): PointM {
+  const i = Math.max(0, Math.min(ring.length - 1, segmentIndex));
+  const a = ring[i]!;
+  const b = ring[(i + 1) % ring.length]!;
+  const segStart = cumulative[i] ?? 0;
+  const segLen = distanceM(a, b);
+  const t = segLen > 0 ? (distance - segStart) / segLen : 0;
+  return {
+    x: a.x + (b.x - a.x) * t,
+    y: a.y + (b.y - a.y) * t,
+  };
 }
 
 function simplifyOpenLine(points: RingM, toleranceM: number): RingM {
@@ -128,20 +131,8 @@ function simplifyOpenLine(points: RingM, toleranceM: number): RingM {
 }
 
 function farthestPairIndices(ring: RingM): [number, number] {
-  let bestI = 0;
-  let bestJ = 0;
-  let bestD = -1;
-  for (let i = 0; i < ring.length; i++) {
-    for (let j = i + 1; j < ring.length; j++) {
-      const d = distanceM(ring[i]!, ring[j]!);
-      if (d > bestD) {
-        bestD = d;
-        bestI = i;
-        bestJ = j;
-      }
-    }
-  }
-  return [bestI, bestJ];
+  const pair = farthestPairIndicesByHull(ring);
+  return pair ? [pair.aIndex, pair.bIndex] : [0, 0];
 }
 
 function ringPathInclusive(ring: RingM, from: number, to: number): RingM {
@@ -179,7 +170,36 @@ function perpendicularDistance(point: PointM, lineA: PointM, lineB: PointM): num
   return Math.abs(dy * point.x - dx * point.y + lineB.x * lineA.y - lineB.y * lineA.x) / denom;
 }
 
-function circularArcDistance(a: number, b: number, perimeter: number): number {
-  const direct = Math.abs(a - b);
-  return Math.min(direct, perimeter - direct);
+function buildExtendedDistanceIndex(ring: RingM, cumulative: number[], perimeter: number): { distances: number[]; indices: number[] } {
+  const distances: number[] = [];
+  const indices: number[] = [];
+  for (const offset of [-perimeter, 0, perimeter]) {
+    for (let i = 0; i < ring.length; i++) {
+      distances.push(cumulative[i]! + offset);
+      indices.push(i);
+    }
+  }
+  return { distances, indices };
+}
+
+function lowerBound(values: number[], target: number): number {
+  let low = 0;
+  let high = values.length;
+  while (low < high) {
+    const mid = Math.floor((low + high) / 2);
+    if (values[mid]! < target) low = mid + 1;
+    else high = mid;
+  }
+  return low;
+}
+
+function upperBound(values: number[], target: number): number {
+  let low = 0;
+  let high = values.length;
+  while (low < high) {
+    const mid = Math.floor((low + high) / 2);
+    if (values[mid]! <= target) low = mid + 1;
+    else high = mid;
+  }
+  return low;
 }

@@ -21,11 +21,15 @@ export function detectPointCandidates(
   const scales = [0.012, 0.025, 0.05, 0.08].map((fraction) => longest * fraction);
   const protrusionThreshold = adaptivePointProtrusionThresholdM(input.acreage ?? metrics.areaSqM / 4046.8564224, longest);
   const raw: WaterReaderPointCandidate[] = [];
+  const arcIndex = buildClosedRingArcIndex(ring);
+  const localTurnAngles = ring.map((point, index) =>
+    signedTurnAngle(ring[(index - 1 + ring.length) % ring.length]!, point, ring[(index + 1) % ring.length]!),
+  );
 
   for (let i = 0; i < ring.length; i++) {
     const scaleTurns = scales.map((scaleM) => {
-      const leftIndex = indexAtArcDistance(ring, i, -scaleM);
-      const rightIndex = indexAtArcDistance(ring, i, scaleM);
+      const leftIndex = indexAtArcDistance(arcIndex, i, -scaleM);
+      const rightIndex = indexAtArcDistance(arcIndex, i, scaleM);
       return {
         leftIndex,
         rightIndex,
@@ -57,7 +61,7 @@ export function detectPointCandidates(
     const protrusionLengthM = pointLineDistance(tip, leftSlope, rightSlope);
     const effectiveThreshold = hasStrongSingleScale ? protrusionThreshold * 0.68 : protrusionThreshold;
     if (protrusionLengthM < effectiveThreshold) continue;
-    if (!isLocalStrongestConcavity(ring, i, scaleTurns[2]!.angle)) continue;
+    if (!isLocalStrongestConcavity(localTurnAngles, i, scaleTurns[2]!.angle)) continue;
 
     const baseToTip = { x: tip.x - baseMidpoint.x, y: tip.y - baseMidpoint.y };
     const orientationVector = normalize(baseToTip);
@@ -107,18 +111,25 @@ export function adaptivePointProtrusionThresholdM(acres: number | null | undefin
   return longestDimensionM * 0.05;
 }
 
-function indexAtArcDistance(ring: RingM, start: number, signedDistance: number): number {
-  const dir = signedDistance >= 0 ? 1 : -1;
-  let remaining = Math.abs(signedDistance);
-  let i = start;
-  for (let guard = 0; guard < ring.length; guard++) {
-    const next = (i + dir + ring.length) % ring.length;
-    const segment = distanceM(ring[i]!, ring[next]!);
-    if (remaining <= segment) return next;
-    remaining -= segment;
-    i = next;
+function buildClosedRingArcIndex(ring: RingM): { cumulative: number[]; perimeter: number; length: number } {
+  const cumulative = [0];
+  for (let i = 1; i < ring.length; i++) {
+    cumulative.push(cumulative[i - 1]! + distanceM(ring[i - 1]!, ring[i]!));
   }
-  return i;
+  const perimeter = cumulative[cumulative.length - 1]! + distanceM(ring[ring.length - 1]!, ring[0]!);
+  return { cumulative, perimeter, length: ring.length };
+}
+
+function indexAtArcDistance(index: { cumulative: number[]; perimeter: number; length: number }, start: number, signedDistance: number): number {
+  if (index.length === 0 || index.perimeter <= 0) return start;
+  const base = index.cumulative[start] ?? 0;
+  const target = modulo(base + signedDistance, index.perimeter);
+  if (signedDistance >= 0) {
+    const found = lowerBound(index.cumulative, target);
+    return found >= index.length ? 0 : found;
+  }
+  const found = upperBound(index.cumulative, target) - 1;
+  return found < 0 ? index.length - 1 : found;
 }
 
 function signedTurnAngle(a: PointM, b: PointM, c: PointM): number {
@@ -129,15 +140,12 @@ function signedTurnAngle(a: PointM, b: PointM, c: PointM): number {
   return Math.atan2(cross, dot);
 }
 
-function isLocalStrongestConcavity(ring: RingM, index: number, angle: number): boolean {
-  const radius = Math.max(2, Math.floor(ring.length * 0.012));
+function isLocalStrongestConcavity(localAngles: number[], index: number, angle: number): boolean {
+  const radius = Math.max(2, Math.floor(localAngles.length * 0.012));
   for (let k = -radius; k <= radius; k++) {
     if (k === 0) continue;
-    const j = (index + k + ring.length) % ring.length;
-    const prev = ring[(j - 1 + ring.length) % ring.length]!;
-    const next = ring[(j + 1) % ring.length]!;
-    const local = signedTurnAngle(prev, ring[j]!, next);
-    if (local < angle) return false;
+    const j = (index + k + localAngles.length) % localAngles.length;
+    if (localAngles[j]! < angle) return false;
   }
   return true;
 }
@@ -187,4 +195,31 @@ function dedupeNearbyPointCandidates(candidates: WaterReaderPointCandidate[], mi
     kept.push(candidate);
   }
   return kept;
+}
+
+function lowerBound(values: number[], target: number): number {
+  let low = 0;
+  let high = values.length;
+  while (low < high) {
+    const mid = Math.floor((low + high) / 2);
+    if (values[mid]! < target) low = mid + 1;
+    else high = mid;
+  }
+  return low;
+}
+
+function upperBound(values: number[], target: number): number {
+  let low = 0;
+  let high = values.length;
+  while (low < high) {
+    const mid = Math.floor((low + high) / 2);
+    if (values[mid]! <= target) low = mid + 1;
+    else high = mid;
+  }
+  return low;
+}
+
+function modulo(value: number, divisor: number): number {
+  const out = value % divisor;
+  return out < 0 ? out + divisor : out;
 }

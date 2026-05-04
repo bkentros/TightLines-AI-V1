@@ -97,7 +97,7 @@ function userFacingSearchError(e: unknown): string {
 }
 
 function canOpenWaterReaderRead(r: WaterbodySearchResult): boolean {
-  return r.waterReaderSupportStatus === 'supported' || r.waterReaderSupportStatus === 'limited';
+  return r.hasPolygonGeometry && r.waterReaderSupportStatus !== 'not_supported';
 }
 
 function supportChipLabel(status: WaterReaderPolygonSupportStatus): string {
@@ -147,6 +147,11 @@ function resultSecondaryLine(r: WaterbodySearchResult): string {
 function selectionSummaryLine(r: WaterbodySearchResult): string {
   const county = r.county ? ` · ${r.county} County` : '';
   return `${r.name}${county} · ${r.state} · ${r.waterbodyType}`;
+}
+
+function ambiguityLine(r: WaterbodySearchResult): string | null {
+  if (!r.isAmbiguousNameInState || !r.sameNameStateCandidateCount || r.sameNameStateCandidateCount <= 1) return null;
+  return `${r.sameNameStateCandidateCount} same-name ${r.state} results; compare county and acres.`;
 }
 
 function limitedReadNote(
@@ -347,6 +352,11 @@ export default function WaterReaderScreen() {
                 <Text style={styles.selectedReason} numberOfLines={3}>
                   {selected.waterReaderSupportReason}
                 </Text>
+                {ambiguityLine(selected) && (
+                  <Text style={styles.ambiguityHint} numberOfLines={2}>
+                    {ambiguityLine(selected)}
+                  </Text>
+                )}
                 <View style={styles.selectedActions}>
                   <Pressable onPress={onChangeState} style={({ pressed }) => [styles.linkBtn, pressed && styles.pressed]}>
                     <Text style={styles.linkBtnText}>Change state</Text>
@@ -399,6 +409,11 @@ export default function WaterReaderScreen() {
                         <Text style={styles.resultMeta} numberOfLines={2}>
                           {resultSecondaryLine(r)}
                         </Text>
+                        {ambiguityLine(r) && (
+                          <Text style={styles.ambiguityHint} numberOfLines={2}>
+                            {ambiguityLine(r)}
+                          </Text>
+                        )}
                         {!open && (
                           <Text style={styles.resultBlockedHint} numberOfLines={2}>
                             Water Reader read not available for this row.
@@ -417,7 +432,7 @@ export default function WaterReaderScreen() {
           <Text style={styles.section}>Vector lake map</Text>
           {!selected && (
             <Text style={styles.muted}>
-              Select a supported or limited waterbody to see a polygon-only seasonal structure map from public
+              Select an openable waterbody to see a polygon-only seasonal structure map from public
               hydrography geometry.
             </Text>
           )}
@@ -613,6 +628,7 @@ const styles = StyleSheet.create({
   resultLineFlex: { flex: 1, minWidth: 0 },
   resultRowDisabled: { opacity: 0.55 },
   resultBlockedHint: { color: colors.textMuted, fontSize: 11, marginTop: 4 },
+  ambiguityHint: { color: colors.textMuted, fontSize: 11, marginTop: 4, lineHeight: 15 },
   supportChip: {
     borderRadius: radius.sm,
     paddingHorizontal: 8,

@@ -52,11 +52,12 @@ docs/recommender-v3-audit/generated/*.local.*
 # Water Reader ingest scratch (national chunk SQL can be very large)
 tmp/water-reader/
 
-# Water Reader dev QA exports (neckdown SVG audit)
+# Water Reader dev QA exports and tuning artifacts
 tmp/water-reader-neckdown-audit/
 tmp/water-reader-engine-feature-review/
 tmp/water-reader-engine-feature-review-preview/
 tmp/water-reader-engine-zone-review/
+tmp/water-reader-50-lake-tuning/
 
 # Supabase CLI cache
 supabase/.temp/

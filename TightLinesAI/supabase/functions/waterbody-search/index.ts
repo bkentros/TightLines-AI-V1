@@ -70,7 +70,55 @@ function mapPreviewBbox(row: SearchRow): WaterbodySearchResult["previewBbox"] {
   return { minLon, minLat, maxLon, maxLat };
 }
 
-function mapRow(row: SearchRow): WaterbodySearchResult {
+function normalizeWaterbodyName(value: string): string {
+  return value.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim().replace(/\s+/g, " ");
+}
+
+function openableSupport(row: SearchRow): boolean {
+  return row.has_polygon_geometry && row.water_reader_support_status !== "not_supported";
+}
+
+function rowAreaAcres(row: SearchRow): number {
+  return row.polygon_area_acres ?? row.surface_area_acres ?? 0;
+}
+
+function sortedRowsForDisplay(rows: SearchRow[], query: string): SearchRow[] {
+  const normQuery = normalizeWaterbodyName(query);
+  return [...rows]
+    .map((row, originalIndex) => ({ row, originalIndex }))
+    .sort((a, b) => {
+      const aExact = normalizeWaterbodyName(a.row.name) === normQuery ? 0 : 1;
+      const bExact = normalizeWaterbodyName(b.row.name) === normQuery ? 0 : 1;
+      if (aExact !== bExact) return aExact - bExact;
+      const aOpen = openableSupport(a.row) ? 0 : 1;
+      const bOpen = openableSupport(b.row) ? 0 : 1;
+      if (aOpen !== bOpen) return aOpen - bOpen;
+      if (
+        aExact === 0 &&
+        bExact === 0 &&
+        a.row.state === b.row.state &&
+        normalizeWaterbodyName(a.row.name) === normalizeWaterbodyName(b.row.name)
+      ) {
+        const areaDelta = rowAreaAcres(b.row) - rowAreaAcres(a.row);
+        if (Math.abs(areaDelta) > 0.001) return areaDelta;
+      }
+      if (a.originalIndex !== b.originalIndex) return a.originalIndex - b.originalIndex;
+      return (a.row.county ?? "").localeCompare(b.row.county ?? "") ||
+        a.row.name.localeCompare(b.row.name);
+    })
+    .map(({ row }) => row);
+}
+
+function sameNameStateCounts(rows: SearchRow[]): Map<string, number> {
+  const counts = new Map<string, number>();
+  for (const row of rows) {
+    const key = `${row.state}|${normalizeWaterbodyName(row.name)}`;
+    counts.set(key, (counts.get(key) ?? 0) + 1);
+  }
+  return counts;
+}
+
+function mapRow(row: SearchRow, sameNameCount: number): WaterbodySearchResult {
   return {
     lakeId: row.lake_id,
     name: row.name,
@@ -96,6 +144,8 @@ function mapRow(row: SearchRow): WaterbodySearchResult {
     hasPolygonGeometry: row.has_polygon_geometry,
     polygonAreaAcres: row.polygon_area_acres,
     polygonQaFlags: row.polygon_qa_flags ?? [],
+    sameNameStateCandidateCount: sameNameCount,
+    isAmbiguousNameInState: sameNameCount > 1,
   };
 }
 
@@ -161,13 +211,14 @@ Deno.serve(async (req: Request) => {
     return jsonError("Failed to search waterbodies", "search_failed", 500);
   }
 
-  const rows = Array.isArray(data) ? data as SearchRow[] : [];
+  const rows = sortedRowsForDisplay(Array.isArray(data) ? data as SearchRow[] : [], query);
+  const sameNameCounts = sameNameStateCounts(rows);
   return new Response(
     JSON.stringify({
       feature: WATERBODY_SEARCH_FEATURE,
       query,
       state,
-      results: rows.map(mapRow),
+      results: rows.map((row) => mapRow(row, sameNameCounts.get(`${row.state}|${normalizeWaterbodyName(row.name)}`) ?? 1)),
     }),
     { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders() } },
   );

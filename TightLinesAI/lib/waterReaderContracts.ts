@@ -54,6 +54,8 @@ export interface WaterbodySearchResult {
   hasPolygonGeometry: boolean;
   polygonAreaAcres?: number | null;
   polygonQaFlags: string[];
+  sameNameStateCandidateCount?: number;
+  isAmbiguousNameInState?: boolean;
 }
 
 export interface WaterbodySearchResponse {
@@ -233,6 +235,18 @@ export interface WaterReaderReadTimingDiagnostics {
   totalMs: number;
 }
 
+export interface WaterReaderReadOperationalDiagnostics {
+  code: string;
+  message: string;
+  heavyGenerationStatus?: "not_configured" | "failed" | "timeout" | "routed" | "not_heavy";
+  heavyGenerationReason?: string | null;
+  workerHttpStatus?: number | null;
+  workerElapsedMs?: number | null;
+  runtimeGeoJsonBytes?: number | null;
+  originalVertexCount?: number | null;
+  runtimeVertexCount?: number | null;
+}
+
 export interface WaterReaderReadResponse {
   feature: typeof WATER_READER_READ_FEATURE;
   lakeId: string;
@@ -255,6 +269,12 @@ export interface WaterReaderReadResponse {
   waterReaderSupportStatus: WaterReaderPolygonSupportStatus;
   waterReaderSupportReason: string;
   polygonQaFlags: string[];
+  originalVertexCount?: number | null;
+  runtimeVertexCount?: number | null;
+  runtimeComponentCount?: number | null;
+  runtimeInteriorRingCount?: number | null;
+  runtimeSimplified?: boolean | null;
+  runtimeSimplificationTolerance?: number | null;
   engineSupportStatus: WaterReaderEngineSupportStatus;
   engineSupportReason: string;
   displayedEntryCount: number;
@@ -265,6 +285,9 @@ export interface WaterReaderReadResponse {
   productionSvgResult: WaterReaderProductionSvgResult | null;
   fallbackMessage: string | null;
   cacheStatus?: "hit" | "miss";
+  cacheWriteStatus?: "stored" | "failed" | "skipped";
+  cacheWriteError?: string | null;
+  operationalDiagnostics?: WaterReaderReadOperationalDiagnostics | null;
   seasonContextKey?: string;
   mapWidth?: number;
   engineVersion?: string;

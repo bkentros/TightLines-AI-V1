@@ -1,4 +1,5 @@
 import type { PointM, PolygonM, RingM, WaterReaderLakeMetrics } from './contracts';
+import { longestDistanceByHullM } from './spatial';
 
 export function ringSignedAreaM(ring: RingM): number {
   if (ring.length < 3) return 0;
@@ -29,13 +30,7 @@ export function ringLengthM(ring: RingM): number {
 }
 
 export function longestStraightLineDimensionM(ring: RingM): number {
-  let longest = 0;
-  for (let i = 0; i < ring.length; i++) {
-    for (let j = i + 1; j < ring.length; j++) {
-      longest = Math.max(longest, distanceM(ring[i]!, ring[j]!));
-    }
-  }
-  return longest;
+  return longestDistanceByHullM(ring);
 }
 
 export function bboxM(ring: RingM): WaterReaderLakeMetrics['bboxM'] {
