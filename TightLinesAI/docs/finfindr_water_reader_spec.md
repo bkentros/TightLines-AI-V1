@@ -892,6 +892,69 @@ The 50-lake loop should assume the remaining primary work is product tuning, not
    - Include at least 10 lakes that the founder personally knows well as ground-truth references.
    - Record candidate-pool metrics before final selection: acreage, state, season group, polygon vertex count, exterior complexity score, hole/island count, detected feature counts by class, cove count, point count, neck/saddle count, dam count, support status, and whether the lake is expected to be sparse, ordinary, complex, or cap-pressure heavy.
 
+#### Initial 50-Lake Seed List
+
+The following list is the intended first 50-lake seed set for the tuning agent. It is not a license to skip verification. Before running the 200-row matrix, the agent must resolve every lake to an exact `waterbody_index.id`, confirm support status, confirm the state/season group, and replace any ambiguous, unsupported, or wrong-match row with a same-bucket alternative. Van Norman Lake and Pontiac Lake are required founder-requested lakes and should remain in the set unless the stored polygon becomes unavailable.
+
+| # | Lake | State | Season group | Primary reason included |
+|---:|---|---|---|---|
+| 1 | Van Norman Lake | MI | North | Required founder lake; small/simple polygon restraint |
+| 2 | Pontiac Lake | MI | North | Required founder lake; medium everyday read |
+| 3 | Mullett Lake | MI | North | Large point-heavy cap/diversity pressure |
+| 4 | Lake Charlevoix | MI | North | Complex large lake; cap/app-width pressure |
+| 5 | Higgins Lake | MI | North | Island and micro-endpoint semantics |
+| 6 | Lake Minnetonka | MN | North | Complex multi-basin natural lake |
+| 7 | Mille Lacs Lake | MN | North | Very large natural lake sizing/cap stress |
+| 8 | Lake Winnebago | WI | North | Very large simple-to-irregular natural lake |
+| 9 | Lake George | NY | North | Long/narrow large natural lake |
+| 10 | Sebago Lake | ME | North | Large northeastern natural lake |
+| 11 | Lake Okeechobee | FL | Deep South | Extreme large shallow-lake stress case |
+| 12 | Lake Tohopekaliga | FL | Deep South | Florida cove/basin structure |
+| 13 | Lake Kissimmee | FL | Deep South | Large irregular shallow lake |
+| 14 | Lake Istokpoga | FL | Deep South | Large shallow natural lake |
+| 15 | Lake Talquin | FL | Deep South | Reservoir/cove complexity |
+| 16 | Lake Rousseau | FL | Deep South | Complex reservoir/irregular shoreline |
+| 17 | Lake Maurepas | LA | Deep South | Large simpler shallow lake |
+| 18 | Lake Verret | LA | Deep South | Shallow irregular Louisiana lake |
+| 19 | Lac des Allemands | LA | Deep South | Shallow irregular Louisiana lake |
+| 20 | Caddo Lake | LA | Deep South | Complex cypress/irregular shoreline |
+| 21 | Lake Tawakoni | TX | South | Large Texas reservoir |
+| 22 | Cedar Creek Reservoir | TX | South | Large cove-arm reservoir |
+| 23 | Lake Palestine | TX | South | Large cove-arm reservoir |
+| 24 | Eufaula Lake | OK | South | Large Oklahoma reservoir |
+| 25 | Broken Bow Lake | OK | South | Complex reservoir arms |
+| 26 | Lake Greeson | AR | South | Arm-heavy reservoir |
+| 27 | De Gray Lake | AR | South | Reservoir with islands/arms |
+| 28 | Pickwick Lake | AL | South | River-reservoir geometry |
+| 29 | Hartwell Lake | GA | South | Large cove-arm reservoir |
+| 30 | Elephant Butte Reservoir | NM | South | Desert reservoir shape |
+| 31 | Taylorsville Lake | KY | Baseline | Medium reservoir, branch/cove geometry |
+| 32 | Grayson Lake | KY | Baseline | Narrow reservoir arms |
+| 33 | Stockton Lake | MO | Baseline | Large Ozark reservoir |
+| 34 | Harry S Truman Reservoir | MO | Baseline | Complex large reservoir |
+| 35 | Raystown Lake | PA | Baseline | Long/narrow reservoir |
+| 36 | Lake Wallenpaupack | PA | Baseline | Medium complex lake |
+| 37 | Brookville Lake | IN | Baseline | Medium reservoir |
+| 38 | Monroe Lake | IN | Baseline | Large Midwestern reservoir |
+| 39 | Lake Wylie | NC | Baseline | Cove-arm reservoir |
+| 40 | Fontana Lake | NC | Baseline | Mountain reservoir with arms |
+| 41 | Lake Havasu | CA | Mild Coastal / Desert | Desert reservoir; CA index row |
+| 42 | Lake Pleasant | AZ | Mild Coastal / Desert | Desert reservoir |
+| 43 | Theodore Roosevelt Lake | AZ | Mild Coastal / Desert | Large Arizona reservoir |
+| 44 | Pyramid Lake | NV | Mild Coastal / Desert | Very large simple natural lake |
+| 45 | Clear Lake | CA | Mild Coastal / Desert | Large natural lake |
+| 46 | Lake Tahoe | CA | Mild Coastal / Desert | Very large deep natural lake; sizing stress |
+| 47 | Shasta Lake | CA | Mild Coastal / Desert | Complex large reservoir |
+| 48 | Lake Chelan | WA | Mild Coastal / Desert | Long/narrow large lake |
+| 49 | Lake Billy Chinook | OR | Mild Coastal / Desert | Canyon reservoir geometry |
+| 50 | Lake Washington | WA | Mild Coastal / Desert | Large urban natural lake |
+
+Known seed-list cautions:
+
+- Some very large or high-vertex lakes may resolve as `needs_review` in search support. They may still be useful as stress rows, but the agent must clearly separate launch-supported rows from stress-only rows.
+- If a lake name resolves to the wrong waterbody, such as a similarly named small reservoir, replace it rather than forcing it into the set.
+- If a required geographic/complexity bucket is under-covered after verification, choose the replacement by matching the missing bucket, not by picking the most familiar lake.
+
 2. **Run all four seasons for every selected lake.**
    - The 50-lake tuning matrix is 50 lakes x 4 seasons = 200 rows.
    - Use stable non-transition dates for the main matrix so seasonal output represents the core season rather than transition copy. Recommended dates:
