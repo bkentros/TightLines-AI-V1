@@ -88,6 +88,26 @@ Pre-tuning readiness is in a good state:
 - Edge is the authenticated read/cache layer. Cache hits are fast and do not fetch runtime GeoJSON. Heavy cache misses require the configured worker; the local Mac plus Cloudflare tunnel path is only a temporary app-path testing setup before production worker hosting is chosen.
 - Generated discovery/tuning artifacts should stay under `tmp/water-reader-50-lake-tuning/` and must not be committed.
 
+Current Chunk 7 tuning state as of 2026-05-05:
+
+- The first 50-lake artifact machinery exists in `scripts/water-reader-50-lake-matrix-review.ts`, and a batch decision-support helper exists in `scripts/water-reader-batch-decision-support.ts`.
+- Supabase was previously blocked by DB/storage quota. The DB was cleaned to the verified 50 launch `waterbody_index` rows, private ingest staging was removed, old aerial/depth source metadata rows were cleared, and the hosted API was unblocked after the plan upgrade. Direct Postgres and hosted Supabase RPC checks for Van Norman Lake now return a supported polygon with GeoJSON.
+- Fresh hosted-API Batch 1 artifacts were regenerated after the upgrade under `tmp/water-reader-50-lake-tuning/chunk-7l-batch-1-scorecard/`. The initial run produced 40 rows, zero fallback/no-map rows, zero zero-zone rows, 8 app-width warning rows, 35 retained/display-cap pressure rows, 19 point-dominance rows, and 6 repeated-title pressure rows.
+- Batch 1 Spring has now completed the first visual tuning pass with Brandon and is acceptable as the current Spring baseline. The final regenerated Batch 1 scorecard remains 40/40 supported rows with zero fallback/no-map rows, zero zero-zone rows, zero critical rows, zero label-semantic-risk rows, zero full/app overlap-risk rows, and no major-axis ranking fallback rows. Spring cove placement now shows 1 true back, 8 near-back recoveries, 3 inner-shoreline recoveries, and 0 mouth-shoulder recoveries across displayed cove members. Spring island placement now shows 3 exact mainland-facing entries, 5 mainland-recovery entries, and 0 generic shoreline/open-water island recoveries across displayed island members.
+- The next tuning work should move to the remaining Batch 1 seasons, then additional 10-lake batches. Do not reopen broad Spring tuning unless a new lake/season reveals a pattern-level regression. Remaining review themes are season-by-season semantics, cap/ranking/variety behavior outside Spring, adaptive app rendering polish, and complex-lake readability on cove-arm reservoirs. Macro structure areas remain deferred.
+
+Chunk 7 display-policy update:
+
+- Displayed-entry caps are 6 for waters under 100 acres, 10 for 100-1,000 acres, and 12 for waters over 1,000 acres. A confluence group counts as one displayed entry.
+- If valid display-unit cost is at or below the cap, every valid display unit must display. Readability tiers are diagnostics only and must not hide valid under-cap structure.
+- If valid display-unit cost exceeds the cap, display selection uses feature hierarchy, deterministic feature prominence, seasonal relevance, and then variety pressure. Retained valid structure remains in diagnostics.
+- Placement applies class-specific readable major-axis floors before display selection while preserving hard geometry invariants. Floors are: dam/neck 70m or 5.75% L small, 125m or 5.25% L medium, 340m or 3.75% L large; saddle 65m/5.25%, 115m/4.75%, 310m/3.35%; main point side/open-water 80m/6.5%, 140m/5.75%, 390m/4.0%; point tip 70m/5.5%, 120m/5.0%, 340m/3.5%; cove placements 75m/6.0%, 135m/5.5%, 370m/4.0%; island placements 75m/6.0%, 140m/5.25%, 380m/3.75%; secondary point 65m/5.25%, 110m/4.75%, 310m/3.25%.
+- Confluence rendering is a single render-only rounded/oval envelope with both fill and one thin outline; individual member fills/strokes must not be visible in production output.
+- Production map numbers render as small external callouts with short leader lines whenever a deterministic outside-lake candidate exists; candidate ranking prefers outside-lake, non-overlapping, zone-local labels before edge fallbacks, and renderer diagnostics must warn when a label falls back inside the lake polygon or requires a long leader.
+- Macro structure areas remain deferred and must not render until separately approved.
+- Spring island-mainland and shoreline-recovery zones must orient from the selected local island edge/tangent whenever possible. Mainland-facing edge remains the preferred Spring semantic. If the exact mainland-facing edge fails hard geometry invariants, placement must next try deterministic same-side mainland recovery anchors along a bounded local island-shoreline arc before using generic shoreline, endpoint, or open-water recovery. Mainland-side recovery must be labeled honestly as "Island Edge - Mainland Recovery"; generic shoreline recovery is a last resort. Diagnostics must expose the orientation source, selected edge bearing, zone rotation, side-selection reason, recovery kind, and size cap. Island zones remain local-feature-aware and must not become lake-scale blobs.
+- Spring cove placement has a strict semantic ladder: true cove back pocket, near-back pocket recovery, inner-shoreline recovery, then mouth-shoulder recovery only as a last resort. Before falling back, Spring cove-back drafts must try axis-aligned pocket candidates: center movement follows the deterministic back-to-mouth-midpoint axis, candidate rotation tries the local back-shoreline tangent and the cove mouth chord/back-pocket cross-axis, and exact/near-back attempts may use deterministic compact size recovery so the zone has multiple clean chances to sit against the protected back shoreline. Legends must name the actual placement, not the intended one. Diagnostics must expose the intended Spring cove semantic, actual anchor semantic, fallback tier, fallback reason, rejected candidate reasons, and cove-back axis/rotation policy so visual review can distinguish legitimate fallback from incorrect seasonal placement.
+
 ### Current QA Commands
 
 ```bash
@@ -429,16 +449,18 @@ Five groups. Each US state (excluding Alaska and Hawaii — out of scope for v1)
 #### Cove Semantic Labels
 
 - `cove_back_primary` means the zone is anchored at the true detected back-of-cove coordinate and may use the "Cove - Back Shoreline" label.
-- `cove_back_pocket_recovery` is allowed when the exact back anchor cannot satisfy hard invariants. It must use a deterministic near-back cove-wall coordinate, represent the protected pocket near the back, and use "Cove - Back Pocket" copy.
+- `cove_back_pocket_recovery` is allowed when the exact back anchor cannot satisfy hard invariants. It must use a deterministic near-back cove-wall coordinate, represent the protected pocket near the back, and use "Cove - Back Pocket" copy. Spring cove candidate ordering should prefer true back, then near-back pocket recovery, then inner-wall fallback, then mouth shoulder recovery.
 - Inner shoreline recovery is allowed as same-cove recovery when it passes all hard invariants, but it must be labeled "Cove - Inner Shoreline", not "Cove - Back Shoreline".
 - Mouth recovery must be labeled "Cove - Mouth Shoulder", not back shoreline or irregular side.
 - Structure-confluence member labels must use the actual cove semantic anchor, such as Cove Back Pocket or Cove Inner Shoreline, rather than blindly using the broad `placementKind`.
 
 ### Necks / Pinch Points
 - **All seasons:** one shoreline-shoulder zone on each shoreline endpoint of the narrowest segment. Do not place a center oval in the throat of the neck.
+- Candidate generation may try deterministic shoulder/approach anchors near the endpoint along adjacent shoreline before accepting a line-like throat mark. Prefer an oval shoulder/approach candidate when it passes hard invariants; if only a line-like throat candidate passes, mark it with `constrictionLineFallbackUsed` and rejected-approach diagnostics. When a displayed map already has enough alternatives and the line fallback is visually non-useful, retain it with `constrictionLineRetainedForReadability` rather than forcing a stick mark onto the map.
 
 ### Islands
 - **Spring:** one zone on the side facing the nearest mainland shoreline (mainland-facing side — see Position Definitions).
+- Spring island mainland-facing placement may try larger deterministic size multipliers, including larger edge-recovery attempts, when the exact mainland-facing edge or honest recovery anchor remains shoreline-hugging and passes island-specific hard invariants. Island sizing must remain local-feature-aware: cap island-edge candidates by island local scale and lake-size percentage so tiny islands on very large lakes do not become lake-scale patches. The local-scale cap is `2.5x islandLocalScaleMeters` before lake-percentage caps are applied. Diagnostics should preserve local scale, cap value, cap reason, applied multiplier, and rejected-recovery reason.
 - **Summer:** one zone on the open-water side.
 - **Fall:** one zone at each of the island's two end-points (see Position Definitions).
 - **Winter:** one zone on the open-water side only.
@@ -495,7 +517,7 @@ Micro-feature exception:
 
 Constriction width cap:
 
-- Neck and saddle shoulder minor axes must also be capped by local constriction width so connector-water zones remain shoreline shoulders rather than oversized clipped blobs.
+- Neck and saddle shoulder minor axes must also be protected by local constriction width so connector-water zones remain shoreline shoulders rather than oversized clipped blobs. Candidate generation should first try a deterministic wider oval-like constriction draft, targeting no thinner than roughly 6:1 when hard invariants pass, before falling back to the narrower width-capped draft with diagnostics.
 - Neck shoulder minor axis = `min(defaultMinorAxis, widthM * 0.85)`.
 - Saddle shoulder minor axis = `min(defaultMinorAxis, widthM * 0.75)`.
 - If this cap causes a draft to fail hard invariants, the existing deterministic fallback candidate search decides whether another same-feature placement can represent the feature. The renderer must not enlarge the zone to compensate.
@@ -532,6 +554,7 @@ The engine must expose explicit semantic metadata for every draft and placed zon
 - `placementKind` remains the broad display/category key used by existing legend and renderer code, such as `cove_back` or `main_point_open_water`.
 - `placementSemanticId` describes the intended seasonal semantic placement selected by the rules, such as `cove_back_primary`.
 - `anchorSemanticId` describes the actual coordinate/anchor family used after fallback candidate selection, such as `cove_inner_wall_midpoint_right` or `main_point_open_water_proxy`.
+- Displayed zones should also expose normalized review diagnostics: `intendedSeasonalSemantic`, `actualAnchorSemantic`, `semanticFallbackUsed`, `semanticFallbackReason`, and `semanticConfidenceTier` (`exact`, `recovery`, `fallback_line`, or `failed_candidate_recovered`).
 - If a fallback anchor no longer matches the broad display label, review artifacts must make that mismatch visible. Later passes must use these IDs to prevent misleading labels/copy or to reject fallbacks that do not preserve the intended semantic placement.
 - The initial semantic-ID plumbing pass is behavior-preserving: it may add fields and diagnostics, but it must not change zone geometry, fallback order, ranking, display counts, legend text, renderer output, or cache behavior.
 
@@ -657,6 +680,9 @@ Compactness and splitting:
 - If a group contains more than four member zones or spans more than `min(12% L, 3 * averageMemberMajorAxisM)`, split it deterministically by strongest overlap edges until each subgroup is compact.
 - If a compact split is impossible, keep member zones in structured output and mark the area for renderer/tuning review rather than silently hiding structure.
 - Confluence should reduce displayed entry count only when the grouped area remains visually readable.
+- After display selection and before final numbering, the display model may normalize the displayed set by absorbing local standalone zones into a displayed confluence, or by converting overlapping/touching standalone zones into a confluence, when deterministic visible-overlap, boundary-touch, or short local-distance criteria pass. This is an engine/display-model decision, not a renderer decision. Reject the merge when the resulting envelope would exceed `2.25x` the largest member axis unless members overlap heavily, or when an oversized island member would create a broad, misleading blob.
+- Any confluence created or changed after display selection must rebuild its final legend from the final member list. A normalized confluence must not keep a surviving standalone member title or body.
+- Paired `neck_shoulder` zones from the same detected neck feature should be grouped as one displayed neck shoulder area entry before numbering when both shoulders remain readable. This same-neck shoulder grouping is not a multi-feature confluence; it receives one number, one `Neck - Shoulder Area` legend entry, and grouped-entry diagnostics. If the pair is line-like and retained for readability, do not force it back onto the map.
 
 Display-count behavior:
 
@@ -664,6 +690,7 @@ Display-count behavior:
 - Member zones keep their own geometry and diagnostics.
 - The confluence entry receives one number and one legend entry.
 - Member zones should not also receive separate displayed numbers unless the group is split.
+- Line-like neck/saddle fallback zones that are retained for readability must not be pulled back into a displayed confluence by an adjacent readable island or point. Mixed confluences are allowed only when the visual area remains compact and meaningful.
 
 Confluence diagnostics must include:
 
@@ -673,6 +700,8 @@ Confluence diagnostics must include:
 - top-level `confluenceGroups` with member zone IDs, source feature IDs, classes, and placement kinds
 - overlap or near-distance trigger reason when available
 - group compactness/span diagnostics when available
+- post-selection normalization diagnostics when available: `confluenceNormalized`, `confluenceAbsorbedEntryIds`, `confluenceMergeReason`, `confluenceMergeRejectedReason`, `confluenceEnvelopeMajorAxisMeters`, `confluenceEnvelopeToLargestMemberRatio`, `confluenceRejectedOversizedIslandMember`, `normalizedConfluenceLegendRebuilt`, `finalConfluenceLegendTitle`, and `finalConfluenceMemberSummary`.
+- same-neck shoulder grouping diagnostics when available: `sameNeckShouldersGrouped`, `sameNeckShoulderGroupFeatureId`, `sameNeckShoulderMemberZoneIds`, and `neckAreaRetainedForReadability`.
 
 The debug renderer may show individual overlapping ovals to aid review, but the production renderer should make the confluence look intentional and visually polished.
 
@@ -740,7 +769,7 @@ Each numbered zone gets a numbered legend entry:
 2. **Seasonal fishing approach** — pulled from the deterministic template table keyed by (feature_type, season, position_variant). No generation, no LLM call.
 3. **Transition warning** — appended only if applicable (see below).
 
-For a `structure_confluence` group, the legend entry uses the confluence color and lists every contributing physical structure by class and position variant, for example "Neck Shoulder + Cove Mouth" or "Point Side + Cove Irregular Side". The copy must explain that multiple geometry features converge in the same general area, using conservative language such as "multiple structure cues overlap here" or "logical area to check." Do not use "high-confidence", "best", "guaranteed", or fish-presence claims.
+For a `structure_confluence` group, the legend entry uses the confluence color and lists every contributing physical structure by class and position variant, for example "Neck Shoulder + Cove Mouth" or "Point Side + Cove Irregular Side". Post-selection normalized confluences must rebuild this title from their final member composition, such as "Structure Confluence - Point Side x3" or "Structure Confluence - Point Side x2 + Island Mainland-Facing Edge". The copy must explain that multiple geometry features converge in the same general area, using conservative language such as "multiple structure cues overlap here" or "logical area to check." Do not use "high-confidence", "best", "guaranteed", or fish-presence claims.
 
 ### Legend Template Table
 
@@ -826,8 +855,8 @@ The 25% inset rule means roughly 30–40% of each oval extends outside the polyg
 Confluence should not look like accidental stacked debug ovals. The production renderer should draw a single visually pleasing confluence treatment while preserving the member zones in structured data. Acceptable approaches include a shared translucent merged hull, a confluence-colored outline around the union area, or a confluence fill with subtle internal member indicators. Avoid heavy crossed outlines, unreadable stacked labels, or color mud.
 
 ### Text Rendering
-- Zone numbers should be centered inside the visible zone or confluence region when the badge remains readable without materially hiding the zone.
-- At production map width, if the centered badge would materially occlude the visible zone or confluence region, the renderer may place the same number in a deterministic external callout badge with a thin leader line to the original zone anchor.
+- Zone numbers should render as deterministic external callout badges with thin, local leader lines to the zone anchor/center so the badge does not materially hide the visible zone, sit inside the water polygon, or shoot across the lake when a shorter outside candidate exists.
+- If no valid outside-lake callout candidate exists, the renderer may place the badge inside as a last-resort fallback and must emit a renderer warning.
 - External callouts are presentation only: they must preserve the display number, legend order, rendered zone geometry, confluence membership, and structured output. They must not move, resize, rotate, suppress, merge, or reinterpret zones.
 - Centered and callout labels must use `text-anchor="middle"` and `dominant-baseline="central"`.
 - Use a safe cross-platform font stack to avoid silent fallback to default fonts: `font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"` — or embed a specific font if brand consistency requires it.
@@ -1103,6 +1132,162 @@ Future agents may tune these levers by pattern during the 50-lake loop:
 - Legend density and app-width presentation warnings.
 
 Future agents must not use these levers to change lake-space geometry after placement. Display tuning decides what valid structures are shown, retained, grouped, or warned about; it does not redefine where a feature's zone belongs.
+
+### Complex-Lake Macro Structure Area Concept
+
+This concept is exploratory and not accepted for launch until Brandon and the master approve it after visual review. It exists to define a possible future direction for very complex lakes such as cove-arm reservoirs where dozens of small points/coves compete for a small displayed-zone cap and the output becomes a scatter of tiny, low-value marks. It must remain polygon-geometry only.
+
+Macro structure areas are not fish predictions and not "best spots." They are broader deterministic structure guidance areas derived from clusters of already detected polygon features. Their purpose is to give an angler directional structure guidance on complex lakes when individual micro-zones are too numerous, repetitive, or visually unreadable.
+
+#### Macro Non-Goals
+
+Do not implement macro areas using:
+
+- satellite imagery, NAIP, ImageServer, source-photo previews, computer vision, raster masks, or Google imagery
+- depth, bathymetry, contour lines, creek channels, or hydrologic certainty
+- species-specific behavior, baitfish claims, fish-presence claims, productivity claims, or "best area" claims
+- exact GPS guidance or high-confidence language
+- lake-specific manual overrides
+
+Do not use macro areas to hide weak detection. If the underlying features are not trustworthy, retain fewer visible zones and mark QA/limited output rather than drawing a broad area.
+
+#### Deterministic Normal-vs-Complex Classification
+
+The engine must never "feel" that a lake is complex. It must compute a `complexLakeProfile` from geometry and feature diagnostics. A lake is macro-eligible only when it crosses explicit thresholds. If thresholds are not crossed, the lake is treated as ordinary and macro areas must not render.
+
+Starting macro-eligibility rule for tuning discussion:
+
+```text
+shorelineComplexityIndex = shorelineLengthM / circumferenceOfEqualAreaCircleM
+candidateCount = count(valid physical feature candidates before display cap)
+displayCapPressureRatio = candidateDisplayUnitCost / displayCap
+candidateDensityPerKm = candidateCount / max(shorelineLengthKm, 1)
+tinyCandidateRatio = count(valid candidate zones below readable-size threshold) / candidateCount
+featureFamilyDominanceRatio = largestFeatureClassCandidateCount / candidateCount
+
+macroEligible =
+  at least 3 of:
+    shorelineComplexityIndex >= 3.0
+    candidateCount >= displayCap * 2
+    displayCapPressureRatio >= 1.75
+    candidateDensityPerKm >= 1.2
+    tinyCandidateRatio >= 0.30
+    featureFamilyDominanceRatio >= 0.55 and at least 2 other feature classes exist
+```
+
+These are starting review thresholds, not final launch constants. They must be tuned by pattern across the 50-lake matrix. They must not be changed for one lake.
+
+Examples:
+
+- A small or medium lake such as Pontiac may have several valid structures, but it should remain ordinary unless the explicit macro thresholds are crossed.
+- A complex reservoir such as Lake Wylie may become macro-eligible if it has high candidate density, high cap pressure, many tiny candidate zones, and repeated feature-family dominance.
+- A very large but simple lake such as Tahoe may remain ordinary if it has low candidate density and no display-cap pressure.
+
+#### Macro Candidate Definition
+
+A macro candidate must be built from a deterministic cluster of valid physical feature candidates. It is never a freehand area.
+
+A valid macro candidate must:
+
+- contain at least 2 valid physical member features
+- cover one continuous shoreline reach, cove-arm reach, basin edge, or constriction-adjacent reach
+- have a clear lake-space bounding geometry derived from member feature anchors, shoreline arc span, and local water polygon clipping
+- have a member-feature list in diagnostics, including feature IDs, feature classes, member scores, and retained/displayed state
+- have a deterministic reason such as `arm_mouth_cluster`, `cove_arm_cluster`, `main_basin_point_chain`, `constriction_cluster`, or `island_edge_cluster`
+- be rejected if its shoreline span is too large to be useful, if it bridges unrelated shorelines, if it would cover an entire basin without a specific structural edge, or if it is supported by only one weak feature
+
+Starting macro candidate limits:
+
+```text
+minMemberFeatures = 2
+maxMacroAreasDisplayed = 1 for ordinary-large macro-eligible rows
+maxMacroAreasDisplayed = 2 for high-confidence complex rows
+maxMacroAreasDisplayed = 3 only after visual proof on app-width output
+maxMacroShorelineSpanPct = 12% of total shoreline length
+maxMacroAreaPct = 8% of lake area
+minMacroReadableMajorAxisM = max(90m, 0.012 * longestDimensionM)
+```
+
+Macro areas should replace or summarize low-readability clusters under cap pressure. Do not display a macro area plus every member micro-zone unless the map remains readable and the macro is not duplicative.
+
+#### Macro Ranking
+
+Macro ranking must be deterministic and structural. A starting score can combine:
+
+```text
+macroScore =
+  memberStructuralScore
+  + seasonalFitScore
+  + featureDiversityBonus
+  + prominenceBonus
+  + compactnessBonus
+  - clutterPenalty
+  - weakMemberPenalty
+  - overlargeAreaPenalty
+```
+
+Definitions:
+
+- `memberStructuralScore`: aggregate of member feature confidence/size/prominence metrics already used by detection and display ranking.
+- `seasonalFitScore`: whether the macro reach contains feature anchors relevant to the current season's placement rule.
+- `featureDiversityBonus`: small bonus when the macro groups multiple feature classes, such as cove + point or neck + point, instead of only repeated tiny points.
+- `prominenceBonus`: larger shoreline protrusions, stronger cove mouths, stronger constrictions, larger islands, or longer dam edges outrank tiny local wiggles.
+- `compactnessBonus`: member features are close enough along shoreline or within the same arm/reach to read as one intentional area.
+- `clutterPenalty`: macro would visually crowd other displayed zones or legend entries.
+- `weakMemberPenalty`: member features are low-confidence or mostly recovery-only.
+- `overlargeAreaPenalty`: macro becomes too broad to be actionable.
+
+Macro ranking must not invent feature importance from lake name, fame, fishing reputation, species, depth, or user history.
+
+#### Seasonal Macro Placement
+
+Macro placement must still follow season and feature semantics. It cannot simply draw the same broad area all year.
+
+Starting seasonal placement intent:
+
+- Spring: favor protected inner portions of cove-arm clusters, backs of strong coves, and shoreline pockets tied to valid member features.
+- Summer: favor mouth-side shoulders, main-basin-facing sides of cove arms, prominent point chains, and constriction shoulders tied to valid member features.
+- Fall: favor transition shorelines between arm mouths and inner structure, plus compact clusters where points/coves/constrictions form a readable movement corridor by geometry. Do not mention baitfish or fish movement in user copy.
+- Winter: favor main-basin-facing mouths, constriction shoulders, and compact open-water-facing structure edges by geometry. Do not imply depth was used.
+
+If the seasonal placement cannot be determined from member features and polygon geometry, reject the macro candidate for that season rather than drawing a generic broad zone.
+
+#### Macro Display Contract
+
+Macro areas are display units, not replacements for feature detection. The raw member features must remain in diagnostics and may remain retained-not-displayed.
+
+Display rules:
+
+- A macro area counts as one displayed legend entry unless a future visual pass proves a different cost is necessary.
+- A macro label should use conservative language such as `Broad structure area`, `Cove-arm structure area`, `Arm-mouth structure area`, or `Structure cluster`.
+- The legend must explain the structural basis without certainty, for example: "Polygon geometry groups several nearby structure cues here; use it as a broader area to inspect, not a precise spot."
+- A macro area must be visually larger and more directional than a micro-zone but still tied to shoreline or member-feature geometry.
+- A macro area must not cover the whole lake, a whole basin, or unrelated branches.
+- A macro area must not be rendered on ordinary lakes merely to fill the map.
+
+#### Validation Requirements Before Macro Launch
+
+Before any macro implementation is accepted:
+
+- Run before/after artifacts on at least Lake Wylie, Lake Palestine, Brookville Lake, Lake Charlevoix, Mullett Lake, Pontiac Lake, Van Norman Lake, and Lake Tahoe across all four seasons.
+- Confirm macro areas improve Wylie/Palestine-style complex readability without regressing Pontiac/Van Norman-style ordinary output.
+- Confirm app-width 420 output remains readable.
+- Confirm no macro copy implies certainty, fish presence, best spots, depth, or GPS precision.
+- Confirm individual valid member features remain available in diagnostics and retained-not-displayed output.
+- Confirm macro classification is deterministic and explainable from artifact metrics.
+
+### Future Display Count Desire
+
+Brandon may want more visible zones on large or complex lakes. This should be tested only after ranking, tiny-zone suppression/readability, diversity, and app-width rendering are stable.
+
+Rules for future displayed-count increases:
+
+- Do not raise caps to compensate for bad ranking or tiny unreadable zones.
+- Do not raise caps globally without acreage/complexity bands.
+- Larger display caps should be considered only when the map remains readable at app width and the displayed set remains varied.
+- Increasing the cap must preserve retained-not-displayed diagnostics and must not delete evidence of cap pressure.
+- More zones should mean more useful structure guidance, not more repeated tiny points.
+- Any cap increase must be A/B reviewed with actual rendered artifacts, not CSV metrics alone.
 
 Each tuning pass must include a short changelog identifying:
 

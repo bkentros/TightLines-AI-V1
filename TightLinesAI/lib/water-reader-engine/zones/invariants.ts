@@ -64,13 +64,17 @@ export function materializeZoneDraft(params: {
   }
 
   const fraction = sampleVisibleWaterFraction(draft, polygon, toleranceM);
+  const islandEdgeRecovery = islandEdgeLargeRecoveryAllowed(draft, fraction);
+  const maxVisibleWaterFraction = islandEdgeRecovery ? 0.995 : 0.75;
+  const minOutsideOvalBoundaryFraction = islandEdgeRecovery ? 0.005 : 0.2;
   if (fraction.visibleWaterFraction < 0.5) return { ok: false, reason: 'zone_visible_fraction_too_low' };
-  if (fraction.visibleWaterFraction > 0.75) return { ok: false, reason: 'zone_visible_fraction_too_high' };
-  if (fraction.outsideOvalBoundaryFraction < 0.2) return { ok: false, reason: 'zone_no_bank_side_boundary' };
+  if (fraction.visibleWaterFraction > maxVisibleWaterFraction) return { ok: false, reason: 'zone_visible_fraction_too_high' };
+  if (fraction.outsideOvalBoundaryFraction < minOutsideOvalBoundaryFraction) return { ok: false, reason: 'zone_no_bank_side_boundary' };
   if (
     draft.featureClass !== 'neck' &&
     draft.featureClass !== 'saddle' &&
     draft.featureClass !== 'dam' &&
+    !islandEdgeRecovery &&
     fraction.visibleWaterFraction > 0.72
   ) {
     return { ok: false, reason: 'zone_bridges_too_much_local_width' };
@@ -94,12 +98,32 @@ export function materializeZoneDraft(params: {
         ...draft.diagnostics,
         shorelineDistanceM: shorelineDistance,
         outsideOvalBoundaryFraction: fraction.outsideOvalBoundaryFraction,
+        visibleWaterFractionCeiling: maxVisibleWaterFraction,
+        outsideOvalBoundaryFractionFloor: minOutsideOvalBoundaryFraction,
+        islandLargeRecoveryCandidate: islandEdgeRecovery,
+        islandLargeRecoveryAccepted: islandEdgeRecovery && numericDiagnostic(draft.diagnostics.islandSizeMultiplierApplied ?? draft.diagnostics.selectedSizeFactor) >= 1.5,
         waterSampleCount: fraction.waterSampleCount,
         totalSampleCount: fraction.totalSampleCount,
       },
       qaFlags: [...draft.qaFlags],
     },
   };
+}
+
+function numericDiagnostic(value: number | string | boolean | string[] | null | undefined): number {
+  return typeof value === 'number' && Number.isFinite(value) ? value : 0;
+}
+
+function islandEdgeLargeRecoveryAllowed(
+  draft: WaterReaderZoneDraft,
+  fraction: { visibleWaterFraction: number; outsideOvalBoundaryFraction: number },
+): boolean {
+  if (draft.featureClass !== 'island' || draft.placementKind !== 'island_mainland') return false;
+  const semantic = draft.anchorSemanticId;
+  if (semantic !== 'island_mainland_primary' && semantic !== 'island_mainland_recovery' && semantic !== 'island_shoreline_recovery') {
+    return false;
+  }
+  return fraction.visibleWaterFraction <= 0.995 && fraction.outsideOvalBoundaryFraction >= 0.005;
 }
 
 export function zonesOverlap(a: WaterReaderPlacedZone, b: WaterReaderPlacedZone): boolean {

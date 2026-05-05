@@ -7,6 +7,7 @@ export type WaterReaderRenderWarningCode =
   | 'missing_zone_path'
   | 'missing_label_anchor'
   | 'display_legend_count_mismatch'
+  | 'long_label_leader'
   | 'legend_overflow_risk';
 
 export interface WaterReaderRenderWarning {
@@ -25,6 +26,8 @@ export interface WaterReaderRenderSummary {
   displayLegendEntryCount: number;
   retainedRenderedCount: number;
   warningCount: number;
+  maxLabelLeaderLengthPx?: number;
+  longLabelLeaderCount?: number;
   mapBottomY: number;
   firstLegendRowY: number;
   mapLegendGap: number;

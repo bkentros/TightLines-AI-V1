@@ -1,5 +1,6 @@
-import type { PointM, RingM } from '../contracts';
+import type { PointM, PolygonM, RingM } from '../contracts';
 import type { WaterReaderDisplayEntry, WaterReaderDisplayModel, WaterReaderDisplayZoneGeometry } from '../display-model';
+import { pointInWaterOrBoundary } from '../features/validation';
 import { waterReaderLegendForbiddenPhraseHits } from '../legend';
 import { buildWaterReaderSvgTransform, format, svgPathForPolygon, svgPathForRing, svgPoint } from './transform';
 import type {
@@ -23,11 +24,19 @@ const LEGEND_RIGHT_PADDING = 10;
 const LEGEND_TITLE_MAX_CHARS = 54;
 const LEGEND_BODY_MAX_CHARS = 95;
 const LEGEND_WARNING_MAX_CHARS = 95;
-const CENTER_LABEL_RADIUS = 10;
-const CALLOUT_LABEL_RADIUS = 9;
+const LEGEND_TITLE_LINE_HEIGHT = 14;
+const LEGEND_BODY_LINE_HEIGHT = 14;
+const LEGEND_WARNING_LINE_HEIGHT = 13;
+const LEGEND_TITLE_BODY_GAP = 8;
+const LEGEND_ROW_TOP_PADDING = 13;
+const LEGEND_ROW_BOTTOM_PADDING = 12;
+const LEGEND_ROW_GAP = 8;
+const CENTER_LABEL_RADIUS = 7.5;
+const CALLOUT_LABEL_RADIUS = 7.5;
 const CENTER_LABEL_DIAMETER = CENTER_LABEL_RADIUS * 2;
 const CALLOUT_LABEL_DIAMETER = CALLOUT_LABEL_RADIUS * 2;
-const CALLOUT_MARGIN = 18;
+const CALLOUT_MARGIN = 16;
+const PREFERRED_LABEL_LEADER_LENGTH_PX = 90;
 
 type Bounds = {
   minX: number;
@@ -43,7 +52,18 @@ type LabelPlan = {
   anchor: PointM;
   label: PointM;
   callout: boolean;
+  leaderLengthPx: number;
+  longLeader: boolean;
   bounds: Bounds;
+};
+
+type LegendEntryLayout = {
+  titleLines: string[];
+  bodyLines: string[];
+  warningLines: string[];
+  bodyStartY: number;
+  warningStartY: number;
+  rowHeight: number;
 };
 
 export function buildWaterReaderProductionSvg(
@@ -79,7 +99,8 @@ export function buildWaterReaderProductionSvg(
   const lakePath = options.lakePolygon ? svgPathForPolygon(options.lakePolygon, transform) : '';
   if (!lakePath) warnings.push({ code: 'invalid_geometry', message: 'Lake polygon path is empty.' });
 
-  const labelPlans = buildLabelPlans(displayModel.displayedEntries, transform, warnings);
+  const labelPlans = buildLabelPlans(displayModel.displayedEntries, transform, warnings, options.lakePolygon ?? null);
+  const labelLeaderLengths = labelPlans.map((plan) => plan.leaderLengthPx).filter(Number.isFinite);
   const labelPlanByEntryId = new Map(labelPlans.map((plan) => [plan.entryId, plan]));
   const renderedEntries = displayModel.displayedEntries.map((entry) => renderEntry(entry, transform, clipId, warnings, labelPlanByEntryId.get(entry.entryId)));
   const legend = renderLegend(displayModel, transform);
@@ -130,6 +151,8 @@ export function buildWaterReaderProductionSvg(
     displayLegendEntryCount: displayModel.displayLegendEntries.length,
     retainedRenderedCount: 0,
     warningCount: warnings.length,
+    maxLabelLeaderLengthPx: labelLeaderLengths.length > 0 ? roundNumber(Math.max(...labelLeaderLengths), 2) : 0,
+    longLabelLeaderCount: labelPlans.filter((plan) => plan.longLeader).length,
     mapBottomY: transform.mapBottomY,
     firstLegendRowY: transform.legendTop,
     mapLegendGap: transform.mapLegendGap,
@@ -150,18 +173,12 @@ function renderEntry(
 ): { zoneMarkup: string; labelMarkup: string } {
   const number = entry.displayNumber ?? '';
   const plan = labelPlan ?? fallbackLabelPlan(entry, transform, warnings);
-  if (entry.entryType === 'structure_confluence') {
-    const members = entry.zones
-      .map((zone) => {
-        const ring = visibleOrUnclippedRing(zone);
-        const path = svgPathForRing(ring, transform, true);
-        return `<path class="water-reader-confluence-member" d="${path}" fill="${CONFLUENCE}" fill-opacity="0.24" stroke="${CONFLUENCE}" stroke-opacity="0.58" stroke-width="1.6"/>`;
-      })
-      .join('');
-    const outline = confluenceOutline(entry, transform);
-    if (!members && !outline) warnings.push({ code: 'missing_zone_path', message: 'Confluence member paths are empty.', entryId: entry.entryId });
+  if (entry.entryType === 'structure_confluence' || entry.entryType === 'neck_area') {
+    const envelope = groupedEntryEnvelope(entry, transform);
+    if (!envelope) warnings.push({ code: 'missing_zone_path', message: 'Grouped entry envelope path is empty.', entryId: entry.entryId });
+    const className = entry.entryType === 'structure_confluence' ? 'water-reader-confluence' : 'water-reader-neck-area';
     return {
-      zoneMarkup: `<g class="water-reader-entry water-reader-confluence" data-entry-id="${escapeXml(entry.entryId)}" data-display-number="${number}" clip-path="url(#${clipId})">${members}${outline}</g>`,
+      zoneMarkup: `<g class="water-reader-entry ${className}" data-entry-id="${escapeXml(entry.entryId)}" data-display-number="${number}" clip-path="url(#${clipId})">${envelope}</g>`,
       labelMarkup: numberLabel(plan),
     };
   }
@@ -170,7 +187,7 @@ function renderEntry(
   const d = zone ? svgPathForRing(zone.unclippedRing, transform, true) : '';
   if (!zone || !d) warnings.push({ code: 'missing_zone_path', message: 'Standalone zone path is empty.', entryId: entry.entryId, zoneId: entry.zoneIds[0] });
   return {
-    zoneMarkup: `<path class="water-reader-entry water-reader-standalone-zone" data-entry-id="${escapeXml(entry.entryId)}" data-zone-id="${escapeXml(entry.zoneIds[0] ?? '')}" data-display-number="${number}" d="${d}" fill="${entry.colorHex}" fill-opacity="0.34" stroke="${entry.colorHex}" stroke-opacity="0.94" stroke-width="2.2"/>`,
+    zoneMarkup: `<path class="water-reader-entry water-reader-standalone-zone" data-entry-id="${escapeXml(entry.entryId)}" data-zone-id="${escapeXml(entry.zoneIds[0] ?? '')}" data-display-number="${number}" d="${d}" fill="${entry.colorHex}" fill-opacity="0.34" stroke="${entry.colorHex}" stroke-opacity="0.94" stroke-width="1.2"/>`,
     labelMarkup: numberLabel(plan),
   };
 }
@@ -181,10 +198,10 @@ function numberLabel(plan: LabelPlan): string {
   const leader = plan.callout
     ? `<path class="water-reader-label-leader" d="M ${format(plan.anchor.x)} ${format(plan.anchor.y)} L ${format(plan.label.x)} ${format(plan.label.y)}" fill="none" stroke="#334155" stroke-width="1" stroke-opacity="0.58" stroke-linecap="round"/>`
     : '';
-  return `<g class="${className}" data-entry-id="${escapeXml(plan.entryId)}" data-display-number="${plan.displayNumber}" data-label-placement="${plan.callout ? 'callout' : 'center'}" filter="url(#wr-label-shadow)">
+  return `<g class="${className}" data-entry-id="${escapeXml(plan.entryId)}" data-display-number="${plan.displayNumber}" data-label-placement="${plan.callout ? 'callout' : 'center'}" data-leader-length-px="${format(plan.leaderLengthPx)}" data-long-leader="${plan.longLeader ? 'true' : 'false'}" filter="url(#wr-label-shadow)">
         ${leader}
         <circle cx="${format(plan.label.x)}" cy="${format(plan.label.y)}" r="${format(radius)}" fill="#FFFFFF" stroke="#0F172A" stroke-width="1.15"/>
-        <text x="${format(plan.label.x)}" y="${format(plan.label.y + 0.2)}" font-family="${FONT}" font-size="${plan.callout ? 10 : 10.5}" font-weight="850" fill="${TEXT}" text-anchor="middle" dominant-baseline="central">${plan.displayNumber}</text>
+        <text x="${format(plan.label.x)}" y="${format(plan.label.y + 0.15)}" font-family="${FONT}" font-size="${plan.callout ? 9.25 : 9.5}" font-weight="850" fill="${TEXT}" text-anchor="middle" dominant-baseline="central">${plan.displayNumber}</text>
       </g>`;
 }
 
@@ -192,15 +209,32 @@ function buildLabelPlans(
   entries: WaterReaderDisplayEntry[],
   transform: WaterReaderSvgTransform,
   warnings: WaterReaderRenderWarning[],
+  lakePolygon: PolygonM | null,
 ): LabelPlan[] {
   const placed: Bounds[] = [];
+  const entryBounds = entries.map((entry) => svgBoundsForEntry(entry, transform));
+  const lakeBounds = lakePolygon ? boundsForPoints(lakePolygon.exterior.map((point) => svgPoint(point, transform))) : null;
   return entries.map((entry, index) => {
-    const kind = entry.entryType === 'structure_confluence' ? 'confluence' : 'standalone';
+    const kind = entry.entryType === 'structure_confluence' || entry.entryType === 'neck_area' ? 'confluence' : 'standalone';
     const anchor = svgPoint(labelAnchor(entry, warnings).point, transform);
     const bounds = svgBoundsForEntry(entry, transform);
-    const callout = shouldUseCallout(bounds);
-    const label = callout ? calloutPoint(bounds, anchor, transform, placed, index) : anchor;
-    const labelBounds = circleBounds(label, callout ? CALLOUT_LABEL_RADIUS : CENTER_LABEL_RADIUS);
+    const labelResult = outsideCalloutPoint(bounds, anchor, transform, placed, index, lakePolygon, lakeBounds, entryBounds);
+    if (labelResult.insideLakeFallback) {
+      warnings.push({
+        code: 'invalid_geometry',
+        message: 'Map number label fell back inside the lake polygon because no deterministic outside callout candidate was available.',
+        entryId: entry.entryId,
+      });
+    }
+    if (labelResult.longLeader) {
+      warnings.push({
+        code: 'long_label_leader',
+        message: `Map number label used a long outside leader (${format(labelResult.leaderLengthPx)}px) because no shorter non-overlapping outside candidate was available.`,
+        entryId: entry.entryId,
+      });
+    }
+    const label = labelResult.point;
+    const labelBounds = circleBounds(label, CALLOUT_LABEL_RADIUS);
     placed.push(labelBounds);
     return {
       entryId: entry.entryId,
@@ -208,7 +242,9 @@ function buildLabelPlans(
       kind,
       anchor,
       label,
-      callout,
+      callout: true,
+      leaderLengthPx: labelResult.leaderLengthPx,
+      longLeader: labelResult.longLeader,
       bounds,
     };
   });
@@ -228,7 +264,9 @@ function fallbackLabelPlan(
     kind,
     anchor,
     label: anchor,
-    callout: false,
+    callout: true,
+    leaderLengthPx: 0,
+    longLeader: false,
     bounds,
   };
 }
@@ -241,36 +279,119 @@ function svgBoundsForEntry(entry: WaterReaderDisplayEntry, transform: WaterReade
   return boundsForPoints(points.length > 0 ? points : [svgPoint(labelAnchor(entry, []).point, transform)]);
 }
 
-function shouldUseCallout(bounds: Bounds): boolean {
-  const width = Math.max(1, bounds.maxX - bounds.minX);
-  const height = Math.max(1, bounds.maxY - bounds.minY);
-  const minDim = Math.min(width, height);
-  const bboxArea = width * height;
-  const badgeArea = Math.PI * CENTER_LABEL_RADIUS * CENTER_LABEL_RADIUS;
-  return CENTER_LABEL_DIAMETER / minDim > 0.72 || badgeArea / bboxArea > 0.36;
-}
-
-function calloutPoint(
+function outsideCalloutPoint(
   bounds: Bounds,
   anchor: PointM,
   transform: WaterReaderSvgTransform,
   placed: Bounds[],
   index: number,
-): PointM {
+  lakePolygon: PolygonM | null,
+  lakeBounds: Bounds | null,
+  zoneBounds: Bounds[],
+): { point: PointM; insideLakeFallback: boolean; leaderLengthPx: number; longLeader: boolean } {
+  const candidates = calloutCandidates(bounds, anchor, transform, index, lakeBounds)
+    .map((point) => clampLabelPoint(point, transform));
+  const scored = candidates
+    .map((point, candidateIndex) => {
+      const labelBounds = circleBounds(point, CALLOUT_LABEL_RADIUS + 3);
+      const outsideLake = !pointInsideLakeSvg(point, lakePolygon, transform);
+      const avoidsLabels = placed.every((other) => !boundsOverlap(labelBounds, other));
+      const avoidsZones = zoneBounds.every((other) => !boundsOverlap(labelBounds, padBounds(other, 2)));
+      const leaderLengthPx = distancePx(point, anchor);
+      return {
+        point,
+        outsideLake,
+        avoidsLabels,
+        avoidsZones,
+        leaderLengthPx,
+        localScore: localCandidateScore(point, bounds, anchor),
+        candidateIndex,
+      };
+    })
+    .sort((a, b) =>
+      Number(b.outsideLake) - Number(a.outsideLake) ||
+      Number(b.avoidsLabels) - Number(a.avoidsLabels) ||
+      Number(b.avoidsZones) - Number(a.avoidsZones) ||
+      Number(b.leaderLengthPx <= PREFERRED_LABEL_LEADER_LENGTH_PX) - Number(a.leaderLengthPx <= PREFERRED_LABEL_LEADER_LENGTH_PX) ||
+      a.leaderLengthPx - b.leaderLengthPx ||
+      a.localScore - b.localScore ||
+      a.candidateIndex - b.candidateIndex
+    );
+  const best = scored[0];
+  if (best) {
+    return {
+      point: best.point,
+      insideLakeFallback: !best.outsideLake,
+      leaderLengthPx: roundNumber(best.leaderLengthPx, 2),
+      longLeader: best.outsideLake && best.leaderLengthPx > PREFERRED_LABEL_LEADER_LENGTH_PX,
+    };
+  }
+  const fallback = clampLabelPoint({ x: anchor.x + CALLOUT_MARGIN, y: anchor.y - CALLOUT_MARGIN }, transform);
+  const leaderLengthPx = distancePx(fallback, anchor);
+  return {
+    point: fallback,
+    insideLakeFallback: true,
+    leaderLengthPx: roundNumber(leaderLengthPx, 2),
+    longLeader: leaderLengthPx > PREFERRED_LABEL_LEADER_LENGTH_PX,
+  };
+}
+
+function calloutCandidates(
+  bounds: Bounds,
+  anchor: PointM,
+  transform: WaterReaderSvgTransform,
+  index: number,
+  lakeBounds: Bounds | null,
+): PointM[] {
   const center = { x: (bounds.minX + bounds.maxX) / 2, y: (bounds.minY + bounds.maxY) / 2 };
+  const reference = lakeBounds ?? {
+    minX: transform.padding,
+    maxX: transform.width - transform.padding,
+    minY: transform.padding,
+    maxY: transform.mapBottomY,
+  };
+  const lakeCenter = { x: (reference.minX + reference.maxX) / 2, y: (reference.minY + reference.maxY) / 2 };
+  const dx = anchor.x - lakeCenter.x;
+  const dy = anchor.y - lakeCenter.y;
+  const radialLength = Math.max(1, Math.hypot(dx, dy));
+  const radial = { x: dx / radialLength, y: dy / radialLength };
+  const edgeX = radial.x >= 0 ? reference.maxX + CALLOUT_MARGIN : reference.minX - CALLOUT_MARGIN;
+  const edgeY = radial.y >= 0 ? reference.maxY + CALLOUT_MARGIN : reference.minY - CALLOUT_MARGIN;
+  const localOffset = CALLOUT_MARGIN + CALLOUT_LABEL_RADIUS + 4;
   const candidates = [
-    { x: bounds.maxX + CALLOUT_MARGIN, y: bounds.minY - CALLOUT_MARGIN },
-    { x: bounds.maxX + CALLOUT_MARGIN, y: center.y },
-    { x: bounds.maxX + CALLOUT_MARGIN, y: bounds.maxY + CALLOUT_MARGIN },
-    { x: bounds.minX - CALLOUT_MARGIN, y: bounds.minY - CALLOUT_MARGIN },
-    { x: bounds.minX - CALLOUT_MARGIN, y: center.y },
-    { x: bounds.minX - CALLOUT_MARGIN, y: bounds.maxY + CALLOUT_MARGIN },
-    { x: center.x, y: bounds.minY - CALLOUT_MARGIN },
-    { x: center.x, y: bounds.maxY + CALLOUT_MARGIN },
+    { x: bounds.maxX + localOffset, y: center.y },
+    { x: bounds.minX - localOffset, y: center.y },
+    { x: center.x, y: bounds.minY - localOffset },
+    { x: center.x, y: bounds.maxY + localOffset },
+    { x: bounds.maxX + localOffset, y: bounds.minY - localOffset },
+    { x: bounds.maxX + localOffset, y: bounds.maxY + localOffset },
+    { x: bounds.minX - localOffset, y: bounds.minY - localOffset },
+    { x: bounds.minX - localOffset, y: bounds.maxY + localOffset },
+    { x: anchor.x + radial.x * localOffset * 1.65, y: anchor.y + radial.y * localOffset * 1.65 },
+    { x: edgeX, y: anchor.y },
+    { x: anchor.x, y: edgeY },
   ];
-  const rotated = [...candidates.slice(index % candidates.length), ...candidates.slice(0, index % candidates.length)];
-  const clamped = rotated.map((point) => clampLabelPoint(point, transform));
-  return clamped.find((point) => placed.every((other) => !boundsOverlap(circleBounds(point, CALLOUT_LABEL_RADIUS + 2), other))) ?? clampLabelPoint({ x: anchor.x + CALLOUT_MARGIN, y: anchor.y - CALLOUT_MARGIN }, transform);
+  return [...candidates.slice(index % candidates.length), ...candidates.slice(0, index % candidates.length)];
+}
+
+function localCandidateScore(point: PointM, bounds: Bounds, anchor: PointM): number {
+  const center = { x: (bounds.minX + bounds.maxX) / 2, y: (bounds.minY + bounds.maxY) / 2 };
+  const localDistance = distancePx(point, center);
+  const sameSidePenalty = Math.sign(point.x - center.x) === Math.sign(anchor.x - center.x) ||
+    Math.sign(point.y - center.y) === Math.sign(anchor.y - center.y)
+    ? 0
+    : 8;
+  return localDistance + sameSidePenalty;
+}
+
+function distancePx(a: PointM, b: PointM): number {
+  return Math.hypot(a.x - b.x, a.y - b.y);
+}
+
+function roundNumber(value: number, precision: number): number {
+  if (!Number.isFinite(value)) return 0;
+  const scale = 10 ** precision;
+  return Math.round(value * scale) / scale;
 }
 
 function clampLabelPoint(point: PointM, transform: WaterReaderSvgTransform): PointM {
@@ -290,6 +411,19 @@ function circleBounds(point: PointM, radius: number): Bounds {
 
 function boundsOverlap(a: Bounds, b: Bounds): boolean {
   return a.minX <= b.maxX && a.maxX >= b.minX && a.minY <= b.maxY && a.maxY >= b.minY;
+}
+
+function padBounds(bounds: Bounds, pad: number): Bounds {
+  return { minX: bounds.minX - pad, maxX: bounds.maxX + pad, minY: bounds.minY - pad, maxY: bounds.maxY + pad };
+}
+
+function pointInsideLakeSvg(point: PointM, lakePolygon: PolygonM | null, transform: WaterReaderSvgTransform): boolean {
+  if (!lakePolygon) return false;
+  const world = {
+    x: (point.x - transform.padding) / transform.scale + transform.minX,
+    y: transform.maxY - (point.y - transform.padding) / transform.scale,
+  };
+  return pointInWaterOrBoundary(world, lakePolygon, Math.max(0.5, 1 / Math.max(transform.scale, 0.001)));
 }
 
 function labelAnchor(entry: WaterReaderDisplayEntry, warnings: WaterReaderRenderWarning[]): WaterReaderLabelAnchor {
@@ -313,30 +447,42 @@ function renderLegend(displayModel: WaterReaderDisplayModel, transform: WaterRea
   rows.push(`<text x="${x}" y="${y}" font-family="${FONT}" font-size="15" font-weight="850" fill="${TEXT}">Water Reader Legend</text>`);
   y += 22;
   for (const entry of displayModel.displayLegendEntries) {
-    const titleLines = wrapText(`${entry.number}. ${entry.title}`, wrap.titleMaxChars, 2);
-    const bodyLines = wrapText(entry.body, wrap.bodyMaxChars, 3);
-    const warningLines = entry.transitionWarning ? wrapText(entry.transitionWarning, wrap.warningMaxChars, 2) : [];
+    const layout = legendEntryLayout(entry, wrap);
     const color = entry.colorHex ?? '#334155';
-    const rowHeight = 22 + bodyLines.length * 14 + warningLines.length * 13;
     rows.push(`<g class="water-reader-display-legend-entry" data-display-number="${entry.number}" transform="translate(${x} ${y})">
-      <rect x="0" y="-13" width="${width}" height="${rowHeight}" rx="6" fill="#FFFFFF" stroke="#E2E8F0"/>
+      <rect x="0" y="-${LEGEND_ROW_TOP_PADDING}" width="${width}" height="${layout.rowHeight}" rx="6" fill="#FFFFFF" stroke="#E2E8F0"/>
       <rect x="10" y="-4" width="10" height="10" rx="2" fill="${color}"/>
-      ${titleLines.map((line, index) => `<text x="${LEGEND_TEXT_OFFSET_X}" y="${index * 14}" font-family="${FONT}" font-size="12" font-weight="800" fill="${TEXT}">${escapeXml(line)}</text>`).join('')}
-      ${bodyLines.map((line, index) => `<text x="${LEGEND_TEXT_OFFSET_X}" y="${22 + index * 14}" font-family="${FONT}" font-size="10.5" fill="${MUTED}">${escapeXml(line)}</text>`).join('')}
-      ${warningLines.map((line, index) => `<text x="${LEGEND_TEXT_OFFSET_X}" y="${22 + bodyLines.length * 14 + index * 13}" font-family="${FONT}" font-size="10" fill="#8A4B00">${escapeXml(line)}</text>`).join('')}
+      ${layout.titleLines.map((line, index) => `<text x="${LEGEND_TEXT_OFFSET_X}" y="${index * LEGEND_TITLE_LINE_HEIGHT}" font-family="${FONT}" font-size="12" font-weight="800" fill="${TEXT}">${escapeXml(line)}</text>`).join('')}
+      ${layout.bodyLines.map((line, index) => `<text x="${LEGEND_TEXT_OFFSET_X}" y="${layout.bodyStartY + index * LEGEND_BODY_LINE_HEIGHT}" font-family="${FONT}" font-size="10.5" fill="${MUTED}">${escapeXml(line)}</text>`).join('')}
+      ${layout.warningLines.map((line, index) => `<text x="${LEGEND_TEXT_OFFSET_X}" y="${layout.warningStartY + index * LEGEND_WARNING_LINE_HEIGHT}" font-family="${FONT}" font-size="10" fill="#8A4B00">${escapeXml(line)}</text>`).join('')}
     </g>`);
-    y += rowHeight + 8;
+    y += layout.rowHeight + LEGEND_ROW_GAP;
   }
   return `<g class="water-reader-legend">${rows.join('\n  ')}</g>`;
 }
 
 function estimateLegendHeight(displayModel: WaterReaderDisplayModel, mapWidth: number, padding: number): number {
   const wrap = legendWrapLimits(mapWidth - padding * 2);
-  return 58 + displayModel.displayLegendEntries.reduce((sum, entry) => {
-    const bodyLines = wrapText(entry.body, wrap.bodyMaxChars, 3).length;
-    const warningLines = entry.transitionWarning ? wrapText(entry.transitionWarning, wrap.warningMaxChars, 2).length : 0;
-    return sum + 30 + bodyLines * 14 + warningLines * 13;
-  }, 0);
+  return 48 + displayModel.displayLegendEntries.reduce((sum, entry) => (
+    sum + legendEntryLayout(entry, wrap).rowHeight + LEGEND_ROW_GAP
+  ), 0);
+}
+
+function legendEntryLayout(
+  entry: { number?: number; title: string; body: string; transitionWarning?: string },
+  wrap: ReturnType<typeof legendWrapLimits>,
+): LegendEntryLayout {
+  const titleLines = wrapText(`${entry.number}. ${entry.title}`, wrap.titleMaxChars, 2);
+  const bodyLines = wrapText(entry.body, wrap.bodyMaxChars, 3);
+  const warningLines = entry.transitionWarning ? wrapText(entry.transitionWarning, wrap.warningMaxChars, 2) : [];
+  const bodyStartY = titleLines.length * LEGEND_TITLE_LINE_HEIGHT + LEGEND_TITLE_BODY_GAP;
+  const warningStartY = bodyStartY + bodyLines.length * LEGEND_BODY_LINE_HEIGHT;
+  const lastBodyY = bodyStartY + Math.max(0, bodyLines.length - 1) * LEGEND_BODY_LINE_HEIGHT;
+  const lastWarningY = warningLines.length > 0
+    ? warningStartY + (warningLines.length - 1) * LEGEND_WARNING_LINE_HEIGHT
+    : lastBodyY;
+  const rowHeight = lastWarningY + LEGEND_ROW_TOP_PADDING + LEGEND_ROW_BOTTOM_PADDING;
+  return { titleLines, bodyLines, warningLines, bodyStartY, warningStartY, rowHeight };
 }
 
 function legendWrapLimits(rowWidth: number): { titleMaxChars: number; bodyMaxChars: number; warningMaxChars: number } {
@@ -348,22 +494,22 @@ function legendWrapLimits(rowWidth: number): { titleMaxChars: number; bodyMaxCha
   };
 }
 
-function confluenceOutline(entry: WaterReaderDisplayEntry, transform: WaterReaderSvgTransform): string {
+function groupedEntryEnvelope(entry: WaterReaderDisplayEntry, transform: WaterReaderSvgTransform): string {
   const points = entry.zones.flatMap((zone) => visibleOrUnclippedRing(zone)).filter(validPoint);
   if (points.length < 3) return '';
   const center = boundsCenter(points);
-  const sorted = [...points].sort((a, b) => Math.atan2(a.y - center.y, a.x - center.x) - Math.atan2(b.y - center.y, b.x - center.x));
-  const sampleCount = Math.min(18, Math.max(8, sorted.length));
-  const sampled = Array.from({ length: sampleCount }, (_, index) => sorted[Math.floor((index / sampleCount) * sorted.length)]!);
-  const expanded = sampled.map((point) => {
-    const dx = point.x - center.x;
-    const dy = point.y - center.y;
-    const len = Math.hypot(dx, dy) || 1;
-    const pad = Math.max(entry.majorAxisM * 0.04, 8);
-    return { x: point.x + (dx / len) * pad, y: point.y + (dy / len) * pad };
+  const bounds = boundsForPoints(points);
+  const pad = Math.max(entry.majorAxisM * 0.025, 6);
+  const rx = Math.max((bounds.maxX - bounds.minX) / 2 + pad, entry.majorAxisM * 0.18);
+  const ry = Math.max((bounds.maxY - bounds.minY) / 2 + pad, entry.majorAxisM * 0.12);
+  const envelope = Array.from({ length: 32 }, (_, index) => {
+    const theta = (Math.PI * 2 * index) / 32;
+    return { x: center.x + Math.cos(theta) * rx, y: center.y + Math.sin(theta) * ry };
   });
-  const path = smoothClosedPath(expanded, transform);
-  return `<path class="water-reader-confluence-outline" d="${path}" fill="none" stroke="${CONFLUENCE}" stroke-width="3" stroke-opacity="0.86" stroke-linecap="round" stroke-linejoin="round"/>`;
+  const path = smoothClosedPath(envelope, transform);
+  const color = entry.entryType === 'structure_confluence' ? CONFLUENCE : entry.colorHex;
+  const className = entry.entryType === 'structure_confluence' ? 'water-reader-confluence-outline' : 'water-reader-neck-area-outline';
+  return `<path class="${className}" d="${path}" fill="${color}" fill-opacity="0.34" stroke="${color}" stroke-width="1.2" stroke-opacity="0.86" stroke-linecap="round" stroke-linejoin="round"/>`;
 }
 
 function visibleOrUnclippedRing(zone: WaterReaderDisplayZoneGeometry): RingM {

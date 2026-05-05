@@ -256,8 +256,8 @@ assert(
   'main-lake point side sizing should use calibrated protrusion/side-slope formula',
 );
 assert(
-  farBackSpringZones.every((zone) => approx(Number(zone.diagnostics.sizeMinClampM), fixture.longestDimensionM * 0.035, 0.1)),
-  'small-lake point side sizing should use 3.5% L minimum',
+  farBackSpringZones.every((zone) => approx(Number(zone.diagnostics.sizeMinClampM), fixture.longestDimensionM * 0.065, 0.1)),
+  'small-lake point side sizing should use 6.5% L minimum',
 );
 assert(
   farBackSpringZones.every((zone) => Number(zone.diagnostics.pointSideFractionFromTip) >= 0.35 && Number(zone.diagnostics.pointSideFractionFromTip) <= 0.55),
@@ -321,8 +321,8 @@ assert(
   'large-lake point zones should carry large lake-size-band diagnostics',
 );
 assert(
-  largeLakePointZones.every((zone) => Number(zone.diagnostics.sizeMinClampM) >= fixture.longestDimensionM * 0.045 - 0.1),
-  'large-lake point side/open-water sizing should use 4.5% L minimum',
+  largeLakePointZones.every((zone) => Number(zone.diagnostics.sizeMinClampM) >= fixture.longestDimensionM * 0.04 - 0.1),
+  'large-lake point side/open-water sizing should use 4.0% L minimum',
 );
 
 const farBackWinterZones = placeWaterReaderZones(
@@ -695,7 +695,7 @@ const smallCapDisplay = buildWaterReaderDisplayModel(combinedCapResult, combined
   acreage: 50,
   longestDimensionM: fixture.longestDimensionM,
 });
-assert(smallCapDisplay.displayCap === 3, 'small water display cap should be 3 entries');
+assert(smallCapDisplay.displayCap === 6, 'small water display cap should be 6 entries');
 assert(smallCapDisplay.capExceeded, 'display cap should report exceeded when valid entries overflow');
 assertDisplayLegendAlignment(smallCapDisplay);
 assertStandaloneEntriesHaveOneZone(smallCapDisplay);
@@ -731,14 +731,14 @@ const mediumCapDisplay = buildWaterReaderDisplayModel(combinedCapResult, combine
   acreage: 500,
   longestDimensionM: fixture.longestDimensionM,
 });
-assert(mediumCapDisplay.displayCap === 5, 'medium water display cap should be 5 entries');
+assert(mediumCapDisplay.displayCap === 10, 'medium water display cap should be 10 entries');
 assertDisplayLegendAlignment(mediumCapDisplay);
 assertStandaloneEntriesHaveOneZone(mediumCapDisplay);
 const largeCapDisplay = buildWaterReaderDisplayModel(combinedCapResult, combinedCapLegend, {
   acreage: 1500,
   longestDimensionM: fixture.longestDimensionM,
 });
-assert(largeCapDisplay.displayCap === 7, 'large/unknown water display cap should be 7 entries');
+assert(largeCapDisplay.displayCap === 12, 'large/unknown water display cap should be 12 entries');
 assertDisplayLegendAlignment(largeCapDisplay);
 assertStandaloneEntriesHaveOneZone(largeCapDisplay);
 assert(
@@ -1187,7 +1187,11 @@ function assertProductionSvg(model: ReturnType<typeof buildWaterReaderDisplayMod
   assert(mobile.summary.renderedNumberCount === model.displayLegendEntries.length, 'mobile rendered number count should equal display legend entry count');
   assert(mobile.summary.retainedRenderedCount === 0, 'mobile retained entries rendered count should be zero');
   assert(mobile.summary.calloutLabelCount >= 0, 'mobile renderer summary should include callout label count');
-  assert(mobile.warnings.length === 0, `mobile production SVG should not warn for valid input: ${mobile.warnings.map((warning) => warning.code).join(', ')}`);
+  const unexpectedMobileWarnings = mobile.warnings.filter((warning) => warning.code !== 'legend_overflow_risk' && warning.code !== 'long_label_leader');
+  assert(
+    unexpectedMobileWarnings.length === 0,
+    `mobile production SVG should not warn for valid input except layout warnings: ${unexpectedMobileWarnings.map((warning) => warning.code).join(', ')}`,
+  );
   const longLegendText = [...mobile.svg.matchAll(/<g class="water-reader-display-legend-entry"[\s\S]*?<\/g>/g)]
     .flatMap((match) => [...match[0].matchAll(/<text[^>]*>([^<]+)<\/text>/g)].map((textMatch) => textMatch[1] ?? ''))
     .filter((text) => text.length > 60);

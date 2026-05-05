@@ -50,7 +50,9 @@ export type WaterReaderZonePlacementSemanticId =
   | 'cove_irregular_side_closer_to_mouth'
   | 'cove_irregular_side_closer_to_back'
   | 'neck_shoulder_endpoint'
+  | 'neck_shoulder_approach'
   | 'saddle_shoulder_endpoint'
+  | 'saddle_shoulder_approach'
   | 'shoreline_frame_recovery'
   | 'island_mainland_primary'
   | 'island_open_water_area'
@@ -80,7 +82,7 @@ export interface WaterReaderPlacedZone {
   unclippedRing: RingM;
   visibleWaterRing: RingM;
   visibleWaterFraction: number;
-  diagnostics: Record<string, number | string | boolean | null>;
+  diagnostics: Record<string, number | string | boolean | string[] | null>;
   qaFlags: string[];
 }
 

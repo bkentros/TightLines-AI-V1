@@ -49,8 +49,8 @@ export function zoneDraftSort(a: WaterReaderZoneDraft, b: WaterReaderZoneDraft):
 
 export function visibleZoneCap(acres: number | null | undefined): number {
   if (typeof acres === 'number' && Number.isFinite(acres)) {
-    if (acres < 100) return 3;
-    if (acres <= 1000) return 5;
+    if (acres < 100) return 6;
+    if (acres <= 1000) return 10;
   }
-  return 7;
+  return 12;
 }

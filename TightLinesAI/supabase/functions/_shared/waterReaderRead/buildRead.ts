@@ -46,6 +46,7 @@ export function buildServerWaterReaderRead(params: {
   const displayModel = buildWaterReaderDisplayModel(zoneResult, legend, {
     acreage: input.acreage,
     longestDimensionM: preprocess.metrics?.longestDimensionM,
+    lakePolygon: preprocess.primaryPolygon,
   });
   const renderStarted = Date.now();
 
