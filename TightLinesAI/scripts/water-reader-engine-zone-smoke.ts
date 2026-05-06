@@ -7,13 +7,13 @@ import {
   materializeZoneDraft,
   placeWaterReaderZones,
   preprocessWaterReaderGeometry,
+  retainedDisplayState,
   waterReaderLegendForbiddenPhraseHits,
   waterReaderLegendTemplateCoverage,
   type PointM,
   type PolygonM,
   type WaterReaderCoveFeature,
   type WaterReaderDetectedFeature,
-  type WaterReaderIslandFeature,
   type WaterReaderNeckFeature,
   type WaterReaderPointFeature,
   type WaterReaderPolygonGeoJson,
@@ -225,6 +225,33 @@ assert(
   neckZones.every((zone) => Number(zone.diagnostics.candidateCount) >= 1),
   'neck placement should evaluate feature-envelope recovery candidates',
 );
+assert(
+  neckZones.every((zone) =>
+    typeof zone.diagnostics.constrictionWidthM === 'number' &&
+    typeof zone.diagnostics.constrictionWidthToAverage === 'number' &&
+    typeof zone.diagnostics.constrictionLeftExpansionRatio === 'number' &&
+    typeof zone.diagnostics.constrictionRightExpansionRatio === 'number' &&
+    typeof zone.diagnostics.constrictionConfidence === 'number' &&
+    typeof zone.diagnostics.constrictionReadabilityClass === 'string'
+  ),
+  'neck diagnostics should expose constriction audit metrics',
+);
+const broadSaddle = {
+  ...fakeSaddle('broad-saddle', lerp(topLeftShoulder, topRightShoulder, 0.42), lerp(topLeftShoulder, topRightShoulder, 0.58)),
+  widthM: fixture.longestDimensionM * 0.45,
+  leftExpansionRatio: 1.08,
+  rightExpansionRatio: 1.12,
+  confidence: 0.42,
+};
+const broadSaddleZones = placeWaterReaderZones(
+  preprocessShell(fixture),
+  [broadSaddle],
+  { state: 'MI', acreage: 80, currentDate: new Date(Date.UTC(2026, 4, 1)), geojson: fixture.geojson },
+).zones.filter((zone) => zone.featureClass === 'saddle');
+assert(
+  broadSaddleZones.some((zone) => zone.diagnostics.constrictionReadabilityClass === 'low_confidence_review'),
+  'broad low-confidence saddle should be flagged for review in diagnostics',
+);
 
 for (const seasonCase of seasonCases) {
   const seasonalNeckZones = placeWaterReaderZones(
@@ -242,17 +269,34 @@ for (const seasonCase of seasonCases) {
   assertFeatureEnvelopeZones(seasonalSaddleZones.filter((zone) => zone.featureClass === 'saddle'), 'saddle_structure_area', `saddle ${seasonCase.season}`);
 }
 
-const pointZones = placeWaterReaderZones(
+const pointResult = placeWaterReaderZones(
   preprocessShell(fixture),
   [fakePoint('point-1', topMid, topLeftShoulder, topRightShoulder)],
   { state: 'MI', acreage: 80, currentDate: new Date(Date.UTC(2026, 0, 15)), geojson: fixture.geojson },
-).zones;
+);
+const pointZones = pointResult.zones;
 const pointZone = pointZones.find((zone) => zone.featureClass === 'main_lake_point');
 assertZoneSemanticIds(pointZones, 'point');
 assert(pointZone, 'point feature should create a zone');
 assertFeatureEnvelopeZones(pointZones.filter((zone) => zone.featureClass === 'main_lake_point'), 'main_point_structure_area', 'point');
 assert(pointZone.visibleWaterFraction <= Number(pointZone.diagnostics.visibleWaterFractionCeiling), 'point zone should honor its scoped visible-fraction ceiling');
 assert(pointZone.visibleWaterRing.length > 0, 'point zone should touch visible water');
+assert(pointZone.diagnostics.pointEnvelopeRenderShape === 'rounded_point_apron', 'point envelope should request rounded apron rendering');
+assert(pointZone.diagnostics.pointEnvelopeRoundedApronUsed === true, 'point envelope should diagnose rounded apron rendering');
+assert(pointZone.diagnostics.pointEnvelopeWrapsTip === true, 'point envelope should diagnose tip coverage');
+assert(pointZone.diagnostics.pointEnvelopeWrapsLeftShoulder === true, 'point envelope should diagnose left shoulder coverage');
+assert(pointZone.diagnostics.pointEnvelopeWrapsRightShoulder === true, 'point envelope should diagnose right shoulder coverage');
+assert(pointZone.diagnostics.pointApronRenderMethod === 'shoreline_buffer', 'point apron should request shoreline buffer rendering');
+assert(pointZone.diagnostics.pointApronRenderedAsShorelineBuffer === true, 'point apron should diagnose shoreline buffer rendering');
+assert(typeof pointZone.diagnostics.pointEnvelopeShorePathSampleCount === 'number' && pointZone.diagnostics.pointEnvelopeShorePathSampleCount >= 3, 'point apron should expose shoreline path samples');
+assert(typeof pointZone.diagnostics.pointEnvelopeShorePathLengthM === 'number', 'point apron should expose shoreline path length diagnostics');
+assert(typeof pointZone.diagnostics.pointApronStrokeWidthM === 'number', 'point apron should expose stroke width meters');
+assert(typeof pointZone.diagnostics.pointApronStrokeWidthPx === 'number', 'point apron should expose estimated app stroke width pixels');
+assert(typeof pointZone.diagnostics.pointApronAppMinWidthPx === 'number', 'point apron should expose app minimum stroke width pixels');
+assert(typeof pointZone.diagnostics.pointApronWaterwardPadM === 'number', 'point apron should expose waterward pad diagnostics');
+assert(typeof pointZone.diagnostics.pointApronShoulderPadM === 'number', 'point apron should expose shoulder pad diagnostics');
+assert(typeof pointZone.diagnostics.pointApronVisibleAreaRatio === 'number', 'point apron should expose visible area diagnostics');
+assert(typeof pointZone.diagnostics.pointApronClippedTooThin === 'boolean', 'point apron should expose thin clipping diagnostics');
 const topOutward = normalizeVector({ x: topMid.x - bottomMid.x, y: topMid.y - bottomMid.y });
 const outsideCenterPointMajorAxisM = Math.max(80, fixture.longestDimensionM * 0.06);
 const outsideCenterPointMinorAxisM = Math.max(46, fixture.longestDimensionM * 0.035);
@@ -402,6 +446,17 @@ assertFeatureEnvelopeZones(coveZones.filter((zone) => zone.featureClass === 'cov
 assert(coveZone.visibleWaterFraction <= Number(coveZone.diagnostics.visibleWaterFractionCeiling), 'cove zone should honor its scoped visible-fraction ceiling');
 assert(coveZone.visibleWaterRing.length > 0, 'cove zone should touch visible water');
 assert(Number(coveZone.diagnostics.candidateCount) >= 1, 'cove placement should evaluate feature-envelope recovery candidates');
+assert(coveZone.diagnostics.coveEnvelopeRenderShape === 'shoreline_cove_polygon', 'cove envelope should request shoreline cove polygon rendering');
+assert(coveZone.diagnostics.coveEnvelopeMouthClosureKind === 'quadratic_mouth_cap', 'cove envelope should expose curved mouth closure diagnostics');
+assert(typeof coveZone.diagnostics.coveEnvelopeMouthWidthM === 'number', 'cove envelope should expose mouth width diagnostics');
+assert(typeof coveZone.diagnostics.coveEnvelopeDepthM === 'number', 'cove envelope should expose depth diagnostics');
+assert(typeof coveZone.diagnostics.coveEnvelopeShorePathSampleCount === 'number', 'cove envelope should expose shore-path sample diagnostics');
+assert(coveZone.diagnostics.coveEnvelopeShorePathSampleCount >= 21, 'cove envelope should preserve at least 21 shoreline samples for SVG fidelity');
+assert(coveZone.diagnostics.coveEnvelopeShorePathSampleCount <= 96, 'cove envelope should cap shoreline samples for app SVG review');
+assert(typeof coveZone.diagnostics.coveEnvelopeMaxShoreSegmentM === 'number', 'cove envelope should expose max shoreline segment diagnostics');
+assert(typeof coveZone.diagnostics.coveEnvelopeMaxShoreSegmentAppPxEstimate === 'number', 'cove envelope should expose app-pixel segment estimate diagnostics');
+assert(typeof coveZone.diagnostics.coveEnvelopeShorePathPreserved === 'boolean', 'cove envelope should report whether raw shoreline path was preserved');
+assert(coveZone.diagnostics.coveEnvelopeBasinBounded === true, 'cove envelope should report bounded basin behavior');
 assert(
   coveResult.diagnostics.unitDiagnostics.some((unit) => unit.featureId === 'cove-1' && unit.materializedCandidateCount <= unit.draftCount),
   'zone placement should expose materialized candidate counters without requiring every draft to be evaluated',
@@ -554,6 +609,15 @@ assert(
   fallIslandZones.every((zone) => zone.diagnostics.islandLandHoleClippingBehavior === 'lake_polygon_evenodd_hole_clip'),
   'island structure area diagnostics should report lake-hole clipping behavior',
 );
+assert(
+  fallIslandZones.every((zone) =>
+    typeof zone.diagnostics.islandSelectionAreaSqM === 'number' &&
+    typeof zone.diagnostics.islandSelectionNearestMainlandDistanceM === 'number' &&
+    typeof zone.diagnostics.islandSelectionNearestMainlandDistanceThresholdM === 'number' &&
+    typeof zone.diagnostics.islandSelectionTinyAreaThresholdSqM === 'number'
+  ),
+  'island structure area diagnostics should expose selection thresholds and mainland distance',
+);
 
 const openWaterDraft: WaterReaderZoneDraft = {
   unitId: 'open-water',
@@ -655,6 +719,59 @@ if (overlapResult.diagnostics.confluenceGroupCount > 0) {
 }
 assertNoForbiddenLegendCopy(transitionConfluenceLegend);
 
+const crossFeatureOverlapResult = placeWaterReaderZones(
+  preprocessShell(fixture),
+  [fakeCove('cove-neck-overlap', topLeftShoulder, topRightShoulder, topMid), neck],
+  { state: 'MI', acreage: 80, currentDate: new Date(Date.UTC(2026, 4, 1)), geojson: fixture.geojson },
+);
+const crossFeatureGroup = crossFeatureOverlapResult.diagnostics.confluenceGroups.find((group) => group.crossFeatureOverlapPair === 'cove+neck');
+assert(crossFeatureGroup, 'heavy compact cove+neck overlap should become one cross-feature structure area');
+assert(crossFeatureGroup.crossFeatureOverlapResolutionMode === 'unified_compact_structure_area', 'cross-feature overlap should report unified compact resolution');
+assert(typeof crossFeatureGroup.crossFeatureOverlapFraction === 'number', 'cross-feature overlap should expose overlap fraction');
+assert(typeof crossFeatureGroup.crossFeatureContainmentFraction === 'number', 'cross-feature overlap should expose containment fraction');
+assert(typeof crossFeatureGroup.crossFeatureUnifiedCompactnessRatio === 'number', 'cross-feature overlap should expose compactness ratio');
+const crossFeatureLegend = buildWaterReaderLegend(crossFeatureOverlapResult, { state: 'MI', currentDate: new Date(Date.UTC(2026, 4, 1)) });
+assert(
+  crossFeatureLegend.some((entry) => entry.isConfluence && entry.title.includes('Structure Area - Cove + Neck')),
+  'cross-feature unified overlap legend should use Structure Area - Cove + Neck wording',
+);
+const islandPointOverlapResult = {
+  ...pointResult,
+  zones: [
+    pointZone,
+    {
+      ...pointZone,
+      zoneId: 'zone-island-point-overlap',
+      sourceFeatureId: 'island-point-overlap',
+      featureClass: 'island' as const,
+      placementKind: 'island_structure_area' as const,
+      placementSemanticId: 'island_structure_area' as const,
+      anchorSemanticId: 'island_structure_area' as const,
+      diagnostics: {
+        ...pointZone.diagnostics,
+        featureEnvelopeSourceFeatureId: 'island-point-overlap',
+        featureEnvelopeGeometryKind: 'island_structure_envelope',
+        featureEnvelopeIncludes: ['island_ring', 'adjacent_water'],
+      },
+    },
+  ],
+  diagnostics: {
+    ...pointResult.diagnostics,
+    zoneCount: 2,
+    confluenceGroupCount: 0,
+    confluenceGroups: [],
+  },
+} as typeof pointResult;
+const islandPointLegend = buildWaterReaderLegend(islandPointOverlapResult, { state: 'MI', currentDate: new Date(Date.UTC(2026, 4, 1)) });
+const islandPointDisplay = buildWaterReaderDisplayModel(islandPointOverlapResult, islandPointLegend, {
+  acreage: 80,
+  longestDimensionM: fixture.longestDimensionM,
+});
+assert(
+  islandPointDisplay.displayedEntries.some((entry) => entry.entryType === 'structure_confluence' && entry.legend?.title === 'Structure Area - Island + Point'),
+  'compact island+point overlap should display as one unified Island + Point structure area',
+);
+
 const duplicateNeckConfluenceLegend = buildWaterReaderLegend({
   ...neckResult,
   diagnostics: {
@@ -699,6 +816,277 @@ const combinedCapResult = {
   },
 };
 const combinedCapLegend = buildWaterReaderLegend(combinedCapResult, { state: 'MI', currentDate: new Date(Date.UTC(2026, 4, 1)) });
+assert(
+  retainedDisplayState(['retained_title_diversity_rebalance']) === 'retained_not_displayed_diversity' &&
+    retainedDisplayState(['retained_feature_family_diversity_rebalance']) === 'retained_not_displayed_diversity' &&
+    retainedDisplayState(['retained_repeated_title_diversity']) === 'retained_not_displayed_diversity' &&
+    retainedDisplayState(['retained_constriction_line_readability']) === 'retained_not_displayed_readability' &&
+    retainedDisplayState(['ordinary_cap_overflow']) === 'retained_not_displayed_cap',
+  'retained-state classifier should separate diversity, readability, and cap retention',
+);
+const repeatedTitleZones = [
+  translatedZoneClone(farBackSummerZones[0]!, 'duplicate-title-east', 240, 0),
+  translatedZoneClone(farBackSummerZones[0]!, 'duplicate-title-west', -240, 0),
+  translatedZoneClone(farBackSummerZones[0]!, 'duplicate-title-north', 0, 180),
+  translatedZoneClone(farBackSummerZones[0]!, 'duplicate-title-south', 0, -180),
+  translatedZoneClone(farBackSummerZones[0]!, 'duplicate-title-center', 0, 0),
+];
+const repeatedTitleResult = {
+  ...neckResult,
+  season: 'summer' as const,
+  zones: repeatedTitleZones,
+  diagnostics: {
+    ...neckResult.diagnostics,
+    confluenceGroupCount: 0,
+    confluenceGroups: [],
+    zoneCount: repeatedTitleZones.length,
+    featureCoverage: [],
+  },
+};
+const repeatedTitleLegend = buildWaterReaderLegend(repeatedTitleResult, { state: 'MI', currentDate: new Date(Date.UTC(2026, 6, 15)) });
+const repeatedTitleLegendAgain = buildWaterReaderLegend(repeatedTitleResult, { state: 'MI', currentDate: new Date(Date.UTC(2026, 6, 15)) });
+assert(
+  repeatedTitleLegend.length === repeatedTitleZones.length &&
+    repeatedTitleLegend.every((entry) => /^(North|South|East|West|Northeast|Northwest|Southeast|Southwest|Center) Main Lake Point( [A-Z])? - Structure Area$/.test(entry.title)),
+  `duplicate legend titles should receive deterministic positional qualifiers: ${repeatedTitleLegend.map((entry) => entry.title).join(' | ')}`,
+);
+assert(
+  JSON.stringify(repeatedTitleLegend.map((entry) => entry.title)) === JSON.stringify(repeatedTitleLegendAgain.map((entry) => entry.title)),
+  'duplicate legend title qualifiers should be stable across repeated builds',
+);
+const diversityOnlyLegend = repeatedTitleZones.map((zone, index) => ({
+  number: index + 1,
+  entryId: zone.zoneId,
+  zoneId: zone.zoneId,
+  zoneIds: [zone.zoneId],
+  featureClass: zone.featureClass,
+  placementKind: zone.placementKind,
+  placementKinds: [zone.placementKind],
+  colorHex: WATER_READER_FEATURE_COLORS[zone.featureClass],
+  templateId: `${zone.featureClass}:summer:${zone.placementKind}`,
+  title: 'Main Lake Point - Structure Area',
+  body: 'Summer comparison guidance for this geometry-only structure area.',
+  isConfluence: false,
+}));
+const diversityOnlyDisplay = buildWaterReaderDisplayModel(repeatedTitleResult, diversityOnlyLegend, {
+  acreage: 50,
+  longestDimensionM: fixture.longestDimensionM,
+});
+assert(
+  diversityOnlyDisplay.retainedEntries.length > 0 &&
+    diversityOnlyDisplay.retainedEntries.every((entry) => entry.displayState === 'retained_not_displayed_diversity') &&
+    diversityOnlyDisplay.displaySelectionUnits.some((unit) => unit.displayState === 'retained_not_displayed_diversity') &&
+    !diversityOnlyDisplay.capExceeded,
+  'diversity-only retention should not report display cap pressure',
+);
+const displayBalancePointZones = [
+  translatedZoneClone(farBackSummerZones[0]!, 'balance-point-1', 320, 0),
+  translatedZoneClone(farBackSummerZones[0]!, 'balance-point-2', 220, 140),
+  translatedZoneClone(farBackSummerZones[0]!, 'balance-point-3', 80, 220),
+  translatedZoneClone(farBackSummerZones[0]!, 'balance-point-4', -80, 220),
+  translatedZoneClone(farBackSummerZones[0]!, 'balance-point-5', -220, 140),
+  translatedZoneClone(farBackSummerZones[0]!, 'balance-point-6', -320, 0),
+];
+const displayBalanceSaddle = translatedZoneClone(
+  { ...cloneZonesWithPrefix(placeWaterReaderZones(
+    preprocessShell(fixture),
+    [fakeSaddle('balance-saddle', lerp(topLeftShoulder, topRightShoulder, 0.4), lerp(topLeftShoulder, topRightShoulder, 0.6))],
+    { state: 'MI', acreage: 80, currentDate: new Date(Date.UTC(2026, 6, 15)), geojson: fixture.geojson },
+  ).zones.filter((zone) => zone.featureClass === 'saddle'), 'balance-saddle')[0]! },
+  'balance-saddle-shifted',
+  0,
+  -260,
+);
+const displayBalanceZones = [...displayBalancePointZones, displayBalanceSaddle];
+const displayBalanceResult = {
+  ...neckResult,
+  season: 'summer' as const,
+  zones: displayBalanceZones,
+  diagnostics: {
+    ...neckResult.diagnostics,
+    confluenceGroupCount: 0,
+    confluenceGroups: [],
+    zoneCount: displayBalanceZones.length,
+    featureCoverage: [],
+  },
+};
+const displayBalanceLegend = displayBalanceZones.map((zone, index) => ({
+  number: index + 1,
+  entryId: zone.zoneId,
+  zoneId: zone.zoneId,
+  zoneIds: [zone.zoneId],
+  featureClass: zone.featureClass,
+  placementKind: `${zone.placementKind}:${index}`,
+  placementKinds: [`${zone.placementKind}:${index}`],
+  colorHex: WATER_READER_FEATURE_COLORS[zone.featureClass],
+  templateId: `${zone.featureClass}:summer:${zone.placementKind}:${index}`,
+  title: `${zone.featureClass} ${index}`,
+  body: 'Summer comparison guidance for this geometry-only structure area.',
+  isConfluence: false,
+}));
+const displayBalanceModel = buildWaterReaderDisplayModel(displayBalanceResult, displayBalanceLegend as any, {
+  acreage: 50,
+  longestDimensionM: fixture.longestDimensionM,
+});
+assert(
+  displayBalanceModel.displayedEntries.some((entry) => entry.featureClasses.includes('saddle') && entry.rankingDiagnostics.includes('displayed_non_point_over_excess_main_point')) &&
+    displayBalanceModel.retainedEntries.some((entry) => entry.featureClasses.includes('main_lake_point') && entry.rankingDiagnostics.includes('retained_excess_main_point_display_balance')) &&
+    !displayBalanceModel.retainedEntries.some((entry) => entry.featureClasses.includes('saddle')),
+  '4+ displayed main-lake points with a retained saddle should rebalance the saddle into display',
+);
+assert(displayBalanceModel.capExceeded, 'true cap-retained structure should keep capExceeded true');
+
+const recoveryNeckBase = neckZones.find((zone) => zone.featureClass === 'neck')!;
+const recoverySaddleBase = broadSaddleZones.find((zone) => zone.featureClass === 'saddle')!;
+const recoveredClearNeckZone = {
+  ...translatedZoneClone(recoveryNeckBase, 'recovered-clear-neck', 0, -360),
+  diagnostics: {
+    ...recoveryNeckBase.diagnostics,
+    constrictionReadabilityClass: 'clear_two_sided_constriction',
+    constrictionConfidence: 0.97,
+    constrictionWidthToAverage: 0.12,
+    constrictionWeakerExpansionRatio: 3.2,
+    constrictionExpansionBalance: 0.92,
+    constrictionOneSidedExpansion: false,
+  },
+};
+const recoveredOneSidedNeckZone = {
+  ...translatedZoneClone(recoveryNeckBase, 'recovered-one-sided-neck', 0, -360),
+  diagnostics: {
+    ...recoveryNeckBase.diagnostics,
+    constrictionReadabilityClass: 'one_sided_constriction_review',
+    constrictionConfidence: 0.86,
+    constrictionWidthToAverage: 0.07,
+    constrictionWeakerExpansionRatio: 2.4,
+    constrictionExpansionBalance: 0.52,
+    constrictionOneSidedExpansion: true,
+  },
+};
+const narrowRecoveredNeckZone = {
+  ...translatedZoneClone(recoveryNeckBase, 'narrow-recovered-neck', 0, -360),
+  diagnostics: {
+    ...recoveryNeckBase.diagnostics,
+    constrictionReadabilityClass: 'clear_two_sided_constriction',
+    constrictionConfidence: 0.97,
+    constrictionWidthToAverage: 0.02,
+    constrictionWeakerExpansionRatio: 3.2,
+    constrictionExpansionBalance: 0.92,
+    constrictionOneSidedExpansion: false,
+  },
+};
+const lowConfidenceSaddleZone = {
+  ...translatedZoneClone(recoverySaddleBase, 'low-confidence-saddle', 0, -360),
+  diagnostics: {
+    ...recoverySaddleBase.diagnostics,
+    constrictionReadabilityClass: 'broad_saddle_review',
+    constrictionConfidence: 0.56,
+    constrictionWidthToAverage: 0.42,
+    constrictionWeakerExpansionRatio: 1.18,
+    constrictionExpansionBalance: 0.32,
+  },
+};
+const pontiacLikeBroadSaddleZone = {
+  ...translatedZoneClone(recoverySaddleBase, 'pontiac-like-broad-saddle', 0, -360),
+  diagnostics: {
+    ...recoverySaddleBase.diagnostics,
+    constrictionReadabilityClass: 'broad_saddle_review',
+    constrictionConfidence: 0.84,
+    constrictionWidthToAverage: 0.42,
+    constrictionWeakerExpansionRatio: 1.18,
+    constrictionExpansionBalance: 0.32,
+    constrictionOneSidedExpansion: true,
+  },
+};
+const visuallySubstantialBroadSaddleZone = {
+  ...translatedZoneClone(recoverySaddleBase, 'substantial-broad-saddle', 0, -360),
+  diagnostics: {
+    ...recoverySaddleBase.diagnostics,
+    constrictionReadabilityClass: 'broad_saddle_review',
+    constrictionConfidence: 0.9,
+    constrictionWidthToAverage: 0.42,
+    constrictionWeakerExpansionRatio: 1.55,
+    constrictionExpansionBalance: 0.58,
+    constrictionTwoSidedExpansion: true,
+  },
+};
+
+function recoveryDisplayFor(zone: any, appMapWidth: number) {
+  const result = {
+    ...neckResult,
+    zones: [zone],
+    diagnostics: {
+      ...neckResult.diagnostics,
+      confluenceGroupCount: 0,
+      confluenceGroups: [],
+      zoneCount: 1,
+      featureCoverage: [],
+    },
+  };
+  const legend = [{
+    number: 1,
+    entryId: zone.zoneId,
+    zoneId: zone.zoneId,
+    zoneIds: [zone.zoneId],
+    featureClass: zone.featureClass,
+    placementKind: zone.placementKind,
+    placementKinds: [zone.placementKind],
+    colorHex: WATER_READER_FEATURE_COLORS[zone.featureClass],
+    templateId: `${zone.featureClass}:summer:${zone.placementKind}:recovery`,
+    title: zone.featureClass === 'saddle' ? 'Saddle - Structure Area' : 'Neck - Structure Area',
+    body: 'Summer comparison guidance for this geometry-only structure area.',
+    isConfluence: false,
+  }];
+  return buildWaterReaderDisplayModel(result, legend as any, {
+    acreage: 50,
+    longestDimensionM: fixture.longestDimensionM,
+    lakePolygon: fixture.polygonM,
+    appMapWidth,
+  });
+}
+
+const clearNeckRecoveryModel = recoveryDisplayFor(recoveredClearNeckZone, 245);
+const clearNeckRecoveryEntry = clearNeckRecoveryModel.displayedEntries.find((entry) => entry.featureClasses.includes('neck'));
+assert(clearNeckRecoveryEntry, 'high-confidence clear neck with appMax around 14px should display');
+assert(!clearNeckRecoveryModel.retainedEntries.some((entry) => entry.featureClasses.includes('neck')), 'high-confidence clear neck should not remain retained');
+assert(clearNeckRecoveryEntry.zones.some((zone) => zone.diagnostics.constrictionRecoveredFromTinyGate === true && zone.diagnostics.constrictionRecoveryReason === 'high_confidence_clear_neck'), 'recovered clear neck should expose tiny-gate recovery diagnostics');
+assert(clearNeckRecoveryEntry.zones.some((zone) => Number(zone.diagnostics.constrictionDisplayAppFootprintMaxPx) >= 12 && Number(zone.diagnostics.constrictionDisplayAppFootprintMaxPx) < 16), 'clear neck recovery fixture should exercise the around-14px app footprint case');
+assert(clearNeckRecoveryEntry.legend?.title.includes('Neck') && !clearNeckRecoveryEntry.legend?.title.includes('Pinch'), 'broader clear two-sided recovered neck should keep Neck labeling');
+assert(clearNeckRecoveryEntry.zones.some((zone) => zone.diagnostics.constrictionDisplaySubtype === 'neck'), 'broader clear two-sided recovered neck should expose neck subtype diagnostics');
+
+const narrowNeckRecoveryModel = recoveryDisplayFor(narrowRecoveredNeckZone, 245);
+const narrowNeckRecoveryEntry = narrowNeckRecoveryModel.displayedEntries.find((entry) => entry.featureClasses.includes('neck'));
+assert(narrowNeckRecoveryEntry, 'high-confidence narrow recovered neck should display');
+assert(narrowNeckRecoveryEntry.legend?.title.includes('Pinch') && !narrowNeckRecoveryEntry.legend?.title.includes('Neck'), 'widthToAverage <= 0.035 constriction should display as Pinch, not Neck');
+assert(narrowNeckRecoveryEntry.zones.some((zone) => zone.diagnostics.constrictionDisplaySubtype === 'pinch' && zone.diagnostics.constrictionDisplaySubtypeReason === 'narrow_width_ratio'), 'narrow recovered neck should expose pinch subtype diagnostics');
+
+const oneSidedRecoveryModel = recoveryDisplayFor(recoveredOneSidedNeckZone, 177);
+const oneSidedRecoveryEntry = oneSidedRecoveryModel.displayedEntries.find((entry) => entry.featureClasses.includes('neck'));
+assert(oneSidedRecoveryEntry, 'high-confidence one-sided neck with appMax around 9px should display');
+assert(oneSidedRecoveryEntry.legend?.title.includes('Pinch'), 'recovered one-sided neck should display as a pinch subtype');
+assert(oneSidedRecoveryEntry.zones.some((zone) => zone.diagnostics.constrictionRecoveredFromTinyGate === true && zone.diagnostics.constrictionRecoveryReason === 'high_confidence_one_sided_pinch'), 'recovered one-sided pinch should expose recovery diagnostics');
+assert(oneSidedRecoveryEntry.zones.some((zone) => Number(zone.diagnostics.constrictionDisplayAppFootprintMaxPx) >= 8 && Number(zone.diagnostics.constrictionDisplayAppFootprintMaxPx) < 12), 'one-sided recovery fixture should exercise the around-9px app footprint case');
+
+const lowConfidenceSaddleModel = recoveryDisplayFor(lowConfidenceSaddleZone, 420);
+assert(lowConfidenceSaddleModel.retainedEntries.some((entry) => entry.featureClasses.includes('saddle') && entry.displayState === 'retained_not_displayed_readability'), 'confidence below 0.58 saddle should remain retained');
+assert(!lowConfidenceSaddleModel.displayedEntries.some((entry) => entry.featureClasses.includes('saddle')), 'low-confidence saddle should not display through recovery');
+
+const pontiacLikeBroadSaddleModel = recoveryDisplayFor(pontiacLikeBroadSaddleZone, 420);
+assert(
+  pontiacLikeBroadSaddleModel.retainedEntries.some((entry) =>
+    entry.featureClasses.includes('saddle') &&
+    entry.zones.some((zone) => zone.diagnostics.constrictionDisplayRetainedReason === 'broad_saddle_not_visually_substantial')
+  ),
+  'Pontiac-like broad saddle should be retained as not visually substantial',
+);
+assert(!pontiacLikeBroadSaddleModel.displayedEntries.some((entry) => entry.featureClasses.includes('saddle')), 'Pontiac-like broad saddle should not display');
+
+const recoveredBroadSaddleModel = recoveryDisplayFor(visuallySubstantialBroadSaddleZone, 640);
+const recoveredBroadSaddleEntry = recoveredBroadSaddleModel.displayedEntries.find((entry) => entry.featureClasses.includes('saddle'));
+assert(recoveredBroadSaddleEntry, 'visually substantial broad saddle should still display');
+assert(recoveredBroadSaddleEntry.legend?.title.includes('Saddle'), 'recovered broad saddle should keep saddle labeling');
+assert(recoveredBroadSaddleEntry.zones.some((zone) => zone.diagnostics.saddleRecoveredFromBroadReview === true && zone.diagnostics.saddleRecoveryReason === 'high_confidence_readable_broad_saddle'), 'recovered broad saddle should expose recovery diagnostics');
+
+assertNoForbiddenLegendCopy(repeatedTitleLegend);
 const smallCapDisplay = buildWaterReaderDisplayModel(combinedCapResult, combinedCapLegend, {
   acreage: 50,
   longestDimensionM: fixture.longestDimensionM,
@@ -1013,6 +1401,26 @@ function cloneZonesWithPrefix<T extends { zoneId: string; sourceFeatureId: strin
   }));
 }
 
+function translatedZoneClone<T extends {
+  zoneId: string;
+  sourceFeatureId: string;
+  anchor: PointM;
+  ovalCenter: PointM;
+  visibleWaterRing: PointM[];
+  unclippedRing: PointM[];
+}>(zone: T, prefix: string, dx: number, dy: number): T {
+  const shift = (point: PointM): PointM => ({ x: point.x + dx, y: point.y + dy });
+  return {
+    ...zone,
+    zoneId: `${prefix}-zone-1`,
+    sourceFeatureId: `${prefix}-${zone.sourceFeatureId}`,
+    anchor: shift(zone.anchor),
+    ovalCenter: shift(zone.ovalCenter),
+    visibleWaterRing: zone.visibleWaterRing.map(shift),
+    unclippedRing: zone.unclippedRing.map(shift),
+  };
+}
+
 function midpoint(a: PointM, b: PointM): PointM {
   return { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 };
 }
@@ -1181,9 +1589,15 @@ function assertProductionSvg(model: ReturnType<typeof buildWaterReaderDisplayMod
   for (const entry of model.displayedEntries.filter((item) => item.entryType === 'structure_confluence')) {
     assert(countMatches(result.svg, `data-entry-id="${entry.entryId}"`) >= 2, 'confluence should render as one grouped entry with one label');
     assert(countMatches(result.svg, `data-display-number="${entry.displayNumber}"`) >= 2, 'confluence should have one map number and one legend number');
-    assert(result.svg.includes(`data-render-mode="unified-envelope" data-member-zone-count="${entry.zoneIds.length}"`), 'confluence should render as one unified envelope');
-    for (const zoneId of entry.zoneIds) {
-      assert(!result.svg.includes(`data-zone-id="${zoneId}"`), 'confluence member zones should not render stacked standalone paths');
+    const crossFeaturePair = entry.confluenceGroup?.crossFeatureOverlapPair ??
+      entry.zones.map((zone) => zone.diagnostics.crossFeatureOverlapPair).find((pair): pair is string => typeof pair === 'string' && pair.length > 0);
+    if (crossFeaturePair) {
+      assert(result.svg.includes(`data-render-mode="member-shapes" data-member-zone-count="${entry.zoneIds.length}"`), 'cross-feature confluence should render exact member shapes');
+      for (const zoneId of entry.zoneIds) {
+        assert(result.svg.includes(`data-zone-id="${zoneId}"`), 'cross-feature confluence member zones should render with their own shape paths');
+      }
+    } else {
+      assert(result.svg.includes(`data-render-mode="unified-envelope" data-member-zone-count="${entry.zoneIds.length}"`), 'non-cross-feature grouped entry should use unified fallback envelope');
     }
   }
   for (const entry of model.displayedEntries.filter((item) => item.entryType === 'standalone_zone')) {
@@ -1191,6 +1605,13 @@ function assertProductionSvg(model: ReturnType<typeof buildWaterReaderDisplayMod
     if (!zone) continue;
     if (zone.diagnostics.featureEnvelopeRenderShape === 'merged_point_lobes') {
       assert(result.svg.includes(`data-entry-id="${entry.entryId}"`) && result.svg.includes('data-render-mode="merged-point-lobes"'), 'whole-point envelope should render through merged point lobes');
+    }
+    if (zone.diagnostics.featureEnvelopeRenderShape === 'rounded_point_apron') {
+      assert(result.svg.includes(`data-entry-id="${entry.entryId}"`) && result.svg.includes('data-render-mode="point-shoreline-buffer"'), 'whole-point envelope should render through shoreline buffer');
+      assert(result.svg.includes('data-point-apron-stroke-width-px='), 'whole-point shoreline buffer should expose rendered stroke width');
+    }
+    if (zone.diagnostics.featureEnvelopeRenderShape === 'shoreline_cove_polygon') {
+      assert(result.svg.includes(`data-entry-id="${entry.entryId}"`) && result.svg.includes('data-render-mode="shoreline-cove-polygon"'), 'whole-cove envelope should render through shoreline cove polygon');
     }
     if (zone.diagnostics.featureEnvelopeRenderShape === 'paired_shoulder_lobes') {
       assert(result.svg.includes(`data-entry-id="${entry.entryId}"`) && result.svg.includes('data-render-mode="paired-shoulder-lobes"'), 'neck/saddle envelope should render through paired shoulder lobes');
@@ -1208,6 +1629,7 @@ function assertProductionSvg(model: ReturnType<typeof buildWaterReaderDisplayMod
   assert(result.summary.retainedRenderedCount === 0, 'retained entries rendered count should be zero');
   assert(result.summary.renderedNumberCount === model.displayLegendEntries.length, 'renderer summary number count should align');
   assert(result.summary.calloutLabelCount >= 0, 'renderer summary should include callout label count');
+  assertPointShorelineBufferGroups(result.svg);
 
   const mobile = buildWaterReaderProductionSvg(model, {
     lakePolygon: fixture.polygonM,
@@ -1227,8 +1649,17 @@ function assertProductionSvg(model: ReturnType<typeof buildWaterReaderDisplayMod
     .flatMap((match) => [...match[0].matchAll(/<text[^>]*>([^<]+)<\/text>/g)].map((textMatch) => textMatch[1] ?? ''))
     .filter((text) => text.length > 60);
   assert(longLegendText.length === 0, `mobile legend text lines should stay within 60 chars: ${longLegendText.join(' | ')}`);
+  assertPointShorelineBufferGroups(mobile.svg);
 }
 
 function countMatches(value: string, needle: string): number {
   return value.split(needle).length - 1;
+}
+
+function assertPointShorelineBufferGroups(svg: string): void {
+  const groups = [...svg.matchAll(/<g class="[^"]*water-reader-point-shoreline-buffer[^"]*"[\s\S]*?<\/g>/g)].map((match) => match[0]);
+  for (const group of groups) {
+    assert(countMatches(group, '<path ') === 1, 'point shoreline buffer group should render exactly one wide zone stroke path');
+    assert(!group.includes('stroke-opacity="0.78"'), 'point shoreline buffer group should not render a high-opacity internal edge stroke');
+  }
 }

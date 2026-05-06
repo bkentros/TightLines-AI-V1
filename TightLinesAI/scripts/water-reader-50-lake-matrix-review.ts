@@ -249,6 +249,9 @@ type RowSummary = {
   displayedPlacementKindCounts: Record<string, number>;
   displayedCount: number;
   retainedCount: number;
+  retainedCapCount: number;
+  retainedDiversityCount: number;
+  retainedReadabilityCount: number;
   majorAxisRankingFallbackCount: number;
   timing: RowTimings;
   productionSvgFile: string;
@@ -757,23 +760,25 @@ function pointDominanceDiagnostics(params: {
   const repeatedMainPointTitleMax = Math.max(0, ...Object.values(mainPointTitleCounts));
 
   if (pointCount >= 4) {
-    score += 3;
     reasons.push('displayed_main_lake_point_ge_4');
   }
+  if (pointCount >= 5) {
+    score += 3;
+    reasons.push('displayed_main_lake_point_ge_5');
+  }
   if (params.displayedCount >= 5 && pointCount / params.displayedCount >= 0.5) {
-    score += 2;
     reasons.push('main_lake_point_half_or_more');
   }
   if (repeatedMainPointTitleMax >= 3) {
-    score += 1;
+    score += 3;
     reasons.push('repeated_main_lake_point_titles_ge_3');
   }
   if (pointCount >= 3 && retainedNonPointCount > 0) {
-    score += 1;
+    score += 3;
     reasons.push('non_point_retained_while_points_displayed');
   }
   if (params.displayedCount >= 3 && pointCount === params.displayedCount) {
-    score += 2;
+    score += 3;
     reasons.push('all_displayed_entries_main_lake_point');
   }
   return { score, reasons };
@@ -782,7 +787,8 @@ function pointDominanceDiagnostics(params: {
 function reviewPriorityDiagnostics(params: {
   fallbackNoMap: boolean;
   displayedCount: number;
-  retainedCount: number;
+  retainedCapCount: number;
+  retainedReadabilityCount: number;
   fullRendererWarningCount: number;
   appRendererWarningCount: number;
   appHeightOutlier: boolean;
@@ -792,6 +798,7 @@ function reviewPriorityDiagnostics(params: {
   appOverlapRiskCount: number;
   repeatedLegendTitleMaxCount: number;
   displayedFeatureClassCounts: Record<string, number>;
+  pointDominanceReasons: string[];
   semanticAnchorMismatchCount: number;
   labelSemanticRiskCount: number;
   selectedFeatureSuppressionCount: number;
@@ -811,9 +818,15 @@ function reviewPriorityDiagnostics(params: {
   const displayedPointCount = params.displayedFeatureClassCounts.main_lake_point ?? 0;
   if (params.appHeightOutlier) high.push('app_height_outlier');
   if (params.repeatedLegendTitleMaxCount >= 4) high.push('repeated_legend_title_ge_4');
-  if (displayedPointCount >= 4) high.push('displayed_main_lake_point_ge_4');
-  if (params.displayedCount >= 5 && displayedPointCount / params.displayedCount >= 0.5) high.push('main_lake_point_half_or_more');
-  if (params.retainedCount >= 4) high.push('retained_count_ge_4');
+  if (displayedPointCount >= 5) high.push('displayed_main_lake_point_ge_5');
+  for (const reason of params.pointDominanceReasons) {
+    if (
+      reason === 'non_point_retained_while_points_displayed' ||
+      reason === 'all_displayed_entries_main_lake_point' ||
+      reason === 'repeated_main_lake_point_titles_ge_3'
+    ) high.push(reason);
+  }
+  if (params.retainedCapCount >= 4) high.push('retained_cap_count_ge_4');
   if (params.semanticAnchorMismatchCount >= 2) high.push('semantic_anchor_mismatch_ge_2');
   if (params.appRendererWarningCount > 0 && params.displayedCount >= 7) high.push('app_renderer_warning_displayed_ge_7');
   if (params.selectedFeatureSuppressionCount > 0) high.push('selected_feature_suppression');
@@ -828,7 +841,8 @@ function reviewPriorityDiagnostics(params: {
   if (params.appRendererWarningCount > 0) medium.push('app_renderer_warning');
   if (params.fullRendererWarningCount > 0) medium.push('full_renderer_warning');
   if (titleWrapWithoutOverlap) medium.push('legend_title_wrap');
-  if (params.retainedCount > 0) medium.push('retained_count_gt_0');
+  if (params.retainedCapCount > 0) medium.push('retained_cap_count_gt_0');
+  if (params.retainedReadabilityCount > 0) medium.push('retained_readability_count_gt_0');
   if (params.semanticAnchorMismatchCount === 1) medium.push('semantic_anchor_mismatch_eq_1');
   if (params.majorAxisRankingFallbackCount > 0) medium.push('major_axis_ranking_fallback');
   if (medium.length > 0) return { priority: 'medium', reasons: medium };
@@ -863,6 +877,31 @@ function appSvgHeight(result: WaterReaderProductionSvgResult | null): number {
   return result?.summary.height ?? 0;
 }
 
+function retainedStateCounts(displayModel: WaterReaderDisplayModel): {
+  retainedCapCount: number;
+  retainedDiversityCount: number;
+  retainedReadabilityCount: number;
+} {
+  let retainedCapCount = 0;
+  let retainedDiversityCount = 0;
+  let retainedReadabilityCount = 0;
+  for (const entry of displayModel.retainedEntries) {
+    switch (entry.displayState) {
+      case 'retained_not_displayed_diversity':
+        retainedDiversityCount += 1;
+        break;
+      case 'retained_not_displayed_readability':
+        retainedReadabilityCount += 1;
+        break;
+      case 'retained_not_displayed_cap':
+      default:
+        retainedCapCount += 1;
+        break;
+    }
+  }
+  return { retainedCapCount, retainedDiversityCount, retainedReadabilityCount };
+}
+
 function majorQaFlags(params: {
   preprocess: WaterReaderPreprocessResult;
   zoneResult: WaterReaderZonePlacementResult;
@@ -874,6 +913,7 @@ function majorQaFlags(params: {
   fullLegendLayout: LegendLayoutSvgDiagnostics;
   appLegendLayout: LegendLayoutSvgDiagnostics;
   pointDominance: boolean;
+  retainedCounts: ReturnType<typeof retainedStateCounts>;
 }): string[] {
   const flags = new Set<string>();
   for (const flag of [...params.preprocess.qaFlags, ...params.zoneResult.qaFlags]) flags.add(flag);
@@ -881,10 +921,10 @@ function majorQaFlags(params: {
   if ((params.productionSvgResult?.summary.warningCount ?? 0) > 0) flags.add('full_size_renderer_warning');
   if ((params.appWidthProductionSvgResult?.summary.warningCount ?? 0) > 0) flags.add('app_width_renderer_warning');
   if (params.appHeight > APP_VIEWBOX_HEIGHT_OUTLIER) flags.add('app_width_viewbox_height_outlier');
-  if (params.displayModel.retainedEntries.some((entry) => !entry.rankingDiagnostics.includes('retained_constriction_line_readability'))) {
+  if (params.retainedCounts.retainedCapCount > 0) {
     flags.add('retained_not_displayed_cap_pressure');
   }
-  if (params.displayModel.retainedEntries.some((entry) => entry.rankingDiagnostics.includes('retained_constriction_line_readability'))) {
+  if (params.retainedCounts.retainedReadabilityCount > 0) {
     flags.add('retained_not_displayed_readability');
   }
   if (rankingFallbackCount(params.displayModel) > 0) flags.add('major_axis_ranking_fallback');
@@ -1503,6 +1543,9 @@ function summaryCsv(rows: RowSummary[]): string {
     'whole_feature_outside_water_center_max_anchor_distance_m',
     'displayed_count',
     'retained_count',
+    'retained_cap_count',
+    'retained_diversity_count',
+    'retained_readability_count',
     'display_cap',
     'display_cap_pressure',
     'repeated_legend_title_max_count',
@@ -1589,6 +1632,9 @@ function summaryCsv(rows: RowSummary[]): string {
     row.wholeFeatureOutsideWaterCenterMaxAnchorDistanceM,
     row.displayedCount,
     row.retainedCount,
+    row.retainedCapCount,
+    row.retainedDiversityCount,
+    row.retainedReadabilityCount,
     row.displayCap,
     row.displayCapPressure,
     row.repeatedLegendTitleMaxCount,
@@ -1657,6 +1703,9 @@ function manualReviewScorecardCsv(rows: RowSummary[]): string {
     'supportStatus',
     'displayedCount',
     'retainedCount',
+    'retainedCapCount',
+    'retainedDiversityCount',
+    'retainedReadabilityCount',
     'displayCap',
     'fullRendererWarnings',
     'appRendererWarnings',
@@ -1713,6 +1762,9 @@ function manualReviewScorecardCsv(rows: RowSummary[]): string {
     row.supportStatus,
     row.displayedCount,
     row.retainedCount,
+    row.retainedCapCount,
+    row.retainedDiversityCount,
+    row.retainedReadabilityCount,
     row.displayCap,
     row.fullSizeRendererWarningCodes.join('|'),
     row.appWidthRendererWarningCodes.join('|'),
@@ -1771,6 +1823,11 @@ function aggregateSignals(rows: RowSummary[]) {
     appWidthRendererWarningRows: count((row) => row.signals.appWidthRendererWarnings),
     appWidthViewBoxHeightOutlierRows: count((row) => row.signals.appWidthViewBoxHeightOutlier),
     retainedDisplayCapPressureRows: count((row) => row.signals.retainedDisplayCapPressure),
+    retainedDiversityRows: count((row) => row.retainedDiversityCount > 0),
+    retainedReadabilityRows: count((row) => row.retainedReadabilityCount > 0),
+    retainedCapTotal: rows.reduce((sum, row) => sum + row.retainedCapCount, 0),
+    retainedDiversityTotal: rows.reduce((sum, row) => sum + row.retainedDiversityCount, 0),
+    retainedReadabilityTotal: rows.reduce((sum, row) => sum + row.retainedReadabilityCount, 0),
     repeatedLegendTitlePressureRows: count((row) => row.signals.repeatedLegendTitlePressure),
     fullTitleWrapRows: count((row) => row.signals.fullLegendTitleWrap),
     appTitleWrapRows: count((row) => row.signals.appLegendTitleWrap),
@@ -2053,6 +2110,153 @@ function placementSemanticAuditSpring(rowJsonIndex: Array<{ rowId: string; jsonF
   };
 }
 
+function questionableConstrictionDiagnostics(rowJsonIndex: Array<{ rowId: string; jsonFile: string }>) {
+  const rows: Array<Record<string, unknown>> = [];
+  const rowSummaries: Array<Record<string, unknown>> = [];
+  for (const entry of rowJsonIndex) {
+    const path = resolve(process.cwd(), entry.jsonFile);
+    if (!existsSync(path)) continue;
+    const diagnostic = JSON.parse(readFileSync(path, 'utf8')) as {
+      row?: { lake?: string; state?: string; season?: string; manifestIndex?: number };
+      placement?: { zones?: Array<Record<string, unknown>> };
+      display?: { displayedEntries?: Array<Record<string, unknown>>; retainedEntries?: Array<Record<string, unknown>> };
+    };
+    const zones = Array.isArray(diagnostic.placement?.zones) ? diagnostic.placement.zones : [];
+    const displayedEntries = Array.isArray(diagnostic.display?.displayedEntries) ? diagnostic.display.displayedEntries : [];
+    const retainedEntries = Array.isArray(diagnostic.display?.retainedEntries) ? diagnostic.display.retainedEntries : [];
+    const recoveredConstrictionReasons = [...displayedEntries, ...retainedEntries].flatMap((displayEntry) => {
+      const entryZones = Array.isArray(displayEntry.zones) ? displayEntry.zones as Array<Record<string, unknown>> : [];
+      return entryZones
+        .filter((zone) => zone.featureClass === 'neck' || zone.featureClass === 'saddle')
+        .map((zone) => {
+          const diagnostics = (zone.diagnostics && typeof zone.diagnostics === 'object' ? zone.diagnostics : {}) as Record<string, unknown>;
+          return diagnostics.constrictionRecoveryReason ?? diagnostics.saddleRecoveryReason ?? null;
+        })
+        .filter((reason): reason is string => typeof reason === 'string' && reason.length > 0);
+    });
+    const displayedNeckCount = constrictionDisplayEntryCount(displayedEntries, 'neck', false);
+    const retainedNeckCount = constrictionDisplayEntryCount(retainedEntries, 'neck', false);
+    const displayedPinchLabeledNeckCount = constrictionDisplayEntryCount(displayedEntries, 'neck', true);
+    const retainedPinchLabeledNeckCount = constrictionDisplayEntryCount(retainedEntries, 'neck', true);
+    const displayedSaddleCount = constrictionDisplayEntryCount(displayedEntries, 'saddle', false);
+    const retainedSaddleCount = constrictionDisplayEntryCount(retainedEntries, 'saddle', false);
+    const detectedSaddleCount = zones.filter((zone) => zone.featureClass === 'saddle').length;
+    const retainedConstrictionReasons = retainedEntries.flatMap((displayEntry) => {
+      const entryZones = Array.isArray(displayEntry.zones) ? displayEntry.zones as Array<Record<string, unknown>> : [];
+      return entryZones
+        .filter((zone) => zone.featureClass === 'neck' || zone.featureClass === 'saddle')
+        .map((zone) => {
+          const diagnostics = (zone.diagnostics && typeof zone.diagnostics === 'object' ? zone.diagnostics : {}) as Record<string, unknown>;
+          return {
+            displayState: displayEntry.displayState ?? null,
+            legendTitle: ((displayEntry.legend as Record<string, unknown> | undefined)?.title as string | undefined) ?? null,
+            zoneId: zone.zoneId ?? null,
+            featureClass: zone.featureClass ?? null,
+            placementKind: zone.placementKind ?? null,
+            constrictionDisplayClass: diagnostics.constrictionDisplayClass ?? null,
+            constrictionDisplayRetainedReason: diagnostics.constrictionDisplayRetainedReason ?? null,
+            constrictionReadabilityClass: diagnostics.constrictionReadabilityClass ?? null,
+            displayReadabilityTier: diagnostics.displayReadabilityTier ?? null,
+            confidence: diagnostics.constrictionConfidence ?? null,
+            appMaxPx: diagnostics.constrictionDisplayAppFootprintMaxPx ?? null,
+            appAreaPx: diagnostics.constrictionDisplayAppFootprintAreaPx ?? null,
+            expansionBalance: diagnostics.constrictionExpansionBalance ?? null,
+          };
+        });
+    });
+    rowSummaries.push({
+      rowId: entry.rowId,
+      lake: diagnostic.row?.lake ?? null,
+      state: diagnostic.row?.state ?? null,
+      season: diagnostic.row?.season ?? null,
+      manifestIndex: diagnostic.row?.manifestIndex ?? null,
+      detectedNeckCount: zones.filter((zone) => zone.featureClass === 'neck').length,
+      displayedNeckCount,
+      retainedNeckCount,
+      displayedPinchLabeledNeckCount,
+      retainedPinchLabeledNeckCount,
+      detectedSaddleCount,
+      displayedSaddleCount,
+      retainedSaddleCount,
+      recoveredConstrictionReasons,
+      retainedConstrictionReasons,
+      saddleNoDisplayExplanation: detectedSaddleCount > 0 && displayedSaddleCount === 0
+        ? retainedConstrictionReasons
+          .filter((item) => item.featureClass === 'saddle')
+          .map((item) => `${item.zoneId ?? 'saddle'}:${item.constrictionDisplayRetainedReason ?? item.displayState ?? 'not_displayed_without_reason'}`)
+          .join('|') || 'detected_saddle_not_displayed_without_retained_reason'
+        : null,
+    });
+    for (const zone of zones) {
+      const featureClass = String(zone.featureClass ?? '');
+      if (featureClass !== 'neck' && featureClass !== 'saddle') continue;
+      const diagnostics = (zone.diagnostics && typeof zone.diagnostics === 'object' ? zone.diagnostics : {}) as Record<string, unknown>;
+      const readabilityClass = String(diagnostics.constrictionReadabilityClass ?? '');
+      const actionableClasses = new Set([
+        'one_sided_constriction_review',
+        'broad_saddle_review',
+        'low_confidence_review',
+        'visually_minor_readability_review',
+      ]);
+      const questionable = actionableClasses.has(readabilityClass);
+      if (!questionable) continue;
+      rows.push({
+        rowId: entry.rowId,
+        lake: diagnostic.row?.lake ?? null,
+        state: diagnostic.row?.state ?? null,
+        season: diagnostic.row?.season ?? null,
+        manifestIndex: diagnostic.row?.manifestIndex ?? null,
+        zoneId: zone.zoneId ?? null,
+        sourceFeatureId: zone.sourceFeatureId ?? null,
+        featureClass,
+        placementKind: zone.placementKind ?? null,
+        constrictionReadabilityClass: readabilityClass || null,
+        widthM: diagnostics.constrictionWidthM ?? null,
+        widthToAverage: diagnostics.constrictionWidthToAverage ?? null,
+        averageLakeWidthM: diagnostics.constrictionAverageLakeWidthM ?? null,
+        leftExpansionRatio: diagnostics.constrictionLeftExpansionRatio ?? null,
+        rightExpansionRatio: diagnostics.constrictionRightExpansionRatio ?? null,
+        weakerExpansionRatio: diagnostics.constrictionWeakerExpansionRatio ?? null,
+        expansionBalance: diagnostics.constrictionExpansionBalance ?? null,
+        oneSidedExpansion: diagnostics.constrictionOneSidedExpansion ?? null,
+        twoSidedExpansion: diagnostics.constrictionTwoSidedExpansion ?? null,
+        score: diagnostics.constrictionScore ?? null,
+        confidence: diagnostics.constrictionConfidence ?? null,
+        semanticConfidenceTier: diagnostics.semanticConfidenceTier ?? null,
+        displayReadabilityTier: diagnostics.displayReadabilityTier ?? null,
+      });
+    }
+  }
+  return {
+    generatedAt: new Date().toISOString(),
+    questionableConstrictionCount: rows.length,
+    summary: {
+      displayedNeckTotal: rowSummaries.reduce((sum, row) => sum + Number(row.displayedNeckCount ?? 0), 0),
+      retainedNeckTotal: rowSummaries.reduce((sum, row) => sum + Number(row.retainedNeckCount ?? 0), 0),
+      displayedPinchLabeledNeckTotal: rowSummaries.reduce((sum, row) => sum + Number(row.displayedPinchLabeledNeckCount ?? 0), 0),
+      retainedPinchLabeledNeckTotal: rowSummaries.reduce((sum, row) => sum + Number(row.retainedPinchLabeledNeckCount ?? 0), 0),
+      displayedSaddleTotal: rowSummaries.reduce((sum, row) => sum + Number(row.displayedSaddleCount ?? 0), 0),
+      retainedSaddleTotal: rowSummaries.reduce((sum, row) => sum + Number(row.retainedSaddleCount ?? 0), 0),
+      saddleDetectedNoDisplayRows: rowSummaries.filter((row) => Number(row.detectedSaddleCount ?? 0) > 0 && Number(row.displayedSaddleCount ?? 0) === 0).length,
+      recoveredConstrictionCountsByReason: countValues(rowSummaries.flatMap((row) =>
+        Array.isArray(row.recoveredConstrictionReasons) ? row.recoveredConstrictionReasons.map(String) : []
+      )),
+    },
+    rowSummaries,
+    rows,
+  };
+}
+
+function constrictionDisplayEntryCount(entries: Array<Record<string, unknown>>, featureClass: 'neck' | 'saddle', pinchOnly: boolean): number {
+  return entries.filter((entry) => {
+    const featureClasses = Array.isArray(entry.featureClasses) ? entry.featureClasses.map(String) : [];
+    if (!featureClasses.includes(featureClass)) return false;
+    if (!pinchOnly) return true;
+    const title = ((entry.legend as Record<string, unknown> | undefined)?.title as string | undefined) ?? '';
+    return featureClass === 'neck' && title.includes('Pinch - Structure Area');
+  }).length;
+}
+
 function labelMetricsForAudit(jsonFile: string): Map<string, { leaderLengthPx: number; longLeader: boolean }> {
   const appSvgFile = jsonFile
     .replace('/row-json/', '/app-420-svg/')
@@ -2196,7 +2400,7 @@ function htmlIndex(rows: RowSummary[], options: {
       <div class="stat">full warnings: ${signals.fullSizeRendererWarningRows}</div>
       <div class="stat">app warnings: ${signals.appWidthRendererWarningRows}</div>
       <div class="stat">legend overlap risks: ${signals.fullOverlapRiskRows}/${signals.appOverlapRiskRows}</div>
-      <div class="stat">retained pressure: ${signals.retainedDisplayCapPressureRows}</div>
+      <div class="stat">retained cap pressure: ${signals.retainedDisplayCapPressureRows}</div>
       <div class="stat">major-axis fallback: ${signals.majorAxisRankingFallbackRows}</div>
       <div class="stat">actionable review: ${signals.actionableVisualReviewRows}</div>
     </div>
@@ -2342,6 +2546,7 @@ function writeArtifactSet(params: {
   writeFileSync(abs(join(params.dir, 'legend-layout-diagnostics.json')), `${JSON.stringify(legendLayoutDiagnosticsReport(params.rows, legendLayouts), null, 2)}\n`, 'utf8');
   writeFileSync(abs(join(params.dir, 'performance-timings.json')), `${JSON.stringify(performanceTimings(params.rows), null, 2)}\n`, 'utf8');
   writeFileSync(abs(join(params.dir, 'placement-semantic-audit-spring.json')), `${JSON.stringify(placementSemanticAuditSpring(rowJsonIndex), null, 2)}\n`, 'utf8');
+  writeFileSync(abs(join(params.dir, 'questionable-constrictions.json')), `${JSON.stringify(questionableConstrictionDiagnostics(rowJsonIndex), null, 2)}\n`, 'utf8');
   writeFileSync(abs(join(params.dir, 'feature-envelope-season-invariance.json')), `${JSON.stringify(featureEnvelopeSeasonAudit, null, 2)}\n`, 'utf8');
   writeFileSync(abs(join(params.dir, 'feature-envelope-suppression-by-class-reason.json')), `${JSON.stringify(featureEnvelopeSuppressionByClassReasonReport(params.rows), null, 2)}\n`, 'utf8');
   writeFileSync(abs(join(params.dir, 'index.html')), htmlIndex(params.rows, {
@@ -2364,6 +2569,7 @@ function writeArtifactSet(params: {
       legendLayoutDiagnostics: join(params.dir, 'legend-layout-diagnostics.json'),
       performanceTimings: join(params.dir, 'performance-timings.json'),
       placementSemanticAuditSpring: join(params.dir, 'placement-semantic-audit-spring.json'),
+      questionableConstrictions: join(params.dir, 'questionable-constrictions.json'),
       featureEnvelopeSeasonInvariance: join(params.dir, 'feature-envelope-season-invariance.json'),
       featureEnvelopeSuppressionByClassReason: join(params.dir, 'feature-envelope-suppression-by-class-reason.json'),
       productionSvgDir: join(params.dir, PRODUCTION_DIR),
@@ -2437,10 +2643,13 @@ function enrichRetargetedRowFromDiagnostics(sourceRow: RowSummary, targetRoot: s
     displayedCount: sourceRow.displayedCount,
   });
   const pointDominanceFlag = pointDominance.score >= 3;
+  const retainedCapCount = sourceRow.retainedCapCount ?? sourceRow.retainedCount;
+  const retainedReadabilityCount = sourceRow.retainedReadabilityCount ?? 0;
   const priority = reviewPriorityDiagnostics({
     fallbackNoMap: Boolean(sourceRow.fallbackNoMap),
     displayedCount: sourceRow.displayedCount,
-    retainedCount: sourceRow.retainedCount,
+    retainedCapCount,
+    retainedReadabilityCount,
     fullRendererWarningCount: sourceRow.fullSizeRendererWarningCount,
     appRendererWarningCount: sourceRow.appWidthRendererWarningCount,
     appHeightOutlier: sourceRow.appWidthSvgHeight > APP_VIEWBOX_HEIGHT_OUTLIER,
@@ -2450,6 +2659,7 @@ function enrichRetargetedRowFromDiagnostics(sourceRow: RowSummary, targetRoot: s
     appOverlapRiskCount: sourceRow.appOverlapRiskCount,
     repeatedLegendTitleMaxCount: sourceRow.repeatedLegendTitleMaxCount,
     displayedFeatureClassCounts: sourceRow.displayedFeatureClassCounts ?? {},
+    pointDominanceReasons: pointDominance.reasons,
     semanticAnchorMismatchCount: sourceRow.semanticAnchorMismatchCount,
     labelSemanticRiskCount: sourceRow.labelSemanticRiskCount,
     selectedFeatureSuppressionCount: sourceRow.selectedFeatureSuppressionCount,
@@ -2466,7 +2676,7 @@ function enrichRetargetedRowFromDiagnostics(sourceRow: RowSummary, targetRoot: s
     fullSizeRendererWarnings: sourceRow.fullSizeRendererWarningCount > 0,
     appWidthRendererWarnings: sourceRow.appWidthRendererWarningCount > 0,
     appWidthViewBoxHeightOutlier: sourceRow.appWidthSvgHeight > APP_VIEWBOX_HEIGHT_OUTLIER,
-    retainedDisplayCapPressure: sourceRow.retainedCount > 0,
+    retainedDisplayCapPressure: retainedCapCount > 0,
     repeatedLegendTitlePressure: sourceRow.repeatedLegendTitleMaxCount >= 4,
     fullLegendTitleWrap: sourceRow.fullTitleWrapCount > 0,
     appLegendTitleWrap: sourceRow.appTitleWrapCount > 0,
@@ -2477,6 +2687,7 @@ function enrichRetargetedRowFromDiagnostics(sourceRow: RowSummary, targetRoot: s
     visualReviewNeeded: priority.priority !== 'low' && hasActionableVisualReviewReason(priority.reasons),
   };
   const majorFlags = new Set(sourceRow.majorQaFlags ?? []);
+  if (retainedCapCount === 0) majorFlags.delete('retained_not_displayed_cap_pressure');
   if (pointDominanceFlag) majorFlags.add('point_dominance_display_pressure');
   if (legendForbidden.length > 0) majorFlags.add('legend_forbidden_copy_hit');
   return {
@@ -2698,6 +2909,7 @@ async function runFromEngine(options: { batch: RunBatch }, runManifest: Manifest
       const appCodes = rendererCodes(appWidthProductionSvgResult);
       const fullLegendLayout = legendLayoutDiagnostics(productionSvgResult.svg);
       const appLegendLayout = legendLayoutDiagnostics(appWidthProductionSvgResult.svg);
+      const retainedCounts = retainedStateCounts(displayModel);
       const pointDominance = pointDominanceDiagnostics({
         displayedFeatureClassCounts,
         retainedFeatureClassCounts,
@@ -2708,7 +2920,8 @@ async function runFromEngine(options: { batch: RunBatch }, runManifest: Manifest
       const priority = reviewPriorityDiagnostics({
         fallbackNoMap: Boolean(fallback),
         displayedCount: displayModel.displayedEntries.length,
-        retainedCount: displayModel.retainedEntries.length,
+        retainedCapCount: retainedCounts.retainedCapCount,
+        retainedReadabilityCount: retainedCounts.retainedReadabilityCount,
         fullRendererWarningCount: productionSvgResult.summary.warningCount,
         appRendererWarningCount: appWidthProductionSvgResult.summary.warningCount,
         appHeightOutlier: appHeight > APP_VIEWBOX_HEIGHT_OUTLIER,
@@ -2718,6 +2931,7 @@ async function runFromEngine(options: { batch: RunBatch }, runManifest: Manifest
         appOverlapRiskCount: appLegendLayout.overlapRiskCount,
         repeatedLegendTitleMaxCount: repeatedLegend.count,
         displayedFeatureClassCounts,
+        pointDominanceReasons: pointDominance.reasons,
         semanticAnchorMismatchCount: semanticMismatchCount,
         labelSemanticRiskCount: labelRiskCount,
         selectedFeatureSuppressionCount,
@@ -2735,6 +2949,7 @@ async function runFromEngine(options: { batch: RunBatch }, runManifest: Manifest
         fullLegendLayout,
         appLegendLayout,
         pointDominance: pointDominanceFlag,
+        retainedCounts,
       });
       const signals: RowSignals = {
         fallbackNoMap: Boolean(fallback),
@@ -2745,7 +2960,7 @@ async function runFromEngine(options: { batch: RunBatch }, runManifest: Manifest
         fullSizeRendererWarnings: fullCodes.length > 0,
         appWidthRendererWarnings: appCodes.length > 0,
         appWidthViewBoxHeightOutlier: appHeight > APP_VIEWBOX_HEIGHT_OUTLIER,
-        retainedDisplayCapPressure: displayModel.retainedEntries.some((entry) => !entry.rankingDiagnostics.includes('retained_constriction_line_readability')),
+        retainedDisplayCapPressure: retainedCounts.retainedCapCount > 0,
         repeatedLegendTitlePressure: repeatedLegend.count >= 4,
         fullLegendTitleWrap: fullLegendLayout.titleWrapCount > 0,
         appLegendTitleWrap: appLegendLayout.titleWrapCount > 0,
@@ -2797,7 +3012,7 @@ async function runFromEngine(options: { batch: RunBatch }, runManifest: Manifest
         displayedEntryCount: displayModel.summary.displayedEntryCount,
         retainedEntryCount: displayModel.summary.retainedNotDisplayedCount,
         displayCap: displayModel.displayCap,
-        displayCapPressure: displayModel.retainedEntries.some((entry) => !entry.rankingDiagnostics.includes('retained_constriction_line_readability')),
+        displayCapPressure: retainedCounts.retainedCapCount > 0,
         repeatedLegendTitleMaxCount: repeatedLegend.count,
         repeatedLegendTitleMaxTitle: repeatedLegend.title,
         fullSizeRendererWarningCount: productionSvgResult.summary.warningCount,
@@ -2833,6 +3048,9 @@ async function runFromEngine(options: { batch: RunBatch }, runManifest: Manifest
         displayedPlacementKindCounts,
         displayedCount: displayModel.displayedEntries.length,
         retainedCount: displayModel.retainedEntries.length,
+        retainedCapCount: retainedCounts.retainedCapCount,
+        retainedDiversityCount: retainedCounts.retainedDiversityCount,
+        retainedReadabilityCount: retainedCounts.retainedReadabilityCount,
         majorAxisRankingFallbackCount: majorAxisFallbackCount,
         timing,
         productionSvgFile,

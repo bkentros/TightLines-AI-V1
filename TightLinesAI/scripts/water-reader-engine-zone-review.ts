@@ -215,6 +215,9 @@ type SummaryRow = {
   displayedStandaloneCount: number;
   displayedConfluenceCount: number;
   retainedNotDisplayedCount: number;
+  retainedCapCount: number;
+  retainedDiversityCount: number;
+  retainedReadabilityCount: number;
   displayLegendEntryCount: number;
   displayCap: number;
   displayCapExceeded: boolean;
@@ -439,6 +442,9 @@ function summaryCsv(rows: SummaryRow[]): string {
     'displayed_standalone_count',
     'displayed_confluence_count',
     'retained_not_displayed_count',
+    'retained_cap_count',
+    'retained_diversity_count',
+    'retained_readability_count',
     'display_legend_entry_count',
     'display_cap',
     'display_cap_exceeded',
@@ -522,6 +528,9 @@ function summaryCsv(rows: SummaryRow[]): string {
       row.displayedStandaloneCount,
       row.displayedConfluenceCount,
       row.retainedNotDisplayedCount,
+      row.retainedCapCount,
+      row.retainedDiversityCount,
+      row.retainedReadabilityCount,
       row.displayLegendEntryCount,
       row.displayCap,
       row.displayCapExceeded,
@@ -626,6 +635,31 @@ function entryValueCounts(
   return counts;
 }
 
+function retainedStateCounts(displayModel: ReturnType<typeof buildWaterReaderDisplayModel>): {
+  retainedCapCount: number;
+  retainedDiversityCount: number;
+  retainedReadabilityCount: number;
+} {
+  let retainedCapCount = 0;
+  let retainedDiversityCount = 0;
+  let retainedReadabilityCount = 0;
+  for (const entry of displayModel.retainedEntries) {
+    switch (entry.displayState) {
+      case 'retained_not_displayed_diversity':
+        retainedDiversityCount += 1;
+        break;
+      case 'retained_not_displayed_readability':
+        retainedReadabilityCount += 1;
+        break;
+      case 'retained_not_displayed_cap':
+      default:
+        retainedCapCount += 1;
+        break;
+    }
+  }
+  return { retainedCapCount, retainedDiversityCount, retainedReadabilityCount };
+}
+
 function semanticIdsForDisplayedZones(displayModel: ReturnType<typeof buildWaterReaderDisplayModel>, key: 'placementSemanticId' | 'anchorSemanticId'): string[] {
   return [...new Set(displayModel.displayedEntries.flatMap((entry) =>
     entry.zones.map((zone) => zone[key]).filter((value): value is string => Boolean(value)),
@@ -710,6 +744,9 @@ function displayModelSummary(rows: SummaryRow[]) {
     displayedStandaloneCount: rows.reduce((sum, row) => sum + row.displayedStandaloneCount, 0),
     displayedConfluenceCount: rows.reduce((sum, row) => sum + row.displayedConfluenceCount, 0),
     retainedNotDisplayedCount: rows.reduce((sum, row) => sum + row.retainedNotDisplayedCount, 0),
+    retainedCapCount: rows.reduce((sum, row) => sum + row.retainedCapCount, 0),
+    retainedDiversityCount: rows.reduce((sum, row) => sum + row.retainedDiversityCount, 0),
+    retainedReadabilityCount: rows.reduce((sum, row) => sum + row.retainedReadabilityCount, 0),
     displayLegendEntryCount: rows.reduce((sum, row) => sum + row.displayLegendEntryCount, 0),
     splitSourceFeatureCount: rows.reduce((sum, row) => sum + row.splitSourceFeatureCount, 0),
     multiZoneStandaloneEntryViolationCount: rows.reduce((sum, row) => sum + row.multiZoneStandaloneEntryViolationCount, 0),
@@ -1294,7 +1331,8 @@ async function main() {
       const fallbackAnchorIds = fallbackAnchorSemanticIds(displayModel);
       const semanticAnchorMismatch = semanticAnchorMismatchCount(displayModel);
       const labelSemanticRisk = labelSemanticRiskCount(displayModel);
-      const displayCapPressure = displayModel.retainedEntries.some((entry) => !entry.rankingDiagnostics.includes('retained_constriction_line_readability'));
+      const retainedCounts = retainedStateCounts(displayModel);
+      const displayCapPressure = retainedCounts.retainedCapCount > 0;
       const diversityPressureFlag = diversityPressure(
         displayModel,
         repeatedLegend,
@@ -1352,6 +1390,9 @@ async function main() {
         displayedStandaloneCount: displayModel.summary.displayedStandaloneCount,
         displayedConfluenceCount: displayModel.summary.displayedConfluenceCount,
         retainedNotDisplayedCount: displayModel.summary.retainedNotDisplayedCount,
+        retainedCapCount: retainedCounts.retainedCapCount,
+        retainedDiversityCount: retainedCounts.retainedDiversityCount,
+        retainedReadabilityCount: retainedCounts.retainedReadabilityCount,
         displayLegendEntryCount: displayModel.summary.displayLegendEntryCount,
         displayCap: displayModel.displayCap,
         displayCapExceeded: displayModel.capExceeded,

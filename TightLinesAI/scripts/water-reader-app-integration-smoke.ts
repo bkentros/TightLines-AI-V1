@@ -34,6 +34,12 @@ assert(responseShape.feature === 'water_reader_read_v1', 'read response feature 
 assert(clientSource.includes('export async function fetchWaterReaderRead'), 'fetchWaterReaderRead should be exported');
 assert(clientSource.includes('invokeEdgeFunction<WaterReaderReadResponse>("water-reader-read"'), 'client should call water-reader-read edge function');
 assert(contractSource.includes('export interface WaterReaderReadResponse'), 'app read response contract should exist');
+assert(contractSource.includes('legendEntries: WaterReaderProductionSvgLegendEntry[]'), 'app SVG contract should expose native legend entries');
+assert(serverContractsSource.includes('water-reader-engine-v2-feature-envelope'), 'server read contract should use the feature-envelope cache version');
+assert(cacheBuilderSource.includes('water-reader-engine-v2-feature-envelope'), 'cache builder should use the feature-envelope cache version');
+const oldEngineVersionNeedle = ['water-reader-engine', 'v1'].join('-');
+assert(!serverContractsSource.includes(oldEngineVersionNeedle), 'server read contract should not use v1 cache version');
+assert(!cacheBuilderSource.includes(oldEngineVersionNeedle), 'cache builder should not use v1 cache version');
 assert(contractSource.includes('sameNameStateCandidateCount'), 'search contract should expose same-name candidate count');
 assert(contractSource.includes('isAmbiguousNameInState'), 'search contract should expose same-name ambiguity flag');
 assert(!appSource.includes('buildWaterReaderEngineRead'), 'app screen should not import or call local engine read helper');

@@ -36,6 +36,7 @@ type EntryDiagnostic = {
   rowId: string;
   lake: string;
   entryState: EntryState;
+  displayState: string;
   displayNumber: number | null;
   entryId: string;
   legendTitle: string;
@@ -509,7 +510,8 @@ function makeEntryDiagnostic(params: {
     rankingScore: Number.isFinite(sort.score) ? round(sort.score, 2) : null,
     confluenceStrengthRank: Number.isFinite(sort.confluenceStrengthRank) ? sort.confluenceStrengthRank : null,
     rankingDiagnostics: params.entry.rankingDiagnostics ?? [],
-    retainedReason: params.state === 'retained' ? `retained_not_displayed_cap;display_cap=${params.row.displayCap}` : '',
+    displayState: params.entry.displayState ?? params.state,
+    retainedReason: params.state === 'retained' ? `${params.entry.displayState ?? 'retained_not_displayed_cap'};display_cap=${params.row.displayCap}` : '',
     footprint: params.footprint,
     appearsVisuallyLargerThanTinyDisplayed: appearsLarger,
     structurallyMoreUsefulThanTinyDisplayed: structurallyMoreUseful,
@@ -594,14 +596,33 @@ function countValues(values: string[]): Record<string, number> {
   return counts;
 }
 
+function retainedStateCounts(retained: EntryDiagnostic[]): {
+  retainedCapCount: number;
+  retainedDiversityCount: number;
+  retainedReadabilityCount: number;
+} {
+  return {
+    retainedCapCount: retained.filter((entry) => entry.displayState === 'retained_not_displayed_cap').length,
+    retainedDiversityCount: retained.filter((entry) => entry.displayState === 'retained_not_displayed_diversity').length,
+    retainedReadabilityCount: retained.filter((entry) => entry.displayState === 'retained_not_displayed_readability').length,
+  };
+}
+
+function repeatedDisplayedLegendTitleMax(displayed: EntryDiagnostic[]): number {
+  const titleCounts = countValues(displayed.map((entry) => entry.legendTitle).filter(Boolean));
+  return Math.max(0, ...Object.values(titleCounts));
+}
+
 function rankingEvidence(row: any, displayed: EntryDiagnostic[], retained: EntryDiagnostic[]) {
   const tinyDisplayed = displayed.filter((entry) => entry.footprint.tiny_any);
-  const retainedLargerThanTiny = retained.filter((entry) => entry.appearsVisuallyLargerThanTinyDisplayed);
+  const retainedCounts = retainedStateCounts(retained);
+  const policyRetained = retained.filter((entry) => entry.displayState !== 'retained_not_displayed_diversity');
+  const retainedLargerThanTiny = policyRetained.filter((entry) => entry.appearsVisuallyLargerThanTinyDisplayed);
   const tinyBeatLarger = tinyDisplayed.some((displayedEntry) =>
-    retained.some((retainedEntry) => retainedEntry.majorAxisM > displayedEntry.majorAxisM * 1.25 || retainedEntry.footprint.area > displayedEntry.footprint.area * 1.5),
+    policyRetained.some((retainedEntry) => retainedEntry.majorAxisM > displayedEntry.majorAxisM * 1.25 || retainedEntry.footprint.area > displayedEntry.footprint.area * 1.5),
   );
   const classPriorityDominates = tinyDisplayed.some((displayedEntry) =>
-    retained.some((retainedEntry) =>
+    policyRetained.some((retainedEntry) =>
       retainedEntry.rankingPriority !== null &&
       displayedEntry.rankingPriority !== null &&
       displayedEntry.rankingPriority < retainedEntry.rankingPriority &&
@@ -611,9 +632,18 @@ function rankingEvidence(row: any, displayed: EntryDiagnostic[], retained: Entry
   const classCounts = countValues(displayed.flatMap((entry) => entry.featureClasses));
   const titleCounts = countValues(displayed.map((entry) => entry.legendTitle).filter(Boolean));
   const pointCount = classCounts.main_lake_point ?? 0;
-  const maxTitleCount = Math.max(0, ...Object.values(titleCounts));
-  const repeatedFamily = pointCount >= 4 || (displayed.length >= 5 && pointCount / displayed.length >= 0.5) || maxTitleCount >= 4;
-  const displayCapPressure = retained.length > 0;
+  const maxTitleCount = repeatedDisplayedLegendTitleMax(displayed);
+  const retainedCapNonPointCount = retained.filter((entry) =>
+    entry.displayState === 'retained_not_displayed_cap' &&
+    entry.featureClasses.some((featureClass) => featureClass !== 'main_lake_point')
+  ).length;
+  const repeatedFamily = (
+    pointCount >= 5 ||
+    (displayed.length > 0 && pointCount === displayed.length) ||
+    (pointCount >= 3 && retainedCapNonPointCount > 0) ||
+    maxTitleCount >= 3
+  );
+  const displayCapPressure = retainedCounts.retainedCapCount > 0;
   const majorAxisFallback = (row.majorAxisRankingFallbackCount ?? 0) > 0;
   return {
     tinyDisplayedCount: tinyDisplayed.length,
@@ -623,8 +653,14 @@ function rankingEvidence(row: any, displayed: EntryDiagnostic[], retained: Entry
     tinyDisplayedBeatsLargerRetainedAlternative: tinyBeatLarger,
     classPriorityAppearsToDominateStructuralUsefulness: classPriorityDominates,
     repeatedSameFeatureFamilyDominatesDisplay: repeatedFamily,
+    displayedMainLakePointCount: pointCount,
+    retainedCapNonPointCount,
+    repeatedDisplayedLegendTitleMaxCount: maxTitleCount,
     displayedFeatureClassCounts: classCounts,
     displayedLegendTitleCounts: titleCounts,
+    retainedCapCount: retainedCounts.retainedCapCount,
+    retainedDiversityCount: retainedCounts.retainedDiversityCount,
+    retainedReadabilityCount: retainedCounts.retainedReadabilityCount,
     displayCapPressure,
     majorAxisFallbackRankingUsed: majorAxisFallback,
     likelyRankingDisplayPolicyIssue: tinyBeatLarger || classPriorityDominates || (displayCapPressure && tinyDisplayed.length > 0) || repeatedFamily,
@@ -706,11 +742,15 @@ function rowQuestionAnswers(rowJson: any, rowDiag: RowDiagnostic) {
   }
   if (rowId.startsWith('08-')) {
     const retainedCount = retained.length;
+    const retainedCapCount = retained.filter((entry) => entry.displayState === 'retained_not_displayed_cap').length;
     const suppressedCount = rowJson.row.suppressedFeatureCount ?? 0;
     questions.winnebagoStructureLimitEvidence = {
       detectedFeatureClassCounts: rowDiag.detectedFeatureClassCounts,
       rawCandidateSummary: rowDiag.rawCandidateSummary,
-      likelyCategory: retainedCount > 0
+      retainedCapCount,
+      retainedDiversityCount: retained.filter((entry) => entry.displayState === 'retained_not_displayed_diversity').length,
+      retainedReadabilityCount: retained.filter((entry) => entry.displayState === 'retained_not_displayed_readability').length,
+      likelyCategory: retainedCapCount > 0
         ? 'display_selection'
         : suppressedCount > 0
           ? 'placement_or_pruning'
@@ -796,6 +836,7 @@ function buildRowDiagnostic(rowConfig: typeof BATCH_ROWS[number]): RowDiagnostic
   }));
   const semanticAudit = displayedRaw.map((entry: any) => semanticAuditForEntry(row, entry, displayedFootprints.get(entry.entryId)!));
   const ranking = rankingEvidence(row, displayedEntries, retainedEntries);
+  const retainedCounts = retainedStateCounts(retainedEntries);
   const rawCandidateSummary = {
     detectedFeatureCount: rowJson.row.detectedFeatureCount,
     detectedFeatureClassCounts: rowJson.rawCandidates.detectedFeatureClassCounts,
@@ -823,6 +864,9 @@ function buildRowDiagnostic(rowConfig: typeof BATCH_ROWS[number]): RowDiagnostic
       supportStatus: row.supportStatus,
       displayedCount: row.displayedCount,
       retainedCount: row.retainedCount,
+      retainedCapCount: retainedCounts.retainedCapCount,
+      retainedDiversityCount: retainedCounts.retainedDiversityCount,
+      retainedReadabilityCount: retainedCounts.retainedReadabilityCount,
       displayCap: row.displayCap,
       appWidthSvgHeight: row.appWidthSvgHeight,
       rendererWarnings: {
@@ -884,6 +928,7 @@ function buildRowDiagnosticFromDisplayModel(params: {
   }));
   const semanticAudit = displayedRaw.map((entry: any) => semanticAuditForEntry(row, entry, displayedFootprints.get(entry.entryId)!));
   const ranking = rankingEvidence(row, displayedEntries, retainedEntries);
+  const retainedCounts = retainedStateCounts(retainedEntries);
   const rowDiag: RowDiagnostic = {
     rowId: row.rowId,
     lake: row.lake,
@@ -897,6 +942,9 @@ function buildRowDiagnosticFromDisplayModel(params: {
       supportStatus: row.supportStatus,
       displayedCount: row.displayedCount,
       retainedCount: row.retainedCount,
+      retainedCapCount: retainedCounts.retainedCapCount,
+      retainedDiversityCount: retainedCounts.retainedDiversityCount,
+      retainedReadabilityCount: retainedCounts.retainedReadabilityCount,
       displayCap: row.displayCap,
       appWidthSvgHeight: row.appWidthSvgHeight,
       rendererWarnings: {

@@ -1,7 +1,8 @@
-import type { PointM, PolygonM, RingM } from '../contracts';
+import type { PointM, PolygonM, RingM, WaterReaderFeatureClass } from '../contracts';
 import type { WaterReaderDisplayEntry, WaterReaderDisplayModel, WaterReaderDisplayZoneGeometry } from '../display-model';
 import { pointInWaterOrBoundary } from '../features/validation';
 import { waterReaderLegendForbiddenPhraseHits } from '../legend';
+import type { WaterReaderZonePlacementKind } from '../zones/types';
 import { buildWaterReaderSvgTransform, format, svgPathForPolygon, svgPathForRing, svgPoint } from './transform';
 import type {
   WaterReaderLabelAnchor,
@@ -19,18 +20,19 @@ const BACKDROP = '#F7FAFC';
 const TEXT = '#0F172A';
 const MUTED = '#475569';
 const CONFLUENCE = '#D946EF';
-const LEGEND_TEXT_OFFSET_X = 28;
-const LEGEND_RIGHT_PADDING = 10;
-const LEGEND_TITLE_MAX_CHARS = 54;
-const LEGEND_BODY_MAX_CHARS = 95;
-const LEGEND_WARNING_MAX_CHARS = 95;
-const LEGEND_TITLE_LINE_HEIGHT = 14;
-const LEGEND_BODY_LINE_HEIGHT = 14;
-const LEGEND_WARNING_LINE_HEIGHT = 13;
-const LEGEND_TITLE_BODY_GAP = 8;
-const LEGEND_ROW_TOP_PADDING = 13;
-const LEGEND_ROW_BOTTOM_PADDING = 12;
-const LEGEND_ROW_GAP = 8;
+const DEFAULT_LEGEND_COLOR = '#334155';
+const ZONE_FILL_OPACITY = '0.42';
+const ZONE_STROKE_OPACITY = '0.16';
+const ZONE_STROKE_WIDTH = '0.6';
+const CONFLUENCE_FILL_OPACITY = '0.4';
+const CONFLUENCE_STROKE_OPACITY = '0.14';
+const POINT_BUFFER_STROKE_OPACITY = '0.42';
+const CONFLUENCE_POINT_BUFFER_STROKE_OPACITY = '0.38';
+const COVE_SHORE_PATH_RENDER_SAMPLE_LIMIT = 96;
+const KEY_TITLE_LINE_HEIGHT = 14;
+const KEY_ROW_HEIGHT = 24;
+const KEY_ROW_GAP = 5;
+const KEY_COLUMN_GAP = 12;
 const CENTER_LABEL_RADIUS = 7.5;
 const CALLOUT_LABEL_RADIUS = 7.5;
 const CENTER_LABEL_DIAMETER = CENTER_LABEL_RADIUS * 2;
@@ -59,10 +61,6 @@ type LabelPlan = {
 
 type LegendEntryLayout = {
   titleLines: string[];
-  bodyLines: string[];
-  warningLines: string[];
-  bodyStartY: number;
-  warningStartY: number;
   rowHeight: number;
 };
 
@@ -90,8 +88,9 @@ export function buildWaterReaderProductionSvg(
     padding,
     mapWidth,
     legendHeight,
+    maxMapHeight: options.maxMapHeight,
   });
-  if (legendHeight > 520) {
+  if (legendHeight > Math.max(320, transform.maxMapHeight * 0.72)) {
     warnings.push({ code: 'legend_overflow_risk', message: 'Legend content is tall enough to require careful app layout review.' });
   }
 
@@ -102,8 +101,11 @@ export function buildWaterReaderProductionSvg(
   const labelPlans = buildLabelPlans(displayModel.displayedEntries, transform, warnings, options.lakePolygon ?? null);
   const labelLeaderLengths = labelPlans.map((plan) => plan.leaderLengthPx).filter(Number.isFinite);
   const labelPlanByEntryId = new Map(labelPlans.map((plan) => [plan.entryId, plan]));
-  const renderedEntries = displayModel.displayedEntries.map((entry) => renderEntry(entry, transform, clipId, warnings, labelPlanByEntryId.get(entry.entryId)));
-  const legend = renderLegend(displayModel, transform);
+  const renderedEntries = displayModel.displayedEntries.map((entry) =>
+    renderEntry(entry, transform, clipId, warnings, labelPlanByEntryId.get(entry.entryId), options.lakePolygon ?? null),
+  );
+  const legend = renderLegendKey(displayModel, transform);
+  const legendEntries = productionLegendEntries(displayModel);
   const title = escapeXml(options.title ?? 'Water Reader');
   const subtitle = escapeXml(options.subtitle ?? 'Polygon geometry readout');
   const warningComment = warnings.length > 0
@@ -163,7 +165,7 @@ export function buildWaterReaderProductionSvg(
     viewBox: transform.viewBox,
   };
 
-  return { svg, warnings, summary };
+  return { svg, warnings, summary, legendEntries };
 }
 
 function renderEntry(
@@ -172,25 +174,39 @@ function renderEntry(
   clipId: string,
   warnings: WaterReaderRenderWarning[],
   labelPlan?: LabelPlan,
+  lakePolygon?: PolygonM | null,
 ): { zoneMarkup: string; labelMarkup: string } {
   const number = entry.displayNumber ?? '';
   const plan = labelPlan ?? fallbackLabelPlan(entry, transform, warnings);
   if (entry.entryType === 'structure_confluence' || entry.entryType === 'neck_area') {
-    const envelope = groupedEntryEnvelope(entry, transform);
-    if (!envelope) warnings.push({ code: 'missing_zone_path', message: 'Grouped entry envelope path is empty.', entryId: entry.entryId });
+    const memberShapes = entry.entryType === 'structure_confluence'
+      ? groupedEntryMemberShapes(entry, transform, lakePolygon ?? null)
+      : '';
+    const envelope = memberShapes || groupedEntryEnvelope(entry, transform);
+    if (!envelope) warnings.push({ code: 'missing_zone_path', message: 'Grouped entry path is empty.', entryId: entry.entryId });
     const className = entry.entryType === 'structure_confluence' ? 'water-reader-confluence' : 'water-reader-neck-area';
+    const renderMode = memberShapes ? 'member-shapes' : 'unified-envelope';
     return {
-      zoneMarkup: `<g class="water-reader-entry ${className}" data-entry-id="${escapeXml(entry.entryId)}" data-display-number="${number}" data-render-mode="unified-envelope" data-member-zone-count="${entry.zoneIds.length}" clip-path="url(#${clipId})">${envelope}</g>`,
+      zoneMarkup: `<g class="water-reader-entry ${className}" data-entry-id="${escapeXml(entry.entryId)}" data-display-number="${number}" data-render-mode="${renderMode}" data-member-zone-count="${entry.zoneIds.length}" clip-path="url(#${clipId})">${envelope}</g>`,
       labelMarkup: numberLabel(plan),
     };
   }
 
   const zone = entry.zones[0];
-  const standalone = zone ? standaloneZoneEnvelope(zone, transform) : { path: '', mode: 'single-oval' };
+  const standalone = zone ? standaloneZoneEnvelope(zone, transform, lakePolygon ?? null) : { path: '', mode: 'single-oval' };
   const d = standalone.path;
   if (!zone || !d) warnings.push({ code: 'missing_zone_path', message: 'Standalone zone path is empty.', entryId: entry.entryId, zoneId: entry.zoneIds[0] });
+  if (standalone.mode === 'point-shoreline-buffer') {
+    const strokeWidthPx = standalone.strokeWidthPx ?? 16;
+    return {
+      zoneMarkup: `<g class="water-reader-entry water-reader-standalone-zone water-reader-point-shoreline-buffer" data-entry-id="${escapeXml(entry.entryId)}" data-zone-id="${escapeXml(entry.zoneIds[0] ?? '')}" data-display-number="${number}" data-render-mode="point-shoreline-buffer" data-point-apron-stroke-width-px="${format(strokeWidthPx)}">
+        <path d="${d}" fill="none" stroke="${entry.colorHex}" stroke-opacity="${POINT_BUFFER_STROKE_OPACITY}" stroke-width="${format(strokeWidthPx)}" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>`,
+      labelMarkup: numberLabel(plan),
+    };
+  }
   return {
-    zoneMarkup: `<path class="water-reader-entry water-reader-standalone-zone" data-entry-id="${escapeXml(entry.entryId)}" data-zone-id="${escapeXml(entry.zoneIds[0] ?? '')}" data-display-number="${number}" data-render-mode="${standalone.mode}" d="${d}" fill="${entry.colorHex}" fill-opacity="0.34" stroke="${entry.colorHex}" stroke-opacity="0.94" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>`,
+    zoneMarkup: `<path class="water-reader-entry water-reader-standalone-zone" data-entry-id="${escapeXml(entry.entryId)}" data-zone-id="${escapeXml(entry.zoneIds[0] ?? '')}" data-display-number="${number}" data-render-mode="${standalone.mode}" d="${d}" fill="${entry.colorHex}" fill-opacity="${ZONE_FILL_OPACITY}" stroke="${entry.colorHex}" stroke-opacity="${ZONE_STROKE_OPACITY}" stroke-width="${ZONE_STROKE_WIDTH}" stroke-linecap="round" stroke-linejoin="round"/>`,
     labelMarkup: numberLabel(plan),
   };
 }
@@ -198,10 +214,25 @@ function renderEntry(
 function standaloneZoneEnvelope(
   zone: WaterReaderDisplayZoneGeometry,
   transform: WaterReaderSvgTransform,
-): { path: string; mode: string } {
+  lakePolygon: PolygonM | null,
+): { path: string; mode: string; strokeWidthPx?: number } {
   const renderShape = typeof zone.diagnostics.featureEnvelopeRenderShape === 'string'
     ? zone.diagnostics.featureEnvelopeRenderShape
     : null;
+  if (renderShape === 'rounded_point_apron') {
+    const shorelineBuffer = pointShorelineBufferPath(zone, transform, lakePolygon);
+    if (shorelineBuffer) return shorelineBuffer;
+    const apron = roundedPointApronPath(zone, transform, lakePolygon);
+    if (apron) return { path: apron, mode: 'rounded-point-apron' };
+  }
+  if (renderShape === 'shoreline_cove_polygon') {
+    const polygon = shorelineCovePolygonPath(zone, transform);
+    if (polygon) return { path: polygon, mode: 'shoreline-cove-polygon' };
+  }
+  if (renderShape === 'full_cove_basin') {
+    const basin = fullCoveBasinPath(zone, transform);
+    if (basin) return { path: basin, mode: 'full-cove-basin' };
+  }
   if (renderShape === 'merged_point_lobes' || renderShape === 'paired_shoulder_lobes') {
     const lobeRings = featureEnvelopeRenderLobes(zone);
     const points = lobeRings.flat().filter(validPoint);
@@ -219,6 +250,179 @@ function standaloneZoneEnvelope(
   };
 }
 
+function pointShorelineBufferPath(
+  zone: WaterReaderDisplayZoneGeometry,
+  transform: WaterReaderSvgTransform,
+  lakePolygon: PolygonM | null,
+): { path: string; mode: string; strokeWidthPx: number } | null {
+  const samples = diagnosticPointSequence(zone, 'pointEnvelopeShorePathSample', 13);
+  if (samples.length < 3) return null;
+  const strokeWidthM = diagnosticNumber(zone.diagnostics.pointApronStrokeWidthM) * 1.12;
+  const visibleCenter = ringCenter(visibleOrUnclippedRing(zone));
+  const offsetM = Math.max(0, strokeWidthM * 0.16);
+  const renderSamples = lakePolygon
+    ? samples.map((sample) => {
+        const waterward = inferWaterwardDirection({
+          origin: sample,
+          preferred: { x: visibleCenter.x - sample.x, y: visibleCenter.y - sample.y },
+          alternatives: [
+            { x: zone.center.x - sample.x, y: zone.center.y - sample.y },
+            { x: zone.anchor.x - sample.x, y: zone.anchor.y - sample.y },
+          ],
+          lakePolygon,
+          scaleM: Math.max(4, offsetM * 1.8),
+        });
+        return waterward ? add(sample, scale(waterward, offsetM)) : sample;
+      })
+    : samples;
+  const minWidthPx = Math.max(1, diagnosticNumber(zone.diagnostics.pointApronAppMinWidthPx) || 16);
+  const strokeWidthPx = clampNumber(
+    Math.max(strokeWidthM * transform.scale, minWidthPx),
+    minWidthPx,
+    Math.max(minWidthPx, 48),
+  );
+  return {
+    path: svgPathForRing(renderSamples, transform, false),
+    mode: 'point-shoreline-buffer',
+    strokeWidthPx,
+  };
+}
+
+function shorelineCovePolygonPath(zone: WaterReaderDisplayZoneGeometry, transform: WaterReaderSvgTransform): string {
+  const shoreSamples = diagnosticPointSequence(zone, 'coveEnvelopeShorePathSample', COVE_SHORE_PATH_RENDER_SAMPLE_LIMIT);
+  const mouthLeft = diagnosticPoint(zone, 'coveEnvelopeMouthLeft');
+  const mouthRight = diagnosticPoint(zone, 'coveEnvelopeMouthRight');
+  const back = diagnosticPoint(zone, 'coveEnvelopeBack');
+  if (shoreSamples.length < 3 || !mouthLeft || !mouthRight || !back) return '';
+  const first = shoreSamples[0]!;
+  const last = shoreSamples[shoreSamples.length - 1]!;
+  const mouthMid = midpoint(mouthLeft, mouthRight);
+  const towardBack = normalize({ x: back.x - mouthMid.x, y: back.y - mouthMid.y }) ?? normalize({ x: zone.center.x - mouthMid.x, y: zone.center.y - mouthMid.y });
+  const mouthWidthM = Math.max(1, distance(mouthLeft, mouthRight));
+  const depthM = Math.max(1, distance(back, mouthMid));
+  const capInsetM = clampNumber(Math.min(mouthWidthM * 0.16, depthM * 0.18), 3, zone.majorAxisM * 0.1);
+  const control = towardBack ? add(mouthMid, scale(towardBack, capInsetM)) : mouthMid;
+  const firstSvg = svgPoint(first, transform);
+  const controlSvg = svgPoint(control, transform);
+  const parts = [`M ${format(firstSvg.x)} ${format(firstSvg.y)}`];
+  for (let index = 1; index < shoreSamples.length; index++) {
+    const point = svgPoint(shoreSamples[index]!, transform);
+    parts.push(`L ${format(point.x)} ${format(point.y)}`);
+  }
+  parts.push(`Q ${format(controlSvg.x)} ${format(controlSvg.y)} ${format(firstSvg.x)} ${format(firstSvg.y)}`);
+  parts.push('Z');
+  return parts.join(' ');
+}
+
+function roundedPointApronPath(
+  zone: WaterReaderDisplayZoneGeometry,
+  transform: WaterReaderSvgTransform,
+  lakePolygon: PolygonM | null,
+): string {
+  const tip = diagnosticPoint(zone, 'featureEnvelopeRenderLobe1Center');
+  const left = diagnosticPoint(zone, 'featureEnvelopeRenderLobe2Center');
+  const right = diagnosticPoint(zone, 'featureEnvelopeRenderLobe3Center');
+  if (!tip || !left || !right) return '';
+  const shoulderMid = midpoint(left, right);
+  const baseDirection = normalize({ x: tip.x - shoulderMid.x, y: tip.y - shoulderMid.y }) ??
+    normalize({ x: tip.x - zone.center.x, y: tip.y - zone.center.y }) ??
+    { x: Math.cos(zone.rotationRad), y: Math.sin(zone.rotationRad) };
+  const visibleCenter = ringCenter(visibleOrUnclippedRing(zone));
+  const waterward = inferWaterwardDirection({
+    origin: tip,
+    preferred: baseDirection,
+    alternatives: [
+      { x: visibleCenter.x - tip.x, y: visibleCenter.y - tip.y },
+      { x: zone.center.x - tip.x, y: zone.center.y - tip.y },
+      { x: -baseDirection.x, y: -baseDirection.y },
+      { x: -(right.y - left.y), y: right.x - left.x },
+      { x: right.y - left.y, y: -(right.x - left.x) },
+    ],
+    lakePolygon,
+    scaleM: Math.max(zone.majorAxisM * 0.16, distance(tip, shoulderMid) * 0.55, 12),
+  }) ?? baseDirection;
+  const side = normalize({ x: right.x - left.x, y: right.y - left.y }) ??
+    { x: -waterward.y, y: waterward.x };
+  const shoulderSpanM = Math.max(1, distance(left, right));
+  const protrusionM = Math.max(1, distance(tip, shoulderMid));
+  const tipLobeMajorM = diagnosticNumber(zone.diagnostics.featureEnvelopeRenderLobe1MajorAxisM);
+  const shoulderLobeMajorM = Math.max(
+    diagnosticNumber(zone.diagnostics.featureEnvelopeRenderLobe2MajorAxisM),
+    diagnosticNumber(zone.diagnostics.featureEnvelopeRenderLobe3MajorAxisM),
+  );
+  const shoulderLobeMinorM = Math.max(
+    diagnosticNumber(zone.diagnostics.featureEnvelopeRenderLobe2MinorAxisM),
+    diagnosticNumber(zone.diagnostics.featureEnvelopeRenderLobe3MinorAxisM),
+  );
+  const waterwardPadM = clampNumber(
+    Math.max(tipLobeMajorM * 0.86, protrusionM * 0.74, zone.majorAxisM * 0.2, 14),
+    Math.min(zone.majorAxisM * 0.16, 18),
+    zone.majorAxisM * 0.5,
+  );
+  const shoulderPadM = clampNumber(
+    Math.max(shoulderLobeMinorM * 0.8, shoulderSpanM * 0.32, zone.minorAxisM * 0.32, 12),
+    Math.min(zone.majorAxisM * 0.12, 16),
+    zone.majorAxisM * 0.34,
+  );
+  const backPadM = clampNumber(Math.max(shoulderLobeMajorM * 0.16, protrusionM * 0.18, zone.minorAxisM * 0.12), 5, zone.majorAxisM * 0.18);
+  const points = [
+    add(tip, scale(waterward, waterwardPadM)),
+    add(lerp(tip, left, 0.36), add(scale(waterward, waterwardPadM * 0.52), scale(side, -shoulderPadM * 0.58))),
+    add(left, add(scale(waterward, waterwardPadM * 0.18), scale(side, -shoulderPadM))),
+    add(left, add(scale(side, -shoulderPadM * 0.55), scale(waterward, -backPadM))),
+    add(shoulderMid, scale(waterward, -backPadM * 0.95)),
+    add(right, add(scale(side, shoulderPadM * 0.55), scale(waterward, -backPadM))),
+    add(right, add(scale(waterward, waterwardPadM * 0.18), scale(side, shoulderPadM))),
+    add(lerp(tip, right, 0.36), add(scale(waterward, waterwardPadM * 0.52), scale(side, shoulderPadM * 0.58))),
+  ];
+  return bezierClosedPath(points, transform);
+}
+
+function fullCoveBasinPath(zone: WaterReaderDisplayZoneGeometry, transform: WaterReaderSvgTransform): string {
+  const mouthLeft = diagnosticPoint(zone, 'coveEnvelopeMouthLeft');
+  const mouthRight = diagnosticPoint(zone, 'coveEnvelopeMouthRight');
+  const back = diagnosticPoint(zone, 'coveEnvelopeBack');
+  const leftInner = diagnosticPoint(zone, 'coveEnvelopeLeftInner');
+  const rightInner = diagnosticPoint(zone, 'coveEnvelopeRightInner');
+  const leftNearMouth = diagnosticPoint(zone, 'coveEnvelopeLeftNearMouth');
+  const rightNearMouth = diagnosticPoint(zone, 'coveEnvelopeRightNearMouth');
+  if (!mouthLeft || !mouthRight || !back || !leftInner || !rightInner) return '';
+  const shoreSamples = diagnosticPointSequence(zone, 'coveEnvelopeShorePathSample', COVE_SHORE_PATH_RENDER_SAMPLE_LIMIT);
+  const mouthMid = midpoint(mouthLeft, mouthRight);
+  const axis = normalize({ x: mouthMid.x - back.x, y: mouthMid.y - back.y }) ??
+    { x: Math.cos(zone.rotationRad), y: Math.sin(zone.rotationRad) };
+  const side = normalize({ x: mouthRight.x - mouthLeft.x, y: mouthRight.y - mouthLeft.y }) ??
+    { x: -axis.y, y: axis.x };
+  const basinCenter = lerp(back, mouthMid, 0.48);
+  const mouthWidthM = Math.max(1, distance(mouthLeft, mouthRight));
+  const depthM = Math.max(1, distance(back, mouthMid));
+  const sidePadM = clampNumber(Math.max(mouthWidthM * 0.08, zone.minorAxisM * 0.07), 4, zone.majorAxisM * 0.13);
+  const mouthPadM = clampNumber(Math.max(depthM * 0.06, zone.majorAxisM * 0.028), 4, zone.majorAxisM * 0.1);
+  const backPadM = clampNumber(Math.max(depthM * 0.08, zone.minorAxisM * 0.06), 4, zone.majorAxisM * 0.1);
+  const curvedShore = shoreSamples.length >= 5
+    ? shoreSamples.map((point, index) => {
+        const inward = normalize({ x: basinCenter.x - point.x, y: basinCenter.y - point.y }) ?? axis;
+        const endFactor = Math.min(index, shoreSamples.length - 1 - index) <= 1 ? 0.45 : 0.72;
+        return add(point, scale(inward, sidePadM * endFactor));
+      })
+    : [
+        add(mouthLeft, add(scale(side, -sidePadM), scale(axis, mouthPadM * 0.25))),
+        leftNearMouth ? add(leftNearMouth, scale(side, -sidePadM * 0.34)) : lerp(mouthLeft, leftInner, 0.45),
+        add(leftInner, scale(side, -sidePadM * 0.2)),
+        add(back, scale(axis, backPadM)),
+        add(rightInner, scale(side, sidePadM * 0.2)),
+        rightNearMouth ? add(rightNearMouth, scale(side, sidePadM * 0.34)) : lerp(mouthRight, rightInner, 0.45),
+        add(mouthRight, add(scale(side, sidePadM), scale(axis, mouthPadM * 0.25))),
+      ];
+  const points = [
+    ...curvedShore,
+    add(mouthRight, add(scale(side, sidePadM * 0.45), scale(axis, mouthPadM))),
+    add(mouthMid, scale(axis, mouthPadM * 0.72)),
+    add(mouthLeft, add(scale(side, -sidePadM * 0.45), scale(axis, mouthPadM))),
+  ];
+  return bezierClosedPath(points, transform);
+}
+
 function featureEnvelopeRenderLobes(zone: WaterReaderDisplayZoneGeometry): RingM[] {
   const count = Math.min(4, Math.max(0, diagnosticNumber(zone.diagnostics.featureEnvelopeRenderLobeCount)));
   const rings: RingM[] = [];
@@ -232,6 +436,59 @@ function featureEnvelopeRenderLobes(zone: WaterReaderDisplayZoneGeometry): RingM
     rings.push(ovalRing({ x: centerX, y: centerY }, majorAxisM, minorAxisM, rotationRad));
   }
   return rings;
+}
+
+function diagnosticPoint(zone: WaterReaderDisplayZoneGeometry, prefix: string): PointM | null {
+  const x = diagnosticNumber(zone.diagnostics[`${prefix}X`]);
+  const y = diagnosticNumber(zone.diagnostics[`${prefix}Y`]);
+  if (!Number.isFinite(x) || !Number.isFinite(y)) return null;
+  return { x, y };
+}
+
+function diagnosticPointSequence(zone: WaterReaderDisplayZoneGeometry, prefix: string, maxCount: number): PointM[] {
+  const count = Math.min(maxCount, Math.max(0, diagnosticNumber(zone.diagnostics[`${prefix}Count`])));
+  const points: PointM[] = [];
+  for (let index = 1; index <= count; index++) {
+    const point = diagnosticPoint(zone, `${prefix}${index}`);
+    if (point) points.push(point);
+  }
+  return points;
+}
+
+function inferWaterwardDirection(params: {
+  origin: PointM;
+  preferred: PointM;
+  alternatives: PointM[];
+  lakePolygon: PolygonM | null;
+  scaleM: number;
+}): PointM | null {
+  const candidates = [params.preferred, ...params.alternatives]
+    .map(normalize)
+    .filter((point): point is PointM => point !== null);
+  if (candidates.length === 0) return null;
+  if (!params.lakePolygon) return candidates[0] ?? null;
+  const unique = uniqueDirections(candidates);
+  const scored = unique.map((direction, index) => {
+    const distances = [0.35, 0.7, 1, 1.35].map((factor) => params.scaleM * factor);
+    const waterHits = distances.filter((distanceM) =>
+      pointInWaterOrBoundary(
+        { x: params.origin.x + direction.x * distanceM, y: params.origin.y + direction.y * distanceM },
+        params.lakePolygon!,
+        Math.max(1, params.scaleM * 0.02),
+      ),
+    ).length;
+    return { direction, waterHits, index };
+  });
+  return scored.sort((a, b) => b.waterHits - a.waterHits || a.index - b.index)[0]?.direction ?? unique[0] ?? null;
+}
+
+function uniqueDirections(directions: PointM[]): PointM[] {
+  const out: PointM[] = [];
+  for (const direction of directions) {
+    if (out.some((existing) => Math.abs(existing.x * direction.x + existing.y * direction.y) > 0.985)) continue;
+    out.push(direction);
+  }
+  return out;
 }
 
 function ovalRing(center: PointM, majorAxisM: number, minorAxisM: number, rotationRad: number, samples = 48): RingM {
@@ -484,8 +741,8 @@ function padBounds(bounds: Bounds, pad: number): Bounds {
 function pointInsideLakeSvg(point: PointM, lakePolygon: PolygonM | null, transform: WaterReaderSvgTransform): boolean {
   if (!lakePolygon) return false;
   const world = {
-    x: (point.x - transform.padding) / transform.scale + transform.minX,
-    y: transform.maxY - (point.y - transform.padding) / transform.scale,
+    x: (point.x - transform.padding - transform.mapOffsetX) / transform.scale + transform.minX,
+    y: transform.maxY - (point.y - transform.padding - transform.mapOffsetY) / transform.scale,
   };
   return pointInWaterOrBoundary(world, lakePolygon, Math.max(0.5, 1 / Math.max(transform.scale, 0.001)));
 }
@@ -502,60 +759,132 @@ function labelAnchor(entry: WaterReaderDisplayEntry, warnings: WaterReaderRender
   return { point: { x: 0, y: 0 } };
 }
 
-function renderLegend(displayModel: WaterReaderDisplayModel, transform: WaterReaderSvgTransform): string {
+function renderLegendKey(displayModel: WaterReaderDisplayModel, transform: WaterReaderSvgTransform): string {
   const x = transform.padding;
-  let y = transform.legendTop;
   const width = transform.width - transform.padding * 2;
-  const wrap = legendWrapLimits(width);
+  const columnCount = compactLegendColumnCount(transform.width, displayModel.displayLegendEntries.length);
+  const columnWidth = (width - (columnCount - 1) * KEY_COLUMN_GAP) / columnCount;
+  const wrap = legendWrapLimits(columnWidth);
   const rows: string[] = [];
-  rows.push(`<text x="${x}" y="${y}" font-family="${FONT}" font-size="15" font-weight="850" fill="${TEXT}">Water Reader Legend</text>`);
-  y += 22;
-  for (const entry of displayModel.displayLegendEntries) {
+  rows.push(`<text x="${x}" y="${transform.legendTop}" font-family="${FONT}" font-size="13" font-weight="850" fill="${TEXT}">Map Key</text>`);
+  const firstRowY = transform.legendTop + 22;
+  displayModel.displayLegendEntries.forEach((entry, index) => {
     const layout = legendEntryLayout(entry, wrap);
     const color = entry.colorHex ?? '#334155';
-    rows.push(`<g class="water-reader-display-legend-entry" data-display-number="${entry.number}" transform="translate(${x} ${y})">
-      <rect x="0" y="-${LEGEND_ROW_TOP_PADDING}" width="${width}" height="${layout.rowHeight}" rx="6" fill="#FFFFFF" stroke="#E2E8F0"/>
-      <rect x="10" y="-4" width="10" height="10" rx="2" fill="${color}"/>
-      ${layout.titleLines.map((line, index) => `<text x="${LEGEND_TEXT_OFFSET_X}" y="${index * LEGEND_TITLE_LINE_HEIGHT}" font-family="${FONT}" font-size="12" font-weight="800" fill="${TEXT}">${escapeXml(line)}</text>`).join('')}
-      ${layout.bodyLines.map((line, index) => `<text x="${LEGEND_TEXT_OFFSET_X}" y="${layout.bodyStartY + index * LEGEND_BODY_LINE_HEIGHT}" font-family="${FONT}" font-size="10.5" fill="${MUTED}">${escapeXml(line)}</text>`).join('')}
-      ${layout.warningLines.map((line, index) => `<text x="${LEGEND_TEXT_OFFSET_X}" y="${layout.warningStartY + index * LEGEND_WARNING_LINE_HEIGHT}" font-family="${FONT}" font-size="10" fill="#8A4B00">${escapeXml(line)}</text>`).join('')}
+    const columnIndex = index % columnCount;
+    const rowIndex = Math.floor(index / columnCount);
+    const rowX = x + columnIndex * (columnWidth + KEY_COLUMN_GAP);
+    const rowY = firstRowY + rowIndex * (KEY_ROW_HEIGHT + KEY_ROW_GAP);
+    rows.push(`<g class="water-reader-display-legend-entry" data-display-number="${entry.number}" transform="translate(${rowX} ${rowY})">
+      <rect x="0" y="-13" width="${format(columnWidth)}" height="${layout.rowHeight}" rx="5" fill="#FFFFFF" stroke="#E2E8F0"/>
+      <circle cx="13" cy="-1" r="7" fill="#FFFFFF" stroke="${color}" stroke-width="2"/>
+      <text x="13" y="-0.7" font-family="${FONT}" font-size="8.2" font-weight="850" fill="${TEXT}" text-anchor="middle" dominant-baseline="central">${entry.number ?? ''}</text>
+      <rect x="25" y="-7" width="8" height="12" rx="2" fill="${color}"/>
+      ${layout.titleLines.map((line, lineIndex) => `<text x="40" y="${lineIndex * KEY_TITLE_LINE_HEIGHT}" font-family="${FONT}" font-size="10.5" font-weight="800" fill="${TEXT}">${escapeXml(line)}</text>`).join('')}
     </g>`);
-    y += layout.rowHeight + LEGEND_ROW_GAP;
-  }
+  });
   return `<g class="water-reader-legend">${rows.join('\n  ')}</g>`;
 }
 
 function estimateLegendHeight(displayModel: WaterReaderDisplayModel, mapWidth: number, padding: number): number {
-  const wrap = legendWrapLimits(mapWidth - padding * 2);
-  return 48 + displayModel.displayLegendEntries.reduce((sum, entry) => (
-    sum + legendEntryLayout(entry, wrap).rowHeight + LEGEND_ROW_GAP
-  ), 0);
+  const columnCount = compactLegendColumnCount(mapWidth, displayModel.displayLegendEntries.length);
+  const rows = Math.ceil(displayModel.displayLegendEntries.length / columnCount);
+  return 28 + rows * KEY_ROW_HEIGHT + Math.max(0, rows - 1) * KEY_ROW_GAP;
 }
 
 function legendEntryLayout(
-  entry: { number?: number; title: string; body: string; transitionWarning?: string },
+  entry: { title: string },
   wrap: ReturnType<typeof legendWrapLimits>,
 ): LegendEntryLayout {
-  const titleLines = wrapText(`${entry.number}. ${entry.title}`, wrap.titleMaxChars, 2);
-  const bodyLines = wrapText(entry.body, wrap.bodyMaxChars, 3);
-  const warningLines = entry.transitionWarning ? wrapText(entry.transitionWarning, wrap.warningMaxChars, 2) : [];
-  const bodyStartY = titleLines.length * LEGEND_TITLE_LINE_HEIGHT + LEGEND_TITLE_BODY_GAP;
-  const warningStartY = bodyStartY + bodyLines.length * LEGEND_BODY_LINE_HEIGHT;
-  const lastBodyY = bodyStartY + Math.max(0, bodyLines.length - 1) * LEGEND_BODY_LINE_HEIGHT;
-  const lastWarningY = warningLines.length > 0
-    ? warningStartY + (warningLines.length - 1) * LEGEND_WARNING_LINE_HEIGHT
-    : lastBodyY;
-  const rowHeight = lastWarningY + LEGEND_ROW_TOP_PADDING + LEGEND_ROW_BOTTOM_PADDING;
-  return { titleLines, bodyLines, warningLines, bodyStartY, warningStartY, rowHeight };
+  const titleLines = wrapText(entry.title, wrap.titleMaxChars, 1);
+  return { titleLines, rowHeight: KEY_ROW_HEIGHT };
 }
 
-function legendWrapLimits(rowWidth: number): { titleMaxChars: number; bodyMaxChars: number; warningMaxChars: number } {
-  const textWidth = Math.max(80, rowWidth - LEGEND_TEXT_OFFSET_X - LEGEND_RIGHT_PADDING);
+function legendWrapLimits(rowWidth: number): { titleMaxChars: number } {
+  const textWidth = Math.max(60, rowWidth - 44);
   return {
-    titleMaxChars: Math.min(LEGEND_TITLE_MAX_CHARS, Math.max(24, Math.floor(textWidth / 6.2))),
-    bodyMaxChars: Math.min(LEGEND_BODY_MAX_CHARS, Math.max(34, Math.floor(textWidth / 5.4))),
-    warningMaxChars: Math.min(LEGEND_WARNING_MAX_CHARS, Math.max(34, Math.floor(textWidth / 5.4))),
+    titleMaxChars: Math.max(14, Math.floor(textWidth / 5.8)),
   };
+}
+
+function compactLegendColumnCount(width: number, entryCount: number): number {
+  if (entryCount <= 1) return 1;
+  if (width >= 780) return 3;
+  if (width >= 390) return 2;
+  return 1;
+}
+
+function productionLegendEntries(displayModel: WaterReaderDisplayModel): WaterReaderProductionSvgResult['legendEntries'] {
+  return displayModel.displayLegendEntries.map((entry) => {
+    const placementKinds = normalizeLegendPlacementKinds(entry.placementKinds, entry.placementKind);
+    const zoneIds = entry.zoneIds?.length ? entry.zoneIds : [entry.zoneId];
+    return {
+      number: entry.number,
+      title: entry.title,
+      body: entry.body,
+      colorHex: entry.colorHex ?? DEFAULT_LEGEND_COLOR,
+      featureClass: normalizeLegendFeatureClass(entry.featureClass, entry.isConfluence),
+      placementKind: normalizeLegendPlacementKind(entry.placementKind) ?? placementKinds[0],
+      placementKinds,
+      zoneId: entry.zoneId,
+      zoneIds,
+      transitionWarning: entry.transitionWarning,
+      isConfluence: entry.isConfluence,
+    };
+  });
+}
+
+function normalizeLegendFeatureClass(
+  featureClass: WaterReaderFeatureClass | 'structure_confluence' | undefined,
+  isConfluence: boolean | undefined,
+): WaterReaderFeatureClass | 'structure_confluence' {
+  if (featureClass) return featureClass;
+  return isConfluence ? 'structure_confluence' : 'universal';
+}
+
+function normalizeLegendPlacementKind(placementKind: string | undefined): WaterReaderZonePlacementKind | undefined {
+  return placementKind as WaterReaderZonePlacementKind | undefined;
+}
+
+function normalizeLegendPlacementKinds(
+  placementKinds: string[] | undefined,
+  placementKind: string | undefined,
+): WaterReaderZonePlacementKind[] {
+  if (placementKinds?.length) return placementKinds as WaterReaderZonePlacementKind[];
+  const normalizedPlacementKind = normalizeLegendPlacementKind(placementKind);
+  return normalizedPlacementKind ? [normalizedPlacementKind] : [];
+}
+
+function groupedEntryMemberShapes(
+  entry: WaterReaderDisplayEntry,
+  transform: WaterReaderSvgTransform,
+  lakePolygon: PolygonM | null,
+): string {
+  const memberMarkup = entry.zones
+    .map((zone, index) => groupedEntryMemberShape(zone, entry, transform, lakePolygon, index))
+    .filter(Boolean);
+  return memberMarkup.length > 0 ? memberMarkup.join('\n') : '';
+}
+
+function groupedEntryMemberShape(
+  zone: WaterReaderDisplayZoneGeometry,
+  entry: WaterReaderDisplayEntry,
+  transform: WaterReaderSvgTransform,
+  lakePolygon: PolygonM | null,
+  index: number,
+): string {
+  const member = standaloneZoneEnvelope(zone, transform, lakePolygon);
+  if (!member.path) return '';
+  const zoneId = escapeXml(zone.zoneId);
+  const entryId = escapeXml(entry.entryId);
+  const number = entry.displayNumber ?? '';
+  if (member.mode === 'point-shoreline-buffer') {
+    const strokeWidthPx = member.strokeWidthPx ?? 16;
+    return `<g class="water-reader-confluence-member water-reader-point-shoreline-buffer" data-entry-id="${entryId}" data-zone-id="${zoneId}" data-member-index="${index + 1}" data-display-number="${number}" data-render-mode="point-shoreline-buffer" data-point-apron-stroke-width-px="${format(strokeWidthPx)}">
+        <path d="${member.path}" fill="none" stroke="${CONFLUENCE}" stroke-opacity="${CONFLUENCE_POINT_BUFFER_STROKE_OPACITY}" stroke-width="${format(strokeWidthPx)}" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>`;
+  }
+  return `<path class="water-reader-confluence-member" data-entry-id="${entryId}" data-zone-id="${zoneId}" data-member-index="${index + 1}" data-display-number="${number}" data-render-mode="${member.mode}" d="${member.path}" fill="${CONFLUENCE}" fill-opacity="${CONFLUENCE_FILL_OPACITY}" stroke="${CONFLUENCE}" stroke-width="${ZONE_STROKE_WIDTH}" stroke-opacity="${CONFLUENCE_STROKE_OPACITY}" stroke-linecap="round" stroke-linejoin="round"/>`;
 }
 
 function groupedEntryEnvelope(entry: WaterReaderDisplayEntry, transform: WaterReaderSvgTransform): string {
@@ -568,7 +897,9 @@ function groupedEntryEnvelope(entry: WaterReaderDisplayEntry, transform: WaterRe
   const path = smoothClosedPath(envelope, transform);
   const color = entry.entryType === 'structure_confluence' ? CONFLUENCE : entry.colorHex;
   const className = entry.entryType === 'structure_confluence' ? 'water-reader-confluence-outline' : 'water-reader-neck-area-outline';
-  return `<path class="${className}" d="${path}" fill="${color}" fill-opacity="0.34" stroke="${color}" stroke-width="1.2" stroke-opacity="0.86" stroke-linecap="round" stroke-linejoin="round"/>`;
+  const fillOpacity = entry.entryType === 'structure_confluence' ? CONFLUENCE_FILL_OPACITY : ZONE_FILL_OPACITY;
+  const strokeOpacity = entry.entryType === 'structure_confluence' ? CONFLUENCE_STROKE_OPACITY : ZONE_STROKE_OPACITY;
+  return `<path class="${className}" d="${path}" fill="${color}" fill-opacity="${fillOpacity}" stroke="${color}" stroke-width="${ZONE_STROKE_WIDTH}" stroke-opacity="${strokeOpacity}" stroke-linecap="round" stroke-linejoin="round"/>`;
 }
 
 function convexHull(points: PointM[]): PointM[] {
@@ -615,6 +946,10 @@ function boundsCenter(points: PointM[]): PointM {
   return { x: (bounds.minX + bounds.maxX) / 2, y: (bounds.minY + bounds.maxY) / 2 };
 }
 
+function ringCenter(points: PointM[]): PointM {
+  return points.length > 0 ? averagePoint(points) : { x: 0, y: 0 };
+}
+
 function boundsForPoints(points: PointM[]): Bounds {
   return points.reduce(
     (acc, point) => ({
@@ -647,6 +982,59 @@ function smoothClosedPath(points: PointM[], transform: WaterReaderSvgTransform):
   }
   parts.push('Z');
   return parts.join(' ');
+}
+
+function bezierClosedPath(points: PointM[], transform: WaterReaderSvgTransform): string {
+  const valid = points.filter(validPoint);
+  if (valid.length < 3) return '';
+  const svgPoints = valid.map((point) => svgPoint(point, transform));
+  const first = svgPoints[0]!;
+  const parts = [`M ${format(first.x)} ${format(first.y)}`];
+  for (let i = 0; i < svgPoints.length; i++) {
+    const current = svgPoints[i]!;
+    const next = svgPoints[(i + 1) % svgPoints.length]!;
+    const after = svgPoints[(i + 2) % svgPoints.length]!;
+    const control = next;
+    const end = { x: (next.x + after.x) / 2, y: (next.y + after.y) / 2 };
+    if (i === 0) {
+      const mid = { x: (current.x + next.x) / 2, y: (current.y + next.y) / 2 };
+      parts.push(`Q ${format(current.x)} ${format(current.y)} ${format(mid.x)} ${format(mid.y)}`);
+    } else {
+      parts.push(`Q ${format(control.x)} ${format(control.y)} ${format(end.x)} ${format(end.y)}`);
+    }
+  }
+  parts.push('Z');
+  return parts.join(' ');
+}
+
+function midpoint(a: PointM, b: PointM): PointM {
+  return { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 };
+}
+
+function lerp(a: PointM, b: PointM, t: number): PointM {
+  return { x: a.x + (b.x - a.x) * t, y: a.y + (b.y - a.y) * t };
+}
+
+function add(a: PointM, b: PointM): PointM {
+  return { x: a.x + b.x, y: a.y + b.y };
+}
+
+function scale(point: PointM, value: number): PointM {
+  return { x: point.x * value, y: point.y * value };
+}
+
+function distance(a: PointM, b: PointM): number {
+  return Math.hypot(a.x - b.x, a.y - b.y);
+}
+
+function normalize(point: PointM): PointM | null {
+  const length = Math.hypot(point.x, point.y);
+  if (!Number.isFinite(length) || length <= 1e-9) return null;
+  return { x: point.x / length, y: point.y / length };
+}
+
+function clampNumber(value: number, min: number, max: number): number {
+  return Math.max(min, Math.min(max, value));
 }
 
 function wrapText(input: string, maxChars: number, maxLines: number): string[] {

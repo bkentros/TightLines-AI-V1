@@ -1,6 +1,42 @@
 import type { PointM, RingM, WaterReaderFeatureClass, WaterReaderSeason, WaterReaderSeasonGroup } from '../contracts.ts';
 
+// Feature-envelope contracts are the Pass 2 target geometry model:
+// - main_point_structure_area / secondary_point_structure_area: one merged local zone covering the detected tip, immediate tip-adjacent water, and both adjacent side/shoulder references, bounded to the point's local feature span. The conceptual oval center may be land-side/outside-water only when clipping leaves valid local water attached to the point frame. Rendering may use deterministic tip/left/right lobes, but the display contract remains one point feature envelope.
+// - cove_structure_area: one bounded local zone covering the detected cove structure reference, including mouth shoulders and inner/back reference, but not an entire large arm when the cove scan is broad.
+// - neck_structure_area / saddle_structure_area: one grouped shoulder area representing both sides of the constriction, not the center throat and not pencil-line strokes. Rendering may use deterministic paired shoulder lobes, but the display contract remains one constriction feature envelope.
+// - island_structure_area: one island-centered structure area derived from the island ring/centroid and extending beyond island shoreline into adjacent water; visual output must not imply island land is water.
+// - dam_structure_area: one local zone covering the dam segment and both transition corners.
+// - universal fallbacks remain optional and explicitly separate from feature-envelope structure areas.
+export type WaterReaderFeatureEnvelopePlacementKind =
+  | 'main_point_structure_area'
+  | 'secondary_point_structure_area'
+  | 'cove_structure_area'
+  | 'neck_structure_area'
+  | 'saddle_structure_area'
+  | 'island_structure_area'
+  | 'dam_structure_area';
+
+export type WaterReaderFeatureEnvelopeSemanticId = WaterReaderFeatureEnvelopePlacementKind;
+
+export type WaterReaderFeatureEnvelopeGeometryKind =
+  | 'point_local_span'
+  | 'cove_local_envelope'
+  | 'constriction_grouped_shoulders'
+  | 'island_structure_envelope'
+  | 'dam_segment_envelope';
+
+export interface WaterReaderFeatureEnvelopeDiagnostics {
+  featureEnvelopeModelVersion: 'feature-envelope-v1';
+  featureEnvelopeSourceFeatureId: string;
+  featureEnvelopeGeometryKind: WaterReaderFeatureEnvelopeGeometryKind;
+  featureEnvelopeIncludes: string[];
+  featureEnvelopeSeasonInvariant: true;
+  featureEnvelopeSuppressionReason: string | null;
+  seasonalEmphasisOnly: true;
+}
+
 export type WaterReaderZonePlacementKind =
+  | WaterReaderFeatureEnvelopePlacementKind
   | 'neck_shoulder'
   | 'saddle_shoulder'
   | 'main_point_side'
@@ -19,6 +55,7 @@ export type WaterReaderZonePlacementKind =
   | 'universal_centroid_shoreline';
 
 export type WaterReaderZonePlacementSemanticId =
+  | WaterReaderFeatureEnvelopeSemanticId
   | 'main_point_side'
   | 'main_point_tip'
   | 'main_point_tip_near'
@@ -57,6 +94,7 @@ export type WaterReaderZonePlacementSemanticId =
   | 'island_mainland_primary'
   | 'island_open_water_area'
   | 'island_open_water_proxy'
+  | 'island_open_water_same_side_recovery'
   | 'island_endpoint_a'
   | 'island_endpoint_b'
   | 'island_alternate_endpoint_recovery'
@@ -106,9 +144,13 @@ export interface WaterReaderZonePlacementDiagnostics {
   detectedFeatureCount: number;
   selectedFeatureCount: number;
   suppressedFeatureCount: number;
+  selectedFeatureSuppressionCount: number;
+  detectedUnrepresentableFeatureCount: number;
   zoneCount: number;
   selectedFeatureIds: string[];
   suppressedFeatureIds: string[];
+  selectedFeatureSuppressionIds: string[];
+  detectedUnrepresentableFeatureIds: string[];
   rejectedByReason: Record<string, number>;
   droppedByReason: Record<string, number>;
   universalFallbackAllowed: boolean;
@@ -129,12 +171,23 @@ export interface WaterReaderStructureConfluenceGroup {
   memberSourceFeatureIds: string[];
   memberFeatureClasses: WaterReaderFeatureClass[];
   memberPlacementKinds: WaterReaderZonePlacementKind[];
+  mergeReason?: string;
+  compactnessRatio?: number;
+  envelopeMajorAxisM?: number;
+  largestMemberAxisM?: number;
+  renderedAsUnifiedEnvelope?: boolean;
+  crossFeatureOverlapResolutionMode?: string;
+  crossFeatureOverlapPair?: string;
+  crossFeatureOverlapFraction?: number;
+  crossFeatureContainmentFraction?: number;
+  crossFeatureUnifiedCompactnessRatio?: number;
 }
 
 export type WaterReaderFeatureZoneCoverageReason =
   | 'zoned'
   | 'seasonal_skip'
   | 'no_valid_draft'
+  | 'feature_frame_unrepresentable'
   | `rejected_invariant:${string}`
   | 'dropped_zone_cap'
   | 'dropped_overlap_higher_priority_zone'
@@ -153,6 +206,7 @@ export interface WaterReaderFeatureZoneCoverage {
   zoneCount: number;
   producedVisibleZones: boolean;
   reason: WaterReaderFeatureZoneCoverageReason;
+  unrepresentableReason?: string | null;
 }
 
 export interface WaterReaderZoneUnitDiagnostics {
@@ -166,6 +220,12 @@ export interface WaterReaderZoneUnitDiagnostics {
   elapsedMs: number;
   selected: boolean;
   reason: WaterReaderFeatureZoneCoverageReason | string;
+  primaryRejectedCandidateReason?: string | null;
+  rejectedCandidateReasons?: Record<string, number>;
+  featureEnvelopeSuppressionReason?: string | null;
+  featureFrameKind?: string | null;
+  featureFrameFallbackTier?: string | null;
+  featureFrameUnrepresentableReason?: string | null;
 }
 
 export interface WaterReaderZoneDraft extends Omit<WaterReaderPlacedZone, 'zoneId' | 'unclippedRing' | 'visibleWaterRing' | 'visibleWaterFraction'> {
@@ -176,4 +236,9 @@ export interface WaterReaderZoneDraft extends Omit<WaterReaderPlacedZone, 'zoneI
   unitPriority: number;
   unitScore: number;
   allowPairCrowding?: boolean;
+  featureFrameAllowsOutsideWaterCenter?: boolean;
+  featureFrameContactAnchors?: PointM[];
+  featureFrameContactToleranceM?: number;
+  featureFrameContactMinCount?: number;
+  featureFrameLocalityRadiusM?: number;
 }

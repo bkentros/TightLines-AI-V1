@@ -176,6 +176,11 @@ export interface WaterReaderStructureConfluenceGroup {
   envelopeMajorAxisM?: number;
   largestMemberAxisM?: number;
   renderedAsUnifiedEnvelope?: boolean;
+  crossFeatureOverlapResolutionMode?: string;
+  crossFeatureOverlapPair?: string;
+  crossFeatureOverlapFraction?: number;
+  crossFeatureContainmentFraction?: number;
+  crossFeatureUnifiedCompactnessRatio?: number;
 }
 
 export type WaterReaderFeatureZoneCoverageReason =

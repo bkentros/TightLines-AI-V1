@@ -1,5 +1,6 @@
-import type { PointM, PolygonM } from '../contracts';
+import type { PointM, PolygonM, WaterReaderFeatureClass } from '../contracts';
 import type { WaterReaderDisplayModel } from '../display-model';
+import type { WaterReaderZonePlacementKind } from '../zones/types';
 
 export type WaterReaderRenderWarningCode =
   | 'missing_lake_polygon'
@@ -44,12 +45,28 @@ export interface WaterReaderProductionSvgOptions {
   subtitle?: string;
   padding?: number;
   mapWidth?: number;
+  maxMapHeight?: number;
+}
+
+export interface WaterReaderProductionSvgLegendEntry {
+  number?: number;
+  title: string;
+  body: string;
+  colorHex: string;
+  featureClass: WaterReaderFeatureClass | 'structure_confluence';
+  placementKind?: WaterReaderZonePlacementKind;
+  placementKinds: WaterReaderZonePlacementKind[];
+  zoneId: string;
+  zoneIds: string[];
+  transitionWarning?: string;
+  isConfluence?: boolean;
 }
 
 export interface WaterReaderProductionSvgResult {
   svg: string;
   warnings: WaterReaderRenderWarning[];
   summary: WaterReaderRenderSummary;
+  legendEntries: WaterReaderProductionSvgLegendEntry[];
 }
 
 export interface WaterReaderSvgTransform {
@@ -57,8 +74,13 @@ export interface WaterReaderSvgTransform {
   maxY: number;
   scale: number;
   padding: number;
+  mapOffsetX: number;
+  mapOffsetY: number;
   mapWidth: number;
   mapHeight: number;
+  renderedWorldWidth: number;
+  renderedWorldHeight: number;
+  maxMapHeight: number;
   legendTop: number;
   mapBottomY: number;
   mapLegendGap: number;
@@ -73,6 +95,7 @@ export interface WaterReaderSvgTransformInput {
   padding: number;
   mapWidth: number;
   legendHeight: number;
+  maxMapHeight?: number;
 }
 
 export type WaterReaderLabelAnchor = {

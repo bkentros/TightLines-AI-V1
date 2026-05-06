@@ -14,8 +14,15 @@ export function buildWaterReaderSvgTransform(input: WaterReaderSvgTransformInput
   const worldW = Math.max(1, maxX - minX);
   const worldH = Math.max(1, maxY - minY);
   const innerW = input.mapWidth - input.padding * 2;
-  const mapHeight = Math.max(360, (innerW * worldH) / worldW);
-  const scale = innerW / worldW;
+  const maxMapHeight = input.maxMapHeight ?? defaultMaxMapHeight(input.mapWidth);
+  const minMapHeight = input.mapWidth <= 500 ? 320 : 360;
+  const innerH = Math.max(1, maxMapHeight);
+  const scale = Math.min(innerW / worldW, innerH / worldH);
+  const renderedWorldWidth = worldW * scale;
+  const renderedWorldHeight = worldH * scale;
+  const mapHeight = Math.min(maxMapHeight, Math.max(minMapHeight, renderedWorldHeight));
+  const mapOffsetX = Math.max(0, (innerW - renderedWorldWidth) / 2);
+  const mapOffsetY = Math.max(0, (mapHeight - renderedWorldHeight) / 2);
   const mapBottomY = input.padding + mapHeight;
   const mapLegendGap = Math.max(34, input.padding * 1.25);
   const height = Math.ceil(mapBottomY + mapLegendGap + input.legendHeight + input.padding);
@@ -24,8 +31,13 @@ export function buildWaterReaderSvgTransform(input: WaterReaderSvgTransformInput
     maxY,
     scale,
     padding: input.padding,
+    mapOffsetX,
+    mapOffsetY,
     mapWidth: input.mapWidth,
     mapHeight,
+    renderedWorldWidth,
+    renderedWorldHeight,
+    maxMapHeight,
     legendTop: mapBottomY + mapLegendGap,
     mapBottomY,
     mapLegendGap,
@@ -37,8 +49,8 @@ export function buildWaterReaderSvgTransform(input: WaterReaderSvgTransformInput
 
 export function svgPoint(point: PointM, transform: WaterReaderSvgTransform): PointM {
   return {
-    x: transform.padding + (point.x - transform.minX) * transform.scale,
-    y: transform.padding + (transform.maxY - point.y) * transform.scale,
+    x: transform.padding + transform.mapOffsetX + (point.x - transform.minX) * transform.scale,
+    y: transform.padding + transform.mapOffsetY + (transform.maxY - point.y) * transform.scale,
   };
 }
 
@@ -83,4 +95,10 @@ function geometryBounds(displayModel: WaterReaderDisplayModel, lakePolygon?: Pol
     }),
     { minX: points[0]!.x, maxX: points[0]!.x, minY: points[0]!.y, maxY: points[0]!.y },
   );
+}
+
+function defaultMaxMapHeight(mapWidth: number): number {
+  if (mapWidth <= 500) return 560;
+  if (mapWidth <= 760) return 720;
+  return 800;
 }

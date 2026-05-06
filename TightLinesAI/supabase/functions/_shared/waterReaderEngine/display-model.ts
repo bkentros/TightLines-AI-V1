@@ -20,6 +20,8 @@ export type WaterReaderDisplayState =
   | 'displayed_confluence'
   | 'displayed_neck_area'
   | 'retained_not_displayed_cap'
+  | 'retained_not_displayed_diversity'
+  | 'retained_not_displayed_readability'
   | 'suppressed_invalid_geometry'
   | 'suppressed_failed_invariants'
   | 'suppressed_dependency';
@@ -31,6 +33,20 @@ export type WaterReaderDisplayModelOptions = {
   appMapWidth?: number | null;
   renderPadding?: number | null;
 };
+
+type RetainedDisplayState = Extract<
+  WaterReaderDisplayState,
+  'retained_not_displayed_cap' | 'retained_not_displayed_diversity' | 'retained_not_displayed_readability'
+>;
+
+const DIVERSITY_RETENTION_DIAGNOSTICS = new Set([
+  'retained_repeated_title_diversity',
+  'retained_title_diversity_rebalance',
+  'retained_feature_family_diversity_rebalance',
+]);
+
+const READABILITY_RETENTION_DIAGNOSTIC = 'retained_constriction_line_readability';
+const QUESTIONABLE_CONSTRICTION_RETENTION_DIAGNOSTIC = 'retained_questionable_constriction';
 
 export interface WaterReaderDisplayReadabilityDiagnostics {
   estimatedAppFootprintWidthPx: number;
@@ -99,7 +115,7 @@ export interface WaterReaderDisplayEntry {
 
 export interface WaterReaderSuppressedDisplayEntry {
   entryId: string;
-  displayState: Exclude<WaterReaderDisplayState, 'displayed_standalone' | 'displayed_confluence' | 'displayed_neck_area' | 'retained_not_displayed_cap'>;
+  displayState: Exclude<WaterReaderDisplayState, 'displayed_standalone' | 'displayed_confluence' | 'displayed_neck_area' | 'retained_not_displayed_cap' | 'retained_not_displayed_diversity' | 'retained_not_displayed_readability'>;
   sourceFeatureId: string;
   featureClass: WaterReaderFeatureClass;
   reason: string;
@@ -139,7 +155,7 @@ export interface WaterReaderDisplaySelectionUnitDiagnostic {
   unitId: string;
   entryType: WaterReaderDisplayEntryType;
   entryCost: number;
-  displayState: 'displayed' | 'retained_not_displayed_cap';
+  displayState: 'displayed' | 'retained_not_displayed_cap' | 'retained_not_displayed_diversity' | 'retained_not_displayed_readability';
   zoneIds: string[];
   sourceFeatureIds: string[];
   featureClasses: WaterReaderFeatureClass[];
@@ -172,6 +188,34 @@ type ConfluenceNormalizationCandidate = {
   reason: string;
   envelopeMajorAxisM: number;
   envelopeRatio: number;
+  crossFeatureOverlapPair?: string;
+  crossFeatureOverlapFraction?: number;
+  crossFeatureContainmentFraction?: number;
+};
+
+type ConstrictionDisplayClass =
+  | 'clear_neck'
+  | 'display_saddle'
+  | 'channel_pinch'
+  | 'one_sided_pinch_review'
+  | 'broad_saddle'
+  | 'retained_questionable_constriction';
+
+type ConstrictionRecoveryReason =
+  | 'high_confidence_clear_neck'
+  | 'high_confidence_channel_pinch'
+  | 'high_confidence_one_sided_pinch'
+  | 'high_confidence_readable_broad_saddle';
+
+type ConstrictionDisplayClassification = {
+  displayClass: ConstrictionDisplayClass;
+  recoveryReason?: ConstrictionRecoveryReason;
+  saddleRecovery?: boolean;
+};
+
+type ConstrictionDisplaySubtype = {
+  subtype: 'neck' | 'pinch';
+  reason?: 'narrow_width_ratio' | 'channel_pinch' | 'one_sided_channel_like';
 };
 
 const FEATURE_PRIORITY: Record<WaterReaderFeatureClass, number> = {
@@ -203,7 +247,7 @@ export function buildWaterReaderDisplayModel(
     legendByZoneId.set(entry.zoneId, entry);
   }
 
-  const units = withDisplayReadability(buildDisplayUnits(zoneResult), options);
+  const units = withConstrictionDisplayClasses(withDisplayReadability(buildDisplayUnits(zoneResult), options));
   const sortedUnits = [...units].sort(compareDisplayUnits);
   const totalDisplayCost = sortedUnits.reduce((sum, unit) => sum + unit.entryCost, 0);
   const initialSelection = totalDisplayCost <= displayCap
@@ -214,10 +258,19 @@ export function buildWaterReaderDisplayModel(
       legendByEntryId,
       legendByZoneId,
     });
-  const normalizedSelection = normalizeDisplayedConfluences(initialSelection, zoneResult.season);
-  const selection = retainConstrictionLineFallbacksForReadability(normalizedSelection);
-  const displayedUnits = selection.displayedUnits;
-  const retainedUnits = selection.retainedUnits;
+  const normalizedSelection = normalizeDisplayedConfluences(initialSelection, zoneResult.season, displayCap);
+  const readabilitySelection = retainConstrictionLineFallbacksForReadability(normalizedSelection, displayCap, totalDisplayCost > displayCap);
+  const constrictionSelection = retainQuestionableConstrictions(readabilitySelection);
+  const recoveredSelection = recoverRetainedConstrictions(constrictionSelection, displayCap);
+  const selection = retainRepeatedTitleDiversity({
+    ...recoveredSelection,
+    displayCap,
+    legendByEntryId,
+    legendByZoneId,
+  });
+  const balancedSelection = rebalanceNonPointOverExcessMainPoint(selection, displayCap);
+  const displayedUnits = balancedSelection.displayedUnits;
+  const retainedUnits = balancedSelection.retainedUnits;
 
   const displayedEntriesWithoutNumbers = displayedUnits.flatMap((unit) =>
     displayEntriesForUnit(unit, legendByEntryId, legendByZoneId, options.longestDimensionM),
@@ -240,7 +293,7 @@ export function buildWaterReaderDisplayModel(
     displayEntriesForUnit(unit, legendByEntryId, legendByZoneId, options.longestDimensionM),
   ).map((entry) => ({
     ...entry,
-    displayState: 'retained_not_displayed_cap' as const,
+    displayState: retainedDisplayState(entry.rankingDiagnostics),
     displayNumber: null,
     legend: undefined,
     legendEntryId: entry.legendEntryId,
@@ -262,7 +315,10 @@ export function buildWaterReaderDisplayModel(
     .length;
   const displaySelectionUnits = [
     ...displayedUnits.map((unit) => selectionUnitDiagnostic(unit, 'displayed' as const)),
-    ...retainedUnits.map((unit) => selectionUnitDiagnostic(unit, 'retained_not_displayed_cap' as const)),
+    ...retainedUnits.map((unit) => selectionUnitDiagnostic(
+      unit,
+      retainedDisplayState(unit.rankingDiagnostics),
+    )),
   ];
 
   const summary = {
@@ -282,7 +338,7 @@ export function buildWaterReaderDisplayModel(
 
   return {
     displayCap,
-    capExceeded: retainedEntries.length > 0,
+    capExceeded: retainedEntries.some((entry) => retainedDisplayState(entry.rankingDiagnostics) === 'retained_not_displayed_cap'),
     displayedEntries,
     displayLegendEntries,
     retainedEntries,
@@ -298,12 +354,102 @@ export function buildWaterReaderDisplayModel(
   };
 }
 
+export function retainedDisplayState(rankingDiagnostics: string[]): RetainedDisplayState {
+  if (rankingDiagnostics.includes(QUESTIONABLE_CONSTRICTION_RETENTION_DIAGNOSTIC)) return 'retained_not_displayed_readability';
+  if (rankingDiagnostics.includes(READABILITY_RETENTION_DIAGNOSTIC)) return 'retained_not_displayed_readability';
+  if (rankingDiagnostics.some((diagnostic) => DIVERSITY_RETENTION_DIAGNOSTICS.has(diagnostic))) return 'retained_not_displayed_diversity';
+  return 'retained_not_displayed_cap';
+}
+
+function retainRepeatedTitleDiversity(params: {
+  displayedUnits: DisplayUnit[];
+  retainedUnits: DisplayUnit[];
+  displayCap: number;
+  legendByEntryId: Map<string, WaterReaderLegendEntry>;
+  legendByZoneId: Map<string, WaterReaderLegendEntry>;
+}): { displayedUnits: DisplayUnit[]; retainedUnits: DisplayUnit[] } {
+  const maxPerTitle = repeatedLegendTitleMax(params.displayCap);
+  if (params.displayedUnits.length <= maxPerTitle + 1) return params;
+  let displayedUnits = [...params.displayedUnits];
+  const retainedForDiversity: DisplayUnit[] = [];
+  let changed = true;
+  while (changed) {
+    changed = false;
+    const titleCounts = countUnitTitles(displayedUnits, params.legendByEntryId, params.legendByZoneId);
+    const dominant = [...titleCounts.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))[0];
+    if (!dominant || dominant[1] <= maxPerTitle) break;
+    const [dominantTitle] = dominant;
+    const duplicateCandidates = displayedUnits
+      .filter((unit) => {
+        const titles = unitDiversityKeys(unit, params.legendByEntryId, params.legendByZoneId);
+        return titles.length > 0 && titles.every((title) => title === dominantTitle);
+      })
+      .sort((a, b) =>
+        a.sort.displayUsefulnessScore - b.sort.displayUsefulnessScore ||
+        a.sort.score - b.sort.score ||
+        compareDisplayUnits(b, a)
+      );
+    const demoted = duplicateCandidates[0];
+    if (!demoted) break;
+    displayedUnits = displayedUnits.filter((unit) => unit.unitId !== demoted.unitId);
+    retainedForDiversity.push(annotateUnitZones(demoted, {
+      retainedRepeatedTitleDiversity: true,
+      retainedRepeatedTitle: dominantTitle,
+    }, 'retained_repeated_title_diversity'));
+    changed = true;
+  }
+  if (retainedForDiversity.length === 0) return params;
+  return {
+    displayedUnits: displayedUnits.sort(compareDisplayUnits),
+    retainedUnits: [...params.retainedUnits, ...retainedForDiversity].sort(compareDisplayUnits),
+  };
+}
+
+function rebalanceNonPointOverExcessMainPoint(
+  params: { displayedUnits: DisplayUnit[]; retainedUnits: DisplayUnit[] },
+  displayCap: number,
+): { displayedUnits: DisplayUnit[]; retainedUnits: DisplayUnit[] } {
+  const displayedMainPoints = params.displayedUnits.filter((unit) => unitPrimaryFeatureClass(unit) === 'main_lake_point');
+  if (displayedMainPoints.length < 4) return params;
+  const promoted = params.retainedUnits
+    .filter((unit) => unitPrimaryFeatureClass(unit) !== 'main_lake_point')
+    .sort(compareDisplayUnits)[0];
+  if (!promoted) return params;
+
+  const demoted = [...displayedMainPoints]
+    .sort((a, b) =>
+      a.sort.displayUsefulnessScore - b.sort.displayUsefulnessScore ||
+      a.sort.score - b.sort.score ||
+      compareDisplayUnits(b, a)
+    )[0];
+  if (!demoted) return params;
+  const nextDisplayCost = params.displayedUnits.reduce((sum, unit) => sum + unit.entryCost, 0) - demoted.entryCost + promoted.entryCost;
+  if (nextDisplayCost > displayCap) return params;
+
+  const displayedUnits = params.displayedUnits
+    .filter((unit) => unit.unitId !== demoted.unitId)
+    .concat([annotateUnitZones(promoted, {
+      displayedNonPointOverExcessMainPoint: true,
+      displayedNonPointReplacedMainPointUnitId: demoted.unitId,
+    }, 'displayed_non_point_over_excess_main_point')])
+    .sort(compareDisplayUnits);
+  const retainedUnits = params.retainedUnits
+    .filter((unit) => unit.unitId !== promoted.unitId)
+    .concat([annotateUnitZones(demoted, {
+      retainedExcessMainPointDisplayBalance: true,
+      retainedExcessMainPointReplacedByUnitId: promoted.unitId,
+    }, 'retained_excess_main_point_display_balance')])
+    .sort(compareDisplayUnits);
+  return { displayedUnits, retainedUnits };
+}
+
 function retainConstrictionLineFallbacksForReadability(params: {
   displayedUnits: DisplayUnit[];
   retainedUnits: DisplayUnit[];
-}): { displayedUnits: DisplayUnit[]; retainedUnits: DisplayUnit[] } {
+}, displayCap: number, capInitiallyExceeded: boolean): { displayedUnits: DisplayUnit[]; retainedUnits: DisplayUnit[] } {
   const displayedCost = params.displayedUnits.reduce((sum, unit) => sum + unit.entryCost, 0);
   if (displayedCost <= 5) return params;
+  const capAlreadyExceeded = capInitiallyExceeded || params.retainedUnits.length > 0 || displayedCost > displayCap;
   const retainedForReadability: DisplayUnit[] = [];
   const displayedUnits: DisplayUnit[] = [];
   for (const unit of params.displayedUnits) {
@@ -319,7 +465,7 @@ function retainConstrictionLineFallbacksForReadability(params: {
       retainedForReadability.push(annotateUnitZones(unit, {
         constrictionLineRetainedForReadability: true,
         ...neckAreaDiagnostics,
-      }, 'retained_constriction_line_readability'));
+      }, capAlreadyExceeded ? undefined : 'retained_constriction_line_readability'));
     } else {
       displayedUnits.push(annotateUnitZones(unit, {
         constrictionDisplayedAsLineFallback: unit.zones.some((zone) => zone.diagnostics.constrictionLineFallbackUsed === true),
@@ -333,12 +479,164 @@ function retainConstrictionLineFallbacksForReadability(params: {
   };
 }
 
+function retainQuestionableConstrictions(params: {
+  displayedUnits: DisplayUnit[];
+  retainedUnits: DisplayUnit[];
+}): { displayedUnits: DisplayUnit[]; retainedUnits: DisplayUnit[] } {
+  const displayedUnits: DisplayUnit[] = [];
+  const retainedUnits = [...params.retainedUnits];
+  for (const unit of params.displayedUnits) {
+    const retainReason = constrictionDisplayRetainReason(unit, params.displayedUnits);
+    if (retainReason) {
+      retainedUnits.push(annotateUnitZones(unit, {
+        constrictionDisplayRetainedReason: retainReason,
+        constrictionDisplayClass: 'retained_questionable_constriction',
+      }, QUESTIONABLE_CONSTRICTION_RETENTION_DIAGNOSTIC));
+    } else {
+      displayedUnits.push(unit);
+    }
+  }
+  return {
+    displayedUnits: displayedUnits.sort(compareDisplayUnits),
+    retainedUnits: retainedUnits.sort(compareDisplayUnits),
+  };
+}
+
+function recoverRetainedConstrictions(
+  params: { displayedUnits: DisplayUnit[]; retainedUnits: DisplayUnit[] },
+  displayCap: number,
+): { displayedUnits: DisplayUnit[]; retainedUnits: DisplayUnit[] } {
+  let displayedUnits = [...params.displayedUnits];
+  let retainedUnits = [...params.retainedUnits];
+  let displayedCost = displayedUnits.reduce((sum, unit) => sum + unit.entryCost, 0);
+  const candidates = retainedUnits
+    .filter(recoveredConstrictionUnit)
+    .sort(compareRecoveredConstrictions);
+  for (const candidate of candidates) {
+    if (displayedCost + candidate.entryCost > displayCap) continue;
+    if (nearbyStrongerConstrictionRetainReason(candidate, displayedUnits)) continue;
+    displayedUnits.push(annotateUnitZones(candidate, {
+      constrictionRecoveredIntoDisplay: true,
+      constrictionLineRetainedForReadability: false,
+      constrictionDisplayRetainedReason: null,
+    }, 'displayed_recovered_constriction'));
+    retainedUnits = retainedUnits.filter((unit) => unit.unitId !== candidate.unitId);
+    displayedCost += candidate.entryCost;
+  }
+  return {
+    displayedUnits: displayedUnits.sort(compareDisplayUnits),
+    retainedUnits: retainedUnits.sort(compareDisplayUnits),
+  };
+}
+
+function recoveredConstrictionUnit(unit: DisplayUnit): boolean {
+  return unit.zones.some((zone) =>
+    (zone.featureClass === 'neck' && zone.diagnostics.constrictionRecoveredFromTinyGate === true) ||
+    (zone.featureClass === 'saddle' && zone.diagnostics.saddleRecoveredFromBroadReview === true)
+  );
+}
+
+function compareRecoveredConstrictions(a: DisplayUnit, b: DisplayUnit): number {
+  return candidateRecoveryRank(a) - candidateRecoveryRank(b) ||
+    b.sort.displayUsefulnessScore - a.sort.displayUsefulnessScore ||
+    b.sort.score - a.sort.score ||
+    compareDisplayUnits(a, b);
+}
+
+function candidateRecoveryRank(unit: DisplayUnit): number {
+  const reasons = unit.zones
+    .map((zone) => zone.diagnostics.constrictionRecoveryReason ?? zone.diagnostics.saddleRecoveryReason)
+    .filter((reason): reason is ConstrictionRecoveryReason => typeof reason === 'string');
+  if (reasons.includes('high_confidence_clear_neck')) return 1;
+  if (reasons.includes('high_confidence_channel_pinch')) return 2;
+  if (reasons.includes('high_confidence_one_sided_pinch')) return 3;
+  if (reasons.includes('high_confidence_readable_broad_saddle')) return 4;
+  return 99;
+}
+
+function constrictionDisplayRetainReason(unit: DisplayUnit, displayedUnits: DisplayUnit[]): string | null {
+  const displayClass = primaryConstrictionDisplayClass(unit);
+  if (!displayClass) return null;
+  if (displayClass === 'retained_questionable_constriction') return 'low_confidence_or_tiny_constriction';
+  if (displayClass === 'broad_saddle') {
+    const visuallySubstantial = unit.displayReadability.estimatedAppFootprintMaxDimensionPx >= 22 &&
+      unit.displayReadability.estimatedAppFootprintAreaPx >= 220 &&
+      unit.zones.some((zone) => diagnosticNumber(zone.diagnostics.constrictionConfidence) >= 0.86);
+    return visuallySubstantial ? null : 'broad_saddle_not_visually_substantial';
+  }
+  if (displayClass === 'channel_pinch' || displayClass === 'one_sided_pinch_review') {
+    return nearbyStrongerConstrictionRetainReason(unit, displayedUnits);
+  }
+  if (displayClass === 'display_saddle' && unit.zones.some((zone) => zone.diagnostics.saddleRecoveredFromBroadReview === true)) {
+    return nearbyStrongerConstrictionRetainReason(unit, displayedUnits);
+  }
+  return null;
+}
+
+function nearbyStrongerConstrictionRetainReason(unit: DisplayUnit, displayedUnits: DisplayUnit[]): string | null {
+  for (const other of displayedUnits) {
+    if (other.unitId === unit.unitId) continue;
+    if (!primaryConstrictionDisplayClass(other)) continue;
+    if (!materiallyStrongerConstriction(other, unit)) continue;
+    const relationship = constrictionUnitRelationship(unit, other);
+    if (relationship === 'overlap') return 'overlaps_stronger_constriction';
+    if (relationship === 'near') return 'near_stronger_constriction';
+  }
+  return null;
+}
+
+function materiallyStrongerConstriction(candidate: DisplayUnit, unit: DisplayUnit): boolean {
+  const candidateConfidence = maxConstrictionConfidence(candidate);
+  const unitConfidence = maxConstrictionConfidence(unit);
+  return compareDisplayUnits(candidate, unit) < 0 ||
+    candidate.sort.displayUsefulnessScore > unit.sort.displayUsefulnessScore + 0.04 ||
+    candidate.sort.score > unit.sort.score + 0.04 ||
+    candidateConfidence > unitConfidence + 0.08;
+}
+
+function maxConstrictionConfidence(unit: DisplayUnit): number {
+  return Math.max(0, ...unit.zones.map((zone) => diagnosticNumber(zone.diagnostics.constrictionConfidence)));
+}
+
+function constrictionUnitRelationship(a: DisplayUnit, b: DisplayUnit): 'overlap' | 'near' | null {
+  const aPoints = a.zones.flatMap((zone) => visibleOrUnclippedRing(zone)).filter(validPoint);
+  const bPoints = b.zones.flatMap((zone) => visibleOrUnclippedRing(zone)).filter(validPoint);
+  if (aPoints.length < 3 || bPoints.length < 3) return null;
+  const aBounds = boundsForPoints(aPoints);
+  const bBounds = boundsForPoints(bPoints);
+  const maxAxisM = Math.max(a.sort.majorAxisM, b.sort.majorAxisM);
+  const padM = Math.max(4, Math.min(18, maxAxisM * 0.04));
+  if (boundsTouchOrOverlap(expandBounds(aBounds, padM), expandBounds(bBounds, padM))) return 'overlap';
+  const centerDistanceM = distanceM(boundsCenterForDisplay(aBounds), boundsCenterForDisplay(bBounds));
+  const nearThresholdM = Math.max(10, Math.min(80, maxAxisM * 0.38));
+  return centerDistanceM <= nearThresholdM ? 'near' : null;
+}
+
+function primaryConstrictionDisplayClass(unit: DisplayUnit): ConstrictionDisplayClass | null {
+  const classes = unit.zones
+    .map((zone) => typeof zone.diagnostics.constrictionDisplayClass === 'string' ? zone.diagnostics.constrictionDisplayClass as ConstrictionDisplayClass : null)
+    .filter((displayClass): displayClass is ConstrictionDisplayClass => displayClass !== null);
+  if (classes.length === 0) return null;
+  const rank: Record<ConstrictionDisplayClass, number> = {
+    retained_questionable_constriction: 0,
+    broad_saddle: 1,
+    one_sided_pinch_review: 2,
+    channel_pinch: 3,
+    display_saddle: 4,
+    clear_neck: 5,
+  };
+  return classes.sort((a, b) => rank[a] - rank[b])[0] ?? null;
+}
+
 function normalizeDisplayedConfluences(
   params: { displayedUnits: DisplayUnit[]; retainedUnits: DisplayUnit[] },
   season: WaterReaderZonePlacementResult['season'],
+  displayCap: number,
 ): { displayedUnits: DisplayUnit[]; retainedUnits: DisplayUnit[] } {
   let displayedUnits = [...params.displayedUnits];
+  let retainedUnits = [...params.retainedUnits];
   let changed = true;
+  let normalizedAnyPointTipOpenWater = false;
   while (changed) {
     changed = false;
     const candidate = bestConfluenceNormalizationCandidate(displayedUnits);
@@ -352,8 +650,41 @@ function normalizeDisplayedConfluences(
       .concat([merged])
       .sort(compareDisplayUnits);
     changed = true;
+    if (candidate.reason === 'same_point_tip_open_water_compact' || candidate.reason === 'near_point_tip_open_water_compact') {
+      normalizedAnyPointTipOpenWater = true;
+    }
   }
-  return { displayedUnits, retainedUnits: params.retainedUnits };
+  if (normalizedAnyPointTipOpenWater && retainedUnits.length > 0) {
+    const refilled = refillDisplayCap({ displayedUnits, retainedUnits, displayCap });
+    displayedUnits = refilled.displayedUnits;
+    retainedUnits = refilled.retainedUnits;
+  }
+  return { displayedUnits, retainedUnits };
+}
+
+function refillDisplayCap(params: {
+  displayedUnits: DisplayUnit[];
+  retainedUnits: DisplayUnit[];
+  displayCap: number;
+}): { displayedUnits: DisplayUnit[]; retainedUnits: DisplayUnit[] } {
+  const displayedUnits = [...params.displayedUnits];
+  const retainedUnits: DisplayUnit[] = [];
+  let remainingCap = params.displayCap - displayedUnits.reduce((sum, unit) => sum + unit.entryCost, 0);
+  for (const unit of params.retainedUnits.sort(compareDisplayUnits)) {
+    if (unit.entryCost <= remainingCap) {
+      displayedUnits.push({
+        ...unit,
+        rankingDiagnostics: unique([...unit.rankingDiagnostics, 'display_refilled_after_confluence_normalization']),
+      });
+      remainingCap -= unit.entryCost;
+    } else {
+      retainedUnits.push(unit);
+    }
+  }
+  return {
+    displayedUnits: displayedUnits.sort(compareDisplayUnits),
+    retainedUnits: retainedUnits.sort(compareDisplayUnits),
+  };
 }
 
 function bestConfluenceNormalizationCandidate(units: DisplayUnit[]): ConfluenceNormalizationCandidate | null {
@@ -374,13 +705,25 @@ function bestConfluenceNormalizationCandidate(units: DisplayUnit[]): ConfluenceN
 function confluenceNormalizationCandidate(a: DisplayUnit, b: DisplayUnit): ConfluenceNormalizationCandidate | null {
   if (a.zones.some(nonDisplayedLineFallbackZone) || b.zones.some(nonDisplayedLineFallbackZone)) return null;
   if (a.entryType !== 'structure_confluence' && b.entryType !== 'structure_confluence' && (a.entryCost !== 1 || b.entryCost !== 1)) return null;
+  const zones = [...a.zones, ...b.zones];
+  const relationshipAllowed = confluenceNormalizationRelationshipAllowed(a, b, zones);
+  if (!relationshipAllowed.allowed) return null;
   const relationship = confluenceRelationship(a.zones, b.zones);
   if (!relationship) return null;
-  const zones = [...a.zones, ...b.zones];
   const envelopeMajorAxisM = envelopeMajorAxisMeters(zones);
   const largestMember = Math.max(...zones.map((zone) => zone.majorAxisM), 1);
   const envelopeRatio = envelopeMajorAxisM / largestMember;
-  if (envelopeRatio > 2.25 && relationship.reason !== 'visible_overlap_heavy') return null;
+  const pointTipOpenWater = relationship.reason === 'same_point_tip_open_water_compact' ||
+    relationship.reason === 'near_point_tip_open_water_compact';
+  const crossFeaturePair = crossFeatureDisplayPair(zones);
+  const maxEnvelopeRatio = pointTipOpenWater
+    ? 3.15
+    : crossFeaturePair
+      ? crossFeaturePair === 'cove+point' ? 2.75 : crossFeaturePair === 'island+point' ? 2.2 : 2.45
+      : 2.25;
+  if (envelopeRatio > maxEnvelopeRatio && relationship.reason !== 'visible_overlap_heavy') return null;
+  if (relationshipAllowed.mode === 'same_class_extreme_compact' && (relationship.reason !== 'visible_overlap_heavy' || envelopeRatio > 1.45)) return null;
+  if (relationshipAllowed.mode === 'existing_placement_confluence' && envelopeRatio > 1.8) return null;
   const target = a.entryType === 'structure_confluence'
     ? a
     : b.entryType === 'structure_confluence'
@@ -393,7 +736,27 @@ function confluenceNormalizationCandidate(a: DisplayUnit, b: DisplayUnit): Confl
     reason: relationship.reason,
     envelopeMajorAxisM,
     envelopeRatio,
+    crossFeatureOverlapPair: crossFeaturePair ?? undefined,
+    crossFeatureOverlapFraction: crossFeaturePair ? relationship.overlapFraction : undefined,
+    crossFeatureContainmentFraction: crossFeaturePair ? relationship.containmentFraction : undefined,
   };
+}
+
+function confluenceNormalizationRelationshipAllowed(
+  a: DisplayUnit,
+  b: DisplayUnit,
+  zones: WaterReaderPlacedZone[],
+): { allowed: boolean; mode: 'same_source' | 'same_class_extreme_compact' | 'existing_placement_confluence' | 'legacy_point_tip_open_water' | 'cross_feature_visible_overlap' | 'blocked_cross_feature' } {
+  if (pointTipOpenWaterConfluenceRelationship(a.zones, b.zones)) return { allowed: true, mode: 'legacy_point_tip_open_water' };
+  const sourceIds = new Set(zones.map((zone) => zone.sourceFeatureId));
+  const featureClasses = new Set(zones.map((zone) => zone.featureClass));
+  if (crossFeatureDisplayPair(zones)) return { allowed: true, mode: 'cross_feature_visible_overlap' };
+  if (sourceIds.size < zones.length) return { allowed: false, mode: 'blocked_cross_feature' };
+  if (featureClasses.size === 1) return { allowed: false, mode: 'blocked_cross_feature' };
+  const existingPlacementConfluence = a.entryType === 'structure_confluence' || b.entryType === 'structure_confluence' ||
+    zones.some((zone) => typeof zone.diagnostics.structureConfluenceGroupId === 'string' && String(zone.diagnostics.structureConfluenceGroupId).length > 0);
+  if (existingPlacementConfluence) return { allowed: true, mode: 'existing_placement_confluence' };
+  return { allowed: false, mode: 'blocked_cross_feature' };
 }
 
 function mergeDisplayUnitsAsConfluence(
@@ -413,6 +776,11 @@ function mergeDisplayUnitsAsConfluence(
       confluenceMergeReason: candidate.reason,
       confluenceEnvelopeMajorAxisMeters: roundDiagnosticNumber(candidate.envelopeMajorAxisM),
       confluenceEnvelopeToLargestMemberRatio: roundDiagnosticNumber(candidate.envelopeRatio),
+      crossFeatureOverlapResolutionMode: candidate.crossFeatureOverlapPair ? 'unified_display_geometry_structure_area' : zone.diagnostics.crossFeatureOverlapResolutionMode ?? null,
+      crossFeatureOverlapPair: candidate.crossFeatureOverlapPair ?? zone.diagnostics.crossFeatureOverlapPair ?? null,
+      crossFeatureOverlapFraction: candidate.crossFeatureOverlapFraction !== undefined ? roundDiagnosticNumber(candidate.crossFeatureOverlapFraction) : zone.diagnostics.crossFeatureOverlapFraction ?? null,
+      crossFeatureContainmentFraction: candidate.crossFeatureContainmentFraction !== undefined ? roundDiagnosticNumber(candidate.crossFeatureContainmentFraction) : zone.diagnostics.crossFeatureContainmentFraction ?? null,
+      crossFeatureUnifiedCompactnessRatio: candidate.crossFeatureOverlapPair ? roundDiagnosticNumber(candidate.envelopeRatio) : zone.diagnostics.crossFeatureUnifiedCompactnessRatio ?? null,
       normalizedConfluenceLegendRebuilt: true,
       finalConfluenceMemberSummary: memberSummary,
       finalConfluenceLegendTitle: `Structure Confluence - ${memberSummary}`,
@@ -425,6 +793,16 @@ function mergeDisplayUnitsAsConfluence(
     memberSourceFeatureIds: unique(zones.map((zone) => zone.sourceFeatureId)),
     memberFeatureClasses: unique(zones.map((zone) => zone.featureClass)),
     memberPlacementKinds: unique(zones.map((zone) => zone.placementKind)),
+    mergeReason: candidate.reason,
+    compactnessRatio: roundDiagnosticNumber(candidate.envelopeRatio),
+    envelopeMajorAxisM: roundDiagnosticNumber(candidate.envelopeMajorAxisM),
+    largestMemberAxisM: roundDiagnosticNumber(Math.max(...zones.map((zone) => zone.majorAxisM), 1)),
+    renderedAsUnifiedEnvelope: true,
+    crossFeatureOverlapResolutionMode: candidate.crossFeatureOverlapPair ? 'unified_display_geometry_structure_area' : undefined,
+    crossFeatureOverlapPair: candidate.crossFeatureOverlapPair,
+    crossFeatureOverlapFraction: candidate.crossFeatureOverlapFraction !== undefined ? roundDiagnosticNumber(candidate.crossFeatureOverlapFraction) : undefined,
+    crossFeatureContainmentFraction: candidate.crossFeatureContainmentFraction !== undefined ? roundDiagnosticNumber(candidate.crossFeatureContainmentFraction) : undefined,
+    crossFeatureUnifiedCompactnessRatio: candidate.crossFeatureOverlapPair ? roundDiagnosticNumber(candidate.envelopeRatio) : undefined,
   };
   return {
     unitId: groupId,
@@ -507,26 +885,91 @@ function nonDisplayedLineFallbackZone(zone: WaterReaderPlacedZone): boolean {
 function confluenceRelationship(
   aZones: WaterReaderPlacedZone[],
   bZones: WaterReaderPlacedZone[],
-): { reason: string } | null {
+): { reason: string; overlapFraction?: number; containmentFraction?: number } | null {
+  const pointTipOpenWater = pointTipOpenWaterConfluenceRelationship(aZones, bZones);
+  if (pointTipOpenWater) return pointTipOpenWater;
+  const crossFeaturePair = crossFeatureDisplayPair([...aZones, ...bZones]);
   let bestOverlap = 0;
   let bestDistance = Number.POSITIVE_INFINITY;
   let maxMajorAxisM = 0;
+  let bestContainment = 0;
+  let touched = false;
   for (const a of aZones) {
     for (const b of bZones) {
       maxMajorAxisM = Math.max(maxMajorAxisM, a.majorAxisM, b.majorAxisM);
       const overlap = visibleOverlapFraction(a, b);
       bestOverlap = Math.max(bestOverlap, overlap);
-      if (overlap >= 0.32) return { reason: 'visible_overlap_heavy' };
+      bestContainment = Math.max(bestContainment, overlap);
+      if (overlap >= 0.32) return { reason: 'visible_overlap_heavy', overlapFraction: overlap, containmentFraction: overlap };
       const distance = Math.min(distanceM(a.ovalCenter, b.ovalCenter), distanceM(a.anchor, b.anchor));
       bestDistance = Math.min(bestDistance, distance);
       if (ringsTouchOrNear(visibleOrUnclippedRing(a), visibleOrUnclippedRing(b), Math.max(3, maxMajorAxisM * 0.012))) {
-        return { reason: 'visible_boundary_touch' };
+        touched = true;
       }
     }
   }
-  if (bestOverlap >= 0.15) return { reason: 'visible_overlap_15pct' };
-  if (bestDistance <= 0.35 * Math.max(maxMajorAxisM, 1)) return { reason: 'local_anchor_distance' };
+  if (crossFeaturePair) {
+    if (bestOverlap >= 0.1) {
+      return { reason: `cross_feature_${crossFeaturePair}_display_overlap`, overlapFraction: bestOverlap, containmentFraction: bestContainment };
+    }
+    if (touched && bestDistance <= 0.58 * Math.max(maxMajorAxisM, 1)) {
+      return { reason: `cross_feature_${crossFeaturePair}_display_touch`, overlapFraction: bestOverlap, containmentFraction: bestContainment };
+    }
+    if (bestDistance <= 0.38 * Math.max(maxMajorAxisM, 1)) {
+      return { reason: `cross_feature_${crossFeaturePair}_local_distance`, overlapFraction: bestOverlap, containmentFraction: bestContainment };
+    }
+    return null;
+  }
+  if (touched) return { reason: 'visible_boundary_touch', overlapFraction: bestOverlap, containmentFraction: bestContainment };
+  if (bestOverlap >= 0.15) return { reason: 'visible_overlap_15pct', overlapFraction: bestOverlap, containmentFraction: bestContainment };
+  if (bestDistance <= 0.35 * Math.max(maxMajorAxisM, 1)) return { reason: 'local_anchor_distance', overlapFraction: bestOverlap, containmentFraction: bestContainment };
   return null;
+}
+
+function pointTipOpenWaterConfluenceRelationship(
+  aZones: WaterReaderPlacedZone[],
+  bZones: WaterReaderPlacedZone[],
+): { reason: string; overlapFraction?: number; containmentFraction?: number } | null {
+  const zones = [...aZones, ...bZones];
+  if (!zones.every((zone) => zone.featureClass === 'main_lake_point')) return null;
+  const hasTip = zones.some((zone) => zone.placementKind === 'main_point_tip');
+  const hasOpenWater = zones.some((zone) => zone.placementKind === 'main_point_open_water');
+  if (!hasTip || !hasOpenWater) return null;
+  const largestMember = Math.max(...zones.map((zone) => zone.majorAxisM), 1);
+  const envelopeRatio = envelopeMajorAxisMeters(zones) / largestMember;
+  const sharedSource = aZones.some((a) => bZones.some((b) => a.sourceFeatureId === b.sourceFeatureId));
+  const nearest = nearestZoneDistance(aZones, bZones);
+  if (sharedSource && envelopeRatio <= 3.15 && nearest <= largestMember * 1.65) {
+    return { reason: 'same_point_tip_open_water_compact' };
+  }
+  if (envelopeRatio <= 2.35 && nearest <= largestMember * 0.55) {
+    return { reason: 'near_point_tip_open_water_compact' };
+  }
+  return null;
+}
+
+function crossFeatureDisplayPair(zones: WaterReaderPlacedZone[]): string | null {
+  const classes = new Set(zones.map((zone) => zone.featureClass));
+  const hasPoint = classes.has('main_lake_point') || classes.has('secondary_point');
+  if (classes.has('cove') && hasPoint) return 'cove+point';
+  if (classes.has('cove') && classes.has('neck')) return 'cove+neck';
+  if (classes.has('cove') && classes.has('saddle')) return 'cove+saddle';
+  if (classes.has('island') && hasPoint) return 'island+point';
+  return null;
+}
+
+function nearestZoneDistance(aZones: WaterReaderPlacedZone[], bZones: WaterReaderPlacedZone[]): number {
+  let best = Number.POSITIVE_INFINITY;
+  for (const a of aZones) {
+    for (const b of bZones) {
+      best = Math.min(
+        best,
+        distanceM(a.ovalCenter, b.ovalCenter),
+        distanceM(a.anchor, b.anchor),
+      );
+    }
+  }
+  return best;
 }
 
 function visibleOverlapFraction(a: WaterReaderPlacedZone, b: WaterReaderPlacedZone): number {
@@ -658,10 +1101,10 @@ function rebalanceRepeatedLegendTitle(params: {
   if (!dominant || dominant[1] <= repeatedLegendTitleMax(params.displayCap)) return params;
   const [dominantTitle] = dominant;
   const promoted = params.retainedUnits.find((unit) => {
-    const titles = unitLegendTitles(unit, params.legendByEntryId, params.legendByZoneId);
+    const titles = unitDiversityKeys(unit, params.legendByEntryId, params.legendByZoneId);
     return titles.some((title) => title !== dominantTitle) &&
       params.displayedUnits.some((displayed) => {
-        const displayedTitles = unitLegendTitles(displayed, params.legendByEntryId, params.legendByZoneId);
+        const displayedTitles = unitDiversityKeys(displayed, params.legendByEntryId, params.legendByZoneId);
         return displayedTitles.length > 0 &&
           displayedTitles.every((title) => title === dominantTitle) &&
           displayed.entryCost >= unit.entryCost &&
@@ -671,7 +1114,7 @@ function rebalanceRepeatedLegendTitle(params: {
   if (!promoted) return params;
 
   const demoted = [...params.displayedUnits].reverse().find((unit) => {
-    const titles = unitLegendTitles(unit, params.legendByEntryId, params.legendByZoneId);
+    const titles = unitDiversityKeys(unit, params.legendByEntryId, params.legendByZoneId);
     return titles.length > 0 &&
       titles.every((title) => title === dominantTitle) &&
       unit.entryCost >= promoted.entryCost &&
@@ -720,6 +1163,7 @@ function rebalanceDominantFeatureFamily(params: {
   const dominant = [...classCounts.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))[0];
   if (!dominant || dominant[1] <= featureClassMax(params.displayCap)) return params;
   const [dominantClass] = dominant;
+  if (dominantClass === 'main_lake_point') return params;
   const promoted = params.retainedUnits.find((unit) =>
     unitPrimaryFeatureClass(unit) !== dominantClass &&
     params.displayedUnits.some((displayed) =>
@@ -775,8 +1219,8 @@ function countUnitTitles(
 ): Map<string, number> {
   const counts = new Map<string, number>();
   for (const unit of units) {
-    for (const title of unitLegendTitles(unit, legendByEntryId, legendByZoneId)) {
-      counts.set(title, (counts.get(title) ?? 0) + 1);
+    for (const key of unitDiversityKeys(unit, legendByEntryId, legendByZoneId)) {
+      counts.set(key, (counts.get(key) ?? 0) + 1);
     }
   }
   return counts;
@@ -818,23 +1262,23 @@ function featureClassMax(displayCap: number): number {
 
 function repeatedLegendTitleMax(displayCap: number): number {
   if (displayCap <= 5) return 2;
-  if (displayCap <= 9) return 3;
-  return 4;
+  return 3;
 }
 
-function unitLegendTitles(
+function unitDiversityKeys(
   unit: DisplayUnit,
   legendByEntryId: Map<string, WaterReaderLegendEntry>,
   legendByZoneId: Map<string, WaterReaderLegendEntry>,
 ): string[] {
   if (unit.entryType === 'structure_confluence') {
-    return [syntheticConfluenceLegend(unit, legendByZoneId).title];
+    const memberKinds = unique(unit.zones.map((zone) => zone.placementKind)).sort((a, b) => a.localeCompare(b));
+    return [`structure_confluence:${memberKinds.join('+')}`];
   }
   if (unit.entryType === 'neck_area') {
-    return ['Neck - Shoulder Area'];
+    return ['neck_area:neck_structure_area'];
   }
   return unit.zones
-    .map((zone) => legendByZoneId.get(zone.zoneId)?.title)
+    .map((zone) => legendByZoneId.get(zone.zoneId)?.placementKind ?? zone.placementKind ?? legendByZoneId.get(zone.zoneId)?.templateId ?? zone.featureClass)
     .filter((title): title is string => Boolean(title));
 }
 
@@ -872,6 +1316,15 @@ function buildDisplayUnits(zoneResult: WaterReaderZonePlacementResult): DisplayU
         confluenceSplitDiagnosticsByZoneId.set(zone.zoneId, {
           confluenceMergeRejectedReason: 'mixed_island_line_fallback_not_compact',
           confluenceRejectedOversizedIslandMember: memberZones.some((member) => member.featureClass === 'island'),
+        });
+      }
+      continue;
+    }
+    if (!group.crossFeatureOverlapPair) {
+      for (const zone of memberZones) {
+        confluenceSplitDiagnosticsByZoneId.set(zone.zoneId, {
+          confluenceMergeRejectedReason: 'same_feature_overlap_rendered_as_member_zones',
+          sameFeatureOverlapRenderedAsMemberZones: true,
         });
       }
       continue;
@@ -980,7 +1433,7 @@ function displayEntriesForUnit(
     entryType: 'standalone_zone',
     displayState: 'displayed_standalone',
     zones: [zone],
-    legend: legendByZoneId.get(zone.zoneId) ?? firstLegendForZones([zone], legendByZoneId),
+    legend: standaloneLegendForZone(zone, legendByZoneId.get(zone.zoneId) ?? firstLegendForZones([zone], legendByZoneId)),
     longestDimensionM,
     sort: {
       ...unit.sort,
@@ -992,12 +1445,33 @@ function displayEntriesForUnit(
   }));
 }
 
+function standaloneLegendForZone(zone: WaterReaderPlacedZone, legend: WaterReaderLegendEntry | undefined): WaterReaderLegendEntry | undefined {
+  if (!legend) return legend;
+  const displaySubtype = typeof zone.diagnostics.constrictionDisplaySubtype === 'string' ? zone.diagnostics.constrictionDisplaySubtype : '';
+  if (zone.featureClass === 'neck' && displaySubtype === 'pinch') {
+    return {
+      ...legend,
+      title: pinchLegendTitle(legend.title),
+      templateId: `${legend.templateId}:display-pinch`,
+    };
+  }
+  return legend;
+}
+
+function pinchLegendTitle(title: string): string {
+  return title.includes('Neck') ? title.replace(/\bNeck\b/, 'Pinch') : 'Pinch - Structure Area';
+}
+
 function syntheticConfluenceLegend(
   unit: DisplayUnit,
   legendByZoneId: Map<string, WaterReaderLegendEntry>,
 ): WaterReaderLegendEntry {
   const memberSummary = finalMemberSummary(unit, legendByZoneId);
-  const title = `Structure Confluence - ${memberSummary}`;
+  const crossFeaturePair = unit.confluenceGroup?.crossFeatureOverlapPair ??
+    unit.zones.map((zone) => zone.diagnostics.crossFeatureOverlapPair).find((pair): pair is string => typeof pair === 'string' && pair.length > 0);
+  const title = crossFeaturePair
+    ? `Structure Area - ${crossFeatureTitleDetail(crossFeaturePair)}`
+    : `Structure Confluence - ${memberSummary}`;
   return {
     entryId: unit.unitId,
     zoneId: unit.zones[0]?.zoneId ?? unit.unitId,
@@ -1010,6 +1484,13 @@ function syntheticConfluenceLegend(
     body: 'Multiple polygon structure cues overlap in one compact area.',
     isConfluence: true,
   };
+}
+
+function crossFeatureTitleDetail(pair: string): string {
+  return pair
+    .split('+')
+    .map((part) => part === 'point' ? 'Point' : part[0]!.toUpperCase() + part.slice(1))
+    .join(' + ');
 }
 
 function syntheticNeckAreaLegend(unit: DisplayUnit): WaterReaderLegendEntry {
@@ -1044,6 +1525,8 @@ function finalMemberSummary(
 }
 
 function confluenceMemberLabel(zone: WaterReaderPlacedZone, legend?: WaterReaderLegendEntry): string {
+  const envelopeLabel = featureEnvelopeMemberLabel(zone.placementKind);
+  if (envelopeLabel) return envelopeLabel;
   const islandMainlandLabel = islandMainlandConfluenceMemberLabel(zone);
   if (islandMainlandLabel) return islandMainlandLabel;
   const openWaterLabel = openWaterConfluenceMemberLabel(zone);
@@ -1056,6 +1539,27 @@ function confluenceMemberLabel(zone: WaterReaderPlacedZone, legend?: WaterReader
   if (legend?.title) return legend.title.replace(/^[^-]+ - /, '');
   if (zone.placementKind === 'main_point_side') return 'Point Side';
   return featureLabel(zone.featureClass);
+}
+
+function featureEnvelopeMemberLabel(placementKind: WaterReaderZonePlacementKind): string | null {
+  switch (placementKind) {
+    case 'main_point_structure_area':
+      return 'Main Point Structure Area';
+    case 'secondary_point_structure_area':
+      return 'Secondary Point Structure Area';
+    case 'cove_structure_area':
+      return 'Cove Structure Area';
+    case 'neck_structure_area':
+      return 'Neck Structure Area';
+    case 'saddle_structure_area':
+      return 'Saddle Structure Area';
+    case 'island_structure_area':
+      return 'Island Structure Area';
+    case 'dam_structure_area':
+      return 'Dam Structure Area';
+    default:
+      return null;
+  }
 }
 
 function islandMainlandConfluenceMemberLabel(zone: WaterReaderPlacedZone): string | null {
@@ -1083,7 +1587,11 @@ function openWaterConfluenceMemberLabel(zone: WaterReaderPlacedZone): string | n
     return zone.anchorSemanticId === 'main_point_open_water_area' ? 'Point Open-Water Side' : 'Point Broad-Water Recovery';
   }
   if (zone.featureClass === 'island' && zone.placementKind === 'island_open_water') {
-    return zone.anchorSemanticId === 'island_open_water_area' ? 'Island Open-Water Edge' : 'Island Broad-Water Recovery';
+    if (zone.anchorSemanticId === 'island_open_water_area') return 'Island Open-Water Edge';
+    if (zone.anchorSemanticId === 'island_open_water_same_side_recovery' || zone.anchorSemanticId === 'island_open_water_recovery') {
+      return 'Island Open-Water Recovery';
+    }
+    return 'Island Shoreline Recovery';
   }
   return null;
 }
@@ -1356,6 +1864,119 @@ function withDisplayReadability(
   });
 }
 
+function withConstrictionDisplayClasses(units: DisplayUnit[]): DisplayUnit[] {
+  return units.map((unit) => {
+    const zones = unit.zones.map((zone) => {
+      if (zone.featureClass !== 'neck' && zone.featureClass !== 'saddle') return zone;
+      const classification = constrictionDisplayClassForZone(zone, unit.displayReadability);
+      const displayClass = classification.displayClass;
+      const displaySubtype = constrictionDisplaySubtypeForZone(zone, displayClass);
+      return annotateZoneDiagnostics(zone, {
+        constrictionDisplayClass: displayClass,
+        constrictionDisplaySubtype: displaySubtype?.subtype ?? null,
+        constrictionDisplaySubtypeReason: displaySubtype?.reason ?? null,
+        constrictionDisplayAppFootprintMinPx: unit.displayReadability.estimatedAppFootprintMinDimensionPx,
+        constrictionDisplayAppFootprintMaxPx: unit.displayReadability.estimatedAppFootprintMaxDimensionPx,
+        constrictionDisplayAppFootprintAreaPx: unit.displayReadability.estimatedAppFootprintAreaPx,
+        constrictionDisplayShoulderSeparationM: zone.diagnostics.constrictionSpanM ?? zone.majorAxisM,
+        constrictionRecoveredFromTinyGate: classification.recoveryReason && !classification.saddleRecovery ? true : null,
+        constrictionRecoveryReason: classification.recoveryReason && !classification.saddleRecovery ? classification.recoveryReason : null,
+        saddleRecoveredFromBroadReview: classification.saddleRecovery === true ? true : null,
+        saddleRecoveryReason: classification.saddleRecovery ? classification.recoveryReason ?? null : null,
+      });
+    });
+    const displayClasses = unique(zones
+      .map((zone) => typeof zone.diagnostics.constrictionDisplayClass === 'string' ? String(zone.diagnostics.constrictionDisplayClass) : '')
+      .filter(Boolean));
+    return {
+      ...unit,
+      zones,
+      rankingDiagnostics: displayClasses.length > 0
+        ? unique([...unit.rankingDiagnostics, ...displayClasses.map((displayClass) => `constriction_display_class:${displayClass}`)])
+        : unit.rankingDiagnostics,
+    };
+  });
+}
+
+function constrictionDisplayClassForZone(
+  zone: WaterReaderPlacedZone,
+  displayReadability: WaterReaderDisplayReadabilityDiagnostics,
+): ConstrictionDisplayClassification {
+  const readabilityClass = typeof zone.diagnostics.constrictionReadabilityClass === 'string' ? zone.diagnostics.constrictionReadabilityClass : '';
+  const widthToAverage = diagnosticNumber(zone.diagnostics.constrictionWidthToAverage);
+  const confidence = diagnosticNumber(zone.diagnostics.constrictionConfidence);
+  const weakerExpansionRatio = diagnosticNumber(zone.diagnostics.constrictionWeakerExpansionRatio);
+  const expansionBalance = diagnosticNumber(zone.diagnostics.constrictionExpansionBalance);
+  const oneSided = zone.diagnostics.constrictionOneSidedExpansion === true || expansionBalance < 0.62;
+  const twoSided = zone.diagnostics.constrictionTwoSidedExpansion === true;
+  const appMaxPx = displayReadability.estimatedAppFootprintMaxDimensionPx;
+  const appAreaPx = displayReadability.estimatedAppFootprintAreaPx;
+  const oldTinyGate = displayReadability.displayReadabilityTier !== 'readable' || appMaxPx < 16;
+  const trulyUnreadable = appMaxPx < 8 && appAreaPx < 60;
+  if (confidence > 0 && confidence < 0.58) return { displayClass: 'retained_questionable_constriction' };
+  if (zone.featureClass === 'saddle') {
+    if (readabilityClass === 'low_confidence_review' || trulyUnreadable) return { displayClass: 'retained_questionable_constriction' };
+    const strongTwoSidedEvidence = twoSided && weakerExpansionRatio >= 1.45 && expansionBalance >= 0.38;
+    const visuallySubstantialBroadSaddle = confidence >= 0.86 &&
+      appMaxPx >= 18 &&
+      appAreaPx >= 180 &&
+      (expansionBalance >= 0.45 || strongTwoSidedEvidence);
+    if (readabilityClass === 'broad_saddle_review') {
+      return visuallySubstantialBroadSaddle
+        ? {
+            displayClass: 'display_saddle',
+            recoveryReason: 'high_confidence_readable_broad_saddle',
+            saddleRecovery: true,
+          }
+        : { displayClass: 'broad_saddle' };
+    }
+    return { displayClass: 'display_saddle' };
+  }
+
+  if (trulyUnreadable) return { displayClass: 'retained_questionable_constriction' };
+
+  if (widthToAverage > 0 && widthToAverage <= 0.035 && confidence >= 0.85 && (appMaxPx >= 10 || appAreaPx >= 95)) {
+    return {
+      displayClass: 'channel_pinch',
+      recoveryReason: oldTinyGate ? 'high_confidence_channel_pinch' : undefined,
+    };
+  }
+  if (oneSided && confidence >= 0.82 && widthToAverage > 0 && widthToAverage <= 0.08 && weakerExpansionRatio >= 2.2 && (appMaxPx >= 8 || appAreaPx >= 60)) {
+    return {
+      displayClass: 'one_sided_pinch_review',
+      recoveryReason: oldTinyGate ? 'high_confidence_one_sided_pinch' : undefined,
+    };
+  }
+  if (readabilityClass === 'clear_two_sided_constriction' && confidence >= 0.85 && (appMaxPx >= 12 || appAreaPx >= 110)) {
+    return {
+      displayClass: 'clear_neck',
+      recoveryReason: oldTinyGate ? 'high_confidence_clear_neck' : undefined,
+    };
+  }
+
+  if (oldTinyGate) return { displayClass: 'retained_questionable_constriction' };
+  if (widthToAverage > 0 && widthToAverage <= 0.035) return { displayClass: 'channel_pinch' };
+  if (oneSided && weakerExpansionRatio < 6) return { displayClass: 'one_sided_pinch_review' };
+  if (widthToAverage > 0 && widthToAverage <= 0.08 && expansionBalance < 0.65) return { displayClass: 'channel_pinch' };
+  return { displayClass: 'clear_neck' };
+}
+
+function constrictionDisplaySubtypeForZone(
+  zone: WaterReaderPlacedZone,
+  displayClass: ConstrictionDisplayClass,
+): ConstrictionDisplaySubtype | null {
+  if (zone.featureClass !== 'neck') return null;
+  const widthToAverage = diagnosticNumber(zone.diagnostics.constrictionWidthToAverage);
+  const expansionBalance = diagnosticNumber(zone.diagnostics.constrictionExpansionBalance);
+  const oneSided = zone.diagnostics.constrictionOneSidedExpansion === true || expansionBalance < 0.62;
+  if (widthToAverage > 0 && widthToAverage <= 0.035) return { subtype: 'pinch', reason: 'narrow_width_ratio' };
+  if (displayClass === 'channel_pinch') return { subtype: 'pinch', reason: 'channel_pinch' };
+  if (oneSided && expansionBalance < 0.62 && widthToAverage > 0 && widthToAverage <= 0.08) {
+    return { subtype: 'pinch', reason: 'one_sided_channel_like' };
+  }
+  return { subtype: 'neck' };
+}
+
 function buildReadabilityContext(
   units: DisplayUnit[],
   options: WaterReaderDisplayModelOptions,
@@ -1474,6 +2095,29 @@ function boundsForPoints(points: PointM[]): { minX: number; maxX: number; minY: 
   );
 }
 
+function expandBounds(bounds: { minX: number; maxX: number; minY: number; maxY: number }, padM: number): { minX: number; maxX: number; minY: number; maxY: number } {
+  return {
+    minX: bounds.minX - padM,
+    maxX: bounds.maxX + padM,
+    minY: bounds.minY - padM,
+    maxY: bounds.maxY + padM,
+  };
+}
+
+function boundsTouchOrOverlap(
+  a: { minX: number; maxX: number; minY: number; maxY: number },
+  b: { minX: number; maxX: number; minY: number; maxY: number },
+): boolean {
+  return a.minX <= b.maxX && a.maxX >= b.minX && a.minY <= b.maxY && a.maxY >= b.minY;
+}
+
+function boundsCenterForDisplay(bounds: { minX: number; maxX: number; minY: number; maxY: number }): PointM {
+  return {
+    x: (bounds.minX + bounds.maxX) / 2,
+    y: (bounds.minY + bounds.maxY) / 2,
+  };
+}
+
 function validPoint(point: PointM): boolean {
   return Number.isFinite(point.x) && Number.isFinite(point.y);
 }
@@ -1534,6 +2178,22 @@ function rankingDiagnostics(zones: WaterReaderPlacedZone[], seasonalRelevanceSco
 }
 
 function seasonalRelevanceScore(zone: WaterReaderPlacedZone, season: WaterReaderZonePlacementResult['season']): number {
+  if (zone.diagnostics.seasonalEmphasisOnly === true) {
+    switch (zone.placementKind) {
+      case 'cove_structure_area':
+        return season === 'spring' || season === 'fall' ? 1 : 0.75;
+      case 'main_point_structure_area':
+      case 'secondary_point_structure_area':
+        return season === 'summer' || season === 'fall' || season === 'winter' ? 1 : 0.75;
+      case 'neck_structure_area':
+      case 'saddle_structure_area':
+        return season === 'summer' || season === 'fall' || season === 'winter' ? 1 : 0.75;
+      case 'island_structure_area':
+        return season === 'summer' || season === 'winter' ? 1 : 0.75;
+      case 'dam_structure_area':
+        return 0.75;
+    }
+  }
   switch (season) {
     case 'spring':
       if (zone.placementKind === 'cove_back') return coveInnerSemantic(zone) ? 2 : 1;

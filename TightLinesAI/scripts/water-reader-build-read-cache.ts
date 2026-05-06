@@ -17,7 +17,7 @@ import {
 } from '../lib/waterReaderContracts';
 
 const WATER_READER_APP_SVG_WIDTH = 420;
-const WATER_READER_ENGINE_VERSION = 'water-reader-engine-v1';
+const WATER_READER_ENGINE_VERSION = 'water-reader-engine-v2-feature-envelope';
 const BASELINE_9_LAKES: Array<{ label: string; query: string; county?: string }> = [
   { label: 'Torch Lake, MI', query: 'Torch Lake' },
   { label: 'Glen Lake, Leelanau County, MI', query: 'Glen Lake', county: 'Leelanau' },
@@ -132,6 +132,8 @@ function mapPreviewBbox(row: PolygonRpcRow): WaterbodyPreviewBbox | null {
 }
 
 function buildSeasonContextKey(state: string, date: Date): string {
+  // Full read/SVG cache remains season-context keyed because legend guidance and response text vary by season.
+  // Zone geometry is intentionally season-invariant in the feature-envelope engine.
   const lookup = lookupWaterReaderSeason(state, date);
   if (!lookup) return 'group:unknown|season:summer|transition:none';
   const transitionKey = lookup.inTransitionWindow && lookup.transitionFrom && lookup.transitionTo
@@ -183,7 +185,7 @@ function buildCachedRead(row: PolygonRpcRow, currentDate: Date): WaterReaderRead
             : !preprocess.primaryPolygon || !preprocess.metrics
               ? 'This polygon could not be projected into lake-space geometry for a trustworthy read.'
               : displayModel.displayedEntries.length === 0
-                ? 'No trustworthy seasonal structure zones passed the geometry filters for this outline. Nothing was added to fill space.'
+                ? 'No trustworthy structure areas passed the geometry filters for this outline. Nothing was added to fill space.'
                 : null;
 
   const productionSvgResult =
@@ -191,7 +193,7 @@ function buildCachedRead(row: PolygonRpcRow, currentDate: Date): WaterReaderRead
       ? buildWaterReaderProductionSvg(displayModel, {
         lakePolygon: preprocess.primaryPolygon,
         title: row.name,
-        subtitle: `${zoneResult.season} seasonal structure | polygon geometry`,
+        subtitle: `Structure areas | ${zoneResult.season} legend guidance | polygon geometry`,
         mapWidth: WATER_READER_APP_SVG_WIDTH,
       })
       : null;

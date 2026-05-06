@@ -125,6 +125,20 @@ Current feature-envelope renovation state as of 2026-05-06:
 - Most recent validation commands passed: `npm run qa:water-reader-engine-zone-smoke`, focused summer reviews for Mullett/Higgins/Palestine/Van Norman/Pontiac/Tahoe, Batch 1 matrix review, and `npx tsc --noEmit`.
 - Next work should be Pass 5B visual QA/polish: inspect the regenerated summer SVG/row JSON artifacts for point-lobe shape quality, island-centered clipping, neck/saddle paired-shoulder readability, label/legend overflow, repeated-title pressure, and point-dominance ranking. Do not solve these by hiding valid under-cap structures or by weakening feature-envelope invariants.
 
+Current Batch 1 tuning checkpoint as of 2026-05-06, Pass 5.6:
+
+- Batch 1's first 10 lakes are accepted as the current visual baseline and are ready to hand off to the next 10-lake review batch. Do not keep tuning Batch 1 unless a later batch reveals a pattern-level regression.
+- Visible geometry is season-invariant. Date/season may affect legend guidance text only; it must not move, split, or seasonalize structure zones.
+- Production point zones render as shoreline-following point buffers with one translucent stroke only. Do not reintroduce the former high-opacity inner shoreline stroke. Same-feature point overlap may darken naturally from alpha stacking.
+- Cove zones render as high-density shoreline polygons with a curved mouth closure. The sampled cove shoreline should preserve the actual ordered cove shore path and stay dense enough to hug jagged polygon detail.
+- Cross-feature confluences render exact member shapes under one label/color, not convex-hull blobs. Same-feature overlaps should usually remain same-color alpha overlap rather than becoming confluence entries.
+- Neck and pinch are the same detected feature family. `Pinch` is a display subtype of `featureClass: neck` / `placementKind: neck_structure_area`, uses the same orange color, and is used for narrow or channel-like constrictions. Broader two-sided constrictions label as `Neck`.
+- Batch 1 Pass 5.6 displayed 52 neck-class zones across 40 lake-season rows, with 44 `Pinch` labels and 8 `Neck` labels. Retained necks are 0. This reflects the current "rarely retain valid structure" preference.
+- Saddles are intentionally restrained. Batch 1 Pass 5.6 displayed 0 saddles and retained 12 saddles: 4 low-confidence/tiny saddles and 8 broad/questionable saddles with `broad_saddle_not_visually_substantial`. This is accepted for Batch 1, but future batches must monitor whether the saddle policy is hiding too many legitimate saddles.
+- Batch 1 Pass 5.6 matrix metrics: 40 rows, 0 fallback/no-map rows, 0 zero-displayed rows, 0 selected-feature suppressions, 0 app-width renderer warning rows, 0 repeated-title pressure rows, and review priority counts of 0 critical / 8 high / 8 medium / 24 low. Remaining high rows are mainly point-dominance or retained-non-point review signals, not fatal map failures.
+- Future tuning must keep a detected-vs-displayed-vs-retained audit by feature class and retained reason. The map should stay clean, but clean display must not become hidden structure. Pay special attention to saddles, dams, islands, large coves, and any high-confidence feature retained for display policy rather than geometry failure.
+- Generated visual/CSV/JSON review artifacts remain local under `tmp/water-reader-50-lake-tuning/` and must not be committed.
+
 Chunk 7 display-policy update:
 
 - Displayed-entry caps are 6 for waters under 100 acres, 10 for 100-1,000 acres, and 12 for waters over 1,000 acres. A confluence group counts as one displayed entry.

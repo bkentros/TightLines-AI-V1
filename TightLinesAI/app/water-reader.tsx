@@ -298,8 +298,9 @@ export default function WaterReaderScreen() {
         keyboardShouldPersistTaps="handled"
       >
         <Text style={styles.disclaimer}>
-          Water Reader uses public-domain hydrography polygons, state, and date to place deterministic seasonal
-          structure zones. It does not use photos, depth, species, weather, exact locations, or promise results.
+          Water Reader uses public-domain hydrography polygons to draw deterministic structure areas. State and date
+          only shape the seasonal guidance in the legend; it does not use photos, depth, species, weather, exact locations,
+          or promise results.
         </Text>
 
         <Text style={styles.section}>Find a waterbody</Text>
@@ -432,8 +433,7 @@ export default function WaterReaderScreen() {
           <Text style={styles.section}>Vector lake map</Text>
           {!selected && (
             <Text style={styles.muted}>
-              Select an openable waterbody to see a polygon-only seasonal structure map from public
-              hydrography geometry.
+              Select an openable waterbody to see polygon-only structure areas from public hydrography geometry.
             </Text>
           )}
           {selected && (
@@ -476,7 +476,7 @@ export default function WaterReaderScreen() {
                   </View>
                   <Text style={styles.placeholderCopy}>
                     Zones are computed from polygon geometry in lake-space meters and clipped to the hydrography outline.
-                    State and date select deterministic seasonal structure rules.
+                    State and date select seasonal guidance in the legend, not different visible structure-area placement.
                   </Text>
                   {polygonLimitedNote && (
                     <Text style={styles.geometryLimitedNote}>

@@ -66,6 +66,10 @@ const MAX_SHORELINE_FRAME_VARIANTS = 5;
 const TRACE_PAIR_OVERLAP_SCORE = 0.03;
 const LIGHT_PAIR_OVERLAP_SCORE = 0.18;
 const MODERATE_PAIR_OVERLAP_SCORE = 0.32;
+const COVE_SHORE_PATH_MIN_SAMPLES = 21;
+const COVE_SHORE_PATH_MAX_SAMPLES = 96;
+const COVE_APP_WIDTH_ESTIMATE_PX = 420;
+const COVE_APP_HORIZONTAL_PADDING_ESTIMATE_PX = 56;
 
 type PairOverlapClass =
   | 'none_or_trace_pair_overlap'
@@ -439,6 +443,9 @@ function pointStructureAreaDrafts(
   );
   const pointTipRenderLobeMajorAxisM = Math.max(floorM * 0.52, pointRenderLobeMajorAxisM * 0.84);
   const pointTipRenderLobeMinorAxisM = Math.max(floorM * 0.32, pointRenderLobeMinorAxisM * 0.9);
+  const pointShorelineDiagnostics = pointShorelineBufferDiagnostics(feature, params.polygon, localSpanM);
+  const appMinStrokeWidthPx = 16;
+  const estimatedAppScale = 372 / Math.max(1, params.longestDimensionM * 1.11);
   const drafts: WaterReaderZoneDraft[] = [];
   const pointCenters = uniquePoints(candidateCenters);
   for (const [centerIndex, ovalCenter] of pointCenters.entries()) {
@@ -446,6 +453,11 @@ function pointStructureAreaDrafts(
     for (const [sizeIndex, sizeFactor] of sizeFactors.entries()) {
       for (const [rotationIndex, rotationRad] of rotations.entries()) {
         for (const [anchorIndex, candidateAnchor] of centerAnchors.entries()) {
+          const pointApronStrokeWidthM = clamp(
+            Math.max(pointRenderLobeMinorAxisM * 1.18, sideSpanM * 0.42, protrusionM * 0.52, floorM * 0.5, params.longestDimensionM * 0.018),
+            Math.max(12, floorM * 0.38),
+            Math.max(majorAxisM * sizeFactor * 0.72, floorM * 0.52),
+          );
           drafts.push(makeFeatureEnvelopeDraft({
             feature,
             placementKind,
@@ -475,7 +487,28 @@ function pointStructureAreaDrafts(
               wholeFeatureOutsideWaterCenterEligible: true,
               pointEnvelopeLakeCapM: roundDiagnosticNumber(lakeCapM),
               pointEnvelopeSideCapM: roundDiagnosticNumber(sideCapM),
-              featureEnvelopeRenderShape: 'merged_point_lobes',
+              featureEnvelopeRenderShape: 'rounded_point_apron',
+              pointEnvelopeRenderShape: 'rounded_point_apron',
+              pointApronRenderMethod: 'shoreline_buffer',
+              pointApronRenderedAsShorelineBuffer: true,
+              pointApronStrokeWidthM: roundDiagnosticNumber(pointApronStrokeWidthM),
+              pointApronStrokeWidthPx: roundDiagnosticNumber(Math.max(appMinStrokeWidthPx, pointApronStrokeWidthM * estimatedAppScale)),
+              pointApronAppMinWidthPx: appMinStrokeWidthPx,
+              pointEnvelopeWrapsTip: true,
+              pointEnvelopeWrapsLeftShoulder: true,
+              pointEnvelopeWrapsRightShoulder: true,
+              pointEnvelopeRoundedApronUsed: true,
+              pointEnvelopeLegacyRenderShape: 'merged_point_lobes',
+              pointApronWaterwardPadM: roundDiagnosticNumber(clamp(
+                Math.max(pointTipRenderLobeMajorAxisM * 0.86, protrusionM * 0.74, majorAxisM * sizeFactor * 0.2, 14),
+                Math.min(majorAxisM * sizeFactor * 0.16, 18),
+                majorAxisM * sizeFactor * 0.5,
+              )),
+              pointApronShoulderPadM: roundDiagnosticNumber(clamp(
+                Math.max(pointRenderLobeMinorAxisM * 0.8, sideSpanM * 0.32, minorAxisM * sizeFactor * 0.32, 12),
+                Math.min(majorAxisM * sizeFactor * 0.12, 16),
+                majorAxisM * sizeFactor * 0.34,
+              )),
               featureEnvelopeRenderLobeCount: 3,
               featureEnvelopeRenderLobe1Kind: 'tip_lobe',
               featureEnvelopeRenderLobe1CenterX: roundDiagnosticNumber(feature.tip.x),
@@ -503,6 +536,7 @@ function pointStructureAreaDrafts(
               pointEnvelopeRecoveryAnchorIndex: anchorIndex + 1,
               pointEnvelopeRecoverySizeFactor: sizeFactor,
               pointEnvelopeRecoveryRotationIndex: rotationIndex + 1,
+              ...pointShorelineDiagnostics,
               selectedSizeFactor: sizeFactor,
               selectedAnchorIndex: anchorIndex + 1,
               selectedRotationIndex: rotationIndex + 1,
@@ -551,6 +585,27 @@ function coveStructureAreaDrafts(
   ]);
   const rotations = uniqueNumbers([rotationRad, Math.atan2(feature.mouthRight.y - feature.mouthLeft.y, feature.mouthRight.x - feature.mouthLeft.x)]);
   const sizeFactors = [1, 0.82, 0.66, 0.5] as const;
+  const leftInnerWall = coveWallAnchor(feature, 'left', 0.48);
+  const rightInnerWall = coveWallAnchor(feature, 'right', 0.48);
+  const leftNearMouth = coveWallAnchor(feature, 'left', 0.78);
+  const rightNearMouth = coveWallAnchor(feature, 'right', 0.78);
+  const nestedLocalCove = feature.coveDepthM < Math.max(1, feature.mouthWidthM) * 0.42 ||
+    feature.shorePathLengthM < Math.max(1, feature.mouthWidthM) * 1.38;
+  const broadArmCandidate = feature.coveDepthM > Math.max(floorM, feature.mouthWidthM * 1.85) ||
+    feature.shorePathLengthM > Math.max(floorM, feature.mouthWidthM * 3.8);
+  const coveShorePath = sampleCoveShorePath(feature.shorePath, params.longestDimensionM);
+  const coveShorePathSampleDiagnostics = coveShorePath.samples.reduce<Record<string, number | string | boolean | string[] | null>>((out, point, index) => {
+    out[`coveEnvelopeShorePathSample${index + 1}X`] = roundDiagnosticNumber(point.x);
+    out[`coveEnvelopeShorePathSample${index + 1}Y`] = roundDiagnosticNumber(point.y);
+    return out;
+  }, {
+    coveEnvelopeShorePathSampleCount: coveShorePath.samples.length,
+    coveEnvelopeShorePathRawCount: coveShorePath.rawCount,
+    coveEnvelopeShorePathPreserved: coveShorePath.preserved,
+    coveEnvelopeShorePathTargetMaxSegmentM: roundDiagnosticNumber(coveShorePath.targetMaxSegmentM),
+    coveEnvelopeMaxShoreSegmentM: roundDiagnosticNumber(coveShorePath.maxSegmentM),
+    coveEnvelopeMaxShoreSegmentAppPxEstimate: roundDiagnosticNumber(coveShorePath.maxSegmentAppPxEstimate),
+  });
   const drafts: WaterReaderZoneDraft[] = [];
   const coveCenters = uniquePoints(centers);
   for (const [centerIndex, ovalCenter] of coveCenters.entries()) {
@@ -577,6 +632,33 @@ function coveStructureAreaDrafts(
             lakeAreaSqM: params.lakeAreaSqM,
             acreage: params.acreage,
             additionalDiagnostics: {
+              featureEnvelopeRenderShape: 'shoreline_cove_polygon',
+              coveEnvelopeRenderShape: 'shoreline_cove_polygon',
+              coveEnvelopeLegacyRenderShape: 'full_cove_basin',
+              coveEnvelopeMouthClosureKind: 'quadratic_mouth_cap',
+              coveEnvelopeMouthWidthM: roundDiagnosticNumber(feature.mouthWidthM),
+              coveEnvelopeDepthM: roundDiagnosticNumber(feature.coveDepthM),
+              coveEnvelopeShorePathLengthM: roundDiagnosticNumber(feature.shorePathLengthM),
+              coveEnvelopePathRatio: roundDiagnosticNumber(feature.pathRatio),
+              coveEnvelopeDepthRatio: roundDiagnosticNumber(feature.depthRatio),
+              coveEnvelopeMouthLeftX: roundDiagnosticNumber(feature.mouthLeft.x),
+              coveEnvelopeMouthLeftY: roundDiagnosticNumber(feature.mouthLeft.y),
+              coveEnvelopeMouthRightX: roundDiagnosticNumber(feature.mouthRight.x),
+              coveEnvelopeMouthRightY: roundDiagnosticNumber(feature.mouthRight.y),
+              coveEnvelopeBackX: roundDiagnosticNumber(feature.back.x),
+              coveEnvelopeBackY: roundDiagnosticNumber(feature.back.y),
+              coveEnvelopeLeftInnerX: roundDiagnosticNumber(leftInnerWall.x),
+              coveEnvelopeLeftInnerY: roundDiagnosticNumber(leftInnerWall.y),
+              coveEnvelopeRightInnerX: roundDiagnosticNumber(rightInnerWall.x),
+              coveEnvelopeRightInnerY: roundDiagnosticNumber(rightInnerWall.y),
+              coveEnvelopeLeftNearMouthX: roundDiagnosticNumber(leftNearMouth.x),
+              coveEnvelopeLeftNearMouthY: roundDiagnosticNumber(leftNearMouth.y),
+              coveEnvelopeRightNearMouthX: roundDiagnosticNumber(rightNearMouth.x),
+              coveEnvelopeRightNearMouthY: roundDiagnosticNumber(rightNearMouth.y),
+              coveEnvelopeNestedLocalCove: nestedLocalCove,
+              coveEnvelopeBroadArmCandidate: broadArmCandidate,
+              coveEnvelopeBasinBounded: true,
+              ...coveShorePathSampleDiagnostics,
               coveEnvelopeLocalExtentM: roundDiagnosticNumber(localExtentM),
               coveEnvelopeBroadScanCapM: roundDiagnosticNumber(broadScanCapM),
               coveEnvelopeReferenceCapM: roundDiagnosticNumber(coveReferenceCapM),
@@ -599,6 +681,213 @@ function coveStructureAreaDrafts(
     }
   }
   return drafts;
+}
+
+function pointShorelineBufferDiagnostics(
+  feature: WaterReaderPointFeature,
+  polygon: PolygonM,
+  localSpanM: number,
+): Record<string, number | string | boolean | string[] | null> {
+  const arc = pointShorelineArc(feature, polygon, localSpanM);
+  const samples = samplePathByDistance(arc.path, 9);
+  const diagnostics = samples.reduce<Record<string, number | string | boolean | string[] | null>>((out, point, index) => {
+    out[`pointEnvelopeShorePathSample${index + 1}X`] = roundDiagnosticNumber(point.x);
+    out[`pointEnvelopeShorePathSample${index + 1}Y`] = roundDiagnosticNumber(point.y);
+    return out;
+  }, {
+    pointEnvelopeShorePathSampleCount: samples.length,
+    pointEnvelopeShorePathLengthM: roundDiagnosticNumber(arc.lengthM),
+    pointEnvelopeShorePathFallbackUsed: arc.fallback,
+    pointEnvelopeShorePathFallbackReason: arc.fallbackReason,
+  });
+  const maxSampleGapM = maxAdjacentDistanceM(samples);
+  diagnostics.pointApronMaxSampleGapM = roundDiagnosticNumber(maxSampleGapM);
+  diagnostics.pointApronSmallGapBridgeApplied = maxSampleGapM > 0 && maxSampleGapM <= Math.max(35, localSpanM * 0.42);
+  return diagnostics;
+}
+
+function pointShorelineArc(
+  feature: WaterReaderPointFeature,
+  polygon: PolygonM,
+  localSpanM: number,
+): { path: RingM; lengthM: number; fallback: boolean; fallbackReason: string | null } {
+  const exterior = polygon.exterior;
+  if (exterior.length < 3) {
+    const fallback = [feature.leftSlope, feature.tip, feature.rightSlope];
+    return { path: fallback, lengthM: pathLengthM(fallback), fallback: true, fallbackReason: 'exterior_ring_too_short' };
+  }
+  const leftIndex = nearestIndex(feature.leftSlope, exterior);
+  const rightIndex = nearestIndex(feature.rightSlope, exterior);
+  const tipIndex = nearestIndex(feature.tip, exterior);
+  if (leftIndex < 0 || rightIndex < 0 || tipIndex < 0 || leftIndex === rightIndex) {
+    const fallback = [feature.leftSlope, feature.tip, feature.rightSlope];
+    return { path: fallback, lengthM: pathLengthM(fallback), fallback: true, fallbackReason: 'shoreline_anchor_index_missing' };
+  }
+  const forward = ringArcPath(exterior, leftIndex, rightIndex, 1);
+  const backward = ringArcPath(exterior, leftIndex, rightIndex, -1);
+  const scored = [forward, backward].map((path, index) => {
+    const lengthM = pathLengthM(path);
+    const nearestTipM = Math.min(...path.map((point) => distanceM(point, feature.tip)));
+    const includesTipIndex = arcIncludesIndex(exterior.length, leftIndex, rightIndex, tipIndex, index === 0 ? 1 : -1);
+    return { path, lengthM, nearestTipM, includesTipIndex, directionScore: index };
+  });
+  const selected = scored.sort((a, b) =>
+    Number(b.includesTipIndex) - Number(a.includesTipIndex) ||
+    a.nearestTipM - b.nearestTipM ||
+    a.lengthM - b.lengthM ||
+    a.directionScore - b.directionScore
+  )[0];
+  if (!selected || selected.path.length < 3) {
+    const fallback = [feature.leftSlope, feature.tip, feature.rightSlope];
+    return { path: fallback, lengthM: pathLengthM(fallback), fallback: true, fallbackReason: 'shoreline_arc_too_short' };
+  }
+  const maxLocalLengthM = Math.max(localSpanM * 3.6, distanceM(feature.leftSlope, feature.rightSlope) * 2.8, 24);
+  if (selected.lengthM > maxLocalLengthM && selected.nearestTipM > Math.max(4, localSpanM * 0.18)) {
+    const fallback = [feature.leftSlope, feature.tip, feature.rightSlope];
+    return { path: fallback, lengthM: pathLengthM(fallback), fallback: true, fallbackReason: 'shoreline_arc_not_local_to_tip' };
+  }
+  return { path: selected.path, lengthM: selected.lengthM, fallback: false, fallbackReason: null };
+}
+
+function ringArcPath(ring: RingM, from: number, to: number, direction: 1 | -1): RingM {
+  const out: RingM = [];
+  let index = from;
+  for (;;) {
+    out.push(ring[index]!);
+    if (index === to) break;
+    index = (index + direction + ring.length) % ring.length;
+    if (out.length > ring.length + 1) break;
+  }
+  return out;
+}
+
+function arcIncludesIndex(ringLength: number, from: number, to: number, target: number, direction: 1 | -1): boolean {
+  let index = from;
+  let guard = 0;
+  for (;;) {
+    if (index === target) return true;
+    if (index === to) return false;
+    index = (index + direction + ringLength) % ringLength;
+    guard++;
+    if (guard > ringLength + 1) return false;
+  }
+}
+
+function samplePathByDistance(path: RingM, targetCount: number, preserveSparsePath = true): PointM[] {
+  if (preserveSparsePath && path.length <= targetCount) return [...path];
+  const totalLengthM = pathLengthM(path);
+  if (totalLengthM <= 0) return [path[0]!, path[path.length - 1]!].filter(Boolean);
+  const samples: PointM[] = [];
+  let segmentIndex = 1;
+  let traveledM = 0;
+  for (let index = 0; index < targetCount; index++) {
+    const targetM = (totalLengthM * index) / Math.max(1, targetCount - 1);
+    while (segmentIndex < path.length - 1) {
+      const segmentLengthM = distanceM(path[segmentIndex - 1]!, path[segmentIndex]!);
+      if (traveledM + segmentLengthM >= targetM) break;
+      traveledM += segmentLengthM;
+      segmentIndex++;
+    }
+    const a = path[segmentIndex - 1] ?? path[0]!;
+    const b = path[segmentIndex] ?? path[path.length - 1]!;
+    const segmentLengthM = Math.max(1e-9, distanceM(a, b));
+    samples.push(lerpPoint(a, b, clamp((targetM - traveledM) / segmentLengthM, 0, 1)));
+  }
+  return samples;
+}
+
+function pathLengthM(path: RingM): number {
+  let length = 0;
+  for (let index = 1; index < path.length; index++) length += distanceM(path[index - 1]!, path[index]!);
+  return length;
+}
+
+function maxAdjacentDistanceM(path: RingM): number {
+  let maxDistance = 0;
+  for (let index = 1; index < path.length; index++) maxDistance = Math.max(maxDistance, distanceM(path[index - 1]!, path[index]!));
+  return maxDistance;
+}
+
+function sampleCoveShorePath(
+  path: RingM,
+  longestDimensionM: number,
+): {
+  samples: PointM[];
+  rawCount: number;
+  preserved: boolean;
+  targetMaxSegmentM: number;
+  maxSegmentM: number;
+  maxSegmentAppPxEstimate: number;
+} {
+  const rawCount = path.length;
+  if (rawCount === 0) {
+    return {
+      samples: [],
+      rawCount,
+      preserved: false,
+      targetMaxSegmentM: 0,
+      maxSegmentM: 0,
+      maxSegmentAppPxEstimate: 0,
+    };
+  }
+  if (rawCount === 1) {
+    return {
+      samples: [path[0]!],
+      rawCount,
+      preserved: true,
+      targetMaxSegmentM: 0,
+      maxSegmentM: 0,
+      maxSegmentAppPxEstimate: 0,
+    };
+  }
+  const pathLength = pathLengthM(path);
+  const targetMaxSegmentM = clamp(
+    Math.max(pathLength / (COVE_SHORE_PATH_MAX_SAMPLES - 1), longestDimensionM * 0.006),
+    8,
+    Math.max(18, longestDimensionM * 0.018),
+  );
+  const targetCount = Math.round(clamp(
+    Math.ceil(pathLength / Math.max(1, targetMaxSegmentM)) + 1,
+    COVE_SHORE_PATH_MIN_SAMPLES,
+    COVE_SHORE_PATH_MAX_SAMPLES,
+  ));
+  const rawMaxSegmentM = maxAdjacentDistanceM(path);
+  const canPreserveRawPath = rawCount >= COVE_SHORE_PATH_MIN_SAMPLES &&
+    rawCount <= COVE_SHORE_PATH_MAX_SAMPLES &&
+    rawMaxSegmentM <= targetMaxSegmentM * 1.35;
+  const samples = canPreserveRawPath ? [...path] : samplePathByDistance(path, targetCount, false);
+  const maxSegmentM = maxAdjacentDistanceM(samples);
+  const drawableWidthPx = Math.max(1, COVE_APP_WIDTH_ESTIMATE_PX - COVE_APP_HORIZONTAL_PADDING_ESTIMATE_PX);
+  const maxSegmentAppPxEstimate = longestDimensionM > 0 ? maxSegmentM * (drawableWidthPx / longestDimensionM) : 0;
+  return {
+    samples,
+    rawCount,
+    preserved: canPreserveRawPath,
+    targetMaxSegmentM,
+    maxSegmentM,
+    maxSegmentAppPxEstimate,
+  };
+}
+
+function constrictionReadabilityClassFor(params: {
+  featureClass: 'neck' | 'saddle';
+  widthToAverage: number;
+  weakerExpansionRatio: number;
+  strongerExpansionRatio: number;
+  expansionBalance: number;
+  confidence: number;
+  majorAxisM: number;
+  spanM: number;
+}): string {
+  const lowConfidence = params.confidence < 0.58;
+  if (lowConfidence) return 'low_confidence_review';
+  const broadSaddle = params.featureClass === 'saddle' && (params.widthToAverage > 0.38 || params.weakerExpansionRatio < 1.26);
+  if (broadSaddle) return 'broad_saddle_review';
+  const oneSided = params.expansionBalance < 0.62 && params.strongerExpansionRatio >= 1.45;
+  if (oneSided && params.weakerExpansionRatio < 6) return 'one_sided_constriction_review';
+  const visuallyMinor = params.majorAxisM / Math.max(1, params.spanM) > 3.35 && params.weakerExpansionRatio < 1.45;
+  if (visuallyMinor) return 'visually_minor_readability_review';
+  return 'clear_two_sided_constriction';
 }
 
 function constrictionStructureAreaDrafts(
@@ -638,6 +927,22 @@ function constrictionStructureAreaDrafts(
     floorM * 0.34,
     majorAxisM * 0.58,
   );
+  const averageWidthM = params.averageLakeWidthM > 0 ? params.averageLakeWidthM : feature.widthM;
+  const widthToAverage = feature.widthM / Math.max(1, averageWidthM);
+  const weakerExpansionRatio = Math.min(feature.leftExpansionRatio, feature.rightExpansionRatio);
+  const strongerExpansionRatio = Math.max(feature.leftExpansionRatio, feature.rightExpansionRatio);
+  const expansionBalance = weakerExpansionRatio / Math.max(1, strongerExpansionRatio);
+  const oneSidedExpansion = expansionBalance < 0.62;
+  const constrictionReadabilityClass = constrictionReadabilityClassFor({
+    featureClass: feature.featureClass,
+    widthToAverage,
+    weakerExpansionRatio,
+    strongerExpansionRatio,
+    expansionBalance,
+    confidence: feature.confidence,
+    majorAxisM,
+    spanM,
+  });
   const contactAnchors = uniquePoints([
     ...anchors,
     feature.endpointA,
@@ -677,6 +982,19 @@ function constrictionStructureAreaDrafts(
           featureFrameLocalityRadiusM: Math.max(majorAxisM * 0.82, spanM * 1.18),
           additionalDiagnostics: {
             constrictionSpanM: roundDiagnosticNumber(spanM),
+            constrictionWidthM: roundDiagnosticNumber(feature.widthM),
+            constrictionWidthToAverage: roundDiagnosticNumber(widthToAverage),
+            constrictionAverageLakeWidthM: roundDiagnosticNumber(averageWidthM),
+            constrictionLeftExpansionRatio: roundDiagnosticNumber(feature.leftExpansionRatio),
+            constrictionRightExpansionRatio: roundDiagnosticNumber(feature.rightExpansionRatio),
+            constrictionWeakerExpansionRatio: roundDiagnosticNumber(weakerExpansionRatio),
+            constrictionStrongerExpansionRatio: roundDiagnosticNumber(strongerExpansionRatio),
+            constrictionExpansionBalance: roundDiagnosticNumber(expansionBalance),
+            constrictionOneSidedExpansion: oneSidedExpansion,
+            constrictionTwoSidedExpansion: !oneSidedExpansion,
+            constrictionScore: roundDiagnosticNumber(feature.score),
+            constrictionConfidence: roundDiagnosticNumber(feature.confidence),
+            constrictionReadabilityClass,
             constrictionEnvelopeLakeCapM: roundDiagnosticNumber(lakeCapM),
             constrictionEnvelopeWidthCapM: roundDiagnosticNumber(widthCapM),
             constrictionEnvelopeShoulderOffsetM: roundDiagnosticNumber(shoulderOffsetM),
@@ -768,6 +1086,13 @@ function islandStructureAreaDrafts(
       featureFrameContactMinCount: 1,
       featureFrameLocalityRadiusM: Math.max(majorAxisM * 0.82, localRadiusM + bufferM * 2.4),
       additionalDiagnostics: {
+        islandSelectionAreaSqM: roundDiagnosticNumber(feature.areaSqM),
+        islandSelectionAreaRank: typeof feature.metrics.rank === 'number' && Number.isFinite(feature.metrics.rank) ? feature.metrics.rank : null,
+        islandSelectionNearestMainlandDistanceM: roundDiagnosticNumber(feature.nearestMainlandDistanceM),
+        islandSelectionNearestMainlandDistanceThresholdM: roundDiagnosticNumber(Math.max(8, params.longestDimensionM * 0.004)),
+        islandSelectionTinyAreaThresholdSqM: roundDiagnosticNumber(Math.max(100, params.lakeAreaSqM * 0.000025)),
+        islandSelectionTinySuppressedIslandCount: typeof feature.metrics.tinySuppressedIslandCount === 'number' ? feature.metrics.tinySuppressedIslandCount : null,
+        islandSelectionDetectedIslandCount: typeof feature.metrics.detectedIslandCount === 'number' ? feature.metrics.detectedIslandCount : null,
         islandEnvelopeReadableFloorM: roundDiagnosticNumber(readableFloorM),
         islandStructureAreaCentered: index === 0,
         islandStructureAreaCenterSource: index === 0 ? 'island_ring_centroid' : 'bounded_centroid_recovery',
@@ -795,7 +1120,7 @@ function damStructureAreaDrafts(
   params: { polygon: PolygonM; longestDimensionM: number; averageLakeWidthM: number; lakeAreaSqM: number; acreage?: number | null },
 ): WaterReaderZoneDraft[] {
   const floorM = readableFloorMajorAxisM('dam_structure_area', params.longestDimensionM, params.acreage);
-  const lakeCapM = params.longestDimensionM * 0.06;
+  const lakeCapM = Math.max(params.longestDimensionM * 0.06, feature.segmentLengthM * 1.18);
   const majorAxisM = clamp(feature.segmentLengthM * 1.12 + floorM * 0.18, floorM, Math.max(floorM, lakeCapM));
   const minorAxisM = clamp(Math.max(majorAxisM / 3.45, floorM * 0.45), majorAxisM * 0.28, majorAxisM * 0.58);
   return [
@@ -816,12 +1141,15 @@ function damStructureAreaDrafts(
       averageLakeWidthM: params.averageLakeWidthM,
       lakeAreaSqM: params.lakeAreaSqM,
       acreage: params.acreage,
+      featureFrameContactAnchors: [feature.cornerA, feature.cornerB],
+      featureFrameContactToleranceM: Math.max(10, minorAxisM * 0.28),
+      featureFrameContactMinCount: 2,
       additionalDiagnostics: {
         damEnvelopeLakeCapM: roundDiagnosticNumber(lakeCapM),
         featureFrameCandidateCenterCount: 1,
-        featureFrameContactAnchorCount: 1,
+        featureFrameContactAnchorCount: 2,
         featureFrameWaterSideInteriorCandidateCount: 1,
-        featureFrameContactWindowCount: 1,
+        featureFrameContactWindowCount: 2,
       },
     }),
   ];
@@ -2756,6 +3084,10 @@ function isActiveHighPriorityFeature(feature: WaterReaderDetectedFeature, season
     feature.featureClass === 'main_lake_point';
 }
 
+function isPointFeatureClass(featureClass: WaterReaderDetectedFeature['featureClass']): boolean {
+  return featureClass === 'main_lake_point' || featureClass === 'secondary_point';
+}
+
 function islandSuppressionReason(primaryReason: string): WaterReaderFeatureZoneCoverage['reason'] {
   if (primaryReason === 'zone_visible_fraction_too_high') return 'micro_island_unrenderable_without_open_water_zone';
   return 'island_edge_zone_failed_hard_invariants';
@@ -3727,6 +4059,12 @@ function withCandidateDiagnostics(
             coveWeakSpringFallbackRetained: false,
           }
         : {}),
+      ...(isPointFeatureClass(chosen.zone.featureClass) && chosen.zone.diagnostics.pointEnvelopeRenderShape === 'rounded_point_apron'
+        ? {
+            pointApronVisibleAreaRatio: roundDiagnosticNumber(chosen.zone.visibleWaterFraction),
+            pointApronClippedTooThin: chosen.zone.visibleWaterFraction < 0.34,
+          }
+        : {}),
       ...selectedSemanticRecoveryDiagnostics(chosen.zone, primaryReason),
       ...(chosen.zone.diagnostics.fallbackPlacementUsed === true
         ? { fallbackPlacementReason: primaryReason || chosen.zone.diagnostics.fallbackPlacementReason || 'primary_candidate_failed' }
@@ -4100,6 +4438,18 @@ function annotateStructureConfluence(
   const parent = zones.map((_, index) => index);
   const strengths = new Map<string, 'light' | 'strong'>();
   const reasons = new Map<string, string>();
+  const rejectedCrossFeatureByZoneId = new Map<string, {
+    reason: string;
+    pair: string;
+    fraction: number;
+  }>();
+  const crossFeatureResolutions = new Map<string, {
+    mode: string;
+    pair: string;
+    overlapFraction: number;
+    containmentFraction: number;
+    compactnessRatio: number;
+  }>();
 
   const find = (index: number): number => {
     while (parent[index] !== index) {
@@ -4108,7 +4458,19 @@ function annotateStructureConfluence(
     }
     return index;
   };
-  const union = (a: number, b: number, strength: 'light' | 'strong', reason: string) => {
+  const union = (
+    a: number,
+    b: number,
+    strength: 'light' | 'strong',
+    reason: string,
+    crossFeature?: {
+      mode: string;
+      pair: string;
+      overlapFraction: number;
+      containmentFraction: number;
+      compactnessRatio: number;
+    },
+  ) => {
     const ra = find(a);
     const rb = find(b);
     if (ra === rb) {
@@ -4116,6 +4478,10 @@ function annotateStructureConfluence(
       if (strength === 'strong') strengths.set(key, 'strong');
       else if (!strengths.has(key)) strengths.set(key, 'light');
       reasons.set(key, confluenceReasonPreference(reasons.get(key), reason));
+      if (crossFeature) {
+        const preferredCrossFeature = crossFeatureResolutionPreference(crossFeatureResolutions.get(key), crossFeature);
+        if (preferredCrossFeature) crossFeatureResolutions.set(key, preferredCrossFeature);
+      }
       return;
     }
     const root = Math.min(ra, rb);
@@ -4124,13 +4490,24 @@ function annotateStructureConfluence(
     const existing = strengths.get(String(ra)) === 'strong' || strengths.get(String(rb)) === 'strong';
     strengths.set(String(root), existing || strength === 'strong' ? 'strong' : 'light');
     reasons.set(String(root), confluenceReasonPreference(confluenceReasonPreference(reasons.get(String(ra)), reasons.get(String(rb))), reason));
+    const inheritedCrossFeature = crossFeatureResolutionPreference(
+      crossFeatureResolutionPreference(crossFeatureResolutions.get(String(ra)), crossFeatureResolutions.get(String(rb))),
+      crossFeature,
+    );
+    if (inheritedCrossFeature) crossFeatureResolutions.set(String(root), inheritedCrossFeature);
   };
 
   for (let i = 0; i < zones.length; i++) {
     for (let j = i + 1; j < zones.length; j++) {
       const candidate = confluencePairCandidate(zones[i]!, zones[j]!);
       if (candidate) {
-        union(i, j, candidate.strength, candidate.reason);
+        union(i, j, candidate.strength, candidate.reason, candidate.crossFeature);
+      } else {
+        const rejected = crossFeatureOverlapRejection(zones[i]!, zones[j]!);
+        if (rejected) {
+          rejectedCrossFeatureByZoneId.set(zones[i]!.zoneId, crossFeatureRejectionPreference(rejectedCrossFeatureByZoneId.get(zones[i]!.zoneId), rejected));
+          rejectedCrossFeatureByZoneId.set(zones[j]!.zoneId, crossFeatureRejectionPreference(rejectedCrossFeatureByZoneId.get(zones[j]!.zoneId), rejected));
+        }
       }
     }
   }
@@ -4153,6 +4530,7 @@ function annotateStructureConfluence(
     if (!compactness.compact) continue;
     const groupId = `confluence-${groupNumber++}`;
     groupIds.set(root, groupId);
+    const crossFeature = crossFeatureResolutions.get(String(root));
     groups.push({
       groupId,
       strength: strengths.get(String(root)) ?? 'light',
@@ -4165,6 +4543,11 @@ function annotateStructureConfluence(
       envelopeMajorAxisM: roundDiagnosticNumber(compactness.envelopeMajorAxisM),
       largestMemberAxisM: roundDiagnosticNumber(compactness.largestMemberAxisM),
       renderedAsUnifiedEnvelope: true,
+      crossFeatureOverlapResolutionMode: crossFeature?.mode,
+      crossFeatureOverlapPair: crossFeature?.pair,
+      crossFeatureOverlapFraction: crossFeature ? roundDiagnosticNumber(crossFeature.overlapFraction) : undefined,
+      crossFeatureContainmentFraction: crossFeature ? roundDiagnosticNumber(crossFeature.containmentFraction) : undefined,
+      crossFeatureUnifiedCompactnessRatio: crossFeature ? roundDiagnosticNumber(crossFeature.compactnessRatio) : undefined,
     });
   }
 
@@ -4173,20 +4556,75 @@ function annotateStructureConfluence(
       const root = find(index);
       const groupId = groupIds.get(root) ?? null;
       const group = groupId ? groups.find((item) => item.groupId === groupId) ?? null : null;
-      return withConfluenceDiagnostics(zone, group);
+      return withConfluenceDiagnostics(zone, group, rejectedCrossFeatureByZoneId.get(zone.zoneId));
     }),
     groups,
   };
 }
 
+function crossFeatureOverlapRejection(
+  a: WaterReaderPlacedZone,
+  b: WaterReaderPlacedZone,
+): { reason: string; pair: string; fraction: number } | null {
+  const pair = crossFeatureOverlapCandidatePair(a, b);
+  if (!pair) return null;
+  const score = pairOverlapScore(a, b);
+  const compactness = confluenceCompactness([a, b]);
+  const containment = Math.max(sampledEllipseOverlapFraction(a, b), sampledEllipseOverlapFraction(b, a));
+  if (score <= TRACE_PAIR_OVERLAP_SCORE && containment <= TRACE_PAIR_OVERLAP_SCORE) return null;
+  const supportedForUnifiedDisplay = crossFeatureOverlapPair(a, b) !== null;
+  const reason = !supportedForUnifiedDisplay
+    ? 'unsupported_cross_feature_pair'
+    : score <= MODERATE_PAIR_OVERLAP_SCORE
+    ? 'below_heavy_overlap_threshold'
+    : !compactness.compact || compactness.ratio > 2.15
+      ? 'unified_envelope_not_compact'
+      : containment < 0.34
+        ? 'containment_below_threshold'
+        : 'cross_feature_overlap_not_selected';
+  return { reason, pair, fraction: roundDiagnosticNumber(Math.max(score, containment)) };
+}
+
+function crossFeatureRejectionPreference<T extends { fraction: number }>(a: T | undefined, b: T): T {
+  if (!a) return b;
+  return b.fraction > a.fraction ? b : a;
+}
+
 function confluencePairCandidate(
   a: WaterReaderPlacedZone,
   b: WaterReaderPlacedZone,
-): { strength: 'light' | 'strong'; reason: string } | null {
+): {
+  strength: 'light' | 'strong';
+  reason: string;
+  crossFeature?: {
+    mode: string;
+    pair: string;
+    overlapFraction: number;
+    containmentFraction: number;
+    compactnessRatio: number;
+  };
+} | null {
   const sameSource = a.sourceFeatureId === b.sourceFeatureId;
   const sameFeatureClass = a.featureClass === b.featureClass;
-  if (!sameSource && !sameFeatureClass) return null;
   const score = pairOverlapScore(a, b);
+  if (!sameSource && !sameFeatureClass) {
+    const pair = crossFeatureOverlapPair(a, b);
+    if (!pair || score <= MODERATE_PAIR_OVERLAP_SCORE) return null;
+    const compactness = confluenceCompactness([a, b]);
+    const containment = Math.max(sampledEllipseOverlapFraction(a, b), sampledEllipseOverlapFraction(b, a));
+    if (!compactness.compact || compactness.ratio > 2.15 || containment < 0.34) return null;
+    return {
+      strength: 'strong',
+      reason: `cross_feature_${pair}_compact_visible_overlap`,
+      crossFeature: {
+        mode: 'unified_compact_structure_area',
+        pair,
+        overlapFraction: score,
+        containmentFraction: containment,
+        compactnessRatio: compactness.ratio,
+      },
+    };
+  }
   if (score <= LIGHT_PAIR_OVERLAP_SCORE) return null;
   if (!sameSource && sameFeatureClass) {
     const compactness = confluenceCompactness([a, b]);
@@ -4198,6 +4636,36 @@ function confluencePairCandidate(
       ? (score > MODERATE_PAIR_OVERLAP_SCORE ? 'same_source_visible_overlap_heavy' : 'same_source_visible_overlap_light')
       : (score > MODERATE_PAIR_OVERLAP_SCORE ? 'same_class_extreme_compact_overlap_heavy' : 'same_class_extreme_compact_overlap_light'),
   };
+}
+
+function crossFeatureOverlapPair(a: WaterReaderPlacedZone, b: WaterReaderPlacedZone): string | null {
+  const pair = crossFeatureOverlapCandidatePair(a, b);
+  if (pair === 'cove+point' || pair === 'cove+neck' || pair === 'cove+saddle') return pair;
+  return null;
+}
+
+function crossFeatureOverlapCandidatePair(a: WaterReaderPlacedZone, b: WaterReaderPlacedZone): string | null {
+  const classes = [a.featureClass, b.featureClass].sort((x, y) => x.localeCompare(y));
+  const key = classes.join('+');
+  if (key === 'cove+main_lake_point') return 'cove+point';
+  if (key === 'cove+secondary_point') return 'cove+point';
+  if (key === 'cove+neck') return 'cove+neck';
+  if (key === 'cove+saddle') return 'cove+saddle';
+  if (key === 'island+main_lake_point') return 'island+point';
+  if (key === 'island+secondary_point') return 'island+point';
+  return null;
+}
+
+function crossFeatureResolutionPreference<T extends {
+  overlapFraction: number;
+  containmentFraction: number;
+  compactnessRatio: number;
+}>(a: T | undefined, b: T | undefined): T | undefined {
+  if (!a) return b;
+  if (!b) return a;
+  const aScore = a.overlapFraction + a.containmentFraction - a.compactnessRatio * 0.08;
+  const bScore = b.overlapFraction + b.containmentFraction - b.compactnessRatio * 0.08;
+  return bScore > aScore ? b : a;
 }
 
 function confluenceCompactness(zones: WaterReaderPlacedZone[]): {
@@ -4231,6 +4699,7 @@ function confluenceReasonPreference(a: string | undefined, b: string | undefined
 function withConfluenceDiagnostics(
   zone: WaterReaderPlacedZone,
   group: WaterReaderStructureConfluenceGroup | null,
+  rejectedCrossFeature?: { reason: string; pair: string; fraction: number },
 ): WaterReaderPlacedZone {
   const groupId = group?.groupId ?? null;
   return {
@@ -4245,6 +4714,15 @@ function withConfluenceDiagnostics(
       structureConfluenceEnvelopeMajorAxisM: group?.envelopeMajorAxisM ?? null,
       structureConfluenceLargestMemberAxisM: group?.largestMemberAxisM ?? null,
       structureConfluenceRenderedAsUnifiedEnvelope: group?.renderedAsUnifiedEnvelope ?? false,
+      crossFeatureOverlapResolutionMode: group?.crossFeatureOverlapResolutionMode ?? null,
+      crossFeatureOverlapPair: group?.crossFeatureOverlapPair ?? null,
+      crossFeatureOverlapFraction: group?.crossFeatureOverlapFraction ?? null,
+      crossFeatureContainmentFraction: group?.crossFeatureContainmentFraction ?? null,
+      crossFeatureUnifiedCompactnessRatio: group?.crossFeatureUnifiedCompactnessRatio ?? null,
+      crossFeatureOverlapRejectedReason: group ? null : rejectedCrossFeature?.reason ?? null,
+      crossFeatureOverlapCandidatePair: group ? null : rejectedCrossFeature?.pair ?? null,
+      crossFeatureOverlapCandidateFraction: group ? null : rejectedCrossFeature?.fraction ?? null,
+      retained_not_displayed_overlap: false,
     },
     qaFlags: groupId ? [...zone.qaFlags, 'structure_confluence'] : zone.qaFlags,
   };

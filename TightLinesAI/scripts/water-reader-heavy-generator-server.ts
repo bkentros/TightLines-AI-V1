@@ -132,6 +132,8 @@ function cacheQaFlags(read: WaterReaderReadResponse): string[] {
 }
 
 function cacheKey(state: string, currentDate: Date) {
+  // Full read/SVG cache stays season-context keyed because the legend/read copy varies by season.
+  // The production feature-envelope geometry is season-invariant.
   return buildWaterReaderSeasonContext(state, currentDate).seasonContextKey;
 }
 

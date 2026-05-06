@@ -485,6 +485,8 @@ Deno.serve(async (req: Request) => {
     );
   }
 
+  // Full read/SVG cache stays season-context keyed because the legend/read copy varies by season.
+  // The production feature-envelope geometry is season-invariant.
   const seasonContext = buildWaterReaderSeasonContext(metadata.state_code ?? "", currentDate);
 
   let cacheMs = 0;

@@ -56,3 +56,6 @@ __pycache__/
 # Generated local asset backups / logs
 TightLinesAI/assets/images/_backups/
 TightLinesAI/scripts/_tackle-gen-full.log
+
+# Generated local review artifacts
+TightLinesAI/tmp/

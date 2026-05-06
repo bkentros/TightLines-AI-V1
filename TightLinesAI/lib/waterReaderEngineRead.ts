@@ -63,7 +63,7 @@ export function buildWaterReaderEngineRead(
       ? buildWaterReaderProductionSvg(displayModel, {
           lakePolygon: preprocess.primaryPolygon,
           title: polygonPayload.name,
-          subtitle: `${zoneResult.season} seasonal structure | polygon geometry`,
+          subtitle: `Structure areas | ${zoneResult.season} legend guidance | polygon geometry`,
           mapWidth: WATER_READER_APP_SVG_WIDTH,
         })
       : null;
@@ -105,7 +105,7 @@ export function waterReaderFallbackMessage(args: {
     return 'This polygon could not be projected into lake-space geometry for a trustworthy read.';
   }
   if (args.displayedEntryCount === 0) {
-    return 'No trustworthy seasonal structure zones passed the geometry filters for this outline. Nothing was added to fill space.';
+    return 'No trustworthy structure areas passed the geometry filters for this outline. Nothing was added to fill space.';
   }
   return null;
 }

@@ -186,6 +186,7 @@ export type WaterReaderRenderWarningCode =
   | "missing_zone_path"
   | "missing_label_anchor"
   | "display_legend_count_mismatch"
+  | "long_label_leader"
   | "legend_overflow_risk";
 
 export interface WaterReaderRenderWarning {
@@ -201,9 +202,13 @@ export interface WaterReaderRenderSummary {
   calloutLabelCount: number;
   renderedStandaloneCount: number;
   renderedConfluenceCount: number;
+  renderedUnifiedConfluenceCount?: number;
+  stackedConfluenceMemberRenderCount?: number;
   displayLegendEntryCount: number;
   retainedRenderedCount: number;
   warningCount: number;
+  maxLabelLeaderLengthPx?: number;
+  longLabelLeaderCount?: number;
   mapBottomY: number;
   firstLegendRowY: number;
   mapLegendGap: number;
@@ -212,10 +217,36 @@ export interface WaterReaderRenderSummary {
   viewBox: string;
 }
 
+export type WaterReaderProductionSvgFeatureClass =
+  | "main_lake_point"
+  | "secondary_point"
+  | "cove"
+  | "neck"
+  | "island"
+  | "saddle"
+  | "dam"
+  | "universal"
+  | "structure_confluence";
+
+export interface WaterReaderProductionSvgLegendEntry {
+  number?: number;
+  title: string;
+  body: string;
+  colorHex: string;
+  featureClass: WaterReaderProductionSvgFeatureClass;
+  placementKind?: string;
+  placementKinds: string[];
+  zoneId: string;
+  zoneIds: string[];
+  transitionWarning?: string;
+  isConfluence?: boolean;
+}
+
 export interface WaterReaderProductionSvgResult {
   svg: string;
   warnings: WaterReaderRenderWarning[];
   summary: WaterReaderRenderSummary;
+  legendEntries: WaterReaderProductionSvgLegendEntry[];
 }
 
 export interface WaterReaderReadRequest {

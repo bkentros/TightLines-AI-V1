@@ -1,4 +1,4 @@
-import type { WaterReaderFeatureClass, WaterReaderLegendEntry, WaterReaderSeason } from './contracts.ts';
+import type { PointM, WaterReaderFeatureClass, WaterReaderLegendEntry, WaterReaderSeason } from './contracts.ts';
 import { lookupWaterReaderSeason } from './seasons.ts';
 import type {
   WaterReaderPlacedZone,
@@ -45,6 +45,13 @@ type TemplateKey = `${WaterReaderFeatureClass}:${WaterReaderSeason}:${WaterReade
 export const WATER_READER_LEGEND_SEASONS = ['spring', 'summer', 'fall', 'winter'] as const satisfies readonly WaterReaderSeason[];
 
 export const WATER_READER_ZONE_PLACEMENT_KINDS = [
+  'main_point_structure_area',
+  'secondary_point_structure_area',
+  'cove_structure_area',
+  'neck_structure_area',
+  'saddle_structure_area',
+  'island_structure_area',
+  'dam_structure_area',
   'neck_shoulder',
   'saddle_shoulder',
   'main_point_side',
@@ -80,6 +87,13 @@ const WATER_READER_LEGEND_FEATURE_CLASSES = [
 ] as const satisfies ReadonlyArray<WaterReaderFeatureClass | 'structure_confluence'>;
 
 const PLACEMENT_FEATURE_CLASS: Record<WaterReaderZonePlacementKind, WaterReaderFeatureClass> = {
+  main_point_structure_area: 'main_lake_point',
+  secondary_point_structure_area: 'secondary_point',
+  cove_structure_area: 'cove',
+  neck_structure_area: 'neck',
+  saddle_structure_area: 'saddle',
+  island_structure_area: 'island',
+  dam_structure_area: 'dam',
   neck_shoulder: 'neck',
   saddle_shoulder: 'saddle',
   main_point_side: 'main_lake_point',
@@ -99,6 +113,13 @@ const PLACEMENT_FEATURE_CLASS: Record<WaterReaderZonePlacementKind, WaterReaderF
 };
 
 const STABLE_PLACEMENT_KINDS = new Set<WaterReaderZonePlacementKind>([
+  'main_point_structure_area',
+  'secondary_point_structure_area',
+  'cove_structure_area',
+  'neck_structure_area',
+  'saddle_structure_area',
+  'island_structure_area',
+  'dam_structure_area',
   'dam_corner',
   'neck_shoulder',
   'saddle_shoulder',
@@ -107,7 +128,7 @@ const STABLE_PLACEMENT_KINDS = new Set<WaterReaderZonePlacementKind>([
 ]);
 
 const TRANSITION_WARNINGS: Record<WaterReaderSeason, string> = {
-  spring: 'Seasonal patterns may still resemble winter in some conditions; compare this with main-lake structure zones.',
+  spring: 'Seasonal patterns may still resemble winter in some conditions; compare this with main-lake structure areas.',
   summer: 'Seasonal patterns may still resemble spring in some conditions; protected shoreline structure can remain relevant.',
   fall: 'Summer patterns may persist on warmer days; open-water-side structure can remain relevant.',
   winter: 'Fall transitional patterns may persist along cove and shoreline structure.',
@@ -118,7 +139,7 @@ const FEATURE_LABELS: Record<WaterReaderFeatureClass, string> = {
   secondary_point: 'Secondary Point',
   cove: 'Cove',
   neck: 'Neck Shoulder',
-  island: 'Island Edge',
+  island: 'Island',
   saddle: 'Saddle Shoulder',
   dam: 'Dam Corner',
   universal: 'Universal Shoreline',
@@ -135,6 +156,34 @@ type WaterReaderResolvedLegendTemplate = {
 };
 
 const LEGEND_TEMPLATES: Record<WaterReaderZonePlacementKind, WaterReaderLegendTemplate> = {
+  main_point_structure_area: {
+    title: 'Main Lake Point - Structure Area',
+    body: (season) => featureEnvelopeSeasonBody('main_point_structure_area', season),
+  },
+  secondary_point_structure_area: {
+    title: 'Secondary Point - Structure Area',
+    body: (season) => featureEnvelopeSeasonBody('secondary_point_structure_area', season),
+  },
+  cove_structure_area: {
+    title: 'Cove - Structure Area',
+    body: (season) => featureEnvelopeSeasonBody('cove_structure_area', season),
+  },
+  neck_structure_area: {
+    title: 'Neck - Structure Area',
+    body: (season) => featureEnvelopeSeasonBody('neck_structure_area', season),
+  },
+  saddle_structure_area: {
+    title: 'Saddle - Structure Area',
+    body: (season) => featureEnvelopeSeasonBody('saddle_structure_area', season),
+  },
+  island_structure_area: {
+    title: 'Island - Structure Area',
+    body: (season) => featureEnvelopeSeasonBody('island_structure_area', season),
+  },
+  dam_structure_area: {
+    title: 'Dam - Structure Area',
+    body: (season) => featureEnvelopeSeasonBody('dam_structure_area', season),
+  },
   neck_shoulder: {
     title: 'Neck Shoulder',
     body: (season) => `In ${season}, this neck shoulder is a seasonally relevant structure area. This shoulder marks one side of a narrow pass; compare both shoreline shoulders rather than the middle of the opening.`,
@@ -224,7 +273,7 @@ export function buildWaterReaderLegend(
     }
     entries.push(buildZoneEntry(entries.length + 1, zone, season, transitionWarningForZone(zone, seasonLookup)));
   }
-  return entries;
+  return disambiguateRepeatedLegendTitles(entries, zoneResult);
 }
 
 export function waterReaderLegendForbiddenPhraseHits(text: string): string[] {
@@ -306,7 +355,9 @@ function buildConfluenceEntry(
   const memberZones = group.memberZoneIds
     .map((zoneId) => zones.find((zone) => zone.zoneId === zoneId))
     .filter((zone): zone is WaterReaderPlacedZone => Boolean(zone));
-  const titleDetail = compactConfluenceMemberLabels(memberZones).join(' + ');
+  const titleDetail = group.crossFeatureOverlapPair
+    ? crossFeatureTitleDetail(group.crossFeatureOverlapPair)
+    : compactConfluenceMemberLabels(memberZones).join(' + ');
   return {
     number,
     entryId: group.groupId,
@@ -316,11 +367,118 @@ function buildConfluenceEntry(
     placementKinds: group.memberPlacementKinds,
     colorHex: WATER_READER_FEATURE_COLORS.structure_confluence,
     templateId: `structure_confluence:${season}:${unique(group.memberPlacementKinds).join('+')}`,
-    title: `Structure Confluence - ${titleDetail}`,
+    title: group.crossFeatureOverlapPair ? `Structure Area - ${titleDetail}` : `Structure Confluence - ${titleDetail}`,
     body: confluenceBody(season),
     transitionWarning,
     isConfluence: true,
   };
+}
+
+function crossFeatureTitleDetail(pair: string): string {
+  return pair
+    .split('+')
+    .map((part) => part === 'point' ? 'Point' : part[0]!.toUpperCase() + part.slice(1))
+    .join(' + ');
+}
+
+function disambiguateRepeatedLegendTitles(
+  entries: WaterReaderLegendEntry[],
+  zoneResult: WaterReaderZonePlacementResult,
+): WaterReaderLegendEntry[] {
+  const counts = countBy(entries.map((entry) => entry.title));
+  if (![...counts.values()].some((count) => count > 1)) return entries;
+
+  const zonesById = new Map(zoneResult.zones.map((zone) => [zone.zoneId, zone]));
+  const allPoints = zoneResult.zones.flatMap((zone) => [zone.anchor, zone.ovalCenter]);
+  const center = boundsCenter(allPoints);
+  const positions = new Map<string, PointM>();
+  const stableKeys = new Map<string, string>();
+
+  for (const zone of zoneResult.zones) {
+    positions.set(zone.zoneId, zone.anchor ?? zone.ovalCenter);
+    stableKeys.set(zone.zoneId, `${zone.sourceFeatureId}:${zone.zoneId}`);
+  }
+  for (const group of zoneResult.diagnostics.confluenceGroups) {
+    const memberZones = group.memberZoneIds
+      .map((zoneId) => zonesById.get(zoneId))
+      .filter((zone): zone is WaterReaderPlacedZone => Boolean(zone));
+    const memberPoints = memberZones.map((zone) => zone.anchor ?? zone.ovalCenter);
+    positions.set(group.groupId, averagePoint(memberPoints) ?? center);
+    stableKeys.set(group.groupId, memberZones.map((zone) => `${zone.sourceFeatureId}:${zone.zoneId}`).sort().join('|') || group.groupId);
+  }
+
+  return entries.map((entry) => {
+    if ((counts.get(entry.title) ?? 0) <= 1) return entry;
+    const sameTitle = entries.filter((candidate) => candidate.title === entry.title);
+    const qualified = sameTitle.map((candidate) => ({
+      entry: candidate,
+      qualifier: directionQualifier(positions.get(candidate.zoneId) ?? center, center),
+      stableKey: stableKeys.get(candidate.zoneId) ?? candidate.zoneIds?.join('|') ?? candidate.zoneId,
+    }));
+    const current = qualified.find((item) => item.entry === entry);
+    if (!current) return entry;
+    const sameQualifier = qualified
+      .filter((item) => item.qualifier === current.qualifier)
+      .sort((a, b) => a.stableKey.localeCompare(b.stableKey));
+    const suffix = sameQualifier.length > 1
+      ? ` ${String.fromCharCode(65 + sameQualifier.findIndex((item) => item.entry === entry))}`
+      : '';
+    return {
+      ...entry,
+      title: qualifiedTitle(entry.title, current.qualifier, suffix.trim()),
+    };
+  });
+}
+
+function qualifiedTitle(title: string, qualifier: string, suffix: string): string {
+  const [head, ...tail] = title.split(' - ');
+  const qualifiedHead = suffix ? `${qualifier} ${head} ${suffix}` : `${qualifier} ${head}`;
+  return [qualifiedHead, ...tail].join(' - ');
+}
+
+function countBy(values: string[]): Map<string, number> {
+  const counts = new Map<string, number>();
+  for (const value of values) counts.set(value, (counts.get(value) ?? 0) + 1);
+  return counts;
+}
+
+function boundsCenter(points: PointM[]): PointM {
+  if (points.length === 0) return { x: 0, y: 0 };
+  let minX = Infinity;
+  let maxX = -Infinity;
+  let minY = Infinity;
+  let maxY = -Infinity;
+  for (const point of points) {
+    minX = Math.min(minX, point.x);
+    maxX = Math.max(maxX, point.x);
+    minY = Math.min(minY, point.y);
+    maxY = Math.max(maxY, point.y);
+  }
+  return { x: (minX + maxX) / 2, y: (minY + maxY) / 2 };
+}
+
+function averagePoint(points: PointM[]): PointM | null {
+  if (points.length === 0) return null;
+  return {
+    x: points.reduce((sum, point) => sum + point.x, 0) / points.length,
+    y: points.reduce((sum, point) => sum + point.y, 0) / points.length,
+  };
+}
+
+function directionQualifier(point: PointM, center: PointM): string {
+  const dx = point.x - center.x;
+  const dy = point.y - center.y;
+  if (Math.abs(dx) < 1e-6 && Math.abs(dy) < 1e-6) return 'Center';
+  const degrees = (Math.atan2(dy, dx) * 180) / Math.PI;
+  const normalized = (degrees + 360) % 360;
+  if (normalized >= 337.5 || normalized < 22.5) return 'East';
+  if (normalized < 67.5) return 'Northeast';
+  if (normalized < 112.5) return 'North';
+  if (normalized < 157.5) return 'Northwest';
+  if (normalized < 202.5) return 'West';
+  if (normalized < 247.5) return 'Southwest';
+  if (normalized < 292.5) return 'South';
+  return 'Southeast';
 }
 
 function templateIdFor(
@@ -337,6 +495,62 @@ function templateTitle(placementKind: WaterReaderZonePlacementKind): string {
 
 function templateBody(season: WaterReaderSeason, placementKind: WaterReaderZonePlacementKind): string {
   return LEGEND_TEMPLATES[placementKind].body(season);
+}
+
+function featureEnvelopeSeasonBody(placementKind: WaterReaderZonePlacementKind, season: WaterReaderSeason): string {
+  switch (placementKind) {
+    case 'main_point_structure_area':
+      switch (season) {
+        case 'spring': return 'In spring, start by comparing the inner shoulder and tip-adjacent water within this full point structure area; then use both outside shoulders as references.';
+        case 'summer': return 'In summer, start by comparing the outer shoulder and tip-adjacent water within this full point structure area; then check how the inside shoulder differs.';
+        case 'fall': return 'In fall, compare the tip and both shoulders within this full point structure area as one transition from shoreline into broader water.';
+        case 'winter': return 'In winter, use the whole point structure area as a compact shoreline reference, starting with the tip and nearest shoulder.';
+      }
+    case 'secondary_point_structure_area':
+      switch (season) {
+        case 'spring': return 'In spring, start by comparing the protected side and smaller point tip within this full secondary point area; then use the mouth-facing side as the transition reference.';
+        case 'summer': return 'In summer, start by comparing the mouth-facing side and tip within this full secondary point area; then contrast it with the protected side.';
+        case 'fall': return 'In fall, compare both sides of this full secondary point area as a small transition between cove shoreline and the opening.';
+        case 'winter': return 'In winter, keep the read compact by comparing the tip and nearest cove-side shoulder within this full secondary point area.';
+      }
+    case 'cove_structure_area':
+      switch (season) {
+        case 'spring': return 'In spring, start by comparing the protected back wall and inside edge within this full cove structure area; then use the mouth shoulders as transition references.';
+        case 'summer': return 'In summer, start by comparing the mouth shoulders within this full cove structure area; then contrast them with the inner wall.';
+        case 'fall': return 'In fall, compare the mouth shoulders and inner wall within this full cove structure area as one shoreline transition.';
+        case 'winter': return 'In winter, use the protected back wall and shortest inside edge within this full cove structure area as the first comparison.';
+      }
+    case 'neck_structure_area':
+      switch (season) {
+        case 'spring': return 'In spring, start with the more protected shoulder within this full neck structure area; then compare the opposite shoulder.';
+        case 'summer': return 'In summer, start with the shoulder facing broader water within this full neck structure area; then compare the protected side.';
+        case 'fall': return 'In fall, compare both shoulders within this full neck structure area as a paired transition around the constriction.';
+        case 'winter': return 'In winter, keep the comparison tight across the two shoulders within this full neck structure area.';
+      }
+    case 'saddle_structure_area':
+      switch (season) {
+        case 'spring': return 'In spring, start with the inside shoulder within this full saddle structure area; then compare the opposing shoulder across the opening.';
+        case 'summer': return 'In summer, start with the outer-facing shoulder within this full saddle structure area; then compare the inside shoulder.';
+        case 'fall': return 'In fall, compare both shoulders within this full saddle structure area as a broader shoreline opening.';
+        case 'winter': return 'In winter, use the nearest shoulder pair within this full saddle structure area as the first comparison.';
+      }
+    case 'island_structure_area':
+      switch (season) {
+        case 'spring': return 'In spring, start by comparing the mainland-facing side and nearest island corner within this full island structure area; then check the outer side.';
+        case 'summer': return 'In summer, start by comparing the outer side and island corners within this full island structure area; then contrast the mainland-facing side.';
+        case 'fall': return 'In fall, compare the island corners and both sides within this full island structure area as one perimeter transition.';
+        case 'winter': return 'In winter, use the nearest island side and corner within this full island structure area as the first comparison.';
+      }
+    case 'dam_structure_area':
+      switch (season) {
+        case 'spring': return 'In spring, start by comparing the quieter transition corner within this full dam structure area; then follow the straight segment.';
+        case 'summer': return 'In summer, start by comparing the straight segment and outer transition corner within this full dam structure area.';
+        case 'fall': return 'In fall, compare both transition corners and the straight segment within this full dam structure area.';
+        case 'winter': return 'In winter, use the straight segment and nearest transition corner within this full dam structure area as the first comparison.';
+      }
+    default:
+      return templateBody(season, placementKind);
+  }
 }
 
 function resolvedZoneTemplate(zone: WaterReaderPlacedZone, season: WaterReaderSeason): WaterReaderResolvedLegendTemplate {
@@ -409,6 +623,18 @@ function openWaterSemanticTemplate(zone: WaterReaderPlacedZone, season: WaterRea
   }
   if (zone.featureClass === 'island' && zone.placementKind === 'island_open_water') {
     if (zone.anchorSemanticId === 'island_open_water_area') return null;
+    if (zone.anchorSemanticId === 'island_open_water_same_side_recovery' || zone.anchorSemanticId === 'island_open_water_recovery') {
+      return {
+        title: 'Island Edge - Open-Water Recovery',
+        body: `In ${season}, this island edge is a seasonally relevant structure area. It uses a conservative recovery near the island side facing broader open water when the exact open-water edge cannot render cleanly.`,
+      };
+    }
+    if (zone.anchorSemanticId === 'island_shoreline_recovery' || zone.anchorSemanticId === 'island_alternate_endpoint_recovery' || zone.anchorSemanticId === 'shoreline_frame_recovery') {
+      return {
+        title: 'Island Edge - Shoreline Recovery',
+        body: `In ${season}, this island edge is a seasonally relevant structure area. It uses a local island-shoreline recovery and should not be read as the exact open-water edge.`,
+      };
+    }
     return {
       title: 'Island Edge - Broad-Water Recovery',
       body: `In ${season}, this island edge is a seasonally relevant structure area. It uses a conservative island-edge recovery where the polygon area comparison could not fully resolve the broad-water side.`,
@@ -576,6 +802,8 @@ function compactConfluenceMemberLabels(zones: WaterReaderPlacedZone[]): string[]
 }
 
 function confluenceMemberLabel(zone: WaterReaderPlacedZone): string {
+  const envelopeLabel = featureEnvelopeMemberLabel(zone.placementKind);
+  if (envelopeLabel) return envelopeLabel;
   if (zone.featureClass === 'island' && zone.placementKind === 'island_endpoint' && zone.anchorSemanticId === 'shoreline_frame_recovery') {
     return 'Island Endpoint Recovery';
   }
@@ -626,12 +854,35 @@ function confluenceMemberLabel(zone: WaterReaderPlacedZone): string {
   }
 }
 
+function featureEnvelopeMemberLabel(placementKind: WaterReaderZonePlacementKind): string | null {
+  switch (placementKind) {
+    case 'main_point_structure_area':
+      return 'Main Point Structure Area';
+    case 'secondary_point_structure_area':
+      return 'Secondary Point Structure Area';
+    case 'cove_structure_area':
+      return 'Cove Structure Area';
+    case 'neck_structure_area':
+      return 'Neck Structure Area';
+    case 'saddle_structure_area':
+      return 'Saddle Structure Area';
+    case 'island_structure_area':
+      return 'Island Structure Area';
+    case 'dam_structure_area':
+      return 'Dam Structure Area';
+    default:
+      return null;
+  }
+}
+
 function openWaterConfluenceMemberLabel(zone: WaterReaderPlacedZone): string | null {
   if (zone.featureClass === 'main_lake_point' && zone.placementKind === 'main_point_open_water') {
     return zone.anchorSemanticId === 'main_point_open_water_area' ? 'Point Open-Water Side' : 'Point Broad-Water Recovery';
   }
   if (zone.featureClass === 'island' && zone.placementKind === 'island_open_water') {
-    return zone.anchorSemanticId === 'island_open_water_area' ? 'Island Open-Water Edge' : 'Island Broad-Water Recovery';
+    if (zone.anchorSemanticId === 'island_open_water_area') return 'Island Open-Water Edge';
+    if (zone.anchorSemanticId === 'island_open_water_same_side_recovery' || zone.anchorSemanticId === 'island_open_water_recovery') return 'Island Open-Water Recovery';
+    return 'Island Shoreline Recovery';
   }
   return null;
 }
