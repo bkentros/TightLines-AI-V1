@@ -2,11 +2,27 @@
 
 ## Overview
 
-The Water Reader analyzes a lake polygon, identifies physical shoreline structures via geometric analysis, and places shoreline-hugging oval zones marking seasonally relevant structure areas for anglers. Inputs are pure geometry + calendar + state. Fully deterministic — no LLM calls, no CV, no satellite imagery, no depth data, no species selection, no bank/boat mode.
+The Water Reader analyzes a lake polygon, identifies physical shoreline structures via geometric analysis, and places bounded feature-envelope zones marking structure reference areas for anglers. Inputs are pure geometry + calendar + state. Fully deterministic — no LLM calls, no CV, no satellite imagery, no depth data, no species selection, no bank/boat mode.
 
-The product promise is controlled geometry, not certainty about fish presence. The engine must never imply that fish are guaranteed to be present, that a zone is the single best spot on the lake, or that depth/bathymetry was used. Seasonal/regional logic is allowed in v1, but it must be framed as deterministic seasonal structure guidance.
+The product promise is controlled geometry, not certainty about fish presence. The engine must never imply that fish are guaranteed to be present, that a zone is the single best spot on the lake, or that depth/bathymetry was used. Seasonal/regional logic is allowed in v1 for legend explanation and over-cap ranking, but it must not change zone geometry.
 
 **Trust rule:** questionable geometry must fall to `limited`, `needs_review`, or fewer visible zones. The engine should prefer a sparse trustworthy read over a full map containing weak, floating, mislabeled, or crowded zones.
+
+## Feature-Envelope Zone Model
+
+The Water Reader feature-envelope model is the target zone contract for the current renovation. Feature detection remains polygon-geometry only: no satellite imagery, rasters, bathymetry, depth, species, fish-presence, productivity, or certainty signals may be used.
+
+Zone geometry is feature-based and season-invariant. A detected feature should produce one bounded structure reference area for that feature class whenever its geometry can be represented cleanly. Season may affect legend explanation, transition copy, and over-cap ranking only; it must not split the same physical feature into seasonal micro-geometries such as point tip vs side, cove back vs mouth, or island mainland-facing vs open-water-facing zones.
+
+Feature-envelope placement is a whole-feature contract. For land-protrusion features such as main-lake and secondary points, the conceptual oval center may fall outside the water polygon when the rendered, clipped visible area is valid water adjacent to the feature frame. Validity is determined by deterministic feature-frame contact, visible-water quality, and local boundedness, not by center-in-water alone.
+
+A whole-feature outside-water center acceptance must prove locality. The materialized visible-water samples must remain within the deterministic feature-frame locality radius measured from the feature's contact anchors; otherwise the candidate is rejected with a locality diagnostic rather than accepted as a detached water blob.
+
+Whole-feature rendering may use deterministic internal lobes when one oval would misread the feature. Point structure areas may render from tip, left-shoulder, and right-shoulder lobes merged into one displayed point envelope. Neck and saddle structure areas may render from paired shoulder lobes merged into one displayed constriction envelope. These lobes are not separate map entries and must not reintroduce seasonal micro-placement.
+
+Island structure areas are island-centered, not endpoint-edge zones. The center comes from the island ring/centroid or a bounded island-frame recovery. The visible area should read as nearby water around the island perimeter, with island land/hole geometry clipped out by the lake polygon.
+
+A zone marks a structure reference area, not fish presence, productivity, or a best spot. Questionable feature-envelope geometry must fall to explicit `limited`, suppressed, or retained diagnostics rather than vague, floating, lake-scale, or semantically mismatched zones.
 
 **Support policy update:** `not_supported` means Water Reader cannot pull or use a valid polygon for a lake, pond, or reservoir. Wrong waterbody types and missing, empty, or invalid polygon geometry are `not_supported`. Valid lake/pond/reservoir polygons remain openable as `supported` or `limited`; small size, multipart geometry, high vertex count, interior rings, and similar caution markers belong in QA flags and conservative `limited` copy, not as blockers.
 
@@ -96,13 +112,26 @@ Current Chunk 7 tuning state as of 2026-05-05:
 - Batch 1 Spring has now completed the first visual tuning pass with Brandon and is acceptable as the current Spring baseline. The final regenerated Batch 1 scorecard remains 40/40 supported rows with zero fallback/no-map rows, zero zero-zone rows, zero critical rows, zero label-semantic-risk rows, zero full/app overlap-risk rows, and no major-axis ranking fallback rows. Spring cove placement now shows 1 true back, 8 near-back recoveries, 3 inner-shoreline recoveries, and 0 mouth-shoulder recoveries across displayed cove members. Spring island placement now shows 3 exact mainland-facing entries, 5 mainland-recovery entries, and 0 generic shoreline/open-water island recoveries across displayed island members.
 - The next tuning work should move to the remaining Batch 1 seasons, then additional 10-lake batches. Do not reopen broad Spring tuning unless a new lake/season reveals a pattern-level regression. Remaining review themes are season-by-season semantics, cap/ranking/variety behavior outside Spring, adaptive app rendering polish, and complex-lake readability on cove-arm reservoirs. Macro structure areas remain deferred.
 
+Current feature-envelope renovation state as of 2026-05-06:
+
+- The engine now uses season-invariant feature-envelope placement as the normal path for supported detected feature classes: `main_lake_point`, `secondary_point`, `cove`, `neck`, `saddle`, `island`, and `dam`. Season may affect legend explanation and over-cap ranking only; it must not move zone geometry.
+- Whole-feature point envelopes remain one displayed point unit, but production rendering may use deterministic tip, left-shoulder, and right-shoulder render lobes merged into one feature envelope. This is a rendering shape repair, not a return to seasonal point-tip/side/open-water micro-placement.
+- Island structure areas are now island-centered from the island ring/centroid or a bounded island-frame recovery. Legend title is `Island - Structure Area`; diagnostics expose island centroid, buffer radius, visible-water/locality values, hole clipping behavior, and `islandStructureAreaCentered`.
+- Neck and saddle structure areas remain one displayed constriction unit. Production rendering may use deterministic paired shoulder lobes merged into one feature envelope so the shape reads as paired shoulders rather than a pencil line, center-throat blob, or one shoreline point.
+- Cross-feature confluence grouping is intentionally conservative under the whole-feature model. Batch 1 no longer auto-merges point+island, point+cove, or similar cross-feature overlaps. Same-source fragments and same-class extremely compact overlaps may still merge when compact and clearer, but valid whole-feature units should usually remain individually readable.
+- Pass 5A validation regenerated Batch 1 artifacts under `tmp/water-reader-50-lake-tuning/chunk-7l-batch-1-scorecard/`. The scorecard remains 40/40 supported rows with 0 fallback/no-map rows, 0 zero-displayed rows, 0 non-envelope legacy rows, 0 selected-feature suppressions, 0 detected-unrepresentable demotions, 0 feature-envelope season-invariance mismatches, 0 forbidden-copy hits, and 0 label-semantic-risk rows.
+- Confluence count changed from the previous 8 groups / 16 member zones to 0 groups / 0 member zones in Batch 1 after conservative cross-feature grouping. This is expected for Pass 5A and should be reviewed visually before any confluence thresholds are loosened again.
+- Remaining visual QA risks are presentation and prioritization polish, not feature coverage failures: repeated-title pressure increased to 8 rows, point-dominance pressure increased to 16 rows, full-size renderer warning rows are 16, app-width renderer warning rows are 28, and app-height outlier rows are 8.
+- Most recent validation commands passed: `npm run qa:water-reader-engine-zone-smoke`, focused summer reviews for Mullett/Higgins/Palestine/Van Norman/Pontiac/Tahoe, Batch 1 matrix review, and `npx tsc --noEmit`.
+- Next work should be Pass 5B visual QA/polish: inspect the regenerated summer SVG/row JSON artifacts for point-lobe shape quality, island-centered clipping, neck/saddle paired-shoulder readability, label/legend overflow, repeated-title pressure, and point-dominance ranking. Do not solve these by hiding valid under-cap structures or by weakening feature-envelope invariants.
+
 Chunk 7 display-policy update:
 
 - Displayed-entry caps are 6 for waters under 100 acres, 10 for 100-1,000 acres, and 12 for waters over 1,000 acres. A confluence group counts as one displayed entry.
 - If valid display-unit cost is at or below the cap, every valid display unit must display. Readability tiers are diagnostics only and must not hide valid under-cap structure.
 - If valid display-unit cost exceeds the cap, display selection uses feature hierarchy, deterministic feature prominence, seasonal relevance, and then variety pressure. Retained valid structure remains in diagnostics.
 - Placement applies class-specific readable major-axis floors before display selection while preserving hard geometry invariants. Floors are: dam/neck 70m or 5.75% L small, 125m or 5.25% L medium, 340m or 3.75% L large; saddle 65m/5.25%, 115m/4.75%, 310m/3.35%; main point side/open-water 80m/6.5%, 140m/5.75%, 390m/4.0%; point tip 70m/5.5%, 120m/5.0%, 340m/3.5%; cove placements 75m/6.0%, 135m/5.5%, 370m/4.0%; island placements 75m/6.0%, 140m/5.25%, 380m/3.75%; secondary point 65m/5.25%, 110m/4.75%, 310m/3.25%.
-- Confluence rendering is a single render-only rounded/oval envelope with both fill and one thin outline; individual member fills/strokes must not be visible in production output.
+- Confluence rendering is a single render-only rounded/hull envelope with both fill and one thin outline; individual member fills/strokes must not be visible in production output.
 - Production map numbers render as small external callouts with short leader lines whenever a deterministic outside-lake candidate exists; candidate ranking prefers outside-lake, non-overlapping, zone-local labels before edge fallbacks, and renderer diagnostics must warn when a label falls back inside the lake polygon or requires a long leader.
 - Macro structure areas remain deferred and must not render until separately approved.
 - Spring island-mainland and shoreline-recovery zones must orient from the selected local island edge/tangent whenever possible. Mainland-facing edge remains the preferred Spring semantic. If the exact mainland-facing edge fails hard geometry invariants, placement must next try deterministic same-side mainland recovery anchors along a bounded local island-shoreline arc before using generic shoreline, endpoint, or open-water recovery. Mainland-side recovery must be labeled honestly as "Island Edge - Mainland Recovery"; generic shoreline recovery is a last resort. Diagnostics must expose the orientation source, selected edge bearing, zone rotation, side-selection reason, recovery kind, and size cap. Island zones remain local-feature-aware and must not become lake-scale blobs.
@@ -150,8 +179,8 @@ Filtered artifacts are written under `tmp/water-reader-engine-zone-review/filter
 3. **Detect features** — geometric analysis identifies the 7 physical features below using detection thresholds.
 4. **Resolve conflicts** — apply deduplication and priority rules so a single shoreline segment is not labeled as two features.
 5. **Determine season** — look up the state's regional group, apply that group's seasonal date boundaries to the current date.
-6. **Place zones** — apply the seasonal zone placement rules per feature and enforce hard zone invariants. The primary map is feature-first: do not force filler zones when trustworthy structure is sparse. Universal fallback zones are optional and may be enabled only through an explicit placement option (see Featureless and Sparse Lakes section).
-7. **Generate legend** — assign a deterministic legend template per zone keyed by (feature type, season, position variant). Append transition warning if applicable.
+6. **Place zones** — place feature-envelope structure reference areas per detected feature and enforce hard zone invariants. Normal detected features use season-invariant feature-envelope geometry; older seasonal micro-placement helpers are legacy fallback/scaffolding only and must not be the primary route for supported feature classes. The primary map is feature-first: do not force filler zones when trustworthy structure is sparse. Universal fallback zones are optional and may be enabled only through an explicit placement option (see Featureless and Sparse Lakes section).
+7. **Generate legend** — assign deterministic legend explanation keyed by feature type, season, and the actual zone semantic. Season may change explanation and transition warning copy, not the feature-envelope geometry.
 8. **Build display model** — convert valid zones and confluence groups into capped, numbered displayed entries while retaining overflow structure in diagnostics.
 9. **Render** — output SVG containing the polygon, color-coded zones, numbered legend, and FinFindr branding. See SVG Rendering section for SVG-specific rules.
 
@@ -583,9 +612,9 @@ Displayed-entry acreage bands:
 
 | Size band | Acreage | Max displayed entries |
 |---|---:|---:|
-| Small water | `< 100 acres` | `3` |
-| Medium water | `100-1,000 acres` | `5` |
-| Large water | `> 1,000 acres` | `7` |
+| Small water | `< 100 acres` | `6` |
+| Medium water | `100-1,000 acres` | `10` |
+| Large water | `> 1,000 acres` | `12` |
 
 Valid structure beyond the displayed-entry cap must not disappear silently. It remains in structured diagnostics as retained-but-not-displayed unless it failed geometry, invariants, or dependency rules.
 
@@ -635,7 +664,7 @@ Paired structural features are all-or-nothing as feature units:
 - If paired shoulders/corners overlap enough for confluence, preserve the pair and assign a `structure_confluence` group.
 - If only one half of a paired feature can pass invariants, suppress or retain the whole feature unit with diagnostics rather than rendering a misleading one-sided paired feature.
 
-Main lake points prefer the full seasonal rule, but may degrade to one valid point-adjacent zone when the full pair/tip-plus-side set fails hard invariants.
+Main lake points use one whole-feature point structure area. A point may accept an outside-water conceptual center only when clipped visible water satisfies feature-frame contact, visible-water quality, and locality diagnostics.
 
 Do not use cap pressure alone to suppress real structure. Cap pressure may move valid structure from displayed to `retained_not_displayed_cap`, but true suppression after detection is allowed only for invalid/weak geometry, hard-invariant failure after all fallback placements fail, or dependency failure.
 
@@ -653,7 +682,9 @@ Eligibility rules:
 
 - Every contributing feature remains represented in structured output.
 - Each contributing zone must individually pass all hard invariants before entering a confluence group.
-- Confluence can include zones from different feature classes or paired same-feature zones such as neck shoulders.
+- Under the feature-envelope model, cross-feature confluence grouping is conservative. Do not automatically merge different feature classes such as point+island, point+cove, or neck+cove merely because their whole-feature envelopes overlap.
+- Cross-feature grouping is allowed only when an explicit placement confluence remains compact and semantically clearer than separate entries. Same-source feature fragments and same-class extremely compact overlaps may merge when the result is more readable and still preserves source-feature diagnostics.
+- Paired same-feature fragments such as legacy neck shoulders may still group when they are active, but normal neck/saddle feature envelopes should represent both shoulders as one structure area.
 - Confluence groups must preserve member feature IDs, feature classes, placement kinds, and zone IDs for legend/copy.
 - Confluence groups should use their own visual treatment and color in the production renderer.
 - User-facing copy must explain the included physical structures without implying guaranteed fish presence or "best spot" certainty.
@@ -697,6 +728,11 @@ Confluence diagnostics must include:
 - `structureConfluenceGroupId`
 - `structureConfluenceStrength`
 - `structureConfluenceMemberCount`
+- `structureConfluenceMergeReason`
+- `structureConfluenceCompactnessRatio`
+- `structureConfluenceEnvelopeMajorAxisM`
+- `structureConfluenceLargestMemberAxisM`
+- `structureConfluenceRenderedAsUnifiedEnvelope`
 - top-level `confluenceGroups` with member zone IDs, source feature IDs, classes, and placement kinds
 - overlap or near-distance trigger reason when available
 - group compactness/span diagnostics when available
@@ -763,24 +799,24 @@ Each feature type has a consistent color used for both the zone on the map and t
 
 ## Legend Format
 
-Each numbered zone gets a numbered legend entry:
+Each numbered feature-envelope display unit gets a numbered legend entry:
 
 1. **Color swatch + structure type** (e.g., a red square + "Dam Corner — South Side")
-2. **Seasonal fishing approach** — pulled from the deterministic template table keyed by (feature_type, season, position_variant). No generation, no LLM call.
+2. **Seasonal structure explanation** — pulled from the deterministic template table keyed by (feature_type, season, structure-area semantic). No generation, no LLM call. This copy must not imply a seasonal geometry change.
 3. **Transition warning** — appended only if applicable (see below).
 
-For a `structure_confluence` group, the legend entry uses the confluence color and lists every contributing physical structure by class and position variant, for example "Neck Shoulder + Cove Mouth" or "Point Side + Cove Irregular Side". Post-selection normalized confluences must rebuild this title from their final member composition, such as "Structure Confluence - Point Side x3" or "Structure Confluence - Point Side x2 + Island Mainland-Facing Edge". The copy must explain that multiple geometry features converge in the same general area, using conservative language such as "multiple structure cues overlap here" or "logical area to check." Do not use "high-confidence", "best", "guaranteed", or fish-presence claims.
+For a `structure_confluence` group, the legend entry uses the confluence color and lists contributing physical structures by feature-envelope class, for example "Structure Confluence - Main Point x2 + Neck". Post-selection normalized confluences must rebuild this title from their final member composition. The copy must explain that multiple geometry features converge in the same general area, using conservative structure-area language. Do not use "high-confidence", "best", "guaranteed", or fish-presence claims.
 
 ### Legend Template Table
 
-The template table is keyed by (feature_type, season, position_variant) and returns a static description string. Total entries: 7 features × 4 seasons × position variants = approximately 40 templates plus 4 transition warnings.
+The template table is keyed by (feature_type, season, structure-area semantic) and returns a static description string. Total entries cover supported feature-envelope structure areas plus 4 transition warnings.
 
 Template language must stay educational and conditional. Use phrases such as "logical area to check", "seasonally relevant structure", "can be worth checking", and "general approach". Do not use "best", "guaranteed", "fish are here", "fish hold here", "highest confidence", "most productive", "GPS waypoint", "depth break", "channel", "hump", or "deepest water".
 
 Examples:
-- (Main Lake Point, Spring, side-facing-cove): "In spring, this point side is a logical area to check because it connects main-lake shoreline with protected water. Work from the bank edge outward along the point slope."
-- (Dam Corner, Winter, any): "In winter, this dam corner is a seasonally relevant hard-edge structure area. Work the corner where the straight bank transitions into natural shoreline."
-- (Cove, Summer, mouth-point): "In summer, this cove-mouth point is a logical area to check because it connects protected water with the main lake."
+- (Main Lake Point, Spring, structure area): "In spring, this point structure area is a seasonal structure reference that includes the detected tip and adjacent shoulder water."
+- (Dam, Winter, structure area): "In winter, this dam structure area marks the dam segment and its transition corners as deterministic polygon structure."
+- (Cove, Summer, structure area): "In summer, this cove structure area marks the bounded cove reference from the mouth shoulders toward the inner shoreline."
 
 The full template table is built once during implementation. Once written, the same string is returned every time for the same key.
 
@@ -788,16 +824,16 @@ The full template table is built once during implementation. Once written, the s
 
 ## Transition Warnings
 
-If current date is within 14 days of the **regional** season boundary, append the appropriate transition warning to the legend entry of any zone whose placement changes between the two adjacent seasons:
+If current date is within 14 days of the **regional** season boundary, append the appropriate transition warning to the legend entry when seasonal explanation or over-cap emphasis may change:
 
 - *Entering Spring:* "Seasonal patterns may still resemble winter in some conditions; compare this with main-lake structure zones."
 - *Entering Summer:* "Seasonal patterns may still resemble spring in some conditions; protected shoreline structure can remain relevant."
 - *Entering Fall:* "Summer patterns may persist on warmer days; open-water-side structure can remain relevant."
 - *Entering Winter:* "Fall transitional patterns may persist along cove and shoreline structure."
 
-Skip warnings on zones that don't change across the transition (e.g., dam corners, neck shorelines).
+Skip warnings on structure classes whose seasonal explanation is unchanged across the transition.
 
-**Note:** zone placement snaps on the boundary date rather than easing gradually. The 14-day warning window before each boundary prepares the user for the upcoming shift.
+**Note:** feature-envelope geometry does not snap on the boundary date. Only deterministic seasonal explanation and over-cap emphasis may change.
 
 ---
 

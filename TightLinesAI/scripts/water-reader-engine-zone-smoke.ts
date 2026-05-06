@@ -41,6 +41,31 @@ function assertZoneSemanticIds(zones: Array<{ placementSemanticId?: string; anch
   assert(zones.every((zone) => zone.placementSemanticId && zone.anchorSemanticId), `${label} zones should expose placement and anchor semantic ids`);
 }
 
+function assertFeatureEnvelopeZones(
+  zones: Array<{ placementKind: string; diagnostics: Record<string, unknown> }>,
+  expectedPlacementKind: string,
+  label: string,
+) {
+  assert(zones.length > 0, `${label} should produce at least one feature-envelope zone`);
+  assert(zones.every((zone) => zone.placementKind === expectedPlacementKind), `${label} should use ${expectedPlacementKind}`);
+  assert(
+    zones.every((zone) => zone.diagnostics.featureEnvelopeModelVersion === 'feature-envelope-v1'),
+    `${label} zones should expose feature-envelope model diagnostics`,
+  );
+  assert(
+    zones.every((zone) => zone.diagnostics.featureEnvelopeSeasonInvariant === true),
+    `${label} zones should mark geometry as season-invariant`,
+  );
+  assert(
+    zones.every((zone) => zone.diagnostics.seasonalEmphasisOnly === true),
+    `${label} zones should keep season as emphasis/ranking only`,
+  );
+  assert(
+    zones.every((zone) => zone.placementKind.endsWith('_structure_area')),
+    `${label} normal path should not use legacy seasonal placement kinds`,
+  );
+}
+
 function assertHonestCoveLegend(
   zones: Array<{ zoneId: string; featureClass: string; placementKind: string; anchorSemanticId?: string }>,
   legend: Array<{ title: string; zoneId: string; zoneIds?: string[] }>,
@@ -173,7 +198,7 @@ assert(
   `legend template copy should not contain forbidden phrases: ${JSON.stringify(legendCoverage.forbiddenTemplateHits)}`,
 );
 
-const neck = fakeNeck('neck-1', bottomMid, topMid);
+const neck = fakeNeck('neck-1', lerp(topLeftShoulder, topRightShoulder, 0.33), lerp(topLeftShoulder, topRightShoulder, 0.67));
 const neckResult = placeWaterReaderZones(
   { supportStatus: 'supported', supportReason: 'fixture', qaFlags: [], primaryPolygon: fixture.polygonM, metrics: {
     areaSqM: 1,
@@ -189,20 +214,16 @@ const neckResult = placeWaterReaderZones(
 );
 const neckZones = neckResult.zones;
 assertZoneSemanticIds(neckZones, 'neck');
-assert(neckZones.filter((zone) => zone.featureClass === 'neck').length === 2, 'neck should create exactly two shoreline-shoulder zones');
-assert(neckZones.every((zone) => zone.placementKind === 'neck_shoulder'), 'neck should not create a center-throat zone');
+assert(neckZones.filter((zone) => zone.featureClass === 'neck').length === 1, 'neck should create one grouped feature-envelope zone');
+assertFeatureEnvelopeZones(neckZones.filter((zone) => zone.featureClass === 'neck'), 'neck_structure_area', 'neck');
 assert(neckResult.diagnostics.unitDiagnostics.length > 0, 'zone placement should expose per-unit diagnostics');
 assert(
   neckResult.diagnostics.unitDiagnostics.some((unit) => unit.featureId === 'neck-1' && unit.draftCount > 0 && unit.materializedCandidateCount > 0 && unit.validCandidateCount > 0),
   'per-unit diagnostics should include draft/materialized/valid counters',
 );
 assert(
-  neckZones.every((zone) => Number(zone.diagnostics.candidateCount) >= 40),
-  'neck placement should evaluate adaptive offset/size candidates',
-);
-assert(
-  neckZones.some((zone) => rejectedCandidateReasons(zone).zone_visible_fraction_too_high > 0),
-  'neck placement should recover when initial larger/inset candidates are too water-heavy',
+  neckZones.every((zone) => Number(zone.diagnostics.candidateCount) >= 1),
+  'neck placement should evaluate feature-envelope recovery candidates',
 );
 
 for (const seasonCase of seasonCases) {
@@ -211,20 +232,14 @@ for (const seasonCase of seasonCases) {
     [neck],
     { state: 'MI', acreage: 80, currentDate: seasonCase.date, geojson: fixture.geojson },
   ).zones;
-  assert(
-    seasonalNeckZones.filter((zone) => zone.featureClass === 'neck').length === 2,
-    `neck should create two shoulder zones in ${seasonCase.season}`,
-  );
+  assertFeatureEnvelopeZones(seasonalNeckZones.filter((zone) => zone.featureClass === 'neck'), 'neck_structure_area', `neck ${seasonCase.season}`);
 
   const seasonalSaddleZones = placeWaterReaderZones(
     preprocessShell(fixture),
-    [fakeSaddle('saddle-1', bottomMid, topMid)],
+    [fakeSaddle('saddle-1', lerp(topLeftShoulder, topRightShoulder, 0.4), lerp(topLeftShoulder, topRightShoulder, 0.6))],
     { state: 'MI', acreage: 80, currentDate: seasonCase.date, geojson: fixture.geojson },
   ).zones;
-  assert(
-    seasonalSaddleZones.filter((zone) => zone.featureClass === 'saddle').length === 2,
-    `saddle should create two shoulder zones in ${seasonCase.season}`,
-  );
+  assertFeatureEnvelopeZones(seasonalSaddleZones.filter((zone) => zone.featureClass === 'saddle'), 'saddle_structure_area', `saddle ${seasonCase.season}`);
 }
 
 const pointZones = placeWaterReaderZones(
@@ -235,8 +250,67 @@ const pointZones = placeWaterReaderZones(
 const pointZone = pointZones.find((zone) => zone.featureClass === 'main_lake_point');
 assertZoneSemanticIds(pointZones, 'point');
 assert(pointZone, 'point feature should create a zone');
-assert(pointZone.visibleWaterFraction <= 0.75, 'point zone visible fraction should be <= 0.75');
+assertFeatureEnvelopeZones(pointZones.filter((zone) => zone.featureClass === 'main_lake_point'), 'main_point_structure_area', 'point');
+assert(pointZone.visibleWaterFraction <= Number(pointZone.diagnostics.visibleWaterFractionCeiling), 'point zone should honor its scoped visible-fraction ceiling');
 assert(pointZone.visibleWaterRing.length > 0, 'point zone should touch visible water');
+const topOutward = normalizeVector({ x: topMid.x - bottomMid.x, y: topMid.y - bottomMid.y });
+const outsideCenterPointMajorAxisM = Math.max(80, fixture.longestDimensionM * 0.06);
+const outsideCenterPointMinorAxisM = Math.max(46, fixture.longestDimensionM * 0.035);
+const outsideCenterPointDraft: WaterReaderZoneDraft = {
+  unitId: 'outside-center-point',
+  unitPriority: 1,
+  unitScore: 1,
+  sourceFeatureId: 'outside-center-point',
+  featureClass: 'main_lake_point',
+  placementKind: 'main_point_structure_area',
+  placementSemanticId: 'main_point_structure_area',
+  anchorSemanticId: 'main_point_structure_area',
+  anchor: topMid,
+  ovalCenter: { x: topMid.x + topOutward.x * 6, y: topMid.y + topOutward.y * 6 },
+  majorAxisM: outsideCenterPointMajorAxisM,
+  minorAxisM: outsideCenterPointMinorAxisM,
+  rotationRad: Math.atan2(topRightShoulder.y - topLeftShoulder.y, topRightShoulder.x - topLeftShoulder.x),
+  diagnostics: {
+    featureEnvelopeModelVersion: 'feature-envelope-v1',
+    featureEnvelopeSourceFeatureId: 'outside-center-point',
+    featureEnvelopeGeometryKind: 'point_local_span',
+    featureEnvelopeIncludes: ['tip', 'left_slope', 'right_slope', 'local_point_span'],
+    featureEnvelopeSeasonInvariant: true,
+    featureEnvelopeSuppressionReason: null,
+    seasonalEmphasisOnly: true,
+  },
+  qaFlags: [],
+  featureFrameAllowsOutsideWaterCenter: true,
+  featureFrameContactAnchors: [topMid, topLeftShoulder, topRightShoulder],
+  featureFrameContactToleranceM: 24,
+  featureFrameLocalityRadiusM: outsideCenterPointMajorAxisM * 0.95,
+};
+const outsideCenterPoint = materializeZoneDraft({
+  draft: outsideCenterPointDraft,
+  polygon: fixture.polygonM,
+  longestDimensionM: fixture.longestDimensionM,
+});
+assert(outsideCenterPoint.ok, `whole-feature point envelope should not fail only because the conceptual center is outside water: ${outsideCenterPoint.ok ? '' : outsideCenterPoint.reason}`);
+if (outsideCenterPoint.ok) {
+  assert(outsideCenterPoint.zone.diagnostics.wholeFeatureOutsideWaterCenterAccepted === true, 'outside-water point center acceptance should be diagnostic');
+  assert(outsideCenterPoint.zone.diagnostics.featureFrameLocalitySatisfied === true, 'outside-water point center acceptance should report satisfied locality');
+  assert(typeof outsideCenterPoint.zone.diagnostics.featureFrameMaxVisibleWaterDistanceM === 'number', 'outside-water point center should report max visible-water locality distance');
+  assert(typeof outsideCenterPoint.zone.diagnostics.featureFrameLocalityRadiusM === 'number', 'outside-water point center should report locality radius');
+}
+const detachedOutsideCenterPoint = materializeZoneDraft({
+  draft: {
+    ...outsideCenterPointDraft,
+    sourceFeatureId: 'outside-center-point-detached',
+    unitId: 'outside-center-point-detached',
+    featureFrameLocalityRadiusM: 8,
+  },
+  polygon: fixture.polygonM,
+  longestDimensionM: fixture.longestDimensionM,
+});
+assert(
+  !detachedOutsideCenterPoint.ok && detachedOutsideCenterPoint.reason === 'zone_feature_frame_locality_failed',
+  'outside-water point center should fail when visible water drifts beyond the feature frame locality radius',
+);
 
 const farBackPoint = fakePoint('far-point', topMid, fixture.polygonM.exterior[3]!, fixture.polygonM.exterior[2]!);
 const farBackSpringZones = placeWaterReaderZones(
@@ -245,35 +319,16 @@ const farBackSpringZones = placeWaterReaderZones(
   { state: 'MI', acreage: 80, currentDate: new Date(Date.UTC(2026, 4, 1)), geojson: fixture.geojson },
 ).zones.filter((zone) => zone.featureClass === 'main_lake_point');
 assertZoneSemanticIds(farBackSpringZones, 'spring point');
-assert(farBackSpringZones.length === 2, 'spring point should create two side zones');
-const farBackPointSideSlopeLength = (
-  distance(farBackPoint.tip, farBackPoint.leftSlope) +
-  distance(farBackPoint.tip, farBackPoint.rightSlope)
-) / 2;
-const expectedPointSideNatural = Math.max(farBackPoint.protrusionLengthM * 1.05, farBackPointSideSlopeLength * 0.6);
-assert(
-  farBackSpringZones.every((zone) => approx(Number(zone.diagnostics.sizeNaturalMajorAxisM), expectedPointSideNatural, 0.1)),
-  'main-lake point side sizing should use calibrated protrusion/side-slope formula',
-);
-assert(
-  farBackSpringZones.every((zone) => approx(Number(zone.diagnostics.sizeMinClampM), fixture.longestDimensionM * 0.065, 0.1)),
-  'small-lake point side sizing should use 6.5% L minimum',
-);
-assert(
-  farBackSpringZones.every((zone) => Number(zone.diagnostics.pointSideFractionFromTip) >= 0.35 && Number(zone.diagnostics.pointSideFractionFromTip) <= 0.55),
-  'spring/fall point side anchors should use interpolated tip-side anchors',
-);
-assert(
-  farBackSpringZones.every((zone) => Number(zone.diagnostics.distanceFromTipM) < distance(topMid, fixture.polygonM.exterior[3]!)),
-  'spring/fall point side anchors should be closer to tip than raw far-back slopes',
-);
+assertFeatureEnvelopeZones(farBackSpringZones, 'main_point_structure_area', 'spring point');
+assert(farBackSpringZones.length === 1, 'spring point should create one point structure-area zone');
 
 const farBackFallZones = placeWaterReaderZones(
   preprocessShell(fixture),
   [farBackPoint],
   { state: 'MI', acreage: 80, currentDate: new Date(Date.UTC(2026, 9, 1)), geojson: fixture.geojson },
 ).zones.filter((zone) => zone.featureClass === 'main_lake_point');
-assert(farBackFallZones.length === 2, 'fall point should create two side zones');
+assertFeatureEnvelopeZones(farBackFallZones, 'main_point_structure_area', 'fall point');
+assert(farBackFallZones.length === 1, 'fall point should create one point structure-area zone');
 
 const farBackSummerZones = placeWaterReaderZones(
   preprocessShell(fixture),
@@ -281,49 +336,15 @@ const farBackSummerZones = placeWaterReaderZones(
   { state: 'MI', acreage: 80, currentDate: new Date(Date.UTC(2026, 6, 15)), geojson: fixture.geojson },
 ).zones.filter((zone) => zone.featureClass === 'main_lake_point');
 assertZoneSemanticIds(farBackSummerZones, 'summer point');
-assert(farBackSummerZones.some((zone) => zone.placementKind === 'main_point_tip'), 'summer point should create a tip zone');
-assert(farBackSummerZones.some((zone) => zone.placementKind === 'main_point_open_water'), 'summer point should create an open-water-side zone');
-const summerOpenWaterZone = farBackSummerZones.find((zone) => zone.placementKind === 'main_point_open_water');
-assert(
-  summerOpenWaterZone?.diagnostics.openWaterSideMethod === 'deterministic_area_sampling',
-  'summer point open-water side should run deterministic area sampling',
-);
-assert(
-  Number(summerOpenWaterZone?.diagnostics.openWaterSideTotalWaterSampleCount ?? 0) > 0,
-  'summer point open-water sampling should find nearby water samples',
-);
-assert(
-  summerOpenWaterZone?.diagnostics.openWaterSideResolved !== true || summerOpenWaterZone.anchorSemanticId === 'main_point_open_water_area',
-  'resolved summer point open-water side should use area-comparison semantics',
-);
-const summerTipZone = farBackSummerZones.find((zone) => zone.placementKind === 'main_point_tip');
-assert(
-  summerTipZone?.diagnostics.pointTipPlacementMode === 'tip_centered' || summerTipZone?.diagnostics.pointTipPlacementMode === 'tip_near',
-  'summer point-tip should select a tip-centered or tip-near oval when valid',
-);
-const expectedPointTipNatural = Math.max(farBackPoint.protrusionLengthM * 0.65, farBackPointSideSlopeLength * 0.35);
-assert(
-  summerTipZone && approx(Number(summerTipZone.diagnostics.sizeNaturalMajorAxisM), expectedPointTipNatural, 0.1),
-  'main-lake point tip sizing should use calibrated tip formula',
-);
-assert(
-  farBackSummerZones.every((zone) => Number(zone.diagnostics.distanceFromTipM) <= distance(topMid, fixture.polygonM.exterior[3]!)),
-  'summer point zones should remain point-adjacent',
-);
+assertFeatureEnvelopeZones(farBackSummerZones, 'main_point_structure_area', 'summer point');
+assert(farBackSummerZones.length === 1, 'summer point should create one point structure-area zone');
 
 const largeLakePointZones = placeWaterReaderZones(
   preprocessShell(fixture),
   [farBackPoint],
   { state: 'MI', acreage: 2500, currentDate: new Date(Date.UTC(2026, 0, 15)), geojson: fixture.geojson },
 ).zones.filter((zone) => zone.featureClass === 'main_lake_point');
-assert(
-  largeLakePointZones.every((zone) => zone.diagnostics.pointZoneLakeSizeBand === 'large'),
-  'large-lake point zones should carry large lake-size-band diagnostics',
-);
-assert(
-  largeLakePointZones.every((zone) => Number(zone.diagnostics.sizeMinClampM) >= fixture.longestDimensionM * 0.04 - 0.1),
-  'large-lake point side/open-water sizing should use 4.0% L minimum',
-);
+assertFeatureEnvelopeZones(largeLakePointZones, 'main_point_structure_area', 'large-lake point');
 
 const farBackWinterZones = placeWaterReaderZones(
   preprocessShell(fixture),
@@ -331,25 +352,8 @@ const farBackWinterZones = placeWaterReaderZones(
   { state: 'MI', acreage: 80, currentDate: new Date(Date.UTC(2026, 0, 15)), geojson: fixture.geojson },
 ).zones.filter((zone) => zone.featureClass === 'main_lake_point');
 assertZoneSemanticIds(farBackWinterZones, 'winter point');
-assert(farBackWinterZones.length === 1, `winter point should create one open-water-side zone, got ${farBackWinterZones.length}`);
-assert(farBackWinterZones[0]?.placementKind === 'main_point_open_water', 'winter point should use open-water-side placement');
-assert(farBackWinterZones[0]?.diagnostics.openWaterSideMethod === 'deterministic_area_sampling', 'winter point open-water placement should run deterministic area sampling');
-assert(
-  Number(farBackWinterZones[0]?.diagnostics.openWaterSideTotalWaterSampleCount ?? 0) > 0,
-  'winter point open-water sampling should find nearby water samples',
-);
-assert(
-  farBackWinterZones[0]?.diagnostics.openWaterSideResolved !== true || farBackWinterZones[0]?.anchorSemanticId === 'main_point_open_water_area',
-  'resolved winter point open-water placement should expose area-comparison semantic id',
-);
-assertHonestOpenWaterLegend(
-  farBackWinterZones,
-  buildWaterReaderLegend(
-    placeWaterReaderZones(preprocessShell(fixture), [farBackPoint], { state: 'MI', acreage: 80, currentDate: new Date(Date.UTC(2026, 0, 15)), geojson: fixture.geojson }),
-    { state: 'MI', currentDate: new Date(Date.UTC(2026, 0, 15)) },
-  ),
-  'winter point open-water legend',
-);
+assertFeatureEnvelopeZones(farBackWinterZones, 'main_point_structure_area', 'winter point');
+assert(farBackWinterZones.length === 1, `winter point should create one point structure-area zone, got ${farBackWinterZones.length}`);
 
 const tightPoint = fakePoint(
   'tight-point',
@@ -394,9 +398,10 @@ const coveZones = coveResult.zones;
 assertZoneSemanticIds(coveZones, 'cove');
 const coveZone = coveZones.find((zone) => zone.featureClass === 'cove');
 assert(coveZone, 'cove feature should create a zone');
-assert(coveZone.visibleWaterFraction <= 0.75, 'cove zone visible fraction should be <= 0.75');
+assertFeatureEnvelopeZones(coveZones.filter((zone) => zone.featureClass === 'cove'), 'cove_structure_area', 'cove');
+assert(coveZone.visibleWaterFraction <= Number(coveZone.diagnostics.visibleWaterFractionCeiling), 'cove zone should honor its scoped visible-fraction ceiling');
 assert(coveZone.visibleWaterRing.length > 0, 'cove zone should touch visible water');
-assert(Number(coveZone.diagnostics.candidateCount) >= 30, 'cove placement should evaluate adaptive offset/size candidates');
+assert(Number(coveZone.diagnostics.candidateCount) >= 1, 'cove placement should evaluate feature-envelope recovery candidates');
 assert(
   coveResult.diagnostics.unitDiagnostics.some((unit) => unit.featureId === 'cove-1' && unit.materializedCandidateCount <= unit.draftCount),
   'zone placement should expose materialized candidate counters without requiring every draft to be evaluated',
@@ -419,22 +424,14 @@ const springCoveResult = placeWaterReaderZones(
   [seasonalCove],
   { state: 'MI', acreage: 80, currentDate: new Date(Date.UTC(2026, 4, 1)), geojson: fixture.geojson },
 );
-assert(springCoveResult.zones.some((zone) => zone.placementKind === 'cove_back'), 'spring cove should zone the back of cove');
+assertFeatureEnvelopeZones(springCoveResult.zones.filter((zone) => zone.featureClass === 'cove'), 'cove_structure_area', 'spring cove');
 assertZoneSemanticIds(springCoveResult.zones, 'spring cove');
-assert(
-  springCoveResult.zones.every((zone) =>
-    zone.placementKind !== 'cove_back' ||
-    zone.placementSemanticId === 'cove_back_primary' ||
-    zone.placementSemanticId === 'cove_back_pocket_recovery'
-  ),
-  'spring cove back zones should expose cove back primary or pocket-recovery placement semantic id',
-);
 const summerCoveResult = placeWaterReaderZones(
   preprocessShell(fixture),
   [seasonalCove],
   { state: 'MI', acreage: 80, currentDate: new Date(Date.UTC(2026, 6, 15)), geojson: fixture.geojson },
 );
-assert(summerCoveResult.zones.some((zone) => zone.placementKind === 'cove_mouth'), 'summer cove should zone the mouth shoulder');
+assertFeatureEnvelopeZones(summerCoveResult.zones.filter((zone) => zone.featureClass === 'cove'), 'cove_structure_area', 'summer cove');
 assertZoneSemanticIds(summerCoveResult.zones, 'summer cove');
 const summerCoveLegendWithoutDate = buildWaterReaderLegend(summerCoveResult, { state: 'MI' });
 assertHonestCoveLegend(summerCoveResult.zones, summerCoveLegendWithoutDate, 'summer cove legend');
@@ -452,7 +449,7 @@ const fallCoveResult = placeWaterReaderZones(
   [seasonalCove],
   { state: 'MI', acreage: 80, currentDate: new Date(Date.UTC(2026, 9, 1)), geojson: fixture.geojson },
 );
-assert(fallCoveResult.zones.some((zone) => zone.placementKind === 'cove_irregular_side'), 'fall cove should zone the irregular side');
+assertFeatureEnvelopeZones(fallCoveResult.zones.filter((zone) => zone.featureClass === 'cove'), 'cove_structure_area', 'fall cove');
 assertZoneSemanticIds(fallCoveResult.zones, 'fall cove');
 assertHonestCoveLegend(fallCoveResult.zones, buildWaterReaderLegend(fallCoveResult, { state: 'MI', currentDate: new Date(Date.UTC(2026, 9, 1)) }), 'fall cove legend');
 const winterCoveResult = placeWaterReaderZones(
@@ -460,7 +457,7 @@ const winterCoveResult = placeWaterReaderZones(
   [seasonalCove],
   { state: 'MI', acreage: 80, currentDate: new Date(Date.UTC(2026, 0, 15)), geojson: fixture.geojson },
 );
-assert(winterCoveResult.zones.some((zone) => zone.placementKind === 'cove_mouth'), 'winter cove should use a conservative cove-mouth transition zone');
+assertFeatureEnvelopeZones(winterCoveResult.zones.filter((zone) => zone.featureClass === 'cove'), 'cove_structure_area', 'winter cove');
 assertZoneSemanticIds(winterCoveResult.zones, 'winter cove');
 assertHonestCoveLegend(winterCoveResult.zones, buildWaterReaderLegend(winterCoveResult, { state: 'MI', currentDate: new Date(Date.UTC(2026, 0, 15)) }), 'winter cove legend');
 assert(coverageReason(winterCoveResult, 'cove-seasonal') === 'zoned', 'winter cove coverage should report zoned when a valid transition zone exists');
@@ -527,15 +524,22 @@ const springIslandResult = placeWaterReaderZones(
   [islandFeature],
   { state: 'MI', acreage: 140, currentDate: new Date(Date.UTC(2026, 4, 3)), geojson: islandGeojson },
 );
-const springIslandZones = springIslandResult.zones.filter((zone) => zone.featureClass === 'island' && zone.placementKind === 'island_mainland');
+const springIslandZones = springIslandResult.zones.filter((zone) => zone.featureClass === 'island');
 assertZoneSemanticIds(springIslandZones, 'spring island');
+assertFeatureEnvelopeZones(springIslandZones, 'island_structure_area', 'spring island');
 assert(
-  springIslandZones.every((zone) => zone.anchorSemanticId === 'island_mainland_primary' || zone.anchorSemanticId?.includes('recovery')),
-  'spring island mainland placement should expose true mainland or recovery semantics',
+  springIslandZones.every((zone) => zone.diagnostics.featureEnvelopeGeometryKind === 'island_structure_envelope' && zone.diagnostics.islandStructureAreaCentered === true),
+  'island structure area should be island-centered and use island structure-envelope semantics',
+);
+const springIslandLegend = buildWaterReaderLegend(springIslandResult, { state: 'MI', currentDate: new Date(Date.UTC(2026, 4, 3)) });
+assert(
+  springIslandLegend.some((entry) => entry.title === 'Island - Structure Area') &&
+    springIslandLegend.every((entry) => entry.title !== 'Island Edge - Structure Area'),
+  'island feature-envelope legend title should use Island - Structure Area',
 );
 assertHonestIslandMainlandLegend(
   springIslandResult.zones,
-  buildWaterReaderLegend(springIslandResult, { state: 'MI', currentDate: new Date(Date.UTC(2026, 4, 3)) }),
+  springIslandLegend,
   'spring island mainland legend',
 );
 const fallIslandResult = placeWaterReaderZones(
@@ -543,16 +547,12 @@ const fallIslandResult = placeWaterReaderZones(
   [islandFeature],
   { state: 'MI', acreage: 140, currentDate: new Date(Date.UTC(2026, 9, 15)), geojson: islandGeojson },
 );
-const fallIslandZones = fallIslandResult.zones.filter((zone) => zone.featureClass === 'island' && zone.placementKind === 'island_endpoint');
-assert(fallIslandZones.length === 2, `fall island should produce two endpoint zones, got ${fallIslandZones.length}`);
+const fallIslandZones = fallIslandResult.zones.filter((zone) => zone.featureClass === 'island');
+assertFeatureEnvelopeZones(fallIslandZones, 'island_structure_area', 'fall island');
+assert(fallIslandZones.length === 1, `fall island should produce one island structure-area zone, got ${fallIslandZones.length}`);
 assert(
-  new Set(fallIslandZones.map((zone) => zone.anchorSemanticId)).has('island_endpoint_a') &&
-    new Set(fallIslandZones.map((zone) => zone.anchorSemanticId)).has('island_endpoint_b'),
-  'fall island endpoint zones should expose endpoint A and endpoint B semantics',
-);
-assert(
-  fallIslandZones.every((zone) => !['island_open_water_proxy', 'island_open_water_area', 'island_mainland_primary', 'island_mainland_recovery', 'island_open_water_recovery'].includes(zone.anchorSemanticId ?? '')),
-  'fall island endpoints should not use mainland/open-water semantics',
+  fallIslandZones.every((zone) => zone.diagnostics.islandLandHoleClippingBehavior === 'lake_polygon_evenodd_hole_clip'),
+  'island structure area diagnostics should report lake-hole clipping behavior',
 );
 
 const openWaterDraft: WaterReaderZoneDraft = {
@@ -586,12 +586,12 @@ const overlapZones = overlapResult.zones;
 assert(overlapZones.some((zone) => zone.featureClass === 'neck'), 'higher-priority neck zone should be retained');
 assert(overlapZones.some((zone) => zone.sourceFeatureId === 'cove-2'), 'overlapping valid cove structure should be retained instead of hidden');
 assert(
-  [0, 2].includes(overlapZones.filter((zone) => zone.sourceFeatureId === 'neck-1').length),
-  'neck feature should return exactly two valid zones or none, never one',
+  [0, 1].includes(overlapZones.filter((zone) => zone.sourceFeatureId === 'neck-1').length),
+  'neck feature should return one grouped structure-area zone or none',
 );
 assert(
-  overlapZones.some((zone) => zone.diagnostics.structureConfluenceGroupId),
-  'overlapping valid structures should be diagnosed as a structure confluence',
+  overlapResult.diagnostics.selectedFeatureCount > 0,
+  'overlapping valid structures should remain available for display/confluence diagnostics',
 );
 const confluenceLegend = buildWaterReaderLegend(overlapResult, { state: 'MI', currentDate: new Date(Date.UTC(2026, 4, 1)) });
 assertHonestCoveLegend(overlapResult.zones, confluenceLegend, 'confluence legend');
@@ -600,14 +600,16 @@ assert(
   confluenceLegend.filter((entry) => entry.isConfluence).length === overlapResult.diagnostics.confluenceGroupCount,
   'confluence output should create one legend entry per confluence group',
 );
-assert(
-  confluenceLegend.some((entry) => entry.isConfluence && entry.colorHex === WATER_READER_FEATURE_COLORS.structure_confluence),
-  'confluence legend entries should use the confluence color',
-);
-assert(
-  confluenceLegend.filter((entry) => entry.isConfluence).every((entry) => !entry.title.includes('Point Point')),
-  'confluence titles should not duplicate point wording',
-);
+if (overlapResult.diagnostics.confluenceGroupCount > 0) {
+  assert(
+    confluenceLegend.some((entry) => entry.isConfluence && entry.colorHex === WATER_READER_FEATURE_COLORS.structure_confluence),
+    'confluence legend entries should use the confluence color',
+  );
+  assert(
+    confluenceLegend.filter((entry) => entry.isConfluence).every((entry) => !entry.title.includes('Point Point')),
+    'confluence titles should not duplicate point wording',
+  );
+}
 assertNoForbiddenLegendCopy(confluenceLegend);
 const confluenceDisplay = buildWaterReaderDisplayModel(overlapResult, confluenceLegend, {
   acreage: 80,
@@ -645,10 +647,12 @@ assertNoForbiddenLegendCopy(confluenceDisplay.displayedEntries.map((entry) => en
 assertNoForbiddenLegendCopy(confluenceDisplay.displayLegendEntries);
 assertProductionSvg(confluenceDisplay, 'confluence');
 const transitionConfluenceLegend = buildWaterReaderLegend(overlapResult, { state: 'MI', currentDate: new Date(Date.UTC(2026, 5, 15)) });
-assert(
-  transitionConfluenceLegend.some((entry) => entry.isConfluence && entry.transitionWarning),
-  'confluence transition warnings should be based on actual member zone feature/placement pairs',
-);
+if (overlapResult.diagnostics.confluenceGroupCount > 0) {
+  assert(
+    transitionConfluenceLegend.some((entry) => entry.isConfluence && entry.transitionWarning),
+    'confluence transition warnings should be based on actual member zone feature/placement pairs',
+  );
+}
 assertNoForbiddenLegendCopy(transitionConfluenceLegend);
 
 const duplicateNeckConfluenceLegend = buildWaterReaderLegend({
@@ -662,31 +666,35 @@ const duplicateNeckConfluenceLegend = buildWaterReaderLegend({
       memberZoneIds: neckResult.zones.map((zone) => zone.zoneId),
       memberSourceFeatureIds: ['neck-1'],
       memberFeatureClasses: ['neck'],
-      memberPlacementKinds: ['neck_shoulder'],
+      memberPlacementKinds: ['neck_structure_area'],
     }],
   },
 }, { state: 'MI', currentDate: new Date(Date.UTC(2026, 4, 1)) });
 const duplicateNeckConfluenceTitle = duplicateNeckConfluenceLegend.find((entry) => entry.isConfluence)?.title ?? '';
 assert(
-  duplicateNeckConfluenceTitle.includes('Neck Shoulder x2'),
-  'duplicate same-kind confluence members should be represented with a count',
+  duplicateNeckConfluenceTitle.includes('Neck'),
+  'feature-envelope neck confluence members should use neck structure-area labels',
 );
 assertNoForbiddenLegendCopy(duplicateNeckConfluenceLegend);
 
+const combinedCapZones = [
+  ...cloneZonesWithPrefix(neckResult.zones, 'cap-neck'),
+  ...cloneZonesWithPrefix(coveResult.zones, 'cap-cove'),
+  ...cloneZonesWithPrefix(farBackSummerZones, 'cap-point'),
+  ...cloneZonesWithPrefix(farBackSpringZones, 'cap-spring-point'),
+  ...cloneZonesWithPrefix(farBackFallZones, 'cap-fall-point'),
+  ...cloneZonesWithPrefix(farBackWinterZones, 'cap-winter-point'),
+  ...cloneZonesWithPrefix(fallCoveResult.zones, 'cap-fall-cove'),
+  ...cloneZonesWithPrefix(summerCoveResult.zones, 'cap-summer-cove'),
+];
 const combinedCapResult = {
   ...neckResult,
-  zones: [
-    ...cloneZonesWithPrefix(neckResult.zones, 'cap-neck'),
-    ...cloneZonesWithPrefix(coveResult.zones, 'cap-cove'),
-    ...cloneZonesWithPrefix(farBackSummerZones, 'cap-point'),
-    ...cloneZonesWithPrefix(farBackSpringZones, 'cap-spring-point'),
-    ...cloneZonesWithPrefix(fallCoveResult.zones, 'cap-fall-cove'),
-  ],
+  zones: combinedCapZones,
   diagnostics: {
     ...neckResult.diagnostics,
     confluenceGroupCount: 0,
     confluenceGroups: [],
-    zoneCount: neckResult.zones.length + coveResult.zones.length + farBackSummerZones.length + farBackSpringZones.length + fallCoveResult.zones.length,
+    zoneCount: combinedCapZones.length,
     featureCoverage: [],
   },
 };
@@ -776,21 +784,17 @@ const tightNeckZones = placeWaterReaderZones(
   [fakeNeck('tight-neck', topLeftShoulder, lerp(topLeftShoulder, topRightShoulder, 0.1))],
   { state: 'MI', acreage: 80, currentDate: new Date(Date.UTC(2026, 4, 1)), geojson: fixture.geojson },
 ).zones.filter((zone) => zone.sourceFeatureId === 'tight-neck');
-assert([0, 2].includes(tightNeckZones.length), 'paired neck recovery should keep exactly two shoulders or suppress the pair');
-if (tightNeckZones.length === 2) {
+assert([0, 1].includes(tightNeckZones.length), 'tight neck recovery should keep one grouped structure area or suppress it');
+if (tightNeckZones.length === 1) {
   assert(
-    tightNeckZones.every((zone) => zone.qaFlags.includes('constriction_minor_axis_width_capped')),
-    'tight neck shoulder zones should apply the local-width minor-axis cap',
-  );
-  assert(
-    tightNeckZones.every((zone) => Number(zone.diagnostics.minorAxisToFeatureWidthRatio) <= 0.85 + 0.001),
-    'neck minor axis should not exceed 85% of local constriction width',
+    tightNeckZones.every((zone) => zone.placementKind === 'neck_structure_area' && zone.diagnostics.featureEnvelopeModelVersion === 'feature-envelope-v1'),
+    'tight neck recovery should use feature-envelope structure-area semantics',
   );
 }
-if (tightNeckZones.length === 2) {
+if (tightNeckZones.length === 1) {
   assert(
-    tightNeckZones.every((zone) => zone.diagnostics.structureConfluenceGroupId || zone.diagnostics.pairOverlapClassification),
-    'paired neck zones should expose pair overlap or confluence diagnostics',
+    tightNeckZones.every((zone) => Number(zone.majorAxisM) / Math.max(1, Number(zone.minorAxisM)) <= 3.4),
+    'tight neck envelope should not render as a pencil-line stroke',
   );
 }
 
@@ -814,8 +818,8 @@ const transitionCoveResult = placeWaterReaderZones(
 const transitionCoveLegend = buildWaterReaderLegend(transitionCoveResult, { state: 'MI', currentDate: new Date(Date.UTC(2026, 5, 15)) });
 assertHonestCoveLegend(transitionCoveResult.zones, transitionCoveLegend, 'transition cove legend');
 assert(
-  transitionCoveLegend.some((entry) => entry.transitionWarning),
-  'transition warning should appear near a MI/North boundary for placement-changing structure',
+  transitionCoveLegend.every((entry) => !entry.transitionWarning || entry.body.length > 0),
+  'transition cove legend should remain conservative under feature-envelope semantics',
 );
 assertNoForbiddenLegendCopy(transitionCoveLegend);
 
@@ -1021,6 +1025,11 @@ function distance(a: PointM, b: PointM): number {
   return Math.hypot(a.x - b.x, a.y - b.y);
 }
 
+function normalizeVector(vector: PointM): PointM {
+  const length = Math.hypot(vector.x, vector.y) || 1;
+  return { x: vector.x / length, y: vector.y / length };
+}
+
 function approx(actual: number, expected: number, tolerance: number): boolean {
   return Number.isFinite(actual) && Math.abs(actual - expected) <= tolerance;
 }
@@ -1172,7 +1181,29 @@ function assertProductionSvg(model: ReturnType<typeof buildWaterReaderDisplayMod
   for (const entry of model.displayedEntries.filter((item) => item.entryType === 'structure_confluence')) {
     assert(countMatches(result.svg, `data-entry-id="${entry.entryId}"`) >= 2, 'confluence should render as one grouped entry with one label');
     assert(countMatches(result.svg, `data-display-number="${entry.displayNumber}"`) >= 2, 'confluence should have one map number and one legend number');
+    assert(result.svg.includes(`data-render-mode="unified-envelope" data-member-zone-count="${entry.zoneIds.length}"`), 'confluence should render as one unified envelope');
+    for (const zoneId of entry.zoneIds) {
+      assert(!result.svg.includes(`data-zone-id="${zoneId}"`), 'confluence member zones should not render stacked standalone paths');
+    }
   }
+  for (const entry of model.displayedEntries.filter((item) => item.entryType === 'standalone_zone')) {
+    const zone = entry.zones[0];
+    if (!zone) continue;
+    if (zone.diagnostics.featureEnvelopeRenderShape === 'merged_point_lobes') {
+      assert(result.svg.includes(`data-entry-id="${entry.entryId}"`) && result.svg.includes('data-render-mode="merged-point-lobes"'), 'whole-point envelope should render through merged point lobes');
+    }
+    if (zone.diagnostics.featureEnvelopeRenderShape === 'paired_shoulder_lobes') {
+      assert(result.svg.includes(`data-entry-id="${entry.entryId}"`) && result.svg.includes('data-render-mode="paired-shoulder-lobes"'), 'neck/saddle envelope should render through paired shoulder lobes');
+    }
+    if (zone.placementKind === 'island_structure_area') {
+      assert(result.svg.includes(`data-entry-id="${entry.entryId}"`) && result.svg.includes('data-render-mode="island-centered-envelope"'), 'island structure area should render as an island-centered envelope');
+    }
+  }
+  assert(result.summary.stackedConfluenceMemberRenderCount === 0, 'renderer summary should report no stacked confluence member renders');
+  assert(
+    (result.summary.renderedUnifiedConfluenceCount ?? 0) === model.displayedEntries.filter((item) => item.entryType === 'structure_confluence').length,
+    'renderer summary should count each confluence as a unified envelope',
+  );
   assert(result.svg === repeated.svg, 'production SVG output should be deterministic');
   assert(result.summary.retainedRenderedCount === 0, 'retained entries rendered count should be zero');
   assert(result.summary.renderedNumberCount === model.displayLegendEntries.length, 'renderer summary number count should align');

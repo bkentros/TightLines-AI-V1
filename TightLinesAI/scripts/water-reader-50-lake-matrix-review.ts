@@ -197,6 +197,19 @@ type RowSummary = {
   detectedFeatureCount: number;
   selectedFeatureCount: number;
   suppressedFeatureCount: number;
+  detectedUnrepresentableFeatureCount: number;
+  featureEnvelopeZoneCount: number;
+  nonEnvelopeLegacyZoneCount: number;
+  selectedFeatureWithoutEnvelopeZoneCount: number;
+  featureEnvelopeSuppressionDiagnostics: Record<string, number>;
+  featureEnvelopeSuppressionByFeatureClassReason: Record<string, number>;
+  featureEnvelopeUnrepresentableDiagnostics: Record<string, number>;
+  featureEnvelopeUnrepresentableByFeatureClassReason: Record<string, number>;
+  wholeFeatureOutsideWaterCenterAcceptedCount: number;
+  wholeFeatureOutsideWaterCenterAcceptedByFeatureClass: Record<string, number>;
+  wholeFeatureOutsideWaterCenterMaxVisibleWaterDistanceM: number | null;
+  wholeFeatureOutsideWaterCenterMaxLocalityRadiusM: number | null;
+  wholeFeatureOutsideWaterCenterMaxAnchorDistanceM: number | null;
   displayedEntryCount: number;
   retainedEntryCount: number;
   displayCap: number;
@@ -225,6 +238,10 @@ type RowSummary = {
   reviewPriorityReasons: string[];
   confluenceGroupCount: number;
   confluenceMemberZoneCount: number;
+  renderedUnifiedConfluenceCount: number;
+  stackedConfluenceMemberRenderCount: number;
+  appWidthRenderedUnifiedConfluenceCount: number;
+  appWidthStackedConfluenceMemberRenderCount: number;
   displayedFeatureClassCounts: Record<string, number>;
   retainedFeatureClassCounts: Record<string, number>;
   detectedFeatureClassCounts: Record<string, number>;
@@ -239,6 +256,24 @@ type RowSummary = {
   debugSvgFile: string;
   jsonFile: string;
   signals: RowSignals;
+};
+
+type FeatureEnvelopeSeasonSignature = {
+  rowId: string;
+  lakeKey: string;
+  lake: string;
+  state: string;
+  season: WaterReaderSeason;
+  sourceFeatureId: string;
+  placementKind: string;
+  anchorXM: number;
+  anchorYM: number;
+  centerXM: number;
+  centerYM: number;
+  majorAxisM: number;
+  minorAxisM: number;
+  rotationRad: number;
+  featureEnvelopeModelVersion: string;
 };
 
 type SvgTransform = {
@@ -846,7 +881,12 @@ function majorQaFlags(params: {
   if ((params.productionSvgResult?.summary.warningCount ?? 0) > 0) flags.add('full_size_renderer_warning');
   if ((params.appWidthProductionSvgResult?.summary.warningCount ?? 0) > 0) flags.add('app_width_renderer_warning');
   if (params.appHeight > APP_VIEWBOX_HEIGHT_OUTLIER) flags.add('app_width_viewbox_height_outlier');
-  if (params.displayModel.retainedEntries.length > 0) flags.add('retained_not_displayed_cap_pressure');
+  if (params.displayModel.retainedEntries.some((entry) => !entry.rankingDiagnostics.includes('retained_constriction_line_readability'))) {
+    flags.add('retained_not_displayed_cap_pressure');
+  }
+  if (params.displayModel.retainedEntries.some((entry) => entry.rankingDiagnostics.includes('retained_constriction_line_readability'))) {
+    flags.add('retained_not_displayed_readability');
+  }
   if (rankingFallbackCount(params.displayModel) > 0) flags.add('major_axis_ranking_fallback');
   if (params.zoneResult.diagnostics.suppressedFeatureCount > 0) flags.add('selected_feature_suppression');
   if (params.fullLegendLayout.overlapRiskCount > 0) flags.add('full_legend_overlap_risk');
@@ -1112,12 +1152,189 @@ function zoneDebug(zone: WaterReaderPlacedZone, longestDimensionM?: number) {
     majorAxisPctOfLakeLongestDimension: longestDimensionM && longestDimensionM > 0 ? (zone.majorAxisM / longestDimensionM) * 100 : null,
     minorAxisM: zone.minorAxisM,
     qaFlags: zone.qaFlags,
+    featureEnvelope: featureEnvelopeDebug(zone),
     diagnostics: zone.diagnostics,
     anchor: zone.anchor,
     ovalCenter: zone.ovalCenter,
     rotationRad: zone.rotationRad,
     visibleWaterRing: zone.visibleWaterRing,
     unclippedRing: zone.unclippedRing,
+  };
+}
+
+function featureEnvelopeDebug(zone: WaterReaderPlacedZone) {
+  const diagnostics = zone.diagnostics;
+  if (diagnostics.featureEnvelopeModelVersion !== 'feature-envelope-v1') return null;
+  return {
+    modelVersion: diagnostics.featureEnvelopeModelVersion,
+    sourceFeatureId: diagnostics.featureEnvelopeSourceFeatureId ?? zone.sourceFeatureId,
+    geometryKind: diagnostics.featureEnvelopeGeometryKind ?? null,
+    includes: Array.isArray(diagnostics.featureEnvelopeIncludes) ? diagnostics.featureEnvelopeIncludes : [],
+    seasonInvariant: diagnostics.featureEnvelopeSeasonInvariant === true,
+    suppressionReason: diagnostics.featureEnvelopeSuppressionReason ?? null,
+    seasonalEmphasisOnly: diagnostics.seasonalEmphasisOnly === true,
+    renderShape: diagnostics.featureEnvelopeRenderShape ?? null,
+    renderLobeCount: diagnostics.featureEnvelopeRenderLobeCount ?? null,
+    islandStructureAreaCentered: diagnostics.islandStructureAreaCentered ?? null,
+    islandCentroid: typeof diagnostics.islandCentroidX === 'number' && typeof diagnostics.islandCentroidY === 'number'
+      ? { x: diagnostics.islandCentroidX, y: diagnostics.islandCentroidY }
+      : null,
+    islandBufferRadiusM: diagnostics.islandBufferRadiusM ?? null,
+    islandLandHoleClippingBehavior: diagnostics.islandLandHoleClippingBehavior ?? null,
+    constrictionRepresentation: diagnostics.constrictionRepresentation ?? null,
+    constrictionPairedShoulderCoverage: diagnostics.constrictionPairedShoulderCoverage ?? null,
+  };
+}
+
+function featureEnvelopeSummary(zones: WaterReaderPlacedZone[]) {
+  const envelopeZones = zones.filter((zone) => zone.diagnostics.featureEnvelopeModelVersion === 'feature-envelope-v1');
+  return {
+    zoneCount: envelopeZones.length,
+    nonEnvelopeLegacyZoneCount: zones.length - envelopeZones.length,
+    placementKinds: [...new Set(envelopeZones.map((zone) => zone.placementKind))].sort((a, b) => a.localeCompare(b)),
+    geometryKinds: [...new Set(envelopeZones
+      .map((zone) => zone.diagnostics.featureEnvelopeGeometryKind)
+      .filter((value): value is string => typeof value === 'string'))].sort((a, b) => a.localeCompare(b)),
+    sourceFeatureIds: [...new Set(envelopeZones
+      .map((zone) => zone.diagnostics.featureEnvelopeSourceFeatureId ?? zone.sourceFeatureId)
+      .filter((value): value is string => typeof value === 'string'))].sort((a, b) => a.localeCompare(b)),
+  };
+}
+
+function featureEnvelopeAudit(zoneResult: WaterReaderZonePlacementResult) {
+  const envelopeZones = zoneResult.zones.filter((zone) => zone.diagnostics.featureEnvelopeModelVersion === 'feature-envelope-v1');
+  const outsideWaterAccepted = wholeFeatureOutsideWaterCenterAcceptedSummary(envelopeZones);
+  const envelopeSourceFeatureIds = new Set(envelopeZones.map((zone) => zone.diagnostics.featureEnvelopeSourceFeatureId ?? zone.sourceFeatureId));
+  const selectedFeatureWithoutEnvelopeZoneIds = zoneResult.diagnostics.selectedFeatureIds
+    .filter((featureId) => !envelopeSourceFeatureIds.has(featureId))
+    .sort((a, b) => a.localeCompare(b));
+  const envelopeUnitIds = new Set(zoneResult.diagnostics.unitDiagnostics
+    .filter((unit) => unit.placementKinds.some((kind) => kind.endsWith('_structure_area')))
+    .map((unit) => unit.featureId));
+  const suppressionDiagnostics: Record<string, number> = {};
+  const suppressionByFeatureClassReason: Record<string, number> = {};
+  const unrepresentableDiagnostics: Record<string, number> = {};
+  const unrepresentableByFeatureClassReason: Record<string, number> = {};
+  for (const coverage of zoneResult.diagnostics.featureCoverage) {
+    if (coverage.producedVisibleZones || !envelopeUnitIds.has(coverage.featureId)) continue;
+    if (coverage.reason === 'feature_frame_unrepresentable') {
+      const reason = coverage.unrepresentableReason ?? 'unknown_feature_frame_unrepresentable';
+      unrepresentableDiagnostics[reason] = (unrepresentableDiagnostics[reason] ?? 0) + 1;
+      const key = `${coverage.featureClass}:${reason}`;
+      unrepresentableByFeatureClassReason[key] = (unrepresentableByFeatureClassReason[key] ?? 0) + 1;
+    } else {
+      suppressionDiagnostics[coverage.reason] = (suppressionDiagnostics[coverage.reason] ?? 0) + 1;
+      const key = `${coverage.featureClass}:${coverage.reason}`;
+      suppressionByFeatureClassReason[key] = (suppressionByFeatureClassReason[key] ?? 0) + 1;
+    }
+  }
+  return {
+    featureEnvelopeZoneCount: envelopeZones.length,
+    nonEnvelopeLegacyZoneCount: zoneResult.zones.length - envelopeZones.length,
+    selectedFeatureWithoutEnvelopeZoneCount: selectedFeatureWithoutEnvelopeZoneIds.length,
+    selectedFeatureWithoutEnvelopeZoneIds,
+    featureEnvelopeSuppressionDiagnostics: suppressionDiagnostics,
+    featureEnvelopeSuppressionByFeatureClassReason: suppressionByFeatureClassReason,
+    featureEnvelopeUnrepresentableDiagnostics: unrepresentableDiagnostics,
+    featureEnvelopeUnrepresentableByFeatureClassReason: unrepresentableByFeatureClassReason,
+    wholeFeatureOutsideWaterCenterAcceptedCount: outsideWaterAccepted.count,
+    wholeFeatureOutsideWaterCenterAcceptedByFeatureClass: outsideWaterAccepted.byFeatureClass,
+    wholeFeatureOutsideWaterCenterMaxVisibleWaterDistanceM: outsideWaterAccepted.maxVisibleWaterDistanceM,
+    wholeFeatureOutsideWaterCenterMaxLocalityRadiusM: outsideWaterAccepted.maxLocalityRadiusM,
+    wholeFeatureOutsideWaterCenterMaxAnchorDistanceM: outsideWaterAccepted.maxAnchorDistanceM,
+  };
+}
+
+function wholeFeatureOutsideWaterCenterAcceptedSummary(zones: WaterReaderPlacedZone[]) {
+  const byFeatureClass: Record<string, number> = {};
+  let maxVisibleWaterDistanceM: number | null = null;
+  let maxLocalityRadiusM: number | null = null;
+  let maxAnchorDistanceM: number | null = null;
+  for (const zone of zones) {
+    if (zone.diagnostics.wholeFeatureOutsideWaterCenterAccepted !== true) continue;
+    byFeatureClass[zone.featureClass] = (byFeatureClass[zone.featureClass] ?? 0) + 1;
+    maxVisibleWaterDistanceM = maxNullable(maxVisibleWaterDistanceM, numericDiagnostic(zone.diagnostics.featureFrameMaxVisibleWaterDistanceM));
+    maxLocalityRadiusM = maxNullable(maxLocalityRadiusM, numericDiagnostic(zone.diagnostics.featureFrameLocalityRadiusM));
+    maxAnchorDistanceM = maxNullable(maxAnchorDistanceM, numericDiagnostic(zone.diagnostics.featureFrameMaxAnchorDistanceM));
+  }
+  return {
+    count: Object.values(byFeatureClass).reduce((sum, count) => sum + count, 0),
+    byFeatureClass,
+    maxVisibleWaterDistanceM,
+    maxLocalityRadiusM,
+    maxAnchorDistanceM,
+  };
+}
+
+function numericDiagnostic(value: unknown): number | null {
+  return typeof value === 'number' && Number.isFinite(value) ? value : null;
+}
+
+function maxNullable(a: number | null, b: number | null): number | null {
+  if (a === null) return b;
+  if (b === null) return a;
+  return Math.max(a, b);
+}
+
+function featureEnvelopeSeasonSignatures(params: {
+  lake: ManifestLake;
+  rowId: string;
+  season: WaterReaderSeason;
+  zones: WaterReaderPlacedZone[];
+}): FeatureEnvelopeSeasonSignature[] {
+  const lakeKey = `${params.lake.lake}|${params.lake.state}`;
+  return params.zones
+    .filter((zone) => zone.diagnostics.featureEnvelopeModelVersion === 'feature-envelope-v1')
+    .map((zone) => ({
+      rowId: params.rowId,
+      lakeKey,
+      lake: params.lake.lake,
+      state: params.lake.state,
+      season: params.season,
+      sourceFeatureId: String(zone.diagnostics.featureEnvelopeSourceFeatureId ?? zone.sourceFeatureId),
+      placementKind: zone.placementKind,
+      anchorXM: Math.round(zone.anchor.x),
+      anchorYM: Math.round(zone.anchor.y),
+      centerXM: Math.round(zone.ovalCenter.x),
+      centerYM: Math.round(zone.ovalCenter.y),
+      majorAxisM: Math.round(zone.majorAxisM),
+      minorAxisM: Math.round(zone.minorAxisM),
+      rotationRad: Number(zone.rotationRad.toFixed(4)),
+      featureEnvelopeModelVersion: String(zone.diagnostics.featureEnvelopeModelVersion),
+    }))
+    .sort((a, b) =>
+      a.lakeKey.localeCompare(b.lakeKey) ||
+      a.sourceFeatureId.localeCompare(b.sourceFeatureId) ||
+      a.season.localeCompare(b.season));
+}
+
+function buildFeatureEnvelopeSeasonAudit(signatures: FeatureEnvelopeSeasonSignature[]) {
+  const groups = new Map<string, FeatureEnvelopeSeasonSignature[]>();
+  for (const signature of signatures) {
+    const key = `${signature.lakeKey}|${signature.sourceFeatureId}`;
+    const existing = groups.get(key) ?? [];
+    existing.push(signature);
+    groups.set(key, existing);
+  }
+  const mismatches = [...groups.entries()].flatMap(([key, group]) => {
+    const signaturesOnly = group.map(({ rowId, lakeKey, lake, state, season, sourceFeatureId, ...geometry }) => geometry);
+    const canonical = JSON.stringify(signaturesOnly[0] ?? {});
+    const mismatch = signaturesOnly.some((signature) => JSON.stringify(signature) !== canonical);
+    if (!mismatch) return [];
+    return [{
+      key,
+      lake: group[0]?.lake ?? '',
+      state: group[0]?.state ?? '',
+      sourceFeatureId: group[0]?.sourceFeatureId ?? '',
+      seasons: group.map((item) => item.season).sort(),
+      signatures: group,
+    }];
+  });
+  return {
+    signatureCount: signatures.length,
+    comparedFeatureCount: groups.size,
+    mismatchCount: mismatches.length,
+    mismatches,
   };
 }
 
@@ -1208,6 +1425,10 @@ function rowDiagnostics(params: {
       rejectedByReason: params.zoneResult.diagnostics.rejectedByReason,
       droppedByReason: params.zoneResult.diagnostics.droppedByReason,
       zones: params.zoneResult.zones.map((zone) => zoneDebug(zone, params.preprocess.metrics?.longestDimensionM)),
+      featureEnvelopeSummary: {
+        ...featureEnvelopeSummary(params.zoneResult.zones),
+        ...featureEnvelopeAudit(params.zoneResult),
+      },
     },
     legend: {
       entries: params.legend,
@@ -1267,6 +1488,19 @@ function summaryCsv(rows: RowSummary[]): string {
     'detected_feature_count',
     'selected_feature_count',
     'suppressed_feature_count',
+    'detected_unrepresentable_feature_count',
+    'feature_envelope_zone_count',
+    'non_envelope_legacy_zone_count',
+    'selected_feature_without_envelope_zone_count',
+    'feature_envelope_suppression_diagnostics',
+    'feature_envelope_suppression_by_feature_class_reason',
+    'feature_envelope_unrepresentable_diagnostics',
+    'feature_envelope_unrepresentable_by_feature_class_reason',
+    'whole_feature_outside_water_center_accepted_count',
+    'whole_feature_outside_water_center_accepted_by_feature_class',
+    'whole_feature_outside_water_center_max_visible_water_distance_m',
+    'whole_feature_outside_water_center_max_locality_radius_m',
+    'whole_feature_outside_water_center_max_anchor_distance_m',
     'displayed_count',
     'retained_count',
     'display_cap',
@@ -1295,6 +1529,10 @@ function summaryCsv(rows: RowSummary[]): string {
     'review_priority_reasons',
     'confluence_group_count',
     'confluence_member_zone_count',
+    'rendered_unified_confluence_count',
+    'stacked_confluence_member_render_count',
+    'app_width_rendered_unified_confluence_count',
+    'app_width_stacked_confluence_member_render_count',
     'displayed_feature_class_counts',
     'retained_feature_class_counts',
     'detected_feature_class_counts',
@@ -1336,6 +1574,19 @@ function summaryCsv(rows: RowSummary[]): string {
     row.detectedFeatureCount,
     row.selectedFeatureCount,
     row.suppressedFeatureCount,
+    row.detectedUnrepresentableFeatureCount,
+    row.featureEnvelopeZoneCount,
+    row.nonEnvelopeLegacyZoneCount,
+    row.selectedFeatureWithoutEnvelopeZoneCount,
+    row.featureEnvelopeSuppressionDiagnostics,
+    row.featureEnvelopeSuppressionByFeatureClassReason,
+    row.featureEnvelopeUnrepresentableDiagnostics,
+    row.featureEnvelopeUnrepresentableByFeatureClassReason,
+    row.wholeFeatureOutsideWaterCenterAcceptedCount,
+    row.wholeFeatureOutsideWaterCenterAcceptedByFeatureClass,
+    row.wholeFeatureOutsideWaterCenterMaxVisibleWaterDistanceM,
+    row.wholeFeatureOutsideWaterCenterMaxLocalityRadiusM,
+    row.wholeFeatureOutsideWaterCenterMaxAnchorDistanceM,
     row.displayedCount,
     row.retainedCount,
     row.displayCap,
@@ -1364,6 +1615,10 @@ function summaryCsv(rows: RowSummary[]): string {
     row.reviewPriorityReasons.join(';'),
     row.confluenceGroupCount,
     row.confluenceMemberZoneCount,
+    row.renderedUnifiedConfluenceCount,
+    row.stackedConfluenceMemberRenderCount,
+    row.appWidthRenderedUnifiedConfluenceCount,
+    row.appWidthStackedConfluenceMemberRenderCount,
     row.displayedFeatureClassCounts,
     row.retainedFeatureClassCounts,
     row.detectedFeatureClassCounts,
@@ -1706,6 +1961,39 @@ function performanceTimings(rows: RowSummary[]) {
   };
 }
 
+function featureEnvelopeSuppressionByClassReasonReport(rows: RowSummary[]) {
+  const counts: Record<string, number> = {};
+  const rowsByReason: Record<string, string[]> = {};
+  const unrepresentableCounts: Record<string, number> = {};
+  const unrepresentableRowsByReason: Record<string, string[]> = {};
+  for (const row of rows) {
+    for (const [key, count] of Object.entries(row.featureEnvelopeSuppressionByFeatureClassReason)) {
+      counts[key] = (counts[key] ?? 0) + count;
+      if (count > 0) {
+        const existing = rowsByReason[key] ?? [];
+        existing.push(row.rowId);
+        rowsByReason[key] = existing;
+      }
+    }
+    for (const [key, count] of Object.entries(row.featureEnvelopeUnrepresentableByFeatureClassReason)) {
+      unrepresentableCounts[key] = (unrepresentableCounts[key] ?? 0) + count;
+      if (count > 0) {
+        const existing = unrepresentableRowsByReason[key] ?? [];
+        existing.push(row.rowId);
+        unrepresentableRowsByReason[key] = existing;
+      }
+    }
+  }
+  return {
+    totalSuppressedFeatureEnvelopeCount: Object.values(counts).reduce((sum, count) => sum + count, 0),
+    counts,
+    rowsByReason,
+    totalDetectedUnrepresentableFeatureCount: Object.values(unrepresentableCounts).reduce((sum, count) => sum + count, 0),
+    unrepresentableCounts,
+    unrepresentableRowsByReason,
+  };
+}
+
 function placementSemanticAuditSpring(rowJsonIndex: Array<{ rowId: string; jsonFile: string }>) {
   const rows = rowJsonIndex
     .filter((entry) => entry.rowId.endsWith('-spring'))
@@ -1994,6 +2282,7 @@ function writeArtifactSet(params: {
   rows: RowSummary[];
   rowJsonIndex: Array<{ rowId: string; jsonFile: string }>;
   legendLayouts: RowLegendLayoutDiagnostics[];
+  featureEnvelopeSeasonSignatures?: FeatureEnvelopeSeasonSignature[];
   batch: RunBatch | string;
   runLabel: string;
   manifest: ManifestLake[];
@@ -2008,6 +2297,8 @@ function writeArtifactSet(params: {
   const rowIds = new Set(params.rows.map((row) => row.rowId));
   const rowJsonIndex = params.rowJsonIndex.filter((entry) => rowIds.has(entry.rowId));
   const legendLayouts = params.legendLayouts.filter((layout) => rowIds.has(layout.rowId));
+  const featureEnvelopeSeasonSignatures = (params.featureEnvelopeSeasonSignatures ?? []).filter((signature) => rowIds.has(signature.rowId));
+  const featureEnvelopeSeasonAudit = buildFeatureEnvelopeSeasonAudit(featureEnvelopeSeasonSignatures);
   const scorecardFile = params.includeScorecard ? join(params.dir, 'manual-review-scorecard.csv') : null;
 
   writeFileSync(abs(join(params.dir, 'matrix-summary.csv')), summaryCsv(params.rows), 'utf8');
@@ -2031,6 +2322,11 @@ function writeArtifactSet(params: {
     appViewBoxHeightOutlierThreshold: APP_VIEWBOX_HEIGHT_OUTLIER,
     signals,
     rows: params.rows,
+    featureEnvelopeSeasonInvariance: {
+      signatureCount: featureEnvelopeSeasonAudit.signatureCount,
+      comparedFeatureCount: featureEnvelopeSeasonAudit.comparedFeatureCount,
+      mismatchCount: featureEnvelopeSeasonAudit.mismatchCount,
+    },
     legendLayout: legendLayoutDiagnosticsReport(params.rows, legendLayouts).summary,
     rowDiagnosticsFiles: rowJsonIndex,
     reviewBatches: params.batchLinks?.map((batch) => ({
@@ -2046,6 +2342,8 @@ function writeArtifactSet(params: {
   writeFileSync(abs(join(params.dir, 'legend-layout-diagnostics.json')), `${JSON.stringify(legendLayoutDiagnosticsReport(params.rows, legendLayouts), null, 2)}\n`, 'utf8');
   writeFileSync(abs(join(params.dir, 'performance-timings.json')), `${JSON.stringify(performanceTimings(params.rows), null, 2)}\n`, 'utf8');
   writeFileSync(abs(join(params.dir, 'placement-semantic-audit-spring.json')), `${JSON.stringify(placementSemanticAuditSpring(rowJsonIndex), null, 2)}\n`, 'utf8');
+  writeFileSync(abs(join(params.dir, 'feature-envelope-season-invariance.json')), `${JSON.stringify(featureEnvelopeSeasonAudit, null, 2)}\n`, 'utf8');
+  writeFileSync(abs(join(params.dir, 'feature-envelope-suppression-by-class-reason.json')), `${JSON.stringify(featureEnvelopeSuppressionByClassReasonReport(params.rows), null, 2)}\n`, 'utf8');
   writeFileSync(abs(join(params.dir, 'index.html')), htmlIndex(params.rows, {
     title: params.runLabel,
     baseDir: params.dir,
@@ -2066,6 +2364,8 @@ function writeArtifactSet(params: {
       legendLayoutDiagnostics: join(params.dir, 'legend-layout-diagnostics.json'),
       performanceTimings: join(params.dir, 'performance-timings.json'),
       placementSemanticAuditSpring: join(params.dir, 'placement-semantic-audit-spring.json'),
+      featureEnvelopeSeasonInvariance: join(params.dir, 'feature-envelope-season-invariance.json'),
+      featureEnvelopeSuppressionByClassReason: join(params.dir, 'feature-envelope-suppression-by-class-reason.json'),
       productionSvgDir: join(params.dir, PRODUCTION_DIR),
       app420SvgDir: join(params.dir, APP_420_DIR),
       debugSvgDir: join(params.dir, DEBUG_DIR),
@@ -2078,6 +2378,7 @@ function writeReviewBatchArtifactSets(params: {
   rows: RowSummary[];
   rowJsonIndex: Array<{ rowId: string; jsonFile: string }>;
   legendLayouts: RowLegendLayoutDiagnostics[];
+  featureEnvelopeSeasonSignatures?: FeatureEnvelopeSeasonSignature[];
   groups: ReviewBatchGroup[];
 }) {
   const outputs = [];
@@ -2091,6 +2392,7 @@ function writeReviewBatchArtifactSets(params: {
       rows,
       rowJsonIndex: params.rowJsonIndex,
       legendLayouts: params.legendLayouts,
+      featureEnvelopeSeasonSignatures: params.featureEnvelopeSeasonSignatures,
       batch: `review-ready-full/${group.label.toLowerCase().replace(/\s+/g, '-')}`,
       runLabel: `Water Reader Chunk 7M ${group.label}`,
       manifest,
@@ -2321,6 +2623,7 @@ async function runFromEngine(options: { batch: RunBatch }, runManifest: Manifest
   const rows: RowSummary[] = [];
   const rowJsonIndex: Array<{ rowId: string; jsonFile: string }> = [];
   const legendLayouts: RowLegendLayoutDiagnostics[] = [];
+  const featureEnvelopeSeasonSignatureRows: FeatureEnvelopeSeasonSignature[] = [];
   const totalExpected = runManifest.length * SEASONS.length;
   let rowCounter = 0;
 
@@ -2389,6 +2692,7 @@ async function runFromEngine(options: { batch: RunBatch }, runManifest: Manifest
       const appHeight = appSvgHeight(appWidthProductionSvgResult);
       const fallback = fallbackMessage({ polygon, preprocess, displayModel });
       const selectedFeatureSuppressionCount = zoneResult.diagnostics.suppressedFeatureCount;
+      const envelopeAudit = featureEnvelopeAudit(zoneResult);
       const majorAxisFallbackCount = rankingFallbackCount(displayModel);
       const fullCodes = rendererCodes(productionSvgResult);
       const appCodes = rendererCodes(appWidthProductionSvgResult);
@@ -2441,7 +2745,7 @@ async function runFromEngine(options: { batch: RunBatch }, runManifest: Manifest
         fullSizeRendererWarnings: fullCodes.length > 0,
         appWidthRendererWarnings: appCodes.length > 0,
         appWidthViewBoxHeightOutlier: appHeight > APP_VIEWBOX_HEIGHT_OUTLIER,
-        retainedDisplayCapPressure: displayModel.retainedEntries.length > 0,
+        retainedDisplayCapPressure: displayModel.retainedEntries.some((entry) => !entry.rankingDiagnostics.includes('retained_constriction_line_readability')),
         repeatedLegendTitlePressure: repeatedLegend.count >= 4,
         fullLegendTitleWrap: fullLegendLayout.titleWrapCount > 0,
         appLegendTitleWrap: appLegendLayout.titleWrapCount > 0,
@@ -2477,10 +2781,23 @@ async function runFromEngine(options: { batch: RunBatch }, runManifest: Manifest
         detectedFeatureCount: zoneResult.diagnostics.detectedFeatureCount,
         selectedFeatureCount: zoneResult.diagnostics.selectedFeatureCount,
         suppressedFeatureCount: zoneResult.diagnostics.suppressedFeatureCount,
+        detectedUnrepresentableFeatureCount: zoneResult.diagnostics.detectedUnrepresentableFeatureCount,
+        featureEnvelopeZoneCount: envelopeAudit.featureEnvelopeZoneCount,
+        nonEnvelopeLegacyZoneCount: envelopeAudit.nonEnvelopeLegacyZoneCount,
+        selectedFeatureWithoutEnvelopeZoneCount: envelopeAudit.selectedFeatureWithoutEnvelopeZoneCount,
+        featureEnvelopeSuppressionDiagnostics: envelopeAudit.featureEnvelopeSuppressionDiagnostics,
+        featureEnvelopeSuppressionByFeatureClassReason: envelopeAudit.featureEnvelopeSuppressionByFeatureClassReason,
+        featureEnvelopeUnrepresentableDiagnostics: envelopeAudit.featureEnvelopeUnrepresentableDiagnostics,
+        featureEnvelopeUnrepresentableByFeatureClassReason: envelopeAudit.featureEnvelopeUnrepresentableByFeatureClassReason,
+        wholeFeatureOutsideWaterCenterAcceptedCount: envelopeAudit.wholeFeatureOutsideWaterCenterAcceptedCount,
+        wholeFeatureOutsideWaterCenterAcceptedByFeatureClass: envelopeAudit.wholeFeatureOutsideWaterCenterAcceptedByFeatureClass,
+        wholeFeatureOutsideWaterCenterMaxVisibleWaterDistanceM: envelopeAudit.wholeFeatureOutsideWaterCenterMaxVisibleWaterDistanceM,
+        wholeFeatureOutsideWaterCenterMaxLocalityRadiusM: envelopeAudit.wholeFeatureOutsideWaterCenterMaxLocalityRadiusM,
+        wholeFeatureOutsideWaterCenterMaxAnchorDistanceM: envelopeAudit.wholeFeatureOutsideWaterCenterMaxAnchorDistanceM,
         displayedEntryCount: displayModel.summary.displayedEntryCount,
         retainedEntryCount: displayModel.summary.retainedNotDisplayedCount,
         displayCap: displayModel.displayCap,
-        displayCapPressure: displayModel.retainedEntries.length > 0,
+        displayCapPressure: displayModel.retainedEntries.some((entry) => !entry.rankingDiagnostics.includes('retained_constriction_line_readability')),
         repeatedLegendTitleMaxCount: repeatedLegend.count,
         repeatedLegendTitleMaxTitle: repeatedLegend.title,
         fullSizeRendererWarningCount: productionSvgResult.summary.warningCount,
@@ -2505,6 +2822,10 @@ async function runFromEngine(options: { batch: RunBatch }, runManifest: Manifest
         reviewPriorityReasons: priority.reasons,
         confluenceGroupCount: zoneResult.diagnostics.confluenceGroupCount,
         confluenceMemberZoneCount: zoneResult.diagnostics.confluenceGroups.reduce((sum, group) => sum + group.memberZoneIds.length, 0),
+        renderedUnifiedConfluenceCount: productionSvgResult.summary.renderedUnifiedConfluenceCount ?? 0,
+        stackedConfluenceMemberRenderCount: productionSvgResult.summary.stackedConfluenceMemberRenderCount ?? 0,
+        appWidthRenderedUnifiedConfluenceCount: appWidthProductionSvgResult.summary.renderedUnifiedConfluenceCount ?? 0,
+        appWidthStackedConfluenceMemberRenderCount: appWidthProductionSvgResult.summary.stackedConfluenceMemberRenderCount ?? 0,
         displayedFeatureClassCounts,
         retainedFeatureClassCounts,
         detectedFeatureClassCounts: featureClassCounts(features),
@@ -2551,6 +2872,12 @@ async function runFromEngine(options: { batch: RunBatch }, runManifest: Manifest
       });
       finalizeTimings(timing, rowStart);
       rows.push(rowSummary);
+      featureEnvelopeSeasonSignatureRows.push(...featureEnvelopeSeasonSignatures({
+        lake,
+        rowId,
+        season,
+        zones: zoneResult.zones,
+      }));
       rowJsonIndex.push({ rowId, jsonFile });
       legendLayouts.push({
         rowId,
@@ -2591,6 +2918,7 @@ async function runFromEngine(options: { batch: RunBatch }, runManifest: Manifest
     rows,
     rowJsonIndex,
     legendLayouts,
+    featureEnvelopeSeasonSignatures: featureEnvelopeSeasonSignatureRows,
     batch: options.batch,
     runLabel: RUN_LABEL,
     manifest: runManifest,
@@ -2602,6 +2930,7 @@ async function runFromEngine(options: { batch: RunBatch }, runManifest: Manifest
       rows,
       rowJsonIndex,
       legendLayouts,
+      featureEnvelopeSeasonSignatures: featureEnvelopeSeasonSignatureRows,
       groups: reviewGroups,
     })
     : [];

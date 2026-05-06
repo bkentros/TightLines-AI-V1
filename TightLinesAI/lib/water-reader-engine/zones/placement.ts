@@ -19,6 +19,9 @@ import type {
 import { featureZonePriority, visibleZoneCap, zoneDraftSort } from './priority';
 import { materializeZoneDraft, violatesZoneCrowding, zonesOverlap } from './invariants';
 import type {
+  WaterReaderFeatureEnvelopeDiagnostics,
+  WaterReaderFeatureEnvelopeGeometryKind,
+  WaterReaderFeatureEnvelopeSemanticId,
   WaterReaderPlacedZone,
   WaterReaderFeatureZoneCoverage,
   WaterReaderStructureConfluenceGroup,
@@ -102,6 +105,73 @@ type DraftSizingMetadata = AxisSizing & {
   maxCandidateMajorAxisM?: number | null;
 };
 
+export function featureEnvelopePlacementKindForFeature(
+  featureClass: WaterReaderDetectedFeature['featureClass'],
+): WaterReaderZonePlacementKind | null {
+  switch (featureClass) {
+    case 'main_lake_point':
+      return 'main_point_structure_area';
+    case 'secondary_point':
+      return 'secondary_point_structure_area';
+    case 'cove':
+      return 'cove_structure_area';
+    case 'neck':
+      return 'neck_structure_area';
+    case 'saddle':
+      return 'saddle_structure_area';
+    case 'island':
+      return 'island_structure_area';
+    case 'dam':
+      return 'dam_structure_area';
+    case 'universal':
+      return null;
+  }
+}
+
+export function featureEnvelopeSemanticIdForFeature(
+  featureClass: WaterReaderDetectedFeature['featureClass'],
+): WaterReaderZonePlacementSemanticId | null {
+  return featureEnvelopePlacementKindForFeature(featureClass) as WaterReaderFeatureEnvelopeSemanticId | null;
+}
+
+export function featureEnvelopeDiagnostics(
+  feature: WaterReaderDetectedFeature,
+  includes: string[],
+  geometryKind: WaterReaderFeatureEnvelopeGeometryKind,
+  suppressionReason: string | null = null,
+): WaterReaderFeatureEnvelopeDiagnostics {
+  return {
+    featureEnvelopeModelVersion: 'feature-envelope-v1',
+    featureEnvelopeSourceFeatureId: feature.featureId,
+    featureEnvelopeGeometryKind: geometryKind,
+    featureEnvelopeIncludes: [...includes].sort((a, b) => a.localeCompare(b)),
+    featureEnvelopeSeasonInvariant: true,
+    featureEnvelopeSuppressionReason: suppressionReason,
+    seasonalEmphasisOnly: true,
+  };
+}
+
+function featureFrameKindForFeature(featureClass: WaterReaderDetectedFeature['featureClass']): string {
+  switch (featureClass) {
+    case 'main_lake_point':
+      return 'main_point_feature_frame';
+    case 'secondary_point':
+      return 'secondary_point_feature_frame';
+    case 'cove':
+      return 'cove_feature_frame';
+    case 'neck':
+      return 'neck_feature_frame';
+    case 'saddle':
+      return 'saddle_feature_frame';
+    case 'island':
+      return 'island_feature_frame';
+    case 'dam':
+      return 'dam_feature_frame';
+    case 'universal':
+      return 'universal_fallback_frame';
+  }
+}
+
 export function placeWaterReaderZones(
   preprocessResult: WaterReaderPreprocessResult,
   features: WaterReaderDetectedFeature[],
@@ -125,9 +195,13 @@ export function placeWaterReaderZones(
     detectedFeatureCount: features.length,
     selectedFeatureCount: 0,
     suppressedFeatureCount: features.length,
+    selectedFeatureSuppressionCount: features.length,
+    detectedUnrepresentableFeatureCount: 0,
     zoneCount: 0,
     selectedFeatureIds: [],
     suppressedFeatureIds: features.map((feature) => feature.featureId),
+    selectedFeatureSuppressionIds: features.map((feature) => feature.featureId),
+    detectedUnrepresentableFeatureIds: [],
     rejectedByReason: {},
     droppedByReason: {},
     universalFallbackAllowed: options.allowUniversalFallback === true,
@@ -174,9 +248,13 @@ export function placeWaterReaderZones(
     detectedFeatureCount: features.length,
     selectedFeatureCount: 0,
     suppressedFeatureCount: 0,
+    selectedFeatureSuppressionCount: 0,
+    detectedUnrepresentableFeatureCount: 0,
     zoneCount: 0,
     selectedFeatureIds: [],
     suppressedFeatureIds: [],
+    selectedFeatureSuppressionIds: [],
+    detectedUnrepresentableFeatureIds: [],
     rejectedByReason: selected.rejectedByReason,
     droppedByReason: selected.droppedByReason,
     universalFallbackAllowed: options.allowUniversalFallback === true,
@@ -221,11 +299,17 @@ export function placeWaterReaderZones(
   diagnostics.selectedFeatureIds = diagnostics.featureCoverage
     .filter((coverage) => coverage.producedVisibleZones)
     .map((coverage) => coverage.featureId);
-  diagnostics.suppressedFeatureIds = diagnostics.featureCoverage
-    .filter((coverage) => !coverage.producedVisibleZones)
+  diagnostics.detectedUnrepresentableFeatureIds = diagnostics.featureCoverage
+    .filter((coverage) => coverage.reason === 'feature_frame_unrepresentable')
     .map((coverage) => coverage.featureId);
+  diagnostics.selectedFeatureSuppressionIds = diagnostics.featureCoverage
+    .filter((coverage) => !coverage.producedVisibleZones && coverage.reason !== 'feature_frame_unrepresentable')
+    .map((coverage) => coverage.featureId);
+  diagnostics.suppressedFeatureIds = diagnostics.selectedFeatureSuppressionIds;
   diagnostics.selectedFeatureCount = diagnostics.selectedFeatureIds.length;
-  diagnostics.suppressedFeatureCount = diagnostics.suppressedFeatureIds.length;
+  diagnostics.selectedFeatureSuppressionCount = diagnostics.selectedFeatureSuppressionIds.length;
+  diagnostics.suppressedFeatureCount = diagnostics.selectedFeatureSuppressionCount;
+  diagnostics.detectedUnrepresentableFeatureCount = diagnostics.detectedUnrepresentableFeatureIds.length;
   if (zones.length > visibleZoneCap(input.acreage)) {
     qaFlags.push('zone_cap_exceeded_for_structure_coverage');
   }
@@ -262,31 +346,564 @@ function buildFeatureZoneDrafts(params: {
   for (const feature of params.features) {
     switch (feature.featureClass) {
       case 'neck':
-        drafts.push(...constrictionDrafts(feature, params));
+        drafts.push(...constrictionStructureAreaDrafts(feature, params));
         break;
       case 'saddle':
-        drafts.push(...constrictionDrafts(feature, params));
+        drafts.push(...constrictionStructureAreaDrafts(feature, params));
         break;
       case 'main_lake_point':
-        drafts.push(...pointDrafts(feature, params));
+        drafts.push(...pointStructureAreaDrafts(feature, params));
         break;
       case 'secondary_point':
-        if (feature.parentCoveId && coveIds.has(feature.parentCoveId)) drafts.push(...pointDrafts(feature, { ...params, covesById }));
+        if (feature.parentCoveId && coveIds.has(feature.parentCoveId)) drafts.push(...pointStructureAreaDrafts(feature, { ...params, covesById }));
         break;
       case 'cove':
-        drafts.push(...coveDrafts(feature, params));
+        drafts.push(...coveStructureAreaDrafts(feature, params));
         break;
       case 'island':
-        drafts.push(...islandDrafts(feature, params));
+        drafts.push(...islandStructureAreaDrafts(feature, params));
         break;
       case 'dam':
-        drafts.push(...damDrafts(feature, params));
+        drafts.push(...damStructureAreaDrafts(feature, params));
         break;
       case 'universal':
         break;
     }
   }
   return drafts;
+}
+
+function pointStructureAreaDrafts(
+  feature: WaterReaderPointFeature,
+  params: { polygon: PolygonM; longestDimensionM: number; averageLakeWidthM: number; lakeAreaSqM: number; acreage?: number | null; covesById?: Map<string, WaterReaderCoveFeature> },
+): WaterReaderZoneDraft[] {
+  const placementKind = feature.featureClass === 'secondary_point' ? 'secondary_point_structure_area' : 'main_point_structure_area';
+  const geometryKind: WaterReaderFeatureEnvelopeGeometryKind = 'point_local_span';
+  const includes = feature.featureClass === 'secondary_point'
+    ? ['tip', 'left_slope', 'right_slope', 'local_secondary_point_span']
+    : ['tip', 'left_slope', 'right_slope', 'local_point_span'];
+  const refs = [feature.tip, feature.leftSlope, feature.rightSlope, feature.baseMidpoint].filter((point): point is PointM => Boolean(point));
+  const localSpanM = maxPairDistanceM(refs);
+  const sideSpanM = distanceM(feature.leftSlope, feature.rightSlope);
+  const protrusionM = finiteNumber(feature.protrusionLengthM, localSpanM * 0.55);
+  const floorM = readableFloorMajorAxisM(placementKind, params.longestDimensionM, params.acreage);
+  const lakeCapM = params.longestDimensionM * (feature.featureClass === 'secondary_point' ? 0.038 : 0.055);
+  const sideCapM = Math.max(sideSpanM * 1.7 + protrusionM * 0.65, floorM * 1.08);
+  const majorAxisM = clamp(localSpanM * 1.18 + Math.max(14, sideSpanM * 0.18), floorM, Math.max(floorM, Math.min(lakeCapM, sideCapM)));
+  const minorAxisM = clamp(Math.max(majorAxisM / 2.15, protrusionM * 0.72, floorM * 0.52), majorAxisM * 0.42, majorAxisM * 0.76);
+  const center = averagePoint(refs);
+  const anchor = shorelineAnchor(feature.tip, params.polygon);
+  const sideCentroid = averagePoint([feature.leftSlope, feature.rightSlope]);
+  const sideRotation = Math.atan2(feature.rightSlope.y - feature.leftSlope.y, feature.rightSlope.x - feature.leftSlope.x);
+  const axisRotation = normalizeAngle(sideRotation + Math.PI / 2);
+  const candidateCenters = [
+    center,
+    lerpPoint(feature.tip, center, 0.72),
+    lerpPoint(anchor, feature.tip, 0.55),
+    lerpPoint(anchor, sideCentroid, 0.52),
+    lerpPoint(feature.tip, sideCentroid, 0.48),
+    feature.baseMidpoint ? lerpPoint(feature.baseMidpoint, feature.tip, 0.58) : lerpPoint(center, feature.tip, 0.35),
+    ...inwardOffsetCenters({
+      anchor,
+      polygon: params.polygon,
+      longestDimensionM: params.longestDimensionM,
+      majorAxisM,
+      preferredDirection: feature.baseMidpoint
+        ? { x: feature.tip.x - feature.baseMidpoint.x, y: feature.tip.y - feature.baseMidpoint.y }
+        : { x: feature.tip.x - sideCentroid.x, y: feature.tip.y - sideCentroid.y },
+      fallbackNormal: { x: center.x - anchor.x, y: center.y - anchor.y },
+      offsetFactors: [0.18, 0.3, 0.42],
+    }),
+  ];
+  const frameContactAnchors = uniquePoints([
+    anchor,
+    shorelineAnchor(feature.tip, params.polygon),
+    shorelineAnchor(feature.leftSlope, params.polygon),
+    shorelineAnchor(feature.rightSlope, params.polygon),
+    feature.baseMidpoint ? shorelineAnchor(feature.baseMidpoint, params.polygon) : null,
+    feature.tip,
+    feature.leftSlope,
+    feature.rightSlope,
+  ].filter((point): point is PointM => Boolean(point)));
+  const rotations = uniqueNumbers([axisRotation, sideRotation]);
+  const sizeFactors = [1, 0.84, 0.68, 0.54] as const;
+  const pointRenderLobeMajorAxisM = clamp(
+    Math.max(floorM * 0.58, sideSpanM * 0.62 + protrusionM * 0.22),
+    floorM * 0.5,
+    majorAxisM * 0.68,
+  );
+  const pointRenderLobeMinorAxisM = clamp(
+    Math.max(floorM * 0.34, pointRenderLobeMajorAxisM * 0.56),
+    floorM * 0.28,
+    majorAxisM * 0.48,
+  );
+  const pointTipRenderLobeMajorAxisM = Math.max(floorM * 0.52, pointRenderLobeMajorAxisM * 0.84);
+  const pointTipRenderLobeMinorAxisM = Math.max(floorM * 0.32, pointRenderLobeMinorAxisM * 0.9);
+  const drafts: WaterReaderZoneDraft[] = [];
+  const pointCenters = uniquePoints(candidateCenters);
+  for (const [centerIndex, ovalCenter] of pointCenters.entries()) {
+    const centerAnchors = uniquePoints([anchor, shorelineAnchor(ovalCenter, params.polygon)]);
+    for (const [sizeIndex, sizeFactor] of sizeFactors.entries()) {
+      for (const [rotationIndex, rotationRad] of rotations.entries()) {
+        for (const [anchorIndex, candidateAnchor] of centerAnchors.entries()) {
+          drafts.push(makeFeatureEnvelopeDraft({
+            feature,
+            placementKind,
+            semanticId: placementKind,
+            geometryKind,
+            includes,
+            anchor: candidateAnchor,
+            ovalCenter,
+            majorAxisM: Math.max(floorM * 0.62, majorAxisM * sizeFactor),
+            minorAxisM: Math.max(floorM * 0.38, minorAxisM * sizeFactor),
+            rotationRad,
+            candidateSuffix: `point-recovery-c${centerIndex + 1}-a${anchorIndex + 1}-s${sizeIndex + 1}-r${rotationIndex + 1}`,
+            recoveryTier: sizeIndex === 0 && centerIndex <= 1 ? 'full_point_reference' : 'bounded_point_recovery',
+            polygon: params.polygon,
+            longestDimensionM: params.longestDimensionM,
+            averageLakeWidthM: params.averageLakeWidthM,
+            lakeAreaSqM: params.lakeAreaSqM,
+            acreage: params.acreage,
+            featureFrameAllowsOutsideWaterCenter: true,
+            featureFrameContactAnchors: frameContactAnchors,
+            featureFrameContactToleranceM: Math.max(8, minorAxisM * 0.22),
+            featureFrameLocalityRadiusM: Math.max(majorAxisM * 0.72, localSpanM * 1.15),
+            additionalDiagnostics: {
+              localPointSpanM: roundDiagnosticNumber(localSpanM),
+              pointSideSlopeSpanM: roundDiagnosticNumber(sideSpanM),
+              wholeFeaturePointEnvelopeCandidate: true,
+              wholeFeatureOutsideWaterCenterEligible: true,
+              pointEnvelopeLakeCapM: roundDiagnosticNumber(lakeCapM),
+              pointEnvelopeSideCapM: roundDiagnosticNumber(sideCapM),
+              featureEnvelopeRenderShape: 'merged_point_lobes',
+              featureEnvelopeRenderLobeCount: 3,
+              featureEnvelopeRenderLobe1Kind: 'tip_lobe',
+              featureEnvelopeRenderLobe1CenterX: roundDiagnosticNumber(feature.tip.x),
+              featureEnvelopeRenderLobe1CenterY: roundDiagnosticNumber(feature.tip.y),
+              featureEnvelopeRenderLobe1MajorAxisM: roundDiagnosticNumber(pointTipRenderLobeMajorAxisM),
+              featureEnvelopeRenderLobe1MinorAxisM: roundDiagnosticNumber(pointTipRenderLobeMinorAxisM),
+              featureEnvelopeRenderLobe1RotationRad: roundDiagnosticNumber(axisRotation),
+              featureEnvelopeRenderLobe2Kind: 'left_shoulder_lobe',
+              featureEnvelopeRenderLobe2CenterX: roundDiagnosticNumber(feature.leftSlope.x),
+              featureEnvelopeRenderLobe2CenterY: roundDiagnosticNumber(feature.leftSlope.y),
+              featureEnvelopeRenderLobe2MajorAxisM: roundDiagnosticNumber(pointRenderLobeMajorAxisM),
+              featureEnvelopeRenderLobe2MinorAxisM: roundDiagnosticNumber(pointRenderLobeMinorAxisM),
+              featureEnvelopeRenderLobe2RotationRad: roundDiagnosticNumber(sideRotation),
+              featureEnvelopeRenderLobe3Kind: 'right_shoulder_lobe',
+              featureEnvelopeRenderLobe3CenterX: roundDiagnosticNumber(feature.rightSlope.x),
+              featureEnvelopeRenderLobe3CenterY: roundDiagnosticNumber(feature.rightSlope.y),
+              featureEnvelopeRenderLobe3MajorAxisM: roundDiagnosticNumber(pointRenderLobeMajorAxisM),
+              featureEnvelopeRenderLobe3MinorAxisM: roundDiagnosticNumber(pointRenderLobeMinorAxisM),
+              featureEnvelopeRenderLobe3RotationRad: roundDiagnosticNumber(sideRotation),
+              pointEnvelopeTipLobeIncluded: true,
+              pointEnvelopeLeftShoulderLobeIncluded: true,
+              pointEnvelopeRightShoulderLobeIncluded: true,
+              featureEnvelopeAnchorAdjustedToShoreline: distanceM(candidateAnchor, feature.tip) > 0.01,
+              pointEnvelopeRecoveryCenterIndex: centerIndex + 1,
+              pointEnvelopeRecoveryAnchorIndex: anchorIndex + 1,
+              pointEnvelopeRecoverySizeFactor: sizeFactor,
+              pointEnvelopeRecoveryRotationIndex: rotationIndex + 1,
+              selectedSizeFactor: sizeFactor,
+              selectedAnchorIndex: anchorIndex + 1,
+              selectedRotationIndex: rotationIndex + 1,
+              featureFrameCandidateCenterCount: pointCenters.length,
+              featureFrameContactAnchorCount: centerAnchors.length,
+              featureFrameWaterSideInteriorCandidateCount: pointCenters.length,
+              featureFrameContactWindowCount: 1,
+            },
+          }));
+        }
+      }
+    }
+  }
+  return drafts;
+}
+
+function coveStructureAreaDrafts(
+  feature: WaterReaderCoveFeature,
+  params: { polygon: PolygonM; longestDimensionM: number; averageLakeWidthM: number; lakeAreaSqM: number; acreage?: number | null },
+): WaterReaderZoneDraft[] {
+  const placementKind = 'cove_structure_area';
+  const mouthMidpoint = midpoint(feature.mouthLeft, feature.mouthRight);
+  const innerReference = feature.shorePath[Math.max(0, Math.floor(feature.shorePath.length / 2))] ?? feature.back;
+  const refs = [feature.mouthLeft, feature.mouthRight, feature.back, innerReference];
+  const localExtentM = Math.max(maxPairDistanceM(refs), feature.mouthWidthM, feature.coveDepthM);
+  const floorM = readableFloorMajorAxisM(placementKind, params.longestDimensionM, params.acreage);
+  const broadScanCapM = params.longestDimensionM * 0.072;
+  const coveReferenceCapM = Math.max(floorM, Math.max(feature.mouthWidthM * 1.55, feature.coveDepthM * 1.45));
+  const majorAxisM = clamp(localExtentM * 1.05, floorM, Math.max(floorM, Math.min(broadScanCapM, coveReferenceCapM)));
+  const minorAxisM = clamp(Math.max(feature.mouthWidthM * 0.92, majorAxisM / 2.35, floorM * 0.55), majorAxisM * 0.38, majorAxisM * 0.78);
+  const rotationRad = Math.atan2(mouthMidpoint.y - feature.back.y, mouthMidpoint.x - feature.back.x);
+  const shoulderCenter = averagePoint([feature.mouthLeft, feature.mouthRight, innerReference]);
+  const centers = [
+    lerpPoint(feature.back, mouthMidpoint, 0.42),
+    lerpPoint(feature.back, mouthMidpoint, 0.55),
+    lerpPoint(feature.back, innerReference, 0.42),
+    lerpPoint(innerReference, mouthMidpoint, 0.42),
+    shoulderCenter,
+    averagePoint(refs),
+  ];
+  const anchors = uniquePoints([
+    shorelineAnchor(feature.back, params.polygon),
+    shorelineAnchor(innerReference, params.polygon),
+    shorelineAnchor(feature.mouthLeft, params.polygon),
+    shorelineAnchor(feature.mouthRight, params.polygon),
+  ]);
+  const rotations = uniqueNumbers([rotationRad, Math.atan2(feature.mouthRight.y - feature.mouthLeft.y, feature.mouthRight.x - feature.mouthLeft.x)]);
+  const sizeFactors = [1, 0.82, 0.66, 0.5] as const;
+  const drafts: WaterReaderZoneDraft[] = [];
+  const coveCenters = uniquePoints(centers);
+  for (const [centerIndex, ovalCenter] of coveCenters.entries()) {
+    const centerAnchors = uniquePoints([...anchors, shorelineAnchor(ovalCenter, params.polygon)]).slice(0, 5);
+    for (const [anchorIndex, anchor] of centerAnchors.entries()) {
+      for (const [sizeIndex, sizeFactor] of sizeFactors.entries()) {
+        for (const [rotationIndex, candidateRotation] of rotations.entries()) {
+          drafts.push(makeFeatureEnvelopeDraft({
+            feature,
+            placementKind,
+            semanticId: placementKind,
+            geometryKind: 'cove_local_envelope',
+            includes: ['mouth_left', 'mouth_right', 'back_reference', 'inner_shoreline_reference'],
+            anchor,
+            ovalCenter,
+            majorAxisM: Math.max(floorM * 0.58, majorAxisM * sizeFactor),
+            minorAxisM: Math.max(floorM * 0.36, minorAxisM * sizeFactor),
+            rotationRad: candidateRotation,
+            candidateSuffix: `cove-recovery-c${centerIndex + 1}-a${anchorIndex + 1}-s${sizeIndex + 1}-r${rotationIndex + 1}`,
+            recoveryTier: sizeIndex === 0 && centerIndex <= 1 ? 'full_cove_reference' : 'conservative_bounded_cove_reference',
+            polygon: params.polygon,
+            longestDimensionM: params.longestDimensionM,
+            averageLakeWidthM: params.averageLakeWidthM,
+            lakeAreaSqM: params.lakeAreaSqM,
+            acreage: params.acreage,
+            additionalDiagnostics: {
+              coveEnvelopeLocalExtentM: roundDiagnosticNumber(localExtentM),
+              coveEnvelopeBroadScanCapM: roundDiagnosticNumber(broadScanCapM),
+              coveEnvelopeReferenceCapM: roundDiagnosticNumber(coveReferenceCapM),
+              coveEnvelopeRecoveryCenterIndex: centerIndex + 1,
+              coveEnvelopeRecoveryAnchorIndex: anchorIndex + 1,
+              coveEnvelopeRecoverySizeFactor: sizeFactor,
+              coveEnvelopeRecoveryRotationIndex: rotationIndex + 1,
+              coveEnvelopeConservativeBoundedReference: sizeIndex > 0 || centerIndex > 1,
+              selectedSizeFactor: sizeFactor,
+              selectedAnchorIndex: anchorIndex + 1,
+              selectedRotationIndex: rotationIndex + 1,
+              featureFrameCandidateCenterCount: coveCenters.length,
+              featureFrameContactAnchorCount: centerAnchors.length,
+              featureFrameWaterSideInteriorCandidateCount: coveCenters.length,
+              featureFrameContactWindowCount: 2,
+            },
+          }));
+        }
+      }
+    }
+  }
+  return drafts;
+}
+
+function constrictionStructureAreaDrafts(
+  feature: WaterReaderNeckFeature | WaterReaderSaddleFeature,
+  params: { polygon: PolygonM; longestDimensionM: number; averageLakeWidthM: number; lakeAreaSqM: number; acreage?: number | null },
+): WaterReaderZoneDraft[] {
+  const placementKind = feature.featureClass === 'neck' ? 'neck_structure_area' : 'saddle_structure_area';
+  const spanM = distanceM(feature.endpointA, feature.endpointB);
+  const floorM = readableFloorMajorAxisM(placementKind, params.longestDimensionM, params.acreage);
+  const lakeCapM = params.longestDimensionM * (feature.featureClass === 'neck' ? 0.065 : 0.058);
+  const widthCapM = Math.max(floorM, feature.widthM * (feature.featureClass === 'neck' ? 3.1 : 2.7) + spanM * 0.55);
+  const majorAxisM = clamp(spanM * 1.22 + feature.widthM * 1.25, floorM, Math.max(floorM, Math.min(lakeCapM, widthCapM)));
+  const minorAxisM = clamp(Math.max(feature.widthM * 1.75, majorAxisM / 3.15, floorM * 0.48), majorAxisM * 0.32, majorAxisM * 0.68);
+  const center = midpoint(feature.endpointA, feature.endpointB);
+  const axis = normalize({ x: feature.endpointB.x - feature.endpointA.x, y: feature.endpointB.y - feature.endpointA.y }) ?? { x: 1, y: 0 };
+  const perpendicular = { x: -axis.y, y: axis.x };
+  const shoulderOffsetM = Math.max(feature.widthM * 0.36, minorAxisM * 0.16);
+  const centers = uniquePoints([
+    center,
+    { x: center.x + perpendicular.x * shoulderOffsetM, y: center.y + perpendicular.y * shoulderOffsetM },
+    { x: center.x - perpendicular.x * shoulderOffsetM, y: center.y - perpendicular.y * shoulderOffsetM },
+    lerpPoint(center, feature.endpointA, 0.18),
+    lerpPoint(center, feature.endpointB, 0.18),
+  ]);
+  const anchors = uniquePoints([
+    shorelineAnchor(feature.endpointA, params.polygon),
+    shorelineAnchor(feature.endpointB, params.polygon),
+  ]);
+  const shoulderWindowM = Math.max(spanM * 0.08, feature.widthM * 0.35, 10);
+  const shoulderLobeMajorAxisM = clamp(
+    Math.max(floorM * 0.68, feature.widthM * 1.55, spanM * 0.42),
+    floorM * 0.55,
+    majorAxisM * 0.72,
+  );
+  const shoulderLobeMinorAxisM = clamp(
+    Math.max(floorM * 0.42, feature.widthM * 1.25, shoulderLobeMajorAxisM * 0.58),
+    floorM * 0.34,
+    majorAxisM * 0.58,
+  );
+  const contactAnchors = uniquePoints([
+    ...anchors,
+    feature.endpointA,
+    feature.endpointB,
+    { x: feature.endpointA.x + axis.x * shoulderWindowM, y: feature.endpointA.y + axis.y * shoulderWindowM },
+    { x: feature.endpointA.x - axis.x * shoulderWindowM, y: feature.endpointA.y - axis.y * shoulderWindowM },
+    { x: feature.endpointB.x + axis.x * shoulderWindowM, y: feature.endpointB.y + axis.y * shoulderWindowM },
+    { x: feature.endpointB.x - axis.x * shoulderWindowM, y: feature.endpointB.y - axis.y * shoulderWindowM },
+  ]);
+  const sizeFactors = [1, 0.86, 0.7] as const;
+  const drafts: WaterReaderZoneDraft[] = [];
+  for (const [centerIndex, ovalCenter] of centers.entries()) {
+    for (const [anchorIndex, anchor] of anchors.entries()) {
+      for (const [sizeIndex, sizeFactor] of sizeFactors.entries()) {
+        drafts.push(makeFeatureEnvelopeDraft({
+          feature,
+          placementKind,
+          semanticId: placementKind,
+          geometryKind: 'constriction_grouped_shoulders',
+          includes: ['shoreline_a_shoulder', 'shoreline_b_shoulder', 'constriction_reference'],
+          anchor,
+          ovalCenter,
+          majorAxisM: Math.max(floorM * 0.7, majorAxisM * sizeFactor),
+          minorAxisM: Math.max(floorM * 0.42, minorAxisM * sizeFactor),
+          rotationRad: Math.atan2(feature.endpointB.y - feature.endpointA.y, feature.endpointB.x - feature.endpointA.x),
+          candidateSuffix: `grouped-shoulders-c${centerIndex + 1}-a${anchorIndex + 1}-s${sizeIndex + 1}`,
+          recoveryTier: centerIndex === 0 && sizeIndex === 0 ? 'grouped_shoulder_reference' : 'bounded_grouped_shoulder_recovery',
+          polygon: params.polygon,
+          longestDimensionM: params.longestDimensionM,
+          averageLakeWidthM: params.averageLakeWidthM,
+          lakeAreaSqM: params.lakeAreaSqM,
+          acreage: params.acreage,
+          allowPairCrowding: true,
+          featureFrameContactAnchors: contactAnchors,
+          featureFrameContactToleranceM: Math.max(10, minorAxisM * 0.28, shoulderWindowM),
+          featureFrameContactMinCount: 2,
+          featureFrameLocalityRadiusM: Math.max(majorAxisM * 0.82, spanM * 1.18),
+          additionalDiagnostics: {
+            constrictionSpanM: roundDiagnosticNumber(spanM),
+            constrictionEnvelopeLakeCapM: roundDiagnosticNumber(lakeCapM),
+            constrictionEnvelopeWidthCapM: roundDiagnosticNumber(widthCapM),
+            constrictionEnvelopeShoulderOffsetM: roundDiagnosticNumber(shoulderOffsetM),
+            featureEnvelopeRenderShape: 'paired_shoulder_lobes',
+            featureEnvelopeRenderLobeCount: 2,
+            featureEnvelopeRenderLobe1Kind: 'shoreline_a_shoulder_lobe',
+            featureEnvelopeRenderLobe1CenterX: roundDiagnosticNumber(feature.endpointA.x),
+            featureEnvelopeRenderLobe1CenterY: roundDiagnosticNumber(feature.endpointA.y),
+            featureEnvelopeRenderLobe1MajorAxisM: roundDiagnosticNumber(shoulderLobeMajorAxisM),
+            featureEnvelopeRenderLobe1MinorAxisM: roundDiagnosticNumber(shoulderLobeMinorAxisM),
+            featureEnvelopeRenderLobe1RotationRad: roundDiagnosticNumber(Math.atan2(feature.endpointB.y - feature.endpointA.y, feature.endpointB.x - feature.endpointA.x)),
+            featureEnvelopeRenderLobe2Kind: 'shoreline_b_shoulder_lobe',
+            featureEnvelopeRenderLobe2CenterX: roundDiagnosticNumber(feature.endpointB.x),
+            featureEnvelopeRenderLobe2CenterY: roundDiagnosticNumber(feature.endpointB.y),
+            featureEnvelopeRenderLobe2MajorAxisM: roundDiagnosticNumber(shoulderLobeMajorAxisM),
+            featureEnvelopeRenderLobe2MinorAxisM: roundDiagnosticNumber(shoulderLobeMinorAxisM),
+            featureEnvelopeRenderLobe2RotationRad: roundDiagnosticNumber(Math.atan2(feature.endpointA.y - feature.endpointB.y, feature.endpointA.x - feature.endpointB.x)),
+            constrictionRepresentation: 'paired_lobe_feature_envelope',
+            constrictionPairedShoulderCoverage: true,
+            constrictionEnvelopeRatio: roundDiagnosticNumber(majorAxisM / Math.max(1, spanM)),
+            constrictionEnvelopeRecoveryCenterIndex: centerIndex + 1,
+            constrictionEnvelopeRecoveryAnchorIndex: anchorIndex + 1,
+            constrictionEnvelopeRecoverySizeFactor: sizeFactor,
+            constrictionShoulderContactWindowM: roundDiagnosticNumber(shoulderWindowM),
+            groupedShoulderContactWindowCandidate: true,
+            selectedSizeFactor: sizeFactor,
+            selectedAnchorIndex: anchorIndex + 1,
+            featureFrameCandidateCenterCount: centers.length,
+            featureFrameContactAnchorCount: anchors.length,
+            featureFrameWaterSideInteriorCandidateCount: centers.length,
+            featureFrameContactWindowCount: 2,
+            readabilityFallbackReason: 'feature_envelope_grouped_shoulders',
+          },
+        }));
+      }
+    }
+  }
+  return drafts;
+}
+
+function islandStructureAreaDrafts(
+  feature: WaterReaderIslandFeature,
+  params: { polygon: PolygonM; longestDimensionM: number; averageLakeWidthM: number; lakeAreaSqM: number; acreage?: number | null },
+): WaterReaderZoneDraft[] {
+  const ringCenter = ringCentroid(feature.ring);
+  const anchor = feature.endpointA ?? nearestPointOnRing(ringCenter, feature.ring);
+  const localRadiusM = Math.max(8, islandLocalScale(feature) / 2);
+  const bufferM = clamp(localRadiusM * 0.42, 12, Math.max(14, params.longestDimensionM * 0.008));
+  const readableFloorM = readableFloorMajorAxisM('island_structure_area', params.longestDimensionM, params.acreage);
+  const floorM = Math.min(readableFloorM, Math.max(90, localRadiusM * 2.6 + bufferM * 2));
+  const naturalIslandEnvelopeM = localRadiusM * 2.4 + bufferM * 2.2;
+  const lakeCapM = Math.max(naturalIslandEnvelopeM, Math.min(params.longestDimensionM * 0.075, localRadiusM * 3.4 + bufferM * 2.5));
+  const majorAxisM = clamp(naturalIslandEnvelopeM, floorM, Math.max(floorM, lakeCapM));
+  const minorAxisM = clamp(localRadiusM * 2 + bufferM * 2, majorAxisM * 0.62, majorAxisM * 0.96);
+  const islandContactAnchors = uniquePoints([
+    anchor,
+    ...(feature.endpointB ? [feature.endpointB] : []),
+    ...sampleRingPoints(feature.ring, 8),
+  ]);
+  const centers = [
+    ringCenter,
+    lerpPoint(ringCenter, anchor, 0.08),
+    lerpPoint(ringCenter, anchor, -0.08),
+  ];
+  const rotationRad = feature.endpointB
+    ? Math.atan2(feature.endpointB.y - anchor.y, feature.endpointB.x - anchor.x)
+    : 0;
+  return centers.map((ovalCenter, index) =>
+    makeFeatureEnvelopeDraft({
+      feature,
+      placementKind: 'island_structure_area',
+      semanticId: 'island_structure_area',
+      geometryKind: 'island_structure_envelope',
+      includes: ['island_ring', 'island_edge', 'adjacent_water_buffer'],
+      anchor,
+      ovalCenter,
+      majorAxisM,
+      minorAxisM,
+      rotationRad,
+      candidateSuffix: `island-centered-${index + 1}`,
+      polygon: params.polygon,
+      longestDimensionM: params.longestDimensionM,
+      averageLakeWidthM: params.averageLakeWidthM,
+      lakeAreaSqM: params.lakeAreaSqM,
+      acreage: params.acreage,
+      featureFrameAllowsOutsideWaterCenter: true,
+      featureFrameContactAnchors: islandContactAnchors,
+      featureFrameContactToleranceM: Math.max(6, bufferM * 0.45),
+      featureFrameContactMinCount: 1,
+      featureFrameLocalityRadiusM: Math.max(majorAxisM * 0.82, localRadiusM + bufferM * 2.4),
+      additionalDiagnostics: {
+        islandEnvelopeReadableFloorM: roundDiagnosticNumber(readableFloorM),
+        islandStructureAreaCentered: index === 0,
+        islandStructureAreaCenterSource: index === 0 ? 'island_ring_centroid' : 'bounded_centroid_recovery',
+        islandCentroidX: roundDiagnosticNumber(ringCenter.x),
+        islandCentroidY: roundDiagnosticNumber(ringCenter.y),
+        islandEnvelopeRingCenterX: roundDiagnosticNumber(ringCenter.x),
+        islandEnvelopeRingCenterY: roundDiagnosticNumber(ringCenter.y),
+        islandEnvelopeLocalRadiusM: roundDiagnosticNumber(localRadiusM),
+        islandBufferRadiusM: roundDiagnosticNumber(localRadiusM + bufferM),
+        islandEnvelopeAdjacentWaterBufferM: roundDiagnosticNumber(bufferM),
+        islandLandInteriorClippedByLakeHole: params.polygon.holes.some((hole) => ringsSameByCoordinate(hole, feature.ring)),
+        islandLandHoleClippingBehavior: 'lake_polygon_evenodd_hole_clip',
+        islandEnvelopeRecoveryCenterIndex: index + 1,
+        featureFrameCandidateCenterCount: centers.length,
+        featureFrameContactAnchorCount: islandContactAnchors.length,
+        featureFrameWaterSideInteriorCandidateCount: centers.length,
+        featureFrameContactWindowCount: islandContactAnchors.length,
+      },
+    }),
+  );
+}
+
+function damStructureAreaDrafts(
+  feature: WaterReaderDamFeature,
+  params: { polygon: PolygonM; longestDimensionM: number; averageLakeWidthM: number; lakeAreaSqM: number; acreage?: number | null },
+): WaterReaderZoneDraft[] {
+  const floorM = readableFloorMajorAxisM('dam_structure_area', params.longestDimensionM, params.acreage);
+  const lakeCapM = params.longestDimensionM * 0.06;
+  const majorAxisM = clamp(feature.segmentLengthM * 1.12 + floorM * 0.18, floorM, Math.max(floorM, lakeCapM));
+  const minorAxisM = clamp(Math.max(majorAxisM / 3.45, floorM * 0.45), majorAxisM * 0.28, majorAxisM * 0.58);
+  return [
+    makeFeatureEnvelopeDraft({
+      feature,
+      placementKind: 'dam_structure_area',
+      semanticId: 'dam_structure_area',
+      geometryKind: 'dam_segment_envelope',
+      includes: ['dam_segment', 'left_transition_corner', 'right_transition_corner'],
+      anchor: feature.cornerA,
+      ovalCenter: midpoint(feature.cornerA, feature.cornerB),
+      majorAxisM,
+      minorAxisM,
+      rotationRad: Math.atan2(feature.cornerB.y - feature.cornerA.y, feature.cornerB.x - feature.cornerA.x),
+      candidateSuffix: 'dam-segment',
+      polygon: params.polygon,
+      longestDimensionM: params.longestDimensionM,
+      averageLakeWidthM: params.averageLakeWidthM,
+      lakeAreaSqM: params.lakeAreaSqM,
+      acreage: params.acreage,
+      additionalDiagnostics: {
+        damEnvelopeLakeCapM: roundDiagnosticNumber(lakeCapM),
+        featureFrameCandidateCenterCount: 1,
+        featureFrameContactAnchorCount: 1,
+        featureFrameWaterSideInteriorCandidateCount: 1,
+        featureFrameContactWindowCount: 1,
+      },
+    }),
+  ];
+}
+
+function makeFeatureEnvelopeDraft(params: {
+  feature: WaterReaderDetectedFeature;
+  placementKind: WaterReaderZonePlacementKind;
+  semanticId: WaterReaderFeatureEnvelopeSemanticId;
+  geometryKind: WaterReaderFeatureEnvelopeGeometryKind;
+  includes: string[];
+  anchor: PointM;
+  ovalCenter: PointM;
+  majorAxisM: number;
+  minorAxisM: number;
+  rotationRad: number;
+  candidateSuffix: string;
+  recoveryTier?: string;
+  polygon: PolygonM;
+  longestDimensionM: number;
+  averageLakeWidthM: number;
+  lakeAreaSqM: number;
+  acreage?: number | null;
+  allowPairCrowding?: boolean;
+  featureFrameAllowsOutsideWaterCenter?: boolean;
+  featureFrameContactAnchors?: PointM[];
+  featureFrameContactToleranceM?: number;
+  featureFrameContactMinCount?: number;
+  featureFrameLocalityRadiusM?: number;
+  additionalDiagnostics?: Record<string, number | string | boolean | string[] | null>;
+}): WaterReaderZoneDraft {
+  const prominence = featureProminenceDiagnostics({
+    feature: params.feature,
+    placementKind: params.placementKind,
+    longestDimensionM: params.longestDimensionM,
+    averageLakeWidthM: params.averageLakeWidthM,
+    lakeAreaSqM: params.lakeAreaSqM,
+    acreage: params.acreage,
+    readableFloorApplied: true,
+  });
+  const rawSourceRank = params.feature.metrics.rank;
+  const sourceRank = typeof rawSourceRank === 'number' && Number.isFinite(rawSourceRank) ? rawSourceRank : 9999;
+  const unitScore = prominence.featureProminenceScore;
+  return {
+    unitId: params.feature.featureId,
+    candidateKey: `${params.feature.featureId}:${params.placementKind}`,
+    unitPriority: featureZonePriority(params.feature),
+    unitScore,
+    sourceFeatureId: params.feature.featureId,
+    featureClass: params.feature.featureClass,
+    placementKind: params.placementKind,
+    placementSemanticId: params.semanticId,
+    anchorSemanticId: params.semanticId,
+    anchor: params.anchor,
+    ovalCenter: params.ovalCenter,
+    majorAxisM: params.majorAxisM,
+    minorAxisM: params.minorAxisM,
+    rotationRad: params.rotationRad,
+    diagnostics: {
+      sourceRank,
+      unitScore,
+      placementSemanticId: params.semanticId,
+      anchorSemanticId: params.semanticId,
+      selectedSizeFactor: 1,
+      featureEnvelopeRecoveryTier: params.recoveryTier ?? 'primary_feature_envelope',
+      featureFrameKind: featureFrameKindForFeature(params.feature.featureClass),
+      featureFrameSourceFeatureId: params.feature.featureId,
+      featureFrameFallbackTier: params.recoveryTier ?? 'primary_feature_envelope',
+      readableFloorM: roundDiagnosticNumber(readableFloorMajorAxisM(params.placementKind, params.longestDimensionM, params.acreage)),
+      seasonalPlacementUsed: false,
+      ...prominence,
+      ...featureEnvelopeDiagnostics(params.feature, params.includes, params.geometryKind),
+      ...params.additionalDiagnostics,
+    },
+    qaFlags: ['shoreline_hugging_oval', 'feature_envelope_zone', `feature_envelope_candidate:${params.candidateSuffix}`],
+    allowPairCrowding: params.allowPairCrowding ?? false,
+    featureFrameAllowsOutsideWaterCenter: params.featureFrameAllowsOutsideWaterCenter,
+    featureFrameContactAnchors: params.featureFrameContactAnchors,
+    featureFrameContactToleranceM: params.featureFrameContactToleranceM,
+    featureFrameContactMinCount: params.featureFrameContactMinCount,
+    featureFrameLocalityRadiusM: params.featureFrameLocalityRadiusM,
+  };
 }
 
 function constrictionDrafts(
@@ -340,8 +957,8 @@ function pointDrafts(
 
   if (params.season === 'summer') {
     return [
-      ...makePointTipDraft(feature, params),
       ...pointOpenSideDrafts(feature, params),
+      ...makePointTipDraft(feature, params),
     ];
   }
 
@@ -591,12 +1208,12 @@ function pointOpenSideDrafts(
         shorelineRing: params.polygon.exterior,
         polygon: params.polygon,
         longestDimensionM: params.longestDimensionM,
-      averageLakeWidthM: params.averageLakeWidthM,
-      lakeAreaSqM: params.lakeAreaSqM,
-      acreage: params.acreage,
+        averageLakeWidthM: params.averageLakeWidthM,
+        lakeAreaSqM: params.lakeAreaSqM,
+        acreage: params.acreage,
         placementKind: 'main_point_open_water',
-        placementSemanticId: openWaterSide.resolved ? 'main_point_open_water_area' : 'main_point_open_water_proxy',
-        anchorSemanticId: openWaterSide.resolved ? 'main_point_open_water_area' : 'main_point_open_water_proxy',
+        placementSemanticId: 'main_point_open_water_area',
+        anchorSemanticId: openWaterSide.resolved ? 'main_point_open_water_area' : 'main_point_open_water_recovery',
         baseMajorAxisM: sizing.baseMajorAxisM,
         sizingMetadata: sizing,
         unitSuffix: 'open',
@@ -606,6 +1223,14 @@ function pointOpenSideDrafts(
             fraction,
           }),
           ...openWaterSide.diagnostics,
+          ...(openWaterSide.resolved
+            ? {}
+            : {
+                fallbackPlacementUsed: true,
+                fallbackPlacementKind: 'main_point_broad_water_recovery',
+                fallbackPlacementReason: 'open_water_side_area_unresolved',
+                fallbackAttemptIndex: 0,
+              }),
         },
       }),
     )
@@ -783,6 +1408,11 @@ function islandDrafts(
   );
   const islandOpenWater = openWaterSideForIsland(feature, params.polygon, params.longestDimensionM, mainlandAnchor);
   const openWaterEdge = islandOpenWater.anchor;
+  const openWaterRecoveryAnchors = openWaterSideIslandRecoveryAnchors(
+    feature,
+    openWaterEdge,
+    islandOpenWater.openWaterDirection,
+  );
   const primaryKind = params.season === 'spring'
     ? 'island_mainland' as const
     : params.season === 'fall'
@@ -805,10 +1435,18 @@ function islandDrafts(
           ...islandEndpointAnchors(feature, feature.endpointB, 'island_endpoint_b', 'endpoint-b', 10),
         ]
       : [
-          { point: openWaterEdge, ring: feature.ring, fallback: false, kind: 'island_primary', semantic: islandOpenWater.resolved ? 'island_open_water_area' as const : 'island_open_water_proxy' as const, index: 0 },
-          { point: feature.endpointB, ring: feature.ring, fallback: true, kind: 'island_alternate_endpoint', semantic: 'island_alternate_endpoint_recovery' as const, index: 1 },
-          { point: feature.endpointA, ring: feature.ring, fallback: true, kind: 'island_alternate_endpoint', semantic: 'island_alternate_endpoint_recovery' as const, index: 2 },
-          { point: mainlandFacingRecoveryEdge, ring: feature.ring, fallback: true, kind: 'island_mainland_facing_fallback', semantic: 'island_mainland_recovery' as const, index: 3 },
+          {
+            point: openWaterEdge,
+            ring: feature.ring,
+            fallback: !islandOpenWater.resolved,
+            kind: islandOpenWater.resolved ? 'island_open_water_primary' : 'island_open_water_broad_water_recovery',
+            semantic: islandOpenWater.resolved ? 'island_open_water_area' as const : 'island_open_water_recovery' as const,
+            index: 0,
+          },
+          ...openWaterRecoveryAnchors,
+          { point: feature.endpointB, ring: feature.ring, fallback: true, kind: 'island_local_shoreline_recovery', semantic: 'island_shoreline_recovery' as const, index: 20 },
+          { point: feature.endpointA, ring: feature.ring, fallback: true, kind: 'island_local_shoreline_recovery', semantic: 'island_shoreline_recovery' as const, index: 21 },
+          { point: mainlandFacingRecoveryEdge, ring: feature.ring, fallback: true, kind: 'island_mainland_facing_fallback', semantic: 'island_shoreline_recovery' as const, index: 22 },
         ];
 
   return anchors.flatMap((anchor) => {
@@ -829,7 +1467,7 @@ function islandDrafts(
         ? 'island_mainland_primary'
         : primaryKind === 'island_endpoint'
           ? anchor.semantic
-          : islandOpenWater.resolved ? 'island_open_water_area' : 'island_open_water_proxy',
+          : 'island_open_water_area',
       anchorSemanticId: anchor.semantic,
       unitSuffix: 'suffix' in anchor ? anchor.suffix : 'primary',
       baseMajorAxisM: islandEdgeSizing(feature, primaryKind, params.longestDimensionM, params.acreage).baseMajorAxisM,
@@ -851,6 +1489,12 @@ function islandDrafts(
             }
           : {}),
         ...(anchor.fallback ? fallbackDiagnostics(anchor.kind, anchor.index) : {}),
+        ...(primaryKind === 'island_open_water' && anchor.index === 0 && !islandOpenWater.resolved
+          ? {
+              fallbackPlacementReason: 'open_water_side_area_unresolved',
+              fallbackPlacementKind: 'island_open_water_broad_water_recovery',
+            }
+          : {}),
         ...orientation.diagnostics,
       },
     });
@@ -933,16 +1577,65 @@ function mainlandSideIslandRecoveryAnchors(
   return anchors;
 }
 
+function openWaterSideIslandRecoveryAnchors(
+  feature: WaterReaderIslandFeature,
+  openWaterSideAnchor: PointM,
+  openWaterDirection: PointM,
+): Array<{ point: PointM; ring: RingM; fallback: boolean; kind: string; semantic: 'island_open_water_recovery' | 'island_open_water_same_side_recovery'; index: number }> {
+  const frame = nearestRingSegmentFrame(openWaterSideAnchor, feature.ring);
+  if (!frame) return [];
+  const localScaleM = islandLocalScale(feature);
+  const distances = [
+    clamp(localScaleM * 0.04, 8, 50),
+    clamp(localScaleM * 0.09, 16, 95),
+    clamp(localScaleM * 0.16, 28, 150),
+  ];
+  const baseDirection = normalize(openWaterDirection) ?? { x: 1, y: 0 };
+  const anchors: Array<{ point: PointM; ring: RingM; fallback: boolean; kind: string; semantic: 'island_open_water_recovery' | 'island_open_water_same_side_recovery'; index: number }> = [];
+  let index = 1;
+  for (const distance of distances) {
+    for (const direction of [-1, 1] as const) {
+      const point = pointAlongRing(frame.point, feature.ring, frame.segmentIndex, distance, direction);
+      if (!point) continue;
+      const sideStillFacesOpenWater = dot(
+        normalize({ x: point.x - ringCentroid(feature.ring).x, y: point.y - ringCentroid(feature.ring).y }) ?? { x: 0, y: 0 },
+        baseDirection,
+      ) >= 0.12;
+      if (!sideStillFacesOpenWater) continue;
+      if (anchors.some((anchor) => distanceM(anchor.point, point) < 3)) continue;
+      anchors.push({
+        point,
+        ring: feature.ring,
+        fallback: true,
+        kind: 'island_open_water_same_side_recovery',
+        semantic: 'island_open_water_same_side_recovery',
+        index: index++,
+      });
+    }
+  }
+  anchors.push({
+    point: frame.point,
+    ring: feature.ring,
+    fallback: true,
+    kind: 'island_open_water_local_recovery',
+    semantic: 'island_open_water_recovery',
+    index: 10,
+  });
+  return anchors;
+}
+
 function islandEdgeSizeFactorsForAnchor(anchorSemanticId: WaterReaderZonePlacementSemanticId): readonly number[] {
   switch (anchorSemanticId) {
     case 'island_mainland_primary':
       return ISLAND_EDGE_SIZE_FACTORS;
     case 'island_mainland_recovery':
       return [2, 1.5, 1.1, 1, 0.9, 0.8, 0.7, 0.55] as const;
+    case 'island_open_water_recovery':
+    case 'island_open_water_same_side_recovery':
+      return [1.5, 1.1, 1, 0.9, 0.8, 0.7, 0.55, 0.42, 0.32, 0.24, 0.18, 0.12] as const;
     case 'island_shoreline_recovery':
     case 'island_alternate_endpoint_recovery':
-    case 'island_open_water_recovery':
-      return [1.5, 1.1, 1, 0.9, 0.8, 0.7, 0.55] as const;
+      return [1.1, 1, 0.9, 0.8, 0.7, 0.55, 0.42, 0.32, 0.24, 0.18] as const;
     default:
       return ISLAND_EDGE_SIZE_FACTORS;
   }
@@ -1038,6 +1731,7 @@ function openWaterSideForIsland(
   mainlandAnchor: PointM,
 ): {
   anchor: PointM;
+  openWaterDirection: PointM;
   resolved: boolean;
   diagnostics: Record<string, number | string | boolean | null>;
 } {
@@ -1059,8 +1753,10 @@ function openWaterSideForIsland(
   const target = comparison.resolved
     ? comparison.openSide === 'a' ? awayPoint : mainlandSidePoint
     : awayPoint;
+  const openWaterDirection = normalize({ x: target.x - centroid.x, y: target.y - centroid.y }) ?? { x: -mainlandVector.x, y: -mainlandVector.y };
   return {
     anchor: nearestPointOnRing(target, feature.ring),
+    openWaterDirection,
     resolved: comparison.resolved,
     diagnostics: {
       ...openWaterSideDiagnostics('island', comparison),
@@ -1174,6 +1870,24 @@ function islandLocalScale(feature: WaterReaderIslandFeature): number {
   const bboxDiagonal = Math.hypot(bounds.maxX - bounds.minX, bounds.maxY - bounds.minY);
   const areaScale = Math.sqrt(Math.max(1, feature.areaSqM));
   return Math.max(1, endpointDistance, bboxDiagonal, areaScale);
+}
+
+function sampleRingPoints(ring: RingM, count: number): PointM[] {
+  if (ring.length === 0 || count <= 0) return [];
+  const step = Math.max(1, Math.floor(ring.length / count));
+  const points: PointM[] = [];
+  for (let i = 0; i < ring.length && points.length < count; i += step) {
+    points.push(ring[i]!);
+  }
+  return points;
+}
+
+function ringsSameByCoordinate(a: RingM, b: RingM): boolean {
+  if (a === b) return true;
+  if (a.length !== b.length || a.length === 0) return false;
+  const sameForward = a.every((point, index) => distanceM(point, b[index]!) < 0.5);
+  if (sameForward) return true;
+  return a.every((point, index) => distanceM(point, b[b.length - 1 - index]!) < 0.5);
 }
 
 function boundsForRing(ring: RingM): { minX: number; maxX: number; minY: number; maxY: number } {
@@ -1741,7 +2455,15 @@ function selectValidZonesByUnit(params: {
     let unitCombinationAttemptCountForGroup = 0;
     let unitSelected = false;
     let unitReason: WaterReaderFeatureZoneCoverage['reason'] | string = 'feature_unit_not_selected';
+    let unitRejectedCandidateReasons: Record<string, number> = {};
+    let unitPrimaryRejectedCandidateReason: string | null = null;
     const finishUnit = () => {
+      const featureEnvelopeSuppressionReason = !unitSelected && unitPrimaryRejectedCandidateReason
+        ? unitPrimaryRejectedCandidateReason
+        : null;
+      const frameUnrepresentableReason = !unitSelected && unitPrimaryRejectedCandidateReason
+        ? featureFrameUnrepresentableReason(firstDraft.featureClass, unitPrimaryRejectedCandidateReason)
+        : null;
       unitDiagnostics.push({
         featureId: group.unitId,
         featureClass: firstDraft.featureClass,
@@ -1753,6 +2475,16 @@ function selectValidZonesByUnit(params: {
         elapsedMs: Date.now() - groupStartMs,
         selected: unitSelected,
         reason: unitReason,
+        primaryRejectedCandidateReason: unitPrimaryRejectedCandidateReason,
+        rejectedCandidateReasons: unitRejectedCandidateReasons,
+        featureEnvelopeSuppressionReason,
+        featureFrameKind: typeof firstDraft.diagnostics.featureFrameKind === 'string' ? firstDraft.diagnostics.featureFrameKind : null,
+        featureFrameFallbackTier: typeof firstDraft.diagnostics.featureFrameFallbackTier === 'string'
+          ? firstDraft.diagnostics.featureFrameFallbackTier
+          : typeof firstDraft.diagnostics.featureEnvelopeRecoveryTier === 'string'
+            ? firstDraft.diagnostics.featureEnvelopeRecoveryTier
+            : null,
+        featureFrameUnrepresentableReason: frameUnrepresentableReason,
       });
     };
     const candidateGroups = groupCandidateDrafts(group.drafts);
@@ -1769,6 +2501,8 @@ function selectValidZonesByUnit(params: {
       validCandidateCount += result.validCandidateCount;
       unitMaterializedCandidateCount += result.materializedCandidateCount;
       unitValidCandidateCount += result.validCandidateCount;
+      unitRejectedCandidateReasons = mergeCounts(unitRejectedCandidateReasons, result.rejectedCandidateReasons);
+      if (result.primaryReason) unitPrimaryRejectedCandidateReason = result.primaryReason;
       if (result.candidates.length === 0) {
         increment(rejectedByReason, result.primaryReason);
         if (!canUseOneZoneFallback) {
@@ -1789,8 +2523,11 @@ function selectValidZonesByUnit(params: {
       continue;
     }
     if (candidatesByPlacement.length === 0) {
-      unitOutcomes[group.unitId] = 'no_valid_draft';
-      unitReason = 'no_valid_draft';
+      const reason = unitPrimaryRejectedCandidateReason
+        ? `rejected_invariant:${unitPrimaryRejectedCandidateReason}` as WaterReaderFeatureZoneCoverage['reason']
+        : 'no_valid_draft';
+      unitOutcomes[group.unitId] = reason;
+      unitReason = reason;
       finishUnit();
       continue;
     }
@@ -1954,20 +2691,24 @@ function buildFeatureCoverage(params: {
         zoneCount,
         producedVisibleZones: true,
         reason: 'zoned',
+        unrepresentableReason: null,
       };
     }
+    const rawReason = featureCoverageReason({
+      feature,
+      season: params.season,
+      hasDrafts: (draftCounts.get(feature.featureId) ?? 0) > 0,
+      unitOutcome: params.unitOutcomes[feature.featureId],
+      secondaryDependencyDrops: params.secondaryDependencyDrops,
+    });
+    const unrepresentableReason = featureFrameUnrepresentableReason(feature.featureClass, rawReason);
     return {
       featureId: feature.featureId,
       featureClass: feature.featureClass,
       zoneCount: 0,
       producedVisibleZones: false,
-      reason: featureCoverageReason({
-        feature,
-        season: params.season,
-        hasDrafts: (draftCounts.get(feature.featureId) ?? 0) > 0,
-        unitOutcome: params.unitOutcomes[feature.featureId],
-        secondaryDependencyDrops: params.secondaryDependencyDrops,
-      }),
+      reason: unrepresentableReason ? 'feature_frame_unrepresentable' : rawReason,
+      unrepresentableReason,
     };
   });
 }
@@ -1986,6 +2727,19 @@ function featureCoverageReason(params: {
     return 'no_valid_draft';
   }
   return params.unitOutcome && params.unitOutcome !== 'zoned' ? params.unitOutcome : 'feature_unit_not_selected';
+}
+
+function featureFrameUnrepresentableReason(featureClass: WaterReaderDetectedFeature['featureClass'], reason: string | undefined): string | null {
+  if (!reason) return null;
+  if (featureClass === 'universal') return null;
+  if (reason === 'parent_cove_not_zoned' || reason === 'seasonal_skip') return null;
+  if (reason === 'no_valid_draft') return 'no_valid_feature_frame_draft';
+  if (reason.startsWith('rejected_invariant:')) return reason.slice('rejected_invariant:'.length);
+  if (reason === 'micro_island_unrenderable_without_open_water_zone') return reason;
+  if (reason === 'island_edge_zone_failed_hard_invariants') return reason;
+  if (reason === 'feature_unit_not_selected') return null;
+  if (reason.startsWith('dropped_') || reason === 'rejected_heavy_pair_overlap') return null;
+  return reason;
 }
 
 function isSeasonalZoneSkip(feature: WaterReaderDetectedFeature, season: WaterReaderSeason): boolean {
@@ -2329,6 +3083,7 @@ function validZoneCandidates(params: {
 }): {
   candidates: Array<Omit<WaterReaderPlacedZone, 'zoneId'>>;
   primaryReason: string;
+  rejectedCandidateReasons: Record<string, number>;
   materializedCandidateCount: number;
   validCandidateCount: number;
 } {
@@ -2354,6 +3109,7 @@ function validZoneCandidates(params: {
     return {
       candidates: [],
       primaryReason: primaryRejectedReason(rejectedCandidateReasons),
+      rejectedCandidateReasons,
       materializedCandidateCount,
       validCandidateCount: 0,
     };
@@ -2364,6 +3120,7 @@ function validZoneCandidates(params: {
       .slice(0, draftLimit)
       .map((candidate) => withCandidateDiagnostics(candidate, params.drafts.length, rejectedCandidateReasons)),
     primaryReason: '',
+    rejectedCandidateReasons,
     materializedCandidateCount,
     validCandidateCount: candidates.length,
   };
@@ -2462,12 +3219,29 @@ function annotatePointFallbackIfNeeded(
 }
 
 function compareSingleZoneFallback(a: Omit<WaterReaderPlacedZone, 'zoneId'>, b: Omit<WaterReaderPlacedZone, 'zoneId'>): number {
-  if (a.placementKind === 'main_point_tip' && b.placementKind !== 'main_point_tip') return -1;
-  if (b.placementKind === 'main_point_tip' && a.placementKind !== 'main_point_tip') return 1;
+  const aRank = summerPointFallbackRank(a);
+  const bRank = summerPointFallbackRank(b);
+  if (aRank !== bRank) return aRank - bRank;
   const aVisibleScore = Math.abs(a.visibleWaterFraction - TARGET_VISIBLE_WATER_FRACTION);
   const bVisibleScore = Math.abs(b.visibleWaterFraction - TARGET_VISIBLE_WATER_FRACTION);
   if (Math.abs(aVisibleScore - bVisibleScore) > 0.025) return aVisibleScore - bVisibleScore;
   return b.majorAxisM - a.majorAxisM;
+}
+
+function summerPointFallbackRank(zone: Omit<WaterReaderPlacedZone, 'zoneId'>): number {
+  if (zone.featureClass !== 'main_lake_point') return 0;
+  if (zone.placementKind === 'main_point_open_water' && zone.anchorSemanticId === 'main_point_open_water_area') return 0;
+  if (zone.placementKind === 'main_point_open_water') return 1;
+  if (zone.placementKind === 'main_point_tip' && pointTipFallbackIsAttached(zone)) return 2;
+  if (zone.placementKind === 'main_point_tip') return 5;
+  return 3;
+}
+
+function pointTipFallbackIsAttached(zone: Omit<WaterReaderPlacedZone, 'zoneId'>): boolean {
+  const distanceFromTipM = numberDiagnostic(zone.diagnostics.distanceFromTipM);
+  const majorAxisM = Math.max(zone.majorAxisM, 1);
+  const outside = outsidePreferenceScore(zone);
+  return distanceFromTipM <= majorAxisM * 0.35 && outside >= 0.08;
 }
 
 function unitCombinationRejectReason(
@@ -2620,7 +3394,17 @@ function readableFloorMajorAxisM(
       medium: { absoluteM: 125, pct: 0.0525 },
       large: { absoluteM: 340, pct: 0.0375 },
     },
+    dam_structure_area: {
+      small: { absoluteM: 70, pct: 0.0575 },
+      medium: { absoluteM: 125, pct: 0.0525 },
+      large: { absoluteM: 340, pct: 0.0375 },
+    },
     neck_shoulder: {
+      small: { absoluteM: 70, pct: 0.0575 },
+      medium: { absoluteM: 125, pct: 0.0525 },
+      large: { absoluteM: 340, pct: 0.0375 },
+    },
+    neck_structure_area: {
       small: { absoluteM: 70, pct: 0.0575 },
       medium: { absoluteM: 125, pct: 0.0525 },
       large: { absoluteM: 340, pct: 0.0375 },
@@ -2630,7 +3414,17 @@ function readableFloorMajorAxisM(
       medium: { absoluteM: 115, pct: 0.0475 },
       large: { absoluteM: 310, pct: 0.0335 },
     },
+    saddle_structure_area: {
+      small: { absoluteM: 65, pct: 0.0525 },
+      medium: { absoluteM: 115, pct: 0.0475 },
+      large: { absoluteM: 310, pct: 0.0335 },
+    },
     main_point_side: {
+      small: { absoluteM: 80, pct: 0.065 },
+      medium: { absoluteM: 140, pct: 0.0575 },
+      large: { absoluteM: 390, pct: 0.04 },
+    },
+    main_point_structure_area: {
       small: { absoluteM: 80, pct: 0.065 },
       medium: { absoluteM: 140, pct: 0.0575 },
       large: { absoluteM: 390, pct: 0.04 },
@@ -2650,6 +3444,11 @@ function readableFloorMajorAxisM(
       medium: { absoluteM: 135, pct: 0.055 },
       large: { absoluteM: 370, pct: 0.04 },
     },
+    cove_structure_area: {
+      small: { absoluteM: 75, pct: 0.06 },
+      medium: { absoluteM: 135, pct: 0.055 },
+      large: { absoluteM: 370, pct: 0.04 },
+    },
     cove_mouth: {
       small: { absoluteM: 75, pct: 0.06 },
       medium: { absoluteM: 135, pct: 0.055 },
@@ -2665,6 +3464,11 @@ function readableFloorMajorAxisM(
       medium: { absoluteM: 140, pct: 0.0525 },
       large: { absoluteM: 380, pct: 0.0375 },
     },
+    island_structure_area: {
+      small: { absoluteM: 75, pct: 0.06 },
+      medium: { absoluteM: 140, pct: 0.0525 },
+      large: { absoluteM: 380, pct: 0.0375 },
+    },
     island_open_water: {
       small: { absoluteM: 75, pct: 0.06 },
       medium: { absoluteM: 140, pct: 0.0525 },
@@ -2676,6 +3480,11 @@ function readableFloorMajorAxisM(
       large: { absoluteM: 380, pct: 0.0375 },
     },
     secondary_point_back: {
+      small: { absoluteM: 65, pct: 0.0525 },
+      medium: { absoluteM: 110, pct: 0.0475 },
+      large: { absoluteM: 310, pct: 0.0325 },
+    },
+    secondary_point_structure_area: {
       small: { absoluteM: 65, pct: 0.0525 },
       medium: { absoluteM: 110, pct: 0.0475 },
       large: { absoluteM: 310, pct: 0.0325 },
@@ -2980,6 +3789,8 @@ function compareZoneCandidates(
   if (semanticPreference !== 0) return semanticPreference;
   const islandPreference = islandMainlandSemanticPreference(a, b);
   if (islandPreference !== 0) return islandPreference;
+  const islandOpenWaterPreference = islandOpenWaterSemanticPreference(a, b);
+  if (islandOpenWaterPreference !== 0) return islandOpenWaterPreference;
   const readableFloorPreference = readableFloorCandidatePreference(a.zone, b.zone, aVisibleScore, bVisibleScore);
   if (readableFloorPreference !== 0) return readableFloorPreference;
   const constrictionShapePreference = constrictionOvalCandidatePreference(a.zone, b.zone, aVisibleScore, bVisibleScore);
@@ -3055,6 +3866,28 @@ function islandMainlandCandidateRank(
   if (zone.anchorSemanticId === 'island_shoreline_recovery') return 3;
   if (zone.anchorSemanticId === 'island_open_water_recovery') return 4;
   return 5;
+}
+
+function islandOpenWaterSemanticPreference(
+  a: { zone: Omit<WaterReaderPlacedZone, 'zoneId'>; draft: WaterReaderZoneDraft },
+  b: { zone: Omit<WaterReaderPlacedZone, 'zoneId'>; draft: WaterReaderZoneDraft },
+): number {
+  if (a.zone.featureClass !== 'island' || b.zone.featureClass !== 'island') return 0;
+  if (a.zone.placementKind !== 'island_open_water' || b.zone.placementKind !== 'island_open_water') return 0;
+  return islandOpenWaterCandidateRank(a.zone, a.draft) - islandOpenWaterCandidateRank(b.zone, b.draft);
+}
+
+function islandOpenWaterCandidateRank(
+  zone: Omit<WaterReaderPlacedZone, 'zoneId'>,
+  draft: WaterReaderZoneDraft,
+): number {
+  const semantic = zone.anchorSemanticId ?? draft.anchorSemanticId;
+  if (semantic === 'island_open_water_area') return 1;
+  if (semantic === 'island_open_water_same_side_recovery') return 2;
+  if (semantic === 'island_open_water_recovery') return 3;
+  if (semantic === 'island_shoreline_recovery') return 4;
+  if (semantic === 'island_alternate_endpoint_recovery') return 5;
+  return 6;
 }
 
 function coveBackSemanticPreference(
@@ -3260,12 +4093,13 @@ function annotateStructureConfluence(
 ): { zones: WaterReaderPlacedZone[]; groups: WaterReaderStructureConfluenceGroup[] } {
   if (zones.length < 2) {
     return {
-      zones: zones.map((zone) => withConfluenceDiagnostics(zone, null, 'none', 0)),
+      zones: zones.map((zone) => withConfluenceDiagnostics(zone, null)),
       groups: [],
     };
   }
   const parent = zones.map((_, index) => index);
   const strengths = new Map<string, 'light' | 'strong'>();
+  const reasons = new Map<string, string>();
 
   const find = (index: number): number => {
     while (parent[index] !== index) {
@@ -3274,13 +4108,14 @@ function annotateStructureConfluence(
     }
     return index;
   };
-  const union = (a: number, b: number, strength: 'light' | 'strong') => {
+  const union = (a: number, b: number, strength: 'light' | 'strong', reason: string) => {
     const ra = find(a);
     const rb = find(b);
     if (ra === rb) {
       const key = String(ra);
       if (strength === 'strong') strengths.set(key, 'strong');
       else if (!strengths.has(key)) strengths.set(key, 'light');
+      reasons.set(key, confluenceReasonPreference(reasons.get(key), reason));
       return;
     }
     const root = Math.min(ra, rb);
@@ -3288,13 +4123,14 @@ function annotateStructureConfluence(
     parent[child] = root;
     const existing = strengths.get(String(ra)) === 'strong' || strengths.get(String(rb)) === 'strong';
     strengths.set(String(root), existing || strength === 'strong' ? 'strong' : 'light');
+    reasons.set(String(root), confluenceReasonPreference(confluenceReasonPreference(reasons.get(String(ra)), reasons.get(String(rb))), reason));
   };
 
   for (let i = 0; i < zones.length; i++) {
     for (let j = i + 1; j < zones.length; j++) {
-      const score = pairOverlapScore(zones[i]!, zones[j]!);
-      if (score > LIGHT_PAIR_OVERLAP_SCORE) {
-        union(i, j, score > MODERATE_PAIR_OVERLAP_SCORE ? 'strong' : 'light');
+      const candidate = confluencePairCandidate(zones[i]!, zones[j]!);
+      if (candidate) {
+        union(i, j, candidate.strength, candidate.reason);
       }
     }
   }
@@ -3312,9 +4148,11 @@ function annotateStructureConfluence(
   let groupNumber = 1;
   for (const [root, indexes] of [...memberIndexes.entries()].sort((a, b) => a[0] - b[0])) {
     if (indexes.length < 2) continue;
+    const members = indexes.map((index) => zones[index]!);
+    const compactness = confluenceCompactness(members);
+    if (!compactness.compact) continue;
     const groupId = `confluence-${groupNumber++}`;
     groupIds.set(root, groupId);
-    const members = indexes.map((index) => zones[index]!);
     groups.push({
       groupId,
       strength: strengths.get(String(root)) ?? 'light',
@@ -3322,6 +4160,11 @@ function annotateStructureConfluence(
       memberSourceFeatureIds: [...new Set(members.map((zone) => zone.sourceFeatureId))],
       memberFeatureClasses: [...new Set(members.map((zone) => zone.featureClass))],
       memberPlacementKinds: [...new Set(members.map((zone) => zone.placementKind))],
+      mergeReason: reasons.get(String(root)) ?? 'visible_overlap',
+      compactnessRatio: roundDiagnosticNumber(compactness.ratio),
+      envelopeMajorAxisM: roundDiagnosticNumber(compactness.envelopeMajorAxisM),
+      largestMemberAxisM: roundDiagnosticNumber(compactness.largestMemberAxisM),
+      renderedAsUnifiedEnvelope: true,
     });
   }
 
@@ -3329,26 +4172,79 @@ function annotateStructureConfluence(
     zones: zones.map((zone, index) => {
       const root = find(index);
       const groupId = groupIds.get(root) ?? null;
-      const group = groupId ? groups.find((item) => item.groupId === groupId) : null;
-      return withConfluenceDiagnostics(zone, groupId, group?.strength ?? 'none', group?.memberZoneIds.length ?? 0);
+      const group = groupId ? groups.find((item) => item.groupId === groupId) ?? null : null;
+      return withConfluenceDiagnostics(zone, group);
     }),
     groups,
   };
 }
 
+function confluencePairCandidate(
+  a: WaterReaderPlacedZone,
+  b: WaterReaderPlacedZone,
+): { strength: 'light' | 'strong'; reason: string } | null {
+  const sameSource = a.sourceFeatureId === b.sourceFeatureId;
+  const sameFeatureClass = a.featureClass === b.featureClass;
+  if (!sameSource && !sameFeatureClass) return null;
+  const score = pairOverlapScore(a, b);
+  if (score <= LIGHT_PAIR_OVERLAP_SCORE) return null;
+  if (!sameSource && sameFeatureClass) {
+    const compactness = confluenceCompactness([a, b]);
+    if (score < 0.62 || !compactness.compact || compactness.ratio > 1.45) return null;
+  }
+  return {
+    strength: score > MODERATE_PAIR_OVERLAP_SCORE ? 'strong' : 'light',
+    reason: sameSource
+      ? (score > MODERATE_PAIR_OVERLAP_SCORE ? 'same_source_visible_overlap_heavy' : 'same_source_visible_overlap_light')
+      : (score > MODERATE_PAIR_OVERLAP_SCORE ? 'same_class_extreme_compact_overlap_heavy' : 'same_class_extreme_compact_overlap_light'),
+  };
+}
+
+function confluenceCompactness(zones: WaterReaderPlacedZone[]): {
+  compact: boolean;
+  ratio: number;
+  envelopeMajorAxisM: number;
+  largestMemberAxisM: number;
+} {
+  const points = zones.flatMap((zone) => zone.visibleWaterRing.length >= 3 ? zone.visibleWaterRing : zone.unclippedRing);
+  const bounds = boundsForRing(points.length > 0 ? points : zones.map((zone) => zone.ovalCenter));
+  const envelopeMajorAxisM = Math.hypot(bounds.maxX - bounds.minX, bounds.maxY - bounds.minY);
+  const largestMemberAxisM = Math.max(...zones.map((zone) => zone.majorAxisM), 1);
+  const ratio = envelopeMajorAxisM / largestMemberAxisM;
+  const sameOrNearSource = new Set(zones.map((zone) => zone.sourceFeatureId)).size < zones.length;
+  const maxRatio = sameOrNearSource ? 2.9 : 2.35;
+  return {
+    compact: ratio <= maxRatio,
+    ratio,
+    envelopeMajorAxisM,
+    largestMemberAxisM,
+  };
+}
+
+function confluenceReasonPreference(a: string | undefined, b: string | undefined): string {
+  if (!a) return b ?? 'visible_overlap';
+  if (!b) return a;
+  const rank = (reason: string) => reason.includes('heavy') ? 0 : reason.includes('same') ? 1 : reason.includes('near') ? 2 : 3;
+  return rank(a) <= rank(b) ? a : b;
+}
+
 function withConfluenceDiagnostics(
   zone: WaterReaderPlacedZone,
-  groupId: string | null,
-  strength: 'none' | 'light' | 'strong',
-  memberCount: number,
+  group: WaterReaderStructureConfluenceGroup | null,
 ): WaterReaderPlacedZone {
+  const groupId = group?.groupId ?? null;
   return {
     ...zone,
     diagnostics: {
       ...zone.diagnostics,
       structureConfluenceGroupId: groupId,
-      structureConfluenceStrength: strength,
-      structureConfluenceMemberCount: memberCount,
+      structureConfluenceStrength: group?.strength ?? 'none',
+      structureConfluenceMemberCount: group?.memberZoneIds.length ?? 0,
+      structureConfluenceMergeReason: group?.mergeReason ?? null,
+      structureConfluenceCompactnessRatio: group?.compactnessRatio ?? null,
+      structureConfluenceEnvelopeMajorAxisM: group?.envelopeMajorAxisM ?? null,
+      structureConfluenceLargestMemberAxisM: group?.largestMemberAxisM ?? null,
+      structureConfluenceRenderedAsUnifiedEnvelope: group?.renderedAsUnifiedEnvelope ?? false,
     },
     qaFlags: groupId ? [...zone.qaFlags, 'structure_confluence'] : zone.qaFlags,
   };
@@ -3562,6 +4458,70 @@ function farthestPoint(from: PointM, points: PointM[]): PointM {
 
 function midpoint(a: PointM, b: PointM): PointM {
   return { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 };
+}
+
+function shorelineAnchor(point: PointM, polygon: PolygonM): PointM {
+  return nearestPointOnRing(point, polygon.exterior);
+}
+
+function inwardOffsetCenters(params: {
+  anchor: PointM;
+  polygon: PolygonM;
+  longestDimensionM: number;
+  majorAxisM: number;
+  preferredDirection?: PointM;
+  fallbackNormal: PointM;
+  offsetFactors: readonly number[];
+}): PointM[] {
+  const normals = inwardNormalOptions({
+    anchor: params.anchor,
+    preferredDirection: params.preferredDirection,
+    fallbackNormal: params.fallbackNormal,
+    polygon: params.polygon,
+    longestDimensionM: params.longestDimensionM,
+  });
+  return normals.flatMap((normal) => params.offsetFactors.map((factor) => ({
+    x: params.anchor.x + normal.x * params.majorAxisM * factor,
+    y: params.anchor.y + normal.y * params.majorAxisM * factor,
+  })));
+}
+
+function averagePoint(points: PointM[]): PointM {
+  if (points.length === 0) return { x: 0, y: 0 };
+  return {
+    x: points.reduce((sum, point) => sum + point.x, 0) / points.length,
+    y: points.reduce((sum, point) => sum + point.y, 0) / points.length,
+  };
+}
+
+function maxPairDistanceM(points: PointM[]): number {
+  let maxDistanceM = 0;
+  for (let i = 0; i < points.length; i++) {
+    for (let j = i + 1; j < points.length; j++) {
+      maxDistanceM = Math.max(maxDistanceM, distanceM(points[i]!, points[j]!));
+    }
+  }
+  return maxDistanceM;
+}
+
+function uniquePoints(points: PointM[]): PointM[] {
+  const out: PointM[] = [];
+  for (const point of points) {
+    if (out.some((existing) => distanceM(existing, point) < 0.5)) continue;
+    out.push(point);
+  }
+  return out;
+}
+
+function uniqueNumbers(values: number[]): number[] {
+  const out: number[] = [];
+  for (const value of values) {
+    if (!Number.isFinite(value)) continue;
+    const normalized = normalizeAngle(value);
+    if (out.some((existing) => Math.abs(Math.cos(existing - normalized)) > 0.999)) continue;
+    out.push(normalized);
+  }
+  return out;
 }
 
 function longestSegmentMidpoint(ring: RingM): PointM {

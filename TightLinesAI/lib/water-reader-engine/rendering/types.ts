@@ -23,6 +23,8 @@ export interface WaterReaderRenderSummary {
   calloutLabelCount: number;
   renderedStandaloneCount: number;
   renderedConfluenceCount: number;
+  renderedUnifiedConfluenceCount?: number;
+  stackedConfluenceMemberRenderCount?: number;
   displayLegendEntryCount: number;
   retainedRenderedCount: number;
   warningCount: number;

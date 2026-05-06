@@ -43,10 +43,29 @@ const SEASON_REVIEWS: Array<{ season: WaterReaderSeason; date: Date }> = [
 type MatrixCase = {
   label: string;
   searchQuery: string;
+  state?: string;
+  lakeId?: string;
   find: (rows: WaterbodySearchResult[]) => WaterbodySearchResult | undefined;
 };
 
 const CASES: MatrixCase[] = [
+  {
+    label: 'Van Norman Lake, MI',
+    searchQuery: 'Van Norman Lake',
+    find: (rows) =>
+      rows.find((r) => /van norman/i.test(r.name) && (r.county ?? '').toLowerCase().includes('oakland')) ??
+      rows.find((r) => /van norman/i.test(r.name)),
+  },
+  {
+    label: 'Pontiac Lake, MI',
+    searchQuery: 'Pontiac Lake',
+    state: 'MI',
+    lakeId: '814e800f-ccc3-4312-8e0f-d33d09a9240f',
+    find: (rows) =>
+      rows.find((r) => r.lakeId === '814e800f-ccc3-4312-8e0f-d33d09a9240f') ??
+      rows.find((r) => /pontiac/i.test(r.name) && (r.county ?? '').toLowerCase().includes('oakland')) ??
+      rows.find((r) => /pontiac/i.test(r.name)),
+  },
   {
     label: 'Torch Lake, MI',
     searchQuery: 'Torch Lake',
@@ -94,6 +113,50 @@ const CASES: MatrixCase[] = [
     find: (rows) => rows.find((r) => /mullett/i.test(r.name)),
   },
   {
+    label: 'Brookville Lake, IN',
+    searchQuery: 'Brookville Lake',
+    state: 'IN',
+    find: (rows) =>
+      rows.find((r) => /brookville/i.test(r.name) && (r.state ?? '').toUpperCase() === 'IN') ??
+      rows.find((r) => /brookville/i.test(r.name)),
+  },
+  {
+    label: 'Lake Winnebago, WI',
+    searchQuery: 'Lake Winnebago',
+    state: 'WI',
+    find: (rows) =>
+      rows.find((r) => /winnebago/i.test(r.name) && (r.state ?? '').toUpperCase() === 'WI') ??
+      rows.find((r) => /winnebago/i.test(r.name)),
+  },
+  {
+    label: 'Lake Tahoe, CA',
+    searchQuery: 'Lake Tahoe',
+    state: 'CA',
+    find: (rows) =>
+      rows.find((r) => /tahoe/i.test(r.name) && (r.state ?? '').toUpperCase() === 'CA') ??
+      rows.find((r) => /tahoe/i.test(r.name)),
+  },
+  {
+    label: 'Lake Palestine, TX',
+    searchQuery: 'Lake Palestine',
+    state: 'TX',
+    lakeId: 'b46694af-0c72-4c97-b600-866c8effd1ee',
+    find: (rows) =>
+      rows.find((r) => r.lakeId === 'b46694af-0c72-4c97-b600-866c8effd1ee') ??
+      rows.find((r) => /palestine/i.test(r.name) && (r.state ?? '').toUpperCase() === 'TX') ??
+      rows.find((r) => /palestine/i.test(r.name)),
+  },
+  {
+    label: 'Lake Wylie, NC',
+    searchQuery: 'Lake Wylie',
+    state: 'NC',
+    lakeId: '2f10ec7b-b310-441c-a2a8-df722cb17fa1',
+    find: (rows) =>
+      rows.find((r) => r.lakeId === '2f10ec7b-b310-441c-a2a8-df722cb17fa1') ??
+      rows.find((r) => /wylie/i.test(r.name) && (r.state ?? '').toUpperCase() === 'NC') ??
+      rows.find((r) => /wylie/i.test(r.name)),
+  },
+  {
     label: 'Lake Charlevoix, MI',
     searchQuery: 'Lake Charlevoix',
     find: (rows) =>
@@ -126,7 +189,19 @@ type SummaryRow = {
   detectedFeatureCount: number;
   selectedFeatureCount: number;
   suppressedFeatureCount: number;
+  detectedUnrepresentableFeatureCount: number;
   zoneCount: number;
+  featureEnvelopeZoneCount: number;
+  nonEnvelopeLegacyZoneCount: number;
+  selectedFeatureWithoutEnvelopeZoneCount: number;
+  featureEnvelopeSuppressionDiagnostics: Record<string, number>;
+  featureEnvelopeUnrepresentableDiagnostics: Record<string, number>;
+  featureEnvelopeUnrepresentableByFeatureClassReason: Record<string, number>;
+  wholeFeatureOutsideWaterCenterAcceptedCount: number;
+  wholeFeatureOutsideWaterCenterAcceptedByFeatureClass: Record<string, number>;
+  wholeFeatureOutsideWaterCenterMaxVisibleWaterDistanceM: number | null;
+  wholeFeatureOutsideWaterCenterMaxLocalityRadiusM: number | null;
+  wholeFeatureOutsideWaterCenterMaxAnchorDistanceM: number | null;
   universalCount: number;
   zoneCounts: Record<string, number>;
   suppressedCandidateFeatures: number;
@@ -168,12 +243,16 @@ type SummaryRow = {
   rendererWarnings: string[];
   renderedNumberCount: number;
   calloutLabelCount: number;
+  renderedUnifiedConfluenceCount: number;
+  stackedConfluenceMemberRenderCount: number;
   retainedRenderedCount: number;
   appWidthProductionSvgFile: string;
   appWidthRendererWarningCount: number;
   appWidthRendererWarnings: string[];
   appWidthRenderedNumberCount: number;
   appWidthCalloutLabelCount: number;
+  appWidthRenderedUnifiedConfluenceCount: number;
+  appWidthStackedConfluenceMemberRenderCount: number;
   appWidthRetainedRenderedCount: number;
   appWidthSvgViewBox: string;
   pointZoneNearLargeLakeMinimumCount: number;
@@ -335,7 +414,19 @@ function summaryCsv(rows: SummaryRow[]): string {
     'detected_feature_count',
     'selected_feature_count',
     'suppressed_feature_count',
+    'detected_unrepresentable_feature_count',
     'zone_count',
+    'feature_envelope_zone_count',
+    'non_envelope_legacy_zone_count',
+    'selected_feature_without_envelope_zone_count',
+    'feature_envelope_suppression_diagnostics',
+    'feature_envelope_unrepresentable_diagnostics',
+    'feature_envelope_unrepresentable_by_feature_class_reason',
+    'whole_feature_outside_water_center_accepted_count',
+    'whole_feature_outside_water_center_accepted_by_feature_class',
+    'whole_feature_outside_water_center_max_visible_water_distance_m',
+    'whole_feature_outside_water_center_max_locality_radius_m',
+    'whole_feature_outside_water_center_max_anchor_distance_m',
     'universal_count',
     ...classes.map((cls) => `zones_${cls}`),
     'suppressed_candidate_features',
@@ -376,12 +467,16 @@ function summaryCsv(rows: SummaryRow[]): string {
     'renderer_warnings',
     'rendered_number_count',
     'callout_label_count',
+    'rendered_unified_confluence_count',
+    'stacked_confluence_member_render_count',
     'retained_rendered_count',
     'app_width_production_svg_file',
     'app_width_renderer_warning_count',
     'app_width_renderer_warnings',
     'app_width_rendered_number_count',
     'app_width_callout_label_count',
+    'app_width_rendered_unified_confluence_count',
+    'app_width_stacked_confluence_member_render_count',
     'app_width_retained_rendered_count',
     'app_width_svg_view_box',
     'point_zone_near_large_lake_minimum_count',
@@ -402,7 +497,19 @@ function summaryCsv(rows: SummaryRow[]): string {
       row.detectedFeatureCount,
       row.selectedFeatureCount,
       row.suppressedFeatureCount,
+      row.detectedUnrepresentableFeatureCount,
       row.zoneCount,
+      row.featureEnvelopeZoneCount,
+      row.nonEnvelopeLegacyZoneCount,
+      row.selectedFeatureWithoutEnvelopeZoneCount,
+      row.featureEnvelopeSuppressionDiagnostics,
+      row.featureEnvelopeUnrepresentableDiagnostics,
+      row.featureEnvelopeUnrepresentableByFeatureClassReason,
+      row.wholeFeatureOutsideWaterCenterAcceptedCount,
+      row.wholeFeatureOutsideWaterCenterAcceptedByFeatureClass,
+      row.wholeFeatureOutsideWaterCenterMaxVisibleWaterDistanceM,
+      row.wholeFeatureOutsideWaterCenterMaxLocalityRadiusM,
+      row.wholeFeatureOutsideWaterCenterMaxAnchorDistanceM,
       row.universalCount,
       ...classes.map((cls) => row.zoneCounts[cls] ?? 0),
       row.suppressedCandidateFeatures,
@@ -443,12 +550,16 @@ function summaryCsv(rows: SummaryRow[]): string {
       row.rendererWarnings.join('|'),
       row.renderedNumberCount,
       row.calloutLabelCount,
+      row.renderedUnifiedConfluenceCount,
+      row.stackedConfluenceMemberRenderCount,
       row.retainedRenderedCount,
       row.appWidthProductionSvgFile,
       row.appWidthRendererWarningCount,
       row.appWidthRendererWarnings.join('|'),
       row.appWidthRenderedNumberCount,
       row.appWidthCalloutLabelCount,
+      row.appWidthRenderedUnifiedConfluenceCount,
+      row.appWidthStackedConfluenceMemberRenderCount,
       row.appWidthRetainedRenderedCount,
       row.appWidthSvgViewBox,
       row.pointZoneNearLargeLakeMinimumCount,
@@ -882,12 +993,129 @@ function zoneDebug(zone: WaterReaderPlacedZone, longestDimensionM?: number) {
       : null,
     minorAxisM: zone.minorAxisM,
     qaFlags: zone.qaFlags,
+    featureEnvelope: featureEnvelopeDebug(zone),
     diagnostics: zone.diagnostics,
     anchor: zone.anchor,
     ovalCenter: zone.ovalCenter,
     rotationRad: zone.rotationRad,
     visibleWaterRing: zone.visibleWaterRing,
     unclippedRing: zone.unclippedRing,
+  };
+}
+
+function featureEnvelopeDebug(zone: WaterReaderPlacedZone) {
+  const diagnostics = zone.diagnostics;
+  if (diagnostics.featureEnvelopeModelVersion !== 'feature-envelope-v1') return null;
+  return {
+    modelVersion: diagnostics.featureEnvelopeModelVersion,
+    sourceFeatureId: diagnostics.featureEnvelopeSourceFeatureId ?? zone.sourceFeatureId,
+    geometryKind: diagnostics.featureEnvelopeGeometryKind ?? null,
+    includes: Array.isArray(diagnostics.featureEnvelopeIncludes) ? diagnostics.featureEnvelopeIncludes : [],
+    seasonInvariant: diagnostics.featureEnvelopeSeasonInvariant === true,
+    suppressionReason: diagnostics.featureEnvelopeSuppressionReason ?? null,
+    seasonalEmphasisOnly: diagnostics.seasonalEmphasisOnly === true,
+    renderShape: diagnostics.featureEnvelopeRenderShape ?? null,
+    renderLobeCount: diagnostics.featureEnvelopeRenderLobeCount ?? null,
+    islandStructureAreaCentered: diagnostics.islandStructureAreaCentered ?? null,
+    islandCentroid: typeof diagnostics.islandCentroidX === 'number' && typeof diagnostics.islandCentroidY === 'number'
+      ? { x: diagnostics.islandCentroidX, y: diagnostics.islandCentroidY }
+      : null,
+    islandBufferRadiusM: diagnostics.islandBufferRadiusM ?? null,
+    islandLandHoleClippingBehavior: diagnostics.islandLandHoleClippingBehavior ?? null,
+    constrictionRepresentation: diagnostics.constrictionRepresentation ?? null,
+    constrictionPairedShoulderCoverage: diagnostics.constrictionPairedShoulderCoverage ?? null,
+  };
+}
+
+function featureEnvelopeSummary(zones: WaterReaderPlacedZone[]) {
+  const envelopeZones = zones.filter((zone) => zone.diagnostics.featureEnvelopeModelVersion === 'feature-envelope-v1');
+  const outsideWaterAccepted = wholeFeatureOutsideWaterCenterAcceptedSummary(envelopeZones);
+  return {
+    zoneCount: envelopeZones.length,
+    nonEnvelopeLegacyZoneCount: zones.length - envelopeZones.length,
+    placementKinds: [...new Set(envelopeZones.map((zone) => zone.placementKind))].sort((a, b) => a.localeCompare(b)),
+    geometryKinds: [...new Set(envelopeZones
+      .map((zone) => zone.diagnostics.featureEnvelopeGeometryKind)
+      .filter((value): value is string => typeof value === 'string'))].sort((a, b) => a.localeCompare(b)),
+    sourceFeatureIds: [...new Set(envelopeZones
+      .map((zone) => zone.diagnostics.featureEnvelopeSourceFeatureId ?? zone.sourceFeatureId)
+      .filter((value): value is string => typeof value === 'string'))].sort((a, b) => a.localeCompare(b)),
+    wholeFeatureOutsideWaterCenterAcceptedCount: outsideWaterAccepted.count,
+    wholeFeatureOutsideWaterCenterAcceptedByFeatureClass: outsideWaterAccepted.byFeatureClass,
+    wholeFeatureOutsideWaterCenterMaxVisibleWaterDistanceM: outsideWaterAccepted.maxVisibleWaterDistanceM,
+    wholeFeatureOutsideWaterCenterMaxLocalityRadiusM: outsideWaterAccepted.maxLocalityRadiusM,
+    wholeFeatureOutsideWaterCenterMaxAnchorDistanceM: outsideWaterAccepted.maxAnchorDistanceM,
+  };
+}
+
+function wholeFeatureOutsideWaterCenterAcceptedSummary(zones: WaterReaderPlacedZone[]) {
+  const byFeatureClass: Record<string, number> = {};
+  let maxVisibleWaterDistanceM: number | null = null;
+  let maxLocalityRadiusM: number | null = null;
+  let maxAnchorDistanceM: number | null = null;
+  for (const zone of zones) {
+    if (zone.diagnostics.wholeFeatureOutsideWaterCenterAccepted !== true) continue;
+    byFeatureClass[zone.featureClass] = (byFeatureClass[zone.featureClass] ?? 0) + 1;
+    maxVisibleWaterDistanceM = maxNullable(maxVisibleWaterDistanceM, numericDiagnostic(zone.diagnostics.featureFrameMaxVisibleWaterDistanceM));
+    maxLocalityRadiusM = maxNullable(maxLocalityRadiusM, numericDiagnostic(zone.diagnostics.featureFrameLocalityRadiusM));
+    maxAnchorDistanceM = maxNullable(maxAnchorDistanceM, numericDiagnostic(zone.diagnostics.featureFrameMaxAnchorDistanceM));
+  }
+  return {
+    count: Object.values(byFeatureClass).reduce((sum, count) => sum + count, 0),
+    byFeatureClass,
+    maxVisibleWaterDistanceM,
+    maxLocalityRadiusM,
+    maxAnchorDistanceM,
+  };
+}
+
+function numericDiagnostic(value: unknown): number | null {
+  return typeof value === 'number' && Number.isFinite(value) ? value : null;
+}
+
+function maxNullable(a: number | null, b: number | null): number | null {
+  if (a === null) return b;
+  if (b === null) return a;
+  return Math.max(a, b);
+}
+
+function featureEnvelopeAudit(zoneResult: WaterReaderZonePlacementResult) {
+  const envelopeZones = zoneResult.zones.filter((zone) => zone.diagnostics.featureEnvelopeModelVersion === 'feature-envelope-v1');
+  const outsideWaterAccepted = wholeFeatureOutsideWaterCenterAcceptedSummary(envelopeZones);
+  const envelopeSourceFeatureIds = new Set(envelopeZones.map((zone) => zone.diagnostics.featureEnvelopeSourceFeatureId ?? zone.sourceFeatureId));
+  const selectedFeatureWithoutEnvelopeZoneIds = zoneResult.diagnostics.selectedFeatureIds
+    .filter((featureId) => !envelopeSourceFeatureIds.has(featureId))
+    .sort((a, b) => a.localeCompare(b));
+  const envelopeUnitIds = new Set(zoneResult.diagnostics.unitDiagnostics
+    .filter((unit) => unit.placementKinds.some((kind) => kind.endsWith('_structure_area')))
+    .map((unit) => unit.featureId));
+  const suppressionDiagnostics: Record<string, number> = {};
+  const unrepresentableDiagnostics: Record<string, number> = {};
+  const unrepresentableByFeatureClassReason: Record<string, number> = {};
+  for (const coverage of zoneResult.diagnostics.featureCoverage) {
+    if (coverage.producedVisibleZones || !envelopeUnitIds.has(coverage.featureId)) continue;
+    if (coverage.reason === 'feature_frame_unrepresentable') {
+      const reason = coverage.unrepresentableReason ?? 'unknown_feature_frame_unrepresentable';
+      unrepresentableDiagnostics[reason] = (unrepresentableDiagnostics[reason] ?? 0) + 1;
+      const classReason = `${coverage.featureClass}:${reason}`;
+      unrepresentableByFeatureClassReason[classReason] = (unrepresentableByFeatureClassReason[classReason] ?? 0) + 1;
+    } else {
+      suppressionDiagnostics[coverage.reason] = (suppressionDiagnostics[coverage.reason] ?? 0) + 1;
+    }
+  }
+  return {
+    featureEnvelopeZoneCount: envelopeZones.length,
+    nonEnvelopeLegacyZoneCount: zoneResult.zones.length - envelopeZones.length,
+    selectedFeatureWithoutEnvelopeZoneCount: selectedFeatureWithoutEnvelopeZoneIds.length,
+    selectedFeatureWithoutEnvelopeZoneIds,
+    featureEnvelopeSuppressionDiagnostics: suppressionDiagnostics,
+    featureEnvelopeUnrepresentableDiagnostics: unrepresentableDiagnostics,
+    featureEnvelopeUnrepresentableByFeatureClassReason: unrepresentableByFeatureClassReason,
+    wholeFeatureOutsideWaterCenterAcceptedCount: outsideWaterAccepted.count,
+    wholeFeatureOutsideWaterCenterAcceptedByFeatureClass: outsideWaterAccepted.byFeatureClass,
+    wholeFeatureOutsideWaterCenterMaxVisibleWaterDistanceM: outsideWaterAccepted.maxVisibleWaterDistanceM,
+    wholeFeatureOutsideWaterCenterMaxLocalityRadiusM: outsideWaterAccepted.maxLocalityRadiusM,
+    wholeFeatureOutsideWaterCenterMaxAnchorDistanceM: outsideWaterAccepted.maxAnchorDistanceM,
   };
 }
 
@@ -924,6 +1152,10 @@ function debugJson(params: {
     suppressedCandidateFeatures: params.zoneResult.diagnostics.featureCoverage.filter((coverage) => !coverage.producedVisibleZones),
     candidateFeatures: params.features,
     zones: params.zoneResult.zones.map((zone) => zoneDebug(zone, params.preprocess.metrics?.longestDimensionM)),
+    featureEnvelopeSummary: {
+      ...featureEnvelopeSummary(params.zoneResult.zones),
+      ...featureEnvelopeAudit(params.zoneResult),
+    },
     legend: params.legend,
     displayModel: params.displayModel,
     displayEntries: params.displayModel.displayedEntries,
@@ -1010,7 +1242,7 @@ async function main() {
   for (const matrixCase of cases) {
     const search = await addAsyncTiming(timings, 'fetchMs', () => edge<WaterbodySearchResponse>('waterbody-search', {
       query: matrixCase.searchQuery,
-      state: 'MI',
+      state: matrixCase.state ?? 'MI',
       limit: SEARCH_LIMIT,
     }));
     const row = matrixCase.find(search.results);
@@ -1062,7 +1294,7 @@ async function main() {
       const fallbackAnchorIds = fallbackAnchorSemanticIds(displayModel);
       const semanticAnchorMismatch = semanticAnchorMismatchCount(displayModel);
       const labelSemanticRisk = labelSemanticRiskCount(displayModel);
-      const displayCapPressure = displayModel.retainedEntries.length > 0;
+      const displayCapPressure = displayModel.retainedEntries.some((entry) => !entry.rankingDiagnostics.includes('retained_constriction_line_readability'));
       const diversityPressureFlag = diversityPressure(
         displayModel,
         repeatedLegend,
@@ -1082,6 +1314,7 @@ async function main() {
       const appWidthProductionSvgPath = options.writeSvg ? `${outputDir}/${seasonReview.season}/${appWidthProductionSvgFile}` : '';
       const counts = zoneCounts(zoneResult.zones);
       const coverage = coverageCounts(zoneResult);
+      const envelopeAudit = featureEnvelopeAudit(zoneResult);
       const suppressedCandidateFeatures = zoneResult.diagnostics.suppressedFeatureCount;
       const summary: SummaryRow = {
         lakeLabel: matrixCase.label,
@@ -1093,7 +1326,19 @@ async function main() {
         detectedFeatureCount: zoneResult.diagnostics.detectedFeatureCount,
         selectedFeatureCount: zoneResult.diagnostics.selectedFeatureCount,
         suppressedFeatureCount: zoneResult.diagnostics.suppressedFeatureCount,
+        detectedUnrepresentableFeatureCount: zoneResult.diagnostics.detectedUnrepresentableFeatureCount,
         zoneCount: zoneResult.zones.length,
+        featureEnvelopeZoneCount: envelopeAudit.featureEnvelopeZoneCount,
+        nonEnvelopeLegacyZoneCount: envelopeAudit.nonEnvelopeLegacyZoneCount,
+        selectedFeatureWithoutEnvelopeZoneCount: envelopeAudit.selectedFeatureWithoutEnvelopeZoneCount,
+        featureEnvelopeSuppressionDiagnostics: envelopeAudit.featureEnvelopeSuppressionDiagnostics,
+        featureEnvelopeUnrepresentableDiagnostics: envelopeAudit.featureEnvelopeUnrepresentableDiagnostics,
+        featureEnvelopeUnrepresentableByFeatureClassReason: envelopeAudit.featureEnvelopeUnrepresentableByFeatureClassReason,
+        wholeFeatureOutsideWaterCenterAcceptedCount: envelopeAudit.wholeFeatureOutsideWaterCenterAcceptedCount,
+        wholeFeatureOutsideWaterCenterAcceptedByFeatureClass: envelopeAudit.wholeFeatureOutsideWaterCenterAcceptedByFeatureClass,
+        wholeFeatureOutsideWaterCenterMaxVisibleWaterDistanceM: envelopeAudit.wholeFeatureOutsideWaterCenterMaxVisibleWaterDistanceM,
+        wholeFeatureOutsideWaterCenterMaxLocalityRadiusM: envelopeAudit.wholeFeatureOutsideWaterCenterMaxLocalityRadiusM,
+        wholeFeatureOutsideWaterCenterMaxAnchorDistanceM: envelopeAudit.wholeFeatureOutsideWaterCenterMaxAnchorDistanceM,
         universalCount: counts.universal ?? 0,
         zoneCounts: counts,
         suppressedCandidateFeatures,
@@ -1135,12 +1380,16 @@ async function main() {
         rendererWarnings: productionSvgResult?.warnings.map((warning) => warning.code) ?? [],
         renderedNumberCount: productionSvgResult?.summary.renderedNumberCount ?? 0,
         calloutLabelCount: productionSvgResult?.summary.calloutLabelCount ?? 0,
+        renderedUnifiedConfluenceCount: productionSvgResult?.summary.renderedUnifiedConfluenceCount ?? 0,
+        stackedConfluenceMemberRenderCount: productionSvgResult?.summary.stackedConfluenceMemberRenderCount ?? 0,
         retainedRenderedCount: productionSvgResult?.summary.retainedRenderedCount ?? 0,
         appWidthProductionSvgFile: appWidthProductionSvgPath,
         appWidthRendererWarningCount: appWidthProductionSvgResult?.summary.warningCount ?? 0,
         appWidthRendererWarnings: appWidthProductionSvgResult?.warnings.map((warning) => warning.code) ?? [],
         appWidthRenderedNumberCount: appWidthProductionSvgResult?.summary.renderedNumberCount ?? 0,
         appWidthCalloutLabelCount: appWidthProductionSvgResult?.summary.calloutLabelCount ?? 0,
+        appWidthRenderedUnifiedConfluenceCount: appWidthProductionSvgResult?.summary.renderedUnifiedConfluenceCount ?? 0,
+        appWidthStackedConfluenceMemberRenderCount: appWidthProductionSvgResult?.summary.stackedConfluenceMemberRenderCount ?? 0,
         appWidthRetainedRenderedCount: appWidthProductionSvgResult?.summary.retainedRenderedCount ?? 0,
         appWidthSvgViewBox: appWidthProductionSvgResult?.summary.viewBox ?? '',
         pointZoneNearLargeLakeMinimumCount: zoneQaFlagCount(zoneResult.zones, 'point_zone_near_large_lake_minimum'),
@@ -1170,7 +1419,15 @@ async function main() {
         detectedFeatures: zoneResult.diagnostics.detectedFeatureCount,
         selectedFeatures: zoneResult.diagnostics.selectedFeatureCount,
         suppressedFeatures: zoneResult.diagnostics.suppressedFeatureCount,
+        detectedUnrepresentableFeatures: zoneResult.diagnostics.detectedUnrepresentableFeatureCount,
+        wholeFeatureOutsideWaterCenterAccepted: envelopeAudit.wholeFeatureOutsideWaterCenterAcceptedCount,
+        wholeFeatureOutsideWaterCenterAcceptedByFeatureClass: envelopeAudit.wholeFeatureOutsideWaterCenterAcceptedByFeatureClass,
+        wholeFeatureOutsideWaterCenterMaxVisibleWaterDistanceM: envelopeAudit.wholeFeatureOutsideWaterCenterMaxVisibleWaterDistanceM,
+        wholeFeatureOutsideWaterCenterMaxLocalityRadiusM: envelopeAudit.wholeFeatureOutsideWaterCenterMaxLocalityRadiusM,
         zones: zoneResult.zones.length,
+        featureEnvelopeZones: envelopeAudit.featureEnvelopeZoneCount,
+        nonEnvelopeLegacyZones: envelopeAudit.nonEnvelopeLegacyZoneCount,
+        selectedFeaturesWithoutEnvelopeZones: envelopeAudit.selectedFeatureWithoutEnvelopeZoneCount,
         displayedEntries: displayModel.summary.displayedEntryCount,
         displayLegendEntries: displayModel.summary.displayLegendEntryCount,
         retainedNotDisplayed: displayModel.summary.retainedNotDisplayedCount,
@@ -1193,6 +1450,8 @@ async function main() {
         multiZoneStandaloneEntryViolations: displayModel.summary.multiZoneStandaloneEntryViolationCount,
         productionSvgFile: options.writeSvg ? `${seasonReview.season}/${productionSvgFile}` : null,
         rendererWarnings: productionSvgResult?.summary.warningCount ?? 0,
+        renderedUnifiedConfluences: productionSvgResult?.summary.renderedUnifiedConfluenceCount ?? 0,
+        stackedConfluenceMemberRenders: productionSvgResult?.summary.stackedConfluenceMemberRenderCount ?? 0,
         renderedNumbers: productionSvgResult?.summary.renderedNumberCount ?? 0,
         calloutLabels: productionSvgResult?.summary.calloutLabelCount ?? 0,
         appWidthProductionSvgFile: options.writeSvg ? `${seasonReview.season}/${appWidthProductionSvgFile}` : null,

@@ -148,6 +148,8 @@ export function buildWaterReaderProductionSvg(
     calloutLabelCount: labelPlans.filter((plan) => plan.callout).length,
     renderedStandaloneCount: displayModel.displayedEntries.filter((entry) => entry.entryType === 'standalone_zone').length,
     renderedConfluenceCount: displayModel.displayedEntries.filter((entry) => entry.entryType === 'structure_confluence').length,
+    renderedUnifiedConfluenceCount: displayModel.displayedEntries.filter((entry) => entry.entryType === 'structure_confluence').length,
+    stackedConfluenceMemberRenderCount: 0,
     displayLegendEntryCount: displayModel.displayLegendEntries.length,
     retainedRenderedCount: 0,
     warningCount: warnings.length,
@@ -178,18 +180,76 @@ function renderEntry(
     if (!envelope) warnings.push({ code: 'missing_zone_path', message: 'Grouped entry envelope path is empty.', entryId: entry.entryId });
     const className = entry.entryType === 'structure_confluence' ? 'water-reader-confluence' : 'water-reader-neck-area';
     return {
-      zoneMarkup: `<g class="water-reader-entry ${className}" data-entry-id="${escapeXml(entry.entryId)}" data-display-number="${number}" clip-path="url(#${clipId})">${envelope}</g>`,
+      zoneMarkup: `<g class="water-reader-entry ${className}" data-entry-id="${escapeXml(entry.entryId)}" data-display-number="${number}" data-render-mode="unified-envelope" data-member-zone-count="${entry.zoneIds.length}" clip-path="url(#${clipId})">${envelope}</g>`,
       labelMarkup: numberLabel(plan),
     };
   }
 
   const zone = entry.zones[0];
-  const d = zone ? svgPathForRing(zone.unclippedRing, transform, true) : '';
+  const standalone = zone ? standaloneZoneEnvelope(zone, transform) : { path: '', mode: 'single-oval' };
+  const d = standalone.path;
   if (!zone || !d) warnings.push({ code: 'missing_zone_path', message: 'Standalone zone path is empty.', entryId: entry.entryId, zoneId: entry.zoneIds[0] });
   return {
-    zoneMarkup: `<path class="water-reader-entry water-reader-standalone-zone" data-entry-id="${escapeXml(entry.entryId)}" data-zone-id="${escapeXml(entry.zoneIds[0] ?? '')}" data-display-number="${number}" d="${d}" fill="${entry.colorHex}" fill-opacity="0.34" stroke="${entry.colorHex}" stroke-opacity="0.94" stroke-width="1.2"/>`,
+    zoneMarkup: `<path class="water-reader-entry water-reader-standalone-zone" data-entry-id="${escapeXml(entry.entryId)}" data-zone-id="${escapeXml(entry.zoneIds[0] ?? '')}" data-display-number="${number}" data-render-mode="${standalone.mode}" d="${d}" fill="${entry.colorHex}" fill-opacity="0.34" stroke="${entry.colorHex}" stroke-opacity="0.94" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>`,
     labelMarkup: numberLabel(plan),
   };
+}
+
+function standaloneZoneEnvelope(
+  zone: WaterReaderDisplayZoneGeometry,
+  transform: WaterReaderSvgTransform,
+): { path: string; mode: string } {
+  const renderShape = typeof zone.diagnostics.featureEnvelopeRenderShape === 'string'
+    ? zone.diagnostics.featureEnvelopeRenderShape
+    : null;
+  if (renderShape === 'merged_point_lobes' || renderShape === 'paired_shoulder_lobes') {
+    const lobeRings = featureEnvelopeRenderLobes(zone);
+    const points = lobeRings.flat().filter(validPoint);
+    if (points.length >= 3) {
+      const hull = convexHull(points);
+      const center = boundsCenter(hull.length >= 3 ? hull : points);
+      const pad = Math.max(zone.majorAxisM * 0.012, 3);
+      const envelope = expandHull(hull.length >= 3 ? hull : points, center, pad);
+      return { path: smoothClosedPath(envelope, transform), mode: renderShape === 'merged_point_lobes' ? 'merged-point-lobes' : 'paired-shoulder-lobes' };
+    }
+  }
+  return {
+    path: svgPathForRing(zone.unclippedRing, transform, true),
+    mode: zone.placementKind === 'island_structure_area' ? 'island-centered-envelope' : 'single-oval',
+  };
+}
+
+function featureEnvelopeRenderLobes(zone: WaterReaderDisplayZoneGeometry): RingM[] {
+  const count = Math.min(4, Math.max(0, diagnosticNumber(zone.diagnostics.featureEnvelopeRenderLobeCount)));
+  const rings: RingM[] = [];
+  for (let index = 1; index <= count; index++) {
+    const centerX = diagnosticNumber(zone.diagnostics[`featureEnvelopeRenderLobe${index}CenterX`]);
+    const centerY = diagnosticNumber(zone.diagnostics[`featureEnvelopeRenderLobe${index}CenterY`]);
+    const majorAxisM = diagnosticNumber(zone.diagnostics[`featureEnvelopeRenderLobe${index}MajorAxisM`]);
+    const minorAxisM = diagnosticNumber(zone.diagnostics[`featureEnvelopeRenderLobe${index}MinorAxisM`]);
+    const rotationRad = diagnosticNumber(zone.diagnostics[`featureEnvelopeRenderLobe${index}RotationRad`]);
+    if (!Number.isFinite(centerX) || !Number.isFinite(centerY) || majorAxisM <= 0 || minorAxisM <= 0) continue;
+    rings.push(ovalRing({ x: centerX, y: centerY }, majorAxisM, minorAxisM, rotationRad));
+  }
+  return rings;
+}
+
+function ovalRing(center: PointM, majorAxisM: number, minorAxisM: number, rotationRad: number, samples = 48): RingM {
+  const ring: RingM = [];
+  const majorRadius = majorAxisM / 2;
+  const minorRadius = minorAxisM / 2;
+  const cos = Math.cos(rotationRad);
+  const sin = Math.sin(rotationRad);
+  for (let i = 0; i < samples; i++) {
+    const theta = (Math.PI * 2 * i) / samples;
+    const localX = Math.cos(theta) * majorRadius;
+    const localY = Math.sin(theta) * minorRadius;
+    ring.push({
+      x: center.x + localX * cos - localY * sin,
+      y: center.y + localX * sin + localY * cos,
+    });
+  }
+  return ring;
 }
 
 function numberLabel(plan: LabelPlan): string {
@@ -394,6 +454,10 @@ function roundNumber(value: number, precision: number): number {
   return Math.round(value * scale) / scale;
 }
 
+function diagnosticNumber(value: number | string | boolean | string[] | null | undefined): number {
+  return typeof value === 'number' && Number.isFinite(value) ? value : 0;
+}
+
 function clampLabelPoint(point: PointM, transform: WaterReaderSvgTransform): PointM {
   const minX = transform.padding + CALLOUT_LABEL_RADIUS;
   const maxX = transform.width - transform.padding - CALLOUT_LABEL_RADIUS;
@@ -497,19 +561,49 @@ function legendWrapLimits(rowWidth: number): { titleMaxChars: number; bodyMaxCha
 function groupedEntryEnvelope(entry: WaterReaderDisplayEntry, transform: WaterReaderSvgTransform): string {
   const points = entry.zones.flatMap((zone) => visibleOrUnclippedRing(zone)).filter(validPoint);
   if (points.length < 3) return '';
-  const center = boundsCenter(points);
-  const bounds = boundsForPoints(points);
-  const pad = Math.max(entry.majorAxisM * 0.025, 6);
-  const rx = Math.max((bounds.maxX - bounds.minX) / 2 + pad, entry.majorAxisM * 0.18);
-  const ry = Math.max((bounds.maxY - bounds.minY) / 2 + pad, entry.majorAxisM * 0.12);
-  const envelope = Array.from({ length: 32 }, (_, index) => {
-    const theta = (Math.PI * 2 * index) / 32;
-    return { x: center.x + Math.cos(theta) * rx, y: center.y + Math.sin(theta) * ry };
-  });
+  const hull = convexHull(points);
+  const center = boundsCenter(hull.length >= 3 ? hull : points);
+  const pad = Math.max(entry.majorAxisM * 0.018, 5);
+  const envelope = expandHull(hull.length >= 3 ? hull : points, center, pad);
   const path = smoothClosedPath(envelope, transform);
   const color = entry.entryType === 'structure_confluence' ? CONFLUENCE : entry.colorHex;
   const className = entry.entryType === 'structure_confluence' ? 'water-reader-confluence-outline' : 'water-reader-neck-area-outline';
   return `<path class="${className}" d="${path}" fill="${color}" fill-opacity="0.34" stroke="${color}" stroke-width="1.2" stroke-opacity="0.86" stroke-linecap="round" stroke-linejoin="round"/>`;
+}
+
+function convexHull(points: PointM[]): PointM[] {
+  const uniquePoints = [...new Map(points.map((point) => [`${roundNumber(point.x, 2)},${roundNumber(point.y, 2)}`, point])).values()]
+    .sort((a, b) => a.x - b.x || a.y - b.y);
+  if (uniquePoints.length <= 3) return uniquePoints;
+  const cross = (origin: PointM, a: PointM, b: PointM) =>
+    (a.x - origin.x) * (b.y - origin.y) - (a.y - origin.y) * (b.x - origin.x);
+  const lower: PointM[] = [];
+  for (const point of uniquePoints) {
+    while (lower.length >= 2 && cross(lower[lower.length - 2]!, lower[lower.length - 1]!, point) <= 0) lower.pop();
+    lower.push(point);
+  }
+  const upper: PointM[] = [];
+  for (let i = uniquePoints.length - 1; i >= 0; i--) {
+    const point = uniquePoints[i]!;
+    while (upper.length >= 2 && cross(upper[upper.length - 2]!, upper[upper.length - 1]!, point) <= 0) upper.pop();
+    upper.push(point);
+  }
+  lower.pop();
+  upper.pop();
+  return [...lower, ...upper];
+}
+
+function expandHull(points: PointM[], center: PointM, padM: number): PointM[] {
+  return points.map((point) => {
+    const dx = point.x - center.x;
+    const dy = point.y - center.y;
+    const length = Math.hypot(dx, dy);
+    if (length <= 0) return point;
+    return {
+      x: point.x + (dx / length) * padM,
+      y: point.y + (dy / length) * padM,
+    };
+  });
 }
 
 function visibleOrUnclippedRing(zone: WaterReaderDisplayZoneGeometry): RingM {

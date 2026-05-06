@@ -45,6 +45,13 @@ type TemplateKey = `${WaterReaderFeatureClass}:${WaterReaderSeason}:${WaterReade
 export const WATER_READER_LEGEND_SEASONS = ['spring', 'summer', 'fall', 'winter'] as const satisfies readonly WaterReaderSeason[];
 
 export const WATER_READER_ZONE_PLACEMENT_KINDS = [
+  'main_point_structure_area',
+  'secondary_point_structure_area',
+  'cove_structure_area',
+  'neck_structure_area',
+  'saddle_structure_area',
+  'island_structure_area',
+  'dam_structure_area',
   'neck_shoulder',
   'saddle_shoulder',
   'main_point_side',
@@ -80,6 +87,13 @@ const WATER_READER_LEGEND_FEATURE_CLASSES = [
 ] as const satisfies ReadonlyArray<WaterReaderFeatureClass | 'structure_confluence'>;
 
 const PLACEMENT_FEATURE_CLASS: Record<WaterReaderZonePlacementKind, WaterReaderFeatureClass> = {
+  main_point_structure_area: 'main_lake_point',
+  secondary_point_structure_area: 'secondary_point',
+  cove_structure_area: 'cove',
+  neck_structure_area: 'neck',
+  saddle_structure_area: 'saddle',
+  island_structure_area: 'island',
+  dam_structure_area: 'dam',
   neck_shoulder: 'neck',
   saddle_shoulder: 'saddle',
   main_point_side: 'main_lake_point',
@@ -99,6 +113,13 @@ const PLACEMENT_FEATURE_CLASS: Record<WaterReaderZonePlacementKind, WaterReaderF
 };
 
 const STABLE_PLACEMENT_KINDS = new Set<WaterReaderZonePlacementKind>([
+  'main_point_structure_area',
+  'secondary_point_structure_area',
+  'cove_structure_area',
+  'neck_structure_area',
+  'saddle_structure_area',
+  'island_structure_area',
+  'dam_structure_area',
   'dam_corner',
   'neck_shoulder',
   'saddle_shoulder',
@@ -118,7 +139,7 @@ const FEATURE_LABELS: Record<WaterReaderFeatureClass, string> = {
   secondary_point: 'Secondary Point',
   cove: 'Cove',
   neck: 'Neck Shoulder',
-  island: 'Island Edge',
+  island: 'Island',
   saddle: 'Saddle Shoulder',
   dam: 'Dam Corner',
   universal: 'Universal Shoreline',
@@ -135,6 +156,34 @@ type WaterReaderResolvedLegendTemplate = {
 };
 
 const LEGEND_TEMPLATES: Record<WaterReaderZonePlacementKind, WaterReaderLegendTemplate> = {
+  main_point_structure_area: {
+    title: 'Main Lake Point - Structure Area',
+    body: (season) => `In ${season}, this main-lake point structure area is a geometry-based reference around the detected tip, tip-adjacent water, and both adjacent shoulders.`,
+  },
+  secondary_point_structure_area: {
+    title: 'Secondary Point - Structure Area',
+    body: (season) => `In ${season}, this secondary point structure area is a geometry-based reference around the detected smaller point tip and adjacent shoulders inside its local cove context.`,
+  },
+  cove_structure_area: {
+    title: 'Cove - Structure Area',
+    body: (season) => `In ${season}, this cove structure area is a geometry-based reference around the bounded cove shape, including local mouth and inner-shoreline references.`,
+  },
+  neck_structure_area: {
+    title: 'Neck - Structure Area',
+    body: (season) => `In ${season}, this neck structure area is a geometry-based reference for the paired shoreline shoulders around the constriction, not the center of the opening.`,
+  },
+  saddle_structure_area: {
+    title: 'Saddle - Structure Area',
+    body: (season) => `In ${season}, this saddle structure area is a geometry-based reference for the paired shoreline shoulders around the broader constriction.`,
+  },
+  island_structure_area: {
+    title: 'Island - Structure Area',
+    body: (season) => `In ${season}, this island structure area is a geometry-based reference around the island perimeter and nearby water. Seasonal context may emphasize the outer-water side, but the mapped geometry remains the island area.`,
+  },
+  dam_structure_area: {
+    title: 'Dam - Structure Area',
+    body: (season) => `In ${season}, this dam structure area is a geometry-based reference around the detected dam segment and both transition corners.`,
+  },
   neck_shoulder: {
     title: 'Neck Shoulder',
     body: (season) => `In ${season}, this neck shoulder is a seasonally relevant structure area. This shoulder marks one side of a narrow pass; compare both shoreline shoulders rather than the middle of the opening.`,
@@ -409,6 +458,18 @@ function openWaterSemanticTemplate(zone: WaterReaderPlacedZone, season: WaterRea
   }
   if (zone.featureClass === 'island' && zone.placementKind === 'island_open_water') {
     if (zone.anchorSemanticId === 'island_open_water_area') return null;
+    if (zone.anchorSemanticId === 'island_open_water_same_side_recovery' || zone.anchorSemanticId === 'island_open_water_recovery') {
+      return {
+        title: 'Island Edge - Open-Water Recovery',
+        body: `In ${season}, this island edge is a seasonally relevant structure area. It uses a conservative recovery near the island side facing broader open water when the exact open-water edge cannot render cleanly.`,
+      };
+    }
+    if (zone.anchorSemanticId === 'island_shoreline_recovery' || zone.anchorSemanticId === 'island_alternate_endpoint_recovery' || zone.anchorSemanticId === 'shoreline_frame_recovery') {
+      return {
+        title: 'Island Edge - Shoreline Recovery',
+        body: `In ${season}, this island edge is a seasonally relevant structure area. It uses a local island-shoreline recovery and should not be read as the exact open-water edge.`,
+      };
+    }
     return {
       title: 'Island Edge - Broad-Water Recovery',
       body: `In ${season}, this island edge is a seasonally relevant structure area. It uses a conservative island-edge recovery where the polygon area comparison could not fully resolve the broad-water side.`,
@@ -576,6 +637,8 @@ function compactConfluenceMemberLabels(zones: WaterReaderPlacedZone[]): string[]
 }
 
 function confluenceMemberLabel(zone: WaterReaderPlacedZone): string {
+  const envelopeLabel = featureEnvelopeMemberLabel(zone.placementKind);
+  if (envelopeLabel) return envelopeLabel;
   if (zone.featureClass === 'island' && zone.placementKind === 'island_endpoint' && zone.anchorSemanticId === 'shoreline_frame_recovery') {
     return 'Island Endpoint Recovery';
   }
@@ -626,12 +689,35 @@ function confluenceMemberLabel(zone: WaterReaderPlacedZone): string {
   }
 }
 
+function featureEnvelopeMemberLabel(placementKind: WaterReaderZonePlacementKind): string | null {
+  switch (placementKind) {
+    case 'main_point_structure_area':
+      return 'Main Point Structure Area';
+    case 'secondary_point_structure_area':
+      return 'Secondary Point Structure Area';
+    case 'cove_structure_area':
+      return 'Cove Structure Area';
+    case 'neck_structure_area':
+      return 'Neck Structure Area';
+    case 'saddle_structure_area':
+      return 'Saddle Structure Area';
+    case 'island_structure_area':
+      return 'Island Structure Area';
+    case 'dam_structure_area':
+      return 'Dam Structure Area';
+    default:
+      return null;
+  }
+}
+
 function openWaterConfluenceMemberLabel(zone: WaterReaderPlacedZone): string | null {
   if (zone.featureClass === 'main_lake_point' && zone.placementKind === 'main_point_open_water') {
     return zone.anchorSemanticId === 'main_point_open_water_area' ? 'Point Open-Water Side' : 'Point Broad-Water Recovery';
   }
   if (zone.featureClass === 'island' && zone.placementKind === 'island_open_water') {
-    return zone.anchorSemanticId === 'island_open_water_area' ? 'Island Open-Water Edge' : 'Island Broad-Water Recovery';
+    if (zone.anchorSemanticId === 'island_open_water_area') return 'Island Open-Water Edge';
+    if (zone.anchorSemanticId === 'island_open_water_same_side_recovery' || zone.anchorSemanticId === 'island_open_water_recovery') return 'Island Open-Water Recovery';
+    return 'Island Shoreline Recovery';
   }
   return null;
 }
