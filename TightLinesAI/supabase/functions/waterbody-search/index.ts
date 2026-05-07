@@ -78,6 +78,22 @@ const USGS_3DHP_WATERBODY_QUERY_URL =
 const TIGERWEB_COUNTY_QUERY_URL =
   "https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/State_County/MapServer/25/query";
 
+const CURATED_3DHP_ALIASES: Array<{
+  state: string;
+  canonicalName: string;
+  id3dhp: string;
+  waterbodyType: WaterbodySearchResult["waterbodyType"];
+  aliases: string[];
+}> = [
+  {
+    state: "TX",
+    canonicalName: "Lake Fork Reservoir",
+    id3dhp: "MF4DV",
+    waterbodyType: "reservoir",
+    aliases: ["lake fork", "lake fork reservoir"],
+  },
+];
+
 const STATE_BBOX: Record<string, [number, number, number, number]> = {
   AL: [-88.48, 30.14, -84.89, 35.01],
   AK: [-179.15, 51.21, -129.98, 71.39],
@@ -284,6 +300,18 @@ function queryTokens(query: string): string[] {
     );
 }
 
+function curated3DhpAliasForQuery(
+  query: string,
+  state: string | null,
+) {
+  if (!state) return null;
+  const normQuery = normalizeWaterbodyName(query);
+  return CURATED_3DHP_ALIASES.find((alias) =>
+    alias.state === state &&
+    alias.aliases.some((value) => normalizeWaterbodyName(value) === normQuery)
+  ) ?? null;
+}
+
 function genericWaterbodyTypeOnly(query: string): WaterbodySearchResult["waterbodyType"] | null {
   const tokens = normalizeWaterbodyName(query).split(" ").filter(Boolean);
   if (tokens.length !== 1) return null;
@@ -477,15 +505,21 @@ async function fetchAndIndex3DhpCandidates(params: {
   const tokens = queryTokens(params.query);
   if (tokens.length === 0) return 0;
   if (!remoteSearchEligible(tokens)) return 0;
+  const curatedAlias = curated3DhpAliasForQuery(params.query, params.state);
 
   const bbox = STATE_BBOX[params.state];
-  const where = [
+  const nameWhere = [
     "featuretype = 3",
     "gnisidlabel IS NOT NULL",
     ...tokens.map((token) =>
       `UPPER(gnisidlabel) LIKE '%${arcgisLiteral(token.toUpperCase())}%'`
     ),
   ].join(" AND ");
+  const where = curatedAlias
+    ? `((${nameWhere}) OR (featuretype = 3 AND id3dhp = '${
+      arcgisLiteral(curatedAlias.id3dhp)
+    }'))`
+    : nameWhere;
 
   const url = new URL(USGS_3DHP_WATERBODY_QUERY_URL);
   url.search = new URLSearchParams({
@@ -543,8 +577,14 @@ async function fetchAndIndex3DhpCandidates(params: {
   const rowInputs = [];
   for (const feature of body.features ?? []) {
     if (!feature.geometry) continue;
-    const name = String(prop(feature.properties, "gnisidlabel") ?? "").trim();
     const id3dhp = String(prop(feature.properties, "id3dhp") ?? "").trim();
+    const featureAlias = CURATED_3DHP_ALIASES.find((alias) =>
+      alias.state === params.state && alias.id3dhp === id3dhp
+    ) ?? null;
+    const name = String(
+      prop(feature.properties, "gnisidlabel") ?? featureAlias?.canonicalName ??
+        "",
+    ).trim();
     if (!name || !id3dhp) continue;
     const wkt = geometryWkt(feature.geometry);
     const bbox = geometryBbox(feature.geometry);
@@ -562,7 +602,7 @@ async function fetchAndIndex3DhpCandidates(params: {
         canonical_name: name,
         state_code: params.state,
         county_name: null as string | null,
-        waterbody_type: waterbodyTypeForName(name),
+        waterbody_type: featureAlias?.waterbodyType ?? waterbodyTypeForName(name),
         is_named: true,
         is_searchable: true,
         region_key: REGION_BY_STATE[params.state] ?? "other_us",
@@ -582,6 +622,13 @@ async function fetchAndIndex3DhpCandidates(params: {
           id3dhp,
           id3dhp_persistent: false,
           gnisid: prop(feature.properties, "gnisid") ?? null,
+          curated_alias: featureAlias
+            ? {
+              canonical_name: featureAlias.canonicalName,
+              aliases: featureAlias.aliases,
+              reason: "3DHP waterbody polygon has GNIS ID but no label",
+            }
+            : null,
           workunitid: prop(feature.properties, "workunitid") ?? null,
           standing_water_only: true,
           indexed_on_demand: true,
@@ -621,6 +668,40 @@ async function fetchAndIndex3DhpCandidates(params: {
     return 0;
   }
   return rows.length;
+}
+
+function rowMatchesAllQueryTokens(row: SearchRow, query: string): boolean {
+  const tokens = queryTokens(query);
+  if (tokens.length === 0) return false;
+  const nameTokens = new Set(normalizeWaterbodyName(row.name).split(" "));
+  return tokens.every((token) => {
+    if (nameTokens.has(token)) return true;
+    for (const nameToken of nameTokens) {
+      if (nameToken.startsWith(token) || token.startsWith(nameToken)) {
+        return true;
+      }
+    }
+    return false;
+  });
+}
+
+function shouldTryRemoteFallback(
+  rows: SearchRow[],
+  query: string,
+  state: string | null,
+): boolean {
+  if (!state) return false;
+  if (rows.length === 0) return true;
+  const curatedAlias = curated3DhpAliasForQuery(query, state);
+  if (curatedAlias) {
+    return !rows.some((row) =>
+      normalizeWaterbodyName(row.name) ===
+        normalizeWaterbodyName(curatedAlias.canonicalName)
+    );
+  }
+  const tokens = queryTokens(query);
+  if (tokens.length < 2) return false;
+  return !rows.some((row) => rowMatchesAllQueryTokens(row, query));
 }
 
 function openableSupport(row: SearchRow): boolean {
@@ -795,7 +876,7 @@ Deno.serve(async (req: Request) => {
   }
 
   let rawRows = Array.isArray(data) ? data as SearchRow[] : [];
-  if (rawRows.length === 0 && state) {
+  if (shouldTryRemoteFallback(rawRows, query, state)) {
     const indexedCount = await fetchAndIndex3DhpCandidates({
       supabase,
       query,

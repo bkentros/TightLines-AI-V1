@@ -61,7 +61,7 @@ import type {
 
 const SEARCH_DEBOUNCE_MS = 650;
 const SEARCH_MIN_CHARS = 3;
-const SEARCH_RESULT_LIMIT = 16;
+const SEARCH_RESULT_LIMIT = 20;
 
 const STATE_NAME_TO_CODE: Record<string, string> = {
   Alabama: 'AL', Alaska: 'AK', Arizona: 'AZ', Arkansas: 'AR',
@@ -619,7 +619,13 @@ export default function WaterReaderScreen() {
                     </View>
                   )}
                   {!searching && results.length > 0 && (
-                    <View style={styles.dropdownList}>
+                    <ScrollView
+                      style={styles.dropdownList}
+                      contentContainerStyle={styles.dropdownListContent}
+                      nestedScrollEnabled
+                      keyboardShouldPersistTaps="handled"
+                      showsVerticalScrollIndicator={results.length > 5}
+                    >
                       {results.map((r, idx) => {
                         const open = canOpenWaterReaderRead(r);
                         return (
@@ -664,7 +670,7 @@ export default function WaterReaderScreen() {
                           </Pressable>
                         );
                       })}
-                    </View>
+                    </ScrollView>
                   )}
                 </View>
               )}
@@ -1193,7 +1199,10 @@ const styles = StyleSheet.create({
     color: paper.ink,
     opacity: 0.7,
   },
-  dropdownList: { maxHeight: 320 },
+  dropdownList: { maxHeight: 430 },
+  dropdownListContent: {
+    paddingBottom: paperSpacing.xs,
+  },
   resultRow: {
     flexDirection: 'row',
     alignItems: 'flex-start',
