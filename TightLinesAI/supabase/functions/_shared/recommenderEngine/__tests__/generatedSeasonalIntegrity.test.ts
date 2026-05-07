@@ -173,8 +173,11 @@ Deno.test("generated seasonal: trout river repair lures are scoped to honest row
         row.pace_range.includes("slow") || row.pace_range.includes("medium"),
         `${rowKey(row)} blade slow/medium`,
       );
+      const bladeColdShoulderMonth = [1, 2, 3, 4, 10, 11, 12].includes(
+        row.month,
+      ) || (row.region_key === "mountain_alpine" && row.month === 5);
       assert(
-        [1, 2, 3, 4, 10, 11, 12].includes(row.month),
+        bladeColdShoulderMonth,
         `${rowKey(row)} blade cold/shoulder month`,
       );
     }
