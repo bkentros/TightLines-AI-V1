@@ -636,6 +636,44 @@ Deno.serve(async (req: Request) => {
         { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders() } },
       );
     }
+    try {
+      const generatedRead = buildServerWaterReaderRead({
+        polygonPayload: polygon,
+        currentDate,
+        fetchMs,
+      });
+      const cacheWrite = await upsertGeneratedRead({
+        supabase,
+        read: generatedRead,
+        seasonContextKey: seasonContext.seasonContextKey,
+      });
+      return new Response(
+        JSON.stringify({
+          ...generatedRead,
+          cacheStatus: "miss",
+          ...cacheWrite,
+          operationalDiagnostics: {
+            ...result.diagnostics,
+            localFallbackStatus: generatedRead.fallbackMessage ? "fallback_no_map" : "generated",
+          },
+          seasonContextKey: seasonContext.seasonContextKey,
+          mapWidth: WATER_READER_APP_SVG_WIDTH,
+          engineVersion: WATER_READER_ENGINE_VERSION,
+          timings: {
+            ...(generatedRead.timings ?? {}),
+            metadataMs,
+            cacheMs,
+          },
+        }),
+        { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders() } },
+      );
+    } catch (localError) {
+      console.error("[water-reader-read] local heavy fallback failed", {
+        lakeId: polygon.lakeId,
+        heavyReason: heavy.reason,
+        message: localError instanceof Error ? localError.message : String(localError),
+      });
+    }
     return new Response(
       JSON.stringify(fallbackReadResponse({
         polygon,
