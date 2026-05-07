@@ -2,7 +2,11 @@ import { assertEquals } from "jsr:@std/assert";
 import type { SharedConditionAnalysis } from "../../howFishingEngine/analyzeSharedConditions.ts";
 import type { RecommenderRequest } from "../contracts/input.ts";
 import type { SpeciesGroup } from "../contracts/species.ts";
-import { computeRecommenderRebuild } from "../rebuild/runRecommenderRebuild.ts";
+import {
+  computeRecommenderRebuild,
+  type RebuildEngineResult,
+} from "../rebuild/runRecommenderRebuild.ts";
+import type { RecentRecommendationHistoryEntry } from "../rebuild/recentHistory.ts";
 import type { RecommenderV4Species, SeasonalRowV4 } from "../v4/contracts.ts";
 import { LARGEMOUTH_BASS_SEASONAL_ROWS_V4 } from "../v4/seasonal/generated/largemouth_bass.ts";
 import { NORTHERN_PIKE_SEASONAL_ROWS_V4 } from "../v4/seasonal/generated/northern_pike.ts";
@@ -63,6 +67,32 @@ function requestForRow(args: {
   };
 }
 
+function recommendationKey(result: RebuildEngineResult): string {
+  return [
+    ...result.lureSlotPicks.map((pick) => `lure:${pick.archetype.id}`),
+    ...result.flySlotPicks.map((pick) => `fly:${pick.archetype.id}`),
+  ].join("|");
+}
+
+function avoidHistoryFromResult(
+  result: RebuildEngineResult,
+  row: SeasonalRowV4,
+): RecentRecommendationHistoryEntry[] {
+  const avoidDate = `2026-${String(row.month).padStart(2, "0")}-14`;
+  return [
+    ...result.lureSlotPicks.map((pick) => ({
+      archetype_id: pick.archetype.id,
+      gear_mode: "lure" as const,
+      local_date: avoidDate,
+    })),
+    ...result.flySlotPicks.map((pick) => ({
+      archetype_id: pick.archetype.id,
+      gear_mode: "fly" as const,
+      local_date: avoidDate,
+    })),
+  ];
+}
+
 Deno.test("rebuild: every generated seasonal row returns a full 3:3 lure/fly set", () => {
   const gaps: string[] = [];
 
@@ -101,6 +131,65 @@ Deno.test("rebuild: every generated seasonal row returns a full 3:3 lure/fly set
                 wind.label,
                 `lures=${result.lureSlotPicks.length}`,
                 `flies=${result.flySlotPicks.length}`,
+              ].join("|"),
+            );
+          }
+        }
+      }
+    }
+  }
+
+  assertEquals(gaps, []);
+});
+
+Deno.test("rebuild: refresh seeds can produce a different Set B across generated rows", () => {
+  const gaps: string[] = [];
+
+  for (const row of ROWS) {
+    for (const clarity of ["clear", "stained", "dirty"] as const) {
+      for (
+        const regime of [
+          { label: "suppressive", score: 20 },
+          { label: "neutral", score: 55 },
+          { label: "aggressive", score: 85 },
+        ] as const
+      ) {
+        for (
+          const wind of [
+            { label: "low_wind", mph: 5 },
+            { label: "surface_block_wind", mph: 16 },
+          ] as const
+        ) {
+          const req = requestForRow({ row, clarity, windMph: wind.mph });
+          const analysis = analysisForScore(regime.score);
+          const setA = computeRecommenderRebuild(req, analysis, {
+            userSeed: "coverage|daily-session:A|attempt:0",
+          });
+          const setAKey = recommendationKey(setA);
+          const avoidHistory = avoidHistoryFromResult(setA, row);
+          let foundDifferentSetB = false;
+
+          for (let attempt = 0; attempt < 8; attempt++) {
+            const setB = computeRecommenderRebuild(req, analysis, {
+              userSeed: `coverage|daily-session:B|attempt:${attempt}`,
+              recentHistory: avoidHistory,
+            });
+            if (recommendationKey(setB) !== setAKey) {
+              foundDifferentSetB = true;
+              break;
+            }
+          }
+
+          if (!foundDifferentSetB) {
+            gaps.push(
+              [
+                row.species,
+                row.region_key,
+                row.water_type,
+                `m${row.month}`,
+                clarity,
+                regime.label,
+                wind.label,
               ].join("|"),
             );
           }

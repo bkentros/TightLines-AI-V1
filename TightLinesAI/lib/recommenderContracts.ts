@@ -10,7 +10,7 @@
 import { STATE_SPECIES_CONTEXTS as GENERATED_STATE_SPECIES_CONTEXTS } from './generated/recommenderStateSpecies';
 
 export const RECOMMENDER_FEATURE = "recommender_rebuild" as const;
-export const RECOMMENDER_DAILY_SESSION_ENGINE_VERSION = "recommender_rebuild_tacv3_sessionv1" as const;
+export const RECOMMENDER_DAILY_SESSION_ENGINE_VERSION = "recommender_rebuild_tacv3_sessionv2" as const;
 
 export type SpeciesGroup =
   | "largemouth_bass"

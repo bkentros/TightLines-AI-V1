@@ -7,8 +7,13 @@ import {
 
 type AdminClient = ReturnType<typeof createClient>;
 export type RecommenderDailyVariant = "A" | "B";
+export type GenerateVariantOptions = {
+  attempt: number;
+  avoidResponse?: RecommenderResponse;
+};
 
 const TABLE = "recommender_daily_sessions";
+const MAX_REFRESH_VARIANT_ATTEMPTS = 8;
 
 type SessionKey = {
   user_id: string;
@@ -89,6 +94,20 @@ function activeResponse(row: SessionRow): RecommenderResponse {
   return applySessionMetadata({ response, row });
 }
 
+function recommendationIds(response: RecommenderResponse): string {
+  return [
+    ...response.lure_recommendations.map((pick) => `lure:${pick.id}`),
+    ...response.fly_recommendations.map((pick) => `fly:${pick.id}`),
+  ].join("|");
+}
+
+function recommendationsDiffer(
+  a: RecommenderResponse,
+  b: RecommenderResponse,
+): boolean {
+  return recommendationIds(a) !== recommendationIds(b);
+}
+
 async function readSession(args: {
   supabase: AdminClient;
   key: SessionKey;
@@ -159,6 +178,7 @@ export async function resolveRecommenderDailySession(args: {
   refreshRequested: boolean;
   generateVariant: (
     variant: RecommenderDailyVariant,
+    options: GenerateVariantOptions,
   ) => Promise<RecommenderResponse>;
 }): Promise<{
   result: RecommenderResponse;
@@ -168,7 +188,7 @@ export async function resolveRecommenderDailySession(args: {
   const existing = await readSession({ supabase: args.supabase, key });
 
   if (!existing) {
-    const generated = await args.generateVariant("A");
+    const generated = await args.generateVariant("A", { attempt: 0 });
     const row: SessionRow = {
       ...key,
       active_variant: "A",
@@ -202,7 +222,20 @@ export async function resolveRecommenderDailySession(args: {
     existing.active_variant === "A" &&
     existing.refreshes_used === 0
   ) {
-    const generated = await args.generateVariant("B");
+    let generated: RecommenderResponse | null = null;
+    for (let attempt = 0; attempt < MAX_REFRESH_VARIANT_ATTEMPTS; attempt++) {
+      const candidate = await args.generateVariant("B", {
+        attempt,
+        avoidResponse: existing.variant_a_response,
+      });
+      generated = candidate;
+      if (recommendationsDiffer(existing.variant_a_response, candidate)) {
+        break;
+      }
+    }
+    if (generated == null) {
+      throw new Error("daily session refresh generation failed");
+    }
     const row: SessionRow = {
       ...existing,
       active_variant: "B",

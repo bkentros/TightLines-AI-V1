@@ -35,6 +35,7 @@ import { resolveRegionForCoordinates } from "../_shared/howFishingEngine/context
 import {
   isContextAllowedForRecommenderV3,
   isSpeciesValidForState,
+  type RecommenderResponse,
   runRecommenderRebuildSurface,
   SeasonalRowMissingError,
   SPECIES_GROUPS,
@@ -42,6 +43,7 @@ import {
   toRecommenderV3Species,
   type WaterClarity,
 } from "../_shared/recommenderEngine/index.ts";
+import type { RecentRecommendationHistoryEntry } from "../_shared/recommenderEngine/rebuild/recentHistory.ts";
 import {
   loadRecentRecommendationHistory,
   persistRecommendationHistory,
@@ -52,6 +54,31 @@ import {
 } from "./dailySession.ts";
 
 const VALID_WATER_CLARITY: WaterClarity[] = ["clear", "stained", "dirty"];
+
+function subtractDaysIso(localDate: string, days: number): string {
+  const utc = Date.parse(`${localDate}T00:00:00Z`);
+  if (Number.isNaN(utc)) return localDate;
+  return new Date(utc - days * 86_400_000).toISOString().slice(0, 10);
+}
+
+function responseToAvoidHistory(
+  response: RecommenderResponse,
+  localDate: string,
+): RecentRecommendationHistoryEntry[] {
+  const avoidDate = subtractDaysIso(localDate, 1);
+  return [
+    ...response.lure_recommendations.map((pick) => ({
+      archetype_id: pick.id,
+      gear_mode: "lure" as const,
+      local_date: avoidDate,
+    })),
+    ...response.fly_recommendations.map((pick) => ({
+      archetype_id: pick.id,
+      gear_mode: "fly" as const,
+      local_date: avoidDate,
+    })),
+  ];
+}
 
 function corsHeaders() {
   return {
@@ -361,11 +388,20 @@ export async function handleRecommenderRequest(
       userId: user.id,
       req: engineReq,
       refreshRequested,
-      generateVariant: async (variant: RecommenderDailyVariant) =>
-        runRecommenderRebuildSurface(engineReq, {
-          userSeed: `${user.id}|daily-session:${variant}`,
-          recentHistory,
-        }),
+      generateVariant: async (variant: RecommenderDailyVariant, options) => {
+        const variantHistory = options.avoidResponse == null ? recentHistory : [
+          ...recentHistory,
+          ...responseToAvoidHistory(
+            options.avoidResponse,
+            engineReq.location.local_date,
+          ),
+        ];
+        return runRecommenderRebuildSurface(engineReq, {
+          userSeed:
+            `${user.id}|daily-session:${variant}|attempt:${options.attempt}`,
+          recentHistory: variantHistory,
+        });
+      },
     });
 
     result = session.result;

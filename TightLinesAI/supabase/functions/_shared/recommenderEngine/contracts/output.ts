@@ -16,7 +16,7 @@ export const RECOMMENDER_FEATURE = "recommender_rebuild" as const;
 
 /** Daily session/cache namespace for the server-authoritative A/B refresh contract. */
 export const RECOMMENDER_DAILY_SESSION_ENGINE_VERSION =
-  "recommender_rebuild_tacv3_sessionv1" as const;
+  "recommender_rebuild_tacv3_sessionv2" as const;
 
 /** Legacy id still accepted for cache validation; v3-only scripts may surface this id. */
 export type RecommenderFeatureId =
