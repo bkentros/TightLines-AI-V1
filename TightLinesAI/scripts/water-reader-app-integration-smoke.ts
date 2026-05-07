@@ -19,6 +19,7 @@ const cacheBuilderSource = readFileSync('scripts/water-reader-build-read-cache.t
 const migrationSource = readFileSync('supabase/migrations/202605030001_water_reader_engine_read_cache.sql', 'utf8');
 const searchFunctionSource = readFileSync('supabase/functions/waterbody-search/index.ts', 'utf8');
 const aliasSeedMigrationSource = readFileSync('supabase/migrations/20260507211500_seed_waterbody_search_aliases.sql', 'utf8');
+const sharedStatesMigrationSource = readFileSync('supabase/migrations/20260507214500_waterbody_shared_states.sql', 'utf8');
 
 const requestShape: WaterReaderReadRequest = {
   lakeId: '00000000-0000-4000-8000-000000000001',
@@ -73,9 +74,10 @@ assert(appSource.includes('nestedScrollEnabled') && appSource.includes('dropdown
 assert(appSource.includes('CountyFilterChip') && appSource.includes('countyFilter'), 'app search should expose county chips for dense same-name results');
 assert(serverSource.includes('cacheWriteStatus'), 'server read endpoint should report cache write status');
 assert(searchFunctionSource.includes('CURATED_3DHP_ALIASES') && searchFunctionSource.includes('Lake Fork Reservoir'), 'search fallback should preserve curated aliases for unlabeled 3DHP polygons');
-assert(searchFunctionSource.includes('CURATED_SHARED_STATE_ALIASES') && searchFunctionSource.includes('search telemetry'), 'search edge should log weak searches and handle curated shared-state aliases');
+assert(searchFunctionSource.includes('waterbody_shared_states!inner') && searchFunctionSource.includes('search telemetry'), 'search edge should log weak searches and handle database-backed shared-state aliases');
 assert(searchFunctionSource.includes('shown for ${displayState}') && searchFunctionSource.includes('indexed_state:'), 'shared-state aliases should preserve the user-selected state while tracking stored polygon state');
 assert(aliasSeedMigrationSource.includes('Lake Lanier') && aliasSeedMigrationSource.includes('Toledo Bend'), 'launch alias seed migration should include high-value angler aliases');
+assert(sharedStatesMigrationSource.includes('waterbody_shared_states') && sharedStatesMigrationSource.includes('Toledo Bend Reservoir'), 'shared-state migration should seed known border waters');
 assert(searchFunctionSource.indexOf('const areaDelta') < searchFunctionSource.indexOf('a.originalIndex !== b.originalIndex'), 'same-name search acreage ordering should happen before original SQL order');
 assert(cacheBuilderSource.includes('allowUniversalFallback: false'), 'cache builder should explicitly disable universal fallback');
 assert(serverHelperSource.includes('allowUniversalFallback: false'), 'shared read generator should explicitly disable universal fallback');

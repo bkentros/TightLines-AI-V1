@@ -94,20 +94,6 @@ const CURATED_3DHP_ALIASES: Array<{
   },
 ];
 
-const CURATED_SHARED_STATE_ALIASES: Array<{
-  canonicalName: string;
-  indexedState: string;
-  allowedSearchStates: string[];
-  aliases: string[];
-}> = [
-  {
-    canonicalName: "Toledo Bend Reservoir",
-    indexedState: "LA",
-    allowedSearchStates: ["LA", "TX"],
-    aliases: ["toledo bend", "toledo bend lake", "toledo bend reservoir"],
-  },
-];
-
 const STATE_BBOX: Record<string, [number, number, number, number]> = {
   AL: [-88.48, 30.14, -84.89, 35.01],
   AK: [-179.15, 51.21, -129.98, 71.39],
@@ -749,19 +735,7 @@ function shouldTryCrossStateAliasRetry(
   state: string | null,
 ): boolean {
   if (!state || rows.length > 0) return false;
-  return curatedSharedStateAliasForQuery(query, state) != null;
-}
-
-function curatedSharedStateAliasForQuery(
-  query: string,
-  state: string | null,
-) {
-  if (!state) return null;
-  const normQuery = normalizeWaterbodyName(query);
-  return CURATED_SHARED_STATE_ALIASES.find((alias) =>
-    alias.allowedSearchStates.includes(state) &&
-    alias.aliases.some((value) => normalizeWaterbodyName(value) === normQuery)
-  ) ?? null;
+  return queryTokens(query).length >= 1;
 }
 
 function centroidPoint(value: unknown): { lon: number; lat: number } | null {
@@ -783,18 +757,16 @@ async function fetchCuratedCrossStateAliasRows(params: {
   state: string | null;
   limit: number;
 }): Promise<SearchRow[]> {
-  const sharedAlias = curatedSharedStateAliasForQuery(params.query, params.state);
-  if (!sharedAlias) {
+  if (!params.state) {
     return [];
   }
   const { data, error } = await params.supabase
     .from("waterbody_aliases")
     .select(
-      "waterbody_index!inner(id, canonical_name, state_code, county_name, waterbody_type, surface_area_acres, centroid)",
+      "waterbody_index!inner(id, canonical_name, state_code, county_name, waterbody_type, surface_area_acres, centroid, waterbody_shared_states!inner(search_state_code, display_state_code, reason))",
     )
     .eq("normalized_alias_name", normalizeWaterbodyName(params.query))
-    .eq("waterbody_index.canonical_name", sharedAlias.canonicalName)
-    .eq("waterbody_index.state_code", sharedAlias.indexedState)
+    .eq("waterbody_index.waterbody_shared_states.search_state_code", params.state)
     .limit(params.limit);
   if (error) {
     console.error("[waterbody-search] curated alias direct lookup failed", error);
@@ -809,13 +781,23 @@ async function fetchCuratedCrossStateAliasRows(params: {
       waterbody_type?: WaterbodySearchResult["waterbodyType"];
       surface_area_acres?: number | null;
       centroid?: unknown;
+      waterbody_shared_states?: Array<{
+        search_state_code?: string | null;
+        display_state_code?: string | null;
+        reason?: string | null;
+      }>;
     } | null;
     const point = centroidPoint(waterbody?.centroid);
     if (!waterbody?.id || !waterbody.canonical_name || !waterbody.state_code || !point) {
       return [];
     }
+    const sharedState = waterbody.waterbody_shared_states?.find((shared) =>
+      shared.search_state_code === params.state
+    );
+    if (!sharedState) return [];
     const acres = waterbody.surface_area_acres ?? null;
-    const displayState = params.state ?? waterbody.state_code;
+    const displayState = sharedState.display_state_code ?? params.state ??
+      waterbody.state_code;
     const isSharedState = displayState !== waterbody.state_code;
     return [{
       lake_id: waterbody.id,
@@ -841,7 +823,7 @@ async function fetchCuratedCrossStateAliasRows(params: {
       water_reader_support_status: "limited",
       water_reader_support_reason:
         isSharedState
-          ? `Shared border waterbody indexed under ${waterbody.state_code}; shown for ${displayState} because the selected state is an accepted shoreline state.`
+          ? `Shared border waterbody indexed under ${waterbody.state_code}; shown for ${displayState} because ${displayState} is an accepted shoreline state.`
           : "Large border waterbody returned through a curated search alias; Water Reader can open it with limited-read caution.",
       has_polygon_geometry: true,
       polygon_area_acres: acres,
