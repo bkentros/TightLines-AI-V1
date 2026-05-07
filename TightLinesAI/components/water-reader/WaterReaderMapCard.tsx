@@ -29,7 +29,9 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import {
   ActivityIndicator,
   Animated,
+  Modal,
   Pressable,
+  SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
@@ -86,11 +88,24 @@ export function WaterReaderMapCard({
     useState<WaterbodyPolygonGeoJson | null>(null);
   const [viewerMode, setViewerMode] = useState<MapViewerMode>('fit');
   const [mapContentWidth, setMapContentWidth] = useState(0);
+  const [fullScreenOpen, setFullScreenOpen] = useState(false);
+  const [selectedNumber, setSelectedNumber] = useState<number | string | null>(null);
+  const [readingSlow, setReadingSlow] = useState(false);
   const polygonRequestSeq = useRef(0);
 
   useEffect(() => {
-    setViewerMode('fit');
+    setSelectedNumber(null);
   }, [lakeId]);
+
+  useEffect(() => {
+    if (state.status !== 'reading') {
+      setReadingSlow(false);
+      return;
+    }
+    setReadingSlow(false);
+    const timer = setTimeout(() => setReadingSlow(true), 850);
+    return () => clearTimeout(timer);
+  }, [state.status, lakeId]);
 
   useEffect(() => {
     polygonRequestSeq.current += 1;
@@ -152,7 +167,9 @@ export function WaterReaderMapCard({
           {state.status === 'reading' && (
             <View style={styles.headerStatus}>
               <ActivityIndicator size="small" color={paper.forest} />
-              <Text style={styles.headerStatusText}>READING</Text>
+              <Text style={styles.headerStatusText}>
+                {readingSlow ? 'BUILDING MAP' : 'OPENING'}
+              </Text>
             </View>
           )}
           {state.status === 'ready' && (
@@ -192,6 +209,20 @@ export function WaterReaderMapCard({
                   onPress={() => setViewerMode('inspect')}
                 />
               </View>
+              <Pressable
+                style={({ pressed }) => [
+                  styles.viewerIconButton,
+                  pressed && styles.viewerModeButtonPressed,
+                ]}
+                onPress={() => {
+                  setViewerMode('inspect');
+                  setFullScreenOpen(true);
+                }}
+                accessibilityRole="button"
+                accessibilityLabel="Open full screen map"
+              >
+                <Ionicons name="expand-outline" size={14} color={paper.ink} />
+              </Pressable>
             </View>
 
             <View
@@ -209,6 +240,7 @@ export function WaterReaderMapCard({
                   mode={viewerMode}
                   containerWidth={mapContentWidth}
                   windowHeight={window.height}
+                  selectedNumber={selectedNumber}
                 />
               </Animated.View>
             </View>
@@ -230,7 +262,60 @@ export function WaterReaderMapCard({
           <WaterReaderLegend
             entries={state.read.productionSvgResult.legendEntries}
             season={state.read.season}
+            selectedNumber={selectedNumber}
+            onSelectNumber={setSelectedNumber}
           />
+
+          <Modal
+            visible={fullScreenOpen}
+            animationType="slide"
+            presentationStyle="fullScreen"
+            onRequestClose={() => setFullScreenOpen(false)}
+          >
+            <SafeAreaView style={styles.fullScreenRoot}>
+              <View style={styles.fullScreenHeader}>
+                <View style={styles.fullScreenTitleWrap}>
+                  <Text style={styles.fullScreenEyebrow}>WATER READER</Text>
+                  <Text style={styles.fullScreenTitle} numberOfLines={1}>
+                    {state.read.name}
+                  </Text>
+                </View>
+                <Pressable
+                  style={({ pressed }) => [
+                    styles.fullScreenClose,
+                    pressed && styles.viewerModeButtonPressed,
+                  ]}
+                  onPress={() => setFullScreenOpen(false)}
+                  accessibilityRole="button"
+                  accessibilityLabel="Close full screen map"
+                >
+                  <Ionicons name="close" size={18} color={paper.paper} />
+                </Pressable>
+              </View>
+              <ScrollView
+                style={styles.fullScreenScroll}
+                contentContainerStyle={styles.fullScreenScrollContent}
+                showsVerticalScrollIndicator={false}
+              >
+                <View style={styles.fullScreenMapWrap}>
+                  <WaterReaderAdaptiveMap
+                    result={state.read.productionSvgResult}
+                    mode="inspect"
+                    containerWidth={Math.max(320, window.width - 28)}
+                    windowHeight={window.height}
+                    selectedNumber={selectedNumber}
+                    fullScreen
+                  />
+                </View>
+                <WaterReaderLegend
+                  entries={state.read.productionSvgResult.legendEntries}
+                  season={state.read.season}
+                  selectedNumber={selectedNumber}
+                  onSelectNumber={setSelectedNumber}
+                />
+              </ScrollView>
+            </SafeAreaView>
+          </Modal>
         </View>
       )}
 
@@ -304,11 +389,15 @@ function WaterReaderAdaptiveMap({
   mode,
   containerWidth,
   windowHeight,
+  selectedNumber,
+  fullScreen = false,
 }: {
   result: WaterReaderReadResponse['productionSvgResult'];
   mode: MapViewerMode;
   containerWidth: number;
   windowHeight: number;
+  selectedNumber?: number | string | null;
+  fullScreen?: boolean;
 }) {
   const dimensions = useMemo(() => {
     const width = Math.max(1, result?.summary.width ?? 1);
@@ -319,8 +408,10 @@ function WaterReaderAdaptiveMap({
     const naturalFitHeight = availableWidth / aspectRatio;
     const fitHeight = Math.max(260, Math.min(maxFitHeight, naturalFitHeight));
     const fitWidth = Math.min(availableWidth, fitHeight * aspectRatio);
-    const inspectViewportHeight = Math.max(430, Math.min(640, windowHeight * 0.62));
-    const inspectBaseWidth = Math.max(availableWidth * 1.7, 620);
+    const inspectViewportHeight = fullScreen
+      ? Math.max(480, windowHeight * 0.56)
+      : Math.max(430, Math.min(640, windowHeight * 0.62));
+    const inspectBaseWidth = Math.max(availableWidth * (fullScreen ? 2.2 : 1.7), fullScreen ? 820 : 620);
     const inspectWidth = aspectRatio < 0.72
       ? Math.max(availableWidth, inspectViewportHeight * aspectRatio * 1.22)
       : inspectBaseWidth;
@@ -333,7 +424,7 @@ function WaterReaderAdaptiveMap({
       inspectHeight,
       inspectViewportHeight,
     };
-  }, [containerWidth, result?.summary.height, result?.summary.width, windowHeight]);
+  }, [containerWidth, fullScreen, result?.summary.height, result?.summary.width, windowHeight]);
 
   if (!result) return null;
 
@@ -368,6 +459,7 @@ function WaterReaderAdaptiveMap({
               result={result}
               width={dimensions.inspectWidth}
               height={dimensions.inspectHeight}
+              selectedNumber={selectedNumber}
               style={[
                 styles.mapCanvas,
                 {
@@ -388,6 +480,7 @@ function WaterReaderAdaptiveMap({
         result={result}
         width={dimensions.fitWidth}
         height={dimensions.fitHeight}
+        selectedNumber={selectedNumber}
         style={[
           styles.mapCanvas,
           {
@@ -500,6 +593,8 @@ const styles = StyleSheet.create({
   viewerToolbar: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
+    alignItems: 'center',
+    gap: paperSpacing.xs,
     marginBottom: paperSpacing.sm,
   },
   viewerSegment: {
@@ -534,6 +629,16 @@ const styles = StyleSheet.create({
   },
   viewerModeButtonTextActive: {
     color: paper.paper,
+  },
+  viewerIconButton: {
+    width: 36,
+    minHeight: 34,
+    borderWidth: 1.5,
+    borderColor: paper.ink,
+    borderRadius: paperRadius.chip,
+    backgroundColor: paper.paper,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   mapMeasure: {
     width: '100%',
@@ -652,5 +757,57 @@ const styles = StyleSheet.create({
 
   bottomSlot: {
     width: '100%',
+  },
+  fullScreenRoot: {
+    flex: 1,
+    backgroundColor: paper.paper,
+    paddingHorizontal: paperSpacing.md,
+    paddingBottom: paperSpacing.md,
+    gap: paperSpacing.md,
+  },
+  fullScreenHeader: {
+    minHeight: 58,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: paperSpacing.md,
+    borderBottomWidth: 1.5,
+    borderBottomColor: paper.ink,
+  },
+  fullScreenTitleWrap: {
+    flex: 1,
+  },
+  fullScreenEyebrow: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 9,
+    letterSpacing: 2.8,
+    color: paper.red,
+    fontWeight: '700',
+  },
+  fullScreenTitle: {
+    fontFamily: paperFonts.display,
+    fontSize: 22,
+    lineHeight: 26,
+    color: paper.ink,
+    fontWeight: '700',
+    letterSpacing: -0.4,
+  },
+  fullScreenClose: {
+    width: 34,
+    height: 34,
+    borderRadius: 17,
+    backgroundColor: paper.ink,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  fullScreenMapWrap: {
+    width: '100%',
+  },
+  fullScreenScroll: {
+    flex: 1,
+  },
+  fullScreenScrollContent: {
+    gap: paperSpacing.md,
+    paddingBottom: paperSpacing.lg,
   },
 });

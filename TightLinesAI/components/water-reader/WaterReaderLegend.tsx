@@ -24,7 +24,7 @@
  * The component is purely presentational — no state, no fetching.
  */
 
-import { StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 import {
   paper,
   paperBorders,
@@ -42,11 +42,15 @@ const CONFLUENCE_ACCENT = '#7A3A52';
 export interface WaterReaderLegendProps {
   entries: WaterReaderProductionSvgLegendEntry[];
   season?: string;
+  selectedNumber?: number | string | null;
+  onSelectNumber?: (number: number | string | null) => void;
 }
 
 export function WaterReaderLegend({
   entries,
   season,
+  selectedNumber,
+  onSelectNumber,
 }: WaterReaderLegendProps) {
   if (!entries || entries.length === 0) return null;
 
@@ -70,6 +74,15 @@ export function WaterReaderLegend({
             key={`${entry.number ?? entry.zoneId}-${entry.zoneIds.join('|')}`}
             entry={entry}
             isFirst={idx === 0}
+            selected={selectedNumber != null && String(selectedNumber) === String(entry.number)}
+            onPress={onSelectNumber
+              ? () =>
+                onSelectNumber(
+                  selectedNumber != null && String(selectedNumber) === String(entry.number)
+                    ? null
+                    : entry.number ?? null,
+                )
+              : undefined}
           />
         ))}
       </View>
@@ -80,9 +93,13 @@ export function WaterReaderLegend({
 function LegendRow({
   entry,
   isFirst,
+  selected,
+  onPress,
 }: {
   entry: WaterReaderProductionSvgLegendEntry;
   isFirst: boolean;
+  selected: boolean;
+  onPress?: () => void;
 }) {
   // Trust the paper-warm palette — but if the engine emits a hex we don't
   // recognize, fall back to the entry's `colorHex`. This keeps the legend
@@ -97,17 +114,25 @@ function LegendRow({
   const titleParts = splitLegendTitle(entry.title);
 
   return (
-    <View
+    <Pressable
       style={[
         styles.row,
         !isFirst && styles.rowDivider,
         entry.isConfluence && styles.rowConfluence,
+        selected && styles.rowSelected,
       ]}
+      onPress={onPress}
+      disabled={!onPress}
+      accessibilityRole={onPress ? 'button' : undefined}
+      accessibilityState={{ selected }}
     >
       {/* Number + swatch column — mirrors the SVG callout exactly. */}
       <View style={styles.markerColumn}>
-        <View style={styles.numberRing}>
-          <Text style={styles.numberText} allowFontScaling={false}>
+        <View style={[styles.numberRing, selected && styles.numberRingSelected]}>
+          <Text
+            style={[styles.numberText, selected && styles.numberTextSelected]}
+            allowFontScaling={false}
+          >
             {entry.number ?? '·'}
           </Text>
         </View>
@@ -148,7 +173,7 @@ function LegendRow({
           </View>
         ) : null}
       </View>
-    </View>
+    </Pressable>
   );
 }
 
@@ -208,9 +233,14 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     gap: paperSpacing.sm + 2,
     paddingVertical: paperSpacing.sm + 2,
+    paddingHorizontal: paperSpacing.xs,
+    borderRadius: paperRadius.card - 2,
   },
   rowConfluence: {
     // No background change — the eyebrow + swatch ring carry the difference.
+  },
+  rowSelected: {
+    backgroundColor: paper.paperLight,
   },
   rowDivider: {
     borderTopWidth: StyleSheet.hairlineWidth,
@@ -232,12 +262,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  numberRingSelected: {
+    backgroundColor: paper.forest,
+  },
   numberText: {
     fontFamily: paperFonts.display,
     fontSize: 11,
     fontWeight: '700',
     color: paper.ink,
     lineHeight: 13,
+  },
+  numberTextSelected: {
+    color: paper.paper,
   },
   swatch: {
     width: 8,

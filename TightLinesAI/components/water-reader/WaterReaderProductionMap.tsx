@@ -24,6 +24,7 @@ export interface WaterReaderProductionMapProps {
   width?: number | string;
   height?: number | string;
   style?: StyleProp<ViewStyle>;
+  selectedNumber?: number | string | null;
 }
 
 export function WaterReaderProductionMap({
@@ -31,10 +32,12 @@ export function WaterReaderProductionMap({
   width = '100%',
   height = '100%',
   style,
+  selectedNumber = null,
 }: WaterReaderProductionMapProps) {
   const paperifiedSvg = useMemo(() => {
-    return paperifyWaterReaderSvg(result.svg).svg;
-  }, [result.svg]);
+    const svg = paperifyWaterReaderSvg(result.svg).svg;
+    return emphasizeDisplayNumber(svg, selectedNumber);
+  }, [result.svg, selectedNumber]);
 
   return (
     <View style={[styles.mapWrap, style]}>
@@ -46,6 +49,25 @@ export function WaterReaderProductionMap({
       />
     </View>
   );
+}
+
+function emphasizeDisplayNumber(svg: string, selectedNumber?: number | string | null): string {
+  const displayNumber = selectedNumber == null ? '' : String(selectedNumber).trim();
+  if (!displayNumber) return svg;
+  const filter = `
+    <filter id="wr-selected-emphasis" x="-24%" y="-24%" width="148%" height="148%">
+      <feDropShadow dx="0" dy="0" stdDeviation="2.2" flood-color="${paper.gold}" flood-opacity="0.75"/>
+      <feDropShadow dx="0" dy="0" stdDeviation="4.2" flood-color="${paper.gold}" flood-opacity="0.28"/>
+    </filter>`;
+  const withFilter = svg.includes('id="wr-selected-emphasis"')
+    ? svg
+    : svg.replace('</defs>', `${filter}\n  </defs>`);
+  const escaped = displayNumber.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const tagPattern = new RegExp(
+    `<(path|g)(?=[^>]*data-display-number="${escaped}")((?:(?!filter=)[^>])*)>`,
+    'g',
+  );
+  return withFilter.replace(tagPattern, '<$1$2 filter="url(#wr-selected-emphasis)">');
 }
 
 const styles = StyleSheet.create({
