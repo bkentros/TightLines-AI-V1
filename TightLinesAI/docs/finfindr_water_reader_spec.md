@@ -42,7 +42,7 @@ This section is the current handoff status. Future agents must treat checked ite
 
 - [x] New engine root: `lib/water-reader-engine/`
 - [x] Foundation: `contracts.ts`, `ingest.ts`, `projection.ts`, `metrics.ts`, `shoreline.ts`, `seasons.ts`, `index.ts`
-- [x] Feature detection: `features/types.ts`, `points.ts`, `coves.ts`, `necks.ts`, `islands.ts`, `dams.ts`, `conflicts.ts`, `validation.ts`, `index.ts`
+- [x] Feature detection: `features/types.ts`, `points.ts`, `coves.ts`, `necks.ts`, `islands.ts`, `dams.ts`, `smoothness.ts`, `conflicts.ts`, `validation.ts`, `index.ts`
 - [x] Feature debug cues: `debug/cues.ts`
 - [x] Zone placement: `zones/types.ts`, `priority.ts`, `invariants.ts`, `placement.ts`, `index.ts`
 - [x] Display/copy/rendering: `legend.ts`, `display-model.ts`, `rendering/types.ts`, `rendering/transform.ts`, `rendering/svg.ts`, `rendering/index.ts`
@@ -51,7 +51,7 @@ This section is the current handoff status. Future agents must treat checked ite
 ### Completed Chunks
 
 - [x] **Chunk 1 — Foundation:** deterministic contracts, local meter projection/unprojection, projected polygon metrics, shoreline resampling/simplification/smoothing helpers, regional season lookup, and conservative GeoJSON ingest/preprocess foundation.
-- [x] **Chunk 2 — Feature detection:** discriminated feature contracts, island detection from interior holes, point detection, cove chord-scan detection, neck/saddle width-field detection, conservative metadata-gated dam detection, conflict resolution, feature debug cues, and 9-lake feature review artifacts.
+- [x] **Chunk 2 — Feature detection:** discriminated feature contracts, island detection from interior holes, point detection, cove chord-scan detection, neck/saddle width-field detection, dam feature-class placeholder with the v1 detector currently disabled, smooth-lake enrichment profile/detectors, conflict resolution, feature debug cues, and 9-lake feature review artifacts.
 - [x] **Chunk 3A-3J — Zone placement core:** deterministic shoreline-hugging oval drafts, seasonal placement by feature class, strict placement invariants, selected-vs-suppressed feature diagnostics, filtered zone review artifacts, point-tip summer recovery, constriction shoulder recovery, zone-placement performance controls, winter cove/secondary-point transition placement, structure-confluence grouping for overlapping valid zones, island-edge zone recovery, and review-render padding fixes.
 - [x] **Chunk 4 — Legend and educational copy:** deterministic legend templates keyed by feature class, placement variant, season, and confluence groups; transition warnings; conservative educational copy; forbidden-language scanning in smoke/review artifacts.
 - [x] **Pre-Chunk 5 logic pass:** feature-proportional zone sizing contract and implementation for points, coves, constrictions, islands, and dams; displayed-entry cap bands; display-state vocabulary; confluence thresholds/compactness rules; stable numbering/order rules; renderer responsibility boundary; compact review diagnostics for zone size, confluence, and display state.
@@ -89,20 +89,22 @@ Final verified matrix state:
 
 ### Remaining Chunks
 
-- [ ] **Chunk 7 — 50-lake tuning loop:** expanded multi-region test set, agent + founder visual review, CSV/SVG/PNG/JSON artifacts, threshold tuning, and final v1 launch acceptance.
+- [x] **Chunk 7 — 50-lake tuning loop:** expanded multi-region test set, agent + founder visual review, CSV/SVG/PNG/JSON artifacts, threshold tuning, five 10-lake review batches, and final custom MI/FL batch acceptance.
 - [ ] **Cleanup after new engine integration:** delete or fully retire old V1 detector/layout paths only after the new engine is integrated and validated. Do not remove old files during Chunk 3 unless explicitly requested.
 
-### Next Builder Handoff — Chunk 7 Tuning
+### Current Builder Handoff — Post-Tuning Launch State
 
-The next builder should start with the verified 50-lake manifest in this document, not the older seed list or generated `tmp/` artifacts. The correct next step is to produce the 50-lake x 4-season review artifacts and inspect actual SVG/PNG/CSV/JSON output before making tuning changes. Do not tune thresholds, ranking, display caps, copy, or renderer behavior before the first 200-row discovery pass has been generated and reviewed.
+The 50-lake tuning loop and the final founder custom MI/FL batch are complete for the current v1 launch candidate. Future agents should start from the final checkpoint below, not from older generated `tmp/` artifacts or the earlier "begin Batch 1" handoff language. Batch 1 was accepted as a baseline, Batches 2-5 were visually reviewed and tuned, and the custom founder batch was used to repair smooth/sparse-lake sensitivity, clear-neck readability, confluence normalization, and saddle scarcity.
 
-Pre-tuning readiness is in a good state:
+Do not perform broad retuning unless a new batch or production telemetry reveals a pattern-level regression. Generated discovery/tuning artifacts stay under `tmp/water-reader-50-lake-tuning/` or other `tmp/` review folders and must not be committed.
+
+Post-tuning readiness is in a good state:
 
 - Support/index policy is repaired: `not_supported` is reserved for wrong type or missing/empty/invalid polygon geometry. Polygon-backed lake/pond/reservoir rows open as `supported` or `limited`.
 - Search now exposes same-name ambiguity metadata so users can distinguish rows by state, county, acreage, support status, and ordering. Shasta Lake, CA remains intentionally excluded from the launch manifest until source metadata can identify the intended full reservoir polygon.
 - Engine performance has been optimized enough for the profiled high-complexity local rows to complete under the target range, and live cache misses for large polygons have a heavy-worker route.
 - Edge is the authenticated read/cache layer. Cache hits are fast and do not fetch runtime GeoJSON. Heavy cache misses require the configured worker; the local Mac plus Cloudflare tunnel path is only a temporary app-path testing setup before production worker hosting is chosen.
-- Generated discovery/tuning artifacts should stay under `tmp/water-reader-50-lake-tuning/` and must not be committed.
+- Generated discovery/tuning artifacts should stay under `tmp/water-reader-50-lake-tuning/` or other ignored `tmp/` review folders and must not be committed.
 
 Current Chunk 7 tuning state as of 2026-05-05:
 
@@ -114,7 +116,7 @@ Current Chunk 7 tuning state as of 2026-05-05:
 
 Current feature-envelope renovation state as of 2026-05-06:
 
-- The engine now uses season-invariant feature-envelope placement as the normal path for supported detected feature classes: `main_lake_point`, `secondary_point`, `cove`, `neck`, `saddle`, `island`, and `dam`. Season may affect legend explanation and over-cap ranking only; it must not move zone geometry.
+- The engine now uses season-invariant feature-envelope placement as the normal path for supported detected feature classes: `main_lake_point`, `secondary_point`, `cove`, `neck`, `saddle`, and `island`. The `dam` class remains reserved, but current v1 dam detection is disabled. Season may affect legend explanation and over-cap ranking only; it must not move zone geometry.
 - Whole-feature point envelopes remain one displayed point unit, but production rendering may use deterministic tip, left-shoulder, and right-shoulder render lobes merged into one feature envelope. This is a rendering shape repair, not a return to seasonal point-tip/side/open-water micro-placement.
 - Island structure areas are now island-centered from the island ring/centroid or a bounded island-frame recovery. Legend title is `Island - Structure Area`; diagnostics expose island centroid, buffer radius, visible-water/locality values, hole clipping behavior, and `islandStructureAreaCentered`.
 - Neck and saddle structure areas remain one displayed constriction unit. Production rendering may use deterministic paired shoulder lobes merged into one feature envelope so the shape reads as paired shoulders rather than a pencil line, center-throat blob, or one shoreline point.
@@ -127,7 +129,7 @@ Current feature-envelope renovation state as of 2026-05-06:
 
 Current Batch 1 tuning checkpoint as of 2026-05-06, Pass 5.6:
 
-- Batch 1's first 10 lakes are accepted as the current visual baseline and are ready to hand off to the next 10-lake review batch. Do not keep tuning Batch 1 unless a later batch reveals a pattern-level regression.
+- Batch 1's first 10 lakes were accepted as the baseline for the later 10-lake passes. Do not keep tuning Batch 1 unless a later production batch reveals a pattern-level regression.
 - Visible geometry is season-invariant. Date/season may affect legend guidance text only; it must not move, split, or seasonalize structure zones.
 - Production point zones render as shoreline-following point buffers with one translucent stroke only. Do not reintroduce the former high-opacity inner shoreline stroke. Same-feature point overlap may darken naturally from alpha stacking.
 - Cove zones render as high-density shoreline polygons with a curved mouth closure. The sampled cove shoreline should preserve the actual ordered cove shore path and stay dense enough to hug jagged polygon detail.
@@ -139,19 +141,60 @@ Current Batch 1 tuning checkpoint as of 2026-05-06, Pass 5.6:
 - Future tuning must keep a detected-vs-displayed-vs-retained audit by feature class and retained reason. The map should stay clean, but clean display must not become hidden structure. Pay special attention to saddles, dams, islands, large coves, and any high-confidence feature retained for display policy rather than geometry failure.
 - Generated visual/CSV/JSON review artifacts remain local under `tmp/water-reader-50-lake-tuning/` and must not be committed.
 
+Current final Water Reader tuning checkpoint as of 2026-05-07:
+
+- The current launch candidate has completed visual QA across the 50-lake manifest in five 10-lake batches plus a founder custom MI/FL batch: Glen Lake, Crystal Lake, Platte Lake, Little Traverse Lake, Lime Lake, Lake Leelanau, Green Lake near Interlochen, Torch Lake, Walloon Lake, and Lake Thonotosassa. The founder accepted the final visual state after the last Walloon pinch and saddle pass.
+- The engine is still a geometry-only Water Reader. It identifies physical structure areas formed by lake polygon shape: main-lake points, secondary points, coves, necks/pinches, saddles, islands, and confluence/overlap areas. It does not predict fish and does not use satellite imagery, depth, bathymetry, species, activity, clarity, weather, or fish behavior to place zones.
+- Visible overlay geometry is season-invariant. A feature's zone shape, position, and displayed entry must not change by Spring/Summer/Fall/Winter. Future seasonal product value belongs in legend/read guidance: for example, a cove zone still covers the whole cove structure area, while seasonal copy can tell the user whether to pay more attention to the back, inner edge, mouth, or transition side.
+- Dam detection is intentionally disabled in v1 code. `features/dams.ts` returns no dam candidates. The `dam` feature class, red color, and future spec remain reserved, but current production behavior must not label dams until reliable metadata-supported dam logic is built and visually QA'd. False dam calls on reservoirs were judged more damaging than temporarily omitting dams.
+- Smooth/sparse-lake enrichment is active and documented in code at `features/smoothness.ts`, `features/points.ts`, `features/coves.ts`, and `features/index.ts`. It was added because smoother, less structurally rich lakes were under-zoned by normal detectors. It is an explicit profile, not engine guessing.
+- Smooth-lake enrichment eligibility requires normal non-island feature count at or below 6 and at least one smoothness signal: shoreline development index at or below 4.8, convex hull area ratio at or above 0.28, or meaningful turn density at or below 28 turns/km. When eligible, the engine may add up to 3 extra smooth-lake point candidates and up to 3 extra smooth-lake cove candidates using gentler but still deterministic thresholds.
+- Smooth-lake enrichment must remain bounded to coves and points only. It must not loosen neck, saddle, island, dam, display cap, or season-geometry behavior globally. Candidates carry diagnostics such as `smooth_lake_enrichment_point`, `smooth_lake_enrichment_cove`, `smoothLakeEnrichmentEligible`, `smoothLakeEnrichmentReason`, shoreline development index, convex hull area ratio, turn density, and normal non-island feature count.
+- Point-seeded neck rescue is active for Glen-style narrows where the polygon can make a bridge/connection read like a point. It may convert a strong point-like candidate into a neck only when an opposite-shore ray across water confirms a tight two-sided constriction. Diagnostics include `point_seeded_neck_rescue`, `opposite_shoreline_ray_confirmed`, `seededFromPoint`, source point metrics, width ratio, and opposite-shore distance. This is not a general "rename points as necks" fallback.
+- Neck and Pinch remain one feature family. The engine class is `featureClass: neck` and `placementKind: neck_structure_area`; both render orange. `Pinch` is display wording for narrow/channel-like constrictions. Clear broader two-sided constrictions label as `Neck`.
+- The current Pinch subtype gates include narrow width ratio, channel pinch display class, one-sided channel-like cases, and a compact two-sided channel rule. The compact two-sided channel rule applies only to clear necks with width-to-average at or below 0.11, confidence at or above 0.90, weaker expansion at or above 8, expansion balance at or above 0.70, and app minimum footprint under 14px. This converted the final Walloon zone 1 to `Pinch` while preserving Glen and Leelanau as `Neck`.
+- Clear necks receive a readable footprint boost only when they are two-sided, balanced, high confidence, not tiny/weak/one-sided, and width-to-average sits in the clear-neck range. The boost uses paired shoulder lobes plus balanced approach lobes so the zone reads larger on both sides of the narrows. This repaired Glen, Leelanau, and Walloon readability without broadening weak pinches across the full lake set.
+- Saddles are conservative but no longer extinct. The latest accepted `review-ready-full` matrix displayed 8 saddle-class zones and retained 56 saddle-class zones. Legitimate readable saddles may display when they are two-sided, balanced, high-confidence, and visually substantial. Low-confidence, one-sided, broad, confusing, or tiny saddles remain retained with explicit reasons such as `broad_saddle_not_visually_substantial` or `retained_confluence_saddle_member_readability`.
+- Broad saddle recovery currently requires strong evidence: two-sided expansion, weaker expansion ratio at least 2.4, expansion balance at least 0.68, confidence at least 0.82, app max footprint at least 20px, and app area at least 260px. This keeps Pontiac/Sebago/Don Pedro/Broken Bow-style confusing saddles retained while allowing clearer saddles such as the final Walloon accepted saddle.
+- Points render as shoreline-following translucent buffers with one stroke only. Do not reintroduce a dark internal shoreline stroke. Same-feature point overlap may naturally darken from alpha stacking.
+- Coves render as high-density shoreline polygons with curved mouth closure. Strong cove clipped-contact recovery is allowed when a valid cove feature fails initial shoreline-contact placement despite a valid clipped cove envelope. Smooth-lake cove enrichment may add conservative cove zones on smooth/sparse lakes.
+- Islands use a larger candidate pool and display backfill. Normal non-island structure receives its normal first pass, then significant readable islands can fill unused display capacity. Do not hide major islands merely because earlier feature families used fewer than the cap. Avoid hard-tiny island fill when it would create noise.
+- Cross-feature confluences render exact member shapes under one label/color, not convex-hull blobs. Same-feature overlaps generally remain same-color alpha overlap rather than becoming confluence. Confluence groups must rebuild legend title/body from final displayed members, and titles must list actual member classes such as `Cove + Neck - Structure Area`, `Island + Point - Structure Area`, or `Cove + Point - Structure Area`.
+- Cove+point confluence normalization is active after display selection. It uses exact visible-ring intersection/touch, a tight visible-ring distance cap of 450m, and a same-shoreline corridor cap of 1200m with compact envelope ratio gating. This fixed valid Green Lake, Thonotosassa, and Leelanau confluences while preventing far false merges such as earlier Leelanau point/cove gaps.
+- Cove+neck confluence normalization is active when exact rendered-ring proximity shows the member shapes touch or nearly touch. Questionable saddle members can be peeled out of a confluence and retained so the remaining confluence title/shape stays truthful and readable.
+- Display caps remain 6 for waters under 100 acres, 10 for 100-1,000 acres, and 12 above 1,000 acres. A confluence counts as one displayed entry. If valid display-unit cost is under cap, valid readable structures generally display; repeated title pressure alone should not hide valid under-cap entries.
+- Retention/suppression is a diagnostic safety valve, not a product goal. Valid detected structure should usually display unless it is confusing, low-confidence, too tiny, unrepresentable, over cap, or less useful than enough readable alternatives. Always monitor detected vs displayed vs retained by feature class and retained reason.
+- The most recent accepted full-matrix run was `review-ready-full`: 200 rows, 0 fallback/no-map rows, 0 zero-zone rows, 0 selected feature suppressions, 0 semantic anchor mismatches, 0 label semantic risks, 0 feature-envelope season-invariance mismatches, 0 display legend/rendered-number mismatches, 0 retained cap-pressure rows, 0 repeated title pressure rows, and no `water-reader-engine-v1` legacy references outside ignored/docs/markdown paths. It produced 48 full-size renderer warning rows and 20 app-width renderer warning rows; these are label-leader/readability warnings, not geometry or contract failures.
+- Final accepted QA commands passed after code tuning: `npm run qa:water-reader-typecheck`, `npm run qa:water-reader-engine-features`, `npm run qa:water-reader-engine-zone-smoke`, `npm run qa:water-reader-production-feature-envelope`, `npm run qa:water-reader-app-integration-smoke`, and the full `review-ready-full` matrix.
+- Batch-specific accepted outcomes: Batch 1 remains accepted baseline; Batch 2 repaired island under-display and saddle retention; Batch 3 repaired confluence wording and saddle-in-confluence cleanup; Batch 4 disabled false dam detection and retained hard-tiny low-value pinches; Batch 5 fixed Don Pedro cove+neck confluence and broad saddle retention; the custom MI/FL batch repaired smooth-lake under-zoning, Glen/Leelanau clear-neck readability, Leelanau/Green/Thonotosassa confluence normalization, Walloon Pinch labeling, and a slightly less restrictive saddle display policy.
+
 Chunk 7 display-policy update:
 
 - Displayed-entry caps are 6 for waters under 100 acres, 10 for 100-1,000 acres, and 12 for waters over 1,000 acres. A confluence group counts as one displayed entry.
 - If valid display-unit cost is at or below the cap, every valid display unit must display. Readability tiers are diagnostics only and must not hide valid under-cap structure.
 - If valid display-unit cost exceeds the cap, display selection uses feature hierarchy, deterministic feature prominence, seasonal relevance, and then variety pressure. Retained valid structure remains in diagnostics.
 - Placement applies class-specific readable major-axis floors before display selection while preserving hard geometry invariants. Floors are: dam/neck 70m or 5.75% L small, 125m or 5.25% L medium, 340m or 3.75% L large; saddle 65m/5.25%, 115m/4.75%, 310m/3.35%; main point side/open-water 80m/6.5%, 140m/5.75%, 390m/4.0%; point tip 70m/5.5%, 120m/5.0%, 340m/3.5%; cove placements 75m/6.0%, 135m/5.5%, 370m/4.0%; island placements 75m/6.0%, 140m/5.25%, 380m/3.75%; secondary point 65m/5.25%, 110m/4.75%, 310m/3.25%.
-- Confluence rendering is a single render-only rounded/hull envelope with both fill and one thin outline; individual member fills/strokes must not be visible in production output.
+- Cross-feature confluence rendering uses exact member shapes under one confluence entry/color. Do not render broad convex-hull blobs that cover unrelated water or land. The production renderer may polish the grouped treatment, but it must preserve the member-shaped footprint and one displayed number/legend entry.
 - Production map numbers render as small external callouts with short leader lines whenever a deterministic outside-lake candidate exists; candidate ranking prefers outside-lake, non-overlapping, zone-local labels before edge fallbacks, and renderer diagnostics must warn when a label falls back inside the lake polygon or requires a long leader.
 - Macro structure areas remain deferred and must not render until separately approved.
 - Spring island-mainland and shoreline-recovery zones must orient from the selected local island edge/tangent whenever possible. Mainland-facing edge remains the preferred Spring semantic. If the exact mainland-facing edge fails hard geometry invariants, placement must next try deterministic same-side mainland recovery anchors along a bounded local island-shoreline arc before using generic shoreline, endpoint, or open-water recovery. Mainland-side recovery must be labeled honestly as "Island Edge - Mainland Recovery"; generic shoreline recovery is a last resort. Diagnostics must expose the orientation source, selected edge bearing, zone rotation, side-selection reason, recovery kind, and size cap. Island zones remain local-feature-aware and must not become lake-scale blobs.
 - Spring cove placement has a strict semantic ladder: true cove back pocket, near-back pocket recovery, inner-shoreline recovery, then mouth-shoulder recovery only as a last resort. Before falling back, Spring cove-back drafts must try axis-aligned pocket candidates: center movement follows the deterministic back-to-mouth-midpoint axis, candidate rotation tries the local back-shoreline tangent and the cove mouth chord/back-pocket cross-axis, and exact/near-back attempts may use deterministic compact size recovery so the zone has multiple clean chances to sit against the protected back shoreline. Legends must name the actual placement, not the intended one. Diagnostics must expose the intended Spring cove semantic, actual anchor semantic, fallback tier, fallback reason, rejected candidate reasons, and cove-back axis/rotation policy so visual review can distinguish legitimate fallback from incorrect seasonal placement.
 
 ### Current QA Commands
+
+Primary launch-candidate verification:
+
+```bash
+npm run qa:water-reader-typecheck
+npm run qa:water-reader-engine-features
+npm run qa:water-reader-engine-zone-smoke
+npm run qa:water-reader-production-feature-envelope
+npm run qa:water-reader-app-integration-smoke
+node --env-file=.env ./node_modules/tsx/dist/cli.mjs scripts/water-reader-50-lake-matrix-review.ts --batch=review-ready-full
+rg "water-reader-engine-v1" . --glob '!node_modules/**' --glob '!tmp/**' --glob '!docs/**' --glob '!*.md'
+```
+
+Legacy/foundation review commands remain useful when touching lower layers:
 
 ```bash
 npm run qa:water-reader-engine-foundation
@@ -207,6 +250,7 @@ Each feature has a detection rule based on shoreline polygon geometry. All thres
 ### 1. Main Lake Points
 **Definition:** A shoreline segment that protrudes outward into the main body, where the shoreline turns at least 60° and the protrusion length is at least 5% of the lake's longest dimension.
 **Required attributes:** tip coordinate, two side-slope coordinates, orientation vector.
+**Current behavior:** renders as one whole-feature point structure area covering the detected tip and adjacent shoulder water. Smooth/sparse-lake enrichment may add conservative extra points with lower deterministic thresholds when the normal detector underfills a smooth lake.
 
 ### 2. Secondary Points
 **Definition:** Same geometric rule as a main lake point, but located inside a detected cove (the protrusion's base is within the cove polygon).
@@ -215,10 +259,12 @@ Each feature has a detection rule based on shoreline polygon geometry. All thres
 ### 3. Coves and Pockets
 **Definition:** A recessed shoreline area where the depth of recess is at least 2× the width of the opening, and the opening width is at least 3% of the lake's longest dimension.
 **Required attributes:** mouth coordinates (left and right), back-of-cove coordinate, irregularity score for each side.
+**Current behavior:** renders as one whole-feature cove structure area using a dense shoreline-following cove polygon and curved mouth closure. Smooth/sparse-lake enrichment may add conservative extra coves with lower deterministic thresholds when the normal detector underfills a smooth lake.
 
 ### 4. Necks / Pinch Points
 **Definition:** A constriction in the polygon where the across-water width is less than 25% of the average lake width AND less than 50% of the widths immediately on either side of the constriction.
 **Required attributes:** narrowest segment coordinates (both shorelines).
+**Current behavior:** `Neck` and `Pinch` are the same engine feature family (`featureClass: neck`). `Pinch` is display wording for narrow/channel-like constrictions; broader clear two-sided constrictions display as `Neck`. Clear high-confidence necks may receive a deterministic readable-footprint boost that adds balanced approach lobes on both sides of the narrows.
 
 ### 5. Islands
 **Definition:** Any closed polygon contained entirely within the lake polygon. If the source data has multiple polygons, the largest is the lake; the rest are islands.
@@ -227,10 +273,12 @@ Each feature has a detection rule based on shoreline polygon geometry. All thres
 ### 6. Saddles
 **Definition:** A constriction like a neck, but the narrowest width is 25%–50% of the average lake width.
 **Required attributes:** narrowest segment coordinates (both shorelines).
+**Current behavior:** saddles display only when visually substantial, two-sided, balanced, and readable. Broad, low-confidence, one-sided, tiny, or confusing saddles are retained with explicit diagnostics instead of being forced onto the map.
 
 ### 7. Dam Structures
 **Definition:** A shoreline segment of at least 3% of total shoreline length where consecutive points deviate from a straight line by less than 5°. Up to **two** such segments may be detected per lake (the two longest qualifying segments) — most lakes have one dam; large reservoirs may have a primary plus a saddle dam.
 **Required attributes:** two corner coordinates per dam (where the dam meets natural shoreline).
+**Current behavior:** dam detection is disabled in v1 and returns no dam candidates. The feature class is reserved for a future metadata-backed detector, but geometry-only straight shoreline scans must not label dams in production.
 
 ---
 
@@ -284,6 +332,35 @@ Detection thresholds scale with lake acreage so that small ponds get appropriate
 
 All percentages are relative to the lake's longest dimension. These adaptive thresholds replace the fixed thresholds in the feature definitions when the lake's acreage falls in the corresponding band.
 
+### Smooth/Sparse-Lake Enrichment
+
+The normal detector is intentionally conservative, but very smooth or sparsely structured lakes can otherwise look under-zoned even when several small but real cove/point structures are present. The current engine therefore computes a deterministic smooth-lake enrichment profile after normal feature detection and conflict resolution.
+
+Eligibility is explicit:
+
+```text
+normalNonIslandFeatureCount <= 6
+AND at least one of:
+  shorelineDevelopmentIndex <= 4.8
+  convexHullAreaRatio >= 0.28
+  meaningfulTurnDensityPerKm <= 28
+```
+
+Definitions:
+
+- `shorelineDevelopmentIndex = shoreline perimeter / circumference of equal-area circle`.
+- `convexHullAreaRatio = lake area / convex hull area`.
+- `meaningfulTurnDensityPerKm = count(abs(local signed turn) >= 0.22 rad) / shoreline km`.
+- `normalNonIslandFeatureCount` excludes islands and universal fallback zones.
+
+When eligible, enrichment may add up to 3 extra point candidates and up to 3 extra cove candidates. Enrichment is deliberately narrow:
+
+- It applies only to point and cove candidate detection.
+- It does not change neck, saddle, island, dam, season, zone cap, renderer, or legend behavior.
+- It is rerun through normal conflict resolution before output.
+- Enrichment candidates must carry explicit QA flags/metrics, including `smooth_lake_enrichment_point` or `smooth_lake_enrichment_cove`, `smoothLakeEnrichmentEligible`, `smoothLakeEnrichmentReason`, shoreline development index, convex hull area ratio, turn density, and normal non-island feature count.
+- Conflict resolution should keep normal candidates ahead of enrichment candidates when the two represent the same local feature; enrichment is for filling trustworthy sparse gaps, not replacing stronger normal detections.
+
 ### Per-Feature Detection Algorithms
 
 **Main Lake Points and Secondary Points (curvature-based, multi-scale):**
@@ -301,6 +378,7 @@ All percentages are relative to the lake's longest dimension. These adaptive thr
 5. Assign a confidence score (0-1) based on turn angle magnitude, consistency across scales, protrusion length, and side-slope symmetry.
 6. Keep candidates with confidence >= `0.6`.
 7. Classify as secondary point if the candidate's base lies inside a retained cove polygon; otherwise classify as main lake point.
+8. Smooth-lake enrichment mode may lower point thresholds only under the Smooth/Sparse-Lake Enrichment profile. Current enrichment point profile uses gentler turn/protrusion/symmetry/confidence gates, caps additions at 3 extra points, de-duplicates against normal points, and marks candidates with smooth-lake QA flags.
 
 **Coves and Pockets (hybrid chord scan; convex hull may only seed candidates):**
 1. Scan shoreline point pairs `A/B` whose straight-line distance falls within the valid cove mouth-width range:
@@ -323,6 +401,7 @@ All percentages are relative to the lake's longest dimension. These adaptive thr
    - mouth shoulders are not inside higher-priority dam, neck, or saddle conflict buffers
 5. If convex hull difference is available, use it only to seed or prioritize scan pairs. Do not rely on convex hull difference alone.
 6. Compute irregularity score (0-1) separately for the left and right cove shorelines based on curvature variance along each side from mouth to back-of-cove. Use this score only after the cove itself passes the gates above.
+7. Smooth-lake enrichment mode may lower cove mouth/path/depth/area gates only under the Smooth/Sparse-Lake Enrichment profile. Current enrichment cove profile caps additions at 3 extra coves, de-duplicates against normal coves, and marks candidates with smooth-lake QA flags.
 
 **Necks and Pinch Points (rasterized width field / skeleton):**
 1. Rasterize the projected primary lake polygon into a water mask.
@@ -337,24 +416,27 @@ All percentages are relative to the lake's longest dimension. These adaptive thr
    - width expands to at least `2.0x` the candidate width on both sides of the constriction within a search distance of `clamp(longestDimension * 0.12, 60m, 800m)`
    - the two shoreline endpoints are on opposing shores, not adjacent points on the same shoreline bend
    - the surrounding water bodies on both sides have meaningful area; drop if the entire local region remains uniformly narrow
-9. The feature is the physical constriction, but the rendered fishing zones are two shoreline-shoulder zones: one at each narrowest-segment shoreline coordinate. Never render a single center-throat oval for a neck.
+9. Point-seeded neck rescue may add a neck candidate when a strong point-like candidate has an opposite-shore ray across water confirming a tight two-sided constriction. This is used for bridge/narrows cases where source polygon shape makes the constriction look like a point. The rescue requires high source point confidence, enough protrusion, valid water along the ray, width at or below the neck ratio gate, and explicit diagnostics.
+10. The feature is the physical constriction, but the rendered zone is one paired-lobe feature envelope covering both shoreline shoulders and, for clear high-confidence necks, balanced approach water on both sides. Never render a single center-throat oval for a neck.
 
 **Saddles (medial axis, wider threshold):**
-Same width-field/skeleton algorithm as necks, but with width between `25-50%` of average lake width and side expansion of at least `1.5x` on both sides. Saddles also render as two shoreline-shoulder zones, one per opposing shoreline endpoint.
+Same width-field/skeleton algorithm as necks, but with width between `25-50%` of average lake width and side expansion of at least `1.5x` on both sides. Saddles render as paired shoreline-shoulder feature envelopes. Current display policy is intentionally conservative: saddles display only when two-sided, balanced, high-confidence, and visually substantial. Broad, one-sided, low-confidence, tiny, or confusing saddles remain retained with explicit diagnostics.
 
 **Islands:**
 Interior rings/holes inside the primary lake polygon are islands. Multipolygon secondary components are disconnected water components, not islands. If islands are represented as separate land polygons by the source in a later data version, they may be used only after source-specific handling is explicitly implemented.
 
 **Dam Structures (sliding linearity scan):**
-1. Dam detection is conservative. Geometry alone must not label a natural straight shoreline as a dam.
-2. A dam may be detected only if all gates pass:
+1. Current v1 implementation returns no dam candidates. This section is reserved future behavior only.
+2. Dam detection must be conservative. Geometry alone must not label a natural straight shoreline as a dam.
+3. A future dam may be detected only if all gates pass:
    - the waterbody type or source/name metadata indicates reservoir/dam context, OR a manually approved source flag exists
    - sliding shoreline window length is between `3-10%` of total shoreline
    - linear regression for the window has `R² >= 0.98`
    - both ends show abrupt transition from straight segment to natural shoreline, with corner angles at or above `35°`
    - the straight segment faces open water by the Open Water Side algorithm
-3. Keep up to the two longest qualifying segments.
-4. If metadata support is absent or gates are borderline, do not label a dam. Either skip the feature or classify it internally as a generic straight shoreline, with no dam legend.
+4. Keep up to the two longest qualifying segments.
+5. If metadata support is absent or gates are borderline, do not label a dam. Either skip the feature or classify it internally as a generic straight shoreline, with no dam legend.
+6. Do not re-enable dam display without a dedicated visual QA pass on known dam/reservoir cases, because prior geometry-only dam detection produced unacceptable false positives.
 
 ### Validation
 
@@ -435,7 +517,7 @@ For the fall cove zone, the placement coordinate is the midpoint of the chosen s
 ## Conflict Resolution
 
 - **Necks override saddles.** If a constriction qualifies as both, label it a neck.
-- **Dams override necks, saddles, and main lake points.** If a detected dam segment overlaps with any of these, the segment is labeled a dam only.
+- **Dams override necks, saddles, and main lake points only in a future dam-enabled implementation.** Current v1 dam detection is disabled and should not create dam conflict overrides.
 - **Coves contain secondary points.** Detect coves first, then look for secondary points inside them.
 - **Secondary points are linked to their parent cove.** Secondary points use their parent cove to determine back-facing vs mouth-facing seasonal placement. Winter is no longer an automatic drop. If the parent cove is invalid/weak and no valid secondary-point zone can be placed, suppress the secondary point with a dependency reason. Do not drop a valid secondary point solely because of nominal zone cap pressure.
 - **Minimum spacing between same-type features:** 5% of lake's longest dimension. If two same-type features are closer than this, keep the larger one.
@@ -470,6 +552,8 @@ Five groups. Each US state (excluding Alaska and Hawaii — out of scope for v1)
 ---
 
 ## Zone Placement Rules
+
+The current production contract is feature-envelope placement: the same detected physical feature produces the same lake-space overlay in every season. The seasonal bullets below are retained as semantic/legend emphasis guidance and historical placement intent, not permission to move, split, or reshape zones by season. In current v1 output, the cove, point, neck, saddle, island, and confluence polygons are season-invariant; seasonal copy may tell the user where inside the displayed structure area to focus.
 
 ### Main Lake Points
 - **Spring:** one zone on each side of the point along the slope toward the tip.
@@ -645,7 +729,7 @@ These states are an app-facing output contract for Chunk 5 and later. Current Ch
 
 Priority order applies only when display cap pressure exists. It should sort visible entries and decide which valid structures remain displayed versus retained-not-displayed. It must not alter geometry detection.
 
-1. Dam corners (both corners as a unit, per dam — up to 2 dams)
+1. Dam corners (reserved future behavior; current v1 detector returns no dams)
 2. Neck shorelines (both shorelines as a unit, per neck)
 3. Main lake points (per point as a unit; ranked by protrusion length, longest first)
 4. Saddle shorelines (both shorelines as a unit, per saddle)
@@ -697,7 +781,7 @@ Eligibility rules:
 - Every contributing feature remains represented in structured output.
 - Each contributing zone must individually pass all hard invariants before entering a confluence group.
 - Under the feature-envelope model, cross-feature confluence grouping is conservative. Do not automatically merge different feature classes such as point+island, point+cove, or neck+cove merely because their whole-feature envelopes overlap.
-- Cross-feature grouping is allowed only when an explicit placement confluence remains compact and semantically clearer than separate entries. Same-source feature fragments and same-class extremely compact overlaps may merge when the result is more readable and still preserves source-feature diagnostics.
+- Cross-feature grouping is allowed only when an explicit placement or display-model confluence remains compact and semantically clearer than separate entries. Same-source feature fragments and same-class extremely compact overlaps may merge when the result is more readable and still preserves source-feature diagnostics.
 - Paired same-feature fragments such as legacy neck shoulders may still group when they are active, but normal neck/saddle feature envelopes should represent both shoulders as one structure area.
 - Confluence groups must preserve member feature IDs, feature classes, placement kinds, and zone IDs for legend/copy.
 - Confluence groups should use their own visual treatment and color in the production renderer.
@@ -725,8 +809,11 @@ Compactness and splitting:
 - If a group contains more than four member zones or spans more than `min(12% L, 3 * averageMemberMajorAxisM)`, split it deterministically by strongest overlap edges until each subgroup is compact.
 - If a compact split is impossible, keep member zones in structured output and mark the area for renderer/tuning review rather than silently hiding structure.
 - Confluence should reduce displayed entry count only when the grouped area remains visually readable.
-- After display selection and before final numbering, the display model may normalize the displayed set by absorbing local standalone zones into a displayed confluence, or by converting overlapping/touching standalone zones into a confluence, when deterministic visible-overlap, boundary-touch, or short local-distance criteria pass. This is an engine/display-model decision, not a renderer decision. Reject the merge when the resulting envelope would exceed `2.25x` the largest member axis unless members overlap heavily, or when an oversized island member would create a broad, misleading blob.
+- After display selection and before final numbering, the display model may normalize the displayed set by absorbing local standalone zones into a displayed confluence, or by converting overlapping/touching standalone zones into a confluence, when deterministic visible-overlap, boundary-touch, exact visible-ring intersection, or short local-distance criteria pass. This is an engine/display-model decision, not a renderer decision. Reject the merge when the resulting envelope would become too broad for the member pair, or when an oversized island member would create a misleading blob.
+- Current cross-feature normalization supports `cove+neck` and `cove+point` pairs. `cove+point` uses exact visible-ring intersection/touch, a tight visible-ring distance cap of 450m, and a same-shoreline corridor cap of 1200m with compact envelope ratio gating. The same-shoreline corridor exists to catch real adjacent cove/point overlaps that sample-touch misses; it must not merge far-separated structures across large-lake gaps.
+- Current confluence envelope ratio gates are pair-specific. `cove+point` same-shoreline corridor merges use a tighter envelope-to-largest-member ratio gate than ordinary cove+point overlap. These gates are display-model safeguards, not lake-specific exceptions.
 - Any confluence created or changed after display selection must rebuild its final legend from the final member list. A normalized confluence must not keep a surviving standalone member title or body.
+- A confluence title must include all displayed member classes in the final group. Three-class confluences must not omit a class. If a questionable saddle member is peeled out for readability, the remaining confluence title and legend must be rebuilt from the surviving members.
 - Paired `neck_shoulder` zones from the same detected neck feature should be grouped as one displayed neck shoulder area entry before numbering when both shoulders remain readable. This same-neck shoulder grouping is not a multi-feature confluence; it receives one number, one `Neck - Shoulder Area` legend entry, and grouped-entry diagnostics. If the pair is line-like and retained for readability, do not force it back onto the map.
 
 Display-count behavior:

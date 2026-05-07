@@ -732,8 +732,8 @@ assert(typeof crossFeatureGroup.crossFeatureContainmentFraction === 'number', 'c
 assert(typeof crossFeatureGroup.crossFeatureUnifiedCompactnessRatio === 'number', 'cross-feature overlap should expose compactness ratio');
 const crossFeatureLegend = buildWaterReaderLegend(crossFeatureOverlapResult, { state: 'MI', currentDate: new Date(Date.UTC(2026, 4, 1)) });
 assert(
-  crossFeatureLegend.some((entry) => entry.isConfluence && entry.title.includes('Structure Area - Cove + Neck')),
-  'cross-feature unified overlap legend should use Structure Area - Cove + Neck wording',
+  crossFeatureLegend.some((entry) => entry.isConfluence && entry.title.includes('Cove + Neck - Structure Area')),
+  'cross-feature unified overlap legend should use Cove + Neck - Structure Area wording',
 );
 const islandPointOverlapResult = {
   ...pointResult,
@@ -768,7 +768,7 @@ const islandPointDisplay = buildWaterReaderDisplayModel(islandPointOverlapResult
   longestDimensionM: fixture.longestDimensionM,
 });
 assert(
-  islandPointDisplay.displayedEntries.some((entry) => entry.entryType === 'structure_confluence' && entry.legend?.title === 'Structure Area - Island + Point'),
+  islandPointDisplay.displayedEntries.some((entry) => entry.entryType === 'structure_confluence' && entry.legend?.title === 'Island + Point - Structure Area'),
   'compact island+point overlap should display as one unified Island + Point structure area',
 );
 
@@ -787,10 +787,11 @@ const duplicateNeckConfluenceLegend = buildWaterReaderLegend({
     }],
   },
 }, { state: 'MI', currentDate: new Date(Date.UTC(2026, 4, 1)) });
-const duplicateNeckConfluenceTitle = duplicateNeckConfluenceLegend.find((entry) => entry.isConfluence)?.title ?? '';
 assert(
-  duplicateNeckConfluenceTitle.includes('Neck'),
-  'feature-envelope neck confluence members should use neck structure-area labels',
+  duplicateNeckConfluenceLegend.every((entry) => entry.isConfluence !== true) &&
+    duplicateNeckConfluenceLegend.length === neckResult.zones.length &&
+    duplicateNeckConfluenceLegend.every((entry) => entry.title.includes('Neck')),
+  'same-feature confluence members should keep normal member legend entries when display renders them separately',
 );
 assertNoForbiddenLegendCopy(duplicateNeckConfluenceLegend);
 
@@ -873,11 +874,10 @@ const diversityOnlyDisplay = buildWaterReaderDisplayModel(repeatedTitleResult, d
   longestDimensionM: fixture.longestDimensionM,
 });
 assert(
-  diversityOnlyDisplay.retainedEntries.length > 0 &&
-    diversityOnlyDisplay.retainedEntries.every((entry) => entry.displayState === 'retained_not_displayed_diversity') &&
-    diversityOnlyDisplay.displaySelectionUnits.some((unit) => unit.displayState === 'retained_not_displayed_diversity') &&
+  diversityOnlyDisplay.retainedEntries.length === 0 &&
+    diversityOnlyDisplay.displayedEntries.length === repeatedTitleZones.length &&
     !diversityOnlyDisplay.capExceeded,
-  'diversity-only retention should not report display cap pressure',
+  'under-cap repeated titles should remain displayed rather than creating diversity-only retention',
 );
 const displayBalancePointZones = [
   translatedZoneClone(farBackSummerZones[0]!, 'balance-point-1', 320, 0),
@@ -1002,10 +1002,10 @@ const visuallySubstantialBroadSaddleZone = {
   diagnostics: {
     ...recoverySaddleBase.diagnostics,
     constrictionReadabilityClass: 'broad_saddle_review',
-    constrictionConfidence: 0.9,
+    constrictionConfidence: 0.84,
     constrictionWidthToAverage: 0.42,
-    constrictionWeakerExpansionRatio: 1.55,
-    constrictionExpansionBalance: 0.58,
+    constrictionWeakerExpansionRatio: 2.8,
+    constrictionExpansionBalance: 0.78,
     constrictionTwoSidedExpansion: true,
   },
 };

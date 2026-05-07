@@ -2,14 +2,98 @@ import type { PointM, RingM, WaterReaderEngineInput, WaterReaderPreprocessResult
 import { distanceM } from '../metrics';
 import { clamp } from '../shoreline';
 import type { WaterReaderPointCandidate } from './types';
+import { smoothLakeEnrichmentMetrics, type SmoothLakeEnrichmentProfile } from './smoothness';
 import { nearestPointOnRing, pointInWaterOrBoundary } from './validation';
 
 const POINT_TURN_THRESHOLD_RAD = Math.PI / 3;
 const MIN_CONFIDENCE = 0.6;
+const SMOOTH_LAKE_POINT_TURN_THRESHOLD_RAD = 0.58;
+const SMOOTH_LAKE_MIN_CONFIDENCE = 0.48;
+const SMOOTH_LAKE_MAX_EXTRA_POINTS = 3;
 
 export function detectPointCandidates(
   preprocess: WaterReaderPreprocessResult,
   input: WaterReaderEngineInput,
+): WaterReaderPointCandidate[] {
+  return detectPointCandidatesInternal(preprocess, input, standardPointDetectionProfile());
+}
+
+export function detectSmoothLakePointCandidates(
+  preprocess: WaterReaderPreprocessResult,
+  input: WaterReaderEngineInput,
+  existing: WaterReaderPointCandidate[],
+  smoothLakeProfile: SmoothLakeEnrichmentProfile,
+): WaterReaderPointCandidate[] {
+  if (!smoothLakeProfile.eligible) return [];
+  const metrics = preprocess.metrics;
+  if (!metrics) return [];
+  return detectPointCandidatesInternal(preprocess, input, smoothLakePointDetectionProfile(smoothLakeProfile))
+    .filter((candidate) => !existing.some((current) =>
+      distanceM(current.tip, candidate.tip) < metrics.longestDimensionM * 0.055 ||
+      distanceM(current.baseMidpoint, candidate.baseMidpoint) < metrics.longestDimensionM * 0.055
+    ))
+    .slice(0, SMOOTH_LAKE_MAX_EXTRA_POINTS);
+}
+
+type PointDetectionProfile = {
+  mode: 'standard' | 'smooth_lake_enrichment';
+  turnThresholdRad: number;
+  strongSingleScaleRad: number;
+  minConcaveHits: number;
+  protrusionThresholdMultiplier: number;
+  strongSingleScaleThresholdMultiplier: number;
+  minSideSymmetry: number;
+  minConfidence: number;
+  concaveHitScoreDivisor: number;
+  strongSingleScaleConcavityFloor: number;
+  protrusionScoreDivisor: number;
+  scoreMultiplier: number;
+  qaFlags: string[];
+  metrics: Record<string, number | string | boolean | null>;
+};
+
+function standardPointDetectionProfile(): PointDetectionProfile {
+  return {
+    mode: 'standard',
+    turnThresholdRad: POINT_TURN_THRESHOLD_RAD,
+    strongSingleScaleRad: -1.35,
+    minConcaveHits: 2,
+    protrusionThresholdMultiplier: 1,
+    strongSingleScaleThresholdMultiplier: 0.68,
+    minSideSymmetry: 0.42,
+    minConfidence: MIN_CONFIDENCE,
+    concaveHitScoreDivisor: 3,
+    strongSingleScaleConcavityFloor: 0.72,
+    protrusionScoreDivisor: 1.75,
+    scoreMultiplier: 1,
+    qaFlags: ['preliminary_curvature_point', 'water_polygon_concave_turn'],
+    metrics: {},
+  };
+}
+
+function smoothLakePointDetectionProfile(profile: SmoothLakeEnrichmentProfile): PointDetectionProfile {
+  return {
+    mode: 'smooth_lake_enrichment',
+    turnThresholdRad: SMOOTH_LAKE_POINT_TURN_THRESHOLD_RAD,
+    strongSingleScaleRad: -0.8,
+    minConcaveHits: 1,
+    protrusionThresholdMultiplier: 0.55,
+    strongSingleScaleThresholdMultiplier: 0.5,
+    minSideSymmetry: 0.28,
+    minConfidence: SMOOTH_LAKE_MIN_CONFIDENCE,
+    concaveHitScoreDivisor: 2,
+    strongSingleScaleConcavityFloor: 0.62,
+    protrusionScoreDivisor: 1.15,
+    scoreMultiplier: 0.46,
+    qaFlags: ['preliminary_curvature_point', 'water_polygon_concave_turn', 'smooth_lake_enrichment_point'],
+    metrics: smoothLakeEnrichmentMetrics(profile),
+  };
+}
+
+function detectPointCandidatesInternal(
+  preprocess: WaterReaderPreprocessResult,
+  input: WaterReaderEngineInput,
+  detectionProfile: PointDetectionProfile,
 ): WaterReaderPointCandidate[] {
   const ring = preprocess.smoothedExterior;
   const metrics = preprocess.metrics;
@@ -36,10 +120,10 @@ export function detectPointCandidates(
         angle: signedTurnAngle(ring[leftIndex]!, ring[i]!, ring[rightIndex]!),
       };
     });
-    const concaveHits = scaleTurns.filter((turn) => turn.angle <= -POINT_TURN_THRESHOLD_RAD);
+    const concaveHits = scaleTurns.filter((turn) => turn.angle <= -detectionProfile.turnThresholdRad);
     const strongestConcave = Math.min(...scaleTurns.map((turn) => turn.angle));
-    const hasStrongSingleScale = strongestConcave <= -1.35;
-    if (concaveHits.length < 2 && !hasStrongSingleScale) continue;
+    const hasStrongSingleScale = strongestConcave <= detectionProfile.strongSingleScaleRad;
+    if (concaveHits.length < detectionProfile.minConcaveHits && !hasStrongSingleScale) continue;
 
     const medium = scaleTurns[2]!;
     const rawTip = ring[i]!;
@@ -59,7 +143,11 @@ export function detectPointCandidates(
     }
     const baseMidpoint = waterSideBaseMidpoint(midpoint(leftSlope, rightSlope), tip, polygon, waterToleranceM) ?? rawBaseMidpoint;
     const protrusionLengthM = pointLineDistance(tip, leftSlope, rightSlope);
-    const effectiveThreshold = hasStrongSingleScale ? protrusionThreshold * 0.68 : protrusionThreshold;
+    const effectiveThreshold = protrusionThreshold * (
+      hasStrongSingleScale
+        ? detectionProfile.strongSingleScaleThresholdMultiplier
+        : detectionProfile.protrusionThresholdMultiplier
+    );
     if (protrusionLengthM < effectiveThreshold) continue;
     if (!isLocalStrongestConcavity(localTurnAngles, i, scaleTurns[2]!.angle)) continue;
 
@@ -67,10 +155,18 @@ export function detectPointCandidates(
     const orientationVector = normalize(baseToTip);
     const turnAngleRad = Math.abs(scaleTurns.reduce((sum, turn) => sum + turn.angle, 0) / scaleTurns.length);
     const sideSymmetry = sideSlopeSymmetry(tip, leftSlope, rightSlope);
-    if (sideSymmetry < 0.42) continue;
-    const protrusionScore = clamp(protrusionLengthM / (protrusionThreshold * 1.75), 0, 1);
-    const confidence = clamp(0.34 * clamp(concaveHits.length / 3, hasStrongSingleScale ? 0.72 : 0, 1) + 0.33 * protrusionScore + 0.33 * sideSymmetry, 0, 1);
-    if (confidence < MIN_CONFIDENCE) continue;
+    if (sideSymmetry < detectionProfile.minSideSymmetry) continue;
+    const protrusionScore = clamp(protrusionLengthM / (protrusionThreshold * detectionProfile.protrusionScoreDivisor), 0, 1);
+    const confidence = clamp(
+      0.34 * clamp(
+        concaveHits.length / detectionProfile.concaveHitScoreDivisor,
+        hasStrongSingleScale ? detectionProfile.strongSingleScaleConcavityFloor : 0,
+        1,
+      ) + 0.33 * protrusionScore + 0.33 * sideSymmetry,
+      0,
+      1,
+    );
+    if (confidence < detectionProfile.minConfidence) continue;
 
     raw.push({
       tip,
@@ -81,12 +177,14 @@ export function detectPointCandidates(
       protrusionLengthM,
       turnAngleRad,
       confidence,
-      score: confidence * protrusionLengthM,
-      qaFlags: ['preliminary_curvature_point', 'water_polygon_concave_turn'],
+      score: confidence * protrusionLengthM * detectionProfile.scoreMultiplier,
+      qaFlags: detectionProfile.qaFlags,
       metrics: {
+        ...detectionProfile.metrics,
         protrusionLengthM,
         protrusionThresholdM: protrusionThreshold,
         effectiveProtrusionThresholdM: effectiveThreshold,
+        pointDetectionMode: detectionProfile.mode,
         turnAngleRad,
         confidence,
         concaveScaleHits: concaveHits.length,

@@ -1,7 +1,7 @@
 import type { PointM, PolygonM, RingM, WaterReaderPreprocessResult } from '../contracts';
 import { bboxM, distanceM } from '../metrics';
 import { clamp } from '../shoreline';
-import type { WaterReaderNeckCandidate, WaterReaderSaddleCandidate } from './types';
+import type { WaterReaderNeckCandidate, WaterReaderPointCandidate, WaterReaderSaddleCandidate } from './types';
 import { nearestPointOnRing, pointInWaterOrBoundary, segmentSamplesInsideWater } from './validation';
 
 type RasterCell = {
@@ -127,6 +127,103 @@ export function detectNeckAndSaddleCandidates(preprocess: WaterReaderPreprocessR
     necks: dedupeWidthFeatures(necks),
     saddles: dedupeWidthFeatures(saddles),
   };
+}
+
+export function detectPointSeededNeckCandidates(
+  preprocess: WaterReaderPreprocessResult,
+  points: WaterReaderPointCandidate[],
+): WaterReaderNeckCandidate[] {
+  const polygon = preprocess.primaryPolygon;
+  const metrics = preprocess.metrics;
+  if (!polygon || !metrics || polygon.exterior.length < 4) return [];
+  const waterToleranceM = clamp(metrics.longestDimensionM * 0.0015, 5, 30);
+  const maxSearchM = clamp(metrics.longestDimensionM * 0.09, 120, 700);
+  const candidates: WaterReaderNeckCandidate[] = [];
+
+  for (const point of points) {
+    if (point.featureClass && point.featureClass !== 'main_lake_point') continue;
+    const orientationLength = Math.hypot(point.orientationVector.x, point.orientationVector.y);
+    if (orientationLength < 0.2) continue;
+    const concaveHits = numericMetric(point.metrics.concaveScaleHits);
+    const baseToTipM = distanceM(point.baseMidpoint, point.tip);
+    if (
+      point.confidence < 0.8 ||
+      concaveHits < 4 ||
+      baseToTipM < metrics.longestDimensionM * 0.025 ||
+      point.protrusionLengthM < metrics.longestDimensionM * 0.03
+    ) continue;
+
+    const ray = pointSeededOppositeShoreRay({
+      tip: point.tip,
+      direction: { x: point.orientationVector.x / orientationLength, y: point.orientationVector.y / orientationLength },
+      polygon,
+      maxSearchM,
+      waterToleranceM,
+    });
+    if (!ray) continue;
+    const endpointA = nearestPointOnRing(point.tip, polygon.exterior);
+    const endpointB = nearestPointOnRing(ray.point, polygon.exterior);
+    const widthM = distanceM(endpointA, endpointB);
+    const widthToAverage = metrics.averageLakeWidthM > 0 ? widthM / metrics.averageLakeWidthM : Infinity;
+    if (
+      widthM < 40 ||
+      widthM > metrics.longestDimensionM * 0.055 ||
+      widthToAverage > 0.14 ||
+      point.protrusionLengthM / Math.max(widthM, 1) < 0.75 ||
+      !segmentSamplesInsideWater(endpointA, endpointB, polygon, 10, waterToleranceM)
+    ) continue;
+
+    const expansionRatio = clamp(point.protrusionLengthM / Math.max(widthM, 1) * 2.35, 2.2, 6.5);
+    const confidence = clamp(0.72 + point.confidence * 0.18 + clamp((0.14 - widthToAverage) / 0.14, 0, 1) * 0.1, 0, 0.94);
+    candidates.push({
+      featureClass: 'neck',
+      endpointA,
+      endpointB,
+      center: midpoint(endpointA, endpointB),
+      widthM,
+      leftExpansionRatio: expansionRatio,
+      rightExpansionRatio: expansionRatio,
+      confidence,
+      score: confidence * expansionRatio / Math.max(widthToAverage, 0.05),
+      qaFlags: [...point.qaFlags, 'point_seeded_neck_rescue', 'opposite_shoreline_ray_confirmed'],
+      metrics: {
+        seededFromPoint: true,
+        sourcePointConfidence: point.confidence,
+        sourcePointProtrusionLengthM: point.protrusionLengthM,
+        sourcePointBaseToTipM: baseToTipM,
+        widthM,
+        widthToAverage,
+        leftExpansionRatio: expansionRatio,
+        rightExpansionRatio: expansionRatio,
+        oppositeShoreRayDistanceM: ray.distanceM,
+      },
+    });
+  }
+
+  return dedupeWidthFeatures(candidates);
+}
+
+function numericMetric(value: number | string | boolean | null | undefined): number {
+  return typeof value === 'number' && Number.isFinite(value) ? value : 0;
+}
+
+function pointSeededOppositeShoreRay(params: {
+  tip: PointM;
+  direction: PointM;
+  polygon: PolygonM;
+  maxSearchM: number;
+  waterToleranceM: number;
+}): { point: PointM; distanceM: number } | null {
+  const waterProbe = {
+    x: params.tip.x + params.direction.x * Math.max(6, params.waterToleranceM),
+    y: params.tip.y + params.direction.y * Math.max(6, params.waterToleranceM),
+  };
+  if (!pointInWaterOrBoundary(waterProbe, params.polygon, params.waterToleranceM)) return null;
+  const hit = rayRingIntersection(params.tip, params.direction, params.polygon.exterior);
+  if (!hit) return null;
+  const rayDistanceM = distanceM(params.tip, hit);
+  if (rayDistanceM < Math.max(40, params.waterToleranceM * 2) || rayDistanceM > params.maxSearchM) return null;
+  return { point: hit, distanceM: rayDistanceM };
 }
 
 function rasterizeWaterMask(polygon: PolygonM, longestDimensionM: number): {
@@ -481,6 +578,10 @@ function raySegmentIntersection(origin: PointM, dir: PointM, a: PointM, b: Point
 
 function cross(a: PointM, b: PointM): number {
   return a.x * b.y - a.y * b.x;
+}
+
+function midpoint(a: PointM, b: PointM): PointM {
+  return { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 };
 }
 
 function dedupeWidthFeatures<T extends { center: PointM; score: number; widthM: number }>(features: T[]): T[] {

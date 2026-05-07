@@ -75,9 +75,9 @@ export function resolveWaterReaderFeatureConflicts(params: {
 
   const points = pointCandidates
     .map((point, index): WaterReaderPointFeature | null => {
-      const parent = coves.find((cove) => pointInPolygon(point.baseMidpoint, cove.coveBoundary));
+      const parent = coves.find((cove) => !isSmoothLakeEnrichmentCandidate(cove) && pointInPolygon(point.baseMidpoint, cove.coveBoundary));
       const nearCoveMouth = coves.some(
-        (cove) => distanceM(point.tip, cove.mouthLeft) < buffer || distanceM(point.tip, cove.mouthRight) < buffer,
+        (cove) => !isSmoothLakeEnrichmentCandidate(cove) && (distanceM(point.tip, cove.mouthLeft) < buffer || distanceM(point.tip, cove.mouthRight) < buffer),
       );
       if (!parent && nearCoveMouth && point.confidence < 0.82) return null;
       const featureClass = parent ? 'secondary_point' : 'main_lake_point';
@@ -109,6 +109,10 @@ function emptyFeaturePruningSummary(): FeaturePruningSummary {
   };
 }
 
+function isSmoothLakeEnrichmentCandidate(feature: { qaFlags: string[] }): boolean {
+  return feature.qaFlags.some((flag) => flag.startsWith('smooth_lake_enrichment_'));
+}
+
 function pruneRetainedFeatures(
   features: WaterReaderDetectedFeature[],
   longestDimensionM: number,
@@ -121,7 +125,7 @@ function pruneRetainedFeatures(
     main_lake_point: 4,
     cove: 4,
     secondary_point: 2,
-    island: 2,
+    island: 10,
   };
   const classCounts: Record<string, number> = {};
   const classCapped: WaterReaderDetectedFeature[] = [];
@@ -137,10 +141,26 @@ function pruneRetainedFeatures(
   }
 
   const clusterRadiusM = longestDimensionM * 0.1;
+  const islandClusterRadiusM = longestDimensionM * 0.035;
   const clustered: WaterReaderDetectedFeature[] = [];
   for (const feature of classCapped.sort(featureSort)) {
     const anchor = featureAnchor(feature);
-    const nearby = clustered.filter((existing) => distanceM(featureAnchor(existing), anchor) < clusterRadiusM);
+    if (feature.featureClass === 'island') {
+      const nearbyIsland = clustered.some((existing) =>
+        existing.featureClass === 'island' &&
+        distanceM(featureAnchor(existing), anchor) < islandClusterRadiusM
+      );
+      if (nearbyIsland) {
+        pruning.cluster++;
+        continue;
+      }
+      clustered.push(feature);
+      continue;
+    }
+    const nearby = clustered.filter((existing) =>
+      existing.featureClass !== 'island' &&
+      distanceM(featureAnchor(existing), anchor) < clusterRadiusM
+    );
     const hasConstriction = nearby.some(isConstriction) || isConstriction(feature);
     const nearbyNonConstrictions = nearby.filter((existing) => !isConstriction(existing)).length;
     if (nearby.length >= 2 || (hasConstriction && !isConstriction(feature) && nearbyNonConstrictions >= 1)) {
@@ -150,8 +170,15 @@ function pruneRetainedFeatures(
     clustered.push(feature);
   }
 
-  const totalCapped = clustered.sort(featureSort).slice(0, 8);
-  pruning.total_cap += Math.max(0, clustered.length - totalCapped.length);
+  const sortedClustered = clustered.sort(featureSort);
+  const nonIslandTotalCap = 8;
+  const totalFeatureCap = 12;
+  const nonIslands = sortedClustered.filter((feature) => feature.featureClass !== 'island');
+  const islands = sortedClustered.filter((feature) => feature.featureClass === 'island');
+  const keptNonIslands = nonIslands.slice(0, nonIslandTotalCap);
+  const keptIslands = islands.slice(0, Math.max(0, totalFeatureCap - keptNonIslands.length));
+  const totalCapped = [...keptNonIslands, ...keptIslands].sort(featureSort);
+  pruning.total_cap += Math.max(0, nonIslands.length - keptNonIslands.length) + Math.max(0, islands.length - keptIslands.length);
 
   const retainedCoveIds = new Set(totalCapped.filter((feature) => feature.featureClass === 'cove').map((feature) => feature.featureId));
   const dependencyFiltered = totalCapped.filter((feature) => {
