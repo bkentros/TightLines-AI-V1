@@ -8,16 +8,30 @@ import type {
   WaterReaderZonePlacementResult,
 } from './zones/types';
 
+/**
+ * Paper-warm Water Reader feature palette (Node mirror).
+ *
+ * MUST stay in lock-step with:
+ *   - the Deno engine copy at
+ *     `supabase/functions/_shared/waterReaderEngine/legend.ts`, and
+ *   - the client-side legend swatch palette at
+ *     `lib/waterReaderZonePaperPalette.ts`.
+ *
+ * When any of the three changes, change all three AND bump
+ * `WATER_READER_ENGINE_VERSION` so any cached SVG rows generated under the
+ * older palette are regenerated. See the Deno mirror's comment for the full
+ * rationale on why these specific paper hues were chosen.
+ */
 export const WATER_READER_FEATURE_COLORS: Record<WaterReaderFeatureClass | 'structure_confluence', string> = {
-  main_lake_point: '#1E5FBF',
-  secondary_point: '#6FA8DC',
-  cove: '#2E8B57',
-  neck: '#E67E22',
-  island: '#8E44AD',
-  saddle: '#1ABC9C',
-  dam: '#C0392B',
-  structure_confluence: '#D946EF',
-  universal: '#D4A017',
+  main_lake_point: '#2E4A2A',
+  secondary_point: '#5B7A3E',
+  cove: '#B87818',
+  neck: '#CC6A22',
+  island: '#3A2E22',
+  saddle: '#357A6F',
+  dam: '#C8352C',
+  structure_confluence: '#7A3A52',
+  universal: '#E8A02E',
 };
 
 export const WATER_READER_LEGEND_FORBIDDEN_PHRASES = [

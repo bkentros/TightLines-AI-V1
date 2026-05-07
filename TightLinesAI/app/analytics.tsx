@@ -595,14 +595,16 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '700',
     color: paper.ink,
-    marginTop: paperSpacing.md,
+    // Bumped from `md` to `lg` so analytics block headers visibly break
+    // away from the previous block instead of feeling like a continuation.
+    marginTop: paperSpacing.lg,
     marginBottom: paperSpacing.sm,
   },
   summaryGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     gap: paperSpacing.sm,
-    marginBottom: paperSpacing.md,
+    marginBottom: paperSpacing.lg,
   },
   tile: {
     width: '48%',
@@ -640,7 +642,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     padding: paperSpacing.md,
-    marginBottom: paperSpacing.sm,
+    marginBottom: paperSpacing.md,
     borderWidth: 1.5,
     borderColor: paper.ink,
     borderRadius: paperRadius.card,
@@ -673,7 +675,7 @@ const styles = StyleSheet.create({
     marginBottom: paperSpacing.md,
   },
   tableBlock: {
-    marginBottom: paperSpacing.lg,
+    marginBottom: paperSpacing.section,
   },
   tableHint: {
     fontFamily: paperFonts.displayItalic,

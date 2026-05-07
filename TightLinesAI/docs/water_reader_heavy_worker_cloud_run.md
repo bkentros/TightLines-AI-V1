@@ -5,12 +5,21 @@
 Build from the repo root with the dedicated Dockerfile:
 
 ```bash
+export TAG="water-reader-engine-v4-paper-redesign"
+
+cp Dockerfile.water-reader-heavy-generator Dockerfile
+
 gcloud builds submit \
-  --tag us-central1-docker.pkg.dev/<gcp-project>/<artifact-repo>/water-reader-heavy-generator:water-reader-engine-v3-live-final \
-  --file Dockerfile.water-reader-heavy-generator
+  --tag us-central1-docker.pkg.dev/<gcp-project>/<artifact-repo>/water-reader-heavy-generator:$TAG
 ```
 
 The container starts the existing heavy-generator server entrypoint. On Cloud Run it listens on `PORT`; locally it falls back to `WATER_READER_HEAVY_GENERATOR_PORT` or `8789`.
+
+Important: the image tag must match the current `WATER_READER_ENGINE_VERSION`. The current launch tag is:
+
+```text
+water-reader-engine-v4-paper-redesign
+```
 
 ## Required Worker Secrets
 
@@ -29,8 +38,10 @@ WATER_READER_INTERNAL_KEY
 Start conservative:
 
 ```bash
+export TAG="water-reader-engine-v4-paper-redesign"
+
 gcloud run deploy water-reader-heavy-generator \
-  --image us-central1-docker.pkg.dev/<gcp-project>/<artifact-repo>/water-reader-heavy-generator:water-reader-engine-v3-live-final \
+  --image us-central1-docker.pkg.dev/<gcp-project>/<artifact-repo>/water-reader-heavy-generator:$TAG \
   --region us-central1 \
   --allow-unauthenticated \
   --cpu 2 \
@@ -68,11 +79,17 @@ Then deploy the read function:
 supabase functions deploy water-reader-read
 ```
 
+Run the live launch smoke after both deploys. It signs in with the Water Reader test user, searches real indexed lakes, opens several reads through deployed Supabase, and fails if deployed reads are not serving the current engine version:
+
+```bash
+npm run smoke:water-reader-live-launch
+```
+
 ## Production Cache Wipe SQL
 
 Do not execute until Brandon confirms the exact Supabase project/environment.
 
-Audit existing cache namespaces:
+Audit existing cache namespaces before and after deploy:
 
 ```sql
 select engine_version, count(*) as rows

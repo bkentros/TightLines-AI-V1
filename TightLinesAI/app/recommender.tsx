@@ -1862,7 +1862,7 @@ const wizardStyles = StyleSheet.create({
     paddingHorizontal: paperSpacing.lg,
     paddingTop: paperSpacing.sm,
     paddingBottom: paperSpacing.xl + paperSpacing.md,
-    gap: paperSpacing.md,
+    gap: paperSpacing.lg,
   },
 
   // Hero

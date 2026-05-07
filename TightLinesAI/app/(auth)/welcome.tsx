@@ -226,7 +226,10 @@ const styles = StyleSheet.create({
   },
 
   valueProps: {
-    gap: paperSpacing.sm + 2,
+    // Bumped from `sm + 2` (10) to `md` (16) so the three value-prop
+    // cards read as discrete, equally-weighted features rather than a
+    // tightly stacked list.
+    gap: paperSpacing.md,
   },
   valueProp: {
     flexDirection: 'row',

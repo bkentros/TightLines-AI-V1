@@ -96,13 +96,23 @@ export const fonts = {
   bodyBold: 'Inter_700Bold',                  // bold labels
 } as const;
 
+/**
+ * Legacy "Lush Forest" spacing scale.
+ *
+ * Kept unchanged at the small end (xs/sm/md) where dozens of legacy components
+ * have visually-tuned tight layouts. The mid-large end (lg/xl/xxl) was opened
+ * up in the May 2026 "more breathing room" pass to match the philosophy of the
+ * paper system (see `paperSpacing` below). If you adjust these you should
+ * also reason about the `paperSpacing` mirror so the two systems stay
+ * visually consistent on shared surfaces.
+ */
 export const spacing = {
   xs: 4,
   sm: 8,
   md: 16,
-  lg: 24,
-  xl: 32,
-  xxl: 48,
+  lg: 28,    // was 24 — small bump so legacy screens breathe alongside the paper system
+  xl: 40,    // was 32 — between-major-section breathing room
+  xxl: 64,   // was 48 — bottom-of-scroll cushion
 } as const;
 
 export const radius = {
@@ -220,22 +230,63 @@ export const paperFonts = {
   metaMonoBold: 'JetBrainsMono_600SemiBold',
 } as const;
 
+/**
+ * FinFindr paper spacing scale.
+ *
+ * May 2026 "open up the layout" pass — the small end (xs/sm) is unchanged
+ * because chip gaps, badge margins, and inline label/value pairs depend on
+ * the tight 4 / 8 rhythm. The mid-large end (md/lg/xl/xxl) was nudged
+ * upward to give every paper screen more breathing room between cards
+ * and between major sections. Concretely:
+ *
+ *   md  14 → 16   one row of in-card padding (paragraph & sub-section margins)
+ *   lg  20 → 24   screen horizontal padding & between-card vertical gaps
+ *   xl  28 → 36   between-major-section vertical breathing
+ *   xxl 40 → 56   bottom-of-scroll cushion above tab bar
+ *
+ * In addition, a dedicated `section` slot was added so screens can express
+ * "this is a between-major-card gap" semantically instead of overloading
+ * `lg`, which is also used for screen padding. Use `section` for vertical
+ * margins between independent paper cards on the same screen; use `lg` when
+ * you want screen-edge or in-card padding.
+ *
+ * Forecast tile widths on Home are computed from a separate `HOME_H_PADDING`
+ * constant inside the screen, so they are insulated from this token bump.
+ * Anything that uses these tokens for layout (the entire app outside Home's
+ * forecast strip) inherits the new rhythm automatically.
+ */
 export const paperSpacing = {
   xs: 4,
   sm: 8,
-  md: 14,
-  lg: 20,
-  xl: 28,
-  xxl: 40,
+  md: 16,         // was 14 — slightly more in-card breathing
+  lg: 24,         // was 20 — screen padding + between-card vertical gap
+  xl: 36,         // was 28 — major between-section breathing
+  xxl: 56,        // was 40 — bottom-of-scroll cushion above tab bar
+  /**
+   * Explicit between-major-card vertical gap. Sits intentionally between `lg`
+   * (24) and `xl` (36) so screens can stack independent paper cards with a
+   * clear, more-defined visual rhythm without bleeding into the larger
+   * inter-section breathing space.
+   */
+  section: 32,
 } as const;
 
 /**
- * FinFindr uses a universal card radius of 6 ("softer / friendlier"), paired
- * with small chip radii of 2.
+ * Paper card radius scale.
+ *
+ * Bumped from 6 → 10 in the May 2026 "more defined boxes" pass so cards
+ * read as friendlier, more clearly-separated shapes against the warm paper
+ * canvas. The 2px ink stroke + hard ink shadow already provide strong
+ * visual definition; the slightly larger radius softens corners enough to
+ * give each card its own gestalt without bleeding into chip language.
+ *
+ * Chip radius is intentionally kept at 2 — chips are small typographic
+ * pills and their square-ish corners are part of the FinFindr stamp/etched
+ * label voice.
  */
 export const paperRadius = {
   chip: 2,
-  card: 6,
+  card: 10,       // was 6 — friendlier corners while staying inside the paper voice
   medal: 999,
 } as const;
 

@@ -321,7 +321,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing.xs,
   },
 
-  benefits: { gap: spacing.sm, marginBottom: spacing.lg },
+  benefits: { gap: spacing.md, marginBottom: spacing.lg },
   benefit: {
     flexDirection: 'row',
     alignItems: 'flex-start',

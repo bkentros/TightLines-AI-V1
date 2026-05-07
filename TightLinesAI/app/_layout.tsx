@@ -1,5 +1,5 @@
-import { useEffect } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { useEffect, useRef } from 'react';
+import { Animated, Easing, View, Text, StyleSheet } from 'react-native';
 import { Stack, useRouter, useSegments } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import * as Linking from 'expo-linking';
@@ -228,10 +228,7 @@ export default function RootLayout() {
     return (
       <>
         <StatusBar style="dark" />
-        <View style={styles.bootScreen}>
-          <Text style={styles.bootTitle}>FINFINDR</Text>
-          <Text style={styles.bootSubtitle}>Loading your app…</Text>
-        </View>
+        <BootScreen />
       </>
     );
   }
@@ -256,14 +253,20 @@ export default function RootLayout() {
         <Stack.Screen name="(auth)" options={{ headerShown: false }} />
         <Stack.Screen name="(onboarding)" options={{ headerShown: false }} />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="water-reader" options={{ title: 'Water Reader' }} />
-        <Stack.Screen name="new-entry" options={{ title: 'New Entry' }} />
-        <Stack.Screen name="log-detail" options={{ title: 'Trip Details' }} />
-        <Stack.Screen
-          name="personal-bests"
-          options={{ title: 'Personal Bests' }}
-        />
-        <Stack.Screen name="subscribe" options={{ title: 'Subscribe' }} />
+        <Stack.Screen name="water-reader" options={{ headerShown: false }} />
+        {/*
+          The following five screens used to render the system Stack header
+          (a thin grey bar with a default Back button) which clashed with
+          the FinFindr paper voice everywhere else. They now render their
+          own <PaperNavHeader> inside the screen body — the editorial
+          BACK chip, FINFINDR · <SECTION> eyebrow, and Fraunces title.
+          Keep `headerShown: false` here so the system bar does not draw
+          on top of it.
+        */}
+        <Stack.Screen name="new-entry" options={{ headerShown: false }} />
+        <Stack.Screen name="log-detail" options={{ headerShown: false }} />
+        <Stack.Screen name="personal-bests" options={{ headerShown: false }} />
+        <Stack.Screen name="subscribe" options={{ headerShown: false }} />
         <Stack.Screen
           name="recommender"
           options={{ headerShown: false }}
@@ -274,11 +277,80 @@ export default function RootLayout() {
         />
         <Stack.Screen
           name="how-fishing-results"
-          options={{ title: 'Your Report', headerRight: () => null }}
+          options={{ headerShown: false }}
         />
-        <Stack.Screen name="analytics" options={{ title: 'Analytics' }} />
+        <Stack.Screen name="analytics" options={{ headerShown: false }} />
       </Stack>
     </>
+  );
+}
+
+/**
+ * BootScreen — the briefly-visible interstitial while the Google Fonts
+ * bundle resolves. Previously a centered wordmark on a flat paper
+ * background; now adds a soft topographic-line hint behind the title
+ * and a breathing forest dot below it so the very first thing the user
+ * sees already feels like the rest of the app instead of a placeholder.
+ *
+ * Implementation notes:
+ *   • We render only with the on-device system font here. Once `useFonts`
+ *     resolves we re-enter the normal Stack which mounts the app fonts.
+ *   • The pulse uses the native driver — no JS work, even before fonts.
+ */
+function BootScreen() {
+  const pulse = useRef(new Animated.Value(0.4)).current;
+  useEffect(() => {
+    const loop = Animated.loop(
+      Animated.sequence([
+        Animated.timing(pulse, {
+          toValue: 1,
+          duration: 1200,
+          easing: Easing.inOut(Easing.ease),
+          useNativeDriver: true,
+        }),
+        Animated.timing(pulse, {
+          toValue: 0.4,
+          duration: 1200,
+          easing: Easing.inOut(Easing.ease),
+          useNativeDriver: true,
+        }),
+      ]),
+    );
+    loop.start();
+    return () => loop.stop();
+  }, [pulse]);
+
+  return (
+    <View style={styles.bootScreen}>
+      {/* Three soft horizontal contour rules behind the title — the same
+          topographic motif used on the paper LiveConditions card and the
+          Recommender hero. Drawn with plain Views so we don't need fonts
+          or react-native-svg up before the font bundle resolves. */}
+      <View style={styles.bootTopo} pointerEvents="none">
+        <View style={[styles.bootTopoLine, { width: 220, opacity: 0.28 }]} />
+        <View style={[styles.bootTopoLine, { width: 180, opacity: 0.22, marginTop: 14 }]} />
+        <View style={[styles.bootTopoLine, { width: 240, opacity: 0.18, marginTop: 14 }]} />
+      </View>
+      <Text style={styles.bootEyebrow}>— FINFINDR · BOOTING —</Text>
+      <Text style={styles.bootTitle}>FINFINDR</Text>
+      <Text style={styles.bootSubtitle}>your fishing companion</Text>
+      <Animated.View
+        style={[
+          styles.bootDot,
+          {
+            opacity: pulse,
+            transform: [
+              {
+                scale: pulse.interpolate({
+                  inputRange: [0.4, 1],
+                  outputRange: [0.85, 1.15],
+                }),
+              },
+            ],
+          },
+        ]}
+      />
+    </View>
   );
 }
 
@@ -290,18 +362,45 @@ const styles = StyleSheet.create({
     backgroundColor: paper.paper,
     paddingHorizontal: 24,
   },
+  bootTopo: {
+    position: 'absolute',
+    alignItems: 'center',
+    opacity: 0.85,
+  },
+  bootTopoLine: {
+    height: 1,
+    backgroundColor: paper.ink,
+    borderRadius: 1,
+  },
+  bootEyebrow: {
+    // Pre-fonts on purpose — system font; the styling (tracking + size)
+    // is what carries the editorial voice while the real fonts load.
+    fontSize: 9,
+    color: paper.red,
+    letterSpacing: 2.6,
+    fontWeight: '700',
+    marginBottom: 14,
+  },
   bootTitle: {
     fontFamily: paperFonts.display,
     fontSize: 34,
     fontWeight: '700',
     color: paper.ink,
     letterSpacing: -0.5,
-    marginBottom: 8,
+    marginBottom: 6,
   },
   bootSubtitle: {
     fontFamily: paperFonts.displayItalic,
-    fontSize: 14,
+    fontSize: 12,
     color: paper.ink,
     opacity: 0.65,
+    letterSpacing: 1.2,
+  },
+  bootDot: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    backgroundColor: paper.forest,
+    marginTop: 22,
   },
 });

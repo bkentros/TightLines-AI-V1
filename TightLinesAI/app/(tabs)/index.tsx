@@ -965,7 +965,7 @@ const styles = StyleSheet.create({
   scroll: { flex: 1 },
   content: {
     paddingHorizontal: HOME_H_PADDING,
-    paddingBottom: 48,
+    paddingBottom: paperSpacing.xxl,
   },
 
   /* ─── Header (wordmark left, location/LIVE right) ─── */
@@ -974,7 +974,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'flex-end',
     paddingTop: paperSpacing.md + 4,
-    marginBottom: paperSpacing.lg,
+    marginBottom: paperSpacing.section,
   },
   headerLeft: {
     flex: 1,
@@ -1050,7 +1050,7 @@ const styles = StyleSheet.create({
   /* ─── Welcome hero ─── */
   welcome: {
     alignItems: 'center',
-    marginBottom: paperSpacing.lg,
+    marginBottom: paperSpacing.section,
     paddingVertical: paperSpacing.sm,
   },
   welcomeHeadline: {
@@ -1080,7 +1080,7 @@ const styles = StyleSheet.create({
 
   /* ─── Forecast ─── */
   forecastSection: {
-    marginBottom: paperSpacing.lg,
+    marginBottom: paperSpacing.section,
   },
   forecastHeader: {
     flexDirection: 'row',
@@ -1245,7 +1245,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'stretch',
     gap: paperSpacing.sm + 2,
-    marginBottom: paperSpacing.lg,
+    marginBottom: paperSpacing.section,
   },
   /**
    * CTA cards are laid out as a column with `justifyContent: 'space-between'`
@@ -1391,7 +1391,7 @@ const styles = StyleSheet.create({
 
   /* ─── Water Reader stub ─── */
   waterReaderCard: {
-    marginBottom: paperSpacing.lg,
+    marginBottom: paperSpacing.section,
   },
   waterReaderBody: {
     flexDirection: 'row',
@@ -1438,7 +1438,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginTop: paperSpacing.lg,
+    marginTop: paperSpacing.section,
     paddingTop: paperSpacing.md,
     borderTopWidth: 1.5,
     borderTopColor: paper.ink,

@@ -97,10 +97,10 @@ Update:
 - `lib/waterReaderContracts.ts` if it mirrors the engine version or response constants.
 - Any cache builder/test expectation that references `WATER_READER_ENGINE_VERSION`.
 
-Recommended value:
+Current launch value:
 
 ```ts
-export const WATER_READER_ENGINE_VERSION = "water-reader-engine-v3-live-final";
+export const WATER_READER_ENGINE_VERSION = "water-reader-engine-v4-paper-redesign";
 ```
 
 Rules:
@@ -212,6 +212,11 @@ Acceptance:
 - Worker writes `water_reader_engine_read_cache`.
 - Worker rejects requests without `x-water-reader-internal-key`.
 - Worker response includes `feature: "water_reader_read_v1"`, `productionSvgResult`, `engineVersion`, and timing diagnostics.
+- Live launch smoke passes after Cloud Run and Supabase Edge deploy:
+
+```bash
+npm run smoke:water-reader-live-launch
+```
 
 ## Phase 5 - Supabase Edge Configuration
 
@@ -332,7 +337,7 @@ Old-version cleanup:
 
 ```sql
 delete from public.water_reader_engine_read_cache
-where engine_version <> 'water-reader-engine-v3-live-final';
+where engine_version <> 'water-reader-engine-v4-paper-redesign';
 ```
 
 Do not tune production by editing cache rows manually. Change engine code, bump version, regenerate.

@@ -13,14 +13,20 @@ import type {
   WaterReaderSvgTransform,
 } from './types';
 
-const FONT = "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif";
-const WATER_FILL = '#CFE6F7';
-const WATER_STROKE = '#275D7F';
-const BACKDROP = '#F7FAFC';
-const TEXT = '#0F172A';
-const MUTED = '#475569';
-const CONFLUENCE = '#D946EF';
-const DEFAULT_LEGEND_COLOR = '#334155';
+// FinFindr paper renderer constants — keep in lock-step with the Deno
+// mirror at `supabase/functions/_shared/waterReaderEngine/rendering/svg.ts`.
+// This Node copy is consumed by `scripts/water-reader-build-read-cache.ts`
+// and the engine smoke / batch scripts, so any deviation here would seed
+// the Supabase cache with the wrong palette. See the longer rationale
+// comment in the Deno mirror.
+const FONT = "Fraunces, -apple-system, BlinkMacSystemFont, 'Segoe UI', serif";
+const WATER_FILL = '#DCE7DD';
+const WATER_STROKE = '#1C2419';
+const BACKDROP = '#F0E8D4';
+const TEXT = '#1C2419';
+const MUTED = 'rgba(28,36,25,0.55)';
+const CONFLUENCE = '#7A3A52';
+const DEFAULT_LEGEND_COLOR = '#1C2419';
 const ZONE_FILL_OPACITY = '0.42';
 const ZONE_STROKE_OPACITY = '0.16';
 const ZONE_STROKE_WIDTH = '0.6';
@@ -29,10 +35,6 @@ const CONFLUENCE_STROKE_OPACITY = '0.14';
 const POINT_BUFFER_STROKE_OPACITY = '0.42';
 const CONFLUENCE_POINT_BUFFER_STROKE_OPACITY = '0.38';
 const COVE_SHORE_PATH_RENDER_SAMPLE_LIMIT = 96;
-const KEY_TITLE_LINE_HEIGHT = 14;
-const KEY_ROW_HEIGHT = 24;
-const KEY_ROW_GAP = 5;
-const KEY_COLUMN_GAP = 12;
 const CENTER_LABEL_RADIUS = 7.5;
 const CALLOUT_LABEL_RADIUS = 7.5;
 const CENTER_LABEL_DIAMETER = CENTER_LABEL_RADIUS * 2;
@@ -59,11 +61,6 @@ type LabelPlan = {
   bounds: Bounds;
 };
 
-type LegendEntryLayout = {
-  titleLines: string[];
-  rowHeight: number;
-};
-
 export function buildWaterReaderProductionSvg(
   displayModel: WaterReaderDisplayModel,
   options: WaterReaderProductionSvgOptions = {},
@@ -81,8 +78,8 @@ export function buildWaterReaderProductionSvg(
 
   const padding = options.padding ?? 28;
   const mapWidth = options.mapWidth ?? 960;
-  const legendHeight = estimateLegendHeight(displayModel, mapWidth, padding);
-  const transform = buildWaterReaderSvgTransform({
+  const legendHeight = 0;
+  const baseTransform = buildWaterReaderSvgTransform({
     displayModel,
     lakePolygon: options.lakePolygon,
     padding,
@@ -90,9 +87,12 @@ export function buildWaterReaderProductionSvg(
     legendHeight,
     maxMapHeight: options.maxMapHeight,
   });
-  if (legendHeight > Math.max(320, transform.maxMapHeight * 0.72)) {
-    warnings.push({ code: 'legend_overflow_risk', message: 'Legend content is tall enough to require careful app layout review.' });
-  }
+  const croppedHeight = Math.ceil(baseTransform.mapBottomY + Math.max(8, padding * 0.3));
+  const transform: WaterReaderSvgTransform = {
+    ...baseTransform,
+    height: croppedHeight,
+    viewBox: `0 0 ${baseTransform.width} ${croppedHeight}`,
+  };
 
   const clipId = `wr-lake-clip-${stableHash(transform.viewBox)}`;
   const lakePath = options.lakePolygon ? svgPathForPolygon(options.lakePolygon, transform) : '';
@@ -104,10 +104,8 @@ export function buildWaterReaderProductionSvg(
   const renderedEntries = displayModel.displayedEntries.map((entry) =>
     renderEntry(entry, transform, clipId, warnings, labelPlanByEntryId.get(entry.entryId), options.lakePolygon ?? null),
   );
-  const legend = renderLegendKey(displayModel, transform);
   const legendEntries = productionLegendEntries(displayModel);
   const title = escapeXml(options.title ?? 'Water Reader');
-  const subtitle = escapeXml(options.subtitle ?? 'Polygon geometry readout');
   const warningComment = warnings.length > 0
     ? `\n  <!-- renderer warnings: ${escapeXml(JSON.stringify(warnings.map((warning) => warning.code)))} -->`
     : '';
@@ -125,12 +123,12 @@ export function buildWaterReaderProductionSvg(
       <path d="${lakePath}" fill-rule="evenodd"/>
     </clipPath>
     <filter id="wr-label-shadow" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="1" stdDeviation="1.1" flood-color="#0F172A" flood-opacity="0.22"/>
+      <feDropShadow dx="0" dy="1" stdDeviation="1.1" flood-color="${TEXT}" flood-opacity="0.22"/>
     </filter>
   </defs>${warningComment}
   <rect width="100%" height="100%" fill="${BACKDROP}"/>
   <g class="water-reader-map">
-    <path class="water-reader-lake" d="${lakePath}" fill="${WATER_FILL}" fill-rule="evenodd" stroke="${WATER_STROKE}" stroke-width="1.35"/>
+    <path class="water-reader-lake" d="${lakePath}" fill="${WATER_FILL}" fill-rule="evenodd" stroke="${WATER_STROKE}" stroke-width="1.6"/>
     <g class="water-reader-zones" clip-path="url(#${clipId})">
       ${renderedEntries.map((entry) => entry.zoneMarkup).join('\n      ')}
     </g>
@@ -138,9 +136,6 @@ export function buildWaterReaderProductionSvg(
       ${renderedEntries.map((entry) => entry.labelMarkup).join('\n      ')}
     </g>
   </g>
-  ${legend}
-  <text x="${padding}" y="${transform.height - 18}" font-family="${FONT}" font-size="11" fill="${MUTED}" font-weight="700">FinFindr Water Reader</text>
-  <text x="${transform.width - padding}" y="${transform.height - 18}" font-family="${FONT}" font-size="10" fill="${MUTED}" text-anchor="end">${subtitle}</text>
 </svg>
 `;
 
@@ -513,11 +508,11 @@ function numberLabel(plan: LabelPlan): string {
   const className = `water-reader-map-number water-reader-map-number-${plan.kind}${plan.callout ? ' water-reader-map-number-callout' : ''}`;
   const radius = plan.callout ? CALLOUT_LABEL_RADIUS : CENTER_LABEL_RADIUS;
   const leader = plan.callout
-    ? `<path class="water-reader-label-leader" d="M ${format(plan.anchor.x)} ${format(plan.anchor.y)} L ${format(plan.label.x)} ${format(plan.label.y)}" fill="none" stroke="#334155" stroke-width="1" stroke-opacity="0.58" stroke-linecap="round"/>`
+    ? `<path class="water-reader-label-leader" d="M ${format(plan.anchor.x)} ${format(plan.anchor.y)} L ${format(plan.label.x)} ${format(plan.label.y)}" fill="none" stroke="${TEXT}" stroke-width="1" stroke-opacity="0.5" stroke-linecap="round"/>`
     : '';
   return `<g class="${className}" data-entry-id="${escapeXml(plan.entryId)}" data-display-number="${plan.displayNumber}" data-label-placement="${plan.callout ? 'callout' : 'center'}" data-leader-length-px="${format(plan.leaderLengthPx)}" data-long-leader="${plan.longLeader ? 'true' : 'false'}" filter="url(#wr-label-shadow)">
         ${leader}
-        <circle cx="${format(plan.label.x)}" cy="${format(plan.label.y)}" r="${format(radius)}" fill="#FFFFFF" stroke="#0F172A" stroke-width="1.15"/>
+        <circle cx="${format(plan.label.x)}" cy="${format(plan.label.y)}" r="${format(radius)}" fill="#F8F1DD" stroke="${TEXT}" stroke-width="1.15"/>
         <text x="${format(plan.label.x)}" y="${format(plan.label.y + 0.15)}" font-family="${FONT}" font-size="${plan.callout ? 9.25 : 9.5}" font-weight="850" fill="${TEXT}" text-anchor="middle" dominant-baseline="central">${plan.displayNumber}</text>
       </g>`;
 }
@@ -759,60 +754,11 @@ function labelAnchor(entry: WaterReaderDisplayEntry, warnings: WaterReaderRender
   return { point: { x: 0, y: 0 } };
 }
 
-function renderLegendKey(displayModel: WaterReaderDisplayModel, transform: WaterReaderSvgTransform): string {
-  const x = transform.padding;
-  const width = transform.width - transform.padding * 2;
-  const columnCount = compactLegendColumnCount(transform.width, displayModel.displayLegendEntries.length);
-  const columnWidth = (width - (columnCount - 1) * KEY_COLUMN_GAP) / columnCount;
-  const wrap = legendWrapLimits(columnWidth);
-  const rows: string[] = [];
-  rows.push(`<text x="${x}" y="${transform.legendTop}" font-family="${FONT}" font-size="13" font-weight="850" fill="${TEXT}">Map Key</text>`);
-  const firstRowY = transform.legendTop + 22;
-  displayModel.displayLegendEntries.forEach((entry, index) => {
-    const layout = legendEntryLayout(entry, wrap);
-    const color = entry.colorHex ?? '#334155';
-    const columnIndex = index % columnCount;
-    const rowIndex = Math.floor(index / columnCount);
-    const rowX = x + columnIndex * (columnWidth + KEY_COLUMN_GAP);
-    const rowY = firstRowY + rowIndex * (KEY_ROW_HEIGHT + KEY_ROW_GAP);
-    rows.push(`<g class="water-reader-display-legend-entry" data-display-number="${entry.number}" transform="translate(${rowX} ${rowY})">
-      <rect x="0" y="-13" width="${format(columnWidth)}" height="${layout.rowHeight}" rx="5" fill="#FFFFFF" stroke="#E2E8F0"/>
-      <circle cx="13" cy="-1" r="7" fill="#FFFFFF" stroke="${color}" stroke-width="2"/>
-      <text x="13" y="-0.7" font-family="${FONT}" font-size="8.2" font-weight="850" fill="${TEXT}" text-anchor="middle" dominant-baseline="central">${entry.number ?? ''}</text>
-      <rect x="25" y="-7" width="8" height="12" rx="2" fill="${color}"/>
-      ${layout.titleLines.map((line, lineIndex) => `<text x="40" y="${lineIndex * KEY_TITLE_LINE_HEIGHT}" font-family="${FONT}" font-size="10.5" font-weight="800" fill="${TEXT}">${escapeXml(line)}</text>`).join('')}
-    </g>`);
-  });
-  return `<g class="water-reader-legend">${rows.join('\n  ')}</g>`;
-}
-
-function estimateLegendHeight(displayModel: WaterReaderDisplayModel, mapWidth: number, padding: number): number {
-  const columnCount = compactLegendColumnCount(mapWidth, displayModel.displayLegendEntries.length);
-  const rows = Math.ceil(displayModel.displayLegendEntries.length / columnCount);
-  return 28 + rows * KEY_ROW_HEIGHT + Math.max(0, rows - 1) * KEY_ROW_GAP;
-}
-
-function legendEntryLayout(
-  entry: { title: string },
-  wrap: ReturnType<typeof legendWrapLimits>,
-): LegendEntryLayout {
-  const titleLines = wrapText(entry.title, wrap.titleMaxChars, 1);
-  return { titleLines, rowHeight: KEY_ROW_HEIGHT };
-}
-
-function legendWrapLimits(rowWidth: number): { titleMaxChars: number } {
-  const textWidth = Math.max(60, rowWidth - 44);
-  return {
-    titleMaxChars: Math.max(14, Math.floor(textWidth / 5.8)),
-  };
-}
-
-function compactLegendColumnCount(width: number, entryCount: number): number {
-  if (entryCount <= 1) return 1;
-  if (width >= 780) return 3;
-  if (width >= 390) return 2;
-  return 1;
-}
+// In-SVG legend rendering retired in the FinFindr paper redesign.
+// `legendEntries` is still emitted on the response and consumed by the
+// React `WaterReaderLegend` component. See the Deno mirror for the full
+// rationale — restore from git history if a future caller needs the
+// in-SVG legend back.
 
 function productionLegendEntries(displayModel: WaterReaderDisplayModel): WaterReaderProductionSvgResult['legendEntries'] {
   return displayModel.displayLegendEntries.map((entry) => {
@@ -1035,28 +981,6 @@ function normalize(point: PointM): PointM | null {
 
 function clampNumber(value: number, min: number, max: number): number {
   return Math.max(min, Math.min(max, value));
-}
-
-function wrapText(input: string, maxChars: number, maxLines: number): string[] {
-  const words = input.trim().split(/\s+/).filter(Boolean);
-  const lines: string[] = [];
-  let current = '';
-  for (const word of words) {
-    const next = current ? `${current} ${word}` : word;
-    if (next.length <= maxChars) {
-      current = next;
-      continue;
-    }
-    if (current) lines.push(current);
-    current = word;
-    if (lines.length >= maxLines) break;
-  }
-  if (current && lines.length < maxLines) lines.push(current);
-  if (lines.length === maxLines && words.join(' ').length > lines.join(' ').length) {
-    const base = lines[lines.length - 1]!.replace(/[.,;:]?$/, '').slice(0, Math.max(0, maxChars - 3)).trimEnd();
-    lines[lines.length - 1] = `${base}...`;
-  }
-  return lines.length > 0 ? lines : [''];
 }
 
 function validPoint(point: PointM): boolean {

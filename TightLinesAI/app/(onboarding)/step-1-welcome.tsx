@@ -169,7 +169,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing.sm,
   },
 
-  features: { gap: spacing.sm },
+  features: { gap: spacing.md },
   featureCard: {
     flexDirection: 'row',
     backgroundColor: colors.surface,

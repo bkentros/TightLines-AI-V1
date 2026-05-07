@@ -70,6 +70,9 @@ interface CountyLookupResult {
   stateCode: string | null;
 }
 
+const MIN_SPECIFIC_QUERY_CHARS = 3;
+const USGS_3DHP_FALLBACK_TIMEOUT_MS = 4500;
+
 const USGS_3DHP_WATERBODY_QUERY_URL =
   "https://hydro.nationalmap.gov/arcgis/rest/services/3DHP_all/FeatureServer/60/query";
 const TIGERWEB_COUNTY_QUERY_URL =
@@ -281,6 +284,32 @@ function queryTokens(query: string): string[] {
     );
 }
 
+function genericWaterbodyTypeOnly(query: string): WaterbodySearchResult["waterbodyType"] | null {
+  const tokens = normalizeWaterbodyName(query).split(" ").filter(Boolean);
+  if (tokens.length !== 1) return null;
+  switch (tokens[0]) {
+    case "lake":
+    case "lakes":
+      return "lake";
+    case "pond":
+    case "ponds":
+      return "pond";
+    case "reservoir":
+    case "reservoirs":
+    case "res":
+      return "reservoir";
+    default:
+      return null;
+  }
+}
+
+function specificQueryTooShort(query: string): boolean {
+  const genericType = genericWaterbodyTypeOnly(query);
+  if (genericType) return false;
+  const tokens = queryTokens(query);
+  return tokens.length === 0 || tokens.every((token) => token.length < MIN_SPECIFIC_QUERY_CHARS);
+}
+
 function remoteSearchEligible(tokens: string[]): boolean {
   return tokens.some((token) => token.length >= 3);
 }
@@ -475,11 +504,24 @@ async function fetchAndIndex3DhpCandidates(params: {
     geometryPrecision: "6",
   }).toString();
 
-  const response = await fetch(url, {
-    headers: {
-      "User-Agent": "FinFindr-WaterReader/1.0",
-    },
-  });
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), USGS_3DHP_FALLBACK_TIMEOUT_MS);
+  let response: Response;
+  try {
+    response = await fetch(url, {
+      signal: controller.signal,
+      headers: {
+        "User-Agent": "FinFindr-WaterReader/1.0",
+      },
+    });
+  } catch (error) {
+    console.error("[waterbody-search] 3DHP fallback request failed", {
+      message: error instanceof Error ? error.message : String(error),
+    });
+    return 0;
+  } finally {
+    clearTimeout(timer);
+  }
   if (!response.ok) {
     console.error("[waterbody-search] 3DHP fallback failed", {
       status: response.status,
@@ -725,11 +767,28 @@ Deno.serve(async (req: Request) => {
     ? Math.min(25, Math.max(1, Math.floor(limitRaw)))
     : 10;
 
-  const { data, error } = await supabase.rpc("search_waterbodies", {
-    query_text: query,
-    state_filter: state,
-    result_limit: limit,
-  });
+  let data: unknown[] | null = null;
+  let error: { message: string } | null = null;
+  const genericType = genericWaterbodyTypeOnly(query);
+  if (genericType) {
+    const response = await supabase.rpc("browse_waterbodies_by_state", {
+      state_filter: state,
+      waterbody_type_filter: genericType,
+      result_limit: limit,
+    });
+    data = response.data;
+    error = response.error;
+  } else if (specificQueryTooShort(query)) {
+    data = [];
+  } else {
+    const response = await supabase.rpc("search_waterbodies", {
+      query_text: query,
+      state_filter: state,
+      result_limit: limit,
+    });
+    data = response.data;
+    error = response.error;
+  }
   if (error) {
     console.error("[waterbody-search] rpc failed", error);
     return jsonError("Failed to search waterbodies", "search_failed", 500);

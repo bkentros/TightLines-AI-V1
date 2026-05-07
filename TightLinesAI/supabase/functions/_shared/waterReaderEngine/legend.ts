@@ -8,16 +8,43 @@ import type {
   WaterReaderZonePlacementResult,
 } from './zones/types.ts';
 
+/**
+ * Paper-warm Water Reader feature palette.
+ *
+ * MUST stay in lock-step with the client-side mirror at
+ * `lib/waterReaderZonePaperPalette.ts` (`PAPER_WARM_FEATURE_COLORS`). When
+ * either side changes, change both AND bump `WATER_READER_ENGINE_VERSION`
+ * (in `supabase/functions/_shared/waterReaderRead/contracts.ts`) so any
+ * cached SVG rows generated under the older palette are regenerated.
+ *
+ * Why these hues: the original launch palette was tuned against a near-white
+ * SVG backdrop. The FinFindr app shell renders Water Reader on the warm
+ * paper canvas (`paper.paper` #E8DFC9 / `paper.paperLight` #F0E8D4 in
+ * `lib/theme.ts`), against which the spec's saturated blue/green/magenta
+ * read as too loud. The paper-warm swap below preserves the original
+ * meaning (each feature class still has a deterministic glance-recognizable
+ * hue) but anchors the palette in the paper / forest / gold / walnut /
+ * red / moss vocabulary the rest of the app already uses.
+ */
 export const WATER_READER_FEATURE_COLORS: Record<WaterReaderFeatureClass | 'structure_confluence', string> = {
-  main_lake_point: '#1E5FBF',
-  secondary_point: '#6FA8DC',
-  cove: '#2E8B57',
-  neck: '#E67E22',
-  island: '#8E44AD',
-  saddle: '#1ABC9C',
-  dam: '#C0392B',
-  structure_confluence: '#D946EF',
-  universal: '#D4A017',
+  // Main features → forest / moss spine.
+  main_lake_point: '#2E4A2A',     // paper.forest — anchor of the system.
+  secondary_point: '#5B7A3E',     // paper.moss — softer companion to forest.
+  // Coves carry the warm gold (the same hue used for "FAIR" tier elsewhere).
+  cove: '#B87818',                 // paper.goldDk — readable on paperLight.
+  // Necks/pinches → rust, the warm orange that already lives in paper.
+  neck: '#CC6A22',                 // paper.rust.
+  // Islands → walnut, the warm dark brown for visually heavier features.
+  island: '#3A2E22',               // paper.walnut.
+  // Saddles → warmer teal that reads as "cool but still in the paper family".
+  saddle: '#357A6F',
+  // Dam corners → red, mirrors the SKIP / accent treatment.
+  dam: '#C8352C',                  // paper.red.
+  // Confluence → muted magenta-walnut so overlap groups still pop without
+  // resorting to the screaming #D946EF magenta.
+  structure_confluence: '#7A3A52',
+  // Universal pond fallback → the same gold pivot the rest of the app uses.
+  universal: '#E8A02E',            // paper.gold.
 };
 
 export const WATER_READER_LEGEND_FORBIDDEN_PHRASES = [

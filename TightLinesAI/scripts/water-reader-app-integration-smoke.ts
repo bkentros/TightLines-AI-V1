@@ -35,11 +35,21 @@ assert(clientSource.includes('export async function fetchWaterReaderRead'), 'fet
 assert(clientSource.includes('invokeEdgeFunction<WaterReaderReadResponse>("water-reader-read"'), 'client should call water-reader-read edge function');
 assert(contractSource.includes('export interface WaterReaderReadResponse'), 'app read response contract should exist');
 assert(contractSource.includes('legendEntries: WaterReaderProductionSvgLegendEntry[]'), 'app SVG contract should expose native legend entries');
-assert(serverContractsSource.includes('water-reader-engine-v3-live-final'), 'server read contract should use the final launch cache version');
-assert(cacheBuilderSource.includes('water-reader-engine-v3-live-final'), 'cache builder should use the final launch cache version');
+// v4 marks the FinFindr paper redesign of the renderer (paper-warm zone
+// palette, dropped in-SVG legend + footer, Fraunces font stack). Bumping
+// the constant intentionally invalidates the v3 cache. If the renderer or
+// palette change again, bump this string and the constants in the engine
+// contracts + cache builder in the same change.
+assert(serverContractsSource.includes('water-reader-engine-v4-paper-redesign'), 'server read contract should use the v4 paper-redesign cache version');
+assert(cacheBuilderSource.includes('water-reader-engine-v4-paper-redesign'), 'cache builder should use the v4 paper-redesign cache version');
 const oldEngineVersionNeedle = ['water-reader-engine', 'v1'].join('-');
 assert(!serverContractsSource.includes(oldEngineVersionNeedle), 'server read contract should not use v1 cache version');
 assert(!cacheBuilderSource.includes(oldEngineVersionNeedle), 'cache builder should not use v1 cache version');
+// Defensive: ensure neither side accidentally still pins the previous v3
+// launch cache version after a paper-redesign rebase.
+const previousLaunchVersion = 'water-reader-engine-v3-live-final';
+assert(!serverContractsSource.includes(previousLaunchVersion), 'server read contract should not still pin the v3 launch cache version');
+assert(!cacheBuilderSource.includes(previousLaunchVersion), 'cache builder should not still pin the v3 launch cache version');
 assert(contractSource.includes('sameNameStateCandidateCount'), 'search contract should expose same-name candidate count');
 assert(contractSource.includes('isAmbiguousNameInState'), 'search contract should expose same-name ambiguity flag');
 assert(!appSource.includes('buildWaterReaderEngineRead'), 'app screen should not import or call local engine read helper');

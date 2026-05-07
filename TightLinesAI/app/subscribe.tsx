@@ -109,8 +109,10 @@ const styles = StyleSheet.create({
     borderWidth: 1.5,
     borderColor: paper.ink,
     borderRadius: paperRadius.card,
-    padding: paperSpacing.md + 2,
-    marginBottom: paperSpacing.md,
+    padding: paperSpacing.lg,
+    // Bumped from `md` to `lg` so the two plan cards (Angler / Master Angler)
+    // read as visually independent options rather than two stacked rows.
+    marginBottom: paperSpacing.lg,
     ...paperShadows.hard,
   },
   planCardMaster: {

@@ -6,6 +6,8 @@
  */
 
 import { View, Text, StyleSheet, ScrollView, Pressable } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import {
   paper,
@@ -14,7 +16,13 @@ import {
   paperShadows,
   paperSpacing,
 } from '../lib/theme';
-import { PaperBackground, SectionEyebrow } from '../components/paper';
+import {
+  PaperBackground,
+  PaperColophon,
+  PaperNavHeader,
+  SectionEyebrow,
+} from '../components/paper';
+import { hapticSelection } from '../lib/safeHaptics';
 
 const MOCK_TRIP = {
   location: 'Tampa Bay Inshore',
@@ -64,28 +72,34 @@ const MOCK_TRIP = {
 };
 
 export default function LogDetailScreen() {
+  const router = useRouter();
   const t = MOCK_TRIP;
 
   return (
-    <PaperBackground>
-      <ScrollView
-        style={styles.scroll}
-        contentContainerStyle={styles.content}
-        showsVerticalScrollIndicator={false}
-      >
-        {/* Header */}
-        <View style={styles.eyebrowRow}>
-          <SectionEyebrow dashes size={11} color={paper.red}>
-            FINFINDR · TRIP RECORD
-          </SectionEyebrow>
-        </View>
+    <SafeAreaView style={styles.safe} edges={['top']}>
+      <PaperBackground style={styles.flex}>
+        <PaperNavHeader
+          eyebrow="FINFINDR · TRIP RECORD"
+          title="LOG DETAIL"
+          onBack={() => router.back()}
+        />
+        <ScrollView
+          style={styles.scroll}
+          contentContainerStyle={styles.content}
+          showsVerticalScrollIndicator={false}
+        >
+          <View style={styles.eyebrowRow}>
+            <SectionEyebrow dashes size={11} color={paper.red}>
+              {t.date.toUpperCase()}
+            </SectionEyebrow>
+          </View>
 
-        <View style={styles.header}>
-          <Text style={styles.location}>{t.location}.</Text>
-          <Text style={styles.dateLine}>
-            {t.date.toUpperCase()} · {t.start} – {t.end} ({t.duration.toUpperCase()})
-          </Text>
-        </View>
+          <View style={styles.header}>
+            <Text style={styles.location}>{t.location}.</Text>
+            <Text style={styles.dateLine}>
+              {t.start} – {t.end} ({t.duration.toUpperCase()})
+            </Text>
+          </View>
 
         {/* Conditions grid */}
         <Text style={styles.section}>Conditions.</Text>
@@ -153,10 +167,18 @@ export default function LogDetailScreen() {
                 Did this recommendation help?
               </Text>
               <View style={styles.feedbackBtns}>
-                <Pressable style={styles.feedbackBtn} hitSlop={8}>
+                <Pressable
+                  style={styles.feedbackBtn}
+                  hitSlop={8}
+                  onPress={() => hapticSelection()}
+                >
                   <Ionicons name="thumbs-up-outline" size={18} color={paper.forest} />
                 </Pressable>
-                <Pressable style={styles.feedbackBtn} hitSlop={8}>
+                <Pressable
+                  style={styles.feedbackBtn}
+                  hitSlop={8}
+                  onPress={() => hapticSelection()}
+                >
                   <Ionicons name="thumbs-down-outline" size={18} color={paper.red} />
                 </Pressable>
               </View>
@@ -165,12 +187,21 @@ export default function LogDetailScreen() {
         ) : null}
 
         {/* Share */}
-        <Pressable style={({ pressed }) => [styles.shareBtn, pressed && styles.shareBtnPressed]}>
+        <Pressable
+          style={({ pressed }) => [styles.shareBtn, pressed && styles.shareBtnPressed]}
+          onPress={() => hapticSelection()}
+        >
           <Ionicons name="share-outline" size={16} color={paper.ink} />
           <Text style={styles.shareBtnText}>SHARE TO COMMUNITY FEED</Text>
         </Pressable>
-      </ScrollView>
-    </PaperBackground>
+
+        <PaperColophon
+          section="LOG"
+          tagline={(edition) => `NO. ${edition} · ALL CAUGHT, NEVER LOST`}
+        />
+        </ScrollView>
+      </PaperBackground>
+    </SafeAreaView>
   );
 }
 
@@ -196,6 +227,8 @@ function CondPill({ icon, text }: { icon: string; text: string }) {
 }
 
 const styles = StyleSheet.create({
+  safe: { flex: 1, backgroundColor: paper.paper },
+  flex: { flex: 1 },
   scroll: { flex: 1 },
   content: {
     paddingHorizontal: paperSpacing.lg,
@@ -206,7 +239,7 @@ const styles = StyleSheet.create({
   eyebrowRow: { marginBottom: paperSpacing.md },
 
   // Header
-  header: { marginBottom: paperSpacing.lg },
+  header: { marginBottom: paperSpacing.section },
   location: {
     fontFamily: paperFonts.display,
     fontSize: 30,
@@ -274,7 +307,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     gap: paperSpacing.xs + 2,
-    marginBottom: paperSpacing.lg,
+    marginBottom: paperSpacing.section,
   },
   condPill: {
     flexDirection: 'row',
@@ -301,7 +334,7 @@ const styles = StyleSheet.create({
     borderWidth: 1.5,
     borderColor: paper.ink,
     padding: paperSpacing.md,
-    marginBottom: paperSpacing.sm,
+    marginBottom: paperSpacing.md,
     ...paperShadows.hard,
   },
   catchTop: {
@@ -367,7 +400,8 @@ const styles = StyleSheet.create({
     borderWidth: 1.5,
     borderColor: paper.ink,
     padding: paperSpacing.md,
-    marginBottom: paperSpacing.lg,
+    marginBottom: paperSpacing.section,
+    marginTop: paperSpacing.md,
     ...paperShadows.hard,
   },
   notesText: {
@@ -385,7 +419,7 @@ const styles = StyleSheet.create({
     borderWidth: 1.5,
     borderColor: paper.ink,
     padding: paperSpacing.md,
-    marginBottom: paperSpacing.lg,
+    marginBottom: paperSpacing.section,
     ...paperShadows.hard,
   },
   aiContextHeader: {

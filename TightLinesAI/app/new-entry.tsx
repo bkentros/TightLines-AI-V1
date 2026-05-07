@@ -17,6 +17,8 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import Select from '../components/Select';
 import {
@@ -26,7 +28,12 @@ import {
   paperShadows,
   paperSpacing,
 } from '../lib/theme';
-import { PaperBackground, SectionEyebrow } from '../components/paper';
+import {
+  PaperBackground,
+  PaperNavHeader,
+  SectionEyebrow,
+} from '../components/paper';
+import { hapticImpact, ImpactFeedbackStyle, hapticSelection } from '../lib/safeHaptics';
 
 const BODY_OPTIONS = [
   'River', 'Lake', 'Pond', 'Surf / Beach',
@@ -45,6 +52,7 @@ const MOON_OPTIONS = [
 const RELEASE_OPTIONS = ['Released', 'Kept'];
 
 export default function NewEntryScreen() {
+  const router = useRouter();
   const [showConditions, setShowConditions] = useState(false);
   const [catchCount, setCatchCount] = useState(1);
 
@@ -59,24 +67,30 @@ export default function NewEntryScreen() {
   const [release, setRelease] = useState<string | null>('Released');
 
   return (
-    <PaperBackground>
-      <KeyboardAvoidingView
-        style={styles.flex}
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      >
-        <ScrollView
-          style={styles.scroll}
-          contentContainerStyle={styles.content}
-          showsVerticalScrollIndicator={false}
-          keyboardShouldPersistTaps="handled"
+    <SafeAreaView style={styles.safe} edges={['top']}>
+      <PaperBackground style={styles.flex}>
+        <PaperNavHeader
+          eyebrow="FINFINDR · NEW ENTRY"
+          title="LOG A TRIP"
+          onBack={() => router.back()}
+        />
+        <KeyboardAvoidingView
+          style={styles.flex}
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         >
-          <View style={styles.eyebrowRow}>
-            <SectionEyebrow dashes size={11} color={paper.red}>
-              FINFINDR · NEW ENTRY
-            </SectionEyebrow>
-          </View>
+          <ScrollView
+            style={styles.scroll}
+            contentContainerStyle={styles.content}
+            showsVerticalScrollIndicator={false}
+            keyboardShouldPersistTaps="handled"
+          >
+            <View style={styles.eyebrowRow}>
+              <SectionEyebrow dashes size={11} color={paper.red}>
+                {`FINFINDR · LOG ${new Date().getFullYear()}`}
+              </SectionEyebrow>
+            </View>
 
-          <Text style={styles.heroTitle}>Log the trip.</Text>
+            <Text style={styles.heroTitle}>Log the trip.</Text>
           <Text style={styles.heroLede}>
             Capture what you caught, where, and under what conditions — the
             field notes that make future reports smarter.
@@ -187,7 +201,10 @@ export default function NewEntryScreen() {
           {/* Conditions toggle */}
           <Pressable
             style={styles.condToggle}
-            onPress={() => setShowConditions(!showConditions)}
+            onPress={() => {
+              hapticSelection();
+              setShowConditions(!showConditions);
+            }}
           >
             <Text style={styles.condToggleText}>Weather & conditions</Text>
             <Ionicons
@@ -319,7 +336,10 @@ export default function NewEntryScreen() {
 
           <Pressable
             style={styles.addCatch}
-            onPress={() => setCatchCount(catchCount + 1)}
+            onPress={() => {
+              hapticSelection();
+              setCatchCount(catchCount + 1);
+            }}
           >
             <Ionicons name="add-circle-outline" size={16} color={paper.forest} />
             <Text style={styles.addCatchText}>ADD ANOTHER CATCH</Text>
@@ -342,16 +362,21 @@ export default function NewEntryScreen() {
               styles.saveBtn,
               pressed && styles.saveBtnPressed,
             ]}
+            onPress={() => {
+              hapticImpact(ImpactFeedbackStyle.Medium);
+            }}
           >
             <Text style={styles.saveText}>SAVE ENTRY</Text>
           </Pressable>
-        </ScrollView>
-      </KeyboardAvoidingView>
-    </PaperBackground>
+          </ScrollView>
+        </KeyboardAvoidingView>
+      </PaperBackground>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
+  safe: { flex: 1, backgroundColor: paper.paper },
   flex: { flex: 1 },
   scroll: { flex: 1 },
   content: {
@@ -413,7 +438,9 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     letterSpacing: -0.4,
     marginBottom: paperSpacing.sm,
-    marginTop: paperSpacing.sm,
+    // Bumped from `sm` to `lg` so each form section opens with a
+    // clear, paper-feeling break from the section above.
+    marginTop: paperSpacing.lg,
   },
 
   field: { marginBottom: paperSpacing.md },

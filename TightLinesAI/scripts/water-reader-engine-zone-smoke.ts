@@ -1580,7 +1580,9 @@ function assertProductionSvg(model: ReturnType<typeof buildWaterReaderDisplayMod
     'rendered map geometry and labels should stay above the first legend row',
   );
   assert(countMatches(result.svg, 'class="water-reader-map-number') === model.displayLegendEntries.length, 'rendered number count should equal display legend entry count');
-  assert(countMatches(result.svg, 'class="water-reader-display-legend-entry"') === model.displayLegendEntries.length, 'display legend entry count should render exactly');
+  assert(result.summary.displayLegendEntryCount === model.displayLegendEntries.length, 'display legend entry count should be summarized exactly');
+  assert(result.legendEntries.length === model.displayLegendEntries.length, 'structured legend entry count should render exactly');
+  assert(countMatches(result.svg, 'class="water-reader-display-legend-entry"') === 0, 'production SVG should not embed the React-rendered display legend');
   assert(!result.svg.includes('visible-fraction') && !result.svg.includes('candidate') && !result.svg.includes('structureConfluenceGroupId'), 'production SVG should not include debug cue labels');
   assertNoForbiddenLegendCopy(model.displayLegendEntries);
   for (const entry of model.retainedEntries) {

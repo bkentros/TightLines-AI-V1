@@ -13,7 +13,13 @@ import type {
 
 export const WATER_READER_READ_FEATURE = "water_reader_read_v1" as const;
 export const WATER_READER_APP_SVG_WIDTH = 420;
-export const WATER_READER_ENGINE_VERSION = "water-reader-engine-v3-live-final" as const;
+// v4 marks the FinFindr paper redesign of the renderer (paper-warm zone
+// palette, dropped in-SVG legend + footer credit, Fraunces font stack,
+// cropped canvas height). The bump is required so any cache rows produced
+// by the v3 renderer are invalidated and regenerated under the new palette.
+// If you change the renderer or palette again, bump this string and update
+// the constant copy in `scripts/water-reader-build-read-cache.ts`.
+export const WATER_READER_ENGINE_VERSION = "water-reader-engine-v4-paper-redesign" as const;
 
 export type WaterReaderReadCacheStatus = "hit" | "miss";
 export type WaterReaderReadCacheWriteStatus = "stored" | "failed" | "skipped";

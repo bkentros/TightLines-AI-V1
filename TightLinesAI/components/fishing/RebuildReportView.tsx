@@ -910,7 +910,11 @@ function TimeWindowTile({
 // ─── Styles ──────────────────────────────────────────────────────────────────
 
 const styles = StyleSheet.create({
-  wrap: { gap: paperSpacing.md + 2 },
+  // Top-level vertical gap between major report cards (Hero, Why-It's-Like-This,
+  // Time Windows, etc.). Bumped from `md + 2` (was 16, now 18) to `section` (32)
+  // in the May 2026 spacing pass so each card reads as a clearly separated
+  // beat instead of a tightly stacked column.
+  wrap: { gap: paperSpacing.section },
 
   // ── HERO (trimmed ~25% vs previous pass) ────────────────────────────
   heroCard: {

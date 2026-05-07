@@ -38,6 +38,8 @@
     "qa:water-reader-engine-zone-review": "node --env-file=.env ./node_modules/tsx/dist/cli.mjs scripts/water-reader-engine-zone-review.ts",
     "qa:water-reader-app-integration-smoke": "node --env-file=.env ./node_modules/tsx/dist/cli.mjs scripts/water-reader-app-integration-smoke.ts",
     "build:water-reader-read-cache": "node --env-file=.env ./node_modules/tsx/dist/cli.mjs scripts/water-reader-build-read-cache.ts",
+    "preload:water-reader:3dhp-index": "node --env-file=.env ./node_modules/tsx/dist/cli.mjs scripts/water-reader-preload-3dhp-index.ts",
+    "smoke:water-reader-live-launch": "node --env-file=.env ./node_modules/tsx/dist/cli.mjs scripts/water-reader-live-launch-smoke.ts",
     "serve:water-reader-heavy-generator": "node --env-file=.env ./node_modules/tsx/dist/cli.mjs scripts/water-reader-heavy-generator-server.ts --serve",
     "smoke:water-reader-heavy-generator": "node --env-file=.env ./node_modules/tsx/dist/cli.mjs scripts/water-reader-heavy-generator-smoke.ts",
     "ingest:water-reader:3dhp": "deno run --allow-net --allow-read --allow-write --allow-run=python3 scripts/water-reader-ingest-3dhp.ts",

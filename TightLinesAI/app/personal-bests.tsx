@@ -13,6 +13,7 @@ import {
   ScrollView,
   Pressable,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import {
@@ -22,7 +23,15 @@ import {
   paperShadows,
   paperSpacing,
 } from '../lib/theme';
-import { PaperBackground, SectionEyebrow } from '../components/paper';
+import {
+  MedalBadge,
+  PaperBackground,
+  PaperColophon,
+  PaperNavHeader,
+  SectionEyebrow,
+  type MedalTier,
+} from '../components/paper';
+import { hapticSelection } from '../lib/safeHaptics';
 
 interface PBRecord {
   id: string;
@@ -78,30 +87,40 @@ export default function PersonalBestsScreen() {
     : PB_DATA;
 
   return (
-    <PaperBackground>
-      <ScrollView
-        style={styles.scroll}
-        contentContainerStyle={styles.content}
-        showsVerticalScrollIndicator={false}
-      >
-        <View style={styles.eyebrowRow}>
-          <SectionEyebrow dashes size={11} color={paper.gold}>
-            FINFINDR · THE RECORDS
-          </SectionEyebrow>
-        </View>
+    <SafeAreaView style={styles.safe} edges={['top']}>
+      <PaperBackground style={styles.flex}>
+        <PaperNavHeader
+          eyebrow="FINFINDR · THE RECORDS"
+          eyebrowColor={paper.gold}
+          title="PERSONAL BESTS"
+          onBack={() => router.back()}
+        />
+        <ScrollView
+          style={styles.scroll}
+          contentContainerStyle={styles.content}
+          showsVerticalScrollIndicator={false}
+        >
+          <View style={styles.eyebrowRow}>
+            <SectionEyebrow dashes size={11} color={paper.gold}>
+              YOUR HALL OF RECORDS
+            </SectionEyebrow>
+          </View>
 
-        <Text style={styles.heroTitle}>Personal bests.</Text>
-        <Text style={styles.heroLede}>
-          Your biggest fish by species — earned, measured, and filed for the
-          record.
-        </Text>
+          <Text style={styles.heroTitle}>Personal bests.</Text>
+          <Text style={styles.heroLede}>
+            Your biggest fish by species — earned, measured, and filed for the
+            record.
+          </Text>
 
-        {/* Filter pills */}
-        <View style={styles.filterRow}>
-          <Pressable
-            style={[styles.filterPill, !selectedSpecies && styles.filterPillActive]}
-            onPress={() => setSelectedSpecies(null)}
-          >
+          {/* Filter pills */}
+          <View style={styles.filterRow}>
+            <Pressable
+              style={[styles.filterPill, !selectedSpecies && styles.filterPillActive]}
+              onPress={() => {
+                hapticSelection();
+                setSelectedSpecies(null);
+              }}
+            >
             <Text
               style={[
                 styles.filterText,
@@ -118,7 +137,10 @@ export default function PersonalBestsScreen() {
                 styles.filterPill,
                 selectedSpecies === s && styles.filterPillActive,
               ]}
-              onPress={() => setSelectedSpecies(s)}
+              onPress={() => {
+                hapticSelection();
+                setSelectedSpecies(s);
+              }}
             >
               <Text
                 style={[
@@ -132,9 +154,26 @@ export default function PersonalBestsScreen() {
           ))}
         </View>
 
-        {/* PB Cards */}
+        {/* PB Cards
+            Each personal best wears a medal badge (gold/silver/bronze for
+            the top three records overall when no filter is set; gold for
+            the top of a single-species filter). The medal lives in the
+            upper-right of the card so the trophy icon + species line stay
+            anchored on the left, mirroring the way the Recommender shows
+            tiered tackle picks. */}
         {filtered.map((pb, idx) => {
           const isTop = idx === 0 && !selectedSpecies;
+          const medal: MedalTier | null = !selectedSpecies
+            ? idx === 0
+              ? 'gold'
+              : idx === 1
+                ? 'silver'
+                : idx === 2
+                  ? 'bronze'
+                  : null
+            : idx === 0
+              ? 'gold'
+              : null;
           return (
             <Pressable
               key={pb.id}
@@ -143,21 +182,22 @@ export default function PersonalBestsScreen() {
                 isTop && styles.pbCardTop,
                 pressed && styles.pbCardPressed,
               ]}
-              onPress={() =>
+              onPress={() => {
+                hapticSelection();
                 router.push({
                   pathname: '/log-detail',
                   params: { id: pb.logId },
-                })
-              }
+                });
+              }}
             >
               {isTop ? <View style={styles.goldRule} /> : null}
               <View style={styles.pbHeader}>
                 <View style={styles.pbHeaderLeft}>
-                  <Ionicons
-                    name="trophy"
-                    size={14}
-                    color={isTop ? paper.gold : paper.ink}
-                  />
+                  {medal ? (
+                    <MedalBadge tier={medal} size={26} />
+                  ) : (
+                    <Ionicons name="trophy" size={14} color={paper.ink} />
+                  )}
                   <Text style={styles.pbSpecies}>{pb.species}</Text>
                 </View>
                 <Ionicons name="chevron-forward" size={14} color={paper.ink} />
@@ -185,12 +225,20 @@ export default function PersonalBestsScreen() {
             </Text>
           </View>
         )}
-      </ScrollView>
-    </PaperBackground>
+
+        <PaperColophon
+          section="RECORDS"
+          tagline={(edition) => `NO. ${edition} · MEASURED, FILED, REMEMBERED`}
+        />
+        </ScrollView>
+      </PaperBackground>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
+  safe: { flex: 1, backgroundColor: paper.paper },
+  flex: { flex: 1 },
   scroll: { flex: 1 },
   content: {
     paddingHorizontal: paperSpacing.lg,
@@ -214,7 +262,7 @@ const styles = StyleSheet.create({
     color: paper.ink,
     opacity: 0.7,
     lineHeight: 20,
-    marginBottom: paperSpacing.lg,
+    marginBottom: paperSpacing.section,
   },
 
   // Filters
@@ -222,7 +270,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     gap: paperSpacing.xs + 2,
-    marginBottom: paperSpacing.lg,
+    marginBottom: paperSpacing.section,
   },
   filterPill: {
     paddingHorizontal: paperSpacing.sm + 2,
@@ -249,7 +297,9 @@ const styles = StyleSheet.create({
     borderWidth: 1.5,
     borderColor: paper.ink,
     padding: paperSpacing.md,
-    marginBottom: paperSpacing.sm,
+    // Bumped from `sm` to `md` so the stack of personal-best records
+    // reads as discrete cards rather than a tightly packed list.
+    marginBottom: paperSpacing.md,
     ...paperShadows.hard,
   },
   pbCardTop: {
@@ -263,6 +313,12 @@ const styles = StyleSheet.create({
     bottom: 0,
     width: 4,
     backgroundColor: paper.gold,
+  },
+  pbMedal: {
+    position: 'absolute',
+    top: -8,
+    right: -8,
+    zIndex: 5,
   },
   pbHeader: {
     flexDirection: 'row',

@@ -484,14 +484,14 @@ const styles = StyleSheet.create({
 
   topBar: {
     paddingTop: paperSpacing.sm,
-    paddingBottom: paperSpacing.md,
+    paddingBottom: paperSpacing.lg,
   },
 
   // Profile row
   profileRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: paperSpacing.md,
+    marginBottom: paperSpacing.lg,
     gap: paperSpacing.sm,
   },
   avatar: {
@@ -571,7 +571,7 @@ const styles = StyleSheet.create({
     borderWidth: 1.5,
     borderColor: paper.ink,
     paddingVertical: paperSpacing.md,
-    marginBottom: paperSpacing.md,
+    marginBottom: paperSpacing.lg,
     ...paperShadows.hard,
   },
   stat: { flex: 1, alignItems: 'center' },
@@ -606,7 +606,7 @@ const styles = StyleSheet.create({
     paddingVertical: paperSpacing.md,
     paddingHorizontal: paperSpacing.md,
     paddingLeft: paperSpacing.md + 6,
-    marginBottom: paperSpacing.md,
+    marginBottom: paperSpacing.lg,
     ...paperShadows.hard,
   },
   analyticsCardPressed: {
@@ -667,7 +667,7 @@ const styles = StyleSheet.create({
     paddingVertical: paperSpacing.md,
     paddingHorizontal: paperSpacing.md,
     paddingLeft: paperSpacing.md + 6,
-    marginBottom: paperSpacing.md,
+    marginBottom: paperSpacing.section,
     ...paperShadows.hard,
   },
   pbCardPressed: { backgroundColor: paper.paperDark },
@@ -757,7 +757,7 @@ const styles = StyleSheet.create({
     borderColor: paper.ink,
     borderRadius: paperRadius.card,
     paddingVertical: paperSpacing.md - 2,
-    marginBottom: paperSpacing.md,
+    marginBottom: paperSpacing.lg,
     ...paperShadows.hard,
   },
   newEntryBtnPressed: { backgroundColor: paper.forestDk },
@@ -776,7 +776,7 @@ const styles = StyleSheet.create({
     borderWidth: 1.5,
     borderColor: paper.ink,
     padding: 3,
-    marginBottom: paperSpacing.md,
+    marginBottom: paperSpacing.lg,
   },
   segOpt: {
     flex: 1,
@@ -798,7 +798,7 @@ const styles = StyleSheet.create({
   },
 
   // Entries
-  entries: { gap: paperSpacing.sm },
+  entries: { gap: paperSpacing.md },
 
   // Log cards
   logCard: {
@@ -874,7 +874,7 @@ const styles = StyleSheet.create({
   filterRow: {
     flexDirection: 'row',
     gap: paperSpacing.xs + 2,
-    marginBottom: paperSpacing.md,
+    marginBottom: paperSpacing.lg,
     flexWrap: 'wrap',
   },
   filterPill: {
