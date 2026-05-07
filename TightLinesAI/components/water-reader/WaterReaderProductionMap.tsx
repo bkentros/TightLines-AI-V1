@@ -13,7 +13,7 @@
  */
 
 import { useMemo } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, type StyleProp, type ViewStyle } from 'react-native';
 import { SvgXml } from 'react-native-svg';
 import type { WaterReaderProductionSvgResult } from '../../lib/waterReaderContracts';
 import { paper, paperRadius } from '../../lib/theme';
@@ -21,25 +21,27 @@ import { paperifyWaterReaderSvg } from '../../lib/water-reader-paperify-svg';
 
 export interface WaterReaderProductionMapProps {
   result: WaterReaderProductionSvgResult;
+  width?: number | string;
+  height?: number | string;
+  style?: StyleProp<ViewStyle>;
 }
 
 export function WaterReaderProductionMap({
   result,
+  width = '100%',
+  height = '100%',
+  style,
 }: WaterReaderProductionMapProps) {
-  const width = Math.max(1, result.summary.width);
-  const height = Math.max(1, result.summary.height);
-  const aspectRatio = width / height;
-
   const paperifiedSvg = useMemo(() => {
     return paperifyWaterReaderSvg(result.svg).svg;
   }, [result.svg]);
 
   return (
-    <View style={[styles.mapWrap, { aspectRatio }]}>
+    <View style={[styles.mapWrap, style]}>
       <SvgXml
         xml={paperifiedSvg}
-        width="100%"
-        height="100%"
+        width={width}
+        height={height}
         preserveAspectRatio="xMidYMid meet"
       />
     </View>

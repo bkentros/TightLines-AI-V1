@@ -15,8 +15,8 @@
  * Visual-only; no data or state is touched here.
  */
 
-import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import React, { createContext, useContext } from 'react';
+import { Animated, StyleSheet, View } from 'react-native';
 import {
   paper,
   paperBorders,
@@ -27,11 +27,25 @@ import {
 import {
   CornerMarkSet,
   SectionEyebrow,
+  SwimmingFish,
   TopographicLines,
 } from '../paper';
+import { usePaperBonePulse } from '../../lib/usePaperBonePulse';
+
+/**
+ * One pulse value drives every bone in the skeleton — both for perf
+ * (one Animated.Value, one looping animation, native driver) and so
+ * every placeholder breathes in perfect sync. The pulse is created at
+ * the root and shared via React context to the `<Bone />` factory.
+ *
+ * Range 0.32 → 0.72 matches the prior static opacities the bones used
+ * (~0.5) so the skeleton still reads as substantial, just alive.
+ */
+const PulseCtx = createContext<Animated.Value | null>(null);
 
 function Bone({ style }: { style?: object }) {
-  return <View style={[styles.bone, style]} />;
+  const pulse = useContext(PulseCtx);
+  return <Animated.View style={[styles.bone, style, pulse ? { opacity: pulse } : null]} />;
 }
 
 function FactorRowSkeleton({ tint, isLast }: { tint: string; isLast?: boolean }) {
@@ -73,7 +87,9 @@ function TimeWindowSkeleton({ highlighted }: { highlighted?: boolean }) {
 }
 
 export function HowFishingLoadingSkeleton() {
+  const pulse = usePaperBonePulse({ from: 0.32, to: 0.72, duration: 1700 });
   return (
+    <PulseCtx.Provider value={pulse}>
     <View style={styles.root}>
       {/* ── HERO ─────────────────────────────────────────────────────────── */}
       <View style={styles.heroCard}>
@@ -204,7 +220,18 @@ export function HowFishingLoadingSkeleton() {
         <Bone style={styles.colophonBone} />
         <View style={styles.colophonRule} />
       </View>
+
+      {/*
+        SwimmingFish — a small marginalia fish glides across the bottom
+        of the loading skeleton (matches the live conditions card's
+        decorative drift). Pure visual decoration, no interaction.
+        Lives outside the bone column so it can roam the full width.
+      */}
+      <View style={styles.swimRow} pointerEvents="none">
+        <SwimmingFish bottom={0} size={26} opacity={0.35} duration={14_000} />
+      </View>
     </View>
+    </PulseCtx.Provider>
   );
 }
 
@@ -597,5 +624,16 @@ const styles = StyleSheet.create({
     height: 9,
     width: 160,
     opacity: 0.45,
+  },
+
+  // Hosts the marginalia fish drift below the colophon. Has its own
+  // height so layout reserves space and the fish doesn't get clipped
+  // by the parent ScrollView's content padding.
+  swimRow: {
+    height: 36,
+    marginTop: paperSpacing.xs,
+    marginBottom: paperSpacing.sm,
+    overflow: 'hidden',
+    position: 'relative',
   },
 });

@@ -8,17 +8,22 @@
  * a future pass.
  */
 
-import { useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import {
+  Animated,
   View,
   Text,
   StyleSheet,
   ScrollView,
   Pressable,
   Alert,
+  RefreshControl,
+  type StyleProp,
+  type TextStyle,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
+import { useFocusEffect } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import {
   paper,
@@ -28,7 +33,16 @@ import {
   paperSpacing,
 } from '../../lib/theme';
 import { useAuthStore } from '../../store/authStore';
-import { PaperBackground, SectionEyebrow } from '../../components/paper';
+import {
+  PaperBackground,
+  PaperColophon,
+  SectionEyebrow,
+} from '../../components/paper';
+import {
+  hapticImpact,
+  hapticSelection,
+  ImpactFeedbackStyle,
+} from '../../lib/safeHaptics';
 
 /* ─── Mock Data (unchanged from pre-migration version) ─── */
 const LOG_ENTRIES = [
@@ -133,12 +147,64 @@ const HISTORY_GROUPS: HistoryGroup[] = [
   },
 ];
 
+function CountUpNumber({
+  value,
+  style,
+}: {
+  value: number;
+  style?: StyleProp<TextStyle>;
+}) {
+  const animated = useRef(new Animated.Value(0)).current;
+  const [displayValue, setDisplayValue] = useState(0);
+
+  useEffect(() => {
+    const listenerId = animated.addListener(({ value: next }) => {
+      setDisplayValue(Math.round(next));
+    });
+    animated.setValue(0);
+    Animated.timing(animated, {
+      toValue: value,
+      duration: 650,
+      useNativeDriver: false,
+    }).start();
+    return () => {
+      animated.removeListener(listenerId);
+    };
+  }, [animated, value]);
+
+  return <Text style={style}>{displayValue}</Text>;
+}
+
 export default function LogScreen() {
   const router = useRouter();
   const { signOut } = useAuthStore();
   const [activeTab, setActiveTab] = useState<'log' | 'history'>('log');
   const [historyFilter, setHistoryFilter] = useState<HistoryType>('all');
   const [expandedDate, setExpandedDate] = useState<string | null>('Today');
+
+  // Re-trigger the count-up animation each time the tab regains focus so
+  // the numerals always feel "freshly tallied" when the user navigates back.
+  // Bumped via `useFocusEffect`; see `CountUpNumber` below.
+  const [countUpKey, setCountUpKey] = useState(0);
+  useFocusEffect(
+    useCallback(() => {
+      setCountUpKey((k) => k + 1);
+    }, []),
+  );
+
+  // Pull-to-refresh — these screens use mock data today, so the gesture
+  // is mostly tactile feedback. We still wire the count-up to re-fire so
+  // the numerals briefly tick from 0 → target and the screen feels alive
+  // when refreshed.
+  const [refreshing, setRefreshing] = useState(false);
+  const handleRefresh = useCallback(async () => {
+    hapticImpact(ImpactFeedbackStyle.Light);
+    setRefreshing(true);
+    setCountUpKey((k) => k + 1);
+    // Brief visible "pulled" state — feels responsive without a real fetch.
+    await new Promise<void>((r) => setTimeout(r, 600));
+    setRefreshing(false);
+  }, []);
 
   const handleSignOut = () => {
     Alert.alert(
@@ -177,6 +243,15 @@ export default function LogScreen() {
           style={styles.scroll}
           contentContainerStyle={styles.content}
           showsVerticalScrollIndicator={false}
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={handleRefresh}
+              tintColor={paper.forest}
+              colors={[paper.forest]}
+              progressBackgroundColor={paper.paper}
+            />
+          }
         >
           {/* Top eyebrow / page mark */}
           <View style={styles.topBar}>
@@ -212,20 +287,33 @@ export default function LogScreen() {
             </Pressable>
           </View>
 
-          {/* Stats strip */}
+          {/* Stats strip — three count-up numerals that animate from 0 to
+              target on screen mount and on every focus/refresh. */}
           <View style={styles.statsRow}>
             <View style={styles.stat}>
-              <Text style={styles.statNum}>12</Text>
+              <CountUpNumber
+                key={`sessions-${countUpKey}`}
+                value={12}
+                style={styles.statNum}
+              />
               <Text style={styles.statLabel}>SESSIONS</Text>
             </View>
             <View style={styles.statDiv} />
             <View style={styles.stat}>
-              <Text style={styles.statNum}>8</Text>
+              <CountUpNumber
+                key={`species-${countUpKey}`}
+                value={8}
+                style={styles.statNum}
+              />
               <Text style={styles.statLabel}>SPECIES</Text>
             </View>
             <View style={styles.statDiv} />
             <View style={styles.stat}>
-              <Text style={styles.statNum}>24</Text>
+              <CountUpNumber
+                key={`catches-${countUpKey}`}
+                value={24}
+                style={styles.statNum}
+              />
               <Text style={styles.statLabel}>CATCHES</Text>
             </View>
           </View>
@@ -235,7 +323,10 @@ export default function LogScreen() {
               styles.analyticsCard,
               pressed && styles.analyticsCardPressed,
             ]}
-            onPress={() => router.push('/analytics')}
+            onPress={() => {
+              hapticImpact(ImpactFeedbackStyle.Light);
+              router.push('/analytics');
+            }}
           >
             <View style={styles.analyticsGoldRule} />
             <View style={styles.analyticsCardInner}>
@@ -259,7 +350,10 @@ export default function LogScreen() {
               styles.pbCard,
               pressed && styles.pbCardPressed,
             ]}
-            onPress={() => router.push('/personal-bests')}
+            onPress={() => {
+              hapticImpact(ImpactFeedbackStyle.Light);
+              router.push('/personal-bests');
+            }}
           >
             <View style={styles.pbGoldRule} />
             <View style={styles.pbHeader}>

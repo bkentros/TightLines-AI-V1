@@ -23,6 +23,7 @@
 
 import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import {
+  Animated,
   AppState,
   type AppStateStatus,
   View,
@@ -31,6 +32,7 @@ import {
   ScrollView,
   Pressable,
   Dimensions,
+  RefreshControl,
 } from 'react-native';
 
 const SCREEN_W = Dimensions.get('window').width;
@@ -75,9 +77,11 @@ import {
   MedalBadge,
   PaperCard,
   PaperBackground,
+  PaperColophon,
   LurePopper,
   TopographicLines,
 } from '../../components/paper';
+import { hapticImpact, ImpactFeedbackStyle } from '../../lib/safeHaptics';
 import { SubscribePrompt } from '../../components/SubscribePrompt';
 import { LocationPickerModal } from '../../components/LocationPickerModal';
 import { useAuthStore } from '../../store/authStore';
@@ -417,6 +421,7 @@ export default function HomeScreen() {
   }, [coords, useCustom, clearSavedLocation, setIgnoreGps, gpsLocationLabel]);
 
   const handleHowFishingPress = useCallback(() => {
+    hapticImpact(ImpactFeedbackStyle.Medium);
     if (!hasSubscription) {
       setShowSubscribePrompt(true);
       return;
@@ -432,6 +437,7 @@ export default function HomeScreen() {
   }, [hasSubscription, coords, locationLabel, router]);
 
   const handleRecommenderPress = useCallback(() => {
+    hapticImpact(ImpactFeedbackStyle.Medium);
     if (!hasSubscription) {
       setShowSubscribePrompt(true);
       return;
@@ -544,6 +550,75 @@ export default function HomeScreen() {
       ? 'Keep it patient and make each cast count.'
       : "Check today's conditions, then make your move.";
 
+  // ── Live clock in the header (LIVE · 11:42 AM) ──────────────────────────
+  // Re-renders every minute, aligned to the wall-clock so the displayed
+  // time changes the instant the minute rolls over.
+  const [now, setNow] = useState(() => new Date());
+  useEffect(() => {
+    let interval: ReturnType<typeof setInterval> | null = null;
+    const msUntilNextMinute = 60_000 - (Date.now() % 60_000);
+    const align = setTimeout(() => {
+      setNow(new Date());
+      interval = setInterval(() => setNow(new Date()), 60_000);
+    }, msUntilNextMinute);
+    return () => {
+      clearTimeout(align);
+      if (interval) clearInterval(interval);
+    };
+  }, []);
+  const liveClock = useMemo(
+    () => now.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }),
+    [now],
+  );
+
+  // ── Count-up animation on the hero CTA score ────────────────────────────
+  // When the cached score arrives (or changes), animate from the current
+  // displayed number up to the new one over ~900ms. Reads the JS-side
+  // animated value via a `useRef` listener — JS-driven on purpose since
+  // we need to render numeric text, but the work is one numeric setState
+  // per frame which is trivially cheap.
+  const heroNumeric = cachedMeanRaw != null ? Math.round((cachedMeanRaw / 10) * 10) / 10 : null;
+  const [displayedScore, setDisplayedScore] = useState<string | null>(heroScore);
+  const animatedScoreRef = useRef<Animated.Value>(new Animated.Value(heroNumeric ?? 0));
+  useEffect(() => {
+    if (heroNumeric == null) {
+      setDisplayedScore(null);
+      return;
+    }
+    const av = animatedScoreRef.current;
+    // Animate from whatever is on screen to the new value.
+    const id = av.addListener(({ value }) => {
+      // Show one decimal unless the destination is a whole number.
+      const isWhole = Number.isInteger(heroNumeric);
+      setDisplayedScore(isWhole ? value.toFixed(0) : value.toFixed(1));
+    });
+    Animated.timing(av, {
+      toValue: heroNumeric,
+      duration: 900,
+      useNativeDriver: false,
+    }).start();
+    return () => av.removeListener(id);
+  }, [heroNumeric]);
+
+  // ── Pull-to-refresh ─────────────────────────────────────────────────────
+  // Re-runs the live-conditions and forecast loaders, plus the cached
+  // multi-rebuild mean lookup. The refresh state is brief — most fetches
+  // resolve from cache — but the gesture itself feels the way the rest of
+  // the app should: tactile, intentional, with a small impact haptic.
+  const [refreshing, setRefreshing] = useState(false);
+  const handleRefresh = useCallback(async () => {
+    hapticImpact(ImpactFeedbackStyle.Light);
+    setRefreshing(true);
+    try {
+      // Force live conditions to re-run by resetting the throttle.
+      lastAutoRefreshAtRef.current = 0;
+      refreshLiveConditions();
+      await Promise.all([loadForecastScores(), loadCachedReportMean()]);
+    } finally {
+      setRefreshing(false);
+    }
+  }, [refreshLiveConditions, loadForecastScores, loadCachedReportMean]);
+
   return (
     <SafeAreaView style={styles.safe} edges={['top']}>
       <PaperBackground style={styles.pageBg}>
@@ -551,6 +626,15 @@ export default function HomeScreen() {
           style={styles.scroll}
           contentContainerStyle={styles.content}
           showsVerticalScrollIndicator={false}
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={handleRefresh}
+              tintColor={paper.forest}
+              colors={[paper.forest]}
+              progressBackgroundColor={paper.paper}
+            />
+          }
         >
           {/*
             Header — matches the reference:
@@ -597,6 +681,14 @@ export default function HomeScreen() {
               <View style={styles.headerLiveLine}>
                 <View style={styles.liveDot} />
                 <Text style={styles.liveLabel}>LIVE</Text>
+                {/*
+                  Live wall-clock — ticks every minute. The ASCII bullet
+                  separator ("·") and mono numerals echo the rest of the
+                  paper-grid metadata stamps so the time doesn't read as
+                  a one-off chip.
+                */}
+                <Text style={styles.liveClockSep}>·</Text>
+                <Text style={styles.liveClockText}>{liveClock}</Text>
               </View>
             </Pressable>
           </View>
@@ -799,7 +891,7 @@ export default function HomeScreen() {
                   Today&apos;s score, best windows, and a straight answer before you go.
                 </Text>
 
-                {heroScore !== null && heroTierKey ? (
+                {(displayedScore ?? heroScore) !== null && heroTierKey ? (
                   <View style={styles.ctaScoreRow}>
                     <Text
                       style={[
@@ -807,7 +899,7 @@ export default function HomeScreen() {
                         { color: heroAccentColor },
                       ]}
                     >
-                      {heroScore}
+                      {displayedScore ?? heroScore}
                     </Text>
                     <Text style={styles.ctaScoreUnit}>/ 10</Text>
                     {heroTierLabel && (
@@ -877,7 +969,10 @@ export default function HomeScreen() {
           {/* ─── Water Reader (preserved stub, restyled) ─── */}
           <Pressable
             style={({ pressed }) => [styles.waterReaderCard, pressed && { opacity: 0.9 }]}
-            onPress={() => router.push('/water-reader')}
+            onPress={() => {
+              hapticImpact(ImpactFeedbackStyle.Light);
+              router.push('/water-reader');
+            }}
           >
             <PaperCard tint={paper.paperLight} corners cornerColor={paper.ink}>
               <View style={styles.waterReaderBody}>
@@ -897,11 +992,12 @@ export default function HomeScreen() {
             </PaperCard>
           </Pressable>
 
-          {/* ─── Footer rule ─── */}
-          <View style={styles.footer}>
-            <Text style={styles.footerLeft}>FINFINDR</Text>
-            <Text style={styles.footerRight}>MADE FOR THE WATER</Text>
-          </View>
+          {/* ─── Editorial colophon ─── */}
+          <PaperColophon
+            section="DAILY"
+            tagline={(edition) => `NO. ${edition} · MADE FOR THE WATER`}
+            style={styles.colophon}
+          />
 
           {/* Modals — preserved as-is. */}
           <LocationPickerModal
@@ -1032,6 +1128,20 @@ const styles = StyleSheet.create({
     letterSpacing: 2.5,
     color: paper.forestDk,
     fontWeight: '700',
+  },
+  liveClockSep: {
+    fontFamily: paperFonts.body,
+    fontSize: 10,
+    color: paper.ink,
+    opacity: 0.4,
+    marginHorizontal: 1,
+  },
+  liveClockText: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 10,
+    letterSpacing: 0.6,
+    color: paper.ink,
+    opacity: 0.8,
   },
 
   /* ─── Live Conditions band (hosts the topographic contour hint) ─── */
@@ -1433,29 +1543,8 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
 
-  /* ─── Footer ─── */
-  footer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+  /* ─── Editorial colophon (replaces the prior 2-line footer) ─── */
+  colophon: {
     marginTop: paperSpacing.section,
-    paddingTop: paperSpacing.md,
-    borderTopWidth: 1.5,
-    borderTopColor: paper.ink,
-  },
-  footerLeft: {
-    fontFamily: paperFonts.bodyBold,
-    fontSize: 10,
-    letterSpacing: 2.5,
-    color: paper.ink,
-    opacity: 0.55,
-    fontWeight: '600',
-  },
-  footerRight: {
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 10,
-    letterSpacing: 2,
-    color: paper.ink,
-    opacity: 0.55,
   },
 });

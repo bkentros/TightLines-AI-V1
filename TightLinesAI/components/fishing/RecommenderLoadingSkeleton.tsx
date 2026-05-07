@@ -11,8 +11,8 @@
  * visual-only and does not touch any real data or state.
  */
 
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { createContext, useContext } from 'react';
+import { Animated, StyleSheet, Text, View } from 'react-native';
 import {
   paper,
   paperFonts,
@@ -25,9 +25,19 @@ import {
   SectionEyebrow,
   TopographicLines,
 } from '../paper';
+import { usePaperBonePulse } from '../../lib/usePaperBonePulse';
+
+/**
+ * Shared pulse value (one Animated.Value, native driver) propagated to
+ * every Bone via context — see HowFishingLoadingSkeleton for the same
+ * pattern. The 0.32 → 0.72 range keeps the bones substantial while
+ * still visibly breathing.
+ */
+const PulseCtx = createContext<Animated.Value | null>(null);
 
 function Bone({ style }: { style?: object }) {
-  return <View style={[styles.bone, style]} />;
+  const pulse = useContext(PulseCtx);
+  return <Animated.View style={[styles.bone, style, pulse ? { opacity: pulse } : null]} />;
 }
 
 function SkeletonTackleCard({ tier }: { tier: 'gold' | 'silver' | 'bronze' }) {
@@ -78,7 +88,9 @@ function SkeletonTackleCard({ tier }: { tier: 'gold' | 'silver' | 'bronze' }) {
 }
 
 export function RecommenderLoadingSkeleton() {
+  const pulse = usePaperBonePulse({ from: 0.32, to: 0.72, duration: 1700 });
   return (
+    <PulseCtx.Provider value={pulse}>
     <View style={styles.root}>
       {/* Hero — mirrors WhatToThrowHero dimensions. */}
       <View style={styles.hero}>
@@ -142,6 +154,7 @@ export function RecommenderLoadingSkeleton() {
       <SkeletonTackleCard tier="silver" />
       <SkeletonTackleCard tier="bronze" />
     </View>
+    </PulseCtx.Provider>
   );
 }
 

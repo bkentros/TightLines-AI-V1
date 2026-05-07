@@ -1,13 +1,55 @@
+/**
+ * Onboarding Step 3 — Location.
+ *
+ * Visual migration into the FinFindr paper system. Behavior is unchanged:
+ *   • `requestLocation` calls `expo-location.requestForegroundPermissionsAsync`
+ *     and tracks granted/denied state.
+ *   • `saveProfileAndFinish` inserts the profile (with the same shape and
+ *     duplicate-username `23505` handling) and then clears the onboarding
+ *     prefs so the root-layout guard navigates to the tabs.
+ *   • Continue/Skip semantics preserved.
+ *
+ * Visual structure mirrors steps 1 + 2: paper nav header (BACK + STEP 3/3),
+ * Fraunces hero title, italic subhead, three benefit rows on paper cards,
+ * a forest CTA chrome, and a privacy ledger note at the bottom.
+ */
+
 import { useState } from 'react';
-import { View, Text, StyleSheet, Pressable, Alert } from 'react-native';
+import {
+  ActivityIndicator,
+  Alert,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import * as Location from 'expo-location';
-import { colors, fonts, spacing, radius } from '../../lib/theme';
+import {
+  paper,
+  paperFonts,
+  paperRadius,
+  paperShadows,
+  paperSpacing,
+} from '../../lib/theme';
+import {
+  PaperBackground,
+  PaperNavHeader,
+  SectionEyebrow,
+} from '../../components/paper';
+import { hapticImpact, ImpactFeedbackStyle } from '../../lib/safeHaptics';
 import { useAuthStore } from '../../store/authStore';
 import { supabase } from '../../lib/supabase';
 import type { UserProfile } from '../../lib/types';
+
+const BENEFITS = [
+  'Pulls weather, tide, and moon details',
+  'Tailors reads to the water near you',
+  'Powers live conditions on Home',
+];
 
 export default function OnboardingStep3() {
   const router = useRouter();
@@ -24,6 +66,7 @@ export default function OnboardingStep3() {
   const [saving, setSaving] = useState(false);
 
   const requestLocation = async () => {
+    hapticImpact(ImpactFeedbackStyle.Light);
     setLocationStatus('requesting');
     const { status } = await Location.requestForegroundPermissionsAsync();
     setLocationStatus(status === 'granted' ? 'granted' : 'denied');
@@ -34,7 +77,6 @@ export default function OnboardingStep3() {
       Alert.alert('Error', 'No authenticated user found. Please sign in again.');
       return;
     }
-
     if (!onboardingPrefs.username) {
       Alert.alert(
         'Missing preferences',
@@ -43,6 +85,7 @@ export default function OnboardingStep3() {
       return;
     }
 
+    hapticImpact(ImpactFeedbackStyle.Medium);
     setSaving(true);
     try {
       const profileData = {
@@ -66,7 +109,6 @@ export default function OnboardingStep3() {
         .single();
 
       if (error) {
-        // Handle duplicate username race condition
         if (error.code === '23505') {
           Alert.alert(
             'Username taken',
@@ -79,7 +121,7 @@ export default function OnboardingStep3() {
 
       setProfile(data as UserProfile);
       clearOnboardingPrefs();
-      // Root layout guard will navigate to (tabs) automatically
+      // Root layout guard navigates to (tabs) automatically once profile lands.
     } catch (err) {
       console.error('Profile save error:', err);
       Alert.alert(
@@ -93,7 +135,6 @@ export default function OnboardingStep3() {
 
   const handleContinue = async () => {
     if (locationStatus === 'idle') {
-      // They haven't tried yet — ask them to try or skip
       Alert.alert(
         'Location not set yet',
         'You can use your current location now or skip and add a spot later.',
@@ -111,123 +152,113 @@ export default function OnboardingStep3() {
   const locationDenied = locationStatus === 'denied';
 
   return (
-    <SafeAreaView style={styles.safe} edges={['top', 'bottom']}>
-      <View style={styles.container}>
-        {/* Back */}
-        <Pressable onPress={() => router.back()} style={styles.backBtn} hitSlop={12}>
-          <Ionicons name="chevron-back" size={22} color={colors.text} />
-        </Pressable>
+    <SafeAreaView style={styles.safe} edges={['top']}>
+      <PaperBackground style={styles.flex}>
+        <PaperNavHeader
+          eyebrow="FINFINDR · ONBOARDING"
+          title="LOCATION"
+          onBack={() => router.back()}
+          right={<StepPill step={3} total={3} />}
+        />
+        <ScrollView
+          style={styles.scroll}
+          contentContainerStyle={styles.content}
+          showsVerticalScrollIndicator={false}
+        >
+          <View style={styles.eyebrowRow}>
+            <SectionEyebrow dashes size={11} color={paper.red}>
+              ONE LAST PERMISSION
+            </SectionEyebrow>
+          </View>
 
-        {/* Progress */}
-        <View style={styles.progress}>
-          {[0, 1, 2].map((i) => (
-            <View
-              key={i}
-              style={[
-                styles.progressDot,
-                i < 2 && styles.progressDotDone,
-                i === 2 && styles.progressDotActive,
-              ]}
-            />
-          ))}
-        </View>
-
-        {/* Content */}
-        <View style={styles.content}>
           <View style={styles.iconWrap}>
             <Ionicons
               name={locationGranted ? 'location' : 'location-outline'}
-              size={36}
-              color={locationGranted ? colors.sage : colors.stone}
+              size={32}
+              color={locationGranted ? paper.forest : paper.ink}
             />
           </View>
 
-          <Text style={styles.title}>Location access</Text>
-          <View style={styles.accentLine} />
-          <Text style={styles.subtitle}>
+          <Text style={styles.heroTitle}>Location access.</Text>
+          <Text style={styles.heroLede}>
             FinFindr can use your current spot for reports and tackle picks,
             including weather, tide where available, and moon data.
           </Text>
 
-          {/* Benefits */}
+          {/* Benefit rows */}
           <View style={styles.benefits}>
-            {[
-              'Pulls weather, tide, and moon details',
-              'Tailors reads to the water near you',
-              'Powers live conditions on Home',
-            ].map((b) => (
-              <View key={b} style={styles.benefit}>
+            {BENEFITS.map((b) => (
+              <View key={b} style={styles.benefitRow}>
                 <Ionicons
                   name="checkmark-circle"
-                  size={16}
-                  color={colors.sage}
+                  size={18}
+                  color={paper.forest}
                 />
                 <Text style={styles.benefitText}>{b}</Text>
               </View>
             ))}
           </View>
 
+          {/* Privacy note */}
           <View style={styles.privacyNote}>
             <Ionicons
               name="shield-checkmark-outline"
               size={15}
-              color={colors.textSecondary}
+              color={paper.ink}
             />
             <Text style={styles.privacyText}>
               Your exact coordinates are never shared. Location data is used
               only to fetch conditions for your spot.
             </Text>
           </View>
-        </View>
 
-        {/* Actions */}
-        <View style={styles.actions}>
+          {/* State banner */}
           {locationGranted && (
-            <View style={styles.grantedBanner}>
-              <Ionicons name="checkmark-circle" size={18} color={colors.sage} />
-              <Text style={styles.grantedText}>
+            <View style={[styles.banner, styles.bannerGranted]}>
+              <Ionicons name="checkmark-circle" size={18} color={paper.forest} />
+              <Text style={styles.bannerGrantedText}>
                 Location access granted!
               </Text>
             </View>
           )}
-
           {locationDenied && (
-            <View style={styles.deniedBanner}>
+            <View style={[styles.banner, styles.bannerDenied]}>
               <Ionicons
                 name="information-circle-outline"
                 size={16}
-                color={colors.warmTan}
+                color={paper.red}
               />
-              <Text style={styles.deniedText}>
+              <Text style={styles.bannerDeniedText}>
                 Location denied. You can turn it on later in Settings.
               </Text>
             </View>
           )}
 
+          {/* Permission CTA */}
           {!locationGranted && !locationDenied && (
             <Pressable
               style={({ pressed }) => [
-                styles.locationBtn,
-                pressed && styles.locationBtnPressed,
+                styles.secondaryBtn,
+                pressed && styles.secondaryBtnPressed,
                 locationStatus === 'requesting' && styles.btnDisabled,
               ]}
               onPress={requestLocation}
               disabled={locationStatus === 'requesting'}
             >
-              <Ionicons name="location" size={18} color={colors.textLight} />
-              <Text style={styles.locationBtnText}>
+              <Ionicons name="location" size={16} color={paper.ink} />
+              <Text style={styles.secondaryBtnText}>
                 {locationStatus === 'requesting'
-                  ? 'Requesting…'
-                  : 'Use Current Location'}
+                  ? 'REQUESTING…'
+                  : 'USE CURRENT LOCATION'}
               </Text>
             </Pressable>
           )}
 
+          {/* Primary CTA */}
           <Pressable
             style={({ pressed }) => [
-              styles.btn,
-              styles.btnPrimary,
-              pressed && styles.btnPrimaryPressed,
+              styles.cta,
+              pressed && styles.ctaPressed,
               saving && styles.btnDisabled,
             ]}
             onPress={
@@ -235,178 +266,216 @@ export default function OnboardingStep3() {
             }
             disabled={saving}
           >
-            <Text style={styles.btnText}>
-              {saving
-                ? 'Setting up your account…'
-                : locationGranted
-                  ? 'Start Fishing'
-                  : 'Skip for now'}
-            </Text>
-            {!saving && (
-              <Ionicons
-                name="arrow-forward"
-                size={18}
-                color={colors.textLight}
-              />
+            {saving ? (
+              <ActivityIndicator color={paper.paper} />
+            ) : (
+              <>
+                <Text style={styles.ctaText}>
+                  {locationGranted ? 'START FISHING' : 'SKIP FOR NOW'}
+                </Text>
+                <Ionicons name="arrow-forward" size={16} color={paper.paper} />
+              </>
             )}
           </Pressable>
-        </View>
-      </View>
+
+          <Text style={styles.footnote}>— STEP 3 OF 3 · ALMOST THERE —</Text>
+        </ScrollView>
+      </PaperBackground>
     </SafeAreaView>
   );
 }
 
+function StepPill({ step, total }: { step: number; total: number }) {
+  return (
+    <View style={styles.stepPill}>
+      <Text style={styles.stepPillText}>
+        STEP {step} / {total}
+      </Text>
+    </View>
+  );
+}
+
 const styles = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: colors.background },
-  container: {
-    flex: 1,
-    paddingHorizontal: spacing.lg,
-    paddingBottom: spacing.lg,
-    justifyContent: 'space-between',
-  },
-  backBtn: {
-    paddingTop: spacing.md,
-    alignSelf: 'flex-start',
+  safe: { flex: 1, backgroundColor: paper.paper },
+  flex: { flex: 1 },
+  scroll: { flex: 1 },
+  content: {
+    paddingHorizontal: paperSpacing.lg,
+    paddingTop: paperSpacing.lg,
+    paddingBottom: paperSpacing.xxl,
   },
 
-  progress: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    gap: spacing.sm,
-    paddingTop: spacing.lg,
-  },
-  progressDot: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-    backgroundColor: colors.divider,
-  },
-  progressDotActive: { backgroundColor: colors.sage, width: 24 },
-  progressDotDone: { backgroundColor: colors.sage },
+  eyebrowRow: { marginBottom: paperSpacing.md },
 
-  content: { flex: 1, justifyContent: 'center', paddingVertical: spacing.lg },
   iconWrap: {
-    width: 80,
-    height: 80,
-    borderRadius: 40,
-    backgroundColor: colors.sageLight,
+    width: 64,
+    height: 64,
+    borderRadius: 32,
+    backgroundColor: paper.paperLight,
+    borderWidth: 2,
+    borderColor: paper.ink,
     alignItems: 'center',
     justifyContent: 'center',
-    alignSelf: 'center',
-    marginBottom: spacing.lg,
-    borderWidth: 2,
-    borderColor: colors.sage + '30',
+    alignSelf: 'flex-start',
+    marginBottom: paperSpacing.md,
+    ...paperShadows.hard,
   },
-  title: {
-    fontFamily: fonts.serif,
-    fontSize: 28,
-    color: colors.text,
-    textAlign: 'center',
-    marginBottom: spacing.sm,
+  heroTitle: {
+    fontFamily: paperFonts.display,
+    fontSize: 34,
+    color: paper.ink,
+    fontWeight: '700',
+    letterSpacing: -1.2,
+    lineHeight: 38,
+    marginBottom: paperSpacing.xs,
   },
-  accentLine: {
-    width: 40,
-    height: 3,
-    backgroundColor: colors.sage,
-    borderRadius: 2,
-    alignSelf: 'center',
-    marginBottom: spacing.md,
-  },
-  subtitle: {
-    fontSize: 15,
-    color: colors.textSecondary,
-    textAlign: 'center',
-    lineHeight: 22,
-    marginBottom: spacing.xl,
-    paddingHorizontal: spacing.xs,
+  heroLede: {
+    fontFamily: paperFonts.displayItalic,
+    fontSize: 14,
+    color: paper.ink,
+    opacity: 0.75,
+    lineHeight: 21,
+    marginBottom: paperSpacing.section,
   },
 
-  benefits: { gap: spacing.md, marginBottom: spacing.lg },
-  benefit: {
+  benefits: {
+    gap: paperSpacing.sm,
+    marginBottom: paperSpacing.lg,
+  },
+  benefitRow: {
     flexDirection: 'row',
-    alignItems: 'flex-start',
-    gap: spacing.sm,
-    backgroundColor: colors.surface,
-    borderRadius: radius.md,
-    padding: spacing.md,
-    borderWidth: 1,
-    borderColor: colors.border,
+    alignItems: 'center',
+    gap: paperSpacing.sm,
+    backgroundColor: paper.paperLight,
+    borderWidth: 1.5,
+    borderColor: paper.ink,
+    borderRadius: paperRadius.card,
+    paddingHorizontal: paperSpacing.md,
+    paddingVertical: paperSpacing.sm + 2,
+    ...paperShadows.hard,
   },
   benefitText: {
-    fontSize: 14,
-    color: colors.text,
-    fontWeight: '500',
     flex: 1,
+    fontFamily: paperFonts.body,
+    fontSize: 14,
+    color: paper.ink,
+    lineHeight: 20,
   },
 
   privacyNote: {
     flexDirection: 'row',
     alignItems: 'flex-start',
-    gap: spacing.sm,
-    paddingHorizontal: spacing.xs,
+    gap: paperSpacing.sm,
+    paddingHorizontal: paperSpacing.xs,
+    marginBottom: paperSpacing.lg,
   },
   privacyText: {
+    flex: 1,
+    fontFamily: paperFonts.displayItalic,
     fontSize: 12,
-    color: colors.textMuted,
-    lineHeight: 17,
-    flex: 1,
-  },
-
-  actions: { gap: spacing.sm },
-
-  grantedBanner: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: spacing.sm,
-    backgroundColor: colors.sageLight,
-    borderRadius: radius.md,
-    padding: spacing.md,
-  },
-  grantedText: { fontSize: 14, fontWeight: '600', color: colors.sageDark },
-
-  deniedBanner: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    gap: spacing.sm,
-    backgroundColor: colors.warmTan + '18',
-    borderRadius: radius.md,
-    padding: spacing.md,
-    borderWidth: 1,
-    borderColor: colors.warmTan + '40',
-  },
-  deniedText: {
-    fontSize: 13,
-    color: colors.stone,
-    flex: 1,
+    color: paper.ink,
+    opacity: 0.65,
     lineHeight: 18,
   },
 
-  locationBtn: {
+  banner: {
     flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: spacing.sm,
-    backgroundColor: colors.tileDark,
-    borderRadius: radius.md,
-    paddingVertical: spacing.md,
+    alignItems: 'flex-start',
+    gap: paperSpacing.sm,
+    paddingHorizontal: paperSpacing.md,
+    paddingVertical: paperSpacing.sm + 2,
+    borderWidth: 1.5,
+    borderRadius: paperRadius.card,
+    marginBottom: paperSpacing.md,
   },
-  locationBtnPressed: { backgroundColor: colors.tileDarkPressed },
-  locationBtnText: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: colors.textLight,
+  bannerGranted: {
+    backgroundColor: paper.paperLight,
+    borderColor: paper.forest,
+  },
+  bannerGrantedText: {
+    flex: 1,
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 13,
+    color: paper.forest,
+    letterSpacing: 0.4,
+  },
+  bannerDenied: {
+    backgroundColor: paper.paperLight,
+    borderColor: paper.red,
+  },
+  bannerDeniedText: {
+    flex: 1,
+    fontFamily: paperFonts.body,
+    fontSize: 12.5,
+    color: paper.ink,
+    opacity: 0.85,
+    lineHeight: 18,
   },
 
-  btn: {
+  secondaryBtn: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: spacing.sm,
-    borderRadius: radius.md,
-    paddingVertical: spacing.md,
+    gap: paperSpacing.sm,
+    backgroundColor: paper.paperLight,
+    borderWidth: 1.5,
+    borderColor: paper.ink,
+    borderRadius: paperRadius.card,
+    paddingVertical: paperSpacing.md,
+    marginBottom: paperSpacing.md,
   },
-  btnPrimary: { backgroundColor: colors.sage },
-  btnPrimaryPressed: { backgroundColor: colors.sageDark },
-  btnDisabled: { opacity: 0.6 },
-  btnText: { fontSize: 16, fontWeight: '600', color: colors.textLight },
+  secondaryBtnPressed: { backgroundColor: paper.paperDark },
+  secondaryBtnText: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 11,
+    color: paper.ink,
+    letterSpacing: 2.4,
+  },
+
+  cta: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: paperSpacing.sm,
+    backgroundColor: paper.forest,
+    borderWidth: 2,
+    borderColor: paper.ink,
+    borderRadius: paperRadius.card,
+    paddingVertical: paperSpacing.md,
+    ...paperShadows.hard,
+  },
+  ctaPressed: { backgroundColor: paper.forestDk },
+  btnDisabled: { opacity: 0.55 },
+  ctaText: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 12,
+    color: paper.paper,
+    letterSpacing: 2.8,
+  },
+
+  footnote: {
+    marginTop: paperSpacing.md,
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 9,
+    color: paper.ink,
+    opacity: 0.55,
+    letterSpacing: 2.2,
+    textAlign: 'center',
+  },
+
+  stepPill: {
+    paddingHorizontal: 9,
+    paddingVertical: 5,
+    borderWidth: 1.5,
+    borderColor: paper.ink,
+    borderRadius: paperRadius.chip,
+    backgroundColor: paper.paperLight,
+  },
+  stepPillText: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 9.5,
+    color: paper.ink,
+    letterSpacing: 1.6,
+    fontWeight: '700',
+  },
 });

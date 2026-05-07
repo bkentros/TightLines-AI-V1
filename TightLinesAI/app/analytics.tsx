@@ -2,15 +2,16 @@
  * Analytics — descriptive aggregates over logged catches (first MVP screen).
  */
 
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import {
+  Animated,
   View,
   Text,
   StyleSheet,
   ScrollView,
   Pressable,
-  ActivityIndicator,
   TextInput,
+  RefreshControl,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
@@ -32,7 +33,18 @@ import {
   type EntryModeFilter,
   MAX_ANALYTICS_CATCH_ROWS,
 } from '../lib/fishingAnalytics';
-import { PaperBackground, SectionEyebrow } from '../components/paper';
+import {
+  PaperBackground,
+  PaperColophon,
+  PaperNavHeader,
+  SectionEyebrow,
+} from '../components/paper';
+import {
+  hapticImpact,
+  hapticSelection,
+  ImpactFeedbackStyle,
+} from '../lib/safeHaptics';
+import { usePaperBonePulse } from '../lib/usePaperBonePulse';
 
 function fmtLb(n: number | null | undefined): string {
   if (n == null || !Number.isFinite(n)) return '—';
@@ -82,22 +94,41 @@ export default function AnalyticsScreen() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [data, setData] = useState<FishingAnalyticsResult | null>(null);
+  const [refreshing, setRefreshing] = useState(false);
 
-  const load = useCallback(async () => {
-    setLoading(true);
-    setError(null);
-    const res = await getFishingAnalytics(filter);
-    setLoading(false);
-    if (!res.ok) {
-      setError(res.error);
-      setData(null);
-      return;
+  const load = useCallback(async (opts?: { background?: boolean }) => {
+    const background = opts?.background === true;
+    if (!background) {
+      setLoading(true);
     }
-    setData(res.data);
+    setError(null);
+    try {
+      const res = await getFishingAnalytics(filter);
+      if (!res.ok) {
+        setError(res.error);
+        setData(null);
+        return;
+      }
+      setData(res.data);
+    } finally {
+      if (!background) {
+        setLoading(false);
+      }
+    }
   }, [filter]);
 
   useEffect(() => {
     load();
+  }, [load]);
+
+  const handleRefresh = useCallback(async () => {
+    hapticImpact(ImpactFeedbackStyle.Light);
+    setRefreshing(true);
+    try {
+      await load({ background: true });
+    } finally {
+      setRefreshing(false);
+    }
   }, [load]);
 
   const clearFilters = () => setFilter(defaultFishingAnalyticsFilter());
@@ -116,17 +147,31 @@ export default function AnalyticsScreen() {
     data.matchingCatchRows === 0;
 
   return (
-    <PaperBackground>
-      <SafeAreaView style={styles.safe} edges={['top']}>
+    <SafeAreaView style={styles.safe} edges={['top']}>
+      <PaperBackground style={styles.flex}>
+        <PaperNavHeader
+          eyebrow="FINFINDR · ANALYTICS"
+          title="ANALYTICS"
+          onBack={() => router.back()}
+        />
         <ScrollView
           style={styles.scroll}
           contentContainerStyle={styles.content}
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps="handled"
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={handleRefresh}
+              tintColor={paper.forest}
+              colors={[paper.forest]}
+              progressBackgroundColor={paper.paper}
+            />
+          }
         >
           <View style={styles.topBar}>
             <SectionEyebrow dashes size={11} color={paper.red}>
-              FINFINDR · ANALYTICS
+              YOUR NUMBERS, IN INK
             </SectionEyebrow>
           </View>
 
@@ -142,7 +187,10 @@ export default function AnalyticsScreen() {
               <Pressable
                 key={p.key}
                 style={[styles.pill, filter.datePreset === p.key && styles.pillActive]}
-                onPress={() => setFilter((f) => ({ ...f, datePreset: p.key }))}
+                onPress={() => {
+                  hapticSelection();
+                  setFilter((f) => ({ ...f, datePreset: p.key }));
+                }}
               >
                 <Text
                   style={[
@@ -173,12 +221,13 @@ export default function AnalyticsScreen() {
               <Pressable
                 key={p.key}
                 style={[styles.pill, filter.gearMode === p.key && styles.pillActive]}
-                onPress={() =>
+                onPress={() => {
+                  hapticSelection();
                   setFilter((f) => ({
                     ...f,
                     gearMode: p.key,
-                  }))
-                }
+                  }));
+                }}
               >
                 <Text
                   style={[
@@ -198,7 +247,10 @@ export default function AnalyticsScreen() {
               <Pressable
                 key={p.key}
                 style={[styles.pill, filter.entryMode === p.key && styles.pillActive]}
-                onPress={() => setFilter((f) => ({ ...f, entryMode: p.key }))}
+                onPress={() => {
+                  hapticSelection();
+                  setFilter((f) => ({ ...f, entryMode: p.key }));
+                }}
               >
                 <Text
                   style={[
@@ -216,12 +268,7 @@ export default function AnalyticsScreen() {
             <Text style={styles.clearBtnText}>Clear filters</Text>
           </Pressable>
 
-          {loading && (
-            <View style={styles.loadingRow}>
-              <ActivityIndicator color={paper.ink} />
-              <Text style={styles.loadingText}>Loading analytics…</Text>
-            </View>
-          )}
+          {loading && <AnalyticsLoadingPanel />}
 
           {error && !loading && (
             <View style={styles.errorBox}>
@@ -397,9 +444,59 @@ export default function AnalyticsScreen() {
               )}
             </>
           )}
+
+          {!loading && (
+            <PaperColophon
+              section="ANALYTICS"
+              tagline={(edition) =>
+                `NO. ${edition} · TOTALS, RANKINGS, RECEIPTS`
+              }
+            />
+          )}
         </ScrollView>
-      </SafeAreaView>
-    </PaperBackground>
+      </PaperBackground>
+    </SafeAreaView>
+  );
+}
+
+/**
+ * AnalyticsLoadingPanel — paper-language placeholder shown while
+ * `getFishingAnalytics` resolves. Replaces the bare ActivityIndicator
+ * the screen used to render. Three pulsing "bones" approximate the
+ * Overview tile grid + Big Fish row + ranked table that arrives next,
+ * so the layout doesn't jump on data arrival.
+ *
+ * Pulse uses `usePaperBonePulse` so it shares tempo with every other
+ * paper skeleton in the app (Water Reader silhouette, How's Fishing).
+ */
+function AnalyticsLoadingPanel() {
+  const pulse = usePaperBonePulse();
+  return (
+    <View style={styles.loadingPanel} accessibilityLabel="Loading analytics">
+      <View style={styles.loadingHeaderRow}>
+        <Animated.View style={[styles.boneTitle, { opacity: pulse }]} />
+        <Animated.View style={[styles.boneEyebrow, { opacity: pulse }]} />
+      </View>
+      <View style={styles.loadingTileGrid}>
+        {[0, 1, 2, 3].map((i) => (
+          <View key={i} style={styles.loadingTile}>
+            <Animated.View style={[styles.boneTileLabel, { opacity: pulse }]} />
+            <Animated.View style={[styles.boneTileValue, { opacity: pulse }]} />
+            <Animated.View style={[styles.boneTileCaption, { opacity: pulse }]} />
+          </View>
+        ))}
+      </View>
+      <View style={styles.loadingBigFishRow}>
+        <View style={{ flex: 1, gap: 6 }}>
+          <Animated.View style={[styles.boneTileLabel, { opacity: pulse }]} />
+          <Animated.View style={[styles.boneTileValue, { opacity: pulse }]} />
+        </View>
+      </View>
+      <View style={styles.loadingFooter}>
+        <Animated.View style={[styles.bonePulseDot, { opacity: pulse }]} />
+        <Text style={styles.loadingFooterText}>READING YOUR LOG…</Text>
+      </View>
+    </View>
   );
 }
 
@@ -452,7 +549,8 @@ function RankedTable(props: {
 }
 
 const styles = StyleSheet.create({
-  safe: { flex: 1 },
+  safe: { flex: 1, backgroundColor: paper.paper },
+  flex: { flex: 1 },
   scroll: { flex: 1 },
   content: {
     paddingHorizontal: paperSpacing.lg,
@@ -535,17 +633,93 @@ const styles = StyleSheet.create({
     color: paper.forest,
     letterSpacing: 0.6,
   },
-  loadingRow: {
+  loadingPanel: {
+    backgroundColor: paper.paperLight,
+    borderRadius: paperRadius.card,
+    borderWidth: 1.5,
+    borderColor: paper.ink,
+    padding: paperSpacing.md,
+    marginBottom: paperSpacing.section,
+    gap: paperSpacing.md,
+    ...paperShadows.hard,
+  },
+  loadingHeaderRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  loadingTileGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: paperSpacing.sm,
+  },
+  loadingTile: {
+    width: '48%',
+    flexGrow: 1,
+    backgroundColor: paper.paper,
+    borderRadius: paperRadius.card,
+    borderWidth: 1,
+    borderColor: paper.inkHair,
+    padding: paperSpacing.sm + 2,
+    gap: 6,
+  },
+  loadingBigFishRow: {
+    flexDirection: 'row',
+    backgroundColor: paper.paper,
+    borderRadius: paperRadius.card,
+    borderWidth: 1,
+    borderColor: paper.inkHair,
+    padding: paperSpacing.md,
+    gap: paperSpacing.sm,
+  },
+  loadingFooter: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: paperSpacing.sm,
-    marginBottom: paperSpacing.md,
+    gap: paperSpacing.xs + 2,
+    paddingTop: paperSpacing.xs,
   },
-  loadingText: {
-    fontFamily: paperFonts.body,
-    fontSize: 14,
+  loadingFooterText: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 10,
+    letterSpacing: 2.4,
     color: paper.ink,
-    opacity: 0.75,
+    opacity: 0.55,
+  },
+  bonePulseDot: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    backgroundColor: paper.forest,
+  },
+  boneEyebrow: {
+    width: 80,
+    height: 9,
+    borderRadius: 2,
+    backgroundColor: paper.red,
+  },
+  boneTitle: {
+    width: 140,
+    height: 16,
+    borderRadius: 3,
+    backgroundColor: paper.ink,
+  },
+  boneTileLabel: {
+    width: 60,
+    height: 8,
+    borderRadius: 2,
+    backgroundColor: paper.red,
+  },
+  boneTileValue: {
+    width: 90,
+    height: 22,
+    borderRadius: 4,
+    backgroundColor: paper.ink,
+  },
+  boneTileCaption: {
+    width: '90%',
+    height: 8,
+    borderRadius: 2,
+    backgroundColor: paper.inkHair,
   },
   errorBox: {
     padding: paperSpacing.md,

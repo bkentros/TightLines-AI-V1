@@ -8,6 +8,7 @@
 
 import { useState, useEffect } from 'react';
 import {
+  Animated,
   View,
   Text,
   StyleSheet,
@@ -35,7 +36,13 @@ import { useDevTestingStore } from '../../store/devTestingStore';
 import type { FishingMode, UserProfile } from '../../lib/types';
 import { supabase } from '../../lib/supabase';
 import { clearOwnerFishCaches } from '../../lib/clearOwnerFishCaches';
-import { PaperBackground, SectionEyebrow } from '../../components/paper';
+import {
+  PaperBackground,
+  PaperColophon,
+  SectionEyebrow,
+} from '../../components/paper';
+import { hapticImpact, ImpactFeedbackStyle, hapticSelection } from '../../lib/safeHaptics';
+import { usePaperBonePulse } from '../../lib/usePaperBonePulse';
 
 /** Accounts that see owner-only cache tools in Settings (production + dev). */
 const CACHE_OWNER_EMAILS = ['brandonkentros@icloud.com'];
@@ -167,6 +174,7 @@ export default function SettingsScreen() {
 
   const handleSave = async () => {
     if (!user) return;
+    hapticImpact(ImpactFeedbackStyle.Medium);
     setSaving(true);
     try {
       const updates = {
@@ -213,9 +221,7 @@ export default function SettingsScreen() {
     return (
       <PaperBackground>
         <SafeAreaView style={styles.safe} edges={['top', 'bottom']}>
-          <View style={styles.loadingWrap}>
-            <ActivityIndicator size="large" color={paper.forest} />
-          </View>
+          <SettingsLoadingPanel />
         </SafeAreaView>
       </PaperBackground>
     );
@@ -276,7 +282,10 @@ export default function SettingsScreen() {
                     <Pressable
                       key={mode.value}
                       style={[styles.modeBtn, active && styles.modeBtnActive]}
-                      onPress={() => setFishingMode(mode.value)}
+                      onPress={() => {
+                        hapticSelection();
+                        setFishingMode(mode.value);
+                      }}
                     >
                       <Ionicons
                         name={mode.icon as any}
@@ -414,7 +423,10 @@ export default function SettingsScreen() {
                     <Pressable
                       key={u}
                       style={[styles.modeBtn, active && styles.modeBtnActive]}
-                      onPress={() => setUnits(u)}
+                      onPress={() => {
+                        hapticSelection();
+                        setUnits(u);
+                      }}
                     >
                       <Text
                         style={[
@@ -582,12 +594,125 @@ export default function SettingsScreen() {
               <Ionicons name="log-out-outline" size={16} color={paper.ink} />
               <Text style={styles.signOutText}>SIGN OUT</Text>
             </Pressable>
+
+            <PaperColophon
+              section="PREFERENCES"
+              tagline={(edition) =>
+                `NO. ${edition} · TUNE THE BASICS, ENJOY THE READS`
+              }
+            />
           </ScrollView>
         </KeyboardAvoidingView>
       </SafeAreaView>
     </PaperBackground>
   );
 }
+
+/**
+ * SettingsLoadingPanel — paper-language replacement for the bare
+ * ActivityIndicator the screen used to render before profile data
+ * arrives. Three pulsing rows + an editorial caption. Pulse uses the
+ * shared `usePaperBonePulse` so it matches every other paper skeleton
+ * in the app.
+ */
+function SettingsLoadingPanel() {
+  const pulse = usePaperBonePulse();
+  return (
+    <View style={settingsLoadingStyles.wrap} accessibilityLabel="Loading preferences">
+      <SectionEyebrow size={11} dashes color={paper.red}>
+        FINFINDR · PREFERENCES
+      </SectionEyebrow>
+      <View style={settingsLoadingStyles.card}>
+        <Animated.View style={[settingsLoadingStyles.titleBone, { opacity: pulse }]} />
+        <Animated.View style={[settingsLoadingStyles.subtitleBone, { opacity: pulse }]} />
+        <View style={settingsLoadingStyles.divider} />
+        {[0, 1, 2].map((i) => (
+          <View key={i} style={settingsLoadingStyles.row}>
+            <Animated.View style={[settingsLoadingStyles.rowLabel, { opacity: pulse }]} />
+            <Animated.View style={[settingsLoadingStyles.rowValue, { opacity: pulse }]} />
+          </View>
+        ))}
+      </View>
+      <View style={settingsLoadingStyles.footer}>
+        <Animated.View style={[settingsLoadingStyles.dot, { opacity: pulse }]} />
+        <Text style={settingsLoadingStyles.caption}>READING YOUR PROFILE…</Text>
+      </View>
+    </View>
+  );
+}
+
+const settingsLoadingStyles = StyleSheet.create({
+  wrap: {
+    flex: 1,
+    paddingHorizontal: paperSpacing.lg,
+    paddingTop: paperSpacing.lg,
+    gap: paperSpacing.md,
+  },
+  card: {
+    backgroundColor: paper.paperLight,
+    borderRadius: paperRadius.card,
+    borderWidth: 1.5,
+    borderColor: paper.ink,
+    padding: paperSpacing.md,
+    gap: paperSpacing.sm,
+    ...paperShadows.hard,
+  },
+  titleBone: {
+    width: 160,
+    height: 22,
+    borderRadius: 4,
+    backgroundColor: paper.ink,
+  },
+  subtitleBone: {
+    width: '78%',
+    height: 12,
+    borderRadius: 3,
+    backgroundColor: paper.inkHair,
+  },
+  divider: {
+    height: 1,
+    backgroundColor: paper.inkHair,
+    marginVertical: paperSpacing.xs,
+  },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingVertical: 6,
+  },
+  rowLabel: {
+    width: 100,
+    height: 10,
+    borderRadius: 2,
+    backgroundColor: paper.red,
+  },
+  rowValue: {
+    width: 70,
+    height: 14,
+    borderRadius: 3,
+    backgroundColor: paper.ink,
+  },
+  footer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: paperSpacing.xs + 2,
+    paddingTop: paperSpacing.sm,
+  },
+  dot: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    backgroundColor: paper.forest,
+  },
+  caption: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 10,
+    letterSpacing: 2.4,
+    color: paper.ink,
+    opacity: 0.6,
+  },
+});
 
 const styles = StyleSheet.create({
   safe: { flex: 1 },

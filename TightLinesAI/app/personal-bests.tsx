@@ -5,13 +5,14 @@
  * identical to the previous screen (still using mock records).
  */
 
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import {
   View,
   Text,
   StyleSheet,
   ScrollView,
   Pressable,
+  RefreshControl,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
@@ -31,7 +32,11 @@ import {
   SectionEyebrow,
   type MedalTier,
 } from '../components/paper';
-import { hapticSelection } from '../lib/safeHaptics';
+import {
+  hapticImpact,
+  hapticSelection,
+  ImpactFeedbackStyle,
+} from '../lib/safeHaptics';
 
 interface PBRecord {
   id: string;
@@ -86,6 +91,16 @@ export default function PersonalBestsScreen() {
     ? PB_DATA.filter((pb) => pb.species === selectedSpecies)
     : PB_DATA;
 
+  // Mock data today — gesture matches Home/Log: forest-tint spinner +
+  // light impact, brief dwell so pull-to-refresh feels acknowledged.
+  const [refreshing, setRefreshing] = useState(false);
+  const handleRefresh = useCallback(async () => {
+    hapticImpact(ImpactFeedbackStyle.Light);
+    setRefreshing(true);
+    await new Promise<void>((r) => setTimeout(r, 600));
+    setRefreshing(false);
+  }, []);
+
   return (
     <SafeAreaView style={styles.safe} edges={['top']}>
       <PaperBackground style={styles.flex}>
@@ -99,6 +114,15 @@ export default function PersonalBestsScreen() {
           style={styles.scroll}
           contentContainerStyle={styles.content}
           showsVerticalScrollIndicator={false}
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={handleRefresh}
+              tintColor={paper.forest}
+              colors={[paper.forest]}
+              progressBackgroundColor={paper.paper}
+            />
+          }
         >
           <View style={styles.eyebrowRow}>
             <SectionEyebrow dashes size={11} color={paper.gold}>
@@ -313,12 +337,6 @@ const styles = StyleSheet.create({
     bottom: 0,
     width: 4,
     backgroundColor: paper.gold,
-  },
-  pbMedal: {
-    position: 'absolute',
-    top: -8,
-    right: -8,
-    zIndex: 5,
   },
   pbHeader: {
     flexDirection: 'row',

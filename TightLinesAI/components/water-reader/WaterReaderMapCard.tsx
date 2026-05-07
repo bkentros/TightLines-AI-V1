@@ -25,14 +25,17 @@
  * pre-fetch (which is independent and additive).
  */
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import {
   ActivityIndicator,
   Animated,
+  Pressable,
+  ScrollView,
   StyleSheet,
   Text,
   View,
   Easing,
+  useWindowDimensions,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import {
@@ -68,6 +71,8 @@ export interface WaterReaderMapCardProps {
   bottomSlot?: React.ReactNode;
 }
 
+type MapViewerMode = 'fit' | 'inspect';
+
 export function WaterReaderMapCard({
   lakeId,
   lakeName,
@@ -75,10 +80,17 @@ export function WaterReaderMapCard({
   state,
   bottomSlot,
 }: WaterReaderMapCardProps) {
+  const window = useWindowDimensions();
   // ── Polygon pre-fetch (parallel to the parent's heavy read) ─────────────
   const [polygonGeoJson, setPolygonGeoJson] =
     useState<WaterbodyPolygonGeoJson | null>(null);
+  const [viewerMode, setViewerMode] = useState<MapViewerMode>('fit');
+  const [mapContentWidth, setMapContentWidth] = useState(0);
   const polygonRequestSeq = useRef(0);
+
+  useEffect(() => {
+    setViewerMode('fit');
+  }, [lakeId]);
 
   useEffect(() => {
     polygonRequestSeq.current += 1;
@@ -164,29 +176,43 @@ export function WaterReaderMapCard({
         <View style={styles.mapAndLegend}>
           <View style={styles.mapCard}>
             <CornerMarkSet color={paper.walnut} inset={8} size={11} />
-            <View style={styles.mapStack}>
-              {/* The skeleton stays mounted underneath the SVG for the
-                  duration of the fade so there's no visible flash of the
-                  warm paper backdrop between the two states. */}
-              <View style={styles.mapStackLayer} pointerEvents="none">
-                <WaterReaderLakeSkeleton
-                  geojson={polygonGeoJson}
-                  legendBoneCount={0}
-                  eyebrow=""
+
+            <View style={styles.viewerToolbar}>
+              <View style={styles.viewerSegment}>
+                <ViewerModeButton
+                  icon="scan-outline"
+                  label="FULL"
+                  active={viewerMode === 'fit'}
+                  onPress={() => setViewerMode('fit')}
+                />
+                <ViewerModeButton
+                  icon="move-outline"
+                  label="DETAIL"
+                  active={viewerMode === 'inspect'}
+                  onPress={() => setViewerMode('inspect')}
                 />
               </View>
-              <Animated.View
-                style={[
-                  styles.mapStackLayer,
-                  styles.mapStackTopLayer,
-                  { opacity: svgFade },
-                ]}
-              >
-                <WaterReaderProductionMap
+            </View>
+
+            <View
+              style={styles.mapMeasure}
+              onLayout={(event) => {
+                const nextWidth = event.nativeEvent.layout.width;
+                if (nextWidth > 0 && Math.abs(nextWidth - mapContentWidth) > 1) {
+                  setMapContentWidth(nextWidth);
+                }
+              }}
+            >
+              <Animated.View style={{ opacity: svgFade }}>
+                <WaterReaderAdaptiveMap
                   result={state.read.productionSvgResult}
+                  mode={viewerMode}
+                  containerWidth={mapContentWidth}
+                  windowHeight={window.height}
                 />
               </Animated.View>
             </View>
+
             <View style={styles.mapMetaRow}>
               <Text style={styles.mapMetaCaption}>
                 {typeof state.read.areaAcres === 'number'
@@ -230,6 +256,146 @@ export function WaterReaderMapCard({
       )}
 
       {bottomSlot ? <View style={styles.bottomSlot}>{bottomSlot}</View> : null}
+    </View>
+  );
+}
+
+function ViewerModeButton({
+  icon,
+  label,
+  active,
+  onPress,
+}: {
+  icon: keyof typeof Ionicons.glyphMap;
+  label: string;
+  active: boolean;
+  onPress: () => void;
+}) {
+  return (
+    <Pressable
+      style={({ pressed }) => [
+        styles.viewerModeButton,
+        active && styles.viewerModeButtonActive,
+        pressed && styles.viewerModeButtonPressed,
+      ]}
+      onPress={onPress}
+      accessibilityRole="button"
+      accessibilityState={{ selected: active }}
+    >
+      <Ionicons
+        name={icon}
+        size={12}
+        color={active ? paper.paper : paper.ink}
+      />
+      <Text
+        style={[
+          styles.viewerModeButtonText,
+          active && styles.viewerModeButtonTextActive,
+        ]}
+      >
+        {label}
+      </Text>
+    </Pressable>
+  );
+}
+
+function WaterReaderAdaptiveMap({
+  result,
+  mode,
+  containerWidth,
+  windowHeight,
+}: {
+  result: WaterReaderReadResponse['productionSvgResult'];
+  mode: MapViewerMode;
+  containerWidth: number;
+  windowHeight: number;
+}) {
+  const dimensions = useMemo(() => {
+    const width = Math.max(1, result?.summary.width ?? 1);
+    const height = Math.max(1, result?.summary.height ?? 1);
+    const aspectRatio = width / height;
+    const availableWidth = Math.max(280, containerWidth || 320);
+    const maxFitHeight = Math.max(430, Math.min(720, windowHeight * 0.68));
+    const naturalFitHeight = availableWidth / aspectRatio;
+    const fitHeight = Math.max(260, Math.min(maxFitHeight, naturalFitHeight));
+    const fitWidth = Math.min(availableWidth, fitHeight * aspectRatio);
+    const inspectViewportHeight = Math.max(430, Math.min(640, windowHeight * 0.62));
+    const inspectBaseWidth = Math.max(availableWidth * 1.7, 620);
+    const inspectWidth = aspectRatio < 0.72
+      ? Math.max(availableWidth, inspectViewportHeight * aspectRatio * 1.22)
+      : inspectBaseWidth;
+    const inspectHeight = Math.max(inspectViewportHeight, inspectWidth / aspectRatio);
+    return {
+      aspectRatio,
+      fitWidth,
+      fitHeight,
+      inspectWidth,
+      inspectHeight,
+      inspectViewportHeight,
+    };
+  }, [containerWidth, result?.summary.height, result?.summary.width, windowHeight]);
+
+  if (!result) return null;
+
+  if (mode === 'inspect') {
+    return (
+      <View style={[styles.inspectViewport, { height: dimensions.inspectViewportHeight }]}>
+        <ScrollView
+          horizontal
+          bounces
+          nestedScrollEnabled
+          showsHorizontalScrollIndicator
+          contentContainerStyle={[
+            styles.inspectHorizontalContent,
+            { minWidth: Math.max(containerWidth, dimensions.inspectWidth) },
+          ]}
+        >
+          <ScrollView
+            bounces
+            nestedScrollEnabled
+            showsVerticalScrollIndicator
+            maximumZoomScale={2.2}
+            minimumZoomScale={1}
+            contentContainerStyle={[
+              styles.inspectVerticalContent,
+              {
+                width: dimensions.inspectWidth,
+                minHeight: dimensions.inspectHeight,
+              },
+            ]}
+          >
+            <WaterReaderProductionMap
+              result={result}
+              width={dimensions.inspectWidth}
+              height={dimensions.inspectHeight}
+              style={[
+                styles.mapCanvas,
+                {
+                  width: dimensions.inspectWidth,
+                  height: dimensions.inspectHeight,
+                },
+              ]}
+            />
+          </ScrollView>
+        </ScrollView>
+      </View>
+    );
+  }
+
+  return (
+    <View style={styles.fitViewport}>
+      <WaterReaderProductionMap
+        result={result}
+        width={dimensions.fitWidth}
+        height={dimensions.fitHeight}
+        style={[
+          styles.mapCanvas,
+          {
+            width: dimensions.fitWidth,
+            height: dimensions.fitHeight,
+          },
+        ]}
+      />
     </View>
   );
 }
@@ -331,25 +497,75 @@ const styles = StyleSheet.create({
     ...paperBorders.card,
     ...paperShadows.hard,
   },
-  mapStack: {
+  viewerToolbar: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    marginBottom: paperSpacing.sm,
+  },
+  viewerSegment: {
+    flexDirection: 'row',
+    borderWidth: 1.5,
+    borderColor: paper.ink,
+    borderRadius: paperRadius.chip,
+    overflow: 'hidden',
+    backgroundColor: paper.paper,
+  },
+  viewerModeButton: {
+    minHeight: 34,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
+    paddingHorizontal: 10,
+    borderRightWidth: 1,
+    borderRightColor: paper.inkHair,
+  },
+  viewerModeButtonActive: {
+    backgroundColor: paper.forest,
+  },
+  viewerModeButtonPressed: {
+    opacity: 0.75,
+  },
+  viewerModeButtonText: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 9,
+    letterSpacing: 1.8,
+    color: paper.ink,
+    fontWeight: '700',
+  },
+  viewerModeButtonTextActive: {
+    color: paper.paper,
+  },
+  mapMeasure: {
     width: '100%',
-    aspectRatio: 1,
+  },
+  fitViewport: {
+    width: '100%',
+    borderRadius: paperRadius.card - 2,
+    overflow: 'hidden',
+    backgroundColor: paper.paper,
+    borderWidth: 1,
+    borderColor: paper.inkHair,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: paperSpacing.xs,
+  },
+  inspectViewport: {
+    width: '100%',
     borderRadius: paperRadius.card - 2,
     overflow: 'hidden',
     backgroundColor: paper.paper,
     borderWidth: 1,
     borderColor: paper.inkHair,
   },
-  mapStackLayer: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
+  inspectHorizontalContent: {
+    flexGrow: 1,
+  },
+  inspectVerticalContent: {
     alignItems: 'center',
     justifyContent: 'center',
+    padding: paperSpacing.xs,
   },
-  mapStackTopLayer: {
+  mapCanvas: {
     backgroundColor: paper.paper,
   },
   mapMetaRow: {
@@ -360,6 +576,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    flexWrap: 'wrap',
     gap: paperSpacing.sm,
   },
   mapMetaCaption: {
@@ -368,6 +585,8 @@ const styles = StyleSheet.create({
     color: paper.ink,
     opacity: 0.65,
     letterSpacing: 0.4,
+    flexShrink: 1,
+    lineHeight: 14,
   },
 
   // Fallback (read succeeded but engine produced no SVG).

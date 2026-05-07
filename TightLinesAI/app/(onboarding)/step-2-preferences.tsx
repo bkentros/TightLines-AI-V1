@@ -1,21 +1,53 @@
+/**
+ * Onboarding Step 2 — Preferences.
+ *
+ * Visual migration into the FinFindr paper system. Behavior is unchanged
+ * from the prior implementation:
+ *   • Username uniqueness check (debounced, 400ms) against `profiles`.
+ *   • Display-name suggestion from Apple/email metadata on mount.
+ *   • Fishing-mode toggle, target-species multi-select, units toggle.
+ *   • Location auto-fill via `expo-location` + reverse geocode → state +
+ *     city, with the same alerts on permission denial / failure.
+ *   • Final validation guards (length, charset, taken-username, missing
+ *     home state) and final pre-commit username re-check.
+ *   • `setOnboardingPrefs(...)` then push to `/(onboarding)/step-3-location`.
+ *
+ * Visual structure mirrors step 1: paper nav header (BACK + STEP 2/3),
+ * editorial eyebrow, big Fraunces title, italic subhead, and a sequence
+ * of "section" blocks (eyebrow label + paper inputs/chip pills/picker).
+ * The same submit-CTA chrome is used as the Welcome screen.
+ */
+
 import { useState, useCallback, useEffect, useRef } from 'react';
 import {
-  View,
-  Text,
-  StyleSheet,
-  TextInput,
-  Pressable,
-  ScrollView,
+  ActivityIndicator,
+  Alert,
   KeyboardAvoidingView,
   Platform,
-  Alert,
-  ActivityIndicator,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import * as Location from 'expo-location';
-import { colors, fonts, spacing, radius } from '../../lib/theme';
+import {
+  paper,
+  paperFonts,
+  paperRadius,
+  paperShadows,
+  paperSpacing,
+} from '../../lib/theme';
+import {
+  PaperBackground,
+  PaperNavHeader,
+  SectionEyebrow,
+} from '../../components/paper';
+import { hapticImpact, ImpactFeedbackStyle, hapticSelection } from '../../lib/safeHaptics';
 import { useAuthStore } from '../../store/authStore';
 import type { FishingMode } from '../../lib/types';
 import { supabase } from '../../lib/supabase';
@@ -41,7 +73,7 @@ const SPECIES_LIST = [
   'Mahi-Mahi',
 ];
 
-const FISHING_MODES: { value: FishingMode; label: string; icon: string }[] = [
+const FISHING_MODES: { value: FishingMode; label: string; icon: keyof typeof Ionicons.glyphMap }[] = [
   { value: 'conventional', label: 'Conventional', icon: 'fish-outline' },
   { value: 'fly', label: 'Fly Fishing', icon: 'leaf-outline' },
   { value: 'both', label: 'Both', icon: 'options-outline' },
@@ -79,7 +111,7 @@ export default function OnboardingStep2() {
   const [units, setUnits] = useState<'imperial' | 'metric'>('imperial');
   const [locationLoading, setLocationLoading] = useState(false);
 
-  // Pre-fill a username suggestion from the Apple/email display name
+  // Pre-fill a username suggestion from the Apple/email display name.
   useEffect(() => {
     if (!user) return;
     const name = user.user_metadata?.full_name ?? user.user_metadata?.name ?? '';
@@ -129,6 +161,7 @@ export default function OnboardingStep2() {
   };
 
   const toggleSpecies = (species: string) => {
+    hapticSelection();
     setSelectedSpecies((prev) =>
       prev.includes(species)
         ? prev.filter((s) => s !== species)
@@ -137,9 +170,7 @@ export default function OnboardingStep2() {
   };
 
   const buildHomeRegion = () => {
-    if (homeCity.trim() && homeState) {
-      return `${homeCity.trim()}, ${homeState}`;
-    }
+    if (homeCity.trim() && homeState) return `${homeCity.trim()}, ${homeState}`;
     if (homeState) return homeState;
     return '';
   };
@@ -162,7 +193,6 @@ export default function OnboardingStep2() {
       });
       if (geo) {
         if (geo.region) {
-          // Try to match full state name to abbreviation
           const stateAbbr = STATE_NAME_TO_ABBR[geo.region] ?? geo.region;
           if (US_STATES.includes(stateAbbr)) setHomeState(stateAbbr);
         }
@@ -177,16 +207,12 @@ export default function OnboardingStep2() {
 
   const handleContinue = async () => {
     const trimmedUsername = username.trim().toLowerCase();
-
     if (trimmedUsername.length < 3) {
       Alert.alert('Username required', 'Username must be at least 3 characters.');
       return;
     }
     if (!/^[a-z0-9_]+$/.test(trimmedUsername)) {
-      Alert.alert(
-        'Invalid username',
-        'Username may only contain letters, numbers, and underscores.',
-      );
+      Alert.alert('Invalid username', 'Username may only contain letters, numbers, and underscores.');
       return;
     }
     if (usernameAvailable === false) {
@@ -198,9 +224,9 @@ export default function OnboardingStep2() {
       return;
     }
 
+    hapticImpact(ImpactFeedbackStyle.Medium);
     setLoading(true);
     try {
-      // Final username uniqueness check before committing
       if (!user) throw new Error('No authenticated user');
       const { data: existing } = await supabase
         .from('profiles')
@@ -233,499 +259,567 @@ export default function OnboardingStep2() {
     }
   };
 
-  const usernameStatus = () => {
+  const usernameStatus = (() => {
     const trimmed = username.trim();
     if (trimmed.length < 3) return null;
     if (checkingUsername) return 'checking';
     if (usernameAvailable === true) return 'available';
     if (usernameAvailable === false) return 'taken';
     return null;
-  };
-
-  const status = usernameStatus();
+  })();
 
   return (
-    <SafeAreaView style={styles.safe} edges={['top', 'bottom']}>
-      <KeyboardAvoidingView
-        style={styles.kav}
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      >
-        <ScrollView
-          contentContainerStyle={styles.scroll}
-          keyboardShouldPersistTaps="handled"
-          showsVerticalScrollIndicator={false}
+    <SafeAreaView style={styles.safe} edges={['top']}>
+      <PaperBackground style={styles.flex}>
+        <PaperNavHeader
+          eyebrow="FINFINDR · ONBOARDING"
+          title="PREFERENCES"
+          onBack={() => router.back()}
+          right={<StepPill step={2} total={3} />}
+        />
+        <KeyboardAvoidingView
+          style={styles.flex}
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         >
-          {/* Back */}
-          <Pressable onPress={() => router.back()} style={styles.backBtn} hitSlop={12}>
-            <Ionicons name="chevron-back" size={22} color={colors.text} />
-          </Pressable>
+          <ScrollView
+            style={styles.scroll}
+            contentContainerStyle={styles.content}
+            showsVerticalScrollIndicator={false}
+            keyboardShouldPersistTaps="handled"
+          >
+            <View style={styles.eyebrowRow}>
+              <SectionEyebrow dashes size={11} color={paper.red}>
+                A FEW QUESTIONS
+              </SectionEyebrow>
+            </View>
 
-          {/* Progress */}
-          <View style={styles.progress}>
-            {[0, 1, 2].map((i) => (
-              <View
-                key={i}
-                style={[
-                  styles.progressDot,
-                  i === 1 && styles.progressDotActive,
-                  i === 0 && styles.progressDotDone,
-                ]}
-              />
-            ))}
-          </View>
-
-          <Text style={styles.title}>Your preferences</Text>
-          <Text style={styles.subtitle}>
-            These basics help shape your first fishing read.
-          </Text>
-
-          {/* Username */}
-          <View style={styles.section}>
-            <Text style={styles.sectionLabel}>Username</Text>
-            <Text style={styles.sectionHint}>
-              Public on your profile
+            <Text style={styles.heroTitle}>Your preferences.</Text>
+            <Text style={styles.heroLede}>
+              These basics help shape your first fishing read.
             </Text>
-            <View style={styles.usernameRow}>
+
+            {/* Username */}
+            <Section label="USERNAME" hint="Public on your profile.">
+              <View style={styles.usernameRow}>
+                <TextInput
+                  style={[
+                    styles.input,
+                    styles.usernameInput,
+                    usernameStatus === 'taken' && styles.inputError,
+                    usernameStatus === 'available' && styles.inputSuccess,
+                  ]}
+                  value={username}
+                  onChangeText={handleUsernameChange}
+                  placeholder="e.g. redfish_brandon"
+                  placeholderTextColor={paper.ink + '70'}
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  returnKeyType="next"
+                  maxLength={30}
+                />
+                <View style={styles.usernameStatusSlot}>
+                  {usernameStatus === 'checking' && (
+                    <ActivityIndicator size="small" color={paper.forest} />
+                  )}
+                  {usernameStatus === 'available' && (
+                    <Ionicons name="checkmark-circle" size={20} color={paper.forest} />
+                  )}
+                  {usernameStatus === 'taken' && (
+                    <Ionicons name="close-circle" size={20} color={paper.red} />
+                  )}
+                </View>
+              </View>
+              {usernameStatus === 'taken' && (
+                <Text style={styles.errorText}>Username is already taken.</Text>
+              )}
+              {usernameStatus === 'available' && (
+                <Text style={styles.successText}>Username is available!</Text>
+              )}
+            </Section>
+
+            {/* Display name */}
+            <Section label="DISPLAY NAME" hint="Optional — what people see in feeds.">
               <TextInput
-                style={[
-                  styles.input,
-                  styles.usernameInput,
-                  status === 'taken' && styles.inputError,
-                  status === 'available' && styles.inputSuccess,
-                ]}
-                value={username}
-                onChangeText={handleUsernameChange}
-                placeholder="e.g. redfish_brandon"
-                placeholderTextColor={colors.textMuted}
-                autoCapitalize="none"
+                style={styles.input}
+                value={displayName}
+                onChangeText={setDisplayName}
+                placeholder="e.g. Brandon K."
+                placeholderTextColor={paper.ink + '70'}
                 autoCorrect={false}
                 returnKeyType="next"
-                maxLength={30}
+                maxLength={50}
               />
-              <View style={styles.usernameStatus}>
-                {status === 'checking' && (
-                  <ActivityIndicator size="small" color={colors.sage} />
-                )}
-                {status === 'available' && (
-                  <Ionicons
-                    name="checkmark-circle"
-                    size={20}
-                    color={colors.sage}
-                  />
-                )}
-                {status === 'taken' && (
-                  <Ionicons name="close-circle" size={20} color="#E05C5C" />
-                )}
+            </Section>
+
+            {/* Fishing mode */}
+            <Section label="PREFERRED GEAR">
+              <View style={styles.modeRow}>
+                {FISHING_MODES.map((mode) => {
+                  const active = fishingMode === mode.value;
+                  return (
+                    <Pressable
+                      key={mode.value}
+                      style={[styles.modeBtn, active && styles.modeBtnActive]}
+                      onPress={() => {
+                        hapticSelection();
+                        setFishingMode(mode.value);
+                      }}
+                    >
+                      <Ionicons
+                        name={mode.icon}
+                        size={15}
+                        color={active ? paper.paper : paper.ink}
+                      />
+                      <Text
+                        style={[
+                          styles.modeBtnText,
+                          active && styles.modeBtnTextActive,
+                        ]}
+                      >
+                        {mode.label}
+                      </Text>
+                    </Pressable>
+                  );
+                })}
               </View>
-            </View>
-            {status === 'taken' && (
-              <Text style={styles.errorText}>Username is already taken.</Text>
-            )}
-            {status === 'available' && (
-              <Text style={styles.successText}>Username is available!</Text>
-            )}
-          </View>
+            </Section>
 
-          {/* Display Name */}
-          <View style={styles.section}>
-            <Text style={styles.sectionLabel}>
-              Display Name{' '}
-              <Text style={styles.optional}>(optional)</Text>
-            </Text>
-            <TextInput
-              style={styles.input}
-              value={displayName}
-              onChangeText={setDisplayName}
-              placeholder="e.g. Brandon K."
-              placeholderTextColor={colors.textMuted}
-              autoCorrect={false}
-              returnKeyType="next"
-              maxLength={50}
-            />
-          </View>
+            {/* Target species */}
+            <Section
+              label="FAVORITE SPECIES"
+              hint="Helps tailor your first tackle picks. Skip if you fish everything."
+            >
+              <View style={styles.chipGrid}>
+                {SPECIES_LIST.map((species) => {
+                  const active = selectedSpecies.includes(species);
+                  return (
+                    <Pressable
+                      key={species}
+                      style={[styles.chip, active && styles.chipActive]}
+                      onPress={() => toggleSpecies(species)}
+                    >
+                      <Text style={[styles.chipText, active && styles.chipTextActive]}>
+                        {species}
+                      </Text>
+                    </Pressable>
+                  );
+                })}
+              </View>
+            </Section>
 
-          {/* Fishing Mode */}
-          <View style={styles.section}>
-            <Text style={styles.sectionLabel}>Preferred Gear</Text>
-            <View style={styles.modeRow}>
-              {FISHING_MODES.map((mode) => (
+            {/* Home region */}
+            <View style={styles.section}>
+              <View style={styles.sectionHeader}>
+                <Text style={styles.sectionLabel}>HOME WATER REGION</Text>
                 <Pressable
-                  key={mode.value}
-                  style={[
-                    styles.modeBtn,
-                    fishingMode === mode.value && styles.modeBtnActive,
+                  style={({ pressed }) => [
+                    styles.locAutoBtn,
+                    pressed && styles.locAutoBtnPressed,
+                    locationLoading && styles.btnDisabled,
                   ]}
-                  onPress={() => setFishingMode(mode.value)}
+                  onPress={autoFillLocation}
+                  disabled={locationLoading}
                 >
-                  <Ionicons
-                    name={mode.icon as any}
-                    size={16}
-                    color={
-                      fishingMode === mode.value
-                        ? colors.textLight
-                        : colors.textSecondary
-                    }
-                  />
-                  <Text
-                    style={[
-                      styles.modeBtnText,
-                      fishingMode === mode.value && styles.modeBtnTextActive,
-                    ]}
-                  >
-                    {mode.label}
+                  {locationLoading ? (
+                    <ActivityIndicator size="small" color={paper.forest} />
+                  ) : (
+                    <Ionicons name="location-outline" size={13} color={paper.forest} />
+                  )}
+                  <Text style={styles.locAutoBtnText}>
+                    {locationLoading ? 'FINDING…' : 'USE LOCATION'}
                   </Text>
                 </Pressable>
-              ))}
-            </View>
-          </View>
+              </View>
 
-          {/* Target Species */}
-          <View style={styles.section}>
-            <Text style={styles.sectionLabel}>
-              Favorite Target Species{' '}
-              <Text style={styles.optional}>(optional)</Text>
-            </Text>
-            <Text style={styles.sectionHint}>
-              Helps tailor your first tackle picks. Skip if you fish everything.
-            </Text>
-            <View style={styles.chipGrid}>
-              {SPECIES_LIST.map((species) => {
-                const active = selectedSpecies.includes(species);
-                return (
-                  <Pressable
-                    key={species}
-                    style={[styles.chip, active && styles.chipActive]}
-                    onPress={() => toggleSpecies(species)}
-                  >
-                    <Text
-                      style={[styles.chipText, active && styles.chipTextActive]}
-                    >
-                      {species}
-                    </Text>
-                  </Pressable>
-                );
-              })}
-            </View>
-          </View>
-
-          {/* Home Region */}
-          <View style={styles.section}>
-            <View style={styles.sectionLabelRow}>
-              <Text style={styles.sectionLabel}>Home Water Region</Text>
               <Pressable
-                style={({ pressed }) => [
-                  styles.locationAutoBtn,
-                  pressed && styles.locationAutoBtnPressed,
-                  locationLoading && styles.btnDisabled,
-                ]}
-                onPress={autoFillLocation}
-                disabled={locationLoading}
+                style={styles.statePicker}
+                onPress={() => {
+                  hapticSelection();
+                  setShowStateList((v) => !v);
+                }}
               >
-                {locationLoading ? (
-                  <ActivityIndicator size="small" color={colors.sage} />
-                ) : (
-                  <Ionicons name="location-outline" size={14} color={colors.sage} />
-                )}
-                <Text style={styles.locationAutoBtnText}>
-                  {locationLoading ? 'Finding…' : 'Use Current Location'}
+                <Text
+                  style={[
+                    styles.statePickerText,
+                    !homeState && styles.statePickerPlaceholder,
+                  ]}
+                >
+                  {homeState || 'Select your state'}
                 </Text>
+                <Ionicons
+                  name={showStateList ? 'chevron-up' : 'chevron-down'}
+                  size={16}
+                  color={paper.ink}
+                />
               </Pressable>
+
+              {showStateList && (
+                <View style={styles.stateList}>
+                  <ScrollView
+                    style={styles.stateScroll}
+                    nestedScrollEnabled
+                    showsVerticalScrollIndicator={false}
+                  >
+                    {US_STATES.map((state) => (
+                      <Pressable
+                        key={state}
+                        style={[
+                          styles.stateOption,
+                          homeState === state && styles.stateOptionActive,
+                        ]}
+                        onPress={() => {
+                          hapticSelection();
+                          setHomeState(state);
+                          setShowStateList(false);
+                        }}
+                      >
+                        <Text
+                          style={[
+                            styles.stateOptionText,
+                            homeState === state && styles.stateOptionTextActive,
+                          ]}
+                        >
+                          {state}
+                        </Text>
+                      </Pressable>
+                    ))}
+                  </ScrollView>
+                </View>
+              )}
+
+              <TextInput
+                style={[styles.input, { marginTop: paperSpacing.sm }]}
+                value={homeCity}
+                onChangeText={setHomeCity}
+                placeholder="City (e.g. Tampa)"
+                placeholderTextColor={paper.ink + '70'}
+                autoCorrect={false}
+                returnKeyType="done"
+                maxLength={60}
+              />
             </View>
 
-            {/* State picker */}
-            <Pressable
-              style={styles.statePicker}
-              onPress={() => setShowStateList((v) => !v)}
-            >
-              <Text
-                style={[
-                  styles.statePickerText,
-                  !homeState && styles.statePickerPlaceholder,
-                ]}
-              >
-                {homeState || 'Select your state'}
-              </Text>
-              <Ionicons
-                name={showStateList ? 'chevron-up' : 'chevron-down'}
-                size={16}
-                color={colors.textMuted}
-              />
-            </Pressable>
-
-            {showStateList && (
-              <View style={styles.stateList}>
-                <ScrollView
-                  style={styles.stateScroll}
-                  nestedScrollEnabled
-                  showsVerticalScrollIndicator={false}
-                >
-                  {US_STATES.map((state) => (
+            {/* Units */}
+            <Section label="PREFERRED UNITS">
+              <View style={styles.modeRow}>
+                {(['imperial', 'metric'] as const).map((u) => {
+                  const active = units === u;
+                  return (
                     <Pressable
-                      key={state}
-                      style={[
-                        styles.stateOption,
-                        homeState === state && styles.stateOptionActive,
-                      ]}
+                      key={u}
+                      style={[styles.modeBtn, active && styles.modeBtnActive]}
                       onPress={() => {
-                        setHomeState(state);
-                        setShowStateList(false);
+                        hapticSelection();
+                        setUnits(u);
                       }}
                     >
                       <Text
                         style={[
-                          styles.stateOptionText,
-                          homeState === state && styles.stateOptionTextActive,
+                          styles.modeBtnText,
+                          active && styles.modeBtnTextActive,
                         ]}
                       >
-                        {state}
+                        {u === 'imperial'
+                          ? 'Imperial (lbs, in, °F)'
+                          : 'Metric (kg, cm, °C)'}
                       </Text>
                     </Pressable>
-                  ))}
-                </ScrollView>
+                  );
+                })}
               </View>
-            )}
+            </Section>
 
-            {/* City input */}
-            <TextInput
-              style={[styles.input, { marginTop: spacing.sm }]}
-              value={homeCity}
-              onChangeText={setHomeCity}
-              placeholder="City (e.g. Tampa)"
-              placeholderTextColor={colors.textMuted}
-              autoCorrect={false}
-              returnKeyType="done"
-              maxLength={60}
-            />
-          </View>
+            {/* CTA */}
+            <Pressable
+              style={({ pressed }) => [
+                styles.cta,
+                pressed && styles.ctaPressed,
+                loading && styles.btnDisabled,
+              ]}
+              onPress={handleContinue}
+              disabled={loading}
+            >
+              {loading ? (
+                <ActivityIndicator color={paper.paper} />
+              ) : (
+                <>
+                  <Text style={styles.ctaText}>CONTINUE</Text>
+                  <Ionicons name="arrow-forward" size={16} color={paper.paper} />
+                </>
+              )}
+            </Pressable>
 
-          {/* Units */}
-          <View style={styles.section}>
-            <Text style={styles.sectionLabel}>Preferred Units</Text>
-            <View style={styles.modeRow}>
-              {(['imperial', 'metric'] as const).map((u) => (
-                <Pressable
-                  key={u}
-                  style={[styles.modeBtn, units === u && styles.modeBtnActive]}
-                  onPress={() => setUnits(u)}
-                >
-                  <Text style={[styles.modeBtnText, units === u && styles.modeBtnTextActive]}>
-                    {u === 'imperial' ? 'Imperial (lbs, in, °F)' : 'Metric (kg, cm, °C)'}
-                  </Text>
-                </Pressable>
-              ))}
-            </View>
-          </View>
-
-          {/* Continue */}
-          <Pressable
-            style={({ pressed }) => [
-              styles.btn,
-              pressed && styles.btnPressed,
-              loading && styles.btnDisabled,
-            ]}
-            onPress={handleContinue}
-            disabled={loading}
-          >
-            {loading ? (
-              <ActivityIndicator color={colors.textLight} />
-            ) : (
-              <>
-                <Text style={styles.btnText}>Continue</Text>
-                <Ionicons
-                  name="arrow-forward"
-                  size={18}
-                  color={colors.textLight}
-                />
-              </>
-            )}
-          </Pressable>
-        </ScrollView>
-      </KeyboardAvoidingView>
+            <Text style={styles.footnote}>
+              — STEP 2 OF 3 ·  ONE MORE TO GO —
+            </Text>
+          </ScrollView>
+        </KeyboardAvoidingView>
+      </PaperBackground>
     </SafeAreaView>
   );
 }
 
+function Section({
+  label,
+  hint,
+  children,
+}: {
+  label: string;
+  hint?: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <View style={styles.section}>
+      <Text style={styles.sectionLabel}>{label}</Text>
+      {hint ? <Text style={styles.sectionHint}>{hint}</Text> : null}
+      {children}
+    </View>
+  );
+}
+
+function StepPill({ step, total }: { step: number; total: number }) {
+  return (
+    <View style={styles.stepPill}>
+      <Text style={styles.stepPillText}>
+        STEP {step} / {total}
+      </Text>
+    </View>
+  );
+}
+
 const styles = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: colors.background },
-  kav: { flex: 1 },
-  scroll: {
-    paddingHorizontal: spacing.lg,
-    paddingBottom: spacing.xxl,
+  safe: { flex: 1, backgroundColor: paper.paper },
+  flex: { flex: 1 },
+  scroll: { flex: 1 },
+  content: {
+    paddingHorizontal: paperSpacing.lg,
+    paddingTop: paperSpacing.lg,
+    paddingBottom: paperSpacing.xxl,
   },
-  backBtn: {
-    paddingTop: spacing.md,
-    paddingBottom: spacing.sm,
-    alignSelf: 'flex-start',
-  },
+  eyebrowRow: { marginBottom: paperSpacing.md },
 
-  progress: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    gap: spacing.sm,
-    paddingTop: spacing.lg,
-    marginBottom: spacing.xl,
+  heroTitle: {
+    fontFamily: paperFonts.display,
+    fontSize: 34,
+    color: paper.ink,
+    fontWeight: '700',
+    letterSpacing: -1.2,
+    lineHeight: 38,
+    marginBottom: paperSpacing.xs,
   },
-  progressDot: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-    backgroundColor: colors.divider,
-  },
-  progressDotActive: { backgroundColor: colors.sage, width: 24 },
-  progressDotDone: { backgroundColor: colors.sage },
-
-  title: {
-    fontFamily: fonts.serif,
-    fontSize: 28,
-    color: colors.text,
-    marginBottom: spacing.xs,
-  },
-  subtitle: {
+  heroLede: {
+    fontFamily: paperFonts.displayItalic,
     fontSize: 14,
-    color: colors.textSecondary,
-    marginBottom: spacing.xl,
+    color: paper.ink,
+    opacity: 0.7,
     lineHeight: 20,
+    marginBottom: paperSpacing.section,
   },
 
-  section: { marginBottom: spacing.xl },
+  section: { marginBottom: paperSpacing.xl },
+  sectionHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: paperSpacing.xs,
+  },
   sectionLabel: {
-    fontSize: 14,
-    fontWeight: '600',
-    color: colors.text,
-    marginBottom: spacing.xs + 2,
-    letterSpacing: 0.1,
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 10.5,
+    color: paper.ink,
+    letterSpacing: 2.2,
+    marginBottom: paperSpacing.xs,
+    fontWeight: '700',
   },
   sectionHint: {
-    fontSize: 12,
-    color: colors.textMuted,
-    marginBottom: spacing.sm,
+    fontFamily: paperFonts.displayItalic,
+    fontSize: 12.5,
+    color: paper.ink,
+    opacity: 0.65,
+    marginBottom: paperSpacing.sm,
   },
-  optional: { fontWeight: '400', color: colors.textMuted },
 
   input: {
-    backgroundColor: colors.surface,
-    borderRadius: radius.md,
+    backgroundColor: paper.paperLight,
+    borderRadius: paperRadius.card,
     borderWidth: 1.5,
-    borderColor: colors.border,
-    paddingHorizontal: spacing.md,
-    paddingVertical: spacing.md - 2,
+    borderColor: paper.ink,
+    paddingHorizontal: paperSpacing.md,
+    paddingVertical: paperSpacing.md - 2,
+    fontFamily: paperFonts.body,
     fontSize: 16,
-    color: colors.text,
+    color: paper.ink,
   },
-  inputError: { borderColor: '#E05C5C' },
-  inputSuccess: { borderColor: colors.sage },
+  inputError: { borderColor: paper.red },
+  inputSuccess: { borderColor: paper.forest },
 
-  usernameRow: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm },
+  usernameRow: { flexDirection: 'row', alignItems: 'center', gap: paperSpacing.sm },
   usernameInput: { flex: 1 },
-  usernameStatus: { width: 24, alignItems: 'center' },
-  errorText: { fontSize: 12, color: '#E05C5C', marginTop: spacing.xs },
-  successText: { fontSize: 12, color: colors.sage, marginTop: spacing.xs },
+  usernameStatusSlot: { width: 26, alignItems: 'center' },
+  errorText: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 11.5,
+    color: paper.red,
+    marginTop: paperSpacing.xs,
+    letterSpacing: 0.4,
+  },
+  successText: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 11.5,
+    color: paper.forest,
+    marginTop: paperSpacing.xs,
+    letterSpacing: 0.4,
+  },
 
-  modeRow: { flexDirection: 'row', gap: spacing.sm },
+  modeRow: { flexDirection: 'row', gap: paperSpacing.sm },
   modeBtn: {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: spacing.xs,
-    backgroundColor: colors.surface,
-    borderRadius: radius.md,
-    paddingVertical: spacing.md - 2,
+    gap: paperSpacing.xs + 2,
+    backgroundColor: paper.paperLight,
+    borderRadius: paperRadius.card,
+    paddingVertical: paperSpacing.md - 2,
     borderWidth: 1.5,
-    borderColor: colors.border,
+    borderColor: paper.ink,
   },
   modeBtnActive: {
-    backgroundColor: colors.sage,
-    borderColor: colors.sage,
+    backgroundColor: paper.ink,
   },
-  modeBtnText: { fontSize: 13, fontWeight: '500', color: colors.textSecondary },
-  modeBtnTextActive: { color: colors.textLight },
+  modeBtnText: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 11,
+    color: paper.ink,
+    letterSpacing: 1.4,
+  },
+  modeBtnTextActive: { color: paper.paper },
 
-  chipGrid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: spacing.sm,
-  },
+  chipGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: paperSpacing.xs + 2 },
   chip: {
-    paddingHorizontal: spacing.md - 2,
-    paddingVertical: spacing.sm - 1,
-    borderRadius: radius.lg,
-    backgroundColor: colors.surface,
+    paddingHorizontal: paperSpacing.md - 2,
+    paddingVertical: paperSpacing.sm - 1,
+    borderRadius: paperRadius.chip,
+    backgroundColor: paper.paperLight,
     borderWidth: 1.5,
-    borderColor: colors.border,
+    borderColor: paper.ink,
   },
-  chipActive: {
-    backgroundColor: colors.sageLight,
-    borderColor: colors.sage,
+  chipActive: { backgroundColor: paper.forest },
+  chipText: {
+    fontFamily: paperFonts.bodyMedium,
+    fontSize: 13,
+    color: paper.ink,
   },
-  chipText: { fontSize: 13, color: colors.textSecondary, fontWeight: '500' },
-  chipTextActive: { color: colors.sageDark, fontWeight: '600' },
+  chipTextActive: {
+    color: paper.paper,
+    fontFamily: paperFonts.bodyBold,
+  },
+
+  locAutoBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    paddingHorizontal: paperSpacing.sm,
+    paddingVertical: 4,
+    borderRadius: paperRadius.chip,
+    borderWidth: 1.5,
+    borderColor: paper.forest,
+    backgroundColor: paper.paperLight,
+  },
+  locAutoBtnPressed: { backgroundColor: paper.paperDark },
+  locAutoBtnText: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 10,
+    color: paper.forest,
+    letterSpacing: 1.6,
+  },
 
   statePicker: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    backgroundColor: colors.surface,
-    borderRadius: radius.md,
+    backgroundColor: paper.paperLight,
+    borderRadius: paperRadius.card,
     borderWidth: 1.5,
-    borderColor: colors.border,
-    paddingHorizontal: spacing.md,
-    paddingVertical: spacing.md - 2,
+    borderColor: paper.ink,
+    paddingHorizontal: paperSpacing.md,
+    paddingVertical: paperSpacing.md - 2,
   },
-  statePickerText: { fontSize: 16, color: colors.text },
-  statePickerPlaceholder: { color: colors.textMuted },
+  statePickerText: {
+    fontFamily: paperFonts.body,
+    fontSize: 16,
+    color: paper.ink,
+  },
+  statePickerPlaceholder: { color: paper.ink, opacity: 0.55 },
   stateList: {
-    marginTop: spacing.xs,
-    borderRadius: radius.md,
+    marginTop: paperSpacing.xs,
+    borderRadius: paperRadius.card,
     borderWidth: 1.5,
-    borderColor: colors.border,
-    backgroundColor: colors.surface,
+    borderColor: paper.ink,
+    backgroundColor: paper.paperLight,
     overflow: 'hidden',
   },
   stateScroll: { maxHeight: 200 },
   stateOption: {
-    paddingHorizontal: spacing.md,
-    paddingVertical: spacing.md - 4,
+    paddingHorizontal: paperSpacing.md,
+    paddingVertical: paperSpacing.md - 4,
   },
-  stateOptionActive: { backgroundColor: colors.sageLight },
-  stateOptionText: { fontSize: 15, color: colors.text },
-  stateOptionTextActive: { color: colors.sageDark, fontWeight: '600' },
+  stateOptionActive: { backgroundColor: paper.paperDark },
+  stateOptionText: {
+    fontFamily: paperFonts.body,
+    fontSize: 15,
+    color: paper.ink,
+  },
+  stateOptionTextActive: {
+    color: paper.forest,
+    fontFamily: paperFonts.bodyBold,
+  },
 
-  btn: {
+  cta: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: spacing.sm,
-    backgroundColor: colors.sage,
-    borderRadius: radius.md,
-    paddingVertical: spacing.md,
-    marginTop: spacing.sm,
+    gap: paperSpacing.sm,
+    backgroundColor: paper.forest,
+    borderWidth: 2,
+    borderColor: paper.ink,
+    borderRadius: paperRadius.card,
+    paddingVertical: paperSpacing.md,
+    marginTop: paperSpacing.sm,
+    ...paperShadows.hard,
   },
-  btnPressed: { backgroundColor: colors.sageDark },
-  btnDisabled: { opacity: 0.6 },
-  btnText: { fontSize: 16, fontWeight: '600', color: colors.textLight },
-
-  sectionLabelRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginBottom: spacing.xs + 2,
-  },
-  locationAutoBtn: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 4,
-    paddingHorizontal: spacing.sm,
-    paddingVertical: 4,
-    borderRadius: radius.sm,
-    borderWidth: 1,
-    borderColor: colors.sage,
-    backgroundColor: colors.sageLight,
-  },
-  locationAutoBtnPressed: { backgroundColor: colors.sage + '30' },
-  locationAutoBtnText: {
+  ctaPressed: { backgroundColor: paper.forestDk },
+  btnDisabled: { opacity: 0.55 },
+  ctaText: {
+    fontFamily: paperFonts.bodyBold,
     fontSize: 12,
-    fontWeight: '600',
-    color: colors.sageDark,
+    color: paper.paper,
+    letterSpacing: 2.8,
+  },
+
+  footnote: {
+    marginTop: paperSpacing.md,
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 9,
+    color: paper.ink,
+    opacity: 0.55,
+    letterSpacing: 2.2,
+    textAlign: 'center',
+  },
+
+  stepPill: {
+    paddingHorizontal: 9,
+    paddingVertical: 5,
+    borderWidth: 1.5,
+    borderColor: paper.ink,
+    borderRadius: paperRadius.chip,
+    backgroundColor: paper.paperLight,
+  },
+  stepPillText: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 9.5,
+    color: paper.ink,
+    letterSpacing: 1.6,
+    fontWeight: '700',
   },
 });

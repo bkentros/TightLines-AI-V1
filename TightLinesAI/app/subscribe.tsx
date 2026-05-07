@@ -5,8 +5,9 @@
  * subscription UI will be integrated in the Monetization phase.
  */
 
-import { View, Text, StyleSheet } from 'react-native';
+import { ScrollView, View, Text, StyleSheet, Pressable } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import {
   paper,
@@ -15,16 +16,34 @@ import {
   paperShadows,
   paperSpacing,
 } from '../lib/theme';
-import { PaperBackground, SectionEyebrow } from '../components/paper';
+import {
+  PaperBackground,
+  PaperBestValueStamp,
+  PaperColophon,
+  PaperNavHeader,
+  SectionEyebrow,
+} from '../components/paper';
+import { hapticImpact, ImpactFeedbackStyle } from '../lib/safeHaptics';
 
 export default function SubscribeScreen() {
+  const router = useRouter();
   return (
-    <PaperBackground>
-      <SafeAreaView style={styles.safe} edges={['top', 'bottom']}>
-        <View style={styles.content}>
+    <SafeAreaView style={styles.safe} edges={['top', 'bottom']}>
+      <PaperBackground style={styles.flex}>
+        <PaperNavHeader
+          eyebrow="FINFINDR · MEMBERSHIP"
+          eyebrowColor={paper.gold}
+          title="SUBSCRIBE"
+          onBack={() => router.back()}
+        />
+        <ScrollView
+          style={styles.scroll}
+          contentContainerStyle={styles.content}
+          showsVerticalScrollIndicator={false}
+        >
           <View style={styles.eyebrowRow}>
             <SectionEyebrow dashes size={11} color={paper.gold}>
-              FINFINDR · MEMBERSHIP
+              CHOOSE YOUR EDITION
             </SectionEyebrow>
           </View>
 
@@ -34,7 +53,13 @@ export default function SubscribeScreen() {
             and planning tools built around your conditions.
           </Text>
 
-          <View style={styles.planCard}>
+          <Pressable
+            style={({ pressed }) => [
+              styles.planCard,
+              pressed && styles.planCardPressed,
+            ]}
+            onPress={() => hapticImpact(ImpactFeedbackStyle.Light)}
+          >
             <View style={styles.planHeader}>
               <Ionicons name="fish" size={14} color={paper.forest} />
               <Text style={styles.planLabel}>ANGLER</Text>
@@ -46,9 +71,20 @@ export default function SubscribeScreen() {
             <Text style={styles.planHint}>
               Daily fishing reads and tackle picks for the water you fish most.
             </Text>
-          </View>
+          </Pressable>
 
-          <View style={[styles.planCard, styles.planCardMaster]}>
+          <Pressable
+            style={({ pressed }) => [
+              styles.planCard,
+              styles.planCardMaster,
+              pressed && styles.planCardPressed,
+            ]}
+            onPress={() => hapticImpact(ImpactFeedbackStyle.Medium)}
+          >
+            {/* The "BEST VALUE" stamp tilts into the upper-right corner of
+                the Master Angler card. It is purely editorial — no interaction
+                — so it's marked accessibility-hidden via the stamp primitive. */}
+            <PaperBestValueStamp />
             <View style={styles.masterBar} />
             <View style={styles.planHeader}>
               <Ionicons name="trophy" size={14} color={paper.gold} />
@@ -62,7 +98,7 @@ export default function SubscribeScreen() {
               Everything in Angler plus Water Reader, multi-day planning,
               and deeper guide notes.
             </Text>
-          </View>
+          </Pressable>
 
           <View style={styles.footerRow}>
             <Text style={styles.footerText}>
@@ -70,16 +106,22 @@ export default function SubscribeScreen() {
               is the intended launch rate.
             </Text>
           </View>
-        </View>
-      </SafeAreaView>
-    </PaperBackground>
+
+          <PaperColophon
+            section="MEMBERSHIP"
+            tagline={(edition) => `NO. ${edition} · A SMALL PRESS BY ANGLERS`}
+          />
+        </ScrollView>
+      </PaperBackground>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  safe: { flex: 1 },
+  safe: { flex: 1, backgroundColor: paper.paper },
+  flex: { flex: 1 },
+  scroll: { flex: 1 },
   content: {
-    flex: 1,
     paddingHorizontal: paperSpacing.lg,
     paddingTop: paperSpacing.md,
     paddingBottom: paperSpacing.xl,
@@ -115,8 +157,15 @@ const styles = StyleSheet.create({
     marginBottom: paperSpacing.lg,
     ...paperShadows.hard,
   },
+  planCardPressed: {
+    backgroundColor: paper.paperDark,
+  },
   planCardMaster: {
     paddingLeft: paperSpacing.md + 8,
+    // The BEST VALUE stamp pokes ~10px above & right of the card; reserve
+    // headroom on the row above so it does not visually collide with the
+    // section lede or the Angler card border.
+    marginTop: paperSpacing.xs,
   },
   masterBar: {
     position: 'absolute',
@@ -167,7 +216,7 @@ const styles = StyleSheet.create({
   },
 
   footerRow: {
-    marginTop: 'auto',
+    marginTop: paperSpacing.md,
     paddingTop: paperSpacing.lg,
     borderTopWidth: 1,
     borderTopColor: paper.inkHair,
