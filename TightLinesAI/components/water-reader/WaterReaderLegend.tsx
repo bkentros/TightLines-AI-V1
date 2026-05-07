@@ -24,6 +24,7 @@
  * The component is purely presentational — no state, no fetching.
  */
 
+import { memo, useCallback } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import {
   paper,
@@ -33,11 +34,14 @@ import {
   paperSpacing,
 } from '../../lib/theme';
 import {
+  PAPER_WARM_FEATURE_COLORS,
   paperWarmColorForFeature,
 } from '../../lib/waterReaderZonePaperPalette';
 import type { WaterReaderProductionSvgLegendEntry } from '../../lib/waterReaderContracts';
 
-const CONFLUENCE_ACCENT = '#7A3A52';
+// Match the confluence color in the paper palette so the legend eyebrow
+// reads as the same hue family as the SVG zone color.
+const CONFLUENCE_ACCENT = PAPER_WARM_FEATURE_COLORS.structure_confluence;
 
 export interface WaterReaderLegendProps {
   entries: WaterReaderProductionSvgLegendEntry[];
@@ -75,14 +79,7 @@ export function WaterReaderLegend({
             entry={entry}
             isFirst={idx === 0}
             selected={selectedNumber != null && String(selectedNumber) === String(entry.number)}
-            onPress={onSelectNumber
-              ? () =>
-                onSelectNumber(
-                  selectedNumber != null && String(selectedNumber) === String(entry.number)
-                    ? null
-                    : entry.number ?? null,
-                )
-              : undefined}
+            onSelectNumber={onSelectNumber}
           />
         ))}
       </View>
@@ -99,17 +96,26 @@ export function WaterReaderLegend({
   );
 }
 
-function LegendRow({
-  entry,
-  isFirst,
-  selected,
-  onPress,
-}: {
+interface LegendRowProps {
   entry: WaterReaderProductionSvgLegendEntry;
   isFirst: boolean;
   selected: boolean;
-  onPress?: () => void;
-}) {
+  onSelectNumber?: (n: number | string | null) => void;
+}
+
+/**
+ * `React.memo`'d so a single legend tap doesn't cascade a re-render through
+ * every row in the legend (8–9 of them is enough to feel sluggish on a
+ * mid-range device). Pulling the toggle logic inside the row also lets the
+ * parent pass a stable `onSelectNumber` reference (the state setter) instead
+ * of a fresh arrow per render — without that, memoization would be defeated.
+ */
+const LegendRow = memo(function LegendRow({
+  entry,
+  isFirst,
+  selected,
+  onSelectNumber,
+}: LegendRowProps) {
   // Trust the paper-warm palette — but if the engine emits a hex we don't
   // recognize, fall back to the entry's `colorHex`. This keeps the legend
   // forward-compatible if a new feature class ships before the palette is
@@ -122,6 +128,13 @@ function LegendRow({
 
   const titleParts = splitLegendTitle(entry.title);
 
+  // Stable handler: the parent's `onSelectNumber` is the state setter, so
+  // the only thing that changes between renders is `selected` + `entry`.
+  const handlePress = useCallback(() => {
+    if (!onSelectNumber) return;
+    onSelectNumber(selected ? null : entry.number ?? null);
+  }, [onSelectNumber, selected, entry.number]);
+
   return (
     <Pressable
       style={[
@@ -130,9 +143,9 @@ function LegendRow({
         entry.isConfluence && styles.rowConfluence,
         selected && styles.rowSelected,
       ]}
-      onPress={onPress}
-      disabled={!onPress}
-      accessibilityRole={onPress ? 'button' : undefined}
+      onPress={onSelectNumber ? handlePress : undefined}
+      disabled={!onSelectNumber}
+      accessibilityRole={onSelectNumber ? 'button' : undefined}
       accessibilityState={{ selected }}
     >
       {/* Number + swatch column — mirrors the SVG callout exactly. */}
@@ -189,7 +202,7 @@ function LegendRow({
       </View>
     </Pressable>
   );
-}
+});
 
 /**
  * Engine titles look like "Main Lake Point - Point Tip" or "East Cove - Back

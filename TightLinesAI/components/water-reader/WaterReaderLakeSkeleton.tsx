@@ -48,7 +48,14 @@ import type { WaterbodyPolygonGeoJson } from '../../lib/waterReaderContracts';
 const SKELETON_PAD = 14;
 
 const SKELETON_ASPECT_FALLBACK = 4 / 3;
-const PULSE_DURATION_MS = 2200;
+// Slightly snappier pulse than the launch value (was 2200) — keeps the
+// skeleton feeling like the system is actively working without crossing
+// over into a UI-spinner cadence.
+const PULSE_DURATION_MS = 1800;
+// Visibility range for the contour breathing. Bumped a hair so the contours
+// register clearly when the read finishes fast (which is most of the time).
+const PULSE_LOW = 0.22;
+const PULSE_HIGH = 0.52;
 
 const AnimatedG = Animated.createAnimatedComponent(G);
 
@@ -133,18 +140,18 @@ export function WaterReaderLakeSkeleton({
 
   // Native-driven opacity breathe on the contour group — slow, editorial,
   // no horizontal motion. Cleans up if the parent unmounts mid-pulse.
-  const pulse = useRef(new Animated.Value(0.18)).current;
+  const pulse = useRef(new Animated.Value(PULSE_LOW)).current;
   useEffect(() => {
     const loop = Animated.loop(
       Animated.sequence([
         Animated.timing(pulse, {
-          toValue: 0.42,
+          toValue: PULSE_HIGH,
           duration: PULSE_DURATION_MS,
           easing: Easing.inOut(Easing.ease),
           useNativeDriver: true,
         }),
         Animated.timing(pulse, {
-          toValue: 0.18,
+          toValue: PULSE_LOW,
           duration: PULSE_DURATION_MS,
           easing: Easing.inOut(Easing.ease),
           useNativeDriver: true,
@@ -154,6 +161,30 @@ export function WaterReaderLakeSkeleton({
     loop.start();
     return () => loop.stop();
   }, [pulse]);
+
+  // Faint shimmer on the legend bones — same native-driver value, simple
+  // breathing. Keeps the bone rows from reading as static dead weight.
+  const boneShimmer = useRef(new Animated.Value(0.55)).current;
+  useEffect(() => {
+    const loop = Animated.loop(
+      Animated.sequence([
+        Animated.timing(boneShimmer, {
+          toValue: 0.85,
+          duration: PULSE_DURATION_MS + 400,
+          easing: Easing.inOut(Easing.ease),
+          useNativeDriver: true,
+        }),
+        Animated.timing(boneShimmer, {
+          toValue: 0.55,
+          duration: PULSE_DURATION_MS + 400,
+          easing: Easing.inOut(Easing.ease),
+          useNativeDriver: true,
+        }),
+      ]),
+    );
+    loop.start();
+    return () => loop.stop();
+  }, [boneShimmer]);
 
   // A small set of contour curves to clip inside the polygon. Their geometry
   // is derived from the silhouette frame (not the polygon itself) so we keep
@@ -257,7 +288,9 @@ export function WaterReaderLakeSkeleton({
         )}
       </View>
 
-      <View style={styles.legendBoneList}>
+      <Animated.View
+        style={[styles.legendBoneList, { opacity: boneShimmer }]}
+      >
         {Array.from({ length: legendBoneCount }).map((_, idx) => (
           <View key={idx} style={styles.legendBoneRow}>
             <View style={styles.legendBoneNumber} />
@@ -273,7 +306,7 @@ export function WaterReaderLakeSkeleton({
             </View>
           </View>
         ))}
-      </View>
+      </Animated.View>
     </View>
   );
 }

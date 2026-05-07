@@ -37,24 +37,28 @@ export type PaperWarmFeatureKey =
   | 'universal';
 
 export const PAPER_WARM_FEATURE_COLORS: Record<PaperWarmFeatureKey, string> = {
-  // Main features → forest / moss spine.
-  main_lake_point: '#2E4A2A', // paper.forest — anchor of the system.
-  secondary_point: '#5B7A3E', // paper.moss — softer companion to forest.
-  // Coves carry the warm gold (the same hue used for "FAIR" tier elsewhere).
-  cove: '#B87818', // paper.goldDk — readable on paperLight without screaming.
-  // Necks/pinches → rust, the warm orange that already lives in paper.
-  neck: '#CC6A22', // paper.rust.
-  // Islands → walnut, the warm dark brown for visually heavier features.
-  island: '#3A2E22', // paper.walnut.
-  // Saddles → warmer teal that reads as "cool but still in the paper family".
-  saddle: '#357A6F',
-  // Dam corners → red, mirrors the SKIP / accent treatment.
-  dam: '#C8352C', // paper.red.
-  // Confluence → muted magenta-walnut so overlap groups still pop without
-  // resorting to the screaming #D946EF magenta.
-  structure_confluence: '#7A3A52',
+  // Main features → forest / moss spine. Anchor of the system; we keep
+  // forest pure but bump moss with more chroma so the two greens read as
+  // distinct hues against the new mint-gradient lake fill.
+  main_lake_point: '#2E4A2A',     // paper.forest (anchor)
+  secondary_point: '#7C9D4F',     // brighter sage-moss (was #5B7A3E)
+  // Coves carry warm gold. Bumped a touch toward the bronze side so they
+  // don't read as the same hue as the FAIR-tier gold pill elsewhere.
+  cove: '#C68522',                // brighter goldDk (was #B87818)
+  // Necks/pinches → rust. Already vibrant against paper; left alone.
+  neck: '#CC6A22',                // paper.rust
+  // Islands → walnut. Visual weight feature; stays anchored.
+  island: '#3A2E22',              // paper.walnut
+  // Saddles → warmer teal with more chroma so cool features still
+  // legibly read as "cool" against the warm zone palette around them.
+  saddle: '#3F8B80',              // brighter teal (was #357A6F)
+  // Dam corners → red. Mirrors the SKIP / accent treatment.
+  dam: '#C8352C',                 // paper.red
+  // Confluence → richer plum so overlap groups pop against single-zone
+  // rows in the legend without crossing into screaming-magenta territory.
+  structure_confluence: '#8C3F60', // richer plum (was #7A3A52)
   // Universal pond fallback → the same gold pivot the rest of the app uses.
-  universal: '#E8A02E', // paper.gold.
+  universal: '#E8A02E',           // paper.gold
 } as const;
 
 export function paperWarmColorForFeature(key: string | undefined): string {

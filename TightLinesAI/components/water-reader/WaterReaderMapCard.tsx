@@ -151,25 +151,25 @@ export function WaterReaderMapCard({
     };
   }, [lakeId]);
 
-  // ── SVG crossfade ────────────────────────────────────────────────────────
-  // We render the skeleton and the final map in the same parent so the
-  // spatial frame doesn't shift; the SVG sits above the skeleton with a
-  // native-driven opacity tween that runs on first arrival and on every
-  // subsequent ready transition (e.g. when a user re-selects the same lake).
-  const svgFade = useRef(new Animated.Value(0)).current;
+  // ── Marginalia entrance ───────────────────────────────────────────────────
+  // The SVG itself owns its settle animation (scale + lift + fade in
+  // `WaterReaderProductionMap`). Here we just fade in the cartographic
+  // marginalia (compass, scale bar, stamp, topographic lines) so they
+  // appear with the plate rather than popping when the read resolves.
+  const marginaliaFade = useRef(new Animated.Value(0)).current;
   useEffect(() => {
     if (state.status === 'ready' && state.read.productionSvgResult) {
-      svgFade.setValue(0);
-      Animated.timing(svgFade, {
+      marginaliaFade.setValue(0);
+      Animated.timing(marginaliaFade, {
         toValue: 1,
-        duration: 240,
+        duration: 320,
         easing: Easing.out(Easing.quad),
         useNativeDriver: true,
       }).start();
     } else {
-      svgFade.setValue(0);
+      marginaliaFade.setValue(0);
     }
-  }, [state, svgFade]);
+  }, [state, marginaliaFade]);
 
   // Cartouche needs to know what the engine returned (when it has).
   const ready = state.status === 'ready' ? state : null;
@@ -238,15 +238,18 @@ export function WaterReaderMapCard({
               }}
             >
               <View style={styles.plateInner}>
-                <TopographicLines
-                  style={StyleSheet.absoluteFill}
-                  color={paper.forestDk}
-                  count={5}
-                />
-
                 <Animated.View
-                  style={[styles.plateMapWrap, { opacity: svgFade }]}
+                  style={[StyleSheet.absoluteFill, { opacity: marginaliaFade }]}
+                  pointerEvents="none"
                 >
+                  <TopographicLines
+                    style={StyleSheet.absoluteFill}
+                    color={paper.forestDk}
+                    count={5}
+                  />
+                </Animated.View>
+
+                <View style={styles.plateMapWrap}>
                   <WaterReaderAdaptiveMap
                     result={state.read.productionSvgResult}
                     mode={viewerMode}
@@ -254,11 +257,17 @@ export function WaterReaderMapCard({
                     windowHeight={window.height}
                     selectedNumber={selectedNumber}
                   />
-                </Animated.View>
+                </View>
 
                 {viewerMode === 'fit' && (
-                  <>
-                    <View style={styles.compassWrap} pointerEvents="none">
+                  <Animated.View
+                    style={[
+                      StyleSheet.absoluteFill,
+                      { opacity: marginaliaFade },
+                    ]}
+                    pointerEvents="none"
+                  >
+                    <View style={styles.compassWrap}>
                       <CompassRose
                         size={68}
                         opacity={0.55}
@@ -266,16 +275,16 @@ export function WaterReaderMapCard({
                         style={styles.compassReset}
                       />
                     </View>
-                    <View style={styles.scaleBarWrap} pointerEvents="none">
+                    <View style={styles.scaleBarWrap}>
                       <WaterReadScaleBar
                         areaAcres={state.read.areaAcres ?? null}
                         units={unitsPref}
                       />
                     </View>
-                    <View style={styles.editionStampWrap} pointerEvents="none">
+                    <View style={styles.editionStampWrap}>
                       <WaterReadEditionStamp edition={edition} />
                     </View>
-                  </>
+                  </Animated.View>
                 )}
               </View>
             </View>
