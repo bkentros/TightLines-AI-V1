@@ -39,7 +39,15 @@ export function detectIslandFeatures(primaryPolygon: PolygonM): WaterReaderIslan
       },
     });
   }
-  return features.sort((a, b) => b.areaSqM - a.areaSqM).map((feature, index) => ({ ...feature, featureId: `island-${index + 1}` }));
+  return features.sort((a, b) => b.areaSqM - a.areaSqM).map((feature, index) => ({
+    ...feature,
+    featureId: `island-${index + 1}`,
+    metrics: {
+      ...feature.metrics,
+      rank: index + 1,
+      detectedIslandCount: features.length,
+    },
+  }));
 }
 
 function longestEndpointPair(ring: RingM): { a: PointM; b: PointM } {

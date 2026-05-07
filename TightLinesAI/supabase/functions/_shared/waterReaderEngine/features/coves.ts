@@ -2,6 +2,7 @@ import type { PointM, RingM, WaterReaderEngineInput, WaterReaderPreprocessResult
 import { distanceM, ringSignedAreaM } from '../metrics.ts';
 import { clamp } from '../shoreline.ts';
 import type { WaterReaderCoveCandidate } from './types.ts';
+import { smoothLakeEnrichmentMetrics, type SmoothLakeEnrichmentProfile } from './smoothness.ts';
 import {
   nearestPointOnRing,
   pointInWaterOrBoundary,
@@ -16,6 +17,7 @@ const MIN_SHALLOW_DEPTH_RATIO = 0.55;
 const MIN_COVE_AREA_FRAC = 0.0015;
 const MAX_LOCAL_SHORELINE_FRAC = 0.18;
 const ABSOLUTE_MAX_SHORELINE_FRAC = 0.22;
+const SMOOTH_LAKE_MAX_EXTRA_COVES = 3;
 
 const COVE_SUPPRESSION_REASONS = [
   'suppressed_cove_too_large',
@@ -39,11 +41,81 @@ export function detectCoveCandidates(
   preprocess: WaterReaderPreprocessResult,
   input: WaterReaderEngineInput,
 ): WaterReaderCoveCandidate[] {
+  return detectCoveCandidatesInternal(preprocess, input, standardCoveDetectionProfile(), true);
+}
+
+export function detectSmoothLakeCoveCandidates(
+  preprocess: WaterReaderPreprocessResult,
+  input: WaterReaderEngineInput,
+  existing: WaterReaderCoveCandidate[],
+  smoothLakeProfile: SmoothLakeEnrichmentProfile,
+): WaterReaderCoveCandidate[] {
+  if (!smoothLakeProfile.eligible) return [];
+  const metrics = preprocess.metrics;
+  if (!metrics) return [];
+  const duplicateDistanceM = metrics.longestDimensionM * 0.075;
+  return detectCoveCandidatesInternal(preprocess, input, smoothLakeCoveDetectionProfile(smoothLakeProfile), false)
+    .filter((candidate) => !existing.some((current) => covesOverlapForEnrichment(current, candidate, duplicateDistanceM)))
+    .slice(0, SMOOTH_LAKE_MAX_EXTRA_COVES);
+}
+
+type CoveDetectionProfile = {
+  mode: 'standard' | 'smooth_lake_enrichment';
+  minMouthWidthMultiplier: number;
+  minPathRatio: number;
+  minDepthRatio: number;
+  minCoveAreaFraction: number;
+  backRecessShoulderMultiplier: number;
+  shortPathMinDepthRatio: number;
+  scoreMultiplier: number;
+  maxCandidates: number;
+  qaFlags: string[];
+  metrics: Record<string, number | string | boolean | null>;
+};
+
+function standardCoveDetectionProfile(): CoveDetectionProfile {
+  return {
+    mode: 'standard',
+    minMouthWidthMultiplier: 1,
+    minPathRatio: MIN_PATH_RATIO,
+    minDepthRatio: MIN_SHALLOW_DEPTH_RATIO,
+    minCoveAreaFraction: MIN_COVE_AREA_FRAC,
+    backRecessShoulderMultiplier: 1.25,
+    shortPathMinDepthRatio: 0.55,
+    scoreMultiplier: 1,
+    maxCandidates: 18,
+    qaFlags: ['preliminary_hybrid_chord_scan_cove'],
+    metrics: {},
+  };
+}
+
+function smoothLakeCoveDetectionProfile(profile: SmoothLakeEnrichmentProfile): CoveDetectionProfile {
+  return {
+    mode: 'smooth_lake_enrichment',
+    minMouthWidthMultiplier: 0.72,
+    minPathRatio: 1.18,
+    minDepthRatio: 0.42,
+    minCoveAreaFraction: 0.00065,
+    backRecessShoulderMultiplier: 1.05,
+    shortPathMinDepthRatio: 0.42,
+    scoreMultiplier: 0.58,
+    maxCandidates: 8,
+    qaFlags: ['preliminary_hybrid_chord_scan_cove', 'smooth_lake_enrichment_cove'],
+    metrics: smoothLakeEnrichmentMetrics(profile),
+  };
+}
+
+function detectCoveCandidatesInternal(
+  preprocess: WaterReaderPreprocessResult,
+  input: WaterReaderEngineInput,
+  detectionProfile: CoveDetectionProfile,
+  recordSuppressions: boolean,
+): WaterReaderCoveCandidate[] {
   const suppressions = emptyCoveSuppressionSummary();
   const suppress = (reason: WaterReaderCoveSuppressionReason) => {
     suppressions[reason] += 1;
   };
-  lastCoveSuppressionSummary = suppressions;
+  if (recordSuppressions) lastCoveSuppressionSummary = suppressions;
 
   const ring = preprocess.smoothedExterior;
   const metrics = preprocess.metrics;
@@ -52,7 +124,7 @@ export function detectCoveCandidates(
   const longest = metrics.longestDimensionM;
   const waterToleranceM = clamp(longest * 0.0015, 5, 30);
   const shorelineSnapToleranceM = clamp(longest * 0.006, 12, 70);
-  const minMouthWidth = adaptiveCoveOpeningThresholdM(input.acreage ?? metrics.areaSqM / 4046.8564224, longest);
+  const minMouthWidth = adaptiveCoveOpeningThresholdM(input.acreage ?? metrics.areaSqM / 4046.8564224, longest) * detectionProfile.minMouthWidthMultiplier;
   const maxMouthWidth = longest * MAX_MOUTH_WIDTH_FRAC;
   const acres = input.acreage ?? metrics.areaSqM / 4046.8564224;
   const areaCap = coveAreaCapFraction(acres);
@@ -77,12 +149,12 @@ export function detectCoveCandidates(
         suppress('suppressed_cove_too_much_shoreline');
         continue;
       }
-      if (pathRatio < MIN_PATH_RATIO) continue;
+      if (pathRatio < detectionProfile.minPathRatio) continue;
       if (pathRatio > 4.4 && shorePathFraction > 0.09) {
         suppress('suppressed_cove_not_local_recess');
         continue;
       }
-      if (significantTurnCount(path) < (path.length < 5 ? 1 : 2)) {
+      if (significantTurnCount(path) < requiredCoveTurnCount(path.length, detectionProfile)) {
         suppress('suppressed_cove_not_local_recess');
         continue;
       }
@@ -90,7 +162,7 @@ export function detectCoveCandidates(
       const depth = maxDepthFromChord(path, mouthLeft, mouthRight);
       const coveDepthM = depth.depthM;
       const depthRatio = coveDepthM / mouthWidthM;
-      if (depthRatio < MIN_SHALLOW_DEPTH_RATIO) continue;
+      if (depthRatio < detectionProfile.minDepthRatio) continue;
       const side = chordSide(path, mouthLeft, mouthRight);
       if (!side.meaningfulRecess) {
         suppress('suppressed_cove_not_local_recess');
@@ -102,7 +174,7 @@ export function detectCoveCandidates(
       }
       const coveBoundary = [...path, mouthLeft];
       const coveAreaSqM = Math.abs(ringSignedAreaM(coveBoundary));
-      if (coveAreaSqM < metrics.areaSqM * MIN_COVE_AREA_FRAC) continue;
+      if (coveAreaSqM < metrics.areaSqM * detectionProfile.minCoveAreaFraction) continue;
       const coveAreaFraction = metrics.areaSqM > 0 ? coveAreaSqM / metrics.areaSqM : 1;
       if (coveAreaFraction > areaCap) {
         suppress('suppressed_cove_too_large');
@@ -116,7 +188,7 @@ export function detectCoveCandidates(
         suppress('suppressed_cove_broad_lobe');
         continue;
       }
-      if (!backClearlyRecessed(depth, path, mouthLeft, mouthRight, mouthWidthM)) {
+      if (!backClearlyRecessed(depth, path, mouthLeft, mouthRight, mouthWidthM, detectionProfile)) {
         suppress('suppressed_cove_not_local_recess');
         continue;
       }
@@ -173,10 +245,13 @@ export function detectCoveCandidates(
         leftIrregularity,
         rightIrregularity,
         covePolygon: snappedBoundary,
-        score,
-        qaFlags: ['preliminary_hybrid_chord_scan_cove', side.sideFlag],
+        score: score * detectionProfile.scoreMultiplier,
+        qaFlags: [...detectionProfile.qaFlags, side.sideFlag],
         metrics: {
+          ...detectionProfile.metrics,
+          coveDetectionMode: detectionProfile.mode,
           mouthWidthM,
+          minMouthWidthM: minMouthWidth,
           shorePathLengthM,
           pathRatio,
           coveDepthM,
@@ -196,8 +271,8 @@ export function detectCoveCandidates(
     }
   }
 
-  const deduped = dedupeCoves(candidates, longest * 0.1, suppress).slice(0, 18);
-  lastCoveSuppressionSummary = { ...suppressions };
+  const deduped = dedupeCoves(candidates, longest * 0.1, suppress).slice(0, detectionProfile.maxCandidates);
+  if (recordSuppressions) lastCoveSuppressionSummary = { ...suppressions };
   return deduped;
 }
 
@@ -281,15 +356,18 @@ function backClearlyRecessed(
   mouthLeft: PointM,
   mouthRight: PointM,
   mouthWidthM: number,
+  detectionProfile: CoveDetectionProfile,
 ): boolean {
-  if (path.length <= 3) return depth.depthM >= mouthWidthM * 0.55;
+  if (path.length <= 3) return depth.depthM >= mouthWidthM * detectionProfile.shortPathMinDepthRatio;
   const shoulderSpan = Math.max(1, Math.floor(path.length * 0.18));
   const leftShoulder = path.slice(1, Math.min(path.length - 1, 1 + shoulderSpan));
   const rightShoulder = path.slice(Math.max(1, path.length - 1 - shoulderSpan), path.length - 1);
   const leftMax = leftShoulder.reduce((max, point) => Math.max(max, pointLineDistance(point, mouthLeft, mouthRight)), 0);
   const rightMax = rightShoulder.reduce((max, point) => Math.max(max, pointLineDistance(point, mouthLeft, mouthRight)), 0);
   const shoulderMax = Math.max(leftMax, rightMax, mouthWidthM * 0.08);
-  return depth.index >= shoulderSpan && depth.index <= path.length - 1 - shoulderSpan && depth.depthM >= shoulderMax * 1.25;
+  return depth.index >= shoulderSpan &&
+    depth.index <= path.length - 1 - shoulderSpan &&
+    depth.depthM >= shoulderMax * detectionProfile.backRecessShoulderMultiplier;
 }
 
 function chordSide(
@@ -337,6 +415,11 @@ function significantTurnCount(path: RingM): number {
   return count;
 }
 
+function requiredCoveTurnCount(pathLength: number, detectionProfile: CoveDetectionProfile): number {
+  if (pathLength < 5) return 1;
+  return detectionProfile.mode === 'smooth_lake_enrichment' ? 1 : 2;
+}
+
 function irregularity(path: RingM): number {
   if (path.length < 4) return 0;
   const turns: number[] = [];
@@ -380,6 +463,24 @@ function dedupeCoves(
     }
   }
   return kept;
+}
+
+function covesOverlapForEnrichment(
+  existing: WaterReaderCoveCandidate,
+  candidate: WaterReaderCoveCandidate,
+  minDistanceM: number,
+): boolean {
+  const backClose = distanceM(existing.back, candidate.back) < minDistanceM;
+  const mouthClose =
+    distanceM(existing.mouthLeft, candidate.mouthLeft) + distanceM(existing.mouthRight, candidate.mouthRight) <
+      minDistanceM * 2 ||
+    distanceM(existing.mouthLeft, candidate.mouthRight) + distanceM(existing.mouthRight, candidate.mouthLeft) <
+      minDistanceM * 2;
+  const contained =
+    pointInRing(candidate.back, existing.coveBoundary) ||
+    pointInRing(existing.back, candidate.coveBoundary) ||
+    bboxOverlapFraction(candidate.coveBoundary, existing.coveBoundary) > 0.45;
+  return backClose || mouthClose || contained;
 }
 
 function pointInRing(point: PointM, ring: RingM): boolean {

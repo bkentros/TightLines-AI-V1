@@ -17,7 +17,7 @@ import {
 } from '../lib/waterReaderContracts';
 
 const WATER_READER_APP_SVG_WIDTH = 420;
-const WATER_READER_ENGINE_VERSION = 'water-reader-engine-v2-feature-envelope';
+const WATER_READER_ENGINE_VERSION = 'water-reader-engine-v3-live-final';
 const BASELINE_9_LAKES: Array<{ label: string; query: string; county?: string }> = [
   { label: 'Torch Lake, MI', query: 'Torch Lake' },
   { label: 'Glen Lake, Leelanau County, MI', query: 'Glen Lake', county: 'Leelanau' },

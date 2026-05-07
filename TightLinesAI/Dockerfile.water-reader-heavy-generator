@@ -1,0 +1,16 @@
+FROM node:22-slim
+
+WORKDIR /app
+ENV NODE_ENV=production
+
+COPY package.json package-lock.json ./
+COPY patches ./patches
+RUN npm ci --include=dev
+
+COPY tsconfig.json ./
+COPY lib ./lib
+COPY scripts ./scripts
+COPY supabase/functions/_shared ./supabase/functions/_shared
+
+EXPOSE 8789
+CMD ["node", "./node_modules/tsx/dist/cli.mjs", "scripts/water-reader-heavy-generator-server.ts", "--serve"]

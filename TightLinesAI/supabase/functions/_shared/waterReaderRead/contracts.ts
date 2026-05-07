@@ -13,7 +13,7 @@ import type {
 
 export const WATER_READER_READ_FEATURE = "water_reader_read_v1" as const;
 export const WATER_READER_APP_SVG_WIDTH = 420;
-export const WATER_READER_ENGINE_VERSION = "water-reader-engine-v2-feature-envelope" as const;
+export const WATER_READER_ENGINE_VERSION = "water-reader-engine-v3-live-final" as const;
 
 export type WaterReaderReadCacheStatus = "hit" | "miss";
 export type WaterReaderReadCacheWriteStatus = "stored" | "failed" | "skipped";

@@ -279,7 +279,7 @@ function arg(name: string) {
 }
 
 async function main() {
-  const port = Number(arg('--port') ?? process.env.WATER_READER_HEAVY_GENERATOR_PORT ?? 8789);
+  const port = Number(arg('--port') ?? process.env.PORT ?? process.env.WATER_READER_HEAVY_GENERATOR_PORT ?? 8789);
   if (process.argv.includes('--serve')) {
     startHeavyGeneratorServer(Number.isFinite(port) ? port : 8789);
     return;

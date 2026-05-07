@@ -61,7 +61,13 @@ export function materializeZoneDraft(params: {
   if (shorelineDistance > toleranceM) return { ok: false, reason: 'zone_anchor_not_shoreline' };
 
   const unclippedRing = buildOvalRing(draft.ovalCenter, draft.majorAxisM, draft.minorAxisM, draft.rotationRad);
-  const frameContact = featureFrameContactSatisfied(draft, toleranceM);
+  const rawFrameContact = featureFrameContactSatisfied(draft, toleranceM);
+  const coveClippedContactRecovery = coveClippedContactRecoveryAllowed(draft, shorelineDistance, toleranceM);
+  const frameContact = rawFrameContact.ok
+    ? rawFrameContact
+    : coveClippedContactRecovery
+      ? { ok: true, count: Math.max(1, rawFrameContact.count) }
+      : rawFrameContact;
   if (!frameContact.ok) {
     return { ok: false, reason: 'zone_no_shoreline_contact' };
   }
@@ -72,12 +78,15 @@ export function materializeZoneDraft(params: {
   const boundedFeatureEnvelopeRecovery = boundedFeatureEnvelopeWaterRecoveryAllowed(draft, fraction, params.longestDimensionM);
   const acceptedOutsideWaterCenter = !centerInsideWater && outsideWaterCenterAllowed && frameContact.ok;
   const groupedConstrictionShoulderRecovery = groupedConstrictionShoulderRecoveryAllowed(draft, frameContact.count, params.longestDimensionM);
+  const highConfidenceClearNeckRecovery = highConfidenceClearNeckVisibleWaterRecoveryAllowed(draft, frameContact.count);
   const maxVisibleWaterFraction = islandStructureArea
     ? 1
     : islandEdgeRecovery
       ? 0.995
-      : groupedConstrictionShoulderRecovery
+    : groupedConstrictionShoulderRecovery
         ? 0.97
+        : coveClippedContactRecovery
+          ? 0.97
         : boundedFeatureEnvelopeRecovery
           ? 0.9
           : 0.75;
@@ -85,12 +94,22 @@ export function materializeZoneDraft(params: {
     ? 0
     : islandEdgeRecovery
       ? 0.005
-      : groupedConstrictionShoulderRecovery
+    : groupedConstrictionShoulderRecovery
         ? 0.01
+        : coveClippedContactRecovery
+          ? 0.01
         : boundedFeatureEnvelopeRecovery
           ? 0.05
           : 0.2;
-  const minVisibleWaterFraction = acceptedOutsideWaterCenter ? 0.24 : 0.5;
+  const minVisibleWaterFraction = islandStructureArea && acceptedOutsideWaterCenter
+    ? 0.08
+      : acceptedOutsideWaterCenter
+      ? 0.24
+      : coveClippedContactRecovery
+        ? 0.08
+      : highConfidenceClearNeckRecovery
+        ? 0.08
+      : 0.5;
   if (fraction.visibleWaterFraction < minVisibleWaterFraction) return { ok: false, reason: 'zone_visible_fraction_too_low' };
   if (fraction.visibleWaterFraction > maxVisibleWaterFraction) return { ok: false, reason: 'zone_visible_fraction_too_high' };
   if (fraction.outsideOvalBoundaryFraction < minOutsideOvalBoundaryFraction) return { ok: false, reason: 'zone_no_bank_side_boundary' };
@@ -146,6 +165,7 @@ export function materializeZoneDraft(params: {
         featureFrameLocalityAnchorCount: frameLocality.anchorCount,
         featureFrameLocalityChecked: acceptedOutsideWaterCenter,
         groupedConstrictionShoulderRecoveryCandidate: groupedConstrictionShoulderRecovery,
+        highConfidenceClearNeckVisibleWaterRecoveryCandidate: highConfidenceClearNeckRecovery,
         visibleWaterFractionFloor: minVisibleWaterFraction,
         islandLargeRecoveryCandidate: islandEdgeRecovery,
         islandLargeRecoveryAccepted: islandEdgeRecovery && numericDiagnostic(draft.diagnostics.islandSizeMultiplierApplied ?? draft.diagnostics.selectedSizeFactor) >= 1.5,
@@ -157,8 +177,37 @@ export function materializeZoneDraft(params: {
   };
 }
 
+function coveClippedContactRecoveryAllowed(
+  draft: WaterReaderZoneDraft,
+  shorelineDistance: number,
+  toleranceM: number,
+): boolean {
+  return draft.featureClass === 'cove' &&
+    draft.placementKind === 'cove_structure_area' &&
+    draft.diagnostics.coveClippedContactRecoveryCandidate === true &&
+    shorelineDistance <= toleranceM;
+}
+
 function numericDiagnostic(value: number | string | boolean | string[] | null | undefined): number {
   return typeof value === 'number' && Number.isFinite(value) ? value : 0;
+}
+
+function highConfidenceClearNeckVisibleWaterRecoveryAllowed(
+  draft: WaterReaderZoneDraft,
+  contactCount: number,
+): boolean {
+  if (draft.featureClass !== 'neck' || draft.placementKind !== 'neck_structure_area') return false;
+  if (draft.diagnostics.featureEnvelopeModelVersion !== 'feature-envelope-v1') return false;
+  if (contactCount < Math.max(2, draft.featureFrameContactMinCount ?? 2)) return false;
+  const widthToAverage = numericDiagnostic(draft.diagnostics.constrictionWidthToAverage);
+  const confidence = numericDiagnostic(draft.diagnostics.constrictionConfidence);
+  const weakerExpansionRatio = numericDiagnostic(draft.diagnostics.constrictionWeakerExpansionRatio);
+  const twoSided = draft.diagnostics.constrictionTwoSidedExpansion === true;
+  return widthToAverage > 0 &&
+    widthToAverage <= 0.08 &&
+    confidence >= 0.9 &&
+    weakerExpansionRatio >= 3 &&
+    twoSided;
 }
 
 function islandEdgeLargeRecoveryAllowed(
@@ -212,7 +261,7 @@ function wholeFeatureOutsideWaterCenterAllowed(draft: WaterReaderZoneDraft, long
     case 'secondary_point_structure_area':
       return draft.majorAxisM <= L * 0.05 && draft.minorAxisM <= L * 0.038;
     case 'island_structure_area':
-      return draft.majorAxisM <= L * 0.25;
+      return draft.majorAxisM <= L * 0.52;
     default:
       return false;
   }

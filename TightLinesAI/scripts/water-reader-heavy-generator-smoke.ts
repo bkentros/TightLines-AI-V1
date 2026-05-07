@@ -13,8 +13,8 @@ const OUT = 'tmp/water-reader-50-lake-tuning/chunk-7i-worker-smoke.json';
 const CURRENT_DATE = '2026-07-15T12:00:00.000Z';
 const TARGETS = [
   { label: 'Van Norman Lake', lakeId: '3113638f-9be6-4303-9011-62a9892a1ab9', state: 'MI' },
-  { label: 'Eufaula Lake stress', lakeId: 'eec34cd1-8928-4e43-a02e-8eee59f56654', state: 'OK' },
-  { label: 'Lake Okeechobee', lakeId: '9e298ad0-bf10-48f5-8e7c-4db0733dbb71', state: 'FL' },
+  { label: 'Lake Minnetonka', lakeId: 'fb322d45-0a28-4216-b30d-61b71f391d6a', state: 'MN' },
+  { label: 'Lake Apopka', lakeId: '1b3d4c1f-2781-4651-be56-7766a359c8f5', state: 'FL' },
 ];
 
 function requireEnv(names: string[]): Record<string, string> {

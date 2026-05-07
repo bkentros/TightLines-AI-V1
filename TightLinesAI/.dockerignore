@@ -1,0 +1,12 @@
+.env
+.expo
+.git
+node_modules
+tmp
+ios
+android
+assets
+docs
+how-fishing-*.jsonl
+how-fishing-*.json
+how-fishing-*.md

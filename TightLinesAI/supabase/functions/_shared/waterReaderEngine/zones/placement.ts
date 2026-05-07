@@ -569,6 +569,13 @@ function coveStructureAreaDrafts(
   const minorAxisM = clamp(Math.max(feature.mouthWidthM * 0.92, majorAxisM / 2.35, floorM * 0.55), majorAxisM * 0.38, majorAxisM * 0.78);
   const rotationRad = Math.atan2(mouthMidpoint.y - feature.back.y, mouthMidpoint.x - feature.back.x);
   const shoulderCenter = averagePoint([feature.mouthLeft, feature.mouthRight, innerReference]);
+  const contactRecoveryCenters = strongCoveContactRecoveryCandidate(feature)
+    ? [
+        shorelineAnchor(feature.back, params.polygon),
+        feature.back,
+        midpoint(feature.back, mouthMidpoint),
+      ]
+    : [];
   const centers = [
     lerpPoint(feature.back, mouthMidpoint, 0.42),
     lerpPoint(feature.back, mouthMidpoint, 0.55),
@@ -576,6 +583,7 @@ function coveStructureAreaDrafts(
     lerpPoint(innerReference, mouthMidpoint, 0.42),
     shoulderCenter,
     averagePoint(refs),
+    ...contactRecoveryCenters,
   ];
   const anchors = uniquePoints([
     shorelineAnchor(feature.back, params.polygon),
@@ -632,6 +640,10 @@ function coveStructureAreaDrafts(
             lakeAreaSqM: params.lakeAreaSqM,
             acreage: params.acreage,
             additionalDiagnostics: {
+              coveClippedContactRecoveryCandidate: contactRecoveryCenters.some((center) => distanceM(center, ovalCenter) < 1),
+              coveClippedContactRecoveryReason: contactRecoveryCenters.some((center) => distanceM(center, ovalCenter) < 1)
+                ? 'strong_cove_primary_frames_lacked_shoreline_contact'
+                : null,
               featureEnvelopeRenderShape: 'shoreline_cove_polygon',
               coveEnvelopeRenderShape: 'shoreline_cove_polygon',
               coveEnvelopeLegacyRenderShape: 'full_cove_basin',
@@ -897,10 +909,45 @@ function constrictionStructureAreaDrafts(
   const placementKind = feature.featureClass === 'neck' ? 'neck_structure_area' : 'saddle_structure_area';
   const spanM = distanceM(feature.endpointA, feature.endpointB);
   const floorM = readableFloorMajorAxisM(placementKind, params.longestDimensionM, params.acreage);
-  const lakeCapM = params.longestDimensionM * (feature.featureClass === 'neck' ? 0.065 : 0.058);
-  const widthCapM = Math.max(floorM, feature.widthM * (feature.featureClass === 'neck' ? 3.1 : 2.7) + spanM * 0.55);
-  const majorAxisM = clamp(spanM * 1.22 + feature.widthM * 1.25, floorM, Math.max(floorM, Math.min(lakeCapM, widthCapM)));
-  const minorAxisM = clamp(Math.max(feature.widthM * 1.75, majorAxisM / 3.15, floorM * 0.48), majorAxisM * 0.32, majorAxisM * 0.68);
+  const averageWidthM = params.averageLakeWidthM > 0 ? params.averageLakeWidthM : feature.widthM;
+  const widthToAverage = feature.widthM / Math.max(1, averageWidthM);
+  const weakerExpansionRatio = Math.min(feature.leftExpansionRatio, feature.rightExpansionRatio);
+  const strongerExpansionRatio = Math.max(feature.leftExpansionRatio, feature.rightExpansionRatio);
+  const expansionBalance = weakerExpansionRatio / Math.max(1, strongerExpansionRatio);
+  const oneSidedExpansion = expansionBalance < 0.62;
+  const pointSeededNeck = feature.featureClass === 'neck' && feature.metrics?.seededFromPoint === true;
+  const clearNeckReadableFootprintBoost = feature.featureClass === 'neck' &&
+    !oneSidedExpansion &&
+    widthToAverage >= 0.035 &&
+    widthToAverage <= 0.14 &&
+    weakerExpansionRatio >= 3 &&
+    expansionBalance >= 0.7 &&
+    (feature.confidence >= 0.9 || (pointSeededNeck && feature.confidence >= 0.84));
+  const clearNeckReadableFootprintMultiplier = clearNeckReadableFootprintBoost ? 1.75 : 1;
+  const readableMajorFloorM = clearNeckReadableFootprintBoost ? floorM * 1.5 : floorM;
+  const lakeCapM = params.longestDimensionM * (feature.featureClass === 'neck'
+    ? 0.065 * (clearNeckReadableFootprintBoost ? 1.6 : 1)
+    : 0.058);
+  const neckWidthCapFactor = clearNeckReadableFootprintBoost ? 7.4 : 3.1;
+  const neckSpanCapFactor = clearNeckReadableFootprintBoost ? 1.35 : 0.55;
+  const widthCapM = Math.max(
+    readableMajorFloorM,
+    feature.widthM * (feature.featureClass === 'neck' ? neckWidthCapFactor : 2.7) + spanM * (feature.featureClass === 'neck' ? neckSpanCapFactor : 0.55),
+  );
+  const majorAxisM = clamp(
+    (spanM * 1.22 + feature.widthM * 1.25) * clearNeckReadableFootprintMultiplier,
+    readableMajorFloorM,
+    Math.max(readableMajorFloorM, Math.min(lakeCapM, widthCapM)),
+  );
+  const minorAxisM = clamp(
+    Math.max(
+      feature.widthM * (clearNeckReadableFootprintBoost ? 3.05 : 1.75),
+      majorAxisM / (clearNeckReadableFootprintBoost ? 2.3 : 3.15),
+      floorM * (clearNeckReadableFootprintBoost ? 0.75 : 0.48),
+    ),
+    majorAxisM * (clearNeckReadableFootprintBoost ? 0.44 : 0.32),
+    majorAxisM * 0.68,
+  );
   const center = midpoint(feature.endpointA, feature.endpointB);
   const axis = normalize({ x: feature.endpointB.x - feature.endpointA.x, y: feature.endpointB.y - feature.endpointA.y }) ?? { x: 1, y: 0 };
   const perpendicular = { x: -axis.y, y: axis.x };
@@ -918,21 +965,37 @@ function constrictionStructureAreaDrafts(
   ]);
   const shoulderWindowM = Math.max(spanM * 0.08, feature.widthM * 0.35, 10);
   const shoulderLobeMajorAxisM = clamp(
-    Math.max(floorM * 0.68, feature.widthM * 1.55, spanM * 0.42),
+    Math.max(
+      floorM * (clearNeckReadableFootprintBoost ? 0.92 : 0.68),
+      feature.widthM * (clearNeckReadableFootprintBoost ? 2.45 : 1.55),
+      spanM * (clearNeckReadableFootprintBoost ? 0.68 : 0.42),
+    ),
     floorM * 0.55,
-    majorAxisM * 0.72,
+    majorAxisM * (clearNeckReadableFootprintBoost ? 0.82 : 0.72),
   );
   const shoulderLobeMinorAxisM = clamp(
-    Math.max(floorM * 0.42, feature.widthM * 1.25, shoulderLobeMajorAxisM * 0.58),
+    Math.max(
+      floorM * (clearNeckReadableFootprintBoost ? 0.56 : 0.42),
+      feature.widthM * (clearNeckReadableFootprintBoost ? 1.72 : 1.25),
+      shoulderLobeMajorAxisM * (clearNeckReadableFootprintBoost ? 0.68 : 0.58),
+    ),
     floorM * 0.34,
     majorAxisM * 0.58,
   );
-  const averageWidthM = params.averageLakeWidthM > 0 ? params.averageLakeWidthM : feature.widthM;
-  const widthToAverage = feature.widthM / Math.max(1, averageWidthM);
-  const weakerExpansionRatio = Math.min(feature.leftExpansionRatio, feature.rightExpansionRatio);
-  const strongerExpansionRatio = Math.max(feature.leftExpansionRatio, feature.rightExpansionRatio);
-  const expansionBalance = weakerExpansionRatio / Math.max(1, strongerExpansionRatio);
-  const oneSidedExpansion = expansionBalance < 0.62;
+  const approachLobeOffsetM = clearNeckReadableFootprintBoost
+    ? clamp(Math.max(feature.widthM * 0.9, minorAxisM * 0.46), feature.widthM * 0.48, majorAxisM * 0.36)
+    : 0;
+  const approachLobeMajorAxisM = clamp(
+    Math.max(floorM * 0.82, majorAxisM * 0.72, feature.widthM * 2.6),
+    floorM * 0.58,
+    majorAxisM * 0.88,
+  );
+  const approachLobeMinorAxisM = clamp(
+    Math.max(floorM * 0.54, minorAxisM * 0.86, feature.widthM * 1.75),
+    floorM * 0.36,
+    majorAxisM * 0.6,
+  );
+  const approachRotationRad = Math.atan2(perpendicular.y, perpendicular.x);
   const constrictionReadabilityClass = constrictionReadabilityClassFor({
     featureClass: feature.featureClass,
     widthToAverage,
@@ -998,8 +1061,11 @@ function constrictionStructureAreaDrafts(
             constrictionEnvelopeLakeCapM: roundDiagnosticNumber(lakeCapM),
             constrictionEnvelopeWidthCapM: roundDiagnosticNumber(widthCapM),
             constrictionEnvelopeShoulderOffsetM: roundDiagnosticNumber(shoulderOffsetM),
+            clearNeckReadableFootprintBoost,
+            clearNeckReadableFootprintMultiplier,
+            pointSeededNeck,
             featureEnvelopeRenderShape: 'paired_shoulder_lobes',
-            featureEnvelopeRenderLobeCount: 2,
+            featureEnvelopeRenderLobeCount: clearNeckReadableFootprintBoost ? 4 : 2,
             featureEnvelopeRenderLobe1Kind: 'shoreline_a_shoulder_lobe',
             featureEnvelopeRenderLobe1CenterX: roundDiagnosticNumber(feature.endpointA.x),
             featureEnvelopeRenderLobe1CenterY: roundDiagnosticNumber(feature.endpointA.y),
@@ -1012,8 +1078,22 @@ function constrictionStructureAreaDrafts(
             featureEnvelopeRenderLobe2MajorAxisM: roundDiagnosticNumber(shoulderLobeMajorAxisM),
             featureEnvelopeRenderLobe2MinorAxisM: roundDiagnosticNumber(shoulderLobeMinorAxisM),
             featureEnvelopeRenderLobe2RotationRad: roundDiagnosticNumber(Math.atan2(feature.endpointA.y - feature.endpointB.y, feature.endpointA.x - feature.endpointB.x)),
+            featureEnvelopeRenderLobe3Kind: clearNeckReadableFootprintBoost ? 'near_basin_approach_lobe' : null,
+            featureEnvelopeRenderLobe3CenterX: clearNeckReadableFootprintBoost ? roundDiagnosticNumber(center.x + perpendicular.x * approachLobeOffsetM) : null,
+            featureEnvelopeRenderLobe3CenterY: clearNeckReadableFootprintBoost ? roundDiagnosticNumber(center.y + perpendicular.y * approachLobeOffsetM) : null,
+            featureEnvelopeRenderLobe3MajorAxisM: clearNeckReadableFootprintBoost ? roundDiagnosticNumber(approachLobeMajorAxisM) : null,
+            featureEnvelopeRenderLobe3MinorAxisM: clearNeckReadableFootprintBoost ? roundDiagnosticNumber(approachLobeMinorAxisM) : null,
+            featureEnvelopeRenderLobe3RotationRad: clearNeckReadableFootprintBoost ? roundDiagnosticNumber(approachRotationRad) : null,
+            featureEnvelopeRenderLobe4Kind: clearNeckReadableFootprintBoost ? 'far_basin_approach_lobe' : null,
+            featureEnvelopeRenderLobe4CenterX: clearNeckReadableFootprintBoost ? roundDiagnosticNumber(center.x - perpendicular.x * approachLobeOffsetM) : null,
+            featureEnvelopeRenderLobe4CenterY: clearNeckReadableFootprintBoost ? roundDiagnosticNumber(center.y - perpendicular.y * approachLobeOffsetM) : null,
+            featureEnvelopeRenderLobe4MajorAxisM: clearNeckReadableFootprintBoost ? roundDiagnosticNumber(approachLobeMajorAxisM) : null,
+            featureEnvelopeRenderLobe4MinorAxisM: clearNeckReadableFootprintBoost ? roundDiagnosticNumber(approachLobeMinorAxisM) : null,
+            featureEnvelopeRenderLobe4RotationRad: clearNeckReadableFootprintBoost ? roundDiagnosticNumber(approachRotationRad) : null,
             constrictionRepresentation: 'paired_lobe_feature_envelope',
             constrictionPairedShoulderCoverage: true,
+            constrictionBalancedApproachLobes: clearNeckReadableFootprintBoost,
+            constrictionApproachLobeOffsetM: clearNeckReadableFootprintBoost ? roundDiagnosticNumber(approachLobeOffsetM) : null,
             constrictionEnvelopeRatio: roundDiagnosticNumber(majorAxisM / Math.max(1, spanM)),
             constrictionEnvelopeRecoveryCenterIndex: centerIndex + 1,
             constrictionEnvelopeRecoveryAnchorIndex: anchorIndex + 1,
@@ -1646,6 +1726,11 @@ function coveDrafts(
     fallbackKind: string | null,
     fallbackAttemptIndex: number,
     strictInwardNormal = false,
+    centerOverrides?: Array<{
+      center: PointM;
+      anchorSemanticId?: WaterReaderZonePlacementSemanticId;
+      diagnostics: Record<string, number | string | boolean | null>;
+    }>,
   ) =>
     makeAnchoredDraft({
       feature,
@@ -1666,6 +1751,7 @@ function coveDrafts(
       preferredRotationRad: placementKind === 'cove_back' ? coveBackRotationRad : undefined,
       preferredRotationOnly: false,
       strictInwardNormal: placementKind === 'cove_back' ? true : strictInwardNormal,
+      centerOverrides,
       sizeFactors: placementKind === 'cove_back'
         ? fallbackKind
           ? COVE_BACK_FALLBACK_SIZE_FACTORS
@@ -1702,6 +1788,7 @@ function coveDrafts(
       ...make(coveWallAnchor(feature, 'left', 0.5), 'cove_back', 'cove_back_primary', 'cove_inner_shoreline_left', 'cove_inner_wall_midpoint_left', 9),
       ...make(coveWallAnchor(feature, 'right', 0.5), 'cove_back', 'cove_back_primary', 'cove_inner_shoreline_right', 'cove_inner_wall_midpoint_right', 10),
       ...make(strongestMouth, 'cove_back', 'cove_back_primary', 'cove_mouth_shoulder_recovery', 'cove_mouth_shoulder_fallback', 11),
+      ...make(feature.back, 'cove_back', 'cove_back_primary', 'cove_back_pocket_recovery', 'cove_clipped_contact_recovery', 12, false, coveContactRecoveryCenterOverrides(feature)),
     ];
   }
   if (params.season === 'summer' || params.season === 'winter') {
@@ -2626,6 +2713,39 @@ function covePlacementTier(anchorSemanticId: WaterReaderZonePlacementSemanticId)
     default:
       return 'mouth_shoulder_recovery';
   }
+}
+
+function coveContactRecoveryCenterOverrides(feature: WaterReaderCoveFeature): Array<{
+  center: PointM;
+  anchorSemanticId?: WaterReaderZonePlacementSemanticId;
+  diagnostics: Record<string, number | string | boolean | null>;
+}> {
+  if (feature.score < 100 || feature.depthRatio < 0.65) return [];
+  return [
+    {
+      center: feature.back,
+      anchorSemanticId: 'cove_back_pocket_recovery',
+      diagnostics: {
+        coveClippedContactRecoveryCandidate: true,
+        coveClippedContactRecoveryReason: 'strong_cove_primary_frames_lacked_shoreline_contact',
+      },
+    },
+    {
+      center: midpoint(feature.back, midpoint(feature.mouthLeft, feature.mouthRight)),
+      anchorSemanticId: 'cove_back_pocket_recovery',
+      diagnostics: {
+        coveClippedContactRecoveryCandidate: true,
+        coveClippedContactRecoveryReason: 'strong_cove_axis_midpoint_contact_recovery',
+      },
+    },
+  ];
+}
+
+function strongCoveContactRecoveryCandidate(feature: WaterReaderCoveFeature): boolean {
+  return feature.score >= 115 &&
+    feature.depthRatio >= 0.7 &&
+    feature.pathRatio >= 2.4 &&
+    feature.coveDepthM <= Math.max(feature.mouthWidthM * 0.9, 1);
 }
 
 function coveFallbackReasonForTier(tier: string): string {

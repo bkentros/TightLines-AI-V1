@@ -266,6 +266,10 @@ export function buildWaterReaderLegend(
   for (const zone of zoneResult.zones) {
     const group = confluenceByZoneId.get(zone.zoneId);
     if (group) {
+      if (!group.crossFeatureOverlapPair) {
+        entries.push(buildZoneEntry(entries.length + 1, zone, season, transitionWarningForZone(zone, seasonLookup)));
+        continue;
+      }
       if (emittedConfluenceGroups.has(group.groupId)) continue;
       emittedConfluenceGroups.add(group.groupId);
       entries.push(buildConfluenceEntry(entries.length + 1, group, zoneResult.zones, season, transitionWarningForGroup(group, zoneResult.zones, seasonLookup)));
@@ -356,7 +360,7 @@ function buildConfluenceEntry(
     .map((zoneId) => zones.find((zone) => zone.zoneId === zoneId))
     .filter((zone): zone is WaterReaderPlacedZone => Boolean(zone));
   const titleDetail = group.crossFeatureOverlapPair
-    ? crossFeatureTitleDetail(group.crossFeatureOverlapPair)
+    ? confluenceFeatureClassTitle(memberZones)
     : compactConfluenceMemberLabels(memberZones).join(' + ');
   return {
     number,
@@ -367,18 +371,43 @@ function buildConfluenceEntry(
     placementKinds: group.memberPlacementKinds,
     colorHex: WATER_READER_FEATURE_COLORS.structure_confluence,
     templateId: `structure_confluence:${season}:${unique(group.memberPlacementKinds).join('+')}`,
-    title: group.crossFeatureOverlapPair ? `Structure Area - ${titleDetail}` : `Structure Confluence - ${titleDetail}`,
+    title: group.crossFeatureOverlapPair ? `${titleDetail} - Structure Area` : `Structure Confluence - ${titleDetail}`,
     body: confluenceBody(season),
     transitionWarning,
     isConfluence: true,
   };
 }
 
-function crossFeatureTitleDetail(pair: string): string {
-  return pair
-    .split('+')
-    .map((part) => part === 'point' ? 'Point' : part[0]!.toUpperCase() + part.slice(1))
-    .join(' + ');
+function confluenceFeatureClassTitle(zones: WaterReaderPlacedZone[]): string {
+  const labels: string[] = [];
+  const seen = new Set<string>();
+  for (const featureClass of CONFLUENCE_FEATURE_TITLE_ORDER) {
+    if (!zones.some((zone) => zone.featureClass === featureClass)) continue;
+    const label = confluenceFeatureClassLabel(featureClass);
+    if (seen.has(label)) continue;
+    seen.add(label);
+    labels.push(label);
+  }
+  return labels.join(' + ') || 'Structure';
+}
+
+const CONFLUENCE_FEATURE_TITLE_ORDER: WaterReaderFeatureClass[] = [
+  'cove',
+  'island',
+  'main_lake_point',
+  'secondary_point',
+  'neck',
+  'saddle',
+  'dam',
+  'universal',
+];
+
+function confluenceFeatureClassLabel(featureClass: WaterReaderFeatureClass): string {
+  if (featureClass === 'main_lake_point' || featureClass === 'secondary_point') return 'Point';
+  return featureClass
+    .split('_')
+    .map((part) => part[0]!.toUpperCase() + part.slice(1))
+    .join(' ');
 }
 
 function disambiguateRepeatedLegendTitles(
