@@ -18,6 +18,7 @@ const serverContractsSource = readFileSync('supabase/functions/_shared/waterRead
 const cacheBuilderSource = readFileSync('scripts/water-reader-build-read-cache.ts', 'utf8');
 const migrationSource = readFileSync('supabase/migrations/202605030001_water_reader_engine_read_cache.sql', 'utf8');
 const searchFunctionSource = readFileSync('supabase/functions/waterbody-search/index.ts', 'utf8');
+const aliasSeedMigrationSource = readFileSync('supabase/migrations/20260507211500_seed_waterbody_search_aliases.sql', 'utf8');
 
 const requestShape: WaterReaderReadRequest = {
   lakeId: '00000000-0000-4000-8000-000000000001',
@@ -69,8 +70,11 @@ assert(appSource.includes("r.hasPolygonGeometry && r.waterReaderSupportStatus !=
 assert(appSource.includes('same-name') && appSource.includes('compare county and acres'), 'app should surface duplicate-name disambiguation copy');
 assert(appSource.includes('const SEARCH_RESULT_LIMIT = 20'), 'app search should request enough candidates for same-name lake discovery');
 assert(appSource.includes('nestedScrollEnabled') && appSource.includes('dropdownListContent'), 'app search dropdown should be independently scrollable');
+assert(appSource.includes('CountyFilterChip') && appSource.includes('countyFilter'), 'app search should expose county chips for dense same-name results');
 assert(serverSource.includes('cacheWriteStatus'), 'server read endpoint should report cache write status');
 assert(searchFunctionSource.includes('CURATED_3DHP_ALIASES') && searchFunctionSource.includes('Lake Fork Reservoir'), 'search fallback should preserve curated aliases for unlabeled 3DHP polygons');
+assert(searchFunctionSource.includes('CURATED_CROSS_STATE_SEARCH_ALIASES') && searchFunctionSource.includes('search telemetry'), 'search edge should log weak searches and handle curated cross-state aliases');
+assert(aliasSeedMigrationSource.includes('Lake Lanier') && aliasSeedMigrationSource.includes('Toledo Bend'), 'launch alias seed migration should include high-value angler aliases');
 assert(searchFunctionSource.indexOf('const areaDelta') < searchFunctionSource.indexOf('a.originalIndex !== b.originalIndex'), 'same-name search acreage ordering should happen before original SQL order');
 assert(cacheBuilderSource.includes('allowUniversalFallback: false'), 'cache builder should explicitly disable universal fallback');
 assert(serverHelperSource.includes('allowUniversalFallback: false'), 'shared read generator should explicitly disable universal fallback');

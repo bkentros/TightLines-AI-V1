@@ -19,7 +19,7 @@
  * handling changed.
  */
 
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   ActivityIndicator,
   KeyboardAvoidingView,
@@ -241,6 +241,7 @@ export default function WaterReaderScreen() {
   const [searchError, setSearchError] = useState<string | null>(null);
   const [searchEmpty, setSearchEmpty] = useState(false);
   const [results, setResults] = useState<WaterbodySearchResult[]>([]);
+  const [countyFilter, setCountyFilter] = useState<string | null>(null);
   const [selected, setSelected] = useState<WaterbodySearchResult | null>(null);
   const searchRequestId = useRef(0);
   const readRequestId = useRef(0);
@@ -283,6 +284,7 @@ export default function WaterReaderScreen() {
       const q = query.trim();
       if (!stateCode || q.length < SEARCH_MIN_CHARS) {
         setResults([]);
+        setCountyFilter(null);
         setSearchEmpty(false);
         setSearchError(null);
         setSearching(false);
@@ -300,11 +302,17 @@ export default function WaterReaderScreen() {
         const res = await searchWaterbodies({ query: q, state: stateCode, limit: SEARCH_RESULT_LIMIT });
         if (searchRequestId.current !== requestId) return;
         setResults(res.results);
+        setCountyFilter((current) =>
+          current && res.results.some((row) => row.county === current)
+            ? current
+            : null,
+        );
         setSearchEmpty(res.results.length === 0);
       } catch (e) {
         if (searchRequestId.current !== requestId) return;
         setSearchError(userFacingSearchError(e));
         setResults([]);
+        setCountyFilter(null);
         setSearchEmpty(false);
       } finally {
         clearTimeout(expandedTimer);
@@ -318,6 +326,7 @@ export default function WaterReaderScreen() {
     const q = query.trim();
     if (!stateCode || q.length < SEARCH_MIN_CHARS) {
       setResults([]);
+      setCountyFilter(null);
       setSearchError(null);
       setSearchEmpty(false);
       setSearching(false);
@@ -336,6 +345,7 @@ export default function WaterReaderScreen() {
     setStateCode(null);
     setQuery('');
     setResults([]);
+    setCountyFilter(null);
     setSearchError(null);
     setSearchEmpty(false);
     setSearchExpanded(false);
@@ -352,6 +362,26 @@ export default function WaterReaderScreen() {
 
   const stateNameForEmpty =
     (stateCode && US_STATE_OPTIONS.find((o) => o.code === stateCode)?.name) || 'this state';
+
+  const countyOptions = useMemo(
+    () =>
+      Array.from(
+        new Set(
+          results
+            .map((row) => row.county)
+            .filter((county): county is string => Boolean(county)),
+        ),
+      ).sort((a, b) => a.localeCompare(b)),
+    [results],
+  );
+  const filteredResults = useMemo(
+    () =>
+      countyFilter
+        ? results.filter((row) => row.county === countyFilter)
+        : results,
+    [countyFilter, results],
+  );
+  const showCountyFilters = countyOptions.length > 1 && results.length >= 4;
 
   const engineRead = readState.status === 'ready' ? readState.read : null;
   const polygonLimitedNote =
@@ -619,58 +649,84 @@ export default function WaterReaderScreen() {
                     </View>
                   )}
                   {!searching && results.length > 0 && (
-                    <ScrollView
-                      style={styles.dropdownList}
-                      contentContainerStyle={styles.dropdownListContent}
-                      nestedScrollEnabled
-                      keyboardShouldPersistTaps="handled"
-                      showsVerticalScrollIndicator={results.length > 5}
-                    >
-                      {results.map((r, idx) => {
-                        const open = canOpenWaterReaderRead(r);
-                        return (
-                          <Pressable
-                            key={r.lakeId}
-                            style={({ pressed }) => [
-                              styles.resultRow,
-                              idx > 0 && styles.resultRowDivider,
-                              !open && styles.resultRowDisabled,
-                              pressed && open && styles.resultRowPressed,
-                            ]}
-                            onPress={() => {
-                              if (canOpenWaterReaderRead(r)) setSelected(r);
-                            }}
-                            disabled={!open}
+                    <>
+                      {showCountyFilters && (
+                        <View style={styles.countyFilterWrap}>
+                          <ScrollView
+                            horizontal
+                            showsHorizontalScrollIndicator={false}
+                            keyboardShouldPersistTaps="handled"
+                            contentContainerStyle={styles.countyFilterContent}
                           >
-                            <View style={styles.resultRowMain}>
-                              <Text
-                                style={styles.resultPrimary}
-                                numberOfLines={2}
-                              >
-                                {resultPrimaryLine(r)}
-                              </Text>
-                              <Text style={styles.resultSecondary} numberOfLines={2}>
-                                {resultSecondaryLine(r)}
-                              </Text>
-                              {ambiguityLine(r) && (
-                                <Text style={styles.resultAmbiguity} numberOfLines={2}>
-                                  {ambiguityLine(r)}
-                                </Text>
-                              )}
-                              {!open && (
-                                <Text style={styles.resultBlocked} numberOfLines={2}>
-                                  Water Read not available for this row.
-                                </Text>
-                              )}
-                            </View>
-                            <SupportPill
-                              status={r.waterReaderSupportStatus}
-                              compact
+                            <CountyFilterChip
+                              label="ALL COUNTIES"
+                              active={countyFilter == null}
+                              onPress={() => setCountyFilter(null)}
                             />
-                          </Pressable>
-                        );
-                      })}
-                    </ScrollView>
+                            {countyOptions.map((county) => (
+                              <CountyFilterChip
+                                key={county}
+                                label={county.toUpperCase()}
+                                active={countyFilter === county}
+                                onPress={() => setCountyFilter(county)}
+                              />
+                            ))}
+                          </ScrollView>
+                        </View>
+                      )}
+                      <ScrollView
+                        style={styles.dropdownList}
+                        contentContainerStyle={styles.dropdownListContent}
+                        nestedScrollEnabled
+                        keyboardShouldPersistTaps="handled"
+                        showsVerticalScrollIndicator={filteredResults.length > 5}
+                      >
+                        {filteredResults.map((r, idx) => {
+                          const open = canOpenWaterReaderRead(r);
+                          return (
+                            <Pressable
+                              key={r.lakeId}
+                              style={({ pressed }) => [
+                                styles.resultRow,
+                                idx > 0 && styles.resultRowDivider,
+                                !open && styles.resultRowDisabled,
+                                pressed && open && styles.resultRowPressed,
+                              ]}
+                              onPress={() => {
+                                if (canOpenWaterReaderRead(r)) setSelected(r);
+                              }}
+                              disabled={!open}
+                            >
+                              <View style={styles.resultRowMain}>
+                                <Text
+                                  style={styles.resultPrimary}
+                                  numberOfLines={2}
+                                >
+                                  {resultPrimaryLine(r)}
+                                </Text>
+                                <Text style={styles.resultSecondary} numberOfLines={2}>
+                                  {resultSecondaryLine(r)}
+                                </Text>
+                                {ambiguityLine(r) && (
+                                  <Text style={styles.resultAmbiguity} numberOfLines={2}>
+                                    {ambiguityLine(r)}
+                                  </Text>
+                                )}
+                                {!open && (
+                                  <Text style={styles.resultBlocked} numberOfLines={2}>
+                                    Water Read not available for this row.
+                                  </Text>
+                                )}
+                              </View>
+                              <SupportPill
+                                status={r.waterReaderSupportStatus}
+                                compact
+                              />
+                            </Pressable>
+                          );
+                        })}
+                      </ScrollView>
+                    </>
                   )}
                 </View>
               )}
@@ -871,6 +927,39 @@ function SupportPill({
         {supportPillLabel(status)}
       </Text>
     </View>
+  );
+}
+
+function CountyFilterChip({
+  label,
+  active,
+  onPress,
+}: {
+  label: string;
+  active: boolean;
+  onPress: () => void;
+}) {
+  return (
+    <Pressable
+      style={({ pressed }) => [
+        styles.countyFilterChip,
+        active && styles.countyFilterChipActive,
+        pressed && styles.countyFilterChipPressed,
+      ]}
+      onPress={onPress}
+      accessibilityRole="button"
+      accessibilityState={{ selected: active }}
+    >
+      <Text
+        style={[
+          styles.countyFilterChipText,
+          active && styles.countyFilterChipTextActive,
+        ]}
+        numberOfLines={1}
+      >
+        {label}
+      </Text>
+    </Pressable>
   );
 }
 
@@ -1198,6 +1287,43 @@ const styles = StyleSheet.create({
     lineHeight: 17,
     color: paper.ink,
     opacity: 0.7,
+  },
+  countyFilterWrap: {
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: paper.inkHair,
+    backgroundColor: paper.paperLight,
+  },
+  countyFilterContent: {
+    gap: paperSpacing.xs,
+    paddingHorizontal: paperSpacing.sm,
+    paddingVertical: paperSpacing.xs,
+  },
+  countyFilterChip: {
+    maxWidth: 138,
+    paddingHorizontal: 9,
+    paddingVertical: 5,
+    borderRadius: paperRadius.chip,
+    borderWidth: 1.2,
+    borderColor: paper.inkHair,
+    backgroundColor: paper.paper,
+  },
+  countyFilterChipActive: {
+    borderColor: paper.ink,
+    backgroundColor: paper.forest,
+  },
+  countyFilterChipPressed: {
+    opacity: 0.75,
+  },
+  countyFilterChipText: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 8.5,
+    lineHeight: 11,
+    letterSpacing: 1.3,
+    color: paper.ink,
+    fontWeight: '700',
+  },
+  countyFilterChipTextActive: {
+    color: paper.paper,
   },
   dropdownList: { maxHeight: 430 },
   dropdownListContent: {

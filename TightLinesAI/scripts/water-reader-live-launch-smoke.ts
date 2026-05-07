@@ -32,6 +32,7 @@ const SEARCH_CASES: SmokeCase[] = [
   { state: 'MI', query: 'glen lake', minResults: 1, readFirst: true, expectedName: 'Glen Lake' },
   { state: 'NY', query: 'cayuga lake', minResults: 1, readFirst: true, expectedName: 'Cayuga Lake' },
   { state: 'TX', query: 'lake fork', minResults: 1, readFirst: true, expectedName: 'Lake Fork Reservoir' },
+  { state: 'TX', query: 'toledo bend', minResults: 1, expectedName: 'Toledo Bend Reservoir' },
   { state: 'VT', query: 'lake memphremagog', minResults: 1, expectedName: 'Lake Memphremagog' },
   { state: 'WA', query: 'clear lake', minResults: 1, readFirst: true },
 ];

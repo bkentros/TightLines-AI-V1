@@ -94,6 +94,12 @@ const CURATED_3DHP_ALIASES: Array<{
   },
 ];
 
+const CURATED_CROSS_STATE_SEARCH_ALIASES = new Set([
+  "toledo bend",
+  "toledo bend lake",
+  "toledo bend reservoir",
+]);
+
 const STATE_BBOX: Record<string, [number, number, number, number]> = {
   AL: [-88.48, 30.14, -84.89, 35.01],
   AK: [-179.15, 51.21, -129.98, 71.39],
@@ -660,12 +666,37 @@ async function fetchAndIndex3DhpCandidates(params: {
   );
   const rows = rowsWithNulls.filter(Boolean);
   if (rows.length === 0) return 0;
-  const { error } = await params.supabase
+  const { data: upsertedRows, error } = await params.supabase
     .from("waterbody_index")
-    .upsert(rows, { onConflict: "external_source,external_id" });
+    .upsert(rows, { onConflict: "external_source,external_id" })
+    .select("id, external_id");
   if (error) {
     console.error("[waterbody-search] 3DHP fallback upsert failed", error);
     return 0;
+  }
+  const aliasRows = (upsertedRows ?? []).flatMap((
+    row: { id?: string; external_id?: string | null },
+  ) => {
+    const id3dhp = String(row.external_id ?? "").replace(/^3dhp:/, "");
+    const alias = CURATED_3DHP_ALIASES.find((candidate) =>
+      candidate.state === params.state && candidate.id3dhp === id3dhp
+    );
+    if (!row.id || !alias) return [];
+    return alias.aliases.map((aliasName) => ({
+      waterbody_id: row.id,
+      alias_name: aliasName,
+      alias_source: "curated_3dhp_alias",
+    }));
+  });
+  if (aliasRows.length > 0) {
+    const { error: aliasError } = await params.supabase
+      .from("waterbody_aliases")
+      .upsert(aliasRows, {
+        onConflict: "waterbody_id,normalized_alias_name",
+      });
+    if (aliasError) {
+      console.error("[waterbody-search] alias upsert failed", aliasError);
+    }
   }
   return rows.length;
 }
@@ -702,6 +733,93 @@ function shouldTryRemoteFallback(
   const tokens = queryTokens(query);
   if (tokens.length < 2) return false;
   return !rows.some((row) => rowMatchesAllQueryTokens(row, query));
+}
+
+function shouldTryCrossStateAliasRetry(
+  rows: SearchRow[],
+  query: string,
+  state: string | null,
+): boolean {
+  if (!state || rows.length > 0) return false;
+  return CURATED_CROSS_STATE_SEARCH_ALIASES.has(normalizeWaterbodyName(query));
+}
+
+function centroidPoint(value: unknown): { lon: number; lat: number } | null {
+  const maybe = value as { coordinates?: unknown } | null;
+  const coordinates = maybe?.coordinates;
+  if (
+    !Array.isArray(coordinates) ||
+    typeof coordinates[0] !== "number" ||
+    typeof coordinates[1] !== "number"
+  ) {
+    return null;
+  }
+  return { lon: coordinates[0], lat: coordinates[1] };
+}
+
+async function fetchCuratedCrossStateAliasRows(params: {
+  supabase: any;
+  query: string;
+  limit: number;
+}): Promise<SearchRow[]> {
+  if (!CURATED_CROSS_STATE_SEARCH_ALIASES.has(normalizeWaterbodyName(params.query))) {
+    return [];
+  }
+  const { data, error } = await params.supabase
+    .from("waterbody_aliases")
+    .select(
+      "waterbody_index!inner(id, canonical_name, state_code, county_name, waterbody_type, surface_area_acres, centroid)",
+    )
+    .eq("normalized_alias_name", normalizeWaterbodyName(params.query))
+    .limit(params.limit);
+  if (error) {
+    console.error("[waterbody-search] curated alias direct lookup failed", error);
+    return [];
+  }
+  return (data ?? []).flatMap((row: { waterbody_index?: unknown }) => {
+    const waterbody = row.waterbody_index as {
+      id?: string;
+      canonical_name?: string;
+      state_code?: string;
+      county_name?: string | null;
+      waterbody_type?: WaterbodySearchResult["waterbodyType"];
+      surface_area_acres?: number | null;
+      centroid?: unknown;
+    } | null;
+    const point = centroidPoint(waterbody?.centroid);
+    if (!waterbody?.id || !waterbody.canonical_name || !waterbody.state_code || !point) {
+      return [];
+    }
+    const acres = waterbody.surface_area_acres ?? null;
+    return [{
+      lake_id: waterbody.id,
+      name: waterbody.canonical_name,
+      state: waterbody.state_code,
+      county: waterbody.county_name ?? null,
+      waterbody_type: waterbody.waterbody_type ?? "lake",
+      surface_area_acres: acres,
+      centroid_lat: point.lat,
+      centroid_lon: point.lon,
+      preview_bbox_min_lon: null,
+      preview_bbox_min_lat: null,
+      preview_bbox_max_lon: null,
+      preview_bbox_max_lat: null,
+      data_tier: "polygon_only",
+      aerial_available: false,
+      depth_available: false,
+      depth_usability_status: "unavailable",
+      availability: "limited",
+      source_status: "limited",
+      best_available_mode: null,
+      confidence: "low",
+      water_reader_support_status: "limited",
+      water_reader_support_reason:
+        "Large border waterbody returned through a curated search alias; Water Reader can open it with limited-read caution.",
+      has_polygon_geometry: true,
+      polygon_area_acres: acres,
+      polygon_qa_flags: ["curated_cross_state_alias"],
+    } satisfies SearchRow];
+  });
 }
 
 function openableSupport(row: SearchRow): boolean {
@@ -848,6 +966,44 @@ Deno.serve(async (req: Request) => {
     ? Math.min(25, Math.max(1, Math.floor(limitRaw)))
     : 10;
 
+  if (shouldTryCrossStateAliasRetry([], query, state)) {
+    const aliasRows = sortedRowsForDisplay(
+      await fetchCuratedCrossStateAliasRows({ supabase, query, limit }),
+      query,
+    );
+    if (aliasRows.length > 0) {
+      console.info(
+        "[waterbody-search] curated cross-state alias hit",
+        JSON.stringify({
+          query,
+          state,
+          resultCount: aliasRows.length,
+          topResult: aliasRows[0]?.name ?? null,
+        }),
+      );
+      const sameNameCounts = sameNameStateCounts(aliasRows);
+      return new Response(
+        JSON.stringify({
+          feature: WATERBODY_SEARCH_FEATURE,
+          query,
+          state,
+          results: aliasRows.map((row) =>
+            mapRow(
+              row,
+              sameNameCounts.get(
+                `${row.state}|${normalizeWaterbodyName(row.name)}`,
+              ) ?? 1,
+            )
+          ),
+        }),
+        {
+          status: 200,
+          headers: { "Content-Type": "application/json", ...corsHeaders() },
+        },
+      );
+    }
+  }
+
   let data: unknown[] | null = null;
   let error: { message: string } | null = null;
   const genericType = genericWaterbodyTypeOnly(query);
@@ -871,18 +1027,31 @@ Deno.serve(async (req: Request) => {
     error = response.error;
   }
   if (error) {
-    console.error("[waterbody-search] rpc failed", error);
-    return jsonError("Failed to search waterbodies", "search_failed", 500);
+    if (shouldTryCrossStateAliasRetry([], query, state)) {
+      console.info(
+        "[waterbody-search] local rpc failed; trying cross-state alias retry",
+        JSON.stringify({ query, state, message: error.message }),
+      );
+      data = [];
+      error = null;
+    } else {
+      console.error("[waterbody-search] rpc failed", error);
+      return jsonError("Failed to search waterbodies", "search_failed", 500);
+    }
   }
 
   let rawRows = Array.isArray(data) ? data as SearchRow[] : [];
+  let fallbackAttempted = false;
+  let fallbackIndexedCount = 0;
   if (shouldTryRemoteFallback(rawRows, query, state)) {
+    fallbackAttempted = true;
     const indexedCount = await fetchAndIndex3DhpCandidates({
       supabase,
       query,
       state,
       limit,
     });
+    fallbackIndexedCount = indexedCount;
     if (indexedCount > 0) {
       const retry = await supabase.rpc("search_waterbodies", {
         query_text: query,
@@ -899,8 +1068,52 @@ Deno.serve(async (req: Request) => {
       rawRows = Array.isArray(retry.data) ? retry.data as SearchRow[] : [];
     }
   }
+  if (shouldTryCrossStateAliasRetry(rawRows, query, state)) {
+    const retry = await supabase.rpc("search_waterbodies", {
+      query_text: query,
+      state_filter: null,
+      result_limit: limit,
+    });
+    if (retry.error) {
+      console.error(
+        "[waterbody-search] cross-state alias retry failed",
+        retry.error,
+      );
+    } else {
+      rawRows = Array.isArray(retry.data) ? retry.data as SearchRow[] : [];
+    }
+    if (rawRows.length === 0) {
+      rawRows = await fetchCuratedCrossStateAliasRows({
+        supabase,
+        query,
+        limit,
+      });
+    }
+  }
 
   const rows = sortedRowsForDisplay(rawRows, query);
+  const weakResult = rows.length === 0 ||
+    (rows.length > 0 && !rows.some((row) => rowMatchesAllQueryTokens(row, query)));
+  if (weakResult || fallbackAttempted) {
+    console.info(
+      "[waterbody-search] search telemetry",
+      JSON.stringify({
+        query,
+        state,
+        resultCount: rows.length,
+        topResults: rows.slice(0, 5).map((row) => ({
+          name: row.name,
+          state: row.state,
+          county: row.county,
+          support: row.water_reader_support_status,
+          acres: Math.round(rowAreaAcres(row)),
+        })),
+        weakResult,
+        fallbackAttempted,
+        fallbackIndexedCount,
+      }),
+    );
+  }
   const sameNameCounts = sameNameStateCounts(rows);
   return new Response(
     JSON.stringify({
