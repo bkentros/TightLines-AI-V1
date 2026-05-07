@@ -191,10 +191,18 @@ export function paperifyWaterReaderSvg(
     `$1"0.85"`,
   );
   // Inject stroke-dasharray once per leader — only if not already present
-  // (idempotent under hot reload).
+  // (idempotent under hot reload). The engine emits self-closing leader
+  // paths, so the dash attribute must be inserted before the closing slash.
   svg = svg.replace(
-    /<path class="water-reader-label-leader"((?:(?!stroke-dasharray)[^>])*)>/g,
-    `<path class="water-reader-label-leader"$1 stroke-dasharray="3 2.4">`,
+    /<path class="water-reader-label-leader"([^>]*)>/g,
+    (match, attrs: string) => {
+      if (attrs.includes('stroke-dasharray')) return match;
+      if (/\s*\/$/.test(attrs)) {
+        const nextAttrs = attrs.replace(/\s*\/$/, '');
+        return `<path class="water-reader-label-leader"${nextAttrs} stroke-dasharray="3 2.4"/>`;
+      }
+      return `<path class="water-reader-label-leader"${attrs} stroke-dasharray="3 2.4">`;
+    },
   );
   tally(before5, svg);
 

@@ -4,6 +4,7 @@ import {
   type WaterReaderReadRequest,
   type WaterReaderReadResponse,
 } from '../lib/waterReaderContracts';
+import { paperifyWaterReaderSvg } from '../lib/water-reader-paperify-svg';
 
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
@@ -30,9 +31,13 @@ const responseShape: Pick<WaterReaderReadResponse, 'feature' | 'productionSvgRes
   productionSvgResult: null,
   fallbackMessage: 'controlled fallback',
 };
+const leaderPaperifyFixture = `<svg viewBox="0 0 200 200"><defs></defs><path class="water-reader-label-leader" d="M 106.72 188.74 L 106.72 220.68" fill="none" stroke="#0F172A" stroke-width="1" stroke-opacity="0.5" stroke-linecap="round"/></svg>`;
+const paperifiedLeaderFixture = paperifyWaterReaderSvg(leaderPaperifyFixture).svg;
 
 assert(requestShape.lakeId.length > 0, 'read request contract should include lakeId');
 assert(responseShape.feature === 'water_reader_read_v1', 'read response feature marker should be stable');
+assert(!paperifiedLeaderFixture.includes('round"/ stroke-dasharray'), 'paperifier should not insert leader dash attributes after a self-closing slash');
+assert(paperifiedLeaderFixture.includes('stroke-linecap="round" stroke-dasharray="3 2.4"/>'), 'paperifier should insert leader dash attributes before the self-closing slash');
 assert(clientSource.includes('export async function fetchWaterReaderRead'), 'fetchWaterReaderRead should be exported');
 assert(clientSource.includes('invokeEdgeFunction<WaterReaderReadResponse>("water-reader-read"'), 'client should call water-reader-read edge function');
 assert(contractSource.includes('export interface WaterReaderReadResponse'), 'app read response contract should exist');
