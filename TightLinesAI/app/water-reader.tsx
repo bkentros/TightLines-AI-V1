@@ -21,7 +21,7 @@ import type {
   WaterReaderReadResponse,
 } from '../lib/waterReaderContracts';
 
-const SEARCH_DEBOUNCE_MS = 400;
+const SEARCH_DEBOUNCE_MS = 650;
 const SEARCH_RESULT_LIMIT = 16;
 
 const STATE_NAME_TO_CODE: Record<string, string> = {
@@ -182,6 +182,7 @@ export default function WaterReaderScreen() {
   const [stateModalOpen, setStateModalOpen] = useState(false);
   const [query, setQuery] = useState('');
   const [searching, setSearching] = useState(false);
+  const [searchExpanded, setSearchExpanded] = useState(false);
   const [searchError, setSearchError] = useState<string | null>(null);
   const [searchEmpty, setSearchEmpty] = useState(false);
   const [results, setResults] = useState<WaterbodySearchResult[]>([]);
@@ -230,11 +231,16 @@ export default function WaterReaderScreen() {
         setSearchEmpty(false);
         setSearchError(null);
         setSearching(false);
+        setSearchExpanded(false);
         return;
       }
       setSearching(true);
+      setSearchExpanded(false);
       setSearchError(null);
       setSearchEmpty(false);
+      const expandedTimer = setTimeout(() => {
+        if (searchRequestId.current === requestId) setSearchExpanded(true);
+      }, 900);
       try {
         const res = await searchWaterbodies({ query: q, state: stateCode, limit: SEARCH_RESULT_LIMIT });
         if (searchRequestId.current !== requestId) return;
@@ -246,6 +252,7 @@ export default function WaterReaderScreen() {
         setResults([]);
         setSearchEmpty(false);
       } finally {
+        clearTimeout(expandedTimer);
         if (searchRequestId.current === requestId) setSearching(false);
       }
     },
@@ -259,6 +266,7 @@ export default function WaterReaderScreen() {
       setSearchError(null);
       setSearchEmpty(false);
       setSearching(false);
+      setSearchExpanded(false);
       return;
     }
     setSearchError(null);
@@ -275,6 +283,7 @@ export default function WaterReaderScreen() {
     setResults([]);
     setSearchError(null);
     setSearchEmpty(false);
+    setSearchExpanded(false);
     setStateModalOpen(true);
   }, []);
 
@@ -376,7 +385,9 @@ export default function WaterReaderScreen() {
               {searching && (
                 <View style={styles.inlineLoading}>
                   <ActivityIndicator size="small" color={colors.sage} />
-                  <Text style={styles.searchingText}>Searching...</Text>
+                  <Text style={styles.searchingText}>
+                    {searchExpanded ? 'Checking national hydrography...' : 'Searching...'}
+                  </Text>
                 </View>
               )}
               {searchError && <Text style={styles.dropdownError}>{searchError}</Text>}

@@ -9,14 +9,18 @@ function corsHeaders() {
   return {
     "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Methods": "POST, OPTIONS",
-    "Access-Control-Allow-Headers": "Content-Type, Authorization, apikey, x-user-token",
+    "Access-Control-Allow-Headers":
+      "Content-Type, Authorization, apikey, x-user-token",
   };
 }
 
 function jsonError(message: string, code: string, status: number): Response {
   return new Response(
     JSON.stringify({ error: code, message }),
-    { status, headers: { "Content-Type": "application/json", ...corsHeaders() } },
+    {
+      status,
+      headers: { "Content-Type": "application/json", ...corsHeaders() },
+    },
   );
 }
 
@@ -41,7 +45,8 @@ interface SearchRow {
   source_status: WaterbodySearchResult["sourceStatus"];
   best_available_mode: WaterbodySearchResult["bestAvailableMode"];
   confidence: WaterbodySearchResult["confidence"];
-  water_reader_support_status: WaterbodySearchResult["waterReaderSupportStatus"];
+  water_reader_support_status:
+    WaterbodySearchResult["waterReaderSupportStatus"];
   water_reader_support_reason: string;
   has_polygon_geometry: boolean;
   polygon_area_acres: number | null;
@@ -59,8 +64,16 @@ interface GeoJsonGeometry {
   coordinates: unknown;
 }
 
+interface CountyLookupResult {
+  countyName: string | null;
+  countyGeoId: string | null;
+  stateCode: string | null;
+}
+
 const USGS_3DHP_WATERBODY_QUERY_URL =
   "https://hydro.nationalmap.gov/arcgis/rest/services/3DHP_all/FeatureServer/60/query";
+const TIGERWEB_COUNTY_QUERY_URL =
+  "https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/State_County/MapServer/25/query";
 
 const STATE_BBOX: Record<string, [number, number, number, number]> = {
   AL: [-88.48, 30.14, -84.89, 35.01],
@@ -168,6 +181,59 @@ const REGION_BY_STATE: Record<string, string> = {
   WA: "pacific_west",
 };
 
+const STATE_FIPS_TO_CODE: Record<string, string> = {
+  "01": "AL",
+  "02": "AK",
+  "04": "AZ",
+  "05": "AR",
+  "06": "CA",
+  "08": "CO",
+  "09": "CT",
+  "10": "DE",
+  "12": "FL",
+  "13": "GA",
+  "15": "HI",
+  "16": "ID",
+  "17": "IL",
+  "18": "IN",
+  "19": "IA",
+  "20": "KS",
+  "21": "KY",
+  "22": "LA",
+  "23": "ME",
+  "24": "MD",
+  "25": "MA",
+  "26": "MI",
+  "27": "MN",
+  "28": "MS",
+  "29": "MO",
+  "30": "MT",
+  "31": "NE",
+  "32": "NV",
+  "33": "NH",
+  "34": "NJ",
+  "35": "NM",
+  "36": "NY",
+  "37": "NC",
+  "38": "ND",
+  "39": "OH",
+  "40": "OK",
+  "41": "OR",
+  "42": "PA",
+  "44": "RI",
+  "45": "SC",
+  "46": "SD",
+  "47": "TN",
+  "48": "TX",
+  "49": "UT",
+  "50": "VT",
+  "51": "VA",
+  "53": "WA",
+  "54": "WV",
+  "55": "WI",
+  "56": "WY",
+};
+
 function mapPreviewBbox(row: SearchRow): WaterbodySearchResult["previewBbox"] {
   const minLon = row.preview_bbox_min_lon;
   const minLat = row.preview_bbox_min_lat;
@@ -191,7 +257,10 @@ function mapPreviewBbox(row: SearchRow): WaterbodySearchResult["previewBbox"] {
 }
 
 function normalizeWaterbodyName(value: string): string {
-  return value.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim().replace(/\s+/g, " ");
+  return value.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim().replace(
+    /\s+/g,
+    " ",
+  );
 }
 
 function arcgisLiteral(value: string): string {
@@ -201,28 +270,47 @@ function arcgisLiteral(value: string): string {
 function queryTokens(query: string): string[] {
   const tokens = normalizeWaterbodyName(query)
     .split(" ")
-    .filter((token) => token.length >= 2 && !["lake", "lakes", "pond", "reservoir", "res"].includes(token));
-  return tokens.length > 0 ? tokens : normalizeWaterbodyName(query).split(" ").filter((token) => token.length >= 2);
+    .filter((token) =>
+      token.length >= 2 &&
+      !["lake", "lakes", "pond", "reservoir", "res"].includes(token)
+    );
+  return tokens.length > 0
+    ? tokens
+    : normalizeWaterbodyName(query).split(" ").filter((token) =>
+      token.length >= 2
+    );
+}
+
+function remoteSearchEligible(tokens: string[]): boolean {
+  return tokens.some((token) => token.length >= 3);
 }
 
 function prop(props: Record<string, unknown>, key: string): unknown {
   return props[key] ?? props[key.toLowerCase()] ?? props[key.toUpperCase()];
 }
 
-function numericProp(props: Record<string, unknown>, key: string): number | null {
+function numericProp(
+  props: Record<string, unknown>,
+  key: string,
+): number | null {
   const value = prop(props, key);
   const n = typeof value === "number" ? value : Number(value);
   return Number.isFinite(n) ? n : null;
 }
 
-function geometryBbox(geometry: GeoJsonGeometry): [number, number, number, number] | null {
+function geometryBbox(
+  geometry: GeoJsonGeometry,
+): [number, number, number, number] | null {
   let minLon = Infinity;
   let minLat = Infinity;
   let maxLon = -Infinity;
   let maxLat = -Infinity;
   function visit(value: unknown) {
     if (!Array.isArray(value)) return;
-    if (value.length >= 2 && typeof value[0] === "number" && typeof value[1] === "number") {
+    if (
+      value.length >= 2 && typeof value[0] === "number" &&
+      typeof value[1] === "number"
+    ) {
       minLon = Math.min(minLon, value[0]);
       minLat = Math.min(minLat, value[1]);
       maxLon = Math.max(maxLon, value[0]);
@@ -254,19 +342,27 @@ function coordPairWkt(value: unknown): string {
 }
 
 function ringWkt(value: unknown): string {
-  if (!Array.isArray(value) || value.length < 4) throw new Error("invalid_ring");
+  if (!Array.isArray(value) || value.length < 4) {
+    throw new Error("invalid_ring");
+  }
   return `(${value.map(coordPairWkt).join(",")})`;
 }
 
 function polygonWkt(value: unknown): string {
-  if (!Array.isArray(value) || value.length === 0) throw new Error("invalid_polygon");
+  if (!Array.isArray(value) || value.length === 0) {
+    throw new Error("invalid_polygon");
+  }
   return `(${value.map(ringWkt).join(",")})`;
 }
 
 function geometryWkt(geometry: GeoJsonGeometry): string | null {
   try {
-    if (geometry.type === "Polygon") return `MULTIPOLYGON(${polygonWkt(geometry.coordinates)})`;
-    if (geometry.type === "MultiPolygon" && Array.isArray(geometry.coordinates)) {
+    if (geometry.type === "Polygon") {
+      return `MULTIPOLYGON(${polygonWkt(geometry.coordinates)})`;
+    }
+    if (
+      geometry.type === "MultiPolygon" && Array.isArray(geometry.coordinates)
+    ) {
       return `MULTIPOLYGON(${geometry.coordinates.map(polygonWkt).join(",")})`;
     }
   } catch {
@@ -275,9 +371,13 @@ function geometryWkt(geometry: GeoJsonGeometry): string | null {
   return null;
 }
 
-function waterbodyTypeForName(name: string): WaterbodySearchResult["waterbodyType"] {
+function waterbodyTypeForName(
+  name: string,
+): WaterbodySearchResult["waterbodyType"] {
   const norm = normalizeWaterbodyName(name);
-  if (norm.split(" ").includes("reservoir") || norm.split(" ").includes("res")) return "reservoir";
+  if (
+    norm.split(" ").includes("reservoir") || norm.split(" ").includes("res")
+  ) return "reservoir";
   if (norm.split(" ").includes("pond")) return "pond";
   return "lake";
 }
@@ -290,6 +390,54 @@ function searchPriorityForArea(areaAcres: number | null): number {
   return 300;
 }
 
+async function fetchCountyForPoint(
+  lon: number,
+  lat: number,
+): Promise<CountyLookupResult> {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 1400);
+  try {
+    const url = new URL(TIGERWEB_COUNTY_QUERY_URL);
+    url.search = new URLSearchParams({
+      f: "json",
+      geometry: `${lon},${lat}`,
+      geometryType: "esriGeometryPoint",
+      inSR: "4326",
+      spatialRel: "esriSpatialRelIntersects",
+      outFields: "GEOID,BASENAME,NAME",
+      returnGeometry: "false",
+    }).toString();
+    const response = await fetch(url, {
+      signal: controller.signal,
+      headers: {
+        "User-Agent": "FinFindr-WaterReader/1.0",
+      },
+    });
+    if (!response.ok) {
+      return { countyName: null, countyGeoId: null, stateCode: null };
+    }
+    const body = await response.json() as {
+      features?: Array<{ attributes?: Record<string, unknown> }>;
+    };
+    const attrs = body.features?.[0]?.attributes;
+    if (!attrs) return { countyName: null, countyGeoId: null, stateCode: null };
+    const baseName = String(attrs.BASENAME ?? "").trim();
+    const name = String(attrs.NAME ?? "").trim();
+    const countyName = baseName || name.replace(/\s+County$/i, "").trim() ||
+      null;
+    const countyGeoIdRaw = String(attrs.GEOID ?? "").trim();
+    const countyGeoId = countyGeoIdRaw || null;
+    const stateFips = countyGeoIdRaw.slice(0, 2) ||
+      String(attrs.STATE ?? "").trim();
+    const stateCode = STATE_FIPS_TO_CODE[stateFips] ?? null;
+    return { countyName, countyGeoId, stateCode };
+  } catch {
+    return { countyName: null, countyGeoId: null, stateCode: null };
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
 async function fetchAndIndex3DhpCandidates(params: {
   supabase: any;
   query: string;
@@ -299,19 +447,23 @@ async function fetchAndIndex3DhpCandidates(params: {
   if (!params.state || !STATE_BBOX[params.state]) return 0;
   const tokens = queryTokens(params.query);
   if (tokens.length === 0) return 0;
+  if (!remoteSearchEligible(tokens)) return 0;
 
   const bbox = STATE_BBOX[params.state];
   const where = [
     "featuretype = 3",
     "gnisidlabel IS NOT NULL",
-    ...tokens.map((token) => `UPPER(gnisidlabel) LIKE '%${arcgisLiteral(token.toUpperCase())}%'`),
+    ...tokens.map((token) =>
+      `UPPER(gnisidlabel) LIKE '%${arcgisLiteral(token.toUpperCase())}%'`
+    ),
   ].join(" AND ");
 
   const url = new URL(USGS_3DHP_WATERBODY_QUERY_URL);
   url.search = new URLSearchParams({
     f: "geojson",
     where,
-    outFields: "OBJECTID,id3dhp,gnisid,gnisidlabel,featuretype,featuretypelabel,areasqkm,workunitid,featuredate",
+    outFields:
+      "OBJECTID,id3dhp,gnisid,gnisidlabel,featuretype,featuretypelabel,areasqkm,workunitid,featuredate",
     returnGeometry: "true",
     geometry: bbox.join(","),
     geometryType: "esriGeometryEnvelope",
@@ -319,7 +471,7 @@ async function fetchAndIndex3DhpCandidates(params: {
     spatialRel: "esriSpatialRelIntersects",
     outSR: "4326",
     orderByFields: "areasqkm DESC",
-    resultRecordCount: String(Math.min(10, Math.max(1, params.limit))),
+    resultRecordCount: String(Math.min(6, Math.max(1, params.limit))),
     geometryPrecision: "6",
   }).toString();
 
@@ -329,16 +481,24 @@ async function fetchAndIndex3DhpCandidates(params: {
     },
   });
   if (!response.ok) {
-    console.error("[waterbody-search] 3DHP fallback failed", { status: response.status });
+    console.error("[waterbody-search] 3DHP fallback failed", {
+      status: response.status,
+    });
     return 0;
   }
-  const body = await response.json() as { features?: ArcGisFeature[]; error?: { message?: string } };
+  const body = await response.json() as {
+    features?: ArcGisFeature[];
+    error?: { message?: string };
+  };
   if (body.error) {
-    console.error("[waterbody-search] 3DHP fallback returned error", body.error);
+    console.error(
+      "[waterbody-search] 3DHP fallback returned error",
+      body.error,
+    );
     return 0;
   }
 
-  const rows = [];
+  const rowInputs = [];
   for (const feature of body.features ?? []) {
     if (!feature.geometry) continue;
     const name = String(prop(feature.properties, "gnisidlabel") ?? "").trim();
@@ -352,37 +512,64 @@ async function fetchAndIndex3DhpCandidates(params: {
     const areaSqKm = numericProp(feature.properties, "areasqkm");
     const areaAcres = areaSqKm == null ? null : areaSqKm * 247.10538146717;
     const objectId = numericProp(feature.properties, "OBJECTID");
-    rows.push({
-      external_source: "usgs_3dhp_waterbody",
-      external_id: `3dhp:${id3dhp}`,
-      canonical_name: name,
-      state_code: params.state,
-      county_name: null,
-      waterbody_type: waterbodyTypeForName(name),
-      is_named: true,
-      is_searchable: true,
-      region_key: REGION_BY_STATE[params.state] ?? "other_us",
-      centroid: pointWkt(centroidLon, centroidLat),
-      geometry: wkt,
-      surface_area_acres: areaAcres,
-      search_priority: searchPriorityForArea(areaAcres),
-      source_summary: {
-        source: "USGS 3D Hydrography Program 3DHP_all Waterbody",
-        source_key: "usgs_3dhp",
-        source_layer_url: "https://hydro.nationalmap.gov/arcgis/rest/services/3DHP_all/FeatureServer/60",
-        objectid: objectId,
-        featuretype: numericProp(feature.properties, "featuretype"),
-        featuretypelabel: prop(feature.properties, "featuretypelabel") ?? "Lake",
-        id3dhp,
-        id3dhp_persistent: false,
-        gnisid: prop(feature.properties, "gnisid") ?? null,
-        workunitid: prop(feature.properties, "workunitid") ?? null,
-        standing_water_only: true,
-        indexed_on_demand: true,
+    rowInputs.push({
+      countyLookup: fetchCountyForPoint(centroidLon, centroidLat),
+      row: {
+        external_source: "usgs_3dhp_waterbody",
+        external_id: `3dhp:${id3dhp}`,
+        canonical_name: name,
+        state_code: params.state,
+        county_name: null as string | null,
+        waterbody_type: waterbodyTypeForName(name),
+        is_named: true,
+        is_searchable: true,
+        region_key: REGION_BY_STATE[params.state] ?? "other_us",
+        centroid: pointWkt(centroidLon, centroidLat),
+        geometry: wkt,
+        surface_area_acres: areaAcres,
+        search_priority: searchPriorityForArea(areaAcres),
+        source_summary: {
+          source: "USGS 3D Hydrography Program 3DHP_all Waterbody",
+          source_key: "usgs_3dhp",
+          source_layer_url:
+            "https://hydro.nationalmap.gov/arcgis/rest/services/3DHP_all/FeatureServer/60",
+          objectid: objectId,
+          featuretype: numericProp(feature.properties, "featuretype"),
+          featuretypelabel: prop(feature.properties, "featuretypelabel") ??
+            "Lake",
+          id3dhp,
+          id3dhp_persistent: false,
+          gnisid: prop(feature.properties, "gnisid") ?? null,
+          workunitid: prop(feature.properties, "workunitid") ?? null,
+          standing_water_only: true,
+          indexed_on_demand: true,
+        },
       },
     });
   }
 
+  if (rowInputs.length === 0) return 0;
+  const rowsWithNulls = await Promise.all(
+    rowInputs.map(async ({ row, countyLookup }) => {
+      const county = await countyLookup;
+      if (county.stateCode && county.stateCode !== params.state) return null;
+      return {
+        ...row,
+        county_name: county.countyName,
+        source_summary: {
+          ...row.source_summary,
+          county_lookup: county.countyName
+            ? {
+              source: "Census TIGERweb State_County",
+              geoid: county.countyGeoId,
+              method: "bbox_centroid_point_intersection",
+            }
+            : null,
+        },
+      };
+    }),
+  );
+  const rows = rowsWithNulls.filter(Boolean);
   if (rows.length === 0) return 0;
   const { error } = await params.supabase
     .from("waterbody_index")
@@ -395,7 +582,8 @@ async function fetchAndIndex3DhpCandidates(params: {
 }
 
 function openableSupport(row: SearchRow): boolean {
-  return row.has_polygon_geometry && row.water_reader_support_status !== "not_supported";
+  return row.has_polygon_geometry &&
+    row.water_reader_support_status !== "not_supported";
 }
 
 function rowAreaAcres(row: SearchRow): number {
@@ -417,12 +605,15 @@ function sortedRowsForDisplay(rows: SearchRow[], query: string): SearchRow[] {
         aExact === 0 &&
         bExact === 0 &&
         a.row.state === b.row.state &&
-        normalizeWaterbodyName(a.row.name) === normalizeWaterbodyName(b.row.name)
+        normalizeWaterbodyName(a.row.name) ===
+          normalizeWaterbodyName(b.row.name)
       ) {
         const areaDelta = rowAreaAcres(b.row) - rowAreaAcres(a.row);
         if (Math.abs(areaDelta) > 0.001) return areaDelta;
       }
-      if (a.originalIndex !== b.originalIndex) return a.originalIndex - b.originalIndex;
+      if (a.originalIndex !== b.originalIndex) {
+        return a.originalIndex - b.originalIndex;
+      }
       return (a.row.county ?? "").localeCompare(b.row.county ?? "") ||
         a.row.name.localeCompare(b.row.name);
     })
@@ -483,12 +674,15 @@ Deno.serve(async (req: Request) => {
 
   const userToken = req.headers.get("x-user-token");
   const authHeader = req.headers.get("Authorization");
-  const token = userToken ?? (authHeader ? authHeader.replace("Bearer ", "") : null);
+  const token = userToken ??
+    (authHeader ? authHeader.replace("Bearer ", "") : null);
   if (!token) {
     return jsonError("Missing authentication token", "unauthorized", 401);
   }
 
-  const { data: { user }, error: authError } = await supabase.auth.getUser(token);
+  const { data: { user }, error: authError } = await supabase.auth.getUser(
+    token,
+  );
   if (authError || !user) {
     return jsonError("Unauthorized", "unauthorized", 401);
   }
@@ -500,7 +694,11 @@ Deno.serve(async (req: Request) => {
     .single<{ subscription_tier: string | null }>();
   const tier = profile?.subscription_tier ?? "free";
   if (tier === "free") {
-    return jsonError("Subscribe to use this feature", "subscription_required", 403);
+    return jsonError(
+      "Subscribe to use this feature",
+      "subscription_required",
+      403,
+    );
   }
 
   let body: Record<string, unknown>;
@@ -512,14 +710,20 @@ Deno.serve(async (req: Request) => {
 
   const query = typeof body.query === "string" ? body.query.trim() : "";
   if (query.length < 2) {
-    return jsonError("query must be at least 2 characters", "invalid_query", 400);
+    return jsonError(
+      "query must be at least 2 characters",
+      "invalid_query",
+      400,
+    );
   }
 
   const state = typeof body.state === "string" && body.state.trim().length > 0
     ? body.state.trim().toUpperCase()
     : null;
   const limitRaw = Number(body.limit ?? 10);
-  const limit = Number.isFinite(limitRaw) ? Math.min(25, Math.max(1, Math.floor(limitRaw))) : 10;
+  const limit = Number.isFinite(limitRaw)
+    ? Math.min(25, Math.max(1, Math.floor(limitRaw)))
+    : 10;
 
   const { data, error } = await supabase.rpc("search_waterbodies", {
     query_text: query,
@@ -533,7 +737,12 @@ Deno.serve(async (req: Request) => {
 
   let rawRows = Array.isArray(data) ? data as SearchRow[] : [];
   if (rawRows.length === 0 && state) {
-    const indexedCount = await fetchAndIndex3DhpCandidates({ supabase, query, state, limit });
+    const indexedCount = await fetchAndIndex3DhpCandidates({
+      supabase,
+      query,
+      state,
+      limit,
+    });
     if (indexedCount > 0) {
       const retry = await supabase.rpc("search_waterbodies", {
         query_text: query,
@@ -541,7 +750,10 @@ Deno.serve(async (req: Request) => {
         result_limit: limit,
       });
       if (retry.error) {
-        console.error("[waterbody-search] rpc retry failed after 3DHP fallback", retry.error);
+        console.error(
+          "[waterbody-search] rpc retry failed after 3DHP fallback",
+          retry.error,
+        );
         return jsonError("Failed to search waterbodies", "search_failed", 500);
       }
       rawRows = Array.isArray(retry.data) ? retry.data as SearchRow[] : [];
@@ -555,8 +767,18 @@ Deno.serve(async (req: Request) => {
       feature: WATERBODY_SEARCH_FEATURE,
       query,
       state,
-      results: rows.map((row) => mapRow(row, sameNameCounts.get(`${row.state}|${normalizeWaterbodyName(row.name)}`) ?? 1)),
+      results: rows.map((row) =>
+        mapRow(
+          row,
+          sameNameCounts.get(
+            `${row.state}|${normalizeWaterbodyName(row.name)}`,
+          ) ?? 1,
+        )
+      ),
     }),
-    { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders() } },
+    {
+      status: 200,
+      headers: { "Content-Type": "application/json", ...corsHeaders() },
+    },
   );
 });
