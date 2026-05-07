@@ -73,7 +73,8 @@ assert(appSource.includes('nestedScrollEnabled') && appSource.includes('dropdown
 assert(appSource.includes('CountyFilterChip') && appSource.includes('countyFilter'), 'app search should expose county chips for dense same-name results');
 assert(serverSource.includes('cacheWriteStatus'), 'server read endpoint should report cache write status');
 assert(searchFunctionSource.includes('CURATED_3DHP_ALIASES') && searchFunctionSource.includes('Lake Fork Reservoir'), 'search fallback should preserve curated aliases for unlabeled 3DHP polygons');
-assert(searchFunctionSource.includes('CURATED_CROSS_STATE_SEARCH_ALIASES') && searchFunctionSource.includes('search telemetry'), 'search edge should log weak searches and handle curated cross-state aliases');
+assert(searchFunctionSource.includes('CURATED_SHARED_STATE_ALIASES') && searchFunctionSource.includes('search telemetry'), 'search edge should log weak searches and handle curated shared-state aliases');
+assert(searchFunctionSource.includes('shown for ${displayState}') && searchFunctionSource.includes('indexed_state:'), 'shared-state aliases should preserve the user-selected state while tracking stored polygon state');
 assert(aliasSeedMigrationSource.includes('Lake Lanier') && aliasSeedMigrationSource.includes('Toledo Bend'), 'launch alias seed migration should include high-value angler aliases');
 assert(searchFunctionSource.indexOf('const areaDelta') < searchFunctionSource.indexOf('a.originalIndex !== b.originalIndex'), 'same-name search acreage ordering should happen before original SQL order');
 assert(cacheBuilderSource.includes('allowUniversalFallback: false'), 'cache builder should explicitly disable universal fallback');

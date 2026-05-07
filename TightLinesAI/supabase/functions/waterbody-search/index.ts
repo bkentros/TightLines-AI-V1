@@ -94,11 +94,19 @@ const CURATED_3DHP_ALIASES: Array<{
   },
 ];
 
-const CURATED_CROSS_STATE_SEARCH_ALIASES = new Set([
-  "toledo bend",
-  "toledo bend lake",
-  "toledo bend reservoir",
-]);
+const CURATED_SHARED_STATE_ALIASES: Array<{
+  canonicalName: string;
+  indexedState: string;
+  allowedSearchStates: string[];
+  aliases: string[];
+}> = [
+  {
+    canonicalName: "Toledo Bend Reservoir",
+    indexedState: "LA",
+    allowedSearchStates: ["LA", "TX"],
+    aliases: ["toledo bend", "toledo bend lake", "toledo bend reservoir"],
+  },
+];
 
 const STATE_BBOX: Record<string, [number, number, number, number]> = {
   AL: [-88.48, 30.14, -84.89, 35.01],
@@ -741,7 +749,19 @@ function shouldTryCrossStateAliasRetry(
   state: string | null,
 ): boolean {
   if (!state || rows.length > 0) return false;
-  return CURATED_CROSS_STATE_SEARCH_ALIASES.has(normalizeWaterbodyName(query));
+  return curatedSharedStateAliasForQuery(query, state) != null;
+}
+
+function curatedSharedStateAliasForQuery(
+  query: string,
+  state: string | null,
+) {
+  if (!state) return null;
+  const normQuery = normalizeWaterbodyName(query);
+  return CURATED_SHARED_STATE_ALIASES.find((alias) =>
+    alias.allowedSearchStates.includes(state) &&
+    alias.aliases.some((value) => normalizeWaterbodyName(value) === normQuery)
+  ) ?? null;
 }
 
 function centroidPoint(value: unknown): { lon: number; lat: number } | null {
@@ -760,9 +780,11 @@ function centroidPoint(value: unknown): { lon: number; lat: number } | null {
 async function fetchCuratedCrossStateAliasRows(params: {
   supabase: any;
   query: string;
+  state: string | null;
   limit: number;
 }): Promise<SearchRow[]> {
-  if (!CURATED_CROSS_STATE_SEARCH_ALIASES.has(normalizeWaterbodyName(params.query))) {
+  const sharedAlias = curatedSharedStateAliasForQuery(params.query, params.state);
+  if (!sharedAlias) {
     return [];
   }
   const { data, error } = await params.supabase
@@ -771,6 +793,8 @@ async function fetchCuratedCrossStateAliasRows(params: {
       "waterbody_index!inner(id, canonical_name, state_code, county_name, waterbody_type, surface_area_acres, centroid)",
     )
     .eq("normalized_alias_name", normalizeWaterbodyName(params.query))
+    .eq("waterbody_index.canonical_name", sharedAlias.canonicalName)
+    .eq("waterbody_index.state_code", sharedAlias.indexedState)
     .limit(params.limit);
   if (error) {
     console.error("[waterbody-search] curated alias direct lookup failed", error);
@@ -791,10 +815,12 @@ async function fetchCuratedCrossStateAliasRows(params: {
       return [];
     }
     const acres = waterbody.surface_area_acres ?? null;
+    const displayState = params.state ?? waterbody.state_code;
+    const isSharedState = displayState !== waterbody.state_code;
     return [{
       lake_id: waterbody.id,
       name: waterbody.canonical_name,
-      state: waterbody.state_code,
+      state: displayState,
       county: waterbody.county_name ?? null,
       waterbody_type: waterbody.waterbody_type ?? "lake",
       surface_area_acres: acres,
@@ -814,10 +840,14 @@ async function fetchCuratedCrossStateAliasRows(params: {
       confidence: "low",
       water_reader_support_status: "limited",
       water_reader_support_reason:
-        "Large border waterbody returned through a curated search alias; Water Reader can open it with limited-read caution.",
+        isSharedState
+          ? `Shared border waterbody indexed under ${waterbody.state_code}; shown for ${displayState} because the selected state is an accepted shoreline state.`
+          : "Large border waterbody returned through a curated search alias; Water Reader can open it with limited-read caution.",
       has_polygon_geometry: true,
       polygon_area_acres: acres,
-      polygon_qa_flags: ["curated_cross_state_alias"],
+      polygon_qa_flags: isSharedState
+        ? ["curated_shared_state_alias", `indexed_state:${waterbody.state_code}`]
+        : ["curated_shared_state_alias"],
     } satisfies SearchRow];
   });
 }
@@ -968,7 +998,7 @@ Deno.serve(async (req: Request) => {
 
   if (shouldTryCrossStateAliasRetry([], query, state)) {
     const aliasRows = sortedRowsForDisplay(
-      await fetchCuratedCrossStateAliasRows({ supabase, query, limit }),
+      await fetchCuratedCrossStateAliasRows({ supabase, query, state, limit }),
       query,
     );
     if (aliasRows.length > 0) {
@@ -1086,6 +1116,7 @@ Deno.serve(async (req: Request) => {
       rawRows = await fetchCuratedCrossStateAliasRows({
         supabase,
         query,
+        state,
         limit,
       });
     }
