@@ -1,19 +1,26 @@
 /**
  * WaterReaderMapCard
  *
- * Paper-card wrapper that owns the *visual* loading lifecycle for a Water
- * Reader read:
+ * Editorial wrapper that owns the *visual* loading lifecycle for a Water
+ * Read read and frames the result as a hand-pressed field-guide plate
+ * (rather than a generic UI card around an SVG):
  *
  *   1. Parent passes `lakeId` + `lakeName` + the read state (idle / reading
  *      / ready / error) returned by `app/water-reader.tsx`.
- *   2. While the heavy `water-reader-read` request is in flight, the card
- *      kicks off a parallel `fetchWaterbodyPolygon` so the actual lake
- *      silhouette can be painted as a topographic-pulse skeleton. The
- *      skeleton uses the same projection math as the eventual SVG, so the
- *      crossfade on arrival keeps spatial continuity.
- *   3. When the read resolves, the SVG fades in over the same polygon and
- *      the legend renders below it via `WaterReaderLegend`.
- *   4. On error, a red-bordered paper card surfaces the friendly message.
+ *   2. The masthead cartouche on top stays anchored across the read
+ *      transition — eyebrow with edition stamp, lake name in display
+ *      Fraunces, masthead subline, status pill on the right.
+ *   3. While the heavy `water-reader-read` request is in flight, the card
+ *      kicks off a parallel `fetchWaterbodyPolygon` so the lake silhouette
+ *      can be painted as a topographic-pulse skeleton. The skeleton uses
+ *      the same projection math as the eventual SVG, so the crossfade on
+ *      arrival keeps spatial continuity.
+ *   4. When the read resolves, the SVG fades in inside a double-rule ink
+ *      frame, with cartographic marginalia (compass rose, scale bar,
+ *      edition stamp) anchored in the corners and a typographic meta
+ *      ribbon underneath. The legend renders below via `WaterReaderLegend`,
+ *      and a `PaperColophon` signs off the plate.
+ *   5. On error, a red-bordered paper card surfaces the friendly message.
  *
  * The data layer was previously inline in `app/water-reader.tsx`; this
  * wrapper exists so the page itself can stay focused on search/selection
@@ -30,6 +37,7 @@ import {
   ActivityIndicator,
   Animated,
   Pressable,
+  ScrollView,
   StyleSheet,
   Text,
   View,
@@ -46,7 +54,16 @@ import {
   paperSpacing,
 } from '../../lib/theme';
 import { fetchWaterbodyPolygon } from '../../lib/waterReader';
-import { CornerMarkSet } from '../paper';
+import {
+  CompassRose,
+  CornerMarkSet,
+  PaperColophon,
+  TopographicLines,
+} from '../paper';
+import { useAuthStore } from '../../store/authStore';
+import { WaterReadCartouche } from './WaterReadCartouche';
+import { WaterReadEditionStamp } from './WaterReadEditionStamp';
+import { WaterReadScaleBar } from './WaterReadScaleBar';
 import { WaterReaderLakeSkeleton } from './WaterReaderLakeSkeleton';
 import { WaterReaderProductionMap } from './WaterReaderProductionMap';
 import { WaterReaderLegend } from './WaterReaderLegend';
@@ -66,7 +83,7 @@ export interface WaterReaderMapCardProps {
   lakeName: string;
   lakeContextLine?: string;
   state: WaterReaderMapCardState;
-  /** Optional: shown beneath the map. Default null. */
+  /** Optional: shown beneath the colophon. Default null. */
   bottomSlot?: React.ReactNode;
 }
 
@@ -88,6 +105,16 @@ export function WaterReaderMapCard({
   const [selectedNumber, setSelectedNumber] = useState<number | string | null>(null);
   const [readingSlow, setReadingSlow] = useState(false);
   const polygonRequestSeq = useRef(0);
+
+  // User units pref — drives the scale-bar marginalia.
+  const profileUnits = useAuthStore((s) => s.profile?.preferred_units);
+  const unitsPref: 'imperial' | 'metric' =
+    profileUnits === 'metric' ? 'metric' : 'imperial';
+
+  // Edition stamp — day-of-year + 1000, mirroring `PaperColophon`'s logic so
+  // the masthead, the corner stamp, and the bottom colophon all agree.
+  const edition = useMemo(() => paperEditionToday(), []);
+  const pressedDate = useMemo(() => formatPressedDate(), []);
 
   useEffect(() => {
     setSelectedNumber(null);
@@ -144,44 +171,28 @@ export function WaterReaderMapCard({
     }
   }, [state, svgFade]);
 
+  // Cartouche needs to know what the engine returned (when it has).
+  const ready = state.status === 'ready' ? state : null;
+  const cartoucheStatus: 'idle' | 'reading' | 'ready' =
+    state.status === 'reading'
+      ? 'reading'
+      : state.status === 'ready'
+        ? 'ready'
+        : 'idle';
+
   return (
     <View style={styles.outer}>
-      <View style={styles.headerCard}>
-        <CornerMarkSet color={paper.red} inset={10} size={12} />
-        <View style={styles.headerRow}>
-          <View style={styles.headerLeft}>
-            <Text style={styles.eyebrow}>POLYGON STRUCTURE READ</Text>
-            <Text style={styles.lakeTitle} numberOfLines={2}>
-              {lakeName}
-            </Text>
-            {lakeContextLine ? (
-              <Text style={styles.lakeContext} numberOfLines={2}>
-                {lakeContextLine}
-              </Text>
-            ) : null}
-          </View>
-          {state.status === 'reading' && (
-            <View style={styles.headerStatus}>
-              <ActivityIndicator size="small" color={paper.forest} />
-              <Text style={styles.headerStatusText} numberOfLines={1}>
-                {readingSlow ? 'BUILDING MAP' : 'OPENING'}
-              </Text>
-            </View>
-          )}
-          {state.status === 'ready' && (
-            <View style={styles.headerStatusReady}>
-              <Ionicons
-                name="checkmark"
-                size={11}
-                color={paper.paper}
-              />
-              <Text style={styles.headerStatusReadyText} numberOfLines={1}>
-                READY
-              </Text>
-            </View>
-          )}
-        </View>
-      </View>
+      <WaterReadCartouche
+        lakeName={ready?.read.name ?? lakeName}
+        contextLine={lakeContextLine}
+        state={ready?.read.state}
+        county={ready?.read.county ?? undefined}
+        acres={ready?.read.areaAcres ?? null}
+        season={ready?.read.season}
+        edition={edition}
+        status={cartoucheStatus}
+        readingSlow={readingSlow}
+      />
 
       {state.status === 'reading' && (
         <WaterReaderLakeSkeleton geojson={polygonGeoJson} />
@@ -193,24 +204,32 @@ export function WaterReaderMapCard({
             <CornerMarkSet color={paper.walnut} inset={8} size={11} />
 
             <View style={styles.viewerToolbar}>
-              <View style={styles.viewerSegment}>
-                <ViewerModeButton
-                  icon="scan-outline"
-                  label="FULL"
-                  active={viewerMode === 'fit'}
-                  onPress={() => setViewerMode('fit')}
-                />
-                <ViewerModeButton
-                  icon="move-outline"
-                  label="DETAIL"
-                  active={viewerMode === 'inspect'}
-                  onPress={() => setViewerMode('inspect')}
-                />
-              </View>
+              <ViewerModeButton
+                icon="scan-outline"
+                label="FULL"
+                active={viewerMode === 'fit'}
+                onPress={() => setViewerMode('fit')}
+              />
+              <ViewerModeButton
+                icon="move-outline"
+                label="DETAIL"
+                active={viewerMode === 'inspect'}
+                onPress={() => setViewerMode('inspect')}
+              />
             </View>
 
+            {/*
+              Plate frame: the SVG sits inside an ink-ruled inner box with a
+              hairline gap, so the map reads as a printed plate clipped from
+              a larger sheet. Topographic contours pulse faintly behind the
+              SVG; the lake's sage fill obscures them within its outline so
+              they only visibly bleed through the surrounding paper.
+              Marginalia (compass / scale / stamp) are corner-anchored on
+              top of the SVG with `pointerEvents="none"` so the FULL/DETAIL
+              toggle stays the only interactive surface in the plate.
+            */}
             <View
-              style={styles.mapMeasure}
+              style={styles.plateOuter}
               onLayout={(event) => {
                 const nextWidth = event.nativeEvent.layout.width;
                 if (nextWidth > 0 && Math.abs(nextWidth - mapContentWidth) > 1) {
@@ -218,28 +237,68 @@ export function WaterReaderMapCard({
                 }
               }}
             >
-              <Animated.View style={{ opacity: svgFade }}>
-                <WaterReaderAdaptiveMap
-                  result={state.read.productionSvgResult}
-                  mode={viewerMode}
-                  containerWidth={mapContentWidth}
-                  windowHeight={window.height}
-                  selectedNumber={selectedNumber}
+              <View style={styles.plateInner}>
+                <TopographicLines
+                  style={StyleSheet.absoluteFill}
+                  color={paper.forestDk}
+                  count={5}
                 />
-              </Animated.View>
+
+                <Animated.View
+                  style={[styles.plateMapWrap, { opacity: svgFade }]}
+                >
+                  <WaterReaderAdaptiveMap
+                    result={state.read.productionSvgResult}
+                    mode={viewerMode}
+                    containerWidth={mapContentWidth}
+                    windowHeight={window.height}
+                    selectedNumber={selectedNumber}
+                  />
+                </Animated.View>
+
+                {viewerMode === 'fit' && (
+                  <>
+                    <View style={styles.compassWrap} pointerEvents="none">
+                      <CompassRose
+                        size={68}
+                        opacity={0.55}
+                        color={paper.ink}
+                        style={styles.compassReset}
+                      />
+                    </View>
+                    <View style={styles.scaleBarWrap} pointerEvents="none">
+                      <WaterReadScaleBar
+                        areaAcres={state.read.areaAcres ?? null}
+                        units={unitsPref}
+                      />
+                    </View>
+                    <View style={styles.editionStampWrap} pointerEvents="none">
+                      <WaterReadEditionStamp edition={edition} />
+                    </View>
+                  </>
+                )}
+              </View>
             </View>
 
-            <View style={styles.mapMetaRow}>
-              <Text style={styles.mapMetaCaption}>
-                {typeof state.read.areaAcres === 'number'
-                  ? `~${Math.round(state.read.areaAcres).toLocaleString()} acres · hydrography polygon`
-                  : 'hydrography polygon'}
-              </Text>
-              <Text style={styles.mapMetaCaption}>
-                {state.read.displayedEntryCount}{' '}
-                {state.read.displayedEntryCount === 1 ? 'structure' : 'structures'}{' '}
-                · {state.read.season}
-              </Text>
+            <View style={styles.metaRibbon}>
+              <View style={styles.metaRibbonRule} />
+              <View style={styles.metaRibbonRow}>
+                <Text style={styles.metaRibbonText} numberOfLines={1}>
+                  {typeof state.read.areaAcres === 'number'
+                    ? `${Math.round(state.read.areaAcres).toLocaleString()} ACRES`
+                    : 'HYDROGRAPHY'}
+                </Text>
+                <Text style={styles.metaRibbonDivider}>·</Text>
+                <Text style={styles.metaRibbonText} numberOfLines={1}>
+                  {state.read.displayedEntryCount}{' '}
+                  {state.read.displayedEntryCount === 1 ? 'STRUCTURE' : 'STRUCTURES'}
+                </Text>
+                <Text style={styles.metaRibbonDivider}>·</Text>
+                <Text style={styles.metaRibbonText} numberOfLines={1}>
+                  {state.read.season.toUpperCase()}
+                </Text>
+              </View>
+              <View style={styles.metaRibbonRule} />
             </View>
           </View>
 
@@ -248,6 +307,13 @@ export function WaterReaderMapCard({
             season={state.read.season}
             selectedNumber={selectedNumber}
             onSelectNumber={setSelectedNumber}
+          />
+
+          <PaperColophon
+            section="WATER READ"
+            edition={edition}
+            tagline={(ed) => `NO. ${ed} · PRESSED ${pressedDate} · POLYGON ONLY`}
+            style={styles.colophon}
           />
         </View>
       )}
@@ -278,6 +344,29 @@ export function WaterReaderMapCard({
   );
 }
 
+/**
+ * Day-of-year + 1000 — same formula as `PaperColophon` so the cartouche,
+ * corner edition stamp, and bottom colophon all agree on which "edition"
+ * is being printed.
+ */
+function paperEditionToday(): string {
+  const now = new Date();
+  const start = Date.UTC(now.getUTCFullYear(), 0, 0);
+  const diff =
+    Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()) - start;
+  const dayOfYear = Math.floor(diff / 86_400_000);
+  return String(1000 + dayOfYear);
+}
+
+/** "MAY 7 · 2026" style date string for the colophon tagline. */
+function formatPressedDate(): string {
+  const now = new Date();
+  const month = now
+    .toLocaleString('en-US', { month: 'short' })
+    .toUpperCase();
+  return `${month} ${now.getDate()} · ${now.getFullYear()}`;
+}
+
 function ViewerModeButton({
   icon,
   label,
@@ -292,9 +381,9 @@ function ViewerModeButton({
   return (
     <Pressable
       style={({ pressed }) => [
-        styles.viewerModeButton,
-        active && styles.viewerModeButtonActive,
-        pressed && styles.viewerModeButtonPressed,
+        styles.viewerChip,
+        active && styles.viewerChipActive,
+        pressed && styles.viewerChipPressed,
       ]}
       onPress={onPress}
       accessibilityRole="button"
@@ -302,13 +391,13 @@ function ViewerModeButton({
     >
       <Ionicons
         name={icon}
-        size={12}
+        size={11}
         color={active ? paper.paper : paper.ink}
       />
       <Text
         style={[
-          styles.viewerModeButtonText,
-          active && styles.viewerModeButtonTextActive,
+          styles.viewerChipText,
+          active && styles.viewerChipTextActive,
         ]}
         numberOfLines={1}
       >
@@ -433,93 +522,6 @@ const styles = StyleSheet.create({
     gap: paperSpacing.md,
   },
 
-  // Header summary card — sits above the map/skeleton with the lake name
-  // and a status pill so the read lifecycle is unmistakable at a glance.
-  headerCard: {
-    backgroundColor: paper.paperLight,
-    borderRadius: paperRadius.card,
-    padding: paperSpacing.md,
-    ...paperBorders.card,
-    ...paperShadows.hard,
-  },
-  headerRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    gap: paperSpacing.sm,
-  },
-  headerLeft: {
-    flex: 1,
-    minWidth: 0,
-    gap: 3,
-    paddingRight: paperSpacing.sm,
-  },
-  eyebrow: {
-    fontFamily: paperFonts.bodyBold,
-    fontSize: 9.5,
-    letterSpacing: 2.6,
-    color: paper.red,
-    fontWeight: '700',
-  },
-  lakeTitle: {
-    fontFamily: paperFonts.display,
-    fontSize: 22,
-    fontWeight: '700',
-    letterSpacing: 0,
-    color: paper.ink,
-    lineHeight: 26,
-    marginTop: 2,
-  },
-  lakeContext: {
-    fontFamily: paperFonts.displayItalic,
-    fontStyle: 'italic',
-    fontSize: 12.5,
-    color: paper.ink,
-    opacity: 0.65,
-    marginTop: 2,
-    lineHeight: 17,
-  },
-  headerStatus: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 6,
-    paddingHorizontal: 10,
-    paddingVertical: 6,
-    borderWidth: 1.5,
-    borderColor: paper.ink,
-    borderRadius: paperRadius.chip,
-    backgroundColor: paper.paper,
-    flexShrink: 0,
-    maxWidth: 132,
-  },
-  headerStatusText: {
-    fontFamily: paperFonts.bodyBold,
-    fontSize: 9,
-    letterSpacing: 2,
-    color: paper.ink,
-    fontWeight: '700',
-    lineHeight: 12,
-  },
-  headerStatusReady: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 5,
-    paddingHorizontal: 10,
-    paddingVertical: 6,
-    borderRadius: paperRadius.chip,
-    backgroundColor: paper.forest,
-    flexShrink: 0,
-    maxWidth: 108,
-  },
-  headerStatusReadyText: {
-    fontFamily: paperFonts.bodyBold,
-    fontSize: 9,
-    letterSpacing: 2,
-    color: paper.paper,
-    fontWeight: '700',
-    lineHeight: 12,
-  },
-
   // Map + legend stack (ready state).
   mapAndLegend: {
     width: '100%',
@@ -532,39 +534,34 @@ const styles = StyleSheet.create({
     ...paperBorders.card,
     ...paperShadows.hard,
   },
+
+  // Viewer toolbar — two ink-stroked paper chips, slightly separated, that
+  // read as hand-stamped tools rather than the prior iOS segmented control.
   viewerToolbar: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
     alignItems: 'center',
-    flexWrap: 'wrap',
-    gap: paperSpacing.xs,
+    gap: paperSpacing.xs + 2,
     marginBottom: paperSpacing.sm,
   },
-  viewerSegment: {
-    flexDirection: 'row',
-    borderWidth: 1.5,
-    borderColor: paper.ink,
-    borderRadius: paperRadius.chip,
-    overflow: 'hidden',
-    backgroundColor: paper.paper,
-    flexShrink: 1,
-  },
-  viewerModeButton: {
-    minHeight: 34,
+  viewerChip: {
+    minHeight: 30,
     flexDirection: 'row',
     alignItems: 'center',
     gap: 5,
     paddingHorizontal: 10,
-    borderRightWidth: 1,
-    borderRightColor: paper.inkHair,
+    borderWidth: 1.5,
+    borderColor: paper.ink,
+    borderRadius: paperRadius.chip,
+    backgroundColor: paper.paper,
   },
-  viewerModeButtonActive: {
-    backgroundColor: paper.forest,
+  viewerChipActive: {
+    backgroundColor: paper.ink,
   },
-  viewerModeButtonPressed: {
-    opacity: 0.75,
+  viewerChipPressed: {
+    opacity: 0.78,
   },
-  viewerModeButtonText: {
+  viewerChipText: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 9,
     letterSpacing: 1.8,
@@ -572,30 +569,104 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     lineHeight: 12,
   },
-  viewerModeButtonTextActive: {
+  viewerChipTextActive: {
     color: paper.paper,
   },
-  mapMeasure: {
+
+  // Plate frame: outer ink rule, hairline gap, inner ink hairline. The
+  // plateInner is the "page within a page" that holds the SVG and the
+  // cartographic marginalia.
+  plateOuter: {
+    width: '100%',
+    borderWidth: 1.5,
+    borderColor: paper.ink,
+    borderRadius: paperRadius.card - 4,
+    padding: 4,
+    backgroundColor: paper.paperLight,
+  },
+  plateInner: {
+    position: 'relative',
+    width: '100%',
+    overflow: 'hidden',
+    borderRadius: paperRadius.card - 8,
+    backgroundColor: paper.paper,
+    borderWidth: StyleSheet.hairlineWidth,
+    borderColor: paper.ink,
+  },
+  plateMapWrap: {
     width: '100%',
   },
+
+  // Marginalia anchors — each pointer-events-none so the FULL/DETAIL
+  // toggle remains the only interactive surface in the plate.
+  compassWrap: {
+    position: 'absolute',
+    top: 8,
+    left: 8,
+    width: 68,
+    height: 68,
+  },
+  // CompassRose's root has `position: 'absolute'` baked in (it was designed
+  // to bleed off the corner of a card with negative offsets). We're already
+  // wrapping it in a positioned `compassWrap`, so neutralize the inner
+  // absolute so it fills its wrapper as a normal in-flow child.
+  compassReset: {
+    position: 'relative',
+  },
+  scaleBarWrap: {
+    position: 'absolute',
+    bottom: 10,
+    left: 12,
+  },
+  editionStampWrap: {
+    position: 'absolute',
+    bottom: 8,
+    right: 8,
+  },
+
+  // Meta ribbon under the plate — typographic masthead, not a caption row.
+  metaRibbon: {
+    marginTop: paperSpacing.sm + 4,
+    gap: 5,
+  },
+  metaRibbonRule: {
+    height: StyleSheet.hairlineWidth,
+    backgroundColor: paper.ink,
+    opacity: 0.45,
+  },
+  metaRibbonRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexWrap: 'wrap',
+    gap: 8,
+    paddingVertical: 4,
+  },
+  metaRibbonText: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 10,
+    letterSpacing: 2.4,
+    color: paper.ink,
+    fontWeight: '700',
+    lineHeight: 13,
+  },
+  metaRibbonDivider: {
+    fontFamily: paperFonts.body,
+    fontSize: 10,
+    color: paper.ink,
+    opacity: 0.5,
+    lineHeight: 13,
+  },
+
   fitViewport: {
     width: '100%',
-    borderRadius: paperRadius.card - 2,
-    overflow: 'hidden',
-    backgroundColor: paper.paper,
-    borderWidth: 1,
-    borderColor: paper.inkHair,
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: paperSpacing.xs,
   },
   inspectViewport: {
     width: '100%',
-    borderRadius: paperRadius.card - 2,
-    overflow: 'hidden',
     backgroundColor: paper.paper,
-    borderWidth: 1,
-    borderColor: paper.inkHair,
   },
   inspectHorizontalContent: {
     flexGrow: 1,
@@ -606,27 +677,12 @@ const styles = StyleSheet.create({
     padding: paperSpacing.xs,
   },
   mapCanvas: {
-    backgroundColor: paper.paper,
+    backgroundColor: 'transparent',
   },
-  mapMetaRow: {
-    marginTop: paperSpacing.sm + 2,
-    paddingTop: paperSpacing.sm,
-    borderTopWidth: StyleSheet.hairlineWidth,
-    borderTopColor: paper.inkHair,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    flexWrap: 'wrap',
-    gap: paperSpacing.sm,
-  },
-  mapMetaCaption: {
-    fontFamily: paperFonts.metaMono,
-    fontSize: 10,
-    color: paper.ink,
-    opacity: 0.65,
-    letterSpacing: 0.4,
-    flexShrink: 1,
-    lineHeight: 14,
+
+  colophon: {
+    paddingVertical: paperSpacing.md,
+    marginTop: -paperSpacing.xs,
   },
 
   // Fallback (read succeeded but engine produced no SVG).
