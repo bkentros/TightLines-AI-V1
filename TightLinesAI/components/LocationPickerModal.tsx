@@ -241,8 +241,20 @@ export function LocationPickerModal({
               />
             </View>
             <View style={styles.gpsTextWrap}>
-              <Text style={styles.gpsLabel}>Use my current location</Text>
-              <Text style={styles.gpsSub}>
+              <Text
+                style={[
+                  styles.gpsLabel,
+                  !isUsingCustom && styles.gpsLabelActive,
+                ]}
+              >
+                Use my current location
+              </Text>
+              <Text
+                style={[
+                  styles.gpsSub,
+                  !isUsingCustom && styles.gpsSubActive,
+                ]}
+              >
                 {isUsingCustom
                   ? 'Use where you are right now'
                   : `Fishing near ${currentLabel}`}
@@ -547,12 +559,19 @@ const styles = StyleSheet.create({
     color: paper.ink,
     marginBottom: 2,
   },
+  gpsLabelActive: {
+    color: paper.textOnForest,
+  },
   gpsSub: {
     fontFamily: paperFonts.body,
     fontSize: 11.5,
     color: paper.ink,
     opacity: 0.72,
     lineHeight: 15,
+  },
+  gpsSubActive: {
+    color: paper.textOnForest,
+    opacity: 0.85,
   },
   activePill: {
     backgroundColor: paper.gold,

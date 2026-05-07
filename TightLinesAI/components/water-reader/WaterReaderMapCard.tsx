@@ -29,10 +29,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import {
   ActivityIndicator,
   Animated,
-  Modal,
   Pressable,
-  SafeAreaView,
-  ScrollView,
   StyleSheet,
   Text,
   View,
@@ -88,7 +85,6 @@ export function WaterReaderMapCard({
     useState<WaterbodyPolygonGeoJson | null>(null);
   const [viewerMode, setViewerMode] = useState<MapViewerMode>('fit');
   const [mapContentWidth, setMapContentWidth] = useState(0);
-  const [fullScreenOpen, setFullScreenOpen] = useState(false);
   const [selectedNumber, setSelectedNumber] = useState<number | string | null>(null);
   const [readingSlow, setReadingSlow] = useState(false);
   const polygonRequestSeq = useRef(0);
@@ -211,20 +207,6 @@ export function WaterReaderMapCard({
                   onPress={() => setViewerMode('inspect')}
                 />
               </View>
-              <Pressable
-                style={({ pressed }) => [
-                  styles.viewerIconButton,
-                  pressed && styles.viewerModeButtonPressed,
-                ]}
-                onPress={() => {
-                  setViewerMode('inspect');
-                  setFullScreenOpen(true);
-                }}
-                accessibilityRole="button"
-                accessibilityLabel="Open full screen map"
-              >
-                <Ionicons name="expand-outline" size={14} color={paper.ink} />
-              </Pressable>
             </View>
 
             <View
@@ -267,57 +249,6 @@ export function WaterReaderMapCard({
             selectedNumber={selectedNumber}
             onSelectNumber={setSelectedNumber}
           />
-
-          <Modal
-            visible={fullScreenOpen}
-            animationType="slide"
-            presentationStyle="fullScreen"
-            onRequestClose={() => setFullScreenOpen(false)}
-          >
-            <SafeAreaView style={styles.fullScreenRoot}>
-              <View style={styles.fullScreenHeader}>
-                <View style={styles.fullScreenTitleWrap}>
-                  <Text style={styles.fullScreenEyebrow}>WATER READ</Text>
-                  <Text style={styles.fullScreenTitle} numberOfLines={1}>
-                    {state.read.name}
-                  </Text>
-                </View>
-                <Pressable
-                  style={({ pressed }) => [
-                    styles.fullScreenClose,
-                    pressed && styles.viewerModeButtonPressed,
-                  ]}
-                  onPress={() => setFullScreenOpen(false)}
-                  accessibilityRole="button"
-                  accessibilityLabel="Close full screen map"
-                >
-                  <Ionicons name="close" size={18} color={paper.paper} />
-                </Pressable>
-              </View>
-              <ScrollView
-                style={styles.fullScreenScroll}
-                contentContainerStyle={styles.fullScreenScrollContent}
-                showsVerticalScrollIndicator={false}
-              >
-                <View style={styles.fullScreenMapWrap}>
-                  <WaterReaderAdaptiveMap
-                    result={state.read.productionSvgResult}
-                    mode="inspect"
-                    containerWidth={Math.max(320, window.width - 28)}
-                    windowHeight={window.height}
-                    selectedNumber={selectedNumber}
-                    fullScreen
-                  />
-                </View>
-                <WaterReaderLegend
-                  entries={state.read.productionSvgResult.legendEntries}
-                  season={state.read.season}
-                  selectedNumber={selectedNumber}
-                  onSelectNumber={setSelectedNumber}
-                />
-              </ScrollView>
-            </SafeAreaView>
-          </Modal>
         </View>
       )}
 
@@ -644,16 +575,6 @@ const styles = StyleSheet.create({
   viewerModeButtonTextActive: {
     color: paper.paper,
   },
-  viewerIconButton: {
-    width: 36,
-    minHeight: 34,
-    borderWidth: 1.5,
-    borderColor: paper.ink,
-    borderRadius: paperRadius.chip,
-    backgroundColor: paper.paper,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   mapMeasure: {
     width: '100%',
   },
@@ -771,58 +692,5 @@ const styles = StyleSheet.create({
 
   bottomSlot: {
     width: '100%',
-  },
-  fullScreenRoot: {
-    flex: 1,
-    backgroundColor: paper.paper,
-    paddingHorizontal: paperSpacing.md,
-    paddingBottom: paperSpacing.md,
-    gap: paperSpacing.md,
-  },
-  fullScreenHeader: {
-    minHeight: 58,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    gap: paperSpacing.md,
-    borderBottomWidth: 1.5,
-    borderBottomColor: paper.ink,
-  },
-  fullScreenTitleWrap: {
-    flex: 1,
-    minWidth: 0,
-  },
-  fullScreenEyebrow: {
-    fontFamily: paperFonts.bodyBold,
-    fontSize: 9,
-    letterSpacing: 2.8,
-    color: paper.red,
-    fontWeight: '700',
-  },
-  fullScreenTitle: {
-    fontFamily: paperFonts.display,
-    fontSize: 22,
-    lineHeight: 26,
-    color: paper.ink,
-    fontWeight: '700',
-    letterSpacing: 0,
-  },
-  fullScreenClose: {
-    width: 34,
-    height: 34,
-    borderRadius: 17,
-    backgroundColor: paper.ink,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  fullScreenMapWrap: {
-    width: '100%',
-  },
-  fullScreenScroll: {
-    flex: 1,
-  },
-  fullScreenScrollContent: {
-    gap: paperSpacing.md,
-    paddingBottom: paperSpacing.lg,
   },
 });
