@@ -38,19 +38,19 @@ import { useAuthStore } from '../../store/authStore';
 
 const FEATURES: { icon: keyof typeof Ionicons.glyphMap; title: string; desc: string }[] = [
   {
+    icon: 'pulse-outline',
+    title: 'The Daily Read',
+    desc: "Today's score, best windows, and a straight answer on whether to go before you leave the truck.",
+  },
+  {
     icon: 'fish-outline',
-    title: 'Condition-Based Picks',
-    desc: 'Get ranked lure and fly suggestions tuned to weather, tide where available, and seasonal patterns.',
+    title: 'The Tackle Box',
+    desc: 'Three lures and three flies, ranked for weather, tide where available, and the season you fish.',
   },
   {
     icon: 'scan-outline',
-    title: 'Water Reader',
-    desc: 'Use photos or maps to spot structure, cover, and likely holding water.',
-  },
-  {
-    icon: 'calendar-outline',
-    title: 'Trip Planning',
-    desc: 'Check the week ahead so you can pick better windows before you go.',
+    title: 'Water Read',
+    desc: 'Pull a hydrography polygon for any supported lake and read the structure zones before you cast.',
   },
 ];
 

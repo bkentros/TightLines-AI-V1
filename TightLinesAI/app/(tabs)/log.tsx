@@ -87,7 +87,7 @@ interface HistoryGroup {
   date: string;
   items: {
     id: string;
-    type: 'Recommendation' | 'Water Reader';
+    type: 'Recommendation' | 'Water Read';
     target: string;
     location: string;
     summary: string;
@@ -107,7 +107,7 @@ const HISTORY_GROUPS: HistoryGroup[] = [
       },
       {
         id: 'h2',
-        type: 'Water Reader',
+        type: 'Water Read',
         target: 'Largemouth Bass',
         location: 'Hillsborough River',
         summary: 'Clear, 68°F, Stable pressure',
@@ -138,7 +138,7 @@ const HISTORY_GROUPS: HistoryGroup[] = [
       },
       {
         id: 'h5',
-        type: 'Water Reader',
+        type: 'Water Read',
         target: 'Redfish',
         location: 'Crystal River',
         summary: 'Overcast, 69°F, Low tide',
@@ -232,7 +232,7 @@ export default function LogScreen() {
         : g.items.filter((i) =>
             historyFilter === 'recommendation'
               ? i.type === 'Recommendation'
-              : i.type === 'Water Reader',
+              : i.type === 'Water Read',
           ),
   })).filter((g) => g.items.length > 0);
 
@@ -487,8 +487,8 @@ export default function LogScreen() {
                         {f === 'all'
                           ? 'ALL'
                           : f === 'recommendation'
-                            ? 'RECOMMENDER'
-                            : 'WATER READER'}
+                            ? 'TACKLE BOX'
+                            : 'WATER READ'}
                       </Text>
                     </Pressable>
                   ),

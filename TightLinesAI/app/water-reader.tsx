@@ -107,17 +107,17 @@ function userFacingReadError(e: unknown): string {
   const raw = e instanceof Error ? e.message : String(e);
   const { surface, details = '' } = parseEdgeErrorMessage(raw);
   const m = `${surface} ${details}`.toLowerCase();
-  if (m.includes('not signed in') || m.includes('sign in')) return 'Sign in to load the Water Reader map.';
-  if (m.includes('subscribe') || m.includes('subscription')) return 'An active subscription is required to load Water Reader.';
+  if (m.includes('not signed in') || m.includes('sign in')) return 'Sign in to load the Water Read map.';
+  if (m.includes('subscribe') || m.includes('subscription')) return 'An active subscription is required to load Water Read.';
   if (m.includes('unauthorized') || surface === 'Unauthorized') return 'Session invalid. Sign in again.';
   if (m.includes('network') || m.includes('fetch') || m.includes('network request failed')) {
-    return 'Network error loading Water Reader. Try again.';
+    return 'Network error loading Water Read. Try again.';
   }
   if (m.includes('not_found') || surface.toLowerCase().includes('not found')) return 'This waterbody was not found.';
   if (m.includes('water_reader_read_failed') || m.includes('polygon_fetch_failed') || m.includes('500')) {
-    return 'Water Reader could not complete a trustworthy polygon read for this waterbody.';
+    return 'Water Read could not complete a trustworthy polygon read for this waterbody.';
   }
-  return surface.length < 200 ? surface : 'Could not load Water Reader.';
+  return surface.length < 200 ? surface : 'Could not load Water Read.';
 }
 
 function userFacingSearchError(e: unknown): string {
@@ -391,9 +391,14 @@ export default function WaterReaderScreen() {
 
           <View style={styles.navTitleWrap} pointerEvents="none">
             <Text style={styles.navEyebrow}>FINFINDR</Text>
-            <Text style={styles.navTitle} numberOfLines={1}>
-              WATER READER
-            </Text>
+            <View style={styles.navTitleRow}>
+              <Text style={styles.navTitle} numberOfLines={1}>
+                WATER READ
+              </Text>
+              <View style={styles.navBetaChip}>
+                <Text style={styles.navBetaChipText}>BETA</Text>
+              </View>
+            </View>
           </View>
 
           <View style={styles.navRight}>
@@ -648,7 +653,7 @@ export default function WaterReaderScreen() {
                               )}
                               {!open && (
                                 <Text style={styles.resultBlocked} numberOfLines={2}>
-                                  Water Reader read not available for this row.
+                                  Water Read not available for this row.
                                 </Text>
                               )}
                             </View>
@@ -689,7 +694,7 @@ export default function WaterReaderScreen() {
                   Choose a lake to see its read.
                 </Text>
                 <Text style={styles.idleBody}>
-                  Water Reader pulls the actual hydrography outline and marks
+                  Water Read pulls the actual hydrography outline and marks
                   the structure areas — points, coves, necks, islands — that
                   matter for the season. No GPS, no exact spots, no promises.
                 </Text>
@@ -742,7 +747,7 @@ export default function WaterReaderScreen() {
               </Text>
               <Text style={styles.guardrailBody}>
                 Zones are computed from polygon geometry alone. State and date
-                only shape the seasonal guidance in the legend. Water Reader
+                only shape the seasonal guidance in the legend. Water Read
                 does not use photos, depth, species, weather, your position,
                 or exact coordinates.
               </Text>
@@ -934,6 +939,28 @@ const styles = StyleSheet.create({
     letterSpacing: 0,
     marginTop: 1,
     fontWeight: '700',
+  },
+  navTitleRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+  },
+  navBetaChip: {
+    paddingHorizontal: 5,
+    paddingVertical: 1,
+    borderRadius: paperRadius.chip,
+    borderWidth: 1,
+    borderColor: paper.rust,
+    backgroundColor: paper.paperLight,
+    marginTop: 1,
+  },
+  navBetaChipText: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 8,
+    letterSpacing: 1.4,
+    color: paper.rust,
+    fontWeight: '700',
+    lineHeight: 10,
   },
   navRight: {
     minWidth: 62,

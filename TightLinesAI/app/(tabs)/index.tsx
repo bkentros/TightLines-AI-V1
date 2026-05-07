@@ -873,7 +873,7 @@ export default function HomeScreen() {
           </View>
 
           <View style={styles.ctaRow}>
-            {/* HOW'S FISHING NOW */}
+            {/* THE DAILY READ */}
             <Pressable
               style={({ pressed }) => [styles.ctaCard, pressed && styles.ctaCardPressed]}
               onPress={handleHowFishingPress}
@@ -883,9 +883,9 @@ export default function HomeScreen() {
                   <Ionicons name="pulse" size={20} color={paper.paper} />
                 </View>
                 <Text style={styles.ctaTitle}>
-                  HOW&rsquo;S{'\n'}
-                  <Text style={{ color: paper.forest }}>FISHING</Text>{'\n'}
-                  NOW?
+                  THE DAILY{'\n'}
+                  <Text style={{ color: paper.forest }}>READ</Text>
+                  <Text style={{ color: paper.red }}>.</Text>
                 </Text>
                 <Text style={styles.ctaBody}>
                   Today&apos;s score, best windows, and a straight answer before you go.
@@ -930,7 +930,7 @@ export default function HomeScreen() {
               </View>
             </Pressable>
 
-            {/* WHAT TO THROW */}
+            {/* THE TACKLE BOX */}
             <Pressable
               style={({ pressed }) => [styles.ctaCard, pressed && styles.ctaCardPressed]}
               onPress={handleRecommenderPress}
@@ -940,8 +940,9 @@ export default function HomeScreen() {
                   <LurePopper size={28} color={paper.ink} outline={paper.ink} />
                 </View>
                 <Text style={styles.ctaTitle}>
-                  WHAT TO{'\n'}
-                  <Text style={{ color: paper.goldDk }}>THROW</Text>?
+                  THE TACKLE{'\n'}
+                  <Text style={{ color: paper.goldDk }}>BOX</Text>
+                  <Text style={{ color: paper.red }}>.</Text>
                 </Text>
                 <Text style={styles.ctaBody}>
                   Three lures and three flies, picked for today&apos;s conditions.
@@ -966,7 +967,7 @@ export default function HomeScreen() {
             </Pressable>
           </View>
 
-          {/* ─── Water Reader (preserved stub, restyled) ─── */}
+          {/* ─── Water Read (preserved stub, restyled) ─── */}
           <Pressable
             style={({ pressed }) => [styles.waterReaderCard, pressed && { opacity: 0.9 }]}
             onPress={() => {
@@ -980,13 +981,13 @@ export default function HomeScreen() {
                   <Ionicons name="scan-outline" size={18} color={paper.paper} />
                 </View>
                 <View style={styles.waterReaderText}>
-                  <Text style={styles.waterReaderTitle}>WATER READER</Text>
+                  <Text style={styles.waterReaderTitle}>WATER READ</Text>
                   <Text style={styles.waterReaderSub}>
                     Polygon geometry structure zones for lakes and ponds.
                   </Text>
                 </View>
-                <View style={styles.comingSoonChip}>
-                  <Text style={styles.comingSoonChipText}>PREVIEW</Text>
+                <View style={styles.betaChip}>
+                  <Text style={styles.betaChipText}>BETA</Text>
                 </View>
               </View>
             </PaperCard>
@@ -1499,7 +1500,7 @@ const styles = StyleSheet.create({
     marginTop: -2,
   },
 
-  /* ─── Water Reader stub ─── */
+  /* ─── Water Read stub ─── */
   waterReaderCard: {
     marginBottom: paperSpacing.section,
   },
@@ -1527,7 +1528,7 @@ const styles = StyleSheet.create({
     opacity: 0.7,
     marginTop: 2,
   },
-  comingSoonChip: {
+  betaChip: {
     backgroundColor: paper.gold,
     borderWidth: 1.5,
     borderColor: paper.ink,
@@ -1535,7 +1536,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     paddingVertical: 3,
   },
-  comingSoonChipText: {
+  betaChipText: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 9,
     letterSpacing: 2,

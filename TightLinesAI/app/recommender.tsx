@@ -955,7 +955,7 @@ export default function RecommenderScreen() {
         <View style={wizardStyles.navTitleWrap} pointerEvents="none">
           <Text style={wizardStyles.navEyebrow}>FINFINDR</Text>
           <Text style={wizardStyles.navTitle} numberOfLines={1} ellipsizeMode="tail">
-            WHAT TO THROW
+            THE TACKLE BOX
           </Text>
         </View>
 

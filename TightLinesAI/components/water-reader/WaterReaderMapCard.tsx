@@ -277,7 +277,7 @@ export function WaterReaderMapCard({
             <SafeAreaView style={styles.fullScreenRoot}>
               <View style={styles.fullScreenHeader}>
                 <View style={styles.fullScreenTitleWrap}>
-                  <Text style={styles.fullScreenEyebrow}>WATER READER</Text>
+                  <Text style={styles.fullScreenEyebrow}>WATER READ</Text>
                   <Text style={styles.fullScreenTitle} numberOfLines={1}>
                     {state.read.name}
                   </Text>
@@ -327,7 +327,7 @@ export function WaterReaderMapCard({
           <Text style={styles.fallbackTitle}>NO MAP DRAWN</Text>
           <Text style={styles.fallbackBody}>
             {state.read.fallbackMessage ??
-              'Water Reader could not build a polygon geometry read for this waterbody.'}
+              'Water Read could not build a polygon geometry read for this waterbody.'}
           </Text>
         </View>
       )}

@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "TightLines AI",
+    "name": "FinFindr",
     "slug": "tightlines-ai",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -18,7 +18,7 @@
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false,
         "UIDesignRequiresCompatibility": true,
-        "NSLocalNetworkUsageDescription": "TightLines connects to the Metro dev server on your Mac over Wi‑Fi while you develop.",
+        "NSLocalNetworkUsageDescription": "FinFindr connects to the Metro dev server on your Mac over Wi‑Fi while you develop.",
         "NSBonjourServices": [
           "_expo._tcp"
         ],
@@ -44,25 +44,25 @@
       [
         "expo-location",
         {
-          "locationAlwaysAndWhenInUsePermission": "TightLines AI uses your location to auto-fill weather, tide, and moon conditions for better fishing recommendations."
+          "locationAlwaysAndWhenInUsePermission": "FinFindr uses your location to auto-fill weather, tide, and moon conditions for better fishing recommendations."
         }
       ],
       [
         "expo-camera",
         {
-          "cameraPermission": "TightLines AI uses your camera to photograph catches and upload water images for AI analysis."
+          "cameraPermission": "FinFindr uses your camera to photograph catches and upload water images for AI analysis."
         }
       ],
       [
         "expo-image-picker",
         {
-          "photosPermission": "TightLines AI accesses your photos to upload water images and catch photos."
+          "photosPermission": "FinFindr accesses your photos to upload water images and catch photos."
         }
       ],
       [
         "expo-audio",
         {
-          "microphonePermission": "TightLines AI uses your microphone to record voice fishing logs."
+          "microphonePermission": "FinFindr uses your microphone to record voice fishing logs."
         }
       ],
       "expo-notifications",

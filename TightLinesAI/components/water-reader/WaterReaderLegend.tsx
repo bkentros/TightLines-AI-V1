@@ -86,6 +86,15 @@ export function WaterReaderLegend({
           />
         ))}
       </View>
+
+      <View style={styles.betaFooter}>
+        <View style={styles.betaFooterChip}>
+          <Text style={styles.betaFooterChipText}>BETA</Text>
+        </View>
+        <Text style={styles.betaFooterText}>
+          Water Read is in beta. Read the zones as a starting point, not the last word.
+        </Text>
+      </View>
     </View>
   );
 }
@@ -348,5 +357,38 @@ const styles = StyleSheet.create({
     fontSize: 11.5,
     lineHeight: 16,
     color: paper.goldDk,
+  },
+  betaFooter: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    gap: paperSpacing.sm,
+    paddingTop: paperSpacing.sm,
+    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopColor: paper.inkHair,
+  },
+  betaFooterChip: {
+    paddingHorizontal: 6,
+    paddingVertical: 2,
+    borderRadius: paperRadius.chip,
+    borderWidth: 1,
+    borderColor: paper.rust,
+    backgroundColor: paper.paperLight,
+  },
+  betaFooterChipText: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 8.5,
+    letterSpacing: 1.6,
+    color: paper.rust,
+    fontWeight: '700',
+    lineHeight: 11,
+  },
+  betaFooterText: {
+    flex: 1,
+    fontFamily: paperFonts.displayItalic,
+    fontStyle: 'italic',
+    fontSize: 12,
+    lineHeight: 16,
+    color: paper.ink,
+    opacity: 0.7,
   },
 });

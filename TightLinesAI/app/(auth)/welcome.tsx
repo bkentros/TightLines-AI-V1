@@ -106,9 +106,9 @@ export default function WelcomeScreen() {
           {/* Value props — editorial bullet list */}
           <View style={styles.valueProps}>
             {[
-              { icon: 'fish-outline', text: "Lure and fly picks for today's conditions" },
-              { icon: 'calendar-outline', text: '7-day fishing outlooks for planning trips' },
-              { icon: 'camera-outline', text: 'Water Reader for structure, cover, and holding water' },
+              { icon: 'fish-outline', text: "Tackle Box picks for today's conditions" },
+              { icon: 'calendar-outline', text: '7-day Daily Read outlooks for planning trips' },
+              { icon: 'camera-outline', text: 'Water Read for structure, cover, and holding water' },
             ].map((item) => (
               <View key={item.icon} style={styles.valueProp}>
                 <View style={styles.valueIconWrap}>

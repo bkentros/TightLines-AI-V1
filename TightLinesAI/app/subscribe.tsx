@@ -49,8 +49,8 @@ export default function SubscribeScreen() {
 
           <Text style={styles.title}>Subscribe.</Text>
           <Text style={styles.lede}>
-            Unlock unlimited fishing reads, the full tackle recommender,
-            and planning tools built around your conditions.
+            Unlock the Daily Read, the full Tackle Box, and planning tools
+            built around the water you fish.
           </Text>
 
           <Pressable
@@ -69,7 +69,7 @@ export default function SubscribeScreen() {
               </View>
             </View>
             <Text style={styles.planHint}>
-              Daily fishing reads and tackle picks for the water you fish most.
+              Daily Read and Tackle Box picks for the water you fish most.
             </Text>
           </Pressable>
 
@@ -95,7 +95,7 @@ export default function SubscribeScreen() {
               </View>
             </View>
             <Text style={styles.planHint}>
-              Everything in Angler plus Water Reader, multi-day planning,
+              Everything in Angler plus Water Read, multi-day planning,
               and deeper guide notes.
             </Text>
           </Pressable>

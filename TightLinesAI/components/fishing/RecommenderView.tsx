@@ -392,15 +392,15 @@ export function RecommenderView({ result, style }: Props) {
 
           <View style={styles.heroTitleRow}>
             <View style={styles.heroTitleCol}>
-              <Text style={styles.heroTitleLine}>WHAT TO</Text>
+              <Text style={styles.heroTitleLine}>TODAY&apos;S</Text>
               <View style={styles.heroTitleSecond}>
                 <Text style={[styles.heroTitleLine, styles.heroTitleAccent]}>
-                  THROW
+                  PICKS
                 </Text>
-                <Text style={styles.heroTitleLine}> TODAY.</Text>
+                <Text style={styles.heroTitleLine}>.</Text>
               </View>
               <Text style={styles.heroLede}>
-                Ranked lures and flies for today's conditions.
+                Ranked lures and flies for today&apos;s conditions.
               </Text>
             </View>
 

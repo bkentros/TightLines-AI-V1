@@ -625,8 +625,9 @@ export default function HowFishingScreen() {
                 </SectionEyebrow>
 
                 <Text style={styles.confirmTitle}>
-                  HOW'S FISHING{'\n'}
-                  <Text style={{ color: paper.forest }}>{isForecastDay ? 'ON THIS DAY?' : 'RIGHT NOW?'}</Text>
+                  THE DAILY{'\n'}
+                  <Text style={{ color: paper.forest }}>{isForecastDay ? 'FORECAST READ' : 'READ'}</Text>
+                  <Text style={{ color: paper.red }}>.</Text>
                 </Text>
 
                 <View style={styles.confirmMetaRow}>

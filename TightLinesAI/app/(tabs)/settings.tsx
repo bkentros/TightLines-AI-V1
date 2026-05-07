@@ -468,9 +468,9 @@ export default function SettingsScreen() {
               <View style={styles.ownerSection}>
                 <Text style={styles.ownerSectionTitle}>DEVELOPER</Text>
                 <Text style={styles.ownerSectionHint}>
-                  Clear saved How&apos;s Fishing reports (today and forecast days), 7-day outlook chips,
-                  live conditions cache, and cached lure/fly recommender results for the day. Open Home,
-                  How&apos;s Fishing, or the recommender again to regenerate.
+                  Clear saved Daily Read entries (today and forecast days), 7-day outlook chips,
+                  live conditions cache, and cached Tackle Box picks for the day. Open Home,
+                  the Daily Read, or the Tackle Box again to regenerate.
                 </Text>
                 <Pressable
                   style={({ pressed }) => [
@@ -482,7 +482,7 @@ export default function SettingsScreen() {
                     if (clearingCaches) return;
                     Alert.alert(
                       'Clear local caches?',
-                      "Removes this device's cached How's Fishing reports, outlook chips, live conditions, and recommender lure/fly results. You'll fetch fresh data the next time you load Home, generate a report, or open the recommender.",
+                      "Removes this device's cached Daily Read entries, outlook chips, live conditions, and Tackle Box picks. You'll fetch fresh data the next time you load Home, generate a Daily Read, or open the Tackle Box.",
                       [
                         { text: 'Cancel', style: 'cancel' },
                         {
@@ -494,7 +494,7 @@ export default function SettingsScreen() {
                               await clearOwnerFishCaches();
                               Alert.alert(
                                 'Caches cleared',
-                                'Go to Home, How\'s Fishing, or the recommender to load new data.',
+                                'Go to Home, the Daily Read, or the Tackle Box to load new data.',
                               );
                             } catch {
                               Alert.alert('Could not clear', 'Try again in a moment.');

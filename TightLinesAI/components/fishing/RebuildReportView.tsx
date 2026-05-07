@@ -253,8 +253,8 @@ export function RebuildReportView({
         </View>
 
         <Text style={styles.heroHeadline}>
-          HOW'S FISHING{'\n'}
-          <Text style={{ color: accent }}>{isFuture ? 'ON THIS DAY?' : 'RIGHT NOW?'}</Text>
+          THE DAILY{'\n'}
+          <Text style={{ color: accent }}>{isFuture ? 'FORECAST READ' : 'READ'}</Text>
         </Text>
 
         <LinearScoreGauge
