@@ -547,7 +547,9 @@ export default function WaterReaderScreen() {
                         ]}
                         hitSlop={6}
                       >
-                        <Text style={styles.linkBtnText}>← CHANGE LAKE</Text>
+                        <Text style={styles.linkBtnText} numberOfLines={1}>
+                          CHANGE LAKE
+                        </Text>
                       </Pressable>
                       <Text style={styles.linkSep}>·</Text>
                       <Pressable
@@ -558,7 +560,9 @@ export default function WaterReaderScreen() {
                         ]}
                         hitSlop={6}
                       >
-                        <Text style={styles.linkBtnText}>CHANGE STATE</Text>
+                        <Text style={styles.linkBtnText} numberOfLines={1}>
+                          CHANGE STATE
+                        </Text>
                       </Pressable>
                     </View>
                   </View>
@@ -634,16 +638,16 @@ export default function WaterReaderScreen() {
                               >
                                 {resultPrimaryLine(r)}
                               </Text>
-                              <Text style={styles.resultSecondary}>
+                              <Text style={styles.resultSecondary} numberOfLines={2}>
                                 {resultSecondaryLine(r)}
                               </Text>
                               {ambiguityLine(r) && (
-                                <Text style={styles.resultAmbiguity}>
+                                <Text style={styles.resultAmbiguity} numberOfLines={2}>
                                   {ambiguityLine(r)}
                                 </Text>
                               )}
                               {!open && (
-                                <Text style={styles.resultBlocked}>
+                                <Text style={styles.resultBlocked} numberOfLines={2}>
                                   Water Reader read not available for this row.
                                 </Text>
                               )}
@@ -746,8 +750,10 @@ export default function WaterReaderScreen() {
 
             {/* ── Footer ── */}
             <View style={styles.footer}>
-              <Text style={styles.footerLeft}>FINFINDR</Text>
-              <Text style={styles.footerRight}>
+              <Text style={styles.footerLeft} numberOfLines={1}>
+                FINFINDR
+              </Text>
+              <Text style={styles.footerRight} numberOfLines={2}>
                 POLYGON ONLY · MADE FOR THE WATER
               </Text>
             </View>
@@ -800,6 +806,7 @@ export default function WaterReaderScreen() {
                       styles.modalRowName,
                       active && styles.modalRowNameActive,
                     ]}
+                    numberOfLines={1}
                   >
                     {option.name}
                   </Text>
@@ -848,6 +855,7 @@ function SupportPill({
           compact && styles.supportPillTextCompact,
           { color: tone.fg },
         ]}
+        numberOfLines={1}
       >
         {supportPillLabel(status)}
       </Text>
@@ -906,8 +914,8 @@ const styles = StyleSheet.create({
   },
   navTitleWrap: {
     position: 'absolute',
-    left: 0,
-    right: 0,
+    left: 96,
+    right: 96,
     top: paperSpacing.sm,
     bottom: paperSpacing.sm,
     alignItems: 'center',
@@ -923,7 +931,7 @@ const styles = StyleSheet.create({
     fontFamily: paperFonts.display,
     fontSize: 14,
     color: paper.ink,
-    letterSpacing: -0.2,
+    letterSpacing: 0,
     marginTop: 1,
     fontWeight: '700',
   },
@@ -963,7 +971,7 @@ const styles = StyleSheet.create({
     fontSize: 32,
     lineHeight: 36,
     fontWeight: '700',
-    letterSpacing: -1.1,
+    letterSpacing: 0,
     color: paper.ink,
     textAlign: 'center',
   },
@@ -1016,6 +1024,7 @@ const styles = StyleSheet.create({
   stateButtonPressed: { transform: [{ translateY: 1 }] },
   stateButtonText: {
     flex: 1,
+    minWidth: 0,
     fontFamily: paperFonts.bodyBold,
     fontSize: 13,
     color: paper.ink,
@@ -1031,6 +1040,7 @@ const styles = StyleSheet.create({
     fontSize: 12.5,
     color: paper.ink,
     opacity: 0.6,
+    lineHeight: 17,
   },
   searchInputWrap: {
     flexDirection: 'row',
@@ -1046,6 +1056,7 @@ const styles = StyleSheet.create({
   },
   searchInput: {
     flex: 1,
+    minWidth: 0,
     fontFamily: paperFonts.bodyMedium,
     fontSize: 14.5,
     color: paper.ink,
@@ -1062,26 +1073,29 @@ const styles = StyleSheet.create({
     paddingTop: paperSpacing.sm + 2,
     borderTopWidth: StyleSheet.hairlineWidth,
     borderTopColor: paper.inkHair,
+    flexWrap: 'wrap',
   },
-  selectedTextStack: { flex: 1, gap: 3 },
+  selectedTextStack: { flex: 1, minWidth: 0, gap: 3 },
   selectedTitle: {
     fontFamily: paperFonts.display,
     fontSize: 16,
     fontWeight: '700',
     color: paper.ink,
-    letterSpacing: -0.2,
+    letterSpacing: 0,
   },
   selectedContext: {
     fontFamily: paperFonts.body,
     fontSize: 12,
     color: paper.ink,
     opacity: 0.7,
+    lineHeight: 16,
   },
   selectedActions: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 6,
     marginTop: 4,
+    flexWrap: 'wrap',
   },
   linkBtn: { paddingVertical: 2 },
   linkBtnPressed: { opacity: 0.6 },
@@ -1091,6 +1105,7 @@ const styles = StyleSheet.create({
     letterSpacing: 1.8,
     color: paper.forest,
     fontWeight: '700',
+    lineHeight: 13,
   },
   linkSep: { color: paper.inkHair, fontSize: 11 },
 
@@ -1111,11 +1126,13 @@ const styles = StyleSheet.create({
     paddingVertical: paperSpacing.md,
   },
   dropdownLoadingText: {
+    flexShrink: 1,
     fontFamily: paperFonts.bodyBold,
     fontSize: 10,
     letterSpacing: 2.2,
     color: paper.ink,
     opacity: 0.7,
+    lineHeight: 14,
   },
   dropdownErrorRow: {
     flexDirection: 'row',
@@ -1127,6 +1144,7 @@ const styles = StyleSheet.create({
   },
   dropdownErrorText: {
     flex: 1,
+    minWidth: 0,
     fontFamily: paperFonts.body,
     fontSize: 12.5,
     lineHeight: 17,
@@ -1141,8 +1159,10 @@ const styles = StyleSheet.create({
   },
   dropdownEmptyText: {
     flex: 1,
+    minWidth: 0,
     fontFamily: paperFonts.body,
     fontSize: 12.5,
+    lineHeight: 17,
     color: paper.ink,
     opacity: 0.7,
   },
@@ -1161,13 +1181,13 @@ const styles = StyleSheet.create({
   },
   resultRowDisabled: { opacity: 0.5 },
   resultRowPressed: { backgroundColor: paper.paperLight },
-  resultRowMain: { flex: 1, gap: 3 },
+  resultRowMain: { flex: 1, minWidth: 0, gap: 3 },
   resultPrimary: {
     fontFamily: paperFonts.display,
     fontSize: 14.5,
     color: paper.ink,
     fontWeight: '700',
-    letterSpacing: -0.1,
+    letterSpacing: 0,
     lineHeight: 18,
   },
   resultSecondary: {
@@ -1176,6 +1196,7 @@ const styles = StyleSheet.create({
     letterSpacing: 0.6,
     color: paper.ink,
     opacity: 0.62,
+    lineHeight: 14,
   },
   resultAmbiguity: {
     fontFamily: paperFonts.bodyMedium,
@@ -1199,16 +1220,22 @@ const styles = StyleSheet.create({
     paddingVertical: 4,
     borderRadius: paperRadius.chip,
     borderWidth: 1.5,
+    alignSelf: 'flex-start',
+    flexShrink: 0,
+    maxWidth: 142,
   },
   supportPillCompact: {
     paddingHorizontal: 6,
     paddingVertical: 3,
+    maxWidth: 118,
   },
   supportPillText: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 9,
     letterSpacing: 1.5,
     fontWeight: '700',
+    textAlign: 'center',
+    lineHeight: 12,
   },
   supportPillTextCompact: {
     fontSize: 8.5,
@@ -1241,7 +1268,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     lineHeight: 24,
     fontWeight: '700',
-    letterSpacing: -0.4,
+    letterSpacing: 0,
     color: paper.ink,
   },
   idleBody: {
@@ -1279,7 +1306,7 @@ const styles = StyleSheet.create({
     lineHeight: 22,
     color: paper.ink,
     fontWeight: '700',
-    letterSpacing: -0.3,
+    letterSpacing: 0,
   },
   guardrailBody: {
     fontFamily: paperFonts.body,
@@ -1294,6 +1321,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    flexWrap: 'wrap',
+    gap: paperSpacing.sm,
     paddingTop: paperSpacing.md,
     borderTopWidth: 1.5,
     borderTopColor: paper.ink,
@@ -1306,11 +1335,14 @@ const styles = StyleSheet.create({
     opacity: 0.55,
   },
   footerRight: {
+    flexShrink: 1,
     fontFamily: paperFonts.metaMonoBold,
     fontSize: 10,
     letterSpacing: 2,
     color: paper.ink,
     opacity: 0.55,
+    textAlign: 'right',
+    lineHeight: 14,
   },
 
   // State picker modal
@@ -1326,7 +1358,7 @@ const styles = StyleSheet.create({
     borderBottomColor: paper.ink,
     backgroundColor: paper.paper,
   },
-  modalHeaderLeft: { gap: 1 },
+  modalHeaderLeft: { flex: 1, minWidth: 0, gap: 1 },
   modalEyebrow: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 9,
@@ -1338,7 +1370,7 @@ const styles = StyleSheet.create({
     fontFamily: paperFonts.display,
     fontSize: 22,
     color: paper.ink,
-    letterSpacing: -0.4,
+    letterSpacing: 0,
     fontWeight: '700',
   },
   modalDoneBtn: {
@@ -1381,10 +1413,12 @@ const styles = StyleSheet.create({
     backgroundColor: paper.paperLight,
   },
   modalRowName: {
+    flex: 1,
+    minWidth: 0,
     fontFamily: paperFonts.display,
     fontSize: 16,
     color: paper.ink,
-    letterSpacing: -0.2,
+    letterSpacing: 0,
   },
   modalRowNameActive: { fontWeight: '700' },
   modalRowCode: {
@@ -1393,6 +1427,7 @@ const styles = StyleSheet.create({
     letterSpacing: 1.4,
     color: paper.ink,
     opacity: 0.6,
+    marginLeft: paperSpacing.md,
   },
   modalRowCodeActive: { color: paper.forest, opacity: 1 },
 });

@@ -150,7 +150,10 @@ function LegendRow({
       {/* Copy column. */}
       <View style={styles.copyColumn}>
         {entry.isConfluence && (
-          <Text style={[styles.tinyTag, { color: CONFLUENCE_ACCENT }]}>
+          <Text
+            style={[styles.tinyTag, { color: CONFLUENCE_ACCENT }]}
+            numberOfLines={1}
+          >
             STRUCTURE CONFLUENCE
           </Text>
         )}
@@ -163,7 +166,9 @@ function LegendRow({
             </Text>
           ) : null}
         </Text>
-        <Text style={styles.body}>{entry.body}</Text>
+        <Text style={styles.body} numberOfLines={8}>
+          {entry.body}
+        </Text>
         {entry.transitionWarning ? (
           <View style={styles.transitionChip}>
             <Text style={styles.transitionGlyph}>◐</Text>
@@ -209,6 +214,7 @@ const styles = StyleSheet.create({
   },
   headerLeft: {
     flex: 1,
+    minWidth: 0,
     gap: 3,
   },
   eyebrow: {
@@ -283,6 +289,7 @@ const styles = StyleSheet.create({
   },
   copyColumn: {
     flex: 1,
+    minWidth: 0,
     gap: 4,
   },
   tinyTag: {
@@ -291,6 +298,7 @@ const styles = StyleSheet.create({
     letterSpacing: 2.4,
     fontWeight: '700',
     marginBottom: 1,
+    lineHeight: 12,
   },
   title: {
     fontFamily: paperFonts.display,

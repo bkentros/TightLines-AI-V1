@@ -167,7 +167,7 @@ export function WaterReaderMapCard({
           {state.status === 'reading' && (
             <View style={styles.headerStatus}>
               <ActivityIndicator size="small" color={paper.forest} />
-              <Text style={styles.headerStatusText}>
+              <Text style={styles.headerStatusText} numberOfLines={1}>
                 {readingSlow ? 'BUILDING MAP' : 'OPENING'}
               </Text>
             </View>
@@ -179,7 +179,9 @@ export function WaterReaderMapCard({
                 size={11}
                 color={paper.paper}
               />
-              <Text style={styles.headerStatusReadyText}>READY</Text>
+              <Text style={styles.headerStatusReadyText} numberOfLines={1}>
+                READY
+              </Text>
             </View>
           )}
         </View>
@@ -377,6 +379,7 @@ function ViewerModeButton({
           styles.viewerModeButtonText,
           active && styles.viewerModeButtonTextActive,
         ]}
+        numberOfLines={1}
       >
         {label}
       </Text>
@@ -516,6 +519,7 @@ const styles = StyleSheet.create({
   },
   headerLeft: {
     flex: 1,
+    minWidth: 0,
     gap: 3,
     paddingRight: paperSpacing.sm,
   },
@@ -530,7 +534,7 @@ const styles = StyleSheet.create({
     fontFamily: paperFonts.display,
     fontSize: 22,
     fontWeight: '700',
-    letterSpacing: -0.5,
+    letterSpacing: 0,
     color: paper.ink,
     lineHeight: 26,
     marginTop: 2,
@@ -542,6 +546,7 @@ const styles = StyleSheet.create({
     color: paper.ink,
     opacity: 0.65,
     marginTop: 2,
+    lineHeight: 17,
   },
   headerStatus: {
     flexDirection: 'row',
@@ -553,6 +558,8 @@ const styles = StyleSheet.create({
     borderColor: paper.ink,
     borderRadius: paperRadius.chip,
     backgroundColor: paper.paper,
+    flexShrink: 0,
+    maxWidth: 132,
   },
   headerStatusText: {
     fontFamily: paperFonts.bodyBold,
@@ -560,6 +567,7 @@ const styles = StyleSheet.create({
     letterSpacing: 2,
     color: paper.ink,
     fontWeight: '700',
+    lineHeight: 12,
   },
   headerStatusReady: {
     flexDirection: 'row',
@@ -569,6 +577,8 @@ const styles = StyleSheet.create({
     paddingVertical: 6,
     borderRadius: paperRadius.chip,
     backgroundColor: paper.forest,
+    flexShrink: 0,
+    maxWidth: 108,
   },
   headerStatusReadyText: {
     fontFamily: paperFonts.bodyBold,
@@ -576,6 +586,7 @@ const styles = StyleSheet.create({
     letterSpacing: 2,
     color: paper.paper,
     fontWeight: '700',
+    lineHeight: 12,
   },
 
   // Map + legend stack (ready state).
@@ -594,6 +605,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-end',
     alignItems: 'center',
+    flexWrap: 'wrap',
     gap: paperSpacing.xs,
     marginBottom: paperSpacing.sm,
   },
@@ -604,6 +616,7 @@ const styles = StyleSheet.create({
     borderRadius: paperRadius.chip,
     overflow: 'hidden',
     backgroundColor: paper.paper,
+    flexShrink: 1,
   },
   viewerModeButton: {
     minHeight: 34,
@@ -626,6 +639,7 @@ const styles = StyleSheet.create({
     letterSpacing: 1.8,
     color: paper.ink,
     fontWeight: '700',
+    lineHeight: 12,
   },
   viewerModeButtonTextActive: {
     color: paper.paper,
@@ -776,6 +790,7 @@ const styles = StyleSheet.create({
   },
   fullScreenTitleWrap: {
     flex: 1,
+    minWidth: 0,
   },
   fullScreenEyebrow: {
     fontFamily: paperFonts.bodyBold,
@@ -790,7 +805,7 @@ const styles = StyleSheet.create({
     lineHeight: 26,
     color: paper.ink,
     fontWeight: '700',
-    letterSpacing: -0.4,
+    letterSpacing: 0,
   },
   fullScreenClose: {
     width: 34,
