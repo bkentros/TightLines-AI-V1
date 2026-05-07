@@ -17,7 +17,7 @@ import type {
   SpeciesGroup,
   WaterClarity,
 } from './recommenderContracts';
-import { RECOMMENDER_FEATURE } from './recommenderContracts';
+import { RECOMMENDER_DAILY_SESSION_ENGINE_VERSION, RECOMMENDER_FEATURE } from './recommenderContracts';
 
 const COORD_THRESHOLD = 0.01;
 
@@ -58,7 +58,7 @@ function cacheKey(
   const dayKey = extractRequestDay(params);
   return [
     // Prefix must change when the edge response contract or selection rules change.
-    'recommender_rebuild_tacv2_copyv2',
+    RECOMMENDER_DAILY_SESSION_ENGINE_VERSION,
     params.latitude.toFixed(3),
     params.longitude.toFixed(3),
     params.state_code.toUpperCase(),
@@ -112,6 +112,16 @@ function isCachedResultValid(result: RecommenderResponse): boolean {
   if (typeof result.summary?.daily_tactical_preference?.preferred_column !== 'string') {
     return false;
   }
+  const session = result.recommendation_session;
+  if (!session) return false;
+  if (session.variant !== 'A' && session.variant !== 'B') return false;
+  if (typeof session.local_date !== 'string') return false;
+  if (typeof session.locked_until !== 'string') return false;
+  if (typeof session.can_refresh !== 'boolean') return false;
+  if (session.refreshes_remaining !== 0 && session.refreshes_remaining !== 1) {
+    return false;
+  }
+  if (session.locked_until !== result.cache_expires_at) return false;
   return true;
 }
 
@@ -202,7 +212,7 @@ export async function fetchRecommendation(
   const token = await getValidAccessToken();
   const result = await invokeEdgeFunction<RecommenderResponse>('recommender', {
     accessToken: token,
-    body: params,
+    body: opts.forceRefresh ? { ...params, refresh_requested: true } : params,
   });
 
   // Cache the result

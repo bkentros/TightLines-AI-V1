@@ -14,6 +14,10 @@ import type {
 /** Active production feature id (deterministic rebuild engine). */
 export const RECOMMENDER_FEATURE = "recommender_rebuild" as const;
 
+/** Daily session/cache namespace for the server-authoritative A/B refresh contract. */
+export const RECOMMENDER_DAILY_SESSION_ENGINE_VERSION =
+  "recommender_rebuild_tacv3_sessionv1" as const;
+
 /** Legacy id still accepted for cache validation; v3-only scripts may surface this id. */
 export type RecommenderFeatureId =
   | typeof RECOMMENDER_FEATURE
@@ -68,6 +72,13 @@ export type RecommenderResponse = {
   water_clarity: WaterClarity;
   generated_at: string;
   cache_expires_at: string;
+  recommendation_session: {
+    local_date: string;
+    variant: "A" | "B";
+    can_refresh: boolean;
+    refreshes_remaining: 0 | 1;
+    locked_until: string;
+  };
   summary: RecommenderSessionSummary;
   lure_recommendations: RankedRecommendation[];
   fly_recommendations: RankedRecommendation[];

@@ -186,9 +186,11 @@ type WeightedCandidate = ScoredCandidate & {
   selectionWeight: number;
 };
 
+export const PRIMARY_PACE_EXACT_SCORE = 30;
+
 const SELECTION_SCORE = {
   base: 100,
-  primaryPaceExact: 30,
+  primaryPaceExact: PRIMARY_PACE_EXACT_SCORE,
   secondaryPaceExact: 22,
   primaryPaceAdjacent: 12,
   secondaryPaceAdjacent: 8,
@@ -528,8 +530,14 @@ export function selectArchetypesForSide(args: {
   const activeConditionMatches = activeConditionWindow == null
     ? null
     : side === "lure"
-    ? lureConditionWindowMatches(activeConditionWindow as LureConditionWindowId)
-    : flyConditionWindowMatches(activeConditionWindow as FlyConditionWindowId);
+    ? lureConditionWindowMatches(
+      activeConditionWindow as LureConditionWindowId,
+      lureConditionState,
+    )
+    : flyConditionWindowMatches(
+      activeConditionWindow as FlyConditionWindowId,
+      flyConditionState,
+    );
 
   const catalogById = new Map<string, ArchetypeProfileV4>(
     catalog.map((c) => [c.id, c]),

@@ -20,7 +20,8 @@ export function windBandFromDaylightWindMph(daylightWindMph: number): WindBand {
 
 /**
  * Mean wind speed (mph) from 5:00 AM through 9:00 PM **local** time on `local_date`.
- * Uses hourly samples only; returns 0 when hourly daylight samples are unavailable.
+ * Hourly daylight samples are authoritative when present. If they are unavailable
+ * for the local day, falls back to normalized `wind_speed_mph`; otherwise returns 0.
  */
 export function meanDaylightWindMph(args: {
   env_data: Record<string, unknown>;
@@ -58,6 +59,13 @@ export function meanDaylightWindMph(args: {
       }
       if (n > 0) return s / n;
     }
+  }
+
+  const normalizedWindMph = env_data.wind_speed_mph;
+  if (
+    typeof normalizedWindMph === "number" && Number.isFinite(normalizedWindMph)
+  ) {
+    return normalizedWindMph;
   }
 
   return 0;

@@ -20,6 +20,7 @@ import React from 'react';
 import {
   ScrollView,
   StyleSheet,
+  Pressable,
   Text,
   View,
   type ViewStyle,
@@ -346,9 +347,11 @@ function SectionDivider({
 type Props = {
   result: RecommenderResponse;
   style?: ViewStyle;
+  onRefresh?: () => void;
+  isRefreshing?: boolean;
 };
 
-export function RecommenderView({ result, style }: Props) {
+export function RecommenderView({ result, style, onRefresh, isRefreshing = false }: Props) {
   const speciesImage = getSpeciesImage(result.species);
   const daily = result.summary.daily_tactical_preference;
   const mixSummary = opportunityMixSummarySentence(daily.opportunity_mix);
@@ -363,6 +366,7 @@ export function RecommenderView({ result, style }: Props) {
 
   const speciesDisplay = SPECIES_DISPLAY[result.species];
   const speciesSubtitle = SPECIES_SUBTITLE[result.species];
+  const canRefresh = result.recommendation_session.can_refresh && onRefresh != null;
 
   return (
     <PaperBackground style={style}>
@@ -388,6 +392,20 @@ export function RecommenderView({ result, style }: Props) {
             <SectionEyebrow color={paper.red} dashes size={10.5}>
               {`TACKLE BOX · ${contextLabel(result.context)}`}
             </SectionEyebrow>
+            {canRefresh ? (
+              <Pressable
+                style={({ pressed }) => [
+                  styles.refreshButton,
+                  pressed && styles.refreshButtonPressed,
+                ]}
+                onPress={onRefresh}
+                disabled={isRefreshing}
+              >
+                <Text style={styles.refreshButtonText}>
+                  {isRefreshing ? 'REFRESHING' : 'BUILD SET B'}
+                </Text>
+              </Pressable>
+            ) : null}
           </View>
 
           <View style={styles.heroTitleRow}>
@@ -617,6 +635,27 @@ const styles = StyleSheet.create({
   },
   heroHeader: {
     zIndex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: paperSpacing.sm,
+  },
+  refreshButton: {
+    paddingHorizontal: 10,
+    paddingVertical: 7,
+    backgroundColor: paper.ink,
+    borderWidth: 1.5,
+    borderColor: paper.ink,
+    borderRadius: 2,
+  },
+  refreshButtonPressed: {
+    opacity: 0.82,
+  },
+  refreshButtonText: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 9,
+    color: paper.paper,
+    letterSpacing: 1.8,
   },
   heroTitleRow: {
     flexDirection: 'row',

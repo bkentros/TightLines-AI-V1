@@ -1289,6 +1289,8 @@ export default function RecommenderScreen() {
         <RecommenderView
           result={result}
           style={styles.resultView}
+          onRefresh={() => handleFetch(true)}
+          isRefreshing={isRefreshing}
         />
       )}
     </SafeAreaView>

@@ -15,6 +15,13 @@ import {
   regimeFromHowsScore,
   type TargetProfile,
 } from "./shapeProfiles.ts";
+import {
+  buildDailyTacticalProfile,
+  clarityLightModeFromLabels,
+  type DailyTacticalProfile,
+  runoffModeFromLabel,
+  thermalModeFromLabels,
+} from "./dailyTacticalProfile.ts";
 import { type RebuildSlotPick, selectArchetypesForSide } from "./selectSide.ts";
 import type { RecentRecommendationHistoryEntry } from "./recentHistory.ts";
 import type {
@@ -30,6 +37,7 @@ export type RebuildEngineResult = {
   windBand: WindBand;
   lureConditionState: LureDailyConditionState;
   flyConditionState: FlyDailyConditionState;
+  dailyTacticalProfile: DailyTacticalProfile;
   howsScore: number;
   profiles: TargetProfile[];
   lureSlotPicks: RebuildSlotPick[];
@@ -74,6 +82,26 @@ export function computeRecommenderRebuild(
   const surfaceSlotPresent = profiles.some((profile) =>
     profile.column === "surface"
   );
+  const lightLabel = analysis.norm.normalized.light_cloud_condition?.label ??
+    null;
+  const temperatureBand = analysis.norm.normalized.temperature?.band_label ??
+    null;
+  const temperatureTrend = analysis.norm.normalized.temperature?.trend_label ??
+    null;
+  const temperatureShock = analysis.norm.normalized.temperature?.shock_label ??
+    null;
+  const runoffLabel = analysis.norm.normalized.runoff_flow_disruption?.label ??
+    null;
+  const clarityLightMode = clarityLightModeFromLabels({
+    water_clarity: req.water_clarity,
+    lightLabel,
+  });
+  const thermalMode = thermalModeFromLabels({
+    temperatureBand,
+    temperatureTrend,
+    temperatureShock,
+  });
+  const runoffMode = runoffModeFromLabel(runoffLabel);
   const lureConditionState: LureDailyConditionState = {
     regime,
     water_clarity: req.water_clarity,
@@ -81,6 +109,11 @@ export function computeRecommenderRebuild(
     surface_slot_present: surfaceSlotPresent,
     daylight_wind_mph: daylightWindMph,
     wind_band: windBand,
+    species,
+    context,
+    clarity_light_mode: clarityLightMode,
+    thermal_mode: thermalMode,
+    runoff_mode: runoffMode,
   };
   const flyConditionState: FlyDailyConditionState = {
     regime,
@@ -91,7 +124,29 @@ export function computeRecommenderRebuild(
     species,
     context,
     month: req.location.month,
+    clarity_light_mode: clarityLightMode,
+    thermal_mode: thermalMode,
+    runoff_mode: runoffMode,
   };
+  const dailyTacticalProfile = buildDailyTacticalProfile({
+    regime,
+    howsScore,
+    daylightWindMph,
+    windBand,
+    lightLabel,
+    temperatureBand,
+    temperatureTrend,
+    temperatureShock,
+    runoffLabel,
+    clarityLightMode,
+    thermalMode,
+    runoffMode,
+    surfaceBlocked,
+    surfaceAllowedToday,
+    surfaceSlotPresent,
+    lureConditionState,
+    flyConditionState,
+  });
 
   const seedScope = options.userSeed ?? "shared";
   const seedBase =
@@ -133,6 +188,7 @@ export function computeRecommenderRebuild(
     windBand,
     lureConditionState,
     flyConditionState,
+    dailyTacticalProfile,
     howsScore,
     profiles,
     lureSlotPicks,

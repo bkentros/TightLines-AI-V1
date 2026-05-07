@@ -10,6 +10,7 @@
 import { STATE_SPECIES_CONTEXTS as GENERATED_STATE_SPECIES_CONTEXTS } from './generated/recommenderStateSpecies';
 
 export const RECOMMENDER_FEATURE = "recommender_rebuild" as const;
+export const RECOMMENDER_DAILY_SESSION_ENGINE_VERSION = "recommender_rebuild_tacv3_sessionv1" as const;
 
 export type SpeciesGroup =
   | "largemouth_bass"
@@ -244,6 +245,13 @@ export type RecommenderResponse = {
   water_clarity: WaterClarity;
   generated_at: string;
   cache_expires_at: string;
+  recommendation_session: {
+    local_date: string;
+    variant: 'A' | 'B';
+    can_refresh: boolean;
+    refreshes_remaining: 0 | 1;
+    locked_until: string;
+  };
   summary: RecommenderSessionSummary;
   lure_recommendations: RankedRecommendation[];
   fly_recommendations: RankedRecommendation[];

@@ -19,6 +19,7 @@
  *
  * Optional:
  *   region_key     RegionKey (auto-resolved from coords if omitted)
+ *   refresh_requested boolean (server-authoritative one alternate set)
  */
 
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
@@ -32,19 +33,23 @@ import {
 } from "../_shared/howFishingEngine/contracts/context.ts";
 import { resolveRegionForCoordinates } from "../_shared/howFishingEngine/context/resolveRegion.ts";
 import {
-  SPECIES_GROUPS,
-  type SpeciesGroup,
-  type WaterClarity,
   isContextAllowedForRecommenderV3,
+  isSpeciesValidForState,
   runRecommenderRebuildSurface,
   SeasonalRowMissingError,
+  SPECIES_GROUPS,
+  type SpeciesGroup,
   toRecommenderV3Species,
-  isSpeciesValidForState,
+  type WaterClarity,
 } from "../_shared/recommenderEngine/index.ts";
 import {
   loadRecentRecommendationHistory,
   persistRecommendationHistory,
 } from "./recentHistory.ts";
+import {
+  type RecommenderDailyVariant,
+  resolveRecommenderDailySession,
+} from "./dailySession.ts";
 
 const VALID_WATER_CLARITY: WaterClarity[] = ["clear", "stained", "dirty"];
 
@@ -52,14 +57,18 @@ function corsHeaders() {
   return {
     "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Methods": "POST, OPTIONS",
-    "Access-Control-Allow-Headers": "Content-Type, Authorization, apikey, x-user-token",
+    "Access-Control-Allow-Headers":
+      "Content-Type, Authorization, apikey, x-user-token",
   };
 }
 
 function jsonError(msg: string, code: string, status: number): Response {
   return new Response(
     JSON.stringify({ error: code, message: msg }),
-    { status, headers: { "Content-Type": "application/json", ...corsHeaders() } },
+    {
+      status,
+      headers: { "Content-Type": "application/json", ...corsHeaders() },
+    },
   );
 }
 
@@ -87,16 +96,48 @@ function extractTimezone(envData: Record<string, unknown>): string {
   return "America/New_York";
 }
 
+function buildRecommenderEnvData(
+  sharedEnvironment: Record<string, unknown>,
+  rawEnvData: Record<string, unknown>,
+): Record<string, unknown> {
+  const envForEngine: Record<string, unknown> = { ...sharedEnvironment };
+
+  if (Array.isArray(rawEnvData.hourly_wind_speed)) {
+    envForEngine.hourly_wind_speed = rawEnvData.hourly_wind_speed;
+  }
+
+  const rawWeather =
+    rawEnvData.weather && typeof rawEnvData.weather === "object"
+      ? rawEnvData.weather as Record<string, unknown>
+      : null;
+  if (rawWeather && "wind_speed_unit" in rawWeather) {
+    const existingWeather =
+      envForEngine.weather && typeof envForEngine.weather === "object"
+        ? envForEngine.weather as Record<string, unknown>
+        : {};
+    envForEngine.weather = {
+      ...existingWeather,
+      wind_speed_unit: rawWeather.wind_speed_unit,
+    };
+  }
+
+  return envForEngine;
+}
+
 export function buildRecommenderEngineRequest(body: Record<string, unknown>) {
   const lat = Number(body.latitude);
   const lon = Number(body.longitude);
-  const state_code = typeof body.state_code === "string" ? body.state_code.toUpperCase() : "";
+  const state_code = typeof body.state_code === "string"
+    ? body.state_code.toUpperCase()
+    : "";
   const species = body.species as SpeciesGroup;
   const context = body.context as EngineContext;
   const water_clarity = body.water_clarity as WaterClarity;
   const envData = body.env_data as Record<string, unknown>;
   const timezone = extractTimezone(envData);
-  const target_date = isIsoDateString(body.target_date) ? body.target_date : null;
+  const target_date = isIsoDateString(body.target_date)
+    ? body.target_date
+    : null;
   const local_date = target_date ?? localDateInTz(timezone);
   const month = parseInt(local_date.slice(5, 7), 10);
 
@@ -129,7 +170,10 @@ export function buildRecommenderEngineRequest(body: Record<string, unknown>) {
       species,
       context,
       water_clarity,
-      env_data: shared_req.environment as Record<string, unknown>,
+      env_data: buildRecommenderEnvData(
+        shared_req.environment as Record<string, unknown>,
+        envData,
+      ),
     },
   };
 }
@@ -140,8 +184,7 @@ export async function handleRecommenderRequest(
     createAdminClient?: () => ReturnType<typeof createClient>;
   },
 ): Promise<Response> {
-  const createAdminClient =
-    deps?.createAdminClient ??
+  const createAdminClient = deps?.createAdminClient ??
     (() => {
       const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
       const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
@@ -160,10 +203,15 @@ export async function handleRecommenderRequest(
 
   const userToken = req.headers.get("x-user-token");
   const authHeader = req.headers.get("Authorization");
-  const token = userToken ?? (authHeader ? authHeader.replace("Bearer ", "") : null);
-  if (!token) return jsonError("Missing authentication token", "unauthorized", 401);
+  const token = userToken ??
+    (authHeader ? authHeader.replace("Bearer ", "") : null);
+  if (!token) {
+    return jsonError("Missing authentication token", "unauthorized", 401);
+  }
 
-  const { data: { user }, error: authError } = await supabase.auth.getUser(token);
+  const { data: { user }, error: authError } = await supabase.auth.getUser(
+    token,
+  );
   if (authError || !user) return jsonError("Unauthorized", "unauthorized", 401);
 
   // ── Subscription gate ─────────────────────────────────────────────────────
@@ -174,7 +222,11 @@ export async function handleRecommenderRequest(
     .single<{ subscription_tier: string | null }>();
   const tier = profile?.subscription_tier ?? "free";
   if (tier === "free") {
-    return jsonError("Subscribe to use this feature", "subscription_required", 403);
+    return jsonError(
+      "Subscribe to use this feature",
+      "subscription_required",
+      403,
+    );
   }
 
   // ── Parse body ────────────────────────────────────────────────────────────
@@ -188,35 +240,66 @@ export async function handleRecommenderRequest(
   // ── Validate coords ───────────────────────────────────────────────────────
   const lat = Number(body.latitude);
   const lon = Number(body.longitude);
-  if (isNaN(lat) || lat < -90 || lat > 90) return jsonError("Invalid latitude", "invalid_input", 400);
-  if (isNaN(lon) || lon < -180 || lon > 180) return jsonError("Invalid longitude", "invalid_input", 400);
+  if (isNaN(lat) || lat < -90 || lat > 90) {
+    return jsonError("Invalid latitude", "invalid_input", 400);
+  }
+  if (isNaN(lon) || lon < -180 || lon > 180) {
+    return jsonError("Invalid longitude", "invalid_input", 400);
+  }
 
   // ── Validate species ──────────────────────────────────────────────────────
   const species = body.species as string;
   if (!species || !(SPECIES_GROUPS as readonly string[]).includes(species)) {
-    return jsonError(`Invalid species. Must be one of: ${SPECIES_GROUPS.join(", ")}`, "invalid_species", 400);
+    return jsonError(
+      `Invalid species. Must be one of: ${SPECIES_GROUPS.join(", ")}`,
+      "invalid_species",
+      400,
+    );
   }
 
   // ── Validate context ──────────────────────────────────────────────────────
   const context = body.context as string;
   if (!context || !(ENGINE_CONTEXTS as readonly string[]).includes(context)) {
-    return jsonError(`Invalid context. Must be one of: ${ENGINE_CONTEXTS.join(", ")}`, "invalid_context", 400);
+    return jsonError(
+      `Invalid context. Must be one of: ${ENGINE_CONTEXTS.join(", ")}`,
+      "invalid_context",
+      400,
+    );
   }
 
   // ── Validate water_clarity ────────────────────────────────────────────────
   const water_clarity = body.water_clarity as string;
-  if (!water_clarity || !VALID_WATER_CLARITY.includes(water_clarity as WaterClarity)) {
-    return jsonError("Invalid water_clarity. Must be: clear | stained | dirty", "invalid_clarity", 400);
+  if (
+    !water_clarity ||
+    !VALID_WATER_CLARITY.includes(water_clarity as WaterClarity)
+  ) {
+    return jsonError(
+      "Invalid water_clarity. Must be: clear | stained | dirty",
+      "invalid_clarity",
+      400,
+    );
   }
 
   // ── Validate state_code ───────────────────────────────────────────────────
-  const state_code = typeof body.state_code === "string" ? body.state_code.toUpperCase() : "";
+  const state_code = typeof body.state_code === "string"
+    ? body.state_code.toUpperCase()
+    : "";
   if (!state_code || state_code.length !== 2) {
-    return jsonError("Invalid state_code. Must be a 2-letter US state abbreviation.", "invalid_input", 400);
+    return jsonError(
+      "Invalid state_code. Must be a 2-letter US state abbreviation.",
+      "invalid_input",
+      400,
+    );
   }
 
   // ── State × species gate ──────────────────────────────────────────────────
-  if (!isSpeciesValidForState(state_code, species as SpeciesGroup, context as EngineContext)) {
+  if (
+    !isSpeciesValidForState(
+      state_code,
+      species as SpeciesGroup,
+      context as EngineContext,
+    )
+  ) {
     return jsonError(
       `Species '${species}' is not available in ${state_code} for context '${context}'.`,
       "species_not_available",
@@ -229,16 +312,34 @@ export async function handleRecommenderRequest(
     return jsonError("env_data is required", "missing_env_data", 400);
   }
   if (body.target_date != null && !isIsoDateString(body.target_date)) {
-    return jsonError("Invalid target_date. Must be YYYY-MM-DD.", "invalid_input", 400);
+    return jsonError(
+      "Invalid target_date. Must be YYYY-MM-DD.",
+      "invalid_input",
+      400,
+    );
+  }
+  if (
+    body.refresh_requested != null &&
+    typeof body.refresh_requested !== "boolean"
+  ) {
+    return jsonError(
+      "Invalid refresh_requested. Must be boolean.",
+      "invalid_input",
+      400,
+    );
   }
 
   const { engineReq } = buildRecommenderEngineRequest(body);
+  const refreshRequested = body.refresh_requested === true;
 
   // ── Run recommender ───────────────────────────────────────────────────────
   let result;
   try {
     const v3Species = toRecommenderV3Species(engineReq.species);
-    if (v3Species === null || !isContextAllowedForRecommenderV3(v3Species, engineReq.context)) {
+    if (
+      v3Species === null ||
+      !isContextAllowedForRecommenderV3(v3Species, engineReq.context)
+    ) {
       return jsonError(
         "The recommender currently supports freshwater V3 species and water types only.",
         "unsupported_recommender_scope",
@@ -255,20 +356,31 @@ export async function handleRecommenderRequest(
       waterType: engineReq.context,
     });
 
-    result = runRecommenderRebuildSurface(engineReq, {
-      userSeed: user.id,
-      recentHistory,
-    });
-
-    await persistRecommendationHistory({
+    const session = await resolveRecommenderDailySession({
       supabase,
       userId: user.id,
-      localDate: engineReq.location.local_date,
-      species: engineReq.species,
-      regionKey: engineReq.location.region_key,
-      waterType: engineReq.context,
-      result,
+      req: engineReq,
+      refreshRequested,
+      generateVariant: async (variant: RecommenderDailyVariant) =>
+        runRecommenderRebuildSurface(engineReq, {
+          userSeed: `${user.id}|daily-session:${variant}`,
+          recentHistory,
+        }),
     });
+
+    result = session.result;
+
+    if (session.generatedVariant != null) {
+      await persistRecommendationHistory({
+        supabase,
+        userId: user.id,
+        localDate: engineReq.location.local_date,
+        species: engineReq.species,
+        regionKey: engineReq.location.region_key,
+        waterType: engineReq.context,
+        result,
+      });
+    }
   } catch (err) {
     if (err instanceof SeasonalRowMissingError) {
       return jsonError(

@@ -181,6 +181,13 @@ export function runRecommenderRebuildSurface(
     water_clarity: req.water_clarity,
     generated_at: now.toISOString(),
     cache_expires_at: expires,
+    recommendation_session: {
+      local_date: req.location.local_date,
+      variant: "A",
+      can_refresh: true,
+      refreshes_remaining: 1,
+      locked_until: expires,
+    },
     summary: {
       monthly_forage: {
         primary: forageToV3(eng.row.primary_forage),
