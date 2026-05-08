@@ -827,44 +827,75 @@ function TopLevelHeader({
 }) {
   return (
     <View style={headerStyles.root}>
-      <Pressable
-        onPress={onBack}
-        hitSlop={12}
-        style={({ pressed }) => [headerStyles.backBtn, pressed && { opacity: 0.7 }]}
-      >
-        <Ionicons name="chevron-back" size={14} color={paper.ink} />
-        <Text style={headerStyles.backLabel}>BACK</Text>
-      </Pressable>
+      <View style={headerStyles.topRow}>
+        <Pressable
+          onPress={onBack}
+          hitSlop={12}
+          style={({ pressed }) => [headerStyles.backBtn, pressed && { opacity: 0.7 }]}
+        >
+          <Ionicons name="chevron-back" size={14} color={paper.ink} />
+          <Text style={headerStyles.backLabel}>BACK</Text>
+        </Pressable>
 
-      <View style={headerStyles.meta}>
+        {/*
+          Editorial center block — matches the Tackle Box and Water Read
+          headers so the three feature pages all read with the same
+          "FINFINDR · {feature name}" identity at the top of the screen.
+          Positioned absolute behind the BACK button so the title stays
+          centered regardless of button width.
+        */}
+        <View style={headerStyles.titleWrap} pointerEvents="none">
+          <Text style={headerStyles.titleEyebrow}>FINFINDR</Text>
+          <Text style={headerStyles.titleText} numberOfLines={1}>
+            DAILY READ
+          </Text>
+        </View>
+
+        <View style={headerStyles.rightSpacer} />
+      </View>
+
+      {/*
+        Thin meta sub-line under the title carries the existing date /
+        location / updated-at info. Stays as a single thin row so the
+        header chrome doesn't dominate the page even with three pieces
+        of metadata visible.
+      */}
+      <View style={headerStyles.metaRow}>
         <Text style={headerStyles.metaDate} numberOfLines={1}>
           {dateLabel}
         </Text>
-        <Text style={headerStyles.metaLoc} numberOfLines={1}>
+        <Text style={headerStyles.metaDivider}>·</Text>
+        <Text style={headerStyles.metaLoc} numberOfLines={1} ellipsizeMode="tail">
           {locationLabel}
         </Text>
         {generatedAt ? (
-          <Text style={headerStyles.metaTime} numberOfLines={1}>
-            {`Updated ${generatedAt}`}
-          </Text>
+          <>
+            <Text style={headerStyles.metaDivider}>·</Text>
+            <Text style={headerStyles.metaTime} numberOfLines={1}>
+              {generatedAt}
+            </Text>
+          </>
         ) : null}
       </View>
-
-      {/* Right spacer balances the BACK button so the center block stays centered. */}
-      <View style={headerStyles.rightSpacer} />
     </View>
   );
 }
 
 const headerStyles = StyleSheet.create({
   root: {
+    paddingTop: 8,
+    paddingBottom: 8,
+    backgroundColor: paper.paper,
+    borderBottomWidth: 1,
+    borderBottomColor: paper.inkHairSoft,
+  },
+  topRow: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingHorizontal: paperSpacing.lg,
-    paddingTop: 8,
-    paddingBottom: 10,
-    gap: paperSpacing.sm,
+    paddingHorizontal: paperSpacing.md,
+    paddingVertical: paperSpacing.sm,
+    minHeight: 44,
   },
   backBtn: {
     flexDirection: 'row',
@@ -875,53 +906,78 @@ const headerStyles = StyleSheet.create({
     borderWidth: 1.5,
     borderColor: paper.ink,
     borderRadius: paperRadius.chip,
-    backgroundColor: paper.paper,
+    backgroundColor: 'transparent',
   },
   backLabel: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 10,
-    letterSpacing: 2.5,
+    letterSpacing: 2.2,
     color: paper.ink,
     fontWeight: '700',
   },
-  meta: {
-    flex: 1,
+  titleWrap: {
+    position: 'absolute',
+    left: 96,
+    right: 96,
+    top: 0,
+    bottom: 0,
     alignItems: 'center',
-    paddingHorizontal: 4,
+    justifyContent: 'center',
+  },
+  titleEyebrow: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 8.5,
+    color: paper.red,
+    letterSpacing: 2.6,
+  },
+  titleText: {
+    fontFamily: paperFonts.display,
+    fontSize: 14,
+    color: paper.ink,
+    letterSpacing: 0,
+    marginTop: 1,
+    fontWeight: '700',
+  },
+  rightSpacer: {
+    width: 62,
+  },
+  metaRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: paperSpacing.md,
+    paddingTop: 2,
+    paddingBottom: paperSpacing.xs,
+    flexWrap: 'wrap',
+    gap: 6,
   },
   metaDate: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 9.5,
-    // Reduced from 3 → 1.8 so the "· 12:10 PM" tail never clips on narrow
-    // devices. The date block still reads as an editorial eyebrow thanks to
-    // uppercase/bold + the color accent.
     letterSpacing: 1.8,
     color: paper.red,
     fontWeight: '700',
-    textAlign: 'center',
+  },
+  metaDivider: {
+    fontFamily: paperFonts.body,
+    fontSize: 10,
+    color: paper.ink,
+    opacity: 0.45,
   },
   metaLoc: {
     fontFamily: paperFonts.displayItalic,
     fontStyle: 'italic',
-    fontSize: 12,
+    fontSize: 11,
     color: paper.ink,
     opacity: 0.75,
-    marginTop: 2,
-    textAlign: 'center',
+    flexShrink: 1,
   },
   metaTime: {
     fontFamily: paperFonts.metaMono,
     fontSize: 9.5,
     color: paper.ink,
     opacity: 0.55,
-    marginTop: 2,
-    textAlign: 'center',
     letterSpacing: 0.5,
-  },
-  rightSpacer: {
-    // Balances the BACK button width visually. Slimmed so the center meta
-    // block has enough room for "SAT, APR 25 · 12:10 PM" without clipping.
-    width: 58,
   },
 });
 

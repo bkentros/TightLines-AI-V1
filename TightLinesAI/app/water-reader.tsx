@@ -971,15 +971,17 @@ const styles = StyleSheet.create({
   flex: { flex: 1 },
   scroll: { flex: 1 },
   scrollContent: {
-    paddingHorizontal: paperSpacing.lg,
+    // Tighter horizontal padding (lg=24 → md=16) so the map plate gets
+    // 16 more pixels of width to render the SVG. Combined with the map
+    // card's tightened internal padding, the polygon reads visibly larger.
+    paddingHorizontal: paperSpacing.md,
     paddingTop: paperSpacing.md,
     paddingBottom: paperSpacing.xxl,
     // Top-level vertical gap between major Water Reader sections (hero,
     // search console, selected lake summary, map card, legend, guardrails).
-    // Bumped from `lg` (was 20, now 24) to `section` (32) in the May 2026
-    // spacing pass so each card reads as a clearly separated beat instead
-    // of a tightly stacked column.
-    gap: paperSpacing.section,
+    // Tightened section → lg so the map sits closer to the rest of the
+    // page and feels like the visual hero rather than an isolated card.
+    gap: paperSpacing.lg,
   },
 
   // Custom paper nav header
@@ -1111,33 +1113,35 @@ const styles = StyleSheet.create({
     maxWidth: 320,
   },
 
-  // Search card
+  // Search card. Slimmed in Pass-3 so the map plate below it dominates
+  // the page; the search console is utility, the map is the hero.
   searchCard: {
     overflow: 'hidden',
     backgroundColor: paper.paperLight,
     borderRadius: paperRadius.card,
-    padding: paperSpacing.md,
+    paddingHorizontal: paperSpacing.md,
+    paddingVertical: paperSpacing.sm + 2,
     ...paperBorders.card,
     ...paperShadows.hard,
-    gap: paperSpacing.sm,
+    gap: paperSpacing.xs + 2,
   },
   searchCardEyebrow: {
     fontFamily: paperFonts.bodyBold,
-    fontSize: 10,
-    letterSpacing: 2.6,
+    fontSize: 9,
+    letterSpacing: 2.4,
     color: paper.red,
     fontWeight: '700',
   },
   searchCardEyebrowStep: {
-    marginTop: paperSpacing.sm + 2,
+    marginTop: paperSpacing.xs + 2,
   },
   stateButton: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: paperSpacing.sm,
-    minHeight: 48,
-    paddingHorizontal: paperSpacing.md,
-    paddingVertical: paperSpacing.sm,
+    minHeight: 36,
+    paddingHorizontal: paperSpacing.sm + 2,
+    paddingVertical: paperSpacing.xs + 2,
     borderRadius: paperRadius.chip,
     borderWidth: 1.5,
     borderColor: paper.ink,
@@ -1168,9 +1172,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: paperSpacing.sm,
-    minHeight: 48,
-    paddingHorizontal: paperSpacing.md,
-    paddingVertical: paperSpacing.sm,
+    minHeight: 36,
+    paddingHorizontal: paperSpacing.sm + 2,
+    paddingVertical: paperSpacing.xs + 2,
     borderRadius: paperRadius.chip,
     borderWidth: 1.5,
     borderColor: paper.ink,

@@ -37,28 +37,20 @@ export type PaperWarmFeatureKey =
   | 'universal';
 
 export const PAPER_WARM_FEATURE_COLORS: Record<PaperWarmFeatureKey, string> = {
-  // Main features → forest / moss spine. Anchor of the system; we keep
-  // forest pure but bump moss with more chroma so the two greens read as
-  // distinct hues against the new mint-gradient lake fill.
-  main_lake_point: '#2E4A2A',     // paper.forest (anchor)
-  secondary_point: '#7C9D4F',     // brighter sage-moss (was #5B7A3E)
-  // Coves carry warm gold. Bumped a touch toward the bronze side so they
-  // don't read as the same hue as the FAIR-tier gold pill elsewhere.
-  cove: '#C68522',                // brighter goldDk (was #B87818)
-  // Necks/pinches → rust. Already vibrant against paper; left alone.
-  neck: '#CC6A22',                // paper.rust
-  // Islands → walnut. Visual weight feature; stays anchored.
-  island: '#3A2E22',              // paper.walnut
-  // Saddles → warmer teal with more chroma so cool features still
-  // legibly read as "cool" against the warm zone palette around them.
-  saddle: '#3F8B80',              // brighter teal (was #357A6F)
-  // Dam corners → red. Mirrors the SKIP / accent treatment.
-  dam: '#C8352C',                 // paper.red
-  // Confluence → richer plum so overlap groups pop against single-zone
-  // rows in the legend without crossing into screaming-magenta territory.
-  structure_confluence: '#8C3F60', // richer plum (was #7A3A52)
-  // Universal pond fallback → the same gold pivot the rest of the app uses.
-  universal: '#E8A02E',           // paper.gold
+  // Bumped one step brighter than the conservative paper-warm vocabulary —
+  // each hue keeps its paper-family identity but gains 10–15% chroma /
+  // luminosity so zones pop against the new mint-gradient water and the
+  // tan island land color. The whole map now reads as a vibrant printed
+  // plate rather than a desaturated vintage scan.
+  main_lake_point: '#366D33',      // brighter forest (was #2E4A2A)
+  secondary_point: '#8FB85B',      // brighter sage-moss (was #7C9D4F)
+  cove: '#D4922A',                 // brighter goldDk-bronze (was #C68522)
+  neck: '#DD7430',                 // brighter rust (was #CC6A22)
+  island: '#5A4030',               // lighter walnut so islands read clearly (was #3A2E22)
+  saddle: '#4DAA9C',               // brighter, more chromatic teal (was #3F8B80)
+  dam: '#D74033',                  // brighter red (was #C8352C)
+  structure_confluence: '#A04970', // brighter plum (was #8C3F60)
+  universal: '#F2AC34',            // brighter gold (was #E8A02E)
 } as const;
 
 export function paperWarmColorForFeature(key: string | undefined): string {

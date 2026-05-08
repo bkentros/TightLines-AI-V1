@@ -1,12 +1,14 @@
 /**
  * WaterReadEditionStamp — circular hand-pressed stamp for the lower-right
- * corner of the map plate. Paper-warm body, ink-red type, double-rule
- * border, slight tilt so it reads as ink-pressed rather than CSS-rendered.
+ * corner of the map plate. Paper-warm body, ink-red type, single bold ring
+ * with generous internal breathing room so FINFINDR / NO. {edition} /
+ * WATER READ all sit clearly inside the stamp rather than crowding the
+ * border. Slight tilt sells the "ink-pressed" feel.
  *
  * Mirrors the voice of `PaperBestValueStamp` (the only other "stamp"
  * primitive in the system) but stripped of stars and tuned for the
- * cartographic context — three stacked lines (FINFINDR / NO. {edition} /
- * WATER READ) instead of a two-line marketing badge.
+ * cartographic context — three calmly-stacked lines instead of a two-line
+ * marketing badge.
  */
 
 import { StyleSheet, Text, View } from 'react-native';
@@ -16,15 +18,20 @@ export interface WaterReadEditionStampProps {
   edition: string;
   /** Tilt in degrees. Default -7 (gentle counter-clockwise — feels stamped). */
   tilt?: number;
-  /** Outer diameter in px. Default 64. */
+  /** Outer diameter in px. Default 78 — sized so the three text rows have
+   *  comfortable margin from the ring border on all four sides. */
   size?: number;
 }
 
 export function WaterReadEditionStamp({
   edition,
   tilt = -7,
-  size = 64,
+  size = 78,
 }: WaterReadEditionStampProps) {
+  // Inner padding scales with diameter so the stamp keeps the same visual
+  // breathing rhythm at any size override the caller might pass.
+  const innerPad = Math.round(size * 0.16);
+
   return (
     <View
       style={[styles.root, { transform: [{ rotate: `${tilt}deg` }] }]}
@@ -33,36 +40,25 @@ export function WaterReadEditionStamp({
     >
       <View
         style={[
-          styles.outerRing,
+          styles.ring,
           {
             width: size,
             height: size,
             borderRadius: size / 2,
+            paddingHorizontal: innerPad,
+            paddingVertical: innerPad,
           },
         ]}
       >
-        <View
-          style={[
-            styles.innerRing,
-            {
-              borderRadius: size / 2 - 4,
-            },
-          ]}
-        >
-          <Text style={styles.topArc}>FINFINDR</Text>
-          <View style={styles.dividerRow}>
-            <View style={styles.dividerDot} />
-            <View style={styles.dividerLine} />
-            <View style={styles.dividerDot} />
-          </View>
-          <Text style={styles.editionNum}>{edition}</Text>
-          <View style={styles.dividerRow}>
-            <View style={styles.dividerDot} />
-            <View style={styles.dividerLine} />
-            <View style={styles.dividerDot} />
-          </View>
-          <Text style={styles.bottomArc}>WATER READ</Text>
-        </View>
+        <Text style={styles.topLine} numberOfLines={1}>
+          FINFINDR
+        </Text>
+        <Text style={styles.editionNum} numberOfLines={1}>
+          {edition}
+        </Text>
+        <Text style={styles.bottomLine} numberOfLines={1}>
+          WATER READ
+        </Text>
       </View>
     </View>
   );
@@ -72,61 +68,34 @@ const styles = StyleSheet.create({
   root: {
     // Caller positions absolutely.
   },
-  outerRing: {
-    borderWidth: 2,
+  ring: {
+    borderWidth: 2.2,
     borderColor: paper.red,
     backgroundColor: paper.paperLight,
-    padding: 3,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  innerRing: {
-    flex: 1,
-    width: '100%',
-    borderWidth: 0.6,
-    borderColor: paper.red,
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: 4,
-    gap: 1,
-  },
-  topArc: {
+  topLine: {
     fontFamily: paperFonts.bodyBold,
-    fontSize: 7.5,
-    letterSpacing: 1.4,
+    fontSize: 8,
+    letterSpacing: 1.6,
     color: paper.red,
     fontWeight: '700',
-    lineHeight: 9,
-  },
-  dividerRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 2,
-    opacity: 0.7,
-  },
-  dividerDot: {
-    width: 1.5,
-    height: 1.5,
-    borderRadius: 0.75,
-    backgroundColor: paper.red,
-  },
-  dividerLine: {
-    width: 14,
-    height: 0.6,
-    backgroundColor: paper.red,
+    lineHeight: 10,
   },
   editionNum: {
     fontFamily: paperFonts.display,
-    fontSize: 13,
+    fontSize: 16,
     color: paper.red,
     fontWeight: '800',
-    letterSpacing: -0.2,
-    lineHeight: 15,
+    letterSpacing: -0.4,
+    lineHeight: 18,
+    marginVertical: 2,
   },
-  bottomArc: {
+  bottomLine: {
     fontFamily: paperFonts.bodyBold,
-    fontSize: 7,
-    letterSpacing: 1.3,
+    fontSize: 7.5,
+    letterSpacing: 1.4,
     color: paper.red,
     fontWeight: '700',
     lineHeight: 9,

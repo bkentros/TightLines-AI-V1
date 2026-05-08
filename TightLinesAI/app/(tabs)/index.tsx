@@ -1528,19 +1528,22 @@ const styles = StyleSheet.create({
     opacity: 0.7,
     marginTop: 2,
   },
+  // Bumped for Pass-3: red bg + cream text so the beta status is
+  // unmistakable on the home discovery card (the previous gold-on-ink
+  // treatment read as a calm decoration rather than a status flag).
   betaChip: {
-    backgroundColor: paper.gold,
+    backgroundColor: paper.red,
     borderWidth: 1.5,
     borderColor: paper.ink,
     borderRadius: paperRadius.chip,
-    paddingHorizontal: 8,
-    paddingVertical: 3,
+    paddingHorizontal: 9,
+    paddingVertical: 4,
   },
   betaChipText: {
     fontFamily: paperFonts.bodyBold,
-    fontSize: 9,
+    fontSize: 9.5,
     letterSpacing: 2,
-    color: paper.ink,
+    color: paper.paper,
     fontWeight: '700',
   },
 

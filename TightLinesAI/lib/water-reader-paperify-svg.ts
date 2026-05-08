@@ -150,19 +150,57 @@ export function paperifyWaterReaderSvg(
     tally(before, svg);
   }
 
-  // 4) Lake fill + stroke. Inline attributes only — the engine never
-  //    leverages CSS for fill on the lake path.
+  // 4) Lake fill + stroke + island land plate.
   //
-  //    We swap the flat fill for a vertical gradient so the water surface
-  //    suggests subtle depth (lighter at the top, darker at the bottom).
-  //    The gradient itself is injected into <defs> below.
+  //    The engine emits the lake as a SINGLE path with `fill-rule="evenodd"`
+  //    so islands appear as cutouts revealing whatever sits behind. Without
+  //    intervention that "behind" is the host paper card — the same color
+  //    as the surrounding paper — and islands look like featureless white
+  //    space, hard to read as land.
+  //
+  //    Fix: inject a SECOND path BEFORE the lake path, fill it with
+  //    `paper.paperDark` (warm tan land color), and reuse the lake's path
+  //    `d` attribute trimmed to the OUTER ring only (everything before the
+  //    first `Z`). The water gradient renders on top; only where the lake
+  //    has holes (islands) does the tan land plate show through. Net: the
+  //    lake reads as water surrounding clearly-defined islands.
+  //
+  //    We also swap the flat water fill for a vertical gradient so the
+  //    surface suggests subtle depth (lighter at top, darker at bottom);
+  //    the gradient itself is injected into <defs> below.
   const before4 = svg;
+
+  // Inject the island land plate. Defensive — only acts when we can find
+  // exactly one lake path with a parseable d attribute. Otherwise we leave
+  // the SVG untouched (legacy behavior preserved).
+  const lakeMatch = svg.match(
+    /<path[^>]*class="water-reader-lake"[^>]*?d="([^"]+)"[^>]*?\/?>/,
+  );
+  if (lakeMatch) {
+    const fullLakeTag = lakeMatch[0];
+    const dAttr = lakeMatch[1];
+    const subPaths = dAttr.split(/Z/i).map((p) => p.trim()).filter(Boolean);
+    if (subPaths.length > 0 && subPaths[0].startsWith('M')) {
+      const outerRingD = `${subPaths[0]} Z`;
+      // The land plate sits BEHIND the lake — same z-order as the engine's
+      // backdrop rect (which we already strip) — so any zone polygons
+      // rendered later still paint on top of both.
+      const landPlate = `<path d="${outerRingD}" fill="${paper.paperDark}" stroke="none" class="wr-island-land" pointer-events="none"/>`;
+      // Don't double-inject under hot reload. Sentinel-check via the class.
+      if (!svg.includes('class="wr-island-land"')) {
+        svg = svg.replace(fullLakeTag, `${landPlate}\n  ${fullLakeTag}`);
+      }
+    }
+  }
+
   svg = svg.split(`fill="${ENGINE_WATER_FILL}"`).join(`fill="url(#wr-lake-gradient)"`);
   svg = svg.split(`stroke="${ENGINE_WATER_STROKE}"`).join(`stroke="${paper.ink}"`);
-  // Bump the lake stroke a hair so it reads as a confident shore line.
+  // Bump the lake stroke from 1.6 → 1.8 so both the outer shoreline AND
+  // the island shorelines (which share the same stroke under the path's
+  // single class) read as confident, hand-pressed lines.
   svg = svg.replace(
     /(class="water-reader-lake"[^>]*?stroke-width=)"[^"]*"/g,
-    `$1"1.6"`,
+    `$1"1.8"`,
   );
   // Apply the soft drop-shadow we inject into <defs> below. Single match —
   // the engine only emits one lake path — and skip if a filter is already
@@ -247,7 +285,46 @@ export function paperifyWaterReaderSvg(
   svg = svg.split(`fill="${ENGINE_MUTED}"`).join(`fill="${paper.ink}"`);
   tally(before6, svg);
 
-  // 7) Feature zone colors — recolor every spec hex in fill="" / stroke="".
+  // 7) Feature zone colors + opacity bumps.
+  //
+  //    The engine ships zones at fill-opacity="0.42" (standalone) and 0.4
+  //    (confluence members), with stroke-opacity="0.16". Those values were
+  //    tuned for the launch white-backdrop skin and read as washed out
+  //    against the paper canvas. We bump them so zones POP on top of the
+  //    new mint-gradient water, with cleaner-defined edges.
+  //
+  //    Bump strategy:
+  //      - Standalone zone fill-opacity: 0.42 → 0.62
+  //      - Confluence zone fill-opacity: 0.4  → 0.55
+  //      - Zone stroke-opacity:          0.16 → 0.3
+  //
+  //    We scope confluence vs standalone via class match in the regex so
+  //    the two fill-opacity values are bumped independently (engine emits
+  //    them at different inline values).
+  const before7opacity = svg;
+  svg = svg.replace(
+    /(class="water-reader-entry water-reader-standalone-zone"[^>]*?fill-opacity=)"[^"]*"/g,
+    `$1"0.62"`,
+  );
+  svg = svg.replace(
+    /(class="water-reader-entry water-reader-confluence"[^>]*?fill-opacity=)"[^"]*"/g,
+    `$1"0.55"`,
+  );
+  // Also catch any inner member-paths inside a confluence <g> wrapper —
+  // those are emitted as bare <path d="..." fill="..." fill-opacity="0.4"
+  // stroke="..." stroke-opacity="0.14" stroke-width="0.6"/> children.
+  // We can't easily scope by parent class via regex, but standalone zones
+  // ship with a stable fill-opacity="0.42" and confluence members with
+  // exactly "0.4" — so swapping by exact value is reliable.
+  svg = svg.replace(/fill-opacity="0\.42"/g, `fill-opacity="0.62"`);
+  svg = svg.replace(/fill-opacity="0\.4"/g, `fill-opacity="0.55"`);
+  // Zone stroke-opacity: engine emits 0.16 (standalone) and 0.14
+  // (confluence members). Both bump to 0.3 for cleaner defined edges.
+  svg = svg.replace(/stroke-opacity="0\.16"/g, `stroke-opacity="0.3"`);
+  svg = svg.replace(/stroke-opacity="0\.14"/g, `stroke-opacity="0.3"`);
+  tally(before7opacity, svg);
+
+  // Feature zone colors — recolor every spec hex in fill="" / stroke="".
   for (const key of Object.keys(ENGINE_FEATURE_COLORS) as PaperWarmFeatureKey[]) {
     const from = ENGINE_FEATURE_COLORS[key];
     const to = PAPER_WARM_FEATURE_COLORS[key];

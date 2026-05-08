@@ -32,14 +32,17 @@
  * pre-fetch (which is independent and additive).
  */
 
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   ActivityIndicator,
   Animated,
+  LayoutAnimation,
+  Platform,
   Pressable,
   ScrollView,
   StyleSheet,
   Text,
+  UIManager,
   View,
   Easing,
   useWindowDimensions,
@@ -110,6 +113,42 @@ export function WaterReaderMapCard({
   const profileUnits = useAuthStore((s) => s.profile?.preferred_units);
   const unitsPref: 'imperial' | 'metric' =
     profileUnits === 'metric' ? 'metric' : 'imperial';
+
+  // Enable LayoutAnimation on Android — iOS has it on by default but
+  // Android needs an opt-in via the legacy UIManager flag. This is a
+  // one-shot side effect on mount; the call is a no-op on iOS.
+  useEffect(() => {
+    if (Platform.OS === 'android') {
+      const um: typeof UIManager & {
+        setLayoutAnimationEnabledExperimental?: (enabled: boolean) => void;
+      } = UIManager;
+      um.setLayoutAnimationEnabledExperimental?.(true);
+    }
+  }, []);
+
+  // Smooth FULL ↔ DETAIL transition. The viewport heights between the two
+  // modes differ by 200–300 px depending on the lake; an unanimated swap
+  // feels abrupt. LayoutAnimation animates the height interpolation on the
+  // native thread; we also brief-fade the AdaptiveMap below for a clean
+  // crossblend during the swap.
+  const handleSwitchViewerMode = useCallback((next: MapViewerMode) => {
+    if (next === viewerMode) return;
+    LayoutAnimation.configureNext({
+      duration: 320,
+      create: {
+        type: LayoutAnimation.Types.easeInEaseOut,
+        property: LayoutAnimation.Properties.opacity,
+      },
+      update: {
+        type: LayoutAnimation.Types.easeInEaseOut,
+      },
+      delete: {
+        type: LayoutAnimation.Types.easeInEaseOut,
+        property: LayoutAnimation.Properties.opacity,
+      },
+    });
+    setViewerMode(next);
+  }, [viewerMode]);
 
   // Edition stamp — day-of-year + 1000, mirroring `PaperColophon`'s logic so
   // the masthead, the corner stamp, and the bottom colophon all agree.
@@ -208,13 +247,13 @@ export function WaterReaderMapCard({
                 icon="scan-outline"
                 label="FULL"
                 active={viewerMode === 'fit'}
-                onPress={() => setViewerMode('fit')}
+                onPress={() => handleSwitchViewerMode('fit')}
               />
               <ViewerModeButton
                 icon="move-outline"
                 label="DETAIL"
                 active={viewerMode === 'inspect'}
-                onPress={() => setViewerMode('inspect')}
+                onPress={() => handleSwitchViewerMode('inspect')}
               />
             </View>
 
@@ -279,6 +318,8 @@ export function WaterReaderMapCard({
                       <WaterReadScaleBar
                         areaAcres={state.read.areaAcres ?? null}
                         units={unitsPref}
+                        bbox={state.read.bbox}
+                        mapWidthPx={mapContentWidth}
                       />
                     </View>
                     <View style={styles.editionStampWrap}>
@@ -436,9 +477,12 @@ function WaterReaderAdaptiveMap({
     const height = Math.max(1, result?.summary.height ?? 1);
     const aspectRatio = width / height;
     const availableWidth = Math.max(280, containerWidth || 320);
-    const maxFitHeight = Math.max(430, Math.min(720, windowHeight * 0.68));
+    // Bumped for Pass-3: floor 260 → 340 and ceiling 720 → 880, vh from
+    // 0.68 → 0.82, so the static FULL-mode plate is ~25% taller and the
+    // map gets to be the visual hero of the page.
+    const maxFitHeight = Math.max(540, Math.min(880, windowHeight * 0.82));
     const naturalFitHeight = availableWidth / aspectRatio;
-    const fitHeight = Math.max(260, Math.min(maxFitHeight, naturalFitHeight));
+    const fitHeight = Math.max(340, Math.min(maxFitHeight, naturalFitHeight));
     const fitWidth = Math.min(availableWidth, fitHeight * aspectRatio);
     const inspectViewportHeight = fullScreen
       ? Math.max(480, windowHeight * 0.56)
@@ -539,7 +583,10 @@ const styles = StyleSheet.create({
   mapCard: {
     backgroundColor: paper.paperLight,
     borderRadius: paperRadius.card,
-    padding: paperSpacing.md,
+    // Tightened from `md` → 10px so the plate gets ~12px more width on
+    // each side (combines with the parent page's reduced plate padding
+    // to make the SVG visibly larger).
+    padding: 10,
     ...paperBorders.card,
     ...paperShadows.hard,
   },
@@ -584,13 +631,14 @@ const styles = StyleSheet.create({
 
   // Plate frame: outer ink rule, hairline gap, inner ink hairline. The
   // plateInner is the "page within a page" that holds the SVG and the
-  // cartographic marginalia.
+  // cartographic marginalia. Padding tightened 4 → 3 so the inner SVG
+  // gets every available pixel.
   plateOuter: {
     width: '100%',
     borderWidth: 1.5,
     borderColor: paper.ink,
     borderRadius: paperRadius.card - 4,
-    padding: 4,
+    padding: 3,
     backgroundColor: paper.paperLight,
   },
   plateInner: {

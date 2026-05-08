@@ -10,18 +10,23 @@
  *
  * Visual contract:
  *   • Section eyebrow "MAP KEY · {N} STRUCTURES" + italic season subline.
- *   • Each row: 22px ink-stroked circle with the entry number (Fraunces 700)
- *     + 8×14px ink-stroked color swatch in the entry's paper-warm hue, both
- *     mirroring the SVG callout glyphs so the user can read map → legend
- *     instantly.
- *   • Title in Fraunces 700; body in DM Sans 13 (~ 0.78 ink opacity).
- *   • Confluence rows get a STRUCTURE CONFLUENCE eyebrow + a muted-magenta
- *     accent line, distinguishing them from standalone zones without
- *     introducing the screaming spec magenta.
+ *   • Each row reads as a printed legend entry rather than a UI list item:
+ *       - Number ring on the left, mirroring the SVG callout glyph.
+ *       - Bold left-side vertical color ribbon (4 px × full row height) in
+ *         the zone's paper-warm hue. Replaces the prior tiny rectangle
+ *         swatch — gives each row strong color identity at a glance.
+ *       - Structure-type tag eyebrow ("POINT", "COVE", "NECK", "ISLAND"…)
+ *         above the title so users can scan structure types without
+ *         reading the full title.
+ *       - Title in Fraunces 700 (split into structure-type "head" + a
+ *         lighter placement-variant "tail") and DM Sans body.
+ *   • Confluence rows get a "CONFLUENCE" type tag — same anatomy as other
+ *     rows, no special background, the ribbon color carries the difference.
  *   • Transition warnings render as gold "FAIR-tier" chip rows, prefixed
  *     with the same ◐ glyph the band system uses elsewhere.
  *
- * The component is purely presentational — no state, no fetching.
+ * The component is purely presentational — no state, no fetching. Rows are
+ * `React.memo`'d so a tap doesn't cascade re-renders through 8–9 rows.
  */
 
 import { memo, useCallback } from 'react';
@@ -125,6 +130,7 @@ const LegendRow = memo(function LegendRow({
     : entry.featureClass;
   const paletteColor = paperWarmColorForFeature(featureKey);
   const accent = paletteColor ?? entry.colorHex ?? paper.ink;
+  const typeTag = structureTypeTag(featureKey);
 
   const titleParts = splitLegendTitle(entry.title);
 
@@ -140,7 +146,6 @@ const LegendRow = memo(function LegendRow({
       style={[
         styles.row,
         !isFirst && styles.rowDivider,
-        entry.isConfluence && styles.rowConfluence,
         selected && styles.rowSelected,
       ]}
       onPress={onSelectNumber ? handlePress : undefined}
@@ -148,37 +153,42 @@ const LegendRow = memo(function LegendRow({
       accessibilityRole={onSelectNumber ? 'button' : undefined}
       accessibilityState={{ selected }}
     >
-      {/* Number + swatch column — mirrors the SVG callout exactly. */}
-      <View style={styles.markerColumn}>
-        <View style={[styles.numberRing, selected && styles.numberRingSelected]}>
-          <Text
-            style={[styles.numberText, selected && styles.numberTextSelected]}
-            allowFontScaling={false}
-          >
-            {entry.number ?? '·'}
-          </Text>
-        </View>
-        <View
-          style={[
-            styles.swatch,
-            {
-              backgroundColor: accent,
-              borderColor: paper.ink,
-            },
-          ]}
-        />
+      {/* Number ring — mirrors the SVG callout glyph exactly. */}
+      <View
+        style={[
+          styles.numberRing,
+          selected && styles.numberRingSelected,
+        ]}
+      >
+        <Text
+          style={[styles.numberText, selected && styles.numberTextSelected]}
+          allowFontScaling={false}
+        >
+          {entry.number ?? '·'}
+        </Text>
       </View>
+
+      {/* Bold vertical color ribbon — strong row identity. */}
+      <View
+        style={[
+          styles.colorRibbon,
+          { backgroundColor: accent },
+        ]}
+      />
 
       {/* Copy column. */}
       <View style={styles.copyColumn}>
-        {entry.isConfluence && (
+        {typeTag ? (
           <Text
-            style={[styles.tinyTag, { color: CONFLUENCE_ACCENT }]}
+            style={[
+              styles.typeTag,
+              entry.isConfluence && { color: CONFLUENCE_ACCENT },
+            ]}
             numberOfLines={1}
           >
-            STRUCTURE CONFLUENCE
+            {typeTag}
           </Text>
-        )}
+        ) : null}
         <Text style={styles.title} numberOfLines={3}>
           <Text style={styles.titleHead}>{titleParts.head}</Text>
           {titleParts.tail ? (
@@ -203,6 +213,37 @@ const LegendRow = memo(function LegendRow({
     </Pressable>
   );
 });
+
+/**
+ * Maps engine feature classes to the short, all-caps "structure-type" tag
+ * shown above each legend row's title. These are the words a guide would
+ * use to scan the legend at a glance — point, cove, neck, etc. — short
+ * enough to fit on a single tracked line.
+ */
+function structureTypeTag(featureKey: string | undefined): string {
+  switch (featureKey) {
+    case 'main_lake_point':
+      return 'MAIN POINT';
+    case 'secondary_point':
+      return 'POINT';
+    case 'cove':
+      return 'COVE';
+    case 'neck':
+      return 'NECK';
+    case 'island':
+      return 'ISLAND';
+    case 'saddle':
+      return 'SADDLE';
+    case 'dam':
+      return 'DAM';
+    case 'structure_confluence':
+      return 'CONFLUENCE';
+    case 'universal':
+      return 'POND';
+    default:
+      return 'STRUCTURE';
+  }
+}
 
 /**
  * Engine titles look like "Main Lake Point - Point Tip" or "East Cove - Back
@@ -258,14 +299,11 @@ const styles = StyleSheet.create({
   },
   row: {
     flexDirection: 'row',
-    alignItems: 'flex-start',
+    alignItems: 'stretch',
     gap: paperSpacing.sm + 2,
     paddingVertical: paperSpacing.sm + 2,
     paddingHorizontal: paperSpacing.xs,
     borderRadius: paperRadius.card - 2,
-  },
-  rowConfluence: {
-    // No background change — the eyebrow + swatch ring carry the difference.
   },
   rowSelected: {
     backgroundColor: paper.paperLight,
@@ -274,59 +312,59 @@ const styles = StyleSheet.create({
     borderTopWidth: StyleSheet.hairlineWidth,
     borderTopColor: paper.inkHair,
   },
-  markerColumn: {
-    width: 36,
-    alignItems: 'center',
-    paddingTop: 1,
-    gap: 4,
-  },
   numberRing: {
-    width: 22,
-    height: 22,
-    borderRadius: 11,
+    width: 26,
+    height: 26,
+    borderRadius: 13,
     borderWidth: 1.5,
     borderColor: paper.ink,
     backgroundColor: paper.paperLight,
     alignItems: 'center',
     justifyContent: 'center',
+    marginTop: 1,
   },
   numberRingSelected: {
     backgroundColor: paper.forest,
   },
   numberText: {
     fontFamily: paperFonts.display,
-    fontSize: 11,
+    fontSize: 12,
     fontWeight: '700',
     color: paper.ink,
-    lineHeight: 13,
+    lineHeight: 14,
   },
   numberTextSelected: {
     color: paper.paper,
   },
-  swatch: {
-    width: 8,
-    height: 14,
+  colorRibbon: {
+    width: 5,
+    minHeight: 56,
+    alignSelf: 'stretch',
     borderRadius: 2,
-    borderWidth: 1,
+    borderWidth: StyleSheet.hairlineWidth,
+    borderColor: paper.ink,
   },
   copyColumn: {
     flex: 1,
     minWidth: 0,
     gap: 4,
+    paddingTop: 1,
   },
-  tinyTag: {
+  typeTag: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 9.5,
     letterSpacing: 2.4,
     fontWeight: '700',
+    color: paper.ink,
+    opacity: 0.75,
     marginBottom: 1,
     lineHeight: 12,
   },
   title: {
     fontFamily: paperFonts.display,
-    fontSize: 14,
+    fontSize: 14.5,
     color: paper.ink,
-    lineHeight: 18,
+    lineHeight: 19,
   },
   titleHead: {
     fontFamily: paperFonts.display,
