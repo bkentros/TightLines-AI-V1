@@ -1115,12 +1115,16 @@ const styles = StyleSheet.create({
 
   // Search card. Slimmed in Pass-3 so the map plate below it dominates
   // the page; the search console is utility, the map is the hero.
+  // Pass-5: bumped paddingBottom slightly so the CHANGE LAKE / CHANGE
+  // STATE action row in the selected-lake summary clears the bottom-
+  // left corner mark (red ▾) — those two were visually colliding.
   searchCard: {
     overflow: 'hidden',
     backgroundColor: paper.paperLight,
     borderRadius: paperRadius.card,
     paddingHorizontal: paperSpacing.md,
-    paddingVertical: paperSpacing.sm + 2,
+    paddingTop: paperSpacing.sm + 2,
+    paddingBottom: paperSpacing.md + 2,
     ...paperBorders.card,
     ...paperShadows.hard,
     gap: paperSpacing.xs + 2,
@@ -1220,7 +1224,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 6,
-    marginTop: 4,
+    // Bumped marginTop 4 → 8 so the CHANGE LAKE / CHANGE STATE row sits
+    // a noticeable beat below the context line and well above the
+    // bottom-left corner mark of the search card. The earlier 4px gap
+    // was reading as "stuck onto the corner mark" on small phones.
+    marginTop: 8,
     flexWrap: 'wrap',
   },
   linkBtn: { paddingVertical: 2 },

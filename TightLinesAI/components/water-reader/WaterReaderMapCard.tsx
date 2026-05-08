@@ -676,10 +676,14 @@ const styles = StyleSheet.create({
     bottom: 10,
     left: 12,
   },
+  // Pass-5 — moved from the bottom-right corner to the top-right.
+  // The FinFindr wordmark replaces the previous circular stamp; smaller
+  // footprint, no chance of overlap with the lake polygon's bottom
+  // edge, and reads as a publication mark in the corner of the plate.
   editionStampWrap: {
     position: 'absolute',
-    bottom: 8,
-    right: 8,
+    top: 8,
+    right: 10,
   },
 
   // Meta ribbon under the plate — typographic masthead, not a caption row.

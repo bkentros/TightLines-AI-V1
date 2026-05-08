@@ -55,6 +55,35 @@ const ENGINE_FEATURE_COLORS: Record<PaperWarmFeatureKey, string> = {
   universal: '#D4A017',
 };
 
+/**
+ * Every prior paper-warm value the client has shipped, indexed by feature.
+ * The paperify color rewrite has to cover ALL of these so that:
+ *   • Cached rows generated under the original engine palette are recolored
+ *     to the LATEST paper-warm hue (handled by ENGINE_FEATURE_COLORS above).
+ *   • Cached rows generated AFTER the engine moved to an early paper-warm
+ *     palette (Pass-1 / Pass-2 / Pass-3) ALSO get rewritten to the latest,
+ *     so the SVG colors and the legend swatches always agree.
+ *
+ * Without this transitive list, a cached SVG painted in Pass-3 forest
+ * (#366D33) would survive paperify untouched while the React legend
+ * pulled the Pass-4 forest (#4A8A45) from the live palette — which is
+ * the visible "legend doesn't match the map" bug we're fixing here.
+ *
+ * Order doesn't matter, but each entry must be unique. When a new pass
+ * brightens the palette, add the previous values here.
+ */
+const PRIOR_PAPER_WARM_VALUES: Record<PaperWarmFeatureKey, string[]> = {
+  main_lake_point: ['#2E4A2A', '#366D33'],
+  secondary_point: ['#5B7A3E', '#7C9D4F', '#8FB85B'],
+  cove: ['#B87818', '#C68522', '#D4922A'],
+  neck: ['#CC6A22', '#DD7430'],
+  island: ['#3A2E22', '#5A4030'],
+  saddle: ['#357A6F', '#3F8B80', '#4DAA9C'],
+  dam: ['#C8352C', '#D74033'],
+  structure_confluence: ['#7A3A52', '#8C3F60', '#A04970'],
+  universal: ['#E8A02E', '#F2AC34'],
+};
+
 // Marker comment indicating this SVG was already paperified — guards against
 // double-running and against accidentally mutating an SVG that the server-side
 // renderer has already painted in paper colors.
@@ -324,15 +353,31 @@ export function paperifyWaterReaderSvg(
   svg = svg.replace(/stroke-opacity="0\.14"/g, `stroke-opacity="0.3"`);
   tally(before7opacity, svg);
 
-  // Feature zone colors — recolor every spec hex in fill="" / stroke="".
+  // Feature zone colors — recolor every spec hex AND every prior paper-warm
+  // hex in fill="" / stroke="" so the SVG always lands on the current
+  // brightness pass. Without the transitive list we'd let prior
+  // paper-warm values (emitted by older engine versions or sitting in
+  // cached SVGs) pass through, producing a legend that doesn't match
+  // the map.
   for (const key of Object.keys(ENGINE_FEATURE_COLORS) as PaperWarmFeatureKey[]) {
-    const from = ENGINE_FEATURE_COLORS[key];
     const to = PAPER_WARM_FEATURE_COLORS[key];
-    if (from === to) continue;
-    const before = svg;
-    svg = svg.split(`fill="${from}"`).join(`fill="${to}"`);
-    svg = svg.split(`stroke="${from}"`).join(`stroke="${to}"`);
-    tally(before, svg);
+    const fromValues = [
+      ENGINE_FEATURE_COLORS[key],
+      ...PRIOR_PAPER_WARM_VALUES[key],
+    ];
+    for (const fromRaw of fromValues) {
+      // Each color may appear in upper or lower case; do a case-insensitive
+      // sweep by normalizing the source. The engine emits uppercase, but
+      // some SVG cleanup tools downcase hexes.
+      const candidates = [fromRaw, fromRaw.toUpperCase(), fromRaw.toLowerCase()];
+      for (const from of candidates) {
+        if (from === to) continue;
+        const before = svg;
+        svg = svg.split(`fill="${from}"`).join(`fill="${to}"`);
+        svg = svg.split(`stroke="${from}"`).join(`stroke="${to}"`);
+        tally(before, svg);
+      }
+    }
   }
 
   // Default legend fallback color (#334155) → ink (mostly relevant if the
