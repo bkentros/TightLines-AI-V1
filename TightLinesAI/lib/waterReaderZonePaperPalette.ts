@@ -37,20 +37,21 @@ export type PaperWarmFeatureKey =
   | 'universal';
 
 export const PAPER_WARM_FEATURE_COLORS: Record<PaperWarmFeatureKey, string> = {
-  // Bumped one step brighter than the conservative paper-warm vocabulary —
-  // each hue keeps its paper-family identity but gains 10–15% chroma /
-  // luminosity so zones pop against the new mint-gradient water and the
-  // tan island land color. The whole map now reads as a vibrant printed
-  // plate rather than a desaturated vintage scan.
-  main_lake_point: '#366D33',      // brighter forest (was #2E4A2A)
-  secondary_point: '#8FB85B',      // brighter sage-moss (was #7C9D4F)
-  cove: '#D4922A',                 // brighter goldDk-bronze (was #C68522)
-  neck: '#DD7430',                 // brighter rust (was #CC6A22)
-  island: '#5A4030',               // lighter walnut so islands read clearly (was #3A2E22)
-  saddle: '#4DAA9C',               // brighter, more chromatic teal (was #3F8B80)
-  dam: '#D74033',                  // brighter red (was #C8352C)
-  structure_confluence: '#A04970', // brighter plum (was #8C3F60)
-  universal: '#F2AC34',            // brighter gold (was #E8A02E)
+  // Pass-4 — pushed another step brighter so zones POP at first glance.
+  // The earlier "paper-warm" palette was reading as desaturated and
+  // vintage; these values still keep their paper-family identity but
+  // lean noticeably toward field-guide vibrancy. Each hue is now clearly
+  // distinguishable from its neighbors at thumbnail scale, on both the
+  // map polygons and the legend swatches.
+  main_lake_point: '#4A8A45',      // vivid forest-green (was #366D33)
+  secondary_point: '#A8D26B',      // bright moss-lime (was #8FB85B)
+  cove: '#E89E2C',                 // bright honey-bronze (was #D4922A)
+  neck: '#ED7F33',                 // bright rust-orange (was #DD7430)
+  island: '#7A5840',               // lighter, warmer walnut (was #5A4030)
+  saddle: '#5BC4B5',               // bright teal (was #4DAA9C)
+  dam: '#E84733',                  // brighter alarm red (was #D74033)
+  structure_confluence: '#BA5582', // bright plum-magenta (was #A04970)
+  universal: '#F5BA48',            // brighter gold (was #F2AC34)
 } as const;
 
 export function paperWarmColorForFeature(key: string | undefined): string {

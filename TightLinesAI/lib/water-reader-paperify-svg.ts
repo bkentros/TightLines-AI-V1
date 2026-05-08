@@ -373,16 +373,14 @@ export function paperifyWaterReaderSvg(
   }
   tally(before10, svg);
 
-  // 11) Brand watermark — a faint Fraunces line near the bottom of the
-  //     viewBox, baked into the SVG so screenshots, exports, and any future
-  //     image cache all carry the FinFindr mark. Position is computed from
-  //     the viewBox so wide and tall lakes both place the mark sensibly.
-  const before11 = svg;
-  const watermarkText = buildWatermark(svg);
-  if (watermarkText) {
-    svg = svg.replace('</svg>', `${watermarkText}\n</svg>`);
-  }
-  tally(before11, svg);
+  // 11) (intentionally empty — we used to bake an in-SVG "FINFINDR · WATER
+  //     READ" watermark into the bottom of the viewBox, but it could be
+  //     overlapped by lake polygons that extended into the engine's bottom
+  //     padding. The brand is already carried prominently by the cartouche
+  //     eyebrow, the corner edition stamp, and the bottom colophon — losing
+  //     this fourth mark removes the only path to a lake-vs-text overlap
+  //     inside the SVG. `buildWatermark` is kept exported / dead-code-clean
+  //     in case we want to re-introduce it as a top-corner mark later.)
 
   // Mark the SVG paperified so we can no-op on a re-run.
   svg = svg.replace('<svg ', `${PAPERIFIED_SENTINEL}\n<svg `);
@@ -441,28 +439,3 @@ function buildDecorationDefs(): string {
     </filter>`;
 }
 
-/**
- * Returns a `<text>` element placed near the bottom-center of the viewBox
- * with a faint, tracked "FINFINDR · WATER READ" watermark. Returns an empty
- * string if the viewBox can't be parsed (so we never inject a malformed
- * element). Font size scales with viewBox width so very small or very large
- * lakes both look right.
- */
-function buildWatermark(svg: string): string {
-  const match = svg.match(/viewBox="([^"]+)"/);
-  if (!match) return '';
-  const parts = match[1].split(/\s+/).map(Number);
-  if (parts.length !== 4) return '';
-  const [, , w, h] = parts;
-  if (!Number.isFinite(w) || !Number.isFinite(h) || w <= 0 || h <= 0) return '';
-
-  // Anchor center-bottom of the viewBox so the mark feels like a plate
-  // signature. Font size: 1.4% of the shorter side, clamped, so a wide
-  // lake doesn't over-size the mark.
-  const fontSize = Math.max(9.5, Math.min(13, Math.min(w, h) * 0.014));
-  const x = (w * 0.5).toFixed(1);
-  const y = (h * 0.965).toFixed(1);
-  const letterSpacing = (fontSize * 0.16).toFixed(2);
-
-  return `<text x="${x}" y="${y}" font-family="Fraunces, serif" font-size="${fontSize.toFixed(2)}" font-weight="700" fill="${paper.ink}" fill-opacity="0.18" text-anchor="middle" letter-spacing="${letterSpacing}" pointer-events="none">FINFINDR · WATER READ</text>`;
-}

@@ -477,12 +477,13 @@ function WaterReaderAdaptiveMap({
     const height = Math.max(1, result?.summary.height ?? 1);
     const aspectRatio = width / height;
     const availableWidth = Math.max(280, containerWidth || 320);
-    // Bumped for Pass-3: floor 260 → 340 and ceiling 720 → 880, vh from
-    // 0.68 → 0.82, so the static FULL-mode plate is ~25% taller and the
-    // map gets to be the visual hero of the page.
-    const maxFitHeight = Math.max(540, Math.min(880, windowHeight * 0.82));
+    // Pass-4 — another 5–10% on top of Pass-3's ~25% bump:
+    //   floor 340 → 370, ceiling 880 → 970, vh share 0.82 → 0.88.
+    // The map plate is the page's visual hero; we want the polygon to
+    // dominate the screen without making the user squint.
+    const maxFitHeight = Math.max(580, Math.min(970, windowHeight * 0.88));
     const naturalFitHeight = availableWidth / aspectRatio;
-    const fitHeight = Math.max(340, Math.min(maxFitHeight, naturalFitHeight));
+    const fitHeight = Math.max(370, Math.min(maxFitHeight, naturalFitHeight));
     const fitWidth = Math.min(availableWidth, fitHeight * aspectRatio);
     const inspectViewportHeight = fullScreen
       ? Math.max(480, windowHeight * 0.56)

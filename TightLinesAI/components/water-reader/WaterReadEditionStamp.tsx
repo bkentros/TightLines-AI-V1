@@ -16,21 +16,30 @@ import { paper, paperFonts } from '../../lib/theme';
 
 export interface WaterReadEditionStampProps {
   edition: string;
-  /** Tilt in degrees. Default -7 (gentle counter-clockwise — feels stamped). */
+  /**
+   * Tilt in degrees. Default -4 (slight counter-clockwise — still reads as
+   * "ink-pressed" without rotating the text bbox far enough that the
+   * corners of FINFINDR / WATER READ poke past the circle's border. The
+   * earlier -7° caused exactly that visual bleed at smaller diameters.
+   */
   tilt?: number;
-  /** Outer diameter in px. Default 78 — sized so the three text rows have
-   *  comfortable margin from the ring border on all four sides. */
+  /**
+   * Outer diameter in px. Default 90 — sized so 8pt FINFINDR / 18pt
+   * edition / 8pt WATER READ all sit clearly inside the ring with at
+   * least 6 px of margin on every side, even at the rotated text bbox.
+   */
   size?: number;
 }
 
 export function WaterReadEditionStamp({
   edition,
-  tilt = -7,
-  size = 78,
+  tilt = -4,
+  size = 90,
 }: WaterReadEditionStampProps) {
   // Inner padding scales with diameter so the stamp keeps the same visual
-  // breathing rhythm at any size override the caller might pass.
-  const innerPad = Math.round(size * 0.16);
+  // breathing rhythm at any size override the caller might pass. Bumped
+  // 16% → 18% so the text rows always stay comfortably inside the ring.
+  const innerPad = Math.round(size * 0.18);
 
   return (
     <View
@@ -77,27 +86,27 @@ const styles = StyleSheet.create({
   },
   topLine: {
     fontFamily: paperFonts.bodyBold,
-    fontSize: 8,
-    letterSpacing: 1.6,
+    fontSize: 8.5,
+    letterSpacing: 1.5,
     color: paper.red,
     fontWeight: '700',
     lineHeight: 10,
   },
   editionNum: {
     fontFamily: paperFonts.display,
-    fontSize: 16,
+    fontSize: 18,
     color: paper.red,
     fontWeight: '800',
     letterSpacing: -0.4,
-    lineHeight: 18,
-    marginVertical: 2,
+    lineHeight: 20,
+    marginVertical: 3,
   },
   bottomLine: {
     fontFamily: paperFonts.bodyBold,
-    fontSize: 7.5,
-    letterSpacing: 1.4,
+    fontSize: 8,
+    letterSpacing: 1.3,
     color: paper.red,
     fontWeight: '700',
-    lineHeight: 9,
+    lineHeight: 9.5,
   },
 });

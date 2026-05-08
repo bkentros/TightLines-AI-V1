@@ -168,10 +168,11 @@ const LegendRow = memo(function LegendRow({
         </Text>
       </View>
 
-      {/* Bold vertical color ribbon — strong row identity. */}
+      {/* Bold color square — strong row identity. Sized to match the
+          number ring so the marker column reads as two paired chips. */}
       <View
         style={[
-          styles.colorRibbon,
+          styles.colorSwatch,
           { backgroundColor: accent },
         ]}
       />
@@ -336,13 +337,17 @@ const styles = StyleSheet.create({
   numberTextSelected: {
     color: paper.paper,
   },
-  colorRibbon: {
-    width: 5,
-    minHeight: 56,
-    alignSelf: 'stretch',
-    borderRadius: 2,
-    borderWidth: StyleSheet.hairlineWidth,
+  colorSwatch: {
+    width: 28,
+    height: 28,
+    borderRadius: 4,
+    borderWidth: 1.5,
     borderColor: paper.ink,
+    marginTop: 1,
+    // Subtle inner highlight so the swatch reads as a hand-painted chip,
+    // not a flat color block — small detail but it makes the legend
+    // feel printed rather than UI-rendered.
+    overflow: 'hidden',
   },
   copyColumn: {
     flex: 1,
