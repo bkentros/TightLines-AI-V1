@@ -1,32 +1,31 @@
 /**
- * How's Fishing report view — FinFindr "paper/ink" visual language.
+ * Daily Read report view — FinFindr "paper / ink" design system.
  *
- * This is the visual layer of the real engine report. Every field rendered
- * here comes from `HowsFishingReportV1` (or the companion `solunarData` env
- * payload). The structure follows the FinFindr `ReportPage` in `finfindr.jsx`:
+ * Pass-6 renovation: the page now reads as a curated morning field-edition
+ * rather than a stack of UI cards. Concrete moves:
  *
- *   HERO       — LinearScoreGauge (0-10 red→yellow→green track) + tier-
- *                 colored outlook label + summary. Intentionally compact so
- *                 the hero feels like a headline, not a whole screen.
- *   WHAT'S HELPING / WATCH OUT FOR — two paper cards with ink borders and
- *                 dashed row separators; drivers on the forest card, suppressors
- *                 on the red card. Reason text uses Fraunces like the mock.
- *   WHEN TO GO — 4 time-window tiles (Dawn / Morning / Afternoon / Evening)
- *                 with the highlighted period(s) getting the "★ BEST" treatment.
- *   SOLUNAR WINDOWS — preserved as a secondary paper card when data available.
- *   GUIDE'S NOTE — paper card with the actionable tip quoted from the engine.
+ *   • HERO turns into a magazine cover: the user's location is the headline,
+ *     the score becomes a dramatic numeric, the verdict line lands as bold
+ *     italic Fraunces, and a richer meta strip (air temp · timezone · date)
+ *     anchors the bottom of the cover.
+ *   • DRIVERS / WATCHOUTS use illuminated rows — a left vertical color band
+ *     (forest / red), a small variable-type eyebrow ("BAROMETRIC TREND"),
+ *     and the engine label below. Looks like a printed editorial column.
+ *   • WHEN TO GO keeps the four-tile structure but the BEST treatment moves
+ *     to a proper top ribbon ("★ GO") with stronger gold contrast.
+ *   • SOLUNAR is promoted to a real "ALMANAC · MOON & TIDE" almanac block
+ *     (the prior "BONUS" framing is gone).
+ *   • GUIDE'S NOTE is the editorial centerpiece — bigger card, oversized
+ *     pull-quote, an ActionableTipTag chip, and a "FROM THE GUIDE'S DESK"
+ *     sign-off.
+ *   • The bottom inline 3-row colophon is replaced with the shared
+ *     `PaperColophon` component (matches Water Read's sign-off voice).
  *
- * Behavior preserved from the previous implementation:
- *   - driver/suppressor truncation (top 3 / top 2) to keep the hero focused.
+ * Behavior preserved from prior implementation:
+ *   - driver/suppressor truncation (top 3 / top 2) for hero focus.
  *   - Solunar data is rendered only when `solunarData` has periods.
  *   - formatFactorLabel handles multi-sentence engine text capitalization.
- *   - Score is expressed via a linear 0-10 gauge, not a half-circle arc, so
- *     the scale reads instantly and never overlaps headline text.
- *
- * Dynamic outlook labeling:
- *   Because the report can be for today or a future forecast day, the hero's
- *   "OUTLOOK" eyebrow takes a `dateLabel` prop (e.g. "TODAY", "SAT · MAR 22")
- *   so we never lie about timeliness when the user entered via a forecast tap.
+ *   - Score is expressed via a linear 0-10 gauge — no arc, no overlap.
  */
 
 import { useEffect, useRef, useState } from 'react';
@@ -48,6 +47,7 @@ import {
 import {
   CornerMark,
   CornerMarkSet,
+  PaperColophon,
   SectionEyebrow,
   TopographicLines,
 } from '../paper';
@@ -58,14 +58,10 @@ import {
   type PeriodSlot,
 } from './TimingTiles';
 import type { HowsFishingReportV1 } from '../../lib/howFishing';
+import type { ActionableTipTag } from '../../lib/howFishingRebuildContracts';
 import type { SolunarData } from '../../lib/env/types';
 
 // ─── Display helpers ─────────────────────────────────────────────────────────
-
-function displayScore10(score: number): string {
-  const v = Math.round(score) / 10;
-  return Number.isInteger(v) ? v.toFixed(0) : v.toFixed(1);
-}
 
 function tierForScore(score: number): PaperTier {
   return paperTierForScore(score / 10);
@@ -75,11 +71,6 @@ function tierForScore(score: number): PaperTier {
  * Tapered accent color for a /100 score. Delegates to the shared theme helper
  * so the hero gauge, numeric value, band pill, and topo watermark stay in
  * lock-step with the forecast tiles (which also key off `scoreAccentColor`).
- *
- * This replaces the prior 3-tier (red/gold/forest) mapping so that a 3.1 and
- * a 2.0 read as visibly different depths of red, a 4.2 reads as a deeper
- * "struggling fair" than a 5.5, and an 8.5 pulls away from a 6.5 instead of
- * landing in the same forest bucket.
  */
 function accentForScore100(score100: number): string {
   return scoreAccentColor(score100 / 10);
@@ -97,6 +88,13 @@ function formatFactorLabel(text: string): string {
       return sentence.slice(0, lead) + t.charAt(0).toUpperCase() + t.slice(1);
     })
     .join(' ');
+}
+
+/** Convert an engine variable key (e.g. `barometric_trend`) to a tracked
+ *  uppercase eyebrow (`BAROMETRIC TREND`) for the factor row. */
+function formatVariableEyebrow(v: string): string {
+  if (!v) return 'CONDITION';
+  return v.replace(/_/g, ' ').toUpperCase();
 }
 
 /** Parse a solunar time string (ISO local or "HH:mm") to "9:15am" format. */
@@ -124,33 +122,157 @@ function formatSolunarRange(start: string, end: string): string {
   return `${parseSolunarTime(start)} – ${parseSolunarTime(end)}`;
 }
 
-// ─── Air-temp strip ──────────────────────────────────────────────────────────
+/** Condense "America/New_York" → "New York"-ish short string. */
+function shortTz(tz: string): string {
+  const parts = tz.split('/');
+  return (parts[parts.length - 1] ?? tz).replace(/_/g, ' ');
+}
 
-function AirRangeStrip({ report }: { report: HowsFishingReportV1 }) {
+/** Pick the editorial headline shown in the hero. Prefers the user's
+ *  location label (e.g. "Tampa Bay") so the cover feels personalized; falls
+ *  back to a clean context-driven label if the location isn't usable as a
+ *  headline (long, raw coords, etc.). */
+function buildHeadline(
+  report: HowsFishingReportV1,
+  isFuture: boolean,
+): { primary: string; secondary?: string } {
+  const raw = (report.location.location_label ?? '').trim();
+  // Reject coordinate-shaped labels and overly long labels — they read
+  // as data, not headlines.
+  const looksLikeCoords = /^-?\d+\.\d/.test(raw);
+  const usable = !!raw && !looksLikeCoords && raw.length <= 28;
+  if (usable) {
+    return {
+      primary: raw.toUpperCase(),
+      secondary: isFuture ? 'FORECAST READ' : "TODAY'S READ",
+    };
+  }
+  // Fallback — context label minus the parenthetical.
+  const context = (report.display_context_label ?? 'Daily Read').replace(
+    /\s*\/.*$/,
+    '',
+  );
+  return {
+    primary: context.toUpperCase(),
+    secondary: isFuture ? 'FORECAST READ' : "TODAY'S READ",
+  };
+}
+
+/** ActionableTipTag → human label for the tactic chip on the Guide's Note. */
+const TIP_TAG_LABELS: Record<ActionableTipTag, string> = {
+  presentation_current_sweep: 'CURRENT SWEEP',
+  presentation_contact_control: 'CONTACT CONTROL',
+  presentation_visibility_profile: 'VISIBILITY',
+  presentation_slow_subtle: 'SLOW & SUBTLE',
+  presentation_active_cadence: 'ACTIVE CADENCE',
+  presentation_general: 'PRESENTATION',
+};
+
+// ─── Air-temp / meta strip ───────────────────────────────────────────────────
+
+/**
+ * Bottom-of-hero meta strip. Shows the daily air-temp range, the user's
+ * timezone (short form), and the report's display context. Compact mono so
+ * it reads as masthead metadata rather than competing with the score.
+ */
+function HeroMetaStrip({
+  report,
+}: {
+  report: HowsFishingReportV1;
+}) {
   const snap = report.condition_context?.environment_snapshot;
-  if (!snap || typeof snap !== 'object') return null;
-  const lo = snap.daily_low_air_temp_f as number | null | undefined;
-  const hi = snap.daily_high_air_temp_f as number | null | undefined;
-  if (lo == null || hi == null || !Number.isFinite(lo) || !Number.isFinite(hi)) return null;
+  const lo =
+    snap && typeof snap === 'object'
+      ? (snap.daily_low_air_temp_f as number | null | undefined)
+      : null;
+  const hi =
+    snap && typeof snap === 'object'
+      ? (snap.daily_high_air_temp_f as number | null | undefined)
+      : null;
+  const hasTemp = lo != null && hi != null && Number.isFinite(lo) && Number.isFinite(hi);
+  const tz = report.location.timezone ? shortTz(report.location.timezone) : null;
+  const ctxLabel = (report.display_context_label ?? '').toUpperCase();
+
+  // If there's nothing to render, skip the strip — keeps the hero from
+  // landing on an empty horizontal line on legacy reports.
+  if (!hasTemp && !tz && !ctxLabel) return null;
+
   return (
-    <View style={styles.airRow}>
-      <Ionicons name="thermometer-outline" size={12} color={paper.ink} />
-      <Text style={styles.airLabel}>AIR</Text>
-      <Text style={styles.airRange}>{`${Math.round(lo)}° – ${Math.round(hi)}°F`}</Text>
+    <View style={styles.metaStripWrap}>
+      <View style={styles.metaRule} />
+      <View style={styles.metaRow}>
+        {hasTemp ? (
+          <View style={styles.metaItem}>
+            <Ionicons name="thermometer-outline" size={11} color={paper.ink} />
+            <Text style={styles.metaItemLabel}>AIR</Text>
+            <Text style={styles.metaItemValue}>
+              {`${Math.round(lo!)}° / ${Math.round(hi!)}°F`}
+            </Text>
+          </View>
+        ) : null}
+        {hasTemp && (tz || ctxLabel) ? <View style={styles.metaSep} /> : null}
+        {ctxLabel ? (
+          <View style={styles.metaItem}>
+            <Ionicons name="map-outline" size={11} color={paper.ink} />
+            <Text style={styles.metaItemValue} numberOfLines={1}>
+              {ctxLabel}
+            </Text>
+          </View>
+        ) : null}
+        {ctxLabel && tz ? <View style={styles.metaSep} /> : null}
+        {tz ? (
+          <View style={styles.metaItem}>
+            <Ionicons name="time-outline" size={11} color={paper.ink} />
+            <Text style={styles.metaItemValue} numberOfLines={1}>
+              {tz}
+            </Text>
+          </View>
+        ) : null}
+      </View>
+      <View style={styles.metaRule} />
+    </View>
+  );
+}
+
+// ─── Editorial section header ───────────────────────────────────────────────
+
+/**
+ * Section banner used between major chunks of the report. Replaces a
+ * generic card header — a tracked all-caps title flanked by hairlines and
+ * (optionally) a small italic meta line on the right. Reads as printed
+ * masthead, not UI chrome.
+ */
+function SectionMasthead({
+  title,
+  meta,
+  color = paper.ink,
+}: {
+  title: string;
+  meta?: string;
+  color?: string;
+}) {
+  return (
+    <View style={styles.sectionMasthead}>
+      <View style={[styles.sectionMastheadRule, { backgroundColor: color }]} />
+      <View style={styles.sectionMastheadInner}>
+        <Text style={[styles.sectionMastheadTitle, { color }]} numberOfLines={1}>
+          {title}
+        </Text>
+        {meta ? (
+          <Text style={styles.sectionMastheadMeta} numberOfLines={1}>
+            {meta}
+          </Text>
+        ) : null}
+      </View>
+      <View style={[styles.sectionMastheadRule, { backgroundColor: color }, { opacity: 0.45 }]} />
     </View>
   );
 }
 
 // ─── Ornamental divider ─────────────────────────────────────────────────────
 
-/**
- * Editorial divider used between major report sections — two hairline rules
- * flanking a centered fish/compass glyph, evoking field-guide typography.
- * Keeps the page feeling like a premium outdoor magazine rather than a
- * generic data card stack.
- */
 function OrnamentalDivider({
-  icon = 'fish-outline',
+  icon = 'compass-outline',
   color = paper.walnut,
 }: {
   icon?: keyof typeof import('@expo/vector-icons/build/Ionicons').default.glyphMap;
@@ -194,52 +316,55 @@ export function RebuildReportView({
   const timingPeriods = getTimingPeriods(report);
   const showTiming = !!(report.daypart_note || timingPeriods);
 
-  const isFuture = dateLabel.toUpperCase() !== 'TODAY' && !dateLabel.toUpperCase().startsWith('TODAY');
-  const outlookEyebrow = isFuture ? 'FORECAST READ' : "TODAY'S READ";
+  const isFuture =
+    dateLabel.toUpperCase() !== 'TODAY' &&
+    !dateLabel.toUpperCase().startsWith('TODAY');
+  const headline = buildHeadline(report, isFuture);
+
   // Phrase is chosen off the engine's 4-band value so the word always
-  // matches the number. "Prime day" is reserved for Excellent (score
-  // ≥ 80 / 8.0). Good days get softer "solid" language, Fair gets its
-  // own honest framing, Poor keeps the existing cautionary tone.
+  // matches the number. Sentence-case Fraunces italic so the line reads
+  // as an editor's verdict rather than a UI label.
   const bandKey = (report.band ?? '').toLowerCase();
   const outlookLine =
     bandKey === 'excellent'
       ? isFuture
-        ? 'A PRIME DAY SHAPING UP.'
-        : 'A PRIME DAY IS SHAPING UP.'
+        ? 'A prime day shaping up.'
+        : 'A prime day is shaping up.'
       : bandKey === 'good'
-      ? isFuture
-        ? 'A SOLID DAY AHEAD.'
-        : 'A SOLID DAY TODAY.'
-      : bandKey === 'fair'
-      ? isFuture
-        ? 'A FAIR WINDOW EXPECTED.'
-        : 'A FAIR WINDOW TODAY.'
-      : isFuture
-      ? 'A TOUGHER DAY SHAPING UP.'
-      : 'A TOUGHER DAY AHEAD.';
+        ? isFuture
+          ? 'A solid day ahead.'
+          : 'A solid day today.'
+        : bandKey === 'fair'
+          ? isFuture
+            ? 'A fair window expected.'
+            : 'A fair window today.'
+          : isFuture
+            ? 'A tougher day shaping up.'
+            : 'A tougher day ahead.';
+
+  const tipTagLabel = TIP_TAG_LABELS[report.actionable_tip_tag] ?? null;
 
   return (
     <View style={styles.wrap}>
-      {/* ── HERO ─────────────────────────────────────────────────────────── */}
+      {/* ── HERO — magazine cover ────────────────────────────────────────── */}
       <View style={styles.heroCard}>
-        {/* Tier-colored top band — a magazine-style masthead stripe that
-            declares the hero as the page's headline, not just another card. */}
+        {/* Bold tier-colored masthead stripe, followed by a thin ink rule
+            so the band reads as a deliberate publication mark, not a
+            colored card edge. */}
         <View
           pointerEvents="none"
           style={[styles.heroTopBand, { backgroundColor: accent }]}
         />
+        <View pointerEvents="none" style={styles.heroTopRule} />
 
-        {/* Faint topographic watermark tinted to the tier accent — adds
-            editorial depth without competing with the score. */}
+        {/* Faint topographic watermark tinted to the tier accent. */}
         <TopographicLines
           style={styles.heroTopoLines}
           color={accent}
           count={4}
         />
 
-        {/* Three corner marks — the top-right is intentionally absent so the
-            verdict stamp can live there as the card's single asymmetric
-            detail, like a hand-applied seal on a field report. */}
+        {/* Three corner marks — top-right is held for the verdict stamp. */}
         <CornerMark position="tl" color={paper.red} />
         <CornerMark position="bl" color={paper.red} />
         <CornerMark position="br" color={paper.red} />
@@ -252,10 +377,13 @@ export function RebuildReportView({
           </SectionEyebrow>
         </View>
 
-        <Text style={styles.heroHeadline}>
-          THE DAILY{'\n'}
-          <Text style={{ color: accent }}>{isFuture ? 'FORECAST READ' : 'READ'}</Text>
+        <Text style={styles.heroHeadline} numberOfLines={2}>
+          {headline.primary}
+          <Text style={styles.heroHeadlineDot}>.</Text>
         </Text>
+        {headline.secondary ? (
+          <Text style={styles.heroSecondary}>{headline.secondary}</Text>
+        ) : null}
 
         <LinearScoreGauge
           score={report.score / 10}
@@ -267,36 +395,42 @@ export function RebuildReportView({
 
         <View style={styles.outlookRule} />
 
-        <SectionEyebrow color={paper.red} size={9} tracking={3}>
-          {outlookEyebrow}
-        </SectionEyebrow>
-        <Text style={[styles.heroSubline, { color: accent }]}>{outlookLine}</Text>
+        <Text style={[styles.heroOutlookLine, { color: accent }]}>
+          {outlookLine}
+        </Text>
 
-        {/* Pull-quote summary — wider leading + italic serif + tier-colored
-            left rule make the engine's one-liner read like an editor's
-            lede, not a caption. */}
+        {/* Pull-quote summary — italic Fraunces with a tier-colored left
+            rule, sized to read like an editor's lede. */}
         <View style={styles.heroSummaryWrap}>
           <View style={[styles.heroSummaryRule, { backgroundColor: accent }]} />
           <Text style={styles.heroSummary}>{report.summary_line}</Text>
         </View>
 
-        <AirRangeStrip report={report} />
+        <HeroMetaStrip report={report} />
       </View>
 
-      {/* ── WHAT'S HELPING ──────────────────────────────────────────────── */}
-      <View style={[styles.factorCard, styles.factorCardForest]}>
+      {/* ── ANALYTICAL SECTION (drivers + watchouts) ────────────────────── */}
+      <SectionMasthead
+        title="WHAT THE WATER IS SAYING"
+        meta={isFuture ? 'forecast read' : 'today’s read'}
+      />
+
+      <View style={styles.factorCard}>
         <View style={[styles.factorHeader, { backgroundColor: paper.forest }]}>
-          <Ionicons name="trending-up" size={15} color={paper.paper} />
+          <Ionicons name="trending-up" size={14} color={paper.paper} />
           <Text style={styles.factorHeaderLabel}>WHAT'S HELPING</Text>
+          <Text style={styles.factorHeaderCount}>
+            {topDrivers.length}/{report.drivers.length}
+          </Text>
         </View>
         <View style={styles.factorBody}>
           {topDrivers.length > 0 ? (
             topDrivers.map((d, i) => (
               <FactorRow
                 key={`d-${i}`}
-                sign="+"
-                signBg={paper.forest}
-                signFg={paper.paper}
+                index={i + 1}
+                ribbonColor={paper.forest}
+                eyebrow={formatVariableEyebrow(d.variable)}
                 label={formatFactorLabel(d.label)}
                 isLast={i === topDrivers.length - 1}
               />
@@ -309,20 +443,22 @@ export function RebuildReportView({
         </View>
       </View>
 
-      {/* ── WATCH OUT FOR ───────────────────────────────────────────────── */}
       {topSuppressors.length > 0 && (
         <View style={styles.factorCard}>
           <View style={[styles.factorHeader, { backgroundColor: paper.red }]}>
-            <Ionicons name="trending-down" size={15} color={paper.paper} />
+            <Ionicons name="trending-down" size={14} color={paper.paper} />
             <Text style={styles.factorHeaderLabel}>WATCH OUT FOR</Text>
+            <Text style={styles.factorHeaderCount}>
+              {topSuppressors.length}/{report.suppressors.length}
+            </Text>
           </View>
           <View style={styles.factorBody}>
             {topSuppressors.map((s, i) => (
               <FactorRow
                 key={`s-${i}`}
-                sign="−"
-                signBg={paper.red}
-                signFg={paper.paper}
+                index={i + 1}
+                ribbonColor={paper.red}
+                eyebrow={formatVariableEyebrow(s.variable)}
                 label={formatFactorLabel(s.label)}
                 isLast={i === topSuppressors.length - 1}
               />
@@ -334,12 +470,14 @@ export function RebuildReportView({
       {/* ── WHEN TO GO ──────────────────────────────────────────────────── */}
       {showTiming && timingPeriods && (
         <View style={styles.timingSection}>
-          <View style={styles.timingHeader}>
-            <Text style={styles.timingEyebrow}>WHEN TO GO</Text>
-            <Text style={styles.timingMeta}>
-              Local time{report.location.timezone ? ` · ${shortTz(report.location.timezone)}` : ''}
-            </Text>
-          </View>
+          <SectionMasthead
+            title="WHEN TO GO"
+            meta={
+              report.location.timezone
+                ? `local time · ${shortTz(report.location.timezone)}`
+                : 'local time'
+            }
+          />
           <View style={styles.timingRow}>
             {PERIOD_DEFS.map((def, i) => {
               const slot = timingPeriods[i];
@@ -362,27 +500,28 @@ export function RebuildReportView({
         </View>
       )}
 
-      {/* ── SOLUNAR WINDOWS (preserved) ─────────────────────────────────── */}
+      {/* ── ALMANAC · MOON & TIDE (was "SOLUNAR WINDOWS · BONUS") ─────── */}
       {solunarData &&
-        (solunarData.major_periods.length > 0 || solunarData.minor_periods.length > 0) && (
-          <View style={styles.solunarCard}>
-            <View style={styles.solunarHeader}>
-              <Ionicons name="moon" size={13} color={paper.walnut} />
-              <Text style={styles.solunarTitle}>SOLUNAR WINDOWS</Text>
-              <Text style={styles.solunarBonus}>BONUS</Text>
+        (solunarData.major_periods.length > 0 ||
+          solunarData.minor_periods.length > 0) && (
+          <View style={styles.almanacCard}>
+            <View style={styles.almanacHeader}>
+              <Ionicons name="moon" size={14} color={paper.walnut} />
+              <Text style={styles.almanacTitle}>ALMANAC · MOON &amp; TIDE</Text>
             </View>
-            <View style={styles.solunarRow}>
+            <View style={styles.almanacRule} />
+            <View style={styles.almanacRow}>
               {solunarData.major_periods.length > 0 && (
-                <View style={styles.solunarCol}>
-                  <Text style={styles.solunarSubhead}>STRONG</Text>
+                <View style={styles.almanacCol}>
+                  <Text style={styles.almanacSubhead}>STRONG WINDOWS</Text>
                   {solunarData.major_periods.map((p, i) => (
-                    <View key={`maj-${i}`} style={styles.solunarPeriod}>
-                      <View style={styles.solunarDotStrong} />
-                      <Text style={styles.solunarTime}>
+                    <View key={`maj-${i}`} style={styles.almanacPeriod}>
+                      <View style={styles.almanacDotStrong} />
+                      <Text style={styles.almanacTime}>
                         {formatSolunarRange(p.start, p.end)}
                       </Text>
                       {p.type != null && (
-                        <Text style={styles.solunarType}>
+                        <Text style={styles.almanacType}>
                           {p.type === 'overhead' ? '↑' : '↓'}
                         </Text>
                       )}
@@ -393,15 +532,15 @@ export function RebuildReportView({
               {solunarData.minor_periods.length > 0 && (
                 <View
                   style={[
-                    styles.solunarCol,
-                    solunarData.major_periods.length > 0 && styles.solunarColRight,
+                    styles.almanacCol,
+                    solunarData.major_periods.length > 0 && styles.almanacColRight,
                   ]}
                 >
-                  <Text style={styles.solunarSubhead}>MINOR</Text>
+                  <Text style={styles.almanacSubhead}>MINOR WINDOWS</Text>
                   {solunarData.minor_periods.map((p, i) => (
-                    <View key={`min-${i}`} style={styles.solunarPeriod}>
-                      <View style={styles.solunarDotMinor} />
-                      <Text style={styles.solunarTimeMinor}>
+                    <View key={`min-${i}`} style={styles.almanacPeriod}>
+                      <View style={styles.almanacDotMinor} />
+                      <Text style={styles.almanacTimeMinor}>
                         {formatSolunarRange(p.start, p.end)}
                       </Text>
                     </View>
@@ -412,12 +551,11 @@ export function RebuildReportView({
           </View>
         )}
 
-      {/* Editorial divider separates the analytical sections above from the
-          guide's narrative advice below. Small touch, big difference in
-          feel. */}
+      {/* Editorial divider — separates analytical section from the guide's
+          narrative advice below. Compass glyph reinforces the field-guide feel. */}
       <OrnamentalDivider icon="compass-outline" />
 
-      {/* ── GUIDE'S NOTE ────────────────────────────────────────────────── */}
+      {/* ── GUIDE'S NOTE — editorial centerpiece ────────────────────────── */}
       <View style={styles.guideCard}>
         <TopographicLines
           style={styles.guideLines}
@@ -425,50 +563,42 @@ export function RebuildReportView({
           count={5}
         />
         <CornerMarkSet color={paper.walnut} />
+        <View style={styles.guideEyebrowRow}>
+          <SectionEyebrow color={paper.red} size={10} tracking={3.5}>
+            FROM THE GUIDE'S DESK
+          </SectionEyebrow>
+          {tipTagLabel ? (
+            <View style={styles.tipTagChip}>
+              <Text style={styles.tipTagChipText}>{tipTagLabel}</Text>
+            </View>
+          ) : null}
+        </View>
         <View style={styles.guideRow}>
           <View style={styles.guideBadge}>
-            <Ionicons name="leaf" size={22} color={paper.walnut} />
+            <Ionicons name="leaf" size={26} color={paper.walnut} />
           </View>
           <View style={styles.guideBody}>
-            <SectionEyebrow color={paper.red} size={10} tracking={3.5}>
-              GUIDE'S NOTE
-            </SectionEyebrow>
             <Text style={styles.guideQuoteMark}>&#8220;</Text>
             <Text style={styles.guideText}>{report.actionable_tip}</Text>
+            <Text style={styles.guideSignoff}>— FINFINDR FIELD NOTES</Text>
           </View>
         </View>
       </View>
 
-      {/* Field-guide footer — small editorial colophon that ties the page
-          together and reinforces the premium outdoor aesthetic. The year
-          is intentionally derived at render time so the report always
-          reflects the user's current session. */}
-      <View style={styles.colophonRow}>
-        <View style={styles.colophonRule} />
-        <Text style={styles.colophonText}>
-          FINFINDR · FISHING READ · {new Date().getFullYear()}
-        </Text>
-        <View style={styles.colophonRule} />
-      </View>
+      {/* ── COLOPHON ────────────────────────────────────────────────────── */}
+      <PaperColophon
+        section="DAILY READ"
+        tagline={(edition) =>
+          `NO. ${edition} · MADE FOR THE WATER`
+        }
+        style={styles.colophon}
+      />
     </View>
   );
 }
 
-/** Condense "America/New_York" → "EST/EDT"-ish short string. */
-function shortTz(tz: string): string {
-  const parts = tz.split('/');
-  return (parts[parts.length - 1] ?? tz).replace(/_/g, ' ');
-}
-
 // ─── VerdictStamp ────────────────────────────────────────────────────────────
 
-/**
- * Hand-stamped verdict seal in the top-right of the hero card. A double
- * ink-stroked rectangle, rotated a few degrees, in the tier accent color.
- * For Excellent days a leading star stamps in too, so "★ EXCELLENT" reads
- * as the report's rubber-stamped verdict. The double-border + rotation is
- * the cheapest way to evoke a real rubber stamp without any assets.
- */
 function VerdictStamp({
   accent,
   tier,
@@ -504,7 +634,6 @@ const stampStyles = StyleSheet.create({
     borderWidth: 1.6,
     padding: 2,
     backgroundColor: 'transparent',
-    // Sit above topo watermark + top band.
     zIndex: 5,
   },
   inner: {
@@ -522,14 +651,6 @@ const stampStyles = StyleSheet.create({
 
 // ─── LinearScoreGauge ────────────────────────────────────────────────────────
 
-/**
- * Linear 0-10 score gauge — a horizontal track that tapers red → yellow →
- * green, with a big, unmistakable pin marker at the exact score position.
- * No arcs and nothing overlapping the score: the score number lives in a
- * dedicated row above the track, the track owns its own row, and the
- * scale labels (0 / 5 / 10) sit below. A drop-shadow and oversized ink
- * stroke make the score "pop" so the eye locks onto it instantly.
- */
 function LinearScoreGauge({
   score,
   tier,
@@ -537,21 +658,16 @@ function LinearScoreGauge({
   accentText,
   band,
 }: {
-  score: number; // 0-10
+  score: number;
   tier: PaperTier;
   accent: string;
-  /** Text color to use on top of the accent (for the band pill). Cream on
-   *  most stops, ink on the bright-gold 5.0-5.9 zone. */
   accentText: string;
-  band?: string; // 'Poor' | 'Fair' | 'Good' | 'Excellent' from the engine
+  band?: string;
 }) {
   const clamped = Math.max(0, Math.min(10, Number.isFinite(score) ? score : 0));
   const pct = clamped / 10;
   const bandLabel = (band ?? '').toUpperCase() || fallbackBandFromTier(tier);
 
-  // Animated reveal: pin slides from 0 → pct, digits count up in sync, band
-  // pill fades in once the pin has nearly settled. Keeps the report's first
-  // impression feeling resolved rather than stamped.
   const progress = useRef(new Animated.Value(0)).current;
   const bandOpacity = useRef(new Animated.Value(0)).current;
   const [displayScore, setDisplayScore] = useState('0.0');
@@ -595,27 +711,18 @@ function LinearScoreGauge({
 
   return (
     <View style={gaugeStyles.wrap}>
-      {/* Score number — color-coded by tier, with a soft accent halo behind it
-          so the eye locks on immediately. */}
       <View style={gaugeStyles.scoreRow}>
         <View style={[gaugeStyles.scoreHalo, { backgroundColor: accent }]} />
-        <Text style={[gaugeStyles.scoreNum, { color: accent }]} allowFontScaling={false}>
+        <Text
+          style={[gaugeStyles.scoreNum, { color: accent }]}
+          allowFontScaling={false}
+        >
           {displayScore}
         </Text>
         <Text style={[gaugeStyles.scoreMax, { color: accent }]}>/10</Text>
       </View>
 
-      {/* Track row — 92% width. Contains the colored spectrum and the pin
-          overlay, so the pin's percentage-left is measured against the track
-          itself (not the outer wrap). This makes the layout robust without
-          relying on magic offsets. */}
       <View style={gaugeStyles.trackRow}>
-        {/* Gauge track — 8-stop tapered spectrum that mirrors `scoreAccentColor`.
-            Each segment's flex is proportional to the score range it covers
-            (so 0-2.5 takes 2.5× the width of a 1-point stop, and the 8-10
-            forestDk stop takes 2×). The pin's x-position on this track now
-            lands on the exact color the score digit uses, which keeps the
-            hero card visually coherent at any score. */}
         <View style={gaugeStyles.track}>
           <View style={[gaugeStyles.stop, { flex: 2.5, backgroundColor: paper.redDk }]} />
           <View style={[gaugeStyles.stop, { flex: 0.8, backgroundColor: paper.red }]} />
@@ -627,8 +734,6 @@ function LinearScoreGauge({
           <View style={[gaugeStyles.stop, { flex: 2.0, backgroundColor: paper.forestDk }]} />
         </View>
 
-        {/* Vertical stem dropping from just above the track down onto the pin,
-            tying the score number's position to the scale. */}
         <Animated.View
           pointerEvents="none"
           style={[
@@ -637,9 +742,6 @@ function LinearScoreGauge({
           ]}
         />
 
-        {/* Prominent pin marker — filled accent circle with thick ink stroke.
-            Sits centered on the track so it reads as a real "pointer" rather
-            than a subtle tick. */}
         <Animated.View
           pointerEvents="none"
           style={[gaugeStyles.markerPinWrap, { left: leftInterp }]}
@@ -648,25 +750,26 @@ function LinearScoreGauge({
         </Animated.View>
       </View>
 
-      {/* Scale rule labels. */}
       <View style={gaugeStyles.scaleRow}>
         <Text style={gaugeStyles.scaleTick}>0</Text>
         <Text style={gaugeStyles.scaleTick}>5</Text>
         <Text style={gaugeStyles.scaleTick}>10</Text>
       </View>
 
-      {/* Engine band pill — truthful verdict straight from the report. */}
       <Animated.View
-        style={[gaugeStyles.bandPill, { backgroundColor: accent, opacity: bandOpacity }]}
+        style={[
+          gaugeStyles.bandPill,
+          { backgroundColor: accent, opacity: bandOpacity },
+        ]}
       >
-        <Text style={[gaugeStyles.bandPillText, { color: accentText }]}>{bandLabel}</Text>
+        <Text style={[gaugeStyles.bandPillText, { color: accentText }]}>
+          {bandLabel}
+        </Text>
       </Animated.View>
     </View>
   );
 }
 
-/** If the report somehow lacks a band string, derive a sensible label
- *  from the tier so the UI never shows empty copy. */
 function fallbackBandFromTier(tier: PaperTier): string {
   return tier === 'green' ? 'GOOD' : tier === 'yellow' ? 'FAIR' : 'POOR';
 }
@@ -675,17 +778,11 @@ const gaugeStyles = StyleSheet.create({
   wrap: {
     alignSelf: 'stretch',
     alignItems: 'center',
-    marginTop: paperSpacing.sm + 2,
-    marginBottom: paperSpacing.xs + 2,
-    // Width is constrained so the track/scale measure predictably regardless
-    // of card padding. The gauge feels anchored rather than edge-to-edge.
+    marginTop: paperSpacing.sm + 4,
+    marginBottom: paperSpacing.xs,
     width: '100%',
   },
   scoreRow: {
-    // The row intentionally gets extra vertical padding so its own bounds
-    // fully contain both the glyph (including tall ascenders) and the
-    // halo behind it. Without this, lineHeight ≈ fontSize clips the tops
-    // of the digits on Android/iOS depending on the font's metrics.
     flexDirection: 'row',
     alignItems: 'flex-end',
     gap: 4,
@@ -695,9 +792,6 @@ const gaugeStyles = StyleSheet.create({
     paddingBottom: 10,
     position: 'relative',
   },
-  // Soft oval glow behind the score number — inset slightly so it reads
-  // as a "highlight behind the number" rather than a hard pill, but still
-  // fully wraps the glyphs from top to bottom.
   scoreHalo: {
     position: 'absolute',
     top: 10,
@@ -709,30 +803,25 @@ const gaugeStyles = StyleSheet.create({
   },
   scoreNum: {
     fontFamily: paperFonts.monoBold,
-    fontSize: 84,
-    // lineHeight > fontSize gives the glyphs breathing room so ascenders
-    // are never clipped at the top of the text box.
-    lineHeight: 100,
-    letterSpacing: -4,
+    // Bumped from 84 → 96 so the score reads as a magazine cover number,
+    // not a UI element. A drop-shadow underneath gives it embossed depth.
+    fontSize: 96,
+    lineHeight: 112,
+    letterSpacing: -4.5,
     fontWeight: '700',
     includeFontPadding: false,
-    // Offset ink drop-shadow gives the number an embossed, plate-printed
-    // feel without requiring any native modules. Works on iOS and Android.
     textShadowColor: 'rgba(26, 26, 22, 0.22)',
     textShadowOffset: { width: 0, height: 2 },
     textShadowRadius: 0,
   },
   scoreMax: {
     fontFamily: paperFonts.bodyBold,
-    fontSize: 18,
-    lineHeight: 22,
+    fontSize: 20,
+    lineHeight: 24,
     fontWeight: '700',
-    marginBottom: 15,
+    marginBottom: 16,
     opacity: 0.75,
   },
-  // Host row for the track + pin. Percentages on children now measure
-  // against this row (92% of the gauge), so the marker percentage-left
-  // matches the track bounds exactly.
   trackRow: {
     width: '92%',
     height: 24,
@@ -752,9 +841,6 @@ const gaugeStyles = StyleSheet.create({
   stop: {
     height: '100%',
   },
-  // Thin vertical stem hovering just above the track, connecting the
-  // score readout down to the pin. Short and subtle so it reads as a
-  // pointer, not a decoration.
   markerStem: {
     position: 'absolute',
     top: -10,
@@ -763,9 +849,6 @@ const gaugeStyles = StyleSheet.create({
     marginLeft: -1,
     opacity: 0.55,
   },
-  // Wrapper centers the pin on the track vertically via the host row's
-  // justifyContent. The negative marginLeft aligns the pin's horizontal
-  // center with the percentage position.
   markerPinWrap: {
     position: 'absolute',
     top: 0,
@@ -799,7 +882,6 @@ const gaugeStyles = StyleSheet.create({
     paddingHorizontal: 14,
     paddingVertical: 4,
     borderRadius: paperRadius.chip,
-    // Subtle ink ring echoes the editorial borders elsewhere on the page.
     borderWidth: 1.5,
     borderColor: paper.ink,
   },
@@ -812,27 +894,44 @@ const gaugeStyles = StyleSheet.create({
   },
 });
 
-// ─── FactorRow ───────────────────────────────────────────────────────────────
+// ─── FactorRow — illuminated editorial row ───────────────────────────────────
 
+/**
+ * Each factor row reads as a printed editorial entry: numbered ordinal,
+ * left-side color ribbon (forest for helpers, red for watchouts), a
+ * small variable-type eyebrow, and the engine label below in display
+ * Fraunces. Strong color identity at a glance, full editorial heft.
+ */
 function FactorRow({
-  sign,
-  signBg,
-  signFg,
+  index,
+  ribbonColor,
+  eyebrow,
   label,
   isLast,
 }: {
-  sign: string;
-  signBg: string;
-  signFg: string;
+  index: number;
+  ribbonColor: string;
+  eyebrow: string;
   label: string;
   isLast: boolean;
 }) {
   return (
     <View style={[styles.factorRow, !isLast && styles.factorRowDivider]}>
-      <View style={[styles.factorSign, { backgroundColor: signBg }]}>
-        <Text style={[styles.factorSignText, { color: signFg }]}>{sign}</Text>
+      <View style={styles.factorOrdinalCol}>
+        <Text style={styles.factorOrdinal}>
+          {String(index).padStart(2, '0')}
+        </Text>
       </View>
-      <Text style={styles.factorLabel}>{label}</Text>
+      <View style={[styles.factorRibbon, { backgroundColor: ribbonColor }]} />
+      <View style={styles.factorTextStack}>
+        <Text
+          style={[styles.factorEyebrow, { color: ribbonColor }]}
+          numberOfLines={1}
+        >
+          {eyebrow}
+        </Text>
+        <Text style={styles.factorLabel}>{label}</Text>
+      </View>
     </View>
   );
 }
@@ -850,10 +949,6 @@ function TimeWindowTile({
   icon: keyof typeof import('@expo/vector-icons/build/Ionicons').default.glyphMap;
   isBest: boolean;
 }) {
-  // Highlighted "best" periods always use the gold/amber treatment — not
-  // the overall day's tier color. This makes the recommendation pop even
-  // on a green day, and is consistent with how premium field guides
-  // typically call out a golden hour ("go now" color ≠ "good day" color).
   const bestBg = paperTier.yellow.bg;
   const bestFg = paperTier.yellow.fg;
 
@@ -863,19 +958,19 @@ function TimeWindowTile({
         styles.timeTile,
         isBest && {
           backgroundColor: bestBg,
-          transform: [{ translateY: -1 }],
+          transform: [{ translateY: -2 }],
         },
       ]}
     >
       {isBest && (
-        <View style={styles.bestBadge}>
-          <Text style={styles.bestBadgeText}>★ BEST</Text>
+        <View style={styles.bestRibbon}>
+          <Text style={styles.bestRibbonText}>★ GO</Text>
         </View>
       )}
       <View style={styles.timeTileTop}>
         <Ionicons
           name={icon}
-          size={20}
+          size={22}
           color={isBest ? bestFg : paper.ink}
         />
       </View>
@@ -886,10 +981,7 @@ function TimeWindowTile({
         ]}
       >
         <Text
-          style={[
-            styles.timeTileLabel,
-            isBest && { color: bestFg },
-          ]}
+          style={[styles.timeTileLabel, isBest && { color: bestFg }]}
         >
           {label}
         </Text>
@@ -910,37 +1002,39 @@ function TimeWindowTile({
 // ─── Styles ──────────────────────────────────────────────────────────────────
 
 const styles = StyleSheet.create({
-  // Top-level vertical gap between major report cards (Hero, Why-It's-Like-This,
-  // Time Windows, etc.). Bumped from `md + 2` (was 16, now 18) to `section` (32)
-  // in the May 2026 spacing pass so each card reads as a clearly separated
-  // beat instead of a tightly stacked column.
   wrap: { gap: paperSpacing.section },
 
-  // ── HERO (trimmed ~25% vs previous pass) ────────────────────────────
+  // ── HERO ─────────────────────────────────────────────────────────────
   heroCard: {
     backgroundColor: paper.paperLight,
     borderRadius: paperRadius.card,
     ...paperBorders.card,
     ...paperShadows.hard,
     paddingHorizontal: paperSpacing.md,
-    // Extra top padding to clear the tier-colored top band.
-    paddingTop: paperSpacing.md + 4,
+    paddingTop: paperSpacing.md + 6,
     paddingBottom: paperSpacing.md,
     overflow: 'hidden',
     alignItems: 'center',
-    // Relative so the absolute top band / topo / stamp children anchor here.
     position: 'relative',
   },
-  // The masthead stripe — sits inside the clipped card (borderRadius +
-  // overflow: 'hidden') so its top edge follows the card's rounded corners.
+  // Pass-6: thicker (8px → 5px) tier band at the top of the hero, with a
+  // hairline rule beneath, so the hero reads as a magazine masthead.
   heroTopBand: {
     position: 'absolute',
     top: 0,
     left: 0,
     right: 0,
-    height: 5,
+    height: 7,
   },
-  // Absolute fill for the tier-tinted topographic contours behind the content.
+  heroTopRule: {
+    position: 'absolute',
+    top: 7,
+    left: 0,
+    right: 0,
+    height: StyleSheet.hairlineWidth,
+    backgroundColor: paper.ink,
+    opacity: 0.45,
+  },
   heroTopoLines: {
     top: 0,
     bottom: 0,
@@ -948,45 +1042,60 @@ const styles = StyleSheet.create({
     right: 0,
   },
   heroEyebrow: {
-    marginBottom: 4,
+    marginBottom: 6,
     alignItems: 'center',
   },
   heroHeadline: {
     fontFamily: paperFonts.display,
-    fontWeight: '700',
-    fontSize: 24,
-    lineHeight: 26,
-    letterSpacing: -0.8,
+    fontWeight: '800',
+    fontSize: 32,
+    lineHeight: 36,
+    letterSpacing: -1.0,
     textAlign: 'center',
     color: paper.ink,
-    textTransform: 'uppercase',
+    paddingHorizontal: paperSpacing.sm,
+  },
+  heroHeadlineDot: {
+    color: paper.red,
+  },
+  heroSecondary: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 10,
+    letterSpacing: 2.8,
+    color: paper.ink,
+    opacity: 0.6,
+    fontWeight: '700',
+    marginTop: 4,
   },
   outlookRule: {
-    width: '80%',
+    width: '70%',
     height: StyleSheet.hairlineWidth,
     backgroundColor: paper.ink,
-    opacity: 0.35,
+    opacity: 0.4,
     marginVertical: paperSpacing.sm + 2,
   },
-  heroSubline: {
-    fontFamily: paperFonts.display,
+  // Pass-6: bolder, larger Fraunces italic. Reads as an editor's verdict
+  // line, not a UI label. Tier-colored to inherit the cover hue.
+  heroOutlookLine: {
+    fontFamily: paperFonts.displayItalic,
+    fontStyle: 'italic',
     fontWeight: '700',
-    fontSize: 15,
-    letterSpacing: -0.3,
-    marginTop: 6,
-    marginBottom: 6,
+    fontSize: 21,
+    lineHeight: 28,
+    letterSpacing: -0.4,
+    marginTop: 2,
+    marginBottom: 10,
     textAlign: 'center',
+    paddingHorizontal: paperSpacing.sm,
   },
-  // Pull-quote wrapper — narrower than the card so the italic line reads
-  // like a lede, not a caption. The accent rule sits to the left of the
-  // first line so the color ties back to the score.
   heroSummaryWrap: {
     flexDirection: 'row',
     alignItems: 'stretch',
     alignSelf: 'center',
-    maxWidth: 320,
+    maxWidth: 340,
     paddingHorizontal: paperSpacing.xs,
-    marginTop: 2,
+    marginTop: 4,
+    marginBottom: paperSpacing.xs,
   },
   heroSummaryRule: {
     width: 2.5,
@@ -998,31 +1107,91 @@ const styles = StyleSheet.create({
     flex: 1,
     fontFamily: paperFonts.displayItalic,
     fontStyle: 'italic',
-    fontSize: 14.5,
+    fontSize: 15,
     lineHeight: 22,
     color: paper.ink,
-    opacity: 0.9,
+    opacity: 0.88,
     textAlign: 'left',
     letterSpacing: -0.1,
   },
-  airRow: {
+
+  // ── Hero meta strip (air · ctx · tz) ─────────────────────────────────
+  metaStripWrap: {
+    width: '100%',
+    marginTop: paperSpacing.sm + 4,
+  },
+  metaRule: {
+    height: StyleSheet.hairlineWidth,
+    backgroundColor: paper.ink,
+    opacity: 0.45,
+  },
+  metaRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 6,
-    marginTop: paperSpacing.sm + 2,
+    justifyContent: 'center',
+    flexWrap: 'wrap',
+    gap: 8,
+    paddingVertical: 6,
   },
-  airLabel: {
+  metaItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    flexShrink: 1,
+  },
+  metaItemLabel: {
     fontFamily: paperFonts.bodyBold,
-    fontSize: 9,
-    letterSpacing: 2,
+    fontSize: 8.5,
+    letterSpacing: 1.8,
     color: paper.ink,
     opacity: 0.55,
     fontWeight: '700',
   },
-  airRange: {
-    fontFamily: paperFonts.metaMono,
+  metaItemValue: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 10,
+    color: paper.ink,
+    letterSpacing: 0.6,
+    fontWeight: '700',
+  },
+  metaSep: {
+    width: StyleSheet.hairlineWidth,
+    height: 12,
+    backgroundColor: paper.ink,
+    opacity: 0.35,
+  },
+
+  // ── Section masthead ────────────────────────────────────────────────
+  sectionMasthead: {
+    width: '100%',
+    alignItems: 'stretch',
+    gap: 4,
+  },
+  sectionMastheadRule: {
+    height: 1.6,
+    width: '100%',
+  },
+  sectionMastheadInner: {
+    flexDirection: 'row',
+    alignItems: 'baseline',
+    justifyContent: 'space-between',
+    paddingVertical: 4,
+    gap: 8,
+    flexWrap: 'wrap',
+  },
+  sectionMastheadTitle: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 11.5,
+    letterSpacing: 2.8,
+    fontWeight: '700',
+    flexShrink: 1,
+  },
+  sectionMastheadMeta: {
+    fontFamily: paperFonts.displayItalic,
+    fontStyle: 'italic',
     fontSize: 11,
     color: paper.ink,
+    opacity: 0.55,
   },
 
   // ── Factor cards ────────────────────────────────────────────────────
@@ -1033,67 +1202,84 @@ const styles = StyleSheet.create({
     ...paperShadows.hard,
     overflow: 'hidden',
   },
-  factorCardForest: {
-    // Forest stripe header; no extra style needed at the card level but kept
-    // as a semantic hook in case the "helping" card ever needs a tint.
-  },
   factorHeader: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: paperSpacing.sm,
-    paddingHorizontal: paperSpacing.md + 2,
-    paddingVertical: 10,
+    paddingHorizontal: paperSpacing.md,
+    paddingVertical: 9,
     borderBottomWidth: 1.5,
     borderBottomColor: paper.ink,
   },
   factorHeaderLabel: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 11,
-    letterSpacing: 3,
+    letterSpacing: 2.6,
     color: paper.paper,
+    fontWeight: '700',
+    flex: 1,
+  },
+  factorHeaderCount: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 9.5,
+    letterSpacing: 1.4,
+    color: paper.paper,
+    opacity: 0.7,
     fontWeight: '700',
   },
   factorBody: {
-    paddingHorizontal: paperSpacing.md + 4,
-    paddingTop: 4,
-    paddingBottom: paperSpacing.sm + 2,
+    paddingHorizontal: paperSpacing.md - 2,
+    paddingTop: paperSpacing.xs,
+    paddingBottom: paperSpacing.sm,
   },
   factorRow: {
     flexDirection: 'row',
-    alignItems: 'center',
-    gap: paperSpacing.md,
+    alignItems: 'stretch',
+    gap: paperSpacing.sm + 2,
     paddingVertical: paperSpacing.sm + 2,
   },
   factorRowDivider: {
     borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: paper.ink,
-    // RN's dashed borders are unreliable; we fake "dashed" using opacity on
-    // the hairline so the rule reads as subtle marginalia rather than a
-    // hard divider.
-    borderStyle: 'solid',
-    // Opacity-approximated dashed feel.
+    borderBottomColor: paper.inkHair,
   },
-  factorSign: {
+  factorOrdinalCol: {
     width: 28,
-    height: 28,
-    borderRadius: 14,
-    borderWidth: 1.5,
-    borderColor: paper.ink,
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexShrink: 0,
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
+    paddingTop: 2,
   },
-  factorSignText: {
+  factorOrdinal: {
     fontFamily: paperFonts.display,
-    fontSize: 18,
-    lineHeight: 18,
-    fontWeight: '700',
+    fontSize: 22,
+    lineHeight: 24,
+    fontWeight: '800',
+    color: paper.ink,
+    opacity: 0.32,
+    letterSpacing: -1,
     includeFontPadding: false,
   },
-  factorLabel: {
+  factorRibbon: {
+    width: 4,
+    alignSelf: 'stretch',
+    borderRadius: 2,
+    minHeight: 38,
+  },
+  factorTextStack: {
     flex: 1,
+    minWidth: 0,
+    gap: 3,
+    paddingTop: 1,
+  },
+  factorEyebrow: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 9,
+    letterSpacing: 2.2,
+    fontWeight: '700',
+    lineHeight: 11,
+  },
+  factorLabel: {
     fontFamily: paperFonts.displaySemiBold,
-    fontSize: 15,
+    fontSize: 14.5,
     lineHeight: 20,
     color: paper.ink,
     fontWeight: '600',
@@ -1109,43 +1295,22 @@ const styles = StyleSheet.create({
 
   // ── Timing section ──────────────────────────────────────────────────
   timingSection: {
-    marginTop: paperSpacing.xs,
-  },
-  timingHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'baseline',
-    paddingBottom: paperSpacing.sm,
-    borderBottomWidth: 1.5,
-    borderBottomColor: paper.ink,
-    marginBottom: paperSpacing.sm + 2,
-  },
-  timingEyebrow: {
-    fontFamily: paperFonts.bodyBold,
-    fontSize: 11,
-    letterSpacing: 3,
-    color: paper.ink,
-    fontWeight: '700',
-  },
-  timingMeta: {
-    fontFamily: paperFonts.displayItalic,
-    fontStyle: 'italic',
-    fontSize: 11,
-    color: paper.ink,
-    opacity: 0.55,
+    gap: paperSpacing.sm,
   },
   timingRow: {
     flexDirection: 'row',
     gap: 8,
+    marginTop: paperSpacing.xs + 2,
   },
   daypartNote: {
     fontFamily: paperFonts.displayItalic,
     fontStyle: 'italic',
     fontSize: 13,
-    lineHeight: 19,
+    lineHeight: 20,
     color: paper.ink,
     opacity: 0.78,
     marginTop: paperSpacing.sm + 2,
+    paddingHorizontal: paperSpacing.xs,
   },
 
   // ── Time tiles ──────────────────────────────────────────────────────
@@ -1156,11 +1321,11 @@ const styles = StyleSheet.create({
     ...paperBorders.card,
     ...paperShadows.hard,
     overflow: 'hidden',
-    minHeight: 104,
+    minHeight: 110,
   },
   timeTileTop: {
     paddingHorizontal: 10,
-    paddingTop: 12,
+    paddingTop: 14,
     paddingBottom: 8,
     alignItems: 'center',
   },
@@ -1174,7 +1339,7 @@ const styles = StyleSheet.create({
   },
   timeTileLabel: {
     fontFamily: paperFonts.display,
-    fontSize: 14,
+    fontSize: 14.5,
     fontWeight: '700',
     color: paper.ink,
     letterSpacing: -0.3,
@@ -1186,118 +1351,118 @@ const styles = StyleSheet.create({
     opacity: 0.65,
     marginTop: 2,
   },
-  bestBadge: {
+  // Pass-6: BEST treatment is now a top-spanning ink ribbon with "★ GO"
+  // gold text — much more imperative than the corner badge. Pulls the
+  // eye to the recommended window at first glance.
+  bestRibbon: {
     position: 'absolute',
     top: 0,
+    left: 0,
     right: 0,
     backgroundColor: paper.ink,
-    paddingHorizontal: 6,
-    paddingVertical: 3,
+    paddingVertical: 4,
+    alignItems: 'center',
     zIndex: 3,
   },
-  bestBadgeText: {
+  bestRibbonText: {
     fontFamily: paperFonts.bodyBold,
-    fontSize: 8,
-    letterSpacing: 1.5,
+    fontSize: 9,
+    letterSpacing: 2.2,
     color: paper.gold,
     fontWeight: '700',
   },
 
-  // ── Solunar (trimmed ~20% — de-emphasised secondary card) ──────────
-  solunarCard: {
-    backgroundColor: paper.paper,
+  // ── Almanac (was Solunar) ──────────────────────────────────────────
+  almanacCard: {
+    backgroundColor: paper.paperLight,
     borderRadius: paperRadius.card,
     borderWidth: 1.5,
-    borderColor: paper.inkHair,
-    paddingHorizontal: paperSpacing.sm + 2,
-    paddingVertical: paperSpacing.sm + 2,
+    borderColor: paper.walnut,
+    paddingHorizontal: paperSpacing.md,
+    paddingVertical: paperSpacing.md,
+    ...paperShadows.hard,
   },
-  solunarHeader: {
+  almanacHeader: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 5,
-    marginBottom: paperSpacing.xs + 2,
+    gap: 7,
   },
-  solunarTitle: {
+  almanacTitle: {
     fontFamily: paperFonts.bodyBold,
-    fontSize: 10,
-    letterSpacing: 2.5,
+    fontSize: 11,
+    letterSpacing: 2.8,
     color: paper.walnut,
     fontWeight: '700',
     flex: 1,
   },
-  solunarBonus: {
-    fontFamily: paperFonts.bodyBold,
-    fontSize: 8,
-    letterSpacing: 2,
-    color: paper.ink,
-    opacity: 0.55,
-    borderWidth: 1,
-    borderColor: paper.inkHair,
-    borderRadius: paperRadius.chip,
-    paddingHorizontal: 5,
-    paddingVertical: 1,
+  almanacRule: {
+    height: 1.5,
+    backgroundColor: paper.walnut,
+    opacity: 0.7,
+    marginTop: paperSpacing.sm,
+    marginBottom: paperSpacing.sm + 2,
   },
-  solunarRow: {
+  almanacRow: {
     flexDirection: 'row',
-    gap: paperSpacing.sm + 2,
+    gap: paperSpacing.md,
   },
-  solunarCol: { flex: 1 },
-  solunarColRight: {
+  almanacCol: { flex: 1 },
+  almanacColRight: {
     borderLeftWidth: StyleSheet.hairlineWidth,
-    borderLeftColor: paper.inkHair,
-    paddingLeft: paperSpacing.sm + 2,
+    borderLeftColor: paper.walnut,
+    paddingLeft: paperSpacing.md,
   },
-  solunarSubhead: {
+  almanacSubhead: {
     fontFamily: paperFonts.bodyBold,
-    fontSize: 8.5,
-    letterSpacing: 2,
+    fontSize: 9,
+    letterSpacing: 2.2,
     color: paper.walnut,
-    opacity: 0.75,
-    marginBottom: 4,
+    opacity: 0.85,
+    marginBottom: paperSpacing.xs,
     fontWeight: '700',
   },
-  solunarPeriod: {
+  almanacPeriod: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 5,
-    marginBottom: 3,
+    gap: 6,
+    marginBottom: 4,
   },
-  solunarDotStrong: {
-    width: 5,
-    height: 5,
+  almanacDotStrong: {
+    width: 6,
+    height: 6,
     borderRadius: 3,
     backgroundColor: paper.walnut,
   },
-  solunarDotMinor: {
-    width: 5,
-    height: 5,
+  almanacDotMinor: {
+    width: 6,
+    height: 6,
     borderRadius: 3,
     borderWidth: 1,
     borderColor: paper.walnut,
-    opacity: 0.6,
+    opacity: 0.65,
   },
-  solunarTime: {
-    fontFamily: paperFonts.metaMono,
-    fontSize: 10.5,
+  almanacTime: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 11,
     color: paper.ink,
     flex: 1,
+    fontWeight: '700',
   },
-  solunarTimeMinor: {
+  almanacTimeMinor: {
     fontFamily: paperFonts.metaMono,
-    fontSize: 10.5,
+    fontSize: 11,
     color: paper.ink,
     opacity: 0.7,
     flex: 1,
   },
-  solunarType: {
+  almanacType: {
     fontFamily: paperFonts.bodyBold,
-    fontSize: 10,
+    fontSize: 11,
     color: paper.walnut,
     opacity: 0.7,
   },
 
-  // ── Guide's note ────────────────────────────────────────────────────
+  // ── Guide's note (editorial centerpiece) ────────────────────────────
   guideCard: {
     position: 'relative',
     backgroundColor: paper.paperLight,
@@ -1305,63 +1470,90 @@ const styles = StyleSheet.create({
     ...paperBorders.card,
     ...paperShadows.hard,
     paddingHorizontal: paperSpacing.lg,
-    paddingVertical: paperSpacing.lg,
+    paddingTop: paperSpacing.lg,
+    paddingBottom: paperSpacing.lg,
     overflow: 'hidden',
   },
   guideLines: {
     left: undefined,
     right: -30,
     top: -20,
-    width: 260,
-    height: 260,
+    width: 280,
+    height: 280,
+  },
+  guideEyebrowRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: paperSpacing.sm + 2,
+    gap: paperSpacing.sm,
+  },
+  tipTagChip: {
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    borderWidth: 1,
+    borderColor: paper.walnut,
+    borderRadius: paperRadius.chip,
+    backgroundColor: paper.paper,
+  },
+  tipTagChipText: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 8.5,
+    letterSpacing: 1.6,
+    color: paper.walnut,
+    fontWeight: '700',
   },
   guideRow: {
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     gap: paperSpacing.md + 4,
   },
   guideBadge: {
-    width: 58,
-    height: 58,
-    borderRadius: 29,
+    width: 64,
+    height: 64,
+    borderRadius: 32,
     borderWidth: 2,
     borderColor: paper.walnut,
     backgroundColor: paper.paper,
     alignItems: 'center',
     justifyContent: 'center',
     flexShrink: 0,
+    marginTop: 2,
   },
   guideBody: { flex: 1 },
-  // Oversized opening quote mark so the guide's note reads as a pull-quote
-  // from a field journal. Sits above the body text with a negative margin
-  // to tuck it visually close to the first line.
   guideQuoteMark: {
     fontFamily: paperFonts.display,
-    fontSize: 44,
-    lineHeight: 38,
+    fontSize: 56,
+    lineHeight: 48,
     color: paper.walnut,
     opacity: 0.55,
-    marginTop: 2,
-    marginBottom: -6,
-    fontWeight: '700',
+    marginTop: -4,
+    marginBottom: -2,
+    fontWeight: '800',
   },
   guideText: {
     fontFamily: paperFonts.displayMedium,
-    fontSize: 15,
-    lineHeight: 22,
+    fontSize: 16,
+    lineHeight: 24,
     color: paper.ink,
-    marginTop: 0,
+    marginTop: 2,
+  },
+  guideSignoff: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 9,
+    letterSpacing: 2.4,
+    color: paper.walnut,
+    opacity: 0.7,
+    marginTop: paperSpacing.sm + 2,
+    fontWeight: '700',
   },
 
-  // ── Ornamental divider ───────────────────────────────────────────────
-  // Two hairline rules flanking a centered glyph — a typographic flourish
-  // borrowed from letterpress field guides. Keeps the page from feeling
-  // like a stack of unrelated cards.
+  // ── Ornamental divider ─────────────────────────────────────────────
   ornamentRow: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    marginVertical: paperSpacing.md,
+    marginVertical: paperSpacing.xs,
     gap: paperSpacing.sm,
   },
   ornamentRule: {
@@ -1370,38 +1562,17 @@ const styles = StyleSheet.create({
     opacity: 0.55,
   },
   ornamentGlyph: {
-    width: 28,
-    height: 28,
-    borderRadius: 14,
+    width: 30,
+    height: 30,
+    borderRadius: 15,
     borderWidth: 1,
-    opacity: 0.75,
+    opacity: 0.78,
     alignItems: 'center',
     justifyContent: 'center',
   },
 
-  // ── Colophon footer ──────────────────────────────────────────────────
-  // Small typographic sign-off at the very bottom of the report. Makes
-  // the page feel finished and curated rather than just running off.
-  colophonRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: paperSpacing.sm,
-    marginTop: paperSpacing.lg,
-    marginBottom: paperSpacing.sm,
-    paddingHorizontal: paperSpacing.sm,
-  },
-  colophonRule: {
-    flex: 1,
-    height: StyleSheet.hairlineWidth,
-    backgroundColor: paper.ink,
-    opacity: 0.3,
-  },
-  colophonText: {
-    fontFamily: paperFonts.bodyBold,
-    fontSize: 9,
-    letterSpacing: 2.5,
-    color: paper.ink,
-    opacity: 0.5,
-    fontWeight: '700',
+  // ── Colophon footer ───────────────────────────────────────────────
+  colophon: {
+    paddingVertical: paperSpacing.md,
   },
 });
