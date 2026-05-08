@@ -214,7 +214,12 @@ export function paperifyWaterReaderSvg(
       // The land plate sits BEHIND the lake — same z-order as the engine's
       // backdrop rect (which we already strip) — so any zone polygons
       // rendered later still paint on top of both.
-      const landPlate = `<path d="${outerRingD}" fill="${paper.paperDark}" stroke="none" class="wr-island-land" pointer-events="none"/>`;
+      // Island land color — desaturated olive ("vegetated land") instead of
+      // the previous tan paperDark so islands read clearly as a third
+      // surface, distinct from both the water (blue) and the surrounding
+      // cream paper. Cartographic convention: green = land, blue = water.
+      const ISLAND_LAND_FILL = '#A8B574';
+      const landPlate = `<path d="${outerRingD}" fill="${ISLAND_LAND_FILL}" stroke="none" class="wr-island-land" pointer-events="none"/>`;
       // Don't double-inject under hot reload. Sentinel-check via the class.
       if (!svg.includes('class="wr-island-land"')) {
         svg = svg.replace(fullLakeTag, `${landPlate}\n  ${fullLakeTag}`);
@@ -447,11 +452,13 @@ export function paperifyWaterReaderSvg(
 /**
  * Lake water gradient + lake depth shadow + callout pop filter.
  *
- * - `wr-lake-gradient`: vertical sage-mint gradient. Top is a hair lighter
- *   than the existing #DCE7DD sweet spot, the middle holds the canonical
- *   value, and the bottom darkens toward a deeper mint so the surface
- *   reads as catching light from above. Stops are tight enough that the
- *   gradient stays calm — this is "depth", not "drama".
+ * - `wr-lake-gradient`: vertical blue-gray water gradient. Pass-7 swap from
+ *   sage-mint to a desaturated paper-blue so the lake reads unmistakably
+ *   as water (cartographic convention) and contrasts cleanly with the
+ *   olive island land plate. Top is a hair lighter, middle is the
+ *   canonical surface tone, bottom darkens toward a deeper blue-gray so
+ *   the water reads as catching light from above. Stops are tight enough
+ *   that the gradient stays calm — this is "depth", not "drama".
  *
  * - `wr-lake-depth`: a soft drop shadow that sits the lake on the paper
  *   like a printed plate rather than a flat fill. Single feDropShadow at
@@ -465,9 +472,9 @@ export function paperifyWaterReaderSvg(
 function buildDecorationDefs(): string {
   return `
     <linearGradient id="wr-lake-gradient" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox">
-      <stop offset="0%" stop-color="#E2EDE2"/>
-      <stop offset="55%" stop-color="#DCE7DD"/>
-      <stop offset="100%" stop-color="#C5D2C5"/>
+      <stop offset="0%" stop-color="#D2E5EC"/>
+      <stop offset="55%" stop-color="#B0CCD4"/>
+      <stop offset="100%" stop-color="#90B5BD"/>
     </linearGradient>
     <filter id="wr-lake-depth" x="-6%" y="-6%" width="112%" height="112%">
       <feDropShadow dx="0" dy="2.4" stdDeviation="2.6" flood-color="${paper.ink}" flood-opacity="0.22"/>
